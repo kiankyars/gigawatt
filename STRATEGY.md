@@ -1,8 +1,6 @@
 # STRATEGY — retention primitives for GIGAWATT
 
-*Written 2026-08. This is a sketch of the design primitives, produced before any
-curriculum or slides exist. Nothing here is final; the master-diagram redline and
-the chips video's retention data are both upstream of committing.*
+*Written 2026-08. This is a sketch of the design primitives, produced before any curriculum or slides exist. Nothing here is final.*
 
 ## The premise
 
@@ -14,13 +12,24 @@ sequencing, and the binding constraint.
 Scope decisions already made:
 
 - The course does **not** stop at the VRM. Energy in, heat out — the thermal
-  return path is half the course, not an appendix.
+return path is half the course, not an appendix.
 - The neocloud capital stack (who secures land/power, who finances, who owns
-  GPUs, who bears utilization risk) is **inside** this course, as a re-read of
-  the master diagram — not a separate business explainer.
+GPUs, who bears utilization risk) is **inside** this course, as a re-read of
+the master diagram — not a separate business explainer.
 - "First principles" was a misnomer. The gap this course fills is the
-  system + economics + chokepoint view. Physics arrives just-in-time, only when
-  a piece of equipment demands it.
+system + economics + chokepoint view. Physics arrives just-in-time, only when
+a piece of equipment demands it.
+- The course starts at **generation**, not the transmission corridor. Gas
+turbines, nuclear PPAs, behind-the-meter plants are inside — as *one act*,
+entered through the same gate logic (the watt cannot originate without them),
+not a survey of the power industry. Two structural payoffs: the interconnection
+queue becomes the cold open rather than backstory, and the figure-eight closes
+into a loop — the course opens with heat becoming electricity and ends with
+electricity becoming heat. Behind-the-meter is also load-bearing for the
+capital-stack read (Crusoe-style generation-first plays need the turbine
+introduced as a physical gate first).
+
+
 
 ## What this course is NOT (the anti-priors)
 
@@ -35,6 +44,8 @@ recording, swappable slides for fast-rotting facts.
 
 ## The five primitives
 
+
+
 ### 1. One diagram, one camera
 
 The entire course is a single master diagram — a campus one-line diagram fused
@@ -46,8 +57,10 @@ optionally) as a clickable companion where every box opens its dossier.
 
 ### 2. The conserved quantity as journey bar
 
-Progress is not abstract acts — it is the voltage stepping down on screen:
-**500 kV → 34.5 kV → 480 V → 12 V → ~0.8 V.** Every piece of equipment is
+Progress is not abstract acts — it is the voltage stepping down on screen,
+after one ascent at origination:
+**~20 kV (generator) → 500 kV → 34.5 kV → 480 V → 12 V → ~0.8 V.**
+Every piece of equipment is
 introduced as *the thing that gets you from this voltage to that one* — the
 watt cannot proceed without it. This structurally kills the listicle: no box
 appears except at the moment it gates the journey. On the return path the bar
@@ -67,18 +80,29 @@ conserved journey, not a bolted-on topic.
 Once the diagram is fully lit physically, it is re-read twice:
 
 1. **Chokepoint read.** Where the buildout actually binds: large power
-   transformer lead times, interconnection queues, turbine backlogs, switchgear
+  transformer lead times, interconnection queues, turbine backlogs, switchgear
    and cooling equipment lead times. Quantified, dated, sourced.
 2. **Capital-stack read.** Color every box by who owns it, who financed it, who
-   operates it, who bears utilization risk. This is where Crusoe, CoreWeave,
+  operates it, who bears utilization risk. This is where Crusoe, CoreWeave,
    Fluidstack, hyperscalers, developers, and colos stop being synonyms —
    visually, on the same diagram, as different colorings of identical hardware.
+
+
 
 ### 5. Original evidence
 
 `datacenter_atlas` is the differentiation no competitor has: satellite-tracked
 construction timelines, permitting records, real campuses. Chokepoint claims are
-illustrated with actual sites and dates, not stock footage. GPU load transients
+illustrated with actual sites and dates, not stock footage.
+
+**Reference campus: Abilene (Lancium / Crusoe / Oracle — Stargate).** Every
+number on the master diagram is pinned to this site: 1.2 GW ERCOT grid
+connection, 200 MW + 1 GW substation ladder, GE Vernova turbines on site, and
+the deepest evidence package in the atlas (curated record, municipal permitting,
+two satellite-change retains, Jun 2024 → Jun 2026 chronology). Details and open
+VERIFY items live in `diagram/master.yaml`. Project Jupiter (2.45 GW BTM fuel
+cells) stays in reserve as the behind-the-meter contrast case for the
+capital-stack read. GPU load transients
 (synchronized training steps swinging tens of MW in milliseconds) are the
 seed→payoff thread that ties the die back to the grid and to BESS.
 
@@ -90,32 +114,39 @@ genre already has drafting conventions, so the aesthetic is inherited, not
 invented.
 
 - **Symbol library first.** Electrical side uses IEEE 315 / ANSI one-line
-  symbols; cooling side uses simplified P&ID conventions. No diagram is drawn
-  until the library exists.
+symbols; cooling side uses simplified P&ID conventions. No diagram is drawn
+until the library exists.
 - **Design tokens.** One typeface, two line weights, one voltage-keyed color
-  scale, flat fills only. No gradients, no shadows, no decoration.
+scale, flat fills only. No gradients, no shadows, no decoration.
 - **Composed, not drawn.** Every diagram is generated programmatically from the
-  symbol library and layout code. No one-off freehand SVGs.
+symbol library and layout code. No one-off freehand SVGs.
 - **One review gate.** The master diagram gets a hard human redline before any
-  zoom state or lighting state derives from it.
+zoom state or lighting state derives from it.
+
+
 
 ## Substrate
 
-Slidev → YouTube video, same as chips: the pipeline is proven and the audience
-is there. The format innovation is entirely in the design system above, not the
-substrate. The interactive companion diagram is a cheap post-video decision
-once the SVG states exist; it must not complicate the build.
+The diagram is the substrate; Slidev is demoted to a camera player. The master
+SVG — with stable IDs on every box, edge, and label — is the single source of
+truth. A "slide" is a declarative camera state: viewport, lit set, overlays.
+The deck is a sequence of camera states with animated transitions between them.
+This inverts the chips workflow: there, slides were the artifact; here, slides
+are derived views of the diagram.
+
+Slidev stays because the recording pipeline is proven and a chunk of the
+evidence is non-spatial (satellite timelines, lead-time charts, tables). That
+material appears as overlays pinned to the diagram location it belongs to —
+the camera never cuts away to a naked slide.
+
+Consequence: the interactive companion is no longer a post-video decision. It
+is the same camera states with a click handler, so it falls out of the build
+for free.
 
 ## Open questions (deliberately unresolved)
 
-- **Upstream boundary.** Does the course start at the transmission corridor, or
-  one step earlier at generation (gas turbines, nuclear PPAs, behind-the-meter
-  plants)? Interconnection-queue drama argues for including generation; runtime
-  argues against. Not yet decided.
 - **Runtime target.** Unset until the segment list exists.
-- **Act inventory and segment list.** Deliberately not sketched yet — the master
-  diagram should be designed first, and segments derived from its zoom states,
-  not the reverse.
-- **Chips retention data.** Publishing chips and reading its retention curve
-  (especially through the data-center segment) remains the cheapest information
-  available before heavy investment here.
+- **Act inventory and segment list.** Deliberately not sketched yet — the master  
+diagram should be designed first, and segments derived from its zoom states,  
+not the reverse.
+

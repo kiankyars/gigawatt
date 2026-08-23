@@ -1,0 +1,202 @@
+# GIGAWATT master diagram — node/edge inventory (v0 draft)
+#
+# This file is the single source of truth the whole course derives from:
+# layout code composes the SVG from it, slides are camera states over it,
+# and the chokepoint/capital-stack reads are recolorings of it.
+#
+# Rules:
+# - A node exists only if it gates the watt's journey ("gets you from X to Y").
+# - Voltages/temps here are illustrative defaults, to be pinned per reference
+#   campus. Anything marked VERIFY needs a dated source before it renders.
+# - capital_stack and chokepoint blocks stay null until the read-throughs are
+#   researched; the schema exists now so the reads are recolorings, not rework.
+
+meta:
+  version: 0
+  status: pre-redline draft; symbol library exists (diagram/symbols.svg)
+  journey_bar_electrical: [20kV, 500kV, 34.5kV, 480V, 54V, 0.8V]
+  journey_bar_thermal: [die, cold plate, CDU, facility loop, tower, atmosphere]
+
+reference_campus:
+  # Every illustrative number on the diagram gets re-pinned to this site.
+  name: Lancium Clean Campus / Crusoe-Oracle Abilene (Stargate)
+  location: Abilene, TX (617 FM 2404)
+  atlas_stable_key: curated:lancium-clean-campus-abilene-ai-data-center
+  atlas_sources:
+    - datacenter_atlas/sources/curated-official-2026-07-20-lancium-crusoe-oracle-abilene.json
+    - satellite retains V57-B017 (Crusoe Abilene Expansion), V57-B065 (OpenAI Stargate Abilene)
+  facts:  # typed + dated in the atlas; nothing else renders without VERIFY
+    grid_connection_mw: 1200          # Crusoe disclosure, 2025-03-18
+    interconnection: ERCOT direct tie
+    substations: 200 MW complete + 1 GW under construction (DCOA)
+    backup_generation: GE Vernova gas turbines  # MW not in atlas — VERIFY
+    construction_start: 2024-06
+    ai_workloads_live: 2026-01-31
+    last_physical_status: 2026-06-04 (Oracle data halls aerial)
+  open_verifies:
+    - ERCOT tops out at 345 kV, not 500 kV — the journey bar's top rung and the
+      500kV color token must be re-pinned to the actual interconnection voltage
+    - on-site turbine capacity (backup MW) and whether any BTM energization preceded
+      the substations
+    - cooling topology at Abilene (towers vs dry coolers, loop temps) — not in atlas
+    - rack platform: GB200 NVL72 per-building ceiling is a design claim, not installed
+
+nodes:
+  # ---- Act: Origination (heat -> electricity) ----
+  - id: gas_turbine
+    label: Gas turbine
+    domain: generation
+    gate: fuel -> shaft power; the watt cannot originate without it
+    vendors: [GE Vernova, Siemens Energy, Mitsubishi Power]
+    at_reference: GE Vernova units on site (backup role; MW VERIFY)
+    capital_stack: null
+    chokepoint: null   # turbine backlog — VERIFY current delivery dates
+  - id: generator
+    label: Generator
+    domain: generation
+    gate: shaft power -> ~20 kV AC   # VERIFY terminal voltage per unit class
+  - id: gsu_transformer
+    label: Generator step-up transformer
+    domain: electrical
+    gate: ~20 kV -> 500 kV
+    chokepoint: null   # LPT lead times — VERIFY
+  - id: nuclear_ppa
+    label: Nuclear plant (PPA)
+    domain: generation
+    gate: alternative origination; enters at the transmission corridor
+    note: rendered as a variant origin, not a parallel chain
+  - id: btm_plant
+    label: Behind-the-meter plant
+    domain: generation
+    gate: alternative origination; bypasses corridor + interconnection queue
+    note: connects directly at the 34.5 kV bus; key to capital-stack read
+
+  # ---- Act: Transmission & interconnection ----
+  - id: transmission_corridor
+    label: 500 kV transmission corridor
+    domain: electrical
+    gate: moves the watt to the site boundary
+    chokepoint: null   # interconnection queue — VERIFY queue stats
+  - id: campus_substation_lpt
+    label: Large power transformer (campus substation)
+    domain: electrical
+    gate: 500 kV -> 34.5 kV
+    vendors: [Hitachi Energy, Siemens Energy, HD Hyundai Electric]
+    chokepoint: null   # LPT lead time — VERIFY
+  - id: hv_switchgear
+    label: HV switchgear & protection
+    domain: electrical
+    gate: fault isolation; no energization without it
+
+  # ---- Act: Campus MV distribution ----
+  - id: mv_switchgear
+    label: 34.5 kV switchgear
+    domain: electrical
+    gate: splits the corridor watt into building feeders
+  - id: bess
+    label: BESS
+    domain: electrical
+    gate: absorbs GPU load transients the grid cannot follow  # seed -> payoff thread
+  - id: diesel_gensets
+    label: Backup generation
+    domain: electrical
+    gate: rides through grid loss; defines the redundancy topology
+  - id: unit_substation
+    label: Unit substation transformer
+    domain: electrical
+    gate: 34.5 kV -> 480 V
+
+  # ---- Act: Electrical room -> rack ----
+  - id: lv_switchgear
+    label: 480 V switchgear
+    domain: electrical
+    gate: distributes to UPS lineups
+  - id: ups
+    label: UPS
+    domain: electrical
+    gate: bridges the gap until gensets pick up
+    vendors: [Eaton, Vertiv, Schneider Electric]
+  - id: busway
+    label: Busway
+    domain: electrical
+    gate: 480 V to the rack position
+  - id: power_shelf
+    label: Rack power shelves (PSU)
+    domain: electrical
+    gate: 480 VAC -> 54 VDC busbar   # VERIFY per rack generation; 800 VDC coming
+  - id: vrm
+    label: VRM
+    domain: electrical
+    gate: 54 V -> ~0.8 V at the socket
+  - id: die
+    label: GPU die
+    domain: compute
+    gate: the destination — and the turn; the delivered watt becomes heat
+
+  # ---- Act: The return (heat -> atmosphere) ----
+  - id: cold_plate
+    label: Cold plate
+    domain: thermal
+    gate: die heat flux -> liquid
+  - id: rack_manifold
+    label: Rack manifold
+    domain: thermal
+    gate: aggregates rack coolant
+  - id: cdu
+    label: CDU
+    domain: thermal
+    gate: technology loop -> facility loop (isolation + flow control)
+    vendors: [Vertiv, Motivair, Boyd]
+  - id: crah
+    label: CRAH / fan walls
+    domain: thermal
+    gate: residual air-cooled load -> facility loop
+  - id: facility_loop
+    label: Facility water loop
+    domain: thermal
+    gate: moves heat to the plant
+  - id: chiller_hx
+    label: Chillers / economizer HX
+    domain: thermal
+    gate: lifts or bypasses heat to rejection temperature
+  - id: cooling_tower
+    label: Cooling towers / dry coolers
+    domain: thermal
+    gate: heat -> atmosphere
+    chokepoint: null   # cooling equipment lead times — VERIFY
+  - id: makeup_water
+    label: Makeup water & treatment
+    domain: site
+    gate: evaporative rejection cannot run without it
+  - id: atmosphere
+    label: Atmosphere
+    domain: thermal
+    gate: terminal heat sink; closes the loop back to the opening act
+
+edges:
+  - {from: gas_turbine, to: generator, carries: shaft power}
+  - {from: generator, to: gsu_transformer, carries: electricity@20kV}
+  - {from: gsu_transformer, to: transmission_corridor, carries: electricity@500kV}
+  - {from: nuclear_ppa, to: transmission_corridor, carries: electricity@500kV, variant: origin}
+  - {from: btm_plant, to: mv_switchgear, carries: electricity@34.5kV, variant: bypass}
+  - {from: transmission_corridor, to: campus_substation_lpt, carries: electricity@500kV}
+  - {from: campus_substation_lpt, to: hv_switchgear, carries: electricity@34.5kV}
+  - {from: hv_switchgear, to: mv_switchgear, carries: electricity@34.5kV}
+  - {from: bess, to: mv_switchgear, carries: electricity@34.5kV, variant: bidirectional}
+  - {from: diesel_gensets, to: mv_switchgear, carries: electricity@34.5kV, variant: standby}
+  - {from: mv_switchgear, to: unit_substation, carries: electricity@34.5kV}
+  - {from: unit_substation, to: lv_switchgear, carries: electricity@480V}
+  - {from: lv_switchgear, to: ups, carries: electricity@480V}
+  - {from: ups, to: busway, carries: electricity@480V}
+  - {from: busway, to: power_shelf, carries: electricity@480V}
+  - {from: power_shelf, to: vrm, carries: electricity@54VDC}
+  - {from: vrm, to: die, carries: electricity@0.8V}
+  - {from: die, to: cold_plate, carries: heat}
+  - {from: cold_plate, to: rack_manifold, carries: heat@liquid}
+  - {from: rack_manifold, to: cdu, carries: heat@liquid}
+  - {from: cdu, to: facility_loop, carries: heat@liquid}
+  - {from: crah, to: facility_loop, carries: heat@liquid, variant: air-residual}
+  - {from: facility_loop, to: chiller_hx, carries: heat@liquid}
+  - {from: chiller_hx, to: cooling_tower, carries: heat@liquid}
+  - {from: makeup_water, to: cooling_tower, carries: water}
+  - {from: cooling_tower, to: atmosphere, carries: heat@air}
