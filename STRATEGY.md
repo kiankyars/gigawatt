@@ -42,7 +42,7 @@ Do not import chips devices ritually. What survives from chips is workflow only:
 course-as-code, source-linked fact packs, VERIFY discipline, act-by-act
 recording, swappable slides for fast-rotting facts.
 
-## The five primitives
+## The six primitives
 
 
 
@@ -105,6 +105,23 @@ cells) stays in reserve as the behind-the-meter contrast case for the
 capital-stack read. GPU load transients
 (synchronized training steps swinging tens of MW in milliseconds) are the
 seed→payoff thread that ties the die back to the grid and to BESS.
+
+### 6. The gigawatts-to-tokens funnel
+
+The course's thesis, stated as an accounting identity: **announced gigawatts are
+not usable compute.** Announced → interconnected → energized → commissioned →
+utilized, with dated fractions and lag times at each gate, evidenced by
+`datacenter_atlas` (announced-vs-under-construction with satellite timestamps —
+the one dataset competitors don't have). The funnel is the cold open ("company X
+announced N gigawatts; here is how few tokens exist today — this course explains
+every place the watts died") and a re-read overlay on the master diagram, not
+new nodes.
+
+**Scope boundary:** the closing segment teaches the power-to-token conversion
+recipe — the internals of batching, utilization, and MFU: how a delivered
+megawatt becomes tokens, and why identical hardware yields different token
+counts. It does not teach serving infrastructure or network topologies — that
+is a different course. The figure-eight still closes at the atmosphere.
 
 ## Diagram standard (the anti-slop contract)
 

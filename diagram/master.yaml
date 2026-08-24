@@ -16,6 +16,10 @@ meta:
   status: pre-redline draft; symbol library exists (diagram/symbols.svg)
   journey_bar_electrical: [20kV, 500kV, 34.5kV, 480V, 54V, 0.8V]
   journey_bar_thermal: [die, cold plate, CDU, facility loop, tower, atmosphere]
+  # Overlay read, not nodes: dated fractions + lags per gate (see STRATEGY §6).
+  # Closing segment covers the power-to-token conversion recipe (batching
+  # internals, utilization, MFU); serving infra and network topology stay out.
+  gigawatts_to_tokens_funnel: [announced, interconnected, energized, commissioned, utilized, tokens]
 
 reference_campus:
   # Every illustrative number on the diagram gets re-pinned to this site.
