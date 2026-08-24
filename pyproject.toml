@@ -7,6 +7,7 @@ dependencies = []
 
 [project.scripts]
 gigawatt-symbols = "gigawatt.sheet:main"
+gigawatt-mock = "gigawatt.mock:main"
 
 [build-system]
 requires = ["uv_build>=0.8,<0.13"]
