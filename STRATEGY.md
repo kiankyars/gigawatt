@@ -50,7 +50,7 @@ recording, swappable slides for fast-rotting facts.
 
 The entire course is a single master diagram — a campus one-line diagram fused
 with a site cross-section — and every segment is a camera move on it.
-Powers-of-ten structure: 500 kV corridor → substation yard → electrical room →
+Powers-of-ten structure: 345 kV corridor → substation yard → electrical room →
 rack → board → die. The viewer never loses spatial position because there is
 only one space. The master diagram ships as the poster and (post-video,
 optionally) as a clickable companion where every box opens its dossier.
@@ -59,7 +59,7 @@ optionally) as a clickable companion where every box opens its dossier.
 
 Progress is not abstract acts — it is the voltage stepping down on screen,
 after one ascent at origination:
-**~20 kV (generator) → 500 kV → 34.5 kV → 480 V → 12 V → ~0.8 V.**
+**~20 kV (generator) → 345 kV → 34.5 kV → 480 V → 54 V → ~0.8 V.**
 Every piece of equipment is
 introduced as *the thing that gets you from this voltage to that one* — the
 watt cannot proceed without it. This structurally kills the listicle: no box

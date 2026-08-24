@@ -16,7 +16,7 @@ FAINT = "#b5b5ad"   # port markers, construction lines on review sheets only
 
 # Journey bar, electrical descent (keyed by voltage, not by act).
 VOLTAGE = {
-    "500kV": "#0b2e59",
+    "345kV": "#0b2e59",
     "34.5kV": "#175d8d",
     "20kV": "#2b7fa3",
     "480V": "#2f9e8f",

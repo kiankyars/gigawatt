@@ -14,7 +14,7 @@
 meta:
   version: 0
   status: pre-redline draft; symbol library exists (diagram/symbols.svg)
-  journey_bar_electrical: [20kV, 500kV, 34.5kV, 480V, 54V, 0.8V]
+  journey_bar_electrical: [20kV, 345kV, 34.5kV, 480V, 54V, 0.8V]
   journey_bar_thermal: [die, cold plate, CDU, facility loop, tower, atmosphere]
   # Overlay read, not nodes: dated fractions + lags per gate (see STRATEGY §6).
   # Closing segment covers the power-to-token conversion recipe (batching
@@ -33,17 +33,23 @@ reference_campus:
     grid_connection_mw: 1200          # Crusoe disclosure, 2025-03-18
     interconnection: ERCOT direct tie
     substations: 200 MW complete + 1 GW under construction (DCOA)
-    backup_generation: GE Vernova gas turbines  # MW not in atlas — VERIFY
     construction_start: 2024-06
     ai_workloads_live: 2026-01-31
     last_physical_status: 2026-06-04 (Oracle data halls aerial)
+    # Verified 2026-08-24 (web, dated sources):
+    interconnection_voltage: 345 kV   # Mortenson (power-delivery EPC): 12.5-acre, 1 GW, 345 kV greenfield substation, civil start Q2 2025
+    initial_substation: 200 MW at 138 kV, slack-span tie to AEP Abilene Northwest line  # Mortenson
+    onsite_generation_mw: 360.5       # TCEQ Registration 177263 "Longhorn Data Center", approved 2025-01-22
+    onsite_generation_mix: 5x Solar Titan 350 (38 MW) + 5x GE Vernova LM2500 (34.1 MW); permitted "primary and backup", onsite use only; LM2500 hours raised to 8760/yr (continuous)
+    cooling: closed-loop non-evaporative direct-to-chip; heat rejected via air-cooled chillers, no evaporative towers  # Crusoe engineering blog
+    cooling_water: ~1M gal initial fill + ~50k gal/yr maintenance per building  # Crusoe engineering blog
+    rack_platform: GB200 NVL72 installed; first racks delivered 2025-06, phase 1 live 2025-09-30  # Crusoe PR 2025-09-30
   open_verifies:
-    - ERCOT tops out at 345 kV, not 500 kV — the journey bar's top rung and the
-      500kV color token must be re-pinned to the actual interconnection voltage
-    - on-site turbine capacity (backup MW) and whether any BTM energization preceded
-      the substations
-    - cooling topology at Abilene (towers vs dry coolers, loop temps) — not in atlas
-    - rack platform: GB200 NVL72 per-building ceiling is a design claim, not installed
+    - campus MV distribution voltage (34.5 kV is the illustrative default, unverified for Abilene)
+    - buildings live + operational GPU count (secondary sources claim 4 of 8 live,
+      150-200k GPUs as of 2026-05 — no primary source yet)
+    - reconcile atlas ai_workloads_live 2026-01-31 vs Crusoe "early training and
+      inference workloads" at 2025-09-30 launch (likely different definitions)
 
 nodes:
   # ---- Act: Origination (heat -> electricity) ----
@@ -51,8 +57,9 @@ nodes:
     label: Gas turbine
     domain: generation
     gate: fuel -> shaft power; the watt cannot originate without it
-    vendors: [GE Vernova, Siemens Energy, Mitsubishi Power]
-    at_reference: GE Vernova units on site (backup role; MW VERIFY)
+    vendors: [GE Vernova, Solar Turbines (Caterpillar), Siemens Energy, Mitsubishi Power]
+    at_reference: 360.5 MW BTM across ten simple-cycle units (5x Solar Titan 350
+      + 5x GE LM2500), permitted primary + backup — TCEQ 177263, 2025-01-22
     capital_stack: null
     chokepoint: null   # turbine backlog — VERIFY current delivery dates
   - id: generator
@@ -62,7 +69,7 @@ nodes:
   - id: gsu_transformer
     label: Generator step-up transformer
     domain: electrical
-    gate: ~20 kV -> 500 kV
+    gate: ~20 kV -> 345 kV
     chokepoint: null   # LPT lead times — VERIFY
   - id: nuclear_ppa
     label: Nuclear plant (PPA)
@@ -77,15 +84,18 @@ nodes:
 
   # ---- Act: Transmission & interconnection ----
   - id: transmission_corridor
-    label: 500 kV transmission corridor
+    label: 345 kV transmission corridor
     domain: electrical
-    gate: moves the watt to the site boundary
+    gate: moves the watt to the site boundary   # ERCOT tops out at 345 kV
+    at_reference: AEP Abilene Northwest line; 300-ft slack-span tie (Mortenson)
     chokepoint: null   # interconnection queue — VERIFY queue stats
   - id: campus_substation_lpt
     label: Large power transformer (campus substation)
     domain: electrical
-    gate: 500 kV -> 34.5 kV
+    gate: 345 kV -> 34.5 kV
     vendors: [Hitachi Energy, Siemens Energy, HD Hyundai Electric]
+    at_reference: 12.5-acre, 1 GW, 345 kV greenfield substation (civil start
+      Q2 2025) + initial 200 MW, 138 kV station — Mortenson EPC
     chokepoint: null   # LPT lead time — VERIFY
   - id: hv_switchgear
     label: HV switchgear & protection
@@ -168,10 +178,13 @@ nodes:
     domain: thermal
     gate: heat -> atmosphere
     chokepoint: null   # cooling equipment lead times — VERIFY
+    at_reference: air-cooled chillers only — closed-loop, zero-evaporation;
+      no towers at Abilene (water scarcity drove the design)  # Crusoe blog
   - id: makeup_water
     label: Makeup water & treatment
     domain: site
     gate: evaporative rejection cannot run without it
+    at_reference: near-nil — ~1M gal one-time fill, ~50k gal/yr per building
   - id: atmosphere
     label: Atmosphere
     domain: thermal
@@ -180,10 +193,10 @@ nodes:
 edges:
   - {from: gas_turbine, to: generator, carries: shaft power}
   - {from: generator, to: gsu_transformer, carries: electricity@20kV}
-  - {from: gsu_transformer, to: transmission_corridor, carries: electricity@500kV}
-  - {from: nuclear_ppa, to: transmission_corridor, carries: electricity@500kV, variant: origin}
+  - {from: gsu_transformer, to: transmission_corridor, carries: electricity@345kV}
+  - {from: nuclear_ppa, to: transmission_corridor, carries: electricity@345kV, variant: origin}
   - {from: btm_plant, to: mv_switchgear, carries: electricity@34.5kV, variant: bypass}
-  - {from: transmission_corridor, to: campus_substation_lpt, carries: electricity@500kV}
+  - {from: transmission_corridor, to: campus_substation_lpt, carries: electricity@345kV}
   - {from: campus_substation_lpt, to: hv_switchgear, carries: electricity@34.5kV}
   - {from: hv_switchgear, to: mv_switchgear, carries: electricity@34.5kV}
   - {from: bess, to: mv_switchgear, carries: electricity@34.5kV, variant: bidirectional}
