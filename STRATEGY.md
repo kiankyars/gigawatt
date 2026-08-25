@@ -136,7 +136,8 @@ until the library exists.
 - **Design tokens.** One typeface, two line weights, one voltage-keyed color
 scale, flat fills only. No gradients, no shadows, no decoration.
 - **Composed, not drawn.** Every diagram is generated programmatically from the
-symbol library and layout code. No one-off freehand SVGs.
+symbol library and layout code. Placement lives in `diagram/layout.yaml`;
+`uv run gigawatt-layout` composes `diagram/master.svg`. No one-off freehand SVGs.
 - **One review gate.** The master diagram gets a hard human redline before any
 zoom state or lighting state derives from it.
 
@@ -159,6 +160,27 @@ the camera never cuts away to a naked slide.
 Consequence: the interactive companion is no longer a post-video decision. It
 is the same camera states with a click handler, so it falls out of the build
 for free.
+
+### The 3D scene (decided 2026-08-24)
+
+The visual direction is a hybrid, with a split of jobs:
+
+- **2D master diagram** (`diagram/master.svg`) is the engineering map — one-line
+  fused with site cross-section, voltage-keyed, the poster. It is how you *read*
+  the system: what gates what, at which voltage, in which order.
+- **3D scene** (`diagram/mock_3d.html`) is how you *see* the campus. It does the
+  establishing shot (whole site, orbitable) **and** the spatial zooms (electrical
+  room, data hall, rack). A 2D close-up of three symbols in a row is not a
+  segment; that job belongs to the 3D camera moving through the building.
+
+Constraints on the 3D stay inside the anti-slop contract: same design tokens
+(palette, flat shading, no decoration), same topology (geometry must derive from
+`master.yaml` before it ships, not hand-placed coordinates). It does not replace
+the one-line as the source of truth. When a number, vendor, or chokepoint has
+to be read, it is annotated on the 2D map.
+
+The 2D electrical-room camera (three nodes on a line) was a substrate proof
+and is not the teaching close-up.
 
 ## Open questions (deliberately unresolved)
 
