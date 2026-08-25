@@ -46,6 +46,7 @@ reference_campus:
     rack_platform: GB200 NVL72 installed; first racks delivered 2025-06, phase 1 live 2025-09-30  # Crusoe PR 2025-09-30
   open_verifies:
     - campus MV distribution voltage (34.5 kV is the illustrative default, unverified for Abilene)
+    - whether a separate diesel farm exists, or the 360.5 MW turbines cover backup
     - buildings live + operational GPU count (secondary sources claim 4 of 8 live,
       150-200k GPUs as of 2026-05 — no primary source yet)
     - reconcile atlas ai_workloads_live 2026-01-31 vs Crusoe "early training and
@@ -65,29 +66,30 @@ nodes:
   - id: generator
     label: Generator
     domain: generation
-    gate: shaft power -> ~20 kV AC   # VERIFY terminal voltage per unit class
+    gate: shaft power -> ~13.8 kV AC   # VERIFY exact terminal voltage; Titan 350 / LM2500 class
   - id: gsu_transformer
     label: Generator step-up transformer
     domain: electrical
-    gate: ~20 kV -> 345 kV
+    gate: ~13.8 kV -> campus MV   # BTM collection — does NOT step onto 345 kV; TCEQ 177263 onsite use only
     chokepoint: null   # LPT lead times — VERIFY
   - id: nuclear_ppa
     label: Nuclear plant (PPA)
     domain: generation
     gate: alternative origination; enters at the transmission corridor
-    note: rendered as a variant origin, not a parallel chain
-  - id: btm_plant
-    label: Behind-the-meter plant
-    domain: generation
-    gate: alternative origination; bypasses corridor + interconnection queue
-    note: connects directly at the 34.5 kV bus; key to capital-stack read
+    note: course variant, not an Abilene fact — dashed, not the reference path
+  - id: utility_source
+    label: ERCOT / AEP
+    domain: electrical
+    gate: the grid watt arrives at the site boundary — 1.2 GW interconnection
 
   # ---- Act: Transmission & interconnection ----
   - id: transmission_corridor
     label: 345 kV transmission corridor
     domain: electrical
-    gate: moves the watt to the site boundary   # ERCOT tops out at 345 kV
-    at_reference: AEP Abilene Northwest line; 300-ft slack-span tie (Mortenson)
+    gate: moves the grid watt to the site boundary   # ERCOT tops out at 345 kV
+    at_reference: AEP Abilene Northwest line; 300-ft slack-span tie (Mortenson).
+      First energized path was 200 MW at 138 kV; 1 GW 345 kV greenfield is the
+      teaching path.
     chokepoint: null   # interconnection queue — VERIFY queue stats
   - id: campus_substation_lpt
     label: Large power transformer (campus substation)
@@ -115,6 +117,8 @@ nodes:
     label: Backup generation
     domain: electrical
     gate: rides through grid loss; defines the redundancy topology
+    note: VERIFY at Abilene — 360.5 MW turbines are already permitted primary+backup;
+      a separate diesel farm may not exist
   - id: unit_substation
     label: Unit substation transformer
     domain: electrical
@@ -193,12 +197,13 @@ nodes:
 edges:
   - {from: gas_turbine, to: generator, carries: shaft power}
   - {from: generator, to: gsu_transformer, carries: electricity@20kV}
-  - {from: gsu_transformer, to: transmission_corridor, carries: electricity@345kV}
+  - {from: gsu_transformer, to: mv_switchgear, carries: electricity@34.5kV}
+  - {from: utility_source, to: transmission_corridor, carries: electricity@345kV}
   - {from: nuclear_ppa, to: transmission_corridor, carries: electricity@345kV, variant: origin}
-  - {from: btm_plant, to: mv_switchgear, carries: electricity@34.5kV, variant: bypass}
-  - {from: transmission_corridor, to: campus_substation_lpt, carries: electricity@345kV}
-  - {from: campus_substation_lpt, to: hv_switchgear, carries: electricity@34.5kV}
-  - {from: hv_switchgear, to: mv_switchgear, carries: electricity@34.5kV}
+  # HV switching/protection sits on the 345 kV side, upstream of the LPT
+  - {from: transmission_corridor, to: hv_switchgear, carries: electricity@345kV}
+  - {from: hv_switchgear, to: campus_substation_lpt, carries: electricity@345kV}
+  - {from: campus_substation_lpt, to: mv_switchgear, carries: electricity@34.5kV}
   - {from: bess, to: mv_switchgear, carries: electricity@34.5kV, variant: bidirectional}
   - {from: diesel_gensets, to: mv_switchgear, carries: electricity@34.5kV, variant: standby}
   - {from: mv_switchgear, to: unit_substation, carries: electricity@34.5kV}

@@ -3,11 +3,14 @@ name = "gigawatt"
 version = "0.1.0"
 description = "Course-as-code for GIGAWATT: design tokens, symbol library, master diagram composition"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "pyyaml>=6.0.3",
+]
 
 [project.scripts]
 gigawatt-symbols = "gigawatt.sheet:main"
 gigawatt-mock = "gigawatt.mock:main"
+gigawatt-layout = "gigawatt.layout:main"
 
 [build-system]
 requires = ["uv_build>=0.8,<0.13"]

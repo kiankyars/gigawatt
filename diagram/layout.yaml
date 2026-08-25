@@ -1,0 +1,156 @@
+# GIGAWATT master diagram — placement file (v0)
+#
+# Topology lives in master.yaml; this file only says WHERE. Placement is
+# design (human-redlined); routing and rendering are derived by layout.py.
+# Coordinates are 1920x1080 canvas, ground line at y=830.
+
+frame: {w: 1920, h: 1080, ground: 830}
+title: "GIGAWATT — master diagram v0 · reference campus: Abilene (Crusoe / Lancium / Oracle)"
+subtitle: "composed from master.yaml + layout.yaml · IEEE 315 / ISA-5.1 symbols · one representative path; multiplicity annotated, never drawn"
+
+zones:  # captions under the ground line
+  - {x: 190, label: "GENERATION YARD — BTM"}
+  - {x: 490, label: "345 kV CORRIDOR"}
+  - {x: 729, label: "CAMPUS SUBSTATION"}
+  - {x: 860, label: "MV YARD"}
+  - {x: 1360, label: "DATA HALL BUILDING ×8"}
+
+regions:
+  - {rect: [644, 372, 170, 458], style: dashed,
+     label: "campus substation · 1 GW @ 345 kV (+ 200 MW @ 138 kV first)", label_at: [729, 360]}
+  - {rect: [980, 360, 760, 470], style: heavy,
+     label: "×8 buildings · ~50k GPUs each (design)", label_at: [1360, 345]}
+  - {rect: [1330, 596, 104, 228], style: solid,
+     label: "rack — GB200 NVL72", label_at: [1382, 588]}
+  - {line: [[1260, 360], [1260, 830]], style: dashed}   # electrical room | data hall
+  - {line: [[1560, 360], [1560, 830]], style: dashed}   # data hall | mechanical
+
+nodes:
+  gas_turbine:          {symbol: turbine_gas, at: [80, 700]}
+  generator:            {symbol: generator, at: [170, 706]}
+  gsu_transformer:      {symbol: transformer_2w, at: [262, 664]}
+  utility_source:       {symbol: source_grid, at: [330, 320]}
+  nuclear_ppa:          {symbol: source_grid, at: [400, 180]}
+  transmission_corridor:
+    kind: corridor
+    towers: [410, 570]
+    top: 396
+    span: [[362, 420], [700, 420]]
+  hv_switchgear:
+    kind: stack           # disconnect over breaker, wired internally
+    symbols: [disconnect, breaker]
+    at: [668, 438]
+    gap: 14
+  campus_substation_lpt: {symbol: transformer_2w, at: [668, 594]}
+  mv_switchgear:         {symbol: bus, at: [750, 632], s: 2.5}   # bar y=712, x 760-900
+  bess:                  {symbol: battery_bess, at: [800, 556], s: 0.8}
+  diesel_gensets:        {symbol: genset, at: [860, 560], s: 0.8}
+  unit_substation:       {symbol: transformer_2w, at: [1030, 560]}
+  lv_switchgear:         {symbol: breaker, at: [1030, 648]}
+  ups:                   {symbol: ups, at: [1080, 700]}
+  busway:                {symbol: bus, at: [1160, 502], s: 1.2}  # bar y=540, x 1165-1232
+  power_shelf:           {symbol: converter_rectifier, at: [1352, 606], s: 0.62}
+  vrm:                   {symbol: converter_dcdc, at: [1352, 664], s: 0.62}
+  die:                   {symbol: die_gpu, at: [1352, 716], s: 0.62}
+  cold_plate:            {symbol: cold_plate, at: [1352, 762], s: 0.62}
+  rack_manifold:         {symbol: manifold, at: [1446, 690], s: 0.6, rot: 180}
+  cdu:                   {symbol: cdu, at: [1560, 640], rot: 180}  # tech ports face the rack
+  crah:                  {symbol: crah, at: [1596, 730]}
+  facility_loop:
+    kind: pipe
+    pts: [[1660, 762], [1660, 330]]
+    ports: {bottom: [1660, 762], mid: [1660, 662], top: [1660, 330]}
+  chiller_hx:            {symbol: chiller, at: [1450, 240]}
+  cooling_tower:         {symbol: dry_cooler, at: [1560, 240]}
+  makeup_water:          {symbol: tank, at: [1700, 232], s: 0.7}
+  atmosphere:            {symbol: atmosphere, at: [1560, 120]}
+
+edges:  # keyed "from->to"; ports [from_port, to_port]; via = waypoints
+  gas_turbine->generator:
+    {ports: [shaft, prime], via: [[152, 732], [152, 692], [202, 692]], w: thin}
+  generator->gsu_transformer:
+    {ports: [out, x], via: [[202, 794], [294, 794]]}
+  gsu_transformer->mv_switchgear:
+    {ports: [h, l], via: [[330, 664], [330, 712]], to_at: [760, 712]}
+  utility_source->transmission_corridor: {ports: [out, w]}
+  nuclear_ppa->transmission_corridor: {ports: [out, w], to_at: [432, 428]}
+  transmission_corridor->hv_switchgear: {ports: [e, in]}
+  hv_switchgear->campus_substation_lpt: {ports: [out, h]}
+  campus_substation_lpt->mv_switchgear:
+    {ports: [x, l], via: [[700, 712]], to_at: [760, 712]}
+  bess->mv_switchgear: {ports: [out, t], to_at: [826, 712], w: thin}
+  diesel_gensets->mv_switchgear: {ports: [out, t], to_at: [897, 712], w: thin}
+  mv_switchgear->unit_substation:
+    {ports: [r, h], from_at: [900, 712], via: [[940, 712], [940, 532], [1062, 532]]}
+  unit_substation->lv_switchgear: {ports: [x, in]}
+  lv_switchgear->ups: {ports: [out, in], via: [[1062, 732]]}
+  ups->busway: {ports: [out, l], via: [[1156, 732], [1156, 540]]}
+  busway->power_shelf: {ports: [r, ac], via: [[1340, 540], [1340, 626]], w: thin}
+  power_shelf->vrm:
+    {ports: [dc, in], via: [[1398, 626], [1398, 656], [1346, 656], [1346, 684]], w: thin}
+  vrm->die:
+    {ports: [out, power], via: [[1396, 684], [1396, 710], [1372, 710]], w: thin}
+  die->cold_plate: {ports: [heat, heat], to_at: [1372, 774], w: thin}
+  cold_plate->rack_manifold:
+    {ports: [liquid_out, t1], via: [[1420, 786], [1420, 720]], w: thin}
+  rack_manifold->cdu:
+    {ports: [main, tech_in], via: [[1520, 722], [1520, 682]]}
+  cdu->facility_loop: {ports: [fac_out, mid], tone: liquid_warm}
+  crah->facility_loop: {ports: [liquid_out, bottom], w: thin}
+  facility_loop->chiller_hx:
+    {ports: [top, evap], via: [[1660, 300], [1430, 300], [1430, 272]],
+     tone: liquid_warm}
+  chiller_hx->cooling_tower: {ports: [cond, liquid_in], tone: liquid_warm}
+  makeup_water->cooling_tower:
+    {ports: [out, liquid_in], via: [[1722, 296], [1600, 296]], to_at: [1600, 288],
+     w: thin}
+  cooling_tower->atmosphere: {ports: [air_out, in]}
+
+labels:
+  - {at: [112, 790], text: "gas turbines ×10"}
+  - {at: [112, 804], text: "360.5 MW · TCEQ 177263", kind: note}
+  - {at: [48, 720], text: "natural gas", kind: note, anchor: start}
+  - {at: [202, 810], text: "generator"}
+  - {at: [336, 700], text: "GSU · ~13.8 kV → MV (onsite only)", anchor: start, size: 9.5}
+  - {at: [490, 380], text: "345 kV corridor"}
+  - {at: [490, 394], text: "AEP Abilene Northwest line · slack-span tie", kind: note}
+  - {at: [362, 300], text: "ERCOT / AEP — the grid watt", size: 9.5}
+  - {at: [432, 150], text: "nuclear PPA — course variant, not Abilene", size: 9.5}
+  - {at: [432, 164], text: "would enter at the corridor", kind: note}
+  - {at: [740, 470], text: "HV switchgear", anchor: start, size: 9.5}
+  - {at: [740, 484], text: "disconnect + breaker", kind: note, anchor: start}
+  - {at: [740, 616], text: "LPT", anchor: start, size: 9.5}
+  - {at: [740, 630], text: "345 → 34.5 kV", kind: note, anchor: start}
+  - {at: [826, 545], text: "BESS", size: 9.5}
+  - {at: [897, 548], text: "gensets ×N — VERIFY", size: 9.5}
+  - {at: [860, 748], text: "34.5 kV bus"}
+  - {at: [860, 762], text: "campus MV voltage — VERIFY", kind: note}
+  - {at: [1100, 585], text: "unit sub", anchor: start, size: 9.5}
+  - {at: [1100, 599], text: "34.5 kV → 480 V", kind: note, anchor: start}
+  - {at: [1100, 672], text: "LV switchgear", anchor: start, size: 9.5}
+  - {at: [1112, 780], text: "UPS ×N lineups"}
+  - {at: [1112, 794], text: "Eaton · Vertiv · Schneider", kind: note}
+  - {at: [1198, 522], text: "busway · 480 V", size: 9.5}
+  - {at: [1444, 630], text: "PSU shelf · 480 V → 54 V DC", kind: note, anchor: start}
+  - {at: [1444, 688], text: "VRM · 54 V → 0.8 V", kind: note, anchor: start}
+  - {at: [1444, 736], text: "die — the turn:", kind: note, anchor: start}
+  - {at: [1444, 748], text: "the watt becomes heat", kind: note, anchor: start}
+  - {at: [1444, 786], text: "cold plate", kind: note, anchor: start}
+  - {at: [1465, 680], text: "manifold", kind: note}
+  - {at: [1592, 636], text: "CDU"}
+  - {at: [1628, 796], text: "CRAH — residual air load", kind: note}
+  - {at: [1668, 520], text: "facility water loop", kind: note, anchor: start}
+  - {at: [1482, 228], text: "air-cooled chillers", size: 9.5}
+  - {at: [1482, 302], text: "closed loop · zero-evaporation", kind: note}
+  - {at: [1592, 308], text: "heat-rejection fans", kind: note}
+  - {at: [1722, 220], text: "makeup water", kind: note}
+  - {at: [1722, 312], text: "~nil at Abilene", kind: note}
+  - {at: [1592, 105], text: "atmosphere — the loop closes"}
+
+room_labels:
+  - {at: [1118, 375], text: "ELECTRICAL ROOM"}
+  - {at: [1410, 375], text: "DATA HALL"}
+  - {at: [1650, 375], text: "MECHANICAL"}
+
+guides:
+  - {pts: [[44, 732], [80, 732]]}   # natural gas into the turbine
