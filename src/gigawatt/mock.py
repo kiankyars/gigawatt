@@ -21,8 +21,22 @@ from .svg import el, line, text
 W, H = 1920, 1080
 
 
-V = tokens.VOLTAGE
-T = tokens.THERMAL
+# The retired v0 mocks retain their original copy, but their palette aliases
+# stay local so unsupported voltage claims cannot leak into the v1 manifests.
+V = {
+    "20kV": tokens.VOLTAGE["generator_terminal_mv"],
+    "345kV": tokens.VOLTAGE["345kV"],
+    "34.5kV": tokens.VOLTAGE["campus_mv"],
+    "480V": tokens.VOLTAGE["facility_lv_ac"],
+    "54V": tokens.VOLTAGE["rack_dc"],
+    "0.8V": tokens.VOLTAGE["core_voltage"],
+}
+T = {
+    "die": tokens.THERMAL["die_heat"],
+    "liquid_hot": tokens.THERMAL["technology_return"],
+    "liquid_warm": tokens.THERMAL["facility_return"],
+    "air": tokens.THERMAL["air"],
+}
 GROUND = 830
 
 

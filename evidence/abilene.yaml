@@ -1,0 +1,683 @@
+schema_version: 1
+subject:
+  id: abilene_stargate_original_campus
+  canonical_name: Lancium Clean Campus / Crusoe-Oracle Abilene (Stargate)
+  location: 617 FM 2404, Abilene, Texas
+  atlas_stable_key: curated:lancium-clean-campus-abilene-ai-data-center
+accessed_as_of: '2026-08-25'
+
+evidence_boundary:
+  included_scope: >-
+    The original eight-building Lancium Clean Campus / Crusoe-Oracle Abilene
+    development, its initial and expansion grid paths, and the Longhorn onsite
+    power systems associated with that development.
+  excluded_scope: >-
+    The adjacent two-building, 900 MW Microsoft AI infrastructure expansion
+    announced in 2026. Its capacity, buildings, and pending power additions are
+    not additive to facts for the original eight-building reference campus.
+  capacity_rule: >-
+    Planned grid interconnection, permitted generation nameplate, delivered
+    capacity, energized buildings, commissioned power, current load, and IT load
+    are separate lifecycle measures and must not be added or substituted.
+
+sources:
+  mortenson_abilene_power_delivery:
+    publisher: Mortenson
+    title: Abilene Data Center Development
+    kind: primary_project_delivery_page
+    url: https://www.mortenson.com/projects/abilene-data-center-development
+    publication_date: null
+    review_date: null
+    accessed_as_of: '2026-08-25'
+    date_note: >-
+      Undated current project page reporting milestones through 2026-03-10.
+
+  tceq_177263_gas_review:
+    publisher: Texas Commission on Environmental Quality
+    title: Electric Generating Unit Standard Permit Technical Review, Registration 177263
+    kind: primary_regulatory_review
+    url: 'https://records.tceq.texas.gov/cs/idcplg?IdcService=TCEQ_EXTERNAL_SEARCH_GET_FILE&Rendition=Web&dID=8600163'
+    publication_date: null
+    review_date: '2025-01-22'
+    accessed_as_of: '2026-08-25'
+    date_note: >-
+      Project reviewer dated 2025-01-21; section manager dated 2025-01-22.
+
+  tceq_177262_diesel_review:
+    publisher: Texas Commission on Environmental Quality
+    title: Permit by Rule Registration Technical Review, Registration 177262
+    kind: primary_regulatory_review
+    url: 'https://records.tceq.texas.gov/cs/idcplg?IdcService=TCEQ_EXTERNAL_SEARCH_GET_FILE&Rendition=Web&dID=8811645'
+    publication_date: null
+    review_date: '2025-04-24'
+    accessed_as_of: '2026-08-25'
+    date_note: Project received 2025-04-11; reviewer and manager dated 2025-04-24.
+
+  tceq_177262_diesel_application:
+    publisher: Abilene DC 1, LLC, filed with the Texas Commission on Environmental Quality
+    title: Longhorn Data Center PBR Revision Application, Registration 177262
+    kind: primary_regulatory_application
+    url: 'https://records.tceq.texas.gov/cs/idcplg?IdcService=TCEQ_EXTERNAL_SEARCH_GET_FILE&Rendition=Web&dID=8814056'
+    publication_date: '2025-04-11'
+    review_date: '2025-04-24'
+    accessed_as_of: '2026-08-25'
+    date_note: >-
+      Application supplies the complete engine-class counts and MW totals used
+      to calculate 62 authorized units and 169.9 MW permitted nameplate.
+
+  tceq_37589_reference_drawing:
+    publisher: Abilene DC 1, LLC, filed with the Texas Commission on Environmental Quality
+    title: Longhorn Power Plant Federal Operating Permit Application 37589
+    kind: primary_regulatory_application_drawing
+    url: https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/37589-tc.pdf
+    publication_date: null
+    review_date: '2024-12-04'
+    accessed_as_of: '2026-08-25'
+    date_note: >-
+      General arrangement drawing 5MECH-00001-GA, revision D, re-issued for
+      review 2024-12-04 and marked NOT FOR CONSTRUCTION; engineer release is
+      dated 2024-12-05.
+
+  crusoe_abilene_expansion_2025:
+    publisher: Crusoe
+    title: Crusoe expands AI data center campus in Abilene to 1.2 gigawatts
+    kind: primary_company_release
+    url: https://www.crusoe.ai/resources/newsroom/crusoe-expands-ai-data-center-campus-in-abilene-to-1-2-gigawatts
+    publication_date: '2025-03-18'
+    review_date: null
+    accessed_as_of: '2026-08-25'
+    date_note: >-
+      Reports an eight-building design, a planned 1.2 GW grid interconnection,
+      and an up-to-50,000-GPU design ceiling per building.
+
+  crusoe_abilene_live_2025:
+    publisher: Crusoe
+    title: Crusoe announces flagship Abilene data center is live
+    kind: primary_company_release
+    url: https://www.crusoe.ai/resources/newsroom/crusoe-announces-flagship-abilene-data-center-is-live
+    publication_date: '2025-09-30'
+    review_date: null
+    accessed_as_of: '2026-08-25'
+    date_note: >-
+      Reports the first phase live and the first two buildings energized.
+
+  crusoe_abilene_cooling_2025:
+    publisher: Crusoe
+    title: An inside look at the Abilene AI data center
+    kind: primary_company_engineering_blog
+    url: https://www.crusoe.ai/resources/blog/an-inside-look-at-the-abilene-ai-data-center
+    publication_date: '2025-08-05'
+    review_date: null
+    accessed_as_of: '2026-08-25'
+    date_note: >-
+      Describes the project-specific closed-loop, non-evaporative liquid-cooling
+      selection, air-cooled heat rejection, initial fill requirement, and
+      anticipated annual maintenance water.
+
+  openai_stargate_oracle_2025:
+    publisher: OpenAI
+    title: Stargate advances with partnership with Oracle
+    kind: primary_company_release
+    url: https://openai.com/index/stargate-advances-with-partnership-with-oracle/
+    publication_date: '2025-07-22'
+    review_date: null
+    accessed_as_of: '2026-08-25'
+    date_note: >-
+      Reports parts of the Abilene facility running and recent early training
+      and inference workloads; the exact workload start date is not supplied.
+
+  oracle_abilene_facts:
+    publisher: Oracle
+    title: Abilene, Texas Data Center
+    kind: primary_company_project_page
+    url: https://www.oracle.com/data-centers/abilene/
+    publication_date: null
+    review_date: null
+    accessed_as_of: '2026-08-25'
+    date_note: >-
+      Undated page marked information current January 2026; reports an
+      eight-building campus and live AI workloads but not a first-live date.
+
+  oracle_abilene_portfolio:
+    publisher: Oracle
+    title: AI Data Centers - Investing in Communities, Powering the Future
+    kind: primary_company_portfolio_page
+    url: https://www.oracle.com/data-centers/
+    publication_date: null
+    review_date: null
+    accessed_as_of: '2026-08-25'
+    date_note: >-
+      Undated current page reports 42 percent of an unspecified total-capacity
+      denominator delivered; the percentage cannot be converted to MW,
+      buildings, IT load, or current load.
+
+  nvidia_dgx_gb200_hardware:
+    publisher: NVIDIA
+    title: DGX GB200 Hardware Overview
+    kind: primary_manufacturer_documentation
+    url: https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html
+    publication_date: null
+    review_date: '2026-03-03'
+    accessed_as_of: '2026-08-25'
+    date_note: Documentation last updated 2026-03-03.
+
+  solar_titan_350_datasheet:
+    publisher: Solar Turbines
+    title: Titan 350 38 MW Gas Turbine Generator Set
+    kind: primary_manufacturer_datasheet
+    url: https://www.solarturbines.com/en_US/solutions/case-studies/titan-350-38mw-gas-turbine-generator-set.html
+    publication_date: '2022-05'
+    review_date: null
+    accessed_as_of: '2026-08-25'
+    date_note: Datasheet code DS350MW38PG/0522/EO.
+
+  crusoe_microsoft_expansion_2026:
+    publisher: Crusoe
+    title: Crusoe announces new 900 MW AI factory campus in Abilene, Texas, to support Microsoft AI infrastructure
+    kind: primary_company_release
+    url: https://www.crusoe.ai/resources/newsroom/crusoe-announces-new-900-mw-ai-factory-campus-in-abilene-texas-to-support-microsoft-ai-infrastructure
+    publication_date: '2026-03-27'
+    review_date: null
+    accessed_as_of: '2026-08-25'
+    date_note: >-
+      Describes a separate adjacent two-building project whose first building
+      was then expected in mid-2027.
+
+facts:
+  planned_grid_interconnection_mw:
+    value: 1200
+    unit: MW
+    scope: Original eight-building Abilene campus grid interconnection
+    basis: Crusoe explicitly describes 1.2 GW as the site's grid interconnection.
+    lifecycle: planned
+    as_of: '2025-03-18'
+    source_ids: [crusoe_abilene_expansion_2025]
+    posture: planned_not_operational
+
+  grid_initial_substation_voltage_kv:
+    value: 138
+    unit: kV
+    scope: Initial Abilene grid path
+    basis: Mortenson identifies the original 200 MW substation as a 138 kV facility.
+    lifecycle: constructed
+    as_of: '2026-08-25'
+    source_ids: [mortenson_abilene_power_delivery]
+    posture: confirmed
+
+  grid_initial_substation_capacity_mw:
+    value: 200
+    unit: MW
+    scope: Initial Abilene grid path
+    basis: Mortenson identifies the original substation phase as 200 MW.
+    lifecycle: constructed
+    as_of: '2026-08-25'
+    source_ids: [mortenson_abilene_power_delivery]
+    posture: confirmed
+
+  grid_initial_source_line:
+    value: AEP Abilene Northwest transmission line
+    unit: null
+    scope: Initial 138 kV Abilene grid path only
+    basis: Mortenson ties the initial work to the named AEP line.
+    lifecycle: constructed
+    as_of: '2026-08-25'
+    source_ids: [mortenson_abilene_power_delivery]
+    posture: confirmed
+
+  grid_initial_slack_span_length_ft:
+    value: 300
+    unit: ft
+    scope: Initial tie between the AEP Abilene Northwest line and the 138 kV substation
+    basis: Mortenson reports a 300-foot slack span and AEP interconnection work.
+    lifecycle: constructed
+    as_of: '2026-08-25'
+    source_ids: [mortenson_abilene_power_delivery]
+    posture: confirmed
+
+  grid_initial_service_operational_as_of:
+    value: '2026-08-25'
+    unit: ISO-8601 date
+    scope: Initial 200 MW / 138 kV Abilene grid path
+    basis: >-
+      Mortenson's current project page says the initial substation transitioned
+      from de-energized construction into energized, operational service; it does
+      not disclose the exact first-energization date.
+    lifecycle: operating
+    as_of: '2026-08-25'
+    source_ids: [mortenson_abilene_power_delivery]
+    posture: confirmed
+
+  grid_expansion_substation_voltage_kv:
+    value: 345
+    unit: kV
+    scope: Separate greenfield Abilene expansion substation
+    basis: Mortenson identifies the expansion as a 345 kV greenfield substation.
+    lifecycle: energized
+    as_of: '2026-03-10'
+    source_ids: [mortenson_abilene_power_delivery]
+    posture: confirmed
+
+  grid_expansion_substation_capacity_mw:
+    value: 1000
+    unit: MW
+    scope: Separate greenfield Abilene expansion substation
+    basis: Mortenson identifies the expansion substation as 1 GW.
+    lifecycle: energized
+    as_of: '2026-03-10'
+    source_ids: [mortenson_abilene_power_delivery]
+    posture: confirmed
+
+  grid_expansion_transformers_energized_count:
+    value: 5
+    unit: main power transformers
+    scope: Separate 345 kV Abilene expansion substation
+    basis: Mortenson reports all five main power transformers energized by 2026-03-10.
+    lifecycle: energized
+    as_of: '2026-03-10'
+    source_ids: [mortenson_abilene_power_delivery]
+    posture: confirmed
+
+  grid_expansion_fully_energized_by:
+    value: '2026-03-10'
+    unit: ISO-8601 date
+    scope: Separate 345 kV Abilene expansion substation
+    basis: >-
+      Mortenson reports the fifth and final main power transformer energized on
+      2026-03-10; three temporary transformers still had planned permanent swaps.
+    lifecycle: energized
+    as_of: '2026-03-10'
+    source_ids: [mortenson_abilene_power_delivery]
+    posture: confirmed
+
+  grid_expansion_upstream_line:
+    value: null
+    unit: null
+    scope: Upstream source line for the separate 345 kV expansion substation
+    basis: >-
+      Mortenson does not name the upstream 345 kV line; the AEP Abilene
+      Northwest reference is scoped only to the initial 138 kV path.
+    lifecycle: topology_unknown
+    as_of: '2026-08-25'
+    source_ids: [mortenson_abilene_power_delivery]
+    posture: unverified_null
+
+  campus_mv_reference_design_voltage_kv:
+    value: 34.5
+    unit: kV
+    scope: >-
+      Longhorn generation collection / Lancium underground tie and review-design
+      feeds associated with Buildings 1 and 2
+    basis: >-
+      Review drawing 5MECH-00001-GA labels a Lancium 34.5 kV underground feed
+      and 35 kV termination cabinets.
+    lifecycle: review_design
+    as_of: '2024-12-04'
+    source_ids: [tceq_37589_reference_drawing]
+    posture: design_not_as_built
+
+  campus_lpt_secondary_as_built_voltage_kv:
+    value: null
+    unit: kV
+    scope: As-built secondary voltage of the 345 kV campus substation across the original campus
+    basis: >-
+      The available review drawing establishes a 34.5 kV Longhorn interface but
+      does not establish the as-built campus LPT ratio or all-building MV voltage.
+    lifecycle: as_built_unknown
+    as_of: '2026-08-25'
+    source_ids: [tceq_37589_reference_drawing, mortenson_abilene_power_delivery]
+    posture: unverified_null
+
+  gas_turbine_units_authorized:
+    value: 10
+    unit: units
+    scope: Longhorn onsite simple-cycle gas generation
+    basis: Five Solar Titan 350 units plus five GE LM2500 units are authorized.
+    lifecycle: permitted
+    as_of: '2025-01-22'
+    source_ids: [tceq_177263_gas_review]
+    posture: permitted_not_observed
+
+  gas_permitted_nameplate_mw:
+    value: 360.5
+    unit: MW
+    scope: Longhorn onsite simple-cycle gas generation
+    basis: Five units at 38 MW plus five units at 34.1 MW totals 360.5 MW.
+    lifecycle: permitted
+    as_of: '2025-01-22'
+    source_ids: [tceq_177263_gas_review]
+    posture: permitted_not_observed
+
+  gas_commissioned_mw:
+    value: null
+    unit: MW
+    scope: Longhorn onsite simple-cycle gas generation
+    basis: The regulatory review authorizes equipment but does not establish commissioned capacity.
+    lifecycle: commissioning_unknown
+    as_of: '2026-08-25'
+    source_ids: [tceq_177263_gas_review]
+    posture: unverified_null
+
+  diesel_units_authorized:
+    value: 62
+    unit: units
+    scope: Longhorn data-center emergency and standby diesel system
+    basis: >-
+      The application engine-class maxima sum to 62 units; the technical review
+      confirms 62 belly tanks and that this authorization is separate from gas
+      generation registration 177263.
+    lifecycle: permitted
+    as_of: '2025-04-24'
+    source_ids: [tceq_177262_diesel_application, tceq_177262_diesel_review]
+    posture: permitted_not_observed
+
+  diesel_permitted_nameplate_mw:
+    value: 169.9
+    unit: MW
+    scope: Longhorn data-center emergency and standby diesel system
+    basis: >-
+      Application class totals are 9 + 9 + 12 + 6 + 7.5 + 48 + 78.4 MW,
+      totaling 169.9 MW across the 62 authorized units.
+    lifecycle: permitted
+    as_of: '2025-04-24'
+    source_ids: [tceq_177262_diesel_application, tceq_177262_diesel_review]
+    posture: permitted_not_observed
+
+  diesel_units_installed:
+    value: null
+    unit: units
+    scope: Longhorn data-center emergency and standby diesel system
+    basis: The authorization and application do not establish the installed unit count.
+    lifecycle: installation_unknown
+    as_of: '2026-08-25'
+    source_ids: [tceq_177262_diesel_application, tceq_177262_diesel_review]
+    posture: unverified_null
+
+  diesel_operational_units:
+    value: null
+    unit: units
+    scope: Longhorn data-center emergency and standby diesel system
+    basis: The authorization and application do not establish the operational unit count.
+    lifecycle: operation_unknown
+    as_of: '2026-08-25'
+    source_ids: [tceq_177262_diesel_application, tceq_177262_diesel_review]
+    posture: unverified_null
+
+  buildings_energized_confirmed_min:
+    value: 2
+    unit: buildings
+    scope: Original eight-building Abilene campus
+    basis: >-
+      Crusoe reported the first two buildings energized and the first phase live;
+      the 2026 Microsoft-expansion release reiterates the two original buildings.
+    lifecycle: energized
+    as_of: '2026-03-27'
+    source_ids: [crusoe_abilene_live_2025, crusoe_microsoft_expansion_2026]
+    posture: confirmed_minimum
+
+  operational_buildings_exact:
+    value: null
+    unit: buildings
+    scope: Original eight-building Abilene campus
+    basis: >-
+      Primary sources establish a lower bound of two but do not establish the
+      exact current operational count as of the ledger access date.
+    lifecycle: operation_unknown
+    as_of: '2026-08-25'
+    source_ids: [crusoe_abilene_live_2025, oracle_abilene_portfolio]
+    posture: unverified_null
+
+  campus_planned_buildings:
+    value: 8
+    unit: buildings
+    scope: Original Abilene campus design
+    basis: Crusoe and Oracle independently describe the original campus as eight buildings.
+    lifecycle: planned
+    as_of: '2026-01-31'
+    source_ids: [crusoe_abilene_expansion_2025, oracle_abilene_facts]
+    posture: confirmed
+
+  installed_gpu_count:
+    value: null
+    unit: GPUs
+    scope: Original Abilene campus installed or operational GPU fleet
+    basis: no evidence-backed estimate
+    lifecycle: operation_unknown
+    as_of: '2026-08-25'
+    source_ids: [crusoe_abilene_expansion_2025, crusoe_abilene_live_2025]
+    posture: no_evidence_backed_estimate
+
+  gpu_design_ceiling_per_building:
+    value: 50000
+    unit: GPUs per building
+    scope: Design ceiling for a building in the original Abilene campus
+    basis: Crusoe says each building is designed to support up to 50,000 GPUs.
+    lifecycle: design_ceiling
+    as_of: '2025-03-18'
+    source_ids: [crusoe_abilene_expansion_2025]
+    posture: design_not_observed
+
+  early_training_inference_live_by:
+    value: '2025-07-22'
+    unit: ISO-8601 date
+    scope: Parts of the original Abilene campus
+    basis: >-
+      OpenAI reported on this date that parts of the facility were running and
+      had recently begun early training and inference workloads.
+    lifecycle: operating
+    as_of: '2025-07-22'
+    source_ids: [openai_stargate_oracle_2025]
+    posture: live_by_not_start_date
+
+  exact_workload_start_date:
+    value: null
+    unit: ISO-8601 date
+    scope: First AI training or inference workload at the original Abilene campus
+    basis: >-
+      OpenAI supplies a live-by disclosure, Crusoe supplies a later launch
+      disclosure, and Oracle supplies a January 2026 current-information marker;
+      none supplies the exact first-live date.
+    lifecycle: operation_unknown
+    as_of: '2026-08-25'
+    source_ids: [openai_stargate_oracle_2025, crusoe_abilene_live_2025, oracle_abilene_facts]
+    posture: unverified_null
+
+  cooling_heat_rejection_posture:
+    value: closed-loop, non-evaporative; air-cooled chillers
+    unit: system design
+    scope: Selected cooling and heat-rejection design for the original Abilene campus
+    basis: >-
+      Crusoe describes a selected closed-loop, non-evaporative liquid-cooling
+      system with air-cooled chillers and no water consumed in heat rejection.
+    lifecycle: selected_design
+    as_of: '2025-08-05'
+    source_ids: [crusoe_abilene_cooling_2025]
+    posture: design_selected
+
+  cooling_direct_to_chip_design:
+    value: direct-to-chip liquid cooling
+    unit: system design
+    scope: Design reference for the original eight-building Abilene campus
+    basis: >-
+      Crusoe's March expansion release says the campus will feature
+      direct-to-chip liquid cooling in a zero-water-evaporation closed loop.
+    lifecycle: design_reference
+    as_of: '2025-03-18'
+    source_ids: [crusoe_abilene_expansion_2025]
+    posture: design_not_observed
+
+  cooling_initial_fill_gallons_per_building:
+    value: 1000000
+    unit: gallons per building
+    scope: Design requirement for one building's closed-loop cooling-system initial fill
+    basis: Crusoe reports a design requirement of approximately one million gallons per building.
+    lifecycle: design_requirement
+    as_of: '2025-08-05'
+    source_ids: [crusoe_abilene_cooling_2025]
+    posture: design_selected
+
+  cooling_annual_maintenance_gallons_per_building:
+    value: 50000
+    unit: gallons per building per year
+    scope: Anticipated annual cooling-system maintenance water for each building
+    basis: Crusoe anticipates approximately 50,000 gallons per building per year for maintenance.
+    lifecycle: anticipated_maintenance
+    as_of: '2025-08-05'
+    source_ids: [crusoe_abilene_cooling_2025]
+    posture: anticipated_not_observed
+
+  rack_platform:
+    value: NVIDIA GB200
+    unit: platform family
+    scope: >-
+      Operationally supported first-phase rack-platform family at the original
+      Abilene campus; family identity only, not rack, tray, or GPU quantity
+    basis: >-
+      Crusoe reports NVIDIA GB200 racks delivered in June 2025 and early
+      workloads running; it does not identify an operating rack count.
+    lifecycle: deployed
+    as_of: '2025-09-30'
+    source_ids: [crusoe_abilene_live_2025]
+    posture: confirmed
+
+  rack_platform_nvl72_design_reference:
+    value: NVIDIA GB200 NVL72
+    unit: platform design reference
+    scope: Building-level design reference for the original Abilene campus
+    basis: >-
+      Crusoe's March expansion release says each building is designed to operate
+      NVIDIA GB200 NVL72 systems; it does not establish installed quantity or the
+      exact operating rack configuration.
+    lifecycle: design_reference
+    as_of: '2025-03-18'
+    source_ids: [crusoe_abilene_expansion_2025]
+    posture: design_not_observed
+
+  rack_power_shelf_output_vdc:
+    value: '50-51'
+    unit: VDC
+    scope: NVIDIA DGX GB200 rack power-shelf nominal DC busbar output
+    basis: NVIDIA specifies that DGX GB200 power shelves convert AC to nominal 50-51 VDC.
+    lifecycle: product_documented
+    as_of: '2026-03-03'
+    source_ids: [nvidia_dgx_gb200_hardware]
+    posture: confirmed_model_spec
+
+  rack_power_shelf_ac_input_voltage_v:
+    value: null
+    unit: VAC
+    scope: Site-specific AC input to DGX GB200 rack power shelves at Abilene
+    basis: NVIDIA specifies AC input but the cited sources do not establish Abilene's input voltage.
+    lifecycle: site_configuration_unknown
+    as_of: '2026-08-25'
+    source_ids: [nvidia_dgx_gb200_hardware]
+    posture: unverified_null
+
+  rack_air_cooled_components:
+    value: networking, storage, and other non-CPU/GPU rack components
+    unit: component set
+    scope: NVIDIA DGX GB rack product documentation, not an Abilene as-built observation
+    basis: >-
+      NVIDIA documents fan air cooling for networking, storage, and other rack
+      components outside the liquid-cooled CPU and GPU path.
+    lifecycle: product_documented
+    as_of: '2026-03-03'
+    source_ids: [nvidia_dgx_gb200_hardware]
+    posture: confirmed_model_spec
+
+  rack_liquid_cooled_components:
+    value: CPU and GPU cold plates connected through rack liquid-cooling manifolds
+    unit: component path
+    scope: NVIDIA DGX GB rack product documentation, not an Abilene as-built observation
+    basis: >-
+      NVIDIA documents liquid flow through rack manifolds and cold plates
+      attached to CPUs and GPUs in DGX GB compute trays.
+    lifecycle: product_documented
+    as_of: '2026-03-03'
+    source_ids: [nvidia_dgx_gb200_hardware]
+    posture: confirmed_model_spec
+
+  generator_terminal_model_voltage_range_kv:
+    value: '11-13.8'
+    unit: kV AC
+    scope: Solar Titan 350 38 MW generator-set model range
+    basis: Solar's Titan 350 datasheet specifies selectable generator voltages from 11,000 to 13,800 VAC.
+    lifecycle: product_documented
+    as_of: '2022-05'
+    source_ids: [solar_titan_350_datasheet]
+    posture: model_range_not_site_configured
+
+  generator_terminal_site_voltage_kv:
+    value: null
+    unit: kV AC
+    scope: Exact configured generator terminal voltage at the Longhorn onsite plant
+    basis: >-
+      The manufacturer range does not identify the selected Titan 350 voltage at
+      Abilene and does not establish the LM2500 package terminal voltage.
+    lifecycle: site_configuration_unknown
+    as_of: '2026-08-25'
+    source_ids: [solar_titan_350_datasheet, tceq_177263_gas_review]
+    posture: unverified_null
+
+  bess_reference_design_status:
+    value: future
+    unit: status
+    scope: BESS shown on the Longhorn power-plant review drawing
+    basis: Drawing 5MECH-00001-GA labels the BESS unit as FUTURE.
+    lifecycle: future_design
+    as_of: '2024-12-04'
+    source_ids: [tceq_37589_reference_drawing]
+    posture: future_design
+
+  bess_operational_status:
+    value: null
+    unit: status
+    scope: BESS at the original Abilene reference campus
+    basis: The review drawing does not establish procurement, installation, energization, or operation.
+    lifecycle: operation_unknown
+    as_of: '2026-08-25'
+    source_ids: [tceq_37589_reference_drawing]
+    posture: unverified_null
+
+  oracle_capacity_delivered_percent_untyped:
+    value: 42
+    unit: percent
+    scope: Oracle's Abilene portfolio-page wording
+    basis: >-
+      Oracle reports 42 percent of total capacity delivered without stating the
+      denominator, capacity basis, MW, building count, IT load, or current load.
+    lifecycle: delivered_untyped
+    as_of: '2026-08-25'
+    source_ids: [oracle_abilene_portfolio]
+    posture: reported_untyped
+
+  adjacent_microsoft_scope_included:
+    value: false
+    unit: boolean
+    scope: Adjacent two-building Microsoft AI infrastructure expansion
+    basis: >-
+      Crusoe describes this as a separate adjacent 900 MW project with a later
+      delivery schedule; it is excluded from the original eight-building ledger.
+    lifecycle: planned
+    as_of: '2026-03-27'
+    source_ids: [crusoe_microsoft_expansion_2026]
+    posture: excluded_scope
+
+  adjacent_microsoft_planned_capacity_mw:
+    value: 900
+    unit: MW
+    scope: Excluded adjacent Microsoft AI infrastructure expansion only
+    basis: Crusoe reports 900 MW for the separate adjacent project.
+    lifecycle: planned
+    as_of: '2026-03-27'
+    source_ids: [crusoe_microsoft_expansion_2026]
+    posture: excluded_scope
+
+  adjacent_microsoft_planned_buildings:
+    value: 2
+    unit: buildings
+    scope: Excluded adjacent Microsoft AI infrastructure expansion only
+    basis: Crusoe reports two buildings for the separate adjacent project.
+    lifecycle: planned
+    as_of: '2026-03-27'
+    source_ids: [crusoe_microsoft_expansion_2026]
+    posture: excluded_scope

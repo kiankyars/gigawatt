@@ -1,7 +1,7 @@
 """The GIGAWATT symbol library.
 
-Electrical symbols follow IEEE 315 / ANSI one-line conventions; thermal symbols
-follow simplified P&ID (ISA-5.1) conventions. Symbols are generic devices, not
+Electrical symbols are IEEE/ANSI-inspired one-line glyphs; thermal symbols use
+simplified process-schematic conventions. Symbols are generic devices, not
 course nodes — master.yaml nodes map onto them (e.g. vrm -> converter_dcdc).
 
 Every symbol lives in a 64x64 local box with named ports on the boundary so the
@@ -79,9 +79,43 @@ _sym("disconnect", "Disconnect switch", "IEEE 315 (knife switch)",
      + circle(M, 44, 2) + line(M, 46, M, S),
      ports={"in": (M, 0), "out": (M, S)})
 
+_sym("disconnect_closed", "Disconnect switch, closed", "IEEE 315-inspired (closed state)",
+     line(M, 0, M, 22) + circle(M, 24, 2) + line(M, 24, M, 44)
+     + circle(M, 44, 2) + line(M, 46, M, S),
+     ports={"in": (M, 0), "out": (M, S)})
+
+_sym("hv_protection_envelope", "Abstract HV protection envelope",
+     "Conceptual one-line envelope; internal devices and normal state unspecified",
+     rect(14, 6, 36, 52, dash="5 3")
+     + text(M, M, "HV", size=9, weight=600)
+     + line(M, 0, M, 6) + line(M, 58, M, S),
+     ports={"in": (M, 0), "out": (M, S)})
+
 _sym("bus", "Bus", "One-line convention (heavy bar)",
      line(4, M, 60, M, w=tokens.STROKE_HEAVY),
      ports={"l": (0, M), "r": (S, M), "t": (M, 0), "b": (M, S)})
+
+_sym("mv_switchgear_package", "MV switchgear package",
+     "Conceptual one-line package (bus + incomer/feeder breakers)",
+     rect(4, 8, 56, 48)
+     + line(8, M, 56, M, w=tokens.STROKE_HEAVY)
+     + line(18, 8, 18, 19) + rect(14, 19, 8, 10) + line(18, 29, 18, M)
+     + line(M, 8, M, 19) + rect(28, 19, 8, 10) + line(M, 29, M, S)
+     + line(46, 8, 46, 19) + rect(42, 19, 8, 10) + line(46, 29, 46, M)
+     + line(0, M, 8, M) + line(56, M, S, M),
+     ports={"l": (0, M), "r": (S, M), "t1": (18, 0), "t2": (M, 0),
+            "t3": (46, 0), "b": (M, S)})
+
+_sym("campus_mv_distribution_envelope", "Abstract campus MV distribution envelope",
+     "Conceptual one-line boundary; exact merge, devices, and feeder topology unspecified",
+     rect(4, 10, 56, 44, dash="5 3")
+     + text(M, M, "MV", size=9, weight=600)
+     + line(0, 18, 4, 18)
+     + line(14, 0, 14, 10) + line(26, 0, 26, 10)
+     + line(38, 0, 38, 10) + line(50, 0, 50, 10)
+     + line(60, 42, S, 42),
+     ports={"btm": (0, 18), "bess": (14, 0), "grid138": (26, 0),
+            "grid345": (38, 0), "diesel": (50, 0), "building": (S, 42)})
 
 _sym("battery_bess", "BESS", "IEEE 315 battery, enclosed",
      rect(10, 10, 44, 44, dash="4 3")
@@ -90,6 +124,27 @@ _sym("battery_bess", "BESS", "IEEE 315 battery, enclosed",
      + line(20, 37, 44, 37) + line(26, 42, 38, 42, w=tokens.STROKE_HEAVY)
      + line(M, 42, M, S),
      ports={"dc": (M, 0), "out": (M, S)})
+
+_sym("bess_package", "BESS package",
+     "Conceptual package (battery + PCS + transformer + breaker)",
+     rect(3, 8, 58, 48)
+     + line(9, 22, 19, 22) + line(11, 27, 17, 27, w=tokens.STROKE_HEAVY)
+     + line(9, 34, 19, 34) + line(11, 39, 17, 39, w=tokens.STROKE_HEAVY)
+     + rect(23, 22, 13, 18) + line(23, 40, 36, 22)
+     + circle(44, 27, 7) + circle(44, 37, 7)
+     + rect(52, 26, 6, 12) + line(58, M, 61, M)
+     + line(61, M, 61, S),
+     ports={"out": (61, S)})
+
+_sym("diesel_backup_package", "Diesel backup package",
+     "Conceptual package (engine-generator + GSU + paralleling breaker)",
+     rect(3, 8, 58, 48)
+     + rect(7, 23, 15, 18) + text(14.5, M, "D", size=9, weight=600)
+     + line(22, M, 25, M) + circle(32, M, 7) + text(32, M, "G", size=8, weight=600)
+     + circle(44, 27, 6) + circle(44, 37, 6)
+     + rect(52, 26, 6, 12) + line(58, M, 61, M)
+     + line(61, M, 61, S),
+     ports={"out": (61, S)})
 
 _sym("converter_rectifier", "Rectifier (AC-DC)", "IEC 617 converter box",
      line(0, M, 12, M) + rect(12, 18, 40, 28) + line(12, 46, 52, 18)
@@ -122,6 +177,15 @@ _sym("die_gpu", "GPU die", "Custom (package + die)",
      + "".join(line(10, y, 16, y) for y in (22, 32, 42))
      + line(M, 48, M, S),
      ports={"power": (M, 0), "heat": (M, S)})
+
+_sym("rack_air_load", "Air-cooled rack auxiliaries",
+     "Product-documentation abstraction (air-cooled non-CPU/GPU rack loads)",
+     rect(6, 12, 52, 40, dash="4 3")
+     + rect(12, 19, 14, 9) + rect(12, 35, 14, 9)
+     + circle(43, M, 10)
+     + path("M 43 23 Q 50 28 43 32 Q 36 37 43 41")
+     + line(58, M, S, M),
+     ports={"heat_out": (S, M)})
 
 # --------------------------------------------------------------------------
 # Thermal — simplified P&ID (ISA-5.1)
@@ -156,6 +220,15 @@ _sym("manifold", "Manifold", "Custom (header bar + taps)",
      + line(0, 10, 27, 10),
      ports={"main": (0, 10), "t1": (S, 14), "t2": (S, 28), "t3": (S, 42), "t4": (S, 56)})
 
+_sym("dual_manifold", "Rack supply and return headers",
+     "Simplified P&ID (physically distinct technology supply and return headers)",
+     rect(10, 16, 44, 5, fill="currentColor", sw=0)
+     + rect(10, 43, 44, 5, fill="currentColor", sw=0)
+     + line(0, 18.5, 10, 18.5) + line(54, 18.5, S, 18.5)
+     + line(0, 45.5, 10, 45.5) + line(54, 45.5, S, 45.5),
+     ports={"supply_rack": (0, 18.5), "supply_cdu": (S, 18.5),
+            "return_rack": (0, 45.5), "return_cdu": (S, 45.5)})
+
 _sym("cdu", "CDU", "Package unit (HX + pump)",
      rect(4, 10, 56, 44)
      + circle(24, 32, 11) + path("M 15 32 L 20 26 L 26 38 L 32 28")
@@ -171,6 +244,15 @@ _sym("chiller", "Chiller", "Package unit (evap / cond circuits)",
      + line(28, 26, 36, 26) + line(28, 38, 36, 38)
      + line(0, 32, 4, 32) + line(60, 32, S, 32),
      ports={"evap": (0, 32), "cond": (S, 32)})
+
+_sym("air_cooled_chiller", "Air-cooled chiller",
+     "Conceptual package (facility HX + air-cooled condenser fans)",
+     rect(4, 12, 56, 42)
+     + circle(18, 35, 9) + path("M 10 35 L 14 29 L 19 41 L 24 29 L 27 35")
+     + circle(39, 25, 7) + path("M 39 19 Q 44 23 39 25 Q 34 28 39 32")
+     + circle(51, 25, 7) + path("M 51 19 Q 56 23 51 25 Q 46 28 51 32")
+     + line(60, 24, S, 24) + line(60, 44, S, 44) + line(M, 12, M, 0),
+     ports={"supply": (S, 24), "return": (S, 44), "air_out": (M, 0)})
 
 _sym("fan", "Fan", "ISA-5.1 (axial)",
      circle(M, M, 14)

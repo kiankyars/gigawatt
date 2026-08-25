@@ -1,224 +1,468 @@
-# GIGAWATT master diagram — node/edge inventory (v0 draft)
+# GIGAWATT semantic master — redline-verified v1
 #
-# This file is the single source of truth the whole course derives from:
-# layout code composes the SVG from it, slides are camera states over it,
-# and the chokepoint/capital-stack reads are recolorings of it.
-#
-# Rules:
-# - A node exists only if it gates the watt's journey ("gets you from X to Y").
-# - Voltages/temps here are illustrative defaults, to be pinned per reference
-#   campus. Anything marked VERIFY needs a dated source before it renders.
-# - capital_stack and chokepoint blocks stay null until the read-throughs are
-#   researched; the schema exists now so the reads are recolorings, not rework.
+# Topology and factual copy live here. Evidence records live in
+# evidence/abilene.yaml. Placement lives in diagram/layout.yaml and may contain
+# coordinates, symbol choices, and visual hierarchy only.
 
 meta:
-  version: 0
-  status: pre-redline draft; symbol library exists (diagram/symbols.svg)
-  journey_bar_electrical: [20kV, 345kV, 34.5kV, 480V, 54V, 0.8V]
-  journey_bar_thermal: [die, cold plate, CDU, facility loop, tower, atmosphere]
-  # Overlay read, not nodes: dated fractions + lags per gate (see STRATEGY §6).
-  # Closing segment covers the power-to-token conversion recipe (batching
-  # internals, utilization, MFU); serving infra and network topology stay out.
+  version: 1
+  status: redline-verified conceptual release; not as-built or for design/construction
+  reference_as_of: 2026-08-25
+  evidence_file: evidence/abilene.yaml
+  diagram_posture: >-
+    IEEE/IEC-inspired conceptual one-line plus simplified thermal process
+    schematic; Abilene evidence overlay; not an as-built drawing and not for
+    design or construction.
+  journey:
+    electrical:
+      grid_138: [138kV, campus_mv, facility_lv_ac, rack_dc, core_voltage]
+      grid_345: [345kV, campus_mv, facility_lv_ac, rack_dc, core_voltage]
+      behind_the_meter: [generator_terminal_mv, campus_mv, facility_lv_ac, rack_dc, core_voltage]
+    thermal: [die_heat, technology_return, facility_return, atmosphere]
+  journey_bar:
+    electrical: [source_branches, campus_mv, facility_lv_ac, rack_dc, core_voltage]
+    thermal: [die_heat, technology_return, facility_return, atmosphere]
   gigawatts_to_tokens_funnel: [announced, interconnected, energized, commissioned, utilized, tokens]
 
 reference_campus:
-  # Every illustrative number on the diagram gets re-pinned to this site.
   name: Lancium Clean Campus / Crusoe-Oracle Abilene (Stargate)
-  location: Abilene, TX (617 FM 2404)
+  location: Abilene, Texas (617 FM 2404)
   atlas_stable_key: curated:lancium-clean-campus-abilene-ai-data-center
-  atlas_sources:
-    - datacenter_atlas/sources/curated-official-2026-07-20-lancium-crusoe-oracle-abilene.json
-    - satellite retains V57-B017 (Crusoe Abilene Expansion), V57-B065 (OpenAI Stargate Abilene)
-  facts:  # typed + dated in the atlas; nothing else renders without VERIFY
-    grid_connection_mw: 1200          # Crusoe disclosure, 2025-03-18
-    interconnection: ERCOT direct tie
-    substations: 200 MW complete + 1 GW under construction (DCOA)
-    construction_start: 2024-06
-    ai_workloads_live: 2026-01-31
-    last_physical_status: 2026-06-04 (Oracle data halls aerial)
-    # Verified 2026-08-24 (web, dated sources):
-    interconnection_voltage: 345 kV   # Mortenson (power-delivery EPC): 12.5-acre, 1 GW, 345 kV greenfield substation, civil start Q2 2025
-    initial_substation: 200 MW at 138 kV, slack-span tie to AEP Abilene Northwest line  # Mortenson
-    onsite_generation_mw: 360.5       # TCEQ Registration 177263 "Longhorn Data Center", approved 2025-01-22
-    onsite_generation_mix: 5x Solar Titan 350 (38 MW) + 5x GE Vernova LM2500 (34.1 MW); permitted "primary and backup", onsite use only; LM2500 hours raised to 8760/yr (continuous)
-    cooling: closed-loop non-evaporative direct-to-chip; heat rejected via air-cooled chillers, no evaporative towers  # Crusoe engineering blog
-    cooling_water: ~1M gal initial fill + ~50k gal/yr maintenance per building  # Crusoe engineering blog
-    rack_platform: GB200 NVL72 installed; first racks delivered 2025-06, phase 1 live 2025-09-30  # Crusoe PR 2025-09-30
-  open_verifies:
-    - campus MV distribution voltage (34.5 kV is the illustrative default, unverified for Abilene)
-    - whether a separate diesel farm exists, or the 360.5 MW turbines cover backup
-    - buildings live + operational GPU count (secondary sources claim 4 of 8 live,
-      150-200k GPUs as of 2026-05 — no primary source yet)
-    - reconcile atlas ai_workloads_live 2026-01-31 vs Crusoe "early training and
-      inference workloads" at 2025-09-30 launch (likely different definitions)
+  atlas_source: ../datacenter_atlas/sources/curated-official-2026-07-20-lancium-crusoe-oracle-abilene.json
+  scope_boundary: >-
+    Original eight-building Stargate campus only. The adjacent two-building,
+    900 MW Microsoft campus announced in 2026 is excluded.
+
+status_styles:
+  energized: {line: solid, meaning: confirmed energized or operating minimum}
+  permitted: {line: dotted, meaning: authorized nameplate; installation and commissioning not implied}
+  future_design: {line: dashed, meaning: shown in a reference design as future}
+  conceptual: {line: dashed, meaning: teaching topology; exact Abilene configuration not established}
+  course_variant: {line: hidden, meaning: optional comparison, not an Abilene fact}
+
+# Copy entries are the only strings rendered by layout.py. Factual entries use
+# templates whose placeholders resolve to stable facts in evidence/abilene.yaml.
+# `explicit_unknown` allows a null to render only as a disclosed unknown.
+copy:
+  title:
+    text: "GIGAWATT — master diagram v1 · Abilene evidence overlay"
+  subtitle:
+    text: "conceptual one-line + thermal process schematic · status dated 2026-08-25 · not for design/construction"
+  zone_btm: {text: "BEHIND-THE-METER · PERMITTED"}
+  zone_grid: {text: "TWO GRID-SERVICE PATHS"}
+  zone_substations: {text: "SUBSTATIONS"}
+  zone_mv: {text: "CAMPUS MV ENVELOPE · CONCEPTUAL"}
+  zone_building: {text: "REFERENCE BUILDING PATH · CONCEPTUAL"}
+  region_substations:
+    template: "{grid_initial_substation_capacity_mw} MW / {grid_initial_substation_voltage_kv} kV initial + {grid_expansion_substation_capacity_mw} MW / {grid_expansion_substation_voltage_kv} kV expansion · energized"
+    facts: [grid_initial_substation_capacity_mw, grid_initial_substation_voltage_kv, grid_expansion_substation_capacity_mw, grid_expansion_substation_voltage_kv]
+  region_buildings:
+    template: "{campus_planned_buildings} planned buildings · at least {buildings_energized_confirmed_min} energized (confirmed minimum)"
+    facts: [campus_planned_buildings, buildings_energized_confirmed_min]
+  region_rack:
+    template: "rack · {rack_platform}"
+    facts: [rack_platform]
+  room_electrical: {text: "ELECTRICAL ROOM"}
+  room_data_hall: {text: "DATA HALL"}
+  room_mechanical: {text: "MECHANICAL"}
+  legend_title: {text: "STATUS / EVIDENCE"}
+  legend_energized: {text: "solid · energized / confirmed minimum"}
+  legend_permitted: {text: "dotted · permitted; installation unknown"}
+  legend_future: {text: "dashed · future design"}
+  legend_conceptual: {text: "pale dashed · conceptual, not site-as-built"}
+  gas_units:
+    template: "gas turbines ×{gas_turbine_units_authorized}"
+    facts: [gas_turbine_units_authorized]
+  gas_permit:
+    template: "{gas_permitted_nameplate_mw} MW permitted nameplate"
+    facts: [gas_permitted_nameplate_mw]
+  gas_input: {text: "natural gas"}
+  generator: {text: "generator"}
+  generator_terminal:
+    template: "Titan 350 terminal · {generator_terminal_model_voltage_range_kv} kV model range; exact Longhorn settings unknown"
+    facts: [generator_terminal_model_voltage_range_kv, generator_terminal_site_voltage_kv]
+    posture: explicit_unknown
+  source_138:
+    template: "{grid_initial_source_line}"
+    facts: [grid_initial_source_line]
+  tie_138:
+    template: "{grid_initial_substation_voltage_kv} kV · {grid_initial_slack_span_length_ft} ft slack-span tie"
+    facts: [grid_initial_substation_voltage_kv, grid_initial_slack_span_length_ft]
+  station_138:
+    template: "initial station · {grid_initial_substation_capacity_mw} MW / {grid_initial_substation_voltage_kv} kV"
+    facts: [grid_initial_substation_capacity_mw, grid_initial_substation_voltage_kv]
+  source_345: {text: "345 kV source · upstream line not named by EPC"}
+  corridor_345: {text: "345 kV expansion service"}
+  hv_protection: {text: "abstract 345 kV protection envelope · exact package / state unverified"}
+  station_345:
+    template: "expansion station · {grid_expansion_substation_capacity_mw} MW / {grid_expansion_substation_voltage_kv} kV"
+    facts: [grid_expansion_substation_capacity_mw, grid_expansion_substation_voltage_kv]
+  station_345_energized:
+    template: "five MPTs energized by {grid_expansion_fully_energized_by}"
+    facts: [grid_expansion_fully_energized_by]
+  nuclear_variant:
+    text: "nuclear PPA · contractual course variant, not a local source"
+    base_visible: false
+  mv_bus: {text: "abstract campus MV distribution envelope"}
+  mv_unknown:
+    template: "campus-wide as-built MV: {campus_lpt_secondary_as_built_voltage_kv}"
+    facts: [campus_lpt_secondary_as_built_voltage_kv]
+    posture: explicit_unknown
+  mv_reference_design:
+    template: "{campus_mv_reference_design_voltage_kv} kV · Buildings 1–2 review design only"
+    facts: [campus_mv_reference_design_voltage_kv]
+  bess:
+    text: "BESS package · future in reference design"
+  diesel: {text: "diesel backup package"}
+  diesel_authorization:
+    template: "{diesel_units_authorized} units · {diesel_permitted_nameplate_mw} MW authorized"
+    facts: [diesel_units_authorized, diesel_permitted_nameplate_mw, diesel_units_installed]
+    posture: explicit_unknown
+  diesel_unknown: {text: "installation / operation not established"}
+  unit_sub: {text: "unit sub · campus MV → facility AC"}
+  lv_switchgear: {text: "LV switchgear"}
+  ups: {text: "UPS lineups · quantity and topology unverified"}
+  busway: {text: "busway · site AC"}
+  power_shelf:
+    template: "power shelf · site AC → nominal {rack_power_shelf_output_vdc} VDC"
+    facts: [rack_power_shelf_output_vdc, rack_power_shelf_ac_input_voltage_v]
+    posture: explicit_unknown
+  power_shelf_unknown: {text: "Abilene rack AC input not established"}
+  vrm: {text: "VRM · rack DC → core voltage"}
+  die_turn: {text: "die — electrical power becomes heat"}
+  cold_plate: {text: "cold plate · technology loop"}
+  rack_air_load: {text: "air-cooled rack auxiliaries"}
+  manifold: {text: "dual rack headers · supply / return"}
+  cdu: {text: "CDU · loop interface"}
+  crah: {text: "CRAH · parallel residual-air branch"}
+  facility_loop: {text: "closed facility loop · supply + warm return"}
+  air_cooled_chiller:
+    template: "{cooling_heat_rejection_posture}"
+    facts: [cooling_heat_rejection_posture]
+  cooling_water: {text: "closed-loop fill / treatment"}
+  cooling_water_amount:
+    template: "~{cooling_initial_fill_gallons_per_building} gal initial · ~{cooling_annual_maintenance_gallons_per_building} gal/yr per building"
+    facts: [cooling_initial_fill_gallons_per_building, cooling_annual_maintenance_gallons_per_building]
+  atmosphere: {text: "heat rejected to atmosphere · end of path"}
+  footnote:
+    text: "Abilene facts are source-gated; dashed downstream equipment is a teaching reference, not an asserted as-built configuration."
 
 nodes:
-  # ---- Act: Origination (heat -> electricity) ----
+  # Behind-the-meter branch: authorization is established; commissioning is not.
   - id: gas_turbine
-    label: Gas turbine
+    label: Gas turbine package
     domain: generation
-    gate: fuel -> shaft power; the watt cannot originate without it
-    vendors: [GE Vernova, Solar Turbines (Caterpillar), Siemens Energy, Mitsubishi Power]
-    at_reference: 360.5 MW BTM across ten simple-cycle units (5x Solar Titan 350
-      + 5x GE LM2500), permitted primary + backup — TCEQ 177263, 2025-01-22
-    capital_stack: null
-    chokepoint: null   # turbine backlog — VERIFY current delivery dates
+    gate: fuel to shaft power
+    presence: site_evidenced
+    lifecycle: permitted
+    as_of: 2025-01-22
+    source_ids: [tceq_177263_gas_review]
+    fact_ids: [gas_turbine_units_authorized, gas_permitted_nameplate_mw]
   - id: generator
     label: Generator
     domain: generation
-    gate: shaft power -> ~13.8 kV AC   # VERIFY exact terminal voltage; Titan 350 / LM2500 class
+    gate: shaft power to generator-terminal MV
+    presence: site_evidenced
+    lifecycle: permitted
+    as_of: 2025-01-22
+    source_ids: [tceq_177263_gas_review, solar_titan_350_datasheet]
+    fact_ids: [gas_turbine_units_authorized, generator_terminal_model_voltage_range_kv, generator_terminal_site_voltage_kv]
   - id: gsu_transformer
-    label: Generator step-up transformer
+    label: Generator step-up package
     domain: electrical
-    gate: ~13.8 kV -> campus MV   # BTM collection — does NOT step onto 345 kV; TCEQ 177263 onsite use only
-    chokepoint: null   # LPT lead times — VERIFY
+    gate: generator-terminal MV to a conceptual campus distribution envelope
+    presence: site_evidenced
+    lifecycle: permitted
+    as_of: 2025-01-22
+    source_ids: [tceq_177263_gas_review, tceq_37589_reference_drawing]
+    fact_ids: [gas_turbine_units_authorized, campus_mv_reference_design_voltage_kv]
+
+  # Separate grid-service paths. Neither is labeled as the other's upstream line.
+  - id: utility_source_138
+    label: AEP Abilene Northwest source
+    domain: electrical
+    gate: initial grid watt reaches the site tie
+    presence: site_evidenced
+    lifecycle: energized
+    as_of: 2026-08-25
+    source_ids: [mortenson_abilene_power_delivery]
+    fact_ids: [grid_initial_source_line, grid_initial_service_operational_as_of]
+  - id: initial_tie_138
+    label: 138 kV slack-span tie
+    domain: electrical
+    gate: connects the initial station to the named AEP line
+    presence: site_evidenced
+    lifecycle: energized
+    as_of: 2026-08-25
+    source_ids: [mortenson_abilene_power_delivery]
+    fact_ids: [grid_initial_substation_voltage_kv, grid_initial_slack_span_length_ft, grid_initial_service_operational_as_of]
+  - id: initial_substation_138
+    label: Initial 200 MW / 138 kV station
+    domain: electrical
+    gate: initial grid-service substation
+    presence: site_evidenced
+    lifecycle: energized
+    as_of: 2026-08-25
+    source_ids: [mortenson_abilene_power_delivery]
+    fact_ids: [grid_initial_substation_voltage_kv, grid_initial_substation_capacity_mw, grid_initial_service_operational_as_of]
+  - id: utility_source_345
+    label: Unnamed 345 kV source
+    domain: electrical
+    gate: expansion grid watt reaches the transmission corridor
+    presence: site_evidenced
+    lifecycle: energized
+    as_of: 2026-03-10
+    source_ids: [mortenson_abilene_power_delivery]
+    fact_ids: [grid_expansion_substation_voltage_kv, grid_expansion_fully_energized_by]
+  - id: transmission_corridor_345
+    label: 345 kV expansion service
+    domain: electrical
+    gate: moves the expansion grid watt to the site substation
+    presence: site_evidenced
+    lifecycle: energized
+    as_of: 2026-03-10
+    source_ids: [mortenson_abilene_power_delivery]
+    fact_ids: [grid_expansion_substation_voltage_kv, grid_expansion_fully_energized_by]
+  - id: hv_protection_envelope_345
+    label: Abstract 345 kV protection envelope
+    domain: electrical
+    gate: abstract boundary for undisclosed switching and protection details
+    presence: site_evidenced
+    lifecycle: energized
+    as_of: 2026-03-10
+    source_ids: [mortenson_abilene_power_delivery]
+    fact_ids: [grid_expansion_substation_voltage_kv, grid_expansion_fully_energized_by]
+  - id: campus_substation_lpt_345
+    label: 1 GW / 345 kV expansion substation
+    domain: electrical
+    gate: expansion grid-service substation; exact campus-MV merge is unverified
+    presence: site_evidenced
+    lifecycle: energized
+    as_of: 2026-03-10
+    source_ids: [mortenson_abilene_power_delivery]
+    fact_ids: [grid_expansion_substation_voltage_kv, grid_expansion_substation_capacity_mw, grid_expansion_transformers_energized_count, grid_expansion_fully_energized_by]
   - id: nuclear_ppa
-    label: Nuclear plant (PPA)
-    domain: generation
-    gate: alternative origination; enters at the transmission corridor
-    note: course variant, not an Abilene fact — dashed, not the reference path
-  - id: utility_source
-    label: ERCOT / AEP
-    domain: electrical
-    gate: the grid watt arrives at the site boundary — 1.2 GW interconnection
+    label: Nuclear PPA overlay
+    domain: commercial_overlay
+    gate: contractual origination variant; not a local physical source
+    presence: course_variant
+    lifecycle: course_variant
+    as_of: null
+    source_ids: []
+    fact_ids: []
+    base_visible: false
 
-  # ---- Act: Transmission & interconnection ----
-  - id: transmission_corridor
-    label: 345 kV transmission corridor
+  # Abstract teaching envelope. Exact campus merge, feeder topology, and MV voltage are open.
+  - id: campus_mv_distribution
+    label: Abstract campus MV distribution envelope
     domain: electrical
-    gate: moves the grid watt to the site boundary   # ERCOT tops out at 345 kV
-    at_reference: AEP Abilene Northwest line; 300-ft slack-span tie (Mortenson).
-      First energized path was 200 MW at 138 kV; 1 GW 345 kV greenfield is the
-      teaching path.
-    chokepoint: null   # interconnection queue — VERIFY queue stats
-  - id: campus_substation_lpt
-    label: Large power transformer (campus substation)
+    gate: conceptual source-connection and building-feeder boundary
+    presence: teaching_reference
+    lifecycle: conceptual
+    as_of: 2026-08-25
+    source_ids: [tceq_37589_reference_drawing, mortenson_abilene_power_delivery]
+    fact_ids: [campus_mv_reference_design_voltage_kv, campus_lpt_secondary_as_built_voltage_kv]
+  - id: bess_package
+    label: BESS package
     domain: electrical
-    gate: 345 kV -> 34.5 kV
-    vendors: [Hitachi Energy, Siemens Energy, HD Hyundai Electric]
-    at_reference: 12.5-acre, 1 GW, 345 kV greenfield substation (civil start
-      Q2 2025) + initial 200 MW, 138 kV station — Mortenson EPC
-    chokepoint: null   # LPT lead time — VERIFY
-  - id: hv_switchgear
-    label: HV switchgear & protection
+    gate: future BESS package in a review design; exact campus connection unverified
+    presence: site_evidenced
+    lifecycle: future_design
+    as_of: 2024-12-04
+    source_ids: [tceq_37589_reference_drawing]
+    fact_ids: [bess_reference_design_status, bess_operational_status]
+  - id: diesel_backup_package
+    label: Emergency diesel backup package
     domain: electrical
-    gate: fault isolation; no energization without it
+    gate: authorized standby generation; exact campus connection unverified
+    presence: site_evidenced
+    lifecycle: permitted
+    as_of: 2025-04-24
+    source_ids: [tceq_177262_diesel_application, tceq_177262_diesel_review]
+    fact_ids: [diesel_units_authorized, diesel_permitted_nameplate_mw, diesel_units_installed, diesel_operational_units]
 
-  # ---- Act: Campus MV distribution ----
-  - id: mv_switchgear
-    label: 34.5 kV switchgear
-    domain: electrical
-    gate: splits the corridor watt into building feeders
-  - id: bess
-    label: BESS
-    domain: electrical
-    gate: absorbs GPU load transients the grid cannot follow  # seed -> payoff thread
-  - id: diesel_gensets
-    label: Backup generation
-    domain: electrical
-    gate: rides through grid loss; defines the redundancy topology
-    note: VERIFY at Abilene — 360.5 MW turbines are already permitted primary+backup;
-      a separate diesel farm may not exist
+  # Downstream equipment is a teaching or product-design reference, not an Abilene as-built claim.
   - id: unit_substation
     label: Unit substation transformer
     domain: electrical
-    gate: 34.5 kV -> 480 V
-
-  # ---- Act: Electrical room -> rack ----
+    gate: campus MV to facility LV AC
+    presence: teaching_reference
+    lifecycle: conceptual
+    as_of: 2026-08-25
+    source_ids: []
+    fact_ids: []
   - id: lv_switchgear
-    label: 480 V switchgear
+    label: LV switchgear
     domain: electrical
-    gate: distributes to UPS lineups
+    gate: protected distribution to UPS lineups
+    presence: teaching_reference
+    lifecycle: conceptual
+    as_of: 2026-08-25
+    source_ids: []
+    fact_ids: []
   - id: ups
     label: UPS
     domain: electrical
-    gate: bridges the gap until gensets pick up
-    vendors: [Eaton, Vertiv, Schneider Electric]
+    gate: stored-energy ride-through
+    presence: teaching_reference
+    lifecycle: conceptual
+    as_of: 2026-08-25
+    source_ids: []
+    fact_ids: []
   - id: busway
     label: Busway
     domain: electrical
-    gate: 480 V to the rack position
+    gate: facility AC to the rack position
+    presence: teaching_reference
+    lifecycle: conceptual
+    as_of: 2026-08-25
+    source_ids: []
+    fact_ids: []
   - id: power_shelf
-    label: Rack power shelves (PSU)
+    label: Rack power shelves
     domain: electrical
-    gate: 480 VAC -> 54 VDC busbar   # VERIFY per rack generation; 800 VDC coming
+    gate: product-design reference for rack AC to nominal 50–51 VDC busbar
+    presence: platform_evidenced
+    lifecycle: conceptual
+    as_of: 2026-03-03
+    source_ids: [crusoe_abilene_expansion_2025, nvidia_dgx_gb200_hardware]
+    fact_ids: [rack_platform_nvl72_design_reference, rack_power_shelf_output_vdc, rack_power_shelf_ac_input_voltage_v]
   - id: vrm
-    label: VRM
+    label: Voltage regulator module
     domain: electrical
-    gate: 54 V -> ~0.8 V at the socket
+    gate: teaching reference for rack DC to core voltage
+    presence: teaching_reference
+    lifecycle: conceptual
+    as_of: 2026-08-25
+    source_ids: []
+    fact_ids: []
   - id: die
     label: GPU die
     domain: compute
-    gate: the destination — and the turn; the delivered watt becomes heat
-
-  # ---- Act: The return (heat -> atmosphere) ----
+    gate: electrical destination and heat source for the operating platform family
+    presence: platform_evidenced
+    lifecycle: operational_confirmed
+    as_of: 2025-09-30
+    source_ids: [crusoe_abilene_live_2025, openai_stargate_oracle_2025]
+    fact_ids: [rack_platform, early_training_inference_live_by]
+  - id: rack_air_load
+    label: Air-cooled rack auxiliaries
+    domain: thermal
+    gate: product-documented non-CPU/GPU rack heat into the air path
+    presence: platform_evidenced
+    lifecycle: conceptual
+    as_of: 2026-03-03
+    source_ids: [crusoe_abilene_expansion_2025, nvidia_dgx_gb200_hardware]
+    fact_ids: [rack_platform_nvl72_design_reference, rack_air_cooled_components]
   - id: cold_plate
     label: Cold plate
     domain: thermal
-    gate: die heat flux -> liquid
+    gate: product/design reference for die heat into the technology coolant loop
+    presence: platform_evidenced
+    lifecycle: conceptual
+    as_of: 2026-03-03
+    source_ids: [crusoe_abilene_expansion_2025, nvidia_dgx_gb200_hardware]
+    fact_ids: [rack_platform_nvl72_design_reference, cooling_direct_to_chip_design, rack_liquid_cooled_components]
   - id: rack_manifold
-    label: Rack manifold
+    label: Rack supply and return headers
     domain: thermal
-    gate: aggregates rack coolant
+    gate: product/design reference for distinct technology-loop supply and return
+    presence: platform_evidenced
+    lifecycle: conceptual
+    as_of: 2026-03-03
+    source_ids: [crusoe_abilene_expansion_2025, nvidia_dgx_gb200_hardware]
+    fact_ids: [rack_platform_nvl72_design_reference, cooling_direct_to_chip_design, rack_liquid_cooled_components]
   - id: cdu
-    label: CDU
+    label: Coolant distribution unit
     domain: thermal
-    gate: technology loop -> facility loop (isolation + flow control)
-    vendors: [Vertiv, Motivair, Boyd]
+    gate: conceptual interface between technology and facility loops
+    presence: teaching_reference
+    lifecycle: conceptual
+    as_of: 2026-08-25
+    source_ids: []
+    fact_ids: []
   - id: crah
-    label: CRAH / fan walls
+    label: CRAH / fan-wall branch
     domain: thermal
-    gate: residual air-cooled load -> facility loop
+    gate: conceptual air-load path into the facility loop
+    presence: teaching_reference
+    lifecycle: conceptual
+    as_of: 2026-08-25
+    source_ids: []
+    fact_ids: []
   - id: facility_loop
-    label: Facility water loop
+    label: Closed facility water loop
     domain: thermal
-    gate: moves heat to the plant
-  - id: chiller_hx
-    label: Chillers / economizer HX
+    gate: selected-design closed loop carrying heat to the plant
+    presence: site_evidenced
+    lifecycle: conceptual
+    as_of: 2025-08-05
+    source_ids: [crusoe_abilene_cooling_2025, crusoe_abilene_expansion_2025]
+    fact_ids: [cooling_heat_rejection_posture, cooling_direct_to_chip_design]
+  - id: air_cooled_chiller
+    label: Air-cooled chiller and condenser
     domain: thermal
-    gate: lifts or bypasses heat to rejection temperature
-  - id: cooling_tower
-    label: Cooling towers / dry coolers
-    domain: thermal
-    gate: heat -> atmosphere
-    chokepoint: null   # cooling equipment lead times — VERIFY
-    at_reference: air-cooled chillers only — closed-loop, zero-evaporation;
-      no towers at Abilene (water scarcity drove the design)  # Crusoe blog
-  - id: makeup_water
-    label: Makeup water & treatment
+    gate: selected-design facility-loop heat rejection to ambient air
+    presence: site_evidenced
+    lifecycle: conceptual
+    as_of: 2025-08-05
+    source_ids: [crusoe_abilene_cooling_2025]
+    fact_ids: [cooling_heat_rejection_posture]
+  - id: fill_treatment
+    label: Initial fill and water treatment
     domain: site
-    gate: evaporative rejection cannot run without it
-    at_reference: near-nil — ~1M gal one-time fill, ~50k gal/yr per building
+    gate: design requirement for filling and maintaining the closed facility loop
+    presence: site_evidenced
+    lifecycle: conceptual
+    as_of: 2025-08-05
+    source_ids: [crusoe_abilene_cooling_2025]
+    fact_ids: [cooling_initial_fill_gallons_per_building, cooling_annual_maintenance_gallons_per_building]
   - id: atmosphere
     label: Atmosphere
     domain: thermal
-    gate: terminal heat sink; closes the loop back to the opening act
+    gate: terminal heat sink
+    presence: physical_sink
+    lifecycle: terminal
+    as_of: null
+    source_ids: []
+    fact_ids: []
 
 edges:
-  - {from: gas_turbine, to: generator, carries: shaft power}
-  - {from: generator, to: gsu_transformer, carries: electricity@20kV}
-  - {from: gsu_transformer, to: mv_switchgear, carries: electricity@34.5kV}
-  - {from: utility_source, to: transmission_corridor, carries: electricity@345kV}
-  - {from: nuclear_ppa, to: transmission_corridor, carries: electricity@345kV, variant: origin}
-  # HV switching/protection sits on the 345 kV side, upstream of the LPT
-  - {from: transmission_corridor, to: hv_switchgear, carries: electricity@345kV}
-  - {from: hv_switchgear, to: campus_substation_lpt, carries: electricity@345kV}
-  - {from: campus_substation_lpt, to: mv_switchgear, carries: electricity@34.5kV}
-  - {from: bess, to: mv_switchgear, carries: electricity@34.5kV, variant: bidirectional}
-  - {from: diesel_gensets, to: mv_switchgear, carries: electricity@34.5kV, variant: standby}
-  - {from: mv_switchgear, to: unit_substation, carries: electricity@34.5kV}
-  - {from: unit_substation, to: lv_switchgear, carries: electricity@480V}
-  - {from: lv_switchgear, to: ups, carries: electricity@480V}
-  - {from: ups, to: busway, carries: electricity@480V}
-  - {from: busway, to: power_shelf, carries: electricity@480V}
-  - {from: power_shelf, to: vrm, carries: electricity@54VDC}
-  - {from: vrm, to: die, carries: electricity@0.8V}
-  - {from: die, to: cold_plate, carries: heat}
-  - {from: cold_plate, to: rack_manifold, carries: heat@liquid}
-  - {from: rack_manifold, to: cdu, carries: heat@liquid}
-  - {from: cdu, to: facility_loop, carries: heat@liquid}
-  - {from: crah, to: facility_loop, carries: heat@liquid, variant: air-residual}
-  - {from: facility_loop, to: chiller_hx, carries: heat@liquid}
-  - {from: chiller_hx, to: cooling_tower, carries: heat@liquid}
-  - {from: makeup_water, to: cooling_tower, carries: water}
-  - {from: cooling_tower, to: atmosphere, carries: heat@air}
+  - {id: btm_fuel_to_shaft, from: gas_turbine, to: generator, carries: shaft_power, presence: site_evidenced, lifecycle: permitted, normal_state: available_if_built, flow_direction: forward, source_ids: [tceq_177263_gas_review], fact_ids: [gas_turbine_units_authorized]}
+  - {id: btm_terminal_to_gsu, from: generator, to: gsu_transformer, carries: electricity@generator_terminal_mv, presence: site_evidenced, lifecycle: permitted, normal_state: unknown, flow_direction: forward, source_ids: [tceq_177263_gas_review, solar_titan_350_datasheet], fact_ids: [gas_turbine_units_authorized, generator_terminal_model_voltage_range_kv, generator_terminal_site_voltage_kv]}
+  - {id: btm_gsu_to_mv, from: gsu_transformer, to: campus_mv_distribution, carries: electricity@campus_mv, presence: site_evidenced, lifecycle: permitted, normal_state: unknown, flow_direction: forward, source_ids: [tceq_177263_gas_review, tceq_37589_reference_drawing, mortenson_abilene_power_delivery], fact_ids: [gas_turbine_units_authorized, campus_mv_reference_design_voltage_kv, campus_lpt_secondary_as_built_voltage_kv]}
+
+  - {id: grid138_source_to_tie, from: utility_source_138, to: initial_tie_138, carries: electricity@138kV, presence: site_evidenced, lifecycle: energized, normal_state: unknown, flow_direction: forward, source_ids: [mortenson_abilene_power_delivery], fact_ids: [grid_initial_source_line, grid_initial_substation_voltage_kv, grid_initial_slack_span_length_ft, grid_initial_service_operational_as_of]}
+  - {id: grid138_tie_to_station, from: initial_tie_138, to: initial_substation_138, carries: electricity@138kV, presence: site_evidenced, lifecycle: energized, normal_state: unknown, flow_direction: forward, source_ids: [mortenson_abilene_power_delivery], fact_ids: [grid_initial_substation_voltage_kv, grid_initial_substation_capacity_mw, grid_initial_slack_span_length_ft, grid_initial_service_operational_as_of]}
+  - {id: grid138_station_to_mv, from: initial_substation_138, to: campus_mv_distribution, carries: electricity@campus_mv, presence: teaching_reference, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [], fact_ids: []}
+
+  - {id: grid345_source_to_corridor, from: utility_source_345, to: transmission_corridor_345, carries: electricity@345kV, presence: site_evidenced, lifecycle: energized, normal_state: unknown, flow_direction: forward, source_ids: [mortenson_abilene_power_delivery], fact_ids: [grid_expansion_substation_voltage_kv, grid_expansion_fully_energized_by]}
+  - {id: grid345_corridor_to_hv, from: transmission_corridor_345, to: hv_protection_envelope_345, carries: electricity@345kV, presence: site_evidenced, lifecycle: energized, normal_state: unknown, flow_direction: forward, source_ids: [mortenson_abilene_power_delivery], fact_ids: [grid_expansion_substation_voltage_kv, grid_expansion_fully_energized_by]}
+  - {id: grid345_hv_to_lpt, from: hv_protection_envelope_345, to: campus_substation_lpt_345, carries: electricity@345kV, presence: site_evidenced, lifecycle: energized, normal_state: unknown, flow_direction: forward, source_ids: [mortenson_abilene_power_delivery], fact_ids: [grid_expansion_substation_voltage_kv, grid_expansion_transformers_energized_count, grid_expansion_fully_energized_by]}
+  - {id: grid345_lpt_to_mv, from: campus_substation_lpt_345, to: campus_mv_distribution, carries: electricity@campus_mv, presence: teaching_reference, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [], fact_ids: []}
+  - {id: nuclear_ppa_overlay, from: nuclear_ppa, to: utility_source_345, carries: contractual_attribute, presence: course_variant, lifecycle: course_variant, normal_state: not_physical, flow_direction: none, source_ids: [], fact_ids: [], base_visible: false}
+
+  - {id: bess_to_mv, from: bess_package, to: campus_mv_distribution, carries: electricity@campus_mv, presence: teaching_reference, lifecycle: conceptual, normal_state: unknown, flow_direction: bidirectional, source_ids: [], fact_ids: []}
+  - {id: diesel_to_mv, from: diesel_backup_package, to: campus_mv_distribution, carries: electricity@campus_mv, presence: teaching_reference, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [], fact_ids: []}
+  - {id: mv_to_unit_sub, from: campus_mv_distribution, to: unit_substation, carries: electricity@campus_mv, presence: teaching_reference, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [], fact_ids: []}
+  - {id: unit_sub_to_lv, from: unit_substation, to: lv_switchgear, carries: electricity@facility_lv_ac, presence: teaching_reference, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [], fact_ids: []}
+  - {id: lv_to_ups, from: lv_switchgear, to: ups, carries: electricity@facility_lv_ac, presence: teaching_reference, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [], fact_ids: []}
+  - {id: ups_to_busway, from: ups, to: busway, carries: electricity@facility_lv_ac, presence: teaching_reference, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [], fact_ids: []}
+  - {id: busway_to_power_shelf, from: busway, to: power_shelf, carries: electricity@rack_ac, presence: platform_evidenced, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [crusoe_abilene_expansion_2025, nvidia_dgx_gb200_hardware], fact_ids: [rack_platform_nvl72_design_reference, rack_power_shelf_ac_input_voltage_v]}
+  - {id: power_shelf_to_vrm, from: power_shelf, to: vrm, carries: electricity@rack_dc, presence: platform_evidenced, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [crusoe_abilene_expansion_2025, nvidia_dgx_gb200_hardware], fact_ids: [rack_platform_nvl72_design_reference, rack_power_shelf_output_vdc]}
+  - {id: vrm_to_die, from: vrm, to: die, carries: electricity@core_voltage, presence: teaching_reference, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [], fact_ids: []}
+
+  - {id: die_to_cold_plate_heat, from: die, to: cold_plate, carries: heat@solid, presence: platform_evidenced, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [crusoe_abilene_expansion_2025, nvidia_dgx_gb200_hardware], fact_ids: [cooling_direct_to_chip_design, rack_liquid_cooled_components]}
+  - {id: cold_plate_to_manifold_return, from: cold_plate, to: rack_manifold, carries: heat@technology_return, presence: platform_evidenced, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [crusoe_abilene_expansion_2025, nvidia_dgx_gb200_hardware], fact_ids: [cooling_direct_to_chip_design, rack_liquid_cooled_components]}
+  - {id: manifold_to_cdu_return, from: rack_manifold, to: cdu, carries: heat@technology_return, presence: teaching_reference, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [], fact_ids: []}
+  - {id: cdu_to_manifold_supply, from: cdu, to: rack_manifold, carries: coolant@technology_supply, presence: teaching_reference, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [], fact_ids: []}
+  - {id: manifold_to_cold_plate_supply, from: rack_manifold, to: cold_plate, carries: coolant@technology_supply, presence: platform_evidenced, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [crusoe_abilene_expansion_2025, nvidia_dgx_gb200_hardware], fact_ids: [cooling_direct_to_chip_design, rack_liquid_cooled_components]}
+  - {id: cdu_to_facility_return, from: cdu, to: facility_loop, carries: heat@facility_return, presence: teaching_reference, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [], fact_ids: []}
+  - {id: facility_to_cdu_supply, from: facility_loop, to: cdu, carries: coolant@facility_supply, presence: teaching_reference, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [], fact_ids: []}
+  - {id: rack_air_load_to_crah, from: rack_air_load, to: crah, carries: heat@air, presence: platform_evidenced, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [nvidia_dgx_gb200_hardware], fact_ids: [rack_air_cooled_components]}
+  - {id: crah_to_facility_return, from: crah, to: facility_loop, carries: heat@facility_return, presence: teaching_reference, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [], fact_ids: []}
+  - {id: facility_to_crah_supply, from: facility_loop, to: crah, carries: coolant@facility_supply, presence: teaching_reference, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [], fact_ids: []}
+  - {id: facility_to_chiller_return, from: facility_loop, to: air_cooled_chiller, carries: heat@facility_return, presence: site_evidenced, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [crusoe_abilene_cooling_2025], fact_ids: [cooling_heat_rejection_posture]}
+  - {id: chiller_to_facility_supply, from: air_cooled_chiller, to: facility_loop, carries: coolant@facility_supply, presence: site_evidenced, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [crusoe_abilene_cooling_2025], fact_ids: [cooling_heat_rejection_posture]}
+  - {id: chiller_to_atmosphere, from: air_cooled_chiller, to: atmosphere, carries: heat@air, presence: site_evidenced, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [crusoe_abilene_cooling_2025], fact_ids: [cooling_heat_rejection_posture]}
+  - {id: fill_to_facility_loop, from: fill_treatment, to: facility_loop, carries: water@fill, presence: site_evidenced, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [crusoe_abilene_cooling_2025], fact_ids: [cooling_initial_fill_gallons_per_building, cooling_annual_maintenance_gallons_per_building]}

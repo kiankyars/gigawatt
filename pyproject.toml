@@ -11,6 +11,8 @@ dependencies = [
 gigawatt-symbols = "gigawatt.sheet:main"
 gigawatt-mock = "gigawatt.mock:main"
 gigawatt-layout = "gigawatt.layout:main"
+gigawatt-scene = "gigawatt.scene:main"
+gigawatt-validate = "gigawatt.validate:main"
 
 [build-system]
 requires = ["uv_build>=0.8,<0.13"]

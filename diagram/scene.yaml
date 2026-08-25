@@ -1,0 +1,285 @@
+# GIGAWATT hybrid scene placement (v1)
+#
+# Semantic topology, labels, facts, and edge carries remain in master.yaml.
+# This file owns only spatial placement and presentation geometry. Every scene
+# node and route is keyed to the corresponding master node or edge ID.
+
+meta:
+  version: 1
+  master: master.yaml
+  units: scene-units
+  coverage: exact
+
+world:
+  camera_up: [0, 1, 0]
+  ground:
+    size: [2600, 1500]
+    at: [0, -2, 0]
+    fill: paper
+  fog: {near: 1900, far: 3600}
+
+# Non-semantic architectural context. These shapes locate the master nodes but
+# never carry labels or facts.
+structures:
+  - id: campus-pad
+    primitives:
+      - {shape: box, size: [1180, 8, 700], at: [420, 2, 0], fill: faint, opacity: 0.18}
+  - id: data-hall-shell
+    primitives:
+      - {shape: box, size: [850, 10, 520], at: [470, 8, 0], fill: faint, opacity: 0.34}
+      - {shape: box, size: [850, 170, 10], at: [470, 90, -255], fill: faint, opacity: 0.22}
+      - {shape: box, size: [10, 170, 520], at: [45, 90, 0], fill: faint, opacity: 0.22}
+      - {shape: box, size: [10, 170, 520], at: [895, 90, 0], fill: faint, opacity: 0.22}
+  - id: electrical-room-partition
+    primitives:
+      - {shape: box, size: [8, 150, 500], at: [360, 84, 0], fill: faint, opacity: 0.22}
+  - id: rack-row-context
+    repeat:
+      count: 6
+      step: [0, 0, 58]
+    primitives:
+      - {shape: box, size: [34, 92, 42], at: [560, 52, -145], fill: ink, opacity: 0.50}
+
+nodes:
+  gas_turbine:
+    at: [-1110, 0, -310]
+    label_at: [-1110, 105, -310]
+    primitives:
+      - {shape: box, size: [130, 48, 92], at: [0, 24, 0], fill: faint, opacity: 0.85}
+      - {shape: cylinder, radius: 12, height: 54, at: [-38, 74, 0], fill: ink, opacity: 0.72}
+  generator:
+    at: [-970, 0, -310]
+    label_at: [-970, 86, -310]
+    primitives:
+      - {shape: cylinder, radius: 26, height: 70, at: [0, 30, 0], rotate: [0, 0, 90], fill: ink, opacity: 0.72}
+  gsu_transformer:
+    at: [-835, 0, -310]
+    label_at: [-835, 100, -310]
+    primitives:
+      - {shape: box, size: [66, 58, 58], at: [0, 29, 0], fill: ink, opacity: 0.68}
+      - {shape: cylinder, radius: 5, height: 28, at: [-18, 66, 0], fill: faint}
+      - {shape: cylinder, radius: 5, height: 28, at: [0, 66, 0], fill: faint}
+      - {shape: cylinder, radius: 5, height: 28, at: [18, 66, 0], fill: faint}
+  nuclear_ppa:
+    at: [-1160, 0, 500]
+    label_at: [-1160, 82, 500]
+    primitives:
+      - {shape: cylinder, radius: 34, height: 48, at: [0, 24, 0], fill: faint, opacity: 0.55}
+  utility_source_138:
+    at: [-1120, 0, 430]
+    label_at: [-1120, 132, 430]
+    primitives:
+      - {shape: box, size: [8, 120, 8], at: [0, 60, 0], fill: ink, opacity: 0.62}
+      - {shape: box, size: [92, 5, 5], at: [0, 112, 0], fill: ink, opacity: 0.62}
+  initial_tie_138:
+    at: [-860, 0, 430]
+    label_at: [-860, 132, 430]
+    primitives:
+      - {shape: box, size: [8, 118, 8], at: [0, 59, 0], fill: ink, opacity: 0.62}
+      - {shape: box, size: [82, 5, 5], at: [0, 108, 0], fill: ink, opacity: 0.62}
+  initial_substation_138:
+    at: [-630, 0, 365]
+    label_at: [-630, 112, 365]
+    primitives:
+      - {shape: box, size: [84, 62, 70], at: [0, 31, 0], fill: ink, opacity: 0.68}
+      - {shape: cylinder, radius: 6, height: 30, at: [-18, 73, 0], fill: faint}
+      - {shape: cylinder, radius: 6, height: 30, at: [0, 73, 0], fill: faint}
+      - {shape: cylinder, radius: 6, height: 30, at: [18, 73, 0], fill: faint}
+  utility_source_345:
+    at: [-1120, 0, 200]
+    label_at: [-1120, 152, 200]
+    primitives:
+      - {shape: box, size: [8, 120, 8], at: [0, 60, 0], fill: ink, opacity: 0.62}
+      - {shape: box, size: [92, 5, 5], at: [0, 112, 0], fill: ink, opacity: 0.62}
+  transmission_corridor_345:
+    at: [-770, 0, 200]
+    label_at: [-770, 178, 200]
+    primitives:
+      - {shape: box, size: [8, 150, 8], at: [-100, 75, 0], fill: ink, opacity: 0.62}
+      - {shape: box, size: [100, 5, 5], at: [-100, 138, 0], fill: ink, opacity: 0.62}
+      - {shape: box, size: [8, 150, 8], at: [100, 75, 0], fill: ink, opacity: 0.62}
+      - {shape: box, size: [100, 5, 5], at: [100, 138, 0], fill: ink, opacity: 0.62}
+  hv_protection_envelope_345:
+    at: [-540, 0, 185]
+    label_at: [-540, 92, 185]
+    primitives:
+      - {shape: box, size: [52, 54, 52], at: [0, 27, 0], fill: faint, opacity: 0.46}
+  campus_substation_lpt_345:
+    at: [-420, 0, 160]
+    label_at: [-420, 112, 160]
+    primitives:
+      - {shape: box, size: [84, 66, 72], at: [0, 33, 0], fill: ink, opacity: 0.68}
+      - {shape: cylinder, radius: 6, height: 34, at: [-22, 78, 0], fill: faint}
+      - {shape: cylinder, radius: 6, height: 34, at: [0, 78, 0], fill: faint}
+      - {shape: cylinder, radius: 6, height: 34, at: [22, 78, 0], fill: faint}
+  campus_mv_distribution:
+    at: [-255, 0, 0]
+    label_at: [-165, 88, 0]
+    primitives:
+      - {shape: box, size: [150, 48, 38], at: [0, 24, 0], fill: faint, opacity: 0.46}
+  bess_package:
+    at: [-245, 0, -165]
+    label_at: [-245, 75, -165]
+    primitives:
+      - {shape: box, size: [112, 42, 50], at: [0, 21, 0], fill: faint, opacity: 0.42}
+  diesel_backup_package:
+    at: [-445, 0, -255]
+    label_at: [-445, 82, -255]
+    primitives:
+      - {shape: box, size: [118, 44, 56], at: [0, 22, 0], fill: faint, opacity: 0.52}
+  unit_substation:
+    at: [115, 0, -120]
+    label_at: [115, 104, -120]
+    primitives:
+      - {shape: box, size: [76, 68, 70], at: [0, 34, 0], fill: ink, opacity: 0.68}
+  lv_switchgear:
+    at: [215, 0, -120]
+    label_at: [215, 92, -120]
+    primitives:
+      - {shape: box, size: [50, 64, 54], at: [0, 32, 0], fill: ink, opacity: 0.64}
+  ups:
+    at: [300, 0, -120]
+    label_at: [300, 102, -120]
+    primitives:
+      - {shape: box, size: [72, 70, 62], at: [0, 35, 0], fill: ink, opacity: 0.68}
+  busway:
+    at: [405, 96, -62]
+    label_at: [405, 114, -62]
+    primitives:
+      - {shape: box, size: [185, 15, 15], at: [0, 0, 0], fill: ink, opacity: 0.62}
+  power_shelf:
+    at: [548, 64, 22]
+    label_at: [548, 145, 22]
+    primitives:
+      - {shape: box, size: [38, 24, 34], at: [0, 0, 0], fill: ink, opacity: 0.82}
+  vrm:
+    at: [560, 48, 22]
+    label_at: [610, 122, 22]
+    primitives:
+      - {shape: box, size: [28, 11, 25], at: [0, 0, 0], fill: ink, opacity: 0.82}
+  die:
+    at: [572, 36, 22]
+    label_at: [530, 100, 22]
+    primitives:
+      - {shape: box, size: [22, 8, 22], at: [0, 0, 0], fill: thermal:die_heat}
+  rack_air_load:
+    at: [600, 38, -42]
+    label_at: [665, 260, -42]
+    primitives:
+      - {shape: box, size: [38, 28, 34], at: [0, 0, 0], fill: faint, opacity: 0.70}
+      - {shape: cylinder, radius: 8, height: 5, at: [20, 14, 19], rotate: [90, 0, 0], fill: thermal:air, opacity: 0.72}
+  cold_plate:
+    at: [572, 49, 22]
+    label_at: [650, 80, 22]
+    primitives:
+      - {shape: box, size: [28, 5, 28], at: [0, 0, 0], fill: thermal:technology_return}
+  rack_manifold:
+    at: [650, 35, 46]
+    label_at: [650, 165, 46]
+    primitives:
+      - {shape: cylinder, radius: 5, height: 76, at: [0, 30, -10], rotate: [0, 0, 90], fill: thermal:technology_return}
+      - {shape: cylinder, radius: 5, height: 76, at: [0, 30, 10], rotate: [0, 0, 90], fill: thermal:technology_supply}
+  cdu:
+    at: [742, 0, 70]
+    label_at: [742, 105, 70]
+    primitives:
+      - {shape: box, size: [68, 74, 62], at: [0, 37, 0], fill: faint, opacity: 0.75}
+  crah:
+    at: [665, 0, -135]
+    label_at: [665, 98, -135]
+    primitives:
+      - {shape: box, size: [78, 70, 62], at: [0, 35, 0], fill: faint, opacity: 0.70}
+  facility_loop:
+    at: [825, 68, 0]
+    label_at: [825, 145, 0]
+    primitives:
+      - {shape: cylinder, radius: 7, height: 118, at: [0, 0, 0], rotate: [0, 0, 90], fill: thermal:facility_return}
+  air_cooled_chiller:
+    at: [825, 186, 0]
+    label_at: [825, 260, 0]
+    primitives:
+      - {shape: box, size: [106, 34, 72], at: [0, 0, 0], fill: faint, opacity: 0.82}
+  fill_treatment:
+    at: [980, 0, -175]
+    label_at: [980, 92, -175]
+    primitives:
+      - {shape: cylinder, radius: 25, height: 56, at: [0, 28, 0], fill: faint, opacity: 0.46}
+  atmosphere:
+    at: [1010, 345, 0]
+    label_at: [1010, 300, 0]
+    primitives:
+      - {shape: cylinder, radius: 36, height: 8, at: [0, 0, 0], fill: thermal:atmosphere, opacity: 0.42}
+
+edges:
+  btm_fuel_to_shaft:
+    {points: [[-1045, 30, -310], [-1005, 30, -310]]}
+  btm_terminal_to_gsu:
+    {points: [[-935, 30, -310], [-868, 30, -310]]}
+  btm_gsu_to_mv:
+    {points: [[-802, 30, -310], [-700, 30, -310], [-700, 18, -8], [-330, 18, -8]]}
+
+  grid138_source_to_tie:
+    {points: [[-1120, 112, 430], [-860, 108, 430]]}
+  grid138_tie_to_station:
+    {points: [[-860, 108, 430], [-760, 108, 430], [-672, 31, 365]]}
+  grid138_station_to_mv:
+    {points: [[-588, 31, 365], [-520, 31, 365], [-285, 18, 95], [-285, 18, 19]]}
+
+  grid345_source_to_corridor:
+    {points: [[-1120, 112, 200], [-870, 138, 200]]}
+  grid345_corridor_to_hv:
+    {points: [[-670, 138, 200], [-590, 88, 185], [-566, 45, 185]]}
+  grid345_hv_to_lpt:
+    {points: [[-514, 27, 185], [-462, 38, 160]]}
+  grid345_lpt_to_mv:
+    {points: [[-378, 34, 160], [-350, 34, 160], [-255, 18, 70], [-255, 18, 19]]}
+  nuclear_ppa_overlay:
+    {points: [[-1160, 48, 500], [-1160, 112, 200], [-1120, 112, 200]]}
+
+  bess_to_mv:
+    {points: [[-245, 28, -140], [-230, 18, -80], [-230, 18, -19]]}
+  diesel_to_mv:
+    {points: [[-386, 22, -255], [-190, 18, -180], [-190, 18, -19]]}
+  mv_to_unit_sub:
+    {points: [[-180, 24, 0], [-20, 24, 0], [-20, 34, -120], [77, 34, -120]]}
+  unit_sub_to_lv:
+    {points: [[153, 34, -120], [190, 32, -120]]}
+  lv_to_ups:
+    {points: [[240, 32, -120], [264, 35, -120]]}
+  ups_to_busway:
+    {points: [[336, 35, -120], [360, 96, -62], [312, 96, -62]]}
+  busway_to_power_shelf:
+    {points: [[497, 96, -62], [530, 96, 22], [548, 76, 22]]}
+  power_shelf_to_vrm:
+    {points: [[548, 60, 22], [560, 54, 22]]}
+  vrm_to_die:
+    {points: [[560, 43, 22], [572, 40, 22]]}
+
+  die_to_cold_plate_heat:
+    {points: [[572, 40, 22], [572, 49, 22]], tone: thermal:die_heat}
+  cold_plate_to_manifold_return:
+    {points: [[586, 52, 18], [600, 65, 36], [612, 65, 36]], tone: thermal:technology_return}
+  manifold_to_cdu_return:
+    {points: [[688, 65, 36], [700, 65, 66], [708, 49, 66]], tone: thermal:technology_return}
+  cdu_to_manifold_supply:
+    {points: [[708, 35, 78], [700, 55, 78], [688, 65, 56]], tone: thermal:technology_supply}
+  manifold_to_cold_plate_supply:
+    {points: [[612, 65, 56], [600, 48, 30], [586, 46, 30]], tone: thermal:technology_supply}
+  cdu_to_facility_return:
+    {points: [[776, 50, 66], [825, 76, 58]], tone: thermal:facility_return}
+  facility_to_cdu_supply:
+    {points: [[825, 58, -10], [790, 36, 50], [776, 34, 78]], tone: thermal:facility_supply}
+  rack_air_load_to_crah:
+    {points: [[619, 52, -42], [635, 70, -82], [665, 70, -104]], tone: thermal:air}
+  crah_to_facility_return:
+    {points: [[704, 42, -139], [825, 42, -80], [825, 62, -55]], tone: thermal:facility_return}
+  facility_to_crah_supply:
+    {points: [[825, 55, -42], [780, 28, -95], [704, 28, -127]], tone: thermal:facility_supply}
+  facility_to_chiller_return:
+    {points: [[819, 127, 8], [819, 169, 8]], tone: thermal:facility_return}
+  chiller_to_facility_supply:
+    {points: [[835, 169, -8], [835, 127, -8]], tone: thermal:facility_supply}
+  chiller_to_atmosphere:
+    {points: [[878, 190, 0], [950, 250, 0], [1010, 345, 0]], tone: thermal:air}
+  fill_to_facility_loop:
+    {points: [[980, 56, -175], [930, 70, -100], [835, 68, -35]], tone: thermal:water}

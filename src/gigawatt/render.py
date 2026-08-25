@@ -42,35 +42,41 @@ def wire(color: str, *pts: tuple[float, float], w: float = tokens.STROKE_HEAVY,
     return el("path", **attrs)
 
 
-def lbl(x: float, y: float, s: str, size: float = 10.5, weight: int = 600,
+def lbl(x: float, y: float, s: str, size: float = 12.5, weight: int = 600,
         fill: str = tokens.INK, anchor: str = "middle") -> str:
     return text(x, y, s, size=size, weight=weight, fill=fill, anchor=anchor)
 
 
-def note(x: float, y: float, s: str, size: float = 9,
+def note(x: float, y: float, s: str, size: float = 10.5,
          anchor: str = "middle") -> str:
-    return text(x, y, s, size=size, fill=tokens.FAINT, anchor=anchor)
+    return text(x, y, s, size=size, fill=tokens.MUTED_TEXT, anchor=anchor)
 
 
-def journey_bar(x: float, y: float, active: str | None = None) -> str:
-    """Voltage descent + thermal ascent swatch strips."""
+def journey_bar(x: float, y: float, journey: dict | None = None,
+                active: str | None = None) -> str:
+    """Render the ordered carrier/state journey declared by the master."""
     out: list[str] = []
-    sw, gap = 74, 6
-    for name, color in tokens.VOLTAGE.items():
+    journey = journey or {
+        "electrical": ["source_branches", "campus_mv", "facility_lv_ac", "rack_dc", "core_voltage"],
+        "thermal": ["die_heat", "technology_return", "facility_return", "atmosphere"],
+    }
+    sw, gap = 72, 6
+    for name in journey["electrical"]:
+        color = tokens.VOLTAGE[name]
         dim = active is not None and name != active
         out.append(el("rect", x=x, y=y, width=sw, height=16, fill=color,
                       fill_opacity=0.22 if dim else 1.0))
-        out.append(text(x + sw / 2, y + 27, name, size=9,
-                        fill=tokens.FAINT if dim else tokens.INK))
+        out.append(text(x + sw / 2, y + 29, tokens.JOURNEY_LABEL[name], size=8.5,
+                        fill=tokens.MUTED_TEXT if dim else tokens.INK))
         x += sw + gap
     x += 14
-    for name in ("die", "liquid_hot", "liquid_warm", "air"):
+    for name in journey["thermal"]:
         color = tokens.THERMAL[name]
         dim = active is not None and name != active
         out.append(el("rect", x=x, y=y, width=sw * 0.7, height=16, fill=color,
                       fill_opacity=0.22 if dim else 1.0))
-        out.append(text(x + sw * 0.35, y + 27, name.replace("_", " "), size=9,
-                        fill=tokens.FAINT if dim else tokens.INK))
+        out.append(text(x + sw * 0.35, y + 29, tokens.JOURNEY_LABEL[name], size=8.5,
+                        fill=tokens.MUTED_TEXT if dim else tokens.INK))
         x += sw * 0.7 + gap
     return "".join(out)
 

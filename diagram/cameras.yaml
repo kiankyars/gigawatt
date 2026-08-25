@@ -1,0 +1,153 @@
+# Hybrid camera states. `viewBox`/`well` keep these states compatible with the
+# 2D renderer; `mode`, `position`, and `target` drive the hybrid player.
+
+meta:
+  version: 1
+  master: master.yaml
+  scene: scene.yaml
+
+vertical_slice:
+  - system_orientation
+  - campus_establishing
+  - electrical_room
+  - data_hall_rack
+  - watt_heat_handoff
+  - thermal_return
+
+cameras:
+  - id: system_orientation
+    mode: 2d
+    title: System orientation
+    subtitle: Read the complete path before entering the campus.
+    viewBox: [0, 0, 1920, 1080]
+    well: [80, 140, 1760, 820]
+    map_view: [0, 0, 1920, 1080]
+    focus_nodes: []
+    focus_edges: []
+
+  - id: campus_establishing
+    mode: 3d
+    title: Campus establishing view
+    subtitle: Grid and behind-the-meter paths remain separate until campus distribution.
+    viewBox: [20, 180, 1740, 700]
+    well: [80, 140, 1760, 820]
+    position: [1280, 930, 1510]
+    target: [-50, 40, 0]
+    focus_nodes:
+      - gas_turbine
+      - generator
+      - gsu_transformer
+      - utility_source_138
+      - initial_tie_138
+      - initial_substation_138
+      - utility_source_345
+      - transmission_corridor_345
+      - hv_protection_envelope_345
+      - campus_substation_lpt_345
+      - campus_mv_distribution
+    label_nodes:
+      - gas_turbine
+      - utility_source_138
+      - initial_substation_138
+      - utility_source_345
+      - campus_substation_lpt_345
+      - campus_mv_distribution
+    focus_edges:
+      - btm_fuel_to_shaft
+      - btm_terminal_to_gsu
+      - btm_gsu_to_mv
+      - grid138_source_to_tie
+      - grid138_tie_to_station
+      - grid138_station_to_mv
+      - grid345_source_to_corridor
+      - grid345_corridor_to_hv
+      - grid345_hv_to_lpt
+      - grid345_lpt_to_mv
+
+  - id: electrical_room
+    mode: 3d
+    title: Electrical room
+    subtitle: Follow the master path through the building power train.
+    viewBox: [950, 340, 330, 500]
+    well: [80, 140, 900, 820]
+    position: [590, 330, 360]
+    target: [230, 48, -105]
+    focus_nodes: [unit_substation, lv_switchgear, ups, busway]
+    focus_edges:
+      - unit_sub_to_lv
+      - lv_to_ups
+      - ups_to_busway
+
+  - id: data_hall_rack
+    mode: 3d
+    title: Data hall and rack
+    subtitle: Move from room-scale distribution to the point of use.
+    viewBox: [1245, 505, 300, 345]
+    well: [80, 140, 900, 820]
+    position: [790, 210, 260]
+    target: [560, 55, 25]
+    focus_nodes: [busway, power_shelf, vrm, die, rack_air_load, cold_plate, rack_manifold]
+    label_nodes: [busway, power_shelf, vrm, die, cold_plate, rack_manifold]
+    focus_edges:
+      - busway_to_power_shelf
+      - power_shelf_to_vrm
+      - vrm_to_die
+      - die_to_cold_plate_heat
+      - cold_plate_to_manifold_return
+
+  - id: watt_heat_handoff
+    mode: overlay
+    title: The watt becomes heat
+    subtitle: Return to the engineering map for the semantic handoff.
+    viewBox: [1000, 540, 650, 300]
+    well: [80, 160, 1560, 720]
+    map_view: [1000, 540, 650, 300]
+    map_asset: map_watt_heat_handoff.svg
+    focus_nodes: [die, cold_plate]
+    focus_edges: [die_to_cold_plate_heat]
+    focus_labels: [region_rack, die_turn, cold_plate]
+    annotation:
+      node: die
+      fields: [label, gate, lifecycle, as_of, source_ids]
+
+  - id: thermal_return
+    mode: 3d
+    title: Thermal return
+    subtitle: Follow every heat-transfer gate to the terminal sink.
+    viewBox: [1325, 65, 485, 780]
+    well: [80, 140, 900, 820]
+    position: [1240, 560, 690]
+    target: [820, 130, 0]
+    focus_nodes:
+      - die
+      - rack_air_load
+      - cold_plate
+      - rack_manifold
+      - cdu
+      - crah
+      - facility_loop
+      - air_cooled_chiller
+      - fill_treatment
+      - atmosphere
+    focus_edges:
+      - die_to_cold_plate_heat
+      - cold_plate_to_manifold_return
+      - manifold_to_cdu_return
+      - cdu_to_manifold_supply
+      - manifold_to_cold_plate_supply
+      - cdu_to_facility_return
+      - facility_to_cdu_supply
+      - rack_air_load_to_crah
+      - crah_to_facility_return
+      - facility_to_crah_supply
+      - facility_to_chiller_return
+      - chiller_to_facility_supply
+      - chiller_to_atmosphere
+      - fill_to_facility_loop
+    pulse_edges:
+      - die_to_cold_plate_heat
+      - cold_plate_to_manifold_return
+      - manifold_to_cdu_return
+      - cdu_to_facility_return
+      - facility_to_chiller_return
+      - chiller_to_atmosphere
