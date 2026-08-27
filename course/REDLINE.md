@@ -1,7 +1,7 @@
 # Course production redline — disposition
 
 Review date: 2026-08-27
-Artifact: `course/segments.yaml`
+Artifacts: `course/segments.yaml` and `course/pilots/s10_two_rack_heat_paths.yaml`
 Posture: complete course inventory and production contract; not a finished
 script, full-course player, or claim that every segment is record-ready.
 
@@ -46,6 +46,12 @@ diagram status.
    objective against its claim bundle, selected topology, and blockers; factual
    narration and on-screen copy must still be generated from validated claims,
    not improvised from the objective text.
+9. **s10 comparison pacing and scope — resolved.** The native and ManimCE
+   variants consume one four-transformation manifest and the same source digest.
+   Transformations advance only on instructor action and carry no editorial
+   timing or spoken-script fields. Both variants stop at the four-node,
+   three-edge rack-package boundary, preserve distinct liquid supply and return,
+   and give the air-cooled category no invented downstream edge.
 
 ## Acceptance checks
 
@@ -60,6 +66,8 @@ diagram status.
 - Finite positive weights with an exact declared total.
 - Explicit readiness regression checks for the initial grid path and full
   thermal replay.
+- Exact s10 pilot scope, absence of timing fields and automatic advance,
+  renderer digest parity, deterministic native output, and manual browser QA.
 
 Runtime and packaging remain editorial choices. They do not block engineering,
-evidence-pack, camera, or script-outline work.
+evidence-pack, camera, or instructor-note work.

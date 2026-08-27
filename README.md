@@ -15,6 +15,10 @@ now contains seven acts and 26 evidence-gated segments.
   schematic. It is not an as-built drawing and is not for design/construction.
 - `diagram/hybrid.html` — a six-state 2D → 3D → 3D → 3D → 2D overlay → 3D
   vertical slice generated from `master.yaml`, `scene.yaml`, and `cameras.yaml`.
+- `diagram/s10_two_rack_heat_paths.html` — an instructor-controlled native
+  pilot with four coarse transformations and no timing or automatic advance.
+- `experiments/manim_s10/` — an isolated ManimCE renderer for the same s10
+  transformations and canonical IDs; generated comparison media is untracked.
 - `evidence/abilene.yaml` — 14-source, 48-fact primary-source ledger for the
   original eight-building Abilene Stargate campus.
 - `course/segments.yaml` — canonical act and segment order, camera requirements,
@@ -45,6 +49,7 @@ capacity figures:
 uv run gigawatt-symbols
 uv run gigawatt-layout
 uv run gigawatt-scene
+uv run python diagram/generate_s10_two_rack_heat_paths.py
 uv run gigawatt-validate
 uv run python -m unittest discover -s tests -v
 ```
@@ -55,8 +60,9 @@ To inspect the hybrid player locally:
 python3 -m http.server --directory diagram 8000
 ```
 
-Then open `http://localhost:8000/hybrid.html`. The player imports its pinned
-Three.js runtime from the network.
+Then open `http://localhost:8000/hybrid.html` for the spatial substrate or
+`http://localhost:8000/s10_two_rack_heat_paths.html` for the manual teaching
+pilot. Both players import their pinned Three.js runtime from the network.
 
 ## Source-of-truth boundaries
 
@@ -69,6 +75,8 @@ Three.js runtime from the network.
 - `course/segments.yaml`: canonical course order, learning objectives,
   qualified fact references, production-shot requirements, and narrative
   transitions.
+- `course/pilots/*.yaml`: coarse instructor-controlled transformations for
+  renderer trials; these are neither course timing nor spoken scripts.
 - `src/gigawatt/tokens.py`: shared palette and line system.
 
 The validator fails on unresolved factual copy, duplicate YAML keys, unknown
