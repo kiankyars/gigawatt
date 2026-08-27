@@ -10,9 +10,9 @@ Open `http://localhost:8000/course.html`.
 
 The useful test is not a timed read-through. Move through the 26 segments in
 your own words and advance only when the explanation naturally changes what the
-viewer should see. Within any segment, `Show context` widens the frame and
-`Show evidence` exposes the claim boundary and primary sources. Those are
-optional transformations, not a required sequence.
+viewer should see. `Show evidence` opens sourced claims first, with known limits
+and overclaim warnings available as collapsed details. It is optional, not a
+required step.
 
 The renderer is local: after the page has loaded from the diagram server, the
 course does not require a CDN or internet connection. Press `E` to open the
@@ -24,7 +24,8 @@ Use three passes:
 1. **Understanding.** Can the opening question lead you into the idea without
    reading prose? Can you explain the objective in your own language?
 2. **Visual support.** Does the focused frame remain useful? If it becomes
-   stale, does context or evidence create the coarse visual change you want?
+   stale, note the specific authored transformation the section would need;
+   generic zooming is not treated as useful movement.
 3. **Handoff.** Does the final cue make the next segment feel like the natural
    next question?
 

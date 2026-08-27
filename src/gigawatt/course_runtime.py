@@ -365,7 +365,9 @@ COURSE_CSS = r"""
   #opening-question { margin: 5px 0 0; font-size: 11px; font-weight: 700; line-height: 1.25; }
   #objective { margin: 4px 0 0; color: var(--muted); font-size: 9px; line-height: 1.25; }
   #scope-summary { color: var(--muted); }
-  #transport { grid-template-columns: auto minmax(0, 1fr) auto auto auto; }
+  #transport { grid-template-columns: auto minmax(0, 1fr) auto auto; }
+  #three-mount .node-label small { display: none; }
+  #three-mount .node-label[data-presence="teaching_reference"] { border-style: dashed; }
   #evidence-toggle {
     min-width: 128px;
     height: 38px;
@@ -402,16 +404,21 @@ COURSE_CSS = r"""
   }
   #notes-kicker { margin: 0; color: var(--muted); font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
   #notes-title { margin: 6px 44px 15px 0; font-size: 18px; line-height: 1.15; }
+  .evidence-summary { margin: 0; padding: 10px 11px; border: 1px solid var(--faint); font-size: 10px; font-weight: 700; line-height: 1.35; }
   .notes-section { margin-top: 18px; padding-top: 13px; border-top: 1px solid var(--faint); }
   .notes-section h3 { margin: 0 0 8px; font-size: 10px; letter-spacing: .06em; text-transform: uppercase; }
   .notes-section p, .notes-section li { font-size: 10px; line-height: 1.45; }
   .notes-section ul { margin: 0; padding-left: 18px; }
   .notes-section li + li { margin-top: 8px; }
+  .disclosure > summary { cursor: pointer; font-size: 10px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+  .disclosure[open] > summary { margin-bottom: 10px; }
   .guard-list strong { display: block; margin-bottom: 2px; font-size: 9px; text-transform: uppercase; }
   .claim-card { margin-top: 11px; padding: 11px; border: 1px solid var(--faint); }
   .claim-card h4 { margin: 0 0 7px; font-size: 10px; }
   .claim-card p { margin: 5px 0 0; }
   .fact-value { font-weight: 700; }
+  .fact-details { margin-top: 7px; }
+  .fact-details > summary { cursor: pointer; color: var(--muted); font-size: 9px; }
   .source-list { margin-top: 6px !important; color: var(--muted); }
   .source-list a { color: inherit; }
   .ready { border-left: 5px solid #2f6f4e !important; }
@@ -456,6 +463,54 @@ function paragraph(text, className = "") {
   return value;
 }
 
+function countLabel(count, singular) {
+  return `${count} ${count === 1 ? singular : `${singular}s`}`;
+}
+
+function notesDisclosure(title, className = "") {
+  const disclosure = document.createElement("details");
+  disclosure.className = `notes-section disclosure ${className}`.trim();
+  const summary = document.createElement("summary");
+  summary.textContent = title;
+  disclosure.appendChild(summary);
+  return disclosure;
+}
+
+function appendClaimCard(section, claim) {
+  const card = document.createElement("article");
+  card.className = "claim-card";
+  const heading = document.createElement("h4");
+  heading.textContent = `${claim.id.replaceAll("_", " ")} · ${claim.assertion.replaceAll("_", " ")}`;
+  card.appendChild(heading);
+  for (const fact of claim.facts) {
+    card.appendChild(paragraph(fact.value, "fact-value"));
+    const details = document.createElement("details");
+    details.className = "fact-details";
+    const summary = document.createElement("summary");
+    summary.textContent = "Scope, boundary, and sources";
+    details.append(
+      summary,
+      paragraph(`Scope: ${fact.scope}`),
+      paragraph(`Boundary: ${fact.posture.replaceAll("_", " ")} · ${fact.lifecycle.replaceAll("_", " ")} · as of ${fact.as_of}`)
+    );
+    const sources = document.createElement("p");
+    sources.className = "source-list";
+    sources.append("Source: ");
+    fact.sources.forEach((source, index) => {
+      if (index) sources.append(" · ");
+      const link = document.createElement("a");
+      link.href = source.url;
+      link.target = "_blank";
+      link.rel = "noreferrer";
+      link.textContent = `${source.publisher} — ${source.title}`;
+      sources.appendChild(link);
+    });
+    details.appendChild(sources);
+    card.appendChild(details);
+  }
+  section.appendChild(card);
+}
+
 function renderNotes(shot) {
   const restorePanelFocus = notesOpen && $("notes-panel").contains(document.activeElement);
   $("notes-panel").scrollTop = 0;
@@ -464,62 +519,19 @@ function renderNotes(shot) {
   const body = $("notes-body");
   body.replaceChildren();
 
-  const territory = notesSection("Teaching territory");
-  territory.append(
-    paragraph(`Question: ${shot.opening_question}`),
-    paragraph(`Objective: ${shot.learning_objective}`),
-    paragraph(`Available transformations: focused ${shot.render_mode.toUpperCase()} frame, reusable context, and this evidence view. Advance only when useful.`)
+  const limitAssertions = new Set(["explicit_unknown", "no_evidence_backed_estimate"]);
+  const supportedClaims = shot.claims.filter(claim => !limitAssertions.has(claim.assertion));
+  const knownLimits = shot.claims.filter(claim => limitAssertions.has(claim.assertion));
+  const knownLimitCount = knownLimits.reduce((count, claim) => count + claim.facts.length, 0);
+  const ready = shot.evidence_readiness === "evidence_ready";
+  const summary = paragraph(
+    `${ready ? "Evidence ready" : "Evidence review needed"} · ${countLabel(supportedClaims.length, "supported claim group")} · ${countLabel(knownLimitCount, "known limit")}`,
+    `evidence-summary ${ready ? "ready" : "gated"}`
   );
-  body.appendChild(territory);
-
-  const guards = notesSection("Red-line warnings");
-  guards.classList.add("gated", "guard-list");
-  const guardList = document.createElement("ul");
-  for (const guard of shot.promotion_guard_warnings) {
-    const item = document.createElement("li");
-    const label = document.createElement("strong");
-    label.textContent = guard.id.replaceAll("_", " ");
-    item.append(label, document.createTextNode(guard.warning));
-    guardList.appendChild(item);
-  }
-  guards.appendChild(guardList);
-  body.appendChild(guards);
-
-  const evidence = notesSection("Validated claims");
-  evidence.classList.add(shot.evidence_readiness === "evidence_ready" ? "ready" : "gated");
-  evidence.appendChild(paragraph(shot.evidence_readiness.replaceAll("_", " ").toUpperCase()));
-  for (const claim of shot.claims) {
-    const card = document.createElement("article");
-    card.className = "claim-card";
-    const heading = document.createElement("h4");
-    heading.textContent = `${claim.id.replaceAll("_", " ")} · ${claim.assertion.replaceAll("_", " ")}`;
-    card.appendChild(heading);
-    for (const fact of claim.facts) {
-      card.append(
-        paragraph(fact.value, "fact-value"),
-        paragraph(`Scope: ${fact.scope}`),
-        paragraph(`Boundary: ${fact.posture.replaceAll("_", " ")} · ${fact.lifecycle.replaceAll("_", " ")} · as of ${fact.as_of}`)
-      );
-      const sources = document.createElement("p");
-      sources.className = "source-list";
-      sources.append("Source: ");
-      fact.sources.forEach((source, index) => {
-        if (index) sources.append(" · ");
-        const link = document.createElement("a");
-        link.href = source.url;
-        link.target = "_blank";
-        link.rel = "noreferrer";
-        link.textContent = `${source.publisher} — ${source.title}`;
-        sources.appendChild(link);
-      });
-      card.appendChild(sources);
-    }
-    evidence.appendChild(card);
-  }
-  body.appendChild(evidence);
+  body.appendChild(summary);
 
   if (shot.blocking_research.length) {
-    const blockers = notesSection("Explicit evidence boundary");
+    const blockers = notesSection(`Open research (${shot.blocking_research.length})`);
     blockers.classList.add("gated");
     const list = document.createElement("ul");
     for (const blocker of shot.blocking_research) {
@@ -531,13 +543,28 @@ function renderNotes(shot) {
     body.appendChild(blockers);
   }
 
-  const handoff = notesSection(shot.transition ? "Handoff" : "Close");
-  handoff.appendChild(paragraph(
-    shot.transition
-      ? shot.transition.cue
-      : "Return to the opening question and state which conversions are evidenced, assumed, or still unknown."
-  ));
-  body.appendChild(handoff);
+  const evidence = notesSection("What the evidence supports");
+  for (const claim of supportedClaims) appendClaimCard(evidence, claim);
+  body.appendChild(evidence);
+
+  if (knownLimits.length) {
+    const limits = notesDisclosure(`Known limits (${knownLimitCount})`, "known-limits");
+    for (const claim of knownLimits) appendClaimCard(limits, claim);
+    body.appendChild(limits);
+  }
+
+  const guards = notesDisclosure(`Avoid overclaiming (${shot.promotion_guard_warnings.length})`, "guard-list");
+  const guardList = document.createElement("ul");
+  for (const guard of shot.promotion_guard_warnings) {
+    const item = document.createElement("li");
+    const label = document.createElement("strong");
+    label.textContent = guard.id.replaceAll("_", " ");
+    item.append(label, document.createTextNode(guard.warning));
+    guardList.appendChild(item);
+  }
+  guards.appendChild(guardList);
+  body.appendChild(guards);
+
   if (restorePanelFocus) $("notes-close").focus();
 }
 
@@ -571,16 +598,18 @@ def _player_template() -> str:
             'aria-label="Manual planned-shot review surface"',
             'aria-label="Presenter-controlled course surface"',
         ),
+        (
+            'aria-label="Manual review controls"',
+            'aria-label="Course navigation and evidence controls"',
+        ),
         ('aria-label="Previous planned shot"', 'aria-label="Previous course segment"'),
         ('aria-label="Next planned shot"', 'aria-label="Next course segment"'),
         (
             "Manual review · select every change",
-            "Untimed · presenter advances every transformation",
+            "Untimed · presenter advances between course sections",
         ),
         ("Loading the planned-shot registry…", "Loading the complete course…"),
         ("const shots = data.registry.shots;", "const shots = data.registry.segments;"),
-        ("Show anchor", "Show context"),
-        ("Show shot", "Show focus"),
     )
     for old, new in replacements:
         html = _must_replace(html, old, new)
@@ -596,8 +625,8 @@ def _player_template() -> str:
     )
     html = _must_replace(
         html,
-        '<button id="context-toggle" type="button">Show context</button>',
-        '<button id="evidence-toggle" type="button" aria-controls="notes-panel" aria-expanded="false">Show evidence</button>\n  <button id="context-toggle" type="button">Show context</button>',
+        '<button id="context-toggle" type="button">Show anchor</button>',
+        '<button id="evidence-toggle" type="button" aria-controls="notes-panel" aria-expanded="false">Show evidence</button>',
     )
     html = _must_replace(
         html,
@@ -607,7 +636,40 @@ def _player_template() -> str:
     html = _must_replace(
         html,
         "let current = 0;\nlet showingAnchor = false;",
-        f"{NOTES_JS}\n\nlet current = 0;\nlet showingAnchor = false;\nlet notesOpen = false;",
+        f"{NOTES_JS}\n\nlet current = 0;\nlet notesOpen = false;",
+    )
+    html = _must_replace(
+        html,
+        r"""function setFrame(shot) {
+  if (shot.frame.kind === "2d") {
+    const view = showingAnchor ? shot.frame.anchor_viewBox : shot.frame.viewBox;
+    mapSvg.setAttribute("viewBox", view.join(" "));
+    return;
+  }
+  const position = showingAnchor ? shot.frame.anchor_position : shot.frame.position;
+  const target = showingAnchor ? shot.frame.anchor_target : shot.frame.target;
+  camera.position.set(...position);
+  camera.up.set(...shot.frame.up);
+  controls.target.set(...target);
+  controls.update();
+  render3d();
+}""",
+        r"""function setFrame(shot) {
+  if (shot.frame.kind === "2d") {
+    mapSvg.setAttribute("viewBox", shot.frame.viewBox.join(" "));
+    return;
+  }
+  camera.position.set(...shot.frame.position);
+  camera.up.set(...shot.frame.up);
+  controls.target.set(...shot.frame.target);
+  controls.update();
+  render3d();
+}""",
+    )
+    html = _must_replace(
+        html,
+        "  showingAnchor = false;\n  const shot = shots[current];",
+        "  const shot = shots[current];",
     )
     old_header = r"""  $("eyebrow").textContent = `${String(shot.sequence).padStart(2, "0")} / ${shots.length} · ${shot.segment_id}`;
   $("title").textContent = shot.title;
@@ -621,7 +683,7 @@ def _player_template() -> str:
   $("reveal-summary").textContent = revealCount
     ? `${shot.reveal_ids.length} hidden geometry + ${shot.reveal_copy_ids.length} hidden copy revealed`
     : "No hidden reveal";
-  $("context-toggle").textContent = "Show context";"""
+  $("context-toggle").textContent = "Show anchor";"""
     new_header = r"""  $("eyebrow").textContent = `Act ${shot.act_sequence} · ${shot.act_title} · ${String(shot.sequence).padStart(2, "0")} / ${shots.length}`;
   $("title").textContent = shot.title;
   $("opening-question").textContent = shot.opening_question;
@@ -637,7 +699,6 @@ def _player_template() -> str:
     : `${shot.status} view · no hidden reveal`;
   $("posture").classList.toggle("ready", shot.evidence_readiness === "evidence_ready");
   $("posture").classList.toggle("gated", shot.evidence_readiness !== "evidence_ready");
-  $("context-toggle").textContent = "Show context";
   renderNotes(shot);"""
     html = _must_replace(html, old_header, new_header)
     old_rail = r"""  name.className = "shot-name";
@@ -653,8 +714,12 @@ def _player_template() -> str:
     html = _must_replace(html, old_rail, new_rail)
     html = _must_replace(
         html,
-        '$("context-toggle").addEventListener("click", () => {',
-        '$("evidence-toggle").addEventListener("click", () => setNotesOpen(!notesOpen));\n$("notes-close").addEventListener("click", () => setNotesOpen(false));\n$("context-toggle").addEventListener("click", () => {',
+        """$("context-toggle").addEventListener("click", () => {
+  showingAnchor = !showingAnchor;
+  $("context-toggle").textContent = showingAnchor ? "Show shot" : "Show anchor";
+  setFrame(shots[current]);
+});""",
+        '$("evidence-toggle").addEventListener("click", () => setNotesOpen(!notesOpen));\n$("notes-close").addEventListener("click", () => setNotesOpen(false));',
     )
     html = _must_replace(
         html,
@@ -674,8 +739,8 @@ def build_instructor_packet(registry: dict[str, Any]) -> str:
         "",
         "This packet is teaching territory, not a spoken script. It assigns no",
         "durations, cadence, or automatic visual changes. The presenter decides how",
-        "long to remain in each segment and may switch among focus, context, and",
-        "evidence views only when the explanation benefits.",
+        "long to remain in each segment and may open the evidence view when the",
+        "explanation benefits.",
         "",
         "## Run and test",
         "",
@@ -684,12 +749,12 @@ def build_instructor_packet(registry: dict[str, Any]) -> str:
         "```",
         "",
         "Open `http://localhost:8000/course.html`. Use the segment rail or left/right",
-        "arrow keys to move through the course. `Show context` widens to the reusable",
-        "camera, while `Show evidence` (or the E key) opens the claim boundary and",
+        "arrow keys to move through the course. `Show evidence` (or the E key) opens",
+        "the sourced claims, known limits, claim boundaries, and",
         "primary-source links. No state advances on its own.",
         "",
         "For a first editorial pass, check whether each opening question naturally",
-        "invites the explanation, whether focus/context is enough visual movement,",
+        "invites the explanation, whether the focused frame remains useful,",
         "whether the evidence boundary is sayable in your own words, and whether the",
         "handoff makes the next segment feel inevitable. Record notes by segment ID.",
         "",
@@ -714,7 +779,7 @@ def build_instructor_packet(registry: dict[str, Any]) -> str:
                 f"- Opening question: {segment['opening_question']}",
                 f"- Teaching objective: {segment['learning_objective']}",
                 f"- Visual focus: {', '.join(segment['focus_node_labels'])}",
-                f"- Available transformation: focused {segment['render_mode'].upper()} view ↔ `{segment['camera_anchor']}` context; evidence panel on demand.",
+                f"- Visual state: focused {segment['render_mode'].upper()} view; evidence panel on demand.",
                 f"- Evidence posture: **{readiness}**",
                 "",
                 "Validated claim territory:",

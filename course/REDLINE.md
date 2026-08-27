@@ -67,10 +67,12 @@ commercial, operating-load, utilization, and throughput fields remain null or
     requests remain outside the reusable-camera library, which is a geometry
     ownership distinction rather than an evidence or recording gate.
 11. **Full-course runtime and packet — resolved.** The generated 26-segment
-    player exposes opening question, objective, focus, context, evidence status,
-    claim values, primary-source links, and handoff. Every transformation is
-    presenter-controlled. The instructor packet mirrors that territory without
-    durations, cadence, or words-to-say instructions.
+    player exposes opening question, objective, focused state, claim-first
+    evidence, and primary-source links. The instructor packet carries the full
+    claim detail and handoffs. The redundant generic context/focus zoom is
+    excluded from the presenter runtime. Every course transition is
+    presenter-controlled, without durations, cadence, or words-to-say
+    instructions.
 12. **Cross-ledger semantic overreach — resolved.** The final adversarial pass
     added explicit installed-turbine, CDU, CRAH, interconnection-path, permanent-
     transformer, substation-to-load, and conceptual-to-as-built boundaries;
@@ -114,7 +116,7 @@ commercial, operating-load, utilization, and throughput fields remain null or
 - Exact 21-shot registry coverage, deterministic derived framing, hidden
   reveal integrity, absence of timing or autoplay, and manual browser QA.
 - Exact 26-segment runtime coverage, deterministic instructor-packet generation,
-  manual focus/context/evidence controls, and browser QA across every state.
+  manual section/evidence controls, and browser QA across every state.
 - Exact local Three.js hashes, zero CDN imports, visible startup failure, and
   network-independent 2D/3D playback.
 - Separate published-method and derived-scenario assertions with mandatory

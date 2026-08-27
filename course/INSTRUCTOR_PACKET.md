@@ -2,8 +2,8 @@
 
 This packet is teaching territory, not a spoken script. It assigns no
 durations, cadence, or automatic visual changes. The presenter decides how
-long to remain in each segment and may switch among focus, context, and
-evidence views only when the explanation benefits.
+long to remain in each segment and may open the evidence view when the
+explanation benefits.
 
 ## Run and test
 
@@ -12,12 +12,12 @@ python3 -m http.server --directory diagram 8000
 ```
 
 Open `http://localhost:8000/course.html`. Use the segment rail or left/right
-arrow keys to move through the course. `Show context` widens to the reusable
-camera, while `Show evidence` (or the E key) opens the claim boundary and
+arrow keys to move through the course. `Show evidence` (or the E key) opens
+the sourced claims, known limits, claim boundaries, and
 primary-source links. No state advances on its own.
 
 For a first editorial pass, check whether each opening question naturally
-invites the explanation, whether focus/context is enough visual movement,
+invites the explanation, whether the focused frame remains useful,
 whether the evidence boundary is sayable in your own words, and whether the
 handoff makes the next segment feel inevitable. Record notes by segment ID.
 
@@ -30,7 +30,7 @@ Establish that announced capacity, energized infrastructure, live workloads, and
 - Opening question: If capacity is announced, how many useful tokens exist?
 - Teaching objective: Separate planned, constructed, energized, live, and unknown quantities before following the physical system.
 - Visual focus: Gas turbine package, Initial 200 MW / 138 kV station, 1 GW / 345 kV expansion substation, Emergency diesel backup package, Abstract campus MV distribution envelope, GPU die
-- Available transformation: focused 2D view ↔ `system_orientation` context; evidence panel on demand.
+- Visual state: focused 2D view; evidence panel on demand.
 - Evidence posture: **evidence ready**
 
 Validated claim territory:
@@ -110,7 +110,7 @@ Handoff: Learn the diagram's claim language before entering the system.
 - Opening question: What does each line style actually let us claim?
 - Teaching objective: Read carrier, direction, lifecycle, and evidence posture as separate properties of the master diagram.
 - Visual focus: Gas turbine package, Generator, 138 kV slack-span tie, Initial 200 MW / 138 kV station, BESS package, Abstract campus MV distribution envelope, Air-cooled chiller and condenser, Atmosphere
-- Available transformation: focused 2D view ↔ `system_orientation` context; evidence panel on demand.
+- Visual state: focused 2D view; evidence panel on demand.
 - Evidence posture: **evidence ready**
 
 Validated claim territory:
@@ -161,7 +161,7 @@ Distinguish the three physical source branches, their evidence states, and the d
 - Opening question: What must happen before fuel can become an electrical watt?
 - Teaching objective: Distinguish fuel input, shaft power, and generator output.
 - Visual focus: Gas turbine package, Generator
-- Available transformation: focused 3D view ↔ `campus_establishing` context; evidence panel on demand.
+- Visual state: focused 3D view; evidence panel on demand.
 - Evidence posture: **evidence ready**
 
 Validated claim territory:
@@ -231,7 +231,7 @@ Handoff: Follow shaft power into the first electrical state.
 - Opening question: Does a model voltage range reveal the site's configuration?
 - Teaching objective: Separate manufacturer range, selected site voltage, step-up function, and the unknown campus connection.
 - Visual focus: Generator, Generator step-up package, Abstract campus MV distribution envelope
-- Available transformation: focused 3D view ↔ `campus_establishing` context; evidence panel on demand.
+- Visual state: focused 3D view; evidence panel on demand.
 - Evidence posture: **evidence ready**
 
 Validated claim territory:
@@ -307,7 +307,7 @@ Handoff: Compare the permitted branch with the first evidenced grid-service path
 - Opening question: What turns a nearby transmission line into usable site service?
 - Teaching objective: Trace the named source, site tie, and initial station without inventing the downstream merge.
 - Visual focus: AEP Abilene Northwest source, 138 kV slack-span tie, Initial 200 MW / 138 kV station, Abstract campus MV distribution envelope
-- Available transformation: focused 2D view ↔ `system_orientation` context; evidence panel on demand.
+- Visual state: focused 2D view; evidence panel on demand.
 - Evidence posture: **evidence ready**
 
 Validated claim territory:
@@ -352,7 +352,7 @@ Handoff: Treat the expansion as a separate service path rather than an extension
 - Opening question: Why is the expansion not merely a larger version of the initial path?
 - Teaching objective: Trace the independent high-voltage corridor, abstract protection envelope, and expansion substation while preserving unknowns.
 - Visual focus: Unnamed 345 kV source, 345 kV expansion service, Abstract 345 kV protection envelope, 1 GW / 345 kV expansion substation, Abstract campus MV distribution envelope
-- Available transformation: focused 2D view ↔ `system_orientation` context; evidence panel on demand.
+- Visual state: focused 2D view; evidence panel on demand.
 - Evidence posture: **evidence ready**
 
 Validated claim territory:
@@ -399,7 +399,7 @@ Handoff: Separate physical delivery from contractual attribution.
 - Opening question: Does buying nuclear power place a reactor beside the campus?
 - Teaching objective: Distinguish contractual energy attribution from the local physical electron path.
 - Visual focus: Nuclear PPA overlay, Unnamed 345 kV source
-- Available transformation: focused 2D view ↔ `system_orientation` context; evidence panel on demand.
+- Visual state: focused 2D view; evidence panel on demand.
 - Evidence posture: **evidence ready**
 
 Validated claim territory:
@@ -427,7 +427,7 @@ Handoff: Return from contractual origin to the physical campus boundary.
 - Opening question: Where do source, storage, and backup paths actually meet?
 - Teaching objective: Preserve the unknown source merge while separating future storage and permitted backup from operating infrastructure.
 - Visual focus: Generator step-up package, Initial 200 MW / 138 kV station, 1 GW / 345 kV expansion substation, Abstract campus MV distribution envelope, BESS package, Emergency diesel backup package
-- Available transformation: focused 2D view ↔ `system_orientation` context; evidence panel on demand.
+- Visual state: focused 2D view; evidence panel on demand.
 - Evidence posture: **evidence ready**
 
 Validated claim territory:
@@ -511,7 +511,7 @@ Follow a conceptual facility and rack power train without inventing site-specifi
 - Opening question: Which gates stand between a campus feeder and a rack row?
 - Teaching objective: Explain transformation, protected distribution, ride-through, and busway as a conceptual reference chain.
 - Visual focus: Abstract campus MV distribution envelope, Unit substation transformer, LV switchgear, UPS, Busway
-- Available transformation: focused 3D view ↔ `electrical_room` context; evidence panel on demand.
+- Visual state: focused 3D view; evidence panel on demand.
 - Evidence posture: **evidence ready**
 
 Validated claim territory:
@@ -565,7 +565,7 @@ Handoff: Follow protected facility AC into the rack.
 - Opening question: How many conversions remain once power reaches the data hall?
 - Teaching objective: Separate site AC, the documented rack DC bus, and the deliberately unspecified board-level core voltage.
 - Visual focus: Busway, Rack power shelves, Voltage regulator module, GPU die
-- Available transformation: focused 3D view ↔ `data_hall_rack` context; evidence panel on demand.
+- Visual state: focused 3D view; evidence panel on demand.
 - Evidence posture: **evidence ready**
 
 Validated claim territory:
@@ -637,7 +637,7 @@ Follow the liquid and residual-air paths from the die to the atmosphere with exp
 - Opening question: Where does electrical energy go after useful computation?
 - Teaching objective: Establish the die as both electrical destination and thermal source without asserting a quantitative heat split.
 - Visual focus: GPU die, Cold plate
-- Available transformation: focused 2D view ↔ `watt_heat_handoff` context; evidence panel on demand.
+- Visual state: focused 2D view; evidence panel on demand.
 - Evidence posture: **evidence ready**
 
 Validated claim territory:
@@ -687,7 +687,7 @@ Handoff: Split the rack's heat between liquid-cooled compute and air-cooled auxi
 - Opening question: Is a liquid-cooled rack entirely liquid cooled?
 - Teaching objective: Separate liquid-cooled compute from residual air-cooled components, ending each branch at its evidenced rack-package boundary.
 - Visual focus: GPU die, Air-cooled rack auxiliaries, Cold plate, Rack supply and return headers
-- Available transformation: focused 3D view ↔ `data_hall_rack` context; evidence panel on demand.
+- Visual state: focused 3D view; evidence panel on demand.
 - Evidence posture: **evidence ready**
 
 Validated claim territory:
@@ -724,7 +724,7 @@ Handoff: Trace the liquid branch's separate supply and return headers.
 - Opening question: Why can the cooling circuit not be drawn as one arrow?
 - Teaching objective: Distinguish cold technology supply from heat-carrying technology return.
 - Visual focus: Cold plate, Rack supply and return headers, Coolant distribution unit
-- Available transformation: focused 3D view ↔ `thermal_return` context; evidence panel on demand.
+- Visual state: focused 3D view; evidence panel on demand.
 - Evidence posture: **evidence ready**
 
 Validated claim territory:
@@ -767,7 +767,7 @@ Handoff: Follow both headers to the boundary between rack and facility systems.
 - Opening question: Why use two loops instead of facility water at every cold plate?
 - Teaching objective: Explain the conceptual interface without asserting coolant mixing or exact package design.
 - Visual focus: Rack supply and return headers, Coolant distribution unit, Closed facility water loop
-- Available transformation: focused 3D view ↔ `thermal_return` context; evidence panel on demand.
+- Visual state: focused 3D view; evidence panel on demand.
 - Evidence posture: **evidence ready**
 
 Validated claim territory:
@@ -812,7 +812,7 @@ Handoff: Recover the rack heat that never entered a cold plate.
 - Opening question: Where does heat from networking, storage, and other auxiliaries go?
 - Teaching objective: Use the reference CRAH branch as a parallel cooling path without claiming it is Abilene's as-built residual-air configuration.
 - Visual focus: Air-cooled rack auxiliaries, CRAH / fan-wall branch, Closed facility water loop
-- Available transformation: focused 3D view ↔ `thermal_return` context; evidence panel on demand.
+- Visual state: focused 3D view; evidence panel on demand.
 - Evidence posture: **evidence ready**
 
 Validated claim territory:
@@ -862,7 +862,7 @@ Handoff: Rejoin the liquid and air branches at the facility loop.
 - Opening question: Which equipment still gates heat after it leaves the data hall?
 - Teaching objective: Follow facility return and restored supply through the selected air-cooled heat-rejection design.
 - Visual focus: Coolant distribution unit, CRAH / fan-wall branch, Closed facility water loop, Air-cooled chiller and condenser
-- Available transformation: focused 3D view ↔ `thermal_return` context; evidence panel on demand.
+- Visual state: focused 3D view; evidence panel on demand.
 - Evidence posture: **evidence ready**
 
 Validated claim territory:
@@ -928,7 +928,7 @@ Handoff: Resolve why a non-evaporative design still has a water requirement.
 - Opening question: How can non-evaporative heat rejection still require water?
 - Teaching objective: Separate design fill and anticipated maintenance from measured operating consumption.
 - Visual focus: Initial fill and water treatment, Closed facility water loop, Air-cooled chiller and condenser
-- Available transformation: focused 3D view ↔ `thermal_return` context; evidence panel on demand.
+- Visual state: focused 3D view; evidence panel on demand.
 - Evidence posture: **evidence ready**
 
 Validated claim territory:
@@ -957,7 +957,7 @@ Handoff: Replay the complete return path to its terminal sink.
 - Opening question: Where is the watt now?
 - Teaching objective: Replay every reference heat-transfer gate to the terminal sink without implying an as-built path or physical recirculation.
 - Visual focus: GPU die, Air-cooled rack auxiliaries, Cold plate, Rack supply and return headers, Coolant distribution unit, CRAH / fan-wall branch, Closed facility water loop, Air-cooled chiller and condenser, Initial fill and water treatment, Atmosphere
-- Available transformation: focused 3D view ↔ `thermal_return` context; evidence panel on demand.
+- Visual state: focused 3D view; evidence panel on demand.
 - Evidence posture: **evidence ready**
 
 Validated claim territory:
@@ -1020,7 +1020,7 @@ Identify how interconnection, equipment, commissioning, and load dynamics preven
 - Opening question: What lies between a request for power and an energized feeder?
 - Teaching objective: Separate dated administrative, energization, and planned permanent-equipment gates.
 - Visual focus: AEP Abilene Northwest source, 138 kV slack-span tie, Initial 200 MW / 138 kV station, Unnamed 345 kV source, 345 kV expansion service, Abstract 345 kV protection envelope, 1 GW / 345 kV expansion substation, Abstract campus MV distribution envelope
-- Available transformation: focused 2D view ↔ `system_orientation` context; evidence panel on demand.
+- Visual state: focused 2D view; evidence panel on demand.
 - Evidence posture: **evidence ready**
 
 Validated claim territory:
@@ -1108,7 +1108,7 @@ Handoff: Ask which package classes can constrain delivery without assigning Abil
 - Opening question: Which box can delay an otherwise ready campus?
 - Teaching objective: Contrast dated procurement, availability, and acceptance evidence across transformers, turbines, and cooling while keeping their non-equivalent bases separate.
 - Visual focus: Gas turbine package, Generator step-up package, Abstract 345 kV protection envelope, 1 GW / 345 kV expansion substation, Unit substation transformer, LV switchgear, UPS, Coolant distribution unit, Air-cooled chiller and condenser
-- Available transformation: focused 2D view ↔ `system_orientation` context; evidence panel on demand.
+- Visual state: focused 2D view; evidence panel on demand.
 - Evidence posture: **evidence ready**
 
 Validated claim territory:
@@ -1182,7 +1182,7 @@ Handoff: Contrast multi-year construction with millisecond load behavior.
 - Opening question: What happens when many accelerators change load together?
 - Teaching objective: Connect external synchronized-load observations to generic ride-through architecture while keeping Abilene's transient profile and BESS connection explicit unknowns.
 - Visual focus: Unnamed 345 kV source, 345 kV expansion service, Abstract 345 kV protection envelope, 1 GW / 345 kV expansion substation, Abstract campus MV distribution envelope, BESS package, Unit substation transformer, LV switchgear, UPS, Busway, Rack power shelves, Voltage regulator module, GPU die
-- Available transformation: focused 2D view ↔ `system_orientation` context; evidence panel on demand.
+- Visual state: focused 2D view; evidence panel on demand.
 - Evidence posture: **evidence ready**
 
 Validated claim territory:
@@ -1272,7 +1272,7 @@ Handoff: Put fast and slow constraints onto the same delivery funnel.
 - Opening question: At which gate did the announced capacity stop?
 - Teaching objective: Apply the status funnel without substituting one capacity basis for another.
 - Visual focus: Initial 200 MW / 138 kV station, 1 GW / 345 kV expansion substation, Abstract campus MV distribution envelope, Unit substation transformer, LV switchgear, UPS, Busway, Rack power shelves, Voltage regulator module, GPU die
-- Available transformation: focused 2D view ↔ `system_orientation` context; evidence panel on demand.
+- Visual state: focused 2D view; evidence panel on demand.
 - Evidence posture: **evidence ready**
 
 Validated claim territory:
@@ -1366,7 +1366,7 @@ Separate ownership, financing, operation, offtake, and utilization risk across t
 - Opening question: Which roles are publicly named, and which asset-level owners remain unknown?
 - Teaching objective: Distinguish named program, project, phase, and operating roles without assigning them to every highlighted asset.
 - Visual focus: Gas turbine package, Generator, Generator step-up package, AEP Abilene Northwest source, 138 kV slack-span tie, Initial 200 MW / 138 kV station, Unnamed 345 kV source, 345 kV expansion service, Abstract 345 kV protection envelope, 1 GW / 345 kV expansion substation, Nuclear PPA overlay, Abstract campus MV distribution envelope, BESS package, Emergency diesel backup package, Unit substation transformer, LV switchgear, UPS, Busway, Rack power shelves, Voltage regulator module, GPU die, Air-cooled rack auxiliaries, Cold plate, Rack supply and return headers, Coolant distribution unit, CRAH / fan-wall branch, Closed facility water loop, Air-cooled chiller and condenser, Initial fill and water treatment, Atmosphere
-- Available transformation: focused 2D view ↔ `system_orientation` context; evidence panel on demand.
+- Visual state: focused 2D view; evidence panel on demand.
 - Evidence posture: **evidence ready**
 
 Validated claim territory:
@@ -1433,7 +1433,7 @@ Handoff: Follow the timing of cash outlays and revenue eligibility across those 
 - Opening question: What facility-level financing and lease structure is public, and which per-box capital and earning gates remain undisclosed?
 - Teaching objective: Separate disclosed project financing from undisclosed equipment finance, acceptance, rent, and utilization terms without allocating them by node.
 - Visual focus: Gas turbine package, Generator step-up package, Initial 200 MW / 138 kV station, 1 GW / 345 kV expansion substation, Abstract campus MV distribution envelope, Unit substation transformer, LV switchgear, UPS, Busway, Rack power shelves, GPU die, Coolant distribution unit, Air-cooled chiller and condenser
-- Available transformation: focused 2D view ↔ `system_orientation` context; evidence panel on demand.
+- Visual state: focused 2D view; evidence panel on demand.
 - Evidence posture: **evidence ready**
 
 Validated claim territory:
@@ -1489,7 +1489,7 @@ Handoff: Compare how different business models reallocate those same risks.
 - Opening question: What changes between developer, colo, neocloud, and hyperscaler models?
 - Teaching objective: Compare contractual and risk allocations without changing physical topology.
 - Visual focus: Nuclear PPA overlay, Unnamed 345 kV source, Gas turbine package, Abstract campus MV distribution envelope, Rack power shelves, GPU die
-- Available transformation: focused 2D view ↔ `system_orientation` context; evidence panel on demand.
+- Visual state: focused 2D view; evidence panel on demand.
 - Evidence posture: **evidence ready**
 
 Validated claim territory:
@@ -1540,7 +1540,7 @@ Teach an assumption-bound conversion recipe without inventing an Abilene token e
 - Opening question: Given delivered power, how many useful tokens result?
 - Teaching objective: Keep power-rate and energy-yield routes dimensionally separate, require matching hardware and workload measurements, and preserve the no-estimate boundary for the reference campus.
 - Visual focus: Abstract campus MV distribution envelope, Unit substation transformer, LV switchgear, UPS, Busway, Rack power shelves, Voltage regulator module, GPU die, Cold plate, Rack supply and return headers, Coolant distribution unit, Closed facility water loop, Air-cooled chiller and condenser, Atmosphere
-- Available transformation: focused 2D view ↔ `system_orientation` context; evidence panel on demand.
+- Visual state: focused 2D view; evidence panel on demand.
 - Evidence posture: **evidence ready**
 
 Validated claim territory:

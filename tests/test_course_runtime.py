@@ -143,12 +143,14 @@ class CourseRuntimeTests(unittest.TestCase):
         self.assertEqual(digest, json.loads(registry_json)["source_digest"])
         self.assertIn('id="previous"', player)
         self.assertIn('id="next"', player)
-        self.assertIn('id="context-toggle"', player)
+        self.assertNotIn('id="context-toggle"', player)
+        self.assertNotIn('$("context-toggle").addEventListener', player)
         self.assertIn('id="evidence-toggle"', player)
         self.assertIn('id="notes-panel"', player)
         self.assertIn('aria-controls="notes-panel"', player)
         self.assertIn('aria-expanded="false"', player)
         self.assertIn('aria-hidden="true" inert', player)
+        self.assertIn('aria-label="Course navigation and evidence controls"', player)
         self.assertIn("panel.inert = !open", player)
         self.assertIn('$("notes-panel").scrollTop = 0', player)
         self.assertIn(
@@ -156,7 +158,34 @@ class CourseRuntimeTests(unittest.TestCase):
             player,
         )
         self.assertIn('if (restorePanelFocus) $("notes-close").focus();', player)
-        self.assertIn('notesSection("Red-line warnings")', player)
+        self.assertIn("#three-mount .node-label small { display: none; }", player)
+        self.assertIn(
+            '#three-mount .node-label[data-presence="teaching_reference"]', player
+        )
+        self.assertIn('notesSection("What the evidence supports")', player)
+        self.assertIn('"Evidence ready"', player)
+        self.assertIn('"supported claim group"', player)
+        self.assertIn(
+            "const knownLimitCount = knownLimits.reduce(",
+            player,
+        )
+        self.assertIn("notesDisclosure(`Known limits (${knownLimitCount})`", player)
+        self.assertIn(
+            "notesDisclosure(`Avoid overclaiming (${shot.promotion_guard_warnings.length})`",
+            player,
+        )
+        self.assertIn(
+            'new Set(["explicit_unknown", "no_evidence_backed_estimate"])', player
+        )
+        self.assertLess(
+            player.index('notesSection("What the evidence supports")'),
+            player.index("notesDisclosure(`Avoid overclaiming"),
+        )
+        self.assertLess(
+            player.index("if (shot.blocking_research.length)"),
+            player.index('notesSection("What the evidence supports")'),
+        )
+        self.assertNotIn('notesSection("Teaching territory")', player)
         self.assertIn('event.key === "ArrowLeft"', player)
         self.assertIn('event.key === "ArrowRight"', player)
         self.assertNotIn("setTimeout(", player)

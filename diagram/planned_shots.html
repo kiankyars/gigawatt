@@ -332,8 +332,12 @@ for (const node of data.scene.nodes) {
   const element = document.createElement("div");
   element.className = "node-label";
   element.textContent = node.label;
+  const postureText = `${node.presence.replaceAll("_", " ")} · ${node.lifecycle.replaceAll("_", " ")}`;
+  element.dataset.presence = node.presence;
+  element.dataset.lifecycle = node.lifecycle;
+  element.setAttribute("aria-label", `${node.label}; ${postureText}`);
   const posture = document.createElement("small");
-  posture.textContent = `${node.presence.replaceAll("_", " ")} · ${node.lifecycle.replaceAll("_", " ")}`;
+  posture.textContent = postureText;
   element.appendChild(posture);
   const label = new CSS2DObject(element);
   label.position.set(...node.label_position);

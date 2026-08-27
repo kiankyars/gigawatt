@@ -212,6 +212,12 @@ class PlannedShotCompilerTests(unittest.TestCase):
         self.assertIn('id="previous"', html)
         self.assertIn('id="next"', html)
         self.assertIn('id="context-toggle"', html)
+        self.assertIn("element.dataset.presence = node.presence", html)
+        self.assertIn("element.dataset.lifecycle = node.lifecycle", html)
+        self.assertIn(
+            'element.setAttribute("aria-label", `${node.label}; ${postureText}`)',
+            html,
+        )
         self.assertIn('event.key === "ArrowLeft"', html)
         self.assertIn('event.key === "ArrowRight"', html)
         self.assertNotIn("setTimeout(", html)

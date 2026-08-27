@@ -69,9 +69,10 @@ capital reread, and MW-to-token recipe become teachable without invented facts.
 ## Complete untimed runtime
 
 `diagram/course.html` packages all 26 segments in canonical order. Every change
-is manual. The presenter may move between the focused frame, its reusable
-context, and the evidence panel, but none of those transformations is required
-or timed. `course/INSTRUCTOR_PACKET.md` carries the same opening questions,
+is manual. The presenter advances between focused course sections and may open
+the evidence panel on demand; neither action is timed. The generic context/focus
+zoom was removed because it changed camera geometry without adding teaching
+content. `course/INSTRUCTOR_PACKET.md` carries the same opening questions,
 objectives, claim boundaries, primary-source links, plain-language promotion
 warnings, and handoffs in a printable form. The evidence drawer is keyboard
 contained while closed and restores focus when dismissed. `course/TESTING.md`

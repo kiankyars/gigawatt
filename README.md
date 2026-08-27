@@ -22,8 +22,7 @@ seven acts and 26 presenter-controlled, evidence-ready segments.
 - `diagram/planned_shots.json` — deterministic shot registry compiled from the
   course, semantic master, 2D layout, 3D scene, and camera anchors.
 - `diagram/course.html` — the complete untimed 26-segment presenter runtime,
-  with manual focus/context controls, evidence cards, and plain-language
-  red-line warnings.
+  with manual section navigation and a claim-first evidence drawer.
 - `diagram/course_runtime.json` — deterministic full-course state registry.
 - `course/INSTRUCTOR_PACKET.md` — generated teaching territory, claim
   boundaries, source links, and handoffs; it is neither timing nor a script.
@@ -79,9 +78,9 @@ python3 -m http.server --directory diagram 8000
 ```
 
 Then open `http://localhost:8000/course.html` for the complete course. Use the
-left/right arrows or segment rail to advance, `Show context` for the reusable
-wide view, and `Show evidence` for the claim boundary and primary sources. No
-state advances automatically. Open `http://localhost:8000/hybrid.html` for the
+left/right arrows or segment rail to advance and `Show evidence` for sourced
+claims, known limits, and primary sources. No state advances automatically.
+Open `http://localhost:8000/hybrid.html` for the
 spatial substrate or
 `http://localhost:8000/s10_two_rack_heat_paths.html` for the manual teaching
 pilot. Open `http://localhost:8000/planned_shots.html` to inspect every planned
