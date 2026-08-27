@@ -33,6 +33,12 @@ cameras:
     well: [80, 140, 1760, 820]
     position: [1280, 930, 1510]
     target: [-50, 40, 0]
+    label_offsets:
+      utility_source_138: [-60, 20]
+      utility_source_345: [10, -15]
+      initial_substation_138: [-75, 35]
+      campus_substation_lpt_345: [15, -20]
+      campus_mv_distribution: [80, 45]
     focus_nodes:
       - gas_turbine
       - generator
@@ -86,6 +92,9 @@ cameras:
     well: [80, 140, 900, 820]
     position: [790, 210, 260]
     target: [560, 55, 25]
+    label_offsets:
+      busway: [-60, 0]
+      power_shelf: [30, 0]
     focus_nodes: [busway, power_shelf, vrm, die, rack_air_load, cold_plate, rack_manifold]
     label_nodes: [busway, power_shelf, vrm, die, cold_plate, rack_manifold]
     focus_edges:
@@ -118,6 +127,14 @@ cameras:
     well: [80, 140, 900, 820]
     position: [1240, 560, 690]
     target: [820, 130, 0]
+    label_offsets:
+      die: [-120, 0]
+      cold_plate: [-45, 55]
+      rack_manifold: [-85, -45]
+      cdu: [65, 70]
+      crah: [130, -15]
+      facility_loop: [0, 15]
+      fill_treatment: [80, 40]
     focus_nodes:
       - die
       - rack_air_load

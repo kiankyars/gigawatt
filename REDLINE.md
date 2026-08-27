@@ -1,6 +1,6 @@
 # Master diagram redline — disposition
 
-Review date: 2026-08-25
+Review date: 2026-08-25; course-integration recheck: 2026-08-27
 Artifact: `diagram/master.svg`
 Posture: IEEE/IEC-inspired conceptual one-line plus simplified thermal process
 schematic; Abilene evidence overlay; not as-built and not for
@@ -14,9 +14,10 @@ not an as-built or design/construction artifact.
 
 ## Blocking redlines
 
-1. **Lifecycle conflation — resolved.** Nodes and edges now carry `presence`,
-   `lifecycle`, `as_of`, `fact_ids`, and `source_ids`. The validator rejects a
-   lifecycle that the referenced facts cannot support. Solid means
+1. **Lifecycle conflation — resolved.** Nodes carry `presence`, `lifecycle`,
+   and `as_of`; edges carry `presence` and `lifecycle`; both bind `fact_ids`
+   and `source_ids`. The validator rejects a lifecycle that the referenced
+   facts cannot support. Solid means
    energized/confirmed; dotted means permitted without installation proof;
    dashed means future design; pale dashed means conceptual teaching topology.
 2. **False single electrical path — resolved.** The master contains three
@@ -83,6 +84,11 @@ not an as-built or design/construction artifact.
 - 1920 × 1080 raster review of the 2D master and focused camera outputs.
 - Browser runtime check of all six hybrid states.
 
-Result on 2026-08-25: passed. The live player completed every 2D, overlay, and
+Result on 2026-08-27: passed. The live player completed every 2D, overlay, and
 3D transition without runtime errors; the final framing review found no cropped
-or colliding required callouts.
+or colliding required callouts. Reusable cameras reject unknown or base-hidden
+copy, so the planned PPA reveal contract cannot be bypassed by a focus label.
+
+Course sequencing, evidence binding, and production-shot dispositions are
+tracked separately in `course/REDLINE.md` so this engineering-diagram verdict
+is not conflated with script readiness.

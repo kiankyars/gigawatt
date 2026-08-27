@@ -3,6 +3,7 @@ from __future__ import annotations
 import unittest
 from copy import deepcopy
 
+from gigawatt import layout as layout_pipeline
 from gigawatt import scene as scene_pipeline
 
 
@@ -84,6 +85,32 @@ class ScenePipelineTests(unittest.TestCase):
         with self.assertRaisesRegex(scene_pipeline.ManifestError, "hidden_edges"):
             scene_pipeline.validate(self.master, self.scene, cameras)
 
+    def test_camera_focus_labels_cannot_reveal_hidden_or_unknown_copy(self) -> None:
+        cases = (
+            ("nuclear_variant", "hidden_focus_labels"),
+            ("not_master_copy", "unknown_focus_labels"),
+        )
+        for copy_id, message in cases:
+            cameras = deepcopy(self.cameras)
+            cameras["cameras"][0]["focus_labels"] = [copy_id]
+            with self.subTest(copy_id=copy_id):
+                with self.assertRaisesRegex(scene_pipeline.ManifestError, message):
+                    scene_pipeline.validate(self.master, self.scene, cameras)
+                with self.assertRaisesRegex(scene_pipeline.ManifestError, message):
+                    layout_pipeline.filtered_camera_scene(
+                        "<g/>",
+                        cameras["cameras"][0],
+                        self.master,
+                    )
+
+    def test_camera_focus_labels_must_be_unique_strings(self) -> None:
+        for focus_labels in (["region_rack", "region_rack"], ["region_rack", 7]):
+            cameras = deepcopy(self.cameras)
+            cameras["cameras"][0]["focus_labels"] = focus_labels
+            with self.subTest(focus_labels=focus_labels):
+                with self.assertRaisesRegex(scene_pipeline.ManifestError, "focus_labels"):
+                    scene_pipeline.validate(self.master, self.scene, cameras)
+
     def test_grid_and_btm_paths_are_three_distinct_branches(self) -> None:
         edges = {edge["id"]: edge for edge in self.master["edges"]}
         branch_paths = (
@@ -147,6 +174,12 @@ class ScenePipelineTests(unittest.TestCase):
         )
         self.assertTrue(set(campus["label_nodes"]) <= set(campus["focus_nodes"]))
         self.assertIn("const labelFocus = new Set(state.label_nodes || []);", scene_pipeline.render_html(payload))
+
+        thermal = next(
+            camera for camera in payload["cameras"] if camera["id"] == "thermal_return"
+        )
+        self.assertTrue(set(thermal["label_offsets"]) <= set(thermal["focus_nodes"]))
+        self.assertIn("state.label_offsets?.[id]", scene_pipeline.render_html(payload))
 
         cameras = deepcopy(self.cameras)
         cameras["cameras"][1]["label_nodes"] = ["not_a_master_node"]

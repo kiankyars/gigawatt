@@ -16,6 +16,7 @@ from typing import Any
 
 import yaml
 
+from . import scene as scene_pipeline
 from . import tokens
 from .render import S, journey_bar, lbl, note, place, tower, wire
 from .svg import el, line, rect, text
@@ -94,12 +95,18 @@ def _fact_display(record: dict[str, Any]) -> str:
     return str(value)
 
 
-def resolve_copy(master: dict[str, Any], evidence: dict[str, Any], copy_id: str) -> str | None:
+def resolve_copy(
+    master: dict[str, Any],
+    evidence: dict[str, Any],
+    copy_id: str,
+    *,
+    include_hidden: bool = False,
+) -> str | None:
     try:
         spec = master["copy"][copy_id]
     except KeyError as exc:
         raise DiagramError(f"unknown copy ID {copy_id!r}") from exc
-    if spec.get("base_visible", True) is False:
+    if spec.get("base_visible", True) is False and not include_hidden:
         return None
     if "text" in spec:
         return str(spec["text"])
@@ -281,14 +288,21 @@ def _render_copy(
     *, default_kind: str = "label"
 ) -> str:
     copy_id = spec["id"]
-    rendered = resolve_copy(master, evidence, copy_id)
+    rendered = resolve_copy(master, evidence, copy_id, include_hidden=True)
     if rendered is None:
         return ""
     fn = note if spec.get("kind", default_kind) == "note" else lbl
     kwargs: dict[str, Any] = {"anchor": spec.get("anchor", "middle")}
     if "size" in spec:
         kwargs["size"] = spec["size"]
-    return el("g", fn(*spec["at"], rendered, **kwargs), id=f"label-{copy_id}")
+    return el(
+        "g",
+        fn(*spec["at"], rendered, **kwargs),
+        id=f"label-{copy_id}",
+        display="none"
+        if master["copy"][copy_id].get("base_visible", True) is False
+        else "inline",
+    )
 
 
 def _legend(layout: dict[str, Any], master: dict[str, Any], evidence: dict[str, Any]) -> str:
@@ -438,11 +452,13 @@ def compose(
     return hud + scene, scene
 
 
-def filtered_camera_scene(scene: str, camera: dict[str, Any]) -> str:
+def filtered_camera_scene(
+    scene: str, camera: dict[str, Any], master: dict[str, Any]
+) -> str:
     """Apply a declarative focus state without redrawing any diagram element."""
     focus_nodes = camera.get("focus_nodes") or []
     focus_edges = camera.get("focus_edges") or []
-    focus_labels = camera.get("focus_labels")
+    focus_labels = scene_pipeline.validate_camera_focus_labels(master, camera)
     if focus_nodes or focus_edges or focus_labels is not None:
         rules = [
             '#master-scene [id^="node-"] { opacity: .10 !important; }',
@@ -470,7 +486,13 @@ def filtered_camera_scene(scene: str, camera: dict[str, Any]) -> str:
     return scene
 
 
-def build_camera(scene: str, camera: dict[str, Any], frame: dict[str, Any], journey: dict[str, Any]) -> str:
+def build_camera(
+    scene: str,
+    camera: dict[str, Any],
+    frame: dict[str, Any],
+    journey: dict[str, Any],
+    master: dict[str, Any],
+) -> str:
     """Render a camera state over the exact same 2D scene markup."""
     width, height = frame["w"], frame["h"]
     view_x, view_y, view_width, view_height = camera["viewBox"]
@@ -487,7 +509,7 @@ def build_camera(scene: str, camera: dict[str, Any], frame: dict[str, Any], jour
         + journey_bar(1040, 40, journey=journey, active=camera.get("active"))
         + note(60, 1020, "camera state of the semantic master — not separate artwork", size=10.5, anchor="start")
     )
-    filtered_scene = filtered_camera_scene(scene, camera)
+    filtered_scene = filtered_camera_scene(scene, camera, master)
     well = el(
         "svg",
         filtered_scene,
@@ -519,12 +541,25 @@ def main() -> None:
             if camera.get("mode") not in {"2d", "overlay"}:
                 continue
             path = DIAGRAM / f"camera_{camera['id']}.svg"
-            path.write_text(build_camera(scene, camera, frame, master["meta"]["journey_bar"]))
+            path.write_text(
+                build_camera(
+                    scene,
+                    camera,
+                    frame,
+                    master["meta"]["journey_bar"],
+                    master,
+                )
+            )
             print(f"wrote {path}")
             if map_asset := camera.get("map_asset"):
                 map_path = DIAGRAM / map_asset
                 map_path.write_text(
-                    _svg(filtered_camera_scene(scene, camera), frame["w"], frame["h"], f"map-{camera['id']}")
+                    _svg(
+                        filtered_camera_scene(scene, camera, master),
+                        frame["w"],
+                        frame["h"],
+                        f"map-{camera['id']}",
+                    )
                 )
                 print(f"wrote {map_path}")
 

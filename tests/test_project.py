@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import unittest
+from copy import deepcopy
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
@@ -89,7 +90,7 @@ class ProjectContractTests(unittest.TestCase):
 
     def test_full_contract(self) -> None:
         self.assertEqual(14, self.result["sources"])
-        self.assertEqual(45, self.result["facts"])
+        self.assertEqual(48, self.result["facts"])
         self.assertEqual(30, self.result["nodes"])
         self.assertEqual(34, self.result["edges"])
         self.assertEqual(6, self.result["cameras"])
@@ -107,12 +108,23 @@ class ProjectContractTests(unittest.TestCase):
         self.assertEqual("permitted", nodes["diesel_backup_package"]["lifecycle"])
         self.assertIsNone(facts["gas_commissioned_mw"]["value"])
         self.assertIsNone(facts["diesel_units_installed"]["value"])
+        self.assertIsNone(facts["campus_source_merge_as_built_topology"]["value"])
+        self.assertIsNone(facts["bess_campus_connection_as_built_topology"]["value"])
+        self.assertIsNone(facts["diesel_campus_connection_as_built_topology"]["value"])
 
     def test_thermal_fill_is_not_heat_rejection_makeup(self) -> None:
         edges = {edge["id"]: edge for edge in self.master["edges"]}
         self.assertEqual("facility_loop", edges["fill_to_facility_loop"]["to"])
         self.assertEqual("air_cooled_chiller", edges["chiller_to_atmosphere"]["from"])
         self.assertEqual("atmosphere", edges["chiller_to_atmosphere"]["to"])
+
+    def test_hidden_copy_requires_a_hidden_reveal_owner(self) -> None:
+        master = deepcopy(self.master)
+        nuclear_ppa = next(node for node in master["nodes"] if node["id"] == "nuclear_ppa")
+        del nuclear_ppa["reveal_copy_ids"]
+        source_ids, _ = validate._validate_evidence(self.evidence)
+        with self.assertRaisesRegex(validate.ValidationError, "hidden master copy requires"):
+            validate._validate_master(master, self.evidence, source_ids)
 
 
 if __name__ == "__main__":

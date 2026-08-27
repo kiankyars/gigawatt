@@ -189,13 +189,20 @@ derives from `master.yaml`; `scene.yaml` contains placement only). It does not r
 the one-line as the source of truth. When a number, vendor, or chokepoint has
 to be read, it is annotated on the 2D map.
 
-The first vertical slice is declarative in `cameras.yaml`: 2D system orientation
+The six-state demonstration slice is declarative in `cameras.yaml`: 2D system orientation
 → 3D campus establishing → 3D electrical room → 3D data hall/rack → 2D semantic
-handoff at the die → 3D thermal return.
+handoff at the die → 3D thermal return. It proves the hybrid runtime; it is not
+the canonical full-course sequence, which lives in `course/segments.yaml`.
 
-## Open questions (deliberately unresolved)
+## Current production gate
 
-- **Runtime target.** Unset until the segment list exists.
-- **Full act inventory and segment list.** The six-state vertical slice proves
-  the grammar; the complete segment inventory should now be derived from the
-  validated master and evidence overlays.
+- **Runtime target.** Still unset. `course/segments.yaml` now supplies relative
+  production weights, so runtime can be chosen as an editorial packaging
+  decision without changing topology or course order.
+- **Full act inventory and segment list.** Complete: seven acts and 26 segments
+  preserve the electrical-descent / thermal-return figure-eight, followed by
+  chokepoint, capital-stack, and usable-compute rereads.
+- **Evidence gate.** Seven segments can be scripted within current claim
+  boundaries. Nineteen remain explicitly research-gated; their missing
+  engineering, timeline, capital, and power-to-tokens evidence is listed in the
+  manifest and summarized in `course/README.md`.

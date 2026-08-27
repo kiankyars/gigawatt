@@ -1,0 +1,1333 @@
+# Canonical course order and production intent.
+#
+# This manifest owns pedagogy only. Facts and sources stay in registered
+# evidence ledgers; topology stays in diagram/master.yaml; reusable camera
+# geometry stays in diagram/cameras.yaml. Planned shots are production requests,
+# not evidence that the corresponding overlay already exists.
+
+schema_version: 2
+
+meta:
+  course_id: gigawatt
+  inventory_scope: complete_course
+  status: inventory_ready_research_gated
+  runtime_minutes: null
+  relative_weight_total: 27.05
+  master: diagram/master.yaml
+  cameras: diagram/cameras.yaml
+  evidence_ledgers:
+    abilene: evidence/abilene.yaml
+  master_evidence_ledger: abilene
+  sequence_rule: >-
+    Follow the watt from origination to the die, follow the resulting heat to
+    the atmosphere, then reread the same topology for chokepoints, capital, and
+    usable compute.
+
+acts:
+  - id: prologue
+    title: The missing gigawatt
+    learning_objective: >-
+      Establish that announced capacity, energized infrastructure, live
+      workloads, and usable compute are different measures.
+    segments:
+      - id: p0_gigawatt_not_workload
+        title: A gigawatt is not a workload
+        opening_question: If capacity is announced, how many useful tokens exist?
+        learning_objective: >-
+          Separate planned, constructed, energized, live, and unknown quantities
+          before following the physical system.
+        weight: 1.0
+        depends_on: []
+        camera:
+          anchor: system_orientation
+          shot: funnel_cold_open
+          mode: overlay
+          status: planned
+          reveal_ids: []
+          reveal_copy_ids: []
+        node_ids:
+          - gas_turbine
+          - initial_substation_138
+          - campus_substation_lpt_345
+          - diesel_backup_package
+          - campus_mv_distribution
+          - die
+        edge_ids: []
+        evidence:
+          readiness: evidence_ready
+          claims:
+            - id: planned_grid_boundary
+              assertion: planned
+              binding: overlay
+              fact_refs: [abilene:planned_grid_interconnection_mw]
+            - id: initial_substation_rating
+              assertion: confirmed
+              binding: topology
+              fact_refs: [abilene:grid_initial_substation_capacity_mw]
+            - id: expansion_substation_rating
+              assertion: confirmed
+              binding: topology
+              fact_refs: [abilene:grid_expansion_substation_capacity_mw]
+            - id: permitted_gas_layer
+              assertion: permitted
+              binding: topology
+              fact_refs: [abilene:gas_permitted_nameplate_mw]
+            - id: permitted_diesel_layer
+              assertion: permitted
+              binding: topology
+              fact_refs: [abilene:diesel_permitted_nameplate_mw]
+            - id: energized_building_minimum
+              assertion: confirmed_minimum
+              binding: overlay
+              fact_refs: [abilene:buildings_energized_confirmed_min]
+            - id: operational_buildings_unknown
+              assertion: explicit_unknown
+              binding: overlay
+              fact_refs: [abilene:operational_buildings_exact]
+            - id: installed_gpu_no_estimate
+              assertion: no_evidence_backed_estimate
+              binding: overlay
+              fact_refs: [abilene:installed_gpu_count]
+            - id: workloads_live_by
+              assertion: live_by
+              binding: topology
+              fact_refs: [abilene:early_training_inference_live_by]
+            - id: untyped_delivery_percentage
+              assertion: reported_untyped
+              binding: overlay
+              fact_refs: [abilene:oracle_capacity_delivered_percent_untyped]
+            - id: adjacent_project_exclusion
+              assertion: excluded_scope
+              binding: overlay
+              fact_refs: [abilene:adjacent_microsoft_scope_included]
+          promotion_guards:
+            - planned_to_operational
+            - capacity_basis_substitution
+            - permitted_to_installed
+            - permitted_to_commissioned
+            - minimum_to_exact
+            - live_by_to_start_date
+            - untyped_to_capacity
+            - null_to_zero
+            - excluded_scope_addition
+          blocking_research: []
+        transition:
+          to: p1_read_the_machine
+          cue: Learn the diagram's claim language before entering the system.
+
+      - id: p1_read_the_machine
+        title: How to read the machine
+        opening_question: What does each line style actually let us claim?
+        learning_objective: >-
+          Read carrier, direction, lifecycle, and evidence posture as separate
+          properties of the master diagram.
+        weight: 0.75
+        depends_on: []
+        camera:
+          anchor: system_orientation
+          shot: system_orientation
+          mode: 2d
+          status: existing
+          reveal_ids: []
+          reveal_copy_ids: []
+        node_ids:
+          - gas_turbine
+          - generator
+          - initial_tie_138
+          - initial_substation_138
+          - bess_package
+          - campus_mv_distribution
+          - air_cooled_chiller
+          - atmosphere
+        edge_ids:
+          - btm_fuel_to_shaft
+          - grid138_tie_to_station
+          - bess_to_mv
+          - grid138_station_to_mv
+          - chiller_to_atmosphere
+        evidence:
+          readiness: evidence_ready
+          claims:
+            - id: energized_example
+              assertion: confirmed
+              binding: topology
+              fact_refs: [abilene:grid_initial_service_operational_as_of]
+            - id: permitted_example
+              assertion: permitted
+              binding: topology
+              fact_refs: [abilene:gas_turbine_units_authorized]
+            - id: future_example
+              assertion: future_design
+              binding: topology
+              fact_refs: [abilene:bess_reference_design_status]
+            - id: unknown_example
+              assertion: explicit_unknown
+              binding: topology
+              fact_refs: [abilene:campus_lpt_secondary_as_built_voltage_kv]
+            - id: selected_design_example
+              assertion: selected_design
+              binding: topology
+              fact_refs: [abilene:cooling_heat_rejection_posture]
+          promotion_guards:
+            - permitted_to_installed
+            - permitted_to_commissioned
+            - future_design_to_operational
+            - design_to_as_built
+            - conceptual_to_as_built
+            - null_to_zero
+          blocking_research: []
+        transition:
+          to: s01_fire_to_electricity
+          cue: Begin with the first conversion on the behind-the-meter branch.
+
+  - id: act_1_origination
+    title: Origination and interconnection
+    learning_objective: >-
+      Distinguish the three physical source branches, their evidence states, and
+      the deliberately abstract campus distribution boundary.
+    segments:
+      - id: s01_fire_to_electricity
+        title: Fire is not electricity
+        opening_question: What must happen before fuel can become an electrical watt?
+        learning_objective: Distinguish fuel input, shaft power, and generator output.
+        weight: 1.0
+        depends_on: []
+        camera:
+          anchor: campus_establishing
+          shot: campus_establishing
+          mode: 3d
+          status: existing
+          reveal_ids: []
+          reveal_copy_ids: []
+        node_ids: [gas_turbine, generator]
+        edge_ids: [btm_fuel_to_shaft]
+        evidence:
+          readiness: research_required
+          claims:
+            - id: gas_authorization
+              assertion: permitted
+              binding: topology
+              fact_refs: [abilene:gas_turbine_units_authorized, abilene:gas_permitted_nameplate_mw]
+            - id: commissioning_unknown
+              assertion: explicit_unknown
+              binding: overlay
+              fact_refs: [abilene:gas_commissioned_mw]
+          promotion_guards: [permitted_to_installed, permitted_to_commissioned, null_to_zero]
+          blocking_research:
+            - Authoritative turbine and generator conversion dossier.
+            - Site installation, commissioning, and operating evidence.
+        transition:
+          to: s02_generator_terminal
+          cue: Follow shaft power into the first electrical state.
+
+      - id: s02_generator_terminal
+        title: Generator-terminal MV is only the beginning
+        opening_question: Does a model voltage range reveal the site's configuration?
+        learning_objective: >-
+          Separate manufacturer range, selected site voltage, step-up function,
+          and the unknown campus connection.
+        weight: 0.9
+        depends_on: []
+        camera:
+          anchor: campus_establishing
+          shot: btm_step_up
+          mode: 3d
+          status: planned
+          reveal_ids: []
+          reveal_copy_ids: []
+        node_ids: [generator, gsu_transformer, campus_mv_distribution]
+        edge_ids: [btm_terminal_to_gsu, btm_gsu_to_mv]
+        evidence:
+          readiness: research_required
+          claims:
+            - id: generator_authorization
+              assertion: permitted
+              binding: topology
+              fact_refs: [abilene:gas_turbine_units_authorized]
+            - id: model_voltage_range
+              assertion: product_reference
+              binding: topology
+              fact_refs: [abilene:generator_terminal_model_voltage_range_kv]
+            - id: site_voltage_unknown
+              assertion: explicit_unknown
+              binding: topology
+              fact_refs: [abilene:generator_terminal_site_voltage_kv]
+            - id: campus_interface_design
+              assertion: design_reference
+              binding: topology
+              fact_refs: [abilene:campus_mv_reference_design_voltage_kv]
+            - id: campus_interface_unknown
+              assertion: explicit_unknown
+              binding: topology
+              fact_refs: [abilene:campus_lpt_secondary_as_built_voltage_kv]
+          promotion_guards:
+            - permitted_to_installed
+            - permitted_to_commissioned
+            - model_range_to_site_configuration
+            - product_to_site_configuration
+            - design_to_as_built
+            - conceptual_to_as_built
+            - null_to_zero
+          blocking_research:
+            - Authoritative generator and GSU engineering dossier.
+            - Site GSU ratio, connection, and operating posture.
+        transition:
+          to: s03_initial_grid_path
+          cue: Compare the permitted branch with the first evidenced grid-service path.
+
+      - id: s03_initial_grid_path
+        title: The initial grid-service path
+        opening_question: What turns a nearby transmission line into usable site service?
+        learning_objective: Trace the named source, site tie, and initial station without inventing the downstream merge.
+        weight: 1.0
+        depends_on: []
+        camera:
+          anchor: system_orientation
+          shot: grid_138_path
+          mode: 2d
+          status: planned
+          reveal_ids: []
+          reveal_copy_ids: []
+        node_ids: [utility_source_138, initial_tie_138, initial_substation_138, campus_mv_distribution]
+        edge_ids: [grid138_source_to_tie, grid138_tie_to_station, grid138_station_to_mv]
+        evidence:
+          readiness: evidence_ready
+          claims:
+            - id: initial_service
+              assertion: confirmed
+              binding: topology
+              fact_refs:
+                - abilene:grid_initial_source_line
+                - abilene:grid_initial_substation_voltage_kv
+                - abilene:grid_initial_substation_capacity_mw
+                - abilene:grid_initial_slack_span_length_ft
+                - abilene:grid_initial_service_operational_as_of
+            - id: downstream_merge_unknown
+              assertion: explicit_unknown
+              binding: topology
+              fact_refs: [abilene:campus_source_merge_as_built_topology]
+          promotion_guards: [substation_to_it_load, conceptual_to_as_built, null_to_zero]
+          blocking_research: []
+        transition:
+          to: s04_expansion_grid_path
+          cue: Treat the expansion as a separate service path rather than an extension of this one.
+
+      - id: s04_expansion_grid_path
+        title: The separate expansion grid-service path
+        opening_question: Why is the expansion not merely a larger version of the initial path?
+        learning_objective: >-
+          Trace the independent high-voltage corridor, abstract protection
+          envelope, and expansion substation while preserving unknowns.
+        weight: 1.1
+        depends_on: []
+        camera:
+          anchor: system_orientation
+          shot: grid_345_path
+          mode: 2d
+          status: planned
+          reveal_ids: []
+          reveal_copy_ids: []
+        node_ids:
+          - utility_source_345
+          - transmission_corridor_345
+          - hv_protection_envelope_345
+          - campus_substation_lpt_345
+          - campus_mv_distribution
+        edge_ids:
+          - grid345_source_to_corridor
+          - grid345_corridor_to_hv
+          - grid345_hv_to_lpt
+          - grid345_lpt_to_mv
+        evidence:
+          readiness: evidence_ready
+          claims:
+            - id: expansion_service
+              assertion: confirmed
+              binding: topology
+              fact_refs:
+                - abilene:grid_expansion_substation_voltage_kv
+                - abilene:grid_expansion_substation_capacity_mw
+                - abilene:grid_expansion_transformers_energized_count
+                - abilene:grid_expansion_fully_energized_by
+            - id: upstream_source_unknown
+              assertion: explicit_unknown
+              binding: overlay
+              fact_refs: [abilene:grid_expansion_upstream_line]
+            - id: downstream_merge_unknown
+              assertion: explicit_unknown
+              binding: topology
+              fact_refs: [abilene:campus_source_merge_as_built_topology]
+          promotion_guards: [single_path_conflation, substation_to_it_load, conceptual_to_as_built, null_to_zero]
+          blocking_research: []
+        transition:
+          to: s05_ppa_not_wire
+          cue: Separate physical delivery from contractual attribution.
+
+      - id: s05_ppa_not_wire
+        title: A PPA is not a wire
+        opening_question: Does buying nuclear power place a reactor beside the campus?
+        learning_objective: Distinguish contractual energy attribution from the local physical electron path.
+        weight: 0.7
+        depends_on: []
+        camera:
+          anchor: system_orientation
+          shot: ppa_contract_overlay
+          mode: overlay
+          status: planned
+          reveal_ids: [nuclear_ppa, nuclear_ppa_overlay]
+          reveal_copy_ids: [nuclear_variant]
+        node_ids: [nuclear_ppa, utility_source_345]
+        edge_ids: [nuclear_ppa_overlay]
+        evidence:
+          readiness: research_required
+          claims: []
+          promotion_guards: [contractual_to_physical, site_scope_transfer]
+          blocking_research:
+            - Primary contract and accounting-boundary evidence for a named comparison case.
+        transition:
+          to: s06_campus_mv_envelope
+          cue: Return from contractual origin to the physical campus boundary.
+
+      - id: s06_campus_mv_envelope
+        title: The campus-MV envelope and resilience claims
+        opening_question: Where do source, storage, and backup paths actually meet?
+        learning_objective: >-
+          Preserve the unknown source merge while separating future storage and
+          permitted backup from operating infrastructure.
+        weight: 1.1
+        depends_on: []
+        camera:
+          anchor: system_orientation
+          shot: campus_mv_resilience
+          mode: 2d
+          status: planned
+          reveal_ids: []
+          reveal_copy_ids: []
+        node_ids:
+          - gsu_transformer
+          - initial_substation_138
+          - campus_substation_lpt_345
+          - campus_mv_distribution
+          - bess_package
+          - diesel_backup_package
+        edge_ids: [btm_gsu_to_mv, grid138_station_to_mv, grid345_lpt_to_mv, bess_to_mv, diesel_to_mv]
+        evidence:
+          readiness: evidence_ready
+          claims:
+            - id: campus_design_reference
+              assertion: design_reference
+              binding: topology
+              fact_refs: [abilene:campus_mv_reference_design_voltage_kv]
+            - id: campus_as_built_unknown
+              assertion: explicit_unknown
+              binding: topology
+              fact_refs: [abilene:campus_lpt_secondary_as_built_voltage_kv]
+            - id: source_merge_unknown
+              assertion: explicit_unknown
+              binding: topology
+              fact_refs: [abilene:campus_source_merge_as_built_topology]
+            - id: gas_authorization
+              assertion: permitted
+              binding: topology
+              fact_refs: [abilene:gas_turbine_units_authorized]
+            - id: bess_future
+              assertion: future_design
+              binding: topology
+              fact_refs: [abilene:bess_reference_design_status]
+            - id: bess_operation_unknown
+              assertion: explicit_unknown
+              binding: topology
+              fact_refs: [abilene:bess_operational_status]
+            - id: bess_connection_unknown
+              assertion: explicit_unknown
+              binding: topology
+              fact_refs: [abilene:bess_campus_connection_as_built_topology]
+            - id: diesel_authorization
+              assertion: permitted
+              binding: topology
+              fact_refs: [abilene:diesel_units_authorized, abilene:diesel_permitted_nameplate_mw]
+            - id: diesel_operation_unknown
+              assertion: explicit_unknown
+              binding: topology
+              fact_refs: [abilene:diesel_units_installed, abilene:diesel_operational_units]
+            - id: diesel_connection_unknown
+              assertion: explicit_unknown
+              binding: topology
+              fact_refs: [abilene:diesel_campus_connection_as_built_topology]
+          promotion_guards:
+            - conceptual_to_as_built
+            - design_to_as_built
+            - future_design_to_operational
+            - permitted_to_installed
+            - permitted_to_commissioned
+            - null_to_zero
+          blocking_research: []
+        transition:
+          to: s07_building_power_train
+          cue: Cross the abstract boundary into one reference building.
+
+  - id: act_2_electrical_descent
+    title: Electrical descent to the die
+    learning_objective: Follow a conceptual facility and rack power train without inventing site-specific voltages or redundancy.
+    segments:
+      - id: s07_building_power_train
+        title: From campus MV to protected building AC
+        opening_question: Which gates stand between a campus feeder and a rack row?
+        learning_objective: >-
+          Explain transformation, protected distribution, ride-through, and
+          busway as a conceptual reference chain.
+        weight: 1.2
+        depends_on: []
+        camera:
+          anchor: electrical_room
+          shot: building_power_train
+          mode: 3d
+          status: planned
+          reveal_ids: []
+          reveal_copy_ids: []
+        node_ids: [campus_mv_distribution, unit_substation, lv_switchgear, ups, busway]
+        edge_ids: [mv_to_unit_sub, unit_sub_to_lv, lv_to_ups, ups_to_busway]
+        evidence:
+          readiness: research_required
+          claims:
+            - id: campus_input_unknown
+              assertion: explicit_unknown
+              binding: topology
+              fact_refs: [abilene:campus_lpt_secondary_as_built_voltage_kv]
+          promotion_guards: [conceptual_to_as_built, product_to_site_configuration, null_to_zero]
+          blocking_research:
+            - Authoritative unit-substation, switchgear, UPS, and busway engineering dossier.
+            - Site voltages, quantities, redundancy, and switch-state evidence if available.
+        transition:
+          to: s08_rack_voltage_descent
+          cue: Follow protected facility AC into the rack.
+
+      - id: s08_rack_voltage_descent
+        title: Rack AC becomes core voltage
+        opening_question: How many conversions remain once power reaches the data hall?
+        learning_objective: >-
+          Separate site AC, the documented rack DC bus, and the deliberately
+          unspecified board-level core voltage.
+        weight: 1.2
+        depends_on: []
+        camera:
+          anchor: data_hall_rack
+          shot: data_hall_rack
+          mode: 3d
+          status: existing
+          reveal_ids: []
+          reveal_copy_ids: []
+        node_ids: [busway, power_shelf, vrm, die]
+        edge_ids: [busway_to_power_shelf, power_shelf_to_vrm, vrm_to_die]
+        evidence:
+          readiness: research_required
+          claims:
+            - id: operating_family
+              assertion: confirmed
+              binding: topology
+              fact_refs: [abilene:rack_platform]
+            - id: design_platform
+              assertion: design_reference
+              binding: topology
+              fact_refs: [abilene:rack_platform_nvl72_design_reference]
+            - id: rack_dc_product_reference
+              assertion: product_reference
+              binding: topology
+              fact_refs: [abilene:rack_power_shelf_output_vdc]
+            - id: rack_ac_unknown
+              assertion: explicit_unknown
+              binding: topology
+              fact_refs: [abilene:rack_power_shelf_ac_input_voltage_v]
+          promotion_guards:
+            - design_to_as_built
+            - product_to_site_configuration
+            - conceptual_to_as_built
+            - null_to_zero
+          blocking_research:
+            - Authoritative VRM and package power-delivery dossier.
+            - Site rack input and operating rack-configuration evidence.
+        transition:
+          to: s09_watt_becomes_heat
+          cue: At the die, change from the electrical path to the heat-removal obligation.
+
+  - id: act_3_thermal_return
+    title: Return the heat
+    learning_objective: Follow the liquid and residual-air paths from the die to the atmosphere with explicit supply and return direction.
+    segments:
+      - id: s09_watt_becomes_heat
+        title: The watt becomes heat
+        opening_question: Where does electrical energy go after useful computation?
+        learning_objective: Establish the die as both electrical destination and thermal source without asserting a quantitative heat split.
+        weight: 1.0
+        depends_on: []
+        camera:
+          anchor: watt_heat_handoff
+          shot: watt_heat_handoff
+          mode: overlay
+          status: existing
+          reveal_ids: []
+          reveal_copy_ids: []
+        node_ids: [die, cold_plate]
+        edge_ids: [die_to_cold_plate_heat]
+        evidence:
+          readiness: research_required
+          claims:
+            - id: operating_family
+              assertion: confirmed
+              binding: topology
+              fact_refs: [abilene:rack_platform]
+            - id: live_workload_boundary
+              assertion: live_by
+              binding: topology
+              fact_refs: [abilene:early_training_inference_live_by]
+            - id: direct_cooling_design
+              assertion: design_reference
+              binding: topology
+              fact_refs: [abilene:cooling_direct_to_chip_design]
+            - id: liquid_path_product_reference
+              assertion: product_reference
+              binding: topology
+              fact_refs: [abilene:rack_liquid_cooled_components]
+          promotion_guards: [design_to_as_built, product_to_site_configuration, live_by_to_start_date, conceptual_to_as_built]
+          blocking_research:
+            - Authoritative compute-system electrical-to-thermal energy-balance source.
+        transition:
+          to: s10_two_rack_heat_paths
+          cue: Split the rack's heat between liquid-cooled compute and air-cooled auxiliaries.
+
+      - id: s10_two_rack_heat_paths
+        title: One rack, two heat paths
+        opening_question: Is a liquid-cooled rack entirely liquid cooled?
+        learning_objective: >-
+          Separate liquid-cooled compute from residual air-cooled components,
+          ending each branch at its evidenced rack-package boundary.
+        weight: 1.0
+        depends_on: []
+        camera:
+          anchor: data_hall_rack
+          shot: rack_cooling_split
+          mode: 3d
+          status: planned
+          reveal_ids: []
+          reveal_copy_ids: []
+        node_ids: [die, rack_air_load, cold_plate, rack_manifold]
+        edge_ids: [die_to_cold_plate_heat, cold_plate_to_manifold_return, manifold_to_cold_plate_supply]
+        evidence:
+          readiness: evidence_ready
+          claims:
+            - id: rack_design_reference
+              assertion: design_reference
+              binding: topology
+              fact_refs: [abilene:rack_platform_nvl72_design_reference, abilene:cooling_direct_to_chip_design]
+            - id: rack_component_split
+              assertion: product_reference
+              binding: topology
+              fact_refs: [abilene:rack_air_cooled_components, abilene:rack_liquid_cooled_components]
+          promotion_guards: [design_to_as_built, product_to_site_configuration, conceptual_to_as_built]
+          blocking_research: []
+        transition:
+          to: s11_technology_loop
+          cue: Trace the liquid branch's separate supply and return headers.
+
+      - id: s11_technology_loop
+        title: Supply and return are different pipes
+        opening_question: Why can the cooling circuit not be drawn as one arrow?
+        learning_objective: Distinguish cold technology supply from heat-carrying technology return.
+        weight: 1.1
+        depends_on: []
+        camera:
+          anchor: thermal_return
+          shot: technology_loop
+          mode: 3d
+          status: planned
+          reveal_ids: []
+          reveal_copy_ids: []
+        node_ids: [cold_plate, rack_manifold, cdu]
+        edge_ids: [cold_plate_to_manifold_return, manifold_to_cdu_return, cdu_to_manifold_supply, manifold_to_cold_plate_supply]
+        evidence:
+          readiness: research_required
+          claims:
+            - id: direct_cooling_design
+              assertion: design_reference
+              binding: topology
+              fact_refs: [abilene:cooling_direct_to_chip_design]
+            - id: manifold_product_reference
+              assertion: product_reference
+              binding: topology
+              fact_refs: [abilene:rack_liquid_cooled_components]
+          promotion_guards: [design_to_as_built, product_to_site_configuration, reverse_physical_flow]
+          blocking_research:
+            - Authoritative technology-loop flow and control dossier.
+        transition:
+          to: s12_cdu_boundary
+          cue: Follow both headers to the boundary between rack and facility systems.
+
+      - id: s12_cdu_boundary
+        title: The CDU is a boundary, not a magic box
+        opening_question: Why use two loops instead of facility water at every cold plate?
+        learning_objective: Explain the conceptual interface without asserting coolant mixing or exact package design.
+        weight: 1.0
+        depends_on: []
+        camera:
+          anchor: thermal_return
+          shot: cdu_boundary
+          mode: 3d
+          status: planned
+          reveal_ids: []
+          reveal_copy_ids: []
+        node_ids: [rack_manifold, cdu, facility_loop]
+        edge_ids: [manifold_to_cdu_return, cdu_to_manifold_supply, cdu_to_facility_return, facility_to_cdu_supply]
+        evidence:
+          readiness: research_required
+          claims:
+            - id: selected_loop_design
+              assertion: selected_design
+              binding: topology
+              fact_refs: [abilene:cooling_heat_rejection_posture]
+            - id: direct_cooling_design
+              assertion: design_reference
+              binding: topology
+              fact_refs: [abilene:cooling_direct_to_chip_design]
+          promotion_guards: [conceptual_to_as_built, design_to_as_built, reverse_physical_flow]
+          blocking_research:
+            - Authoritative CDU and dual-loop engineering dossier.
+            - Site temperatures, flows, interfaces, redundancy, and package counts.
+        transition:
+          to: s13_residual_air_branch
+          cue: Recover the rack heat that never entered a cold plate.
+
+      - id: s13_residual_air_branch
+        title: Residual air takes a parallel route
+        opening_question: Where does heat from networking, storage, and other auxiliaries go?
+        learning_objective: Trace the CRAH branch as parallel to direct-to-chip cooling rather than serial with it.
+        weight: 0.9
+        depends_on: []
+        camera:
+          anchor: thermal_return
+          shot: residual_air_branch
+          mode: 3d
+          status: planned
+          reveal_ids: []
+          reveal_copy_ids: []
+        node_ids: [rack_air_load, crah, facility_loop]
+        edge_ids: [rack_air_load_to_crah, crah_to_facility_return, facility_to_crah_supply]
+        evidence:
+          readiness: research_required
+          claims:
+            - id: air_cooled_components
+              assertion: product_reference
+              binding: topology
+              fact_refs: [abilene:rack_air_cooled_components]
+            - id: selected_facility_loop
+              assertion: selected_design
+              binding: topology
+              fact_refs: [abilene:cooling_heat_rejection_posture]
+          promotion_guards: [product_to_site_configuration, design_to_as_built, conceptual_to_as_built, reverse_physical_flow]
+          blocking_research:
+            - Authoritative CRAH or fan-wall heat-removal dossier.
+            - Site air-path and package evidence.
+        transition:
+          to: s14_facility_heat_rejection
+          cue: Rejoin the liquid and air branches at the facility loop.
+
+      - id: s14_facility_heat_rejection
+        title: The facility loop carries heat to the plant
+        opening_question: Which equipment still gates heat after it leaves the data hall?
+        learning_objective: Follow facility return and restored supply through the selected air-cooled heat-rejection design.
+        weight: 1.1
+        depends_on: [s12_cdu_boundary, s13_residual_air_branch]
+        camera:
+          anchor: thermal_return
+          shot: facility_heat_rejection
+          mode: 3d
+          status: planned
+          reveal_ids: []
+          reveal_copy_ids: []
+        node_ids: [cdu, crah, facility_loop, air_cooled_chiller]
+        edge_ids:
+          - cdu_to_facility_return
+          - facility_to_cdu_supply
+          - crah_to_facility_return
+          - facility_to_crah_supply
+          - facility_to_chiller_return
+          - chiller_to_facility_supply
+        evidence:
+          readiness: research_required
+          claims:
+            - id: selected_heat_rejection
+              assertion: selected_design
+              binding: topology
+              fact_refs: [abilene:cooling_heat_rejection_posture]
+            - id: direct_cooling_design
+              assertion: design_reference
+              binding: topology
+              fact_refs: [abilene:cooling_direct_to_chip_design]
+          promotion_guards: [design_to_as_built, conceptual_to_as_built, reverse_physical_flow]
+          blocking_research:
+            - Authoritative facility-loop flow and control dossier.
+            - Site CDU, CRAH, facility-loop, and chiller interface evidence.
+        transition:
+          to: s15_water_accounting
+          cue: Resolve why a non-evaporative design still has a water requirement.
+
+      - id: s15_water_accounting
+        title: Closed loop does not mean water-free
+        opening_question: How can non-evaporative heat rejection still require water?
+        learning_objective: Separate design fill and anticipated maintenance from measured operating consumption.
+        weight: 0.8
+        depends_on: []
+        camera:
+          anchor: thermal_return
+          shot: water_accounting
+          mode: overlay
+          status: planned
+          reveal_ids: []
+          reveal_copy_ids: []
+        node_ids: [fill_treatment, facility_loop, air_cooled_chiller]
+        edge_ids: [fill_to_facility_loop, facility_to_chiller_return, chiller_to_facility_supply]
+        evidence:
+          readiness: evidence_ready
+          claims:
+            - id: initial_fill_design
+              assertion: selected_design
+              binding: topology
+              fact_refs: [abilene:cooling_initial_fill_gallons_per_building]
+            - id: anticipated_maintenance
+              assertion: anticipated
+              binding: topology
+              fact_refs: [abilene:cooling_annual_maintenance_gallons_per_building]
+          promotion_guards: [design_to_as_built, anticipated_to_measured, capacity_basis_substitution]
+          blocking_research: []
+        transition:
+          to: s16_close_atmosphere
+          cue: Replay the complete return path to its terminal sink.
+
+      - id: s16_close_atmosphere
+        title: The figure-eight closes in the atmosphere
+        opening_question: Where is the watt now?
+        learning_objective: Replay every heat-transfer gate to the terminal sink without implying physical recirculation.
+        weight: 0.8
+        depends_on:
+          - s09_watt_becomes_heat
+          - s10_two_rack_heat_paths
+          - s11_technology_loop
+          - s12_cdu_boundary
+          - s13_residual_air_branch
+          - s14_facility_heat_rejection
+        camera:
+          anchor: thermal_return
+          shot: thermal_return
+          mode: 3d
+          status: existing
+          reveal_ids: []
+          reveal_copy_ids: []
+        node_ids:
+          - die
+          - rack_air_load
+          - cold_plate
+          - rack_manifold
+          - cdu
+          - crah
+          - facility_loop
+          - air_cooled_chiller
+          - fill_treatment
+          - atmosphere
+        edge_ids:
+          - die_to_cold_plate_heat
+          - cold_plate_to_manifold_return
+          - manifold_to_cdu_return
+          - cdu_to_manifold_supply
+          - manifold_to_cold_plate_supply
+          - cdu_to_facility_return
+          - facility_to_cdu_supply
+          - rack_air_load_to_crah
+          - crah_to_facility_return
+          - facility_to_crah_supply
+          - facility_to_chiller_return
+          - chiller_to_facility_supply
+          - chiller_to_atmosphere
+          - fill_to_facility_loop
+        evidence:
+          readiness: research_required
+          claims:
+            - id: operating_family
+              assertion: confirmed
+              binding: topology
+              fact_refs: [abilene:rack_platform]
+            - id: cooling_design
+              assertion: design_reference
+              binding: topology
+              fact_refs: [abilene:cooling_direct_to_chip_design]
+            - id: rack_component_paths
+              assertion: product_reference
+              binding: topology
+              fact_refs: [abilene:rack_air_cooled_components, abilene:rack_liquid_cooled_components]
+            - id: selected_heat_rejection
+              assertion: selected_design
+              binding: topology
+              fact_refs: [abilene:cooling_heat_rejection_posture]
+          promotion_guards: [design_to_as_built, product_to_site_configuration, conceptual_to_as_built]
+          blocking_research:
+            - Complete the energy-balance, technology-loop, CDU, CRAH, and facility-loop dossiers required by the replay.
+        transition:
+          to: s17_interconnection_schedule
+          cue: Reread the same physical path as a construction schedule.
+
+  - id: act_4_chokepoints
+    title: Chokepoint reread
+    learning_objective: Identify how interconnection, equipment, commissioning, and load dynamics prevent announced capacity from becoming usable compute.
+    segments:
+      - id: s17_interconnection_schedule
+        title: The interconnection queue is a physical schedule
+        opening_question: What lies between a request for power and an energized feeder?
+        learning_objective: Turn administrative milestones into a dated chain of physical completion gates.
+        weight: 1.2
+        depends_on: []
+        camera:
+          anchor: system_orientation
+          shot: chokepoint_interconnection
+          mode: overlay
+          status: planned
+          reveal_ids: []
+          reveal_copy_ids: []
+        node_ids:
+          - utility_source_138
+          - initial_tie_138
+          - initial_substation_138
+          - utility_source_345
+          - transmission_corridor_345
+          - hv_protection_envelope_345
+          - campus_substation_lpt_345
+          - campus_mv_distribution
+        edge_ids:
+          - grid138_source_to_tie
+          - grid138_tie_to_station
+          - grid138_station_to_mv
+          - grid345_source_to_corridor
+          - grid345_corridor_to_hv
+          - grid345_hv_to_lpt
+          - grid345_lpt_to_mv
+        evidence:
+          readiness: research_required
+          claims:
+            - id: planned_grid_boundary
+              assertion: planned
+              binding: overlay
+              fact_refs: [abilene:planned_grid_interconnection_mw]
+            - id: evidenced_service_milestones
+              assertion: confirmed
+              binding: topology
+              fact_refs: [abilene:grid_initial_service_operational_as_of, abilene:grid_expansion_fully_energized_by]
+          promotion_guards: [planned_to_operational, substation_to_it_load, capacity_basis_substitution]
+          blocking_research:
+            - Primary interconnection record and milestone chronology.
+            - Contracted, energized, commissioned, current-load, and IT-load distinctions.
+        transition:
+          to: s18_long_lead_equipment
+          cue: Ask which indispensable package sets the completion date.
+
+      - id: s18_long_lead_equipment
+        title: Long-lead equipment sets the critical path
+        opening_question: Which box can delay an otherwise ready campus?
+        learning_objective: Compare dated lead-time exposure across electrical generation, distribution, and cooling packages.
+        weight: 1.2
+        depends_on: []
+        camera:
+          anchor: system_orientation
+          shot: chokepoint_equipment
+          mode: overlay
+          status: planned
+          reveal_ids: []
+          reveal_copy_ids: []
+        node_ids:
+          - gas_turbine
+          - gsu_transformer
+          - hv_protection_envelope_345
+          - campus_substation_lpt_345
+          - unit_substation
+          - lv_switchgear
+          - ups
+          - cdu
+          - air_cooled_chiller
+        edge_ids: []
+        evidence:
+          readiness: research_required
+          claims:
+            - id: gas_authorization_anchor
+              assertion: permitted
+              binding: topology
+              fact_refs: [abilene:gas_turbine_units_authorized]
+            - id: energized_transformer_anchor
+              assertion: confirmed
+              binding: topology
+              fact_refs: [abilene:grid_expansion_transformers_energized_count, abilene:grid_expansion_fully_energized_by]
+            - id: cooling_design_anchor
+              assertion: selected_design
+              binding: topology
+              fact_refs: [abilene:cooling_heat_rejection_posture]
+          promotion_guards: [permitted_to_installed, permitted_to_commissioned, design_to_as_built, site_scope_transfer]
+          blocking_research:
+            - Dated primary lead-time evidence by region and equipment class.
+            - Construction dependencies and acceptance milestones.
+        transition:
+          to: s19_fast_load_slow_grid
+          cue: Contrast multi-year construction with millisecond load behavior.
+
+      - id: s19_fast_load_slow_grid
+        title: Fast load, slow grid
+        opening_question: What happens when many accelerators change load together?
+        learning_objective: >-
+          Connect synchronized rack demand to ride-through and the future storage
+          location without reversing physical power-flow arrows.
+        weight: 1.2
+        depends_on: []
+        camera:
+          anchor: system_orientation
+          shot: transient_backprop
+          mode: overlay
+          status: planned
+          reveal_ids: []
+          reveal_copy_ids: []
+        node_ids:
+          - utility_source_345
+          - transmission_corridor_345
+          - hv_protection_envelope_345
+          - campus_substation_lpt_345
+          - campus_mv_distribution
+          - bess_package
+          - unit_substation
+          - lv_switchgear
+          - ups
+          - busway
+          - power_shelf
+          - vrm
+          - die
+        edge_ids:
+          - grid345_source_to_corridor
+          - grid345_corridor_to_hv
+          - grid345_hv_to_lpt
+          - grid345_lpt_to_mv
+          - bess_to_mv
+          - mv_to_unit_sub
+          - unit_sub_to_lv
+          - lv_to_ups
+          - ups_to_busway
+          - busway_to_power_shelf
+          - power_shelf_to_vrm
+          - vrm_to_die
+        evidence:
+          readiness: research_required
+          claims:
+            - id: bess_future
+              assertion: future_design
+              binding: topology
+              fact_refs: [abilene:bess_reference_design_status]
+            - id: bess_operation_unknown
+              assertion: explicit_unknown
+              binding: topology
+              fact_refs: [abilene:bess_operational_status]
+            - id: operating_compute_anchor
+              assertion: confirmed
+              binding: topology
+              fact_refs: [abilene:rack_platform]
+          promotion_guards: [future_design_to_operational, reverse_physical_flow, contractual_to_physical, null_to_zero]
+          blocking_research:
+            - Primary GPU-load transient and power-quality evidence.
+            - BESS function, rating, connection, and operating evidence.
+        transition:
+          to: s20_build_sequence
+          cue: Put fast and slow constraints onto the same delivery funnel.
+
+      - id: s20_build_sequence
+        title: The build sequence is the binding constraint
+        opening_question: At which gate did the announced capacity stop?
+        learning_objective: Apply the status funnel without substituting one capacity basis for another.
+        weight: 1.0
+        depends_on: []
+        camera:
+          anchor: system_orientation
+          shot: funnel_gate_read
+          mode: overlay
+          status: planned
+          reveal_ids: []
+          reveal_copy_ids: []
+        node_ids:
+          - initial_substation_138
+          - campus_substation_lpt_345
+          - campus_mv_distribution
+          - unit_substation
+          - lv_switchgear
+          - ups
+          - busway
+          - power_shelf
+          - vrm
+          - die
+        edge_ids:
+          - grid138_station_to_mv
+          - grid345_lpt_to_mv
+          - mv_to_unit_sub
+          - unit_sub_to_lv
+          - lv_to_ups
+          - ups_to_busway
+          - busway_to_power_shelf
+          - power_shelf_to_vrm
+          - vrm_to_die
+        evidence:
+          readiness: research_required
+          claims:
+            - id: planned_grid_boundary
+              assertion: planned
+              binding: overlay
+              fact_refs: [abilene:planned_grid_interconnection_mw]
+            - id: infrastructure_milestones
+              assertion: confirmed
+              binding: topology
+              fact_refs: [abilene:grid_initial_service_operational_as_of, abilene:grid_expansion_fully_energized_by]
+            - id: energized_minimum
+              assertion: confirmed_minimum
+              binding: overlay
+              fact_refs: [abilene:buildings_energized_confirmed_min]
+            - id: operational_buildings_unknown
+              assertion: explicit_unknown
+              binding: overlay
+              fact_refs: [abilene:operational_buildings_exact]
+            - id: installed_gpu_no_estimate
+              assertion: no_evidence_backed_estimate
+              binding: overlay
+              fact_refs: [abilene:installed_gpu_count]
+            - id: live_compute_boundary
+              assertion: live_by
+              binding: topology
+              fact_refs: [abilene:early_training_inference_live_by]
+            - id: untyped_delivery_boundary
+              assertion: reported_untyped
+              binding: overlay
+              fact_refs: [abilene:oracle_capacity_delivered_percent_untyped]
+          promotion_guards:
+            - planned_to_operational
+            - minimum_to_exact
+            - untyped_to_capacity
+            - capacity_basis_substitution
+            - null_to_zero
+            - live_by_to_start_date
+          blocking_research:
+            - Immutable Atlas construction chronology and primary-source reconciliation.
+            - Commissioned power, current load, IT load, and utilization evidence.
+        transition:
+          to: s21_capital_ownership
+          cue: Reread the same gates by ownership rather than engineering function.
+
+  - id: act_5_capital_stack
+    title: Capital-stack reread
+    learning_objective: Separate ownership, financing, operation, offtake, and utilization risk across the same physical topology.
+    segments:
+      - id: s21_capital_ownership
+        title: Same hardware, different owners
+        opening_question: Who controls each gate on the diagram?
+        learning_objective: Distinguish utility, developer, operator, equipment owner, and compute customer roles.
+        weight: 1.2
+        depends_on: []
+        camera:
+          anchor: system_orientation
+          shot: capital_ownership
+          mode: overlay
+          status: planned
+          reveal_ids: [nuclear_ppa]
+          reveal_copy_ids: [nuclear_variant]
+        node_ids:
+          - gas_turbine
+          - generator
+          - gsu_transformer
+          - utility_source_138
+          - initial_tie_138
+          - initial_substation_138
+          - utility_source_345
+          - transmission_corridor_345
+          - hv_protection_envelope_345
+          - campus_substation_lpt_345
+          - nuclear_ppa
+          - campus_mv_distribution
+          - bess_package
+          - diesel_backup_package
+          - unit_substation
+          - lv_switchgear
+          - ups
+          - busway
+          - power_shelf
+          - vrm
+          - die
+          - rack_air_load
+          - cold_plate
+          - rack_manifold
+          - cdu
+          - crah
+          - facility_loop
+          - air_cooled_chiller
+          - fill_treatment
+          - atmosphere
+        edge_ids: []
+        evidence:
+          readiness: research_required
+          claims: []
+          promotion_guards: [site_scope_transfer, contractual_to_physical, capacity_basis_substitution]
+          blocking_research:
+            - Dated ownership and operating-role evidence for every colored asset class.
+        transition:
+          to: s22_capital_risk
+          cue: Follow the timing of cash outlays and revenue eligibility across those roles.
+
+      - id: s22_capital_risk
+        title: Who pays before the first token?
+        opening_question: Which party funds each box, and when can it begin earning?
+        learning_objective: Map development capital, equipment finance, offtake, and utilization exposure to physical gates.
+        weight: 1.2
+        depends_on: []
+        camera:
+          anchor: system_orientation
+          shot: capital_risk
+          mode: overlay
+          status: planned
+          reveal_ids: []
+          reveal_copy_ids: []
+        node_ids:
+          - gas_turbine
+          - gsu_transformer
+          - initial_substation_138
+          - campus_substation_lpt_345
+          - campus_mv_distribution
+          - unit_substation
+          - lv_switchgear
+          - ups
+          - busway
+          - power_shelf
+          - die
+          - cdu
+          - air_cooled_chiller
+        edge_ids: []
+        evidence:
+          readiness: research_required
+          claims: []
+          promotion_guards: [site_scope_transfer, capacity_basis_substitution]
+          blocking_research:
+            - Primary financing, lease, offtake, equipment-ownership, and utilization-risk evidence.
+        transition:
+          to: s23_business_models
+          cue: Compare how different business models reallocate those same risks.
+
+      - id: s23_business_models
+        title: Business models recolor the same machine
+        opening_question: What changes between developer, colo, neocloud, and hyperscaler models?
+        learning_objective: Compare contractual and risk allocations without changing physical topology.
+        weight: 1.0
+        depends_on: []
+        camera:
+          anchor: system_orientation
+          shot: capital_models
+          mode: overlay
+          status: planned
+          reveal_ids: [nuclear_ppa, nuclear_ppa_overlay]
+          reveal_copy_ids: [nuclear_variant]
+        node_ids:
+          - nuclear_ppa
+          - utility_source_345
+          - gas_turbine
+          - campus_mv_distribution
+          - power_shelf
+          - die
+        edge_ids: [nuclear_ppa_overlay]
+        evidence:
+          readiness: research_required
+          claims: []
+          promotion_guards: [contractual_to_physical, site_scope_transfer, capacity_basis_substitution]
+          blocking_research:
+            - Comparable primary evidence for ownership, operation, financing, and utilization risk by business model.
+            - Separate comparison-case evidence ledgers where topology or scope differs from Abilene.
+        transition:
+          to: s24_megawatts_to_tokens
+          cue: Return to the opening question with every physical and economic gate visible.
+
+  - id: act_6_tokens_close
+    title: From delivered power to usable compute
+    learning_objective: Teach an assumption-bound conversion recipe without inventing an Abilene token estimate.
+    segments:
+      - id: s24_megawatts_to_tokens
+        title: From delivered megawatts to tokens
+        opening_question: Given delivered power, how many useful tokens result?
+        learning_objective: >-
+          Parameterize facility overhead, accelerator share, utilization,
+          batching, MFU, and workload-dependent compute while preserving the
+          no-estimate boundary for the reference campus.
+        weight: 1.4
+        depends_on: []
+        camera:
+          anchor: system_orientation
+          shot: tokens_recipe
+          mode: overlay
+          status: planned
+          reveal_ids: []
+          reveal_copy_ids: []
+        node_ids:
+          - campus_mv_distribution
+          - unit_substation
+          - lv_switchgear
+          - ups
+          - busway
+          - power_shelf
+          - vrm
+          - die
+          - cold_plate
+          - rack_manifold
+          - cdu
+          - facility_loop
+          - air_cooled_chiller
+          - atmosphere
+        edge_ids:
+          - mv_to_unit_sub
+          - unit_sub_to_lv
+          - lv_to_ups
+          - ups_to_busway
+          - busway_to_power_shelf
+          - power_shelf_to_vrm
+          - vrm_to_die
+          - die_to_cold_plate_heat
+          - cold_plate_to_manifold_return
+          - manifold_to_cdu_return
+          - cdu_to_facility_return
+          - facility_to_chiller_return
+          - chiller_to_atmosphere
+        evidence:
+          readiness: research_required
+          claims:
+            - id: current_installed_gpu_no_estimate
+              assertion: no_evidence_backed_estimate
+              binding: overlay
+              fact_refs: [abilene:installed_gpu_count]
+            - id: untyped_delivery_boundary
+              assertion: reported_untyped
+              binding: overlay
+              fact_refs: [abilene:oracle_capacity_delivered_percent_untyped]
+            - id: operating_platform_anchor
+              assertion: confirmed
+              binding: topology
+              fact_refs: [abilene:rack_platform]
+            - id: rack_power_product_reference
+              assertion: product_reference
+              binding: topology
+              fact_refs: [abilene:rack_power_shelf_output_vdc]
+            - id: selected_heat_rejection
+              assertion: selected_design
+              binding: topology
+              fact_refs: [abilene:cooling_heat_rejection_posture]
+          promotion_guards:
+            - capacity_basis_substitution
+            - design_ceiling_to_installed
+            - untyped_to_capacity
+            - null_to_zero
+            - site_scope_transfer
+            - design_to_as_built
+            - product_to_site_configuration
+          blocking_research:
+            - Commissioned and current IT power plus facility-overhead evidence.
+            - Installed accelerator inventory and usable accelerator-power evidence.
+            - Utilization, batching, MFU, workload, model, and measured-throughput evidence.
+        transition: null

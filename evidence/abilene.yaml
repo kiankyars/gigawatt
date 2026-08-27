@@ -327,6 +327,49 @@ facts:
     source_ids: [tceq_37589_reference_drawing, mortenson_abilene_power_delivery]
     posture: unverified_null
 
+  campus_source_merge_as_built_topology:
+    value: null
+    unit: topology
+    scope: >-
+      As-built merge of the initial 138 kV, expansion 345 kV, and
+      behind-the-meter generation paths at the original campus
+    basis: >-
+      The reviewed project-delivery page and Longhorn review drawing establish
+      the separate source-side elements but do not establish a shared as-built
+      campus bus, feeder arrangement, switching state, or merge topology.
+    lifecycle: topology_unknown
+    as_of: '2026-08-25'
+    source_ids: [mortenson_abilene_power_delivery, tceq_37589_reference_drawing]
+    posture: unverified_null
+
+  bess_campus_connection_as_built_topology:
+    value: null
+    unit: topology
+    scope: As-built BESS connection at the original campus
+    basis: >-
+      The Longhorn review drawing marks a BESS package as future but does not
+      establish its procurement, installation, energization, or as-built campus
+      connection.
+    lifecycle: topology_unknown
+    as_of: '2026-08-25'
+    source_ids: [tceq_37589_reference_drawing]
+    posture: unverified_null
+
+  diesel_campus_connection_as_built_topology:
+    value: null
+    unit: topology
+    scope: >-
+      As-built connection of the authorized emergency and standby diesel system
+      at the original campus
+    basis: >-
+      The permit application and technical review establish authorization but
+      do not establish installation, operation, feeder allocation, switching
+      state, or an as-built campus connection.
+    lifecycle: topology_unknown
+    as_of: '2026-08-25'
+    source_ids: [tceq_177262_diesel_application, tceq_177262_diesel_review]
+    posture: unverified_null
+
   gas_turbine_units_authorized:
     value: 10
     unit: units

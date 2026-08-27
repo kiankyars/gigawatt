@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 import re
 from copy import deepcopy
 from datetime import date, datetime
@@ -92,6 +93,38 @@ def _validate_primitives(
             _triplet(primitive["rotate"], f"{here}.rotate")
 
 
+def validate_camera_focus_labels(
+    master: dict[str, Any], camera: dict[str, Any]
+) -> list[str] | None:
+    """Return a camera's safe copy focus, rejecting hidden-label bypasses."""
+    cid = camera.get("id", "<unknown>")
+    value = camera.get("focus_labels")
+    if value is None:
+        return None
+    if not isinstance(value, list) or any(
+        not isinstance(copy_id, str) for copy_id in value
+    ):
+        raise ManifestError(f"camera {cid}: focus_labels must be a list of copy IDs")
+    if len(value) != len(set(value)):
+        raise ManifestError(f"camera {cid}: focus_labels must be unique")
+
+    master_copy = master.get("copy") or {}
+    known_copy_ids = set(master_copy)
+    hidden_copy_ids = {
+        copy_id
+        for copy_id, spec in master_copy.items()
+        if spec.get("base_visible", True) is False
+    }
+    unknown_focus_labels = sorted(set(value) - known_copy_ids)
+    hidden_focus_labels = sorted(set(value) & hidden_copy_ids)
+    if unknown_focus_labels or hidden_focus_labels:
+        raise ManifestError(
+            f"camera {cid}: unknown_focus_labels={unknown_focus_labels} "
+            f"hidden_focus_labels={hidden_focus_labels}"
+        )
+    return value
+
+
 def validate(
     master: dict[str, Any], scene: dict[str, Any], cameras: dict[str, Any]
 ) -> None:
@@ -170,6 +203,7 @@ def validate(
         mode = camera.get("mode")
         if mode not in ALLOWED_MODES:
             raise ManifestError(f"camera {cid}: unsupported mode {mode!r}")
+        validate_camera_focus_labels(master, camera)
         focus_nodes = set(camera.get("focus_nodes") or [])
         unknown_nodes = sorted(focus_nodes - master_nodes)
         label_nodes_value = camera.get("label_nodes")
@@ -181,6 +215,22 @@ def validate(
         label_nodes = set(label_nodes_value or [])
         unknown_label_nodes = sorted(label_nodes - master_nodes)
         nonfocus_label_nodes = sorted(label_nodes - focus_nodes)
+        label_offsets = camera.get("label_offsets") or {}
+        if not isinstance(label_offsets, dict):
+            raise ManifestError(f"camera {cid}: label_offsets must be a mapping")
+        invalid_label_offsets = sorted(
+            node_id
+            for node_id, offset in label_offsets.items()
+            if node_id not in focus_nodes
+            or not isinstance(offset, list)
+            or len(offset) != 2
+            or any(
+                isinstance(value, bool)
+                or not isinstance(value, (int, float))
+                or not math.isfinite(float(value))
+                for value in offset
+            )
+        )
         camera_edges = set(camera.get("focus_edges") or []) | set(
             camera.get("pulse_edges") or []
         )
@@ -190,6 +240,7 @@ def validate(
             unknown_nodes
             or unknown_label_nodes
             or nonfocus_label_nodes
+            or invalid_label_offsets
             or unknown_edges
             or hidden_camera_edges
         ):
@@ -197,6 +248,7 @@ def validate(
                 f"camera {cid}: unknown_nodes={unknown_nodes} "
                 f"unknown_label_nodes={unknown_label_nodes} "
                 f"nonfocus_label_nodes={nonfocus_label_nodes} "
+                f"invalid_label_offsets={invalid_label_offsets} "
                 f"unknown_edges={unknown_edges} hidden_edges={hidden_camera_edges}"
             )
         if mode == "3d":
@@ -741,6 +793,9 @@ function setFocus(state) {
       item.transparent = item.opacity < 1;
     }
     object.userData.labelObject.visible = selected && (!hasLabelFocus || labelFocus.has(id));
+    const [offsetX, offsetY] = state.label_offsets?.[id] || [0, 0];
+    object.userData.labelElement.style.marginLeft = `${offsetX}px`;
+    object.userData.labelElement.style.marginTop = `${offsetY}px`;
   }
   for (const [id, object] of edgeObjects) {
     const selected = !hasFocus || edgeFocus.has(id);

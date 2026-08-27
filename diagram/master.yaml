@@ -251,6 +251,7 @@ nodes:
     source_ids: []
     fact_ids: []
     base_visible: false
+    reveal_copy_ids: [nuclear_variant]
 
   # Abstract teaching envelope. Exact campus merge, feeder topology, and MV voltage are open.
   - id: campus_mv_distribution
@@ -261,7 +262,7 @@ nodes:
     lifecycle: conceptual
     as_of: 2026-08-25
     source_ids: [tceq_37589_reference_drawing, mortenson_abilene_power_delivery]
-    fact_ids: [campus_mv_reference_design_voltage_kv, campus_lpt_secondary_as_built_voltage_kv]
+    fact_ids: [campus_mv_reference_design_voltage_kv, campus_lpt_secondary_as_built_voltage_kv, campus_source_merge_as_built_topology]
   - id: bess_package
     label: BESS package
     domain: electrical
@@ -430,20 +431,20 @@ nodes:
 edges:
   - {id: btm_fuel_to_shaft, from: gas_turbine, to: generator, carries: shaft_power, presence: site_evidenced, lifecycle: permitted, normal_state: available_if_built, flow_direction: forward, source_ids: [tceq_177263_gas_review], fact_ids: [gas_turbine_units_authorized]}
   - {id: btm_terminal_to_gsu, from: generator, to: gsu_transformer, carries: electricity@generator_terminal_mv, presence: site_evidenced, lifecycle: permitted, normal_state: unknown, flow_direction: forward, source_ids: [tceq_177263_gas_review, solar_titan_350_datasheet], fact_ids: [gas_turbine_units_authorized, generator_terminal_model_voltage_range_kv, generator_terminal_site_voltage_kv]}
-  - {id: btm_gsu_to_mv, from: gsu_transformer, to: campus_mv_distribution, carries: electricity@campus_mv, presence: site_evidenced, lifecycle: permitted, normal_state: unknown, flow_direction: forward, source_ids: [tceq_177263_gas_review, tceq_37589_reference_drawing, mortenson_abilene_power_delivery], fact_ids: [gas_turbine_units_authorized, campus_mv_reference_design_voltage_kv, campus_lpt_secondary_as_built_voltage_kv]}
+  - {id: btm_gsu_to_mv, from: gsu_transformer, to: campus_mv_distribution, carries: electricity@campus_mv, presence: site_evidenced, lifecycle: permitted, normal_state: unknown, flow_direction: forward, source_ids: [tceq_177263_gas_review, tceq_37589_reference_drawing, mortenson_abilene_power_delivery], fact_ids: [gas_turbine_units_authorized, campus_mv_reference_design_voltage_kv, campus_lpt_secondary_as_built_voltage_kv, campus_source_merge_as_built_topology]}
 
   - {id: grid138_source_to_tie, from: utility_source_138, to: initial_tie_138, carries: electricity@138kV, presence: site_evidenced, lifecycle: energized, normal_state: unknown, flow_direction: forward, source_ids: [mortenson_abilene_power_delivery], fact_ids: [grid_initial_source_line, grid_initial_substation_voltage_kv, grid_initial_slack_span_length_ft, grid_initial_service_operational_as_of]}
   - {id: grid138_tie_to_station, from: initial_tie_138, to: initial_substation_138, carries: electricity@138kV, presence: site_evidenced, lifecycle: energized, normal_state: unknown, flow_direction: forward, source_ids: [mortenson_abilene_power_delivery], fact_ids: [grid_initial_substation_voltage_kv, grid_initial_substation_capacity_mw, grid_initial_slack_span_length_ft, grid_initial_service_operational_as_of]}
-  - {id: grid138_station_to_mv, from: initial_substation_138, to: campus_mv_distribution, carries: electricity@campus_mv, presence: teaching_reference, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [], fact_ids: []}
+  - {id: grid138_station_to_mv, from: initial_substation_138, to: campus_mv_distribution, carries: electricity@campus_mv, presence: teaching_reference, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [mortenson_abilene_power_delivery, tceq_37589_reference_drawing], fact_ids: [campus_source_merge_as_built_topology]}
 
   - {id: grid345_source_to_corridor, from: utility_source_345, to: transmission_corridor_345, carries: electricity@345kV, presence: site_evidenced, lifecycle: energized, normal_state: unknown, flow_direction: forward, source_ids: [mortenson_abilene_power_delivery], fact_ids: [grid_expansion_substation_voltage_kv, grid_expansion_fully_energized_by]}
   - {id: grid345_corridor_to_hv, from: transmission_corridor_345, to: hv_protection_envelope_345, carries: electricity@345kV, presence: site_evidenced, lifecycle: energized, normal_state: unknown, flow_direction: forward, source_ids: [mortenson_abilene_power_delivery], fact_ids: [grid_expansion_substation_voltage_kv, grid_expansion_fully_energized_by]}
   - {id: grid345_hv_to_lpt, from: hv_protection_envelope_345, to: campus_substation_lpt_345, carries: electricity@345kV, presence: site_evidenced, lifecycle: energized, normal_state: unknown, flow_direction: forward, source_ids: [mortenson_abilene_power_delivery], fact_ids: [grid_expansion_substation_voltage_kv, grid_expansion_transformers_energized_count, grid_expansion_fully_energized_by]}
-  - {id: grid345_lpt_to_mv, from: campus_substation_lpt_345, to: campus_mv_distribution, carries: electricity@campus_mv, presence: teaching_reference, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [], fact_ids: []}
+  - {id: grid345_lpt_to_mv, from: campus_substation_lpt_345, to: campus_mv_distribution, carries: electricity@campus_mv, presence: teaching_reference, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [mortenson_abilene_power_delivery, tceq_37589_reference_drawing], fact_ids: [campus_source_merge_as_built_topology]}
   - {id: nuclear_ppa_overlay, from: nuclear_ppa, to: utility_source_345, carries: contractual_attribute, presence: course_variant, lifecycle: course_variant, normal_state: not_physical, flow_direction: none, source_ids: [], fact_ids: [], base_visible: false}
 
-  - {id: bess_to_mv, from: bess_package, to: campus_mv_distribution, carries: electricity@campus_mv, presence: teaching_reference, lifecycle: conceptual, normal_state: unknown, flow_direction: bidirectional, source_ids: [], fact_ids: []}
-  - {id: diesel_to_mv, from: diesel_backup_package, to: campus_mv_distribution, carries: electricity@campus_mv, presence: teaching_reference, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [], fact_ids: []}
+  - {id: bess_to_mv, from: bess_package, to: campus_mv_distribution, carries: electricity@campus_mv, presence: teaching_reference, lifecycle: conceptual, normal_state: unknown, flow_direction: bidirectional, source_ids: [tceq_37589_reference_drawing], fact_ids: [bess_campus_connection_as_built_topology]}
+  - {id: diesel_to_mv, from: diesel_backup_package, to: campus_mv_distribution, carries: electricity@campus_mv, presence: teaching_reference, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [tceq_177262_diesel_application, tceq_177262_diesel_review], fact_ids: [diesel_campus_connection_as_built_topology]}
   - {id: mv_to_unit_sub, from: campus_mv_distribution, to: unit_substation, carries: electricity@campus_mv, presence: teaching_reference, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [], fact_ids: []}
   - {id: unit_sub_to_lv, from: unit_substation, to: lv_switchgear, carries: electricity@facility_lv_ac, presence: teaching_reference, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [], fact_ids: []}
   - {id: lv_to_ups, from: lv_switchgear, to: ups, carries: electricity@facility_lv_ac, presence: teaching_reference, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [], fact_ids: []}

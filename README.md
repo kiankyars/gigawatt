@@ -6,7 +6,8 @@ to the atmosphere.
 
 Status: **redline-verified v1**. The 2D master is the semantic
 engineering map; the 3D scene supplies campus orientation and spatial zooms.
-Both use the same 30 node IDs and 34 edge IDs.
+Both use the same 30 node IDs and 34 edge IDs. The complete course inventory
+now contains seven acts and 26 evidence-gated segments.
 
 ## Current artifacts
 
@@ -14,9 +15,13 @@ Both use the same 30 node IDs and 34 edge IDs.
   schematic. It is not an as-built drawing and is not for design/construction.
 - `diagram/hybrid.html` — a six-state 2D → 3D → 3D → 3D → 2D overlay → 3D
   vertical slice generated from `master.yaml`, `scene.yaml`, and `cameras.yaml`.
-- `evidence/abilene.yaml` — 14-source, 45-fact primary-source ledger for the
+- `evidence/abilene.yaml` — 14-source, 48-fact primary-source ledger for the
   original eight-building Abilene Stargate campus.
+- `course/segments.yaml` — canonical act and segment order, camera requirements,
+  topology focus, claim-level fact bindings, transitions, and research gates.
 - `REDLINE.md` — disposition record for the engineering and legibility review.
+- `course/REDLINE.md` — disposition record for course sequencing, claim
+  binding, readiness, and production-shot review.
 
 The Abilene overlay distinguishes lifecycle states instead of adding unlike
 capacity figures:
@@ -55,14 +60,21 @@ Three.js runtime from the network.
 
 ## Source-of-truth boundaries
 
-- `evidence/abilene.yaml`: primary sources and scoped facts.
+- `evidence/*.yaml`: registered primary-source ledgers and scoped facts.
 - `diagram/master.yaml`: topology, lifecycle, copy templates, and fact IDs.
 - `diagram/layout.yaml`: 2D placement only.
 - `diagram/scene.yaml`: 3D placement only.
-- `diagram/cameras.yaml`: teaching sequence and camera state only.
+- `diagram/cameras.yaml`: reusable camera states plus the current six-state
+  vertical-slice demo order; it is not the full course sequence.
+- `course/segments.yaml`: canonical course order, learning objectives,
+  qualified fact references, production-shot requirements, and narrative
+  transitions.
 - `src/gigawatt/tokens.py`: shared palette and line system.
 
 The validator fails on unresolved factual copy, duplicate YAML keys, unknown
 sources or IDs, mismatched fact/source bindings, incompatible lifecycle
-promotion, 2D/3D coverage drift, stale generated output, or a cooling tower
-leaking into the Abilene base topology.
+promotion, course-claim promotion, misplaced segment evidence, missing
+assertion guards, broken dependencies or narrative transitions, incomplete
+course coverage, undeclared hidden-overlay reveals, non-finite production
+weights, unsafe reusable-camera focus copy, 2D/3D coverage drift, stale
+generated output, or a cooling tower leaking into the Abilene base topology.
