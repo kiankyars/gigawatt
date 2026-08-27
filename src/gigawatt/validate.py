@@ -10,6 +10,7 @@ from typing import Any
 
 import yaml
 
+from . import course_runtime as course_runtime_pipeline
 from . import layout as layout_pipeline
 from . import scene as scene_pipeline
 from . import shots as shots_pipeline
@@ -56,6 +57,7 @@ FACT_POSTURES = {
     "design_not_as_built",
     "design_not_observed",
     "design_selected",
+    "derived_from_authoritative_sources",
     "excluded_scope",
     "future_design",
     "live_by_not_start_date",
@@ -68,11 +70,16 @@ FACT_POSTURES = {
 }
 FACT_LIFECYCLES = {
     "accounting_standard",
+    "announced_structure",
     "anticipated_maintenance",
     "as_built_unknown",
+    "benchmark_method",
     "commissioning_unknown",
     "constructed",
     "contracted",
+    "contracted_structure",
+    "contract_term_unknown",
+    "counterparty_unknown",
     "delivered_untyped",
     "deployed",
     "design_ceiling",
@@ -80,13 +87,18 @@ FACT_LIFECYCLES = {
     "design_requirement",
     "energized",
     "future_design",
+    "financing_terms_unknown",
     "installation_unknown",
     "operating",
+    "operating_business_model",
     "operation_unknown",
+    "ownership_unknown",
     "permitted",
     "planned",
     "product_documented",
+    "published_method",
     "review_design",
+    "derived_scenario_method",
     "selected_design",
     "site_configuration_unknown",
     "topology_unknown",
@@ -152,19 +164,23 @@ SEGMENT_CAMERA_STATUS = {"existing", "planned"}
 SEGMENT_ASSERTIONS = {
     "accounting_reference",
     "anticipated",
+    "business_model_reference",
     "confirmed",
     "confirmed_minimum",
     "contract_reference",
     "design_reference",
+    "derived_scenario_reference",
     "excluded_scope",
     "explicit_unknown",
     "future_design",
     "live_by",
+    "method_reference",
     "no_evidence_backed_estimate",
     "permitted",
     "planned",
     "product_reference",
     "reported_untyped",
+    "reported_structure",
     "selected_design",
 }
 SEGMENT_CLAIM_BINDINGS = {"topology", "overlay"}
@@ -172,18 +188,27 @@ LEDGER_ID_PATTERN = re.compile(r"[a-z][a-z0-9_]*\Z")
 ASSERTION_REQUIRED_GUARDS = {
     "accounting_reference": {"contractual_to_physical"},
     "anticipated": {"anticipated_to_measured"},
+    "business_model_reference": {"contractual_to_physical"},
     "confirmed_minimum": {"minimum_to_exact"},
     "contract_reference": {"contractual_to_physical"},
     "design_reference": {"design_to_as_built"},
+    "derived_scenario_reference": {
+        "capacity_basis_substitution",
+        "energy_power_time_basis",
+        "power_to_compute_bridge",
+        "scenario_to_site_estimate",
+    },
     "excluded_scope": {"excluded_scope_addition"},
     "explicit_unknown": {"null_to_zero"},
     "future_design": {"future_design_to_operational"},
     "live_by": {"live_by_to_start_date"},
+    "method_reference": {"capacity_basis_substitution"},
     "no_evidence_backed_estimate": {"null_to_zero"},
     "permitted": {"permitted_to_installed", "permitted_to_commissioned"},
     "planned": {"planned_to_operational"},
     "product_reference": {"product_to_site_configuration"},
     "reported_untyped": {"untyped_to_capacity"},
+    "reported_structure": {"announced_to_operational"},
     "selected_design": {"design_to_as_built"},
 }
 BLOCKER_PLACEHOLDERS = {"research", "research required", "tbd", "todo", "unknown"}
@@ -195,19 +220,25 @@ PROMOTION_GUARDS = {
     "contractual_to_physical",
     "design_ceiling_to_installed",
     "design_to_as_built",
+    "energy_power_time_basis",
     "excluded_scope_addition",
+    "facility_financing_to_component_allocation",
     "future_design_to_operational",
     "live_by_to_start_date",
     "minimum_to_exact",
     "model_range_to_site_configuration",
+    "market_example_to_site_schedule",
+    "named_role_to_asset_assignment",
     "null_to_zero",
     "permitted_to_commissioned",
     "permitted_to_installed",
     "planned_to_operational",
     "product_to_site_configuration",
+    "power_to_compute_bridge",
     "reverse_physical_flow",
     "single_path_conflation",
     "site_scope_transfer",
+    "scenario_to_site_estimate",
     "substation_to_it_load",
     "untyped_to_capacity",
 }
@@ -687,8 +718,12 @@ def _claim_assertion_matches(assertion: str, fact: dict[str, Any]) -> bool:
         return value is None and posture == "unverified_null" and lifecycle in {
             "as_built_unknown",
             "commissioning_unknown",
+            "contract_term_unknown",
+            "counterparty_unknown",
+            "financing_terms_unknown",
             "installation_unknown",
             "operation_unknown",
+            "ownership_unknown",
             "site_configuration_unknown",
             "topology_unknown",
         }
@@ -704,7 +739,27 @@ def _claim_assertion_matches(assertion: str, fact: dict[str, Any]) -> bool:
     if assertion == "accounting_reference":
         return lifecycle == "accounting_standard" and posture == "authoritative_guidance"
     if assertion == "contract_reference":
-        return lifecycle == "contracted" and posture == "confirmed_contract"
+        return lifecycle in {
+            "contracted",
+            "contracted_structure",
+            "operating_business_model",
+        } and posture == "confirmed_contract"
+    if assertion == "reported_structure":
+        return lifecycle == "announced_structure" and posture == "confirmed"
+    if assertion == "business_model_reference":
+        return lifecycle == "operating_business_model" and posture == "confirmed"
+    if assertion == "method_reference":
+        return lifecycle in {
+            "accounting_standard",
+            "benchmark_method",
+            "product_documented",
+            "published_method",
+        } and posture == "authoritative_guidance"
+    if assertion == "derived_scenario_reference":
+        return (
+            lifecycle == "derived_scenario_method"
+            and posture == "derived_from_authoritative_sources"
+        )
     if assertion == "confirmed":
         return posture == "confirmed" and lifecycle in OPERATIONAL_ALLOWED_FACT_LIFECYCLES
     if assertion == "confirmed_minimum":
@@ -1240,6 +1295,15 @@ def validate_project() -> dict[str, Any]:
         raise ValidationError("planned_shots.json is stale; run gigawatt-shots")
     if shot_review != shots_pipeline.REVIEW_PATH.read_text():
         raise ValidationError("planned_shots.html is stale; run gigawatt-shots")
+    course_registry, course_player, instructor_packet, course_digest = (
+        course_runtime_pipeline.build_artifacts()
+    )
+    if course_registry != course_runtime_pipeline.REGISTRY_PATH.read_text():
+        raise ValidationError("course_runtime.json is stale; run gigawatt-course")
+    if course_player != course_runtime_pipeline.PLAYER_PATH.read_text():
+        raise ValidationError("course.html is stale; run gigawatt-course")
+    if instructor_packet != course_runtime_pipeline.PACKET_PATH.read_text():
+        raise ValidationError("INSTRUCTOR_PACKET.md is stale; run gigawatt-course")
     return {
         "evidence_ledgers": len(course_ledgers),
         "sources": registered_source_count,
@@ -1249,6 +1313,7 @@ def validate_project() -> dict[str, Any]:
         "cameras": len(cameras["cameras"]),
         "hybrid_digest": digest,
         "planned_shots_digest": shot_digest,
+        "course_runtime_digest": course_digest,
         **course_result,
     }
 

@@ -615,7 +615,7 @@ HTML = r'''<!doctype html>
 </main>
 <script id="scene-data" type="application/json">__DATA__</script>
 <script type="importmap">
-{"imports":{"three":"https://unpkg.com/three@0.170.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.170.0/examples/jsm/"}}
+{"imports":{"three":"./vendor/three/three.module.js","three/addons/controls/OrbitControls.js":"./vendor/three/OrbitControls.js","three/addons/renderers/CSS2DRenderer.js":"./vendor/three/CSS2DRenderer.js"}}
 </script>
 <script type="module">
 import * as THREE from "three";

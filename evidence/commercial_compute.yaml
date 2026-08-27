@@ -1,0 +1,833 @@
+schema_version: 1
+subject:
+  id: commercial_compute_capital_and_tokens
+  canonical_name: Commercial roles, data-center business models, and MW-to-token boundaries
+accessed_as_of: '2026-08-27'
+
+evidence_boundary:
+  included_scope: >-
+    Dated primary disclosures for the original Abilene development's named
+    ownership, development, operating, financing, leasing, and compute roles;
+    named public-company comparison cases for colocation, AI cloud, and
+    hyperscale cloud models; and authoritative energy-accounting, hardware,
+    training-efficiency, inference-runtime, and benchmark boundaries for an
+    assumption-driven MW-to-token scenario.
+  excluded_scope: >-
+    This ledger does not establish ownership of every Abilene asset, identify
+    an undisclosed tenant, supply undisclosed financing or lease terms, transfer
+    a comparison company's contracts to Abilene, or estimate Abilene's current
+    load, installed accelerator count, utilization, MFU, or token throughput.
+    Manufacturer specifications are product references, not site observations.
+  capacity_rule: >-
+    Announced capacity, energized electrical infrastructure, current facility
+    load, IT load, usable accelerator power, active accelerator utilization,
+    model FLOPs utilization, and measured token throughput are separate
+    quantities. A scenario may connect them only through explicit, named inputs
+    with common boundaries; a missing input stops the calculation.
+
+sources:
+  openai_stargate_formation_2025:
+    publisher: OpenAI and SoftBank
+    title: Announcing The Stargate Project
+    kind: primary_company_release
+    url: https://openai.com/index/announcing-the-stargate-project/
+    publication_date: '2025-01-21'
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: >-
+      Dated formation announcement naming initial equity funders and the lead
+      partners' financial and operational responsibilities at Stargate-program
+      scope.
+
+  crusoe_lancium_abilene_2024:
+    publisher: Crusoe and Lancium
+    title: >-
+      Crusoe to build initial 200 MW AI data center with plans to expand at
+      1.2 GW Lancium Clean Campus
+    kind: primary_company_release
+    url: https://www.crusoe.ai/resources/newsroom/crusoe-200mw-ai-data-center
+    publication_date: '2024-07-18'
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: >-
+      Dated initial project announcement assigning Crusoe and Lancium roles;
+      later financing disclosures add parties and must be read separately.
+
+  crusoe_abilene_phase1_jv_2024:
+    publisher: Crusoe, Blue Owl Capital, and Primary Digital Infrastructure
+    title: >-
+      Crusoe, Blue Owl Capital and Primary Digital Infrastructure enter $3.4
+      billion joint venture for AI data center development
+    kind: primary_joint_venture_release
+    url: https://www.crusoe.ai/resources/newsroom/crusoe-blue-owl-capital-primary-digital-joint-venture
+    publication_date: '2024-10-15'
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: >-
+      Dated phase-one transaction announcement describing the forward takeout,
+      sponsors, Crusoe operating role, and the anonymous long-term tenant.
+
+  crusoe_abilene_phase2_jv_2025:
+    publisher: Crusoe, Blue Owl Capital, and Primary Digital Infrastructure
+    title: >-
+      Crusoe, Blue Owl Capital, and Primary Digital Infrastructure enter second
+      phase of $15 billion joint venture to fund AI data center in Abilene,
+      Texas
+    kind: primary_joint_venture_release
+    url: https://www.crusoe.ai/resources/newsroom/crusoe-blue-owl-capital-and-primary-digital-infrastructure-enter-joint-venture
+    publication_date: '2025-05-21'
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: >-
+      Dated phase-two announcement describing joint sponsorship of six
+      additional buildings; it does not publish a debt-equity waterfall.
+
+  openai_stargate_oracle_2025:
+    publisher: OpenAI
+    title: Stargate advances with 4.5 GW partnership with Oracle
+    kind: primary_company_release
+    url: https://openai.com/index/stargate-advances-with-partnership-with-oracle/
+    publication_date: '2025-07-22'
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: >-
+      Dated disclosure that Oracle delivered the first NVIDIA GB200 racks and
+      OpenAI had begun early training and inference workloads at Abilene.
+
+  oracle_abilene_2026:
+    publisher: Oracle
+    title: Abilene, Texas Data Center
+    kind: primary_company_project_page
+    url: https://www.oracle.com/data-centers/abilene/
+    publication_date: null
+    review_date: '2026-01-31'
+    accessed_as_of: '2026-08-27'
+    date_note: >-
+      Undated page marked information current as of January 2026; it describes
+      live workloads and campus characteristics but not current measured load or
+      accelerator inventory.
+
+  coreweave_2025_10k:
+    publisher: CoreWeave, Inc., filed with the U.S. Securities and Exchange Commission
+    title: Annual Report on Form 10-K for the year ended December 31, 2025
+    kind: primary_regulatory_filing
+    url: https://www.sec.gov/Archives/edgar/data/1769628/000176962826000104/crwv-20251231.htm
+    publication_date: '2026-03-02'
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: >-
+      Signed 2026-03-02; used only as a named AI-cloud comparison case, not as
+      evidence for Abilene's contracts or assets.
+
+  equinix_2025_10k:
+    publisher: Equinix, Inc., filed with the U.S. Securities and Exchange Commission
+    title: Annual Report on Form 10-K for the year ended December 31, 2025
+    kind: primary_regulatory_filing
+    url: https://www.sec.gov/Archives/edgar/data/1101239/000110123926000032/eqix-20251231.htm
+    publication_date: '2026-02-11'
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: >-
+      Signed 2026-02-11; used only as named colocation and hyperscale-colocation
+      comparison evidence.
+
+  microsoft_2025_annual_report:
+    publisher: Microsoft Corporation
+    title: 2025 Annual Report
+    kind: primary_company_regulatory_report
+    url: https://www.microsoft.com/investor/reports/ar25/index.html
+    publication_date: '2025-07-30'
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: >-
+      Microsoft's official annual-report rendering of its fiscal-2025 Form 10-K;
+      used only as a named hyperscale-cloud comparison case.
+
+  iso_iec_30134_2_2026:
+    publisher: International Organization for Standardization and International Electrotechnical Commission
+    title: >-
+      ISO/IEC 30134-2:2026 Information technology - Data centres key
+      performance indicators - Part 2: Power usage effectiveness (PUE)
+    kind: primary_international_standard
+    url: https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso-iec%3A30134%3A-2%3Aed-2%3Av1%3Aen
+    publication_date: '2026-01-16'
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: >-
+      Current second edition defining PUE over a continuous 12-month energy
+      boundary and distinguishing designed, interim, and partial derivatives.
+
+  nvidia_dgx_gb_hardware_2026:
+    publisher: NVIDIA
+    title: DGX Grace Blackwell Rack Scale Systems User Guide - Hardware
+    kind: primary_manufacturer_documentation
+    url: https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html
+    publication_date: null
+    review_date: '2026-03-03'
+    accessed_as_of: '2026-08-27'
+    date_note: Documentation last updated 2026-03-03.
+
+  nvidia_triton_batching_2_59_1:
+    publisher: NVIDIA
+    title: Triton Inference Server 2.59.1 - Batchers
+    kind: primary_runtime_documentation
+    url: https://docs.nvidia.com/deeplearning/triton-inference-server/archives/triton-inference-server-2591/user-guide/docs/user_guide/batcher.html
+    publication_date: null
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: >-
+      Versioned official runtime documentation; used to establish that batching
+      configuration changes throughput and latency.
+
+  palm_2022:
+    publisher: Google Research authors via arXiv
+    title: 'PaLM: Scaling Language Modeling with Pathways'
+    kind: primary_research_paper
+    url: https://arxiv.org/abs/2204.02311
+    publication_date: '2022-10-05'
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: >-
+      Version 5 defines model FLOPs utilization and gives the dense
+      decoder-only training FLOPs-per-token calculation used here.
+
+  mlcommons_inference_rules:
+    publisher: MLCommons
+    title: MLPerf Inference Rules
+    kind: primary_benchmark_rules
+    url: https://github.com/mlcommons/inference_policies/blob/master/inference_rules.adoc
+    publication_date: null
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: >-
+      Living official rules at the access date; used for measurement-boundary
+      requirements, not as a performance result for any Abilene system.
+
+facts:
+  stargate_initial_equity_funders:
+    value: SoftBank, OpenAI, Oracle, and MGX
+    unit: named initial equity funders
+    scope: Stargate company/program formation; not per-asset Abilene ownership
+    basis: OpenAI and SoftBank explicitly name the four initial equity funders.
+    lifecycle: announced_structure
+    as_of: '2025-01-21'
+    source_ids: [openai_stargate_formation_2025]
+    posture: confirmed
+
+  stargate_lead_responsibility_split:
+    value: >-
+      SoftBank has financial responsibility and OpenAI has operational
+      responsibility as Stargate's lead partners.
+    unit: program-level responsibility allocation
+    scope: Stargate company/program; not ownership or operation of every Abilene asset
+    basis: The formation announcement assigns these responsibilities directly.
+    lifecycle: announced_structure
+    as_of: '2025-01-21'
+    source_ids: [openai_stargate_formation_2025]
+    posture: confirmed
+
+  abilene_2024_crusoe_owner_developer_announcement:
+    value: Crusoe would own and develop the initial Abilene data center.
+    unit: announced project role
+    scope: Initial 200 MW Abilene data-center development as announced in July 2024
+    basis: Crusoe and Lancium state that Crusoe will own and develop the data center.
+    lifecycle: announced_structure
+    as_of: '2024-07-18'
+    source_ids: [crusoe_lancium_abilene_2024]
+    posture: confirmed
+
+  abilene_lancium_development_role:
+    value: >-
+      Lancium's announced end-to-end role includes land acquisition, power
+      interconnection, site engineering, renewable interconnection, and power
+      orchestration.
+    unit: announced project role
+    scope: Lancium Clean Campus / initial Abilene development
+    basis: Crusoe and Lancium enumerate these functions in the initial release.
+    lifecycle: announced_structure
+    as_of: '2024-07-18'
+    source_ids: [crusoe_lancium_abilene_2024]
+    posture: confirmed
+
+  abilene_phase1_crusoe_delivery_and_operations_role:
+    value: Crusoe designs, builds, and operates the 206 MW phase-one data center.
+    unit: named project role
+    scope: Phase-one 206 MW, 998,000-square-foot Abilene joint-venture asset
+    basis: The phase-one joint-venture announcement assigns all three functions to Crusoe.
+    lifecycle: contracted_structure
+    as_of: '2024-10-15'
+    source_ids: [crusoe_abilene_phase1_jv_2024]
+    posture: confirmed_contract
+
+  abilene_compute_activity_roles:
+    value: >-
+      Oracle delivered the first NVIDIA GB200 racks, and OpenAI reported running
+      early training and inference workloads on operating Abilene capacity.
+    unit: named compute delivery and workload roles
+    scope: Operating parts of Stargate I at Abilene; not legal title to the equipment
+    basis: OpenAI states both roles directly in its July 2025 update.
+    lifecycle: operating
+    as_of: '2025-07-22'
+    source_ids: [openai_stargate_oracle_2025]
+    posture: confirmed
+
+  abilene_land_legal_owner:
+    value: null
+    unit: legal owner
+    scope: Land underlying the original eight-building Abilene development
+    basis: >-
+      The named sources describe Lancium's land-acquisition role and subsequent
+      sponsors, but do not establish current legal title to the land.
+    lifecycle: ownership_unknown
+    as_of: '2026-08-27'
+    source_ids:
+      - crusoe_lancium_abilene_2024
+      - crusoe_abilene_phase1_jv_2024
+      - crusoe_abilene_phase2_jv_2025
+    posture: unverified_null
+
+  abilene_power_asset_ownership_by_component:
+    value: null
+    unit: owner by asset class
+    scope: >-
+      Abilene utility ties, substations, onsite generation, backup generation,
+      storage, campus distribution, and building electrical equipment
+    basis: >-
+      The primary commercial disclosures do not provide a current
+      component-by-component legal ownership schedule.
+    lifecycle: ownership_unknown
+    as_of: '2026-08-27'
+    source_ids:
+      - crusoe_lancium_abilene_2024
+      - crusoe_abilene_phase1_jv_2024
+      - crusoe_abilene_phase2_jv_2025
+    posture: unverified_null
+
+  abilene_it_equipment_legal_owner:
+    value: null
+    unit: legal owner
+    scope: Installed Abilene racks, accelerators, network, and associated IT equipment
+    basis: >-
+      Delivery and operating disclosures do not state which entity holds legal
+      title to the installed IT equipment.
+    lifecycle: ownership_unknown
+    as_of: '2026-08-27'
+    source_ids:
+      - crusoe_abilene_phase1_jv_2024
+      - openai_stargate_oracle_2025
+    posture: unverified_null
+
+  abilene_phase1_tenant_identity:
+    value: null
+    unit: named tenant
+    scope: Phase-one two-building Abilene lease
+    basis: >-
+      The transaction release calls the tenant a Fortune 100 hyperscaler but
+      does not name it; later statements about Oracle and OpenAI roles do not by
+      themselves establish the lease counterparty.
+    lifecycle: counterparty_unknown
+    as_of: '2026-08-27'
+    source_ids:
+      - crusoe_abilene_phase1_jv_2024
+      - openai_stargate_oracle_2025
+    posture: unverified_null
+
+  abilene_phase1_financing_structure:
+    value: >-
+      A $3.4 billion fully funded forward takeout, with funds managed by Blue
+      Owl's Real Estate platform and Primary Digital Infrastructure jointly
+      sponsoring the 206 MW data center designed, built, and operated by Crusoe.
+    unit: named transaction structure
+    scope: Phase-one 206 MW Abilene joint venture only
+    basis: The parties disclose the amount, structure, sponsors, asset scope, and operator.
+    lifecycle: contracted_structure
+    as_of: '2024-10-15'
+    source_ids: [crusoe_abilene_phase1_jv_2024]
+    posture: confirmed_contract
+
+  abilene_phase1_lease_structure:
+    value: >-
+      The phase-one two-building project was 100 percent long-term leased to an
+      unnamed Fortune 100 hyperscale tenant.
+    unit: named lease posture
+    scope: Phase-one Abilene data center only
+    basis: The joint-venture release states the occupancy and tenant category directly.
+    lifecycle: contracted_structure
+    as_of: '2024-10-15'
+    source_ids: [crusoe_abilene_phase1_jv_2024]
+    posture: confirmed_contract
+
+  abilene_phase2_financing_structure:
+    value: >-
+      Crusoe, funds managed by Blue Owl's Real Assets platform, and Primary
+      Digital Infrastructure jointly sponsor construction of six additional
+      buildings under the second phase of a $15 billion joint venture.
+    unit: named transaction structure
+    scope: Six-building phase-two Abilene expansion
+    basis: The phase-two release states the amount, parties, and construction scope.
+    lifecycle: contracted_structure
+    as_of: '2025-05-21'
+    source_ids: [crusoe_abilene_phase2_jv_2025]
+    posture: confirmed_contract
+
+  abilene_phase1_lease_term_years:
+    value: null
+    unit: years
+    scope: Phase-one Abilene tenant lease
+    basis: The release says long-term but does not publish the lease duration.
+    lifecycle: contract_term_unknown
+    as_of: '2026-08-27'
+    source_ids: [crusoe_abilene_phase1_jv_2024]
+    posture: unverified_null
+
+  abilene_capital_stack_waterfall:
+    value: null
+    unit: debt-equity and cash-flow allocation
+    scope: Original eight-building Abilene development and its phase-specific joint ventures
+    basis: >-
+      The releases publish headline joint-venture amounts and sponsors but not
+      debt-equity proportions, security, priority, guarantees, or distribution waterfalls.
+    lifecycle: financing_terms_unknown
+    as_of: '2026-08-27'
+    source_ids:
+      - crusoe_abilene_phase1_jv_2024
+      - crusoe_abilene_phase2_jv_2025
+    posture: unverified_null
+
+  abilene_rent_commencement_and_acceptance_terms:
+    value: null
+    unit: contractual milestone schedule
+    scope: Phase-one and phase-two Abilene leases and customer arrangements
+    basis: >-
+      Public releases do not disclose rent commencement, delivery acceptance,
+      service-credit, termination, or performance-guarantee terms.
+    lifecycle: contract_term_unknown
+    as_of: '2026-08-27'
+    source_ids:
+      - crusoe_abilene_phase1_jv_2024
+      - crusoe_abilene_phase2_jv_2025
+    posture: unverified_null
+
+  abilene_it_equipment_financing_terms:
+    value: null
+    unit: equipment financing structure
+    scope: Abilene accelerators, racks, networking, and associated IT equipment
+    basis: >-
+      The cited Abilene disclosures do not publish equipment purchase, lease,
+      collateral, vendor-finance, or ownership terms.
+    lifecycle: financing_terms_unknown
+    as_of: '2026-08-27'
+    source_ids:
+      - crusoe_abilene_phase1_jv_2024
+      - openai_stargate_oracle_2025
+    posture: unverified_null
+
+  abilene_utilization_risk_allocation:
+    value: null
+    unit: contractual risk allocation
+    scope: Abilene facility occupancy and compute utilization
+    basis: >-
+      A fully leased facility does not establish who bears workload-utilization,
+      accelerator-idle-time, or token-demand risk, and the public transaction
+      disclosures do not provide those terms.
+    lifecycle: contract_term_unknown
+    as_of: '2026-08-27'
+    source_ids:
+      - crusoe_abilene_phase1_jv_2024
+      - openai_stargate_oracle_2025
+    posture: unverified_null
+
+  equinix_colocation_comparison:
+    value: >-
+      Equinix's IBX colocation offering supplies secure data-center space and
+      power for customers' IT infrastructure, typically bills from space and
+      power consumption under fixed-duration contracts, and generates monthly
+      recurring revenue; contracts are generally one to five years.
+    unit: named business-model comparison
+    scope: Equinix IBX colocation as reported for 2025; not Abilene
+    basis: Equinix describes its offering, billing basis, and typical contract duration.
+    lifecycle: operating_business_model
+    as_of: '2025-12-31'
+    source_ids: [equinix_2025_10k]
+    posture: confirmed
+
+  equinix_asset_and_operating_boundary:
+    value: >-
+      Equinix operates the IBX facility environment while customers colocate
+      their IT equipment; Equinix owns some IBX facilities and leases others,
+      and landlord control of base infrastructure varies by lease.
+    unit: named asset and operating boundary
+    scope: Equinix IBX portfolio as reported for 2025; not Abilene
+    basis: The filing distinguishes customer equipment, Equinix operations, and mixed facility tenure.
+    lifecycle: operating_business_model
+    as_of: '2025-12-31'
+    source_ids: [equinix_2025_10k]
+    posture: confirmed
+
+  coreweave_ai_cloud_contract_and_financing_comparison:
+    value: >-
+      CoreWeave primarily finances infrastructure development with asset-level
+      debt supported by take-or-pay customer contracts, supplemented by
+      corporate equity and debt; it also offers pay-as-you-go access.
+    unit: named business-model comparison
+    scope: CoreWeave AI cloud as reported for 2025; not Abilene
+    basis: CoreWeave states its financing and customer-contract mix directly.
+    lifecycle: operating_business_model
+    as_of: '2025-12-31'
+    source_ids: [coreweave_2025_10k]
+    posture: confirmed
+
+  coreweave_capacity_and_utilization_risk_comparison:
+    value: >-
+      CoreWeave committed contracts typically require payment regardless of
+      utilization, while on-demand arrangements permit usage reductions with
+      limited notice; multi-year fixed-capacity facility leases can leave
+      CoreWeave paying for capacity that customers do not use and pay for.
+    unit: named risk-allocation comparison
+    scope: CoreWeave contracts and facility leases as reported for 2025; not Abilene
+    basis: The filing states these payment and capacity-mismatch exposures directly.
+    lifecycle: operating_business_model
+    as_of: '2025-12-31'
+    source_ids: [coreweave_2025_10k]
+    posture: confirmed_contract
+
+  coreweave_facility_and_equipment_boundary_comparison:
+    value: >-
+      CoreWeave leases or licenses third-party data-center space and does not
+      control operation of those facilities; under certain separate lease
+      arrangements it must procure and install lessee-owned equipment.
+    unit: named asset and operating boundary
+    scope: CoreWeave portfolio and disclosed commitments as of 2025; not Abilene
+    basis: The filing distinguishes facility control from separate lessee-owned asset commitments.
+    lifecycle: operating_business_model
+    as_of: '2025-12-31'
+    source_ids: [coreweave_2025_10k]
+    posture: confirmed
+
+  microsoft_hyperscale_cloud_comparison:
+    value: >-
+      Microsoft operates data centers, owns and leases facilities, invests in
+      data centers and computer systems, and sells Azure and other cloud
+      services; aggregating diverse demand is part of its stated utilization
+      economics.
+    unit: named business-model comparison
+    scope: Microsoft hyperscale cloud as reported for fiscal 2025; not Abilene
+    basis: >-
+      Microsoft's annual report describes its operating footprint, owned and
+      leased facilities, capital investment, cloud revenue, and economies of scale.
+    lifecycle: operating_business_model
+    as_of: '2025-06-30'
+    source_ids: [microsoft_2025_annual_report]
+    posture: confirmed
+
+  pue_energy_boundary:
+    value: >-
+      PUE is total data-center energy consumption over a continuous 12-month
+      period divided by IT-equipment energy consumption over the same period;
+      IT equipment includes equipment used to store, process, and transport data.
+    unit: authoritative energy-accounting definition
+    scope: ISO/IEC 30134-2:2026 PUE; not an Abilene measurement
+    basis: The standard defines the numerator, denominator, period, and IT-equipment boundary.
+    lifecycle: accounting_standard
+    as_of: '2026-01-16'
+    source_ids: [iso_iec_30134_2_2026]
+    posture: authoritative_guidance
+
+  facility_energy_to_it_energy_recipe:
+    value: >-
+      For a matching continuous 12-month boundary, scenario IT energy equals
+      scenario total data-center energy divided by scenario PUE. An
+      average-power route instead requires direct IT-power metering or a
+      boundary-matched interim or partial PUE over the same averaging interval;
+      annual PUE must not be silently treated as a point-in-time operating ratio.
+    unit: scenario calculation rule
+    scope: Energy-accounting step in a hypothetical scenario; not an Abilene estimate
+    basis: Algebra from the ISO PUE definition, with the standard's period and boundary preserved.
+    lifecycle: derived_scenario_method
+    as_of: '2026-08-27'
+    source_ids: [iso_iec_30134_2_2026]
+    posture: derived_from_authoritative_sources
+
+  dgx_gb_nvl72_product_reference:
+    value: >-
+      One NVIDIA DGX GB NVL72 rack contains 72 GPUs across 18 compute trays and
+      has approximate rack power consumption of 120 kW.
+    unit: manufacturer product configuration
+    scope: NVIDIA DGX GB rack-scale product documentation; not Abilene installed quantity or draw
+    basis: NVIDIA specifies the rack composition and approximate rack consumption.
+    lifecycle: product_documented
+    as_of: '2026-03-03'
+    source_ids: [nvidia_dgx_gb_hardware_2026]
+    posture: confirmed_model_spec
+
+  training_mfu_definition:
+    value: >-
+      Model FLOPs utilization is observed training throughput in tokens per
+      second divided by the theoretical maximum token throughput of the same
+      system operating at peak FLOPs, counting the model-required forward and
+      backward operations rather than implementation-dependent rematerialization.
+    unit: training-efficiency definition
+    scope: Training-system analysis in the PaLM paper; not inference utilization or Abilene MFU
+    basis: The PaLM authors define MFU and distinguish it from hardware FLOPs utilization.
+    lifecycle: published_method
+    as_of: '2022-10-05'
+    source_ids: [palm_2022]
+    posture: authoritative_guidance
+
+  dense_decoder_training_flops_per_token_method:
+    value: >-
+      For the PaLM paper's dense decoder-only training boundary, theoretical
+      FLOPs per token are 6N plus 12LHQT, where N is parameter count and L, H,
+      Q, and T are layers, attention heads, head dimension, and sequence length.
+    unit: published training-method boundary
+    scope: >-
+      Dense decoder-only training under the PaLM counting convention; not a
+      general inference formula and not an Abilene estimate
+    basis: The PaLM appendix publishes the FLOPs-per-token and MFU equations.
+    lifecycle: published_method
+    as_of: '2022-10-05'
+    source_ids: [palm_2022]
+    posture: authoritative_guidance
+
+  dense_decoder_training_tokens_recipe:
+    value: >-
+      Scenario training tokens per second equal exact active aggregate peak
+      matmul FLOP/s times MFU measured for the same model and system, divided by
+      the model's FLOPs-per-token term. Supply active hardware quantity and
+      applicable per-device performance explicitly. If the route begins from
+      accelerator power, reconcile the selected inventory's measured power to
+      that same power boundary. Apply a separate fleet active-duty factor only
+      when MFU is conditional on active execution.
+    unit: derived training scenario rule
+    scope: >-
+      Dense decoder-only training under the PaLM counting convention; not a
+      general inference formula and not an Abilene estimate
+    basis: >-
+      Derived application of the PaLM FLOPs-per-token and MFU equations with
+      explicit hardware, power, and activity boundaries.
+    lifecycle: derived_scenario_method
+    as_of: '2026-08-27'
+    source_ids: [palm_2022, nvidia_dgx_gb_hardware_2026]
+    posture: derived_from_authoritative_sources
+
+  inference_batching_dependency:
+    value: >-
+      Triton dynamic batching combines requests and typically increases
+      throughput; batch size and queue delay are configured per model and can
+      trade increased latency for throughput.
+    unit: runtime performance dependency
+    scope: NVIDIA Triton inference serving; not an Abilene runtime configuration
+    basis: NVIDIA documents the behavior and recommends measuring latency and throughput while tuning.
+    lifecycle: product_documented
+    as_of: '2026-08-27'
+    source_ids: [nvidia_triton_batching_2_59_1]
+    posture: authoritative_guidance
+
+  inference_measurement_boundary:
+    value: >-
+      A defensible inference-throughput result names the model, dataset or
+      workload, quality target, scenario, system under test, and latency
+      constraints. MLPerf separates Offline measured throughput from Server
+      maximum supported throughput under benchmark-specific latency limits and
+      records time to first token and time per output token for LLMs.
+    unit: benchmark measurement boundary
+    scope: MLPerf Inference methodology; not an Abilene benchmark result
+    basis: MLCommons defines distinct scenarios, metrics, quality gates, and LLM latency measures.
+    lifecycle: benchmark_method
+    as_of: '2026-08-27'
+    source_ids: [mlcommons_inference_rules]
+    posture: authoritative_guidance
+
+  inference_tokens_recipe:
+    value: >-
+      Use measured tokens per joule for the exact model, weights or quantization,
+      hardware, software, batch and concurrency policy, input/output-length
+      distribution, quality target, and latency boundary, so matching
+      accelerator watts times tokens per joule yields tokens per second.
+      Alternatively, scale exact-system measured tokens per second only by a
+      matching system count and measured scale-efficiency factor, with matching
+      measured power as a consistency check. Facility MW or product peak FLOPs
+      alone do not establish inference tokens per second.
+    unit: scenario calculation rule
+    scope: Hypothetical inference scenario; not an Abilene estimate
+    basis: >-
+      NVIDIA documents batching-dependent latency/throughput and MLCommons
+      requires workload-, system-, quality-, scenario-, and latency-specific measurement.
+    lifecycle: derived_scenario_method
+    as_of: '2026-08-27'
+    source_ids: [nvidia_triton_batching_2_59_1, mlcommons_inference_rules]
+    posture: derived_from_authoritative_sources
+
+  mw_to_tokens_scenario_recipe:
+    value: >-
+      Choose one output and one common averaging interval. For a power-rate
+      route, start with measured average facility power over that interval;
+      obtain matching average IT power from direct metering or a
+      boundary-matched interim or partial PUE, then obtain accelerator power
+      from direct metering or a measured IT-power share. For training, supply
+      exact active hardware quantity, applicable aggregate peak matmul FLOP/s,
+      and MFU measured for the same model and system; divide aggregate peak
+      FLOP/s times MFU by model FLOPs per token. Apply a separate fleet
+      active-duty factor only when MFU is conditional on active execution, and
+      reconcile the inventory's measured power with accelerator power. For
+      inference, multiply matching accelerator watts by tokens per joule
+      measured for the exact model, weights or quantization, hardware, software,
+      batching, input/output distribution, quality, and latency boundary; or
+      scale exact-system tokens per second with matching system count and
+      measured scale efficiency. For an energy-yield route, start with facility
+      energy over the interval, derive matching IT energy, then use measured
+      accelerator-energy share and matching tokens per joule, or integrate the
+      rate route over the same interval, to produce token count. Annual PUE is
+      valid only for its matching annual boundary. Propagate ranges and stop
+      with no estimate when any required site input is unavailable.
+    unit: assumption-driven scenario recipe
+    scope: General teaching recipe; produces no Abilene token estimate
+    basis: >-
+      The recipe preserves ISO energy boundaries, NVIDIA product/runtime
+      distinctions, the PaLM training-MFU definition, and MLPerf measurement
+      constraints without substituting product nameplate for observed operation.
+    lifecycle: derived_scenario_method
+    as_of: '2026-08-27'
+    source_ids:
+      - iso_iec_30134_2_2026
+      - nvidia_dgx_gb_hardware_2026
+      - nvidia_triton_batching_2_59_1
+      - palm_2022
+      - mlcommons_inference_rules
+    posture: derived_from_authoritative_sources
+
+  abilene_current_facility_power_mw:
+    value: null
+    unit: MW
+    scope: Current operating total-facility power for the original Abilene campus
+    basis: no evidence-backed estimate
+    lifecycle: operation_unknown
+    as_of: '2026-08-27'
+    source_ids:
+      - openai_stargate_oracle_2025
+      - oracle_abilene_2026
+    posture: no_evidence_backed_estimate
+
+  abilene_current_it_power_mw:
+    value: null
+    unit: MW
+    scope: Current operating IT-equipment power for the original Abilene campus
+    basis: no evidence-backed estimate
+    lifecycle: operation_unknown
+    as_of: '2026-08-27'
+    source_ids:
+      - openai_stargate_oracle_2025
+      - oracle_abilene_2026
+    posture: no_evidence_backed_estimate
+
+  abilene_current_pue:
+    value: null
+    unit: dimensionless ratio
+    scope: Measured current PUE, iPUE, or pPUE for the original Abilene campus
+    basis: no evidence-backed estimate
+    lifecycle: operation_unknown
+    as_of: '2026-08-27'
+    source_ids:
+      - oracle_abilene_2026
+      - iso_iec_30134_2_2026
+    posture: no_evidence_backed_estimate
+
+  abilene_installed_accelerator_count:
+    value: null
+    unit: accelerators
+    scope: Installed or operational accelerator fleet at the original Abilene campus
+    basis: no evidence-backed estimate
+    lifecycle: operation_unknown
+    as_of: '2026-08-27'
+    source_ids:
+      - openai_stargate_oracle_2025
+      - oracle_abilene_2026
+      - nvidia_dgx_gb_hardware_2026
+    posture: no_evidence_backed_estimate
+
+  abilene_usable_accelerator_power_mw:
+    value: null
+    unit: MW
+    scope: Usable accelerator power at the original Abilene campus
+    basis: no evidence-backed estimate
+    lifecycle: operation_unknown
+    as_of: '2026-08-27'
+    source_ids:
+      - openai_stargate_oracle_2025
+      - oracle_abilene_2026
+      - nvidia_dgx_gb_hardware_2026
+    posture: no_evidence_backed_estimate
+
+  abilene_accelerator_power_share:
+    value: null
+    unit: fraction of IT power
+    scope: Accelerator share of current Abilene IT-equipment power
+    basis: no evidence-backed estimate
+    lifecycle: operation_unknown
+    as_of: '2026-08-27'
+    source_ids:
+      - openai_stargate_oracle_2025
+      - oracle_abilene_2026
+    posture: no_evidence_backed_estimate
+
+  abilene_accelerator_active_utilization:
+    value: null
+    unit: utilization fraction
+    scope: Time- and fleet-weighted active accelerator utilization at Abilene
+    basis: no evidence-backed estimate
+    lifecycle: operation_unknown
+    as_of: '2026-08-27'
+    source_ids:
+      - openai_stargate_oracle_2025
+      - oracle_abilene_2026
+    posture: no_evidence_backed_estimate
+
+  abilene_training_mfu:
+    value: null
+    unit: model FLOPs utilization fraction
+    scope: Any training workload running at Abilene
+    basis: no evidence-backed estimate
+    lifecycle: operation_unknown
+    as_of: '2026-08-27'
+    source_ids: [openai_stargate_oracle_2025, palm_2022]
+    posture: no_evidence_backed_estimate
+
+  abilene_model_and_workload_configuration:
+    value: null
+    unit: model and workload specification
+    scope: Abilene training and inference workloads
+    basis: >-
+      Public disclosures say early training and inference workloads were
+      running but do not name the model architecture, parameter count, context
+      length, precision, quantization, or input/output distribution.
+    lifecycle: operation_unknown
+    as_of: '2026-08-27'
+    source_ids: [openai_stargate_oracle_2025]
+    posture: unverified_null
+
+  abilene_inference_batching_configuration:
+    value: null
+    unit: runtime configuration
+    scope: Abilene inference workloads
+    basis: >-
+      Public disclosures do not publish batch size, concurrency, queue delay,
+      latency service level, software stack, or scale efficiency.
+    lifecycle: operation_unknown
+    as_of: '2026-08-27'
+    source_ids:
+      - openai_stargate_oracle_2025
+      - nvidia_triton_batching_2_59_1
+    posture: unverified_null
+
+  abilene_measured_token_throughput:
+    value: null
+    unit: output tokens per second
+    scope: Any training or inference workload at the original Abilene campus
+    basis: no evidence-backed estimate
+    lifecycle: operation_unknown
+    as_of: '2026-08-27'
+    source_ids:
+      - openai_stargate_oracle_2025
+      - oracle_abilene_2026
+      - mlcommons_inference_rules
+    posture: no_evidence_backed_estimate

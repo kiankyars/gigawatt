@@ -11,6 +11,14 @@ claims:
   distribution, and point-of-load references.
 - `thermal_engineering.yaml` holds generic heat-transfer, liquid-loop,
   air-path, and facility-loop references.
+- `abilene_execution.yaml` holds site-specific construction, delivery,
+  interconnection, and explicit as-built/operating unknowns that are not part
+  of the base diagram ledger.
+- `delivery_resilience.yaml` holds transformer, generation, and cooling
+  delivery exposure plus AI-load, grid-response, UPS, and BESS role evidence.
+- `commercial_compute.yaml` holds ownership, financing, business-model
+  comparisons, compute-conversion methods, and the fail-closed MW-to-token
+  scenario recipe.
 
 `sources` uses stable IDs for primary records. `facts` is a flat mapping so
 renderers can resolve a qualified fact reference without interpreting nested
@@ -58,6 +66,12 @@ commissioned power, current load, and IT load are distinct and non-additive.
   fact's `basis` carries the literal output `no evidence-backed estimate`.
 - `future_design`: shown as future in design material, not operational.
 - `excluded_scope`: recorded only to prevent accidental inclusion or addition.
+
+Commercial and compute facts additionally distinguish announced or contracted
+structures, operating business-model comparisons, published methods, scenario
+methods, benchmark methods, and ownership/contract/financing nulls. These
+lifecycles prevent a reported role, comparison case, or calculation method from
+being mistaken for Abilene operating topology.
 
 ## Master bindings
 

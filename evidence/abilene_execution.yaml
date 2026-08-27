@@ -1,0 +1,826 @@
+schema_version: 1
+
+subject:
+  id: abilene_stargate_execution_record
+  canonical_name: Lancium Clean Campus / Crusoe-Oracle Abilene execution record
+  scope: >-
+    Site-execution evidence for the original eight-building Abilene campus,
+    its initial and expansion grid paths, its first operational phase, and the
+    Longhorn onsite-power and facility-cooling systems associated with it.
+
+accessed_as_of: '2026-08-27'
+
+evidence_boundary:
+  included_scope: >-
+    Primary utility-regulatory filings, project-delivery records, owner and
+    operator statements, manufacturer documentation, and regulatory records
+    that establish dated physical execution gates or preserve a specific
+    public-evidence gap for the original eight-building campus.
+  excluded_scope: >-
+    The adjacent two-building, 900 MW Microsoft campus announced in 2026 is
+    excluded. Statements in that announcement are used only when they
+    explicitly describe the original eight-building campus.
+  promotion_rule: >-
+    A permit or review drawing is not installation evidence; delivery or
+    construction is not energization; energization is not commissioned output;
+    a live phase does not disclose current MW, IT load, exact building count,
+    rack configuration, or internal electrical and cooling topology.
+  availability_rule: >-
+    Null facts identify exact fields that the reviewed primary sources do not
+    disclose. They must remain explicit unknowns rather than be populated from
+    photographs, secondary-site inference, product defaults, or capacity math.
+
+sources:
+  crusoe_energy_current:
+    publisher: Crusoe
+    title: An energy first approach to AI
+    kind: primary_company_technical_page
+    url: https://www.crusoe.ai/energy
+    publication_date: null
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: >-
+      Undated current company page. It states that Crusoe delivered a new
+      onsite power plant at its Abilene data center but does not quantify
+      installed units, commissioned capacity, or current output.
+
+  crusoe_inside_abilene_2025:
+    publisher: Crusoe
+    title: An inside look at the Abilene AI data center
+    kind: primary_company_engineering_blog
+    url: https://www.crusoe.ai/resources/blog/an-inside-look-at-the-abilene-ai-data-center
+    publication_date: '2025-08-05'
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: >-
+      Project-specific company account of installed gas turbines and the
+      selected facility-cooling-water and heat-rejection design.
+
+  crusoe_abilene_live_2025:
+    publisher: Crusoe
+    title: Crusoe announces flagship Abilene data center is live
+    kind: primary_company_release
+    url: https://www.crusoe.ai/resources/newsroom/crusoe-announces-flagship-abilene-data-center-is-live
+    publication_date: '2025-09-30'
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: >-
+      Dated release establishing construction start, first-rack delivery,
+      first-phase operation, two-building energization, and live-by workload
+      milestones without disclosing current load or exact rack quantity.
+
+  crusoe_abilene_award_2025:
+    publisher: Crusoe
+    title: >-
+      Crusoe Wins North American Data Center Project of the Year at 2025 Data
+      Center Dynamics Global Awards
+    kind: primary_company_project_delivery_release
+    url: https://www.crusoe.ai/resources/newsroom/crusoe-wins-north-american-data-center-project-of-the-year-at-2025-data-center-dynamics-global-awards
+    publication_date: '2025-12-22'
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: >-
+      Company project-delivery account describing first-phase electrical
+      equipment and switchgear deployment without publishing an as-built
+      one-line, voltage schedule, redundancy scheme, or switching state.
+
+  crusoe_microsoft_expansion_2026:
+    publisher: Crusoe
+    title: >-
+      Crusoe Announces New 900 MW AI Factory Campus in Abilene, Texas, to
+      Support Microsoft AI Infrastructure
+    kind: primary_company_release
+    url: https://www.crusoe.ai/resources/newsroom/crusoe-announces-new-900-mw-ai-factory-campus-in-abilene-texas-to-support-microsoft-ai-infrastructure
+    publication_date: '2026-03-27'
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: >-
+      The adjacent Microsoft project itself is excluded. This ledger uses only
+      the release's explicit retrospective statement that the original first
+      two 100 MW buildings were constructed and energized in under one year and
+      its current plan for the original six remaining buildings.
+
+  mortenson_abilene_power_delivery:
+    publisher: Mortenson
+    title: Abilene AI Data Center and Power Delivery
+    kind: primary_project_delivery_page
+    url: https://www.mortenson.com/projects/abilene-data-center-development
+    publication_date: null
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: >-
+      Undated current EPC-contractor page reporting grid construction and
+      energization milestones through 2026-03-10 plus a then-current October
+      2026 permanent-transformer swap target.
+
+  aep_september_2023_construction_report:
+    publisher: AEP Texas, filed with the Public Utility Commission of Texas
+    title: >-
+      AEP Texas North Division Construction Progress Report, September 2023,
+      Project No. 54468
+    kind: primary_utility_regulatory_filing
+    url: https://interchange.puc.texas.gov/Documents/54468_276_1332252.PDF
+    publication_date: '2023-09-24'
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: >-
+      Utility filing identifies the initial 138 kV terminal and point-of-
+      interconnect projects, their equipment scope, project IDs, construction
+      dates, and 2023-06-30 energization date.
+
+  aep_july_2025_construction_report:
+    publisher: AEP Texas, filed with the Public Utility Commission of Texas
+    title: >-
+      AEP Texas North Division Interim Construction Progress Report, July
+      2025, Project No. 57477
+    kind: primary_utility_regulatory_filing
+    url: https://interchange.puc.texas.gov/Documents/57477_194_1516744.PDF
+    publication_date: '2025-07-03'
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: >-
+      Utility filing names the 2.40-mile Mulberry Creek-Lancium 345 kV line
+      project and POI, records it as two percent complete, and leaves its
+      energization field blank. It is evidence of a construction project, not
+      proof of the later as-built operating source.
+
+  ercot_nprr1267:
+    publisher: Electric Reliability Council of Texas
+    title: NPRR1267 Large Load Interconnection Status Report
+    kind: primary_grid_rulemaking_record
+    url: https://www.ercot.com/mktrules/issues/NPRR1267
+    publication_date: '2025-01-08'
+    review_date: '2025-07-31'
+    accessed_as_of: '2026-08-27'
+    date_note: >-
+      ERCOT records final PUCT approval on 2025-07-31 and explains that
+      customer-owned large-load information is confidential, so the public
+      large-load status report is aggregated rather than customer-specific.
+
+  tceq_177263_gas_review:
+    publisher: Texas Commission on Environmental Quality
+    title: >-
+      Electric Generating Unit Standard Permit Technical Review,
+      Registration 177263
+    kind: primary_regulatory_review
+    url: 'https://records.tceq.texas.gov/cs/idcplg?IdcService=TCEQ_EXTERNAL_SEARCH_GET_FILE&Rendition=Web&dID=8600163'
+    publication_date: null
+    review_date: '2025-01-22'
+    accessed_as_of: '2026-08-27'
+    date_note: >-
+      Regulatory review authorizes a ten-turbine model mix but does not
+      establish which units were installed, commissioned, or operating.
+
+  tceq_37589_reference_drawing:
+    publisher: >-
+      Abilene DC 1, LLC, filed with the Texas Commission on Environmental
+      Quality
+    title: Longhorn Power Plant Federal Operating Permit Application 37589
+    kind: primary_regulatory_application_drawing
+    url: https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/37589-tc.pdf
+    publication_date: null
+    review_date: '2024-12-04'
+    accessed_as_of: '2026-08-27'
+    date_note: >-
+      The cited general-arrangement drawing is marked not for construction and
+      establishes only a review-design 34.5 kV interface, not an as-built GSU
+      ratio, connection, protection scheme, or operating state.
+
+  nvidia_dgx_gb200_hardware:
+    publisher: NVIDIA
+    title: DGX GB200 Hardware Overview
+    kind: primary_manufacturer_documentation
+    url: https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html
+    publication_date: null
+    review_date: '2026-03-03'
+    accessed_as_of: '2026-08-27'
+    date_note: >-
+      Current model documentation supports the rack product boundary but does
+      not disclose which supported AC input or exact board-level configuration
+      the Abilene operator selected.
+
+facts:
+  onsite_power_plant_delivery_confirmed:
+    value: A new onsite power plant was delivered at Crusoe's Abilene data center.
+    unit: site execution milestone
+    scope: >-
+      Original Abilene campus onsite power plant as a delivered facility;
+      excludes any claim about its installed unit count, commissioned MW,
+      current output, or operating mode.
+    basis: >-
+      Crusoe's current energy page explicitly says it delivered a new onsite
+      power plant at its Abilene data center.
+    lifecycle: constructed
+    as_of: '2026-08-27'
+    source_ids: [crusoe_energy_current]
+    posture: confirmed
+
+  ge_vernovas_gas_turbines_installed:
+    value: Advanced natural-gas turbines from GE Vernova were installed.
+    unit: installed equipment family
+    scope: >-
+      Original Abilene campus; manufacturer family and installation only, not
+      installed count, exact model mix, commissioning, output, or availability.
+    basis: >-
+      Crusoe's project-specific engineering account says it strategically
+      installed advanced natural-gas turbines from GE Vernova.
+    lifecycle: constructed
+    as_of: '2025-08-05'
+    source_ids: [crusoe_inside_abilene_2025]
+    posture: confirmed
+
+  installed_gas_turbine_intended_role:
+    value: >-
+      Reliability and grid-stability support, ultimately serving as backup
+      power for data halls rather than the primary grid supply.
+    unit: selected operating role
+    scope: >-
+      Stated intended role of the original Abilene campus gas-turbine plant;
+      not proof of current dispatch, capacity, or commissioned availability.
+    basis: >-
+      Crusoe describes why the turbines were installed and says the plant will
+      ultimately be used for backup power, which is a selected role rather than
+      an observed current operating state.
+    lifecycle: selected_design
+    as_of: '2025-08-05'
+    source_ids: [crusoe_inside_abilene_2025]
+    posture: design_selected
+
+  installed_gas_turbine_unit_count:
+    value: null
+    unit: units
+    scope: Exact installed natural-gas-turbine count at the original Abilene campus
+    basis: >-
+      TCEQ authorizes ten units, while Crusoe confirms only that GE Vernova
+      turbines were installed. Neither source says all ten authorized units or
+      a specific count were installed.
+    lifecycle: installation_unknown
+    as_of: '2026-08-27'
+    source_ids: [crusoe_inside_abilene_2025, tceq_177263_gas_review]
+    posture: unverified_null
+
+  installed_gas_turbine_model_mix:
+    value: null
+    unit: model and unit-count configuration
+    scope: Exact installed turbine model mix at the original Abilene campus
+    basis: >-
+      The permit authorizes a Solar and GE model mix; the company installation
+      statement identifies GE Vernova but does not establish the installed
+      Solar count, GE count, or complete installed mix.
+    lifecycle: installation_unknown
+    as_of: '2026-08-27'
+    source_ids: [crusoe_inside_abilene_2025, tceq_177263_gas_review]
+    posture: unverified_null
+
+  gas_turbine_commissioned_capacity_mw:
+    value: null
+    unit: MW
+    scope: Commissioned natural-gas-turbine capacity at the original Abilene campus
+    basis: >-
+      Plant delivery and installed-turbine evidence do not quantify completed
+      commissioning; the regulatory review is an authorization, not a
+      commissioning record.
+    lifecycle: commissioning_unknown
+    as_of: '2026-08-27'
+    source_ids:
+      - crusoe_energy_current
+      - crusoe_inside_abilene_2025
+      - tceq_177263_gas_review
+    posture: unverified_null
+
+  gas_turbine_current_output_mw:
+    value: null
+    unit: MW
+    scope: Current output of the original Abilene campus gas-turbine plant
+    basis: >-
+      No reviewed primary source reports a current telemetry value, dispatch
+      interval, or measured output for the installed turbines.
+    lifecycle: operation_unknown
+    as_of: '2026-08-27'
+    source_ids:
+      - crusoe_energy_current
+      - crusoe_inside_abilene_2025
+      - tceq_177263_gas_review
+    posture: unverified_null
+
+  gas_turbine_current_operating_posture:
+    value: null
+    unit: operating status
+    scope: >-
+      Current running, standby, testing, unavailable, or other operating posture
+      of the original Abilene campus gas-turbine plant
+    basis: >-
+      Crusoe states the intended ultimate backup role but does not state the
+      plant's present dispatch or availability state.
+    lifecycle: operation_unknown
+    as_of: '2026-08-27'
+    source_ids: [crusoe_inside_abilene_2025]
+    posture: unverified_null
+
+  generator_terminal_site_voltage_kv:
+    value: null
+    unit: kV AC
+    scope: Exact configured generator-terminal voltage of installed Longhorn units
+    basis: >-
+      The project sources confirm installation and a review-design 34.5 kV
+      interface but do not disclose the selected generator-terminal voltage.
+    lifecycle: site_configuration_unknown
+    as_of: '2026-08-27'
+    source_ids:
+      - crusoe_inside_abilene_2025
+      - tceq_177263_gas_review
+      - tceq_37589_reference_drawing
+    posture: unverified_null
+
+  gsu_as_built_ratio_and_connection:
+    value: null
+    unit: transformer configuration
+    scope: >-
+      As-built ratio, winding connection, grounding, and campus-side target
+      voltage of the generator step-up transformers at Longhorn
+    basis: >-
+      The public permit and general-arrangement records do not contain a
+      construction-issued or as-built electrical one-line establishing these
+      fields.
+    lifecycle: topology_unknown
+    as_of: '2026-08-27'
+    source_ids: [tceq_177263_gas_review, tceq_37589_reference_drawing]
+    posture: unverified_null
+
+  generator_gsu_protection_as_built:
+    value: null
+    unit: protection configuration
+    scope: >-
+      Installed generator and GSU protection devices, CT-defined zones,
+      settings, and trip logic at Longhorn
+    basis: >-
+      Neither the air-permit review nor the not-for-construction arrangement
+      drawing discloses an as-built relay one-line, device schedule, zone
+      boundary, or settings file.
+    lifecycle: site_configuration_unknown
+    as_of: '2026-08-27'
+    source_ids: [tceq_177263_gas_review, tceq_37589_reference_drawing]
+    posture: unverified_null
+
+  building_electrical_delivery_scope:
+    value: >-
+      Essential electrical equipment and switchgear were manufactured in-house,
+      and critical infrastructure was produced and deployed on site to support
+      the first-phase construction schedule.
+    unit: site execution milestone
+    scope: >-
+      First-phase original Abilene campus equipment deployment; no claim about
+      voltage class, product list, quantity, redundancy, topology, or state.
+    basis: >-
+      Crusoe's project-delivery release attributes the first-phase schedule to
+      in-house manufacture of electrical equipment and switchgear and says the
+      resulting critical infrastructure was deployed on site.
+    lifecycle: constructed
+    as_of: '2025-12-22'
+    source_ids: [crusoe_abilene_award_2025]
+    posture: confirmed
+
+  building_power_train_as_built_configuration:
+    value: null
+    unit: electrical topology and state
+    scope: >-
+      Site voltages, transformer and switchgear ratings, equipment quantities,
+      redundancy paths, UPS topology, busway layout, and switch states between
+      campus MV and the first-phase rack rows
+    basis: >-
+      The company confirms deployment of electrical equipment and switchgear
+      but publishes no as-built one-line, voltage schedule, equipment schedule,
+      redundancy diagram, or operating switching state.
+    lifecycle: topology_unknown
+    as_of: '2026-08-27'
+    source_ids: [crusoe_abilene_award_2025]
+    posture: unverified_null
+
+  gb200_first_rack_delivery_month:
+    value: '2025-06'
+    unit: ISO-8601 month
+    scope: First NVIDIA GB200 rack deliveries to the original Abilene campus
+    basis: >-
+      Crusoe reports that Oracle began delivering the first NVIDIA GB200 racks
+      in June 2025; the statement does not provide a rack count.
+    lifecycle: deployed
+    as_of: '2025-09-30'
+    source_ids: [crusoe_abilene_live_2025]
+    posture: confirmed
+
+  operating_rack_configuration:
+    value: null
+    unit: rack configuration
+    scope: >-
+      Exact operating GB200 rack variant, rack count, populated trays, and power
+      configuration at the original Abilene campus
+    basis: >-
+      The live-campus release establishes first GB200 deliveries and live
+      workloads but does not publish the installed or operating configuration.
+    lifecycle: site_configuration_unknown
+    as_of: '2026-08-27'
+    source_ids: [crusoe_abilene_live_2025, nvidia_dgx_gb200_hardware]
+    posture: unverified_null
+
+  rack_site_core_voltage:
+    value: null
+    unit: board-level electrical configuration
+    scope: >-
+      Exact board-level processor rail or core voltage for operating Abilene
+      GB200 systems
+    basis: >-
+      NVIDIA documents the product boundary while the Abilene execution source
+      does not identify the board operating point selected at the site. The
+      rack-shelf AC-input boundary is recorded separately in the main ledger.
+    lifecycle: site_configuration_unknown
+    as_of: '2026-08-27'
+    source_ids: [crusoe_abilene_live_2025, nvidia_dgx_gb200_hardware]
+    posture: unverified_null
+
+  facility_cooling_water_system_design:
+    value: >-
+      A true closed-loop Facility Cooling Water System continuously recirculates
+      water and rejects heat through air-cooled chillers.
+    unit: selected facility-cooling design
+    scope: >-
+      Original eight-building Abilene campus design selection; no CDU, CRAH,
+      temperature, flow, redundancy, quantity, or operating-measurement claim.
+    basis: >-
+      Crusoe explicitly names the FWS, describes it as a true closed loop, and
+      states that its heat is rejected through air-cooled chillers.
+    lifecycle: selected_design
+    as_of: '2025-08-05'
+    source_ids: [crusoe_inside_abilene_2025]
+    posture: design_selected
+
+  facility_cooling_pipe_materials:
+    value: primarily carbon steel and copper
+    unit: selected piping materials
+    scope: >-
+      Original Abilene facility-cooling pipes; no diameter, routing, joint,
+      package-boundary, or as-built quantity claim.
+    basis: >-
+      Crusoe states that the cooling pipes are primarily carbon steel and
+      copper, selected for durability and thermal efficiency.
+    lifecycle: selected_design
+    as_of: '2025-08-05'
+    source_ids: [crusoe_inside_abilene_2025]
+    posture: design_selected
+
+  facility_heat_rejection_terminal:
+    value: air-cooled chillers
+    unit: selected heat-rejection equipment family
+    scope: >-
+      Terminal heat-rejection family for the original Abilene FWS; no chiller
+      model, count, capacity, setpoint, or observed operating state.
+    basis: >-
+      Crusoe says the closed-loop facility water rejects heat through air-cooled
+      chillers and does not use water in the heat-rejection process.
+    lifecycle: selected_design
+    as_of: '2025-08-05'
+    source_ids: [crusoe_inside_abilene_2025]
+    posture: design_selected
+
+  cdu_site_configuration:
+    value: null
+    unit: CDU configuration
+    scope: >-
+      Site CDU presence by rack or row, package selection, temperature and flow
+      setpoints, heat-exchanger interface, quantity, and redundancy
+    basis: >-
+      The project-specific cooling source describes the facility loop and
+      air-cooled heat rejection but does not name CDUs or disclose their
+      configuration.
+    lifecycle: site_configuration_unknown
+    as_of: '2026-08-27'
+    source_ids: [crusoe_inside_abilene_2025]
+    posture: unverified_null
+
+  residual_air_site_configuration:
+    value: null
+    unit: air-cooling configuration
+    scope: >-
+      First-phase residual-air path, CRAH or fan-wall selection, package count,
+      airflow direction, redundancy, and facility-loop connection
+    basis: >-
+      The company describes mixed high-performance cooling and the FWS but does
+      not identify site CRAHs, fan walls, or the as-built residual-air path.
+    lifecycle: site_configuration_unknown
+    as_of: '2026-08-27'
+    source_ids: [crusoe_inside_abilene_2025, crusoe_abilene_award_2025]
+    posture: unverified_null
+
+  facility_cooling_interfaces_as_built:
+    value: null
+    unit: cooling topology
+    scope: >-
+      As-built interfaces among rack manifolds, CDUs, residual-air equipment,
+      the FWS, pumps, and air-cooled chillers at the original campus
+    basis: >-
+      The public project source establishes the selected facility-loop and
+      heat-rejection family but does not publish a process-flow diagram or
+      as-built package-interface schedule.
+    lifecycle: topology_unknown
+    as_of: '2026-08-27'
+    source_ids: [crusoe_inside_abilene_2025]
+    posture: unverified_null
+
+  facility_cooling_operating_measurements:
+    value: null
+    unit: temperatures, flow, pressure, and thermal capacity
+    scope: >-
+      Current measured operating values for first-phase Abilene cooling loops
+      and heat-rejection equipment
+    basis: >-
+      The source publishes design and anticipated maintenance facts, not
+      telemetry, commissioning readings, package capacities, or current
+      operating measurements.
+    lifecycle: operation_unknown
+    as_of: '2026-08-27'
+    source_ids: [crusoe_inside_abilene_2025]
+    posture: unverified_null
+
+  initial_aep_terminal_equipment_scope:
+    value: >-
+      One 138 kV minimum 2000 A, 40 kA breaker; switches; SCADA; Lancium-terminal
+      metering; power-quality metering; telecom equipment; and an overhead exit
+      to a dead-end structure.
+    unit: utility interconnection project scope
+    scope: >-
+      AEP project T10433134 at Abilene Northwest station for the initial Lancium
+      138 kV path; not the customer-side campus substation or downstream bus.
+    basis: >-
+      AEP's filed September 2023 construction report lists the equipment scope,
+      project identifier, 2023-06-30 completion and energization, and 99 percent
+      completion in the report.
+    lifecycle: energized
+    as_of: '2023-09-24'
+    source_ids: [aep_september_2023_construction_report]
+    posture: confirmed
+
+  initial_aep_terminal_energized_date:
+    value: '2023-06-30'
+    unit: ISO-8601 date
+    scope: AEP project T10433134 at Abilene Northwest 138 kV station
+    basis: >-
+      AEP's filed construction report records both construction completion and
+      energization on 2023-06-30.
+    lifecycle: energized
+    as_of: '2023-06-30'
+    source_ids: [aep_september_2023_construction_report]
+    posture: confirmed
+
+  initial_aep_poi_scope:
+    value: >-
+      An underground dead-end point of interconnect between Abilene Northwest
+      138 kV station and Lancium's 138 kV station for a 200 MW data center.
+    unit: utility interconnection project scope
+    scope: >-
+      AEP project T10434308 for the initial grid path; it does not establish the
+      downstream data-center load, campus merge, or present load level.
+    basis: >-
+      AEP's filed September 2023 construction report supplies the project name,
+      purpose, 0.30-mile circuit field, completion, and energization record.
+    lifecycle: energized
+    as_of: '2023-09-24'
+    source_ids: [aep_september_2023_construction_report]
+    posture: confirmed
+
+  initial_aep_poi_energized_date:
+    value: '2023-06-30'
+    unit: ISO-8601 date
+    scope: AEP project T10434308, Abilene Northwest-Lancium 138 kV tie line
+    basis: >-
+      AEP's filed construction report records both construction completion and
+      energization on 2023-06-30.
+    lifecycle: energized
+    as_of: '2023-06-30'
+    source_ids: [aep_september_2023_construction_report]
+    posture: confirmed
+
+  expansion_345_named_line_project:
+    value: >-
+      A 2.40-mile 345 kV transmission-line project from Mulberry Creek 345 kV
+      Station to the Lancium 345 kV point of interconnect.
+    unit: named utility construction project
+    scope: >-
+      AEP project T10703126 in the July 2025 report; a named upstream project,
+      not proof that this exact line was later completed or energized.
+    basis: >-
+      AEP's July 2025 filing names the project and POI, gives its physical scope,
+      and reports two percent completion with the energization field blank.
+    lifecycle: planned
+    as_of: '2025-07-03'
+    source_ids: [aep_july_2025_construction_report]
+    posture: planned_not_operational
+
+  expansion_345_line_start_date_as_reported:
+    value: '2025-05-12'
+    unit: ISO-8601 date
+    scope: >-
+      Start-date field for AEP project T10703126 in the July 2025 construction
+      report; the report does not label the field separately as estimated or actual.
+    basis: >-
+      The AEP filing's combined estimated-or-actual start-date column records
+      2025-05-12 and the same row reports two percent completion.
+    lifecycle: planned
+    as_of: '2025-07-03'
+    source_ids: [aep_july_2025_construction_report]
+    posture: planned_not_operational
+
+  expansion_345_line_finish_date_as_reported:
+    value: '2025-11-21'
+    unit: ISO-8601 date
+    scope: >-
+      Planned construction-complete field for AEP project T10703126 as of the
+      July 2025 report; not an actual completion or energization date.
+    basis: >-
+      AEP's filing records 2025-11-21 in the finish-date column while reporting
+      two percent completion and no energization date.
+    lifecycle: planned
+    as_of: '2025-07-03'
+    source_ids: [aep_july_2025_construction_report]
+    posture: planned_not_operational
+
+  expansion_substation_first_transformer_energized_date:
+    value: '2025-12-19'
+    unit: ISO-8601 date
+    scope: First main-power-transformer energization at the 1 GW, 345 kV expansion substation
+    basis: >-
+      Mortenson reports first transformer energization on 2025-12-19 and says
+      the milestone enabled accelerated initial-feeder energization.
+    lifecycle: energized
+    as_of: '2025-12-19'
+    source_ids: [mortenson_abilene_power_delivery]
+    posture: confirmed
+
+  expansion_substation_all_five_transformers_energized_date:
+    value: '2026-03-10'
+    unit: ISO-8601 date
+    scope: Five main power transformers at the 1 GW, 345 kV expansion substation
+    basis: >-
+      Mortenson reports all five main power transformers energized by
+      2026-03-10, including three temporary units.
+    lifecycle: energized
+    as_of: '2026-03-10'
+    source_ids: [mortenson_abilene_power_delivery]
+    posture: confirmed
+
+  expansion_permanent_transformer_swaps_expected_by:
+    value: '2026-10-31'
+    unit: ISO-8601 month-end bound
+    scope: >-
+      Planned replacement of three temporary expansion-substation transformers
+      with permanent units
+    basis: >-
+      Mortenson's current page says three temporary units were being swapped
+      and all three swapovers were expected by October 2026; this is not a
+      completed milestone.
+    lifecycle: planned
+    as_of: '2026-08-27'
+    source_ids: [mortenson_abilene_power_delivery]
+    posture: planned_not_operational
+
+  site_specific_interconnection_queue_and_contract_record:
+    value: null
+    unit: customer-specific interconnection status
+    scope: >-
+      Customer-specific queue identifier, study dates, application milestones,
+      executed service agreement, contracted capacity, and load-ramp schedule
+      for the original Abilene campus
+    basis: >-
+      AEP and Mortenson disclose physical project execution, while ERCOT states
+      that public large-load status reporting is aggregated because customer
+      information is confidential. The reviewed public records do not supply a
+      customer-specific queue or contract chronology.
+    lifecycle: site_configuration_unknown
+    as_of: '2026-08-27'
+    source_ids:
+      - aep_september_2023_construction_report
+      - aep_july_2025_construction_report
+      - mortenson_abilene_power_delivery
+      - ercot_nprr1267
+    posture: unverified_null
+
+  contracted_grid_service_capacity_mw:
+    value: null
+    unit: MW
+    scope: >-
+      Contracted grid-service capacity for the original Abilene campus,
+      separate from substation ratings and the planned 1.2 GW interconnection
+    basis: >-
+      Public utility construction records provide project purposes and
+      equipment ratings, not the customer's confidential executed service
+      quantity or current contract ramp.
+    lifecycle: site_configuration_unknown
+    as_of: '2026-08-27'
+    source_ids:
+      - aep_september_2023_construction_report
+      - aep_july_2025_construction_report
+      - ercot_nprr1267
+    posture: unverified_null
+
+  current_total_facility_load_mw:
+    value: null
+    unit: MW
+    scope: Current metered load of the original Abilene campus
+    basis: >-
+      Energized substations, energized buildings, and live workloads do not
+      disclose current site demand; ERCOT's public large-load reporting is
+      aggregated rather than customer-specific.
+    lifecycle: operation_unknown
+    as_of: '2026-08-27'
+    source_ids:
+      - crusoe_abilene_live_2025
+      - mortenson_abilene_power_delivery
+      - ercot_nprr1267
+    posture: unverified_null
+
+  current_critical_it_load_mw:
+    value: null
+    unit: MW
+    scope: Current critical IT load of the original Abilene campus
+    basis: >-
+      The live-campus release establishes operating workloads but publishes no
+      current IT-load telemetry or conversion from facility power to IT power.
+    lifecycle: operation_unknown
+    as_of: '2026-08-27'
+    source_ids: [crusoe_abilene_live_2025]
+    posture: unverified_null
+
+  campus_construction_start_month:
+    value: '2024-06'
+    unit: ISO-8601 month
+    scope: Original Abilene AI data-center campus construction
+    basis: Crusoe reports that construction of the multi-building campus began in June 2024.
+    lifecycle: constructed
+    as_of: '2025-09-30'
+    source_ids: [crusoe_abilene_live_2025]
+    posture: confirmed
+
+  first_two_buildings_energized_by:
+    value: '2025-09-30'
+    unit: ISO-8601 date upper bound
+    scope: First two buildings of the original Abilene campus
+    basis: >-
+      Crusoe's dated live-campus release says the first two buildings had been
+      energized within a year of the June 2024 construction start; the precise
+      energization date is not supplied, so publication date is the safe bound.
+    lifecycle: energized
+    as_of: '2025-09-30'
+    source_ids: [crusoe_abilene_live_2025]
+    posture: confirmed
+
+  first_phase_operational_by:
+    value: '2025-09-30'
+    unit: ISO-8601 date upper bound
+    scope: First phase of the original Abilene campus on Oracle Cloud Infrastructure
+    basis: >-
+      Crusoe's dated release states that the first phase was up and running on
+      OCI by publication; it does not provide the exact first-operational date.
+    lifecycle: operating
+    as_of: '2025-09-30'
+    source_ids: [crusoe_abilene_live_2025]
+    posture: confirmed
+
+  early_training_and_inference_live_by:
+    value: '2025-09-30'
+    unit: ISO-8601 date upper bound
+    scope: Early training and inference workloads at the original Abilene campus
+    basis: >-
+      Crusoe's dated release says early workloads had begun but does not supply
+      their exact start date.
+    lifecycle: operating
+    as_of: '2025-09-30'
+    source_ids: [crusoe_abilene_live_2025]
+    posture: live_by_not_start_date
+
+  original_remaining_six_buildings_planned_completion:
+    value: '2026-12-31'
+    unit: ISO-8601 year-end bound
+    scope: >-
+      Six remaining buildings in the second phase of the original eight-building
+      campus; excludes the adjacent Microsoft campus
+    basis: >-
+      Crusoe's March 2026 release explicitly says the original second phase,
+      which adds six buildings, was expected to reach completion by the end of
+      2026.
+    lifecycle: planned
+    as_of: '2026-03-27'
+    source_ids: [crusoe_microsoft_expansion_2026]
+    posture: planned_not_operational
+
+  current_operational_building_count_exact:
+    value: null
+    unit: buildings
+    scope: >-
+      Exact number of operational buildings in the original eight-building
+      campus as of 2026-08-27
+    basis: >-
+      Primary sources establish a minimum of two energized buildings and a plan
+      to complete six more by year-end 2026 but do not report an exact current
+      operational count between those bounds.
+    lifecycle: operation_unknown
+    as_of: '2026-08-27'
+    source_ids: [crusoe_abilene_live_2025, crusoe_microsoft_expansion_2026]
+    posture: unverified_null

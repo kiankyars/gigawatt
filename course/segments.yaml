@@ -10,14 +10,17 @@ schema_version: 2
 meta:
   course_id: gigawatt
   inventory_scope: complete_course
-  status: inventory_ready_research_gated
+  status: record_ready_evidence_bounded
   runtime_minutes: null
   relative_weight_total: 27.05
   master: diagram/master.yaml
   cameras: diagram/cameras.yaml
   evidence_ledgers:
     abilene: evidence/abilene.yaml
+    abilene_execution: evidence/abilene_execution.yaml
     commercial_energy: evidence/commercial_energy.yaml
+    commercial_compute: evidence/commercial_compute.yaml
+    delivery_resilience: evidence/delivery_resilience.yaml
     electrical_engineering: evidence/electrical_engineering.yaml
     thermal_engineering: evidence/thermal_engineering.yaml
   master_evidence_ledger: abilene
@@ -205,30 +208,44 @@ acts:
         node_ids: [gas_turbine, generator]
         edge_ids: [btm_fuel_to_shaft]
         evidence:
-          readiness: research_required
+          readiness: evidence_ready
           claims:
             - id: gas_authorization
               assertion: permitted
               binding: topology
               fact_refs: [abilene:gas_turbine_units_authorized, abilene:gas_permitted_nameplate_mw]
-            - id: commissioning_unknown
-              assertion: explicit_unknown
-              binding: overlay
-              fact_refs: [abilene:gas_commissioned_mw]
             - id: turbine_generator_conversion_reference
               assertion: design_reference
               binding: overlay
               fact_refs:
                 - electrical_engineering:turbine_fluid_to_rotor_conversion
                 - electrical_engineering:generator_rotor_to_electricity_conversion
+            - id: installed_turbine_presence
+              assertion: confirmed
+              binding: overlay
+              fact_refs:
+                - abilene_execution:onsite_power_plant_delivery_confirmed
+                - abilene_execution:ge_vernovas_gas_turbines_installed
+            - id: installed_turbine_configuration_unknown
+              assertion: explicit_unknown
+              binding: overlay
+              fact_refs:
+                - abilene_execution:installed_gas_turbine_unit_count
+                - abilene_execution:installed_gas_turbine_model_mix
+            - id: operating_posture_unknown
+              assertion: explicit_unknown
+              binding: overlay
+              fact_refs:
+                - abilene_execution:gas_turbine_commissioned_capacity_mw
+                - abilene_execution:gas_turbine_current_output_mw
+                - abilene_execution:gas_turbine_current_operating_posture
           promotion_guards:
             - permitted_to_installed
             - permitted_to_commissioned
             - design_to_as_built
             - site_scope_transfer
             - null_to_zero
-          blocking_research:
-            - Site installation, commissioning, and operating evidence.
+          blocking_research: []
         transition:
           to: s02_generator_terminal
           cue: Follow shaft power into the first electrical state.
@@ -251,7 +268,7 @@ acts:
         node_ids: [generator, gsu_transformer, campus_mv_distribution]
         edge_ids: [btm_terminal_to_gsu, btm_gsu_to_mv]
         evidence:
-          readiness: research_required
+          readiness: evidence_ready
           claims:
             - id: generator_authorization
               assertion: permitted
@@ -284,6 +301,12 @@ acts:
                 - electrical_engineering:generator_protection_fault_scope
                 - electrical_engineering:transformer_protection_engineering_scope
                 - electrical_engineering:gsu_protection_zone_application_specificity
+            - id: site_generator_configuration_boundary
+              assertion: explicit_unknown
+              binding: overlay
+              fact_refs:
+                - abilene_execution:gsu_as_built_ratio_and_connection
+                - abilene_execution:generator_gsu_protection_as_built
           promotion_guards:
             - permitted_to_installed
             - permitted_to_commissioned
@@ -293,10 +316,7 @@ acts:
             - conceptual_to_as_built
             - site_scope_transfer
             - null_to_zero
-          blocking_research:
-            - >-
-              Site terminal and target voltages, GSU ratio and connection,
-              protection devices, zones and settings, and operating posture.
+          blocking_research: []
         transition:
           to: s03_initial_grid_path
           cue: Compare the permitted branch with the first evidenced grid-service path.
@@ -521,7 +541,7 @@ acts:
         node_ids: [campus_mv_distribution, unit_substation, lv_switchgear, ups, busway]
         edge_ids: [mv_to_unit_sub, unit_sub_to_lv, lv_to_ups, ups_to_busway]
         evidence:
-          readiness: research_required
+          readiness: evidence_ready
           claims:
             - id: campus_input_unknown
               assertion: explicit_unknown
@@ -538,14 +558,21 @@ acts:
               assertion: design_reference
               binding: overlay
               fact_refs: [electrical_engineering:ups_conditioned_no_break_power_role]
+            - id: first_phase_electrical_delivery
+              assertion: confirmed
+              binding: overlay
+              fact_refs: [abilene_execution:building_electrical_delivery_scope]
+            - id: building_power_train_configuration_unknown
+              assertion: explicit_unknown
+              binding: overlay
+              fact_refs: [abilene_execution:building_power_train_as_built_configuration]
           promotion_guards:
             - conceptual_to_as_built
             - product_to_site_configuration
             - design_to_as_built
             - site_scope_transfer
             - null_to_zero
-          blocking_research:
-            - Site voltages, quantities, redundancy, and switch-state evidence if available.
+          blocking_research: []
         transition:
           to: s08_rack_voltage_descent
           cue: Follow protected facility AC into the rack.
@@ -568,7 +595,7 @@ acts:
         node_ids: [busway, power_shelf, vrm, die]
         edge_ids: [busway_to_power_shelf, power_shelf_to_vrm, vrm_to_die]
         evidence:
-          readiness: research_required
+          readiness: evidence_ready
           claims:
             - id: operating_family
               assertion: confirmed
@@ -593,14 +620,23 @@ acts:
                 - electrical_engineering:vrm_intermediate_bus_to_xpu_voltage_role
                 - electrical_engineering:xpu_low_voltage_high_current_requirement
                 - electrical_engineering:multiphase_processor_core_power_role
+            - id: first_rack_delivery
+              assertion: confirmed
+              binding: overlay
+              fact_refs: [abilene_execution:gb200_first_rack_delivery_month]
+            - id: operating_rack_configuration_unknown
+              assertion: explicit_unknown
+              binding: overlay
+              fact_refs:
+                - abilene_execution:operating_rack_configuration
+                - abilene_execution:rack_site_core_voltage
           promotion_guards:
             - design_to_as_built
             - product_to_site_configuration
             - conceptual_to_as_built
             - site_scope_transfer
             - null_to_zero
-          blocking_research:
-            - Site rack input and operating rack-configuration evidence.
+          blocking_research: []
         transition:
           to: s09_watt_becomes_heat
           cue: At the die, change from the electrical path to the heat-removal obligation.
@@ -753,7 +789,7 @@ acts:
         node_ids: [rack_manifold, cdu, facility_loop]
         edge_ids: [manifold_to_cdu_return, cdu_to_manifold_supply, cdu_to_facility_return, facility_to_cdu_supply]
         evidence:
-          readiness: research_required
+          readiness: evidence_ready
           claims:
             - id: selected_loop_design
               assertion: selected_design
@@ -769,13 +805,17 @@ acts:
               fact_refs:
                 - thermal_engineering:generic_cdu_loop_isolation_heat_exchange
                 - thermal_engineering:generic_cdu_control_functions
+            - id: cdu_site_configuration_unknown
+              assertion: explicit_unknown
+              binding: overlay
+              fact_refs: [abilene_execution:cdu_site_configuration]
           promotion_guards:
             - conceptual_to_as_built
             - design_to_as_built
             - reverse_physical_flow
             - site_scope_transfer
-          blocking_research:
-            - Site temperatures, flows, interfaces, redundancy, and package counts.
+            - null_to_zero
+          blocking_research: []
         transition:
           to: s13_residual_air_branch
           cue: Recover the rack heat that never entered a cold plate.
@@ -783,7 +823,7 @@ acts:
       - id: s13_residual_air_branch
         title: Residual air takes a parallel route
         opening_question: Where does heat from networking, storage, and other auxiliaries go?
-        learning_objective: Trace the CRAH branch as parallel to direct-to-chip cooling rather than serial with it.
+        learning_objective: Use the reference CRAH branch as a parallel cooling path without claiming it is Abilene's as-built residual-air configuration.
         weight: 0.9
         depends_on: []
         camera:
@@ -796,7 +836,7 @@ acts:
         node_ids: [rack_air_load, crah, facility_loop]
         edge_ids: [rack_air_load_to_crah, crah_to_facility_return, facility_to_crah_supply]
         evidence:
-          readiness: research_required
+          readiness: evidence_ready
           claims:
             - id: air_cooled_components
               assertion: product_reference
@@ -813,14 +853,18 @@ acts:
                 - thermal_engineering:generic_parallel_liquid_air_cooling
                 - thermal_engineering:generic_crah_air_heat_removal_path
                 - thermal_engineering:generic_crah_variable_airflow_control
+            - id: residual_air_site_configuration_unknown
+              assertion: explicit_unknown
+              binding: overlay
+              fact_refs: [abilene_execution:residual_air_site_configuration]
           promotion_guards:
             - product_to_site_configuration
             - design_to_as_built
             - conceptual_to_as_built
             - reverse_physical_flow
             - site_scope_transfer
-          blocking_research:
-            - Site air path, CRAH or fan-wall selection, and package evidence.
+            - null_to_zero
+          blocking_research: []
         transition:
           to: s14_facility_heat_rejection
           cue: Rejoin the liquid and air branches at the facility loop.
@@ -847,7 +891,7 @@ acts:
           - facility_to_chiller_return
           - chiller_to_facility_supply
         evidence:
-          readiness: research_required
+          readiness: evidence_ready
           claims:
             - id: selected_heat_rejection
               assertion: selected_design
@@ -865,13 +909,25 @@ acts:
                 - thermal_engineering:generic_facility_loop_load_control
                 - thermal_engineering:generic_cdu_loop_isolation_heat_exchange
                 - thermal_engineering:generic_crah_air_heat_removal_path
+            - id: site_facility_cooling_design
+              assertion: selected_design
+              binding: overlay
+              fact_refs:
+                - abilene_execution:facility_cooling_water_system_design
+                - abilene_execution:facility_heat_rejection_terminal
+            - id: facility_cooling_interfaces_unknown
+              assertion: explicit_unknown
+              binding: overlay
+              fact_refs:
+                - abilene_execution:facility_cooling_interfaces_as_built
+                - abilene_execution:facility_cooling_operating_measurements
           promotion_guards:
             - design_to_as_built
             - conceptual_to_as_built
             - reverse_physical_flow
             - site_scope_transfer
-          blocking_research:
-            - Site CDU, CRAH, facility-loop, and chiller interface evidence.
+            - null_to_zero
+          blocking_research: []
         transition:
           to: s15_water_accounting
           cue: Resolve why a non-evaporative design still has a water requirement.
@@ -911,7 +967,7 @@ acts:
       - id: s16_close_atmosphere
         title: The figure-eight closes in the atmosphere
         opening_question: Where is the watt now?
-        learning_objective: Replay every heat-transfer gate to the terminal sink without implying physical recirculation.
+        learning_objective: Replay every reference heat-transfer gate to the terminal sink without implying an as-built path or physical recirculation.
         weight: 0.8
         depends_on:
           - s09_watt_becomes_heat
@@ -954,7 +1010,7 @@ acts:
           - chiller_to_atmosphere
           - fill_to_facility_loop
         evidence:
-          readiness: research_required
+          readiness: evidence_ready
           claims:
             - id: operating_family
               assertion: confirmed
@@ -972,9 +1028,15 @@ acts:
               assertion: selected_design
               binding: topology
               fact_refs: [abilene:cooling_heat_rejection_posture]
-          promotion_guards: [design_to_as_built, product_to_site_configuration, conceptual_to_as_built]
-          blocking_research:
-            - Complete the energy-balance, technology-loop, CDU, CRAH, and facility-loop dossiers required by the replay.
+            - id: facility_interface_boundary
+              assertion: explicit_unknown
+              binding: overlay
+              fact_refs:
+                - abilene_execution:facility_cooling_interfaces_as_built
+                - abilene_execution:cdu_site_configuration
+                - abilene_execution:residual_air_site_configuration
+          promotion_guards: [design_to_as_built, product_to_site_configuration, conceptual_to_as_built, reverse_physical_flow, site_scope_transfer, null_to_zero]
+          blocking_research: []
         transition:
           to: s17_interconnection_schedule
           cue: Reread the same physical path as a construction schedule.
@@ -986,7 +1048,7 @@ acts:
       - id: s17_interconnection_schedule
         title: The interconnection queue is a physical schedule
         opening_question: What lies between a request for power and an energized feeder?
-        learning_objective: Turn administrative milestones into a dated chain of physical completion gates.
+        learning_objective: Separate dated administrative, energization, and planned permanent-equipment gates.
         weight: 1.2
         depends_on: []
         camera:
@@ -1014,7 +1076,7 @@ acts:
           - grid345_hv_to_lpt
           - grid345_lpt_to_mv
         evidence:
-          readiness: research_required
+          readiness: evidence_ready
           claims:
             - id: planned_grid_boundary
               assertion: planned
@@ -1024,18 +1086,44 @@ acts:
               assertion: confirmed
               binding: topology
               fact_refs: [abilene:grid_initial_service_operational_as_of, abilene:grid_expansion_fully_energized_by]
-          promotion_guards: [planned_to_operational, substation_to_it_load, capacity_basis_substitution]
-          blocking_research:
-            - Primary interconnection record and milestone chronology.
-            - Contracted, energized, commissioned, current-load, and IT-load distinctions.
+            - id: initial_aep_delivery_gates
+              assertion: confirmed
+              binding: overlay
+              fact_refs:
+                - abilene_execution:initial_aep_terminal_equipment_scope
+                - abilene_execution:initial_aep_terminal_energized_date
+                - abilene_execution:initial_aep_poi_scope
+                - abilene_execution:initial_aep_poi_energized_date
+            - id: expansion_line_schedule
+              assertion: planned
+              binding: overlay
+              fact_refs:
+                - abilene_execution:expansion_345_named_line_project
+                - abilene_execution:expansion_345_line_start_date_as_reported
+                - abilene_execution:expansion_345_line_finish_date_as_reported
+            - id: expansion_permanent_transformer_schedule
+              assertion: planned
+              binding: overlay
+              fact_refs:
+                - abilene_execution:expansion_permanent_transformer_swaps_expected_by
+            - id: private_interconnection_and_load_boundary
+              assertion: explicit_unknown
+              binding: overlay
+              fact_refs:
+                - abilene_execution:site_specific_interconnection_queue_and_contract_record
+                - abilene_execution:contracted_grid_service_capacity_mw
+                - abilene_execution:current_total_facility_load_mw
+                - abilene_execution:current_critical_it_load_mw
+          promotion_guards: [planned_to_operational, single_path_conflation, substation_to_it_load, capacity_basis_substitution, site_scope_transfer, null_to_zero]
+          blocking_research: []
         transition:
           to: s18_long_lead_equipment
-          cue: Ask which indispensable package sets the completion date.
+          cue: Ask which package classes can constrain delivery without assigning Abilene's critical path.
 
       - id: s18_long_lead_equipment
-        title: Long-lead equipment sets the critical path
+        title: Equipment delivery can become a schedule constraint
         opening_question: Which box can delay an otherwise ready campus?
-        learning_objective: Compare dated lead-time exposure across electrical generation, distribution, and cooling packages.
+        learning_objective: Contrast dated procurement, availability, and acceptance evidence across transformers, turbines, and cooling while keeping their non-equivalent bases separate.
         weight: 1.2
         depends_on: []
         camera:
@@ -1057,7 +1145,7 @@ acts:
           - air_cooled_chiller
         edge_ids: []
         evidence:
-          readiness: research_required
+          readiness: evidence_ready
           claims:
             - id: gas_authorization_anchor
               assertion: permitted
@@ -1071,10 +1159,31 @@ acts:
               assertion: selected_design
               binding: topology
               fact_refs: [abilene:cooling_heat_rejection_posture]
-          promotion_guards: [permitted_to_installed, permitted_to_commissioned, design_to_as_built, site_scope_transfer]
-          blocking_research:
-            - Dated primary lead-time evidence by region and equipment class.
-            - Construction dependencies and acceptance milestones.
+            - id: transformer_delivery_exposure
+              assertion: design_reference
+              binding: overlay
+              fact_refs:
+                - delivery_resilience:us_large_power_transformer_lead_time_2024
+                - delivery_resilience:us_distribution_transformer_lead_time_2023
+                - delivery_resilience:large_power_transformer_delivery_chain
+            - id: turbine_manufacturing_slot
+              assertion: product_reference
+              binding: overlay
+              fact_refs: [delivery_resilience:ge_gas_turbine_delivery_slot_exposure_2025]
+            - id: turbine_slot_dependency
+              assertion: design_reference
+              binding: overlay
+              fact_refs: [delivery_resilience:gas_turbine_slot_can_precede_site_readiness]
+            - id: cooling_product_availability_example
+              assertion: product_reference
+              binding: overlay
+              fact_refs: [delivery_resilience:uniflair_xca_initial_shipping_date]
+            - id: liquid_cooling_acceptance
+              assertion: design_reference
+              binding: overlay
+              fact_refs: [delivery_resilience:liquid_cooling_acceptance_sequence]
+          promotion_guards: [permitted_to_installed, permitted_to_commissioned, design_to_as_built, product_to_site_configuration, market_example_to_site_schedule, site_scope_transfer]
+          blocking_research: []
         transition:
           to: s19_fast_load_slow_grid
           cue: Contrast multi-year construction with millisecond load behavior.
@@ -1083,8 +1192,9 @@ acts:
         title: Fast load, slow grid
         opening_question: What happens when many accelerators change load together?
         learning_objective: >-
-          Connect synchronized rack demand to ride-through and the future storage
-          location without reversing physical power-flow arrows.
+          Connect external synchronized-load observations to generic ride-through
+          architecture while keeping Abilene's transient profile and BESS
+          connection explicit unknowns.
         weight: 1.2
         depends_on: []
         camera:
@@ -1113,7 +1223,6 @@ acts:
           - grid345_corridor_to_hv
           - grid345_hv_to_lpt
           - grid345_lpt_to_mv
-          - bess_to_mv
           - mv_to_unit_sub
           - unit_sub_to_lv
           - lv_to_ups
@@ -1122,7 +1231,7 @@ acts:
           - power_shelf_to_vrm
           - vrm_to_die
         evidence:
-          readiness: research_required
+          readiness: evidence_ready
           claims:
             - id: bess_future
               assertion: future_design
@@ -1136,10 +1245,39 @@ acts:
               assertion: confirmed
               binding: topology
               fact_refs: [abilene:rack_platform]
-          promotion_guards: [future_design_to_operational, reverse_physical_flow, contractual_to_physical, null_to_zero]
-          blocking_research:
-            - Primary GPU-load transient and power-quality evidence.
-            - BESS function, rating, connection, and operating evidence.
+            - id: synchronized_ai_load_dynamics
+              assertion: design_reference
+              binding: overlay
+              fact_refs:
+                - delivery_resilience:ai_training_checkpoint_transition_duration
+                - delivery_resilience:ai_training_observed_ramp_rate
+                - delivery_resilience:parallel_ai_load_correlation
+                - delivery_resilience:large_load_grid_response_mismatch
+            - id: voltage_sensitive_load_event
+              assertion: design_reference
+              binding: overlay
+              fact_refs: [delivery_resilience:voltage_sag_data_center_load_loss_event]
+            - id: ride_through_engineering_boundary
+              assertion: design_reference
+              binding: overlay
+              fact_refs:
+                - delivery_resilience:ups_short_duration_ride_through_role
+                - delivery_resilience:ups_ridethrough_depends_on_site_settings
+                - delivery_resilience:ups_and_btm_bess_role_separation
+            - id: operating_load_shaping_observations
+              assertion: confirmed
+              binding: overlay
+              fact_refs:
+                - delivery_resilience:google_synchronized_ml_fluctuation_observation
+                - delivery_resilience:google_compiler_power_shaping_result
+            - id: abilene_transient_and_bess_boundary
+              assertion: explicit_unknown
+              binding: overlay
+              fact_refs:
+                - delivery_resilience:abilene_bess_function_rating_connection_operation
+                - delivery_resilience:abilene_operating_transient_profile
+          promotion_guards: [future_design_to_operational, reverse_physical_flow, conceptual_to_as_built, design_to_as_built, site_scope_transfer, null_to_zero]
+          blocking_research: []
         transition:
           to: s20_build_sequence
           cue: Put fast and slow constraints onto the same delivery funnel.
@@ -1179,7 +1317,7 @@ acts:
           - power_shelf_to_vrm
           - vrm_to_die
         evidence:
-          readiness: research_required
+          readiness: evidence_ready
           claims:
             - id: planned_grid_boundary
               assertion: planned
@@ -1193,10 +1331,6 @@ acts:
               assertion: confirmed_minimum
               binding: overlay
               fact_refs: [abilene:buildings_energized_confirmed_min]
-            - id: operational_buildings_unknown
-              assertion: explicit_unknown
-              binding: overlay
-              fact_refs: [abilene:operational_buildings_exact]
             - id: installed_gpu_no_estimate
               assertion: no_evidence_backed_estimate
               binding: overlay
@@ -1209,16 +1343,35 @@ acts:
               assertion: reported_untyped
               binding: overlay
               fact_refs: [abilene:oracle_capacity_delivered_percent_untyped]
+            - id: dated_construction_and_operation_sequence
+              assertion: confirmed
+              binding: overlay
+              fact_refs:
+                - abilene_execution:campus_construction_start_month
+                - abilene_execution:first_two_buildings_energized_by
+                - abilene_execution:first_phase_operational_by
+            - id: remaining_buildings_plan
+              assertion: planned
+              binding: overlay
+              fact_refs: [abilene_execution:original_remaining_six_buildings_planned_completion]
+            - id: current_delivery_boundary
+              assertion: explicit_unknown
+              binding: overlay
+              fact_refs:
+                - abilene_execution:current_operational_building_count_exact
+                - abilene_execution:current_total_facility_load_mw
+                - abilene_execution:current_critical_it_load_mw
           promotion_guards:
             - planned_to_operational
             - minimum_to_exact
             - untyped_to_capacity
             - capacity_basis_substitution
+            - conceptual_to_as_built
+            - substation_to_it_load
             - null_to_zero
             - live_by_to_start_date
-          blocking_research:
-            - Immutable Atlas construction chronology and primary-source reconciliation.
-            - Commissioned power, current load, IT load, and utilization evidence.
+            - site_scope_transfer
+          blocking_research: []
         transition:
           to: s21_capital_ownership
           cue: Reread the same gates by ownership rather than engineering function.
@@ -1228,9 +1381,9 @@ acts:
     learning_objective: Separate ownership, financing, operation, offtake, and utilization risk across the same physical topology.
     segments:
       - id: s21_capital_ownership
-        title: Same hardware, different owners
-        opening_question: Who controls each gate on the diagram?
-        learning_objective: Distinguish utility, developer, operator, equipment owner, and compute customer roles.
+        title: Same hardware, different commercial roles
+        opening_question: Which roles are publicly named, and which asset-level owners remain unknown?
+        learning_objective: Distinguish named program, project, phase, and operating roles without assigning them to every highlighted asset.
         weight: 1.2
         depends_on: []
         camera:
@@ -1273,19 +1426,46 @@ acts:
           - atmosphere
         edge_ids: []
         evidence:
-          readiness: research_required
-          claims: []
-          promotion_guards: [site_scope_transfer, contractual_to_physical, capacity_basis_substitution]
-          blocking_research:
-            - Dated ownership and operating-role evidence for every colored asset class.
+          readiness: evidence_ready
+          claims:
+            - id: stargate_responsibility_structure
+              assertion: reported_structure
+              binding: overlay
+              fact_refs:
+                - commercial_compute:stargate_initial_equity_funders
+                - commercial_compute:stargate_lead_responsibility_split
+            - id: abilene_developer_roles
+              assertion: reported_structure
+              binding: overlay
+              fact_refs:
+                - commercial_compute:abilene_2024_crusoe_owner_developer_announcement
+                - commercial_compute:abilene_lancium_development_role
+            - id: phase1_delivery_and_operations_contract
+              assertion: contract_reference
+              binding: overlay
+              fact_refs: [commercial_compute:abilene_phase1_crusoe_delivery_and_operations_role]
+            - id: operating_compute_roles
+              assertion: confirmed
+              binding: overlay
+              fact_refs: [commercial_compute:abilene_compute_activity_roles]
+            - id: legal_ownership_boundary
+              assertion: explicit_unknown
+              binding: overlay
+              fact_refs:
+                - commercial_compute:abilene_land_legal_owner
+                - commercial_compute:abilene_power_asset_ownership_by_component
+                - commercial_compute:abilene_it_equipment_legal_owner
+                - commercial_compute:abilene_phase1_tenant_identity
+          promotion_guards: [site_scope_transfer, named_role_to_asset_assignment, contractual_to_physical, capacity_basis_substitution, announced_to_operational, null_to_zero]
+          blocking_research: []
         transition:
           to: s22_capital_risk
           cue: Follow the timing of cash outlays and revenue eligibility across those roles.
 
       - id: s22_capital_risk
         title: Who pays before the first token?
-        opening_question: Which party funds each box, and when can it begin earning?
-        learning_objective: Map development capital, equipment finance, offtake, and utilization exposure to physical gates.
+        opening_question: What facility-level financing and lease structure is public, and which per-box capital and earning gates remain undisclosed?
+        learning_objective: Separate disclosed project financing from undisclosed equipment finance, acceptance, rent, and utilization terms without allocating them by node.
         weight: 1.2
         depends_on: []
         camera:
@@ -1311,11 +1491,29 @@ acts:
           - air_cooled_chiller
         edge_ids: []
         evidence:
-          readiness: research_required
-          claims: []
-          promotion_guards: [site_scope_transfer, capacity_basis_substitution]
-          blocking_research:
-            - Primary financing, lease, offtake, equipment-ownership, and utilization-risk evidence.
+          readiness: evidence_ready
+          claims:
+            - id: phase1_financing_and_lease
+              assertion: contract_reference
+              binding: overlay
+              fact_refs:
+                - commercial_compute:abilene_phase1_financing_structure
+                - commercial_compute:abilene_phase1_lease_structure
+            - id: phase2_joint_venture
+              assertion: contract_reference
+              binding: overlay
+              fact_refs: [commercial_compute:abilene_phase2_financing_structure]
+            - id: undisclosed_capital_and_risk_terms
+              assertion: explicit_unknown
+              binding: overlay
+              fact_refs:
+                - commercial_compute:abilene_phase1_lease_term_years
+                - commercial_compute:abilene_capital_stack_waterfall
+                - commercial_compute:abilene_rent_commencement_and_acceptance_terms
+                - commercial_compute:abilene_it_equipment_financing_terms
+                - commercial_compute:abilene_utilization_risk_allocation
+          promotion_guards: [site_scope_transfer, facility_financing_to_component_allocation, contractual_to_physical, capacity_basis_substitution, null_to_zero]
+          blocking_research: []
         transition:
           to: s23_business_models
           cue: Compare how different business models reallocate those same risks.
@@ -1342,12 +1540,30 @@ acts:
           - die
         edge_ids: [nuclear_ppa_overlay]
         evidence:
-          readiness: research_required
-          claims: []
+          readiness: evidence_ready
+          claims:
+            - id: colocation_comparison
+              assertion: business_model_reference
+              binding: overlay
+              fact_refs:
+                - commercial_compute:equinix_colocation_comparison
+                - commercial_compute:equinix_asset_and_operating_boundary
+            - id: neocloud_operating_comparison
+              assertion: business_model_reference
+              binding: overlay
+              fact_refs:
+                - commercial_compute:coreweave_ai_cloud_contract_and_financing_comparison
+                - commercial_compute:coreweave_facility_and_equipment_boundary_comparison
+            - id: neocloud_contract_risk_comparison
+              assertion: contract_reference
+              binding: overlay
+              fact_refs: [commercial_compute:coreweave_capacity_and_utilization_risk_comparison]
+            - id: hyperscale_cloud_comparison
+              assertion: business_model_reference
+              binding: overlay
+              fact_refs: [commercial_compute:microsoft_hyperscale_cloud_comparison]
           promotion_guards: [contractual_to_physical, site_scope_transfer, capacity_basis_substitution]
-          blocking_research:
-            - Comparable primary evidence for ownership, operation, financing, and utilization risk by business model.
-            - Separate comparison-case evidence ledgers where topology or scope differs from Abilene.
+          blocking_research: []
         transition:
           to: s24_megawatts_to_tokens
           cue: Return to the opening question with every physical and economic gate visible.
@@ -1360,8 +1576,8 @@ acts:
         title: From delivered megawatts to tokens
         opening_question: Given delivered power, how many useful tokens result?
         learning_objective: >-
-          Parameterize facility overhead, accelerator share, utilization,
-          batching, MFU, and workload-dependent compute while preserving the
+          Keep power-rate and energy-yield routes dimensionally separate, require
+          matching hardware and workload measurements, and preserve the
           no-estimate boundary for the reference campus.
         weight: 1.4
         depends_on: []
@@ -1402,7 +1618,7 @@ acts:
           - facility_to_chiller_return
           - chiller_to_atmosphere
         evidence:
-          readiness: research_required
+          readiness: evidence_ready
           claims:
             - id: current_installed_gpu_no_estimate
               assertion: no_evidence_backed_estimate
@@ -1424,6 +1640,65 @@ acts:
               assertion: selected_design
               binding: topology
               fact_refs: [abilene:cooling_heat_rejection_posture]
+            - id: pue_accounting_boundary
+              assertion: method_reference
+              binding: overlay
+              fact_refs: [commercial_compute:pue_energy_boundary]
+            - id: facility_to_it_scenario_step
+              assertion: derived_scenario_reference
+              binding: overlay
+              fact_refs: [commercial_compute:facility_energy_to_it_energy_recipe]
+            - id: rack_compute_product_reference
+              assertion: product_reference
+              binding: overlay
+              fact_refs: [commercial_compute:dgx_gb_nvl72_product_reference]
+            - id: training_published_method
+              assertion: method_reference
+              binding: overlay
+              fact_refs:
+                - commercial_compute:training_mfu_definition
+                - commercial_compute:dense_decoder_training_flops_per_token_method
+            - id: training_scenario_step
+              assertion: derived_scenario_reference
+              binding: overlay
+              fact_refs: [commercial_compute:dense_decoder_training_tokens_recipe]
+            - id: inference_published_boundaries
+              assertion: method_reference
+              binding: overlay
+              fact_refs:
+                - commercial_compute:inference_batching_dependency
+                - commercial_compute:inference_measurement_boundary
+            - id: inference_scenario_step
+              assertion: derived_scenario_reference
+              binding: overlay
+              fact_refs: [commercial_compute:inference_tokens_recipe]
+            - id: complete_scenario_recipe
+              assertion: derived_scenario_reference
+              binding: overlay
+              fact_refs: [commercial_compute:mw_to_tokens_scenario_recipe]
+            - id: site_power_no_estimates
+              assertion: no_evidence_backed_estimate
+              binding: overlay
+              fact_refs:
+                - commercial_compute:abilene_current_facility_power_mw
+                - commercial_compute:abilene_current_it_power_mw
+                - commercial_compute:abilene_current_pue
+            - id: site_compute_no_estimates
+              assertion: no_evidence_backed_estimate
+              binding: overlay
+              fact_refs:
+                - commercial_compute:abilene_installed_accelerator_count
+                - commercial_compute:abilene_usable_accelerator_power_mw
+                - commercial_compute:abilene_accelerator_power_share
+                - commercial_compute:abilene_accelerator_active_utilization
+                - commercial_compute:abilene_training_mfu
+                - commercial_compute:abilene_measured_token_throughput
+            - id: site_workload_configuration_unknown
+              assertion: explicit_unknown
+              binding: overlay
+              fact_refs:
+                - commercial_compute:abilene_model_and_workload_configuration
+                - commercial_compute:abilene_inference_batching_configuration
           promotion_guards:
             - capacity_basis_substitution
             - design_ceiling_to_installed
@@ -1432,8 +1707,8 @@ acts:
             - site_scope_transfer
             - design_to_as_built
             - product_to_site_configuration
-          blocking_research:
-            - Commissioned and current IT power plus facility-overhead evidence.
-            - Installed accelerator inventory and usable accelerator-power evidence.
-            - Utilization, batching, MFU, workload, model, and measured-throughput evidence.
+            - energy_power_time_basis
+            - power_to_compute_bridge
+            - scenario_to_site_estimate
+          blocking_research: []
         transition: null

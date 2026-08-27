@@ -39,8 +39,8 @@ class CourseInventoryTests(unittest.TestCase):
         result = self.validate()
         self.assertEqual(7, result["acts"])
         self.assertEqual(26, result["segments"])
-        self.assertEqual(10, result["evidence_ready_segments"])
-        self.assertEqual(16, result["research_required_segments"])
+        self.assertEqual(26, result["evidence_ready_segments"])
+        self.assertEqual(0, result["research_required_segments"])
         self.assertEqual(21, result["planned_shots"])
         self.assertIsNone(self.course["meta"]["runtime_minutes"])
 
@@ -144,9 +144,12 @@ class CourseInventoryTests(unittest.TestCase):
             "evidence_ready",
             segment_by_id(self.course, "s03_initial_grid_path")["evidence"]["readiness"],
         )
-        self.assertEqual(
-            "research_required",
-            segment_by_id(self.course, "s16_close_atmosphere")["evidence"]["readiness"],
+        thermal_close = segment_by_id(self.course, "s16_close_atmosphere")["evidence"]
+        self.assertEqual("evidence_ready", thermal_close["readiness"])
+        self.assertEqual([], thermal_close["blocking_research"])
+        self.assertIn(
+            "facility_interface_boundary",
+            {claim["id"] for claim in thermal_close["claims"]},
         )
 
     def test_bound_fact_cannot_move_to_unrelated_topology(self) -> None:
@@ -184,6 +187,56 @@ class CourseInventoryTests(unittest.TestCase):
         with self.assertRaisesRegex(validate.ValidationError, "cannot support assertion"):
             self.validate(ledgers=ledgers)
 
+    def test_derived_scenarios_are_not_promoted_to_published_methods(self) -> None:
+        claims = segment_by_id(self.course, "s24_megawatts_to_tokens")["evidence"][
+            "claims"
+        ]
+        by_id = {claim["id"]: claim for claim in claims}
+        self.assertEqual("method_reference", by_id["pue_accounting_boundary"]["assertion"])
+        self.assertEqual(
+            "derived_scenario_reference",
+            by_id["complete_scenario_recipe"]["assertion"],
+        )
+
+        course = deepcopy(self.course)
+        mutable_claims = segment_by_id(course, "s24_megawatts_to_tokens")["evidence"][
+            "claims"
+        ]
+        next(
+            claim for claim in mutable_claims if claim["id"] == "complete_scenario_recipe"
+        )["assertion"] = "method_reference"
+        with self.assertRaisesRegex(validate.ValidationError, "cannot support assertion"):
+            self.validate(course=course)
+
+        course = deepcopy(self.course)
+        segment_by_id(course, "s24_megawatts_to_tokens")["evidence"][
+            "promotion_guards"
+        ].remove("energy_power_time_basis")
+        with self.assertRaisesRegex(validate.ValidationError, "missing assertion promotion guards"):
+            self.validate(course=course)
+
+    def test_scope_sensitive_summary_guards_are_explicit(self) -> None:
+        s17 = segment_by_id(self.course, "s17_interconnection_schedule")
+        s18 = segment_by_id(self.course, "s18_long_lead_equipment")
+        s19 = segment_by_id(self.course, "s19_fast_load_slow_grid")
+        s20 = segment_by_id(self.course, "s20_build_sequence")
+        s21 = segment_by_id(self.course, "s21_capital_ownership")
+        s22 = segment_by_id(self.course, "s22_capital_risk")
+
+        self.assertIn("single_path_conflation", s17["evidence"]["promotion_guards"])
+        self.assertIn(
+            "market_example_to_site_schedule", s18["evidence"]["promotion_guards"]
+        )
+        self.assertNotIn("bess_to_mv", s19["edge_ids"])
+        self.assertIn("substation_to_it_load", s20["evidence"]["promotion_guards"])
+        self.assertIn(
+            "named_role_to_asset_assignment", s21["evidence"]["promotion_guards"]
+        )
+        self.assertIn(
+            "facility_financing_to_component_allocation",
+            s22["evidence"]["promotion_guards"],
+        )
+
         course = deepcopy(self.course)
         segment_by_id(course, "s05_ppa_not_wire")["evidence"]["promotion_guards"].remove(
             "contractual_to_physical"
@@ -200,9 +253,9 @@ class CourseInventoryTests(unittest.TestCase):
 
     def test_research_gate_and_schema_fail_closed(self) -> None:
         course = deepcopy(self.course)
-        segment_by_id(course, "s17_interconnection_schedule")["evidence"][
-            "blocking_research"
-        ] = []
+        evidence = segment_by_id(course, "s17_interconnection_schedule")["evidence"]
+        evidence["readiness"] = "research_required"
+        evidence["blocking_research"] = []
         with self.assertRaisesRegex(validate.ValidationError, "needs blocking research"):
             self.validate(course)
 
@@ -215,9 +268,9 @@ class CourseInventoryTests(unittest.TestCase):
 
     def test_dependencies_cannot_promote_a_summary(self) -> None:
         course = deepcopy(self.course)
-        segment = segment_by_id(course, "s16_close_atmosphere")
-        segment["evidence"]["readiness"] = "evidence_ready"
-        segment["evidence"]["blocking_research"] = []
+        dependency = segment_by_id(course, "s12_cdu_boundary")["evidence"]
+        dependency["readiness"] = "research_required"
+        dependency["blocking_research"] = ["A new primary-source package is required."]
         with self.assertRaisesRegex(validate.ValidationError, "cannot depend on research-gated"):
             self.validate(course)
 

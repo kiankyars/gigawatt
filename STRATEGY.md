@@ -1,6 +1,8 @@
 # STRATEGY — retention primitives for GIGAWATT
 
-*Written 2026-08. This is a sketch of the design primitives, produced before any curriculum or slides exist. Nothing here is final.*
+*Written 2026-08 and reconciled with the completed course runtime on
+2026-08-27. The design primitives remain stable; current production status is
+recorded at the end.*
 
 ## The premise
 
@@ -78,7 +80,7 @@ quantity.
 ### 3. The loop, not the line
 
 Act structure is a figure-eight. Descend the voltage ladder to the die; the turn
-is the single strongest beat available — *the watt you spent eight segments
+is the strongest conceptual reversal — *the watt you spent eight segments
 delivering is, in the same instant, your enemy* — then ride the heat back out.
 Cooling is load-bearing because the structure makes it the second half of one
 conserved journey, not a bolted-on topic.
@@ -104,12 +106,13 @@ construction timelines, permitting records, real campuses. Chokepoint claims are
 illustrated with actual sites and dates, not stock footage.
 
 **Reference campus: Abilene (Lancium / Crusoe / Oracle — Stargate).** Every
-site-specific number on the master diagram resolves through
-`evidence/abilene.yaml`: the planned 1.2 GW grid interconnection, separate
+site-specific number on the master diagram resolves through registered evidence
+ledgers. `evidence/abilene.yaml` owns the base topology: the planned 1.2 GW grid interconnection, separate
 200 MW / 138 kV and 1 GW / 345 kV service paths, and permitted gas and diesel
 layers. A permit is never promoted into installation or operation. The ledger
 also carries explicit nulls for unresolved campus MV, commissioning, building,
-and GPU-count questions. Project Jupiter (2.45 GW BTM fuel
+and GPU-count questions. Execution, delivery/resilience, commercial, and
+compute-method claims remain in separately scoped ledgers. Project Jupiter (2.45 GW BTM fuel
 cells) stays in reserve as the behind-the-meter contrast case for the
 capital-stack read. GPU load transients
 (synchronized training steps swinging tens of MW in milliseconds) are the
@@ -155,17 +158,17 @@ in `REDLINE.md` and enforced by the project validator.
 
 ## Substrate
 
-The diagram is the substrate; Slidev is demoted to a camera player. The master
+The diagram is the substrate; the native SVG/Three.js application is the camera
+player. The master
 SVG — with stable IDs on every box, edge, and label — is the single source of
 truth. A "slide" is a declarative camera state: viewport, lit set, overlays.
 The deck is a sequence of camera states with animated transitions between them.
 This inverts the chips workflow: there, slides were the artifact; here, slides
 are derived views of the diagram.
 
-Slidev stays because the recording pipeline is proven and a chunk of the
-evidence is non-spatial (satellite timelines, lead-time charts, tables). That
-material appears as overlays pinned to the diagram location it belongs to —
-the camera never cuts away to a naked slide.
+Non-spatial evidence appears in an instructor-controlled evidence drawer pinned
+to the active diagram state. The camera never cuts away to a naked slide, and
+the production path does not depend on Slidev or Manim.
 
 Consequence: the interactive companion is no longer a post-video decision. It
 is the same camera states with a click handler, so it falls out of the build
@@ -196,13 +199,14 @@ the canonical full-course sequence, which lives in `course/segments.yaml`.
 
 ## Current production gate
 
-- **Runtime target.** Still unset. `course/segments.yaml` now supplies relative
-  production weights, so runtime can be chosen as an editorial packaging
-  decision without changing topology or course order.
+- **Runtime target.** Deliberately unset. `course/segments.yaml` supplies
+  relative production weights, but the presenter owns dwell and total length.
 - **Full act inventory and segment list.** Complete: seven acts and 26 segments
   preserve the electrical-descent / thermal-return figure-eight, followed by
   chokepoint, capital-stack, and usable-compute rereads.
-- **Evidence gate.** Seven segments can be scripted within current claim
-  boundaries. Nineteen remain explicitly research-gated; their missing
-  engineering, timeline, capital, and power-to-tokens evidence is listed in the
-  manifest and summarized in `course/README.md`.
+- **Evidence gate.** All 26 segments are teachable within current claim
+  boundaries. Unavailable private site, commercial, utilization, and throughput
+  facts remain explicit nulls rather than research placeholders.
+- **Production package.** `diagram/course.html` is the complete manual player;
+  `course/INSTRUCTOR_PACKET.md` and `course/TESTING.md` supply the untimed
+  instructor and editorial paths.

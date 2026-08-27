@@ -1,0 +1,489 @@
+schema_version: 1
+
+subject:
+  id: gigawatt_delivery_resilience_reference
+  canonical_name: GIGAWATT delivery and electrical-resilience reference dossier
+  scope: >-
+    Dated equipment-procurement observations, delivery and acceptance gates,
+    synchronized AI-load behavior, grid-facing transient effects, and distinct
+    UPS, rack-storage, and behind-the-meter BESS roles used by the course.
+
+accessed_as_of: '2026-08-27'
+
+evidence_boundary:
+  included_scope: >-
+    Dated U.S. transformer-market observations; manufacturer-specific gas-turbine
+    slot, standardized cooling-package, and liquid-cooling commissioning
+    evidence; generic and observed AI-load dynamics; generic ride-through
+    mechanisms; and the future-only BESS posture shown in the Longhorn review
+    drawing.
+  excluded_scope: >-
+    Any universal equipment lead time; any Abilene procurement, delivery,
+    installation, acceptance, transient waveform, ride-through setting, UPS or
+    rack-storage design; and any installed, energized, rated, connected, or
+    operating Abilene BESS claim.
+  promotion_rule: >-
+    Every lead-time or availability value remains tied to its equipment class,
+    manufacturer or market, region, and evidence date. Generic transient and
+    ride-through behavior cannot be promoted into an Abilene operating profile.
+    A package marked future in a review drawing is not procured, installed,
+    energized, commissioned, or operating.
+
+sources:
+  doe_lpt_resilience_2024:
+    publisher: U.S. Department of Energy
+    title: Large Power Transformer Resilience Report to Congress
+    kind: primary_government_report_to_congress
+    url: 'https://www.energy.gov/sites/default/files/2024-10/EXEC-2022-001242%20-%20Large%20Power%20Transformer%20Resilience%20Report%20signed%20by%20Secretary%20Granholm%20on%207-10-24.pdf'
+    publication_date: '2024-07'
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: Report dated July 2024 and signed 2024-07-10.
+
+  doe_transformer_market_analysis:
+    publisher: U.S. Department of Energy Office of Electricity
+    title: Supply Chain and Market Analysis
+    kind: primary_government_market_analysis
+    url: https://www.energy.gov/oe/supply-chain-and-market-analysis
+    publication_date: null
+    review_date: '2026-03-05'
+    accessed_as_of: '2026-08-27'
+    date_note: >-
+      Current DOE page; its distribution-transformer lead-time comparison uses
+      2019 and 2023 data, and it records a working-group webinar on 2026-03-05.
+
+  ge_vernova_investor_update_2024:
+    publisher: GE Vernova
+    title: GE Vernova 2024 Investor Update Transcript
+    kind: primary_manufacturer_investor_transcript
+    url: https://www.gevernova.com/sites/default/files/gev_investor_update_transcript_12102024.pdf
+    publication_date: '2024-12-10'
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: Transcript of the 2024-12-10 investor update.
+
+  ge_vernova_investor_update_2025:
+    publisher: GE Vernova
+    title: GE Vernova 2025 Investor Update Transcript
+    kind: primary_manufacturer_investor_transcript
+    url: https://www.gevernova.com/sites/default/files/gev_webcast_transcript_12092025.pdf
+    publication_date: '2025-12-09'
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: Transcript of the 2025-12-09 investor update.
+
+  vertiv_coolphase_row:
+    publisher: Vertiv
+    title: Vertiv CoolPhase Row, Row-Based Cooling, 30-40kW
+    kind: primary_manufacturer_product_page
+    url: https://www.vertiv.com/en-us/products-catalog/thermal-management/in-row-cooling/vertiv-coolphase-row-row-based-cooling-30-40kw/
+    publication_date: null
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: Undated current U.S. manufacturer product page.
+
+  schneider_liquid_cooling_commissioning_2026:
+    publisher: Schneider Electric
+    title: 'Sources, spares, and commissioning liquid cooling in India: The supply-side'
+    kind: primary_manufacturer_engineering_guidance
+    url: https://blog.se.com/datacenter/2026/08/25/sources-spares-and-commissioning-liquid-cooling-in-india-the-supply-side/
+    publication_date: '2026-08-25'
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: >-
+      Dated manufacturer guidance whose supply-chain context is India; its
+      commissioning sequence is used only as a generic acceptance reference.
+
+  schneider_uniflair_xca_2026:
+    publisher: Schneider Electric
+    title: Schneider Electric Introduces New Uniflair XCA Chiller Line
+    kind: primary_manufacturer_product_release
+    url: https://www.se.com/uk/en/about-us/newsroom/news/press-releases/Schneider-Electric-Introduces-New-Uniflair-XCA-Chiller-Line-Designed-to-Enhance-Energy-Performance-and-Operational-Stability-in-HighDensity-AI-Data-Centers-6a1e894ad8e4a8ed3c04dc8c/
+    publication_date: '2026-06-02'
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: Global manufacturer release published from Rueil-Malmaison, France.
+
+  nerc_emerging_large_loads_2025:
+    publisher: North American Electric Reliability Corporation
+    title: Characteristics and Risks of Emerging Large Loads
+    kind: primary_reliability_organization_white_paper
+    url: https://www.nerc.com/globalassets/who-we-are/standing-committees/rstc/3_doc_white-paper-characteristics-and-risks-of-emerging-large-loads.pdf
+    publication_date: '2025-07'
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: NERC Large Loads Task Force white paper dated July 2025.
+
+  doe_pnnl_data_center_emt_2025:
+    publisher: Pacific Northwest National Laboratory for the U.S. Department of Energy
+    title: Electromagnetic Transient Modeling of Large Data Centers for Grid-Level Studies - Alpha Release
+    kind: primary_government_technical_report
+    url: https://www.energy.gov/sites/default/files/2026-01/Data_Center_EMT_Models.pdf
+    publication_date: '2025-12'
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: PNNL-38817, prepared for the U.S. Department of Energy.
+
+  nerc_voltage_sensitive_load_incident_2025:
+    publisher: North American Electric Reliability Corporation
+    title: Incident Review - Considering Simultaneous Voltage-Sensitive Load Reductions
+    kind: primary_reliability_incident_review
+    url: https://www.nerc.com/globalassets/our-work/reports/event-reports/incident_review_large_load_loss.pdf
+    publication_date: '2025-01-08'
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: NERC Event Analysis incident review published 2025-01-08.
+
+  google_ml_power_shaping_2025:
+    publisher: Google Cloud
+    title: 'Balance of power: A full-stack approach to power and thermal fluctuations in ML infrastructure'
+    kind: primary_operator_engineering_report
+    url: https://cloud.google.com/blog/topics/systems/mitigating-power-and-thermal-fluctuations-in-ml-infrastructure
+    publication_date: '2025-02-11'
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: First-party Google operator report published 2025-02-11.
+
+  vertiv_ups_bess_roles_2026:
+    publisher: Vertiv
+    title: BESS and UPS roles in large data center power architectures
+    kind: primary_manufacturer_white_paper
+    url: https://www.vertiv.com/en-us/insights/articles/white-papers/bess-and-ups-roles-in-large-data-center-power-architecture/
+    publication_date: '2026-06-26'
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: Manufacturer technical page dated 2026-06-26.
+
+  tceq_37589_reference_drawing:
+    publisher: Abilene DC 1, LLC, filed with the Texas Commission on Environmental Quality
+    title: Longhorn Power Plant Federal Operating Permit Application 37589
+    kind: primary_regulatory_application_drawing
+    url: https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/37589-tc.pdf
+    publication_date: null
+    review_date: '2024-12-04'
+    accessed_as_of: '2026-08-27'
+    date_note: >-
+      General arrangement drawing 5MECH-00001-GA, revision D, re-issued for
+      review 2024-12-04 and marked NOT FOR CONSTRUCTION.
+
+facts:
+  us_large_power_transformer_lead_time_2024:
+    value: up to and exceeding 36
+    unit: months
+    scope: >-
+      U.S. large-power-transformer market observation reported by DOE in July
+      2024; not a quote, order, or delivery forecast for an Abilene transformer.
+    basis: >-
+      DOE reports that recent conversations with domestic producers indicated
+      large-power-transformer lead times up to and exceeding 36 months.
+    lifecycle: design_reference
+    as_of: '2024-07'
+    source_ids: [doe_lpt_resilience_2024]
+    posture: design_not_observed
+
+  us_distribution_transformer_lead_time_2023:
+    value: 12-30
+    unit: months
+    scope: >-
+      U.S. distribution-transformer market in 2023, the latest data stated on
+      the DOE page; not a unit-substation or campus-transformer delivery quote.
+    basis: >-
+      DOE reports that distribution-transformer lead times increased from
+      three to six months in 2019 to 12 to 30 months in 2023.
+    lifecycle: design_reference
+    as_of: '2023'
+    source_ids: [doe_transformer_market_analysis]
+    posture: design_not_observed
+
+  large_power_transformer_delivery_chain:
+    value: prequalification, bidding, design, manufacture, testing, special transport, delivery, and installation
+    unit: delivery-stage sequence
+    scope: >-
+      Generic large-power-transformer procurement and delivery chain; not a
+      site schedule, contractual critical path, or acceptance record.
+    basis: >-
+      DOE enumerates manufacturer prequalification, competitive bidding,
+      device design, manufacture, testing, special transportation, delivery,
+      and installation, and notes that the final transport miles can be
+      especially challenging.
+    lifecycle: design_reference
+    as_of: '2024-07'
+    source_ids: [doe_lpt_resilience_2024]
+    posture: design_not_observed
+
+  ge_gas_turbine_delivery_slot_exposure_2025:
+    value: approximately 10 GW still available for 2029 delivery
+    unit: GE Vernova portfolio availability
+    scope: >-
+      GE Vernova gas-turbine portfolio statement on 2025-12-09; not a universal
+      turbine lead time and not an Abilene Titan 350 or LM2500 delivery claim.
+    basis: >-
+      GE Vernova stated that approximately 10 GW of supply remained available
+      for 2029 deliveries and expected to be largely sold out of 2030 deliveries
+      by the end of 2026.
+    lifecycle: product_documented
+    as_of: '2025-12-09'
+    source_ids: [ge_vernova_investor_update_2025]
+    posture: confirmed_model_spec
+
+  gas_turbine_slot_can_precede_site_readiness:
+    value: A reserved manufacturing slot can precede site permitting and EPC-contract completion
+    unit: project-delivery relationship
+    scope: >-
+      GE Vernova's 2024 U.S. AI-load-related slot-reservation portfolio; not a
+      rule for every project and not evidence about Longhorn procurement.
+    basis: >-
+      GE Vernova described fixed-price 2027-2028 delivery slots backed by
+      deposits while customers were still working through air permits, EPC
+      contracts, and site readiness, with the turbine contract coming first.
+    lifecycle: design_reference
+    as_of: '2024-12-10'
+    source_ids: [ge_vernova_investor_update_2024]
+    posture: design_not_observed
+
+  standardized_row_cooling_lead_time_2026:
+    value: 4-6
+    unit: weeks
+    scope: >-
+      Vertiv CoolPhase Row standardized, preconfigured 30-40 kW product; not a
+      chiller, CDU, custom thermal system, or Abilene cooling-package quote.
+    basis: >-
+      Vertiv states that regional stocking and preconfiguration can cut this
+      specific row-cooling product's lead time to as little as four to six weeks.
+    lifecycle: product_documented
+    as_of: '2026-08-27'
+    source_ids: [vertiv_coolphase_row]
+    posture: confirmed_model_spec
+
+  uniflair_xca_initial_shipping_date:
+    value: '2026-06'
+    unit: first global shipment month
+    scope: >-
+      Schneider Electric Uniflair XCA 1.3-2.5 MW chiller product family; a
+      launch-availability milestone, not customer lead time or Abilene selection.
+    basis: >-
+      Schneider Electric's dated release states that the first Uniflair XCA
+      chiller units began shipping globally in June 2026.
+    lifecycle: product_documented
+    as_of: '2026-06-02'
+    source_ids: [schneider_uniflair_xca_2026]
+    posture: confirmed_model_spec
+
+  liquid_cooling_acceptance_sequence:
+    value: >-
+      pre-functional checks, flushing and cleaning validation, hydro and
+      pressure testing, functional performance testing, and integrated testing
+    unit: commissioning-stage sequence
+    scope: >-
+      Generic manufacturer guidance for liquid-cooling projects, written in an
+      India supply-chain context; not an Abilene acceptance plan or record.
+    basis: >-
+      Schneider Electric identifies equipment arrival as only one milestone and
+      lists these commissioning stages, including integrated pump- or
+      chiller-failure scenarios and fluid-quality controls.
+    lifecycle: design_reference
+    as_of: '2026-08-25'
+    source_ids: [schneider_liquid_cooling_commissioning_2026]
+    posture: design_not_observed
+
+  ai_training_checkpoint_transition_duration:
+    value: less than 1
+    unit: second
+    scope: >-
+      NERC-observed transition between AI training and checkpoint saving in a
+      50 MW block of a larger 200 MW facility; not an Abilene waveform.
+    basis: >-
+      NERC reports that the transition between training and checkpoint saving,
+      or the reverse transition, may occur in under one second.
+    lifecycle: design_reference
+    as_of: '2025-07'
+    source_ids: [nerc_emerging_large_loads_2025]
+    posture: design_not_observed
+
+  ai_training_observed_ramp_rate:
+    value: 1.9
+    unit: per unit per second for approximately 250 milliseconds
+    scope: >-
+      Fastest interval in NERC's 50 MW-block AI-training observation; not a
+      universal AI profile, processor specification, or Abilene measurement.
+    basis: >-
+      NERC reports a 1.9 per-unit-per-second demand change lasting about 250
+      milliseconds in the fastest ramping period of the observed profile.
+    lifecycle: design_reference
+    as_of: '2025-07'
+    source_ids: [nerc_emerging_large_loads_2025]
+    posture: design_not_observed
+
+  parallel_ai_load_correlation:
+    value: >-
+      Millisecond processor-power variations can correlate during hyperscale
+      parallel AI work and become significant at the site-demand boundary.
+    unit: load-dynamics relationship
+    scope: >-
+      Generic grid-level modeling principle for AI training and inference; not
+      an Abilene transient magnitude, frequency, or operating trace.
+    basis: >-
+      PNNL explains that individual processor demand can vary on millisecond
+      timescales and that parallel computation correlates those variations,
+      making them significant at site level.
+    lifecycle: design_reference
+    as_of: '2025-12'
+    source_ids: [doe_pnnl_data_center_emt_2025]
+    posture: design_not_observed
+
+  large_load_grid_response_mismatch:
+    value: Large power-electronic loads can shift in seconds, faster than conventional generators can ramp
+    unit: response-time relationship
+    scope: >-
+      Generic North American bulk-power-system relationship; not a response
+      requirement, reserve product, or measured condition at Abilene.
+    basis: >-
+      NERC states that fast load changes can outpace conventional generator
+      ramping, stress balancing, voltage, and frequency control, and require
+      operators to understand load ramp rates and procure suitable response.
+    lifecycle: design_reference
+    as_of: '2025-07'
+    source_ids: [nerc_emerging_large_loads_2025]
+    posture: design_not_observed
+
+  voltage_sag_data_center_load_loss_event:
+    value: 1500
+    unit: MW approximate customer-side load reduction
+    scope: >-
+      NERC's 2024 Eastern Interconnection incident involving a concentration of
+      data-center-type load; not Abilene and not an AI-training ramp event.
+    basis: >-
+      NERC found that six properly cleared 42-66 millisecond faults coincided
+      with approximately 1,500 MW of customer-side data-center load reduction;
+      operators observed frequency and voltage rise after the load loss.
+    lifecycle: design_reference
+    as_of: '2024-07-10'
+    source_ids: [nerc_voltage_sensitive_load_incident_2025]
+    posture: design_not_observed
+
+  ups_short_duration_ride_through_role:
+    value: >-
+      A battery-backed UPS can assume load for a short grid disturbance or
+      bridge until backup generation starts.
+    unit: generic ride-through role
+    scope: >-
+      Generic static-UPS behavior described in a NERC incident review; not an
+      Abilene UPS design, setting, capacity, runtime, or transfer sequence.
+    basis: >-
+      NERC describes battery-backed centralized and rack UPS systems as taking
+      over during transient voltage disturbances; their batteries are intended
+      for the disturbance interval or until a backup generator starts.
+    lifecycle: design_reference
+    as_of: '2025-01-08'
+    source_ids: [nerc_voltage_sensitive_load_incident_2025]
+    posture: design_not_observed
+
+  ups_ridethrough_depends_on_site_settings:
+    value: >-
+      UPS ride-through depends on OEM capability, protection settings, operating
+      mode, current limiting, synchronism, and output-voltage regulation.
+    unit: configuration dependency
+    scope: >-
+      Generic double-conversion UPS behavior; no Abilene control or protection
+      setting is inferred.
+    basis: >-
+      PNNL explains the UPS battery's DC-link support mechanism and states that
+      more restrictive protection limits vary by site and may be user-set.
+    lifecycle: design_reference
+    as_of: '2025-12'
+    source_ids: [doe_pnnl_data_center_emt_2025]
+    posture: design_not_observed
+
+  google_synchronized_ml_fluctuation_observation:
+    value: tens of MW, nearly instantaneous ramps, recurring as often as every few seconds
+    unit: operator-observed load pattern
+    scope: >-
+      Google's batch-synchronous ML workloads on dedicated Google clusters;
+      not a universal GPU behavior or an Abilene operating trace.
+    basis: >-
+      Google reports tens-of-megawatts cluster-level fluctuations with ramping
+      that could be almost instantaneous and recur every few seconds for long
+      training runs.
+    lifecycle: operating
+    as_of: '2025-02-11'
+    source_ids: [google_ml_power_shaping_2025]
+    posture: confirmed
+
+  google_compiler_power_shaping_result:
+    value: nearly 50
+    unit: percent reduction in fluctuation magnitude in Google's test case
+    scope: >-
+      Google's compiler-based TPU workload-shaping test; not a guaranteed result
+      for other hardware, workloads, sites, or the Abilene GB200 platform.
+    basis: >-
+      Google reports that dynamically balancing compute activity around
+      synchronization signatures reduced fluctuation magnitude by nearly 50%
+      with less than one percent performance impact in the test case.
+    lifecycle: deployed
+    as_of: '2025-02-11'
+    source_ids: [google_ml_power_shaping_2025]
+    posture: confirmed
+
+  ups_and_btm_bess_role_separation:
+    value: >-
+      UPS provides conditioned no-break critical-load power; conventional
+      behind-the-meter BESS provides site-level energy management, flexibility,
+      and longer-duration reserve energy.
+    unit: generic architectural distinction
+    scope: >-
+      Generic large-data-center architecture; not an Abilene equipment function,
+      topology, rating, runtime, dispatch mode, or operating state.
+    basis: >-
+      Vertiv distinguishes series critical-load UPS protection from the
+      site-level energy-management, peak-shaving, and grid-services roles of a
+      conventional behind-the-meter BESS.
+    lifecycle: design_reference
+    as_of: '2026-06-26'
+    source_ids: [vertiv_ups_bess_roles_2026]
+    posture: design_not_observed
+
+  abilene_bess_reference_design_status:
+    value: future
+    unit: review-drawing status
+    scope: BESS package shown in the Longhorn power-plant review drawing
+    basis: >-
+      Drawing 5MECH-00001-GA labels the BESS unit FUTURE and is marked NOT FOR
+      CONSTRUCTION.
+    lifecycle: future_design
+    as_of: '2024-12-04'
+    source_ids: [tceq_37589_reference_drawing]
+    posture: future_design
+
+  abilene_bess_function_rating_connection_operation:
+    value: null
+    unit: site-specific evidence bundle
+    scope: >-
+      Procurement, function, power and energy ratings, duration, connection,
+      controls, installation, energization, commissioning, and operation of a
+      BESS at the original Abilene reference campus
+    basis: >-
+      The available Longhorn review drawing establishes only a future design
+      placeholder. It does not establish any of these site-specific attributes
+      or lifecycle milestones.
+    lifecycle: operation_unknown
+    as_of: '2026-08-27'
+    source_ids: [tceq_37589_reference_drawing]
+    posture: unverified_null
+
+  abilene_operating_transient_profile:
+    value: null
+    unit: site-level active-power waveform
+    scope: >-
+      Magnitude, ramp rate, periodicity, duration, and grid-facing response of
+      synchronized compute demand at the original Abilene reference campus
+    basis: >-
+      The reviewed generic and external operator evidence establishes plausible
+      mechanisms and observed examples, but none is a measurement or disclosed
+      operating trace from Abilene.
+    lifecycle: site_configuration_unknown
+    as_of: '2026-08-27'
+    source_ids:
+      - nerc_emerging_large_loads_2025
+      - doe_pnnl_data_center_emt_2025
+      - google_ml_power_shaping_2025
+    posture: unverified_null

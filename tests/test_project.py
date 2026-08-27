@@ -90,9 +90,9 @@ class ProjectContractTests(unittest.TestCase):
         cls.evidence = layout.load_yaml(validate.EVIDENCE)
 
     def test_full_contract(self) -> None:
-        self.assertEqual(4, self.result["evidence_ledgers"])
-        self.assertEqual(32, self.result["sources"])
-        self.assertEqual(74, self.result["facts"])
+        self.assertEqual(7, self.result["evidence_ledgers"])
+        self.assertEqual(71, self.result["sources"])
+        self.assertEqual(183, self.result["facts"])
         self.assertEqual(30, self.result["nodes"])
         self.assertEqual(34, self.result["edges"])
         self.assertEqual(6, self.result["cameras"])

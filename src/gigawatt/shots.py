@@ -83,6 +83,10 @@ def _source_digest(master: dict[str, Any]) -> str:
     return digest.hexdigest()
 
 
+def _script_safe_payload(payload: dict[str, Any]) -> str:
+    return scene_pipeline.canonical_payload(payload).replace("</", "<\\/")
+
+
 def _unique_strings(value: Any, location: str) -> list[str]:
     if not isinstance(value, list) or any(
         not isinstance(item, str) or not item for item in value
@@ -682,6 +686,11 @@ REVIEW_HTML = r"""<!doctype html>
     background: var(--paper);
     font-size: 12px;
   }
+  #loading[data-state="error"] {
+    padding: 32px;
+    text-align: center;
+    white-space: pre-line;
+  }
   @media (max-width: 820px) {
     :root { --rail: 72px; --head: 126px; }
     #rail-heading h1 { display: none; }
@@ -732,14 +741,35 @@ REVIEW_HTML = r"""<!doctype html>
 </nav>
 <div id="loading">Loading the planned-shot registry…</div>
 <script id="review-data" type="application/json">__DATA__</script>
+<script>
+(() => {
+  const overlay = document.getElementById("loading");
+  const onError = event => window.__gigawattStartupError(event.error || event.message);
+  const onRejection = event => window.__gigawattStartupError(event.reason);
+  window.__gigawattStartupError = error => {
+    const detail = error instanceof Error ? error.message : String(error || "Unknown startup error");
+    overlay.dataset.state = "error";
+    overlay.setAttribute("role", "alert");
+    overlay.textContent = `Unable to start this course view.\n${detail}`;
+  };
+  window.__gigawattReady = () => {
+    window.removeEventListener("error", onError, true);
+    window.removeEventListener("unhandledrejection", onRejection);
+    overlay.remove();
+  };
+  window.addEventListener("error", onError, true);
+  window.addEventListener("unhandledrejection", onRejection);
+})();
+</script>
 <script type="importmap">
-{"imports":{"three":"https://unpkg.com/three@0.170.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.170.0/examples/jsm/"}}
+{"imports":{"three":"./vendor/three/three.module.js","three/addons/controls/OrbitControls.js":"./vendor/three/OrbitControls.js","three/addons/renderers/CSS2DRenderer.js":"./vendor/three/CSS2DRenderer.js"}}
 </script>
 <script type="module">
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { CSS2DRenderer, CSS2DObject } from "three/addons/renderers/CSS2DRenderer.js";
 
+try {
 const data = JSON.parse(document.getElementById("review-data").textContent);
 const $ = id => document.getElementById(id);
 const shots = data.registry.shots;
@@ -1080,7 +1110,11 @@ addEventListener("resize", () => {
 });
 
 activate(0);
-$("loading").remove();
+window.__gigawattReady();
+} catch (error) {
+  window.__gigawattStartupError(error);
+  throw error;
+}
 </script>
 </body>
 </html>
@@ -1132,9 +1166,7 @@ def build_artifacts() -> tuple[str, str, str]:
         },
     }
     html = (
-        REVIEW_HTML.replace(
-            "__DATA__", scene_pipeline.canonical_payload(review_payload)
-        )
+        REVIEW_HTML.replace("__DATA__", _script_safe_payload(review_payload))
         .replace("__MAP_SCENE__", map_scene)
         .replace("__DIGEST__", digest)
         .replace("__PAPER__", tokens.PAPER)

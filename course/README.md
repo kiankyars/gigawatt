@@ -30,24 +30,23 @@ camera geometry. Those remain in registered `evidence/*.yaml` ledgers,
 
 The physical electrical sequence and thermal-return sequence carry nearly equal
 relative weight. The weights are not minutes: runtime remains deliberately
-unset until editorial review of the completed inventory.
+unset because the presenter owns the dwell and total course length.
 
 ## Evidence readiness
 
-Ten segments are `evidence_ready`. Their current claims can be scripted within
-the manifest's explicit promotion guards. Sixteen are `research_required` and
-are not record-ready for their full learning objective until every listed
-blocking question has a validated evidence pack.
+All 26 segments are `evidence_ready`. Their current claims can be taught within
+the manifest's explicit promotion guards. Readiness means the learning
+objective is supported by authoritative claim territory and an explicit
+boundary; it does not require private as-built or commercial facts to exist.
 
-The remaining research queue is intentionally concentrated in:
+Unavailable site values remain course content rather than silent gaps:
 
-- site installation and configuration evidence for turbine, generator, GSU,
-  facility electrical, rack power, CDU, CRAH, and facility-loop equipment;
-- interconnection chronology, equipment lead times, GPU-load transients, and
-  Atlas construction evidence;
-- ownership, financing, offtake, operations, and utilization-risk allocation;
-- commissioned/current IT power, installed hardware, utilization, MFU,
-  workload, and measured throughput for the power-to-tokens close.
+- generator terminal voltage, GSU configuration and protection settings;
+- building/rack electrical configuration and detailed CDU/CRAH interfaces;
+- current operational building count, facility load, and critical IT load;
+- legal asset ownership and undisclosed financing or risk-allocation terms;
+- installed accelerator count, utilization, MFU, workload configuration, and
+  measured token throughput.
 
 Claim bundles use qualified references such as `abilene:rack_platform` rather
 than copying values or source IDs. Schema v2 registers multiple evidence
@@ -56,12 +55,31 @@ rejects incompatible assertion/lifecycle pairs, derives mandatory promotion
 guards, and keeps research-gated segments fail-closed. The installed-GPU null
 retains its stronger `no_evidence_backed_estimate` assertion.
 
-Separate engineering ledgers now support the generic electrical and thermal
-roles without promoting them to Abilene. The PPA/accounting boundary, die
-energy-balance lesson, and technology supply/return lesson cleared their
-research gates. Site-specific installation and configuration claims remain
-blocked, and the full thermal replay cannot be promoted above its
-research-gated dependencies.
+Published methods and project-authored scenario logic are separate assertion
+classes. The MW-to-token close keeps power-rate and energy-yield routes on a
+common interval, requires an explicit hardware/power/workload bridge, and stops
+without a site estimate when an Abilene input is unavailable.
+
+Separate engineering ledgers support generic electrical and thermal roles
+without promoting them to Abilene. Execution, delivery/resilience, and
+commercial/compute ledgers add dated primary evidence while preserving every
+site-specific null. This lets the complete thermal replay, chokepoint reread,
+capital reread, and MW-to-token recipe become teachable without invented facts.
+
+## Complete untimed runtime
+
+`diagram/course.html` packages all 26 segments in canonical order. Every change
+is manual. The presenter may move between the focused frame, its reusable
+context, and the evidence panel, but none of those transformations is required
+or timed. `course/INSTRUCTOR_PACKET.md` carries the same opening questions,
+objectives, claim boundaries, primary-source links, plain-language promotion
+warnings, and handoffs in a printable form. The evidence drawer is keyboard
+contained while closed and restores focus when dismissed. `course/TESTING.md`
+defines the editorial walkthrough.
+
+The player, planned-shot review, hybrid substrate, and native pilot load the
+pinned Three.js 0.170.0 modules from `diagram/vendor/three/`; recording does not
+depend on a CDN.
 
 ## Untimed s10 native pilot
 
@@ -99,20 +117,21 @@ time per state.
 
 ## Production shots
 
-Five segments reuse an existing camera state exactly. Twenty-one request a
-planned shot or overlay anchored to one of the six validated states. Shot names
-and explicit hidden node/edge/copy reveal bundles in this file are requirements;
-their approved reusable geometry belongs in `diagram/cameras.yaml` when each act
-enters production.
+Five segments reuse an existing camera state exactly. Twenty-one use a
+deterministically derived shot or overlay anchored to one of the six validated
+states. Shot names and explicit hidden node/edge/copy reveal bundles in this
+file are requirements. Their source requests remain `planned` because they are
+not promoted into the small reusable-camera library; that geometry-ownership
+status is separate from segment evidence and recording readiness.
 
-`gigawatt-shots` now compiles all 21 requests into deterministic provisional
+`gigawatt-shots` compiles all 21 requests into deterministic derived
 frames and a manual review surface at `diagram/planned_shots.html`. The request
 inventory is 11 overlays, seven 3D shots, and three 2D shots; their anchors
 produce 13 review frames in 2D context and eight in 3D context. The compiler
 validates exact topology and hidden reveal bundles and lets the reviewer switch
-between each derived frame and its reusable anchor. The requests remain
-`planned`: compilation makes them reviewable, not editorially approved or
-record-ready.
+between each derived frame and its reusable anchor. Browser QA approved all 21
+derived frames for the complete course runtime without promoting them into
+reusable cameras.
 
 The review surface contains no timing, script, cadence, autoplay, or automatic
 transition contract. Select each shot manually or use the previous/next
@@ -123,6 +142,7 @@ Run the complete contract with:
 ```sh
 uv run python diagram/generate_s10_two_rack_heat_paths.py
 uv run gigawatt-shots
+uv run gigawatt-course
 uv run gigawatt-validate
 uv run python -m unittest discover -s tests -v
 ```
