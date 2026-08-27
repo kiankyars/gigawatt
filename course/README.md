@@ -34,15 +34,15 @@ unset until editorial review of the completed inventory.
 
 ## Evidence readiness
 
-Seven segments are `evidence_ready`. Their current claims can be scripted within
-the manifest's explicit promotion guards. Nineteen are `research_required` and
+Ten segments are `evidence_ready`. Their current claims can be scripted within
+the manifest's explicit promotion guards. Sixteen are `research_required` and
 are not record-ready for their full learning objective until every listed
 blocking question has a validated evidence pack.
 
-The research queue is intentionally concentrated in:
+The remaining research queue is intentionally concentrated in:
 
-- turbine, generator, GSU, facility-electrical, VRM, CDU, and CRAH engineering;
-- contractual PPA boundaries;
+- site installation and configuration evidence for turbine, generator, GSU,
+  facility electrical, rack power, CDU, CRAH, and facility-loop equipment;
 - interconnection chronology, equipment lead times, GPU-load transients, and
   Atlas construction evidence;
 - ownership, financing, offtake, operations, and utilization-risk allocation;
@@ -56,10 +56,12 @@ rejects incompatible assertion/lifecycle pairs, derives mandatory promotion
 guards, and keeps research-gated segments fail-closed. The installed-GPU null
 retains its stronger `no_evidence_backed_estimate` assertion.
 
-The redline conservatively gates the die energy-balance lesson and the
-facility-loop lesson until generic engineering evidence lands. The rack split
-stops at its evidenced package boundary, and the full thermal replay cannot be
-promoted above its research-gated dependencies.
+Separate engineering ledgers now support the generic electrical and thermal
+roles without promoting them to Abilene. The PPA/accounting boundary, die
+energy-balance lesson, and technology supply/return lesson cleared their
+research gates. Site-specific installation and configuration claims remain
+blocked, and the full thermal replay cannot be promoted above its
+research-gated dependencies.
 
 ## Untimed s10 native pilot
 
@@ -100,14 +102,27 @@ time per state.
 Five segments reuse an existing camera state exactly. Twenty-one request a
 planned shot or overlay anchored to one of the six validated states. Shot names
 and explicit hidden node/edge/copy reveal bundles in this file are requirements;
-their geometry belongs in `diagram/cameras.yaml` when each act enters
-production. The current player remains a six-state hybrid demonstration until
-those 21 shots and the course-sequence compiler are implemented.
+their approved reusable geometry belongs in `diagram/cameras.yaml` when each act
+enters production.
+
+`gigawatt-shots` now compiles all 21 requests into deterministic provisional
+frames and a manual review surface at `diagram/planned_shots.html`. The request
+inventory is 11 overlays, seven 3D shots, and three 2D shots; their anchors
+produce 13 review frames in 2D context and eight in 3D context. The compiler
+validates exact topology and hidden reveal bundles and lets the reviewer switch
+between each derived frame and its reusable anchor. The requests remain
+`planned`: compilation makes them reviewable, not editorially approved or
+record-ready.
+
+The review surface contains no timing, script, cadence, autoplay, or automatic
+transition contract. Select each shot manually or use the previous/next
+controls; the instructor still owns every dwell and explanation.
 
 Run the complete contract with:
 
 ```sh
 uv run python diagram/generate_s10_two_rack_heat_paths.py
+uv run gigawatt-shots
 uv run gigawatt-validate
 uv run python -m unittest discover -s tests -v
 ```

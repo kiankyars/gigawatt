@@ -1,0 +1,79 @@
+schema_version: 1
+subject:
+  id: commercial_energy_comparison_references
+  canonical_name: Commercial energy contracts and accounting boundaries
+accessed_as_of: '2026-08-27'
+
+evidence_boundary:
+  included_scope: >-
+    Named primary-source comparison cases and authoritative accounting guidance
+    used to distinguish contractual energy attribution from physical delivery.
+  excluded_scope: >-
+    No fact in this ledger describes the Abilene campus power topology, proves a
+    dedicated generator-to-load wire, or transfers another project's contract
+    terms or accounting treatment to Abilene.
+
+sources:
+  constellation_crane_microsoft_ppa:
+    publisher: Constellation Energy
+    title: >-
+      Constellation to Launch Crane Clean Energy Center, Restoring Jobs and
+      Carbon-Free Power to The Grid
+    kind: primary_company_release
+    url: https://www.constellationenergy.com/news/2024/Constellation-to-Launch-Crane-Clean-Energy-Center-Restoring-Jobs-and-Carbon-Free-Power-to-The-Grid.html
+    publication_date: '2024-09-20'
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: >-
+      Constellation's dated release announces the signed agreement and describes
+      the named generator, buyer, term, grid region, and intended matching use.
+
+  ghg_protocol_scope_2_guidance:
+    publisher: Greenhouse Gas Protocol
+    title: Scope 2 Guidance
+    kind: primary_accounting_standard
+    url: https://ghgprotocol.org/sites/default/files/2023-03/Scope%202%20Guidance.pdf
+    publication_date: '2015-01'
+    review_date: '2022-12'
+    accessed_as_of: '2026-08-27'
+    date_note: >-
+      Current official download of the 2015 guidance, including corrections
+      published through December 2022. A later revision remained in the public
+      consultation process when this source was accessed.
+
+facts:
+  crane_microsoft_ppa_contract:
+    value: >-
+      Constellation and Microsoft signed a 20-year power purchase agreement
+      supporting the restart of Crane Clean Energy Center; Microsoft will buy
+      energy from the renewed plant to help match the power its PJM data centers
+      use with carbon-free energy.
+    unit: named contract comparison
+    scope: >-
+      Microsoft-Constellation Crane Clean Energy Center comparison case only;
+      not the Abilene campus and not a dedicated physical delivery path.
+    basis: >-
+      Constellation's announcement identifies the parties, 20-year term,
+      generating asset, PJM context, and matching objective.
+    lifecycle: contracted
+    as_of: '2024-09-20'
+    source_ids: [constellation_crane_microsoft_ppa]
+    posture: confirmed_contract
+
+  scope2_contractual_attributes_not_physical_flow:
+    value: >-
+      Energy attribute instruments are separate from physical grid distribution;
+      contractual relationships allocate generation attributes while consumers
+      receive an untraceable grid mix.
+    unit: accounting boundary
+    scope: >-
+      General Scope 2 accounting boundary for grid-distributed electricity; it
+      does not determine any site's physical source path or contract eligibility.
+    basis: >-
+      The Scope 2 Guidance distinguishes the location-based grid-average method
+      from the market-based method derived from qualifying contractual
+      instruments, and expressly separates attributes from physical distribution.
+    lifecycle: accounting_standard
+    as_of: '2026-08-27'
+    source_ids: [ghg_protocol_scope_2_guidance]
+    posture: authoritative_guidance

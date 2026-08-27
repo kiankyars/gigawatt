@@ -39,8 +39,8 @@ class CourseInventoryTests(unittest.TestCase):
         result = self.validate()
         self.assertEqual(7, result["acts"])
         self.assertEqual(26, result["segments"])
-        self.assertEqual(7, result["evidence_ready_segments"])
-        self.assertEqual(19, result["research_required_segments"])
+        self.assertEqual(10, result["evidence_ready_segments"])
+        self.assertEqual(16, result["research_required_segments"])
         self.assertEqual(21, result["planned_shots"])
         self.assertIsNone(self.course["meta"]["runtime_minutes"])
 
@@ -169,6 +169,34 @@ class CourseInventoryTests(unittest.TestCase):
         ] = "confirmed"
         with self.assertRaisesRegex(validate.ValidationError, "cannot support assertion"):
             self.validate(course)
+
+    def test_commercial_references_keep_contract_and_accounting_semantics(self) -> None:
+        claims = segment_by_id(self.course, "s05_ppa_not_wire")["evidence"]["claims"]
+        self.assertEqual(
+            ["contract_reference", "accounting_reference"],
+            [claim["assertion"] for claim in claims],
+        )
+
+        ledgers = deepcopy(self.ledgers)
+        ledgers["commercial_energy"]["facts"]["crane_microsoft_ppa_contract"][
+            "lifecycle"
+        ] = "design_reference"
+        with self.assertRaisesRegex(validate.ValidationError, "cannot support assertion"):
+            self.validate(ledgers=ledgers)
+
+        course = deepcopy(self.course)
+        segment_by_id(course, "s05_ppa_not_wire")["evidence"]["promotion_guards"].remove(
+            "contractual_to_physical"
+        )
+        with self.assertRaisesRegex(validate.ValidationError, "missing assertion promotion guards"):
+            self.validate(course=course)
+
+        ledgers = deepcopy(self.ledgers)
+        ledgers["commercial_energy"]["facts"][
+            "scope2_contractual_attributes_not_physical_flow"
+        ]["posture"] = "design_not_observed"
+        with self.assertRaisesRegex(validate.ValidationError, "cannot support assertion"):
+            self.validate(ledgers=ledgers)
 
     def test_research_gate_and_schema_fail_closed(self) -> None:
         course = deepcopy(self.course)

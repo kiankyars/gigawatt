@@ -12,6 +12,7 @@ gigawatt-symbols = "gigawatt.sheet:main"
 gigawatt-mock = "gigawatt.mock:main"
 gigawatt-layout = "gigawatt.layout:main"
 gigawatt-scene = "gigawatt.scene:main"
+gigawatt-shots = "gigawatt.shots:main"
 gigawatt-validate = "gigawatt.validate:main"
 
 [build-system]

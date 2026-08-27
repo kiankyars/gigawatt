@@ -1,0 +1,244 @@
+schema_version: 1
+subject:
+  id: generic_data_center_thermal_engineering
+  canonical_name: Generic data-center thermal engineering reference
+  applicability: >-
+    Component roles, heat-transfer paths, and control principles for data-center
+    direct-liquid, air-handling, and facility cooling systems.
+accessed_as_of: '2026-08-27'
+
+evidence_boundary:
+  included_scope: >-
+    Generic electrical-to-thermal relationships, rack-manifold technology
+    cooling loops, liquid-to-liquid coolant distribution units, CRAH air-side
+    heat removal, and facility-loop transport and control principles.
+  excluded_scope: >-
+    Any Abilene site temperature, flow, pressure, coolant, interface, package
+    count, redundancy, control sequence, operating state, or as-built topology.
+  promotion_rule: >-
+    These references may explain generic engineering behavior only. They cannot
+    promote a conceptual or product-reference path to an installed, commissioned,
+    operating, or as-built claim at Abilene or any other named site.
+
+sources:
+  doe_pnnl_data_center_emt_2025:
+    publisher: Pacific Northwest National Laboratory for the U.S. Department of Energy
+    title: Electromagnetic Transient Modeling of Large Data Centers for Grid-Level Studies - Alpha Release
+    kind: primary_government_technical_report
+    url: https://www.energy.gov/sites/default/files/2026-01/Data_Center_EMT_Models.pdf
+    publication_date: '2025-12'
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: >-
+      PNNL-38817, prepared for the U.S. Department of Energy. The report states
+      that its models are generic and require site-specific technical data before
+      representing a real data center.
+
+  doe_femp_best_practices_2024:
+    publisher: U.S. Department of Energy Federal Energy Management Program
+    title: Best Practices Guide for Energy-Efficient Data Center Design
+    kind: primary_government_design_guide
+    url: https://www.energy.gov/sites/default/files/2024-07/best-practice-guide-data-center-design_0.pdf
+    publication_date: '2024-07'
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: Revised July 2024; prepared by NREL authors for DOE FEMP.
+
+  doe_femp_cooling_water_2019:
+    publisher: U.S. Department of Energy Federal Energy Management Program
+    title: Cooling Water Efficiency Opportunities for Federal Data Centers
+    kind: primary_government_technical_guidance
+    url: https://www.energy.gov/cmei/femp/cooling-water-efficiency-opportunities-federal-data-centers
+    publication_date: '2019-01-09'
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: >-
+      Current DOE guidance page with simplified schematics for air-cooled and
+      direct-liquid-cooled data-center heat-removal paths.
+
+  ocp_cold_plate_requirements:
+    publisher: Open Compute Project Foundation
+    title: Open Compute Project Liquid Cooling Cold Plate Requirements Document
+    kind: primary_open_hardware_requirements
+    url: https://www.opencompute.org/documents/ocp-acs-liquid-cooling-cold-plate-requirements-pdf
+    publication_date: '2019-10-09'
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: >-
+      Current OCP-hosted requirements document; its revision history records
+      revision 1.0 as first published on 2019-10-09.
+
+  ocp_liquid_to_liquid_cdu_2024:
+    publisher: Open Compute Project Foundation
+    title: Liquid to Liquid CDU Test Methodology and Performance Rating, Revision 1.0
+    kind: primary_open_hardware_test_methodology
+    url: https://www.opencompute.org/documents/ocp-wp-l-lcdu-test-methodology-performance-rating-r1-pdf
+    publication_date: '2024-11-01'
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: >-
+      The document header is dated August 2024 and its version table records the
+      revision 1.0 initial release on 2024-11-01.
+
+facts:
+  generic_ite_electrical_input_heat:
+    value: Most electrical power consumed by information-technology equipment becomes heat that cooling systems must remove
+    unit: null
+    scope: >-
+      Generic ITE energy balance at the equipment and facility boundary; not a
+      per-die heat fraction, useful-compute fraction, or named-site load.
+    basis: >-
+      PNNL states that the majority of electricity consumed by ITE is converted
+      into heat and describes facility heat exchangers transferring that heat
+      away from ITE into coolant loops.
+    lifecycle: design_reference
+    as_of: '2025-12'
+    source_ids: [doe_pnnl_data_center_emt_2025]
+    posture: design_not_observed
+
+  generic_cold_plate_heat_transfer:
+    value: A cold plate provides a conductive path from an electronic component to coolant flowing through internal channels
+    unit: null
+    scope: >-
+      Generic direct-liquid cold-plate function; not evidence of a selected or
+      installed cold-plate design at a named site.
+    basis: >-
+      OCP defines cold plates as heat exchangers or heat sinks placed on
+      electronics, with internal passages that transfer component heat by
+      conduction to the cooling liquid.
+    lifecycle: design_reference
+    as_of: '2019-10-09'
+    source_ids: [ocp_cold_plate_requirements]
+    posture: design_not_observed
+
+  generic_tcs_supply_return_path:
+    value: Coolant supply flows from the CDU through the rack manifold to IT cold plates; after heat pickup, coolant return flows back through the manifold to the CDU
+    unit: topology reference
+    scope: >-
+      Generic rack-manifold-distributed Technology Cooling System loop; no
+      temperature, flow, coolant, pressure, or site topology is asserted.
+    basis: >-
+      OCP defines the TCS as the loop from the CDU to the rack, through the
+      manifold and IT equipment, and back through the manifold to the CDU; its
+      cold-plate definition establishes component-to-coolant heat transfer.
+    lifecycle: design_reference
+    as_of: '2019-10-09'
+    source_ids: [ocp_cold_plate_requirements]
+    posture: design_not_observed
+
+  generic_rack_manifold_flow_role:
+    value: A rack manifold distributes coolant from the CDU to IT equipment and back while meeting flow and pressure-drop requirements
+    unit: null
+    scope: >-
+      Generic rack-manifold function and design parameters; not a flow rate,
+      header arrangement, or control setting for a named system.
+    basis: >-
+      OCP requires the manifold to distribute cooling liquid to and from IT
+      equipment, deliver the required flow at a targeted pressure drop, and
+      provide uniform flow distribution within the rack.
+    lifecycle: design_reference
+    as_of: '2019-10-09'
+    source_ids: [ocp_cold_plate_requirements]
+    posture: design_not_observed
+
+  generic_cdu_loop_isolation_heat_exchange:
+    value: A liquid-to-liquid CDU isolates the Technology Cooling System from the Facility Water System and transfers heat between them through a heat exchanger
+    unit: topology reference
+    scope: >-
+      Generic liquid-to-liquid CDU boundary; it does not assert coolant mixing,
+      a particular exchanger, or a named-site package design.
+    basis: >-
+      OCP describes the CDU as isolating the IT-side flow network from the
+      facility loop, with heat transfer through a heat exchanger between the
+      heated TCS liquid and the facility-side liquid loop.
+    lifecycle: design_reference
+    as_of: '2024-11-01'
+    source_ids: [ocp_liquid_to_liquid_cdu_2024, ocp_cold_plate_requirements]
+    posture: design_not_observed
+
+  generic_cdu_control_functions:
+    value: A liquid-to-liquid CDU uses sensors and controls to regulate coolant flow, pressure, and temperature across its TCS and FWS interfaces
+    unit: null
+    scope: >-
+      Generic liquid-to-liquid CDU control functions; no control mode, setpoint,
+      sensor count, redundancy, or response is asserted for a named package.
+    basis: >-
+      OCP identifies flow, pressure, and temperature control as CDU functions and
+      describes sensors and control devices regulating the TCS and FWS sides.
+    lifecycle: design_reference
+    as_of: '2024-11-01'
+    source_ids: [ocp_liquid_to_liquid_cdu_2024, ocp_cold_plate_requirements]
+    posture: design_not_observed
+
+  generic_parallel_liquid_air_cooling:
+    value: Direct-liquid cooling of IT equipment can coexist with CRAHs that cool the computer-room air
+    unit: topology reference
+    scope: >-
+      Generic hybrid data-center cooling arrangement; not evidence that a
+      particular air and liquid branch is installed or operated at Abilene.
+    basis: >-
+      DOE identifies system variants in which CRAHs connected to chilled-water
+      systems cool room air while CDUs cool IT equipment directly.
+    lifecycle: design_reference
+    as_of: '2019-01-09'
+    source_ids: [doe_femp_cooling_water_2019]
+    posture: design_not_observed
+
+  generic_crah_air_heat_removal_path:
+    value: Warm IT exhaust air returns to an air handler, where a heat exchanger transfers heat into a coolant loop and conditioned air is supplied back to the data hall
+    unit: topology reference
+    scope: >-
+      Generic CRAH or central-air-handler heat-removal path; not a named-site air
+      path, coil selection, airflow, temperature, humidity, or package count.
+    basis: >-
+      DOE describes warm IT air returning to cooling equipment and PNNL describes
+      CRAHs regulating data-hall air while facility heat exchangers transfer ITE
+      heat into coolant loops that pass through outdoor chillers.
+    lifecycle: design_reference
+    as_of: '2025-12'
+    source_ids: [doe_femp_cooling_water_2019, doe_pnnl_data_center_emt_2025]
+    posture: design_not_observed
+
+  generic_crah_variable_airflow_control:
+    value: CRAH airflow can be varied with cooling load and coordinated against common environmental conditions
+    unit: null
+    scope: >-
+      Generic air-handler control principle; no site setpoint, fan curve, sensor
+      location, or control sequence is asserted.
+    basis: >-
+      DOE recommends variable-speed drives to vary CRAH airflow as cooling load
+      changes and coordinated operation of units serving the same environment.
+    lifecycle: design_reference
+    as_of: '2024-07'
+    source_ids: [doe_femp_best_practices_2024]
+    posture: design_not_observed
+
+  generic_facility_loop_heat_transport:
+    value: Facility coolant loops receive ITE heat through equipment heat exchangers and carry it to plant heat-rejection equipment
+    unit: topology reference
+    scope: >-
+      Generic facility-loop role; the heat-rejection equipment may vary and no
+      Abilene CDU, CRAH, chiller interface, or operating topology is asserted.
+    basis: >-
+      PNNL describes facility heat exchangers transferring heat from ITE into
+      coolant loops that flow through outdoor chillers, while DOE shows heat
+      moving through successive liquid loops to heat-rejection equipment.
+    lifecycle: design_reference
+    as_of: '2025-12'
+    source_ids: [doe_pnnl_data_center_emt_2025, doe_femp_cooling_water_2019]
+    posture: design_not_observed
+
+  generic_facility_loop_load_control:
+    value: Facility cooling control may vary pump flow, differential pressure, and supply-water temperature with load while maintaining required cooling capacity
+    unit: null
+    scope: >-
+      Generic chilled-water and facility-loop control options; not an Abilene
+      control sequence, operating setpoint, equipment selection, or measured state.
+    basis: >-
+      DOE recommends variable-flow pumping, differential-pressure setpoint reset,
+      variable-speed equipment, and supply-temperature control under changing IT
+      loads and ambient conditions while preserving necessary cooling capacity.
+    lifecycle: design_reference
+    as_of: '2024-07'
+    source_ids: [doe_femp_best_practices_2024]
+    posture: design_not_observed

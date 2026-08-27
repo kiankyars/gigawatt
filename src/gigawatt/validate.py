@@ -4,13 +4,15 @@ from __future__ import annotations
 
 import math
 import re
+from collections.abc import Iterable
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any
 
 import yaml
 
 from . import layout as layout_pipeline
 from . import scene as scene_pipeline
+from . import shots as shots_pipeline
 from . import tokens
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -45,8 +47,10 @@ FACT_FIELDS = {"value", "unit", "scope", "basis", "lifecycle", "as_of", "source_
 SOURCE_FIELDS = {"publisher", "title", "kind", "url", "publication_date", "review_date", "accessed_as_of", "date_note"}
 LIFECYCLES = set(layout_pipeline.LIFECYCLE_STYLE)
 FACT_POSTURES = {
+    "authoritative_guidance",
     "anticipated_not_observed",
     "confirmed",
+    "confirmed_contract",
     "confirmed_minimum",
     "confirmed_model_spec",
     "design_not_as_built",
@@ -63,10 +67,12 @@ FACT_POSTURES = {
     "unverified_null",
 }
 FACT_LIFECYCLES = {
+    "accounting_standard",
     "anticipated_maintenance",
     "as_built_unknown",
     "commissioning_unknown",
     "constructed",
+    "contracted",
     "delivered_untyped",
     "deployed",
     "design_ceiling",
@@ -144,9 +150,11 @@ SEGMENT_TRANSITION_FIELDS = {"to", "cue"}
 SEGMENT_READINESS = {"evidence_ready", "research_required"}
 SEGMENT_CAMERA_STATUS = {"existing", "planned"}
 SEGMENT_ASSERTIONS = {
+    "accounting_reference",
     "anticipated",
     "confirmed",
     "confirmed_minimum",
+    "contract_reference",
     "design_reference",
     "excluded_scope",
     "explicit_unknown",
@@ -162,8 +170,10 @@ SEGMENT_ASSERTIONS = {
 SEGMENT_CLAIM_BINDINGS = {"topology", "overlay"}
 LEDGER_ID_PATTERN = re.compile(r"[a-z][a-z0-9_]*\Z")
 ASSERTION_REQUIRED_GUARDS = {
+    "accounting_reference": {"contractual_to_physical"},
     "anticipated": {"anticipated_to_measured"},
     "confirmed_minimum": {"minimum_to_exact"},
+    "contract_reference": {"contractual_to_physical"},
     "design_reference": {"design_to_as_built"},
     "excluded_scope": {"excluded_scope_addition"},
     "explicit_unknown": {"null_to_zero"},
@@ -691,6 +701,10 @@ def _claim_assertion_matches(assertion: str, fact: dict[str, Any]) -> bool:
         )
     if value is None:
         return False
+    if assertion == "accounting_reference":
+        return lifecycle == "accounting_standard" and posture == "authoritative_guidance"
+    if assertion == "contract_reference":
+        return lifecycle == "contracted" and posture == "confirmed_contract"
     if assertion == "confirmed":
         return posture == "confirmed" and lifecycle in OPERATIONAL_ALLOWED_FACT_LIFECYCLES
     if assertion == "confirmed_minimum":
@@ -1203,7 +1217,7 @@ def validate_project() -> dict[str, Any]:
     course = _load_yaml_strict(COURSE)
     course_ledgers = _load_course_evidence_ledgers(course)
 
-    source_ids, fact_ids = _validate_evidence(evidence)
+    source_ids, _ = _validate_evidence(evidence)
     node_ids, edge_ids = _validate_master(master, evidence, source_ids)
     _validate_layout(master, layout, evidence)
     scene_pipeline.validate(master, scene, cameras)
@@ -1211,16 +1225,30 @@ def validate_project() -> dict[str, Any]:
     _validate_camera_assets(cameras)
     course_result = _validate_course(course, master, course_ledgers, cameras)
 
+    registered_source_count = sum(
+        len(ledger.get("sources") or {}) for ledger in course_ledgers.values()
+    )
+    registered_fact_count = sum(
+        len(ledger.get("facts") or {}) for ledger in course_ledgers.values()
+    )
+
     html, digest = scene_pipeline.generate()
     if html != (DIAGRAM / "hybrid.html").read_text():
         raise ValidationError("hybrid.html is stale; run gigawatt-scene")
+    shot_registry, shot_review, shot_digest = shots_pipeline.build_artifacts()
+    if shot_registry != shots_pipeline.REGISTRY_PATH.read_text():
+        raise ValidationError("planned_shots.json is stale; run gigawatt-shots")
+    if shot_review != shots_pipeline.REVIEW_PATH.read_text():
+        raise ValidationError("planned_shots.html is stale; run gigawatt-shots")
     return {
-        "sources": len(source_ids),
-        "facts": len(fact_ids),
+        "evidence_ledgers": len(course_ledgers),
+        "sources": registered_source_count,
+        "facts": registered_fact_count,
         "nodes": len(node_ids),
         "edges": len(edge_ids),
         "cameras": len(cameras["cameras"]),
         "hybrid_digest": digest,
+        "planned_shots_digest": shot_digest,
         **course_result,
     }
 
@@ -1229,6 +1257,7 @@ def main() -> None:
     result = validate_project()
     print(
         "validated "
+        f"{result['evidence_ledgers']} evidence ledgers · "
         f"{result['sources']} sources · {result['facts']} facts · "
         f"{result['nodes']} nodes · {result['edges']} edges · "
         f"{result['cameras']} cameras · {result['acts']} acts · "

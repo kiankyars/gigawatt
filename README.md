@@ -17,8 +17,15 @@ now contains seven acts and 26 evidence-gated segments.
   vertical slice generated from `master.yaml`, `scene.yaml`, and `cameras.yaml`.
 - `diagram/s10_two_rack_heat_paths.html` — an instructor-controlled native
   pilot with four coarse transformations and no timing or automatic advance.
+- `diagram/planned_shots.html` — a manual review surface for all 21 derived
+  planned-shot frames, with shot-versus-anchor comparison and no autoplay.
+- `diagram/planned_shots.json` — deterministic shot registry compiled from the
+  course, semantic master, 2D layout, 3D scene, and camera anchors.
 - `evidence/abilene.yaml` — 14-source, 48-fact primary-source ledger for the
   original eight-building Abilene Stargate campus.
+- `evidence/commercial_energy.yaml`, `evidence/electrical_engineering.yaml`, and
+  `evidence/thermal_engineering.yaml` — separately scoped contract/accounting
+  and generic engineering reference ledgers.
 - `course/segments.yaml` — canonical act and segment order, camera requirements,
   topology focus, claim-level fact bindings, transitions, and research gates.
 - `REDLINE.md` — disposition record for the engineering and legibility review.
@@ -47,6 +54,7 @@ capacity figures:
 uv run gigawatt-symbols
 uv run gigawatt-layout
 uv run gigawatt-scene
+uv run gigawatt-shots
 uv run python diagram/generate_s10_two_rack_heat_paths.py
 uv run gigawatt-validate
 uv run python -m unittest discover -s tests -v
@@ -60,7 +68,9 @@ python3 -m http.server --directory diagram 8000
 
 Then open `http://localhost:8000/hybrid.html` for the spatial substrate or
 `http://localhost:8000/s10_two_rack_heat_paths.html` for the manual teaching
-pilot. Both players import their pinned Three.js runtime from the network.
+pilot. Open `http://localhost:8000/planned_shots.html` to inspect every planned
+shot and compare its derived frame with the reusable anchor. All three surfaces
+import their pinned Three.js runtime from the network.
 
 ## Source-of-truth boundaries
 
@@ -70,6 +80,8 @@ pilot. Both players import their pinned Three.js runtime from the network.
 - `diagram/scene.yaml`: 3D placement only.
 - `diagram/cameras.yaml`: reusable camera states plus the current six-state
   vertical-slice demo order; it is not the full course sequence.
+- `diagram/planned_shots.json` and `.html`: derived review artifacts for the 21
+  planned requests; they do not promote those requests to approved cameras.
 - `course/segments.yaml`: canonical course order, learning objectives,
   qualified fact references, production-shot requirements, and narrative
   transitions.

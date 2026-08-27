@@ -1,0 +1,322 @@
+schema_version: 1
+
+subject:
+  id: gigawatt_electrical_engineering_reference
+  canonical_name: GIGAWATT generic electrical-engineering reference dossier
+  scope: >-
+    Generic and manufacturer-documented conversion, protection, distribution,
+    and point-of-load power roles used by the course.
+
+accessed_as_of: '2026-08-27'
+
+evidence_boundary:
+  included_scope: >-
+    Stable engineering functions for a turbine-generator set, a generator
+    step-up transformer and its protection boundary, a conceptual facility
+    power train, and board-level voltage regulation for high-power processors.
+  excluded_scope: >-
+    Any Abilene as-built or operating claim; any site voltage, transformer
+    ratio or connection, protection zone or setting, equipment count or
+    rating, redundancy path, switch state, rack configuration, or numerical
+    processor-core voltage.
+  promotion_rule: >-
+    These facts support conceptual teaching only. A generic principle,
+    standard scope, or manufacturer example cannot be promoted into a selected
+    Abilene design, installed topology, energized path, or operating state.
+
+sources:
+  eia_electricity_generation:
+    publisher: U.S. Energy Information Administration
+    title: How electricity is generated
+    kind: primary_government_explainer
+    url: https://www.eia.gov/energyexplained/electricity/how-electricity-is-generated.php
+    publication_date: null
+    review_date: '2023-10-31'
+    accessed_as_of: '2026-08-27'
+    date_note: EIA marks the page last updated 2023-10-31.
+
+  hitachi_generator_step_up_transformers:
+    publisher: Hitachi Energy
+    title: Generator Step-up Transformers (GSU)
+    kind: primary_manufacturer_technical_page
+    url: https://www.hitachienergy.com/us/en/products-and-solutions/transformers/power-transformers/generator-step-up-transformers-gsu
+    publication_date: null
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: Undated current manufacturer technical page.
+
+  ieee_c37_102_2023:
+    publisher: IEEE Standards Association
+    title: IEEE C37.102-2023, IEEE Guide for AC Generator Protection
+    kind: primary_standard_scope
+    url: https://standards.ieee.org/ieee/C37.102/7035/
+    publication_date: '2024-06-28'
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: Active standard; IEEE records ANSI approval on 2025-03-26.
+
+  ieee_c37_91_2021:
+    publisher: IEEE Standards Association
+    title: IEEE C37.91-2021, IEEE Guide for Protecting Power Transformers
+    kind: primary_standard_scope
+    url: https://standards.ieee.org/ieee/C37.91/5904/
+    publication_date: '2021-06-29'
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: Active standard.
+
+  sel_transformer_protection_application:
+    publisher: Schweitzer Engineering Laboratories
+    title: An SEL Approach to Modifying Transformer Protection for Nuclear Stations
+    kind: primary_manufacturer_application_guide
+    url: 'https://selinc.com/api/download/blt62cb31c4b2d7632d/?lang=en-us'
+    publication_date: '2015-11-17'
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: SEL white paper LWP0017-01, Date Code 20151117.
+
+  schneider_medium_voltage_unit_substations:
+    publisher: Schneider Electric
+    title: Medium Voltage Unit Substations
+    kind: primary_manufacturer_technical_page
+    url: https://www.se.com/us/en/product-range/60292-medium-voltage-unit-substations/
+    publication_date: null
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: Undated current manufacturer product-range page.
+
+  schneider_power_zone_4:
+    publisher: Schneider Electric
+    title: Power-Zone 4 Low Voltage Drawout Switchgear
+    kind: primary_manufacturer_technical_page
+    url: https://www.se.com/us/en/product-range/7288-powerzone-4/
+    publication_date: null
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: Undated current manufacturer product-range page.
+
+  vertiv_ups_bess_roles:
+    publisher: Vertiv
+    title: BESS and UPS roles in large data center power architectures
+    kind: primary_manufacturer_white_paper
+    url: https://www.vertiv.com/en-us/insights/articles/white-papers/bess-and-ups-roles-in-large-data-center-power-architecture/
+    publication_date: '2026-06-26'
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: Manufacturer page is dated 2026-06-26.
+
+  schneider_i_line_busway:
+    publisher: Schneider Electric
+    title: I-Line Busway
+    kind: primary_manufacturer_technical_page
+    url: https://www.se.com/us/en/product-range/7550-iline-busway/
+    publication_date: null
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: Undated current manufacturer product-range page.
+
+  infineon_server_rack_power_management:
+    publisher: Infineon Technologies
+    title: Server rack power management
+    kind: primary_manufacturer_application_guide
+    url: https://www.infineon.com/applications/ai-data-center/data-center-power-solutions/server-rack-power-management
+    publication_date: null
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: Undated current manufacturer application page.
+
+  ti_multiphase_processor_core_power:
+    publisher: Texas Instruments
+    title: 'Multiphase solutions: processor core power'
+    kind: primary_manufacturer_application_guide
+    url: https://www.ti.com/product-category/power-management/multiphase.html
+    publication_date: null
+    review_date: null
+    accessed_as_of: '2026-08-27'
+    date_note: Undated current manufacturer application page.
+
+facts:
+  turbine_fluid_to_rotor_conversion:
+    value: >-
+      A moving fluid, including combustion gas, pushes turbine blades and
+      rotates the generator rotor shaft.
+    unit: null
+    scope: Generic turbine-generator energy conversion; not an Abilene installation or operating claim
+    basis: >-
+      EIA separates the moving-fluid turbine stage from the generator stage and
+      explicitly includes combustion gases among the turbine-driving fluids.
+    lifecycle: design_reference
+    as_of: '2023-10-31'
+    source_ids: [eia_electricity_generation]
+    posture: design_not_observed
+
+  generator_rotor_to_electricity_conversion:
+    value: A generator converts the rotor's mechanical energy to electrical energy.
+    unit: null
+    scope: Generic electromagnetic-generator function; not an Abilene generator output or operating claim
+    basis: >-
+      EIA explicitly states that the generator converts the rotor's mechanical
+      or kinetic energy into electrical energy.
+    lifecycle: design_reference
+    as_of: '2023-10-31'
+    source_ids: [eia_electricity_generation]
+    posture: design_not_observed
+
+  gsu_generator_to_network_voltage_function:
+    value: >-
+      A generator step-up transformer raises generator-level voltage to a
+      suitable higher network voltage.
+    unit: null
+    scope: Generic GSU function; no Abilene terminal voltage, target voltage, ratio, winding connection, or operating state
+    basis: >-
+      Hitachi Energy identifies the GSU as the link between a power station and
+      the transmission network and states that it takes generator voltage to a
+      suitable transmission-voltage level. No numerical value is imported.
+    lifecycle: product_documented
+    as_of: '2026-08-27'
+    source_ids: [hitachi_generator_step_up_transformers]
+    posture: confirmed_model_spec
+
+  generator_protection_fault_scope:
+    value: >-
+      Generator protection addresses internal electrical faults, system
+      faults, and abnormal operating conditions.
+    unit: null
+    scope: Generic synchronous-generator protection scope; no Abilene relay scheme, device, zone, setting, or trip logic
+    basis: >-
+      IEEE C37.102-2023 defines this scope for applying generator-protection
+      relays, including combustion-turbine generators.
+    lifecycle: design_reference
+    as_of: '2024-06-28'
+    source_ids: [ieee_c37_102_2023]
+    posture: design_not_observed
+
+  transformer_protection_engineering_scope:
+    value: >-
+      Power-transformer protection requires engineering of relays and other
+      devices, including consideration of current-transformer behavior, fault
+      clearing, and post-trip re-energization.
+    unit: null
+    scope: Generic power-transformer protection scope; no Abilene GSU protection design or settings
+    basis: >-
+      IEEE C37.91-2021 covers practical relay and device application, current
+      transformers during system faults, fault clearing, and re-energization.
+    lifecycle: design_reference
+    as_of: '2021-06-29'
+    source_ids: [ieee_c37_91_2021]
+    posture: design_not_observed
+
+  gsu_protection_zone_application_specificity:
+    value: >-
+      GSU protection functions and current-transformer-defined differential
+      zones must be selected for the application; a reference one-line is not
+      a universal protection design.
+    unit: null
+    scope: Generic lesson from an SEL GSU protection example; not a design recommendation or Abilene protection boundary
+    basis: >-
+      SEL states that the engineer must select functions appropriate to the
+      application and shows that CT availability and location determine whether
+      a differential zone can be bounded by circuit breakers.
+    lifecycle: design_reference
+    as_of: '2015-11-17'
+    source_ids: [sel_transformer_protection_application]
+    posture: design_not_observed
+
+  unit_substation_coordinated_assembly_role:
+    value: >-
+      A unit substation coordinates primary switchgear, a transformer, and
+      secondary distribution equipment as one system.
+    unit: null
+    scope: Schneider Electric unit-substation product architecture; not an Abilene equipment selection, voltage, rating, or topology
+    basis: >-
+      Schneider Electric describes its unit substations as bringing together
+      medium-voltage switchgear, transformers, and secondary switchgear or
+      switchboards, with coordinated components designed to work as one system.
+    lifecycle: product_documented
+    as_of: '2026-08-27'
+    source_ids: [schneider_medium_voltage_unit_substations]
+    posture: confirmed_model_spec
+
+  low_voltage_switchgear_distribution_protection_role:
+    value: >-
+      Low-voltage switchgear distributes power and protects, controls, and
+      isolates downstream equipment and circuits.
+    unit: null
+    scope: Schneider Electric Power-Zone 4 product function; not an Abilene switchgear selection, rating, lineup, or switch state
+    basis: >-
+      Schneider Electric describes Power-Zone 4 as electrical-distribution and
+      power-system-protection switchgear that protects, controls, and isolates
+      downstream equipment and processes.
+    lifecycle: product_documented
+    as_of: '2026-08-27'
+    source_ids: [schneider_power_zone_4]
+    posture: confirmed_model_spec
+
+  ups_conditioned_no_break_power_role:
+    value: A UPS protects critical loads with conditioned, no-break power.
+    unit: null
+    scope: Generic large-data-center UPS role; not an Abilene UPS topology, capacity, battery runtime, redundancy, or operating state
+    basis: >-
+      Vertiv distinguishes the UPS role of conditioned no-break critical-load
+      power from the site-level energy-management role of a conventional BESS.
+    lifecycle: design_reference
+    as_of: '2026-06-26'
+    source_ids: [vertiv_ups_bess_roles]
+    posture: design_not_observed
+
+  busway_feeder_and_plugin_distribution_role:
+    value: >-
+      Busway provides enclosed feeder and plug-in sections for facility power
+      distribution.
+    unit: null
+    scope: Schneider Electric I-Line product-family function; not an Abilene route, conductor, rating, tap count, or redundancy path
+    basis: >-
+      Schneider Electric documents I-Line feeder and plug-in busway lengths,
+      fittings, and plug-in protective units for commercial and industrial
+      power distribution.
+    lifecycle: product_documented
+    as_of: '2026-08-27'
+    source_ids: [schneider_i_line_busway]
+    posture: confirmed_model_spec
+
+  vrm_intermediate_bus_to_xpu_voltage_role:
+    value: >-
+      Voltage regulator modules step down an intermediate-bus output to the
+      voltage required by GPUs and other high-power processors.
+    unit: null
+    scope: Generic AI-server point-of-load architecture; not a GB200 board design, Abilene rack configuration, or numerical core voltage
+    basis: >-
+      Infineon states that intermediate-bus-converter output is stepped down
+      through VRMs to meet the voltage needs of GPUs, TPUs, ASICs, and other
+      accelerators.
+    lifecycle: product_documented
+    as_of: '2026-08-27'
+    source_ids: [infineon_server_rack_power_management]
+    posture: confirmed_model_spec
+
+  xpu_low_voltage_high_current_requirement:
+    value: Advanced processors require precise low-voltage, high-current power delivery.
+    unit: null
+    scope: Generic XPU and ASIC power-delivery requirement; no processor-specific rail voltage or current
+    basis: >-
+      Infineon characterizes modern XPU and ASIC power delivery as precise,
+      low-voltage, and high-current, without supplying a universal rail value.
+    lifecycle: product_documented
+    as_of: '2026-08-27'
+    source_ids: [infineon_server_rack_power_management]
+    posture: confirmed_model_spec
+
+  multiphase_processor_core_power_role:
+    value: >-
+      Multiphase DC-to-DC controllers and power stages provide scalable
+      high-current processor-core power with fast transient response.
+    unit: null
+    scope: Texas Instruments multiphase processor-core product architecture; not a selected GPU VRM or Abilene rack design
+    basis: >-
+      Texas Instruments documents multiphase DC-to-DC power for CPU, GPU, SoC,
+      ASIC, and FPGA cores, with current sharing, scalable phase counts, and
+      fast transient response.
+    lifecycle: product_documented
+    as_of: '2026-08-27'
+    source_ids: [ti_multiphase_processor_core_power]
+    posture: confirmed_model_spec

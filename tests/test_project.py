@@ -65,9 +65,10 @@ class EvidencePolicyTests(unittest.TestCase):
                 "fact_ids": [fact_id],
                 "source_ids": list(fact["source_ids"]),
             }
-            with self.subTest(label=label):
-                with self.assertRaisesRegex(validate.ValidationError, "cannot support"):
-                    validate._validate_fact_binding(record, facts, "probe")
+            with self.subTest(label=label), self.assertRaisesRegex(
+                validate.ValidationError, "cannot support"
+            ):
+                validate._validate_fact_binding(record, facts, "probe")
 
     def test_master_sources_must_equal_referenced_fact_sources(self) -> None:
         facts = self.evidence["facts"]
@@ -89,8 +90,9 @@ class ProjectContractTests(unittest.TestCase):
         cls.evidence = layout.load_yaml(validate.EVIDENCE)
 
     def test_full_contract(self) -> None:
-        self.assertEqual(14, self.result["sources"])
-        self.assertEqual(48, self.result["facts"])
+        self.assertEqual(4, self.result["evidence_ledgers"])
+        self.assertEqual(32, self.result["sources"])
+        self.assertEqual(74, self.result["facts"])
         self.assertEqual(30, self.result["nodes"])
         self.assertEqual(34, self.result["edges"])
         self.assertEqual(6, self.result["cameras"])

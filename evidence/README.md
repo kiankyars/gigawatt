@@ -1,9 +1,20 @@
 # Evidence ledger
 
-`abilene.yaml` is the machine-readable fact boundary for the original
-eight-building Abilene reference campus. `sources` uses stable IDs for primary
-records. `facts` is a flat mapping so renderers can resolve a fact by ID without
-interpreting nested prose.
+The registered ledgers separate evidence scopes instead of pooling unlike
+claims:
+
+- `abilene.yaml` is the fact boundary for the original eight-building Abilene
+  reference campus and remains the master-diagram ledger.
+- `commercial_energy.yaml` holds named contract comparisons and authoritative
+  accounting boundaries.
+- `electrical_engineering.yaml` holds generic conversion, protection,
+  distribution, and point-of-load references.
+- `thermal_engineering.yaml` holds generic heat-transfer, liquid-loop,
+  air-path, and facility-loop references.
+
+`sources` uses stable IDs for primary records. `facts` is a flat mapping so
+renderers can resolve a qualified fact reference without interpreting nested
+prose.
 
 Every fact carries:
 
@@ -19,6 +30,10 @@ commissioned power, current load, and IT load are distinct and non-additive.
 ## Postures
 
 - `confirmed`: directly stated by a primary source for the stated scope.
+- `confirmed_contract`: directly stated contract terms for the named comparison
+  scope, not a physical delivery-path claim.
+- `authoritative_guidance`: a standard or guidance boundary, not a site design
+  or operating claim.
 - `confirmed_minimum`: a primary-source lower bound; the exact total is unknown.
 - `planned_not_operational`: a planned rating, not delivered or operating power.
 - `permitted_not_observed`: authorized equipment or nameplate, not proof of

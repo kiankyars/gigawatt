@@ -17,6 +17,9 @@ meta:
   cameras: diagram/cameras.yaml
   evidence_ledgers:
     abilene: evidence/abilene.yaml
+    commercial_energy: evidence/commercial_energy.yaml
+    electrical_engineering: evidence/electrical_engineering.yaml
+    thermal_engineering: evidence/thermal_engineering.yaml
   master_evidence_ledger: abilene
   sequence_rule: >-
     Follow the watt from origination to the die, follow the resulting heat to
@@ -212,9 +215,19 @@ acts:
               assertion: explicit_unknown
               binding: overlay
               fact_refs: [abilene:gas_commissioned_mw]
-          promotion_guards: [permitted_to_installed, permitted_to_commissioned, null_to_zero]
+            - id: turbine_generator_conversion_reference
+              assertion: design_reference
+              binding: overlay
+              fact_refs:
+                - electrical_engineering:turbine_fluid_to_rotor_conversion
+                - electrical_engineering:generator_rotor_to_electricity_conversion
+          promotion_guards:
+            - permitted_to_installed
+            - permitted_to_commissioned
+            - design_to_as_built
+            - site_scope_transfer
+            - null_to_zero
           blocking_research:
-            - Authoritative turbine and generator conversion dossier.
             - Site installation, commissioning, and operating evidence.
         transition:
           to: s02_generator_terminal
@@ -260,6 +273,17 @@ acts:
               assertion: explicit_unknown
               binding: topology
               fact_refs: [abilene:campus_lpt_secondary_as_built_voltage_kv]
+            - id: gsu_function_reference
+              assertion: product_reference
+              binding: overlay
+              fact_refs: [electrical_engineering:gsu_generator_to_network_voltage_function]
+            - id: generator_gsu_protection_reference
+              assertion: design_reference
+              binding: overlay
+              fact_refs:
+                - electrical_engineering:generator_protection_fault_scope
+                - electrical_engineering:transformer_protection_engineering_scope
+                - electrical_engineering:gsu_protection_zone_application_specificity
           promotion_guards:
             - permitted_to_installed
             - permitted_to_commissioned
@@ -267,10 +291,12 @@ acts:
             - product_to_site_configuration
             - design_to_as_built
             - conceptual_to_as_built
+            - site_scope_transfer
             - null_to_zero
           blocking_research:
-            - Authoritative generator and GSU engineering dossier.
-            - Site GSU ratio, connection, and operating posture.
+            - >-
+              Site terminal and target voltages, GSU ratio and connection,
+              protection devices, zones and settings, and operating posture.
         transition:
           to: s03_initial_grid_path
           cue: Compare the permitted branch with the first evidenced grid-service path.
@@ -379,11 +405,18 @@ acts:
         node_ids: [nuclear_ppa, utility_source_345]
         edge_ids: [nuclear_ppa_overlay]
         evidence:
-          readiness: research_required
-          claims: []
+          readiness: evidence_ready
+          claims:
+            - id: crane_microsoft_named_ppa
+              assertion: contract_reference
+              binding: overlay
+              fact_refs: [commercial_energy:crane_microsoft_ppa_contract]
+            - id: contractual_attributes_are_not_physical_flow
+              assertion: accounting_reference
+              binding: overlay
+              fact_refs: [commercial_energy:scope2_contractual_attributes_not_physical_flow]
           promotion_guards: [contractual_to_physical, site_scope_transfer]
-          blocking_research:
-            - Primary contract and accounting-boundary evidence for a named comparison case.
+          blocking_research: []
         transition:
           to: s06_campus_mv_envelope
           cue: Return from contractual origin to the physical campus boundary.
@@ -494,9 +527,24 @@ acts:
               assertion: explicit_unknown
               binding: topology
               fact_refs: [abilene:campus_lpt_secondary_as_built_voltage_kv]
-          promotion_guards: [conceptual_to_as_built, product_to_site_configuration, null_to_zero]
+            - id: facility_distribution_product_reference
+              assertion: product_reference
+              binding: overlay
+              fact_refs:
+                - electrical_engineering:unit_substation_coordinated_assembly_role
+                - electrical_engineering:low_voltage_switchgear_distribution_protection_role
+                - electrical_engineering:busway_feeder_and_plugin_distribution_role
+            - id: ups_function_reference
+              assertion: design_reference
+              binding: overlay
+              fact_refs: [electrical_engineering:ups_conditioned_no_break_power_role]
+          promotion_guards:
+            - conceptual_to_as_built
+            - product_to_site_configuration
+            - design_to_as_built
+            - site_scope_transfer
+            - null_to_zero
           blocking_research:
-            - Authoritative unit-substation, switchgear, UPS, and busway engineering dossier.
             - Site voltages, quantities, redundancy, and switch-state evidence if available.
         transition:
           to: s08_rack_voltage_descent
@@ -538,13 +586,20 @@ acts:
               assertion: explicit_unknown
               binding: topology
               fact_refs: [abilene:rack_power_shelf_ac_input_voltage_v]
+            - id: vrm_power_delivery_reference
+              assertion: product_reference
+              binding: overlay
+              fact_refs:
+                - electrical_engineering:vrm_intermediate_bus_to_xpu_voltage_role
+                - electrical_engineering:xpu_low_voltage_high_current_requirement
+                - electrical_engineering:multiphase_processor_core_power_role
           promotion_guards:
             - design_to_as_built
             - product_to_site_configuration
             - conceptual_to_as_built
+            - site_scope_transfer
             - null_to_zero
           blocking_research:
-            - Authoritative VRM and package power-delivery dossier.
             - Site rack input and operating rack-configuration evidence.
         transition:
           to: s09_watt_becomes_heat
@@ -570,7 +625,7 @@ acts:
         node_ids: [die, cold_plate]
         edge_ids: [die_to_cold_plate_heat]
         evidence:
-          readiness: research_required
+          readiness: evidence_ready
           claims:
             - id: operating_family
               assertion: confirmed
@@ -588,9 +643,19 @@ acts:
               assertion: product_reference
               binding: topology
               fact_refs: [abilene:rack_liquid_cooled_components]
-          promotion_guards: [design_to_as_built, product_to_site_configuration, live_by_to_start_date, conceptual_to_as_built]
-          blocking_research:
-            - Authoritative compute-system electrical-to-thermal energy-balance source.
+            - id: electrical_input_to_cold_plate_reference
+              assertion: design_reference
+              binding: overlay
+              fact_refs:
+                - thermal_engineering:generic_ite_electrical_input_heat
+                - thermal_engineering:generic_cold_plate_heat_transfer
+          promotion_guards:
+            - design_to_as_built
+            - product_to_site_configuration
+            - live_by_to_start_date
+            - conceptual_to_as_built
+            - site_scope_transfer
+          blocking_research: []
         transition:
           to: s10_two_rack_heat_paths
           cue: Split the rack's heat between liquid-cooled compute and air-cooled auxiliaries.
@@ -645,7 +710,7 @@ acts:
         node_ids: [cold_plate, rack_manifold, cdu]
         edge_ids: [cold_plate_to_manifold_return, manifold_to_cdu_return, cdu_to_manifold_supply, manifold_to_cold_plate_supply]
         evidence:
-          readiness: research_required
+          readiness: evidence_ready
           claims:
             - id: direct_cooling_design
               assertion: design_reference
@@ -655,9 +720,19 @@ acts:
               assertion: product_reference
               binding: topology
               fact_refs: [abilene:rack_liquid_cooled_components]
-          promotion_guards: [design_to_as_built, product_to_site_configuration, reverse_physical_flow]
-          blocking_research:
-            - Authoritative technology-loop flow and control dossier.
+            - id: technology_loop_engineering_reference
+              assertion: design_reference
+              binding: overlay
+              fact_refs:
+                - thermal_engineering:generic_tcs_supply_return_path
+                - thermal_engineering:generic_rack_manifold_flow_role
+                - thermal_engineering:generic_cdu_control_functions
+          promotion_guards:
+            - design_to_as_built
+            - product_to_site_configuration
+            - reverse_physical_flow
+            - site_scope_transfer
+          blocking_research: []
         transition:
           to: s12_cdu_boundary
           cue: Follow both headers to the boundary between rack and facility systems.
@@ -688,9 +763,18 @@ acts:
               assertion: design_reference
               binding: topology
               fact_refs: [abilene:cooling_direct_to_chip_design]
-          promotion_guards: [conceptual_to_as_built, design_to_as_built, reverse_physical_flow]
+            - id: cdu_boundary_engineering_reference
+              assertion: design_reference
+              binding: overlay
+              fact_refs:
+                - thermal_engineering:generic_cdu_loop_isolation_heat_exchange
+                - thermal_engineering:generic_cdu_control_functions
+          promotion_guards:
+            - conceptual_to_as_built
+            - design_to_as_built
+            - reverse_physical_flow
+            - site_scope_transfer
           blocking_research:
-            - Authoritative CDU and dual-loop engineering dossier.
             - Site temperatures, flows, interfaces, redundancy, and package counts.
         transition:
           to: s13_residual_air_branch
@@ -722,10 +806,21 @@ acts:
               assertion: selected_design
               binding: topology
               fact_refs: [abilene:cooling_heat_rejection_posture]
-          promotion_guards: [product_to_site_configuration, design_to_as_built, conceptual_to_as_built, reverse_physical_flow]
+            - id: parallel_air_path_engineering_reference
+              assertion: design_reference
+              binding: overlay
+              fact_refs:
+                - thermal_engineering:generic_parallel_liquid_air_cooling
+                - thermal_engineering:generic_crah_air_heat_removal_path
+                - thermal_engineering:generic_crah_variable_airflow_control
+          promotion_guards:
+            - product_to_site_configuration
+            - design_to_as_built
+            - conceptual_to_as_built
+            - reverse_physical_flow
+            - site_scope_transfer
           blocking_research:
-            - Authoritative CRAH or fan-wall heat-removal dossier.
-            - Site air-path and package evidence.
+            - Site air path, CRAH or fan-wall selection, and package evidence.
         transition:
           to: s14_facility_heat_rejection
           cue: Rejoin the liquid and air branches at the facility loop.
@@ -762,9 +857,20 @@ acts:
               assertion: design_reference
               binding: topology
               fact_refs: [abilene:cooling_direct_to_chip_design]
-          promotion_guards: [design_to_as_built, conceptual_to_as_built, reverse_physical_flow]
+            - id: facility_loop_engineering_reference
+              assertion: design_reference
+              binding: overlay
+              fact_refs:
+                - thermal_engineering:generic_facility_loop_heat_transport
+                - thermal_engineering:generic_facility_loop_load_control
+                - thermal_engineering:generic_cdu_loop_isolation_heat_exchange
+                - thermal_engineering:generic_crah_air_heat_removal_path
+          promotion_guards:
+            - design_to_as_built
+            - conceptual_to_as_built
+            - reverse_physical_flow
+            - site_scope_transfer
           blocking_research:
-            - Authoritative facility-loop flow and control dossier.
             - Site CDU, CRAH, facility-loop, and chiller interface evidence.
         transition:
           to: s15_water_accounting
