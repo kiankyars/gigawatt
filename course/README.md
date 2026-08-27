@@ -61,7 +61,7 @@ facility-loop lesson until generic engineering evidence lands. The rack split
 stops at its evidenced package boundary, and the full thermal replay cannot be
 promoted above its research-gated dependencies.
 
-## Untimed s10 renderer comparison
+## Untimed s10 native pilot
 
 `pilots/s10_two_rack_heat_paths.yaml` defines four coarse transformations for
 the evidence-ready rack split: establish the rack, isolate liquid-cooled
@@ -71,17 +71,18 @@ runtime, autoplay, or words-to-say contract; the instructor owns the dwell time
 on every transformation.
 
 The native Three.js version is generated at
-`diagram/s10_two_rack_heat_paths.html`. The isolated ManimCE experiment in
-`experiments/manim_s10/` renders the same transformations as independent short
-clips. Both consumers validate the exact s10 node/edge boundary and expose the
-same source digest. Neither may extend the air category to a CRAH, extend the
-liquid path to a CDU, imply an Abilene as-built rack configuration, or encode a
+`diagram/s10_two_rack_heat_paths.html`. It validates the exact s10 node/edge
+boundary. It may not extend the air category to a CRAH, extend the liquid path
+to a CDU, imply an Abilene as-built rack configuration, or encode a
 quantitative liquid-versus-air heat split.
 
-The pilot decision is to retain the native SVG/Three.js substrate as the
-presenter-controlled course runtime. ManimCE remains an optional renderer for a
-specific transition whose precomposed motion materially improves the
-explanation; it is not the course player or a pacing system.
+The pilot decision is to use the native SVG/Three.js substrate as the
+presenter-controlled course runtime and not pursue ManimCE. Visual review found
+that the generated Manim clips read as generic vector rendering rather than
+purpose-built explanatory animation. Reaching the desired quality would
+require bespoke design and choreography that does not justify a second
+renderer for this course. The spike remains in `experiments/manim_s10/` only as
+an evaluation record and is outside the production and validation path.
 
 Generate and inspect the native pilot with:
 
@@ -92,8 +93,7 @@ python3 -m http.server --directory diagram 8000
 
 Open `http://localhost:8000/s10_two_rack_heat_paths.html`, then advance only
 when the explanation calls for a different composition. There is no target
-time per state. The ManimCE setup and one-clip render command are documented in
-`experiments/manim_s10/README.md`.
+time per state.
 
 ## Production shots
 

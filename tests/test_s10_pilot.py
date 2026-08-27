@@ -12,7 +12,6 @@ ROOT = Path(__file__).resolve().parents[1]
 PILOT = ROOT / "course" / "pilots" / "s10_two_rack_heat_paths.yaml"
 NATIVE_GENERATOR = ROOT / "diagram" / "generate_s10_two_rack_heat_paths.py"
 NATIVE_OUTPUT = ROOT / "diagram" / "s10_two_rack_heat_paths.html"
-MANIM_MANIFEST = ROOT / "experiments" / "manim_s10" / "manifest.py"
 S10_NODES = {"die", "rack_air_load", "cold_plate", "rack_manifold"}
 S10_EDGES = {
     "die_to_cold_plate_heat",
@@ -60,7 +59,6 @@ class S10PilotContractTests(unittest.TestCase):
         cls.pilot = validate._load_yaml_strict(PILOT)
         cls.segment = segment_by_id(cls.course, "s10_two_rack_heat_paths")
         cls.native = load_module("gigawatt_s10_native", NATIVE_GENERATOR)
-        cls.manim_manifest = load_module("gigawatt_s10_manim_manifest", MANIM_MANIFEST)
 
     def test_s10_scope_and_evidence_boundary_are_exact(self) -> None:
         segment = self.segment
@@ -267,17 +265,6 @@ class S10PilotContractTests(unittest.TestCase):
                 self.scene,
                 self.cameras,
             )
-
-    def test_native_and_manim_share_the_same_source_digest(self) -> None:
-        _, native_digest, _ = self.native.build()
-        manim_pilot = self.manim_manifest.load_pilot()
-        self.assertEqual(native_digest, self.manim_manifest.source_digest())
-        self.assertEqual(native_digest, manim_pilot.source_digest)
-        self.assertEqual(
-            [item["id"] for item in self.pilot["transformations"]],
-            [item.id for item in manim_pilot.transformations],
-        )
-
 
 if __name__ == "__main__":
     unittest.main()

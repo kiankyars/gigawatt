@@ -46,12 +46,13 @@ diagram status.
    objective against its claim bundle, selected topology, and blockers; factual
    narration and on-screen copy must still be generated from validated claims,
    not improvised from the objective text.
-9. **s10 comparison pacing and scope — resolved.** The native and ManimCE
-   variants consume one four-transformation manifest and the same source digest.
-   Transformations advance only on instructor action and carry no editorial
-   timing or spoken-script fields. Both variants stop at the four-node,
-   three-edge rack-package boundary, preserve distinct liquid supply and return,
-   and give the air-cooled category no invented downstream edge.
+9. **s10 pacing, scope, and renderer choice — resolved.** The native pilot
+   consumes one four-transformation manifest. Transformations advance only on
+   instructor action and carry no editorial timing or spoken-script fields. The
+   view stops at the four-node, three-edge rack-package boundary, preserves
+   distinct liquid supply and return, and gives the air-cooled category no
+   invented downstream edge. The ManimCE comparison failed the visual quality
+   bar and is retained only as a rejected experiment, not a production option.
 
 ## Acceptance checks
 
@@ -67,7 +68,7 @@ diagram status.
 - Explicit readiness regression checks for the initial grid path and full
   thermal replay.
 - Exact s10 pilot scope, absence of timing fields and automatic advance,
-  renderer digest parity, deterministic native output, and manual browser QA.
+  deterministic native output, and manual browser QA.
 
 Runtime and packaging remain editorial choices. They do not block engineering,
 evidence-pack, camera, or instructor-note work.

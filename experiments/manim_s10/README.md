@@ -1,5 +1,13 @@
 # ManimCE s10 renderer experiment
 
+Status: **rejected spike; not a production course path**.
+
+The rendered comparison failed the project's visual quality bar. It read as
+generic vector animation, while reaching the intended explanatory quality would
+require bespoke design and choreography that does not justify maintaining a
+second renderer. These files remain only to preserve the evaluation record and
+are excluded from the active course validation path.
+
 This isolated experiment renders one transformation from
 `course/pilots/s10_two_rack_heat_paths.yaml` per invocation. It consumes the
 manifest's canonical node and edge IDs and reads geometry and labels from the

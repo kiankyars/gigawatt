@@ -17,8 +17,6 @@ now contains seven acts and 26 evidence-gated segments.
   vertical slice generated from `master.yaml`, `scene.yaml`, and `cameras.yaml`.
 - `diagram/s10_two_rack_heat_paths.html` — an instructor-controlled native
   pilot with four coarse transformations and no timing or automatic advance.
-- `experiments/manim_s10/` — an isolated ManimCE renderer for the same s10
-  transformations and canonical IDs; generated comparison media is untracked.
 - `evidence/abilene.yaml` — 14-source, 48-fact primary-source ledger for the
   original eight-building Abilene Stargate campus.
 - `course/segments.yaml` — canonical act and segment order, camera requirements,
