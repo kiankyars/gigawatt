@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "audit_type": "multi_seed_deterministic_generation",
+  "completed_at": "2026-08-29T14:10:39-07:00",
+  "candidate_id": "combined",
+  "candidate_commit": "8c2bbe93bd0843fa2a497ae5637406e9334af9ec",
+  "candidate_provenance_sha256": "72d1d2e20b0cd265212627d86910dbc25c7d6132327e72e3275ed4a59b1e4a19",
+  "candidate_current_state_sha256": "db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d",
+  "command": "uv run gigawatt-quality",
+  "seeds": [
+    1,
+    7,
+    777
+  ],
+  "seed_results": [
+    {
+      "seed": 1,
+      "build_digest_sha256": "60c0a56d7b51275ab4af8d12886a0ddf4489d08be120c27a7c9f2830d5bcf515",
+      "course_quality_file_sha256": "9d15c48e3bfcd96e6377ca88f438a1264d2c64e371d29494a61385bd4c402594",
+      "course_dependency_graph_file_sha256": "43a8f0ce462a1b33f70bf62eb6ba138b1f20c7eb29a406f2b8f8c864f959184f",
+      "generated_artifact_set_sha256": "353fe8829c8750d8d86d620cfcb13cbd4604fa742bc24bc705b0c6831486dbb4"
+    },
+    {
+      "seed": 7,
+      "build_digest_sha256": "60c0a56d7b51275ab4af8d12886a0ddf4489d08be120c27a7c9f2830d5bcf515",
+      "course_quality_file_sha256": "9d15c48e3bfcd96e6377ca88f438a1264d2c64e371d29494a61385bd4c402594",
+      "course_dependency_graph_file_sha256": "43a8f0ce462a1b33f70bf62eb6ba138b1f20c7eb29a406f2b8f8c864f959184f",
+      "generated_artifact_set_sha256": "353fe8829c8750d8d86d620cfcb13cbd4604fa742bc24bc705b0c6831486dbb4"
+    },
+    {
+      "seed": 777,
+      "build_digest_sha256": "60c0a56d7b51275ab4af8d12886a0ddf4489d08be120c27a7c9f2830d5bcf515",
+      "course_quality_file_sha256": "9d15c48e3bfcd96e6377ca88f438a1264d2c64e371d29494a61385bd4c402594",
+      "course_dependency_graph_file_sha256": "43a8f0ce462a1b33f70bf62eb6ba138b1f20c7eb29a406f2b8f8c864f959184f",
+      "generated_artifact_set_sha256": "353fe8829c8750d8d86d620cfcb13cbd4604fa742bc24bc705b0c6831486dbb4"
+    }
+  ],
+  "artifact_count": 16,
+  "artifact_ids": [
+    "course/INSTRUCTOR_PACKET.md",
+    "diagram/camera_system_orientation.svg",
+    "diagram/camera_watt_heat_handoff.svg",
+    "diagram/course.html",
+    "diagram/course_dependency_graph.json",
+    "diagram/course_quality.json",
+    "diagram/course_runtime.json",
+    "diagram/hybrid.html",
+    "diagram/map_watt_heat_handoff.svg",
+    "diagram/master.svg",
+    "diagram/mock_wide.svg",
+    "diagram/mock_zoom.svg",
+    "diagram/planned_shots.html",
+    "diagram/planned_shots.json",
+    "diagram/s10_two_rack_heat_paths.html",
+    "diagram/symbols.svg"
+  ],
+  "artifact_inventory_sha256": "7e1a27f74f9c662092fcdb8b709f7a5e9a650de18a23c8ad43d68f20836d37a1",
+  "artifact_set_sha256": "353fe8829c8750d8d86d620cfcb13cbd4604fa742bc24bc705b0c6831486dbb4",
+  "mismatch_count": 0,
+  "outcome": "passed"
+}

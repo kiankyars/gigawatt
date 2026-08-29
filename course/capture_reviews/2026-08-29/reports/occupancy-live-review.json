@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "audit_type": "live_occupancy_review",
+  "completed_at": "2026-08-29T14:10:39-07:00",
+  "candidate_id": "combined",
+  "candidate_commit": "8c2bbe93bd0843fa2a497ae5637406e9334af9ec",
+  "candidate_provenance_sha256": "72d1d2e20b0cd265212627d86910dbc25c7d6132327e72e3275ed4a59b1e4a19",
+  "candidate_current_state_sha256": "db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d",
+  "validation_compiler_implementation_sha256": "08c25a9f6c35df0228f369280aecb3e4b026db7af9ca949917a492c5069306e6",
+  "reviewer_id": "codex_live_occupancy_qa",
+  "review_count": 13,
+  "reviews": [
+    {
+      "segment_id": "s02_generator_terminal",
+      "viewport_id": "844x390",
+      "risk_flags": [
+        "low_projected_occupancy"
+      ],
+      "metric_id": "three_dimensional.projected_occupancy",
+      "observed_value": 0.045334,
+      "decision": "approved",
+      "capture_source_path": "/tmp/gigawatt-occupancy-png/s02_generator_terminal__844x390.png",
+      "capture_sha256": "0e6f3cb5a7695b1980af8053d66b3cf84c9e204611a1935053f8e29f4aaeecbc",
+      "rationale": "The generator-terminal geometry remains legible and correctly sequenced at compact landscape size."
+    },
+    {
+      "segment_id": "s05_ppa_not_wire",
+      "viewport_id": "844x390",
+      "risk_flags": [
+        "low_focus_occupancy"
+      ],
+      "metric_id": "two_dimensional.focus_occupancy",
+      "observed_value": 0.054326,
+      "decision": "approved",
+      "capture_source_path": "/tmp/gigawatt-occupancy-png/s05_ppa_not_wire__844x390.png",
+      "capture_sha256": "5d2a36f9a5dd3138f62c4fb10477021150d0f5c3f62fe3a469b7f98c5d0e3c20",
+      "rationale": "The contract-versus-wire distinction and numbered focus remain legible without clipping at compact landscape size."
+    },
+    {
+      "segment_id": "s05_ppa_not_wire",
+      "viewport_id": "390x844",
+      "risk_flags": [
+        "low_focus_occupancy"
+      ],
+      "metric_id": "two_dimensional.focus_occupancy",
+      "observed_value": 0.055119,
+      "decision": "approved",
+      "capture_source_path": "/tmp/gigawatt-occupancy-png/s05_ppa_not_wire__390x844.png",
+      "capture_sha256": "5c5ba8216244f69b3f3e3bfe731e7e856e4adc2d2452d8363f21e51e5f3a9bf8",
+      "rationale": "The portrait composition preserves the PPA distinction, focus hierarchy, and wrapped supporting copy without overflow."
+    },
+    {
+      "segment_id": "s07_building_power_train",
+      "viewport_id": "1920x1080",
+      "risk_flags": [
+        "low_projected_occupancy"
+      ],
+      "metric_id": "three_dimensional.projected_occupancy",
+      "observed_value": 0.071092,
+      "decision": "approved",
+      "capture_source_path": "/tmp/gigawatt-occupancy-png/s07_building_power_train__1920x1080.png",
+      "capture_sha256": "0ef8481df128af96699c2887c859e336a68832c60926a12b7dd6f6ebf86f7bf4",
+      "rationale": "The long power-train composition preserves an intentional overview with clear active-path hierarchy at wide desktop size."
+    },
+    {
+      "segment_id": "s07_building_power_train",
+      "viewport_id": "1440x900",
+      "risk_flags": [
+        "low_projected_occupancy"
+      ],
+      "metric_id": "three_dimensional.projected_occupancy",
+      "observed_value": 0.078293,
+      "decision": "approved",
+      "capture_source_path": "/tmp/gigawatt-occupancy-png/s07_building_power_train__1440x900.png",
+      "capture_sha256": "bf78ec73b6c20075e0d5d4dcaa0c40cbc66211e80676f145b05351b8d7a93af6",
+      "rationale": "The long power-train composition remains balanced and legible at desktop size."
+    },
+    {
+      "segment_id": "s07_building_power_train",
+      "viewport_id": "844x390",
+      "risk_flags": [
+        "low_projected_occupancy"
+      ],
+      "metric_id": "three_dimensional.projected_occupancy",
+      "observed_value": 0.037525,
+      "decision": "approved",
+      "capture_source_path": "/tmp/gigawatt-occupancy-png/s07_building_power_train__844x390.png",
+      "capture_sha256": "df4a8b2ead43ce0e40f6aa6af5f494151acb5733ca9836de5e58adac0e76e40d",
+      "rationale": "The compact fallback keeps numbered power-train stages readable without label collisions or clipping."
+    },
+    {
+      "segment_id": "s08_rack_voltage_descent",
+      "viewport_id": "844x390",
+      "risk_flags": [
+        "low_projected_occupancy"
+      ],
+      "metric_id": "three_dimensional.projected_occupancy",
+      "observed_value": 0.059468,
+      "decision": "approved",
+      "capture_source_path": "/tmp/gigawatt-occupancy-png/s08_rack_voltage_descent__844x390.png",
+      "capture_sha256": "3657a4ff29b8b1bcbc2e1f5c2eb19cc97daaf71818a01c76bee2a3d45dca622a",
+      "rationale": "The compact rack-voltage descent retains readable numbered stages and clear directional hierarchy."
+    },
+    {
+      "segment_id": "s09_watt_becomes_heat",
+      "viewport_id": "1920x1080",
+      "risk_flags": [
+        "low_focus_occupancy"
+      ],
+      "metric_id": "two_dimensional.focus_occupancy",
+      "observed_value": 0.024232,
+      "decision": "approved",
+      "capture_source_path": "/tmp/gigawatt-occupancy-png/s09_watt_becomes_heat__1920x1080.png",
+      "capture_sha256": "085476b9cd49b63672ebc028ee34f0068cf6ddd1763b021af8332d2b7df09a96",
+      "rationale": "The authored die-to-cold-plate handoff remains visually balanced and legible despite intentionally low focal occupancy."
+    },
+    {
+      "segment_id": "s09_watt_becomes_heat",
+      "viewport_id": "1440x900",
+      "risk_flags": [
+        "low_focus_occupancy"
+      ],
+      "metric_id": "two_dimensional.focus_occupancy",
+      "observed_value": 0.025981,
+      "decision": "approved",
+      "capture_source_path": "/tmp/gigawatt-occupancy-png/s09_watt_becomes_heat__1440x900.png",
+      "capture_sha256": "cfcfe7e78de448f761db6e514de3199f48757db25ec43d2131337ebec655a926",
+      "rationale": "The die-to-cold-plate handoff remains clear and balanced at desktop size."
+    },
+    {
+      "segment_id": "s09_watt_becomes_heat",
+      "viewport_id": "1024x768",
+      "risk_flags": [
+        "low_focus_occupancy"
+      ],
+      "metric_id": "two_dimensional.focus_occupancy",
+      "observed_value": 0.023201,
+      "decision": "approved",
+      "capture_source_path": "/tmp/gigawatt-occupancy-png/s09_watt_becomes_heat__1024x768.png",
+      "capture_sha256": "8b95271f2f96e852db4230bdceda65dfec40526a6aca0b79ffdbbd52ea97abdc",
+      "rationale": "The tablet composition preserves the two-object handoff and its labels without clipping or collision."
+    },
+    {
+      "segment_id": "s14_facility_heat_rejection",
+      "viewport_id": "844x390",
+      "risk_flags": [
+        "low_projected_occupancy"
+      ],
+      "metric_id": "three_dimensional.projected_occupancy",
+      "observed_value": 0.063922,
+      "decision": "approved",
+      "capture_source_path": "/tmp/gigawatt-occupancy-png/s14_facility_heat_rejection__844x390.png",
+      "capture_sha256": "2419e7768a8bdab3617f436356cbaf28e27c1c6aac16f5c9e9ee5a81c4935790",
+      "rationale": "The compact facility heat-rejection path remains legible with clear numbered sequencing."
+    },
+    {
+      "segment_id": "s15_water_accounting",
+      "viewport_id": "844x390",
+      "risk_flags": [
+        "low_projected_occupancy"
+      ],
+      "metric_id": "three_dimensional.projected_occupancy",
+      "observed_value": 0.075666,
+      "decision": "approved",
+      "capture_source_path": "/tmp/gigawatt-occupancy-png/s15_water_accounting__844x390.png",
+      "capture_sha256": "9ce1efa1f168c64cdb60d6d2f85aa637c3b59c8f5f97420935dca160465d4e3c",
+      "rationale": "The compact water-accounting view preserves the three relevant stages and readable hierarchy without overflow."
+    },
+    {
+      "segment_id": "s16_close_atmosphere",
+      "viewport_id": "844x390",
+      "risk_flags": [
+        "low_projected_occupancy"
+      ],
+      "metric_id": "three_dimensional.projected_occupancy",
+      "observed_value": 0.079327,
+      "decision": "approved",
+      "capture_source_path": "/tmp/gigawatt-occupancy-png/s16_close_atmosphere__844x390.png",
+      "capture_sha256": "66ec686c65abb842f9e7cc13fed63cdf507b80189544a8ffefeac6f99801b382",
+      "rationale": "The compact closed-loop synthesis keeps all nine numbered markers readable without clipping or collision."
+    }
+  ],
+  "rejected_count": 0,
+  "approved_count": 13,
+  "outcome": "passed"
+}
