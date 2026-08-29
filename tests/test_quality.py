@@ -4428,8 +4428,23 @@ class QualityRegistryTests(unittest.TestCase):
             approved_sets,
             candidate_id="combined",
         )
+        control_runtime = quality._modeled_runtime(
+            self.runtime,
+            self.ratchet_manifest["experiment_control"],
+        )
+        control_registry = quality.compile_quality_registry(
+            self.course,
+            self.master,
+            self.layout,
+            self.scene,
+            self.ledgers,
+            control_runtime,
+            source_digest="occupancy-control-binding",
+            occupancy_reviews=self.ratchet_manifest["occupancy_reviews"],
+            occupancy_candidate_id="experiment_control",
+        )
         control_gate = quality._occupancy_review_gate(
-            self.registry["segments"],
+            control_registry["segments"],
             approved_sets,
             candidate_id="experiment_control",
         )
@@ -6014,10 +6029,7 @@ class QualityRegistryTests(unittest.TestCase):
                 if evaluation["viewport_id"] not in target_ids:
                     continue
                 vector = evaluation["two_dimensional"]
-                self.assertLess(
-                    vector["projected_base_font_px"],
-                    vector["minimum_spatial_font_px"],
-                )
+                self.assertFalse(vector["spatial_labels_readable"])
                 self.assertEqual(vector["spatial_label_count"], 0)
                 expected_legend_count = 0
                 self.assertEqual(

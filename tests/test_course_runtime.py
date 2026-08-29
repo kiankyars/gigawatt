@@ -1881,13 +1881,12 @@ class CourseRuntimeTests(unittest.TestCase):
         self.assertIn('event.key === "ArrowLeft"', player)
         self.assertIn('event.key === "ArrowRight"', player)
         self.assertIn('event.target.closest?.("#focus-key, button, a")', player)
+        global_keydown = player.index(
+            'addEventListener("keydown", event => {\n  if (notesOpen)'
+        )
         self.assertLess(
-            player.index(
-                "if (notesOpen) {", player.index('addEventListener("keydown"')
-            ),
-            player.index(
-                'event.key === "ArrowLeft"', player.index('addEventListener("keydown"')
-            ),
+            player.index("if (notesOpen) {", global_keydown),
+            player.index('event.key === "ArrowLeft"', global_keydown),
         )
         self.assertNotIn("setTimeout(", player)
         self.assertNotIn("setInterval(", player)
