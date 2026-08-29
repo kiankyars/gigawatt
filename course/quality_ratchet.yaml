@@ -140,6 +140,7 @@ change_owners:
       - evidence-to-segment teaching boundaries
   - change_owner_id: OWNER-VALIDATION-CHAMPION
     source_paths:
+      - .github/workflows/pages.yml
       - diagram/generate_s10_two_rack_heat_paths.py
       - src/gigawatt/generated_artifacts.py
       - src/gigawatt/scene.py
@@ -882,11 +883,12 @@ changes:
     finding_ids: [QA-R9-GENERATED-ARTIFACT-CLOSURE-01]
     change_owner_ids: [OWNER-VALIDATION-CHAMPION]
     source_paths:
+      - .github/workflows/pages.yml
       - src/gigawatt/generated_artifacts.py
       - src/gigawatt/validate.py
       - tests/test_generated_artifacts.py
       - tests/test_project.py
-    description: Exact-regenerate and byte-compare symbols, layout/camera/map, mock, and S10 outputs inside the central project validator.
+    description: Exact-regenerate and byte-compare symbols, layout/camera/map, mock, and S10 outputs inside the central project validator, then publish only the canonical course runtime and pinned browser dependencies.
   - change_id: CHANGE-R9-CAMERA-EXACT-SCHEMA
     finding_ids: [QA-R9-CAMERA-EXACT-FIELD-SET-01]
     change_owner_ids: [OWNER-VALIDATION-CHAMPION]

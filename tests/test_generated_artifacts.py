@@ -148,6 +148,59 @@ class GeneratedArtifactClosureTests(unittest.TestCase):
                 else:
                     self.assertNotEqual(candidate_sha256, retained_sha256)
 
+    def test_pages_workflow_publishes_only_the_course_runtime(self) -> None:
+        workflow = scene.load_yaml(
+            generated_artifacts.ROOT / ".github/workflows/pages.yml"
+        )
+        self.assertEqual(
+            workflow["permissions"],
+            {
+                "contents": "read",
+                "pages": "write",
+                "id-token": "write",
+            },
+        )
+        deploy = workflow["jobs"]["deploy"]
+        self.assertEqual(
+            deploy["environment"],
+            {
+                "name": "github-pages",
+                "url": "${{ steps.deployment.outputs.page_url }}",
+            },
+        )
+        stage = next(
+            step for step in deploy["steps"] if step["name"] == "Stage the course site"
+        )
+        self.assertEqual(
+            stage["run"].splitlines(),
+            [
+                "mkdir -p _site/vendor",
+                "cp diagram/course.html _site/index.html",
+                "cp -R diagram/vendor/three _site/vendor/three",
+                "touch _site/.nojekyll",
+            ],
+        )
+        actions = {
+            step["name"]: step["uses"]
+            for step in deploy["steps"]
+            if "uses" in step
+        }
+        self.assertEqual(
+            actions,
+            {
+                "Check out repository": "actions/checkout@v6",
+                "Configure GitHub Pages": "actions/configure-pages@v5",
+                "Upload GitHub Pages artifact": "actions/upload-pages-artifact@v4",
+                "Deploy GitHub Pages": "actions/deploy-pages@v4",
+            },
+        )
+        upload = next(
+            step
+            for step in deploy["steps"]
+            if step["name"] == "Upload GitHub Pages artifact"
+        )
+        self.assertEqual(upload["with"], {"path": "_site"})
+
 
 if __name__ == "__main__":
     unittest.main()
