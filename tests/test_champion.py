@@ -210,7 +210,10 @@ class FrozenChampionTests(unittest.TestCase):
             return real_git(repo, *arguments)
 
         with patch.object(champion, "_git", side_effect=advanced_origin):
-            result = champion.require_frozen_champion(frozen)
+            result = champion.require_frozen_champion(
+                frozen,
+                observe_mutable_provenance=True,
+            )
 
         self.assertTrue(result["static_integrity_passed"])
         self.assertEqual(result["failures"], [])
@@ -224,6 +227,26 @@ class FrozenChampionTests(unittest.TestCase):
             result["historical_test_reproduction"]["status"],
             "requires_external_execution",
         )
+
+    def test_mutable_provenance_can_be_omitted_from_reproducible_outputs(
+        self,
+    ) -> None:
+        frozen = self.manifest["frozen_champion"]
+        real_git = champion._git
+
+        def reject_tracking_ref(repo, *arguments):
+            if arguments == ("rev-parse", "refs/remotes/origin/main"):
+                raise AssertionError("mutable tracking ref must not be observed")
+            return real_git(repo, *arguments)
+
+        with patch.object(champion, "_git", side_effect=reject_tracking_ref):
+            result = champion.require_frozen_champion(frozen)
+
+        observation = result["provenance_state"]["origin_main_tracking_ref"]
+        self.assertEqual(observation["status"], "not_checked")
+        self.assertIsNone(observation["observed_sha"])
+        self.assertIsNone(observation["matches_declared_frozen_sha"])
+        self.assertFalse(observation["integrity_relevant"])
 
 
 if __name__ == "__main__":

@@ -9739,7 +9739,8 @@ def build_artifacts() -> tuple[str, str, str]:
     )
     ratchet_manifest = load_ratchet_manifest()
     champion_verification = champion_pipeline.require_frozen_champion(
-        ratchet_manifest["frozen_champion"]
+        ratchet_manifest["frozen_champion"],
+        observe_mutable_provenance=False,
     )
     runtime_digest = course_runtime._source_digest(course)
     runtime_registry = course_runtime.compile_registry(

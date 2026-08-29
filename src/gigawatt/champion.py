@@ -136,41 +136,59 @@ def changed_worktree_paths(repo: Path, git_sha: str) -> tuple[str, ...]:
 
 
 def _provenance_state(
-    repo: Path, declared_origin_sha: Any
+    repo: Path,
+    declared_origin_sha: Any,
+    *,
+    observe_mutable_provenance: bool,
 ) -> dict[str, dict[str, Any]]:
     tracking_ref = "refs/remotes/origin/main"
-    try:
-        observed_sha = _git(repo, "rev-parse", tracking_ref).decode().strip()
-    except ChampionVerificationError as error:
+    if not observe_mutable_provenance:
         origin_main = {
-            "status": "unavailable",
+            "status": "not_checked",
             "observation_kind": "local_remote_tracking_ref",
             "ref": tracking_ref,
             "declared_frozen_sha": declared_origin_sha,
             "observed_sha": None,
             "matches_declared_frozen_sha": None,
             "integrity_relevant": False,
-            "detail": str(error),
+            "detail": (
+                "The mutable local remote-tracking ref was not observed so this "
+                "result remains reproducible across fetches."
+            ),
         }
     else:
-        matches = observed_sha == declared_origin_sha
-        origin_main = {
-            "status": (
-                "matches_frozen_declaration"
-                if matches
-                else "differs_from_frozen_declaration"
-            ),
-            "observation_kind": "local_remote_tracking_ref",
-            "ref": tracking_ref,
-            "declared_frozen_sha": declared_origin_sha,
-            "observed_sha": observed_sha,
-            "matches_declared_frozen_sha": matches,
-            "integrity_relevant": False,
-            "detail": (
-                "A local remote-tracking ref is mutable and is not live remote "
-                "verification."
-            ),
-        }
+        try:
+            observed_sha = _git(repo, "rev-parse", tracking_ref).decode().strip()
+        except ChampionVerificationError as error:
+            origin_main = {
+                "status": "unavailable",
+                "observation_kind": "local_remote_tracking_ref",
+                "ref": tracking_ref,
+                "declared_frozen_sha": declared_origin_sha,
+                "observed_sha": None,
+                "matches_declared_frozen_sha": None,
+                "integrity_relevant": False,
+                "detail": str(error),
+            }
+        else:
+            matches = observed_sha == declared_origin_sha
+            origin_main = {
+                "status": (
+                    "matches_frozen_declaration"
+                    if matches
+                    else "differs_from_frozen_declaration"
+                ),
+                "observation_kind": "local_remote_tracking_ref",
+                "ref": tracking_ref,
+                "declared_frozen_sha": declared_origin_sha,
+                "observed_sha": observed_sha,
+                "matches_declared_frozen_sha": matches,
+                "integrity_relevant": False,
+                "detail": (
+                    "A local remote-tracking ref is mutable and is not live remote "
+                    "verification."
+                ),
+            }
     return {
         "origin_main_tracking_ref": origin_main,
         "live_remote": {
@@ -182,9 +200,16 @@ def _provenance_state(
 
 
 def verify_frozen_champion(
-    champion: dict[str, Any], *, repo: Path = ROOT
+    champion: dict[str, Any],
+    *,
+    repo: Path = ROOT,
+    observe_mutable_provenance: bool = False,
 ) -> dict[str, Any]:
-    """Return fail-closed, reproducible checks for the frozen Git snapshot."""
+    """Return fail-closed checks for the frozen Git snapshot.
+
+    Mutable local provenance is opt-in because observing it makes the result
+    unsuitable for committed generated artifacts.
+    """
     champion = _validate_champion_schema(champion)
     git_sha = champion["git_sha"]
 
@@ -230,7 +255,11 @@ def verify_frozen_champion(
         "static_integrity_passed": not failures,
         "checks": checks,
         "failures": failures,
-        "provenance_state": _provenance_state(repo, champion["origin_sha"]),
+        "provenance_state": _provenance_state(
+            repo,
+            champion["origin_sha"],
+            observe_mutable_provenance=observe_mutable_provenance,
+        ),
         "historical_test_reproduction": {
             "command": "uv run python -m unittest discover -s tests -v",
             "git_sha": git_sha,
@@ -245,9 +274,16 @@ def verify_frozen_champion(
 
 
 def require_frozen_champion(
-    champion: dict[str, Any], *, repo: Path = ROOT
+    champion: dict[str, Any],
+    *,
+    repo: Path = ROOT,
+    observe_mutable_provenance: bool = False,
 ) -> dict[str, Any]:
-    result = verify_frozen_champion(champion, repo=repo)
+    result = verify_frozen_champion(
+        champion,
+        repo=repo,
+        observe_mutable_provenance=observe_mutable_provenance,
+    )
     if not result["static_integrity_passed"]:
         failed_ids = [failure["id"] for failure in result["failures"]]
         raise ChampionVerificationError(
