@@ -9,17 +9,17 @@ hard_constraints:
   forbidden_render_defects: [clipping, collisions, illegible_labels]
 
 frozen_champion:
-  git_sha: 9a76191764c9b2d998950069090548439dfc4007
-  origin_sha: 9a76191764c9b2d998950069090548439dfc4007
-  source_tree_aggregate_sha256: 737a7797e014a5daf2c64395ce6b9cc134d007d3c34e61013468cce58adf1aee
-  baseline_test_count: 75
-  baseline_runtime_source_digest: 224b79da0d4d3e4fd44e78e91efe8341633f732d1014729b13ee847e25e3f9e2
+  git_sha: 0856a93b78181bec3945168632d141595575800c
+  origin_sha: 0856a93b78181bec3945168632d141595575800c
+  source_tree_aggregate_sha256: f95a3887fb294005b9201485a69121c95bef9c4dcce2e5c4ba737e60e90d9e8b
+  baseline_test_count: 349
+  baseline_runtime_source_digest: 407277f9e170254051393046bcfb6f43caa25ce09a665d3d7020ac764f127d04
   artifact_sha256:
-    diagram/course.html: b24659fb7d10c70cf450e1ae8168d764dba47ca7a803bd3b3a5dfa95211237c7
-    diagram/course_runtime.json: e414be7d923525190eabebf66672906a31235a777889c9193a577053a32c8597
-    diagram/planned_shots.html: 761823c86a73ece50faac1c1dd797f174c09de18f759d523c9801bce1548c4d0
-    diagram/planned_shots.json: f5fdbc5e276bb856f073c19ed2a13dd59bb522d2722d15ec5660538f07ee105f
-    course/INSTRUCTOR_PACKET.md: d70471737ba3c61a1593d5e76ad357f9d36e500cf737a10decc946e4af1e04a5
+    diagram/course.html: d174f41e5439a72a88fee844a6b629d4bf6c3cb036333321f02ba0f8503a25bb
+    diagram/course_runtime.json: 25b7564075e58ee69563b5abd75148ac933ffec65554887c0972024e8504802d
+    diagram/planned_shots.html: ebab25664a01e723c501c7df7d283584d3118aba2493081a89a0e1e821a67ac4
+    diagram/planned_shots.json: 33ad49f945e89f69e3e909a3687b14d40855ea175380a686e51b38d5b7aab39b
+    course/INSTRUCTOR_PACKET.md: 9b651b42cc1c8f7803b4b3cefdd7e076504d43540515a62895682f832c4aea34
 
 experiment_control:
   control_id: corrected_current_worktree_context_control
@@ -74,6 +74,29 @@ change_owners:
       - learning-objective-to-frame alignment
   - change_owner_id: OWNER-QUALITY-CONTRACT
     source_paths:
+      - course/acceptance_evidence/occupancy/01a9d7f78b761c0d6b0e87d2a43acfdcb6da3612cf0042c2347e6a2b7cf15dad.png
+      - course/acceptance_evidence/occupancy/028dcbd2a04ce1a2994a475030619765a560e69c61766d38fa968ffecbb0b7df.png
+      - course/acceptance_evidence/occupancy/0e22f3b8a54346623cfd245f434f5c35c51c10ba23f5f4ac4ffd2437223c54e7.png
+      - course/acceptance_evidence/occupancy/33aec6b10f3d27f06b97a437c3026da8039cad3590688f3574e26d8df9a85e92.png
+      - course/acceptance_evidence/occupancy/378c6308595ac9aba4575af42acd9e867142a4a9cf58fc3d424821e08081ffb0.png
+      - course/acceptance_evidence/occupancy/3c6249a81e83849343729c8db5b3fd8caf367c9fbcf57323501acccc01381ca9.png
+      - course/acceptance_evidence/occupancy/70ed2af2c8469f1743bd0b145d2e9af9513c221c40f897077302ca948d7813e9.png
+      - course/acceptance_evidence/occupancy/754852e58f7203cfff6337e4a415a5d0b7196af1486e5da23694fb9dd388da96.png
+      - course/acceptance_evidence/occupancy/b4c9fde83dc41ce53d86ef5155f1d2c323ccc9e817f5640266adccb9a5d73e98.png
+      - course/acceptance_evidence/occupancy/df4fb0a0ce4b7828d10bd859d32faa76796c76369b0a9ff764ef30cef49033bd.png
+      - course/acceptance_evidence/occupancy/e063447223bf8f02d4243dafed0bc18f8765bd02b0532b1df0ce34a7488706b1.png
+      - course/acceptance_evidence/occupancy/e5af14d0f762026b3d3a4fa45e0cb3eda6c36ce89bae080be9a70b8c0999a045.png
+      - course/acceptance_evidence/occupancy/f943764ceec282abe6d4283286178866dbe0afa75e068eb6dc4d0975d8bb43fb.png
+      - course/acceptance_evidence/reports/5646edd34a7878f5953a6f3faa4d2558e57f6c3213bfc06f3c65e8d1ae67e004.json
+      - course/acceptance_evidence/reports/5fa7d2d0f6cec2fc0a10870460d7fa97abed019eb7b57c681be14084fabbcc06.json
+      - course/acceptance_evidence/reports/73e51df106d47ee5dc92cab0888bd6d4ff2de993626f03f67a4eb96987a90a00.json
+      - course/acceptance_evidence/reports/78798512d963b85901186937a4e07f8d3a65cc74fb061ec45b86c4789388d568.json
+      - course/acceptance_evidence/reports/97d368023d63c0297eecf75cdf016e3e684faf08f4f9806d5b3b98e06390185e.json
+      - course/acceptance_evidence/reports/da843ef28d359e51b58465129f38804e08d9f6fe8d87b95d335c0f5505138f35.json
+      - course/acceptance_evidence/reports/dbe0a7222024c4c9ae6c13e7e58d0723ad0daf18df23f5004bfe3e9b63a51e70.json
+      - course/acceptance_evidence/reports/dfc91a7dc90be385dd3af3374206f749261cd142932caa512aa5608a457bb3ec.json
+      - course/acceptance_evidence/reports/e9b8cd106c53def1d24111942a3e89c2696a848d9a1a7e40f0c033dde7182e81.json
+      - course/acceptance_evidence/reports/f90f312485680fdc0b84bd68ff0cdf497f2000befdb17c5bd0ee07434274b75a.json
       - course/quality_ratchet.yaml
       - course/quality_audits.yaml
       - pyproject.toml
@@ -911,6 +934,16 @@ changes:
     change_owner_ids: [OWNER-QUALITY-CONTRACT]
     source_paths:
       - course/quality_ratchet.yaml
+      - course/acceptance_evidence/reports/5646edd34a7878f5953a6f3faa4d2558e57f6c3213bfc06f3c65e8d1ae67e004.json
+      - course/acceptance_evidence/reports/5fa7d2d0f6cec2fc0a10870460d7fa97abed019eb7b57c681be14084fabbcc06.json
+      - course/acceptance_evidence/reports/73e51df106d47ee5dc92cab0888bd6d4ff2de993626f03f67a4eb96987a90a00.json
+      - course/acceptance_evidence/reports/78798512d963b85901186937a4e07f8d3a65cc74fb061ec45b86c4789388d568.json
+      - course/acceptance_evidence/reports/97d368023d63c0297eecf75cdf016e3e684faf08f4f9806d5b3b98e06390185e.json
+      - course/acceptance_evidence/reports/da843ef28d359e51b58465129f38804e08d9f6fe8d87b95d335c0f5505138f35.json
+      - course/acceptance_evidence/reports/dbe0a7222024c4c9ae6c13e7e58d0723ad0daf18df23f5004bfe3e9b63a51e70.json
+      - course/acceptance_evidence/reports/dfc91a7dc90be385dd3af3374206f749261cd142932caa512aa5608a457bb3ec.json
+      - course/acceptance_evidence/reports/e9b8cd106c53def1d24111942a3e89c2696a848d9a1a7e40f0c033dde7182e81.json
+      - course/acceptance_evidence/reports/f90f312485680fdc0b84bd68ff0cdf497f2000befdb17c5bd0ee07434274b75a.json
       - src/gigawatt/quality.py
       - tests/test_quality.py
     description: Ingest exact candidate-bound typed static, live, blind-review, and independent final-gate evidence while deriving every disposition and preserving unavailable evidence as pending.
@@ -988,6 +1021,19 @@ changes:
     change_owner_ids: [OWNER-QUALITY-CONTRACT]
     source_paths:
       - course/quality_ratchet.yaml
+      - course/acceptance_evidence/occupancy/01a9d7f78b761c0d6b0e87d2a43acfdcb6da3612cf0042c2347e6a2b7cf15dad.png
+      - course/acceptance_evidence/occupancy/028dcbd2a04ce1a2994a475030619765a560e69c61766d38fa968ffecbb0b7df.png
+      - course/acceptance_evidence/occupancy/0e22f3b8a54346623cfd245f434f5c35c51c10ba23f5f4ac4ffd2437223c54e7.png
+      - course/acceptance_evidence/occupancy/33aec6b10f3d27f06b97a437c3026da8039cad3590688f3574e26d8df9a85e92.png
+      - course/acceptance_evidence/occupancy/378c6308595ac9aba4575af42acd9e867142a4a9cf58fc3d424821e08081ffb0.png
+      - course/acceptance_evidence/occupancy/3c6249a81e83849343729c8db5b3fd8caf367c9fbcf57323501acccc01381ca9.png
+      - course/acceptance_evidence/occupancy/70ed2af2c8469f1743bd0b145d2e9af9513c221c40f897077302ca948d7813e9.png
+      - course/acceptance_evidence/occupancy/754852e58f7203cfff6337e4a415a5d0b7196af1486e5da23694fb9dd388da96.png
+      - course/acceptance_evidence/occupancy/b4c9fde83dc41ce53d86ef5155f1d2c323ccc9e817f5640266adccb9a5d73e98.png
+      - course/acceptance_evidence/occupancy/df4fb0a0ce4b7828d10bd859d32faa76796c76369b0a9ff764ef30cef49033bd.png
+      - course/acceptance_evidence/occupancy/e063447223bf8f02d4243dafed0bc18f8765bd02b0532b1df0ce34a7488706b1.png
+      - course/acceptance_evidence/occupancy/e5af14d0f762026b3d3a4fa45e0cb3eda6c36ce89bae080be9a70b8c0999a045.png
+      - course/acceptance_evidence/occupancy/f943764ceec282abe6d4283286178866dbe0afa75e068eb6dc4d0975d8bb43fb.png
       - src/gigawatt/quality.py
       - tests/test_quality.py
     description: Bind every resolved occupancy decision to the exact current candidate, segment, viewport, modeled evaluation, and canonical captured artifact while unavailable captures remain unresolved.
@@ -1147,169 +1193,15 @@ challenger_changes:
     finding_ids: [VIS-LABEL-01, PED-ANNOTATION-01]
     change_owner_ids: [OWNER-VISUAL-AUTHORING]
 
-acceptance_artifacts:
-  - artifact_path: course/acceptance_evidence/reports/97d368023d63c0297eecf75cdf016e3e684faf08f4f9806d5b3b98e06390185e.json
-    artifact_sha256: 97d368023d63c0297eecf75cdf016e3e684faf08f4f9806d5b3b98e06390185e
-    candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-    candidate_id: combined
-    evidence_id: static:validation
-  - artifact_path: course/acceptance_evidence/reports/5646edd34a7878f5953a6f3faa4d2558e57f6c3213bfc06f3c65e8d1ae67e004.json
-    artifact_sha256: 5646edd34a7878f5953a6f3faa4d2558e57f6c3213bfc06f3c65e8d1ae67e004
-    candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-    candidate_id: combined
-    evidence_id: static:deterministic_generation
-  - artifact_path: course/acceptance_evidence/reports/dbe0a7222024c4c9ae6c13e7e58d0723ad0daf18df23f5004bfe3e9b63a51e70.json
-    artifact_sha256: dbe0a7222024c4c9ae6c13e7e58d0723ad0daf18df23f5004bfe3e9b63a51e70
-    candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-    candidate_id: combined
-    evidence_id: static:evidence
-  - artifact_path: course/acceptance_evidence/reports/dfc91a7dc90be385dd3af3374206f749261cd142932caa512aa5608a457bb3ec.json
-    artifact_sha256: dfc91a7dc90be385dd3af3374206f749261cd142932caa512aa5608a457bb3ec
-    candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-    candidate_id: combined
-    evidence_id: live:browser
-  - artifact_path: course/acceptance_evidence/reports/5fa7d2d0f6cec2fc0a10870460d7fa97abed019eb7b57c681be14084fabbcc06.json
-    artifact_sha256: 5fa7d2d0f6cec2fc0a10870460d7fa97abed019eb7b57c681be14084fabbcc06
-    candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-    candidate_id: combined
-    evidence_id: live:accessibility_snapshot
-  - artifact_path: course/acceptance_evidence/reports/78798512d963b85901186937a4e07f8d3a65cc74fb061ec45b86c4789388d568.json
-    artifact_sha256: 78798512d963b85901186937a4e07f8d3a65cc74fb061ec45b86c4789388d568
-    candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-    candidate_id: combined
-    evidence_id: blind_review:blind_reviewer_1
-  - artifact_path: course/acceptance_evidence/reports/da843ef28d359e51b58465129f38804e08d9f6fe8d87b95d335c0f5505138f35.json
-    artifact_sha256: da843ef28d359e51b58465129f38804e08d9f6fe8d87b95d335c0f5505138f35
-    candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-    candidate_id: combined
-    evidence_id: blind_review:blind_reviewer_2
-  - artifact_path: course/acceptance_evidence/reports/73e51df106d47ee5dc92cab0888bd6d4ff2de993626f03f67a4eb96987a90a00.json
-    artifact_sha256: 73e51df106d47ee5dc92cab0888bd6d4ff2de993626f03f67a4eb96987a90a00
-    candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-    candidate_id: combined
-    evidence_id: blind_review:blind_reviewer_3
-  - artifact_path: course/acceptance_evidence/reports/f90f312485680fdc0b84bd68ff0cdf497f2000befdb17c5bd0ee07434274b75a.json
-    artifact_sha256: f90f312485680fdc0b84bd68ff0cdf497f2000befdb17c5bd0ee07434274b75a
-    candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-    candidate_id: combined
-    evidence_id: final:prerequisite_correctness_repairs
-  - artifact_path: course/acceptance_evidence/reports/e9b8cd106c53def1d24111942a3e89c2696a848d9a1a7e40f0c033dde7182e81.json
-    artifact_sha256: e9b8cd106c53def1d24111942a3e89c2696a848d9a1a7e40f0c033dde7182e81
-    candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-    candidate_id: combined
-    evidence_id: final:historical_frozen_champion_viewport_captures
+acceptance_artifacts: []
 
 occupancy_capture_manifest:
   schema_version: 2
-  captures:
-    - artifact_path: course/acceptance_evidence/occupancy/df4fb0a0ce4b7828d10bd859d32faa76796c76369b0a9ff764ef30cef49033bd.png
-      artifact_sha256: 0e6f3cb5a7695b1980af8053d66b3cf84c9e204611a1935053f8e29f4aaeecbc
-      candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-      candidate_id: combined
-      modeled_evaluation_sha256: 429a11440cd00018745fe11f66af5f1717dbc7b975ab72a40befaf09fdb97aeb
-      segment_id: s02_generator_terminal
-      validation_compiler_implementation_sha256: 08c25a9f6c35df0228f369280aecb3e4b026db7af9ca949917a492c5069306e6
-      viewport_id: 844x390
-    - artifact_path: course/acceptance_evidence/occupancy/e063447223bf8f02d4243dafed0bc18f8765bd02b0532b1df0ce34a7488706b1.png
-      artifact_sha256: 5d2a36f9a5dd3138f62c4fb10477021150d0f5c3f62fe3a469b7f98c5d0e3c20
-      candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-      candidate_id: combined
-      modeled_evaluation_sha256: 560844b2f193c1462c9acc3c234dd3827474aff4f68cf80dd9e8ec69d7e426b1
-      segment_id: s05_ppa_not_wire
-      validation_compiler_implementation_sha256: 08c25a9f6c35df0228f369280aecb3e4b026db7af9ca949917a492c5069306e6
-      viewport_id: 844x390
-    - artifact_path: course/acceptance_evidence/occupancy/378c6308595ac9aba4575af42acd9e867142a4a9cf58fc3d424821e08081ffb0.png
-      artifact_sha256: 5c5ba8216244f69b3f3e3bfe731e7e856e4adc2d2452d8363f21e51e5f3a9bf8
-      candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-      candidate_id: combined
-      modeled_evaluation_sha256: b97d5509ec9c9fc9d41e59e9538b8799ed730082a06d7fce5a82cd50ceca2923
-      segment_id: s05_ppa_not_wire
-      validation_compiler_implementation_sha256: 08c25a9f6c35df0228f369280aecb3e4b026db7af9ca949917a492c5069306e6
-      viewport_id: 390x844
-    - artifact_path: course/acceptance_evidence/occupancy/0e22f3b8a54346623cfd245f434f5c35c51c10ba23f5f4ac4ffd2437223c54e7.png
-      artifact_sha256: 0ef8481df128af96699c2887c859e336a68832c60926a12b7dd6f6ebf86f7bf4
-      candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-      candidate_id: combined
-      modeled_evaluation_sha256: d48619e84f73fc4f3290d15f9e52437aa1a738e5911ee4d94ffd7f89a1d178c4
-      segment_id: s07_building_power_train
-      validation_compiler_implementation_sha256: 08c25a9f6c35df0228f369280aecb3e4b026db7af9ca949917a492c5069306e6
-      viewport_id: 1920x1080
-    - artifact_path: course/acceptance_evidence/occupancy/f943764ceec282abe6d4283286178866dbe0afa75e068eb6dc4d0975d8bb43fb.png
-      artifact_sha256: bf78ec73b6c20075e0d5d4dcaa0c40cbc66211e80676f145b05351b8d7a93af6
-      candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-      candidate_id: combined
-      modeled_evaluation_sha256: 8696156b2a865d991d4313811939a44355d320a52017a043ed879f0a931c50be
-      segment_id: s07_building_power_train
-      validation_compiler_implementation_sha256: 08c25a9f6c35df0228f369280aecb3e4b026db7af9ca949917a492c5069306e6
-      viewport_id: 1440x900
-    - artifact_path: course/acceptance_evidence/occupancy/754852e58f7203cfff6337e4a415a5d0b7196af1486e5da23694fb9dd388da96.png
-      artifact_sha256: df4a8b2ead43ce0e40f6aa6af5f494151acb5733ca9836de5e58adac0e76e40d
-      candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-      candidate_id: combined
-      modeled_evaluation_sha256: b41629d429d3405759c1867829628ad113839443df9ea372302a1494e5d123e1
-      segment_id: s07_building_power_train
-      validation_compiler_implementation_sha256: 08c25a9f6c35df0228f369280aecb3e4b026db7af9ca949917a492c5069306e6
-      viewport_id: 844x390
-    - artifact_path: course/acceptance_evidence/occupancy/70ed2af2c8469f1743bd0b145d2e9af9513c221c40f897077302ca948d7813e9.png
-      artifact_sha256: 3657a4ff29b8b1bcbc2e1f5c2eb19cc97daaf71818a01c76bee2a3d45dca622a
-      candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-      candidate_id: combined
-      modeled_evaluation_sha256: 19e29fa081763de338822e95370638e0bf6ef61b537b179e326ef9cdeacf8f9f
-      segment_id: s08_rack_voltage_descent
-      validation_compiler_implementation_sha256: 08c25a9f6c35df0228f369280aecb3e4b026db7af9ca949917a492c5069306e6
-      viewport_id: 844x390
-    - artifact_path: course/acceptance_evidence/occupancy/028dcbd2a04ce1a2994a475030619765a560e69c61766d38fa968ffecbb0b7df.png
-      artifact_sha256: 085476b9cd49b63672ebc028ee34f0068cf6ddd1763b021af8332d2b7df09a96
-      candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-      candidate_id: combined
-      modeled_evaluation_sha256: 97d1acc1b4362ec6dd50a994dea76fc78321929d003f5c93b1d26688807e5d72
-      segment_id: s09_watt_becomes_heat
-      validation_compiler_implementation_sha256: 08c25a9f6c35df0228f369280aecb3e4b026db7af9ca949917a492c5069306e6
-      viewport_id: 1920x1080
-    - artifact_path: course/acceptance_evidence/occupancy/3c6249a81e83849343729c8db5b3fd8caf367c9fbcf57323501acccc01381ca9.png
-      artifact_sha256: cfcfe7e78de448f761db6e514de3199f48757db25ec43d2131337ebec655a926
-      candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-      candidate_id: combined
-      modeled_evaluation_sha256: 29ec4403c56374ebe7d35d4b724395ea46451072a425e1a6ede092c1c5345e55
-      segment_id: s09_watt_becomes_heat
-      validation_compiler_implementation_sha256: 08c25a9f6c35df0228f369280aecb3e4b026db7af9ca949917a492c5069306e6
-      viewport_id: 1440x900
-    - artifact_path: course/acceptance_evidence/occupancy/b4c9fde83dc41ce53d86ef5155f1d2c323ccc9e817f5640266adccb9a5d73e98.png
-      artifact_sha256: 8b95271f2f96e852db4230bdceda65dfec40526a6aca0b79ffdbbd52ea97abdc
-      candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-      candidate_id: combined
-      modeled_evaluation_sha256: 067f5f0b40a4e6b931a72573f4ddfff2679456403a7807e87e50fce5e7b66dd3
-      segment_id: s09_watt_becomes_heat
-      validation_compiler_implementation_sha256: 08c25a9f6c35df0228f369280aecb3e4b026db7af9ca949917a492c5069306e6
-      viewport_id: 1024x768
-    - artifact_path: course/acceptance_evidence/occupancy/01a9d7f78b761c0d6b0e87d2a43acfdcb6da3612cf0042c2347e6a2b7cf15dad.png
-      artifact_sha256: 2419e7768a8bdab3617f436356cbaf28e27c1c6aac16f5c9e9ee5a81c4935790
-      candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-      candidate_id: combined
-      modeled_evaluation_sha256: fa5543fde1c0c02bf82d45aa5ec3a162052610367950d6ae156114b3f876f60d
-      segment_id: s14_facility_heat_rejection
-      validation_compiler_implementation_sha256: 08c25a9f6c35df0228f369280aecb3e4b026db7af9ca949917a492c5069306e6
-      viewport_id: 844x390
-    - artifact_path: course/acceptance_evidence/occupancy/33aec6b10f3d27f06b97a437c3026da8039cad3590688f3574e26d8df9a85e92.png
-      artifact_sha256: 9ce1efa1f168c64cdb60d6d2f85aa637c3b59c8f5f97420935dca160465d4e3c
-      candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-      candidate_id: combined
-      modeled_evaluation_sha256: 4585e76cdba2fe06398b92fb264cae9f6e2b08a55d3e7d18d20f8df0057e5058
-      segment_id: s15_water_accounting
-      validation_compiler_implementation_sha256: 08c25a9f6c35df0228f369280aecb3e4b026db7af9ca949917a492c5069306e6
-      viewport_id: 844x390
-    - artifact_path: course/acceptance_evidence/occupancy/e5af14d0f762026b3d3a4fa45e0cb3eda6c36ce89bae080be9a70b8c0999a045.png
-      artifact_sha256: 66ec686c65abb842f9e7cc13fed63cdf507b80189544a8ffefeac6f99801b382
-      candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-      candidate_id: combined
-      modeled_evaluation_sha256: 1de210110a83b371abe0019253d59e67e6342794107d32a50d2744afd206a146
-      segment_id: s16_close_atmosphere
-      validation_compiler_implementation_sha256: 08c25a9f6c35df0228f369280aecb3e4b026db7af9ca949917a492c5069306e6
-      viewport_id: 844x390
+  captures: []
 
 occupancy_reviews:
   - candidate_id: experiment_control
-    candidate_provenance_sha256: f8feaae36b4afa1aee65649ed4600664fafac3ee9d441e7fc66b2d5ec829827b
+    candidate_provenance_sha256: e6a762144de81b5c838b8437c3cf30273693b663ff01f0cc12dbd9e22aeece4d
     reviews:
       - segment_id: s02_generator_terminal
         viewport_id: 844x390
@@ -1447,7 +1339,7 @@ occupancy_reviews:
         modeled_evidence_ref: diagram/course_quality.json#ratchet/experiment_control/layout_gates/occupancy_review/evaluations/s16_close_atmosphere/844x390
         live_review: null
   - candidate_id: labels_only
-    candidate_provenance_sha256: 950eaabf95e5dff0b86d2fec3271bc592085955dbdd5866e84ea7b073dae6a21
+    candidate_provenance_sha256: 949672436b812b65d9d9d691581e0c479211ea2e42b2d26c72926bd9ffffe91e
     reviews:
       - segment_id: s02_generator_terminal
         viewport_id: 844x390
@@ -1567,7 +1459,7 @@ occupancy_reviews:
         modeled_evidence_ref: diagram/course_quality.json#ratchet/challengers/labels_only/layout_gates/occupancy_review/evaluations/s16_close_atmosphere/844x390
         live_review: null
   - candidate_id: annotations_only
-    candidate_provenance_sha256: c1ebe260a3eda11d39fac28a56f6863e2be78c350416c36bdd027029745a53ba
+    candidate_provenance_sha256: b8b21076fa416034c9dd8a9111ecf7fd93e7e6981fcec9d49c96379eb1706cf5
     reviews:
       - segment_id: s02_generator_terminal
         viewport_id: 844x390
@@ -1705,248 +1597,131 @@ occupancy_reviews:
         modeled_evidence_ref: diagram/course_quality.json#ratchet/challengers/annotations_only/layout_gates/occupancy_review/evaluations/s16_close_atmosphere/844x390
         live_review: null
   - candidate_id: combined
-    candidate_provenance_sha256: 72d1d2e20b0cd265212627d86910dbc25c7d6132327e72e3275ed4a59b1e4a19
+    candidate_provenance_sha256: 8f1c9b39f1a1de9907cdd7f7e93f4db873286a5c84f6d293d632660e6db0f743
     reviews:
-    - live_review:
-        artifact_sha256: 0e6f3cb5a7695b1980af8053d66b3cf84c9e204611a1935053f8e29f4aaeecbc
-        candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-        decision: approved
-        evidence_ref: course-quality-evidence://combined/72d1d2e20b0cd265212627d86910dbc25c7d6132327e72e3275ed4a59b1e4a19/live/occupancy_review:s02_generator_terminal:844x390/4b11496a6d97bb60ec3b20a547e6a067c7253400a3c4fc96ee89c915c6248c44
-        modeled_evaluation_sha256: 429a11440cd00018745fe11f66af5f1717dbc7b975ab72a40befaf09fdb97aeb
-        reviewed_at: '2026-08-29T14:10:39-07:00'
-        reviewer_id: codex_live_occupancy_qa
-        validation_compiler_implementation_sha256: 08c25a9f6c35df0228f369280aecb3e4b026db7af9ca949917a492c5069306e6
-      metric_id: three_dimensional.projected_occupancy
-      modeled_evidence_ref: diagram/course_quality.json#ratchet/challengers/combined/layout_gates/occupancy_review/evaluations/s02_generator_terminal/844x390
-      observed_value: 0.045334
-      rationale: The generator-terminal geometry remains legible and correctly sequenced at compact landscape size.
-      risk_flags:
-      - low_projected_occupancy
-      segment_id: s02_generator_terminal
-      status: live_approved
-      viewport_id: 844x390
-    - live_review:
-        artifact_sha256: 5d2a36f9a5dd3138f62c4fb10477021150d0f5c3f62fe3a469b7f98c5d0e3c20
-        candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-        decision: approved
-        evidence_ref: course-quality-evidence://combined/72d1d2e20b0cd265212627d86910dbc25c7d6132327e72e3275ed4a59b1e4a19/live/occupancy_review:s05_ppa_not_wire:844x390/80096628c8a9c58def832565911b3a59cfcdcd7a5f1c8e231b00b5f6dacdfd6c
-        modeled_evaluation_sha256: 560844b2f193c1462c9acc3c234dd3827474aff4f68cf80dd9e8ec69d7e426b1
-        reviewed_at: '2026-08-29T14:10:39-07:00'
-        reviewer_id: codex_live_occupancy_qa
-        validation_compiler_implementation_sha256: 08c25a9f6c35df0228f369280aecb3e4b026db7af9ca949917a492c5069306e6
-      metric_id: two_dimensional.focus_occupancy
-      modeled_evidence_ref: diagram/course_quality.json#ratchet/challengers/combined/layout_gates/occupancy_review/evaluations/s05_ppa_not_wire/844x390
-      observed_value: 0.054326
-      rationale: The contract-versus-wire distinction and numbered focus remain legible without clipping at compact landscape size.
-      risk_flags:
-      - low_focus_occupancy
-      segment_id: s05_ppa_not_wire
-      status: live_approved
-      viewport_id: 844x390
-    - live_review:
-        artifact_sha256: 5c5ba8216244f69b3f3e3bfe731e7e856e4adc2d2452d8363f21e51e5f3a9bf8
-        candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-        decision: approved
-        evidence_ref: course-quality-evidence://combined/72d1d2e20b0cd265212627d86910dbc25c7d6132327e72e3275ed4a59b1e4a19/live/occupancy_review:s05_ppa_not_wire:390x844/bb5bd68281cec23e75dd4634f72c2c15b29006d71e2284d03142311bf9d0d5f4
-        modeled_evaluation_sha256: b97d5509ec9c9fc9d41e59e9538b8799ed730082a06d7fce5a82cd50ceca2923
-        reviewed_at: '2026-08-29T14:10:39-07:00'
-        reviewer_id: codex_live_occupancy_qa
-        validation_compiler_implementation_sha256: 08c25a9f6c35df0228f369280aecb3e4b026db7af9ca949917a492c5069306e6
-      metric_id: two_dimensional.focus_occupancy
-      modeled_evidence_ref: diagram/course_quality.json#ratchet/challengers/combined/layout_gates/occupancy_review/evaluations/s05_ppa_not_wire/390x844
-      observed_value: 0.055119
-      rationale: The portrait composition preserves the PPA distinction, focus hierarchy, and wrapped supporting copy without overflow.
-      risk_flags:
-      - low_focus_occupancy
-      segment_id: s05_ppa_not_wire
-      status: live_approved
-      viewport_id: 390x844
-    - live_review:
-        artifact_sha256: 0ef8481df128af96699c2887c859e336a68832c60926a12b7dd6f6ebf86f7bf4
-        candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-        decision: approved
-        evidence_ref: course-quality-evidence://combined/72d1d2e20b0cd265212627d86910dbc25c7d6132327e72e3275ed4a59b1e4a19/live/occupancy_review:s07_building_power_train:1920x1080/bf0a3664e0ec815e863871399a552b389469d33ceaed874de795aeba59c6e390
-        modeled_evaluation_sha256: d48619e84f73fc4f3290d15f9e52437aa1a738e5911ee4d94ffd7f89a1d178c4
-        reviewed_at: '2026-08-29T14:10:39-07:00'
-        reviewer_id: codex_live_occupancy_qa
-        validation_compiler_implementation_sha256: 08c25a9f6c35df0228f369280aecb3e4b026db7af9ca949917a492c5069306e6
-      metric_id: three_dimensional.projected_occupancy
-      modeled_evidence_ref: diagram/course_quality.json#ratchet/challengers/combined/layout_gates/occupancy_review/evaluations/s07_building_power_train/1920x1080
-      observed_value: 0.071092
-      rationale: The long power-train composition preserves an intentional overview with clear active-path hierarchy at wide desktop size.
-      risk_flags:
-      - low_projected_occupancy
-      segment_id: s07_building_power_train
-      status: live_approved
-      viewport_id: 1920x1080
-    - live_review:
-        artifact_sha256: bf78ec73b6c20075e0d5d4dcaa0c40cbc66211e80676f145b05351b8d7a93af6
-        candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-        decision: approved
-        evidence_ref: course-quality-evidence://combined/72d1d2e20b0cd265212627d86910dbc25c7d6132327e72e3275ed4a59b1e4a19/live/occupancy_review:s07_building_power_train:1440x900/9c7c930ef9c36e9d293d0193b47c6023a0f6255f2242e7de754ac851323de370
-        modeled_evaluation_sha256: 8696156b2a865d991d4313811939a44355d320a52017a043ed879f0a931c50be
-        reviewed_at: '2026-08-29T14:10:39-07:00'
-        reviewer_id: codex_live_occupancy_qa
-        validation_compiler_implementation_sha256: 08c25a9f6c35df0228f369280aecb3e4b026db7af9ca949917a492c5069306e6
-      metric_id: three_dimensional.projected_occupancy
-      modeled_evidence_ref: diagram/course_quality.json#ratchet/challengers/combined/layout_gates/occupancy_review/evaluations/s07_building_power_train/1440x900
-      observed_value: 0.078293
-      rationale: The long power-train composition remains balanced and legible at desktop size.
-      risk_flags:
-      - low_projected_occupancy
-      segment_id: s07_building_power_train
-      status: live_approved
-      viewport_id: 1440x900
-    - live_review:
-        artifact_sha256: df4a8b2ead43ce0e40f6aa6af5f494151acb5733ca9836de5e58adac0e76e40d
-        candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-        decision: approved
-        evidence_ref: course-quality-evidence://combined/72d1d2e20b0cd265212627d86910dbc25c7d6132327e72e3275ed4a59b1e4a19/live/occupancy_review:s07_building_power_train:844x390/cad7d17129d0e5351a2a98b1a7eb7dbb29652a1ec2c2dbbaf49c1fb90a712d39
-        modeled_evaluation_sha256: b41629d429d3405759c1867829628ad113839443df9ea372302a1494e5d123e1
-        reviewed_at: '2026-08-29T14:10:39-07:00'
-        reviewer_id: codex_live_occupancy_qa
-        validation_compiler_implementation_sha256: 08c25a9f6c35df0228f369280aecb3e4b026db7af9ca949917a492c5069306e6
-      metric_id: three_dimensional.projected_occupancy
-      modeled_evidence_ref: diagram/course_quality.json#ratchet/challengers/combined/layout_gates/occupancy_review/evaluations/s07_building_power_train/844x390
-      observed_value: 0.037525
-      rationale: The compact fallback keeps numbered power-train stages readable without label collisions or clipping.
-      risk_flags:
-      - low_projected_occupancy
-      segment_id: s07_building_power_train
-      status: live_approved
-      viewport_id: 844x390
-    - live_review:
-        artifact_sha256: 3657a4ff29b8b1bcbc2e1f5c2eb19cc97daaf71818a01c76bee2a3d45dca622a
-        candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-        decision: approved
-        evidence_ref: course-quality-evidence://combined/72d1d2e20b0cd265212627d86910dbc25c7d6132327e72e3275ed4a59b1e4a19/live/occupancy_review:s08_rack_voltage_descent:844x390/e7a3871f038ca568ba072b3320929f477e9cab4eea83f50e201ab7f37b7ff615
-        modeled_evaluation_sha256: 19e29fa081763de338822e95370638e0bf6ef61b537b179e326ef9cdeacf8f9f
-        reviewed_at: '2026-08-29T14:10:39-07:00'
-        reviewer_id: codex_live_occupancy_qa
-        validation_compiler_implementation_sha256: 08c25a9f6c35df0228f369280aecb3e4b026db7af9ca949917a492c5069306e6
-      metric_id: three_dimensional.projected_occupancy
-      modeled_evidence_ref: diagram/course_quality.json#ratchet/challengers/combined/layout_gates/occupancy_review/evaluations/s08_rack_voltage_descent/844x390
-      observed_value: 0.059468
-      rationale: The compact rack-voltage descent retains readable numbered stages and clear directional hierarchy.
-      risk_flags:
-      - low_projected_occupancy
-      segment_id: s08_rack_voltage_descent
-      status: live_approved
-      viewport_id: 844x390
-    - live_review:
-        artifact_sha256: 085476b9cd49b63672ebc028ee34f0068cf6ddd1763b021af8332d2b7df09a96
-        candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-        decision: approved
-        evidence_ref: course-quality-evidence://combined/72d1d2e20b0cd265212627d86910dbc25c7d6132327e72e3275ed4a59b1e4a19/live/occupancy_review:s09_watt_becomes_heat:1920x1080/27f7f0b24b1146cdaaa6c560297512bb2ba50fa8dff0b5435f6c055b41534fd4
-        modeled_evaluation_sha256: 97d1acc1b4362ec6dd50a994dea76fc78321929d003f5c93b1d26688807e5d72
-        reviewed_at: '2026-08-29T14:10:39-07:00'
-        reviewer_id: codex_live_occupancy_qa
-        validation_compiler_implementation_sha256: 08c25a9f6c35df0228f369280aecb3e4b026db7af9ca949917a492c5069306e6
-      metric_id: two_dimensional.focus_occupancy
-      modeled_evidence_ref: diagram/course_quality.json#ratchet/challengers/combined/layout_gates/occupancy_review/evaluations/s09_watt_becomes_heat/1920x1080
-      observed_value: 0.024232
-      rationale: The authored die-to-cold-plate handoff remains visually balanced and legible despite intentionally low focal occupancy.
-      risk_flags:
-      - low_focus_occupancy
-      segment_id: s09_watt_becomes_heat
-      status: live_approved
-      viewport_id: 1920x1080
-    - live_review:
-        artifact_sha256: cfcfe7e78de448f761db6e514de3199f48757db25ec43d2131337ebec655a926
-        candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-        decision: approved
-        evidence_ref: course-quality-evidence://combined/72d1d2e20b0cd265212627d86910dbc25c7d6132327e72e3275ed4a59b1e4a19/live/occupancy_review:s09_watt_becomes_heat:1440x900/4c16371dd2f4adf2be95de95f230438a4d134fa75aaa6cdfb8b0508dbf6e9dac
-        modeled_evaluation_sha256: 29ec4403c56374ebe7d35d4b724395ea46451072a425e1a6ede092c1c5345e55
-        reviewed_at: '2026-08-29T14:10:39-07:00'
-        reviewer_id: codex_live_occupancy_qa
-        validation_compiler_implementation_sha256: 08c25a9f6c35df0228f369280aecb3e4b026db7af9ca949917a492c5069306e6
-      metric_id: two_dimensional.focus_occupancy
-      modeled_evidence_ref: diagram/course_quality.json#ratchet/challengers/combined/layout_gates/occupancy_review/evaluations/s09_watt_becomes_heat/1440x900
-      observed_value: 0.025981
-      rationale: The die-to-cold-plate handoff remains clear and balanced at desktop size.
-      risk_flags:
-      - low_focus_occupancy
-      segment_id: s09_watt_becomes_heat
-      status: live_approved
-      viewport_id: 1440x900
-    - live_review:
-        artifact_sha256: 8b95271f2f96e852db4230bdceda65dfec40526a6aca0b79ffdbbd52ea97abdc
-        candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-        decision: approved
-        evidence_ref: course-quality-evidence://combined/72d1d2e20b0cd265212627d86910dbc25c7d6132327e72e3275ed4a59b1e4a19/live/occupancy_review:s09_watt_becomes_heat:1024x768/3600ad3053074ecce1e8f951977492641dc53f86f1524bcef282f3599446fd8c
-        modeled_evaluation_sha256: 067f5f0b40a4e6b931a72573f4ddfff2679456403a7807e87e50fce5e7b66dd3
-        reviewed_at: '2026-08-29T14:10:39-07:00'
-        reviewer_id: codex_live_occupancy_qa
-        validation_compiler_implementation_sha256: 08c25a9f6c35df0228f369280aecb3e4b026db7af9ca949917a492c5069306e6
-      metric_id: two_dimensional.focus_occupancy
-      modeled_evidence_ref: diagram/course_quality.json#ratchet/challengers/combined/layout_gates/occupancy_review/evaluations/s09_watt_becomes_heat/1024x768
-      observed_value: 0.023201
-      rationale: The tablet composition preserves the two-object handoff and its labels without clipping or collision.
-      risk_flags:
-      - low_focus_occupancy
-      segment_id: s09_watt_becomes_heat
-      status: live_approved
-      viewport_id: 1024x768
-    - live_review:
-        artifact_sha256: 2419e7768a8bdab3617f436356cbaf28e27c1c6aac16f5c9e9ee5a81c4935790
-        candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-        decision: approved
-        evidence_ref: course-quality-evidence://combined/72d1d2e20b0cd265212627d86910dbc25c7d6132327e72e3275ed4a59b1e4a19/live/occupancy_review:s14_facility_heat_rejection:844x390/2739755a989f79f68554a17e46c790cf18bdfa6e205213c12a06dd0fa73c4149
-        modeled_evaluation_sha256: fa5543fde1c0c02bf82d45aa5ec3a162052610367950d6ae156114b3f876f60d
-        reviewed_at: '2026-08-29T14:10:39-07:00'
-        reviewer_id: codex_live_occupancy_qa
-        validation_compiler_implementation_sha256: 08c25a9f6c35df0228f369280aecb3e4b026db7af9ca949917a492c5069306e6
-      metric_id: three_dimensional.projected_occupancy
-      modeled_evidence_ref: diagram/course_quality.json#ratchet/challengers/combined/layout_gates/occupancy_review/evaluations/s14_facility_heat_rejection/844x390
-      observed_value: 0.063922
-      rationale: The compact facility heat-rejection path remains legible with clear numbered sequencing.
-      risk_flags:
-      - low_projected_occupancy
-      segment_id: s14_facility_heat_rejection
-      status: live_approved
-      viewport_id: 844x390
-    - live_review:
-        artifact_sha256: 9ce1efa1f168c64cdb60d6d2f85aa637c3b59c8f5f97420935dca160465d4e3c
-        candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-        decision: approved
-        evidence_ref: course-quality-evidence://combined/72d1d2e20b0cd265212627d86910dbc25c7d6132327e72e3275ed4a59b1e4a19/live/occupancy_review:s15_water_accounting:844x390/34b3ad9a5976575f0401f4e66699793730bc78b7b18bfade0744e9ac56cca7ea
-        modeled_evaluation_sha256: 4585e76cdba2fe06398b92fb264cae9f6e2b08a55d3e7d18d20f8df0057e5058
-        reviewed_at: '2026-08-29T14:10:39-07:00'
-        reviewer_id: codex_live_occupancy_qa
-        validation_compiler_implementation_sha256: 08c25a9f6c35df0228f369280aecb3e4b026db7af9ca949917a492c5069306e6
-      metric_id: three_dimensional.projected_occupancy
-      modeled_evidence_ref: diagram/course_quality.json#ratchet/challengers/combined/layout_gates/occupancy_review/evaluations/s15_water_accounting/844x390
-      observed_value: 0.075666
-      rationale: The compact water-accounting view preserves the three relevant stages and readable hierarchy without overflow.
-      risk_flags:
-      - low_projected_occupancy
-      segment_id: s15_water_accounting
-      status: live_approved
-      viewport_id: 844x390
-    - live_review:
-        artifact_sha256: 66ec686c65abb842f9e7cc13fed63cdf507b80189544a8ffefeac6f99801b382
-        candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-        decision: approved
-        evidence_ref: course-quality-evidence://combined/72d1d2e20b0cd265212627d86910dbc25c7d6132327e72e3275ed4a59b1e4a19/live/occupancy_review:s16_close_atmosphere:844x390/782ea03c45dbc0ee8d3d5a49c457b913ae013043af21403a23c8aff7a0873373
-        modeled_evaluation_sha256: 1de210110a83b371abe0019253d59e67e6342794107d32a50d2744afd206a146
-        reviewed_at: '2026-08-29T14:10:39-07:00'
-        reviewer_id: codex_live_occupancy_qa
-        validation_compiler_implementation_sha256: 08c25a9f6c35df0228f369280aecb3e4b026db7af9ca949917a492c5069306e6
-      metric_id: three_dimensional.projected_occupancy
-      modeled_evidence_ref: diagram/course_quality.json#ratchet/challengers/combined/layout_gates/occupancy_review/evaluations/s16_close_atmosphere/844x390
-      observed_value: 0.079327
-      rationale: The compact closed-loop synthesis keeps all nine numbered markers readable without clipping or collision.
-      risk_flags:
-      - low_projected_occupancy
-      segment_id: s16_close_atmosphere
-      status: live_approved
-      viewport_id: 844x390
+      - segment_id: s02_generator_terminal
+        viewport_id: 844x390
+        risk_flags: [low_projected_occupancy]
+        status: unresolved
+        metric_id: three_dimensional.projected_occupancy
+        observed_value: 0.045334
+        rationale: Static projected occupancy is 0.045334, below the 0.08 review threshold. The compact generator-terminal geometry passes modeled clipping, stroke, and label gates; live scale and hierarchy remain unreviewed.
+        modeled_evidence_ref: diagram/course_quality.json#ratchet/challengers/combined/layout_gates/occupancy_review/evaluations/s02_generator_terminal/844x390
+        live_review: null
+      - segment_id: s05_ppa_not_wire
+        viewport_id: 844x390
+        risk_flags: [low_focus_occupancy]
+        status: unresolved
+        metric_id: two_dimensional.focus_occupancy
+        observed_value: 0.054326
+        rationale: Static focus occupancy is 0.054326, below the 0.08 review threshold. The label-aware frame preserves the contract-versus-wire copy, but live composition remains unreviewed.
+        modeled_evidence_ref: diagram/course_quality.json#ratchet/challengers/combined/layout_gates/occupancy_review/evaluations/s05_ppa_not_wire/844x390
+        live_review: null
+      - segment_id: s05_ppa_not_wire
+        viewport_id: 390x844
+        risk_flags: [low_focus_occupancy]
+        status: unresolved
+        metric_id: two_dimensional.focus_occupancy
+        observed_value: 0.055119
+        rationale: Static focus occupancy is 0.055119, below the 0.08 review threshold. The label-aware frame preserves the contract-versus-wire copy, but live portrait composition remains unreviewed.
+        modeled_evidence_ref: diagram/course_quality.json#ratchet/challengers/combined/layout_gates/occupancy_review/evaluations/s05_ppa_not_wire/390x844
+        live_review: null
+      - segment_id: s07_building_power_train
+        viewport_id: 1920x1080
+        risk_flags: [low_projected_occupancy]
+        status: unresolved
+        metric_id: three_dimensional.projected_occupancy
+        observed_value: 0.071092
+        rationale: Static projected occupancy is 0.071092, below the 0.08 review threshold. The long power-train geometry passes modeled clipping and label gates; live scale and hierarchy remain unreviewed.
+        modeled_evidence_ref: diagram/course_quality.json#ratchet/challengers/combined/layout_gates/occupancy_review/evaluations/s07_building_power_train/1920x1080
+        live_review: null
+      - segment_id: s07_building_power_train
+        viewport_id: 1440x900
+        risk_flags: [low_projected_occupancy]
+        status: unresolved
+        metric_id: three_dimensional.projected_occupancy
+        observed_value: 0.078293
+        rationale: Static projected occupancy is 0.078293, below the 0.08 review threshold. The long power-train geometry passes modeled clipping and label gates; live scale and hierarchy remain unreviewed.
+        modeled_evidence_ref: diagram/course_quality.json#ratchet/challengers/combined/layout_gates/occupancy_review/evaluations/s07_building_power_train/1440x900
+        live_review: null
+      - segment_id: s07_building_power_train
+        viewport_id: 844x390
+        risk_flags: [low_projected_occupancy]
+        status: unresolved
+        metric_id: three_dimensional.projected_occupancy
+        observed_value: 0.037525
+        rationale: Static projected occupancy is 0.037525, below the 0.08 review threshold. The compact fallback passes the static model; live legibility and camera composition remain unreviewed.
+        modeled_evidence_ref: diagram/course_quality.json#ratchet/challengers/combined/layout_gates/occupancy_review/evaluations/s07_building_power_train/844x390
+        live_review: null
+      - segment_id: s08_rack_voltage_descent
+        viewport_id: 844x390
+        risk_flags: [low_projected_occupancy]
+        status: unresolved
+        metric_id: three_dimensional.projected_occupancy
+        observed_value: 0.059468
+        rationale: Static projected occupancy is 0.059468, below the 0.08 review threshold. The compact rack-voltage geometry passes modeled clipping, stroke, and label gates; live scale and hierarchy remain unreviewed.
+        modeled_evidence_ref: diagram/course_quality.json#ratchet/challengers/combined/layout_gates/occupancy_review/evaluations/s08_rack_voltage_descent/844x390
+        live_review: null
+      - segment_id: s09_watt_becomes_heat
+        viewport_id: 1920x1080
+        risk_flags: [low_focus_occupancy]
+        status: unresolved
+        metric_id: two_dimensional.focus_occupancy
+        observed_value: 0.024232
+        rationale: Static focus occupancy is 0.024232, below the 0.08 review threshold. The authored two-object handoff and semantic overlay pass static gates; live balance and hierarchy remain unreviewed.
+        modeled_evidence_ref: diagram/course_quality.json#ratchet/challengers/combined/layout_gates/occupancy_review/evaluations/s09_watt_becomes_heat/1920x1080
+        live_review: null
+      - segment_id: s09_watt_becomes_heat
+        viewport_id: 1440x900
+        risk_flags: [low_focus_occupancy]
+        status: unresolved
+        metric_id: two_dimensional.focus_occupancy
+        observed_value: 0.025981
+        rationale: Static focus occupancy is 0.025981, below the 0.08 review threshold. The authored two-object handoff and semantic overlay pass static gates; live balance and hierarchy remain unreviewed.
+        modeled_evidence_ref: diagram/course_quality.json#ratchet/challengers/combined/layout_gates/occupancy_review/evaluations/s09_watt_becomes_heat/1440x900
+        live_review: null
+      - segment_id: s09_watt_becomes_heat
+        viewport_id: 1024x768
+        risk_flags: [low_focus_occupancy]
+        status: unresolved
+        metric_id: two_dimensional.focus_occupancy
+        observed_value: 0.023201
+        rationale: Static focus occupancy is 0.023201, below the 0.08 review threshold. The authored two-object handoff and semantic overlay pass static gates; live balance and hierarchy remain unreviewed.
+        modeled_evidence_ref: diagram/course_quality.json#ratchet/challengers/combined/layout_gates/occupancy_review/evaluations/s09_watt_becomes_heat/1024x768
+        live_review: null
+      - segment_id: s14_facility_heat_rejection
+        viewport_id: 844x390
+        risk_flags: [low_projected_occupancy]
+        status: unresolved
+        metric_id: three_dimensional.projected_occupancy
+        observed_value: 0.063922
+        rationale: Static projected occupancy is 0.063922, below the 0.08 review threshold. The terminal rejection geometry passes modeled gates; live scale and continuity remain unreviewed.
+        modeled_evidence_ref: diagram/course_quality.json#ratchet/challengers/combined/layout_gates/occupancy_review/evaluations/s14_facility_heat_rejection/844x390
+        live_review: null
+      - segment_id: s15_water_accounting
+        viewport_id: 844x390
+        risk_flags: [low_projected_occupancy]
+        status: unresolved
+        metric_id: three_dimensional.projected_occupancy
+        observed_value: 0.075666
+        rationale: Static projected occupancy is 0.075666, below the 0.08 review threshold. The compact water-accounting geometry passes modeled clipping, stroke, and label gates; live scale and hierarchy remain unreviewed.
+        modeled_evidence_ref: diagram/course_quality.json#ratchet/challengers/combined/layout_gates/occupancy_review/evaluations/s15_water_accounting/844x390
+        live_review: null
+      - segment_id: s16_close_atmosphere
+        viewport_id: 844x390
+        risk_flags: [low_projected_occupancy]
+        status: unresolved
+        metric_id: three_dimensional.projected_occupancy
+        observed_value: 0.079327
+        rationale: Static projected occupancy is 0.079327, below the 0.08 review threshold. The compact closed-loop synthesis passes modeled clipping, stroke, and label gates; live scale and hierarchy remain unreviewed.
+        modeled_evidence_ref: diagram/course_quality.json#ratchet/challengers/combined/layout_gates/occupancy_review/evaluations/s16_close_atmosphere/844x390
+        live_review: null
 
 acceptance:
   modeled_eligibility_only: true
   candidates:
     - candidate_id: labels_only
-      candidate_provenance_sha256: 950eaabf95e5dff0b86d2fec3271bc592085955dbdd5866e84ea7b073dae6a21
+      candidate_provenance_sha256: 949672436b812b65d9d9d691581e0c479211ea2e42b2d26c72926bd9ffffe91e
       static_gate_evidence:
         validation:
           status: pending
@@ -2005,7 +1780,7 @@ acceptance:
           evidence: null
           reason: No historical frozen-champion viewport capture set is available.
     - candidate_id: annotations_only
-      candidate_provenance_sha256: c1ebe260a3eda11d39fac28a56f6863e2be78c350416c36bdd027029745a53ba
+      candidate_provenance_sha256: b8b21076fa416034c9dd8a9111ecf7fd93e7e6981fcec9d49c96379eb1706cf5
       static_gate_evidence:
         validation:
           status: pending
@@ -2064,205 +1839,61 @@ acceptance:
           evidence: null
           reason: No historical frozen-champion viewport capture set is available.
     - candidate_id: combined
-      candidate_provenance_sha256: 72d1d2e20b0cd265212627d86910dbc25c7d6132327e72e3275ed4a59b1e4a19
+      candidate_provenance_sha256: 8f1c9b39f1a1de9907cdd7f7e93f4db873286a5c84f6d293d632660e6db0f743
       static_gate_evidence:
         validation:
-          evidence:
-            candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-            candidate_id: combined
-            candidate_provenance_sha256: 72d1d2e20b0cd265212627d86910dbc25c7d6132327e72e3275ed4a59b1e4a19
-            command: uv run gigawatt-validate
-            exit_code: 0
-            modeled_quality_output_sha256: fae6c3fb1eeb05ba93047d7199b9ecfbcf3af5f23cc2d0ff4974a75be6781bae
-            report_artifact_sha256: 97d368023d63c0297eecf75cdf016e3e684faf08f4f9806d5b3b98e06390185e
-            runtime_output_sha256: a1d1dc0fd0d6ffed57bb6bcb646a3c51cc87da0d946ed40a3fa3edb9a077f858
-            source_digest_sha256: 407277f9e170254051393046bcfb6f43caa25ce09a665d3d7020ac764f127d04
-            validation_compiler_implementation_sha256: 08c25a9f6c35df0228f369280aecb3e4b026db7af9ca949917a492c5069306e6
-          evidence_ref: course-quality-evidence://combined/72d1d2e20b0cd265212627d86910dbc25c7d6132327e72e3275ed4a59b1e4a19/static/validation/6ca29d72343067415f3d9a385aa1f3e1e73279b07f11ffc59575c7a07ad5e09b
-          status: passed
-          reason: Canonical candidate-bound validation passed with zero errors.
+          status: pending
+          evidence_ref: null
+          evidence: null
+          reason: No candidate-bound validation run has been ingested.
         deterministic_generation:
-          evidence:
-            artifact_count: 16
-            artifact_ids:
-            - course/INSTRUCTOR_PACKET.md
-            - diagram/camera_system_orientation.svg
-            - diagram/camera_watt_heat_handoff.svg
-            - diagram/course.html
-            - diagram/course_dependency_graph.json
-            - diagram/course_quality.json
-            - diagram/course_runtime.json
-            - diagram/hybrid.html
-            - diagram/map_watt_heat_handoff.svg
-            - diagram/master.svg
-            - diagram/mock_wide.svg
-            - diagram/mock_zoom.svg
-            - diagram/planned_shots.html
-            - diagram/planned_shots.json
-            - diagram/s10_two_rack_heat_paths.html
-            - diagram/symbols.svg
-            artifact_inventory_sha256: 7e1a27f74f9c662092fcdb8b709f7a5e9a650de18a23c8ad43d68f20836d37a1
-            artifact_set_sha256: 353fe8829c8750d8d86d620cfcb13cbd4604fa742bc24bc705b0c6831486dbb4
-            candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-            candidate_id: combined
-            candidate_provenance_sha256: 72d1d2e20b0cd265212627d86910dbc25c7d6132327e72e3275ed4a59b1e4a19
-            command: uv run gigawatt-quality
-            mismatch_count: 0
-            report_artifact_sha256: 5646edd34a7878f5953a6f3faa4d2558e57f6c3213bfc06f3c65e8d1ae67e004
-            seeds:
-            - 1
-            - 7
-            - 777
-            validation_compiler_implementation_sha256: 08c25a9f6c35df0228f369280aecb3e4b026db7af9ca949917a492c5069306e6
-          evidence_ref: course-quality-evidence://combined/72d1d2e20b0cd265212627d86910dbc25c7d6132327e72e3275ed4a59b1e4a19/static/deterministic_generation/708ecacf1a641efb83da3f49669a3a72aa9588785408b4ef99fa33a89e567968
-          status: passed
-          reason: All sixteen generated artifacts were byte-stable across seeds 1, 7, and 777.
+          status: pending
+          evidence_ref: null
+          evidence: null
+          reason: No candidate-bound multi-seed generation report has been ingested.
         evidence:
-          evidence:
-            candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-            candidate_id: combined
-            candidate_provenance_sha256: 72d1d2e20b0cd265212627d86910dbc25c7d6132327e72e3275ed4a59b1e4a19
-            evidence_inventory_sha256: c0d225ff13bec7690f1cd6936d95b5fa1eacda6bfe28e7c27e704c97e8e79cd9
-            fact_count: 184
-            ledger_count: 7
-            ledger_ids:
-            - abilene
-            - abilene_execution
-            - commercial_compute
-            - commercial_energy
-            - delivery_resilience
-            - electrical_engineering
-            - thermal_engineering
-            report_artifact_sha256: dbe0a7222024c4c9ae6c13e7e58d0723ad0daf18df23f5004bfe3e9b63a51e70
-            source_count: 71
-            validation_compiler_implementation_sha256: 08c25a9f6c35df0228f369280aecb3e4b026db7af9ca949917a492c5069306e6
-            validation_error_count: 0
-          evidence_ref: course-quality-evidence://combined/72d1d2e20b0cd265212627d86910dbc25c7d6132327e72e3275ed4a59b1e4a19/static/evidence/38708ced8eb224a1f94a47d9436758fedaa10bae60d3e11edc62184b53ada531
-          status: passed
-          reason: All seven evidence ledgers validated with zero inventory errors.
+          status: pending
+          evidence_ref: null
+          evidence: null
+          reason: No candidate-bound evidence validation report has been ingested.
       live_gate_evidence:
         browser:
-          evidence:
-            artifact_sha256: 95e59bc8774097a546b86cdcd954e92fa4f759f58cb2a45547d494be7046b3af
-            candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-            candidate_id: combined
-            candidate_provenance_sha256: 72d1d2e20b0cd265212627d86910dbc25c7d6132327e72e3275ed4a59b1e4a19
-            defect_count: 0
-            evaluation_count: 130
-            report_artifact_sha256: dfc91a7dc90be385dd3af3374206f749261cd142932caa512aa5608a457bb3ec
-            segment_count: 26
-            validation_compiler_implementation_sha256: 08c25a9f6c35df0228f369280aecb3e4b026db7af9ca949917a492c5069306e6
-            viewport_ids:
-            - 1920x1080
-            - 1440x900
-            - 1024x768
-            - 844x390
-            - 390x844
-          evidence_ref: course-quality-evidence://combined/72d1d2e20b0cd265212627d86910dbc25c7d6132327e72e3275ed4a59b1e4a19/live/browser/2240dbed1aac6c9f377e37f632e31ace0c513d1ea90971da4351091b5d7b764d
-          status: passed
-          reason: The cache-busted 26-segment by 5-viewport live browser matrix completed with zero defects.
+          status: pending
+          evidence_ref: null
+          evidence: null
+          reason: No live browser review is available.
         accessibility_snapshot:
-          evidence:
-            artifact_sha256: 3789b44f388d27cb06ca91051193d3e741b4e2ae297d2ca6d4f783ed1ecf03d9
-            candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-            candidate_id: combined
-            candidate_provenance_sha256: 72d1d2e20b0cd265212627d86910dbc25c7d6132327e72e3275ed4a59b1e4a19
-            report_artifact_sha256: 5fa7d2d0f6cec2fc0a10870460d7fa97abed019eb7b57c681be14084fabbcc06
-            segment_count: 26
-            snapshot_count: 130
-            validation_compiler_implementation_sha256: 08c25a9f6c35df0228f369280aecb3e4b026db7af9ca949917a492c5069306e6
-            viewport_ids:
-            - 1920x1080
-            - 1440x900
-            - 1024x768
-            - 844x390
-            - 390x844
-            violation_count: 0
-          evidence_ref: course-quality-evidence://combined/72d1d2e20b0cd265212627d86910dbc25c7d6132327e72e3275ed4a59b1e4a19/live/accessibility_snapshot/fa373a7900262911c4a86dd9e5050fe5c1c2420149b47a50cbadf873947d8137
-          status: passed
-          reason: All 130 accessibility snapshots completed with zero violations.
+          status: pending
+          evidence_ref: null
+          evidence: null
+          reason: No current accessibility snapshot is available.
       blind_reviews:
-      - reviewer_id: blind_reviewer_1
-        blind: true
-        preference: candidate
-        evidence_ref: course-quality-evidence://combined/72d1d2e20b0cd265212627d86910dbc25c7d6132327e72e3275ed4a59b1e4a19/blind_review/blind_reviewer_1/85d4682526f8b44ac4fa6a67cc15e5108459f03d55eabf63562df2b7a661bbc3
-        evidence:
+        - reviewer_id: blind_reviewer_1
           blind: true
-          candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-          candidate_id: combined
-          candidate_provenance_sha256: 72d1d2e20b0cd265212627d86910dbc25c7d6132327e72e3275ed4a59b1e4a19
-          comparison_artifact_sha256: 83a441fb09d783ff4617a489854555c6a7e50c367760964b63431244fb860b6f
-          preference: candidate
-          report_artifact_sha256: 78798512d963b85901186937a4e07f8d3a65cc74fb061ec45b86c4789388d568
-          reviewer_id: blind_reviewer_1
-          validation_compiler_implementation_sha256: 08c25a9f6c35df0228f369280aecb3e4b026db7af9ca949917a492c5069306e6
-        reason: The sealed pairwise review preferred the candidate in 125 of 130 comparisons after unblinding.
-      - reviewer_id: blind_reviewer_2
-        blind: true
-        preference: candidate
-        evidence_ref: course-quality-evidence://combined/72d1d2e20b0cd265212627d86910dbc25c7d6132327e72e3275ed4a59b1e4a19/blind_review/blind_reviewer_2/14c65726e9d53c566852bf70db4eb3c1bf52ff885ee671d0f1e90f553fa7fbd7
-        evidence:
+          preference: pending
+          evidence_ref: null
+          evidence: null
+          reason: No blind comparison review is available.
+        - reviewer_id: blind_reviewer_2
           blind: true
-          candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-          candidate_id: combined
-          candidate_provenance_sha256: 72d1d2e20b0cd265212627d86910dbc25c7d6132327e72e3275ed4a59b1e4a19
-          comparison_artifact_sha256: 83a441fb09d783ff4617a489854555c6a7e50c367760964b63431244fb860b6f
-          preference: candidate
-          report_artifact_sha256: da843ef28d359e51b58465129f38804e08d9f6fe8d87b95d335c0f5505138f35
-          reviewer_id: blind_reviewer_2
-          validation_compiler_implementation_sha256: 08c25a9f6c35df0228f369280aecb3e4b026db7af9ca949917a492c5069306e6
-        reason: The sealed pairwise review preferred the candidate in 122 of 130 comparisons after unblinding.
-      - reviewer_id: blind_reviewer_3
-        blind: true
-        preference: candidate
-        evidence_ref: course-quality-evidence://combined/72d1d2e20b0cd265212627d86910dbc25c7d6132327e72e3275ed4a59b1e4a19/blind_review/blind_reviewer_3/fd07d3986466120e4170e462c951237fbd48b07f4e995221c550c34956dbb256
-        evidence:
+          preference: pending
+          evidence_ref: null
+          evidence: null
+          reason: No blind comparison review is available.
+        - reviewer_id: blind_reviewer_3
           blind: true
-          candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-          candidate_id: combined
-          candidate_provenance_sha256: 72d1d2e20b0cd265212627d86910dbc25c7d6132327e72e3275ed4a59b1e4a19
-          comparison_artifact_sha256: 83a441fb09d783ff4617a489854555c6a7e50c367760964b63431244fb860b6f
-          preference: candidate
-          report_artifact_sha256: 73e51df106d47ee5dc92cab0888bd6d4ff2de993626f03f67a4eb96987a90a00
-          reviewer_id: blind_reviewer_3
-          validation_compiler_implementation_sha256: 08c25a9f6c35df0228f369280aecb3e4b026db7af9ca949917a492c5069306e6
-        reason: The sealed pairwise review preferred the candidate in 97 comparisons, the champion in 4, with 29 ties after unblinding.
+          preference: pending
+          evidence_ref: null
+          evidence: null
+          reason: No blind comparison review is available.
       final_independent_gate_evidence:
         prerequisite_correctness_repairs:
-          evidence:
-            artifact_sha256: 861c2a934c8c836f8d2223be38eeee7aa494ec7a4487941d27d95b0af61f2cea
-            candidate_base_source_digest_sha256: 407277f9e170254051393046bcfb6f43caa25ce09a665d3d7020ac764f127d04
-            candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-            candidate_id: combined
-            candidate_provenance_sha256: 72d1d2e20b0cd265212627d86910dbc25c7d6132327e72e3275ed4a59b1e4a19
-            repair_scope_ids:
-            - effective-versus-access date correction
-            - conceptual topology posture and exact owner correction
-            - claim locality and source disclosure
-            - accessibility and keyboard repair
-            - rotated geometry bounds and complete generator dependency digest
-            report_artifact_sha256: f90f312485680fdc0b84bd68ff0cdf497f2000befdb17c5bd0ee07434274b75a
-            unresolved_repair_count: 0
-            validation_compiler_implementation_sha256: 08c25a9f6c35df0228f369280aecb3e4b026db7af9ca949917a492c5069306e6
-          evidence_ref: course-quality-evidence://combined/72d1d2e20b0cd265212627d86910dbc25c7d6132327e72e3275ed4a59b1e4a19/final/prerequisite_correctness_repairs/5d2288b1f5bf1f4ba78a809eb82d54f41527f2d2e67574b0d34b50818e086d95
-          status: passed
-          reason: All five prerequisite correctness-repair scopes were independently resolved before evaluating the visual candidate.
+          status: pending
+          evidence_ref: null
+          evidence: null
+          reason: The corrected experiment base still requires separate acceptance.
         historical_frozen_champion_viewport_captures:
-          evidence:
-            candidate_current_state_sha256: db02d34b2367bf4c9623c600d699989ae427b3a5559b9e9064b774c06c9c312d
-            candidate_id: combined
-            candidate_provenance_sha256: 72d1d2e20b0cd265212627d86910dbc25c7d6132327e72e3275ed4a59b1e4a19
-            capture_set_sha256: 881da28897cfce73ea580c171e2782f87dd59d8093d577e3300640da3565704b
-            expected_capture_count: 130
-            report_artifact_sha256: e9b8cd106c53def1d24111942a3e89c2696a848d9a1a7e40f0c033dde7182e81
-            reviewed_capture_count: 130
-            validation_compiler_implementation_sha256: 08c25a9f6c35df0228f369280aecb3e4b026db7af9ca949917a492c5069306e6
-            viewport_ids:
-            - 1920x1080
-            - 1440x900
-            - 1024x768
-            - 844x390
-            - 390x844
-          evidence_ref: course-quality-evidence://combined/72d1d2e20b0cd265212627d86910dbc25c7d6132327e72e3275ed4a59b1e4a19/final/historical_frozen_champion_viewport_captures/db5b3c0b56f5c7e21f66c74f45291bea03e6264fa1aaf35632aae050cd2e1af1
-          status: passed
-          reason: All 130 frozen-champion reference captures were retained, reviewed, and digest-bound.
+          status: pending
+          evidence_ref: null
+          evidence: null
+          reason: No historical frozen-champion viewport capture set is available.

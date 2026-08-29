@@ -132,26 +132,26 @@ produce 13 review frames in 2D context and eight in 3D context. The compiler
 validates exact topology and hidden reveal bundles and lets the reviewer switch
 between each derived frame and its reusable anchor. Browser QA approved all 21
 derived frames in frozen champion
-`9a76191764c9b2d998950069090548439dfc4007` without promoting them into reusable
+`0856a93b78181bec3945168632d141595575800c` without promoting them into reusable
 cameras. That historical result is not browser evidence for the current
-working-tree challengers and was not reused as such; `combined` has its own
-current live browser and accessibility evidence.
+working-tree challengers.
 
-Current compiled challenger statuses
+No working-tree variant is accepted. The current evidence epoch starts
+unresolved. Current compiled challenger statuses
 (`diagram/course_quality.json`): `labels_only` modeled `pending`, Pareto
 `pending`, final `pending`; `annotations_only` modeled `failed`, Pareto
-`rejected`, final `rejected`; `combined` modeled `passed`, Pareto `accepted`,
-final `accepted`. The `combined` challenger is the current rendered runtime. It
-passed all five final-acceptance gates, is accepted, and is promotion-eligible.
-The frozen champion remains `9a76191764c9b2d998950069090548439dfc4007`
-until a subsequent epoch commit binds this acceptance snapshot's immutable Git
-SHA. Final acceptance is separate from modeled/Pareto evaluation. Required
+`rejected`, final `rejected`; `combined` modeled `pending`, Pareto `pending`,
+final `pending`. The `combined` challenger is the current rendered runtime.
+Frozen champion `0856a93b78181bec3945168632d141595575800c` is the immutable
+accepted snapshot; the next epoch starts with fresh, unresolved evidence. Final
+acceptance is separate from modeled/Pareto evaluation. Required
 final-acceptance gate IDs: `prerequisite_correctness_repairs`,
 `historical_frozen_champion_viewport_captures`, `browser`,
 `accessibility_snapshot`, `blind_review`. The blind-review gate requires two of
-three reviewer preferences; all three reviewers preferred the `combined`
-candidate. `course/acceptance_evidence/` retains 10 typed reports and 13
-reviewed occupancy PNGs; the raw comparison corpus remains in Git history.
+three reviewer preferences. The prior epoch's three-of-three candidate
+preference, 10 typed reports, 13 reviewed occupancy PNGs, and raw comparison
+corpus remain preserved in the frozen commit and its Git ancestry; they are not
+reused as current-epoch evidence.
 
 The review surface contains no timing, script, cadence, autoplay, or automatic
 transition contract. Select each shot manually or use the previous/next

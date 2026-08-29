@@ -24,7 +24,7 @@ class FrozenChampionTests(unittest.TestCase):
             ],
         )
         self.assertEqual(
-            result["historical_test_reproduction"]["expected_test_count"], 75
+            result["historical_test_reproduction"]["expected_test_count"], 349
         )
         self.assertEqual(
             result["historical_test_reproduction"]["status"],
@@ -142,7 +142,7 @@ class FrozenChampionTests(unittest.TestCase):
             ),
             (
                 "floating test count",
-                lambda record: record.__setitem__("baseline_test_count", 75.0),
+                lambda record: record.__setitem__("baseline_test_count", 349.0),
                 "positive integer",
             ),
             (

@@ -5,11 +5,10 @@ Artifacts: `course/segments.yaml`, `course/pilots/s10_two_rack_heat_paths.yaml`,
 `diagram/planned_shots.json`, `diagram/planned_shots.html`,
 `diagram/course_runtime.json`, `diagram/course.html`, and
 `course/INSTRUCTOR_PACKET.md`
-Posture: frozen champion `9a76191764c9b2d998950069090548439dfc4007`;
+Posture: frozen champion `0856a93b78181bec3945168632d141595575800c`;
 complete evidence-bounded course runtime and instructor package, not a spoken
-script, timed edit, as-built drawing, or site-performance estimate. The current
-working-tree challenger has separate current acceptance evidence and awaits an
-epoch commit that freezes its immutable accepted SHA.
+script, timed edit, as-built drawing, or site-performance estimate. No
+working-tree variant is accepted. The current evidence epoch starts unresolved.
 
 ## Release verdict
 
@@ -20,18 +19,18 @@ null or `no evidence-backed estimate`; readiness does not promote those facts.
 Current compiled challenger statuses
 (`diagram/course_quality.json`): `labels_only` modeled `pending`, Pareto
 `pending`, final `pending`; `annotations_only` modeled `failed`, Pareto
-`rejected`, final `rejected`; `combined` modeled `passed`, Pareto `accepted`,
-final `accepted`. The `combined` challenger is the current rendered runtime. It
-passed all five final-acceptance gates, is accepted, and is promotion-eligible.
-The frozen champion remains `9a76191764c9b2d998950069090548439dfc4007`
-until a subsequent epoch commit binds this acceptance snapshot's immutable Git
-SHA. Final acceptance is separate from modeled/Pareto evaluation. Required
+`rejected`, final `rejected`; `combined` modeled `pending`, Pareto `pending`,
+final `pending`. The `combined` challenger is the current rendered runtime.
+Frozen champion `0856a93b78181bec3945168632d141595575800c` is the immutable
+accepted snapshot; the next epoch starts with fresh, unresolved evidence. Final
+acceptance is separate from modeled/Pareto evaluation. Required
 final-acceptance gate IDs: `prerequisite_correctness_repairs`,
 `historical_frozen_champion_viewport_captures`, `browser`,
 `accessibility_snapshot`, `blind_review`. The blind-review gate requires two of
-three reviewer preferences; all three reviewers preferred the `combined`
-candidate. `course/acceptance_evidence/` retains 10 typed reports and 13
-reviewed occupancy PNGs; the raw comparison corpus remains in Git history.
+three reviewer preferences. The prior epoch's three-of-three candidate
+preference, 10 typed reports, 13 reviewed occupancy PNGs, and raw comparison
+corpus remain preserved in the frozen commit and its Git ancestry; they are not
+reused as current-epoch evidence.
 
 ## Blocking redlines
 
@@ -144,7 +143,6 @@ against any challenger before it becomes the new baseline.
   time-basis, power-to-compute, and scenario-to-site guards.
 
 The frozen champion package is ready for an instructor walkthrough and recording
-rehearsal. The `combined` working-tree candidate has passed its compiled
-modeled/Pareto evaluation and all five final-acceptance gates; it awaits the
-epoch commit that freezes this acceptance snapshot. Course length and dwell
-remain presenter-owned editorial choices.
+rehearsal. Working-tree candidates are not release-approved; their compiled
+modeled/Pareto result and five separate final-acceptance gates remain the source
+of truth. Course length and dwell remain presenter-owned editorial choices.

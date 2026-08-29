@@ -5,23 +5,25 @@ origination to a GPU die, then follows the resulting heat through liquid cooling
 to the atmosphere.
 
 Committed champion status: **record-ready, evidence-bounded v1** at
-`9a76191764c9b2d998950069090548439dfc4007`. Current compiled challenger
-statuses (`diagram/course_quality.json`):
+`0856a93b78181bec3945168632d141595575800c`. No working-tree variant is
+accepted. The current evidence epoch starts unresolved. Current compiled challenger statuses
+(`diagram/course_quality.json`):
 `labels_only` modeled `pending`, Pareto `pending`, final `pending`;
 `annotations_only` modeled `failed`, Pareto `rejected`, final `rejected`;
-`combined` modeled `passed`, Pareto `accepted`, final `accepted`. The `combined`
-challenger is the current rendered runtime. It passed all five final-acceptance
-gates, is accepted, and is promotion-eligible. The frozen champion remains
-`9a76191764c9b2d998950069090548439dfc4007` until a subsequent epoch commit
-binds this acceptance snapshot's immutable Git SHA. Final acceptance is
+`combined` modeled `pending`, Pareto `pending`, final `pending`. The `combined`
+challenger is the current rendered runtime. Frozen champion
+`0856a93b78181bec3945168632d141595575800c` is the immutable accepted snapshot;
+the next epoch starts with fresh, unresolved evidence. Final acceptance is
 separate from modeled/Pareto evaluation. Required final-acceptance gate IDs:
 `prerequisite_correctness_repairs`,
 `historical_frozen_champion_viewport_captures`, `browser`,
 `accessibility_snapshot`, `blind_review`. The blind-review gate requires two of
-three reviewer preferences; all three reviewers preferred the `combined`
-candidate. The 2D master is the semantic engineering map; the 3D scene supplies
-campus orientation and spatial views. Both use the same 30 node IDs and 34 edge
-IDs. The complete course contains seven acts and 26 presenter-controlled,
+three reviewer preferences. The prior epoch's three-of-three candidate
+preference and its complete acceptance corpus remain preserved in the frozen
+commit and its Git ancestry; they are not reused as current-epoch evidence. The
+2D master is the semantic engineering map; the 3D scene supplies campus
+orientation and spatial views. Both use the same 30 node IDs and 34 edge IDs.
+The complete course contains seven acts and 26 presenter-controlled,
 evidence-ready segments.
 
 ## Current artifacts
@@ -132,12 +134,11 @@ surfaces load the pinned Three.js runtime locally; no CDN connection is needed.
   exact 0.170.0 hashes and license.
 
 All 26 segments in the frozen champion are ready to teach within their validated
-evidence boundaries. The current challenger has the same 26-section inventory
-and is accepted and promotion-eligible; the subsequent epoch commit still has
-to freeze its immutable acceptance SHA as the new baseline. Readiness does not
-convert unavailable as-built configuration, private contract terms, current IT
-load, utilization, or token throughput into facts; the player shows those
-unknowns explicitly.
+evidence boundaries. The current working tree has the same 26-section runtime,
+but its next-epoch challenger records remain pending until they receive fresh
+acceptance evidence. Readiness does not convert unavailable as-built
+configuration, private contract terms, current IT load, utilization, or token
+throughput into facts; the player shows those unknowns explicitly.
 
 The validator fails on unresolved factual copy, duplicate YAML keys, unknown
 sources or IDs, mismatched fact/source bindings, incompatible lifecycle

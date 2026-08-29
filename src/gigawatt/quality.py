@@ -288,30 +288,30 @@ RATCHET_HYPOTHESIS = (
     "gaps without changing facts, topology, order, or frames."
 )
 EXPECTED_CHAMPION = {
-    "git_sha": "9a76191764c9b2d998950069090548439dfc4007",
-    "origin_sha": "9a76191764c9b2d998950069090548439dfc4007",
+    "git_sha": "0856a93b78181bec3945168632d141595575800c",
+    "origin_sha": "0856a93b78181bec3945168632d141595575800c",
     "source_tree_aggregate_sha256": (
-        "737a7797e014a5daf2c64395ce6b9cc134d007d3c34e61013468cce58adf1aee"
+        "f95a3887fb294005b9201485a69121c95bef9c4dcce2e5c4ba737e60e90d9e8b"
     ),
-    "baseline_test_count": 75,
+    "baseline_test_count": 349,
     "baseline_runtime_source_digest": (
-        "224b79da0d4d3e4fd44e78e91efe8341633f732d1014729b13ee847e25e3f9e2"
+        "407277f9e170254051393046bcfb6f43caa25ce09a665d3d7020ac764f127d04"
     ),
     "artifact_sha256": {
         "diagram/course.html": (
-            "b24659fb7d10c70cf450e1ae8168d764dba47ca7a803bd3b3a5dfa95211237c7"
+            "d174f41e5439a72a88fee844a6b629d4bf6c3cb036333321f02ba0f8503a25bb"
         ),
         "diagram/course_runtime.json": (
-            "e414be7d923525190eabebf66672906a31235a777889c9193a577053a32c8597"
+            "25b7564075e58ee69563b5abd75148ac933ffec65554887c0972024e8504802d"
         ),
         "diagram/planned_shots.html": (
-            "761823c86a73ece50faac1c1dd797f174c09de18f759d523c9801bce1548c4d0"
+            "ebab25664a01e723c501c7df7d283584d3118aba2493081a89a0e1e821a67ac4"
         ),
         "diagram/planned_shots.json": (
-            "f5fdbc5e276bb856f073c19ed2a13dd59bb522d2722d15ec5660538f07ee105f"
+            "33ad49f945e89f69e3e909a3687b14d40855ea175380a686e51b38d5b7aab39b"
         ),
         "course/INSTRUCTOR_PACKET.md": (
-            "d70471737ba3c61a1593d5e76ad357f9d36e500cf737a10decc946e4af1e04a5"
+            "9b651b42cc1c8f7803b4b3cefdd7e076504d43540515a62895682f832c4aea34"
         ),
     },
 }

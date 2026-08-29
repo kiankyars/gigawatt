@@ -223,7 +223,7 @@ def verify_frozen_champion(
         runtime.get("source_digest"),
     )
     record("runtime_segment_count", 26, len(runtime.get("segments", [])))
-    record("declared_baseline_test_count", 75, champion["baseline_test_count"])
+    record("declared_baseline_test_count", 349, champion["baseline_test_count"])
 
     failures = [check for check in checks if not check["passed"]]
     return {
