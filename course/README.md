@@ -134,18 +134,24 @@ between each derived frame and its reusable anchor. Browser QA approved all 21
 derived frames in frozen champion
 `9a76191764c9b2d998950069090548439dfc4007` without promoting them into reusable
 cameras. That historical result is not browser evidence for the current
-working-tree challengers.
+working-tree challengers and was not reused as such; `combined` has its own
+current live browser and accessibility evidence.
 
-No working-tree variant is accepted. Current compiled challenger statuses
+Current compiled challenger statuses
 (`diagram/course_quality.json`): `labels_only` modeled `pending`, Pareto
 `pending`, final `pending`; `annotations_only` modeled `failed`, Pareto
-`rejected`, final `rejected`; `combined` modeled `pending`, Pareto `pending`,
-final `pending`. The `combined` challenger is the current rendered runtime.
-Final acceptance is separate from modeled/Pareto evaluation. Required
+`rejected`, final `rejected`; `combined` modeled `passed`, Pareto `accepted`,
+final `accepted`. The `combined` challenger is the current rendered runtime. It
+passed all five final-acceptance gates, is accepted, and is promotion-eligible.
+The frozen champion remains `9a76191764c9b2d998950069090548439dfc4007`
+until a subsequent epoch commit binds this acceptance snapshot's immutable Git
+SHA. Final acceptance is separate from modeled/Pareto evaluation. Required
 final-acceptance gate IDs: `prerequisite_correctness_repairs`,
 `historical_frozen_champion_viewport_captures`, `browser`,
 `accessibility_snapshot`, `blind_review`. The blind-review gate requires two of
-three reviewer preferences.
+three reviewer preferences; all three reviewers preferred the `combined`
+candidate. `course/acceptance_evidence/` retains 10 typed reports and 13
+reviewed occupancy PNGs; the raw comparison corpus remains in Git history.
 
 The review surface contains no timing, script, cadence, autoplay, or automatic
 transition contract. Select each shot manually or use the previous/next

@@ -5,20 +5,24 @@ origination to a GPU die, then follows the resulting heat through liquid cooling
 to the atmosphere.
 
 Committed champion status: **record-ready, evidence-bounded v1** at
-`9a76191764c9b2d998950069090548439dfc4007`. No working-tree variant is
-accepted. Current compiled challenger statuses (`diagram/course_quality.json`):
+`9a76191764c9b2d998950069090548439dfc4007`. Current compiled challenger
+statuses (`diagram/course_quality.json`):
 `labels_only` modeled `pending`, Pareto `pending`, final `pending`;
 `annotations_only` modeled `failed`, Pareto `rejected`, final `rejected`;
-`combined` modeled `pending`, Pareto `pending`, final `pending`. The `combined`
-challenger is the current rendered runtime. Final acceptance is separate from
-modeled/Pareto evaluation. Required final-acceptance gate IDs:
+`combined` modeled `passed`, Pareto `accepted`, final `accepted`. The `combined`
+challenger is the current rendered runtime. It passed all five final-acceptance
+gates, is accepted, and is promotion-eligible. The frozen champion remains
+`9a76191764c9b2d998950069090548439dfc4007` until a subsequent epoch commit
+binds this acceptance snapshot's immutable Git SHA. Final acceptance is
+separate from modeled/Pareto evaluation. Required final-acceptance gate IDs:
 `prerequisite_correctness_repairs`,
 `historical_frozen_champion_viewport_captures`, `browser`,
 `accessibility_snapshot`, `blind_review`. The blind-review gate requires two of
-three reviewer preferences. The 2D master is the semantic engineering map; the
-3D scene supplies campus orientation and spatial views. Both use the same 30
-node IDs and 34 edge IDs. The complete course contains seven acts and 26
-presenter-controlled, evidence-ready segments.
+three reviewer preferences; all three reviewers preferred the `combined`
+candidate. The 2D master is the semantic engineering map; the 3D scene supplies
+campus orientation and spatial views. Both use the same 30 node IDs and 34 edge
+IDs. The complete course contains seven acts and 26 presenter-controlled,
+evidence-ready segments.
 
 ## Current artifacts
 
@@ -86,8 +90,8 @@ uv run python -m unittest discover -s tests -v
 `gigawatt-quality` writes a non-aggregated quality registry for all 26
 segments at five protected viewports plus the inspectable dependency graph
 from primary sources through viewport evaluations. Its ratchet manifest keeps
-the frozen champion, isolated challengers, and still-pending live acceptance
-gates explicit.
+the frozen champion, isolated challengers, candidate-bound acceptance evidence,
+and promotion eligibility explicit.
 
 To inspect the hybrid player locally:
 
@@ -129,9 +133,10 @@ surfaces load the pinned Three.js runtime locally; no CDN connection is needed.
 
 All 26 segments in the frozen champion are ready to teach within their validated
 evidence boundaries. The current challenger has the same 26-section inventory
-but is not a new baseline while live acceptance remains pending. Readiness does
-not convert unavailable as-built configuration, private contract terms, current
-IT load, utilization, or token throughput into facts; the player shows those
+and is accepted and promotion-eligible; the subsequent epoch commit still has
+to freeze its immutable acceptance SHA as the new baseline. Readiness does not
+convert unavailable as-built configuration, private contract terms, current IT
+load, utilization, or token throughput into facts; the player shows those
 unknowns explicitly.
 
 The validator fails on unresolved factual copy, duplicate YAML keys, unknown

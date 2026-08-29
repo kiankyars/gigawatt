@@ -1,6 +1,6 @@
 # Course production redline — disposition
 
-Review date: 2026-08-27
+Review date: 2026-08-29
 Artifacts: `course/segments.yaml`, `course/pilots/s10_two_rack_heat_paths.yaml`,
 `diagram/planned_shots.json`, `diagram/planned_shots.html`,
 `diagram/course_runtime.json`, `diagram/course.html`, and
@@ -8,7 +8,8 @@ Artifacts: `course/segments.yaml`, `course/pilots/s10_two_rack_heat_paths.yaml`,
 Posture: frozen champion `9a76191764c9b2d998950069090548439dfc4007`;
 complete evidence-bounded course runtime and instructor package, not a spoken
 script, timed edit, as-built drawing, or site-performance estimate. The current
-working-tree challenger does not inherit this release approval.
+working-tree challenger has separate current acceptance evidence and awaits an
+epoch commit that freezes its immutable accepted SHA.
 
 ## Release verdict
 
@@ -16,16 +17,21 @@ The seven-act, 26-segment frozen champion is approved as record-ready within its
 explicit evidence boundaries. All 26 segments are evidence-ready. Private
 as-built, commercial, operating-load, utilization, and throughput fields remain
 null or `no evidence-backed estimate`; readiness does not promote those facts.
-No working-tree variant is accepted. Current compiled challenger statuses
+Current compiled challenger statuses
 (`diagram/course_quality.json`): `labels_only` modeled `pending`, Pareto
 `pending`, final `pending`; `annotations_only` modeled `failed`, Pareto
-`rejected`, final `rejected`; `combined` modeled `pending`, Pareto `pending`,
-final `pending`. The `combined` challenger is the current rendered runtime.
-Final acceptance is separate from modeled/Pareto evaluation. Required
+`rejected`, final `rejected`; `combined` modeled `passed`, Pareto `accepted`,
+final `accepted`. The `combined` challenger is the current rendered runtime. It
+passed all five final-acceptance gates, is accepted, and is promotion-eligible.
+The frozen champion remains `9a76191764c9b2d998950069090548439dfc4007`
+until a subsequent epoch commit binds this acceptance snapshot's immutable Git
+SHA. Final acceptance is separate from modeled/Pareto evaluation. Required
 final-acceptance gate IDs: `prerequisite_correctness_repairs`,
 `historical_frozen_champion_viewport_captures`, `browser`,
 `accessibility_snapshot`, `blind_review`. The blind-review gate requires two of
-three reviewer preferences.
+three reviewer preferences; all three reviewers preferred the `combined`
+candidate. `course/acceptance_evidence/` retains 10 typed reports and 13
+reviewed occupancy PNGs; the raw comparison corpus remains in Git history.
 
 ## Blocking redlines
 
@@ -138,7 +144,7 @@ against any challenger before it becomes the new baseline.
   time-basis, power-to-compute, and scenario-to-site guards.
 
 The frozen champion package is ready for an instructor walkthrough and recording
-rehearsal. Working-tree candidates are not release-approved; their compiled
-modeled/Pareto result and the five separate final-acceptance gates remain the
-source of truth. Course length and dwell remain presenter-owned editorial
-choices.
+rehearsal. The `combined` working-tree candidate has passed its compiled
+modeled/Pareto evaluation and all five final-acceptance gates; it awaits the
+epoch commit that freezes this acceptance snapshot. Course length and dwell
+remain presenter-owned editorial choices.

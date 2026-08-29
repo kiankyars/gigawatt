@@ -20,11 +20,27 @@ class RatchetDocumentationTests(unittest.TestCase):
             [challenger["id"] for challenger in challengers],
             ["labels_only", "annotations_only", "combined"],
         )
-        self.assertTrue(
-            all(
-                challenger["final_acceptance"] != "accepted"
+        self.assertEqual(
+            ratchet["frozen_champion_metadata"]["git_sha"], FROZEN_SHA
+        )
+        expected_status = {
+            "labels_only": ("pending", "pending", "pending", False),
+            "annotations_only": ("failed", "rejected", "rejected", False),
+            "combined": ("passed", "accepted", "accepted", True),
+        }
+        self.assertEqual(
+            {
+                challenger["id"]: (
+                    challenger["modeled_gate_status"],
+                    challenger["pareto_disposition"],
+                    challenger["final_acceptance"],
+                    challenger["final_acceptance_evaluation"][
+                        "promotion_eligible"
+                    ],
+                )
                 for challenger in challengers
-            )
+            },
+            expected_status,
         )
         combined = challengers[-1]
         self.assertEqual(
@@ -57,16 +73,43 @@ class RatchetDocumentationTests(unittest.TestCase):
                 set(final_evaluation["gate_evidence"]),
                 set(gate_ids),
             )
-            self.assertEqual(final_evaluation["manifest_gate_status"], "pending")
-            self.assertEqual(final_evaluation["evidence_final_status"], "pending")
-            self.assertTrue(
-                all(
-                    gate["status"] == "pending"
-                    and gate["evidence_ref"] is None
-                    and gate["evidence"] is None
-                    for gate in final_evaluation["gate_evidence"].values()
+            if candidate_id == "combined":
+                self.assertEqual(final_evaluation["manifest_gate_status"], "passed")
+                self.assertEqual(
+                    final_evaluation["evidence_final_status"], "accepted"
                 )
-            )
+                self.assertEqual(
+                    final_evaluation["candidate_artifact_materialization_status"],
+                    "materialized",
+                )
+                self.assertEqual(final_evaluation["candidate_artifact_mismatch_ids"], [])
+                self.assertEqual(final_evaluation["reasons"], [])
+                self.assertTrue(
+                    all(
+                        gate["status"] == "passed"
+                        and isinstance(gate["evidence_ref"], str)
+                        and isinstance(gate["evidence"], dict)
+                        for gate in final_evaluation["gate_evidence"].values()
+                    )
+                )
+                self.assertEqual(
+                    [
+                        review["preference"]
+                        for review in candidate_input["blind_reviews"]
+                    ],
+                    ["candidate", "candidate", "candidate"],
+                )
+            else:
+                self.assertEqual(final_evaluation["manifest_gate_status"], "pending")
+                self.assertEqual(final_evaluation["evidence_final_status"], "pending")
+                self.assertTrue(
+                    all(
+                        gate["status"] == "pending"
+                        and gate["evidence_ref"] is None
+                        and gate["evidence"] is None
+                        for gate in final_evaluation["gate_evidence"].values()
+                    )
+                )
 
         status_text = (
             "Current compiled challenger statuses "
@@ -85,6 +128,13 @@ class RatchetDocumentationTests(unittest.TestCase):
             + ", ".join(f"`{gate_id}`" for gate_id in gate_ids)
             + "."
         )
+        transition_text = (
+            "The `combined` challenger is the current rendered runtime. It passed "
+            "all five final-acceptance gates, is accepted, and is "
+            "promotion-eligible. The frozen champion remains "
+            f"`{FROZEN_SHA}` until a subsequent epoch commit binds this acceptance "
+            "snapshot's immutable Git SHA."
+        )
 
         root_readme = (ROOT / "README.md").read_text()
         course_readme = (ROOT / "course" / "README.md").read_text()
@@ -92,21 +142,19 @@ class RatchetDocumentationTests(unittest.TestCase):
         for document in (root_readme, course_readme, redline):
             normalized = " ".join(document.split())
             self.assertIn(FROZEN_SHA, normalized)
-            self.assertIn("No working-tree variant is accepted.", normalized)
             self.assertIn(status_text, normalized)
-            self.assertIn(
-                "The `combined` challenger is the current rendered runtime.",
-                normalized,
-            )
+            self.assertIn(transition_text, normalized)
             self.assertIn(
                 "Final acceptance is separate from modeled/Pareto evaluation.",
                 normalized,
             )
             self.assertIn(gate_text, normalized)
             self.assertIn(
-                "The blind-review gate requires two of three reviewer preferences.",
+                "The blind-review gate requires two of three reviewer preferences; "
+                "all three reviewers preferred the `combined` candidate.",
                 normalized,
             )
+            self.assertNotIn("No working-tree variant is accepted.", normalized)
 
         self.assertIn("That historical result is not browser evidence", course_readme)
         self.assertIn("frozen champion only", redline)

@@ -57,6 +57,10 @@ def _copied_occupancy_reviews(
     manifest: dict, candidate_id: str = "combined"
 ) -> tuple[list[dict], dict]:
     review_sets = copy.deepcopy(manifest["occupancy_reviews"])
+    for review_set in review_sets:
+        for review in review_set["reviews"]:
+            review["status"] = "unresolved"
+            review["live_review"] = None
     return review_sets, _occupancy_review_set(
         {"occupancy_reviews": review_sets}, candidate_id
     )
@@ -2004,7 +2008,7 @@ class QualityRegistryTests(unittest.TestCase):
         )
         self.assertEqual(
             [record["disposition"] for record in current],
-            ["pending", "rejected", "pending"],
+            ["pending", "rejected", "accepted"],
         )
 
         mutations = {}
@@ -2331,7 +2335,7 @@ class QualityRegistryTests(unittest.TestCase):
             evidence,
         )
 
-    def test_current_acceptance_evidence_remains_truthfully_pending(self) -> None:
+    def test_current_acceptance_evidence_matches_resolved_combined(self) -> None:
         self.assertEqual(
             [
                 record["candidate_id"]
@@ -2340,19 +2344,30 @@ class QualityRegistryTests(unittest.TestCase):
             list(quality.EXPECTED_VARIANTS),
         )
         for record in self.ratchet_manifest["acceptance"]["candidates"]:
+            resolved = record["candidate_id"] == "combined"
             gates = [
                 *record["static_gate_evidence"].values(),
                 *record["live_gate_evidence"].values(),
                 *record["final_independent_gate_evidence"].values(),
             ]
-            self.assertTrue(
-                all(
-                    gate["status"] == "pending"
-                    and gate["evidence_ref"] is None
-                    and gate["evidence"] is None
-                    for gate in gates
+            if resolved:
+                self.assertTrue(
+                    all(
+                        gate["status"] == "passed"
+                        and isinstance(gate["evidence_ref"], str)
+                        and isinstance(gate["evidence"], dict)
+                        for gate in gates
+                    )
                 )
-            )
+            else:
+                self.assertTrue(
+                    all(
+                        gate["status"] == "pending"
+                        and gate["evidence_ref"] is None
+                        and gate["evidence"] is None
+                        for gate in gates
+                    )
+                )
             current_state = self._candidate_current_state(record["candidate_id"])
             self.assertEqual(current_state["generated_artifact_count"], 16)
             self.assertEqual(
@@ -2433,14 +2448,24 @@ class QualityRegistryTests(unittest.TestCase):
                     for path in quality.VALIDATION_COMPILER_IMPLEMENTATION_PATHS
                 ],
             )
-            self.assertTrue(
-                all(
-                    review["preference"] == "pending"
-                    and review["evidence_ref"] is None
-                    and review["evidence"] is None
-                    for review in record["blind_reviews"]
+            if resolved:
+                self.assertTrue(
+                    all(
+                        review["preference"] == "candidate"
+                        and isinstance(review["evidence_ref"], str)
+                        and isinstance(review["evidence"], dict)
+                        for review in record["blind_reviews"]
+                    )
                 )
-            )
+            else:
+                self.assertTrue(
+                    all(
+                        review["preference"] == "pending"
+                        and review["evidence_ref"] is None
+                        and review["evidence"] is None
+                        for review in record["blind_reviews"]
+                    )
+                )
 
         for evaluation in self.registry["ratchet"]["pareto"]["evaluations"]:
             source = _acceptance_candidate(
@@ -2450,9 +2475,12 @@ class QualityRegistryTests(unittest.TestCase):
                 evaluation["input"]["acceptance_evidence"],
                 source,
             )
+            expected_status = (
+                "passed" if evaluation["candidate_id"] == "combined" else "pending"
+            )
             self.assertTrue(
                 all(
-                    gate["status"] == "pending"
+                    gate["status"] == expected_status
                     for gate in evaluation["input"]["candidate"][
                         "static_gate_evidence"
                     ].values()
@@ -2461,27 +2489,12 @@ class QualityRegistryTests(unittest.TestCase):
 
     def test_nonmaterialized_fully_resolved_candidate_cannot_be_accepted(self) -> None:
         root, resolved, artifacts, current_state = self._resolved_acceptance_fixture()
-        hypothetical = copy.deepcopy(self.ratchet_manifest)
-        source_record = _acceptance_candidate(hypothetical, "labels_only")
-        source_record.clear()
-        source_record.update(resolved)
-        hypothetical["acceptance_artifacts"] = artifacts
-        with (
-            self._retained_path_patch(root),
-            patch.object(
-                quality.scene_pipeline,
-                "load_yaml",
-                return_value=hypothetical,
-            ),
-        ):
-            loaded = quality.load_ratchet_manifest()
-        loaded_record = _acceptance_candidate(loaded, "labels_only")
-        pareto_result = self._pareto_from_acceptance_candidate(loaded_record)
+        pareto_result = self._pareto_from_acceptance_candidate(resolved)
         self.assertEqual(pareto_result["disposition"], "accepted")
         with self._retained_path_patch(root):
             result = quality._final_acceptance_evaluation(
                 pareto_result,
-                loaded_record,
+                resolved,
                 expected_current_state=current_state,
                 acceptance_artifacts=artifacts,
             )
@@ -3293,17 +3306,17 @@ class QualityRegistryTests(unittest.TestCase):
         expected_pareto_dispositions = {
             "labels_only": "pending",
             "annotations_only": "rejected",
-            "combined": "pending",
+            "combined": "accepted",
         }
         expected_final_acceptance = {
             "labels_only": "pending",
             "annotations_only": "rejected",
-            "combined": "pending",
+            "combined": "accepted",
         }
         expected_modeled_statuses = {
             "labels_only": "pending",
             "annotations_only": "failed",
-            "combined": "pending",
+            "combined": "passed",
         }
         for variant_id, gates in expected_gates.items():
             challenger = challengers[variant_id]
@@ -3324,7 +3337,9 @@ class QualityRegistryTests(unittest.TestCase):
                     for gate_id in challenger["target_gate_ids"]
                 )
             )
-            self.assertFalse(challenger["modeled_eligible"])
+            self.assertEqual(
+                challenger["modeled_eligible"], variant_id == "combined"
+            )
             self.assertEqual(
                 challenger["modeled_gate_status"],
                 expected_modeled_statuses[variant_id],
@@ -3366,8 +3381,14 @@ class QualityRegistryTests(unittest.TestCase):
                 final_evaluation["status"],
                 expected_final_acceptance[variant_id],
             )
-            self.assertEqual(final_evaluation["manifest_gate_status"], "pending")
-            self.assertEqual(final_evaluation["evidence_final_status"], "pending")
+            self.assertEqual(
+                final_evaluation["manifest_gate_status"],
+                "passed" if variant_id == "combined" else "pending",
+            )
+            self.assertEqual(
+                final_evaluation["evidence_final_status"],
+                "accepted" if variant_id == "combined" else "pending",
+            )
             self.assertEqual(
                 final_evaluation["required_gate_ids"],
                 list(quality.FINAL_ACCEPTANCE_GATE_IDS),
@@ -3439,10 +3460,10 @@ class QualityRegistryTests(unittest.TestCase):
                 for gate_id, gate in combined["layout_gates"].items()
                 if not gate["passed"]
             ],
-            ["occupancy_review"],
+            [],
         )
         self.assertEqual(
-            combined["layout_gates"]["occupancy_review"]["status"], "pending"
+            combined["layout_gates"]["occupancy_review"]["status"], "passed"
         )
         self.assertEqual(
             {
@@ -4073,8 +4094,9 @@ class QualityRegistryTests(unittest.TestCase):
     def test_occupancy_review_resolution_aggregates_pending_passed_and_failed(
         self,
     ) -> None:
+        unresolved_reviews, _ = _copied_occupancy_reviews(self.ratchet_manifest)
         unresolved = quality._occupancy_review_gate(
-            self.registry["segments"], self.ratchet_manifest["occupancy_reviews"]
+            self.registry["segments"], unresolved_reviews
         )
         self.assertFalse(unresolved["passed"])
         self.assertEqual(unresolved["status"], "pending")
@@ -4564,7 +4586,7 @@ class QualityRegistryTests(unittest.TestCase):
                 },
             },
             "combined": {
-                "disposition": "pending",
+                "disposition": "accepted",
                 "dimension_id": ("label_pressure_and_dense_annotation_gap_cleared"),
                 "delta": 2.0,
                 "regression_counts": {
@@ -4665,15 +4687,22 @@ class QualityRegistryTests(unittest.TestCase):
                 decision["regression_counts"],
                 expected[candidate_id]["regression_counts"],
             )
-            self.assertEqual(decision["static_gate_status"], "pending")
-            self.assertEqual(decision["live_gate_status"], "pending")
-            self.assertEqual(decision["blind_review"]["status"], "pending")
+            expected_evidence_status = (
+                "passed" if candidate_id == "combined" else "pending"
+            )
+            self.assertEqual(
+                decision["static_gate_status"], expected_evidence_status
+            )
+            self.assertEqual(decision["live_gate_status"], expected_evidence_status)
+            self.assertEqual(
+                decision["blind_review"]["status"], expected_evidence_status
+            )
             self.assertEqual(
                 decision["modeled_gate_status"],
                 {
                     "labels_only": "pending",
                     "annotations_only": "failed",
-                    "combined": "pending",
+                    "combined": "passed",
                 }[candidate_id],
             )
 
@@ -4704,7 +4733,7 @@ class QualityRegistryTests(unittest.TestCase):
             },
         )
 
-    def test_audit_program_and_frozen_champion_are_truthfully_pending(self) -> None:
+    def test_audit_program_preserves_history_after_candidate_acceptance(self) -> None:
         audit_program = self.registry["audit_program"]
         self.assertEqual(audit_program["schema_version"], 1)
         self.assertEqual(len(audit_program["rounds"]), 21)
@@ -4757,7 +4786,14 @@ class QualityRegistryTests(unittest.TestCase):
             item["candidate_id"]: item["disposition"]
             for item in audit_program["saturation"]["current_challenger_dispositions"]
         }
-        self.assertEqual(current_dispositions, dispositions)
+        self.assertEqual(
+            current_dispositions,
+            {
+                "labels_only": "pending",
+                "annotations_only": "rejected",
+                "combined": "accepted",
+            },
+        )
         round_6 = next(
             round_record
             for round_record in audit_program["rounds"]
@@ -5122,15 +5158,15 @@ class QualityRegistryTests(unittest.TestCase):
         )
         self.assertTrue(gates["legend_scope"]["no_request_is_valid"])
         occupancy = gates["occupancy_review"]
-        self.assertFalse(occupancy["passed"], occupancy)
-        self.assertEqual(occupancy["status"], "pending")
+        self.assertTrue(occupancy["passed"], occupancy)
+        self.assertEqual(occupancy["status"], "passed")
         self.assertTrue(occupancy["exact_coverage_required"])
         self.assertEqual(occupancy["detected_risk_evaluation_count"], 13)
         self.assertEqual(occupancy["reviewed_evaluation_count"], 13)
-        self.assertEqual(occupancy["live_confirmation_status"], "pending")
+        self.assertEqual(occupancy["live_confirmation_status"], "passed")
         self.assertEqual(
             occupancy["resolution_counts"],
-            {"live_approved": 0, "live_rejected": 0, "unresolved": 13},
+            {"live_approved": 13, "live_rejected": 0, "unresolved": 0},
         )
         self.assertEqual(occupancy["missing_reviews"], [])
         self.assertEqual(occupancy["extra_reviews"], [])
