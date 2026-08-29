@@ -357,10 +357,10 @@ class ScenePipelineTests(unittest.TestCase):
         rectangles = [
             (index, field)
             for index, camera in enumerate(self.cameras["cameras"])
-            for field in ("viewBox", "well", "map_view")
+            for field in ("viewBox", "well", "map_view", "compact_viewBox")
             if field in camera
         ]
-        self.assertEqual(14, len(rectangles))
+        self.assertEqual(15, len(rectangles))
 
         rejected_probes = 0
         for index, field in rectangles:
@@ -382,7 +382,7 @@ class ScenePipelineTests(unittest.TestCase):
                         ),
                     ):
                         scene_pipeline.validate(self.master, self.scene, cameras)
-        self.assertEqual(56, rejected_probes)
+        self.assertEqual(60, rejected_probes)
 
         allowed_coordinate_probes = 0
         for index, field in rectangles:
@@ -391,7 +391,7 @@ class ScenePipelineTests(unittest.TestCase):
                 cameras["cameras"][index][field][coordinate_index] = coordinate
                 scene_pipeline.validate(self.master, self.scene, cameras)
                 allowed_coordinate_probes += 1
-        self.assertEqual(28, allowed_coordinate_probes)
+        self.assertEqual(30, allowed_coordinate_probes)
 
     def test_camera_focus_edges_and_annotations_are_owned_by_focus_nodes(
         self,

@@ -17,7 +17,7 @@ import math
 import struct
 import zlib
 from collections import Counter, defaultdict, deque
-from collections.abc import Iterable, Sequence
+from collections.abc import Iterable, Mapping, Sequence
 from datetime import datetime
 from itertools import pairwise
 from pathlib import Path, PurePosixPath
@@ -881,12 +881,39 @@ def _retained_evidence_path(value: Any, location: str) -> Path:
         raise QualityError(
             f"{location} must remain under {ACCEPTANCE_EVIDENCE_DIRECTORY}"
         )
-    return ROOT.joinpath(*relative.parts)
+    return _retained_evidence_root().joinpath(
+        *relative.parts[len(ACCEPTANCE_EVIDENCE_DIRECTORY.parts) :]
+    )
+
+
+def _retained_evidence_root() -> Path:
+    return ROOT.joinpath(*ACCEPTANCE_EVIDENCE_DIRECTORY.parts)
+
+
+def _canonical_acceptance_report_path(artifact_sha256: str) -> str:
+    digest = _sha256_string(
+        artifact_sha256,
+        "acceptance report artifact_sha256",
+    )
+    return f"{ACCEPTANCE_EVIDENCE_DIRECTORY}/reports/{digest}.json"
 
 
 def _retained_artifact_bytes(value: Any, location: str) -> bytes:
     path = _retained_evidence_path(value, location)
+    root = _retained_evidence_root()
     try:
+        if root.is_symlink() or path.is_symlink():
+            raise QualityError(f"{location} must not be a symbolic link")
+        relative_to_root = path.relative_to(root)
+        current = root
+        for part in relative_to_root.parts[:-1]:
+            current /= part
+            if current.is_symlink():
+                raise QualityError(
+                    f"{location} must not traverse a symbolic-link directory"
+                )
+        if not path.is_file():
+            raise QualityError(f"{location} must be a regular file")
         return path.read_bytes()
     except OSError as error:
         raise QualityError(f"{location} is unavailable: {error}") from error
@@ -917,6 +944,7 @@ def _validate_acceptance_artifacts(value: Any) -> list[dict[str, Any]]:
         *(f"blind_review:{reviewer_id}" for reviewer_id in BLIND_REVIEWER_IDS),
     }
     seen: set[tuple[str, str]] = set()
+    seen_paths: set[str] = set()
     for index, artifact in enumerate(value):
         location = f"acceptance_artifacts[{index}]"
         if not isinstance(artifact, dict) or set(artifact) != expected_fields:
@@ -939,6 +967,12 @@ def _validate_acceptance_artifacts(value: Any) -> list[dict[str, Any]]:
         declared_sha256 = _sha256_string(
             artifact["artifact_sha256"], f"{location}.artifact_sha256"
         )
+        expected_path = _canonical_acceptance_report_path(declared_sha256)
+        if artifact["artifact_path"] != expected_path:
+            raise QualityError(f"{location}.artifact_path is not canonical")
+        if artifact["artifact_path"] in seen_paths:
+            raise QualityError(f"{location} duplicates a retained artifact path")
+        seen_paths.add(artifact["artifact_path"])
         actual_sha256 = _retained_artifact_sha256(
             artifact["artifact_path"], f"{location}.artifact_path"
         )
@@ -947,6 +981,57 @@ def _validate_acceptance_artifacts(value: Any) -> list[dict[str, Any]]:
                 f"{location}.artifact_sha256 does not match retained bytes"
             )
     return value
+
+
+def _validate_retained_evidence_inventory(
+    acceptance_artifacts: Sequence[dict[str, Any]],
+    capture_manifest: dict[str, Any],
+) -> set[str]:
+    acceptance_paths = [
+        artifact["artifact_path"] for artifact in acceptance_artifacts
+    ]
+    capture_paths = [
+        capture["artifact_path"] for capture in capture_manifest["captures"]
+    ]
+    referenced_paths = set(acceptance_paths) | set(capture_paths)
+    if len(referenced_paths) != len(acceptance_paths) + len(capture_paths):
+        raise QualityError(
+            "retained acceptance evidence paths must be globally unique"
+        )
+
+    root = _retained_evidence_root()
+    actual_paths: set[str] = set()
+    if root.exists() or root.is_symlink():
+        if root.is_symlink() or not root.is_dir():
+            raise QualityError(
+                f"{ACCEPTANCE_EVIDENCE_DIRECTORY} must be a regular directory"
+            )
+        for path in root.rglob("*"):
+            relative = path.relative_to(root)
+            retained_path = (
+                ACCEPTANCE_EVIDENCE_DIRECTORY.joinpath(*relative.parts).as_posix()
+            )
+            if path.is_symlink():
+                raise QualityError(
+                    "retained acceptance evidence inventory must not contain "
+                    f"symbolic links; path={retained_path!r}"
+                )
+            if path.is_dir():
+                continue
+            if not path.is_file():
+                raise QualityError(
+                    "retained acceptance evidence inventory must contain only "
+                    f"regular files; path={retained_path!r}"
+                )
+            actual_paths.add(retained_path)
+    if actual_paths != referenced_paths:
+        raise QualityError(
+            "retained acceptance evidence inventory must exactly match referenced "
+            "artifacts; "
+            f"missing={sorted(referenced_paths - actual_paths)} "
+            f"extra={sorted(actual_paths - referenced_paths)}"
+        )
+    return referenced_paths
 
 
 def _occupancy_capture_identity_sha256(capture: dict[str, Any]) -> str:
@@ -1550,6 +1635,7 @@ def _validate_browser_evidence(
             "evaluation_count",
             "defect_count",
             "artifact_sha256",
+            "report_artifact_sha256",
         },
         location=location,
     )
@@ -1570,6 +1656,10 @@ def _validate_browser_evidence(
         evidence["defect_count"], 0, f"{location}.defect_count"
     )
     _sha256_string(evidence["artifact_sha256"], f"{location}.artifact_sha256")
+    _sha256_string(
+        evidence["report_artifact_sha256"],
+        f"{location}.report_artifact_sha256",
+    )
     return "passed" if defect_count == 0 else "failed"
 
 
@@ -1592,6 +1682,7 @@ def _validate_accessibility_evidence(
             "snapshot_count",
             "violation_count",
             "artifact_sha256",
+            "report_artifact_sha256",
         },
         location=location,
     )
@@ -1612,6 +1703,10 @@ def _validate_accessibility_evidence(
         evidence["violation_count"], 0, f"{location}.violation_count"
     )
     _sha256_string(evidence["artifact_sha256"], f"{location}.artifact_sha256")
+    _sha256_string(
+        evidence["report_artifact_sha256"],
+        f"{location}.report_artifact_sha256",
+    )
     return "passed" if violation_count == 0 else "failed"
 
 
@@ -1633,6 +1728,7 @@ def _validate_prerequisite_evidence(
             "unresolved_repair_count",
             "candidate_base_source_digest_sha256",
             "artifact_sha256",
+            "report_artifact_sha256",
         },
         location=location,
     )
@@ -1654,6 +1750,10 @@ def _validate_prerequisite_evidence(
         f"{location}.candidate_base_source_digest_sha256",
     )
     _sha256_string(evidence["artifact_sha256"], f"{location}.artifact_sha256")
+    _sha256_string(
+        evidence["report_artifact_sha256"],
+        f"{location}.report_artifact_sha256",
+    )
     if (
         expected_current_state is not None
         and base_source_sha256
@@ -1681,6 +1781,7 @@ def _validate_historical_capture_evidence(
             "expected_capture_count",
             "reviewed_capture_count",
             "capture_set_sha256",
+            "report_artifact_sha256",
         },
         location=location,
     )
@@ -1706,6 +1807,10 @@ def _validate_historical_capture_evidence(
     if reviewed_count > required_count:
         raise QualityError(f"{location}.reviewed_capture_count is out of range")
     _sha256_string(evidence["capture_set_sha256"], f"{location}.capture_set_sha256")
+    _sha256_string(
+        evidence["report_artifact_sha256"],
+        f"{location}.report_artifact_sha256",
+    )
     return "passed" if reviewed_count == required_count else "failed"
 
 
@@ -1763,6 +1868,7 @@ def _validate_blind_reviews(
                 "blind",
                 "preference",
                 "comparison_artifact_sha256",
+                "report_artifact_sha256",
             },
             location=f"{item_location}.evidence",
         )
@@ -1777,6 +1883,10 @@ def _validate_blind_reviews(
         _sha256_string(
             evidence["comparison_artifact_sha256"],
             f"{item_location}.evidence.comparison_artifact_sha256",
+        )
+        _sha256_string(
+            evidence["report_artifact_sha256"],
+            f"{item_location}.evidence.report_artifact_sha256",
         )
         expected_ref = _acceptance_evidence_ref(
             candidate_id,
@@ -1889,9 +1999,9 @@ def _validate_candidate_acceptance_evidence(
                     "candidate_current_state_sha256"
                 ],
                 evidence_id=f"live:{gate_id}",
-                artifact_sha256=evidence["artifact_sha256"],
+                artifact_sha256=evidence["report_artifact_sha256"],
                 typed_evidence=evidence,
-                artifact_digest_field="artifact_sha256",
+                artifact_digest_field="report_artifact_sha256",
                 outcome=gate["status"],
                 expected_current_state=expected_current_state,
                 location=f"{location}.live_gate_evidence.{gate_id}",
@@ -1913,9 +2023,9 @@ def _validate_candidate_acceptance_evidence(
             candidate_id=candidate_id,
             candidate_current_state_sha256=evidence["candidate_current_state_sha256"],
             evidence_id=f"blind_review:{review['reviewer_id']}",
-            artifact_sha256=evidence["comparison_artifact_sha256"],
+            artifact_sha256=evidence["report_artifact_sha256"],
             typed_evidence=evidence,
-            artifact_digest_field="comparison_artifact_sha256",
+            artifact_digest_field="report_artifact_sha256",
             outcome=review["preference"],
             expected_current_state=expected_current_state,
             location=f"{location}.blind_reviews[{index}]",
@@ -1948,11 +2058,6 @@ def _validate_candidate_acceptance_evidence(
         gate = independent_gates[gate_id]
         if gate["status"] != "pending":
             evidence = gate["evidence"]
-            artifact_field = (
-                "artifact_sha256"
-                if gate_id == "prerequisite_correctness_repairs"
-                else "capture_set_sha256"
-            )
             _require_retained_acceptance_artifact(
                 acceptance_artifacts,
                 candidate_id=candidate_id,
@@ -1960,14 +2065,57 @@ def _validate_candidate_acceptance_evidence(
                     "candidate_current_state_sha256"
                 ],
                 evidence_id=f"final:{gate_id}",
-                artifact_sha256=evidence[artifact_field],
+                artifact_sha256=evidence["report_artifact_sha256"],
                 typed_evidence=evidence,
-                artifact_digest_field=artifact_field,
+                artifact_digest_field="report_artifact_sha256",
                 outcome=gate["status"],
                 expected_current_state=expected_current_state,
                 location=(f"{location}.final_independent_gate_evidence.{gate_id}"),
             )
     return value
+
+
+def _required_acceptance_artifact_identities(
+    acceptance_candidates: Sequence[dict[str, Any]],
+) -> set[tuple[str, str]]:
+    required: set[tuple[str, str]] = set()
+    for candidate in acceptance_candidates:
+        candidate_id = candidate["candidate_id"]
+        for domain, gates in (
+            ("static", candidate["static_gate_evidence"]),
+            ("live", candidate["live_gate_evidence"]),
+            ("final", candidate["final_independent_gate_evidence"]),
+        ):
+            required.update(
+                (candidate_id, f"{domain}:{gate_id}")
+                for gate_id, gate in gates.items()
+                if gate["status"] != "pending"
+            )
+        required.update(
+            (candidate_id, f"blind_review:{review['reviewer_id']}")
+            for review in candidate["blind_reviews"]
+            if review["preference"] != "pending"
+        )
+    return required
+
+
+def _validate_acceptance_artifact_consumption(
+    acceptance_candidates: Sequence[dict[str, Any]],
+    acceptance_artifacts: Sequence[dict[str, Any]],
+) -> None:
+    required_artifact_identities = _required_acceptance_artifact_identities(
+        acceptance_candidates
+    )
+    actual_artifact_identities = {
+        (artifact["candidate_id"], artifact["evidence_id"])
+        for artifact in acceptance_artifacts
+    }
+    if actual_artifact_identities != required_artifact_identities:
+        raise QualityError(
+            "acceptance_artifacts identities must exactly match resolved evidence; "
+            f"missing={sorted(required_artifact_identities - actual_artifact_identities)} "
+            f"extra={sorted(actual_artifact_identities - required_artifact_identities)}"
+        )
 
 
 def load_ratchet_manifest() -> dict[str, Any]:
@@ -2029,6 +2177,17 @@ def load_ratchet_manifest() -> dict[str, Any]:
             "course quality ratchet hard_constraints must exactly preserve the "
             "evidence, unknown, motion, accessibility, determinism, and render gates"
         )
+
+    acceptance_artifacts = _validate_acceptance_artifacts(
+        manifest["acceptance_artifacts"]
+    )
+    occupancy_capture_manifest = _validate_occupancy_capture_manifest(
+        manifest["occupancy_capture_manifest"]
+    )
+    retained_evidence_paths = _validate_retained_evidence_inventory(
+        acceptance_artifacts,
+        occupancy_capture_manifest,
+    )
 
     change_owners = manifest["change_owners"]
     if not isinstance(change_owners, list) or not change_owners:
@@ -2173,7 +2332,9 @@ def load_ratchet_manifest() -> dict[str, Any]:
             "course quality ratchet could not compare the current worktree to "
             "the frozen champion"
         ) from error
-    changed_source_paths = changed_paths - GENERATED_OUTPUT_PATH_ALLOWLIST
+    changed_source_paths = (
+        changed_paths - GENERATED_OUTPUT_PATH_ALLOWLIST - retained_evidence_paths
+    )
     undeclared_changed_source_paths = sorted(
         changed_source_paths - declared_source_paths
     )
@@ -2281,10 +2442,6 @@ def load_ratchet_manifest() -> dict[str, Any]:
             for candidate_id in EXPECTED_VARIANTS
         },
     }
-    acceptance_artifacts = _validate_acceptance_artifacts(
-        manifest["acceptance_artifacts"]
-    )
-    _validate_occupancy_capture_manifest(manifest["occupancy_capture_manifest"])
     for index, review_set in enumerate(occupancy_reviews):
         location = f"occupancy_reviews[{index}]"
         if not isinstance(review_set, dict) or set(review_set) != {
@@ -2348,6 +2505,10 @@ def load_ratchet_manifest() -> dict[str, Any]:
             acceptance_artifacts=acceptance_artifacts,
             location=f"acceptance.candidates[{index}]",
         )
+    _validate_acceptance_artifact_consumption(
+        acceptance_candidates,
+        acceptance_artifacts,
+    )
     return manifest
 
 
@@ -4209,6 +4370,7 @@ def _map_label_specs(
             raise QualityError(f"map label {copy_id!r}: unsupported anchor {anchor!r}")
         labels[copy_id] = {
             "at": (x, y),
+            "anchor": anchor,
             "bbox": (x0, y - height, x1, y),
             "base_visible": master["copy"][copy_id].get("base_visible", True),
             "legend": legend,
@@ -4276,14 +4438,9 @@ def _focus_points_2d(
     return points
 
 
-def _place_numbered_focus_markers(
-    anchor_by_id: dict[str, tuple[float, float]],
-    fallback_ids: Sequence[str],
-    stage: dict[str, int],
-    overlay_box: dict[str, float] | None,
-    visible_label_boxes: Sequence[dict[str, Any]] = (),
-) -> dict[str, Any]:
-    marker_size = FOCUS_MARKER_SIZE_PX
+def _focus_marker_offsets(alignment: str) -> list[tuple[float, float]]:
+    if alignment not in {"start", "middle", "end"}:
+        raise QualityError(f"unsupported focus-marker anchor alignment {alignment!r}")
     step = FOCUS_MARKER_STEP_PX
     offsets = [
         (x * step, y * step)
@@ -4296,9 +4453,22 @@ def _place_numbered_focus_markers(
             item[0] ** 2 + item[1] ** 2,
             item[1],
             abs(item[0]),
-            item[0],
+            -item[0] if alignment == "start" else item[0],
         )
     )
+    return offsets
+
+
+def _place_numbered_focus_markers(
+    anchor_by_id: dict[str, tuple[float, float]],
+    fallback_ids: Sequence[str],
+    stage: dict[str, int],
+    overlay_box: dict[str, float] | None,
+    visible_label_boxes: Sequence[dict[str, Any]] = (),
+    alignment_by_id: Mapping[str, str] | None = None,
+) -> dict[str, Any]:
+    marker_size = FOCUS_MARKER_SIZE_PX
+    alignment_by_id = alignment_by_id or {}
     stage_inset = _box(
         stage["x"] + 5.0,
         stage["y"] + 5.0,
@@ -4337,7 +4507,7 @@ def _place_numbered_focus_markers(
             if future_id in anchor_by_id
         ]
         selected: tuple[dict[str, float], float, float] | None = None
-        for dx, dy in offsets:
+        for dx, dy in _focus_marker_offsets(alignment_by_id.get(copy_id, "middle")):
             x = anchor[0] + dx
             y = anchor[1] + dy
             box = _box(
@@ -4656,10 +4826,28 @@ def _map_evaluation(
     focus_points: list[tuple[float, float]],
     focused_stroke_contract: dict[str, Any],
 ) -> dict[str, Any]:
+    compact_view = segment["frame"].get("compact_viewBox")
+    compact_frame_active = (
+        compact_view is not None
+        and segment["visual"]["label_policy"] == "focus"
+        and shots.spatial_labels_require_fixed_key(
+            stage["width"], stage["height"]
+        )
+    )
+    active_view = compact_view if compact_frame_active else segment["frame"]["viewBox"]
     view_x, view_y, view_width, view_height = (
-        float(value) for value in segment["frame"]["viewBox"]
+        float(value) for value in active_view
     )
     view_bbox = (view_x, view_y, view_x + view_width, view_y + view_height)
+    label_view_x, label_view_y, label_view_width, label_view_height = (
+        float(value) for value in segment["frame"]["viewBox"]
+    )
+    label_view_bbox = (
+        label_view_x,
+        label_view_y,
+        label_view_x + label_view_width,
+        label_view_y + label_view_height,
+    )
     visual = segment["visual"]
     reveal_copy_ids = set(segment["reveal_copy_ids"])
     selected_copy_ids = set(visual["label_copy_ids"]) | reveal_copy_ids
@@ -4691,10 +4879,10 @@ def _map_evaluation(
             )
         x0, y0, x1, y1 = label_specs[copy_id]["unclamped_bbox"]
         margins = {
-            "left": _round(x0 - view_bbox[0]),
-            "top": _round(y0 - view_bbox[1]),
-            "right": _round(view_bbox[2] - x1),
-            "bottom": _round(view_bbox[3] - y1),
+            "left": _round(x0 - label_view_bbox[0]),
+            "top": _round(y0 - label_view_bbox[1]),
+            "right": _round(label_view_bbox[2] - x1),
+            "bottom": _round(label_view_bbox[3] - y1),
         }
         minimum_margin = min(margins.values())
         clipped = minimum_margin < -LABEL_FRAME_MARGIN_TOLERANCE
@@ -4768,7 +4956,7 @@ def _map_evaluation(
         candidate_stage = _visual_stage_box(
             stage,
             _opened_teaching_overlay(candidate_overlay),
-            view_box=segment["frame"]["viewBox"],
+            view_box=active_view,
             horizontal_padding=horizontal_padding,
             vertical_padding=vertical_padding,
             legacy_overlay=legacy_preliminary_overlay,
@@ -4803,7 +4991,7 @@ def _map_evaluation(
     visual_stage = _visual_stage_box(
         stage,
         chosen_width["overlay"],
-        view_box=segment["frame"]["viewBox"],
+        view_box=active_view,
         horizontal_padding=horizontal_padding,
         vertical_padding=vertical_padding,
     )
@@ -4844,8 +5032,11 @@ def _map_evaluation(
     projected_base_font_px = MAP_BASE_FONT_PX * scale
     spatial_font_gate_applied = visual["label_policy"] == "focus"
     spatial_labels_readable = (
-        not spatial_font_gate_applied
-        or projected_base_font_px >= MIN_SPATIAL_LABEL_FONT_PX
+        not compact_frame_active
+        and (
+            not spatial_font_gate_applied
+            or projected_base_font_px >= MIN_SPATIAL_LABEL_FONT_PX
+        )
     )
     visible_label_count = 0
     selected_spatial_label_count = 0
@@ -4936,6 +5127,11 @@ def _map_evaluation(
         visual_stage,
         overlay["box"] if overlay["initially_visible"] else None,
         visible_label_obstacles,
+        {
+            copy_id: label_specs[copy_id]["anchor"]
+            for copy_id in fallback_ids
+            if copy_id in label_specs
+        },
     )
 
     focus_items = len(segment["focus_nodes"]) + len(segment["focus_edges"])
@@ -5118,10 +5314,12 @@ def _three_label_box_width(node: dict[str, Any]) -> float:
             f"3D spatial label {node['id']!r} must be a nonempty printable ASCII string"
         )
     try:
-        label_width = sum(
-            THREE_LABEL_PRINTABLE_ASCII_ADVANCE_EM[character]
-            for character in label
-        ) * THREE_LABEL_FONT_PX
+        label_width = (
+            sum(
+                THREE_LABEL_PRINTABLE_ASCII_ADVANCE_EM[character] for character in label
+            )
+            * THREE_LABEL_FONT_PX
+        )
     except KeyError as error:
         raise QualityError(
             f"3D spatial label {node['id']!r} must be a nonempty printable ASCII string"
@@ -9630,6 +9828,456 @@ def build_artifacts() -> tuple[str, str, str]:
     quality_json = scene_pipeline.canonical_payload(quality_registry) + "\n"
     graph_json = scene_pipeline.canonical_payload(graph) + "\n"
     return quality_json, graph_json, source_digest
+
+
+def _acceptance_report_spec(
+    evidence_id: str,
+) -> tuple[str, str, str, Any]:
+    specs = {
+        "static:validation": (
+            "static",
+            "validation",
+            "report_artifact_sha256",
+            _validate_validation_evidence,
+        ),
+        "static:deterministic_generation": (
+            "static",
+            "deterministic_generation",
+            "report_artifact_sha256",
+            _validate_deterministic_generation_evidence,
+        ),
+        "static:evidence": (
+            "static",
+            "evidence",
+            "report_artifact_sha256",
+            _validate_evidence_gate_evidence,
+        ),
+        "live:browser": (
+            "live",
+            "browser",
+            "report_artifact_sha256",
+            _validate_browser_evidence,
+        ),
+        "live:accessibility_snapshot": (
+            "live",
+            "accessibility_snapshot",
+            "report_artifact_sha256",
+            _validate_accessibility_evidence,
+        ),
+        "final:prerequisite_correctness_repairs": (
+            "final",
+            "prerequisite_correctness_repairs",
+            "report_artifact_sha256",
+            _validate_prerequisite_evidence,
+        ),
+        "final:historical_frozen_champion_viewport_captures": (
+            "final",
+            "historical_frozen_champion_viewport_captures",
+            "report_artifact_sha256",
+            _validate_historical_capture_evidence,
+        ),
+    }
+    if evidence_id in specs:
+        return specs[evidence_id]
+    prefix = "blind_review:"
+    if evidence_id.startswith(prefix):
+        reviewer_id = evidence_id.removeprefix(prefix)
+        if reviewer_id in BLIND_REVIEWER_IDS:
+            return (
+                "blind_review",
+                reviewer_id,
+                "report_artifact_sha256",
+                None,
+            )
+    raise QualityError(f"unsupported acceptance evidence_id {evidence_id!r}")
+
+
+def _write_content_addressed_evidence(
+    repository_root: Path,
+    artifact_path: str,
+    payload: bytes,
+) -> Path:
+    root = repository_root.resolve()
+    if not root.is_dir():
+        raise QualityError("acceptance repository root must be an existing directory")
+    relative = PurePosixPath(artifact_path)
+    if relative.is_absolute() or ".." in relative.parts:
+        raise QualityError("acceptance artifact path must be repository-relative")
+    parent = root
+    for part in relative.parts[:-1]:
+        parent /= part
+        if parent.exists() or parent.is_symlink():
+            if parent.is_symlink() or not parent.is_dir():
+                raise QualityError(
+                    "acceptance artifact path must not traverse a non-directory or "
+                    "symbolic link"
+                )
+        else:
+            try:
+                parent.mkdir()
+            except OSError as error:
+                raise QualityError(
+                    f"acceptance artifact directory could not be created: {error}"
+                ) from error
+    target = root.joinpath(*relative.parts)
+    if target.exists() or target.is_symlink():
+        if target.is_symlink() or not target.is_file():
+            raise QualityError(
+                "acceptance artifact target must be a regular non-symbolic-link file"
+            )
+        try:
+            retained = target.read_bytes()
+        except OSError as error:
+            raise QualityError(
+                f"acceptance artifact target could not be read: {error}"
+            ) from error
+        if retained != payload:
+            raise QualityError(
+                "content-addressed acceptance artifact already exists with different bytes"
+            )
+        return target
+    try:
+        with target.open("xb") as destination:
+            destination.write(payload)
+    except OSError as error:
+        raise QualityError(
+            f"acceptance artifact could not be materialized: {error}"
+        ) from error
+    return target
+
+
+def materialize_acceptance_report(
+    value: Any,
+    *,
+    repository_root: Path = ROOT,
+) -> dict[str, Any]:
+    expected_fields = {
+        "schema_version",
+        "candidate_id",
+        "candidate_current_state_sha256",
+        "evidence_id",
+        "outcome",
+        "typed_evidence",
+    }
+    if not isinstance(value, dict) or set(value) != expected_fields:
+        raise QualityError("acceptance report input fields must be exact")
+    if type(value["schema_version"]) is not int or value["schema_version"] != SCHEMA_VERSION:
+        raise QualityError("acceptance report schema_version is invalid")
+    candidate_id = value["candidate_id"]
+    if candidate_id not in EXPECTED_VARIANTS:
+        raise QualityError("acceptance report candidate_id is invalid")
+    current_state_sha256 = _sha256_string(
+        value["candidate_current_state_sha256"],
+        "acceptance report candidate_current_state_sha256",
+    )
+    evidence_id = value["evidence_id"]
+    if not isinstance(evidence_id, str):
+        raise QualityError("acceptance report evidence_id must be a string")
+    domain, ref_id, digest_field, validator = _acceptance_report_spec(evidence_id)
+    outcome = value["outcome"]
+    if not isinstance(outcome, str) or outcome == "pending":
+        raise QualityError("acceptance report outcome must be explicitly resolved")
+    report_evidence = value["typed_evidence"]
+    if not isinstance(report_evidence, dict):
+        raise QualityError("acceptance report typed_evidence must be a mapping")
+    if digest_field in report_evidence:
+        raise QualityError(
+            f"acceptance report typed_evidence must omit self-digest field {digest_field!r}"
+        )
+    if report_evidence.get("candidate_id") != candidate_id:
+        raise QualityError("acceptance report candidate binding is inconsistent")
+    if report_evidence.get("candidate_current_state_sha256") != current_state_sha256:
+        raise QualityError("acceptance report current-state binding is inconsistent")
+    provenance_sha256 = _sha256_string(
+        report_evidence.get("candidate_provenance_sha256"),
+        "acceptance report candidate_provenance_sha256",
+    )
+    evidence = copy.deepcopy(report_evidence)
+    evidence[digest_field] = "0" * 64
+    if domain == "blind_review":
+        evidence = _acceptance_evidence_common(
+            evidence,
+            candidate_id=candidate_id,
+            provenance_sha256=provenance_sha256,
+            expected_current_state=None,
+            expected_fields={
+                "reviewer_id",
+                "blind",
+                "preference",
+                "comparison_artifact_sha256",
+                "report_artifact_sha256",
+            },
+            location="acceptance report typed_evidence",
+        )
+        if (
+            evidence["reviewer_id"] != ref_id
+            or evidence["blind"] is not True
+            or evidence["preference"] != outcome
+            or outcome not in ratchet.REVIEW_PREFERENCES - {"pending"}
+        ):
+            raise QualityError("acceptance report blind-review outcome is inconsistent")
+    else:
+        derived_outcome = validator(
+            evidence,
+            candidate_id=candidate_id,
+            provenance_sha256=provenance_sha256,
+            expected_current_state=None,
+            location="acceptance report typed_evidence",
+        )
+        if outcome != derived_outcome:
+            raise QualityError(
+                "acceptance report outcome does not match its typed evidence"
+            )
+
+    envelope = copy.deepcopy(value)
+    report_bytes = (scene_pipeline.canonical_payload(envelope) + "\n").encode()
+    artifact_sha256 = hashlib.sha256(report_bytes).hexdigest()
+    artifact_path = _canonical_acceptance_report_path(artifact_sha256)
+    _write_content_addressed_evidence(
+        repository_root,
+        artifact_path,
+        report_bytes,
+    )
+    evidence[digest_field] = artifact_sha256
+    evidence_ref = _acceptance_evidence_ref(
+        candidate_id,
+        provenance_sha256,
+        domain,
+        ref_id,
+        evidence,
+    )
+    resolution_field = "preference" if domain == "blind_review" else "status"
+    return {
+        "schema_version": SCHEMA_VERSION,
+        "acceptance_artifact": {
+            "candidate_id": candidate_id,
+            "candidate_current_state_sha256": current_state_sha256,
+            "evidence_id": evidence_id,
+            "artifact_path": artifact_path,
+            "artifact_sha256": artifact_sha256,
+        },
+        "manifest_patch": {
+            resolution_field: outcome,
+            "evidence_ref": evidence_ref,
+            "evidence": evidence,
+        },
+    }
+
+
+def _rfc3339_timestamp(value: Any, location: str) -> str:
+    if not isinstance(value, str) or not value.strip() or "T" not in value:
+        raise QualityError(f"{location} must be an RFC3339 timestamp")
+    normalized = f"{value[:-1]}+00:00" if value.endswith("Z") else value
+    try:
+        timestamp = datetime.fromisoformat(normalized)
+    except ValueError as error:
+        raise QualityError(f"{location} must be an RFC3339 timestamp") from error
+    if timestamp.tzinfo is None:
+        raise QualityError(f"{location} must include a timezone")
+    return value
+
+
+def materialize_occupancy_evidence(
+    value: Any,
+    capture_bytes: bytes,
+    *,
+    repository_root: Path = ROOT,
+) -> dict[str, Any]:
+    expected_fields = {
+        "schema_version",
+        "candidate_id",
+        "candidate_provenance_sha256",
+        "candidate_current_state_sha256",
+        "validation_compiler_implementation_sha256",
+        "evaluation",
+        "decision",
+        "reviewer_id",
+        "reviewed_at",
+        "rationale",
+    }
+    if not isinstance(value, dict) or set(value) != expected_fields:
+        raise QualityError("occupancy evidence input fields must be exact")
+    if type(value["schema_version"]) is not int or value["schema_version"] != SCHEMA_VERSION:
+        raise QualityError("occupancy evidence schema_version is invalid")
+    candidate_id = value["candidate_id"]
+    if candidate_id not in EXPECTED_VARIANTS:
+        raise QualityError("occupancy evidence requires a challenger candidate_id")
+    provenance_sha256 = _sha256_string(
+        value["candidate_provenance_sha256"],
+        "occupancy evidence candidate_provenance_sha256",
+    )
+    current_state_sha256 = _sha256_string(
+        value["candidate_current_state_sha256"],
+        "occupancy evidence candidate_current_state_sha256",
+    )
+    compiler_sha256 = _sha256_string(
+        value["validation_compiler_implementation_sha256"],
+        "occupancy evidence validation_compiler_implementation_sha256",
+    )
+    evaluation = value["evaluation"]
+    evaluation_fields = {
+        "segment_id",
+        "viewport_id",
+        "risk_flags",
+        "metric_id",
+        "observed_value",
+    }
+    if not isinstance(evaluation, dict) or set(evaluation) != evaluation_fields:
+        raise QualityError("occupancy evidence evaluation fields must be exact")
+    segment_id = evaluation["segment_id"]
+    viewport_id = evaluation["viewport_id"]
+    if not isinstance(segment_id, str) or not segment_id:
+        raise QualityError("occupancy evidence segment_id must be non-empty")
+    if viewport_id not in {viewport["id"] for viewport in VIEWPORTS}:
+        raise QualityError("occupancy evidence viewport_id is invalid")
+    risk_flags = evaluation["risk_flags"]
+    if (
+        not isinstance(risk_flags, list)
+        or len(risk_flags) != 1
+        or risk_flags[0] not in OCCUPANCY_RISK_FLAGS
+    ):
+        raise QualityError("occupancy evidence must identify exactly one occupancy risk")
+    if evaluation["metric_id"] != OCCUPANCY_METRIC_BY_RISK_FLAG[risk_flags[0]]:
+        raise QualityError("occupancy evidence metric_id does not match its risk")
+    observed_value = evaluation["observed_value"]
+    if (
+        isinstance(observed_value, bool)
+        or not isinstance(observed_value, (int, float))
+        or not math.isfinite(float(observed_value))
+    ):
+        raise QualityError("occupancy evidence observed_value must be finite")
+    decision = value["decision"]
+    if decision not in {"approved", "rejected"}:
+        raise QualityError("occupancy evidence decision must be approved or rejected")
+    reviewer_id = value["reviewer_id"]
+    rationale = value["rationale"]
+    if not isinstance(reviewer_id, str) or not reviewer_id.strip():
+        raise QualityError("occupancy evidence reviewer_id must be non-empty")
+    if not isinstance(rationale, str) or not rationale.strip():
+        raise QualityError("occupancy evidence rationale must be non-empty")
+    reviewed_at = _rfc3339_timestamp(
+        value["reviewed_at"],
+        "occupancy evidence reviewed_at",
+    )
+    if not isinstance(capture_bytes, bytes):
+        raise QualityError("occupancy capture must be bytes")
+    _validate_occupancy_capture_png(
+        capture_bytes,
+        viewport_id=viewport_id,
+        location="occupancy capture",
+    )
+    artifact_sha256 = hashlib.sha256(capture_bytes).hexdigest()
+    modeled_evaluation_sha256 = _occupancy_modeled_evaluation_sha256(
+        candidate_id,
+        current_state_sha256,
+        evaluation,
+    )
+    capture = {
+        "candidate_id": candidate_id,
+        "candidate_current_state_sha256": current_state_sha256,
+        "validation_compiler_implementation_sha256": compiler_sha256,
+        "segment_id": segment_id,
+        "viewport_id": viewport_id,
+        "modeled_evaluation_sha256": modeled_evaluation_sha256,
+        "artifact_path": "",
+        "artifact_sha256": artifact_sha256,
+    }
+    capture["artifact_path"] = _canonical_occupancy_capture_path(capture)
+    _write_content_addressed_evidence(
+        repository_root,
+        capture["artifact_path"],
+        capture_bytes,
+    )
+    live_review = {
+        "decision": decision,
+        "reviewer_id": reviewer_id,
+        "reviewed_at": reviewed_at,
+        "candidate_current_state_sha256": current_state_sha256,
+        "validation_compiler_implementation_sha256": compiler_sha256,
+        "modeled_evaluation_sha256": modeled_evaluation_sha256,
+        "artifact_sha256": artifact_sha256,
+        "evidence_ref": _occupancy_live_evidence_ref(
+            candidate_id,
+            provenance_sha256,
+            candidate_current_state_sha256=current_state_sha256,
+            validation_compiler_implementation_sha256=compiler_sha256,
+            segment_id=segment_id,
+            viewport_id=viewport_id,
+            modeled_evaluation_sha256=modeled_evaluation_sha256,
+            decision=decision,
+            reviewer_id=reviewer_id,
+            reviewed_at=reviewed_at,
+            artifact_sha256=artifact_sha256,
+        ),
+    }
+    return {
+        "schema_version": SCHEMA_VERSION,
+        "capture": capture,
+        "occupancy_review": {
+            **copy.deepcopy(evaluation),
+            "status": f"live_{decision}",
+            "rationale": rationale,
+            "modeled_evidence_ref": _occupancy_modeled_evidence_ref(
+                candidate_id,
+                segment_id,
+                viewport_id,
+            ),
+            "live_review": live_review,
+        },
+    }
+
+
+def _load_acceptance_cli_input(path: Path) -> Any:
+    try:
+        return json.loads(path.read_bytes())
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as error:
+        raise QualityError(f"acceptance input is not valid JSON: {error}") from error
+
+
+def acceptance_main() -> None:
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        prog="gigawatt-acceptance",
+        description=(
+            "Materialize canonical acceptance evidence from explicit reviewed inputs."
+        ),
+    )
+    parser.add_argument(
+        "--repository-root",
+        type=Path,
+        default=ROOT,
+        help=argparse.SUPPRESS,
+    )
+    commands = parser.add_subparsers(dest="command", required=True)
+    report = commands.add_parser("report")
+    report.add_argument("--input", type=Path, required=True)
+    occupancy = commands.add_parser("occupancy")
+    occupancy.add_argument("--input", type=Path, required=True)
+    occupancy.add_argument("--capture", type=Path, required=True)
+    arguments = parser.parse_args()
+    try:
+        value = _load_acceptance_cli_input(arguments.input)
+        if arguments.command == "report":
+            result = materialize_acceptance_report(
+                value,
+                repository_root=arguments.repository_root,
+            )
+        else:
+            try:
+                capture_bytes = arguments.capture.read_bytes()
+            except OSError as error:
+                raise QualityError(
+                    f"occupancy capture is unavailable: {error}"
+                ) from error
+            result = materialize_occupancy_evidence(
+                value,
+                capture_bytes,
+                repository_root=arguments.repository_root,
+            )
+    except QualityError as error:
+        parser.error(str(error))
+    print(scene_pipeline.canonical_payload(result))
 
 
 def main() -> None:

@@ -54,6 +54,7 @@ EXPECTED_PLANNED_SHOTS = 21
 ALLOWED_MODES = {"2d", "3d", "overlay"}
 THREE_FRAME_MARGIN = 1.10
 TWO_DIMENSIONAL_LABEL_SAFETY_MARGIN = 12.0
+TWO_DIMENSIONAL_COMPACT_FOCUS_MARGIN = 3.0
 MIN_SPATIAL_LABEL_SURFACE_HEIGHT_PX = 240
 PROTECTED_MAP_COPY_IDS = {"footnote"}
 FORBIDDEN_REGISTRY_KEYS = {
@@ -453,6 +454,65 @@ def _fit_2d_view(
     return [rounded_x, rounded_y, rounded_width, rounded_height]
 
 
+def _validated_compact_2d_view(
+    value: Any,
+    points: Sequence[tuple[float, float]],
+    label_bounds: Mapping[str, Mapping[str, Any]],
+    frame: Mapping[str, Any],
+    *,
+    camera_id: str,
+) -> list[float]:
+    """Validate an authored fixed-key frame against focal geometry and anchors."""
+    if not (
+        isinstance(value, list)
+        and len(value) == 4
+        and all(
+            isinstance(item, (int, float))
+            and not isinstance(item, bool)
+            and math.isfinite(float(item))
+            for item in value
+        )
+    ):
+        raise ShotError(f"camera {camera_id!r}: invalid compact 2D viewBox")
+    x, y, width, height = (float(item) for item in value)
+    frame_width = float(frame["w"])
+    frame_height = float(frame["h"])
+    if (
+        width <= 0
+        or height <= 0
+        or x < 0
+        or y < 0
+        or x + width > frame_width
+        or y + height > frame_height
+    ):
+        raise ShotError(
+            f"camera {camera_id!r}: compact 2D viewBox must fit inside the master frame"
+        )
+    expected_aspect = frame_width / frame_height
+    if not math.isclose(width / height, expected_aspect, rel_tol=1e-5):
+        raise ShotError(
+            f"camera {camera_id!r}: compact 2D viewBox must preserve the master aspect"
+        )
+
+    margin = TWO_DIMENSIONAL_COMPACT_FOCUS_MARGIN
+    required_points = [
+        *points,
+        *(tuple(record["at"]) for record in label_bounds.values()),
+    ]
+    if any(
+        point_x < x + margin
+        or point_x > x + width - margin
+        or point_y < y + margin
+        or point_y > y + height - margin
+        for point_x, point_y in required_points
+    ):
+        raise ShotError(
+            f"camera {camera_id!r}: compact 2D viewBox must retain focal geometry "
+            f"and fixed-key anchors with {margin:g} units of margin"
+        )
+    return [x, y, width, height]
+
+
 def _derive_2d_frame(
     node_ids: list[str],
     edge_ids: list[str],
@@ -484,7 +544,7 @@ def _derive_2d_frame(
         )
     ):
         raise ShotError(f"camera {anchor.get('id')!r}: invalid 2D geometry")
-    return {
+    frame = {
         "kind": "2d",
         "viewBox": _fit_2d_view(
             points,
@@ -493,6 +553,15 @@ def _derive_2d_frame(
         ),
         "anchor_viewBox": [float(value) for value in anchor_view],
     }
+    if "compact_viewBox" in anchor:
+        frame["compact_viewBox"] = _validated_compact_2d_view(
+            anchor["compact_viewBox"],
+            points,
+            label_bounds,
+            layout["frame"],
+            camera_id=str(anchor.get("id")),
+        )
+    return frame
 
 
 def _scene_node_points(
@@ -1034,7 +1103,17 @@ REVIEW_HTML = r"""<!doctype html>
   }
   @media (max-width: 820px) {
     :root { --rail: 72px; --head: 126px; }
-    #rail-heading h1 { display: none; }
+    #rail-heading h1 {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
     #rail-heading { padding-inline: 8px; }
     .shot-button { grid-template-columns: 1fr; padding-inline: 8px; }
     .shot-number { text-align: center; }
@@ -1450,12 +1529,28 @@ function renderFocusKey(shot) {
   key.hidden = !key.childElementCount;
 }
 
+function compact2dFrameActive(shot) {
+  const compactView = shot.frame.compact_viewBox;
+  if (compactView === undefined) return false;
+  if (!Array.isArray(compactView) || compactView.length !== 4) {
+    throw new Error(`Invalid compact 2D viewBox for ${shot.segment_id}`);
+  }
+  if (shot.visual?.label_policy !== "focus") return false;
+  return mapStage.clientWidth < 400 ||
+    mapStage.clientHeight < __MIN_SPATIAL_LABEL_SURFACE_HEIGHT_PX__;
+}
+
+function active2dView(shot) {
+  return compact2dFrameActive(shot) ? shot.frame.compact_viewBox : shot.frame.viewBox;
+}
+
 function updateMapLabelLegibility(shot) {
   if (shot.render_mode !== "2d" || shot.visual?.label_policy !== "focus") return;
   const rect = mapSvg.getBoundingClientRect();
-  const view = shot.frame.viewBox;
+  const compactFrame = compact2dFrameActive(shot);
+  const view = active2dView(shot);
   const projectedBaseFont = 10.5 * Math.min(rect.width / view[2], rect.height / view[3]);
-  const spatialLabelsReadable = projectedBaseFont >= 10;
+  const spatialLabelsReadable = !compactFrame && projectedBaseFont >= 10;
   for (const element of mapLabels) {
     if (mapLegend?.contains(element)) continue;
     const intended = element.dataset.focusVisible === "true";
@@ -1550,7 +1645,7 @@ function responsive3dPosition(frame) {
 
 function setFrame(shot) {
   if (shot.frame.kind === "2d") {
-    const view = showingAnchor ? shot.frame.anchor_viewBox : shot.frame.viewBox;
+    const view = showingAnchor ? shot.frame.anchor_viewBox : active2dView(shot);
     mapSvg.setAttribute("viewBox", view.join(" "));
     return;
   }
@@ -1563,17 +1658,24 @@ function setFrame(shot) {
   render3d();
 }
 
+function countLabel(count, singular) {
+  return `${count} ${count === 1 ? singular : `${singular}s`}`;
+}
+
 function updateAccessibleState(shot) {
   const readableNodes = shot.render_mode === "3d"
     ? shot.focus_nodes.map(id => `${nodeLabels.get(id) || id}; ${nodePostures.get(id) || "posture unknown"}`)
     : (shot.focus_node_labels || shot.focus_nodes.map(id => nodeLabels.get(id) || id));
   const readableEdges = shot.focus_edge_labels || shot.focus_edges;
   const focusParts = [];
-  if (readableNodes.length) focusParts.push(`Focused nodes: ${readableNodes.join(", ")}`);
-  if (readableEdges.length) focusParts.push(`Focused paths: ${readableEdges.join(", ")}`);
+  if (readableNodes.length) focusParts.push(`Focused ${readableNodes.length === 1 ? "node" : "nodes"}: ${readableNodes.join(", ")}`);
+  if (readableEdges.length) focusParts.push(`Focused ${readableEdges.length === 1 ? "path" : "paths"}: ${readableEdges.join(", ")}`);
   const detail = focusParts.join(". ");
-  stage.setAttribute("aria-label", `${shot.title}. ${detail || "No focused topology."}`);
-  $("state-status").textContent = `Section ${shot.sequence} of ${shots.length}: ${shot.title}. ${shot.focus_nodes.length} focused nodes and ${shot.focus_edges.length} focused paths.`;
+  const titleSentence = /[.!?]$/.test(shot.title) ? shot.title : `${shot.title}.`;
+  const nodeSummary = `${shot.focus_nodes.length} focused ${shot.focus_nodes.length === 1 ? "node" : "nodes"}`;
+  const pathSummary = `${shot.focus_edges.length} focused ${shot.focus_edges.length === 1 ? "path" : "paths"}`;
+  stage.setAttribute("aria-label", `${titleSentence} ${detail || "No focused topology."}`);
+  $("state-status").textContent = `Section ${shot.sequence} of ${shots.length}: ${titleSentence} ${nodeSummary} and ${pathSummary}.`;
 }
 
 function activate(index) {
@@ -1592,7 +1694,7 @@ function activate(index) {
 
   $("eyebrow").textContent = `${String(shot.sequence).padStart(2, "0")} / ${shots.length} · ${shot.segment_id}`;
   $("title").textContent = shot.title;
-  $("scope-summary").textContent = `${shot.focus_nodes.length} nodes · ${shot.focus_edges.length} edges · ${shot.evidence_readiness.replaceAll("_", " ")}`;
+  $("scope-summary").textContent = `${countLabel(shot.focus_nodes.length, "node")} · ${countLabel(shot.focus_edges.length, "edge")} · ${shot.evidence_readiness.replaceAll("_", " ")}`;
   const readableNodes = shot.focus_nodes.map(id => nodeLabels.get(id) || id);
   $("scope-ids").textContent = readableNodes.join(" · ");
   $("scope-ids").title = shot.focus_nodes.join(", ");
@@ -1604,6 +1706,7 @@ function activate(index) {
     : "No hidden reveal";
   $("context-toggle").textContent = "Show anchor";
   document.querySelectorAll(".shot-button").forEach((button, buttonIndex) => {
+    button.tabIndex = buttonIndex === current ? 0 : -1;
     if (buttonIndex === current) {
       button.setAttribute("aria-current", "step");
       button.scrollIntoView({ block: "nearest" });
@@ -1621,6 +1724,7 @@ shots.forEach((shot, index) => {
   button.className = "shot-button";
   button.type = "button";
   button.setAttribute("aria-label", `${String(shot.sequence).padStart(2, "0")}. ${shot.title}`);
+  button.title = shot.title;
   const number = document.createElement("span");
   number.className = "shot-number";
   number.textContent = String(shot.sequence).padStart(2, "0");
@@ -1633,6 +1737,17 @@ shots.forEach((shot, index) => {
   segment.textContent = shot.segment_id;
   labels.append(name, segment);
   button.append(number, labels);
+  button.addEventListener("keydown", event => {
+    let targetIndex = null;
+    if (event.key === "ArrowLeft" || event.key === "ArrowUp") targetIndex = Math.max(0, index - 1);
+    if (event.key === "ArrowRight" || event.key === "ArrowDown") targetIndex = Math.min(shots.length - 1, index + 1);
+    if (event.key === "Home") targetIndex = 0;
+    if (event.key === "End") targetIndex = shots.length - 1;
+    if (targetIndex === null) return;
+    event.preventDefault();
+    activate(targetIndex);
+    shotList.children[targetIndex].focus();
+  });
   button.addEventListener("click", () => activate(index));
   shotList.appendChild(button);
 });

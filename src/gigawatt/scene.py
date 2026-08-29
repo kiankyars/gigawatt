@@ -124,9 +124,9 @@ CAMERA_COMMON_FIELDS = {
     "focus_edges",
 }
 CAMERA_OPTIONAL_FIELDS_BY_MODE = {
-    "2d": {"focus_labels"},
+    "2d": {"compact_viewBox", "focus_labels"},
     "3d": {"label_offsets", "label_nodes", "pulse_edges"},
-    "overlay": {"focus_labels"},
+    "overlay": {"compact_viewBox", "focus_labels"},
 }
 CAMERA_REQUIRED_FIELDS_BY_MODE = {
     "2d": {"map_view"},
@@ -1499,6 +1499,11 @@ def validate(
             _validate_camera_focus_visibility(scene, camera)
         else:
             _rectangle(camera.get("map_view"), f"camera {cid}.map_view")
+            if "compact_viewBox" in camera:
+                _rectangle(
+                    camera["compact_viewBox"],
+                    f"camera {cid}.compact_viewBox",
+                )
         if annotation := camera.get("annotation"):
             if annotation.get("node") not in master_nodes:
                 raise ManifestError(f"camera {cid}: annotation node is not in master")

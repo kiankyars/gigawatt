@@ -109,6 +109,7 @@ cameras:
     title: The watt becomes heat
     subtitle: Return to the engineering map for the semantic handoff.
     viewBox: [1000, 540, 650, 300]
+    compact_viewBox: [1239.791, 713.0, 170.098, 95.68]
     well: [80, 160, 1560, 720]
     map_view: [1000, 540, 650, 300]
     map_asset: map_watt_heat_handoff.svg

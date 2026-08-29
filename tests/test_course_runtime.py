@@ -834,6 +834,44 @@ class CourseRuntimeTests(unittest.TestCase):
                     segment["frame"],
                 )
 
+    def test_s09_compact_frame_is_fixed_key_only_and_preserves_standard_frame(
+        self,
+    ) -> None:
+        segment = next(
+            item
+            for item in self.registry["segments"]
+            if item["segment_id"] == "s09_watt_becomes_heat"
+        )
+        self.assertEqual(
+            segment["frame"],
+            {
+                "kind": "2d",
+                "viewBox": [1074.21, 644.0, 458.345, 257.819],
+                "anchor_viewBox": [1000.0, 540.0, 650.0, 300.0],
+                "compact_viewBox": [1239.791, 713.0, 170.098, 95.68],
+            },
+        )
+
+        visuals = copy.deepcopy(self.visuals)
+        del visuals["segments"]["s09_watt_becomes_heat"]
+        context_registry = course_runtime.compile_registry(
+            self.course,
+            self.cameras,
+            self.master,
+            self.layout,
+            self.scene,
+            self.ledgers,
+            visuals,
+            source_digest="compact-disabled-without-focus-policy",
+        )
+        context_segment = next(
+            item
+            for item in context_registry["segments"]
+            if item["segment_id"] == "s09_watt_becomes_heat"
+        )
+        self.assertEqual(context_segment["visual"]["label_policy"], "context")
+        self.assertIn("compact_viewBox", context_segment["frame"])
+
     def test_visual_schema_version_requires_an_exact_integer(self) -> None:
         for invalid in (True, 1.0, "1"):
             visuals = copy.deepcopy(self.visuals)
@@ -920,7 +958,11 @@ class CourseRuntimeTests(unittest.TestCase):
         for segment in self.registry["segments"]:
             frame = segment["frame"]
             geometry = (
-                [*frame["viewBox"], *frame["anchor_viewBox"]]
+                [
+                    *frame["viewBox"],
+                    *frame["anchor_viewBox"],
+                    *frame.get("compact_viewBox", []),
+                ]
                 if frame["kind"] == "2d"
                 else [
                     *frame["position"],
@@ -969,6 +1011,25 @@ class CourseRuntimeTests(unittest.TestCase):
             player,
         )
         self.assertNotIn("__MIN_SPATIAL_LABEL_SURFACE_HEIGHT_PX__", player)
+
+    def test_player_activates_compact_two_dimensional_frame_with_fixed_key(self) -> None:
+        player = course_runtime._player_template()
+        self.assertIn("function compact2dFrameActive(shot)", player)
+        self.assertIn("function active2dView(shot)", player)
+        self.assertIn("mapStage.clientWidth < 400", player)
+        self.assertIn('if (shot.visual?.label_policy !== "focus") return false', player)
+        self.assertIn(
+            f"mapStage.clientHeight < {shots.MIN_SPATIAL_LABEL_SURFACE_HEIGHT_PX}",
+            player,
+        )
+        self.assertIn(
+            "const spatialLabelsReadable = !compactFrame && projectedBaseFont >= 10",
+            player,
+        )
+        self.assertIn(
+            'mapSvg.setAttribute("viewBox", active2dView(shot).join(" "))',
+            player,
+        )
 
     def test_player_inherits_depth_separated_focus_rendering(self) -> None:
         player = course_runtime._player_template()
@@ -1457,6 +1518,9 @@ class CourseRuntimeTests(unittest.TestCase):
         )
         self.assertEqual("hidden", contract["overflow_x"])
         self.assertEqual("auto", contract["overflow_y"])
+        self.assertNotIn("drawer_single_column_items", contract["missing_token_ids"])
+        self.assertNotIn("drawer_item_wrap", contract["missing_token_ids"])
+        self.assertNotIn("fact_id_wrap", contract["missing_token_ids"])
 
         player = course_runtime._player_template()
         self.assertIn(
@@ -1490,6 +1554,30 @@ class CourseRuntimeTests(unittest.TestCase):
             broken = course_runtime.portrait_teaching_drawer_contract()
         self.assertFalse(broken["passed"])
         self.assertIn("full_stage_drawer", broken["missing_token_ids"])
+
+        required_repairs = {
+            "drawer_single_column_items": (
+                '#teaching-overlay[data-mobile-drawer="true"][data-kind="routes"] #teaching-items {'
+                "\n      grid-template-columns: minmax(0, 1fr);"
+            ),
+            "drawer_item_wrap": (
+                '#teaching-overlay[data-mobile-drawer="true"] #teaching-items li {'
+                "\n      min-width: 0;\n      overflow-wrap: anywhere;"
+            ),
+            "fact_id_wrap": ".fact-details > p { overflow-wrap: anywhere; }",
+        }
+        for token_id, token in required_repairs.items():
+            with (
+                self.subTest(token_id=token_id),
+                patch.object(
+                    course_runtime,
+                    "COURSE_CSS",
+                    course_runtime.COURSE_CSS.replace(token, "/* removed repair */", 1),
+                ),
+            ):
+                broken = course_runtime.portrait_teaching_drawer_contract()
+            self.assertFalse(broken["passed"])
+            self.assertIn(token_id, broken["missing_token_ids"])
 
     def test_standard_overlay_width_optimizer_covers_2d_and_3d(self) -> None:
         player = course_runtime._player_template()
@@ -1650,6 +1738,12 @@ class CourseRuntimeTests(unittest.TestCase):
         self.assertIn('id="focus-key"', player)
         self.assertIn('id="focus-markers"', player)
         self.assertIn("function renderFocusMarkers(shot)", player)
+        self.assertIn('alignment: text.getAttribute("text-anchor") || "middle"', player)
+        self.assertIn("const markerOffsetsByAlignment = {", player)
+        self.assertIn(
+            "markerOffsetsByAlignment[anchor.alignment] || markerOffsetsByAlignment.middle",
+            player,
+        )
         self.assertIn('index.className = "focus-index"', player)
         self.assertIn('marker.className = "focus-marker"', player)
         self.assertIn('leader.className = "focus-leader"', player)
@@ -1718,6 +1812,14 @@ class CourseRuntimeTests(unittest.TestCase):
         self.assertIn('aria-label="Course navigation and evidence controls"', player)
         self.assertIn('id="state-status"', player)
         self.assertIn("function updateAccessibleState(shot)", player)
+        self.assertIn("button.tabIndex = buttonIndex === current ? 0 : -1", player)
+        self.assertIn("button.title = shot.title", player)
+        self.assertIn('button.addEventListener("keydown", event => {', player)
+        self.assertIn("shotList.children[targetIndex].focus()", player)
+        self.assertIn("const titleSentence = /[.!?]$/.test(shot.title)", player)
+        self.assertIn('shot.focus_edges.length === 1 ? "path" : "paths"', player)
+        self.assertEqual(player.count("function countLabel(count, singular)"), 1)
+        self.assertIn('countLabel(shot.focus_edges.length, "edge")', player)
         self.assertIn("function trapNotesFocus(event)", player)
         self.assertIn("element.inert = open", player)
         self.assertIn("panel.inert = !open", player)
@@ -1735,6 +1837,19 @@ class CourseRuntimeTests(unittest.TestCase):
             '#three-mount .node-label[data-presence="teaching_reference"]', player
         )
         self.assertIn('notesSection("What the evidence supports")', player)
+        self.assertIn(".fact-details > p { overflow-wrap: anywhere; }", player)
+        self.assertIn(
+            '#teaching-overlay[data-mobile-drawer="true"][data-kind="routes"] #teaching-items',
+            player,
+        )
+        self.assertNotIn(
+            '#teaching-overlay[data-mobile-drawer="true"] #teaching-items,',
+            player,
+        )
+        self.assertNotRegex(
+            player,
+            r"(?s)#rail-heading h1\s*\{[^}]*display\s*:\s*none",
+        )
         self.assertIn('"Evidence ready"', player)
         self.assertIn('"supported claim group"', player)
         self.assertIn(

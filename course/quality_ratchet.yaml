@@ -96,9 +96,12 @@ change_owners:
   - change_owner_id: OWNER-RUNTIME-PRIMITIVE
     source_paths:
       - course/quality_ratchet.yaml
+      - diagram/cameras.yaml
       - src/gigawatt/course_runtime.py
+      - src/gigawatt/scene.py
       - src/gigawatt/shots.py
       - tests/test_course_runtime.py
+      - tests/test_scene.py
       - tests/test_shots.py
     responsibilities:
       - shared responsive layout primitives
@@ -643,10 +646,13 @@ changes:
     finding_ids: [VIS-R7-LOW-OCCUPANCY-PENDING-01]
     change_owner_ids: [OWNER-RUNTIME-PRIMITIVE, OWNER-QUALITY-CONTRACT]
     source_paths:
+      - diagram/cameras.yaml
       - src/gigawatt/course_runtime.py
+      - src/gigawatt/scene.py
       - src/gigawatt/shots.py
       - src/gigawatt/quality.py
       - tests/test_course_runtime.py
+      - tests/test_scene.py
       - tests/test_shots.py
       - tests/test_quality.py
     description: Apply only zero-regression framing gains and classify any remaining below-threshold scale choice as a typed live-preference boundary without weakening the occupancy threshold.
@@ -1379,24 +1385,6 @@ occupancy_reviews:
         rationale: Static focus occupancy is 0.023201, below the 0.08 review threshold. The authored two-object handoff and semantic overlay pass static gates; live balance and hierarchy remain unreviewed.
         modeled_evidence_ref: diagram/course_quality.json#ratchet/challengers/labels_only/layout_gates/occupancy_review/evaluations/s09_watt_becomes_heat/1024x768
         live_review: null
-      - segment_id: s09_watt_becomes_heat
-        viewport_id: 844x390
-        risk_flags: [low_focus_occupancy]
-        status: unresolved
-        metric_id: two_dimensional.focus_occupancy
-        observed_value: 0.011371
-        rationale: Static focus occupancy is 0.011371, below the 0.08 review threshold. Compact overlay and label gates pass statically; live balance and hierarchy remain unreviewed.
-        modeled_evidence_ref: diagram/course_quality.json#ratchet/challengers/labels_only/layout_gates/occupancy_review/evaluations/s09_watt_becomes_heat/844x390
-        live_review: null
-      - segment_id: s09_watt_becomes_heat
-        viewport_id: 390x844
-        risk_flags: [low_focus_occupancy]
-        status: unresolved
-        metric_id: two_dimensional.focus_occupancy
-        observed_value: 0.011537
-        rationale: Static focus occupancy is 0.011537, below the 0.08 review threshold. The closed teaching drawer and label gates pass statically; live balance and hierarchy remain unreviewed.
-        modeled_evidence_ref: diagram/course_quality.json#ratchet/challengers/labels_only/layout_gates/occupancy_review/evaluations/s09_watt_becomes_heat/390x844
-        live_review: null
       - segment_id: s14_facility_heat_rejection
         viewport_id: 844x390
         risk_flags: [low_projected_occupancy]
@@ -1654,24 +1642,6 @@ occupancy_reviews:
         observed_value: 0.023201
         rationale: Static focus occupancy is 0.023201, below the 0.08 review threshold. The authored two-object handoff and semantic overlay pass static gates; live balance and hierarchy remain unreviewed.
         modeled_evidence_ref: diagram/course_quality.json#ratchet/challengers/combined/layout_gates/occupancy_review/evaluations/s09_watt_becomes_heat/1024x768
-        live_review: null
-      - segment_id: s09_watt_becomes_heat
-        viewport_id: 844x390
-        risk_flags: [low_focus_occupancy]
-        status: unresolved
-        metric_id: two_dimensional.focus_occupancy
-        observed_value: 0.011371
-        rationale: Static focus occupancy is 0.011371, below the 0.08 review threshold. Compact overlay and label gates pass statically; live balance and hierarchy remain unreviewed.
-        modeled_evidence_ref: diagram/course_quality.json#ratchet/challengers/combined/layout_gates/occupancy_review/evaluations/s09_watt_becomes_heat/844x390
-        live_review: null
-      - segment_id: s09_watt_becomes_heat
-        viewport_id: 390x844
-        risk_flags: [low_focus_occupancy]
-        status: unresolved
-        metric_id: two_dimensional.focus_occupancy
-        observed_value: 0.011537
-        rationale: Static focus occupancy is 0.011537, below the 0.08 review threshold. The closed teaching drawer and label gates pass statically; live balance and hierarchy remain unreviewed.
-        modeled_evidence_ref: diagram/course_quality.json#ratchet/challengers/combined/layout_gates/occupancy_review/evaluations/s09_watt_becomes_heat/390x844
         live_review: null
       - segment_id: s14_facility_heat_rejection
         viewport_id: 844x390

@@ -181,6 +181,64 @@ class PlannedShotCompilerTests(unittest.TestCase):
                 )
                 self.assertGreater(math.dist(frame["position"], frame["target"]), 0)
 
+    def test_compact_two_dimensional_frame_preserves_standard_frame_and_fails_closed(
+        self,
+    ) -> None:
+        segment = segment_by_id(self.course, "s09_watt_becomes_heat")
+        anchor = next(
+            item
+            for item in self.cameras["cameras"]
+            if item["id"] == "watt_heat_handoff"
+        )
+        evidence = shots.scene_pipeline.load_yaml(
+            shots.ROOT / self.master["meta"]["evidence_file"]
+        )
+        resolved_labels = {
+            copy_id: shots.layout_pipeline.resolve_copy(
+                self.master,
+                evidence,
+                copy_id,
+                include_hidden=True,
+            )
+            for copy_id in ("die_turn", "cold_plate")
+        }
+
+        def derive(camera: dict) -> dict:
+            return shots._derive_2d_frame(
+                segment["node_ids"],
+                segment["edge_ids"],
+                camera,
+                self.master,
+                self.layout,
+                self.scene,
+                resolved_label_copy=resolved_labels,
+            )
+
+        frame = derive(anchor)
+        self.assertEqual(
+            frame,
+            {
+                "kind": "2d",
+                "viewBox": [1074.21, 644.0, 458.345, 257.819],
+                "anchor_viewBox": [1000.0, 540.0, 650.0, 300.0],
+                "compact_viewBox": [1239.791, 713.0, 170.098, 95.68],
+            },
+        )
+
+        for mutation, error in (
+            ((1, 713.1), "retain focal geometry and fixed-key anchors"),
+            ((2, 171.0), "preserve the master aspect"),
+            ((0, 1800.0), "fit inside the master frame"),
+        ):
+            camera = copy.deepcopy(anchor)
+            index, value = mutation
+            camera["compact_viewBox"][index] = value
+            with (
+                self.subTest(index=index, value=value),
+                self.assertRaisesRegex(shots.ShotError, error),
+            ):
+                derive(camera)
+
     def test_two_dimensional_label_bounds_cover_rendered_font_metrics(self) -> None:
         evidence = shots.scene_pipeline.load_yaml(
             shots.ROOT / self.master["meta"]["evidence_file"]
@@ -401,6 +459,19 @@ class PlannedShotCompilerTests(unittest.TestCase):
         self.assertIn("const nodePostures = new Map();", html)
         self.assertIn("setFrame(shots[current]);", html)
         self.assertIn('button.setAttribute("aria-label"', html)
+        self.assertIn("button.title = shot.title", html)
+        self.assertIn("button.tabIndex = buttonIndex === current ? 0 : -1", html)
+        self.assertIn('button.addEventListener("keydown", event => {', html)
+        self.assertIn("shotList.children[targetIndex].focus()", html)
+        self.assertIn("const titleSentence = /[.!?]$/.test(shot.title)", html)
+        self.assertIn('readableEdges.length === 1 ? "path" : "paths"', html)
+        self.assertIn("function countLabel(count, singular)", html)
+        self.assertIn('countLabel(shot.focus_edges.length, "edge")', html)
+        self.assertIn("#rail-heading h1 {\n      position: absolute;", html)
+        self.assertNotRegex(
+            html,
+            r"(?s)#rail-heading h1\s*\{[^}]*display\s*:\s*none",
+        )
         self.assertIn('event.target.closest?.("#focus-key, button, a")', html)
         self.assertIn('event.key === "ArrowLeft"', html)
         self.assertIn('event.key === "ArrowRight"', html)

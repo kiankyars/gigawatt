@@ -104,6 +104,10 @@ def _fully_resolved_acceptance_candidate(
         ],
     }
     report_sha256 = report_artifact_sha256_by_evidence_id.__getitem__
+    def underlying_sha256(evidence_id: str) -> str:
+        return hashlib.sha256(
+            f"underlying:{candidate_id}:{evidence_id}".encode()
+        ).hexdigest()
     static_evidence = {
         "validation": {
             **common,
@@ -157,7 +161,8 @@ def _fully_resolved_acceptance_candidate(
         "segment_count": course_runtime.EXPECTED_SEGMENTS,
         "evaluation_count": course_runtime.EXPECTED_SEGMENTS * len(quality.VIEWPORTS),
         "defect_count": 0,
-        "artifact_sha256": report_sha256("live:browser"),
+        "artifact_sha256": underlying_sha256("live:browser"),
+        "report_artifact_sha256": report_sha256("live:browser"),
     }
     accessibility_evidence = {
         **common,
@@ -165,7 +170,10 @@ def _fully_resolved_acceptance_candidate(
         "segment_count": course_runtime.EXPECTED_SEGMENTS,
         "snapshot_count": course_runtime.EXPECTED_SEGMENTS * len(quality.VIEWPORTS),
         "violation_count": 0,
-        "artifact_sha256": report_sha256("live:accessibility_snapshot"),
+        "artifact_sha256": underlying_sha256("live:accessibility_snapshot"),
+        "report_artifact_sha256": report_sha256(
+            "live:accessibility_snapshot"
+        ),
     }
     for gate_id, evidence in (
         ("browser", browser_evidence),
@@ -188,7 +196,10 @@ def _fully_resolved_acceptance_candidate(
             "reviewer_id": review["reviewer_id"],
             "blind": True,
             "preference": preference,
-            "comparison_artifact_sha256": report_sha256(
+            "comparison_artifact_sha256": underlying_sha256(
+                f"blind_review:{review['reviewer_id']}"
+            ),
+            "report_artifact_sha256": report_sha256(
                 f"blind_review:{review['reviewer_id']}"
             ),
         }
@@ -214,7 +225,12 @@ def _fully_resolved_acceptance_candidate(
         "candidate_base_source_digest_sha256": current_state[
             "candidate_source_digest_sha256"
         ],
-        "artifact_sha256": report_sha256("final:prerequisite_correctness_repairs"),
+        "artifact_sha256": underlying_sha256(
+            "final:prerequisite_correctness_repairs"
+        ),
+        "report_artifact_sha256": report_sha256(
+            "final:prerequisite_correctness_repairs"
+        ),
     }
     capture_evidence = {
         **common,
@@ -223,7 +239,10 @@ def _fully_resolved_acceptance_candidate(
         * len(quality.VIEWPORTS),
         "reviewed_capture_count": course_runtime.EXPECTED_SEGMENTS
         * len(quality.VIEWPORTS),
-        "capture_set_sha256": report_sha256(
+        "capture_set_sha256": underlying_sha256(
+            "final:historical_frozen_champion_viewport_captures"
+        ),
+        "report_artifact_sha256": report_sha256(
             "final:historical_frozen_champion_viewport_captures"
         ),
     }
@@ -322,8 +341,18 @@ class ChangeOwnershipCoverageTests(unittest.TestCase):
                 manifest["frozen_champion"]["git_sha"],
             )
         )
+        retained_evidence_paths = quality._validate_retained_evidence_inventory(
+            quality._validate_acceptance_artifacts(
+                manifest["acceptance_artifacts"]
+            ),
+            quality._validate_occupancy_capture_manifest(
+                manifest["occupancy_capture_manifest"]
+            ),
+        )
         canonical_changed_paths = (
-            changed_paths - quality.GENERATED_OUTPUT_PATH_ALLOWLIST
+            changed_paths
+            - quality.GENERATED_OUTPUT_PATH_ALLOWLIST
+            - retained_evidence_paths
         )
         declared_source_paths = {
             source_path
@@ -341,6 +370,255 @@ class ChangeOwnershipCoverageTests(unittest.TestCase):
             },
             canonical_changed_paths,
         )
+
+    def test_only_manifest_referenced_acceptance_evidence_is_not_source(
+        self,
+    ) -> None:
+        retained_path = (
+            "course/acceptance_evidence/reports/" + "a" * 64 + ".json"
+        )
+        with (
+            patch.object(
+                quality,
+                "_validate_retained_evidence_inventory",
+                return_value={retained_path},
+            ),
+            patch.object(
+                quality.champion_pipeline,
+                "changed_worktree_paths",
+                return_value=(retained_path,),
+            ),
+        ):
+            quality.load_ratchet_manifest()
+
+        with (
+            patch.object(
+                quality.champion_pipeline,
+                "changed_worktree_paths",
+                return_value=("course/unreferenced-evidence.json",),
+            ),
+            self.assertRaisesRegex(
+                quality.QualityError,
+                r"changed canonical source paths.*course/unreferenced-evidence\.json",
+            ),
+        ):
+            quality.load_ratchet_manifest()
+
+
+class AcceptanceEvidenceContractTests(unittest.TestCase):
+    @staticmethod
+    def _browser_report_input() -> dict:
+        return {
+            "schema_version": quality.SCHEMA_VERSION,
+            "candidate_id": "combined",
+            "candidate_current_state_sha256": "2" * 64,
+            "evidence_id": "live:browser",
+            "outcome": "passed",
+            "typed_evidence": {
+                "candidate_id": "combined",
+                "candidate_provenance_sha256": "1" * 64,
+                "candidate_current_state_sha256": "2" * 64,
+                "validation_compiler_implementation_sha256": "3" * 64,
+                "viewport_ids": [
+                    viewport["id"] for viewport in quality.VIEWPORTS
+                ],
+                "segment_count": course_runtime.EXPECTED_SEGMENTS,
+                "evaluation_count": course_runtime.EXPECTED_SEGMENTS
+                * len(quality.VIEWPORTS),
+                "defect_count": 0,
+                "artifact_sha256": "4" * 64,
+            },
+        }
+
+    def test_retained_evidence_inventory_is_exact_and_rejects_links(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            evidence_root = root / quality.ACCEPTANCE_EVIDENCE_DIRECTORY
+            report_path = (
+                "course/acceptance_evidence/reports/" + "b" * 64 + ".json"
+            )
+            retained = root / report_path
+            retained.parent.mkdir(parents=True)
+            retained.write_bytes(b"{}\n")
+            artifacts = [{"artifact_path": report_path}]
+            captures = {"captures": []}
+            with patch.object(
+                quality,
+                "_retained_evidence_root",
+                return_value=evidence_root,
+            ):
+                self.assertEqual(
+                    quality._validate_retained_evidence_inventory(
+                        artifacts,
+                        captures,
+                    ),
+                    {report_path},
+                )
+                extra = evidence_root / "unreferenced.json"
+                extra.write_bytes(b"{}\n")
+                with self.assertRaisesRegex(
+                    quality.QualityError,
+                    r"exactly match referenced artifacts.*unreferenced\.json",
+                ):
+                    quality._validate_retained_evidence_inventory(
+                        artifacts,
+                        captures,
+                    )
+                extra.unlink()
+                retained.unlink()
+                retained.symlink_to(evidence_root / "missing-target.json")
+                with self.assertRaisesRegex(quality.QualityError, "symbolic links"):
+                    quality._validate_retained_evidence_inventory(
+                        artifacts,
+                        captures,
+                    )
+
+    def test_retained_evidence_paths_are_unique_across_manifests(self) -> None:
+        path = "course/acceptance_evidence/reports/" + "c" * 64 + ".json"
+        with self.assertRaisesRegex(quality.QualityError, "globally unique"):
+            quality._validate_retained_evidence_inventory(
+                [{"artifact_path": path}],
+                {"captures": [{"artifact_path": path}]},
+            )
+
+    def test_acceptance_report_materializer_preserves_underlying_digest(self) -> None:
+        report_input = self._browser_report_input()
+        underlying_sha256 = report_input["typed_evidence"]["artifact_sha256"]
+        with tempfile.TemporaryDirectory() as directory:
+            target_root = Path(directory)
+            materialized = quality.materialize_acceptance_report(
+                report_input,
+                repository_root=target_root,
+            )
+            artifact = materialized["acceptance_artifact"]
+            evidence = materialized["manifest_patch"]["evidence"]
+            retained = target_root / artifact["artifact_path"]
+            expected_bytes = (
+                quality.scene_pipeline.canonical_payload(report_input) + "\n"
+            ).encode()
+            self.assertEqual(retained.read_bytes(), expected_bytes)
+            self.assertEqual(evidence["artifact_sha256"], underlying_sha256)
+            self.assertEqual(
+                evidence["report_artifact_sha256"],
+                artifact["artifact_sha256"],
+            )
+            self.assertNotEqual(underlying_sha256, artifact["artifact_sha256"])
+            self.assertNotIn(
+                "report_artifact_sha256",
+                report_input["typed_evidence"],
+            )
+            with patch.object(
+                quality,
+                "_retained_evidence_root",
+                return_value=target_root / quality.ACCEPTANCE_EVIDENCE_DIRECTORY,
+            ):
+                self.assertEqual(
+                    quality._validate_acceptance_artifacts([artifact]),
+                    [artifact],
+                )
+
+    def test_acceptance_report_materializer_rejects_unresolved_input(self) -> None:
+        report_input = self._browser_report_input()
+        report_input["outcome"] = "pending"
+        with (
+            tempfile.TemporaryDirectory() as directory,
+            self.assertRaisesRegex(quality.QualityError, "explicitly resolved"),
+        ):
+            quality.materialize_acceptance_report(
+                report_input,
+                repository_root=Path(directory),
+            )
+
+    def test_acceptance_artifact_manifest_rejects_unconsumed_records(self) -> None:
+        candidates = [
+            {
+                "candidate_id": "combined",
+                "static_gate_evidence": {
+                    "validation": {"status": "pending"},
+                },
+                "live_gate_evidence": {},
+                "blind_reviews": [],
+                "final_independent_gate_evidence": {},
+            }
+        ]
+        artifacts = [
+            {
+                "candidate_id": "combined",
+                "evidence_id": "static:validation",
+            }
+        ]
+        with self.assertRaisesRegex(
+            quality.QualityError,
+            "identities must exactly match resolved evidence",
+        ):
+            quality._validate_acceptance_artifact_consumption(
+                candidates,
+                artifacts,
+            )
+
+    def test_occupancy_materializer_uses_explicit_live_judgment(self) -> None:
+        evaluation = {
+            "segment_id": "s05_ppa_not_wire",
+            "viewport_id": "390x844",
+            "risk_flags": ["low_focus_occupancy"],
+            "metric_id": "two_dimensional.focus_occupancy",
+            "observed_value": 0.05,
+        }
+        viewport = next(
+            viewport
+            for viewport in quality.VIEWPORTS
+            if viewport["id"] == evaluation["viewport_id"]
+        )
+        capture_bytes = _occupancy_capture_png(
+            viewport["width"],
+            viewport["height"],
+            211,
+        )
+        value = {
+            "schema_version": quality.SCHEMA_VERSION,
+            "candidate_id": "combined",
+            "candidate_provenance_sha256": "1" * 64,
+            "candidate_current_state_sha256": "2" * 64,
+            "validation_compiler_implementation_sha256": "3" * 64,
+            "evaluation": evaluation,
+            "decision": "approved",
+            "reviewer_id": "external-live-reviewer",
+            "reviewed_at": "2026-08-29T12:00:00-07:00",
+            "rationale": "The captured focus remains legible at this viewport.",
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            target_root = Path(directory)
+            materialized = quality.materialize_occupancy_evidence(
+                value,
+                capture_bytes,
+                repository_root=target_root,
+            )
+            capture = materialized["capture"]
+            review = materialized["occupancy_review"]
+            self.assertEqual(
+                (target_root / capture["artifact_path"]).read_bytes(),
+                capture_bytes,
+            )
+            self.assertEqual(review["status"], "live_approved")
+            self.assertEqual(review["live_review"]["decision"], "approved")
+            self.assertEqual(
+                review["live_review"]["artifact_sha256"],
+                capture["artifact_sha256"],
+            )
+            with patch.object(
+                quality,
+                "_retained_evidence_root",
+                return_value=target_root / quality.ACCEPTANCE_EVIDENCE_DIRECTORY,
+            ):
+                self.assertEqual(
+                    quality._validate_occupancy_capture_manifest(
+                        {
+                            "schema_version": quality.OCCUPANCY_CAPTURE_SCHEMA_VERSION,
+                            "captures": [capture],
+                        }
+                    )["captures"],
+                    [capture],
+                )
 
 
 class ThreeDimensionalLabelModelTests(unittest.TestCase):
@@ -1335,6 +1613,91 @@ class QualityRegistryTests(unittest.TestCase):
             )
         )
 
+    def test_s09_compact_frame_clears_low_occupancy_without_regression(self) -> None:
+        segment = next(
+            item
+            for item in self.registry["segments"]
+            if item["segment_id"] == "s09_watt_becomes_heat"
+        )
+        evaluations = {
+            item["viewport_id"]: item
+            for item in segment["quality_vector"]["viewport_evaluations"]
+        }
+        expected = {
+            "1920x1080": (0.024232, 2, True, ["low_focus_occupancy"]),
+            "1440x900": (0.025981, 2, True, ["low_focus_occupancy"]),
+            "1024x768": (0.023201, 2, True, ["low_focus_occupancy"]),
+            "844x390": (0.082566, 0, False, []),
+            "390x844": (0.08377, 0, False, []),
+        }
+        for viewport_id, (
+            occupancy,
+            spatial_label_count,
+            spatial_labels_readable,
+            risk_flags,
+        ) in expected.items():
+            with self.subTest(viewport_id=viewport_id):
+                evaluation = evaluations[viewport_id]
+                vector = evaluation["two_dimensional"]
+                self.assertEqual(vector["focus_occupancy"], occupancy)
+                self.assertEqual(vector["spatial_label_count"], spatial_label_count)
+                self.assertEqual(
+                    vector["spatial_labels_readable"], spatial_labels_readable
+                )
+                self.assertEqual(
+                    vector["minimum_label_frame_margin_svg_units"], 12.0004
+                )
+                self.assertTrue(vector["label_frame_margin_passed"])
+                self.assertTrue(
+                    evaluation["fixed_focus_key"][
+                        "numbered_geometry_correspondence"
+                    ]["passed"]
+                )
+                self.assertEqual(evaluation["risk_flags"], risk_flags)
+
+        control_runtime = copy.deepcopy(self.runtime)
+        control_segment = next(
+            item
+            for item in control_runtime["segments"]
+            if item["segment_id"] == "s09_watt_becomes_heat"
+        )
+        control_segment["frame"].pop("compact_viewBox")
+        control = quality.compile_quality_registry(
+            self.course,
+            self.master,
+            self.layout,
+            self.scene,
+            self.ledgers,
+            control_runtime,
+            source_digest="s09-without-compact-frame",
+            occupancy_reviews=self.ratchet_manifest["occupancy_reviews"],
+        )
+        control_evaluations = {
+            item["viewport_id"]: item
+            for item in next(
+                segment
+                for segment in control["segments"]
+                if segment["segment_id"] == "s09_watt_becomes_heat"
+            )["quality_vector"]["viewport_evaluations"]
+        }
+        for viewport_id in ("1920x1080", "1440x900", "1024x768"):
+            self.assertEqual(evaluations[viewport_id], control_evaluations[viewport_id])
+        self.assertEqual(
+            [
+                control_evaluations[viewport_id]["two_dimensional"][
+                    "focus_occupancy"
+                ]
+                for viewport_id in ("844x390", "390x844")
+            ],
+            [0.011371, 0.011537],
+        )
+        non_regression = quality._all_section_risk_non_regression(
+            self.registry, control
+        )
+        self.assertTrue(non_regression["passed"], non_regression["regressions"])
+        self.assertEqual(non_regression["risk_flag_regression_count"], 0)
+        self.assertEqual(non_regression["metric_regression_count"], 0)
+
     def test_context_label_coverage_uses_every_runtime_visible_map_label(self) -> None:
         context_runtime = quality._modeled_runtime(
             self.runtime,
@@ -1746,14 +2109,10 @@ class QualityRegistryTests(unittest.TestCase):
             report_artifact_sha256_by_evidence_id=placeholder_sha256,
         )
         report_inputs = []
-        for domain, gates, digest_field in (
-            ("static", record["static_gate_evidence"], "report_artifact_sha256"),
-            ("live", record["live_gate_evidence"], "artifact_sha256"),
-            (
-                "final",
-                record["final_independent_gate_evidence"],
-                None,
-            ),
+        for domain, gates in (
+            ("static", record["static_gate_evidence"]),
+            ("live", record["live_gate_evidence"]),
+            ("final", record["final_independent_gate_evidence"]),
         ):
             for gate_id, gate in gates.items():
                 report_inputs.append(
@@ -1763,12 +2122,7 @@ class QualityRegistryTests(unittest.TestCase):
                         "ref_id": gate_id,
                         "wrapper": gate,
                         "evidence": gate["evidence"],
-                        "digest_field": digest_field
-                        or (
-                            "artifact_sha256"
-                            if gate_id == "prerequisite_correctness_repairs"
-                            else "capture_set_sha256"
-                        ),
+                        "digest_field": "report_artifact_sha256",
                         "outcome": gate["status"],
                     }
                 )
@@ -1780,7 +2134,7 @@ class QualityRegistryTests(unittest.TestCase):
                     "ref_id": review["reviewer_id"],
                     "wrapper": review,
                     "evidence": review["evidence"],
-                    "digest_field": "comparison_artifact_sha256",
+                    "digest_field": "report_artifact_sha256",
                     "outcome": review["preference"],
                 }
             )
@@ -1803,15 +2157,16 @@ class QualityRegistryTests(unittest.TestCase):
                 "outcome": report_input["outcome"],
                 "typed_evidence": report_evidence,
             }
-            artifact_path = (
-                f"course/acceptance_evidence/{evidence_id.replace(':', '_')}.json"
+            report_bytes = (
+                quality.scene_pipeline.canonical_payload(envelope) + "\n"
+            ).encode()
+            artifact_sha256 = hashlib.sha256(report_bytes).hexdigest()
+            artifact_path = quality._canonical_acceptance_report_path(
+                artifact_sha256
             )
             retained = root / artifact_path
             retained.parent.mkdir(parents=True, exist_ok=True)
-            retained.write_text(
-                quality.scene_pipeline.canonical_payload(envelope) + "\n"
-            )
-            artifact_sha256 = hashlib.sha256(retained.read_bytes()).hexdigest()
+            retained.write_bytes(report_bytes)
             evidence[digest_field] = artifact_sha256
             wrapper = report_input["wrapper"]
             wrapper["evidence_ref"] = quality._acceptance_evidence_ref(
@@ -1930,8 +2285,8 @@ class QualityRegistryTests(unittest.TestCase):
     def _retained_path_patch(self, root: Path):
         return patch.object(
             quality,
-            "_retained_evidence_path",
-            side_effect=lambda value, _location: root.joinpath(*Path(value).parts),
+            "_retained_evidence_root",
+            return_value=root / quality.ACCEPTANCE_EVIDENCE_DIRECTORY,
         )
 
     def _rewrite_acceptance_report(
@@ -2170,6 +2525,23 @@ class QualityRegistryTests(unittest.TestCase):
             list(result["gate_evidence"]),
             list(quality.FINAL_ACCEPTANCE_GATE_IDS),
         )
+
+    def test_acceptance_report_paths_are_content_addressed(self) -> None:
+        root, _record, artifacts, _current_state = (
+            self._resolved_acceptance_fixture()
+        )
+        artifact = artifacts[0]
+        retained = root / artifact["artifact_path"]
+        noncanonical_path = "course/acceptance_evidence/report.json"
+        noncanonical = root / noncanonical_path
+        noncanonical.parent.mkdir(parents=True, exist_ok=True)
+        noncanonical.write_bytes(retained.read_bytes())
+        artifact["artifact_path"] = noncanonical_path
+        with (
+            self._retained_path_patch(root),
+            self.assertRaisesRegex(quality.QualityError, "path is not canonical"),
+        ):
+            quality._validate_acceptance_artifacts(artifacts)
 
     def test_acceptance_rejects_coordinated_fake_current_state_reports(self) -> None:
         mutations = (
@@ -3709,7 +4081,7 @@ class QualityRegistryTests(unittest.TestCase):
         self.assertEqual(unresolved["disposition"], "requires_live_preference")
         self.assertEqual(
             unresolved["resolution_counts"],
-            {"live_approved": 0, "live_rejected": 0, "unresolved": 15},
+            {"live_approved": 0, "live_rejected": 0, "unresolved": 13},
         )
         self.assertTrue(
             all(review["live_review"] is None for review in unresolved["reviews"])
@@ -3730,7 +4102,7 @@ class QualityRegistryTests(unittest.TestCase):
         self.assertEqual(approved["disposition"], "live_approved")
         self.assertEqual(
             approved["resolution_counts"],
-            {"live_approved": 15, "live_rejected": 0, "unresolved": 0},
+            {"live_approved": 13, "live_rejected": 0, "unresolved": 0},
         )
 
         mixed_reviews = copy.deepcopy(approved_reviews)
@@ -3788,7 +4160,7 @@ class QualityRegistryTests(unittest.TestCase):
         self.assertFalse(rejected["passed"])
         self.assertEqual(rejected["status"], "failed")
         self.assertEqual(rejected["disposition"], "live_rejected")
-        self.assertEqual(rejected["resolution_counts"]["live_rejected"], 15)
+        self.assertEqual(rejected["resolution_counts"]["live_rejected"], 13)
 
         for gate, expected_status in (
             (unresolved, "pending"),
@@ -4738,12 +5110,12 @@ class QualityRegistryTests(unittest.TestCase):
         self.assertFalse(occupancy["passed"], occupancy)
         self.assertEqual(occupancy["status"], "pending")
         self.assertTrue(occupancy["exact_coverage_required"])
-        self.assertEqual(occupancy["detected_risk_evaluation_count"], 15)
-        self.assertEqual(occupancy["reviewed_evaluation_count"], 15)
+        self.assertEqual(occupancy["detected_risk_evaluation_count"], 13)
+        self.assertEqual(occupancy["reviewed_evaluation_count"], 13)
         self.assertEqual(occupancy["live_confirmation_status"], "pending")
         self.assertEqual(
             occupancy["resolution_counts"],
-            {"live_approved": 0, "live_rejected": 0, "unresolved": 15},
+            {"live_approved": 0, "live_rejected": 0, "unresolved": 13},
         )
         self.assertEqual(occupancy["missing_reviews"], [])
         self.assertEqual(occupancy["extra_reviews"], [])
@@ -5372,6 +5744,56 @@ class QualityRegistryTests(unittest.TestCase):
         self.assertFalse(
             quality._segments_intersect((0.0, 0.0), (4.0, 0.0), (5.0, 0.0), (10.0, 0.0))
         )
+
+    def test_focus_marker_horizontal_ties_follow_authored_text_anchor(self) -> None:
+        stage = {"x": 0, "y": 0, "width": 200, "height": 200}
+        anchors = {"first": (100.0, 20.0), "second": (100.0, 28.0)}
+
+        def first_placement(alignment: str) -> dict:
+            result = quality._place_numbered_focus_markers(
+                anchors,
+                ["first", "second"],
+                stage,
+                None,
+                alignment_by_id={"first": alignment, "second": "middle"},
+            )
+            self.assertTrue(result["passed"], result)
+            return result["placements"][0]
+
+        start = first_placement("start")
+        end = first_placement("end")
+        self.assertEqual(start["marker"], {"x": 122.0, "y": 20.0})
+        self.assertEqual(end["marker"], {"x": 78.0, "y": 20.0})
+
+        with self.assertRaisesRegex(
+            quality.QualityError, "unsupported focus-marker anchor alignment"
+        ):
+            quality._focus_marker_offsets("left")
+
+    def test_expansion_station_status_marker_displaces_outward(self) -> None:
+        for segment_id in ("s04_expansion_grid_path", "s17_interconnection_schedule"):
+            segment = next(
+                item
+                for item in self.registry["segments"]
+                if item["segment_id"] == segment_id
+            )
+            for viewport_id in quality.DESKTOP_VIEWPORT_IDS:
+                with self.subTest(segment_id=segment_id, viewport_id=viewport_id):
+                    evaluation = next(
+                        item
+                        for item in segment["quality_vector"]["viewport_evaluations"]
+                        if item["viewport_id"] == viewport_id
+                    )
+                    placement = next(
+                        item
+                        for item in evaluation["fixed_focus_key"][
+                            "numbered_geometry_correspondence"
+                        ]["placements"]
+                        if item["id"] == "station_345_energized"
+                    )
+                    self.assertGreater(
+                        placement["marker"]["x"], placement["anchor"]["x"]
+                    )
 
     def test_compact_kind_cue_gate_is_derived_from_runtime_css(self) -> None:
         contract = course_runtime.compact_kind_cue_contract("sequence", "short_height")

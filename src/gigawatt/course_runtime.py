@@ -1254,6 +1254,16 @@ def compile_registry(
                 )
                 render_mode = "3d" if anchor["mode"] == "3d" else "2d"
 
+            visual = visual_map.get(
+                segment["id"],
+                {
+                    "label_policy": "context",
+                    "show_legend": False,
+                    "label_node_ids": [],
+                    "label_copy_ids": [],
+                    "annotation": None,
+                },
+            )
             topology_targets = _selected_fact_targets(segment, master, master_ledger_id)
             compiled.append(
                 {
@@ -1300,16 +1310,7 @@ def compile_registry(
                         for guard in segment["evidence"]["promotion_guards"]
                     ],
                     "blocking_research": list(segment["evidence"]["blocking_research"]),
-                    "visual": visual_map.get(
-                        segment["id"],
-                        {
-                            "label_policy": "context",
-                            "show_legend": False,
-                            "label_node_ids": [],
-                            "label_copy_ids": [],
-                            "annotation": None,
-                        },
-                    ),
+                    "visual": visual,
                     "depends_on": list(segment["depends_on"]),
                     "transition": (
                         dict(segment["transition"])
@@ -1602,6 +1603,7 @@ COURSE_CSS = r"""
   .fact-value { font-weight: 700; }
   .fact-details { margin-top: 7px; }
   .fact-details > summary { cursor: pointer; color: var(--muted); font-size: 9px; }
+  .fact-details > p { overflow-wrap: anywhere; }
   .source-list { margin-top: 6px !important; color: var(--muted); }
   .source-list a { color: inherit; }
   .ready { border-left: 5px solid #2f6f4e !important; }
@@ -1818,6 +1820,13 @@ COURSE_CSS = r"""
       box-shadow: none;
       pointer-events: auto;
     }
+    #teaching-overlay[data-mobile-drawer="true"][data-kind="routes"] #teaching-items {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    #teaching-overlay[data-mobile-drawer="true"] #teaching-items li {
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
     #teaching-overlay[data-mobile-drawer="true"]:not([hidden]) #teaching-close {
       display: block;
       float: right;
@@ -1830,7 +1839,17 @@ COURSE_CSS = r"""
   }
   @media (max-height: 560px) and (min-width: 821px) {
     :root { --rail: 72px; --head: __SHORT_MASTHEAD_HEIGHT_PX__px; --transport: 58px; }
-    #rail-heading h1 { display: none; }
+    #rail-heading h1 {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
     #rail-heading { padding-inline: 8px; }
     .shot-button { grid-template-columns: 1fr; padding-inline: 8px; }
     .shot-number { text-align: center; }
@@ -2054,10 +2073,6 @@ function paragraph(text, className = "") {
   return value;
 }
 
-function countLabel(count, singular) {
-  return `${count} ${count === 1 ? singular : `${singular}s`}`;
-}
-
 function markerBoxesOverlap(left, right, gap = 3) {
   return !(
     left.right + gap <= right.left ||
@@ -2067,7 +2082,7 @@ function markerBoxesOverlap(left, right, gap = 3) {
   );
 }
 
-function focusMarkerOffsets() {
+function focusMarkerOffsets(alignment = "middle") {
   const offsets = [];
   for (let x = -2; x <= 2; x += 1) {
     for (let y = -2; y <= 2; y += 1) {
@@ -2078,11 +2093,18 @@ function focusMarkerOffsets() {
   return offsets.sort((left, right) => {
     const leftDistance = left[0] ** 2 + left[1] ** 2;
     const rightDistance = right[0] ** 2 + right[1] ** 2;
-    return leftDistance - rightDistance || left[1] - right[1] || Math.abs(left[0]) - Math.abs(right[0]) || left[0] - right[0];
+    const horizontalTie = alignment === "start"
+      ? right[0] - left[0]
+      : left[0] - right[0];
+    return leftDistance - rightDistance || left[1] - right[1] || Math.abs(left[0]) - Math.abs(right[0]) || horizontalTie;
   });
 }
 
-const markerOffsets = focusMarkerOffsets();
+const markerOffsetsByAlignment = {
+  start: focusMarkerOffsets("start"),
+  middle: focusMarkerOffsets("middle"),
+  end: focusMarkerOffsets("end")
+};
 
 function segmentIntersectsBox(start, end, box, gap = 0) {
   const bounds = {
@@ -2253,7 +2275,7 @@ function applyTeachingDock(shot) {
   const standardProfile = matchMedia("(min-width: 821px) and (min-height: 561px)").matches;
   const widths = standardProfile ? standardTeachingOverlayWidths : [null];
   if (shot.render_mode === "2d") {
-    const [, , viewWidth, viewHeight] = shot.frame.viewBox;
+    const [, , viewWidth, viewHeight] = active2dView(shot);
     const style = getComputedStyle(mapStage);
     const horizontalPadding = Number.parseFloat(style.paddingLeft) + Number.parseFloat(style.paddingRight);
     const verticalPadding = Number.parseFloat(style.paddingTop) + Number.parseFloat(style.paddingBottom);
@@ -2291,13 +2313,19 @@ function applyTeachingDock(shot) {
 }
 
 function resizeVisualSurface(shot) {
-  const rect = mount.getBoundingClientRect();
+  const surface = shot.render_mode === "2d" ? mapStage : mount;
+  const rect = surface.getBoundingClientRect();
   if (rect.width <= 0 || rect.height <= 0) return;
+  if (shot.render_mode === "2d") {
+    setFrame(shot);
+    updateMapLabelLegibility(shot);
+    return;
+  }
   camera.aspect = rect.width / rect.height;
   camera.updateProjectionMatrix();
   renderer.setSize(rect.width, rect.height);
   labelRenderer.setSize(rect.width, rect.height);
-  if (shot.render_mode === "3d") setFrame(shot);
+  setFrame(shot);
 }
 
 function mapFocusAnchor(id) {
@@ -2310,7 +2338,11 @@ function mapFocusAnchor(id) {
   point.y = Number(text.getAttribute("y"));
   const projected = point.matrixTransform(transform);
   return Number.isFinite(projected.x) && Number.isFinite(projected.y)
-    ? { x: projected.x, y: projected.y }
+    ? {
+        x: projected.x,
+        y: projected.y,
+        alignment: text.getAttribute("text-anchor") || "middle"
+      }
     : null;
 }
 
@@ -2368,7 +2400,7 @@ function renderFocusMarkers(shot) {
         bottom: item.anchor.y
       }));
     const markerSize = 20;
-    const candidate = markerOffsets
+    const candidate = (markerOffsetsByAlignment[anchor.alignment] || markerOffsetsByAlignment.middle)
       .map(([dx, dy]) => ({
         x: anchor.x + dx,
         y: anchor.y + dy,
@@ -2971,7 +3003,7 @@ def _player_template() -> str:
         html,
         r"""function setFrame(shot) {
   if (shot.frame.kind === "2d") {
-    const view = showingAnchor ? shot.frame.anchor_viewBox : shot.frame.viewBox;
+    const view = showingAnchor ? shot.frame.anchor_viewBox : active2dView(shot);
     mapSvg.setAttribute("viewBox", view.join(" "));
     return;
   }
@@ -2985,7 +3017,7 @@ def _player_template() -> str:
 }""",
         r"""function setFrame(shot) {
   if (shot.frame.kind === "2d") {
-    mapSvg.setAttribute("viewBox", shot.frame.viewBox.join(" "));
+    mapSvg.setAttribute("viewBox", active2dView(shot).join(" "));
     return;
   }
   camera.position.set(...responsive3dPosition(shot.frame));
@@ -3002,7 +3034,7 @@ def _player_template() -> str:
     )
     old_header = r"""  $("eyebrow").textContent = `${String(shot.sequence).padStart(2, "0")} / ${shots.length} · ${shot.segment_id}`;
   $("title").textContent = shot.title;
-  $("scope-summary").textContent = `${shot.focus_nodes.length} nodes · ${shot.focus_edges.length} edges · ${shot.evidence_readiness.replaceAll("_", " ")}`;
+  $("scope-summary").textContent = `${countLabel(shot.focus_nodes.length, "node")} · ${countLabel(shot.focus_edges.length, "edge")} · ${shot.evidence_readiness.replaceAll("_", " ")}`;
   const readableNodes = shot.focus_nodes.map(id => nodeLabels.get(id) || id);
   $("scope-ids").textContent = readableNodes.join(" · ");
   $("scope-ids").title = shot.focus_nodes.join(", ");
@@ -3019,7 +3051,7 @@ def _player_template() -> str:
   $("objective").textContent = shot.learning_objective;
   $("boundary-full").textContent = shot.boundary_note;
   $("boundary-note").title = shot.boundary_note;
-  $("scope-summary").textContent = `${shot.focus_nodes.length} nodes · ${shot.focus_edges.length} edges · ${shot.evidence_readiness.replaceAll("_", " ")}`;
+  $("scope-summary").textContent = `${countLabel(shot.focus_nodes.length, "node")} · ${countLabel(shot.focus_edges.length, "edge")} · ${shot.evidence_readiness.replaceAll("_", " ")}`;
   $("scope-ids").textContent = shot.focus_node_labels.join(" · ");
   $("scope-ids").title = shot.focus_nodes.join(", ");
   $("shot-id").textContent = shot.segment_id;
@@ -3106,6 +3138,15 @@ def portrait_teaching_drawer_contract() -> dict[str, Any]:
         ),
         "drawer_stage_inset": "top: var(--head);\n      right: 0;\n      bottom: var(--transport);\n      left: var(--rail);",
         "drawer_scroll": "overflow-x: hidden;\n      overflow-y: auto;",
+        "drawer_single_column_items": (
+            '#teaching-overlay[data-mobile-drawer="true"][data-kind="routes"] #teaching-items {'
+            "\n      grid-template-columns: minmax(0, 1fr);"
+        ),
+        "drawer_item_wrap": (
+            '#teaching-overlay[data-mobile-drawer="true"] #teaching-items li {'
+            "\n      min-width: 0;\n      overflow-wrap: anywhere;"
+        ),
+        "fact_id_wrap": ".fact-details > p { overflow-wrap: anywhere; }",
         "stage_hidden_while_open": '#stage[data-teaching-open="true"] #three-mount',
         "portrait_drawer_not_docked": (
             'if (overlay.dataset.mobileOpen === "true") return;'

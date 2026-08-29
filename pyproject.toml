@@ -15,6 +15,7 @@ gigawatt-scene = "gigawatt.scene:main"
 gigawatt-shots = "gigawatt.shots:main"
 gigawatt-course = "gigawatt.course_runtime:main"
 gigawatt-quality = "gigawatt.quality:main"
+gigawatt-acceptance = "gigawatt.quality:acceptance_main"
 gigawatt-validate = "gigawatt.validate:main"
 
 [build-system]
