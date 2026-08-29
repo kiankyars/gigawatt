@@ -22,7 +22,7 @@ meta:
   journey_bar:
     electrical: [source_branches, campus_mv, facility_lv_ac, rack_dc, core_voltage]
     thermal: [die_heat, technology_return, facility_return, atmosphere]
-  gigawatts_to_tokens_funnel: [announced, interconnected, energized, commissioned, utilized, tokens]
+  gigawatts_to_tokens_funnel: [planned, constructed, energized, live, unknown]
 
 reference_campus:
   name: Lancium Clean Campus / Crusoe-Oracle Abilene (Stargate)
@@ -34,10 +34,10 @@ reference_campus:
     900 MW Microsoft campus announced in 2026 is excluded.
 
 status_styles:
-  energized: {line: solid, meaning: confirmed energized or operating minimum}
-  permitted: {line: dotted, meaning: authorized nameplate; installation and commissioning not implied}
-  future_design: {line: dashed, meaning: shown in a reference design as future}
-  conceptual: {line: dashed, meaning: teaching topology; exact Abilene configuration not established}
+  energized: {line: solid, meaning: energized or operating lifecycle}
+  permitted: {line: dotted, meaning: permitted lifecycle}
+  future_design: {line: dashed, meaning: future-design lifecycle}
+  conceptual: {line: dashed, meaning: conceptual teaching lifecycle}
   course_variant: {line: hidden, meaning: optional comparison, not an Abilene fact}
 
 # Copy entries are the only strings rendered by layout.py. Factual entries use
@@ -65,11 +65,13 @@ copy:
   room_electrical: {text: "ELECTRICAL ROOM"}
   room_data_hall: {text: "DATA HALL"}
   room_mechanical: {text: "MECHANICAL"}
-  legend_title: {text: "STATUS / EVIDENCE"}
-  legend_energized: {text: "solid · energized / confirmed minimum"}
-  legend_permitted: {text: "dotted · permitted; installation unknown"}
-  legend_future: {text: "dashed · future design"}
-  legend_conceptual: {text: "pale dashed · conceptual, not site-as-built"}
+  legend_title: {text: "COLOR = CARRIER · STROKE = LIFECYCLE"}
+  legend_direction: {text: "direction · named source→destination path order"}
+  legend_posture: {text: "evidence posture · claim copy / evidence drawer; not stroke"}
+  legend_energized: {text: "solid · energized lifecycle"}
+  legend_permitted: {text: "dotted · permitted lifecycle"}
+  legend_future: {text: "dashed · future-design lifecycle"}
+  legend_conceptual: {text: "pale dashed · conceptual lifecycle"}
   gas_units:
     template: "gas turbines ×{gas_turbine_units_authorized}"
     facts: [gas_turbine_units_authorized]
@@ -171,11 +173,11 @@ nodes:
     label: Generator step-up package
     domain: electrical
     gate: generator-terminal MV to a conceptual campus distribution envelope
-    presence: site_evidenced
-    lifecycle: permitted
+    presence: teaching_reference
+    lifecycle: conceptual
     as_of: 2025-01-22
-    source_ids: [tceq_177263_gas_review, tceq_37589_reference_drawing]
-    fact_ids: [gas_turbine_units_authorized, campus_mv_reference_design_voltage_kv]
+    source_ids: [tceq_37589_reference_drawing]
+    fact_ids: [campus_mv_reference_design_voltage_kv]
 
   # Separate grid-service paths. Neither is labeled as the other's upstream line.
   - id: utility_source_138
@@ -430,8 +432,8 @@ nodes:
 
 edges:
   - {id: btm_fuel_to_shaft, from: gas_turbine, to: generator, carries: shaft_power, presence: site_evidenced, lifecycle: permitted, normal_state: available_if_built, flow_direction: forward, source_ids: [tceq_177263_gas_review], fact_ids: [gas_turbine_units_authorized]}
-  - {id: btm_terminal_to_gsu, from: generator, to: gsu_transformer, carries: electricity@generator_terminal_mv, presence: site_evidenced, lifecycle: permitted, normal_state: unknown, flow_direction: forward, source_ids: [tceq_177263_gas_review, solar_titan_350_datasheet], fact_ids: [gas_turbine_units_authorized, generator_terminal_model_voltage_range_kv, generator_terminal_site_voltage_kv]}
-  - {id: btm_gsu_to_mv, from: gsu_transformer, to: campus_mv_distribution, carries: electricity@campus_mv, presence: site_evidenced, lifecycle: permitted, normal_state: unknown, flow_direction: forward, source_ids: [tceq_177263_gas_review, tceq_37589_reference_drawing, mortenson_abilene_power_delivery], fact_ids: [gas_turbine_units_authorized, campus_mv_reference_design_voltage_kv, campus_lpt_secondary_as_built_voltage_kv, campus_source_merge_as_built_topology]}
+  - {id: btm_terminal_to_gsu, from: generator, to: gsu_transformer, carries: electricity@generator_terminal_mv, presence: teaching_reference, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [tceq_177263_gas_review, solar_titan_350_datasheet], fact_ids: [generator_terminal_model_voltage_range_kv, generator_terminal_site_voltage_kv]}
+  - {id: btm_gsu_to_mv, from: gsu_transformer, to: campus_mv_distribution, carries: electricity@campus_mv, presence: teaching_reference, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [tceq_37589_reference_drawing, mortenson_abilene_power_delivery], fact_ids: [campus_mv_reference_design_voltage_kv, campus_lpt_secondary_as_built_voltage_kv, campus_source_merge_as_built_topology]}
 
   - {id: grid138_source_to_tie, from: utility_source_138, to: initial_tie_138, carries: electricity@138kV, presence: site_evidenced, lifecycle: energized, normal_state: unknown, flow_direction: forward, source_ids: [mortenson_abilene_power_delivery], fact_ids: [grid_initial_source_line, grid_initial_substation_voltage_kv, grid_initial_slack_span_length_ft, grid_initial_service_operational_as_of]}
   - {id: grid138_tie_to_station, from: initial_tie_138, to: initial_substation_138, carries: electricity@138kV, presence: site_evidenced, lifecycle: energized, normal_state: unknown, flow_direction: forward, source_ids: [mortenson_abilene_power_delivery], fact_ids: [grid_initial_substation_voltage_kv, grid_initial_substation_capacity_mw, grid_initial_slack_span_length_ft, grid_initial_service_operational_as_of]}
@@ -460,7 +462,7 @@ edges:
   - {id: manifold_to_cold_plate_supply, from: rack_manifold, to: cold_plate, carries: coolant@technology_supply, presence: platform_evidenced, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [crusoe_abilene_expansion_2025, nvidia_dgx_gb200_hardware], fact_ids: [cooling_direct_to_chip_design, rack_liquid_cooled_components]}
   - {id: cdu_to_facility_return, from: cdu, to: facility_loop, carries: heat@facility_return, presence: teaching_reference, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [], fact_ids: []}
   - {id: facility_to_cdu_supply, from: facility_loop, to: cdu, carries: coolant@facility_supply, presence: teaching_reference, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [], fact_ids: []}
-  - {id: rack_air_load_to_crah, from: rack_air_load, to: crah, carries: heat@air, presence: platform_evidenced, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [nvidia_dgx_gb200_hardware], fact_ids: [rack_air_cooled_components]}
+  - {id: rack_air_load_to_crah, from: rack_air_load, to: crah, carries: heat@air, presence: teaching_reference, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [], fact_ids: []}
   - {id: crah_to_facility_return, from: crah, to: facility_loop, carries: heat@facility_return, presence: teaching_reference, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [], fact_ids: []}
   - {id: facility_to_crah_supply, from: facility_loop, to: crah, carries: coolant@facility_supply, presence: teaching_reference, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [], fact_ids: []}
   - {id: facility_to_chiller_return, from: facility_loop, to: air_cooled_chiller, carries: heat@facility_return, presence: site_evidenced, lifecycle: conceptual, normal_state: unknown, flow_direction: forward, source_ids: [crusoe_abilene_cooling_2025], fact_ids: [cooling_heat_rejection_posture]}

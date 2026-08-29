@@ -147,9 +147,9 @@ sources:
     review_date: null
     accessed_as_of: '2026-08-25'
     date_note: >-
-      Undated current page reports 42 percent of an unspecified total-capacity
-      denominator delivered; the percentage cannot be converted to MW,
-      buildings, IT load, or current load.
+      Undated page marked information current January 2026 reports 42 percent
+      of an unspecified total-capacity denominator delivered; the percentage
+      cannot be converted to MW, buildings, IT load, or current load.
 
   nvidia_dgx_gb200_hardware:
     publisher: NVIDIA
@@ -568,6 +568,18 @@ facts:
     source_ids: [crusoe_abilene_cooling_2025]
     posture: anticipated_not_observed
 
+  cooling_measured_operating_consumption_gallons:
+    value: null
+    unit: gallons
+    scope: Measured operating water consumption for the original Abilene campus
+    basis: >-
+      The cited engineering article reports design fill and anticipated annual
+      maintenance water, not a measured operating-consumption value.
+    lifecycle: operation_unknown
+    as_of: '2026-08-25'
+    source_ids: [crusoe_abilene_cooling_2025]
+    posture: unverified_null
+
   rack_platform:
     value: NVIDIA GB200
     unit: platform family
@@ -689,7 +701,7 @@ facts:
       Oracle reports 42 percent of total capacity delivered without stating the
       denominator, capacity basis, MW, building count, IT load, or current load.
     lifecycle: delivered_untyped
-    as_of: '2026-08-25'
+    as_of: '2026-01'
     source_ids: [oracle_abilene_portfolio]
     posture: reported_untyped
 

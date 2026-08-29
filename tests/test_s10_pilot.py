@@ -5,8 +5,9 @@ import sys
 import unittest
 from copy import deepcopy
 from pathlib import Path
+from unittest.mock import patch
 
-from gigawatt import validate
+from gigawatt import scene, tokens, validate
 
 ROOT = Path(__file__).resolve().parents[1]
 PILOT = ROOT / "course" / "pilots" / "s10_two_rack_heat_paths.yaml"
@@ -188,7 +189,13 @@ class S10PilotContractTests(unittest.TestCase):
         self.assertEqual([], air["focus_edges"])
         self.assertEqual([], air["pulse_edges"])
 
-        forbidden_nodes = {"cdu", "crah", "facility_loop", "air_cooled_chiller", "atmosphere"}
+        forbidden_nodes = {
+            "cdu",
+            "crah",
+            "facility_loop",
+            "air_cooled_chiller",
+            "atmosphere",
+        }
         forbidden_edges = {
             "rack_air_load_to_crah",
             "manifold_to_cdu_return",
@@ -227,12 +234,19 @@ class S10PilotContractTests(unittest.TestCase):
     def test_native_output_is_deterministic_current_and_manual_only(self) -> None:
         first_html, first_digest, first_count = self.native.build()
         second_html, second_digest, second_count = self.native.build()
-        self.assertEqual((first_html, first_digest, first_count), (second_html, second_digest, second_count))
+        self.assertEqual(
+            (first_html, first_digest, first_count),
+            (second_html, second_digest, second_count),
+        )
         self.assertEqual(4, first_count)
         self.assertEqual(first_html, NATIVE_OUTPUT.read_text())
         self.assertIn('aria-label="Manual pilot transformations"', first_html)
-        self.assertIn('button.addEventListener("click", () => activate(index));', first_html)
-        self.assertIn('if (event.key === "ArrowRight") activate(current + 1);', first_html)
+        self.assertIn(
+            'button.addEventListener("click", () => activate(index));', first_html
+        )
+        self.assertIn(
+            'if (event.key === "ArrowRight") activate(current + 1);', first_html
+        )
         for automatic_marker in (
             "setTimeout(",
             "setInterval(",
@@ -241,6 +255,59 @@ class S10PilotContractTests(unittest.TestCase):
         ):
             with self.subTest(automatic_marker=automatic_marker):
                 self.assertNotIn(automatic_marker, first_html)
+
+    def test_native_schema_version_requires_an_exact_integer(self) -> None:
+        for invalid in (True, 1.0, "1"):
+            manifest = deepcopy(self.pilot)
+            manifest["schema_version"] = invalid
+            with (
+                self.subTest(invalid=invalid),
+                self.assertRaisesRegex(
+                    self.native.PilotError, "schema_version must be 1"
+                ),
+            ):
+                self.native.validate_manifest(
+                    manifest,
+                    self.course,
+                    self.master,
+                    self.scene,
+                    self.cameras,
+                )
+
+    def test_source_digest_covers_generator_and_transitive_rendering_code(
+        self,
+    ) -> None:
+        declared = {path.resolve() for path in self.native.GENERATOR_DEPENDENCY_PATHS}
+        expected = {
+            NATIVE_GENERATOR.resolve(),
+            Path(scene.__file__).resolve(),
+            Path(tokens.__file__).resolve(),
+            (ROOT / "pyproject.toml").resolve(),
+            (ROOT / "uv.lock").resolve(),
+            *{
+                (ROOT / "diagram" / "vendor" / "three" / filename).resolve()
+                for filename in (
+                    "three.module.js",
+                    "OrbitControls.js",
+                    "CSS2DRenderer.js",
+                    "LICENSE",
+                )
+            },
+        }
+        self.assertLessEqual(expected, declared)
+
+        baseline = self.native._source_digest()
+        original_read_bytes = Path.read_bytes
+
+        def mutated_read_bytes(path: Path) -> bytes:
+            payload = original_read_bytes(path)
+            if path.resolve() == NATIVE_GENERATOR.resolve():
+                return payload + b"\n# digest mutation probe\n"
+            return payload
+
+        with patch.object(Path, "read_bytes", mutated_read_bytes):
+            mutated = self.native._source_digest()
+        self.assertNotEqual(baseline, mutated)
 
     def test_native_validator_rejects_timing_and_scope_escape(self) -> None:
         timed = deepcopy(self.pilot)
@@ -257,7 +324,9 @@ class S10PilotContractTests(unittest.TestCase):
         escaped = deepcopy(self.pilot)
         escaped["transformations"][2]["focus_nodes"].append("crah")
         escaped["transformations"][2]["focus_edges"].append("rack_air_load_to_crah")
-        with self.assertRaisesRegex(self.native.PilotError, "escapes canonical s10 scope"):
+        with self.assertRaisesRegex(
+            self.native.PilotError, "escapes canonical s10 scope"
+        ):
             self.native.validate_manifest(
                 escaped,
                 self.course,
@@ -265,6 +334,7 @@ class S10PilotContractTests(unittest.TestCase):
                 self.scene,
                 self.cameras,
             )
+
 
 if __name__ == "__main__":
     unittest.main()

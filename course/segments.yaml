@@ -35,6 +35,7 @@ acts:
     learning_objective: >-
       Establish that announced capacity, energized infrastructure, live
       workloads, and usable compute are different measures.
+    evidence_ledgers: [abilene]
     segments:
       - id: p0_gigawatt_not_workload
         title: A gigawatt is not a workload
@@ -69,11 +70,15 @@ acts:
             - id: initial_substation_rating
               assertion: confirmed
               binding: topology
-              fact_refs: [abilene:grid_initial_substation_capacity_mw]
+              fact_refs:
+                - abilene:grid_initial_substation_capacity_mw
+                - abilene:grid_initial_substation_voltage_kv
             - id: expansion_substation_rating
               assertion: confirmed
               binding: topology
-              fact_refs: [abilene:grid_expansion_substation_capacity_mw]
+              fact_refs:
+                - abilene:grid_expansion_substation_capacity_mw
+                - abilene:grid_expansion_substation_voltage_kv
             - id: permitted_gas_layer
               assertion: permitted
               binding: topology
@@ -191,6 +196,11 @@ acts:
     learning_objective: >-
       Distinguish the three physical source branches, their evidence states, and
       the deliberately abstract campus distribution boundary.
+    evidence_ledgers:
+      - abilene
+      - abilene_execution
+      - commercial_energy
+      - electrical_engineering
     segments:
       - id: s01_fire_to_electricity
         title: Fire is not electricity
@@ -205,8 +215,8 @@ acts:
           status: existing
           reveal_ids: []
           reveal_copy_ids: []
-        node_ids: [gas_turbine, generator]
-        edge_ids: [btm_fuel_to_shaft]
+        node_ids: [gas_turbine, generator, gsu_transformer]
+        edge_ids: [btm_fuel_to_shaft, btm_terminal_to_gsu]
         evidence:
           readiness: evidence_ready
           claims:
@@ -479,10 +489,6 @@ acts:
               assertion: explicit_unknown
               binding: topology
               fact_refs: [abilene:campus_source_merge_as_built_topology]
-            - id: gas_authorization
-              assertion: permitted
-              binding: topology
-              fact_refs: [abilene:gas_turbine_units_authorized]
             - id: bess_future
               assertion: future_design
               binding: topology
@@ -522,6 +528,7 @@ acts:
   - id: act_2_electrical_descent
     title: Electrical descent to the die
     learning_objective: Follow a conceptual facility and rack power train without inventing site-specific voltages or redundancy.
+    evidence_ledgers: [abilene, abilene_execution, electrical_engineering]
     segments:
       - id: s07_building_power_train
         title: From campus MV to protected building AC
@@ -579,7 +586,7 @@ acts:
 
       - id: s08_rack_voltage_descent
         title: Rack AC becomes core voltage
-        opening_question: How many conversions remain once power reaches the data hall?
+        opening_question: Which voltages are site-evidenced, product-documented, or deliberately unknown?
         learning_objective: >-
           Separate site AC, the documented rack DC bus, and the deliberately
           unspecified board-level core voltage.
@@ -644,6 +651,7 @@ acts:
   - id: act_3_thermal_return
     title: Return the heat
     learning_objective: Follow the liquid and residual-air paths from the die to the atmosphere with explicit supply and return direction.
+    evidence_ledgers: [abilene, abilene_execution, thermal_engineering]
     segments:
       - id: s09_watt_becomes_heat
         title: The watt becomes heat
@@ -934,7 +942,7 @@ acts:
 
       - id: s15_water_accounting
         title: Closed loop does not mean water-free
-        opening_question: How can non-evaporative heat rejection still require water?
+        opening_question: What is designed or anticipated here, and what measured consumption remains unknown?
         learning_objective: Separate design fill and anticipated maintenance from measured operating consumption.
         weight: 0.8
         depends_on: []
@@ -958,7 +966,11 @@ acts:
               assertion: anticipated
               binding: topology
               fact_refs: [abilene:cooling_annual_maintenance_gallons_per_building]
-          promotion_guards: [design_to_as_built, anticipated_to_measured, capacity_basis_substitution]
+            - id: measured_operating_consumption_unknown
+              assertion: explicit_unknown
+              binding: overlay
+              fact_refs: [abilene:cooling_measured_operating_consumption_gallons]
+          promotion_guards: [design_to_as_built, anticipated_to_measured, capacity_basis_substitution, null_to_zero]
           blocking_research: []
         transition:
           to: s16_close_atmosphere
@@ -992,7 +1004,6 @@ acts:
           - crah
           - facility_loop
           - air_cooled_chiller
-          - fill_treatment
           - atmosphere
         edge_ids:
           - die_to_cold_plate_heat
@@ -1008,7 +1019,6 @@ acts:
           - facility_to_chiller_return
           - chiller_to_facility_supply
           - chiller_to_atmosphere
-          - fill_to_facility_loop
         evidence:
           readiness: evidence_ready
           claims:
@@ -1039,15 +1049,16 @@ acts:
           blocking_research: []
         transition:
           to: s17_interconnection_schedule
-          cue: Reread the same physical path as a construction schedule.
+          cue: Zoom out from the thermal-return subsystem, then switch to the grid-interconnection schedule.
 
   - id: act_4_chokepoints
     title: Chokepoint reread
     learning_objective: Identify how interconnection, equipment, commissioning, and load dynamics prevent announced capacity from becoming usable compute.
+    evidence_ledgers: [abilene, abilene_execution, delivery_resilience]
     segments:
       - id: s17_interconnection_schedule
-        title: The interconnection queue is a physical schedule
-        opening_question: What lies between a request for power and an energized feeder?
+        title: Planned capacity becomes a utility delivery schedule
+        opening_question: Which utility construction, energization, and equipment gates stand between planned capacity and service?
         learning_objective: Separate dated administrative, energization, and planned permanent-equipment gates.
         weight: 1.2
         depends_on: []
@@ -1186,7 +1197,7 @@ acts:
           blocking_research: []
         transition:
           to: s19_fast_load_slow_grid
-          cue: Contrast multi-year construction with millisecond load behavior.
+          cue: Contrast scoped 36+ month equipment exposure with ~250 ms / <1 s external load behavior.
 
       - id: s19_fast_load_slow_grid
         title: Fast load, slow grid
@@ -1283,8 +1294,8 @@ acts:
           cue: Put fast and slow constraints onto the same delivery funnel.
 
       - id: s20_build_sequence
-        title: The build sequence is the binding constraint
-        opening_question: At which gate did the announced capacity stop?
+        title: Build sequence is a staged evidence boundary
+        opening_question: Which delivery stages are evidenced, and where must inference stop?
         learning_objective: Apply the status funnel without substituting one capacity basis for another.
         weight: 1.0
         depends_on: []
@@ -1343,13 +1354,18 @@ acts:
               assertion: reported_untyped
               binding: overlay
               fact_refs: [abilene:oracle_capacity_delivered_percent_untyped]
-            - id: dated_construction_and_operation_sequence
+            - id: construction_start
               assertion: confirmed
               binding: overlay
-              fact_refs:
-                - abilene_execution:campus_construction_start_month
-                - abilene_execution:first_two_buildings_energized_by
-                - abilene_execution:first_phase_operational_by
+              fact_refs: [abilene_execution:campus_construction_start_month]
+            - id: first_two_buildings_energized
+              assertion: confirmed
+              binding: overlay
+              fact_refs: [abilene_execution:first_two_buildings_energized_by]
+            - id: first_phase_operational
+              assertion: confirmed
+              binding: overlay
+              fact_refs: [abilene_execution:first_phase_operational_by]
             - id: remaining_buildings_plan
               assertion: planned
               binding: overlay
@@ -1379,6 +1395,7 @@ acts:
   - id: act_5_capital_stack
     title: Capital-stack reread
     learning_objective: Separate ownership, financing, operation, offtake, and utilization risk across the same physical topology.
+    evidence_ledgers: [commercial_compute]
     segments:
       - id: s21_capital_ownership
         title: Same hardware, different commercial roles
@@ -1391,8 +1408,8 @@ acts:
           shot: capital_ownership
           mode: overlay
           status: planned
-          reveal_ids: [nuclear_ppa]
-          reveal_copy_ids: [nuclear_variant]
+          reveal_ids: []
+          reveal_copy_ids: []
         node_ids:
           - gas_turbine
           - generator
@@ -1404,7 +1421,6 @@ acts:
           - transmission_corridor_345
           - hv_protection_envelope_345
           - campus_substation_lpt_345
-          - nuclear_ppa
           - campus_mv_distribution
           - bess_package
           - diesel_backup_package
@@ -1542,6 +1558,12 @@ acts:
         evidence:
           readiness: evidence_ready
           claims:
+            - id: developer_role_comparison
+              assertion: reported_structure
+              binding: overlay
+              fact_refs:
+                - commercial_compute:abilene_2024_crusoe_owner_developer_announcement
+                - commercial_compute:abilene_lancium_development_role
             - id: colocation_comparison
               assertion: business_model_reference
               binding: overlay
@@ -1562,15 +1584,16 @@ acts:
               assertion: business_model_reference
               binding: overlay
               fact_refs: [commercial_compute:microsoft_hyperscale_cloud_comparison]
-          promotion_guards: [contractual_to_physical, site_scope_transfer, capacity_basis_substitution]
+          promotion_guards: [contractual_to_physical, site_scope_transfer, capacity_basis_substitution, announced_to_operational]
           blocking_research: []
         transition:
           to: s24_megawatts_to_tokens
-          cue: Return to the opening question with every physical and economic gate visible.
+          cue: Return to the opening question with the physical conversion path and no-estimate stop rule visible.
 
   - id: act_6_tokens_close
     title: From delivered power to usable compute
     learning_objective: Teach an assumption-bound conversion recipe without inventing an Abilene token estimate.
+    evidence_ledgers: [abilene, commercial_compute]
     segments:
       - id: s24_megawatts_to_tokens
         title: From delivered megawatts to tokens

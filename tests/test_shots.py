@@ -4,7 +4,9 @@ import copy
 import json
 import math
 import unittest
+from unittest.mock import patch
 
+from gigawatt import scene as scene_pipeline
 from gigawatt import shots
 
 
@@ -121,6 +123,20 @@ class PlannedShotCompilerTests(unittest.TestCase):
                 segment["camera"]["reveal_copy_ids"], shot["reveal_copy_ids"]
             )
 
+    def test_shot_compiler_rejects_blank_three_dimensional_anchor(self) -> None:
+        cameras = copy.deepcopy(self.cameras)
+        campus = next(
+            camera
+            for camera in cameras["cameras"]
+            if camera["id"] == "campus_establishing"
+        )
+        campus["position"] = [1_000_000, 1_000_000, 1_000_000]
+        with self.assertRaisesRegex(
+            shots.ShotError,
+            "authored position-target distance.*OrbitControls range",
+        ):
+            self.compile(cameras=cameras)
+
     def test_frames_are_finite_clamped_and_keep_anchor_context(self) -> None:
         camera_map = {camera["id"]: camera for camera in self.cameras["cameras"]}
         frame_width = float(self.layout["frame"]["w"])
@@ -147,6 +163,8 @@ class PlannedShotCompilerTests(unittest.TestCase):
                 )
             else:
                 self.assertEqual("3d", frame["kind"])
+                self.assertGreater(frame["focus_radius"], 0)
+                self.assertEqual(shots.THREE_FRAME_MARGIN, frame["frame_margin"])
                 self.assertEqual(
                     [float(value) for value in anchor["position"]],
                     frame["anchor_position"],
@@ -162,6 +180,79 @@ class PlannedShotCompilerTests(unittest.TestCase):
                     )
                 )
                 self.assertGreater(math.dist(frame["position"], frame["target"]), 0)
+
+    def test_two_dimensional_label_bounds_cover_rendered_font_metrics(self) -> None:
+        evidence = shots.scene_pipeline.load_yaml(
+            shots.ROOT / self.master["meta"]["evidence_file"]
+        )
+        rendered_metrics = {
+            "nuclear_variant": (43.636, 320.364, "middle", 10.5, 400),
+            "die_turn": (1101.574, 1276.0, "end", 10.5, 400),
+            "station_138": (381.583, 530.0, "end", 10.5, 400),
+            "region_buildings": (1186.028, 1513.972, "middle", 11.0, 600),
+        }
+        resolved = {
+            copy_id: shots.layout_pipeline.resolve_copy(
+                self.master,
+                evidence,
+                copy_id,
+                include_hidden=True,
+            )
+            for copy_id in rendered_metrics
+        }
+        bounds = shots.two_dimensional_label_bounds(self.layout, resolved)
+        for copy_id, (
+            actual_x0,
+            actual_x1,
+            anchor,
+            size,
+            weight,
+        ) in rendered_metrics.items():
+            record = bounds[copy_id]
+            self.assertEqual(shots.tokens.FONT, record["font_family"])
+            self.assertEqual(anchor, record["anchor"])
+            self.assertEqual(size, record["font_size"])
+            self.assertEqual(weight, record["font_weight"])
+            self.assertLessEqual(record["bbox"][0], actual_x0)
+            self.assertGreaterEqual(record["bbox"][2], actual_x1)
+
+    def test_three_dimensional_fit_expands_for_narrow_viewports(self) -> None:
+        frame = next(
+            shot["frame"]
+            for shot in self.registry["shots"]
+            if shot["segment_id"] == "s15_water_accounting"
+        )
+        authored = math.dist(frame["position"], frame["target"])
+        self.assertAlmostEqual(
+            authored,
+            shots._responsive_3d_distance(frame, 16 / 9),
+            places=2,
+        )
+        self.assertGreater(shots._responsive_3d_distance(frame, 0.55), authored)
+        with self.assertRaisesRegex(shots.ShotError, "positive and finite"):
+            shots._responsive_3d_distance(frame, 0)
+
+    def test_scene_bounds_apply_primitive_rotation(self) -> None:
+        scene = {
+            "nodes": {
+                "probe": {
+                    "at": [0, 0, 0],
+                    "label_at": [0, 0, 0],
+                    "primitives": [
+                        {
+                            "shape": "box",
+                            "at": [0, 0, 0],
+                            "size": [2, 4, 6],
+                            "rotate": [0, 0, 90],
+                        }
+                    ],
+                }
+            }
+        }
+        points = shots._scene_node_points("probe", scene)
+        self.assertAlmostEqual(2, max(abs(point[0]) for point in points))
+        self.assertAlmostEqual(1, max(abs(point[1]) for point in points))
+        self.assertAlmostEqual(3, max(abs(point[2]) for point in points))
 
     def test_hidden_reveal_bundles_are_exact(self) -> None:
         node_map = {node["id"]: node for node in self.master["nodes"]}
@@ -200,6 +291,84 @@ class PlannedShotCompilerTests(unittest.TestCase):
             forbidden & {str(key).casefold() for key in walk_keys(self.registry)}
         )
 
+    def test_generator_digest_closes_over_render_dependencies(self) -> None:
+        required = {
+            shots.ROOT / "pyproject.toml",
+            shots.ROOT / "uv.lock",
+            shots.ROOT / "src/gigawatt/shots.py",
+            shots.ROOT / "src/gigawatt/layout.py",
+            shots.ROOT / "src/gigawatt/render.py",
+            shots.ROOT / "src/gigawatt/scene.py",
+            shots.ROOT / "src/gigawatt/svg.py",
+            shots.ROOT / "src/gigawatt/symbols.py",
+            shots.ROOT / "src/gigawatt/tokens.py",
+        }
+        self.assertTrue(required <= set(shots.GENERATOR_DEPENDENCY_PATHS))
+
+    def test_short_3d_surface_label_fallback_is_injected_from_one_constant(
+        self,
+    ) -> None:
+        self.assertEqual(shots.MIN_SPATIAL_LABEL_SURFACE_HEIGHT_PX, 240)
+        html = shots.runtime_html_template()
+        self.assertIn(
+            "mount.clientWidth < 400 ||\n"
+            f"    mount.clientHeight < {shots.MIN_SPATIAL_LABEL_SURFACE_HEIGHT_PX}",
+            html,
+        )
+        self.assertNotIn("__MIN_SPATIAL_LABEL_SURFACE_HEIGHT_PX__", html)
+        self.assertIn("new THREE.PerspectiveCamera(\n  40,", html)
+        self.assertIn("  1,\n  5000\n);", html)
+        self.assertIn("controls.minDistance = 90;", html)
+        self.assertIn("controls.maxDistance = 3600;", html)
+        self.assertIn("controls.minPolarAngle = Math.PI * 0;", html)
+        self.assertIn("controls.maxPolarAngle = Math.PI * 0.49;", html)
+        self.assertIn("camera.up.set(...data.scene.world.camera_up).normalize();", html)
+        self.assertIn("camera.up.set(...shot.frame.up).normalize();", html)
+        self.assertIn("new THREE.ConeGeometry(\n      5.2,\n      14,", html)
+        self.assertNotIn("__THREE_", html)
+        self.assertNotIn("__EDGE_FLOW_", html)
+        self.assertNotIn("__HYBRID_CONFIRMED_", html)
+        self.assertTrue(shots.spatial_labels_require_fixed_key(844, 239))
+        self.assertFalse(shots.spatial_labels_require_fixed_key(844, 240))
+        self.assertTrue(shots.spatial_labels_require_fixed_key(399, 1000))
+
+        with patch.object(shots, "MIN_SPATIAL_LABEL_SURFACE_HEIGHT_PX", 241):
+            mutated = shots.runtime_html_template()
+            self.assertIn("mount.clientHeight < 241", mutated)
+            self.assertNotIn("mount.clientHeight < 240", mutated)
+            self.assertTrue(shots.spatial_labels_require_fixed_key(844, 240))
+
+    def test_planned_and_hybrid_templates_share_focus_depth_contract(self) -> None:
+        planned_html = shots.runtime_html_template()
+        hybrid_html = scene_pipeline.render_html(
+            scene_pipeline.build_payload(self.master, self.scene, self.cameras)
+        )
+
+        contracts = []
+        for html in (planned_html, hybrid_html):
+            start = html.index("function renderDepthSeparatedFocus()")
+            end = html.index("\n}\n", start) + 2
+            contracts.append(html[start:end])
+            self.assertLess(
+                html.index("camera.layers.mask = cameraLayerMask;"),
+                html.index("labelRenderer.render(scene, camera);"),
+            )
+            label_rule = html.split(".node-label {", 1)[1].split("}", 1)[0]
+            self.assertNotIn("max-width", label_rule)
+            self.assertIn("white-space: nowrap;", label_rule)
+
+        self.assertEqual(contracts[0], contracts[1])
+        self.assertIn(
+            "setLayerRecursively(object, selected ? FOCUS_LAYER : CONTEXT_LAYER);",
+            planned_html,
+        )
+        self.assertIn(
+            "object.marker.layers.set(selected ? FOCUS_LAYER : CONTEXT_LAYER);",
+            planned_html,
+        )
+        self.assertIn("hemisphereLight.layers.enable(FOCUS_LAYER);", planned_html)
+        self.assertIn("keyLight.layers.enable(FOCUS_LAYER);", planned_html)
+
     def test_generated_registry_and_manual_review_are_current(self) -> None:
         registry_json, html, digest = shots.build_artifacts()
         second_registry, second_html, second_digest = shots.build_artifacts()
@@ -218,6 +387,21 @@ class PlannedShotCompilerTests(unittest.TestCase):
             'element.setAttribute("aria-label", `${node.label}; ${postureText}`)',
             html,
         )
+        self.assertIn("posture.textContent = node.lifecycle.replaceAll", html)
+        self.assertIn('id="state-status"', html)
+        self.assertIn("function updateAccessibleState(shot)", html)
+        self.assertIn("function responsive3dPosition(frame)", html)
+        self.assertIn("function resolveTeachingCollisions(shot)", html)
+        self.assertIn(
+            'label.element.dataset.layoutSuppressed === "true"',
+            html,
+        )
+        self.assertIn("? mapLabelById.get(id)?.textContent.trim()", html)
+        self.assertIn("${nodeLabels.get(id)} · ${nodePostures.get(id)}", html)
+        self.assertIn("const nodePostures = new Map();", html)
+        self.assertIn("setFrame(shots[current]);", html)
+        self.assertIn('button.setAttribute("aria-label"', html)
+        self.assertIn('event.target.closest?.("#focus-key, button, a")', html)
         self.assertIn('event.key === "ArrowLeft"', html)
         self.assertIn('event.key === "ArrowRight"', html)
         self.assertNotIn("setTimeout(", html)

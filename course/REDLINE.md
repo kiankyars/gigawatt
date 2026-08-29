@@ -5,15 +5,27 @@ Artifacts: `course/segments.yaml`, `course/pilots/s10_two_rack_heat_paths.yaml`,
 `diagram/planned_shots.json`, `diagram/planned_shots.html`,
 `diagram/course_runtime.json`, `diagram/course.html`, and
 `course/INSTRUCTOR_PACKET.md`
-Posture: complete evidence-bounded course runtime and instructor package; not a
-spoken script, timed edit, as-built drawing, or site-performance estimate.
+Posture: frozen champion `9a76191764c9b2d998950069090548439dfc4007`;
+complete evidence-bounded course runtime and instructor package, not a spoken
+script, timed edit, as-built drawing, or site-performance estimate. The current
+working-tree challenger does not inherit this release approval.
 
 ## Release verdict
 
-The seven-act, 26-segment course is approved as record-ready within its explicit
-evidence boundaries. All 26 segments are evidence-ready. Private as-built,
-commercial, operating-load, utilization, and throughput fields remain null or
-`no evidence-backed estimate`; readiness does not promote those facts.
+The seven-act, 26-segment frozen champion is approved as record-ready within its
+explicit evidence boundaries. All 26 segments are evidence-ready. Private
+as-built, commercial, operating-load, utilization, and throughput fields remain
+null or `no evidence-backed estimate`; readiness does not promote those facts.
+No working-tree variant is accepted. Current compiled challenger statuses
+(`diagram/course_quality.json`): `labels_only` modeled `pending`, Pareto
+`pending`, final `pending`; `annotations_only` modeled `failed`, Pareto
+`rejected`, final `rejected`; `combined` modeled `pending`, Pareto `pending`,
+final `pending`. The `combined` challenger is the current rendered runtime.
+Final acceptance is separate from modeled/Pareto evaluation. Required
+final-acceptance gate IDs: `prerequisite_correctness_repairs`,
+`historical_frozen_champion_viewport_captures`, `browser`,
+`accessibility_snapshot`, `blind_review`. The blind-review gate requires two of
+three reviewer preferences.
 
 ## Blocking redlines
 
@@ -97,7 +109,10 @@ commercial, operating-load, utilization, and throughput fields remain null or
     visible, embedded JSON is script-safe, the evidence drawer is inert while
     hidden, focus is restored on close, and drawer scroll resets by segment.
 
-## Acceptance checks
+## Frozen-champion acceptance checks
+
+The browser-QA items below describe the frozen champion only. They must be rerun
+against any challenger before it becomes the new baseline.
 
 - Complete coverage of every base-visible master node and edge.
 - Canonical next-segment transitions and backward-only dependency references.
@@ -122,5 +137,8 @@ commercial, operating-load, utilization, and throughput fields remain null or
 - Separate published-method and derived-scenario assertions with mandatory
   time-basis, power-to-compute, and scenario-to-site guards.
 
-The package is ready for an instructor walkthrough and recording rehearsal.
-Course length and dwell remain presenter-owned editorial choices.
+The frozen champion package is ready for an instructor walkthrough and recording
+rehearsal. Working-tree candidates are not release-approved; their compiled
+modeled/Pareto result and the five separate final-acceptance gates remain the
+source of truth. Course length and dwell remain presenter-owned editorial
+choices.

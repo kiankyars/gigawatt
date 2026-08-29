@@ -10,9 +10,12 @@ Usage: uv run python diagram/generate_s10_two_rack_heat_paths.py
 from __future__ import annotations
 
 import hashlib
+from collections.abc import Iterable
 from pathlib import Path
 from typing import Any
 
+from gigawatt import scene as scene_pipeline
+from gigawatt import tokens as tokens_pipeline
 from gigawatt.scene import build_payload, canonical_payload, load_yaml
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -22,6 +25,25 @@ MASTER = ROOT / "diagram" / "master.yaml"
 SCENE = ROOT / "diagram" / "scene.yaml"
 CAMERAS = ROOT / "diagram" / "cameras.yaml"
 OUTPUT = ROOT / "diagram" / "s10_two_rack_heat_paths.html"
+GENERATOR_DEPENDENCY_PATHS = (
+    ROOT / "pyproject.toml",
+    ROOT / "uv.lock",
+    Path(__file__).resolve(),
+    Path(scene_pipeline.__file__).resolve(),
+    Path(tokens_pipeline.__file__).resolve(),
+    ROOT / "diagram" / "vendor" / "three" / "three.module.js",
+    ROOT / "diagram" / "vendor" / "three" / "OrbitControls.js",
+    ROOT / "diagram" / "vendor" / "three" / "CSS2DRenderer.js",
+    ROOT / "diagram" / "vendor" / "three" / "LICENSE",
+)
+SOURCE_DEPENDENCY_PATHS = (
+    *GENERATOR_DEPENDENCY_PATHS,
+    COURSE,
+    MANIFEST,
+    MASTER,
+    SCENE,
+    CAMERAS,
+)
 
 TOP_LEVEL_FIELDS = {
     "schema_version",
@@ -86,7 +108,7 @@ def validate_manifest(
             f"missing={sorted(TOP_LEVEL_FIELDS - actual_top_level)} "
             f"extra={sorted(actual_top_level - TOP_LEVEL_FIELDS)}"
         )
-    if manifest["schema_version"] != 1:
+    if type(manifest["schema_version"]) is not int or manifest["schema_version"] != 1:
         raise PilotError("pilot manifest schema_version must be 1")
     if not isinstance(manifest["purpose"], str) or not manifest["purpose"].strip():
         raise PilotError("pilot manifest purpose must be non-empty")
@@ -118,8 +140,12 @@ def validate_manifest(
 
     if not canonical_nodes or not canonical_edges:
         raise PilotError("canonical s10 node and edge scopes must be non-empty")
-    missing_nodes = sorted(canonical_nodes - set(master_nodes) | canonical_nodes - scene_nodes)
-    missing_edges = sorted(canonical_edges - set(master_edges) | canonical_edges - scene_edges)
+    missing_nodes = sorted(
+        canonical_nodes - set(master_nodes) | canonical_nodes - scene_nodes
+    )
+    missing_edges = sorted(
+        canonical_edges - set(master_edges) | canonical_edges - scene_edges
+    )
     if missing_nodes or missing_edges:
         raise PilotError(
             f"canonical s10 scope is absent from master/scene: "
@@ -164,11 +190,20 @@ def validate_manifest(
                 f"extra={sorted(actual_fields - TRANSFORMATION_FIELDS)}"
             )
         for field in ("title", "instruction"):
-            if not isinstance(transformation[field], str) or not transformation[field].strip():
+            if (
+                not isinstance(transformation[field], str)
+                or not transformation[field].strip()
+            ):
                 raise PilotError(f"{location}.{field}: expected non-empty text")
-        focus_nodes = set(_id_list(transformation["focus_nodes"], f"{location}.focus_nodes"))
-        focus_edges = set(_id_list(transformation["focus_edges"], f"{location}.focus_edges"))
-        pulse_edges = set(_id_list(transformation["pulse_edges"], f"{location}.pulse_edges"))
+        focus_nodes = set(
+            _id_list(transformation["focus_nodes"], f"{location}.focus_nodes")
+        )
+        focus_edges = set(
+            _id_list(transformation["focus_edges"], f"{location}.focus_edges")
+        )
+        pulse_edges = set(
+            _id_list(transformation["pulse_edges"], f"{location}.pulse_edges")
+        )
         outside_nodes = sorted(focus_nodes - canonical_nodes)
         outside_edges = sorted(focus_edges - canonical_edges)
         outside_pulses = sorted(pulse_edges - focus_edges)
@@ -207,14 +242,23 @@ def validate_manifest(
     return segment, camera
 
 
-def _source_digest() -> str:
+def _digest_paths(paths: Iterable[Path]) -> str:
     digest = hashlib.sha256()
-    for path in (COURSE, MANIFEST, MASTER, SCENE, CAMERAS):
+    seen: set[Path] = set()
+    for path in paths:
+        path = path.resolve()
+        if path in seen:
+            continue
+        seen.add(path)
         digest.update(path.relative_to(ROOT).as_posix().encode())
         digest.update(b"\0")
         digest.update(path.read_bytes())
         digest.update(b"\0")
     return digest.hexdigest()
+
+
+def _source_digest() -> str:
+    return _digest_paths(SOURCE_DEPENDENCY_PATHS)
 
 
 def build() -> tuple[str, str, int]:
@@ -271,7 +315,7 @@ def build() -> tuple[str, str, int]:
     return rendered, digest, len(manifest["transformations"])
 
 
-HTML = r'''<!doctype html>
+HTML = r"""<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -686,7 +730,7 @@ $("loading").remove();
 </script>
 </body>
 </html>
-'''
+"""
 
 
 def main() -> None:

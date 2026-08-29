@@ -131,8 +131,21 @@ inventory is 11 overlays, seven 3D shots, and three 2D shots; their anchors
 produce 13 review frames in 2D context and eight in 3D context. The compiler
 validates exact topology and hidden reveal bundles and lets the reviewer switch
 between each derived frame and its reusable anchor. Browser QA approved all 21
-derived frames for the complete course runtime without promoting them into
-reusable cameras.
+derived frames in frozen champion
+`9a76191764c9b2d998950069090548439dfc4007` without promoting them into reusable
+cameras. That historical result is not browser evidence for the current
+working-tree challengers.
+
+No working-tree variant is accepted. Current compiled challenger statuses
+(`diagram/course_quality.json`): `labels_only` modeled `pending`, Pareto
+`pending`, final `pending`; `annotations_only` modeled `failed`, Pareto
+`rejected`, final `rejected`; `combined` modeled `pending`, Pareto `pending`,
+final `pending`. The `combined` challenger is the current rendered runtime.
+Final acceptance is separate from modeled/Pareto evaluation. Required
+final-acceptance gate IDs: `prerequisite_correctness_repairs`,
+`historical_frozen_champion_viewport_captures`, `browser`,
+`accessibility_snapshot`, `blind_review`. The blind-review gate requires two of
+three reviewer preferences.
 
 The review surface contains no timing, script, cadence, autoplay, or automatic
 transition contract. Select each shot manually or use the previous/next
@@ -144,6 +157,12 @@ Run the complete contract with:
 uv run python diagram/generate_s10_two_rack_heat_paths.py
 uv run gigawatt-shots
 uv run gigawatt-course
+uv run gigawatt-quality
 uv run gigawatt-validate
 uv run python -m unittest discover -s tests -v
 ```
+
+The quality compiler writes `diagram/course_quality.json` and
+`diagram/course_dependency_graph.json`. It preserves per-dimension and
+per-viewport vectors rather than collapsing them into a weighted average;
+modeled/Pareto eligibility cannot satisfy any separate final-acceptance gate.

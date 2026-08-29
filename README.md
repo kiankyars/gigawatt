@@ -4,10 +4,21 @@ A diagram-led course that follows energy from grid or behind-the-meter
 origination to a GPU die, then follows the resulting heat through liquid cooling
 to the atmosphere.
 
-Status: **record-ready, evidence-bounded v1**. The 2D master is the semantic
-engineering map; the 3D scene supplies campus orientation and spatial zooms.
-Both use the same 30 node IDs and 34 edge IDs. The complete course contains
-seven acts and 26 presenter-controlled, evidence-ready segments.
+Committed champion status: **record-ready, evidence-bounded v1** at
+`9a76191764c9b2d998950069090548439dfc4007`. No working-tree variant is
+accepted. Current compiled challenger statuses (`diagram/course_quality.json`):
+`labels_only` modeled `pending`, Pareto `pending`, final `pending`;
+`annotations_only` modeled `failed`, Pareto `rejected`, final `rejected`;
+`combined` modeled `pending`, Pareto `pending`, final `pending`. The `combined`
+challenger is the current rendered runtime. Final acceptance is separate from
+modeled/Pareto evaluation. Required final-acceptance gate IDs:
+`prerequisite_correctness_repairs`,
+`historical_frozen_champion_viewport_captures`, `browser`,
+`accessibility_snapshot`, `blind_review`. The blind-review gate requires two of
+three reviewer preferences. The 2D master is the semantic engineering map; the
+3D scene supplies campus orientation and spatial views. Both use the same 30
+node IDs and 34 edge IDs. The complete course contains seven acts and 26
+presenter-controlled, evidence-ready segments.
 
 ## Current artifacts
 
@@ -67,9 +78,16 @@ uv run gigawatt-scene
 uv run gigawatt-shots
 uv run gigawatt-course
 uv run python diagram/generate_s10_two_rack_heat_paths.py
+uv run gigawatt-quality
 uv run gigawatt-validate
 uv run python -m unittest discover -s tests -v
 ```
+
+`gigawatt-quality` writes a non-aggregated quality registry for all 26
+segments at five protected viewports plus the inspectable dependency graph
+from primary sources through viewport evaluations. Its ratchet manifest keeps
+the frozen champion, isolated challengers, and still-pending live acceptance
+gates explicit.
 
 To inspect the hybrid player locally:
 
@@ -109,10 +127,12 @@ surfaces load the pinned Three.js runtime locally; no CDN connection is needed.
 - `diagram/vendor/three/`: byte-verified Three.js runtime assets; tests pin their
   exact 0.170.0 hashes and license.
 
-All 26 segments are ready to teach within their validated evidence boundaries.
-Readiness does not convert unavailable as-built configuration, private contract
-terms, current IT load, utilization, or token throughput into facts; the player
-shows those unknowns explicitly.
+All 26 segments in the frozen champion are ready to teach within their validated
+evidence boundaries. The current challenger has the same 26-section inventory
+but is not a new baseline while live acceptance remains pending. Readiness does
+not convert unavailable as-built configuration, private contract terms, current
+IT load, utilization, or token throughput into facts; the player shows those
+unknowns explicitly.
 
 The validator fails on unresolved factual copy, duplicate YAML keys, unknown
 sources or IDs, mismatched fact/source bindings, incompatible lifecycle

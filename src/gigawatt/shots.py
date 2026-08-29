@@ -11,12 +11,15 @@ from __future__ import annotations
 
 import hashlib
 import math
-from collections.abc import Iterable
+from collections.abc import Iterable, Mapping, Sequence
 from pathlib import Path
 from typing import Any
 
 from . import layout as layout_pipeline
+from . import render as render_pipeline
 from . import scene as scene_pipeline
+from . import svg as svg_pipeline
+from . import symbols as symbols_pipeline
 from . import tokens
 from .render import S
 
@@ -30,9 +33,29 @@ SCENE_PATH = DIAGRAM / "scene.yaml"
 REGISTRY_PATH = DIAGRAM / "planned_shots.json"
 REVIEW_PATH = DIAGRAM / "planned_shots.html"
 
+GENERATOR_DEPENDENCY_PATHS = (
+    ROOT / "pyproject.toml",
+    ROOT / "uv.lock",
+    Path(__file__).resolve(),
+    Path(layout_pipeline.__file__).resolve(),
+    Path(render_pipeline.__file__).resolve(),
+    Path(scene_pipeline.__file__).resolve(),
+    Path(svg_pipeline.__file__).resolve(),
+    Path(symbols_pipeline.__file__).resolve(),
+    Path(tokens.__file__).resolve(),
+    DIAGRAM / "vendor" / "three" / "three.module.js",
+    DIAGRAM / "vendor" / "three" / "OrbitControls.js",
+    DIAGRAM / "vendor" / "three" / "CSS2DRenderer.js",
+    DIAGRAM / "vendor" / "three" / "LICENSE",
+)
+
 SCHEMA_VERSION = 1
 EXPECTED_PLANNED_SHOTS = 21
 ALLOWED_MODES = {"2d", "3d", "overlay"}
+THREE_FRAME_MARGIN = 1.10
+TWO_DIMENSIONAL_LABEL_SAFETY_MARGIN = 12.0
+MIN_SPATIAL_LABEL_SURFACE_HEIGHT_PX = 240
+PROTECTED_MAP_COPY_IDS = {"footnote"}
 FORBIDDEN_REGISTRY_KEYS = {
     "autoplay",
     "beat",
@@ -47,6 +70,10 @@ FORBIDDEN_REGISTRY_KEYS = {
 
 class ShotError(ValueError):
     """Raised when a planned shot drifts from its canonical owners."""
+
+
+def spatial_labels_require_fixed_key(width: float, height: float) -> bool:
+    return width < 400 or height < MIN_SPATIAL_LABEL_SURFACE_HEIGHT_PX
 
 
 def load_inputs() -> tuple[
@@ -65,22 +92,34 @@ def load_inputs() -> tuple[
     )
 
 
-def _source_digest(master: dict[str, Any]) -> str:
-    evidence_path = ROOT / master["meta"]["evidence_file"]
+def _digest_paths(paths: Iterable[Path]) -> str:
     digest = hashlib.sha256()
-    for path in (
-        COURSE_PATH,
-        CAMERAS_PATH,
-        MASTER_PATH,
-        LAYOUT_PATH,
-        SCENE_PATH,
-        evidence_path,
-    ):
+    seen: set[Path] = set()
+    for path in paths:
+        path = path.resolve()
+        if path in seen:
+            continue
+        seen.add(path)
         digest.update(path.relative_to(ROOT).as_posix().encode())
         digest.update(b"\0")
         digest.update(path.read_bytes())
         digest.update(b"\0")
     return digest.hexdigest()
+
+
+def _source_digest(master: dict[str, Any]) -> str:
+    evidence_path = ROOT / master["meta"]["evidence_file"]
+    return _digest_paths(
+        (
+            *GENERATOR_DEPENDENCY_PATHS,
+            COURSE_PATH,
+            CAMERAS_PATH,
+            MASTER_PATH,
+            LAYOUT_PATH,
+            SCENE_PATH,
+            evidence_path,
+        )
+    )
 
 
 def _script_safe_payload(payload: dict[str, Any]) -> str:
@@ -198,8 +237,146 @@ def _layout_edge_points(
     return [start, *(tuple(point) for point in spec.get("via") or []), end]
 
 
+def _conservative_text_advance(text: str, font_size: float, font_weight: int) -> float:
+    """Estimate the authored SVG font stack with deterministic safe advances."""
+    if not text or not math.isfinite(font_size) or font_size <= 0:
+        raise ShotError("2D label typography requires non-empty copy and a font size")
+
+    units = 0.0
+    for character in text:
+        if character.isspace():
+            units += 0.32
+        elif character in "ilI.,:;!|'`":
+            units += 0.30
+        elif character in "MW@#%&QGOmw":
+            units += 0.82
+        elif character.isupper():
+            units += 0.68
+        elif character.isdigit():
+            units += 0.58
+        elif character in "—–→·/()[]-":
+            units += 0.52
+        else:
+            units += 0.54
+    weight_factor = 1.05 if font_weight >= 600 else 1.0
+    fallback_factor = 1.04
+    return max(
+        font_size * 1.5,
+        units * font_size * weight_factor * fallback_factor,
+    )
+
+
+def _two_dimensional_label_typography(
+    layout: dict[str, Any],
+) -> dict[str, dict[str, Any]]:
+    """Mirror the typography and anchors used by layout.build_site."""
+    labels: dict[str, dict[str, Any]] = {}
+
+    def add(
+        copy_id: str,
+        at: Sequence[float],
+        *,
+        size: float,
+        weight: int,
+        anchor: str = "middle",
+    ) -> None:
+        if copy_id in labels:
+            raise ShotError(f"duplicate rendered 2D label {copy_id!r}")
+        if anchor not in {"start", "middle", "end"}:
+            raise ShotError(
+                f"rendered 2D label {copy_id!r}: unsupported anchor {anchor!r}"
+            )
+        if not isinstance(at, Sequence) or isinstance(at, (str, bytes)) or len(at) != 2:
+            raise ShotError(f"rendered 2D label {copy_id!r}: invalid anchor point")
+        x, y = (float(value) for value in at)
+        if any(not math.isfinite(value) for value in (x, y, size)) or size <= 0:
+            raise ShotError(f"rendered 2D label {copy_id!r}: invalid typography")
+        labels[copy_id] = {
+            "at": (x, y),
+            "anchor": anchor,
+            "font_family": tokens.FONT,
+            "font_size": float(size),
+            "font_weight": int(weight),
+        }
+
+    ground = float(layout["frame"]["ground"])
+    for zone in layout.get("zones") or []:
+        add(zone["copy_id"], (zone["x"], ground + 28), size=10.5, weight=400)
+    for region in layout.get("regions") or []:
+        if "copy_id" in region:
+            add(region["copy_id"], region["label_at"], size=11.0, weight=600)
+    for room in layout.get("room_labels") or []:
+        add(
+            room["id"],
+            room["at"],
+            size=float(room.get("size", 10.5)),
+            weight=400,
+            anchor=room.get("anchor", "middle"),
+        )
+    for label in layout.get("labels") or []:
+        is_note = label.get("kind", "label") == "note"
+        add(
+            label["id"],
+            label["at"],
+            size=float(label.get("size", 10.5 if is_note else 12.5)),
+            weight=400 if is_note else 600,
+            anchor=label.get("anchor", "middle"),
+        )
+    legend = layout.get("legend")
+    if legend:
+        x, y = legend["at"]
+        add(legend["title_id"], (x, y), size=12.5, weight=600, anchor="start")
+        for index, entry in enumerate(legend["entries"]):
+            add(
+                entry["id"],
+                (x + 54, y + 24 + index * 22),
+                size=10.5,
+                weight=400,
+                anchor="start",
+            )
+    return labels
+
+
+def two_dimensional_label_bounds(
+    layout: dict[str, Any], resolved_copy: Mapping[str, str]
+) -> dict[str, dict[str, Any]]:
+    """Return conservative bounds for exact copy rendered by the 2D SVG."""
+    typography = _two_dimensional_label_typography(layout)
+    unknown = sorted(set(resolved_copy) - set(typography))
+    if unknown:
+        raise ShotError(f"2D frame copy is not rendered by the layout: {unknown}")
+
+    bounds: dict[str, dict[str, Any]] = {}
+    for copy_id, rendered in resolved_copy.items():
+        if not isinstance(rendered, str) or not rendered:
+            raise ShotError(f"2D frame copy {copy_id!r} must resolve to text")
+        spec = typography[copy_id]
+        x, y = spec["at"]
+        width = _conservative_text_advance(
+            rendered,
+            spec["font_size"],
+            spec["font_weight"],
+        )
+        half_height = spec["font_size"] * 0.75
+        if spec["anchor"] == "start":
+            x0, x1 = x, x + width
+        elif spec["anchor"] == "end":
+            x0, x1 = x - width, x
+        else:
+            x0, x1 = x - width / 2, x + width / 2
+        bounds[copy_id] = {
+            **spec,
+            "text": rendered,
+            "bbox": (x0, y - half_height, x1, y + half_height),
+        }
+    return bounds
+
+
 def _fit_2d_view(
-    points: Iterable[tuple[float, float]], frame: dict[str, Any]
+    points: Iterable[tuple[float, float]],
+    frame: dict[str, Any],
+    *,
+    required_bounds: Iterable[Sequence[float]] = (),
 ) -> list[float]:
     point_list = list(points)
     if not point_list:
@@ -230,7 +407,92 @@ def _fit_2d_view(
     center_y = (min(ys) + max(ys)) / 2
     x = min(max(0.0, center_x - width / 2), frame_width - width)
     y = min(max(0.0, center_y - height / 2), frame_height - height)
-    return [round(value, 3) for value in (x, y, width, height)]
+
+    bound_list = [tuple(float(value) for value in bound) for bound in required_bounds]
+    if any(
+        len(bound) != 4 or any(not math.isfinite(value) for value in bound)
+        for bound in bound_list
+    ):
+        raise ShotError("2D label bounds must be finite x0/y0/x1/y1 boxes")
+    if bound_list:
+        margin = TWO_DIMENSIONAL_LABEL_SAFETY_MARGIN
+        required_x0 = min(x, *(bound[0] - margin for bound in bound_list))
+        required_y0 = min(y, *(bound[1] - margin for bound in bound_list))
+        required_x1 = max(x + width, *(bound[2] + margin for bound in bound_list))
+        required_y1 = max(y + height, *(bound[3] + margin for bound in bound_list))
+        if (
+            required_x0 < 0
+            or required_y0 < 0
+            or required_x1 > frame_width
+            or required_y1 > frame_height
+        ):
+            raise ShotError("selected 2D label copy cannot fit inside the master frame")
+
+        width = max(
+            width,
+            required_x1 - required_x0,
+            (required_y1 - required_y0) * aspect,
+        )
+        height = width / aspect
+        if width > frame_width or height > frame_height:
+            raise ShotError("selected 2D label copy cannot fit inside the master frame")
+
+        minimum_x = max(0.0, required_x1 - width)
+        maximum_x = min(required_x0, frame_width - width)
+        minimum_y = max(0.0, required_y1 - height)
+        maximum_y = min(required_y0, frame_height - height)
+        if minimum_x > maximum_x or minimum_y > maximum_y:
+            raise ShotError("selected 2D label copy cannot fit inside the master frame")
+        x = min(max(x, minimum_x), maximum_x)
+        y = min(max(y, minimum_y), maximum_y)
+
+    rounded_width = round(width, 3)
+    rounded_height = round(height, 3)
+    rounded_x = round(min(round(x, 3), frame_width - rounded_width), 3)
+    rounded_y = round(min(round(y, 3), frame_height - rounded_height), 3)
+    return [rounded_x, rounded_y, rounded_width, rounded_height]
+
+
+def _derive_2d_frame(
+    node_ids: list[str],
+    edge_ids: list[str],
+    anchor: dict[str, Any],
+    master: dict[str, Any],
+    layout: dict[str, Any],
+    scene: dict[str, Any],
+    *,
+    resolved_label_copy: Mapping[str, str] | None = None,
+) -> dict[str, Any]:
+    """Derive one 2D frame from semantic geometry and exact visible copy."""
+    _, edge_records = _exact_geometry_coverage(master, layout, scene)
+    geoms = layout_pipeline.build_geoms(layout, master, layout["frame"]["ground"])
+    points: list[tuple[float, float]] = []
+    for node_id in node_ids:
+        points.extend(_layout_node_points(node_id, layout))
+    for edge_id in edge_ids:
+        points.extend(_layout_edge_points(edge_id, layout, edge_records, geoms))
+    label_bounds = two_dimensional_label_bounds(layout, resolved_label_copy or {})
+    anchor_view = anchor.get("viewBox") or anchor.get("map_view")
+    if not (
+        isinstance(anchor_view, list)
+        and len(anchor_view) == 4
+        and all(
+            isinstance(value, (int, float))
+            and not isinstance(value, bool)
+            and math.isfinite(float(value))
+            for value in anchor_view
+        )
+    ):
+        raise ShotError(f"camera {anchor.get('id')!r}: invalid 2D geometry")
+    return {
+        "kind": "2d",
+        "viewBox": _fit_2d_view(
+            points,
+            layout["frame"],
+            required_bounds=(record["bbox"] for record in label_bounds.values()),
+        ),
+        "anchor_viewBox": [float(value) for value in anchor_view],
+    }
 
 
 def _scene_node_points(
@@ -246,6 +508,9 @@ def _scene_node_points(
         else:
             radius = float(primitive["radius"])
             half = [radius, float(primitive["height"]) / 2, radius]
+        rotation = [
+            math.radians(float(value)) for value in primitive.get("rotate", [0, 0, 0])
+        ]
         for signs in (
             (-1, -1, -1),
             (-1, -1, 1),
@@ -256,9 +521,22 @@ def _scene_node_points(
             (1, 1, -1),
             (1, 1, 1),
         ):
-            points.append(
-                tuple(center[index] + signs[index] * half[index] for index in range(3))
+            local = [signs[index] * half[index] for index in range(3)]
+            x, y, z = local
+            rx, ry, rz = rotation
+            y, z = (
+                y * math.cos(rx) - z * math.sin(rx),
+                y * math.sin(rx) + z * math.cos(rx),
             )
+            x, z = (
+                x * math.cos(ry) + z * math.sin(ry),
+                -x * math.sin(ry) + z * math.cos(ry),
+            )
+            x, y = (
+                x * math.cos(rz) - y * math.sin(rz),
+                x * math.sin(rz) + y * math.cos(rz),
+            )
+            points.append((center[0] + x, center[1] + y, center[2] + z))
     return points
 
 
@@ -290,8 +568,11 @@ def _derive_3d_frame(
     direction = [value / anchor_distance for value in direction]
     distance = max(
         180.0,
-        anchor_distance * 0.55,
-        radius / math.sin(math.radians(20.0)) * 1.22,
+        radius
+        / math.sin(
+            math.radians(scene_pipeline.THREE_CAMERA_VERTICAL_FOV_DEGREES / 2)
+        )
+        * THREE_FRAME_MARGIN,
     )
     position = [target[index] + direction[index] * distance for index in range(3)]
     values = [*target, *position]
@@ -301,10 +582,33 @@ def _derive_3d_frame(
         "kind": "3d",
         "position": [round(value, 3) for value in position],
         "target": [round(value, 3) for value in target],
-        "up": [0, 1, 0],
+        "up": [float(value) for value in scene["world"]["camera_up"]],
+        "focus_radius": round(radius, 3),
+        "frame_margin": THREE_FRAME_MARGIN,
         "anchor_position": anchor_position,
         "anchor_target": anchor_target,
     }
+
+
+def _responsive_3d_distance(
+    frame: dict[str, Any],
+    aspect: float,
+    *,
+    vertical_fov_degrees: float = scene_pipeline.THREE_CAMERA_VERTICAL_FOV_DEGREES,
+) -> float:
+    """Return the runtime camera distance required by the limiting viewport axis."""
+    if not math.isfinite(aspect) or aspect <= 0:
+        raise ShotError("3D viewport aspect must be positive and finite")
+    vertical_half_fov = math.radians(vertical_fov_degrees / 2)
+    horizontal_half_fov = math.atan(math.tan(vertical_half_fov) * aspect)
+    limiting_half_fov = min(vertical_half_fov, horizontal_half_fov)
+    authored_distance = math.dist(frame["position"], frame["target"])
+    required_distance = (
+        float(frame["focus_radius"])
+        / math.sin(limiting_half_fov)
+        * float(frame["frame_margin"])
+    )
+    return max(authored_distance, required_distance)
 
 
 def _walk_keys(value: Any) -> Iterable[str]:
@@ -325,9 +629,14 @@ def compile_registry(
     scene: dict[str, Any],
     *,
     source_digest: str,
+    resolved_label_copy_by_segment: Mapping[str, Mapping[str, str]] | None = None,
 ) -> dict[str, Any]:
     """Compile every planned course request into conservative review geometry."""
     node_records, edge_records = _exact_geometry_coverage(master, layout, scene)
+    try:
+        scene_pipeline.validate(master, scene, cameras)
+    except scene_pipeline.ManifestError as exc:
+        raise ShotError(f"authoritative scene contract failed: {exc}") from exc
     copy_records = master.get("copy") or {}
     hidden_nodes = {
         node_id
@@ -356,6 +665,15 @@ def compile_registry(
         for act in course.get("acts") or []
         for segment in act.get("segments") or []
     ]
+    resolved_label_copy_by_segment = resolved_label_copy_by_segment or {}
+    unknown_label_segments = sorted(
+        set(resolved_label_copy_by_segment) - {segment["id"] for segment in segments}
+    )
+    if unknown_label_segments:
+        raise ShotError(
+            "resolved 2D frame copy references unknown segments: "
+            f"{unknown_label_segments}"
+        )
     planned = [
         segment
         for segment in segments
@@ -372,7 +690,6 @@ def compile_registry(
     if collisions:
         raise ShotError(f"planned shot IDs collide with reusable cameras: {collisions}")
 
-    geoms = layout_pipeline.build_geoms(layout, master, layout["frame"]["ground"])
     compiled: list[dict[str, Any]] = []
     for sequence, segment in enumerate(planned, start=1):
         request = segment["camera"]
@@ -483,20 +800,33 @@ def compile_registry(
             )
 
         if render_mode == "2d":
-            points: list[tuple[float, float]] = []
-            for node_id in node_ids:
-                points.extend(_layout_node_points(node_id, layout))
-            for edge_id in edge_ids:
-                points.extend(_layout_edge_points(edge_id, layout, edge_records, geoms))
-            frame = {
-                "kind": "2d",
-                "viewBox": _fit_2d_view(points, layout["frame"]),
-                "anchor_viewBox": [
-                    float(value)
-                    for value in (anchor.get("viewBox") or anchor.get("map_view"))
-                ],
-            }
+            resolved_label_copy = dict(
+                resolved_label_copy_by_segment.get(segment_id, {})
+            )
+            for copy_id in request["reveal_copy_ids"]:
+                if copy_id in resolved_label_copy:
+                    continue
+                literal = copy_records[copy_id].get("text")
+                if not isinstance(literal, str) or not literal:
+                    raise ShotError(
+                        f"segment {segment_id}: revealed copy {copy_id!r} requires "
+                        "evidence-resolved text for 2D framing"
+                    )
+                resolved_label_copy[copy_id] = literal
+            frame = _derive_2d_frame(
+                node_ids,
+                edge_ids,
+                anchor,
+                master,
+                layout,
+                scene,
+                resolved_label_copy=resolved_label_copy,
+            )
         else:
+            if resolved_label_copy_by_segment.get(segment_id):
+                raise ShotError(
+                    f"segment {segment_id}: 3D frame cannot contain 2D label copy"
+                )
             frame = _derive_3d_frame(node_ids, edge_ids, anchor, scene)
 
         compiled.append(
@@ -555,6 +885,17 @@ REVIEW_HTML = r"""<!doctype html>
     --rule: 1.5px;
   }
   * { box-sizing: border-box; }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
   html, body { width: 100%; height: 100%; }
   body {
     margin: 0;
@@ -613,6 +954,7 @@ REVIEW_HTML = r"""<!doctype html>
   #title { margin: 5px 0 0; font-size: 20px; line-height: 1.1; }
   #scope-summary, #scope-ids { margin: 5px 0 0; font-size: 10px; line-height: 1.25; }
   #scope-ids { max-width: 760px; overflow: hidden; color: var(--muted); text-overflow: ellipsis; white-space: nowrap; }
+  #focus-key { display: none; }
   #posture {
     align-self: start;
     min-width: 190px;
@@ -633,7 +975,6 @@ REVIEW_HTML = r"""<!doctype html>
   #map-stage { padding: 18px 22px; }
   #map-svg { width: 100%; height: 100%; display: block; }
   .node-label {
-    max-width: 205px;
     padding: 4px 7px;
     color: var(--ink);
     background: color-mix(in srgb, var(--paper) 91%, transparent);
@@ -720,6 +1061,7 @@ REVIEW_HTML = r"""<!doctype html>
     <h2 id="title"></h2>
     <p id="scope-summary"></p>
     <p id="scope-ids"></p>
+    <div id="focus-key" tabindex="0" aria-label="Readable labels for focused topology" hidden></div>
   </div>
   <aside id="posture">
     <p id="shot-id"></p>
@@ -739,6 +1081,7 @@ REVIEW_HTML = r"""<!doctype html>
   <button id="context-toggle" type="button">Show anchor</button>
   <button class="arrow" id="next" type="button" aria-label="Next planned shot">→</button>
 </nav>
+<p id="state-status" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
 <div id="loading">Loading the planned-shot registry…</div>
 <script id="review-data" type="application/json">__DATA__</script>
 <script>
@@ -782,27 +1125,43 @@ const hiddenEdges = new Set(data.hidden.edges);
 const hiddenCopy = new Set(data.hidden.copy);
 
 const scene = new THREE.Scene();
+const CONTEXT_LAYER = 0;
+const FOCUS_LAYER = 1;
 scene.background = new THREE.Color(data.scene.palette.paper);
 scene.fog = new THREE.Fog(data.scene.palette.paper, data.scene.world.fog.near, data.scene.world.fog.far);
-const camera = new THREE.PerspectiveCamera(40, stage.clientWidth / stage.clientHeight, 1, 5000);
+const camera = new THREE.PerspectiveCamera(
+  __THREE_CAMERA_VERTICAL_FOV_DEGREES__,
+  mount.clientWidth / mount.clientHeight,
+  __THREE_CAMERA_NEAR__,
+  __THREE_CAMERA_FAR__
+);
+camera.up.set(...data.scene.world.camera_up).normalize();
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
-renderer.setSize(stage.clientWidth, stage.clientHeight);
+renderer.setSize(mount.clientWidth, mount.clientHeight);
 renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 mount.appendChild(renderer.domElement);
 const labelRenderer = new CSS2DRenderer();
-labelRenderer.setSize(stage.clientWidth, stage.clientHeight);
+labelRenderer.setSize(mount.clientWidth, mount.clientHeight);
 labelRenderer.domElement.id = "labels";
 mount.appendChild(labelRenderer.domElement);
 const controls = new OrbitControls(camera, renderer.domElement);
-controls.minDistance = 90;
-controls.maxDistance = 3600;
-controls.maxPolarAngle = Math.PI * 0.49;
+controls.minDistance = __THREE_CAMERA_MIN_DISTANCE__;
+controls.maxDistance = __THREE_REVIEW_CAMERA_MAX_DISTANCE__;
+controls.minPolarAngle = Math.PI * __THREE_CAMERA_MIN_POLAR_ANGLE_FRACTION__;
+controls.maxPolarAngle = Math.PI * __THREE_CAMERA_MAX_POLAR_ANGLE_FRACTION__;
 
-scene.add(new THREE.HemisphereLight(0xffffff, 0xd8d8cf, 1.45));
+const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0xd8d8cf, 1.45);
+hemisphereLight.layers.enable(FOCUS_LAYER);
+scene.add(hemisphereLight);
 const keyLight = new THREE.DirectionalLight(0xffffff, 1.5);
 keyLight.position.set(700, 1100, 650);
+keyLight.layers.enable(FOCUS_LAYER);
 scene.add(keyLight);
+
+function setLayerRecursively(object, layer) {
+  object.traverse(child => child.layers.set(layer));
+}
 
 function material(spec, context = false) {
   const opacity = context ? Math.min(spec.opacity ?? 1, 0.2) : (spec.opacity ?? 1);
@@ -824,6 +1183,7 @@ function primitiveMesh(spec, context = false) {
   const mesh = new THREE.Mesh(geometry, material(spec, context));
   mesh.position.set(...spec.at);
   if (spec.rotate) mesh.rotation.set(...spec.rotate.map(THREE.MathUtils.degToRad));
+  mesh.layers.set(CONTEXT_LAYER);
   return mesh;
 }
 
@@ -845,6 +1205,7 @@ const groundMesh = new THREE.Mesh(
 );
 groundMesh.rotation.x = -Math.PI / 2;
 groundMesh.position.set(...ground.at);
+groundMesh.layers.set(CONTEXT_LAYER);
 scene.add(groundMesh);
 for (const structure of data.scene.structures) {
   const group = new THREE.Group();
@@ -860,6 +1221,7 @@ for (const structure of data.scene.structures) {
 
 const nodeObjects = new Map();
 const nodeLabels = new Map();
+const nodePostures = new Map();
 for (const node of data.scene.nodes) {
   const group = new THREE.Group();
   group.position.set(...node.position);
@@ -870,12 +1232,13 @@ for (const node of data.scene.nodes) {
   const element = document.createElement("div");
   element.className = "node-label";
   element.textContent = node.label;
+  element.dataset.nodeId = node.id;
   const postureText = `${node.presence.replaceAll("_", " ")} · ${node.lifecycle.replaceAll("_", " ")}`;
   element.dataset.presence = node.presence;
   element.dataset.lifecycle = node.lifecycle;
   element.setAttribute("aria-label", `${node.label}; ${postureText}`);
   const posture = document.createElement("small");
-  posture.textContent = postureText;
+  posture.textContent = node.lifecycle.replaceAll("_", " ");
   element.appendChild(posture);
   const label = new CSS2DObject(element);
   label.position.set(...node.label_position);
@@ -884,6 +1247,7 @@ for (const node of data.scene.nodes) {
   group.userData.label = label;
   nodeObjects.set(node.id, group);
   nodeLabels.set(node.id, node.label);
+  nodePostures.set(node.id, postureText);
 }
 
 function segmentedCurve(points) {
@@ -906,9 +1270,14 @@ for (const edge of data.scene.edges) {
     new THREE.TubeGeometry(curve, Math.max(12, edge.points.length * 10), data.scene.stroke.heavy * 0.72, 8, false),
     edgeMaterial
   );
+  mesh.layers.set(CONTEXT_LAYER);
   scene.add(mesh);
   const marker = new THREE.Mesh(
-    new THREE.ConeGeometry(5.2, 14, 10),
+    new THREE.ConeGeometry(
+      __EDGE_FLOW_MARKER_RADIUS__,
+      __EDGE_FLOW_MARKER_HEIGHT__,
+      10
+    ),
     new THREE.MeshBasicMaterial({ color: data.scene.palette[edge.token] })
   );
   const markerPosition = curve.getPoint(0.64);
@@ -916,6 +1285,7 @@ for (const edge of data.scene.edges) {
   marker.position.copy(markerPosition);
   marker.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), markerDirection);
   marker.visible = false;
+  marker.layers.set(CONTEXT_LAYER);
   scene.add(marker);
   edgeObjects.set(edge.id, { mesh, marker, baseVisible: edge.base_visible, flowDirection: edge.flow_direction });
 }
@@ -923,21 +1293,57 @@ for (const edge of data.scene.edges) {
 const mapNodes = [...mapSvg.querySelectorAll('[id^="node-"]')];
 const mapEdges = [...mapSvg.querySelectorAll('[id^="edge-"]')];
 const mapLabels = [...mapSvg.querySelectorAll('[id^="label-"]')];
+const mapLabelById = new Map(mapLabels.map(element => [element.id.slice(6), element]));
 const mapLegend = mapSvg.querySelector("#status-legend");
+const protectedCopy = new Set(["footnote"]);
+
+function renderDepthSeparatedFocus() {
+  const background = scene.background;
+  const autoClear = renderer.autoClear;
+  const cameraLayerMask = camera.layers.mask;
+  try {
+    renderer.autoClear = true;
+    camera.layers.set(CONTEXT_LAYER);
+    renderer.render(scene, camera);
+    renderer.clearDepth();
+    scene.background = null;
+    renderer.autoClear = false;
+    camera.layers.set(FOCUS_LAYER);
+    renderer.render(scene, camera);
+  } finally {
+    scene.background = background;
+    renderer.autoClear = autoClear;
+    camera.layers.mask = cameraLayerMask;
+  }
+}
 
 function render3d() {
   for (const object of nodeObjects.values()) {
     object.userData.label.element.style.marginTop = "0px";
+    object.userData.label.element.style.visibility = "visible";
+    object.userData.label.element.dataset.overlaySuppressed = "false";
+    object.userData.label.element.dataset.layoutSuppressed = "false";
   }
-  renderer.render(scene, camera);
+  renderDepthSeparatedFocus();
   labelRenderer.render(scene, camera);
 
-  const stageRect = stage.getBoundingClientRect();
+  const stageRect = mount.getBoundingClientRect();
   const labels = [...nodeObjects.values()]
     .map(object => object.userData.label)
     .filter(label => label.visible)
     .map(label => ({ label, rect: label.element.getBoundingClientRect() }))
     .sort((left, right) => left.rect.x - right.rect.x || left.rect.y - right.rect.y);
+  if (
+    mount.clientWidth < 400 ||
+    mount.clientHeight < __MIN_SPATIAL_LABEL_SURFACE_HEIGHT_PX__
+  ) {
+    for (const item of labels) {
+      item.label.element.style.visibility = "hidden";
+      item.label.element.dataset.layoutSuppressed = "true";
+    }
+    resolveTeachingCollisions(shots[current]);
+    return;
+  }
   const placed = [];
   const offsets = [0];
   for (let step = 1; step <= labels.length; step += 1) {
@@ -951,14 +1357,24 @@ function render3d() {
         top: item.rect.top + candidate,
         bottom: item.rect.bottom + candidate
       };
-      if (shifted.top < stageRect.top + 6 || shifted.bottom > stageRect.bottom - 6) return false;
+      if (
+        shifted.left < stageRect.left + 6 ||
+        shifted.right > stageRect.right - 6 ||
+        shifted.top < stageRect.top + 6 ||
+        shifted.bottom > stageRect.bottom - 6
+      ) return false;
       return placed.every(other =>
         shifted.right + 5 <= other.left ||
         shifted.left >= other.right + 5 ||
         shifted.bottom + 5 <= other.top ||
         shifted.top >= other.bottom + 5
       );
-    }) ?? 0;
+    });
+    if (offset === undefined) {
+      item.label.element.style.visibility = "hidden";
+      item.label.element.dataset.layoutSuppressed = "true";
+      continue;
+    }
     item.label.element.style.marginTop = `${offset}px`;
     placed.push({
       left: item.rect.left,
@@ -967,6 +1383,7 @@ function render3d() {
       bottom: item.rect.bottom + offset
     });
   }
+  resolveTeachingCollisions(shots[current]);
 }
 
 function applyMapFocus(shot) {
@@ -974,6 +1391,8 @@ function applyMapFocus(shot) {
   const focusEdges = new Set(shot.focus_edges);
   const reveals = new Set(shot.reveal_ids);
   const copyReveals = new Set(shot.reveal_copy_ids);
+  const labelFocus = new Set(shot.visual?.label_copy_ids || []);
+  const focusLabelsOnly = shot.visual?.label_policy === "focus";
   for (const element of mapNodes) {
     const id = element.id.slice(5);
     const visible = !hiddenNodes.has(id) || reveals.has(id);
@@ -987,39 +1406,147 @@ function applyMapFocus(shot) {
     element.style.opacity = focusEdges.has(id) ? "1" : ".06";
   }
   for (const element of mapLabels) {
+    if (mapLegend?.contains(element)) {
+      element.style.display = "inline";
+      element.style.opacity = "1";
+      continue;
+    }
     const id = element.id.slice(6);
-    const visible = !hiddenCopy.has(id) || copyReveals.has(id);
+    const protectedLabel = protectedCopy.has(id);
+    const allowedByFocus = !focusLabelsOnly || labelFocus.has(id) || copyReveals.has(id) || protectedLabel;
+    const visible = (!hiddenCopy.has(id) || copyReveals.has(id)) && allowedByFocus;
+    element.dataset.focusVisible = String(visible);
     element.style.display = visible ? "inline" : "none";
-    element.style.opacity = copyReveals.has(id) ? "1" : ".20";
+    element.style.opacity = copyReveals.has(id) || labelFocus.has(id) || protectedLabel ? "1" : ".20";
   }
-  if (mapLegend) mapLegend.style.opacity = ".20";
+  if (mapLegend) {
+    const legendRequest = shot.visual?.show_legend;
+    mapLegend.style.display = legendRequest === false ? "none" : "inline";
+    mapLegend.style.opacity = legendRequest === true ? "1" : ".20";
+  }
+}
+
+function renderFocusKey(shot) {
+  const key = $("focus-key");
+  key.replaceChildren();
+  if (shot.visual?.label_policy !== "focus") {
+    key.hidden = true;
+    return;
+  }
+  const ids = shot.render_mode === "2d"
+    ? [...new Set([...(shot.visual?.label_copy_ids || []), ...shot.reveal_copy_ids])]
+    : [...new Set(shot.visual?.label_node_ids || [])];
+  for (const id of ids) {
+    const label = shot.render_mode === "2d"
+      ? mapLabelById.get(id)?.textContent.trim()
+      : `${nodeLabels.get(id)} · ${nodePostures.get(id)}`;
+    if (!label) continue;
+    const chip = document.createElement("span");
+    chip.className = "focus-chip";
+    chip.dataset.labelId = id;
+    chip.textContent = label;
+    key.appendChild(chip);
+  }
+  key.hidden = !key.childElementCount;
+}
+
+function updateMapLabelLegibility(shot) {
+  if (shot.render_mode !== "2d" || shot.visual?.label_policy !== "focus") return;
+  const rect = mapSvg.getBoundingClientRect();
+  const view = shot.frame.viewBox;
+  const projectedBaseFont = 10.5 * Math.min(rect.width / view[2], rect.height / view[3]);
+  const spatialLabelsReadable = projectedBaseFont >= 10;
+  for (const element of mapLabels) {
+    if (mapLegend?.contains(element)) continue;
+    const intended = element.dataset.focusVisible === "true";
+    element.style.display = intended && spatialLabelsReadable ? "inline" : "none";
+  }
+}
+
+function boxesOverlap(left, right, gap = 4) {
+  return !(
+    left.right + gap <= right.left ||
+    left.left >= right.right + gap ||
+    left.bottom + gap <= right.top ||
+    left.top >= right.bottom + gap
+  );
+}
+
+function resolveTeachingCollisions(shot) {
+  const overlay = $("teaching-overlay");
+  if (shot.render_mode === "2d") {
+    updateMapLabelLegibility(shot);
+    for (const element of mapLabels) element.dataset.overlaySuppressed = "false";
+  } else {
+    for (const object of nodeObjects.values()) {
+      const label = object.userData.label;
+      if (!label.visible) continue;
+      label.element.style.visibility = label.element.dataset.layoutSuppressed === "true"
+        ? "hidden"
+        : "visible";
+      label.element.dataset.overlaySuppressed = "false";
+    }
+  }
+  if (!overlay || overlay.hidden) return;
+  const overlayRect = overlay.getBoundingClientRect();
+  const candidates = shot.render_mode === "2d"
+    ? mapLabels.filter(element => element.style.display !== "none" && !mapLegend?.contains(element))
+    : [...nodeObjects.values()]
+        .map(object => object.userData.label)
+        .filter(label => label.visible)
+        .map(label => label.element);
+  for (const element of candidates) {
+    if (!boxesOverlap(element.getBoundingClientRect(), overlayRect)) continue;
+    element.dataset.overlaySuppressed = "true";
+    if (shot.render_mode === "2d") element.style.display = "none";
+    else element.style.visibility = "hidden";
+  }
 }
 
 function apply3dFocus(shot) {
   const focusNodes = new Set(shot.focus_nodes);
   const focusEdges = new Set(shot.focus_edges);
   const reveals = new Set(shot.reveal_ids);
+  const labelFocus = new Set(shot.visual?.label_node_ids || []);
+  const focusLabelsOnly = shot.visual?.label_policy === "focus";
   for (const [id, object] of nodeObjects) {
     const visible = object.userData.baseVisible || reveals.has(id);
     const selected = visible && focusNodes.has(id);
     object.visible = visible;
+    setLayerRecursively(object, selected ? FOCUS_LAYER : CONTEXT_LAYER);
     for (const item of object.userData.materials) {
       item.opacity = item.userData.baseOpacity * (selected ? 1 : 0.035);
       item.transparent = item.opacity < 1;
     }
-    object.userData.label.visible = selected;
+    object.userData.label.visible = selected && (!focusLabelsOnly || labelFocus.has(id));
   }
   for (const [id, object] of edgeObjects) {
     const visible = object.baseVisible || reveals.has(id);
     const selected = visible && focusEdges.has(id);
     object.mesh.visible = visible;
-    object.mesh.material.opacity = selected ? .96 : .025;
+    object.mesh.layers.set(selected ? FOCUS_LAYER : CONTEXT_LAYER);
+    object.mesh.material.opacity = selected
+      ? __HYBRID_CONFIRMED_EDGE_OPACITY__
+      : .025;
     object.marker.visible = selected && object.flowDirection !== "none";
+    object.marker.layers.set(selected ? FOCUS_LAYER : CONTEXT_LAYER);
   }
 }
 
 let current = 0;
 let showingAnchor = false;
+
+function responsive3dPosition(frame) {
+  const authored = new THREE.Vector3(...frame.position);
+  const target = new THREE.Vector3(...frame.target);
+  const direction = authored.clone().sub(target).normalize();
+  const verticalHalfFov = THREE.MathUtils.degToRad(camera.fov / 2);
+  const horizontalHalfFov = Math.atan(Math.tan(verticalHalfFov) * camera.aspect);
+  const limitingHalfFov = Math.min(verticalHalfFov, horizontalHalfFov);
+  const requiredDistance = frame.focus_radius / Math.sin(limitingHalfFov) * frame.frame_margin;
+  const distance = Math.max(authored.distanceTo(target), requiredDistance);
+  return target.add(direction.multiplyScalar(distance)).toArray();
+}
 
 function setFrame(shot) {
   if (shot.frame.kind === "2d") {
@@ -1027,13 +1554,26 @@ function setFrame(shot) {
     mapSvg.setAttribute("viewBox", view.join(" "));
     return;
   }
-  const position = showingAnchor ? shot.frame.anchor_position : shot.frame.position;
+  const position = showingAnchor ? shot.frame.anchor_position : responsive3dPosition(shot.frame);
   const target = showingAnchor ? shot.frame.anchor_target : shot.frame.target;
   camera.position.set(...position);
-  camera.up.set(...shot.frame.up);
+  camera.up.set(...shot.frame.up).normalize();
   controls.target.set(...target);
   controls.update();
   render3d();
+}
+
+function updateAccessibleState(shot) {
+  const readableNodes = shot.render_mode === "3d"
+    ? shot.focus_nodes.map(id => `${nodeLabels.get(id) || id}; ${nodePostures.get(id) || "posture unknown"}`)
+    : (shot.focus_node_labels || shot.focus_nodes.map(id => nodeLabels.get(id) || id));
+  const readableEdges = shot.focus_edge_labels || shot.focus_edges;
+  const focusParts = [];
+  if (readableNodes.length) focusParts.push(`Focused nodes: ${readableNodes.join(", ")}`);
+  if (readableEdges.length) focusParts.push(`Focused paths: ${readableEdges.join(", ")}`);
+  const detail = focusParts.join(". ");
+  stage.setAttribute("aria-label", `${shot.title}. ${detail || "No focused topology."}`);
+  $("state-status").textContent = `Section ${shot.sequence} of ${shots.length}: ${shot.title}. ${shot.focus_nodes.length} focused nodes and ${shot.focus_edges.length} focused paths.`;
 }
 
 function activate(index) {
@@ -1046,6 +1586,9 @@ function activate(index) {
   if (is3d) apply3dFocus(shot);
   else applyMapFocus(shot);
   setFrame(shot);
+  updateMapLabelLegibility(shot);
+  renderFocusKey(shot);
+  updateAccessibleState(shot);
 
   $("eyebrow").textContent = `${String(shot.sequence).padStart(2, "0")} / ${shots.length} · ${shot.segment_id}`;
   $("title").textContent = shot.title;
@@ -1077,6 +1620,7 @@ shots.forEach((shot, index) => {
   const button = document.createElement("button");
   button.className = "shot-button";
   button.type = "button";
+  button.setAttribute("aria-label", `${String(shot.sequence).padStart(2, "0")}. ${shot.title}`);
   const number = document.createElement("span");
   number.className = "shot-number";
   number.textContent = String(shot.sequence).padStart(2, "0");
@@ -1101,16 +1645,19 @@ $("context-toggle").addEventListener("click", () => {
   setFrame(shots[current]);
 });
 addEventListener("keydown", event => {
+  if (event.target.closest?.("#focus-key, button, a")) return;
   if (event.key === "ArrowLeft") activate(current - 1);
   if (event.key === "ArrowRight") activate(current + 1);
 });
 controls.addEventListener("change", render3d);
 addEventListener("resize", () => {
-  camera.aspect = stage.clientWidth / stage.clientHeight;
+  camera.aspect = mount.clientWidth / mount.clientHeight;
   camera.updateProjectionMatrix();
-  renderer.setSize(stage.clientWidth, stage.clientHeight);
-  labelRenderer.setSize(stage.clientWidth, stage.clientHeight);
-  render3d();
+  renderer.setSize(mount.clientWidth, mount.clientHeight);
+  labelRenderer.setSize(mount.clientWidth, mount.clientHeight);
+  setFrame(shots[current]);
+  updateMapLabelLegibility(shots[current]);
+  resolveTeachingCollisions(shots[current]);
 });
 
 activate(0);
@@ -1125,9 +1672,68 @@ window.__gigawattReady();
 """
 
 
+def runtime_html_template() -> str:
+    return (
+        REVIEW_HTML.replace(
+            "__MIN_SPATIAL_LABEL_SURFACE_HEIGHT_PX__",
+            str(MIN_SPATIAL_LABEL_SURFACE_HEIGHT_PX),
+        )
+        .replace(
+            "__THREE_CAMERA_VERTICAL_FOV_DEGREES__",
+            f"{scene_pipeline.THREE_CAMERA_VERTICAL_FOV_DEGREES:g}",
+        )
+        .replace("__THREE_CAMERA_NEAR__", f"{scene_pipeline.THREE_CAMERA_NEAR:g}")
+        .replace("__THREE_CAMERA_FAR__", f"{scene_pipeline.THREE_CAMERA_FAR:g}")
+        .replace(
+            "__THREE_CAMERA_MIN_DISTANCE__",
+            f"{scene_pipeline.THREE_CAMERA_MIN_DISTANCE:g}",
+        )
+        .replace(
+            "__THREE_REVIEW_CAMERA_MAX_DISTANCE__",
+            f"{scene_pipeline.THREE_REVIEW_CAMERA_MAX_DISTANCE:g}",
+        )
+        .replace(
+            "__THREE_CAMERA_MIN_POLAR_ANGLE_FRACTION__",
+            f"{scene_pipeline.THREE_CAMERA_MIN_POLAR_ANGLE_FRACTION:g}",
+        )
+        .replace(
+            "__THREE_CAMERA_MAX_POLAR_ANGLE_FRACTION__",
+            f"{scene_pipeline.THREE_CAMERA_MAX_POLAR_ANGLE_FRACTION:g}",
+        )
+        .replace(
+            "__EDGE_FLOW_MARKER_RADIUS__",
+            f"{scene_pipeline.EDGE_FLOW_MARKER_RADIUS:g}",
+        )
+        .replace(
+            "__EDGE_FLOW_MARKER_HEIGHT__",
+            f"{scene_pipeline.EDGE_FLOW_MARKER_HEIGHT:g}",
+        )
+        .replace(
+            "__HYBRID_CONFIRMED_EDGE_OPACITY__",
+            f"{scene_pipeline.HYBRID_CONFIRMED_EDGE_OPACITY:g}",
+        )
+    )
+
+
 def build_artifacts() -> tuple[str, str, str]:
     course, cameras, master, layout, scene = load_inputs()
     digest = _source_digest(master)
+    evidence = scene_pipeline.load_yaml(ROOT / master["meta"]["evidence_file"])
+    resolved_label_copy_by_segment = {
+        segment["id"]: {
+            copy_id: layout_pipeline.resolve_copy(
+                master,
+                evidence,
+                copy_id,
+                include_hidden=True,
+            )
+            for copy_id in segment["camera"]["reveal_copy_ids"]
+        }
+        for act in course["acts"]
+        for segment in act["segments"]
+        if segment["camera"]["status"] == "planned"
+        and segment["camera"]["reveal_copy_ids"]
+    }
     registry = compile_registry(
         course,
         cameras,
@@ -1135,10 +1741,10 @@ def build_artifacts() -> tuple[str, str, str]:
         layout,
         scene,
         source_digest=digest,
+        resolved_label_copy_by_segment=resolved_label_copy_by_segment,
     )
     registry_json = scene_pipeline.canonical_payload(registry) + "\n"
 
-    evidence = scene_pipeline.load_yaml(ROOT / master["meta"]["evidence_file"])
     _, map_scene = layout_pipeline.compose(master, layout, evidence)
     shared = scene_pipeline.build_payload(master, scene, cameras)
     review_payload = {
@@ -1170,7 +1776,8 @@ def build_artifacts() -> tuple[str, str, str]:
         },
     }
     html = (
-        REVIEW_HTML.replace("__DATA__", _script_safe_payload(review_payload))
+        runtime_html_template()
+        .replace("__DATA__", _script_safe_payload(review_payload))
         .replace("__MAP_SCENE__", map_scene)
         .replace("__DIGEST__", digest)
         .replace("__PAPER__", tokens.PAPER)
