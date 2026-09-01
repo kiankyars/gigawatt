@@ -1,0 +1,498 @@
+schema_version: 1
+
+id: phase4_building
+title: How protected power reaches a rack position
+
+phase:
+  id: phase_4_building
+  number: 4
+  title: Deliver protected power to the rack
+  anchor_question: What must happen between a campus feeder and a rack position?
+
+learning_objective: >-
+  Place the major building-power functions in space, follow a conceptual path
+  from campus entry to a rack position, explain the conditional purpose of A/B
+  paths, distinguish planned path removal from fault tolerance, and preserve the
+  unknown Abilene as-built power train.
+
+evidence_files:
+  building_power_reference: evidence/building_power_reference.yaml
+  electrical_engineering: evidence/electrical_engineering.yaml
+  delivery_resilience: evidence/delivery_resilience.yaml
+  abilene: evidence/abilene.yaml
+  abilene_execution: evidence/abilene_execution.yaml
+
+interaction:
+  mode: manual
+  advance: instructor_controlled
+
+canvas:
+  kind: building_power_path_v1
+  width: 1600
+  height: 900
+  contract:
+    state_selection: exclusive_single_primary_layer
+    primary_layers:
+      - spatial_building_zones
+      - functional_power_chain
+      - generic_protected_paths
+      - conditional_path_isolation
+      - abilene_mapping
+    evidence_binding: content_record_fact_refs
+    geometry_owner: building_power_path_renderer
+    handoff_requires: abilene_mapping
+
+spatial_building_zones:
+  title: The path crosses different physical zones
+  body: >-
+    Use a cutaway as an orientation device, not as a universal floor plan. A
+    manufacturer teaching example distinguishes electrical space from IT space
+    and traces incoming power toward downstream rack distribution.
+  zones:
+    - id: campus_entry
+      title: Campus entry
+      contains:
+        - Incoming campus feeder boundary
+        - Primary switching and transformation envelope
+      boundary: >-
+        The feeder voltage, route, termination, and exact equipment arrangement
+        are design-specific and are not supplied by this generic cutaway.
+      fact_refs:
+        - building_power_reference:illustrative_building_power_spaces_and_path
+        - electrical_engineering:unit_substation_coordinated_assembly_role
+
+    - id: electrical_space
+      title: Electrical space
+      contains:
+        - Unit-substation functional envelope
+        - Low-voltage switchgear
+        - UPS system
+      boundary: >-
+        The grouping teaches function and typical placement, not room count,
+        adjacency, lineup, voltage, rating, bypass, or redundancy.
+      fact_refs:
+        - building_power_reference:illustrative_building_power_spaces_and_path
+        - electrical_engineering:unit_substation_coordinated_assembly_role
+        - electrical_engineering:low_voltage_switchgear_distribution_protection_role
+        - electrical_engineering:ups_conditioned_no_break_power_role
+
+    - id: data_hall
+      title: Data hall / IT space
+      contains:
+        - Downstream busway distribution
+        - Tap-off toward a rack position
+        - Rack power boundary
+      boundary: >-
+        Busway is one generic distribution option. The cutaway does not select
+        its route, tap count, rating, or rack connection for a real site.
+      fact_refs:
+        - building_power_reference:illustrative_building_power_spaces_and_path
+        - electrical_engineering:busway_feeder_and_plugin_distribution_role
+
+  cutaway_boundary:
+    id: example_not_floor_plan
+    title: Typical zones are not an as-built layout
+    body: >-
+      The source explicitly labels its architecture as an example and notes
+      that real data-center designs have greater complexity and diversity.
+    fact_refs:
+      - building_power_reference:illustrative_path_is_not_universal_architecture
+
+functional_power_chain:
+  title: Introduce each gate by what it does
+  body: >-
+    Follow one conceptual path. The order is a teaching reference assembled
+    from generic equipment functions, not a required topology or an Abilene
+    one-line.
+  steps:
+    - id: campus_feeder
+      title: Campus feeder
+      verb: bring the building's incoming electrical supply to the entry boundary
+      evidence_posture: generic_input_boundary
+      fact_refs:
+        - building_power_reference:illustrative_building_power_spaces_and_path
+
+    - id: unit_substation
+      title: Unit substation
+      verb: coordinate primary switching, transformation, and secondary distribution
+      evidence_posture: generic_product_architecture
+      fact_refs:
+        - electrical_engineering:unit_substation_coordinated_assembly_role
+
+    - id: switchgear
+      title: Switchgear
+      verb: distribute power and protect, control, and isolate downstream circuits
+      evidence_posture: generic_product_function
+      fact_refs:
+        - electrical_engineering:low_voltage_switchgear_distribution_protection_role
+
+    - id: ups
+      title: UPS
+      verb: condition power and provide no-break protection for critical loads
+      evidence_posture: generic_design_role
+      boundary: >-
+        Ride-through behavior depends on the selected equipment, protection
+        settings, operating mode, current limits, synchronism, and regulation.
+      fact_refs:
+        - electrical_engineering:ups_conditioned_no_break_power_role
+        - delivery_resilience:ups_short_duration_ride_through_role
+        - delivery_resilience:ups_ridethrough_depends_on_site_settings
+
+    - id: busway
+      title: Busway
+      verb: carry feeder power and provide plug-in distribution through the data hall
+      evidence_posture: generic_product_function
+      fact_refs:
+        - electrical_engineering:busway_feeder_and_plugin_distribution_role
+
+    - id: rack_position
+      title: Rack position
+      verb: receive the building distribution path at the rack-power boundary
+      evidence_posture: generic_output_boundary
+      fact_refs:
+        - building_power_reference:illustrative_building_power_spaces_and_path
+        - electrical_engineering:busway_feeder_and_plugin_distribution_role
+
+  chain_boundary:
+    id: reference_not_requirement
+    body: >-
+      Equipment may be integrated, omitted, repeated, or arranged differently.
+      The chain establishes verbs and carrier direction only.
+    fact_refs:
+      - building_power_reference:illustrative_path_is_not_universal_architecture
+
+generic_protected_paths:
+  title: A/B paths are a conditional continuity reference
+  body: >-
+    Split the conceptual downstream distribution into two branches only to
+    explain the logic of an alternative route. A and B are teaching labels,
+    not a redundancy ratio, upstream-independence proof, certification, or
+    site claim.
+  paths:
+    - id: path_a
+      title: Path A
+      elements:
+        - Protected distribution boundary A
+        - UPS function A
+        - Busway feed A
+        - Rack input A
+      visual_posture: generic_available_path
+      fact_refs:
+        - building_power_reference:dual_path_reference_topology
+        - electrical_engineering:low_voltage_switchgear_distribution_protection_role
+        - electrical_engineering:ups_conditioned_no_break_power_role
+        - electrical_engineering:busway_feeder_and_plugin_distribution_role
+
+    - id: path_b
+      title: Path B
+      elements:
+        - Protected distribution boundary B
+        - UPS function B
+        - Busway feed B
+        - Rack input B
+      visual_posture: generic_available_path
+      fact_refs:
+        - building_power_reference:dual_path_reference_topology
+        - electrical_engineering:low_voltage_switchgear_distribution_protection_role
+        - electrical_engineering:ups_conditioned_no_break_power_role
+        - electrical_engineering:busway_feeder_and_plugin_distribution_role
+
+  load_interfaces:
+    - id: compatible_dual_input_load
+      title: Compatible dual-input load
+      body: >-
+        Conditional continuity requires separate paths, a load that can operate
+        after losing either feed, and a remaining path and device power supply
+        capable of carrying the resulting load.
+      fact_refs:
+        - building_power_reference:dual_path_continuity_conditions
+
+    - id: single_input_load
+      title: Single-input load
+      body: >-
+        Two upstream paths do not create two load inputs. A suitable transfer
+        function is one reference method for selecting between feeds, but the
+        diagram makes no transfer-performance claim.
+      fact_refs:
+        - building_power_reference:single_cord_load_needs_transfer_function
+
+  protected_path_boundary:
+    id: diagram_not_guarantee
+    title: Two colored lines are not proof of continuity
+    body: >-
+      The drawing does not prove end-to-end independence, remaining-path
+      capability, compatible rack inputs, protection coordination, absence of
+      shared dependencies, concurrent maintainability, or fault tolerance.
+    fact_refs:
+      - building_power_reference:dual_path_continuity_conditions
+      - building_power_reference:ab_diagram_does_not_establish_tier_or_continuity
+      - building_power_reference:selective_fault_isolation_requires_system_coordination
+
+conditional_path_isolation:
+  title: Remove one path and make the continuity conditions visible
+  body: >-
+    Render Path A unavailable and Path B still present. The same visual can
+    introduce either planned maintenance or a fault, but those are different
+    engineering claims and must remain separately labeled.
+  path_states:
+    - id: isolated_path_a
+      title: Path A unavailable
+      visual_posture: removed_from_service
+      causes:
+        - Planned removal for maintenance
+        - Faulted or interrupted path
+      boundary: >-
+        The visual does not specify a breaker operation, fault location,
+        clearing sequence, repair action, or transfer behavior.
+      fact_refs:
+        - building_power_reference:planned_maintenance_and_fault_tolerance_are_distinct
+        - building_power_reference:selective_fault_isolation_requires_system_coordination
+
+    - id: remaining_path_b
+      title: Path B remains
+      visual_posture: conditionally_available
+      boundary: >-
+        Remaining does not mean adequate, independent, correctly protected, or
+        healthy. Those conditions require a specific design and operating state.
+      fact_refs:
+        - building_power_reference:dual_path_continuity_conditions
+        - building_power_reference:ab_diagram_does_not_establish_tier_or_continuity
+
+    - id: rack_result
+      title: Rack-position result
+      visual_posture: conditional_continuity
+      body: >-
+        Show the rack position as still supplied only when the load supports the
+        surviving feed and the remaining end-to-end path can carry it. Otherwise
+        the outcome is unresolved, not automatically continuous.
+      fact_refs:
+        - building_power_reference:dual_path_continuity_conditions
+        - building_power_reference:single_cord_load_needs_transfer_function
+
+  claim_split:
+    - id: planned_maintenance
+      title: Planned path removal
+      body: >-
+        Planned removal without affecting operations is a maintainability
+        objective. It does not by itself establish tolerance of an unexpected
+        equipment failure or operator error.
+      fact_refs:
+        - building_power_reference:planned_maintenance_and_fault_tolerance_are_distinct
+
+    - id: unplanned_fault
+      title: Individual fault or path interruption
+      body: >-
+        Sustaining operations through an individual equipment failure or path
+        interruption is a stronger and separately verified performance claim.
+      fact_refs:
+        - building_power_reference:planned_maintenance_and_fault_tolerance_are_distinct
+        - building_power_reference:ab_diagram_does_not_establish_tier_or_continuity
+
+  isolation_boundary:
+    id: no_fault_clearing_animation
+    title: Isolation location and continuity remain design-dependent
+    body: >-
+      Without a one-line, source characteristics, protection study, settings,
+      and load data, the course cannot show where a fault clears or guarantee
+      that the alternate path remains unaffected.
+    fact_refs:
+      - building_power_reference:selective_fault_isolation_requires_system_coordination
+
+abilene_mapping:
+  title: Map evidence onto the generic chain without filling the unknown one-line
+  body: >-
+    Abilene confirms deployment of first-phase electrical equipment and
+    switchgear, but the public record does not disclose the path from campus
+    medium voltage to rack rows. Keep the generic equipment silhouettes visible
+    as a reference layer, never as site-confirmed nodes or connections.
+  known:
+    - id: first_phase_electrical_delivery
+      title: Electrical equipment reached the site
+      body: >-
+        Essential electrical equipment and switchgear were manufactured in-house,
+        and critical infrastructure was produced and deployed for the first phase.
+      fact_refs:
+        - abilene_execution:building_electrical_delivery_scope
+
+    - id: rack_family_delivery
+      title: GB200 rack family reached the campus
+      body: >-
+        Crusoe reports first NVIDIA GB200 rack deliveries in June 2025 and
+        supports the GB200 platform-family identity, not an exact rack count or
+        power configuration.
+      fact_refs:
+        - abilene:rack_platform
+        - abilene_execution:gb200_first_rack_delivery_month
+        - abilene_execution:operating_rack_configuration
+
+  unknown:
+    - id: campus_input
+      title: Building-entry voltage and campus feeder
+      body: >-
+        The campus-wide as-built medium-voltage level, building feeder
+        arrangement, and shared source merge are not established.
+      fact_refs:
+        - abilene:campus_lpt_secondary_as_built_voltage_kv
+        - abilene:campus_source_merge_as_built_topology
+
+    - id: internal_power_train
+      title: Building power train
+      body: >-
+        Site voltages, transformer and switchgear ratings, equipment quantities,
+        redundancy paths, UPS topology, busway layout, and switch states remain
+        unestablished between campus MV and first-phase rack rows.
+      fact_refs:
+        - abilene_execution:building_power_train_as_built_configuration
+
+  mapping_guard:
+    id: reference_overlay_only
+    title: Generic functions stay generic
+    body: >-
+      Do not color the unit substation, switchgear, UPS, busway, A/B paths, or
+      isolation scenario as Abilene-confirmed. The evidence supports delivered
+      electrical scope, not those identities or connections.
+    fact_refs:
+      - building_power_reference:illustrative_path_is_not_universal_architecture
+      - abilene_execution:building_electrical_delivery_scope
+      - abilene_execution:building_power_train_as_built_configuration
+
+phase5_handoff:
+  title: The building path ends at the rack-power boundary
+  body: >-
+    Phase 5 asks how facility AC becomes rack DC and then the low-voltage,
+    high-current rails that switch processors. Keep product documentation,
+    building design references, and Abilene operating configuration separate.
+  known:
+    - id: product_and_design_reference
+      body: >-
+        The original campus has a GB200 platform-family disclosure, and each
+        building was described with an NVIDIA GB200 NVL72 design reference.
+      fact_refs:
+        - abilene:rack_platform
+        - abilene:rack_platform_nvl72_design_reference
+
+    - id: rack_conversion_reference
+      body: >-
+        NVIDIA documents a nominal rack power-shelf DC output for the product
+        reference; this is not proof of an Abilene shelf input or operating point.
+      fact_refs:
+        - abilene:rack_power_shelf_output_vdc
+
+  unknown:
+    - id: site_rack_electrical_configuration
+      body: >-
+        The exact operating rack variant, count, populated trays, power
+        configuration, rack-shelf AC input, and processor rail voltage at Abilene
+        remain unestablished.
+      fact_refs:
+        - abilene:rack_power_shelf_ac_input_voltage_v
+        - abilene_execution:operating_rack_configuration
+        - abilene_execution:rack_site_core_voltage
+
+evidence_gaps:
+  - id: generic_reference_is_not_coordination_design
+    gap: >-
+      The generic sources do not provide a complete one-line, fault-current
+      model, protection-coordination study, settings, or load schedule for the
+      reference A/B drawing.
+    renderer_guard: >-
+      Do not animate a breaker trip, assert selective clearing, name a fault
+      zone, or mark the rack continuous without the stated conditions.
+    related_fact_refs:
+      - building_power_reference:selective_fault_isolation_requires_system_coordination
+      - building_power_reference:ab_diagram_does_not_establish_tier_or_continuity
+
+  - id: abilene_building_power_train_unpublished
+    gap: >-
+      The current primary record does not expose Abilene's as-built building
+      one-line, A/B topology, protection settings, UPS arrangement, busway
+      route, or switching state.
+    renderer_guard: Keep every internal Abilene connection unresolved.
+    related_fact_refs:
+      - abilene_execution:building_power_train_as_built_configuration
+
+states:
+  - id: building_cutaway
+    nav_label: Spaces
+    title: Locate the building-power functions
+    instruction: >-
+      Reveal campus entry, electrical space, and data hall as coarse zones.
+      Treat the cutaway as orientation, not a universal floor plan.
+    zone_ids: [campus_entry, electrical_space, data_hall]
+    chain_step_ids: []
+    protected_path_ids: []
+    isolation_path_state_ids: []
+    abilene_known_ids: []
+    abilene_unknown_ids: []
+    show_phase5_handoff: false
+
+  - id: equipment_by_verb
+    nav_label: Functions
+    title: Follow the functional path to a rack position
+    instruction: >-
+      Advance through campus feeder, unit substation, switchgear, UPS, busway,
+      and rack position while naming only each gate's function.
+    zone_ids: []
+    chain_step_ids: [campus_feeder, unit_substation, switchgear, ups, busway, rack_position]
+    protected_path_ids: []
+    isolation_path_state_ids: []
+    abilene_known_ids: []
+    abilene_unknown_ids: []
+    show_phase5_handoff: false
+
+  - id: generic_ab_paths
+    nav_label: A/B paths
+    title: Add a clearly generic alternative path
+    instruction: >-
+      Compare Paths A and B at a compatible rack input, then expose the load,
+      path, and capacity conditions that the colored lines do not prove.
+    zone_ids: []
+    chain_step_ids: []
+    protected_path_ids: [path_a, path_b]
+    isolation_path_state_ids: []
+    abilene_known_ids: []
+    abilene_unknown_ids: []
+    show_phase5_handoff: false
+
+  - id: one_path_unavailable
+    nav_label: Isolation
+    title: Remove Path A for maintenance or fault teaching
+    instruction: >-
+      Mute Path A, retain Path B conditionally, and separate planned removal
+      from the stronger claim of surviving an unplanned fault.
+    zone_ids: []
+    chain_step_ids: []
+    protected_path_ids: [path_a, path_b]
+    isolation_path_state_ids: [isolated_path_a, remaining_path_b, rack_result]
+    abilene_known_ids: []
+    abilene_unknown_ids: []
+    show_phase5_handoff: false
+
+  - id: abilene_boundary
+    nav_label: Abilene
+    title: Apply only the evidence Abilene actually exposes
+    instruction: >-
+      Show deployed electrical scope and GB200 family evidence, then keep campus
+      entry and the entire internal building power train unresolved.
+    zone_ids: []
+    chain_step_ids: [campus_feeder, unit_substation, switchgear, ups, busway, rack_position]
+    protected_path_ids: []
+    isolation_path_state_ids: []
+    abilene_known_ids: [first_phase_electrical_delivery, rack_family_delivery]
+    abilene_unknown_ids: [campus_input, internal_power_train]
+    show_phase5_handoff: false
+
+  - id: rack_power_handoff
+    nav_label: Rack
+    title: Mark the Phase 4/5 boundary at the rack position
+    instruction: >-
+      Stop at the rack position: Phase 4 establishes the building-side
+      electrical boundary, and Phase 5 begins with conversion from facility AC
+      toward rack DC and processor rails without filling site unknowns.
+    zone_ids: []
+    chain_step_ids: [busway, rack_position]
+    protected_path_ids: []
+    isolation_path_state_ids: []
+    abilene_known_ids: [rack_family_delivery]
+    abilene_unknown_ids: [internal_power_train]
+    show_phase5_handoff: true

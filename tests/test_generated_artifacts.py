@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import unittest
+from unittest import mock
 
 from gigawatt import course_runtime, generated_artifacts, quality, scene
 
@@ -49,7 +50,16 @@ class GeneratedArtifactClosureTests(unittest.TestCase):
             set(self.artifacts),
             set(generated_artifacts.GENERATED_ARTIFACT_COMMANDS),
         )
-        self.assertEqual(len(self.artifacts), 8)
+        self.assertEqual(len(self.artifacts), 17)
+        self.assertIn("diagram/phase1_generation.html", self.artifacts)
+        self.assertIn("diagram/phase2_transmission.html", self.artifacts)
+        self.assertIn("diagram/phase3_campus.html", self.artifacts)
+        self.assertIn("diagram/phase4_building.html", self.artifacts)
+        self.assertIn("diagram/phase5_compute.html", self.artifacts)
+        self.assertIn("diagram/phase6_heat.html", self.artifacts)
+        self.assertIn("diagram/course_v2_runtime.json", self.artifacts)
+        self.assertIn("diagram/course_v2.html", self.artifacts)
+        self.assertIn("course/INSTRUCTOR_PACKET_V2.md", self.artifacts)
         generated_artifacts.assert_current(self.artifacts)
 
     def test_every_artifact_tamper_fails_closed(self) -> None:
@@ -78,6 +88,15 @@ class GeneratedArtifactClosureTests(unittest.TestCase):
         )
         self.assertEqual(len(self.acceptance_artifacts), 14)
         self.assertIn("diagram/s10_two_rack_heat_paths.html", self.acceptance_artifacts)
+        self.assertNotIn("diagram/phase1_generation.html", self.acceptance_artifacts)
+        self.assertNotIn("diagram/phase2_transmission.html", self.acceptance_artifacts)
+        self.assertNotIn("diagram/phase3_campus.html", self.acceptance_artifacts)
+        self.assertNotIn("diagram/phase4_building.html", self.acceptance_artifacts)
+        self.assertNotIn("diagram/phase5_compute.html", self.acceptance_artifacts)
+        self.assertNotIn("diagram/phase6_heat.html", self.acceptance_artifacts)
+        self.assertNotIn("diagram/course_v2_runtime.json", self.acceptance_artifacts)
+        self.assertNotIn("diagram/course_v2.html", self.acceptance_artifacts)
+        self.assertNotIn("course/INSTRUCTOR_PACKET_V2.md", self.acceptance_artifacts)
         generated_artifacts.assert_acceptance_current(self.acceptance_artifacts)
 
     def test_every_acceptance_artifact_tamper_fails_closed(self) -> None:
@@ -148,7 +167,7 @@ class GeneratedArtifactClosureTests(unittest.TestCase):
                 else:
                     self.assertNotEqual(candidate_sha256, retained_sha256)
 
-    def test_pages_workflow_publishes_only_the_course_runtime(self) -> None:
+    def test_pages_workflow_publishes_v2_with_frozen_v1_comparison(self) -> None:
         workflow = scene.load_yaml(
             generated_artifacts.ROOT / ".github/workflows/pages.yml"
         )
@@ -175,7 +194,17 @@ class GeneratedArtifactClosureTests(unittest.TestCase):
             stage["run"].splitlines(),
             [
                 "mkdir -p _site/vendor",
-                "cp diagram/course.html _site/index.html",
+                "cp diagram/course_v2.html _site/index.html",
+                "cp diagram/phase1_generation.html _site/",
+                "cp diagram/phase2_transmission.html _site/",
+                "cp diagram/phase3_campus.html _site/",
+                "cp diagram/phase4_building.html _site/",
+                "cp diagram/phase5_compute.html _site/",
+                "cp diagram/phase6_heat.html _site/",
+                "cp diagram/hybrid.html _site/",
+                "cp diagram/master.svg _site/",
+                "cp diagram/map_watt_heat_handoff.svg _site/",
+                "cp diagram/course.html _site/v1.html",
                 "cp -R diagram/vendor/three _site/vendor/three",
                 "touch _site/.nojekyll",
             ],
@@ -200,6 +229,71 @@ class GeneratedArtifactClosureTests(unittest.TestCase):
             if step["name"] == "Upload GitHub Pages artifact"
         )
         self.assertEqual(upload["with"], {"path": "_site"})
+
+    def test_pages_workflow_closes_over_v2_phase_dependencies(self) -> None:
+        workflow = scene.load_yaml(
+            generated_artifacts.ROOT / ".github/workflows/pages.yml"
+        )
+        deploy = workflow["jobs"]["deploy"]
+        stage = next(
+            step for step in deploy["steps"] if step["name"] == "Stage the course site"
+        )
+        staged_phase_commands = {
+            line
+            for line in stage["run"].splitlines()
+            if line.startswith("cp diagram/phase")
+        }
+        course_v2 = scene.load_yaml(generated_artifacts.ROOT / "course/course_v2.yaml")
+        expected_phase_commands = {
+            f"cp {phase['artifact']} _site/" for phase in course_v2["phases"]
+        }
+        self.assertEqual(staged_phase_commands, expected_phase_commands)
+        self.assertEqual(6, len(staged_phase_commands))
+        staged_spatial_commands = {
+            line
+            for line in stage["run"].splitlines()
+            if line
+            in {
+                "cp diagram/hybrid.html _site/",
+                "cp diagram/master.svg _site/",
+                "cp diagram/map_watt_heat_handoff.svg _site/",
+                "cp -R diagram/vendor/three _site/vendor/three",
+            }
+        }
+        self.assertEqual(
+            {
+                "cp diagram/hybrid.html _site/",
+                "cp diagram/master.svg _site/",
+                "cp diagram/map_watt_heat_handoff.svg _site/",
+                "cp -R diagram/vendor/three _site/vendor/three",
+            },
+            staged_spatial_commands,
+        )
+        for dependency in (
+            "diagram/hybrid.html",
+            "diagram/master.svg",
+            "diagram/map_watt_heat_handoff.svg",
+            "diagram/vendor/three/three.module.js",
+            "diagram/vendor/three/OrbitControls.js",
+            "diagram/vendor/three/CSS2DRenderer.js",
+            "diagram/vendor/three/LICENSE",
+        ):
+            with self.subTest(dependency=dependency):
+                self.assertTrue((generated_artifacts.ROOT / dependency).is_file())
+
+
+class AcceptanceMaterializationIsolationTests(unittest.TestCase):
+    def test_frozen_acceptance_build_does_not_invoke_v2_generators(self) -> None:
+        with mock.patch.object(
+            generated_artifacts,
+            "_phase1_artifact",
+            side_effect=AssertionError("v2 generator entered frozen acceptance"),
+        ):
+            artifacts = generated_artifacts.build_acceptance_materialized_artifacts()
+        self.assertEqual(
+            set(artifacts),
+            set(generated_artifacts.ACCEPTANCE_MATERIALIZED_ARTIFACT_COMMANDS),
+        )
 
 
 if __name__ == "__main__":

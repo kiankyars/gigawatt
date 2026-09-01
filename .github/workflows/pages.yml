@@ -28,7 +28,17 @@ jobs:
       - name: Stage the course site
         run: |
           mkdir -p _site/vendor
-          cp diagram/course.html _site/index.html
+          cp diagram/course_v2.html _site/index.html
+          cp diagram/phase1_generation.html _site/
+          cp diagram/phase2_transmission.html _site/
+          cp diagram/phase3_campus.html _site/
+          cp diagram/phase4_building.html _site/
+          cp diagram/phase5_compute.html _site/
+          cp diagram/phase6_heat.html _site/
+          cp diagram/hybrid.html _site/
+          cp diagram/master.svg _site/
+          cp diagram/map_watt_heat_handoff.svg _site/
+          cp diagram/course.html _site/v1.html
           cp -R diagram/vendor/three _site/vendor/three
           touch _site/.nojekyll
 

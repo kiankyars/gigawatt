@@ -1,7 +1,55 @@
 # Course inventory
 
-`segments.yaml` is the canonical course order. It contains seven acts and 26
-segments built on the validated master diagram and six camera anchors.
+`course_v2.yaml` is the canonical course spine. It orders six system phases,
+their input/output boundaries, renderer artifacts, and the closing synthesis. The
+compiled production player is `../diagram/course_v2.html`.
+
+`segments.yaml` remains the frozen v1 comparison order: seven acts and 26
+segments built on the validated master diagram and six camera anchors. It is no
+longer the production course sequence.
+
+## Canonical six-phase v2 course
+
+`CURRICULUM_V2.md` defines one engineering journey across six explanatory
+phases:
+
+`Generate -> Transmit -> Campus -> Building -> Compute -> Reject heat`
+
+The v2 policy is “one journey, multiple explanatory canvases.” Clean teaching
+views establish causal mechanisms first; the Abilene redline is then used for
+the case mapping and exact known/unknown boundary. Manual states represent
+coarse conceptual changes, never target durations, autoplay, micro-beats, or a
+spoken script. Grid and onsite generation remain branching source paths; the
+spine does not assert one traced carrier or an evidenced downstream merge where
+the site record is silent.
+
+Each phase has a strict manifest under `pilots/` and a deterministic standalone
+renderer under `../diagram/`. Build the six renderers before the unified player:
+
+```sh
+uv run python diagram/generate_phase1_generation.py
+uv run python diagram/generate_phase2_transmission.py
+uv run python diagram/generate_phase3_campus.py
+uv run python diagram/generate_phase4_building.py
+uv run python diagram/generate_phase5_compute.py
+uv run python diagram/generate_phase6_heat.py
+uv run python diagram/generate_course_v2.py
+python3 -m http.server --directory diagram 8000
+```
+
+Open `http://localhost:8000/course_v2.html`. The persistent phase compass keeps
+the learner oriented while the state rail changes only coarse explanatory
+relationships. The six standalone phase pages are development fixtures loaded
+by the compiled player, not separate course chapters.
+
+The production package is `../diagram/course_v2.html`,
+`../diagram/course_v2_runtime.json`, and `INSTRUCTOR_PACKET_V2.md`. GitHub Pages
+publishes the player at the site root, its six phase dependencies beside it, the
+optional `../diagram/hybrid.html` spatial surface with its master-map and local
+Three.js assets, and the byte-preserved v1 comparison at
+`/gigawatt/v1.html`. The player
+offers validated conceptual 3D anchors only in Phases 4 through 6 and only at
+900 px and wider; the 2D states remain the causal and evidence-owning surfaces.
 
 The inventory owns pedagogy only:
 
@@ -16,7 +64,7 @@ It does not own factual values, sources, topology, lifecycle, coordinates, or
 camera geometry. Those remain in registered `evidence/*.yaml` ledgers,
 `diagram/master.yaml`, and `diagram/cameras.yaml`.
 
-## Current structure
+## Frozen v1 structure
 
 | Act | Segments | Purpose |
 | --- | ---: | --- |
@@ -32,7 +80,7 @@ The physical electrical sequence and thermal-return sequence carry nearly equal
 relative weight. The weights are not minutes: runtime remains deliberately
 unset because the presenter owns the dwell and total course length.
 
-## Evidence readiness
+## Frozen v1 evidence readiness
 
 All 26 segments are `evidence_ready`. Their current claims can be taught within
 the manifest's explicit promotion guards. Readiness means the learning
@@ -66,7 +114,21 @@ commercial/compute ledgers add dated primary evidence while preserving every
 site-specific null. This lets the complete thermal replay, chokepoint reread,
 capital reread, and MW-to-token recipe become teachable without invented facts.
 
-## Complete untimed runtime
+## Canonical untimed v2 runtime
+
+`diagram/course_v2.html` packages the six phases and 33 coarse manual states in
+one player. The outer shell owns the opening journey, phase compass, phase
+input/output boundary ribbon, state navigation, evidence drawer, keyboard
+behavior, and closing synthesis. Every phase renderer supplies only its
+explanatory canvas. No timing, autoplay, cadence, or spoken script is encoded.
+
+`course/INSTRUCTOR_PACKET_V2.md` is generated from the same compiled registry.
+It carries teaching territory, state instructions, evidence boundaries, source
+links, and phase transitions without prescribing the instructor's wording or
+dwell time.
+`course/TESTING.md` defines the v2 editorial walkthrough.
+
+## Frozen v1 runtime
 
 `diagram/course.html` packages all 26 segments in canonical order. Every change
 is manual. The presenter advances between focused course sections and may open
@@ -74,9 +136,8 @@ the evidence panel on demand; neither action is timed. The generic context/focus
 zoom was removed because it changed camera geometry without adding teaching
 content. `course/INSTRUCTOR_PACKET.md` carries the same opening questions,
 objectives, claim boundaries, primary-source links, plain-language promotion
-warnings, and handoffs in a printable form. The evidence drawer is keyboard
-contained while closed and restores focus when dismissed. `course/TESTING.md`
-defines the editorial walkthrough.
+warnings, and transitions in a printable form. The evidence drawer is keyboard
+contained while closed and restores focus when dismissed.
 
 The player, planned-shot review, hybrid substrate, and native pilot load the
 pinned Three.js 0.170.0 modules from `diagram/vendor/three/`; recording does not
@@ -163,6 +224,13 @@ Run the complete contract with:
 uv run python diagram/generate_s10_two_rack_heat_paths.py
 uv run gigawatt-shots
 uv run gigawatt-course
+uv run python diagram/generate_phase1_generation.py
+uv run python diagram/generate_phase2_transmission.py
+uv run python diagram/generate_phase3_campus.py
+uv run python diagram/generate_phase4_building.py
+uv run python diagram/generate_phase5_compute.py
+uv run python diagram/generate_phase6_heat.py
+uv run python diagram/generate_course_v2.py
 uv run gigawatt-quality
 uv run gigawatt-validate
 uv run python -m unittest discover -s tests -v

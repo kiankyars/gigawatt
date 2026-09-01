@@ -37,9 +37,12 @@ AUDITS_PATH = ROOT / "course" / "quality_audits.yaml"
 GENERATED_OUTPUT_PATH_ALLOWLIST = frozenset(
     {
         "course/INSTRUCTOR_PACKET.md",
+        "course/INSTRUCTOR_PACKET_V2.md",
         "diagram/camera_system_orientation.svg",
         "diagram/camera_watt_heat_handoff.svg",
         "diagram/course.html",
+        "diagram/course_v2.html",
+        "diagram/course_v2_runtime.json",
         "diagram/course_dependency_graph.json",
         "diagram/course_quality.json",
         "diagram/course_runtime.json",
@@ -48,18 +51,37 @@ GENERATED_OUTPUT_PATH_ALLOWLIST = frozenset(
         "diagram/master.svg",
         "diagram/mock_wide.svg",
         "diagram/mock_zoom.svg",
+        "diagram/phase1_generation.html",
+        "diagram/phase2_transmission.html",
+        "diagram/phase3_campus.html",
+        "diagram/phase4_building.html",
+        "diagram/phase5_compute.html",
+        "diagram/phase6_heat.html",
         "diagram/planned_shots.html",
         "diagram/planned_shots.json",
         "diagram/s10_two_rack_heat_paths.html",
     }
 )
 ACCEPTANCE_GENERATED_ARTIFACT_IDS = tuple(
-    sorted(GENERATED_OUTPUT_PATH_ALLOWLIST | {"diagram/symbols.svg"})
+    sorted(
+        set(generated_artifacts.ACCEPTANCE_MATERIALIZED_ARTIFACT_COMMANDS)
+        | {
+            "diagram/course_dependency_graph.json",
+            "diagram/course_quality.json",
+        }
+    )
 )
 VALIDATION_COMPILER_IMPLEMENTATION_PATHS = tuple(
     sorted(
         [
             *(ROOT / "src" / "gigawatt").glob("*.py"),
+            DIAGRAM / "generate_phase1_generation.py",
+            DIAGRAM / "generate_phase2_transmission.py",
+            DIAGRAM / "generate_phase3_campus.py",
+            DIAGRAM / "generate_phase4_building.py",
+            DIAGRAM / "generate_phase5_compute.py",
+            DIAGRAM / "generate_phase6_heat.py",
+            DIAGRAM / "generate_course_v2.py",
             DIAGRAM / "generate_s10_two_rack_heat_paths.py",
         ],
         key=lambda path: path.relative_to(ROOT).as_posix(),

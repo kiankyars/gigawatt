@@ -72,6 +72,49 @@ change_owners:
     responsibilities:
       - focus topology and reveal scope
       - learning-objective-to-frame alignment
+  - change_owner_id: OWNER-V2-TEACHING-PILOT
+    source_paths:
+      - .github/workflows/pages.yml
+      - README.md
+      - STRATEGY.md
+      - course/CURRICULUM_V2.md
+      - course/README.md
+      - course/TESTING.md
+      - course/course_v2.yaml
+      - course/pilots/phase1_generation.yaml
+      - course/pilots/phase2_transmission.yaml
+      - course/pilots/phase3_campus.yaml
+      - course/pilots/phase4_building.yaml
+      - course/pilots/phase5_compute.yaml
+      - course/pilots/phase6_heat.yaml
+      - diagram/cameras.yaml
+      - diagram/generate_phase1_generation.py
+      - diagram/generate_phase2_transmission.py
+      - diagram/generate_phase3_campus.py
+      - diagram/generate_phase4_building.py
+      - diagram/generate_phase5_compute.py
+      - diagram/generate_phase6_heat.py
+      - diagram/generate_course_v2.py
+      - evidence/building_power_reference.yaml
+      - evidence/generation_transmission.yaml
+      - src/gigawatt/building_visual.py
+      - src/gigawatt/campus_visual.py
+      - src/gigawatt/compute_visual.py
+      - src/gigawatt/course_v2_runtime.py
+      - src/gigawatt/heat_visual.py
+      - src/gigawatt/teaching_visuals.py
+      - src/gigawatt/transmission_visual.py
+      - tests/test_phase1_generation_pilot.py
+      - tests/test_phase2_transmission_pilot.py
+      - tests/test_phase3_campus_pilot.py
+      - tests/test_phase4_building_pilot.py
+      - tests/test_phase5_compute_pilot.py
+      - tests/test_phase6_heat_pilot.py
+      - tests/test_course_v2_runtime.py
+    responsibilities:
+      - six-phase teaching architecture and phase-level instructional intent
+      - deterministic evidence-bound manual teaching surfaces
+      - responsive instructional layout and accessibility
   - change_owner_id: OWNER-QUALITY-CONTRACT
     source_paths:
       - course/acceptance_evidence/occupancy/01a9d7f78b761c0d6b0e87d2a43acfdcb6da3612cf0042c2347e6a2b7cf15dad.png
@@ -110,8 +153,10 @@ change_owners:
       - audit coverage and saturation policy
   - change_owner_id: OWNER-RELEASE-DOCUMENTATION
     source_paths:
+      - .github/workflows/pages.yml
       - README.md
       - course/README.md
+      - course/TESTING.md
       - course/REDLINE.md
       - tests/test_ratchet_docs.py
     responsibilities:
@@ -273,6 +318,7 @@ finding_owners:
   QA-R18-3D-LABEL-INK-BOUNDS-01: [OWNER-VALIDATION-CHAMPION, OWNER-RUNTIME-PRIMITIVE, OWNER-QUALITY-CONTRACT]
   QA-R18-3D-NONFOCUS-STRUCTURE-OCCLUSION-01: [OWNER-VALIDATION-CHAMPION, OWNER-RUNTIME-PRIMITIVE, OWNER-QUALITY-CONTRACT]
   QA-R19-3D-LABEL-GLYPH-METRICS-01: [OWNER-QUALITY-CONTRACT]
+  PED-R22-SIX-PHASE-TEACHING-ARCHITECTURE-01: [OWNER-V2-TEACHING-PILOT, OWNER-QUALITY-CONTRACT, OWNER-VALIDATION-CHAMPION]
 
 changes:
   - change_id: CHANGE-FOCUS-LABELS
@@ -1177,6 +1223,55 @@ changes:
       - src/gigawatt/quality.py
       - tests/test_quality.py
     description: Restrict statically certified 3D labels to nonempty printable-ASCII strings and apply a conservative per-glyph advance table above supported font-stack measurements, so type coercion and unsupported text fail closed while wide proportional text cannot exceed the certified box.
+  - change_id: CHANGE-R22-V2-DESIGN-AND-TEACHING-PILOTS
+    finding_ids: [PED-R22-SIX-PHASE-TEACHING-ARCHITECTURE-01]
+    change_owner_ids: [OWNER-V2-TEACHING-PILOT, OWNER-QUALITY-CONTRACT, OWNER-VALIDATION-CHAMPION]
+    source_paths:
+      - .github/workflows/pages.yml
+      - README.md
+      - STRATEGY.md
+      - course/CURRICULUM_V2.md
+      - course/README.md
+      - course/TESTING.md
+      - course/course_v2.yaml
+      - course/pilots/phase1_generation.yaml
+      - course/pilots/phase2_transmission.yaml
+      - course/pilots/phase3_campus.yaml
+      - course/pilots/phase4_building.yaml
+      - course/pilots/phase5_compute.yaml
+      - course/pilots/phase6_heat.yaml
+      - course/quality_audits.yaml
+      - course/quality_ratchet.yaml
+      - diagram/cameras.yaml
+      - diagram/generate_phase1_generation.py
+      - diagram/generate_phase2_transmission.py
+      - diagram/generate_phase3_campus.py
+      - diagram/generate_phase4_building.py
+      - diagram/generate_phase5_compute.py
+      - diagram/generate_phase6_heat.py
+      - diagram/generate_course_v2.py
+      - evidence/building_power_reference.yaml
+      - evidence/generation_transmission.yaml
+      - src/gigawatt/building_visual.py
+      - src/gigawatt/campus_visual.py
+      - src/gigawatt/compute_visual.py
+      - src/gigawatt/course_v2_runtime.py
+      - src/gigawatt/generated_artifacts.py
+      - src/gigawatt/heat_visual.py
+      - src/gigawatt/quality.py
+      - src/gigawatt/teaching_visuals.py
+      - src/gigawatt/transmission_visual.py
+      - tests/test_generated_artifacts.py
+      - tests/test_phase1_generation_pilot.py
+      - tests/test_phase2_transmission_pilot.py
+      - tests/test_phase3_campus_pilot.py
+      - tests/test_phase4_building_pilot.py
+      - tests/test_phase5_compute_pilot.py
+      - tests/test_phase6_heat_pilot.py
+      - tests/test_course_v2_runtime.py
+      - tests/test_project.py
+      - tests/test_quality.py
+    description: Establish the authorized six-phase v2 design contract, six evidence-bound manual responsive teaching surfaces, one single-player runtime with validated optional 3D spatial anchors, a machine registry, and an instructor packet while keeping the frozen v1 comparison and focus-overlay acceptance candidates unchanged.
 
 challenger_changes:
   - candidate_id: labels_only

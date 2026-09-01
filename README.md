@@ -4,7 +4,18 @@ A diagram-led course that follows energy from grid or behind-the-meter
 origination to a GPU die, then follows the resulting heat through liquid cooling
 to the atmosphere.
 
-Committed champion status: **record-ready, evidence-bounded v1** at
+The canonical course is the manual six-phase v2 player at
+`diagram/course_v2.html`:
+
+`Generate -> Transmit -> Campus -> Building -> Compute -> Reject heat`
+
+It uses explanatory canvases for mechanisms, the Abilene engineering map for
+case application and evidence boundaries, and one persistent phase compass.
+GitHub Pages publishes this player at the project site root together with its
+six phase renderers. The byte-preserved v1 comparison remains available at
+`/gigawatt/v1.html`.
+
+Historical v1 comparison status: **record-ready, evidence-bounded v1** at
 `0856a93b78181bec3945168632d141595575800c`. No working-tree variant is
 accepted. The current evidence epoch starts unresolved. Current compiled challenger statuses
 (`diagram/course_quality.json`):
@@ -23,8 +34,24 @@ preference and its complete acceptance corpus remain preserved in the frozen
 commit and its Git ancestry; they are not reused as current-epoch evidence. The
 2D master is the semantic engineering map; the 3D scene supplies campus
 orientation and spatial views. Both use the same 30 node IDs and 34 edge IDs.
-The complete course contains seven acts and 26 presenter-controlled,
+The frozen v1 course contains seven acts and 26 presenter-controlled,
 evidence-ready segments.
+
+## Canonical six-phase course
+
+V2 is the production teaching surface. It follows one six-phase engineering
+journey through a branching power-and-heat service chain:
+
+`Generate -> Transmit -> Campus -> Building -> Compute -> Reject heat`
+
+`course/CURRICULUM_V2.md` owns the curriculum contract. Generic explanatory
+canvases teach each mechanism before the Abilene engineering map is used as the
+case and evidence layer. All six source-bound phase renderers compile into one
+responsive player with 33 coarse manual states and no timing, autoplay, or
+spoken-script contract. The standalone phase pages remain development fixtures;
+`diagram/course_v2.html` is the canonical runtime. Grid and onsite source paths
+remain distinct unless evidence establishes a merge; the course does not imply
+one traced electron path through every phase.
 
 ## Current artifacts
 
@@ -34,15 +61,18 @@ evidence-ready segments.
   vertical slice generated from `master.yaml`, `scene.yaml`, and `cameras.yaml`.
 - `diagram/s10_two_rack_heat_paths.html` — an instructor-controlled native
   pilot with four coarse transformations and no timing or automatic advance.
+- `diagram/phase1_generation.html` through `diagram/phase6_heat.html` — the six
+  evidence-bound explanatory canvases loaded by the canonical player.
+- `diagram/course_v2.html` — the canonical six-phase manual course player.
+- `diagram/course_v2_runtime.json` — the deterministic v2 course registry.
+- `course/INSTRUCTOR_PACKET_V2.md` — generated teaching territory, evidence
+  boundaries, state instructions, and phase transitions for v2.
 - `diagram/planned_shots.html` — a manual review surface for all 21 derived
   planned-shot frames, with shot-versus-anchor comparison and no autoplay.
 - `diagram/planned_shots.json` — deterministic shot registry compiled from the
   course, semantic master, 2D layout, 3D scene, and camera anchors.
-- `diagram/course.html` — the complete untimed 26-segment presenter runtime,
-  with manual section navigation and a claim-first evidence drawer.
-- `diagram/course_runtime.json` — deterministic full-course state registry.
-- `course/INSTRUCTOR_PACKET.md` — generated teaching territory, claim
-  boundaries, source links, and handoffs; it is neither timing nor a script.
+- `diagram/course.html`, `diagram/course_runtime.json`, and
+  `course/INSTRUCTOR_PACKET.md` — the frozen v1 comparison package.
 - `course/TESTING.md` — the untimed editorial walkthrough and feedback format.
 - `diagram/vendor/three/` — the pinned local Three.js 0.170.0 runtime, required
   addons, and upstream MIT license for network-independent playback.
@@ -84,6 +114,13 @@ uv run gigawatt-scene
 uv run gigawatt-shots
 uv run gigawatt-course
 uv run python diagram/generate_s10_two_rack_heat_paths.py
+uv run python diagram/generate_phase1_generation.py
+uv run python diagram/generate_phase2_transmission.py
+uv run python diagram/generate_phase3_campus.py
+uv run python diagram/generate_phase4_building.py
+uv run python diagram/generate_phase5_compute.py
+uv run python diagram/generate_phase6_heat.py
+uv run python diagram/generate_course_v2.py
 uv run gigawatt-quality
 uv run gigawatt-validate
 uv run python -m unittest discover -s tests -v
@@ -95,21 +132,24 @@ from primary sources through viewport evaluations. Its ratchet manifest keeps
 the frozen champion, isolated challengers, candidate-bound acceptance evidence,
 and promotion eligibility explicit.
 
-To inspect the hybrid player locally:
+To inspect the canonical course locally:
 
 ```sh
 python3 -m http.server --directory diagram 8000
 ```
 
-Then open `http://localhost:8000/course.html` for the complete course. Use the
-left/right arrows or segment rail to advance and `Show evidence` for sourced
-claims, known limits, and primary sources. No state advances automatically.
-Open `http://localhost:8000/hybrid.html` for the
-spatial substrate or
-`http://localhost:8000/s10_two_rack_heat_paths.html` for the manual teaching
-pilot. Open `http://localhost:8000/planned_shots.html` to inspect every planned
-shot and compare its derived frame with the reusable anchor. All course browser
-surfaces load the pinned Three.js runtime locally; no CDN connection is needed.
+Open `http://localhost:8000/course_v2.html`. Use the phase compass for the six
+engineering problems, the state rail for coarse explanatory transformations,
+and the evidence drawer for scoped claims and primary sources. No state advances
+automatically. In Phases 4 through 6, `3D spatial anchor` manually opens the
+validated electrical-room, rack, or thermal-return camera at widths of 900 px
+and above; `Return to 2D teaching` restores the causal view. These anchors are
+conceptual spatial references, not Abilene as-built claims. Open
+`http://localhost:8000/course.html` only for the frozen v1 comparison.
+`s10_two_rack_heat_paths.html` and `planned_shots.html` remain development and
+review surfaces. The v2 teaching canvases are self-contained; its optional 3D
+mode and the archived v1 load the pinned Three.js runtime locally rather than
+from a CDN.
 
 ## Source-of-truth boundaries
 
@@ -121,14 +161,16 @@ surfaces load the pinned Three.js runtime locally; no CDN connection is needed.
   vertical-slice demo order; it is not the full course sequence.
 - `diagram/planned_shots.json` and `.html`: derived review artifacts for the 21
   planned requests; they do not promote those requests to approved cameras.
-- `diagram/course_runtime.json` and `course.html`: the complete manual teaching
-  package. They package camera requests and evidence but do not change their
-  source-of-truth owners.
-- `course/segments.yaml`: canonical course order, learning objectives,
-  qualified fact references, production-shot requirements, and narrative
-  transitions.
-- `course/pilots/*.yaml`: coarse instructor-controlled transformations for
-  renderer trials; these are neither course timing nor spoken scripts.
+- `course/course_v2.yaml`: canonical v2 phase order, questions, phase inputs and
+  outputs, renderer paths, and closing synthesis.
+- `course/pilots/*.yaml`: source manifests for the six coarse
+  instructor-controlled phase surfaces; these are neither course timing nor
+  spoken scripts.
+- `diagram/course_v2_runtime.json`, `course_v2.html`, and
+  `course/INSTRUCTOR_PACKET_V2.md`: generated v2 package compiled from the spine,
+  phase manifests, rendered phase payloads, and registered evidence.
+- `course/segments.yaml`, `diagram/course_runtime.json`, and `course.html`: the
+  frozen v1 order and generated comparison runtime.
 - `src/gigawatt/tokens.py`: shared palette and line system.
 - `diagram/vendor/three/`: byte-verified Three.js runtime assets; tests pin their
   exact 0.170.0 hashes and license.

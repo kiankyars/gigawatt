@@ -17,8 +17,15 @@ from . import shots as shots_pipeline
 ROOT = Path(__file__).resolve().parents[2]
 DIAGRAM = ROOT / "diagram"
 S10_GENERATOR = DIAGRAM / "generate_s10_two_rack_heat_paths.py"
+PHASE1_GENERATOR = DIAGRAM / "generate_phase1_generation.py"
+PHASE2_GENERATOR = DIAGRAM / "generate_phase2_transmission.py"
+PHASE3_GENERATOR = DIAGRAM / "generate_phase3_campus.py"
+PHASE4_GENERATOR = DIAGRAM / "generate_phase4_building.py"
+PHASE5_GENERATOR = DIAGRAM / "generate_phase5_compute.py"
+PHASE6_GENERATOR = DIAGRAM / "generate_phase6_heat.py"
+COURSE_V2_GENERATOR = DIAGRAM / "generate_course_v2.py"
 
-GENERATED_ARTIFACT_COMMANDS = {
+ACCEPTANCE_BASE_GENERATED_ARTIFACT_COMMANDS = {
     "diagram/symbols.svg": "uv run gigawatt-symbols",
     "diagram/master.svg": "uv run gigawatt-layout",
     "diagram/camera_system_orientation.svg": "uv run gigawatt-layout",
@@ -30,8 +37,26 @@ GENERATED_ARTIFACT_COMMANDS = {
         "uv run python diagram/generate_s10_two_rack_heat_paths.py"
     ),
 }
+GENERATED_ARTIFACT_COMMANDS = {
+    **ACCEPTANCE_BASE_GENERATED_ARTIFACT_COMMANDS,
+    "diagram/phase1_generation.html": (
+        "uv run python diagram/generate_phase1_generation.py"
+    ),
+    "diagram/phase2_transmission.html": (
+        "uv run python diagram/generate_phase2_transmission.py"
+    ),
+    "diagram/phase3_campus.html": "uv run python diagram/generate_phase3_campus.py",
+    "diagram/phase4_building.html": (
+        "uv run python diagram/generate_phase4_building.py"
+    ),
+    "diagram/phase5_compute.html": "uv run python diagram/generate_phase5_compute.py",
+    "diagram/phase6_heat.html": "uv run python diagram/generate_phase6_heat.py",
+    "diagram/course_v2_runtime.json": "uv run python diagram/generate_course_v2.py",
+    "diagram/course_v2.html": "uv run python diagram/generate_course_v2.py",
+    "course/INSTRUCTOR_PACKET_V2.md": "uv run python diagram/generate_course_v2.py",
+}
 ACCEPTANCE_MATERIALIZED_ARTIFACT_COMMANDS = {
-    **GENERATED_ARTIFACT_COMMANDS,
+    **ACCEPTANCE_BASE_GENERATED_ARTIFACT_COMMANDS,
     "diagram/hybrid.html": "uv run gigawatt-scene",
     "diagram/planned_shots.json": "uv run gigawatt-shots",
     "diagram/planned_shots.html": "uv run gigawatt-shots",
@@ -97,6 +122,112 @@ def _s10_artifact() -> str:
     return rendered
 
 
+def _phase1_artifact() -> str:
+    namespace = runpy.run_path(str(PHASE1_GENERATOR))
+    build = namespace.get("build")
+    if not callable(build):
+        raise GeneratedArtifactError("Phase 1 generator does not expose build()")
+    rendered, _digest, _state_count = build()
+    if not isinstance(rendered, str):
+        raise GeneratedArtifactError("Phase 1 generator build() did not return text")
+    return rendered
+
+
+def _phase2_artifact() -> str:
+    namespace = runpy.run_path(str(PHASE2_GENERATOR))
+    build = namespace.get("build")
+    if not callable(build):
+        raise GeneratedArtifactError("Phase 2 generator does not expose build()")
+    rendered, _digest, _state_count = build()
+    if not isinstance(rendered, str):
+        raise GeneratedArtifactError("Phase 2 generator build() did not return text")
+    return rendered
+
+
+def _phase3_artifact() -> str:
+    namespace = runpy.run_path(str(PHASE3_GENERATOR))
+    build = namespace.get("build")
+    if not callable(build):
+        raise GeneratedArtifactError("Phase 3 generator does not expose build()")
+    rendered, _digest, _state_count = build()
+    if not isinstance(rendered, str):
+        raise GeneratedArtifactError("Phase 3 generator build() did not return text")
+    return rendered
+
+
+def _phase4_artifact() -> str:
+    namespace = runpy.run_path(str(PHASE4_GENERATOR))
+    build = namespace.get("build")
+    if not callable(build):
+        raise GeneratedArtifactError("Phase 4 generator does not expose build()")
+    rendered, _digest, _state_count = build()
+    if not isinstance(rendered, str):
+        raise GeneratedArtifactError("Phase 4 generator build() did not return text")
+    return rendered
+
+
+def _phase5_artifact() -> str:
+    namespace = runpy.run_path(str(PHASE5_GENERATOR))
+    build = namespace.get("build")
+    if not callable(build):
+        raise GeneratedArtifactError("Phase 5 generator does not expose build()")
+    rendered, _digest, _state_count = build()
+    if not isinstance(rendered, str):
+        raise GeneratedArtifactError("Phase 5 generator build() did not return text")
+    return rendered
+
+
+def _phase6_artifact() -> str:
+    namespace = runpy.run_path(str(PHASE6_GENERATOR))
+    build = namespace.get("build")
+    if not callable(build):
+        raise GeneratedArtifactError("Phase 6 generator does not expose build()")
+    rendered, _digest, _state_count = build()
+    if not isinstance(rendered, str):
+        raise GeneratedArtifactError("Phase 6 generator build() did not return text")
+    return rendered
+
+
+def _course_v2_artifacts() -> dict[str, str]:
+    namespace = runpy.run_path(str(COURSE_V2_GENERATOR))
+    build = namespace.get("build")
+    if not callable(build):
+        raise GeneratedArtifactError("Course v2 generator does not expose build()")
+    runtime, player, packet, _digest, _phase_count = build()
+    artifacts = {
+        "diagram/course_v2_runtime.json": runtime,
+        "diagram/course_v2.html": player,
+        "course/INSTRUCTOR_PACKET_V2.md": packet,
+    }
+    if not all(isinstance(rendered, str) for rendered in artifacts.values()):
+        raise GeneratedArtifactError("Course v2 generator build() did not return text")
+    return artifacts
+
+
+def _build_acceptance_base_artifacts(
+    master: Mapping[str, Any],
+    layout: Mapping[str, Any],
+    evidence: Mapping[str, Any],
+    cameras: Mapping[str, Any],
+) -> dict[str, str]:
+    """Build the generated artifacts inherited by the frozen v1 acceptance set."""
+    artifacts = {
+        "diagram/symbols.svg": sheet_pipeline.build_sheet(),
+        **_layout_artifacts(master, layout, evidence, cameras),
+        "diagram/mock_wide.svg": mock_pipeline.build_wide(),
+        "diagram/mock_zoom.svg": mock_pipeline.build_zoom(),
+        "diagram/s10_two_rack_heat_paths.html": _s10_artifact(),
+    }
+    expected_paths = set(ACCEPTANCE_BASE_GENERATED_ARTIFACT_COMMANDS)
+    if set(artifacts) != expected_paths:
+        raise GeneratedArtifactError(
+            "acceptance base artifact inventory drift: "
+            f"missing={sorted(expected_paths - set(artifacts))} "
+            f"extra={sorted(set(artifacts) - expected_paths)}"
+        )
+    return artifacts
+
+
 def build_expected_artifacts(
     master: Mapping[str, Any],
     layout: Mapping[str, Any],
@@ -105,11 +236,14 @@ def build_expected_artifacts(
 ) -> dict[str, str]:
     """Build every deterministic artifact not owned by the other registries."""
     artifacts = {
-        "diagram/symbols.svg": sheet_pipeline.build_sheet(),
-        **_layout_artifacts(master, layout, evidence, cameras),
-        "diagram/mock_wide.svg": mock_pipeline.build_wide(),
-        "diagram/mock_zoom.svg": mock_pipeline.build_zoom(),
-        "diagram/s10_two_rack_heat_paths.html": _s10_artifact(),
+        **_build_acceptance_base_artifacts(master, layout, evidence, cameras),
+        "diagram/phase1_generation.html": _phase1_artifact(),
+        "diagram/phase2_transmission.html": _phase2_artifact(),
+        "diagram/phase3_campus.html": _phase3_artifact(),
+        "diagram/phase4_building.html": _phase4_artifact(),
+        "diagram/phase5_compute.html": _phase5_artifact(),
+        "diagram/phase6_heat.html": _phase6_artifact(),
+        **_course_v2_artifacts(),
     }
     expected_paths = set(GENERATED_ARTIFACT_COMMANDS)
     if set(artifacts) != expected_paths:
@@ -162,7 +296,7 @@ def build_acceptance_materialized_artifacts() -> dict[str, str]:
     )
     hybrid, _scene_digest = scene_pipeline.generate()
     artifacts = {
-        **build_expected_artifacts(master, layout, evidence, cameras),
+        **_build_acceptance_base_artifacts(master, layout, evidence, cameras),
         "diagram/hybrid.html": hybrid,
         "diagram/planned_shots.json": shot_registry,
         "diagram/planned_shots.html": shot_review,

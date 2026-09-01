@@ -1,0 +1,505 @@
+schema_version: 1
+
+id: phase3_campus
+title: How campus power reaches multiple buildings
+
+phase:
+  id: phase_3_campus
+  number: 3
+  title: Distribute and protect electricity
+  anchor_question: >-
+    Once power reaches the property, how can it serve multiple buildings
+    without one disturbance becoming a campus-wide failure?
+
+learning_objective: >-
+  Explain a conceptual campus fan-out, show how coordinated protection can
+  conditionally contain one feeder disturbance, preserve the unknown Abilene
+  source merge, separate the architectural roles of UPS, BESS, and standby
+  diesel, and enter one building without promoting a generic mechanism into an
+  unsupported as-built state.
+
+evidence_files:
+  generation_transmission: evidence/generation_transmission.yaml
+  electrical_engineering: evidence/electrical_engineering.yaml
+  delivery_resilience: evidence/delivery_resilience.yaml
+  building_power_reference: evidence/building_power_reference.yaml
+  abilene: evidence/abilene.yaml
+  abilene_execution: evidence/abilene_execution.yaml
+
+interaction:
+  mode: manual
+  advance: instructor_controlled
+
+canvas:
+  kind: campus_distribution_v1
+  width: 1600
+  height: 900
+  contract:
+    state_selection: exclusive_single_primary_layer
+    primary_layers:
+      - generic_fanout
+      - feeder_fault_isolation
+      - abilene_source_boundary
+      - resilience_roles
+      - phase4_handoff
+    evidence_binding: content_record_fact_refs
+    geometry_owner: campus_distribution_renderer
+    handoff_requires: feeder_fault_isolation
+
+generic_fanout:
+  id: one_source_to_many_buildings
+  title: One source can fan out through a protected campus distribution node
+  body: >-
+    Begin with a deliberately generic teaching topology: one upstream source
+    reaches a conceptual campus bus, and separate outgoing feeders serve three
+    buildings. The bus is a distribution abstraction, not a selected voltage,
+    equipment lineup, redundancy scheme, or claim about Abilene.
+  topology:
+    source: Upstream source at the property boundary
+    distribution_node: Conceptual campus bus
+    building_feeders:
+      - Building A feeder
+      - Building B feeder
+      - Building C feeder
+    relation: one incoming path -> protected distribution node -> outgoing circuits
+  protection_note: >-
+    The distribution gate represents transformation, interruption, isolation,
+    protection, instrumentation, control, and outgoing delivery as functions;
+    it does not specify a protection scheme or imply that one fault can always
+    be isolated without consequence.
+  boundary: >-
+    The available evidence supports the generic outgoing-delivery function but
+    not a dedicated campus-medium-voltage reference design. Do not transfer this
+    topology into an Abilene as-built bus or feeder arrangement.
+  fact_refs:
+    - generation_transmission:substation_is_transform_protect_control_gate
+    - abilene:campus_source_merge_as_built_topology
+    - abilene:campus_lpt_secondary_as_built_voltage_kv
+
+feeder_fault_isolation:
+  title: A feeder disturbance is contained only through coordinated protection
+  body: >-
+    Follow one deliberately generic disturbance through detection, protective
+    interruption, and branch isolation. The sequence explains the causal
+    mechanism; it does not establish an Abilene protection design or promise
+    that the other buildings remain served.
+  stages:
+    - id: feeder_disturbance
+      title: Disturbance on one feeder
+      action: >-
+        A fault or overcurrent condition appears on one outgoing branch while
+        the other branches remain separate in the teaching diagram.
+      visual_posture: faulted_branch
+      boundary: The fault type, location, and magnitude are unspecified.
+      fact_refs:
+        - generation_transmission:substation_is_transform_protect_control_gate
+        - building_power_reference:selective_fault_isolation_requires_system_coordination
+
+    - id: protection_detects
+      title: Protection detects
+      action: >-
+        Instrumentation and protective functions identify an abnormal
+        condition and determine which protective device is expected to act.
+      visual_posture: detection_reference
+      boundary: No relay logic, pickup value, delay, or coordination curve is asserted.
+      fact_refs:
+        - generation_transmission:substation_is_transform_protect_control_gate
+        - building_power_reference:selective_fault_isolation_requires_system_coordination
+
+    - id: protective_device_interrupts
+      title: Protective device interrupts
+      action: >-
+        The selected protective device opens the affected circuit so fault
+        current is interrupted rather than allowed to persist through the branch.
+      visual_posture: open_protective_device
+      boundary: The device type, clearing time, and operating sequence are unspecified.
+      fact_refs:
+        - generation_transmission:substation_is_transform_protect_control_gate
+        - building_power_reference:selective_fault_isolation_requires_system_coordination
+
+    - id: faulted_branch_isolated
+      title: Faulted branch isolated
+      action: >-
+        The affected branch is separated from the common distribution point;
+        the diagram then asks whether the remaining branches can still serve load.
+      visual_posture: isolated_branch_with_conditional_peers
+      boundary: Isolation does not by itself prove continuity on any other branch.
+      fact_refs:
+        - generation_transmission:substation_is_transform_protect_control_gate
+        - building_power_reference:selective_fault_isolation_requires_system_coordination
+
+  remaining_service:
+    id: conditional_remaining_service
+    title: Remaining building service is conditional, not guaranteed
+    body: >-
+      Other buildings can remain served only when the actual source and path
+      arrangement is independent, protective devices coordinate selectively,
+      and the remaining path and load interface can carry the resulting load.
+    conditions:
+      - id: independent_source_and_path
+        text: Source and path independence is established.
+      - id: selective_device_coordination
+        text: Protective devices coordinate and clear selectively.
+      - id: remaining_path_can_carry_load
+        text: The remaining path and load interface can carry the resulting load.
+    visual_posture: conditional_not_guaranteed
+    fact_refs:
+      - building_power_reference:selective_fault_isolation_requires_system_coordination
+      - building_power_reference:dual_path_continuity_conditions
+
+  boundary:
+    id: generic_sequence_not_site_guarantee
+    title: Generic mechanism, not an Abilene continuity claim
+    body: >-
+      No Abilene as-built topology, protection zone, breaker or relay setting,
+      fault location, automatic restoration, or uninterrupted service is shown.
+    fact_refs:
+      - building_power_reference:selective_fault_isolation_requires_system_coordination
+      - building_power_reference:dual_path_continuity_conditions
+      - abilene_execution:building_power_train_as_built_configuration
+
+abilene_source_boundary:
+  title: Multiple evidenced source-side elements stop at an unknown merge
+  body: >-
+    Keep the two grid-service paths and the installed onsite gas-plant evidence
+    visually separate. Each path terminates at the same unresolved campus
+    boundary; none is drawn through a shared bus or onward to a building.
+  sources:
+    - id: initial_grid
+      title: Initial 200 MW / 138 kV grid path
+      evidence_posture: operating service path as reported on 2026-08-25
+      edge_posture: stop_at_unknown_merge
+      boundary: The rating is not current site demand or delivered IT load.
+      fact_refs:
+        - abilene:grid_initial_substation_voltage_kv
+        - abilene:grid_initial_substation_capacity_mw
+        - abilene:grid_initial_service_operational_as_of
+        - abilene_execution:current_total_facility_load_mw
+
+    - id: expansion_grid
+      title: Expansion 1 GW / 345 kV substation
+      evidence_posture: five main power transformers energized by 2026-03-10
+      edge_posture: stop_at_unknown_merge
+      boundary: >-
+        The energized transformer milestone does not establish present campus
+        demand, downstream switching, or the upstream line in the topology record.
+      fact_refs:
+        - abilene:grid_expansion_substation_voltage_kv
+        - abilene:grid_expansion_substation_capacity_mw
+        - abilene:grid_expansion_transformers_energized_count
+        - abilene:grid_expansion_fully_energized_by
+        - abilene:grid_expansion_upstream_line
+        - abilene_execution:current_total_facility_load_mw
+
+    - id: onsite_gas
+      title: Behind-the-meter gas plant
+      evidence_posture: delivered plant and installed GE Vernova turbine family
+      edge_posture: stop_at_unknown_merge
+      boundary: >-
+        Installed equipment does not establish commissioned capacity, current
+        output, availability, switching state, or present operating posture.
+      fact_refs:
+        - abilene_execution:onsite_power_plant_delivery_confirmed
+        - abilene_execution:ge_vernovas_gas_turbines_installed
+        - abilene_execution:gas_turbine_commissioned_capacity_mw
+        - abilene_execution:gas_turbine_current_output_mw
+        - abilene_execution:gas_turbine_current_operating_posture
+
+  merge:
+    id: unknown_abilene_merge
+    title: Unknown Abilene source merge
+    known: >-
+      A review drawing labels a 34.5 kV Longhorn/Lancium interface associated
+      with Buildings 1 and 2.
+    unknown: >-
+      The as-built shared bus, feeder arrangement, switching state, campus-wide
+      medium-voltage level, and merge of grid and behind-the-meter sources are
+      not established.
+    render_posture: unresolved_boundary
+    fact_refs:
+      - abilene:campus_mv_reference_design_voltage_kv
+      - abilene:campus_lpt_secondary_as_built_voltage_kv
+      - abilene:campus_source_merge_as_built_topology
+
+resilience_roles:
+  title: UPS, BESS, and diesel are not interchangeable boxes
+  body: >-
+    Compare function and architectural position without assigning numerical
+    ride-through, energy duration, dispatch, fuel inventory, or an Abilene
+    switching sequence.
+  roles:
+    - id: ups
+      title: UPS
+      function: Conditioned, no-break power for critical loads
+      architectural_position: series critical-load protection reference
+      role_note: >-
+        A battery-backed UPS can carry a disturbance or bridge to backup
+        generation, but actual behavior depends on site equipment, settings,
+        operating mode, current limits, synchronism, and regulation.
+      abilene_boundary: >-
+        The public record does not establish the Abilene UPS topology,
+        capacity, settings, redundancy, or operating state.
+      fact_refs:
+        - electrical_engineering:ups_conditioned_no_break_power_role
+        - delivery_resilience:ups_short_duration_ride_through_role
+        - delivery_resilience:ups_ridethrough_depends_on_site_settings
+        - abilene_execution:building_power_train_as_built_configuration
+
+    - id: bess
+      title: Behind-the-meter BESS
+      function: Site-level energy management, flexibility, and reserve energy
+      architectural_position: parallel site-level resource reference
+      role_note: >-
+        A conventional BESS role differs from the series critical-load role of
+        a UPS. No site function, power rating, energy rating, duration, or
+        dispatch mode is inferred for Abilene.
+      abilene_boundary: >-
+        The Abilene review drawing marks a BESS package as future and not for
+        construction; procurement, installation, connection, commissioning,
+        and operation remain unestablished.
+      fact_refs:
+        - delivery_resilience:ups_and_btm_bess_role_separation
+        - delivery_resilience:abilene_bess_reference_design_status
+        - delivery_resilience:abilene_bess_function_rating_connection_operation
+        - abilene:bess_campus_connection_as_built_topology
+
+    - id: diesel
+      title: Diesel engine-generators
+      function: Physical generation commonly assigned an emergency or backup role
+      architectural_position: standby-generation reference
+      role_note: >-
+        Standby is an architectural role for a generator, not a claim about a
+        fixed runtime or a universal transfer sequence.
+      abilene_boundary: >-
+        The Abilene record authorizes an emergency and standby diesel system of
+        up to 62 units and 169.9 MW nameplate, but does not establish installed
+        units, operating units, or the as-built campus connection.
+      fact_refs:
+        - generation_transmission:diesel_generation_can_fill_standby_role
+        - abilene:diesel_units_authorized
+        - abilene:diesel_permitted_nameplate_mw
+        - abilene:diesel_units_installed
+        - abilene:diesel_operational_units
+        - abilene:diesel_campus_connection_as_built_topology
+
+  comparison_boundary:
+    id: roles_not_sequence
+    title: Function does not establish transfer sequence
+    body: >-
+      The three role cards are a conceptual comparison. Their order on the
+      canvas must not be rendered as an Abilene one-line, response hierarchy,
+      or guaranteed handoff sequence.
+    fact_refs:
+      - delivery_resilience:ups_and_btm_bess_role_separation
+      - abilene:diesel_campus_connection_as_built_topology
+      - abilene:bess_campus_connection_as_built_topology
+      - abilene_execution:building_power_train_as_built_configuration
+
+building_lifecycle:
+  title: Abilene lifecycle context is not a single completion badge
+  body: >-
+    Retain backstage evidence about construction, energization, operation, and
+    live workloads without consuming a central teaching state. Publication-date
+    upper bounds do not reveal each event's exact date or prove that every
+    building crossed each gate.
+  stages:
+    - id: constructed
+      title: Constructed or deployed
+      known: >-
+        Campus construction began in June 2024, and first-phase electrical
+        equipment, switchgear, and critical infrastructure were reported
+        produced and deployed on site.
+      boundary: >-
+        These facts do not state an exact completed-building count or establish
+        the as-built building power train.
+      evidence_posture: confirmed_scope_not_completed_building_count
+      fact_refs:
+        - abilene_execution:campus_construction_start_month
+        - abilene_execution:building_electrical_delivery_scope
+        - abilene_execution:building_power_train_as_built_configuration
+
+    - id: energized
+      title: Energized
+      known: >-
+        At least two buildings are confirmed energized; Crusoe's dated release
+        establishes that the first two had been energized by 2025-09-30.
+      boundary: The precise first-energization dates are not disclosed.
+      evidence_posture: confirmed_minimum_and_date_upper_bound
+      fact_refs:
+        - abilene:buildings_energized_confirmed_min
+        - abilene_execution:first_two_buildings_energized_by
+
+    - id: commissioned
+      title: Commissioned?
+      known: >-
+        The first phase was reported up and running on Oracle Cloud
+        Infrastructure by 2025-09-30.
+      boundary: >-
+        No reviewed fact establishes a building-specific commissioning
+        milestone. Do not relabel the phase-level operational disclosure as a
+        completed commissioning record, and do not infer the exact current
+        operational-building count.
+      evidence_posture: operational_milestone_with_commissioning_gap
+      fact_refs:
+        - abilene_execution:first_phase_operational_by
+        - abilene_execution:current_operational_building_count_exact
+        - abilene_execution:building_power_train_as_built_configuration
+
+    - id: live
+      title: Live workload
+      known: >-
+        Parts of the campus were running early training and inference workloads
+        by 2025-07-22, with a later Crusoe release also reporting early workloads
+        live by 2025-09-30.
+      boundary: The exact first-live workload date is not established.
+      evidence_posture: live_by_not_start_date
+      fact_refs:
+        - abilene:early_training_inference_live_by
+        - abilene:exact_workload_start_date
+        - abilene_execution:early_training_and_inference_live_by
+
+  campus_scope_boundary:
+    id: planned_is_not_operational
+    title: Eight planned buildings are not eight operational buildings
+    body: >-
+      The original design calls for eight buildings, and the remaining six were
+      planned for completion by year-end 2026. The exact current operational
+      count is not disclosed, so the renderer must not fill all eight as live.
+    fact_refs:
+      - abilene:campus_planned_buildings
+      - abilene_execution:original_remaining_six_buildings_planned_completion
+      - abilene_execution:current_operational_building_count_exact
+
+phase4_handoff:
+  title: Enter one building without inventing its Abilene one-line
+  body: >-
+    Phase 4 follows a generic building path from the campus feeder toward rack
+    positions. Introduce each equipment family by its function while keeping
+    the Abilene voltage, product selection, rating, redundancy, route, and
+    switching state unresolved.
+  equipment_verbs:
+    - id: unit_substation
+      equipment: Unit substation
+      verb: coordinate primary switching, transformation, and secondary distribution
+      fact_refs:
+        - electrical_engineering:unit_substation_coordinated_assembly_role
+
+    - id: switchgear
+      equipment: Switchgear
+      verb: distribute power and protect, control, and isolate downstream circuits
+      fact_refs:
+        - electrical_engineering:low_voltage_switchgear_distribution_protection_role
+
+    - id: ups
+      equipment: UPS
+      verb: condition power and provide no-break critical-load protection
+      fact_refs:
+        - electrical_engineering:ups_conditioned_no_break_power_role
+
+    - id: busway
+      equipment: Busway
+      verb: carry feeder power and provide plug-in distribution toward rack positions
+      fact_refs:
+        - electrical_engineering:busway_feeder_and_plugin_distribution_role
+
+  site_boundary:
+    id: generic_not_as_built
+    body: >-
+      Crusoe confirms first-phase electrical equipment deployment, but the
+      public record does not expose the as-built power train from campus medium
+      voltage to rack rows.
+    fact_refs:
+      - abilene_execution:building_electrical_delivery_scope
+      - abilene_execution:building_power_train_as_built_configuration
+
+evidence_gaps:
+  - id: dedicated_generic_campus_mv_fanout_reference
+    gap: >-
+      The current ledgers do not contain a dedicated generic campus-medium-voltage
+      fan-out design reference. The pilot therefore uses only the generic
+      substation outgoing-delivery function and must remain an abstract topology.
+    renderer_guard: >-
+      Do not add voltage labels, bus sections, tie breakers, feeder counts beyond
+      the three illustrative buildings, site protection zones, or redundancy
+      paths. The isolation state may show only one generic disturbed branch and
+      a conditional sequence, never an Abilene protection design.
+    related_fact_refs:
+      - generation_transmission:substation_is_transform_protect_control_gate
+      - abilene:campus_source_merge_as_built_topology
+
+  - id: building_specific_commissioning_record
+    gap: >-
+      The current ledgers establish an operational first-phase disclosure but no
+      building-specific commissioning milestone.
+    renderer_guard: Show Commissioned as unresolved, not completed.
+    related_fact_refs:
+      - abilene_execution:first_phase_operational_by
+      - abilene_execution:current_operational_building_count_exact
+      - abilene_execution:building_power_train_as_built_configuration
+
+states:
+  - id: one_source_fanout
+    nav_label: Fan-out
+    title: One source, one conceptual campus bus, multiple buildings
+    instruction: >-
+      Establish the generic source-to-distribution-to-building pattern without
+      adding a site voltage, equipment lineup, redundancy scheme, or Abilene label.
+    show_generic_fanout: true
+    show_feeder_fault_isolation: false
+    abilene_source_ids: []
+    show_abilene_merge: false
+    resilience_role_ids: []
+    show_phase4_handoff: false
+
+  - id: feeder_fault_isolation
+    nav_label: Isolation
+    title: Detect, interrupt, isolate, then test the remaining-service conditions
+    instruction: >-
+      Follow one generic feeder disturbance through coordinated protection.
+      Treat service on every other branch as conditional, never guaranteed.
+    show_generic_fanout: false
+    show_feeder_fault_isolation: true
+    abilene_source_ids: []
+    show_abilene_merge: false
+    resilience_role_ids: []
+    show_phase4_handoff: false
+
+  - id: abilene_unknown_merge
+    nav_label: Sources
+    title: Multiple Abilene source-side paths stop at an unknown merge
+    instruction: >-
+      Show the initial grid path, expansion substation, and installed gas-plant
+      evidence as separate lanes. Terminate every lane at the unresolved campus
+      boundary rather than drawing a shared as-built bus.
+    show_generic_fanout: false
+    show_feeder_fault_isolation: false
+    abilene_source_ids: [initial_grid, expansion_grid, onsite_gas]
+    show_abilene_merge: true
+    resilience_role_ids: []
+    show_phase4_handoff: false
+
+  - id: separate_resilience_roles
+    nav_label: Roles
+    title: UPS, BESS, and diesel solve different architectural problems
+    instruction: >-
+      Compare function and position while withholding runtime, dispatch,
+      transfer sequence, and unsupported Abilene equipment state.
+    show_generic_fanout: false
+    show_feeder_fault_isolation: false
+    abilene_source_ids: []
+    show_abilene_merge: false
+    resilience_role_ids: [ups, bess, diesel]
+    show_phase4_handoff: false
+
+  - id: building_power_handoff
+    nav_label: Building
+    title: The next problem is protected delivery inside one building
+    instruction: >-
+      Cross the campus boundary into a generic functional chain only after the
+      protection boundary is explicit; preserve the Abilene as-built unknown.
+    show_generic_fanout: false
+    show_feeder_fault_isolation: false
+    abilene_source_ids: []
+    show_abilene_merge: false
+    resilience_role_ids: []
+    show_phase4_handoff: true

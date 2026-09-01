@@ -1365,7 +1365,7 @@ class ProjectContractTests(unittest.TestCase):
         self.assertEqual(30, self.result["nodes"])
         self.assertEqual(34, self.result["edges"])
         self.assertEqual(6, self.result["cameras"])
-        self.assertEqual(8, self.result["verified_generated_artifacts"])
+        self.assertEqual(17, self.result["verified_generated_artifacts"])
 
     def test_central_validator_invokes_exact_generated_artifact_parity(self) -> None:
         with (

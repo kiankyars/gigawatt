@@ -1,0 +1,467 @@
+schema_version: 1
+
+subject:
+  id: gigawatt_generation_transmission_reference
+  canonical_name: GIGAWATT generation and transmission teaching reference
+
+accessed_as_of: '2026-08-31'
+
+evidence_boundary:
+  included_scope: >-
+    Stable, generic physical principles for electricity generation, storage,
+    voltage step-up, transmission-network power flow, continuous supply-demand
+    balancing, substations, and the distinction between generation and
+    large-load interconnection processes.
+  excluded_scope: >-
+    Any Abilene as-built or operating claim; technology cost, emissions,
+    availability, reliability, or deployment rankings; universal project
+    schedules; and any implication that a contract determines a physical
+    electricity route.
+  promotion_rule: >-
+    These facts support conceptual teaching only. They cannot be promoted into
+    an Abilene design, installed topology, operating state, commercial term, or
+    site schedule. Fast-changing interconnection rules and thresholds must
+    retain their explicit access date.
+
+sources:
+  eia_electricity_generation:
+    publisher: U.S. Energy Information Administration
+    title: How electricity is generated
+    kind: primary_government_explainer
+    url: https://www.eia.gov/energyexplained/electricity/how-electricity-is-generated.php
+    publication_date: null
+    review_date: '2023-10-31'
+    accessed_as_of: '2026-08-31'
+    date_note: EIA marks the page last updated 2023-10-31.
+
+  eia_solar_photovoltaics:
+    publisher: U.S. Energy Information Administration
+    title: Photovoltaics and electricity
+    kind: primary_government_explainer
+    url: https://www.eia.gov/energyexplained/solar/photovoltaics-and-electricity.php
+    publication_date: null
+    review_date: '2024-05-24'
+    accessed_as_of: '2026-08-31'
+    date_note: EIA marks the page last updated 2024-05-24.
+
+  doe_fuel_cell_systems:
+    publisher: U.S. Department of Energy
+    title: Fuel Cell Systems
+    kind: primary_government_technical_page
+    url: https://www.energy.gov/cmei/fuels/fuel-cell-systems
+    publication_date: null
+    review_date: null
+    accessed_as_of: '2026-08-31'
+    date_note: Undated current DOE technical page as accessed.
+
+  eia_energy_storage:
+    publisher: U.S. Energy Information Administration
+    title: Energy storage for electricity generation
+    kind: primary_government_explainer
+    url: https://www.eia.gov/energyexplained/electricity/energy-storage-for-electricity-generation.php
+    publication_date: null
+    review_date: '2023-08-28'
+    accessed_as_of: '2026-08-31'
+    date_note: >-
+      EIA marks the page last updated 2023-08-28; its numerical 2022 inventory
+      is outside the teaching claim scope.
+
+  doe_grid_basics:
+    publisher: U.S. Department of Energy
+    title: 'Foundational Course: Electricity Grid Basics, text version'
+    kind: primary_government_training_material
+    url: https://www.energy.gov/documents/doe-iefoundationalelectricitygridbasicstextversionpdf
+    publication_date: null
+    review_date: null
+    accessed_as_of: '2026-08-31'
+    date_note: Undated official DOE training transcript as accessed.
+
+  eia_electricity_delivery:
+    publisher: U.S. Energy Information Administration
+    title: How electricity is delivered to consumers
+    kind: primary_government_explainer
+    url: https://www.eia.gov/energyexplained/electricity/delivery-to-consumers.php
+    publication_date: null
+    review_date: null
+    accessed_as_of: '2026-08-31'
+    date_note: Undated current EIA explainer as accessed.
+
+  doe_trac_program_framework:
+    publisher: U.S. Department of Energy, Office of Electricity
+    title: TRAC Program Vision and Framework
+    kind: primary_government_technical_report
+    url: https://www.energy.gov/oe/articles/trac-program-vision-and-framework
+    publication_date: '2020-06'
+    review_date: null
+    accessed_as_of: '2026-08-31'
+    date_note: DOE report dated June 2020.
+
+  ferc_order_2023_explainer:
+    publisher: Federal Energy Regulatory Commission
+    title: Explainer on the Interconnection Final Rule
+    kind: primary_regulator_explainer
+    url: https://www.ferc.gov/explainer-interconnection-final-rule
+    publication_date: '2023-07-28'
+    review_date: '2025-01-23'
+    accessed_as_of: '2026-08-31'
+    date_note: >-
+      Official FERC explainer for Order No. 2023, last updated 2025-01-23;
+      the page notes the clarifying Order No. 2023-A issued 2024-03-21.
+
+  ferc_pro_forma_large_generator_interconnection_procedures:
+    publisher: Federal Energy Regulatory Commission
+    title: Standard Large Generator Interconnection Procedures and Agreement
+    kind: primary_regulator_pro_forma_procedure
+    url: https://www.ferc.gov/sites/default/files/2024-08/LGIP.pdf
+    publication_date: null
+    review_date: '2024-08-20'
+    accessed_as_of: '2026-08-31'
+    date_note: FERC marks this pro forma LGIP version updated as of 2024-08-20.
+
+  ercot_large_load_integration:
+    publisher: Electric Reliability Council of Texas
+    title: Large Load Integration
+    kind: primary_system_operator_process_page
+    url: https://www.ercot.com/services/rq/large-load-integration
+    publication_date: null
+    review_date: null
+    accessed_as_of: '2026-08-31'
+    date_note: >-
+      Current Batch Zero page as accessed; eligibility, thresholds, forms, and
+      dates are changing process facts rather than stable engineering constants.
+
+  ercot_pgrr145_record:
+    publisher: Electric Reliability Council of Texas
+    title: PGRR145 - Batch Zero Process for Large Load Interconnections
+    kind: primary_system_operator_rule_record
+    url: https://www.ercot.com/mktrules/issues/PGRR145
+    publication_date: '2026-03-04'
+    review_date: '2026-06-18'
+    accessed_as_of: '2026-08-31'
+    date_note: >-
+      ERCOT's issue record reports PUCT approval on 2026-06-18 and an effective
+      date of 2026-07-11 for the listed sections.
+
+  ercot_pgrr145_approved_text:
+    publisher: Electric Reliability Council of Texas
+    title: 145PGRR-130 PUCT Report 061826
+    kind: primary_system_operator_approved_procedure
+    url: https://www.ercot.com/files/docs/2026/06/22/145PGRR-130-PUCT-Report-061826.docx
+    publication_date: '2026-06-22'
+    review_date: null
+    accessed_as_of: '2026-08-31'
+    date_note: >-
+      ERCOT-posted PUCT report containing the approved PGRR145 Planning Guide
+      language; the report records PUCT approval on 2026-06-18.
+
+  ercot_batch_zero_pause_notice:
+    publisher: Electric Reliability Council of Texas
+    title: M-A080326-01 Update Regarding Batch Zero Timelines and Processes
+    kind: primary_system_operator_market_notice
+    url: https://www.ercot.com/services/comm/mkt_notices/M-A080326-01
+    publication_date: '2026-08-03'
+    review_date: null
+    accessed_as_of: '2026-08-31'
+    date_note: Dated ERCOT Market Notice M-A080326-01.
+
+  ercot_batch_zero_exception_notice:
+    publisher: Electric Reliability Council of Texas
+    title: M-A080326-02 PUC Approval of Good Cause Exceptions Relating To Batch Zero Process
+    kind: primary_system_operator_market_notice
+    url: https://www.ercot.com/services/comm/mkt_notices/M-A080326-02
+    publication_date: '2026-08-21'
+    review_date: null
+    accessed_as_of: '2026-08-31'
+    date_note: Dated ERCOT Market Notice M-A080326-02.
+
+facts:
+  turbine_generator_conversion_family:
+    value: >-
+      A moving fluid such as water, steam, combustion gas, or air turns a
+      turbine rotor, and the coupled generator converts mechanical energy into
+      electrical energy.
+    unit: null
+    scope: Generic turbine-generator conversion family; no site, technology ranking, or operating claim
+    basis: >-
+      EIA describes turbine generators driven by water, steam, combustion gases,
+      or air and separates the turbine's mechanical conversion from the
+      generator's electrical conversion.
+    lifecycle: design_reference
+    as_of: '2023-10-31'
+    source_ids: [eia_electricity_generation]
+    posture: design_not_observed
+
+  thermal_sources_share_steam_path:
+    value: >-
+      Coal, nuclear, biomass, solar-thermal, and most geothermal plants can use
+      heat to make steam that turns a turbine-generator.
+    unit: null
+    scope: Generic physical grouping; not environmental, economic, or operational equivalence
+    basis: >-
+      EIA identifies fuel-fired boilers, nuclear reactors, solar-thermal plants,
+      and most geothermal plants as heat sources used with steam turbines.
+    lifecycle: design_reference
+    as_of: '2023-10-31'
+    source_ids: [eia_electricity_generation]
+    posture: design_not_observed
+
+  combustion_gas_direct_turbine_path:
+    value: >-
+      A combustion gas turbine burns gaseous or liquid fuel to create hot gas
+      that turns turbine blades and drives a generator.
+    unit: null
+    scope: Generic combustion-turbine path; not a simple-cycle versus combined-cycle comparison or site configuration
+    basis: EIA describes combustion gas turbines as using hot combustion gases to turn turbine blades.
+    lifecycle: design_reference
+    as_of: '2023-10-31'
+    source_ids: [eia_electricity_generation]
+    posture: design_not_observed
+
+  moving_water_and_wind_paths:
+    value: >-
+      Hydroelectric and wind systems use moving water or air to rotate machinery
+      that produces electricity.
+    unit: null
+    scope: Generic hydro and wind conversion paths; not a control, capacity, or availability comparison
+    basis: EIA describes water and wind driving rotors associated with electric generators.
+    lifecycle: design_reference
+    as_of: '2023-10-31'
+    source_ids: [eia_electricity_generation]
+    posture: design_not_observed
+
+  solar_pv_dc_inverter_path:
+    value: >-
+      Photovoltaic cells convert sunlight directly into DC electricity, and an
+      inverter converts that DC for an AC transmission or distribution system.
+    unit: null
+    scope: Generic photovoltaic conversion path; not a site design, output profile, or availability claim
+    basis: EIA separately documents direct photovoltaic conversion to DC and inverter conversion to AC.
+    lifecycle: design_reference
+    as_of: '2024-05-24'
+    source_ids: [eia_solar_photovoltaics]
+    posture: design_not_observed
+
+  fuel_cell_dc_conditioning_path:
+    value: >-
+      A fuel-cell stack produces DC electricity through electrochemical
+      reactions, and power conditioning adapts it for the connected application
+      or AC grid.
+    unit: null
+    scope: Generic fuel-cell power path; not a fuel, emissions, efficiency, or site-selection claim
+    basis: DOE documents DC production in the stack and subsequent current, voltage, and frequency conditioning.
+    lifecycle: design_reference
+    as_of: '2026-08-31'
+    source_ids: [doe_fuel_cell_systems]
+    posture: design_not_observed
+
+  storage_is_charged_secondary_supply:
+    value: >-
+      Electricity storage must first be charged from electricity or another
+      charging energy source before it can discharge electricity; it is not a
+      primary electricity generation source.
+    unit: null
+    scope: Generic electricity-storage boundary; not a site role, runtime, chemistry, or efficiency claim
+    basis: EIA explicitly distinguishes storage from primary generation and describes charge before discharge.
+    lifecycle: design_reference
+    as_of: '2023-08-28'
+    source_ids: [eia_energy_storage]
+    posture: design_not_observed
+
+  storage_power_and_energy_are_distinct:
+    value: >-
+      Storage power capacity is an instantaneous output rate measured in MW,
+      while energy capacity is a stored or discharged quantity measured in MWh.
+    unit: null
+    scope: Generic storage-rating distinction; no duration or installed-capacity claim
+    basis: EIA defines power capacity and energy capacity as separate storage ratings with different units.
+    lifecycle: design_reference
+    as_of: '2023-08-28'
+    source_ids: [eia_energy_storage]
+    posture: design_not_observed
+
+  diesel_generation_can_fill_standby_role:
+    value: >-
+      Diesel-engine generators are physical electricity generators that are
+      also widely used for emergency or backup power at buildings and power
+      plants.
+    unit: null
+    scope: Generic diesel-generator role; not an Abilene installation, runtime, fuel inventory, or operating claim
+    basis: EIA identifies internal-combustion diesel generators and their common emergency or backup application.
+    lifecycle: design_reference
+    as_of: '2023-10-31'
+    source_ids: [eia_electricity_generation]
+    posture: design_not_observed
+
+  high_voltage_reduces_current_and_resistive_loss:
+    value: >-
+      For a fixed transferred power, raising voltage lowers current, while
+      conductor losses vary with the square of current.
+    unit: null
+    scope: Generic transmission motivation; not a conductor design, voltage selection, or loss estimate
+    basis: DOE's grid-basics training states the power-voltage-current relationship and current-squared loss dependence.
+    lifecycle: design_reference
+    as_of: '2026-08-31'
+    source_ids: [doe_grid_basics]
+    posture: authoritative_guidance
+
+  substation_is_transform_protect_control_gate:
+    value: >-
+      A substation combines voltage transformation with interruption,
+      isolation, protection, instrumentation, control, and outgoing delivery
+      functions.
+    unit: null
+    scope: Generic substation anatomy; not an Abilene equipment list, protection zone, or operating state
+    basis: DOE's grid-basics training describes transformers, breakers, disconnects, protection, instrumentation, and control.
+    lifecycle: design_reference
+    as_of: '2026-08-31'
+    source_ids: [doe_grid_basics]
+    posture: authoritative_guidance
+
+  ac_meshed_network_flow_behavior:
+    value: >-
+      An interconnected AC transmission network can provide multiple physical
+      paths between areas, while the distribution of power over those paths is
+      governed by network physics and can be changed by topology or impedance
+      controls.
+    unit: null
+    scope: >-
+      Generic interconnected AC-transmission behavior; not a site route, a
+      power-flow allocation, a contingency result, or a reliability guarantee
+    basis: >-
+      EIA describes interconnected systems as providing multiple paths for
+      power flow. DOE states that passive-grid flow follows physical laws and
+      that transmission flow can be changed through network connections or
+      impedance-changing controls.
+    lifecycle: design_reference
+    as_of: '2026-08-31'
+    source_ids: [eia_electricity_delivery, doe_trac_program_framework]
+    posture: authoritative_guidance
+
+  balancing_authority_matches_supply_and_demand:
+    value: >-
+      A balancing authority continually coordinates its portion of the power
+      system so that electricity supply matches electricity demand.
+    unit: null
+    scope: >-
+      Generic balancing-authority function; not a reserve quantity, dispatch
+      instruction, response-time requirement, or site-service guarantee
+    basis: >-
+      EIA states that grid stability requires supply to match demand and that
+      balancing authorities manage this day-to-day balancing responsibility.
+    lifecycle: design_reference
+    as_of: '2026-08-31'
+    source_ids: [eia_electricity_delivery]
+    posture: authoritative_guidance
+
+  generator_interconnection_rule_scope:
+    value: >-
+      FERC Order No. 2023 reforms transmission-provider processes used to study
+      and connect generating facilities, including many storage projects, to
+      the transmission system.
+    unit: null
+    scope: FERC-jurisdictional generator interconnection rule; not an ERCOT large-load process or project schedule
+    basis: FERC's explainer states that the rule addresses study and connection of generating facilities.
+    lifecycle: published_method
+    as_of: '2023-07-28'
+    source_ids: [ferc_order_2023_explainer]
+    posture: authoritative_guidance
+
+  ferc_large_generator_interconnection_coarse_gates:
+    value: >-
+      In FERC's pro forma process for large generating facilities, the coarse
+      gates are a valid interconnection request with required project data and
+      readiness items; cluster and any affected-system studies; an
+      interconnection facilities study that defines required equipment,
+      interconnection facilities, network upgrades, construction work, cost,
+      and schedule; an executed or unexecuted-filed Large Generator
+      Interconnection Agreement; and performance of the agreed interconnection
+      and upgrade construction activities.
+    unit: null
+    scope: >-
+      FERC pro forma process for generating facilities above 20 MW; not every
+      jurisdiction or transmission-provider tariff, not an ERCOT large-load
+      path, and not a universal project schedule, approval, or outcome
+    basis: >-
+      The current FERC pro forma LGIP organizes the process around Sections 3,
+      7 through 9, 11, and 12. Its facilities study identifies the equipment,
+      upgrades, construction scope, cost, and estimated construction time, and
+      the LGIA governs commencement and construction activities.
+    lifecycle: published_method
+    as_of: '2024-08-20'
+    source_ids:
+      - ferc_order_2023_explainer
+      - ferc_pro_forma_large_generator_interconnection_procedures
+    posture: authoritative_guidance
+
+  ercot_large_load_process_scope:
+    value: >-
+      ERCOT's current Batch Zero process addresses qualifying load facilities
+      of 75 MW or greater seeking to interconnect to the ERCOT system.
+    unit: null
+    scope: >-
+      ERCOT Batch Zero threshold statement as accessed; eligibility must be
+      checked against PGRR145 and current notices, and this is not an approval
+      for any project
+    basis: ERCOT's current Large Load Integration page identifies the load-facility threshold and process participants.
+    lifecycle: published_method
+    as_of: '2026-08-31'
+    source_ids: [ercot_large_load_integration]
+    posture: authoritative_guidance
+
+  ercot_batch_zero_large_load_coarse_gates:
+    value: >-
+      Under the approved transitional Batch Zero procedure, the coarse gates
+      are eligibility and submission of project data, dynamic models, and a
+      preliminary Load Commissioning Plan; a system-wide steady-state and
+      stability-screening study; peak-demand allocation, identified
+      transmission improvements, and an interconnection-agreement commitment;
+      refinement of the needed improvements and a short-circuit study; then,
+      before Initial Energization, satisfaction of ERCOT-established conditions,
+      which may include network-model inclusion, operational and accurate
+      telemetry, required stability or SSO work, and a current Load Commissioning
+      Plan. Applicable PCLR and WLPUN paths also require written ERCOT
+      confirmation and enforce their documented demand or withdrawal limits.
+    unit: null
+    scope: >-
+      Approved ERCOT Batch Zero process design, subject to the August 2026
+      timeline exceptions; not a universal large-load process or schedule, an
+      Abilene status claim, an energization approval, a constructed-upgrade
+      claim, or an allowed-MW claim for any project
+    basis: >-
+      PGRR145 Sections 9.2 through 9.6 establish submission, modeling, study,
+      allocation, agreement, refinement, telemetry, and energization gates.
+      ERCOT's August notices supersede the original near-term classification
+      deadline without changing these coarse engineering categories.
+    lifecycle: published_method
+    as_of: '2026-08-21'
+    source_ids:
+      - ercot_pgrr145_approved_text
+      - ercot_batch_zero_pause_notice
+      - ercot_batch_zero_exception_notice
+    posture: authoritative_guidance
+
+  ercot_batch_zero_current_timeline_posture:
+    value: >-
+      Batch Zero became effective on 2026-07-11, but ERCOT did not issue the
+      classifications contemplated for 2026-08-07 after a required data-center
+      verification step. The PUCT granted ERCOT's requested near-term good-cause
+      exceptions on 2026-08-20, and ERCOT stated on 2026-08-21 that it intended
+      to issue conditional classifications by 2026-08-31. That stated intention
+      is not evidence that conditional or final classifications were issued.
+    unit: null
+    scope: >-
+      Public Batch Zero process posture through the 2026-08-21 notice; no
+      inference about later notices, final classifications, individual projects,
+      study completion, allocation, agreement, construction, or energization
+    basis: >-
+      ERCOT's rule record supplies the effective date. Its 2026-08-03 and
+      2026-08-21 Market Notices document the missed original classification
+      milestone, the PUCT exceptions, and ERCOT's stated conditional-classification
+      intent.
+    lifecycle: published_method
+    as_of: '2026-08-21'
+    source_ids:
+      - ercot_pgrr145_record
+      - ercot_batch_zero_pause_notice
+      - ercot_batch_zero_exception_notice
+    posture: authoritative_guidance

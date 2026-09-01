@@ -1,0 +1,208 @@
+schema_version: 1
+
+id: gigawatt_course_v2
+title: GIGAWATT
+subtitle: Follow the power-and-heat service chain from source options to useful compute and atmospheric rejection
+
+interaction:
+  mode: manual
+  advance: instructor_controlled
+
+journey:
+  id: physical_journey
+  title: One system journey, six engineering problems
+  anchor_question: >-
+    What has to remain true across source branches, grid delivery, campus and
+    building power, processor switching, and heat rejection?
+  body: >-
+    The course follows an engineered energy-service chain through six changes
+    of scale. It does not trace one electron or claim that Abilene's grid and
+    onsite sources form one evidenced as-built path. Each phase first explains
+    the generic mechanism, then maps only supported parts onto the Abilene
+    reference campus, and finally exposes the constraint handed onward.
+  phase_ids:
+    - phase_1_generation
+    - phase_2_transmission
+    - phase_3_campus
+    - phase_4_building
+    - phase_5_compute
+    - phase_6_heat
+
+spatial:
+  artifact: diagram/hybrid.html
+  minimum_width_px: 900
+  boundary: >-
+    Conceptual spatial reference, not Abilene as-built; 2D states own causal
+    and evidence detail.
+  anchors:
+    phase_4_building:
+      camera_id: electrical_room
+      purpose: >-
+        Locate the electrical room, unit substation, switchgear, UPS, and
+        busway inside the building before returning to the functional gates.
+    phase_5_compute:
+      camera_id: data_hall_rack
+      purpose: >-
+        Locate room-scale distribution, rack power shelves, board regulation,
+        the die, cold plate, and rack manifold at the point of use.
+    phase_6_heat:
+      camera_id: thermal_return
+      purpose: >-
+        Locate the component, liquid and residual-air branches, facility loop,
+        heat-rejection equipment, and atmosphere in one spatial frame.
+
+phases:
+  - id: phase_1_generation
+    number: 1
+    verb: Generate
+    title: Make electricity
+    question: Where can an electrical watt come from?
+    manifest: course/pilots/phase1_generation.yaml
+    artifact: diagram/phase1_generation.html
+    carrier_in: primary-energy source options
+    carrier_out: generation-side electrical interfaces
+
+  - id: phase_2_transmission
+    number: 2
+    verb: Transmit
+    title: Move and connect electricity
+    question: Why can a gigawatt not simply travel down an ordinary wire?
+    manifest: course/pilots/phase2_transmission.yaml
+    artifact: diagram/phase2_transmission.html
+    carrier_in: generator terminals and bulk-grid sources
+    carrier_out: grid-delivered electrical service
+
+  - id: phase_3_campus
+    number: 3
+    verb: Campus
+    title: Distribute and protect electricity
+    question: >-
+      Once power reaches the property, how can it serve multiple buildings
+      without one disturbance becoming a campus-wide failure?
+    manifest: course/pilots/phase3_campus.yaml
+    artifact: diagram/phase3_campus.html
+    carrier_in: grid service and a separately evidenced onsite source
+    carrier_out: protected building feeders
+
+  - id: phase_4_building
+    number: 4
+    verb: Building
+    title: Deliver protected power to the rack
+    question: What must happen between a campus feeder and a rack position?
+    manifest: course/pilots/phase4_building.yaml
+    artifact: diagram/phase4_building.html
+    carrier_in: building-feeder electrical service
+    carrier_out: rack-position facility AC
+
+  - id: phase_5_compute
+    number: 5
+    verb: Compute
+    title: Convert facility power into useful work
+    question: >-
+      What must happen before facility AC can switch transistors and produce
+      useful compute?
+    manifest: course/pilots/phase5_compute.yaml
+    artifact: diagram/phase5_compute.html
+    carrier_in: rack-position facility AC
+    carrier_out: information processing and equipment heat
+
+  - id: phase_6_heat
+    number: 6
+    verb: Reject heat
+    title: Reject heat
+    question: How does heat get from silicon back to the atmosphere?
+    manifest: course/pilots/phase6_heat.yaml
+    artifact: diagram/phase6_heat.html
+    carrier_in: equipment and room heat
+    carrier_out: heat rejected to the atmosphere
+
+synthesis:
+  id: whole_system_synthesis
+  title: Re-read the completed journey
+  body: >-
+    The engineered service chain can now be inspected through three
+    system-level questions without pretending that every branch is one traced
+    physical path or inventing an additional physical phase.
+  lenses:
+    - id: delivery_constraint
+      title: Where does delivery actually bind?
+      question: >-
+        Which evidenced physical, interconnection, construction, equipment, or
+        operating gate currently limits the usable path?
+      phase_readings:
+        phase_1_generation: >-
+          Ask whether the selected source has crossed permit, installation,
+          commissioning, and measured-output gates at an electrical interface.
+        phase_2_transmission: >-
+          Ask whether interconnection, voltage transformation, transfer
+          equipment, and energized grid service establish deliverable power
+          rather than a nameplate total.
+        phase_3_campus: >-
+          Ask whether independent source and feeder branches, protective
+          interruption, and isolation conditions actually preserve service
+          after a disturbance.
+        phase_4_building: >-
+          Ask whether building equipment and A/B paths can deliver facility AC
+          to the particular rack, including compatible load interfaces and
+          maintenance isolation.
+        phase_5_compute: >-
+          Ask whether rack and board conversion, installed accelerators,
+          workload activity, and measured operating demand turn facility power
+          into useful work.
+        phase_6_heat: >-
+          Ask whether component, liquid, residual-air, facility-loop, and
+          atmospheric-rejection boundaries can remove heat under actual
+          operating conditions.
+
+    - id: ownership_and_risk
+      title: Who owns the handoff and its risk?
+      question: >-
+        Who builds, owns, finances, operates, and bears utilization risk at
+        each boundary?
+      phase_readings:
+        phase_1_generation: >-
+          Separate generator owner and operator, fuel supply, storage, standby,
+          and contractual-attribute roles before assigning physical delivery.
+        phase_2_transmission: >-
+          Separate generator, transmission owner and operator, grid operator,
+          interconnection customer, and site roles at each electrical boundary.
+        phase_3_campus: >-
+          Separate utility service, campus sources, campus distribution,
+          building feeder, and protective-device ownership; keep the source
+          merge unknown where evidence is absent.
+        phase_4_building: >-
+          Separate campus-feeder, building power-train, maintenance, and IT
+          load-interface responsibility.
+        phase_5_compute: >-
+          Separate facilities power, rack hardware, platform operation, and
+          workload ownership before assigning output or utilization risk.
+        phase_6_heat: >-
+          Separate IT cooling loop, facility loop, air-side cooling,
+          heat-rejection plant, and water-account responsibility.
+
+    - id: usable_compute
+      title: How much capacity becomes useful compute?
+      question: >-
+        Which measured inputs are required before announced power or hardware
+        can become an evidence-backed useful-compute estimate?
+      phase_readings:
+        phase_1_generation: >-
+          Generation MW is only a source-side rating; it is not delivered IT
+          power, accelerators, workload activity, or useful output.
+        phase_2_transmission: >-
+          Grid ratings and interconnection capacity are not current site demand
+          or rack power.
+        phase_3_campus: >-
+          Campus service and feeder capability are not the count of energized
+          buildings, racks, accelerators, or live workloads.
+        phase_4_building: >-
+          Power at a rack position is not board input, processor-rail power,
+          active silicon, or useful workload output.
+        phase_5_compute: >-
+          An estimate requires measured electrical inputs, installed hardware,
+          workload configuration, and observed throughput or utilization on the
+          same basis.
+        phase_6_heat: >-
+          Cooling capacity and design posture constrain availability but do not
+          quantify useful compute; use measured operating power, thermal state,
+          and output.

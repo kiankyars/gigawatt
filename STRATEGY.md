@@ -1,8 +1,8 @@
 # STRATEGY — retention primitives for GIGAWATT
 
-*Written 2026-08 and reconciled with the completed course runtime on
-2026-08-27. The design primitives remain stable; current production status is
-recorded at the end.*
+*Written 2026-08, reconciled with the completed v1 runtime on 2026-08-27, and
+amended for the six-phase v2 redesign on 2026-08-31. Current production status
+is recorded at the end.*
 
 ## The premise
 
@@ -51,31 +51,40 @@ recording, swappable slides for fast-rotting facts.
 
 
 
-### 1. One diagram, one camera
+### 1. One journey, persistent orientation
 
-The entire course is a single master diagram — a campus one-line diagram fused
-with a site cross-section — and every segment is a camera move on it.
-Powers-of-ten structure: 138/345 kV or generator-terminal MV → substation yard → electrical room →
-rack → board → die. The viewer never loses spatial position because there is
-only one space. The master diagram ships as the poster and (post-video,
-optionally) as a clickable companion where every box opens its dossier.
+*V2 amendment, 2026-08-31:* the original “one diagram, one camera” rule made
+the engineering map carry explanations it was not designed to carry. The
+course now follows one persistent system journey across multiple explanatory
+canvases while grid and onsite sources remain separate branches unless evidence
+establishes their merge. A six-phase compass keeps the learner oriented:
 
-### 2. The carrier/state journey bar
+`Generate → Transmit → Campus → Building → Compute → Reject heat`
+
+Clean 2D teaching canvases explain causal mechanisms and comparisons. The 3D
+scene establishes location, nesting, and scale. The Abilene one-line remains
+the evidence-backed case map and poster, but appears after the generic
+mechanism is understood rather than serving as every lesson's background.
+Powers-of-ten structure still runs from 138/345 kV or generator-terminal MV →
+substation yard → electrical room → rack → board → die. The learner keeps one
+journey and one phase position without being confined to one drawing.
+
+### 2. The phase input/output journey bar
 
 Progress is not abstract acts. The electrical journey begins on one of three
 branches: 138 kV initial grid service, 345 kV expansion grid service, or
-generator-terminal MV behind the meter. The teaching paths meet at a conceptual
-campus-MV distribution envelope, then
-the conceptual teaching path descends through facility AC → nominal 50–51 VDC
-at the documented GB200 rack busbar → core voltage. Exact Abilene campus MV,
-rack AC input, generator terminal configuration, and core voltage do not render
-as invented numbers.
+generator-terminal MV behind the meter. Those source-side paths remain separate
+at the Abilene evidence boundary; the as-built merge is unknown. Generic
+teaching canvases then explain campus distribution and the downstream descent
+through facility AC → nominal 50–51 VDC at the documented GB200 rack busbar →
+core voltage. Exact Abilene campus MV, rack AC input, generator terminal
+configuration, and core voltage do not render as invented numbers.
 
-Every piece of equipment is introduced as *the thing that gets energy from this
-carrier/state to the next* — the watt cannot proceed without it. On the return
-path the bar follows die heat → technology return → facility return → air-cooled
-chiller → atmosphere. Voltage is a state marker, not itself a conserved
-quantity.
+Every piece of equipment is introduced by the conversion, transport, protection,
+or control function it performs between a phase input and output. On the thermal
+return, the bar follows die heat → technology return → facility return →
+air-cooled chiller → atmosphere. Voltage is a state marker, not itself a
+conserved quantity.
 
 ### 3. The loop, not the line
 
@@ -158,21 +167,16 @@ in `REDLINE.md` and enforced by the project validator.
 
 ## Substrate
 
-The diagram is the substrate; the native SVG/Three.js application is the camera
-player. The master
-SVG — with stable IDs on every box, edge, and label — is the single source of
-truth. A "slide" is a declarative camera state: viewport, lit set, overlays.
-The deck is a sequence of camera states with animated transitions between them.
-This inverts the chips workflow: there, slides were the artifact; here, slides
-are derived views of the diagram.
+The native SVG/HTML/Three.js application is the manual course player. Phase
+manifests and registered evidence are the source of truth for explanatory
+states; `master.yaml` remains the source of truth for the Abilene engineering
+map. A teaching state is a coarse, instructor-selected conceptual
+transformation, not merely a camera crop and never a timed beat.
 
 Non-spatial evidence appears in an instructor-controlled evidence drawer pinned
-to the active diagram state. The camera never cuts away to a naked slide, and
-the production path does not depend on Slidev or Manim.
-
-Consequence: the interactive companion is no longer a post-video decision. It
-is the same camera states with a click handler, so it falls out of the build
-for free.
+to the active teaching state. The production path does not depend on Slidev or
+Manim. The same validated manifests generate the recording surface and the
+clickable companion, so the two cannot drift into different courses.
 
 ### The 3D scene (decided 2026-08-24)
 
@@ -194,19 +198,37 @@ to be read, it is annotated on the 2D map.
 
 The six-state demonstration slice is declarative in `cameras.yaml`: 2D system orientation
 → 3D campus establishing → 3D electrical room → 3D data hall/rack → 2D semantic
-handoff at the die → 3D thermal return. It proves the hybrid runtime; it is not
-the canonical full-course sequence, which lives in `course/segments.yaml`.
+boundary at the die → 3D thermal return. It proves the hybrid runtime; it is not
+the canonical full-course sequence. `course/segments.yaml` retains the frozen v1
+sequence; the canonical v2 sequence lives in `course/course_v2.yaml`.
 
-## Current production gate
+The canonical v2 player reuses three of those validated cameras as optional,
+manual spatial anchors: electrical room in Phase 4, data hall and rack in Phase
+5, and thermal return in Phase 6. They are available at 900 px and wider, carry
+an explicit conceptual/non-as-built boundary, and never replace the 2D teaching
+state that owns causal relationships and evidence detail.
+
+## Current production package
+
+- **Canonical v2 course.** `course/CURRICULUM_V2.md` defines the implemented
+  six-phase curriculum. Six deterministic, evidence-bound phase renderers feed
+  the single manual player at `diagram/course_v2.html`; the engineering map is
+  an application layer rather than the default background.
 
 - **Runtime target.** Deliberately unset. `course/segments.yaml` supplies
   relative production weights, but the presenter owns dwell and total length.
-- **Full act inventory and segment list.** Complete: seven acts and 26 segments
-  preserve the electrical-descent / thermal-return figure-eight, followed by
-  chokepoint, capital-stack, and usable-compute rereads.
-- **Evidence gate.** All 26 segments are teachable within current claim
-  boundaries. Unavailable private site, commercial, utilization, and throughput
-  facts remain explicit nulls rather than research placeholders.
-- **Production package.** `diagram/course.html` is the complete manual player;
-  `course/INSTRUCTOR_PACKET.md` and `course/TESTING.md` supply the untimed
-  instructor and editorial paths.
+- **Full phase inventory.** Complete: Generate, Transmit, Campus, Building,
+  Compute, and Reject heat contain 33 coarse manual states, followed by three
+  whole-system synthesis lenses.
+- **Evidence gate.** Every phase compiles qualified facts and explicit boundaries
+  from registered ledgers. Unavailable private site, commercial, utilization,
+  and throughput facts remain explicit nulls rather than research placeholders.
+- **Production package.** `diagram/course_v2.html`,
+  `diagram/course_v2_runtime.json`, and `course/INSTRUCTOR_PACKET_V2.md` are
+  generated from the same spine and phase contracts. The player also binds
+  `diagram/hybrid.html` and its camera/map/local-runtime dependencies for the
+  three manual spatial anchors. `course/TESTING.md` owns the untimed editorial
+  walkthrough.
+- **Historical comparison.** `diagram/course.html`, its v1 registry and packet,
+  and the frozen acceptance corpus remain reconstructable but are not the
+  production course or v2 acceptance evidence.

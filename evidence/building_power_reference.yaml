@@ -1,0 +1,232 @@
+schema_version: 1
+
+subject:
+  id: gigawatt_building_power_reference
+  canonical_name: GIGAWATT generic data-center building-power reference dossier
+  scope: >-
+    Generic spatial and functional power-path teaching, dual-path load
+    compatibility, planned-maintenance versus fault-tolerance boundaries, and
+    protection-coordination limits for a data-center building.
+
+accessed_as_of: '2026-08-31'
+
+evidence_boundary:
+  included_scope: >-
+    An illustrative data-center electrical path and equipment-space layout;
+    generic dual-path and single-cord transfer concepts; the conditions that
+    limit continuity when one path is unavailable; Uptime Institute's current
+    distinction between planned maintainability and fault tolerance; and the
+    need to coordinate source, UPS, switching, and protection behavior.
+  excluded_scope: >-
+    Any prescribed voltage, capacity, redundancy level, Tier classification,
+    breaker setting, protection scheme, transfer performance, UPS runtime,
+    equipment count, product selection, or Abilene design, as-built topology,
+    switching state, fault response, maintenance procedure, or operating claim.
+  promotion_rule: >-
+    These sources provide conceptual teaching references, not a complete design.
+    A drawn A/B path cannot be promoted into continuity, concurrent
+    maintainability, fault tolerance, certification, or a site-specific
+    topology unless the full path, load compatibility, capacity, protection,
+    common-mode dependencies, construction, and operating state are established.
+
+sources:
+  schneider_electrical_distribution_wp61:
+    publisher: Schneider Electric Data Center Science Center
+    title: Electrical Distribution Equipment in Data Center Environments, White Paper 61, Revision 2
+    kind: primary_manufacturer_white_paper
+    url: https://www.se.com/il/en/download/document/SPD_VAVR-8W4MEX_EN/
+    publication_date: '2019-07-03'
+    review_date: null
+    accessed_as_of: '2026-08-31'
+    date_note: >-
+      Schneider's official document page dates revision 2 to 2019-07-03; the
+      PDF identifies itself as White Paper 61 and explicitly limits its main
+      block diagram to an example architecture.
+
+  schneider_two_cords_2014:
+    publisher: Schneider Electric
+    title: Why Two Cords Do Not Guarantee Power Redundancy to an IT Device
+    kind: primary_manufacturer_technical_article
+    url: https://blog.se.com/datacenter/architecture/2014/08/06/two-cords-guarantee-power-redundancy-device/
+    publication_date: '2014-08-06'
+    review_date: null
+    accessed_as_of: '2026-08-31'
+    date_note: Dated Schneider Electric technical article published 2014-08-06.
+
+  uptime_tier_certification_current:
+    publisher: Uptime Institute
+    title: Tier Certification Overview
+    kind: primary_standard_owner_requirements_page
+    url: https://uptimeinstitute.com/tier-certification
+    publication_date: null
+    review_date: null
+    accessed_as_of: '2026-08-31'
+    date_note: >-
+      Undated current Uptime Institute page as accessed; the course uses only
+      its current high-level Tier III and Tier IV performance distinctions and
+      does not claim certification for any reference topology or site.
+
+  eaton_power_source_behavior_current:
+    publisher: Eaton
+    title: Power Source Behavior and Effect on Power Distribution
+    kind: primary_manufacturer_white_paper_landing_page
+    url: https://content.eaton.com/power_source_behavior_and_effect_of_power_distribution
+    publication_date: null
+    review_date: null
+    accessed_as_of: '2026-08-31'
+    date_note: >-
+      Undated current Eaton technical page as accessed; it summarizes the
+      white paper's scope on source behavior, UPS interaction, switching, and
+      selectivity without exposing a publication date.
+
+facts:
+  illustrative_building_power_spaces_and_path:
+    value: >-
+      A generic data-center teaching example separates electrical space from IT
+      space and traces power through medium-voltage switching, transformation,
+      low-voltage switching, UPS, downstream distribution, and rack equipment.
+    unit: null
+    scope: >-
+      Schneider White Paper 61's illustrative block diagram and typical
+      locations; not a prescribed sequence, complete one-line, selected product
+      set, voltage, redundancy design, or Abilene building layout.
+    basis: >-
+      Schneider labels its diagram as only an example architecture covering
+      possible major equipment and typical locations, then shows electrical
+      space and IT space along a utility-to-rack power-flow path.
+    lifecycle: design_reference
+    as_of: '2019-07-03'
+    source_ids: [schneider_electrical_distribution_wp61]
+    posture: design_not_observed
+
+  illustrative_path_is_not_universal_architecture:
+    value: >-
+      Data-center electrical architectures vary; an illustrative equipment path
+      cannot be treated as a universal or site-selected design.
+    unit: null
+    scope: >-
+      Scope boundary stated by Schneider White Paper 61; not evidence for any
+      omitted or additional component at Abilene.
+    basis: >-
+      Schneider says its block diagram is only an example that attempts to
+      include possible major equipment and that real designs have more
+      complexity, diversity, and common variants.
+    lifecycle: design_reference
+    as_of: '2019-07-03'
+    source_ids: [schneider_electrical_distribution_wp61]
+    posture: authoritative_guidance
+
+  dual_path_reference_topology:
+    value: >-
+      A generic dual-path reference supplies compatible dual-corded IT equipment
+      from two separate power paths so an alternative path can remain when one
+      distribution path is unavailable.
+    unit: null
+    scope: >-
+      Conceptual data-center A/B teaching only; not a redundancy ratio, Tier
+      classification, independence proof, continuity guarantee, or Abilene path.
+    basis: >-
+      Schneider describes the intended purpose of dual-corded, dual-path power
+      and shows separate upstream paths serving double-corded IT devices in its
+      example distribution architecture.
+    lifecycle: design_reference
+    as_of: '2019-07-03'
+    source_ids:
+      - schneider_electrical_distribution_wp61
+      - schneider_two_cords_2014
+    posture: design_not_observed
+
+  dual_path_continuity_conditions:
+    value: >-
+      Two cords alone do not guarantee continuity: the cords must reach distinct
+      paths, the IT device must operate after losing one feed, and the remaining
+      path and device power supply must be able to carry the resulting load.
+    unit: null
+    scope: >-
+      Schneider's generic dual-corded-load guidance; no numerical capacity,
+      loading threshold, device behavior, or site performance is inferred.
+    basis: >-
+      Schneider identifies same-path cabling, non-redundant multi-cord device
+      designs, incompatible cord requirements, and insufficient remaining-path
+      or power-supply capability as reasons dual cords may not preserve service.
+    lifecycle: design_reference
+    as_of: '2014-08-06'
+    source_ids: [schneider_two_cords_2014]
+    posture: authoritative_guidance
+
+  single_cord_load_needs_transfer_function:
+    value: >-
+      A single-corded load in a dual-path reference needs an appropriate
+      transfer function to select between two upstream feeds; it does not become
+      dual-corded merely because two sources exist upstream.
+    unit: null
+    scope: >-
+      Schneider's static-transfer-switch teaching example; not a transfer-device
+      selection, transfer performance, fault-clearing claim, or Abilene topology.
+    basis: >-
+      White Paper 61 shows double-corded loads connected to separate paths and
+      describes a static transfer switch as two UPS inputs feeding one downstream
+      output for single-corded equipment.
+    lifecycle: design_reference
+    as_of: '2019-07-03'
+    source_ids: [schneider_electrical_distribution_wp61]
+    posture: design_not_observed
+
+  planned_maintenance_and_fault_tolerance_are_distinct:
+    value: >-
+      Planned removal of a capacity component or distribution path without
+      affecting operations is a different performance objective from sustaining
+      operations through an individual equipment failure or path interruption.
+    unit: null
+    scope: >-
+      Current Uptime Institute Tier III and Tier IV summary criteria; not a Tier
+      classification or certification claim for the course reference or Abilene.
+    basis: >-
+      Uptime defines Tier III around planned component and path removal while
+      noting continued exposure to equipment failure or operator error, and
+      defines Tier IV to add tolerance of an individual equipment failure or
+      distribution-path interruption.
+    lifecycle: design_requirement
+    as_of: '2026-08-31'
+    source_ids: [uptime_tier_certification_current]
+    posture: authoritative_guidance
+
+  ab_diagram_does_not_establish_tier_or_continuity:
+    value: >-
+      An A/B drawing alone does not establish concurrent maintainability, fault
+      tolerance, a Tier classification, or continuity for the connected load.
+    unit: null
+    scope: >-
+      Inference from Uptime's performance-based certification boundary and
+      Schneider's load-compatibility conditions; not a judgment about Abilene.
+    basis: >-
+      Uptime says certification verifies a specific design, constructed
+      facility, and operational implementation against performance criteria,
+      while Schneider shows that dual cords can still fail to provide redundant
+      service when paths, loads, or remaining capability are unsuitable.
+    lifecycle: design_reference
+    as_of: '2026-08-31'
+    source_ids:
+      - uptime_tier_certification_current
+      - schneider_two_cords_2014
+    posture: derived_from_authoritative_sources
+
+  selective_fault_isolation_requires_system_coordination:
+    value: >-
+      Safe selective fault isolation depends on coordinated source, UPS,
+      switching, and protective-device behavior; a block path does not establish
+      where a fault clears or whether the alternate path remains unaffected.
+    unit: null
+    scope: >-
+      Eaton's generic mission-critical power-distribution guidance; no breaker
+      setting, fault current, coordination study, switching method, or site
+      performance is inferred.
+    basis: >-
+      Eaton states that different sources, UPS systems, and switchgear must
+      interact across distribution paths and branches, that behavior changes
+      under overcurrent and short-circuit conditions, and that selectivity is
+      important to safety and reliability.
+    lifecycle: design_reference
+    as_of: '2026-08-31'
+    source_ids: [eaton_power_source_behavior_current]
+    posture: authoritative_guidance

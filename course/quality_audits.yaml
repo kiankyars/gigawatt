@@ -2902,3 +2902,91 @@ rounds:
       - candidate_id: combined
         disposition: pending
         decision_ref: diagram/course_quality.json#ratchet/pareto/evaluations/combined/decision
+  - round_id: static_round_22
+    sequence: 22
+    status: complete
+    loop_speed: fast
+    audit_subject_sha256: 446aa64e7f9e0237f8b0d9c371b14b5e55f063fdbf92eda5b87b803b114cdb0b
+    change_scopes:
+      - layout
+      - label_hierarchy
+      - framing
+      - annotation
+      - authored_transformation
+      - navigation
+      - accessibility
+      - course_thesis
+      - course_order
+      - course_objectives
+      - visual_language
+    research_trigger: null
+    consultation_decisions:
+      - decision_id: DECISION-R22-SIX-PHASE-THESIS
+        scope: course_thesis
+        disposition: authorized
+        decision_maker_id: course_author
+        authorization_ref: conversation:2026-08-31#begin-designing
+      - decision_id: DECISION-R22-SIX-PHASE-ORDER
+        scope: course_order
+        disposition: authorized
+        decision_maker_id: course_author
+        authorization_ref: conversation:2026-08-31#begin-designing
+      - decision_id: DECISION-R22-SIX-PHASE-OBJECTIVES
+        scope: course_objectives
+        disposition: authorized
+        decision_maker_id: course_author
+        authorization_ref: conversation:2026-08-31#begin-designing
+      - decision_id: DECISION-R22-MULTI-CANVAS-LANGUAGE
+        scope: visual_language
+        disposition: authorized
+        decision_maker_id: course_author
+        authorization_ref: conversation:2026-08-31#begin-designing
+    audit_reports:
+      - role: visual_layout
+        auditor_id: static_round_22_visual_layout
+        status: complete
+        evidence_ref: README.md+STRATEGY.md+course/README.md+course/CURRICULUM_V2.md+course/TESTING.md+course/course_v2.yaml+course/pilots/phase1_generation.yaml+course/pilots/phase2_transmission.yaml+course/pilots/phase3_campus.yaml+course/pilots/phase4_building.yaml+course/pilots/phase5_compute.yaml+course/pilots/phase6_heat.yaml+diagram/cameras.yaml+diagram/course_v2.html+diagram/hybrid.html+diagram/master.svg+diagram/map_watt_heat_handoff.svg+diagram/phase1_generation.html+diagram/phase2_transmission.html+diagram/phase3_campus.html+diagram/phase4_building.html+diagram/phase5_compute.html+diagram/phase6_heat.html+src/gigawatt/building_visual.py+src/gigawatt/campus_visual.py+src/gigawatt/compute_visual.py+src/gigawatt/course_v2_runtime.py+src/gigawatt/heat_visual.py+src/gigawatt/teaching_visuals.py+src/gigawatt/transmission_visual.py+tests/test_course_v2_runtime.py+tests/test_phase1_generation_pilot.py+tests/test_phase2_transmission_pilot.py+tests/test_phase3_campus_pilot.py+tests/test_phase4_building_pilot.py+tests/test_phase5_compute_pilot.py+tests/test_phase6_heat_pilot.py#static-round-22-visual
+        segment_ids: *all_segments
+        viewport_ids: *all_viewports
+        evaluation_ids: *all_evaluations
+        transition_ids: *all_transitions
+        findings: []
+      - role: pedagogy
+        auditor_id: static_round_22_pedagogy
+        status: complete
+        evidence_ref: README.md+STRATEGY.md+course/README.md+course/CURRICULUM_V2.md+course/TESTING.md+course/course_v2.yaml+course/pilots/phase1_generation.yaml+course/pilots/phase2_transmission.yaml+course/pilots/phase3_campus.yaml+course/pilots/phase4_building.yaml+course/pilots/phase5_compute.yaml+course/pilots/phase6_heat.yaml+course/INSTRUCTOR_PACKET_V2.md+diagram/cameras.yaml+diagram/course.html+diagram/course_v2.html+diagram/course_v2_runtime.json+diagram/hybrid.html+diagram/phase1_generation.html+diagram/phase2_transmission.html+diagram/phase3_campus.html+diagram/phase4_building.html+diagram/phase5_compute.html+diagram/phase6_heat.html+evidence/building_power_reference.yaml+evidence/generation_transmission.yaml#static-round-22-pedagogy
+        segment_ids: *all_segments
+        viewport_ids: *all_viewports
+        evaluation_ids: *all_evaluations
+        transition_ids: *all_transitions
+        findings:
+          - finding_id: PED-R22-SIX-PHASE-TEACHING-ARCHITECTURE-01
+            summary: The published v1 camera sequence does not expose the six physical phases or teach broad generation mechanisms before applying the Abilene redline, leaving the instructor to supply the course architecture and causal explanation verbally.
+            affected_segment_ids: *all_segments
+            severity: 5.0
+            teaching_importance: 5.0
+            affected_sections: 26
+            confidence: 1.0
+            repair_risk: 2.0
+            priority_score: 325.0
+            evidence_ref: STRATEGY.md#one-journey-persistent-orientation+course/CURRICULUM_V2.md#core-decision+diagram/course.html#legacy-runtime+diagram/phase1_generation.html#first-v2-vertical-slice
+      - role: adversarial_correctness
+        auditor_id: static_round_22_adversarial_correctness
+        status: complete
+        evidence_ref: .github/workflows/pages.yml+course/quality_ratchet.yaml+course/quality_audits.yaml+diagram/cameras.yaml+diagram/generate_course_v2.py+diagram/generate_phase1_generation.py+diagram/generate_phase2_transmission.py+diagram/generate_phase3_campus.py+diagram/generate_phase4_building.py+diagram/generate_phase5_compute.py+diagram/generate_phase6_heat.py+diagram/hybrid.html+diagram/master.svg+diagram/map_watt_heat_handoff.svg+diagram/vendor/three/LICENSE+diagram/vendor/three/three.module.js+src/gigawatt/building_visual.py+src/gigawatt/campus_visual.py+src/gigawatt/compute_visual.py+src/gigawatt/course_v2_runtime.py+src/gigawatt/generated_artifacts.py+src/gigawatt/heat_visual.py+src/gigawatt/quality.py+src/gigawatt/teaching_visuals.py+src/gigawatt/transmission_visual.py+tests/test_course_v2_runtime.py+tests/test_generated_artifacts.py+tests/test_phase1_generation_pilot.py+tests/test_phase2_transmission_pilot.py+tests/test_phase3_campus_pilot.py+tests/test_phase4_building_pilot.py+tests/test_phase5_compute_pilot.py+tests/test_phase6_heat_pilot.py+tests/test_quality.py#static-round-22-adversarial
+        segment_ids: *all_segments
+        viewport_ids: *all_viewports
+        evaluation_ids: *all_evaluations
+        transition_ids: *all_transitions
+        findings: []
+    selected_finding_id: PED-R22-SIX-PHASE-TEACHING-ARCHITECTURE-01
+    challenger_dispositions:
+      - candidate_id: labels_only
+        disposition: pending
+        decision_ref: diagram/course_quality.json#ratchet/pareto/evaluations/labels_only/decision
+      - candidate_id: annotations_only
+        disposition: rejected
+        decision_ref: diagram/course_quality.json#ratchet/pareto/evaluations/annotations_only/decision
+      - candidate_id: combined
+        disposition: pending
+        decision_ref: diagram/course_quality.json#ratchet/pareto/evaluations/combined/decision

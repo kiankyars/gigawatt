@@ -427,6 +427,98 @@ class ChangeOwnershipCoverageTests(unittest.TestCase):
         ):
             quality.load_ratchet_manifest()
 
+    def test_v2_pilot_has_distinct_ownership_and_acceptance_boundary(self) -> None:
+        manifest = quality.load_ratchet_manifest()
+        owner = next(
+            record
+            for record in manifest["change_owners"]
+            if record["change_owner_id"] == "OWNER-V2-TEACHING-PILOT"
+        )
+        self.assertEqual(
+            set(owner["source_paths"]),
+            {
+                ".github/workflows/pages.yml",
+                "README.md",
+                "STRATEGY.md",
+                "course/CURRICULUM_V2.md",
+                "course/README.md",
+                "course/TESTING.md",
+                "course/course_v2.yaml",
+                "course/pilots/phase1_generation.yaml",
+                "course/pilots/phase2_transmission.yaml",
+                "course/pilots/phase3_campus.yaml",
+                "course/pilots/phase4_building.yaml",
+                "course/pilots/phase5_compute.yaml",
+                "course/pilots/phase6_heat.yaml",
+                "diagram/cameras.yaml",
+                "diagram/generate_phase1_generation.py",
+                "diagram/generate_phase2_transmission.py",
+                "diagram/generate_phase3_campus.py",
+                "diagram/generate_phase4_building.py",
+                "diagram/generate_phase5_compute.py",
+                "diagram/generate_phase6_heat.py",
+                "diagram/generate_course_v2.py",
+                "evidence/building_power_reference.yaml",
+                "evidence/generation_transmission.yaml",
+                "src/gigawatt/building_visual.py",
+                "src/gigawatt/campus_visual.py",
+                "src/gigawatt/compute_visual.py",
+                "src/gigawatt/course_v2_runtime.py",
+                "src/gigawatt/heat_visual.py",
+                "src/gigawatt/teaching_visuals.py",
+                "src/gigawatt/transmission_visual.py",
+                "tests/test_phase1_generation_pilot.py",
+                "tests/test_phase2_transmission_pilot.py",
+                "tests/test_phase3_campus_pilot.py",
+                "tests/test_phase4_building_pilot.py",
+                "tests/test_phase5_compute_pilot.py",
+                "tests/test_phase6_heat_pilot.py",
+                "tests/test_course_v2_runtime.py",
+            },
+        )
+        finding_id = "PED-R22-SIX-PHASE-TEACHING-ARCHITECTURE-01"
+        self.assertEqual(
+            set(manifest["finding_owners"][finding_id]),
+            {
+                "OWNER-V2-TEACHING-PILOT",
+                "OWNER-QUALITY-CONTRACT",
+                "OWNER-VALIDATION-CHAMPION",
+            },
+        )
+        change = next(
+            record
+            for record in manifest["changes"]
+            if record["change_id"] == "CHANGE-R22-V2-DESIGN-AND-TEACHING-PILOTS"
+        )
+        self.assertEqual(change["finding_ids"], [finding_id])
+        self.assertIn("src/gigawatt/generated_artifacts.py", change["source_paths"])
+
+        for artifact_id in (
+            "diagram/phase1_generation.html",
+            "diagram/phase2_transmission.html",
+            "diagram/phase3_campus.html",
+            "diagram/phase4_building.html",
+            "diagram/phase5_compute.html",
+            "diagram/phase6_heat.html",
+            "diagram/course_v2_runtime.json",
+            "diagram/course_v2.html",
+            "course/INSTRUCTOR_PACKET_V2.md",
+        ):
+            with self.subTest(artifact_id=artifact_id):
+                self.assertIn(artifact_id, quality.GENERATED_OUTPUT_PATH_ALLOWLIST)
+                self.assertIn(
+                    artifact_id,
+                    quality.generated_artifacts.GENERATED_ARTIFACT_COMMANDS,
+                )
+                self.assertNotIn(
+                    artifact_id,
+                    quality.generated_artifacts.ACCEPTANCE_MATERIALIZED_ARTIFACT_COMMANDS,
+                )
+                self.assertNotIn(
+                    artifact_id,
+                    quality.ACCEPTANCE_GENERATED_ARTIFACT_IDS,
+                )
+
 
 class AcceptanceEvidenceContractTests(unittest.TestCase):
     @staticmethod
@@ -4715,7 +4807,21 @@ class QualityRegistryTests(unittest.TestCase):
     def test_audit_program_and_frozen_champion_are_truthfully_pending(self) -> None:
         audit_program = self.registry["audit_program"]
         self.assertEqual(audit_program["schema_version"], 1)
-        self.assertEqual(len(audit_program["rounds"]), 21)
+        self.assertEqual(len(audit_program["rounds"]), 22)
+        redesign_round = audit_program["rounds"][-1]
+        self.assertEqual(redesign_round["round_id"], "static_round_22")
+        self.assertEqual(
+            redesign_round["selected_finding_id"],
+            "PED-R22-SIX-PHASE-TEACHING-ARCHITECTURE-01",
+        )
+        self.assertEqual(
+            {
+                decision["scope"]
+                for decision in redesign_round["consultation_decisions"]
+                if decision["disposition"] == "authorized"
+            },
+            {"course_thesis", "course_order", "course_objectives", "visual_language"},
+        )
 
         segment_ids = [segment["segment_id"] for segment in self.registry["segments"]]
         duplicate_finding = copy.deepcopy(

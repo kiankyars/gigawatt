@@ -1,0 +1,690 @@
+schema_version: 1
+
+id: phase6_heat
+title: How heat returns from silicon to the atmosphere
+
+phase:
+  id: phase_6_heat
+  number: 6
+  title: Reject heat
+  anchor_question: How does heat get from silicon back to the atmosphere?
+
+learning_objective: >-
+  Begin at component heat, follow the generic liquid and residual-air removal
+  paths to a facility heat-rejection terminal, distinguish the Technology
+  Cooling System from the Facility Water System, and preserve the limits of the
+  Abilene design and operating evidence.
+
+evidence_files:
+  thermal_engineering: evidence/thermal_engineering.yaml
+  abilene: evidence/abilene.yaml
+  abilene_execution: evidence/abilene_execution.yaml
+  commercial_compute: evidence/commercial_compute.yaml
+  delivery_resilience: evidence/delivery_resilience.yaml
+
+interaction:
+  mode: manual
+  advance: instructor_controlled
+
+canvas:
+  kind: heat_return_v1
+  width: 1600
+  height: 900
+  contract:
+    state_selection: exclusive_single_primary_layer
+    primary_layers:
+      - liquid_path
+      - residual_air_path
+      - facility_rejection
+      - abilene_mapping
+      - journey_closure
+    evidence_binding: content_record_fact_refs
+    geometry_owner: heat_return_renderer
+    closure_requires: journey_closure
+
+energy_handoff:
+  title: Useful computation and heat are two accounting views, not two pie slices
+  body: >-
+    Electricity enables a useful information-processing service while most
+    electrical power consumed by IT equipment becomes heat that cooling must
+    remove. The course does not subtract an invented useful-compute percentage
+    from an electrical input or treat tokens as a conserved energy stream.
+  views:
+    - id: electrical_input
+      title: IT-equipment electrical input
+      carrier: electrical power at the IT-equipment boundary
+      boundary: >-
+        This is not total facility input, current Abilene IT power, or a
+        processor-only measurement. PUE and facility power do not establish it
+        without boundary-matched energy or metering evidence.
+      fact_refs:
+        - thermal_engineering:generic_ite_electrical_input_heat
+        - commercial_compute:pue_energy_boundary
+        - commercial_compute:facility_energy_to_it_energy_recipe
+
+    - id: useful_compute_service
+      title: Desired service output
+      carrier: workload-specific training or inference output
+      boundary: >-
+        Useful computation is measured within a declared workload and system
+        boundary. Facility MW alone does not establish active utilization,
+        training efficiency, inference throughput, or tokens.
+      fact_refs:
+        - commercial_compute:training_mfu_definition
+        - commercial_compute:inference_measurement_boundary
+        - commercial_compute:mw_to_tokens_scenario_recipe
+
+    - id: heat_obligation
+      title: Thermal obligation
+      carrier: heat that cooling systems must remove
+      boundary: >-
+        The evidence supports a generic majority-of-ITE relationship, not a
+        universal percentage, a per-die split, or an Abilene thermal-load value.
+      fact_refs:
+        - thermal_engineering:generic_ite_electrical_input_heat
+
+  allocation_guard:
+    id: views_not_energy_fractions
+    body: >-
+      Do not draw useful compute and heat as numerical fractions of one pie.
+      Useful compute is the desired service; heat is the dominant local energy
+      consequence. Neither view supplies an Abilene power allocation.
+    concise_boundary: >-
+      Useful compute is a service, not an energy slice; no site heat fraction
+      is inferred.
+    fact_refs:
+      - thermal_engineering:generic_ite_electrical_input_heat
+      - commercial_compute:mw_to_tokens_scenario_recipe
+      - commercial_compute:abilene_current_it_power_mw
+      - commercial_compute:abilene_measured_token_throughput
+
+liquid_path:
+  title: The liquid path moves heat across distinct interfaces
+  body: >-
+    Follow heat from the electronic component into a cold plate, then follow
+    warmed coolant through a rack manifold and Technology Cooling System. A
+    liquid-to-liquid CDU is a generic interface reference, not an Abilene
+    installed package claim.
+  stages:
+    - id: die_heat_source
+      title: Processor or other high-power component
+      verb: release heat from electrical operation
+      carrier: heat at the component boundary
+      boundary: >-
+        The visual withholds component power, useful-work fraction, junction
+        temperature, and site thermal load.
+      fact_refs:
+        - thermal_engineering:generic_ite_electrical_input_heat
+
+    - id: cold_plate_heat_exchange
+      title: Cold plate
+      verb: conduct component heat into coolant channels
+      carrier: heat into Technology Cooling System coolant
+      boundary: >-
+        The cold-plate role is generic. NVIDIA documents CPU and GPU cold plates
+        for the product family, but this does not prove an Abilene as-built
+        cold-plate inventory or operating condition.
+      fact_refs:
+        - thermal_engineering:generic_cold_plate_heat_transfer
+        - abilene:rack_liquid_cooled_components
+        - abilene:cooling_direct_to_chip_design
+
+    - id: rack_manifold_distribution
+      title: Rack manifold
+      verb: distribute supply and collect warmed return across rack equipment
+      carrier: Technology Cooling System supply and return
+      boundary: >-
+        No header arrangement, flow, pressure drop, coolant, temperature, or
+        rack quantity is assigned to Abilene.
+      fact_refs:
+        - thermal_engineering:generic_tcs_supply_return_path
+        - thermal_engineering:generic_rack_manifold_flow_role
+        - abilene:rack_liquid_cooled_components
+
+    - id: technology_loop_return
+      title: Technology Cooling System loop
+      verb: carry warmed return toward a heat-exchange boundary
+      carrier: warmed IT-side coolant
+      boundary: >-
+        Supply and return directions are generic. They do not establish the
+        Abilene routing, coolant, package count, or setpoints.
+      fact_refs:
+        - thermal_engineering:generic_tcs_supply_return_path
+        - abilene_execution:facility_cooling_interfaces_as_built
+
+    - id: conditional_cdu_boundary
+      title: Conditional liquid-to-liquid CDU boundary
+      verb: isolate loops and transfer heat without mixing their coolants
+      carrier: heat from Technology Cooling System to Facility Water System
+      render_posture: generic_reference_unresolved_at_abilene
+      boundary: >-
+        A CDU is a valid generic teaching boundary. Public Abilene evidence does
+        not establish CDU presence, package location, quantity, heat exchanger,
+        redundancy, controls, or setpoints.
+      fact_refs:
+        - thermal_engineering:generic_cdu_loop_isolation_heat_exchange
+        - thermal_engineering:generic_cdu_control_functions
+        - abilene_execution:cdu_site_configuration
+        - abilene_execution:facility_cooling_interfaces_as_built
+
+    - id: facility_loop_entry
+      title: Facility Water System boundary
+      verb: receive heat for transport toward plant heat rejection
+      carrier: heat in facility coolant
+      boundary: >-
+        Abilene selected a closed facility loop, but its package interfaces and
+        current operating measurements remain unpublished.
+      fact_refs:
+        - thermal_engineering:generic_facility_loop_heat_transport
+        - abilene_execution:facility_cooling_water_system_design
+        - abilene_execution:facility_cooling_interfaces_as_built
+        - abilene_execution:facility_cooling_operating_measurements
+
+residual_air_path:
+  title: Liquid cooling can leave a parallel residual-air obligation
+  body: >-
+    Product documentation identifies air-cooled networking, storage, and other
+    non-CPU/GPU rack components. In a generic hybrid arrangement, warm room air
+    can return to an air handler whose coil transfers heat into a facility loop
+    while conditioned air returns to the data hall.
+  stages:
+    - id: air_cooled_auxiliaries
+      title: Air-cooled rack components
+      verb: transfer component heat into rack airflow
+      carrier: warm rack exhaust air
+      boundary: >-
+        The component set is a product reference, not an Abilene airflow,
+        equipment-count, or operating observation.
+      fact_refs:
+        - abilene:rack_air_cooled_components
+        - thermal_engineering:generic_parallel_liquid_air_cooling
+
+    - id: warm_air_return
+      title: Warm data-hall return air
+      verb: carry residual heat toward air-handling equipment
+      carrier: warm room air
+      boundary: >-
+        No Abilene airflow direction, containment layout, temperature, humidity,
+        or fan operating point is asserted.
+      fact_refs:
+        - thermal_engineering:generic_crah_air_heat_removal_path
+        - abilene_execution:residual_air_site_configuration
+
+    - id: conditional_air_handler
+      title: Conditional CRAH or central air handler
+      verb: transfer air-side heat into coolant and return conditioned air
+      carrier: heat into a facility coolant loop
+      render_posture: generic_reference_unresolved_at_abilene
+      boundary: >-
+        CRAH is a generic role label. Public evidence does not establish whether
+        Abilene uses CRAHs, fan walls, another residual-air design, or a particular
+        facility-loop connection.
+      fact_refs:
+        - thermal_engineering:generic_crah_air_heat_removal_path
+        - thermal_engineering:generic_crah_variable_airflow_control
+        - abilene_execution:residual_air_site_configuration
+        - abilene_execution:facility_cooling_interfaces_as_built
+
+    - id: facility_loop_merge
+      title: Facility heat-transport boundary
+      verb: combine heat contributions without implying coolant-path mixing
+      carrier: thermal load presented to facility heat rejection
+      boundary: >-
+        The canvas converges heat arrows, not necessarily fluid circuits. It does
+        not assert a shared Abilene header, coil arrangement, or plant topology.
+      fact_refs:
+        - thermal_engineering:generic_parallel_liquid_air_cooling
+        - thermal_engineering:generic_facility_loop_heat_transport
+        - abilene_execution:facility_cooling_interfaces_as_built
+
+facility_rejection:
+  title: Facility equipment returns the captured heat to the environment
+  body: >-
+    A generic facility loop carries heat to plant heat-rejection equipment. For
+    Abilene, the selected terminal family is air-cooled chillers that reject heat
+    to ambient air without evaporative water consumption in that heat-rejection
+    process. That statement is a design selection, not operating telemetry.
+  stages:
+    - id: facility_loop_transport
+      title: Facility Water System
+      verb: transport accumulated IT heat toward the plant
+      carrier: warmed facility coolant
+      boundary: >-
+        Controls may vary flow, differential pressure, and supply temperature;
+        no Abilene control sequence or setpoint is supplied.
+      fact_refs:
+        - thermal_engineering:generic_facility_loop_heat_transport
+        - thermal_engineering:generic_facility_loop_load_control
+        - abilene_execution:facility_cooling_water_system_design
+        - abilene_execution:facility_cooling_operating_measurements
+
+    - id: air_cooled_terminal
+      title: Selected Abilene air-cooled chiller terminal
+      verb: reject facility-loop heat to ambient air
+      carrier: heat in outdoor air
+      evidence_posture: selected_design_not_operating_measurement
+      boundary: >-
+        The public record does not establish chiller model, count, capacity,
+        setpoints, redundancy, commissioning readings, or current operation.
+      fact_refs:
+        - abilene:cooling_heat_rejection_posture
+        - abilene_execution:facility_heat_rejection_terminal
+        - abilene_execution:facility_cooling_operating_measurements
+
+    - id: atmosphere_sink
+      title: Atmosphere
+      verb: receive rejected heat at the end of the taught path
+      carrier: heat
+      boundary: >-
+        The terminal sink closes the physical journey; it does not imply that
+        coolant, electricity, or the same physical watt circulates back to generation.
+      fact_refs:
+        - thermal_engineering:generic_facility_loop_heat_transport
+        - abilene_execution:facility_heat_rejection_terminal
+
+  water_accounts:
+    - id: rejection_process_water
+      title: Heat-rejection process water
+      display: No evaporative consumption in the selected Abilene design
+      accounting_posture: selected_design_not_sitewide_measurement
+      boundary: >-
+        This excludes neither initial fill nor maintenance water and is not a
+        measured whole-campus water-use value.
+      fact_refs:
+        - abilene:cooling_heat_rejection_posture
+        - abilene_execution:facility_heat_rejection_terminal
+
+    - id: initial_fill
+      title: Initial closed-loop fill
+      display: Approximately 1,000,000 gallons per building as a design requirement
+      accounting_posture: design_requirement_not_measured_consumption
+      boundary: >-
+        Do not multiply by planned building count or present it as annual or
+        current consumption.
+      fact_refs:
+        - abilene:cooling_initial_fill_gallons_per_building
+
+    - id: anticipated_maintenance
+      title: Anticipated maintenance water
+      display: Approximately 50,000 gallons per building per year
+      accounting_posture: anticipated_not_observed
+      boundary: >-
+        This forward-looking per-building value is not observed campus water use.
+      fact_refs:
+        - abilene:cooling_annual_maintenance_gallons_per_building
+
+    - id: measured_operating_water
+      title: Measured operating water use
+      display: Not established by the reviewed public evidence
+      accounting_posture: explicit_unknown_not_zero
+      boundary: >-
+        Null means unavailable evidence, not zero consumption.
+      fact_refs:
+        - abilene:cooling_measured_operating_consumption_gallons
+
+abilene_mapping:
+  title: Abilene supports a selected terminal design, not a complete operating flow diagram
+  known:
+    - id: selected_direct_liquid_design
+      title: Direct-to-chip design reference
+      body: >-
+        The original campus design calls for direct-to-chip liquid cooling in a
+        closed, zero-water-evaporation loop.
+      evidence_posture: design_reference_not_as_built_observation
+      fact_refs:
+        - abilene:cooling_direct_to_chip_design
+
+    - id: selected_facility_loop
+      title: Closed Facility Water System selection
+      body: >-
+        Crusoe describes a true closed loop that continuously recirculates water
+        and rejects heat through air-cooled chillers.
+      evidence_posture: selected_design_not_operating_measurement
+      fact_refs:
+        - abilene_execution:facility_cooling_water_system_design
+
+    - id: selected_air_cooled_terminal
+      title: Air-cooled heat rejection
+      body: >-
+        Air-cooled chillers are the selected terminal family, with no evaporative
+        water consumed by that heat-rejection process.
+      evidence_posture: selected_design_not_operating_measurement
+      fact_refs:
+        - abilene:cooling_heat_rejection_posture
+        - abilene_execution:facility_heat_rejection_terminal
+
+    - id: disclosed_water_categories
+      title: Fill and maintenance disclosures
+      body: >-
+        Public design disclosures separate initial fill from anticipated annual
+        maintenance water; neither is measured operating consumption.
+      evidence_posture: design_and_anticipated_values
+      fact_refs:
+        - abilene:cooling_initial_fill_gallons_per_building
+        - abilene:cooling_annual_maintenance_gallons_per_building
+        - abilene:cooling_measured_operating_consumption_gallons
+
+  unknown:
+    - id: cdu_presence_and_configuration
+      title: CDU presence and configuration
+      body: >-
+        Public evidence does not establish CDU presence by rack or row, package
+        selection, quantity, heat-exchanger boundary, redundancy, or controls.
+      fact_refs:
+        - abilene_execution:cdu_site_configuration
+
+    - id: cooling_interfaces
+      title: As-built cooling interfaces
+      body: >-
+        Interfaces among rack manifolds, any CDUs, residual-air equipment, pumps,
+        the Facility Water System, and chillers remain unpublished.
+      fact_refs:
+        - abilene_execution:facility_cooling_interfaces_as_built
+
+    - id: residual_air_equipment
+      title: Residual-air equipment and path
+      body: >-
+        CRAH or fan-wall selection, package count, airflow direction, redundancy,
+        and facility-loop connection are not established.
+      fact_refs:
+        - abilene_execution:residual_air_site_configuration
+
+    - id: loop_setpoints_and_measurements
+      title: Loop setpoints and operating measurements
+      body: >-
+        Coolants, temperatures, flows, pressures, control setpoints, thermal
+        capacity, and current operating values are not publicly established.
+      fact_refs:
+        - abilene_execution:cdu_site_configuration
+        - abilene_execution:facility_cooling_operating_measurements
+
+    - id: measured_site_water
+      title: Measured operating water use
+      body: >-
+        The design fill and anticipated maintenance disclosures do not establish
+        measured building or campus operating consumption.
+      fact_refs:
+        - abilene:cooling_measured_operating_consumption_gallons
+
+  validation_boundary:
+    id: design_delivery_operation_are_separate
+    body: >-
+      A selected design or delivered package does not prove installation,
+      commissioning, integrated testing, operating state, or measured performance.
+      Generic liquid-cooling acceptance stages remain a reference, not an Abilene record.
+    fact_refs:
+      - delivery_resilience:liquid_cooling_acceptance_sequence
+      - abilene_execution:facility_cooling_operating_measurements
+
+journey_closure:
+  title: The six-phase journey closes once heat reaches the atmosphere
+  body: >-
+    Reconnect the same case-study journey without turning its evidence gaps into
+    continuity claims. Electricity is made, transmitted, distributed across the
+    campus, delivered through a building, converted into useful compute, and its
+    thermal consequence is rejected to the atmosphere.
+  stages:
+    - id: generate
+      number: 1
+      title: Generate
+      carrier: electricity begins at a generator terminal
+      abilene_posture: onsite plant delivered; current output and operating posture unknown
+      fact_refs:
+        - abilene_execution:onsite_power_plant_delivery_confirmed
+        - abilene_execution:gas_turbine_current_output_mw
+        - abilene_execution:gas_turbine_current_operating_posture
+
+    - id: transmit
+      number: 2
+      title: Transmit
+      carrier: high-voltage grid service reaches distinct site-side substations
+      abilene_posture: initial 138 kV path operating; expansion upstream line remains unnamed
+      fact_refs:
+        - abilene:grid_initial_substation_voltage_kv
+        - abilene:grid_initial_service_operational_as_of
+        - abilene:grid_expansion_substation_voltage_kv
+        - abilene:grid_expansion_upstream_line
+
+    - id: campus
+      number: 3
+      title: Campus
+      carrier: the campus phase asks how sources are selected, merged, and fanned out
+      abilene_posture: source merge, switching state, and feeder arrangement remain unknown
+      fact_refs:
+        - abilene:campus_source_merge_as_built_topology
+
+    - id: building
+      number: 4
+      title: Building
+      carrier: protected facility power approaches rack positions
+      abilene_posture: electrical equipment deployed; as-built power train unpublished
+      fact_refs:
+        - abilene_execution:building_electrical_delivery_scope
+        - abilene_execution:building_power_train_as_built_configuration
+
+    - id: compute
+      number: 5
+      title: Compute
+      carrier: electrical power enables workload-specific information processing
+      abilene_posture: early training and inference confirmed; measured throughput unavailable
+      fact_refs:
+        - commercial_compute:abilene_compute_activity_roles
+        - commercial_compute:abilene_measured_token_throughput
+
+    - id: reject_heat
+      number: 6
+      title: Reject heat
+      carrier: liquid and residual-air paths carry heat to the facility terminal and atmosphere
+      abilene_posture: air-cooled terminal selected; interfaces and operating measurements unknown
+      fact_refs:
+        - abilene_execution:facility_heat_rejection_terminal
+        - abilene_execution:facility_cooling_interfaces_as_built
+        - abilene_execution:facility_cooling_operating_measurements
+
+  closure_guard:
+    id: journey_not_as_built_one_line
+    body: >-
+      The closure is a conceptual course index plus evidence posture. It is not
+      an Abilene as-built one-line, process-flow diagram, operating trace, or
+      claim that one identifiable physical watt traverses every layer.
+    fact_refs:
+      - abilene:campus_source_merge_as_built_topology
+      - abilene_execution:building_power_train_as_built_configuration
+      - abilene_execution:facility_cooling_interfaces_as_built
+
+evidence_gaps:
+  - id: abilene_cdu_and_interface_topology
+    gap: >-
+      Current primary evidence does not establish CDU presence or configuration
+      or the as-built interfaces among rack, technology-loop, air-side,
+      facility-loop, pump, and chiller equipment.
+    renderer_guard: >-
+      Draw the CDU and all downstream package interfaces as conditional generic
+      references, never as installed Abilene topology.
+    related_state_ids:
+      - rack_to_facility_boundary
+      - parallel_residual_air
+      - facility_rejection_and_water
+      - whole_journey_closure
+    related_fact_refs:
+      - abilene_execution:cdu_site_configuration
+      - abilene_execution:facility_cooling_interfaces_as_built
+
+  - id: abilene_residual_air_path
+    gap: >-
+      Product documentation identifies air-cooled auxiliary components, but the
+      Abilene residual-air equipment, routing, airflow, redundancy, and loop
+      connection are not published.
+    renderer_guard: >-
+      Keep CRAH or air-handler geometry conditional and avoid site quantities,
+      airflow arrows presented as observed, or named package selections.
+    related_state_ids:
+      - parallel_residual_air
+      - facility_rejection_and_water
+      - whole_journey_closure
+    related_fact_refs:
+      - abilene:rack_air_cooled_components
+      - abilene_execution:residual_air_site_configuration
+
+  - id: abilene_thermal_operating_point
+    gap: >-
+      No reviewed evidence supplies Abilene coolant, loop setpoints, temperature,
+      flow, pressure, thermal capacity, commissioning readings, or current
+      operating telemetry.
+    renderer_guard: >-
+      Show no numerical setpoint, flow width, temperature gradient, capacity,
+      utilization, efficiency, or live operating status.
+    related_state_ids:
+      - rack_to_facility_boundary
+      - facility_rejection_and_water
+      - whole_journey_closure
+    related_fact_refs:
+      - abilene_execution:cdu_site_configuration
+      - abilene_execution:facility_cooling_operating_measurements
+      - delivery_resilience:liquid_cooling_acceptance_sequence
+
+  - id: abilene_measured_water_account
+    gap: >-
+      Initial fill and anticipated annual maintenance are design disclosures;
+      measured operating water consumption remains unavailable.
+    renderer_guard: >-
+      Keep all four water accounts separate, preserve approximately and
+      per-building qualifiers, and never convert null to zero or multiply by the
+      planned building count.
+    related_state_ids:
+      - facility_rejection_and_water
+      - whole_journey_closure
+    related_fact_refs:
+      - abilene:cooling_heat_rejection_posture
+      - abilene:cooling_initial_fill_gallons_per_building
+      - abilene:cooling_annual_maintenance_gallons_per_building
+      - abilene:cooling_measured_operating_consumption_gallons
+
+states:
+  - id: die_to_cold_plate
+    nav_label: Cold plate
+    title: Move component heat into the technology coolant
+    instruction: >-
+      Follow heat through the physical contact and coolant-channel boundary while
+      keeping power, temperatures, coolant, and Abilene operating state unknown.
+    energy_view_ids: [heat_obligation]
+    liquid_stage_ids: [die_heat_source, cold_plate_heat_exchange]
+    residual_air_stage_ids: []
+    facility_stage_ids: []
+    water_account_ids: []
+    abilene_known_ids: [selected_direct_liquid_design]
+    abilene_unknown_ids: [loop_setpoints_and_measurements]
+    journey_stage_ids: []
+
+  - id: rack_to_facility_boundary
+    nav_label: Liquid loops
+    title: Cross the rack manifold and a conditional CDU boundary
+    instruction: >-
+      Distinguish Technology Cooling System supply and return from the Facility
+      Water System, with the CDU visibly conditional for the Abilene case.
+    energy_view_ids: []
+    liquid_stage_ids:
+      - cold_plate_heat_exchange
+      - rack_manifold_distribution
+      - technology_loop_return
+      - conditional_cdu_boundary
+      - facility_loop_entry
+    residual_air_stage_ids: []
+    facility_stage_ids: []
+    water_account_ids: []
+    abilene_known_ids: [selected_direct_liquid_design, selected_facility_loop]
+    abilene_unknown_ids:
+      - cdu_presence_and_configuration
+      - cooling_interfaces
+      - loop_setpoints_and_measurements
+    journey_stage_ids: []
+
+  - id: parallel_residual_air
+    nav_label: Residual air
+    title: Add the parallel air-side heat-removal path
+    instruction: >-
+      Keep liquid-cooled processors and air-cooled auxiliaries in parallel, and
+      converge heat at a facility boundary without asserting mixed coolant loops.
+    energy_view_ids: []
+    liquid_stage_ids:
+      - cold_plate_heat_exchange
+      - rack_manifold_distribution
+      - technology_loop_return
+      - conditional_cdu_boundary
+      - facility_loop_entry
+    residual_air_stage_ids:
+      - air_cooled_auxiliaries
+      - warm_air_return
+      - conditional_air_handler
+      - facility_loop_merge
+    facility_stage_ids: []
+    water_account_ids: []
+    abilene_known_ids: [selected_direct_liquid_design, selected_facility_loop]
+    abilene_unknown_ids:
+      - cdu_presence_and_configuration
+      - cooling_interfaces
+      - residual_air_equipment
+      - loop_setpoints_and_measurements
+    journey_stage_ids: []
+
+  - id: facility_rejection_and_water
+    nav_label: Atmosphere
+    title: Reject heat to ambient air and keep four water accounts separate
+    instruction: >-
+      Complete the selected Abilene facility-loop path, then distinguish
+      heat-rejection process water, initial fill, anticipated maintenance, and
+      unavailable measured operating water.
+    energy_view_ids: []
+    liquid_stage_ids: [facility_loop_entry]
+    residual_air_stage_ids: [facility_loop_merge]
+    facility_stage_ids: [facility_loop_transport, air_cooled_terminal, atmosphere_sink]
+    water_account_ids:
+      - rejection_process_water
+      - initial_fill
+      - anticipated_maintenance
+      - measured_operating_water
+    abilene_known_ids:
+      - selected_direct_liquid_design
+      - selected_facility_loop
+      - selected_air_cooled_terminal
+      - disclosed_water_categories
+    abilene_unknown_ids:
+      - cdu_presence_and_configuration
+      - cooling_interfaces
+      - residual_air_equipment
+      - loop_setpoints_and_measurements
+      - measured_site_water
+    journey_stage_ids: []
+
+  - id: whole_journey_closure
+    nav_label: Full journey
+    title: Reconnect Generate through Reject heat
+    instruction: >-
+      Replay the six phase labels and their Abilene evidence posture, ending at
+      the atmosphere without converting the course index into an as-built diagram.
+    energy_view_ids: []
+    liquid_stage_ids:
+      - die_heat_source
+      - cold_plate_heat_exchange
+      - rack_manifold_distribution
+      - technology_loop_return
+      - conditional_cdu_boundary
+      - facility_loop_entry
+    residual_air_stage_ids:
+      - air_cooled_auxiliaries
+      - warm_air_return
+      - conditional_air_handler
+      - facility_loop_merge
+    facility_stage_ids: [facility_loop_transport, air_cooled_terminal, atmosphere_sink]
+    water_account_ids: [rejection_process_water, measured_operating_water]
+    abilene_known_ids:
+      - selected_direct_liquid_design
+      - selected_facility_loop
+      - selected_air_cooled_terminal
+    abilene_unknown_ids:
+      - cdu_presence_and_configuration
+      - cooling_interfaces
+      - residual_air_equipment
+      - loop_setpoints_and_measurements
+      - measured_site_water
+    journey_stage_ids: [generate, transmit, campus, building, compute, reject_heat]

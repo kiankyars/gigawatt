@@ -1,0 +1,208 @@
+schema_version: 1
+
+id: phase1_generation
+title: Where electricity comes from
+
+phase:
+  id: phase_1_generation
+  number: 1
+  title: Make electricity
+  anchor_question: Where can an electrical watt come from?
+
+learning_objective: >-
+  Recognize the major physical generation families, follow their conversion
+  paths to an electrical interface, and distinguish generation from storage,
+  standby power, and contractual procurement.
+
+evidence_files:
+  generation_transmission: evidence/generation_transmission.yaml
+  commercial_energy: evidence/commercial_energy.yaml
+  abilene: evidence/abilene.yaml
+  abilene_execution: evidence/abilene_execution.yaml
+
+interaction:
+  mode: manual
+  advance: instructor_controlled
+
+canvas:
+  kind: generation_landscape_v1
+  width: 1600
+  height: 900
+
+families:
+  - id: heat_turbine
+    title: Heat or hot gas
+    examples:
+      - Natural gas and coal
+      - Nuclear and biomass
+      - Geothermal and solar thermal
+    path:
+      - Fuel, fission, or earth/sun heat
+      - Heat or combustion gas
+      - Turbine and shaft
+      - Generator
+      - AC electricity
+    fact_refs:
+      - generation_transmission:turbine_generator_conversion_family
+      - generation_transmission:thermal_sources_share_steam_path
+      - generation_transmission:combustion_gas_direct_turbine_path
+
+  - id: moving_fluid
+    title: Moving water or air
+    examples:
+      - Hydropower
+      - Wind
+    path:
+      - Moving water or air
+      - Rotor or turbine
+      - Generator
+      - AC electricity
+    fact_refs:
+      - generation_transmission:turbine_generator_conversion_family
+      - generation_transmission:moving_water_and_wind_paths
+
+  - id: solar_pv
+    title: Direct photovoltaic conversion
+    examples:
+      - Solar PV
+    path:
+      - Photons
+      - Semiconductor cell
+      - DC electricity
+      - Inverter
+      - AC electricity
+    fact_refs:
+      - generation_transmission:solar_pv_dc_inverter_path
+
+  - id: fuel_cell
+    title: Direct electrochemical conversion
+    examples:
+      - Stationary fuel cells
+    path:
+      - Fuel and reactants
+      - Electrochemical stack
+      - DC electricity
+      - Power conditioning
+      - AC electricity
+    fact_refs:
+      - generation_transmission:fuel_cell_dc_conditioning_path
+
+distinctions:
+  - id: storage_not_primary_source
+    title: Batteries and pumped storage shift electricity through time
+    body: >-
+      Batteries and pumped storage must first be charged before later discharge
+      or generation. Both time-shift energy rather than create a primary energy
+      source. MW describes output rate; MWh describes stored energy.
+    fact_refs:
+      - generation_transmission:storage_is_charged_secondary_supply
+      - generation_transmission:storage_power_and_energy_are_distinct
+
+  - id: ppa_not_physical_generator
+    title: A PPA is a contract, not a generator or dedicated wire
+    body: >-
+      Contractual attributes and the physical grid route are separate layers.
+      Buying nuclear power does not place a reactor beside the campus.
+    fact_refs:
+      - commercial_energy:crane_microsoft_ppa_contract
+      - commercial_energy:scope2_contractual_attributes_not_physical_flow
+
+  - id: standby_is_a_role
+    title: Diesel is generation; standby is its role
+    body: >-
+      An engine-generator physically makes electricity, but its architectural
+      job may be emergency or backup supply rather than ordinary energy supply.
+    fact_refs:
+      - generation_transmission:diesel_generation_can_fill_standby_role
+
+abilene_case:
+  title: Abilene narrows the landscape to an evidenced gas path
+  path:
+    - Natural gas
+    - Gas turbine
+    - Shaft
+    - Generator
+    - Generator-terminal electrical boundary
+  fact_refs:
+    - generation_transmission:combustion_gas_direct_turbine_path
+    - abilene:gas_turbine_units_authorized
+    - abilene:gas_permitted_nameplate_mw
+    - abilene_execution:onsite_power_plant_delivery_confirmed
+    - abilene_execution:ge_vernovas_gas_turbines_installed
+    - abilene_execution:installed_gas_turbine_unit_count
+    - abilene_execution:installed_gas_turbine_model_mix
+    - abilene_execution:gas_turbine_commissioned_capacity_mw
+    - abilene_execution:gas_turbine_current_output_mw
+    - abilene_execution:gas_turbine_current_operating_posture
+    - abilene_execution:generator_terminal_site_voltage_kv
+    - abilene_execution:gsu_as_built_ratio_and_connection
+  boundary: >-
+    Public evidence confirms delivery of an onsite power plant and installation
+    of GE Vernova gas turbines. The permit authorizes ten units totaling 360.5
+    MW, but exact installed count and model mix, commissioned MW, current output,
+    operating posture, generator-terminal voltage, and GSU configuration remain
+    unestablished.
+
+states:
+  - id: physical_families
+    nav_label: Sources
+    title: Many energy sources, four conversion families
+    instruction: >-
+      Establish the physical transformations before comparing technology roles
+      or applying the Abilene case.
+    family_ids: [heat_turbine, moving_fluid, solar_pv, fuel_cell]
+    distinction_ids: []
+    show_common_bus: false
+    show_abilene_case: false
+    show_handoff: false
+
+  - id: common_electrical_interface
+    nav_label: Interface
+    title: Different beginnings converge on an electrical interface
+    instruction: >-
+      Make the shared output visible while preserving the different conversion
+      machinery that produced it.
+    family_ids: [heat_turbine, moving_fluid, solar_pv, fuel_cell]
+    distinction_ids: []
+    show_common_bus: true
+    show_abilene_case: false
+    show_handoff: false
+
+  - id: roles_are_not_technologies
+    nav_label: Roles
+    title: Generation, storage, standby, and contracts are different properties
+    instruction: >-
+      Separate physical conversion from time shifting, architectural role, and
+      commercial attribution.
+    family_ids: []
+    distinction_ids:
+      - storage_not_primary_source
+      - ppa_not_physical_generator
+      - standby_is_a_role
+    show_common_bus: false
+    show_abilene_case: false
+    show_handoff: false
+
+  - id: abilene_selection
+    nav_label: Abilene
+    title: The reference campus selects one physical generation path
+    instruction: >-
+      Map the generic gas conversion onto Abilene only after separating permit,
+      installation, commissioning, output, storage, standby, and contract claims.
+    family_ids: []
+    distinction_ids: []
+    show_common_bus: false
+    show_abilene_case: true
+    show_handoff: false
+
+  - id: transmission_handoff
+    nav_label: Transmit
+    title: Electricity now exists; the next problem is moving a gigawatt
+    instruction: >-
+      Leave generation at the electrical boundary and motivate voltage step-up,
+      transmission, and large-load interconnection.
+    family_ids: []
+    distinction_ids: []
+    show_common_bus: false
+    show_abilene_case: true
+    show_handoff: true
