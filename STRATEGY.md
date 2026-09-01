@@ -202,11 +202,14 @@ boundary at the die → 3D thermal return. It proves the hybrid runtime; it is n
 the canonical full-course sequence. `course/segments.yaml` retains the frozen v1
 sequence; the canonical v2 sequence lives in `course/course_v2.yaml`.
 
-The canonical v2 player reuses three of those validated cameras as optional,
-manual spatial anchors: electrical room in Phase 4, data hall and rack in Phase
-5, and thermal return in Phase 6. They are available at 900 px and wider, carry
-an explicit conceptual/non-as-built boundary, and never replace the 2D teaching
-state that owns causal relationships and evidence detail.
+The canonical v2 player binds the preserved 3D work to specific manual states
+across all six phases. At 900 px and wider, the campus camera or an authored v1
+segment frame is the primary teaching view when spatial location, nesting, or
+scale carries the explanation. The same state retains a 2D causal and
+evidence-detail alternate. Every mapping carries an explicit conceptual or
+evidence boundary, and no camera promotes an unresolved Abilene interface to an
+as-built claim. This is reuse of the validated renderer and framing, not a
+return to the frozen v1 sequence.
 
 ## Current production package
 
@@ -218,7 +221,7 @@ state that owns causal relationships and evidence detail.
 - **Runtime target.** Deliberately unset. `course/segments.yaml` supplies
   relative production weights, but the presenter owns dwell and total length.
 - **Full phase inventory.** Complete: Generate, Transmit, Campus, Building,
-  Compute, and Reject heat contain 33 coarse manual states, followed by three
+  Compute, and Reject heat contain coarse manual states, followed by three
   whole-system synthesis lenses.
 - **Evidence gate.** Every phase compiles qualified facts and explicit boundaries
   from registered ledgers. Unavailable private site, commercial, utilization,
@@ -226,9 +229,11 @@ state that owns causal relationships and evidence detail.
 - **Production package.** `diagram/course_v2.html`,
   `diagram/course_v2_runtime.json`, and `course/INSTRUCTOR_PACKET_V2.md` are
   generated from the same spine and phase contracts. The player also binds
-  `diagram/hybrid.html` and its camera/map/local-runtime dependencies for the
-  three manual spatial anchors. `course/TESTING.md` owns the untimed editorial
-  walkthrough.
+  `diagram/hybrid.html` for the campus camera and the byte-preserved
+  `diagram/course.html` for segment-specific 3D frames, together with their
+  camera/map/local-runtime dependencies. `course/TESTING.md` owns the untimed
+  editorial walkthrough.
 - **Historical comparison.** `diagram/course.html`, its v1 registry and packet,
-  and the frozen acceptance corpus remain reconstructable but are not the
-  production course or v2 acceptance evidence.
+  and the frozen acceptance corpus remain reconstructable. The renderer is also
+  a production dependency for selected v2 views, but its old ordering and
+  historical acceptance evidence do not become the v2 course or v2 evidence.

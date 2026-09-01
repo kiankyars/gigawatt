@@ -23,6 +23,7 @@ RUNTIME_PATH = Path("diagram/course_v2_runtime.json")
 PLAYER_PATH = Path("diagram/course_v2.html")
 PACKET_PATH = Path("course/INSTRUCTOR_PACKET_V2.md")
 CAMERAS_PATH = Path("diagram/cameras.yaml")
+COURSE_RUNTIME_PATH = Path("diagram/course_runtime.json")
 PHASE_IDS = [
     "phase_1_generation",
     "phase_2_transmission",
@@ -31,20 +32,6 @@ PHASE_IDS = [
     "phase_5_compute",
     "phase_6_heat",
 ]
-CAMERA_IDS = [
-    "system_orientation",
-    "campus_establishing",
-    "electrical_room",
-    "data_hall_rack",
-    "watt_heat_handoff",
-    "thermal_return",
-]
-SPATIAL_PHASE_CAMERA_IDS = {
-    "phase_4_building": "electrical_room",
-    "phase_5_compute": "data_hall_rack",
-    "phase_6_heat": "thermal_return",
-}
-
 TOP_LEVEL_FIELDS = {
     "schema_version",
     "id",
@@ -57,9 +44,25 @@ TOP_LEVEL_FIELDS = {
     "synthesis",
 }
 JOURNEY_FIELDS = {"id", "title", "anchor_question", "body", "phase_ids"}
-SPATIAL_FIELDS = {"artifact", "minimum_width_px", "boundary", "anchors"}
-SPATIAL_ANCHOR_FIELDS = {"camera_id", "purpose"}
+SPATIAL_FIELDS = {"minimum_width_px", "state_views"}
+SPATIAL_VIEW_FIELDS = {
+    "artifact",
+    "view_kind",
+    "view_id",
+    "title",
+    "purpose",
+    "boundary",
+}
 CAMERA_ROOT_FIELDS = {"meta", "vertical_slice", "cameras"}
+COURSE_RUNTIME_FIELDS = {
+    "act_count",
+    "evidence_ready_count",
+    "research_required_count",
+    "schema_version",
+    "segment_count",
+    "segments",
+    "source_digest",
+}
 PHASE_FIELDS = {
     "id",
     "number",
@@ -316,83 +319,181 @@ def _normalize_evidence(raw: Any, location: str) -> dict[str, Any]:
     return {"ledger_ids": ledger_ids, "facts": facts, "sources": sources}
 
 
-def _normalize_spatial(raw: Any, cameras_raw: Any) -> dict[str, Any]:
+def _indexed_records(
+    records: Any,
+    *,
+    location: str,
+    id_field: str,
+) -> tuple[list[str], dict[str, dict[str, Any]]]:
+    if not isinstance(records, list) or not records:
+        raise CourseV2RuntimeError(f"{location} must be a non-empty list")
+    ids: list[str] = []
+    indexed: dict[str, dict[str, Any]] = {}
+    for index, record in enumerate(records):
+        record_location = f"{location}[{index}]"
+        if not isinstance(record, dict):
+            raise CourseV2RuntimeError(f"{record_location} must be a mapping")
+        record_id = _identifier(record.get(id_field), f"{record_location}.{id_field}")
+        if record_id in indexed:
+            raise CourseV2RuntimeError(f"{location}.{id_field} values must be unique")
+        ids.append(record_id)
+        indexed[record_id] = record
+    return ids, indexed
+
+
+def _normalize_spatial(
+    raw: Any,
+    cameras_raw: Any,
+    course_runtime_raw: Any,
+    phases: list[dict[str, Any]],
+) -> dict[str, Any]:
     spatial = _exact(raw, SPATIAL_FIELDS, "course v2.spatial")
-    artifact = _relative_path(
-        spatial["artifact"],
-        "course v2.spatial.artifact",
-        prefix="diagram/",
-        suffix=".html",
-    )
-    if artifact != "diagram/hybrid.html":
-        raise CourseV2RuntimeError(
-            "course v2.spatial.artifact must be 'diagram/hybrid.html'"
-        )
     minimum_width = spatial["minimum_width_px"]
     if type(minimum_width) is not int or minimum_width != 900:
         raise CourseV2RuntimeError(
             "course v2.spatial.minimum_width_px must be integer 900"
         )
-    boundary = _text(spatial["boundary"], "course v2.spatial.boundary", maximum=300)
-    boundary_lower = boundary.lower()
-    for required in ("conceptual spatial reference", "not abilene as-built", "2d"):
-        if required not in boundary_lower:
-            raise CourseV2RuntimeError(
-                "course v2.spatial.boundary must preserve the conceptual, "
-                "non-as-built, and 2D-detail limits"
-            )
 
-    if not isinstance(spatial["anchors"], dict) or set(spatial["anchors"]) != set(
-        SPATIAL_PHASE_CAMERA_IDS
+    camera_root = _exact(cameras_raw, CAMERA_ROOT_FIELDS, "cameras.yaml")
+    camera_ids, cameras = _indexed_records(
+        camera_root["cameras"], location="cameras.yaml.cameras", id_field="id"
+    )
+    if camera_root["vertical_slice"] != camera_ids:
+        raise CourseV2RuntimeError(
+            "cameras.yaml.vertical_slice must match the camera inventory order"
+        )
+
+    course_runtime = _exact(
+        course_runtime_raw, COURSE_RUNTIME_FIELDS, "course_runtime.json"
+    )
+    if (
+        type(course_runtime["schema_version"]) is not int
+        or course_runtime["schema_version"] != 1
     ):
         raise CourseV2RuntimeError(
-            "course v2.spatial.anchors must map exactly Building, Compute, and Heat"
+            "course_runtime.json.schema_version must be integer 1"
         )
-    camera_root = _exact(cameras_raw, CAMERA_ROOT_FIELDS, "cameras.yaml")
-    camera_records = camera_root["cameras"]
-    if not isinstance(camera_records, list):
-        raise CourseV2RuntimeError("cameras.yaml.cameras must be a list")
-    camera_ids = [
-        record.get("id") if isinstance(record, dict) else None
-        for record in camera_records
-    ]
-    if camera_ids != CAMERA_IDS or camera_root["vertical_slice"] != CAMERA_IDS:
+    base.validate_source_digest(course_runtime["source_digest"])
+    segment_ids, segments = _indexed_records(
+        course_runtime["segments"],
+        location="course_runtime.json.segments",
+        id_field="segment_id",
+    )
+    if type(course_runtime["segment_count"]) is not int or course_runtime[
+        "segment_count"
+    ] != len(segment_ids):
         raise CourseV2RuntimeError(
-            "cameras.yaml must preserve the canonical six-camera order"
+            "course_runtime.json.segment_count must match the segment inventory"
         )
-    cameras = {record["id"]: record for record in camera_records}
 
-    anchors: dict[str, dict[str, Any]] = {}
-    for phase_id, expected_camera_id in SPATIAL_PHASE_CAMERA_IDS.items():
-        location = f"course v2.spatial.anchors.{phase_id}"
-        anchor = _exact(spatial["anchors"][phase_id], SPATIAL_ANCHOR_FIELDS, location)
-        camera_id = _identifier(anchor["camera_id"], f"{location}.camera_id")
-        if camera_id != expected_camera_id:
+    raw_state_views = spatial["state_views"]
+    if not isinstance(raw_state_views, dict) or set(raw_state_views) != set(PHASE_IDS):
+        raise CourseV2RuntimeError(
+            "course v2.spatial.state_views must map exactly the six phase IDs"
+        )
+
+    phase_states = {
+        phase["id"]: {state["id"]: state for state in phase["states"]}
+        for phase in phases
+    }
+    artifact_kinds = {
+        "segment": "diagram/course.html",
+        "camera": "diagram/hybrid.html",
+    }
+    artifacts: set[str] = set()
+    view_count = 0
+    for phase_id in PHASE_IDS:
+        raw_phase_views = raw_state_views[phase_id]
+        phase_location = f"course v2.spatial.state_views.{phase_id}"
+        if not isinstance(raw_phase_views, dict) or not raw_phase_views:
+            raise CourseV2RuntimeError(f"{phase_location} must be a non-empty mapping")
+        for state_id in raw_phase_views:
+            _identifier(state_id, f"{phase_location}.state_id")
+        unknown_states = sorted(set(raw_phase_views) - set(phase_states[phase_id]))
+        if unknown_states:
             raise CourseV2RuntimeError(
-                f"{location}.camera_id must be {expected_camera_id!r}"
+                f"{phase_location} contains unknown state IDs {unknown_states}"
             )
-        camera = cameras[camera_id]
-        if camera.get("mode") != "3d":
-            raise CourseV2RuntimeError(f"{camera_id} must remain a 3D camera")
-        anchors[phase_id] = {
-            "phase_id": phase_id,
-            "camera_id": camera_id,
-            "camera_index": CAMERA_IDS.index(camera_id),
-            "camera_title": _text(
-                camera.get("title"), f"cameras.yaml.{camera_id}.title", maximum=100
-            ),
-            "camera_subtitle": _text(
-                camera.get("subtitle"),
-                f"cameras.yaml.{camera_id}.subtitle",
-                maximum=220,
-            ),
-            "purpose": _text(anchor["purpose"], f"{location}.purpose", maximum=360),
-        }
+        for state_id, raw_view in raw_phase_views.items():
+            location = f"{phase_location}.{state_id}"
+            view = _exact(raw_view, SPATIAL_VIEW_FIELDS, location)
+            artifact = _relative_path(
+                view["artifact"],
+                f"{location}.artifact",
+                prefix="diagram/",
+                suffix=".html",
+            )
+            view_kind = _identifier(view["view_kind"], f"{location}.view_kind")
+            if view_kind not in artifact_kinds:
+                raise CourseV2RuntimeError(
+                    f"{location}.view_kind must be 'segment' or 'camera'"
+                )
+            if artifact != artifact_kinds[view_kind]:
+                raise CourseV2RuntimeError(
+                    f"{location}: {view_kind!r} views must use "
+                    f"{artifact_kinds[view_kind]!r}"
+                )
+            view_id = _identifier(view["view_id"], f"{location}.view_id")
+            source = (
+                segments.get(view_id)
+                if view_kind == "segment"
+                else cameras.get(view_id)
+            )
+            if source is None:
+                inventory = (
+                    "course_runtime.json" if view_kind == "segment" else "cameras.yaml"
+                )
+                raise CourseV2RuntimeError(
+                    f"{location}.view_id {view_id!r} is not present in {inventory}"
+                )
+            source_mode = (
+                source.get("render_mode")
+                if view_kind == "segment"
+                else source.get("mode")
+            )
+            if source_mode != "3d":
+                raise CourseV2RuntimeError(
+                    f"{location}.view_id {view_id!r} must reference a 3D {view_kind}"
+                )
+            if (
+                view_kind == "segment"
+                and source.get("evidence_readiness") != "evidence_ready"
+            ):
+                raise CourseV2RuntimeError(
+                    f"{location}.view_id {view_id!r} must reference an evidence-ready segment"
+                )
+            source_title = _text(
+                source.get("title"),
+                f"{location}.source.title",
+                maximum=180,
+            )
+            title = _text(view["title"], f"{location}.title", maximum=180)
+            if title != source_title:
+                raise CourseV2RuntimeError(
+                    f"{location}.title must match the source view title {source_title!r}"
+                )
+            normalized_view = {
+                "artifact": artifact,
+                "view_kind": view_kind,
+                "view_id": view_id,
+                "view_index": (
+                    segment_ids.index(view_id)
+                    if view_kind == "segment"
+                    else camera_ids.index(view_id)
+                ),
+                "title": title,
+                "purpose": _text(view["purpose"], f"{location}.purpose", maximum=500),
+                "boundary": _text(
+                    view["boundary"], f"{location}.boundary", maximum=700
+                ),
+            }
+            phase_states[phase_id][state_id]["spatial_view"] = normalized_view
+            artifacts.add(artifact)
+            view_count += 1
     return {
-        "artifact": artifact,
         "minimum_width_px": minimum_width,
-        "boundary": boundary,
-        "anchors": anchors,
+        "state_view_count": view_count,
+        "artifacts": sorted(artifacts),
     }
 
 
@@ -467,6 +568,7 @@ def compile_course_v2(
     manifests: Mapping[str, dict[str, Any]],
     renderer_payloads: Mapping[str, dict[str, Any]],
     cameras: dict[str, Any],
+    course_runtime: dict[str, Any],
     *,
     source_digest: str,
 ) -> dict[str, Any]:
@@ -607,7 +709,7 @@ def compile_course_v2(
         raise CourseV2RuntimeError(
             f"course v2 synthesis lenses must remain {expected_lens_ids}"
         )
-    spatial = _normalize_spatial(spine["spatial"], cameras)
+    spatial = _normalize_spatial(spine["spatial"], cameras, course_runtime, phases)
     registry = {
         "schema_version": SCHEMA_VERSION,
         "source_digest": source_digest,
@@ -664,6 +766,12 @@ def load_and_compile(
     root = root.resolve()
     spine = base.load_yaml(root / COURSE_PATH)
     cameras = base.load_yaml(root / CAMERAS_PATH)
+    try:
+        course_runtime = json.loads((root / COURSE_RUNTIME_PATH).read_text())
+    except (OSError, json.JSONDecodeError) as error:
+        raise CourseV2RuntimeError(
+            f"could not load {COURSE_RUNTIME_PATH.as_posix()}: {error}"
+        ) from error
     phases = spine.get("phases")
     if not isinstance(phases, list):
         raise CourseV2RuntimeError("course v2.phases must be a list")
@@ -702,6 +810,7 @@ def load_and_compile(
         manifests,
         renderer_payloads,
         cameras,
+        course_runtime,
         source_digest=source_digest,
     )
 
@@ -828,7 +937,7 @@ def render_player(registry: dict[str, Any]) -> str:
   .journey-grid {{ display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:8px; }} .journey-card {{ min-width:0; min-height:240px; display:flex; flex-direction:column; align-items:flex-start; gap:7px; padding:14px; border:1.5px solid var(--ink); background:var(--white); text-align:left; cursor:pointer; }} .journey-card:hover {{ background:var(--blue-soft); }} .journey-number {{ color:var(--blue); font-size:11px; }} .journey-card strong {{ font-size:20px; }} .journey-title {{ font-size:14px; font-weight:680; }} .journey-question {{ margin:1px 0; color:var(--ink); font-size:12px; font-weight:620; line-height:1.32; overflow-wrap:anywhere; }} .journey-card small {{ margin-top:auto; color:var(--muted); font-size:11px; line-height:1.35; overflow-wrap:anywhere; }}
   .phase-view {{ width:100%; height:100%; min-height:0; display:grid; grid-template-rows:auto minmax(0,1fr); overflow:hidden; }} .phase-context {{ min-width:0; display:grid; grid-template-columns:minmax(0,1fr) auto; gap:12px; align-items:center; padding:6px 14px; border-bottom:1px solid var(--faint); background:var(--white); }} .phase-heading {{ min-width:0; }} .phase-heading h2 {{ margin:0; font-size:18px; }} .phase-question {{ margin:2px 0 0; color:var(--muted); font-size:12px; line-height:1.25; }} .phase-tools {{ display:flex; align-items:center; gap:8px; margin-top:5px; }} .spatial-toggle {{ min-height:31px; padding:4px 8px; border:1.5px solid var(--blue); background:var(--blue-soft); color:var(--blue); cursor:pointer; font-size:10px; font-weight:760; }} .spatial-toggle[aria-pressed="true"] {{ background:var(--blue); color:white; }}
   .carrier-handoff {{ display:grid; grid-template-columns:minmax(95px,1fr) auto minmax(95px,1fr); gap:7px; align-items:center; min-width:300px; max-width:520px; }} .carrier-node {{ min-width:0; padding:6px 8px; border:1px solid var(--blue); border-radius:6px; background:var(--blue-soft); font-size:11px; font-weight:680; text-align:center; overflow-wrap:anywhere; }} .carrier-arrow {{ color:var(--blue); font-weight:850; }} .carrier-label {{ display:block; color:var(--muted); font-size:8px; }}
-  .phase-frame-wrap {{ min-width:0; min-height:0; position:relative; padding:6px 10px; overflow:hidden; }} #phase-frame {{ display:block; width:100%; height:100%; min-width:0; min-height:0; border:1.5px solid var(--ink); background:var(--white); }} .spatial-panel {{ position:absolute; z-index:5; top:18px; left:22px; width:min(440px,calc(100% - 44px)); padding:11px 13px; border:1.5px solid var(--ink); background:color-mix(in srgb,var(--paper) 95%,transparent); box-shadow:0 4px 16px #15171624; pointer-events:none; }} .spatial-panel p {{ margin:3px 0; font-size:11px; line-height:1.35; }} .spatial-panel h3 {{ margin:2px 0 5px; font-size:17px; }} .spatial-panel .spatial-kicker {{ color:var(--blue); font-size:9px; font-weight:780; letter-spacing:.08em; text-transform:uppercase; }} .spatial-panel .spatial-boundary {{ color:var(--muted); font-size:10px; }} .frame-error {{ position:absolute; inset:12px; display:grid; place-items:center; padding:20px; border:2px solid var(--amber); background:var(--amber-soft); text-align:center; }}
+  .phase-frame-wrap {{ min-width:0; min-height:0; position:relative; padding:6px 10px; overflow:hidden; }} #phase-frame,#spatial-frame {{ display:block; width:100%; height:100%; min-width:0; min-height:0; border:1.5px solid var(--ink); background:var(--white); }} .spatial-panel {{ position:absolute; z-index:5; top:18px; right:22px; width:min(440px,calc(100% - 44px)); padding:11px 13px; border:1.5px solid var(--ink); background:color-mix(in srgb,var(--paper) 95%,transparent); box-shadow:0 4px 16px #15171624; pointer-events:none; }} .spatial-panel p {{ margin:3px 0; font-size:11px; line-height:1.35; }} .spatial-panel h3 {{ margin:2px 0 5px; font-size:17px; }} .spatial-panel .spatial-kicker {{ color:var(--blue); font-size:9px; font-weight:780; letter-spacing:.08em; text-transform:uppercase; }} .spatial-panel .spatial-boundary {{ color:var(--muted); font-size:10px; }} .frame-error {{ position:absolute; z-index:8; inset:12px; display:grid; place-items:center; padding:20px; border:2px solid var(--amber); background:var(--amber-soft); text-align:center; }}
   .synthesis-matrix-wrap {{ width:100%; min-width:0; margin-top:20px; overflow-x:hidden; }} .synthesis-matrix {{ width:100%; table-layout:fixed; border-collapse:collapse; background:var(--white); }} .synthesis-matrix th,.synthesis-matrix td {{ min-width:0; padding:10px 11px; border:1px solid var(--ink); vertical-align:top; overflow-wrap:anywhere; }} .synthesis-matrix thead th {{ background:var(--ink); color:white; font-size:13px; line-height:1.25; text-align:left; }} .synthesis-matrix thead th:first-child {{ width:15%; }} .synthesis-matrix tbody th {{ background:var(--blue-soft); text-align:left; }} .synthesis-matrix tbody th strong,.synthesis-matrix tbody th > span:last-child {{ display:block; }} .synthesis-matrix tbody th strong {{ margin:4px 0 2px; font-size:15px; }} .synthesis-matrix tbody th > span:last-child {{ color:var(--muted); font-size:11px; line-height:1.3; }} .synthesis-matrix td p {{ margin:0; font-size:12px; line-height:1.4; }} .lens-number {{ display:block; margin-bottom:4px; color:var(--blue); font-size:9px; }} .synthesis-matrix thead .lens-number {{ color:#9fd0e8; }} .mobile-lens-label {{ display:none; }}
   footer {{ min-width:0; min-height:0; max-height:54dvh; display:grid; grid-template-columns:auto minmax(0,1fr) auto minmax(280px,500px); gap:6px 10px; align-items:center; padding:7px 10px 8px; border-top:1.5px solid var(--ink); background:var(--paper); }}
   .course-step {{ min-width:54px; min-height:42px; padding:5px 7px; border:1.5px solid var(--ink); background:transparent; cursor:pointer; font-size:11px; font-weight:720; }} .course-step:disabled {{ color:#999; border-color:var(--faint); cursor:default; }}
@@ -858,8 +967,8 @@ def render_player(registry: dict[str, Any]) -> str:
     <div class="opening-inner"><p class="view-kicker">Opening journey</p><h2 id="opening-title">{_escape(journey["title"])}</h2><p class="view-question">{_escape(journey["anchor_question"])}</p><p class="view-body">{_escape(journey["body"])}</p><div class="journey-grid">{journey_cards}</div></div>
   </section>
   <section id="phase-view" class="phase-view" hidden aria-labelledby="current-phase-title">
-    <div class="phase-context"><div class="phase-heading"><h2 id="current-phase-title"></h2><p id="current-phase-question" class="phase-question"></p><div class="phase-tools"><button id="spatial-toggle" class="spatial-toggle" type="button" aria-controls="phase-frame-wrap" aria-pressed="false" hidden>3D spatial anchor</button></div></div><div class="carrier-handoff" role="img" aria-label="Current phase system boundary; this is not a traced electron path"><div class="carrier-node"><span class="carrier-label">Phase input</span><span id="carrier-in"></span></div><span class="carrier-arrow" aria-hidden="true">→</span><div class="carrier-node"><span class="carrier-label">Phase output</span><span id="carrier-out"></span></div></div></div>
-    <div id="phase-frame-wrap" class="phase-frame-wrap" data-spatial-mode="false"><aside id="spatial-panel" class="spatial-panel" hidden aria-labelledby="spatial-title"><p class="spatial-kicker">3D spatial anchor · conceptual</p><h3 id="spatial-title"></h3><p id="spatial-purpose"></p><p id="spatial-boundary" class="spatial-boundary"></p></aside><iframe id="phase-frame" title="Phase teaching visual"></iframe><p id="frame-error" class="frame-error" hidden></p></div>
+    <div class="phase-context"><div class="phase-heading"><h2 id="current-phase-title"></h2><p id="current-phase-question" class="phase-question"></p><div class="phase-tools"><button id="spatial-toggle" class="spatial-toggle" type="button" aria-controls="phase-frame-wrap" aria-pressed="false" hidden>Open 2D explanation</button></div></div><div class="carrier-handoff" role="img" aria-label="Current phase system boundary; this is not a traced electron path"><div class="carrier-node"><span class="carrier-label">Phase input</span><span id="carrier-in"></span></div><span class="carrier-arrow" aria-hidden="true">→</span><div class="carrier-node"><span class="carrier-label">Phase output</span><span id="carrier-out"></span></div></div></div>
+    <div id="phase-frame-wrap" class="phase-frame-wrap" data-spatial-mode="false"><aside id="spatial-panel" class="spatial-panel" hidden aria-labelledby="spatial-title"><p class="spatial-kicker">3D system view · conceptual</p><h3 id="spatial-title"></h3><p id="spatial-purpose"></p><p id="spatial-boundary" class="spatial-boundary"></p></aside><iframe id="phase-frame" title="Phase 2D explanation"></iframe><iframe id="spatial-frame" title="State-bound 3D system view" tabindex="-1" hidden></iframe><p id="frame-error" class="frame-error" hidden></p></div>
   </section>
   <section id="synthesis-view" class="synthesis-view" hidden aria-labelledby="synthesis-title"><div class="synthesis-inner"><p class="view-kicker">Closing synthesis</p><h2 id="synthesis-title">{_escape(synthesis["title"])}</h2><p class="view-body">{_escape(synthesis["body"])}</p>{synthesis_matrix}</div></section>
 </main>
@@ -879,7 +988,8 @@ const course = JSON.parse(document.getElementById("course-data").textContent);
 const openingView = document.getElementById("opening-view");
 const phaseView = document.getElementById("phase-view");
 const synthesisView = document.getElementById("synthesis-view");
-const frame = document.getElementById("phase-frame");
+const teachingFrame = document.getElementById("phase-frame");
+const spatialFrame = document.getElementById("spatial-frame");
 const frameWrap = document.getElementById("phase-frame-wrap");
 const frameError = document.getElementById("frame-error");
 const spatialToggle = document.getElementById("spatial-toggle");
@@ -905,12 +1015,14 @@ function resetScroll() {{
   [document.querySelector("main"), openingView, synthesisView, evidenceDrawer].forEach(element => {{
     if (!element) return; element.scrollTop = 0; element.scrollLeft = 0;
   }});
-  try {{
-    frame.contentWindow.scrollTo(0, 0);
-    if (frame.contentDocument.scrollingElement) frame.contentDocument.scrollingElement.scrollTop = 0;
-    const childMain = frame.contentDocument.querySelector("main");
-    if (childMain) {{ childMain.scrollTop = 0; childMain.scrollLeft = 0; }}
-  }} catch (error) {{ /* same-origin frame may still be loading */ }}
+  [teachingFrame, spatialFrame].forEach(frame => {{
+    try {{
+      frame.contentWindow.scrollTo(0, 0);
+      if (frame.contentDocument.scrollingElement) frame.contentDocument.scrollingElement.scrollTop = 0;
+      const childMain = frame.contentDocument.querySelector("main");
+      if (childMain) {{ childMain.scrollTop = 0; childMain.scrollLeft = 0; }}
+    }} catch (error) {{ /* same-origin frame may still be loading */ }}
+  }});
 }}
 
 function selectCompass(index) {{
@@ -931,24 +1043,17 @@ function showEvidence(index) {{
   evidenceDrawer.hidden = false;
 }}
 
-function currentSpatialAnchor() {{
+function currentSpatialView() {{
   if (mode !== "phase") return null;
-  return course.spatial.anchors[course.phases[currentPhase].id] || null;
+  return course.phases[currentPhase].states[currentState].spatial_view || null;
 }}
 
 function syncSpatialControl() {{
-  const available = Boolean(currentSpatialAnchor()) && spatialQuery.matches;
+  const available = Boolean(currentSpatialView()) && spatialQuery.matches;
   spatialToggle.hidden = !available;
   spatialToggle.disabled = !available;
   spatialToggle.setAttribute("aria-pressed", String(spatialMode && available));
-  spatialToggle.textContent = spatialMode && available ? "Return to 2D teaching" : "3D spatial anchor";
-}}
-
-function setStateControlsDisabled(disabled) {{
-  stateNav.querySelectorAll("[data-state-index]").forEach(button => {{
-    button.disabled = disabled;
-    button.setAttribute("aria-disabled", String(disabled));
-  }});
+  spatialToggle.textContent = spatialMode && available ? "Open 2D explanation" : "Return to 3D system view";
 }}
 
 function buildStateNav() {{
@@ -957,7 +1062,7 @@ function buildStateNav() {{
   stateNav.style.gridTemplateColumns = `repeat(${{phase.states.length}}, minmax(0, 1fr))`;
   phase.states.forEach((state, index) => {{
     const button = document.createElement("button"); button.type = "button"; button.className = "state-button"; button.setAttribute("role", "tab");
-    button.dataset.stateIndex = String(index); button.setAttribute("aria-controls", "phase-frame"); button.setAttribute("aria-label", `State ${{index + 1}}: ${{state.title}}`); button.title = state.title;
+    button.dataset.stateIndex = String(index); button.setAttribute("aria-controls", "phase-frame-wrap"); button.setAttribute("aria-label", `State ${{index + 1}}: ${{state.title}}`); button.title = state.title;
     const number = document.createElement("span"); number.className = "state-number"; number.textContent = String(index + 1).padStart(2, "0");
     const label = document.createElement("span"); label.className = "state-nav-label"; label.textContent = state.nav_label;
     button.append(number, label); button.addEventListener("click", () => activateState(index)); stateNav.append(button);
@@ -969,91 +1074,116 @@ function activateState(index, focusButton = false) {{
   [...stateNav.querySelectorAll("[data-state-index]")].forEach((button, buttonIndex) => {{ const selected = buttonIndex === currentState; button.setAttribute("aria-selected", String(selected)); button.tabIndex = selected ? 0 : -1; }});
   document.getElementById("state-title").textContent = state.title; document.getElementById("state-instruction").textContent = state.instruction;
   document.getElementById("state-status").textContent = `Phase ${{phase.number}}, state ${{currentState + 1}} of ${{phase.states.length}}: ${{state.title}}. ${{state.instruction}}`;
-  try {{ if (!spatialMode && typeof frame.contentWindow.activate === "function") frame.contentWindow.activate(currentState); }} catch (error) {{ frameError.hidden = false; frameError.textContent = "The phase visual could not be controlled from the course shell."; }}
+  if (currentSpatialView() && spatialQuery.matches) showSpatial(); else showTeaching();
   resetScroll(); if (focusButton) stateNav.querySelector(`[data-state-index="${{currentState}}"]`).focus();
 }}
 
+function bindChildNavigation(child) {{
+  if (child.documentElement.dataset.courseV2OuterKeys === "bound") return;
+  child.documentElement.dataset.courseV2OuterKeys = "bound";
+  child.addEventListener("keydown", event => {{
+    if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home", "End", "Escape"].includes(event.key)) return;
+    event.preventDefault(); event.stopImmediatePropagation();
+    if (event.key !== "Escape") return;
+    if (evidenceDrawer.open) {{ evidenceDrawer.open = false; resetScroll(); return; }}
+    if (spatialMode) {{ showTeaching(true); return; }}
+    stateNav.querySelector(`[data-state-index="${{currentState}}"]`)?.focus();
+  }}, true);
+}}
+
 function prepareTeachingFrame() {{
+  if (mode !== "phase") return;
   const phase = course.phases[currentPhase];
+  const artifact = phase.artifact.replace("diagram/", "");
+  if (teachingFrame.dataset.artifact !== artifact) return;
+  try {{ if (!teachingFrame.contentWindow.location.pathname.endsWith(`/${{artifact}}`)) return; }} catch (error) {{ return; }}
   try {{
-    const child = frame.contentDocument; const digest = child.querySelector('meta[name="gigawatt-source-digest"]')?.content;
+    const child = teachingFrame.contentDocument; const digest = child.querySelector('meta[name="gigawatt-source-digest"]')?.content;
     if (digest !== phase.renderer_digest) throw new Error("renderer digest mismatch");
     let style = child.getElementById("course-v2-component-style"); if (!style) {{ style = child.createElement("style"); style.id = "course-v2-component-style"; child.head.append(style); }}
     style.textContent = "html,body{{width:100%!important;height:100%!important;min-height:0!important;overflow:hidden!important}}body{{display:block!important}}header,footer{{display:none!important}}main{{width:100%!important;height:100dvh!important;min-height:0!important;padding:4px!important}}@media (min-width:1281px){{main{{place-items:center!important;overflow:hidden!important}}.visual-shell{{display:block!important}}.responsive-visual{{display:none!important}}}}";
-    frameError.hidden = true; frame.title = `Phase ${{phase.number}}: ${{phase.title}} teaching visual`; activateState(currentState);
-  }} catch (error) {{ frameError.hidden = false; frameError.textContent = "The phase visual failed its same-origin source check."; }}
+    bindChildNavigation(child);
+    if (typeof teachingFrame.contentWindow.activate !== "function") throw new Error("phase activate function unavailable");
+    teachingFrame.contentWindow.activate(currentState);
+    teachingFrame.title = `Phase ${{phase.number}}: ${{phase.title}} 2D explanation`;
+    if (!spatialMode) frameError.hidden = true;
+  }} catch (error) {{ if (!spatialMode) {{ frameError.hidden = false; frameError.textContent = "The phase visual failed its same-origin source check."; }} }}
 }}
 
 function prepareSpatialFrame() {{
-  const phase = course.phases[currentPhase]; const anchor = currentSpatialAnchor();
-  if (!anchor || !spatialQuery.matches) {{ showTeaching(false); return; }}
+  const phase = course.phases[currentPhase]; const view = currentSpatialView();
+  if (!view || !spatialQuery.matches || !spatialMode) return;
+  const artifact = view.artifact.replace("diagram/", "");
+  if (spatialFrame.dataset.artifact !== artifact) return;
+  try {{ if (!spatialFrame.contentWindow.location.pathname.endsWith(`/${{artifact}}`)) return; }} catch (error) {{ return; }}
   try {{
-    const child = frame.contentDocument;
-    const scene = JSON.parse(child.getElementById("scene-data").textContent);
-    const camera = scene.cameras[anchor.camera_index];
-    if (scene.vertical_slice[anchor.camera_index] !== anchor.camera_id || camera.id !== anchor.camera_id || camera.mode !== "3d" || camera.title !== anchor.camera_title) throw new Error("spatial camera contract mismatch");
+    const child = spatialFrame.contentDocument;
     let style = child.getElementById("course-v2-spatial-style"); if (!style) {{ style = child.createElement("style"); style.id = "course-v2-spatial-style"; child.head.append(style); }}
-    style.textContent = "#masthead,#transport{{display:none!important}}";
-    const steps = [...child.querySelectorAll("#steps > .step")]; const step = steps[anchor.camera_index];
-    if (steps.length !== scene.cameras.length) throw new Error("spatial step inventory mismatch");
-    if (!step || step.textContent.trim() !== anchor.camera_title) throw new Error("spatial step contract mismatch");
-    if (child.documentElement.dataset.courseV2SpatialKeys !== "bound") {{
-      child.documentElement.dataset.courseV2SpatialKeys = "bound";
-      child.addEventListener("keydown", event => {{
-        if (event.key === "Escape") {{ event.preventDefault(); event.stopImmediatePropagation(); if (evidenceDrawer.open) {{ evidenceDrawer.open = false; resetScroll(); }} else showTeaching(true); return; }}
-        if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home", "End"].includes(event.key)) {{ event.preventDefault(); event.stopImmediatePropagation(); }}
-      }}, true);
+    let control;
+    if (view.view_kind === "segment") {{
+      style.textContent = ":root{{--rail:0px!important;--head:0px!important;--transport:0px!important}}#shot-rail,#masthead,#transport{{display:none!important}}#stage{{inset:0!important}}";
+      const data = JSON.parse(child.getElementById("review-data").textContent);
+      const segment = data.registry.segments[view.view_index];
+      if (!segment || segment.segment_id !== view.view_id || segment.title !== view.title || segment.render_mode !== "3d") throw new Error("spatial segment contract mismatch");
+      const shots = [...child.querySelectorAll("#shot-list > .shot-button")]; control = shots[view.view_index];
+      if (shots.length !== data.registry.segments.length || !control || control.title !== view.title || !child.getElementById("teaching-overlay")) throw new Error("spatial segment control mismatch");
+      control.click();
+      if (control.getAttribute("aria-current") !== "step" || child.getElementById("shot-id").textContent !== view.view_id || !child.getElementById("mode").textContent.includes("3d")) throw new Error("spatial segment activation postcondition failed");
+    }} else if (view.view_kind === "camera") {{
+      style.textContent = "#masthead,#transport{{display:none!important}}";
+      const scene = JSON.parse(child.getElementById("scene-data").textContent);
+      const camera = scene.cameras[view.view_index];
+      if (!camera || scene.vertical_slice[view.view_index] !== view.view_id || camera.id !== view.view_id || camera.mode !== "3d" || camera.title !== view.title) throw new Error("spatial camera contract mismatch");
+      const steps = [...child.querySelectorAll("#steps > .step")]; control = steps[view.view_index];
+      if (steps.length !== scene.cameras.length || !control || control.textContent.trim() !== view.title) throw new Error("spatial camera control mismatch");
+      control.click();
+      if (control.getAttribute("aria-current") !== "step" || child.getElementById("mode").textContent !== "3d" || child.getElementById("state-title").textContent !== view.title) throw new Error("spatial camera activation postcondition failed");
+    }} else {{
+      throw new Error("unsupported spatial view kind");
     }}
-    step.click();
-    if (step.getAttribute("aria-current") !== "step" || child.getElementById("mode").textContent !== "3d" || child.getElementById("state-title").textContent !== anchor.camera_title) throw new Error("spatial activation postcondition failed");
-    frameError.hidden = true; frame.title = `3D spatial reference · Phase ${{phase.number}} · ${{anchor.camera_title}}`;
-    document.getElementById("state-status").textContent = `Phase ${{phase.number}} spatial anchor: ${{anchor.camera_title}}. ${{anchor.purpose}}`;
+    bindChildNavigation(child);
+    frameError.hidden = true; spatialFrame.title = `3D system view · Phase ${{phase.number}} · ${{view.title}}`;
+    document.getElementById("state-status").textContent = `Phase ${{phase.number}} 3D system view: ${{view.title}}. ${{view.purpose}}`;
     resetScroll();
-  }} catch (error) {{ frameError.hidden = false; frameError.textContent = "The spatial anchor failed its same-origin camera check."; }}
-}}
-
-function prepareFrame() {{
-  if (mode !== "phase") return;
-  const expected = spatialMode ? course.spatial.artifact.replace("diagram/", "") : course.phases[currentPhase].artifact.replace("diagram/", "");
-  try {{ if (frame.dataset.artifact !== expected || !frame.contentWindow.location.pathname.endsWith(`/${{expected}}`)) return; }} catch (error) {{ return; }}
-  if (spatialMode) prepareSpatialFrame(); else prepareTeachingFrame();
+  }} catch (error) {{ frameError.hidden = false; frameError.textContent = "The 3D system view failed its same-origin view check."; }}
 }}
 
 function showSpatial() {{
-  const anchor = currentSpatialAnchor();
-  if (!anchor || !spatialQuery.matches) return;
-  spatialMode = true; frameWrap.dataset.spatialMode = "true"; frame.tabIndex = -1; stateCopy.hidden = true; setStateControlsDisabled(true);
-  spatialTitle.textContent = anchor.camera_title; spatialPurpose.textContent = anchor.purpose; spatialBoundary.textContent = course.spatial.boundary; spatialPanel.hidden = false; syncSpatialControl();
-  const artifact = course.spatial.artifact.replace("diagram/", "");
-  if (frame.dataset.artifact !== artifact) {{ frame.dataset.artifact = artifact; frame.src = artifact; }} else {{ prepareSpatialFrame(); }}
+  const view = currentSpatialView();
+  if (!view || !spatialQuery.matches) return;
+  spatialMode = true; frameError.hidden = true; frameWrap.dataset.spatialMode = "true"; teachingFrame.hidden = true; spatialFrame.hidden = false; spatialFrame.tabIndex = -1;
+  spatialTitle.textContent = view.title; spatialPurpose.textContent = view.purpose; spatialBoundary.textContent = view.boundary; spatialPanel.hidden = false; syncSpatialControl(); prepareTeachingFrame();
+  const artifact = view.artifact.replace("diagram/", "");
+  if (spatialFrame.dataset.artifact !== artifact) {{ spatialFrame.dataset.artifact = artifact; spatialFrame.src = artifact; }} else {{ prepareSpatialFrame(); }}
 }}
 
 function showTeaching(focusToggle = false) {{
   if (mode !== "phase") return;
-  spatialMode = false; frameWrap.dataset.spatialMode = "false"; frame.removeAttribute("tabindex"); spatialPanel.hidden = true; stateCopy.hidden = false; setStateControlsDisabled(false); syncSpatialControl();
-  const phase = course.phases[currentPhase]; const artifact = phase.artifact.replace("diagram/", ""); activateState(currentState);
-  if (frame.dataset.artifact !== artifact) {{ frame.dataset.artifact = artifact; frame.src = artifact; }} else {{ prepareTeachingFrame(); }}
+  spatialMode = false; frameError.hidden = true; frameWrap.dataset.spatialMode = "false"; teachingFrame.hidden = false; teachingFrame.removeAttribute("tabindex"); spatialFrame.hidden = true; spatialPanel.hidden = true; syncSpatialControl();
+  const phase = course.phases[currentPhase]; const artifact = phase.artifact.replace("diagram/", "");
+  if (teachingFrame.dataset.artifact !== artifact) {{ teachingFrame.dataset.artifact = artifact; teachingFrame.src = artifact; }} else {{ prepareTeachingFrame(); }}
   if (focusToggle) {{ const target = !spatialToggle.hidden ? spatialToggle : stateNav.querySelector(`[data-state-index="${{currentState}}"]`); if (target) target.focus(); }}
 }}
 
 function showOpening() {{
-  mode = "opening"; spatialMode = false; frame.removeAttribute("tabindex"); spatialPanel.hidden = true; frameWrap.dataset.spatialMode = "false"; openingView.hidden = false; phaseView.hidden = true; synthesisView.hidden = true; stateNav.replaceChildren();
+  mode = "opening"; spatialMode = false; teachingFrame.removeAttribute("tabindex"); spatialPanel.hidden = true; frameWrap.dataset.spatialMode = "false"; openingView.hidden = false; phaseView.hidden = true; synthesisView.hidden = true; stateNav.replaceChildren();
   stateCopy.hidden = true; evidenceDrawer.open = false; evidenceDrawer.hidden = true; previousButton.disabled = true; nextButton.disabled = false; nextButton.textContent = "Start";
   document.getElementById("state-status").textContent = "Opening journey"; selectCompass(-1); syncSpatialControl(); resetScroll();
 }}
 
 function showPhase(index) {{
-  mode = "phase"; spatialMode = false; frame.removeAttribute("tabindex"); spatialPanel.hidden = true; frameWrap.dataset.spatialMode = "false"; currentPhase = Math.max(0, Math.min(course.phases.length - 1, index)); currentState = 0; const phase = course.phases[currentPhase];
+  mode = "phase"; spatialMode = false; teachingFrame.removeAttribute("tabindex"); spatialPanel.hidden = true; frameWrap.dataset.spatialMode = "false"; currentPhase = Math.max(0, Math.min(course.phases.length - 1, index)); currentState = 0; const phase = course.phases[currentPhase];
   openingView.hidden = true; phaseView.hidden = false; synthesisView.hidden = true; stateCopy.hidden = false; evidenceDrawer.open = false;
   document.getElementById("current-phase-title").textContent = `Phase ${{phase.number}} · ${{phase.title}}`; document.getElementById("current-phase-question").textContent = phase.question;
   document.getElementById("carrier-in").textContent = phase.carrier_in; document.getElementById("carrier-out").textContent = phase.carrier_out;
   previousButton.disabled = false; previousButton.textContent = currentPhase === 0 ? "Opening" : "Previous phase"; nextButton.disabled = false; nextButton.textContent = currentPhase === course.phases.length - 1 ? "Synthesis" : "Next phase";
-  selectCompass(currentPhase); buildStateNav(); showEvidence(currentPhase); syncSpatialControl(); activateState(0);
-  const artifact = phase.artifact.replace("diagram/", ""); if (frame.dataset.artifact !== artifact) {{ frame.dataset.artifact = artifact; frame.src = artifact; }} else {{ prepareFrame(); }}
+  selectCompass(currentPhase); buildStateNav(); showEvidence(currentPhase);
+  const artifact = phase.artifact.replace("diagram/", ""); if (teachingFrame.dataset.artifact !== artifact) {{ teachingFrame.dataset.artifact = artifact; teachingFrame.src = artifact; }}
+  activateState(0);
 }}
 
 function showSynthesis() {{
-  mode = "synthesis"; spatialMode = false; frame.removeAttribute("tabindex"); spatialPanel.hidden = true; frameWrap.dataset.spatialMode = "false"; openingView.hidden = true; phaseView.hidden = true; synthesisView.hidden = false; stateNav.replaceChildren(); stateCopy.hidden = true;
+  mode = "synthesis"; spatialMode = false; teachingFrame.removeAttribute("tabindex"); spatialPanel.hidden = true; frameWrap.dataset.spatialMode = "false"; openingView.hidden = true; phaseView.hidden = true; synthesisView.hidden = false; stateNav.replaceChildren(); stateCopy.hidden = true;
   evidenceDrawer.open = false; evidenceDrawer.hidden = true; previousButton.disabled = false; previousButton.textContent = "Phase 6"; nextButton.disabled = true; nextButton.textContent = "Complete";
   document.getElementById("state-status").textContent = "Closing synthesis"; selectCompass(-1); syncSpatialControl(); resetScroll();
 }}
@@ -1065,15 +1195,18 @@ document.querySelector(".phase-compass").addEventListener("keydown", event => {{
   if (target !== null) {{ event.preventDefault(); showPhase(Math.max(0, Math.min(course.phases.length - 1, target))); phaseButtons[currentPhase].focus(); }}
 }});
 stateNav.addEventListener("keydown", event => {{
-  if (spatialMode) return;
   let target = null; const states = course.phases[currentPhase].states; if (event.key === "ArrowRight" || event.key === "ArrowDown") target = currentState + 1; if (event.key === "ArrowLeft" || event.key === "ArrowUp") target = currentState - 1; if (event.key === "Home") target = 0; if (event.key === "End") target = states.length - 1;
   if (target !== null) {{ event.preventDefault(); activateState(target, true); }}
 }});
 previousButton.addEventListener("click", () => {{ if (mode === "synthesis") showPhase(course.phases.length - 1); else if (mode === "phase" && currentPhase === 0) showOpening(); else if (mode === "phase") showPhase(currentPhase - 1); }});
 nextButton.addEventListener("click", () => {{ if (mode === "opening") showPhase(0); else if (mode === "phase" && currentPhase === course.phases.length - 1) showSynthesis(); else if (mode === "phase") showPhase(currentPhase + 1); }});
 spatialToggle.addEventListener("click", () => {{ if (spatialMode) showTeaching(false); else showSpatial(); }});
-spatialQuery.addEventListener("change", event => {{ if (!event.matches && spatialMode) showTeaching(true); else syncSpatialControl(); }});
-frame.addEventListener("load", prepareFrame);
+spatialQuery.addEventListener("change", event => {{
+  if (mode !== "phase") {{ syncSpatialControl(); return; }}
+  if (event.matches && currentSpatialView()) showSpatial(); else if (spatialMode) showTeaching(true); else syncSpatialControl();
+}});
+teachingFrame.addEventListener("load", prepareTeachingFrame);
+spatialFrame.addEventListener("load", prepareSpatialFrame);
 evidenceDrawer.addEventListener("toggle", () => {{ if (!evidenceDrawer.open) resetScroll(); }});
 document.addEventListener("keydown", event => {{ if (event.key !== "Escape") return; if (evidenceDrawer.open) {{ evidenceDrawer.open = false; resetScroll(); return; }} if (spatialMode) showTeaching(true); }});
 showOpening();
@@ -1100,7 +1233,7 @@ def render_instructor_packet(registry: Mapping[str, Any]) -> str:
         "python3 -m http.server --directory diagram 8000",
         "```",
         "",
-        "Open `http://localhost:8000/course_v2.html`. Use the six-phase compass to move between engineering problems and the state rail to change the current teaching visual. In Phases 4 through 6, the optional `3D spatial anchor` control is available at 900 px and wider; return to the 2D states for causal and evidence detail. The outer evidence drawer contains the fact-level basis, scope, posture, date boundary, and primary-source links for the active phase.",
+        "Open `http://localhost:8000/course_v2.html`. Use the six-phase compass to move between engineering problems and the state rail to change the current teaching visual. At 900 px and wider, mapped states open on their state-bound 3D system view; use `Open 2D explanation` for causal and evidence detail, then `Return to 3D system view` when useful. The outer evidence drawer contains the fact-level basis, scope, posture, date boundary, and primary-source links for the active phase.",
         "",
         f"Machine registry source digest: `{registry['source_digest']}`",
         "",
@@ -1126,16 +1259,6 @@ def render_instructor_packet(registry: Mapping[str, Any]) -> str:
                 "",
             ]
         )
-        anchor = registry["spatial"]["anchors"].get(phase["id"])
-        if anchor is not None:
-            lines.extend(
-                [
-                    f"**3D spatial anchor (900 px and wider):** {anchor['camera_title']} — {anchor['purpose']}",
-                    "",
-                    f"**Spatial boundary:** {registry['spatial']['boundary']}",
-                    "",
-                ]
-            )
         lines.extend(["### Manual teaching states", ""])
         for index, state in enumerate(phase["states"]):
             lines.extend(
@@ -1144,6 +1267,14 @@ def render_instructor_packet(registry: Mapping[str, Any]) -> str:
                     f"   {state['instruction']}",
                 ]
             )
+            spatial_view = state.get("spatial_view")
+            if spatial_view is not None:
+                lines.extend(
+                    [
+                        f"   **3D system view:** {spatial_view['title']} — {spatial_view['purpose']}",
+                        f"   **Spatial boundary:** {spatial_view['boundary']}",
+                    ]
+                )
         publishers = sorted(
             {source["publisher"] for source in phase["evidence"]["sources"]}
         )

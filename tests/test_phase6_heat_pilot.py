@@ -67,27 +67,31 @@ class Phase6HeatPilotTests(unittest.TestCase):
             source_digest="0" * 64,
         )
 
-    def test_manifest_is_manual_untimed_and_preserves_five_states(self) -> None:
+    def test_manifest_is_manual_untimed_and_preserves_seven_states(self) -> None:
         self.assertEqual(
             {"mode": "manual", "advance": "instructor_controlled"},
             self.manifest["interaction"],
         )
         self.assertEqual(
             [
-                "die_to_cold_plate",
-                "rack_to_facility_boundary",
+                "rack_cooling_split",
+                "technology_loop",
+                "cdu_boundary",
                 "parallel_residual_air",
-                "facility_rejection_and_water",
+                "facility_heat_rejection",
+                "water_accounting",
                 "whole_journey_closure",
             ],
             [state["id"] for state in self.manifest["states"]],
         )
         self.assertEqual(
             [
-                "Cold plate",
-                "Liquid loops",
+                "Rack split",
+                "Tech loop",
+                "CDU boundary",
                 "Residual air",
-                "Atmosphere",
+                "Heat rejection",
+                "Water accounts",
                 "Full journey",
             ],
             [state["nav_label"] for state in self.manifest["states"]],
@@ -109,6 +113,18 @@ class Phase6HeatPilotTests(unittest.TestCase):
                 for state in self.manifest["states"]
                 for view_id in state["energy_view_ids"]
             },
+        )
+        self.assertEqual(
+            [
+                "residual_air_path",
+                "liquid_path",
+                "liquid_path",
+                "residual_air_path",
+                "facility_rejection",
+                "abilene_mapping",
+                "journey_closure",
+            ],
+            [state["primary_layer"] for state in self.compile()["states"]],
         )
 
     def test_exact_facility_stage_ids_reject_duplicate_list_records(self) -> None:
@@ -157,16 +173,24 @@ class Phase6HeatPilotTests(unittest.TestCase):
         second = self.native.build()
         self.assertEqual(first, second)
         rendered, digest, state_count = first
-        self.assertEqual(5, state_count)
+        self.assertEqual(7, state_count)
         self.assertRegex(digest, r"^[0-9a-f]{64}$")
         required = (
             '<svg id="visual" role="img"',
             'aria-labelledby="visual-title visual-description"',
-            'role="tablist"',
+            'aria-pressed="false"',
+            'aria-label="Manual Phase 6 teaching-state selectors"',
             'aria-live="polite"',
-            'data-heat-scene-id="die_to_cold_plate"',
+            'data-heat-scene-id="rack_cooling_split"',
+            'data-heat-scene-id="technology_loop"',
+            'data-heat-scene-id="cdu_boundary"',
+            'data-heat-scene-id="facility_heat_rejection"',
+            'data-heat-scene-id="water_accounting"',
             'data-heat-scene-id="whole_journey_closure"',
             'button.addEventListener("click", () => activate(index))',
+            'button.setAttribute("aria-pressed", String(selected))',
+            'button.setAttribute("aria-current", "step")',
+            'button.removeAttribute("aria-current")',
             'event.key === "ArrowRight"',
             'event.key === "Home"',
             'event.key === "End"',
@@ -176,7 +200,15 @@ class Phase6HeatPilotTests(unittest.TestCase):
         for marker in required:
             with self.subTest(required=marker):
                 self.assertIn(marker, rendered)
-        self.assertEqual(5, rendered.count('data-state-index="'))
+        for invalid_tab_pattern in (
+            'role="tablist"',
+            'role="tab"',
+            'aria-controls="visual"',
+            "aria-selected=",
+        ):
+            with self.subTest(invalid_tab_pattern=invalid_tab_pattern):
+                self.assertNotIn(invalid_tab_pattern, rendered)
+        self.assertEqual(7, rendered.count('data-state-index="'))
         visible_markup = rendered.split(
             '<script id="pilot-data" type="application/json">', maxsplit=1
         )[0]
@@ -197,39 +229,156 @@ class Phase6HeatPilotTests(unittest.TestCase):
             with self.subTest(forbidden=forbidden):
                 self.assertNotIn(forbidden, rendered)
 
-    def test_five_svg_states_are_causal_distinct_and_untruncated(self) -> None:
+    def test_seven_svg_states_are_causal_distinct_and_untruncated(self) -> None:
         payload = self.compile()
         state_functions = (
-            heat_visual._cold_plate_svg,
-            heat_visual._liquid_svg,
+            heat_visual._rack_split_svg,
+            heat_visual._technology_loop_svg,
+            heat_visual._cdu_svg,
             heat_visual._air_svg,
-            heat_visual._facility_svg,
+            heat_visual._facility_rejection_svg,
+            heat_visual._water_svg,
             heat_visual._journey_svg,
         )
         rendered_states = [
             function(payload, state)
             for function, state in zip(state_functions, payload["states"])
         ]
-        self.assertEqual(5, len({value for value in rendered_states}))
+        self.assertEqual(7, len({value for value in rendered_states}))
         for value in rendered_states:
             self.assertNotIn("…", value)
 
         rendered = heat_visual.render_heat_return(payload)
         required = (
-            'class="cold-plate-cutaway"',
-            "ACCOUNTING BOUNDARY",
-            "Useful compute is a service, not an energy slice; no site heat fraction is inferred.",
-            "TECHNOLOGY COOLING SYSTEM · IT SIDE",
-            "FACILITY WATER SYSTEM · PLANT SIDE",
+            "ONE RACK · TWO THERMAL OBLIGATIONS · NO AUTHORED HEAT FRACTION",
+            "TECHNOLOGY COOLING SYSTEM · SUPPLY AND RETURN ARE DISTINCT",
+            "COOLED SUPPLY · TOWARD COLD PLATES",
+            "WARMED RETURN · HEAT MOVES TOWARD THE LOOP BOUNDARY",
+            "CONDITIONAL LIQUID-TO-LIQUID BOUNDARY",
+            "HEAT EXCHANGE · NO COOLANT MIXING",
             "CONDITIONAL AT ABILENE",
             "HEAT ARROWS CONVERGE · FLUID CIRCUITS ARE NOT SHOWN MIXING",
-            "FOUR SEPARATE WATER ACCOUNTS · NO CONFLATION",
+            "FACILITY HEAT PATH · SELECTED TERMINAL DESIGN · NOT OPERATING TELEMETRY",
+            "FOUR WATER ACCOUNTS · DIFFERENT BASES · NEVER SUBSTITUTE OR SUM",
+            "Unknown is not zero. No campus total is inferred.",
             "FULL SIX-PHASE JOURNEY · CONCEPTUAL INDEX + EVIDENCE POSTURE",
         )
         for marker in required:
             with self.subTest(marker=marker):
                 self.assertIn(marker, rendered)
         self.assertNotIn('class="pie-slice"', rendered)
+
+    def test_residual_air_handoff_remains_generic_and_conditional(self) -> None:
+        payload = self.compile()
+        air = {stage["id"]: stage for stage in payload["residual_air_path"]["stages"]}
+        handoff = air["facility_loop_merge"]
+        self.assertEqual(
+            "generic_reference_unresolved_at_abilene",
+            handoff["render_posture"],
+        )
+        self.assertIn("does not establish", handoff["boundary"])
+        self.assertIn("selected Facility Water System", handoff["boundary"])
+        self.assertIn("selected air-cooled terminal", handoff["boundary"])
+        facility_state = payload["states"][4]
+        self.assertIn("generic conditional handoff", facility_state["instruction"])
+        self.assertIn(
+            "not an established Abilene connection", facility_state["instruction"]
+        )
+
+        rendered = heat_visual.render_heat_return(payload)
+        self.assertIn(
+            "RESIDUAL-AIR → FACILITY-WATER / TERMINAL HANDOFF IS GENERIC AND CONDITIONAL · NOT AN ABILENE CONNECTION",
+            rendered,
+        )
+        self.assertIn(
+            "Generic conditional handoff · not an Abilene connection",
+            rendered,
+        )
+        self.assertIn(handoff["boundary"], rendered)
+
+        missing_posture = deepcopy(self.manifest)
+        del missing_posture["residual_air_path"]["stages"][3]["render_posture"]
+        with self.assertRaisesRegex(
+            heat_visual.HeatVisualError,
+            "must mark exactly.*facility_loop_merge",
+        ):
+            self.compile(missing_posture)
+
+    def test_state_selector_invariants_prevent_surface_divergence(self) -> None:
+        payload = self.compile()
+        for state in payload["states"]:
+            expected = heat_visual.STATE_SELECTOR_INVARIANTS[state["id"]]
+            for field, values in expected.items():
+                with self.subTest(state=state["id"], field=field):
+                    self.assertEqual(list(values), state[field])
+
+        mutations = []
+        extra_technology_stage = deepcopy(self.manifest)
+        extra_technology_stage["states"][1]["liquid_stage_ids"].append(
+            "conditional_cdu_boundary"
+        )
+        mutations.append(extra_technology_stage)
+
+        missing_facility_stage = deepcopy(self.manifest)
+        missing_facility_stage["states"][4]["facility_stage_ids"].pop()
+        mutations.append(missing_facility_stage)
+
+        reordered_journey_unknowns = deepcopy(self.manifest)
+        reordered_journey_unknowns["states"][6]["abilene_unknown_ids"].reverse()
+        mutations.append(reordered_journey_unknowns)
+
+        for index, mutation in enumerate(mutations):
+            with (
+                self.subTest(mutation=index),
+                self.assertRaisesRegex(
+                    heat_visual.HeatVisualError,
+                    "must exactly match.*selector invariant",
+                ),
+            ):
+                self.compile(mutation)
+
+        mutated_payload = self.compile()
+        mutated_payload["states"][4]["facility_stage_ids"].pop()
+        with self.assertRaisesRegex(
+            heat_visual.HeatVisualError,
+            r"render payload.states\[4\].facility_stage_ids must exactly match",
+        ):
+            heat_visual.render_heat_return(mutated_payload)
+
+    def test_causal_paths_have_visible_direction_markers(self) -> None:
+        payload = self.compile()
+        rendered = heat_visual.render_heat_return(payload)
+        for marker_id in ("arrow-blue", "arrow-cyan", "arrow-amber", "arrow-red"):
+            with self.subTest(marker_id=marker_id):
+                self.assertEqual(1, rendered.count(f'id="{marker_id}"'))
+        for marker_rule in (
+            "marker-end:url(#arrow-blue)",
+            "marker-end:url(#arrow-cyan)",
+            "marker-end:url(#arrow-amber)",
+            "marker-end:url(#arrow-red)",
+        ):
+            with self.subTest(marker_rule=marker_rule):
+                self.assertIn(marker_rule, rendered)
+
+        responsive_scenes = {
+            "rack": heat_visual._responsive_rack_split(payload, payload["states"][0]),
+            "technology": heat_visual._responsive_technology_loop(
+                payload, payload["states"][1]
+            ),
+            "cdu": heat_visual._responsive_cdu(payload, payload["states"][2]),
+            "air": heat_visual._responsive_air(payload, payload["states"][3]),
+            "facility": heat_visual._responsive_facility_rejection(
+                payload, payload["states"][4]
+            ),
+            "journey": heat_visual._responsive_journey(payload, payload["states"][6]),
+        }
+        for scene_id, scene in responsive_scenes.items():
+            with self.subTest(scene=scene_id):
+                self.assertRegex(
+                    scene,
+                    r'class="responsive-(?:flow-glyph|inline-arrow|transfer-glyph)"',
+                )
+                self.assertIn("data-flow-direction=", scene)
 
     def test_water_accounts_cannot_conflate_evaporation_fill_or_unknown(self) -> None:
         payload = self.compile()
@@ -274,7 +423,7 @@ class Phase6HeatPilotTests(unittest.TestCase):
     def test_desktop_cards_stay_inside_panels_without_overlap(self) -> None:
         payload = self.compile()
 
-        air = heat_visual._air_svg(payload, payload["states"][2])
+        air = heat_visual._air_svg(payload, payload["states"][3])
         convergence = re.search(
             r'class="convergence-box" x="\d+" y="(\d+)" width="\d+" height="(\d+)"',
             air,
@@ -291,10 +440,21 @@ class Phase6HeatPilotTests(unittest.TestCase):
                 self.assertGreater(int(y), convergence_bottom)
                 self.assertLessEqual(int(y) + int(height), 858)
 
-        facility = heat_visual._facility_svg(payload, payload["states"][3])
+        facility = heat_visual._facility_rejection_svg(payload, payload["states"][4])
+        facility_cards = re.findall(
+            r'class="facility-stage"><rect x="(\d+)" y="\d+" width="(\d+)"',
+            facility,
+        )
+        self.assertEqual(3, len(facility_cards))
+        for x, width in facility_cards:
+            with self.subTest(card=(x, width)):
+                self.assertGreaterEqual(int(x), 42)
+                self.assertLessEqual(int(x) + int(width), 1558)
+
+        water = heat_visual._water_svg(payload, payload["states"][5])
         water_cards = re.findall(
             r'class="water-account[^\"]*"><rect x="(\d+)" y="\d+" width="(\d+)"',
-            facility,
+            water,
         )
         self.assertEqual(4, len(water_cards))
         for x, width in water_cards:
@@ -302,7 +462,7 @@ class Phase6HeatPilotTests(unittest.TestCase):
                 self.assertGreaterEqual(int(x), 42)
                 self.assertLessEqual(int(x) + int(width), 1558)
 
-        journey = heat_visual._journey_svg(payload, payload["states"][4])
+        journey = heat_visual._journey_svg(payload, payload["states"][6])
         journey_cards = re.findall(
             r'class="journey-stage"><rect x="(\d+)" y="\d+" width="(\d+)"',
             journey,
@@ -315,18 +475,23 @@ class Phase6HeatPilotTests(unittest.TestCase):
 
     def test_supported_viewports_are_readable_and_keep_full_nav_labels(self) -> None:
         expected = {
-            (1280, 720): ("html", "course_landscape", 12),
-            (1024, 768): ("html", "tablet", 12),
-            (844, 390): ("html", "short_landscape", 10),
-            (390, 844): ("html", "portrait", 12),
-            (1440, 900): ("svg", "standard", 13),
+            (1280, 720): ("html", "course_landscape", 2, 12),
+            (1024, 768): ("html", "tablet", 2, 12),
+            (844, 390): ("html", "short_landscape", 2, 10),
+            (390, 844): ("html", "portrait", 1, 12),
+            (1440, 900): ("svg", "standard", 6, 13),
         }
         for viewport, contract in expected.items():
             actual = heat_visual.responsive_layout_contract(*viewport)
             with self.subTest(viewport=viewport):
                 self.assertEqual(
                     contract,
-                    (actual["surface"], actual["profile"], actual["minimum_text_px"]),
+                    (
+                        actual["surface"],
+                        actual["profile"],
+                        actual["columns"],
+                        actual["minimum_text_px"],
+                    ),
                 )
         for dimensions in ((0, 720), (-1, 720), (1280, 0), (1280.0, 720)):
             with (
@@ -342,6 +507,28 @@ class Phase6HeatPilotTests(unittest.TestCase):
         self.assertIn("@media (max-width:1280px), (max-height:760px)", rendered)
         self.assertIn("font-size:12px", rendered)
         self.assertIn("font-size:10px", rendered)
+        self.assertNotIn("font-size:9px", rendered)
+        self.assertIn(
+            ".responsive-stage-flow.technology-stages { grid-template-columns:repeat(2,minmax(0,1fr)); }",
+            rendered,
+        )
+        self.assertIn(
+            ".responsive-stage-flow.technology-stages,.responsive-rack-branches",
+            rendered,
+        )
+        portrait_css = rendered.split(
+            "@media (max-width:520px) and (orientation:portrait)", maxsplit=1
+        )[1].split("</style>", maxsplit=1)[0]
+        self.assertIn(
+            ".responsive-stage-flow.technology-stages",
+            portrait_css,
+        )
+        self.assertIn("grid-template-columns:1fr", portrait_css)
+        portrait_sizes = [
+            int(value) for value in re.findall(r"font-size:(\d+)px", portrait_css)
+        ]
+        self.assertTrue(portrait_sizes)
+        self.assertGreaterEqual(min(portrait_sizes), 12)
         self.assertIn(
             ".state-nav-label { overflow:visible; text-overflow:clip; white-space:normal; }",
             rendered,
@@ -361,7 +548,7 @@ class Phase6HeatPilotTests(unittest.TestCase):
             )
         self.assertLess(
             rendered.index('<section class="responsive-scene responsive-journey"'),
-            rendered.index('<section class="responsive-scene responsive-cold-plate"'),
+            rendered.index('<section class="responsive-scene responsive-rack-split"'),
         )
         visible_markup = rendered.split(
             '<script id="pilot-data" type="application/json">', maxsplit=1
@@ -449,7 +636,7 @@ class Phase6HeatPilotTests(unittest.TestCase):
         escaped["states"][0]["journey_stage_ids"] = ["generate"]
         with self.assertRaisesRegex(
             heat_visual.HeatVisualError,
-            "only the final state",
+            "journey_stage_ids must exactly match",
         ):
             self.compile(escaped)
 
@@ -467,7 +654,7 @@ class Phase6HeatPilotTests(unittest.TestCase):
         repeated_handoff["states"][0]["energy_view_ids"].append("electrical_input")
         with self.assertRaisesRegex(
             heat_visual.HeatVisualError,
-            "only the heat-obligation accounting view",
+            "energy_view_ids must exactly match",
         ):
             self.compile(repeated_handoff)
 

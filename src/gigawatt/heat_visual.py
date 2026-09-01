@@ -61,17 +61,193 @@ JOURNEY_IDS = [
     "reject_heat",
 ]
 STATE_IDS = [
-    "die_to_cold_plate",
-    "rack_to_facility_boundary",
+    "rack_cooling_split",
+    "technology_loop",
+    "cdu_boundary",
     "parallel_residual_air",
-    "facility_rejection_and_water",
+    "facility_heat_rejection",
+    "water_accounting",
     "whole_journey_closure",
 ]
+STATE_SELECTOR_INVARIANTS = {
+    "rack_cooling_split": {
+        "energy_view_ids": ("heat_obligation",),
+        "liquid_stage_ids": (
+            "die_heat_source",
+            "cold_plate_heat_exchange",
+            "rack_manifold_distribution",
+        ),
+        "residual_air_stage_ids": (
+            "air_cooled_auxiliaries",
+            "warm_air_return",
+        ),
+        "facility_stage_ids": (),
+        "water_account_ids": (),
+        "abilene_known_ids": ("selected_direct_liquid_design",),
+        "abilene_unknown_ids": (
+            "residual_air_equipment",
+            "loop_setpoints_and_measurements",
+        ),
+        "journey_stage_ids": (),
+    },
+    "technology_loop": {
+        "energy_view_ids": (),
+        "liquid_stage_ids": (
+            "cold_plate_heat_exchange",
+            "rack_manifold_distribution",
+            "technology_loop_return",
+        ),
+        "residual_air_stage_ids": (),
+        "facility_stage_ids": (),
+        "water_account_ids": (),
+        "abilene_known_ids": ("selected_direct_liquid_design",),
+        "abilene_unknown_ids": (
+            "cooling_interfaces",
+            "loop_setpoints_and_measurements",
+        ),
+        "journey_stage_ids": (),
+    },
+    "cdu_boundary": {
+        "energy_view_ids": (),
+        "liquid_stage_ids": (
+            "rack_manifold_distribution",
+            "technology_loop_return",
+            "conditional_cdu_boundary",
+            "facility_loop_entry",
+        ),
+        "residual_air_stage_ids": (),
+        "facility_stage_ids": (),
+        "water_account_ids": (),
+        "abilene_known_ids": (
+            "selected_direct_liquid_design",
+            "selected_facility_loop",
+        ),
+        "abilene_unknown_ids": (
+            "cdu_presence_and_configuration",
+            "cooling_interfaces",
+            "loop_setpoints_and_measurements",
+        ),
+        "journey_stage_ids": (),
+    },
+    "parallel_residual_air": {
+        "energy_view_ids": (),
+        "liquid_stage_ids": (
+            "cold_plate_heat_exchange",
+            "rack_manifold_distribution",
+            "technology_loop_return",
+            "conditional_cdu_boundary",
+            "facility_loop_entry",
+        ),
+        "residual_air_stage_ids": (
+            "air_cooled_auxiliaries",
+            "warm_air_return",
+            "conditional_air_handler",
+            "facility_loop_merge",
+        ),
+        "facility_stage_ids": (),
+        "water_account_ids": (),
+        "abilene_known_ids": (
+            "selected_direct_liquid_design",
+            "selected_facility_loop",
+        ),
+        "abilene_unknown_ids": (
+            "cdu_presence_and_configuration",
+            "cooling_interfaces",
+            "residual_air_equipment",
+            "loop_setpoints_and_measurements",
+        ),
+        "journey_stage_ids": (),
+    },
+    "facility_heat_rejection": {
+        "energy_view_ids": (),
+        "liquid_stage_ids": ("facility_loop_entry",),
+        "residual_air_stage_ids": ("facility_loop_merge",),
+        "facility_stage_ids": (
+            "facility_loop_transport",
+            "air_cooled_terminal",
+            "atmosphere_sink",
+        ),
+        "water_account_ids": (),
+        "abilene_known_ids": (
+            "selected_facility_loop",
+            "selected_air_cooled_terminal",
+        ),
+        "abilene_unknown_ids": (
+            "cooling_interfaces",
+            "residual_air_equipment",
+            "loop_setpoints_and_measurements",
+        ),
+        "journey_stage_ids": (),
+    },
+    "water_accounting": {
+        "energy_view_ids": (),
+        "liquid_stage_ids": (),
+        "residual_air_stage_ids": (),
+        "facility_stage_ids": ("air_cooled_terminal",),
+        "water_account_ids": (
+            "rejection_process_water",
+            "initial_fill",
+            "anticipated_maintenance",
+            "measured_operating_water",
+        ),
+        "abilene_known_ids": (
+            "selected_air_cooled_terminal",
+            "disclosed_water_categories",
+        ),
+        "abilene_unknown_ids": ("measured_site_water",),
+        "journey_stage_ids": (),
+    },
+    "whole_journey_closure": {
+        "energy_view_ids": (),
+        "liquid_stage_ids": (
+            "die_heat_source",
+            "cold_plate_heat_exchange",
+            "rack_manifold_distribution",
+            "technology_loop_return",
+            "conditional_cdu_boundary",
+            "facility_loop_entry",
+        ),
+        "residual_air_stage_ids": (
+            "air_cooled_auxiliaries",
+            "warm_air_return",
+            "conditional_air_handler",
+            "facility_loop_merge",
+        ),
+        "facility_stage_ids": (
+            "facility_loop_transport",
+            "air_cooled_terminal",
+            "atmosphere_sink",
+        ),
+        "water_account_ids": (
+            "rejection_process_water",
+            "measured_operating_water",
+        ),
+        "abilene_known_ids": (
+            "selected_direct_liquid_design",
+            "selected_facility_loop",
+            "selected_air_cooled_terminal",
+        ),
+        "abilene_unknown_ids": (
+            "cdu_presence_and_configuration",
+            "cooling_interfaces",
+            "residual_air_equipment",
+            "loop_setpoints_and_measurements",
+            "measured_site_water",
+        ),
+        "journey_stage_ids": tuple(JOURNEY_IDS),
+    },
+}
+CONDITIONAL_STAGE_IDS = {
+    "liquid-stage": {"conditional_cdu_boundary"},
+    "air-stage": {"conditional_air_handler", "facility_loop_merge"},
+}
 PRIMARY_LAYERS = [
+    "residual_air_path",
     "liquid_path",
     "liquid_path",
     "residual_air_path",
     "facility_rejection",
+    "abilene_mapping",
     "journey_closure",
 ]
 GAP_IDS = {
@@ -162,6 +338,25 @@ STATE_FIELDS = {
 
 class HeatVisualError(base.TeachingVisualError):
     """Raised when Phase 6 escapes its teaching or evidence contract."""
+
+
+def _validate_compiled_state_selectors(states: Any, *, location: str) -> None:
+    if not isinstance(states, list) or len(states) != len(STATE_IDS):
+        raise HeatVisualError(
+            f"{location} must contain exactly {len(STATE_IDS)} states"
+        )
+    for index, state_id in enumerate(STATE_IDS):
+        state = states[index]
+        state_location = f"{location}[{index}]"
+        if not isinstance(state, Mapping) or state.get("id") != state_id:
+            raise HeatVisualError(f"{state_location}.id must remain {state_id!r}")
+        for field, expected_values in STATE_SELECTOR_INVARIANTS[state_id].items():
+            expected = list(expected_values)
+            if state.get(field) != expected:
+                raise HeatVisualError(
+                    f"{state_location}.{field} must exactly match the "
+                    f"{state_id} selector invariant {expected}"
+                )
 
 
 def responsive_layout_contract(
@@ -380,16 +575,26 @@ def _normalize_path(
     kind: str,
 ) -> dict[str, Any]:
     value = _exact(raw, PATH_FIELDS, location)
+    stages = _records(
+        value["stages"],
+        location=f"{location}.stages",
+        expected_ids=expected_ids,
+        ledgers=ledgers,
+        kind=kind,
+    )
+    expected_conditional_ids = CONDITIONAL_STAGE_IDS.get(kind, set())
+    actual_conditional_ids = {
+        stage["id"] for stage in stages if "render_posture" in stage
+    }
+    if actual_conditional_ids != expected_conditional_ids:
+        raise HeatVisualError(
+            f"{location}.stages must mark exactly {sorted(expected_conditional_ids)} "
+            "as generic references unresolved at Abilene"
+        )
     return {
         "title": _text(value["title"], f"{location}.title", maximum=170),
         "body": _text(value["body"], f"{location}.body", maximum=680),
-        "stages": _records(
-            value["stages"],
-            location=f"{location}.stages",
-            expected_ids=expected_ids,
-            ledgers=ledgers,
-            kind=kind,
-        ),
+        "stages": stages,
     }
 
 
@@ -685,6 +890,15 @@ def _normalize_states(
                 )
             normalized[field] = selected
             used[namespace].update(selected)
+        expected_selectors = STATE_SELECTOR_INVARIANTS.get(state_id)
+        if expected_selectors is not None:
+            for field in selector_fields:
+                expected = list(expected_selectors[field])
+                if normalized[field] != expected:
+                    raise HeatVisualError(
+                        f"{location}.{field} must exactly match the "
+                        f"{state_id} selector invariant {expected}"
+                    )
         ids.append(state_id)
         nav_labels.append(normalized["nav_label"])
         states.append(normalized)
@@ -1094,12 +1308,250 @@ def _cold_plate_svg(payload: Mapping[str, Any], state: Mapping[str, Any]) -> str
     )
 
 
+def _rack_split_svg(payload: Mapping[str, Any], state: Mapping[str, Any]) -> str:
+    liquid = _by_id(payload["liquid_path"]["stages"])
+    air = _by_id(payload["residual_air_path"]["stages"])
+    heat = _by_id(payload["energy_handoff"]["views"])["heat_obligation"]
+    return (
+        f'<g data-heat-scene-id="{_escape(state["id"])}" hidden>'
+        f"<title>{_escape(state['title'])}</title>"
+        f"<desc>{_escape(heat['boundary'])} {_escape(payload['residual_air_path']['body'])}</desc>"
+        '<rect class="heat-panel" x="42" y="42" width="1516" height="816" rx="18"/>'
+        '<text class="scene-kicker" x="78" y="88">ONE RACK · TWO THERMAL OBLIGATIONS · NO AUTHORED HEAT FRACTION</text>'
+        + _wrapped(
+            str(state["title"]),
+            x=78,
+            y=132,
+            width_chars=82,
+            line_height=29,
+            css_class="scene-title",
+            maximum_lines=2,
+        )
+        + '<g class="rack-shell"><rect x="90" y="205" width="390" height="490" rx="18"/>'
+        '<text class="lane-label" x="120" y="245">RACK EQUIPMENT BOUNDARY</text>'
+        '<rect class="component-die" x="145" y="290" width="280" height="92" rx="10"/>'
+        f'<text class="rack-split-title centered" x="285" y="345">{_escape(liquid["die_heat_source"]["title"])}</text>'
+        '<rect class="cold-plate" x="145" y="405" width="280" height="92" rx="10"/>'
+        f'<text class="rack-split-title centered" x="285" y="460">{_escape(liquid["cold_plate_heat_exchange"]["title"])}</text>'
+        '<path class="component-heat" d="M 220 405 V 382 M 285 405 V 382 M 350 405 V 382"/>'
+        '<rect class="air-aux-card" x="145" y="545" width="280" height="92" rx="10"/>'
+        + _wrapped(
+            str(air["air_cooled_auxiliaries"]["title"]),
+            x=285,
+            y=590,
+            width_chars=28,
+            line_height=19,
+            css_class="rack-split-title centered",
+            maximum_lines=2,
+            center_lines=True,
+        )
+        + "</g>"
+        '<path class="rack-liquid-branch" d="M 480 450 C 555 450 545 315 630 315"/>'
+        '<path class="rack-air-branch" d="M 480 590 C 555 590 545 585 630 585"/>'
+        '<rect class="parallel-lane liquid-lane" x="630" y="205" width="840" height="225" rx="16"/>'
+        '<text class="lane-label" x="660" y="245">LIQUID BRANCH · COMPONENT → COLD PLATE → RACK MANIFOLD</text>'
+        + _wrapped(
+            " → ".join(
+                liquid[item_id]["title"] for item_id in state["liquid_stage_ids"]
+            ),
+            x=1050,
+            y=330,
+            width_chars=72,
+            line_height=23,
+            css_class="parallel-path-copy centered",
+            maximum_lines=3,
+            center_lines=True,
+        )
+        + '<path class="liquid-heat-arrow" d="M 700 385 H 1400"/>'
+        '<rect class="parallel-lane air-lane" x="630" y="475" width="840" height="225" rx="16"/>'
+        '<text class="lane-label air-label" x="660" y="515">RESIDUAL-AIR BRANCH · AUXILIARIES → ROOM AIR</text>'
+        + _wrapped(
+            " → ".join(
+                air[item_id]["title"] for item_id in state["residual_air_stage_ids"]
+            ),
+            x=1050,
+            y=600,
+            width_chars=72,
+            line_height=23,
+            css_class="parallel-path-copy centered",
+            maximum_lines=3,
+            center_lines=True,
+        )
+        + '<path class="air-flow-arrow" d="M 700 655 H 1400"/>'
+        + _mapping_summary(payload, state, y=752)
+        + "</g>"
+    )
+
+
+def _technology_loop_svg(payload: Mapping[str, Any], state: Mapping[str, Any]) -> str:
+    stages = _by_id(payload["liquid_path"]["stages"])
+    order = state["liquid_stage_ids"]
+    x_positions = [140, 610, 1080]
+    if len(order) != len(x_positions):
+        raise HeatVisualError(
+            "technology_loop liquid_stage_ids must match its three desktop positions"
+        )
+    cards: list[str] = []
+    for index, stage_id in enumerate(order):
+        x = x_positions[index]
+        stage = stages[stage_id]
+        cards.append(
+            f'<g class="loop-stage"><rect x="{x}" y="250" width="360" height="280" rx="16"/>'
+            + _wrapped(
+                str(stage["title"]),
+                x=x + 180,
+                y=310,
+                width_chars=38,
+                line_height=22,
+                css_class="loop-stage-title centered",
+                maximum_lines=2,
+                center_lines=True,
+            )
+            + f'<circle class="loop-stage-icon" cx="{x + 180}" cy="400" r="48"/>'
+            + f'<text class="loop-stage-number centered" x="{x + 180}" y="414">{index + 1}</text>'
+            + _wrapped(
+                str(stage["verb"]),
+                x=x + 180,
+                y=485,
+                width_chars=40,
+                line_height=18,
+                css_class="loop-stage-verb centered",
+                maximum_lines=3,
+                center_lines=True,
+            )
+            + "</g>"
+        )
+    return (
+        f'<g data-heat-scene-id="{_escape(state["id"])}" hidden>'
+        f"<title>{_escape(state['title'])}</title>"
+        f"<desc>{_escape(payload['liquid_path']['body'])}</desc>"
+        '<rect class="heat-panel" x="42" y="42" width="1516" height="816" rx="18"/>'
+        '<text class="scene-kicker" x="78" y="88">TECHNOLOGY COOLING SYSTEM · SUPPLY AND RETURN ARE DISTINCT</text>'
+        + _wrapped(
+            str(state["title"]),
+            x=78,
+            y=132,
+            width_chars=82,
+            line_height=29,
+            css_class="scene-title",
+            maximum_lines=2,
+        )
+        + "".join(cards)
+        + '<path class="technology-supply" d="M 1360 585 H 320"/>'
+        '<text class="loop-line-label" x="1080" y="575">COOLED SUPPLY · TOWARD COLD PLATES</text>'
+        '<path class="technology-return" d="M 320 665 H 1360"/>'
+        '<text class="loop-line-label" x="340" y="655">WARMED RETURN · HEAT MOVES TOWARD THE LOOP BOUNDARY</text>'
+        '<rect class="guard-box" x="450" y="700" width="700" height="46" rx="10"/>'
+        '<text class="convergence-label centered" x="800" y="729">NO SITE COOLANT · FLOW · PRESSURE · TEMPERATURE · SETPOINT</text>'
+        + _mapping_summary(payload, state, y=758)
+        + "</g>"
+    )
+
+
+def _cdu_svg(payload: Mapping[str, Any], state: Mapping[str, Any]) -> str:
+    stages = _by_id(payload["liquid_path"]["stages"])
+    manifold = stages["rack_manifold_distribution"]
+    technology = stages["technology_loop_return"]
+    cdu = stages["conditional_cdu_boundary"]
+    facility = stages["facility_loop_entry"]
+    return (
+        f'<g data-heat-scene-id="{_escape(state["id"])}" hidden>'
+        f"<title>{_escape(state['title'])}</title>"
+        f"<desc>{_escape(cdu['boundary'])} {_escape(facility['boundary'])}</desc>"
+        '<rect class="heat-panel" x="42" y="42" width="1516" height="816" rx="18"/>'
+        '<text class="scene-kicker" x="78" y="88">CONDITIONAL LIQUID-TO-LIQUID BOUNDARY · HEAT CROSSES · COOLANTS DO NOT</text>'
+        + _wrapped(
+            str(state["title"]),
+            x=78,
+            y=132,
+            width_chars=82,
+            line_height=29,
+            css_class="scene-title",
+            maximum_lines=2,
+        )
+        + '<rect class="loop-zone technology-zone" x="75" y="190" width="680" height="500" rx="18"/>'
+        '<text class="zone-label" x="105" y="228">TECHNOLOGY COOLING SYSTEM · IT SIDE</text>'
+        '<rect class="loop-zone facility-zone" x="845" y="190" width="680" height="500" rx="18"/>'
+        '<text class="zone-label facility-label" x="875" y="228">FACILITY WATER SYSTEM · PLANT SIDE</text>'
+        '<g class="cdu-side-stage"><rect x="125" y="300" width="250" height="230" rx="15"/>'
+        + _wrapped(
+            str(manifold["title"]),
+            x=250,
+            y=360,
+            width_chars=27,
+            line_height=22,
+            css_class="loop-stage-title centered",
+            maximum_lines=2,
+            center_lines=True,
+        )
+        + _wrapped(
+            str(technology["carrier"]),
+            x=250,
+            y=450,
+            width_chars=27,
+            line_height=19,
+            css_class="loop-stage-verb centered",
+            maximum_lines=3,
+            center_lines=True,
+        )
+        + "</g>"
+        '<g class="conditional-stage cdu-boundary"><rect x="635" y="260" width="330" height="340" rx="18"/>'
+        '<text class="conditional-label centered" x="800" y="300">CONDITIONAL AT ABILENE</text>'
+        + _wrapped(
+            str(cdu["title"]),
+            x=800,
+            y=360,
+            width_chars=34,
+            line_height=23,
+            css_class="loop-stage-title centered",
+            maximum_lines=3,
+            center_lines=True,
+        )
+        + '<path class="heat-exchanger" d="M 735 425 L 865 505 M 735 505 L 865 425"/>'
+        '<text class="cdu-transfer-label centered" x="800" y="555">HEAT EXCHANGE · NO COOLANT MIXING</text>'
+        "</g>"
+        '<g class="cdu-side-stage facility-side"><rect x="1225" y="300" width="250" height="230" rx="15"/>'
+        + _wrapped(
+            str(facility["title"]),
+            x=1350,
+            y=360,
+            width_chars=27,
+            line_height=22,
+            css_class="loop-stage-title centered",
+            maximum_lines=2,
+            center_lines=True,
+        )
+        + _wrapped(
+            str(facility["carrier"]),
+            x=1350,
+            y=450,
+            width_chars=27,
+            line_height=19,
+            css_class="loop-stage-verb centered",
+            maximum_lines=3,
+            center_lines=True,
+        )
+        + "</g>"
+        '<path class="technology-return" d="M 375 390 H 635"/>'
+        '<path class="facility-return" d="M 965 390 H 1225"/>'
+        '<path class="technology-supply" d="M 635 540 H 375"/>'
+        '<path class="facility-supply" d="M 1225 540 H 965"/>'
+        '<text class="loop-line-label" x="415" y="380">WARMED TCS RETURN</text>'
+        '<text class="loop-line-label" x="1000" y="380">HEAT TO FACILITY LOOP</text>'
+        + _mapping_summary(payload, state, y=752)
+        + "</g>"
+    )
+
+
 def _liquid_svg(payload: Mapping[str, Any], state: Mapping[str, Any]) -> str:
     stages = _by_id(payload["liquid_path"]["stages"])
     order = state["liquid_stage_ids"]
     x_positions = [85, 335, 585, 875, 1175]
+    if len(order) > len(x_positions):
+        raise HeatVisualError("liquid path exceeds its desktop position inventory")
     cards = []
-    for index, (stage_id, x) in enumerate(zip(order, x_positions)):
+    for index, stage_id in enumerate(order):
+        x = x_positions[index]
         stage = stages[stage_id]
         conditional = stage_id == "conditional_cdu_boundary"
         css_class = " conditional-stage" if conditional else ""
@@ -1180,7 +1632,7 @@ def _air_svg(payload: Mapping[str, Any], state: Mapping[str, Any]) -> str:
     for index, stage_id in enumerate(air_order):
         stage = air[stage_id]
         x = 170 + index * 325
-        conditional = stage_id == "conditional_air_handler"
+        conditional = "render_posture" in stage
         if index:
             air_cards.append(
                 f'<path class="air-flow-arrow" d="M {x - 52} 575 H {x - 15}"/>'
@@ -1188,7 +1640,7 @@ def _air_svg(payload: Mapping[str, Any], state: Mapping[str, Any]) -> str:
         air_cards.append(
             f'<g class="air-stage{" conditional-stage" if conditional else ""}"><rect x="{x}" y="475" width="260" height="190" rx="14"/>'
             + (
-                f'<text class="conditional-label" x="{x + 18}" y="503">CONDITIONAL AT ABILENE</text>'
+                f'<text class="conditional-label" x="{x + 18}" y="503">GENERIC · UNRESOLVED AT ABILENE</text>'
                 if conditional
                 else ""
             )
@@ -1362,6 +1814,177 @@ def _facility_svg(payload: Mapping[str, Any], state: Mapping[str, Any]) -> str:
     )
 
 
+def _facility_rejection_svg(
+    payload: Mapping[str, Any], state: Mapping[str, Any]
+) -> str:
+    facility = payload["facility_rejection"]
+    stages = _by_id(facility["stages"])
+    air = _by_id(payload["residual_air_path"]["stages"])
+    air_handoff = air[state["residual_air_stage_ids"][0]]
+    x_positions = [120, 605, 1090]
+    stage_order = state["facility_stage_ids"]
+    if len(stage_order) != len(x_positions):
+        raise HeatVisualError(
+            "facility_heat_rejection facility_stage_ids must match its three desktop positions"
+        )
+    cards: list[str] = []
+    for index, stage_id in enumerate(stage_order):
+        x = x_positions[index]
+        stage = stages[stage_id]
+        if index:
+            cards.append(
+                f'<path class="facility-arrow" d="M {x - 85} 420 H {x - 20}"/>'
+            )
+        if stage_id == "facility_loop_transport":
+            icon = (
+                f'<path class="loop-coil" d="M {x + 85} 405 C {x + 35} 355 '
+                f"{x + 205} 355 {x + 155} 405 C {x + 105} 455 "
+                f'{x + 275} 455 {x + 225} 405"/>'
+            )
+        elif stage_id == "air_cooled_terminal":
+            icon = "".join(
+                f'<g class="fan"><circle cx="{x + 95 + n * 92}" cy="410" r="38"/>'
+                f'<path d="M {x + 95 + n * 92} 380 V 440 M {x + 65 + n * 92} 410 H {x + 125 + n * 92}"/></g>'
+                for n in range(3)
+            )
+        else:
+            icon = (
+                f'<path class="atmosphere-waves" d="M {x + 95} 455 C {x + 35} 405 '
+                f"{x + 165} 375 {x + 105} 320 M {x + 195} 455 C {x + 135} 405 "
+                f"{x + 265} 375 {x + 205} 320 M {x + 295} 455 C {x + 235} 405 "
+                f'{x + 365} 375 {x + 305} 320"/>'
+            )
+        cards.append(
+            f'<g class="facility-stage"><rect x="{x}" y="235" width="390" height="390" rx="16"/>'
+            + _wrapped(
+                str(stage["title"]),
+                x=x + 195,
+                y=300,
+                width_chars=39,
+                line_height=23,
+                css_class="facility-stage-title centered",
+                maximum_lines=2,
+                center_lines=True,
+            )
+            + icon
+            + _wrapped(
+                str(stage["verb"]),
+                x=x + 195,
+                y=555,
+                width_chars=42,
+                line_height=19,
+                css_class="facility-stage-verb centered",
+                maximum_lines=3,
+                center_lines=True,
+            )
+            + f"<desc>{_escape(stage['boundary'])} {_escape(_fact_description(stage))}</desc></g>"
+        )
+    return (
+        f'<g data-heat-scene-id="{_escape(state["id"])}" hidden>'
+        f"<title>{_escape(state['title'])}</title>"
+        f"<desc>{_escape(facility['body'])}</desc>"
+        '<rect class="heat-panel" x="42" y="42" width="1516" height="816" rx="18"/>'
+        '<text class="scene-kicker" x="78" y="88">FACILITY HEAT PATH · SELECTED TERMINAL DESIGN · NOT OPERATING TELEMETRY</text>'
+        + _wrapped(
+            str(state["title"]),
+            x=78,
+            y=132,
+            width_chars=82,
+            line_height=29,
+            css_class="scene-title",
+            maximum_lines=2,
+        )
+        + '<rect class="generic-handoff-box" x="120" y="185" width="1360" height="38" rx="9"/>'
+        '<text class="generic-handoff-label centered" x="800" y="210">RESIDUAL-AIR → FACILITY-WATER / TERMINAL HANDOFF IS GENERIC AND CONDITIONAL · NOT AN ABILENE CONNECTION</text>'
+        f"<desc>{_escape(air_handoff['boundary'])}</desc>"
+        + '<path class="facility-heat-ribbon" d="M 185 420 H 1415"/>'
+        + "".join(cards)
+        + '<rect class="guard-box" x="300" y="680" width="1000" height="58" rx="10"/>'
+        '<text class="convergence-label centered" x="800" y="716">DESIGN SELECTION ≠ INSTALLATION ≠ COMMISSIONING ≠ CURRENT OPERATION</text>'
+        + _mapping_summary(payload, state, y=752)
+        + "</g>"
+    )
+
+
+def _water_svg(payload: Mapping[str, Any], state: Mapping[str, Any]) -> str:
+    facility = payload["facility_rejection"]
+    accounts = _by_id(facility["water_accounts"])
+    cards: list[str] = []
+    for index, account_id in enumerate(state["water_account_ids"]):
+        account = accounts[account_id]
+        x = 70 + index * 370
+        unknown = account_id == "measured_operating_water"
+        cards.append(
+            f'<g class="water-account{" unknown-water" if unknown else ""}"><rect x="{x}" y="255" width="350" height="430" rx="16"/>'
+            f'<text class="water-account-number" x="{x + 24}" y="292">0{index + 1}</text>'
+            + _wrapped(
+                str(account["title"]),
+                x=x + 175,
+                y=355,
+                width_chars=34,
+                line_height=22,
+                css_class="water-account-title centered",
+                maximum_lines=3,
+                center_lines=True,
+            )
+            + _wrapped(
+                str(account["display"]),
+                x=x + 175,
+                y=470,
+                width_chars=36,
+                line_height=20,
+                css_class="water-account-display centered",
+                maximum_lines=5,
+                center_lines=True,
+            )
+            + '<line class="water-card-divider" '
+            f'x1="{x + 30}" y1="535" x2="{x + 320}" y2="535"/>'
+            + _wrapped(
+                str(account["boundary"]),
+                x=x + 175,
+                y=585,
+                width_chars=39,
+                line_height=17,
+                css_class="water-account-boundary centered",
+                maximum_lines=5,
+                center_lines=True,
+            )
+            + f"<desc>{_escape(_fact_description(account))}</desc></g>"
+        )
+    return (
+        f'<g data-heat-scene-id="{_escape(state["id"])}" hidden>'
+        f"<title>{_escape(state['title'])}</title>"
+        f"<desc>{_escape(facility['body'])}</desc>"
+        '<rect class="heat-panel" x="42" y="42" width="1516" height="816" rx="18"/>'
+        '<text class="scene-kicker" x="78" y="88">FOUR WATER ACCOUNTS · DIFFERENT BASES · NEVER SUBSTITUTE OR SUM</text>'
+        + _wrapped(
+            str(state["title"]),
+            x=78,
+            y=132,
+            width_chars=82,
+            line_height=29,
+            css_class="scene-title",
+            maximum_lines=2,
+        )
+        + '<rect class="water-context" x="970" y="95" width="540" height="95" rx="12"/>'
+        '<text class="mapping-kicker" x="995" y="128">SELECTED ABILENE TERMINAL</text>'
+        '<text class="mapping-copy" x="995" y="160">Air-cooled chillers · no evaporative use in that process</text>'
+        + "".join(cards)
+        + '<rect class="guard-box" x="230" y="720" width="1140" height="90" rx="10"/>'
+        '<text class="guard-label" x="260" y="752">ACCOUNTING GUARD</text>'
+        + _wrapped(
+            "Initial fill is not annual use. Anticipated maintenance is not measured consumption. Unknown is not zero. No campus total is inferred.",
+            x=260,
+            y=782,
+            width_chars=115,
+            line_height=18,
+            css_class="guard-copy",
+            maximum_lines=2,
+        )
+        + "</g>"
+    )
+
+
 def _journey_icon(stage_id: str, *, x: int, y: int) -> str:
     if stage_id == "generate":
         return f'<g class="journey-icon"><circle cx="{x}" cy="{y}" r="42"/><path d="M {x - 14} {y - 25} L {x + 5} {y - 4} L {x - 2} {y + 26} L {x + 20} {y - 2} L {x} {y - 2} Z"/></g>'
@@ -1474,6 +2097,27 @@ def _responsive_mapping(
     )
 
 
+def _responsive_flow_glyph(index: int, count: int) -> str:
+    if index >= count - 1:
+        return ""
+    return (
+        '<span class="responsive-flow-glyph" aria-hidden="true" '
+        'data-flow-direction="forward">→</span>'
+    )
+
+
+def _responsive_inline_flow(titles: list[str]) -> str:
+    items: list[str] = []
+    for index, title in enumerate(titles):
+        items.append(f'<span class="responsive-path-chip">{_escape(title)}</span>')
+        if index < len(titles) - 1:
+            items.append(
+                '<b class="responsive-inline-arrow" aria-hidden="true" '
+                'data-flow-direction="forward">→</b>'
+            )
+    return "".join(items)
+
+
 def _responsive_energy(payload: Mapping[str, Any], state: Mapping[str, Any]) -> str:
     record = payload["energy_handoff"]
     views = _by_id(record["views"])
@@ -1526,6 +2170,79 @@ def _responsive_cold_plate(payload: Mapping[str, Any], state: Mapping[str, Any])
     )
 
 
+def _responsive_rack_split(payload: Mapping[str, Any], state: Mapping[str, Any]) -> str:
+    liquid = _by_id(payload["liquid_path"]["stages"])
+    air = _by_id(payload["residual_air_path"]["stages"])
+    liquid_cards = _responsive_inline_flow(
+        [liquid[item_id]["title"] for item_id in state["liquid_stage_ids"]]
+    )
+    air_cards = _responsive_inline_flow(
+        [air[item_id]["title"] for item_id in state["residual_air_stage_ids"]]
+    )
+    return (
+        f'<section class="responsive-scene responsive-rack-split" data-heat-scene-id="{_escape(state["id"])}" hidden>'
+        '<p class="responsive-kicker">One rack · two thermal obligations · no authored heat fraction</p>'
+        f"<h2>{_escape(state['title'])}</h2>"
+        '<div class="responsive-rack-branches">'
+        '<article class="responsive-parallel-lane liquid"><strong>Liquid branch · high-power components</strong>'
+        f"<div>{liquid_cards}</div></article>"
+        '<article class="responsive-parallel-lane air"><strong>Residual-air branch · auxiliaries and room air</strong>'
+        f"<div>{air_cards}</div></article></div>"
+        '<div class="responsive-guard">Product component allocation does not establish a site heat split, airflow layout, or operating point.</div>'
+        + _responsive_mapping(payload, state)
+        + "</section>"
+    )
+
+
+def _responsive_technology_loop(
+    payload: Mapping[str, Any], state: Mapping[str, Any]
+) -> str:
+    stages = _by_id(payload["liquid_path"]["stages"])
+    order = state["liquid_stage_ids"]
+    cards = "".join(
+        '<article class="responsive-loop-stage">'
+        f"<h3>{_escape(stages[item_id]['title'])}</h3>"
+        f"<p>{_escape(stages[item_id]['verb'])}</p>"
+        f"<small>{_escape(stages[item_id]['carrier'])}</small>"
+        f"{_responsive_flow_glyph(index, len(order))}</article>"
+        for index, item_id in enumerate(order)
+    )
+    return (
+        f'<section class="responsive-scene responsive-technology-loop" data-heat-scene-id="{_escape(state["id"])}" hidden>'
+        '<p class="responsive-kicker">Technology Cooling System · two directional paths</p>'
+        f"<h2>{_escape(state['title'])}</h2>"
+        f'<div class="responsive-stage-flow technology-stages">{cards}</div>'
+        '<div class="responsive-supply-return"><span>← Cooled supply toward cold plates</span>'
+        "<span>Warmed return / heat direction →</span></div>"
+        '<div class="responsive-guard">No site coolant, flow, pressure, temperature, routing, or setpoint is authored.</div>'
+        + _responsive_mapping(payload, state)
+        + "</section>"
+    )
+
+
+def _responsive_cdu(payload: Mapping[str, Any], state: Mapping[str, Any]) -> str:
+    stages = _by_id(payload["liquid_path"]["stages"])
+    cdu = stages["conditional_cdu_boundary"]
+    return (
+        f'<section class="responsive-scene responsive-cdu" data-heat-scene-id="{_escape(state["id"])}" hidden>'
+        '<p class="responsive-kicker">Conditional liquid-to-liquid boundary</p>'
+        f"<h2>{_escape(state['title'])}</h2>"
+        '<div class="responsive-cdu-zones">'
+        '<article class="responsive-cdu-side"><strong>Technology Cooling System · IT side</strong>'
+        f"<h3>{_escape(stages['rack_manifold_distribution']['title'])}</h3>"
+        f"<p>{_escape(stages['technology_loop_return']['carrier'])}</p></article>"
+        '<article class="responsive-cdu-boundary"><span class="conditional-chip">Conditional at Abilene</span>'
+        f"<h3>{_escape(cdu['title'])}</h3><strong>Heat exchange · no coolant mixing</strong>"
+        '<span class="responsive-transfer-glyph" aria-hidden="true" data-flow-direction="heat-transfer">⇢</span>'
+        f"<p>{_escape(cdu['boundary'])}</p></article>"
+        '<article class="responsive-cdu-side facility"><strong>Facility Water System · plant side</strong>'
+        f"<h3>{_escape(stages['facility_loop_entry']['title'])}</h3>"
+        f"<p>{_escape(stages['facility_loop_entry']['carrier'])}</p></article></div>"
+        + _responsive_mapping(payload, state)
+        + "</section>"
+    )
+
+
 def _responsive_liquid(payload: Mapping[str, Any], state: Mapping[str, Any]) -> str:
     stages = _by_id(payload["liquid_path"]["stages"])
     cards = "".join(
@@ -1559,22 +2276,25 @@ def _responsive_liquid(payload: Mapping[str, Any], state: Mapping[str, Any]) -> 
 def _responsive_air(payload: Mapping[str, Any], state: Mapping[str, Any]) -> str:
     liquid = _by_id(payload["liquid_path"]["stages"])
     air = _by_id(payload["residual_air_path"]["stages"])
-    liquid_cards = "".join(
-        f"<span>{_escape(liquid[item_id]['title'])}</span>"
-        for item_id in state["liquid_stage_ids"]
+    liquid_cards = _responsive_inline_flow(
+        [liquid[item_id]["title"] for item_id in state["liquid_stage_ids"]]
     )
+    air_order = state["residual_air_stage_ids"]
     air_cards = "".join(
         '<article class="responsive-air-stage'
-        + (" conditional" if item_id == "conditional_air_handler" else "")
+        + (" conditional" if "render_posture" in air[item_id] else "")
         + '">'
         + (
-            '<span class="conditional-chip">Conditional at Abilene</span>'
-            if item_id == "conditional_air_handler"
+            '<span class="conditional-chip">Generic · unresolved at Abilene</span>'
+            if "render_posture" in air[item_id]
             else ""
         )
         + f"<h3>{_escape(air[item_id]['title'])}</h3>"
-        + f"<p>{_escape(air[item_id]['verb'])}</p></article>"
-        for item_id in state["residual_air_stage_ids"]
+        + f"<p>{_escape(air[item_id]['verb'])}</p>"
+        + f"<small>{_escape(air[item_id]['boundary'])}</small>"
+        + _responsive_flow_glyph(index, len(air_order))
+        + "</article>"
+        for index, item_id in enumerate(air_order)
     )
     return (
         f'<section class="responsive-scene responsive-air" data-heat-scene-id="{_escape(state["id"])}" hidden>'
@@ -1621,6 +2341,60 @@ def _responsive_facility(payload: Mapping[str, Any], state: Mapping[str, Any]) -
     )
 
 
+def _responsive_facility_rejection(
+    payload: Mapping[str, Any], state: Mapping[str, Any]
+) -> str:
+    facility = payload["facility_rejection"]
+    stages = _by_id(facility["stages"])
+    air = _by_id(payload["residual_air_path"]["stages"])
+    air_handoff = air[state["residual_air_stage_ids"][0]]
+    stage_order = state["facility_stage_ids"]
+    stage_cards = "".join(
+        f'<article class="responsive-facility-stage"><span>0{index + 1}</span>'
+        f"<h3>{_escape(stages[item_id]['title'])}</h3>"
+        f"<p>{_escape(stages[item_id]['verb'])}</p>"
+        f"<small>{_escape(stages[item_id]['boundary'])}</small>"
+        f"{_responsive_flow_glyph(index, len(stage_order))}</article>"
+        for index, item_id in enumerate(stage_order)
+    )
+    return (
+        f'<section class="responsive-scene responsive-facility-rejection" data-heat-scene-id="{_escape(state["id"])}" hidden>'
+        '<p class="responsive-kicker">Facility heat path · selected terminal design · not telemetry</p>'
+        f"<h2>{_escape(state['title'])}</h2>"
+        '<div class="responsive-generic-handoff"><span class="conditional-chip">Generic conditional handoff · not an Abilene connection</span>'
+        f"<strong>{_escape(air_handoff['title'])}</strong>"
+        f"<p>{_escape(air_handoff['boundary'])}</p></div>"
+        f'<div class="responsive-facility-flow">{stage_cards}</div>'
+        '<div class="responsive-guard">Design selection is not installation, commissioning, or current operation.</div>'
+        + _responsive_mapping(payload, state)
+        + "</section>"
+    )
+
+
+def _responsive_water(payload: Mapping[str, Any], state: Mapping[str, Any]) -> str:
+    facility = payload["facility_rejection"]
+    accounts = _by_id(facility["water_accounts"])
+    cards = "".join(
+        '<article class="responsive-water-account'
+        + (" unknown" if item_id == "measured_operating_water" else "")
+        + f'"><span>0{index + 1}</span><h3>{_escape(accounts[item_id]["title"])}</h3>'
+        + f"<strong>{_escape(accounts[item_id]['display'])}</strong>"
+        + f"<p>{_escape(accounts[item_id]['boundary'])}</p></article>"
+        for index, item_id in enumerate(state["water_account_ids"])
+    )
+    return (
+        f'<section class="responsive-scene responsive-water-accounting" data-heat-scene-id="{_escape(state["id"])}" hidden>'
+        '<p class="responsive-kicker">Four water accounts · different bases · no substitution</p>'
+        f"<h2>{_escape(state['title'])}</h2>"
+        '<div class="responsive-water-context"><strong>Selected Abilene terminal</strong>'
+        "<p>Air-cooled chillers; no evaporative use in that heat-rejection process.</p></div>"
+        f'<div class="responsive-water-grid">{cards}</div>'
+        '<div class="responsive-guard">Initial fill is not annual use. Anticipated maintenance is not measured consumption. Unknown is not zero. No campus total is inferred.</div>'
+        + _responsive_mapping(payload, state)
+        + "</section>"
+    )
+
+
 def _journey_icon_text(stage_id: str) -> str:
     return {
         "generate": "ϟ",
@@ -1634,14 +2408,16 @@ def _journey_icon_text(stage_id: str) -> str:
 
 def _responsive_journey(payload: Mapping[str, Any], state: Mapping[str, Any]) -> str:
     journey = payload["journey_closure"]
+    stages = journey["stages"]
     cards = "".join(
         f'<article class="responsive-journey-stage"><span class="journey-icon-text">{_journey_icon_text(str(stage["id"]))}</span>'
         f"<b>{stage['number']}</b><h3>{_escape(stage['title'])}</h3>"
         "<strong>Carrier / function</strong>"
         f"<p>{_escape(stage['carrier'])}</p><strong>Abilene posture</strong>"
         f"<p>{_escape(stage['abilene_posture'])}</p>"
-        f'<span class="visually-hidden">{_escape(_fact_description(stage))}</span></article>'
-        for stage in journey["stages"]
+        f'<span class="visually-hidden">{_escape(_fact_description(stage))}</span>'
+        f"{_responsive_flow_glyph(index, len(stages))}</article>"
+        for index, stage in enumerate(stages)
     )
     return (
         f'<section class="responsive-scene responsive-journey" data-heat-scene-id="{_escape(state["id"])}" hidden>'
@@ -1659,10 +2435,12 @@ def _responsive_visual(payload: Mapping[str, Any]) -> str:
     return (
         '<section class="responsive-visual" aria-label="Responsive heat-rejection teaching surface">'
         + _responsive_journey(payload, states["whole_journey_closure"])
-        + _responsive_cold_plate(payload, states["die_to_cold_plate"])
-        + _responsive_liquid(payload, states["rack_to_facility_boundary"])
+        + _responsive_rack_split(payload, states["rack_cooling_split"])
+        + _responsive_technology_loop(payload, states["technology_loop"])
+        + _responsive_cdu(payload, states["cdu_boundary"])
         + _responsive_air(payload, states["parallel_residual_air"])
-        + _responsive_facility(payload, states["facility_rejection_and_water"])
+        + _responsive_facility_rejection(payload, states["facility_heat_rejection"])
+        + _responsive_water(payload, states["water_accounting"])
         + "</section>"
     )
 
@@ -1671,12 +2449,15 @@ def render_heat_return(payload: dict[str, Any]) -> str:
     """Render one compiled Phase 6 pilot as a self-contained HTML page."""
     if payload.get("canvas", {}).get("kind") != CANVAS_KIND:
         raise HeatVisualError("render payload is not a heat-return surface")
+    _validate_compiled_state_selectors(
+        payload.get("states"), location="render payload.states"
+    )
     states = {state["id"]: state for state in payload["states"]}
     buttons = "".join(
-        f'<button class="state-button" type="button" role="tab" '
-        f'id="state-tab-{_escape(state["id"])}" aria-controls="visual" '
+        f'<button class="state-button" type="button" '
+        f'id="state-selector-{_escape(state["id"])}" aria-pressed="false" '
         f'aria-label="State {index + 1}: {_escape(state["title"])}" '
-        f'title="{_escape(state["title"])}" aria-selected="false" '
+        f'title="{_escape(state["title"])}" '
         f'data-state-index="{index}"><span class="state-number">{index + 1:02d}</span>'
         f'<span class="state-nav-label">{_escape(state["nav_label"])}</span></button>'
         for index, state in enumerate(payload["states"])
@@ -1702,7 +2483,7 @@ def render_heat_return(payload: dict[str, Any]) -> str:
   html {{ overflow:hidden; }}
   body {{ display:grid; grid-template-rows:auto minmax(0,1fr) auto; height:100dvh; min-height:0; overflow:hidden; }}
   header {{ display:grid; grid-template-columns:minmax(0,1fr) minmax(330px,590px); gap:20px; padding:11px 20px 10px; border-bottom:1.5px solid var(--ink); }}
-  .eyebrow,.phase-question,.state-number,.scene-kicker,.responsive-kicker,.fact-ref,.view-kicker,.verb-kicker,.mapping-kicker,.conditional-label,.zone-label,.lane-label,.water-section-title,.journey-section-label,.responsive-view strong,.responsive-mapping strong,.conditional-chip {{ text-transform:uppercase; letter-spacing:.07em; font-size:11px; font-weight:760; }}
+  .eyebrow,.phase-question,.state-number,.scene-kicker,.responsive-kicker,.fact-ref,.view-kicker,.verb-kicker,.mapping-kicker,.conditional-label,.zone-label,.lane-label,.water-section-title,.journey-section-label,.responsive-view strong,.responsive-mapping strong,.conditional-chip {{ text-transform:uppercase; letter-spacing:.07em; font-size:13px; font-weight:760; }}
   h1 {{ margin:3px 0; font-size:clamp(21px,2.2vw,34px); line-height:1.05; }}
   header p {{ margin:2px 0; line-height:1.3; }}
   .objective {{ align-self:end; color:var(--muted); font-size:13px; }}
@@ -1719,8 +2500,12 @@ def render_heat_return(payload: dict[str, Any]) -> str:
   .energy-card-title,.view-title,.cutaway-title,.loop-stage-title,.air-stage-title,.facility-stage-title,.water-account-title,.journey-title {{ font-weight:760; }}
   .energy-card-title {{ font-size:20px; }}
   .carrier-label {{ fill:var(--muted); font-size:13px; }}
-  .service-arrow {{ fill:none; stroke:var(--blue); stroke-width:5; }}
-  .heat-arrow {{ fill:none; stroke:var(--red); stroke-width:5; }}
+  .arrowhead-blue {{ fill:var(--blue); }}
+  .arrowhead-cyan {{ fill:var(--cyan); }}
+  .arrowhead-amber {{ fill:var(--amber); }}
+  .arrowhead-red {{ fill:var(--red); }}
+  .service-arrow {{ fill:none; stroke:var(--blue); stroke-width:5; marker-end:url(#arrow-blue); }}
+  .heat-arrow {{ fill:none; stroke:var(--red); stroke-width:5; marker-end:url(#arrow-red); }}
   .service-view {{ fill:var(--blue-soft); stroke:var(--blue); }}
   .thermal-view {{ fill:var(--red-soft); stroke:var(--red); }}
   .view-kicker {{ fill:var(--blue); }}
@@ -1733,7 +2518,7 @@ def render_heat_return(payload: dict[str, Any]) -> str:
   .heat-pictogram path {{ fill:none; stroke:var(--red); stroke-width:6; }}
   .guard-box {{ fill:var(--amber-soft); stroke:var(--amber); stroke-width:1.6; }}
   .guard-copy {{ fill:var(--muted); font-size:13px; }}
-  .guard-label {{ fill:var(--amber); font-size:11px; font-weight:760; }}
+  .guard-label {{ fill:var(--amber); font-size:13px; font-weight:760; }}
   .board {{ fill:#d9d9d4; stroke:var(--ink); stroke-width:2; }}
   .component-die {{ fill:var(--blue-soft); stroke:var(--blue); stroke-width:3; }}
   .die-grid {{ fill:none; stroke:var(--blue); stroke-width:2; opacity:.55; }}
@@ -1741,12 +2526,17 @@ def render_heat_return(payload: dict[str, Any]) -> str:
   .cold-plate {{ fill:var(--cyan-soft); stroke:var(--cyan); stroke-width:3; }}
   .coolant-channel,.coolant-supply,.coolant-return {{ fill:none; stroke:var(--cyan); stroke-width:12; }}
   .coolant-return {{ stroke:var(--red); }}
-  .component-heat {{ fill:none; stroke:var(--red); stroke-width:5; }}
+  .component-heat {{ fill:none; stroke:var(--red); stroke-width:5; marker-end:url(#arrow-red); }}
   .cutaway-label {{ fill:var(--muted); font-size:13px; font-weight:700; }}
   .cutaway-title {{ font-size:19px; }}
+  .rack-shell > rect {{ fill:#f8f8f5; stroke:var(--ink); stroke-width:2; }}
+  .air-aux-card {{ fill:var(--amber-soft); stroke:var(--amber); stroke-width:2; }}
+  .rack-split-title {{ font-size:16px; font-weight:760; }}
+  .rack-liquid-branch {{ fill:none; stroke:var(--cyan); stroke-width:5; marker-end:url(#arrow-cyan); }}
+  .rack-air-branch {{ fill:none; stroke:var(--amber); stroke-width:5; marker-end:url(#arrow-amber); }}
   .verb-kicker {{ fill:var(--blue); }}
   .verb-copy {{ font-size:17px; font-weight:700; }}
-  .verb-arrow {{ fill:none; stroke:var(--red); stroke-width:4; }}
+  .verb-arrow {{ fill:none; stroke:var(--red); stroke-width:4; marker-end:url(#arrow-red); }}
   .known-summary {{ fill:var(--green-soft); stroke:var(--green); stroke-width:1.6; }}
   .unknown-summary {{ fill:var(--amber-soft); stroke:var(--amber); stroke-width:1.6; }}
   .mapping-kicker {{ fill:var(--green); }}
@@ -1764,20 +2554,26 @@ def render_heat_return(payload: dict[str, Any]) -> str:
   .loop-stage-number,.conditional-question {{ fill:var(--cyan); font-size:29px; font-weight:800; }}
   .conditional-question {{ fill:var(--amber); }}
   .loop-stage-verb {{ fill:var(--muted); font-size:13px; }}
-  .heat-flow-arrow,.air-flow-arrow,.facility-arrow,.journey-arrow {{ fill:none; stroke:var(--red); stroke-width:4; }}
+  .heat-flow-arrow,.air-flow-arrow,.facility-arrow,.journey-arrow {{ fill:none; stroke:var(--red); stroke-width:4; marker-end:url(#arrow-red); }}
   .supply-return {{ fill:none; stroke-width:4; }}
-  .supply-line {{ stroke:var(--cyan); }}
-  .return-line {{ stroke:var(--red); }}
-  .loop-line-label {{ fill:var(--muted); font-size:12px; font-weight:700; }}
+  .supply-line {{ stroke:var(--cyan); marker-end:url(#arrow-cyan); }}
+  .return-line {{ stroke:var(--red); marker-end:url(#arrow-red); }}
+  .technology-supply,.facility-supply {{ fill:none; stroke:var(--cyan); stroke-width:6; marker-end:url(#arrow-cyan); }}
+  .technology-return,.facility-return {{ fill:none; stroke:var(--red); stroke-width:6; marker-end:url(#arrow-red); }}
+  .loop-line-label {{ fill:var(--muted); font-size:13px; font-weight:700; }}
+  .cdu-side-stage > rect {{ fill:white; stroke:var(--cyan); stroke-width:2; }}
+  .facility-side > rect {{ stroke:var(--green); }}
+  .heat-exchanger {{ fill:none; stroke:var(--amber); stroke-width:12; }}
+  .cdu-transfer-label {{ fill:var(--amber); font-size:13px; font-weight:760; }}
   .parallel-lane {{ fill:#f8fcfd; stroke:var(--cyan); stroke-width:2; }}
   .air-lane {{ fill:#fffaf5; stroke:var(--amber); }}
   .lane-label {{ fill:var(--cyan); }}
   .air-label {{ fill:var(--amber); }}
   .parallel-path-copy {{ fill:var(--muted); font-size:16px; font-weight:700; }}
-  .liquid-heat-arrow {{ fill:none; stroke:var(--red); stroke-width:5; }}
+  .liquid-heat-arrow {{ fill:none; stroke:var(--red); stroke-width:5; marker-end:url(#arrow-red); }}
   .air-stage > rect {{ stroke:var(--amber); }}
   .air-stage-title {{ font-size:16px; }}
-  .air-stage-verb {{ fill:var(--muted); font-size:12px; }}
+  .air-stage-verb {{ fill:var(--muted); font-size:13px; }}
   .convergence-box {{ fill:var(--ink); }}
   .convergence-label {{ fill:white; font-size:13px; font-weight:740; }}
   .facility-stage > rect {{ stroke:var(--green); }}
@@ -1787,15 +2583,20 @@ def render_heat_return(payload: dict[str, Any]) -> str:
   .fan circle {{ fill:var(--green-soft); stroke:var(--green); stroke-width:2; }}
   .fan path {{ fill:none; stroke:var(--green); stroke-width:3; }}
   .atmosphere-waves {{ fill:none; stroke:var(--red); stroke-width:6; }}
+  .facility-heat-ribbon {{ fill:none; stroke:var(--red); stroke-width:8; marker-end:url(#arrow-red); }}
+  .generic-handoff-box {{ fill:var(--amber-soft); stroke:var(--amber); stroke-width:1.6; stroke-dasharray:7 5; }}
+  .generic-handoff-label {{ fill:var(--amber); font-size:13px; font-weight:760; }}
   .water-section-title {{ fill:var(--blue); }}
   .water-account > rect {{ fill:var(--blue-soft); stroke:var(--blue); }}
   .unknown-water > rect {{ fill:var(--amber-soft); stroke:var(--amber); }}
-  .water-account-number {{ fill:var(--blue); font-size:12px; font-weight:760; }}
+  .water-account-number {{ fill:var(--blue); font-size:13px; font-weight:760; }}
   .unknown-water .water-account-number {{ fill:var(--amber); }}
   .water-account-title {{ font-size:17px; }}
   .water-account-display {{ font-size:14px; font-weight:720; }}
-  .water-account-boundary {{ fill:var(--muted); font-size:11px; }}
-  .journey-ribbon {{ fill:none; stroke:var(--blue); stroke-width:10; }}
+  .water-account-boundary {{ fill:var(--muted); font-size:13px; }}
+  .water-card-divider {{ stroke:var(--faint); stroke-width:1.5; }}
+  .water-context {{ fill:var(--green-soft); stroke:var(--green); stroke-width:1.6; }}
+  .journey-ribbon {{ fill:none; stroke:var(--blue); stroke-width:10; marker-end:url(#arrow-blue); }}
   .journey-stage > rect {{ fill:white; stroke:var(--blue); }}
   .journey-stage:last-of-type > rect {{ fill:var(--red-soft); stroke:var(--red); }}
   .journey-number {{ fill:var(--blue); }}
@@ -1808,12 +2609,12 @@ def render_heat_return(payload: dict[str, Any]) -> str:
   .journey-section-label {{ fill:var(--blue); }}
   .posture-label {{ fill:var(--amber); }}
   .journey-copy {{ font-size:13px; font-weight:680; }}
-  .journey-posture {{ fill:var(--muted); font-size:12px; }}
+  .journey-posture {{ fill:var(--muted); font-size:13px; }}
   footer {{ display:grid; grid-template-columns:minmax(0,1fr) minmax(340px,590px); gap:10px 16px; min-height:0; max-height:48dvh; padding:9px 14px 10px; border-top:1.5px solid var(--ink); }}
   .state-nav {{ display:grid; grid-template-columns:repeat({len(payload["states"])},minmax(0,1fr)); gap:6px; }}
   .state-button {{ display:grid; grid-template-columns:auto 1fr; gap:7px; align-items:center; min-width:0; min-height:44px; padding:7px 8px; border:1.5px solid var(--ink); background:transparent; color:inherit; text-align:left; font:inherit; cursor:pointer; }}
   .state-nav-label {{ overflow:visible; text-overflow:clip; white-space:normal; }}
-  .state-button[aria-selected="true"] {{ background:var(--ink); color:white; }}
+  .state-button[aria-pressed="true"] {{ background:var(--ink); color:white; }}
   .state-copy {{ min-width:0; align-self:center; }}
   .state-copy h2 {{ margin:0 0 3px; font-size:16px; }}
   .state-copy p {{ margin:0; color:var(--muted); font-size:13px; line-height:1.3; }}
@@ -1823,8 +2624,8 @@ def render_heat_return(payload: dict[str, Any]) -> str:
   .fact-list {{ display:grid; grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr)); gap:12px; min-width:0; margin-bottom:0; padding:0; list-style:none; }}
   .fact-card {{ min-width:0; border:1px solid var(--faint); padding:10px 12px; background:white; }}
   .fact-card p {{ margin:5px 0; line-height:1.35; }}
-  .fact-ref,.fact-boundary {{ overflow-wrap:anywhere; word-break:break-word; color:var(--muted); font-size:11px; }}
-  .fact-sources {{ min-width:0; overflow-wrap:anywhere; word-break:break-word; font-size:12px; }}
+  .fact-ref,.fact-boundary {{ overflow-wrap:anywhere; word-break:break-word; color:var(--muted); font-size:13px; }}
+  .fact-sources {{ min-width:0; overflow-wrap:anywhere; word-break:break-word; font-size:13px; }}
   a {{ overflow-wrap:anywhere; word-break:break-word; color:var(--blue); }}
   .visually-hidden {{ position:absolute !important; width:1px; height:1px; overflow:hidden; clip:rect(1px,1px,1px,1px); white-space:nowrap; }}
   .responsive-visual {{ display:none; }}
@@ -1832,7 +2633,7 @@ def render_heat_return(payload: dict[str, Any]) -> str:
   .responsive-scene h2,.responsive-scene h3,.responsive-scene p,.responsive-scene ul {{ margin:0; }}
   .responsive-kicker,.conditional-chip {{ color:var(--blue); text-transform:uppercase; letter-spacing:.06em; font-weight:760; }}
   .responsive-energy-layout {{ display:grid; grid-template-columns:minmax(180px,.7fr) minmax(0,1.5fr); }}
-  .responsive-energy-input,.responsive-view,.responsive-verb-grid article,.responsive-loop-stage,.responsive-air-stage,.responsive-facility-stage,.responsive-water-account,.responsive-journey-stage {{ min-width:0; border:1px solid var(--faint); border-radius:8px; background:var(--paper); }}
+  .responsive-energy-input,.responsive-view,.responsive-verb-grid article,.responsive-loop-stage,.responsive-air-stage,.responsive-facility-stage,.responsive-water-account,.responsive-journey-stage {{ position:relative; min-width:0; border:1px solid var(--faint); border-radius:8px; background:var(--paper); }}
   .responsive-energy-input {{ display:grid; place-items:center; text-align:center; }}
   .bolt {{ color:var(--blue); font-size:48px; }}
   .responsive-view-stack {{ display:grid; }}
@@ -1855,21 +2656,32 @@ def render_heat_return(payload: dict[str, Any]) -> str:
   .mapping-known strong {{ color:var(--green); }}
   .mapping-unknown strong {{ color:var(--amber); }}
   .responsive-stage-flow {{ grid-template-columns:repeat(5,minmax(0,1fr)); }}
+  .responsive-stage-flow.technology-stages {{ grid-template-columns:repeat(3,minmax(0,1fr)); }}
   .responsive-loop-zones strong {{ border:1px solid var(--cyan); border-radius:7px; background:var(--cyan-soft); text-align:center; }}
   .responsive-loop-zones strong:last-child {{ border-color:var(--green); background:var(--green-soft); }}
   .responsive-loop-stage {{ border-color:var(--cyan); }}
   .responsive-loop-stage.conditional,.responsive-air-stage.conditional {{ border-color:var(--amber); border-style:dashed; background:var(--amber-soft); }}
+  .responsive-rack-branches,.responsive-cdu-zones {{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }}
+  .responsive-cdu-zones {{ grid-template-columns:minmax(0,1fr) minmax(0,1.2fr) minmax(0,1fr); }}
+  .responsive-cdu-side,.responsive-cdu-boundary,.responsive-water-context {{ position:relative; min-width:0; padding:9px; border:1px solid var(--cyan); border-radius:8px; background:var(--cyan-soft); }}
+  .responsive-cdu-side.facility,.responsive-water-context {{ border-color:var(--green); background:var(--green-soft); }}
+  .responsive-cdu-boundary {{ border-color:var(--amber); border-style:dashed; background:var(--amber-soft); }}
   .conditional-chip {{ display:block; color:var(--amber); }}
+  .responsive-transfer-glyph {{ display:block; margin:7px 0; color:var(--red); font-size:28px; font-weight:800; text-align:center; }}
   .responsive-supply-return {{ display:flex; justify-content:space-between; color:var(--muted); font-weight:700; }}
   .responsive-parallel-lane {{ border:1px solid var(--cyan); border-radius:8px; background:var(--cyan-soft); }}
   .responsive-parallel-lane.air {{ border-color:var(--amber); background:var(--amber-soft); }}
-  .responsive-parallel-lane > div {{ display:flex; flex-wrap:wrap; }}
-  .responsive-parallel-lane span {{ border:1px solid currentColor; border-radius:999px; }}
+  .responsive-parallel-lane > div {{ display:flex; flex-wrap:wrap; align-items:center; }}
+  .responsive-path-chip {{ border:1px solid currentColor; border-radius:999px; }}
+  .responsive-inline-arrow,.responsive-flow-glyph {{ color:var(--red); font-size:20px; font-weight:850; line-height:1; }}
+  .responsive-flow-glyph {{ display:block; margin-top:7px; text-align:right; }}
   .responsive-air-flow {{ grid-template-columns:repeat(4,minmax(0,1fr)); }}
   .responsive-convergence {{ border-radius:8px; background:var(--ink); color:white; text-align:center; font-weight:720; }}
   .responsive-facility-flow {{ grid-template-columns:repeat(3,minmax(0,1fr)); }}
   .responsive-water-grid {{ grid-template-columns:repeat(4,minmax(0,1fr)); }}
   .responsive-facility-stage {{ border-color:var(--green); }}
+  .responsive-generic-handoff {{ margin-top:9px; padding:9px; border:1px dashed var(--amber); border-radius:8px; background:var(--amber-soft); }}
+  .responsive-generic-handoff strong {{ display:block; margin:4px 0; }}
   .responsive-facility-stage > span,.responsive-water-account > span {{ color:var(--blue); font-weight:760; }}
   .responsive-water-account {{ border-color:var(--blue); background:var(--blue-soft); }}
   .responsive-water-account.unknown {{ border-color:var(--amber); background:var(--amber-soft); }}
@@ -1882,27 +2694,27 @@ def render_heat_return(payload: dict[str, Any]) -> str:
   .journey-icon-text {{ display:grid; place-items:center; color:var(--blue); font-size:38px; }}
   .responsive-journey-stage:last-child .journey-icon-text {{ color:var(--red); }}
   .responsive-journey-stage > b {{ display:grid; place-items:center; width:28px; height:28px; border-radius:50%; background:var(--blue); color:white; }}
-  .responsive-journey-stage > strong {{ display:block; color:var(--blue); text-transform:uppercase; letter-spacing:.05em; font-size:10px; }}
+  .responsive-journey-stage > strong {{ display:block; color:var(--blue); text-transform:uppercase; letter-spacing:.05em; font-size:12px; }}
   @media (max-width:1280px), (max-height:760px) {{
     header {{ grid-template-columns:minmax(0,1fr) minmax(300px,520px); gap:10px; padding:7px 12px; }}
     h1 {{ font-size:22px; }}
-    .objective {{ font-size:11px; }}
+    .objective {{ font-size:12px; }}
     main {{ place-items:start stretch; overflow:auto; overscroll-behavior:contain; padding:6px; }}
     footer {{ padding:6px 9px 7px; }}
     .state-nav {{ gap:4px; }}
-    .state-button {{ grid-template-columns:1fr; gap:1px; padding:4px; text-align:center; font-size:11px; }}
+    .state-button {{ grid-template-columns:1fr; gap:1px; padding:4px; text-align:center; font-size:12px; }}
     .visual-shell {{ display:none; }}
     .responsive-visual {{ display:block; width:100%; height:auto; min-height:100%; padding:4px; font-size:12px; }}
     .responsive-scene {{ padding:11px; }}
     .responsive-scene h2 {{ margin-bottom:8px; font-size:19px; }}
     .responsive-scene h3 {{ margin-bottom:5px; font-size:15px; }}
-    .responsive-kicker {{ margin-bottom:4px !important; font-size:11px; }}
+    .responsive-kicker {{ margin-bottom:4px !important; font-size:12px; }}
     .responsive-energy-layout,.responsive-view-stack,.responsive-verb-grid,.responsive-mapping,.responsive-loop-zones,.responsive-stage-flow,.responsive-air-flow,.responsive-facility-flow,.responsive-water-grid,.responsive-journey-grid {{ gap:8px; }}
     .responsive-energy-input,.responsive-view,.responsive-verb-grid article,.responsive-loop-stage,.responsive-air-stage,.responsive-facility-stage,.responsive-water-account,.responsive-journey-stage,.mapping-known,.mapping-unknown {{ padding:8px; font-size:12px; line-height:1.4; }}
-    .responsive-guard,.responsive-mapping,.responsive-cutaway,.responsive-verb-grid,.responsive-loop-zones,.responsive-stage-flow,.responsive-supply-return,.responsive-parallel-lane,.responsive-convergence,.responsive-facility-flow,.water-heading,.responsive-water-grid,.journey-intro,.responsive-journey-grid {{ margin-top:9px; }}
+    .responsive-guard,.responsive-mapping,.responsive-cutaway,.responsive-verb-grid,.responsive-loop-zones,.responsive-stage-flow,.responsive-supply-return,.responsive-parallel-lane,.responsive-rack-branches,.responsive-cdu-zones,.responsive-water-context,.responsive-convergence,.responsive-facility-flow,.water-heading,.responsive-water-grid,.journey-intro,.responsive-journey-grid {{ margin-top:9px; }}
     .responsive-guard,.responsive-parallel-lane,.responsive-convergence {{ padding:8px; font-size:12px; line-height:1.4; }}
     .responsive-view-stack {{ gap:8px; }}
-    .responsive-view small,.responsive-facility-stage small {{ margin-top:5px; font-size:11px; line-height:1.35; }}
+    .responsive-view small,.responsive-loop-stage small,.responsive-air-stage small,.responsive-facility-stage small {{ display:block; margin-top:5px; font-size:12px; line-height:1.35; color:var(--muted); }}
     .responsive-cutaway {{ gap:7px; padding:10px; }}
     .responsive-plate,.responsive-die {{ padding:12px; }}
     .responsive-verb-grid article {{ border-color:var(--faint); }}
@@ -1912,7 +2724,7 @@ def render_heat_return(payload: dict[str, Any]) -> str:
     .responsive-loop-stage small {{ display:block; margin-top:5px; color:var(--muted); }}
     .responsive-supply-return {{ padding:7px; }}
     .responsive-parallel-lane > div {{ gap:5px; margin-top:6px; }}
-    .responsive-parallel-lane span {{ padding:4px 6px; }}
+    .responsive-path-chip {{ padding:4px 6px; }}
     .responsive-air-stage p,.responsive-facility-stage p,.responsive-water-account p,.responsive-journey-stage p {{ font-size:12px; line-height:1.4; }}
     .responsive-convergence {{ margin-bottom:9px; }}
     .water-heading {{ font-size:13px; }}
@@ -1923,6 +2735,7 @@ def render_heat_return(payload: dict[str, Any]) -> str:
     header {{ grid-template-columns:1fr; gap:2px; }}
     footer {{ grid-template-columns:1fr; gap:4px; }}
     .responsive-stage-flow {{ grid-template-columns:repeat(2,minmax(0,1fr)); }}
+    .responsive-stage-flow.technology-stages {{ grid-template-columns:repeat(2,minmax(0,1fr)); }}
     .responsive-loop-stage:last-child {{ grid-column:1/-1; }}
     .responsive-air-flow,.responsive-water-grid,.responsive-journey-grid {{ grid-template-columns:repeat(2,minmax(0,1fr)); }}
     .responsive-facility-flow {{ grid-template-columns:repeat(3,minmax(0,1fr)); }}
@@ -1931,7 +2744,7 @@ def render_heat_return(payload: dict[str, Any]) -> str:
   @media (max-height:520px) and (orientation:landscape) {{
     header {{ grid-template-columns:1fr; padding:3px 8px; }}
     h1 {{ margin:1px 0; font-size:17px; }}
-    .eyebrow,.phase-question {{ font-size:9px; }}
+    .eyebrow,.phase-question {{ font-size:10px; }}
     .objective {{ display:none; }}
     main {{ padding:3px 6px; }}
     footer {{ grid-template-columns:minmax(0,1fr) minmax(210px,320px) auto; gap:5px; padding:3px 6px; }}
@@ -1948,7 +2761,7 @@ def render_heat_return(payload: dict[str, Any]) -> str:
     .responsive-stage-flow,.responsive-air-flow,.responsive-water-grid,.responsive-journey-grid {{ grid-template-columns:repeat(3,minmax(0,1fr)); gap:5px; }}
     .responsive-loop-stage:last-child {{ grid-column:auto; }}
     .responsive-energy-input,.responsive-view,.responsive-verb-grid article,.responsive-loop-stage,.responsive-air-stage,.responsive-facility-stage,.responsive-water-account,.responsive-journey-stage,.mapping-known,.mapping-unknown {{ padding:5px; font-size:10px; }}
-    .responsive-view small,.responsive-facility-stage small {{ font-size:10px; }}
+    .responsive-view small,.responsive-loop-stage small,.responsive-air-stage small,.responsive-facility-stage small {{ font-size:10px; }}
     .journey-icon-text {{ font-size:28px; }}
   }}
   @media (max-width:520px) and (orientation:portrait) {{
@@ -1956,13 +2769,13 @@ def render_heat_return(payload: dict[str, Any]) -> str:
     h1 {{ font-size:19px; }}
     .objective {{ display:none; }}
     footer {{ grid-template-columns:1fr; gap:4px; padding:5px 7px; }}
-    .state-button {{ min-height:44px; padding:3px 2px; font-size:9px; }}
-    .state-number {{ font-size:9px; }}
+    .state-button {{ min-height:44px; padding:3px 2px; font-size:12px; }}
+    .state-number {{ font-size:12px; }}
     .state-copy h2 {{ font-size:13px; }}
     .state-copy p {{ display:none; }}
     .responsive-visual {{ padding:2px; font-size:12px; }}
     .responsive-scene {{ padding:9px; }}
-    .responsive-energy-layout,.responsive-verb-grid,.responsive-mapping,.responsive-loop-zones,.responsive-stage-flow,.responsive-air-flow,.responsive-facility-flow,.responsive-water-grid,.responsive-journey-grid {{ grid-template-columns:1fr; }}
+    .responsive-energy-layout,.responsive-verb-grid,.responsive-mapping,.responsive-loop-zones,.responsive-stage-flow,.responsive-stage-flow.technology-stages,.responsive-rack-branches,.responsive-cdu-zones,.responsive-air-flow,.responsive-facility-flow,.responsive-water-grid,.responsive-journey-grid {{ grid-template-columns:1fr; }}
     .responsive-loop-stage:last-child {{ grid-column:auto; }}
     .responsive-supply-return {{ display:grid; gap:4px; }}
     .responsive-coolant {{ display:grid; gap:5px; text-align:center; }}
@@ -1982,19 +2795,27 @@ def render_heat_return(payload: dict[str, Any]) -> str:
 <main>
   <section class="visual-shell" aria-label="Instructor-controlled heat-rejection teaching surface">
     <svg id="visual" role="img" viewBox="0 0 {CANVAS_WIDTH} {CANVAS_HEIGHT}" aria-labelledby="visual-title visual-description">
+      <defs>
+        <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path class="arrowhead-blue" d="M 0 0 L 10 5 L 0 10 z"/></marker>
+        <marker id="arrow-cyan" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path class="arrowhead-cyan" d="M 0 0 L 10 5 L 0 10 z"/></marker>
+        <marker id="arrow-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path class="arrowhead-amber" d="M 0 0 L 10 5 L 0 10 z"/></marker>
+        <marker id="arrow-red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path class="arrowhead-red" d="M 0 0 L 10 5 L 0 10 z"/></marker>
+      </defs>
       <title id="visual-title">Heat return from silicon to atmosphere</title>
-      <desc id="visual-description">Five manually selected causal views begin at component heat, follow liquid and residual-air paths, distinguish water accounts, and close the complete six-phase course journey.</desc>
-      {_cold_plate_svg(payload, states["die_to_cold_plate"])}
-      {_liquid_svg(payload, states["rack_to_facility_boundary"])}
+      <desc id="visual-description">Seven manually selected causal views separate the rack heat split, technology loop, conditional CDU boundary, residual-air branch, facility heat rejection, water accounting, and complete six-phase journey.</desc>
+      {_rack_split_svg(payload, states["rack_cooling_split"])}
+      {_technology_loop_svg(payload, states["technology_loop"])}
+      {_cdu_svg(payload, states["cdu_boundary"])}
       {_air_svg(payload, states["parallel_residual_air"])}
-      {_facility_svg(payload, states["facility_rejection_and_water"])}
+      {_facility_rejection_svg(payload, states["facility_heat_rejection"])}
+      {_water_svg(payload, states["water_accounting"])}
       {_journey_svg(payload, states["whole_journey_closure"])}
     </svg>
   </section>
   {responsive}
 </main>
 <footer>
-  <nav class="state-nav" role="tablist" aria-label="Manual Phase 6 teaching states">{buttons}</nav>
+  <nav class="state-nav" aria-label="Manual Phase 6 teaching-state selectors">{buttons}</nav>
   <section class="state-copy" aria-labelledby="state-title"><h2 id="state-title"></h2><p id="state-instruction"></p></section>
   <p id="state-status" class="visually-hidden" aria-live="polite"></p>
   <details><summary><span class="evidence-label">Evidence</span><span class="evidence-count"> used in this pilot · {len(payload["evidence"]["facts"])} facts · {len(payload["evidence"]["sources"])} sources</span></summary><ul class="fact-list">{evidence}</ul></details>
@@ -2030,7 +2851,9 @@ function activate(index, focusButton = false) {{
   }});
   buttons.forEach((button, buttonIndex) => {{
     const selected = buttonIndex === current;
-    button.setAttribute("aria-selected", String(selected));
+    button.setAttribute("aria-pressed", String(selected));
+    if (selected) button.setAttribute("aria-current", "step");
+    else button.removeAttribute("aria-current");
     button.tabIndex = selected ? 0 : -1;
   }});
   document.getElementById("state-title").textContent = state.title;

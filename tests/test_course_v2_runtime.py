@@ -35,6 +35,9 @@ class CourseV2RuntimeTests(unittest.TestCase):
         cls.native = load_module("gigawatt_course_v2_generator", GENERATOR)
         cls.spine = teaching_visuals.load_yaml(COURSE)
         cls.cameras = teaching_visuals.load_yaml(ROOT / course_v2_runtime.CAMERAS_PATH)
+        cls.course_runtime = json.loads(
+            (ROOT / course_v2_runtime.COURSE_RUNTIME_PATH).read_text()
+        )
         cls.manifests: dict[str, dict] = {}
         cls.payloads: dict[str, dict] = {}
         for phase in cls.spine["phases"]:
@@ -55,12 +58,14 @@ class CourseV2RuntimeTests(unittest.TestCase):
         manifests: dict[str, dict] | None = None,
         payloads: dict[str, dict] | None = None,
         cameras: dict | None = None,
+        course_runtime: dict | None = None,
     ) -> dict:
         return course_v2_runtime.compile_course_v2(
             deepcopy(self.spine if spine is None else spine),
             deepcopy(self.manifests if manifests is None else manifests),
             deepcopy(self.payloads if payloads is None else payloads),
             deepcopy(self.cameras if cameras is None else cameras),
+            deepcopy(self.course_runtime if course_runtime is None else course_runtime),
             source_digest="0" * 64,
         )
 
@@ -93,25 +98,69 @@ class CourseV2RuntimeTests(unittest.TestCase):
         self.assertNotIn("one carrier", json.dumps(registry).lower())
         self.assertNotIn("same physical path", json.dumps(registry).lower())
         self.assertEqual(
-            [5, 6, 5, 6, 6, 5], [len(p["states"]) for p in registry["phases"]]
+            [5, 6, 5, 6, 6, 7], [len(p["states"]) for p in registry["phases"]]
         )
         self.assertEqual(
             207, sum(len(p["evidence"]["facts"]) for p in registry["phases"])
         )
-        self.assertEqual("diagram/hybrid.html", registry["spatial"]["artifact"])
         self.assertEqual(900, registry["spatial"]["minimum_width_px"])
+        self.assertEqual(13, registry["spatial"]["state_view_count"])
         self.assertEqual(
-            {
-                "phase_4_building": ("electrical_room", 2),
-                "phase_5_compute": ("data_hall_rack", 3),
-                "phase_6_heat": ("thermal_return", 5),
-            },
-            {
-                phase_id: (anchor["camera_id"], anchor["camera_index"])
-                for phase_id, anchor in registry["spatial"]["anchors"].items()
-            },
+            ["diagram/course.html", "diagram/hybrid.html"],
+            registry["spatial"]["artifacts"],
         )
-        self.assertNotIn("campus_establishing", registry["spatial"]["anchors"])
+        expected_spatial_views = {
+            ("phase_1_generation", "abilene_selection"): (
+                "segment",
+                "s01_fire_to_electricity",
+            ),
+            ("phase_1_generation", "transmission_handoff"): (
+                "segment",
+                "s02_generator_terminal",
+            ),
+            ("phase_2_transmission", "abilene_grid_paths"): (
+                "camera",
+                "campus_establishing",
+            ),
+            ("phase_3_campus", "abilene_unknown_merge"): (
+                "camera",
+                "campus_establishing",
+            ),
+            ("phase_4_building", "equipment_by_verb"): (
+                "segment",
+                "s07_building_power_train",
+            ),
+            ("phase_5_compute", "orient_inside_rack"): (
+                "segment",
+                "s08_rack_voltage_descent",
+            ),
+            ("phase_6_heat", "rack_cooling_split"): (
+                "segment",
+                "s10_two_rack_heat_paths",
+            ),
+            ("phase_6_heat", "technology_loop"): (
+                "segment",
+                "s11_technology_loop",
+            ),
+            ("phase_6_heat", "cdu_boundary"): ("segment", "s12_cdu_boundary"),
+            ("phase_6_heat", "parallel_residual_air"): (
+                "segment",
+                "s13_residual_air_branch",
+            ),
+            ("phase_6_heat", "facility_heat_rejection"): (
+                "segment",
+                "s14_facility_heat_rejection",
+            ),
+            ("phase_6_heat", "water_accounting"): (
+                "segment",
+                "s15_water_accounting",
+            ),
+            ("phase_6_heat", "whole_journey_closure"): (
+                "segment",
+                "s16_close_atmosphere",
+            ),
+        }
+        actual_spatial_views = {}
         for phase in registry["phases"]:
             with self.subTest(phase=phase["id"]):
                 self.assertRegex(phase["renderer_digest"], r"^[0-9a-f]{64}$")
@@ -119,6 +168,19 @@ class CourseV2RuntimeTests(unittest.TestCase):
                 source_refs = {source["ref"] for source in phase["evidence"]["sources"]}
                 for fact in phase["evidence"]["facts"]:
                     self.assertLessEqual(set(fact["source_refs"]), source_refs)
+                for state in phase["states"]:
+                    view = state.get("spatial_view")
+                    if view is None:
+                        continue
+                    actual_spatial_views[(phase["id"], state["id"])] = (
+                        view["view_kind"],
+                        view["view_id"],
+                    )
+                    self.assertTrue(view["title"])
+                    self.assertTrue(view["purpose"])
+                    self.assertTrue(view["boundary"])
+                    self.assertIsInstance(view["view_index"], int)
+        self.assertEqual(expected_spatial_views, actual_spatial_views)
         self.assertEqual([], teaching_visuals._forbidden_fields(registry))
 
     def test_compiler_rejects_spine_manifest_and_renderer_drift(self) -> None:
@@ -166,15 +228,7 @@ class CourseV2RuntimeTests(unittest.TestCase):
         ):
             self.compile(spine=incomplete_synthesis)
 
-    def test_compiler_rejects_spatial_anchor_and_camera_drift(self) -> None:
-        wrong_artifact = deepcopy(self.spine)
-        wrong_artifact["spatial"]["artifact"] = "diagram/course.html"
-        with self.assertRaisesRegex(
-            course_v2_runtime.CourseV2RuntimeError,
-            "must be 'diagram/hybrid.html'",
-        ):
-            self.compile(spine=wrong_artifact)
-
+    def test_compiler_rejects_spatial_view_and_source_drift(self) -> None:
         for width in (899, 901):
             with self.subTest(width=width):
                 changed = deepcopy(self.spine)
@@ -185,50 +239,146 @@ class CourseV2RuntimeTests(unittest.TestCase):
                 ):
                     self.compile(spine=changed)
 
-        wrong_anchor = deepcopy(self.spine)
-        wrong_anchor["spatial"]["anchors"]["phase_4_building"]["camera_id"] = (
-            "campus_establishing"
+        missing_phase = deepcopy(self.spine)
+        missing_phase["spatial"]["state_views"].pop("phase_6_heat")
+        with self.assertRaisesRegex(
+            course_v2_runtime.CourseV2RuntimeError,
+            "must map exactly the six phase IDs",
+        ):
+            self.compile(spine=missing_phase)
+
+        empty_phase = deepcopy(self.spine)
+        empty_phase["spatial"]["state_views"]["phase_4_building"] = {}
+        with self.assertRaisesRegex(
+            course_v2_runtime.CourseV2RuntimeError,
+            "must be a non-empty mapping",
+        ):
+            self.compile(spine=empty_phase)
+
+        unknown_state = deepcopy(self.spine)
+        unknown_state["spatial"]["state_views"]["phase_1_generation"]["not_a_state"] = (
+            unknown_state["spatial"]["state_views"]["phase_1_generation"].pop(
+                "abilene_selection"
+            )
         )
         with self.assertRaisesRegex(
             course_v2_runtime.CourseV2RuntimeError,
-            "must be 'electrical_room'",
+            "unknown state IDs",
         ):
-            self.compile(spine=wrong_anchor)
+            self.compile(spine=unknown_state)
 
-        missing_anchor = deepcopy(self.spine)
-        missing_anchor["spatial"]["anchors"].pop("phase_6_heat")
+        unexpected = deepcopy(self.spine)
+        unexpected["spatial"]["state_views"]["phase_1_generation"]["abilene_selection"][
+            "camera_id"
+        ] = "campus_establishing"
         with self.assertRaisesRegex(
             course_v2_runtime.CourseV2RuntimeError,
-            "must map exactly Building, Compute, and Heat",
+            "fields must be exact",
         ):
-            self.compile(spine=missing_anchor)
+            self.compile(spine=unexpected)
 
-        reordered = deepcopy(self.cameras)
-        reordered["cameras"][2], reordered["cameras"][3] = (
-            reordered["cameras"][3],
-            reordered["cameras"][2],
-        )
+        wrong_pair = deepcopy(self.spine)
+        wrong_pair["spatial"]["state_views"]["phase_1_generation"]["abilene_selection"][
+            "artifact"
+        ] = "diagram/hybrid.html"
         with self.assertRaisesRegex(
             course_v2_runtime.CourseV2RuntimeError,
-            "canonical six-camera order",
+            "segment.*views must use 'diagram/course.html'",
         ):
-            self.compile(cameras=reordered)
+            self.compile(spine=wrong_pair)
+
+        unknown_segment = deepcopy(self.spine)
+        unknown_segment["spatial"]["state_views"]["phase_1_generation"][
+            "abilene_selection"
+        ]["view_id"] = "missing_segment"
+        with self.assertRaisesRegex(
+            course_v2_runtime.CourseV2RuntimeError,
+            "not present in course_runtime.json",
+        ):
+            self.compile(spine=unknown_segment)
+
+        two_dimensional_segment = deepcopy(self.spine)
+        two_dimensional_segment["spatial"]["state_views"]["phase_1_generation"][
+            "abilene_selection"
+        ]["view_id"] = "p0_gigawatt_not_workload"
+        with self.assertRaisesRegex(
+            course_v2_runtime.CourseV2RuntimeError,
+            "must reference a 3D segment",
+        ):
+            self.compile(spine=two_dimensional_segment)
+
+        research_required_segment = deepcopy(self.course_runtime)
+        next(
+            segment
+            for segment in research_required_segment["segments"]
+            if segment["segment_id"] == "s01_fire_to_electricity"
+        )["evidence_readiness"] = "research_required"
+        with self.assertRaisesRegex(
+            course_v2_runtime.CourseV2RuntimeError,
+            "must reference an evidence-ready segment",
+        ):
+            self.compile(course_runtime=research_required_segment)
+
+        title_drift = deepcopy(self.spine)
+        title_drift["spatial"]["state_views"]["phase_1_generation"][
+            "abilene_selection"
+        ]["title"] = "A renamed view"
+        with self.assertRaisesRegex(
+            course_v2_runtime.CourseV2RuntimeError,
+            "must match the source view title",
+        ):
+            self.compile(spine=title_drift)
+
+        unknown_camera = deepcopy(self.spine)
+        unknown_camera["spatial"]["state_views"]["phase_2_transmission"][
+            "abilene_grid_paths"
+        ]["view_id"] = "missing_camera"
+        with self.assertRaisesRegex(
+            course_v2_runtime.CourseV2RuntimeError,
+            "not present in cameras.yaml",
+        ):
+            self.compile(spine=unknown_camera)
 
         not_spatial = deepcopy(self.cameras)
-        not_spatial["cameras"][2]["mode"] = "2d"
+        next(
+            camera
+            for camera in not_spatial["cameras"]
+            if camera["id"] == "campus_establishing"
+        )["mode"] = "2d"
         with self.assertRaisesRegex(
             course_v2_runtime.CourseV2RuntimeError,
-            "must remain a 3D camera",
+            "must reference a 3D camera",
         ):
             self.compile(cameras=not_spatial)
 
-        weakened = deepcopy(self.spine)
-        weakened["spatial"]["boundary"] = "A spatial view."
+        reordered = deepcopy(self.cameras)
+        reordered["vertical_slice"][1], reordered["vertical_slice"][2] = (
+            reordered["vertical_slice"][2],
+            reordered["vertical_slice"][1],
+        )
         with self.assertRaisesRegex(
             course_v2_runtime.CourseV2RuntimeError,
-            "must preserve the conceptual",
+            "must match the camera inventory order",
         ):
-            self.compile(spine=weakened)
+            self.compile(cameras=reordered)
+
+        duplicate_segments = deepcopy(self.course_runtime)
+        duplicate_segments["segments"][1]["segment_id"] = duplicate_segments[
+            "segments"
+        ][0]["segment_id"]
+        with self.assertRaisesRegex(
+            course_v2_runtime.CourseV2RuntimeError,
+            "segment_id values must be unique",
+        ):
+            self.compile(course_runtime=duplicate_segments)
+
+        wrong_count = deepcopy(self.course_runtime)
+        wrong_count["segment_count"] += 1
+        with self.assertRaisesRegex(
+            course_v2_runtime.CourseV2RuntimeError,
+            "segment_count must match",
+        ):
+            self.compile(course_runtime=wrong_count)
 
     def test_artifact_extractor_rejects_digest_mismatch_and_external_shells(
         self,
@@ -285,36 +435,53 @@ class CourseV2RuntimeTests(unittest.TestCase):
             'class="synthesis-matrix"',
             'data-synthesis-phase="phase_1_generation"',
             'id="phase-frame"',
+            'id="spatial-frame"',
             'id="spatial-toggle"',
             'id="spatial-panel"',
-            "3D spatial anchor",
-            "Return to 2D teaching",
+            "Open 2D explanation",
+            "Return to 3D system view",
             'id="state-nav" class="state-nav" role="tablist"',
             'id="evidence-drawer" data-layout-mode="overlay"',
             'data-evidence-phase-index="0"',
-            "frame.contentWindow.activate(currentState)",
+            "teachingFrame.contentWindow.activate(currentState)",
             "header,footer{display:none!important}",
             "@media (min-width:1281px){main{place-items:center!important;overflow:hidden!important}.visual-shell{display:block!important}.responsive-visual{display:none!important}}",
             "renderer digest mismatch",
             'const spatialQuery = matchMedia("(min-width: 900px)")',
-            "course.spatial.anchors[course.phases[currentPhase].id]",
-            'course.spatial.artifact.replace("diagram/", "")',
+            "function currentSpatialView()",
+            "course.phases[currentPhase].states[currentState].spatial_view",
+            'view.artifact.replace("diagram/", "")',
+            'child.getElementById("review-data")',
+            'child.querySelectorAll("#shot-list > .shot-button")',
+            'segment.render_mode !== "3d"',
+            'child.getElementById("teaching-overlay")',
             'child.querySelectorAll("#steps > .step")',
-            "scene.vertical_slice[anchor.camera_index]",
+            "scene.vertical_slice[view.view_index]",
             'camera.mode !== "3d"',
-            'step.getAttribute("aria-current") !== "step"',
-            'child.getElementById("mode").textContent !== "3d"',
+            'control.getAttribute("aria-current") !== "step"',
             'style.textContent = "#masthead,#transport{display:none!important}"',
+            "#shot-rail,#masthead,#transport{display:none!important}",
+            "#stage{inset:0!important}",
+            "function bindChildNavigation(child)",
             "event.stopImmediatePropagation()",
             "showTeaching(true)",
-            "frame.tabIndex = -1",
+            "spatialFrame.tabIndex = -1",
+            "if (spatialFrame.dataset.artifact !== artifact)",
+            "spatialFrame.contentWindow.location.pathname.endsWith",
+            "teachingFrame.contentWindow.location.pathname.endsWith",
+            'teachingFrame.addEventListener("load", prepareTeachingFrame)',
+            'spatialFrame.addEventListener("load", prepareSpatialFrame)',
+            "if (currentSpatialView() && spatialQuery.matches) showSpatial(); else showTeaching();",
+            'spatialToggle.setAttribute("aria-pressed", String(spatialMode && available))',
+            "if (!spatialMode) frameError.hidden = true",
+            "if (!spatialMode) { frameError.hidden = false",
             '"Previous phase"',
             '"Next phase"',
             '"Synthesis"',
             'event.key === "ArrowRight"',
             'event.key === "Home"',
             'event.key === "End"',
-            'event.key === "Escape"',
+            'event.key !== "Escape"',
             'history.scrollRestoration = "manual"',
             "window.scrollTo(0, 0)",
             "document.scrollingElement.scrollTop = 0",
@@ -331,7 +498,11 @@ class CourseV2RuntimeTests(unittest.TestCase):
             1,
             player.count('document.querySelectorAll("[data-open-phase]").forEach'),
         )
-        self.assertGreaterEqual(player.count('frame.removeAttribute("tabindex")'), 4)
+        self.assertGreaterEqual(
+            player.count('teachingFrame.removeAttribute("tabindex")'), 4
+        )
+        self.assertEqual(1, player.count('id="spatial-frame"'))
+        self.assertEqual(1, player.count("spatialFrame.src = artifact"))
         embedded = re.search(
             r'<script id="course-data" type="application/json">(.*?)</script>',
             player,
@@ -339,12 +510,13 @@ class CourseV2RuntimeTests(unittest.TestCase):
         )
         self.assertIsNotNone(embedded)
         embedded_course = json.loads(embedded.group(1))
-        self.assertNotIn(
-            "campus_establishing",
-            {
-                anchor["camera_id"]
-                for anchor in embedded_course["spatial"]["anchors"].values()
-            },
+        self.assertEqual(
+            13,
+            sum(
+                "spatial_view" in state
+                for phase in embedded_course["phases"]
+                for state in phase["states"]
+            ),
         )
         for phase in self.spine["phases"]:
             self.assertIn(
@@ -369,6 +541,8 @@ class CourseV2RuntimeTests(unittest.TestCase):
             "requestAnimationFrame(",
             "autoplay",
             "text-overflow",
+            "setStateControlsDisabled",
+            "if (spatialMode) return",
         )
         for marker in forbidden:
             with self.subTest(forbidden=marker):
@@ -409,19 +583,18 @@ class CourseV2RuntimeTests(unittest.TestCase):
             for state in phase["states"]:
                 self.assertIn(state["nav_label"], packet)
                 self.assertIn(state["instruction"], packet)
-            anchor = registry["spatial"]["anchors"].get(phase["id"])
-            if anchor is None:
-                self.assertNotIn(
-                    f"**3D spatial anchor (900 px and wider):** {phase['title']}",
-                    packet,
-                )
-            else:
-                self.assertIn(
-                    f"**3D spatial anchor (900 px and wider):** {anchor['camera_title']} — {anchor['purpose']}",
-                    packet,
-                )
-        self.assertEqual(3, packet.count("**Spatial boundary:**"))
-        self.assertIn(registry["spatial"]["boundary"], packet)
+                spatial_view = state.get("spatial_view")
+                if spatial_view is not None:
+                    self.assertIn(
+                        f"**3D system view:** {spatial_view['title']} — {spatial_view['purpose']}",
+                        packet,
+                    )
+                    self.assertIn(
+                        f"**Spatial boundary:** {spatial_view['boundary']}", packet
+                    )
+        self.assertEqual(13, packet.count("**Spatial boundary:**"))
+        self.assertIn("`Open 2D explanation`", packet)
+        self.assertIn("`Return to 3D system view`", packet)
         for lens in registry["synthesis"]["lenses"]:
             self.assertIn(lens["title"], packet)
             self.assertIn(lens["question"], packet)
@@ -443,6 +616,8 @@ class CourseV2RuntimeTests(unittest.TestCase):
             path.relative_to(ROOT).as_posix() for path in self.native._spatial_paths()
         }
         expected_spatial = {
+            "diagram/course.html",
+            "diagram/course_runtime.json",
             "diagram/hybrid.html",
             "diagram/cameras.yaml",
             "diagram/master.svg",

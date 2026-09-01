@@ -33,8 +33,10 @@ frame and synthesize the same six-phase journey.
 - A state must support a sustained explanation. It is not a micro-animation or
   a timed beat.
 - Camera zoom without a new teaching relationship is not a state.
-- Evidence and engineering views are available on demand and never replace the
-  primary explanatory canvas by default.
+- At desktop widths, a configured 3D camera or segment frame may be the primary
+  view for a state when spatial location, nesting, or scale is part of the
+  explanation. Its 2D causal and evidence-detail alternate remains available
+  on demand without creating a second state.
 
 ## Repeated phase structure
 
@@ -87,7 +89,9 @@ not an Abilene fact and must never be drawn as a dedicated Abilene wire.
 
 **Existing material:** retain the supported gas-turbine, generator, and GSU
 claims from `s01` and `s02`; fold the physical-versus-contractual lesson from
-`s05` into the role comparison.
+`s05` into the role comparison. Reuse the authored `s01_fire_to_electricity`
+frame for the Abilene-selection state and `s02_generator_terminal` for the
+transmission handoff, each with its existing evidence limits made explicit.
 
 ## Phase 2 — Transmit: move and connect electricity
 
@@ -124,7 +128,9 @@ diagram labels.
 6. Phase boundary: the next problem begins behind the campus boundary.
 
 **Existing material:** combine `s03`, `s04`, and the relevant portion of `s17`
-instead of teaching two consecutive route redlines.
+instead of teaching two consecutive route redlines. The Abilene-path state uses
+the orbitable `campus_establishing` camera, with an explicit warning that the
+source-side records do not resolve their campus-MV interfaces or a common bus.
 
 ## Phase 3 — Campus: distribute and protect
 
@@ -148,7 +154,10 @@ standby generation.
 
 **Existing material:** expand `s06`; integrate the response-role portion of
 `s19`. Keep the staged-delivery evidence from `s20` as Abilene context in the
-evidence surface rather than using it as the central protection lesson.
+evidence surface rather than using it as the central protection lesson. Reuse
+the `campus_establishing` camera for the unknown-merge state, but state plainly
+that it does not establish the as-built campus topology, feeder arrangement, or
+protective coordination.
 
 ## Phase 4 — Building: deliver protected power to the rack
 
@@ -175,8 +184,9 @@ Equipment is introduced by verb:
 5. Abilene mapping limited to the exposed building evidence.
 6. Phase boundary: rack-position facility AC becomes the compute input.
 
-**Existing material:** retain the electrical-room spatial anchor and expand
-`s07` beyond a labels-only equipment chain.
+**Existing material:** use the authored `s07_building_power_train` frame as the
+primary spatial view for the equipment-by-verb state and retain the new 2D
+functional explanation as its alternate.
 
 ## Phase 5 — Compute: convert facility power into useful work
 
@@ -196,9 +206,10 @@ MW can yield different usable compute.
 5. Abilene platform facts separated from operating unknowns.
 6. Phase boundary: computation is desired output; heat is unavoidable output.
 
-**Existing material:** expand `s08`; move the useful-compute logic from `s24`
-into this phase; use the grid-response portion of `s19` as the reverse-direction
-payoff; finish with `s09`.
+**Existing material:** use the authored `s08_rack_voltage_descent` frame as the
+primary spatial orientation, expand its mechanism in 2D, move the useful-compute
+logic from `s24` into this phase, use the grid-response portion of `s19` as the
+reverse-direction payoff, and finish with `s09`.
 
 ## Phase 6 — Reject heat: return energy to the atmosphere
 
@@ -210,16 +221,20 @@ rejection to water accounting.
 
 **Manual visual states**
 
-1. Component or die -> cold plate: heat crosses into technology coolant.
-2. Cold plate -> rack manifold -> conditional CDU -> facility liquid loop.
-3. Residual-air path runs in parallel and converges at a facility boundary.
-4. Facility loop -> heat-rejection terminal -> atmosphere, with four water
-   accounts kept separate.
-5. Full six-phase journey from Generate through Reject heat.
+1. Rack cooling split: direct-liquid component heat and residual rack-air heat.
+2. Technology-loop supply and return remain different paths.
+3. CDU boundary between technology and facility liquid loops, explicitly
+   conditional.
+4. Residual-air path runs in parallel toward a facility heat-removal boundary.
+5. Facility loop -> heat-rejection terminal -> atmosphere.
+6. Rejection-process water, initial fill, maintenance additions, and measured
+   operating water remain separate accounts.
+7. Full six-phase journey from Generate through Reject heat.
 
-**Existing material:** retain the evidence and topology in `s09`–`s16`, but
-compress the eight redline sections into a smaller number of coherent teaching
-transformations. The untimed `s10` pilot remains the interaction precedent.
+**Existing material:** retain `s09` as the Phase 5/6 handoff, then reuse the
+seven authored `s10`–`s16` 3D frames in order as the primary Phase 6 state views.
+The new 2D canvases carry causal and evidence detail as alternates. The untimed
+`s10` pilot remains the interaction precedent.
 
 ## Synthesis outside the phase count
 
@@ -295,12 +310,12 @@ The implementation follows these boundaries:
   the common evidence or interaction contract.
 - The player owns the persistent six-phase compass, phase and state navigation,
   keyboard behavior, responsive layout, evidence drawer, and source links.
-- In Phases 4 through 6 at widths of 900 px and above, the player may manually
-  substitute the validated `electrical_room`, `data_hall_rack`, or
-  `thermal_return` camera from `diagram/hybrid.html`. The outer shell owns the
-  camera title, purpose, conceptual/non-as-built boundary, return control, and
-  keyboard behavior; the 2D state remains authoritative for causal and evidence
-  detail.
+- At widths of 900 px and above, configured states across all six phases use a
+  validated camera from `diagram/hybrid.html` or a segment-specific 3D frame
+  from the byte-preserved `diagram/course.html` as their primary view. The outer
+  shell owns the title, purpose, view-specific boundary, 2D alternate switch,
+  and keyboard behavior. The mapping is state-bound and manual; it adds no
+  authored timing or hidden sequence.
 - A renderer owns only the explanatory canvas for one phase. It does not own
   course order, spoken wording, timing, evidence posture, or Abilene topology.
 - Desktop may use a semantic SVG when relationships need spatial routing.
@@ -314,11 +329,11 @@ The implementation follows these boundaries:
 The concrete generated package is `diagram/course_v2.html`,
 `diagram/course_v2_runtime.json`, `course/INSTRUCTOR_PACKET_V2.md`, and the six
 same-origin phase HTML dependencies named by `course/course_v2.yaml`. Its
-supplemental spatial dependency closure is `diagram/hybrid.html`,
-`diagram/cameras.yaml`, `diagram/master.svg`,
+spatial dependency closure is `diagram/hybrid.html`, `diagram/course.html`,
+`diagram/course_runtime.json`, `diagram/cameras.yaml`, `diagram/master.svg`,
 `diagram/map_watt_heat_handoff.svg`, and the pinned local Three.js modules and
-license. The spatial control is absent below 900 px rather than presenting a
-cropped or unreadable 3D view.
+license. Below 900 px the same states use their complete 2D explanations rather
+than presenting a cropped or unreadable 3D view.
 
 V2 receives its own acceptance epoch. Passing the v1 ratchet proves that the
 historical comparison remains reconstructable; it cannot serve as browser,

@@ -10,9 +10,9 @@ This is teaching territory, not a spoken script. The instructor controls every a
 python3 -m http.server --directory diagram 8000
 ```
 
-Open `http://localhost:8000/course_v2.html`. Use the six-phase compass to move between engineering problems and the state rail to change the current teaching visual. In Phases 4 through 6, the optional `3D spatial anchor` control is available at 900 px and wider; return to the 2D states for causal and evidence detail. The outer evidence drawer contains the fact-level basis, scope, posture, date boundary, and primary-source links for the active phase.
+Open `http://localhost:8000/course_v2.html`. Use the six-phase compass to move between engineering problems and the state rail to change the current teaching visual. At 900 px and wider, mapped states open on their state-bound 3D system view; use `Open 2D explanation` for causal and evidence detail, then `Return to 3D system view` when useful. The outer evidence drawer contains the fact-level basis, scope, posture, date boundary, and primary-source links for the active phase.
 
-Machine registry source digest: `3e67ce7ce4a663b1841f7afb920ab999b27f0dc0d808b7bb547ed2b36b7d3540`
+Machine registry source digest: `769c49cf8256bcec62e02c9f202b0296315487bc22f06b8a6302e7a148bb0d76`
 
 ## Opening journey
 
@@ -40,8 +40,12 @@ The course follows an engineered energy-service chain through six changes of sca
    Separate physical conversion from time shifting, architectural role, and commercial attribution.
 4. **Abilene — The reference campus selects one physical generation path**
    Map the generic gas conversion onto Abilene only after separating permit, installation, commissioning, output, storage, standby, and contract claims.
+   **3D system view:** Fire is not electricity — Place the permitted onsite gas package, generator, and conceptual step-up interface in the campus context after surveying the generic generation families.
+   **Spatial boundary:** The gas-turbine and generator evidence does not establish the exact installed unit mix, commissioning state, present output, generator-terminal voltage, or as-built GSU connection.
 5. **Transmit — Electricity now exists; the next problem is moving a gigawatt**
    Leave generation at the electrical boundary and motivate voltage step-up, transmission, and large-load interconnection.
+   **3D system view:** Generator-terminal MV is only the beginning — Follow shaft-to-electric conversion through the generator terminal and step-up boundary before handing the watt to transmission.
+   **Spatial boundary:** The frame is a conceptual electrical handoff, not an Abilene as-built one-line or evidence of the selected generator-terminal voltage, transformer ratio, grounding, protection, or campus-side interface.
 
 ### Evidence boundary
 
@@ -69,6 +73,8 @@ Publishers: Abilene DC 1, LLC, filed with the Texas Commission on Environmental 
    Compare the two process lanes side by side, retain the ERCOT access date, and stop before making an Abilene queue, agreement, capacity, or load claim.
 5. **Abilene — Map the separate 138 kV and 345 kV paths**
    Compare the two evidenced service paths without extending either rating into current load or drawing their unknown campus merge.
+   **3D system view:** Campus establishing view — Locate the separately evidenced 138 kV, 345 kV, and behind-the-meter source-side paths before the campus distribution problem begins.
+   **Spatial boundary:** The source-side paths are evidenced separately, but their exact interfaces with campus MV and any common downstream merge remain unresolved; the view must not imply one as-built shared bus.
 6. **Campus — The next problem begins behind the campus boundary**
    Leave both grid paths at the unresolved campus interface and motivate the next phase: distribution to buildings and resilience across the campus.
 
@@ -94,6 +100,8 @@ Publishers: AEP Texas, filed with the Public Utility Commission of Texas; Abilen
    Follow one generic feeder disturbance through coordinated protection. Treat service on every other branch as conditional, never guaranteed.
 3. **Sources — Multiple Abilene source-side paths stop at an unknown merge**
    Show the initial grid path, expansion substation, and installed gas-plant evidence as separate lanes. Terminate every lane at the unresolved campus boundary rather than drawing a shared as-built bus.
+   **3D system view:** Campus establishing view — Hold the separately evidenced source paths in one spatial frame while identifying the abstract campus distribution envelope that still requires an as-built topology.
+   **Spatial boundary:** No reviewed source establishes the Abilene as-built merge, campus-MV topology, feeder arrangement, or protective coordination; convergence at the abstract envelope is not evidence of a physical common bus.
 4. **Roles — UPS, BESS, and diesel solve different architectural problems**
    Compare function and position while withholding runtime, dispatch, transfer sequence, and unsupported Abilene equipment state.
 5. **Building — The next problem is protected delivery inside one building**
@@ -113,16 +121,14 @@ Publishers: Abilene DC 1, LLC, filed with the Texas Commission on Environmental 
 
 **Learning objective:** Place the major building-power functions in space, follow a conceptual path from campus entry to a rack position, explain the conditional purpose of A/B paths, distinguish planned path removal from fault tolerance, and preserve the unknown Abilene as-built power train.
 
-**3D spatial anchor (900 px and wider):** Electrical room — Locate the electrical room, unit substation, switchgear, UPS, and busway inside the building before returning to the functional gates.
-
-**Spatial boundary:** Conceptual spatial reference, not Abilene as-built; 2D states own causal and evidence detail.
-
 ### Manual teaching states
 
 1. **Spaces — Locate the building-power functions**
    Reveal campus entry, electrical space, and data hall as coarse zones. Treat the cutaway as orientation, not a universal floor plan.
 2. **Functions — Follow the functional path to a rack position**
    Advance through campus feeder, unit substation, switchgear, UPS, busway, and rack position while naming only each gate's function.
+   **3D system view:** From campus MV to protected building AC — Locate the unit substation, switchgear, UPS, and busway while following each equipment function toward a rack position.
+   **Spatial boundary:** This is a generic building-power reference, not the unpublished Abilene as-built equipment lineup, redundancy topology, protection study, or commissioning record.
 3. **A/B paths — Add a clearly generic alternative path**
    Compare Paths A and B at a compatible rack input, then expose the load, path, and capacity conditions that the colored lines do not prove.
 4. **Isolation — Remove Path A for maintenance or fault teaching**
@@ -146,14 +152,12 @@ Publishers: Abilene DC 1, LLC, filed with the Texas Commission on Environmental 
 
 **Learning objective:** Orient the rack-scale power path, distinguish facility AC from rack DC and processor point-of-load rails, explain why useful compute is not determined by facility power alone, trace correlated demand toward the site and grid, and preserve the limits of the Abilene operating evidence.
 
-**3D spatial anchor (900 px and wider):** Data hall and rack — Locate room-scale distribution, rack power shelves, board regulation, the die, cold plate, and rack manifold at the point of use.
-
-**Spatial boundary:** Conceptual spatial reference, not Abilene as-built; 2D states own causal and evidence detail.
-
 ### Manual teaching states
 
 1. **Rack — Descend from the data hall boundary to the processor**
    Reveal the data-hall boundary, rack envelope, and board/die boundary as nested scales without introducing site quantities or rail values.
+   **3D system view:** Rack AC becomes core voltage — Move from room-scale distribution through the rack power shelf and board regulation to the processor die.
+   **Spatial boundary:** Product evidence supports the platform family and a nominal rack-DC boundary, but not the Abilene rack input, board rails, installed topology, power allocation, utilization, or useful output.
 2. **Rack power — Convert facility AC into the documented rack DC boundary**
    Follow facility AC into the rack shelf and reveal the manufacturer DC output while keeping the Abilene shelf input and operating point unknown.
 3. **Processor rails — Step rack DC down again at the board**
@@ -179,22 +183,36 @@ Publishers: Crusoe; Google Cloud; Google Research authors via arXiv; Infineon Te
 
 **Learning objective:** Begin at component heat, follow the generic liquid and residual-air removal paths to a facility heat-rejection terminal, distinguish the Technology Cooling System from the Facility Water System, and preserve the limits of the Abilene design and operating evidence.
 
-**3D spatial anchor (900 px and wider):** Thermal return — Locate the component, liquid and residual-air branches, facility loop, heat-rejection equipment, and atmosphere in one spatial frame.
-
-**Spatial boundary:** Conceptual spatial reference, not Abilene as-built; 2D states own causal and evidence detail.
-
 ### Manual teaching states
 
-1. **Cold plate — Move component heat into the technology coolant**
-   Follow heat through the physical contact and coolant-channel boundary while keeping power, temperatures, coolant, and Abilene operating state unknown.
-2. **Liquid loops — Cross the rack manifold and a conditional CDU boundary**
-   Distinguish Technology Cooling System supply and return from the Facility Water System, with the CDU visibly conditional for the Abilene case.
-3. **Residual air — Add the parallel air-side heat-removal path**
+1. **Rack split — One rack creates liquid and residual-air heat obligations**
+   Separate processor heat entering cold plates from auxiliary heat entering room air; the product split does not establish an Abilene airflow layout, heat fraction, or operating point.
+   **3D system view:** One rack, two heat paths — Separate direct-liquid component heat from the residual rack heat that enters the air path.
+   **Spatial boundary:** The platform documentation supports distinct liquid and air categories, not an Abilene as-built rack configuration or a quantitative heat split.
+2. **Tech loop — Supply and warmed return are different technology-loop paths**
+   Trace coolant supply from the rack manifold to cold plates and warmed return back toward the Technology Cooling System boundary without inventing coolant, flow, temperature, pressure, or site routing.
+   **3D system view:** Supply and return are different pipes — Follow cold-plate heat into the technology return while keeping the coolant supply path physically distinct.
+   **Spatial boundary:** The technology-loop relationship is a design reference; Abilene routing, setpoints, flow, temperature, pressure, and operating state are not established.
+3. **CDU boundary — The CDU is a heat-transfer boundary, not a coolant merge**
+   Cross from the Technology Cooling System into the Facility Water System through a conditional liquid-to-liquid heat exchanger while keeping CDU presence and the Abilene package topology explicitly unresolved.
+   **3D system view:** The CDU is a boundary, not a magic box — Locate the conditional heat-exchange boundary between technology and facility liquid loops without collapsing them into one circuit.
+   **Spatial boundary:** A CDU is a generic conditional interface in this view; public evidence does not establish its Abilene presence, arrangement, redundancy, or operating conditions.
+4. **Residual air — Add the parallel air-side heat-removal path**
    Keep liquid-cooled processors and air-cooled auxiliaries in parallel, and converge heat at a facility boundary without asserting mixed coolant loops.
-4. **Atmosphere — Reject heat to ambient air and keep four water accounts separate**
-   Complete the selected Abilene facility-loop path, then distinguish heat-rejection process water, initial fill, anticipated maintenance, and unavailable measured operating water.
-5. **Full journey — Reconnect Generate through Reject heat**
+   **3D system view:** Residual air takes a parallel route — Trace non-liquid-cooled rack heat through the room-air branch toward the facility heat-removal system.
+   **Spatial boundary:** The residual-air mechanism is generic; Abilene CRAH or fan-wall selection, airflow path, controls, capacity, and operating state are not publicly established.
+5. **Heat rejection — Carry facility-loop heat through the selected terminal to ambient air**
+   Follow the selected Facility Water System and air-cooled terminal to the atmosphere. Treat any residual-air transfer into facility water or this terminal as a generic conditional handoff, not an established Abilene connection, commissioning result, or operating measurement.
+   **3D system view:** The facility loop carries heat to the plant — Follow the evidenced liquid-side duty to the air-cooled rejection terminal while locating any residual-air contribution at a separate, generic, conditional facility handoff.
+   **Spatial boundary:** The selected facility-loop and air-cooled-terminal concepts are evidenced. A residual-air connection into that facility path is generic and unresolved, not established at Abilene; detailed interfaces, capacities, redundancy, setpoints, and measured operating performance also remain unknown.
+6. **Water accounts — Keep process water, fill, maintenance, and measurement separate**
+   Compare four non-interchangeable water statements: no evaporative use in the selected heat-rejection process, initial fill, anticipated annual maintenance, and unavailable measured operating consumption.
+   **3D system view:** Closed loop does not mean water-free — Keep rejection-process water, initial fill, maintenance additions, and measured operating water use as four separate accounts.
+   **Spatial boundary:** Public design material identifies categories, not a complete measured Abilene operating-water balance or proof that every category is zero.
+7. **Full journey — Reconnect Generate through Reject heat**
    Replay the six phase labels and their Abilene evidence posture, ending at the atmosphere without converting the course index into an as-built diagram.
+   **3D system view:** The figure-eight closes in the atmosphere — Reconnect component heat, both cooling branches, the facility loop, and the atmospheric sink before rereading the full six-phase journey.
+   **Spatial boundary:** This is a conceptual closure of energy flow, not an Abilene as-built cooling topology, measured energy balance, or claim that all source branches form one traced physical path.
 
 ### Evidence boundary
 

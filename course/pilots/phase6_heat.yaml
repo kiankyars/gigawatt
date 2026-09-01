@@ -226,12 +226,16 @@ residual_air_path:
         - abilene_execution:facility_cooling_interfaces_as_built
 
     - id: facility_loop_merge
-      title: Facility heat-transport boundary
-      verb: combine heat contributions without implying coolant-path mixing
-      carrier: thermal load presented to facility heat rejection
+      title: Generic conditional air-side heat handoff
+      verb: show a possible facility heat handoff without selecting an Abilene interface
+      carrier: heat obligation at an abstract facility boundary
+      render_posture: generic_reference_unresolved_at_abilene
       boundary: >-
-        The canvas converges heat arrows, not necessarily fluid circuits. It does
-        not assert a shared Abilene header, coil arrangement, or plant topology.
+        The canvas converges heat arrows, not necessarily fluid circuits. Public
+        evidence does not establish that Abilene residual-air heat enters the
+        selected Facility Water System or reaches the selected air-cooled terminal
+        through the depicted handoff; no shared header, coil, or plant topology is
+        asserted.
       fact_refs:
         - thermal_engineering:generic_parallel_liquid_air_cooling
         - thermal_engineering:generic_facility_loop_heat_transport
@@ -502,9 +506,9 @@ evidence_gaps:
       Draw the CDU and all downstream package interfaces as conditional generic
       references, never as installed Abilene topology.
     related_state_ids:
-      - rack_to_facility_boundary
+      - cdu_boundary
       - parallel_residual_air
-      - facility_rejection_and_water
+      - facility_heat_rejection
       - whole_journey_closure
     related_fact_refs:
       - abilene_execution:cdu_site_configuration
@@ -519,8 +523,9 @@ evidence_gaps:
       Keep CRAH or air-handler geometry conditional and avoid site quantities,
       airflow arrows presented as observed, or named package selections.
     related_state_ids:
+      - rack_cooling_split
       - parallel_residual_air
-      - facility_rejection_and_water
+      - facility_heat_rejection
       - whole_journey_closure
     related_fact_refs:
       - abilene:rack_air_cooled_components
@@ -535,8 +540,9 @@ evidence_gaps:
       Show no numerical setpoint, flow width, temperature gradient, capacity,
       utilization, efficiency, or live operating status.
     related_state_ids:
-      - rack_to_facility_boundary
-      - facility_rejection_and_water
+      - technology_loop
+      - cdu_boundary
+      - facility_heat_rejection
       - whole_journey_closure
     related_fact_refs:
       - abilene_execution:cdu_site_configuration
@@ -552,7 +558,7 @@ evidence_gaps:
       per-building qualifiers, and never convert null to zero or multiply by the
       planned building count.
     related_state_ids:
-      - facility_rejection_and_water
+      - water_accounting
       - whole_journey_closure
     related_fact_refs:
       - abilene:cooling_heat_rejection_posture
@@ -561,30 +567,53 @@ evidence_gaps:
       - abilene:cooling_measured_operating_consumption_gallons
 
 states:
-  - id: die_to_cold_plate
-    nav_label: Cold plate
-    title: Move component heat into the technology coolant
+  - id: rack_cooling_split
+    nav_label: Rack split
+    title: One rack creates liquid and residual-air heat obligations
     instruction: >-
-      Follow heat through the physical contact and coolant-channel boundary while
-      keeping power, temperatures, coolant, and Abilene operating state unknown.
+      Separate processor heat entering cold plates from auxiliary heat entering
+      room air; the product split does not establish an Abilene airflow layout,
+      heat fraction, or operating point.
     energy_view_ids: [heat_obligation]
-    liquid_stage_ids: [die_heat_source, cold_plate_heat_exchange]
+    liquid_stage_ids:
+      - die_heat_source
+      - cold_plate_heat_exchange
+      - rack_manifold_distribution
+    residual_air_stage_ids: [air_cooled_auxiliaries, warm_air_return]
+    facility_stage_ids: []
+    water_account_ids: []
+    abilene_known_ids: [selected_direct_liquid_design]
+    abilene_unknown_ids: [residual_air_equipment, loop_setpoints_and_measurements]
+    journey_stage_ids: []
+
+  - id: technology_loop
+    nav_label: Tech loop
+    title: Supply and warmed return are different technology-loop paths
+    instruction: >-
+      Trace coolant supply from the rack manifold to cold plates and warmed
+      return back toward the Technology Cooling System boundary without
+      inventing coolant, flow, temperature, pressure, or site routing.
+    energy_view_ids: []
+    liquid_stage_ids:
+      - cold_plate_heat_exchange
+      - rack_manifold_distribution
+      - technology_loop_return
     residual_air_stage_ids: []
     facility_stage_ids: []
     water_account_ids: []
     abilene_known_ids: [selected_direct_liquid_design]
-    abilene_unknown_ids: [loop_setpoints_and_measurements]
+    abilene_unknown_ids: [cooling_interfaces, loop_setpoints_and_measurements]
     journey_stage_ids: []
 
-  - id: rack_to_facility_boundary
-    nav_label: Liquid loops
-    title: Cross the rack manifold and a conditional CDU boundary
+  - id: cdu_boundary
+    nav_label: CDU boundary
+    title: The CDU is a heat-transfer boundary, not a coolant merge
     instruction: >-
-      Distinguish Technology Cooling System supply and return from the Facility
-      Water System, with the CDU visibly conditional for the Abilene case.
+      Cross from the Technology Cooling System into the Facility Water System
+      through a conditional liquid-to-liquid heat exchanger while keeping CDU
+      presence and the Abilene package topology explicitly unresolved.
     energy_view_ids: []
     liquid_stage_ids:
-      - cold_plate_heat_exchange
       - rack_manifold_distribution
       - technology_loop_return
       - conditional_cdu_boundary
@@ -627,33 +656,46 @@ states:
       - loop_setpoints_and_measurements
     journey_stage_ids: []
 
-  - id: facility_rejection_and_water
-    nav_label: Atmosphere
-    title: Reject heat to ambient air and keep four water accounts separate
+  - id: facility_heat_rejection
+    nav_label: Heat rejection
+    title: Carry facility-loop heat through the selected terminal to ambient air
     instruction: >-
-      Complete the selected Abilene facility-loop path, then distinguish
-      heat-rejection process water, initial fill, anticipated maintenance, and
-      unavailable measured operating water.
+      Follow the selected Facility Water System and air-cooled terminal to the
+      atmosphere. Treat any residual-air transfer into facility water or this
+      terminal as a generic conditional handoff, not an established Abilene
+      connection, commissioning result, or operating measurement.
     energy_view_ids: []
     liquid_stage_ids: [facility_loop_entry]
     residual_air_stage_ids: [facility_loop_merge]
     facility_stage_ids: [facility_loop_transport, air_cooled_terminal, atmosphere_sink]
+    water_account_ids: []
+    abilene_known_ids: [selected_facility_loop, selected_air_cooled_terminal]
+    abilene_unknown_ids:
+      - cooling_interfaces
+      - residual_air_equipment
+      - loop_setpoints_and_measurements
+    journey_stage_ids: []
+
+  - id: water_accounting
+    nav_label: Water accounts
+    title: Keep process water, fill, maintenance, and measurement separate
+    instruction: >-
+      Compare four non-interchangeable water statements: no evaporative use in
+      the selected heat-rejection process, initial fill, anticipated annual
+      maintenance, and unavailable measured operating consumption.
+    energy_view_ids: []
+    liquid_stage_ids: []
+    residual_air_stage_ids: []
+    facility_stage_ids: [air_cooled_terminal]
     water_account_ids:
       - rejection_process_water
       - initial_fill
       - anticipated_maintenance
       - measured_operating_water
     abilene_known_ids:
-      - selected_direct_liquid_design
-      - selected_facility_loop
       - selected_air_cooled_terminal
       - disclosed_water_categories
-    abilene_unknown_ids:
-      - cdu_presence_and_configuration
-      - cooling_interfaces
-      - residual_air_equipment
-      - loop_setpoints_and_measurements
-      - measured_site_water
+    abilene_unknown_ids: [measured_site_water]
     journey_stage_ids: []
 
   - id: whole_journey_closure

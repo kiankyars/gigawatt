@@ -1,12 +1,14 @@
 # Course inventory
 
 `course_v2.yaml` is the canonical course spine. It orders six system phases,
-their input/output boundaries, renderer artifacts, and the closing synthesis. The
-compiled production player is `../diagram/course_v2.html`.
+their input/output boundaries, renderer artifacts, state-bound 3D view mappings,
+and the closing synthesis. The compiled production player is
+`../diagram/course_v2.html`.
 
 `segments.yaml` remains the frozen v1 comparison order: seven acts and 26
 segments built on the validated master diagram and six camera anchors. It is no
-longer the production course sequence.
+longer the production course sequence, but selected segment frames are reused
+without modification as state-bound 3D views in v2.
 
 ## Canonical six-phase v2 course
 
@@ -22,6 +24,11 @@ coarse conceptual changes, never target durations, autoplay, micro-beats, or a
 spoken script. Grid and onsite generation remain branching source paths; the
 spine does not assert one traced carrier or an evidenced downstream merge where
 the site record is silent.
+
+On desktop, a state may use a preserved 3D camera or segment-specific frame as
+its primary view when location, nesting, or scale carries the explanation. The
+state's 2D canvas remains available as the causal and evidence-detail alternate;
+switching views does not create another state or prescribe presenter timing.
 
 Each phase has a strict manifest under `pilots/` and a deterministic standalone
 renderer under `../diagram/`. Build the six renderers before the unified player:
@@ -45,11 +52,12 @@ by the compiled player, not separate course chapters.
 The production package is `../diagram/course_v2.html`,
 `../diagram/course_v2_runtime.json`, and `INSTRUCTOR_PACKET_V2.md`. GitHub Pages
 publishes the player at the site root, its six phase dependencies beside it, the
-optional `../diagram/hybrid.html` spatial surface with its master-map and local
-Three.js assets, and the byte-preserved v1 comparison at
-`/gigawatt/v1.html`. The player
-offers validated conceptual 3D anchors only in Phases 4 through 6 and only at
-900 px and wider; the 2D states remain the causal and evidence-owning surfaces.
+`../diagram/hybrid.html` camera surface, the byte-preserved
+`../diagram/course.html` segment renderer at `/gigawatt/course.html`, their
+master-map and local Three.js assets, and the historical v1 alias at
+`/gigawatt/v1.html`. At 900 px and wider, the player opens configured 3D views
+on their owning states across all six phases. `Open 2D explanation` and `Return
+to 3D system view` switch surfaces without changing the active state.
 
 The inventory owns pedagogy only:
 
@@ -116,11 +124,13 @@ capital reread, and MW-to-token recipe become teachable without invented facts.
 
 ## Canonical untimed v2 runtime
 
-`diagram/course_v2.html` packages the six phases and 33 coarse manual states in
-one player. The outer shell owns the opening journey, phase compass, phase
+`diagram/course_v2.html` packages the six phases and their coarse manual states
+in one player. The outer shell owns the opening journey, phase compass, phase
 input/output boundary ribbon, state navigation, evidence drawer, keyboard
 behavior, and closing synthesis. Every phase renderer supplies only its
-explanatory canvas. No timing, autoplay, cadence, or spoken script is encoded.
+explanatory canvas. State-bound spatial views reuse the validated campus camera
+or an authored v1 segment frame; their 2D alternate remains attached to the
+same state. No timing, autoplay, cadence, or spoken script is encoded.
 
 `course/INSTRUCTOR_PACKET_V2.md` is generated from the same compiled registry.
 It carries teaching territory, state instructions, evidence boundaries, source
@@ -130,9 +140,10 @@ dwell time.
 
 ## Frozen v1 runtime
 
-`diagram/course.html` packages all 26 segments in canonical order. Every change
-is manual. The presenter advances between focused course sections and may open
-the evidence panel on demand; neither action is timed. The generic context/focus
+`diagram/course.html` packages all 26 segments in canonical order and also
+serves selected segment frames to the v2 player. Its bytes and old order remain
+frozen. Every change is manual. The presenter advances between focused course
+sections and may open the evidence panel on demand; neither action is timed. The generic context/focus
 zoom was removed because it changed camera geometry without adding teaching
 content. `course/INSTRUCTOR_PACKET.md` carries the same opening questions,
 objectives, claim boundaries, primary-source links, plain-language promotion

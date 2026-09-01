@@ -29,27 +29,174 @@ journey:
     - phase_6_heat
 
 spatial:
-  artifact: diagram/hybrid.html
   minimum_width_px: 900
-  boundary: >-
-    Conceptual spatial reference, not Abilene as-built; 2D states own causal
-    and evidence detail.
-  anchors:
+  state_views:
+    phase_1_generation:
+      abilene_selection:
+        artifact: diagram/course.html
+        view_kind: segment
+        view_id: s01_fire_to_electricity
+        title: Fire is not electricity
+        purpose: >-
+          Place the permitted onsite gas package, generator, and conceptual
+          step-up interface in the campus context after surveying the generic
+          generation families.
+        boundary: >-
+          The gas-turbine and generator evidence does not establish the exact
+          installed unit mix, commissioning state, present output,
+          generator-terminal voltage, or as-built GSU connection.
+      transmission_handoff:
+        artifact: diagram/course.html
+        view_kind: segment
+        view_id: s02_generator_terminal
+        title: Generator-terminal MV is only the beginning
+        purpose: >-
+          Follow shaft-to-electric conversion through the generator terminal
+          and step-up boundary before handing the watt to transmission.
+        boundary: >-
+          The frame is a conceptual electrical handoff, not an Abilene as-built
+          one-line or evidence of the selected generator-terminal voltage,
+          transformer ratio, grounding, protection, or campus-side interface.
+    phase_2_transmission:
+      abilene_grid_paths:
+        artifact: diagram/hybrid.html
+        view_kind: camera
+        view_id: campus_establishing
+        title: Campus establishing view
+        purpose: >-
+          Locate the separately evidenced 138 kV, 345 kV, and behind-the-meter
+          source-side paths before the campus distribution problem begins.
+        boundary: >-
+          The source-side paths are evidenced separately, but their exact
+          interfaces with campus MV and any common downstream merge remain
+          unresolved; the view must not imply one as-built shared bus.
+    phase_3_campus:
+      abilene_unknown_merge:
+        artifact: diagram/hybrid.html
+        view_kind: camera
+        view_id: campus_establishing
+        title: Campus establishing view
+        purpose: >-
+          Hold the separately evidenced source paths in one spatial frame while
+          identifying the abstract campus distribution envelope that still
+          requires an as-built topology.
+        boundary: >-
+          No reviewed source establishes the Abilene as-built merge, campus-MV
+          topology, feeder arrangement, or protective coordination; convergence
+          at the abstract envelope is not evidence of a physical common bus.
     phase_4_building:
-      camera_id: electrical_room
-      purpose: >-
-        Locate the electrical room, unit substation, switchgear, UPS, and
-        busway inside the building before returning to the functional gates.
+      equipment_by_verb:
+        artifact: diagram/course.html
+        view_kind: segment
+        view_id: s07_building_power_train
+        title: From campus MV to protected building AC
+        purpose: >-
+          Locate the unit substation, switchgear, UPS, and busway while following
+          each equipment function toward a rack position.
+        boundary: >-
+          This is a generic building-power reference, not the unpublished
+          Abilene as-built equipment lineup, redundancy topology, protection
+          study, or commissioning record.
     phase_5_compute:
-      camera_id: data_hall_rack
-      purpose: >-
-        Locate room-scale distribution, rack power shelves, board regulation,
-        the die, cold plate, and rack manifold at the point of use.
+      orient_inside_rack:
+        artifact: diagram/course.html
+        view_kind: segment
+        view_id: s08_rack_voltage_descent
+        title: Rack AC becomes core voltage
+        purpose: >-
+          Move from room-scale distribution through the rack power shelf and
+          board regulation to the processor die.
+        boundary: >-
+          Product evidence supports the platform family and a nominal rack-DC
+          boundary, but not the Abilene rack input, board rails, installed
+          topology, power allocation, utilization, or useful output.
     phase_6_heat:
-      camera_id: thermal_return
-      purpose: >-
-        Locate the component, liquid and residual-air branches, facility loop,
-        heat-rejection equipment, and atmosphere in one spatial frame.
+      rack_cooling_split:
+        artifact: diagram/course.html
+        view_kind: segment
+        view_id: s10_two_rack_heat_paths
+        title: One rack, two heat paths
+        purpose: >-
+          Separate direct-liquid component heat from the residual rack heat
+          that enters the air path.
+        boundary: >-
+          The platform documentation supports distinct liquid and air
+          categories, not an Abilene as-built rack configuration or a
+          quantitative heat split.
+      technology_loop:
+        artifact: diagram/course.html
+        view_kind: segment
+        view_id: s11_technology_loop
+        title: Supply and return are different pipes
+        purpose: >-
+          Follow cold-plate heat into the technology return while keeping the
+          coolant supply path physically distinct.
+        boundary: >-
+          The technology-loop relationship is a design reference; Abilene
+          routing, setpoints, flow, temperature, pressure, and operating state
+          are not established.
+      cdu_boundary:
+        artifact: diagram/course.html
+        view_kind: segment
+        view_id: s12_cdu_boundary
+        title: The CDU is a boundary, not a magic box
+        purpose: >-
+          Locate the conditional heat-exchange boundary between technology and
+          facility liquid loops without collapsing them into one circuit.
+        boundary: >-
+          A CDU is a generic conditional interface in this view; public
+          evidence does not establish its Abilene presence, arrangement,
+          redundancy, or operating conditions.
+      parallel_residual_air:
+        artifact: diagram/course.html
+        view_kind: segment
+        view_id: s13_residual_air_branch
+        title: Residual air takes a parallel route
+        purpose: >-
+          Trace non-liquid-cooled rack heat through the room-air branch toward
+          the facility heat-removal system.
+        boundary: >-
+          The residual-air mechanism is generic; Abilene CRAH or fan-wall
+          selection, airflow path, controls, capacity, and operating state are
+          not publicly established.
+      facility_heat_rejection:
+        artifact: diagram/course.html
+        view_kind: segment
+        view_id: s14_facility_heat_rejection
+        title: The facility loop carries heat to the plant
+        purpose: >-
+          Follow the evidenced liquid-side duty to the air-cooled rejection
+          terminal while locating any residual-air contribution at a separate,
+          generic, conditional facility handoff.
+        boundary: >-
+          The selected facility-loop and air-cooled-terminal concepts are
+          evidenced. A residual-air connection into that facility path is
+          generic and unresolved, not established at Abilene; detailed
+          interfaces, capacities, redundancy, setpoints, and measured operating
+          performance also remain unknown.
+      water_accounting:
+        artifact: diagram/course.html
+        view_kind: segment
+        view_id: s15_water_accounting
+        title: Closed loop does not mean water-free
+        purpose: >-
+          Keep rejection-process water, initial fill, maintenance additions,
+          and measured operating water use as four separate accounts.
+        boundary: >-
+          Public design material identifies categories, not a complete measured
+          Abilene operating-water balance or proof that every category is zero.
+      whole_journey_closure:
+        artifact: diagram/course.html
+        view_kind: segment
+        view_id: s16_close_atmosphere
+        title: The figure-eight closes in the atmosphere
+        purpose: >-
+          Reconnect component heat, both cooling branches, the facility loop,
+          and the atmospheric sink before rereading the full six-phase journey.
+        boundary: >-
+          This is a conceptual closure of energy flow, not an Abilene as-built
+          cooling topology, measured energy balance, or claim that all source
+          branches form one traced physical path.
 
 phases:
   - id: phase_1_generation

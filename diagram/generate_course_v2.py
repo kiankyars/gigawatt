@@ -23,6 +23,7 @@ GENERATOR_DEPENDENCY_PATHS = (
 )
 SPATIAL_RUNTIME_DEPENDENCY_PATHS = (
     ROOT / course_v2_runtime.CAMERAS_PATH,
+    ROOT / "diagram/course_runtime.json",
     ROOT / "diagram/master.svg",
     ROOT / "diagram/map_watt_heat_handoff.svg",
     ROOT / "diagram/vendor/three/three.module.js",
@@ -70,13 +71,46 @@ def _spatial_paths(spine: dict | None = None) -> tuple[Path, ...]:
         raise course_v2_runtime.CourseV2RuntimeError(
             "course v2.spatial must be a mapping"
         )
-    artifact = course_v2_runtime._relative_path(
-        spatial.get("artifact"),
-        "course v2.spatial.artifact",
-        prefix="diagram/",
-        suffix=".html",
+    state_views = spatial.get("state_views")
+    if not isinstance(state_views, dict):
+        raise course_v2_runtime.CourseV2RuntimeError(
+            "course v2.spatial.state_views must be a mapping"
+        )
+    phases = spine.get("phases")
+    if not isinstance(phases, list):
+        raise course_v2_runtime.CourseV2RuntimeError("course v2.phases must be a list")
+    phase_ids = [phase.get("id") for phase in phases if isinstance(phase, dict)]
+    if len(phase_ids) != course_v2_runtime.PHASE_COUNT or set(state_views) != set(
+        phase_ids
+    ):
+        raise course_v2_runtime.CourseV2RuntimeError(
+            "course v2.spatial.state_views must map exactly the six phase IDs"
+        )
+
+    artifacts: set[str] = set()
+    for phase_id in phase_ids:
+        phase_views = state_views[phase_id]
+        if not isinstance(phase_views, dict) or not phase_views:
+            raise course_v2_runtime.CourseV2RuntimeError(
+                f"course v2.spatial.state_views.{phase_id} must be a non-empty mapping"
+            )
+        for state_id, view in phase_views.items():
+            if not isinstance(view, dict):
+                raise course_v2_runtime.CourseV2RuntimeError(
+                    "course v2.spatial.state_views."
+                    f"{phase_id}.{state_id} must be a mapping"
+                )
+            artifact = course_v2_runtime._relative_path(
+                view.get("artifact"),
+                f"course v2.spatial.state_views.{phase_id}.{state_id}.artifact",
+                prefix="diagram/",
+                suffix=".html",
+            )
+            artifacts.add(artifact)
+    return (
+        *(ROOT / artifact for artifact in sorted(artifacts)),
+        *SPATIAL_RUNTIME_DEPENDENCY_PATHS,
     )
-    return (ROOT / artifact, *SPATIAL_RUNTIME_DEPENDENCY_PATHS)
 
 
 def _source_digest(spine: dict | None = None) -> str:

@@ -443,12 +443,30 @@
           "id": "abilene_selection",
           "instruction": "Map the generic gas conversion onto Abilene only after separating permit, installation, commissioning, output, storage, standby, and contract claims.",
           "nav_label": "Abilene",
+          "spatial_view": {
+            "artifact": "diagram/course.html",
+            "boundary": "The gas-turbine and generator evidence does not establish the exact installed unit mix, commissioning state, present output, generator-terminal voltage, or as-built GSU connection.",
+            "purpose": "Place the permitted onsite gas package, generator, and conceptual step-up interface in the campus context after surveying the generic generation families.",
+            "title": "Fire is not electricity",
+            "view_id": "s01_fire_to_electricity",
+            "view_index": 2,
+            "view_kind": "segment"
+          },
           "title": "The reference campus selects one physical generation path"
         },
         {
           "id": "transmission_handoff",
           "instruction": "Leave generation at the electrical boundary and motivate voltage step-up, transmission, and large-load interconnection.",
           "nav_label": "Transmit",
+          "spatial_view": {
+            "artifact": "diagram/course.html",
+            "boundary": "The frame is a conceptual electrical handoff, not an Abilene as-built one-line or evidence of the selected generator-terminal voltage, transformer ratio, grounding, protection, or campus-side interface.",
+            "purpose": "Follow shaft-to-electric conversion through the generator terminal and step-up boundary before handing the watt to transmission.",
+            "title": "Generator-terminal MV is only the beginning",
+            "view_id": "s02_generator_terminal",
+            "view_index": 3,
+            "view_kind": "segment"
+          },
           "title": "Electricity now exists; the next problem is moving a gigawatt"
         }
       ],
@@ -980,6 +998,15 @@
           "id": "abilene_grid_paths",
           "instruction": "Compare the two evidenced service paths without extending either rating into current load or drawing their unknown campus merge.",
           "nav_label": "Abilene",
+          "spatial_view": {
+            "artifact": "diagram/hybrid.html",
+            "boundary": "The source-side paths are evidenced separately, but their exact interfaces with campus MV and any common downstream merge remain unresolved; the view must not imply one as-built shared bus.",
+            "purpose": "Locate the separately evidenced 138 kV, 345 kV, and behind-the-meter source-side paths before the campus distribution problem begins.",
+            "title": "Campus establishing view",
+            "view_id": "campus_establishing",
+            "view_index": 1,
+            "view_kind": "camera"
+          },
           "title": "Map the separate 138 kV and 345 kV paths"
         },
         {
@@ -1881,6 +1908,15 @@
           "id": "abilene_unknown_merge",
           "instruction": "Show the initial grid path, expansion substation, and installed gas-plant evidence as separate lanes. Terminate every lane at the unresolved campus boundary rather than drawing a shared as-built bus.",
           "nav_label": "Sources",
+          "spatial_view": {
+            "artifact": "diagram/hybrid.html",
+            "boundary": "No reviewed source establishes the Abilene as-built merge, campus-MV topology, feeder arrangement, or protective coordination; convergence at the abstract envelope is not evidence of a physical common bus.",
+            "purpose": "Hold the separately evidenced source paths in one spatial frame while identifying the abstract campus distribution envelope that still requires an as-built topology.",
+            "title": "Campus establishing view",
+            "view_id": "campus_establishing",
+            "view_index": 1,
+            "view_kind": "camera"
+          },
           "title": "Multiple Abilene source-side paths stop at an unknown merge"
         },
         {
@@ -2393,6 +2429,15 @@
           "id": "equipment_by_verb",
           "instruction": "Advance through campus feeder, unit substation, switchgear, UPS, busway, and rack position while naming only each gate's function.",
           "nav_label": "Functions",
+          "spatial_view": {
+            "artifact": "diagram/course.html",
+            "boundary": "This is a generic building-power reference, not the unpublished Abilene as-built equipment lineup, redundancy topology, protection study, or commissioning record.",
+            "purpose": "Locate the unit substation, switchgear, UPS, and busway while following each equipment function toward a rack position.",
+            "title": "From campus MV to protected building AC",
+            "view_id": "s07_building_power_train",
+            "view_index": 8,
+            "view_kind": "segment"
+          },
           "title": "Follow the functional path to a rack position"
         },
         {
@@ -3200,6 +3245,15 @@
           "id": "orient_inside_rack",
           "instruction": "Reveal the data-hall boundary, rack envelope, and board/die boundary as nested scales without introducing site quantities or rail values.",
           "nav_label": "Rack",
+          "spatial_view": {
+            "artifact": "diagram/course.html",
+            "boundary": "Product evidence supports the platform family and a nominal rack-DC boundary, but not the Abilene rack input, board rails, installed topology, power allocation, utilization, or useful output.",
+            "purpose": "Move from room-scale distribution through the rack power shelf and board regulation to the processor die.",
+            "title": "Rack AC becomes core voltage",
+            "view_id": "s08_rack_voltage_descent",
+            "view_index": 9,
+            "view_kind": "segment"
+          },
           "title": "Descend from the data hall boundary to the processor"
         },
         {
@@ -3989,36 +4043,111 @@
       "pilot_id": "phase6_heat",
       "pilot_title": "How heat returns from silicon to the atmosphere",
       "question": "How does heat get from silicon back to the atmosphere?",
-      "renderer_digest": "6b17589632893a85d1a66399696ab5c960cc520bb94dca81eb36e5188e4888ff",
+      "renderer_digest": "759d071ddd3d5bdd03cc8f893636c6287c1665e51f4ad530186491945919ed6a",
       "states": [
         {
-          "id": "die_to_cold_plate",
-          "instruction": "Follow heat through the physical contact and coolant-channel boundary while keeping power, temperatures, coolant, and Abilene operating state unknown.",
-          "nav_label": "Cold plate",
-          "title": "Move component heat into the technology coolant"
+          "id": "rack_cooling_split",
+          "instruction": "Separate processor heat entering cold plates from auxiliary heat entering room air; the product split does not establish an Abilene airflow layout, heat fraction, or operating point.",
+          "nav_label": "Rack split",
+          "spatial_view": {
+            "artifact": "diagram/course.html",
+            "boundary": "The platform documentation supports distinct liquid and air categories, not an Abilene as-built rack configuration or a quantitative heat split.",
+            "purpose": "Separate direct-liquid component heat from the residual rack heat that enters the air path.",
+            "title": "One rack, two heat paths",
+            "view_id": "s10_two_rack_heat_paths",
+            "view_index": 11,
+            "view_kind": "segment"
+          },
+          "title": "One rack creates liquid and residual-air heat obligations"
         },
         {
-          "id": "rack_to_facility_boundary",
-          "instruction": "Distinguish Technology Cooling System supply and return from the Facility Water System, with the CDU visibly conditional for the Abilene case.",
-          "nav_label": "Liquid loops",
-          "title": "Cross the rack manifold and a conditional CDU boundary"
+          "id": "technology_loop",
+          "instruction": "Trace coolant supply from the rack manifold to cold plates and warmed return back toward the Technology Cooling System boundary without inventing coolant, flow, temperature, pressure, or site routing.",
+          "nav_label": "Tech loop",
+          "spatial_view": {
+            "artifact": "diagram/course.html",
+            "boundary": "The technology-loop relationship is a design reference; Abilene routing, setpoints, flow, temperature, pressure, and operating state are not established.",
+            "purpose": "Follow cold-plate heat into the technology return while keeping the coolant supply path physically distinct.",
+            "title": "Supply and return are different pipes",
+            "view_id": "s11_technology_loop",
+            "view_index": 12,
+            "view_kind": "segment"
+          },
+          "title": "Supply and warmed return are different technology-loop paths"
+        },
+        {
+          "id": "cdu_boundary",
+          "instruction": "Cross from the Technology Cooling System into the Facility Water System through a conditional liquid-to-liquid heat exchanger while keeping CDU presence and the Abilene package topology explicitly unresolved.",
+          "nav_label": "CDU boundary",
+          "spatial_view": {
+            "artifact": "diagram/course.html",
+            "boundary": "A CDU is a generic conditional interface in this view; public evidence does not establish its Abilene presence, arrangement, redundancy, or operating conditions.",
+            "purpose": "Locate the conditional heat-exchange boundary between technology and facility liquid loops without collapsing them into one circuit.",
+            "title": "The CDU is a boundary, not a magic box",
+            "view_id": "s12_cdu_boundary",
+            "view_index": 13,
+            "view_kind": "segment"
+          },
+          "title": "The CDU is a heat-transfer boundary, not a coolant merge"
         },
         {
           "id": "parallel_residual_air",
           "instruction": "Keep liquid-cooled processors and air-cooled auxiliaries in parallel, and converge heat at a facility boundary without asserting mixed coolant loops.",
           "nav_label": "Residual air",
+          "spatial_view": {
+            "artifact": "diagram/course.html",
+            "boundary": "The residual-air mechanism is generic; Abilene CRAH or fan-wall selection, airflow path, controls, capacity, and operating state are not publicly established.",
+            "purpose": "Trace non-liquid-cooled rack heat through the room-air branch toward the facility heat-removal system.",
+            "title": "Residual air takes a parallel route",
+            "view_id": "s13_residual_air_branch",
+            "view_index": 14,
+            "view_kind": "segment"
+          },
           "title": "Add the parallel air-side heat-removal path"
         },
         {
-          "id": "facility_rejection_and_water",
-          "instruction": "Complete the selected Abilene facility-loop path, then distinguish heat-rejection process water, initial fill, anticipated maintenance, and unavailable measured operating water.",
-          "nav_label": "Atmosphere",
-          "title": "Reject heat to ambient air and keep four water accounts separate"
+          "id": "facility_heat_rejection",
+          "instruction": "Follow the selected Facility Water System and air-cooled terminal to the atmosphere. Treat any residual-air transfer into facility water or this terminal as a generic conditional handoff, not an established Abilene connection, commissioning result, or operating measurement.",
+          "nav_label": "Heat rejection",
+          "spatial_view": {
+            "artifact": "diagram/course.html",
+            "boundary": "The selected facility-loop and air-cooled-terminal concepts are evidenced. A residual-air connection into that facility path is generic and unresolved, not established at Abilene; detailed interfaces, capacities, redundancy, setpoints, and measured operating performance also remain unknown.",
+            "purpose": "Follow the evidenced liquid-side duty to the air-cooled rejection terminal while locating any residual-air contribution at a separate, generic, conditional facility handoff.",
+            "title": "The facility loop carries heat to the plant",
+            "view_id": "s14_facility_heat_rejection",
+            "view_index": 15,
+            "view_kind": "segment"
+          },
+          "title": "Carry facility-loop heat through the selected terminal to ambient air"
+        },
+        {
+          "id": "water_accounting",
+          "instruction": "Compare four non-interchangeable water statements: no evaporative use in the selected heat-rejection process, initial fill, anticipated annual maintenance, and unavailable measured operating consumption.",
+          "nav_label": "Water accounts",
+          "spatial_view": {
+            "artifact": "diagram/course.html",
+            "boundary": "Public design material identifies categories, not a complete measured Abilene operating-water balance or proof that every category is zero.",
+            "purpose": "Keep rejection-process water, initial fill, maintenance additions, and measured operating water use as four separate accounts.",
+            "title": "Closed loop does not mean water-free",
+            "view_id": "s15_water_accounting",
+            "view_index": 16,
+            "view_kind": "segment"
+          },
+          "title": "Keep process water, fill, maintenance, and measurement separate"
         },
         {
           "id": "whole_journey_closure",
           "instruction": "Replay the six phase labels and their Abilene evidence posture, ending at the atmosphere without converting the course index into an as-built diagram.",
           "nav_label": "Full journey",
+          "spatial_view": {
+            "artifact": "diagram/course.html",
+            "boundary": "This is a conceptual closure of energy flow, not an Abilene as-built cooling topology, measured energy balance, or claim that all source branches form one traced physical path.",
+            "purpose": "Reconnect component heat, both cooling branches, the facility loop, and the atmospheric sink before rereading the full six-phase journey.",
+            "title": "The figure-eight closes in the atmosphere",
+            "view_id": "s16_close_atmosphere",
+            "view_index": 17,
+            "view_kind": "segment"
+          },
           "title": "Reconnect Generate through Reject heat"
         }
       ],
@@ -4027,37 +4156,14 @@
     }
   ],
   "schema_version": 1,
-  "source_digest": "3e67ce7ce4a663b1841f7afb920ab999b27f0dc0d808b7bb547ed2b36b7d3540",
+  "source_digest": "769c49cf8256bcec62e02c9f202b0296315487bc22f06b8a6302e7a148bb0d76",
   "spatial": {
-    "anchors": {
-      "phase_4_building": {
-        "camera_id": "electrical_room",
-        "camera_index": 2,
-        "camera_subtitle": "Follow the master path through the building power train.",
-        "camera_title": "Electrical room",
-        "phase_id": "phase_4_building",
-        "purpose": "Locate the electrical room, unit substation, switchgear, UPS, and busway inside the building before returning to the functional gates."
-      },
-      "phase_5_compute": {
-        "camera_id": "data_hall_rack",
-        "camera_index": 3,
-        "camera_subtitle": "Move from room-scale distribution to the point of use.",
-        "camera_title": "Data hall and rack",
-        "phase_id": "phase_5_compute",
-        "purpose": "Locate room-scale distribution, rack power shelves, board regulation, the die, cold plate, and rack manifold at the point of use."
-      },
-      "phase_6_heat": {
-        "camera_id": "thermal_return",
-        "camera_index": 5,
-        "camera_subtitle": "Follow every heat-transfer gate to the terminal sink.",
-        "camera_title": "Thermal return",
-        "phase_id": "phase_6_heat",
-        "purpose": "Locate the component, liquid and residual-air branches, facility loop, heat-rejection equipment, and atmosphere in one spatial frame."
-      }
-    },
-    "artifact": "diagram/hybrid.html",
-    "boundary": "Conceptual spatial reference, not Abilene as-built; 2D states own causal and evidence detail.",
-    "minimum_width_px": 900
+    "artifacts": [
+      "diagram/course.html",
+      "diagram/hybrid.html"
+    ],
+    "minimum_width_px": 900,
+    "state_view_count": 13
   },
   "synthesis": {
     "body": "The engineered service chain can now be inspected through three system-level questions without pretending that every branch is one traced physical path or inventing an additional physical phase.",

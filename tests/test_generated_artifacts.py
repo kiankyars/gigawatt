@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import runpy
 import unittest
 from unittest import mock
 
@@ -202,6 +203,7 @@ class GeneratedArtifactClosureTests(unittest.TestCase):
                 "cp diagram/phase5_compute.html _site/",
                 "cp diagram/phase6_heat.html _site/",
                 "cp diagram/hybrid.html _site/",
+                "cp diagram/course.html _site/course.html",
                 "cp diagram/master.svg _site/",
                 "cp diagram/map_watt_heat_handoff.svg _site/",
                 "cp diagram/course.html _site/v1.html",
@@ -210,9 +212,7 @@ class GeneratedArtifactClosureTests(unittest.TestCase):
             ],
         )
         actions = {
-            step["name"]: step["uses"]
-            for step in deploy["steps"]
-            if "uses" in step
+            step["name"]: step["uses"] for step in deploy["steps"] if "uses" in step
         }
         self.assertEqual(
             actions,
@@ -255,6 +255,7 @@ class GeneratedArtifactClosureTests(unittest.TestCase):
             if line
             in {
                 "cp diagram/hybrid.html _site/",
+                "cp diagram/course.html _site/course.html",
                 "cp diagram/master.svg _site/",
                 "cp diagram/map_watt_heat_handoff.svg _site/",
                 "cp -R diagram/vendor/three _site/vendor/three",
@@ -263,6 +264,7 @@ class GeneratedArtifactClosureTests(unittest.TestCase):
         self.assertEqual(
             {
                 "cp diagram/hybrid.html _site/",
+                "cp diagram/course.html _site/course.html",
                 "cp diagram/master.svg _site/",
                 "cp diagram/map_watt_heat_handoff.svg _site/",
                 "cp -R diagram/vendor/three _site/vendor/three",
@@ -271,6 +273,7 @@ class GeneratedArtifactClosureTests(unittest.TestCase):
         )
         for dependency in (
             "diagram/hybrid.html",
+            "diagram/course.html",
             "diagram/master.svg",
             "diagram/map_watt_heat_handoff.svg",
             "diagram/vendor/three/three.module.js",
@@ -280,6 +283,111 @@ class GeneratedArtifactClosureTests(unittest.TestCase):
         ):
             with self.subTest(dependency=dependency):
                 self.assertTrue((generated_artifacts.ROOT / dependency).is_file())
+
+    def test_state_bound_spatial_views_close_over_existing_course_assets(self) -> None:
+        course_v2 = scene.load_yaml(generated_artifacts.ROOT / "course/course_v2.yaml")
+        spatial = course_v2["spatial"]
+        self.assertEqual(set(spatial), {"minimum_width_px", "state_views"})
+        self.assertEqual(spatial["minimum_width_px"], 900)
+        state_views = spatial["state_views"]
+        expected_views = {
+            "phase_1_generation": {
+                "abilene_selection": ("segment", "s01_fire_to_electricity"),
+                "transmission_handoff": ("segment", "s02_generator_terminal"),
+            },
+            "phase_2_transmission": {
+                "abilene_grid_paths": ("camera", "campus_establishing"),
+            },
+            "phase_3_campus": {
+                "abilene_unknown_merge": ("camera", "campus_establishing"),
+            },
+            "phase_4_building": {
+                "equipment_by_verb": ("segment", "s07_building_power_train"),
+            },
+            "phase_5_compute": {
+                "orient_inside_rack": ("segment", "s08_rack_voltage_descent"),
+            },
+            "phase_6_heat": {
+                "rack_cooling_split": ("segment", "s10_two_rack_heat_paths"),
+                "technology_loop": ("segment", "s11_technology_loop"),
+                "cdu_boundary": ("segment", "s12_cdu_boundary"),
+                "parallel_residual_air": ("segment", "s13_residual_air_branch"),
+                "facility_heat_rejection": (
+                    "segment",
+                    "s14_facility_heat_rejection",
+                ),
+                "water_accounting": ("segment", "s15_water_accounting"),
+                "whole_journey_closure": ("segment", "s16_close_atmosphere"),
+            },
+        }
+        self.assertEqual(set(state_views), set(expected_views))
+
+        segment_ids = {segment["segment_id"] for segment in self.runtime["segments"]}
+        camera_ids = {camera["id"] for camera in self.cameras["cameras"]}
+        phase_by_id = {phase["id"]: phase for phase in course_v2["phases"]}
+        artifacts: set[str] = set()
+        for phase_id, expected_phase_views in expected_views.items():
+            phase_views = state_views[phase_id]
+            self.assertEqual(set(phase_views), set(expected_phase_views))
+            manifest = scene.load_yaml(
+                generated_artifacts.ROOT / phase_by_id[phase_id]["manifest"]
+            )
+            state_ids = {state["id"] for state in manifest["states"]}
+            self.assertTrue(set(phase_views).issubset(state_ids))
+            for state_id, (view_kind, view_id) in expected_phase_views.items():
+                view = phase_views[state_id]
+                self.assertEqual(
+                    set(view),
+                    {
+                        "artifact",
+                        "view_kind",
+                        "view_id",
+                        "title",
+                        "purpose",
+                        "boundary",
+                    },
+                )
+                self.assertEqual(
+                    (view["view_kind"], view["view_id"]),
+                    (view_kind, view_id),
+                )
+                artifacts.add(view["artifact"])
+                if view_kind == "segment":
+                    self.assertEqual(view["artifact"], "diagram/course.html")
+                    self.assertIn(view_id, segment_ids)
+                else:
+                    self.assertEqual(view["artifact"], "diagram/hybrid.html")
+                    self.assertIn(view_id, camera_ids)
+                self.assertTrue(view["title"])
+                self.assertTrue(view["purpose"])
+                self.assertTrue(view["boundary"])
+
+        phase_2_boundary = state_views["phase_2_transmission"]["abilene_grid_paths"][
+            "boundary"
+        ].casefold()
+        self.assertIn("exact interfaces", phase_2_boundary)
+        self.assertIn("common downstream merge remain unresolved", phase_2_boundary)
+        self.assertIn("must not imply one as-built shared bus", phase_2_boundary)
+        phase_3_boundary = state_views["phase_3_campus"]["abilene_unknown_merge"][
+            "boundary"
+        ].casefold()
+        self.assertIn("no reviewed source establishes", phase_3_boundary)
+        self.assertIn("not evidence of a physical common bus", phase_3_boundary)
+        phase_6_boundary = state_views["phase_6_heat"]["facility_heat_rejection"][
+            "boundary"
+        ].casefold()
+        self.assertIn("residual-air connection", phase_6_boundary)
+        self.assertIn("generic and unresolved", phase_6_boundary)
+        self.assertIn("not established at abilene", phase_6_boundary)
+
+        self.assertEqual(artifacts, {"diagram/course.html", "diagram/hybrid.html"})
+        spatial_paths = {
+            path.relative_to(generated_artifacts.ROOT).as_posix()
+            for path in runpy.run_path(str(generated_artifacts.COURSE_V2_GENERATOR))[
+                "_spatial_paths"
+            ](course_v2)
+        }
+        self.assertTrue(artifacts.issubset(spatial_paths))
 
 
 class AcceptanceMaterializationIsolationTests(unittest.TestCase):

@@ -34,6 +34,9 @@ preference and its complete acceptance corpus remain preserved in the frozen
 commit and its Git ancestry; they are not reused as current-epoch evidence. The
 2D master is the semantic engineering map; the 3D scene supplies campus
 orientation and spatial views. Both use the same 30 node IDs and 34 edge IDs.
+V2 binds the preserved 3D cameras and segment-specific frames directly to the
+six-phase states that need them, so spatial explanation is part of the primary
+course rather than a detached historical demonstration.
 The frozen v1 course contains seven acts and 26 presenter-controlled,
 evidence-ready segments.
 
@@ -47,8 +50,11 @@ journey through a branching power-and-heat service chain:
 `course/CURRICULUM_V2.md` owns the curriculum contract. Generic explanatory
 canvases teach each mechanism before the Abilene engineering map is used as the
 case and evidence layer. All six source-bound phase renderers compile into one
-responsive player with 33 coarse manual states and no timing, autoplay, or
-spoken-script contract. The standalone phase pages remain development fixtures;
+responsive player with coarse manual states and no timing, autoplay, or
+spoken-script contract. On desktop, selected states open the preserved 3D
+campus or segment frame as their primary teaching view; the corresponding 2D
+canvas remains available as the causal and evidence-detail alternate. The
+standalone phase pages remain development fixtures;
 `diagram/course_v2.html` is the canonical runtime. Grid and onsite source paths
 remain distinct unless evidence establishes a merge; the course does not imply
 one traced electron path through every phase.
@@ -71,8 +77,11 @@ one traced electron path through every phase.
   planned-shot frames, with shot-versus-anchor comparison and no autoplay.
 - `diagram/planned_shots.json` — deterministic shot registry compiled from the
   course, semantic master, 2D layout, 3D scene, and camera anchors.
-- `diagram/course.html`, `diagram/course_runtime.json`, and
-  `course/INSTRUCTOR_PACKET.md` — the frozen v1 comparison package.
+- `diagram/course.html` — the byte-preserved v1 renderer, reused by v2 for its
+  validated segment-specific 3D state views and published at both
+  `/gigawatt/course.html` and the historical `/gigawatt/v1.html` alias.
+- `diagram/course_runtime.json` and `course/INSTRUCTOR_PACKET.md` — the frozen
+  v1 registry and comparison packet.
 - `course/TESTING.md` — the untimed editorial walkthrough and feedback format.
 - `diagram/vendor/three/` — the pinned local Three.js 0.170.0 runtime, required
   addons, and upstream MIT license for network-independent playback.
@@ -83,8 +92,9 @@ one traced electron path through every phase.
   delivery/transient, ownership/financing/business-model, and compute-method
   ledgers. Contract/accounting, electrical, and thermal engineering references
   remain isolated in their own ledgers.
-- `course/segments.yaml` — canonical act and segment order, camera requirements,
-  topology focus, claim-level fact bindings, transitions, and research gates.
+- `course/segments.yaml` — frozen-v1 canonical act and segment order, camera
+  requirements, topology focus, claim-level fact bindings, transitions, and
+  research gates.
 - `REDLINE.md` — disposition record for the engineering and legibility review.
 - `course/REDLINE.md` — disposition record for course sequencing, claim
   binding, readiness, and production-shot review.
@@ -141,15 +151,18 @@ python3 -m http.server --directory diagram 8000
 Open `http://localhost:8000/course_v2.html`. Use the phase compass for the six
 engineering problems, the state rail for coarse explanatory transformations,
 and the evidence drawer for scoped claims and primary sources. No state advances
-automatically. In Phases 4 through 6, `3D spatial anchor` manually opens the
-validated electrical-room, rack, or thermal-return camera at widths of 900 px
-and above; `Return to 2D teaching` restores the causal view. These anchors are
-conceptual spatial references, not Abilene as-built claims. Open
-`http://localhost:8000/course.html` only for the frozen v1 comparison.
+automatically. At widths of 900 px and above, selected states across all six
+phases open their validated 3D camera or segment frame as the primary spatial
+explanation; `Open 2D explanation` exposes the corresponding mechanism and
+evidence-detail alternate without changing the active state, and
+`Return to 3D system view` restores the spatial frame. Every spatial view
+carries its own conceptual or evidence boundary and never promotes the Abilene
+model to an as-built claim. `http://localhost:8000/course.html` is the preserved
+segment renderer used by those state views; GitHub Pages also mirrors it at
+`/gigawatt/v1.html` for historical comparison.
 `s10_two_rack_heat_paths.html` and `planned_shots.html` remain development and
-review surfaces. The v2 teaching canvases are self-contained; its optional 3D
-mode and the archived v1 load the pinned Three.js runtime locally rather than
-from a CDN.
+review surfaces. The state-bound 3D views and archived comparison load the
+pinned Three.js runtime locally rather than from a CDN.
 
 ## Source-of-truth boundaries
 
@@ -162,7 +175,8 @@ from a CDN.
 - `diagram/planned_shots.json` and `.html`: derived review artifacts for the 21
   planned requests; they do not promote those requests to approved cameras.
 - `course/course_v2.yaml`: canonical v2 phase order, questions, phase inputs and
-  outputs, renderer paths, and closing synthesis.
+  outputs, renderer paths, state-bound 3D camera or segment mappings, and
+  closing synthesis.
 - `course/pilots/*.yaml`: source manifests for the six coarse
   instructor-controlled phase surfaces; these are neither course timing nor
   spoken scripts.
@@ -170,7 +184,8 @@ from a CDN.
   `course/INSTRUCTOR_PACKET_V2.md`: generated v2 package compiled from the spine,
   phase manifests, rendered phase payloads, and registered evidence.
 - `course/segments.yaml`, `diagram/course_runtime.json`, and `course.html`: the
-  frozen v1 order and generated comparison runtime.
+  frozen v1 order and generated renderer; v2 reuses selected validated frames
+  without changing those frozen bytes.
 - `src/gigawatt/tokens.py`: shared palette and line system.
 - `diagram/vendor/three/`: byte-verified Three.js runtime assets; tests pin their
   exact 0.170.0 hashes and license.
