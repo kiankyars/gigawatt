@@ -12,7 +12,7 @@ python3 -m http.server --directory diagram 8000
 
 Open `http://localhost:8000/course_v2.html`. Use the six-phase compass to move between engineering problems and the state rail to change the current teaching visual. At 900 px and wider, mapped states open on their state-bound 3D system view; use `Open 2D explanation` for causal and evidence detail, then `Return to 3D system view` when useful. The outer evidence drawer contains the fact-level basis, scope, posture, date boundary, and primary-source links for the active phase.
 
-Machine registry source digest: `769c49cf8256bcec62e02c9f202b0296315487bc22f06b8a6302e7a148bb0d76`
+Machine registry source digest: `40adb4bb1582b05f80eab3ad5562ac8c4f30df023171e58b51ed82ade32f16f7`
 
 ## Opening journey
 

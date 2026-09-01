@@ -1002,6 +1002,7 @@ const phaseButtons = [...document.querySelectorAll("[data-phase-index]")];
 const stateNav = document.getElementById("state-nav");
 const stateCopy = document.getElementById("state-copy");
 const evidenceDrawer = document.getElementById("evidence-drawer");
+const courseFooter = document.querySelector("footer");
 const previousButton = document.getElementById("course-prev");
 const nextButton = document.getElementById("course-next");
 let mode = "opening";
@@ -1009,7 +1010,13 @@ let currentPhase = 0;
 let currentState = 0;
 let spatialMode = false;
 
+function updateEvidenceClearance() {{
+  const clearance = Math.ceil(courseFooter.getBoundingClientRect().height + 8);
+  document.documentElement.style.setProperty("--evidence-clearance", `${{clearance}}px`);
+}}
+
 function resetScroll() {{
+  updateEvidenceClearance();
   window.scrollTo(0, 0);
   if (document.scrollingElement) {{ document.scrollingElement.scrollTop = 0; document.scrollingElement.scrollLeft = 0; }}
   [document.querySelector("main"), openingView, synthesisView, evidenceDrawer].forEach(element => {{
@@ -1209,6 +1216,8 @@ teachingFrame.addEventListener("load", prepareTeachingFrame);
 spatialFrame.addEventListener("load", prepareSpatialFrame);
 evidenceDrawer.addEventListener("toggle", () => {{ if (!evidenceDrawer.open) resetScroll(); }});
 document.addEventListener("keydown", event => {{ if (event.key !== "Escape") return; if (evidenceDrawer.open) {{ evidenceDrawer.open = false; resetScroll(); return; }} if (spatialMode) showTeaching(true); }});
+new ResizeObserver(updateEvidenceClearance).observe(courseFooter);
+window.addEventListener("resize", updateEvidenceClearance);
 showOpening();
 </script>
 </body>

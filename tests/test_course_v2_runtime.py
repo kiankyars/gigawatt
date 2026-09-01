@@ -566,6 +566,8 @@ class CourseV2RuntimeTests(unittest.TestCase):
             "details { position:fixed; z-index:30;",
             "details[open] { right:10px; bottom:10px;",
             "--evidence-clearance:64px",
+            'document.documentElement.style.setProperty("--evidence-clearance", `${clearance}px`);',
+            "new ResizeObserver(updateEvidenceClearance).observe(courseFooter);",
         )
         for marker in required:
             with self.subTest(marker=marker):
