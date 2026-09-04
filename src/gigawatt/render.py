@@ -34,9 +34,9 @@ def place(sid: str, x: float, y: float, s: float = 1.0, rot: float = 0,
 def wire(color: str, *pts: tuple[float, float], w: float = tokens.STROKE_HEAVY,
          dash: str | None = None) -> str:
     d = "M " + " L ".join(f"{x:.1f} {y:.1f}" for x, y in pts)
-    attrs: dict[str, object] = dict(d=d, fill="none", stroke=color,
-                                    stroke_width=w, stroke_linecap="round",
-                                    stroke_linejoin="round")
+    attrs: dict[str, object] = {"d": d, "fill": "none", "stroke": color,
+                               "stroke_width": w, "stroke_linecap": "round",
+                               "stroke_linejoin": "round"}
     if dash:
         attrs["stroke_dasharray"] = dash
     return el("path", **attrs)

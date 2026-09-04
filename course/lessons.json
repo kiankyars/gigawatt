@@ -1,0 +1,682 @@
+{
+  "title": "GIGAWATT",
+  "subtitle": "From watts to racks. Then all the way back to the air.",
+  "chapters": [
+    {
+      "id": "start",
+      "title": "Start at the rack",
+      "kicker": "01 · Two obligations"
+    },
+    {
+      "id": "grid",
+      "title": "Bring power to site",
+      "kicker": "02 · Distance and scale"
+    },
+    {
+      "id": "continuity",
+      "title": "Keep racks powered",
+      "kicker": "03 · Continuity"
+    },
+    {
+      "id": "silicon",
+      "title": "Power silicon",
+      "kicker": "04 · The last meter"
+    },
+    {
+      "id": "cooling",
+      "title": "Get heat out",
+      "kicker": "05 · The return journey"
+    },
+    {
+      "id": "system",
+      "title": "Size the whole system",
+      "kicker": "06 · Put it together"
+    }
+  ],
+  "lessons": [
+    {
+      "id": "one-rack",
+      "chapter": "start",
+      "title": "One campus. Two journeys.",
+      "eyebrow": "The whole system",
+      "body": "A working rack needs a continuous path for electricity to arrive and a continuous path for heat to leave. Follow those two paths, and the data center becomes a system you can reason about.",
+      "visual": "campus",
+      "takeaway": "A rack is usable only while both its power path and its heat-removal path work.",
+      "notes": [
+        "Find the racks inside the open-roof data hall. Choose one hypothetical rack drawing 100 kW so the reasoning has a scale. A rack contains computing, networking, power conversion, and cooling equipment. This teaching load is not a specification for every AI rack or a measurement at a named campus.",
+        "Trace outward from that rack. It needs upstream electrical service, distribution, protection, and compatible power conversion. It also needs downstream heat transport and an ultimate sink. Information processing is the desired service, but it does not consume a large slice of electrical energy that then escapes the heat balance. Nearly all IT electrical input ultimately becomes heat.",
+        "The journey starts with the problem, follows electricity inward, and then follows heat outward. At every scale ask what this component must do, what limits it, and what happens if it stops."
+      ],
+      "sources": [
+        {
+          "title": "DOE · Best Practices Guide for Energy-Efficient Data Center Design",
+          "url": "https://www.energy.gov/sites/default/files/2024-07/best-practice-guide-data-center-design_0.pdf"
+        },
+        {
+          "title": "NVIDIA · DGX GB200 hardware reference",
+          "url": "https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html"
+        }
+      ]
+    },
+    {
+      "id": "power-and-energy",
+      "chapter": "start",
+      "title": "A watt is a rate.",
+      "eyebrow": "Power × time = energy",
+      "body": "Megawatts describe how fast energy is delivered. Megawatt-hours describe how much is delivered over time. A 1 MW load held for one hour uses 1 MWh; the same load for three hours uses 3 MWh.",
+      "visual": "energy",
+      "takeaway": "Power sets the size of the path; energy sets how long a source can support it.",
+      "notes": [
+        "Think of a power trace with time on the horizontal axis. Its height is power; the area underneath is energy. For a constant load, multiply power by duration. For a varying load, add up the energy in each interval. A momentary 10 MW peak and a continuous 10 MW load impose different energy requirements even when their highest power is identical.",
+        "This distinction will return in the battery lesson. A battery system needs both sufficient output power and sufficient usable energy. A large energy inventory cannot pass through an undersized inverter quickly enough to support a large load.",
+        "The units provide a useful error detector: MW multiplied by hours gives MWh; MWh divided by MW gives hours. Neither calculation gives a count of racks until a rack load and the relevant electrical boundary are specified."
+      ],
+      "sources": [
+        {
+          "title": "EIA · Measuring electricity",
+          "url": "https://www.eia.gov/energyexplained/electricity/measuring-electricity.php"
+        }
+      ]
+    },
+    {
+      "id": "sources-and-grid",
+      "chapter": "grid",
+      "title": "Follow the physical connection.",
+      "eyebrow": "Electricity and energy contracts",
+      "body": "A campus receives electricity through physical infrastructure. Energy contracts describe commercial arrangements; they do not by themselves establish a dedicated wire from a named generator to a rack. Trace the solid electrical path before reading the dashed contract.",
+      "visual": "grid",
+      "takeaway": "A power contract and a dependable electrical connection answer different questions.",
+      "notes": [
+        "Trace the solid path from generation through the shared grid to the campus. Many generators, inverter-based resources, and loads participate in this connected system. They require continuous balancing and connections that can carry power within their operating limits. The schematic represents that shared network, not a dedicated generator-to-rack cable.",
+        "The dashed line represents a commercial arrangement. A physical power purchase agreement can include delivery through the grid; a financial power purchase agreement does not deliver electricity to the buyer. Neither description by itself supplies the campus electrical one-line, operating limits, or proof of continuous service.",
+        "Onsite generation creates another possible supply path, but it still needs compatible equipment, controls, fuel, and approvals. A battery shifts energy through time and has finite power and energy. Next, hold delivered power constant and examine why long-distance transport uses high voltage."
+      ],
+      "sources": [
+        {
+          "title": "EIA · How electricity is generated",
+          "url": "https://www.eia.gov/energyexplained/electricity/how-electricity-is-generated.php"
+        },
+        {
+          "title": "Vertiv · BESS and UPS roles in data center power",
+          "url": "https://www.vertiv.com/en-us/insights/articles/white-papers/bess-and-ups-roles-in-large-data-center-power-architecture/"
+        },
+        {
+          "title": "DOE · Best Practices Guide for Energy-Efficient Data Center Design",
+          "url": "https://www.energy.gov/sites/default/files/2024-07/best-practice-guide-data-center-design_0.pdf"
+        },
+        {
+          "title": "NERC · Characteristics and Risks of Emerging Large Loads",
+          "url": "https://www.nerc.com/globalassets/who-we-are/standing-committees/rstc/3_doc_white-paper-characteristics-and-risks-of-emerging-large-loads.pdf"
+        },
+        {
+          "title": "EPA · Physical power purchase agreements",
+          "url": "https://www.epa.gov/green-power-markets/physical-ppa"
+        },
+        {
+          "title": "EPA · Financial power purchase agreements",
+          "url": "https://www.epa.gov/green-power-markets/financial-ppa"
+        }
+      ]
+    },
+    {
+      "id": "raise-voltage",
+      "chapter": "grid",
+      "title": "Go farther. Raise the voltage.",
+      "eyebrow": "Experiment · Hold power constant",
+      "body": "For the same transferred power, higher voltage means lower current. Conductor heating rises with current squared. Raising voltage tenfold cuts current tenfold and conductor losses one hundredfold when power factor and resistance stay fixed.",
+      "visual": "voltage",
+      "takeaway": "High voltage makes bulk power transport practical by reducing current.",
+      "notes": [
+        "For balanced three-phase AC, real power is P = √3 × V × I × power factor, with V the line-to-line RMS voltage. The visual uses 100 MW, unity power factor, and an ideal comparison: about 4,184 A at 13.8 kV versus 418 A at 138 kV. These values are a scenario, not a proposed campus design.",
+        "At fixed conductor resistance, heating in each conductor is I²R. Reducing current to one tenth reduces that resistive loss to one hundredth. This does not mean the entire grid becomes one hundred times more efficient: transformer losses, insulation, clearances, stability, and other limits still matter.",
+        "Move voltage before looking at the answer. Explain the direction of current first, then predict the larger change in resistive heating. The square is the reason voltage transformation is so consequential."
+      ],
+      "sources": [
+        {
+          "title": "Schneider Electric · Three-phase power and current",
+          "url": "https://www.electrical-installation.org/enwiki/Installed_apparent_power_(kVA)"
+        },
+        {
+          "title": "OpenStax · Transformers",
+          "url": "https://openstax.org/books/university-physics-volume-2/pages/15-6-transformers"
+        }
+      ],
+      "check": {
+        "question": "Double voltage while real power, power factor, and conductor resistance stay fixed. What happens to resistive loss?",
+        "options": [
+          "It halves.",
+          "It falls to one quarter.",
+          "It stays the same."
+        ],
+        "answer": 1,
+        "explanation": "Current halves, and I²R falls to (1/2)² = 1/4 of its starting value."
+      }
+    },
+    {
+      "id": "substation-functions",
+      "chapter": "grid",
+      "title": "Open the substation.",
+      "eyebrow": "Transform · switch · protect",
+      "body": "A transformer changes voltage. Switchgear routes and interrupts circuits. Protection detects abnormal conditions and commands the right breaker to open. Together they turn a high-voltage connection into a controllable service.",
+      "visual": "substation",
+      "takeaway": "Voltage transformation, switching, and protection solve different problems.",
+      "notes": [
+        "A transformer trades voltage and current while transferring electrical power, with real losses. It does not create additional power. A substation packages this conversion with the means to connect, disconnect, measure, and protect electrical circuits. The exact arrangement depends on the system; there is no universal data-center one-line diagram.",
+        "Protection is a decision-and-action chain. Sensors measure electrical conditions, relays evaluate whether a fault lies in their protected zone, and circuit breakers interrupt current. Isolation and safe access also require appropriate equipment and procedures; an open line on a teaching diagram is not a switching instruction.",
+        "Trace normal power flow first. Then imagine a fault in one transformer or feeder and identify which boundary should disconnect. Equipment is easier to remember when each name is attached to a job."
+      ],
+      "sources": [
+        {
+          "title": "Schneider Electric · Medium-voltage unit substations",
+          "url": "https://www.se.com/us/en/product-range/60292-medium-voltage-unit-substations/"
+        },
+        {
+          "title": "IEEE · Guide for Protecting Power Transformers",
+          "url": "https://standards.ieee.org/ieee/C37.91/5904/"
+        },
+        {
+          "title": "OpenStax · Transformers",
+          "url": "https://openstax.org/books/university-physics-volume-2/pages/15-6-transformers"
+        }
+      ]
+    },
+    {
+      "id": "capacity-stages",
+      "chapter": "grid",
+      "title": "Connected is a milestone.",
+      "eyebrow": "From a headline to an energized load",
+      "body": "A plan, an established connection, energized equipment, commissioned systems, and an observed workload establish different milestones. Select each state and ask what evidence it adds. A later gate is not proof the entire campus has reached it.",
+      "visual": "capacity",
+      "takeaway": "Always attach a capacity number to a boundary, a date, and a state.",
+      "notes": [
+        "Read the five simplified milestones in the visual. Announced describes an intention. Connected means the physical electrical connection has been established; an interconnection agreement alone does not show this. Energized means equipment is electrically live. Commissioned means required integrated tests have been passed for the stated scope. Loaded means IT is drawing power under workload. Permits and installation records provide additional evidence along the way.",
+        "These milestones need not form a perfectly neat, campus-wide sequence: one building can run while another is under construction. The useful question is which complete path is available for which loads, under which conditions.",
+        "When someone says a site has a gigawatt, ask where that number is measured or rated and what evidence establishes its present state. A source-side rating cannot fill in missing building, cooling, rack, or workload evidence."
+      ],
+      "sources": [
+        {
+          "title": "Crusoe · Abilene expansion announcement, 18 March 2025",
+          "url": "https://www.crusoe.ai/resources/newsroom/crusoe-expands-ai-data-center-campus-in-abilene-to-1-2-gigawatts"
+        },
+        {
+          "title": "OpenAI · Abilene workloads, 22 July 2025",
+          "url": "https://openai.com/index/stargate-advances-with-partnership-with-oracle/"
+        },
+        {
+          "title": "DOE · Best Practices Guide for Energy-Efficient Data Center Design",
+          "url": "https://www.energy.gov/sites/default/files/2024-07/best-practice-guide-data-center-design_0.pdf"
+        }
+      ]
+    },
+    {
+      "id": "building-power-train",
+      "chapter": "continuity",
+      "title": "Bring the power to the rack.",
+      "eyebrow": "Read equipment by its function",
+      "body": "Inside the site, power passes through distribution, protection, voltage conversion, and often a UPS before reaching rack positions. Follow the functions from the building feeder to the rack inlet.",
+      "visual": "train",
+      "takeaway": "Every link must carry the required load and fit the next electrical interface.",
+      "notes": [
+        "Use a generic building path: feeder, transformer and switchgear, UPS where the architecture calls for one, distribution busway or cabling, and a rack connection. The exact order, placement, voltage levels, and duplication vary. This diagram teaches the jobs of the equipment rather than prescribing an installation.",
+        "Current ratings, compatible voltages, protection, maintenance access, and the equipment available after an outage all constrain the path. A very large upstream transformer cannot compensate for a downstream distribution circuit that cannot carry the intended load.",
+        "Pause at the rack inlet. Facilities have delivered an electrical service to a location; internal rack conversion still has work to do before processors can operate. First, however, make the service survive interruptions and maintenance."
+      ],
+      "sources": [
+        {
+          "title": "Schneider Electric · Medium-voltage unit substations",
+          "url": "https://www.se.com/us/en/product-range/60292-medium-voltage-unit-substations/"
+        },
+        {
+          "title": "Vertiv · BESS and UPS roles in data center power",
+          "url": "https://www.vertiv.com/en-us/insights/articles/white-papers/bess-and-ups-roles-in-large-data-center-power-architecture/"
+        },
+        {
+          "title": "Infineon · Server rack power management",
+          "url": "https://www.infineon.com/applications/ai-data-center/data-center-power-solutions/server-rack-power-management"
+        }
+      ]
+    },
+    {
+      "id": "ride-through",
+      "chapter": "continuity",
+      "title": "The battery buys time.",
+      "eyebrow": "Experiment · Power and duration",
+      "body": "A UPS supports critical loads through an interruption. Storage bridges a finite interval while another source becomes available or the load shuts down. Both output power and usable energy must be sufficient.",
+      "visual": "ride-through",
+      "takeaway": "Battery runtime is a power-and-energy question, followed by a transfer-and-control question.",
+      "notes": [
+        "The ideal duration relationship is time = usable energy delivered to the load / load power. For a constant 5 MW protected load and 0.25 MWh available at the UPS output, the result is 0.05 hours, or three minutes. Defining usable energy at the output keeps conversion losses from being silently ignored or counted twice.",
+        "A practical system must also deliver at least the required power, tolerate the load, and operate within its battery state, temperature, aging, protection, and control limits. A 0.25 MWh battery with a 1 MW output limit cannot support a 5 MW load even for a moment.",
+        "A generator is not instant energy storage; starting, stabilizing, and transferring load are system behaviors that must be designed and tested. This example supplies no universal transfer time or guaranteed runtime."
+      ],
+      "sources": [
+        {
+          "title": "EIA · Measuring electricity",
+          "url": "https://www.eia.gov/energyexplained/electricity/measuring-electricity.php"
+        },
+        {
+          "title": "Vertiv · BESS and UPS roles in data center power",
+          "url": "https://www.vertiv.com/en-us/insights/articles/white-papers/bess-and-ups-roles-in-large-data-center-power-architecture/"
+        }
+      ],
+      "check": {
+        "question": "A UPS can supply 5 MW and has 0.25 MWh of usable output energy. Ideally, how long can it carry a steady 5 MW load?",
+        "options": [
+          "3 minutes",
+          "15 minutes",
+          "3 hours"
+        ],
+        "answer": 0,
+        "explanation": "0.25 MWh ÷ 5 MW = 0.05 h = 3 minutes. Actual usable output and operating conditions must support those assumptions."
+      }
+    },
+    {
+      "id": "redundant-paths",
+      "chapter": "continuity",
+      "title": "A second path must be useful.",
+      "eyebrow": "Normal operation and one path unavailable",
+      "body": "Two feeds help only if the surviving route can serve the load and the equipment can use it. Follow each path end to end, including shared components, controls, and the rack power supplies.",
+      "visual": "redundancy",
+      "takeaway": "Redundancy is a property of the complete system under a defined failure.",
+      "notes": [
+        "Start with a hypothetical 1 MW load and two independently usable 1 MW routes. If one route becomes unavailable, the other has enough capacity in this simplified model. If each route can deliver only 0.5 MW, the two can serve 1 MW together but cannot preserve that full load after losing one route.",
+        "Now look beyond capacity. Both cords might return to the same upstream device. A load may require both supplies to operate at full demand. Transfer behavior and protective coordination can affect whether the load remains powered. Two colors on a diagram cannot settle these questions.",
+        "Use the unavailable-path state to test a specific proposition: which equipment carries the load now, and what assumption allows continuity? Terms such as N+1 or a Tier classification carry more requirements than this small example demonstrates."
+      ],
+      "sources": [
+        {
+          "title": "Schneider Electric · Do two cords guarantee redundancy?",
+          "url": "https://blog.se.com/datacenter/architecture/2014/08/06/two-cords-guarantee-power-redundancy-device/"
+        },
+        {
+          "title": "Uptime Institute · Tier certification",
+          "url": "https://uptimeinstitute.com/tier-certification"
+        }
+      ]
+    },
+    {
+      "id": "fault-domains",
+      "chapter": "continuity",
+      "title": "Keep one fault from spreading.",
+      "eyebrow": "Find the shared dependency",
+      "body": "A local feeder fault should be interrupted within its intended protection zone. A fault in shared upstream equipment can affect every downstream load. Location matters as much as the number of backup devices.",
+      "visual": "failure",
+      "takeaway": "Ask what still works after the particular component you remove becomes unavailable.",
+      "notes": [
+        "Imagine three feeders leaving a shared distribution point, each serving a rack or a group of loads. Activate the middle-feeder fault. This illustration assumes the appropriate breaker isolates that branch while the other two remain powered. Actual outcomes depend on protective coordination, disturbance severity, upstream capacity, and the other loads’ tolerance of the event.",
+        "Now consider an additional thought experiment: the shared supply bus becomes unavailable. More downstream breakers do not create a new source around that missing common element. The visual has no control for this second scenario; trace the paths mentally to distinguish isolating a local fault from surviving a shared dependency’s failure.",
+        "The exercise is conceptual: inspect the topology, state the chosen failure, and trace the remaining valid routes. Real protection and maintenance procedures require an engineered study. Carry the same reasoning into cooling later: duplicated electrical paths alone do not keep a rack alive if its sole heat-removal path stops."
+      ],
+      "sources": [
+        {
+          "title": "IEEE · Guide for Protecting Power Transformers",
+          "url": "https://standards.ieee.org/ieee/C37.91/5904/"
+        },
+        {
+          "title": "Schneider Electric · Do two cords guarantee redundancy?",
+          "url": "https://blog.se.com/datacenter/architecture/2014/08/06/two-cords-guarantee-power-redundancy-device/"
+        },
+        {
+          "title": "Uptime Institute · Tier certification",
+          "url": "https://uptimeinstitute.com/tier-certification"
+        }
+      ]
+    },
+    {
+      "id": "rack-conversion",
+      "chapter": "silicon",
+      "title": "The rack changes the rules.",
+      "eyebrow": "From facility AC to local DC",
+      "body": "Rack power supplies convert facility AC into DC distribution. Board-level regulators then create the lower, tightly controlled voltages processors need. Each conversion serves a different scale of the power path.",
+      "visual": "rack",
+      "takeaway": "Rack DC and processor-core voltage are separate electrical boundaries.",
+      "notes": [
+        "Follow the nesting: building, rack, compute tray, board, processor. A documented NVIDIA DGX GB200 rack uses power shelves with nominal 50–51 V DC output. That is a specific product reference, not a universal rack standard and not evidence of a particular campus installation.",
+        "The processor cannot simply use that rack bus as its core rail. Local regulators perform further conversion near the load, supplying precise voltages at high currents. Intermediate buses, rail counts, and control architectures differ by hardware design.",
+        "At every conversion, keep the input, output, and losses visible. Do not multiply a rack product rating by a guessed installed inventory and call the result measured site power. We are learning why the stages exist; an operating estimate needs actual configuration and measurements."
+      ],
+      "sources": [
+        {
+          "title": "NVIDIA · DGX GB200 hardware reference",
+          "url": "https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html"
+        },
+        {
+          "title": "Infineon · Server rack power management",
+          "url": "https://www.infineon.com/applications/ai-data-center/data-center-power-solutions/server-rack-power-management"
+        },
+        {
+          "title": "Texas Instruments · Processor core power",
+          "url": "https://www.ti.com/product-category/power-management/multiphase.html"
+        }
+      ]
+    },
+    {
+      "id": "low-voltage-current",
+      "chapter": "silicon",
+      "title": "Low voltage. Enormous current.",
+      "eyebrow": "The last meter is a different problem",
+      "body": "For DC, P = V × I. An ideal 1,000 W load would draw 20 A at 50 V but 1,000 A at 1 V. That is why conversion moves close to the processor.",
+      "visual": "current",
+      "takeaway": "Low-voltage delivery makes short paths and careful current distribution essential.",
+      "notes": [
+        "This is a processor-scale thought experiment: hold the delivered power at 1,000 W and compare two DC voltages. At 50 V, current is 20 A. At 1 V, it is 1,000 A. The values illustrate the relationship; they do not assert the rail voltage or power allocation of any particular processor.",
+        "Resistance now matters intensely. Voltage drop is I × R, while resistive heating is I²R. A voltage drop that seems small in an ordinary circuit can occupy a large part of a low-voltage processor rail. Delivering very high current over a long distance is costly and difficult.",
+        "Local multiphase regulators share current across conversion stages and control the rail near the load. The complete design also responds to fast changes in demand. High voltage helps at long distances; precise low voltage is necessary at the silicon."
+      ],
+      "sources": [
+        {
+          "title": "Infineon · Server rack power management",
+          "url": "https://www.infineon.com/applications/ai-data-center/data-center-power-solutions/server-rack-power-management"
+        },
+        {
+          "title": "Texas Instruments · Processor core power",
+          "url": "https://www.ti.com/product-category/power-management/multiphase.html"
+        },
+        {
+          "title": "OpenStax · Transformers",
+          "url": "https://openstax.org/books/university-physics-volume-2/pages/15-6-transformers"
+        }
+      ]
+    },
+    {
+      "id": "useful-compute",
+      "chapter": "silicon",
+      "title": "Watts do not measure useful work.",
+      "eyebrow": "The workload completes the chain",
+      "body": "Power allows hardware to run. Useful throughput also depends on the model, software, memory, communication, and utilization. The same electrical demand can support very different amounts of useful output.",
+      "visual": "compute",
+      "takeaway": "Convert watts to workload output only with an explicit, measured workload model.",
+      "notes": [
+        "A cluster can be powered and still spend time waiting for data, memory transfers, network communication, or other workers. A hardware peak describes a capability under specified conditions. It does not tell you how much useful work a particular workload completes.",
+        "First define the output: training progress, jobs completed, or inference tokens under a latency and quality requirement. Then define hardware, precision, model, batch and sequence settings, and the measurement interval. Measure both output and the electrical boundary that supplied it.",
+        "Even a rack-level power figure includes components beyond one accelerator. Dividing rack power by GPU count produces an allocation of rack power, not GPU chip power. Network and storage equipment also belong in the system budget. We stop at rack capacity when these workload inputs are unavailable."
+      ],
+      "sources": [
+        {
+          "title": "NVIDIA · DGX GB200 hardware reference",
+          "url": "https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html"
+        },
+        {
+          "title": "DOE · Best Practices Guide for Energy-Efficient Data Center Design",
+          "url": "https://www.energy.gov/sites/default/files/2024-07/best-practice-guide-data-center-design_0.pdf"
+        },
+        {
+          "title": "MLCommons · MLPerf Inference measurement rules",
+          "url": "https://github.com/mlcommons/inference_policies/blob/master/inference_rules.adoc"
+        },
+        {
+          "title": "NVIDIA · Triton batching and throughput",
+          "url": "https://docs.nvidia.com/deeplearning/triton-inference-server/archives/triton-inference-server-2591/user-guide/docs/user_guide/batcher.html"
+        }
+      ]
+    },
+    {
+      "id": "electrical-to-heat",
+      "chapter": "cooling",
+      "title": "The watt becomes heat.",
+      "eyebrow": "A balance, not a metaphor",
+      "body": "Nearly all electrical power entering IT equipment becomes heat. A rack drawing 100 kW therefore creates approximately 100 kW of IT heat to remove. Cooling equipment consumes additional power outside that rack boundary.",
+      "visual": "heat",
+      "takeaway": "Useful computation does not subtract a large energy slice from the cooling obligation.",
+      "notes": [
+        "Choose a steady operating interval and draw the boundary around the IT rack. Energy enters electrically. Some can temporarily change stored energy, but nearly all ultimately becomes heat. Information processing is valuable output; it is not an energy outlet comparable in size to the electrical input.",
+        "A 100 kW rack is therefore approximately a 100 kW heat source in this model. The heat can leave through multiple routes: liquid-cooled components and air-cooled components. Their heat duties must add up consistently; do not invent a universal liquid-versus-air percentage.",
+        "Now widen the boundary. Power supplies already inside the rack contribute to its heat. Pumps, fans, electrical losses, and refrigeration outside that boundary add their own loads elsewhere in the facility balance. This is why boundary labels matter before drawing a flow width or totaling heat."
+      ],
+      "sources": [
+        {
+          "title": "DOE · Best Practices Guide for Energy-Efficient Data Center Design",
+          "url": "https://www.energy.gov/sites/default/files/2024-07/best-practice-guide-data-center-design_0.pdf"
+        },
+        {
+          "title": "DOE · Thermodynamics, Heat Transfer, and Fluid Flow",
+          "url": "https://www.energy.gov/sites/default/files/2026-04/DOE-HDBK-1012-92_VOL1.pdf"
+        },
+        {
+          "title": "NVIDIA · DGX GB200 hardware reference",
+          "url": "https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html"
+        }
+      ]
+    },
+    {
+      "id": "liquid-heat-transport",
+      "chapter": "cooling",
+      "title": "Heat needs a moving carrier.",
+      "eyebrow": "Experiment · Flow and temperature rise",
+      "body": "Liquid carries heat as its temperature rises: heat rate = mass flow × specific heat × temperature rise. For an assumed 100 kW water duty and a 10°C rise, the required flow is about 2.39 kg/s.",
+      "visual": "liquid",
+      "takeaway": "At fixed heat duty, a smaller coolant temperature rise requires more mass flow.",
+      "notes": [
+        "The steady sensible-heat relationship is Q̇ = ṁ × cp × ΔT. Use water with an assumed specific heat of 4.18 kJ/(kg·K): 100 kJ/s divided by 4.18 and a 10 K temperature rise gives about 2.39 kg/s. At an assumed density of 1 kg/L, that is roughly 144 L/min.",
+        "The 100 kW value is the heat assigned to this liquid loop, not a claim that all heat from every rack enters liquid. Celsius temperature differences and kelvin differences have the same numerical size. Coolant mixtures and operating conditions can change the properties used in the calculation.",
+        "Halve the allowed temperature rise and predict the flow before changing the control. The energy balance alone does not select a pump, pipe, or cold plate: pressure drop, heat-transfer performance, cleanliness, allowable temperatures, and control behavior still need engineering."
+      ],
+      "sources": [
+        {
+          "title": "DOE · Thermodynamics, Heat Transfer, and Fluid Flow",
+          "url": "https://www.energy.gov/sites/default/files/2026-04/DOE-HDBK-1012-92_VOL1.pdf"
+        },
+        {
+          "title": "Open Compute Project · Liquid-to-liquid CDU performance",
+          "url": "https://www.opencompute.org/documents/ocp-wp-l-lcdu-test-methodology-performance-rating-r1-pdf"
+        }
+      ],
+      "check": {
+        "question": "The heat duty stays fixed while the allowed coolant temperature rise falls from 10°C to 5°C. With the same fluid properties, what flow is required?",
+        "options": [
+          "Half the mass flow",
+          "The same mass flow",
+          "Twice the mass flow"
+        ],
+        "answer": 2,
+        "explanation": "Q̇ = ṁ cp ΔT. Halving ΔT requires doubling ṁ to carry the same heat."
+      }
+    },
+    {
+      "id": "heat-exchanger",
+      "chapter": "cooling",
+      "title": "Heat crosses. Fluids stay apart.",
+      "eyebrow": "Inside a liquid-to-liquid CDU",
+      "body": "A liquid-to-liquid cooling distribution unit transfers heat between the technology loop and the facility loop. A heat exchanger couples their temperatures while keeping their fluids separate.",
+      "visual": "cdu",
+      "takeaway": "A heat exchanger transfers energy across a boundary without mixing the two coolant circuits.",
+      "notes": [
+        "Follow the technology coolant first: it reaches the cooled components, warms as it collects heat, and returns to the CDU. Trace the facility coolant separately: it receives heat at the heat exchanger and carries it toward the facility cooling plant. The two circuits remain hydraulically separate in this liquid-to-liquid example.",
+        "Heat exchange needs a temperature difference. Temperatures, flow, pressure, fluid compatibility, and the exchanger performance determine what duty the interface can carry. Pumps and controls move coolant and maintain operating conditions; the CDU does not destroy heat or necessarily provide refrigeration.",
+        "Check the drawing carefully: arrows on pipes describe coolant circulation, while an arrow across the exchanger describes heat transfer. Confusing those arrows can accidentally draw fluid mixing where only energy transfer belongs. This is a generic architecture, not an as-built claim about Abilene."
+      ],
+      "sources": [
+        {
+          "title": "Open Compute Project · Liquid-to-liquid CDU performance",
+          "url": "https://www.opencompute.org/documents/ocp-wp-l-lcdu-test-methodology-performance-rating-r1-pdf"
+        },
+        {
+          "title": "DOE · Thermodynamics, Heat Transfer, and Fluid Flow",
+          "url": "https://www.energy.gov/sites/default/files/2026-04/DOE-HDBK-1012-92_VOL1.pdf"
+        }
+      ]
+    },
+    {
+      "id": "residual-air",
+      "chapter": "cooling",
+      "title": "This rack still needs air.",
+      "eyebrow": "Two parallel heat paths",
+      "body": "Cold plates can capture heat from high-power chips while other rack components still heat the air. Airflow must carry that remaining heat to a coil or another heat-removal system.",
+      "visual": "air",
+      "takeaway": "Trace every heat source to an exit, including the components outside the liquid loop.",
+      "notes": [
+        "Follow a concrete product reference: the documented DGX GB200 architecture includes liquid-cooled CPUs and GPUs alongside components that require air cooling. The category split does not establish a universal percentage or the operating split for an installed rack.",
+        "Air enters equipment, absorbs heat, and must reach a heat-removal device before returning at an acceptable inlet condition. Fans move air; a cooling coil transfers its heat onward. Mixing warm exhaust back into equipment inlets can undermine cooling even when total room airflow looks large.",
+        "The liquid and air branches are parallel obligations, not successive steps in one pipe. Depending on the facility, they can connect to different cooling equipment or meet later at a shared plant. Both need sufficient capacity and an intact route to a sink. A successful liquid-loop test alone does not validate the whole rack."
+      ],
+      "sources": [
+        {
+          "title": "NVIDIA · DGX GB200 hardware reference",
+          "url": "https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html"
+        },
+        {
+          "title": "DOE · Best Practices Guide for Energy-Efficient Data Center Design",
+          "url": "https://www.energy.gov/sites/default/files/2024-07/best-practice-guide-data-center-design_0.pdf"
+        },
+        {
+          "title": "Open Compute Project · Liquid-to-liquid CDU performance",
+          "url": "https://www.opencompute.org/documents/ocp-wp-l-lcdu-test-methodology-performance-rating-r1-pdf"
+        }
+      ]
+    },
+    {
+      "id": "outdoor-rejection",
+      "chapter": "cooling",
+      "title": "Moving heat adds heat.",
+      "eyebrow": "The atmosphere closes the journey",
+      "body": "The chiller absorbs 100 kW of heat. At the starting assumption of 20 kW compressor input, it rejects 120 kW. Change the work input and close the energy balance; the atmosphere must receive the added heat too.",
+      "visual": "rejection",
+      "takeaway": "Removing heat from a chip is only the first step toward rejecting it from the facility.",
+      "notes": [
+        "For direct sensible heat exchange, the heat source must be warmer than the sink by enough to transfer the required duty. Warm outdoor air reduces the available temperature difference for a given coolant temperature. Actual capacity depends on equipment and operating conditions; a single nameplate value cannot describe every weather condition.",
+        "A refrigeration cycle can move heat from a colder side to a warmer side by consuming work. In the visual’s starting balance, 100 kW absorbed plus 20 kW of compressor input equals 120 kW rejected. Change compressor work while holding absorbed heat fixed. Pumps and fans add further facility loads according to the boundary being counted; this control does not simulate a particular chiller’s performance curve.",
+        "Air-cooled and evaporative rejection make different water and energy tradeoffs. A closed coolant loop can still coexist with an evaporative outdoor system. Abilene’s August 2025 design description instead specifies non-evaporative air-cooled chillers; initial fill and maintenance water remain separate accounts."
+      ],
+      "sources": [
+        {
+          "title": "DOE · Thermodynamics, Heat Transfer, and Fluid Flow",
+          "url": "https://www.energy.gov/sites/default/files/2026-04/DOE-HDBK-1012-92_VOL1.pdf"
+        },
+        {
+          "title": "DOE · Best Practices Guide for Energy-Efficient Data Center Design",
+          "url": "https://www.energy.gov/sites/default/files/2024-07/best-practice-guide-data-center-design_0.pdf"
+        },
+        {
+          "title": "Crusoe · Abilene cooling design, 5 August 2025",
+          "url": "https://www.crusoe.ai/resources/blog/an-inside-look-at-the-abilene-ai-data-center"
+        }
+      ]
+    },
+    {
+      "id": "facility-overhead",
+      "chapter": "system",
+      "title": "Budget the whole facility.",
+      "eyebrow": "PUE · A ratio with a boundary",
+      "body": "Formal PUE compares total data-center energy with IT energy over the same continuous 12 months. Here, an assumed steady facility-to-IT power ratio of 1.25 turns a 100 MW facility budget into 80 MW for IT.",
+      "visual": "pue",
+      "takeaway": "PUE describes facility overhead; it does not measure computing productivity.",
+      "notes": [
+        "For reported PUE under ISO/IEC 30134-2:2026, compare total facility and IT energy over the same continuous 12 months. Shorter intervals are treated separately as interim PUE. With PUE 1.25, 1.25 units of facility energy accompany each unit of IT energy. The 0.25 overhead units are 25% of IT energy, or 20% of the total facility energy.",
+        "For this capacity exercise, explicitly assume a steady operating facility-to-IT power ratio of 1.25. Then 100 MW / 1.25 = 80 MW of IT power, leaving 20 MW for facility overhead. An annual measured PUE does not establish the instantaneous ratio during a peak or an outage.",
+        "IT includes more than accelerators: networking, storage, and other computing equipment must be accounted for. A lower PUE does not prove more useful computation, lower carbon emissions, or lower water consumption. Those questions need their own output and resource measurements."
+      ],
+      "sources": [
+        {
+          "title": "ISO/IEC 30134-2 · Power usage effectiveness",
+          "url": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso-iec%3A30134%3A-2%3Aed-2%3Av1%3Aen"
+        },
+        {
+          "title": "DOE · Best Practices Guide for Energy-Efficient Data Center Design",
+          "url": "https://www.energy.gov/sites/default/files/2024-07/best-practice-guide-data-center-design_0.pdf"
+        },
+        {
+          "title": "EIA · Measuring electricity",
+          "url": "https://www.eia.gov/energyexplained/electricity/measuring-electricity.php"
+        }
+      ]
+    },
+    {
+      "id": "capacity-bottleneck",
+      "chapter": "system",
+      "title": "The smallest limit wins.",
+      "eyebrow": "Experiment · A 100 MW campus",
+      "body": "At 100 kW per rack: 100 MW facility ÷ 1.25 allows 800 racks; the 70 MW electrical train allows 700; 60 MW cooling allows 600. Space and network each allow 900. The smallest is 600.",
+      "visual": "bottleneck",
+      "takeaway": "Convert every constraint to the same boundary, then find the binding one.",
+      "notes": [
+        "The starting facility budget supports 100 / 1.25 = 80 MW of IT, equivalent to 800 loads of 100 kW each. The downstream electrical train can deliver 70 MW, or 700 such loads. Cooling supports 60 MW of IT heat, or 600 loads. Space and the assumed network limit each support 900. The minimum is 600 rack equivalents: 60 MW IT and 75 MW facility draw under the assumed ratio.",
+        "These are hypothetical, identical, fully accounted IT loads. Cooling is available duty at the assumed operating condition, after the chosen redundancy and margin policy. Other IT loads must already be reserved or included. The arithmetic provides a ceiling, not proof of deployment.",
+        "Reduce the facility-to-IT ratio first. The count stays at 600 because cooling still binds. Then raise usable cooling to 80 MW: the fixed 70 MW electrical train limits the result to 700 racks. Lower network support to 400 and it becomes the new limit. Changing one constraint can reveal another."
+      ],
+      "sources": [
+        {
+          "title": "ISO/IEC 30134-2 · Power usage effectiveness",
+          "url": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso-iec%3A30134%3A-2%3Aed-2%3Av1%3Aen"
+        },
+        {
+          "title": "DOE · Best Practices Guide for Energy-Efficient Data Center Design",
+          "url": "https://www.energy.gov/sites/default/files/2024-07/best-practice-guide-data-center-design_0.pdf"
+        },
+        {
+          "title": "EIA · Measuring electricity",
+          "url": "https://www.eia.gov/energyexplained/electricity/measuring-electricity.php"
+        }
+      ],
+      "check": {
+        "question": "Starting from the defaults, raise usable IT cooling from 60 MW to 80 MW. How many 100 kW rack equivalents can the campus support?",
+        "options": [
+          "600 rack equivalents",
+          "700 rack equivalents",
+          "800 rack equivalents"
+        ],
+        "answer": 1,
+        "explanation": "The fixed downstream electrical train can deliver 70 MW, which supports 700 × 100 kW. Cooling and the facility budget each allow 800; the electrical train now binds."
+      }
+    },
+    {
+      "id": "abilene-case",
+      "chapter": "system",
+      "title": "Read a real headline precisely.",
+      "eyebrow": "Abilene · A dated evidence exercise",
+      "body": "In March 2025, Crusoe announced a 1.2 GW Abilene campus expansion. In July 2025, OpenAI reported early workloads running in parts of the facility. Those statements establish different milestones; neither supplies a measured campus IT load.",
+      "visual": "case",
+      "takeaway": "A real case tests the model without turning missing measurements into estimates.",
+      "notes": [
+        "The March 18, 2025 announcement describes the eight-building expansion and a 1.2 GW grid interconnection. The July 22, 2025 OpenAI update reports first GB200 rack deliveries and early training and inference workloads. Read them as dated statements about different scopes and states, not as a current operating dashboard.",
+        "The August 5, 2025 cooling description provides another kind of evidence: a closed facility cooling loop with air-cooled chillers and no evaporative water consumption in that rejection process. It also describes fill and maintenance water. Design intent and operating measurement remain distinct.",
+        "Try the capstone calculation using these sources. It stops: these statements do not provide matching measured IT power, available cooling at an operating condition, installed rack configuration, or workload throughput. The course’s 600-rack example is synthetic and must never become an Abilene estimate."
+      ],
+      "sources": [
+        {
+          "title": "Crusoe · Abilene expansion announcement, 18 March 2025",
+          "url": "https://www.crusoe.ai/resources/newsroom/crusoe-expands-ai-data-center-campus-in-abilene-to-1-2-gigawatts"
+        },
+        {
+          "title": "OpenAI · Abilene workloads, 22 July 2025",
+          "url": "https://openai.com/index/stargate-advances-with-partnership-with-oracle/"
+        },
+        {
+          "title": "Crusoe · Abilene cooling design, 5 August 2025",
+          "url": "https://www.crusoe.ai/resources/blog/an-inside-look-at-the-abilene-ai-data-center"
+        }
+      ]
+    },
+    {
+      "id": "whole-system",
+      "chapter": "system",
+      "title": "Follow the power. Close the heat path.",
+      "eyebrow": "Your final reconstruction",
+      "body": "Use the campus to explain both journeys. Then replay the capacity lab: raise cooling to 80 MW, then lower network support to 400 racks. Predict which limit binds at each step before opening the explanation.",
+      "visual": "synthesis",
+      "takeaway": "A data center works when the electrical path, thermal path, and workload requirements agree.",
+      "notes": [
+        "Reconstruct the power path from the campus picture: external service, transformation, distribution, protection, continuity, rack conversion, and processor regulation. For every component, explain its function and one condition that limits it. Name a particular failure and trace the route that remains available to the load.",
+        "Turn around at the chip. Separate liquid and residual-air heat, follow both paths to the facility plant, and close the balance at the atmosphere. Distinguish coolant circulation from heat transfer across an exchanger. Include compressor and other facility power when you widen the energy-accounting boundary.",
+        "Now check the capstone prediction. The starting limit is 600 rack equivalents from cooling. Raising cooling to 80 MW exposes the 70 MW electrical-train limit: 700 racks. Reducing network support to 400 racks makes the network bind at 400. Those results establish only a scenario ceiling. Measured configuration, operation, and workload output are still required to establish productive compute."
+      ],
+      "sources": [
+        {
+          "title": "DOE · Best Practices Guide for Energy-Efficient Data Center Design",
+          "url": "https://www.energy.gov/sites/default/files/2024-07/best-practice-guide-data-center-design_0.pdf"
+        },
+        {
+          "title": "DOE · Thermodynamics, Heat Transfer, and Fluid Flow",
+          "url": "https://www.energy.gov/sites/default/files/2026-04/DOE-HDBK-1012-92_VOL1.pdf"
+        },
+        {
+          "title": "ISO/IEC 30134-2 · Power usage effectiveness",
+          "url": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso-iec%3A30134%3A-2%3Aed-2%3Av1%3Aen"
+        },
+        {
+          "title": "NVIDIA · DGX GB200 hardware reference",
+          "url": "https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html"
+        }
+      ]
+    }
+  ]
+}

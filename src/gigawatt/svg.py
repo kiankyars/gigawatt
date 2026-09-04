@@ -23,8 +23,8 @@ def circle(cx: float, cy: float, r: float, fill: str = "none",
 
 def rect(x: float, y: float, w: float, h: float, fill: str = "none",
          sw: float = tokens.STROKE, dash: str | None = None) -> str:
-    attrs: dict[str, object] = dict(x=x, y=y, width=w, height=h, fill=fill,
-                                    stroke="currentColor", stroke_width=sw)
+    attrs: dict[str, object] = {"x": x, "y": y, "width": w, "height": h, "fill": fill,
+                               "stroke": "currentColor", "stroke_width": sw}
     if dash:
         attrs["stroke_dasharray"] = dash
     return el("rect", **attrs)

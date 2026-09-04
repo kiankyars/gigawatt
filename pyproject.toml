@@ -1,22 +1,16 @@
 [project]
 name = "gigawatt"
 version = "0.1.0"
-description = "Course-as-code for GIGAWATT: design tokens, symbol library, master diagram composition"
+description = "GIGAWATT: an interactive data center course from watts to racks"
 requires-python = ">=3.12"
 dependencies = [
     "pyyaml>=6.0.3",
 ]
 
 [project.scripts]
+gigawatt-build = "gigawatt.build_course:main"
 gigawatt-symbols = "gigawatt.sheet:main"
-gigawatt-mock = "gigawatt.mock:main"
 gigawatt-layout = "gigawatt.layout:main"
-gigawatt-scene = "gigawatt.scene:main"
-gigawatt-shots = "gigawatt.shots:main"
-gigawatt-course = "gigawatt.course_runtime:main"
-gigawatt-quality = "gigawatt.quality:main"
-gigawatt-acceptance = "gigawatt.quality:acceptance_main"
-gigawatt-validate = "gigawatt.validate:main"
 
 [build-system]
 requires = ["uv_build>=0.8,<0.13"]

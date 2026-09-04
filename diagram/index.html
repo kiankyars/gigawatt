@@ -1,0 +1,3222 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#101d29" />
+    <meta
+      name="description"
+      content="An interactive field guide to data centers. Follow electricity from the grid to a rack, then follow its heat back out. 22 visual lessons and hands-on engineering experiments."
+    />
+    <title>GIGAWATT — From watts to racks</title>
+    <style>
+      :root {
+  --paper: #f4f3ee;
+  --ink: #172633;
+  --muted: #5c6871;
+  --rule: #d5d9d5;
+  --orange: #ea6c39;
+  --yellow: #ffc875;
+  --blue: #75d8e7;
+  --pink: #f08383;
+  --stage: #101e2b;
+  --green: #93dbb0;
+  --violet: #bab0f3;
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+  font-synthesis: none;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+button,
+input,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+button,
+input {
+  font: inherit;
+}
+button {
+  cursor: pointer;
+  color: inherit;
+}
+button:disabled {
+  cursor: default;
+  opacity: 0.35;
+}
+button:focus-visible,
+a:focus-visible,
+summary:focus-visible,
+input:focus-visible {
+  outline: 3px solid #db5d24;
+  outline-offset: 5px;
+}
+button {
+  touch-action: manipulation;
+}
+button[hidden],
+[hidden] {
+  display: none !important;
+}
+a {
+  color: inherit;
+}
+h1,
+h2,
+p {
+  margin: 0;
+}
+button svg {
+  pointer-events: none;
+}
+.skip {
+  position: fixed;
+  top: 5px;
+  left: 10px;
+  z-index: 10;
+  background: white;
+  padding: 12px;
+  transform: translateY(-150%);
+}
+.skip:focus {
+  transform: none;
+}
+.masthead {
+  height: 91px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4.2vw;
+  border-bottom: 1px solid var(--rule);
+}
+.brand {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 25px;
+  letter-spacing: -1.2px;
+  font-weight: 850;
+}
+.brand svg {
+  color: var(--orange);
+}
+.brand > span {
+  border-left: 1px solid #bdc5c5;
+  margin-left: 17px;
+  padding-left: 23px;
+  font-size: 10px;
+  letter-spacing: 1.7px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.header-actions {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+}
+.quiet,
+.icon-button {
+  border: 0;
+  background: none;
+}
+.quiet {
+  font-size: 12px;
+  font-weight: 650;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+.icon-button {
+  font-size: 25px;
+  min-width: 40px;
+  min-height: 40px;
+}
+.chapters {
+  padding: 0 4.2vw;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  border-bottom: 1px solid var(--rule);
+  gap: 20px;
+}
+.chapter {
+  position: relative;
+  background: none;
+  border: 0;
+  text-align: left;
+  min-height: 64px;
+  padding: 13px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #6b777e;
+  font-size: 12px;
+  line-height: 1.4;
+}
+.chapter .chapter-number {
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 10px;
+  opacity: 0.8;
+}
+.chapter.active {
+  color: var(--ink);
+  font-weight: 700;
+}
+.chapter.active:after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  height: 3px;
+  background: var(--orange);
+  left: 0;
+  right: 0;
+}
+.chapter.visited .chapter-number {
+  color: var(--orange);
+}
+main {
+  max-width: 1740px;
+  margin: auto;
+  padding: 42px 4.2vw 28px;
+}
+.lesson-layout {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.76fr) minmax(0, 1.65fr);
+  gap: 4.3vw;
+  align-items: start;
+}
+.lesson-copy {
+  padding-top: 17px;
+}
+.eyebrow {
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 10px;
+  line-height: 1.6;
+  letter-spacing: 1.65px;
+  font-weight: 650;
+  text-transform: uppercase;
+  color: #9e4829;
+  margin-bottom: 24px;
+}
+h1 {
+  font-size: clamp(35px, 3.5vw, 62px);
+  line-height: 1.05;
+  letter-spacing: -0.05em;
+  font-weight: 670;
+  max-width: 620px;
+  text-wrap: balance;
+  outline: none;
+}
+.lesson-body {
+  font-size: 16px;
+  line-height: 1.75;
+  color: #5c6871;
+  margin-top: 25px;
+  max-width: 39ch;
+}
+.takeaway {
+  border-top: 1px solid var(--rule);
+  margin-top: 35px;
+  padding-top: 20px;
+}
+.label {
+  font-size: 9px;
+  letter-spacing: 1.75px;
+  font-weight: 700;
+  color: #657379;
+}
+.takeaway p {
+  font-size: 14px;
+  line-height: 1.7;
+  margin-top: 10px;
+  max-width: 39ch;
+}
+.reading-actions {
+  display: flex;
+  gap: 24px;
+  margin-top: 23px;
+  flex-wrap: wrap;
+}
+.text-button {
+  background: none;
+  padding: 5px 0;
+  border: 0;
+  border-bottom: 1px solid #bfc6c4;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 650;
+}
+.text-button:hover {
+  color: #ae4924;
+}
+.visual-workspace {
+  min-width: 0;
+  background: var(--stage);
+  color: #e6edef;
+  position: relative;
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: 0 12px 36px #19364212;
+}
+.visual-topline {
+  padding: 23px 27px 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1.25px;
+  color: #afbec8;
+}
+.visual-topline span:first-child {
+  color: var(--yellow);
+}
+#visual {
+  position: relative;
+  isolation: isolate;
+}
+#visual svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.visual-caption {
+  font-size: 10px;
+  line-height: 1.6;
+  color: #aebcc5;
+  padding: 16px 27px 21px;
+  border-top: 1px solid #d1e0f017;
+  min-height: 48px;
+}
+.experiment {
+  padding: 0 27px 23px;
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.experiment:empty {
+  display: none;
+}
+.control {
+  flex: 1;
+  min-width: 140px;
+}
+.control label {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 10px;
+  letter-spacing: 0.2px;
+  color: #c0cdd5;
+  margin-bottom: 12px;
+}
+.control output {
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  color: var(--yellow);
+  font-weight: 600;
+  white-space: nowrap;
+}
+input[type="range"] {
+  width: 100%;
+  accent-color: var(--yellow);
+  height: 19px;
+  margin: 0;
+  cursor: ew-resize;
+}
+.segmented {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+.toggle {
+  font-size: 11px;
+  border: 1px solid #506575;
+  background: #182b3a;
+  color: #c5d3dc;
+  padding: 11px 15px;
+  border-radius: 3px;
+}
+.toggle[aria-pressed="true"] {
+  border-color: var(--yellow);
+  color: var(--yellow);
+  background: #493a2433;
+}
+.toggle:hover {
+  border-color: #bed2df;
+}
+.lab-tip {
+  font-size: 11px;
+  color: #b6c9d6;
+  line-height: 1.6;
+  max-width: 38ch;
+}
+.experiment .reset {
+  background: none;
+  border: 0;
+  border-bottom: 1px solid #54626f;
+  color: #b8c8d2;
+  font-size: 10px;
+  padding: 5px;
+}
+.course-footer {
+  max-width: 1740px;
+  margin: 4px auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  padding: 22px 4.2vw 30px;
+}
+.nav-button {
+  border: 1px solid #cbd0cd;
+  background: none;
+  border-radius: 3px;
+  padding: 14px 18px;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  min-width: 118px;
+  min-height: 45px;
+}
+.nav-button.next {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+.nav-button:hover:not(:disabled) {
+  background: #e6e8e0;
+}
+.nav-button.next:hover {
+  background: #314755;
+}
+.progress-group {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.progress-group > span {
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 9px;
+  white-space: nowrap;
+  color: #5e6d75;
+}
+.progress {
+  display: flex;
+  gap: 4px;
+}
+.progress button {
+  width: 10px;
+  height: 24px;
+  border: 0;
+  background: none;
+  padding: 0;
+  position: relative;
+}
+.progress button:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 3px;
+  background: #ced4cf;
+}
+.progress button.active:after {
+  background: var(--orange);
+  height: 7px;
+}
+.progress button.past:after {
+  background: #758e98;
+}
+.key-hint {
+  margin-left: 7px;
+  opacity: 0.7;
+}
+.notes {
+  margin: 28px 0 0 34%;
+  background: #eaece4;
+  border-left: 3px solid #aec2b6;
+  padding: 28px 32px;
+  columns: 2;
+  column-gap: 35px;
+}
+.notes p {
+  font-size: 13px;
+  color: #455762;
+  line-height: 1.8;
+  margin: 0 0 15px;
+  break-inside: avoid;
+}
+.notes h2 {
+  font-size: 12px;
+  margin: 0 0 17px;
+  column-span: all;
+}
+.knowledge-check {
+  border-top: 1px solid var(--rule);
+  margin-top: 28px;
+  padding-top: 25px;
+  display: grid;
+  grid-template-columns: 0.76fr 1.65fr;
+  gap: 4.3vw;
+}
+.check-question .eyebrow {
+  margin-bottom: 12px;
+}
+.check-question h2 {
+  font-size: 17px;
+  line-height: 1.5;
+  letter-spacing: -0.3px;
+}
+.check-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.answer-button {
+  text-align: left;
+  border: 1px solid #c9d1cd;
+  border-radius: 3px;
+  padding: 13px 17px;
+  background: none;
+  font-size: 12px;
+  line-height: 1.5;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.answer-button span {
+  border: 1px solid #a8b4b2;
+  border-radius: 50%;
+  height: 22px;
+  min-width: 22px;
+  display: grid;
+  place-items: center;
+  font-size: 9px;
+}
+.answer-button[aria-pressed="true"] {
+  border-color: #cc693d;
+  background: #ebdfd0;
+}
+.answer-button.correct {
+  border-color: #3f7658;
+  background: #e1ece1;
+}
+.answer-feedback {
+  font-size: 12px;
+  line-height: 1.7;
+  padding: 9px 0;
+  min-height: 32px;
+  color: #455d59;
+}
+dialog {
+  border: 0;
+  border-radius: 4px;
+  background: var(--paper);
+  color: var(--ink);
+  max-width: 850px;
+  width: calc(100vw - 40px);
+  max-height: calc(100vh - 70px);
+  padding: 32px;
+  box-shadow: 0 20px 100px #0004;
+}
+dialog::backdrop {
+  background: #091723aa;
+  backdrop-filter: blur(5px);
+}
+.dialog-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 24px;
+  margin-bottom: 24px;
+}
+.dialog-head .eyebrow {
+  display: block;
+  margin-bottom: 9px;
+}
+.dialog-head h2 {
+  font-size: 30px;
+  letter-spacing: -1px;
+}
+.contents-chapter {
+  margin-bottom: 22px;
+  break-inside: avoid;
+}
+.contents-chapter h3 {
+  font-size: 12px;
+  margin-bottom: 12px;
+  color: #596c74;
+}
+.contents-chapter button {
+  display: block;
+  background: none;
+  border: 0;
+  text-align: left;
+  font-size: 13px;
+  padding: 9px 0;
+  line-height: 1.5;
+}
+.contents-chapter button span {
+  color: #ac592f;
+  margin-right: 12px;
+  font-family: ui-monospace, monospace;
+  font-size: 10px;
+}
+.contents-chapter button:hover {
+  text-decoration: underline;
+}
+#contents-list {
+  columns: 2;
+  column-gap: 35px;
+}
+.source-item {
+  display: block;
+  text-decoration: none;
+  padding: 19px 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 15px;
+  line-height: 1.5;
+}
+.source-item:hover {
+  text-decoration: underline;
+}
+.source-item small {
+  display: block;
+  color: #697c85;
+  font-size: 11px;
+  margin-top: 5px;
+  overflow-wrap: anywhere;
+}
+.source-note {
+  font-size: 13px;
+  line-height: 1.8;
+  color: #5c6e78;
+  margin: 18px 0;
+}
+.noscript {
+  padding: 40px;
+  font-size: 20px;
+}
+.diagram-text {
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+  fill: #dde9ef;
+  font-size: 16px;
+}
+.diagram-small {
+  font-size: 12px;
+  fill: #aebfcb;
+}
+.diagram-tiny {
+  font-size: 10px;
+  fill: #91a6b6;
+  letter-spacing: 1px;
+}
+.diagram-number {
+  font-size: 54px;
+  fill: #ffc875;
+  letter-spacing: -2px;
+  font-weight: 500;
+}
+.diagram-rule {
+  stroke: #a9c3d2;
+  stroke-opacity: 0.18;
+  fill: none;
+}
+.diagram-mono {
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+.power-line {
+  fill: none;
+  stroke: #ffc875;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.cold-line {
+  fill: none;
+  stroke: #75d8e7;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.hot-line {
+  fill: none;
+  stroke: #f08383;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.flow-dashes {
+  stroke-dasharray: 6 14;
+  animation: flow 5s linear infinite;
+}
+.subtle-enter {
+  animation: enter 0.3s ease both;
+}
+@keyframes flow {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (min-width: 1500px) {
+  .lesson-layout {
+    gap: 65px;
+  }
+  .lesson-body {
+    font-size: 18px;
+  }
+  .takeaway p {
+    font-size: 16px;
+  }
+  .visual-topline {
+    font-size: 10px;
+  }
+  .visual-caption {
+    font-size: 12px;
+  }
+  .control label {
+    font-size: 12px;
+  }
+}
+@media (max-width: 1050px) {
+  .masthead {
+    padding: 0 28px;
+    height: 76px;
+  }
+  .brand > span {
+    font-size: 8px;
+    margin-left: 8px;
+    padding-left: 16px;
+  }
+  .chapters {
+    padding: 0 28px;
+    gap: 12px;
+  }
+  .chapter {
+    font-size: 10px;
+    gap: 7px;
+  }
+  main {
+    padding: 28px;
+  }
+  .lesson-layout {
+    grid-template-columns: minmax(235px, 0.8fr) minmax(0, 1.5fr);
+    gap: 28px;
+  }
+  .lesson-copy {
+    padding-top: 8px;
+  }
+  h1 {
+    font-size: 36px;
+  }
+  .lesson-body {
+    font-size: 14px;
+    line-height: 1.65;
+    margin-top: 20px;
+  }
+  .takeaway {
+    margin-top: 25px;
+  }
+  .takeaway p {
+    font-size: 12px;
+  }
+  .eyebrow {
+    font-size: 9px;
+    margin-bottom: 18px;
+  }
+  .visual-topline {
+    padding: 20px 20px 0;
+    font-size: 8px;
+    gap: 10px;
+  }
+  .experiment {
+    padding: 0 20px 18px;
+    gap: 18px;
+  }
+  .visual-caption {
+    padding: 13px 20px 16px;
+    font-size: 9px;
+  }
+  .key-hint {
+    display: none;
+  }
+  .course-footer {
+    padding: 18px 28px 25px;
+  }
+  .progress button {
+    width: 7px;
+  }
+  .reading-actions {
+    gap: 15px;
+  }
+  .text-button {
+    font-size: 10px;
+  }
+}
+@media (max-width: 760px) {
+  .masthead {
+    height: 70px;
+    padding: 0 20px;
+  }
+  .brand {
+    font-size: 21px;
+    gap: 9px;
+  }
+  .brand > span {
+    display: none;
+  }
+  .header-actions {
+    gap: 10px;
+  }
+  .quiet {
+    font-size: 10px;
+    gap: 10px;
+  }
+  .chapters {
+    padding: 0 20px;
+    display: flex;
+    overflow-x: auto;
+    gap: 22px;
+    scrollbar-width: thin;
+  }
+  .chapter {
+    min-width: 105px;
+    min-height: 55px;
+    font-size: 10px;
+    gap: 8px;
+  }
+  main {
+    padding: 26px 20px 10px;
+  }
+  .lesson-layout {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  .lesson-copy {
+    padding: 0;
+  }
+  h1 {
+    font-size: 42px;
+    max-width: 16ch;
+    letter-spacing: -1.7px;
+  }
+  .eyebrow {
+    font-size: 9px;
+    margin-bottom: 14px;
+  }
+  .lesson-body {
+    max-width: 60ch;
+    font-size: 14px;
+    line-height: 1.65;
+    margin-top: 17px;
+  }
+  .takeaway {
+    margin-top: 19px;
+    padding-top: 14px;
+    display: flex;
+    gap: 22px;
+    align-items: flex-start;
+  }
+  .takeaway .label {
+    font-size: 8px;
+    line-height: 1.6;
+    min-width: 65px;
+    max-width: 65px;
+    margin-top: 3px;
+  }
+  .takeaway p {
+    font-size: 12px;
+    line-height: 1.6;
+    margin: 0;
+    max-width: none;
+  }
+  .reading-actions {
+    margin-top: 15px;
+  }
+  .visual-workspace {
+    border-radius: 3px;
+  }
+  .visual-topline {
+    font-size: 8px;
+    padding: 19px 18px 0;
+  }
+  .visual-topline span:last-child {
+    font-size: 7px;
+  }
+  .visual-caption {
+    font-size: 10px;
+    padding: 13px 18px 18px;
+  }
+  .experiment {
+    padding: 5px 18px 18px;
+    gap: 17px;
+  }
+  .control label {
+    font-size: 10px;
+  }
+  .toggle {
+    font-size: 10px;
+    padding: 10px 12px;
+  }
+  .course-footer {
+    padding: 19px 20px 24px;
+    gap: 12px;
+    margin-top: 8px;
+  }
+  .nav-button {
+    font-size: 10px;
+    min-width: 90px;
+    padding: 13px 12px;
+    gap: 14px;
+  }
+  .progress-group {
+    gap: 8px;
+    flex-direction: column;
+  }
+  .progress button {
+    width: 5px;
+  }
+  .progress {
+    gap: 2px;
+  }
+  .progress-group > span {
+    font-size: 9px;
+  }
+  .notes {
+    margin: 25px 0 0;
+    columns: 1;
+    padding: 24px;
+  }
+  .knowledge-check {
+    grid-template-columns: 1fr;
+    gap: 19px;
+    margin-top: 22px;
+    padding-top: 22px;
+  }
+  .check-question h2 {
+    font-size: 16px;
+  }
+  .answer-button {
+    font-size: 12px;
+    padding: 12px;
+  }
+  .dialog-head h2 {
+    font-size: 24px;
+  }
+  dialog {
+    padding: 24px;
+    max-height: calc(100dvh - 30px);
+  }
+  #contents-list {
+    columns: 1;
+  }
+  .diagram-small {
+    font-size: 14px;
+  }
+  .diagram-tiny {
+    font-size: 11px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *:before,
+  *:after {
+    animation: none !important;
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
+}
+@media print {
+  .masthead,
+  .chapters,
+  .course-footer,
+  .experiment,
+  .reading-actions,
+  .knowledge-check {
+    display: none;
+  }
+  main {
+    padding: 0;
+  }
+  .lesson-layout {
+    display: block;
+  }
+  .visual-workspace {
+    margin-top: 25px;
+    break-inside: avoid;
+    print-color-adjust: exact;
+  }
+  .lesson-copy {
+    max-width: none;
+  }
+  .lesson-body {
+    max-width: none;
+  }
+  .notes {
+    display: block !important;
+    margin: 20px 0 0;
+    columns: 1;
+  }
+  .takeaway p {
+    max-width: none;
+  }
+}
+.experiment-result {
+  flex-basis: 100%;
+  font-size: 11px;
+  color: #d4e6ec;
+  line-height: 1.6;
+  border-top: 1px solid #7f9eb133;
+  padding-top: 12px;
+}
+.experiment-result[hidden] {
+  display: none;
+}
+.experiment .reset {
+  margin-left: auto;
+  font-size: 10px;
+}
+@media (min-width: 761px) and (max-height: 850px) {
+  .masthead {
+    height: 66px;
+  }
+  .chapters .chapter {
+    min-height: 53px;
+  }
+  main {
+    padding-top: 25px;
+    padding-bottom: 14px;
+  }
+  .lesson-copy {
+    padding-top: 8px;
+  }
+  .eyebrow {
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-size: clamp(34px, 3.35vw, 47px);
+  }
+  .lesson-body {
+    font-size: 14px;
+    line-height: 1.65;
+    margin-top: 20px;
+  }
+  .takeaway {
+    margin-top: 24px;
+    padding-top: 15px;
+  }
+  .takeaway p {
+    font-size: 12px;
+  }
+  .reading-actions {
+    margin-top: 18px;
+  }
+  .visual-topline {
+    padding-top: 18px;
+  }
+  #visual svg {
+    height: auto;
+  }
+  .experiment {
+    padding-bottom: 16px;
+    gap: 13px;
+  }
+  .control label {
+    margin-bottom: 6px;
+  }
+  .visual-caption {
+    padding-top: 11px;
+    padding-bottom: 12px;
+    font-size: 9px;
+  }
+  .experiment-result {
+    font-size: 10px;
+    padding-top: 8px;
+  }
+  .course-footer {
+    padding-top: 12px;
+    padding-bottom: 20px;
+  }
+  .knowledge-check {
+    margin-top: 26px;
+  }
+}
+:fullscreen .masthead {
+  height: 52px;
+}
+:fullscreen .chapters .chapter {
+  min-height: 48px;
+}
+:fullscreen main {
+  padding-top: 22px;
+}
+:fullscreen #visual svg {
+  height: clamp(330px, calc(100dvh - 360px), 760px);
+}
+main > .course-footer {
+  padding: 23px 0 0;
+  margin-top: 5px;
+}
+.course-footer + .notes {
+  margin-top: 28px;
+}
+:fullscreen .lesson-layout {
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+:fullscreen .lesson-copy {
+  padding: 0;
+  display: flex;
+  gap: 25px;
+  align-items: center;
+}
+:fullscreen .lesson-copy h1 {
+  font-size: 30px;
+  max-width: none;
+  letter-spacing: -1px;
+}
+:fullscreen .lesson-copy .eyebrow {
+  margin: 0;
+  min-width: 160px;
+  max-width: 260px;
+}
+:fullscreen .lesson-body,
+:fullscreen .takeaway,
+:fullscreen .reading-actions,
+:fullscreen .knowledge-check,
+:fullscreen .notes {
+  display: none !important;
+}
+:fullscreen .visual-workspace {
+  max-width: 1400px;
+  width: 100%;
+  margin: auto;
+}
+:fullscreen .visual-topline {
+  padding-top: 14px;
+}
+:fullscreen #visual svg {
+  height: clamp(260px, calc(100dvh - 405px), 690px);
+}
+:fullscreen .experiment {
+  padding-top: 0;
+  padding-bottom: 10px;
+}
+:fullscreen .visual-caption {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+:fullscreen .experiment-result {
+  flex: 1;
+  border-top: 0;
+  padding: 0;
+}
+:fullscreen .experiment .reset {
+  margin-left: 0;
+}
+:fullscreen main > .course-footer {
+  padding-top: 12px;
+}
+@media (max-width: 760px) {
+  main > .course-footer {
+    padding-top: 18px;
+    padding-bottom: 12px;
+  }
+  .progress button {
+    width: 4px;
+  }
+}
+.compact-diagram .diagram-text {
+  font-size: 26px;
+}
+.compact-diagram .diagram-small {
+  font-size: 23px;
+}
+.compact-diagram .diagram-tiny {
+  font-size: 17px;
+}
+.compact-diagram .diagram-number {
+  font-size: 55px;
+}
+@media (max-width: 760px) {
+  .experiment .control {
+    min-width: 100%;
+    flex-basis: 100%;
+  }
+  .experiment .control label {
+    font-size: 12px;
+  }
+  .experiment-result {
+    font-size: 12px;
+  }
+  .chapters {
+    scrollbar-width: none;
+  }
+  .chapters::-webkit-scrollbar {
+    display: none;
+  }
+}
+    </style>
+  </head>
+  <body>
+    <a class="skip" href="#lesson-title">Skip to lesson</a>
+    <header class="masthead">
+      <a class="brand" href="#one-rack" aria-label="GIGAWATT: start of course"
+        ><svg aria-hidden="true" width="26" height="30" viewBox="0 0 26 30">
+          <path d="M15 0 2 17h10l-1 13 13-18H14Z" fill="currentColor" /></svg
+        >GIGAWATT<span>A FIELD GUIDE TO DATA CENTERS</span></a
+      >
+      <div class="header-actions">
+        <button
+          id="contents-button"
+          class="quiet"
+          aria-label="Open course contents"
+        >
+          Contents <span aria-hidden="true">☰</span></button
+        ><button
+          id="fullscreen"
+          class="icon-button"
+          aria-label="Enter fullscreen"
+          title="Fullscreen"
+        >
+          ⛶
+        </button>
+      </div>
+    </header>
+    <nav id="chapters" class="chapters" aria-label="Course chapters"></nav>
+    <main>
+      <div class="lesson-layout">
+        <section class="lesson-copy" aria-labelledby="lesson-title">
+          <div id="eyebrow" class="eyebrow"></div>
+          <h1 id="lesson-title" tabindex="-1"></h1>
+          <p id="lesson-body" class="lesson-body"></p>
+          <div class="takeaway">
+            <span class="label">THE IDEA TO KEEP</span>
+            <p id="takeaway"></p>
+          </div>
+          <div class="reading-actions">
+            <button
+              id="notes-button"
+              class="text-button"
+              aria-expanded="false"
+              aria-controls="notes"
+            >
+              Read the explanation <span aria-hidden="true">↗</span></button
+            ><button id="sources-button" class="text-button">
+              Sources <span aria-hidden="true">↗</span>
+            </button>
+          </div>
+        </section>
+        <section
+          class="visual-workspace"
+          aria-label="Interactive engineering illustration"
+        >
+          <div class="visual-topline">
+            <span id="visual-label"></span
+            ><span id="visual-tag">CONCEPTUAL MODEL</span>
+          </div>
+          <div id="visual"></div>
+          <div id="experiment" class="experiment"></div>
+          <div id="visual-caption" class="visual-caption"></div>
+        </section>
+      </div>
+      <footer class="course-footer">
+        <button id="prev" class="nav-button" aria-label="Previous lesson">
+          <span aria-hidden="true">←</span><span>Previous</span>
+        </button>
+        <div class="progress-group">
+          <span id="lesson-counter" aria-live="polite"></span>
+          <div
+            id="progress"
+            class="progress"
+            aria-label="Lesson progress"
+          ></div>
+          <span class="key-hint">← → to explore</span>
+        </div>
+        <button id="next" class="nav-button next" aria-label="Next lesson">
+          <span id="next-label">Next lesson</span
+          ><span aria-hidden="true">→</span>
+        </button>
+      </footer>
+      <section
+        id="notes"
+        class="notes"
+        hidden
+        aria-label="Lesson explanation"
+      ></section>
+      <section
+        id="knowledge-check"
+        class="knowledge-check"
+        hidden
+        aria-label="Check your understanding"
+      ></section>
+    </main>
+
+    <dialog id="contents-dialog">
+      <div class="dialog-head">
+        <div>
+          <span class="eyebrow">THE COMPLETE JOURNEY</span>
+          <h2>From watts to racks.</h2>
+        </div>
+        <button class="dialog-close icon-button" aria-label="Close contents">
+          ×
+        </button>
+      </div>
+      <div id="contents-list"></div>
+    </dialog>
+    <dialog id="sources-dialog">
+      <div class="dialog-head">
+        <div>
+          <span class="eyebrow">FOLLOW THE EVIDENCE</span>
+          <h2>Sources & assumptions</h2>
+        </div>
+        <button class="dialog-close icon-button" aria-label="Close sources">
+          ×
+        </button>
+      </div>
+      <div id="source-list"></div>
+    </dialog>
+    <noscript
+      ><p class="noscript">
+        This course uses JavaScript for its interactive diagrams. Enable
+        JavaScript to explore the 22 lessons.
+      </p></noscript
+    >
+    <script type="application/json" id="course-data">
+      {"title":"GIGAWATT","subtitle":"From watts to racks. Then all the way back to the air.","chapters":[{"id":"start","title":"Start at the rack","kicker":"01 · Two obligations"},{"id":"grid","title":"Bring power to site","kicker":"02 · Distance and scale"},{"id":"continuity","title":"Keep racks powered","kicker":"03 · Continuity"},{"id":"silicon","title":"Power silicon","kicker":"04 · The last meter"},{"id":"cooling","title":"Get heat out","kicker":"05 · The return journey"},{"id":"system","title":"Size the whole system","kicker":"06 · Put it together"}],"lessons":[{"id":"one-rack","chapter":"start","title":"One campus. Two journeys.","eyebrow":"The whole system","body":"A working rack needs a continuous path for electricity to arrive and a continuous path for heat to leave. Follow those two paths, and the data center becomes a system you can reason about.","visual":"campus","takeaway":"A rack is usable only while both its power path and its heat-removal path work.","notes":["Find the racks inside the open-roof data hall. Choose one hypothetical rack drawing 100 kW so the reasoning has a scale. A rack contains computing, networking, power conversion, and cooling equipment. This teaching load is not a specification for every AI rack or a measurement at a named campus.","Trace outward from that rack. It needs upstream electrical service, distribution, protection, and compatible power conversion. It also needs downstream heat transport and an ultimate sink. Information processing is the desired service, but it does not consume a large slice of electrical energy that then escapes the heat balance. Nearly all IT electrical input ultimately becomes heat.","The journey starts with the problem, follows electricity inward, and then follows heat outward. At every scale ask what this component must do, what limits it, and what happens if it stops."],"sources":[{"title":"DOE · Best Practices Guide for Energy-Efficient Data Center Design","url":"https://www.energy.gov/sites/default/files/2024-07/best-practice-guide-data-center-design_0.pdf"},{"title":"NVIDIA · DGX GB200 hardware reference","url":"https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html"}]},{"id":"power-and-energy","chapter":"start","title":"A watt is a rate.","eyebrow":"Power × time = energy","body":"Megawatts describe how fast energy is delivered. Megawatt-hours describe how much is delivered over time. A 1 MW load held for one hour uses 1 MWh; the same load for three hours uses 3 MWh.","visual":"energy","takeaway":"Power sets the size of the path; energy sets how long a source can support it.","notes":["Think of a power trace with time on the horizontal axis. Its height is power; the area underneath is energy. For a constant load, multiply power by duration. For a varying load, add up the energy in each interval. A momentary 10 MW peak and a continuous 10 MW load impose different energy requirements even when their highest power is identical.","This distinction will return in the battery lesson. A battery system needs both sufficient output power and sufficient usable energy. A large energy inventory cannot pass through an undersized inverter quickly enough to support a large load.","The units provide a useful error detector: MW multiplied by hours gives MWh; MWh divided by MW gives hours. Neither calculation gives a count of racks until a rack load and the relevant electrical boundary are specified."],"sources":[{"title":"EIA · Measuring electricity","url":"https://www.eia.gov/energyexplained/electricity/measuring-electricity.php"}]},{"id":"sources-and-grid","chapter":"grid","title":"Follow the physical connection.","eyebrow":"Electricity and energy contracts","body":"A campus receives electricity through physical infrastructure. Energy contracts describe commercial arrangements; they do not by themselves establish a dedicated wire from a named generator to a rack. Trace the solid electrical path before reading the dashed contract.","visual":"grid","takeaway":"A power contract and a dependable electrical connection answer different questions.","notes":["Trace the solid path from generation through the shared grid to the campus. Many generators, inverter-based resources, and loads participate in this connected system. They require continuous balancing and connections that can carry power within their operating limits. The schematic represents that shared network, not a dedicated generator-to-rack cable.","The dashed line represents a commercial arrangement. A physical power purchase agreement can include delivery through the grid; a financial power purchase agreement does not deliver electricity to the buyer. Neither description by itself supplies the campus electrical one-line, operating limits, or proof of continuous service.","Onsite generation creates another possible supply path, but it still needs compatible equipment, controls, fuel, and approvals. A battery shifts energy through time and has finite power and energy. Next, hold delivered power constant and examine why long-distance transport uses high voltage."],"sources":[{"title":"EIA · How electricity is generated","url":"https://www.eia.gov/energyexplained/electricity/how-electricity-is-generated.php"},{"title":"Vertiv · BESS and UPS roles in data center power","url":"https://www.vertiv.com/en-us/insights/articles/white-papers/bess-and-ups-roles-in-large-data-center-power-architecture/"},{"title":"DOE · Best Practices Guide for Energy-Efficient Data Center Design","url":"https://www.energy.gov/sites/default/files/2024-07/best-practice-guide-data-center-design_0.pdf"},{"title":"NERC · Characteristics and Risks of Emerging Large Loads","url":"https://www.nerc.com/globalassets/who-we-are/standing-committees/rstc/3_doc_white-paper-characteristics-and-risks-of-emerging-large-loads.pdf"},{"title":"EPA · Physical power purchase agreements","url":"https://www.epa.gov/green-power-markets/physical-ppa"},{"title":"EPA · Financial power purchase agreements","url":"https://www.epa.gov/green-power-markets/financial-ppa"}]},{"id":"raise-voltage","chapter":"grid","title":"Go farther. Raise the voltage.","eyebrow":"Experiment · Hold power constant","body":"For the same transferred power, higher voltage means lower current. Conductor heating rises with current squared. Raising voltage tenfold cuts current tenfold and conductor losses one hundredfold when power factor and resistance stay fixed.","visual":"voltage","takeaway":"High voltage makes bulk power transport practical by reducing current.","notes":["For balanced three-phase AC, real power is P = √3 × V × I × power factor, with V the line-to-line RMS voltage. The visual uses 100 MW, unity power factor, and an ideal comparison: about 4,184 A at 13.8 kV versus 418 A at 138 kV. These values are a scenario, not a proposed campus design.","At fixed conductor resistance, heating in each conductor is I²R. Reducing current to one tenth reduces that resistive loss to one hundredth. This does not mean the entire grid becomes one hundred times more efficient: transformer losses, insulation, clearances, stability, and other limits still matter.","Move voltage before looking at the answer. Explain the direction of current first, then predict the larger change in resistive heating. The square is the reason voltage transformation is so consequential."],"sources":[{"title":"Schneider Electric · Three-phase power and current","url":"https://www.electrical-installation.org/enwiki/Installed_apparent_power_(kVA)"},{"title":"OpenStax · Transformers","url":"https://openstax.org/books/university-physics-volume-2/pages/15-6-transformers"}],"check":{"question":"Double voltage while real power, power factor, and conductor resistance stay fixed. What happens to resistive loss?","options":["It halves.","It falls to one quarter.","It stays the same."],"answer":1,"explanation":"Current halves, and I²R falls to (1/2)² = 1/4 of its starting value."}},{"id":"substation-functions","chapter":"grid","title":"Open the substation.","eyebrow":"Transform · switch · protect","body":"A transformer changes voltage. Switchgear routes and interrupts circuits. Protection detects abnormal conditions and commands the right breaker to open. Together they turn a high-voltage connection into a controllable service.","visual":"substation","takeaway":"Voltage transformation, switching, and protection solve different problems.","notes":["A transformer trades voltage and current while transferring electrical power, with real losses. It does not create additional power. A substation packages this conversion with the means to connect, disconnect, measure, and protect electrical circuits. The exact arrangement depends on the system; there is no universal data-center one-line diagram.","Protection is a decision-and-action chain. Sensors measure electrical conditions, relays evaluate whether a fault lies in their protected zone, and circuit breakers interrupt current. Isolation and safe access also require appropriate equipment and procedures; an open line on a teaching diagram is not a switching instruction.","Trace normal power flow first. Then imagine a fault in one transformer or feeder and identify which boundary should disconnect. Equipment is easier to remember when each name is attached to a job."],"sources":[{"title":"Schneider Electric · Medium-voltage unit substations","url":"https://www.se.com/us/en/product-range/60292-medium-voltage-unit-substations/"},{"title":"IEEE · Guide for Protecting Power Transformers","url":"https://standards.ieee.org/ieee/C37.91/5904/"},{"title":"OpenStax · Transformers","url":"https://openstax.org/books/university-physics-volume-2/pages/15-6-transformers"}]},{"id":"capacity-stages","chapter":"grid","title":"Connected is a milestone.","eyebrow":"From a headline to an energized load","body":"A plan, an established connection, energized equipment, commissioned systems, and an observed workload establish different milestones. Select each state and ask what evidence it adds. A later gate is not proof the entire campus has reached it.","visual":"capacity","takeaway":"Always attach a capacity number to a boundary, a date, and a state.","notes":["Read the five simplified milestones in the visual. Announced describes an intention. Connected means the physical electrical connection has been established; an interconnection agreement alone does not show this. Energized means equipment is electrically live. Commissioned means required integrated tests have been passed for the stated scope. Loaded means IT is drawing power under workload. Permits and installation records provide additional evidence along the way.","These milestones need not form a perfectly neat, campus-wide sequence: one building can run while another is under construction. The useful question is which complete path is available for which loads, under which conditions.","When someone says a site has a gigawatt, ask where that number is measured or rated and what evidence establishes its present state. A source-side rating cannot fill in missing building, cooling, rack, or workload evidence."],"sources":[{"title":"Crusoe · Abilene expansion announcement, 18 March 2025","url":"https://www.crusoe.ai/resources/newsroom/crusoe-expands-ai-data-center-campus-in-abilene-to-1-2-gigawatts"},{"title":"OpenAI · Abilene workloads, 22 July 2025","url":"https://openai.com/index/stargate-advances-with-partnership-with-oracle/"},{"title":"DOE · Best Practices Guide for Energy-Efficient Data Center Design","url":"https://www.energy.gov/sites/default/files/2024-07/best-practice-guide-data-center-design_0.pdf"}]},{"id":"building-power-train","chapter":"continuity","title":"Bring the power to the rack.","eyebrow":"Read equipment by its function","body":"Inside the site, power passes through distribution, protection, voltage conversion, and often a UPS before reaching rack positions. Follow the functions from the building feeder to the rack inlet.","visual":"train","takeaway":"Every link must carry the required load and fit the next electrical interface.","notes":["Use a generic building path: feeder, transformer and switchgear, UPS where the architecture calls for one, distribution busway or cabling, and a rack connection. The exact order, placement, voltage levels, and duplication vary. This diagram teaches the jobs of the equipment rather than prescribing an installation.","Current ratings, compatible voltages, protection, maintenance access, and the equipment available after an outage all constrain the path. A very large upstream transformer cannot compensate for a downstream distribution circuit that cannot carry the intended load.","Pause at the rack inlet. Facilities have delivered an electrical service to a location; internal rack conversion still has work to do before processors can operate. First, however, make the service survive interruptions and maintenance."],"sources":[{"title":"Schneider Electric · Medium-voltage unit substations","url":"https://www.se.com/us/en/product-range/60292-medium-voltage-unit-substations/"},{"title":"Vertiv · BESS and UPS roles in data center power","url":"https://www.vertiv.com/en-us/insights/articles/white-papers/bess-and-ups-roles-in-large-data-center-power-architecture/"},{"title":"Infineon · Server rack power management","url":"https://www.infineon.com/applications/ai-data-center/data-center-power-solutions/server-rack-power-management"}]},{"id":"ride-through","chapter":"continuity","title":"The battery buys time.","eyebrow":"Experiment · Power and duration","body":"A UPS supports critical loads through an interruption. Storage bridges a finite interval while another source becomes available or the load shuts down. Both output power and usable energy must be sufficient.","visual":"ride-through","takeaway":"Battery runtime is a power-and-energy question, followed by a transfer-and-control question.","notes":["The ideal duration relationship is time = usable energy delivered to the load / load power. For a constant 5 MW protected load and 0.25 MWh available at the UPS output, the result is 0.05 hours, or three minutes. Defining usable energy at the output keeps conversion losses from being silently ignored or counted twice.","A practical system must also deliver at least the required power, tolerate the load, and operate within its battery state, temperature, aging, protection, and control limits. A 0.25 MWh battery with a 1 MW output limit cannot support a 5 MW load even for a moment.","A generator is not instant energy storage; starting, stabilizing, and transferring load are system behaviors that must be designed and tested. This example supplies no universal transfer time or guaranteed runtime."],"sources":[{"title":"EIA · Measuring electricity","url":"https://www.eia.gov/energyexplained/electricity/measuring-electricity.php"},{"title":"Vertiv · BESS and UPS roles in data center power","url":"https://www.vertiv.com/en-us/insights/articles/white-papers/bess-and-ups-roles-in-large-data-center-power-architecture/"}],"check":{"question":"A UPS can supply 5 MW and has 0.25 MWh of usable output energy. Ideally, how long can it carry a steady 5 MW load?","options":["3 minutes","15 minutes","3 hours"],"answer":0,"explanation":"0.25 MWh ÷ 5 MW = 0.05 h = 3 minutes. Actual usable output and operating conditions must support those assumptions."}},{"id":"redundant-paths","chapter":"continuity","title":"A second path must be useful.","eyebrow":"Normal operation and one path unavailable","body":"Two feeds help only if the surviving route can serve the load and the equipment can use it. Follow each path end to end, including shared components, controls, and the rack power supplies.","visual":"redundancy","takeaway":"Redundancy is a property of the complete system under a defined failure.","notes":["Start with a hypothetical 1 MW load and two independently usable 1 MW routes. If one route becomes unavailable, the other has enough capacity in this simplified model. If each route can deliver only 0.5 MW, the two can serve 1 MW together but cannot preserve that full load after losing one route.","Now look beyond capacity. Both cords might return to the same upstream device. A load may require both supplies to operate at full demand. Transfer behavior and protective coordination can affect whether the load remains powered. Two colors on a diagram cannot settle these questions.","Use the unavailable-path state to test a specific proposition: which equipment carries the load now, and what assumption allows continuity? Terms such as N+1 or a Tier classification carry more requirements than this small example demonstrates."],"sources":[{"title":"Schneider Electric · Do two cords guarantee redundancy?","url":"https://blog.se.com/datacenter/architecture/2014/08/06/two-cords-guarantee-power-redundancy-device/"},{"title":"Uptime Institute · Tier certification","url":"https://uptimeinstitute.com/tier-certification"}]},{"id":"fault-domains","chapter":"continuity","title":"Keep one fault from spreading.","eyebrow":"Find the shared dependency","body":"A local feeder fault should be interrupted within its intended protection zone. A fault in shared upstream equipment can affect every downstream load. Location matters as much as the number of backup devices.","visual":"failure","takeaway":"Ask what still works after the particular component you remove becomes unavailable.","notes":["Imagine three feeders leaving a shared distribution point, each serving a rack or a group of loads. Activate the middle-feeder fault. This illustration assumes the appropriate breaker isolates that branch while the other two remain powered. Actual outcomes depend on protective coordination, disturbance severity, upstream capacity, and the other loads’ tolerance of the event.","Now consider an additional thought experiment: the shared supply bus becomes unavailable. More downstream breakers do not create a new source around that missing common element. The visual has no control for this second scenario; trace the paths mentally to distinguish isolating a local fault from surviving a shared dependency’s failure.","The exercise is conceptual: inspect the topology, state the chosen failure, and trace the remaining valid routes. Real protection and maintenance procedures require an engineered study. Carry the same reasoning into cooling later: duplicated electrical paths alone do not keep a rack alive if its sole heat-removal path stops."],"sources":[{"title":"IEEE · Guide for Protecting Power Transformers","url":"https://standards.ieee.org/ieee/C37.91/5904/"},{"title":"Schneider Electric · Do two cords guarantee redundancy?","url":"https://blog.se.com/datacenter/architecture/2014/08/06/two-cords-guarantee-power-redundancy-device/"},{"title":"Uptime Institute · Tier certification","url":"https://uptimeinstitute.com/tier-certification"}]},{"id":"rack-conversion","chapter":"silicon","title":"The rack changes the rules.","eyebrow":"From facility AC to local DC","body":"Rack power supplies convert facility AC into DC distribution. Board-level regulators then create the lower, tightly controlled voltages processors need. Each conversion serves a different scale of the power path.","visual":"rack","takeaway":"Rack DC and processor-core voltage are separate electrical boundaries.","notes":["Follow the nesting: building, rack, compute tray, board, processor. A documented NVIDIA DGX GB200 rack uses power shelves with nominal 50–51 V DC output. That is a specific product reference, not a universal rack standard and not evidence of a particular campus installation.","The processor cannot simply use that rack bus as its core rail. Local regulators perform further conversion near the load, supplying precise voltages at high currents. Intermediate buses, rail counts, and control architectures differ by hardware design.","At every conversion, keep the input, output, and losses visible. Do not multiply a rack product rating by a guessed installed inventory and call the result measured site power. We are learning why the stages exist; an operating estimate needs actual configuration and measurements."],"sources":[{"title":"NVIDIA · DGX GB200 hardware reference","url":"https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html"},{"title":"Infineon · Server rack power management","url":"https://www.infineon.com/applications/ai-data-center/data-center-power-solutions/server-rack-power-management"},{"title":"Texas Instruments · Processor core power","url":"https://www.ti.com/product-category/power-management/multiphase.html"}]},{"id":"low-voltage-current","chapter":"silicon","title":"Low voltage. Enormous current.","eyebrow":"The last meter is a different problem","body":"For DC, P = V × I. An ideal 1,000 W load would draw 20 A at 50 V but 1,000 A at 1 V. That is why conversion moves close to the processor.","visual":"current","takeaway":"Low-voltage delivery makes short paths and careful current distribution essential.","notes":["This is a processor-scale thought experiment: hold the delivered power at 1,000 W and compare two DC voltages. At 50 V, current is 20 A. At 1 V, it is 1,000 A. The values illustrate the relationship; they do not assert the rail voltage or power allocation of any particular processor.","Resistance now matters intensely. Voltage drop is I × R, while resistive heating is I²R. A voltage drop that seems small in an ordinary circuit can occupy a large part of a low-voltage processor rail. Delivering very high current over a long distance is costly and difficult.","Local multiphase regulators share current across conversion stages and control the rail near the load. The complete design also responds to fast changes in demand. High voltage helps at long distances; precise low voltage is necessary at the silicon."],"sources":[{"title":"Infineon · Server rack power management","url":"https://www.infineon.com/applications/ai-data-center/data-center-power-solutions/server-rack-power-management"},{"title":"Texas Instruments · Processor core power","url":"https://www.ti.com/product-category/power-management/multiphase.html"},{"title":"OpenStax · Transformers","url":"https://openstax.org/books/university-physics-volume-2/pages/15-6-transformers"}]},{"id":"useful-compute","chapter":"silicon","title":"Watts do not measure useful work.","eyebrow":"The workload completes the chain","body":"Power allows hardware to run. Useful throughput also depends on the model, software, memory, communication, and utilization. The same electrical demand can support very different amounts of useful output.","visual":"compute","takeaway":"Convert watts to workload output only with an explicit, measured workload model.","notes":["A cluster can be powered and still spend time waiting for data, memory transfers, network communication, or other workers. A hardware peak describes a capability under specified conditions. It does not tell you how much useful work a particular workload completes.","First define the output: training progress, jobs completed, or inference tokens under a latency and quality requirement. Then define hardware, precision, model, batch and sequence settings, and the measurement interval. Measure both output and the electrical boundary that supplied it.","Even a rack-level power figure includes components beyond one accelerator. Dividing rack power by GPU count produces an allocation of rack power, not GPU chip power. Network and storage equipment also belong in the system budget. We stop at rack capacity when these workload inputs are unavailable."],"sources":[{"title":"NVIDIA · DGX GB200 hardware reference","url":"https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html"},{"title":"DOE · Best Practices Guide for Energy-Efficient Data Center Design","url":"https://www.energy.gov/sites/default/files/2024-07/best-practice-guide-data-center-design_0.pdf"},{"title":"MLCommons · MLPerf Inference measurement rules","url":"https://github.com/mlcommons/inference_policies/blob/master/inference_rules.adoc"},{"title":"NVIDIA · Triton batching and throughput","url":"https://docs.nvidia.com/deeplearning/triton-inference-server/archives/triton-inference-server-2591/user-guide/docs/user_guide/batcher.html"}]},{"id":"electrical-to-heat","chapter":"cooling","title":"The watt becomes heat.","eyebrow":"A balance, not a metaphor","body":"Nearly all electrical power entering IT equipment becomes heat. A rack drawing 100 kW therefore creates approximately 100 kW of IT heat to remove. Cooling equipment consumes additional power outside that rack boundary.","visual":"heat","takeaway":"Useful computation does not subtract a large energy slice from the cooling obligation.","notes":["Choose a steady operating interval and draw the boundary around the IT rack. Energy enters electrically. Some can temporarily change stored energy, but nearly all ultimately becomes heat. Information processing is valuable output; it is not an energy outlet comparable in size to the electrical input.","A 100 kW rack is therefore approximately a 100 kW heat source in this model. The heat can leave through multiple routes: liquid-cooled components and air-cooled components. Their heat duties must add up consistently; do not invent a universal liquid-versus-air percentage.","Now widen the boundary. Power supplies already inside the rack contribute to its heat. Pumps, fans, electrical losses, and refrigeration outside that boundary add their own loads elsewhere in the facility balance. This is why boundary labels matter before drawing a flow width or totaling heat."],"sources":[{"title":"DOE · Best Practices Guide for Energy-Efficient Data Center Design","url":"https://www.energy.gov/sites/default/files/2024-07/best-practice-guide-data-center-design_0.pdf"},{"title":"DOE · Thermodynamics, Heat Transfer, and Fluid Flow","url":"https://www.energy.gov/sites/default/files/2026-04/DOE-HDBK-1012-92_VOL1.pdf"},{"title":"NVIDIA · DGX GB200 hardware reference","url":"https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html"}]},{"id":"liquid-heat-transport","chapter":"cooling","title":"Heat needs a moving carrier.","eyebrow":"Experiment · Flow and temperature rise","body":"Liquid carries heat as its temperature rises: heat rate = mass flow × specific heat × temperature rise. For an assumed 100 kW water duty and a 10°C rise, the required flow is about 2.39 kg/s.","visual":"liquid","takeaway":"At fixed heat duty, a smaller coolant temperature rise requires more mass flow.","notes":["The steady sensible-heat relationship is Q̇ = ṁ × cp × ΔT. Use water with an assumed specific heat of 4.18 kJ/(kg·K): 100 kJ/s divided by 4.18 and a 10 K temperature rise gives about 2.39 kg/s. At an assumed density of 1 kg/L, that is roughly 144 L/min.","The 100 kW value is the heat assigned to this liquid loop, not a claim that all heat from every rack enters liquid. Celsius temperature differences and kelvin differences have the same numerical size. Coolant mixtures and operating conditions can change the properties used in the calculation.","Halve the allowed temperature rise and predict the flow before changing the control. The energy balance alone does not select a pump, pipe, or cold plate: pressure drop, heat-transfer performance, cleanliness, allowable temperatures, and control behavior still need engineering."],"sources":[{"title":"DOE · Thermodynamics, Heat Transfer, and Fluid Flow","url":"https://www.energy.gov/sites/default/files/2026-04/DOE-HDBK-1012-92_VOL1.pdf"},{"title":"Open Compute Project · Liquid-to-liquid CDU performance","url":"https://www.opencompute.org/documents/ocp-wp-l-lcdu-test-methodology-performance-rating-r1-pdf"}],"check":{"question":"The heat duty stays fixed while the allowed coolant temperature rise falls from 10°C to 5°C. With the same fluid properties, what flow is required?","options":["Half the mass flow","The same mass flow","Twice the mass flow"],"answer":2,"explanation":"Q̇ = ṁ cp ΔT. Halving ΔT requires doubling ṁ to carry the same heat."}},{"id":"heat-exchanger","chapter":"cooling","title":"Heat crosses. Fluids stay apart.","eyebrow":"Inside a liquid-to-liquid CDU","body":"A liquid-to-liquid cooling distribution unit transfers heat between the technology loop and the facility loop. A heat exchanger couples their temperatures while keeping their fluids separate.","visual":"cdu","takeaway":"A heat exchanger transfers energy across a boundary without mixing the two coolant circuits.","notes":["Follow the technology coolant first: it reaches the cooled components, warms as it collects heat, and returns to the CDU. Trace the facility coolant separately: it receives heat at the heat exchanger and carries it toward the facility cooling plant. The two circuits remain hydraulically separate in this liquid-to-liquid example.","Heat exchange needs a temperature difference. Temperatures, flow, pressure, fluid compatibility, and the exchanger performance determine what duty the interface can carry. Pumps and controls move coolant and maintain operating conditions; the CDU does not destroy heat or necessarily provide refrigeration.","Check the drawing carefully: arrows on pipes describe coolant circulation, while an arrow across the exchanger describes heat transfer. Confusing those arrows can accidentally draw fluid mixing where only energy transfer belongs. This is a generic architecture, not an as-built claim about Abilene."],"sources":[{"title":"Open Compute Project · Liquid-to-liquid CDU performance","url":"https://www.opencompute.org/documents/ocp-wp-l-lcdu-test-methodology-performance-rating-r1-pdf"},{"title":"DOE · Thermodynamics, Heat Transfer, and Fluid Flow","url":"https://www.energy.gov/sites/default/files/2026-04/DOE-HDBK-1012-92_VOL1.pdf"}]},{"id":"residual-air","chapter":"cooling","title":"This rack still needs air.","eyebrow":"Two parallel heat paths","body":"Cold plates can capture heat from high-power chips while other rack components still heat the air. Airflow must carry that remaining heat to a coil or another heat-removal system.","visual":"air","takeaway":"Trace every heat source to an exit, including the components outside the liquid loop.","notes":["Follow a concrete product reference: the documented DGX GB200 architecture includes liquid-cooled CPUs and GPUs alongside components that require air cooling. The category split does not establish a universal percentage or the operating split for an installed rack.","Air enters equipment, absorbs heat, and must reach a heat-removal device before returning at an acceptable inlet condition. Fans move air; a cooling coil transfers its heat onward. Mixing warm exhaust back into equipment inlets can undermine cooling even when total room airflow looks large.","The liquid and air branches are parallel obligations, not successive steps in one pipe. Depending on the facility, they can connect to different cooling equipment or meet later at a shared plant. Both need sufficient capacity and an intact route to a sink. A successful liquid-loop test alone does not validate the whole rack."],"sources":[{"title":"NVIDIA · DGX GB200 hardware reference","url":"https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html"},{"title":"DOE · Best Practices Guide for Energy-Efficient Data Center Design","url":"https://www.energy.gov/sites/default/files/2024-07/best-practice-guide-data-center-design_0.pdf"},{"title":"Open Compute Project · Liquid-to-liquid CDU performance","url":"https://www.opencompute.org/documents/ocp-wp-l-lcdu-test-methodology-performance-rating-r1-pdf"}]},{"id":"outdoor-rejection","chapter":"cooling","title":"Moving heat adds heat.","eyebrow":"The atmosphere closes the journey","body":"The chiller absorbs 100 kW of heat. At the starting assumption of 20 kW compressor input, it rejects 120 kW. Change the work input and close the energy balance; the atmosphere must receive the added heat too.","visual":"rejection","takeaway":"Removing heat from a chip is only the first step toward rejecting it from the facility.","notes":["For direct sensible heat exchange, the heat source must be warmer than the sink by enough to transfer the required duty. Warm outdoor air reduces the available temperature difference for a given coolant temperature. Actual capacity depends on equipment and operating conditions; a single nameplate value cannot describe every weather condition.","A refrigeration cycle can move heat from a colder side to a warmer side by consuming work. In the visual’s starting balance, 100 kW absorbed plus 20 kW of compressor input equals 120 kW rejected. Change compressor work while holding absorbed heat fixed. Pumps and fans add further facility loads according to the boundary being counted; this control does not simulate a particular chiller’s performance curve.","Air-cooled and evaporative rejection make different water and energy tradeoffs. A closed coolant loop can still coexist with an evaporative outdoor system. Abilene’s August 2025 design description instead specifies non-evaporative air-cooled chillers; initial fill and maintenance water remain separate accounts."],"sources":[{"title":"DOE · Thermodynamics, Heat Transfer, and Fluid Flow","url":"https://www.energy.gov/sites/default/files/2026-04/DOE-HDBK-1012-92_VOL1.pdf"},{"title":"DOE · Best Practices Guide for Energy-Efficient Data Center Design","url":"https://www.energy.gov/sites/default/files/2024-07/best-practice-guide-data-center-design_0.pdf"},{"title":"Crusoe · Abilene cooling design, 5 August 2025","url":"https://www.crusoe.ai/resources/blog/an-inside-look-at-the-abilene-ai-data-center"}]},{"id":"facility-overhead","chapter":"system","title":"Budget the whole facility.","eyebrow":"PUE · A ratio with a boundary","body":"Formal PUE compares total data-center energy with IT energy over the same continuous 12 months. Here, an assumed steady facility-to-IT power ratio of 1.25 turns a 100 MW facility budget into 80 MW for IT.","visual":"pue","takeaway":"PUE describes facility overhead; it does not measure computing productivity.","notes":["For reported PUE under ISO/IEC 30134-2:2026, compare total facility and IT energy over the same continuous 12 months. Shorter intervals are treated separately as interim PUE. With PUE 1.25, 1.25 units of facility energy accompany each unit of IT energy. The 0.25 overhead units are 25% of IT energy, or 20% of the total facility energy.","For this capacity exercise, explicitly assume a steady operating facility-to-IT power ratio of 1.25. Then 100 MW / 1.25 = 80 MW of IT power, leaving 20 MW for facility overhead. An annual measured PUE does not establish the instantaneous ratio during a peak or an outage.","IT includes more than accelerators: networking, storage, and other computing equipment must be accounted for. A lower PUE does not prove more useful computation, lower carbon emissions, or lower water consumption. Those questions need their own output and resource measurements."],"sources":[{"title":"ISO/IEC 30134-2 · Power usage effectiveness","url":"https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso-iec%3A30134%3A-2%3Aed-2%3Av1%3Aen"},{"title":"DOE · Best Practices Guide for Energy-Efficient Data Center Design","url":"https://www.energy.gov/sites/default/files/2024-07/best-practice-guide-data-center-design_0.pdf"},{"title":"EIA · Measuring electricity","url":"https://www.eia.gov/energyexplained/electricity/measuring-electricity.php"}]},{"id":"capacity-bottleneck","chapter":"system","title":"The smallest limit wins.","eyebrow":"Experiment · A 100 MW campus","body":"At 100 kW per rack: 100 MW facility ÷ 1.25 allows 800 racks; the 70 MW electrical train allows 700; 60 MW cooling allows 600. Space and network each allow 900. The smallest is 600.","visual":"bottleneck","takeaway":"Convert every constraint to the same boundary, then find the binding one.","notes":["The starting facility budget supports 100 / 1.25 = 80 MW of IT, equivalent to 800 loads of 100 kW each. The downstream electrical train can deliver 70 MW, or 700 such loads. Cooling supports 60 MW of IT heat, or 600 loads. Space and the assumed network limit each support 900. The minimum is 600 rack equivalents: 60 MW IT and 75 MW facility draw under the assumed ratio.","These are hypothetical, identical, fully accounted IT loads. Cooling is available duty at the assumed operating condition, after the chosen redundancy and margin policy. Other IT loads must already be reserved or included. The arithmetic provides a ceiling, not proof of deployment.","Reduce the facility-to-IT ratio first. The count stays at 600 because cooling still binds. Then raise usable cooling to 80 MW: the fixed 70 MW electrical train limits the result to 700 racks. Lower network support to 400 and it becomes the new limit. Changing one constraint can reveal another."],"sources":[{"title":"ISO/IEC 30134-2 · Power usage effectiveness","url":"https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso-iec%3A30134%3A-2%3Aed-2%3Av1%3Aen"},{"title":"DOE · Best Practices Guide for Energy-Efficient Data Center Design","url":"https://www.energy.gov/sites/default/files/2024-07/best-practice-guide-data-center-design_0.pdf"},{"title":"EIA · Measuring electricity","url":"https://www.eia.gov/energyexplained/electricity/measuring-electricity.php"}],"check":{"question":"Starting from the defaults, raise usable IT cooling from 60 MW to 80 MW. How many 100 kW rack equivalents can the campus support?","options":["600 rack equivalents","700 rack equivalents","800 rack equivalents"],"answer":1,"explanation":"The fixed downstream electrical train can deliver 70 MW, which supports 700 × 100 kW. Cooling and the facility budget each allow 800; the electrical train now binds."}},{"id":"abilene-case","chapter":"system","title":"Read a real headline precisely.","eyebrow":"Abilene · A dated evidence exercise","body":"In March 2025, Crusoe announced a 1.2 GW Abilene campus expansion. In July 2025, OpenAI reported early workloads running in parts of the facility. Those statements establish different milestones; neither supplies a measured campus IT load.","visual":"case","takeaway":"A real case tests the model without turning missing measurements into estimates.","notes":["The March 18, 2025 announcement describes the eight-building expansion and a 1.2 GW grid interconnection. The July 22, 2025 OpenAI update reports first GB200 rack deliveries and early training and inference workloads. Read them as dated statements about different scopes and states, not as a current operating dashboard.","The August 5, 2025 cooling description provides another kind of evidence: a closed facility cooling loop with air-cooled chillers and no evaporative water consumption in that rejection process. It also describes fill and maintenance water. Design intent and operating measurement remain distinct.","Try the capstone calculation using these sources. It stops: these statements do not provide matching measured IT power, available cooling at an operating condition, installed rack configuration, or workload throughput. The course’s 600-rack example is synthetic and must never become an Abilene estimate."],"sources":[{"title":"Crusoe · Abilene expansion announcement, 18 March 2025","url":"https://www.crusoe.ai/resources/newsroom/crusoe-expands-ai-data-center-campus-in-abilene-to-1-2-gigawatts"},{"title":"OpenAI · Abilene workloads, 22 July 2025","url":"https://openai.com/index/stargate-advances-with-partnership-with-oracle/"},{"title":"Crusoe · Abilene cooling design, 5 August 2025","url":"https://www.crusoe.ai/resources/blog/an-inside-look-at-the-abilene-ai-data-center"}]},{"id":"whole-system","chapter":"system","title":"Follow the power. Close the heat path.","eyebrow":"Your final reconstruction","body":"Use the campus to explain both journeys. Then replay the capacity lab: raise cooling to 80 MW, then lower network support to 400 racks. Predict which limit binds at each step before opening the explanation.","visual":"synthesis","takeaway":"A data center works when the electrical path, thermal path, and workload requirements agree.","notes":["Reconstruct the power path from the campus picture: external service, transformation, distribution, protection, continuity, rack conversion, and processor regulation. For every component, explain its function and one condition that limits it. Name a particular failure and trace the route that remains available to the load.","Turn around at the chip. Separate liquid and residual-air heat, follow both paths to the facility plant, and close the balance at the atmosphere. Distinguish coolant circulation from heat transfer across an exchanger. Include compressor and other facility power when you widen the energy-accounting boundary.","Now check the capstone prediction. The starting limit is 600 rack equivalents from cooling. Raising cooling to 80 MW exposes the 70 MW electrical-train limit: 700 racks. Reducing network support to 400 racks makes the network bind at 400. Those results establish only a scenario ceiling. Measured configuration, operation, and workload output are still required to establish productive compute."],"sources":[{"title":"DOE · Best Practices Guide for Energy-Efficient Data Center Design","url":"https://www.energy.gov/sites/default/files/2024-07/best-practice-guide-data-center-design_0.pdf"},{"title":"DOE · Thermodynamics, Heat Transfer, and Fluid Flow","url":"https://www.energy.gov/sites/default/files/2026-04/DOE-HDBK-1012-92_VOL1.pdf"},{"title":"ISO/IEC 30134-2 · Power usage effectiveness","url":"https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso-iec%3A30134%3A-2%3Aed-2%3Av1%3Aen"},{"title":"NVIDIA · DGX GB200 hardware reference","url":"https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html"}]}]}
+    </script>
+    <script type="module">
+      // math.js
+function mathFinite(value, name, minimum = 0, exclusive = false) {
+  if (
+    !Number.isFinite(value) ||
+    (exclusive ? value <= minimum : value < minimum)
+  ) {
+    throw new RangeError(
+      `${name} must be finite and ${exclusive ? "greater than" : "at least"} ${minimum}.`,
+    );
+  }
+  return value;
+}
+
+function mathFraction(value, name) {
+  mathFinite(value, name, 0, true);
+  if (value > 1) throw new RangeError(`${name} cannot exceed 1.`);
+  return value;
+}
+
+function mathSlots(value, name) {
+  if (!Number.isSafeInteger(value) || value < 0) {
+    throw new RangeError(`${name} must be a nonnegative safe integer.`);
+  }
+  return value;
+}
+
+function mathRackLimit(powerMW, rackKW) {
+  const ratio = mathFinite((powerMW * 1000) / rackKW, "Rack limit");
+  // Preserve an exact rack boundary when unit conversion introduces roundoff.
+  const nearest = Math.round(ratio);
+  const tolerance = 4 * Number.EPSILON * Math.max(1, ratio);
+  return mathSlots(
+    Math.abs(ratio - nearest) <= tolerance ? nearest : Math.floor(ratio),
+    "Rack limit",
+  );
+}
+
+function currentThreePhase(powerMW, voltageKV, powerFactor = 1) {
+  mathFinite(powerMW, "Power");
+  mathFinite(voltageKV, "Line-to-line voltage", 0, true);
+  mathFraction(powerFactor, "Power factor");
+  return mathFinite(
+    ((powerMW / voltageKV) * 1000) / Math.sqrt(3) / powerFactor,
+    "Current",
+  );
+}
+
+function resistiveLossRatio(voltageKV, referenceKV = 138) {
+  mathFinite(voltageKV, "Voltage", 0, true);
+  mathFinite(referenceKV, "Reference voltage", 0, true);
+  return mathFinite((referenceKV / voltageKV) ** 2, "Loss ratio");
+}
+
+function energyMWh(powerMW, hours) {
+  mathFinite(powerMW, "Power");
+  mathFinite(hours, "Duration");
+  return mathFinite(powerMW * hours, "Energy");
+}
+
+function rideThroughMinutes(energyMWh, powerMW, efficiency = 1) {
+  mathFinite(energyMWh, "Usable stored energy");
+  mathFinite(powerMW, "Load power", 0, true);
+  mathFraction(efficiency, "Discharge efficiency");
+  return mathFinite((energyMWh / powerMW) * efficiency * 60, "Runtime");
+}
+
+function rackCurrent(powerKW, voltageV) {
+  mathFinite(powerKW, "DC power");
+  mathFinite(voltageV, "DC voltage", 0, true);
+  return mathFinite((powerKW / voltageV) * 1000, "DC current");
+}
+
+function coolantFlow(powerKW, deltaT, cp = 4.18) {
+  mathFinite(powerKW, "Heat load");
+  mathFinite(deltaT, "Coolant temperature rise", 0, true);
+  mathFinite(cp, "Specific heat capacity", 0, true);
+  return mathFinite(powerKW / deltaT / cp, "Mass flow");
+}
+
+function capacityBudget(
+  facilityMW,
+  pue,
+  coolingMW,
+  rackKW,
+  rackSlots,
+  networkRacks,
+  electricalMW = Infinity,
+) {
+  mathFinite(facilityMW, "Facility power budget");
+  mathFinite(pue, "Assumed facility-to-IT ratio", 1);
+  mathFinite(coolingMW, "Available IT heat-removal capacity");
+  mathFinite(rackKW, "Rack power", 0, true);
+  mathSlots(rackSlots, "Physical rack slots");
+  mathSlots(networkRacks, "Network-supported rack count");
+  const itBudgetMW = facilityMW / pue;
+  const limits = {
+    power: mathRackLimit(itBudgetMW, rackKW),
+    cooling: mathRackLimit(coolingMW, rackKW),
+    space: rackSlots,
+    network: networkRacks,
+  };
+  if (electricalMW !== Infinity) {
+    mathFinite(electricalMW, "Downstream electrical IT capacity");
+    limits.electrical = mathRackLimit(electricalMW, rackKW);
+  }
+  const supportedRacks = Math.min(...Object.values(limits));
+  const supportedITMW = mathFinite(
+    (supportedRacks * rackKW) / 1000,
+    "Supported IT power",
+  );
+  return {
+    itBudgetMW,
+    supportedRacks,
+    supportedITMW,
+    facilityDrawMW: mathFinite(supportedITMW * pue, "Scenario facility draw"),
+    binding: Object.keys(limits).filter(
+      (key) => limits[key] === supportedRacks,
+    ),
+    limits,
+  };
+}
+
+// diagrams.js
+// prettier-ignore
+const VISUAL_IDS = [
+  "campus",
+  "energy",
+  "grid",
+  "voltage",
+  "substation",
+  "capacity",
+  "train",
+  "ride-through",
+  "redundancy",
+  "failure",
+  "rack",
+  "current",
+  "compute",
+  "heat",
+  "liquid",
+  "cdu",
+  "air",
+  "rejection",
+  "pue",
+  "bottleneck",
+  "case",
+  "synthesis"
+];
+const C = {
+  power: "#ffc875",
+  cold: "#75d8e7",
+  hot: "#f08383",
+  ink: "#dbe7ee",
+  muted: "#9eb3c1",
+  green: "#93dbb0",
+  violet: "#bab0f3",
+};
+const fmt = (n, d = 0) =>
+  Number(n).toLocaleString("en-US", {
+    maximumFractionDigits: d,
+    minimumFractionDigits: d,
+  });
+function txt(x, y, s, cls = "", color = "", anchor = "start") {
+  return `<text x="${x}" y="${y}" class="diagram-text ${cls}"${color ? ` fill="${color}" style="fill:${color}"` : ""} text-anchor="${anchor}">${s}</text>`;
+}
+function line(d, c = C.power, w = 3, extra = "") {
+  return `<path d="${d}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round" ${extra}/>`;
+}
+function rect(x, y, w, h, fill = "#203545", stroke = "#547084", r = 3) {
+  return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}" fill="${fill}" stroke="${stroke}"/>`;
+}
+function dot(x, y, c = C.power, r = 5) {
+  return `<circle cx="${x}" cy="${y}" r="${r}" fill="${c}"/>`;
+}
+function arrow(d, c = C.power, w = 3) {
+  return line(d, c, w, `marker-end="url(#a-${c.slice(1)})"`);
+}
+function metric(x, y, n, unit, label, c = C.power) {
+  return (
+    txt(x, y, n, "diagram-number", c) +
+    txt(x, y + 28, unit, "diagram-small", c) +
+    txt(x, y + 60, label, "diagram-small")
+  );
+}
+function chip(x, y, w = 100, h = 95) {
+  let p = "";
+  for (let i = 10; i < w; i += 12)
+    p += line(`M${x + i} ${y - 9}v9 M${x + i} ${y + h}v9`, "#628294", 2);
+  for (let i = 10; i < h; i += 12)
+    p += line(`M${x - 9} ${y + i}h9 M${x + w} ${y + i}h9`, "#628294", 2);
+  return (
+    p +
+    rect(x, y, w, h, "#1a3242", "#87a4b4") +
+    rect(x + 12, y + 12, w - 24, h - 24, "#365963", C.cold) +
+    line(`M${x + 20} ${y + 20}h${w - 40}v${h - 40}h-${w - 40}Z`, "#87d2ce", 0.6)
+  );
+}
+function server(x, y, w = 110, h = 30, lit = true) {
+  return (
+    rect(x, y, w, h, "#213b4b", "#58768a", 1) +
+    line(`M${x + 12} ${y + 9}h${w - 40}m-${w - 40} 7h${w - 40}`, "#7f9cad", 1) +
+    dot(x + w - 12, y + 12, lit ? C.green : "#617280", 2.5)
+  );
+}
+function rack(x, y, w = 110, h = 220, lit = true) {
+  let a = rect(x, y, w, h, "#132938", "#728e9f", 2);
+  for (let i = 0; i < 6; i++)
+    a += server(x + 8, y + 14 + (i * (h - 28)) / 6, w - 16, (h - 40) / 6, lit);
+  return (
+    a +
+    line(`M${x + 9} ${y + h + 4}v7 M${x + w - 9} ${y + h + 4}v7`, "#567789", 5)
+  );
+}
+function cube(
+  x,
+  y,
+  w,
+  d,
+  h,
+  colors = ["#365769", "#233f51", "#192f41"],
+  stroke = "#638294",
+) {
+  const p = [
+      [x, y],
+      [x + w, y + w * 0.38],
+      [x + w - d, y + w * 0.38 + d * 0.5],
+      [x - d, y + d * 0.5],
+    ],
+    t = p.map(([a, b]) => [a, b - h]);
+  const poly = (pts, fill) =>
+    `<polygon points="${pts.map((a) => a.join(",")).join(" ")}" fill="${fill}" stroke="${stroke}" stroke-width="1"/>`;
+  return (
+    poly([p[0], p[1], t[1], t[0]], colors[1]) +
+    poly([p[1], p[2], t[2], t[1]], colors[2]) +
+    poly(t, colors[0])
+  );
+}
+function pylon(x, y, s = 1) {
+  return `<g transform="translate(${x} ${y}) scale(${s})">${line("M-26 0 0-150 26 0 M-20-32H20 M-15-64H15 M-10-96H10 M-6-120H6 M-20-32 15-64-10-96 6-120 M20-32-15-64 10-96-6-120 M-50-99H50 M-37-126H37 M0-150-37-126-50-99 M0-150 37-126 50-99", "#a2b8c4", 2)}${[-45, -30, 30, 45].map((a) => line(`M${a} -99v12`, "#849dae", 3)).join("")}</g>`;
+}
+function transformer(x, y, s = 1) {
+  return `<g transform="translate(${x} ${y}) scale(${s})">${cube(0, 0, 85, 45, 80)}${Array.from({ length: 8 }, (_, i) => line(`M${-35 + i * 7} ${-10 + i * 2.7}v-54`, "#9cb4c1", 2)).join("")}${[0, 27, 54].map((a) => line(`M${a} ${-77 + a * 0.38}v-24`, "#dbdfe0", 5)).join("")}</g>`;
+}
+function fan(x, y, r = 23) {
+  return `<g>${`<circle cx="${x}" cy="${y}" r="${r}" stroke="#8dafbd" fill="#183142"/>`}${[0, 120, 240].map((a) => `<path d="M${x} ${y}q-${r} -${r} ${r * 0.1} -${r * 0.83}q${r * 0.55} ${r * 0.25} -${r * 0.1} ${r * 0.83}" fill="#6a8b9b" transform="rotate(${a} ${x} ${y})"/>`).join("")}${dot(x, y, "#c9dade", 4)}</g>`;
+}
+function sv(title, body) {
+  const markers = Object.values(C)
+    .map(
+      (c) =>
+        `<marker id="a-${c.slice(1)}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 1 8 5 0 9" fill="none" stroke="${c}" stroke-width="1.5"/></marker>`,
+    )
+    .join("");
+  return `<svg viewBox="0 0 900 545" role="img" aria-label="${title}" xmlns="http://www.w3.org/2000/svg"><defs>${markers}<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".65" fill="#9db8ca" opacity=".12"/></pattern></defs><rect width="900" height="545" fill="url(#dots)"/><g class="subtle-enter">${body}</g></svg>`;
+}
+
+function campusScene(s, final = false) {
+  let b = "";
+  b += `<path d="M74 297 450 139 829 320 454 498Z" fill="#172c3b" stroke="#38556a"/>`;
+  for (let i = 0; i < 7; i++)
+    b += line(
+      `M${106 + i * 49} ${283 - i * 21}l378 181`,
+      "#6b8ea0",
+      0.65,
+      'opacity=".18"',
+    );
+  b += line("M74 297 450 478 829 320", "#55778a", 1);
+  b += pylon(172, 277, 0.82) + pylon(264, 235, 0.6);
+  b += line(
+    "M135 194Q180 223 237 175 M209 194Q230 200 291 175",
+    "#708b9d",
+    1.2,
+  );
+  b += transformer(305, 333, 0.82) + transformer(375, 304, 0.57);
+  b += cube(468, 399, 239, 127, 105, ["#233e50", "#1b3344", "#142c3d"]);
+  // Open roof, inner floor and a pair of visible rack rows.
+  b += `<polygon points="${[
+    [447, 307],
+    [641, 381],
+    [733, 335],
+    [539, 260],
+  ]
+    .map((p) => p.join(","))
+    .join(" ")}" fill="#203b4c" stroke="#7694a4"/>`;
+  for (let row = 0; row < 2; row++)
+    for (let i = 0; i < 5; i++) {
+      const x = 477 + i * 34 + row * 46,
+        y = 324 + i * 13 - row * 23;
+      b += cube(x, y, 24, 17, 58, ["#5d7f8c", "#314f5f", "#203c4d"]);
+      for (let j = 0; j < 5; j++)
+        b += line(`M${x + 3} ${y - 9 - j * 8}l17 6`, "#88b4bb", 1);
+    }
+  b += cube(648, 221, 127, 49, 48, ["#3e5d6b", "#2a4555", "#1f3748"]);
+  b += fan(677, 181, 16) + fan(719, 197, 16);
+  b +=
+    arrow("M199 275 230 290 275 308", C.power, 4) +
+    arrow("M352 356 405 381 454 358", C.power, 4);
+  b += arrow("M591 286 637 261 696 282 745 257 745 218", C.hot, 4);
+  b += arrow("M668 239 625 219 557 251 557 284", C.cold, 3);
+  b += arrow("M686 165v-35", C.hot, 2) + arrow("M725 180v-37", C.hot, 2);
+  b +=
+    line("M187 140V101H80", "#698697", 1) +
+    txt(80, 81, "01 / GRID", "diagram-small", C.power);
+  b +=
+    line("M306 361 264 405H87", "#698697", 1) +
+    txt(87, 432, "02 / SUBSTATION", "diagram-small", C.power);
+  b +=
+    line("M610 393v65h167", "#698697", 1) +
+    txt(617, 483, "03 / RACKS", "diagram-small", C.ink);
+  b +=
+    line("M741 167 788 116h35", "#698697", 1) +
+    txt(602, 86, "04 / HEAT OUT", "diagram-small", C.hot);
+  b += txt(
+    450,
+    40,
+    final
+      ? "A WORKING RACK IS A SYSTEM OUTCOME"
+      : "ELECTRICITY IN. COMPUTATION. HEAT OUT.",
+    "diagram-tiny",
+    C.muted,
+    "middle",
+  );
+  return {
+    body: b,
+    caption:
+      "An illustrative campus, with an open roof to reveal the racks. Gold carries electricity; blue and coral trace cooling supply and heat removal.",
+    label: final ? "22 / THE WHOLE SYSTEM" : "01 / ONE CAMPUS, TWO JOURNEYS",
+  };
+}
+function energyScene(s) {
+  const p = s.power ?? 1,
+    h = s.hours ?? 1;
+  let b = txt(
+    74,
+    69,
+    "POWER IS THE HEIGHT. ENERGY IS THE AREA.",
+    "diagram-tiny",
+  );
+  b += line("M105 129V410H800", "#7a94a5", 1.5);
+  const top = 410 - (p / 5) * 230,
+    right = 105 + (h / 24) * 695;
+  b +=
+    `<path d="M105 410V${top}H${right}V410Z" fill="#ffc875" fill-opacity=".19"/>` +
+    line(`M105 ${top}H${right}`, C.power, 3) +
+    line(`M${right} ${top}V410`, C.power, 1, 'stroke-dasharray="4 6"');
+  b +=
+    txt(105, 451, "0 h", "diagram-small") +
+    txt(800, 451, "24 h", "diagram-small", "", "end") +
+    txt(105, 113, "MW", "diagram-small");
+  b += metric(
+    405,
+    186,
+    fmt(energyMWh(p, h), 1),
+    "MWh of energy",
+    `${fmt(p, 1)} MW × ${h} hours`,
+  );
+  b += txt(
+    74,
+    505,
+    "A 1 MW load running for 1 hour uses 1 MWh.",
+    "diagram-small",
+  );
+  return {
+    body: b,
+    label: "02 / RATE × TIME",
+    tag: "IDEALIZED CONSTANT LOAD",
+    caption:
+      "The height is power (MW); width is time (hours). The shaded area is energy (MWh). Move either slider to change the area.",
+  };
+}
+function gridScene(s) {
+  let b = txt(
+    62,
+    56,
+    "A CONTRACT AND A WIRE DO DIFFERENT JOBS.",
+    "diagram-tiny",
+  );
+  b +=
+    `<circle cx="153" cy="252" r="58" fill="#223b4a" stroke="#8ca8b8" stroke-width="2"/>` +
+    line("M118 252q17-37 35 0t35 0", C.power, 3) +
+    line("M108 211H215", C.power, 3);
+  b +=
+    rect(267, 184, 226, 110) +
+    txt(380, 226, "Shared grid", "", "", "middle") +
+    txt(380, 255, "Many sources · many loads", "diagram-small", "", "middle");
+  b += rack(669, 184, 100, 166) + arrow("M211 230H263") + arrow("M497 230H660");
+  b +=
+    rect(305, 360, 150, 92, "#262b43", "#8d84b3") +
+    line("M329 386h100m-100 15h78m-78 15h92", C.violet, 1.5) +
+    txt(380, 479, "Energy contract", "diagram-small", C.violet, "middle");
+  b += line(
+    "M160 309V406H300 M459 406H716V364",
+    C.violet,
+    2,
+    'stroke-dasharray="6 7"',
+  );
+  b +=
+    txt(152, 327, "Generation", "diagram-small", "", "middle") +
+    txt(719, 163, "Data center", "diagram-small", "", "middle");
+  b +=
+    txt(62, 104, "Physical delivery", "", C.power) +
+    txt(558, 104, "Commercial accounting", "", C.violet);
+  return {
+    body: b,
+    label: "03 / SOURCES & DELIVERY",
+    caption:
+      "The solid line is the physical electricity network. The dashed line represents a contract. Onsite generation still needs its own equipment, fuel, permissions, and operating limits.",
+  };
+}
+function voltageScene(s) {
+  const v = s.voltage ?? 138,
+    i = currentThreePhase(100, v),
+    ratio = resistiveLossRatio(v, 13.8);
+  let b = "";
+  b += pylon(184, 316, 1.1) + pylon(695, 316, 1.1);
+  b += line(
+    "M136 203Q430 304 647 203 M151 203Q430 274 662 203 M218 203Q430 242 729 203",
+    C.power,
+    Math.max(1.5, (5 * 13.8) / v),
+  );
+  b += txt(448, 103, "100 MW DELIVERED", "diagram-tiny", C.muted, "middle");
+  b += txt(448, 165, `${fmt(v, 1)} kV`, "diagram-number", C.power, "middle");
+  b += metric(122, 406, fmt(i), "amps per phase", "I = P / (√3 × V × PF)");
+  b += metric(
+    534,
+    406,
+    `${fmt(ratio * 100, ratio < 0.01 ? 2 : 1)}%`,
+    "relative conductor loss",
+    "Compared with 13.8 kV",
+    C.hot,
+  );
+  return {
+    body: b,
+    label: "04 / THE VOLTAGE EXPERIMENT",
+    tag: "BALANCED 3-PHASE · PF = 1",
+    caption:
+      "Fixed 100 MW, balanced three-phase AC, power factor 1, and unchanged conductor resistance. Raising voltage 10× lowers current 10× and I²R loss 100×. It does not create power.",
+  };
+}
+function substationScene(s) {
+  let b = txt(
+    65,
+    62,
+    "CHANGE VOLTAGE. CONTROL WHERE POWER CAN FLOW.",
+    "diagram-tiny",
+  );
+  b += pylon(155, 290, 1) + transformer(417, 329, 1.3);
+  b += cube(633, 323, 64, 36, 136) + cube(704, 352, 64, 36, 136);
+  b += arrow("M186 267 290 309 336 286") + arrow("M471 352 567 390 618 365");
+  b +=
+    line("M421 165v-45h90", "#6e8b9e", 1) +
+    txt(526, 125, "Transformer", "", C.power) +
+    txt(526, 152, "Changes voltage", "diagram-small");
+  b +=
+    line("M736 223v-57h63", "#6e8b9e", 1) +
+    txt(663, 141, "Switchgear", "", C.ink);
+  b +=
+    txt(100, 396, "HIGH VOLTAGE", "diagram-tiny", C.power) +
+    txt(568, 438, "PROTECTED BUILDING FEEDERS", "diagram-tiny", C.power);
+  b += txt(
+    75,
+    501,
+    "A transformer changes voltage; breakers isolate faults. Neither makes electrical energy.",
+    "diagram-small",
+  );
+  return {
+    body: b,
+    label: "05 / THE CAMPUS THRESHOLD",
+    caption:
+      "Conceptual equipment arrangement. Actual campus voltage, protection, grounding, redundancy, and feeder topology are site-specific engineering choices.",
+  };
+}
+function capacityScene(s) {
+  const step = s.gate ?? 0,
+    names = ["Announced", "Connected", "Energized", "Commissioned", "Loaded"];
+  let b = txt(65, 69, "CAPACITY HAS A LIFECYCLE.", "diagram-tiny");
+  for (let i = 0; i < 5; i++) {
+    const x = 66 + i * 164,
+      active = i <= step;
+    b += rect(
+      x,
+      192,
+      138,
+      176,
+      active ? "#2e423e" : "#1b303f",
+      active ? C.green : "#465f72",
+    );
+    b += txt(
+      x + 18,
+      231,
+      String(i + 1).padStart(2, "0"),
+      "diagram-small",
+      active ? C.green : C.muted,
+    );
+    b += txt(x + 18, 280, names[i], "diagram-small", active ? C.ink : C.muted);
+    b += txt(
+      x + 18,
+      337,
+      i === step ? "YOU ARE HERE" : i < step ? "PASSED" : "NEXT GATE",
+      "diagram-tiny",
+      active ? C.green : C.muted,
+    );
+    if (i < 4)
+      b += arrow(`M${x + 145} 279h11`, i < step ? C.green : "#546f81", 1.5);
+  }
+  const desc = [
+    "A plan describes an intended outcome.",
+    "The electrical connection has been established.",
+    "Equipment is electrically live.",
+    "Systems have passed their required integrated tests.",
+    "IT equipment is drawing power under workload.",
+  ];
+  b += txt(66, 126, "These milestones answer different questions.", "");
+  b += txt(66, 439, desc[step], "", C.green);
+  return {
+    body: b,
+    label: "06 / FROM PROMISE TO SERVICE",
+    tag: "SIMPLIFIED MILESTONES",
+    caption:
+      "Select a milestone. A later stage requires additional evidence; a permit, lease, interconnection agreement, or energized substation does not prove running racks. Track one selected path: other buildings may be at different stages.",
+  };
+}
+function trainScene(s) {
+  const a = s.equipment ?? 0,
+    names = ["Transformer", "Switchgear", "UPS", "Busway", "Rack"],
+    verbs = [
+      "Changes voltage",
+      "Isolates and protects",
+      "Conditions + bridges",
+      "Distributes power",
+      "Converts AC to DC",
+    ];
+  let b = txt(
+    62,
+    64,
+    "LEARN EACH BOX BY THE PROBLEM IT SOLVES.",
+    "diagram-tiny",
+  );
+  for (let i = 0; i < 5; i++) {
+    const x = 62 + i * 164,
+      c = a === i ? C.power : "#657f90";
+    if (i === 0) b += transformer(x + 45, 323, 0.75);
+    else if (i === 4) b += rack(x + 18, 170, 105, 182);
+    else {
+      b += rect(x + 12, 190, 112, 162, a === i ? "#3d3b2d" : "#213847", c);
+      if (i === 1) b += line(`M${x + 68} 215v32m0 36v32m0-32 21-25`, c, 3);
+      if (i === 2) {
+        b +=
+          rect(x + 35, 239, 65, 41, "none", c) +
+          txt(x + 48, 267, "~ → ~", "diagram-small", c);
+      }
+      if (i === 3)
+        for (let k = 0; k < 4; k++)
+          b += line(`M${x + 32} ${220 + k * 27}h72`, c, 4);
+    }
+    b += txt(
+      x + 64,
+      396,
+      names[i],
+      "diagram-small",
+      a === i ? C.power : C.muted,
+      "middle",
+    );
+    if (i < 4) b += arrow(`M${x + 135} 284h25`, C.power, 2);
+  }
+  b += txt(450, 471, verbs[a], "", C.power, "middle");
+  return {
+    body: b,
+    label: "07 / INSIDE THE ELECTRICAL ROOM",
+    caption:
+      "A conceptual protected power path. UPS placement, bypass, alternate feeds, and maintenance arrangements vary. Select equipment to connect its name to its function.",
+  };
+}
+function rideScene(s) {
+  const off = s.outage ?? false,
+    e = s.battery ?? 0.25,
+    p = 5,
+    t = rideThroughMinutes(e, p);
+  let b = txt(62, 65, "STORED ENERGY BUYS TIME.", "diagram-tiny");
+  b += pylon(153, 312, 0.93) + rack(693, 165, 110, 211, !off || e > 0);
+  b +=
+    rect(356, 221, 174, 100, "#203b45", off ? C.power : "#587d89") +
+    rect(370, 236, 143, 69, "#19313e", C.power) +
+    rect(530, 251, 12, 39, C.power, C.power);
+  const cells = Math.round((e / 0.5) * 8);
+  for (let j = 0; j < 8; j++)
+    b += rect(
+      379 + j * 16,
+      246,
+      11,
+      49,
+      j < cells ? C.power : "#2c404c",
+      "none",
+      1,
+    );
+  b += arrow("M203 269H344", off ? "#546a7a" : C.power, 3);
+  if (off) b += line("M260 252l25 33m0-33-25 33", C.hot, 3);
+  b += arrow("M548 269H681", C.power, 4);
+  b +=
+    txt(
+      152,
+      359,
+      off ? "Utility lost" : "Utility available",
+      "diagram-small",
+      off ? C.hot : C.green,
+      "middle",
+    ) +
+    txt(444, 359, "UPS + stored energy", "diagram-small", "", "middle") +
+    txt(748, 415, "5 MW load", "diagram-small", C.power, "middle");
+  b += metric(
+    100,
+    447,
+    fmt(t, 1),
+    "minutes of ideal runtime",
+    `${fmt(e, 2)} MWh usable output energy ÷ 5 MW`,
+  );
+  return {
+    body: b,
+    label: "08 / RIDE THROUGH AN INTERRUPTION",
+    tag: "IDEAL ENERGY LIMIT",
+    caption:
+      "Use the outage switch, then change stored energy. Real runtime also depends on UPS power rating, battery condition, discharge limits, and transfer behavior. Backup must become available before stored energy runs out.",
+  };
+}
+function redundancyScene(s) {
+  const failed = s.pathFailed ?? false;
+  let b = txt(64, 66, "REDUNDANCY IS ABOUT A SURVIVING PATH.", "diagram-tiny");
+  b += rack(694, 185, 116, 199, true);
+  for (let j = 0; j < 2; j++) {
+    const y = 178 + j * 177,
+      c = j === 0 && failed ? C.hot : j === 1 && failed ? C.green : C.power;
+    b +=
+      rect(96, y, 156, 88, "#203746", c) +
+      txt(
+        174,
+        y + 36,
+        `PATH ${j === 0 ? "A" : "B"}`,
+        "diagram-small",
+        c,
+        "middle",
+      ) +
+      txt(174, y + 64, "100% of load", "diagram-small", "", "middle");
+    b += arrow(
+      `M258 ${y + 44}H526V${y + 44 + (j === 0 ? 35 : -35)}H679`,
+      j === 0 && failed ? "#4e6273" : c,
+      3,
+    );
+    if (j === 0 && failed)
+      b += line(`M367 ${y + 27}l29 34m0-34-29 34`, C.hot, 3);
+  }
+  b += txt(
+    94,
+    449,
+    failed
+      ? "Path B must carry the full load after A fails."
+      : "Both paths are available. Each is rated for the full load.",
+    "",
+    failed ? C.green : C.ink,
+  );
+  b += txt(
+    94,
+    488,
+    "A generic dual-fed design; actual transfers depend on the load and architecture.",
+    "diagram-small",
+  );
+  return {
+    body: b,
+    label: "09 / WHAT SURVIVES A FAILURE?",
+    tag: "ILLUSTRATIVE 2N POWER PATHS",
+    caption:
+      "Disable path A. Duplicating boxes helps only if the other path has enough capacity and avoids the same failure. Two full paths support one load; their ratings are not additive sellable capacity.",
+  };
+}
+function failureScene(s) {
+  const trip = s.fault ?? false;
+  let b = txt(
+    62,
+    62,
+    "ISOLATE THE FAULT. KEEP THE OTHER LOADS ALIVE.",
+    "diagram-tiny",
+  );
+  b +=
+    line("M148 153H752", C.power, 5) +
+    txt(450, 125, "SHARED SUPPLY BUS", "diagram-tiny", C.power, "middle");
+  for (let j = 0; j < 3; j++) {
+    const x = 192 + j * 258,
+      c = trip && j === 1 ? C.hot : C.power;
+    b +=
+      line(`M${x} 154v60`, c, 3) +
+      line(`M${x} 262v43`, trip && j === 1 ? "#425a6b" : c, 3) +
+      rect(x - 23, 216, 46, 43, "#172e3d", c) +
+      line(
+        `M${x} 223v6m0 17v5m0-5 ${trip && j === 1 ? "15-13" : "0-13"}`,
+        c,
+        2,
+      ) +
+      rack(x - 56, 310, 112, 137, !(trip && j === 1));
+    if (trip && j === 1)
+      b += txt(x, 486, "ISOLATED", "diagram-small", C.hot, "middle");
+    else b += txt(x, 486, "POWERED", "diagram-small", C.green, "middle");
+  }
+  return {
+    body: b,
+    label: "10 / SELECTIVE PROTECTION",
+    caption:
+      "A simplified selective-trip example. Fault location, fault current, device ratings, and coordinated settings determine which device opens. This diagram assumes branch-level selectivity.",
+  };
+}
+function rackScene(s) {
+  let b = txt(
+    65,
+    62,
+    "THE RACK IS AN ELECTRICAL SYSTEM IN MINIATURE.",
+    "diagram-tiny",
+  );
+  b += rack(133, 144, 190, 286);
+  b += rect(150, 165, 155, 47, "#443e2d", C.power);
+  b += txt(228, 195, "POWER SHELF", "diagram-small", C.power, "middle");
+  b +=
+    arrow("M73 189H130", C.power, 3) +
+    txt(63, 160, "AC", "diagram-small", C.power);
+  b +=
+    line("M319 230H382V152H526", C.power, 2) +
+    txt(447, 124, "DC bus", "diagram-small", C.power, "middle");
+  b +=
+    rect(398, 285, 142, 126, "#264234", "#7ba591") +
+    rect(429, 325, 81, 43, "#4c6442", C.power) +
+    txt(469, 353, "VRM", "", C.power, "middle");
+  b +=
+    arrow("M530 160H602V270H544", C.power, 3) +
+    arrow("M545 349H655", C.power, 4) +
+    chip(681, 300, 118, 101);
+  b +=
+    txt(228, 474, "RACK", "diagram-tiny", C.muted, "middle") +
+    txt(469, 451, "BOARD REGULATOR", "diagram-tiny", C.muted, "middle") +
+    txt(740, 451, "PROCESSOR", "diagram-tiny", C.muted, "middle");
+  b += txt(677, 251, "Low-voltage rails", "diagram-small", C.power);
+  return {
+    body: b,
+    label: "11 / AC TO SILICON",
+    caption:
+      "Conceptual rack path: power supplies rectify AC, a rack or board bus distributes DC, and local voltage regulators feed the processor. Bus architecture and voltage vary by platform.",
+  };
+}
+function currentScene(s) {
+  const v = s.coreV ?? 1,
+    i = rackCurrent(1, v);
+  let b = txt(
+    65,
+    65,
+    "SAME POWER. LOWER VOLTAGE. MUCH MORE CURRENT.",
+    "diagram-tiny",
+  );
+  b +=
+    rect(90, 211, 170, 135, "#243c45", "#6b8a9c") +
+    txt(175, 269, "1,000 W", "", "", "middle") +
+    txt(175, 300, "ideal load power", "diagram-small", "", "middle");
+  b +=
+    chip(634, 205, 144, 141) +
+    arrow("M270 276H612", C.power, 2 + 10 * Math.sqrt(i / 1000));
+  b += txt(
+    446,
+    222,
+    `${fmt(v, v < 2 ? 1 : 0)} V`,
+    "diagram-number",
+    C.power,
+    "middle",
+  );
+  b += txt(446, 336, `${fmt(i)} A`, "", C.power, "middle");
+  b +=
+    txt(95, 433, "50 V → 20 A", "", C.muted) +
+    txt(508, 433, "1 V → 1,000 A", "", C.power);
+  b += txt(
+    95,
+    485,
+    "P = V × I     ·     Local regulators keep the huge-current path short.",
+    "diagram-small",
+  );
+  return {
+    body: b,
+    label: "12 / WHY REGULATION MOVES CLOSE TO THE CHIP",
+    tag: "IDEALIZED 1 kW LOAD",
+    caption:
+      "Change voltage for an ideal constant 1 kW DC load. This isolates P = VI; it is not a proposed rack-wide 1 V bus, and real converters have losses and multiple processor rails. Line thickness is qualitative.",
+  };
+}
+function computeScene(s) {
+  const util = s.utilization ?? 60;
+  let b = txt(
+    65,
+    62,
+    "POWER ENABLES COMPUTATION. IT DOES NOT MEASURE IT.",
+    "diagram-tiny",
+  );
+  b += chip(108, 197, 185, 165);
+  b +=
+    arrow("M54 279H87", C.power, 4) +
+    arrow("M199 367v58", C.hot, 4) +
+    txt(195, 469, "HEAT", "diagram-tiny", C.hot, "middle");
+  b += txt(352, 142, "AN ILLUSTRATIVE WORKLOAD TRACE", "diagram-tiny");
+  const busy = Math.round(util / 10);
+  for (let r = 0; r < 4; r++)
+    for (let j = 0; j < 10; j++)
+      b += rect(
+        355 + j * 43,
+        187 + r * 44,
+        32,
+        29,
+        j < busy ? C.violet : "#233747",
+        j < busy ? "#cec3fa" : "#435e70",
+        2,
+      );
+  b += txt(
+    356,
+    412,
+    `${util}% scheduled busy time in this illustration`,
+    "",
+    C.violet,
+  );
+  b += txt(
+    356,
+    461,
+    "Model · precision · memory · network · batching",
+    "diagram-small",
+  );
+  b += line("M301 267H337", C.violet, 2, 'stroke-dasharray="4 6"');
+  return {
+    body: b,
+    label: "13 / FROM POWER TO USEFUL WORK",
+    tag: "CONCEPTUAL SCHEDULING TRACE",
+    caption:
+      "Purple blocks show illustrative busy intervals, not measured efficiency. No token rate can be inferred from these blocks or from a megawatt rating. Electrical power still becomes heat while the computation happens.",
+  };
+}
+function heatScene(s) {
+  let b = txt(
+    62,
+    62,
+    "THE ELECTRICAL BUDGET BECOMES A THERMAL DUTY.",
+    "diagram-tiny",
+  );
+  b +=
+    rack(390, 149, 146, 259) +
+    arrow("M75 270H360", C.power, 18) +
+    arrow("M568 270H821", C.hot, 18);
+  b +=
+    txt(200, 210, "100 kW", "diagram-number", C.power, "middle") +
+    txt(200, 340, "ELECTRICITY", "diagram-tiny", C.power, "middle");
+  b +=
+    txt(699, 210, "≈100 kW", "diagram-number", C.hot, "middle") +
+    txt(699, 340, "HEAT", "diagram-tiny", C.hot, "middle");
+  b += txt(
+    464,
+    448,
+    "Information processing occurs inside the rack.",
+    "",
+    C.ink,
+    "middle",
+  );
+  b += txt(
+    464,
+    487,
+    "It does not remove a large fraction of the electrical energy.",
+    "diagram-small",
+    C.muted,
+    "middle",
+  );
+  return {
+    body: b,
+    label: "14 / TURN THE JOURNEY AROUND",
+    tag: "STEADY STATE · RACK BOUNDARY",
+    caption:
+      "Nearly all rack electrical input ultimately becomes heat. At steady state, heat must leave at approximately the electrical input rate; thermal storage only buys time.",
+  };
+}
+function liquidScene(s) {
+  const dt = s.deltaT ?? 10,
+    flow = coolantFlow(100, dt);
+  let b = txt(64, 61, "THE WATER CARRIES HEAT AWAY.", "diagram-tiny");
+  b += chip(122, 192, 182, 152) + rect(110, 185, 206, 168, "#365e6e55", C.cold);
+  b += line("M120 211h163v29H139v28h144v29H138v27h162", C.cold, 7);
+  b +=
+    arrow("M67 214H112", C.cold, 6) + arrow("M303 326H383V226H473", C.hot, 6);
+  b += metric(
+    525,
+    220,
+    fmt(flow, 2),
+    "kg/s of water",
+    `≈ ${fmt(flow * 60)} L/min`,
+    C.cold,
+  );
+  b +=
+    txt(523, 355, `ΔT = ${dt}°C`, "", C.hot) +
+    txt(523, 390, "100 kW transferred into water", "diagram-small");
+  b +=
+    txt(73, 448, "Q̇ = ṁ × cₚ × ΔT", "", C.cold) +
+    txt(
+      73,
+      491,
+      "Half the temperature rise needs twice the flow.",
+      "diagram-small",
+    );
+  return {
+    body: b,
+    label: "15 / THE COOLANT EXPERIMENT",
+    tag: "IDEAL WATER HEAT BALANCE",
+    caption:
+      "Assume 100 kW captured by pure water, cp = 4.18 kJ/(kg·K), density ≈ 1 kg/L. Actual coolant mixtures, pressure drop, pump limits, and allowable component temperatures constrain a design.",
+  };
+}
+function cduScene(s) {
+  let b = txt(
+    65,
+    60,
+    "HEAT CROSSES. THE TWO FLUIDS STAY SEPARATE.",
+    "diagram-tiny",
+  );
+  b += rack(79, 210, 101, 168) + rect(354, 151, 192, 265, "#213d4a", "#83a2b4");
+  for (let j = 0; j < 10; j++)
+    b += line(`M${382 + j * 13} 186v189`, j % 2 === 0 ? C.cold : C.hot, 5);
+  b += arrow("M183 243H368", C.hot, 4) + arrow("M370 352H184", C.cold, 4);
+  b +=
+    arrow("M533 210H751V266", C.hot, 4) + arrow("M752 344V374H533", C.cold, 4);
+  b +=
+    rect(682, 268, 136, 74, "#203847", "#82a2b6") +
+    txt(750, 311, "Facility loop", "diagram-small", "", "middle");
+  b +=
+    txt(127, 168, "RACK LOOP", "diagram-tiny", C.cold, "middle") +
+    txt(450, 118, "HEAT EXCHANGER", "diagram-tiny", C.ink, "middle");
+  b +=
+    arrow("M408 287H494", C.hot, 3) +
+    txt(450, 448, "HEAT →", "diagram-small", C.hot, "middle");
+  b += txt(
+    62,
+    502,
+    "A liquid-to-liquid CDU also manages circulation and operating conditions.",
+    "diagram-small",
+  );
+  return {
+    body: b,
+    label: "16 / THE CDU BOUNDARY",
+    caption:
+      "One common liquid-to-liquid arrangement. Alternate CDU architectures exist. The heat exchanger separates water quality and pressure regimes; it transfers heat without mixing the two loops.",
+  };
+}
+function airScene(s) {
+  let b = txt(63, 61, "THIS HYBRID RACK HAS TWO HEAT PATHS.", "diagram-tiny");
+  b +=
+    rack(198, 169, 153, 229) + rect(597, 171, 151, 227, "#253d4c", "#7392a6");
+  b += fan(671, 236, 39) + fan(671, 333, 39);
+  b +=
+    line("M613 282h118m-118 8h118", C.cold, 2) +
+    arrow("M749 286H812V230", C.hot, 2) +
+    txt(796, 206, "Heat onward", "diagram-small", C.hot, "middle");
+  b +=
+    arrow("M672 407V452H274V404", C.cold, 5) + arrow("M354 231H584", C.hot, 5);
+  b +=
+    arrow("M441 129H111V255H200", C.cold, 4) +
+    arrow("M352 335H443V160", C.hot, 4);
+  b += txt(445, 107, "LIQUID PATH", "diagram-tiny", C.cold, "middle");
+  b +=
+    txt(470, 212, "Warm room air", "diagram-small", C.hot, "middle") +
+    txt(480, 489, "Cooled air returns", "diagram-small", C.cold, "middle");
+  b +=
+    txt(274, 149, "RACK", "diagram-tiny", C.ink, "middle") +
+    txt(671, 149, "AIR HANDLER", "diagram-tiny", C.ink, "middle");
+  return {
+    body: b,
+    label: "17 / TWO HEAT PATHS",
+    caption:
+      "A qualitative split with no implied percentage. Liquid-cooled components send heat to coolant; remaining components send heat to room air. Fans circulate the air; the air-handler coil transfers its heat onward. Both duties must reach a rejection system.",
+  };
+}
+function rejectionScene(s) {
+  const w = s.chiller ?? 20;
+  let b = txt(61, 61, "MOVING HEAT CAN ADD MORE HEAT.", "diagram-tiny");
+  b +=
+    rect(362, 187, 196, 158, "#233d4d", "#7fa0b1") +
+    fan(414, 265, 33) +
+    fan(506, 265, 33);
+  b +=
+    arrow("M66 275H346", C.hot, 11) + arrow("M574 275H831", C.hot, 11 + w / 10);
+  b += arrow("M460 104V174", C.power, 4);
+  b +=
+    txt(83, 222, "100 kW", "", C.hot) +
+    txt(83, 321, "heat absorbed", "diagram-small");
+  b +=
+    txt(639, 222, `${100 + w} kW`, "", C.hot) +
+    txt(639, 321, "heat rejected", "diagram-small");
+  b += txt(512, 132, `${w} kW work in`, "diagram-small", C.power);
+  b += txt(460, 400, "Q̇ rejected = Q̇ absorbed + Ẇ input", "", C.ink, "middle");
+  b += txt(
+    460,
+    465,
+    "Outdoor conditions and supply temperature change the work required.",
+    "diagram-small",
+    C.muted,
+    "middle",
+  );
+  return {
+    body: b,
+    label: "18 / THE LAST HOP TO THE ENVIRONMENT",
+    tag: "ILLUSTRATIVE CHILLER BALANCE",
+    caption:
+      "Energy balance for a chiller, using illustrative compressor work. Fans and pumps add their own loads at the appropriate system boundary. Economizers can reduce compressor use when conditions permit.",
+  };
+}
+function pueScene(s) {
+  const p = s.pue ?? 1.25,
+    it = 100 / p,
+    over = 100 - it;
+  let b = txt(61, 61, "FIRST DRAW THE ACCOUNTING BOUNDARY.", "diagram-tiny");
+  const w = 727,
+    wi = w / p;
+  b +=
+    rect(86, 167, w, 109, "#513d36", C.hot) +
+    rect(86, 167, wi, 109, "#335451", C.green, 0);
+  b +=
+    txt(111, 210, `${fmt(it, 1)} MW`, "", C.green) +
+    txt(111, 247, "IT load", "diagram-small");
+  if (over > 8)
+    b +=
+      txt(86 + wi + (w - wi) / 2, 213, `${fmt(over, 1)}`, "", C.hot, "middle") +
+      txt(
+        86 + wi + (w - wi) / 2,
+        247,
+        "overhead MW",
+        "diagram-small",
+        C.hot,
+        "middle",
+      );
+  b +=
+    line("M86 144v-14h727v14", "#879faa", 1) +
+    txt(450, 108, "100 MW total facility input", "", C.ink, "middle");
+  b += metric(
+    90,
+    381,
+    fmt(p, 2),
+    "assumed PUE",
+    "100 MW facility ÷ IT MW",
+    C.ink,
+  );
+  b += metric(
+    535,
+    381,
+    fmt(it, 1),
+    "MW available to IT",
+    "Steady-load illustration",
+    C.green,
+  );
+  return {
+    body: b,
+    label: "19 / FACILITY POWER ≠ IT POWER",
+    tag: "ASSUMED STEADY-LOAD EXAMPLE",
+    caption:
+      "Formal PUE compares total facility and IT energy over the same continuous 12 months. Shorter periods use interim PUE. Here a fixed assumed ratio translates a steady 100 MW facility budget. It is not a measured site PUE or a guarantee at every load.",
+  };
+}
+function bottleneckScene(s) {
+  const cooling = s.cooling ?? 60,
+    network = s.network ?? 900,
+    pue = s.budgetPue ?? 1.25;
+  const bgt = capacityBudget(100, pue, cooling, 100, 900, network, 70);
+  let b = txt(
+    63,
+    60,
+    "THE SMALLEST SUPPORTED LOAD SETS THE CEILING.",
+    "diagram-tiny",
+  );
+  const bars = [
+    ["Power / PUE", bgt.limits.power, C.power, "power"],
+    ["Electrical train", bgt.limits.electrical, C.power, "electrical"],
+    ["Cooling", bgt.limits.cooling, C.cold, "cooling"],
+    ["Rack positions", 900, C.muted, "space"],
+    ["Network limit", network, C.violet, "network"],
+  ];
+  bars.forEach(([label, n, c, key], j) => {
+    const y = 129 + j * 66;
+    b += txt(64, y + 17, label, "diagram-small");
+    b += rect(
+      246,
+      y,
+      Math.max(1, (Math.min(n, 1100) / 1100) * 438),
+      24,
+      bgt.binding.includes(key) ? c : `${c}44`,
+      "none",
+      1,
+    );
+    b += txt(712, y + 19, fmt(n), "diagram-small", c);
+    if (bgt.binding.includes(key))
+      b += txt(773, y + 18, "LIMIT", "diagram-tiny", c);
+  });
+  b += txt(
+    450,
+    503,
+    `${fmt(bgt.supportedRacks)} rack equivalents × 100 kW = ${fmt(bgt.supportedITMW)} MW IT`,
+    "",
+    C.green,
+    "middle",
+  );
+  return {
+    body: b,
+    label: "20 / THE CAPACITY LAB",
+    tag: "SYNTHETIC DESIGN EXERCISE",
+    caption:
+      "100 MW facility, assumed PUE, 70 MW downstream electrical capacity, adjustable IT cooling duty, 900 rack positions, and adjustable network limit. Identical 100 kW rack-equivalent loads. This ceiling does not prove commissioned or utilized capacity.",
+  };
+}
+function caseScene(s) {
+  const tab = s.caseView ?? 0;
+  let b = txt(62, 61, "A REAL CAMPUS. A CAREFUL READING.", "diagram-tiny");
+  b +=
+    pylon(152, 312, 0.87) +
+    transformer(375, 320, 0.98) +
+    rack(683, 171, 120, 222, false);
+  b +=
+    arrow("M200 272H306", C.power, 3) +
+    line("M454 287H665", "#8095a4", 2, 'stroke-dasharray="5 8"');
+  b +=
+    txt(150, 380, "Grid service", "diagram-small", C.power, "middle") +
+    txt(386, 380, "Substations", "diagram-small", C.power, "middle") +
+    txt(745, 438, "Measured IT load?", "diagram-small", C.ink, "middle");
+  b += txt(551, 275, "?", "diagram-number", C.muted, "middle");
+  b +=
+    rect(75, 89, 720, 53, "#273847", "#496276") +
+    txt(
+      97,
+      122,
+      tab === 0
+        ? "Dated site evidence establishes individual milestones."
+        : "A capacity headline does not establish installed GPU count.",
+      "diagram-small",
+      tab === 0 ? C.green : C.hot,
+    );
+  b += txt(
+    66,
+    495,
+    "ABILENE / A HISTORICAL SOURCE-READING EXERCISE",
+    "diagram-tiny",
+  );
+  return {
+    body: b,
+    label: "21 / READ A CAMPUS ANNOUNCEMENT",
+    tag: "HISTORICAL CASE · SEE SOURCES",
+    caption:
+      "Use the Abilene sources to distinguish interconnection, equipment, commissioning, and actual IT operation. The course makes no current campus-wide power, installed GPU count, utilization, or tokens-per-second estimate.",
+  };
+}
+
+function compactDiagram(id, state, result) {
+  let b = "";
+  if (id === "bottleneck") {
+    const budget = capacityBudget(
+      100,
+      state.budgetPue,
+      state.cooling,
+      100,
+      900,
+      state.network,
+      70,
+    );
+    const rows = [
+      ["Facility / PUE", budget.limits.power, C.power, "power"],
+      ["Electrical train", 700, C.power, "electrical"],
+      ["Cooling", budget.limits.cooling, C.cold, "cooling"],
+      ["Rack positions", 900, C.muted, "space"],
+      ["Network", state.network, C.violet, "network"],
+    ];
+    rows.forEach(([name, n, color, key], j) => {
+      const y = 63 + j * 85;
+      b +=
+        txt(40, y, name, "", color) + txt(555, y, String(n), "", color, "end");
+      b +=
+        rect(40, y + 18, 515, 16, "#253b4b", "none") +
+        rect(40, y + 18, (n / 1100) * 515, 16, color, "none");
+      if (budget.binding.includes(key))
+        b += txt(555, y + 57, "BINDING LIMIT", "diagram-tiny", color, "end");
+    });
+    b += txt(
+      300,
+      546,
+      `${budget.supportedRacks} rack equivalents`,
+      "diagram-number",
+      C.green,
+      "middle",
+    );
+  } else if (id === "voltage") {
+    const i = currentThreePhase(100, state.voltage);
+    b += txt(
+      300,
+      63,
+      "100 MW · THREE-PHASE · PF 1",
+      "diagram-small",
+      C.muted,
+      "middle",
+    );
+    b += txt(
+      300,
+      150,
+      `${fmt(state.voltage, 1)} kV`,
+      "diagram-number",
+      C.power,
+      "middle",
+    );
+    b +=
+      pylon(120, 333, 0.9) +
+      pylon(480, 333, 0.9) +
+      line("M80 244Q300 330 440 244 M160 244Q330 292 520 244", C.power, 3);
+    b +=
+      txt(60, 418, fmt(i), "diagram-number", C.power) +
+      txt(60, 457, "amps / phase", "diagram-small");
+    b +=
+      txt(
+        355,
+        418,
+        `${fmt(resistiveLossRatio(state.voltage, 13.8) * 100, 1)}%`,
+        "diagram-number",
+        C.hot,
+      ) + txt(355, 457, "relative loss", "diagram-small");
+    b += txt(
+      300,
+      529,
+      "Reference: 13.8 kV, same resistance",
+      "diagram-small",
+      C.muted,
+      "middle",
+    );
+  } else if (id === "liquid") {
+    b +=
+      chip(64, 154, 186, 162) +
+      line("M65 169h167v32H88v33h144v33H88v32h160", C.cold, 8) +
+      arrow("M27 169h34", C.cold, 5) +
+      arrow("M252 298h66v-75h33", C.hot, 5);
+    b +=
+      txt(
+        447,
+        239,
+        fmt(coolantFlow(100, state.deltaT), 2),
+        "diagram-number",
+        C.cold,
+        "middle",
+      ) + txt(447, 282, "kg/s water", "diagram-small", C.cold, "middle");
+    b +=
+      txt(
+        300,
+        75,
+        "100 kW INTO THE WATER",
+        "diagram-small",
+        C.muted,
+        "middle",
+      ) +
+      txt(
+        300,
+        410,
+        `Temperature rise: ${state.deltaT}°C`,
+        "",
+        C.hot,
+        "middle",
+      ) +
+      txt(300, 491, "Q̇ = ṁ × cₚ × ΔT", "", C.cold, "middle");
+  } else if (id === "pue") {
+    const it = 100 / state.pue;
+    b += txt(
+      300,
+      77,
+      "100 MW FACILITY BUDGET",
+      "diagram-small",
+      C.muted,
+      "middle",
+    );
+    b +=
+      rect(48, 140, 504, 110, "#724d47", C.hot) +
+      rect(48, 140, 504 / state.pue, 110, "#456e62", C.green);
+    b += txt(67, 203, "IT", "", C.green);
+    b +=
+      txt(60, 362, fmt(it, 1), "diagram-number", C.green) +
+      txt(60, 403, "MW IT", "diagram-small", C.green);
+    b +=
+      txt(362, 362, fmt(100 - it, 1), "diagram-number", C.hot) +
+      txt(362, 403, "MW overhead", "diagram-small", C.hot);
+    b += txt(
+      300,
+      498,
+      `Assumed ratio: ${fmt(state.pue, 2)}`,
+      "",
+      C.muted,
+      "middle",
+    );
+  } else if (id === "energy") {
+    b += txt(55, 66, "POWER × TIME = ENERGY", "diagram-small");
+    b += line("M65 153V402H547", C.muted, 2);
+    const y = 402 - (state.power / 5) * 210,
+      x = 65 + (state.hours / 24) * 482;
+    b +=
+      `<path d="M65 402V${y}H${x}V402Z" fill="#ffc87544"/>` +
+      line(`M65 ${y}H${x}`, C.power, 3);
+    b +=
+      txt(547, 439, "24 hours", "diagram-small", C.muted, "end") +
+      txt(65, 439, "0", "diagram-small");
+    b += txt(
+      300,
+      521,
+      `${fmt(energyMWh(state.power, state.hours), 1)} MWh`,
+      "diagram-number",
+      C.power,
+      "middle",
+    );
+  } else if (id === "heat") {
+    b += txt(
+      300,
+      74,
+      "STEADY STATE · RACK BOUNDARY",
+      "diagram-small",
+      C.muted,
+      "middle",
+    );
+    b +=
+      rack(229, 176, 142, 220) +
+      arrow("M39 286H207", C.power, 10) +
+      arrow("M393 286H561", C.hot, 10);
+    b +=
+      txt(120, 149, "100 kW", "", C.power, "middle") +
+      txt(480, 149, "≈100 kW", "", C.hot, "middle");
+    b +=
+      txt(120, 447, "Electricity", "diagram-small", C.power, "middle") +
+      txt(480, 447, "Heat", "diagram-small", C.hot, "middle");
+    b += txt(
+      300,
+      521,
+      "Computation happens inside.",
+      "diagram-small",
+      C.muted,
+      "middle",
+    );
+  } else if (id === "current") {
+    const i = rackCurrent(1, state.coreV);
+    b +=
+      txt(
+        300,
+        71,
+        "SAME IDEAL 1 kW DC LOAD",
+        "diagram-small",
+        C.muted,
+        "middle",
+      ) + chip(390, 190, 133, 136);
+    b +=
+      rect(66, 204, 111, 105, "#293f48", C.muted) +
+      arrow("M188 256H370", C.power, 4 + 20 * Math.sqrt(i / 1000));
+    b += txt(275, 172, `${state.coreV} V`, "diagram-number", C.power, "middle");
+    b +=
+      txt(300, 431, `${fmt(i)} A`, "diagram-number", C.power, "middle") +
+      txt(300, 497, "I = P / V", "", C.muted, "middle");
+  } else return result;
+  return { ...result, body: b, compact: true };
+}
+
+function renderDiagram(id, state = {}) {
+  const scenes = {
+    campus: campusScene,
+    energy: energyScene,
+    grid: gridScene,
+    voltage: voltageScene,
+    substation: substationScene,
+    capacity: capacityScene,
+    train: trainScene,
+    "ride-through": rideScene,
+    redundancy: redundancyScene,
+    failure: failureScene,
+    rack: rackScene,
+    current: currentScene,
+    compute: computeScene,
+    heat: heatScene,
+    liquid: liquidScene,
+    cdu: cduScene,
+    air: airScene,
+    rejection: rejectionScene,
+    pue: pueScene,
+    bottleneck: bottleneckScene,
+    case: caseScene,
+    synthesis: (s) => campusScene(s, true),
+  };
+  if (!scenes[id]) throw new Error(`Unknown visual: ${id}`);
+  const original = scenes[id](state);
+  const result = state.compact ? compactDiagram(id, state, original) : original;
+  const svg = sv(result.label, result.body);
+  return {
+    ...result,
+    svg: result.compact
+      ? svg.replace(
+          'viewBox="0 0 900 545"',
+          'class="compact-diagram" viewBox="0 0 600 580"',
+        )
+      : svg,
+  };
+}
+
+// course.js
+const course = JSON.parse(document.getElementById("course-data").textContent);
+const lessons = course.lessons;
+const byId = new Map(lessons.map((lesson, index) => [lesson.id, index]));
+const el = (id) => document.getElementById(id);
+const escapeHtml = (value) =>
+  String(value).replace(
+    /[&<>"']/g,
+    (c) =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[
+        c
+      ],
+  );
+const lessonState = new Map();
+const checkAnswers = new Map();
+let lessonIndex = 0;
+let explanationOpen = false;
+const defaults = {
+  power: 1,
+  hours: 1,
+  voltage: 138,
+  gate: 0,
+  equipment: 0,
+  outage: false,
+  battery: 0.25,
+  pathFailed: false,
+  fault: false,
+  coreV: 1,
+  utilization: 60,
+  deltaT: 10,
+  chiller: 20,
+  pue: 1.25,
+  cooling: 60,
+  network: 900,
+  budgetPue: 1.25,
+  caseView: 0,
+};
+const formatValue = (value, digits = 0) =>
+  Number(value).toLocaleString("en-US", {
+    maximumFractionDigits: digits,
+    minimumFractionDigits: digits,
+  });
+
+function currentState() {
+  const id = lessons[lessonIndex].id;
+  if (!lessonState.has(id)) lessonState.set(id, { ...defaults });
+  return lessonState.get(id);
+}
+function setLesson(index, focus = false) {
+  document.querySelectorAll("dialog[open]").forEach((dialog) => dialog.close());
+  lessonIndex = Math.max(0, Math.min(lessons.length - 1, index));
+  const l = lessons[lessonIndex];
+  if (location.hash !== `#${l.id}`) history.pushState(null, "", `#${l.id}`);
+  document.title = `${l.title} — GIGAWATT`;
+  el("eyebrow").textContent = l.eyebrow;
+  el("lesson-title").textContent = l.title;
+  el("lesson-body").textContent = l.body;
+  el("takeaway").textContent = l.takeaway;
+  el("notes").innerHTML =
+    `<h2>A closer look</h2>${l.notes.map((p) => `<p>${escapeHtml(p)}</p>`).join("")}`;
+  el("notes").hidden = !explanationOpen;
+  el("notes-button").setAttribute("aria-expanded", String(explanationOpen));
+  el("notes-button").innerHTML =
+    `${explanationOpen ? "Close the explanation" : "Read the explanation"} <span aria-hidden="true">${explanationOpen ? "−" : "↗"}</span>`;
+  el("chapters")
+    .querySelectorAll("button")
+    .forEach((button, i) => {
+      const active = course.chapters[i].id === l.chapter;
+      button.classList.toggle("active", active);
+      button.classList.toggle(
+        "visited",
+        course.chapters.findIndex((c) => c.id === l.chapter) > i,
+      );
+      if (active) button.setAttribute("aria-current", "step");
+      else button.removeAttribute("aria-current");
+    });
+  const chapterRail = el("chapters");
+  const activeChapter = chapterRail.querySelector(".active");
+  if (activeChapter && innerWidth <= 760)
+    chapterRail.scrollLeft =
+      activeChapter.offsetLeft -
+      chapterRail.clientWidth / 2 +
+      activeChapter.offsetWidth / 2;
+  el("progress")
+    .querySelectorAll("button")
+    .forEach((button, i) => {
+      button.classList.toggle("active", i === lessonIndex);
+      button.classList.toggle("past", i < lessonIndex);
+      if (i === lessonIndex) button.setAttribute("aria-current", "step");
+      else button.removeAttribute("aria-current");
+    });
+  el("lesson-counter").textContent =
+    `${String(lessonIndex + 1).padStart(2, "0")} / ${lessons.length}`;
+  el("prev").disabled = lessonIndex === 0;
+  el("next-label").textContent =
+    lessonIndex === lessons.length - 1 ? "Back to start" : "Next lesson";
+  el("next").setAttribute(
+    "aria-label",
+    lessonIndex === lessons.length - 1 ? "Back to first lesson" : "Next lesson",
+  );
+  renderControls(l.visual);
+  updateVisual();
+  renderCheck(l);
+  if (focus) {
+    el("lesson-title").focus({ preventScroll: true });
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }
+}
+function fromHash() {
+  let hash;
+  try {
+    hash = decodeURIComponent(location.hash.slice(1));
+  } catch {
+    hash = "";
+  }
+  setLesson(byId.get(hash) ?? 0);
+}
+function updateVisual() {
+  const l = lessons[lessonIndex],
+    state = currentState(),
+    d = renderDiagram(l.visual, { ...state, compact: innerWidth <= 760 });
+  el("visual").innerHTML = d.svg;
+  el("visual-label").textContent = d.label;
+  el("visual-tag").textContent = d.tag ?? "CONCEPTUAL MODEL";
+  el("visual-caption").textContent = d.caption;
+  const summary = labResult(l.visual, state);
+  const output = el("experiment-result");
+  if (output) {
+    output.textContent = summary;
+    output.hidden = !summary;
+  }
+}
+function labResult(id, s) {
+  switch (id) {
+    case "capacity":
+      return [
+        "Announced: intended capacity, not operation.",
+        "Connected: an electrical connection is established.",
+        "Energized: equipment is electrically live.",
+        "Commissioned: the required integrated tests are passed.",
+        "Loaded: IT equipment is drawing power under workload.",
+      ][s.gate];
+    case "train":
+      return [
+        "Transformer: changes voltage.",
+        "Switchgear: isolates and protects.",
+        "UPS: conditions power and bridges interruptions.",
+        "Busway: distributes power toward racks.",
+        "Rack: converts AC to DC for its equipment.",
+      ][s.equipment];
+    case "compute":
+      return `${s.utilization}% illustrative scheduled busy time. This is not measured efficiency or a token rate.`;
+    case "case":
+      return s.caseView === 0
+        ? "Use dated evidence to establish each site milestone."
+        : "An announced capacity does not establish measured IT load, utilization, or installed GPU count.";
+    case "energy":
+      return `${formatValue(s.power, 1)} MW × ${s.hours} h = ${formatValue(energyMWh(s.power, s.hours), 1)} MWh.`;
+    case "voltage":
+      return `${formatValue(currentThreePhase(100, s.voltage))} A per phase · ${formatValue(resistiveLossRatio(s.voltage, 13.8) * 100, 2)}% of the 13.8 kV conductor loss.`;
+    case "ride-through":
+      return `${s.outage ? "Utility off. UPS carries the load." : "Utility available."} Stored energy supports ${formatValue(rideThroughMinutes(s.battery, 5), 1)} ideal minutes at 5 MW.`;
+    case "redundancy":
+      return s.pathFailed
+        ? "Path A unavailable. Path B supplies the complete load."
+        : "Both independent full-capacity paths are available.";
+    case "failure":
+      return s.fault
+        ? "Middle feeder isolated. The two other feeders remain powered."
+        : "All three feeders are powered.";
+    case "current":
+      return `${formatValue(rackCurrent(1, s.coreV))} A at ${s.coreV} V for the same ideal 1 kW load.`;
+    case "liquid":
+      return `${formatValue(coolantFlow(100, s.deltaT), 2)} kg/s, approximately ${formatValue(coolantFlow(100, s.deltaT) * 60)} L/min of water.`;
+    case "rejection":
+      return `100 kW absorbed + ${s.chiller} kW work = ${100 + s.chiller} kW rejected.`;
+    case "pue":
+      return `${formatValue(100 / s.pue, 1)} MW IT + ${formatValue(100 - 100 / s.pue, 1)} MW overhead = 100 MW facility.`;
+    case "bottleneck": {
+      const b = capacityBudget(
+        100,
+        s.budgetPue,
+        s.cooling,
+        100,
+        900,
+        s.network,
+        70,
+      );
+      return `${b.supportedRacks} rack equivalents · ${b.supportedITMW} MW IT · ${formatValue(b.facilityDrawMW, 1)} MW facility draw. Binding limit: ${b.binding.join(" + ")}.`;
+    }
+    default:
+      return "";
+  }
+}
+function range(key, label, min, max, step, unit, digits = 0) {
+  const s = currentState();
+  return `<div class="control"><label for="control-${key}">${label}<output id="value-${key}" for="control-${key}">${formatValue(s[key], digits)} ${unit}</output></label><input type="range" id="control-${key}" data-key="${key}" data-digits="${digits}" data-unit="${unit}" min="${min}" max="${max}" step="${step}" value="${s[key]}"></div>`;
+}
+function choices(key, values) {
+  const s = currentState();
+  return `<div class="segmented">${values.map(([value, label]) => `<button class="toggle" data-key="${key}" data-value="${value}" aria-pressed="${String(s[key] === value)}">${label}</button>`).join("")}</div>`;
+}
+function renderControls(id) {
+  let html = "";
+  switch (id) {
+    case "energy":
+      html =
+        range("power", "Constant power", 0.5, 5, 0.5, "MW", 1) +
+        range("hours", "Running time", 1, 24, 1, "h");
+      break;
+    case "voltage":
+      html = range("voltage", "Line-to-line voltage", 13.8, 138, 13.8, "kV", 1);
+      break;
+    case "capacity":
+      html = choices("gate", [
+        [0, "Announced"],
+        [1, "Connected"],
+        [2, "Energized"],
+        [3, "Commissioned"],
+        [4, "Loaded"],
+      ]);
+      break;
+    case "train":
+      html = choices("equipment", [
+        [0, "Transformer"],
+        [1, "Switchgear"],
+        [2, "UPS"],
+        [3, "Busway"],
+        [4, "Rack"],
+      ]);
+      break;
+    case "ride-through":
+      html =
+        choices("outage", [
+          [false, "Utility on"],
+          [true, "Interrupt utility"],
+        ]) +
+        range("battery", "Usable output energy", 0.05, 0.5, 0.05, "MWh", 2);
+      break;
+    case "redundancy":
+      html = choices("pathFailed", [
+        [false, "Both paths available"],
+        [true, "Disable path A"],
+      ]);
+      break;
+    case "failure":
+      html = choices("fault", [
+        [false, "Normal operation"],
+        [true, "Fault the middle feeder"],
+      ]);
+      break;
+    case "current":
+      html = choices("coreV", [
+        [50, "50 V bus"],
+        [12, "12 V rail"],
+        [1, "1 V near the processor"],
+      ]);
+      break;
+    case "compute":
+      html = range(
+        "utilization",
+        "Illustrative scheduled busy time",
+        10,
+        100,
+        10,
+        "%",
+      );
+      break;
+    case "liquid":
+      html = range("deltaT", "Coolant temperature rise", 5, 20, 1, "°C");
+      break;
+    case "rejection":
+      html = range("chiller", "Illustrative compressor work", 5, 50, 5, "kW");
+      break;
+    case "pue":
+      html = range(
+        "pue",
+        "Assumed facility-to-IT ratio",
+        1.1,
+        1.6,
+        0.05,
+        "",
+        2,
+      );
+      break;
+    case "bottleneck":
+      html =
+        range("cooling", "Available IT cooling duty", 20, 100, 5, "MW") +
+        range("network", "Network-supported racks", 300, 1000, 50, "racks") +
+        range(
+          "budgetPue",
+          "Assumed facility-to-IT ratio",
+          1.1,
+          1.6,
+          0.05,
+          "",
+          2,
+        );
+      break;
+    case "case":
+      html = choices("caseView", [
+        [0, "What does this establish?"],
+        [1, "What is still unknown?"],
+      ]);
+      break;
+  }
+  el("experiment").innerHTML = html
+    ? `${html}<output id="experiment-result" class="experiment-result" aria-live="polite" aria-atomic="true"></output><button class="reset" id="reset-experiment">Reset experiment ↺</button>`
+    : "";
+  el("experiment")
+    .querySelectorAll("input")
+    .forEach((input) =>
+      input.addEventListener("input", () => {
+        const key = input.dataset.key;
+        currentState()[key] = Number(input.value);
+        el(`value-${key}`).textContent =
+          `${formatValue(input.value, Number(input.dataset.digits))} ${input.dataset.unit}`;
+        updateVisual();
+      }),
+    );
+  el("experiment")
+    .querySelectorAll(".toggle")
+    .forEach((button) =>
+      button.addEventListener("click", () => {
+        const raw = button.dataset.value;
+        currentState()[button.dataset.key] =
+          raw === "true" ? true : raw === "false" ? false : Number(raw);
+        el("experiment")
+          .querySelectorAll(".toggle")
+          .forEach((b) => b.setAttribute("aria-pressed", String(b === button)));
+        updateVisual();
+      }),
+    );
+  if (el("reset-experiment"))
+    el("reset-experiment").addEventListener("click", () => {
+      lessonState.set(lessons[lessonIndex].id, { ...defaults });
+      renderControls(id);
+      updateVisual();
+      el("experiment")
+        .querySelector("input, .toggle")
+        ?.focus({ preventScroll: true });
+    });
+}
+function renderCheck(l) {
+  const box = el("knowledge-check");
+  box.hidden = !l.check;
+  if (!l.check) {
+    box.innerHTML = "";
+    return;
+  }
+  const c = l.check;
+  box.innerHTML = `<div class="check-question"><p class="eyebrow">TEST YOUR MENTAL MODEL</p><h2>${escapeHtml(c.question)}</h2></div><div class="check-options">${c.options.map((option, i) => `<button class="answer-button" data-answer="${i}" aria-pressed="false"><span aria-hidden="true">${String.fromCharCode(65 + i)}</span>${escapeHtml(option)}</button>`).join("")}<p id="answer-feedback" class="answer-feedback" aria-live="polite"></p></div>`;
+  function answer(i) {
+    checkAnswers.set(l.id, i);
+    box.querySelectorAll(".answer-button").forEach((b, j) => {
+      b.setAttribute("aria-pressed", String(j === i));
+      b.classList.toggle("correct", i === c.answer && j === i);
+    });
+    el("answer-feedback").textContent =
+      (i === c.answer ? "Exactly. " : "Try the mechanism again. ") +
+      c.explanation;
+  }
+  box
+    .querySelectorAll(".answer-button")
+    .forEach((button) =>
+      button.addEventListener("click", () =>
+        answer(Number(button.dataset.answer)),
+      ),
+    );
+  if (checkAnswers.has(l.id)) answer(checkAnswers.get(l.id));
+}
+function openSources() {
+  const l = lessons[lessonIndex];
+  el("source-list").innerHTML =
+    `<p class="source-note">${escapeHtml(l.title)}<br>Numerical experiments are simplified teaching scenarios. Primary references support the mechanisms; they do not turn illustrative inputs into site measurements.</p>${l.sources.map((s) => `<a class="source-item" href="${escapeHtml(s.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(s.title)} ↗<small>${escapeHtml(new URL(s.url).hostname)}</small></a>`).join("")}`;
+  el("sources-dialog").showModal();
+}
+
+el("chapters").innerHTML = course.chapters
+  .map(
+    (c, i) =>
+      `<button class="chapter" data-chapter="${escapeHtml(c.id)}"><span class="chapter-number">${String(i + 1).padStart(2, "0")}</span><span>${escapeHtml(c.title)}</span></button>`,
+  )
+  .join("");
+el("chapters")
+  .querySelectorAll("button")
+  .forEach((button) =>
+    button.addEventListener("click", () =>
+      setLesson(
+        lessons.findIndex((l) => l.chapter === button.dataset.chapter),
+        true,
+      ),
+    ),
+  );
+el("progress").innerHTML = lessons
+  .map(
+    (l, i) =>
+      `<button aria-label="Lesson ${i + 1}: ${escapeHtml(l.title)}" title="${escapeHtml(l.title)}"></button>`,
+  )
+  .join("");
+el("progress")
+  .querySelectorAll("button")
+  .forEach((button, i) =>
+    button.addEventListener("click", () => setLesson(i, true)),
+  );
+el("contents-list").innerHTML = course.chapters
+  .map(
+    (c) =>
+      `<section class="contents-chapter"><h3>${escapeHtml(c.kicker)} / ${escapeHtml(c.title)}</h3>${lessons.map((l, i) => (l.chapter === c.id ? `<button data-index="${i}"><span>${String(i + 1).padStart(2, "0")}</span>${escapeHtml(l.title)}</button>` : "")).join("")}</section>`,
+  )
+  .join("");
+el("contents-list")
+  .querySelectorAll("button")
+  .forEach((b) =>
+    b.addEventListener("click", () => {
+      el("contents-dialog").close();
+      setLesson(Number(b.dataset.index), true);
+    }),
+  );
+el("contents-button").addEventListener("click", () =>
+  el("contents-dialog").showModal(),
+);
+document
+  .querySelectorAll(".dialog-close")
+  .forEach((b) =>
+    b.addEventListener("click", () => b.closest("dialog").close()),
+  );
+document.querySelectorAll("dialog").forEach((dialog) =>
+  dialog.addEventListener("click", (event) => {
+    if (event.target === dialog) {
+      const bounds = dialog.getBoundingClientRect();
+      if (
+        event.clientX < bounds.left ||
+        event.clientX > bounds.right ||
+        event.clientY < bounds.top ||
+        event.clientY > bounds.bottom
+      )
+        dialog.close();
+    }
+  }),
+);
+el("sources-button").addEventListener("click", openSources);
+el("notes-button").addEventListener("click", () => {
+  explanationOpen = !explanationOpen;
+  el("notes").hidden = !explanationOpen;
+  el("notes-button").setAttribute("aria-expanded", String(explanationOpen));
+  el("notes-button").innerHTML =
+    `${explanationOpen ? "Close the explanation" : "Read the explanation"} <span aria-hidden="true">${explanationOpen ? "−" : "↗"}</span>`;
+});
+el("prev").addEventListener("click", () => setLesson(lessonIndex - 1, true));
+el("next").addEventListener("click", () =>
+  setLesson(lessonIndex === lessons.length - 1 ? 0 : lessonIndex + 1, true),
+);
+el("fullscreen").hidden = !document.fullscreenEnabled;
+el("fullscreen").addEventListener("click", async () => {
+  try {
+    if (document.fullscreenElement) await document.exitFullscreen();
+    else await document.documentElement.requestFullscreen();
+  } catch {
+    el("fullscreen").hidden = true;
+  }
+});
+document.addEventListener("fullscreenchange", () =>
+  el("fullscreen").setAttribute(
+    "aria-label",
+    document.fullscreenElement ? "Exit fullscreen" : "Enter fullscreen",
+  ),
+);
+document.addEventListener("keydown", (event) => {
+  if (
+    event.altKey ||
+    event.ctrlKey ||
+    event.metaKey ||
+    event.shiftKey ||
+    document.querySelector("dialog[open]")
+  )
+    return;
+  if (event.target.closest("input,select,textarea,[contenteditable=true]"))
+    return;
+  if (event.key === "ArrowRight" && lessonIndex < lessons.length - 1) {
+    event.preventDefault();
+    setLesson(lessonIndex + 1, true);
+  }
+  if (event.key === "ArrowLeft" && lessonIndex > 0) {
+    event.preventDefault();
+    setLesson(lessonIndex - 1, true);
+  }
+});
+document.querySelector(".skip").addEventListener("click", (event) => {
+  event.preventDefault();
+  el("lesson-title").focus();
+});
+window
+  .matchMedia("(max-width: 760px)")
+  .addEventListener("change", updateVisual);
+window.addEventListener("popstate", fromHash);
+window.addEventListener("hashchange", fromHash);
+fromHash();
+;
+    </script>
+  </body>
+</html>

@@ -10,16 +10,16 @@ Usage: uv run gigawatt-layout
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from itertools import pairwise
 from pathlib import Path
 from string import Formatter
 from typing import Any
 
 import yaml
 
-from . import scene as scene_pipeline
 from . import tokens
 from .render import S, journey_bar, lbl, note, place, tower, wire
-from .svg import el, line, rect, text
+from .svg import el, line, text
 
 ROOT = Path(__file__).resolve().parents[2]
 DIAGRAM = ROOT / "diagram"
@@ -170,7 +170,7 @@ def _place_corridor(spec: dict[str, Any], ground: float) -> tuple[str, Geom]:
     parts = [tower(x, spec.get("ground", ground), spec["top"]) for x in spec["towers"]]
     points = [x0, *spec["towers"], x1]
     path_data = f"M {x0:.1f} {y0:.1f}"
-    for left, right in zip(points, points[1:]):
+    for left, right in pairwise(points):
         path_data += f" Q {(left + right) / 2:.1f} {y0 + 24:.1f} {right:.1f} {y1:.1f}"
     parts.append(
         el(
@@ -452,116 +452,16 @@ def compose(
     return hud + scene, scene
 
 
-def filtered_camera_scene(
-    scene: str, camera: dict[str, Any], master: dict[str, Any]
-) -> str:
-    """Apply a declarative focus state without redrawing any diagram element."""
-    focus_nodes = camera.get("focus_nodes") or []
-    focus_edges = camera.get("focus_edges") or []
-    focus_labels = scene_pipeline.validate_camera_focus_labels(master, camera)
-    if focus_nodes or focus_edges or focus_labels is not None:
-        rules = [
-            '#master-scene [id^="node-"] { opacity: .10 !important; }',
-            '#master-scene [id^="edge-"] { opacity: .08 !important; }',
-        ]
-        if focus_nodes:
-            rules.append(
-                ",".join(f"#master-scene #node-{node_id}" for node_id in focus_nodes)
-                + " { opacity: 1 !important; }"
-            )
-        if focus_edges:
-            rules.append(
-                ",".join(f"#master-scene #edge-{edge_id}" for edge_id in focus_edges)
-                + " { opacity: 1 !important; }"
-            )
-        if focus_labels is not None:
-            rules.append('#master-scene [id^="label-"] { display: none; }')
-            if focus_labels:
-                rules.append(
-                    ",".join(f"#master-scene #label-{copy_id}" for copy_id in focus_labels)
-                    + " { display: inline !important; }"
-                )
-            rules.append("#status-legend { display: none; }")
-        return el("style", "".join(rules)) + scene
-    return scene
-
-
-def build_camera(
-    scene: str,
-    camera: dict[str, Any],
-    frame: dict[str, Any],
-    journey: dict[str, Any],
-    master: dict[str, Any],
-) -> str:
-    """Render a camera state over the exact same 2D scene markup."""
-    width, height = frame["w"], frame["h"]
-    view_x, view_y, view_width, view_height = camera["viewBox"]
-    well_x, well_y, well_width, well_height = camera.get("well") or [
-        80,
-        140,
-        round(view_width / view_height * 720),
-        720,
-    ]
-    hud = (
-        el("rect", x=0, y=0, width=width, height=height, fill=tokens.PAPER)
-        + text(60, 70, camera["title"], size=34, anchor="start", weight=700, fill=tokens.INK)
-        + text(60, 104, camera.get("subtitle", ""), size=15, anchor="start", fill=tokens.INK)
-        + journey_bar(1040, 40, journey=journey, active=camera.get("active"))
-        + note(60, 1020, "camera state of the semantic master — not separate artwork", size=10.5, anchor="start")
-    )
-    filtered_scene = filtered_camera_scene(scene, camera, master)
-    well = el(
-        "svg",
-        filtered_scene,
-        x=well_x,
-        y=well_y,
-        width=well_width,
-        height=well_height,
-        viewBox=f"{view_x} {view_y} {view_width} {view_height}",
-        overflow="hidden",
-    )
-    return _svg(hud + well, width, height, f"camera-{camera['id']}")
-
-
 def main() -> None:
     master = load_yaml(DIAGRAM / "master.yaml")
     layout = load_yaml(DIAGRAM / "layout.yaml")
     evidence_path = ROOT / master["meta"]["evidence_file"]
     evidence = load_yaml(evidence_path)
     frame = layout["frame"]
-    hud_scene, scene = compose(master, layout, evidence)
+    hud_scene, _scene = compose(master, layout, evidence)
     output = DIAGRAM / "master.svg"
     output.write_text(_svg(hud_scene, frame["w"], frame["h"], "master"))
     print(f"wrote {output}")
-
-    camera_path = DIAGRAM / "cameras.yaml"
-    if camera_path.exists():
-        cameras = load_yaml(camera_path).get("cameras") or []
-        for camera in cameras:
-            if camera.get("mode") not in {"2d", "overlay"}:
-                continue
-            path = DIAGRAM / f"camera_{camera['id']}.svg"
-            path.write_text(
-                build_camera(
-                    scene,
-                    camera,
-                    frame,
-                    master["meta"]["journey_bar"],
-                    master,
-                )
-            )
-            print(f"wrote {path}")
-            if map_asset := camera.get("map_asset"):
-                map_path = DIAGRAM / map_asset
-                map_path.write_text(
-                    _svg(
-                        filtered_camera_scene(scene, camera, master),
-                        frame["w"],
-                        frame["h"],
-                        f"map-{camera['id']}",
-                    )
-                )
-                print(f"wrote {map_path}")
 
 
 if __name__ == "__main__":

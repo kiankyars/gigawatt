@@ -25,22 +25,44 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v6
 
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Validate course and generated page
+        run: |
+          PYTHONPATH=src python -m gigawatt.build_course --check
+          PYTHONPATH=src python -m unittest discover -s tests -p 'test_*.py' -v
+          node --test tests/math.test.mjs
+
       - name: Stage the course site
         run: |
-          mkdir -p _site/vendor
-          cp diagram/course_v2.html _site/index.html
-          cp diagram/phase1_generation.html _site/
-          cp diagram/phase2_transmission.html _site/
-          cp diagram/phase3_campus.html _site/
-          cp diagram/phase4_building.html _site/
-          cp diagram/phase5_compute.html _site/
-          cp diagram/phase6_heat.html _site/
-          cp diagram/hybrid.html _site/
-          cp diagram/course.html _site/course.html
-          cp diagram/master.svg _site/
-          cp diagram/map_watt_heat_handoff.svg _site/
-          cp diagram/course.html _site/v1.html
-          cp -R diagram/vendor/three _site/vendor/three
+          mkdir -p _site
+          cp diagram/index.html _site/index.html
+          python - <<'PY'
+          from pathlib import Path
+          redirect = '''<!doctype html>
+          <html lang="en"><meta charset="utf-8"><title>GIGAWATT</title>
+          <meta http-equiv="refresh" content="0;url=./">
+          <link rel="canonical" href="./">
+          <script>location.replace("./" + location.search + location.hash);</script>
+          <p>The course has moved. <a href="./">Open GIGAWATT.</a></p></html>
+          '''
+          aliases = (
+              "course.html", "course_v2.html", "v1.html", "hybrid.html",
+              "phase1_generation.html", "phase2_transmission.html",
+              "phase3_campus.html", "phase4_building.html",
+              "phase5_compute.html", "phase6_heat.html",
+          )
+          for name in aliases:
+              (Path("_site") / name).write_text(redirect, encoding="utf-8")
+          PY
           touch _site/.nojekyll
 
       - name: Configure GitHub Pages

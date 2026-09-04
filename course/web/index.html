@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#101d29" />
+    <meta
+      name="description"
+      content="An interactive field guide to data centers. Follow electricity from the grid to a rack, then follow its heat back out. 22 visual lessons and hands-on engineering experiments."
+    />
+    <title>GIGAWATT — From watts to racks</title>
+    <style>
+      __COURSE_CSS__
+    </style>
+  </head>
+  <body>
+    <a class="skip" href="#lesson-title">Skip to lesson</a>
+    <header class="masthead">
+      <a class="brand" href="#one-rack" aria-label="GIGAWATT: start of course"
+        ><svg aria-hidden="true" width="26" height="30" viewBox="0 0 26 30">
+          <path d="M15 0 2 17h10l-1 13 13-18H14Z" fill="currentColor" /></svg
+        >GIGAWATT<span>A FIELD GUIDE TO DATA CENTERS</span></a
+      >
+      <div class="header-actions">
+        <button
+          id="contents-button"
+          class="quiet"
+          aria-label="Open course contents"
+        >
+          Contents <span aria-hidden="true">☰</span></button
+        ><button
+          id="fullscreen"
+          class="icon-button"
+          aria-label="Enter fullscreen"
+          title="Fullscreen"
+        >
+          ⛶
+        </button>
+      </div>
+    </header>
+    <nav id="chapters" class="chapters" aria-label="Course chapters"></nav>
+    <main>
+      <div class="lesson-layout">
+        <section class="lesson-copy" aria-labelledby="lesson-title">
+          <div id="eyebrow" class="eyebrow"></div>
+          <h1 id="lesson-title" tabindex="-1"></h1>
+          <p id="lesson-body" class="lesson-body"></p>
+          <div class="takeaway">
+            <span class="label">THE IDEA TO KEEP</span>
+            <p id="takeaway"></p>
+          </div>
+          <div class="reading-actions">
+            <button
+              id="notes-button"
+              class="text-button"
+              aria-expanded="false"
+              aria-controls="notes"
+            >
+              Read the explanation <span aria-hidden="true">↗</span></button
+            ><button id="sources-button" class="text-button">
+              Sources <span aria-hidden="true">↗</span>
+            </button>
+          </div>
+        </section>
+        <section
+          class="visual-workspace"
+          aria-label="Interactive engineering illustration"
+        >
+          <div class="visual-topline">
+            <span id="visual-label"></span
+            ><span id="visual-tag">CONCEPTUAL MODEL</span>
+          </div>
+          <div id="visual"></div>
+          <div id="experiment" class="experiment"></div>
+          <div id="visual-caption" class="visual-caption"></div>
+        </section>
+      </div>
+      <footer class="course-footer">
+        <button id="prev" class="nav-button" aria-label="Previous lesson">
+          <span aria-hidden="true">←</span><span>Previous</span>
+        </button>
+        <div class="progress-group">
+          <span id="lesson-counter" aria-live="polite"></span>
+          <div
+            id="progress"
+            class="progress"
+            aria-label="Lesson progress"
+          ></div>
+          <span class="key-hint">← → to explore</span>
+        </div>
+        <button id="next" class="nav-button next" aria-label="Next lesson">
+          <span id="next-label">Next lesson</span
+          ><span aria-hidden="true">→</span>
+        </button>
+      </footer>
+      <section
+        id="notes"
+        class="notes"
+        hidden
+        aria-label="Lesson explanation"
+      ></section>
+      <section
+        id="knowledge-check"
+        class="knowledge-check"
+        hidden
+        aria-label="Check your understanding"
+      ></section>
+    </main>
+
+    <dialog id="contents-dialog">
+      <div class="dialog-head">
+        <div>
+          <span class="eyebrow">THE COMPLETE JOURNEY</span>
+          <h2>From watts to racks.</h2>
+        </div>
+        <button class="dialog-close icon-button" aria-label="Close contents">
+          ×
+        </button>
+      </div>
+      <div id="contents-list"></div>
+    </dialog>
+    <dialog id="sources-dialog">
+      <div class="dialog-head">
+        <div>
+          <span class="eyebrow">FOLLOW THE EVIDENCE</span>
+          <h2>Sources & assumptions</h2>
+        </div>
+        <button class="dialog-close icon-button" aria-label="Close sources">
+          ×
+        </button>
+      </div>
+      <div id="source-list"></div>
+    </dialog>
+    <noscript
+      ><p class="noscript">
+        This course uses JavaScript for its interactive diagrams. Enable
+        JavaScript to explore the 22 lessons.
+      </p></noscript
+    >
+    <script type="application/json" id="course-data">
+      __COURSE_DATA__
+    </script>
+    <script type="module">
+      __COURSE_SCRIPT__;
+    </script>
+  </body>
+</html>

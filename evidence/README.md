@@ -1,7 +1,11 @@
-# Evidence ledger
+# Retained research ledgers
 
-The registered ledgers separate evidence scopes instead of pooling unlike
-claims:
+These ledgers preserve the source material researched for the earlier course.
+The active curriculum is `../course/lessons.json`, whose lessons cite their
+sources directly. A ledger's dates and site claims must be checked before reuse;
+retaining a record does not establish that its project status is still current.
+
+The ledgers separate evidence scopes instead of pooling unlike claims:
 
 - `abilene.yaml` is the fact boundary for the original eight-building Abilene
   reference campus and remains the master-diagram ledger.
@@ -19,6 +23,10 @@ claims:
 - `commercial_compute.yaml` holds ownership, financing, business-model
   comparisons, compute-conversion methods, and the fail-closed MW-to-token
   scenario recipe.
+- `generation_transmission.yaml` holds generation families, voltage/current
+  relationships, grid behavior, and dated interconnection references.
+- `building_power_reference.yaml` holds generic building distribution,
+  protected supply paths, and rack delivery references.
 
 `sources` uses stable IDs for primary records. `facts` is a flat mapping so
 renderers can resolve a qualified fact reference without interpreting nested
@@ -83,9 +91,9 @@ solid operational geometry. Permitted and future-design geometry must include a
 fact at the matching lifecycle. Conceptual, terminal, and course-variant records
 may use empty `fact_ids` and `source_ids`.
 
-The project validator rejects duplicate YAML mapping keys before loading any
-manifest, so a later duplicate cannot silently replace an earlier evidence or
-topology record.
+The earlier course validator and its fixed topology contracts have been retired.
+The active build validates the JSON course source and generated page; it does
+not revalidate these historical ledgers or refresh their evidence.
 
 ## Boundary
 
