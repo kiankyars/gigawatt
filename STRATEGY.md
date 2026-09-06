@@ -1,55 +1,31 @@
 # Course direction
 
-GIGAWATT teaches one system: supplying a data center with usable electrical
-power and returning its heat to the environment. The learner should finish able
-to trace both paths, explain the function of the equipment, calculate a few
-useful limits, and recognize which boundary a capacity number describes.
+GIGAWATT is expanding into a reference course on modern AI data-center
+infrastructure, from grid connection through useful compute and operation.
+Watts to racks remains the narrative spine, with heat returned to the environment
+and complete service tested through delivery, failures and maintenance.
 
-Start with the rack. It makes the rest of the course necessary: the grid must
-deliver power, electrical systems must transform and protect it, compute must
-turn it into useful work, and cooling must keep moving heat out. Return to that
-same system throughout the course so details accumulate into a coherent model.
+The earlier strategy has been translated into the established freeCodeCamp
+review format. Use these canonical planning documents:
 
-## What belongs
+- [Course review](course/COURSE_REVIEW.md): learner contract, scope, novice pass,
+  evidence/visual requirements and production gates.
+- [Domain map](course/DOMAIN_MAP.md): capabilities, prerequisites, assessments,
+  source relationships and reuse of the existing lessons. Edit
+  `course/domain-map.json`; build its Markdown and browser views with `gigawatt-map`.
+- [Companion design](course/COMPANION.md): guided learning, lookup, scenarios,
+  source notes and a reference that can evolve alongside a recorded edition.
+- [Research library](research/README.md): discovery, curated sources, persistent
+  Markdown notes, review states and unresolved evidence.
 
-- Power versus energy, including the boundary between facility and IT load.
-- Voltage, current, and loss as the reason for transmission and transformation.
-- A generic electrical path from campus connection through distribution to the rack.
-- UPS runtime, backup supply, path independence, and capacity during failures.
-- Rack and processor power conversion, and the limits of turning MW into compute.
-- Component cooling, technology and facility loops, residual air, and heat rejection.
-- A final system calculation and a dated case that tests the distinction between
-  an announcement, equipment capacity, and operating service.
+**The encyclopedic survey is an explicit anti-pattern.** Component names,
+article counts and runtime do not establish understanding. Teach mechanisms,
+worked examples, tradeoffs, failure or limiting cases, and transfer to new
+situations. SemiAnalysis informs the research; it does not define truth or
+curriculum completeness.
 
-Generation surveys, financing, procurement, market commentary, and elaborate
-project chronologies do not need standalone chapters. Keep only the parts that
-clarify the central engineering problem.
-
-## Visual decisions
-
-Every lesson needs a diagram that explains a relationship. Use spatial views
-for location and nesting, a schematic for connections, a comparison for a
-tradeoff, and a quantitative display for a calculation. Geometry and labels
-must stay readable at the actual teaching size.
-
-An interaction earns its place when the learner can predict an outcome, change
-an input, observe the result, and explain why. Keep the model's assumptions next
-to the result. Do not animate quantities that lack a defined meaning or imply
-that display motion is the physical velocity of electricity or coolant.
-
-Keep a consistent power/heat color grammar, visible units, short direct labels,
-and a clear distinction between a general teaching model and site evidence.
-Treat reduced motion, keyboard access, mobile layout, and text explanations as
-part of the visual design.
-
-## Engineering discipline
-
-Equations and assumptions live beside their implementations and are covered by
-tests that check known examples and limiting behavior. Sources belong to the
-lesson where the claim is used. A generic architecture does not establish a
-site's as-built arrangement. Missing quantities stay unknown.
-
-The repository has one editable curriculum and one generated course page.
-Keep the build deterministic and the release checks small enough to run on every
-change. Teaching quality comes from technical review, using the interactions,
-and inspecting the rendered course; historical acceptance labels cannot prove it.
+The current `course/lessons.json` and player remain the 22-lesson introductory
+foundation. Siting, delivery, networking, storage, controls, maintenance and
+system economics are now included at the depth defined by the new map;
+their previous exclusion is superseded. Proposed teaching is not completed
+teaching, and previous browser checks do not validate new course content.

@@ -1,8 +1,16 @@
 # GIGAWATT
 
-**From watts to racks. Then all the way back to the air.**
+**From watts to racks, useful compute, and operation.**
 
-An interactive course about the physical systems that make a data center work.
+GIGAWATT is being expanded into a reference course on modern AI data-center
+infrastructure. Start with the [domain atlas](course/domain-map.html),
+[domain map](course/DOMAIN_MAP.md), [course review](course/COURSE_REVIEW.md),
+[companion design](course/COMPANION.md), and [research library](research/README.md).
+These describe the proposed expansion; the existing player remains a 22-lesson
+electrical-and-thermal introduction.
+
+The current interactive introduction explains the physical systems that make a
+data center work.
 Start with a rack's two obligations: deliver electrical power and remove heat.
 Then follow the grid connection, electrical distribution, continuity of service,
 rack power conversion, useful computation, and the return of heat to the atmosphere.
@@ -27,7 +35,11 @@ connection, but the course itself does not.
 
 ## Edit and verify
 
-- `course/lessons.json` owns the chapter order, explanations, checks, notes, and sources.
+- `course/COURSE_REVIEW.md` owns the expanded learner contract and production review.
+- `course/domain-map.json` owns the proposed domains, capabilities and assessments.
+- `course/research-sources.json` owns the curated research source catalog.
+- `course/lessons.json` owns the current player's chapter order, explanations,
+  checks, notes, and sources.
 - `course/web/index.html` and `course/web/course.css` own the page and visual system.
 - `course/web/diagrams.js` owns the explanatory diagrams and their interactions.
 - `course/web/math.js` owns the engineering calculations.
@@ -48,15 +60,22 @@ Use `course/TESTING.md` for the browser walkthrough. A successful build checks
 content relationships and artifact freshness; visual and teaching quality require
 actually using the course.
 
+Build the planning atlas and Markdown coverage map with `uv run gigawatt-map`;
+use `uv run gigawatt-map --check` to validate references, prerequisite order and
+generated outputs. The research library documents its separate discovery and
+note-building commands. Serve the repository root to browse the planning atlas
+at `/course/domain-map.html`; serving only `diagram/` exposes the current player.
+
 GitHub Pages validates these checks and publishes `diagram/index.html` when
 `main` changes. Previously published course and phase URLs redirect to the same
 course. The production course is [GIGAWATT](https://kiankyars.github.io/gigawatt/).
 
 ## Scope and evidence
 
-The core is data center engineering. Generation technologies, commercial
-structures, and project history appear only when they explain a physical
-constraint. The Abilene example is a bounded application of the course, with
+The expanded scope includes power, compute/memory, networking, storage, cooling,
+physical design, delivery, operations and system economics. The domain map
+sets the depth and explicit exclusions. The existing Abilene example is a
+bounded application of the introduction, with
 dated evidence and explicit unknowns. Teaching scenarios are labeled assumptions
 and do not estimate a site's installed equipment or operating performance.
 

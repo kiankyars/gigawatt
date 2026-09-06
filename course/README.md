@@ -1,6 +1,19 @@
 # Course source
 
-`lessons.json` is the active curriculum. It contains the title, chapter list, and
+The expansion is defined by [COURSE_REVIEW.md](COURSE_REVIEW.md), instantiated
+from the freeCodeCamp template, and the [domain map](DOMAIN_MAP.md).
+[COMPANION.md](COMPANION.md) defines the reference experience, while the
+[research library](../research/README.md) retains source notes and discovery results.
+The encyclopedic survey is an explicit anti-pattern: coverage requires a taught
+capability, a worked example and an application assessment.
+
+`domain-map.json` is the editable map; `research-sources.json` is the curated
+source catalog. `uv run gigawatt-map` validates their relationships and generates
+`DOMAIN_MAP.md` and the standalone `domain-map.html` atlas. Use `--check` to verify
+freshness. Domain-level source links are research leads, not claim-level approval.
+
+`lessons.json` is the current 22-lesson introductory curriculum. It contains the
+title, chapter list, and
 ordered lessons. Each lesson specifies a stable ID, chapter, visual ID, short
 explanation, takeaway, longer notes, and sources. Optional checks include a
 question, options, a zero-based answer index, and an explanation.

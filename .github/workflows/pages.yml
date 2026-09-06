@@ -38,6 +38,8 @@ jobs:
       - name: Validate course and generated page
         run: |
           PYTHONPATH=src python -m gigawatt.build_course --check
+          PYTHONPATH=src python -m gigawatt.build_domain_map --check
+          PYTHONPATH=src python -m gigawatt.research check --include-candidates
           PYTHONPATH=src python -m unittest discover -s tests -p 'test_*.py' -v
           node --test tests/math.test.mjs
 

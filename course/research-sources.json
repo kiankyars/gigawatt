@@ -1,0 +1,1046 @@
+{
+  "as_of": "2026-09-06",
+  "inventory_status": "seed_not_exhaustive",
+  "method": "A bounded curated discovery pass over 40 SemiAnalysis articles and 15 independent primary-source starting points. Sources are mapped many-to-many to domain IDs for curriculum research, not certified as complete coverage or sources of truth. The additional SA11–SA40 sample used 16 search queries and selected entries from the publisher's 2023–2026 annual sitemaps; research/discovery-searches.md records the method and limits. page_reviewed means the stated web page was inspected, with partial-reading and linked-document limits recorded in caution; public_excerpt_reviewed includes accessible previews, abstracts or selected public sections and never implies review of a complete paid work. candidate_not_reviewed means substantive content has not been reviewed. A domain mapping identifies intended research use, not verified support for every objective or claim. reviewed_on is the review date; published_on, where present, is the source's displayed publication date and is null when not established.",
+  "sources": [
+    {
+      "id": "SA01",
+      "title": "Datacenter Anatomy Part 1: Electrical Systems",
+      "url": "https://newsletter.semianalysis.com/p/datacenter-anatomy-part-1-electrical",
+      "publisher": "SemiAnalysis",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D04",
+        "D05",
+        "D06",
+        "D13",
+        "D15"
+      ],
+      "use": "Map transformers, switchgear, UPS, generators and busbars to the power path; connect equipment choices to redundancy and construction cost.",
+      "caution": "Public introduction and accessible sections reviewed, not the complete paid report. The October 2024 equipment assumptions and forecasts require dated claim-level checks."
+    },
+    {
+      "id": "SA02",
+      "title": "Datacenter Anatomy Part 2 – Cooling Systems",
+      "url": "https://newsletter.semianalysis.com/p/datacenter-anatomy-part-2-cooling-systems",
+      "publisher": "SemiAnalysis",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D10",
+        "D11",
+        "D15"
+      ],
+      "use": "Seed comparisons of air cooling, liquid cooling, chillers, heat rejection, PUE and water use across facility designs.",
+      "caution": "Accessible sections reviewed, not the complete paid report. Its water-cooled-chiller paragraph reverses the COP ratio: use cooling delivered divided by work input, as verified by P10. Audit other engineering claims individually."
+    },
+    {
+      "id": "SA03",
+      "title": "100,000 H100 Clusters: Power, Network Topology, Ethernet vs InfiniBand, Reliability, Failures, Checkpointing",
+      "url": "https://newsletter.semianalysis.com/p/100000-h100-clusters-power-network",
+      "publisher": "SemiAnalysis",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D02",
+        "D07",
+        "D08",
+        "D09",
+        "D14"
+      ],
+      "use": "Connect cluster size and topology to communication overhead, component failures, checkpointing and useful training progress.",
+      "caution": "Title, introduction and accessible material reviewed; the complete paid analysis and its quantitative assumptions have not been audited. H100-era examples are historical cases."
+    },
+    {
+      "id": "SA04",
+      "title": "Multi-Datacenter Training: OpenAI’s Ambitious Plan To Beat Google’s Infrastructure",
+      "url": "https://newsletter.semianalysis.com/p/multi-datacenter-training-openais",
+      "publisher": "SemiAnalysis",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D02",
+        "D03",
+        "D08",
+        "D09",
+        "D15"
+      ],
+      "use": "Explore how site power limits, inter-site bandwidth and latency constrain distributed training and campus placement.",
+      "caution": "Public preview reviewed, not the complete paid article. The September 2024 plans and forecasts are not evidence of subsequent deployment or achieved performance."
+    },
+    {
+      "id": "SA05",
+      "title": "AI Neocloud Playbook and Anatomy",
+      "url": "https://newsletter.semianalysis.com/p/ai-neocloud-playbook-and-anatomy",
+      "publisher": "SemiAnalysis",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D07",
+        "D08",
+        "D09",
+        "D13",
+        "D14",
+        "D15"
+      ],
+      "use": "Connect a cluster bill of materials to deployment, daily operation, utilization and the economics of selling compute.",
+      "caution": "Public introduction and accessible sections reviewed, not the complete paid report. October 2024 rental prices, market shares and return assumptions must not be reused as current facts."
+    },
+    {
+      "id": "SA06",
+      "title": "Co-Packaged Optics (CPO) Book – Scaling with Light for the Next Wave of Interconnect",
+      "url": "https://newsletter.semianalysis.com/p/co-packaged-optics-cpo-book-scaling",
+      "publisher": "SemiAnalysis",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D07",
+        "D08",
+        "D14",
+        "D15"
+      ],
+      "use": "Map electrical reach, optical conversion, scale-up and scale-out topology, serviceability and networking power to architectural tradeoffs.",
+      "caution": "Introduction, table of contents and selected accessible sections reviewed, not the complete paid book. Separate measured results from vendor claims, adoption forecasts and supplier analysis."
+    },
+    {
+      "id": "SA07",
+      "title": "US Grid Constraints: Towards 40GW+ of Behind-The-Meter Datacenter by 2028?",
+      "url": "https://newsletter.semianalysis.com/p/us-grid-constraints-towards-40gw",
+      "publisher": "SemiAnalysis",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D03",
+        "D05",
+        "D13",
+        "D15"
+      ],
+      "use": "Introduce interconnection constraints, equipment lead times and on-site generation as interacting limits on project delivery.",
+      "caution": "Public excerpts reviewed, not the complete paid report or underlying model. Capacity forecasts and regional queue assumptions need their own dates, definitions and independent evidence."
+    },
+    {
+      "id": "SA08",
+      "title": "ClusterMAX™ 2.0: The Industry Standard GPU Cloud Rating System",
+      "url": "https://newsletter.semianalysis.com/p/clustermax-20-the-industry-standard",
+      "publisher": "SemiAnalysis",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D08",
+        "D09",
+        "D14",
+        "D15"
+      ],
+      "use": "Seed operational questions about security, provisioning, orchestration, storage, monitoring and reliability that equipment inventories miss.",
+      "caution": "Overview and selected accessible criteria reviewed, not every provider assessment. This is a proprietary rating methodology; dated provider rankings are not universal engineering standards."
+    },
+    {
+      "id": "SA09",
+      "title": "How Much Do GPU Clusters Really Cost?",
+      "url": "https://newsletter.semianalysis.com/p/how-much-do-gpu-clusters-really-cost",
+      "publisher": "SemiAnalysis",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D02",
+        "D09",
+        "D14",
+        "D15"
+      ],
+      "use": "Distinguish rented GPU-hours from useful progress by accounting for setup, interruptions, storage, support and recovery overhead.",
+      "caution": "Accessible introduction and definitions reviewed, not the complete paid report or calculator implementation. The April 2026 article explicitly uses an August 2025 default GPU-price snapshot; replace inputs for new cases."
+    },
+    {
+      "id": "SA10",
+      "title": "Inside the 800VDC Revolution – Part 1",
+      "url": "https://newsletter.semianalysis.com/p/inside-the-800vdc-revolution-part",
+      "publisher": "SemiAnalysis",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D04",
+        "D05",
+        "D06",
+        "D07",
+        "D13",
+        "D15"
+      ],
+      "use": "Compare low-voltage rack distribution, power sidecars and facility DC architectures; trace how current, conversion placement and protection interact.",
+      "caution": "Public sections reviewed, not the complete paid report. Its four-phase adoption path and savings are analyst framing and estimates, not a universal standard or proof of installed capacity; verify each architecture with current primary specifications."
+    },
+    {
+      "id": "P01",
+      "title": "Best Practices Guide for Energy-Efficient Data Center Design",
+      "url": "https://www.energy.gov/cmei/femp/articles/best-practices-guide-energy-efficient-data-center-design",
+      "publisher": "U.S. Department of Energy, Federal Energy Management Program",
+      "kind": "guidance",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D01",
+        "D04",
+        "D10",
+        "D11",
+        "D15"
+      ],
+      "use": "Provide an independent checklist spanning IT conditions, air management, electrical and cooling systems, and heat recovery.",
+      "caution": "The July 2024 guide landing page and scope were reviewed; the linked PDF has not been audited in this pass. Consult exact sections before using numerical design recommendations."
+    },
+    {
+      "id": "P02",
+      "title": "Commissioning & Performance Validation | AI Data Center Energy Performance Framework",
+      "url": "https://www.ashrae.org/technical-resources/ai-data-center-framework/commissioning-performance-validation",
+      "publisher": "ASHRAE",
+      "kind": "guidance",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D10",
+        "D12",
+        "D13",
+        "D14"
+      ],
+      "use": "Add commissioning across design and construction, integrated failure testing, fluid cleanliness, measurement baselines, procedure validation and operator handover.",
+      "caution": "Expert framework guidance, not a substitute for project-specific acceptance criteria, equipment instructions or applicable standards. Individual referenced documents were not all reviewed."
+    },
+    {
+      "id": "P03",
+      "title": "Management and Operations Guideline",
+      "url": "https://uptimeinstitute.com/professional-services/management-operations/mando-criteria",
+      "publisher": "Uptime Institute",
+      "kind": "guidance",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D05",
+        "D13",
+        "D14"
+      ],
+      "use": "Audit coverage of staffing, maintenance, training, planning, operating conditions, as-built records and incident learning.",
+      "caution": "Public guideline reviewed; it describes operational behaviors and does not establish that any particular facility is certified or that redundancy alone guarantees uptime."
+    },
+    {
+      "id": "P04",
+      "title": "Tier Classification System",
+      "url": "https://uptimeinstitute.com/tiers",
+      "publisher": "Uptime Institute",
+      "kind": "guidance",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D04",
+        "D05",
+        "D10",
+        "D13",
+        "D14"
+      ],
+      "use": "Distinguish redundant capacity, concurrent maintainability and fault tolerance; test whether a whole distribution path supports the intended availability objective.",
+      "caution": "Public framework overview reviewed, not the full topology standard. Tier is not an uptime percentage or a simple N+1/2N label; the framework explicitly excludes some location, code and security factors."
+    },
+    {
+      "id": "P05",
+      "title": "NVIDIA 800 VDC Architecture Will Power the Next Generation of AI Factories",
+      "url": "https://developer.nvidia.com/blog/nvidia-800-v-hvdc-architecture-will-power-the-next-generation-of-ai-factories/",
+      "publisher": "NVIDIA",
+      "kind": "roadmap",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D04",
+        "D05",
+        "D06",
+        "D07",
+        "D15"
+      ],
+      "use": "Provide a primary vendor description of conversion placement, row-level DC distribution and the motivation for higher rack power.",
+      "caution": "May 2025 vendor roadmap with projected 2027 deployment and claimed benefits, not field validation. Recheck later NVIDIA and OCP publications before presenting specific voltages, timelines or savings as current."
+    },
+    {
+      "id": "P06",
+      "title": "Open Rack/SpecsAndDesigns",
+      "url": "https://www.opencompute.org/wiki/Open_Rack/SpecsAndDesigns",
+      "publisher": "Open Compute Project",
+      "kind": "specification",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D05",
+        "D06",
+        "D07",
+        "D10",
+        "D12"
+      ],
+      "use": "Locate versioned rack, power-shelf, PSU, battery, connector and manifold specifications to verify component interfaces.",
+      "caution": "Specification index reviewed; individual specification PDFs have not been audited. Record the exact document revision and contributor before using ratings or claiming compliance; the index is not itself a design specification."
+    },
+    {
+      "id": "P07",
+      "title": "ASHRAE Handbook, Chapter 20: Data Centers and Telecommunication Facilities",
+      "url": "https://handbook.ashrae.org/Handbooks/A23/SI/A23_Ch20/a23_ch20_si.aspx",
+      "publisher": "ASHRAE",
+      "kind": "guidance",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D01",
+        "D02",
+        "D10",
+        "D11",
+        "D12",
+        "D14"
+      ],
+      "use": "Audit system boundaries, facility space, dynamic loads, environmental envelopes, air and liquid cooling, monitoring and coordination with fire protection.",
+      "caution": "Public 2023 chapter and selected technical sections reviewed, not every linked standard or table. Equipment-specific limits and later revisions take precedence over a generic environmental range."
+    },
+    {
+      "id": "P08",
+      "title": "Building Meta’s GenAI Infrastructure",
+      "url": "https://engineering.fb.com/2024/03/12/data-center-engineering/building-metas-genai-infrastructure/",
+      "publisher": "Meta Engineering",
+      "kind": "deployment",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D02",
+        "D07",
+        "D08",
+        "D09",
+        "D14"
+      ],
+      "use": "Use a first-party training-cluster case to connect hardware, network topology, checkpoint storage, scheduling and debugging to delivered workload performance.",
+      "caution": "Self-reported March 2024 implementation with operator-specific software and workload choices. Treat future fleet targets separately from the described clusters; do not generalize its reported results to every workload."
+    },
+    {
+      "id": "P09",
+      "title": "The Datacenter as a Computer: designing warehouse-scale machines",
+      "url": "https://research.google/pubs/the-datacenter-as-a-computer-designing-warehouse-scale-machines/",
+      "publisher": "Google Research; book published by Morgan & Claypool",
+      "kind": "guidance",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D01",
+        "D02",
+        "D07",
+        "D08",
+        "D09",
+        "D14",
+        "D15"
+      ],
+      "use": "Identify a systems reference for workload diversity and hardware/software co-design beyond frontier AI training.",
+      "caution": "Only Google’s abstract and bibliographic page were reviewed; the 2018 third-edition book was not. Review relevant chapters before treating them as supporting evidence, and refresh dated hardware and cost examples."
+    },
+    {
+      "id": "P10",
+      "title": "Incorporate Minimum Efficiency Requirements for Heating and Cooling Products into Federal Acquisition Documents",
+      "url": "https://www.energy.gov/cmei/femp/incorporate-minimum-efficiency-requirements-heating-and-cooling-products-federal",
+      "publisher": "U.S. Department of Energy, Federal Energy Management Program",
+      "kind": "guidance",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D01",
+        "D10",
+        "D11",
+        "D15"
+      ],
+      "use": "Verify the cooling COP definition: cooling effect divided by net work input in consistent units; distinguish it from reciprocal kW-per-ton ratings.",
+      "caution": "Used for the explicit metric definition, including the COP footnote, rather than to prescribe current procurement thresholds or a whole-facility COP. Keep equipment and facility accounting boundaries separate."
+    },
+    {
+      "id": "P11",
+      "title": "NFPA 75: Standard for the Fire Protection of Information Technology Equipment",
+      "url": "https://www.nfpa.org/codes-and-standards/nfpa-75-standard-development/75",
+      "publisher": "National Fire Protection Association",
+      "kind": "standard",
+      "review_status": "candidate_not_reviewed",
+      "reviewed_on": null,
+      "domains": [
+        "D05",
+        "D12",
+        "D13"
+      ],
+      "use": "Candidate for defining the fire-protection questions and interfaces that a facility safety module must address.",
+      "caution": "The official landing page returned no readable content, and no standard clauses were reviewed. Obtain the applicable edition and jurisdictional context; add separate sources for electrical safety, egress, structural loading and battery hazards."
+    },
+    {
+      "id": "P12",
+      "title": "Large Loads Action Plan",
+      "url": "https://www.nerc.com/initiatives/large-loads-action-plan",
+      "publisher": "North American Electric Reliability Corporation",
+      "kind": "guidance",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D03",
+        "D05",
+        "D13",
+        "D14"
+      ],
+      "use": "Locate primary work on large-load disturbance behavior, modeling, interconnection, commissioning and coordination with grid operators.",
+      "caution": "Indexed public excerpts and the resource inventory were reviewed; direct page extraction returned only its footer. Linked guidelines and proposals were not audited. Distinguish proposed requirements, guidance and enforceable standards."
+    },
+    {
+      "id": "SA11",
+      "title": "AI Training Load Fluctuations at Gigawatt-scale - Risk of Power Grid Blackout?",
+      "url": "https://newsletter.semianalysis.com/p/ai-training-load-fluctuations-at-gigawatt-scale-risk-of-power-grid-blackout",
+      "publisher": "SemiAnalysis",
+      "published_on": "2025-06-25",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D02",
+        "D03",
+        "D05",
+        "D14"
+      ],
+      "use": "Relate synchronous workload phases to load ramps, ride-through, UPS behavior and energy-storage response.",
+      "caution": "Public heading and introduction or selected preview sections reviewed; complete paid article not reviewed. Use primary load traces and grid incident reports to check transient mechanisms; scenario narratives and equipment sales forecasts are not measured blackout probabilities.",
+      "discovered_via": "https://newsletter.semianalysis.com/sitemap/2025"
+    },
+    {
+      "id": "SA12",
+      "title": "How AI Labs Are Solving the Power Crisis: The Onsite Gas Deep Dive",
+      "url": "https://newsletter.semianalysis.com/p/how-ai-labs-are-solving-the-power",
+      "publisher": "SemiAnalysis",
+      "published_on": "2025-12-30",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D03",
+        "D05",
+        "D11",
+        "D13",
+        "D15"
+      ],
+      "use": "Compare on-site turbines, reciprocating engines and fuel cells through delivery time, fuel supply, efficiency and cost.",
+      "caution": "Public heading and introduction or selected preview sections reviewed; complete paid article not reviewed. Separate reported installations from forecast demand. Check air permits, fuel availability, emissions and vendor performance at the intended ambient conditions.",
+      "discovered_via": "https://newsletter.semianalysis.com/sitemap/2025"
+    },
+    {
+      "id": "SA13",
+      "title": "Nvidia’s Optical Boogeyman – NVL72, Infiniband Scale Out, 800G & 1.6T Ramp",
+      "url": "https://newsletter.semianalysis.com/p/nvidias-optical-boogeyman-nvl72-infiniband",
+      "publisher": "SemiAnalysis",
+      "published_on": "2024-03-25",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D07",
+        "D08",
+        "D15"
+      ],
+      "use": "Explain why more copper inside a scale-up rack does not determine optical transceiver demand across the wider cluster.",
+      "caution": "Public heading and introduction or selected preview sections reviewed; complete paid article not reviewed. An early Blackwell interpretation; verify topology, directionality and transceiver counts for a named configuration before using quantitative examples.",
+      "discovered_via": "https://newsletter.semianalysis.com/sitemap/2024"
+    },
+    {
+      "id": "SA14",
+      "title": "AI Datacenter Energy Dilemma - Race for AI Datacenter Space",
+      "url": "https://newsletter.semianalysis.com/p/ai-datacenter-energy-dilemma-race",
+      "publisher": "SemiAnalysis",
+      "published_on": "2024-03-13",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D01",
+        "D03",
+        "D04",
+        "D10",
+        "D13",
+        "D15"
+      ],
+      "use": "Frame how grid, building, cooling and equipment constraints can limit conversion of accelerator supply into usable capacity.",
+      "caution": "Public heading and introduction or selected preview sections reviewed; complete paid article not reviewed. Historical 2024 forecast and regional estimates; announced, under-construction and operating capacity require different labels and current corroboration.",
+      "discovered_via": "https://newsletter.semianalysis.com/sitemap/2024"
+    },
+    {
+      "id": "SA15",
+      "title": "The New AI Networks | Ultra Ethernet UEC | UALink vs Broadcom Scale Up Ethernet SUE",
+      "url": "https://newsletter.semianalysis.com/p/the-new-ai-networks-ultra-ethernet-uec-ualink-vs-broadcom-scale-up-ethernet-sue",
+      "publisher": "SemiAnalysis",
+      "published_on": "2025-06-11",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D08",
+        "D09",
+        "D14"
+      ],
+      "use": "Compare network roles and mechanisms including congestion control, packet spraying and transport behavior.",
+      "caution": "Public heading and introduction or selected preview sections reviewed; complete paid article not reviewed. This discusses a specific UEC release candidate and UALink generation; consult current consortium specifications and distinguish standard features from proprietary implementations.",
+      "discovered_via": "https://newsletter.semianalysis.com/sitemap/2025"
+    },
+    {
+      "id": "SA16",
+      "title": "Google OCS Apollo: The >$3 Billion Game-Changer in Datacenter Networking",
+      "url": "https://newsletter.semianalysis.com/p/google-apollo-the-3-billion-game",
+      "publisher": "SemiAnalysis",
+      "published_on": "2023-03-17",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D08",
+        "D14",
+        "D15"
+      ],
+      "use": "Use reconfigurable optical circuit switching as a case in topology flexibility, upgrade strategy and network economics.",
+      "caution": "Public heading and introduction or selected preview sections reviewed; complete paid article not reviewed. Trace Google performance and reliability claims to its papers; savings and market-impact claims are analysis, not universal OCS benefits.",
+      "discovered_via": "https://newsletter.semianalysis.com/sitemap/2023"
+    },
+    {
+      "id": "SA17",
+      "title": "Energizing AI: Power Delivery Competition Heats Up Vicor, MPS, Delta, ADI, Renesas, Infineon",
+      "url": "https://newsletter.semianalysis.com/p/energizing-ai-power-delivery-competition",
+      "publisher": "SemiAnalysis",
+      "published_on": "2023-08-01",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D06",
+        "D07",
+        "D10",
+        "D15"
+      ],
+      "use": "Connect accelerator current demand to board-level conversion placement, losses and the competition among power-delivery approaches.",
+      "caution": "Public heading and introduction or selected preview sections reviewed; complete paid article not reviewed. A 2023 supplier and architecture snapshot. Recheck product-specific conversion stages, voltage rails and efficiencies; do not teach supplier positioning as physics.",
+      "discovered_via": "https://newsletter.semianalysis.com/sitemap/2023"
+    },
+    {
+      "id": "SA18",
+      "title": "GPU Cloud Economics Explained – The Hidden Truth",
+      "url": "https://newsletter.semianalysis.com/p/gpu-cloud-economics-explained-the",
+      "publisher": "SemiAnalysis",
+      "published_on": "2023-12-04",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D02",
+        "D09",
+        "D14",
+        "D15"
+      ],
+      "use": "Contrast GPU rental with general-purpose cloud services and identify differences in capital, utilization and software requirements.",
+      "caution": "Public heading and introduction or selected preview sections reviewed; complete paid article not reviewed. Historical market framing should be compared with later ClusterMAX operations and security work. Do not generalize its claims about limited software needs to current multi-tenant services.",
+      "discovered_via": "https://newsletter.semianalysis.com/sitemap/2023"
+    },
+    {
+      "id": "SA19",
+      "title": "GB200 Hardware Architecture - Component Supply Chain & BOM",
+      "url": "https://newsletter.semianalysis.com/p/gb200-hardware-architecture-and-component",
+      "publisher": "SemiAnalysis",
+      "published_on": "2024-07-17",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D06",
+        "D07",
+        "D08",
+        "D10",
+        "D13"
+      ],
+      "use": "Trace a rack design across compute trays, busbars, networking fabrics, cooling loops, mechanical interfaces and supplier handoffs.",
+      "caution": "Public heading and introduction or selected preview sections reviewed; complete paid article not reviewed. Pre-deployment 2024 architecture and shipment forecasts include multiple variants. Reconstruct one named configuration from later primary documents rather than mixing estimates.",
+      "discovered_via": "https://newsletter.semianalysis.com/sitemap/2024"
+    },
+    {
+      "id": "SA20",
+      "title": "H100 vs GB200 NVL72 Training Benchmarks - Power, TCO, and Reliability Analysis, Software Improvement Over Time",
+      "url": "https://newsletter.semianalysis.com/p/h100-vs-gb200-nvl72-training-benchmarks",
+      "publisher": "SemiAnalysis",
+      "published_on": "2025-08-20",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D02",
+        "D07",
+        "D09",
+        "D14",
+        "D15"
+      ],
+      "use": "Examine how cluster scaling, software versions and failures alter joules per training token and performance per cost.",
+      "caution": "Public heading and introduction or selected preview sections reviewed; complete paid article not reviewed. The August 2025 benchmark environment and early GB200 reliability state are time-specific. Check model, precision, software, power boundary and failure accounting before comparing results.",
+      "discovered_via": "https://newsletter.semianalysis.com/sitemap/2025"
+    },
+    {
+      "id": "SA21",
+      "title": "The Memory Wall: Past, Present, and Future of DRAM",
+      "url": "https://newsletter.semianalysis.com/p/the-memory-wall",
+      "publisher": "SemiAnalysis",
+      "published_on": "2024-09-03",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D02",
+        "D07",
+        "D15"
+      ],
+      "use": "Motivate the distinction between compute throughput, memory bandwidth, capacity and cost.",
+      "caution": "Public heading and introduction or selected preview sections reviewed; complete paid article not reviewed. Broad memory-industry history and forecasts need selection for the course; avoid importing fabrication detail that does not explain a datacenter decision.",
+      "discovered_via": "https://newsletter.semianalysis.com/sitemap/2024"
+    },
+    {
+      "id": "SA22",
+      "title": "Scaling the Memory Wall: The Rise and Roadmap of HBM",
+      "url": "https://newsletter.semianalysis.com/p/scaling-the-memory-wall-the-rise-and-roadmap-of-hbm",
+      "publisher": "SemiAnalysis",
+      "published_on": "2025-08-12",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D02",
+        "D07",
+        "D09",
+        "D15"
+      ],
+      "use": "Connect memory hierarchy and HBM constraints to KV-cache offload, model placement and prefill/decode architecture.",
+      "caution": "Public heading and introduction or selected preview sections reviewed; complete paid article not reviewed. Compare each architectural generalization with primary accelerator specifications and workload measurements; HBM roadmaps and supplier qualification claims are time-specific.",
+      "discovered_via": "https://newsletter.semianalysis.com/sitemap/2025"
+    },
+    {
+      "id": "SA23",
+      "title": "CPUs are Back: The Datacenter CPU Landscape in 2026",
+      "url": "https://newsletter.semianalysis.com/p/cpus-are-back-the-datacenter-cpu",
+      "publisher": "SemiAnalysis",
+      "published_on": "2026-02-09",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D02",
+        "D07",
+        "D09",
+        "D15"
+      ],
+      "use": "Broaden the infrastructure brief to CPU-heavy environments, agent workloads, memory services and accelerator-adjacent work.",
+      "caution": "Public heading and introduction or selected preview sections reviewed; complete paid article not reviewed. Demand and revenue forecasts are analyst estimates. Obtain measured CPU, memory and storage requirements for the chosen workload instead of deriving capacity from headlines.",
+      "discovered_via": "https://newsletter.semianalysis.com/sitemap/2026"
+    },
+    {
+      "id": "SA24",
+      "title": "Vera Rubin – Extreme Co-Design: An Evolution from Grace Blackwell Oberon",
+      "url": "https://newsletter.semianalysis.com/p/vera-rubin-extreme-co-design-an-evolution",
+      "publisher": "SemiAnalysis",
+      "published_on": "2026-02-25",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D06",
+        "D07",
+        "D08",
+        "D10",
+        "D13",
+        "D15"
+      ],
+      "use": "Study rack-level integration as a joint choice of compute, networking, cooling, power and serviceability.",
+      "caution": "Public heading and introduction or selected preview sections reviewed; complete paid article not reviewed. A February 2026 product-analysis snapshot. Distinguish announced architecture, expected performance and shipping configuration; verify cableless and power-rack details with current specifications.",
+      "discovered_via": "https://newsletter.semianalysis.com/sitemap/2026"
+    },
+    {
+      "id": "SA25",
+      "title": "TPUv7: Google Takes a Swing at the King",
+      "url": "https://newsletter.semianalysis.com/p/tpuv7-google-takes-a-swing-at-the",
+      "publisher": "SemiAnalysis",
+      "published_on": "2025-11-28",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D02",
+        "D07",
+        "D08",
+        "D09",
+        "D15"
+      ],
+      "use": "Provide a non-NVIDIA case for accelerator, network, compiler and workload co-design at cluster scale.",
+      "caution": "Public heading and introduction or selected preview sections reviewed; complete paid article not reviewed. The retrieved page wrapper also used an alternate TPUv7 title; this record follows the visible article heading. Forecast TPUv8 comparisons and competitive claims need separate validation.",
+      "discovered_via": "https://newsletter.semianalysis.com/sitemap/2025"
+    },
+    {
+      "id": "SA26",
+      "title": "AWS Trainium3 Deep Dive | A Potential Challenger Approaching",
+      "url": "https://newsletter.semianalysis.com/p/aws-trainium3-deep-dive-a-potential",
+      "publisher": "SemiAnalysis",
+      "published_on": "2025-12-04",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D02",
+        "D07",
+        "D08",
+        "D09",
+        "D15"
+      ],
+      "use": "Compare a cloud-designed accelerator system through rack topology, scale-up connectivity, profiling tools and performance economics.",
+      "caution": "Public heading and introduction or selected preview sections reviewed; complete paid article not reviewed. Separate Trainium3 launch facts, tested performance and Trainium4 projections. Recheck software releases and selected workload configuration rather than assuming all benchmarks transfer.",
+      "discovered_via": "https://newsletter.semianalysis.com/sitemap/2025"
+    },
+    {
+      "id": "SA27",
+      "title": "RL Systems Mind the Gap: Matching Trainer and Generator Throughput",
+      "url": "https://newsletter.semianalysis.com/p/rl-systems-mind-the-gap-matching",
+      "publisher": "SemiAnalysis",
+      "published_on": "2026-06-16",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D02",
+        "D07",
+        "D09",
+        "D14",
+        "D15"
+      ],
+      "use": "Use reinforcement-learning pipelines to show how CPU environments, inference generators and GPU trainers create different bottlenecks and utilization patterns.",
+      "caution": "Public heading and introduction or selected preview sections reviewed; complete paid article not reviewed. Keep the curricular focus on infrastructure demand and throughput matching. Algorithm claims, named model results and benchmark configurations need independent checks.",
+      "discovered_via": "https://newsletter.semianalysis.com/sitemap/2026"
+    },
+    {
+      "id": "SA28",
+      "title": "Most Neoclouds Suck At Security",
+      "url": "https://newsletter.semianalysis.com/p/most-neoclouds-suck-at-security",
+      "publisher": "SemiAnalysis",
+      "published_on": "2026-08-30",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D09",
+        "D14"
+      ],
+      "use": "Seed questions about isolation, network policy, patching, observability access and the boundary between provider and tenant responsibilities.",
+      "caution": "Public heading and introduction or selected preview sections reviewed; complete paid article not reviewed. Reported provider patterns are not a security audit of any course system. Consult current security advisories and official platform guidance; do not run suggested audit tools without a separate task.",
+      "discovered_via": "https://newsletter.semianalysis.com/sitemap/2026"
+    },
+    {
+      "id": "SA29",
+      "title": "The Wild Wild West Of LEGO Datacenters",
+      "url": "https://newsletter.semianalysis.com/p/the-wild-wild-west-of-lego-datacenters",
+      "publisher": "SemiAnalysis",
+      "published_on": "2026-07-29",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D04",
+        "D10",
+        "D12",
+        "D13",
+        "D15"
+      ],
+      "use": "Compare prefabricated components, packaged plant and modular halls against site labor, interfaces, transport and commissioning constraints.",
+      "caution": "Public heading and introduction or selected preview sections reviewed; complete paid article not reviewed. Modular is not a uniform product category. Separate announced/tracked projects from delivered capacity and verify supplier speed claims against the full site-delivery schedule.",
+      "discovered_via": "https://newsletter.semianalysis.com/sitemap/2026"
+    },
+    {
+      "id": "SA30",
+      "title": "Meta’s Infrastructure Team Needs A Culture Reset",
+      "url": "https://newsletter.semianalysis.com/p/metas-infrastructure-team-needs-a",
+      "publisher": "SemiAnalysis",
+      "published_on": "2026-07-22",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D02",
+        "D13",
+        "D14",
+        "D15"
+      ],
+      "use": "Candidate organizational case about local optimization, requirements ownership and whether infrastructure decisions serve the workload.",
+      "caution": "Public heading and introduction or selected preview sections reviewed; complete paid article not reviewed. This is an argumentative assessment with claims about internal culture, not an independently verified postmortem. Use to generate questions; corroborate any concrete allegations before teaching them.",
+      "discovered_via": "https://newsletter.semianalysis.com/sitemap/2026"
+    },
+    {
+      "id": "SA31",
+      "title": "From Tokens to Burgers: A Water Footprint Face-Off",
+      "url": "https://newsletter.semianalysis.com/p/from-tokens-to-burgers-a-water-footprint",
+      "publisher": "SemiAnalysis",
+      "published_on": "2026-01-15",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D01",
+        "D03",
+        "D11",
+        "D15"
+      ],
+      "use": "Stress-test water comparisons by varying on-site versus supply-chain boundaries, climate, source and local scarcity.",
+      "caution": "Public heading and introduction or selected preview sections reviewed; complete paid article not reviewed. Cross-industry analogies can hide boundary and location differences. Independently verify withdrawal versus consumption, accounting period and indirect electricity-related water before using any ratio.",
+      "discovered_via": "https://newsletter.semianalysis.com/sitemap/2026"
+    },
+    {
+      "id": "SA32",
+      "title": "Are AI Datacenters Increasing Electric Bills for American Households?",
+      "url": "https://newsletter.semianalysis.com/p/are-ai-datacenters-increasing-electric",
+      "publisher": "SemiAnalysis",
+      "published_on": "2026-03-03",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D03",
+        "D15"
+      ],
+      "use": "Introduce the distinction between energy prices, capacity markets, utility rate design and regional system constraints.",
+      "caution": "Public heading and introduction or selected preview sections reviewed; complete paid article not reviewed. The article advances a causal policy argument. Compare it with grid-operator, market-monitor and utility filings; do not treat a regional narrative as a universal explanation of bills.",
+      "discovered_via": "https://newsletter.semianalysis.com/sitemap/2026"
+    },
+    {
+      "id": "SA33",
+      "title": "Stop Saying Half of 2026 US Datacenter Capacity Is Canceled",
+      "url": "https://newsletter.semianalysis.com/p/stop-saying-half-of-2026-us-datacenter",
+      "publisher": "SemiAnalysis",
+      "published_on": "2026-06-18",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D01",
+        "D03",
+        "D13",
+        "D15"
+      ],
+      "use": "Build a case for distinguishing announced capacity, project phases, construction progress, delay and cancellation.",
+      "caution": "Public heading and introduction or selected preview sections reviewed; complete paid article not reviewed. The criticism of other forecasts and the publisher's own forecast stability both require underlying evidence. Use project-level primary filings to adjudicate examples.",
+      "discovered_via": "https://newsletter.semianalysis.com/sitemap/2026"
+    },
+    {
+      "id": "SA34",
+      "title": "$12B of US ratepayers' money wasted on a modeling mistake and PJM wants to do it again",
+      "url": "https://newsletter.semianalysis.com/p/12b-of-us-ratepayers-money-wasted",
+      "publisher": "SemiAnalysis",
+      "published_on": "2026-08-16",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D03",
+        "D15"
+      ],
+      "use": "Examine how resource adequacy modeling and capacity-market assumptions affect the economics of new large loads.",
+      "caution": "Public heading and introduction or selected preview sections reviewed; complete paid article not reviewed. The headline loss estimate and alleged modeling errors are analytical claims not independently adjudicated in this pass. Reproduce assumptions against PJM and independent market-monitor material before using them as conclusions.",
+      "discovered_via": "https://newsletter.semianalysis.com/sitemap/2026"
+    },
+    {
+      "id": "SA35",
+      "title": "Nvidia GPU Debt Backstop Unleashes the AI Project Trinity: Capital, Offtake and Datacenters",
+      "url": "https://newsletter.semianalysis.com/p/nvidia-gpu-debt-backstop-unleashes",
+      "publisher": "SemiAnalysis",
+      "published_on": "2026-07-06",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D03",
+        "D13",
+        "D15"
+      ],
+      "use": "Connect financing, customer commitments and facility availability as mutually dependent conditions for delivering compute.",
+      "caution": "Public heading and introduction or selected preview sections reviewed; complete paid article not reviewed. Forecast debt totals and illustrative contract terms are not executed-contract evidence. Use primary filings and clearly labeled scenarios for the economics lesson.",
+      "discovered_via": "https://newsletter.semianalysis.com/sitemap/2026"
+    },
+    {
+      "id": "SA36",
+      "title": "Microsoft's AI Strategy Deconstructed - From Energy to Tokens",
+      "url": "https://newsletter.semianalysis.com/p/microsofts-ai-strategy-deconstructed",
+      "publisher": "SemiAnalysis",
+      "published_on": "2025-11-12",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D02",
+        "D03",
+        "D13",
+        "D15"
+      ],
+      "use": "Trace an operator's decisions from energy and site commitments through owned or rented compute to application demand.",
+      "caution": "Public heading and introduction or selected preview sections reviewed; complete paid article not reviewed. Strategic interpretation, future growth and private capacity estimates need corroboration. A shift in investment plans does not itself establish commissioning or available capacity.",
+      "discovered_via": "https://newsletter.semianalysis.com/sitemap/2025"
+    },
+    {
+      "id": "SA37",
+      "title": "xAI's Colossus 2 - First Gigawatt Datacenter In The World, Unique RL Methodology, Capital Raise",
+      "url": "https://newsletter.semianalysis.com/p/xais-colossus-2-first-gigawatt-datacenter",
+      "publisher": "SemiAnalysis",
+      "published_on": "2025-09-16",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D01",
+        "D03",
+        "D05",
+        "D10",
+        "D13",
+        "D15"
+      ],
+      "use": "Use rapid campus development to distinguish on-site power, building readiness, GPU installation and capital availability.",
+      "caution": "Public heading and introduction or selected preview sections reviewed; complete paid article not reviewed. The headline is not proof of one gigawatt of operational IT load. Preserve the article's distinction between facility readiness and GPUs operating, and verify phases and capacity boundaries.",
+      "discovered_via": "https://newsletter.semianalysis.com/sitemap/2025"
+    },
+    {
+      "id": "SA38",
+      "title": "How Oracle Is Winning the AI Compute Market",
+      "url": "https://newsletter.semianalysis.com/p/how-oracle-is-winning-the-ai-compute-market",
+      "publisher": "SemiAnalysis",
+      "published_on": "2025-06-30",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D03",
+        "D09",
+        "D13",
+        "D14",
+        "D15"
+      ],
+      "use": "Compare leased facilities, customer concentration, network/operations capability and regional expansion in an operator case.",
+      "caution": "Public heading and introduction or selected preview sections reviewed; complete paid article not reviewed. Revenue forecasts, customer capacity and strategic judgments are time-specific. Review underlying contracts and deployment evidence before using a case as current.",
+      "discovered_via": "https://newsletter.semianalysis.com/sitemap/2025"
+    },
+    {
+      "id": "SA39",
+      "title": "OpenAI Stargate Joint Venture Demystified | Microsoft Sore Loser, Does Softbank Have The Capital?, Texas GigaCampus, Winners & Losers",
+      "url": "https://newsletter.semianalysis.com/p/openai-stargate-joint-venture-demystified",
+      "publisher": "SemiAnalysis",
+      "published_on": "2025-01-23",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D01",
+        "D03",
+        "D13",
+        "D15"
+      ],
+      "use": "Contrast an umbrella investment announcement with funded phases, specific campuses and construction evidence.",
+      "caution": "Public heading and introduction or selected preview sections reviewed; complete paid article not reviewed. Only a short public preview was available. Avoid converting headline investment aspirations into financed, constructed or commissioned capacity.",
+      "discovered_via": "https://newsletter.semianalysis.com/sitemap/2025"
+    },
+    {
+      "id": "SA40",
+      "title": "Google AI Infrastructure Supremacy: Systems Matter More Than Microarchitecture",
+      "url": "https://newsletter.semianalysis.com/p/google-ai-infrastructure-supremacy",
+      "publisher": "SemiAnalysis",
+      "published_on": "2023-04-12",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D02",
+        "D07",
+        "D08",
+        "D09",
+        "D15"
+      ],
+      "use": "Introduce system co-design by relating workload mix, custom accelerators, network choices and application economics.",
+      "caution": "Public heading and introduction or selected preview sections reviewed; complete paid article not reviewed. The competitive assessment and pricing are historical. Trace architecture claims to Google's publications and separate internal workload optimization from general cloud suitability.",
+      "discovered_via": "https://newsletter.semianalysis.com/sitemap/2023"
+    },
+    {
+      "id": "P13",
+      "title": "Slurm Workload Manager — Topology Guide",
+      "url": "https://slurm.schedmd.com/topology.html",
+      "publisher": "SchedMD",
+      "published_on": null,
+      "kind": "guidance",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D02",
+        "D08",
+        "D09",
+        "D14"
+      ],
+      "use": "Connect physical network topology to scheduler placement, fragmentation, queueing and job performance; develop a small topology-aware allocation example.",
+      "caution": "Selected current guide sections on tree topology and placement were reviewed. This is version-sensitive software documentation; pin the Slurm release and test configurations before teaching specific behavior. It is not a storage architecture or general scheduler survey.",
+      "discovered_via": "Direct primary-source audit of D09 orchestration."
+    },
+    {
+      "id": "P14",
+      "title": "NVIDIA DGX SuperPOD: Next Generation Scalable Infrastructure for AI Leadership Reference Architecture Featuring NVIDIA DGX H100",
+      "url": "https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/",
+      "publisher": "NVIDIA",
+      "published_on": "2023-09-22",
+      "kind": "guidance",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D07",
+        "D08",
+        "D09",
+        "D13",
+        "D14"
+      ],
+      "use": "Locate a named system reference for compute, storage and management fabrics, storage requirements, software and deployment assumptions.",
+      "caution": "Only the reference-architecture index, title, version and contents were reviewed. Linked technical chapters and PDF remain to be read. The page identifies RA-11333-001 V11, publication date 2023-09-22, and last web update 2025-11-19. Pin the document version; a vendor reference design does not establish universal requirements.",
+      "discovered_via": "Direct primary-source audit of D09 storage and cluster software."
+    },
+    {
+      "id": "P15",
+      "title": "Liquid to Liquid CDU Test Methodology and Performance Rating — Revision 1.0",
+      "url": "https://www.opencompute.org/documents/ocp-wp-l-lcdu-test-methodology-performance-rating-r1-pdf",
+      "publisher": "Open Compute Project",
+      "published_on": null,
+      "kind": "guidance",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D10",
+        "D11",
+        "D13",
+        "D14"
+      ],
+      "use": "Locate primary guidance for CDU thermal ratings, pressure head, flow impedance, coolant servicing and performance/reliability testing at the facility-to-IT loop interface.",
+      "caution": "Front matter, executive summary, contents and introduction were reviewed; detailed test procedures were not audited. Headers say August 2024 while the version table says initial release 11/01/2024, so no exact publication date is normalized here. This is a working-group white paper, not proof of a particular product rating or universal regulatory requirement.",
+      "discovered_via": "Direct primary-source audit of D10 liquid-cooling interfaces and D13 validation."
+    },
+    {
+      "id": "P16",
+      "title": "Why Scaling AI Compute Performance Requires a New Power Architecture",
+      "url": "https://blogs.nvidia.com/blog/800-vdc-power-architecture-ai-factory/",
+      "publisher": "NVIDIA",
+      "kind": "roadmap",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "published_on": "2026-08-11",
+      "domains": [
+        "D04",
+        "D05",
+        "D06",
+        "D13",
+        "D15"
+      ],
+      "use": "Compare the vendor's near-term hybrid power-rack approach with row-level and facility-scale proposals, and trace the primary specifications linked from the announcement.",
+      "caution": "Vendor announcement, not independent deployment evidence. Its second-half-2026 and 2027 availability statements are forward-looking as published. Retained AC compatibility does not prove a particular existing feeder, cooling plant or building can support a denser rack. Linked OCP specifications and DSX documentation require their own review."
+    }
+  ]
+}

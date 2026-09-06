@@ -1,0 +1,5557 @@
+{
+  "schema_version": 1,
+  "scope": "Public metadata and manual imports; article links are not followed. Feed body fields are discarded.",
+  "runs": [
+    {
+      "at": "2026-09-06T22:19:48+00:00",
+      "status": "completed",
+      "documents_succeeded": [
+        "https://newsletter.semianalysis.com/sitemap.xml",
+        "https://newsletter.semianalysis.com/feed"
+      ],
+      "documents_failed": [],
+      "unvisited_due_to_bound": [],
+      "metadata_records_observed": 352,
+      "article_links_followed": 0,
+      "limits": {
+        "max_documents": 4,
+        "timeout_seconds": 20.0,
+        "delay_seconds": 1.0
+      },
+      "scope_note": "Completed means requested metadata documents were processed within the bound, not an exhaustive relevant corpus. Titles/URL keywords only suggest triage. No source-content review or publication-date verification is implied."
+    }
+  ],
+  "items": [
+    {
+      "url": "https://newsletter.semianalysis.com/p/100000-h100-clusters-power-network",
+      "title": "100000 h100 clusters power network",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D01",
+        "D08"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/12b-of-us-ratepayers-money-wasted",
+      "title": "$12B of US ratepayers' money wasted on a modeling mistake and PJM wants to do it again",
+      "title_origin": "feed_title",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-08-18",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/feed",
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": "",
+      "published_on": "Sun, 16 Aug 2026 22:27:59 GMT"
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/2022-nand-process-technology-comparison",
+      "title": "2022 nand process technology comparison",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/2022-semiconductor-outlook-and-webinar",
+      "title": "2022 semiconductor outlook and webinar",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-13",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/2023-datacenter-outlook-amd-and-intel",
+      "title": "2023 datacenter outlook amd and intel",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/2025-ai-diffusion-export-controls-microsoft-regulatory-capture-oracle-tears",
+      "title": "2025 ai diffusion export controls microsoft regulatory capture oracle tears",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-03",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/a-century-of-moores-law",
+      "title": "a century of moores law",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-08",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/a-chip-off-the-old-block-new-risc",
+      "title": "a chip off the old block new risc",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/accelerator-model",
+      "title": "accelerator model",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D07"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-08",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/acm-research-chinas-most-successful",
+      "title": "acm research chinas most successful",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/ada-lovelace-gpus-shows-how-desperate",
+      "title": "ada lovelace gpus shows how desperate",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/advanced-packaging-part-1-pad-limited",
+      "title": "advanced packaging part 1 pad limited",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/advanced-packaging-part-2-review",
+      "title": "advanced packaging part 2 review",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/advanced-packaging-part-3-intels",
+      "title": "advanced packaging part 3 intels",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/advanced-packaging-the-size-of-your",
+      "title": "advanced packaging the size of your",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/aehr-multi-wafer-level-burn-in-test",
+      "title": "aehr multi wafer level burn in test",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/agentx-inferencexv3-does-cuda-moat",
+      "title": "AgentX - InferenceXv3: Does CUDA Moat Hold up in Agentic Inferencing?",
+      "title_origin": "feed_title",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-08-26",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/feed",
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": "",
+      "published_on": "Mon, 24 Aug 2026 00:19:35 GMT"
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/ai-arrives-in-the-middle-east-us-strikes-a-deal-with-uae-and-ksa",
+      "title": "ai arrives in the middle east us strikes a deal with uae and ksa",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-03",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/ai-capacity-constraints-cowos-and",
+      "title": "ai capacity constraints cowos and",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D15"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/ai-cloud-tco-model",
+      "title": "ai cloud tco model",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D15"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-08",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/ai-dark-output-the-visible-cost-of",
+      "title": "ai dark output the visible cost of",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D15"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-05-30",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/ai-datacenter-energy-dilemma-race",
+      "title": "ai datacenter energy dilemma race",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D01"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/ai-doomer-vs-techno-optimist-social",
+      "title": "ai doomer vs techno optimist social",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/ai-expansion-supply-chain-analysis",
+      "title": "ai expansion supply chain analysis",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D13"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/ai-neocloud-playbook-and-anatomy",
+      "title": "ai neocloud playbook and anatomy",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D13"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/ai-server-cost-analysis-memory-is",
+      "title": "ai server cost analysis memory is",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D07",
+        "D15"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/ai-training-load-fluctuations-at-gigawatt-scale-risk-of-power-grid-blackout",
+      "title": "ai training load fluctuations at gigawatt scale risk of power grid blackout",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D01",
+        "D02",
+        "D03"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-06",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/ai-value-capture-the-shift-to-model",
+      "title": "ai value capture the shift to model",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-05-27",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/amazon-anthropic-poison-pill-or-empire",
+      "title": "amazon anthropic poison pill or empire",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-08",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/amazon-graviton-3-uses-chiplets-and",
+      "title": "amazon graviton 3 uses chiplets and",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/amazon-web-services-infrastructure",
+      "title": "amazon web services infrastructure",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/amazons-ai-resurgence-aws-anthropics-multi-gigawatt-trainium-expansion",
+      "title": "amazons ai resurgence aws anthropics multi gigawatt trainium expansion",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D01"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-09",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/amazons-ai-self-sufficiency-trainium2-architecture-networking",
+      "title": "amazons ai self sufficiency trainium2 architecture networking",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D08"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-03",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/amazons-cloud-crisis-how-aws-will",
+      "title": "amazons cloud crisis how aws will",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/amd-2-0-new-sense-of-urgency-mi450x-chance-to-beat-nvidia-nvidias-new-moat",
+      "title": "amd 2 0 new sense of urgency mi450x chance to beat nvidia nvidias new moat",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-09",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/amd-advancing-ai-mi350x-and-mi400-ualoe72-mi500-ual256",
+      "title": "amd advancing ai mi350x and mi400 ualoe72 mi500 ual256",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-12",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/amd-genoa-detailed-architecture-makes",
+      "title": "amd genoa detailed architecture makes",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/amd-mi300-performance-faster-than",
+      "title": "amd mi300 performance faster than",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/amd-mi300-ramp-gpt-4-performance",
+      "title": "amd mi300 ramp gpt 4 performance",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/amd-mi300-taming-the-hype-ai-performance",
+      "title": "amd mi300 taming the hype ai performance",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/amd-to-infinity-and-beyond",
+      "title": "amd to infinity and beyond",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/amd-vs-nvidia-inference-benchmark-who-wins-performance-cost-per-million-tokens",
+      "title": "amd vs nvidia inference benchmark who wins performance cost per million tokens",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D02",
+        "D15"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-03",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/america-is-missing-the-new-labor-economy-robotics-part-1",
+      "title": "america is missing the new labor economy robotics part 1",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-06-26",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/another-giant-leap-the-rubin-cpx-specialized-accelerator-rack",
+      "title": "another giant leap the rubin cpx specialized accelerator rack",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D07"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-12",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/anthropic-3q26-profit-over-1b-the",
+      "title": "Anthropic 3Q26 Profit Over $1B: The Anthropic IPO Financials Sneak Peak",
+      "title_origin": "feed_title",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-07-21",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/feed",
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": "",
+      "published_on": "Wed, 08 Jul 2026 06:04:28 GMT"
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/anthropic-growth-and-bedrock-mix",
+      "title": "anthropic growth and bedrock mix",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-05-27",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/apple-a15-die-shot-and-annotation",
+      "title": "apple a15 die shot and annotation",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-13",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/apple-cpu-gains-grind-to-a-halt-and",
+      "title": "apple cpu gains grind to a halt and",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/apple-m2-die-shot-and-architecture",
+      "title": "apple m2 die shot and architecture",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/apple-tsmc-the-partnership-that-built",
+      "title": "apple tsmc the partnership that built",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-01-09",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/apples-a14-packs-134-million-transistorsmm",
+      "title": "apples a14 packs 134 million transistorsmm",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-13",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/apples-ai-strategy-apple-datacenters",
+      "title": "apples ai strategy apple datacenters",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/are-ai-datacenters-increasing-electric",
+      "title": "are ai datacenters increasing electric",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-03-03",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/are-open-models-catching-up",
+      "title": "Are Open Models Catching Up?",
+      "title_origin": "feed_title",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-08-21",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/feed",
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": "",
+      "published_on": "Fri, 21 Aug 2026 16:40:02 GMT"
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/arm-and-a-leg-arms-quest-to-extract",
+      "title": "arm and a leg arms quest to extract",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-08",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/arm-changes-business-model-oem-partners",
+      "title": "arm changes business model oem partners",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/arms-nuclear-option-qualcomm-must",
+      "title": "arms nuclear option qualcomm must",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D03"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/as-moores-law-slows-apple-is-forced",
+      "title": "as moores law slows apple is forced",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-08",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/asml-and-the-semiconductor-market",
+      "title": "asml and the semiconductor market",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/asml-dilemma-high-na-euv-is-worse",
+      "title": "asml dilemma high na euv is worse",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-06-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/asmls-euv-tools-have-a-throughput",
+      "title": "asmls euv tools have a throughput",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/astera-labs-ipo-the-next-connectivity",
+      "title": "astera labs ipo the next connectivity",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/astera-labs-is-first-to-cxl-memory",
+      "title": "astera labs is first to cxl memory",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D07"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/austrias-silent-monopolies-on-advanced",
+      "title": "austrias silent monopolies on advanced",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/aws-trainium3-deep-dive-a-potential",
+      "title": "aws trainium3 deep dive a potential",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-12-25",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/ayar-labs-co-packaged-optics-revolution",
+      "title": "ayar labs co packaged optics revolution",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D08"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/beyond-advanced-packaging-lightmatter",
+      "title": "beyond advanced packaging lightmatter",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/broadcoms-google-tpu-revenue-explosion",
+      "title": "broadcoms google tpu revenue explosion",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D07"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/caliptra-first-open-source-silicon",
+      "title": "caliptra first open source silicon",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/can-amd-break-the-cuda-moat-amd-advancing",
+      "title": "Can AMD break the CUDA Moat? AMD Advancing AI 2026",
+      "title_origin": "feed_title",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-08-04",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/feed",
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": "",
+      "published_on": "Sat, 25 Jul 2026 00:33:23 GMT"
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/can-you-trust-semiconductor-capital",
+      "title": "can you trust semiconductor capital",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/caught-in-the-crossfire-short-target",
+      "title": "caught in the crossfire short target",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/cerebras-faster-tokens-please",
+      "title": "cerebras faster tokens please",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D02"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-07-27",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/cerebras-wafer-scale-hardware-crushes",
+      "title": "cerebras wafer scale hardware crushes",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/cerebrass-next-generation-cs-4-fast",
+      "title": "Cerebras's Next Generation CS-4: Fast Just Got Faster",
+      "title_origin": "feed_title",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D03"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-08-19",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/feed",
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": "",
+      "published_on": "Wed, 19 Aug 2026 01:32:08 GMT"
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/china-ai-and-semiconductors-rise",
+      "title": "china ai and semiconductors rise",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/china-and-usa-are-officially-at-economic",
+      "title": "china and usa are officially at economic",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/china-has-built-the-worlds-most-expensive",
+      "title": "china has built the worlds most expensive",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/chinas-cxmt-is-set-to-challenge-dram",
+      "title": "chinas cxmt is set to challenge dram",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-06-24",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/chinas-smic-is-shipping-7nm-foundry",
+      "title": "chinas smic is shipping 7nm foundry",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/chinas-unitree-will-dominate-global",
+      "title": "chinas unitree will dominate global",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-07-02",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/clash-of-the-foundries",
+      "title": "clash of the foundries",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/claude-code-is-the-inflection-point",
+      "title": "claude code is the inflection point",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-02-05",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/clustermax-20-the-industry-standard",
+      "title": "clustermax 20 the industry standard",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-01-14",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/co-packaged-optics-cpo-book-scaling",
+      "title": "co packaged optics cpo book scaling",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D08"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-04-10",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/coming-soon",
+      "title": "coming soon",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-09",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/cpus-are-back-the-datacenter-cpu",
+      "title": "cpus are back the datacenter cpu",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-02-09",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/cxl-deep-dive-future-of-composable",
+      "title": "cxl deep dive future of composable",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/cxl-enables-microsoft-azure-to-cut",
+      "title": "cxl enables microsoft azure to cut",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/cxl-is-dead-in-the-ai-era",
+      "title": "cxl is dead in the ai era",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/datacenter-anatomy-part-1-electrical",
+      "title": "datacenter anatomy part 1 electrical",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D04",
+        "D13"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-01-06",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/datacenter-anatomy-part-2-cooling-systems",
+      "title": "datacenter anatomy part 2 cooling systems",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D10",
+        "D11",
+        "D13"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-01-06",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/datacenter-model",
+      "title": "datacenter model",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-08",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/deepseek-debates",
+      "title": "deepseek debates",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-03",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/deepseek-debrief-128-days-later",
+      "title": "deepseek debrief 128 days later",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-03",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/deepseekv4-16t-day-0-to-day-43-performance",
+      "title": "deepseekv4 16t day 0 to day 43 performance",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-06-14",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/die-size-and-reticle-conundrum-cost",
+      "title": "die size and reticle conundrum cost",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D15"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/disco-corporation-the-world-leader",
+      "title": "disco corporation the world leader",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/dissecting-nvidia-blackwell-tensor",
+      "title": "dissecting nvidia blackwell tensor",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D07"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-03-31",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/ectc2026",
+      "title": "EMIB-T Roadmap, Custom HBM, HBM4 Packaging Challenges, Microfluidic Cooling, Photonic Interconnects, and More",
+      "title_origin": "feed_title",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D07",
+        "D08",
+        "D10",
+        "D11"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-07-08",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/feed",
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": "",
+      "published_on": "Thu, 02 Jul 2026 17:25:38 GMT"
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/eda-market-primer",
+      "title": "eda market primer",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-06-26",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/embracing-chaos-the-imperfect-art",
+      "title": "embracing chaos the imperfect art",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-08",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/energizing-ai-power-delivery-competition",
+      "title": "energizing ai power delivery competition",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D01"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/euv-requirements-halved-applied-materials",
+      "title": "euv requirements halved applied materials",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/fab-whack-a-mole-chinese-companies",
+      "title": "fab whack a mole chinese companies",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-09-03",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/fears-for-chinese-semiconductor-capital",
+      "title": "fears for chinese semiconductor capital",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/finding-miscompiles-for-fun-not-profit",
+      "title": "finding miscompiles for fun not profit",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-05-31",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/from-tokens-to-burgers-a-water-footprint",
+      "title": "from tokens to burgers a water footprint",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D02",
+        "D11"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-01-15",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/fungible-dpus-are-dead-carcass-acquired",
+      "title": "fungible dpus are dead carcass acquired",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/gb200-hardware-architecture-and-component",
+      "title": "gb200 hardware architecture and component",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D07"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/gemini-is-cooked-but-gcp-is-cooking",
+      "title": "Gemini is Cooked but GCP is Cooking",
+      "title_origin": "feed_title",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-08-07",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/feed",
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": "",
+      "published_on": "Fri, 07 Aug 2026 02:32:44 GMT"
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/globalfoundries-fotonix-the-leading",
+      "title": "globalfoundries fotonix the leading",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/globalfoundries-gfs-ipo-mubadala",
+      "title": "globalfoundries gfs ipo mubadala",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/globalfoundries-is-a-leading-edge",
+      "title": "globalfoundries is a leading edge",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/globalfoundries-stuffing-customers",
+      "title": "globalfoundries stuffing customers",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-08",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/going-vertical-gate-all-around-3d",
+      "title": "going vertical gate all around 3d",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/google-ai-infrastructure-supremacy",
+      "title": "google ai infrastructure supremacy",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/google-apollo-the-3-billion-game",
+      "title": "google apollo the 3 billion game",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/google-gemini-eats-the-world-gemini",
+      "title": "google gemini eats the world gemini",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/google-new-custom-silicon-replaces",
+      "title": "google new custom silicon replaces",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/google-we-have-no-moat-and-neither",
+      "title": "google we have no moat and neither",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-08",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/gpt-4-architecture-infrastructure",
+      "title": "gpt 4 architecture infrastructure",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/gpt-5-ad-monetization-and-the-superapp",
+      "title": "gpt 5 ad monetization and the superapp",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-03",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/gpt-model-training-competition-heats",
+      "title": "gpt model training competition heats",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D02"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/gpu-cloud-economics-explained-the",
+      "title": "gpu cloud economics explained the",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D07",
+        "D15"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/graphcore-announces-worlds-first",
+      "title": "graphcore announces worlds first",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/graphcore-looks-like-a-complete-failure",
+      "title": "graphcore looks like a complete failure",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D14"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/groq-inference-tokenomics-speed-but",
+      "title": "groq inference tokenomics speed but",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D02"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/h100-vs-gb200-nvl72-training-benchmarks",
+      "title": "h100 vs gb200 nvl72 training benchmarks",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D02",
+        "D07"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-03",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/how-ai-labs-are-solving-the-power",
+      "title": "how ai labs are solving the power",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D01"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-04-25",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/how-chinas-biren-is-attempting-to",
+      "title": "how chinas biren is attempting to",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/how-dell-is-beating-supermicro",
+      "title": "how dell is beating supermicro",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/how-much-do-gpu-clusters-really-cost",
+      "title": "how much do gpu clusters really cost",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D07",
+        "D15"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-04-22",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/how-nvidias-empire-could-be-eroded",
+      "title": "how nvidias empire could be eroded",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/how-onto-innovation-is-gaining-market",
+      "title": "how onto innovation is gaining market",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-08",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/how-oracle-is-winning-the-ai-compute-market",
+      "title": "how oracle is winning the ai compute market",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-09",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/how-to-kill-2-monopolies-with-1-tool",
+      "title": "how to kill 2 monopolies with 1 tool",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-31",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/huawei-ai-cloudmatrix-384-chinas-answer-to-nvidia-gb200-nvl72",
+      "title": "huawei ai cloudmatrix 384 chinas answer to nvidia gb200 nvl72",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D07"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-03",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/huawei-ascend-production-ramp",
+      "title": "huawei ascend production ramp",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-02-04",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/hybrid-bonding-process-flow-advanced",
+      "title": "hybrid bonding process flow advanced",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/i-semiconductor-the-regionalization",
+      "title": "i semiconductor the regionalization",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/iedm2022p1",
+      "title": "iedm2022p1",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-08",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/iedm2024",
+      "title": "iedm2024",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-03",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/indias-semiconductor-scam-indian",
+      "title": "indias semiconductor scam indian",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/inference-race-to-the-bottom-make",
+      "title": "inference race to the bottom make",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D02"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/inferencemax-open-source-inference",
+      "title": "inferencemax open source inference",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D02"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-12-07",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/inferencex-v2-nvidia-blackwell-vs",
+      "title": "inferencex v2 nvidia blackwell vs",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D07"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-08-10",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/inside-the-800vdc-revolution-part",
+      "title": "inside the 800vdc revolution part",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D06"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-06-09",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/intel-betting-the-farm-shrinking",
+      "title": "intel betting the farm shrinking",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/intel-cuts-fab-buildout-by-4b-to",
+      "title": "intel cuts fab buildout by 4b to",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D13"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/intel-cuts-pay-for-employees-to-keep",
+      "title": "intel cuts pay for employees to keep",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/intel-emerald-rapids-backtracks-on",
+      "title": "intel emerald rapids backtracks on",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/intel-genai-for-yield-tsmc-cfet-and",
+      "title": "intel genai for yield tsmc cfet and",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/intel-grossly-exaggerates-foundry",
+      "title": "intel grossly exaggerates foundry",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/intel-is-throwing-the-kitchen-sink",
+      "title": "intel is throwing the kitchen sink",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/intel-on-the-brink-of-death",
+      "title": "intel on the brink of death",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-03",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/intel-roadmap-and-pc-tam-update-tone",
+      "title": "intel roadmap and pc tam update tone",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/intel-should-raise-capital",
+      "title": "intel should raise capital",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-06-16",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/intels-14a-magic-bullet-directed",
+      "title": "intels 14a magic bullet directed",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/intels-trojan-horse-into-the-foundry",
+      "title": "intels trojan horse into the foundry",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/interconnects-beyond-copper-1000",
+      "title": "interconnects beyond copper 1000",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-07-14",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/is-ampere-computings-cloud-native",
+      "title": "is ampere computings cloud native",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/is-arm-desperate-qualcomm-claps-back",
+      "title": "is arm desperate qualcomm claps back",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/is-intel-back-foundry-and-product",
+      "title": "is intel back foundry and product",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/is-intel-shipping-tools-out-of-us",
+      "title": "is intel shipping tools out of us",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/is-mmwave-adoption-stagnating-qualcomms",
+      "title": "is mmwave adoption stagnating qualcomms",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/isscc-2026-nvidia-and-broadcom-cpo",
+      "title": "isscc 2026 nvidia and broadcom cpo",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-06-18",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/jensen-huangs-vision-for-data-center",
+      "title": "jensen huangs vision for data center",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-13",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/kimi-k3-the-manos-the-mythos-the",
+      "title": "Kimi K3, The Manos, The Mythos, The Legendos",
+      "title_origin": "feed_title",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-08-06",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/feed",
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": "",
+      "published_on": "Mon, 03 Aug 2026 19:42:30 GMT"
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/koreas-trillion-dollar-sovereign",
+      "title": "Korea’s Trillion-Dollar Sovereign AI Investment: Nvidia Wins, Hynix Loses",
+      "title_origin": "feed_title",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-09-02",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/feed",
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": "",
+      "published_on": "Tue, 01 Sep 2026 20:14:32 GMT"
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/kulicke-and-soffa-industries-klic",
+      "title": "kulicke and soffa industries klic",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/kulicke-and-soffa-industries-klic-771",
+      "title": "kulicke and soffa industries klic 771",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/lam-research-is-outsourcing-more",
+      "title": "lam research is outsourcing more",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-08",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/lam-research-lrcx-dry-deposit-and",
+      "title": "lam research lrcx dry deposit and",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-09",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/lam-research-tokyo-electron-jsr-battle",
+      "title": "lam research tokyo electron jsr battle",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/lithography-intensity-and-long-term",
+      "title": "lithography intensity and long term",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/lynceus-inline-real-time-ai-based",
+      "title": "lynceus inline real time ai based",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/marvell-acquires-tanzanite-silicon",
+      "title": "marvell acquires tanzanite silicon",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/marvelldeepdive2022",
+      "title": "marvelldeepdive2022",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-08",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/marvells-dsp-dilemma-networkings",
+      "title": "marvells dsp dilemma networkings",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/marvells-next-1b-business-is-security",
+      "title": "marvells next 1b business is security",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/mediatek-officially-enters-the-flagship",
+      "title": "mediatek officially enters the flagship",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/mediatek-stands-to-gain-the-most",
+      "title": "mediatek stands to gain the most",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-09",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/meet-netint-the-startup-selling-to",
+      "title": "meet netint the startup selling to",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/memory-mania-how-a-once-in-four-decades",
+      "title": "memory mania how a once in four decades",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D07"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-02-06",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/memory-oligopoly-woes-micron-says",
+      "title": "memory oligopoly woes micron says",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D07"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/meta-compute-everyone-wants-to-be",
+      "title": "Meta Compute: Everyone Wants To Be A Neocloud",
+      "title_origin": "feed_title",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-07-03",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/feed",
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": "",
+      "published_on": "Thu, 02 Jul 2026 22:18:08 GMT"
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/meta-custom-silicon-whats-old-is",
+      "title": "meta custom silicon whats old is",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/meta-discusses-ai-hardware-and-co",
+      "title": "meta discusses ai hardware and co",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/meta-superintelligence-leadership-compute-talent-and-data",
+      "title": "meta superintelligence leadership compute talent and data",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-12",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/metas-bizarre-ai-infrastructure-choice",
+      "title": "metas bizarre ai infrastructure choice",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/metas-infrastructure-team-needs-a",
+      "title": "Meta’s Infrastructure Team Needs A Culture Reset",
+      "title_origin": "feed_title",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-08-04",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/feed",
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": "",
+      "published_on": "Wed, 22 Jul 2026 02:41:34 GMT"
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/meteor-lake-die-shot-and-architecture",
+      "title": "meteor lake die shot and architecture",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/mi300x-vs-h100-vs-h200-benchmark-part-1-training",
+      "title": "mi300x vs h100 vs h200 benchmark part 1 training",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D02"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-03",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/micron-sells-3d-x-point-lehi-utah",
+      "title": "micron sells 3d x point lehi utah",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/microsoft-infrastructure-ai-and-cpu",
+      "title": "microsoft infrastructure ai and cpu",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/microsoft-swallows-openais-core-team",
+      "title": "microsoft swallows openais core team",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/microsofts-ai-strategy-deconstructed",
+      "title": "microsofts ai strategy deconstructed",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-01-07",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/microsofts-datacenter-freeze",
+      "title": "microsofts datacenter freeze",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-06",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/moores-law-is-dead-for-dram-and-that",
+      "title": "moores law is dead for dram and that",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-09",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/morgan-stanley-just-reduced-tsmcs",
+      "title": "morgan stanley just reduced tsmcs",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/most-neoclouds-suck-at-security",
+      "title": "Most Neoclouds Suck At Security",
+      "title_origin": "feed_title",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-08-30",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/feed",
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": "",
+      "published_on": "Sun, 30 Aug 2026 15:46:22 GMT"
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/multi-datacenter-training-openais",
+      "title": "multi datacenter training openais",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D02"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/nand-flash-monopoly-broken-tokyo",
+      "title": "nand flash monopoly broken tokyo",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/nanoimprint-lithography-stop-saying",
+      "title": "nanoimprint lithography stop saying",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-26",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/neural-network-quantization-and-number",
+      "title": "neural network quantization and number",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D08"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/no-the-iphone-13-does-not-have-satellite",
+      "title": "no the iphone 13 does not have satellite",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/nvidia-ada-lovelace-leaked-specifications",
+      "title": "nvidia ada lovelace leaked specifications",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/nvidia-b100-b200-gb200-cogs-pricing",
+      "title": "nvidia b100 b200 gb200 cogs pricing",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D07"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/nvidia-blackwell-perf-tco-analysis",
+      "title": "nvidia blackwell perf tco analysis",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D07",
+        "D15"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/nvidia-buys-illumina-the-ai-foundry",
+      "title": "nvidia buys illumina the ai foundry",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/nvidia-gpu-debt-backstop-unleashes",
+      "title": "Nvidia GPU Debt Backstop Unleashes the AI Project Trinity: Capital, Offtake and Datacenters",
+      "title_origin": "feed_title",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D07"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-07-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/feed",
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": "",
+      "published_on": "Mon, 06 Jul 2026 21:53:44 GMT"
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/nvidia-gtc-2025-built-for-reasoning-vera-rubin-kyber-cpo-dynamo-inference-jensen-math-feynman",
+      "title": "nvidia gtc 2025 built for reasoning vera rubin kyber cpo dynamo inference jensen math feynman",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D02",
+        "D07"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-11-13",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/nvidia-hacked-a-national-security",
+      "title": "nvidia hacked a national security",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/nvidia-in-the-hot-seat",
+      "title": "nvidia in the hot seat",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/nvidia-is-raking-in-the-money-but",
+      "title": "nvidia is raking in the money but",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/nvidia-tensor-core-evolution-from-volta-to-blackwell",
+      "title": "nvidia tensor core evolution from volta to blackwell",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D07"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-03",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/nvidia-the-inference-kingdom-expands",
+      "title": "nvidia the inference kingdom expands",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D02"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-03-24",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/nvidiaopenaitritonpytorch",
+      "title": "nvidiaopenaitritonpytorch",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/nvidias-2021-bubble-eerily-similar",
+      "title": "nvidias 2021 bubble eerily similar",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/nvidias-blackwell-reworked-shipment",
+      "title": "nvidias blackwell reworked shipment",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D07"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/nvidias-christmas-present-gb300-b300-reasoning-inference-amazon-memory-supply-chain",
+      "title": "nvidias christmas present gb300 b300 reasoning inference amazon memory supply chain",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D02",
+        "D07",
+        "D13"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-03",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/nvidias-infiniband-problem-qmx-ai",
+      "title": "nvidias infiniband problem qmx ai",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D08"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/nvidias-new-china-ai-chips-circumvent",
+      "title": "nvidias new china ai chips circumvent",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/nvidias-optical-ascent-1b-revenue",
+      "title": "nvidias optical ascent 1b revenue",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/nvidias-optical-boogeyman-nvl72-infiniband",
+      "title": "nvidias optical boogeyman nvl72 infiniband",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D08"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/nvidias-plans-to-crush-competition",
+      "title": "nvidias plans to crush competition",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-08",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/nvidias-ramp-volume-asp-cloud-pricing",
+      "title": "nvidias ramp volume asp cloud pricing",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/nxp-semiconductor-nxpi-cfo-sells",
+      "title": "nxp semiconductor nxpi cfo sells",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/on-device-ai-double-edged-sword",
+      "title": "on device ai double edged sword",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/openai-chip-team-is-now-serious",
+      "title": "openai chip team is now serious",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/openai-is-doomed-et-tu-microsoft",
+      "title": "openai is doomed et tu microsoft",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/openai-jalapeno-better-than-nvidia",
+      "title": "OpenAI Jalapeño: Better Than Nvidia Blackwell",
+      "title_origin": "feed_title",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D07"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-08-25",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/feed",
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": "",
+      "published_on": "Tue, 25 Aug 2026 14:00:38 GMT"
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/openai-stargate-joint-venture-demystified",
+      "title": "openai stargate joint venture demystified",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-03",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/packaging-developments-from-ectc",
+      "title": "packaging developments from ectc",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-08",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/peeling-the-onions-layers-large-language",
+      "title": "peeling the onions layers large language",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/power-integrations-powi-a-premier",
+      "title": "power integrations powi a premier",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D01"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/q3-earnings-ends-with-a-bang-nvda",
+      "title": "q3 earnings ends with a bang nvda",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/q3-semiconductor-roundup-entg-amd",
+      "title": "q3 semiconductor roundup entg amd",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/q3-semiconductor-roundup-txn-wolf",
+      "title": "q3 semiconductor roundup txn wolf",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/quadruped-state-of-the-market-unitree",
+      "title": "quadruped state of the market unitree",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-06-26",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/qualcomm-hits-a-homerun-ai-100-powerful",
+      "title": "qualcomm hits a homerun ai 100 powerful",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/qualcomm-lost-the-iphone-12-mmwave",
+      "title": "qualcomm lost the iphone 12 mmwave",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-13",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/qualcomm-mwc-2021-network-infrastructure",
+      "title": "qualcomm mwc 2021 network infrastructure",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D08"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/qualcomm-rffe-business-continues",
+      "title": "qualcomm rffe business continues",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-13",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/qualcomm-rffe-update-8b-by-2025-2023",
+      "title": "qualcomm rffe update 8b by 2025 2023",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/rebuilding-intel-foundry-vs-idm-decades",
+      "title": "rebuilding intel foundry vs idm decades",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/rivos-inc-a-chip-off-the-old-block",
+      "title": "rivos inc a chip off the old block",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/rl-environments-and-rl-for-science",
+      "title": "rl environments and rl for science",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-01-12",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/rl-systems-mind-the-gap-matching",
+      "title": "rl systems mind the gap matching",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-06-16",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/robotics-levels-of-autonomy",
+      "title": "robotics levels of autonomy",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-06-26",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/rockley-photonics-will-revolutionize",
+      "title": "rockley photonics will revolutionize",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/samsung-backstabs-the-dram-cartel",
+      "title": "samsung backstabs the dram cartel",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/samsung-electronics-cultural-issues",
+      "title": "samsung electronics cultural issues",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/samsung-foundry-3nm-gate-all-around",
+      "title": "samsung foundry 3nm gate all around",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/scaling-laws-o1-pro-architecture-reasoning-training-infrastructure-orion-and-claude-3-5-opus-failures",
+      "title": "scaling laws o1 pro architecture reasoning training infrastructure orion and claude 3 5 opus failures",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D02"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-03",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/scaling-reinforcement-learning-environments-reward-hacking-agents-scaling-data",
+      "title": "scaling reinforcement learning environments reward hacking agents scaling data",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-03",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/scaling-the-memory-wall-the-rise-and-roadmap-of-hbm",
+      "title": "scaling the memory wall the rise and roadmap of hbm",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D07"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-03",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/semi-supply-chain-cutting-expectations",
+      "title": "semi supply chain cutting expectations",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D13"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/semianalysis-compliance-policies",
+      "title": "semianalysis compliance policies",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-08",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/semianalysis-gb200-component-and",
+      "title": "semianalysis gb200 component and",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D07"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-08",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/semiconductor-bear-market-rally-inventory",
+      "title": "semiconductor bear market rally inventory",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/semiconductor-fab-buildout-delays",
+      "title": "semiconductor fab buildout delays",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D13"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/semiconductor-roundup-1272022",
+      "title": "semiconductor roundup 1272022",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-13",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/semiconductor-roundup-1282022",
+      "title": "semiconductor roundup 1282022",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-13",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/semiconductor-roundup-2102022",
+      "title": "semiconductor roundup 2102022",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/semiconductor-roundup-212022",
+      "title": "semiconductor roundup 212022",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/separating-reality-from-hype-quantum",
+      "title": "separating reality from hype quantum",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-08",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/short-report-nvidia-supplier-cut",
+      "title": "short report nvidia supplier cut",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/sifive-powers-google-tpu-nasa-tenstorrent",
+      "title": "sifive powers google tpu nasa tenstorrent",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D07"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/silicon-carbide-game-changer-aehrs",
+      "title": "silicon carbide game changer aehrs",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/sound-the-siryn-ampereone-192-core",
+      "title": "sound the siryn ampereone 192 core",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/spacex-10gw-in-2027-why-its-real",
+      "title": "SpaceX 10GW in 2027 – Why It’s Real, Will Drive $300B ARR for SpaceX, and Why Microsoft Will Be the Largest Offtaker",
+      "title_origin": "feed_title",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-08-08",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/feed",
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": "",
+      "published_on": "Fri, 07 Aug 2026 20:08:04 GMT"
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/spie2025",
+      "title": "spie2025",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-06-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/steel-smic-n3-teardown",
+      "title": "steel smic n3 teardown",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-06-17",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/stop-saying-half-of-2026-us-datacenter",
+      "title": "stop saying half of 2026 us datacenter",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-06-21",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/tariff-armageddon-gpu-loopholes",
+      "title": "tariff armageddon gpu loopholes",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D07"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-06",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/tenstorrent-blackhole-grendel-and",
+      "title": "tenstorrent blackhole grendel and",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/tenstorrent-wormhole-analysis-a-scale",
+      "title": "tenstorrent wormhole analysis a scale",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/tesla-ai-capacity-expansion-h100",
+      "title": "tesla ai capacity expansion h100",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D15"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-08",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/tesla-ai-day-supercomputer-chip-teaser",
+      "title": "tesla ai day supercomputer chip teaser",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-13",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/tesla-dojo-unique-packaging-and-chip",
+      "title": "tesla dojo unique packaging and chip",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/the-ai-brick-wall-a-practical-limit",
+      "title": "the ai brick wall a practical limit",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/the-coding-assistant-breakdown-more",
+      "title": "the coding assistant breakdown more",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-04-27",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/the-dark-side-of-the-semiconductor",
+      "title": "the dark side of the semiconductor",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/the-eda-primer-from-rtl-to-silicon",
+      "title": "the eda primer from rtl to silicon",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-05-22",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/the-future-of-meta-superintelligence",
+      "title": "The Future of Meta Superintelligence: A 1 Year Progress Update",
+      "title_origin": "feed_title",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-07-10",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/feed",
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": "",
+      "published_on": "Thu, 09 Jul 2026 19:16:14 GMT"
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/the-future-of-military-sensing-and",
+      "title": "the future of military sensing and",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/the-future-of-packaging-gets-blurry",
+      "title": "the future of packaging gets blurry",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/the-future-of-the-transistor",
+      "title": "the future of the transistor",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/the-gaps-in-the-new-china-lithography",
+      "title": "the gaps in the new china lithography",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-08",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/the-gpu-cloud-clustermax-rating-system-how-to-rent-gpus",
+      "title": "the gpu cloud clustermax rating system how to rent gpus",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D07"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-03",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/the-great-ai-silicon-shortage",
+      "title": "the great ai silicon shortage",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-04-15",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/the-great-gpu-shortage-rental-capacity",
+      "title": "the great gpu shortage rental capacity",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D07",
+        "D15"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-04-06",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/the-history-and-timeline-of-flash",
+      "title": "the history and timeline of flash",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/the-impending-chinese-nand-apocalypse-e01",
+      "title": "the impending chinese nand apocalypse e01",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/the-inference-cost-of-search-disruption",
+      "title": "the inference cost of search disruption",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D02",
+        "D15"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/the-memory-wall",
+      "title": "the memory wall",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D07"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-03-24",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/the-new-ai-networks-ultra-ethernet-uec-ualink-vs-broadcom-scale-up-ethernet-sue",
+      "title": "the new ai networks ultra ethernet uec ualink vs broadcom scale up ethernet sue",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D08"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-03",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/the-semiconductor-heist-of-the-century",
+      "title": "the semiconductor heist of the century",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/the-tesla-dojo-chip-is-impressive",
+      "title": "the tesla dojo chip is impressive",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/the-transformation-of-veeco",
+      "title": "the transformation of veeco",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/the-wild-wild-west-of-lego-datacenters",
+      "title": "The Wild Wild West Of LEGO Datacenters",
+      "title_origin": "feed_title",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-07-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/feed",
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": "",
+      "published_on": "Wed, 29 Jul 2026 22:09:56 GMT"
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/thick-cables-thin-margins-microsoft",
+      "title": "thick cables thin margins microsoft",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/to-boldly-go-the-case-for-space-datacenters",
+      "title": "to boldly go the case for space datacenters",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-07-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/tokenbudgeting-our-conversations",
+      "title": "tokenbudgeting our conversations",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-06-30",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/tpuv5e-the-new-benchmark-in-cost",
+      "title": "tpuv5e the new benchmark in cost",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D15"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/tpuv7-google-takes-a-swing-at-the",
+      "title": "tpuv7 google takes a swing at the",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-01-06",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/trailing-edge-is-going-gangbusters",
+      "title": "trailing edge is going gangbusters",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/tsmc-3nm-wafer-shipments-pushed-into",
+      "title": "tsmc 3nm wafer shipments pushed into",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/tsmc-overseas-fabs-a-success",
+      "title": "tsmc overseas fabs a success",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-01-06",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/tsmc-says-they-will-sidestep-the",
+      "title": "tsmc says they will sidestep the",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/tsmc-the-drug-dealer-is-trying-to",
+      "title": "tsmc the drug dealer is trying to",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/tsmc-throws-down-a-40b-44b-gauntlet",
+      "title": "tsmc throws down a 40b 44b gauntlet",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/tsmc-wants-to-make-intel-dependent",
+      "title": "tsmc wants to make intel dependent",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/tsmcs-3nm-conundrum-does-it-even",
+      "title": "tsmcs 3nm conundrum does it even",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/tsmcs-heroic-assumption-low-utilization",
+      "title": "tsmcs heroic assumption low utilization",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D15"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/turning-the-titanic-how-intel-is",
+      "title": "turning the titanic how intel is",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/ultra-high-interactivity-on-nvidia",
+      "title": "Ultra-High Interactivity on NVIDIA GPUs? - TileRT InferenceX",
+      "title_origin": "feed_title",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-08-10",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/feed",
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": "",
+      "published_on": "Mon, 10 Aug 2026 04:51:35 GMT"
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/us-grid-constraints-towards-40gw",
+      "title": "us grid constraints towards 40gw",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D03"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-06-26",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/ventana-risc-v-cpus-beating-next",
+      "title": "ventana risc v cpus beating next",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/vera-rubin-extreme-co-design-an-evolution",
+      "title": "vera rubin extreme co design an evolution",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D07"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-02-28",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/vera-rubin-nvl72-vs-gb200-nvl72-inference",
+      "title": "Vera Rubin NVL72 vs GB200 NVL72? Inference TCO & Architecture Analysis",
+      "title_origin": "feed_title",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D02",
+        "D07",
+        "D15"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-07-25",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/feed",
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": "",
+      "published_on": "Thu, 23 Jul 2026 00:47:48 GMT"
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/vlsi2025",
+      "title": "vlsi2025",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2026-03-20",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/wafer-fab-model",
+      "title": "wafer fab model",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-08",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/wafer-wars-deciphering-latest-restrictions",
+      "title": "wafer wars deciphering latest restrictions",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/why-america-will-lose-semiconductors",
+      "title": "why america will lose semiconductors",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/will-the-china-real-estate-meltdown",
+      "title": "will the china real estate meltdown",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/xais-colossus-2-first-gigawatt-datacenter",
+      "title": "xais colossus 2 first gigawatt datacenter",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [
+        "D01"
+      ],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-09",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://newsletter.semianalysis.com/p/zen-4c-amds-response-to-hyperscale",
+      "title": "zen 4c amds response to hyperscale",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "sitemap_last_modified": "2025-10-29",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://semianalysis.com/about",
+      "title": "about",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    },
+    {
+      "url": "https://semianalysis.com/archive",
+      "title": "archive",
+      "title_origin": "url_slug",
+      "publisher": "SemiAnalysis",
+      "suggested_domains": [],
+      "first_seen": "2026-09-06T22:19:48+00:00",
+      "last_seen": "2026-09-06T22:19:48+00:00",
+      "discovered_via": [
+        "https://newsletter.semianalysis.com/sitemap.xml"
+      ],
+      "triage": "unreviewed",
+      "domains": [],
+      "notes": ""
+    }
+  ]
+}

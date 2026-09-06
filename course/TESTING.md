@@ -70,3 +70,27 @@ JavaScript syntax, deterministic artifact checking, Ruff, and whitespace checks.
 This records the inspected scope, not a certification or a claim that learner
 outcomes have been measured. A real teaching session remains the test of pacing
 and comprehension.
+
+## Expansion planning verification — 2026-09-06
+
+The domain atlas and research pipeline are implemented planning tools. The
+expanded lessons, final teaching visuals, learner trials and recording are
+still pending; none of the new course review gates was closed by these checks.
+
+- 28 Python tests and six numerical JavaScript tests passed. These include the
+  domain graph and teaching-order checks, source mapping consistency, safe
+  embedding, discovery failure handling, metadata deduplication, preservation
+  of editorial decisions and exact human note bodies, and stale-output checks.
+- The existing course, new HTML/Markdown map and research notes passed their
+  offline freshness checks. A repeated research build changed zero files.
+- Local Markdown links across the planning and research documents resolved,
+  including exact filename case. Ruff and whitespace checks passed.
+- The atlas overview and D06 detail were inspected in the in-app browser at
+  desktop size and 390 × 844 portrait. The D06 view showed five objectives,
+  three prerequisite highlights and eight source connections. No horizontal
+  page overflow was measured at the sampled phone state. This is a sampled
+  planning-interface review, not the full course browser walkthrough above.
+
+The Pages workflow now checks the map and research outputs as well as the
+existing course. The new atlas is available as a local preview and repository
+artifact; this change does not add it to the public Pages site.
