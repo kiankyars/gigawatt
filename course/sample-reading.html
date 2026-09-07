@@ -1,0 +1,1962 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f4f3ee" />
+    <meta
+      name="description"
+      content="A visual course on modern AI data centers: power, compute, cooling, delivery and operation, with worked examples and practice."
+    />
+    <title>GIGAWATT — From watts to useful compute</title>
+    <style>
+      :root {
+  --paper: #f4f3ee;
+  --white: #fffefa;
+  --ink: #193139;
+  --muted: #62716e;
+  --rule: #d7ded5;
+  --teal: #0b756a;
+  --amber: #ad650d;
+  --blue: #346886;
+  --violet: #75629a;
+  --soft: #eaf0e7;
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+  font-synthesis: none;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+button,
+input,
+select {
+  font: inherit;
+}
+button,
+a,
+input,
+summary {
+  -webkit-tap-highlight-color: transparent;
+}
+button {
+  cursor: pointer;
+  color: inherit;
+}
+button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+a {
+  color: var(--teal);
+  text-underline-offset: 3px;
+}
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+summary:focus-visible {
+  outline: 3px solid #cd8427;
+  outline-offset: 4px;
+}
+button[hidden],
+[hidden] {
+  display: none !important;
+}
+.skip {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 30;
+  background: var(--white);
+  padding: 12px;
+  transform: translateY(-150%);
+}
+.skip:focus {
+  transform: none;
+}
+.mast {
+  height: 78px;
+  border-bottom: 1px solid var(--rule);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  background: var(--paper);
+  position: relative;
+  z-index: 5;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  text-decoration: none;
+  color: var(--ink);
+  font-weight: 850;
+  font-size: 17px;
+  letter-spacing: 2px;
+}
+.brand > span {
+  font-size: 39px;
+  line-height: 1;
+  color: var(--teal);
+}
+.brand small {
+  font-size: 9px;
+  letter-spacing: 1.7px;
+  font-weight: 600;
+  padding-left: 18px;
+  margin-left: 8px;
+  border-left: 1px solid var(--rule);
+  color: var(--muted);
+}
+.mast nav {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  font-size: 12px;
+  font-weight: 650;
+}
+.mast button {
+  border: 0;
+  background: transparent;
+  padding: 10px 0;
+}
+.mast a:not(.brand) {
+  text-decoration: none;
+  color: var(--muted);
+}
+#contents-toggle {
+  display: none;
+}
+.book-layout {
+  display: grid;
+  grid-template-columns: 282px minmax(0, 1fr);
+}
+.sidebar {
+  border-right: 1px solid var(--rule);
+  padding: 30px 22px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: auto;
+  scrollbar-width: thin;
+}
+.rail-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 9px;
+  letter-spacing: 1.3px;
+  font-weight: 800;
+  margin-bottom: 25px;
+}
+.rail-heading small {
+  font-size: 9px;
+  letter-spacing: 0;
+  white-space: nowrap;
+  color: var(--muted);
+}
+.search-label {
+  font-size: 11px;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 8px;
+}
+#search {
+  width: 100%;
+  border: 1px solid var(--rule);
+  border-radius: 7px;
+  padding: 12px 10px;
+  background: var(--white);
+  color: var(--ink);
+  font-size: 12px;
+}
+#search-status {
+  font-size: 10px;
+  min-height: 13px;
+  margin: 9px 0 18px;
+}
+.domain-group {
+  margin: 20px 0;
+}
+.domain-group h3 {
+  font-size: 11px;
+  line-height: 1.5;
+  margin: 0 0 9px;
+  display: flex;
+  gap: 8px;
+  color: var(--teal);
+}
+.domain-group h3 span {
+  color: var(--muted);
+  font-size: 9px;
+  padding-top: 2px;
+}
+.lesson-link {
+  display: block;
+  width: 100%;
+  background: transparent;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  text-align: left;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+  padding: 9px 9px 9px 13px;
+  margin-left: 3px;
+}
+.lesson-link:hover {
+  background: var(--soft);
+}
+.lesson-link.active {
+  color: var(--ink);
+  font-weight: 700;
+  border-color: var(--teal);
+  background: #e6ece2;
+  border-radius: 0 5px 5px 0;
+}
+.rail-foot {
+  display: grid;
+  gap: 11px;
+  border-top: 1px solid var(--rule);
+  margin-top: 26px;
+  padding-top: 23px;
+  font-size: 11px;
+}
+.rail-foot a {
+  text-decoration: none;
+}
+.rail-foot p {
+  font-size: 10px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+main {
+  min-width: 0;
+  padding: 50px clamp(24px, 4.5vw, 78px) 60px;
+  max-width: 1500px;
+}
+article:focus {
+  outline: 0;
+}
+.lesson-heading {
+  max-width: 970px;
+}
+.eyebrow {
+  font-size: 10px;
+  letter-spacing: 1.7px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+h1 {
+  font-family: Georgia, "Times New Roman", serif;
+  letter-spacing: -1.8px;
+  font-weight: 400;
+  font-size: clamp(37px, 3.5vw, 61px);
+  line-height: 1.08;
+  margin: 20px 0 21px;
+  max-width: 950px;
+}
+.lede {
+  font-size: 18px;
+  line-height: 1.65;
+  color: #536360;
+  max-width: 860px;
+}
+.lesson-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 23px 0 32px;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.3px;
+}
+.lesson-meta span {
+  border: 1px solid var(--rule);
+  padding: 6px 9px;
+  border-radius: 20px;
+}
+.illustration {
+  margin: 0 0 38px;
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  background: var(--white);
+  overflow: hidden;
+}
+.image-plate {
+  position: relative;
+  background: var(--paper);
+}
+.image-plate img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1672/941;
+  object-fit: contain;
+}
+.image-index {
+  position: absolute;
+  top: 15px;
+  left: 18px;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  font-weight: 800;
+  background: #fffefad9;
+  border: 1px solid var(--rule);
+  padding: 8px 10px;
+  border-radius: 4px;
+}
+.illustration figcaption {
+  padding: 15px 20px 0;
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.anatomy {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  padding: 17px 8px 21px;
+}
+.anatomy button {
+  text-align: left;
+  padding: 8px 14px;
+  background: none;
+  border: 0;
+  border-right: 1px solid var(--rule);
+  display: grid;
+  gap: 6px;
+}
+.anatomy button:last-child {
+  border: 0;
+}
+.anatomy b {
+  font-size: 12px;
+}
+.anatomy span {
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.anatomy button[aria-pressed="true"] {
+  background: var(--soft);
+  border-radius: 7px;
+}
+.driving-question {
+  border-left: 3px solid var(--teal);
+  padding: 3px 0 3px 22px;
+  margin: 0 0 45px;
+}
+.driving-question p {
+  font-family: Georgia, serif;
+  font-size: 25px;
+  line-height: 1.4;
+  max-width: 790px;
+  margin: 10px 0 0;
+}
+.reading-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 210px;
+  gap: 42px;
+  align-items: start;
+}
+.reading-section {
+  margin: 0 0 35px;
+  scroll-margin-top: 24px;
+}
+.reading-section h2,
+.worked h2,
+.practice h2,
+.lab h2,
+.evidence h2 {
+  font-family: Georgia, serif;
+  font-size: 28px;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  margin: 14px 0 18px;
+  line-height: 1.2;
+}
+.reading-section p,
+.worked p,
+.worked li,
+.practice p,
+.consequences p {
+  font-size: 16px;
+  line-height: 1.85;
+  margin: 0 0 17px;
+}
+.reading-section ul {
+  padding-left: 24px;
+  line-height: 1.8;
+}
+.sticky-note {
+  position: sticky;
+  top: 30px;
+  padding: 21px 17px;
+  background: #eaf0e6;
+  border-radius: 9px;
+}
+.sticky-note > p {
+  font-family: Georgia, serif;
+  font-size: 18px;
+  line-height: 1.5;
+  border-top: 1px solid #cdd8c7;
+  padding-top: 18px;
+}
+.lesson-aside {
+  height: 100%;
+  position: relative;
+}
+#locator {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 14px 0;
+}
+#locator span {
+  font-size: 9px;
+  padding: 6px 7px;
+  border: 1px solid #ccd6c7;
+  border-radius: 4px;
+  color: var(--muted);
+}
+#locator span.active {
+  background: var(--teal);
+  color: #fff;
+  border-color: var(--teal);
+}
+#objective-tags {
+  font-size: 10px;
+  line-height: 1.8;
+  color: var(--muted);
+}
+#objective-tags span {
+  display: inline-block;
+  margin: 3px 7px 0 0;
+}
+.worked,
+.practice,
+.lab {
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  padding: 28px;
+  margin: 34px 0;
+  background: var(--white);
+  min-width: 0;
+}
+.worked {
+  border-top: 4px solid var(--amber);
+}
+.worked ol {
+  padding-left: 25px;
+}
+.worked .result {
+  background: #f6eddb;
+  border-left: 3px solid #d09841;
+  padding: 17px 20px;
+  font-size: 19px;
+}
+.boundary {
+  color: var(--muted);
+  font-size: 12px !important;
+  line-height: 1.7 !important;
+  margin-top: 18px !important;
+}
+.givens {
+  color: var(--muted);
+}
+.consequences {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin: 34px 0;
+}
+.consequences section {
+  border-top: 1px solid var(--rule);
+  padding-top: 19px;
+}
+.consequences h2 {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1.3px;
+  color: var(--teal);
+  margin: 0 0 14px;
+}
+.consequences p {
+  font-size: 14px;
+  line-height: 1.8;
+}
+.practice {
+  background: #eaf0e6;
+}
+.practice textarea {
+  width: 100%;
+  min-height: 90px;
+  resize: vertical;
+  font: inherit;
+  font-size: 14px;
+  border: 1px solid #cbd6c5;
+  padding: 12px;
+  background: #fffefa;
+  border-radius: 6px;
+}
+.practice label {
+  font-size: 12px;
+  display: block;
+  margin: 16px 0 9px;
+}
+.practice details,
+.evidence details {
+  border-top: 1px solid var(--rule);
+  margin-top: 22px;
+  padding-top: 18px;
+}
+.practice summary,
+.evidence summary {
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 4px 0;
+}
+.practice details > div {
+  margin-top: 20px;
+}
+.practice .answer {
+  font-weight: 700;
+}
+.evidence {
+  margin: 42px 0;
+}
+.source {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.source a {
+  font-size: 13px;
+  font-weight: 650;
+}
+.source p {
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--muted);
+  margin: 8px 0;
+}
+.evidence > .boundary {
+  max-width: 800px;
+}
+.lesson-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--rule);
+  padding-top: 26px;
+  gap: 12px;
+}
+.lesson-footer button {
+  background: var(--ink);
+  border: 0;
+  border-radius: 5px;
+  color: white;
+  padding: 13px 19px;
+  font-size: 12px;
+}
+.lesson-footer button:first-child {
+  background: transparent;
+  color: var(--ink);
+  padding-left: 0;
+}
+.lesson-footer span {
+  font-size: 10px;
+  color: var(--muted);
+}
+.lab {
+  background: #132c35;
+  color: #eef3eb;
+  border: 0;
+}
+.lab .eyebrow {
+  color: #99d5be;
+}
+.lab h2 {
+  color: #fff;
+}
+.lab .boundary {
+  color: #b6cacb;
+}
+.lab-intro {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #cee0dc;
+}
+.lab-controls {
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+  margin: 22px 0;
+}
+.lab-control {
+  flex: 1;
+  min-width: 190px;
+}
+.lab-control label {
+  font-size: 12px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+.lab-control input {
+  display: block;
+  width: 100%;
+  accent-color: #8bd4b9;
+  margin: 16px 0;
+}
+.lab-control select {
+  margin-top: 12px;
+  width: 100%;
+  background: #21414b;
+  color: #fff;
+  border: 1px solid #60808a;
+  border-radius: 5px;
+  padding: 10px;
+}
+.lab-output {
+  font-size: 20px;
+  line-height: 1.5;
+  font-weight: 600;
+  border-top: 1px solid #36515a;
+  padding-top: 19px;
+  color: #f4d491;
+  min-height: 60px;
+}
+.lab svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 25px;
+}
+.diagram-table {
+  display: grid;
+  gap: 10px;
+  margin: 22px 0;
+}
+.diagram-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.diagram-row > span:not(.arrow) {
+  padding: 13px 15px;
+  background: #24434c;
+  border: 1px solid #45606a;
+  border-radius: 5px;
+  font-size: 12px;
+  line-height: 1.4;
+}
+.diagram-row .arrow {
+  color: #99d5be;
+}
+.diagram-label {
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: #b9dcd2;
+  margin-bottom: 5px;
+}
+.lab .segmented {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+.segmented button {
+  border: 1px solid #60808a;
+  background: #21414b;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 12px;
+  font-size: 12px;
+}
+.segmented button[aria-pressed="true"] {
+  background: #e0ebdb;
+  color: #193139;
+}
+.diagram-note {
+  font-size: 12px;
+  line-height: 1.8;
+  color: #c2d4d1;
+  max-width: 850px;
+}
+.glossary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  margin: 35px 0;
+}
+.glossary-card {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 9px;
+  padding: 23px;
+}
+.glossary-card h2 {
+  font-family: Georgia, serif;
+  font-size: 24px;
+  font-weight: 400;
+  margin: 0 0 15px;
+}
+.glossary-card p {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--muted);
+}
+.glossary-card button {
+  font-size: 11px;
+  border: 0;
+  background: var(--soft);
+  border-radius: 4px;
+  padding: 8px 10px;
+  text-align: left;
+  color: var(--teal);
+}
+.no-script {
+  padding: 30px;
+}
+.muted {
+  color: var(--muted);
+}
+@media (min-width: 1700px) {
+  main {
+    padding-left: 90px;
+    padding-right: 90px;
+  }
+  .book-layout {
+    grid-template-columns: 310px minmax(0, 1fr);
+  }
+}
+@media (max-width: 1180px) {
+  .reading-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .lesson-aside {
+    display: none;
+  }
+  .book-layout {
+    grid-template-columns: 235px minmax(0, 1fr);
+  }
+  .sidebar {
+    padding: 25px 17px;
+  }
+  .mast {
+    padding: 0 25px;
+  }
+  .brand small {
+    display: none;
+  }
+  .consequences {
+    gap: 22px;
+  }
+}
+@media (max-width: 820px) {
+  .mast {
+    height: 66px;
+    padding: 0 20px;
+  }
+  .mast nav {
+    gap: 15px;
+    font-size: 11px;
+  }
+  .mast nav > a {
+    display: none;
+  }
+  .brand {
+    font-size: 15px;
+    letter-spacing: 1.4px;
+  }
+  .book-layout {
+    display: block;
+  }
+  #contents-toggle {
+    display: block;
+  }
+  .sidebar {
+    display: none;
+    position: fixed;
+    z-index: 4;
+    top: 66px;
+    left: 0;
+    width: min(360px, 100%);
+    height: calc(100dvh - 66px);
+    box-shadow: 20px 20px 40px #19313920;
+    background: var(--paper);
+    border-right: 1px solid var(--rule);
+  }
+  .sidebar.open {
+    display: block;
+  }
+  main {
+    padding: 32px 20px 40px;
+  }
+  h1 {
+    font-size: 43px;
+    letter-spacing: -1.3px;
+  }
+  .lede {
+    font-size: 16px;
+  }
+  .lesson-meta {
+    margin-bottom: 25px;
+  }
+  .illustration {
+    border-radius: 9px;
+    margin-bottom: 30px;
+  }
+  .image-index {
+    top: 9px;
+    left: 9px;
+    font-size: 8px;
+    padding: 6px;
+  }
+  .anatomy {
+    grid-template-columns: 1fr;
+    padding: 12px;
+  }
+  .anatomy button {
+    border: 0;
+    border-bottom: 1px solid var(--rule);
+    padding: 12px;
+    gap: 5px;
+  }
+  .anatomy span {
+    font-size: 12px;
+  }
+  .driving-question {
+    margin-bottom: 30px;
+    padding-left: 16px;
+  }
+  .driving-question p {
+    font-size: 23px;
+  }
+  .reading-section h2,
+  .worked h2,
+  .practice h2,
+  .lab h2 {
+    font-size: 27px;
+  }
+  .reading-section p,
+  .worked p,
+  .worked li,
+  .practice p {
+    font-size: 16px;
+    line-height: 1.85;
+  }
+  .worked,
+  .practice,
+  .lab {
+    padding: 22px 18px;
+    margin: 28px 0;
+  }
+  .consequences {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .consequences p {
+    font-size: 15px;
+  }
+  .lab-controls {
+    gap: 18px;
+  }
+  .lab-control {
+    min-width: 100%;
+  }
+  .lab-output {
+    font-size: 18px;
+  }
+  .glossary-grid {
+    grid-template-columns: 1fr;
+  }
+  .lesson-footer button {
+    padding: 12px;
+    font-size: 11px;
+  }
+  .lesson-footer span {
+    font-size: 9px;
+  }
+  .diagram-row > span:not(.arrow) {
+    padding: 10px;
+    font-size: 11px;
+  }
+  .worked .result {
+    font-size: 17px;
+    padding: 14px;
+  }
+  .illustration figcaption {
+    padding: 12px 14px 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  * {
+    scroll-behavior: auto !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}
+@media print {
+  .mast,
+  .sidebar,
+  .lesson-footer,
+  .practice textarea,
+  .lab-controls,
+  .segmented {
+    display: none !important;
+  }
+  .book-layout,
+  .reading-layout {
+    display: block;
+  }
+  main {
+    padding: 0;
+  }
+  .lesson-aside {
+    display: none;
+  }
+  .lab {
+    background: #eee;
+    color: #111;
+  }
+  .lab h2,
+  .lab .eyebrow,
+  .lab-output,
+  .lab .boundary,
+  .lab-intro,
+  .diagram-note {
+    color: #111;
+  }
+  .illustration,
+  .worked,
+  .practice,
+  .lab {
+    break-inside: avoid;
+  }
+  .image-plate img {
+    max-height: 300px;
+  }
+  body {
+    background: #fff;
+  }
+}
+
+.bars {
+  display: grid;
+  gap: 18px;
+  margin: 25px 0;
+}
+.bar-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  font-size: 13px;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+.bar-label span {
+  color: #d6e5df;
+}
+.bar-label b {
+  white-space: nowrap;
+}
+.bar-track {
+  height: 14px;
+  background: #294650;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.bar-track > div {
+  height: 100%;
+  border-radius: 3px;
+}
+.concept {
+  margin: 30px 0 38px;
+  border-top: 1px solid var(--rule);
+  padding-top: 24px;
+}
+.concept h2 {
+  font-family: Georgia, serif;
+  font-size: 27px;
+  font-weight: 400;
+}
+.concept-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+.concept-node {
+  padding: 20px;
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+}
+.concept-node > span {
+  font-size: 11px;
+  color: var(--teal);
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.concept-node h3 {
+  font-size: 15px;
+  margin: 12px 0;
+}
+.concept-node p {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--muted);
+  margin: 0;
+}
+@media (max-width: 600px) {
+  .concept-grid {
+    grid-template-columns: 1fr;
+  }
+  .concept-node {
+    padding: 18px;
+  }
+  .concept-node p {
+    font-size: 14px;
+  }
+}
+
+    </style>
+  </head>
+  <body>
+    <a class="skip" href="#lesson">Skip to lesson</a>
+    <header class="mast">
+      <a class="brand" href="#"
+        ><span aria-hidden="true">ϟ</span> GIGAWATT
+        <small>READING COMPANION</small></a
+      >
+      <nav aria-label="Course tools">
+        <button
+          id="contents-toggle"
+          aria-expanded="false"
+          aria-controls="sidebar"
+        >
+          Contents</button
+        ><button id="lookup-toggle" aria-pressed="false">Look up</button
+        ><a href="sample.html">Present the sample ↗</a>
+      </nav>
+    </header>
+    <div class="book-layout">
+      <aside id="sidebar" class="sidebar">
+        <div class="rail-heading">
+          <span>THE LEARNING PATH</span><small id="lesson-count"></small>
+        </div>
+        <label class="search-label" for="search">Find a lesson or concept</label
+        ><input
+          id="search"
+          type="search"
+          placeholder="Try 800 V, cooling, checkpoint…"
+          autocomplete="off"
+        />
+        <p id="search-status" class="muted" aria-live="polite"></p>
+        <nav id="contents" aria-label="Lessons"></nav>
+        <div class="rail-foot">
+          <a href="domain-map.html">Domain map ↗</a
+          ><a href="index.html">Full course ↗</a
+          ><a href="sample.html">800 V teaching sample ↗</a
+          ><a href="../diagram/index.html">Interactive introduction ↗</a
+          ><a href="../research/INDEX.md">Research library ↗</a
+          ><a href="REVIEW_HELP.md">Review this draft ↗</a>
+          <p>Authored draft · September 2026</p>
+        </div>
+      </aside>
+      <main id="main">
+        <section id="lookup" hidden aria-labelledby="lookup-title">
+          <div class="eyebrow">RETURN TO THE REASONING</div>
+          <h1 id="lookup-title">Look it up.<br />See how it connects.</h1>
+          <p class="lede">
+            Search the lesson text or open a concept below. Definitions lead
+            back to the explanation, example and evidence.
+          </p>
+          <div id="glossary"></div>
+        </section>
+        <article id="lesson" tabindex="-1">
+          <div class="lesson-heading">
+            <div class="eyebrow" id="eyebrow"></div>
+            <h1 id="title"></h1>
+            <p class="lede" id="summary"></p>
+            <div class="lesson-meta" id="lesson-meta"></div>
+          </div>
+          <figure class="illustration">
+            <div class="image-plate">
+              <img id="teaching-image" width="1672" height="941" alt="" />
+              <div class="image-index" id="image-index"></div>
+            </div>
+            <figcaption id="image-caption"></figcaption>
+            <div class="anatomy" id="anatomy"></div>
+          </figure>
+          <section class="driving-question">
+            <span class="eyebrow">THE QUESTION TO HOLD</span>
+            <p id="question"></p>
+          </section>
+          <div class="reading-layout">
+            <div id="prose"></div>
+            <aside class="lesson-aside">
+              <div class="sticky-note">
+                <span class="eyebrow">KEEP YOUR BEARINGS</span>
+                <div id="locator"></div>
+                <p id="takeaway"></p>
+                <div id="objective-tags"></div>
+              </div>
+            </aside>
+          </div>
+          <section
+            id="concept"
+            class="concept"
+            aria-labelledby="concept-title"
+          ></section>
+          <section id="lab" class="lab" aria-labelledby="lab-title"></section>
+          <section
+            id="worked"
+            class="worked"
+            aria-labelledby="worked-title"
+          ></section>
+          <section class="consequences" id="consequences"></section>
+          <section
+            id="practice"
+            class="practice"
+            aria-labelledby="practice-title"
+          ></section>
+          <section
+            id="evidence"
+            class="evidence"
+            aria-labelledby="evidence-title"
+          ></section>
+          <footer class="lesson-footer">
+            <button id="previous">← Previous</button><span id="position"></span
+            ><button id="next">Next lesson →</button>
+          </footer>
+        </article>
+      </main>
+    </div>
+    <noscript
+      ><p class="no-script">
+        This reader uses JavaScript for navigation.
+        <a href="EXPANDED_COURSE.md">Read the complete Markdown course</a>.
+      </p></noscript
+    >
+    <script id="expanded-data" type="application/json">
+      {"title":"GIGAWATT","status":"Authored draft — external expert and learner reviews pending","as_of":"2026-09-06","domains":[{"id":"D01","title":"System boundaries and quantities","lane":"foundations","question":"What exactly does a megawatt of data-center capacity describe?","purpose":"Give every later calculation a unit, a boundary, and an operating condition.","scope":["Campus, building, hall, row, rack, server, package and die","Power, energy, real/apparent power, efficiency and time","Nameplate, reserved, commissioned, available, demanded and productive capacity","Physical flows versus commercial relationships; reference designs versus actual sites"],"prerequisites":[],"objectives":[{"id":"D01.1","capability":"Trace electrical energy, heat, and information through a data center while keeping the accounting boundaries separate.","assessment":"Annotate one campus diagram with three paths and explain why useful computation and dissipated heat are not competing energy allocations.","existing_lessons":["one-rack","electrical-to-heat","whole-system"],"coverage":"partial"},{"id":"D01.2","capability":"Convert power and energy across units and time; distinguish a measured load from a capacity rating.","assessment":"Calculate an energy total from a stepped load profile and identify what cannot be inferred from a service rating.","existing_lessons":["power-and-energy","capacity-stages"],"coverage":"partial"},{"id":"D01.3","capability":"Define denominators for facility, IT and compute-only metrics and label the time window.","assessment":"Reconcile a facility energy ledger with IT energy, overhead and a separately measured workload output.","existing_lessons":["facility-overhead","useful-compute"],"coverage":"partial"},{"id":"D01.4","capability":"Separate physical principles, design specifications, observed deployments, announcements, forecasts and teaching assumptions.","assessment":"Classify six supplied claims and state the additional evidence needed to call capacity operational.","existing_lessons":["abilene-case","capacity-stages"],"coverage":"partial"}],"visual":{"title":"One campus, three paths","interaction":"Select power, heat or information, then zoom campus → rack → chip while retaining the enclosing boundary.","prediction":"Which quantities change when the accounting boundary moves from the utility meter to IT equipment?","boundary":"Arrows show connectivity and direction. Their animation does not represent physical propagation speed."},"worked_example":"Use a synthetic 24-hour load trace to compare MW, MWh and separately specified capacity; label all measurement points.","tradeoff":"A simple system model is easier to reason with; omitted loads and changing boundaries can invalidate its conclusion.","failure":"A capacity headline combines planned expansion with an existing phase. Identify the double count before doing arithmetic."},{"id":"D02","title":"Workloads and the infrastructure brief","lane":"foundations","question":"What useful work must the facility deliver, and on what schedule?","purpose":"Derive infrastructure requirements from the service or job rather than starting with an equipment inventory.","scope":["Training, inference and conventional services as different load and service profiles","Throughput, latency, availability, memory demand and utilization","Parallelism, communication, checkpointing and workload-driven power variation","Design envelopes and uncertainty; avoiding universal watts-to-tokens conversions"],"prerequisites":["D01"],"objectives":[{"id":"D02.1","capability":"Translate a workload brief into compute, memory, network, storage, power and service requirements.","assessment":"Compare two supplied training and inference briefs and explain which requirements need measurement rather than a rack-count estimate.","existing_lessons":["useful-compute"],"coverage":"partial"},{"id":"D02.2","capability":"Distinguish hardware occupancy, power draw and productive utilization.","assessment":"Explain three traces in which the same installed hardware produces different useful output; identify idle and waiting intervals.","existing_lessons":["useful-compute"],"coverage":"partial"},{"id":"D02.3","capability":"Explain how batching, parallel execution and synchronized job phases change the infrastructure demand profile.","assessment":"Read a supplied job timeline and predict communication, checkpoint and load-transition intervals without assuming a universal waveform.","existing_lessons":[],"coverage":"missing"},{"id":"D02.4","capability":"State an infrastructure design envelope and identify which assumptions a benchmark can and cannot validate.","assessment":"Write acceptance criteria for a hypothetical cluster using declared workload, precision, batch, latency and availability conditions.","existing_lessons":[],"coverage":"missing"}],"visual":{"title":"From job timeline to demand","interaction":"Switch between labeled training, interactive inference and batch inference scenarios; align work, communication and power traces.","prediction":"Does a higher average GPU power draw necessarily imply higher useful throughput?","boundary":"Traces are illustrative until tied to an identified measurement, workload and hardware configuration."},"worked_example":"Compare a compute-limited and communication-limited synthetic job at identical installed power capacity; calculate elapsed time and useful work per energy.","tradeoff":"Provisioning for peaks, pooling resources and accepting queueing produce different cost and service outcomes.","failure":"A new workload meets the average MW budget but violates a latency or transient requirement."},{"id":"D03","title":"Siting, grid connection and supply","lane":"power","question":"Where can the required power actually arrive, and when?","purpose":"Connect the physical site decision to grid constraints, available infrastructure and the project schedule.","scope":["Load connection, utility studies, substations, transmission and distribution interfaces","Generation and behind-the-meter supply where they affect delivery, dispatch or resilience","Capacity, energy, fuel, emissions, curtailment and time matching","Land, fiber, water, climate and local constraints as joint siting inputs"],"prerequisites":["D01","D02"],"objectives":[{"id":"D03.1","capability":"Trace a physical supply path and distinguish it from a power purchase agreement or energy attribute claim.","assessment":"Draw the metered connection separately from two commercial arrangements; name what each establishes.","existing_lessons":["sources-and-grid"],"coverage":"partial"},{"id":"D03.2","capability":"Explain voltage, current and conductor loss in a bounded AC or DC comparison.","assessment":"Compare two balanced three-phase transfer scenarios with stated power factor and conductor resistance; list excluded losses.","existing_lessons":["raise-voltage"],"coverage":"partial"},{"id":"D03.3","capability":"Explain the milestones and constraints between a proposed large load and service available to that load.","assessment":"Turn a supplied project timeline into a capacity ledger without treating an application, agreement or energized substation as commissioned IT.","existing_lessons":["capacity-stages"],"coverage":"partial"},{"id":"D03.4","capability":"Compare utility-only and on-site supply options against energy, capacity, fuel, grid and operating requirements.","assessment":"Evaluate a synthetic siting brief with outage, fuel-delivery and curtailment constraints; record unresolved utility and local requirements.","existing_lessons":[],"coverage":"missing"}],"visual":{"title":"Two maps: electrons and agreements","interaction":"Overlay the physical connection, commercial contracts and project milestones on the same site comparison.","prediction":"Which contractual change increases physically deliverable power at the meter?","boundary":"A contract is not an electrical edge. Grid rules, interconnection terms and permits require a named jurisdiction and date."},"worked_example":"Compare two hypothetical sites with different delivery dates, service limits, climate and fiber reach; keep ratings, costs and operating assumptions explicit.","tradeoff":"Earlier on-site supply may trade schedule advantage against fuel, emissions, operating complexity and future grid integration.","failure":"Supply is available in aggregate but a transmission constraint or fuel interruption prevents the promised operating profile."},{"id":"D12","title":"Physical site, buildings and safety","lane":"delivery","question":"What must the actual place support beyond electrical and thermal ratings?","purpose":"Make spatial, environmental, access and safety constraints visible before treating a schematic as buildable.","scope":["Land, geotechnical and civil interfaces; buildings, structural loading and floor layouts","Flood, seismic, weather and other site hazards as jurisdiction-specific inputs","Equipment access, lifting, replacement routes, egress and service clearances","Fire detection/suppression, electrical hazards and battery/fuel arrangements at conceptual level","Physical security and OT/IT trust boundaries; noise, water and environmental permits"],"prerequisites":["D01","D03"],"objectives":[{"id":"D12.1","capability":"Translate a reference equipment layout into space, weight, access and replacement-route requirements.","assessment":"Reject a synthetic rack/plant layout that fits in area but fails a supplied loading or service-access constraint.","existing_lessons":[],"coverage":"missing"},{"id":"D12.2","capability":"Identify site hazards and permitting interfaces that require location-specific evidence.","assessment":"Build a siting risk register for two hypothetical locations and distinguish generic questions from verified local requirements.","existing_lessons":[],"coverage":"missing"},{"id":"D12.3","capability":"Explain how fire, electrical, fluid and stored-energy hazards influence layout and operating boundaries.","assessment":"Annotate a conceptual layout with required specialist reviews and separation/access questions without presenting it as a compliant design.","existing_lessons":[],"coverage":"missing"},{"id":"D12.4","capability":"Trace physical and control-system access boundaries and explain why availability depends on controlled changes and access.","assessment":"Identify a shared access or control dependency in a supplied facility/tenant interface diagram.","existing_lessons":[],"coverage":"missing"}],"visual":{"title":"The schematic has to fit somewhere","interaction":"Switch a hall between normal operation, equipment replacement and emergency-access views; reveal footprints and clearance envelopes.","prediction":"Can a higher-density rack reduce rack count while making the existing building harder to use?","boundary":"Illustrative envelopes are not code-compliant dimensions. Applicable requirements depend on jurisdiction, equipment and design review."},"worked_example":"Fit a hypothetical rack and replacement route into a supplied floor plan using declared dimensions and structural limits.","tradeoff":"Density and compactness must be weighed against access, hazard separation, replacement logistics and expansion space.","failure":"A component cannot be replaced while maintaining the planned service path, despite adequate spare electrical capacity."},{"id":"D04","title":"Campus and building power distribution","lane":"power","question":"How does power get from the connection to each load?","purpose":"Teach electrical topology, equipment roles and rating boundaries before comparing architecture changes.","scope":["Single-line diagrams and voltage levels","Transformers, switchgear, switchboards, busway, cables and distribution units","Real/apparent power, power factor, efficiency, harmonic and thermal limits","AC distribution and alternative DC conversion locations","House loads, IT loads, reserved capacity and expansion phases"],"prerequisites":["D01","D03"],"objectives":[{"id":"D04.1","capability":"Read a generic single-line diagram and explain what each distribution component changes, measures, switches or protects.","assessment":"Annotate an unfamiliar generic diagram and identify the loads behind each boundary.","existing_lessons":["substation-functions","building-power-train"],"coverage":"partial"},{"id":"D04.2","capability":"Translate load requirements into currents and equipment loading without confusing kW with kVA or nameplate with usable capacity.","assessment":"Calculate loading in a stated balanced scenario, including conversion efficiency and a supplied power factor; explain missing design inputs.","existing_lessons":["raise-voltage"],"coverage":"partial"},{"id":"D04.3","capability":"Compare centralized and distributed conversion and identify which conductors, equipment and loss boundaries change.","assessment":"Mark the changed interfaces on AC, near-rack DC and facility DC reference diagrams without claiming one universal efficiency improvement.","existing_lessons":[],"coverage":"missing"},{"id":"D04.4","capability":"Reconcile IT and auxiliary loads with a downstream electrical capacity budget across project phases.","assessment":"Find the binding transformer, feeder or service constraint in a synthetic phase-opening plan.","existing_lessons":["capacity-bottleneck","building-power-train"],"coverage":"partial"}],"visual":{"title":"A living single-line diagram","interaction":"Select a load to trace its upstream path; switch between conversion placements and display currents at labeled boundaries.","prediction":"Which current changes when conversion moves upstream, and which upstream current may remain essentially unchanged?","boundary":"A teaching topology is not an as-built design, a protection study or a conductor sizing tool."},"worked_example":"Work through one assumed facility-to-rack power budget, including conversion losses and separately reserved auxiliary loads.","tradeoff":"Centralization can change conversion count, serviceability and fault scope; actual benefits depend on the selected topology and operating point.","failure":"A row can fit physically while exceeding a feeder's available rating after required reserves."},{"id":"D05","title":"Continuity, storage and protection","lane":"power","question":"What survives a disturbance, and for how long?","purpose":"Connect backup supply, fault isolation and maintenance to complete operating paths.","scope":["UPS, batteries, generators, transfer sequences and load shedding","Stored energy versus discharge power; transient response versus outage duration","N, N+1, 2N, common-mode failures and maintainability","Grounding, fault detection, selective isolation and AC/DC protection concepts","Electrical and thermal ride-through together"],"prerequisites":["D01","D04"],"objectives":[{"id":"D05.1","capability":"Calculate bounded stored-energy runtime while checking discharge power and reserve assumptions.","assessment":"Compare two storage systems with the same MWh but different MW limits; explain why neither energy alone nor nameplate guarantees ride-through.","existing_lessons":["ride-through"],"coverage":"partial"},{"id":"D05.2","capability":"Trace an interruption, transfer and restoration sequence including IT, cooling and controls.","assessment":"Predict which loads remain supported at each step of a supplied sequence; identify a missing auxiliary supply.","existing_lessons":["ride-through","redundant-paths"],"coverage":"partial"},{"id":"D05.3","capability":"Evaluate path independence and surviving capacity during both a fault and planned maintenance.","assessment":"Find a common-mode dependency in a two-feed diagram and calculate load support with one path unavailable.","existing_lessons":["redundant-paths","fault-domains"],"coverage":"partial"},{"id":"D05.4","capability":"Explain why fault clearing and grounding require topology-specific AC/DC protection design.","assessment":"Compare two conceptual isolation sequences and list the protection evidence needed before endorsing either architecture.","existing_lessons":[],"coverage":"missing"}],"visual":{"title":"Failure timeline and surviving paths","interaction":"Inject an outage or isolate equipment; run a discrete sequence with separate electrical, thermal and control availability tracks.","prediction":"Can the rack remain energized while the overall service still becomes unavailable?","boundary":"Timing and reliability values are declared scenarios, not device guarantees or a Tier certification."},"worked_example":"Calculate a storage energy budget and a surviving-path power budget separately, then test whether both support the same required interval.","tradeoff":"More redundant equipment may improve maintainability but can add shared controls, switching complexity and underutilized capacity.","failure":"A successful electrical transfer leaves cooling controls unavailable; determine the missing evidence for thermal ride-through."},{"id":"D06","title":"Rack power and the 800 V DC transition","lane":"power","question":"Where should voltage conversion happen as rack demand changes?","purpose":"Use 800 V DC as an architecture comparison grounded in current, interfaces and deployment constraints.","scope":["Power shelves, rack buses, converters, point-of-load regulation and auxiliary loads","Conventional AC-to-rack conversion, sidecars and broader facility DC options","800 V DC and other specified voltage arrangements; product/version boundaries","Copper, connectors, busbars, stored energy, service access and space","Load transients, protection interfaces, brownfield and greenfield choices"],"prerequisites":["D01","D04","D05"],"objectives":[{"id":"D06.1","capability":"Trace conversion from rack input to processor rails and distinguish whole-rack power from chip power.","assessment":"Label every voltage and power boundary on two supplied rack diagrams and reject a misleading per-GPU TDP calculation.","existing_lessons":["rack-conversion","low-voltage-current"],"coverage":"partial"},{"id":"D06.2","capability":"Quantify how distribution voltage changes current at fixed DC power without treating conductor loss as total system efficiency.","assessment":"Compute currents for a declared 100 kW DC boundary at 50 V and 800 V, then state why this does not size a real conductor or establish an efficiency delta.","existing_lessons":["low-voltage-current"],"coverage":"partial"},{"id":"D06.3","capability":"Compare near-rack sidecars, rack-level conversion and facility DC as distinct architectures.","assessment":"Place conversion, storage, protection and AC/DC boundaries for each; distinguish announced products from proposed future designs.","existing_lessons":[],"coverage":"missing"},{"id":"D06.4","capability":"Evaluate a rack power upgrade against connector, bus, protection, auxiliary and transient interfaces.","assessment":"Write an interface checklist for a synthetic higher-density rack migration, with every unknown left explicit.","existing_lessons":[],"coverage":"missing"},{"id":"D06.5","capability":"Explain how retrofit constraints can reverse a seemingly attractive greenfield architecture choice.","assessment":"Choose between two supplied migration paths using space, downtime, conversion and maintenance assumptions; show what would change the decision.","existing_lessons":[],"coverage":"missing"}],"visual":{"title":"Move the conversion boundary","interaction":"Morph a shared diagram between existing AC, sidecar and broader DC reference architectures; keep unchanged equipment visually anchored.","prediction":"Which constraints move, which remain, and where does a new protection or service interface appear?","boundary":"Use dated, identified reference architectures. Single-ended and bipolar voltage labels cannot be silently interchanged; benefits require stated comparisons."},"worked_example":"At a hypothetical 100 kW DC boundary, compare 50 V and 800 V currents; separately account for each assumed conversion stage and its load-dependent efficiency.","tradeoff":"Higher distribution voltage changes current and packaging constraints while introducing different conversion, insulation, protection and service requirements.","failure":"A proposed sidecar upgrade clears rack space but does not solve an upstream AC feeder limit."},{"id":"D07","title":"Compute, memory and the rack","lane":"work","question":"What inside the rack determines useful performance?","purpose":"Explain hardware organization only as deeply as needed to connect workload progress with infrastructure choices.","scope":["CPU, accelerator, memory, host and accelerator interconnect roles","Memory capacity and bandwidth, compute throughput and data movement","Server, tray, rack and scale-up system boundaries","Packaging and power/thermal density where they affect the facility","Product specifications, measured performance and workload-dependent limits"],"prerequisites":["D01","D02"],"objectives":[{"id":"D07.1","capability":"Locate compute, memory and communication components within a server and rack and explain their roles.","assessment":"Trace a simplified data path from storage through host memory to accelerator memory and compute.","existing_lessons":["rack-conversion"],"coverage":"partial"},{"id":"D07.2","capability":"Distinguish memory-capacity, memory-bandwidth, compute and communication limits.","assessment":"Use supplied workload and hardware numbers to identify a plausible bottleneck and state the model's assumptions.","existing_lessons":[],"coverage":"missing"},{"id":"D07.3","capability":"Explain why chip count, advertised FLOPS and installed MW cannot independently establish job throughput.","assessment":"Compare two synthetic rack configurations with equal power envelopes but different memory and communication constraints.","existing_lessons":["useful-compute"],"coverage":"partial"},{"id":"D07.4","capability":"Connect server and rack organization to power, cooling, weight and maintenance interfaces.","assessment":"Identify the facility interface changes caused by replacing an air-cooled server row with a specified dense rack-scale system.","existing_lessons":[],"coverage":"missing"}],"visual":{"title":"A rack as a data path","interaction":"Zoom rack → tray → package; highlight storage transfers, memory access, compute and scale-up communication with consistent boundaries.","prediction":"Which upgrade helps a workload that is waiting on memory rather than arithmetic?","boundary":"Use product-specific diagrams only with versions and sources. The generic data path is deliberately simplified."},"worked_example":"Apply a supplied compute/bandwidth model to two workloads, then explain which unmodeled communication or software effects could reduce throughput.","tradeoff":"More tightly integrated systems can change performance and data movement while constraining service granularity and upgrade choices.","failure":"A failed component changes the usable topology and job capacity even though facility electrical capacity is unchanged."},{"id":"D08","title":"Networking and interconnects","lane":"work","question":"How do many devices make progress as one system?","purpose":"Teach communication cost and topology as constraints on useful compute and physical deployment.","scope":["Scale-up, scale-out and inter-data-center networking","Latency, bandwidth, bisection capacity, oversubscription and congestion","Collectives, routing and workload placement","Ethernet and InfiniBand as architectures with implementation-specific behavior","Copper, pluggable optics and co-packaged optics; reach, power, cabling and serviceability"],"prerequisites":["D01","D02","D07"],"objectives":[{"id":"D08.1","capability":"Distinguish scale-up, scale-out and wide-area communication requirements.","assessment":"Place three communication patterns on a rack, cluster and regional map and identify the relevant bottleneck.","existing_lessons":[],"coverage":"missing"},{"id":"D08.2","capability":"Calculate an illustrative topology's endpoint ports, oversubscription and transfer-time lower bounds.","assessment":"Compare two small supplied topologies, including units and stated routing assumptions; identify why bandwidth alone does not predict application time.","existing_lessons":[],"coverage":"missing"},{"id":"D08.3","capability":"Explain how congestion, collectives and topology-aware placement affect job progress.","assessment":"Predict the effect of a constrained link during a collective and describe a placement or architecture alternative.","existing_lessons":[],"coverage":"missing"},{"id":"D08.4","capability":"Compare interconnect media and packaging choices using reach, bandwidth, power, cooling and replacement boundaries.","assessment":"Evaluate copper, pluggable optics and a specified CPO proposal for a declared use case without treating a roadmap as a deployed default.","existing_lessons":[],"coverage":"missing"},{"id":"D08.5","capability":"Trace a network failure or degraded link into workload, cabling and operational consequences.","assessment":"Explain why a powered and cooled cluster can miss its useful-throughput acceptance target after a partial fabric failure.","existing_lessons":[],"coverage":"missing"}],"visual":{"title":"Watch a collective cross the fabric","interaction":"Advance a small collective step by step; change topology, oversubscription or a failed link and compare work/wait timelines.","prediction":"Does doubling a single link's bandwidth halve the whole job time?","boundary":"A simplified communication model is not a benchmark. Keep routing, concurrency, protocol overhead and failure assumptions visible."},"worked_example":"Calculate ports and idealized transfer bounds for a small fabric, then add explicitly modeled communication phases to a job timeline.","tradeoff":"Bandwidth density, reach, power and serviceability pull in different directions; network selection depends on workload and operating capability.","failure":"A partial fabric degradation increases job waiting while aggregate device health appears normal."},{"id":"D09","title":"Storage, orchestration and recovery","lane":"work","question":"Can data and jobs reach the hardware, and can useful progress survive failures?","purpose":"Connect storage and cluster software to the delivery of a usable service.","scope":["Local, shared and object storage roles; bandwidth, latency, metadata and durability","Dataset ingestion, checkpointing and restart paths","Scheduling, topology-aware placement and resource isolation","Cluster bring-up, provisioning, observability and tenant/service acceptance","Recovery objectives, redundancy and backup as different concepts"],"prerequisites":["D01","D02","D07","D08"],"objectives":[{"id":"D09.1","capability":"Trace the dataset and checkpoint paths and distinguish capacity, throughput and metadata constraints.","assessment":"Calculate an idealized checkpoint transfer time from supplied sizes and effective bandwidth, then identify additional bottlenecks.","existing_lessons":[],"coverage":"missing"},{"id":"D09.2","capability":"Explain how checkpoint frequency, failure behavior and restart time affect completed work.","assessment":"Compare two explicit checkpoint policies on a synthetic timeline that includes a failure and recovery.","existing_lessons":[],"coverage":"missing"},{"id":"D09.3","capability":"Explain scheduling, placement, provisioning and isolation as prerequisites for usable cluster capacity.","assessment":"Diagnose a scenario in which hardware is healthy but jobs cannot obtain the required topology, software environment or storage access.","existing_lessons":[],"coverage":"missing"},{"id":"D09.4","capability":"Specify a service acceptance exercise that tests end-to-end data access, job launch, useful output and recovery.","assessment":"Write a reproducible test plan for a synthetic tenant without reducing acceptance to a device-count or power-on check.","existing_lessons":[],"coverage":"missing"}],"visual":{"title":"Progress survives—or starts again","interaction":"Run the same job with two checkpoint/restart policies; show useful work, storage traffic, saved state and lost progress.","prediction":"Can a faster checkpoint policy consume enough resources to slow normal progress?","boundary":"Do not assume independent failures or constant restart time without labeling them; RAID/replication and backup are distinct."},"worked_example":"Reconcile checkpoint size, sustained storage throughput and recovery time for a provided scenario; account separately for lost and recomputed work.","tradeoff":"More frequent checkpoints can reduce lost progress but consume storage, network and execution resources.","failure":"A storage or orchestration failure makes otherwise available GPUs unusable or prevents a clean restart."},{"id":"D10","title":"Chip and rack heat capture","lane":"heat","question":"How does heat leave the devices without exceeding their operating limits?","purpose":"Connect local thermal constraints with airflow, coolant and rack interfaces.","scope":["Heat generation, heat flux, thermal resistance and temperature limits","Heat sinks, cold plates, rear-door exchangers, immersion and two-phase alternatives","Residual air paths and containment","Technology coolant, manifolds, quick disconnects and CDUs","Flow, pressure drop, approach temperature, material compatibility and leak management"],"prerequisites":["D01","D07"],"objectives":[{"id":"D10.1","capability":"Trace parallel air and liquid heat paths and explain why rack power alone does not specify local cooling difficulty.","assessment":"Compare two hypothetical devices with the same total heat but different heat flux or thermal resistance.","existing_lessons":["electrical-to-heat","residual-air"],"coverage":"partial"},{"id":"D10.2","capability":"Calculate a single-phase heat-transport flow under stated fluid and temperature assumptions.","assessment":"Solve a heat/flow/temperature-rise example and explain why the result alone does not select a pump or cold plate.","existing_lessons":["liquid-heat-transport"],"coverage":"partial"},{"id":"D10.3","capability":"Explain a CDU's fluid separation, heat-exchange and control functions while distinguishing loop rise from approach temperature.","assessment":"Draw two closed loops, label their temperature points and predict the effect of a constrained heat-exchanger interface.","existing_lessons":["heat-exchanger"],"coverage":"partial"},{"id":"D10.4","capability":"Compare air, cold-plate, rear-door and immersion approaches against a declared density and service brief.","assessment":"Evaluate a synthetic retrofit with residual-air, fluid, pressure, access and maintenance requirements; identify missing compatibility evidence.","existing_lessons":[],"coverage":"missing"}],"visual":{"title":"Two fluids, one heat transfer","interaction":"Follow heat from die through parallel air/liquid routes; vary flow and supply temperature within a declared model.","prediction":"Does increasing loop temperature rise imply the same change in heat-exchanger approach temperature?","boundary":"Fluid properties and operating limits must be specified. Flow arithmetic is not a hydraulic or equipment selection model."},"worked_example":"Calculate water flow for a declared steady heat load, then examine a supplied pressure-drop curve and a separate heat-exchanger approach constraint.","tradeoff":"Capturing heat closer to its source can support density while changing plumbing, materials, controls and service procedures.","failure":"A blocked branch or failed pump creates a local thermal limit that a facility-wide MW heat balance cannot reveal."},{"id":"D11","title":"Heat rejection, climate and water","lane":"heat","question":"Where does the heat finally go, and what does moving it consume?","purpose":"Close the energy and water balances through facility cooling and the outdoor environment.","scope":["Facility water loops, pumps, air handlers and thermal storage","Dry coolers, chillers, towers and economizers as distinct systems","Refrigeration, COP, load dependence and added compressor heat","Dry-bulb/wet-bulb conditions, water supply, treatment and consumption","PUE/WUE boundaries, heat reuse and environmental tradeoffs"],"prerequisites":["D01","D10"],"objectives":[{"id":"D11.1","capability":"Distinguish dry cooling, refrigeration, evaporative rejection and economizer operating modes.","assessment":"Trace four reference heat paths and identify where electricity and water enter each.","existing_lessons":["outdoor-rejection"],"coverage":"partial"},{"id":"D11.2","capability":"Close a declared chiller energy balance and calculate cooling COP with the correct numerator and denominator.","assessment":"Given cooling duty and compressor input, calculate COP and condenser heat; place pumps and fans at their stated boundaries.","existing_lessons":["outdoor-rejection"],"coverage":"partial"},{"id":"D11.3","capability":"Explain how ambient conditions, supply temperatures and equipment performance constrain capacity and economizer operation.","assessment":"Use supplied equipment curves and weather bins to compare two operating modes without applying a universal free-cooling threshold.","existing_lessons":[],"coverage":"missing"},{"id":"D11.4","capability":"Compute energy and water metrics with explicit boundaries and distinguish consumption from withdrawal.","assessment":"Compare two scenarios over the same period using stated facility/IT energies and water accounting; explain what PUE and WUE omit.","existing_lessons":["facility-overhead"],"coverage":"partial"},{"id":"D11.5","capability":"Evaluate cooling architecture or heat reuse against climate, water, electrical capacity and receiving-load constraints.","assessment":"Compare a hot-weather and a water-constrained site using a supplied design brief; identify what changes the preferred choice.","existing_lessons":[],"coverage":"missing"}],"visual":{"title":"The heat balance meets the weather","interaction":"Sweep a labeled ambient condition through supplied performance curves; watch available cooling, plant power and water use together.","prediction":"Under a fixed site electrical limit, can hotter weather constrain IT twice: through cooling capacity and auxiliary demand?","boundary":"COP and equipment curves need rating conditions. Water use depends on system and accounting boundary, not the label liquid cooling."},"worked_example":"Use a synthetic chiller performance table and hourly weather bins to estimate cooling electricity; keep the separate water model's assumptions explicit.","tradeoff":"Temperature, water, energy, space and heat-reuse opportunities create site-specific choices rather than a universal best cooling system.","failure":"A heatwave or water restriction invalidates a nominal cooling rating used in the electrical capacity plan."},{"id":"D13","title":"Design, procurement and commissioning","lane":"delivery","question":"How does a design become a tested, usable service?","purpose":"Teach delivery as a chain of interfaces and evidence, not a chronology of announcements.","scope":["Requirements, design basis, interface ownership and change control","Equipment lead times, factory testing, logistics and sequencing","Construction, installation quality, fluid cleanliness and pre-functional checks","Functional and integrated systems testing, failure scenarios and acceptance","Phased handover, as-built records, procedures and operator training"],"prerequisites":["D03","D04","D05","D09","D10","D11","D12"],"objectives":[{"id":"D13.1","capability":"Build a dependency-based delivery plan and distinguish a critical path from the longest equipment lead time.","assessment":"Sequence a synthetic project with parallel procurement, utility work, installation and testing; identify which delay changes service availability.","existing_lessons":[],"coverage":"missing"},{"id":"D13.2","capability":"Track interface requirements across vendors and design changes.","assessment":"Diagnose a rack/CDU or power/control interface mismatch before equipment shipment and state the acceptance evidence required.","existing_lessons":[],"coverage":"missing"},{"id":"D13.3","capability":"Distinguish installed, energized, individually tested, integrated-tested and service-accepted states.","assessment":"Classify supplied milestone evidence and identify which complete electrical, thermal and information paths remain unproven.","existing_lessons":["capacity-stages","abilene-case"],"coverage":"partial"},{"id":"D13.4","capability":"Specify an integrated acceptance and handover plan for a phased deployment.","assessment":"Propose normal, failure, maintenance and recovery tests, instrumentation, acceptance criteria, records and operator handover for a synthetic phase.","existing_lessons":[],"coverage":"missing"}],"visual":{"title":"Only complete paths count","interaction":"Advance independent delivery milestones across power, cooling, network and controls; reveal when a complete tested service path exists.","prediction":"Can the utility milestone be complete while the usable-capacity milestone remains unchanged?","boundary":"Testing requirements and acceptance conditions must be tied to a project brief. Timeline bars do not prove operating status."},"worked_example":"Find the earliest service-ready date in a supplied dependency graph, then recalculate after a converter or cooling-control delivery delay.","tradeoff":"Standardization and early ordering can accelerate delivery while limiting later changes; phased openings add interface and acceptance complexity.","failure":"Individually successful subsystem tests miss a coupled failure during an integrated utility-loss test."},{"id":"D14","title":"Controls, operations and reliability","lane":"delivery","question":"How does the system remain within its limits after handover?","purpose":"Turn the static design into monitored operation, maintenance and incident recovery.","scope":["Electrical, building, cooling and cluster monitoring; meters, sensors and control loops","Setpoints, sequences, alarms, telemetry quality and control dependencies","Maintenance, procedures, staffing, change/configuration management and spares","Failure domains, common causes, service availability and incident learning","Workload load changes, capacity management, aging and retrofit operations"],"prerequisites":["D05","D09","D11","D12","D13"],"objectives":[{"id":"D14.1","capability":"Place sensors and meters so an operator can distinguish an actual constraint from missing or misleading telemetry.","assessment":"Diagnose a synthetic thermal alarm using a labeled trend set; state where additional measurements are needed.","existing_lessons":[],"coverage":"missing"},{"id":"D14.2","capability":"Explain the difference between a device controller, a facility sequence and workload scheduling.","assessment":"Trace a supplied setpoint or load change through these layers and identify the required coordination and limits.","existing_lessons":[],"coverage":"missing"},{"id":"D14.3","capability":"Evaluate maintainability using a procedure, surviving capacity and real isolation boundaries.","assessment":"Walk through a synthetic maintenance plan and identify the shared dependency or restoration step that threatens service.","existing_lessons":["redundant-paths","fault-domains"],"coverage":"partial"},{"id":"D14.4","capability":"Distinguish component reliability, topology claims and measured service availability.","assessment":"Critique a naive multiplication of component availabilities and specify which correlated failures and repair assumptions are missing.","existing_lessons":[],"coverage":"missing"},{"id":"D14.5","capability":"Convert a failure or capacity incident into an evidence-based recovery and prevention plan.","assessment":"Reconstruct a supplied incident timeline, separate observations from hypotheses, and propose a verification step for each corrective action.","existing_lessons":[],"coverage":"missing"}],"visual":{"title":"Operate the same campus","interaction":"Move from topology to aligned telemetry and an incident timeline; select a maintenance action or workload change and trace dependencies.","prediction":"Which alarm is a symptom, and what observation would discriminate between two plausible causes?","boundary":"Synthetic telemetry is labeled. A simplified control model cannot establish stability, safety or field performance."},"worked_example":"Use a synthetic availability and incident log to calculate service downtime and identify the difference between equipment uptime and completed work.","tradeoff":"Aggressive utilization or efficiency setpoints may reduce margin; the operational choice depends on measured behavior and service requirements.","failure":"A shared control or configuration change disables nominally independent equipment paths."},{"id":"D15","title":"Capacity, cost and system decisions","lane":"delivery","question":"Which constraint limits useful service, and which change is worth making?","purpose":"Combine engineering, delivery and workload models into a bounded decision with explicit uncertainty.","scope":["Capacity ledgers, bottlenecks, reserves and phased expansion","Capital and operating costs, ownership/lease boundaries and commercial commitments","Energy, hardware utilization, financing assumptions and time to service","Cost per useful workload outcome versus cost per MW or GPU-hour","Sensitivity, scenarios, uncertainty, retrofit and retirement"],"prerequisites":["D02","D04","D06","D08","D09","D11","D13","D14"],"objectives":[{"id":"D15.1","capability":"Reconcile electrical, thermal, spatial, network and commissioned-service limits using the same boundaries.","assessment":"Calculate a synthetic capacity ceiling and identify tied constraints without treating it as measured operating demand.","existing_lessons":["capacity-bottleneck","facility-overhead"],"coverage":"partial"},{"id":"D15.2","capability":"Build an auditable cost model that separates capital, energy, operations, ownership and financing assumptions.","assessment":"Compare two supplied ownership or service models over an explicit horizon with a consistent denominator and utilization scenario.","existing_lessons":[],"coverage":"missing"},{"id":"D15.3","capability":"Explain why cost per MW, per installed accelerator and per useful result answer different questions.","assessment":"Recalculate a scenario after changing throughput or utilization while leaving installed capacity constant.","existing_lessons":["useful-compute"],"coverage":"partial"},{"id":"D15.4","capability":"Evaluate an upgrade using sensitivity to delivery date, service output, efficiency and constraints.","assessment":"Choose a synthetic power, cooling or network investment and identify the assumptions that reverse its ranking.","existing_lessons":[],"coverage":"missing"},{"id":"D15.5","capability":"Audit a named project's public evidence without filling unknown capacity, topology or economics with generic assumptions.","assessment":"Produce a dated case ledger separating announced, designed, permitted, commissioned and observed facts; list unresolved questions.","existing_lessons":["abilene-case"],"coverage":"partial"}],"visual":{"title":"Find the constraint, then change it","interaction":"Compare a base case and one intervention across capacity, time, cost and useful output; display assumptions beside the result.","prediction":"Does removing the current bottleneck necessarily increase delivered useful work or improve cost per result?","boundary":"A scenario is not a valuation, site estimate or throughput forecast. Do not add overlapping capacity stages or count shared loads twice."},"worked_example":"Extend the existing 100 MW teaching scenario with separate non-compute IT, commissioning, workload and delivery assumptions; compare two interventions.","tradeoff":"Lowest capital cost, earliest service, highest efficiency and best useful-output economics may select different designs.","failure":"A technically successful upgrade leaves a separate delivery, network or workload constraint binding."}],"lessons":[{"id":"sample-800v","domain":"D06","title":"What 800 V changes","question":"What does higher distribution voltage solve, and what does it leave for the rest of the facility?","summary":"A short review sample: hold a hypothetical DC load fixed, compare the current, then trace the equipment that still has to do its job.","takeaway":"Higher voltage reduces current at a fixed DC power boundary. The complete architecture decides where conversion, heat, protection and maintenance happen.","objectives":["D06.2","D06.3"],"lab":"dc","image":"power","sections":[{"heading":"Keep the useful load fixed","paragraphs":["Start with a hypothetical load receiving 100 kilowatts of direct-current power. A watt is a rate of energy transfer. Voltage describes energy transferred per unit charge; current describes charge flowing per second. At this DC boundary, power equals voltage multiplied by current: P = V × I. To find current, divide the required power by the voltage. We are holding the load fixed so that changing one variable has an interpretable consequence.","One hundred kilowatts is 100,000 watts. At 48 volts, the current is 100,000/48, or about 2,083 amperes. At 800 volts, it is 125 amperes. The power has not fallen. Each unit of charge now transfers more energy, so less charge has to flow each second to deliver the same power. This calculation describes the selected distribution segment; it does not mean that an accelerator chip operates at 800 volts."]},{"heading":"Follow the conversion boundary","paragraphs":["A conventional arrangement can bring AC into a compute rack, convert it to DC there, and regulate it again near the devices. A hybrid arrangement retains upstream AC distribution but moves conversion into a nearby power rack or sidecar, then carries higher-voltage DC toward the compute load. A broader facility-DC proposal moves conversion farther upstream. These are different arrangements of equipment and interfaces, not three names for one replacement component.","Use the architecture buttons below. In the sidecar view, locate the words existing facility AC. The upstream path is still there. It still has its electrical limits, losses, protection requirements and maintenance dependencies. Moving a converter outside the compute rack can free rack space and move heat into another location. That converter still needs a place, a power supply, cooling and access. The final voltage reduction near the processor also remains necessary."]},{"heading":"Ask what the current comparison actually proves","paragraphs":["Conductor heating is I²R: current squared times resistance. If we deliberately hold the conductor resistance fixed, the 800-volt current is 48/800 of the 48-volt current. Squaring that ratio gives 0.0036. The calculated conductor loss is therefore 0.36 percent of the reference loss. This is a useful mechanism to understand. It is not a measured whole-facility energy saving.","A real comparison must also account for converter efficiency, cable geometry, insulation, connectors, fault clearing, grounding, load transients and service access. Changing the conductor size changes resistance, so it changes the comparison. Changing conversion stages changes other losses. Before moving the voltage control, predict that current will fall. Before recommending an architecture, identify which complete project constraint it would actually relieve."]}],"tradeoff":["Choice: Place a converter in a nearby sidecar.","Benefit: Move conversion equipment and some heat out of the compute rack.","Cost: Use space and service capacity elsewhere while retaining the existing upstream AC constraints."],"failure":["Trigger: The new rack-power interface fits, but the room already has a binding cooling limit.","Mechanism: Changing electrical distribution does not automatically add heat-rejection capacity.","Response: Close the electrical and thermal ledgers at the same boundary before claiming more usable racks."],"practice":{"question":"The hypothetical 800 V load rises from 100 kW to 160 kW. What current does it require? Does that calculation establish that an existing 150 kW upstream AC feeder can support the load?","answer":"Current is 160,000/800 = 200 A. A 150 kW upstream feeder cannot supply 160 kW of downstream load, even before conversion losses.","explanation":["Lower current at the high-voltage segment does not remove the upstream power requirement. The load needs at least 160 kW from upstream; actual conversion loss increases that requirement."]},"terms":[{"term":"Distribution voltage","definition":"Voltage at the specified electrical segment carrying power toward a load; it need not equal the final device supply voltage."}],"worked_example":{"title":"The same power at two stated DC voltages","givens":["Original synthetic 100 kW DC load; equal delivered power at the compared segment.","48 V and 800 V both mean conductor-to-return voltage; conductor resistance is held equal only for the loss-ratio comparison."],"steps":["At 48 V: I = 100,000/48 = 2,083.3 A.","At 800 V: I = 100,000/800 = 125 A.","At fixed resistance: loss ratio = (125/2,083.3)² = 0.0036, or 0.36%."],"result":"The higher-voltage segment carries less current. No total architecture efficiency or installed facility capacity has yet been calculated.","boundary":"Ideal DC comparison, with no converter, protection, insulation, thermal-rating or cost model. The architecture selector and current controls deliberately answer separate questions."},"source_ids":["P16"],"source_notes":[{"id":"P16","claim":"Distinguishes hybrid power-rack, row and broader facility-DC directions; all numerical inputs and comparisons here are original teaching assumptions.","reviewed_on":"2026-09-06","limits":"August 11, 2026 vendor roadmap. Proposed architecture and availability expectations are distinct from a verified installed deployment."}],"word_count":733}],"sources":[{"id":"P01","title":"Best Practices Guide for Energy-Efficient Data Center Design","url":"https://www.energy.gov/cmei/femp/articles/best-practices-guide-energy-efficient-data-center-design","publisher":"U.S. Department of Energy, Federal Energy Management Program","kind":"guidance","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D01","D04","D10","D11","D15"],"use":"Provide an independent checklist spanning IT conditions, air management, electrical and cooling systems, and heat recovery.","caution":"The July 2024 guide landing page and scope were reviewed; the linked PDF has not been audited in this pass. Consult exact sections before using numerical design recommendations."},{"id":"P02","title":"Commissioning & Performance Validation | AI Data Center Energy Performance Framework","url":"https://www.ashrae.org/technical-resources/ai-data-center-framework/commissioning-performance-validation","publisher":"ASHRAE","kind":"guidance","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D01","D03","D04","D05","D09","D10","D12","D13","D14","D15"],"use":"Add commissioning across design and construction, integrated failure testing, fluid cleanliness, measurement baselines, procedure validation and operator handover.","caution":"Expert framework guidance, not a substitute for project-specific acceptance criteria, equipment instructions or applicable standards. Individual referenced documents were not all reviewed."},{"id":"P03","title":"Management and Operations Guideline","url":"https://uptimeinstitute.com/professional-services/management-operations/mando-criteria","publisher":"Uptime Institute","kind":"guidance","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D05","D13","D14"],"use":"Audit coverage of staffing, maintenance, training, planning, operating conditions, as-built records and incident learning.","caution":"Public guideline reviewed; it describes operational behaviors and does not establish that any particular facility is certified or that redundancy alone guarantees uptime."},{"id":"P04","title":"Tier Classification System","url":"https://uptimeinstitute.com/tiers","publisher":"Uptime Institute","kind":"guidance","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D04","D05","D10","D13","D14"],"use":"Distinguish redundant capacity, concurrent maintainability and fault tolerance; test whether a whole distribution path supports the intended availability objective.","caution":"Public framework overview reviewed, not the full topology standard. Tier is not an uptime percentage or a simple N+1/2N label; the framework explicitly excludes some location, code and security factors."},{"id":"P05","title":"NVIDIA 800 VDC Architecture Will Power the Next Generation of AI Factories","url":"https://developer.nvidia.com/blog/nvidia-800-v-hvdc-architecture-will-power-the-next-generation-of-ai-factories/","publisher":"NVIDIA","kind":"roadmap","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D04","D05","D06","D07","D15"],"use":"Provide a primary vendor description of conversion placement, row-level DC distribution and the motivation for higher rack power.","caution":"May 2025 vendor roadmap with projected 2027 deployment and claimed benefits, not field validation. Recheck later NVIDIA and OCP publications before presenting specific voltages, timelines or savings as current."},{"id":"P06","title":"Open Rack/SpecsAndDesigns","url":"https://www.opencompute.org/wiki/Open_Rack/SpecsAndDesigns","publisher":"Open Compute Project","kind":"specification","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D05","D06","D07","D10","D12"],"use":"Locate versioned rack, power-shelf, PSU, battery, connector and manifold specifications to verify component interfaces.","caution":"Specification index reviewed; individual specification PDFs have not been audited. Record the exact document revision and contributor before using ratings or claiming compliance; the index is not itself a design specification."},{"id":"P07","title":"ASHRAE Handbook, Chapter 20: Data Centers and Telecommunication Facilities","url":"https://handbook.ashrae.org/Handbooks/A23/SI/A23_Ch20/a23_ch20_si.aspx","publisher":"ASHRAE","kind":"guidance","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D01","D02","D10","D11","D12","D14","D15"],"use":"Audit system boundaries, facility space, dynamic loads, environmental envelopes, air and liquid cooling, monitoring and coordination with fire protection.","caution":"Public 2023 chapter and selected technical sections reviewed, not every linked standard or table. Equipment-specific limits and later revisions take precedence over a generic environmental range."},{"id":"P08","title":"Building Meta’s GenAI Infrastructure","url":"https://engineering.fb.com/2024/03/12/data-center-engineering/building-metas-genai-infrastructure/","publisher":"Meta Engineering","kind":"deployment","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D02","D07","D08","D09","D14"],"use":"Use a first-party training-cluster case to connect hardware, network topology, checkpoint storage, scheduling and debugging to delivered workload performance.","caution":"Self-reported March 2024 implementation with operator-specific software and workload choices. Treat future fleet targets separately from the described clusters; do not generalize its reported results to every workload."},{"id":"P10","title":"Incorporate Minimum Efficiency Requirements for Heating and Cooling Products into Federal Acquisition Documents","url":"https://www.energy.gov/cmei/femp/incorporate-minimum-efficiency-requirements-heating-and-cooling-products-federal","publisher":"U.S. Department of Energy, Federal Energy Management Program","kind":"guidance","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D01","D10","D11","D15"],"use":"Verify the cooling COP definition: cooling effect divided by net work input in consistent units; distinguish it from reciprocal kW-per-ton ratings.","caution":"Used for the explicit metric definition, including the COP footnote, rather than to prescribe current procurement thresholds or a whole-facility COP. Keep equipment and facility accounting boundaries separate."},{"id":"P13","title":"Slurm Workload Manager — Topology Guide","url":"https://slurm.schedmd.com/topology.html","publisher":"SchedMD","published_on":null,"kind":"guidance","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D02","D07","D08","D09","D14"],"use":"Connect physical network topology to scheduler placement, fragmentation, queueing and job performance; develop a small topology-aware allocation example.","caution":"Selected current guide sections on tree topology and placement were reviewed. This is version-sensitive software documentation; pin the Slurm release and test configurations before teaching specific behavior. It is not a storage architecture or general scheduler survey.","discovered_via":"Direct primary-source audit of D09 orchestration."},{"id":"P15","title":"Liquid to Liquid CDU Test Methodology and Performance Rating — Revision 1.0","url":"https://www.opencompute.org/documents/ocp-wp-l-lcdu-test-methodology-performance-rating-r1-pdf","publisher":"Open Compute Project","published_on":null,"kind":"guidance","review_status":"public_excerpt_reviewed","reviewed_on":"2026-09-06","domains":["D10","D11","D13","D14"],"use":"Locate primary guidance for CDU thermal ratings, pressure head, flow impedance, coolant servicing and performance/reliability testing at the facility-to-IT loop interface.","caution":"Front matter, executive summary, contents and introduction were reviewed; detailed test procedures were not audited. Headers say August 2024 while the version table says initial release 11/01/2024, so no exact publication date is normalized here. This is a working-group white paper, not proof of a particular product rating or universal regulatory requirement.","discovered_via":"Direct primary-source audit of D10 liquid-cooling interfaces and D13 validation."},{"id":"P16","title":"Why Scaling AI Compute Performance Requires a New Power Architecture","url":"https://blogs.nvidia.com/blog/800-vdc-power-architecture-ai-factory/","publisher":"NVIDIA","kind":"roadmap","review_status":"page_reviewed","reviewed_on":"2026-09-06","published_on":"2026-08-11","domains":["D04","D05","D06","D12","D13","D15"],"use":"Compare the vendor's near-term hybrid power-rack approach with row-level and facility-scale proposals, and trace the primary specifications linked from the announcement.","caution":"Vendor announcement, not independent deployment evidence. Its second-half-2026 and 2027 availability statements are forward-looking as published. Retained AC compatibility does not prove a particular existing feeder, cooling plant or building can support a denser rack. Linked OCP specifications and DSX documentation require their own review."},{"id":"P17","title":"NVIDIA NVL72 AI Factory — System Hardware & Components","url":"https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/components.html","publisher":"NVIDIA","kind":"primary_reference_architecture","review_status":"page_reviewed","reviewed_on":"2026-09-06","updated_on":"2026-05-18","domains":["D06","D07","D08","D09","D10","D14"],"use":"An identified GB300 rack example for distinguishing compute trays, switched in-rack connectivity, external compute and storage networks, management, power shelves and cooling interfaces. Use the component hierarchy rather than treating the rack as a collection of identical GPU power ratings.","caution":"The /latest/ URL is mutable. Page inspected as updated May 18, 2026. Marketing performance ratios are workload-dependent and are not adopted. Its bandwidth recommendation block has an unclear per-GPU versus aggregate scope, and scale-out wording for in-rack NVLink needs interpretation against the switched topology. Do not reproduce those as universal specifications; verify exact OEM configuration before any sizing exercise."},{"id":"E22133B3DE1","title":"EIA — Laws of energy","url":"https://www.eia.gov/energyexplained/what-is-energy/laws-of-energy.php","publisher":"www.eia.gov","kind":"primary_reference","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D01"],"use":"Energy changes form rather than disappearing; the ledger uses conservation.","caution":"Read the public energy-conservation explanation. The campus quantities and deductions are original hypothetical examples.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"E3F4CB1B7FF","title":"DOE — Best Practices Guide for Energy-Efficient Data Center Design","url":"https://www.energy.gov/sites/default/files/2024-07/best-practice-guide-data-center-design_0.pdf","publisher":"www.energy.gov","kind":"primary_reference","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D01","D04"],"use":"Data-center accounting separates IT, electrical, and cooling systems.","caution":"Read the guide overview and relevant system/metrics material; no named facility configuration or operating measurement is inferred.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"ED20FD8CBCF","title":"EIA — Measuring electricity","url":"https://www.eia.gov/energyexplained/electricity/measuring-electricity.php","publisher":"www.eia.gov","kind":"primary_reference","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D01","D05"],"use":"kW and MW measure power; kWh and MWh include elapsed time.","caution":"Read the public unit definitions. All traces, durations, averages, and practice values are original.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"EB34D92F523","title":"OpenStax — Electrical Energy and Power","url":"https://openstax.org/books/university-physics-volume-2/pages/9-5-electrical-energy-and-power","publisher":"openstax.org","kind":"primary_reference","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D01","D03","D05"],"use":"Electrical power is a rate of energy transfer.","caution":"Read the power definition and equations; the source is not a data-center telemetry or transient specification.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"EE02276C332","title":"MLCommons — MLPerf Inference: Datacenter","url":"https://mlcommons.org/benchmarks/inference-datacenter/","publisher":"mlcommons.org","kind":"primary_reference","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D01","D02"],"use":"Benchmark energy/performance comparisons declare workload scenarios and measurement boundaries.","caution":"Read the public benchmark and power-measurement descriptions, not every result or implementation.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"E23909D618E","title":"NVIDIA — DGX SuperPOD Key Components","url":"https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/dgx-superpod-components.html","publisher":"docs.nvidia.com","kind":"primary_reference","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D02"],"use":"A documented AI cluster architecture includes compute, management, networking, and storage components.","caution":"Read the public component and design-requirement page for the H100 reference architecture; no product count or performance is copied into the hypothetical brief.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"E2C35A11B05","title":"NVIDIA Triton — Batchers","url":"https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/user_guide/batcher.html","publisher":"docs.nvidia.com","kind":"primary_reference","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D02"],"use":"Dynamic batching can combine requests and introduce a configurable waiting interval.","caution":"Read the public dynamic-batcher and delayed-batching sections. All timings and throughput numbers in this lesson are hypothetical.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"E0814EDF226","title":"Vertiv — BESS and UPS roles in large data center power architecture","url":"https://www.vertiv.com/en-us/insights/articles/white-papers/bess-and-ups-roles-in-large-data-center-power-architecture/","publisher":"www.vertiv.com","kind":"primary_reference","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D02","D05"],"use":"Synchronized AI load changes motivate coordination across power-system levels.","caution":"Read the public white-paper landing page only, not the downloadable full white paper; no universal measured waveform is asserted.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"ED8255C2875","title":"US EPA — Physical PPA","url":"https://www.epa.gov/green-power-markets/physical-ppa","publisher":"www.epa.gov","kind":"primary_reference","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D03"],"use":"Physical and financial PPAs differ in whether electricity is physically delivered or title is conveyed under the arrangement.","caution":"Read the public EPA distinctions; contractual eligibility and local legal requirements are outside this lesson.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"E61807424F1","title":"DOE — Islanding a Microgrid","url":"https://www.energy.gov/cmei/femp/articles/islanding-microgrid","publisher":"www.energy.gov","kind":"primary_reference","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D03"],"use":"Islanding requires coordinated operation of sources and loads within an electrical boundary.","caution":"Read the public DOE explanation; no particular on-site plant or local interconnection permission is established.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"E45AB7B1BC1","title":"Schneider Electric — Installed apparent power","url":"https://www.electrical-installation.org/enwiki/Installed_apparent_power_(kVA)","publisher":"www.electrical-installation.org","kind":"primary_reference","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D03","D04"],"use":"Balanced three-phase apparent power and line current use line-to-line voltage and the √3 factor.","caution":"Read the public equation and variable definitions; this scenario assumes sinusoidal balanced conditions and does not reproduce equipment selection tables.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"E21653C0173","title":"ERCOT — Batch Zero large-load connection announcement, June 18, 2026","url":"https://www.ercot.com/news/release/06182026-puct-approves-ercots","publisher":"www.ercot.com","kind":"primary_reference","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D03"],"use":"Large-load connection studies consider shared network capacity and required upgrades.","caution":"Read the dated June 18, 2026 ERCOT announcement; do not treat its process or thresholds as universal or permanent.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"EBFFD23506A","title":"Schneider Electric — Choice of transformer rating","url":"https://www.electrical-installation.org/enwiki/Choice_of_transformer_rating","publisher":"www.electrical-installation.org","kind":"primary_reference","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D04"],"use":"Transformer rating selection considers apparent-power loading and installation constraints.","caution":"Read the public rating discussion, not a site-specific selection study; no listed product rating is used.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"E9FFEE6828F","title":"Schneider Electric — Coordination between circuit-breakers","url":"https://www.electrical-installation.org/enwiki/Coordination_between_circuit-breakers","publisher":"www.electrical-installation.org","kind":"primary_reference","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D05"],"use":"Protection selectivity depends on fault conditions and the available supply source.","caution":"Read the public coordination discussion. No trip settings, installation method, or device coordination table is prescribed.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"E1423005C7C","title":"ABB — Protection Devices for Direct Current Applications","url":"https://library.e.abb.com/public/5cd83dcb95a74dcdb571be5f256e1af8/9AKK108470A9606_en_B_Protection%20Devices%20for%20Direct%20Current%20Applications%20-%20Technical%20Application%20Paper.pdf","publisher":"library.e.abb.com","kind":"primary_reference","review_status":"public_excerpt_reviewed","reviewed_on":"2026-09-06","domains":["D05"],"use":"DC interruption and converter-fed fault behavior depend on circuit dynamics and device capabilities.","caution":"Read the publicly indexed excerpt of section 6; the PDF URL responded successfully, but the complete document was not reviewed. No product selection is claimed.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"E2A3F76B3F9","title":"Schneider Electric — Definition of standardised earthing schemes","url":"https://www.electrical-installation.org/enwiki/Definition_of_standardised_earthing_schemes","publisher":"www.electrical-installation.org","kind":"primary_reference","review_status":"public_excerpt_reviewed","reviewed_on":"2026-09-06","domains":["D05"],"use":"Earthing schemes distinguish the source-earth relationship from exposed-part protective connections.","caution":"Read publicly indexed definitions of the standardized schemes, not a site-specific grounding study.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"E89E077D5C1","title":"DOE FEMP: Cooling Tower Management","url":"https://www.energy.gov/cmei/femp/best-management-practice-10-cooling-tower-management","publisher":"www.energy.gov","kind":"primary_reference","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D11"],"use":"Evaporation, blowdown, makeup and concentration mechanisms support the simplified conservation example.","caution":"Overview and water-balance discussion inspected; no chemical dosing, operating limit or treatment procedure is reproduced.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"E6DF2655A78","title":"USGS National Water Availability Assessment Data Companion","url":"https://waterdata.usgs.gov/blog/nwdc-overview/","publisher":"waterdata.usgs.gov","kind":"primary_reference","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D11"],"use":"The water-use discussion distinguishes withdrawals from consumptive use.","caution":"Selected definitions inspected; the lesson’s hypothetical return-flow assumption is not an observation about a real basin.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"EDDF63EA993","title":"NVIDIA H100 SuperPOD: White Space Infrastructure","url":"https://docs.nvidia.com/dgx-superpod/design-guides/dgx-superpod-data-center-design-h100/latest/infrastructure.html","publisher":"docs.nvidia.com","kind":"primary_reference","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D12"],"use":"Rack dimensions and service/layout choices interact with row arrangement and cable length.","caution":"Selected white-space planning discussion inspected. All dimensions, masses and force limits in this lesson are invented inputs, not NVIDIA specifications.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"E320A75F233","title":"NVIDIA H100 SuperPOD: Planning a Data Center Deployment","url":"https://docs.nvidia.com/dgx-superpod/design-guides/dgx-superpod-data-center-design-h100/latest/planning.html","publisher":"docs.nvidia.com","kind":"primary_reference","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D12"],"use":"Changes in power density and footprint can affect network layout.","caution":"Cross-domain planning discussion inspected; no complete product site plan or compliance assessment is reproduced.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"E2848C36FE7","title":"National Weather Service: Flood Related Hazards","url":"https://www.weather.gov/safety/flood-hazards","publisher":"www.weather.gov","kind":"primary_reference","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D12"],"use":"Flood mechanisms differ and can affect low-lying and urban infrastructure through rainfall and overflow.","caution":"Public hazard descriptions inspected; no local elevation, flood probability or engineering requirement is inferred.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"E95181BB427","title":"USGS: What is seismic hazard?","url":"https://www.usgs.gov/faqs/what-seismic-hazard-what-a-seismic-hazard-map-and-how-are-they-used","publisher":"www.usgs.gov","kind":"primary_reference","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D12"],"use":"Seismic hazard maps incorporate fault, propagation and near-surface site information.","caution":"FAQ reviewed; it is not a parcel assessment or a code-specific structural design input.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"E013A66FA9A","title":"NIST SP 800-82 Revision 3: OT Security","url":"https://csrc.nist.gov/pubs/sp/800/82/r3/final","publisher":"csrc.nist.gov","kind":"primary_reference","review_status":"public_excerpt_reviewed","reviewed_on":"2026-09-06","domains":["D12","D14"],"use":"The abstract includes building automation and physical access within OT and identifies reliability and safety requirements.","caution":"Publication abstract and revision context inspected; this lesson does not claim full implementation review of the 2023 guide or any draft successor.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"EDEEDB16DDE","title":"OSHA 1910.333: Electrical work practices","url":"https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.333","publisher":"www.osha.gov","kind":"primary_reference","review_status":"public_excerpt_reviewed","reviewed_on":"2026-09-06","domains":["D12"],"use":"Indexed regulatory excerpts address stored energy and qualified work.","caution":"Relevant public indexed excerpts reviewed; no field procedure or jurisdiction-wide compliance claim is supplied.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"E50E0F856B0","title":"GAO Schedule Assessment Guide","url":"https://www.gao.gov/products/gao-16-89g","publisher":"www.gao.gov","kind":"primary_reference","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D13","D15"],"use":"The guide overview supports integrated schedules, explicit dependencies and the connection between schedule slippage and cost.","caution":"Overview and guide structure inspected. The network, durations, slack and interventions are original teaching scenarios, not GAO project examples.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"ECB7071035F","title":"WBDG: Commissioning Documents","url":"https://legacy.wbdg.org/building-commissioning/commissioning-documents","publisher":"legacy.wbdg.org","kind":"primary_reference","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D13"],"use":"The OPR, basis-of-design and review discussion supports requirements ownership and traceable acceptance documentation.","caution":"Selected document-role and design-review passages inspected; no standard text or complete acceptance procedure is reproduced.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"E71B82C307F","title":"Google SRE: Monitoring Distributed Systems","url":"https://sre.google/sre-book/monitoring-distributed-systems/","publisher":"sre.google","kind":"primary_reference","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D14"],"use":"The monitoring discussion distinguishes internal and external observations and separates symptoms from causes.","caution":"Selected monitoring principles inspected; this lesson’s thermal trace, numerical diagnostic and sensor placement examples are original.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"E7B9A3E66DB","title":"Google SRE: Service Level Objectives","url":"https://sre.google/sre-book/service-level-objectives/","publisher":"sre.google","kind":"primary_reference","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D14"],"use":"Service indicators and objectives need explicitly defined measurements.","caution":"Selected metric-boundary discussion reviewed; the availability example is original.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"E571B75F6E0","title":"Google SRE: Postmortem Culture","url":"https://sre.google/sre-book/postmortem-culture/","publisher":"sre.google","kind":"primary_reference","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D14"],"use":"Incident review is intended to support learning and improvement rather than blame.","caution":"Selected postmortem principles inspected; timeline and proposed evidence questions are original.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"EEFB073374C","title":"NIST Handbook 135, 2025: Life Cycle Costing Manual","url":"https://nvlpubs.nist.gov/nistpubs/hb/2025/NIST.HB.135e2025.pdf","publisher":"nvlpubs.nist.gov","kind":"primary_reference","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D15"],"use":"Chapters 2–4 distinguish study periods, cost categories, cash-flow timing and present-value methods; section 3.2 covers single and recurring payments.","caution":"Selected scope, timing and discounting passages inspected. Prices, rate, residual and service assumptions are original; no federal compliance or current-market claim is made.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"E775A7D4E10","title":"OpenAI: Five new Stargate sites","url":"https://openai.com/index/five-new-stargate-sites/","publisher":"openai.com","kind":"primary_reference","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D15"],"use":"The article distinguishes a multi-site planned capacity total from its statement about early workloads at Abilene.","caution":"Main article and visible October 22, 2025 update inspected on September 6, 2026. This lesson audits the dated statements; it does not establish current operating MW, complete topology or site economics.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"EB973B565B7","title":"GPU Performance Background User’s Guide","url":"https://docs.nvidia.com/deeplearning/performance/dl-performance-gpu-background/index.html","publisher":"docs.nvidia.com","kind":"primary_reference","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D07"],"use":"A GPU combines execution resources and a memory hierarchy; achieved performance depends on workload behavior.","caution":"Use conceptual structure only; dated product examples and throughput tables are not applied.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"E134D3535CB","title":"Matrix Multiplication Background User’s Guide","url":"https://docs.nvidia.com/deeplearning/performance/dl-performance-matrix-multiplication/index.html","publisher":"docs.nvidia.com","kind":"primary_reference","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D07"],"use":"Matrix shape and reuse can alter arithmetic intensity and the active performance limit.","caution":"A guide to particular operations, not a universal model of end-to-end AI job performance.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"E4ABDC02D45","title":"NVIDIA DGX SuperPOD — Network Fabrics","url":"https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/network-fabrics.html","publisher":"docs.nvidia.com","kind":"primary_reference","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D07","D08"],"use":"A named reference system distinguishes compute, storage and management fabrics and explicit topology groupings.","caution":"H100 reference architecture updated November 19, 2025; no component counts or ratios are generalized.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"EB0CA366091","title":"NCCL Collective Operations","url":"https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/usage/collectives.html","publisher":"docs.nvidia.com","kind":"primary_reference","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D08"],"use":"Defines collective transformations and participation requirements.","caution":"Inspected NCCL 2.31.2 documentation; the ring timing model is original and is not asserted to be the library’s chosen implementation.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"E80C73CE756","title":"Scaling AI Factories with Co-Packaged Optics for Better Power Efficiency","url":"https://developer.nvidia.com/blog/scaling-ai-factories-with-co-packaged-optics-for-better-power-efficiency/","publisher":"developer.nvidia.com","kind":"primary_reference","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D08"],"use":"Describes moving optical conversion nearer switch silicon and the associated electrical-path mechanism.","caution":"August 18, 2025 vendor account; availability and benefit claims are dated proposals, not universal deployment evidence.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"E9ACF1B58FE","title":"NVIDIA Optical Transceivers and Cables","url":"https://www.nvidia.com/en-us/networking/interconnect/","publisher":"www.nvidia.com","kind":"primary_reference","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D08"],"use":"Provides distinct interconnect product categories whose compatibility must be checked at the actual interface.","caution":"Product catalog and marketing page; no power, reach or reliability rating is adopted without its specific datasheet.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"E4D40417934","title":"NVIDIA DGX SuperPOD — Storage Architecture","url":"https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/storage-architecture.html","publisher":"docs.nvidia.com","kind":"primary_reference","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D09"],"use":"Storage requirements vary with data format, cache behavior, workload and checkpoint traffic.","caution":"H100 reference guidance updated November 19, 2025; its numerical sizing recommendations are not imported.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"E284D853C6B","title":"PyTorch Distributed Checkpoint","url":"https://docs.pytorch.org/docs/stable/distributed.checkpoint.html","publisher":"docs.pytorch.org","kind":"primary_reference","review_status":"public_excerpt_reviewed","reviewed_on":"2026-09-06","domains":["D09"],"use":"A distributed checkpoint coordinates application state across participants and storage writers.","caution":"Public indexed API excerpts reviewed; the directly opened stable URL returned a redirect shell. Pin and review the selected framework release and storage writer before implementation; no complete API audit is claimed.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"E2E0C218DA7","title":"Asynchronous Saving with Distributed Checkpoint","url":"https://docs.pytorch.org/tutorials/recipes/distributed_async_checkpoint_recipe.html","publisher":"docs.pytorch.org","kind":"primary_reference","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D09"],"use":"Asynchronous saving requires staged state, host-memory capacity and management of concurrent save requests.","caution":"Tutorial updated February 3, 2026; APIs are version-sensitive. No tutorial benchmark is generalized.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"EE0FC346C72","title":"Control Group in Slurm","url":"https://slurm.schedmd.com/cgroups.html","publisher":"slurm.schedmd.com","kind":"primary_reference","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D09"],"use":"Process tracking, accounting and resource confinement have distinct roles.","caution":"Current documentation includes version-specific behavior; no live configuration changes are prescribed.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"E0CDE775C43","title":"NVIDIA DGX SuperPOD — Software","url":"https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/dgx-software.html","publisher":"docs.nvidia.com","kind":"primary_reference","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D09"],"use":"A reference cluster includes orchestration, system management, libraries and operating-system components.","caution":"Vendor reference stack, updated November 19, 2025; it does not certify an arbitrary tenant environment.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"E709C9E5196","title":"ASHRAE — Emergence and Expansion of Liquid Cooling in Mainstream Data Centers","url":"https://www.ashrae.org/file%20library/technical%20resources/bookstore/emergence-and-expansion-of-liquid-cooling-in-mainstream-data-centers_wp.pdf","publisher":"www.ashrae.org","kind":"primary_reference","review_status":"page_reviewed","reviewed_on":"2026-09-06","domains":["D10"],"use":"Thermal resistance connects device temperature, cooling-medium temperature and device heat; local requirements can drive cooling changes.","caution":"Selected thermal-resistance discussion reviewed from the 2021 white paper. No historical trend figure or vendor temperature class is reproduced.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."},{"id":"EE136EB8E02","title":"Open Compute Project — Cold Plate workstream","url":"https://www.opencompute.org/wiki/Cooling_Environments/Cold_Plate","publisher":"www.opencompute.org","kind":"primary_reference","review_status":"public_excerpt_reviewed","reviewed_on":"2026-09-06","domains":["D10"],"use":"The workstream separates cold-plate, loop, fluid and connector requirements.","caution":"Index reviewed; linked loop-requirement PDF did not load during this pass and is not treated as audited.","discovered_via":"Expanded lesson primary-source review, 2026-09-06."}],"glossary":[{"term":"Distribution voltage","definition":"Voltage at the specified electrical segment carrying power toward a load; it need not equal the final device supply voltage.","lesson":"sample-800v"}]}
+    </script>
+    <script>
+      function positive(value, name) {
+  if (!Number.isFinite(value) || value <= 0)
+    throw new RangeError(`${name} must be positive and finite`);
+  return value;
+}
+function dcModel(kw, volts) {
+  positive(kw, "Power");
+  positive(volts, "Voltage");
+  return {
+    amps: (kw * 1000) / volts,
+    referenceAmps: (kw * 1000) / 48,
+    lossRatio: (48 / volts) ** 2,
+  };
+}
+function thermalModel(kw, deltaT, auxiliaryKW) {
+  positive(kw, "Heat duty");
+  positive(deltaT, "Temperature rise");
+  if (!Number.isFinite(auxiliaryKW) || auxiliaryKW < 0)
+    throw new RangeError("Auxiliary input must be nonnegative");
+  return {
+    kgPerSecond: kw / (4.18 * deltaT),
+    litersPerMinute: (kw / (4.18 * deltaT)) * 60,
+    rejectedKW: kw + auxiliaryKW,
+  };
+}
+function transferModel(gigabytes, gbps, efficiency) {
+  positive(gigabytes, "Payload");
+  positive(gbps, "Link rate");
+  if (!Number.isFinite(efficiency) || efficiency <= 0 || efficiency > 1)
+    throw new RangeError("Efficiency must lie in (0, 1]");
+  const GBps = (gbps / 8) * efficiency;
+  return { GBps, seconds: gigabytes / GBps };
+}
+function rooflineModel(intensity, bandwidthTBps, peakTFLOPS) {
+  positive(intensity, "Arithmetic intensity");
+  positive(bandwidthTBps, "Bandwidth");
+  positive(peakTFLOPS, "Peak compute");
+  const memoryCeiling = intensity * bandwidthTBps;
+  return {
+    memoryCeiling,
+    ceiling: Math.min(memoryCeiling, peakTFLOPS),
+    binding:
+      memoryCeiling < peakTFLOPS
+        ? "memory bandwidth"
+        : memoryCeiling > peakTFLOPS
+          ? "compute"
+          : "both ceilings",
+  };
+}
+function continuityModel(
+  kwh,
+  efficiency,
+  loadKW,
+  inverterKW,
+  auxiliarySupported,
+) {
+  positive(kwh, "Stored energy");
+  positive(loadKW, "Load");
+  positive(inverterKW, "Inverter rating");
+  if (!Number.isFinite(efficiency) || efficiency <= 0 || efficiency > 1)
+    throw new RangeError("Efficiency must lie in (0, 1]");
+  return {
+    powerSufficient: inverterKW >= loadKW,
+    electricalMinutes:
+      inverterKW >= loadKW ? ((kwh * efficiency) / loadKW) * 60 : 0,
+    auxiliarySupported: Boolean(auxiliarySupported),
+  };
+}
+function checkpointModel(checkpointSeconds, intervalSeconds, mttfHours) {
+  positive(checkpointSeconds, "Checkpoint duration");
+  positive(intervalSeconds, "Interval");
+  positive(mttfHours, "MTTF");
+  const mttfSeconds = mttfHours * 3600;
+  return {
+    checkpointFraction: checkpointSeconds / intervalSeconds,
+    recomputeFraction: intervalSeconds / (2 * mttfSeconds),
+    optimumSeconds: Math.sqrt(2 * checkpointSeconds * mttfSeconds),
+  };
+}
+function capacityModel(
+  siteMW,
+  overheadMW,
+  coolingMW,
+  rackKW,
+  acceptedRacks,
+) {
+  positive(siteMW, "Site limit");
+  positive(rackKW, "Rack load");
+  if (
+    ![overheadMW, coolingMW, acceptedRacks].every(
+      (v) => Number.isFinite(v) && v >= 0,
+    ) ||
+    overheadMW > siteMW ||
+    !Number.isInteger(acceptedRacks)
+  )
+    throw new RangeError("Capacity inputs are outside the stated domain");
+  const powerMW = siteMW - overheadMW,
+    acceptedMW = (acceptedRacks * rackKW) / 1000;
+  const limit = Math.min(powerMW, coolingMW, acceptedMW);
+  return {
+    racks: Math.floor((limit * 1000) / rackKW + 1e-9),
+    powerMW,
+    acceptedMW,
+    binding: [
+      ["electrical budget", powerMW],
+      ["cooling", coolingMW],
+      ["accepted rack paths", acceptedMW],
+    ]
+      .filter(([, v]) => Math.abs(v - limit) < 1e-9)
+      .map(([name]) => name),
+  };
+}
+
+const DATA = JSON.parse(document.getElementById("expanded-data").textContent);
+const $ = (id) => document.getElementById(id);
+const esc = (value) =>
+  String(value ?? "").replace(
+    /[&<>"']/g,
+    (c) =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[
+        c
+      ],
+  );
+const asList = (value) => (Array.isArray(value) ? value : value ? [value] : []);
+const prose = (value) =>
+  asList(value)
+    .map((p) => `<p>${esc(p)}</p>`)
+    .join("");
+const fmt = (n, d = 1) =>
+  Number(n).toLocaleString("en-US", { maximumFractionDigits: d });
+const LESSONS = DATA.lessons,
+  byLesson = new Map(LESSONS.map((l, i) => [l.id, i]));
+const domainById = new Map(DATA.domains.map((d) => [d.id, d]));
+const sourcesById = new Map(DATA.sources.map((s) => [s.id, s]));
+let current = 0,
+  lookupMode = false;
+const drafts = new Map();
+const ART = {
+  campus: {
+    file: "campus-cutaway.png",
+    title: "THE CAMPUS IN CONTEXT",
+    alt: "Conceptual cutaway showing an electrical yard on the left, server rows in the building, and heat-rejection equipment on the right.",
+    parts: [
+      [
+        "Power enters",
+        "Locate the yard and electrical room on the left. A supply agreement alone cannot establish this physical path.",
+      ],
+      [
+        "Work happens",
+        "The central racks host computing and support equipment. Their useful output also depends on data and software.",
+      ],
+      [
+        "Heat leaves",
+        "The mechanical yard returns heat to the environment. Installed capacity depends on ambient and operating conditions.",
+      ],
+    ],
+  },
+  rack: {
+    file: "rack-anatomy.png",
+    title: "RACK → TRAY → DEVICES",
+    alt: "Illustrative open AI rack with power shelves, switching hardware, a coolant manifold and a pulled-out compute tray with copper cold plates.",
+    parts: [
+      [
+        "Power hardware",
+        "The upper shelves illustrate power-conversion equipment. Use the exact line diagram for voltages and protection boundaries.",
+      ],
+      [
+        "Communication",
+        "Switching hardware coordinates devices. A physical cable bundle does not specify logical connectivity or usable bandwidth.",
+      ],
+      [
+        "Compute and cooling",
+        "The exposed tray shows where cold plates meet devices. The geometry and piping are illustrative, not an OEM assembly drawing.",
+      ],
+    ],
+  },
+  cooling: {
+    file: "cooling-cutaway.png",
+    title: "THE PHYSICAL HEAT PATH",
+    alt: "A compute tray, an open coolant distribution cabinet with a plate heat exchanger, and an outdoor dry cooler, shown as three separate equipment groups.",
+    parts: [
+      [
+        "Capture",
+        "Cold plates collect device heat into a liquid circuit. Other equipment may still need an air path.",
+      ],
+      [
+        "Transfer",
+        "The plate heat exchanger transfers heat between separate circuits. Its fluids do not mix.",
+      ],
+      [
+        "Reject",
+        "The cooler transfers heat to outdoor air. A heat balance alone does not establish its performance envelope.",
+      ],
+    ],
+  },
+  power: {
+    file: "power-equipment.png",
+    title: "DISTINCT ELECTRICAL FUNCTIONS",
+    alt: "Conceptual electrical-room equipment: a transformer, switchgear, UPS and battery cabinets, and enclosed busway near a server rack.",
+    parts: [
+      [
+        "Transform and isolate",
+        "The transformer changes voltage; switchgear provides controlled interruption and isolation. They solve different problems.",
+      ],
+      [
+        "Bridge a disturbance",
+        "Power electronics and energy storage have separate output-power and usable-energy constraints.",
+      ],
+      [
+        "Distribute",
+        "Busway carries power toward loads. This equipment plate does not specify a circuit or an installation procedure.",
+      ],
+    ],
+  },
+  network: {
+    file: "network-equipment.png",
+    title: "COMPUTE IS PART OF A CLUSTER",
+    alt: "Generic compute rack, two fabric switch cabinets, a storage rack and a smaller management cabinet, linked by illustrative cable bundles.",
+    parts: [
+      [
+        "Compute",
+        "Devices need timely communication and data to make useful progress. A powered device can still be waiting.",
+      ],
+      [
+        "Fabric",
+        "Switches connect communication endpoints. The logical topology and traffic pattern determine shared constraints.",
+      ],
+      [
+        "Storage and control",
+        "Persistent data, checkpoints and management have distinct roles; their dependencies must be tested too.",
+      ],
+    ],
+  },
+};
+function artFor(l) {
+  if (l.image && ART[l.image]) return ART[l.image];
+  const d = l.domain;
+  return ART[
+    ["D04", "D05", "D06"].includes(d)
+      ? "power"
+      : ["D07"].includes(d)
+        ? "rack"
+        : ["D08", "D09", "D02"].includes(d)
+          ? "network"
+          : ["D10", "D11"].includes(d)
+            ? "cooling"
+            : "campus"
+  ];
+}
+function renderContents() {
+  const q = $("search").value.trim().toLowerCase(),
+    terms = q.split(/\s+/).filter(Boolean);
+  const filtered = LESSONS.filter((l) =>
+    terms.every((t) => JSON.stringify(l).toLowerCase().includes(t)),
+  );
+  $("lesson-count").textContent = `${LESSONS.length} lessons`;
+  $("search-status").textContent = q
+    ? `${filtered.length} matching lessons`
+    : "A connected system, one question at a time.";
+  $("contents").innerHTML =
+    DATA.domains
+      .concat([{ id: "capstone", title: "Put the system together" }])
+      .map((d) => {
+        const ls = filtered.filter((l) => l.domain === d.id);
+        if (!ls.length) return "";
+        return `<section class="domain-group"><h3><span>${esc(d.id === "capstone" ? "CASE" : d.id)}</span>${esc(d.title)}</h3>${ls.map((l) => `<button class="lesson-link${LESSONS[current]?.id === l.id && !lookupMode ? " active" : ""}" data-lesson="${esc(l.id)}" ${LESSONS[current]?.id === l.id && !lookupMode ? 'aria-current="page"' : ""}>${esc(l.title)}</button>`).join("")}</section>`;
+      })
+      .join("") ||
+    '<p class="muted">No matching lessons. Try a shorter term.</p>';
+  $("contents")
+    .querySelectorAll("[data-lesson]")
+    .forEach((b) => b.addEventListener("click", () => go(b.dataset.lesson)));
+  renderGlossary(q);
+}
+function renderGlossary(query = "") {
+  const items = DATA.glossary.filter((g) =>
+    `${g.term} ${g.definition}`.toLowerCase().includes(query),
+  );
+  $("glossary").innerHTML =
+    `<div class="glossary-grid">${items.map((g) => `<article class="glossary-card"><h2>${esc(g.term)}</h2><p>${esc(g.definition)}</p><button data-lesson="${esc(g.lesson)}">Read the explanation →</button></article>`).join("")}</div>`;
+  $("glossary")
+    .querySelectorAll("[data-lesson]")
+    .forEach((b) => b.addEventListener("click", () => go(b.dataset.lesson)));
+}
+function modeLookup(value) {
+  lookupMode = value;
+  $("lookup").hidden = !value;
+  $("lesson").hidden = value;
+  $("lookup-toggle").setAttribute("aria-pressed", String(value));
+  renderContents();
+  if (value) {
+    window.scrollTo({ top: 0, behavior: "instant" });
+    $("lookup-title").tabIndex = -1;
+    $("lookup-title").focus({ preventScroll: true });
+  }
+}
+function closeRail() {
+  $("sidebar").classList.remove("open");
+  $("contents-toggle").setAttribute("aria-expanded", "false");
+}
+function go(id, historyMode = "push") {
+  if (!byLesson.has(id)) id = LESSONS[0].id;
+  const previous = LESSONS[current];
+  if (previous && $("response")) drafts.set(previous.id, $("response").value);
+  current = byLesson.get(id);
+  lookupMode = false;
+  $("lookup").hidden = true;
+  $("lesson").hidden = false;
+  $("lookup-toggle").setAttribute("aria-pressed", "false");
+  if (historyMode !== "none" && location.hash !== `#${id}`)
+    history[historyMode === "replace" ? "replaceState" : "pushState"](
+      null,
+      "",
+      `#${id}`,
+    );
+  renderLesson();
+  renderContents();
+  closeRail();
+  window.scrollTo({ top: 0, behavior: "instant" });
+  $("lesson").focus({ preventScroll: true });
+}
+function renderLesson() {
+  const l = LESSONS[current],
+    d = domainById.get(l.domain),
+    art = artFor(l);
+  document.title = `${l.title} — GIGAWATT`;
+  $("eyebrow").textContent =
+    `${String(current + 1).padStart(2, "0")} / ${d?.title || "Integrated case"}`;
+  $("title").textContent = l.title;
+  $("summary").textContent = l.summary;
+  $("question").textContent = l.question;
+  $("lesson-meta").innerHTML =
+    `<span>${esc(l.domain === "capstone" ? "Integrated practice" : l.domain)}</span><span>Authored draft</span><span>Worked example + transfer practice</span>`;
+  $("teaching-image").src = `assets/${art.file}`;
+  $("teaching-image").alt = art.alt;
+  $("image-index").textContent = art.title;
+  $("image-caption").textContent =
+    "GPT ImageGen illustration of a hypothetical system. Equipment geometry is illustrative; exact relationships and quantities are explained below.";
+  $("anatomy").innerHTML = art.parts
+    .map(
+      ([title, body], i) =>
+        `<button aria-pressed="false" data-part="${i}"><b>${i + 1}. ${esc(title)}</b><span>${esc(body)}</span></button>`,
+    )
+    .join("");
+  $("anatomy")
+    .querySelectorAll("button")
+    .forEach((b) =>
+      b.addEventListener("click", () => {
+        const active = b.getAttribute("aria-pressed") === "true";
+        $("anatomy")
+          .querySelectorAll("button")
+          .forEach((x) => x.setAttribute("aria-pressed", "false"));
+        b.setAttribute("aria-pressed", String(!active));
+        $("image-index").textContent = active
+          ? art.title
+          : art.parts[Number(b.dataset.part)][0].toUpperCase();
+      }),
+    );
+  $("prose").innerHTML = l.sections
+    .map(
+      (s, i) =>
+        `<section class="reading-section" id="section-${i + 1}"><h2>${esc(s.heading)}</h2>${prose(s.paragraphs)}</section>`,
+    )
+    .join("");
+  const lane = d?.lane || "delivery";
+  $("locator").innerHTML = [
+    ["foundations", "Brief"],
+    ["power", "Power"],
+    ["work", "Work"],
+    ["heat", "Heat"],
+    ["delivery", "Operate"],
+  ]
+    .map(
+      ([id, title]) =>
+        `<span class="${id === lane ? "active" : ""}">${title}</span>`,
+    )
+    .join("");
+  $("takeaway").textContent = l.takeaway;
+  $("objective-tags").innerHTML =
+    `Objectives<br>${l.objectives.map((o) => `<span>${esc(o)}</span>`).join("")}`;
+  const visual = l.visual;
+  $("concept").hidden = !visual;
+  if (visual) {
+    $("concept").innerHTML =
+      `<div class="eyebrow">THE MECHANISM AT A GLANCE</div><h2 id="concept-title">${esc(visual.title)}</h2><div class="concept-grid">${visual.nodes.map((n, i) => `<div class="concept-node"><span>${String(i + 1).padStart(2, "0")}</span><h3>${esc(n.label)}</h3><p>${esc(n.detail)}</p></div>`).join("")}</div><p class="boundary">Read these roles with the explanation above. The cards summarize relationships; their order and spacing do not specify a physical circuit or a quantitative flow scale.</p>`;
+  }
+  const w = l.worked_example;
+  $("worked").innerHTML =
+    `<div class="eyebrow">FOLLOW A COMPLETE EXAMPLE</div><h2 id="worked-title">${esc(w.title)}</h2><div class="givens">${prose(w.givens)}</div><ol>${w.steps.map((s) => `<li>${esc(s)}</li>`).join("")}</ol><p class="result">${esc(w.result)}</p><p class="boundary">${esc(w.boundary)}</p>`;
+  $("consequences").innerHTML =
+    `<section><h2>The tradeoff</h2>${prose(l.tradeoff)}</section><section><h2>When the situation changes</h2>${prose(l.failure)}</section>`;
+  const p = l.practice;
+  $("practice").innerHTML =
+    `<div class="eyebrow">PREDICT · CALCULATE · EXPLAIN</div><h2 id="practice-title">Apply the idea</h2>${prose(p.question)}<label for="response">Your reasoning — private to this open page</label><textarea id="response" placeholder="State the boundary, work through the change, and name what remains unknown."></textarea><details><summary>Reveal the worked answer</summary><div><p class="answer">${esc(p.answer)}</p>${prose(p.explanation)}</div></details>`;
+  $("response").value = drafts.get(l.id) || "";
+  $("evidence").innerHTML =
+    `<h2 id="evidence-title">Where the explanation comes from</h2><p class="boundary">Examples marked hypothetical are original teaching scenarios. Source review is limited to the scope recorded below; listing a document does not verify every linked claim or establish an installed deployment.</p><details><summary>${l.source_ids.length} source connections and reading limits</summary>${l.source_notes
+      .map((note) => {
+        const s = sourcesById.get(note.id);
+        return s
+          ? `<div class="source"><a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.title)} ↗</a><p>${esc(s.publisher)} · ${esc(s.reviewed_on || "Review date not recorded")} · ${esc(s.review_status?.replaceAll("_", " ") || "reading scope in notes")}</p><p>${esc(note.claim)}</p><p>${esc(note.limits)}</p><p><a href="../research/sources/${esc(note.id)}.md">Local source note ↗</a></p></div>`
+          : "";
+      })
+      .join("")}</details>`;
+  $("position").textContent = `${current + 1} / ${LESSONS.length}`;
+  $("previous").disabled = current === 0;
+  $("next").textContent =
+    current === LESSONS.length - 1 ? "Back to start ↻" : "Next lesson →";
+  renderLab(l);
+}
+function control(id, label, min, max, step, value, unit) {
+  return `<div class="lab-control"><label for="${id}">${esc(label)} <output id="${id}-value">${value} ${unit}</output></label><input id="${id}" type="range" min="${min}" max="${max}" step="${step}" value="${value}" data-unit="${unit}"></div>`;
+}
+function flowRow(label, nodes) {
+  return `<div><div class="diagram-label">${esc(label)}</div><div class="diagram-row">${nodes.map((n, i) => `${i ? '<span class="arrow" aria-hidden="true">→</span>' : ""}<span>${esc(n)}</span>`).join("")}</div></div>`;
+}
+function barChart(rows, max, label) {
+  return `<div class="bars" role="img" aria-label="${esc(label)}">${rows.map(([title, value, color]) => `<div class="bar-item"><div class="bar-label"><span>${esc(title)}</span><b>${fmt(value)}</b></div><div class="bar-track"><div style="width:${Math.max(0, (value / max) * 100)}%;background:${color}"></div></div></div>`).join("")}</div>`;
+}
+function renderLab(l) {
+  let type =
+    l.lab ||
+    {
+      D01: "energy",
+      D02: "roofline",
+      D03: "energy",
+      D04: "dc",
+      D05: "continuity",
+      D06: "dc",
+      D07: "roofline",
+      D08: "network",
+      D09: "checkpoint",
+      D10: "heat",
+      D11: "heat",
+      D12: "capacity",
+      D13: "capacity",
+      D14: "continuity",
+      D15: "capacity",
+      capstone: "capacity",
+    }[l.domain];
+  const spec = {
+    energy: [
+      "The same peak, a different energy bill",
+      "Before moving a control, predict what changes: the height of the power trace or its area?",
+    ],
+    dc: [
+      "Move the conversion boundary",
+      "Compare topology separately from current arithmetic. A change in distribution voltage cannot by itself prove an efficiency or cost claim.",
+    ],
+    heat: [
+      "Carry the heat, then reject it",
+      "Predict how much water flow is needed when the permitted temperature rise changes. The heat duty stays fixed.",
+    ],
+    network: [
+      "A port rate is not a job rate",
+      "Hold the payload fixed. Predict how link rate and achieved useful fraction change an ideal transfer time.",
+    ],
+    roofline: [
+      "Two ceilings on the same work",
+      "Arithmetic intensity measures operations per byte transferred from the specified memory. Which ceiling binds first?",
+    ],
+    continuity: [
+      "Power survives. Does the service?",
+      "Stored energy, inverter power and cooling support answer three different questions. Change one at a time.",
+    ],
+    checkpoint: [
+      "Save too often or repeat too much",
+      "Longer intervals reduce checkpoint overhead but increase expected lost progress. Compare the two terms.",
+    ],
+    capacity: [
+      "Count complete service paths",
+      "All limits use the same hypothetical rack load. A larger electrical budget does not automatically create commissioned racks.",
+    ],
+  }[type];
+  if (!spec) {
+    $("lab").hidden = true;
+    return;
+  }
+  $("lab").hidden = false;
+  let controls = "",
+    extra = "";
+  if (type === "energy")
+    controls =
+      control("lab-power", "Constant load", 1, 20, 1, 5, "MW") +
+      control("lab-hours", "Duration", 1, 24, 1, 8, "h");
+  if (type === "dc") {
+    controls =
+      control("lab-kw", "DC load", 50, 300, 10, 100, "kW") +
+      control("lab-volts", "DC distribution voltage", 48, 800, 1, 48, "V");
+    extra =
+      '<div class="segmented" aria-label="Illustrative power architecture"><button data-arch="ac" aria-pressed="true">AC to the rack</button><button data-arch="hybrid" aria-pressed="false">AC + DC sidecar</button><button data-arch="facility" aria-pressed="false">Broader facility DC</button></div><div id="architecture"></div>';
+  }
+  if (type === "heat")
+    controls =
+      control("lab-duty", "IT heat captured", 50, 300, 10, 100, "kW") +
+      control("lab-delta", "Water temperature rise", 5, 20, 1, 10, "°C") +
+      control("lab-aux", "Auxiliary work within boundary", 0, 50, 5, 20, "kW");
+  if (type === "network")
+    controls =
+      control("lab-payload", "Payload (decimal)", 10, 500, 10, 100, "GB") +
+      control("lab-rate", "Aggregate link rate", 100, 800, 100, 400, "Gb/s") +
+      control("lab-eff", "Achieved useful fraction", 25, 100, 5, 80, "%");
+  if (type === "roofline")
+    controls =
+      control(
+        "lab-intensity",
+        "Arithmetic intensity",
+        10,
+        400,
+        10,
+        50,
+        "FLOP/byte",
+      ) + control("lab-bandwidth", "Memory bandwidth", 1, 5, 0.5, 2, "TB/s");
+  if (type === "continuity")
+    controls =
+      control(
+        "lab-energy",
+        "Usable stored DC energy",
+        50,
+        500,
+        25,
+        250,
+        "kWh",
+      ) +
+      control(
+        "lab-inverter",
+        "Inverter output limit",
+        500,
+        2000,
+        100,
+        1200,
+        "kW",
+      ) +
+      '<div class="lab-control"><label for="lab-cooling">Cooling and control supply</label><select id="lab-cooling"><option value="0">Unsupported auxiliary path</option><option value="1">Electrical support supplied</option></select></div>';
+  if (type === "checkpoint")
+    controls =
+      control(
+        "lab-interval",
+        "Useful-work checkpoint interval",
+        60,
+        3600,
+        30,
+        900,
+        "s",
+      ) + control("lab-checkpoint", "Checkpoint pause", 5, 60, 5, 30, "s");
+  if (type === "capacity")
+    controls =
+      control("lab-overhead", "Site auxiliary draw", 10, 35, 1, 20, "MW") +
+      control(
+        "lab-cooling-mw",
+        "Cooling limit at IT boundary",
+        40,
+        90,
+        5,
+        60,
+        "MW",
+      ) +
+      control(
+        "lab-accepted",
+        "Accepted rack paths",
+        400,
+        1000,
+        50,
+        900,
+        "racks",
+      );
+  $("lab").innerHTML =
+    `<div class="eyebrow">TEST A BOUNDED MODEL</div><h2 id="lab-title">${spec[0]}</h2><p class="lab-intro">${spec[1]}</p>${extra}<div class="lab-controls">${controls}</div><div id="lab-graphic"></div><div id="lab-output" class="lab-output" role="status"></div><p id="lab-boundary" class="boundary"></p>`;
+  if (type === "dc") {
+    const architectures = {
+      ac: [
+        "Facility AC",
+        "Rack AC/DC",
+        "Low-voltage DC",
+        "Point-of-load conversion",
+      ],
+      hybrid: [
+        "Existing facility AC",
+        "Sidecar AC/DC",
+        "800 V DC segment",
+        "Near-load DC/DC",
+      ],
+      facility: [
+        "Upstream AC service",
+        "Facility conversion",
+        "800 V DC distribution",
+        "Near-load DC/DC",
+      ],
+    };
+    const notes = {
+      ac: "Power conversion sits at the rack. The diagram omits switching, protection and storage details.",
+      hybrid:
+        "Retained AC equipment still constrains the upstream path. The sidecar adds interfaces and service-space requirements.",
+      facility:
+        "This is a conceptual broader DC option. Its switching, fault clearing, grounding and storage interfaces require their own specified design.",
+    };
+    function architecture(id, refresh = false) {
+      $("architecture").innerHTML =
+        flowRow("ILLUSTRATIVE CONVERSION PLACEMENT", architectures[id]) +
+        `<p class="diagram-note">${notes[id]}</p>`;
+      $("lab")
+        .querySelectorAll("[data-arch]")
+        .forEach((b) =>
+          b.setAttribute("aria-pressed", String(b.dataset.arch === id)),
+        );
+      if (refresh) {
+        $("lab-volts").value = id === "ac" ? 48 : 800;
+        update();
+      }
+    }
+    architecture("ac");
+    $("lab")
+      .querySelectorAll("[data-arch]")
+      .forEach((b) =>
+        b.addEventListener("click", () => architecture(b.dataset.arch, true)),
+      );
+  }
+  const val = (id) => Number($(id).value);
+  function update() {
+    $("lab")
+      .querySelectorAll("input")
+      .forEach(
+        (x) =>
+          ($(x.id + "-value").textContent =
+            `${fmt(x.value)} ${x.dataset.unit}`),
+      );
+    let output = "",
+      boundary = "",
+      graphic = "";
+    if (type === "energy") {
+      const p = val("lab-power"),
+        h = val("lab-hours");
+      output = `${p} MW × ${h} h = ${p * h} MWh.`;
+      boundary =
+        "Hypothetical constant load at one meter. A variable trace requires interval-by-interval integration. Peak MW does not determine annual MWh.";
+      graphic = barChart(
+        [["Energy over the chosen interval (MWh)", p * h, "#e5bb6e"]],
+        480,
+        "Energy is power multiplied by time.",
+      );
+    }
+    if (type === "dc") {
+      const m = dcModel(val("lab-kw"), val("lab-volts"));
+      output = `${fmt(m.amps)} A at ${val("lab-volts")} V · ${fmt(m.lossRatio * 100, 2)}% of the 48 V conductor loss at equal resistance.`;
+      boundary =
+        "Ideal P = V × I at the stated DC segment. Same load and conductor resistance; two-conductor/bipolar definitions are not interchangeable. This comparison excludes converters, insulation, protection, thermal limits, conductor sizing and cost. Architecture buttons choose representative 48 V or 800 V segment values. Moving the slider is a hypothetical comparison, not validation of equipment compatibility.";
+      graphic = barChart(
+        [
+          ["48 V reference current (A)", m.referenceAmps, "#78999e"],
+          ["Selected voltage current (A)", m.amps, "#e5bb6e"],
+        ],
+        Math.max(m.referenceAmps, m.amps),
+        "Current decreases as voltage increases at fixed DC power.",
+      );
+    }
+    if (type === "heat") {
+      const m = thermalModel(val("lab-duty"), val("lab-delta"), val("lab-aux"));
+      output = `${fmt(m.kgPerSecond, 2)} kg/s ≈ ${fmt(m.litersPerMinute)} L/min of water · ${fmt(m.rejectedKW)} kW rejected within the stated boundary.`;
+      boundary =
+        "Q = mass flow × specific heat × temperature rise. Water cₚ = 4.18 kJ/(kg·K), density approximated as 1 kg/L. All specified auxiliary input becomes heat inside this boundary. No pressure-drop, approach-temperature or equipment-rating model is implied.";
+      graphic = flowRow("SEPARATE FLUID CIRCUITS; HEAT CROSSES THE WALL", [
+        "Chip loop",
+        "Heat exchanger wall",
+        "Facility loop",
+        "Environment",
+      ]);
+    }
+    if (type === "network") {
+      const m = transferModel(
+        val("lab-payload"),
+        val("lab-rate"),
+        val("lab-eff") / 100,
+      );
+      output = `${fmt(m.GBps)} GB/s effective payload rate · ${fmt(m.seconds, 2)} s ideal transfer time.`;
+      boundary =
+        "Decimal GB and Gb; eight bits per byte. One serial payload transfer with a supplied achieved fraction. This excludes queueing, startup latency, collective structure, storage limits and overlapping work; it does not predict job completion.";
+      graphic = flowRow("A PAYLOAD MUST CROSS THE SPECIFIED BOUNDARY", [
+        "Sender",
+        "Shared fabric resources",
+        "Receiver",
+      ]);
+    }
+    if (type === "roofline") {
+      const m = rooflineModel(val("lab-intensity"), val("lab-bandwidth"), 500);
+      output = `${fmt(m.ceiling)} TFLOP/s upper bound · constrained by ${m.binding}.`;
+      boundary =
+        "Synthetic 500 TFLOP/s compute ceiling at one fixed precision and 1–5 TB/s memory bandwidth. Arithmetic intensity uses traffic at that same memory boundary. This ideal roofline is a ceiling, not a benchmark or a token-rate prediction.";
+      graphic = barChart(
+        [
+          ["Compute ceiling (TFLOP/s)", 500, "#78999e"],
+          ["Bandwidth × intensity ceiling", m.memoryCeiling, "#e5bb6e"],
+        ],
+        Math.max(500, m.memoryCeiling),
+        "The lower of compute and memory-bandwidth ceilings limits the model.",
+      );
+    }
+    if (type === "continuity") {
+      const m = continuityModel(
+        val("lab-energy"),
+        0.9,
+        1000,
+        val("lab-inverter"),
+        val("lab-cooling"),
+      );
+      output = m.powerSufficient
+        ? `${fmt(m.electricalMinutes)} minutes of ideal 1 MW IT electrical support. ${m.auxiliarySupported ? "Cooling/control electrical support specified; thermal performance still needs evidence." : "Cooling/control support missing; continued useful service is unestablished."}`
+        : "The inverter cannot support the 1 MW IT load, regardless of stored energy.";
+      boundary =
+        "Synthetic battery case, 90% discharge conversion efficiency. Cooling/control have a separately specified support path. Battery ageing, discharge curves, transfer behavior and thermal dynamics are omitted. The result is not thermal ride-through or a UPS product rating.";
+      graphic = flowRow("CHECK BOTH DEPENDENCIES", [
+        m.powerSufficient
+          ? "IT electrical path supported"
+          : "IT power limit exceeded",
+        m.auxiliarySupported
+          ? "Auxiliary electrical path specified"
+          : "Auxiliary electrical path missing",
+        "Useful service requires both",
+      ]);
+    }
+    if (type === "checkpoint") {
+      const m = checkpointModel(val("lab-checkpoint"), val("lab-interval"), 10);
+      output = `${fmt(m.checkpointFraction * 100, 2)}% checkpoint overhead + ${fmt(m.recomputeFraction * 100, 2)}% expected recomputation per useful-work time.`;
+      boundary = `First-order model: checkpoint pause C divided by useful-work interval T, plus T/(2M), with synthetic system MTTF M = 10 h. Uniform failure phase, small overhead and no restart cost are assumed. Terms are approximate time ratios, not an exact availability. Model minimum T ≈ ${fmt(m.optimumSeconds)} s.`;
+      graphic = barChart(
+        [
+          ["Checkpoint overhead (%)", m.checkpointFraction * 100, "#78999e"],
+          ["Expected recomputation (%)", m.recomputeFraction * 100, "#e5bb6e"],
+        ],
+        Math.max(10, m.checkpointFraction * 100, m.recomputeFraction * 100),
+        "Checkpointing more often trades shorter lost work for more checkpoint pauses.",
+      );
+      if (m.checkpointFraction > 0.1) {
+        output =
+          "Checkpoint pauses exceed this teaching model’s 10% overhead cutoff. Use a detailed timeline instead of the first-order estimate.";
+        graphic = "";
+      }
+    }
+    if (type === "capacity") {
+      const m = capacityModel(
+        100,
+        val("lab-overhead"),
+        val("lab-cooling-mw"),
+        100,
+        val("lab-accepted"),
+      );
+      output = `${m.racks} complete 100 kW rack equivalents · binding: ${m.binding.join(" + ")}.`;
+      boundary =
+        "Hypothetical 100 MW site limit, supplied instantaneous auxiliary draw, 100 kW per rack, cooling stated at the IT boundary and accepted end-to-end rack paths. Whole racks only. This model excludes workload performance, reserve margins and local distribution constraints unless represented in the supplied path count.";
+      graphic = barChart(
+        [
+          ["Electrical IT budget (MW)", m.powerMW, "#e5bb6e"],
+          ["IT cooling limit (MW)", val("lab-cooling-mw"), "#92ceb7"],
+          ["Accepted rack-path equivalent (MW)", m.acceptedMW, "#8cb3ce"],
+        ],
+        100,
+        "The minimum of electrical, cooling and accepted-path capacities bounds the number of usable racks.",
+      );
+    }
+    $("lab-output").textContent = output;
+    $("lab-boundary").textContent = boundary;
+    $("lab-graphic").innerHTML = graphic;
+  }
+  $("lab")
+    .querySelectorAll("input,select")
+    .forEach((x) => x.addEventListener("input", update));
+  update();
+}
+$("search").addEventListener("input", renderContents);
+$("contents-toggle").addEventListener("click", () => {
+  const open = $("sidebar").classList.toggle("open");
+  $("contents-toggle").setAttribute("aria-expanded", String(open));
+  if (open) $("search").focus();
+});
+$("lookup-toggle").addEventListener("click", () => modeLookup(!lookupMode));
+$("previous").addEventListener("click", () =>
+  go(LESSONS[Math.max(0, current - 1)].id),
+);
+$("next").addEventListener("click", () =>
+  go(LESSONS[(current + 1) % LESSONS.length].id),
+);
+window.addEventListener("popstate", () => {
+  let id;
+  try {
+    id = decodeURIComponent(location.hash.slice(1));
+  } catch {
+    id = "";
+  }
+  go(id, "none");
+});
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") closeRail();
+});
+let start;
+try {
+  start = decodeURIComponent(location.hash.slice(1));
+} catch {
+  start = "";
+}
+go(start, "replace");
+;
+    </script>
+  </body>
+</html>

@@ -4,7 +4,10 @@ The [expanded visual reader](index.html) now contains 50 authored lessons and
 five integrated cases across all 65 domain objectives. [EXPANDED_COURSE.md](EXPANDED_COURSE.md)
 is the full manuscript and coverage index. Editable records live in `expansion/`;
 `gigawatt-expand` generates the reader, Markdown lessons, glossary and manifest.
-The [five-minute sample](sample.html) is ready for learner review.
+The [800 V sample](sample.html) now provides seven visual steps for screen sharing,
+separate presenter notes and a [reading view](sample-reading.html). See the
+[recording workflow](PRESENTING.md). The remaining lessons are reading material
+pending presentation adaptation; the revised sample awaits further review.
 
 The reader uses `web/reader.html`, `reader.css`, `reader.js`, and
 `reader-models.js`, with GPT ImageGen illustrations in `assets/`. The

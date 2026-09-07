@@ -119,7 +119,7 @@ const course = JSON.parse(readFileSync("course/expanded-course.json", "utf8"));
   await page
     .locator("#lab")
     .screenshot({ path: resolve(output, "architecture-lab.png") });
-  await page.goto(`${base}sample.html`);
+  await page.goto(`${base}sample-reading.html`);
   await page.waitForFunction(
     () => document.querySelector("#teaching-image").complete,
   );

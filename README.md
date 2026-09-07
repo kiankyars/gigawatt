@@ -2,7 +2,7 @@
 
 **From watts to racks, useful compute, and operation.**
 
-[Read the course](course/index.html) · [Five-minute review sample](course/sample.html)
+[Read the course](course/index.html) · [Present the 800 V sample](course/sample.html)
 · [Domain atlas](course/domain-map.html) · [Research library](research/INDEX.md)
 
 GIGAWATT is an authored draft of a visual reference course on modern AI data
@@ -24,6 +24,17 @@ evidence; they do not earn chapters automatically. Runtime is determined by
 explanation, practice and rehearsal. The roughly 51,000 words in this draft do
 not establish a recorded duration, learner comprehension or engineering review.
 
+## Teach, present, and read
+
+The [800 V sample](course/sample.html) is now a seven-step presentation for screen
+sharing. Advance through one visual at a time and explain it aloud. **Presenter
+notes** opens the narration and cues in a separate synchronized window; **Read the
+lesson** opens the full written explanation. [Recording workflow](course/PRESENTING.md).
+
+The 50-lesson reader is the study/reference companion. Only the sample currently
+has a deliberately authored presentation sequence; the remaining lessons need
+that adaptation and rehearsal before recording.
+
 ## Run and edit
 
 ```sh
@@ -39,6 +50,7 @@ No account or remote runtime dependency is needed to read or use the models.
 
 - `course/expansion/` contains editable lesson records and the review sample.
 - `course/web/reader.*` and `reader-models.js` contain the reader and exact models.
+- `course/web/presentation.*` contains the visual sample and separate notes console.
 - `course/assets/` contains generated illustrations, their prompts and limits.
 - `gigawatt-expand` generates the reader, standalone Markdown lessons, the full
   manuscript, glossary, objective mapping and an edition manifest.
@@ -70,8 +82,9 @@ the reader, sample, local assets, introduction and reference documents when
 `main` changes. Old introductory lesson hashes retain their route.
 
 External engineering review, learner rehearsal, the recorded script and final
-video legibility remain pending. Kian has offered to review the
-[short sample](course/REVIEW_HELP.md). No expert or learner sign-off is implied.
+video legibility remain pending. The [first sample review](course/REVIEW_HELP.md)
+identified text crowding and an unclear recording workflow; the revised format
+awaits further review. No expert or learner sign-off is implied.
 The public course is [GIGAWATT](https://kiankyars.github.io/gigawatt/).
 
 The research library includes SemiAnalysis and primary references. It stores

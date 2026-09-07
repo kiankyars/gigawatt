@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "id": "sample-800v-presentation",
+  "source_lesson_id": "sample-800v",
+  "title": "What 800 V changes",
+  "planned_duration_seconds": 300,
+  "timing_note": "A five-minute rehearsal target, including prediction pauses. This is not a measured recording duration.",
+  "review_state": "Authored teaching sample; learner and specialist review pending.",
+  "defaults": {
+    "power_kw": 100,
+    "reference_voltage_v": 48,
+    "comparison_voltage_v": 800,
+    "transfer_power_kw": 160,
+    "transfer_voltage_v": 800,
+    "transfer_feeder_kw": 150
+  },
+  "presentation_rules": [
+    "Show one step at a time. Keep notes, cues and sources in the separate presenter or reading view.",
+    "On current, loss and transfer steps, wait for a prediction before revealing computed answers.",
+    "Use the same load and diagram positions throughout the architecture sequence; change conversion placement deliberately.",
+    "Architecture drawings show selected functional boundaries. They are conceptual schematics, not wiring diagrams.",
+    "Show the fixed-resistance assumption alongside the loss comparison, including after revealing its answer.",
+    "Compute displayed answers with the tested DC model rather than embedding numbers in generated illustrations."
+  ],
+  "steps": [
+    {
+      "id": "one-load",
+      "title": "Hold the load fixed",
+      "kind": "intro",
+      "headline": "One load. The same 100 kW.",
+      "caption": "A hypothetical DC distribution segment. Hold delivered power fixed.",
+      "notes": [
+        "We are going to change one thing: the voltage used to deliver power across this selected DC segment. The hypothetical load still receives one hundred kilowatts. Watch that number: it stays fixed during the first comparison.",
+        "Voltage is energy transferred per unit charge. Current is charge flowing per second. For this DC comparison, power equals voltage times current. Higher distribution voltage does not mean that the processor itself operates at eight hundred volts."
+      ],
+      "duration_seconds": 30,
+      "cue": "Point to the fixed 100 kW load. Explain that the equipment illustration locates the idea but does not define a wired circuit. Introduce P = V × I, then advance."
+    },
+    {
+      "id": "current-prediction",
+      "title": "Predict the current",
+      "kind": "current",
+      "headline": "Raise voltage. What happens to current?",
+      "caption": "Same 100 kW load; change voltage only at the selected DC segment.",
+      "notes": [
+        "Before revealing the answer, predict the direction. We need to move the same amount of energy each second. If each unit of charge transfers more energy, do we need more charge per second, or less?",
+        "Divide power in watts by voltage. At forty-eight volts, one hundred thousand divided by forty-eight is about two thousand and eighty-three amperes. At eight hundred volts, it is one hundred and twenty-five amperes.",
+        "The current falls. The load still receives one hundred kilowatts. This is a statement about the selected DC segment, with the same delivered power on both sides of our comparison."
+      ],
+      "duration_seconds": 50,
+      "cue": "Leave both current answers hidden. Pause for a prediction, then Reveal. Point first to the unchanged power, then to the two currents."
+    },
+    {
+      "id": "conductor-loss",
+      "title": "Connect current to heating",
+      "kind": "loss",
+      "headline": "Less current means less conductor heating.",
+      "caption": "Same conductor resistance; compare only I²R conductor loss.",
+      "notes": [
+        "Now predict the effect on heating in the conductor. Electrical resistance turns some of that transferred energy into heat. The loss is current squared times resistance.",
+        "For this one comparison, keep resistance identical. The new current is forty-eight divided by eight hundred of the old current. Square that ratio and the calculated loss becomes zero point three six percent of the original conductor loss.",
+        "Keep the denominator in view: original conductor loss. We have not calculated a whole-facility saving. Changing conductor size changes resistance; converters and the rest of the system also have losses."
+      ],
+      "duration_seconds": 45,
+      "cue": "Pause before Reveal. Read the fixed-resistance assumption aloud. After revealing the ratio, point to the conductor-loss label before proceeding."
+    },
+    {
+      "id": "conversion-in-rack",
+      "title": "Locate conversion in the rack",
+      "kind": "ac",
+      "headline": "First, locate the converter.",
+      "caption": "AC reaches the rack. Conceptual schematic, not a wiring diagram.",
+      "notes": [
+        "The current calculation does not choose an architecture for us. We also need to locate the equipment that changes voltage and converts alternating current to direct current.",
+        "In this simplified arrangement, facility AC reaches the compute rack. Conversion happens there, followed by regulation near the devices. Trace those functions from the incoming supply toward the load. We are showing selected functional boundaries; protection, grounding and other required equipment are omitted from this schematic."
+      ],
+      "duration_seconds": 40,
+      "cue": "Trace the diagram left to right. Point to rack conversion and final device regulation. Keep the load position consistent for the next two steps."
+    },
+    {
+      "id": "conversion-in-sidecar",
+      "title": "Move conversion into a sidecar",
+      "kind": "sidecar",
+      "headline": "Move conversion. Keep the upstream obligations.",
+      "caption": "Existing upstream AC remains. Conceptual schematic, not a wiring diagram.",
+      "notes": [
+        "Now move conversion into a nearby power rack or sidecar. The higher-voltage DC segment begins after that converter. Existing facility AC is still upstream; follow that retained path before looking at the new segment.",
+        "Moving conversion can free space in the compute rack and move some heat elsewhere. The converter still needs space, cooling and service access. Its upstream electrical limits remain relevant. Final voltage reduction near the processor also remains necessary. We have moved equipment and interfaces, not made their requirements disappear."
+      ],
+      "duration_seconds": 45,
+      "cue": "Point to the converter's new location, then deliberately return to the retained upstream AC path. Finish at the device-regulation stage."
+    },
+    {
+      "id": "conversion-farther-upstream",
+      "title": "Move conversion farther upstream",
+      "kind": "facility",
+      "headline": "A broader DC path changes more interfaces.",
+      "caption": "Conversion moves upstream. Conceptual schematic, not a wiring diagram.",
+      "notes": [
+        "A broader facility-DC proposal moves conversion farther upstream. That extends the portion of the path carrying DC and changes which equipment interfaces must be designed together.",
+        "These three views show different placements of functions. They do not rank whole-system efficiency. Converter performance, protection, insulation, transients, cooling and maintenance still need evaluation. The useful question is which actual project constraint this arrangement would relieve."
+      ],
+      "duration_seconds": 35,
+      "cue": "Trace where DC now begins. Compare conversion placement with the preceding views; avoid implying that either proposal is a measured installed deployment."
+    },
+    {
+      "id": "feeder-transfer",
+      "title": "Test the upstream boundary",
+      "kind": "transfer",
+      "headline": "Can the feeder support this load?",
+      "caption": "160 kW load · 800 V DC · 150 kW upstream feeder",
+      "notes": [
+        "Now change the problem. The load needs one hundred and sixty kilowatts at eight hundred volts. Calculate its current, then decide whether a one-hundred-and-fifty-kilowatt upstream feeder can support it. Take a moment before the reveal.",
+        "The current is two hundred amperes. But the feeder cannot supply one hundred and sixty kilowatts from a one-hundred-and-fifty-kilowatt limit, even before conversion losses.",
+        "That is the boundary to remember. Higher voltage reduces current at fixed power. It does not erase the power requirement upstream, or the heat that must leave the facility."
+      ],
+      "duration_seconds": 55,
+      "cue": "Pause for both answers before Reveal. Ask the learner to explain the feeder result in words. End here; use the reading companion for further detail rather than continuing to scroll."
+    }
+  ],
+  "sources": [
+    {
+      "title": "NVIDIA: Why Scaling AI Compute Performance Requires a New Power Architecture",
+      "url": "https://blogs.nvidia.com/blog/800-vdc-power-architecture-ai-factory/",
+      "claim": "Architecture context only; all loads, voltage comparisons and feeder limits are original teaching assumptions inherited from the existing sample.",
+      "reviewed_on": "2026-09-06",
+      "limits": "Vendor roadmap; proposed architecture and availability expectations are distinct from verified installed deployment."
+    }
+  ]
+}

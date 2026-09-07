@@ -100,9 +100,10 @@ artifact; this change does not add it to the public Pages site.
 The expanded reader contains **50 authored lessons**, including five integrated
 cases, with **65 mapped objectives**, roughly **51,000 words**, 137 glossary
 terms, five GPT ImageGen illustrations and eight types of numerical model.
-These are implementation counts. External engineering review, learner feedback,
-recording and export checks remain pending. Kian offered to review the short
-[800 V DC sample](sample.html); no feedback is recorded yet.
+These are implementation counts. At this initial expansion check, external
+engineering review, learner feedback, recording and export checks were pending.
+Kian subsequently identified text crowding and an unclear recording workflow;
+see the presentation revision below and [REVIEW_HELP.md](REVIEW_HELP.md).
 
 - **34 Python tests and 14 JavaScript numerical tests passed.** Checks include
   complete objective mapping, worked-answer and source-boundary preservation,
@@ -142,3 +143,40 @@ Publication now stages the expanded reader, sample, illustrations, compact
 introduction, domain atlas, and reference documents. The site is explicitly an
 authored draft. Prior introductory release checks remain historical evidence
 for their stated version, not external sign-off on this expansion.
+
+## Presentation revision after first feedback — 2026-09-06
+
+Kian identified text crowding and an unclear recording workflow. The sample now
+has a visual presentation, a separate synchronized notes window, and a preserved
+reading page. This addresses the delivery-format issue; the revised teaching
+sequence still awaits learner rehearsal and specialist review.
+
+- **35 Python tests and 14 JavaScript numerical tests passed.** Generated
+  presentation and reading surfaces are distinct, with separately authored notes
+  and limited headline/caption text. Both use the existing tested DC model.
+- **50 presentation layout states passed** in headless Chromium: all seven
+  visuals, with before/after answer states where applicable, at 1920 × 1080,
+  1280 × 720, 1024 × 768, 390 × 844, and 844 × 390. No horizontal overflow or
+  clipped equipment labels was found. The desktop recording sizes need no page
+  scrolling. Phone architecture diagrams stack vertically and may scroll.
+- Current and loss answers remain hidden until revealed. The default current,
+  slider endpoints, loss ratio and changed-load answer were checked. The fixed
+  resistance assumption and conductor-loss denominator stay on screen.
+- Separate-window navigation, answer visibility and voltage synchronization
+  passed in both directions. Notes remain outside the visible audience surface.
+  Keyboard advancement after reveal, slider keyboard input, fullscreen entry and
+  exit, and the preserved reading page were exercised.
+- The prior reader regression check also passed: 100 lesson viewport states,
+  eight model types, search, glossary and practice. The old reading sample is
+  now `sample-reading.html`; the existing `sample.html` link opens the visual
+  presentation, including when its former `#sample-800v` hash is supplied.
+- Desktop introduction, current, loss and architecture screenshots, the mobile
+  architecture layout and the presenter console were visually inspected.
+  Browser report and screenshots: `qa/presentation/`.
+
+Repeat with `node tests/browser_presentation.cjs` while serving the repository
+root and providing Playwright through `NODE_PATH` or a local installation. The
+optional first argument is the course base URL; the second is the report folder.
+The checks use a fresh browser context and do not inspect a personal profile.
+They do not establish an actual recording duration, captured audio quality,
+video-export legibility or learner comprehension.

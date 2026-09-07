@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f4f3ee" />
+    <title>800 V DC — GIGAWATT teaching sample</title>
+    <style>
+      __PRESENTATION_CSS__
+    </style>
+  </head>
+  <body>
+    <a class="skip" href="#scene">Skip to teaching visual</a>
+    <div id="audience">
+      <header class="toolbar">
+        <a class="brand" href="index.html"
+          >ϟ GIGAWATT <span>TEACHING SAMPLE</span></a
+        >
+        <nav aria-label="Presentation tools">
+          <a href="sample-reading.html">Read the lesson</a>
+          <button id="open-notes">Presenter notes ↗</button>
+          <button id="fullscreen" aria-label="Enter fullscreen">
+            ⛶ <span>Fullscreen</span>
+          </button>
+        </nav>
+      </header>
+      <main id="scene" tabindex="-1" aria-labelledby="scene-title">
+        <div class="scene-heading" aria-live="polite" aria-atomic="true">
+          <p id="chapter" class="eyebrow"></p>
+          <h1 id="scene-title"></h1>
+        </div>
+        <div id="visual"></div>
+        <p id="caption" class="caption"></p>
+      </main>
+      <footer class="transport">
+        <button id="previous" aria-label="Previous visual">
+          ← <span>Back</span>
+        </button>
+        <nav id="steps" aria-label="Teaching sequence"></nav>
+        <button id="next"><span>Next</span> →</button>
+      </footer>
+      <p class="workflow" id="workflow">
+        Screen-share this view. Explain the visual aloud. Use ← → to advance;
+        notes open separately.
+      </p>
+      <p id="notice" role="status"></p>
+    </div>
+    <main id="presenter" hidden>
+      <header class="notes-header">
+        <div>
+          <p class="eyebrow">PRESENTER NOTES · KEEP OFF THE SHARED SCREEN</p>
+          <h1 id="notes-title"></h1>
+        </div>
+        <a id="audience-link" href="sample.html" target="gigawatt-audience"
+          >Open visual ↗</a
+        >
+      </header>
+      <p id="connection" role="status"></p>
+      <div class="notes-layout">
+        <article>
+          <p class="eyebrow" id="notes-position"></p>
+          <h2 id="notes-headline"></h2>
+          <p class="cue" id="notes-cue"></p>
+          <div id="narration"></div>
+          <section class="next-note">
+            <p class="eyebrow">NEXT VISUAL</p>
+            <p id="notes-next"></p>
+          </section>
+        </article>
+        <aside>
+          <h2>Recording setup</h2>
+          <p>
+            Share only the visual window or browser tab. Keep this window on
+            another display or outside the captured area.
+          </p>
+          <p>
+            Explain each visual in your own words. The notes supply the
+            reasoning and boundaries; they are not audience captions.
+          </p>
+          <p>
+            Use Next to advance. Reveal answers only after a prediction. The
+            sequence is planned for about five minutes; rehearse to measure the
+            actual time.
+          </p>
+          <a href="sample-reading.html"
+            >Full explanation, worked example and sources ↗</a
+          >
+          <nav id="notes-outline" aria-label="Presenter sequence"></nav>
+        </aside>
+      </div>
+      <footer class="notes-controls">
+        <button id="notes-previous">← Back</button
+        ><button id="notes-reveal">Reveal answer</button
+        ><button id="notes-next-button">Next →</button>
+      </footer>
+    </main>
+    <noscript
+      ><p>
+        <a href="SAMPLE.md">Read the sample and calculations</a>. The
+        presentation controls require JavaScript.
+      </p></noscript
+    >
+    <script id="presentation-data" type="application/json">
+      __PRESENTATION_DATA__
+    </script>
+    <script>
+      __PRESENTATION_SCRIPT__;
+    </script>
+  </body>
+</html>

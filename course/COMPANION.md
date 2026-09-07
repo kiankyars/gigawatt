@@ -3,7 +3,8 @@
 Implementation and editorial contract, **2026-09-06**. The [reader](index.html)
 now includes 50 authored lessons, search, 137 glossary terms, eight numerical
 model types, five ImageGen illustrations, practice answers and specific source
-reading notes. The [sample](sample.html) is ready for the offered learner review.
+reading notes. The [sample](sample.html) now has a separate visual presentation and presenter
+notes following feedback that the reading page was too crowded for screen sharing.
 Recorded-edition navigation, video timestamps and a final errata workflow remain
 pending; this is an authored draft, not a finished video course.
 
@@ -14,6 +15,21 @@ Help someone understand an AI data center well enough to reason about it, then h
 The course must not become an encyclopedic survey. More hours, topic names, source articles, diagrams, or glossary entries do not establish depth. A substantial section earns its place through a mechanism, worked example, consequential tradeoff, failure or limiting case, and a question that transfers the reasoning. If material only names another product or repeats a fact, merge it into the reference notes or remove it.
 
 The [domain map](DOMAIN_MAP.md) currently organizes 65 objectives into 15 domains and five capstones. Those counts describe the plan, not its quality or completion. Use the objective IDs to connect lessons, examples, sources, and checks, while allowing the learning sequence to cross domains.
+
+## Three delivery surfaces
+
+| Surface | Intended use | What appears there |
+| --- | --- | --- |
+| **Present** | Screen sharing and recording | One visual idea at a time, short labels, essential assumptions, deliberate reveals and input changes. |
+| **Presenter notes** | Private delivery support in a separate window | Narration, action cues, reasoning boundaries and the next visual. Keep this window outside the captured area. |
+| **Read / look up** | Independent study and reference | Full explanations, derivations, practice solutions, glossary and sources. |
+
+The [800 V sample](sample.html) implements all three. Its seven visual steps were
+authored deliberately; the other 50 lesson texts remain reading material pending
+presentation adaptation. [PRESENTING.md](PRESENTING.md) describes the recording
+workflow and the contract for converting later lessons. A long scrolling page
+of narration is not a recording surface. Do not label a lesson ready to record
+just because its prose and illustrations exist.
 
 ## Two ways to use one body of material
 
@@ -89,6 +105,7 @@ For the web companion, verify keyboard navigation, visible focus, labeled contro
 | [Research library](../research/INDEX.md) | Persistent source records plus lesson-specific claim and reading limits | Continue primary checks and resolve inaccessible or disputed details |
 | Recorded edition and errata | Source files and image-hash manifest exist | Freeze a video release, add actual timestamps and establish public correction workflow |
 
-Kian has offered to review the [five-minute sample](REVIEW_HELP.md). Completion
+Kian’s [initial sample feedback](REVIEW_HELP.md) identified text crowding and an
+unclear recording workflow. The revised visual sequence awaits further review. Completion
 means the promised capabilities are taught and usable; neither an authored
 objective mapping nor a passing build demonstrates that a learner understands.

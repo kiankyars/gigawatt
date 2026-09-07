@@ -1,0 +1,472 @@
+{
+  "checked_on": "2026-09-06",
+  "browser": "Headless Chromium / Playwright",
+  "base": "http://127.0.0.1:8765/course/",
+  "layout_states": 50,
+  "layouts": [
+    {
+      "step": "one-load",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "revealed": false,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "current-prediction",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "revealed": false,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "current-prediction",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "revealed": true,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "conductor-loss",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "revealed": false,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "conductor-loss",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "revealed": true,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "conversion-in-rack",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "revealed": false,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "conversion-in-sidecar",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "revealed": false,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "conversion-farther-upstream",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "revealed": false,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "feeder-transfer",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "revealed": false,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "feeder-transfer",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "revealed": true,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "one-load",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "revealed": false,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "current-prediction",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "revealed": false,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "current-prediction",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "revealed": true,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "conductor-loss",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "revealed": false,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "conductor-loss",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "revealed": true,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "conversion-in-rack",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "revealed": false,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "conversion-in-sidecar",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "revealed": false,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "conversion-farther-upstream",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "revealed": false,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "feeder-transfer",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "revealed": false,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "feeder-transfer",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "revealed": true,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "one-load",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "revealed": false,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "current-prediction",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "revealed": false,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "current-prediction",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "revealed": true,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "conductor-loss",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "revealed": false,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "conductor-loss",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "revealed": true,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "conversion-in-rack",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "revealed": false,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "conversion-in-sidecar",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "revealed": false,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "conversion-farther-upstream",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "revealed": false,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "feeder-transfer",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "revealed": false,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "feeder-transfer",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "revealed": true,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "one-load",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "revealed": false,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "current-prediction",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "revealed": false,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "current-prediction",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "revealed": true,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "conductor-loss",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "revealed": false,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "conductor-loss",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "revealed": true,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "conversion-in-rack",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "revealed": false,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "conversion-in-sidecar",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "revealed": false,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "conversion-farther-upstream",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "revealed": false,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "feeder-transfer",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "revealed": false,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "feeder-transfer",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "revealed": true,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "one-load",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "revealed": false,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "current-prediction",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "revealed": false,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "current-prediction",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "revealed": true,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "conductor-loss",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "revealed": false,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "conductor-loss",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "revealed": true,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "conversion-in-rack",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "revealed": false,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "conversion-in-sidecar",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "revealed": false,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "conversion-farther-upstream",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "revealed": false,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "feeder-transfer",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "revealed": false,
+      "horizontal_overflow": false
+    },
+    {
+      "step": "feeder-transfer",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "revealed": true,
+      "horizontal_overflow": false
+    }
+  ],
+  "checks": [
+    "One visual at a time; audience notes excluded",
+    "No desktop scroll at recording sizes",
+    "Mobile and short landscape overflow",
+    "Prediction before reveal",
+    "DC arithmetic and units",
+    "Keyboard advance after reveal",
+    "Slider keyboard ownership",
+    "Separate presenter window",
+    "Bidirectional step, reveal and voltage synchronization",
+    "Fullscreen entry and exit",
+    "Source reading view preserved"
+  ],
+  "errors": []
+}

@@ -21,3 +21,13 @@ and assessed. An example must be independently calculable; a failure must change
 a stated condition; practice must apply the reasoning to a new case. Original
 synthetic values must be labeled as such. No article-by-article paraphrase and
 no wholesale reproduction of third-party prose or figures.
+
+## Presentation authoring
+
+A reading lesson is not a presentation sequence. `sample-presentation.json`
+owns seven deliberately authored beats for the 800 V sample. Each beat has a
+short audience headline/caption and separate speaker notes, action cue and
+rehearsal timing target. Essential units and model assumptions remain visible.
+Do not auto-generate slides from paragraphs or put the narration on screen.
+The sample uses the same tested DC arithmetic as the reader. See
+[PRESENTING.md](../PRESENTING.md) before adapting further lessons.

@@ -20,7 +20,7 @@ Planning review updated **2026-09-06**, instantiated from the [freeCodeCamp cour
 - **What feels obvious only because I already know it?** That a rack is a collection of computing and support equipment; that electrical distribution, coolant circulation, and data movement are different systems; that increasing a site's rated MW does not automatically add useful computation; and that AC, DC, voltage, current, power, and energy name different quantities or behaviors. Introduce these before presenting detailed architectures.
 - **Which term, assumption, or step could lose the learner first?** Starting with a full campus one-line or an acronym such as UPS, CDU, PUE, or NVLink without showing the component's job. Begin with one rack's obligations and a short vocabulary map. Define a term at first use, including the boundary and units where relevant.
 - **Does the learner understand why this matters before the details?** Every domain should begin with a concrete question: what prevents this rack or cluster from delivering its intended service, what would changing this component fix, and what would it leave unresolved? Introduce 800 V DC through the current and distribution problem, then compare the interfaces and tradeoffs of the alternatives.
-- **What changed after this planning pass?** The proposed scope now extends beyond the existing electrical-and-thermal introduction to useful compute, delivery, and operations. Coverage is organized by learner capabilities and domain interfaces, with article mapping as supporting research. The planned sequence includes cross-domain failure cases and changed-scenario questions. The expanded lessons and visual reader are now authored. A final recording script and learner rehearsal remain pending. Kian has offered to review the five-minute 800 V DC sample.
+- **What changed after this planning pass?** The proposed scope now extends beyond the existing electrical-and-thermal introduction to useful compute, delivery, and operations. Coverage is organized by learner capabilities and domain interfaces, with article mapping as supporting research. The planned sequence includes cross-domain failure cases and changed-scenario questions. The expanded lessons and visual reader are now authored. A final recording script and learner rehearsal remain pending. Kian’s first sample feedback identified text crowding and an unclear recording workflow. The revised 800 V sample separates visual presentation, speaker notes and reading material; it awaits another review.
 
 ## Coverage and evidence
 
@@ -56,7 +56,7 @@ provide substantial teaching material; they do not establish a ten-hour runtime.
 The five capstones have supplied synthetic briefs, solved numerical examples,
 tradeoffs, failures and changed-scenario answers. Named-site public evidence is
 kept separate from those invented inputs. No final recording, external expert
-review, audience feedback or complete source-corpus audit is claimed.
+review, demonstrated learner comprehension or complete source-corpus audit is claimed.
 
 **Source policy.** The curriculum is organized by domain. Authored lessons now record checked primary-source passages or accessible excerpts, their specific claims and reading limits. Before recording, review the complete claim set and obtain specialist checks for protection, thermal/control and commissioning assumptions. SemiAnalysis is an important discovery and analytical resource, with explicit attribution at the claim or case it informs; it is not the sole source of truth or the boundary of the research library. Include relevant equipment documentation, standards and open specifications, operator evidence, research, government material, measurements, and other independent analysis. Record what was actually accessible and read, the supported claim, the document version/date, and the check date. Label forecasts, disputed claims, and missing evidence. Acknowledge sources in the video and repository; attribution alone does not establish permission to reuse third-party prose or figures. Prefer original explanations and diagrams, recording any permission needed for reused assets. The [research pipeline](../research/README.md) now discovers public metadata and generates local Markdown notes while preserving original research annotations. It does not collect whole articles. A mapped source is not a claim that its full text has been retrieved or audited.
 
@@ -66,8 +66,10 @@ review, audience feedback or complete source-corpus audit is claimed.
 
 **Validation available so far.** The [testing record](TESTING.md) distinguishes
 the prior introduction review from the expanded reader's model, build and
-browser checks. The [sample](sample.html) is a short reading-and-interaction
-rehearsal for Kian's offered review; no learner feedback has arrived yet.
+browser checks. Kian’s initial feedback identified too much text and an unclear
+recording workflow. The [sample](sample.html) now uses seven visual steps with
+separate presenter notes and a reading companion. Rehearsal and review of this
+revised format remain pending; see [REVIEW_HELP.md](REVIEW_HELP.md).
 External specialist review, final narration, recording settings and export
 legibility remain open.
 

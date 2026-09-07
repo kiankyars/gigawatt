@@ -9,6 +9,7 @@ import re
 from copy import deepcopy
 from pathlib import Path
 
+from gigawatt.build_presentation import presentation_outputs
 from gigawatt.research import canonical_url
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -342,12 +343,13 @@ def build(root=ROOT, check=False):
             sample_data, ensure_ascii=False, separators=(",", ":")
         ).replace("<", "\\u003c"),
     }
-    outputs[Path("course/sample.html")] = re.sub(
+    outputs[Path("course/sample-reading.html")] = re.sub(
         r"__READER_CSS__|__EXPANDED_COURSE__|__READER_SCRIPT__",
         lambda m: sample_replacements[m[0]],
         template,
     )
     outputs[Path("course/SAMPLE.md")] = lesson_markdown(sample, sources)
+    outputs.update(presentation_outputs(root, sample["id"]))
     index = [
         "# GIGAWATT — From watts to useful compute",
         "",

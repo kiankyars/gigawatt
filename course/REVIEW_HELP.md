@@ -1,32 +1,38 @@
-# Review the five-minute teaching sample
+# Review the teaching sample
 
-Kian offered to review a sample on 2026-09-06. The review is pending; this file
-does not record feedback that has not yet arrived.
+Kian's first review on 2026-09-06 identified **too much on-screen text and an
+unclear recording workflow**. The previous sample was a reading page, which
+encouraged scrolling and narrating prose. It did not establish that the teaching
+was understandable. This feedback is addressed by separating three surfaces:
 
-[Open the 800 V DC sample](sample.html). It is a short reading-and-interaction
-rehearsal, not a recorded five-minute video. Budget roughly five minutes; actual
-timing is one of the things to measure.
+- [Visual presentation](sample.html): one idea at a time, for screen sharing.
+- Presenter notes: open from the presentation's **Presenter notes** button;
+  synchronized narration and action cues in a separate window.
+- [Reading companion](sample-reading.html): the complete explanation, example
+  and evidence, for independent study and later reference.
 
-1. Read the setup and the explanation once, without opening the source notes.
-2. In the dark model panel, keep the load at 100 kW. Change voltage from 48 V to
-   800 V. Predict the direction before moving the control.
-3. Compare **AC to the rack**, **AC + DC sidecar**, and **Broader facility DC**.
-   Say which upstream constraint the sidecar leaves in place.
-4. Answer the transfer question before revealing its answer.
+## Review the revised format
 
-Useful feedback is the first sentence, visual or assumption that made you stop,
-the answer you initially expected, and whether the changed-case answer followed
-from the explanation. Also report anything unreadable on your phone. A source
-count or a preference for longer narration cannot substitute for this evidence.
+1. Open the visual presentation. Use **Next** or **→** to move through the seven
+   steps. Do not scroll through the written lesson while narrating.
+2. Open **Presenter notes** and keep that window outside the shared area. Explain
+   each visual aloud using its cue. See [PRESENTING.md](PRESENTING.md) for setup.
+3. Predict the current before revealing it. After the reveal, vary the voltage
+   while keeping power fixed. Then predict the conductor-loss comparison.
+4. Trace how conversion moves across the three architecture diagrams and which
+   upstream requirements remain. Answer the feeder question before its reveal.
+
+Useful feedback is the first step whose purpose is unclear, anything you cannot
+comfortably explain from the visual, and whether the sequence supports a natural
+spoken explanation. The numerical predictions and final answer still help assess
+comprehension. Rehearse to measure pacing; five minutes is a target, not a recording.
+The revised format has not yet received learner approval.
 
 Before recording the full course, outside review is still needed for the
 protection/grounding and transient interfaces, thermal/hydraulic operating
 boundaries, and commissioning/control scenarios. An experienced data-center
-electrical engineer and a thermal/commissioning practitioner would provide
-the most useful complementary checks. Ask them to review the stated teaching
-models and limitations, rather than certify a hypothetical facility design.
-No outreach has been sent on your behalf.
+electrical engineer and a thermal/commissioning practitioner would provide useful
+complementary checks. No outreach has been sent on your behalf.
 
-The automated model checks, source reading scopes and browser inspection will
-be recorded in [TESTING.md](TESTING.md). Those checks do not establish learner
-comprehension, expert sign-off, audio pacing or final video legibility.
+[TESTING.md](TESTING.md) records automated and browser checks. They do not establish
+learner comprehension, expert sign-off, audio pacing or final video legibility.
