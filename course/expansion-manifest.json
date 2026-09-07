@@ -1,0 +1,17 @@
+{
+  "as_of": "2026-09-06",
+  "lessons": 50,
+  "words": 51484,
+  "objectives": 65,
+  "capstones": 5,
+  "glossary_terms": 137,
+  "source_records": 57,
+  "image_sha256": {
+    "campus-cutaway.png": "fbd12d4b4f55d0aec1d6f491626180bf5d73747383ea61e0f59ee2448680d139",
+    "rack-anatomy.png": "dcdb17925744a205464c6d327781875e94b14f83c8ffb5daa218e5f68565b457",
+    "cooling-cutaway.png": "3749e648a6fc6237a33194b79e5cdfae208a32111bce4f43f34231939c765011",
+    "power-equipment.png": "aab434738eec617bf40ab4ab5c1a2dca50a0eaeb82dbc5f108b904850bd7c32e",
+    "network-equipment.png": "957b1bb2326f6c7ddeb4f6020088dd40add250278f72f347e24d64303b17db1c"
+  },
+  "review_state": "Authored draft \u2014 external expert and learner reviews pending"
+}

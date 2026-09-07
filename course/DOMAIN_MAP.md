@@ -179,6 +179,7 @@ Separate physical principles, design specifications, observed deployments, annou
 **Research connections:**
 
 - [P01 — Best Practices Guide for Energy-Efficient Data Center Design](https://www.energy.gov/cmei/femp/articles/best-practices-guide-energy-efficient-data-center-design) · `page_reviewed` · [local note](../research/sources/P01.md)
+- [P02 — Commissioning & Performance Validation | AI Data Center Energy Performance Framework](https://www.ashrae.org/technical-resources/ai-data-center-framework/commissioning-performance-validation) · `page_reviewed` · [local note](../research/sources/P02.md)
 - [P07 — ASHRAE Handbook, Chapter 20: Data Centers and Telecommunication Facilities](https://handbook.ashrae.org/Handbooks/A23/SI/A23_Ch20/a23_ch20_si.aspx) · `page_reviewed` · [local note](../research/sources/P07.md)
 - [P09 — The Datacenter as a Computer: designing warehouse-scale machines](https://research.google/pubs/the-datacenter-as-a-computer-designing-warehouse-scale-machines/) · `public_excerpt_reviewed` · [local note](../research/sources/P09.md)
 - [P10 — Incorporate Minimum Efficiency Requirements for Heating and Cooling Products into Federal Acquisition Documents](https://www.energy.gov/cmei/femp/incorporate-minimum-efficiency-requirements-heating-and-cooling-products-federal) · `page_reviewed` · [local note](../research/sources/P10.md)
@@ -187,6 +188,11 @@ Separate physical principles, design specifications, observed deployments, annou
 - [SA33 — Stop Saying Half of 2026 US Datacenter Capacity Is Canceled](https://newsletter.semianalysis.com/p/stop-saying-half-of-2026-us-datacenter) · `public_excerpt_reviewed` · [local note](../research/sources/SA33.md)
 - [SA37 — xAI's Colossus 2 - First Gigawatt Datacenter In The World, Unique RL Methodology, Capital Raise](https://newsletter.semianalysis.com/p/xais-colossus-2-first-gigawatt-datacenter) · `public_excerpt_reviewed` · [local note](../research/sources/SA37.md)
 - [SA39 — OpenAI Stargate Joint Venture Demystified | Microsoft Sore Loser, Does Softbank Have The Capital?, Texas GigaCampus, Winners & Losers](https://newsletter.semianalysis.com/p/openai-stargate-joint-venture-demystified) · `public_excerpt_reviewed` · [local note](../research/sources/SA39.md)
+- [E22133B3DE1 — EIA — Laws of energy](https://www.eia.gov/energyexplained/what-is-energy/laws-of-energy.php) · `page_reviewed` · [local note](../research/sources/E22133B3DE1.md)
+- [E3F4CB1B7FF — DOE — Best Practices Guide for Energy-Efficient Data Center Design](https://www.energy.gov/sites/default/files/2024-07/best-practice-guide-data-center-design_0.pdf) · `page_reviewed` · [local note](../research/sources/E3F4CB1B7FF.md)
+- [ED20FD8CBCF — EIA — Measuring electricity](https://www.eia.gov/energyexplained/electricity/measuring-electricity.php) · `page_reviewed` · [local note](../research/sources/ED20FD8CBCF.md)
+- [EB34D92F523 — OpenStax — Electrical Energy and Power](https://openstax.org/books/university-physics-volume-2/pages/9-5-electrical-energy-and-power) · `page_reviewed` · [local note](../research/sources/EB34D92F523.md)
+- [EE02276C332 — MLCommons — MLPerf Inference: Datacenter](https://mlcommons.org/benchmarks/inference-datacenter/) · `page_reviewed` · [local note](../research/sources/EE02276C332.md)
 
 <a id="d02"></a>
 
@@ -272,6 +278,10 @@ State an infrastructure design envelope and identify which assumptions a benchma
 - [SA36 — Microsoft's AI Strategy Deconstructed - From Energy to Tokens](https://newsletter.semianalysis.com/p/microsofts-ai-strategy-deconstructed) · `public_excerpt_reviewed` · [local note](../research/sources/SA36.md)
 - [SA40 — Google AI Infrastructure Supremacy: Systems Matter More Than Microarchitecture](https://newsletter.semianalysis.com/p/google-ai-infrastructure-supremacy) · `public_excerpt_reviewed` · [local note](../research/sources/SA40.md)
 - [P13 — Slurm Workload Manager — Topology Guide](https://slurm.schedmd.com/topology.html) · `page_reviewed` · [local note](../research/sources/P13.md)
+- [EE02276C332 — MLCommons — MLPerf Inference: Datacenter](https://mlcommons.org/benchmarks/inference-datacenter/) · `page_reviewed` · [local note](../research/sources/EE02276C332.md)
+- [E23909D618E — NVIDIA — DGX SuperPOD Key Components](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/dgx-superpod-components.html) · `page_reviewed` · [local note](../research/sources/E23909D618E.md)
+- [E2C35A11B05 — NVIDIA Triton — Batchers](https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/user_guide/batcher.html) · `page_reviewed` · [local note](../research/sources/E2C35A11B05.md)
+- [E0814EDF226 — Vertiv — BESS and UPS roles in large data center power architecture](https://www.vertiv.com/en-us/insights/articles/white-papers/bess-and-ups-roles-in-large-data-center-power-architecture/) · `page_reviewed` · [local note](../research/sources/E0814EDF226.md)
 
 <a id="d03"></a>
 
@@ -340,6 +350,7 @@ Compare utility-only and on-site supply options against energy, capacity, fuel, 
 
 - [SA04 — Multi-Datacenter Training: OpenAI’s Ambitious Plan To Beat Google’s Infrastructure](https://newsletter.semianalysis.com/p/multi-datacenter-training-openais) · `public_excerpt_reviewed` · [local note](../research/sources/SA04.md)
 - [SA07 — US Grid Constraints: Towards 40GW+ of Behind-The-Meter Datacenter by 2028?](https://newsletter.semianalysis.com/p/us-grid-constraints-towards-40gw) · `public_excerpt_reviewed` · [local note](../research/sources/SA07.md)
+- [P02 — Commissioning & Performance Validation | AI Data Center Energy Performance Framework](https://www.ashrae.org/technical-resources/ai-data-center-framework/commissioning-performance-validation) · `page_reviewed` · [local note](../research/sources/P02.md)
 - [P12 — Large Loads Action Plan](https://www.nerc.com/initiatives/large-loads-action-plan) · `public_excerpt_reviewed` · [local note](../research/sources/P12.md)
 - [SA11 — AI Training Load Fluctuations at Gigawatt-scale - Risk of Power Grid Blackout?](https://newsletter.semianalysis.com/p/ai-training-load-fluctuations-at-gigawatt-scale-risk-of-power-grid-blackout) · `public_excerpt_reviewed` · [local note](../research/sources/SA11.md)
 - [SA12 — How AI Labs Are Solving the Power Crisis: The Onsite Gas Deep Dive](https://newsletter.semianalysis.com/p/how-ai-labs-are-solving-the-power) · `public_excerpt_reviewed` · [local note](../research/sources/SA12.md)
@@ -353,6 +364,11 @@ Compare utility-only and on-site supply options against energy, capacity, fuel, 
 - [SA37 — xAI's Colossus 2 - First Gigawatt Datacenter In The World, Unique RL Methodology, Capital Raise](https://newsletter.semianalysis.com/p/xais-colossus-2-first-gigawatt-datacenter) · `public_excerpt_reviewed` · [local note](../research/sources/SA37.md)
 - [SA38 — How Oracle Is Winning the AI Compute Market](https://newsletter.semianalysis.com/p/how-oracle-is-winning-the-ai-compute-market) · `public_excerpt_reviewed` · [local note](../research/sources/SA38.md)
 - [SA39 — OpenAI Stargate Joint Venture Demystified | Microsoft Sore Loser, Does Softbank Have The Capital?, Texas GigaCampus, Winners & Losers](https://newsletter.semianalysis.com/p/openai-stargate-joint-venture-demystified) · `public_excerpt_reviewed` · [local note](../research/sources/SA39.md)
+- [EB34D92F523 — OpenStax — Electrical Energy and Power](https://openstax.org/books/university-physics-volume-2/pages/9-5-electrical-energy-and-power) · `page_reviewed` · [local note](../research/sources/EB34D92F523.md)
+- [ED8255C2875 — US EPA — Physical PPA](https://www.epa.gov/green-power-markets/physical-ppa) · `page_reviewed` · [local note](../research/sources/ED8255C2875.md)
+- [E61807424F1 — DOE — Islanding a Microgrid](https://www.energy.gov/cmei/femp/articles/islanding-microgrid) · `page_reviewed` · [local note](../research/sources/E61807424F1.md)
+- [E45AB7B1BC1 — Schneider Electric — Installed apparent power](https://www.electrical-installation.org/enwiki/Installed_apparent_power_(kVA)) · `page_reviewed` · [local note](../research/sources/E45AB7B1BC1.md)
+- [E21653C0173 — ERCOT — Batch Zero large-load connection announcement, June 18, 2026](https://www.ercot.com/news/release/06182026-puct-approves-ercots) · `page_reviewed` · [local note](../research/sources/E21653C0173.md)
 
 <a id="d04"></a>
 
@@ -423,11 +439,15 @@ Reconcile IT and auxiliary loads with a downstream electrical capacity budget ac
 - [SA01 — Datacenter Anatomy Part 1: Electrical Systems](https://newsletter.semianalysis.com/p/datacenter-anatomy-part-1-electrical) · `public_excerpt_reviewed` · [local note](../research/sources/SA01.md)
 - [SA10 — Inside the 800VDC Revolution – Part 1](https://newsletter.semianalysis.com/p/inside-the-800vdc-revolution-part) · `public_excerpt_reviewed` · [local note](../research/sources/SA10.md)
 - [P01 — Best Practices Guide for Energy-Efficient Data Center Design](https://www.energy.gov/cmei/femp/articles/best-practices-guide-energy-efficient-data-center-design) · `page_reviewed` · [local note](../research/sources/P01.md)
+- [P02 — Commissioning & Performance Validation | AI Data Center Energy Performance Framework](https://www.ashrae.org/technical-resources/ai-data-center-framework/commissioning-performance-validation) · `page_reviewed` · [local note](../research/sources/P02.md)
 - [P04 — Tier Classification System](https://uptimeinstitute.com/tiers) · `page_reviewed` · [local note](../research/sources/P04.md)
 - [P05 — NVIDIA 800 VDC Architecture Will Power the Next Generation of AI Factories](https://developer.nvidia.com/blog/nvidia-800-v-hvdc-architecture-will-power-the-next-generation-of-ai-factories/) · `page_reviewed` · [local note](../research/sources/P05.md)
 - [SA14 — AI Datacenter Energy Dilemma - Race for AI Datacenter Space](https://newsletter.semianalysis.com/p/ai-datacenter-energy-dilemma-race) · `public_excerpt_reviewed` · [local note](../research/sources/SA14.md)
 - [SA29 — The Wild Wild West Of LEGO Datacenters](https://newsletter.semianalysis.com/p/the-wild-wild-west-of-lego-datacenters) · `public_excerpt_reviewed` · [local note](../research/sources/SA29.md)
 - [P16 — Why Scaling AI Compute Performance Requires a New Power Architecture](https://blogs.nvidia.com/blog/800-vdc-power-architecture-ai-factory/) · `page_reviewed` · [local note](../research/sources/P16.md)
+- [E3F4CB1B7FF — DOE — Best Practices Guide for Energy-Efficient Data Center Design](https://www.energy.gov/sites/default/files/2024-07/best-practice-guide-data-center-design_0.pdf) · `page_reviewed` · [local note](../research/sources/E3F4CB1B7FF.md)
+- [E45AB7B1BC1 — Schneider Electric — Installed apparent power](https://www.electrical-installation.org/enwiki/Installed_apparent_power_(kVA)) · `page_reviewed` · [local note](../research/sources/E45AB7B1BC1.md)
+- [EBFFD23506A — Schneider Electric — Choice of transformer rating](https://www.electrical-installation.org/enwiki/Choice_of_transformer_rating) · `page_reviewed` · [local note](../research/sources/EBFFD23506A.md)
 
 <a id="d05"></a>
 
@@ -498,6 +518,7 @@ Explain why fault clearing and grounding require topology-specific AC/DC protect
 - [SA01 — Datacenter Anatomy Part 1: Electrical Systems](https://newsletter.semianalysis.com/p/datacenter-anatomy-part-1-electrical) · `public_excerpt_reviewed` · [local note](../research/sources/SA01.md)
 - [SA07 — US Grid Constraints: Towards 40GW+ of Behind-The-Meter Datacenter by 2028?](https://newsletter.semianalysis.com/p/us-grid-constraints-towards-40gw) · `public_excerpt_reviewed` · [local note](../research/sources/SA07.md)
 - [SA10 — Inside the 800VDC Revolution – Part 1](https://newsletter.semianalysis.com/p/inside-the-800vdc-revolution-part) · `public_excerpt_reviewed` · [local note](../research/sources/SA10.md)
+- [P02 — Commissioning & Performance Validation | AI Data Center Energy Performance Framework](https://www.ashrae.org/technical-resources/ai-data-center-framework/commissioning-performance-validation) · `page_reviewed` · [local note](../research/sources/P02.md)
 - [P03 — Management and Operations Guideline](https://uptimeinstitute.com/professional-services/management-operations/mando-criteria) · `page_reviewed` · [local note](../research/sources/P03.md)
 - [P04 — Tier Classification System](https://uptimeinstitute.com/tiers) · `page_reviewed` · [local note](../research/sources/P04.md)
 - [P05 — NVIDIA 800 VDC Architecture Will Power the Next Generation of AI Factories](https://developer.nvidia.com/blog/nvidia-800-v-hvdc-architecture-will-power-the-next-generation-of-ai-factories/) · `page_reviewed` · [local note](../research/sources/P05.md)
@@ -508,6 +529,12 @@ Explain why fault clearing and grounding require topology-specific AC/DC protect
 - [SA12 — How AI Labs Are Solving the Power Crisis: The Onsite Gas Deep Dive](https://newsletter.semianalysis.com/p/how-ai-labs-are-solving-the-power) · `public_excerpt_reviewed` · [local note](../research/sources/SA12.md)
 - [SA37 — xAI's Colossus 2 - First Gigawatt Datacenter In The World, Unique RL Methodology, Capital Raise](https://newsletter.semianalysis.com/p/xais-colossus-2-first-gigawatt-datacenter) · `public_excerpt_reviewed` · [local note](../research/sources/SA37.md)
 - [P16 — Why Scaling AI Compute Performance Requires a New Power Architecture](https://blogs.nvidia.com/blog/800-vdc-power-architecture-ai-factory/) · `page_reviewed` · [local note](../research/sources/P16.md)
+- [ED20FD8CBCF — EIA — Measuring electricity](https://www.eia.gov/energyexplained/electricity/measuring-electricity.php) · `page_reviewed` · [local note](../research/sources/ED20FD8CBCF.md)
+- [EB34D92F523 — OpenStax — Electrical Energy and Power](https://openstax.org/books/university-physics-volume-2/pages/9-5-electrical-energy-and-power) · `page_reviewed` · [local note](../research/sources/EB34D92F523.md)
+- [E0814EDF226 — Vertiv — BESS and UPS roles in large data center power architecture](https://www.vertiv.com/en-us/insights/articles/white-papers/bess-and-ups-roles-in-large-data-center-power-architecture/) · `page_reviewed` · [local note](../research/sources/E0814EDF226.md)
+- [E9FFEE6828F — Schneider Electric — Coordination between circuit-breakers](https://www.electrical-installation.org/enwiki/Coordination_between_circuit-breakers) · `page_reviewed` · [local note](../research/sources/E9FFEE6828F.md)
+- [E1423005C7C — ABB — Protection Devices for Direct Current Applications](https://library.e.abb.com/public/5cd83dcb95a74dcdb571be5f256e1af8/9AKK108470A9606_en_B_Protection%20Devices%20for%20Direct%20Current%20Applications%20-%20Technical%20Application%20Paper.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/E1423005C7C.md)
+- [E2A3F76B3F9 — Schneider Electric — Definition of standardised earthing schemes](https://www.electrical-installation.org/enwiki/Definition_of_standardised_earthing_schemes) · `public_excerpt_reviewed` · [local note](../research/sources/E2A3F76B3F9.md)
 
 <a id="d06"></a>
 
@@ -591,6 +618,7 @@ Explain how retrofit constraints can reverse a seemingly attractive greenfield a
 - [SA19 — GB200 Hardware Architecture - Component Supply Chain & BOM](https://newsletter.semianalysis.com/p/gb200-hardware-architecture-and-component) · `public_excerpt_reviewed` · [local note](../research/sources/SA19.md)
 - [SA24 — Vera Rubin – Extreme Co-Design: An Evolution from Grace Blackwell Oberon](https://newsletter.semianalysis.com/p/vera-rubin-extreme-co-design-an-evolution) · `public_excerpt_reviewed` · [local note](../research/sources/SA24.md)
 - [P16 — Why Scaling AI Compute Performance Requires a New Power Architecture](https://blogs.nvidia.com/blog/800-vdc-power-architecture-ai-factory/) · `page_reviewed` · [local note](../research/sources/P16.md)
+- [P17 — NVIDIA NVL72 AI Factory — System Hardware & Components](https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/components.html) · `page_reviewed` · [local note](../research/sources/P17.md)
 
 <a id="d07"></a>
 
@@ -678,7 +706,12 @@ Connect server and rack organization to power, cooling, weight and maintenance i
 - [SA26 — AWS Trainium3 Deep Dive | A Potential Challenger Approaching](https://newsletter.semianalysis.com/p/aws-trainium3-deep-dive-a-potential) · `public_excerpt_reviewed` · [local note](../research/sources/SA26.md)
 - [SA27 — RL Systems Mind the Gap: Matching Trainer and Generator Throughput](https://newsletter.semianalysis.com/p/rl-systems-mind-the-gap-matching) · `public_excerpt_reviewed` · [local note](../research/sources/SA27.md)
 - [SA40 — Google AI Infrastructure Supremacy: Systems Matter More Than Microarchitecture](https://newsletter.semianalysis.com/p/google-ai-infrastructure-supremacy) · `public_excerpt_reviewed` · [local note](../research/sources/SA40.md)
+- [P13 — Slurm Workload Manager — Topology Guide](https://slurm.schedmd.com/topology.html) · `page_reviewed` · [local note](../research/sources/P13.md)
 - [P14 — NVIDIA DGX SuperPOD: Next Generation Scalable Infrastructure for AI Leadership Reference Architecture Featuring NVIDIA DGX H100](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/) · `page_reviewed` · [local note](../research/sources/P14.md)
+- [P17 — NVIDIA NVL72 AI Factory — System Hardware & Components](https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/components.html) · `page_reviewed` · [local note](../research/sources/P17.md)
+- [EB973B565B7 — GPU Performance Background User’s Guide](https://docs.nvidia.com/deeplearning/performance/dl-performance-gpu-background/index.html) · `page_reviewed` · [local note](../research/sources/EB973B565B7.md)
+- [E134D3535CB — Matrix Multiplication Background User’s Guide](https://docs.nvidia.com/deeplearning/performance/dl-performance-matrix-multiplication/index.html) · `page_reviewed` · [local note](../research/sources/E134D3535CB.md)
+- [E4ABDC02D45 — NVIDIA DGX SuperPOD — Network Fabrics](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/network-fabrics.html) · `page_reviewed` · [local note](../research/sources/E4ABDC02D45.md)
 
 <a id="d08"></a>
 
@@ -771,6 +804,11 @@ Trace a network failure or degraded link into workload, cabling and operational 
 - [SA40 — Google AI Infrastructure Supremacy: Systems Matter More Than Microarchitecture](https://newsletter.semianalysis.com/p/google-ai-infrastructure-supremacy) · `public_excerpt_reviewed` · [local note](../research/sources/SA40.md)
 - [P13 — Slurm Workload Manager — Topology Guide](https://slurm.schedmd.com/topology.html) · `page_reviewed` · [local note](../research/sources/P13.md)
 - [P14 — NVIDIA DGX SuperPOD: Next Generation Scalable Infrastructure for AI Leadership Reference Architecture Featuring NVIDIA DGX H100](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/) · `page_reviewed` · [local note](../research/sources/P14.md)
+- [P17 — NVIDIA NVL72 AI Factory — System Hardware & Components](https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/components.html) · `page_reviewed` · [local note](../research/sources/P17.md)
+- [E4ABDC02D45 — NVIDIA DGX SuperPOD — Network Fabrics](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/network-fabrics.html) · `page_reviewed` · [local note](../research/sources/E4ABDC02D45.md)
+- [EB0CA366091 — NCCL Collective Operations](https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/usage/collectives.html) · `page_reviewed` · [local note](../research/sources/EB0CA366091.md)
+- [E80C73CE756 — Scaling AI Factories with Co-Packaged Optics for Better Power Efficiency](https://developer.nvidia.com/blog/scaling-ai-factories-with-co-packaged-optics-for-better-power-efficiency/) · `page_reviewed` · [local note](../research/sources/E80C73CE756.md)
+- [E9ACF1B58FE — NVIDIA Optical Transceivers and Cables](https://www.nvidia.com/en-us/networking/interconnect/) · `page_reviewed` · [local note](../research/sources/E9ACF1B58FE.md)
 
 <a id="d09"></a>
 
@@ -843,6 +881,7 @@ Specify a service acceptance exercise that tests end-to-end data access, job lau
 - [SA05 — AI Neocloud Playbook and Anatomy](https://newsletter.semianalysis.com/p/ai-neocloud-playbook-and-anatomy) · `public_excerpt_reviewed` · [local note](../research/sources/SA05.md)
 - [SA08 — ClusterMAX™ 2.0: The Industry Standard GPU Cloud Rating System](https://newsletter.semianalysis.com/p/clustermax-20-the-industry-standard) · `public_excerpt_reviewed` · [local note](../research/sources/SA08.md)
 - [SA09 — How Much Do GPU Clusters Really Cost?](https://newsletter.semianalysis.com/p/how-much-do-gpu-clusters-really-cost) · `public_excerpt_reviewed` · [local note](../research/sources/SA09.md)
+- [P02 — Commissioning & Performance Validation | AI Data Center Energy Performance Framework](https://www.ashrae.org/technical-resources/ai-data-center-framework/commissioning-performance-validation) · `page_reviewed` · [local note](../research/sources/P02.md)
 - [P08 — Building Meta’s GenAI Infrastructure](https://engineering.fb.com/2024/03/12/data-center-engineering/building-metas-genai-infrastructure/) · `page_reviewed` · [local note](../research/sources/P08.md)
 - [P09 — The Datacenter as a Computer: designing warehouse-scale machines](https://research.google/pubs/the-datacenter-as-a-computer-designing-warehouse-scale-machines/) · `public_excerpt_reviewed` · [local note](../research/sources/P09.md)
 - [SA15 — The New AI Networks | Ultra Ethernet UEC | UALink vs Broadcom Scale Up Ethernet SUE](https://newsletter.semianalysis.com/p/the-new-ai-networks-ultra-ethernet-uec-ualink-vs-broadcom-scale-up-ethernet-sue) · `public_excerpt_reviewed` · [local note](../research/sources/SA15.md)
@@ -858,6 +897,12 @@ Specify a service acceptance exercise that tests end-to-end data access, job lau
 - [SA40 — Google AI Infrastructure Supremacy: Systems Matter More Than Microarchitecture](https://newsletter.semianalysis.com/p/google-ai-infrastructure-supremacy) · `public_excerpt_reviewed` · [local note](../research/sources/SA40.md)
 - [P13 — Slurm Workload Manager — Topology Guide](https://slurm.schedmd.com/topology.html) · `page_reviewed` · [local note](../research/sources/P13.md)
 - [P14 — NVIDIA DGX SuperPOD: Next Generation Scalable Infrastructure for AI Leadership Reference Architecture Featuring NVIDIA DGX H100](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/) · `page_reviewed` · [local note](../research/sources/P14.md)
+- [P17 — NVIDIA NVL72 AI Factory — System Hardware & Components](https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/components.html) · `page_reviewed` · [local note](../research/sources/P17.md)
+- [E4D40417934 — NVIDIA DGX SuperPOD — Storage Architecture](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/storage-architecture.html) · `page_reviewed` · [local note](../research/sources/E4D40417934.md)
+- [E284D853C6B — PyTorch Distributed Checkpoint](https://docs.pytorch.org/docs/stable/distributed.checkpoint.html) · `public_excerpt_reviewed` · [local note](../research/sources/E284D853C6B.md)
+- [E2E0C218DA7 — Asynchronous Saving with Distributed Checkpoint](https://docs.pytorch.org/tutorials/recipes/distributed_async_checkpoint_recipe.html) · `page_reviewed` · [local note](../research/sources/E2E0C218DA7.md)
+- [EE0FC346C72 — Control Group in Slurm](https://slurm.schedmd.com/cgroups.html) · `page_reviewed` · [local note](../research/sources/EE0FC346C72.md)
+- [E0CDE775C43 — NVIDIA DGX SuperPOD — Software](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/dgx-software.html) · `page_reviewed` · [local note](../research/sources/E0CDE775C43.md)
 
 <a id="d10"></a>
 
@@ -939,6 +984,9 @@ Compare air, cold-plate, rear-door and immersion approaches against a declared d
 - [SA29 — The Wild Wild West Of LEGO Datacenters](https://newsletter.semianalysis.com/p/the-wild-wild-west-of-lego-datacenters) · `public_excerpt_reviewed` · [local note](../research/sources/SA29.md)
 - [SA37 — xAI's Colossus 2 - First Gigawatt Datacenter In The World, Unique RL Methodology, Capital Raise](https://newsletter.semianalysis.com/p/xais-colossus-2-first-gigawatt-datacenter) · `public_excerpt_reviewed` · [local note](../research/sources/SA37.md)
 - [P15 — Liquid to Liquid CDU Test Methodology and Performance Rating — Revision 1.0](https://www.opencompute.org/documents/ocp-wp-l-lcdu-test-methodology-performance-rating-r1-pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P15.md)
+- [P17 — NVIDIA NVL72 AI Factory — System Hardware & Components](https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/components.html) · `page_reviewed` · [local note](../research/sources/P17.md)
+- [E709C9E5196 — ASHRAE — Emergence and Expansion of Liquid Cooling in Mainstream Data Centers](https://www.ashrae.org/file%20library/technical%20resources/bookstore/emergence-and-expansion-of-liquid-cooling-in-mainstream-data-centers_wp.pdf) · `page_reviewed` · [local note](../research/sources/E709C9E5196.md)
+- [EE136EB8E02 — Open Compute Project — Cold Plate workstream](https://www.opencompute.org/wiki/Cooling_Environments/Cold_Plate) · `public_excerpt_reviewed` · [local note](../research/sources/EE136EB8E02.md)
 
 <a id="d11"></a>
 
@@ -1021,6 +1069,8 @@ Evaluate cooling architecture or heat reuse against climate, water, electrical c
 - [SA12 — How AI Labs Are Solving the Power Crisis: The Onsite Gas Deep Dive](https://newsletter.semianalysis.com/p/how-ai-labs-are-solving-the-power) · `public_excerpt_reviewed` · [local note](../research/sources/SA12.md)
 - [SA31 — From Tokens to Burgers: A Water Footprint Face-Off](https://newsletter.semianalysis.com/p/from-tokens-to-burgers-a-water-footprint) · `public_excerpt_reviewed` · [local note](../research/sources/SA31.md)
 - [P15 — Liquid to Liquid CDU Test Methodology and Performance Rating — Revision 1.0](https://www.opencompute.org/documents/ocp-wp-l-lcdu-test-methodology-performance-rating-r1-pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P15.md)
+- [E89E077D5C1 — DOE FEMP: Cooling Tower Management](https://www.energy.gov/cmei/femp/best-management-practice-10-cooling-tower-management) · `page_reviewed` · [local note](../research/sources/E89E077D5C1.md)
+- [E6DF2655A78 — USGS National Water Availability Assessment Data Companion](https://waterdata.usgs.gov/blog/nwdc-overview/) · `page_reviewed` · [local note](../research/sources/E6DF2655A78.md)
 
 <a id="d12"></a>
 
@@ -1093,6 +1143,13 @@ Trace physical and control-system access boundaries and explain why availability
 - [P07 — ASHRAE Handbook, Chapter 20: Data Centers and Telecommunication Facilities](https://handbook.ashrae.org/Handbooks/A23/SI/A23_Ch20/a23_ch20_si.aspx) · `page_reviewed` · [local note](../research/sources/P07.md)
 - [P11 — NFPA 75: Standard for the Fire Protection of Information Technology Equipment](https://www.nfpa.org/codes-and-standards/nfpa-75-standard-development/75) · `candidate_not_reviewed` · [local note](../research/sources/P11.md)
 - [SA29 — The Wild Wild West Of LEGO Datacenters](https://newsletter.semianalysis.com/p/the-wild-wild-west-of-lego-datacenters) · `public_excerpt_reviewed` · [local note](../research/sources/SA29.md)
+- [P16 — Why Scaling AI Compute Performance Requires a New Power Architecture](https://blogs.nvidia.com/blog/800-vdc-power-architecture-ai-factory/) · `page_reviewed` · [local note](../research/sources/P16.md)
+- [EDDF63EA993 — NVIDIA H100 SuperPOD: White Space Infrastructure](https://docs.nvidia.com/dgx-superpod/design-guides/dgx-superpod-data-center-design-h100/latest/infrastructure.html) · `page_reviewed` · [local note](../research/sources/EDDF63EA993.md)
+- [E320A75F233 — NVIDIA H100 SuperPOD: Planning a Data Center Deployment](https://docs.nvidia.com/dgx-superpod/design-guides/dgx-superpod-data-center-design-h100/latest/planning.html) · `page_reviewed` · [local note](../research/sources/E320A75F233.md)
+- [E2848C36FE7 — National Weather Service: Flood Related Hazards](https://www.weather.gov/safety/flood-hazards) · `page_reviewed` · [local note](../research/sources/E2848C36FE7.md)
+- [E95181BB427 — USGS: What is seismic hazard?](https://www.usgs.gov/faqs/what-seismic-hazard-what-a-seismic-hazard-map-and-how-are-they-used) · `page_reviewed` · [local note](../research/sources/E95181BB427.md)
+- [E013A66FA9A — NIST SP 800-82 Revision 3: OT Security](https://csrc.nist.gov/pubs/sp/800/82/r3/final) · `public_excerpt_reviewed` · [local note](../research/sources/E013A66FA9A.md)
+- [EDEEDB16DDE — OSHA 1910.333: Electrical work practices](https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.333) · `public_excerpt_reviewed` · [local note](../research/sources/EDEEDB16DDE.md)
 
 <a id="d13"></a>
 
@@ -1184,6 +1241,8 @@ Specify an integrated acceptance and handover plan for a phased deployment.
 - [P14 — NVIDIA DGX SuperPOD: Next Generation Scalable Infrastructure for AI Leadership Reference Architecture Featuring NVIDIA DGX H100](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/) · `page_reviewed` · [local note](../research/sources/P14.md)
 - [P15 — Liquid to Liquid CDU Test Methodology and Performance Rating — Revision 1.0](https://www.opencompute.org/documents/ocp-wp-l-lcdu-test-methodology-performance-rating-r1-pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P15.md)
 - [P16 — Why Scaling AI Compute Performance Requires a New Power Architecture](https://blogs.nvidia.com/blog/800-vdc-power-architecture-ai-factory/) · `page_reviewed` · [local note](../research/sources/P16.md)
+- [E50E0F856B0 — GAO Schedule Assessment Guide](https://www.gao.gov/products/gao-16-89g) · `page_reviewed` · [local note](../research/sources/E50E0F856B0.md)
+- [ECB7071035F — WBDG: Commissioning Documents](https://legacy.wbdg.org/building-commissioning/commissioning-documents) · `page_reviewed` · [local note](../research/sources/ECB7071035F.md)
 
 <a id="d14"></a>
 
@@ -1283,6 +1342,11 @@ Convert a failure or capacity incident into an evidence-based recovery and preve
 - [P13 — Slurm Workload Manager — Topology Guide](https://slurm.schedmd.com/topology.html) · `page_reviewed` · [local note](../research/sources/P13.md)
 - [P14 — NVIDIA DGX SuperPOD: Next Generation Scalable Infrastructure for AI Leadership Reference Architecture Featuring NVIDIA DGX H100](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/) · `page_reviewed` · [local note](../research/sources/P14.md)
 - [P15 — Liquid to Liquid CDU Test Methodology and Performance Rating — Revision 1.0](https://www.opencompute.org/documents/ocp-wp-l-lcdu-test-methodology-performance-rating-r1-pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P15.md)
+- [P17 — NVIDIA NVL72 AI Factory — System Hardware & Components](https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/components.html) · `page_reviewed` · [local note](../research/sources/P17.md)
+- [E013A66FA9A — NIST SP 800-82 Revision 3: OT Security](https://csrc.nist.gov/pubs/sp/800/82/r3/final) · `public_excerpt_reviewed` · [local note](../research/sources/E013A66FA9A.md)
+- [E71B82C307F — Google SRE: Monitoring Distributed Systems](https://sre.google/sre-book/monitoring-distributed-systems/) · `page_reviewed` · [local note](../research/sources/E71B82C307F.md)
+- [E7B9A3E66DB — Google SRE: Service Level Objectives](https://sre.google/sre-book/service-level-objectives/) · `page_reviewed` · [local note](../research/sources/E7B9A3E66DB.md)
+- [E571B75F6E0 — Google SRE: Postmortem Culture](https://sre.google/sre-book/postmortem-culture/) · `page_reviewed` · [local note](../research/sources/E571B75F6E0.md)
 
 <a id="d15"></a>
 
@@ -1368,7 +1432,9 @@ Audit a named project's public evidence without filling unknown capacity, topolo
 - [SA09 — How Much Do GPU Clusters Really Cost?](https://newsletter.semianalysis.com/p/how-much-do-gpu-clusters-really-cost) · `public_excerpt_reviewed` · [local note](../research/sources/SA09.md)
 - [SA10 — Inside the 800VDC Revolution – Part 1](https://newsletter.semianalysis.com/p/inside-the-800vdc-revolution-part) · `public_excerpt_reviewed` · [local note](../research/sources/SA10.md)
 - [P01 — Best Practices Guide for Energy-Efficient Data Center Design](https://www.energy.gov/cmei/femp/articles/best-practices-guide-energy-efficient-data-center-design) · `page_reviewed` · [local note](../research/sources/P01.md)
+- [P02 — Commissioning & Performance Validation | AI Data Center Energy Performance Framework](https://www.ashrae.org/technical-resources/ai-data-center-framework/commissioning-performance-validation) · `page_reviewed` · [local note](../research/sources/P02.md)
 - [P05 — NVIDIA 800 VDC Architecture Will Power the Next Generation of AI Factories](https://developer.nvidia.com/blog/nvidia-800-v-hvdc-architecture-will-power-the-next-generation-of-ai-factories/) · `page_reviewed` · [local note](../research/sources/P05.md)
+- [P07 — ASHRAE Handbook, Chapter 20: Data Centers and Telecommunication Facilities](https://handbook.ashrae.org/Handbooks/A23/SI/A23_Ch20/a23_ch20_si.aspx) · `page_reviewed` · [local note](../research/sources/P07.md)
 - [P09 — The Datacenter as a Computer: designing warehouse-scale machines](https://research.google/pubs/the-datacenter-as-a-computer-designing-warehouse-scale-machines/) · `public_excerpt_reviewed` · [local note](../research/sources/P09.md)
 - [P10 — Incorporate Minimum Efficiency Requirements for Heating and Cooling Products into Federal Acquisition Documents](https://www.energy.gov/cmei/femp/incorporate-minimum-efficiency-requirements-heating-and-cooling-products-federal) · `page_reviewed` · [local note](../research/sources/P10.md)
 - [SA12 — How AI Labs Are Solving the Power Crisis: The Onsite Gas Deep Dive](https://newsletter.semianalysis.com/p/how-ai-labs-are-solving-the-power) · `public_excerpt_reviewed` · [local note](../research/sources/SA12.md)
@@ -1398,6 +1464,9 @@ Audit a named project's public evidence without filling unknown capacity, topolo
 - [SA39 — OpenAI Stargate Joint Venture Demystified | Microsoft Sore Loser, Does Softbank Have The Capital?, Texas GigaCampus, Winners & Losers](https://newsletter.semianalysis.com/p/openai-stargate-joint-venture-demystified) · `public_excerpt_reviewed` · [local note](../research/sources/SA39.md)
 - [SA40 — Google AI Infrastructure Supremacy: Systems Matter More Than Microarchitecture](https://newsletter.semianalysis.com/p/google-ai-infrastructure-supremacy) · `public_excerpt_reviewed` · [local note](../research/sources/SA40.md)
 - [P16 — Why Scaling AI Compute Performance Requires a New Power Architecture](https://blogs.nvidia.com/blog/800-vdc-power-architecture-ai-factory/) · `page_reviewed` · [local note](../research/sources/P16.md)
+- [E50E0F856B0 — GAO Schedule Assessment Guide](https://www.gao.gov/products/gao-16-89g) · `page_reviewed` · [local note](../research/sources/E50E0F856B0.md)
+- [EEFB073374C — NIST Handbook 135, 2025: Life Cycle Costing Manual](https://nvlpubs.nist.gov/nistpubs/hb/2025/NIST.HB.135e2025.pdf) · `page_reviewed` · [local note](../research/sources/EEFB073374C.md)
+- [E775A7D4E10 — OpenAI: Five new Stargate sites](https://openai.com/index/five-new-stargate-sites/) · `page_reviewed` · [local note](../research/sources/E775A7D4E10.md)
 
 ## Paths through the system
 

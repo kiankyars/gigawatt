@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f4f3ee" />
+    <meta
+      name="description"
+      content="A visual course on modern AI data centers: power, compute, cooling, delivery and operation, with worked examples and practice."
+    />
+    <title>GIGAWATT — From watts to useful compute</title>
+    <style>
+      __READER_CSS__
+    </style>
+  </head>
+  <body>
+    <a class="skip" href="#lesson">Skip to lesson</a>
+    <header class="mast">
+      <a class="brand" href="#"
+        ><span aria-hidden="true">ϟ</span> GIGAWATT
+        <small>THE DATA CENTER COURSE</small></a
+      >
+      <nav aria-label="Course tools">
+        <button
+          id="contents-toggle"
+          aria-expanded="false"
+          aria-controls="sidebar"
+        >
+          Contents</button
+        ><button id="lookup-toggle" aria-pressed="false">Look up</button
+        ><a href="domain-map.html">Domain map ↗</a>
+      </nav>
+    </header>
+    <div class="book-layout">
+      <aside id="sidebar" class="sidebar">
+        <div class="rail-heading">
+          <span>THE LEARNING PATH</span><small id="lesson-count"></small>
+        </div>
+        <label class="search-label" for="search">Find a lesson or concept</label
+        ><input
+          id="search"
+          type="search"
+          placeholder="Try 800 V, cooling, checkpoint…"
+          autocomplete="off"
+        />
+        <p id="search-status" class="muted" aria-live="polite"></p>
+        <nav id="contents" aria-label="Lessons"></nav>
+        <div class="rail-foot">
+          <a href="index.html">Full course ↗</a
+          ><a href="sample.html">Five-minute review sample ↗</a
+          ><a href="../diagram/index.html">Interactive introduction ↗</a
+          ><a href="../research/INDEX.md">Research library ↗</a
+          ><a href="REVIEW_HELP.md">Review this draft ↗</a>
+          <p>Authored draft · September 2026</p>
+        </div>
+      </aside>
+      <main id="main">
+        <section id="lookup" hidden aria-labelledby="lookup-title">
+          <div class="eyebrow">RETURN TO THE REASONING</div>
+          <h1 id="lookup-title">Look it up.<br />See how it connects.</h1>
+          <p class="lede">
+            Search the lesson text or open a concept below. Definitions lead
+            back to the explanation, example and evidence.
+          </p>
+          <div id="glossary"></div>
+        </section>
+        <article id="lesson" tabindex="-1">
+          <div class="lesson-heading">
+            <div class="eyebrow" id="eyebrow"></div>
+            <h1 id="title"></h1>
+            <p class="lede" id="summary"></p>
+            <div class="lesson-meta" id="lesson-meta"></div>
+          </div>
+          <figure class="illustration">
+            <div class="image-plate">
+              <img id="teaching-image" width="1672" height="941" alt="" />
+              <div class="image-index" id="image-index"></div>
+            </div>
+            <figcaption id="image-caption"></figcaption>
+            <div class="anatomy" id="anatomy"></div>
+          </figure>
+          <section class="driving-question">
+            <span class="eyebrow">THE QUESTION TO HOLD</span>
+            <p id="question"></p>
+          </section>
+          <div class="reading-layout">
+            <div id="prose"></div>
+            <aside class="lesson-aside">
+              <div class="sticky-note">
+                <span class="eyebrow">KEEP YOUR BEARINGS</span>
+                <div id="locator"></div>
+                <p id="takeaway"></p>
+                <div id="objective-tags"></div>
+              </div>
+            </aside>
+          </div>
+          <section
+            id="concept"
+            class="concept"
+            aria-labelledby="concept-title"
+          ></section>
+          <section id="lab" class="lab" aria-labelledby="lab-title"></section>
+          <section
+            id="worked"
+            class="worked"
+            aria-labelledby="worked-title"
+          ></section>
+          <section class="consequences" id="consequences"></section>
+          <section
+            id="practice"
+            class="practice"
+            aria-labelledby="practice-title"
+          ></section>
+          <section
+            id="evidence"
+            class="evidence"
+            aria-labelledby="evidence-title"
+          ></section>
+          <footer class="lesson-footer">
+            <button id="previous">← Previous</button><span id="position"></span
+            ><button id="next">Next lesson →</button>
+          </footer>
+        </article>
+      </main>
+    </div>
+    <noscript
+      ><p class="no-script">
+        This reader uses JavaScript for navigation.
+        <a href="EXPANDED_COURSE.md">Read the complete Markdown course</a>.
+      </p></noscript
+    >
+    <script id="expanded-data" type="application/json">
+      __EXPANDED_COURSE__
+    </script>
+    <script>
+      __READER_SCRIPT__;
+    </script>
+  </body>
+</html>

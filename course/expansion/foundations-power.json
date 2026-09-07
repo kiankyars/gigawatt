@@ -1,0 +1,2128 @@
+[
+  {
+    "id": "d01-boundaries",
+    "domain": "D01",
+    "title": "One rack, three paths",
+    "question": "What crosses the boundary of a working data center?",
+    "summary": "Trace electricity, heat, and information through a nested system, then close a facility energy balance without counting any load twice.",
+    "takeaway": "Choose the boundary before adding watts; useful computation does not remove the heat obligation.",
+    "objectives": [
+      "D01.1",
+      "D01.3"
+    ],
+    "sections": [
+      {
+        "heading": "Start with a place, then trace a connection",
+        "paragraphs": [
+          "Imagine standing in front of a rack: a cabinet holding computing equipment and the hardware that supports it. A server is a computer inside that cabinet; a board connects components inside a server; a package contains one or more semiconductor dies. A row holds several racks, a hall several rows, a building one or more halls, and a campus one or more buildings plus shared infrastructure. These are locations nested inside locations. None of those words specifies a universal power requirement.",
+          "Now draw three paths through the same picture. Electrical energy arrives through conductors and conversion equipment. Heat leaves through air, liquid, and heat-transfer equipment. Information arrives, moves between machines, and leaves through communication links. Their arrows mean different things. Coolant circulates around a loop; heat crosses an exchanger between separate loops. Data may travel both ways along a link while electrical energy continues to enter the associated equipment. Giving each arrow a clear meaning prevents an attractive drawing from teaching a false connection.",
+          "A boundary is the imaginary line around the equipment you are accounting for. Draw it tightly around a processor and its regulators may lie outside. Draw it around a rack and those regulators, fans, and power supplies may all be inside. Draw it around the facility and cooling pumps and outdoor rejection equipment enter the account. Widening a boundary changes which loads must be counted; it does not physically change their consumption. Always ask where the meter sits relative to that line."
+        ]
+      },
+      {
+        "heading": "Close the ledger without throwing computation away",
+        "paragraphs": [
+          "Suppose ten hypothetical racks draw 100 kW each at their inlets. Dedicated network and storage equipment outside those racks draws another 100 kW. The IT total is therefore 1,100 kW. Upstream electrical conversion dissipates 40 kW, cooling machinery draws 160 kW, and other facility equipment draws 20 kW. These are distinct, nonoverlapping categories. Adding them gives 1,320 kW at the facility input. The network equipment counts as IT even though its job is to connect computers rather than execute the main model.",
+          "Over a steady interval, nearly all that electrical input ultimately becomes heat. Computing creates valuable results, but those results are not a large competing energy outlet that can be subtracted from the cooling requirement. Our 1,100 kW of IT therefore imposes approximately 1,100 kW of IT heat removal. The remaining electrical loads add heat elsewhere. Exactly where compressor and pump input enters the thermal system depends on the chosen boundary; we need not pretend that all 1,320 kW passes through the rack coolant.",
+          "The word approximately matters. Stored electrical energy and warming material can change during a transient, and small energy streams can cross through light or other signals. Our simplified balance assumes those effects are negligible over the chosen steady interval. This is a useful engineering approximation, not an assertion that every joule takes an identical microscopic path. If equipment is warming because heat removal has failed, the missing heat is temporarily accumulating, so the steady-state balance cannot be used unchanged."
+        ]
+      },
+      {
+        "heading": "Use the mismatch to find a mistake",
+        "paragraphs": [
+          "A second analyst adds 1,000 kW of rack power, 80 kW of rack power-supply losses, and the 100 kW networking load. The sum is wrong if the 1,000 kW was measured at rack inlets: the supplies already consume their power inside that boundary. Their 80 kW is an internal allocation of the rack total. It becomes an extra term only if the stated 1,000 kW was delivered downstream of the supplies. One changed meter location changes the arithmetic, even though all the equipment names remain identical.",
+          "A detailed ledger is more work than one campus number, but it allows a useful question: did an improvement reduce electrical losses, cooling overhead, or the energy required per completed task? Those are different mechanisms. Reducing rack input by 100 kW normally reduces the corresponding heat source, whereas merely moving a converter outside the rack moves a heat-accounting boundary. A visually smaller rack loss does not prove that the facility uses less energy.",
+          "Test yourself by removing the cooling power arrow while leaving IT electricity connected. The diagram should not imply continued indefinite operation. The rack remains an active heat source without a complete removal path. The immediate temperature history requires thermal storage, flow, controls, and equipment limits that this ledger does not contain. We can identify the missing dependency without inventing a shutdown time. That habit will carry through every later electrical and thermal comparison."
+        ]
+      }
+    ],
+    "example": {
+      "title": "Account for one hypothetical facility",
+      "assumptions": [
+        "All values are simultaneous steady real power.",
+        "Rack inlet totals already include their internal power supplies and fans.",
+        "Dedicated networking/storage lies outside the ten rack totals."
+      ],
+      "steps": [
+        {
+          "label": "Compute-rack input",
+          "expression": "10 × 100 kW = 1,000 kW",
+          "explanation": "Multiply the per-rack measured input by the number of identical racks."
+        },
+        {
+          "label": "All IT",
+          "expression": "1,000 + 100 = 1,100 kW",
+          "explanation": "Include separately metered networking and storage once."
+        },
+        {
+          "label": "Facility input",
+          "expression": "1,100 + 40 + 160 + 20 = 1,320 kW",
+          "explanation": "Add electrical, cooling, and other facility loads at matching boundaries."
+        },
+        {
+          "label": "Four-hour energy",
+          "expression": "1,320 kW × 4 h = 5,280 kWh",
+          "explanation": "Holding the stated load constant turns a rate into an energy total."
+        }
+      ],
+      "result": "The facility draws 1.32 MW; IT contributes approximately 1.10 MW of heat.",
+      "boundary": "The heat figure concerns IT equipment; it is not the duty of a specified outdoor cooling device."
+    },
+    "tradeoff": {
+      "choice": "Use subsystem meters instead of a single aggregate total.",
+      "benefit": "You can locate changes and avoid overlapping categories.",
+      "cost": "More measurement points and careful time alignment are required."
+    },
+    "failure": {
+      "trigger": "IT remains powered while its only heat-removal path fails.",
+      "mechanism": "Electrical input continues to become heat, so thermal storage grows instead of remaining steady.",
+      "response": "Identify the unsupported thermal path and require a thermal model before predicting duration."
+    },
+    "practice": {
+      "question": "If 80 kW of the ten racks’ measured input is internal supply loss, should facility power become 1,400 kW?",
+      "hint": "Ask whether the supply loss is already inside the rack inlet measurement.",
+      "answer": "No. It remains 1,320 kW.",
+      "reasoning": "The 80 kW is part of the 1,000 kW rack inlet total. Add it separately only when starting from a downstream power boundary that excludes it."
+    },
+    "sources": [
+      {
+        "title": "EIA — Laws of energy",
+        "url": "https://www.eia.gov/energyexplained/what-is-energy/laws-of-energy.php",
+        "claim": "Energy changes form rather than disappearing; the ledger uses conservation.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Read the public energy-conservation explanation. The campus quantities and deductions are original hypothetical examples."
+      },
+      {
+        "title": "DOE — Best Practices Guide for Energy-Efficient Data Center Design",
+        "url": "https://www.energy.gov/sites/default/files/2024-07/best-practice-guide-data-center-design_0.pdf",
+        "claim": "Data-center accounting separates IT, electrical, and cooling systems.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Read the guide overview and relevant system/metrics material; no named facility configuration or operating measurement is inferred."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Boundary",
+        "definition": "The chosen line separating equipment included in an account from equipment outside it."
+      },
+      {
+        "term": "IT load",
+        "definition": "Electrical consumption of the computing, networking, and storage equipment within the stated scope."
+      },
+      {
+        "term": "Steady state",
+        "definition": "An interval in which stored energy is not changing enough to affect the simplified balance."
+      }
+    ],
+    "visual": {
+      "kind": "flow",
+      "title": "Three paths, one rack",
+      "nodes": [
+        {
+          "label": "Electricity in",
+          "detail": "1,100 kW to IT in the example"
+        },
+        {
+          "label": "Information processed",
+          "detail": "Results and communication; no large energy subtraction"
+        },
+        {
+          "label": "Heat out",
+          "detail": "Approximately 1,100 kW from IT"
+        }
+      ],
+      "caption": "The energy balance follows the electrical and thermal arrows; the information arrow describes the service."
+    }
+  },
+  {
+    "id": "d01-power-over-time",
+    "domain": "D01",
+    "title": "A megawatt is not a megawatt-hour",
+    "question": "How can two facilities use equal energy but need different electrical capacity?",
+    "summary": "Integrate a stepped load profile, distinguish average and peak demand, and test what interval sampling hides.",
+    "takeaway": "Capacity constrains a rate; energy adds that rate across time.",
+    "objectives": [
+      "D01.2",
+      "D01.3"
+    ],
+    "sections": [
+      {
+        "heading": "Read the height and the area",
+        "paragraphs": [
+          "Power tells you how quickly energy is transferred. One watt is one joule per second; a kilowatt is one thousand watts, and a megawatt is one thousand kilowatts. Energy includes duration. One megawatt-hour is the energy transferred by a constant one-megawatt rate for one hour. The hour is multiplied by the power, not divided into it. A battery described as one megawatt-hour does not necessarily have a one-megawatt output capability.",
+          "Draw time horizontally and power vertically. The height answers how much power the system must deliver at that moment. The area under the trace answers how much energy was delivered during an interval. A rectangular segment has width measured in hours and height measured in megawatts, so its area is measured in megawatt-hours. For a stepped trace, find each rectangle's area and add them. This is the same idea used by integration, without requiring calculus.",
+          "A capacity rating is a limit or capability stated under conditions. A measured load is what equipment actually draws. If a service is rated 12 MW, the most we can say from that number alone is that a specified capacity claim exists at that boundary. We cannot conclude that the site draws 12 MW continuously, that its cooling can remove the associated heat, or that IT is installed. Even multiplying 12 MW by a year only creates an energy ceiling under the added assumption of continuous full loading."
+        ]
+      },
+      {
+        "heading": "Calculate a day, then change its shape",
+        "paragraphs": [
+          "Consider a synthetic 24-hour facility trace: 6 MW for eight hours, 10 MW for twelve hours, and 4 MW for four hours. The three energy blocks are 48, 120, and 16 MWh. Together they total 184 MWh. To find the average power, spread that energy evenly across the same 24 hours: 184 divided by 24 is about 7.67 MW. The maximum stated segment is still 10 MW. The average has not made a 7.67 MW connection sufficient for the original trace.",
+          "Now imagine moving flexible work so the facility consumes exactly 7.67 MW all day. The total energy remains 184 MWh in this ideal thought experiment, while peak demand falls. That illustrates why scheduling can affect infrastructure capacity even when work and energy remain unchanged. A real rescheduling change might alter cooling efficiency, queue delay, job completion time, and total energy. We held those effects fixed to isolate the shape of demand; the calculation does not promise they are absent.",
+          "Look at the headroom under a 12 MW service rating. During the 10 MW segment, the arithmetic difference is 2 MW. During the 4 MW segment it is 8 MW. Neither number is a complete admission policy for a new workload. Other equipment, redundancy requirements, and fast excursions may bind first. An arithmetic margin at a meter is useful evidence, but it is not transferable capacity everywhere downstream of that meter."
+        ]
+      },
+      {
+        "heading": "Measurement resolution changes the question",
+        "paragraphs": [
+          "Suppose a displayed five-minute average is 8 MW. That display could come from a constant 8 MW draw. It could also come from one minute at 12 MW followed by four minutes at 7 MW: the energy-equivalent average is (12 + 4 × 7) divided by 5, also 8 MW. These traces are indistinguishable to the average yet impose different peak demands. When investigating a disturbance, collect measurements at a timescale capable of seeing the behavior in question.",
+          "The converse mistake is turning a brief spike into a full-day energy assumption. A one-minute excursion may matter to control and protection while adding little to the daily energy total. Quantify both before deciding what to change. A storage device might smooth a short peak if its power, usable energy, controls, and connection permit it. It cannot be selected merely by comparing the daily MWh with a capacity label.",
+          "There is also an operational tradeoff. Flattening a flexible training workload may reduce peaks but postpone completion. Flattening interactive demand by making people wait changes the service being delivered. A fair comparison therefore keeps the workload deadline or latency requirement beside the power trace. If the service requirement changes, acknowledge that change instead of reporting a pure electrical improvement.",
+          "When you read an energy bill, equipment rating, or monitoring graph, name four things before calculating: the electrical boundary, the units, the duration, and whether the value is a measurement or a rating. Those four labels determine which arithmetic is meaningful. They also prevent a monthly energy total from masquerading as a transient power model, or a large planned connection from masquerading as electricity already consumed."
+        ]
+      }
+    ],
+    "example": {
+      "title": "A three-level daily load",
+      "assumptions": [
+        "The three constant segments cover a full day without overlap.",
+        "All loads are measured at the same facility input."
+      ],
+      "steps": [
+        {
+          "label": "First segment",
+          "expression": "6 MW × 8 h = 48 MWh",
+          "explanation": "Area equals power multiplied by time."
+        },
+        {
+          "label": "Second segment",
+          "expression": "10 MW × 12 h = 120 MWh",
+          "explanation": "A higher plateau contributes more energy per hour."
+        },
+        {
+          "label": "Third segment",
+          "expression": "4 MW × 4 h = 16 MWh",
+          "explanation": "Add the last interval, not its power alone."
+        },
+        {
+          "label": "Daily total and average",
+          "expression": "48 + 120 + 16 = 184 MWh; 184 / 24 = 7.67 MW",
+          "explanation": "Divide energy by the full duration to recover average power."
+        }
+      ],
+      "result": "Average demand is 7.67 MW, while the stated peak is 10 MW.",
+      "boundary": "These segment averages do not establish subinterval peaks or equipment transient response."
+    },
+    "tradeoff": {
+      "choice": "Shift flexible work from the 10 MW interval to quieter intervals.",
+      "benefit": "The peak may fall while the same daily energy and work are preserved in the simplified model.",
+      "cost": "Jobs may finish later, and actual energy efficiency can change with scheduling and weather."
+    },
+    "failure": {
+      "trigger": "Use a five-minute average to assess a one-minute limit violation.",
+      "mechanism": "Averaging can hide the peak that challenged the electrical system.",
+      "response": "Compare the relevant time-resolved trace with the applicable limit and measurement boundary."
+    },
+    "practice": {
+      "question": "A 2 MW excursion lasts 90 seconds. How much extra energy is it, and does that determine the storage output rating?",
+      "hint": "Convert 90 seconds to hours before multiplying.",
+      "answer": "Extra energy is 0.05 MWh, or 50 kWh; the output power must separately support the 2 MW excursion.",
+      "reasoning": "Ninety seconds is 90/3,600 = 0.025 hours. Multiplying by 2 MW gives 0.05 MWh. Energy alone says nothing about whether an inverter can deliver 2 MW."
+    },
+    "sources": [
+      {
+        "title": "EIA — Measuring electricity",
+        "url": "https://www.eia.gov/energyexplained/electricity/measuring-electricity.php",
+        "claim": "kW and MW measure power; kWh and MWh include elapsed time.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Read the public unit definitions. All traces, durations, averages, and practice values are original."
+      },
+      {
+        "title": "OpenStax — Electrical Energy and Power",
+        "url": "https://openstax.org/books/university-physics-volume-2/pages/9-5-electrical-energy-and-power",
+        "claim": "Electrical power is a rate of energy transfer.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Read the power definition and equations; the source is not a data-center telemetry or transient specification."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Average power",
+        "definition": "Total energy divided by the matching observation duration."
+      },
+      {
+        "term": "Peak demand",
+        "definition": "The largest measured or specified power value over a stated time resolution."
+      },
+      {
+        "term": "Load profile",
+        "definition": "Power as a function of time at a declared measurement point."
+      }
+    ],
+    "visual": {
+      "kind": "timeline",
+      "title": "Same energy, different capacity",
+      "nodes": [
+        {
+          "label": "Hours 0–8",
+          "detail": "6 MW → 48 MWh"
+        },
+        {
+          "label": "Hours 8–20",
+          "detail": "10 MW → 120 MWh"
+        },
+        {
+          "label": "Hours 20–24",
+          "detail": "4 MW → 16 MWh"
+        },
+        {
+          "label": "Equivalent flat trace",
+          "detail": "184 / 24 = 7.67 MW"
+        }
+      ],
+      "caption": "Rectangle area represents energy; the tallest rectangle determines the stated segment peak."
+    }
+  },
+  {
+    "id": "d01-metrics-and-evidence",
+    "domain": "D01",
+    "title": "Attach a denominator and a date",
+    "question": "What does an efficiency or capacity claim actually establish?",
+    "summary": "Reconcile facility and IT metrics, then separate engineering laws, scenarios, product specifications, and operating evidence.",
+    "takeaway": "A useful claim has a defined boundary, time window, evidence type, and limit on what follows from it.",
+    "objectives": [
+      "D01.3",
+      "D01.4"
+    ],
+    "sections": [
+      {
+        "heading": "A ratio answers the question in its denominator",
+        "paragraphs": [
+          "Suppose a facility meter records 240 MWh over a day. Matching IT meters record 192 MWh, including networking and storage. The ratio of facility to IT energy is 240 divided by 192, or 1.25. The overhead is 48 MWh. Relative to IT, that overhead is 48/192 = 25 percent; relative to total facility energy, it is 48/240 = 20 percent. Both percentages are correct. Their denominators differ, so their meanings differ.",
+          "For this lesson call 1.25 the observed daily facility-to-IT energy ratio. Do not silently present a one-day exercise as a compliant annual PUE report. Formal reporting rules define measurement categories and periods, and those requirements must be followed when claiming the metric. More fundamentally, an energy ratio over any period is not automatically the instantaneous power ratio at a hot afternoon peak or during an outage. An annual summary cannot supply an unmeasured plant operating curve.",
+          "Now add service. Assume the same system completes 96,000 successful jobs under a fixed workload definition that day. It uses 240,000 kWh divided by 96,000 jobs, or 2.5 kWh per completed job at the facility boundary. Using IT energy instead gives 2 kWh per job. These are different useful measurements. A compute-only submeter might give another value. State whether the job count includes failures, retries, and jobs that missed their deadline; otherwise the denominator can improve on paper while users receive a worse service."
+        ]
+      },
+      {
+        "heading": "Compare outcomes without changing the test",
+        "paragraphs": [
+          "Consider two hypothetical days with the same accepted workload and completion count. Day A uses 240 MWh facility energy and 192 MWh IT energy. Day B uses 228 MWh facility energy and 180 MWh IT energy. Day B has a slightly larger facility-to-IT ratio: 228/180 is about 1.267. Yet it uses less total energy for the same useful work. Its overhead remains 48 MWh while IT energy falls. Judging only by the overhead ratio would punish the better total-energy result.",
+          "Reverse the experiment. Add an unnecessary 20 MWh of IT consumption without changing useful output or facility overhead. The ratio falls because the denominator grows, even though total electricity use increases. This is not a reason to abandon overhead metrics. It is a reason to pair each metric with the outcome it cannot measure. Facility overhead, workload efficiency, resource use, and availability are separate questions. A dashboard should keep them separate rather than compressing them into one score.",
+          "Fair comparisons require matching conditions. A faster or lower-energy run at a different model quality, precision, input length, batch size, or failure policy is not automatically an improvement for the original service. Record the changed condition and decide whether it is acceptable. The same discipline applies to a site case: a source-side connection rating and a rack count collected months apart cannot be combined as though they were simultaneous measurements of one commissioned configuration."
+        ]
+      },
+      {
+        "heading": "Sort evidence before drawing a conclusion",
+        "paragraphs": [
+          "Classify six example statements. First, energy is conserved: that is a physical principle, with the chosen boundary determining the bookkeeping. Second, this exercise assumes each rack draws 100 kW: that is a teaching input. Third, a manufacturer's document rates a product at a specified voltage and load: that is a product specification under its stated conditions. Fourth, an operator reports that a particular building began a named workload on a particular date: that is a dated operating claim, whose scope is limited by the evidence supplied.",
+          "Fifth, a developer announces a future campus capacity: that establishes a stated intention, not installed equipment. Sixth, an analyst predicts a future architecture's market share: that is a forecast, not a measurement. A credible author can produce several of these evidence types in one article. Authority does not make the types interchangeable. Preserve the distinction in notes and diagrams so a forecast never quietly becomes the assumed as-built configuration of a real facility.",
+          "To call additional capacity operational, ask what complete service path has been established. The answer may require connection status, installed and accepted electrical equipment, cooling at the applicable conditions, configured IT, and actual workload evidence. Different questions need different documents. Commissioning reports establish tested behavior within their scope; they do not by themselves establish months of productive utilization. One building may be operating while the rest of the campus is still in construction.",
+          "The practical payoff is precision rather than skepticism for its own sake. You can calculate confidently when the scenario supplies the necessary inputs, and you can stop cleanly when a real claim does not. Mark the missing fact and the evidence that would resolve it. That produces a useful question for an operator or source author instead of a spurious decimal produced by multiplying unrelated headline numbers."
+        ]
+      }
+    ],
+    "example": {
+      "title": "An overhead ratio can rise while energy per job improves",
+      "assumptions": [
+        "Both days complete 96,000 identical accepted jobs.",
+        "Facility and IT energy use matching daily intervals.",
+        "The exercise is not an annual PUE report."
+      ],
+      "steps": [
+        {
+          "label": "Day A ratio",
+          "expression": "240 / 192 = 1.25",
+          "explanation": "Facility energy is the numerator and IT energy the denominator."
+        },
+        {
+          "label": "Day B ratio",
+          "expression": "228 / 180 = 1.267",
+          "explanation": "Fixed 48 MWh overhead occupies a larger share of the reduced IT total."
+        },
+        {
+          "label": "Day A service energy",
+          "expression": "240,000 / 96,000 = 2.50 kWh/job",
+          "explanation": "Convert MWh to kWh before dividing."
+        },
+        {
+          "label": "Day B service energy",
+          "expression": "228,000 / 96,000 = 2.375 kWh/job",
+          "explanation": "The same accepted service uses five percent less facility energy."
+        }
+      ],
+      "result": "Day B improves energy per job despite a higher overhead ratio.",
+      "boundary": "This comparison holds service quality, workload definition, completion count, and time window fixed."
+    },
+    "tradeoff": {
+      "choice": "Optimize an overhead metric alone.",
+      "benefit": "It highlights facility energy outside IT and helps track that category.",
+      "cost": "It cannot establish computing productivity and can move opposite to total energy per useful result."
+    },
+    "failure": {
+      "trigger": "Combine an announced connection with an unrelated rack specification to report operating compute.",
+      "mechanism": "The calculation supplies missing deployment, configuration, and utilization facts without evidence.",
+      "response": "Label the output as a conditional scenario or leave the operating quantity unknown."
+    },
+    "practice": {
+      "question": "A facility uses 150 MWh while IT uses 120 MWh. Is its 30 MWh overhead 20 percent or 25 percent?",
+      "hint": "Write the denominator next to each percentage.",
+      "answer": "It is 20 percent of facility energy and 25 percent of IT energy.",
+      "reasoning": "Thirty divided by 150 is 0.20; thirty divided by 120 is 0.25. Neither ratio says how many useful jobs the site completed."
+    },
+    "sources": [
+      {
+        "title": "DOE — Best Practices Guide for Energy-Efficient Data Center Design",
+        "url": "https://www.energy.gov/sites/default/files/2024-07/best-practice-guide-data-center-design_0.pdf",
+        "claim": "Facility efficiency metrics require defined IT and facility boundaries.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Read relevant metrics discussion; this lesson intentionally uses daily ratios rather than claiming standards-compliant annual PUE."
+      },
+      {
+        "title": "MLCommons — MLPerf Inference: Datacenter",
+        "url": "https://mlcommons.org/benchmarks/inference-datacenter/",
+        "claim": "Benchmark energy/performance comparisons declare workload scenarios and measurement boundaries.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Read the public benchmark and power-measurement descriptions, not every result or implementation."
+      },
+      {
+        "title": "ASHRAE — Commissioning & Performance Validation",
+        "url": "https://www.ashrae.org/technical-resources/ai-data-center-framework/commissioning-performance-validation",
+        "claim": "Commissioning and documented performance validation have a defined scope and evidentiary role.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Read the public framework discussion; no project report or full paid standard was reviewed."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Denominator",
+        "definition": "The quantity by which another quantity is divided; it determines what a ratio means."
+      },
+      {
+        "term": "Operating evidence",
+        "definition": "Dated evidence of actual operation within a stated site and equipment scope."
+      },
+      {
+        "term": "Forecast",
+        "definition": "A prediction about a future state, distinct from an observed result."
+      }
+    ],
+    "visual": {
+      "kind": "comparison",
+      "title": "The denominator changes the verdict",
+      "nodes": [
+        {
+          "label": "Day A",
+          "detail": "240 MWh facility / 192 MWh IT; 2.50 kWh/job"
+        },
+        {
+          "label": "Day B",
+          "detail": "228 MWh facility / 180 MWh IT; 2.375 kWh/job"
+        },
+        {
+          "label": "What stayed fixed",
+          "detail": "96,000 accepted jobs; 48 MWh overhead"
+        }
+      ],
+      "caption": "A higher overhead ratio can coexist with lower energy per completed job."
+    }
+  },
+  {
+    "id": "d02-workload-brief",
+    "domain": "D02",
+    "title": "Design for a job, not a rack count",
+    "question": "What must the infrastructure deliver for this workload to count as successful?",
+    "summary": "Turn contrasting training and inference requests into explicit compute, memory, communication, storage, and service requirements.",
+    "takeaway": "Start with accepted work and its constraints; hardware quantities follow from a measured workload model.",
+    "objectives": [
+      "D02.1",
+      "D02.4"
+    ],
+    "sections": [
+      {
+        "heading": "A request for accelerators leaves the problem undefined",
+        "paragraphs": [
+          "A team asks for 64 accelerators. Before deciding what building infrastructure they need, ask what those accelerators must accomplish. One team may want to complete a training experiment before a deadline. Another may need to answer interactive requests within a latency target while traffic varies. Training changes model parameters by processing examples and updating state. Inference uses a configured model to produce outputs. Both can occupy similar equipment, yet their service requirements can differ substantially.",
+          "An infrastructure brief makes those requirements explicit. Name the model and implementation, numerical representation, input sizes, output or quality criterion, expected concurrency, and measurement period. For training, define the accepted progress or completed workload, not merely how long a process runs. For inference, define successful requests, response-time requirements, and the traffic pattern. A tokens-per-second number without input/output lengths and latency conditions can hide a very different service.",
+          "Translate the brief into several interacting resources. Parameters and working state need memory; arithmetic needs processors; distributed work exchanges data; input and checkpoints use storage; all equipment needs electrical and thermal capacity. The resource list alone is insufficient. Ask how much of each resource the job needs at each phase, what can overlap, and what happens if one arrives late. The measured training step or request timeline connects the software requirement to the physical system."
+        ]
+      },
+      {
+        "heading": "Build a bounded memory and throughput estimate",
+        "paragraphs": [
+          "Use a hypothetical model with 12 billion parameters. Suppose inference stores each parameter in two bytes: the weights occupy 24 billion bytes, or 24 decimal GB. The selected workload additionally needs an assumed 20 GB for cache and temporary workspace, plus an 8 GB reservation. That produces a 52 GB memory budget. These extra quantities are inputs supplied by our hypothetical measurement, not universal multipliers. A different context length or batching policy can change them.",
+          "For a separate training configuration of the same parameter count, assume the supplied accounting is 16 bytes per parameter across weights, gradients, master weights, and optimizer state. That gives 192 GB. Add an assumed 64 GB of peak activations and working memory to reach 256 GB. Two devices with 80 GB each provide only 160 GB of aggregate capacity, so even a perfect partition cannot fit this stated budget. Four provide 320 GB in aggregate, which passes the first arithmetic screen.",
+          "Passing that screen does not establish that the workload fits or runs efficiently. The implementation must partition the state so no device exceeds its own capacity, preserve necessary buffers, and communicate intermediate information. Four separate 80 GB pools are not automatically one unrestricted 320 GB pool. Conversely, techniques that change state representation or recomputation may reduce memory at the expense of arithmetic, communication, or complexity. Keep those changes explicit instead of quietly altering the original brief.",
+          "Now suppose a supplied benchmark reports 400 accepted training samples per second for a particular eight-device configuration. If the same performance is sustained for 20 hours, the arithmetic is 400 × 20 × 3,600 = 28.8 million samples. That is a conditional throughput estimate. It does not prove convergence, because progress per example and the stopping criterion are separate parts of the experiment. It also does not predict a 64-device result by multiplying by eight without a scaling measurement."
+        ]
+      },
+      {
+        "heading": "Write acceptance criteria that survive a demonstration",
+        "paragraphs": [
+          "A useful acceptance statement might say: the specified inference service must process at least 120 accepted requests per second under the supplied arrival trace, with a declared percentile of end-to-end response times below the agreed limit. It must use the named model quality and input/output distributions, within a specified system power envelope. State which failures or maintenance conditions are included. The actual numbers are application choices; the form prevents a fast demonstration from silently changing the test.",
+          "For training, specify a complete job or validated progress target and its completion deadline, including input staging, checkpoint overhead, expected recoveries, and final output handling. Separate sustained service from a best short interval. A fast kernel benchmark verifies that kernel on its tested configuration. It does not establish storage recovery behavior, production tail latency, or cooling capacity during the hottest allowed condition. Benchmarks become valuable when their scope matches a question rather than being asked to certify the whole facility.",
+          "There is a consequential choice between buying headroom and narrowing the supported workload envelope. Larger memory and additional infrastructure may accommodate broader future demands, but capacity held in reserve costs money and still requires compatible interfaces. Narrowing the brief can produce a more efficient system for a specific job, yet a later workload change may force a redesign. Record uncertainty as an explicit range or scenario, so the team can decide where flexibility is worth paying for.",
+          "When someone converts site megawatts straight into tokens, this brief is the missing bridge. Electricity establishes a resource budget. A declared workload model and measurements establish how the system turns that budget into accepted service. Neither substitutes for the other. The correct answer to an underspecified brief is a short list of measurements or decisions that would make it solvable."
+        ]
+      }
+    ],
+    "example": {
+      "title": "Two memory envelopes for one parameter count",
+      "assumptions": [
+        "Decimal GB means one billion bytes.",
+        "All per-parameter and workspace values are hypothetical inputs.",
+        "Device capacity is 80 GB; no unlisted memory overhead is assumed in the screening calculation."
+      ],
+      "steps": [
+        {
+          "label": "Inference weights",
+          "expression": "12 × 10^9 parameters × 2 bytes = 24 GB",
+          "explanation": "Parameter count multiplied by bytes per parameter gives storage."
+        },
+        {
+          "label": "Inference total",
+          "expression": "24 + 20 + 8 = 52 GB",
+          "explanation": "Add measured/assumed workspace and the declared reservation."
+        },
+        {
+          "label": "Training state",
+          "expression": "12 × 10^9 × 16 bytes = 192 GB",
+          "explanation": "The supplied training representation keeps more state than the inference weights."
+        },
+        {
+          "label": "Training peak",
+          "expression": "192 + 64 = 256 GB",
+          "explanation": "Two devices provide 160 GB and fail this aggregate screen; four provide 320 GB but still require a valid partition."
+        }
+      ],
+      "result": "The same model count produces different memory requirements under different workloads.",
+      "boundary": "These are hypothetical state budgets, not measured requirements for a named model or a guarantee of multi-device fit."
+    },
+    "tradeoff": {
+      "choice": "Reserve capacity for a broader workload envelope.",
+      "benefit": "Future inputs, concurrency, or implementations may fit without replacing the system.",
+      "cost": "Additional capacity costs money and can remain unused; aggregate capacity still needs a workable partition."
+    },
+    "failure": {
+      "trigger": "Accept a short compute benchmark as proof of production service.",
+      "mechanism": "The test excludes queueing, data movement, recovery, or the required workload distribution.",
+      "response": "Match acceptance conditions to the actual service and measure the missing phases."
+    },
+    "practice": {
+      "question": "If inference workspace rises from 20 to 44 GB while the other assumptions stay fixed, does the 80 GB device pass the arithmetic screen?",
+      "hint": "Keep weights and reservation separate from the changed workspace.",
+      "answer": "Yes: 24 + 44 + 8 = 76 GB, leaving 4 GB beyond the stated budget.",
+      "reasoning": "This is only a capacity screen. Unmodeled overhead, implementation allocation, and workload performance still need measurement."
+    },
+    "sources": [
+      {
+        "title": "NVIDIA — DGX SuperPOD Key Components",
+        "url": "https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/dgx-superpod-components.html",
+        "claim": "A documented AI cluster architecture includes compute, management, networking, and storage components.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Read the public component and design-requirement page for the H100 reference architecture; no product count or performance is copied into the hypothetical brief."
+      },
+      {
+        "title": "MLCommons — MLPerf Inference: Datacenter",
+        "url": "https://mlcommons.org/benchmarks/inference-datacenter/",
+        "claim": "Benchmark results depend on a declared workload scenario and measurement conditions.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Read the public scenario and power-measurement descriptions; no named system performance is asserted."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Workload envelope",
+        "definition": "The set of inputs, concurrency, software settings, service targets, and operating conditions the system is intended to support."
+      },
+      {
+        "term": "Acceptance criterion",
+        "definition": "A measurable condition that defines whether the delivered system meets its stated requirement."
+      },
+      {
+        "term": "Workspace",
+        "definition": "Temporary or supporting memory required by an implementation in addition to its persistent model state."
+      }
+    ],
+    "visual": {
+      "kind": "comparison",
+      "title": "One model, two memory accounts",
+      "nodes": [
+        {
+          "label": "Inference",
+          "detail": "24 GB weights + 20 GB workspace + 8 GB reservation = 52 GB"
+        },
+        {
+          "label": "Training",
+          "detail": "192 GB state + 64 GB activations/workspace = 256 GB"
+        },
+        {
+          "label": "Device screen",
+          "detail": "80 GB per device; aggregate fit does not prove partition fit"
+        }
+      ],
+      "caption": "Memory follows the stated representation and workload, not parameter count alone."
+    }
+  },
+  {
+    "id": "d02-productive-utilization",
+    "domain": "D02",
+    "title": "Busy, powered, and productive are different",
+    "question": "Why can lower average power accompany worse energy per useful result?",
+    "summary": "Read allocation, execution, waiting, power, and accepted output as separate traces instead of treating one utilization percentage as the answer.",
+    "takeaway": "Define utilization by the resource and denominator; measure useful output independently of power.",
+    "objectives": [
+      "D02.2",
+      "D02.4"
+    ],
+    "sections": [
+      {
+        "heading": "Choose what your utilization number measures",
+        "paragraphs": [
+          "A scheduler can allocate every accelerator to a job while that job waits for storage. From the scheduler's perspective, the devices are occupied. From the user's perspective, useful progress may have stopped. Meanwhile the equipment still consumes electricity. These are not contradictory observations; they describe different quantities. Allocation tells us who has reserved the resource. A hardware activity counter describes some measured device behavior. Productive utilization asks how much useful service the available system delivers.",
+          "Be careful with the word occupancy. In this lesson, allocation occupancy means the fraction of accelerators assigned to a workload. Some programming tools use occupancy for a much narrower hardware scheduling concept. A shared word does not make those metrics interchangeable. Always attach the numerator, denominator, and interval: allocated device-seconds divided by available device-seconds, active execution time divided by observation time, or accepted output divided by a stated reference capability.",
+          "Even useful execution needs an outcome definition. Repeating a failed job can keep devices active and consume energy without increasing accepted completed work. Communication can be essential to progress, so time outside arithmetic kernels is not automatically waste. The diagnostic question is whether that time is necessary for this workload, avoidable under another configuration, or evidence of a fault. A timeline with phase labels is more informative than a single percentage stripped of context."
+        ]
+      },
+      {
+        "heading": "Compare two complete one-minute observations",
+        "paragraphs": [
+          "Take a hypothetical system observed for sixty seconds. During compute phases it draws 60 kW and produces 1,000 accepted samples per second. During waiting phases it draws 25 kW and produces no accepted samples. Case A spends 45 seconds computing and 15 seconds waiting. The accepted output is 45,000 samples. Energy is power multiplied by time in each state: (60 × 45 + 25 × 15) divided by 3,600 equals approximately 0.854 kWh.",
+          "Case B spends 30 seconds computing and 30 seconds waiting. It produces 30,000 samples and uses (60 × 30 + 25 × 30)/3,600, or approximately 0.708 kWh. Its average power is lower: 42.5 kW instead of 51.25 kW. That does not make it more efficient for the accepted service. Convert each energy total to joules by multiplying kWh by 3.6 million, then divide by output. Case A uses about 68.3 joules per sample; Case B uses 85 joules per sample.",
+          "Why does the less active system use more energy per accepted result? Each minute includes time spent drawing power while producing no new accepted samples. Case B spreads that waiting energy across fewer results. This is a property of the declared scenario, not a universal claim that every system should run at maximum power. A different operating point might reduce compute power enough to improve energy per sample. The measurements must settle that comparison under the same service conditions.",
+          "Now consider a third minute in which no job is assigned and the system draws 12 kW while producing zero output. The energy is 0.2 kWh. Energy per accepted sample is undefined because the denominator is zero. Reporting zero would suggest perfect efficiency, while reporting an arbitrary giant number would hide the mathematical issue. Report idle energy and the absence of accepted output directly."
+        ]
+      },
+      {
+        "heading": "Use the traces to select the next experiment",
+        "paragraphs": [
+          "If allocation remains high while compute phases shrink and storage waits grow, adding more accelerators may simply create more waiting clients. A useful next experiment changes the suspected constraint: pre-stage the same inputs, vary checkpoint timing, or compare runs with measured storage service. The goal is to distinguish competing explanations while preserving the workload definition. Changing several knobs at once may improve performance but make the cause impossible to identify.",
+          "A utilization target can also conflict with responsiveness. An inference service may intentionally keep spare capacity so arriving requests do not join a long queue. Filling every available execution slot can raise throughput while harming tail latency. The unoccupied interval is then part of the service design rather than an obvious inefficiency. Decide which tradeoff is acceptable using the response-time and traffic requirements in the workload brief.",
+          "For training, distinguish a fast step from a fast completed job. A configuration might execute arithmetic more quickly but save larger checkpoints, recover more slowly, or repeat more work after failures. Productive utilization over the whole job includes those consequences. The same lesson applies to availability: equipment that is powered and responds to a health check can still fail to deliver the intended user service.",
+          "Collect synchronized traces of allocation, relevant device activity, workload phases, system power, and accepted output. Compare changes on a common clock before assigning causality. Correlation between a power drop and lower progress narrows the question, but does not identify the failing subsystem by itself. The most useful conclusion states both what the evidence supports and the controlled measurement that would resolve the remaining uncertainty."
+        ]
+      }
+    ],
+    "example": {
+      "title": "Lower power, higher energy per accepted sample",
+      "assumptions": [
+        "All power is measured at the same system AC boundary.",
+        "Compute produces 1,000 accepted samples/s at 60 kW.",
+        "Waiting produces no accepted samples at 25 kW."
+      ],
+      "steps": [
+        {
+          "label": "Case A energy",
+          "expression": "(60 × 45 + 25 × 15) / 3,600 = 0.8542 kWh",
+          "explanation": "Power in kW times seconds is converted to kWh by dividing by seconds per hour."
+        },
+        {
+          "label": "Case A output",
+          "expression": "45 × 1,000 = 45,000 samples",
+          "explanation": "Only the declared compute interval contributes output."
+        },
+        {
+          "label": "Case B energy",
+          "expression": "(60 × 30 + 25 × 30) / 3,600 = 0.7083 kWh",
+          "explanation": "Less compute reduces total minute energy."
+        },
+        {
+          "label": "Normalize by service",
+          "expression": "A: 3,075,000 / 45,000 = 68.3 J/sample; B: 2,550,000 / 30,000 = 85 J/sample",
+          "explanation": "Energy per result includes waiting energy."
+        }
+      ],
+      "result": "Case B draws less average power but uses about 24.4 percent more energy per accepted sample.",
+      "boundary": "No GPU product, quality change, or facility-overhead behavior is represented."
+    },
+    "tradeoff": {
+      "choice": "Keep spare serving capacity to absorb incoming requests.",
+      "benefit": "Requests can begin sooner during bursts.",
+      "cost": "Average allocation can be lower, and idle energy must be included in the service account."
+    },
+    "failure": {
+      "trigger": "Count allocated hardware as useful work.",
+      "mechanism": "A job retains resources during waits, retries, or failures while the allocation metric stays high.",
+      "response": "Inspect synchronized phase and accepted-output traces, then test the suspected bottleneck."
+    },
+    "practice": {
+      "question": "Case C computes for 50 seconds and waits for 10 seconds under the same power/output assumptions. What is its energy per sample?",
+      "hint": "Use the full energy total, including the waiting interval.",
+      "answer": "65 J per accepted sample.",
+      "reasoning": "Energy is 60,000 × 50 + 25,000 × 10 = 3,250,000 J. Output is 50,000 samples. Dividing gives 65 J/sample."
+    },
+    "sources": [
+      {
+        "title": "MLCommons — MLPerf Inference: Datacenter",
+        "url": "https://mlcommons.org/benchmarks/inference-datacenter/",
+        "claim": "The public MLPerf power description measures the system AC boundary during the performance measurement.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Read the power-measurement description; this lesson uses its own synthetic traces and does not reproduce benchmark results."
+      },
+      {
+        "title": "NVIDIA — DGX SuperPOD Key Components",
+        "url": "https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/dgx-superpod-components.html",
+        "claim": "Compute, storage, and communication are distinct cooperating parts of a cluster.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Read the public architecture component page; the lesson makes no claim about a measured H100 utilization profile."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Allocated device-time",
+        "definition": "The amount of device capacity reserved for a job over a stated interval."
+      },
+      {
+        "term": "Accepted output",
+        "definition": "Results that satisfy the defined correctness, quality, and service conditions."
+      },
+      {
+        "term": "Energy per result",
+        "definition": "Energy within a specified boundary divided by accepted output during the matching interval."
+      }
+    ],
+    "visual": {
+      "kind": "timeline",
+      "title": "Two minutes with different useful output",
+      "nodes": [
+        {
+          "label": "Case A compute",
+          "detail": "45 s at 60 kW → 45,000 samples"
+        },
+        {
+          "label": "Case A wait",
+          "detail": "15 s at 25 kW → no added samples"
+        },
+        {
+          "label": "Case B compute",
+          "detail": "30 s at 60 kW → 30,000 samples"
+        },
+        {
+          "label": "Case B wait",
+          "detail": "30 s at 25 kW → no added samples"
+        }
+      ],
+      "caption": "Include energy under both compute and waiting segments before dividing by accepted output."
+    }
+  },
+  {
+    "id": "d02-phases-and-envelopes",
+    "domain": "D02",
+    "title": "The workload has a rhythm",
+    "question": "How do batching and synchronized phases change demand without changing installed equipment?",
+    "summary": "Connect request queues and job phases to latency, aggregate power, and the limits of a benchmark-derived design envelope.",
+    "takeaway": "The timing of work matters alongside its total amount; a mean load does not define a demand envelope.",
+    "objectives": [
+      "D02.3",
+      "D02.4",
+      "D02.1"
+    ],
+    "sections": [
+      {
+        "heading": "A batch trades waiting for a different execution shape",
+        "paragraphs": [
+          "An inference request can begin immediately or wait briefly so the server can process several requests together. A batch is that group of inputs executed together under the implementation's rules. Combining requests can improve throughput by changing how overhead and hardware work are shared. It can also add queueing delay. NVIDIA Triton's public documentation describes dynamic batching and a configurable delay limit; it does not promise that every model benefits or that a particular delay is safe for every service.",
+          "Use an original toy measurement: one request takes 8 milliseconds to execute, while a batch of four takes 20 milliseconds. With a permanently full queue, sequential single-request execution produces 1/0.008 = 125 requests per second. Full batches produce 4/0.020 = 200 requests per second. The batched path has higher throughput under those assumed measurements, but each batch still requires 20 milliseconds of execution after its requests have been gathered. Throughput is not the same quantity as one request's response time.",
+          "Suppose requests arrive every 6 milliseconds and a batch begins when four have arrived. They arrive at 0, 6, 12, and 18 milliseconds. Starting at 18 and finishing at 38 means the first request experiences 38 milliseconds from arrival to completion, while the fourth experiences 20. Their average is 29 milliseconds. This controlled example excludes network and other queueing delays. It exposes the mechanism: waiting to form the group changes different users' latency by different amounts.",
+          "At one arrival every six milliseconds, the incoming rate is about 166.7 requests per second. That already exceeds the assumed single-request execution capacity of 125 requests per second. Removing batch-gathering delay therefore does not solve the sustained service with one execution instance: its queue would grow. The comparison must satisfy both the arrival-rate requirement and the response-time requirement, rather than improving one while silently failing the other."
+        ]
+      },
+      {
+        "heading": "Shared phase timing changes the aggregate trace",
+        "paragraphs": [
+          "Now turn from serving requests to four independent hypothetical jobs. Each job's sixty-second cycle contains thirty seconds of compute at 120 kW, fifteen seconds of communication at 40 kW, and fifteen seconds of checkpointing at 60 kW. Those are scenario inputs, not a universal training waveform. One job uses 120 × 30 + 40 × 15 + 60 × 15 = 5,100 kW-seconds per cycle, so its average is 85 kW. Four jobs average 340 kW.",
+          "If all four begin each phase together, aggregate power is 480 kW during compute, 160 kW during communication, and 240 kW during checkpointing. If independent jobs can instead be offset by fifteen seconds, the idealized system always has two computing, one communicating, and one checkpointing. Aggregate power then stays at 2 × 120 + 40 + 60 = 340 kW. Cycle energy is unchanged because each job spends the same time in each state.",
+          "The condition of independence is essential. Participants in one distributed training job may need to reach a communication point together. Arbitrarily delaying one participant can make the others wait and change both completion time and the power profile. Even independent jobs may contend for the same fabric or storage. Our perfect staggering result is a controlled scheduling illustration, not a promise that a production cluster can achieve a flat trace without side effects.",
+          "The original synchronized step from 480 to 160 kW is a 320 kW change. If that transition occurs over two seconds in a supplied trace, its average rate of change over those two seconds is 160 kW per second downward. A five-minute average would not reveal that rate. Electrical equipment and controls encounter behavior on multiple timescales, so a facility brief must include the time resolution relevant to the particular question."
+        ]
+      },
+      {
+        "heading": "Specify the envelope a test must actually explore",
+        "paragraphs": [
+          "A workload design envelope combines several conditions: input sizes, concurrency, execution settings, traffic or phase timing, minimum accepted throughput, latency or deadline, and electrical/thermal limits. It also says which degraded states are supported. Write these down before running the demonstration. Otherwise, a test can succeed because its queue was permanently full, its input was unusually small, or its measurement omitted the difficult startup and recovery intervals.",
+          "For the toy inference example, a requirement below 30 milliseconds for every request would reject the four-request gathering behavior because the first request takes 38 milliseconds. The higher 200 requests/s full-queue throughput does not override the response-time requirement. A different batch limit, a shorter gathering delay, more execution instances, or a changed requirement might be appropriate. Each changes a stated mechanism, and each needs a new measurement under the intended arrival pattern.",
+          "For the job example, record both the 340 kW average and the synchronized phase values. If the proposed scheduling policy depends on staggering, verify that it preserves accepted work and remains effective when jobs start, finish, checkpoint, or recover at unexpected times. A power cap may reduce a peak while extending the job; a storage schedule may smooth writes while increasing recovery exposure. Those consequences belong in the decision, not in a footnote after the power graph.",
+          "A good benchmark narrows uncertainty. It can verify the tested implementation's response under declared conditions. It cannot by itself validate untested input distributions, multi-day failure behavior, or every operating state of the facility. Describe the boundary of what was tested, then select the next scenario most likely to challenge the design. That is how a workload measurement becomes a useful infrastructure requirement."
+        ]
+      }
+    ],
+    "example": {
+      "title": "Synchronized versus staggered independent jobs",
+      "assumptions": [
+        "Four identical, independent jobs each repeat a 60-second cycle.",
+        "Per job: 30 s at 120 kW, 15 s at 40 kW, and 15 s at 60 kW.",
+        "Staggering causes no extra waiting or resource contention in this model."
+      ],
+      "steps": [
+        {
+          "label": "One-job average",
+          "expression": "(120 × 30 + 40 × 15 + 60 × 15) / 60 = 85 kW",
+          "explanation": "Weight each power by its time fraction."
+        },
+        {
+          "label": "Four-job energy",
+          "expression": "4 × 5,100 / 3,600 = 5.667 kWh per cycle",
+          "explanation": "The same individual phase durations imply the same aggregate energy."
+        },
+        {
+          "label": "Synchronized maximum",
+          "expression": "4 × 120 = 480 kW",
+          "explanation": "All jobs occupy the high-power phase simultaneously."
+        },
+        {
+          "label": "Ideal staggered power",
+          "expression": "2 × 120 + 40 + 60 = 340 kW",
+          "explanation": "A fifteen-second offset maintains this composition of phases."
+        }
+      ],
+      "result": "The ideal staggering lowers the peak from 480 to 340 kW while preserving cycle energy.",
+      "boundary": "This result requires independent jobs and excludes contention; it cannot be imposed on synchronized workers without analysis."
+    },
+    "tradeoff": {
+      "choice": "Delay requests to form larger batches.",
+      "benefit": "The measured execution can produce more requests per second.",
+      "cost": "Gathering and execution delay may violate the service latency requirement."
+    },
+    "failure": {
+      "trigger": "Assume a smooth average remains smooth during synchronized job transitions.",
+      "mechanism": "Several jobs change phase together, creating a large aggregate step.",
+      "response": "Use a time-resolved workload envelope and test controls/scheduling against the relevant transitions."
+    },
+    "practice": {
+      "question": "In the four-request example, what are the four response times, and does every request meet a 30 ms target?",
+      "hint": "All finish at 38 ms; subtract each arrival time.",
+      "answer": "38, 32, 26, and 20 ms; the first two miss the target.",
+      "reasoning": "Average response time is 29 ms, yet an average below 30 ms does not mean every request meets a 30 ms requirement."
+    },
+    "sources": [
+      {
+        "title": "NVIDIA Triton — Batchers",
+        "url": "https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/user_guide/batcher.html",
+        "claim": "Dynamic batching can combine requests and introduce a configurable waiting interval.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Read the public dynamic-batcher and delayed-batching sections. All timings and throughput numbers in this lesson are hypothetical."
+      },
+      {
+        "title": "Vertiv — BESS and UPS roles in large data center power architecture",
+        "url": "https://www.vertiv.com/en-us/insights/articles/white-papers/bess-and-ups-roles-in-large-data-center-power-architecture/",
+        "claim": "Synchronized AI load changes motivate coordination across power-system levels.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Read the public white-paper landing page only, not the downloadable full white paper; no universal measured waveform is asserted."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Batch",
+        "definition": "A group of inputs processed together under the chosen execution policy."
+      },
+      {
+        "term": "Queueing delay",
+        "definition": "Time a request waits before its execution starts."
+      },
+      {
+        "term": "Demand envelope",
+        "definition": "Declared limits and patterns of demand, including the relevant timescales and operating conditions."
+      }
+    ],
+    "visual": {
+      "kind": "comparison",
+      "title": "Phase timing changes the peak",
+      "nodes": [
+        {
+          "label": "Synchronized compute",
+          "detail": "Four × 120 kW = 480 kW"
+        },
+        {
+          "label": "Synchronized communication",
+          "detail": "Four × 40 kW = 160 kW"
+        },
+        {
+          "label": "Ideal staggered composition",
+          "detail": "Two compute + one communication + one checkpoint = 340 kW"
+        }
+      ],
+      "caption": "Timing changes aggregate power only under the explicit independence and no-contention assumptions."
+    }
+  },
+  {
+    "id": "d03-power-and-procurement",
+    "domain": "D03",
+    "title": "A contract is not a cable",
+    "question": "How do energy purchases relate to the physical supply that keeps a rack running?",
+    "summary": "Separate the shared grid, commercial arrangements, and time-matched supply, then calculate the storage a matching claim leaves out.",
+    "takeaway": "Purchased energy and continuous physical service answer different questions; trace and quantify each separately.",
+    "objectives": [
+      "D03.1",
+      "D03.4"
+    ],
+    "sections": [
+      {
+        "heading": "Draw two relationships without confusing their arrows",
+        "paragraphs": [
+          "A data center connects electrically through an arrangement of conductors, substations, switches, protection, and upstream grid infrastructure. Those connections determine possible physical power paths. A commercial agreement describes purchases, prices, delivery obligations, or environmental attributes. It may be associated with generation somewhere on that grid, but the agreement is not an extra feeder into the building. Draw it with a different line style so it cannot be mistaken for a redundant electrical route.",
+          "EPA distinguishes a physical power purchase agreement, involving delivery or title to electricity under its arrangement, from a financial PPA that does not deliver electricity to the buyer. That distinction matters, but neither label alone establishes a dedicated generator-to-campus wire or uninterrupted supply. The actual location, contractual structure, utility arrangements, and physical connection still matter. This course uses the distinction to interpret claims, not to give procurement advice for a particular jurisdiction.",
+          "Environmental attributes require their own account. An attribute associated with a quantity of generation addresses the characteristic being claimed for that generation. It does not increase a cable's current limit or make a generator produce during an interval when it is unavailable. Keep the physical service, commercial energy, and attribute ledgers connected by explicit references, while preserving the different questions each can answer. That is more informative than coloring one grid wire green."
+        ]
+      },
+      {
+        "heading": "Equal daily totals can hide a half-day gap",
+        "paragraphs": [
+          "Consider a hypothetical facility drawing 10 MW for 24 hours. Its energy demand is 240 MWh. A separately described generation profile produces 20 MW for twelve hours and zero for twelve hours, also totaling 240 MWh. The matching annual or daily totals are equal. The profiles are not. During the generating interval, production exceeds this load by 10 MW. During the zero-production interval, the load exceeds production by 10 MW.",
+          "The time-matching surplus and deficit are each 10 MW × 12 h = 120 MWh. These are differences between two stated profiles, not a claim about the site's metered import and export. If the generator is elsewhere under a PPA, the campus may still physically import from the shared grid throughout the day. A physical meter reading depends on the actual electrical arrangement, not simply on subtracting contractual generation from campus demand.",
+          "Suppose we now construct a separate idealized system in which a battery can capture the entire surplus and later support the full 10 MW deficit. With perfect efficiency, it needs 120 MWh of usable output energy and at least 10 MW of output power. These are separate requirements. It also needs a compatible charge path, charge capability, controls, and an actual connection to the protected load. A 120 MWh store with a 2 MW output limit cannot supply the missing 10 MW service.",
+          "Real losses change the matching arithmetic. Assume a hypothetical 90 percent round-trip efficiency: 120 MWh put into storage returns only 108 MWh. That leaves 12 MWh of the later demand uncovered. Supplying the full 120 MWh from this storage would require 120/0.90 = 133.3 MWh of charging energy, more than the original 120 MWh surplus. Equal production and demand totals therefore cannot close this particular time-shifting balance once losses are included."
+        ]
+      },
+      {
+        "heading": "Choose which uncertainty you are solving",
+        "paragraphs": [
+          "A long-term energy agreement can address a commercial objective while leaving the site's connection schedule unresolved. Additional physical service can expand usable power while leaving energy cost or sourcing objectives unresolved. Storage can shift energy in time while leaving a protection or transfer problem unresolved. Each is valuable when matched to the requirement it can actually satisfy. The mistake is allowing one solution's label to stand in for the entire system.",
+          "Consider an outage during the nonproducing interval. If the hypothetical storage is connected only through an unavailable common bus, its energy inventory does not create an alternative path to the racks. If it is designed to support the relevant loads, the available duration still depends on its state of charge and discharge conditions at that moment. A system that has already used its energy for another purpose may have less reserve for an outage. Reserve policy is therefore a real tradeoff, not a free capacity multiplier.",
+          "For an on-site supply comparison, add fuel and operating constraints where relevant. A machine's output rating does not establish how long fuel can be supplied, whether it can operate independently of the grid, or what supporting equipment stays available. A photovoltaic installation is not automatically an island-capable microgrid simply because it sits on the same property. DOE's islanding description treats sources and loads as a coordinated system, with the required behavior at disconnection and reconnection.",
+          "When evaluating a supply claim, produce three small drawings or ledgers: the physical path, the commercial/attribute relationships, and the time-resolved energy balance. Then name what each leaves unresolved. This makes the claim actionable. Instead of arguing vaguely about whether a campus has enough power, you can ask whether the missing piece is a connection, deliverable capacity, a particular interval's energy, or the controls and reserve required to survive a disruption."
+        ]
+      }
+    ],
+    "example": {
+      "title": "Matching 240 MWh does not provide every hour",
+      "assumptions": [
+        "Facility load is a constant 10 MW for 24 h.",
+        "Generation is 20 MW for 12 h and zero for 12 h.",
+        "The storage exercise is a separately specified hypothetical physical arrangement."
+      ],
+      "steps": [
+        {
+          "label": "Load energy",
+          "expression": "10 × 24 = 240 MWh",
+          "explanation": "This is the demand profile area."
+        },
+        {
+          "label": "Generation energy",
+          "expression": "20 × 12 = 240 MWh",
+          "explanation": "Equal area does not imply equal height at every time."
+        },
+        {
+          "label": "Night deficit",
+          "expression": "10 × 12 = 120 MWh",
+          "explanation": "This energy must come from another source or stored energy."
+        },
+        {
+          "label": "Storage losses",
+          "expression": "120 × 0.90 = 108 MWh returned",
+          "explanation": "The original surplus falls 12 MWh short after the assumed round-trip loss."
+        }
+      ],
+      "result": "Perfect time shifting needs 120 MWh usable output and 10 MW output capability; 90 percent round-trip efficiency requires extra charging energy.",
+      "boundary": "Profile differences are not necessarily actual campus meter imports/exports under an off-site contract."
+    },
+    "tradeoff": {
+      "choice": "Use stored energy for normal time shifting as well as outage reserve.",
+      "benefit": "The same equipment may support more than one economic or operating objective.",
+      "cost": "Energy committed to one use can reduce the reserve available for another unless the policy explicitly preserves it."
+    },
+    "failure": {
+      "trigger": "Assume a commercial energy purchase creates a surviving power path.",
+      "mechanism": "An agreement does not bypass an unavailable conductor, bus, or conversion interface.",
+      "response": "Inspect the physical topology and the state-dependent energy/power budget."
+    },
+    "practice": {
+      "question": "If the usable storage output is 80 MWh and its output rating is 12 MW, how long can it cover the 10 MW deficit?",
+      "hint": "Check the power limit first, then divide usable output energy by the load.",
+      "answer": "Eight hours, leaving four hours of the twelve-hour deficit unsupported.",
+      "reasoning": "Twelve MW exceeds the required 10 MW, but 80/10 = 8 hours. More inverter power does not create additional stored energy."
+    },
+    "sources": [
+      {
+        "title": "US EPA — Physical PPA",
+        "url": "https://www.epa.gov/green-power-markets/physical-ppa",
+        "claim": "Physical and financial PPAs differ in whether electricity is physically delivered or title is conveyed under the arrangement.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Read the public EPA distinctions; contractual eligibility and local legal requirements are outside this lesson."
+      },
+      {
+        "title": "DOE — Islanding a Microgrid",
+        "url": "https://www.energy.gov/cmei/femp/articles/islanding-microgrid",
+        "claim": "Islanding requires coordinated operation of sources and loads within an electrical boundary.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Read the public DOE explanation; no particular on-site plant or local interconnection permission is established."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Physical supply path",
+        "definition": "The actual connected equipment through which power can reach the load."
+      },
+      {
+        "term": "PPA",
+        "definition": "A power purchase agreement whose specific structure defines commercial rights and obligations."
+      },
+      {
+        "term": "Round-trip efficiency",
+        "definition": "Energy returned from storage divided by energy supplied to charge it, across stated boundaries."
+      }
+    ],
+    "visual": {
+      "kind": "comparison",
+      "title": "Equal area, unequal hours",
+      "nodes": [
+        {
+          "label": "Demand",
+          "detail": "10 MW through all 24 hours"
+        },
+        {
+          "label": "Generation",
+          "detail": "20 MW for 12 hours, then zero"
+        },
+        {
+          "label": "Matching residual",
+          "detail": "120 MWh surplus followed by 120 MWh deficit"
+        },
+        {
+          "label": "Storage at 90%",
+          "detail": "120 MWh charged returns 108 MWh"
+        }
+      ],
+      "caption": "The comparison is between stated profiles; an off-site contract does not make these residuals campus meter flows."
+    }
+  },
+  {
+    "id": "d03-voltage-and-distance",
+    "domain": "D03",
+    "title": "Move power with fewer amperes",
+    "question": "Why does a higher transport voltage reduce one important class of losses?",
+    "summary": "Derive a balanced three-phase current comparison, calculate conductor heating, and identify what the comparison cannot decide.",
+    "takeaway": "At fixed real power and power factor, higher voltage reduces current; the conductor-loss benefit depends on the resistance being compared.",
+    "objectives": [
+      "D03.2"
+    ],
+    "sections": [
+      {
+        "heading": "Voltage and current perform different jobs",
+        "paragraphs": [
+          "Voltage is an electrical potential difference: energy transferred per unit charge. Current is the rate at which charge passes a point. In a simple DC boundary, their product gives electrical power. A higher voltage can therefore transfer the same power with less current. That observation is the starting point for understanding transport voltage, but it does not by itself choose an installation voltage. Equipment interfaces, insulation, protection, clearances, conversion, and cost still matter.",
+          "For a balanced three-phase AC example, real power is P = √3 × VLL × I × PF. VLL is the line-to-line RMS voltage, I is RMS line current, and PF is the real-to-apparent power ratio. The factor √3, approximately 1.732, comes from the relationship among the three phases and the line-to-line voltage convention. Do not insert a phase-to-neutral voltage into this version of the equation. That would mix definitions and produce an incorrect current.",
+          "To solve for current, divide both sides by √3 × VLL × PF. The result is I = P/(√3 × VLL × PF). We will use a balanced, sinusoidal, unity-power-factor scenario so the comparison stays narrow. Later lessons add equipment efficiency and apparent-power limits. For now, the purpose is to predict the direction and size of a current change before relying on a calculator."
+        ]
+      },
+      {
+        "heading": "Work through a two-voltage transport comparison",
+        "paragraphs": [
+          "Deliver a hypothetical 10 MW to a receiving boundary at either 10 kV or 20 kV line-to-line, with PF = 1. At 10 kV, current is 10,000,000/(1.732 × 10,000), approximately 577.4 A. At 20 kV it is approximately 288.7 A. Doubling voltage has halved current because the delivered real power and power factor are held fixed. We have not claimed that the same piece of equipment can simply be operated at either voltage.",
+          "Assume each of the three phase conductors has 0.10 ohm resistance at the operating condition being compared. Resistive heating is I²R per conductor. Across three equal conductors it is 3I²R. The lower-voltage case loses 3 × 577.4² × 0.10, approximately 100,000 W, or 100 kW. The higher-voltage case loses approximately 25 kW. Halving current quarters this particular loss because the current is squared.",
+          "The difference is 75 kW. If both cases remained at their stated load for eight hours, the conductor-energy difference would be 75 kW × 8 h = 600 kWh. This isolates one mechanism. It excludes transformer losses, converter losses, reactive effects beyond the stated power factor, additional auxiliaries, and any change in conductor design. It is not a total-system efficiency prediction or a construction specification.",
+          "Check the electrical accounting. We specified 10 MW delivered at the receiving boundary, so the sending source must cover that plus the modeled conductor heating. In this simplified comparison it supplies 10.100 MW in the first case and 10.025 MW in the second. If a diagram labels both ends 10 MW while also showing positive losses, the numbers do not balance. A clear diagram makes the receiving and sending boundaries visible."
+        ]
+      },
+      {
+        "heading": "Test which assumptions make the result hold",
+        "paragraphs": [
+          "Change the power factor to 0.80 while keeping delivered real power and voltage fixed. Current rises by 1/0.80 = 1.25. Conductor heating rises by 1.25 squared, or 1.5625. At 10 kV with the same resistance, the loss becomes 156.25 kW. Power factor has increased the current needed to deliver the same real power. It has not changed the stated 10 MW into 12.5 MW of real load.",
+          "Now change the conductor rather than the voltage. If the higher-voltage design uses a different resistance, the loss ratio becomes the current-squared ratio multiplied by the resistance ratio. A resistance twice as large would turn the earlier quarter-loss result into half the loss. You cannot keep saying one quarter after changing the assumption that produced it. This is why a comparison should display its fixed inputs next to the visual.",
+          "Higher transport voltage brings a real tradeoff. It can reduce current and conductor burden for a given transfer, but requires appropriate equipment and insulation interfaces and may change conversion placement. If a higher-voltage route needs an additional conversion stage, its losses belong in a whole-path comparison. The correct choice depends on the complete architecture, not only the elegant inverse-square relationship.",
+          "A useful failure test is to ask what happens if the required load doubles while the transport voltage and conductor remain unchanged. Current doubles and conductor heating becomes four times as large in the simplified model. Temperature-dependent resistance and equipment operating limits can make the actual response more complicated. The model gives an early warning about scaling, while the engineering design still requires the missing thermal, protection, and installation information."
+        ]
+      }
+    ],
+    "example": {
+      "title": "Ten megawatts at two AC voltages",
+      "assumptions": [
+        "Balanced sinusoidal three-phase load with PF = 1.",
+        "Receiving real power is 10 MW in both cases.",
+        "Each phase conductor has 0.10 Ω resistance at the stated condition."
+      ],
+      "steps": [
+        {
+          "label": "10 kV current",
+          "expression": "10,000,000 / (√3 × 10,000) = 577.35 A",
+          "explanation": "Use line-to-line RMS voltage."
+        },
+        {
+          "label": "20 kV current",
+          "expression": "10,000,000 / (√3 × 20,000) = 288.68 A",
+          "explanation": "At fixed real power, doubling voltage halves current."
+        },
+        {
+          "label": "10 kV conductor loss",
+          "expression": "3 × 577.35² × 0.10 = 100,000 W",
+          "explanation": "Account for all three equal phase conductors."
+        },
+        {
+          "label": "20 kV conductor loss",
+          "expression": "3 × 288.68² × 0.10 = 25,000 W",
+          "explanation": "Current squared makes this one quarter of the first loss."
+        }
+      ],
+      "result": "The modeled conductor losses are 100 kW and 25 kW, a 75 kW difference.",
+      "boundary": "No transformer, switchgear, converter, installation, or total architecture efficiency claim follows from this isolated resistance model."
+    },
+    "tradeoff": {
+      "choice": "Increase transport voltage.",
+      "benefit": "Required current and resistive conductor heating can fall for the same delivered power.",
+      "cost": "Voltage-compatible equipment, insulation, conversion, and protection must be considered as part of the full architecture."
+    },
+    "failure": {
+      "trigger": "Double load without changing the conductor path.",
+      "mechanism": "Current doubles and the modeled I²R heating quadruples.",
+      "response": "Recalculate the complete operating envelope instead of extrapolating a nameplate or linear loss assumption."
+    },
+    "practice": {
+      "question": "At 20 kV, double each conductor resistance from 0.10 to 0.20 Ω. Is loss still one quarter of the 10 kV, 0.10 Ω case?",
+      "hint": "The current is unchanged, but loss is also proportional to resistance.",
+      "answer": "No. It becomes 50 kW, or one half of the original 100 kW loss.",
+      "reasoning": "The current-squared ratio is one quarter; multiplying by a resistance ratio of two produces one half."
+    },
+    "sources": [
+      {
+        "title": "Schneider Electric — Installed apparent power",
+        "url": "https://www.electrical-installation.org/enwiki/Installed_apparent_power_(kVA)",
+        "claim": "Balanced three-phase apparent power and line current use line-to-line voltage and the √3 factor.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Read the public equation and variable definitions; this scenario assumes sinusoidal balanced conditions and does not reproduce equipment selection tables."
+      },
+      {
+        "title": "OpenStax — Electrical Energy and Power",
+        "url": "https://openstax.org/books/university-physics-volume-2/pages/9-5-electrical-energy-and-power",
+        "claim": "Resistive heating follows I²R under the stated resistor model.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Read the electrical-power equations; conductor resistance and all numerical values are original assumptions."
+      }
+    ],
+    "terms": [
+      {
+        "term": "RMS",
+        "definition": "Root-mean-square value used here to describe the effective magnitude of AC voltage or current."
+      },
+      {
+        "term": "Line-to-line voltage",
+        "definition": "Voltage measured between two phase conductors; the voltage convention in the stated three-phase equation."
+      },
+      {
+        "term": "Power factor",
+        "definition": "Real power divided by apparent power at the same AC boundary."
+      }
+    ],
+    "visual": {
+      "kind": "comparison",
+      "title": "Halve current, quarter one loss",
+      "nodes": [
+        {
+          "label": "10 kV receiving boundary",
+          "detail": "10 MW; 577.35 A; 100 kW conductor heat"
+        },
+        {
+          "label": "20 kV receiving boundary",
+          "detail": "10 MW; 288.68 A; 25 kW conductor heat"
+        },
+        {
+          "label": "Held fixed",
+          "detail": "Three phases, PF 1, and 0.10 Ω per phase"
+        }
+      ],
+      "caption": "The comparison isolates conductor heating and keeps sending and receiving power distinct."
+    }
+  },
+  {
+    "id": "d03-service-and-siting",
+    "domain": "D03",
+    "title": "The first usable megawatt has dependencies",
+    "question": "Which site can deliver the required service, and what happens when supply is constrained?",
+    "summary": "Evaluate a phased site schedule and an islanded supply budget without confusing available land, connection approval, or generation nameplates with usable service.",
+    "takeaway": "Usable service requires every necessary path and permission in the stated operating condition; the last dependency and the smallest capacity both matter.",
+    "objectives": [
+      "D03.3",
+      "D03.4"
+    ],
+    "sections": [
+      {
+        "heading": "A connection is a process, not a single number",
+        "paragraphs": [
+          "A large-load project begins with an intended service requirement and a proposed physical location. The utility or system operator needs enough information to assess how that load connects and behaves. Studies, agreements, network upgrades, equipment delivery, construction, and operational authorization can all stand between the initial request and available service. Their exact names and sequence differ by jurisdiction and project. A generic course diagram must not be mistaken for the current application procedure of a particular utility.",
+          "ERCOT's June 2026 announcement of a batch-study approach provides a dated example of why this matters: multiple large projects must be assessed together against the network they would share. The lesson is not to memorize that announcement's process as universal. It is to recognize that requested capacity can interact with other projects and required grid work. A customer's desired date is an input to planning, not evidence that the grid can deliver the requested load on that date.",
+          "Inside the property, additional dependencies continue. Electrical equipment can be energized while cooling, control integration, network connections, or IT acceptance remains incomplete. Commissioning checks behavior for the stated scope; operation then supplies evidence of actual service. A phased campus may therefore have several statuses at once. Keep a ledger for each usable block rather than attaching one completion percentage to the entire site."
+        ]
+      },
+      {
+        "heading": "Find the last required dependency, then the usable limit",
+        "paragraphs": [
+          "Compare two hypothetical sites for a service that requires power, a finished building, cooling, and fiber. At Site A, the supplied readiness dates are months 18, 22, 21, and 20 respectively. At Site B, they are months 20, 19, 20, and 21. Under the explicit assumption that these dates represent accepted readiness and all other requirements are satisfied, Site A cannot supply the complete service before month 22; Site B cannot before month 21.",
+          "The calculation is a maximum, not an average. Averaging Site A's four dates gives 20.25, but there is no useful 20.25-month service if its required building is unavailable until month 22. The maximum identifies the last necessary dependency. These are supplied scenario dates rather than a forecast of an actual project. If the dates are only expected installation dates, additional acceptance and commissioning work must remain on the schedule.",
+          "Capacity uses a different operation. Suppose Site B eventually has 12 MW of facility service, but the supported island mode is defined around an 8 MW protected load, including all declared auxiliaries. An available on-site generator supplies 6 MW in that mode. Storage must supply the remaining 2 MW. If it has 4 MWh usable output and a 3 MW output rating, the power screen passes but energy lasts only 4/2 = 2 hours. The utility service rating does not extend that islanded duration.",
+          "Add the supplied fuel constraint: the generator can operate for four hours at its assumed 6 MW output before fuel replenishment is required. The battery deficit reaches its limit sooner, after two hours. If the protected load were reduced to 6 MW, the battery deficit would disappear in this steady simplified interval, but generator fuel would still limit duration. This comparison assumes the generator is already stable; starting and transfer behavior require a separate timeline."
+        ]
+      },
+      {
+        "heading": "Treat siting requirements as coupled constraints",
+        "paragraphs": [
+          "Land, fiber, climate, water, electrical service, equipment access, and local requirements influence one another. A site with earlier grid availability may need a cooling solution that changes auxiliary power and delivery time. A location with low energy prices may impose a workload latency disadvantage or a difficult expansion path. A single weighted score can be useful for preferences, but it should not average away a hard requirement that the site fails.",
+          "Separate requirements into conditions that must pass and tradeoffs among feasible options. If an application needs a maximum network round-trip time, a location outside that envelope may be unsuitable regardless of its lower cost. If a cooling design depends on a water allocation that has not been established, that is unresolved evidence rather than zero cost. List the missing fact and the party or document that could establish it.",
+          "On-site supply can provide a different option set, but it adds its own fuel, maintenance, control, emissions, connection, and operating questions. A behind-the-meter generator does not automatically grant permission or technical ability to isolate from the grid. A generation nameplate does not establish its usable output under every ambient condition or with required reserve. The conceptual comparison asks what each option must demonstrate, without supplying field procedures or jurisdiction-specific legal conclusions.",
+          "The final choice should state a complete service envelope: how much load, beginning when, under which normal and degraded conditions, and with which remaining uncertainties. This converts a location comparison into an infrastructure decision. It also identifies where further work has the greatest value: the dependency controlling the delivery date, the capacity limiting accepted load, or the operating condition that breaks the proposed service promise."
+        ]
+      }
+    ],
+    "example": {
+      "title": "Schedule and island capacity are different constraints",
+      "assumptions": [
+        "All readiness dates are supplied accepted-readiness assumptions.",
+        "The 8 MW island load includes its stated cooling and control auxiliaries.",
+        "The generator is already operating at 6 MW; startup is excluded."
+      ],
+      "steps": [
+        {
+          "label": "Site A ready",
+          "expression": "max(18, 22, 21, 20) = month 22",
+          "explanation": "The service waits for its last necessary subsystem."
+        },
+        {
+          "label": "Site B ready",
+          "expression": "max(20, 19, 20, 21) = month 21",
+          "explanation": "Earlier grid readiness alone does not choose the earlier complete site."
+        },
+        {
+          "label": "Island deficit",
+          "expression": "8 MW load − 6 MW generation = 2 MW",
+          "explanation": "Storage must cover the difference at the same electrical boundary."
+        },
+        {
+          "label": "Storage duration",
+          "expression": "4 MWh / 2 MW = 2 h",
+          "explanation": "The 3 MW storage output rating exceeds the 2 MW deficit; usable energy binds first."
+        }
+      ],
+      "result": "Site B is earlier under the supplied schedule; its stated island support lasts two hours before the storage deficit is exhausted.",
+      "boundary": "These are planning scenarios, not project forecasts, field operating procedures, or proof of local operating authorization."
+    },
+    "tradeoff": {
+      "choice": "Add on-site supply to reduce dependence on a particular utility-service condition.",
+      "benefit": "It can support a specifically designed alternative supply mode.",
+      "cost": "Fuel, controls, maintenance, environmental requirements, and usable capacity introduce additional dependencies."
+    },
+    "failure": {
+      "trigger": "Treat the earliest energized subsystem as a completed site.",
+      "mechanism": "A later building, cooling, fiber, or acceptance dependency prevents the intended service.",
+      "response": "Track complete blocks and keep readiness, commissioning, and observed operation as separate evidence states."
+    },
+    "practice": {
+      "question": "The 8 MW island load can temporarily shed 1 MW. With the same 6 MW generator and 4 MWh storage, how long does the energy balance last?",
+      "hint": "Recalculate the deficit, then compare battery duration with the four-hour fuel condition.",
+      "answer": "Four hours, with both battery energy and the stated generator fuel duration reaching their limits.",
+      "reasoning": "The remaining 7 MW load needs 1 MW from storage, so 4/1 = 4 h. This steady result still excludes starting, transfers, and the consequences of shedding that workload."
+    },
+    "sources": [
+      {
+        "title": "ERCOT — Batch Zero large-load connection announcement, June 18, 2026",
+        "url": "https://www.ercot.com/news/release/06182026-puct-approves-ercots",
+        "claim": "Large-load connection studies consider shared network capacity and required upgrades.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Read the dated June 18, 2026 ERCOT announcement; do not treat its process or thresholds as universal or permanent."
+      },
+      {
+        "title": "ASHRAE — Commissioning & Performance Validation",
+        "url": "https://www.ashrae.org/technical-resources/ai-data-center-framework/commissioning-performance-validation",
+        "claim": "Commissioning and handover can occur in smaller infrastructure blocks with documented acceptance.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Read the public framework discussion; all dates and capacity ledgers here are synthetic."
+      },
+      {
+        "title": "DOE — Islanding a Microgrid",
+        "url": "https://www.energy.gov/cmei/femp/articles/islanding-microgrid",
+        "claim": "Grid-connected and islanded operation require a coordinated system of sources and loads.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Read the public DOE explanation; no specific generation or fuel system was assessed."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Dependency",
+        "definition": "A required condition or subsystem that must be available for the intended service."
+      },
+      {
+        "term": "Island mode",
+        "definition": "Operation of a defined electrical system while disconnected from the wider grid."
+      },
+      {
+        "term": "Protected load",
+        "definition": "The explicitly chosen set of loads whose continuity the scenario aims to support."
+      }
+    ],
+    "visual": {
+      "kind": "timeline",
+      "title": "Complete service waits for its last dependency",
+      "nodes": [
+        {
+          "label": "Site A",
+          "detail": "Power 18; building 22; cooling 21; fiber 20 → month 22"
+        },
+        {
+          "label": "Site B",
+          "detail": "Power 20; building 19; cooling 20; fiber 21 → month 21"
+        },
+        {
+          "label": "After opening",
+          "detail": "An 8 MW island load still needs a separately checked supply budget"
+        }
+      ],
+      "caption": "Readiness dates are supplied assumptions; a completed path must also have adequate capacity."
+    }
+  },
+  {
+    "id": "d04-read-the-power-train",
+    "domain": "D04",
+    "title": "Read a power train as a set of jobs",
+    "question": "What changes, branches, and limits between the campus connection and the rack?",
+    "summary": "Learn to read a generic single-line diagram by equipment function, then reconcile IT and auxiliary demand against two independent limits.",
+    "takeaway": "A power train is a connected set of interfaces and constraints, not a list of equipment names.",
+    "objectives": [
+      "D04.1",
+      "D04.4"
+    ],
+    "sections": [
+      {
+        "heading": "Follow one line without mistaking it for one wire",
+        "paragraphs": [
+          "A single-line diagram simplifies an electrical system so you can see its connections and major equipment. One drawn line may represent a multiphase circuit, not one physical conductor. Symbols stand for equipment whose ratings and detailed wiring live in other documents. Begin by locating the source boundary, then follow the path to the load. Read branches as separate connected loads or alternative routes, and check the legend before interpreting an unfamiliar symbol.",
+          "A transformer changes AC voltage and current while transferring power, with losses. It does not by itself turn AC into DC. Switching equipment establishes or interrupts connections. Protection uses measurements and defined logic to detect conditions requiring isolation, then acts through a suitable interrupting device. Metering reports quantities at a particular point. Switchgear or switchboards can package several of these functions; the enclosure name alone does not tell you the complete protection scheme.",
+          "In a generic building path, upstream service supplies transformation and distribution equipment, a UPS where the selected loads require it, and downstream conductors or busway to rack connections. A busway is a distribution assembly using bus conductors rather than a loose synonym for the entire power system. A PDU distributes power to multiple loads and may include other functions in a particular product. Inspect the specified function rather than assuming every device called a PDU has the same voltage conversion or topology.",
+          "Mark the auxiliary branches. Pumps, cooling equipment, controls, and building services draw power too. Some may connect through a different continuity path from the main IT load. Their location matters both to the energy account and to the outage account. Moving them off the IT branch does not make their consumption disappear from the facility meter."
+        ]
+      },
+      {
+        "heading": "Two limits can leave the same small margin",
+        "paragraphs": [
+          "Consider an original phase-opening scenario. The available facility service is 6.0 MW. The IT branch can deliver 4.8 MW at its output boundary. Actual IT demand is 4.6 MW, declared upstream electrical losses are 0.2 MW, and all other facility demand is 1.0 MW. The facility input is 4.6 + 0.2 + 1.0 = 5.8 MW. There is 0.2 MW of arithmetic service headroom and 0.2 MW of IT-branch headroom, but they exist at different boundaries.",
+          "A team proposes another 0.5 MW of IT. The supplied expansion estimate also adds 0.1 MW of auxiliaries and 0.02 MW of electrical losses. The facility requirement becomes 5.8 + 0.5 + 0.1 + 0.02 = 6.42 MW, exceeding the 6.0 MW service. The IT requirement becomes 5.1 MW, exceeding the 4.8 MW branch. Upgrading only the utility service would leave the downstream branch problem unresolved.",
+          "Now suppose the service upgrade raises the facility limit to 10 MW, while the IT branch remains unchanged. A large number at the top of the diagram does not travel through a narrower downstream interface by arithmetic permission. The 5.1 MW IT request still fails the stated branch limit. Each segment must carry the load that passes through it, and each limit must be compared with demand at the same electrical boundary.",
+          "The loss entries here are supplied scenario estimates, not a constant-loss model valid at every load. A real extension requires an appropriate efficiency and thermal account for its operating point. The example's purpose is to prevent double counting and reveal separate constraints, not to select conductors or equipment from a few real-power totals."
+        ]
+      },
+      {
+        "heading": "Read the diagram in a changed operating state",
+        "paragraphs": [
+          "Return to the initial 4.6 MW IT state, but let a hot-weather scenario raise auxiliary demand from 1.0 to 1.4 MW while the supplied 0.2 MW loss estimate stays fixed. Facility input becomes 6.2 MW, exceeding the original 6.0 MW service even though the IT branch still carries only 4.6 MW. A rack-level limit has not changed, yet the wider system can no longer support the same combination of loads within its stated capacity.",
+          "This is why a static picture needs an operating condition. A normal-state line can disappear after a fault; an alternate supply can have a different rating; a cooling branch can demand more power in another climate condition. Annotate the chosen state before tracing what survives. A closed loop in the drawing is not evidence that every connection can be closed simultaneously, and an open switching symbol is not a field instruction.",
+          "Centralized infrastructure can simplify shared equipment and measurement, but it can also create a dependency serving many downstream loads. Splitting equipment can limit the affected group while adding interfaces and coordination work. You cannot choose between these layouts by counting boxes. Identify the service each box supports, the common elements still present, and the failure or maintenance condition being tested.",
+          "A good reading exercise ends with questions, not just labels. Which load does this meter include? Which component changes voltage? Which device can interrupt this circuit under the specified conditions? Where does the cooling pump obtain power? Which upstream limit still binds after a downstream upgrade? Answering those questions makes unfamiliar diagrams readable without pretending that a simplified course drawing is a complete engineered installation."
+        ]
+      }
+    ],
+    "example": {
+      "title": "Opening a phase with two electrical constraints",
+      "assumptions": [
+        "Service and IT-branch limits are usable real-power limits supplied for this scenario.",
+        "Auxiliaries exclude IT, and electrical losses are separately supplied estimates."
+      ],
+      "steps": [
+        {
+          "label": "Existing facility demand",
+          "expression": "4.6 + 0.2 + 1.0 = 5.8 MW",
+          "explanation": "IT, losses, and auxiliaries are distinct categories."
+        },
+        {
+          "label": "Proposed facility demand",
+          "expression": "5.8 + 0.5 + 0.1 + 0.02 = 6.42 MW",
+          "explanation": "Account for the support load and added loss as well as new IT."
+        },
+        {
+          "label": "Service exceedance",
+          "expression": "6.42 − 6.0 = 0.42 MW",
+          "explanation": "The requested combination exceeds the upstream limit."
+        },
+        {
+          "label": "IT-branch exceedance",
+          "expression": "4.6 + 0.5 − 4.8 = 0.30 MW",
+          "explanation": "The downstream branch also fails, independently of the service upgrade."
+        }
+      ],
+      "result": "The extension requires resolving both service and IT-branch constraints.",
+      "boundary": "These supplied MW limits are not transformer kVA ratings or an equipment-sizing prescription."
+    },
+    "tradeoff": {
+      "choice": "Share a larger distribution component across several load groups.",
+      "benefit": "It can consolidate equipment and simplify a common upstream interface.",
+      "cost": "The shared element can become a larger common dependency and must be evaluated under maintenance and faults."
+    },
+    "failure": {
+      "trigger": "Upgrade only the 6 MW service to 10 MW.",
+      "mechanism": "The 4.8 MW downstream branch still cannot deliver the proposed 5.1 MW IT demand.",
+      "response": "Trace the complete path and resolve each binding interface."
+    },
+    "practice": {
+      "question": "At the original IT demand, auxiliaries rise to 1.4 MW. What limit fails first in the stated ledger?",
+      "hint": "Compare 4.6 MW with the IT limit and the full sum with the service limit.",
+      "answer": "The service limit fails: 4.6 + 0.2 + 1.4 = 6.2 MW exceeds 6.0 MW.",
+      "reasoning": "The IT branch remains below 4.8 MW. The increased support load matters at the wider facility boundary."
+    },
+    "sources": [
+      {
+        "title": "DOE — Best Practices Guide for Energy-Efficient Data Center Design",
+        "url": "https://www.energy.gov/sites/default/files/2024-07/best-practice-guide-data-center-design_0.pdf",
+        "claim": "A data-center distribution path contains several electrical functions and auxiliary loads.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Read electrical-system sections 6.1–6.3. No historical voltage example or universal efficiency claim from the guide is applied to this synthetic path."
+      },
+      {
+        "title": "ASHRAE — Commissioning & Performance Validation",
+        "url": "https://www.ashrae.org/technical-resources/ai-data-center-framework/commissioning-performance-validation",
+        "claim": "Phased infrastructure acceptance must preserve the scope of what was tested and handed over.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Read the public ASHRAE framework discussion; the numerical opening plan is original."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Single-line diagram",
+        "definition": "A simplified representation of electrical equipment and connections, often using one line for a multiphase circuit."
+      },
+      {
+        "term": "Busway",
+        "definition": "A distribution assembly containing bus conductors and associated enclosure/interfaces."
+      },
+      {
+        "term": "Auxiliary load",
+        "definition": "Supporting electrical demand outside the stated main IT load."
+      }
+    ],
+    "visual": {
+      "kind": "flow",
+      "title": "Follow every load to its supply",
+      "nodes": [
+        {
+          "label": "Facility service",
+          "detail": "6.0 MW limit; 5.8 MW initial demand"
+        },
+        {
+          "label": "Electrical train",
+          "detail": "0.2 MW supplied loss estimate"
+        },
+        {
+          "label": "IT branch",
+          "detail": "4.8 MW limit; 4.6 MW initial load"
+        },
+        {
+          "label": "Auxiliary branch",
+          "detail": "1.0 MW initially; 1.4 MW in the hot-weather scenario"
+        }
+      ],
+      "caption": "Branch labels reveal which meter and limit sees each load; drawing order does not establish a universal installation."
+    }
+  },
+  {
+    "id": "d04-current-and-rating",
+    "domain": "D04",
+    "title": "Kilowatts do not fill a kilovolt-ampere nameplate",
+    "question": "How do efficiency and power factor change upstream equipment loading?",
+    "summary": "Move backward from a required DC output through conversion efficiency, apparent power, and three-phase current, preserving every denominator.",
+    "takeaway": "Output power, input real power, apparent power, and current are different quantities that must be reconciled at their own boundaries.",
+    "objectives": [
+      "D04.2"
+    ],
+    "sections": [
+      {
+        "heading": "Start at the load and work toward the source",
+        "paragraphs": [
+          "A rack-side system needs 900 kW of DC output. The upstream AC equipment does not supply only 900 kW if conversion has losses. Define conversion efficiency as output real power divided by input real power. At an assumed 96 percent efficiency, every 0.96 units delivered require one unit at the converter input. To recover the input requirement, divide the output by 0.96. Multiplying by 0.96 would move in the wrong direction and suggest that losses create power.",
+          "The AC boundary introduces another quantity: apparent power, expressed in kVA or MVA. It combines voltage and current magnitudes in the stated system. Power factor is real power divided by apparent power. A supplied power factor of 0.90 means that 0.90 kW of real input accompanies each kVA at that operating point. Therefore apparent power is real power divided by 0.90. The difference between kVA and kW is not itself a real-power heat term. However, the associated higher current can increase actual conductor and equipment losses, which require their own accounting.",
+          "For balanced three-phase conditions, current is apparent power divided by √3 times the line-to-line RMS voltage. Keep the unit conversion explicit: kVA multiplied by one thousand gives VA. In this lesson the voltage is 480 V line-to-line. The numerical exercise assumes the specified balanced conditions and a supplied total power factor. It does not infer power factor from an arbitrary phase-angle measurement of a distorted load."
+        ]
+      },
+      {
+        "heading": "Calculate the rating screen step by step",
+        "paragraphs": [
+          "Begin with 900 kW output and efficiency 0.96. Input real power is 900/0.96 = 937.5 kW. The converter dissipates 37.5 kW at this operating point, found by subtracting output from input. That heat belongs wherever the converter sits. Moving it to another room changes the local cooling account, while its electrical input/output difference remains part of the facility balance.",
+          "Next divide 937.5 kW by PF 0.90. Apparent power is approximately 1,041.7 kVA. At 480 V, current is 1,041,667/(√3 × 480), approximately 1,253 A. A hypothetical transformer with a usable 1,000 kVA limit fails this simple apparent-power screen: the requested load is about 104.2 percent of that limit. The fact that 937.5 kW is less than 1,000 does not rescue it; those numbers have different units and describe different constraints.",
+          "If the supplied power factor improves to 0.99 while output and efficiency remain unchanged, apparent power becomes about 947.0 kVA. The arithmetic screen now fits beneath 1,000 kVA. Real input power is still 937.5 kW and converter heat is still 37.5 kW in the stated model. This isolates the distinction between reducing a current/apparent-power burden and reducing conversion loss.",
+          "The screen is necessary but not sufficient. Equipment limits also depend on operating temperature, load waveform, installation, voltage conditions, and the rating's defined duty. Harmonic currents can matter to heating and equipment performance. An aggregate average can conceal unequal phase loading. The short calculation identifies a plainly inconsistent proposal; it does not substitute for the additional studies needed to endorse a real installation."
+        ]
+      },
+      {
+        "heading": "Do not multiply allowances without naming them",
+        "paragraphs": [
+          "Suppose the planning policy reserves twenty percent of a 1.2 MVA usable rating. The remaining apparent-power budget is 1.2 × 0.80 = 0.96 MVA. At PF 0.90 that supports 0.864 MW real input. At efficiency 0.96 it supports 0.82944 MW, or 829.44 kW, of the defined DC output. Each factor applies to a different question: reservation, AC power factor, and conversion efficiency. Combining them is valid only because their boundaries and meanings have been stated.",
+          "A reserve policy is not automatically a physical derating, and a physical derating is not automatically redundancy. Derating changes the applicable equipment capability under a condition. Reservation holds some otherwise usable capability for a purpose such as uncertainty or expansion. Redundancy asks what remains available after a selected element is unavailable. Treating all three as one unexplained safety factor makes it impossible to tell whether capacity has been counted twice or not at all.",
+          "There is a tradeoff between a larger equipment rating and tighter control of the workload envelope. More rated capacity can create room for growth and operating variation, but may increase cost, footprint, and low-load losses. Tighter limits can use existing equipment efficiently but constrain the accepted workload or require enforceable power management. Neither choice can be assessed from an average utilization percentage alone.",
+          "Finally, keep the quantities visible on the diagram. Write 900 kW DC at the output, 937.5 kW real and 1,041.7 kVA at the input, and 1,253 A next to the specified 480 V circuit. The labels show why each number exists. If a subsequent lesson changes the converter, voltage, or power factor, you can update the affected terms without rebuilding the entire explanation from vague notions of electrical capacity."
+        ]
+      }
+    ],
+    "example": {
+      "title": "A 900 kW output behind a 1 MVA limit",
+      "assumptions": [
+        "DC output is 900 kW.",
+        "Conversion efficiency is 0.96 and input PF is 0.90.",
+        "The AC input is balanced three-phase at 480 V line-to-line RMS."
+      ],
+      "steps": [
+        {
+          "label": "Input real power",
+          "expression": "900 / 0.96 = 937.5 kW",
+          "explanation": "Divide by efficiency because input must exceed output."
+        },
+        {
+          "label": "Converter heat",
+          "expression": "937.5 − 900 = 37.5 kW",
+          "explanation": "The input/output difference is the stated conversion loss."
+        },
+        {
+          "label": "Apparent power",
+          "expression": "937.5 / 0.90 = 1,041.67 kVA",
+          "explanation": "Power factor relates real power to apparent power."
+        },
+        {
+          "label": "Line current",
+          "expression": "1,041,667 / (√3 × 480) ≈ 1,253 A",
+          "explanation": "Use VA and volts to obtain amperes."
+        },
+        {
+          "label": "Rating screen",
+          "expression": "1,041.67 / 1,000 = 104.17%",
+          "explanation": "The hypothetical 1,000 kVA usable limit is exceeded."
+        }
+      ],
+      "result": "The proposal fails the apparent-power screen despite real input below 1,000 kW.",
+      "boundary": "No cable, breaker, transformer thermal, harmonics, or installation design is established by this arithmetic alone."
+    },
+    "tradeoff": {
+      "choice": "Increase equipment capacity rather than tighten the supported load envelope.",
+      "benefit": "Additional capacity can accommodate growth or uncertainty.",
+      "cost": "Cost, footprint, and operating efficiency need their own assessment."
+    },
+    "failure": {
+      "trigger": "Compare 937.5 kW directly with a 1,000 kVA rating.",
+      "mechanism": "The comparison ignores the stated power factor and therefore understates apparent-power loading.",
+      "response": "Convert quantities at matching boundaries before comparing with a rating."
+    },
+    "practice": {
+      "question": "With PF 0.99 and the same 900 kW output and 96% efficiency, what apparent power is required?",
+      "hint": "The efficiency step is unchanged; only the PF division changes.",
+      "answer": "Approximately 946.97 kVA.",
+      "reasoning": "Input real power remains 937.5 kW. Dividing by 0.99 gives 946.97 kVA; this passes only the stated apparent-power screen."
+    },
+    "sources": [
+      {
+        "title": "Schneider Electric — Installed apparent power",
+        "url": "https://www.electrical-installation.org/enwiki/Installed_apparent_power_(kVA)",
+        "claim": "The public guide relates output power, efficiency, power factor, apparent power, and balanced three-phase current.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Read the formula and variable definitions. Nonlinear-load and installation behavior require additional evidence; the example values are hypothetical."
+      },
+      {
+        "title": "Schneider Electric — Choice of transformer rating",
+        "url": "https://www.electrical-installation.org/enwiki/Choice_of_transformer_rating",
+        "claim": "Transformer rating selection considers apparent-power loading and installation constraints.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Read the public rating discussion, not a site-specific selection study; no listed product rating is used."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Efficiency",
+        "definition": "Output real power divided by input real power across a stated conversion boundary."
+      },
+      {
+        "term": "Apparent power",
+        "definition": "The voltage/current magnitude-based AC quantity expressed in VA, under the stated phase convention."
+      },
+      {
+        "term": "Reservation",
+        "definition": "Capacity deliberately held back under a declared policy, distinct from a physical equipment limit."
+      }
+    ],
+    "visual": {
+      "kind": "flow",
+      "title": "Work backward through two different ratios",
+      "nodes": [
+        {
+          "label": "Required output",
+          "detail": "900 kW DC"
+        },
+        {
+          "label": "Divide by efficiency",
+          "detail": "900 / 0.96 = 937.5 kW AC real"
+        },
+        {
+          "label": "Divide by power factor",
+          "detail": "937.5 / 0.90 = 1,041.67 kVA"
+        },
+        {
+          "label": "Divide by √3 × voltage",
+          "detail": "At 480 V: approximately 1,253 A"
+        }
+      ],
+      "caption": "Efficiency changes input real power; power factor changes the apparent-power and current requirement."
+    }
+  },
+  {
+    "id": "d04-conversion-placement",
+    "domain": "D04",
+    "title": "Moving a converter moves an interface",
+    "question": "How should centralized and distributed conversion be compared fairly?",
+    "summary": "Compare two complete hypothetical paths at the same delivered boundary, allocate their losses, and test how centralization changes failure and expansion exposure.",
+    "takeaway": "Compare complete paths under matching conditions; moving a loss outside the rack does not eliminate it.",
+    "objectives": [
+      "D04.3",
+      "D04.4"
+    ],
+    "sections": [
+      {
+        "heading": "Compare functions before naming the winning architecture",
+        "paragraphs": [
+          "Electrical power changes form and voltage at several places between a utility connection and a processor. A transformer changes AC voltage. A rectifier converts AC to DC. An inverter converts DC to AC. A DC converter changes a DC voltage level. Actual products can package these functions together with controls, storage interfaces, and protection. Counting the boxes in a simplified drawing can therefore conceal what conversion really occurs.",
+          "In a distributed arrangement, conversion may sit near each load or rack. In a centralized arrangement, a larger conversion stage may serve several downstream loads. Those labels describe placement and grouping, not an automatic efficiency ranking. The important comparison is which conductors carry which voltage and waveform, where conversion losses occur, what protection and storage interfaces change, and which equipment is shared. The next domain develops specific high-voltage DC proposals; here we establish how to judge a comparison.",
+          "Choose a common endpoint. If one architecture is measured at the rack AC inlet and another at a downstream DC bus, their reported input powers are not directly comparable. Draw both paths from the same upstream boundary to the same useful electrical output. Include every different stage between them. Any unchanged stages beyond the endpoint can be excluded only if the exclusion is stated consistently for both alternatives."
+        ]
+      },
+      {
+        "heading": "A complete two-stage loss calculation",
+        "paragraphs": [
+          "Use an original scenario delivering 1 MW at the same rack-side DC boundary. Path A distributes AC with an assumed 98 percent path efficiency, then converts near the rack at 96 percent efficiency. Work backward from the 1 MW output. The rack converter needs 1/0.96 = 1.041667 MW input. The upstream AC distribution needs 1.041667/0.98 = 1.062925 MW. Total modeled loss is therefore approximately 62.925 kW.",
+          "Allocate that loss to its location. The near-rack converter dissipates 41.667 kW. The preceding distribution dissipates about 21.259 kW. Together they match the source-to-output difference, allowing for rounding. If a drawing moves the converter outside the rack boundary, the rack's apparent heat burden falls by the relocated amount, but the facility still has to supply and reject that loss unless the converter's actual performance changes.",
+          "Path B converts centrally at an assumed 97.5 percent efficiency and then distributes DC with an assumed 99 percent efficiency to the same endpoint. The downstream distribution requires 1/0.99 = 1.010101 MW input. The central converter requires 1.010101/0.975 = 1.036001 MW. Total modeled loss is about 36.001 kW: 10.101 kW in the distribution and 25.900 kW in the central converter. Under these supplied assumptions, Path B needs approximately 26.924 kW less source power.",
+          "This is an arithmetic result for two specified models, not evidence that DC universally saves that percentage. The efficiencies are hypothetical operating-point values, including only the stated stages. Different loading, voltage, conductor resistance, standby requirements, or equipment could reverse the outcome. Indeed, if Path B's conversion efficiency were 94 percent instead of 97.5 percent, its source requirement would rise to about 1.074575 MW, exceeding Path A."
+        ]
+      },
+      {
+        "heading": "An efficient path must also fit the service",
+        "paragraphs": [
+          "Centralization can remove equipment from individual racks or simplify a shared conversion interface. It can also put more loads behind a common component. If a shared converter is unavailable, which loads retain an independent compatible path? Does the replacement route have enough usable output, and do the connected loads tolerate the transition? A more efficient normal-state diagram is not automatically a better continuity design.",
+          "Distributed conversion can support incremental growth because conversion capacity can be added close to a new load group. It can also multiply maintenance points and impose packaging or service-access constraints near racks. Central equipment may be purchased before the full load arrives, so its partial-load and standby behavior matter during early phases. Compare the actual anticipated operating points, rather than assigning one full-load efficiency to every year of the campus plan.",
+          "A brownfield migration adds another constraint: equipment already installed has interfaces and limits. A new downstream architecture may retain the existing upstream transformer, service, or feeder. That retained equipment can continue to bind even if a conversion stage becomes smaller. Ask which components are reused, which are replaced, and which must temporarily coexist during migration. A lower eventual loss does not remove the need for a compatible transition plan.",
+          "Finish the comparison with a table of interfaces and a balanced loss ledger. Each path should identify its input and output type, voltage boundaries, losses, shared dependencies, and supported maintenance/failure states. Mark uncertain efficiency values as uncertain. That combination lets you ask whether a proposed change is worthwhile under the actual service brief, instead of being persuaded by a shorter line of boxes or a striking rack photograph."
+        ]
+      }
+    ],
+    "example": {
+      "title": "Two routes to the same 1 MW DC output",
+      "assumptions": [
+        "All efficiencies are hypothetical values at the compared operating point.",
+        "Path A: AC distribution 0.98, then near-rack conversion 0.96.",
+        "Path B: central conversion 0.975, then DC distribution 0.99."
+      ],
+      "steps": [
+        {
+          "label": "Path A input",
+          "expression": "1 / (0.98 × 0.96) = 1.062925 MW",
+          "explanation": "Overall efficiency is the product because output from one stage becomes input to the next."
+        },
+        {
+          "label": "Path A total loss",
+          "expression": "1.062925 − 1 = 0.062925 MW",
+          "explanation": "The common 1 MW output is subtracted once."
+        },
+        {
+          "label": "Path B input",
+          "expression": "1 / (0.975 × 0.99) = 1.036001 MW",
+          "explanation": "Work backward through both included stages."
+        },
+        {
+          "label": "Difference",
+          "expression": "1.062925 − 1.036001 = 0.026924 MW",
+          "explanation": "The stated models differ by approximately 26.9 kW of source input."
+        }
+      ],
+      "result": "Path B wins this specified operating-point calculation; neither the placement label nor DC alone establishes the result.",
+      "boundary": "Unchanged downstream silicon conversion and unspecified auxiliaries are outside both paths; real equipment curves and topology must be checked separately."
+    },
+    "tradeoff": {
+      "choice": "Move a shared conversion function upstream of several racks.",
+      "benefit": "It can change packaging and reduce loss under an appropriately specified design.",
+      "cost": "Shared failure exposure, partial-load operation, protection, and migration interfaces may become more consequential."
+    },
+    "failure": {
+      "trigger": "Compare one architecture at an AC inlet with another at a downstream DC output.",
+      "mechanism": "Different included conversions make the reported powers incomparable.",
+      "response": "Redraw both from a common source boundary to a common delivered endpoint."
+    },
+    "practice": {
+      "question": "If Path B conversion efficiency falls to 0.94 while distribution remains 0.99, which path uses less source power?",
+      "hint": "Recalculate the product rather than preserving the earlier winner.",
+      "answer": "Path A: 1.062925 MW versus Path B: 1/(0.94 × 0.99) = 1.074575 MW.",
+      "reasoning": "The altered assumption reverses the ranking. Path B now needs about 11.65 kW more input than Path A for the same output."
+    },
+    "sources": [
+      {
+        "title": "DOE — Best Practices Guide for Energy-Efficient Data Center Design",
+        "url": "https://www.energy.gov/sites/default/files/2024-07/best-practice-guide-data-center-design_0.pdf",
+        "claim": "Conversion stages and distribution placement affect electrical losses and operating efficiency.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Read sections 6.1–6.3. Do not reuse the guide’s historical comparison as evidence for present architecture-wide savings; all efficiencies here are hypothetical."
+      },
+      {
+        "title": "Schneider Electric — Choice of transformer rating",
+        "url": "https://www.electrical-installation.org/enwiki/Choice_of_transformer_rating",
+        "claim": "Initial and future loading and installation conditions matter to upstream equipment selection.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Read the public selection considerations; the lesson does not size a real transformer or declare an architecture optimal."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Common endpoint",
+        "definition": "The same delivered electrical boundary used to compare alternative paths fairly."
+      },
+      {
+        "term": "Rectifier",
+        "definition": "A conversion function that changes AC input into DC output."
+      },
+      {
+        "term": "Brownfield migration",
+        "definition": "Changing infrastructure within an existing installation whose retained interfaces and constraints still matter."
+      }
+    ],
+    "visual": {
+      "kind": "comparison",
+      "title": "Same output, complete paths",
+      "nodes": [
+        {
+          "label": "Path A",
+          "detail": "Source → 98% AC distribution → 96% rack conversion → 1 MW DC"
+        },
+        {
+          "label": "Path B",
+          "detail": "Source → 97.5% central conversion → 99% DC distribution → 1 MW DC"
+        },
+        {
+          "label": "Source inputs",
+          "detail": "1.062925 MW versus 1.036001 MW under supplied assumptions"
+        }
+      ],
+      "caption": "Compare every changed stage and keep the output boundary identical."
+    }
+  },
+  {
+    "id": "d05-storage-power-and-time",
+    "domain": "D05",
+    "title": "A battery has two limits before it has a runtime",
+    "question": "Can the stored energy reach the load at the required rate?",
+    "summary": "Calculate output energy after usable-capacity and reserve assumptions, screen discharge power separately, and distinguish a UPS role from a generic storage inventory.",
+    "takeaway": "Check deliverable power first; divide only the appropriately defined usable energy by the complete protected load.",
+    "objectives": [
+      "D05.1",
+      "D05.2"
+    ],
+    "sections": [
+      {
+        "heading": "Separate the energy inventory from the delivery path",
+        "paragraphs": [
+          "A storage system needs both an energy inventory and a way to deliver that energy. The inventory determines how much can be supplied over time. The power-conversion path determines how quickly it can be supplied under the stated conditions. Two systems with the same MWh can therefore support entirely different loads. A large reservoir behind a narrow outlet is a useful analogy only for this distinction; actual batteries and converters have electrical, thermal, control, and protection limits that the analogy does not capture.",
+          "Runtime begins by defining usable energy at a particular boundary. A nameplate may describe a stored-energy quantity under stated test conditions. The available energy at the start of an event depends on the actual state, operating limits, aging, temperature, and reserved inventory. Conversion then changes how much reaches the load. If the supplied energy figure is already usable output energy, do not apply the same discharge loss again. The calculation must identify which losses are inside its input.",
+          "A UPS is a continuity architecture, not merely a synonym for a battery. Public vendor descriptions distinguish protected-load UPS behavior from conventional site-level storage used for energy management. The differences include connection, controls, response, and purpose. Storage that can discharge for an hour is not thereby proven to provide no-break support to a sensitive load. Conversely, a short-duration UPS may be excellent at its intended bridging job without solving a multi-hour energy shortage."
+        ]
+      },
+      {
+        "heading": "Solve one reserve-aware runtime",
+        "paragraphs": [
+          "Consider two hypothetical storage systems. Each begins with a stated 1.0 MWh energy inventory. The scenario permits an 80 percent usable operating window, leaving 0.8 MWh within that window. A policy then reserves 0.2 MWh at the battery-output accounting boundary. The energy available for this event is 0.8 − 0.2 = 0.6 MWh before the specified output conversion loss. This sequence avoids treating the reserve as both a fraction and another unannounced reduction.",
+          "Assume the event discharge conversion is 95 percent efficient. Deliverable energy at the protected-load boundary is 0.6 × 0.95 = 0.57 MWh. A constant 6 MW protected load would use that in 0.57/6 = 0.095 hours. Multiply by sixty to obtain 5.7 minutes. The units show why the formula works: MWh divided by MW leaves hours. This is a bounded energy estimate under our assumptions, not a guaranteed product runtime.",
+          "System A can deliver 8 MW at the stated output boundary. It passes the 6 MW power screen, so the energy calculation is relevant. System B can deliver only 4 MW. It cannot support the full 6 MW load even though its energy inventory is identical. Calling System B a 5.7-minute solution would confuse a stored quantity with a deliverable service. Its shortfall begins immediately in the simplified steady power screen.",
+          "Now add 0.3 MW of cooling and control auxiliaries to the protected scope. Total protected demand becomes 6.3 MW. System A still passes the power screen, but runtime falls to 0.57/6.3 × 60, approximately 5.43 minutes. System B still fails. The arithmetic demonstrates why naming the protected loads matters before sizing storage: preserving servers while omitting the equipment needed to keep them usable can produce a misleading continuity claim."
+        ]
+      },
+      {
+        "heading": "Reserve policy has an opportunity cost",
+        "paragraphs": [
+          "The 0.2 MWh reserve is a deliberate operating choice in this example. Removing it would increase event energy to 0.8 × 0.95 = 0.76 MWh and extend the 6 MW estimate to 7.6 minutes. That does not prove the reserve should be removed. It may exist for another event, uncertainty, battery operating policy, or a service obligation. A tradeoff should make the purpose visible so the same energy is not promised to multiple uses at once.",
+          "Load shape also matters. For a changing protected demand, calculate energy interval by interval and check the power limit at every relevant interval. A short higher-power phase can fail the power screen while barely changing total energy. A lower sustained phase can fit the converter but exhaust the inventory. Neither the maximum MW nor the total MWh alone describes both problems.",
+          "A successful transfer to another supply ends the battery's bridging interval only if the other supply has actually become acceptable to the protected system. Generator start, stabilization, load acceptance, transfer behavior, and auxiliary restoration are system events with their own evidence. No generic runtime formula supplies those timings. Use an explicit timeline and compare the required output energy through that interval with the available energy.",
+          "Finally, do not claim complete recovery when the load merely returns to its normal source. The store may be depleted and require recharge before it can support a second event. Recharging competes for electrical capacity and may have its own rate limit. A continuity promise therefore needs the starting state, the supported event, and the restored readiness condition. The next lesson follows that event across electricity and cooling rather than stopping at the battery icon."
+        ]
+      }
+    ],
+    "example": {
+      "title": "Same MWh, different deliverable service",
+      "assumptions": [
+        "Starting stated inventory is 1.0 MWh for both systems.",
+        "Usable window is 80%; reserve is 0.2 MWh before 95% output conversion.",
+        "Protected real load is constant at 6 MW."
+      ],
+      "steps": [
+        {
+          "label": "Operating-window energy",
+          "expression": "1.0 × 0.80 = 0.8 MWh",
+          "explanation": "Apply the declared usable window once."
+        },
+        {
+          "label": "Event energy before conversion",
+          "expression": "0.8 − 0.2 = 0.6 MWh",
+          "explanation": "Subtract the explicitly located reserve."
+        },
+        {
+          "label": "Usable load energy",
+          "expression": "0.6 × 0.95 = 0.57 MWh",
+          "explanation": "Conversion loss reduces energy reaching the protected load."
+        },
+        {
+          "label": "Power screen",
+          "expression": "A: 8 MW ≥ 6 MW; B: 4 MW < 6 MW",
+          "explanation": "Only System A can support the stated full load."
+        },
+        {
+          "label": "Energy-limited duration for A",
+          "expression": "0.57 / 6 × 60 = 5.7 minutes",
+          "explanation": "The estimate applies after the power screen passes."
+        }
+      ],
+      "result": "System A has a 5.7-minute scenario energy budget; System B fails the full-load power requirement.",
+      "boundary": "The example supplies usable-window, reserve, and efficiency inputs; it does not infer battery chemistry behavior or no-break transfer performance."
+    },
+    "tradeoff": {
+      "choice": "Reserve more stored energy for a second purpose or uncertainty.",
+      "benefit": "The system retains explicitly protected energy for that need.",
+      "cost": "Less energy remains available for the current outage interval."
+    },
+    "failure": {
+      "trigger": "Use an MWh label to claim support for a load above the converter output rating.",
+      "mechanism": "The required delivery rate exceeds the available path even before energy is exhausted.",
+      "response": "Check the output MW limit and the complete protected scope before calculating runtime."
+    },
+    "practice": {
+      "question": "System A must support 6.3 MW including auxiliaries. How long does 0.57 MWh of usable output last?",
+      "hint": "The energy already includes the stated conversion loss.",
+      "answer": "About 5.43 minutes.",
+      "reasoning": "0.57/6.3 hours multiplied by 60 gives 5.4286 minutes. Do not multiply by 95 percent again, because that loss was already applied."
+    },
+    "sources": [
+      {
+        "title": "EIA — Measuring electricity",
+        "url": "https://www.eia.gov/energyexplained/electricity/measuring-electricity.php",
+        "claim": "Runtime follows energy divided by power when a constant output load is specified.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Read the public power/energy unit definitions. Battery-window and reserve values are original assumptions."
+      },
+      {
+        "title": "Vertiv — BESS and UPS roles in large data center power architecture",
+        "url": "https://www.vertiv.com/en-us/insights/articles/white-papers/bess-and-ups-roles-in-large-data-center-power-architecture/",
+        "claim": "UPS and conventional behind-the-meter storage have different typical architecture roles.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Read the public landing-page explanation only; the downloadable full white paper and product performance curves were not reviewed."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Usable output energy",
+        "definition": "Energy actually available at the stated load-side boundary under declared conditions."
+      },
+      {
+        "term": "Reserve",
+        "definition": "An explicitly held-back amount of otherwise available capacity or energy."
+      },
+      {
+        "term": "Ride-through",
+        "definition": "Continued support through a defined interruption or transition, requiring both adequate resources and compatible behavior."
+      }
+    ],
+    "visual": {
+      "kind": "flow",
+      "title": "Find the energy that actually reaches the load",
+      "nodes": [
+        {
+          "label": "Starting inventory",
+          "detail": "1.0 MWh"
+        },
+        {
+          "label": "Usable window and reserve",
+          "detail": "0.8 − 0.2 = 0.6 MWh"
+        },
+        {
+          "label": "Output conversion",
+          "detail": "0.6 × 0.95 = 0.57 MWh"
+        },
+        {
+          "label": "Power gate",
+          "detail": "8 MW passes a 6 MW load; 4 MW does not"
+        },
+        {
+          "label": "Duration after passing",
+          "detail": "0.57 / 6 = 0.095 h = 5.7 min"
+        }
+      ],
+      "caption": "A path can contain enough energy and still fail to deliver it at the required rate."
+    }
+  },
+  {
+    "id": "d05-paths-and-transitions",
+    "domain": "D05",
+    "title": "Continuity belongs to the complete service",
+    "question": "Which loads remain usable during an interruption, transfer, and maintenance event?",
+    "summary": "Follow a supplied electrical/thermal restoration timeline, calculate its energy requirement, and test redundancy under a second unavailable component.",
+    "takeaway": "A surviving power path needs enough capacity, compatible transfer behavior, and the auxiliaries required to keep the service usable.",
+    "objectives": [
+      "D05.2",
+      "D05.3"
+    ],
+    "sections": [
+      {
+        "heading": "Follow a supplied timeline across electrical and thermal paths",
+        "paragraphs": [
+          "Begin with a hypothetical protected system drawing 5 MW for IT, 0.4 MW for circulation pumps, and 0.1 MW for controls. Its total UPS output is 5.5 MW. The outdoor heat-rejection plant is on a separately described supply path. At time zero, utility power becomes unavailable. The scenario states that the UPS maintains its connected loads, the generator is ready at 30 seconds, and acceptable generator power reaches the UPS input and outdoor plant at 45 seconds.",
+          "The electrical bridge therefore lasts 45 seconds. At 5.5 MW it requires 5.5 × 45/3,600 = 0.06875 MWh, or 68.75 kWh, of usable UPS output energy. If the store has 120 kWh available at that boundary and adequate output power, it passes this energy screen. The claimed continuity still depends on the supplied transfer behavior actually being valid for the hardware and loads; the arithmetic does not manufacture that behavior.",
+          "The thermal timeline continues. Suppose the supplied plant sequence reaches adequate heat rejection only at 90 seconds. Pumps and controls remained powered, but that alone does not establish sufficient heat removal during the interval. Heat may be stored in coolant, equipment, and other material; thermal capacity and temperature margins need their own model. We can identify a 90-second interval requiring thermal evidence without inventing how long the IT can remain within its temperature limits.",
+          "After power returns, include restoration and recharge. A store that spent 68.75 kWh cannot immediately promise its original 120 kWh reserve for another event. A successful first transfer and a ready-for-next-event state are different milestones. The system's operating policy must define when full support is again available and what restrictions apply in between."
+        ]
+      },
+      {
+        "heading": "Count the capacity that survives the selected event",
+        "paragraphs": [
+          "Now study redundancy independently of the timeline. A protected load needs 6 MW. Four identical modules can each deliver 2 MW under the stated conditions. Three modules are necessary to meet the load, so N is three modules and the fourth is the additional module in an N+1 capacity arrangement. All four provide 8 MW installed capacity. Losing one leaves 6 MW, which exactly supports the specified load in this simplified capacity account.",
+          "Take one module out for planned maintenance. The three remaining modules still provide 6 MW. If another module then becomes unavailable, only 4 MW remains. N+1 does not mean an unlimited number of failures can be absorbed during maintenance. The event being tested must state what is already unavailable, what subsequently fails, and what output is required. A changing load can also change N; the label depends on the demand being supported.",
+          "Compare two separate 6 MW routes, either of which can support the entire 6 MW load. This is a 2N capacity concept at the declared boundary. It can provide a full-capacity alternative route, but independence remains a separate question. If both routes require the same upstream bus, fuel support, control system, or sole cooling interface, that shared dependency may defeat the intended service. Two colors and two power cords cannot prove two independent complete systems.",
+          "The load interface matters too. A dual-input device must be able to maintain the required output under the specified surviving-feed condition and transition. Some arrangements share demand across inputs; capacity in normal operation is not automatically the capacity available after one input is lost. The system must demonstrate compatible behavior at the actual required load, not merely show that two connectors exist."
+        ]
+      },
+      {
+        "heading": "Capacity, maintainability, and fault response answer different questions",
+        "paragraphs": [
+          "Capacity asks whether the remaining equipment can carry the load. Maintainability asks whether selected equipment can be removed from service for planned work while the promised service continues. Fault tolerance asks what happens when a defined unplanned event occurs. These questions overlap but are not identical. A path may have spare capacity but no compatible route around equipment being maintained. A system may tolerate a planned transition while responding differently to an abrupt fault.",
+          "Uptime's public Tier descriptions distinguish maintainability and fault-tolerance requirements and include electrical and cooling behavior. This lesson does not assign a Tier to our small diagrams. A certification claim requires the applicable criteria and assessment of the actual infrastructure. The useful transferable skill is to remove a specified element on paper, trace valid routes, and state which additional evidence is needed before asserting continuity.",
+          "There is an economic and operating tradeoff in greater path separation. Additional independent equipment can reduce exposure to a common failure and improve maintenance options, but adds cost, footprint, interfaces, and maintenance obligations. If both nominally independent paths share a neglected dependency, that extra investment may not buy the intended behavior. Spend analytical effort on the complete dependency graph before counting the spare modules.",
+          "Return to the 45-second electrical bridge and 90-second thermal interval. Passing the UPS energy screen answers one question. Passing the surviving-module capacity screen answers another. Neither proves that cooling is continuously adequate or that a second event is supported before recharge. A strong continuity explanation keeps these answers separate and then combines only the conclusions that the evidence actually supports."
+        ]
+      }
+    ],
+    "example": {
+      "title": "An electrical bridge with an unresolved thermal interval",
+      "assumptions": [
+        "Protected UPS output is 5.0 + 0.4 + 0.1 = 5.5 MW.",
+        "The supplied electrical transition completes at 45 seconds.",
+        "Usable UPS output energy is 120 kWh; outdoor heat rejection is restored at 90 seconds."
+      ],
+      "steps": [
+        {
+          "label": "Protected demand",
+          "expression": "5.0 + 0.4 + 0.1 = 5.5 MW",
+          "explanation": "Include IT, circulation pumps, and controls at the same output boundary."
+        },
+        {
+          "label": "Bridge energy",
+          "expression": "5.5 × 45 / 3,600 = 0.06875 MWh",
+          "explanation": "Convert the supplied bridge duration to hours."
+        },
+        {
+          "label": "Remaining energy",
+          "expression": "120 − 68.75 = 51.25 kWh",
+          "explanation": "This is the remaining stated output-energy inventory after the first bridge."
+        },
+        {
+          "label": "Maximum constant-load energy interval",
+          "expression": "0.120 / 5.5 × 3,600 ≈ 78.55 s",
+          "explanation": "This energy ceiling does not establish thermal continuity or transfer compatibility."
+        }
+      ],
+      "result": "The 45-second bridge fits the stated energy inventory; the 90-second thermal interval remains an independent unresolved requirement.",
+      "boundary": "All sequence times are hypothetical supplied behavior, not generator or cooling product specifications."
+    },
+    "tradeoff": {
+      "choice": "Build greater separation between complete supply routes.",
+      "benefit": "A shared dependency can be removed and maintenance options can improve.",
+      "cost": "More equipment and interfaces require investment, space, validation, and ongoing maintenance."
+    },
+    "failure": {
+      "trigger": "One 2 MW module is maintained and another fails in the four-module, 6 MW example.",
+      "mechanism": "Only two modules remain, providing 4 MW rather than the required 6 MW.",
+      "response": "State the supported degraded service or add a justified architecture capability; do not call the original N+1 label sufficient."
+    },
+    "practice": {
+      "question": "If electrical transfer takes 100 seconds instead of 45, how much UPS output energy is required, and does 120 kWh suffice?",
+      "hint": "Keep the same 5.5 MW protected load.",
+      "answer": "About 152.78 kWh is needed; 120 kWh is short by 32.78 kWh.",
+      "reasoning": "5.5 × 100 / 3,600 MWh equals 0.15278 MWh. The separate thermal and transfer questions still require evidence even if more energy is added."
+    },
+    "sources": [
+      {
+        "title": "Uptime Institute — Tier Classification System",
+        "url": "https://uptimeinstitute.com/tiers",
+        "claim": "Public Tier descriptions distinguish maintainability and fault tolerance and include continuous cooling requirements at the relevant level.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Read the public overview only; no certification assessment or full topology standard is claimed."
+      },
+      {
+        "title": "Vertiv — BESS and UPS roles in large data center power architecture",
+        "url": "https://www.vertiv.com/en-us/insights/articles/white-papers/bess-and-ups-roles-in-large-data-center-power-architecture/",
+        "claim": "Critical-load continuity depends on UPS architecture and the surrounding supply system.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Read the public white-paper landing page; all event timings and module capacities are synthetic."
+      }
+    ],
+    "terms": [
+      {
+        "term": "N+1",
+        "definition": "A capacity arrangement with one additional module beyond the number needed for the stated load, under the specified conditions."
+      },
+      {
+        "term": "Common dependency",
+        "definition": "An element whose loss affects multiple supposedly separate service paths."
+      },
+      {
+        "term": "Maintainability",
+        "definition": "The ability to perform the specified planned equipment removal while preserving the promised service."
+      }
+    ],
+    "visual": {
+      "kind": "timeline",
+      "title": "Electrical restoration and thermal restoration are separate",
+      "nodes": [
+        {
+          "label": "0 s",
+          "detail": "Utility lost; 5.5 MW UPS loads remain supported by assumption"
+        },
+        {
+          "label": "30 s",
+          "detail": "Generator ready in the supplied sequence"
+        },
+        {
+          "label": "45 s",
+          "detail": "Acceptable power reaches UPS input and outdoor plant"
+        },
+        {
+          "label": "90 s",
+          "detail": "Adequate heat rejection restored; interval requires thermal evidence"
+        }
+      ],
+      "caption": "The timeline is a hypothetical test brief, not a guaranteed equipment response."
+    }
+  },
+  {
+    "id": "d05-protection-and-fault-domains",
+    "domain": "D05",
+    "title": "A fault needs a boundary and an exit",
+    "question": "Why can the same breaker arrangement behave differently under another source or grounding scheme?",
+    "summary": "Explain fault detection and selective isolation, distinguish AC and DC interruption, and use a bounded heating example without pretending to choose real protection settings.",
+    "takeaway": "Protection must match the actual sources, fault paths, stored energy, earthing arrangement, and loads that need to remain supported.",
+    "objectives": [
+      "D05.4",
+      "D05.3"
+    ],
+    "sections": [
+      {
+        "heading": "Protect a zone without losing the whole system",
+        "paragraphs": [
+          "A fault is an unintended electrical condition, such as an insulation failure that creates a new current path. The system must detect the relevant condition and interrupt or otherwise manage it within the equipment's capabilities. Protection therefore includes a measurement or detection function, a decision about the affected zone, and a suitable action. A circuit-breaker symbol on a drawing represents only part of that chain. Its presence does not establish that the complete system will behave selectively.",
+          "Selectivity means coordinating protection so that the appropriate downstream device can isolate the affected circuit while unrelated circuits remain supplied, within the stated range of faults and conditions. Imagine three rack groups connected through separate branch devices to one upstream bus. A fault in the middle branch should not unnecessarily remove all three groups if the architecture is intended to preserve the others. However, a fault on the shared bus is a different event; branch devices cannot create a path around that missing common element.",
+          "The available fault behavior changes with the source. A utility connection, generator, and current-limited converter can produce different current magnitudes and time profiles. A scheme checked only in the normal utility-fed state may not behave as intended in another supported state. Schneider's public coordination guidance explicitly distinguishes source conditions when assessing selectivity. The course-level implication is to ask which source and topology were evaluated, not to choose a protection setting from a nominal load current."
+        ]
+      },
+      {
+        "heading": "Compare clearing exposure without designing a breaker",
+        "paragraphs": [
+          "Use a deliberately narrow mathematical example. During a hypothetical fault, assume a fixed 1,000 A flows through a segment with 0.020 ohm resistance until isolation occurs. Resistive heating during that constant-current interval is I²R times duration. If the interval is 20 milliseconds, convert it to 0.020 seconds: 1,000² × 0.020 × 0.020 equals 400 joules. If it lasts 100 milliseconds, the corresponding value is 2,000 joules.",
+          "The fivefold duration produces fivefold heating in this fixed-current, fixed-resistance model. The associated I²t quantities are 20,000 and 100,000 ampere-squared seconds. They are useful for seeing the role of time, but they are not complete equipment damage or personnel hazard calculations. Actual fault current changes with time; resistance can change with temperature; stored energy, arcing, device behavior, and thermal limits require additional analysis.",
+          "Selectivity introduces another dimension. If the upstream device removes the entire bus quickly, the isolated branch's exposure may be limited but every downstream group loses power. If the intended branch device isolates only the affected group, service to others can continue under the specified disturbance tolerance. The correct design must satisfy protection and continuity requirements together. It is not enough to declare that the smallest clearing time or the fewest tripped devices is always best.",
+          "Now compare AC and DC conceptually. AC current normally crosses zero periodically, which can assist interruption under suitable conditions. DC has no recurring natural zero crossing of that kind. Its interrupting system must force or achieve current extinction while handling the circuit's stored energy and recovery conditions. This difference is one reason an AC voltage/current rating cannot simply be reused for a DC circuit. The actual device's specified duty and the actual network must agree."
+        ]
+      },
+      {
+        "heading": "Grounding changes the fault path, not the laws of electricity",
+        "paragraphs": [
+          "Grounding, also called earthing in many references, describes how source and exposed conductive parts relate to earth and protective conductors. It influences the voltage that can appear on accessible parts, the path taken by fault current, and the detection strategy required. Current does not disappear into an earth symbol. Draw the complete circuit back toward the source, including the impedances that limit current and any relevant capacitive paths.",
+          "Standardized earthing families make different choices about the source-to-earth relationship and the connection of exposed conductive parts. An isolated or impedance-referenced source is not simply a system with no protective bonding, nor a guarantee that faults are harmless. First and subsequent insulation faults can have different consequences. The letters IT in an earthing scheme also do not mean information-technology equipment. These distinctions belong in the vocabulary before using a compact grounding symbol as an explanation.",
+          "Power electronics can further alter fault detection. A converter may limit sustained fault current while stored capacitors supply a brief initial contribution. A protection scheme based only on a large sustained overcurrent might therefore be inappropriate. ABB's indexed technical discussion highlights that converter and circuit dynamics matter to interruption. This lesson does not translate that observation into device settings; it identifies the evidence a design comparison must supply.",
+          "Before endorsing an architecture, ask for its supported source states, grounding arrangement, prospective fault-current behavior, interrupting ratings, coordination evidence, stored-energy paths, and load disturbance tolerance. Ask separately what happens when protection itself or a common control dependency fails. These are conceptual review questions, not instructions to work on energized equipment. A complete answer must come from the engineered installation and its validation.",
+          "The worked heating example makes one mechanism visible: changing current or clearing duration can sharply change energy deposited in a resistive path. The system diagram supplies a different mechanism: where isolation occurs determines which loads lose service. Combine those perspectives without confusing either with a complete safety or reliability certification. Good teaching shows why the missing studies matter while remaining honest about what a simple model can establish."
+        ]
+      }
+    ],
+    "example": {
+      "title": "A fixed-current fault heating comparison",
+      "assumptions": [
+        "Fault current is held at 1,000 A solely for this illustration.",
+        "The segment resistance is constant at 0.020 Ω.",
+        "The example excludes arcs, capacitor energy, changing current, and equipment damage thresholds."
+      ],
+      "steps": [
+        {
+          "label": "Convert time",
+          "expression": "20 ms = 0.020 s; 100 ms = 0.100 s",
+          "explanation": "Energy calculations require a consistent time unit."
+        },
+        {
+          "label": "Short interval heating",
+          "expression": "1,000² × 0.020 × 0.020 = 400 J",
+          "explanation": "I²R gives watts, then multiplication by seconds gives joules."
+        },
+        {
+          "label": "Long interval heating",
+          "expression": "1,000² × 0.020 × 0.100 = 2,000 J",
+          "explanation": "At fixed current and resistance, energy scales directly with duration."
+        },
+        {
+          "label": "Exposure ratio",
+          "expression": "2,000 / 400 = 5",
+          "explanation": "Five times the interval gives five times the modeled resistive heating."
+        }
+      ],
+      "result": "Clearing duration matters strongly, but the calculation does not select a protective device or establish a safe operating procedure.",
+      "boundary": "Only a stated constant-current resistive segment is modeled; actual fault and interruption behavior requires topology-specific engineering."
+    },
+    "tradeoff": {
+      "choice": "Coordinate isolation to preserve unaffected branches.",
+      "benefit": "A local fault can be confined to its intended zone under the validated conditions.",
+      "cost": "Coordination must remain valid across source states and equipment limits; a shared-bus fault still affects the common dependency."
+    },
+    "failure": {
+      "trigger": "Reuse a protection claim after changing from utility AC supply to a different converter-fed or DC topology.",
+      "mechanism": "Fault waveforms, current limits, interruption conditions, or grounding paths may no longer match the earlier evidence.",
+      "response": "Require protection and coordination evidence for the new topology and supported states before claiming equivalence."
+    },
+    "practice": {
+      "question": "At 2,000 A for 10 ms through the same 0.020 Ω segment, what is the modeled heating?",
+      "hint": "Current is squared, while duration is multiplied once.",
+      "answer": "800 J, twice the 400 J result for 1,000 A over 20 ms.",
+      "reasoning": "Doubling current multiplies I² by four; halving time divides by two. Net heating doubles: 2,000² × 0.020 × 0.010 = 800 J."
+    },
+    "sources": [
+      {
+        "title": "Schneider Electric — Coordination between circuit-breakers",
+        "url": "https://www.electrical-installation.org/enwiki/Coordination_between_circuit-breakers",
+        "claim": "Protection selectivity depends on fault conditions and the available supply source.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Read the public coordination discussion. No trip settings, installation method, or device coordination table is prescribed."
+      },
+      {
+        "title": "ABB — Protection Devices for Direct Current Applications",
+        "url": "https://library.e.abb.com/public/5cd83dcb95a74dcdb571be5f256e1af8/9AKK108470A9606_en_B_Protection%20Devices%20for%20Direct%20Current%20Applications%20-%20Technical%20Application%20Paper.pdf",
+        "claim": "DC interruption and converter-fed fault behavior depend on circuit dynamics and device capabilities.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Read the publicly indexed excerpt of section 6; the PDF URL responded successfully, but the complete document was not reviewed. No product selection is claimed."
+      },
+      {
+        "title": "Schneider Electric — Definition of standardised earthing schemes",
+        "url": "https://www.electrical-installation.org/enwiki/Definition_of_standardised_earthing_schemes",
+        "claim": "Earthing schemes distinguish the source-earth relationship from exposed-part protective connections.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Read publicly indexed definitions of the standardized schemes, not a site-specific grounding study."
+      },
+      {
+        "title": "OpenStax — Electrical Energy and Power",
+        "url": "https://openstax.org/books/university-physics-volume-2/pages/9-5-electrical-energy-and-power",
+        "claim": "The fixed-current resistive energy example follows I²R multiplied by time.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Read the public resistor-power equations; all fault currents and durations are hypothetical teaching inputs."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Selectivity",
+        "definition": "Coordination intended to isolate the appropriate faulted zone while preserving other supplied circuits within specified conditions."
+      },
+      {
+        "term": "Fault-current path",
+        "definition": "The complete unintended circuit through which fault current flows, including its return to a source."
+      },
+      {
+        "term": "Earthing arrangement",
+        "definition": "The specified relationship among the source, earth, and exposed conductive parts/protective connections."
+      }
+    ],
+    "visual": {
+      "kind": "timeline",
+      "title": "The isolation boundary and duration both matter",
+      "nodes": [
+        {
+          "label": "Fault begins",
+          "detail": "Current follows an unintended path in one branch"
+        },
+        {
+          "label": "Detection and decision",
+          "detail": "Source state and grounding affect the observed condition"
+        },
+        {
+          "label": "Selective isolation",
+          "detail": "The affected branch opens under the validated scheme"
+        },
+        {
+          "label": "Exposure comparison",
+          "detail": "1 kA through 0.020 Ω: 400 J over 20 ms, 2,000 J over 100 ms"
+        }
+      ],
+      "caption": "The timeline explains a mechanism; its numerical intervals are not recommended protection settings."
+    }
+  }
+]

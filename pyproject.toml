@@ -9,6 +9,7 @@ dependencies = [
 
 [project.scripts]
 gigawatt-build = "gigawatt.build_course:main"
+gigawatt-expand = "gigawatt.build_expanded:main"
 gigawatt-map = "gigawatt.build_domain_map:main"
 gigawatt-research = "gigawatt.research:main"
 gigawatt-symbols = "gigawatt.sheet:main"

@@ -2,88 +2,80 @@
 
 **From watts to racks, useful compute, and operation.**
 
-GIGAWATT is being expanded into a reference course on modern AI data-center
-infrastructure. Start with the [domain atlas](course/domain-map.html),
-[domain map](course/DOMAIN_MAP.md), [course review](course/COURSE_REVIEW.md),
-[companion design](course/COMPANION.md), and [research library](research/README.md).
-These describe the proposed expansion; the existing player remains a 22-lesson
-electrical-and-thermal introduction.
+[Read the course](course/index.html) · [Five-minute review sample](course/sample.html)
+· [Domain atlas](course/domain-map.html) · [Research library](research/INDEX.md)
 
-The current interactive introduction explains the physical systems that make a
-data center work.
-Start with a rack's two obligations: deliver electrical power and remove heat.
-Then follow the grid connection, electrical distribution, continuity of service,
-rack power conversion, useful computation, and the return of heat to the atmosphere.
+GIGAWATT is an authored draft of a visual reference course on modern AI data
+centers. Its 50 lessons cover 15 connected domains and five integrated cases:
+grid interruption, hot-weather capacity, a dense-rack retrofit, a stalled job,
+and phased service acceptance. Each lesson includes developed explanations,
+a solved example, a tradeoff, a failure or limit, and changed-scenario practice.
+All 65 domain objectives have authored teaching and practice mappings.
 
-The course uses purpose-built SVG diagrams, interactive engineering scenarios,
-short explanations, retrieval questions, and expandable notes with primary sources.
-Each interaction changes a relationship the learner can explain: voltage and
-current, energy and runtime, capacity after a failure, heat and flow, or facility
-power and IT load. The instructor or learner controls the pace.
+The reader combines five original GPT ImageGen equipment illustrations with
+eight kinds of numerical interaction, searchable lessons, a 137-term glossary,
+source reading boundaries, and worked-answer reveals. Exact calculations are
+rendered in code; illustrative equipment geometry never establishes a rating
+or a buildable design. The [22-lesson introduction](diagram/index.html) remains
+available for its compact SVG experiments.
 
-## Run it
+**The encyclopedic survey is an anti-pattern.** Articles inform questions and
+evidence; they do not earn chapters automatically. Runtime is determined by
+explanation, practice and rehearsal. The roughly 51,000 words in this draft do
+not establish a recorded duration, learner comprehension or engineering review.
+
+## Run and edit
 
 ```sh
-uv run gigawatt-build
-python3 -m http.server --directory diagram 8000
+uv run gigawatt-expand
+uv run gigawatt-research build --include-candidates
+uv run gigawatt-map
+python3 -m http.server 8765
 ```
 
-Open [the local course](http://localhost:8000). `diagram/index.html` is the single
-generated teaching page; it contains its own styles, code, diagrams, and content.
-It can also be opened directly as a local file. Source links require a network
-connection, but the course itself does not.
+Open [the local reader](http://localhost:8765/course/index.html). Its styles,
+lesson data and code are embedded; the five PNG illustrations are local assets.
+No account or remote runtime dependency is needed to read or use the models.
 
-## Edit and verify
+- `course/expansion/` contains editable lesson records and the review sample.
+- `course/web/reader.*` and `reader-models.js` contain the reader and exact models.
+- `course/assets/` contains generated illustrations, their prompts and limits.
+- `gigawatt-expand` generates the reader, standalone Markdown lessons, the full
+  manuscript, glossary, objective mapping and an edition manifest.
+- `course/research-sources.json` owns source identity and domain mappings;
+  each authored lesson also records the specific claim and reading boundary.
+- `course/domain-map.json` owns the learner capabilities and prerequisite order.
+- [COURSE_REVIEW.md](course/COURSE_REVIEW.md) owns the production review.
 
-- `course/COURSE_REVIEW.md` owns the expanded learner contract and production review.
-- `course/domain-map.json` owns the proposed domains, capabilities and assessments.
-- `course/research-sources.json` owns the curated research source catalog.
-- `course/lessons.json` owns the current player's chapter order, explanations,
-  checks, notes, and sources.
-- `course/web/index.html` and `course/web/course.css` own the page and visual system.
-- `course/web/diagrams.js` owns the explanatory diagrams and their interactions.
-- `course/web/math.js` owns the engineering calculations.
-- `course/web/course.js` owns navigation, lesson state, notes, and knowledge checks.
-- `src/gigawatt/build_course.py` validates and assembles the self-contained page.
+Generated files are not editing targets. The old `course/lessons.json` and
+`course/web/course.*` continue to own the compact introduction, built with
+`gigawatt-build`. The domain atlas's partial/missing labels describe that
+historical introductory baseline, not the new authored coverage.
 
-After editing, regenerate and run:
+## Verify and publish
 
 ```sh
-uv run gigawatt-build
 uv run gigawatt-build --check
+uv run gigawatt-expand --check
+uv run gigawatt-map --check
+uv run gigawatt-research check --include-candidates
 uv run python -m unittest discover -s tests -p 'test_*.py' -v
-node --test tests/math.test.mjs
+node --test tests/*.test.mjs
 git diff --check
 ```
 
-Use `course/TESTING.md` for the browser walkthrough. A successful build checks
-content relationships and artifact freshness; visual and teaching quality require
-actually using the course.
+[TESTING.md](course/TESTING.md) records browser and model checks, including what
+they do not establish. GitHub Pages validates generated artifacts and publishes
+the reader, sample, local assets, introduction and reference documents when
+`main` changes. Old introductory lesson hashes retain their route.
 
-Build the planning atlas and Markdown coverage map with `uv run gigawatt-map`;
-use `uv run gigawatt-map --check` to validate references, prerequisite order and
-generated outputs. The research library documents its separate discovery and
-note-building commands. Serve the repository root to browse the planning atlas
-at `/course/domain-map.html`; serving only `diagram/` exposes the current player.
+External engineering review, learner rehearsal, the recorded script and final
+video legibility remain pending. Kian has offered to review the
+[short sample](course/REVIEW_HELP.md). No expert or learner sign-off is implied.
+The public course is [GIGAWATT](https://kiankyars.github.io/gigawatt/).
 
-GitHub Pages validates these checks and publishes `diagram/index.html` when
-`main` changes. Previously published course and phase URLs redirect to the same
-course. The production course is [GIGAWATT](https://kiankyars.github.io/gigawatt/).
-
-## Scope and evidence
-
-The expanded scope includes power, compute/memory, networking, storage, cooling,
-physical design, delivery, operations and system economics. The domain map
-sets the depth and explicit exclusions. The existing Abilene example is a
-bounded application of the introduction, with
-dated evidence and explicit unknowns. Teaching scenarios are labeled assumptions
-and do not estimate a site's installed equipment or operating performance.
-
-`evidence/` retains the earlier source ledgers, and `diagram/master.yaml`,
-`diagram/layout.yaml`, and `diagram/master.svg` retain the researched engineering
-map. They are reference material, separate from the active lesson source. Their
-dated site claims need rechecking before reuse. The small reference symbol and
-map generators remain available as `gigawatt-symbols` and `gigawatt-layout`.
-
-Earlier course players, alternate curricula, 3D pilots, and champion/challenger
-experiments have been retired. Their history remains in Git.
+The research library includes SemiAnalysis and primary references. It stores
+original notes, claims and citations, with access limitations recorded; it does
+not collect whole copyrighted articles or treat any publisher as final truth.
+Earlier ledgers and engineering maps remain in `evidence/` and `diagram/` as
+dated references. Retired experimental players remain in Git history.

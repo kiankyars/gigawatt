@@ -1,0 +1,427 @@
+[
+  {
+    "id": "c01-coupled-outage",
+    "domain": "capstone",
+    "title": "The servers stay powered. The service does not.",
+    "question": "Can this facility sustain useful work through the specified utility interruption?",
+    "summary": "Combine a power budget, an energy budget and a separately supplied cooling path. Identify exactly what the evidence can establish.",
+    "takeaway": "Electrical ride-through is one dependency of continued service. It is not a prediction of thermal ride-through.",
+    "objectives": [
+      "D05.1",
+      "D05.2",
+      "D05.3",
+      "D14.5"
+    ],
+    "lab": "continuity",
+    "image": "power",
+    "sections": [
+      {
+        "heading": "Start with a dependency diagram, not a battery runtime",
+        "paragraphs": [
+          "A hypothetical hall is delivering a steady 2 MW IT load when its utility supply is interrupted. The IT bus has a battery inverter, but the facility-loop pumps are on a different electrical bus. The diagram in the project pack says redundant power; it does not state which auxiliaries share that redundancy. Your first task is to turn that phrase into a list of actual supply paths. Draw the IT bus, its battery path, the rack cooling devices, the facility-loop pumps, the heat-rejection plant and the controllers that coordinate them. An untraced auxiliary is an unresolved dependency, not an assumed survivor.",
+          "The exercise provides a 2.5 MW inverter and 600 kWh of usable stored DC energy before conversion. The discharge path is 90% efficient at the stated operating point. The battery energy can therefore support the specified IT power for a bounded duration. Yet those two checks do not establish whether a thermal limit is reached first. The facility-loop pumps lose their supply immediately. Some components may retain electrical power and keep circulating a local loop while the downstream heat path has already stopped. Sustaining one loop is not equivalent to rejecting heat to the environment."
+        ]
+      },
+      {
+        "heading": "Write a timeline whose unknowns stay unknown",
+        "paragraphs": [
+          "At time zero the utility path is lost. Assume, for this exercise only, that the IT inverter transfers without exceeding the IT equipment's allowed interruption. A separately supplied controller remains available and records the pump supply loss. At ten minutes the generator path is available, but an additional two minutes is required by the supplied restoration sequence before the full cooling path can be established. These are synthetic scenario inputs, not recommended switching delays or equipment guarantees. Keep the sequence as evidence to evaluate, not instructions to perform.",
+          "You can compare the twelve-minute electrical support requirement with the available energy. You cannot calculate a safe twelve-minute thermal bridge without coolant inventory, operating temperatures, effective thermal capacities, flow after the disturbance, device limits and control behavior. The correct engineering answer can therefore contain both a numerical pass and an unresolved service conclusion. Specify the missing measurements and an acceptance test that would resolve them. A decision to reduce workload should follow the actual operating limits and an authorized control sequence; this course does not invent one from a battery calculation."
+        ]
+      }
+    ],
+    "example": {
+      "title": "Two passes do not establish service continuity",
+      "assumptions": [
+        "Synthetic constant 2 MW IT load; no load shedding in the numerical calculation.",
+        "2.5 MW inverter, 600 kWh usable DC storage, 90% discharge-path efficiency.",
+        "Cooling pumps lose power; the full restoration sequence takes 12 minutes. Thermal storage and limits are unspecified."
+      ],
+      "steps": [
+        {
+          "label": "Check instantaneous power",
+          "expression": "2.5 MW ≥ 2 MW",
+          "explanation": "The stipulated inverter can supply the IT load at this operating point."
+        },
+        {
+          "label": "Convert stored energy to usable AC energy",
+          "expression": "600 kWh × 0.90 = 540 kWh",
+          "explanation": "Apply the stated discharge efficiency once."
+        },
+        {
+          "label": "Calculate ideal electrical duration",
+          "expression": "540 kWh / 2,000 kW = 0.27 h = 16.2 min",
+          "explanation": "Power and energy are checked at consistent boundaries."
+        },
+        {
+          "label": "Budget the restoration interval",
+          "expression": "2,000 kW × (12/60) h = 400 kWh AC",
+          "explanation": "The electrical inventory has 140 kWh AC remaining under the supplied assumptions."
+        },
+        {
+          "label": "State the service conclusion",
+          "expression": "Electrical support passes; thermal support is unestablished",
+          "explanation": "The missing heat path prevents a justified claim of twelve minutes of useful operation."
+        }
+      ],
+      "result": "The IT electrical path has 16.2 ideal minutes, but the available data do not establish continued service for the twelve-minute restoration sequence.",
+      "boundary": "No thermal transient, battery ageing, inverter overload curve, protective coordination or actual transfer performance is inferred."
+    },
+    "tradeoff": {
+      "choice": "Add electrical support for the missing cooling auxiliaries.",
+      "benefit": "Remove one dependency that previously failed immediately.",
+      "cost": "The supported load and usable energy budget change, and all downstream heat-path and control dependencies still require testing."
+    },
+    "failure": {
+      "trigger": "A project report substitutes calculated battery duration for service ride-through.",
+      "mechanism": "IT power remains available while an unprotected auxiliary breaks heat removal.",
+      "response": "Correct the report, identify sensor and supply boundaries, and require an integrated disturbance test with explicit acceptance limits."
+    },
+    "practice": {
+      "question": "A redesign places an additional 0.2 MW of required cooling auxiliaries on the same battery system. All energy and conversion assumptions remain fixed. What are the new power check and ideal duration? What conclusion still needs evidence?",
+      "answer": "2.2 MW is below the 2.5 MW inverter rating. Duration is 540/2,200 h = 14.73 minutes, approximately.",
+      "reasoning": "The energy margin shrinks because the battery now supports both loads. This can sustain the specified electrical loads for twelve minutes in the simplified model. Whether cooling, controls and IT stay within their actual transient operating limits still needs an integrated test and thermal evidence."
+    },
+    "sources": [
+      {
+        "title": "ASHRAE: Commissioning & Performance Validation",
+        "url": "https://www.ashrae.org/technical-resources/ai-data-center-framework/commissioning-performance-validation",
+        "claim": "Commissioning provides the context for testing integrated facility behavior; the numerical case is original.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Public framework guidance. Referenced standards and project-specific acceptance procedures were not reviewed; no field procedure is prescribed."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Dependency path",
+        "definition": "The connected equipment, supplies and controls required for a service to continue."
+      }
+    ]
+  },
+  {
+    "id": "c02-weather-capacity",
+    "domain": "capstone",
+    "title": "A hot day changes two limits at once",
+    "question": "How many complete rack equivalents remain supportable when weather changes cooling capacity and auxiliary power?",
+    "summary": "Reconcile the electrical and heat-removal constraints at two supplied operating points, then decide which proposed upgrade would actually help.",
+    "takeaway": "Find the binding constraint at the new operating point before choosing an upgrade.",
+    "objectives": [
+      "D01.3",
+      "D11.3",
+      "D15.1",
+      "D15.4"
+    ],
+    "lab": "capacity",
+    "image": "cooling",
+    "sections": [
+      {
+        "heading": "Use paired operating points",
+        "paragraphs": [
+          "A hypothetical site has a 100 MW electrical service limit and an accepted distribution path for 900 identical 100 kW rack equivalents. A rack equivalent is an accounting unit in this exercise, not a promise about real hardware composition or workload throughput. At the mild-weather operating point, the supplied plant table gives 70 MW of heat-removal capacity at the IT boundary and 15 MW of site auxiliary electricity. At the hot-weather point it gives 55 MW of IT heat-removal capacity and 25 MW of auxiliary electricity. Both points use the same required IT inlet conditions.",
+          "Do not infer the hot-weather point by applying an annual PUE. The exercise supplies separate instantaneous cooling performance and auxiliary demand because they answer different questions. A real plant's electrical input generally changes with load as well as weather. For this exercise, treat the tabulated auxiliary demands as fixed over the evaluated load range and state that approximation. A detailed operating model would need matched performance curves and control sequences rather than independent sliders."
+        ]
+      },
+      {
+        "heading": "Compare remedies against the constraint that matters",
+        "paragraphs": [
+          "At each point, subtract the specified auxiliaries from the service limit to obtain the electrical budget available to IT. Compare that with the cooling limit and the accepted rack-path equivalent. The minimum bounds the supportable count. Taking an average across these constraints has no physical meaning: a rack cannot compensate for missing cooling by having extra network ports or unused feeder capacity. A selected count must satisfy every necessary path at once.",
+          "Now consider two proposals. One reduces hot-weather auxiliaries by 10 MW while leaving the 55 MW cooling limit unchanged. The other increases cooling to 65 MW while keeping the supplied 25 MW auxiliary demand. The first saves electricity at a given workload but does not increase the supportable rack count in this case. The second releases some of the binding constraint. Neither outcome is automatically the better investment: service demand, price, capital cost, maintenance and delivery timing determine value. The capstone asks you to distinguish a capacity benefit from an energy benefit before comparing their economics."
+        ]
+      }
+    ],
+    "example": {
+      "title": "Reconcile every limit on the same rack basis",
+      "assumptions": [
+        "Synthetic 100 MW site ceiling, 100 kW per rack equivalent, 900 accepted complete paths.",
+        "Mild: 15 MW auxiliaries and 70 MW cooling at IT boundary. Hot: 25 MW auxiliaries and 55 MW cooling.",
+        "Auxiliary values are fixed supplied operating-point inputs for this simplified case."
+      ],
+      "steps": [
+        "Accepted paths represent 900 × 0.1 MW = 90 MW of IT demand.",
+        "Mild electrical budget: 100 − 15 = 85 MW. Minimum of 85, 70 and 90 MW is 70 MW, or 700 racks.",
+        "Hot electrical budget: 100 − 25 = 75 MW. Minimum of 75, 55 and 90 MW is 55 MW, or 550 racks.",
+        "Reducing hot auxiliaries to 15 MW changes the electrical budget to 85 MW, but cooling still limits the case to 550 racks.",
+        "Raising hot cooling to 65 MW with 25 MW auxiliaries yields min(75,65,90) = 65 MW, or 650 racks."
+      ],
+      "result": "Hot weather reduces the simplified service envelope from 700 to 550 rack equivalents. The stated cooling upgrade recovers 100; the auxiliary-saving proposal recovers none but can save energy.",
+      "boundary": "This is a supplied operating-point comparison, not a chiller-selection model or a measured site forecast. Reserve margins and local constraints must be added before real capacity allocation."
+    },
+    "tradeoff": {
+      "choice": "Prioritize the capacity-releasing cooling proposal.",
+      "benefit": "It can support more rack-equivalent demand within the provided service envelope.",
+      "cost": "Capital, water, maintenance, efficiency and delivery consequences have not been supplied, so economic superiority is unestablished."
+    },
+    "failure": {
+      "trigger": "A vendor presents reduced auxiliary power as proof of more usable compute capacity.",
+      "mechanism": "The claimed gain acts on an electrical constraint that is not binding in the supplied hot case.",
+      "response": "Recalculate the complete constraint table and distinguish energy savings, capacity gains and actual workload output."
+    },
+    "practice": {
+      "question": "Only 600 complete rack paths have been accepted when the 65 MW cooling upgrade becomes available. How many rack equivalents can be used? If demand is 58 MW IT, what is the facility draw under the fixed 25 MW auxiliary assumption?",
+      "answer": "Accepted paths now bind at 600 racks, or 60 MW. At 58 MW IT demand the model facility draw is 83 MW.",
+      "reasoning": "Installed cooling above 60 MW cannot create missing accepted paths. Actual draw follows the stated 58 MW demand plus auxiliaries; capacity is not the same quantity as demand. The fixed auxiliary approximation should be replaced with a load-dependent plant model for a real operating prediction."
+    },
+    "sources": [
+      {
+        "title": "ASHRAE Handbook: Data Centers and Telecommunication Facilities",
+        "url": "https://handbook.ashrae.org/Handbooks/A23/SI/A23_Ch20/a23_ch20_si.aspx",
+        "claim": "Provides the thermal operating-envelope context; all performance points and calculations in this exercise are original synthetic inputs.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Selected cooling discussion. No handbook rating curve or equipment selection is reproduced."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Binding constraint",
+        "definition": "The necessary limit that prevents further output or capacity growth at a specified operating point."
+      }
+    ]
+  },
+  {
+    "id": "c03-density-retrofit",
+    "domain": "capstone",
+    "title": "The rack upgrade that does not fit the building",
+    "question": "Does a lower-current rack-power architecture solve the actual retrofit constraint?",
+    "summary": "Compare two complete electrical ledgers, a cooling duty and a service-space requirement before choosing where conversion should happen.",
+    "takeaway": "An architecture improves a project only through the interfaces and constraints that matter to that project.",
+    "objectives": [
+      "D06.1",
+      "D06.2",
+      "D06.3",
+      "D06.4",
+      "D06.5",
+      "D12.1",
+      "D13.2",
+      "D15.4"
+    ],
+    "lab": "dc",
+    "image": "rack",
+    "sections": [
+      {
+        "heading": "Agree on an equal-load comparison",
+        "paragraphs": [
+          "An existing room can supply 160 kW at the chosen AC feeder boundary and remove 140 kW of heat from the whole room at the stated ambient condition. A proposed rack needs 120 kW at its declared DC load boundary. Architecture A converts AC to that boundary at an assumed 96% efficiency inside the compute rack. Architecture B uses a sidecar conversion stage at an assumed 97%, followed by a near-load conversion stage at an assumed 98%. The sidecar occupies the last usable service bay. These assumptions describe a synthetic comparison; they are not efficiencies or dimensions of NVIDIA products.",
+          "Both architectures serve the same 120 kW DC load. Work backward through each conversion chain to establish the AC demand. For B, the intermediate 800 V segment carries the input to the near-load converter, so its power is greater than the final 120 kW load. This detail matters: drawing 120 kW beside every box would hide the loss of the downstream stage. The geometry illustration provides equipment context; the ledger supplies the quantitative boundaries."
+        ]
+      },
+      {
+        "heading": "Retained constraints can dominate a new interface",
+        "paragraphs": [
+          "A sidecar can move power conversion, heat and maintenance access out of the compute rack. It does not necessarily remove those requirements from the room. Our room-level cooling boundary includes both the rack and the sidecar, so its total heat duty follows the total electrical input at steady state. If the sidecar were outside that boundary, the accounting would need to move with it. The same principle applies to upstream AC equipment: retaining the feeder also retains its capacity limit and relevant protection interfaces.",
+          "Before selecting B, ask whether the last service bay is needed to remove an existing UPS module, handle a failed tray or maintain required access. A drawing that fits equipment rectangles inside the room can still fail the replacement route. Ask for connector definitions, polarity and grounding, fault-clearing behavior, cable/bus ratings, cooling connections, allowable load transients and the migration sequence. A vendor roadmap can motivate the comparison, but only an identified, compatible configuration can close these interfaces. Record missing answers rather than replacing them with an attractive generic rendering."
+        ]
+      }
+    ],
+    "example": {
+      "title": "Close the ledger before celebrating the current ratio",
+      "assumptions": [
+        "Synthetic 120 kW final DC load. A: 96% conversion. B: 97% first stage and 98% near-load stage.",
+        "Existing AC feeder limit 160 kW. Whole-room cooling limit 140 kW; no other room load in this simplified comparison.",
+        "B's intermediate bus is specified as an 800 V conductor-to-return DC segment."
+      ],
+      "steps": [
+        "A needs 120/0.96 = 125 kW AC, with 5 kW conversion loss.",
+        "B's intermediate DC load is 120/0.98 = 122.449 kW. Its AC input is 122.449/0.97 = 126.236 kW.",
+        "B's 800 V segment carries 122,449/800 = 153.06 A, approximately. This is not current at the final device rail.",
+        "Both fit the 160 kW feeder and 140 kW whole-room cooling limits under the stated assumptions.",
+        "B uses about 1.236 kW more AC input in this synthetic comparison and consumes the service bay. Its lower distribution current alone cannot establish project superiority."
+      ],
+      "result": "Both candidates fit the supplied steady power and heat limits. The assumed sidecar chain has higher total conversion loss and an unresolved maintenance-space conflict.",
+      "boundary": "No conductor, protection, grounding or thermal design is supplied. Efficiencies are fixed hypothetical operating points. The exercise compares mechanisms, not available products or installation procedures."
+    },
+    "tradeoff": {
+      "choice": "Move conversion to a sidecar while retaining upstream AC.",
+      "benefit": "Potentially free compute-rack space and reduce current in the specified high-voltage segment.",
+      "cost": "Add conversion, protection and maintenance interfaces; retained AC and room-level heat limits remain."
+    },
+    "failure": {
+      "trigger": "The sidecar fits on a layout plan but blocks the required replacement route.",
+      "mechanism": "A dense installation becomes unmaintainable without shutting down or removing adjacent equipment.",
+      "response": "Resolve the service envelope and change-control interfaces before procurement; do not count nominal floor area as usable access."
+    },
+    "practice": {
+      "question": "The final DC load rises to 135 kW. Keep all efficiencies and room limits fixed. Does either architecture fit the 140 kW room cooling limit? What additional information is needed to compare annual energy?",
+      "answer": "A draws 140.625 kW; B draws about 142.016 kW. Both exceed the supplied room cooling limit, although both remain below the 160 kW feeder limit.",
+      "reasoning": "Raising density moves the binding constraint to whole-room heat rejection. Annual energy comparison needs a load-duration profile and efficiency curves, plus other included auxiliary losses. Multiplying a single rated point by a year silently assumes continuous operation at that point."
+    },
+    "sources": [
+      {
+        "title": "NVIDIA: Why Scaling AI Compute Performance Requires a New Power Architecture",
+        "url": "https://blogs.nvidia.com/blog/800-vdc-power-architecture-ai-factory/",
+        "claim": "The vendor distinguishes hybrid power-rack, row-level and broader facility-DC directions; this case supplies its own configurations and numbers.",
+        "reviewed_on": "2026-09-06",
+        "limits": "August 11, 2026 roadmap page. Availability expectations and proposals are not proof of a deployed site; linked specifications need separate review."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Service envelope",
+        "definition": "The space and access required to inspect, maintain, remove and replace equipment, beyond its installed footprint."
+      }
+    ]
+  },
+  {
+    "id": "c04-stalled-job",
+    "domain": "capstone",
+    "title": "The powered cluster that keeps waiting",
+    "question": "Which measurement would distinguish a fabric limit from a storage or compute limit?",
+    "summary": "Build a serial job timeline from supplied measurements, compare two proposed improvements, and test recovery rather than relying on GPU occupancy.",
+    "takeaway": "A job's critical path is a time budget. Improve the segment that governs completion and measure whether the expected gain appears.",
+    "objectives": [
+      "D02.2",
+      "D07.3",
+      "D08.2",
+      "D08.3",
+      "D09.1",
+      "D09.2",
+      "D14.5"
+    ],
+    "lab": "network",
+    "image": "network",
+    "sections": [
+      {
+        "heading": "Name what the job is waiting for",
+        "paragraphs": [
+          "A hypothetical distributed job repeats a cycle containing 60 seconds of useful compute, a 20-second communication phase, and a 10-second blocking checkpoint pause. The supplied trace shows no overlap between these phases. A dashboard reports that the devices remain allocated for the entire cycle, but allocation alone cannot tell you how much useful work completes. Some waiting may also involve active instructions, so a generic hardware busy counter is not a substitute for the application trace. Use the actual job boundary and a declared definition of useful progress.",
+          "The communication phase moves a supplied 800 GB payload across one measured bottleneck at an effective 40 GB/s. The checkpoint writes 200 GB at an effective 20 GB/s. These decimal units and achieved rates are scenario measurements, not peak port specifications. The numbers are deliberately consistent with the phase durations. A real collective can have multiple rounds, aggregation and synchronization effects; do not apply one-payload division to an unidentified collective algorithm. This capstone provides the transfer model so its calculation can be checked."
+        ]
+      },
+      {
+        "heading": "Make a falsifiable improvement prediction",
+        "paragraphs": [
+          "Proposal N doubles the achieved communication rate while leaving computation and storage unchanged. Proposal S doubles the checkpoint write rate with the rest unchanged. Since the supplied trace is serial, calculate each phase separately and add the times. Predict a new cycle duration before running the experiment. If observed completion does not improve as predicted, examine whether the achieved rate changed at the bottleneck, whether another segment expanded, whether synchronization moved the critical path, or whether the original no-overlap assumption was wrong.",
+          "A complete recovery exercise goes beyond write speed. After a checkpoint is committed, the job must find compatible state, read it, restore execution and produce valid progress. A checkpoint that is fast but unrecoverable is not a successful service. Record the application version, checkpoint identifier, storage path, restart duration and output check. Compare ordinary completion time with time lost during failures over an appropriate interval. Power and cooling adequacy remain prerequisites; they do not establish these information and software paths."
+        ]
+      }
+    ],
+    "example": {
+      "title": "Compare two bottleneck interventions",
+      "assumptions": [
+        "Synthetic serial cycle: 60 s useful compute, 800 GB communication, 200 GB blocking checkpoint.",
+        "Achieved payload rates: 40 GB/s communication and 20 GB/s checkpoint writing; no overlap or restart in the baseline cycle.",
+        "Both proposals affect only their named rate."
+      ],
+      "steps": [
+        "Baseline communication is 800/40 = 20 s; checkpoint write is 200/20 = 10 s.",
+        "Baseline cycle duration is 60 + 20 + 10 = 90 s. Useful-compute share is 60/90 = 66.7%.",
+        "N gives 800/80 = 10 s communication, hence an 80 s cycle and 90/80 = 1.125 times the baseline cycle throughput.",
+        "S gives 200/40 = 5 s checkpoint write, hence an 85 s cycle and 90/85 ≈ 1.059 times the baseline cycle throughput.",
+        "If both independently hold, the cycle becomes 60 + 10 + 5 = 75 s, or 1.20 times baseline throughput. Neither rate doubling doubles useful throughput."
+      ],
+      "result": "Under this serial trace, the network proposal saves ten seconds per cycle and the storage proposal saves five. Validate the achieved rates and the changed cycle in an experiment.",
+      "boundary": "The model excludes overlap, collective details, startup overhead and failure recovery from ordinary cycle time. No rack power, advertised FLOPS or generic GPU utilization value is converted into job output."
+    },
+    "tradeoff": {
+      "choice": "Invest in the larger measured time reduction first.",
+      "benefit": "The predicted gain is tied to a named bottleneck and can be checked against a trace.",
+      "cost": "Acquisition, disruption, scaling and recovery behavior may differ; the biggest speed improvement is not automatically the best economic choice."
+    },
+    "failure": {
+      "trigger": "The communication rate doubles but job duration barely changes.",
+      "mechanism": "The assumed bottleneck may not be on the job's critical path, or another shared resource may now dominate.",
+      "response": "Collect aligned compute, communication, storage and synchronization traces, then compare the observed intervals with the prediction."
+    },
+    "practice": {
+      "question": "A revised implementation overlaps 8 seconds of the baseline 10-second checkpoint pause with computation. Communication remains serial at 20 seconds. What is the new cycle duration? Would doubling checkpoint write rate still save five seconds?",
+      "answer": "The cycle is 60 + 20 + (10 − 8) = 82 seconds. A five-second write can fit entirely inside the available eight-second overlap window, reducing the cycle only to 80 seconds.",
+      "reasoning": "The visible critical-path checkpoint cost is two seconds. Faster storage saves only exposed time, provided the same overlap window and compute behavior really hold. A phase's total duration and its contribution to end-to-end completion are different quantities."
+    },
+    "sources": [
+      {
+        "title": "Slurm: Topology guide",
+        "url": "https://slurm.schedmd.com/topology.html",
+        "claim": "Provides scheduling-topology context; all payloads, phase times and interventions are original synthetic scenarios.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Selected topology documentation, not a pinned-release workload benchmark. Scheduling topology does not by itself specify packet routing or achieved communication rate."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Critical-path time",
+        "definition": "Time on the dependency chain that determines completion; speeding work outside that chain may not reduce total duration."
+      }
+    ]
+  },
+  {
+    "id": "c05-open-a-phase",
+    "domain": "capstone",
+    "title": "Open one phase, with evidence",
+    "question": "Which racks can be counted as accepted service, and what must happen before the next phase opens?",
+    "summary": "Reconcile installation, energization, integrated testing and service acceptance. Build a dependency schedule without treating announcements as operational measurements.",
+    "takeaway": "Count complete accepted paths for a specified service; maintain a separate ledger for future capacity and unresolved public claims.",
+    "objectives": [
+      "D03.3",
+      "D09.4",
+      "D13.1",
+      "D13.3",
+      "D13.4",
+      "D15.1",
+      "D15.5"
+    ],
+    "lab": "capacity",
+    "image": "campus",
+    "sections": [
+      {
+        "heading": "A campus total can hide incomplete paths",
+        "paragraphs": [
+          "A hypothetical campus has 1,000 rack locations, 800 installed racks and an energized 100 MW site service. None of those totals alone identifies an accepted service path. The supplied handover register splits the installed racks into three groups: A contains 300 racks whose electrical, cooling, network, storage, controls and workload recovery tests have passed; B contains 250 racks with electrical and cooling tests complete but storage acceptance still open; C contains 250 racks whose integrated cooling test remains open. Every group uses a specified 100 kW rack-equivalent load for this exercise.",
+          "Create separate columns for installed equipment, energized paths, individual tests, integrated tests and service acceptance. Do not combine the highest count from each subsystem as if those counts referred to the same racks. Even equal totals can describe disjoint groups. Acceptance requires the intersection of compatible paths for the particular service. The hypothetical evidence explicitly establishes that intersection only for group A. The project can report its larger installed inventory, but it should not rename that inventory as accepted computing capacity."
+        ]
+      },
+      {
+        "heading": "Distinguish a schedule calculation from a public-site inference",
+        "paragraphs": [
+          "Group B's remaining storage interface work can begin immediately and takes four days. Recovery testing then takes two days. Group C needs a replacement cooling component delivered in three days, one day of installation, and three days of integrated testing, with each task depending on the preceding one. Assume the supplied durations hold, groups can proceed independently, and qualified teams and all other resources are available. These assumptions make a small dependency schedule calculable. Actual projects require resource, uncertainty and change-control analysis beyond this exercise.",
+          "For a named campus, perform a different task: open its dated public records and classify the statements they actually support. A reported building opening, utility agreement or equipment order is not evidence of the internal acceptance register used here. If a relevant public source does not report commissioning state, demand, topology or workload output, leave those entries unknown. The worked exercise teaches how to reason when inputs are supplied; it does not authorize filling missing real-site evidence with the synthetic numbers. An auditable reference distinguishes these two modes every time it uses a real project name."
+        ]
+      }
+    ],
+    "example": {
+      "title": "Count the intersection and trace the dependencies",
+      "assumptions": [
+        "Synthetic groups A/B/C contain 300/250/250 installed racks, each represented by 100 kW.",
+        "Only A has passed the complete service acceptance package. All other site-wide constraints are adequate for the calculated groups.",
+        "B: four days of interface work then two days of recovery testing. C: three days delivery, one day installation, then three days integrated testing."
+      ],
+      "steps": [
+        "Accepted service today: 300 × 100 kW = 30 MW of rack-equivalent demand. Installed inventory is separately 800 racks or 80 MW at the stated load.",
+        "B's acceptance path takes 4 + 2 = 6 days. On successful completion, accepted service becomes 550 racks or 55 MW.",
+        "C's acceptance path takes 3 + 1 + 3 = 7 days. On successful completion, accepted service becomes 800 racks or 80 MW.",
+        "The earliest all-group acceptance is day seven under the supplied independent-resource assumptions. The longest single activity is not the same as the longest dependency chain.",
+        "Every projected increase remains conditional on test success and the stated supply/resource assumptions. A failed test changes the schedule rather than being averaged into an accepted count."
+      ],
+      "result": "The evidence supports 300 accepted racks now, a conditional 550 by day six and a conditional 800 by day seven. Installed, energized and future figures remain separate.",
+      "boundary": "Synthetic schedule and acceptance register. No named project's operating state, redundancy certification, installed GPU count or measured demand is inferred."
+    },
+    "tradeoff": {
+      "choice": "Open accepted group A while completing the other phases.",
+      "benefit": "Begin delivering a bounded service before the entire installed inventory is accepted.",
+      "cost": "Shared-system work, isolation, access and change control must preserve the live group's accepted conditions."
+    },
+    "failure": {
+      "trigger": "An executive summary reports 80 MW live because 800 racks are installed and the site service is energized.",
+      "mechanism": "The summary collapses equipment inventory and complete service acceptance into one capacity label.",
+      "response": "Replace the single number with the evidence ledger, identify open tests and report conditional future milestones separately."
+    },
+    "practice": {
+      "question": "Group C's integrated test fails on day seven. Correction requires two days followed by a three-day retest. B succeeds on day six. Assuming correction starts immediately after the failure, what can be reported on day eight and when could all 800 racks first be accepted?",
+      "answer": "On day eight, 550 racks are accepted under the scenario. C can first be accepted on day twelve: day seven plus two correction days plus three retest days.",
+      "reasoning": "Failed acceptance does not add usable service, although the hardware remains installed. Group B's successful path is unaffected by assumption; any shared dependency would require revising that independence claim. The day-twelve date remains conditional on successful correction, retest and resource availability."
+    },
+    "sources": [
+      {
+        "title": "ASHRAE: Commissioning & Performance Validation",
+        "url": "https://www.ashrae.org/technical-resources/ai-data-center-framework/commissioning-performance-validation",
+        "claim": "Commissioning context for distinguishing testing and handover from installation; the register and schedule are original teaching inputs.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Public framework guidance. Referenced standards and project-specific acceptance procedures were not reviewed; no field procedure is prescribed."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Acceptance register",
+        "definition": "A record linking a specified service or equipment group to required tests, results, unresolved issues and authorized acceptance."
+      }
+    ]
+  }
+]

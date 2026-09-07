@@ -1,0 +1,2115 @@
+[
+  {
+    "id": "d06-conversion-ledger",
+    "domain": "D06",
+    "title": "Follow the watts through the rack",
+    "question": "Why is the sum of processor power ratings not the power entering the rack?",
+    "summary": "Build an electrical ledger from the rack inlet to useful device rails, with separate conversion losses and auxiliary loads.",
+    "takeaway": "Every efficiency has an input and output boundary; every watt entering the rack must have a destination.",
+    "objectives": [
+      "D06.1",
+      "D06.2"
+    ],
+    "sections": [
+      {
+        "heading": "Draw boundaries before calculating",
+        "paragraphs": [
+          "A rack is a distribution system containing several kinds of load. Accelerators perform arithmetic, host processors manage execution, memory holds working state, switches move information, and management hardware keeps the system observable. Fans and pumps may also draw electricity inside the chosen rack boundary. Begin with the measured inlet, then draw arrows to each converter and load. Label an arrow with both voltage and power. Voltage describes the electrical interface; power describes the rate of energy transfer. Two arrows can carry the same power at very different currents.",
+          "A processor rating is attached to a particular device and operating convention. It does not automatically include the memory, conversion losses or external switches supporting that processor. Nor does a collection of ratings establish simultaneous measured demand. For a first ledger, declare a steady operating point and give every branch an assumed load. Later, compare that ledger with telemetry at matching timestamps. If one meter averages a minute while another samples a burst, apparent missing watts may be a measurement-boundary problem."
+        ]
+      },
+      {
+        "heading": "Conversion moves the loss as well as the voltage",
+        "paragraphs": [
+          "For a converter with efficiency eta, useful output equals eta times electrical input. Therefore input equals output divided by eta, and loss equals input minus output. Work backward from the loads when the question is how much upstream capacity is required. If two converters operate in series, their efficiencies multiply. If two loads operate on parallel branches, their input powers add. Adding efficiencies, or applying a series product to parallel loads, gives an incorrect answer even when every component rating is accurate.",
+          "Conversion loss becomes heat where the conversion takes place. Moving an AC-to-DC stage into a separate power rack can move some heat and occupied space out of the compute rack. It does not make that heat disappear from the building. The final low-voltage regulation close to silicon still matters: supplying a high distribution voltage does not mean applying that voltage directly to a processor. Preserve the distinction between distribution bus, intermediate rail and point-of-load regulator in every diagram."
+        ]
+      },
+      {
+        "heading": "Current is a local consequence of the boundary",
+        "paragraphs": [
+          "At a declared DC boundary, P = V × I. A synthetic 100 kW load draws 2,000 A at 50 V and 125 A at 800 V. That sixteenfold difference follows from holding delivered power constant. It says nothing by itself about the total efficiency of two complete architectures. To compare conductor heating with I²R, first specify the same conductor resistance, including the return path. To compare conductor designs, resistance changes with geometry, length, temperature and connection details. Those are different comparisons.",
+          "For example, use a deliberately fixed 1 milliohm round-trip resistance. The idealized heating is 4 kW at 2,000 A and about 15.6 W at 125 A. This dramatic ratio is a property of the stipulated currents and unchanged resistance, not a predicted saving for a real rack. It excludes converters, connectors, insulation spacing, protection and cooling. A fair system comparison follows all losses from the same upstream point to the same useful loads, at the same operating conditions. The lower-current result is a reason to investigate architecture, not a completed design."
+        ]
+      }
+    ],
+    "example": {
+      "title": "A synthetic rack power ledger",
+      "assumptions": [
+        "A group of processor rails delivers 72 kW at a steady point.",
+        "Point-of-load conversion efficiency is 92%. Other DC-bus loads total 12 kW, including all auxiliaries inside this example.",
+        "The rack AC-to-DC shelf operates at 97% efficiency; no other electrical stages are inside the rack boundary."
+      ],
+      "steps": [
+        {
+          "label": "Feed the processor regulators",
+          "expression": "72 / 0.92 = 78.261 kW",
+          "explanation": "The difference, 6.261 kW, is regulator loss."
+        },
+        {
+          "label": "Add parallel DC loads",
+          "expression": "78.261 + 12 = 90.261 kW",
+          "explanation": "The shelf supplies both branches; the 12 kW is already measured at its bus."
+        },
+        {
+          "label": "Find rack input",
+          "expression": "90.261 / 0.97 = 93.052 kW",
+          "explanation": "The shelf dissipates another 2.792 kW."
+        },
+        {
+          "label": "Close the ledger",
+          "expression": "72 + 12 + 6.261 + 2.792 ≈ 93.052 kW",
+          "explanation": "Rounding explains the last decimal; no load is counted twice."
+        }
+      ],
+      "result": "A 72 kW processor total corresponds to about 93.05 kW at this synthetic rack inlet.",
+      "boundary": "The assumed efficiencies are illustrative operating points, not product specifications. Facility UPS losses and room cooling are outside this rack ledger."
+    },
+    "tradeoff": {
+      "choice": "Move a conversion stage outside the compute rack.",
+      "benefit": "Recover internal space and shift the location of converter heat and service work.",
+      "cost": "The external equipment still needs electrical capacity, cooling, protection and access; interconnecting losses must be included."
+    },
+    "failure": {
+      "trigger": "An engineer allocates a feeder using processor power alone.",
+      "mechanism": "Parallel host, memory, switch and auxiliary demand plus conversion loss exceeds the omitted allowance.",
+      "response": "Reconcile a component ledger with inlet measurements for the specified workload and redundancy state before changing the allocation."
+    },
+    "practice": {
+      "question": "The 12 kW auxiliary branch increases to 18 kW while every other assumption remains fixed. How much additional AC input is required, and why is it not 6 kW?",
+      "hint": "The additional branch load crosses the shelf but does not cross the processor regulator.",
+      "answer": "Additional input is 6 / 0.97 = 6.186 kW; total rack input becomes about 99.238 kW.",
+      "reasoning": "Only the conversion stages upstream of a changed branch affect its incremental demand. Applying the 92% regulator efficiency would invent a path that this branch does not traverse. An actual shelf may change efficiency with loading, so the fixed-efficiency answer is a controlled approximation."
+    },
+    "sources": [
+      {
+        "title": "NVIDIA NVL72 AI Factory — System Hardware & Components",
+        "url": "https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/components.html",
+        "claim": "The named rack includes compute, switching, management and power-shelf components; a rack is not only a GPU count.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Mutable reference architecture, inspected as updated May 18, 2026. No advertised performance ratios or ambiguous aggregate-bandwidth recommendations are used."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Point-of-load regulation",
+        "definition": "Voltage conversion near a device that supplies its required local rail."
+      },
+      {
+        "term": "Conversion efficiency",
+        "definition": "Output power divided by input power at a stated operating point."
+      },
+      {
+        "term": "Parallel branch",
+        "definition": "A separate path whose demand adds to other loads at their common upstream boundary."
+      }
+    ],
+    "visual": {
+      "kind": "flow",
+      "title": "One inlet, several destinations",
+      "nodes": [
+        {
+          "label": "Rack input",
+          "detail": "93.05 kW AC in the synthetic ledger"
+        },
+        {
+          "label": "Power shelf",
+          "detail": "90.26 kW DC plus 2.79 kW loss"
+        },
+        {
+          "label": "Two branches",
+          "detail": "78.26 kW to regulators; 12 kW elsewhere"
+        },
+        {
+          "label": "Processor rails",
+          "detail": "72 kW output plus 6.26 kW regulator loss"
+        }
+      ],
+      "caption": "Line width follows power; color changes only at voltage-conversion boundaries. All values are synthetic."
+    }
+  },
+  {
+    "id": "d06-eight-hundred-volt-architectures",
+    "domain": "D06",
+    "title": "800 V is an interface, not an entire architecture",
+    "question": "What changes when conversion sits in the rack, beside the rack, or at the facility boundary?",
+    "summary": "Compare three declared architectures while preserving their conversion, storage and protection interfaces.",
+    "takeaway": "Specify where 800 V begins and ends, what remains AC, and which claims are roadmap statements.",
+    "objectives": [
+      "D06.2",
+      "D06.3",
+      "D06.4"
+    ],
+    "sections": [
+      {
+        "heading": "Keep the three drawings separate",
+        "paragraphs": [
+          "Architecture A brings AC distribution to a compute rack, converts it to a lower-voltage DC bus, and regulates power near devices. Architecture B retains AC distribution but moves rectification into an adjacent power rack or row unit. A higher-voltage DC connection then reaches compute racks, which contain the required downstream conversion. Architecture C begins DC distribution farther upstream, potentially near the facility electrical boundary. These drawings can share a nominal DC voltage while differing in conductor lengths, maintenance zones, fault exposure and responsibility for stored energy.",
+          "The comparison becomes useful when unchanged equipment stays visible. In B, the upstream AC feeder still carries the aggregate load delivered to the row, plus conversion losses. In C, a longer portion of the facility becomes a DC distribution system and must be designed accordingly. Neither sketch determines how many storage modules, isolation stages or protective devices are required. Draw those as explicit blocks with interfaces rather than assuming that central rectification automatically replaces every UPS function."
+        ]
+      },
+      {
+        "heading": "Read a roadmap as a dated design proposal",
+        "paragraphs": [
+          "NVIDIA’s May 2025 account described a facility-level 800 VDC concept and linked full-scale production to 2027 systems. Its August 11, 2026 update separately described a hybrid power rack expected in the second half of 2026, a row power center expected in 2027, and a broader DC power block. These are vendor descriptions and availability expectations as published. They establish proposed architecture categories, not evidence that a named site has accepted an operating installation or achieved a claimed efficiency.",
+          "When a diagram says 800 V, ask between which conductors it is measured. A two-conductor 800 V differential and a bipolar arrangement described relative to a midpoint cannot be substituted silently. Their conductor-to-ground stress, fault cases and service interfaces depend on the actual grounding arrangement. The teaching diagram should show the specified convention without inventing it. Similarly, an AC voltage label needs a declared phase configuration and line-to-line or line-to-neutral meaning. A DC current comparison must not be casually reused as a three-phase AC feeder calculation."
+        ]
+      },
+      {
+        "heading": "Compare a chain, not the number of boxes",
+        "paragraphs": [
+          "Fewer conversion stages can be attractive, but stage count is not an efficiency measurement. A larger converter at low load may behave differently from several smaller modules loaded near their intended operating range. Redundancy, thermal conditions, auxiliary power and standby behavior can also change the result. Create a table of stage efficiencies for each architecture at the same delivered load. Multiply efficiencies only along one energy path, add branch loads where they join, and allocate auxiliary consumption to its real location.",
+          "The physical interfaces deserve equal attention. A rack input specification must cover steady demand, peak demand, permitted voltage variation and the response to a sudden load change. The downstream equipment and upstream supply must agree on startup sequencing, fault isolation and shutdown behavior. A higher voltage reduces current at fixed power, but stored electrical energy and fault interruption remain separate engineering questions. The course comparison asks which functions moved and which must be revalidated. It does not instruct a learner to select protective equipment from a nominal voltage alone."
+        ]
+      }
+    ],
+    "example": {
+      "title": "Two deliberately simplified conversion chains",
+      "assumptions": [
+        "Both paths deliver exactly 100 kW at the same final DC load boundary.",
+        "Path A has assumed efficiencies of 98%, 97% and 95%; path B has 98.5% and 96%.",
+        "Auxiliary loads, conductors and redundancy effects are excluded equally to isolate the series-conversion calculation."
+      ],
+      "steps": [
+        {
+          "label": "Compute path A efficiency",
+          "expression": "0.98 × 0.97 × 0.95 = 0.90307",
+          "explanation": "The three serial stages deliver 90.307% of their input to the declared output."
+        },
+        {
+          "label": "Compute path B efficiency",
+          "expression": "0.985 × 0.96 = 0.9456",
+          "explanation": "Two assumed stages deliver 94.56%."
+        },
+        {
+          "label": "Compare inputs",
+          "expression": "100 / 0.90307 = 110.733 kW; 100 / 0.9456 = 105.753 kW",
+          "explanation": "At equal output, the input difference is about 4.980 kW."
+        },
+        {
+          "label": "State the comparison correctly",
+          "expression": "(110.733 − 105.753) / 110.733 ≈ 4.50%",
+          "explanation": "This is a reduction in modeled input relative to A, not the percentage-point difference between efficiencies."
+        }
+      ],
+      "result": "Path B uses about 4.50% less input in this constructed example. That conclusion follows from the assigned efficiencies, not from the label 800 V.",
+      "boundary": "No values represent measured NVIDIA hardware, and omitted parallel loads would change an end-to-end result."
+    },
+    "tradeoff": {
+      "choice": "Extend DC distribution farther toward the facility boundary.",
+      "benefit": "Allow conversion and distribution to be reconsidered together instead of preserving every existing stage.",
+      "cost": "Expand the scope of protection, grounding, maintenance, controls and equipment qualification that must be coordinated."
+    },
+    "failure": {
+      "trigger": "A team treats a hybrid sidecar as a facility-wide DC conversion.",
+      "mechanism": "The drawing hides retained AC constraints and incorrectly attributes all upstream losses and UPS functions to equipment that has not changed.",
+      "response": "Mark every retained and replaced block, then compare the same electrical endpoints under a documented operating state."
+    },
+    "practice": {
+      "question": "Path B requires an additional constant 6 kW auxiliary load supplied at the upstream boundary. Does it still use less input than A in this example?",
+      "hint": "Add the auxiliary load after calculating B’s modeled input; do not put it through downstream efficiencies.",
+      "answer": "No. B becomes 111.753 kW, about 1.020 kW above A.",
+      "reasoning": "The unmodeled auxiliary reverses the arithmetic result. This does not show that a real high-voltage design has such a load. It demonstrates why architecture claims require an inclusive boundary and measured auxiliary behavior."
+    },
+    "sources": [
+      {
+        "title": "NVIDIA 800 VDC Architecture Will Power the Next Generation of AI Factories",
+        "url": "https://developer.nvidia.com/blog/nvidia-800-v-hvdc-architecture-will-power-the-next-generation-of-ai-factories/",
+        "claim": "May 2025 facility DC concept, conversion placement and forward-looking 2027 timing.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Vendor roadmap; projected savings and reliability claims are not adopted as measured results."
+      },
+      {
+        "title": "Why Scaling AI Compute Performance Requires a New Power Architecture",
+        "url": "https://blogs.nvidia.com/blog/800-vdc-power-architecture-ai-factory/",
+        "claim": "August 2026 distinction between hybrid power rack, row power center and facility DC power block.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Published availability expectations are not proof of installation, acceptance or site compatibility."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Rectification",
+        "definition": "Conversion from alternating current to direct current."
+      },
+      {
+        "term": "Bipolar distribution",
+        "definition": "A specified arrangement with two poles referenced to a midpoint; voltage labels require an explicit reference."
+      },
+      {
+        "term": "Electrical boundary",
+        "definition": "The point or enclosure across which input and output are counted."
+      }
+    ],
+    "visual": {
+      "kind": "comparison",
+      "title": "Move the rectifier, preserve the interfaces",
+      "nodes": [
+        {
+          "label": "Rack conversion",
+          "detail": "AC reaches compute; conversion is inside"
+        },
+        {
+          "label": "Near-rack conversion",
+          "detail": "AC reaches power rack; DC crosses to compute"
+        },
+        {
+          "label": "Facility DC",
+          "detail": "Conversion occurs upstream; DC traverses a larger zone"
+        }
+      ],
+      "caption": "Storage, protection and final regulation remain visible in every architecture. Drawings are functional comparisons, not construction designs."
+    }
+  },
+  {
+    "id": "d06-rack-migration",
+    "domain": "D06",
+    "title": "A rack upgrade is an interface negotiation",
+    "question": "Why can a retrofit reject the architecture that looks best on an empty site?",
+    "summary": "Test a higher-density rack against electrical, thermal, mechanical and operational constraints before accepting the upgrade path.",
+    "takeaway": "An upgrade succeeds only when every required interface can support the agreed operating and failure states.",
+    "objectives": [
+      "D06.3",
+      "D06.4",
+      "D06.5"
+    ],
+    "sections": [
+      {
+        "heading": "Start with a service brief and two inventories",
+        "paragraphs": [
+          "Write the desired service first: a workload, useful-throughput target, availability expectation and date. Then create two inventories. The first describes the existing site: available feeder capacity under the intended redundancy condition, cooling interfaces, physical access, floor support, management network and permitted maintenance windows. The second describes the proposed rack: input range, continuous and transient power, coolant conditions, residual air heat, weight, cabling, service clearances and restart behavior. The project consists of reconciling those inventories, not merely fitting the new cabinet into an old footprint.",
+          "A missing value is a project risk to resolve, not a zero. If rack weight is unknown, do not infer it from a photograph. If a supplier specifies cooling capacity without fluid and temperature conditions, the interface is incomplete. If the operator promises a maintenance window but the customer cannot checkpoint within it, the operational interface is incomplete. Identify the owner of each missing specification and the evidence that will close it. This makes the decision reviewable without pretending that a classroom exercise is an engineering approval."
+        ]
+      },
+      {
+        "heading": "Separate steady power from the time response",
+        "paragraphs": [
+          "A feeder can have sufficient average capacity while a load transient still violates a converter’s permitted voltage range. Conversely, a short burst can be buffered locally even when a longer increase cannot be sustained. Plot power against time and label which device responds over each interval. Energy is the area between demand and supply. A 40 kW deficit lasting 0.2 seconds requires 8 kJ delivered to the relevant bus. That arithmetic does not select a battery or capacitor: voltage droop, accessible energy, conversion power, control delay and repetition frequency remain to be established.",
+          "For a capacitor model, usable energy between two allowed voltages is one half of capacitance times the difference of their squares. The usable range matters more than total nameplate energy when the load cannot tolerate deep voltage reduction. For a repeated burst, the source must also replenish the buffer between events. A buffer solves a temporary mismatch only while its power and energy limits permit it. It cannot make a permanently overloaded feeder adequate, and recharge can create a new upstream peak."
+        ]
+      },
+      {
+        "heading": "Brownfield and greenfield optimize different things",
+        "paragraphs": [
+          "On an empty site, the designer can coordinate power rooms, pipe routes, service access and equipment zones before construction. In an occupied building, the same change may require planned outages, temporary capacity and work beside operating systems. Retained assets have both value and constraints. A hybrid power rack may preserve part of the AC system while consuming scarce floor positions. Facility-level DC might offer a cleaner future layout but require a much larger conversion project. The comparison must value time and disruption alongside equipment losses.",
+          "Use a decision table whose columns are throughput available by the required date, enabling works, service access, power headroom, cooling headroom and reversibility. Reject a route when a hard requirement cannot be met; score preferences only after that. Then perform a reversal test: identify the smallest plausible change that would alter the choice. If one extra feeder upgrade makes the delayed route attractive, obtain that cost and schedule before declaring a winner. An architecture decision becomes stronger when the team can say what evidence would change it."
+        ]
+      }
+    ],
+    "example": {
+      "title": "A sidecar does not increase feeder capacity",
+      "assumptions": [
+        "An existing row has 240 kW available at its AC allocation boundary under the required operating condition.",
+        "Two new compute racks each need 120 kW DC. A shared sidecar is assumed 96% efficient and has 3 kW of additional upstream-fed auxiliaries.",
+        "No simultaneous-load discount is allowed. An alternative reduced setting is 110 kW DC per rack."
+      ],
+      "steps": [
+        {
+          "label": "Test full rack demand",
+          "expression": "(2 × 120) / 0.96 + 3 = 253 kW",
+          "explanation": "The requested DC output already consumes all nominal AC headroom before losses."
+        },
+        {
+          "label": "Find the shortfall",
+          "expression": "253 − 240 = 13 kW",
+          "explanation": "Moving conversion outside the rack does not remove this upstream requirement."
+        },
+        {
+          "label": "Test the reduced setting",
+          "expression": "(2 × 110) / 0.96 + 3 = 232.167 kW",
+          "explanation": "The lower load leaves about 7.833 kW of modeled electrical headroom."
+        }
+      ],
+      "result": "The full setting fails the supplied electrical constraint. The reduced setting passes this one arithmetic screen but still needs workload and interface acceptance.",
+      "boundary": "These are synthetic allocations, not conductor ampacities or permission to operate equipment. No real rack power cap or performance response is implied."
+    },
+    "tradeoff": {
+      "choice": "Use a staged retrofit with a lower initial rack power setting.",
+      "benefit": "Potentially meet an earlier service date while completing enabling work later.",
+      "cost": "Useful throughput may fall or become workload-dependent; two qualification cycles and future interruptions may be required."
+    },
+    "failure": {
+      "trigger": "The design passes steady-state checks but startup triggers simultaneous charging and compute demand.",
+      "mechanism": "The aggregate transient exceeds the agreed input envelope or causes a voltage excursion even though the eventual steady point fits.",
+      "response": "Have the responsible engineering teams validate startup sequencing, buffer recharge and load-step behavior against both supplier and site limits."
+    },
+    "practice": {
+      "question": "The project can obtain another 20 kW of allocation, but doing so adds six weeks. Its customer needs service in three weeks and accepts a verified lower-throughput mode temporarily. Which route is defensible?",
+      "hint": "Separate the immediate service commitment from the final architecture.",
+      "answer": "A staged reduced-load route can be defensible if it passes all interfaces and the customer’s measured service target; schedule the larger allocation as a separate enabling phase.",
+      "reasoning": "The full setting would then fit the expanded 260 kW allocation, with only 7 kW of modeled margin, but it misses the initial date. The customer’s acceptance changes the feasible set. Without measured low-power throughput and a qualified migration procedure, even the staged route remains a proposal."
+    },
+    "sources": [
+      {
+        "title": "Open Rack specifications and designs",
+        "url": "https://www.opencompute.org/wiki/Open_Rack/SpecsAndDesigns",
+        "claim": "Rack, power, connector, battery and manifold interfaces are documented separately with revisions.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Index reviewed; individual component specifications require independent review and qualification."
+      },
+      {
+        "title": "NVIDIA 800 VDC transition announcement",
+        "url": "https://blogs.nvidia.com/blog/800-vdc-power-architecture-ai-factory/",
+        "claim": "A hybrid power-rack category can retain upstream AC distribution.",
+        "reviewed_on": "2026-09-06",
+        "limits": "The vendor compatibility statement does not establish the capacity of a particular existing site."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Brownfield",
+        "definition": "An existing site whose retained equipment and operating service constrain modifications."
+      },
+      {
+        "term": "Transient",
+        "definition": "A time-varying departure from a steady operating point."
+      },
+      {
+        "term": "Interface requirement",
+        "definition": "A stated condition that connected systems must satisfy together."
+      }
+    ],
+    "visual": {
+      "kind": "timeline",
+      "title": "From proposed rack to accepted service",
+      "nodes": [
+        {
+          "label": "Inventory",
+          "detail": "Capture site and rack requirements"
+        },
+        {
+          "label": "Reconcile",
+          "detail": "Close feeder, coolant, access and control gaps"
+        },
+        {
+          "label": "Qualify",
+          "detail": "Test startup, steady operation and failure states"
+        },
+        {
+          "label": "Accept",
+          "detail": "Demonstrate the agreed workload service"
+        }
+      ],
+      "caption": "Passing one constraint does not imply that the remaining interfaces pass."
+    }
+  },
+  {
+    "id": "d07-data-path",
+    "domain": "D07",
+    "title": "A rack is a path through several memories",
+    "question": "What must happen between a stored dataset and a completed accelerator operation?",
+    "summary": "Follow bytes through storage, host processing, accelerator memory, execution and communication, and distinguish movement from ownership.",
+    "takeaway": "A powerful arithmetic engine contributes only when the data, software and synchronization it needs arrive in time.",
+    "objectives": [
+      "D07.1",
+      "D07.2"
+    ],
+    "sections": [
+      {
+        "heading": "Trace one batch before drawing a whole cluster",
+        "paragraphs": [
+          "Start with a dataset record in durable storage. A process identifies the record, obtains permission to read it, retrieves its bytes and interprets its format. The host CPU may decode, tokenize, transform or assemble those bytes into a batch. Host memory holds intermediate state. A transfer places the required tensors in accelerator-accessible memory, kernels operate on them, and results feed another kernel, a communication operation or a stored output. This deliberately simple path is a reasoning tool. Some implementations bypass intermediate copies, but their control and correctness responsibilities still exist.",
+          "The CPU is not merely a smaller accelerator. It may run the operating system, launch work, prepare data, coordinate communications and execute parts of the application that do not map efficiently to parallel kernels. The accelerator combines execution units with a hierarchy of memories and caches. A NIC connects the node to an external fabric; an accelerator interconnect connects participating devices within a specified system. A storage device holds data across power cycles according to its guarantees. Each component solves a different part of the journey."
+        ]
+      },
+      {
+        "heading": "Capacity, locality and copies are different questions",
+        "paragraphs": [
+          "Memory capacity asks whether the required live state fits. Bandwidth asks how quickly bytes cross an interface. Latency asks how long an individual request waits for completion. A workload may fit comfortably while spending most of its time moving data. It may also have ample nominal bandwidth but issue too little concurrent work to use it. Write the working set as weights, temporary state, input/output buffers and any cached history needed by the algorithm. Do not compare model-file size alone with memory capacity and conclude that execution will fit.",
+          "Locality changes which link is used. A value already in a nearby cache may avoid a trip to device memory; a local dataset cache may avoid a remote storage transfer. Caching helps only when data is reused and remains valid. A first pass can still be slow, and a new workload can evict useful state. Distinguish a copy from a view or reference: the software may expose a convenient address while the physical bytes remain across a limited interconnect. Apparent memory unification does not erase bandwidth or ownership rules."
+        ]
+      },
+      {
+        "heading": "Turn the data path into a pipeline model",
+        "paragraphs": [
+          "If preparation, transfer and execution run strictly one after another, their times add. If separate batches can use those stages concurrently, steady-state batch spacing is bounded by the slowest stage, after the pipeline fills. That improvement requires enough buffers and independent resources. A CPU preparing the next batch may contend with checkpoint staging; a transfer may share a link with communication. Therefore perfect overlap is an optimistic model, not a default property of an architecture.",
+          "The distinction between throughput and latency becomes visible here. A pipeline can complete a batch every 40 milliseconds even though each individual batch takes longer from entry to exit. The first result still waits for every required stage. For an interactive request with a tight response deadline, that end-to-end delay may matter more than steady-state batch throughput. For a long offline job, the spacing between completed batches may dominate. The correct infrastructure brief names both the output being counted and the timing condition under which it must arrive."
+        ]
+      },
+      {
+        "heading": "Read a real rack without importing its marketing",
+        "paragraphs": [
+          "The NVL72 reference page provides a concrete example of compute trays, switched interconnects, separate networking roles, local storage and management. Use that hierarchy to ask where the bytes travel. The numerical exercise below is entirely fictional. It does not inherit the page’s performance ratios or its ambiguous bandwidth aggregation. A reference architecture is most useful when it reveals interfaces that a simplified sketch accidentally omitted."
+        ]
+      }
+    ],
+    "example": {
+      "title": "Three stages, two execution policies",
+      "assumptions": [
+        "Each synthetic batch takes 30 ms of host preparation, 20 ms of transfer and 40 ms of accelerator execution.",
+        "Ten batches are processed; startup overhead outside these stages is zero.",
+        "For the pipelined case, stages have independent resources, sufficient buffers and no interference."
+      ],
+      "steps": [
+        {
+          "label": "Process batches serially",
+          "expression": "10 × (30 + 20 + 40) = 900 ms",
+          "explanation": "Each batch waits until the preceding batch completes every stage."
+        },
+        {
+          "label": "Fill the pipeline",
+          "expression": "30 + 20 + 40 = 90 ms",
+          "explanation": "The first batch still crosses all three stages."
+        },
+        {
+          "label": "Complete the remaining batches",
+          "expression": "9 × max(30, 20, 40) = 360 ms",
+          "explanation": "After filling, the bottleneck stage determines batch spacing."
+        },
+        {
+          "label": "Compare total duration",
+          "expression": "90 + 360 = 450 ms",
+          "explanation": "Ideal overlap halves this ten-batch duration."
+        }
+      ],
+      "result": "The same components deliver different throughput because the schedule changes. The first-batch latency remains 90 ms in this model.",
+      "boundary": "Real overlap depends on implementation, buffer capacity, shared links and contention; this is not a benchmark of a named platform."
+    },
+    "tradeoff": {
+      "choice": "Allocate more buffering to overlap host work, transfer and accelerator execution.",
+      "benefit": "Reduce idle gaps and approach the slowest-stage throughput bound.",
+      "cost": "Consume memory, complicate lifetime management and potentially increase queued work and response latency."
+    },
+    "failure": {
+      "trigger": "A new dataset takes 70 ms per batch to decode on the host.",
+      "mechanism": "Host preparation becomes the bottleneck; faster accelerator arithmetic cannot fill the resulting input gaps.",
+      "response": "Measure stage timing, then investigate preparation parallelism, data representation or caching while preserving equivalent input semantics."
+    },
+    "practice": {
+      "question": "With the 70 ms preparation stage, 20 ms transfer and 40 ms execution, what is the ideal duration for ten pipelined batches? Would halving accelerator execution time restore the original 450 ms result?",
+      "hint": "Recompute both pipeline fill time and the bottleneck interval.",
+      "answer": "Duration is 130 + 9 × 70 = 760 ms. Halving execution to 20 ms gives 110 + 630 = 740 ms, still far from 450 ms.",
+      "reasoning": "The dominant repeated interval is now host preparation. Faster execution shortens only the fill/drain contribution because it was already shorter than the bottleneck stage."
+    },
+    "sources": [
+      {
+        "title": "GPU Performance Background User’s Guide",
+        "url": "https://docs.nvidia.com/deeplearning/performance/dl-performance-gpu-background/index.html",
+        "claim": "A GPU combines execution resources and a memory hierarchy; achieved performance depends on workload behavior.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Use conceptual structure only; dated product examples and throughput tables are not applied."
+      },
+      {
+        "title": "NVIDIA NVL72 AI Factory — System Hardware & Components",
+        "url": "https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/components.html",
+        "claim": "The component hierarchy distinguishes compute, switching, networking, local storage and management.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Inspected May 18, 2026 page revision; no universal power or bandwidth numbers inferred."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Working set",
+        "definition": "Data and execution state that must remain available during a defined computation."
+      },
+      {
+        "term": "Pipeline",
+        "definition": "A schedule that overlaps different stages of different work items."
+      },
+      {
+        "term": "Locality",
+        "definition": "The relationship between where data resides and where it is used."
+      }
+    ],
+    "visual": {
+      "kind": "flow",
+      "title": "Follow one batch, then overlap ten",
+      "nodes": [
+        {
+          "label": "Storage",
+          "detail": "Read and authorize dataset bytes"
+        },
+        {
+          "label": "Host",
+          "detail": "Decode and prepare a batch"
+        },
+        {
+          "label": "Transfer",
+          "detail": "Place required data near execution"
+        },
+        {
+          "label": "Accelerator",
+          "detail": "Compute and produce output"
+        }
+      ],
+      "caption": "A second pass through the visual overlaps stages; the longest stage determines ideal steady-state spacing."
+    }
+  },
+  {
+    "id": "d07-bottleneck-model",
+    "domain": "D07",
+    "title": "Find the limit before buying more arithmetic",
+    "question": "Is a workload constrained by memory capacity, memory bandwidth, compute or communication?",
+    "summary": "Apply a small performance model, then test its assumptions against capacity and the job’s critical path.",
+    "takeaway": "The useful comparison is work divided by the time needed to obtain its inputs, execute it and exchange its results.",
+    "objectives": [
+      "D07.2",
+      "D07.3"
+    ],
+    "sections": [
+      {
+        "heading": "Use four different tests",
+        "paragraphs": [
+          "Begin with feasibility: does the required live state fit in the memory accessible under the chosen execution plan? This is a capacity test, not a speed test. If it fails, the plan must change by partitioning state, recomputing intermediates, offloading data or changing the workload. Each option changes traffic and possibly numerical behavior. Once the plan fits, count the operations it performs and bytes it moves across a specified memory interface. Then count communication on the critical path between participating devices.",
+          "FLOPS is an execution rate for specified operations and numerical formats. Bytes per second is a movement rate across a specified interface. Neither is a generic unit of job progress. A comparison must hold the algorithm, precision, correctness target, batch policy and output definition constant enough to be meaningful. Installed megawatts only constrain an electrical envelope. They do not reveal how much of that envelope feeds arithmetic that advances the requested result, or how much time the equipment spends waiting."
+        ]
+      },
+      {
+        "heading": "Derive a useful lower bound",
+        "paragraphs": [
+          "Let W be the required floating-point operations, F the available execution rate, M the bytes transferred from the chosen memory boundary and B its bandwidth. Execution takes at least W/F; memory transfer takes at least M/B. If those activities can overlap ideally, elapsed time is at least their maximum. If they must occur serially, the sum is a more appropriate model. Arithmetic intensity W/M expresses how much calculation occurs per byte moved. Comparing it with F/B suggests which resource limits the idealized case.",
+          "The model is valuable because its assumptions are visible. It does not include all kernel launch delays, instruction dependencies, irregular access, insufficient parallelism or inter-device synchronization. It also requires the correct traffic count. Counting each mathematical input once can underestimate bytes if the implementation rereads it repeatedly; counting all logical accesses as device-memory transfers can overestimate bytes if cache reuse is effective. Use the model to formulate a measurement question, then use profiling to check the actual boundary and traffic."
+        ]
+      },
+      {
+        "heading": "Equal power can hide very different useful capacity",
+        "paragraphs": [
+          "Imagine two synthetic rack configurations with equal electrical input limits. Rack A provides twice as much nominal arithmetic as B, but B provides twice the effective memory bandwidth for the chosen workload. A bandwidth-heavy job can favor B even though A has the more impressive FLOPS total. A compute-heavy job can favor A. Neither result ranks the racks universally. It establishes a workload-dependent comparison that can be revisited when model size, batch size or parallelization changes.",
+          "Communication introduces another limit. If a step needs 50 milliseconds of unavoidable synchronization after 100 milliseconds of computation, doubling compute speed gives a 100-millisecond step, not a 75-millisecond step. The unchanged portion becomes a larger share of elapsed time. Overlap can reduce that penalty only where dependencies permit it. This is why faster devices can increase the value of a better network or storage path: they shorten one phase until an older waiting phase becomes exposed. A balanced system is balanced for a particular workload, not for every imaginable application."
+        ]
+      },
+      {
+        "heading": "Measure the output that matters",
+        "paragraphs": [
+          "For training, count progress under a fixed convergence or validation objective rather than treating every arithmetic operation as equally useful. For inference, specify request mix, output length, quality and latency constraints before comparing completed tokens. A change that increases batch throughput while violating response deadlines may reduce accepted service. Keep energy per accepted output separate from peak power. An experiment should report both the electrical boundary and the conditions under which the output was counted."
+        ]
+      }
+    ],
+    "example": {
+      "title": "A fictional kernel and two resource upgrades",
+      "assumptions": [
+        "A kernel performs 120 trillion operations and moves 3 trillion bytes across the specified device-memory boundary.",
+        "The synthetic device provides 300 trillion operations per second and 2 trillion bytes per second.",
+        "The 100 GB live working set fits in 128 GB of usable memory; computation and memory traffic overlap ideally."
+      ],
+      "steps": [
+        {
+          "label": "Check arithmetic time",
+          "expression": "120 / 300 = 0.4 s",
+          "explanation": "Operation units cancel consistently."
+        },
+        {
+          "label": "Check memory time",
+          "expression": "3 / 2 = 1.5 s",
+          "explanation": "Memory traffic sets the larger idealized time."
+        },
+        {
+          "label": "Compare resource ratios",
+          "expression": "120 / 3 = 40 operations/byte; 300 / 2 = 150 operations/byte",
+          "explanation": "The workload provides too little arithmetic per transferred byte to reach this device’s compute ceiling."
+        },
+        {
+          "label": "Test upgrades",
+          "expression": "Double compute: max(0.2, 1.5) = 1.5 s; double bandwidth: max(0.4, 0.75) = 0.75 s",
+          "explanation": "Only the bandwidth upgrade changes the active bound in this model."
+        }
+      ],
+      "result": "The predicted limit is memory bandwidth, after capacity feasibility has been established.",
+      "boundary": "All numbers are synthetic. This optimistic bound excludes software, caching details, communication and contention."
+    },
+    "tradeoff": {
+      "choice": "Increase batch size to reuse data across more arithmetic.",
+      "benefit": "Potentially increase arithmetic intensity and reduce movement per output.",
+      "cost": "Increase live memory demand and possibly queueing delay; training or serving semantics must remain acceptable."
+    },
+    "failure": {
+      "trigger": "An optimization reduces arithmetic time but increases temporary state beyond 128 GB.",
+      "mechanism": "The previously feasible memory plan fails or begins offloading over a slower interface.",
+      "response": "Recompute the live-state and traffic ledger together; do not celebrate a faster isolated kernel until the full job remains feasible."
+    },
+    "practice": {
+      "question": "A second implementation performs the same 120 trillion operations but moves only 0.6 trillion bytes, with the original device. What is its bound, and which resource is now active?",
+      "hint": "Recompute M/B; keep W/F unchanged.",
+      "answer": "Memory time becomes 0.3 s, so the idealized bound is max(0.4, 0.3) = 0.4 s, with computation active.",
+      "reasoning": "Reducing traffic can be more valuable than buying additional arithmetic. The improvement depends on actually eliminating transfers at the measured boundary, while retaining correct output and sufficient parallelism."
+    },
+    "sources": [
+      {
+        "title": "NVIDIA GPU Performance Background — Understanding Performance",
+        "url": "https://docs.nvidia.com/deeplearning/performance/dl-performance-gpu-background/index.html",
+        "claim": "Arithmetic intensity offers a first-order compute-versus-memory model whose assumptions require profiling.",
+        "reviewed_on": "2026-09-06",
+        "limits": "The lesson derives its own examples; historical NVIDIA device values are not used."
+      },
+      {
+        "title": "Matrix Multiplication Background User’s Guide",
+        "url": "https://docs.nvidia.com/deeplearning/performance/dl-performance-matrix-multiplication/index.html",
+        "claim": "Matrix shape and reuse can alter arithmetic intensity and the active performance limit.",
+        "reviewed_on": "2026-09-06",
+        "limits": "A guide to particular operations, not a universal model of end-to-end AI job performance."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Arithmetic intensity",
+        "definition": "Operations performed per byte moved across a specified memory boundary."
+      },
+      {
+        "term": "Critical path",
+        "definition": "The dependent chain of activities that determines the earliest completion time."
+      },
+      {
+        "term": "Throughput",
+        "definition": "Completed work per unit time under stated output and quality conditions."
+      }
+    ],
+    "visual": {
+      "kind": "comparison",
+      "title": "Two clocks compete",
+      "nodes": [
+        {
+          "label": "Compute bound",
+          "detail": "120 trillion operations / 300 trillion per second"
+        },
+        {
+          "label": "Memory bound",
+          "detail": "3 TB / 2 TB per second"
+        },
+        {
+          "label": "Observed lower bound",
+          "detail": "The slower clock is 1.5 seconds"
+        },
+        {
+          "label": "After traffic reduction",
+          "detail": "Compute becomes the active 0.4-second bound"
+        }
+      ],
+      "caption": "The larger time sets the optimistic overlap bound; real execution can be slower."
+    }
+  },
+  {
+    "id": "d07-rack-as-system",
+    "domain": "D07",
+    "title": "The rack becomes a service boundary",
+    "question": "How does tighter hardware integration change deployment, maintenance and usable job capacity?",
+    "summary": "Connect tray and rack organization to physical interfaces and failure scope, then distinguish nominal from schedulable capacity.",
+    "takeaway": "A system’s useful size is defined by the topology and service it can sustain, including maintenance and failures.",
+    "objectives": [
+      "D07.1",
+      "D07.3",
+      "D07.4"
+    ],
+    "sections": [
+      {
+        "heading": "Distinguish the containers from the communication domain",
+        "paragraphs": [
+          "A server, tray and rack are physical assemblies. A communication domain is the set of devices that can participate under a specified connectivity and software model. The two boundaries may coincide, but they need not. Several independent servers can share one cabinet, while a tightly connected system can span multiple trays. A statement that devices are connected does not imply that each pair has its own dedicated physical wire. Switched connectivity and direct point-to-point wiring are different graphs.",
+          "When reading a rack diagram, identify the replaceable assemblies and the dependencies that cross them. A tray may contain processors, memory, network interfaces and local storage. A switch tray may be shared by many compute trays. Power shelves may supply a common bus, and coolant manifolds may serve parallel branches. This creates opportunities to share infrastructure, but also requires a precise account of what happens when a shared component is removed. The smallest replaceable unit, fault domain and scheduled job allocation can all differ."
+        ]
+      },
+      {
+        "heading": "Dense hardware changes more than kilowatts per cabinet",
+        "paragraphs": [
+          "A replacement rack can change static weight, rolling installation loads, delivery dimensions, floor anchoring, cable bend space and the clearance needed to remove an assembly. It can also shift heat from room air into a coolant loop while leaving power supplies, networking or other components dependent on air. The electrical inlet, liquid connections, drain or service provisions and management connections must all meet the supplied installation requirements. One acceptable aggregate rack power value cannot answer these separate questions.",
+          "The operating team must be able to reach and replace parts without unintentionally disturbing adjacent systems. Ask whether a repair requires draining a branch, isolating a power zone, moving cables or temporarily reducing the communication domain. Consider the recovery path: a replacement component needs compatible firmware, configuration and health validation before it becomes useful. Procurement of a spare is not equivalent to restoration of service. The service plan should name the tools, staff, spares and verification required for the intended repair boundary."
+        ]
+      },
+      {
+        "heading": "Convert device inventory into feasible job allocations",
+        "paragraphs": [
+          "Count healthy devices, but also describe how they are connected and which resources a job needs simultaneously. A job may require eight devices in one compatible group, sufficient memory per device, network access and an available software image. A rack with twenty-eight healthy devices might support only three such groups if a failure fragments its topology. The unused devices have not vanished electrically; they are unavailable to that particular allocation. Smaller jobs may still use them.",
+          "This creates a scheduling and reliability tradeoff. Large tightly integrated groups may reduce communication cost for some workloads. They can also make partial faults more disruptive when a job cannot shrink or remap around the failure. Flexible partitioning can preserve service for smaller jobs, but it may reduce the maximum group size or change performance. Evaluate the actual customer job mix and software capabilities. The appropriate capacity measure is the number of feasible allocations and their accepted throughput, not a single count of powered processors."
+        ]
+      },
+      {
+        "heading": "Accept the system under more than one condition",
+        "paragraphs": [
+          "An acceptance exercise should include normal operation, an agreed degraded condition and restoration. Record which job sizes remain supported, what throughput changes and whether the management plane accurately reports the loss. Repeating a small benchmark on every device individually may miss failures that appear only during collective communication or simultaneous load. Conversely, a whole-rack test can hide one marginal branch if it reports only an average. Combine component checks with a workload exercise that traverses the shared dependencies."
+        ]
+      }
+    ],
+    "example": {
+      "title": "Thirty-two devices, three usable groups",
+      "assumptions": [
+        "A synthetic rack contains four independently schedulable groups of eight accelerators.",
+        "An important job requires exactly eight healthy accelerators within one group; this software version cannot combine fragments from different groups.",
+        "Four devices fail in one group; all other devices, power and cooling remain available."
+      ],
+      "steps": [
+        {
+          "label": "Count the healthy devices",
+          "expression": "32 − 4 = 28",
+          "explanation": "This is the physical inventory after the fault."
+        },
+        {
+          "label": "Count feasible large jobs",
+          "expression": "3 intact groups × 1 job/group = 3 jobs",
+          "explanation": "The partial fourth group cannot satisfy the stated topology requirement."
+        },
+        {
+          "label": "Compare utilization measures",
+          "expression": "28 / 32 = 87.5%; 3 / 4 = 75%",
+          "explanation": "Healthy-device share and large-job-slot availability differ."
+        },
+        {
+          "label": "Identify residual opportunity",
+          "expression": "4 healthy devices remain in the affected group",
+          "explanation": "They may support a compatible smaller job if the scheduler and service policy allow it."
+        }
+      ],
+      "result": "The rack retains 87.5% of its devices but only 75% of its specified large-job slots.",
+      "boundary": "The grouping and failure response are invented to teach allocation constraints; no real product is asserted to behave this way."
+    },
+    "tradeoff": {
+      "choice": "Build larger tightly connected job domains.",
+      "benefit": "Potentially reduce the communication and coordination burden for workloads that use the full domain.",
+      "cost": "Qualification, maintenance and some failure states can affect a larger set of jobs; flexible partitioning must be demonstrated."
+    },
+    "failure": {
+      "trigger": "A replaced switch assembly has an incompatible configuration.",
+      "mechanism": "Devices pass local health checks, yet the expected communication graph is incomplete or degraded.",
+      "response": "Validate the topology, collective behavior and required job sizes after replacement before returning the group to service."
+    },
+    "practice": {
+      "question": "The scheduler gains a tested mode that combines the two healthy four-device fragments of two affected groups, at 80% of an intact group’s throughput. How should the capacity report change?",
+      "hint": "Report allocation feasibility and throughput separately instead of converting everything into one device count.",
+      "answer": "Report one additional feasible eight-device job slot with a measured degraded-throughput factor of 0.8, plus the unchanged intact-group slots.",
+      "reasoning": "The new mode recovers an allocation, but it does not make the fractured topology equivalent to an intact group. The service report should preserve that distinction and state which workloads were tested."
+    },
+    "sources": [
+      {
+        "title": "NVIDIA DGX SuperPOD — Network Fabrics",
+        "url": "https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/network-fabrics.html",
+        "claim": "A named reference system distinguishes compute, storage and management fabrics and explicit topology groupings.",
+        "reviewed_on": "2026-09-06",
+        "limits": "H100 reference architecture updated November 19, 2025; no component counts or ratios are generalized."
+      },
+      {
+        "title": "Open Rack specifications and designs",
+        "url": "https://www.opencompute.org/wiki/Open_Rack/SpecsAndDesigns",
+        "claim": "Physical rack, power and liquid interfaces have separate versioned documents.",
+        "reviewed_on": "2026-09-06",
+        "limits": "An index is a starting point; actual installation and maintenance requirements must come from the supplied equipment."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Fault domain",
+        "definition": "The set of components or services potentially affected by a specified failure."
+      },
+      {
+        "term": "Schedulable capacity",
+        "definition": "Resources that can satisfy actual job constraints together at a given time."
+      },
+      {
+        "term": "Service granularity",
+        "definition": "The smallest assembly or service unit that can be maintained under stated procedures."
+      }
+    ],
+    "visual": {
+      "kind": "comparison",
+      "title": "Healthy devices versus usable groups",
+      "nodes": [
+        {
+          "label": "Before fault",
+          "detail": "Four groups, four large-job slots"
+        },
+        {
+          "label": "After fault",
+          "detail": "Twenty-eight healthy devices"
+        },
+        {
+          "label": "Allocation result",
+          "detail": "Three intact large-job groups"
+        },
+        {
+          "label": "Possible reuse",
+          "detail": "Four remaining devices need a compatible smaller job"
+        }
+      ],
+      "caption": "Physical inventory and feasible job allocations are reported separately."
+    }
+  },
+  {
+    "id": "d08-topology-budget",
+    "domain": "D08",
+    "title": "Count the paths, not just the advertised ports",
+    "question": "How do endpoint bandwidth, oversubscription and physical distance constrain a communication plan?",
+    "summary": "Build a small fabric, account for every port and cable, and calculate lower bounds with explicit traffic assumptions.",
+    "takeaway": "An endpoint link rate is only one constraint on a path through a shared network.",
+    "objectives": [
+      "D08.1",
+      "D08.2"
+    ],
+    "sections": [
+      {
+        "heading": "Separate three communication scales",
+        "paragraphs": [
+          "Scale-up communication joins devices within a tightly integrated execution domain. Scale-out joins nodes or such domains across a cluster. Wide-area communication crosses a larger geographic and operational boundary. These terms describe relationships rather than fixed distances or universal protocols. Identify the participants, synchronization pattern and actual route before assigning a label. A geographically distributed job may use all three kinds of communication during one step, each with different bandwidth, latency and failure implications.",
+          "Physical distance establishes a propagation floor that faster serialization cannot remove. Using an illustrative fiber propagation speed of 200,000 kilometers per second, a 100-kilometer route takes at least 0.5 milliseconds one way before switching, queueing or protocol work. A request-response dependency crosses that distance twice. Long bulk transfers may tolerate that delay; many sequential dependent exchanges may not. Route length also differs from straight-line map distance. A WAN proposal needs the actual route and service behavior, not just the names of two cities."
+        ]
+      },
+      {
+        "heading": "Draw a topology as a graph of constrained resources",
+        "paragraphs": [
+          "Endpoints attach to leaf switches; leaf switches connect through an upper tier such as spines. Each cable consumes a port at each end. A diagram with four uplinks drawn as one thick line still needs four physical links and their associated ports. Specify whether a bandwidth label is per port, per endpoint, the sum of one direction, or a bidirectional aggregate. Dividing an aggregate bidirectional number by a one-way payload is a common way to create an impossibly fast transfer estimate.",
+          "Oversubscription compares offered endpoint capacity with capacity available toward the rest of the fabric, under a stated direction and traffic pattern. Eight 100 Gb/s downlinks sharing four 100 Gb/s uplinks give a 2:1 ratio at that leaf. This is not a promise that every job runs at half speed. Traffic staying within the leaf may not use uplinks; sparse or staggered transfers may fit easily. The ratio becomes restrictive when simultaneous traffic demands more capacity across the shared cut than the cut can provide."
+        ]
+      },
+      {
+        "heading": "Derive bounds from the traffic matrix",
+        "paragraphs": [
+          "A traffic matrix states who sends how much to whom. For every relevant cut in the graph, add the bytes that must cross it and divide by the usable capacity in that direction. Also check endpoint injection and receiving limits. The largest required time across these constraints is a lower bound, assuming the routing can realize the capacities together. Switch internal bandwidth, routing collisions, protocol overhead, retransmission and queueing can make the actual time longer. A bisection is a cut that divides the endpoint set into equal halves. Its capacity is useful only with a declared direction and graph; it does not replace endpoint or other narrower-cut checks.",
+          "A balanced fabric does not guarantee balanced traffic. Many senders targeting one receiver create an incast bottleneck even when the rest of the network is idle. A checkpoint burst can collide with dataset reads if they share links. A topology-aware schedule can reduce traffic through a constrained tier by locating communicating workers together, but placement may wait for suitable resources. The correct decision compares the time saved during execution with additional queueing and the effect on other jobs. Network capacity and scheduling policy are therefore parts of the same system."
+        ]
+      },
+      {
+        "heading": "Connect the graph to the installation",
+        "paragraphs": [
+          "After the logical calculation, count cables, endpoint ports and switch ports separately. Then add reach, routing space, patching and replacement access. A feasible graph on paper can be difficult to cable if all high-density connections must cross one congested tray. Labels should preserve the relationship between physical port, logical link and scheduled device. That mapping is essential when a technician needs to locate a degraded link without disconnecting a neighboring healthy path."
+        ]
+      }
+    ],
+    "example": {
+      "title": "A four-leaf synthetic fabric",
+      "assumptions": [
+        "Four leaf switches each connect eight endpoints at 100 Gb/s, one port per endpoint.",
+        "Each leaf has four 100 Gb/s uplinks, one to each of four spine switches. Links are full duplex; all calculations below use one direction.",
+        "Eight endpoints on one leaf send a total of 64 GB to endpoints on another leaf, evenly balanced. GB and Gb use decimal units; switching and routing are otherwise ideal."
+      ],
+      "steps": [
+        {
+          "label": "Count endpoints and links",
+          "expression": "4 × 8 = 32 endpoint links; 4 × 4 = 16 leaf-spine links",
+          "explanation": "There are 48 cables in this logical design, before any management connections."
+        },
+        {
+          "label": "Count occupied switch ports",
+          "expression": "Leaves: 32 + 16 = 48; spines: 16",
+          "explanation": "A fabric cable consumes a port on both tiers, while an endpoint cable consumes one switch port and one NIC port."
+        },
+        {
+          "label": "Calculate oversubscription",
+          "expression": "(8 × 100) / (4 × 100) = 2:1",
+          "explanation": "Each leaf can inject 800 Gb/s from endpoints toward 400 Gb/s of uplinks."
+        },
+        {
+          "label": "Bound transfer time",
+          "expression": "400 Gb/s / 8 = 50 GB/s; 64 / 50 = 1.28 s",
+          "explanation": "The transmitting and receiving leaf uplinks impose the same aggregate bound under balanced routing."
+        }
+      ],
+      "result": "The transfer cannot finish in less than 1.28 seconds under the supplied model, despite the endpoints collectively offering twice that uplink rate.",
+      "boundary": "This is a topology exercise, not an Ethernet or InfiniBand benchmark. Effective payload rate and real routing require measurement."
+    },
+    "tradeoff": {
+      "choice": "Reduce uplinks for a workload expected to communicate mostly within each leaf.",
+      "benefit": "Reduce switch-port, cable and transceiver requirements.",
+      "cost": "Cross-leaf bursts and future workload changes can expose the oversubscription; placement flexibility becomes more valuable."
+    },
+    "failure": {
+      "trigger": "A job is spread across leaves despite a local communication pattern assumed during design.",
+      "mechanism": "Traffic crosses constrained uplinks that the capacity estimate assumed would remain lightly used.",
+      "response": "Compare the observed traffic matrix and placement with the design assumptions before concluding that endpoint NICs are slow."
+    },
+    "practice": {
+      "question": "One uplink on the sending leaf fails and traffic is perfectly balanced over the remaining three. What is the new lower bound for the same 64 GB transfer?",
+      "hint": "Only the sending cut changes; convert bits to bytes before dividing.",
+      "answer": "300 Gb/s equals 37.5 GB/s, so the bound is 64 / 37.5 ≈ 1.707 seconds.",
+      "reasoning": "The sending cut is now narrower than the receiving cut. Powered endpoints and healthy receiving links cannot overcome the missing capacity on the required path."
+    },
+    "sources": [
+      {
+        "title": "NVIDIA DGX SuperPOD — Network Fabrics",
+        "url": "https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/network-fabrics.html",
+        "claim": "A concrete reference distinguishes network roles and accounts for leaf/spine cables and ports.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Use the topology concepts only; this lesson’s counts are independently constructed."
+      },
+      {
+        "title": "Slurm Topology Guide",
+        "url": "https://slurm.schedmd.com/topology.html",
+        "claim": "Topology-aware allocation can seek to keep jobs within suitable switch groupings.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Current documentation is version-sensitive; no example configuration is offered as production-ready."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Oversubscription",
+        "definition": "Ratio of offered downstream capacity to available upstream capacity under stated direction and traffic assumptions."
+      },
+      {
+        "term": "Network cut",
+        "definition": "A partition of endpoints whose crossing links constrain traffic between the two sides."
+      },
+      {
+        "term": "Traffic matrix",
+        "definition": "The amount or rate of traffic from each sender to each receiver."
+      },
+      {
+        "term": "Bisection capacity",
+        "definition": "Capacity across a cut dividing endpoints into equal halves, with direction and topology specified."
+      }
+    ],
+    "visual": {
+      "kind": "flow",
+      "title": "Thirty-two endpoints share sixteen uplinks",
+      "nodes": [
+        {
+          "label": "Endpoints",
+          "detail": "Eight per leaf at 100 Gb/s"
+        },
+        {
+          "label": "Four leaves",
+          "detail": "Each has 800 Gb/s down and 400 Gb/s up"
+        },
+        {
+          "label": "Four spines",
+          "detail": "Balanced connections between leaves"
+        },
+        {
+          "label": "Required path",
+          "detail": "64 GB must cross a 50 GB/s cut"
+        }
+      ],
+      "caption": "Highlight only the links used by the selected traffic matrix; show one-way bandwidth throughout."
+    }
+  },
+  {
+    "id": "d08-collective-progress",
+    "domain": "D08",
+    "title": "A collective makes waiting contagious",
+    "question": "How can one constrained participant delay a job running on many healthy accelerators?",
+    "summary": "Walk through a ring all-reduce, then connect synchronization, congestion and placement to the job timeline.",
+    "takeaway": "Communication is part of the computation’s dependency graph, so local health does not establish global progress.",
+    "objectives": [
+      "D08.1",
+      "D08.2",
+      "D08.3",
+      "D08.5"
+    ],
+    "sections": [
+      {
+        "heading": "Understand the result before choosing an algorithm",
+        "paragraphs": [
+          "An all-reduce combines corresponding values from participating workers and returns the combined result to each worker. For example, three workers holding 2, 5 and 7 can all receive 14 after a sum reduction. An all-gather instead distributes each worker’s distinct contribution to everyone; an all-to-all sends different pieces to different destinations. Their names identify data transformations, not one mandatory topology. A library can implement a transformation with different algorithms depending on message size, topology and available hardware.",
+          "The workers must agree on the operation they are participating in. NCCL’s collective documentation requires compatible participation, counts and data types and warns that mismatches can hang, crash or corrupt execution. This is a software correctness condition distinct from link capacity. A job that stops during communication may have a missing or mismatched participant rather than a damaged cable. Diagnosis must examine both communication progress and the execution history that led each rank to that point."
+        ]
+      },
+      {
+        "heading": "Derive one ring rather than memorizing a formula",
+        "paragraphs": [
+          "For a simplified ring all-reduce with N workers, divide each worker’s input buffer into N equal chunks. During a reduce-scatter phase, workers pass and combine chunks for N minus one rounds. At its end, each worker holds one final reduced chunk. During an all-gather phase, another N minus one rounds circulate the completed chunks until everyone holds the full reduced buffer. In this model, each worker sends one chunk in each round, giving total sent bytes of 2(N−1)S/N for an input buffer of size S.",
+          "If every ring edge sustains bandwidth B, the transfer component is that byte count divided by B. Add an assumed per-round startup cost alpha for 2(N−1) rounds. This model neglects reduction execution, protocol overhead and interference, and assumes that sends can proceed concurrently around the ring. It is a teaching model of one algorithm. It is not a prediction that a library will choose a ring or that every real all-reduce reaches the resulting time."
+        ]
+      },
+      {
+        "heading": "Place the communication on the job’s critical path",
+        "paragraphs": [
+          "If a step cannot begin its next computation until the collective finishes, collective delay extends the step directly. If some independent computation can overlap, only the exposed portion extends the critical path. The distinction matters when evaluating a network upgrade. Halving a communication phase does not halve a job whose time is mostly spent elsewhere. Conversely, a phase that seems small on one device can dominate at scale if it repeatedly waits for a slow participant.",
+          "Congestion makes available bandwidth time-dependent. Several flows can share an output queue, and one worker can receive less than its nominal link rate. A degraded link can also shift traffic onto remaining paths. The collective may then wait for the slowest required transfer even while most devices report no local error. Look for distributions of completion time, retransmissions or congestion indicators and rank-level timing. An average utilization metric can hide the worker that determines the finish line."
+        ]
+      },
+      {
+        "heading": "Select a fabric as an operating system decision",
+        "paragraphs": [
+          "Ethernet and InfiniBand are families of technologies and implementations, not universal performance rankings. Meta’s March 2024 report describes separate large clusters using RoCE and InfiniBand and explains that routing, collective software and topology-aware scheduling required joint tuning. That case supports testing the full system. It does not prove equal performance for every workload or make operational expertise irrelevant. A useful comparison names the hardware, protocol configuration, topology, software version, message distribution and failure conditions being tested."
+        ]
+      }
+    ],
+    "example": {
+      "title": "Eight ranks on a fictional ring",
+      "assumptions": [
+        "Eight ranks each contribute a 1 GB input buffer.",
+        "Every ring edge sustains 25 GB/s; each of fourteen rounds has 10 microseconds of startup overhead.",
+        "A training step also has 200 ms of computation; no communication overlaps that computation."
+      ],
+      "steps": [
+        {
+          "label": "Calculate sent bytes per rank",
+          "expression": "2 × (8 − 1) / 8 × 1 GB = 1.75 GB",
+          "explanation": "Seven reduce-scatter and seven all-gather rounds each send a 0.125 GB chunk."
+        },
+        {
+          "label": "Calculate collective time",
+          "expression": "1.75 / 25 s + 14 × 10 microseconds = 70.14 ms",
+          "explanation": "Bandwidth time and stipulated startup time are added."
+        },
+        {
+          "label": "Calculate step time",
+          "expression": "200 + 70.14 = 270.14 ms",
+          "explanation": "The collective is fully exposed after computation."
+        },
+        {
+          "label": "Halve available ring bandwidth",
+          "expression": "1.75 / 12.5 s + 0.14 ms = 140.14 ms; step = 340.14 ms",
+          "explanation": "A constrained effective ring rate adds 70 ms without changing the compute hardware."
+        }
+      ],
+      "result": "The step becomes about 25.9% longer under the stipulated bandwidth degradation, while every accelerator can remain powered and locally healthy.",
+      "boundary": "The model uses a single uniform effective ring rate. Real routing, algorithms, overlap and reduction costs must be measured."
+    },
+    "tradeoff": {
+      "choice": "Wait for a compact topology placement instead of launching immediately across a wider fabric.",
+      "benefit": "Potentially reduce communication time and contention during a long job.",
+      "cost": "Increase queueing delay and possibly fragment available resources for other jobs."
+    },
+    "failure": {
+      "trigger": "One rank skips a collective after an earlier application exception.",
+      "mechanism": "Other ranks wait for a required participant; replacing healthy network hardware would not fix the dependency mismatch.",
+      "response": "Correlate rank logs and collective progress, identify the first divergence, and restart from a valid state after correcting the cause."
+    },
+    "practice": {
+      "question": "A communication improvement reduces the 70.14 ms collective to 35.07 ms while computation stays at 200 ms. What is the end-to-end speedup?",
+      "hint": "Divide old step time by new step time, not old communication time by new communication time.",
+      "answer": "270.14 / 235.07 ≈ 1.149, about a 14.9% throughput increase for repeated identical steps.",
+      "reasoning": "Only part of the step improves. The communication phase is twice as fast, but the whole dependency chain is not. If the job also has input, checkpoint or queueing overhead, the total-service gain is smaller still."
+    },
+    "sources": [
+      {
+        "title": "NCCL Collective Operations",
+        "url": "https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/usage/collectives.html",
+        "claim": "Defines collective transformations and participation requirements.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Inspected NCCL 2.31.2 documentation; the ring timing model is original and is not asserted to be the library’s chosen implementation."
+      },
+      {
+        "title": "Building Meta’s GenAI Infrastructure",
+        "url": "https://engineering.fb.com/2024/03/12/data-center-engineering/building-metas-genai-infrastructure/",
+        "claim": "First-party example of RoCE and InfiniBand clusters and joint network/software/placement tuning.",
+        "reviewed_on": "2026-09-06",
+        "limits": "March 2024 operator report; no reported benchmark ratio is generalized."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Rank",
+        "definition": "A participating process identifier within a distributed communication group."
+      },
+      {
+        "term": "All-reduce",
+        "definition": "A collective that combines contributions and returns the combined result to every participant."
+      },
+      {
+        "term": "Exposed communication",
+        "definition": "Communication time that remains on the critical path after any overlap."
+      }
+    ],
+    "visual": {
+      "kind": "timeline",
+      "title": "Watch fourteen rounds become step time",
+      "nodes": [
+        {
+          "label": "Compute",
+          "detail": "200 ms of independent arithmetic"
+        },
+        {
+          "label": "Reduce-scatter",
+          "detail": "Seven rounds combine distributed chunks"
+        },
+        {
+          "label": "All-gather",
+          "detail": "Seven rounds distribute final chunks"
+        },
+        {
+          "label": "Next step",
+          "detail": "Starts only after required communication completes"
+        }
+      ],
+      "caption": "Slow the effective ring rate and keep compute duration fixed to reveal the system-level effect."
+    }
+  },
+  {
+    "id": "d08-copper-light-service",
+    "domain": "D08",
+    "title": "Choose where electricity becomes light",
+    "question": "How should reach, power and replacement boundaries shape the choice between copper, pluggable optics and CPO?",
+    "summary": "Compare media and optical packaging at the link level, then include their effects on switch cooling, cabling and repair.",
+    "takeaway": "Moving optical conversion changes the electrical path and service boundary; it does not remove the need for a complete link budget and operating plan.",
+    "objectives": [
+      "D08.4",
+      "D08.5"
+    ],
+    "sections": [
+      {
+        "heading": "Start with the required link, not the fashionable package",
+        "paragraphs": [
+          "A link has two endpoints, a required payload rate, a physical route and an acceptable error behavior. Its media choice must satisfy those conditions under the intended environment. Copper carries an electrical signal along the route; optical fiber carries modulated light after electro-optical conversion. Copper can be attractive for sufficiently short qualified connections, while increasing rate and distance can make electrical loss and signal conditioning harder. There is no universal distance at which every copper design stops and every optical design begins: specify the actual interface and approved cable.",
+          "A pluggable optical transceiver places the electrical-to-optical boundary in a replaceable module attached to a host port. The signal still travels electrically between the switching silicon and that module. Co-packaged optics moves optical engines close to the switching silicon, shortening that electrical portion. External laser arrangements, fiber connections and serviceable subassemblies vary by design. CPO names a packaging approach, not a guarantee that every optical component is inseparable or that every repair requires replacing an entire switch."
+        ]
+      },
+      {
+        "heading": "Compare complete and equal power boundaries",
+        "paragraphs": [
+          "NVIDIA’s August 2025 photonics description uses shorter electrical paths as a motivation for CPO and describes then-proposed switch platforms. That is a useful mechanism to study. Its advertised savings and reliability ratios are not adopted here as universal field measurements. A comparison must state the included elements: host electrical interfaces, retimers or signal processing where present, optical engines, lasers and any additional cooling. If one number includes both ends of a link and another includes only the switch end, the apparent saving is not meaningful.",
+          "Power is also not energy per completed job. A lower-power network that slows an important collective can keep the much larger compute system running longer. Conversely, a somewhat higher-power network can reduce total job energy if it improves accepted throughput enough. Hold the workload, topology, payload rate and availability condition constant when comparing link hardware. Then separately test the application effect. Keep a component power budget for thermal design and an end-to-end energy ledger for useful service."
+        ]
+      },
+      {
+        "heading": "Serviceability is a design requirement with a topology",
+        "paragraphs": [
+          "The relevant maintenance question is what must be isolated, reached and replaced after a specified fault. A front-panel module can offer a convenient replacement boundary, but dense cabling may make access difficult. More integrated optics can change the set of replaceable assemblies and require a different spare strategy. Neither arrangement is automatically more reliable merely because it contains fewer visible boxes. Failure rates, shared dependencies, detection quality and restoration time all matter.",
+          "Consider a single optical engine serving several logical links. Its failure may affect more than one endpoint, depending on the design. Consider a removable module with one marginal connection: it may produce intermittent errors rather than a clean link-down event. The software can experience retries or a degraded route while the hardware inventory still looks complete. Acceptance should exercise the intended link rates and communication patterns, and operations should connect error telemetry to physical cable and component identities."
+        ]
+      },
+      {
+        "heading": "Treat cabling and cooling as part of the network",
+        "paragraphs": [
+          "Fiber routes require handling, cleaning, bend control, labeling and accessible connection points according to the supplied hardware requirements. Copper routes impose their own bend, weight and reach constraints. Dense optical and switching equipment also dissipates heat at a specific location; a switch may have a liquid interface even when its neighboring networking equipment uses air. Moving optical conversion inward can change where heat must be captured. The installation review should therefore connect the logical network graph to cable routes, cooling interfaces and the actual replacement procedure."
+        ]
+      }
+    ],
+    "example": {
+      "title": "A synthetic optical power comparison",
+      "assumptions": [
+        "Compare 64 equivalent links at the same payload capability; each link has two counted endpoints.",
+        "Design A assigns 20 W per endpoint to the included optical subsystem.",
+        "Design B assigns 8 W per endpoint plus a shared 160 W laser subsystem and 100 W of incremental cooling electricity. Everything else is held equal."
+      ],
+      "steps": [
+        {
+          "label": "Count optical endpoints",
+          "expression": "64 × 2 = 128 endpoints",
+          "explanation": "Counting only one side would understate a full-link comparison."
+        },
+        {
+          "label": "Calculate design A",
+          "expression": "128 × 20 = 2,560 W",
+          "explanation": "The stated A boundary has no extra shared load in this constructed example."
+        },
+        {
+          "label": "Calculate design B",
+          "expression": "128 × 8 + 160 + 100 = 1,284 W",
+          "explanation": "Include the shared and cooling terms instead of comparing only engine power."
+        },
+        {
+          "label": "Compare at the stated boundary",
+          "expression": "2,560 − 1,284 = 1,276 W",
+          "explanation": "The difference is 49.8% of A’s included subsystem power."
+        }
+      ],
+      "result": "B uses 1.276 kW less within this hypothetical equal-service boundary. It does not establish the saving of an actual CPO product or whole data center.",
+      "boundary": "All wattages are invented. Real comparisons require product-specific optical budgets, load conditions and replacement architectures."
+    },
+    "tradeoff": {
+      "choice": "Move optical engines closer to the switch silicon.",
+      "benefit": "Potentially reduce electrical-path loss and the power needed to sustain high-rate signaling.",
+      "cost": "Change packaging, thermal integration, supply-chain dependencies and the set of components that can be serviced independently."
+    },
+    "failure": {
+      "trigger": "A marginal link remains up but repeatedly corrects or retries traffic.",
+      "mechanism": "Usable payload bandwidth or latency consistency degrades, extending communication phases before a simple device-count monitor flags a failure.",
+      "response": "Correlate physical-link error counters and workload timing; isolate the affected path using the qualified operating procedure and verify performance after repair."
+    },
+    "practice": {
+      "question": "Suppose design B causes a 1 MW compute workload to run one extra minute while saving 1.276 kW throughout a one-hour baseline job. Could the link-power saving offset that extra compute energy?",
+      "hint": "Compare each design over its own job duration, and convert compute and network energy to kWh.",
+      "answer": "Extra compute energy is about 16.67 kWh. A uses 2.56 kWh of the compared network subsystem in 60 minutes; B uses 1.284 × 61/60 = 1.3054 kWh. The network saving is only about 1.255 kWh.",
+      "reasoning": "The longer compute duration overwhelms the smaller network energy saving. The scenario is synthetic and does not assert that CPO slows workloads; it demonstrates why each design must be compared over the time needed to complete the same useful output."
+    },
+    "sources": [
+      {
+        "title": "Scaling AI Factories with Co-Packaged Optics for Better Power Efficiency",
+        "url": "https://developer.nvidia.com/blog/scaling-ai-factories-with-co-packaged-optics-for-better-power-efficiency/",
+        "claim": "Describes moving optical conversion nearer switch silicon and the associated electrical-path mechanism.",
+        "reviewed_on": "2026-09-06",
+        "limits": "August 18, 2025 vendor account; availability and benefit claims are dated proposals, not universal deployment evidence."
+      },
+      {
+        "title": "NVIDIA Optical Transceivers and Cables",
+        "url": "https://www.nvidia.com/en-us/networking/interconnect/",
+        "claim": "Provides distinct interconnect product categories whose compatibility must be checked at the actual interface.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Product catalog and marketing page; no power, reach or reliability rating is adopted without its specific datasheet."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Pluggable transceiver",
+        "definition": "An optical module with a specified removable host interface."
+      },
+      {
+        "term": "Co-packaged optics",
+        "definition": "Optical engines integrated near switching or other processing silicon within a shared packaging arrangement."
+      },
+      {
+        "term": "Payload bandwidth",
+        "definition": "The rate of useful application data after relevant transport overhead and behavior."
+      }
+    ],
+    "visual": {
+      "kind": "comparison",
+      "title": "Move the optical boundary",
+      "nodes": [
+        {
+          "label": "Copper",
+          "detail": "Electrical signaling spans the qualified route"
+        },
+        {
+          "label": "Pluggable optics",
+          "detail": "Electrical path reaches a removable module"
+        },
+        {
+          "label": "CPO",
+          "detail": "Shorter electrical path reaches nearby optical engines"
+        },
+        {
+          "label": "Service boundary",
+          "detail": "Identify lasers, fibers and replaceable assemblies"
+        }
+      ],
+      "caption": "Compare equal endpoints and payload service; packaging diagrams do not imply a universal repair procedure."
+    }
+  },
+  {
+    "id": "d09-storage-paths",
+    "domain": "D09",
+    "title": "Storage is a traffic and state system",
+    "question": "Why can a large, fast storage array still leave accelerators waiting?",
+    "summary": "Separate dataset, cache and checkpoint paths, then model capacity, metadata and sustained throughput independently.",
+    "takeaway": "Usable storage is defined by the required operations and durability boundaries, not by one capacity or bandwidth number.",
+    "objectives": [
+      "D09.1",
+      "D09.3"
+    ],
+    "sections": [
+      {
+        "heading": "Give each storage tier a job",
+        "paragraphs": [
+          "Local storage can stage data near a node and absorb temporary output. Shared storage can provide a common namespace or service to many workers. Object storage exposes objects through its API and can serve as a durable dataset or checkpoint destination under its configured guarantees. These are roles and interfaces, not a universal speed ordering. A well-designed remote path can outperform a poorly used local device, and a local cache can disappear with the node that holds it. Record what each tier stores, who can access it and what failure it is expected to survive.",
+          "Trace ingestion and checkpointing as separate paths. Dataset bytes move toward execution, potentially through decoding and caches. Checkpoint bytes move away from an evolving application state toward a recoverable version. Their timing can differ: ingestion may be relatively continuous while many workers checkpoint together. A shared fabric or backend must handle the combined demand under the intended scheduling policy. Two workloads that each meet a bandwidth target in isolation may interfere when synchronized in production."
+        ]
+      },
+      {
+        "heading": "Three resource questions hide behind one word",
+        "paragraphs": [
+          "Capacity asks whether the stored data, retained versions, temporary space and redundancy overhead fit. Throughput asks how many bytes the system can sustain for a specified access pattern and concurrency. Metadata performance asks how quickly the system can locate, create, inspect or commit the records describing those bytes. A million tiny files can be constrained by per-object work even when their total payload is small. A large sequential file can exercise a very different path from random small reads.",
+          "Compression, sharding and caching change these demands. Combining small records into larger containers can reduce metadata operations but makes random access, updates and parallel ownership different. Compression reduces transported bytes but adds work to encoding or decoding and may change the stage that limits throughput. Caching can make a repeated test look fast while hiding the cold-start path. A storage test must therefore declare dataset size relative to cache, operation sizes, concurrency, read/write mix and whether data was already resident."
+        ]
+      },
+      {
+        "heading": "A checkpoint needs a completion definition",
+        "paragraphs": [
+          "A distributed checkpoint can contain shards from many workers plus metadata that identifies one coherent state. Writing some shards is not the same as completing that checkpoint. The application needs a way to know that all required data belongs to the same saved version and has reached the promised persistence boundary. A partial new checkpoint should not silently replace the last usable one. The precise commit mechanism depends on the storage system and framework, so teach the invariant before presenting an implementation.",
+          "A successful write call can mean different things at different interfaces. Data may be in an application buffer, operating-system cache, a local device or a remote service with specified replication semantics. The recovery claim must name the boundary that was reached and the failures it survives. Checksums can detect some corruption, but do not by themselves create redundancy or authorize access. Replication can improve availability, but synchronized deletion or a bad application write can propagate. A separate retained recovery copy addresses a different failure class."
+        ]
+      },
+      {
+        "heading": "Use an end-to-end bottleneck model",
+        "paragraphs": [
+          "For a bulk transfer, compare the source’s ability to produce bytes, the host path, network, destination ingestion and backend persistence. The lowest effective rate is an optimistic sustained bound if all stages overlap. Add serialized setup and commit work when the stated implementation requires it. Do not divide a checkpoint by the sum of drive datasheet bandwidths and call that the recovery time. Restart also includes scheduling, environment setup, reading state, reconstructing distributed ownership and reaching the first valid new output."
+        ]
+      }
+    ],
+    "example": {
+      "title": "A synthetic checkpoint has more than payload time",
+      "assumptions": [
+        "A 512 GB checkpoint is written in 4,096 shards.",
+        "Effective aggregate rates are 16 GB/s for source staging, 24 GB/s for the network and 20 GB/s for backend persistence. Payload stages overlap ideally.",
+        "For this constructed implementation, shard setup is serialized before payload transfer at 1,024 metadata operations per second, followed by a 2-second final commit."
+      ],
+      "steps": [
+        {
+          "label": "Find the payload bottleneck",
+          "expression": "min(16, 24, 20) = 16 GB/s",
+          "explanation": "The source path limits this checkpoint even though the network is faster."
+        },
+        {
+          "label": "Calculate payload duration",
+          "expression": "512 / 16 = 32 s",
+          "explanation": "This is only the bulk-transfer contribution."
+        },
+        {
+          "label": "Account for metadata",
+          "expression": "4,096 / 1,024 = 4 s",
+          "explanation": "The example explicitly places this phase before the transfer."
+        },
+        {
+          "label": "Reach the durable completion boundary",
+          "expression": "4 + 32 + 2 = 38 s",
+          "explanation": "The checkpoint becomes usable only after the stipulated commit succeeds."
+        }
+      ],
+      "result": "The modeled checkpoint takes 38 seconds. A network-only estimate of 21.33 seconds would miss the source bottleneck and serialized work.",
+      "boundary": "The phase ordering and rates are invented. Real systems may overlap metadata differently and must define their own durability and commit semantics."
+    },
+    "tradeoff": {
+      "choice": "Combine many small checkpoint records into fewer larger shards.",
+      "benefit": "Potentially reduce metadata work and improve streaming efficiency.",
+      "cost": "Change parallelism, partial-read cost, failure recovery and the size of a unit that must be rewritten or verified."
+    },
+    "failure": {
+      "trigger": "One worker fails after most new checkpoint shards have been written.",
+      "mechanism": "The new version is incomplete; treating it as the newest recoverable state can make restart fail or mix incompatible state.",
+      "response": "Retain and select the last verified complete checkpoint, record the incomplete attempt and investigate the missing shard before reclaiming older recovery copies."
+    },
+    "practice": {
+      "question": "Source staging is upgraded to 32 GB/s while all other assumptions remain. What is the new checkpoint time, and does doubling the source rate halve it?",
+      "hint": "The active payload limit can move to another stage.",
+      "answer": "Backend persistence becomes the 20 GB/s limit, giving 512 / 20 + 4 + 2 = 31.6 seconds.",
+      "reasoning": "The network can sustain 24 GB/s, but the backend cannot. Fixed metadata and commit time also remain. The checkpoint improves by about 16.8%, not 50%, because the original bottleneck was only one part of the complete path."
+    },
+    "sources": [
+      {
+        "title": "NVIDIA DGX SuperPOD — Storage Architecture",
+        "url": "https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/storage-architecture.html",
+        "claim": "Storage requirements vary with data format, cache behavior, workload and checkpoint traffic.",
+        "reviewed_on": "2026-09-06",
+        "limits": "H100 reference guidance updated November 19, 2025; its numerical sizing recommendations are not imported."
+      },
+      {
+        "title": "PyTorch Distributed Checkpoint",
+        "url": "https://docs.pytorch.org/docs/stable/distributed.checkpoint.html",
+        "claim": "A distributed checkpoint coordinates application state across participants and storage writers.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Public indexed API excerpts reviewed; the directly opened stable URL returned a redirect shell. Pin and review the selected framework release and storage writer before implementation; no complete API audit is claimed."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Metadata",
+        "definition": "Information used to identify, locate, manage or commit stored data."
+      },
+      {
+        "term": "Durability boundary",
+        "definition": "The persistence guarantee reached by an acknowledged operation under specified failure assumptions."
+      },
+      {
+        "term": "Checkpoint shard",
+        "definition": "A portion of saved application state associated with a distributed checkpoint."
+      }
+    ],
+    "visual": {
+      "kind": "flow",
+      "title": "The checkpoint is complete at the end, not the middle",
+      "nodes": [
+        {
+          "label": "State",
+          "detail": "Capture a coherent application version"
+        },
+        {
+          "label": "Shards",
+          "detail": "Create metadata and move payload"
+        },
+        {
+          "label": "Persistence",
+          "detail": "Reach the declared storage guarantee"
+        },
+        {
+          "label": "Commit",
+          "detail": "Expose one complete recoverable version"
+        }
+      ],
+      "caption": "Keep the previous valid version visible until the new checkpoint reaches its completion boundary."
+    }
+  },
+  {
+    "id": "d09-checkpoint-timeline",
+    "domain": "D09",
+    "title": "Count preserved progress, lost progress and recovery",
+    "question": "When do more frequent checkpoints improve completed work, and when do they only add overhead?",
+    "summary": "Compare explicit failure timelines and explain why asynchronous saving and replicated storage do not eliminate recovery design.",
+    "takeaway": "A checkpoint policy trades normal overhead against the amount of work that must be repeated after a specified failure.",
+    "objectives": [
+      "D09.1",
+      "D09.2",
+      "D09.4"
+    ],
+    "sections": [
+      {
+        "heading": "Draw four different kinds of time",
+        "paragraphs": [
+          "A job timeline contains useful computation, checkpoint work, lost computation and recovery. Useful computation becomes lost only when a failure forces the job to return to an earlier saved state. Recovery includes more than reading bytes: detecting failure, obtaining resources, recreating the environment, restoring state and becoming ready to advance again can each consume time. Color those intervals separately. Otherwise a report can count recomputed work as new progress or describe storage transfer time as the entire outage.",
+          "Define the checkpoint interval carefully. It might mean wall-clock time between attempts, useful computation between completed checkpoints, or a number of application steps. These policies behave differently when checkpoint duration changes. The example below uses useful-computation time between checkpoints, pauses progress while saving, and declares a single failure at a fixed wall-clock instant. That makes every interval auditable. It does not assume that real failures arrive periodically or independently."
+        ]
+      },
+      {
+        "heading": "A completed snapshot is a recovery point",
+        "paragraphs": [
+          "The recovery point objective describes how much state or progress the service can afford to lose under its intended scenario. The recovery time objective describes how quickly the service should be restored. Checkpoint frequency influences the first, while scheduling, storage reads, initialization and operator response influence the second. Neither objective is guaranteed by a retention policy written on paper. A recovery exercise must demonstrate that the selected checkpoint is readable, coherent and compatible with the environment being restored.",
+          "Redundant storage and backup solve overlapping but different problems. Replication may preserve access after a device failure while also copying an accidental deletion. A retained backup may survive that deletion but take longer to restore. A model checkpoint may preserve training state but omit the software environment, dataset version or credentials required to continue safely. The recovery plan therefore includes a manifest of dependencies and a clear definition of valid progress, not only a directory full of large files."
+        ]
+      },
+      {
+        "heading": "Asynchronous saving moves contention rather than abolishing it",
+        "paragraphs": [
+          "Asynchronous checkpointing can allow computation to continue while saved state is written. PyTorch’s documented approach includes staging state and managing outstanding saves; its tutorial highlights additional host-memory pressure. The central invariant is that the saved version must remain coherent while the live application changes. Overlap can shorten the visible pause, but memory copies, CPU work, network traffic and storage writes still consume resources. If these interfere with input preparation or communication, normal steps can become slower.",
+          "Bound the number of outstanding saves. If a new checkpoint arrives faster than the backend can persist the previous one, queued state can accumulate and exhaust memory or storage. The newest attempted checkpoint is not necessarily the newest completed recovery point. Monitoring should expose both timestamps. Evaluate the whole job duration and recoverable progress under load, rather than quoting only the time until an asynchronous function returns. A fast return is an API behavior, not a durability measurement."
+        ]
+      },
+      {
+        "heading": "Choose a policy with a failure model and a service goal",
+        "paragraphs": [
+          "More frequent checkpoints generally reduce the maximum unsaved interval while increasing normal saving work. Their benefit depends on when failures occur, what scope is lost and how long restoration takes. A rare node fault that affects one small task differs from a shared storage outage that blocks an entire cluster. Use measured incidents where available and explicit scenarios where they are not. Compare policies across several failure positions and include a no-failure case so the cost of protection remains visible."
+        ]
+      }
+    ],
+    "example": {
+      "title": "Two policies face one failure at minute 35",
+      "assumptions": [
+        "The job needs 60 minutes of useful computation. A valid initial checkpoint exists at zero progress.",
+        "Policy A checkpoints after every 20 useful minutes; policy B after every 40. Each checkpoint pauses computation for 2 minutes.",
+        "A single failure occurs at wall-clock minute 35 and restoration takes 5 minutes. No final checkpoint is required to count job completion."
+      ],
+      "steps": [
+        {
+          "label": "Follow policy A to failure",
+          "expression": "Work 0–20; save 20–22; work 22–35",
+          "explanation": "A has preserved 20 useful minutes and loses the following 13."
+        },
+        {
+          "label": "Follow policy B to failure",
+          "expression": "Work 0–35; no completed new checkpoint",
+          "explanation": "B loses all 35 attempted useful minutes and returns to zero."
+        },
+        {
+          "label": "Restore both jobs",
+          "expression": "Recovery 35–40",
+          "explanation": "The same five-minute restoration is assumed for both policies."
+        },
+        {
+          "label": "Finish policy A",
+          "expression": "Work 40–60; save 60–62; work 62–82",
+          "explanation": "Forty remaining useful minutes produce completion at minute 82."
+        },
+        {
+          "label": "Finish policy B",
+          "expression": "Work 40–80; save 80–82; work 82–102",
+          "explanation": "Sixty remaining useful minutes produce completion at minute 102."
+        }
+      ],
+      "result": "Policy A finishes 20 minutes earlier for this failure placement. Without a failure, A would incur one extra two-minute checkpoint before completing the same work.",
+      "boundary": "This is an explicit scenario, not an estimate of failure probabilities or an optimal interval for a real cluster."
+    },
+    "tradeoff": {
+      "choice": "Shorten the interval between checkpoints.",
+      "benefit": "Reduce the amount of unsaved progress exposed to many failure timings.",
+      "cost": "Increase checkpoint traffic and pauses or asynchronous contention; more saved versions also consume retention capacity."
+    },
+    "failure": {
+      "trigger": "Monitoring treats an initiated asynchronous save as a completed checkpoint.",
+      "mechanism": "After a fault, the service attempts to restore a version whose background write never reached a valid completion boundary.",
+      "response": "Track completion and verification separately from initiation, retain a previous valid state and exercise restart from the exact selected version."
+    },
+    "practice": {
+      "question": "Move the only failure to minute 55, keeping all policies unchanged. How much progress has each preserved, and when does each finish after the five-minute recovery?",
+      "hint": "A has completed saves at minutes 22 and 44; B completed one at minute 42.",
+      "answer": "Both have preserved 40 useful minutes. Both restart at minute 60 and complete the remaining 20 useful minutes at minute 80.",
+      "reasoning": "A loses 11 unsaved minutes while B loses 13, but A spent two additional minutes saving before failure. Their net preserved progress is identical at this failure instant. More frequent saving is not strictly better for every realized timeline."
+    },
+    "sources": [
+      {
+        "title": "Asynchronous Saving with Distributed Checkpoint",
+        "url": "https://docs.pytorch.org/tutorials/recipes/distributed_async_checkpoint_recipe.html",
+        "claim": "Asynchronous saving requires staged state, host-memory capacity and management of concurrent save requests.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Tutorial updated February 3, 2026; APIs are version-sensitive. No tutorial benchmark is generalized."
+      },
+      {
+        "title": "PyTorch Distributed Checkpoint",
+        "url": "https://docs.pytorch.org/docs/stable/distributed.checkpoint.html",
+        "claim": "Distributed state saving and loading require coordinated state and backend-specific handling.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Public indexed API excerpts reviewed; the directly opened stable URL returned a redirect shell. Pin and review the selected framework release and storage writer before implementation; no complete API audit is claimed."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Recovery point objective",
+        "definition": "The tolerated loss of state or progress for a declared failure scenario."
+      },
+      {
+        "term": "Recovery time objective",
+        "definition": "The intended time to restore the specified service after disruption."
+      },
+      {
+        "term": "Asynchronous checkpoint",
+        "definition": "Saving whose work can overlap application execution while preserving a coherent saved version."
+      }
+    ],
+    "visual": {
+      "kind": "timeline",
+      "title": "Two policies, one fault",
+      "nodes": [
+        {
+          "label": "Policy A",
+          "detail": "Save every 20 useful minutes"
+        },
+        {
+          "label": "Policy B",
+          "detail": "Save every 40 useful minutes"
+        },
+        {
+          "label": "Failure",
+          "detail": "At minute 35, unsaved progress is lost"
+        },
+        {
+          "label": "Restoration",
+          "detail": "A finishes at 82; B at 102"
+        }
+      ],
+      "caption": "Show work, save, lost work and restoration as distinct intervals; let the failure marker move to minute 55."
+    }
+  },
+  {
+    "id": "d09-service-acceptance",
+    "domain": "D09",
+    "title": "Turn installed hardware into an accepted service",
+    "question": "What must a tenant demonstrate before the cluster can be called usable?",
+    "summary": "Connect scheduling, provisioning, isolation and observability to a reproducible end-to-end acceptance exercise.",
+    "takeaway": "A usable cluster launches the right environment on the right topology, produces correct output and restores progress after an agreed fault.",
+    "objectives": [
+      "D09.3",
+      "D09.4",
+      "D09.2"
+    ],
+    "sections": [
+      {
+        "heading": "Scheduling matches a request to a feasible set",
+        "paragraphs": [
+          "A scheduler receives more than a request for a device count. A job can require memory per device, host memory, CPU resources, compatible software, network locality, storage access and a duration. The available inventory must satisfy those requirements together. A free device in the wrong topology or software pool may not be usable for that job. This is why physical utilization, allocated utilization and useful output should be reported separately: each answers a different question about the service.",
+          "Placement can trade queue time for execution time. Keeping communicating workers close can reduce traffic through constrained network tiers, but suitable groups may be occupied. Slurm’s topology guide describes allocation that considers switch groupings; the actual behavior depends on the configured plugin and version. A scheduler also needs trustworthy resource information. If an unhealthy device remains marked available, allocation can succeed while execution fails. If repaired resources remain drained indefinitely, installed capacity stays hidden from users."
+        ]
+      },
+      {
+        "heading": "Provisioning and isolation make the allocation real",
+        "paragraphs": [
+          "Provisioning turns selected hardware into a reproducible execution environment. It includes boot and firmware state, drivers, runtime libraries, application images, network configuration and access to the required data. A container image helps capture user-space dependencies but does not by itself standardize every host driver or device interface. Record versions and compatibility rather than assuming that a successful image download proves a working stack. The same job should start from a declared clean state and produce a recognizable result.",
+          "Isolation controls what an allocation may consume and access. Resource accounting reports use; enforcement limits it. Slurm’s cgroup documentation distinguishes mechanisms that track processes, collect usage and constrain resources, so enabling telemetry alone should not be mistaken for enforcement. Storage authorization, network separation and management-plane access are additional concerns. An acceptance plan should test the authorized tenant’s intended operations and verify that its agreed resource boundaries are enforced, using a controlled test environment and explicit service expectations."
+        ]
+      },
+      {
+        "heading": "Test a chain that ends in correct output",
+        "paragraphs": [
+          "Create a small representative workload with a pinned code revision, environment identifier, input checksum, random-seed policy and expected output condition. Specify the allocation topology, startup deadline, sustained-throughput window and allowable variance before running it. Trace the path from authenticated dataset access through job submission, provisioning, collective communication and durable output. Record stage timing as well as total time. A failure should leave enough evidence to identify which dependency broke, rather than only a final nonzero exit code.",
+          "Correctness and performance must both pass. A very fast job that silently reads the wrong dataset or produces incomplete output is not accepted. A correct job that misses the agreed response or throughput target also fails that service requirement. Distinguish cold-start and warm-cache conditions, and state whether other tenants or background services are active. Reproduce a result under the same conditions before comparing it with a changed architecture. A single favorable run is a useful observation, not a complete operating envelope."
+        ]
+      },
+      {
+        "heading": "Exercise recovery and return to service",
+        "paragraphs": [
+          "Within an isolated, approved acceptance environment, introduce an agreed non-destructive fault such as terminating one test worker after a completed checkpoint. Observe detection, cleanup, replacement allocation, state restoration and the first correct new output. Compare the result with an uninterrupted control using the declared correctness criteria. Then verify that temporary resources and stale processes are removed. This tests recovery as a service path rather than assuming that a restart command proves progress survived.",
+          "The final report should say which service configuration passed, which degraded modes were exercised and which conditions remain untested. Keep raw logs, configuration identifiers, timestamps and output checksums with the report. Power-on counts and electrical capacity remain valuable infrastructure facts, but they are inputs to this acceptance exercise. The accepted output is an executable service commitment tied to workload, environment and recovery behavior."
+        ]
+      }
+    ],
+    "example": {
+      "title": "Thirty-two free GPUs, no eligible allocation",
+      "assumptions": [
+        "A fictional cluster has two topology groups, each containing four nodes with eight GPUs per node.",
+        "A job requires four free nodes within one group and a validated common software image.",
+        "Two nodes are free in each group. Every free node is healthy and has the right image. Cross-group placement is outside the accepted service configuration."
+      ],
+      "steps": [
+        {
+          "label": "Count free hardware",
+          "expression": "4 free nodes × 8 GPUs = 32 free GPUs",
+          "explanation": "The physical count equals the requested device count."
+        },
+        {
+          "label": "Check each eligible group",
+          "expression": "Group A: 2 < 4 nodes; group B: 2 < 4 nodes",
+          "explanation": "Neither group can satisfy the placement constraint."
+        },
+        {
+          "label": "State feasible capacity",
+          "expression": "Eligible four-node allocations = 0",
+          "explanation": "The job must wait, change requirements or use a separately validated service mode."
+        }
+      ],
+      "result": "The hardware is healthy, powered and sufficiently numerous, yet the requested service cannot launch under its accepted topology.",
+      "boundary": "The grouping rule is synthetic; it is not an assertion about a particular scheduler’s default behavior."
+    },
+    "tradeoff": {
+      "choice": "Admit smaller flexible jobs while waiting for a large topology-constrained allocation.",
+      "benefit": "Use otherwise idle resources and improve service for suitable workloads.",
+      "cost": "Without reservations or preemption policy, those jobs can prolong fragmentation and delay the larger job."
+    },
+    "failure": {
+      "trigger": "A worker restarts with a different runtime library than the remaining ranks.",
+      "mechanism": "Device discovery succeeds, but distributed initialization or execution becomes incompatible and useful output stops.",
+      "response": "Compare environment manifests, restore the validated version set and rerun the end-to-end acceptance path before releasing the resources."
+    },
+    "practice": {
+      "question": "The owner proposes allowing cross-group placement to launch the waiting job immediately. What evidence is required before treating that as equivalent service?",
+      "hint": "A successful launch tests only the beginning of the contract.",
+      "answer": "Measure correctness, collective behavior, sustained throughput, contention effects and recovery under the cross-group topology using the same pinned workload and output criteria.",
+      "reasoning": "Relaxing a constraint creates a new configuration. It may be worthwhile even with lower performance, but the service target and customer acceptance must reflect the measured result. The free-device count cannot establish equivalence."
+    },
+    "sources": [
+      {
+        "title": "Slurm Topology Guide",
+        "url": "https://slurm.schedmd.com/topology.html",
+        "claim": "Topology-aware placement considers network groupings when selecting resources.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Plugin, configuration and release determine behavior; synthetic allocation rules are explicit."
+      },
+      {
+        "title": "Control Group in Slurm",
+        "url": "https://slurm.schedmd.com/cgroups.html",
+        "claim": "Process tracking, accounting and resource confinement have distinct roles.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Current documentation includes version-specific behavior; no live configuration changes are prescribed."
+      },
+      {
+        "title": "NVIDIA DGX SuperPOD — Software",
+        "url": "https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/dgx-software.html",
+        "claim": "A reference cluster includes orchestration, system management, libraries and operating-system components.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Vendor reference stack, updated November 19, 2025; it does not certify an arbitrary tenant environment."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Provisioning",
+        "definition": "Preparing allocated hardware and software to run the requested service."
+      },
+      {
+        "term": "Resource isolation",
+        "definition": "Enforcement of an allocation’s permitted resource and access boundaries."
+      },
+      {
+        "term": "Acceptance exercise",
+        "definition": "A reproducible demonstration that a specified service meets agreed correctness, performance and recovery conditions."
+      }
+    ],
+    "visual": {
+      "kind": "flow",
+      "title": "Accept the whole service path",
+      "nodes": [
+        {
+          "label": "Authenticate and read",
+          "detail": "Verify tenant access and input identity"
+        },
+        {
+          "label": "Allocate and provision",
+          "detail": "Match topology and environment"
+        },
+        {
+          "label": "Execute and save",
+          "detail": "Check useful output and durable state"
+        },
+        {
+          "label": "Recover and verify",
+          "detail": "Restore progress and clean up resources"
+        }
+      ],
+      "caption": "Every stage produces evidence; a device-count check cannot substitute for the chain."
+    }
+  },
+  {
+    "id": "d10-local-thermal-paths",
+    "domain": "D10",
+    "title": "A cool room can contain an overheating chip",
+    "question": "Why do equal rack heat loads create different local cooling problems?",
+    "summary": "Trace heat through local thermal resistances and parallel air/liquid paths, then compare the capture point of different cooling approaches.",
+    "takeaway": "Heat quantity sets transport demand; heat concentration, resistance and temperature limits determine whether the device can operate.",
+    "objectives": [
+      "D10.1",
+      "D10.4"
+    ],
+    "sections": [
+      {
+        "heading": "Follow temperature through the heat path",
+        "paragraphs": [
+          "In a steady operating state, most electrical energy consumed by computing equipment becomes heat within the facility’s accounting boundary. That energy balance says how much heat must ultimately leave. It does not say that every device is at an acceptable temperature. Heat must cross a sequence of interfaces: from active silicon through its package and thermal interface, then into a heat sink, cold plate or immersion fluid, and onward to another cooling boundary. A restrictive local interface can overheat a device while the room-level heat balance still appears adequate.",
+          "A simple thermal-resistance model writes temperature difference as heat flow multiplied by thermal resistance. State exactly which two temperatures the resistance connects. Junction-to-case, case-to-fluid and a complete effective path are different quantities. A measurement of coolant inlet temperature is not automatically the local bulk-fluid temperature beside the hottest region. Contact quality, flow distribution and heating along the path can matter. The model is a way to identify required temperature margin, not a substitute for a supplier’s qualified thermal performance map."
+        ]
+      },
+      {
+        "heading": "Total heat and heat flux answer different questions",
+        "paragraphs": [
+          "Heat flux is heat flow per area. Four hundred watts spread over sixteen square centimeters averages 25 W/cm²; the same heat through four square centimeters averages 100 W/cm². The second case concentrates the transfer over a smaller area. This does not prove a particular temperature without the geometry and thermal path, but it explains why total rack kilowatts alone cannot rank cooling difficulty. Within one package, local hotspots can be more demanding than the area average.",
+          "The temperature limit matters too. A device that tolerates a higher operating temperature has a different allowable path resistance at the same heat and coolant temperature. Reducing coolant temperature can create more margin, but it may increase the work required farther upstream or introduce condensation constraints. Improving the local interface can also create margin. Evaluate those options with the complete thermal and energy system in view. The most effective intervention depends on where the limiting temperature difference actually occurs."
+        ]
+      },
+      {
+        "heading": "Compare where each method captures heat",
+        "paragraphs": [
+          "An air-cooled heat sink transfers heat into a moving air stream. Containment and air management help prevent heated exhaust from mixing back into device inlets, but adequate room cooling cannot compensate for insufficient flow through a particular server. A rear-door heat exchanger captures heat from rack exhaust air into a liquid circuit. The server still needs a functioning internal air path, and the added exchanger must be compatible with its airflow and service requirements.",
+          "A cold plate captures heat near selected components and transfers it to a technology coolant loop. Components outside that liquid path can still reject heat to air, so a liquid-cooled rack may retain a substantial residual-air requirement. Immersion places qualified hardware in a compatible dielectric fluid. Single-phase systems transport sensible heat as the liquid warms; two-phase approaches use boiling and condensation as part of the transfer process. Fluid compatibility, component qualification, vapor or liquid containment and service procedures depend on the actual design. These approaches cannot be ranked from the word liquid alone."
+        ]
+      },
+      {
+        "heading": "Close parallel heat paths without erasing local limits",
+        "paragraphs": [
+          "Draw liquid-captured heat and residual air heat as separate arrows whose sum matches the defined rack heat load. Include auxiliaries consistently. If a 100 kW rack transfers 85 kW into a cold-plate loop and 15 kW to room air, the air system still needs to manage that 15 kW at the right locations. A failed fan can harm an air-cooled component while the liquid supply remains normal. Likewise, a blocked cold-plate branch can cause local throttling even if the room is comfortable and the CDU’s aggregate load is below its rating."
+        ]
+      }
+    ],
+    "example": {
+      "title": "Equal heat, unequal device temperature",
+      "assumptions": [
+        "Two hypothetical devices each dissipate 400 W at steady state.",
+        "Both have the same 35°C local fluid reference temperature. Device A has a stipulated effective thermal resistance of 0.08 K/W; B has 0.12 K/W.",
+        "Both devices have an invented maximum junction temperature of 80°C. The effective resistance connects that junction to the stated fluid reference."
+      ],
+      "steps": [
+        {
+          "label": "Predict device A temperature",
+          "expression": "35 + 400 × 0.08 = 67°C",
+          "explanation": "A has 13 K of margin to the hypothetical limit."
+        },
+        {
+          "label": "Predict device B temperature",
+          "expression": "35 + 400 × 0.12 = 83°C",
+          "explanation": "B exceeds the limit despite producing the same total heat."
+        },
+        {
+          "label": "Find the required resistance bound",
+          "expression": "(80 − 35) / 400 = 0.1125 K/W",
+          "explanation": "The complete effective path must be no worse than this value in the stated model."
+        }
+      ],
+      "result": "The same heat load and fluid temperature produce different feasibility because the local thermal paths differ.",
+      "boundary": "The resistances and temperature limit are invented; this calculation cannot qualify a processor, cold plate or mounting procedure."
+    },
+    "tradeoff": {
+      "choice": "Capture more heat directly with cold plates.",
+      "benefit": "Reduce the fraction that must travel through the room-air path and potentially improve local heat removal.",
+      "cost": "Add fluid interfaces, material and leak qualification, branch-flow requirements and a different maintenance procedure."
+    },
+    "failure": {
+      "trigger": "A cold plate has poor thermal contact after maintenance.",
+      "mechanism": "Effective local resistance increases while total coolant flow and rack electrical demand remain near normal.",
+      "response": "Correlate device temperatures with the qualified local operating model, remove the affected equipment from the agreed service state and have the responsible team verify the interface."
+    },
+    "practice": {
+      "question": "For device B, lowering the fluid reference to 30°C gives what junction temperature? Does that automatically make the better facility design?",
+      "hint": "Recompute the local temperature, then identify what the local model excludes.",
+      "answer": "30 + 400 × 0.12 = 78°C, so it passes the hypothetical local limit. It does not automatically establish the better facility design.",
+      "reasoning": "Lower supply temperature may require additional upstream cooling work or condensation management. Improving the local path could preserve warmer facility operation. Compare qualified alternatives across both the device constraint and the wider energy and service boundaries."
+    },
+    "sources": [
+      {
+        "title": "ASHRAE — Emergence and Expansion of Liquid Cooling in Mainstream Data Centers",
+        "url": "https://www.ashrae.org/file%20library/technical%20resources/bookstore/emergence-and-expansion-of-liquid-cooling-in-mainstream-data-centers_wp.pdf",
+        "claim": "Thermal resistance connects device temperature, cooling-medium temperature and device heat; local requirements can drive cooling changes.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Selected thermal-resistance discussion reviewed from the 2021 white paper. No historical trend figure or vendor temperature class is reproduced."
+      },
+      {
+        "title": "ASHRAE Handbook — Data Centers and Telecommunication Facilities",
+        "url": "https://handbook.ashrae.org/Handbooks/A23/SI/A23_Ch20/a23_ch20_si.aspx",
+        "claim": "Provides context for distinct air and liquid cooling paths and equipment-specific environmental requirements.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Selected public 2023 sections reviewed; current equipment limits govern actual use."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Heat flux",
+        "definition": "Heat-transfer rate per unit area at a specified surface."
+      },
+      {
+        "term": "Thermal resistance",
+        "definition": "Temperature difference divided by heat-transfer rate between named thermal boundaries."
+      },
+      {
+        "term": "Residual air heat",
+        "definition": "The portion of a defined system’s heat that remains on its air-cooling path."
+      }
+    ],
+    "visual": {
+      "kind": "comparison",
+      "title": "Same watts, different thermal margin",
+      "nodes": [
+        {
+          "label": "Device A",
+          "detail": "400 W × 0.08 K/W gives a 32 K rise"
+        },
+        {
+          "label": "Device B",
+          "detail": "400 W × 0.12 K/W gives a 48 K rise"
+        },
+        {
+          "label": "Shared fluid reference",
+          "detail": "35°C in this synthetic model"
+        },
+        {
+          "label": "Parallel rack paths",
+          "detail": "Liquid heat and residual air heat remain separate"
+        }
+      ],
+      "caption": "The heat balance determines quantity; the local resistance determines the temperature rise."
+    }
+  },
+  {
+    "id": "d10-flow-and-pressure",
+    "domain": "D10",
+    "title": "Flow arithmetic is only the first pump question",
+    "question": "How much liquid transports the heat, and can that flow reach every required branch?",
+    "summary": "Derive a single-phase flow requirement, then add pressure drop, pump operating point and branch maldistribution.",
+    "takeaway": "Heat capacity sets an energy-transport requirement; the hydraulic network determines the flow actually delivered.",
+    "objectives": [
+      "D10.1",
+      "D10.2"
+    ],
+    "sections": [
+      {
+        "heading": "Derive the heat-transport equation",
+        "paragraphs": [
+          "For a single-phase liquid with approximately constant specific heat, each kilogram absorbs cp times its temperature rise in energy. Multiplying by mass flow rate gives heat-transfer rate: Qdot = mdot × cp × delta T. Keep heat rate distinct from liquid flow, even when a drawing uses the same letter Q for both. If heat is in kilowatts and cp in kilojoules per kilogram-kelvin, mass flow comes out in kilograms per second. Convert to volume flow only after specifying density.",
+          "The temperature rise is the difference between the liquid leaving and entering the load. It is not the absolute supply temperature, nor the approach temperature across a heat exchanger. A larger allowed rise reduces required mass flow for the same heat, but warms the return and changes temperatures along the load path. A smaller rise needs more flow and can increase hydraulic demand. The acceptable range must come from the equipment’s thermal requirements and the complete system design."
+        ]
+      },
+      {
+        "heading": "Ask what pressure difference produces that flow",
+        "paragraphs": [
+          "A pump supplies pressure difference that drives liquid through restrictions. Pipes, hoses, valves, filters, connectors and cold plates all contribute pressure drop. A pump has a relationship between flow and available pressure; the system has a relationship between flow and required pressure. Their intersection gives an operating point under the stated conditions. Selecting a pump from a maximum free-flow number ignores the pressure required by the installed circuit.",
+          "For a simplified friction-dominated circuit, pressure drop can be approximated as proportional to the square of flow over a limited range. Hydraulic power is pressure difference times volume flow. With that approximation, changing flow can have a strong effect on pumping demand. Actual pump and system curves, fluid viscosity, controls and component limits still govern. A glycol mixture cannot inherit a water calculation without checking its density, heat capacity and viscosity at the intended conditions. Treat fluid identity as part of the interface, not a cosmetic label."
+        ]
+      },
+      {
+        "heading": "Parallel branches can hide a local shortage",
+        "paragraphs": [
+          "A manifold divides total flow among branches according to their hydraulic resistances and available pressure difference. Equal branch heat does not guarantee equal branch flow. A partly blocked filter, a connector restriction or a changed valve position can reduce one branch’s flow while another receives more. Aggregate flow at the CDU can look acceptable even as a device on the restricted branch approaches its thermal limit. This is why the flow ledger must identify branches as well as totals.",
+          "Temperature sensing helps reveal the consequence, but a mixed return temperature can hide the hottest stream. If one branch leaves at a high temperature and mixes with cooler liquid from other branches, the average may remain within a broad alarm threshold. Local device temperatures, branch flow or differential-pressure information can therefore be more diagnostic than one rack-average reading. The right sensor set depends on the failure modes and response time the system must manage."
+        ]
+      },
+      {
+        "heading": "Include pump energy and qualification boundaries",
+        "paragraphs": [
+          "Electrical power consumed by pumping eventually appears as heat somewhere within the wider system, but its allocation depends on the motor and fluid boundaries. If all pump input is assigned to the liquid in a simplified balance, add it to the heat that the next exchanger must transfer. If part leaves to room air, track that path separately. The first flow calculation often neglects this small term to isolate the main mechanism; the final engineering ledger should state whether it has been included.",
+          "A qualified loop also needs compatible wetted materials, fluid chemistry, cleanliness and service procedures. More flow is not a universal response to every temperature problem: it may exceed a component’s allowed pressure, velocity or pumping envelope while leaving poor thermal contact unresolved. Use the supplied curves and limits to distinguish a hydraulic shortage from a local heat-transfer defect before changing an operating point."
+        ]
+      }
+    ],
+    "example": {
+      "title": "Heat balance meets two synthetic curves",
+      "assumptions": [
+        "The loop captures 84 kW into single-phase water modeled with cp = 4.2 kJ/(kg·K) and density = 1 kg/L.",
+        "The desired load-side temperature rise is 10 K. Pump heat is excluded from this first transport calculation.",
+        "With volume flow q in L/s, the invented pump curve is delta p = 160 − 10q² kPa and system curve is delta p = 30q² kPa. Overall pump efficiency is assumed 60%."
+      ],
+      "steps": [
+        {
+          "label": "Find required mass and volume flow",
+          "expression": "84 / (4.2 × 10) = 2 kg/s = 2 L/s = 120 L/min",
+          "explanation": "The specified fluid properties allow the mass-to-volume conversion."
+        },
+        {
+          "label": "Find the hydraulic operating point",
+          "expression": "160 − 10q² = 30q²; q = 2 L/s",
+          "explanation": "The two invented curves intersect at the required flow."
+        },
+        {
+          "label": "Find operating pressure difference",
+          "expression": "30 × 2² = 120 kPa",
+          "explanation": "The pump must supply this pressure difference across the declared circuit."
+        },
+        {
+          "label": "Calculate pump power",
+          "expression": "120,000 Pa × 0.002 m³/s = 240 W hydraulic; 240 / 0.60 = 400 W electrical",
+          "explanation": "Consistent SI units convert pressure times volume flow into watts."
+        }
+      ],
+      "result": "The synthetic pump and system deliver the heat-balance flow at 120 kPa with 400 W of modeled input.",
+      "boundary": "These curves do not select real equipment. Fluid-property variation, branch balance, transient behavior, pressure limits and redundancy remain outside the example."
+    },
+    "tradeoff": {
+      "choice": "Allow a larger liquid temperature rise to reduce required flow.",
+      "benefit": "Potentially reduce hydraulic demand and the burden on piping and pumping.",
+      "cost": "Increase downstream fluid temperatures and potentially reduce device thermal margin; actual pump operation must be recalculated."
+    },
+    "failure": {
+      "trigger": "One of four equal 21 kW branches receives only 0.25 L/s instead of 0.5 L/s.",
+      "mechanism": "Its modeled temperature rise doubles from 10 K to 20 K even if other branches remain normal.",
+      "response": "Use local temperature and hydraulic evidence to identify the restricted branch and follow the qualified isolation and restoration procedure."
+    },
+    "practice": {
+      "question": "If the entire 400 W pump input enters the liquid upstream of the exchanger, what heat must the exchanger reject and what is the overall temperature rise at 2 kg/s?",
+      "hint": "Add pump heat to the 84 kW load before using the heat equation.",
+      "answer": "The exchanger transfers 84.4 kW, and the corresponding overall rise is 84.4 / (2 × 4.2) ≈ 10.048 K.",
+      "reasoning": "The small difference does not invalidate the first-pass calculation, but explicitly closing it prevents pump energy from disappearing between boundaries. A different motor-to-air heat allocation would require a separate air-path term."
+    },
+    "sources": [
+      {
+        "title": "OCP — Liquid to Liquid CDU Test Methodology and Performance Rating, Revision 1.0",
+        "url": "https://www.opencompute.org/documents/ocp-wp-l-lcdu-test-methodology-performance-rating-r1-pdf",
+        "claim": "CDU evaluation includes thermal conditions, technology-loop pressure head and facility-loop flow impedance.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Selected performance and fluid-service sections reviewed; supplied synthetic pump curves are not extracted from the paper. Front matter has inconsistent date labels."
+      },
+      {
+        "title": "Open Compute Project — Cold Plate workstream",
+        "url": "https://www.opencompute.org/wiki/Cooling_Environments/Cold_Plate",
+        "claim": "The workstream separates cold-plate, loop, fluid and connector requirements.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Index reviewed; linked loop-requirement PDF did not load during this pass and is not treated as audited."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Specific heat capacity",
+        "definition": "Energy required to raise a unit mass of a substance by one kelvin under stated conditions."
+      },
+      {
+        "term": "Hydraulic operating point",
+        "definition": "The flow and pressure difference at the intersection of pump and system behavior."
+      },
+      {
+        "term": "Maldistribution",
+        "definition": "Unequal flow allocation that differs from what the loads require."
+      }
+    ],
+    "visual": {
+      "kind": "flow",
+      "title": "Energy requirement meets hydraulic reality",
+      "nodes": [
+        {
+          "label": "Heat load",
+          "detail": "84 kW with a 10 K target rise"
+        },
+        {
+          "label": "Required flow",
+          "detail": "2 kg/s under the stated water model"
+        },
+        {
+          "label": "Pump and system",
+          "detail": "Curves intersect at 2 L/s and 120 kPa"
+        },
+        {
+          "label": "Four branches",
+          "detail": "Each needs its own adequate share"
+        }
+      ],
+      "caption": "Show the total-flow meter and branch temperatures separately so a local restriction cannot disappear in an average."
+    }
+  },
+  {
+    "id": "d10-cdu-interfaces",
+    "domain": "D10",
+    "title": "Two liquid loops exchange heat, not fluid",
+    "question": "What does a CDU do, and why is loop temperature rise different from approach temperature?",
+    "summary": "Label a liquid-to-liquid CDU, solve its thermal interfaces and compare cooling choices against a retrofit service brief.",
+    "takeaway": "A CDU transfers heat across a finite temperature difference while managing a specified loop; the heat still needs a path out of the building.",
+    "objectives": [
+      "D10.2",
+      "D10.3",
+      "D10.4"
+    ],
+    "sections": [
+      {
+        "heading": "Draw two closed loops with four temperatures",
+        "paragraphs": [
+          "A liquid-to-liquid coolant distribution unit places a heat exchanger between the technology coolant system serving IT equipment and the facility water system carrying heat toward the plant. In normal operation the liquids remain separated; heat crosses the exchanger surface. The technology side can have its own pumps, controls and fluid requirements. This separation allows the two circuits to have different pressure, chemistry and flow conditions within the equipment’s specifications. It does not make either circuit independent of the other’s thermal performance.",
+          "Label technology supply going toward the rack and technology return coming back hot. Separately label facility supply entering the CDU and facility return leaving warmer. A load-side temperature rise is technology return minus technology supply. The approach convention used here is technology supply minus facility supply, matching the OCP CDU paper. These differences connect different points. Calling both of them delta T without a diagram invites a serious reasoning error."
+        ]
+      },
+      {
+        "heading": "Finite heat transfer requires a temperature difference",
+        "paragraphs": [
+          "A heat exchanger cannot move a finite heat rate with zero driving temperature difference everywhere unless an unphysical infinite conductance is assumed. A simplified exchanger model uses heat rate equal to UA times an appropriate mean temperature difference, where U represents overall transfer behavior and A the effective area. For the special counterflow example below, both end differences are equal, so their common value is also the log-mean difference. General cases require the appropriate exchanger calculation and performance data.",
+          "If facility supply becomes warmer while heat load, flow rates and exchanger performance remain fixed, technology supply generally must rise to preserve the required driving difference. More facility cooling capacity in megawatts does not guarantee that the supply temperature is low enough. Likewise, a large CDU nameplate capacity is meaningful only at its rated fluid, flow and temperature conditions. Compare the required operating point with the supplier’s performance map, including the degraded condition that the service promises to survive."
+        ]
+      },
+      {
+        "heading": "Controls manage the interface within physical limits",
+        "paragraphs": [
+          "Controls observe temperature, flow, pressure and fault indications, then adjust the available actuators according to the specified design. A controller can alter pump speed or valve position where provided, but it cannot create unlimited exchanger conductance or make hot facility water behave like cold water. Control response also has a time scale. A rapid workload change can temporarily store heat in equipment and liquid before the next boundary responds. The acceptable excursion depends on the system’s thermal mass, flow and device limits.",
+          "Leak management and fluid compatibility belong to this same interface. A compatible fluid in an incompatible seal or mixed-metal circuit can create long-term problems even if initial temperature tests pass. Filters and cleanliness protect narrow passages but introduce pressure drop and maintenance needs. Quick disconnects change the service procedure and hydraulic circuit. The appropriate response to a leak or lost flow must be defined jointly by the IT and facility teams so that electrical shutdown, isolation and restoration preserve the intended safety and service conditions."
+        ]
+      },
+      {
+        "heading": "Choose a capture method against the complete brief",
+        "paragraphs": [
+          "Consider a retrofit with an existing air system, limited floor space, a usable facility water loop and a requirement for routine component replacement. Retained air cooling might require lower density or more air-handling capacity. A rear-door exchanger can move exhaust heat into water while retaining server air paths. Cold plates can remove a declared fraction near the devices but leave residual air loads. Immersion changes the hardware qualification and service workflow more substantially. Evaluate each against actual temperature, fluid, pressure, access, compatibility and maintenance requirements.",
+          "The decision cannot be completed by selecting the largest stated cooling capacity. A cold-plate option that captures 85% of a hypothetical 100 kW rack leaves 15 kW for air; that passes a 20 kW residual-air allowance arithmetically. It still needs qualified local temperatures and fluid interfaces. A rear-door option requires its own airflow and water-side operating point. An immersion proposal with unknown component compatibility remains unresolved even if its heat capacity looks ample. Keep the unknowns visible until evidence closes them."
+        ]
+      }
+    ],
+    "example": {
+      "title": "A counterflow CDU with a five-kelvin approach",
+      "assumptions": [
+        "A synthetic CDU transfers 84 kW between two water loops, each modeled at 2 kg/s and cp = 4.2 kJ/(kg·K).",
+        "Technology supply/return are 35°C/45°C. Facility supply/return are 30°C/40°C. Pump heat and ambient losses are excluded.",
+        "The exchanger is counterflow and modeled by fixed UA at this operating point."
+      ],
+      "steps": [
+        {
+          "label": "Verify both loop rises",
+          "expression": "84 / (2 × 4.2) = 10 K",
+          "explanation": "Each liquid changes by 10 K while traversing its side of the transfer path."
+        },
+        {
+          "label": "Calculate approach",
+          "expression": "35 − 30 = 5 K",
+          "explanation": "This compares the two supply temperatures, not supply and return within one loop."
+        },
+        {
+          "label": "Check both exchanger end differences",
+          "expression": "45 − 40 = 5 K; 35 − 30 = 5 K",
+          "explanation": "Equal end differences give a 5 K mean driving difference in this special case."
+        },
+        {
+          "label": "Infer the synthetic conductance",
+          "expression": "UA = 84 / 5 = 16.8 kW/K",
+          "explanation": "This is an illustrative effective conductance, not a real CDU rating."
+        }
+      ],
+      "result": "The loop temperature rise is 10 K while the approach is 5 K; both are correct because they compare different temperature points.",
+      "boundary": "Real conductance varies with flows, fluids, fouling and exchanger behavior. This idealized example is not equipment selection."
+    },
+    "tradeoff": {
+      "choice": "Target a smaller approach at the same heat load.",
+      "benefit": "Potentially deliver cooler technology supply for a given facility supply temperature, or permit warmer facility water.",
+      "cost": "Require different exchanger performance, area, flow or operating conditions, with effects on cost, pressure drop and service design."
+    },
+    "failure": {
+      "trigger": "Facility supply rises from 30°C to 34°C while the load and the example’s fixed-flow exchanger behavior remain unchanged.",
+      "mechanism": "Technology supply rises from 35°C to 39°C to preserve the five-kelvin driving difference; the CDU cannot hold its old supply temperature merely by retaining an 84 kW label.",
+      "response": "Compare the new temperature with the IT limit, coordinate a qualified load or plant response and verify the actual exchanger operating point."
+    },
+    "practice": {
+      "question": "The IT supply limit is 38°C. At 34°C facility supply and 84 kW load, what maximum approach is allowed, and what conductance would the equal-end-difference model require?",
+      "hint": "The allowed approach is the remaining temperature margin; divide heat by that margin.",
+      "answer": "Approach must be at most 4 K. The simplified model requires UA of at least 84 / 4 = 21 kW/K, compared with the original 16.8 kW/K.",
+      "reasoning": "That is 25% more effective conductance at the specified equal-flow operating point. It does not prescribe a replacement size: an actual solution could change facility conditions, exchanger design, flow or permitted load, subject to all other interfaces."
+    },
+    "sources": [
+      {
+        "title": "OCP — Liquid to Liquid CDU Test Methodology and Performance Rating, Revision 1.0",
+        "url": "https://www.opencompute.org/documents/ocp-wp-l-lcdu-test-methodology-performance-rating-r1-pdf",
+        "claim": "Defines approach as technology supply minus facility supply and rates performance with fluid and flow conditions.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Selected thermal, hydraulic, sensing and fluid-service sections reviewed. Synthetic conductance and temperatures are original; no product is qualified."
+      },
+      {
+        "title": "ASHRAE Handbook — Data Centers and Telecommunication Facilities",
+        "url": "https://handbook.ashrae.org/Handbooks/A23/SI/A23_Ch20/a23_ch20_si.aspx",
+        "claim": "Air and liquid arrangements must be considered with their environmental and facility interfaces.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Selected public 2023 sections only; specific equipment and later requirements need separate review."
+      }
+    ],
+    "terms": [
+      {
+        "term": "CDU",
+        "definition": "Coolant distribution unit; in this lesson, equipment that transfers heat between separated liquid loops and manages specified coolant conditions."
+      },
+      {
+        "term": "Approach temperature",
+        "definition": "Here, technology coolant supply minus facility water supply at the CDU."
+      },
+      {
+        "term": "UA",
+        "definition": "An effective heat-exchanger conductance combining overall transfer behavior and area."
+      }
+    ],
+    "visual": {
+      "kind": "flow",
+      "title": "Two loops, four temperature labels",
+      "nodes": [
+        {
+          "label": "Technology supply",
+          "detail": "35°C toward the rack"
+        },
+        {
+          "label": "Technology return",
+          "detail": "45°C from the rack"
+        },
+        {
+          "label": "Facility supply",
+          "detail": "30°C entering the CDU"
+        },
+        {
+          "label": "Facility return",
+          "detail": "40°C toward heat rejection"
+        }
+      ],
+      "caption": "Heat crosses the exchanger; normal-operation fluid paths do not mix. Highlight the 10 K loop rise separately from the 5 K approach."
+    }
+  }
+]

@@ -1,5 +1,16 @@
 # Course source
 
+The [expanded visual reader](index.html) now contains 50 authored lessons and
+five integrated cases across all 65 domain objectives. [EXPANDED_COURSE.md](EXPANDED_COURSE.md)
+is the full manuscript and coverage index. Editable records live in `expansion/`;
+`gigawatt-expand` generates the reader, Markdown lessons, glossary and manifest.
+The [five-minute sample](sample.html) is ready for learner review.
+
+The reader uses `web/reader.html`, `reader.css`, `reader.js`, and
+`reader-models.js`, with GPT ImageGen illustrations in `assets/`. The
+manifest records image hashes; prompt files record how the assets were made.
+Run `uv run gigawatt-expand --check` to check generated freshness.
+
 The expansion is defined by [COURSE_REVIEW.md](COURSE_REVIEW.md), instantiated
 from the freeCodeCamp template, and the [domain map](DOMAIN_MAP.md).
 [COMPANION.md](COMPANION.md) defines the reference experience, while the

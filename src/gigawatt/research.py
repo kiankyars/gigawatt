@@ -261,6 +261,7 @@ def source_metadata(source: dict) -> str:
         "review_status",
         "reviewed_on",
         "published_on",
+        "updated_on",
         "domains",
         "use",
         "caution",

@@ -206,10 +206,16 @@
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-06",
       "domains": [
+        "D01",
+        "D03",
+        "D04",
+        "D05",
+        "D09",
         "D10",
         "D12",
         "D13",
-        "D14"
+        "D14",
+        "D15"
       ],
       "use": "Add commissioning across design and construction, integrated failure testing, fluid cleanliness, measurement baselines, procedure validation and operator handover.",
       "caution": "Expert framework guidance, not a substitute for project-specific acceptance criteria, equipment instructions or applicable standards. Individual referenced documents were not all reviewed."
@@ -298,7 +304,8 @@
         "D10",
         "D11",
         "D12",
-        "D14"
+        "D14",
+        "D15"
       ],
       "use": "Audit system boundaries, facility space, dynamic loads, environmental envelopes, air and liquid cooling, monitoring and coordination with fire protection.",
       "caution": "Public 2023 chapter and selected technical sections reviewed, not every linked standard or table. Equipment-specific limits and later revisions take precedence over a generic environmental range."
@@ -976,6 +983,7 @@
       "reviewed_on": "2026-09-06",
       "domains": [
         "D02",
+        "D07",
         "D08",
         "D09",
         "D14"
@@ -1036,11 +1044,702 @@
         "D04",
         "D05",
         "D06",
+        "D12",
         "D13",
         "D15"
       ],
       "use": "Compare the vendor's near-term hybrid power-rack approach with row-level and facility-scale proposals, and trace the primary specifications linked from the announcement.",
       "caution": "Vendor announcement, not independent deployment evidence. Its second-half-2026 and 2027 availability statements are forward-looking as published. Retained AC compatibility does not prove a particular existing feeder, cooling plant or building can support a denser rack. Linked OCP specifications and DSX documentation require their own review."
+    },
+    {
+      "id": "P17",
+      "title": "NVIDIA NVL72 AI Factory — System Hardware & Components",
+      "url": "https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/components.html",
+      "publisher": "NVIDIA",
+      "kind": "primary_reference_architecture",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "updated_on": "2026-05-18",
+      "domains": [
+        "D06",
+        "D07",
+        "D08",
+        "D09",
+        "D10",
+        "D14"
+      ],
+      "use": "An identified GB300 rack example for distinguishing compute trays, switched in-rack connectivity, external compute and storage networks, management, power shelves and cooling interfaces. Use the component hierarchy rather than treating the rack as a collection of identical GPU power ratings.",
+      "caution": "The /latest/ URL is mutable. Page inspected as updated May 18, 2026. Marketing performance ratios are workload-dependent and are not adopted. Its bandwidth recommendation block has an unclear per-GPU versus aggregate scope, and scale-out wording for in-rack NVLink needs interpretation against the switched topology. Do not reproduce those as universal specifications; verify exact OEM configuration before any sizing exercise."
+    },
+    {
+      "id": "E22133B3DE1",
+      "title": "EIA — Laws of energy",
+      "url": "https://www.eia.gov/energyexplained/what-is-energy/laws-of-energy.php",
+      "publisher": "www.eia.gov",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D01"
+      ],
+      "use": "Energy changes form rather than disappearing; the ledger uses conservation.",
+      "caution": "Read the public energy-conservation explanation. The campus quantities and deductions are original hypothetical examples.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "E3F4CB1B7FF",
+      "title": "DOE — Best Practices Guide for Energy-Efficient Data Center Design",
+      "url": "https://www.energy.gov/sites/default/files/2024-07/best-practice-guide-data-center-design_0.pdf",
+      "publisher": "www.energy.gov",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D01",
+        "D04"
+      ],
+      "use": "Data-center accounting separates IT, electrical, and cooling systems.",
+      "caution": "Read the guide overview and relevant system/metrics material; no named facility configuration or operating measurement is inferred.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "ED20FD8CBCF",
+      "title": "EIA — Measuring electricity",
+      "url": "https://www.eia.gov/energyexplained/electricity/measuring-electricity.php",
+      "publisher": "www.eia.gov",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D01",
+        "D05"
+      ],
+      "use": "kW and MW measure power; kWh and MWh include elapsed time.",
+      "caution": "Read the public unit definitions. All traces, durations, averages, and practice values are original.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "EB34D92F523",
+      "title": "OpenStax — Electrical Energy and Power",
+      "url": "https://openstax.org/books/university-physics-volume-2/pages/9-5-electrical-energy-and-power",
+      "publisher": "openstax.org",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D01",
+        "D03",
+        "D05"
+      ],
+      "use": "Electrical power is a rate of energy transfer.",
+      "caution": "Read the power definition and equations; the source is not a data-center telemetry or transient specification.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "EE02276C332",
+      "title": "MLCommons — MLPerf Inference: Datacenter",
+      "url": "https://mlcommons.org/benchmarks/inference-datacenter/",
+      "publisher": "mlcommons.org",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D01",
+        "D02"
+      ],
+      "use": "Benchmark energy/performance comparisons declare workload scenarios and measurement boundaries.",
+      "caution": "Read the public benchmark and power-measurement descriptions, not every result or implementation.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "E23909D618E",
+      "title": "NVIDIA — DGX SuperPOD Key Components",
+      "url": "https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/dgx-superpod-components.html",
+      "publisher": "docs.nvidia.com",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D02"
+      ],
+      "use": "A documented AI cluster architecture includes compute, management, networking, and storage components.",
+      "caution": "Read the public component and design-requirement page for the H100 reference architecture; no product count or performance is copied into the hypothetical brief.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "E2C35A11B05",
+      "title": "NVIDIA Triton — Batchers",
+      "url": "https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/user_guide/batcher.html",
+      "publisher": "docs.nvidia.com",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D02"
+      ],
+      "use": "Dynamic batching can combine requests and introduce a configurable waiting interval.",
+      "caution": "Read the public dynamic-batcher and delayed-batching sections. All timings and throughput numbers in this lesson are hypothetical.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "E0814EDF226",
+      "title": "Vertiv — BESS and UPS roles in large data center power architecture",
+      "url": "https://www.vertiv.com/en-us/insights/articles/white-papers/bess-and-ups-roles-in-large-data-center-power-architecture/",
+      "publisher": "www.vertiv.com",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D02",
+        "D05"
+      ],
+      "use": "Synchronized AI load changes motivate coordination across power-system levels.",
+      "caution": "Read the public white-paper landing page only, not the downloadable full white paper; no universal measured waveform is asserted.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "ED8255C2875",
+      "title": "US EPA — Physical PPA",
+      "url": "https://www.epa.gov/green-power-markets/physical-ppa",
+      "publisher": "www.epa.gov",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D03"
+      ],
+      "use": "Physical and financial PPAs differ in whether electricity is physically delivered or title is conveyed under the arrangement.",
+      "caution": "Read the public EPA distinctions; contractual eligibility and local legal requirements are outside this lesson.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "E61807424F1",
+      "title": "DOE — Islanding a Microgrid",
+      "url": "https://www.energy.gov/cmei/femp/articles/islanding-microgrid",
+      "publisher": "www.energy.gov",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D03"
+      ],
+      "use": "Islanding requires coordinated operation of sources and loads within an electrical boundary.",
+      "caution": "Read the public DOE explanation; no particular on-site plant or local interconnection permission is established.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "E45AB7B1BC1",
+      "title": "Schneider Electric — Installed apparent power",
+      "url": "https://www.electrical-installation.org/enwiki/Installed_apparent_power_(kVA)",
+      "publisher": "www.electrical-installation.org",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D03",
+        "D04"
+      ],
+      "use": "Balanced three-phase apparent power and line current use line-to-line voltage and the √3 factor.",
+      "caution": "Read the public equation and variable definitions; this scenario assumes sinusoidal balanced conditions and does not reproduce equipment selection tables.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "E21653C0173",
+      "title": "ERCOT — Batch Zero large-load connection announcement, June 18, 2026",
+      "url": "https://www.ercot.com/news/release/06182026-puct-approves-ercots",
+      "publisher": "www.ercot.com",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D03"
+      ],
+      "use": "Large-load connection studies consider shared network capacity and required upgrades.",
+      "caution": "Read the dated June 18, 2026 ERCOT announcement; do not treat its process or thresholds as universal or permanent.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "EBFFD23506A",
+      "title": "Schneider Electric — Choice of transformer rating",
+      "url": "https://www.electrical-installation.org/enwiki/Choice_of_transformer_rating",
+      "publisher": "www.electrical-installation.org",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D04"
+      ],
+      "use": "Transformer rating selection considers apparent-power loading and installation constraints.",
+      "caution": "Read the public rating discussion, not a site-specific selection study; no listed product rating is used.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "E9FFEE6828F",
+      "title": "Schneider Electric — Coordination between circuit-breakers",
+      "url": "https://www.electrical-installation.org/enwiki/Coordination_between_circuit-breakers",
+      "publisher": "www.electrical-installation.org",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D05"
+      ],
+      "use": "Protection selectivity depends on fault conditions and the available supply source.",
+      "caution": "Read the public coordination discussion. No trip settings, installation method, or device coordination table is prescribed.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "E1423005C7C",
+      "title": "ABB — Protection Devices for Direct Current Applications",
+      "url": "https://library.e.abb.com/public/5cd83dcb95a74dcdb571be5f256e1af8/9AKK108470A9606_en_B_Protection%20Devices%20for%20Direct%20Current%20Applications%20-%20Technical%20Application%20Paper.pdf",
+      "publisher": "library.e.abb.com",
+      "kind": "primary_reference",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D05"
+      ],
+      "use": "DC interruption and converter-fed fault behavior depend on circuit dynamics and device capabilities.",
+      "caution": "Read the publicly indexed excerpt of section 6; the PDF URL responded successfully, but the complete document was not reviewed. No product selection is claimed.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "E2A3F76B3F9",
+      "title": "Schneider Electric — Definition of standardised earthing schemes",
+      "url": "https://www.electrical-installation.org/enwiki/Definition_of_standardised_earthing_schemes",
+      "publisher": "www.electrical-installation.org",
+      "kind": "primary_reference",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D05"
+      ],
+      "use": "Earthing schemes distinguish the source-earth relationship from exposed-part protective connections.",
+      "caution": "Read publicly indexed definitions of the standardized schemes, not a site-specific grounding study.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "E89E077D5C1",
+      "title": "DOE FEMP: Cooling Tower Management",
+      "url": "https://www.energy.gov/cmei/femp/best-management-practice-10-cooling-tower-management",
+      "publisher": "www.energy.gov",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D11"
+      ],
+      "use": "Evaporation, blowdown, makeup and concentration mechanisms support the simplified conservation example.",
+      "caution": "Overview and water-balance discussion inspected; no chemical dosing, operating limit or treatment procedure is reproduced.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "E6DF2655A78",
+      "title": "USGS National Water Availability Assessment Data Companion",
+      "url": "https://waterdata.usgs.gov/blog/nwdc-overview/",
+      "publisher": "waterdata.usgs.gov",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D11"
+      ],
+      "use": "The water-use discussion distinguishes withdrawals from consumptive use.",
+      "caution": "Selected definitions inspected; the lesson’s hypothetical return-flow assumption is not an observation about a real basin.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "EDDF63EA993",
+      "title": "NVIDIA H100 SuperPOD: White Space Infrastructure",
+      "url": "https://docs.nvidia.com/dgx-superpod/design-guides/dgx-superpod-data-center-design-h100/latest/infrastructure.html",
+      "publisher": "docs.nvidia.com",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D12"
+      ],
+      "use": "Rack dimensions and service/layout choices interact with row arrangement and cable length.",
+      "caution": "Selected white-space planning discussion inspected. All dimensions, masses and force limits in this lesson are invented inputs, not NVIDIA specifications.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "E320A75F233",
+      "title": "NVIDIA H100 SuperPOD: Planning a Data Center Deployment",
+      "url": "https://docs.nvidia.com/dgx-superpod/design-guides/dgx-superpod-data-center-design-h100/latest/planning.html",
+      "publisher": "docs.nvidia.com",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D12"
+      ],
+      "use": "Changes in power density and footprint can affect network layout.",
+      "caution": "Cross-domain planning discussion inspected; no complete product site plan or compliance assessment is reproduced.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "E2848C36FE7",
+      "title": "National Weather Service: Flood Related Hazards",
+      "url": "https://www.weather.gov/safety/flood-hazards",
+      "publisher": "www.weather.gov",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D12"
+      ],
+      "use": "Flood mechanisms differ and can affect low-lying and urban infrastructure through rainfall and overflow.",
+      "caution": "Public hazard descriptions inspected; no local elevation, flood probability or engineering requirement is inferred.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "E95181BB427",
+      "title": "USGS: What is seismic hazard?",
+      "url": "https://www.usgs.gov/faqs/what-seismic-hazard-what-a-seismic-hazard-map-and-how-are-they-used",
+      "publisher": "www.usgs.gov",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D12"
+      ],
+      "use": "Seismic hazard maps incorporate fault, propagation and near-surface site information.",
+      "caution": "FAQ reviewed; it is not a parcel assessment or a code-specific structural design input.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "E013A66FA9A",
+      "title": "NIST SP 800-82 Revision 3: OT Security",
+      "url": "https://csrc.nist.gov/pubs/sp/800/82/r3/final",
+      "publisher": "csrc.nist.gov",
+      "kind": "primary_reference",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D12",
+        "D14"
+      ],
+      "use": "The abstract includes building automation and physical access within OT and identifies reliability and safety requirements.",
+      "caution": "Publication abstract and revision context inspected; this lesson does not claim full implementation review of the 2023 guide or any draft successor.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "EDEEDB16DDE",
+      "title": "OSHA 1910.333: Electrical work practices",
+      "url": "https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.333",
+      "publisher": "www.osha.gov",
+      "kind": "primary_reference",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D12"
+      ],
+      "use": "Indexed regulatory excerpts address stored energy and qualified work.",
+      "caution": "Relevant public indexed excerpts reviewed; no field procedure or jurisdiction-wide compliance claim is supplied.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "E50E0F856B0",
+      "title": "GAO Schedule Assessment Guide",
+      "url": "https://www.gao.gov/products/gao-16-89g",
+      "publisher": "www.gao.gov",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D13",
+        "D15"
+      ],
+      "use": "The guide overview supports integrated schedules, explicit dependencies and the connection between schedule slippage and cost.",
+      "caution": "Overview and guide structure inspected. The network, durations, slack and interventions are original teaching scenarios, not GAO project examples.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "ECB7071035F",
+      "title": "WBDG: Commissioning Documents",
+      "url": "https://legacy.wbdg.org/building-commissioning/commissioning-documents",
+      "publisher": "legacy.wbdg.org",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D13"
+      ],
+      "use": "The OPR, basis-of-design and review discussion supports requirements ownership and traceable acceptance documentation.",
+      "caution": "Selected document-role and design-review passages inspected; no standard text or complete acceptance procedure is reproduced.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "E71B82C307F",
+      "title": "Google SRE: Monitoring Distributed Systems",
+      "url": "https://sre.google/sre-book/monitoring-distributed-systems/",
+      "publisher": "sre.google",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D14"
+      ],
+      "use": "The monitoring discussion distinguishes internal and external observations and separates symptoms from causes.",
+      "caution": "Selected monitoring principles inspected; this lesson’s thermal trace, numerical diagnostic and sensor placement examples are original.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "E7B9A3E66DB",
+      "title": "Google SRE: Service Level Objectives",
+      "url": "https://sre.google/sre-book/service-level-objectives/",
+      "publisher": "sre.google",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D14"
+      ],
+      "use": "Service indicators and objectives need explicitly defined measurements.",
+      "caution": "Selected metric-boundary discussion reviewed; the availability example is original.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "E571B75F6E0",
+      "title": "Google SRE: Postmortem Culture",
+      "url": "https://sre.google/sre-book/postmortem-culture/",
+      "publisher": "sre.google",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D14"
+      ],
+      "use": "Incident review is intended to support learning and improvement rather than blame.",
+      "caution": "Selected postmortem principles inspected; timeline and proposed evidence questions are original.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "EEFB073374C",
+      "title": "NIST Handbook 135, 2025: Life Cycle Costing Manual",
+      "url": "https://nvlpubs.nist.gov/nistpubs/hb/2025/NIST.HB.135e2025.pdf",
+      "publisher": "nvlpubs.nist.gov",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D15"
+      ],
+      "use": "Chapters 2–4 distinguish study periods, cost categories, cash-flow timing and present-value methods; section 3.2 covers single and recurring payments.",
+      "caution": "Selected scope, timing and discounting passages inspected. Prices, rate, residual and service assumptions are original; no federal compliance or current-market claim is made.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "E775A7D4E10",
+      "title": "OpenAI: Five new Stargate sites",
+      "url": "https://openai.com/index/five-new-stargate-sites/",
+      "publisher": "openai.com",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D15"
+      ],
+      "use": "The article distinguishes a multi-site planned capacity total from its statement about early workloads at Abilene.",
+      "caution": "Main article and visible October 22, 2025 update inspected on September 6, 2026. This lesson audits the dated statements; it does not establish current operating MW, complete topology or site economics.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "EB973B565B7",
+      "title": "GPU Performance Background User’s Guide",
+      "url": "https://docs.nvidia.com/deeplearning/performance/dl-performance-gpu-background/index.html",
+      "publisher": "docs.nvidia.com",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D07"
+      ],
+      "use": "A GPU combines execution resources and a memory hierarchy; achieved performance depends on workload behavior.",
+      "caution": "Use conceptual structure only; dated product examples and throughput tables are not applied.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "E134D3535CB",
+      "title": "Matrix Multiplication Background User’s Guide",
+      "url": "https://docs.nvidia.com/deeplearning/performance/dl-performance-matrix-multiplication/index.html",
+      "publisher": "docs.nvidia.com",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D07"
+      ],
+      "use": "Matrix shape and reuse can alter arithmetic intensity and the active performance limit.",
+      "caution": "A guide to particular operations, not a universal model of end-to-end AI job performance.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "E4ABDC02D45",
+      "title": "NVIDIA DGX SuperPOD — Network Fabrics",
+      "url": "https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/network-fabrics.html",
+      "publisher": "docs.nvidia.com",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D07",
+        "D08"
+      ],
+      "use": "A named reference system distinguishes compute, storage and management fabrics and explicit topology groupings.",
+      "caution": "H100 reference architecture updated November 19, 2025; no component counts or ratios are generalized.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "EB0CA366091",
+      "title": "NCCL Collective Operations",
+      "url": "https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/usage/collectives.html",
+      "publisher": "docs.nvidia.com",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D08"
+      ],
+      "use": "Defines collective transformations and participation requirements.",
+      "caution": "Inspected NCCL 2.31.2 documentation; the ring timing model is original and is not asserted to be the library’s chosen implementation.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "E80C73CE756",
+      "title": "Scaling AI Factories with Co-Packaged Optics for Better Power Efficiency",
+      "url": "https://developer.nvidia.com/blog/scaling-ai-factories-with-co-packaged-optics-for-better-power-efficiency/",
+      "publisher": "developer.nvidia.com",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D08"
+      ],
+      "use": "Describes moving optical conversion nearer switch silicon and the associated electrical-path mechanism.",
+      "caution": "August 18, 2025 vendor account; availability and benefit claims are dated proposals, not universal deployment evidence.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "E9ACF1B58FE",
+      "title": "NVIDIA Optical Transceivers and Cables",
+      "url": "https://www.nvidia.com/en-us/networking/interconnect/",
+      "publisher": "www.nvidia.com",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D08"
+      ],
+      "use": "Provides distinct interconnect product categories whose compatibility must be checked at the actual interface.",
+      "caution": "Product catalog and marketing page; no power, reach or reliability rating is adopted without its specific datasheet.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "E4D40417934",
+      "title": "NVIDIA DGX SuperPOD — Storage Architecture",
+      "url": "https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/storage-architecture.html",
+      "publisher": "docs.nvidia.com",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D09"
+      ],
+      "use": "Storage requirements vary with data format, cache behavior, workload and checkpoint traffic.",
+      "caution": "H100 reference guidance updated November 19, 2025; its numerical sizing recommendations are not imported.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "E284D853C6B",
+      "title": "PyTorch Distributed Checkpoint",
+      "url": "https://docs.pytorch.org/docs/stable/distributed.checkpoint.html",
+      "publisher": "docs.pytorch.org",
+      "kind": "primary_reference",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D09"
+      ],
+      "use": "A distributed checkpoint coordinates application state across participants and storage writers.",
+      "caution": "Public indexed API excerpts reviewed; the directly opened stable URL returned a redirect shell. Pin and review the selected framework release and storage writer before implementation; no complete API audit is claimed.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "E2E0C218DA7",
+      "title": "Asynchronous Saving with Distributed Checkpoint",
+      "url": "https://docs.pytorch.org/tutorials/recipes/distributed_async_checkpoint_recipe.html",
+      "publisher": "docs.pytorch.org",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D09"
+      ],
+      "use": "Asynchronous saving requires staged state, host-memory capacity and management of concurrent save requests.",
+      "caution": "Tutorial updated February 3, 2026; APIs are version-sensitive. No tutorial benchmark is generalized.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "EE0FC346C72",
+      "title": "Control Group in Slurm",
+      "url": "https://slurm.schedmd.com/cgroups.html",
+      "publisher": "slurm.schedmd.com",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D09"
+      ],
+      "use": "Process tracking, accounting and resource confinement have distinct roles.",
+      "caution": "Current documentation includes version-specific behavior; no live configuration changes are prescribed.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "E0CDE775C43",
+      "title": "NVIDIA DGX SuperPOD — Software",
+      "url": "https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/dgx-software.html",
+      "publisher": "docs.nvidia.com",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D09"
+      ],
+      "use": "A reference cluster includes orchestration, system management, libraries and operating-system components.",
+      "caution": "Vendor reference stack, updated November 19, 2025; it does not certify an arbitrary tenant environment.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "E709C9E5196",
+      "title": "ASHRAE — Emergence and Expansion of Liquid Cooling in Mainstream Data Centers",
+      "url": "https://www.ashrae.org/file%20library/technical%20resources/bookstore/emergence-and-expansion-of-liquid-cooling-in-mainstream-data-centers_wp.pdf",
+      "publisher": "www.ashrae.org",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D10"
+      ],
+      "use": "Thermal resistance connects device temperature, cooling-medium temperature and device heat; local requirements can drive cooling changes.",
+      "caution": "Selected thermal-resistance discussion reviewed from the 2021 white paper. No historical trend figure or vendor temperature class is reproduced.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "EE136EB8E02",
+      "title": "Open Compute Project — Cold Plate workstream",
+      "url": "https://www.opencompute.org/wiki/Cooling_Environments/Cold_Plate",
+      "publisher": "www.opencompute.org",
+      "kind": "primary_reference",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-06",
+      "domains": [
+        "D10"
+      ],
+      "use": "The workstream separates cold-plate, loop, fluid and connector requirements.",
+      "caution": "Index reviewed; linked loop-requirement PDF did not load during this pass and is not treated as audited.",
+      "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
     }
   ]
 }

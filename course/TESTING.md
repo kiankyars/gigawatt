@@ -94,3 +94,51 @@ still pending; none of the new course review gates was closed by these checks.
 The Pages workflow now checks the map and research outputs as well as the
 existing course. The new atlas is available as a local preview and repository
 artifact; this change does not add it to the public Pages site.
+
+## Authored expansion verification — 2026-09-06
+
+The expanded reader contains **50 authored lessons**, including five integrated
+cases, with **65 mapped objectives**, roughly **51,000 words**, 137 glossary
+terms, five GPT ImageGen illustrations and eight types of numerical model.
+These are implementation counts. External engineering review, learner feedback,
+recording and export checks remain pending. Kian offered to review the short
+[800 V DC sample](sample.html); no feedback is recorded yet.
+
+- **34 Python tests and 14 JavaScript numerical tests passed.** Checks include
+  complete objective mapping, worked-answer and source-boundary preservation,
+  generated freshness, DC current/loss ratios, water heat transport, bits/bytes,
+  roofline ceilings, separate backup power/energy constraints, checkpoint
+  approximations and whole-rack capacity limits.
+- **100 lesson viewport states passed** in headless Chromium through Playwright:
+  all 50 lessons at 1440 × 1000 and 390 × 844. Every image loaded, every lesson
+  had its explanatory sections and worked steps, every practice answer opened,
+  and no horizontal page overflow or browser errors were observed.
+- All eight model types were exercised at slider endpoints. Search match/empty
+  states, glossary-to-lesson links, three electrical architecture selections,
+  the sample page, mobile contents/Escape, reduced-motion context, and the
+  sample at 1024 × 768 and 844 × 390 were checked.
+- Desktop course, mobile sample and mobile model screenshots were visually
+  inspected. Chart labels use responsive HTML text rather than small lettering
+  inside a scaled SVG. The illustrations carry no authoritative measurements.
+- Local document links resolved in both the repository and staged site. Root
+  navigation and historical introductory lesson hashes were checked separately.
+- Generated course, sample, map and research-note freshness passed, as did
+  Ruff and whitespace checks. The current `qa/expansion/browser-report.json`
+  records the browser scope; screenshots sit alongside it.
+
+The checkpoint interaction refuses its first-order estimate above its declared
+10% checkpoint-overhead teaching cutoff. It remains an approximation, not an
+exact availability or restart model. The DC architecture choices select
+representative bus voltages; hypothetical slider changes do not validate real
+component compatibility.
+
+To repeat the browser check, make Playwright and its Chromium browser available,
+serve the repository root, then run `node tests/browser_reader.cjs`. An optional
+first argument selects the course base URL and a second the screenshot/report
+folder. The first run used the bundled Codex Node packages through `NODE_PATH`;
+the test itself does not depend on a Codex browser session.
+
+Publication now stages the expanded reader, sample, illustrations, compact
+introduction, domain atlas, and reference documents. The site is explicitly an
+authored draft. Prior introductory release checks remain historical evidence
+for their stated version, not external sign-off on this expansion.

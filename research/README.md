@@ -173,3 +173,13 @@ Offline freshness checks passed, and a second build changed zero files while
 preserving the added claim notes. The isolated tests cover alias deduplication,
 manual decisions, malformed or failed discovery, metadata-only imports,
 generated freshness and preservation of human research bodies.
+
+## Lesson expansion — 2026-09-06
+
+The library now contains 101 curated source records, including the requested
+[NVIDIA NVL72 component reference](sources/P17.md) and 44 additional primary
+references used in the authored lessons. There are 57 distinct primary source
+connections in the 50-lesson manuscript. Each lesson preserves its specific
+claim, reading date and access limit. These counts do not promote previews,
+abstracts or indexes to full-document reviews. `E*.md` records are additional
+primary references with stable URL-derived IDs.

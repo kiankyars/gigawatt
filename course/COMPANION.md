@@ -1,6 +1,11 @@
 # GIGAWATT companion
 
-Product and editorial plan, **2026-09-06**. The existing introduction and curriculum map are starting artifacts. The domain atlas and public-metadata research pipeline are implemented starting pieces. This document specifies the learner companion to build; its glossary/search, practice, and edition management remain planned.
+Implementation and editorial contract, **2026-09-06**. The [reader](index.html)
+now includes 50 authored lessons, search, 137 glossary terms, eight numerical
+model types, five ImageGen illustrations, practice answers and specific source
+reading notes. The [sample](sample.html) is ready for the offered learner review.
+Recorded-edition navigation, video timestamps and a final errata workflow remain
+pending; this is an authored draft, not a finished video course.
 
 ## What the companion should do
 
@@ -51,7 +56,7 @@ Use the case briefs and assessments in the [domain map data](domain-map.json) as
 4. **C04 — A powered cluster that misses its job target:** use workload evidence to distinguish fabric and storage limitations from insufficient compute.
 5. **C05 — Open one phase of a campus:** trace complete accepted service paths and keep missing named-site operating evidence unknown.
 
-These are planned exercises. Supplied numerical inputs, independent solutions, visuals, and learner checks must exist before a case is presented as validated. One evolving hypothetical facility can provide continuity, but each exercise must restate its actual configuration and assumptions rather than silently inheriting them.
+All five now have supplied synthetic briefs, numerical solutions and changed-scenario answers in the reader. Learner and external specialist review remain pending; authored solutions alone do not establish validated teaching. One evolving hypothetical facility can provide continuity, but each exercise must restate its actual configuration and assumptions rather than silently inheriting them.
 
 ## Evidence and model limits
 
@@ -73,14 +78,17 @@ Design dense diagrams for the actual teaching size. Use progressive disclosure, 
 
 For the web companion, verify keyboard navigation, visible focus, labeled controls, text alternatives, contrast, zoom, narrow layouts, and reduced motion. A color change alone cannot carry an answer. Long equations and tables need an intelligible compact presentation. Preserve a useful reading path when interaction is unavailable; source links should not require recreating the interactive state to understand the claim.
 
-## Starting artifacts and work still required
+## Implemented artifacts and remaining review
 
-| Artifact | Current role | Required before claiming the expanded companion is ready |
+| Artifact | Current state | Remaining work |
 | --- | --- | --- |
-| [22-lesson curriculum](lessons.json), [existing player](../diagram/index.html), and numerical models | Introductory electrical/thermal foundation with existing interactions and source notes. Prior checks are recorded in [TESTING.md](TESTING.md) for their stated version. | Expand the missing objectives, review reused content, add application assessments, and verify the revised teaching and rendered output. |
-| [Domain map data](domain-map.json), [Markdown map](DOMAIN_MAP.md), and [interactive map](domain-map.html) | Planning and navigation for 15 domains, 65 objectives, and five cases; source mappings identify leads. | Reconcile objective coverage with authored lessons and demonstrated capabilities. A planning map alone is not the learning companion. |
-| [Research source inventory](research-sources.json), [Markdown library](../research/INDEX.md), and [pipeline](../research/README.md) | Curated source notes plus a persistent public-metadata discovery inventory across source types. | Continue relevance triage, inspect accessible material, link exact claims, and preserve dates, disagreements and limitations. Indexed candidates are not reviewed evidence. |
-| Search/glossary, expanded notes, practice, case solutions, and edition/errata views | **Planned.** This document specifies their behavior. | Author, implement, connect, and check them with representative learning and lookup tasks. |
-| [Course review](COURSE_REVIEW.md) | The learner contract and open pre-recording, delivery, and post-release checks. | Record actual checks and evidence. Do not close gates because a feature has been specified or code has built successfully. |
+| [Expanded reader](index.html) and [manuscript](EXPANDED_COURSE.md) | 45 domain lessons and five integrated cases, with all 65 objective mappings | Expert/learner review and final narration/editing |
+| Search, glossary and practice | 137 terms, lesson-text search, answer reveals and private in-page reasoning drafts | Learner tests of findability and transfer |
+| Numerical models | Eight bounded interactions with independent arithmetic tests | Specialist review of physical boundaries and selected real-case inputs |
+| [ImageGen assets](assets/README.md) | Five original equipment illustrations, with preserved prompts and exact code-rendered labels/calculations | Recorded-size legibility and narration rehearsal |
+| [Research library](../research/INDEX.md) | Persistent source records plus lesson-specific claim and reading limits | Continue primary checks and resolve inaccessible or disputed details |
+| Recorded edition and errata | Source files and image-hash manifest exist | Freeze a video release, add actual timestamps and establish public correction workflow |
 
-The first useful prototype should connect one complete lesson to its locator, notes, glossary terms, bounded example, transfer question, and sources. Test whether a learner can explain the mechanism and whether a returning viewer can find the relevant assumption without replaying the video. Use that evidence to refine the common design before reproducing it across the course. Completion means that the promised capabilities are taught and usable, not that every possible data-center fact has been collected.
+Kian has offered to review the [five-minute sample](REVIEW_HELP.md). Completion
+means the promised capabilities are taught and usable; neither an authored
+objective mapping nor a passing build demonstrates that a learner understands.

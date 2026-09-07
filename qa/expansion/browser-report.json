@@ -1,0 +1,719 @@
+{
+  "checked_on": "2026-09-06",
+  "browser": "Headless Chromium / Playwright",
+  "lesson_states": 100,
+  "checks": [
+    {
+      "id": "d01-boundaries",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d01-power-over-time",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d01-metrics-and-evidence",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d02-workload-brief",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d02-productive-utilization",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d02-phases-and-envelopes",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d03-power-and-procurement",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d03-voltage-and-distance",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d03-service-and-siting",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d12-room-and-replacement-route",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d12-hazards-and-site-evidence",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d12-safety-and-control-boundaries",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d04-read-the-power-train",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d04-current-and-rating",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d04-conversion-placement",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d05-storage-power-and-time",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d05-paths-and-transitions",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d05-protection-and-fault-domains",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d06-conversion-ledger",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d06-eight-hundred-volt-architectures",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d06-rack-migration",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d07-data-path",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d07-bottleneck-model",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d07-rack-as-system",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d08-topology-budget",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d08-collective-progress",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d08-copper-light-service",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d09-storage-paths",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d09-checkpoint-timeline",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d09-service-acceptance",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d10-local-thermal-paths",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d10-flow-and-pressure",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d10-cdu-interfaces",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d11-heat-rejection",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d11-weather-and-operating-envelope",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d11-water-and-heat-reuse",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d13-delivery-dependencies",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d13-interface-contracts",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d13-commissioning-complete-paths",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d14-telemetry-and-observability",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d14-coordinating-control-and-work",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d14-maintenance-and-service-reliability",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d15-capacity-ledger",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d15-cost-per-service",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d15-upgrade-and-evidence",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "c01-coupled-outage",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "c02-weather-capacity",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "c03-density-retrofit",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "c04-stalled-job",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "c05-open-a-phase",
+      "width": 1440,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d01-boundaries",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d01-power-over-time",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d01-metrics-and-evidence",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d02-workload-brief",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d02-productive-utilization",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d02-phases-and-envelopes",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d03-power-and-procurement",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d03-voltage-and-distance",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d03-service-and-siting",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d12-room-and-replacement-route",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d12-hazards-and-site-evidence",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d12-safety-and-control-boundaries",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d04-read-the-power-train",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d04-current-and-rating",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d04-conversion-placement",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d05-storage-power-and-time",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d05-paths-and-transitions",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d05-protection-and-fault-domains",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d06-conversion-ledger",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d06-eight-hundred-volt-architectures",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d06-rack-migration",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d07-data-path",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d07-bottleneck-model",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d07-rack-as-system",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d08-topology-budget",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d08-collective-progress",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d08-copper-light-service",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d09-storage-paths",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d09-checkpoint-timeline",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d09-service-acceptance",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d10-local-thermal-paths",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d10-flow-and-pressure",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d10-cdu-interfaces",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d11-heat-rejection",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d11-weather-and-operating-envelope",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d11-water-and-heat-reuse",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d13-delivery-dependencies",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d13-interface-contracts",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d13-commissioning-complete-paths",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d14-telemetry-and-observability",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d14-coordinating-control-and-work",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d14-maintenance-and-service-reliability",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d15-capacity-ledger",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d15-cost-per-service",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "d15-upgrade-and-evidence",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "c01-coupled-outage",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "c02-weather-capacity",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "c03-density-retrofit",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "c04-stalled-job",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    },
+    {
+      "id": "c05-open-a-phase",
+      "width": 390,
+      "overflow": false,
+      "image": true,
+      "answer": true
+    }
+  ],
+  "errors": [],
+  "additional_checks": [
+    "Search match and empty states",
+    "Glossary entry to lesson",
+    "Eight model types at all slider endpoints",
+    "AC/sidecar/facility selector",
+    "Practice answer reveal in every lesson",
+    "Sample page",
+    "Mobile contents and Escape",
+    "Tablet and short-landscape sample overflow",
+    "Reduced-motion context"
+  ]
+}

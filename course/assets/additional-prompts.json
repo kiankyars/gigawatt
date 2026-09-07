@@ -1,0 +1,14 @@
+{
+  "tool": "built-in GPT ImageGen",
+  "generated_on": "2026-09-06",
+  "prompts": [
+    {
+      "key": "power",
+      "prompt": "Use case: scientific-educational. Create a landscape 16:9 GIGAWATT course illustration: a refined isometric cutaway of a generic data-center ELECTRICAL ROOM. Warm ivory background #f4f3ee, dark slate steel cabinets, amber accents, subtle ambient shadows, elegant technical museum rendering. Show four distinct equipment groups left to right with generous space between: a dry-type three-phase transformer in an open protective enclosure with clearly visible three coil columns; closed metal switchgear cabinets; an open-front UPS cabinet with power-electronics modules beside a separate battery cabinet with rows of battery modules; a short overhead enclosed busway segment descending to a single generic server-rack cabinet at the right. Show a plausible equipment room and service aisle with floor footprint, no people. Show the functionally recognizable housings, no exposed live connections or procedural switching detail. Do not draw cables connecting the groups: exact topology will be drawn separately in code. Emphasize visual distinctions between voltage transformation, interruption/isolation, power conversion/storage and distribution. Avoid ghost copies and busy details. Absolutely no text, numbers, labels, arrows, logos, warning stickers, watermarks or colored glows. This is a conceptual equipment anatomy plate, not a buildable room or an actual manufacturer's installation."
+    },
+    {
+      "key": "network",
+      "prompt": "Use case: scientific-educational. Create a wide 16:9 engineering teaching illustration for GIGAWATT, warm ivory background #f4f3ee, dark slate equipment with restrained blue data-cable accents and subtle ambient shadows. Show THREE distinct, separated physical clusters on one clean plane, in isometric near-orthographic view: LEFT an open generic AI compute rack with several compute trays and one visible internal switching shelf; CENTER two modest fabric switch cabinets with recognizable rows of network ports and organized blue optical-fiber cable bundles; RIGHT one storage rack with rows of drive bays and a smaller management server cabinet beside it. A few broad orderly bundles can suggest data cabling between groups, but no detailed logical topology, no continuous lines to individual chips, no network diagrams or arrows. Make rack interiors simplified and readable, not product-specific or overly dense. Spacious composition, all objects fully in frame, room for accessible external labels. The educational purpose is to distinguish computing hardware, fabric switches, storage and management as different physical roles; logical network boundaries will be drawn in code. No text, numbers, labels, logos, branding, neon, holograms, human figures or watermark."
+    }
+  ]
+}

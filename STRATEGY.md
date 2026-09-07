@@ -1,12 +1,12 @@
 # Course direction
 
-GIGAWATT is expanding into a reference course on modern AI data-center
+GIGAWATT has an authored draft of a reference course on modern AI data-center
 infrastructure, from grid connection through useful compute and operation.
 Watts to racks remains the narrative spine, with heat returned to the environment
 and complete service tested through delivery, failures and maintenance.
 
 The earlier strategy has been translated into the established freeCodeCamp
-review format. Use these canonical planning documents:
+review format. The [50-lesson reader](course/index.html) and [full manuscript](course/EXPANDED_COURSE.md) now implement the teaching draft. Use these canonical documents:
 
 - [Course review](course/COURSE_REVIEW.md): learner contract, scope, novice pass,
   evidence/visual requirements and production gates.
@@ -27,5 +27,6 @@ curriculum completeness.
 The current `course/lessons.json` and player remain the 22-lesson introductory
 foundation. Siting, delivery, networking, storage, controls, maintenance and
 system economics are now included at the depth defined by the new map;
-their previous exclusion is superseded. Proposed teaching is not completed
-teaching, and previous browser checks do not validate new course content.
+their previous exclusion is superseded. Authored coverage is recorded separately
+from the introductory baseline. External expert and learner reviews, recording
+and final delivery checks remain pending.

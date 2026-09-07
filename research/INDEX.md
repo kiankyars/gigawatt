@@ -64,22 +64,67 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [DISC_fd3416d669301dc1 — amazons ai resurgence aws anthropics multi gigawatt trainium expansion](sources/DISC_fd3416d669301dc1.md) | SemiAnalysis | D01 | candidate_not_reviewed |
 | [DISC_fd6c8ff4f8675c14 — tesla ai capacity expansion h100](sources/DISC_fd6c8ff4f8675c14.md) | SemiAnalysis | D15 | candidate_not_reviewed |
 | [DISC_ff78da811faa2482 — amd vs nvidia inference benchmark who wins performance cost per million tokens](sources/DISC_ff78da811faa2482.md) | SemiAnalysis | D02, D15 | candidate_not_reviewed |
+| [E013A66FA9A — NIST SP 800-82 Revision 3: OT Security](sources/E013A66FA9A.md) | csrc.nist.gov | D12, D14 | public_excerpt_reviewed |
+| [E0814EDF226 — Vertiv — BESS and UPS roles in large data center power architecture](sources/E0814EDF226.md) | www.vertiv.com | D02, D05 | page_reviewed |
+| [E0CDE775C43 — NVIDIA DGX SuperPOD — Software](sources/E0CDE775C43.md) | docs.nvidia.com | D09 | page_reviewed |
+| [E134D3535CB — Matrix Multiplication Background User’s Guide](sources/E134D3535CB.md) | docs.nvidia.com | D07 | page_reviewed |
+| [E1423005C7C — ABB — Protection Devices for Direct Current Applications](sources/E1423005C7C.md) | library.e.abb.com | D05 | public_excerpt_reviewed |
+| [E21653C0173 — ERCOT — Batch Zero large-load connection announcement, June 18, 2026](sources/E21653C0173.md) | www.ercot.com | D03 | page_reviewed |
+| [E22133B3DE1 — EIA — Laws of energy](sources/E22133B3DE1.md) | www.eia.gov | D01 | page_reviewed |
+| [E23909D618E — NVIDIA — DGX SuperPOD Key Components](sources/E23909D618E.md) | docs.nvidia.com | D02 | page_reviewed |
+| [E2848C36FE7 — National Weather Service: Flood Related Hazards](sources/E2848C36FE7.md) | www.weather.gov | D12 | page_reviewed |
+| [E284D853C6B — PyTorch Distributed Checkpoint](sources/E284D853C6B.md) | docs.pytorch.org | D09 | public_excerpt_reviewed |
+| [E2A3F76B3F9 — Schneider Electric — Definition of standardised earthing schemes](sources/E2A3F76B3F9.md) | www.electrical-installation.org | D05 | public_excerpt_reviewed |
+| [E2C35A11B05 — NVIDIA Triton — Batchers](sources/E2C35A11B05.md) | docs.nvidia.com | D02 | page_reviewed |
+| [E2E0C218DA7 — Asynchronous Saving with Distributed Checkpoint](sources/E2E0C218DA7.md) | docs.pytorch.org | D09 | page_reviewed |
+| [E320A75F233 — NVIDIA H100 SuperPOD: Planning a Data Center Deployment](sources/E320A75F233.md) | docs.nvidia.com | D12 | page_reviewed |
+| [E3F4CB1B7FF — DOE — Best Practices Guide for Energy-Efficient Data Center Design](sources/E3F4CB1B7FF.md) | www.energy.gov | D01, D04 | page_reviewed |
+| [E45AB7B1BC1 — Schneider Electric — Installed apparent power](sources/E45AB7B1BC1.md) | www.electrical-installation.org | D03, D04 | page_reviewed |
+| [E4ABDC02D45 — NVIDIA DGX SuperPOD — Network Fabrics](sources/E4ABDC02D45.md) | docs.nvidia.com | D07, D08 | page_reviewed |
+| [E4D40417934 — NVIDIA DGX SuperPOD — Storage Architecture](sources/E4D40417934.md) | docs.nvidia.com | D09 | page_reviewed |
+| [E50E0F856B0 — GAO Schedule Assessment Guide](sources/E50E0F856B0.md) | www.gao.gov | D13, D15 | page_reviewed |
+| [E571B75F6E0 — Google SRE: Postmortem Culture](sources/E571B75F6E0.md) | sre.google | D14 | page_reviewed |
+| [E61807424F1 — DOE — Islanding a Microgrid](sources/E61807424F1.md) | www.energy.gov | D03 | page_reviewed |
+| [E6DF2655A78 — USGS National Water Availability Assessment Data Companion](sources/E6DF2655A78.md) | waterdata.usgs.gov | D11 | page_reviewed |
+| [E709C9E5196 — ASHRAE — Emergence and Expansion of Liquid Cooling in Mainstream Data Centers](sources/E709C9E5196.md) | www.ashrae.org | D10 | page_reviewed |
+| [E71B82C307F — Google SRE: Monitoring Distributed Systems](sources/E71B82C307F.md) | sre.google | D14 | page_reviewed |
+| [E775A7D4E10 — OpenAI: Five new Stargate sites](sources/E775A7D4E10.md) | openai.com | D15 | page_reviewed |
+| [E7B9A3E66DB — Google SRE: Service Level Objectives](sources/E7B9A3E66DB.md) | sre.google | D14 | page_reviewed |
+| [E80C73CE756 — Scaling AI Factories with Co-Packaged Optics for Better Power Efficiency](sources/E80C73CE756.md) | developer.nvidia.com | D08 | page_reviewed |
+| [E89E077D5C1 — DOE FEMP: Cooling Tower Management](sources/E89E077D5C1.md) | www.energy.gov | D11 | page_reviewed |
+| [E95181BB427 — USGS: What is seismic hazard?](sources/E95181BB427.md) | www.usgs.gov | D12 | page_reviewed |
+| [E9ACF1B58FE — NVIDIA Optical Transceivers and Cables](sources/E9ACF1B58FE.md) | www.nvidia.com | D08 | page_reviewed |
+| [E9FFEE6828F — Schneider Electric — Coordination between circuit-breakers](sources/E9FFEE6828F.md) | www.electrical-installation.org | D05 | page_reviewed |
+| [EB0CA366091 — NCCL Collective Operations](sources/EB0CA366091.md) | docs.nvidia.com | D08 | page_reviewed |
+| [EB34D92F523 — OpenStax — Electrical Energy and Power](sources/EB34D92F523.md) | openstax.org | D01, D03, D05 | page_reviewed |
+| [EB973B565B7 — GPU Performance Background User’s Guide](sources/EB973B565B7.md) | docs.nvidia.com | D07 | page_reviewed |
+| [EBFFD23506A — Schneider Electric — Choice of transformer rating](sources/EBFFD23506A.md) | www.electrical-installation.org | D04 | page_reviewed |
+| [ECB7071035F — WBDG: Commissioning Documents](sources/ECB7071035F.md) | legacy.wbdg.org | D13 | page_reviewed |
+| [ED20FD8CBCF — EIA — Measuring electricity](sources/ED20FD8CBCF.md) | www.eia.gov | D01, D05 | page_reviewed |
+| [ED8255C2875 — US EPA — Physical PPA](sources/ED8255C2875.md) | www.epa.gov | D03 | page_reviewed |
+| [EDDF63EA993 — NVIDIA H100 SuperPOD: White Space Infrastructure](sources/EDDF63EA993.md) | docs.nvidia.com | D12 | page_reviewed |
+| [EDEEDB16DDE — OSHA 1910.333: Electrical work practices](sources/EDEEDB16DDE.md) | www.osha.gov | D12 | public_excerpt_reviewed |
+| [EE02276C332 — MLCommons — MLPerf Inference: Datacenter](sources/EE02276C332.md) | mlcommons.org | D01, D02 | page_reviewed |
+| [EE0FC346C72 — Control Group in Slurm](sources/EE0FC346C72.md) | slurm.schedmd.com | D09 | page_reviewed |
+| [EE136EB8E02 — Open Compute Project — Cold Plate workstream](sources/EE136EB8E02.md) | www.opencompute.org | D10 | public_excerpt_reviewed |
+| [EEFB073374C — NIST Handbook 135, 2025: Life Cycle Costing Manual](sources/EEFB073374C.md) | nvlpubs.nist.gov | D15 | page_reviewed |
 | [P01 — Best Practices Guide for Energy-Efficient Data Center Design](sources/P01.md) | U.S. Department of Energy, Federal Energy Management Program | D01, D04, D10, D11, D15 | page_reviewed |
-| [P02 — Commissioning & Performance Validation \| AI Data Center Energy Performance Framework](sources/P02.md) | ASHRAE | D10, D12, D13, D14 | page_reviewed |
+| [P02 — Commissioning & Performance Validation \| AI Data Center Energy Performance Framework](sources/P02.md) | ASHRAE | D01, D03, D04, D05, D09, D10, D12, D13, D14, D15 | page_reviewed |
 | [P03 — Management and Operations Guideline](sources/P03.md) | Uptime Institute | D05, D13, D14 | page_reviewed |
 | [P04 — Tier Classification System](sources/P04.md) | Uptime Institute | D04, D05, D10, D13, D14 | page_reviewed |
 | [P05 — NVIDIA 800 VDC Architecture Will Power the Next Generation of AI Factories](sources/P05.md) | NVIDIA | D04, D05, D06, D07, D15 | page_reviewed |
 | [P06 — Open Rack/SpecsAndDesigns](sources/P06.md) | Open Compute Project | D05, D06, D07, D10, D12 | page_reviewed |
-| [P07 — ASHRAE Handbook, Chapter 20: Data Centers and Telecommunication Facilities](sources/P07.md) | ASHRAE | D01, D02, D10, D11, D12, D14 | page_reviewed |
+| [P07 — ASHRAE Handbook, Chapter 20: Data Centers and Telecommunication Facilities](sources/P07.md) | ASHRAE | D01, D02, D10, D11, D12, D14, D15 | page_reviewed |
 | [P08 — Building Meta’s GenAI Infrastructure](sources/P08.md) | Meta Engineering | D02, D07, D08, D09, D14 | page_reviewed |
 | [P09 — The Datacenter as a Computer: designing warehouse-scale machines](sources/P09.md) | Google Research; book published by Morgan & Claypool | D01, D02, D07, D08, D09, D14, D15 | public_excerpt_reviewed |
 | [P10 — Incorporate Minimum Efficiency Requirements for Heating and Cooling Products into Federal Acquisition Documents](sources/P10.md) | U.S. Department of Energy, Federal Energy Management Program | D01, D10, D11, D15 | page_reviewed |
 | [P11 — NFPA 75: Standard for the Fire Protection of Information Technology Equipment](sources/P11.md) | National Fire Protection Association | D05, D12, D13 | candidate_not_reviewed |
 | [P12 — Large Loads Action Plan](sources/P12.md) | North American Electric Reliability Corporation | D03, D05, D13, D14 | public_excerpt_reviewed |
-| [P13 — Slurm Workload Manager — Topology Guide](sources/P13.md) | SchedMD | D02, D08, D09, D14 | page_reviewed |
+| [P13 — Slurm Workload Manager — Topology Guide](sources/P13.md) | SchedMD | D02, D07, D08, D09, D14 | page_reviewed |
 | [P14 — NVIDIA DGX SuperPOD: Next Generation Scalable Infrastructure for AI Leadership Reference Architecture Featuring NVIDIA DGX H100](sources/P14.md) | NVIDIA | D07, D08, D09, D13, D14 | page_reviewed |
 | [P15 — Liquid to Liquid CDU Test Methodology and Performance Rating — Revision 1.0](sources/P15.md) | Open Compute Project | D10, D11, D13, D14 | public_excerpt_reviewed |
-| [P16 — Why Scaling AI Compute Performance Requires a New Power Architecture](sources/P16.md) | NVIDIA | D04, D05, D06, D13, D15 | page_reviewed |
+| [P16 — Why Scaling AI Compute Performance Requires a New Power Architecture](sources/P16.md) | NVIDIA | D04, D05, D06, D12, D13, D15 | page_reviewed |
+| [P17 — NVIDIA NVL72 AI Factory — System Hardware & Components](sources/P17.md) | NVIDIA | D06, D07, D08, D09, D10, D14 | page_reviewed |
 | [SA01 — Datacenter Anatomy Part 1: Electrical Systems](sources/SA01.md) | SemiAnalysis | D04, D05, D06, D13, D15 | public_excerpt_reviewed |
 | [SA02 — Datacenter Anatomy Part 2 – Cooling Systems](sources/SA02.md) | SemiAnalysis | D10, D11, D15 | public_excerpt_reviewed |
 | [SA03 — 100,000 H100 Clusters: Power, Network Topology, Ethernet vs InfiniBand, Reliability, Failures, Checkpointing](sources/SA03.md) | SemiAnalysis | D02, D07, D08, D09, D14 | public_excerpt_reviewed |

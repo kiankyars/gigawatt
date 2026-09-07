@@ -1,0 +1,1996 @@
+[
+  {
+    "id": "d11-heat-rejection",
+    "domain": "D11",
+    "title": "The heat does not disappear at the chiller",
+    "question": "What reaches the environment after cooling equipment has moved the IT heat?",
+    "summary": "Trace dry, evaporative, refrigerated and economizer paths, then close the energy balance around the equipment actually being measured.",
+    "takeaway": "Cooling moves a heat load and often adds another one. State the boundary before calculating COP or rejection duty.",
+    "objectives": [
+      "D11.1",
+      "D11.2"
+    ],
+    "sections": [
+      {
+        "heading": "Four paths, four different jobs",
+        "paragraphs": [
+          "Picture a rack drawing steady electrical power. Its cooling system collects heat, but collection is only the beginning of a route to an external sink. A dry cooler passes a fluid through a heat exchanger exposed to outdoor air. Heat crosses the exchanger wall; the air and circulating fluid normally remain separate. Fans and pumps help the transfer. Calling this arrangement dry describes the rejection mechanism, not the absence of liquid inside the building.",
+          "An evaporative tower instead uses evaporation as an important route for transferring heat to the atmosphere. The tower water may be on a separate loop from the clean coolant near the computers. A refrigeration machine adds another function: it uses work to move heat from a colder side to a warmer side. Its condenser can ultimately reject through air or water. Consequently, tower, chiller and liquid cooling are not mutually exclusive descriptions of an entire facility.",
+          "An economizer is an operating arrangement that exploits favorable outside conditions to reduce or avoid compressor cooling. It still needs a complete heat path. Depending on the design, that path can exchange heat through outdoor air or a separate water circuit. Fans, pumps, filtration and controls do not disappear when compressors stop. In your sketch, mark the heat-transfer interfaces first, then add electrical inputs and any water crossing the site boundary. That order prevents equipment names from substituting for an explanation."
+        ]
+      },
+      {
+        "heading": "COP is a ratio at a stated boundary",
+        "paragraphs": [
+          "Cooling coefficient of performance is cooling delivered divided by the corresponding work input, expressed in consistent units. A cooling duty of 10 MW with 2 MW of compressor input has a compressor-boundary COP of five. That is not an electrical conversion efficiency of 500 percent. The machine is moving heat already present at its evaporator, and work is helping drive that transfer. DOE defines COP in terms of useful cooling or heating effect relative to work input; which mode and equipment boundary matter.",
+          "For our idealized steady chiller, the condenser receives both the evaporator heat and the compressor work: Qcond = Qevap + Wcomp. If a condenser rating is compared only with the IT load, the compressor contribution can be omitted accidentally. Conversely, adding all site overhead to the evaporator and then adding it again at the condenser double counts energy. Follow the actual location where each motor, pump or conversion loss becomes heat, rather than putting every auxiliary in one convenient box.",
+          "A broader plant COP includes the chosen pumps and fans in its electrical denominator. It is usually a different number from the chiller COP. Neither ratio by itself is PUE: PUE relates total facility energy to IT energy over a stated interval. If a dashboard displays a high COP, ask which meters produced the numerator and denominator, how their intervals were aligned, and whether the reported load and input were simultaneous. The ratio is meaningful only after those questions have answers."
+        ]
+      },
+      {
+        "heading": "Why a correct balance can still be an incomplete design",
+        "paragraphs": [
+          "A steady energy balance answers how much heat must leave; it does not tell us what temperatures, pressures, flows or equipment will achieve the transfer. Ten megawatts can be collected at different coolant temperatures, and the same outdoor equipment can behave differently across those conditions. The useful design question is whether the entire transfer chain can satisfy the required device inlet conditions at the declared load and ambient condition.",
+          "Time adds another boundary. Immediately after a load increase, heat can accumulate in metal, coolant and air. The instantaneous external rejection rate therefore need not equal the instantaneous electrical draw. To predict temperature rise, we would need stored thermal energy, effective heat capacities, mixing, transport delays and control behavior. This lesson deliberately calculates an established steady operating point. It does not turn an omitted thermal model into a guessed ride-through time.",
+          "The practical habit is to annotate every arrow with both a physical meaning and an accounting boundary. A fluid arrow represents moving material; a heat arrow represents energy crossing an interface. A wire feeding a fan brings electricity that eventually joins a heat path. Once these are distinct, a changed architecture becomes easier to compare: identify which interfaces moved, which electrical inputs changed, and which outdoor duty remains to be served."
+        ]
+      }
+    ],
+    "example": {
+      "title": "One load, two COP boundaries",
+      "assumptions": [
+        "Synthetic steady operating point; all rates in MW.",
+        "The evaporator receives 10 MW. Compressor input is 2 MW.",
+        "A separate 0.5 MW of pumps and fans lies outside the chiller electrical boundary. This exercise places its dissipation outside the evaporator load."
+      ],
+      "steps": [
+        {
+          "label": "Chiller COP",
+          "expression": "10 MW / 2 MW = 5",
+          "explanation": "Only compressor input is included in this declared equipment ratio."
+        },
+        {
+          "label": "Condenser duty",
+          "expression": "10 MW + 2 MW = 12 MW",
+          "explanation": "Compressor work joins the extracted heat on the hot side."
+        },
+        {
+          "label": "Plant COP",
+          "expression": "10 MW / (2 + 0.5) MW = 4",
+          "explanation": "The same useful cooling is divided by a larger, explicitly defined electrical input."
+        },
+        {
+          "label": "Ultimate heat addition",
+          "expression": "10 + 2 + 0.5 = 12.5 MW",
+          "explanation": "All listed energy eventually reaches the environment, although not necessarily through one condenser."
+        }
+      ],
+      "result": "The chiller COP is 5, plant COP is 4, and the condenser itself rejects 12 MW under the stated placement of auxiliaries.",
+      "boundary": "No equipment sizing, temperature lift, transient response or certified efficiency is inferred."
+    },
+    "tradeoff": {
+      "choice": "Move toward warmer coolant where device limits permit.",
+      "benefit": "A smaller temperature lift or wider economizer opportunity may reduce cooling work.",
+      "cost": "Device operating envelopes, exchanger approaches and control margins must still be satisfied; this direction is not a quantified saving without performance evidence."
+    },
+    "failure": {
+      "trigger": "The design review sizes outdoor rejection at the evaporator duty alone.",
+      "mechanism": "Compressor heat has been omitted, leaving the selected operating point unsupported.",
+      "response": "Reconcile each input at its actual boundary and compare the resulting duty with specified performance at the required temperatures."
+    },
+    "practice": {
+      "question": "The same evaporator duty is 10 MW, but compressor input rises to 2.5 MW and the other auxiliaries stay at 0.5 MW. Find chiller COP, plant COP and condenser duty.",
+      "hint": "Keep the useful cooling numerator fixed, and add compressor work only at the condenser boundary.",
+      "answer": "Chiller COP = 4; plant COP = 10/3 ≈ 3.33; condenser duty = 12.5 MW.",
+      "reasoning": "More compressor work lowers both ratios while increasing hot-side rejection. The outdoor condenser receives 10 + 2.5 MW, not 13 MW, because the separate auxiliary dissipation was explicitly placed outside that condenser boundary. Ultimate environmental heat from all listed inputs is 13 MW."
+    },
+    "sources": [
+      {
+        "title": "DOE FEMP: cooling COP definition",
+        "url": "https://www.energy.gov/cmei/femp/incorporate-minimum-efficiency-requirements-heating-and-cooling-products-federal",
+        "claim": "COP definition in the heat-pump table notes; cooling effect divided by work in identical units.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Definition and rating-boundary notes inspected; no listed efficiency threshold is used as a data-center design requirement."
+      },
+      {
+        "title": "ASHRAE Handbook: Data Centers and Telecommunication Facilities",
+        "url": "https://handbook.ashrae.org/Handbooks/A23/SI/A23_Ch20/a23_ch20_si.aspx",
+        "claim": "Cooling-system and economizer discussion supports distinguishing heat-path arrangements.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Selected cooling discussion inspected; this lesson supplies original simplified schematics and does not reproduce handbook figures or equipment ratings."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Evaporator",
+        "definition": "The refrigeration heat exchanger that receives the useful cooling load."
+      },
+      {
+        "term": "Condenser",
+        "definition": "The heat exchanger that rejects extracted heat plus compressor work."
+      },
+      {
+        "term": "Economizer",
+        "definition": "A configuration using favorable external conditions to reduce mechanical refrigeration."
+      }
+    ],
+    "visual": {
+      "kind": "flow",
+      "title": "Follow the extra two megawatts",
+      "nodes": [
+        {
+          "label": "Evaporator",
+          "detail": "10 MW collected"
+        },
+        {
+          "label": "Compressor",
+          "detail": "2 MW work enters"
+        },
+        {
+          "label": "Condenser",
+          "detail": "12 MW rejected"
+        },
+        {
+          "label": "Other auxiliaries",
+          "detail": "0.5 MW on a separate declared path"
+        }
+      ],
+      "caption": "Synthetic steady balance. Arrow meaning and equipment boundary are explicit; widths are not a calibrated flow scale."
+    }
+  },
+  {
+    "id": "d11-weather-and-operating-envelope",
+    "domain": "D11",
+    "title": "The weather changes two constraints at once",
+    "question": "How can hotter weather reduce usable IT capacity even before the cooler reaches its thermal limit?",
+    "summary": "Use an explicitly synthetic operating table to connect ambient conditions, cooling input and a fixed site power ceiling.",
+    "takeaway": "Cooling availability and cooling electricity are separate functions of operating conditions. Check both at the same load and time.",
+    "objectives": [
+      "D11.1",
+      "D11.3",
+      "D11.5"
+    ],
+    "sections": [
+      {
+        "heading": "A rating is a point, not a universal capacity",
+        "paragraphs": [
+          "A cooler cannot be described adequately by one large number on its label. The heat transfer depends on the fluid temperatures and flows, the outside air, and the operating configuration. A dry heat exchanger approaches the temperature of the air that receives its heat. An evaporative process also depends on the air’s moisture condition. Dry-bulb temperature measures ordinary air temperature; wet-bulb conditions help characterize the opportunity for evaporative cooling. Neither variable alone describes every plant.",
+          "A required coolant supply temperature establishes another part of the task. An architecture that can supply a warmer loop may have an opportunity unavailable to equipment demanding colder water. Heat exchangers add approach temperatures, and loads change return temperatures. Before claiming that a location has free cooling below a particular outdoor temperature, identify which loop, mode, exchanger and IT inlet limit are being discussed. The threshold belongs to that arrangement and operating envelope.",
+          "Performance tables make these dependencies explicit. A real table needs a source, revision, equipment configuration, load fraction, entering conditions and definition of included auxiliaries. A table without those labels can make two machines look comparable when they are answering different questions. The numbers below are deliberately invented teaching inputs. They illustrate the reasoning to apply to a validated table; they are not measurements, weather statistics or a proposed product curve."
+        ]
+      },
+      {
+        "heading": "Two ceilings must survive the same hot hour",
+        "paragraphs": [
+          "Consider a site with 10 MW of available electrical input. Its non-cooling overhead is 0.4 MW. In our synthetic model, cooling input equals IT heat divided by a stated plant COP; that ratio includes every cooling electrical load used in this exercise. We assume IT heat equals IT power at the modeled evaporator boundary. The site inequality is therefore PIT + PIT/COP + 0.4 ≤ 10 MW. This accounting avoids applying a yearly efficiency average to a particular hour.",
+          "In the cool condition the plant COP is eight and available thermal duty is 9 MW. In the hot condition the plant COP is four and thermal duty is 8.5 MW. At a proposed 8 MW IT load, the hot plant can remove the heat, but it consumes 2 MW doing so. The complete site then requires 10.4 MW. Thermal capacity alone says yes; the electrical balance says no. Reducing the IT load to 7.68 MW satisfies the hot electrical limit before the thermal ceiling is reached.",
+          "The result is a coupled constraint, not a penalty that can be assigned twice. First calculate feasible IT power from the electrical balance, then compare that result with available thermal duty and every other relevant ceiling. If a real performance curve changes COP with load, this simple division is no longer exact. Solve the electrical and thermal conditions together using the supplied load-dependent values rather than holding a favorable COP constant while changing its operating point."
+        ]
+      },
+      {
+        "heading": "A useful weather model retains timing",
+        "paragraphs": [
+          "An annual climate average hides the duration and coincidence of demanding conditions. A plant may face high ambient temperature when workloads are also heavy, or water restrictions may eliminate a mode assumed available by the energy calculation. For an estimate, divide a supplied time trace into operating bins and integrate the corresponding input. If switching, hysteresis or thermal storage matters, preserve the sequence instead of treating bins as interchangeable hours.",
+          "For a twelve-hour cool period followed by twelve hot hours, the synthetic site can sustain 8 MW IT in the cool bin and 7.68 MW in the hot bin. That is a capacity-limited dispatch assumption, not measured application demand. The resulting IT energy is 188.16 MWh; cooling uses 35.04 MWh; non-cooling overhead adds 9.6 MWh. Their sum is 232.8 MWh. The reduction in IT work cannot be quantified without a workload model.",
+          "An economizer, thermal store or higher supply temperature might alter this result. Each proposal must say which equation or constraint it changes and what additional resource it consumes. A heat-reuse customer is similarly conditional: it must accept the available temperature and heat at the required times. A receiving building that needs little summer heat does not remove the obligation to reject a summer data-center load."
+        ]
+      }
+    ],
+    "example": {
+      "title": "A complete hot-hour power balance",
+      "assumptions": [
+        "All values are synthetic, with constant COP within each declared bin.",
+        "Site limit 10 MW; non-cooling overhead 0.4 MW. Cool COP 8 and thermal limit 9 MW; hot COP 4 and thermal limit 8.5 MW.",
+        "IT power becomes the modeled cooling duty; cooling input includes all plant auxiliaries."
+      ],
+      "steps": [
+        {
+          "label": "Proposed hot load",
+          "expression": "8 + 8/4 + 0.4 = 10.4 MW",
+          "explanation": "Eight megawatts fits the thermal envelope but exceeds the site electrical limit."
+        },
+        {
+          "label": "Electrical IT ceiling",
+          "expression": "PIT ≤ (10 − 0.4)/(1 + 1/4) = 7.68 MW",
+          "explanation": "Rearrange the full power budget instead of subtracting a cooling load calculated at a different IT load."
+        },
+        {
+          "label": "Check thermal ceiling",
+          "expression": "min(7.68, 8.5) = 7.68 MW",
+          "explanation": "The electrical budget is binding for this hot condition."
+        }
+      ],
+      "result": "The feasible hot-bin IT ceiling is 7.68 MW in this model.",
+      "boundary": "No real climate, product curve or control stability is represented. Other site constraints may reduce the feasible load further."
+    },
+    "tradeoff": {
+      "choice": "Retain compressor capacity for unfavorable outdoor conditions.",
+      "benefit": "It can widen the temperature envelope in which the required cooling duty is achievable.",
+      "cost": "Its electricity, capital, maintenance and rejection duty must be included, even if it operates infrequently."
+    },
+    "failure": {
+      "trigger": "An annual PUE is used to authorize a high-load hot-weather operating point.",
+      "mechanism": "The average conceals a higher cooling demand during the constrained hour.",
+      "response": "Reconcile time-aligned load, ambient and equipment performance, then compare feasible operating responses within validated limits."
+    },
+    "practice": {
+      "question": "A revised synthetic hot mode has COP 5 but only 7.5 MW thermal capacity. What now limits IT under the same 10 MW site limit and 0.4 MW overhead?",
+      "hint": "Calculate the electrical ceiling and compare it with the thermal ceiling.",
+      "answer": "The electrical ceiling is 9.6/1.2 = 8 MW, but thermal capacity limits IT to 7.5 MW.",
+      "reasoning": "Better COP frees electrical headroom, but it does not repair the separate heat-removal ceiling. At 7.5 MW IT, site input is 7.5 + 1.5 + 0.4 = 9.4 MW. The unused 0.6 MW cannot support additional IT without increasing the thermal capability or changing the stated conditions."
+    },
+    "sources": [
+      {
+        "title": "ASHRAE Handbook: cooling and economizer arrangements",
+        "url": "https://handbook.ashrae.org/Handbooks/A23/SI/A23_Ch20/a23_ch20_si.aspx",
+        "claim": "Selected discussion supports the dependence of cooling choices on environmental and system conditions.",
+        "reviewed_on": "2026-09-06",
+        "limits": "No equipment curve or universal economizer threshold is taken from this chapter; all operating-bin numbers are original hypothetical inputs."
+      },
+      {
+        "title": "DOE FEMP data-center design guide overview",
+        "url": "https://www.energy.gov/cmei/femp/articles/best-practices-guide-energy-efficient-data-center-design",
+        "claim": "The overview identifies environmental conditions, cooling and heat recovery as connected design subjects.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Landing-page scope reviewed; no claim to have audited every linked design recommendation. Synthetic energy calculations are independent."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Operating envelope",
+        "definition": "The conditions under which specified equipment performance is supported."
+      },
+      {
+        "term": "Weather bin",
+        "definition": "A group of hours assigned explicitly stated environmental and operating conditions."
+      },
+      {
+        "term": "Temperature approach",
+        "definition": "The temperature separation retained across a heat-transfer interface at the stated operating point."
+      }
+    ],
+    "visual": {
+      "kind": "comparison",
+      "title": "Thermally possible, electrically impossible",
+      "nodes": [
+        {
+          "label": "Cool condition",
+          "detail": "8 MW IT + 1 MW cooling + 0.4 MW other"
+        },
+        {
+          "label": "Hot proposal",
+          "detail": "8 + 2 + 0.4 = 10.4 MW"
+        },
+        {
+          "label": "Hot feasible point",
+          "detail": "7.68 + 1.92 + 0.4 = 10 MW"
+        }
+      ],
+      "caption": "Synthetic point comparisons, not a measured weather curve. The thermal and electrical ceilings are checked separately."
+    }
+  },
+  {
+    "id": "d11-water-and-heat-reuse",
+    "domain": "D11",
+    "title": "Count water at the boundary, then ask who can use the heat",
+    "question": "Can a facility improve one resource metric while making another site constraint harder?",
+    "summary": "Reconcile tower makeup and blowdown, distinguish withdrawal from consumption, and evaluate heat reuse against an actual receiving load.",
+    "takeaway": "Water, electricity and recovered heat have different boundaries and timing. Report them separately before deciding which architecture is preferable.",
+    "objectives": [
+      "D11.4",
+      "D11.5"
+    ],
+    "sections": [
+      {
+        "heading": "Recirculation is not the same as zero water demand",
+        "paragraphs": [
+          "A cooling loop can circulate the same water repeatedly while still requiring makeup water. In an evaporative rejection system, some water leaves as vapor. Dissolved material does not leave in the same proportion, so the remaining water becomes more concentrated. Blowdown removes some concentrated liquid, and makeup replaces losses. Drift and leakage create additional paths. DOE’s cooling-tower guidance explains these mechanisms and the need to manage concentration within the actual water chemistry.",
+          "For a deliberately simple steady balance, ignore drift, leaks and storage changes. Let M be makeup, E evaporation and B blowdown. Water balance gives M = E + B. If makeup dissolved-solids concentration is c and blowdown concentration is Cc, a simplified solids balance gives Mc = BCc, so M = CB. Combining the equations yields B = E/(C − 1). C is the cycles-of-concentration ratio. This algebra is a bookkeeping model, not permission to select a treatment setting.",
+          "The distinction matters because a site can reduce blowdown while continuing to evaporate almost the same quantity for a given duty. Increasing the allowable concentration therefore does not eliminate water consumption. Chemistry, corrosion, deposition, biological control and equipment materials constrain the feasible regime. An alternative water supply can change freshwater demand but also introduce treatment, storage and reliability requirements. The source of water belongs in the design brief, not just in a favorable annual total."
+        ]
+      },
+      {
+        "heading": "Make the numerator say what it measures",
+        "paragraphs": [
+          "Withdrawal refers to water taken from a source; consumption concerns the portion not returned to the relevant water system in the accounting framework. Water delivered by a utility is also different from a facility directly withdrawing from a river or aquifer. USGS distinguishes withdrawal and consumptive-use data because they answer different questions. At a data center, a supply meter alone cannot establish every downstream return flow, basin impact or upstream electricity-related water use.",
+          "In our synthetic day, evaporation is 100 cubic metres and cycles of concentration are five. With the simplified assumptions, blowdown is 25 cubic metres and makeup is 125. Suppose the 25 cubic metres are returned to the same accounting basin after suitable treatment, while evaporation is counted as consumption. The site then records 125 cubic metres of intake and 100 of consumption. If that return destination were unknown, the consumption conclusion would require qualification rather than an invented return credit.",
+          "Normalize only after stating the time and energy boundary. If IT used 100 MWh that day, intake intensity is 1.25 litres per IT kWh, and consumption intensity is 1 litre per IT kWh. Explicitly label these ratios rather than casually assigning an unspecified WUE label. If facility energy is 120 MWh that day, its facility/IT energy ratio is 1.20. This one-day ratio is not an annual PUE report. None of these figures tells us useful training progress, watershed scarcity, water quality or the consequences of an outage in the makeup supply."
+        ]
+      },
+      {
+        "heading": "Heat reuse needs a customer, a temperature and a clock",
+        "paragraphs": [
+          "A stream of warm coolant is not automatically a useful heat product. The receiving process needs a temperature, flow, delivery pressure, schedule and reliability arrangement. Heat may need another exchanger or a heat pump before it is usable. Distribution requires pipework and pumping, and a backup rejection path may remain necessary when the customer shuts down. A reuse proposal should identify how much heat can actually be transferred across the receiver boundary rather than crediting the full IT load.",
+          "Consider a separate synthetic receiving load that can accept 2 MW for six hours, while the data center has 4 MW available continuously. The maximum directly accepted heat over those six hours is 12 MWh, assuming suitable temperatures and no distribution losses. The data center produces 96 MWh over the day, so this arrangement accounts for 12.5 percent of that heat. It leaves 84 MWh requiring another destination. A pipe connection is not evidence of year-round demand.",
+          "Whether reuse is preferable depends on the counterfactual and the constraints. Does it replace a receiving building’s fuel use, add electricity for a heat pump, or displace another low-emission source? Is the benefit delivered during the same hours that the data center needs rejection? Keep energy, water and emissions ledgers separate. The decisive comparison is a specified service arrangement against an alternative, with the assumptions that could reverse the answer visible."
+        ]
+      }
+    ],
+    "example": {
+      "title": "A synthetic tower water ledger",
+      "assumptions": [
+        "One day; E = 100 m³/day, concentration ratio C = 5.",
+        "Negligible drift, leaks and storage change; dissolved solids leave through blowdown.",
+        "IT electricity is 100 MWh/day. Blowdown is assumed returned to the same accounting basin after appropriate treatment."
+      ],
+      "steps": [
+        {
+          "label": "Blowdown",
+          "expression": "B = 100/(5 − 1) = 25 m³/day",
+          "explanation": "Solve the water and simplified solids balances together."
+        },
+        {
+          "label": "Makeup",
+          "expression": "M = 100 + 25 = 125 m³/day",
+          "explanation": "This is the measured intake requirement under the assumptions."
+        },
+        {
+          "label": "Intake intensity",
+          "expression": "125,000 L / 100,000 kWh = 1.25 L/kWh",
+          "explanation": "Both numerator and denominator cover the same day."
+        },
+        {
+          "label": "Consumption intensity",
+          "expression": "100,000 L / 100,000 kWh = 1.00 L/kWh",
+          "explanation": "This conclusion depends on the specified return-flow accounting."
+        }
+      ],
+      "result": "Intake and consumption differ even though both are associated with the same cooling system.",
+      "boundary": "This is not a water-treatment prescription, site WUE certification, or watershed impact assessment."
+    },
+    "tradeoff": {
+      "choice": "Select a dry-rejection alternative for a water-constrained brief.",
+      "benefit": "It can reduce direct evaporative water demand at the site.",
+      "cost": "The alternative still needs evidenced thermal capacity, fan/compressor electricity, footprint and high-ambient performance; indirect resource effects remain separate."
+    },
+    "failure": {
+      "trigger": "A summer water restriction removes a tower mode assumed available in the design case.",
+      "mechanism": "A resource constraint changes the feasible heat path even while the electrical service remains intact.",
+      "response": "Evaluate the specified alternate rejection mode and permitted workload response; do not assume nameplate cooling survives the restriction."
+    },
+    "practice": {
+      "question": "Keep evaporation at 100 m³/day but use C = 3. What are makeup and intake intensity? Does evaporation decrease?",
+      "hint": "Recalculate blowdown before normalizing by the unchanged 100 MWh IT energy.",
+      "answer": "Blowdown is 50 m³/day, makeup is 150 m³/day and intake intensity is 1.50 L/kWh. Evaporation remains 100 m³/day by assumption.",
+      "reasoning": "Lower concentration requires more blowdown in this model. It increases intake by 25 m³/day without changing the stipulated evaporative heat-rejection requirement. The calculation does not establish which concentration is chemically feasible, and no treatment recommendation follows from choosing the lower numerical intake."
+    },
+    "sources": [
+      {
+        "title": "DOE FEMP: Cooling Tower Management",
+        "url": "https://www.energy.gov/cmei/femp/best-management-practice-10-cooling-tower-management",
+        "claim": "Evaporation, blowdown, makeup and concentration mechanisms support the simplified conservation example.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Overview and water-balance discussion inspected; no chemical dosing, operating limit or treatment procedure is reproduced."
+      },
+      {
+        "title": "USGS National Water Availability Assessment Data Companion",
+        "url": "https://waterdata.usgs.gov/blog/nwdc-overview/",
+        "claim": "The water-use discussion distinguishes withdrawals from consumptive use.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Selected definitions inspected; the lesson’s hypothetical return-flow assumption is not an observation about a real basin."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Makeup",
+        "definition": "Water entering a recirculating system to replace its losses."
+      },
+      {
+        "term": "Blowdown",
+        "definition": "Liquid removed to control accumulated constituents in a circulating system."
+      },
+      {
+        "term": "Heat reuse",
+        "definition": "Delivery of recovered heat to an identified receiving use under compatible conditions."
+      }
+    ],
+    "visual": {
+      "kind": "flow",
+      "title": "125 enters; 100 evaporates; 25 returns",
+      "nodes": [
+        {
+          "label": "Makeup",
+          "detail": "125 m³/day"
+        },
+        {
+          "label": "Evaporation",
+          "detail": "100 m³/day"
+        },
+        {
+          "label": "Blowdown",
+          "detail": "25 m³/day"
+        },
+        {
+          "label": "IT denominator",
+          "detail": "100 MWh over the same day"
+        }
+      ],
+      "caption": "Original water-accounting example. Return location and treatment are explicit assumptions, not inferred from the supply meter."
+    }
+  },
+  {
+    "id": "d12-room-and-replacement-route",
+    "domain": "D12",
+    "title": "A rack must fit on its worst day",
+    "question": "Why can a layout that fits every rack still be impossible to maintain?",
+    "summary": "Separate equipment footprints from service and movement envelopes, and distinguish average loading from the loads actually applied to a structure.",
+    "takeaway": "Check installation, operation and replacement configurations. A free square metre is not necessarily usable rack space.",
+    "objectives": [
+      "D12.1"
+    ],
+    "sections": [
+      {
+        "heading": "Draw three floor plans, not one",
+        "paragraphs": [
+          "A footprint drawing answers a narrow question: can the equipment occupy this position? A service drawing asks whether doors, drawers, cables, hoses and lifting aids can move while nearby equipment remains available. A replacement drawing follows a component from its installed position through turns, thresholds, doors, staging areas and the loading route. These drawings overlap, but none can substitute for the others. The longest or heaviest replaceable object may determine feasibility more than the rack cabinet.",
+          "Consider eight hypothetical racks, each 0.8 m wide and 1.2 m deep. Their combined footprint is 7.68 m². Now give the row a specified 1.5 m front service zone, 1.2 m rear zone and 1 m at each end. Its illustrative planning envelope becomes 8.4 m by 3.9 m, or 32.76 m². Those dimensions are supplied exercise inputs, not code requirements. The difference explains why dividing gross room area by cabinet footprint can overstate a useful layout dramatically.",
+          "Not every clearance must be permanently exclusive; some activities can share space at different times. That creates a scheduling and availability condition. If replacing rack A blocks the only access to rack B, the design should state which activity takes priority and whether both services remain supportable. A promise of maintainability is conditional on those actual routes, not just on the electrical single-line diagram."
+        ]
+      },
+      {
+        "heading": "A structure sees forces, locations and combinations",
+        "paragraphs": [
+          "Mass becomes a gravitational force through W = mg. Two thousand kilograms corresponds to about 19.6 kN using g = 9.81 m/s². Dividing that force by a cabinet footprint produces an average pressure, but it does not describe how feet, rails, spreader plates or casters transmit force to a raised floor and structural members. The local load path matters. So do the equipment operating state, attached piping, installation loads and support configuration.",
+          "An allowable uniformly distributed floor load is therefore not automatically a permitted wheel load. A moving rack can place substantial force onto a small number of contact points or cross a panel edge. Structural interpretation belongs to the supplied engineering criteria and qualified review. The calculation below deliberately provides a separate wheel limit so that we can make a bounded rejection without pretending that one average number proves the whole building safe.",
+          "Increasing rack density can reduce the number of cabinets while increasing weight, cooling connections and the demands on handling equipment. NVIDIA’s H100 deployment guidance illustrates the wider principle: rack and layout choices can change cable lengths and other domains. The course does not turn that particular product configuration into a universal layout. It uses the relationship to ask which interfaces must be recalculated when a cabinet changes."
+        ]
+      },
+      {
+        "heading": "Treat the route as a chain of interfaces",
+        "paragraphs": [
+          "Follow the same physical object throughout the journey. Its shipping dimensions may differ from operating dimensions, and temporary handling fixtures may widen it. A door can be wide enough while the turn beyond it is not. A lift can have adequate total capacity while the object’s shape prevents entry. A route may cross a space controlled by a different tenant or become unavailable during another phase of construction. Each is a distinct interface, with an owner and evidence.",
+          "For a replacement plan, record the object, mass, orientation, handling assembly, clear envelope, permitted loads and any temporary changes. Then identify dependencies on live services: cable trays overhead, coolant hoses nearby, fire access and the surviving maintenance path. The value of this record is that another person can examine the actual limiting step. A reassuring statement that the route was considered gives them little to verify.",
+          "You do not need a complete professional design to discover an incompatibility. If the supplied wheel criterion is 3 kN and the computed static force per wheel is already 5.4 kN, the proposed route fails that stated criterion. Passing it would still not prove adequacy, because unequal load sharing, dynamic effects and structural details remain. This asymmetry is useful: limited evidence can decisively reject a configuration without being sufficient to approve it."
+        ]
+      }
+    ],
+    "example": {
+      "title": "The moving assembly fails where the installed rack passes",
+      "assumptions": [
+        "Synthetic installed rack mass 2,000 kg; movement assembly including trolley is 2,200 kg.",
+        "Four wheels are assumed equally loaded for this lower-complexity calculation.",
+        "The specified route limit is 3 kN per wheel; g = 9.81 m/s². No dynamic allowance is included."
+      ],
+      "steps": [
+        {
+          "label": "Installed weight",
+          "expression": "2,000 × 9.81 / 1,000 = 19.62 kN",
+          "explanation": "The installed support arrangement must be checked using its own criteria."
+        },
+        {
+          "label": "Moving assembly weight",
+          "expression": "2,200 × 9.81 / 1,000 = 21.582 kN",
+          "explanation": "The trolley changes the object that the route must support."
+        },
+        {
+          "label": "Per-wheel static force",
+          "expression": "21.582 / 4 = 5.40 kN",
+          "explanation": "Even ideal equal sharing exceeds the supplied 3 kN wheel criterion."
+        }
+      ],
+      "result": "Reject this movement configuration against the stated route criterion; investigate a different engineered handling arrangement or route.",
+      "boundary": "No floor rating, lifting procedure, structural approval or code clearance is established by this exercise."
+    },
+    "tradeoff": {
+      "choice": "Reserve a wider replacement corridor.",
+      "benefit": "It can preserve access and reduce interference during equipment exchange.",
+      "cost": "It consumes space that cannot simultaneously be sold or assigned to permanently installed cabinets."
+    },
+    "failure": {
+      "trigger": "A failed component is too large for the approved exit route.",
+      "mechanism": "The electrical spare exists, but restoration depends on a physical movement the layout cannot support.",
+      "response": "Escalate the route incompatibility through the qualified facilities and equipment teams; revise the service plan before representing the spare as a complete recovery solution."
+    },
+    "practice": {
+      "question": "The same 2,200 kg assembly uses six equally loaded wheels. Does it now satisfy the stated 3 kN limit?",
+      "hint": "Total weight has not changed; divide it among six idealized contacts.",
+      "answer": "No. The static average is 21.582/6 = 3.60 kN per wheel.",
+      "reasoning": "Six contacts reduce the average but still exceed the supplied criterion. Real uneven contact may produce a larger maximum. Merely increasing wheel count does not constitute a validated handling design; the revised assembly and route would need their own reviewed loading assumptions."
+    },
+    "sources": [
+      {
+        "title": "NVIDIA H100 SuperPOD: White Space Infrastructure",
+        "url": "https://docs.nvidia.com/dgx-superpod/design-guides/dgx-superpod-data-center-design-h100/latest/infrastructure.html",
+        "claim": "Rack dimensions and service/layout choices interact with row arrangement and cable length.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Selected white-space planning discussion inspected. All dimensions, masses and force limits in this lesson are invented inputs, not NVIDIA specifications."
+      },
+      {
+        "title": "NVIDIA H100 SuperPOD: Planning a Data Center Deployment",
+        "url": "https://docs.nvidia.com/dgx-superpod/design-guides/dgx-superpod-data-center-design-h100/latest/planning.html",
+        "claim": "Changes in power density and footprint can affect network layout.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Cross-domain planning discussion inspected; no complete product site plan or compliance assessment is reproduced."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Footprint",
+        "definition": "The plan area occupied by an object in a specified configuration."
+      },
+      {
+        "term": "Service envelope",
+        "definition": "Space required to perform the stated access and maintenance activity."
+      },
+      {
+        "term": "Load path",
+        "definition": "The sequence of supports that carries applied forces into the structure."
+      }
+    ],
+    "visual": {
+      "kind": "comparison",
+      "title": "Installed, serviced, moved",
+      "nodes": [
+        {
+          "label": "Installed",
+          "detail": "Cabinet footprint"
+        },
+        {
+          "label": "Service",
+          "detail": "Open panels, tools and access"
+        },
+        {
+          "label": "Replacement",
+          "detail": "Trolley, turns and wheel loads"
+        }
+      ],
+      "caption": "Three configurations of one hypothetical rack. Clearance dimensions and wheel ratings must come from the actual design brief."
+    }
+  },
+  {
+    "id": "d12-hazards-and-site-evidence",
+    "domain": "D12",
+    "title": "The site boundary does not stop the hazard",
+    "question": "What evidence distinguishes an attractive parcel from a deliverable and resilient location?",
+    "summary": "Connect hazards to exposed assets and service dependencies, then use explicit hypothetical probabilities without turning them into a site forecast.",
+    "takeaway": "A site comparison needs local evidence and consequence paths. A hazard score or map color cannot establish facility performance.",
+    "objectives": [
+      "D12.2"
+    ],
+    "sections": [
+      {
+        "heading": "A hazard becomes a service problem through an exposed path",
+        "paragraphs": [
+          "A hazard describes a potentially damaging condition. Exposure identifies the equipment, people and infrastructure that can encounter it. Vulnerability concerns how that exposed system responds. Consequence asks what happens to the intended service. These are different questions. A flood near the parcel may spare the data hall while disabling the access road, utility substation or fuel delivery route. Conversely, evidence of a regional hazard does not prove that a particular protected installation will fail.",
+          "National Weather Service material identifies several flood mechanisms, including intense rainfall and river overflow. USGS explains that seismic hazard assessment considers faults, wave propagation and local near-surface conditions. Those references establish why a single generic city label is insufficient. They do not provide the parcel’s elevations, drainage capacity, soil response, equipment anchorage or operating plan. An actual site assessment must identify which local documents and specialists resolve those missing details.",
+          "Draw the facility’s dependencies outside the fence. Trace electrical supply, water, telecommunications, road access and shared emergency resources. Two routes that appear independent on a building drawing may share the same bridge, trench or regional constraint. The question is not simply how many providers have contracts; it is which physical failure or operating restriction can affect them together. Keep uncertainty visible when that topology is unavailable."
+        ]
+      },
+      {
+        "heading": "A risk register should lead to a decision",
+        "paragraphs": [
+          "A useful site register connects each question to an owner, evidence, consequence and decision. For example: could stormwater isolate the service yard; which civil survey and drainage model address it; who reviews the result; and what layout or project decision changes if the result is unfavorable? A generic list of weather words can look comprehensive without answering any of these questions. The register earns its place when a missing fact has a clear route to resolution.",
+          "Permitting is another dependency graph. Air emissions, noise, water abstraction, discharge, construction, land use and fire arrangements can involve different authorities and conditions. Their relevance depends on the jurisdiction and proposed equipment. A generator purchase order does not itself demonstrate permission to operate it in the contemplated way. Equally, a permit for one phase cannot silently be treated as authorization for a larger future layout.",
+          "Compare alternatives at the same stage of knowledge. One parcel with documented problems may be more understandable than another with an empty folder. Absence of reported issues is not evidence that the same investigations were performed. Record whether an item is observed, modeled, required, unresolved or excluded by the actual scope. Do not convert those states into equally certain numbers simply to complete a scoring spreadsheet."
+        ]
+      },
+      {
+        "heading": "Probability arithmetic helps only when the assumptions survive",
+        "paragraphs": [
+          "Imagine a synthetic hazard with a 2 percent annual occurrence probability. Conditional on that hazard, the modeled facility has a 25 percent probability of a service interruption lasting ten hours. Under this deliberately simple one-event model, expected interruption time is 0.02 × 0.25 × 10 = 0.05 hours per year. That is a long-run mathematical expectation under the supplied assumptions, not a forecast that this facility will lose three minutes every year.",
+          "An expected value can conceal the shape of the consequence. A rare ten-hour event and frequent brief interruptions can have the same average while producing different workload recovery, contractual and safety consequences. The independence assumptions also matter. If a hazard simultaneously damages power, communications and roads, multiplying their individual availabilities as though unrelated understates the shared cause. A proposed intervention should identify which conditional probability or consequence it changes.",
+          "A site decision therefore combines quantitative scenarios with unresolved evidence and feasibility conditions. Recalculate when the design changes or a more informative local study appears. Keep the base date and model scope attached to the result. A score that survives only because old assumptions were never revisited is a poor reference for procurement, commissioning or operation."
+        ]
+      }
+    ],
+    "example": {
+      "title": "A conditional risk calculation, not a site prediction",
+      "assumptions": [
+        "Entirely synthetic: annual hazard probability 0.02.",
+        "Conditional service-interruption probability 0.25 and conditional downtime 10 hours.",
+        "This simplified model excludes multiple events, changing climate and other causes of interruption."
+      ],
+      "steps": [
+        {
+          "label": "Annual interruption probability from this modeled cause",
+          "expression": "0.02 × 0.25 = 0.005",
+          "explanation": "The hazard must occur and produce the specified service consequence."
+        },
+        {
+          "label": "Expected downtime",
+          "expression": "0.005 × 10 h = 0.05 h/year",
+          "explanation": "The average is 3 minutes/year across hypothetical repetitions, not a scheduled annual outage."
+        },
+        {
+          "label": "Improved conditional resilience",
+          "expression": "0.02 × 0.10 × 10 h = 0.02 h/year",
+          "explanation": "A stated change to conditional vulnerability reduces this modeled contribution, without proving total site risk."
+        }
+      ],
+      "result": "The intervention reduces the modeled contribution by 0.03 expected hours/year, subject to every stated assumption.",
+      "boundary": "The probabilities are not assigned to any real location, and no site selection or insurance result follows."
+    },
+    "tradeoff": {
+      "choice": "Add a second access or supply route.",
+      "benefit": "It may reduce consequences from a failure specific to one route.",
+      "cost": "Its value depends on physical separation, shared hazards, permissions, upkeep and availability when needed."
+    },
+    "failure": {
+      "trigger": "Both nominally separate service routes cross the same vulnerable off-site interface.",
+      "mechanism": "One external event defeats the assumed independence.",
+      "response": "Update the dependency model and obtain route-specific evidence before crediting the redundancy."
+    },
+    "practice": {
+      "question": "A second synthetic design reduces interruption probability after the hazard to 0.10, but repair takes 30 hours because access is harder. Is its expected downtime lower than the original 0.05 h/year?",
+      "hint": "The intervention changes two factors, so recompute the product.",
+      "answer": "No. Expected downtime is 0.02 × 0.10 × 30 = 0.06 h/year.",
+      "reasoning": "The design experiences fewer modeled interruptions but each lasts longer. The average worsens slightly, and its consequence distribution also changes. A preference still requires service requirements and other considerations; neither the lower event probability nor this one expected-value metric settles the entire decision."
+    },
+    "sources": [
+      {
+        "title": "National Weather Service: Flood Related Hazards",
+        "url": "https://www.weather.gov/safety/flood-hazards",
+        "claim": "Flood mechanisms differ and can affect low-lying and urban infrastructure through rainfall and overflow.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Public hazard descriptions inspected; no local elevation, flood probability or engineering requirement is inferred."
+      },
+      {
+        "title": "USGS: What is seismic hazard?",
+        "url": "https://www.usgs.gov/faqs/what-seismic-hazard-what-a-seismic-hazard-map-and-how-are-they-used",
+        "claim": "Seismic hazard maps incorporate fault, propagation and near-surface site information.",
+        "reviewed_on": "2026-09-06",
+        "limits": "FAQ reviewed; it is not a parcel assessment or a code-specific structural design input."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Exposure",
+        "definition": "Assets or dependencies situated where a hazard can affect them."
+      },
+      {
+        "term": "Conditional probability",
+        "definition": "A probability evaluated given that another stated event has occurred."
+      },
+      {
+        "term": "Expected value",
+        "definition": "A probability-weighted average over modeled outcomes, not a promised individual outcome."
+      }
+    ],
+    "visual": {
+      "kind": "flow",
+      "title": "From hazard to service loss",
+      "nodes": [
+        {
+          "label": "Hazard",
+          "detail": "Specified event and probability"
+        },
+        {
+          "label": "Exposure",
+          "detail": "Which route or asset is affected?"
+        },
+        {
+          "label": "Vulnerability",
+          "detail": "What fails under that condition?"
+        },
+        {
+          "label": "Service consequence",
+          "detail": "Loss duration, scope and recovery"
+        }
+      ],
+      "caption": "An analytical chain for a hypothetical site. The graphic does not assign a hazard class to any location."
+    }
+  },
+  {
+    "id": "d12-safety-and-control-boundaries",
+    "domain": "D12",
+    "title": "A shared boundary can defeat two independent systems",
+    "question": "How do physical access, stored energy and control permissions shape availability?",
+    "summary": "Draw hazard and access boundaries around equipment and control systems, then trace an original shared-dependency scenario.",
+    "takeaway": "Independent power equipment still needs independent and deliberate control, access and maintenance boundaries.",
+    "objectives": [
+      "D12.3",
+      "D12.4"
+    ],
+    "sections": [
+      {
+        "heading": "Equipment stores more than a place on a diagram",
+        "paragraphs": [
+          "A battery, pressurized fluid circuit, rotating machine and electrical distribution assembly present different forms of stored or supplied energy. Removing one input does not by itself establish that every relevant energy source is absent. This observation changes the questions a layout must answer: where qualified personnel need access, which adjacent services remain live, how an event is detected, and which barriers or separations belong to the approved design.",
+          "Fire, electrical and mechanical arrangements interact. A fluid route can cross electrical equipment; a battery installation can alter environmental and emergency-response requirements; a cabinet door can obstruct access that another component needs. The relevant requirements depend on the installation, equipment and jurisdiction. The purpose here is to identify the interface for specialist review, not to supply an abbreviated design code or an executable switching procedure.",
+          "OSHA’s public electrical work-practice material explicitly addresses stored energy and qualified work. That is evidence that equipment state cannot be reduced to a dashboard on/off label. We do not reproduce a field isolation sequence. Instead, an educational drawing should label which work boundary is assumed and which evidence would be required before a qualified team could accept it. A schematic that leaves this unspecified cannot prove maintainability."
+        ]
+      },
+      {
+        "heading": "Control systems are part of the physical service",
+        "paragraphs": [
+          "A facility controller can change pumps, fans, valves or operating modes. Physical access systems can determine whether an authorized person reaches equipment. These systems therefore influence a physical process even if their visible interface resembles ordinary enterprise software. NIST SP 800-82 treats building automation and physical access as operational technology and emphasizes their performance, reliability and safety context. That classification explains why a generic office-network change can have unintended facilities consequences.",
+          "Draw authority as well as connectivity. Who can observe a value, alter a setpoint, change a sequence or install software? Which identity service, management switch, power supply and remote support arrangement do those actions depend on? A read-only monitoring failure differs from a control-command failure. A disconnected controller may continue its local operation, enter a predetermined mode, or become unable to satisfy the process; the actual specified behavior must be established.",
+          "Permissions are also temporal. A contractor can require access during a defined maintenance window without needing permanent authority over every tenant’s equipment. Temporary access, change approval, observation and withdrawal of authority should be visible in the operating plan. This is a conceptual governance model. It neither authorizes a person to operate equipment nor prescribes how to configure a particular security system."
+        ]
+      },
+      {
+        "heading": "Follow one shared dependency all the way to the rack",
+        "paragraphs": [
+          "Our synthetic facility has two cooling trains, each rated at 6 MW thermal duty under the stated condition. The IT load is 5 MW and either train can meet it. Their mechanical equipment is separate, but both supervisory controllers rely on one 300 W management switch. The drawing appears redundant if it stops at pumps; it has a shared control dependency when the switch is added. The actual consequence of losing that switch depends on the specified local fallback behavior.",
+          "For the example, assume the local controllers remain within their established operating limits for loss of supervision, but coordinated load changes are no longer authorized. Cooling may continue at the current supported state, while the ability to increase load has changed. If instead an untested shared configuration command disabled both trains, the same topology could produce service loss. Equipment duplication does not settle either question; control behavior and change scope are essential evidence.",
+          "Boundaries should be revisited after migration. A second network link may use the same upstream device; separate credentials may still allow one global write; physical access may require a shared system during an outage. The useful review asks what one action or failure can influence, which state follows, and how that state was verified. It avoids declaring independence merely because two labels or two icons appear on the drawing."
+        ]
+      }
+    ],
+    "example": {
+      "title": "Count the control support load separately",
+      "assumptions": [
+        "Synthetic control-support load: one 300 W switch plus two 50 W controllers.",
+        "A stated usable DC energy store delivers 0.8 kWh to this load; conversion and reserve deductions are already included.",
+        "The example calculates energy duration only; it does not establish mechanical or thermal ride-through."
+      ],
+      "steps": [
+        {
+          "label": "Support power",
+          "expression": "300 W + 2 × 50 W = 400 W = 0.4 kW",
+          "explanation": "The shared switch dominates this small support budget."
+        },
+        {
+          "label": "Energy duration",
+          "expression": "0.8 kWh / 0.4 kW = 2 h",
+          "explanation": "This is an ideal constant-load duration at the declared usable-energy boundary."
+        },
+        {
+          "label": "Interpret the result",
+          "expression": "2 h of control power ≠ 2 h of useful service",
+          "explanation": "Pumps, valves, heat rejection, communications behavior and workload still have their own dependencies."
+        }
+      ],
+      "result": "The stated store can support the modeled control electrical load for two hours, provided its power limit and other assumptions hold.",
+      "boundary": "No battery specification, fire arrangement, isolation procedure or guaranteed service duration is established."
+    },
+    "tradeoff": {
+      "choice": "Centralize supervisory visibility and configuration.",
+      "benefit": "It can simplify consistent observation and coordinated operation.",
+      "cost": "Shared authority and infrastructure can expand the scope of one failure or erroneous change unless boundaries and local behavior are designed deliberately."
+    },
+    "failure": {
+      "trigger": "A global configuration change reaches two supposedly independent control paths.",
+      "mechanism": "Common command authority creates a correlated failure across duplicated equipment.",
+      "response": "Use the approved incident and change-management process to establish the affected scope, preserve evidence and verify the reviewed recovery state; do not improvise field commands from this lesson."
+    },
+    "practice": {
+      "question": "A separate 100 W monitoring device is added to the same usable 0.8 kWh store. What changes, and what remains unknown?",
+      "hint": "The total electrical support load changes; the physical cooling model has not been supplied.",
+      "answer": "The ideal energy duration falls to 0.8/0.5 = 1.6 hours. Cooling or service ride-through remains unknown.",
+      "reasoning": "Adding 100 W increases support demand by 25 percent, so the constant-energy duration falls by 20 percent. This tells us only about the specified control-support electrical boundary. It says nothing about stored thermal capacity or whether local controllers can meet the process requirements without their shared dependencies."
+    },
+    "sources": [
+      {
+        "title": "NIST SP 800-82 Revision 3: OT Security",
+        "url": "https://csrc.nist.gov/pubs/sp/800/82/r3/final",
+        "claim": "The abstract includes building automation and physical access within OT and identifies reliability and safety requirements.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Publication abstract and revision context inspected; this lesson does not claim full implementation review of the 2023 guide or any draft successor."
+      },
+      {
+        "title": "OSHA 1910.333: Electrical work practices",
+        "url": "https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.333",
+        "claim": "Indexed regulatory excerpts address stored energy and qualified work.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Relevant public indexed excerpts reviewed; no field procedure or jurisdiction-wide compliance claim is supplied."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Operational technology",
+        "definition": "Programmable systems that monitor or influence physical processes."
+      },
+      {
+        "term": "Common cause",
+        "definition": "One event or action capable of affecting multiple assumed-independent paths."
+      },
+      {
+        "term": "Authority boundary",
+        "definition": "The defined scope within which an identity or system may observe or change behavior."
+      }
+    ],
+    "visual": {
+      "kind": "flow",
+      "title": "Two trains, one shared controller dependency",
+      "nodes": [
+        {
+          "label": "Train A",
+          "detail": "6 MW thermal capability"
+        },
+        {
+          "label": "Train B",
+          "detail": "6 MW thermal capability"
+        },
+        {
+          "label": "Shared management switch",
+          "detail": "A common supervisory dependency"
+        },
+        {
+          "label": "Local fallback",
+          "detail": "Must have specified, verified behavior"
+        }
+      ],
+      "caption": "Synthetic architecture. Duplicate equipment icons are not proof of control independence or certified availability."
+    }
+  },
+  {
+    "id": "d13-delivery-dependencies",
+    "domain": "D13",
+    "title": "The longest lead time is not the completion date",
+    "question": "Which delay actually changes the date when a phase can deliver service?",
+    "summary": "Build a dependency graph, calculate the earliest finish, and identify which acceleration would change the result.",
+    "takeaway": "A delivery date belongs to a complete dependency path. Shortening an activity without changing that path may create no earlier service.",
+    "objectives": [
+      "D13.1"
+    ],
+    "sections": [
+      {
+        "heading": "Make the endpoint a service condition",
+        "paragraphs": [
+          "A schedule needs a precise finish condition. Equipment delivered, building energized and customer service accepted are different endpoints. Suppose our endpoint is a hypothetical first phase whose electrical, cooling and information paths have passed the specified integrated acceptance. Working backward from that condition exposes the necessary predecessors. It also reveals items that do not belong in the first-phase path, rather than forcing the entire future campus into one opening date.",
+          "A dependency is a statement that one activity needs an output from another. Procurement may require approved interfaces, installation may require both a delivered assembly and an available room, and integrated testing may require controls, safe test conditions and completed subsystem checks. Some work runs in parallel. Adding every duration produces an unnecessarily late date; taking only the largest individual duration usually produces an implausibly early one.",
+          "The GAO schedule guide explains why a reliable integrated schedule matters to cost and change assessment. Our exercise uses an original small dependency network to demonstrate the calculation. It excludes calendars, resource contention and probability distributions so that the dependency logic remains visible. Those exclusions matter later: a mathematically consistent plan with one specialist assigned to simultaneous tasks may still be impossible to execute."
+        ]
+      },
+      {
+        "heading": "Calculate forward, then find the constraint",
+        "paragraphs": [
+          "Start requirements work at week zero and finish after two weeks. The hypothetical electrical package takes eighteen weeks after those requirements, so delivery occurs at week twenty. Its installation then takes three weeks, finishing at week twenty-three. Cooling procurement takes ten weeks after requirements, followed by four weeks of installation, and finishes at week sixteen. Utility work starts at zero and finishes at week sixteen. All durations are exercise inputs, not current supplier lead times.",
+          "Integrated controls and acceptance need all three paths and then take four weeks. Their earliest start is the maximum predecessor finish: max(23, 16, 16) = week twenty-three. Acceptance therefore finishes at week twenty-seven. The electrical chain is critical in this deterministic example. Its eighteen-week procurement is the longest single activity, but the service date includes requirements, installation and the final integration work too.",
+          "The cooling path finishes seven weeks before it is needed by the final join. Advancing it by four weeks does not change the earliest service date while the electrical path remains unchanged. Delaying it by eight weeks moves its finish to week twenty-four and pushes acceptance to week twenty-eight. Slack is conditional on the rest of the current schedule; it is not a permanent entitlement to delay work without consequence."
+        ]
+      },
+      {
+        "heading": "Recalculate after each intervention",
+        "paragraphs": [
+          "An expedited electrical package that arrives four weeks earlier moves its installation finish to week nineteen and acceptance to week twenty-three. That four-week benefit assumes the installation team, room and test resources are also available earlier. If their calendars remain fixed, the purchased acceleration may become waiting time. A commercial promise to shorten one delivery therefore needs to be evaluated against the rest of the route to usable service.",
+          "A change can also create a different critical path. If utility readiness slips to week thirty, even the original electrical installation at week twenty-three is no longer controlling the final join. Acceptance now ends at week thirty-four. Expediting the electrical package cannot recover those seven weeks of utility delay. The next useful action would address the actual predecessor or alter the scope of the accepted phase, with any changes reviewed explicitly.",
+          "Keep forecasts and evidence separate when updating the network. A reported shipment date is not installation complete; installation complete is not a passed test. Record the status date, remaining work and basis for durations. Compare the current forecast with the approved baseline to understand the change, while resisting the temptation to move dates merely to make a dashboard appear healthy. The purpose of scheduling is to expose consequences early enough to make a meaningful decision."
+        ]
+      }
+    ],
+    "example": {
+      "title": "Three paths join before acceptance",
+      "assumptions": [
+        "Synthetic durations in continuous weeks, with unconstrained resources and no calendar effects.",
+        "Requirements: 2 weeks. Electrical procurement: 18 weeks after requirements; electrical installation: 3 weeks.",
+        "Cooling procurement: 10 weeks after requirements; cooling installation: 4 weeks. Utility path: 16 weeks from start. Final integration: 4 weeks after all paths."
+      ],
+      "steps": [
+        {
+          "label": "Electrical ready",
+          "expression": "2 + 18 + 3 = week 23",
+          "explanation": "Sequential predecessors accumulate."
+        },
+        {
+          "label": "Cooling and utility ready",
+          "expression": "Cooling: 2 + 10 + 4 = week 16; utility: week 16",
+          "explanation": "These paths run in parallel with electrical delivery."
+        },
+        {
+          "label": "Accepted phase",
+          "expression": "max(23, 16, 16) + 4 = week 27",
+          "explanation": "The final join waits for every required predecessor."
+        }
+      ],
+      "result": "The earliest modeled acceptance is week 27; expediting cooling alone does not advance it.",
+      "boundary": "This is neither a supplier lead-time forecast nor a construction commitment. Resource, permit, interface and risk constraints are omitted deliberately."
+    },
+    "tradeoff": {
+      "choice": "Order equipment before all downstream choices are fixed.",
+      "benefit": "It may begin a long procurement interval earlier.",
+      "cost": "Later interface changes can create rework, incompatible deliveries or commercial exposure; the schedule benefit must be compared with that risk."
+    },
+    "failure": {
+      "trigger": "The project reports readiness when the largest shipment arrives.",
+      "mechanism": "Installation, controls and integrated acceptance are missing from the claimed service milestone.",
+      "response": "Restore the omitted predecessors and report the endpoint actually supported by the evidence."
+    },
+    "practice": {
+      "question": "Cooling installation now takes 12 rather than 4 weeks. The other durations remain unchanged. When can final acceptance finish, and which path is critical?",
+      "hint": "Recalculate cooling’s finish before taking the maximum.",
+      "answer": "Cooling finishes at 2 + 10 + 12 = week 24. Final acceptance finishes at week 28, with the cooling path now critical.",
+      "reasoning": "The eight-week increase consumes the former seven-week margin and moves the shared join one week later. The longest individual activity remains electrical procurement at eighteen weeks, demonstrating why that individual duration does not identify the controlling completion path by itself."
+    },
+    "sources": [
+      {
+        "title": "GAO Schedule Assessment Guide",
+        "url": "https://www.gao.gov/products/gao-16-89g",
+        "claim": "The guide overview supports integrated schedules, explicit dependencies and the connection between schedule slippage and cost.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Overview and guide structure inspected. The network, durations, slack and interventions are original teaching scenarios, not GAO project examples."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Predecessor",
+        "definition": "An activity whose required output must exist before a dependent activity can proceed."
+      },
+      {
+        "term": "Critical path",
+        "definition": "A controlling chain in the stated schedule whose timing determines the modeled finish."
+      },
+      {
+        "term": "Slack",
+        "definition": "Conditional timing margin before a delay affects the relevant downstream milestone."
+      }
+    ],
+    "visual": {
+      "kind": "timeline",
+      "title": "Week 27 comes from a path, not a purchase order",
+      "nodes": [
+        {
+          "label": "Requirements",
+          "detail": "Weeks 0–2"
+        },
+        {
+          "label": "Electrical",
+          "detail": "Delivery 20; installation 23"
+        },
+        {
+          "label": "Cooling / utility",
+          "detail": "Both ready at 16"
+        },
+        {
+          "label": "Integration",
+          "detail": "Weeks 23–27"
+        }
+      ],
+      "caption": "Original deterministic dependency example. Parallel branches meet at an explicit acceptance prerequisite."
+    }
+  },
+  {
+    "id": "d13-interface-contracts",
+    "domain": "D13",
+    "title": "Two adequate products can form an inadequate system",
+    "question": "What must be agreed at the boundary between a rack, a cooling unit and the facility?",
+    "summary": "Translate requirements into measurable interfaces and use a simple flow calculation to expose an incompatibility before equipment arrives.",
+    "takeaway": "A product rating is useful only at the interface conditions the project actually needs. Assign ownership and acceptance evidence to the connection.",
+    "objectives": [
+      "D13.2"
+    ],
+    "sections": [
+      {
+        "heading": "Start with the required behavior, not the catalog number",
+        "paragraphs": [
+          "An owner requirement describes what the intended service must do. A design basis explains how the proposed arrangement will accomplish it. The WBDG commissioning-document guidance distinguishes these roles and connects them to reviewed records. In a data-center project, that distinction prevents a vendor selection from quietly redefining the service: an available component is not automatically an adequate response to the original workload, availability or operating envelope.",
+          "An interface contract should specify what crosses a boundary and under which conditions. For cooling, this includes temperatures, flow, pressure behavior, fluid compatibility and the division of control responsibility. For power, it includes the relevant electrical characteristics and protection assumptions. For information, it includes the meaning, units, timing and authority of exchanged signals. Physical connectors are only one part of compatibility; a connection can mate while the expected behavior remains impossible.",
+          "The contract also needs ownership. Who provides the requirement, who demonstrates it, who reviews the demonstration, and what happens when one side changes? A vague shared responsibility can leave both suppliers assuming the other side provides a necessary sensor or control function. Turning the interface into an explicit record exposes these gaps while the project can still change drawings or procurement terms."
+        ]
+      },
+      {
+        "heading": "A simple energy balance can reject a nominally matching pair",
+        "paragraphs": [
+          "Our synthetic rack requires removal of 1 MW through a single-phase water loop. At the stated load, its permitted temperature rise is at most 10 K. Use a supplied specific heat of 4.18 kJ/(kg·K), treated as constant for this exercise. The required mass flow is Q/(cp ΔT) = 1,000/(4.18 × 10) ≈ 23.9 kg/s. This calculation follows conservation of energy. It does not establish the pressure needed to move that flow through an actual rack.",
+          "Now suppose the proposed CDU has a headline rating above 1 MW, but the project’s documented connection limits flow through this rack path to 20 kg/s. At the allowed 10 K rise, that path carries only 836 kW in our simplified balance. A large thermal rating at some other test point does not remove the flow constraint. The pair cannot support the declared 1 MW brief without changing a requirement, component or arrangement and validating the revised conditions.",
+          "Raising the temperature difference is not a free arithmetic fix. The 10 K maximum was part of the rack operating brief. Permitting a larger rise would require evidence that device temperatures, materials, controls and supply/return requirements remain acceptable. Similarly, selecting a larger pump from one flow number would ignore pressure drop, fluid behavior and the actual connection limits. The energy calculation finds an incompatibility; it is not a complete selection tool."
+        ]
+      },
+      {
+        "heading": "Acceptance criteria make a requirement observable",
+        "paragraphs": [
+          "A requirement such as sufficient cooling is too vague to test. A stronger record identifies a declared heat load, inlet conditions, measurement locations, allowable behavior, duration and response to specified changes. Each acceptance condition should connect to recorded evidence. If temperature sensors are placed on different sides of a heat exchanger, their difference may not mean the quantity assumed in the flow calculation. The metering plan is therefore part of the interface agreement.",
+          "Control semantics deserve the same precision. State whether a reported flow is commanded, measured or inferred; whether an alarm denotes a warning or a protective action; and whether a value is instantaneous or averaged. Specify how stale or unavailable data is represented. A display that silently reuses its last good value can make a stopped communication path look like an unusually stable process. That is an interface failure even though the physical equipment has not changed.",
+          "When a revision arrives, compare it with the recorded interface before accepting the substitution. A lighter rack may alter center of gravity; a new CDU may change connection pressure; a software release may rename a signal or change its range. Record the affected requirements, retests and downstream documents. A disciplined change record saves time because it tells the project exactly what to re-examine instead of reopening every design question or assuming nothing consequential changed."
+        ]
+      }
+    ],
+    "example": {
+      "title": "The missing 3.9 kg/s",
+      "assumptions": [
+        "Synthetic rack heat duty 1,000 kW and maximum loop rise 10 K.",
+        "Water specific heat is stipulated as 4.18 kJ/(kg·K).",
+        "Documented path flow ceiling is 20 kg/s; steady, single-phase operation is assumed."
+      ],
+      "steps": [
+        {
+          "label": "Required flow",
+          "expression": "1,000 kJ/s / (4.18 kJ/(kg·K) × 10 K) = 23.9 kg/s",
+          "explanation": "Units cancel to mass per time."
+        },
+        {
+          "label": "Duty at the stated flow ceiling",
+          "expression": "20 × 4.18 × 10 = 836 kW",
+          "explanation": "The allowed temperature rise and flow together bound this simple heat-transport model."
+        },
+        {
+          "label": "Unserved requirement",
+          "expression": "1,000 − 836 = 164 kW",
+          "explanation": "The proposed interface is short by 16.4 percent of the requested heat duty."
+        }
+      ],
+      "result": "The documented pairing does not meet the 1 MW requirement under these conditions, regardless of a larger rating at another test point.",
+      "boundary": "No pump sizing, pressure-drop model, coolant specification or product capability is inferred beyond the supplied conditions."
+    },
+    "tradeoff": {
+      "choice": "Standardize interfaces before ordering several vendors’ equipment.",
+      "benefit": "It can make compatibility, substitutions and acceptance easier to evaluate.",
+      "cost": "It can constrain later product choices; poorly chosen common requirements can also exclude useful alternatives without improving the service."
+    },
+    "failure": {
+      "trigger": "A component substitution preserves its headline MW rating but changes the accepted flow or control interface.",
+      "mechanism": "The system inherits an incompatibility not visible in the summary rating.",
+      "response": "Trace the changed interface to its requirements and evidence, then review the necessary redesign or retest before claiming equivalence."
+    },
+    "practice": {
+      "question": "A revised brief reduces heat duty to 800 kW with the same 10 K rise and 20 kg/s flow ceiling. Does it pass this energy-transport check?",
+      "hint": "Required mass flow falls with duty if specific heat and permitted rise stay fixed.",
+      "answer": "Yes: 800/(4.18 × 10) ≈ 19.1 kg/s, below 20 kg/s.",
+      "reasoning": "The revised brief fits this particular flow-and-temperature calculation. It still requires evidence for exchanger performance, pressure, control behavior and the remaining interfaces. Passing one necessary condition is not the same as accepting the complete system."
+    },
+    "sources": [
+      {
+        "title": "WBDG: Commissioning Documents",
+        "url": "https://legacy.wbdg.org/building-commissioning/commissioning-documents",
+        "claim": "The OPR, basis-of-design and review discussion supports requirements ownership and traceable acceptance documentation.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Selected document-role and design-review passages inspected; no standard text or complete acceptance procedure is reproduced."
+      },
+      {
+        "title": "ASHRAE AI data-center commissioning framework",
+        "url": "https://www.ashrae.org/technical-resources/ai-data-center-framework/commissioning-performance-validation",
+        "claim": "Design-phase feedback and early monitoring/control coordination are relevant to interface validation.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Selected highlights reviewed. All rack/CDU numbers and failure scenarios here are synthetic, not ASHRAE product ratings."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Owner requirement",
+        "definition": "A statement of the behavior or outcome the project must deliver."
+      },
+      {
+        "term": "Basis of design",
+        "definition": "The documented technical approach for meeting the stated requirements."
+      },
+      {
+        "term": "Acceptance criterion",
+        "definition": "A defined, observable condition used to judge a required behavior."
+      }
+    ],
+    "visual": {
+      "kind": "comparison",
+      "title": "Headline rating versus actual interface",
+      "nodes": [
+        {
+          "label": "Rack requirement",
+          "detail": "1,000 kW; maximum rise 10 K"
+        },
+        {
+          "label": "Required flow",
+          "detail": "23.9 kg/s"
+        },
+        {
+          "label": "Proposed path",
+          "detail": "20 kg/s limit"
+        },
+        {
+          "label": "Supported duty",
+          "detail": "836 kW in this model"
+        }
+      ],
+      "caption": "An original necessary-condition check. It can reject the pairing but cannot certify a revised design."
+    }
+  },
+  {
+    "id": "d13-commissioning-complete-paths",
+    "domain": "D13",
+    "title": "Commission the intersection, not the inventory",
+    "question": "When do installed components become a tested service path?",
+    "summary": "Distinguish installation and subsystem tests from integrated acceptance, then count overlapping accepted rack paths rather than adding milestone totals.",
+    "takeaway": "Usable service requires the same path to satisfy every necessary condition. Separate subsystem counts do not establish that intersection.",
+    "objectives": [
+      "D13.3",
+      "D13.4"
+    ],
+    "sections": [
+      {
+        "heading": "Every milestone answers a different question",
+        "paragraphs": [
+          "Installed equipment is physically present in its intended arrangement. Energized equipment has an electrical state, but that does not establish its full behavior. A component test checks a specified item under declared conditions. A subsystem functional test examines the function of a connected system. Integrated testing asks whether multiple systems work together across the intended scenarios. Service acceptance adds the project’s end-to-end requirements and the evidence the owner requires before using the phase.",
+          "ASHRAE’s AI commissioning framework describes staged validation from factory and installation checks through functional and integrated performance. Those labels are useful orientation, but a stage name is not the test record. A project can use different organization while still needing explicit criteria, observed results and resolution of issues. Ask what was actually exercised, at what load, with which instrumentation, and what remained outside the test scope.",
+          "A synthetic test load can establish important facilities behavior without reproducing a full application. An application test can demonstrate job progress without exercising every facility failure case. Both may be necessary. The important distinction is between what a test stresses and what someone later claims it proves. Do not let a successful demonstration at one boundary become evidence for untested behavior at another."
+        ]
+      },
+      {
+        "heading": "The same racks must have complete paths",
+        "paragraphs": [
+          "Imagine one hundred named rack positions, A01 through A100. The recorded electrical acceptance covers A01–A80. Cooling acceptance covers A21–A100. Network acceptance covers A01–A60. Taking the minimum of the three counts gives sixty, but that result is wrong: only A21–A60 are present in all three sets. Their intersection contains forty positions. The counts alone concealed that different parts of the hall had been tested.",
+          "This distinction is especially important in phased construction. A completed cooling loop can serve a different block from an energized electrical section. The topology and identity of the accepted paths determine what can be combined. A generic capacity minimum is valid only when its constraints have been reconciled to the same population and boundaries. Otherwise, even correct arithmetic produces an unsupported available-capacity claim.",
+          "If the synthetic brief assigns 100 kW per accepted rack position, forty complete positions correspond to a 4 MW envelope for that stated population. They do not prove a 4 MW measured load or a particular training throughput. Evidence of acceptance establishes the permitted and demonstrated conditions of service; observation of present demand and useful output requires additional measurements."
+        ]
+      },
+      {
+        "heading": "Acceptance includes the ability to operate afterward",
+        "paragraphs": [
+          "A proposed integrated test matrix should cover the required normal behavior, specified failures, maintenance configurations and restoration. For each conceptual scenario, state the starting configuration, observable requirement, measurement points and criteria for stopping or accepting the exercise. Real tests need project-specific engineering and qualified execution. The learner’s task is to identify what evidence is missing, not to improvise an outage procedure on operating equipment.",
+          "Handover should preserve the configuration that was tested. Updated topology, equipment identifiers, control versions, unresolved issues, operating documentation and training connect the observed result to future operation. If a critical setting changes afterward, the old result may no longer support the same claim. WBDG treats commissioning records as information used in ongoing operations; the course uses that principle to make evidence traceable to a phase and configuration.",
+          "An unresolved issue needs an explicit disposition. Some issues prevent the stated service condition; others may be accepted with a defined limitation and owner decision. A list of open items is more informative than a single percentage complete when it identifies which paths and claims are affected. Before expanding a phase, recalculate the overlap and inspect shared systems whose configuration changes. The next building can affect the first even when their milestone trackers are separate."
+        ]
+      }
+    ],
+    "example": {
+      "title": "Why min(80, 80, 60) is not enough",
+      "assumptions": [
+        "Synthetic named rack population A01–A100.",
+        "Electrical acceptance: A01–A80; cooling acceptance: A21–A100; network acceptance: A01–A60.",
+        "All other criteria are assumed met for the intersecting positions, and the exercise assigns 100 kW per position."
+      ],
+      "steps": [
+        {
+          "label": "Electrical ∩ cooling",
+          "expression": "A21–A80 = 60 positions",
+          "explanation": "Both physical requirements apply to these same positions."
+        },
+        {
+          "label": "Add network acceptance",
+          "expression": "A21–A80 ∩ A01–A60 = A21–A60 = 40 positions",
+          "explanation": "Only the overlap carries the complete evidence set."
+        },
+        {
+          "label": "Declared envelope",
+          "expression": "40 × 100 kW = 4,000 kW = 4 MW",
+          "explanation": "This expresses the exercise’s accepted capacity envelope, not its operating demand."
+        }
+      ],
+      "result": "Forty complete rack paths are evidenced under the stated assumptions; a minimum of aggregate counts would overstate them.",
+      "boundary": "No real project commissioning status, permitted load or application throughput is established."
+    },
+    "tradeoff": {
+      "choice": "Hand over smaller accepted phases.",
+      "benefit": "It can expose interface problems earlier and permit useful service before all future equipment is finished.",
+      "cost": "Shared systems, boundaries, configuration control and the separation of construction from live operation become more demanding."
+    },
+    "failure": {
+      "trigger": "Individually successful cooling and electrical tests apply to different blocks of the hall.",
+      "mechanism": "The project combines their totals without confirming that the same rack paths satisfy both.",
+      "response": "Reconcile asset identities, topology and test scope, then state the accepted intersection and remaining gaps."
+    },
+    "practice": {
+      "question": "Cooling evidence is extended to A01–A100, while electrical and network scopes remain unchanged. How many paths are now complete?",
+      "hint": "Recalculate the intersection rather than adding the twenty newly cooling-tested positions blindly.",
+      "answer": "A01–A60 now satisfy all three sets: 60 positions, corresponding to 6 MW only under the same 100 kW-per-position assumption.",
+      "reasoning": "The added cooling evidence closes the missing condition for A01–A20. Positions A61–A80 still lack network acceptance, and A81–A100 also lack electrical acceptance. Extending one subsystem’s scope does not advance every part of the phase equally."
+    },
+    "sources": [
+      {
+        "title": "ASHRAE: Commissioning & Performance Validation",
+        "url": "https://www.ashrae.org/technical-resources/ai-data-center-framework/commissioning-performance-validation",
+        "claim": "The staged commissioning and integrated-systems discussion distinguishes component checks from coupled validation.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Selected commissioning-stage and handover discussion inspected; project procedures, pass criteria and synthetic rack sets are original."
+      },
+      {
+        "title": "WBDG: Commissioning Documents",
+        "url": "https://legacy.wbdg.org/building-commissioning/commissioning-documents",
+        "claim": "Commissioning records and systems documentation support continued operation and maintenance.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Selected documentation purpose reviewed; this is not a claim to have applied a complete ASHRAE standard or GSA acceptance process."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Integrated test",
+        "definition": "A specified exercise of behavior spanning connected subsystems."
+      },
+      {
+        "term": "Intersection",
+        "definition": "Members that belong to every required set at the same time."
+      },
+      {
+        "term": "Handover",
+        "definition": "Transfer of accepted configuration, evidence and operating responsibility for the defined scope."
+      }
+    ],
+    "visual": {
+      "kind": "comparison",
+      "title": "Three acceptance sets, forty complete paths",
+      "nodes": [
+        {
+          "label": "Electrical",
+          "detail": "A01–A80"
+        },
+        {
+          "label": "Cooling",
+          "detail": "A21–A100"
+        },
+        {
+          "label": "Network",
+          "detail": "A01–A60"
+        },
+        {
+          "label": "Intersection",
+          "detail": "A21–A60"
+        }
+      ],
+      "caption": "Synthetic asset-level overlap. Area or count in one set is not independent proof of a complete service path."
+    }
+  },
+  {
+    "id": "d14-telemetry-and-observability",
+    "domain": "D14",
+    "title": "A believable number can describe the wrong thing",
+    "question": "How do we distinguish a real cooling constraint from a measurement problem?",
+    "summary": "Place measurements at physical boundaries, align their times and use conservation checks to discriminate between competing explanations.",
+    "takeaway": "An alarm is evidence of a reported condition. A diagnosis requires consistent measurements that distinguish its possible causes.",
+    "objectives": [
+      "D14.1"
+    ],
+    "sections": [
+      {
+        "heading": "Give every measurement a location and a meaning",
+        "paragraphs": [
+          "A temperature value needs a physical location. A supply temperature before a mixing junction is not necessarily the temperature reaching a rack; a return value from one branch may not describe the entire loop. A power value needs an electrical boundary. A flow value needs to say whether it is measured, commanded or inferred. Without these labels, combining individually plausible numbers can produce a calculation that corresponds to no actual piece of the system.",
+          "Time is equally important. One meter may report an instantaneous sample, another a minute average, and a third its most recent successful value. A plot that places them at the same horizontal position can imply a relationship their acquisition times do not support. Preserve the observation timestamp, the reporting timestamp and the aggregation interval where they differ. A missing measurement should remain missing instead of being interpreted as zero or silently held forever.",
+          "Google’s SRE monitoring discussion distinguishes observations of internal behavior from observations of externally experienced service. The same distinction helps facilities reasoning. A pump’s reported running state is an internal status; adequate flow at the required interface is a process observation; successful useful work is a service observation. Each can disagree with another without being contradictory, because they measure different parts of the causal chain."
+        ]
+      },
+      {
+        "heading": "Use a balance to ask a sharper question",
+        "paragraphs": [
+          "Our hypothetical loop removes a steady 2.09 MW. At 100 kg/s and a stipulated specific heat of 4.18 kJ/(kg·K), a 5 K temperature rise gives Q = 100 × 4.18 × 5 = 2,090 kW. Now the displayed temperature rise becomes 10 K while the flow screen still shows 100 kg/s. The same calculation reports 4.18 MW. Does that prove the computers doubled their heat output? No: the calculation depends on whether the measurements represent the same flow and interval.",
+          "Several explanations remain possible. Actual heat input may have changed; the flow reading may be stale; temperature locations may not enclose the intended load; or heat may be accumulating or leaving stored material during a transient. A good diagnosis proposes an observation that separates these cases. In the supplied scenario, an independent time-aligned measurement establishes that actual flow fell to 50 kg/s while electrical heat input stayed at 2.09 MW. That evidence closes the balance at the larger temperature rise.",
+          "The independent observation is essential. Without it, choosing the stale-flow explanation simply because it fits the story would be guessing. Even after the balance closes, the reason for reduced flow remains a separate question. A valve position, pump speed, pressure difference or blockage hypothesis needs relevant evidence. Conservation is a powerful consistency check, but it is not a magic sensor that identifies every mechanism from one alarm."
+        ]
+      },
+      {
+        "heading": "Design monitoring around decisions",
+        "paragraphs": [
+          "A useful sensor arrangement begins with the decisions operators need to make. To determine whether a heat exchanger is meeting its role, instrument the appropriate entering and leaving conditions on the relevant loops. To distinguish excessive electrical load from reduced thermal capacity, align power and process measurements. To understand service impact, inspect job throughput or latency at the same time. Adding many sensors without an explanatory model can increase uncertainty rather than reduce it.",
+          "Alarm design should also distinguish a symptom from an actionable condition. A single brief spike, a sustained excursion and stale data may require different interpretation. Choose thresholds, delays and severity through the actual operating requirements and evidence; this course does not invent universal temperature or alarm values. Document what an alarm means and what additional information supports the approved response. Otherwise, repeated ambiguous alarms train people to ignore signals that may eventually matter.",
+          "Keep the diagnostic record reproducible. Preserve raw samples when available, transformations, units, sensor identity, known quality issues and the time range used for the calculation. An incident graph should separate observed values from inferred quantities and hypotheses. When a sensor is corrected, retain the reason rather than rewriting history as though the earlier false reading never existed. That record lets future operators distinguish a recurring physical problem from a recurring measurement failure."
+        ]
+      }
+    ],
+    "example": {
+      "title": "One stale flow value doubles the apparent heat",
+      "assumptions": [
+        "Synthetic steady loop with cp = 4.18 kJ/(kg·K).",
+        "Initial actual flow 100 kg/s and temperature rise 5 K.",
+        "Later independent measurements show actual flow 50 kg/s and rise 10 K; the original flow display is stale at 100 kg/s."
+      ],
+      "steps": [
+        {
+          "label": "Initial consistent duty",
+          "expression": "100 × 4.18 × 5 = 2,090 kW",
+          "explanation": "The three quantities refer to the same loop and interval."
+        },
+        {
+          "label": "Misleading display-based duty",
+          "expression": "100 × 4.18 × 10 = 4,180 kW",
+          "explanation": "The stale value creates an apparent doubling."
+        },
+        {
+          "label": "Correct time-aligned duty",
+          "expression": "50 × 4.18 × 10 = 2,090 kW",
+          "explanation": "The independent observation establishes the reduced flow and restores the balance."
+        }
+      ],
+      "result": "The apparent heat increase was a measurement-combination error; the actual flow reduction still needs its own cause analysis.",
+      "boundary": "The diagnostic outcome is stipulated for the synthetic trace. It is not a universal inference from a higher return temperature."
+    },
+    "tradeoff": {
+      "choice": "Add independent process and service observations.",
+      "benefit": "They can distinguish sensor faults from actual constraints and reveal whether a component issue affects useful work.",
+      "cost": "Sensors, calibration, timestamps, data retention and interpretation create ongoing operational work; more points alone do not establish observability."
+    },
+    "failure": {
+      "trigger": "A communication failure freezes a flow value without a visible quality flag.",
+      "mechanism": "A valid-looking old number is combined with current temperatures, producing a false heat calculation.",
+      "response": "Identify data age and quality, compare independent evidence and restore a trustworthy measurement path through the approved operating process."
+    },
+    "practice": {
+      "question": "You observe a doubled temperature difference and unchanged displayed flow, but have no independent flow or aligned power data. Can you conclude that flow halved?",
+      "hint": "A matching numerical explanation is not the same as discriminating evidence.",
+      "answer": "No. Halved flow is one hypothesis, not an established diagnosis.",
+      "reasoning": "Changed heat input, temperature-sensor error, different measurement boundaries and transient storage can also alter the calculated relationship. State the missing observations: synchronized load measurements, actual flow at the same interface, sensor location/quality and the relevant time behavior. The appropriate next step is an evidence check, not a guessed operational adjustment."
+    },
+    "sources": [
+      {
+        "title": "Google SRE: Monitoring Distributed Systems",
+        "url": "https://sre.google/sre-book/monitoring-distributed-systems/",
+        "claim": "The monitoring discussion distinguishes internal and external observations and separates symptoms from causes.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Selected monitoring principles inspected; this lesson’s thermal trace, numerical diagnostic and sensor placement examples are original."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Telemetry",
+        "definition": "Measurements and status reports transmitted from equipment or services."
+      },
+      {
+        "term": "Stale value",
+        "definition": "An older observation displayed after its intended freshness interval."
+      },
+      {
+        "term": "Observability",
+        "definition": "The ability to distinguish relevant system states using the available measurements and model."
+      }
+    ],
+    "visual": {
+      "kind": "comparison",
+      "title": "Same heat, different flow, misleading dashboard",
+      "nodes": [
+        {
+          "label": "Before",
+          "detail": "100 kg/s × 5 K → 2.09 MW"
+        },
+        {
+          "label": "Dashboard after",
+          "detail": "Stale 100 kg/s × 10 K → 4.18 MW"
+        },
+        {
+          "label": "Verified after",
+          "detail": "50 kg/s × 10 K → 2.09 MW"
+        }
+      ],
+      "caption": "Synthetic aligned measurements. The true flow is supplied as independent evidence, not inferred uniquely from temperature."
+    }
+  },
+  {
+    "id": "d14-coordinating-control-and-work",
+    "domain": "D14",
+    "title": "The scheduler cannot negotiate with physics after the fact",
+    "question": "How should a workload change relate to equipment control and facility operating sequences?",
+    "summary": "Separate fast local control, plant-level coordination and workload decisions, then account for a stipulated delay and thermal-energy buffer.",
+    "takeaway": "Each control layer has a different objective and timescale. A load decision must respect the state the physical system can actually support.",
+    "objectives": [
+      "D14.2"
+    ],
+    "sections": [
+      {
+        "heading": "Three layers answer three different questions",
+        "paragraphs": [
+          "A device controller acts on a local process variable through an actuator. For example, a specified controller may vary a fan or valve to keep a measured condition within its approved operating behavior. A facility sequence coordinates equipment states: which units are enabled, how capacity is staged and what happens under defined changes. A workload scheduler decides when and where jobs run. They may exchange information, but they do not have interchangeable responsibilities.",
+          "NIST’s description of operational technology includes systems that monitor and change the physical environment. This matters because an apparently simple software request can ultimately influence pressure, temperature or power demand. A scheduler that sees unused accelerators may regard a new job as feasible; a facility sequence may still be bringing required capacity into a ready state. The gap is an interface question, not evidence that either layer should guess the other’s state.",
+          "Use explicit signals with understood semantics. Available capacity must specify its boundary, conditions and freshness. Ready must mean a defined physical state, not merely that a start command was sent. Acknowledge, executing and proven available can be different states. When information is missing, the operating policy should say how decisions are constrained. A cheerful green icon does not replace a supported state transition."
+        ]
+      },
+      {
+        "heading": "Delays create an energy question as well as a capacity question",
+        "paragraphs": [
+          "Consider a synthetic cooling system with 5 MW of currently available heat removal. A proposed workload raises heat input from 4 MW to 6 MW. A standby unit can add the required capacity, but the stipulated transition takes two minutes. During those two minutes, the heat imbalance is 1 MW if the active unit provides 5 MW. That mismatch must go somewhere: it accumulates in the modeled system, is handled by another stated path, or causes operating limits to be exceeded.",
+          "For this exercise alone, assume a validated usable thermal-energy buffer of 0.04 MWh over the permitted operating envelope. The two-minute mismatch requires 1 MW × 2/60 h = 0.0333 MWh. It fits that supplied scalar energy budget. The calculation does not prove local device temperatures, flow distribution or control stability, because a single buffer value does not describe them. Real authorization would need the full relevant operating evidence.",
+          "If the standby transition takes three minutes instead, the mismatch requires 0.05 MWh and exceeds the stipulated budget. A one-minute delay changes the result even though the eventual installed cooling capacity is unchanged. This is why a steady nameplate total is insufficient for sequencing a load change. Capacity, readiness and transition behavior must describe the same scenario."
+        ]
+      },
+      {
+        "heading": "Coordinate before consuming the margin",
+        "paragraphs": [
+          "One possible operating arrangement is to establish the required capacity before admitting the additional workload. Another may allow a documented staged ramp within the supported dynamic envelope. A third may relocate or defer work. These are choices to evaluate through the actual operating requirements; the lesson does not prescribe a field control sequence. Their costs include waiting time, auxiliary energy, reserve usage and the availability required by the workload.",
+          "Overly aggressive reactions can also create interaction between layers. If a workload repeatedly starts and pauses around the same threshold while the plant repeatedly stages equipment, the combined behavior may be undesirable even when each rule appears sensible alone. Time delays, state persistence and different measurements can matter. Engineers use the real dynamic model and tests to establish suitable logic. We do not select a universal deadband or controller gain from the simple energy arithmetic.",
+          "After a change, observe whether the intended state was achieved and whether service stayed within its requirement. Preserve the sequence of commands, measured responses and job behavior. If the expected transition does not occur, the record should make the difference visible. That feedback connects commissioning with operation: a new workload or control revision can create behavior not exercised in the original accepted configuration."
+        ]
+      }
+    ],
+    "example": {
+      "title": "A two-minute transition consumes most of the stated buffer",
+      "assumptions": [
+        "Synthetic step to 6 MW heat input; active removal is 5 MW.",
+        "Standby readiness delay is exactly two minutes in the base case.",
+        "A separately stipulated usable buffer is 0.04 MWh, and all other operating conditions are assumed met for this arithmetic check."
+      ],
+      "steps": [
+        {
+          "label": "Temporary imbalance",
+          "expression": "6 − 5 = 1 MW",
+          "explanation": "Only heat not removed by the active capacity draws on the buffer."
+        },
+        {
+          "label": "Two-minute energy",
+          "expression": "1 MW × 2/60 h = 0.0333 MWh",
+          "explanation": "Power multiplied by duration gives accumulated energy."
+        },
+        {
+          "label": "Remaining scalar margin",
+          "expression": "0.04 − 0.0333 = 0.0067 MWh",
+          "explanation": "Only one-sixth of the original energy allowance remains in the model."
+        }
+      ],
+      "result": "The base transition fits the supplied energy budget; a three-minute transition does not.",
+      "boundary": "The buffer is a hypothetical validated input, not a heat-capacity estimate or an asserted safe ride-through time for real equipment."
+    },
+    "tradeoff": {
+      "choice": "Prove extra physical capacity ready before admitting a job.",
+      "benefit": "It can avoid depending on an uncertain transition while the new load is already present.",
+      "cost": "It may delay useful work or operate auxiliary equipment before it is needed; the service brief determines whether that cost is worthwhile."
+    },
+    "failure": {
+      "trigger": "The scheduler treats a standby start command as proven available cooling capacity.",
+      "mechanism": "The job arrives during a transition whose duration or result is not yet established.",
+      "response": "Apply the approved coordination policy, distinguish commanded from measured readiness and investigate the mismatch with time-aligned evidence."
+    },
+    "practice": {
+      "question": "The workload rises to 5.5 MW instead of 6 MW, while standby readiness takes three minutes. How much buffer energy is required?",
+      "hint": "Both the magnitude and duration of the imbalance matter.",
+      "answer": "(5.5 − 5) MW × 3/60 h = 0.025 MWh, below the supplied 0.04 MWh scalar budget.",
+      "reasoning": "The smaller half-megawatt mismatch more than compensates for the longer delay in this particular energy check. It still does not certify temperatures or dynamics. The result illustrates why a supported load envelope should specify ramp or step size and timing rather than only a final MW total."
+    },
+    "sources": [
+      {
+        "title": "NIST SP 800-82 Revision 3: OT Security",
+        "url": "https://csrc.nist.gov/pubs/sp/800/82/r3/final",
+        "claim": "OT includes physical-process monitoring and control and must account for reliability and performance needs.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Abstract scope reviewed; no detailed control tuning or security configuration is inferred. All timing and buffer values are original stipulated inputs."
+      },
+      {
+        "title": "Google SRE: Monitoring Distributed Systems",
+        "url": "https://sre.google/sre-book/monitoring-distributed-systems/",
+        "claim": "Monitoring should connect system behavior with externally visible service.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Selected conceptual discussion reviewed; the plant/scheduler scenario is an original cross-domain teaching example."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Actuator",
+        "definition": "A device that changes the physical process in response to a control output."
+      },
+      {
+        "term": "Readiness",
+        "definition": "A defined and evidenced state in which a required function is available."
+      },
+      {
+        "term": "Thermal-energy buffer",
+        "definition": "A stated amount of temporary accumulated heat that can be accommodated within a defined model and envelope."
+      }
+    ],
+    "visual": {
+      "kind": "timeline",
+      "title": "Command, transition, proven capacity",
+      "nodes": [
+        {
+          "label": "Load request",
+          "detail": "4 → 6 MW proposed"
+        },
+        {
+          "label": "Current capacity",
+          "detail": "5 MW available"
+        },
+        {
+          "label": "Transition",
+          "detail": "2 min; 0.0333 MWh imbalance"
+        },
+        {
+          "label": "Ready state",
+          "detail": "Additional capacity must be evidenced"
+        }
+      ],
+      "caption": "Original scalar transition example. The graphic does not establish a real control sequence or temperature trajectory."
+    }
+  },
+  {
+    "id": "d14-maintenance-and-service-reliability",
+    "domain": "D14",
+    "title": "Measure the service, investigate the incident",
+    "question": "Why do equipment uptime and a redundant topology fail to determine useful-service availability?",
+    "summary": "Evaluate maintenance against surviving capacity, calculate a defined service metric and build an evidence-based incident explanation.",
+    "takeaway": "Reliability claims need a service boundary, dependence assumptions and an operating record. A topology label or component average is not the result.",
+    "objectives": [
+      "D14.3",
+      "D14.4",
+      "D14.5"
+    ],
+    "sections": [
+      {
+        "heading": "Maintenance consumes a real configuration",
+        "paragraphs": [
+          "Two 3 MW paths do not support a 5 MW load during maintenance of one path if the remaining path can carry only 3 MW. Adding their normal ratings hides the maintenance condition. Three such units might preserve 6 MW after one is removed, but only if their distribution, controls and other dependencies permit the required surviving arrangement. Count the functions available in the actual maintenance state, not the number of equipment symbols.",
+          "Uptime Institute distinguishes concurrent maintainability and fault-tolerant infrastructure in its Tier descriptions. Those are topology and performance concepts within a defined framework, not measured uptime percentages that can be assigned to an arbitrary sketch. Its operations criteria also address staffing, maintenance tracking, procedures and incident learning. A design’s intended behavior therefore has to be supported by operating practice and evidence, rather than presumed from installed spares.",
+          "A maintenance plan needs a starting configuration, the stated scope of work, surviving service conditions, relevant dependencies and the reviewed restoration condition. Physical access and the possibility of another failure during the work matter too. This lesson evaluates hypothetical capacity and evidence requirements. It does not provide a switching or isolation procedure; actual work requires the applicable qualified process."
+        ]
+      },
+      {
+        "heading": "Define what counts as unavailable",
+        "paragraphs": [
+          "A component can remain powered while the service misses its latency or completion requirement. Conversely, one component can be unavailable while the service continues through another path. A service-level indicator makes the chosen observable boundary explicit. For a time-based example, specify which intervals count as unavailable; for a request-based measure, specify which requests and outcomes belong in the denominator. Google’s SRE discussion of service-level objectives emphasizes this measurement contract.",
+          "In a synthetic thirty-day observation period there are 43,200 minutes. One service incident covers twelve minutes and another eighteen, with four minutes of overlap. The union of unavailable time is 12 + 18 − 4 = 26 minutes. The time-based availability is (43,200 − 26)/43,200 ≈ 99.9398 percent. Adding the two durations without removing overlap counts the same service outage twice. Counting only a failed component’s power loss may miss the application recovery period.",
+          "Probabilistic redundancy formulas require assumptions. If two fully sufficient paths have independent unavailability u, their simultaneous unavailability is u² in that simplified model. Shared power, software, configuration, repair resources or environmental events can invalidate independence. If either path alone lacks the capacity required by the load, even the success condition is different. A neat probability calculation is useful only after the physical and service model has been established."
+        ]
+      },
+      {
+        "heading": "An incident explanation separates observation from hypothesis",
+        "paragraphs": [
+          "Consider an original timeline: a configuration changes at 10:00, alarms appear at 10:02, jobs miss their requirement at 10:03, configuration recovery is recorded at 10:11, physical conditions stabilize at 10:16 and service recovery is confirmed at 10:22. This supports a nineteen-minute service-impact interval if the stated criterion failed continuously from 10:03. The time ordering makes the configuration change a hypothesis worth investigating, not proof of the entire causal chain.",
+          "Preserve evidence that distinguishes alternatives: the affected configuration and scope, telemetry quality, equipment states, job behavior and the timing of recovery actions. A useful corrective action names a mechanism, an owner and a way to verify the improvement. Rewriting an instruction is different from testing that a common failure path has been removed. Training is different from proving the system now constrains the same erroneous action.",
+          "Google’s postmortem guidance emphasizes learning rather than assigning personal blame. In the course, that becomes a practical standard for explanations: describe the conditions that allowed an action or failure to propagate, and specify what evidence would demonstrate prevention or reduced impact. Maintain an honest unresolved section when the cause remains uncertain. A confident but unsupported story can make the next incident harder to diagnose by teaching the organization to look in the wrong place."
+        ]
+      }
+    ],
+    "example": {
+      "title": "A service-time denominator with overlapping incidents",
+      "assumptions": [
+        "Synthetic 30-day period: 43,200 minutes.",
+        "Incident A affects the defined service for 12 minutes; incident B for 18 minutes.",
+        "Their service-impact intervals overlap for 4 minutes; no other unavailability occurs."
+      ],
+      "steps": [
+        {
+          "label": "Unavailable union",
+          "expression": "12 + 18 − 4 = 26 min",
+          "explanation": "Subtract the shared interval once."
+        },
+        {
+          "label": "Available fraction",
+          "expression": "(43,200 − 26)/43,200 = 0.999398…",
+          "explanation": "The denominator covers the complete stated observation interval."
+        },
+        {
+          "label": "Percentage",
+          "expression": "0.999398… × 100 ≈ 99.9398%",
+          "explanation": "This is a retrospective time-based metric under the exercise definition."
+        }
+      ],
+      "result": "The synthetic service availability is about 99.94 percent; the number is not a topology certification or future guarantee.",
+      "boundary": "Request success, degraded performance outside the chosen criterion and other periods are not inferred."
+    },
+    "tradeoff": {
+      "choice": "Schedule maintenance with explicit surviving capacity and recovery provisions.",
+      "benefit": "It can preserve service while limiting deferred equipment work.",
+      "cost": "It uses staff, reserve and scheduling flexibility; the required margin depends on the actual service and additional-failure assumptions."
+    },
+    "failure": {
+      "trigger": "A shared configuration action changes both nominally independent paths.",
+      "mechanism": "Common cause defeats the independence assumed by a component-availability calculation.",
+      "response": "Reconstruct the event using verified records and test whether the proposed change actually limits its scope or consequence."
+    },
+    "practice": {
+      "question": "In a 60-minute window, ten minutes violate the specified latency objective even though every server remains powered. What is time-based service availability under that criterion?",
+      "hint": "Use the service definition rather than the equipment power status.",
+      "answer": "50/60 = 83.33 percent for that one-hour window.",
+      "reasoning": "Power availability is a different indicator. The service failed its stated latency criterion during ten minutes, so those minutes belong in the unavailable set. This result should not be extrapolated to a month or combined with request-success percentages without reconciling their denominators and observation scopes."
+    },
+    "sources": [
+      {
+        "title": "Uptime Institute: Tier Classification System",
+        "url": "https://uptimeinstitute.com/tiers",
+        "claim": "Public Tier descriptions distinguish concurrent maintainability and fault tolerance.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Relevant definitions inspected; the lesson neither assigns a Tier nor claims certification for its synthetic arrangements."
+      },
+      {
+        "title": "Uptime Institute: Management and Operations Criteria",
+        "url": "https://uptimeinstitute.com/professional-services/management-operations/mando-criteria",
+        "claim": "Maintenance tracking, staffing and incident learning are operational concerns beyond equipment topology.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Selected category descriptions reviewed; no proprietary assessment or complete procedure is reproduced."
+      },
+      {
+        "title": "Google SRE: Service Level Objectives",
+        "url": "https://sre.google/sre-book/service-level-objectives/",
+        "claim": "Service indicators and objectives need explicitly defined measurements.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Selected metric-boundary discussion reviewed; the availability example is original."
+      },
+      {
+        "title": "Google SRE: Postmortem Culture",
+        "url": "https://sre.google/sre-book/postmortem-culture/",
+        "claim": "Incident review is intended to support learning and improvement rather than blame.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Selected postmortem principles inspected; timeline and proposed evidence questions are original."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Service-level indicator",
+        "definition": "A specified measurement of service behavior over an explicit scope."
+      },
+      {
+        "term": "Concurrent maintainability",
+        "definition": "A defined infrastructure capability to maintain components without interrupting the required service."
+      },
+      {
+        "term": "Postmortem",
+        "definition": "An incident record connecting impact, evidence, causal understanding and verifiable improvements."
+      }
+    ],
+    "visual": {
+      "kind": "timeline",
+      "title": "Component recovery is not the end of service impact",
+      "nodes": [
+        {
+          "label": "10:03",
+          "detail": "Service criterion first fails"
+        },
+        {
+          "label": "10:11",
+          "detail": "Configuration recovery recorded"
+        },
+        {
+          "label": "10:16",
+          "detail": "Physical conditions stabilize"
+        },
+        {
+          "label": "10:22",
+          "detail": "Service recovery confirmed"
+        }
+      ],
+      "caption": "Original incident timeline with a nineteen-minute service-impact interval. Temporal association alone does not establish causation."
+    }
+  },
+  {
+    "id": "d15-capacity-ledger",
+    "domain": "D15",
+    "title": "Find the constraint after reconciling the boundaries",
+    "question": "How many rack equivalents can the specified system support, and what would an upgrade actually change?",
+    "summary": "Reconcile facility overhead, non-compute IT, electrical and thermal limits, network scope and accepted service in one synthetic ledger.",
+    "takeaway": "A capacity minimum is meaningful only after every limit refers to the same population, operating condition and accounting boundary.",
+    "objectives": [
+      "D15.1"
+    ],
+    "sections": [
+      {
+        "heading": "A megawatt must belong to a ledger",
+        "paragraphs": [
+          "A utility service limit, downstream electrical rating, cooling duty and installed rack count describe different boundaries. To compare them, define the population and the required state. Our exercise uses identical compute-rack equivalents at 100 kW each, plus a separate 5 MW of non-compute IT. That non-compute IT includes the synthetic shared network and storage electrical load. It belongs inside total IT power, even though it is not assigned to the compute-rack count.",
+          "The stipulated facility model is Psite = 1.2 PIT + 5 MW. The load-dependent overhead is 0.2 PIT, and the fixed 5 MW overhead is outside IT. These two different 5 MW terms must not be confused: one is non-compute IT inside PIT; the other is fixed facility overhead outside it. The formula is an invented operating model, not an annual PUE or an observed data-center efficiency. It is useful because each load has an explicit place.",
+          "At a 100 MW site limit, total IT power cannot exceed (100 − 5)/1.2 = 79.17 MW. Removing the separate 5 MW non-compute IT leaves about 74.17 MW for compute racks, or 741 whole 100 kW equivalents after rounding down. Other constraints can be lower. A downstream 70 MW IT electrical limit allows only 65 MW for compute, while a stipulated 60 MW thermal limit on total IT heat allows 55 MW."
+        ]
+      },
+      {
+        "heading": "Only compare like populations",
+        "paragraphs": [
+          "The synthetic network brief supports six hundred compute-rack equivalents for the specified workload topology. There are seven hundred fifty usable physical positions, and only five hundred twenty positions currently have accepted end-to-end service paths. We explicitly assume these populations are nested and refer to the same positions, with all required reserve and maintenance deductions already included in the stated limits. Without that assumption, the asset-level intersection from the commissioning lesson is necessary.",
+          "The reconciled ceilings are therefore 741 from site input, 650 from downstream electrical capacity, 550 from heat removal, 600 from networking, 750 from space and 520 from accepted service. Their minimum is 520. This is an operating envelope under supplied conditions. It is not a measured load, a customer reservation total or a model of useful application output. A workload can demand less power or make poor progress inside the envelope.",
+          "Notice that the available electrical service is not the binding constraint. At 520 compute racks, compute power is 52 MW and total IT is 57 MW after adding non-compute IT. The facility model then uses 1.2 × 57 + 5 = 73.4 MW. The unused site capacity cannot be converted directly into more accepted racks. It is headroom at one boundary, while another required condition remains incomplete."
+        ]
+      },
+      {
+        "heading": "Removing one bottleneck reveals the next",
+        "paragraphs": [
+          "Complete additional acceptance so that seven hundred positions are available, while leaving physical capacities unchanged. The new minimum is 550, imposed by the thermal boundary. Increase cooling capability from 60 to 70 MW of total IT heat and the thermal compute ceiling becomes 650. Networking now limits the population to 600. The cooling intervention therefore creates fifty additional equivalents after acceptance is expanded, not the full one hundred implied by its ten-megawatt thermal increase.",
+          "If network capability later rises to eight hundred equivalents, downstream electrical capacity and cooling both bind at 650. Tied constraints matter: upgrading only one of them does not increase this ceiling while the other remains unchanged. A useful intervention plan records the sequence, prerequisites and cost of the next limiting condition, rather than celebrating every added megawatt as the same increment of service.",
+          "Finally, keep capacity and useful output separate. A network upgrade can improve job progress without changing the count of powered racks, and a workload change can reduce required power for the same useful output. An efficiency improvement can also free site capacity that remains unusable because commissioning or another physical interface is limiting. The ledger explains feasibility. To decide whether a change is worthwhile, connect that feasibility to a measured workload and a dated cost model."
+        ]
+      }
+    ],
+    "example": {
+      "title": "One consistent 100 MW scenario",
+      "assumptions": [
+        "Synthetic 100 MW site limit with Psite = 1.2 PIT + 5 MW.",
+        "Non-compute IT is a separate 5 MW within PIT; each compute equivalent is 0.1 MW.",
+        "Downstream electrical limit 70 MW IT; cooling limit 60 MW IT heat. Network 600, space 750 and accepted service 520 equivalents. Populations are nested and reserves are already deducted."
+      ],
+      "steps": [
+        {
+          "label": "Site compute ceiling",
+          "expression": "((100 − 5)/1.2 − 5)/0.1 = 741.67 → 741 whole equivalents",
+          "explanation": "Subtract fixed facility overhead before conversion, then remove non-compute IT."
+        },
+        {
+          "label": "Downstream and thermal ceilings",
+          "expression": "(70 − 5)/0.1 = 650; (60 − 5)/0.1 = 550",
+          "explanation": "Both stated ratings cover total IT, so both include the non-compute IT load."
+        },
+        {
+          "label": "Common feasible population",
+          "expression": "min(741, 650, 550, 600, 750, 520) = 520",
+          "explanation": "Every constraint now refers to the same rack-equivalent definition."
+        }
+      ],
+      "result": "The current envelope is 520 equivalents. Completing acceptance alone raises it to 550; further gains depend on the next constraints.",
+      "boundary": "The overhead relation, thermal accounting and workload equivalence are hypothetical. This is not a site estimate or throughput forecast."
+    },
+    "tradeoff": {
+      "choice": "Prioritize an intervention that closes the currently binding service condition.",
+      "benefit": "It can produce useful incremental capacity with less stranded upstream headroom.",
+      "cost": "The next bottleneck may appear quickly; delivery, workload demand and joint constraints determine how much of the intervention becomes useful."
+    },
+    "failure": {
+      "trigger": "A proposal counts all new cooling MW as additional compute MW.",
+      "mechanism": "It ignores non-compute IT, the network envelope or the remaining accepted-service boundary.",
+      "response": "Reconcile the before-and-after ledger and identify every condition required for the claimed gain."
+    },
+    "practice": {
+      "question": "After accepted service reaches 700, cooling reaches 70 MW IT and networking reaches 800 equivalents, what is the ceiling? Would raising only downstream electrical capacity above 70 MW help?",
+      "hint": "Check for tied limits before selecting the next upgrade.",
+      "answer": "The ceiling is 650 equivalents, tied between downstream electrical capacity and cooling. Raising only the electrical limit does not change it.",
+      "reasoning": "Both boundaries allow 70 − 5 = 65 MW of compute, or 650 equivalents. The unchanged thermal limit remains binding after an electrical-only upgrade. The site, space, network and acceptance ceilings are higher under the stated assumptions, so they do not resolve that tie."
+    },
+    "sources": [
+      {
+        "title": "ASHRAE Handbook: PUE and partial-load operation",
+        "url": "https://handbook.ashrae.org/Handbooks/A23/SI/A23_Ch20/a23_ch20_si.aspx",
+        "claim": "The PUE discussion distinguishes facility and IT energy boundaries and describes limitations of comparing operating ratios.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Selected metric-boundary passages inspected. The affine power model and all capacity limits in this lesson are original synthetic inputs, not handbook ratings."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Binding constraint",
+        "definition": "A currently active limit that prevents a greater feasible result under the stated model."
+      },
+      {
+        "term": "Rack equivalent",
+        "definition": "A normalized unit defined by explicit electrical and workload assumptions, not necessarily one physical cabinet."
+      },
+      {
+        "term": "Stranded headroom",
+        "definition": "Unused capability at one boundary that another unmet condition prevents the system from using."
+      }
+    ],
+    "visual": {
+      "kind": "comparison",
+      "title": "The bottleneck moves: 520 → 550 → 600 → 650",
+      "nodes": [
+        {
+          "label": "Accepted service",
+          "detail": "520 equivalents initially"
+        },
+        {
+          "label": "Thermal",
+          "detail": "550 after acceptance expands"
+        },
+        {
+          "label": "Network",
+          "detail": "600 after cooling expands"
+        },
+        {
+          "label": "Electrical + thermal",
+          "detail": "650 after networking expands"
+        }
+      ],
+      "caption": "Original sequence with explicitly nested populations and a consistent non-compute IT load. Capacity is not observed demand."
+    }
+  },
+  {
+    "id": "d15-cost-per-service",
+    "domain": "D15",
+    "title": "Compare the service you receive, not the invoice label",
+    "question": "How should ownership, energy, timing and useful output enter a defensible cost comparison?",
+    "summary": "Build a scoped three-year present-value comparison and show how a stable cost changes meaning when useful output falls.",
+    "takeaway": "Keep scope, cash-flow timing and the useful-service denominator consistent. Lower capital cost alone does not establish lower cost per result.",
+    "objectives": [
+      "D15.2",
+      "D15.3"
+    ],
+    "sections": [
+      {
+        "heading": "Choose one decision boundary",
+        "paragraphs": [
+          "A facility owner, tenant and cloud customer pay for different bundles. An electricity bill may be separate in one arrangement and embedded in another service fee. Hardware, staffing, replacement, financing and residual value may lie with different parties. Before comparing prices, define the service, horizon and costs included on both sides. Otherwise, an apparent saving may simply be an omitted obligation or a transfer of responsibility whose price appears elsewhere.",
+          "Our synthetic comparison covers the same facilities service for three years and deliberately excludes identical customer compute hardware on both sides. Ownership requires $20 million initially, $3 million of annual non-energy operating cost and $4 million of annual energy cost. It has a stipulated $5 million residual value at the end of year three. A contracted alternative costs $11 million per year and includes that same facilities service and energy. These are invented amounts, not market benchmarks.",
+          "The $4 million energy line can be checked separately: 50,000 MWh per year at an assumed $80/MWh equals $4 million. A real tariff can include demand, time variation and other charges; the exercise explicitly uses only a flat energy price. Writing out the quantity and unit price makes the assumption visible and prevents an unexplained annual expense from surviving every later scenario unchanged."
+        ]
+      },
+      {
+        "heading": "Put cash flows on the same clock",
+        "paragraphs": [
+          "A payment today and a payment in three years have different present values under a chosen discounting convention. Use PV = future amount/(1 + r)^t. Here r is a stipulated 8 percent annual rate, with recurring payments at year end and no inflation or tax modeling. NIST Handbook 135 explains life-cycle costing, cash-flow timing and discounting. We use the method with original assumptions; the exercise rate is neither a federal requirement nor a recommendation for a real project.",
+          "The sum of the three year-end discount factors is approximately 2.5771. Ownership therefore costs 20 + 7 × 2.5771 − 5/(1.08³) = $34.07 million in present value. The contracted alternative costs 11 × 2.5771 = $28.35 million. The residual is subtracted because it is an assumed value recovered at the end, not another expenditure. Omitting it or treating it as cash available at time zero changes the comparison incorrectly.",
+          "Financing must match the perspective. This example is an unlevered service-cost comparison with a stipulated discount rate; it does not also insert loan principal and interest payments. A separate financing analysis can model actual funding terms, but adding every financing cash flow to an already inconsistent ownership model can double count or mix perspectives. Likewise, nominal cash flows need a compatible nominal rate, while constant-dollar assumptions need a compatible real treatment. State the convention instead of hiding it in a spreadsheet default."
+        ]
+      },
+      {
+        "heading": "The denominator can reverse the story",
+        "paragraphs": [
+          "Cost per installed megawatt describes a capital-intensity boundary. Cost per accelerator-hour describes an equipment-time boundary. Cost per useful result includes what the workload actually produces under a quality and service requirement. None can substitute for another without an explicit conversion model. A powered accelerator that waits for data still contributes to some time denominators while producing little additional useful work.",
+          "Suppose a fixed scoped cost buys a stipulated ten million acceptable results over the horizon. If useful output falls by twenty percent while cost remains unchanged, eight million results now share the same cost. Cost per result increases by twenty-five percent because 1/0.8 = 1.25. The equipment count and installed MW did not change. This calculation does not explain the lost output; memory, network, storage, recovery or demand conditions must be investigated through evidence.",
+          "A decision should report the assumptions that could change its ranking. Ownership may become preferable with a longer service horizon, a different residual value, different energy exposure or a materially different risk allocation. A service contract may contain minimum commitments, escalation or exit conditions absent from this simple comparison. Those belong in a real evaluation. The lesson’s purpose is to make the arithmetic auditable and the missing terms visible, not to declare one commercial model universally superior."
+        ]
+      }
+    ],
+    "example": {
+      "title": "A three-year facilities-service comparison",
+      "assumptions": [
+        "All amounts synthetic, in millions of dollars; the same facilities scope and service requirement apply.",
+        "Ownership: 20 at time zero, 7 at each year end, residual receipt 5 at the end of year three.",
+        "Contract: 11 at each year end, energy included. Rate 8 percent; no taxes, inflation, financing cash flows or performance differences."
+      ],
+      "steps": [
+        {
+          "label": "Recurring present-value factor",
+          "expression": "1/1.08 + 1/1.08² + 1/1.08³ = 2.5771",
+          "explanation": "Every recurring payment uses the same timing convention."
+        },
+        {
+          "label": "Ownership present cost",
+          "expression": "20 + 7 × 2.5771 − 5/1.08³ ≈ $34.07 million",
+          "explanation": "Subtract the discounted residual at its actual end date."
+        },
+        {
+          "label": "Contract present cost",
+          "expression": "11 × 2.5771 ≈ $28.35 million",
+          "explanation": "The included energy must not be added again."
+        }
+      ],
+      "result": "The contracted alternative has about $5.72 million lower present cost for this invented three-year scope and service.",
+      "boundary": "This is an educational scenario, not a quote, valuation or investment recommendation. Real risk, terms and resource costs require project-specific evidence."
+    },
+    "tradeoff": {
+      "choice": "Own an asset rather than purchase a defined service.",
+      "benefit": "Ownership can provide control over use, changes and residual value within the actual legal and operating arrangement.",
+      "cost": "It carries capital, maintenance, obsolescence and utilization exposure that a comparison must allocate explicitly."
+    },
+    "failure": {
+      "trigger": "A comparison adds electricity to the contract fee even though it is already included, while omitting maintenance from ownership.",
+      "mechanism": "Different cost boundaries manufacture a ranking that no consistent service comparison supports.",
+      "response": "Reconcile inclusions, timing and obligations before interpreting the numerical result."
+    },
+    "practice": {
+      "question": "The contract’s total scoped cost remains fixed, but acceptable output falls from ten million results to eight million. By what percentage does cost per result rise?",
+      "hint": "Divide the old denominator by the new one; do not copy the output-loss percentage.",
+      "answer": "It rises by 25 percent: 10/8 − 1 = 0.25.",
+      "reasoning": "Each remaining result bears a larger share of the unchanged cost. A twenty-percent output reduction is not a twenty-percent unit-cost increase because the new denominator is smaller. Before comparing this ratio across workloads, confirm that a result meets the same quality, latency and scope requirement in both cases."
+    },
+    "sources": [
+      {
+        "title": "NIST Handbook 135, 2025: Life Cycle Costing Manual",
+        "url": "https://nvlpubs.nist.gov/nistpubs/hb/2025/NIST.HB.135e2025.pdf",
+        "claim": "Chapters 2–4 distinguish study periods, cost categories, cash-flow timing and present-value methods; section 3.2 covers single and recurring payments.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Selected scope, timing and discounting passages inspected. Prices, rate, residual and service assumptions are original; no federal compliance or current-market claim is made."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Present value",
+        "definition": "A future cash flow expressed at a common base date using the stated discount convention."
+      },
+      {
+        "term": "Residual value",
+        "definition": "A stipulated remaining asset value at the end of the study period."
+      },
+      {
+        "term": "Useful result",
+        "definition": "A workload outcome meeting an explicitly defined quality and service requirement."
+      }
+    ],
+    "visual": {
+      "kind": "timeline",
+      "title": "The same service on the same three-year clock",
+      "nodes": [
+        {
+          "label": "Time zero",
+          "detail": "Ownership: $20m"
+        },
+        {
+          "label": "Years 1–3",
+          "detail": "Ownership: $7m/year; contract: $11m/year"
+        },
+        {
+          "label": "End of year 3",
+          "detail": "Ownership residual: $5m"
+        },
+        {
+          "label": "Present costs",
+          "detail": "$34.07m versus $28.35m"
+        }
+      ],
+      "caption": "Original financial arithmetic with a stipulated 8 percent rate. Bundled costs and residual timing remain visible."
+    }
+  },
+  {
+    "id": "d15-upgrade-and-evidence",
+    "domain": "D15",
+    "title": "Choose the intervention, then audit the claim",
+    "question": "Which improvement delivers useful results within the horizon, and which public statements actually support the project model?",
+    "summary": "Compare original intervention scenarios with different delivery dates, then audit a dated Stargate announcement without converting planned capacity into measured operation.",
+    "takeaway": "A decision connects constraints, useful output, time and evidence. Keep synthetic calculations separate from what a named source actually establishes.",
+    "objectives": [
+      "D15.4",
+      "D15.5"
+    ],
+    "sections": [
+      {
+        "heading": "An intervention needs a causal route to useful output",
+        "paragraphs": [
+          "An upgrade should name the limiting condition it changes and the service that benefits. A network intervention can reduce waiting without increasing available electrical MW. A cooling intervention can permit a higher physical load while leaving storage or commissioning as a separate constraint. Before assigning an economic benefit, confirm that the revised configuration, workload and accepted paths support the additional useful output. Removing a local bottleneck does not by itself establish the end-to-end gain.",
+          "Our synthetic brief stipulates that two alternatives have already passed those feasibility checks for the same workload and output-quality requirement. The network option costs $4 million and immediately adds eighty acceptable results per operating hour. The cooling option costs $6 million, arrives one year later and then adds one hundred fifty results per operating hour. There are eight thousand usable hours per year and a three-year evaluation horizon. These are supplied scenario outcomes, not watts-to-tokens conversions.",
+          "The timing is consequential. The immediate network option produces 80 × 8,000 × 3 = 1.92 million additional results. The delayed cooling option produces 150 × 8,000 × 2 = 2.40 million. Dividing initial cost by these increments gives about $2.08 and $2.50 per additional result respectively. This is a narrow capital-per-increment screening ratio: energy, discounting, recurring cost, risk and residual value are excluded explicitly, so it is not a complete investment decision."
+        ]
+      },
+      {
+        "heading": "Sensitivity should find the assumption that reverses the answer",
+        "paragraphs": [
+          "If the cooling option becomes available immediately, its increment rises to 3.60 million results and its screening ratio falls to about $1.67. The ranking reverses without changing its equipment performance or initial cost. Delivery time was the decisive assumption. The GAO schedule guide makes the broader connection between schedule and cost assessment; this original example also connects schedule with the time available to deliver useful service.",
+          "Actual use is another condition. An added capacity envelope does not guarantee customers, jobs or data that can occupy it productively. If only half of the stipulated incremental results are demanded, dividing by the full capacity output understates realized unit cost. Similarly, an intervention that shifts quality or latency cannot be compared using an unchanged result label without checking the service contract. Scenario comparisons should change one assumption at a time before exploring combinations.",
+          "The decision record should state the current choice, supporting evidence and condition for reconsideration. Physical necessity may survive every scenario while the preferred delivery option changes with demand. Explain which uncertain inputs govern the decision rather than presenting a large spreadsheet without an argument."
+        ]
+      },
+      {
+        "heading": "A named project requires a different evidence ledger",
+        "paragraphs": [
+          "Now leave the synthetic brief entirely. OpenAI’s article dated September 23, 2025, with a later October update on the page, describes a broader Stargate plan and says early workloads had begun at the Abilene campus. The same article describes nearly 7 GW as planned capacity across multiple projects. Those are different claims with different subjects and statuses. The presence of an operational statement about one campus cannot convert the entire announced program into operating capacity.",
+          "A useful ledger records the entity, quantity, unit, status, boundary, source date and exact claim supported. For this article, one row can record the publisher’s statement about early Abilene workloads. Another can record the planned program total. A third can record a potential expansion as potential, not additive operating inventory. The page alone does not establish current metered demand, full commissioned MW, detailed topology, economics or the configuration of every building. Those cells stay unresolved.",
+          "Treat this as a dated document audit, not an assertion about September 2026 operating conditions. A present-day claim would require refreshed evidence. Likewise, several partners repeating one joint announcement do not necessarily provide independent confirmation. Trace original records where available, preserve changes and contradictions, and distinguish a publisher statement from independently observed measurements. The course becomes a useful reference when its reasoning remains inspectable even where the public evidence stops."
+        ]
+      }
+    ],
+    "example": {
+      "title": "Delivery timing changes the screening ranking",
+      "assumptions": [
+        "Entirely synthetic alternatives serving the same acceptable-result definition.",
+        "Network: $4m, available immediately, +80 results/hour. Cooling: $6m, available after one year, +150 results/hour.",
+        "Three-year horizon; 8,000 usable hours/year; every incremental result is demanded. This screening excludes recurring costs, discounting and residuals."
+      ],
+      "steps": [
+        {
+          "label": "Network increment",
+          "expression": "80 × 8,000 × 3 = 1,920,000 results",
+          "explanation": "Immediate delivery uses the full modeled horizon."
+        },
+        {
+          "label": "Delayed cooling increment",
+          "expression": "150 × 8,000 × 2 = 2,400,000 results",
+          "explanation": "The first year contributes no incremental cooling-enabled output."
+        },
+        {
+          "label": "Capital per incremental result",
+          "expression": "$4m/1.92m ≈ $2.08; $6m/2.40m = $2.50",
+          "explanation": "The ratio compares only the stated initial expenditure with the stated incremental output."
+        },
+        {
+          "label": "Immediate cooling alternative",
+          "expression": "$6m/(150 × 8,000 × 3) ≈ $1.67/result",
+          "explanation": "Changing delivery alone reverses this limited screening ranking."
+        }
+      ],
+      "result": "The immediate network option wins the base screening ratio; immediate cooling would win the revised one. A full decision needs the excluded costs and risks.",
+      "boundary": "None of these prices or output rates describes Stargate or any named product. The document audit is separate from the numerical scenario."
+    },
+    "tradeoff": {
+      "choice": "Choose earlier service with a smaller steady output increment.",
+      "benefit": "It may deliver more value within a short or time-sensitive opportunity than a later, larger technical improvement.",
+      "cost": "Longer horizons, recurring costs, uncertainty or a changed service requirement can reverse the preference."
+    },
+    "failure": {
+      "trigger": "A planned program total is inserted as operating capacity in the upgrade model.",
+      "mechanism": "Different sites, dates and status categories are collapsed into a quantity the evidence does not establish.",
+      "response": "Rebuild the ledger by entity and state; leave unverified commissioning, demand and throughput values blank rather than substituting generic assumptions."
+    },
+    "practice": {
+      "question": "A dated announcement states that early jobs are running at one campus and separately lists a multi-site planned MW total. What operating MW value can you assign to the entire program from those statements alone?",
+      "hint": "An existential statement about some operating work does not quantify every planned site.",
+      "answer": "No quantitative operating-MW total for the entire program is established by those statements alone.",
+      "reasoning": "The first statement supports a publisher-reported instance of operation at a named campus and date. The second supports a plan across a different population. Neither specifies the measured or commissioned aggregate now in service. Record both claims with their boundaries, identify the missing site-level evidence and avoid adding overlapping phases or treating planned capacity as observed demand."
+    },
+    "sources": [
+      {
+        "title": "GAO Schedule Assessment Guide",
+        "url": "https://www.gao.gov/products/gao-16-89g",
+        "claim": "The guide overview connects schedule credibility and slippage with program cost assessment.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Overview reviewed. The intervention prices, rates, horizon and screening ratios are original and are not project forecasts."
+      },
+      {
+        "title": "OpenAI: Five new Stargate sites",
+        "url": "https://openai.com/index/five-new-stargate-sites/",
+        "claim": "The article distinguishes a multi-site planned capacity total from its statement about early workloads at Abilene.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Main article and visible October 22, 2025 update inspected on September 6, 2026. This lesson audits the dated statements; it does not establish current operating MW, complete topology or site economics."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Sensitivity analysis",
+        "definition": "Recalculating a decision result when specified assumptions change."
+      },
+      {
+        "term": "Incremental output",
+        "definition": "Additional acceptable work relative to an explicit baseline over a stated period."
+      },
+      {
+        "term": "Evidence ledger",
+        "definition": "A structured record of claims, entities, boundaries, dates, support and unresolved quantities."
+      }
+    ],
+    "visual": {
+      "kind": "comparison",
+      "title": "Keep the scenario and the source ledger separate",
+      "nodes": [
+        {
+          "label": "Synthetic intervention",
+          "detail": "Cost, readiness and added useful results"
+        },
+        {
+          "label": "Decision sensitivity",
+          "detail": "Which changed assumption reverses the ranking?"
+        },
+        {
+          "label": "Named-project evidence",
+          "detail": "Entity, date, boundary and claim status"
+        },
+        {
+          "label": "Unknowns",
+          "detail": "No fabricated operating MW or economics"
+        }
+      ],
+      "caption": "Original decision model beside a dated document-audit method. Named-project claims are never filled with synthetic example numbers."
+    }
+  }
+]
