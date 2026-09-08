@@ -25,9 +25,10 @@ no wholesale reproduction of third-party prose or figures.
 ## Presentation authoring
 
 A reading lesson is not a presentation sequence. `sample-presentation.json`
-owns seven deliberately authored beats for the 800 V sample. Each beat has a
+owns eight deliberately authored beats for the 800 V sample. Each beat has a
 short audience headline/caption and separate speaker notes, action cue and
-rehearsal timing target. Essential units and model assumptions remain visible.
+rehearsal timing target. Each also has a student explanation.
+Student view is the default; teaching mode is explicitly selected by endpoint. Essential units and model assumptions remain visible.
 Do not auto-generate slides from paragraphs or put the narration on screen.
 The sample uses the same tested DC arithmetic as the reader. See
 [PRESENTING.md](../PRESENTING.md) before adapting further lessons.

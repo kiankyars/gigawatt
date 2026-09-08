@@ -2,11 +2,13 @@
 
 **D06 · Authored draft · Objectives:** D06.2, D06.3
 
-A short review sample: hold a hypothetical DC load fixed, compare the current, then trace the equipment that still has to do its job.
+Compare 48 V DC with 800 V DC at equal delivered power, close the conductor energy balance, then compare complete AC-distributed and DC-distributed paths using explicit hypothetical losses.
 
 **Driving question:** What does higher distribution voltage solve, and what does it leave for the rest of the facility?
 
 ## Keep the useful load fixed
+
+The first comparison is 48 V DC versus 800 V DC. Both values are receiving-end voltages across the same stated DC load boundary. It does not compare an AC waveform with a DC waveform. AC and DC arrangements are compared separately below using a complete, explicitly hypothetical loss budget.
 
 Start with a hypothetical load receiving 100 kilowatts of direct-current power. A watt is a rate of energy transfer. Voltage describes energy transferred per unit charge; current describes charge flowing per second. At this DC boundary, power equals voltage multiplied by current: P = V × I. To find current, divide the required power by the voltage. We are holding the load fixed so that changing one variable has an interpretable consequence.
 
@@ -23,6 +25,26 @@ Use the architecture buttons below. In the sidecar view, locate the words existi
 Conductor heating is I²R: current squared times resistance. If we deliberately hold the conductor resistance fixed, the 800-volt current is 48/800 of the 48-volt current. Squaring that ratio gives 0.0036. The calculated conductor loss is therefore 0.36 percent of the reference loss. This is a useful mechanism to understand. It is not a measured whole-facility energy saving.
 
 A real comparison must also account for converter efficiency, cable geometry, insulation, connectors, fault clearing, grounding, load transients and service access. Changing the conductor size changes resistance, so it changes the comparison. Changing conversion stages changes other losses. Before moving the voltage control, predict that current will fall. Before recommending an architecture, identify which complete project constraint it would actually relieve.
+
+## Close the conductor energy balance
+
+Assume a 1 mΩ complete conductor loop, equal in both cases. Maintain 100 kW at the load end at either 48 V DC or 800 V DC. The source voltage covers the additional conductor drop.
+
+The source supplies the load plus conductor heat: about 104.340 kW in the 48 V case and 100.016 kW in the 800 V case. Over one hour, the latter requires about 4.325 kWh less input. No energy is created.
+
+This is still a DC-versus-DC conductor comparison. Converter and cooling losses are excluded.
+
+At 48 V, I = 2,083.333 A and I²R = 4.340278 kW. At 800 V, I = 125 A and I²R = 0.015625 kW. Required sending voltages are about 50.083 V and 800.125 V respectively. Specifying receiving-end voltage is essential: silently treating 48 V as both the sending and receiving voltage would ignore the drop.
+
+## Compare AC and DC arrangements at the same final load
+
+Compare complete delivery paths serving the same 100 kW final DC load. The loss figures here are invented at this operating point. Both paths include their total conversion losses.
+
+At the defaults, AC needs 100 + 1 + 4 = 105 kW and DC needs 100 + 0.1 + 3 = 103.1 kW. Over one hour, the DC arrangement uses 1.9 kWh less input.
+
+Raise DC conversion loss to 6 kW: DC input becomes 106.1 kW and exceeds AC input. The advantage depends on the whole loss budget, not the AC/DC label alone.
+
+The total conversion-loss input includes every converter within the selected delivery path; it is not an efficiency assumed for one unnamed device. Fixed losses here are supplied scenario values at one load point. Neither the 1 mΩ loop of the earlier example nor its losses carry into this separate comparison. Cooling and other facility overhead are outside both budgets.
 
 ## Worked example: The same power at two stated DC voltages
 
@@ -55,19 +77,19 @@ Response: Close the electrical and thermal ledgers at the same boundary before c
 
 ## Apply the idea
 
-The hypothetical 800 V load rises from 100 kW to 160 kW. What current does it require? Does that calculation establish that an existing 150 kW upstream AC feeder can support the load?
+Keep the AC path at 1 kW conductor loss plus 4 kW total conversion loss. The DC path has 0.1 kW conductor loss, but its total conversion loss rises to 6 kW. Both supply a 100 kW final DC load for one hour. Which needs more input energy, and by how much?
 
 <details>
 <summary>Reveal the worked answer</summary>
 
-Current is 160,000/800 = 200 A. A 150 kW upstream feeder cannot supply 160 kW of downstream load, even before conversion losses.
+AC needs 105 kWh. DC needs 106.1 kWh. DC uses 1.1 kWh more input energy in this hypothetical comparison.
 
-Lower current at the high-voltage segment does not remove the upstream power requirement. The load needs at least 160 kW from upstream; actual conversion loss increases that requirement.
+Add all path losses to the same delivered load before multiplying by the common duration. The DC conductor loss is lower, but the conversion loss is sufficiently higher to reverse the total-energy advantage.
 
 </details>
 
-**The idea to keep:** Higher voltage reduces current at a fixed DC power boundary. The complete architecture decides where conversion, heat, protection and maintenance happen.
+**The idea to keep:** Higher voltage can reduce conductor loss. Lower whole-path energy input depends on all losses at equal useful output; energy is conserved.
 
 ## Sources and reading boundaries
 
-- [Why Scaling AI Compute Performance Requires a New Power Architecture](https://blogs.nvidia.com/blog/800-vdc-power-architecture-ai-factory/) — Distinguishes hybrid power-rack, row and broader facility-DC directions; all numerical inputs and comparisons here are original teaching assumptions. Read 2026-09-06. August 11, 2026 vendor roadmap. Proposed architecture and availability expectations are distinct from a verified installed deployment.
+- [Why Scaling AI Compute Performance Requires a New Power Architecture](https://blogs.nvidia.com/blog/800-vdc-power-architecture-ai-factory/) — Provides context for higher-voltage DC distribution and conversion placement. All voltages, loads, loop resistance and loss budgets used in calculations are explicitly original teaching assumptions. Read 2026-09-08. August 11, 2026 vendor roadmap. Proposed architecture and availability expectations are distinct from a verified installed deployment.

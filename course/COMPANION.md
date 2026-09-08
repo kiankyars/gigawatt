@@ -1,7 +1,7 @@
 # GIGAWATT companion
 
 Implementation and editorial contract, **2026-09-06**. The [reader](index.html)
-now includes 50 authored lessons, search, 137 glossary terms, eight numerical
+now includes 50 authored lessons, search, 140 glossary terms, eight numerical
 model types, five ImageGen illustrations, practice answers and specific source
 reading notes. The [sample](sample.html) now has a separate visual presentation and presenter
 notes following feedback that the reading page was too crowded for screen sharing.
@@ -20,11 +20,13 @@ The [domain map](DOMAIN_MAP.md) currently organizes 65 objectives into 15 domain
 
 | Surface | Intended use | What appears there |
 | --- | --- | --- |
-| **Present** | Screen sharing and recording | One visual idea at a time, short labels, essential assumptions, deliberate reveals and input changes. |
+| **Present** | Unrecorded teaching dry run, then recording | One visual idea at a time, short labels, essential assumptions, deliberate reveals and input changes. |
 | **Presenter notes** | Private delivery support in a separate window | Narration, action cues, reasoning boundaries and the next visual. Keep this window outside the captured area. |
 | **Read / look up** | Independent study and reference | Full explanations, derivations, practice solutions, glossary and sources. |
 
-The [800 V sample](sample.html) implements all three. Its seven visual steps were
+The default [student sample](sample.html), [teaching endpoint](teach.html) and
+separate presenter notes implement these surfaces. Kian will first teach an
+unrecorded dry run to identify gaps before preparing the recording. Its eight visual steps were
 authored deliberately; the other 50 lesson texts remain reading material pending
 presentation adaptation. [PRESENTING.md](PRESENTING.md) describes the recording
 workflow and the contract for converting later lessons. A long scrolling page
@@ -99,7 +101,7 @@ For the web companion, verify keyboard navigation, visible focus, labeled contro
 | Artifact | Current state | Remaining work |
 | --- | --- | --- |
 | [Expanded reader](index.html) and [manuscript](EXPANDED_COURSE.md) | 45 domain lessons and five integrated cases, with all 65 objective mappings | Expert/learner review and final narration/editing |
-| Search, glossary and practice | 137 terms, lesson-text search, answer reveals and private in-page reasoning drafts | Learner tests of findability and transfer |
+| Search, glossary and practice | 140 terms, lesson-text search, answer reveals and private in-page reasoning drafts | Learner tests of findability and transfer |
 | Numerical models | Eight bounded interactions with independent arithmetic tests | Specialist review of physical boundaries and selected real-case inputs |
 | [ImageGen assets](assets/README.md) | Five original equipment illustrations, with preserved prompts and exact code-rendered labels/calculations | Recorded-size legibility and narration rehearsal |
 | [Research library](../research/INDEX.md) | Persistent source records plus lesson-specific claim and reading limits | Continue primary checks and resolve inaccessible or disputed details |

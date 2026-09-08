@@ -2,7 +2,7 @@
 
 **From watts to racks, useful compute, and operation.**
 
-[Read the course](course/index.html) · [Present the 800 V sample](course/sample.html)
+[Read the course](course/index.html) · [Explore the 800 V sample](course/sample.html) · [Teach](course/teach.html)
 · [Domain atlas](course/domain-map.html) · [Research library](research/INDEX.md)
 
 GIGAWATT is an authored draft of a visual reference course on modern AI data
@@ -13,7 +13,7 @@ a solved example, a tradeoff, a failure or limit, and changed-scenario practice.
 All 65 domain objectives have authored teaching and practice mappings.
 
 The reader combines five original GPT ImageGen equipment illustrations with
-eight kinds of numerical interaction, searchable lessons, a 137-term glossary,
+eight kinds of numerical interaction, searchable lessons, a 140-term glossary,
 source reading boundaries, and worked-answer reveals. Exact calculations are
 rendered in code; illustrative equipment geometry never establishes a rating
 or a buildable design. The [22-lesson introduction](diagram/index.html) remains
@@ -26,10 +26,12 @@ not establish a recorded duration, learner comprehension or engineering review.
 
 ## Teach, present, and read
 
-The [800 V sample](course/sample.html) is now a seven-step presentation for screen
-sharing. Advance through one visual at a time and explain it aloud. **Presenter
-notes** opens the narration and cues in a separate synchronized window; **Read the
-lesson** opens the full written explanation. [Recording workflow](course/PRESENTING.md).
+The [student sample](course/sample.html) offers visual steps and optional
+explanations. The separate [teaching endpoint](course/teach.html) enables presenter
+controls and synchronized notes. Kian will teach an unrecorded dry run first to
+identify gaps, then refine the explanation before recording. The eight-step
+sample now distinguishes a DC voltage comparison from a complete AC/DC loss
+budget. [Dry-run workflow](course/PRESENTING.md).
 
 The 50-lesson reader is the study/reference companion. Only the sample currently
 has a deliberately authored presentation sequence; the remaining lessons need

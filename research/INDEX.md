@@ -92,7 +92,9 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [E7B9A3E66DB — Google SRE: Service Level Objectives](sources/E7B9A3E66DB.md) | sre.google | D14 | page_reviewed |
 | [E80C73CE756 — Scaling AI Factories with Co-Packaged Optics for Better Power Efficiency](sources/E80C73CE756.md) | developer.nvidia.com | D08 | page_reviewed |
 | [E89E077D5C1 — DOE FEMP: Cooling Tower Management](sources/E89E077D5C1.md) | www.energy.gov | D11 | page_reviewed |
+| [E8D4F19907B — Open Compute Project — Open Rack V3 Base Specification, revision 1.0](sources/E8D4F19907B.md) | Open Compute Project | D06 | page_reviewed |
 | [E95181BB427 — USGS: What is seismic hazard?](sources/E95181BB427.md) | www.usgs.gov | D12 | page_reviewed |
+| [E960EB5ED2E — Eaton — Rack Basics: Selection, Installation and Cooling](sources/E960EB5ED2E.md) | Eaton | D06 | public_excerpt_reviewed |
 | [E9ACF1B58FE — NVIDIA Optical Transceivers and Cables](sources/E9ACF1B58FE.md) | www.nvidia.com | D08 | page_reviewed |
 | [E9FFEE6828F — Schneider Electric — Coordination between circuit-breakers](sources/E9FFEE6828F.md) | www.electrical-installation.org | D05 | page_reviewed |
 | [EB0CA366091 — NCCL Collective Operations](sources/EB0CA366091.md) | docs.nvidia.com | D08 | page_reviewed |

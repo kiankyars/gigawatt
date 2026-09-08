@@ -619,6 +619,8 @@ Explain how retrofit constraints can reverse a seemingly attractive greenfield a
 - [SA24 — Vera Rubin – Extreme Co-Design: An Evolution from Grace Blackwell Oberon](https://newsletter.semianalysis.com/p/vera-rubin-extreme-co-design-an-evolution) · `public_excerpt_reviewed` · [local note](../research/sources/SA24.md)
 - [P16 — Why Scaling AI Compute Performance Requires a New Power Architecture](https://blogs.nvidia.com/blog/800-vdc-power-architecture-ai-factory/) · `page_reviewed` · [local note](../research/sources/P16.md)
 - [P17 — NVIDIA NVL72 AI Factory — System Hardware & Components](https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/components.html) · `page_reviewed` · [local note](../research/sources/P17.md)
+- [E960EB5ED2E — Eaton — Rack Basics: Selection, Installation and Cooling](https://tripplite.eaton.com/support/rack-cabinet-basics-selection-installation-cooling) · `public_excerpt_reviewed` · [local note](../research/sources/E960EB5ED2E.md)
+- [E8D4F19907B — Open Compute Project — Open Rack V3 Base Specification, revision 1.0](https://www.opencompute.org/documents/open-rack-base-specification-version-3-pdf) · `page_reviewed` · [local note](../research/sources/E8D4F19907B.md)
 
 <a id="d07"></a>
 

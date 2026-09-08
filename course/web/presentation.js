@@ -3,7 +3,9 @@ const PRESENTATION = JSON.parse(
 );
 const STEPS = PRESENTATION.steps;
 const DEFAULTS = PRESENTATION.defaults;
-const notesMode = location.pathname.endsWith("sample-notes.html");
+const notesMode = document.body.dataset.view === "notes";
+const teachingMode = document.body.dataset.view === "teach";
+const studentMode = !notesMode && !teachingMode;
 const byId = (id) => document.getElementById(id);
 const escapeHTML = (value) =>
   String(value).replace(
@@ -17,17 +19,27 @@ const fmt = (value, decimals = 0) =>
   value.toLocaleString("en-US", { maximumFractionDigits: decimals });
 let index = Math.max(
   0,
-  STEPS.findIndex((step) => `#${step.id}` === location.hash),
+  STEPS.findIndex(
+    (step) =>
+      step.id ===
+      (PRESENTATION.aliases?.[location.hash.slice(1)] ||
+        location.hash.slice(1)),
+  ),
 );
-let state = { index, revealed: [], volts: DEFAULTS.comparison_voltage_v };
+let state = {
+  index,
+  revealed: [],
+  volts: DEFAULTS.comparison_voltage_v,
+  dcConversionKW: DEFAULTS.dc_conversion_kw,
+};
 const session =
   new URLSearchParams(location.search).get("session") || crypto.randomUUID();
 const channel =
-  typeof BroadcastChannel === "function"
+  !studentMode && typeof BroadcastChannel === "function"
     ? new BroadcastChannel(`gigawatt-sample-${session}`)
     : null;
 const role = notesMode ? "notes" : "audience";
-const revealKinds = new Set(["current", "loss", "transfer"]);
+const revealKinds = new Set(["current", "loss", "energy", "paths"]);
 const isRevealed = () => state.revealed.includes(STEPS[state.index].id);
 
 function validState(value) {
@@ -40,7 +52,10 @@ function validState(value) {
     value.revealed.every((id) => STEPS.some((s) => s.id === id)) &&
     Number.isFinite(value.volts) &&
     value.volts >= 48 &&
-    value.volts <= 800
+    value.volts <= 800 &&
+    Number.isFinite(value.dcConversionKW) &&
+    value.dcConversionKW >= 1 &&
+    value.dcConversionKW <= 7
   );
 }
 function publish() {
@@ -132,13 +147,87 @@ function architecture(kind) {
   }[kind];
   return `<div class="architecture"><div class="path"><section class="zone ${kind === "facility" ? "active" : ""}"><h2 class="zone-title">Upstream facility</h2><div class="zone-body">${facility}</div></section><section class="zone ${kind === "sidecar" ? "active" : ""}"><h2 class="zone-title">${kind === "sidecar" ? "Nearby power rack / sidecar" : "Distribution space"}</h2><div class="zone-body">${adjacent}</div></section><section class="zone rack ${kind === "ac" ? "active" : ""}"><h2 class="zone-title">Compute rack</h2><div class="zone-body">${rack}</div></section></div><p class="path-label">${kind === "ac" ? "AC toward the rack" : kind === "sidecar" ? "AC to the sidecar → 800 V DC toward the rack" : "AC conversion upstream → DC across the facility"}</p><p class="boundary-line">${observation}</p></div>`;
 }
-function transfer() {
-  const shown = isRevealed(),
-    amps = dcModel(
-      DEFAULTS.transfer_power_kw,
-      DEFAULTS.transfer_voltage_v,
-    ).amps;
-  return `<div class="transfer"><div class="transfer-path"><div class="metric-card"><p class="metric-label">Upstream feeder limit</p>${metric(DEFAULTS.transfer_feeder_kw, "kW")}</div><div class="transfer-arrow" aria-hidden="true">→</div><div class="metric-card changed"><p class="metric-label">Downstream DC load</p>${metric(DEFAULTS.transfer_power_kw, "kW")}<p class="metric-sub">at ${DEFAULTS.transfer_voltage_v} V · ${shown ? `${fmt(amps)} A` : "What current?"}</p></div></div><div class="answer-strip">${shown ? `<b>${fmt(amps)} A · No</b><p>${DEFAULTS.transfer_feeder_kw} kW cannot supply ${DEFAULTS.transfer_power_kw} kW, even before losses.</p>` : `<button id="reveal">Reveal current + feeder answer</button>`}</div></div>`;
+function ledgerCard(title, rows, inputKW, shown, changed = false) {
+  return `<section class="ledger-card ${changed ? "changed" : ""}"><h2>${title}</h2><dl>${rows.map(([label, value]) => `<div><dt>${label}</dt><dd>${value} <small>kW</small></dd></div>`).join("")}</dl><div class="ledger-total"><span>Required input</span><strong>${shown ? fmt(inputKW, 3) : "?"} <small>kW</small></strong></div></section>`;
+}
+function energy() {
+  const low = dcConductorModel(
+    DEFAULTS.power_kw,
+    48,
+    DEFAULTS.loop_ohms,
+    DEFAULTS.hours,
+  );
+  const high = dcConductorModel(
+    DEFAULTS.power_kw,
+    800,
+    DEFAULTS.loop_ohms,
+    DEFAULTS.hours,
+  );
+  const shown = isRevealed();
+  return `<div class="energy-ledger"><div class="model-top"><span class="chip">DC SEGMENT · 100 kW DELIVERED</span><span class="ledger-formula">Input = delivered power + heat</span></div><div class="comparison">${ledgerCard(
+    "48 V DC at the load",
+    [
+      ["Delivered power", "100"],
+      ["Conductor heat", fmt(low.lossKW, 3)],
+    ],
+    low.inputKW,
+    shown,
+  )}${ledgerCard(
+    "800 V DC at the load",
+    [
+      ["Delivered power", "100"],
+      ["Conductor heat", fmt(high.lossKW, 3)],
+    ],
+    high.inputKW,
+    shown,
+    true,
+  )}</div><div class="ledger-result">${shown ? `<strong>${fmt(low.inputKWh - high.inputKWh, 3)} kWh less input over 1 h</strong><span>Same useful output. Less energy dissipated as heat.</span>` : `<button id="reveal">Reveal the required input</button>`}</div></div>`;
+}
+function pathNumbers() {
+  return {
+    ac: deliveryPathModel(
+      DEFAULTS.power_kw,
+      DEFAULTS.ac_conversion_kw,
+      DEFAULTS.ac_conductor_kw,
+      DEFAULTS.hours,
+    ),
+    dc: deliveryPathModel(
+      DEFAULTS.power_kw,
+      state.dcConversionKW,
+      DEFAULTS.dc_conductor_kw,
+      DEFAULTS.hours,
+    ),
+  };
+}
+function pathResult(ac, dc) {
+  const difference = ac.inputKWh - dc.inputKWh;
+  return Math.abs(difference) < 1e-9
+    ? "Same input energy over 1 h"
+    : `DC uses ${fmt(Math.abs(difference), 1)} kWh ${difference > 0 ? "less" : "more"} input over 1 h`;
+}
+function paths() {
+  const { ac, dc } = pathNumbers(),
+    shown = isRevealed();
+  return `<div class="energy-ledger"><div class="model-top"><span class="chip">HYPOTHETICAL LOSSES · 100 kW FINAL DC LOAD</span><span class="ledger-formula">Input = load + all path losses</span></div><div class="comparison">${ledgerCard(
+    "AC-distributed path",
+    [
+      ["Final DC load", "100"],
+      ["Conductors", fmt(DEFAULTS.ac_conductor_kw)],
+      ["All conversion", fmt(DEFAULTS.ac_conversion_kw)],
+    ],
+    ac.inputKW,
+    shown,
+  )}<div id="dc-path-card">${ledgerCard(
+    "DC-distributed path",
+    [
+      ["Final DC load", "100"],
+      ["Conductors", fmt(DEFAULTS.dc_conductor_kw, 1)],
+      ["All conversion", fmt(state.dcConversionKW, 1)],
+    ],
+    dc.inputKW,
+    shown,
+    true,
+  )}</div></div>${shown ? `<div class="control-line"><label for="dc-conversion">DC conversion loss</label><input id="dc-conversion" type="range" min="1" max="7" step="0.1" value="${state.dcConversionKW}" /><output id="dc-conversion-value" for="dc-conversion">${fmt(state.dcConversionKW, 1)} kW</output><button id="dc-loss-reset">Reset</button></div><div class="ledger-result"><strong id="path-result">${pathResult(ac, dc)}</strong></div>` : `<div class="ledger-result"><button id="reveal">Reveal both input budgets</button></div>`}</div>`;
 }
 function renderNotes() {
   const step = STEPS[state.index];
@@ -155,6 +244,13 @@ function renderNotes() {
       "afterbegin",
       `<p class="cue">Live comparison: ${state.volts} V · ${fmt(dcModel(DEFAULTS.power_kw, state.volts).amps, 1)} A</p>`,
     );
+  if (step.kind === "paths" && isRevealed()) {
+    const { ac, dc } = pathNumbers();
+    byId("narration").insertAdjacentHTML(
+      "afterbegin",
+      `<p class="cue">Live DC conversion loss: ${fmt(state.dcConversionKW, 1)} kW. ${pathResult(ac, dc)}.</p>`,
+    );
+  }
   byId("notes-next").textContent =
     STEPS[state.index + 1]?.headline ||
     "End of sample. Discuss the learner’s reasoning.";
@@ -165,9 +261,31 @@ function renderNotes() {
     ? "Hide answer"
     : "Reveal answer";
   byId("audience-link").href =
-    `sample.html?session=${encodeURIComponent(session)}#${step.id}`;
+    `teach.html?session=${encodeURIComponent(session)}#${step.id}`;
 }
 function bindVisual() {
+  byId("dc-conversion")?.addEventListener("input", (event) => {
+    state.dcConversionKW = Number(event.target.value);
+    const { ac, dc } = pathNumbers();
+    byId("dc-path-card").innerHTML = ledgerCard(
+      "DC-distributed path",
+      [
+        ["Final DC load", "100"],
+        ["Conductors", fmt(DEFAULTS.dc_conductor_kw, 1)],
+        ["All conversion", fmt(state.dcConversionKW, 1)],
+      ],
+      dc.inputKW,
+      true,
+      true,
+    );
+    byId("dc-conversion-value").textContent =
+      `${fmt(state.dcConversionKW, 1)} kW`;
+    byId("path-result").textContent = pathResult(ac, dc);
+    publish();
+  });
+  byId("dc-loss-reset")?.addEventListener("click", () =>
+    change({ dcConversionKW: DEFAULTS.dc_conversion_kw }),
+  );
   byId("reveal")?.addEventListener("click", reveal);
   byId("voltage")?.addEventListener("input", (event) => {
     state.volts = Number(event.target.value);
@@ -199,16 +317,28 @@ function render() {
   byId("scene-title").textContent = step.headline;
   byId("caption").textContent = step.caption;
   byId("visual").innerHTML = (
-    { intro, current, loss, transfer }[step.kind] ||
+    { intro, current, loss, energy, paths }[step.kind] ||
     (() => architecture(step.kind))
   )();
   byId("previous").disabled = state.index === 0;
   byId("next").disabled = state.index === STEPS.length - 1;
   byId("next").innerHTML =
-    state.index === STEPS.length - 1 ? "End of sample" : "<span>Next</span> →";
+    state.index === STEPS.length - 1
+      ? "<span>End of sample</span> ✓"
+      : "<span>Next</span> →";
+  if (studentMode)
+    byId("student-explanation").innerHTML = step.explanation
+      .map((p) => `<p>${escapeHTML(p)}</p>`)
+      .join("");
   bindVisual();
   if (focus === "reveal") byId("scene").focus({ preventScroll: true });
 }
+byId("view-label").textContent = studentMode
+  ? "800 V DC · EXPLORE"
+  : "800 V DC · TEACH";
+byId("open-notes").hidden = !teachingMode;
+byId("fullscreen").hidden = !teachingMode;
+byId("student-context").hidden = !studentMode;
 byId("audience").hidden = notesMode;
 byId("presenter").hidden = !notesMode;
 byId("previous").addEventListener("click", () => move(-1));
@@ -236,7 +366,6 @@ byId("fullscreen").addEventListener("click", async () => {
   }
 });
 document.addEventListener("fullscreenchange", () => {
-  byId("workflow").hidden = Boolean(document.fullscreenElement);
   byId("fullscreen").setAttribute(
     "aria-label",
     document.fullscreenElement ? "Exit fullscreen" : "Enter fullscreen",
@@ -261,11 +390,18 @@ document.addEventListener("keydown", (event) => {
     move(-1);
   }
   if (event.key.toLowerCase() === "r") reveal();
-  if (event.key.toLowerCase() === "p" && !notesMode) byId("open-notes").click();
-  if (event.key.toLowerCase() === "f" && !notesMode) byId("fullscreen").click();
+  if (event.key.toLowerCase() === "p" && teachingMode)
+    byId("open-notes").click();
+  if (event.key.toLowerCase() === "f" && teachingMode)
+    byId("fullscreen").click();
 });
 window.addEventListener("hashchange", () => {
-  const selected = STEPS.findIndex((s) => `#${s.id}` === location.hash);
+  const selected = STEPS.findIndex(
+    (s) =>
+      s.id ===
+      (PRESENTATION.aliases?.[location.hash.slice(1)] ||
+        location.hash.slice(1)),
+  );
   if (selected >= 0) change({ index: selected });
 });
 if (channel) {

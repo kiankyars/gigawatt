@@ -1,66 +1,70 @@
-# Teaching from the sample
+# Teach the sample
 
-[Open the visual presentation](sample.html) · [Read the lesson](sample-reading.html) · [Presenter notes](sample-notes.html)
+[Teaching endpoint](teach.html) · [Student exploration](sample.html) · [Full written lesson](sample-reading.html)
 
-The presentation is the screen-share surface. It shows one visual idea at a time.
-Explain that idea aloud, ask for a prediction where prompted, then reveal or advance.
-Do not scroll through the written lesson while narrating it.
+Kian's planned workflow is to **teach the course without recording first**. The
+purpose of that dry run is to find gaps in understanding and make the eventual
+recorded explanation smoother. Use the presentation for this pass. A suggestion
+to study D04 in the prose reader does not replace the agreed presentation rehearsal.
 
-## Recording workflow
+## Three endpoints
 
-1. Open the visual presentation in a browser window. Select **Presenter notes**
-   to open a second window with the matching narration and action cues.
-2. Share or capture only the visual window or browser tab. Keep notes on another
-   display or outside the captured area. Sharing an entire display containing
-   both windows would also show the notes.
-3. Use **Next** or **→** to advance one visual at a time. **←** goes back.
-   The numbered controls jump to a particular visual. **F** toggles fullscreen;
-   **P** opens the notes. **R** reveals or hides an answer where applicable.
-4. Pause before revealing current, conductor loss, and the final feeder answer.
-   After revealing current, the voltage slider lets you vary one input while
-   keeping delivered power fixed. Its arrow keys adjust voltage, not the slide.
-5. Explain in your own words. Presenter notes contain the argument and model
-   boundaries; they are not text for the audience to read along with you.
+- `course/sample.html` is the default student experience. It has visual steps,
+  practice reveals and optional explanations. It has no presenter-notes button,
+  teaching fullscreen control, presenter cues or recording instructions.
+- `course/teach.html` enables teaching controls and the separate synchronized
+  presenter-notes window. Use this endpoint for the unrecorded dry run and later
+  for recording.
+- `course/sample-notes.html` contains narration, action cues, next-step context
+  and the lesson sequence. Open it from the teaching endpoint to pair the windows.
+  Repetitive recording-setup instructions have been removed.
 
-The two windows synchronize the step, answer visibility and selected voltage.
-Open notes with the presentation's button to pair them. A notes page opened
-independently has its own **Open visual** link. This uses browser-local messaging;
-no account, server, or external service receives the presentation state.
+`sample-reading.html` preserves the complete reference explanation and source
+limits. The two visual modes share calculations and lesson content. Mode selection
+is a presentation choice, not an authentication or access-control boundary.
 
-**Read the lesson** opens the complete explanation, solved example, source notes
-and practice. Viewers can use that page after the video or study independently.
-The 50-lesson reading companion remains a reference manuscript. Only this sample
-has an authored presentation sequence so far; the other lessons must be adapted
-and rehearsed before they are called ready to record.
+Use Next or **→** to advance, **←** to return and **R** to reveal or hide an answer.
+In teaching mode, **P** opens notes and **F** toggles fullscreen. A focused slider
+uses its arrow keys to change the input. The presenter window synchronizes the
+step, answer visibility, DC voltage and the final conversion-loss control.
 
-## A teaching contract for later lessons
+## Dry-run pass
 
-A presentation step earns its place by making a mechanism, comparison or decision
-visible. Give it one short headline, a prominent visual, and only the labels and
-assumptions needed to interpret that visual. Put derivations, extended explanation,
-citations and presenter actions in the notes or reference. Keep essential units
-and model boundaries on the shared screen.
+Explain each visual in your own words. At a hesitation, note the step and whether
+the issue was an undefined term, a missing mechanism, an unclear premise or an
+unsupported assumption. Resolve knowledge gaps and revise the visual before
+rehearsing it again. These observations are more useful now than a recording setup
+checklist or polished delivery of an explanation that is not yet understood.
 
-Author the sequence deliberately. Do not auto-convert each paragraph into a slide,
-shrink the reading page, or reveal bullet lists while reading them aloud. Preserve
-spatial positions across comparisons so a moved converter is the thing that changes.
-Use code for exact relationships and calculations; illustrative images locate the
-equipment without claiming an as-built topology.
+The revised sample has eight steps. It first compares **48 V DC with 800 V DC**
+at the receiving end of a fixed load. It then closes the conductor energy balance
+using an invented loop resistance. Finally, a separate hypothetical loss budget
+compares complete AC-distributed and DC-distributed arrangements serving the same
+final DC load. The distinction is stated explicitly in the visuals and notes.
 
-The sample's seven steps have a five-minute rehearsal target. That is a planning
-assumption, not a measured video duration. Technical comprehension, delivery pacing
-and actual recorded legibility still require review.
+The earlier 150 kW feeder / 160 kW load exercise was an infeasible request, but its
+ordinary arrow made it look like an operating flow. It is removed from the sample
+ending. The old `#feeder-transfer` link now opens the complete-path loss comparison.
 
-## Editing
+Timing targets are rehearsal prompts, not a recording instruction or measured
+runtime. The revised sequence targets about six minutes before discussion. Only
+this sample has a complete presentation sequence; the other 50 lessons remain
+reading material pending adaptation and dry runs. Recording follows those passes.
 
-- `course/expansion/sample.json` owns the full written explanation.
-- `course/expansion/sample-presentation.json` owns the seven authored beats,
-  speaker notes, action cues and timing targets.
-- `course/web/presentation.*` owns the visual presentation and notes console.
-- `course/web/reader-models.js` supplies the same tested DC arithmetic to both.
-- `uv run gigawatt-expand` regenerates `sample.html`, `sample-notes.html`,
-  `sample-reading.html` and the full reader.
+## Authoring contract
 
-Preserve the tested calculation and its assumptions across all three surfaces.
-Do not silently change a numerical default without reviewing the narration,
-reference example and changed-case solution together.
+Show one mechanism, comparison or decision at a time. Keep essential units,
+boundaries and assumptions visible. Put extended explanation and source limits
+in the student reference, and narration/actions in the presenter notes. Do not
+auto-convert paragraphs into slides or use a glossary as a substitute for a
+visual introduction to the equipment.
+
+- `course/expansion/sample.json`: full explanation and changed-case practice.
+- `course/expansion/sample-presentation.json`: visual sequence, notes, student
+  explanations, aliases and rehearsal targets.
+- `course/web/presentation.*`: student, teaching and presenter interfaces.
+- `course/web/reader-models.js`: shared, tested calculation functions.
+- `uv run gigawatt-expand`: generates both visual modes, notes, reading pages
+  and the full manuscript.
+
+Preserve the same calculation and assumptions across the three surfaces.

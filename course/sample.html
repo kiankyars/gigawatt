@@ -922,16 +922,177 @@ h1 {
   }
 }
 
+#audience {
+  grid-template-rows: 64px 1fr 64px;
+}
+.energy-ledger {
+  width: 100%;
+  display: grid;
+  gap: 18px;
+}
+.ledger-formula {
+  font:
+    clamp(18px, 2vw, 28px) Georgia,
+    serif;
+}
+.ledger-card {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fffefa;
+  padding: 20px 26px;
+  height: 100%;
+}
+.ledger-card.changed {
+  background: var(--ink);
+  color: #fffefa;
+  border-color: var(--ink);
+}
+.ledger-card h2 {
+  font-size: clamp(18px, 1.8vw, 27px);
+  font-weight: 500;
+  margin: 0 0 16px;
+}
+.ledger-card dl {
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+.ledger-card dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: clamp(16px, 1.4vw, 22px);
+}
+.ledger-card dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.ledger-card small {
+  font-size: 0.75em;
+}
+.ledger-total {
+  border-top: 1px solid #9dafaa;
+  margin-top: 18px;
+  padding-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.ledger-total span {
+  font-size: 14px;
+}
+.ledger-total strong {
+  font-weight: 500;
+  font-size: clamp(30px, 3.5vw, 52px);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.ledger-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  min-height: 40px;
+}
+.ledger-result strong {
+  font:
+    clamp(22px, 2.4vw, 36px) Georgia,
+    serif;
+}
+.ledger-result span {
+  font-size: 14px;
+  color: var(--muted);
+}
+.ledger-result button {
+  background: var(--ink);
+  color: white;
+}
+#student-context {
+  max-width: 1000px;
+  width: 100%;
+  margin: 4px auto 0;
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+}
+#student-context summary {
+  cursor: pointer;
+  color: var(--teal);
+  font-size: 14px;
+}
+#student-context p {
+  font-size: 18px;
+  line-height: 1.65;
+}
+#student-context a {
+  font-size: 14px;
+}
+body[data-view="student"] #audience {
+  height: auto;
+  min-height: 100svh;
+  grid-template-rows: 64px minmax(530px, 1fr) 64px;
+}
+body[data-view="student"] #visual {
+  min-height: 290px;
+}
+@media (max-height: 750px) and (min-width: 800px) {
+  #audience {
+    grid-template-rows: 54px 1fr 54px;
+  }
+  .energy-ledger {
+    gap: 14px;
+  }
+  .ledger-card {
+    padding: 16px 22px;
+  }
+  .ledger-card h2 {
+    margin-bottom: 12px;
+  }
+  .ledger-card dl {
+    gap: 9px;
+  }
+  .ledger-total {
+    margin-top: 12px;
+    padding-top: 10px;
+  }
+}
+@media (max-width: 799px) {
+  #audience,
+  body[data-view="student"] #audience {
+    grid-template-rows: auto 1fr auto;
+  }
+  .energy-ledger .comparison {
+    grid-template-columns: 1fr;
+  }
+  .ledger-card {
+    padding: 18px 22px;
+  }
+  .ledger-card h2 {
+    font-size: 22px;
+  }
+  .ledger-card dl > div {
+    font-size: 18px;
+  }
+  .ledger-result strong {
+    font-size: 27px;
+  }
+  #student-context p {
+    font-size: 16px;
+  }
+}
+
     </style>
   </head>
-  <body>
-    <a class="skip" href="#scene">Skip to teaching visual</a>
+  <body data-view="student">
+    <a class="skip" href="#scene">Skip to visual</a>
     <div id="audience">
       <header class="toolbar">
         <a class="brand" href="index.html"
-          >ϟ GIGAWATT <span>TEACHING SAMPLE</span></a
+          >ϟ GIGAWATT <span id="view-label">800 V DC</span></a
         >
-        <nav aria-label="Presentation tools">
+        <nav aria-label="Lesson navigation">
           <a href="sample-reading.html">Read the lesson</a>
           <button id="open-notes">Presenter notes ↗</button>
           <button id="fullscreen" aria-label="Enter fullscreen">
@@ -946,6 +1107,11 @@ h1 {
         </div>
         <div id="visual"></div>
         <p id="caption" class="caption"></p>
+        <details id="student-context" hidden>
+          <summary>Explanation and source</summary>
+          <div id="student-explanation"></div>
+          <a href="sample-reading.html">Full lesson and references ↗</a>
+        </details>
       </main>
       <footer class="transport">
         <button id="previous" aria-label="Previous visual">
@@ -954,19 +1120,15 @@ h1 {
         <nav id="steps" aria-label="Teaching sequence"></nav>
         <button id="next"><span>Next</span> →</button>
       </footer>
-      <p class="workflow" id="workflow">
-        Screen-share this view. Explain the visual aloud. Use ← → to advance;
-        notes open separately.
-      </p>
       <p id="notice" role="status"></p>
     </div>
     <main id="presenter" hidden>
       <header class="notes-header">
         <div>
-          <p class="eyebrow">PRESENTER NOTES · KEEP OFF THE SHARED SCREEN</p>
+          <p class="eyebrow">PRESENTER NOTES</p>
           <h1 id="notes-title"></h1>
         </div>
-        <a id="audience-link" href="sample.html" target="gigawatt-audience"
+        <a id="audience-link" href="teach.html" target="gigawatt-audience"
           >Open visual ↗</a
         >
       </header>
@@ -983,20 +1145,7 @@ h1 {
           </section>
         </article>
         <aside>
-          <h2>Recording setup</h2>
-          <p>
-            Share only the visual window or browser tab. Keep this window on
-            another display or outside the captured area.
-          </p>
-          <p>
-            Explain each visual in your own words. The notes supply the
-            reasoning and boundaries; they are not audience captions.
-          </p>
-          <p>
-            Use Next to advance. Reveal answers only after a prediction. The
-            sequence is planned for about five minutes; rehearse to measure the
-            actual time.
-          </p>
+          <h2>Lesson sequence</h2>
           <a href="sample-reading.html"
             >Full explanation, worked example and sources ↗</a
           >
@@ -1016,7 +1165,7 @@ h1 {
       </p></noscript
     >
     <script id="presentation-data" type="application/json">
-      {"schema_version":1,"id":"sample-800v-presentation","source_lesson_id":"sample-800v","title":"What 800 V changes","planned_duration_seconds":300,"timing_note":"A five-minute rehearsal target, including prediction pauses. This is not a measured recording duration.","review_state":"Authored teaching sample; learner and specialist review pending.","defaults":{"power_kw":100,"reference_voltage_v":48,"comparison_voltage_v":800,"transfer_power_kw":160,"transfer_voltage_v":800,"transfer_feeder_kw":150},"presentation_rules":["Show one step at a time. Keep notes, cues and sources in the separate presenter or reading view.","On current, loss and transfer steps, wait for a prediction before revealing computed answers.","Use the same load and diagram positions throughout the architecture sequence; change conversion placement deliberately.","Architecture drawings show selected functional boundaries. They are conceptual schematics, not wiring diagrams.","Show the fixed-resistance assumption alongside the loss comparison, including after revealing its answer.","Compute displayed answers with the tested DC model rather than embedding numbers in generated illustrations."],"steps":[{"id":"one-load","title":"Hold the load fixed","kind":"intro","headline":"One load. The same 100 kW.","caption":"A hypothetical DC distribution segment. Hold delivered power fixed.","notes":["We are going to change one thing: the voltage used to deliver power across this selected DC segment. The hypothetical load still receives one hundred kilowatts. Watch that number: it stays fixed during the first comparison.","Voltage is energy transferred per unit charge. Current is charge flowing per second. For this DC comparison, power equals voltage times current. Higher distribution voltage does not mean that the processor itself operates at eight hundred volts."],"duration_seconds":30,"cue":"Point to the fixed 100 kW load. Explain that the equipment illustration locates the idea but does not define a wired circuit. Introduce P = V × I, then advance."},{"id":"current-prediction","title":"Predict the current","kind":"current","headline":"Raise voltage. What happens to current?","caption":"Same 100 kW load; change voltage only at the selected DC segment.","notes":["Before revealing the answer, predict the direction. We need to move the same amount of energy each second. If each unit of charge transfers more energy, do we need more charge per second, or less?","Divide power in watts by voltage. At forty-eight volts, one hundred thousand divided by forty-eight is about two thousand and eighty-three amperes. At eight hundred volts, it is one hundred and twenty-five amperes.","The current falls. The load still receives one hundred kilowatts. This is a statement about the selected DC segment, with the same delivered power on both sides of our comparison."],"duration_seconds":50,"cue":"Leave both current answers hidden. Pause for a prediction, then Reveal. Point first to the unchanged power, then to the two currents."},{"id":"conductor-loss","title":"Connect current to heating","kind":"loss","headline":"Less current means less conductor heating.","caption":"Same conductor resistance; compare only I²R conductor loss.","notes":["Now predict the effect on heating in the conductor. Electrical resistance turns some of that transferred energy into heat. The loss is current squared times resistance.","For this one comparison, keep resistance identical. The new current is forty-eight divided by eight hundred of the old current. Square that ratio and the calculated loss becomes zero point three six percent of the original conductor loss.","Keep the denominator in view: original conductor loss. We have not calculated a whole-facility saving. Changing conductor size changes resistance; converters and the rest of the system also have losses."],"duration_seconds":45,"cue":"Pause before Reveal. Read the fixed-resistance assumption aloud. After revealing the ratio, point to the conductor-loss label before proceeding."},{"id":"conversion-in-rack","title":"Locate conversion in the rack","kind":"ac","headline":"First, locate the converter.","caption":"AC reaches the rack. Conceptual schematic, not a wiring diagram.","notes":["The current calculation does not choose an architecture for us. We also need to locate the equipment that changes voltage and converts alternating current to direct current.","In this simplified arrangement, facility AC reaches the compute rack. Conversion happens there, followed by regulation near the devices. Trace those functions from the incoming supply toward the load. We are showing selected functional boundaries; protection, grounding and other required equipment are omitted from this schematic."],"duration_seconds":40,"cue":"Trace the diagram left to right. Point to rack conversion and final device regulation. Keep the load position consistent for the next two steps."},{"id":"conversion-in-sidecar","title":"Move conversion into a sidecar","kind":"sidecar","headline":"Move conversion. Keep the upstream obligations.","caption":"Existing upstream AC remains. Conceptual schematic, not a wiring diagram.","notes":["Now move conversion into a nearby power rack or sidecar. The higher-voltage DC segment begins after that converter. Existing facility AC is still upstream; follow that retained path before looking at the new segment.","Moving conversion can free space in the compute rack and move some heat elsewhere. The converter still needs space, cooling and service access. Its upstream electrical limits remain relevant. Final voltage reduction near the processor also remains necessary. We have moved equipment and interfaces, not made their requirements disappear."],"duration_seconds":45,"cue":"Point to the converter's new location, then deliberately return to the retained upstream AC path. Finish at the device-regulation stage."},{"id":"conversion-farther-upstream","title":"Move conversion farther upstream","kind":"facility","headline":"A broader DC path changes more interfaces.","caption":"Conversion moves upstream. Conceptual schematic, not a wiring diagram.","notes":["A broader facility-DC proposal moves conversion farther upstream. That extends the portion of the path carrying DC and changes which equipment interfaces must be designed together.","These three views show different placements of functions. They do not rank whole-system efficiency. Converter performance, protection, insulation, transients, cooling and maintenance still need evaluation. The useful question is which actual project constraint this arrangement would relieve."],"duration_seconds":35,"cue":"Trace where DC now begins. Compare conversion placement with the preceding views; avoid implying that either proposal is a measured installed deployment."},{"id":"feeder-transfer","title":"Test the upstream boundary","kind":"transfer","headline":"Can the feeder support this load?","caption":"160 kW load · 800 V DC · 150 kW upstream feeder","notes":["Now change the problem. The load needs one hundred and sixty kilowatts at eight hundred volts. Calculate its current, then decide whether a one-hundred-and-fifty-kilowatt upstream feeder can support it. Take a moment before the reveal.","The current is two hundred amperes. But the feeder cannot supply one hundred and sixty kilowatts from a one-hundred-and-fifty-kilowatt limit, even before conversion losses.","That is the boundary to remember. Higher voltage reduces current at fixed power. It does not erase the power requirement upstream, or the heat that must leave the facility."],"duration_seconds":55,"cue":"Pause for both answers before Reveal. Ask the learner to explain the feeder result in words. End here; use the reading companion for further detail rather than continuing to scroll."}],"sources":[{"title":"NVIDIA: Why Scaling AI Compute Performance Requires a New Power Architecture","url":"https://blogs.nvidia.com/blog/800-vdc-power-architecture-ai-factory/","claim":"Architecture context only; all loads, voltage comparisons and feeder limits are original teaching assumptions inherited from the existing sample.","reviewed_on":"2026-09-06","limits":"Vendor roadmap; proposed architecture and availability expectations are distinct from verified installed deployment."}]}
+      {"schema_version":1,"id":"sample-800v-presentation","source_lesson_id":"sample-800v","title":"What 800 V changes","planned_duration_seconds":365,"timing_note":"Unrecorded dry run first. Timing targets are prompts for rehearsal, not an instruction to record or a measured duration.","review_state":"Revised after presenter dry-run feedback on terminology, audience modes and the loss-comparison premise.","defaults":{"power_kw":100,"reference_voltage_v":48,"comparison_voltage_v":800,"loop_ohms":0.001,"hours":1,"ac_conversion_kw":4,"ac_conductor_kw":1,"dc_conversion_kw":3,"dc_conductor_kw":0.1},"presentation_rules":["Show one step at a time. Keep notes, cues and sources in the separate presenter or reading view.","On current, loss, energy and path-comparison steps, ask for a prediction before revealing the result.","Use the same load and diagram positions throughout the architecture sequence; change conversion placement deliberately.","Architecture drawings show selected functional boundaries. They are conceptual schematics, not wiring diagrams.","Show the fixed-resistance assumption alongside the loss comparison, including after revealing its answer.","Compute displayed answers with the tested DC model rather than embedding numbers in generated illustrations."],"steps":[{"id":"one-load","title":"Hold the load fixed","kind":"intro","headline":"100 kW delivered. Two DC voltages.","caption":"48 V DC versus 800 V DC, measured at the receiving end.","notes":["This first comparison is DC versus DC: forty-eight volts and eight hundred volts at the receiving end. Alternating current enters only when we compare complete delivery arrangements later. Keep those two comparisons distinct.","We are going to change one thing: the voltage used to deliver power across this selected DC segment. The hypothetical load still receives one hundred kilowatts. Watch that number: it stays fixed during the first comparison.","Voltage is energy transferred per unit charge. Current is charge flowing per second. For this DC comparison, power equals voltage times current. Higher distribution voltage does not mean that the processor itself operates at eight hundred volts."],"duration_seconds":30,"cue":"Point to the fixed 100 kW load. Explain that the equipment illustration locates the idea but does not define a wired circuit. Introduce P = V × I, then advance.","explanation":["This comparison holds delivered DC power at 100 kW while changing the voltage at the load end from 48 V to 800 V. The equipment picture locates the idea; it is not a wiring diagram.","Voltage and AC/DC waveform are separate variables. Raising voltage within DC is the first experiment. Complete AC-distributed and DC-distributed arrangements are compared at the end."]},{"id":"current-prediction","title":"Predict the current","kind":"current","headline":"Raise voltage. What happens to current?","caption":"Same 100 kW; stated voltages are at the load end of the DC segment.","notes":["Before revealing the answer, predict the direction. We need to move the same amount of energy each second. If each unit of charge transfers more energy, do we need more charge per second, or less?","Divide power in watts by voltage. At forty-eight volts, one hundred thousand divided by forty-eight is about two thousand and eighty-three amperes. At eight hundred volts, it is one hundred and twenty-five amperes.","The current falls. The load still receives one hundred kilowatts. This is a statement about the selected DC segment, with the same delivered power on both sides of our comparison."],"duration_seconds":50,"cue":"Leave both current answers hidden. Pause for a prediction, then Reveal. Point first to the unchanged power, then to the two currents.","explanation":["At a DC load boundary, I = P/V. Convert 100 kW to 100,000 W before dividing by voltage. The receiving load needs about 2,083 A at 48 V and 125 A at 800 V.","The delivered power is unchanged. Higher voltage transfers more energy per unit charge, so less charge must flow each second."]},{"id":"conductor-loss","title":"Connect current to heating","kind":"loss","headline":"Less current means less conductor heating.","caption":"Same conductor resistance; compare only I²R conductor loss.","notes":["Now predict the effect on heating in the conductor. Electrical resistance turns some of that transferred energy into heat. The loss is current squared times resistance.","For this one comparison, keep resistance identical. The new current is forty-eight divided by eight hundred of the old current. Square that ratio and the calculated loss becomes zero point three six percent of the original conductor loss.","Keep the denominator in view: original conductor loss. We have not calculated a whole-facility saving. Changing conductor size changes resistance; converters and the rest of the system also have losses."],"duration_seconds":45,"cue":"Pause before Reveal. Read the fixed-resistance assumption aloud. After revealing the ratio, point to the conductor-loss label before proceeding.","explanation":["Conductor heating is I²R. With equal resistance, the loss ratio is (48/800)² = 0.0036: the 800 V case has 0.36% of the 48 V conductor loss.","That denominator is original conductor loss, not all facility energy. Changing conductor geometry, conversion losses or operating conditions changes the system comparison."]},{"id":"conversion-in-rack","title":"Locate conversion in the rack","kind":"ac","headline":"First, locate the converter.","caption":"AC reaches the rack. Conceptual schematic, not a wiring diagram.","notes":["The current calculation does not choose an architecture for us. We also need to locate the equipment that changes voltage and converts alternating current to direct current.","In this simplified arrangement, facility AC reaches the compute rack. Conversion happens there, followed by regulation near the devices. Trace those functions from the incoming supply toward the load. We are showing selected functional boundaries; protection, grounding and other required equipment are omitted from this schematic."],"duration_seconds":40,"cue":"Trace the diagram left to right. Point to rack conversion and final device regulation. Keep the load position consistent for the next two steps.","explanation":["A simplified AC-to-rack arrangement brings alternating current to the rack, converts it to DC there, and regulates voltage again near the devices.","The functional drawing omits protection, grounding and other required equipment. It locates conversion without specifying a buildable installation."]},{"id":"conversion-in-sidecar","title":"Move conversion into a sidecar","kind":"sidecar","headline":"Move conversion. Keep the upstream obligations.","caption":"Existing upstream AC remains. Conceptual schematic, not a wiring diagram.","notes":["Now move conversion into a nearby power rack or sidecar. The higher-voltage DC segment begins after that converter. Existing facility AC is still upstream; follow that retained path before looking at the new segment.","Moving conversion can free space in the compute rack and move some heat elsewhere. The converter still needs space, cooling and service access. Its upstream electrical limits remain relevant. Final voltage reduction near the processor also remains necessary. We have moved equipment and interfaces, not made their requirements disappear."],"duration_seconds":45,"cue":"Point to the converter's new location, then deliberately return to the retained upstream AC path. Finish at the device-regulation stage.","explanation":["A sidecar arrangement keeps upstream AC but places AC-to-DC conversion in nearby equipment. The 800 V DC segment begins after that conversion.","Moving the converter moves its space, heat and maintenance requirements. The processor still needs a much lower voltage; upstream AC limits remain relevant."]},{"id":"conversion-farther-upstream","title":"Move conversion farther upstream","kind":"facility","headline":"A broader DC path changes more interfaces.","caption":"Conversion moves upstream. Conceptual schematic, not a wiring diagram.","notes":["A broader facility-DC proposal moves conversion farther upstream. That extends the portion of the path carrying DC and changes which equipment interfaces must be designed together.","These three views show different placements of functions. They do not rank whole-system efficiency. Converter performance, protection, insulation, transients, cooling and maintenance still need evaluation. The useful question is which actual project constraint this arrangement would relieve."],"duration_seconds":35,"cue":"Trace where DC now begins. Compare conversion placement with the preceding views; avoid implying that either proposal is a measured installed deployment.","explanation":["Broader facility DC places conversion farther upstream and extends the DC portion of the path. That changes which interfaces must be coordinated.","These diagrams compare placement. They do not establish an efficiency ranking or demonstrate an installed deployment."]},{"id":"energy-balance","title":"Close the energy balance","kind":"energy","headline":"Less heat. Less energy required upstream.","caption":"Receiving-end voltages; 1 mΩ total loop; no converters; one hour.","duration_seconds":50,"cue":"Ask what the source must supply in addition to the 100 kW load. Reveal the balances, then read input = useful output + conductor heat. Explain the one-hour energy comparison.","notes":["Give the earlier comparison a concrete, invented resistance: one milliohm for the complete outgoing-and-return conductor loop, held equal in both cases. The forty-eight and eight-hundred-volt values are maintained at the receiving end. The sending-end voltage rises enough to cover the conductor voltage drop.","At forty-eight volts, conductor heating is about 4.340 kilowatts, so the source supplies about 104.340 kilowatts. At eight hundred volts, heating is 0.015625 kilowatts, so the source supplies 100.015625 kilowatts. Both loads receive exactly one hundred kilowatts. No energy is created.","For one hour, the higher-voltage case requires about 4.325 fewer kilowatt-hours at this segment input. It wastes less energy as conductor heat. These are two DC segments with an identical invented resistance, not an AC-versus-DC efficiency measurement. Converters and cooling equipment are outside this balance."],"explanation":["Assume a 1 mΩ complete conductor loop, equal in both cases. Maintain 100 kW at the load end at either 48 V DC or 800 V DC. The source voltage covers the additional conductor drop.","The source supplies the load plus conductor heat: about 104.340 kW in the 48 V case and 100.016 kW in the 800 V case. Over one hour, the latter requires about 4.325 kWh less input. No energy is created.","This is still a DC-versus-DC conductor comparison. Converter and cooling losses are excluded."]},{"id":"ac-dc-ledger","title":"Compare complete delivery paths","kind":"paths","headline":"AC versus DC: account for every loss.","caption":"Synthetic loss budgets; same final DC load; all conversion included; cooling excluded.","duration_seconds":70,"cue":"First reveal the two complete input budgets. Then raise the DC conversion loss to 6 kW and ask whether the advantage survives. End with energy saved or wasted, not energy created.","notes":["Now change the question. Compare an AC-distributed arrangement and a DC-distributed arrangement serving the same final one-hundred-kilowatt DC load. Both still need conversion. We stipulate total conductor and conversion losses across each complete delivery path at this operating point. These loss budgets are invented teaching inputs, not specifications or measured efficiencies.","Give the AC path one kilowatt of conductor loss and four kilowatts of total conversion loss: its input is one hundred and five kilowatts. Give the DC path 0.1 kilowatt of conductor loss and three kilowatts of total conversion loss: its input is 103.1 kilowatts. Over one hour, that particular DC arrangement requires 1.9 fewer kilowatt-hours.","Move the DC conversion-loss control to six kilowatts. It now requires 106.1 kilowatts, so it uses 1.1 more kilowatt-hours over the hour than the AC arrangement. Lower conductor loss did not guarantee lower total input. The break-even DC conversion loss in these stated budgets is 4.9 kilowatts.","The point of an 800 V architecture is to change the delivery constraints and potentially reduce losses through higher-voltage distribution and different conversion placement. The whole-path advantage has to be established from actual equipment and operating conditions. The forty-eight-versus-eight-hundred-volt calculation alone cannot establish it."],"explanation":["Compare complete delivery paths serving the same 100 kW final DC load. The loss figures here are invented at this operating point. Both paths include their total conversion losses.","At the defaults, AC needs 100 + 1 + 4 = 105 kW and DC needs 100 + 0.1 + 3 = 103.1 kW. Over one hour, the DC arrangement uses 1.9 kWh less input.","Raise DC conversion loss to 6 kW: DC input becomes 106.1 kW and exceeds AC input. The advantage depends on the whole loss budget, not the AC/DC label alone."]}],"sources":[{"title":"NVIDIA: Why Scaling AI Compute Performance Requires a New Power Architecture","url":"https://blogs.nvidia.com/blog/800-vdc-power-architecture-ai-factory/","claim":"Architecture context only; all loads, voltage comparisons and feeder limits are original teaching assumptions inherited from the existing sample.","reviewed_on":"2026-09-06","limits":"Vendor roadmap; proposed architecture and availability expectations are distinct from verified installed deployment."}],"aliases":{"feeder-transfer":"ac-dc-ledger"}}
     </script>
     <script>
       function positive(value, name) {
@@ -1132,12 +1281,56 @@ function capacityModel(
   };
 }
 
+function dcConductorModel(loadKW, loadVolts, loopOhms, hours) {
+  positive(loadKW, "Delivered power");
+  positive(loadVolts, "Receiving-end voltage");
+  positive(hours, "Duration");
+  if (!Number.isFinite(loopOhms) || loopOhms < 0)
+    throw new RangeError("Loop resistance must be nonnegative and finite");
+  const amps = (loadKW * 1000) / loadVolts;
+  const lossKW = (amps * amps * loopOhms) / 1000;
+  const inputKW = loadKW + lossKW;
+  return {
+    amps,
+    lossKW,
+    inputKW,
+    sendingVolts: loadVolts + amps * loopOhms,
+    deliveredKWh: loadKW * hours,
+    lossKWh: lossKW * hours,
+    inputKWh: inputKW * hours,
+  };
+}
+function deliveryPathModel(
+  loadKW,
+  conversionLossKW,
+  conductorLossKW,
+  hours,
+) {
+  positive(loadKW, "Delivered power");
+  positive(hours, "Duration");
+  if (
+    ![conversionLossKW, conductorLossKW].every(
+      (v) => Number.isFinite(v) && v >= 0,
+    )
+  )
+    throw new RangeError("Stipulated losses must be nonnegative and finite");
+  const lossKW = conversionLossKW + conductorLossKW;
+  return {
+    lossKW,
+    inputKW: loadKW + lossKW,
+    inputKWh: (loadKW + lossKW) * hours,
+    efficiency: loadKW / (loadKW + lossKW),
+  };
+}
+
 const PRESENTATION = JSON.parse(
   document.getElementById("presentation-data").textContent,
 );
 const STEPS = PRESENTATION.steps;
 const DEFAULTS = PRESENTATION.defaults;
-const notesMode = location.pathname.endsWith("sample-notes.html");
+const notesMode = document.body.dataset.view === "notes";
+const teachingMode = document.body.dataset.view === "teach";
+const studentMode = !notesMode && !teachingMode;
 const byId = (id) => document.getElementById(id);
 const escapeHTML = (value) =>
   String(value).replace(
@@ -1151,17 +1344,27 @@ const fmt = (value, decimals = 0) =>
   value.toLocaleString("en-US", { maximumFractionDigits: decimals });
 let index = Math.max(
   0,
-  STEPS.findIndex((step) => `#${step.id}` === location.hash),
+  STEPS.findIndex(
+    (step) =>
+      step.id ===
+      (PRESENTATION.aliases?.[location.hash.slice(1)] ||
+        location.hash.slice(1)),
+  ),
 );
-let state = { index, revealed: [], volts: DEFAULTS.comparison_voltage_v };
+let state = {
+  index,
+  revealed: [],
+  volts: DEFAULTS.comparison_voltage_v,
+  dcConversionKW: DEFAULTS.dc_conversion_kw,
+};
 const session =
   new URLSearchParams(location.search).get("session") || crypto.randomUUID();
 const channel =
-  typeof BroadcastChannel === "function"
+  !studentMode && typeof BroadcastChannel === "function"
     ? new BroadcastChannel(`gigawatt-sample-${session}`)
     : null;
 const role = notesMode ? "notes" : "audience";
-const revealKinds = new Set(["current", "loss", "transfer"]);
+const revealKinds = new Set(["current", "loss", "energy", "paths"]);
 const isRevealed = () => state.revealed.includes(STEPS[state.index].id);
 
 function validState(value) {
@@ -1174,7 +1377,10 @@ function validState(value) {
     value.revealed.every((id) => STEPS.some((s) => s.id === id)) &&
     Number.isFinite(value.volts) &&
     value.volts >= 48 &&
-    value.volts <= 800
+    value.volts <= 800 &&
+    Number.isFinite(value.dcConversionKW) &&
+    value.dcConversionKW >= 1 &&
+    value.dcConversionKW <= 7
   );
 }
 function publish() {
@@ -1266,13 +1472,87 @@ function architecture(kind) {
   }[kind];
   return `<div class="architecture"><div class="path"><section class="zone ${kind === "facility" ? "active" : ""}"><h2 class="zone-title">Upstream facility</h2><div class="zone-body">${facility}</div></section><section class="zone ${kind === "sidecar" ? "active" : ""}"><h2 class="zone-title">${kind === "sidecar" ? "Nearby power rack / sidecar" : "Distribution space"}</h2><div class="zone-body">${adjacent}</div></section><section class="zone rack ${kind === "ac" ? "active" : ""}"><h2 class="zone-title">Compute rack</h2><div class="zone-body">${rack}</div></section></div><p class="path-label">${kind === "ac" ? "AC toward the rack" : kind === "sidecar" ? "AC to the sidecar → 800 V DC toward the rack" : "AC conversion upstream → DC across the facility"}</p><p class="boundary-line">${observation}</p></div>`;
 }
-function transfer() {
-  const shown = isRevealed(),
-    amps = dcModel(
-      DEFAULTS.transfer_power_kw,
-      DEFAULTS.transfer_voltage_v,
-    ).amps;
-  return `<div class="transfer"><div class="transfer-path"><div class="metric-card"><p class="metric-label">Upstream feeder limit</p>${metric(DEFAULTS.transfer_feeder_kw, "kW")}</div><div class="transfer-arrow" aria-hidden="true">→</div><div class="metric-card changed"><p class="metric-label">Downstream DC load</p>${metric(DEFAULTS.transfer_power_kw, "kW")}<p class="metric-sub">at ${DEFAULTS.transfer_voltage_v} V · ${shown ? `${fmt(amps)} A` : "What current?"}</p></div></div><div class="answer-strip">${shown ? `<b>${fmt(amps)} A · No</b><p>${DEFAULTS.transfer_feeder_kw} kW cannot supply ${DEFAULTS.transfer_power_kw} kW, even before losses.</p>` : `<button id="reveal">Reveal current + feeder answer</button>`}</div></div>`;
+function ledgerCard(title, rows, inputKW, shown, changed = false) {
+  return `<section class="ledger-card ${changed ? "changed" : ""}"><h2>${title}</h2><dl>${rows.map(([label, value]) => `<div><dt>${label}</dt><dd>${value} <small>kW</small></dd></div>`).join("")}</dl><div class="ledger-total"><span>Required input</span><strong>${shown ? fmt(inputKW, 3) : "?"} <small>kW</small></strong></div></section>`;
+}
+function energy() {
+  const low = dcConductorModel(
+    DEFAULTS.power_kw,
+    48,
+    DEFAULTS.loop_ohms,
+    DEFAULTS.hours,
+  );
+  const high = dcConductorModel(
+    DEFAULTS.power_kw,
+    800,
+    DEFAULTS.loop_ohms,
+    DEFAULTS.hours,
+  );
+  const shown = isRevealed();
+  return `<div class="energy-ledger"><div class="model-top"><span class="chip">DC SEGMENT · 100 kW DELIVERED</span><span class="ledger-formula">Input = delivered power + heat</span></div><div class="comparison">${ledgerCard(
+    "48 V DC at the load",
+    [
+      ["Delivered power", "100"],
+      ["Conductor heat", fmt(low.lossKW, 3)],
+    ],
+    low.inputKW,
+    shown,
+  )}${ledgerCard(
+    "800 V DC at the load",
+    [
+      ["Delivered power", "100"],
+      ["Conductor heat", fmt(high.lossKW, 3)],
+    ],
+    high.inputKW,
+    shown,
+    true,
+  )}</div><div class="ledger-result">${shown ? `<strong>${fmt(low.inputKWh - high.inputKWh, 3)} kWh less input over 1 h</strong><span>Same useful output. Less energy dissipated as heat.</span>` : `<button id="reveal">Reveal the required input</button>`}</div></div>`;
+}
+function pathNumbers() {
+  return {
+    ac: deliveryPathModel(
+      DEFAULTS.power_kw,
+      DEFAULTS.ac_conversion_kw,
+      DEFAULTS.ac_conductor_kw,
+      DEFAULTS.hours,
+    ),
+    dc: deliveryPathModel(
+      DEFAULTS.power_kw,
+      state.dcConversionKW,
+      DEFAULTS.dc_conductor_kw,
+      DEFAULTS.hours,
+    ),
+  };
+}
+function pathResult(ac, dc) {
+  const difference = ac.inputKWh - dc.inputKWh;
+  return Math.abs(difference) < 1e-9
+    ? "Same input energy over 1 h"
+    : `DC uses ${fmt(Math.abs(difference), 1)} kWh ${difference > 0 ? "less" : "more"} input over 1 h`;
+}
+function paths() {
+  const { ac, dc } = pathNumbers(),
+    shown = isRevealed();
+  return `<div class="energy-ledger"><div class="model-top"><span class="chip">HYPOTHETICAL LOSSES · 100 kW FINAL DC LOAD</span><span class="ledger-formula">Input = load + all path losses</span></div><div class="comparison">${ledgerCard(
+    "AC-distributed path",
+    [
+      ["Final DC load", "100"],
+      ["Conductors", fmt(DEFAULTS.ac_conductor_kw)],
+      ["All conversion", fmt(DEFAULTS.ac_conversion_kw)],
+    ],
+    ac.inputKW,
+    shown,
+  )}<div id="dc-path-card">${ledgerCard(
+    "DC-distributed path",
+    [
+      ["Final DC load", "100"],
+      ["Conductors", fmt(DEFAULTS.dc_conductor_kw, 1)],
+      ["All conversion", fmt(state.dcConversionKW, 1)],
+    ],
+    dc.inputKW,
+    shown,
+    true,
+  )}</div></div>${shown ? `<div class="control-line"><label for="dc-conversion">DC conversion loss</label><input id="dc-conversion" type="range" min="1" max="7" step="0.1" value="${state.dcConversionKW}" /><output id="dc-conversion-value" for="dc-conversion">${fmt(state.dcConversionKW, 1)} kW</output><button id="dc-loss-reset">Reset</button></div><div class="ledger-result"><strong id="path-result">${pathResult(ac, dc)}</strong></div>` : `<div class="ledger-result"><button id="reveal">Reveal both input budgets</button></div>`}</div>`;
 }
 function renderNotes() {
   const step = STEPS[state.index];
@@ -1289,6 +1569,13 @@ function renderNotes() {
       "afterbegin",
       `<p class="cue">Live comparison: ${state.volts} V · ${fmt(dcModel(DEFAULTS.power_kw, state.volts).amps, 1)} A</p>`,
     );
+  if (step.kind === "paths" && isRevealed()) {
+    const { ac, dc } = pathNumbers();
+    byId("narration").insertAdjacentHTML(
+      "afterbegin",
+      `<p class="cue">Live DC conversion loss: ${fmt(state.dcConversionKW, 1)} kW. ${pathResult(ac, dc)}.</p>`,
+    );
+  }
   byId("notes-next").textContent =
     STEPS[state.index + 1]?.headline ||
     "End of sample. Discuss the learner’s reasoning.";
@@ -1299,9 +1586,31 @@ function renderNotes() {
     ? "Hide answer"
     : "Reveal answer";
   byId("audience-link").href =
-    `sample.html?session=${encodeURIComponent(session)}#${step.id}`;
+    `teach.html?session=${encodeURIComponent(session)}#${step.id}`;
 }
 function bindVisual() {
+  byId("dc-conversion")?.addEventListener("input", (event) => {
+    state.dcConversionKW = Number(event.target.value);
+    const { ac, dc } = pathNumbers();
+    byId("dc-path-card").innerHTML = ledgerCard(
+      "DC-distributed path",
+      [
+        ["Final DC load", "100"],
+        ["Conductors", fmt(DEFAULTS.dc_conductor_kw, 1)],
+        ["All conversion", fmt(state.dcConversionKW, 1)],
+      ],
+      dc.inputKW,
+      true,
+      true,
+    );
+    byId("dc-conversion-value").textContent =
+      `${fmt(state.dcConversionKW, 1)} kW`;
+    byId("path-result").textContent = pathResult(ac, dc);
+    publish();
+  });
+  byId("dc-loss-reset")?.addEventListener("click", () =>
+    change({ dcConversionKW: DEFAULTS.dc_conversion_kw }),
+  );
   byId("reveal")?.addEventListener("click", reveal);
   byId("voltage")?.addEventListener("input", (event) => {
     state.volts = Number(event.target.value);
@@ -1333,16 +1642,28 @@ function render() {
   byId("scene-title").textContent = step.headline;
   byId("caption").textContent = step.caption;
   byId("visual").innerHTML = (
-    { intro, current, loss, transfer }[step.kind] ||
+    { intro, current, loss, energy, paths }[step.kind] ||
     (() => architecture(step.kind))
   )();
   byId("previous").disabled = state.index === 0;
   byId("next").disabled = state.index === STEPS.length - 1;
   byId("next").innerHTML =
-    state.index === STEPS.length - 1 ? "End of sample" : "<span>Next</span> →";
+    state.index === STEPS.length - 1
+      ? "<span>End of sample</span> ✓"
+      : "<span>Next</span> →";
+  if (studentMode)
+    byId("student-explanation").innerHTML = step.explanation
+      .map((p) => `<p>${escapeHTML(p)}</p>`)
+      .join("");
   bindVisual();
   if (focus === "reveal") byId("scene").focus({ preventScroll: true });
 }
+byId("view-label").textContent = studentMode
+  ? "800 V DC · EXPLORE"
+  : "800 V DC · TEACH";
+byId("open-notes").hidden = !teachingMode;
+byId("fullscreen").hidden = !teachingMode;
+byId("student-context").hidden = !studentMode;
 byId("audience").hidden = notesMode;
 byId("presenter").hidden = !notesMode;
 byId("previous").addEventListener("click", () => move(-1));
@@ -1370,7 +1691,6 @@ byId("fullscreen").addEventListener("click", async () => {
   }
 });
 document.addEventListener("fullscreenchange", () => {
-  byId("workflow").hidden = Boolean(document.fullscreenElement);
   byId("fullscreen").setAttribute(
     "aria-label",
     document.fullscreenElement ? "Exit fullscreen" : "Enter fullscreen",
@@ -1395,11 +1715,18 @@ document.addEventListener("keydown", (event) => {
     move(-1);
   }
   if (event.key.toLowerCase() === "r") reveal();
-  if (event.key.toLowerCase() === "p" && !notesMode) byId("open-notes").click();
-  if (event.key.toLowerCase() === "f" && !notesMode) byId("fullscreen").click();
+  if (event.key.toLowerCase() === "p" && teachingMode)
+    byId("open-notes").click();
+  if (event.key.toLowerCase() === "f" && teachingMode)
+    byId("fullscreen").click();
 });
 window.addEventListener("hashchange", () => {
-  const selected = STEPS.findIndex((s) => `#${s.id}` === location.hash);
+  const selected = STEPS.findIndex(
+    (s) =>
+      s.id ===
+      (PRESENTATION.aliases?.[location.hash.slice(1)] ||
+        location.hash.slice(1)),
+  );
   if (selected >= 0) change({ index: selected });
 });
 if (channel) {

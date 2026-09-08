@@ -1,6 +1,6 @@
 # Course review
 
-Planning review updated **2026-09-06**, instantiated from the [freeCodeCamp course review template](https://github.com/kiankyars/youtube/blob/main/freecodecamp/course-review-template.md) and its [evidence-based improvement system](https://github.com/kiankyars/youtube/blob/main/freecodecamp/improvement-system.md). The expanded course now has 50 authored lessons, five solved capstones, five ImageGen illustrations and eight interactive model types. This is a draft review, not a completed recording review. All release gates remain open.
+Planning review updated **2026-09-08**, instantiated from the [freeCodeCamp course review template](https://github.com/kiankyars/youtube/blob/main/freecodecamp/course-review-template.md) and its [evidence-based improvement system](https://github.com/kiankyars/youtube/blob/main/freecodecamp/improvement-system.md). The expanded course now has 50 authored lessons, five solved capstones, five ImageGen illustrations and eight interactive model types. This is a draft review, not a completed recording review. All release gates remain open.
 
 ## Learner contract
 
@@ -60,18 +60,28 @@ review, demonstrated learner comprehension or complete source-corpus audit is cl
 
 **Source policy.** The curriculum is organized by domain. Authored lessons now record checked primary-source passages or accessible excerpts, their specific claims and reading limits. Before recording, review the complete claim set and obtain specialist checks for protection, thermal/control and commissioning assumptions. SemiAnalysis is an important discovery and analytical resource, with explicit attribution at the claim or case it informs; it is not the sole source of truth or the boundary of the research library. Include relevant equipment documentation, standards and open specifications, operator evidence, research, government material, measurements, and other independent analysis. Record what was actually accessible and read, the supported claim, the document version/date, and the check date. Label forecasts, disputed claims, and missing evidence. Acknowledge sources in the video and repository; attribution alone does not establish permission to reuse third-party prose or figures. Prefer original explanations and diagrams, recording any permission needed for reused assets. The [research pipeline](../research/README.md) now discovers public metadata and generates local Markdown notes while preserving original research annotations. It does not collect whole articles. A mapped source is not a claim that its full text has been retrieved or audited.
 
-**Companion commitment.** Implement the [companion plan](COMPANION.md) as two views of the same curriculum: a guided path for learning and fast lookup for returning viewers. Keep the persistent campus/rack model, indexed lesson notes, glossary, bounded calculators, changed-scenario practice, claim-level citations, and versioned errata connected by stable IDs. Freeze the companion edition used in the video while allowing a clearly dated living reference to improve. The reader now implements lesson search, a 137-term glossary, eight numerical model types, answer reveals and source boundaries. The complete versioned video/errata experience remains pending. Add real video timestamps only after the recording is edited.
+**Companion commitment.** Implement the [companion plan](COMPANION.md) as two views of the same curriculum: a guided path for learning and fast lookup for returning viewers. Keep the persistent campus/rack model, indexed lesson notes, glossary, bounded calculators, changed-scenario practice, claim-level citations, and versioned errata connected by stable IDs. Freeze the companion edition used in the video while allowing a clearly dated living reference to improve. The reader now implements lesson search, a 140-term glossary, eight numerical model types, answer reveals and source boundaries. The complete versioned video/errata experience remains pending. Add real video timestamps only after the recording is edited.
 
 **Visual teaching model.** Reuse one consistent campus → building → rack → board → chip map, with connected power, heat, and information views. Distinguish coolant circulation from heat transfer, and physical connections from commercial or control relationships. Each visual must answer one question, show relevant units/boundaries/assumptions, and explain what changes under a controlled comparison or failure. Use motion when it conveys a defined behavior, with a clear paused state and an equivalent textual explanation. A visually impressive result still needs readable labels and correct causal relationships.
 
 **Validation available so far.** The [testing record](TESTING.md) distinguishes
 the prior introduction review from the expanded reader's model, build and
 browser checks. Kian’s initial feedback identified too much text and an unclear
-recording workflow. The [sample](sample.html) now uses seven visual steps with
+recording workflow. The [teaching sample](teach.html) now uses eight visual steps with
 separate presenter notes and a reading companion. Rehearsal and review of this
 revised format remain pending; see [REVIEW_HELP.md](REVIEW_HELP.md).
 External specialist review, final narration, recording settings and export
 legibility remain open.
+
+## Dry run before recording
+
+Kian will first teach without recording to expose gaps in knowledge and improve
+flow. Use the [teaching endpoint](teach.html), not a prose-reading assignment,
+for this pass. The 2026-09-08 feedback identified a misleading feeder/load arrow,
+an unstated distinction between DC voltage and AC/DC architecture comparisons,
+and missing rack-unit terminology. The sample now closes energy balances and
+uses explicit hypothetical AC/DC loss budgets; the rack-interface lesson adds
+U, mechanical fit and OpenU. The revised teaching still needs rehearsal.
 
 ## Pre-recording gates
 

@@ -110,3 +110,45 @@ export function capacityModel(
       .map(([name]) => name),
   };
 }
+
+export function dcConductorModel(loadKW, loadVolts, loopOhms, hours) {
+  positive(loadKW, "Delivered power");
+  positive(loadVolts, "Receiving-end voltage");
+  positive(hours, "Duration");
+  if (!Number.isFinite(loopOhms) || loopOhms < 0)
+    throw new RangeError("Loop resistance must be nonnegative and finite");
+  const amps = (loadKW * 1000) / loadVolts;
+  const lossKW = (amps * amps * loopOhms) / 1000;
+  const inputKW = loadKW + lossKW;
+  return {
+    amps,
+    lossKW,
+    inputKW,
+    sendingVolts: loadVolts + amps * loopOhms,
+    deliveredKWh: loadKW * hours,
+    lossKWh: lossKW * hours,
+    inputKWh: inputKW * hours,
+  };
+}
+export function deliveryPathModel(
+  loadKW,
+  conversionLossKW,
+  conductorLossKW,
+  hours,
+) {
+  positive(loadKW, "Delivered power");
+  positive(hours, "Duration");
+  if (
+    ![conversionLossKW, conductorLossKW].every(
+      (v) => Number.isFinite(v) && v >= 0,
+    )
+  )
+    throw new RangeError("Stipulated losses must be nonnegative and finite");
+  const lossKW = conversionLossKW + conductorLossKW;
+  return {
+    lossKW,
+    inputKW: loadKW + lossKW,
+    inputKWh: (loadKW + lossKW) * hours,
+    efficiency: loadKW / (loadKW + lossKW),
+  };
+}

@@ -180,3 +180,46 @@ optional first argument is the course base URL; the second is the report folder.
 The checks use a fresh browser context and do not inspect a personal profile.
 They do not establish an actual recording duration, captured audio quality,
 video-export legibility or learner comprehension.
+
+## Dry-run and energy-balance revision — 2026-09-08
+
+The default student visual sample is now `sample.html`; the explicit teaching
+endpoint is `teach.html`. The notes window contains narration, cues and the
+sequence without a recording-setup block. The production plan begins with an
+unrecorded teaching dry run. This revision follows direct feedback about those
+surfaces and the misleading feeder-demand drawing.
+
+- **35 Python tests and 17 JavaScript numerical tests passed.** New checks close
+  both electrical power and one-hour energy balances, include the sending-end
+  voltage required by the stated receiving-end voltage, and verify a whole-path
+  AC/DC advantage, reversal and break-even point. Invalid loss, resistance and
+  duration inputs are rejected.
+- **120 visual layout states passed:** eight steps plus four answer reveals,
+  student and teaching modes, at 1920 × 1080, 1280 × 720, 1024 × 768,
+  390 × 844 and 844 × 390. Forty additional student explanation expansions
+  were checked. The initial phone footer overflow was fixed; no remaining
+  horizontal overflow or clipped equipment labels was found.
+- Student mode hides instructor controls and ignores P/F teaching shortcuts.
+  Teaching fullscreen and the separate notes window work. Step changes,
+  reveals, DC voltage and the final conversion-loss slider synchronize.
+- The legacy `#feeder-transfer` link opens the final AC/DC loss comparison.
+  The physically impossible request no longer appears as an operating flow.
+  The written sample preserves the assumptions and the changed-case solution.
+- Independent arithmetic review confirmed the 1 mΩ receiving-end DC comparison:
+  104.340278 versus 100.015625 kW segment input for equal 100 kW delivered.
+  The source voltage covers conductor drop. The separate whole-path budgets
+  give AC 105 kW, DC 103.1 kW at default losses, and DC 106.1 kW when its
+  conversion loss rises to 6 kW. All losses are explicitly hypothetical;
+  no real-product efficiency advantage is inferred.
+- The new desktop energy ledgers and phone student view were visually inspected.
+  Report and screenshots are in `qa/presentation/`. The obsolete feeder
+  screenshot was removed; Git history preserves the earlier version.
+
+Rack-unit coverage was also added to `d06-rack-migration` using identified Eaton
+and OCP sources, with access/revision limitations recorded. Its worked allocation
+uses 32 of 42U; independent fit and service constraints remain explicit. The
+course now indexes 140 glossary terms and 59 lesson source records.
+
+These checks verify the artifact and calculations. They do not establish that
+Kian has completed the revised dry run, that learners understand the explanation,
+or that the course has received specialist engineering review.

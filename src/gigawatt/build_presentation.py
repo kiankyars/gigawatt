@@ -6,7 +6,7 @@ import json
 import re
 from pathlib import Path
 
-KINDS = ("intro", "current", "loss", "ac", "sidecar", "facility", "transfer")
+KINDS = ("intro", "current", "loss", "ac", "sidecar", "facility", "energy", "paths")
 
 
 def presentation_outputs(root: Path, sample_id: str) -> dict[Path, str]:
@@ -16,7 +16,7 @@ def presentation_outputs(root: Path, sample_id: str) -> dict[Path, str]:
     steps = data["steps"]
     if tuple(step["kind"] for step in steps) != KINDS:
         raise ValueError(
-            "Presentation requires the authored seven-step teaching sequence"
+            "Presentation requires the authored eight-step teaching sequence"
         )
     if len({step["id"] for step in steps}) != len(steps):
         raise ValueError("Duplicate presentation step IDs")
@@ -28,7 +28,7 @@ def presentation_outputs(root: Path, sample_id: str) -> dict[Path, str]:
                 raise ValueError(
                     f"{step['id']}: audience {field} exceeds the text budget"
                 )
-        if not step.get("cue") or not step.get("notes"):
+        if not step.get("cue") or not step.get("notes") or not step.get("explanation"):
             raise ValueError(
                 "Presenter reasoning and action cues must be authored separately"
             )
@@ -54,4 +54,12 @@ def presentation_outputs(root: Path, sample_id: str) -> dict[Path, str]:
         lambda match: replacements[match[0]],
         template,
     )
-    return {Path("course/sample.html"): html, Path("course/sample-notes.html"): html}
+    if html.count("__PRESENTATION_MODE__") != 1:
+        raise ValueError("Expected exactly one view placeholder")
+    return {
+        Path("course/sample.html"): html.replace("__PRESENTATION_MODE__", "student"),
+        Path("course/teach.html"): html.replace("__PRESENTATION_MODE__", "teach"),
+        Path("course/sample-notes.html"): html.replace(
+            "__PRESENTATION_MODE__", "notes"
+        ),
+    }

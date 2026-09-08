@@ -75,16 +75,21 @@ class ExpansionTests(unittest.TestCase):
         audience = (b.ROOT / "course/sample.html").read_text()
         reference = (b.ROOT / "course/sample-reading.html").read_text()
         self.assertIn('id="presentation-data"', audience)
+        self.assertIn('data-view="student"', audience)
+        self.assertIn('data-view="teach"', (b.ROOT / "course/teach.html").read_text())
+        self.assertIn(
+            'data-view="notes"', (b.ROOT / "course/sample-notes.html").read_text()
+        )
         self.assertNotIn('id="expanded-data"', audience)
         self.assertIn('id="expanded-data"', reference)
         self.assertTrue((b.ROOT / "course/sample-notes.html").is_file())
         data = b.read(b.ROOT / "course/expansion/sample-presentation.json")
         self.assertEqual(data["source_lesson_id"], "sample-800v")
-        self.assertEqual(len(data["steps"]), 7)
+        self.assertEqual(len(data["steps"]), 8)
         for step in data["steps"]:
             self.assertLessEqual(len(step["headline"].split()), 10)
             self.assertLessEqual(len(step["caption"].split()), 18)
-            self.assertTrue(step["notes"] and step["cue"])
+            self.assertTrue(step["notes"] and step["cue"] and step["explanation"])
 
     def test_generated_reader_is_current_and_data_is_inert(self):
         _, stale = b.build(check=True)

@@ -913,3 +913,164 @@ h1 {
     line-height: 1;
   }
 }
+
+#audience {
+  grid-template-rows: 64px 1fr 64px;
+}
+.energy-ledger {
+  width: 100%;
+  display: grid;
+  gap: 18px;
+}
+.ledger-formula {
+  font:
+    clamp(18px, 2vw, 28px) Georgia,
+    serif;
+}
+.ledger-card {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fffefa;
+  padding: 20px 26px;
+  height: 100%;
+}
+.ledger-card.changed {
+  background: var(--ink);
+  color: #fffefa;
+  border-color: var(--ink);
+}
+.ledger-card h2 {
+  font-size: clamp(18px, 1.8vw, 27px);
+  font-weight: 500;
+  margin: 0 0 16px;
+}
+.ledger-card dl {
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+.ledger-card dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: clamp(16px, 1.4vw, 22px);
+}
+.ledger-card dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.ledger-card small {
+  font-size: 0.75em;
+}
+.ledger-total {
+  border-top: 1px solid #9dafaa;
+  margin-top: 18px;
+  padding-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.ledger-total span {
+  font-size: 14px;
+}
+.ledger-total strong {
+  font-weight: 500;
+  font-size: clamp(30px, 3.5vw, 52px);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.ledger-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  min-height: 40px;
+}
+.ledger-result strong {
+  font:
+    clamp(22px, 2.4vw, 36px) Georgia,
+    serif;
+}
+.ledger-result span {
+  font-size: 14px;
+  color: var(--muted);
+}
+.ledger-result button {
+  background: var(--ink);
+  color: white;
+}
+#student-context {
+  max-width: 1000px;
+  width: 100%;
+  margin: 4px auto 0;
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+}
+#student-context summary {
+  cursor: pointer;
+  color: var(--teal);
+  font-size: 14px;
+}
+#student-context p {
+  font-size: 18px;
+  line-height: 1.65;
+}
+#student-context a {
+  font-size: 14px;
+}
+body[data-view="student"] #audience {
+  height: auto;
+  min-height: 100svh;
+  grid-template-rows: 64px minmax(530px, 1fr) 64px;
+}
+body[data-view="student"] #visual {
+  min-height: 290px;
+}
+@media (max-height: 750px) and (min-width: 800px) {
+  #audience {
+    grid-template-rows: 54px 1fr 54px;
+  }
+  .energy-ledger {
+    gap: 14px;
+  }
+  .ledger-card {
+    padding: 16px 22px;
+  }
+  .ledger-card h2 {
+    margin-bottom: 12px;
+  }
+  .ledger-card dl {
+    gap: 9px;
+  }
+  .ledger-total {
+    margin-top: 12px;
+    padding-top: 10px;
+  }
+}
+@media (max-width: 799px) {
+  #audience,
+  body[data-view="student"] #audience {
+    grid-template-rows: auto 1fr auto;
+  }
+  .energy-ledger .comparison {
+    grid-template-columns: 1fr;
+  }
+  .ledger-card {
+    padding: 18px 22px;
+  }
+  .ledger-card h2 {
+    font-size: 22px;
+  }
+  .ledger-card dl > div {
+    font-size: 18px;
+  }
+  .ledger-result strong {
+    font-size: 27px;
+  }
+  #student-context p {
+    font-size: 16px;
+  }
+}

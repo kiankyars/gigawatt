@@ -1,38 +1,47 @@
 # Review the teaching sample
 
-Kian's first review on 2026-09-06 identified **too much on-screen text and an
-unclear recording workflow**. The previous sample was a reading page, which
-encouraged scrolling and narrating prose. It did not establish that the teaching
-was understandable. This feedback is addressed by separating three surfaces:
+Kian's first feedback on 2026-09-06 identified too much text and an unclear
+teaching workflow. The revised presentation was directionally useful. Subsequent
+feedback on 2026-09-08 established the following:
 
-- [Visual presentation](sample.html): one idea at a time, for screen sharing.
-- Presenter notes: open from the presentation's **Presenter notes** button;
-  synchronized narration and action cues in a separate window.
-- [Reading companion](sample-reading.html): the complete explanation, example
-  and evidence, for independent study and later reference.
+- The first teaching pass will be an **unrecorded dry run** to identify knowledge
+  gaps and improve the eventual recorded delivery.
+- Repetitive recording-setup advice does not belong in the presenter notes.
+- The default student experience should not display instructor controls.
+- The 150 kW feeder / 160 kW load drawing looked like a real operating transfer,
+  although it was intended as an impossible requested load.
+- The sample had not sufficiently distinguished its 48 V DC versus 800 V DC
+  comparison from an AC-versus-DC architecture comparison.
+- Rack units were missing from the explicit terminology teaching.
 
-## Review the revised format
+The [teaching endpoint](teach.html) now supports the dry run. The default
+[student sample](sample.html) offers the same visual reasoning with optional
+explanations and no instructor controls. Presenter notes open from teaching mode.
+The [full explanation](sample-reading.html) remains available for reference.
 
-1. Open the visual presentation. Use **Next** or **→** to move through the seven
-   steps. Do not scroll through the written lesson while narrating.
-2. Open **Presenter notes** and keep that window outside the shared area. Explain
-   each visual aloud using its cue. See [PRESENTING.md](PRESENTING.md) for setup.
-3. Predict the current before revealing it. After the reveal, vary the voltage
-   while keeping power fixed. Then predict the conductor-loss comparison.
-4. Trace how conversion moves across the three architecture diagrams and which
-   upstream requirements remain. Answer the feeder question before its reveal.
+## What to rehearse next
 
-Useful feedback is the first step whose purpose is unclear, anything you cannot
-comfortably explain from the visual, and whether the sequence supports a natural
-spoken explanation. The numerical predictions and final answer still help assess
-comprehension. Rehearse to measure pacing; five minutes is a target, not a recording.
-The revised format has not yet received learner approval.
+1. Explain why 100 kW delivered at 48 V DC and at 800 V DC requires different
+   current. Identify where voltage is measured.
+2. Explain the fixed-resistance conductor-loss comparison, then close input =
+   delivered power + conductor heat. Nothing is created by the higher voltage.
+3. Trace conversion placement across the three functional diagrams.
+4. In the final, separately stipulated AC/DC delivery budgets, reveal the
+   required inputs. Increase DC conversion loss from 3 kW to 6 kW and explain
+   why the total-energy advantage reverses despite lower conductor loss.
 
-Before recording the full course, outside review is still needed for the
-protection/grounding and transient interfaces, thermal/hydraulic operating
-boundaries, and commissioning/control scenarios. An experienced data-center
-electrical engineer and a thermal/commissioning practitioner would provide useful
-complementary checks. No outreach has been sent on your behalf.
+The final comparison uses invented losses, not market measurements. It deliberately
+shows both a DC advantage and a counterexample. It does not claim a universal
+AC/DC winner. The revised premise and ending await another dry run.
 
-[TESTING.md](TESTING.md) records automated and browser checks. They do not establish
-learner comprehension, expert sign-off, audio pacing or final video legibility.
+For rack units, see [A rack upgrade is an interface negotiation](index.html#d06-rack-migration):
+U and usable height, the 19-inch mounting format, an original 42U allocation,
+independent fit/service constraints and the distinction from OCP OpenU.
+
+Record the step where the explanation stops being clear, the missing term or
+mechanism, and the change needed. Expert review of electrical protection,
+thermal/control boundaries and commissioning is still needed before final
+recording. No outreach has been sent on Kian's behalf.
+
+[TESTING.md](TESTING.md) records automated and browser verification. Those checks
+do not replace the dry run or establish comprehension and delivery quality.

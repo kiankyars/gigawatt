@@ -183,3 +183,12 @@ connections in the 50-lesson manuscript. Each lesson preserves its specific
 claim, reading date and access limit. These counts do not promote previews,
 abstracts or indexes to full-document reviews. `E*.md` records are additional
 primary references with stable URL-derived IDs.
+
+## Rack-format review — 2026-09-08
+
+Two primary mechanical-format references were added after finding a rack-unit
+teaching gap: Eaton's rack basics (indexed excerpts reviewed; direct page blocked)
+and OCP Open Rack V3 Base Specification rev. 1.0 (selected mechanical sections
+reviewed). The current catalog contains 103 curated records, and 59 source
+records support the authored lessons. The new notes preserve the specific
+access and revision limits.

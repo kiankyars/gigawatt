@@ -9,14 +9,14 @@
       __PRESENTATION_CSS__
     </style>
   </head>
-  <body>
-    <a class="skip" href="#scene">Skip to teaching visual</a>
+  <body data-view="__PRESENTATION_MODE__">
+    <a class="skip" href="#scene">Skip to visual</a>
     <div id="audience">
       <header class="toolbar">
         <a class="brand" href="index.html"
-          >ϟ GIGAWATT <span>TEACHING SAMPLE</span></a
+          >ϟ GIGAWATT <span id="view-label">800 V DC</span></a
         >
-        <nav aria-label="Presentation tools">
+        <nav aria-label="Lesson navigation">
           <a href="sample-reading.html">Read the lesson</a>
           <button id="open-notes">Presenter notes ↗</button>
           <button id="fullscreen" aria-label="Enter fullscreen">
@@ -31,6 +31,11 @@
         </div>
         <div id="visual"></div>
         <p id="caption" class="caption"></p>
+        <details id="student-context" hidden>
+          <summary>Explanation and source</summary>
+          <div id="student-explanation"></div>
+          <a href="sample-reading.html">Full lesson and references ↗</a>
+        </details>
       </main>
       <footer class="transport">
         <button id="previous" aria-label="Previous visual">
@@ -39,19 +44,15 @@
         <nav id="steps" aria-label="Teaching sequence"></nav>
         <button id="next"><span>Next</span> →</button>
       </footer>
-      <p class="workflow" id="workflow">
-        Screen-share this view. Explain the visual aloud. Use ← → to advance;
-        notes open separately.
-      </p>
       <p id="notice" role="status"></p>
     </div>
     <main id="presenter" hidden>
       <header class="notes-header">
         <div>
-          <p class="eyebrow">PRESENTER NOTES · KEEP OFF THE SHARED SCREEN</p>
+          <p class="eyebrow">PRESENTER NOTES</p>
           <h1 id="notes-title"></h1>
         </div>
-        <a id="audience-link" href="sample.html" target="gigawatt-audience"
+        <a id="audience-link" href="teach.html" target="gigawatt-audience"
           >Open visual ↗</a
         >
       </header>
@@ -68,20 +69,7 @@
           </section>
         </article>
         <aside>
-          <h2>Recording setup</h2>
-          <p>
-            Share only the visual window or browser tab. Keep this window on
-            another display or outside the captured area.
-          </p>
-          <p>
-            Explain each visual in your own words. The notes supply the
-            reasoning and boundaries; they are not audience captions.
-          </p>
-          <p>
-            Use Next to advance. Reveal answers only after a prediction. The
-            sequence is planned for about five minutes; rehearse to measure the
-            actual time.
-          </p>
+          <h2>Lesson sequence</h2>
           <a href="sample-reading.html"
             >Full explanation, worked example and sources ↗</a
           >

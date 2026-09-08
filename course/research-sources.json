@@ -1740,6 +1740,36 @@
       "use": "The workstream separates cold-plate, loop, fluid and connector requirements.",
       "caution": "Index reviewed; linked loop-requirement PDF did not load during this pass and is not treated as audited.",
       "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
+    },
+    {
+      "id": "E960EB5ED2E",
+      "title": "Eaton — Rack Basics: Selection, Installation and Cooling",
+      "url": "https://tripplite.eaton.com/support/rack-cabinet-basics-selection-installation-cooling",
+      "publisher": "Eaton",
+      "kind": "manufacturer_reference",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-08",
+      "domains": [
+        "D06"
+      ],
+      "use": "EIA 19-inch mounting terminology, 1.75-inch rack units, usable U height versus external cabinet height, and separate depth and load considerations.",
+      "caution": "Reviewed indexed public text under Rack Standards, Rack Units, Height, Width and Depth; direct page retrieval returned 403. Manufacturer explainer, not a review of the full EIA standard. Product-independent classroom allocation is original; no universal AI-rack compatibility or advertised cooling savings are adopted.",
+      "discovered_via": "Rack-format gap review, 2026-09-08."
+    },
+    {
+      "id": "E8D4F19907B",
+      "title": "Open Compute Project — Open Rack V3 Base Specification, revision 1.0",
+      "url": "https://www.opencompute.org/documents/open-rack-base-specification-version-3-pdf",
+      "publisher": "Open Compute Project",
+      "kind": "specification",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-08",
+      "domains": [
+        "D06"
+      ],
+      "use": "Sections 6, 6.1.2 and 6.1.3 distinguish 48 mm OpenU spacing from optional 44.45 mm EIA rack-unit support and allow exterior frame dimensions to vary.",
+      "caution": "Reviewed the public PDF mechanical sections on printed pages 7, 9 and 11, plus revision table on page 6. Revision 1.0 is the identified reference, not a claim to the latest revision. Electrical, connector and qualification requirements were not audited; the lesson does not infer interchangeability from height alone.",
+      "discovered_via": "Rack-format gap review, 2026-09-08."
     }
   ]
 }

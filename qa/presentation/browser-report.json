@@ -1,471 +1,1345 @@
 {
-  "checked_on": "2026-09-06",
+  "checked_on": "2026-09-08",
   "browser": "Headless Chromium / Playwright",
   "base": "http://127.0.0.1:8765/course/",
-  "layout_states": 50,
+  "layout_states": 120,
   "layouts": [
     {
+      "mode": "teach",
       "step": "one-load",
       "viewport": {
         "width": 1920,
         "height": 1080
       },
       "revealed": false,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 1080
     },
     {
+      "mode": "teach",
       "step": "current-prediction",
       "viewport": {
         "width": 1920,
         "height": 1080
       },
       "revealed": false,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 1080
     },
     {
+      "mode": "teach",
       "step": "current-prediction",
       "viewport": {
         "width": 1920,
         "height": 1080
       },
       "revealed": true,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 1080
     },
     {
+      "mode": "teach",
       "step": "conductor-loss",
       "viewport": {
         "width": 1920,
         "height": 1080
       },
       "revealed": false,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 1080
     },
     {
+      "mode": "teach",
       "step": "conductor-loss",
       "viewport": {
         "width": 1920,
         "height": 1080
       },
       "revealed": true,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 1080
     },
     {
+      "mode": "teach",
       "step": "conversion-in-rack",
       "viewport": {
         "width": 1920,
         "height": 1080
       },
       "revealed": false,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 1080
     },
     {
+      "mode": "teach",
       "step": "conversion-in-sidecar",
       "viewport": {
         "width": 1920,
         "height": 1080
       },
       "revealed": false,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 1080
     },
     {
+      "mode": "teach",
       "step": "conversion-farther-upstream",
       "viewport": {
         "width": 1920,
         "height": 1080
       },
       "revealed": false,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 1080
     },
     {
-      "step": "feeder-transfer",
+      "mode": "teach",
+      "step": "energy-balance",
       "viewport": {
         "width": 1920,
         "height": 1080
       },
       "revealed": false,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 1080
     },
     {
-      "step": "feeder-transfer",
+      "mode": "teach",
+      "step": "energy-balance",
       "viewport": {
         "width": 1920,
         "height": 1080
       },
       "revealed": true,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 1080
     },
     {
+      "mode": "teach",
+      "step": "ac-dc-ledger",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 1080
+    },
+    {
+      "mode": "teach",
+      "step": "ac-dc-ledger",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 1080
+    },
+    {
+      "mode": "teach",
       "step": "one-load",
       "viewport": {
         "width": 1280,
         "height": 720
       },
       "revealed": false,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 720
     },
     {
+      "mode": "teach",
       "step": "current-prediction",
       "viewport": {
         "width": 1280,
         "height": 720
       },
       "revealed": false,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 720
     },
     {
+      "mode": "teach",
       "step": "current-prediction",
       "viewport": {
         "width": 1280,
         "height": 720
       },
       "revealed": true,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 720
     },
     {
+      "mode": "teach",
       "step": "conductor-loss",
       "viewport": {
         "width": 1280,
         "height": 720
       },
       "revealed": false,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 720
     },
     {
+      "mode": "teach",
       "step": "conductor-loss",
       "viewport": {
         "width": 1280,
         "height": 720
       },
       "revealed": true,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 720
     },
     {
+      "mode": "teach",
       "step": "conversion-in-rack",
       "viewport": {
         "width": 1280,
         "height": 720
       },
       "revealed": false,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 720
     },
     {
+      "mode": "teach",
       "step": "conversion-in-sidecar",
       "viewport": {
         "width": 1280,
         "height": 720
       },
       "revealed": false,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 720
     },
     {
+      "mode": "teach",
       "step": "conversion-farther-upstream",
       "viewport": {
         "width": 1280,
         "height": 720
       },
       "revealed": false,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 720
     },
     {
-      "step": "feeder-transfer",
+      "mode": "teach",
+      "step": "energy-balance",
       "viewport": {
         "width": 1280,
         "height": 720
       },
       "revealed": false,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 720
     },
     {
-      "step": "feeder-transfer",
+      "mode": "teach",
+      "step": "energy-balance",
       "viewport": {
         "width": 1280,
         "height": 720
       },
       "revealed": true,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 720
     },
     {
+      "mode": "teach",
+      "step": "ac-dc-ledger",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 720
+    },
+    {
+      "mode": "teach",
+      "step": "ac-dc-ledger",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 720
+    },
+    {
+      "mode": "teach",
       "step": "one-load",
       "viewport": {
         "width": 1024,
         "height": 768
       },
       "revealed": false,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 768
     },
     {
+      "mode": "teach",
       "step": "current-prediction",
       "viewport": {
         "width": 1024,
         "height": 768
       },
       "revealed": false,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 768
     },
     {
+      "mode": "teach",
       "step": "current-prediction",
       "viewport": {
         "width": 1024,
         "height": 768
       },
       "revealed": true,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 768
     },
     {
+      "mode": "teach",
       "step": "conductor-loss",
       "viewport": {
         "width": 1024,
         "height": 768
       },
       "revealed": false,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 768
     },
     {
+      "mode": "teach",
       "step": "conductor-loss",
       "viewport": {
         "width": 1024,
         "height": 768
       },
       "revealed": true,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 768
     },
     {
+      "mode": "teach",
       "step": "conversion-in-rack",
       "viewport": {
         "width": 1024,
         "height": 768
       },
       "revealed": false,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 768
     },
     {
+      "mode": "teach",
       "step": "conversion-in-sidecar",
       "viewport": {
         "width": 1024,
         "height": 768
       },
       "revealed": false,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 768
     },
     {
+      "mode": "teach",
       "step": "conversion-farther-upstream",
       "viewport": {
         "width": 1024,
         "height": 768
       },
       "revealed": false,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 768
     },
     {
-      "step": "feeder-transfer",
+      "mode": "teach",
+      "step": "energy-balance",
       "viewport": {
         "width": 1024,
         "height": 768
       },
       "revealed": false,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 768
     },
     {
-      "step": "feeder-transfer",
+      "mode": "teach",
+      "step": "energy-balance",
       "viewport": {
         "width": 1024,
         "height": 768
       },
       "revealed": true,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 768
     },
     {
+      "mode": "teach",
+      "step": "ac-dc-ledger",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 768
+    },
+    {
+      "mode": "teach",
+      "step": "ac-dc-ledger",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 768
+    },
+    {
+      "mode": "teach",
       "step": "one-load",
       "viewport": {
         "width": 390,
         "height": 844
       },
       "revealed": false,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 844
     },
     {
+      "mode": "teach",
       "step": "current-prediction",
       "viewport": {
         "width": 390,
         "height": 844
       },
       "revealed": false,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 844
     },
     {
+      "mode": "teach",
       "step": "current-prediction",
       "viewport": {
         "width": 390,
         "height": 844
       },
       "revealed": true,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 844
     },
     {
+      "mode": "teach",
       "step": "conductor-loss",
       "viewport": {
         "width": 390,
         "height": 844
       },
       "revealed": false,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 844
     },
     {
+      "mode": "teach",
       "step": "conductor-loss",
       "viewport": {
         "width": 390,
         "height": 844
       },
       "revealed": true,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 844
     },
     {
+      "mode": "teach",
       "step": "conversion-in-rack",
       "viewport": {
         "width": 390,
         "height": 844
       },
       "revealed": false,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 1176
     },
     {
+      "mode": "teach",
       "step": "conversion-in-sidecar",
       "viewport": {
         "width": 390,
         "height": 844
       },
       "revealed": false,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 1102
     },
     {
+      "mode": "teach",
       "step": "conversion-farther-upstream",
       "viewport": {
         "width": 390,
         "height": 844
       },
       "revealed": false,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 1102
     },
     {
-      "step": "feeder-transfer",
+      "mode": "teach",
+      "step": "energy-balance",
       "viewport": {
         "width": 390,
         "height": 844
       },
       "revealed": false,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 905
     },
     {
-      "step": "feeder-transfer",
+      "mode": "teach",
+      "step": "energy-balance",
       "viewport": {
         "width": 390,
         "height": 844
       },
       "revealed": true,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 921
     },
     {
+      "mode": "teach",
+      "step": "ac-dc-ledger",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 984
+    },
+    {
+      "mode": "teach",
+      "step": "ac-dc-ledger",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 1088
+    },
+    {
+      "mode": "teach",
       "step": "one-load",
       "viewport": {
         "width": 844,
         "height": 390
       },
       "revealed": false,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 516
     },
     {
+      "mode": "teach",
       "step": "current-prediction",
       "viewport": {
         "width": 844,
         "height": 390
       },
       "revealed": false,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 516
     },
     {
+      "mode": "teach",
       "step": "current-prediction",
       "viewport": {
         "width": 844,
         "height": 390
       },
       "revealed": true,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 516
     },
     {
+      "mode": "teach",
       "step": "conductor-loss",
       "viewport": {
         "width": 844,
         "height": 390
       },
       "revealed": false,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 516
     },
     {
+      "mode": "teach",
       "step": "conductor-loss",
       "viewport": {
         "width": 844,
         "height": 390
       },
       "revealed": true,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 516
     },
     {
+      "mode": "teach",
       "step": "conversion-in-rack",
       "viewport": {
         "width": 844,
         "height": 390
       },
       "revealed": false,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 516
     },
     {
+      "mode": "teach",
       "step": "conversion-in-sidecar",
       "viewport": {
         "width": 844,
         "height": 390
       },
       "revealed": false,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 516
     },
     {
+      "mode": "teach",
       "step": "conversion-farther-upstream",
       "viewport": {
         "width": 844,
         "height": 390
       },
       "revealed": false,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 516
     },
     {
-      "step": "feeder-transfer",
+      "mode": "teach",
+      "step": "energy-balance",
       "viewport": {
         "width": 844,
         "height": 390
       },
       "revealed": false,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 516
     },
     {
-      "step": "feeder-transfer",
+      "mode": "teach",
+      "step": "energy-balance",
       "viewport": {
         "width": 844,
         "height": 390
       },
       "revealed": true,
-      "horizontal_overflow": false
+      "horizontal_overflow": false,
+      "document_height": 516
+    },
+    {
+      "mode": "teach",
+      "step": "ac-dc-ledger",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 533
+    },
+    {
+      "mode": "teach",
+      "step": "ac-dc-ledger",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 589
+    },
+    {
+      "mode": "student",
+      "step": "one-load",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 1080
+    },
+    {
+      "mode": "student",
+      "step": "current-prediction",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 1080
+    },
+    {
+      "mode": "student",
+      "step": "current-prediction",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 1080
+    },
+    {
+      "mode": "student",
+      "step": "conductor-loss",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 1080
+    },
+    {
+      "mode": "student",
+      "step": "conductor-loss",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 1080
+    },
+    {
+      "mode": "student",
+      "step": "conversion-in-rack",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 1080
+    },
+    {
+      "mode": "student",
+      "step": "conversion-in-sidecar",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 1080
+    },
+    {
+      "mode": "student",
+      "step": "conversion-farther-upstream",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 1080
+    },
+    {
+      "mode": "student",
+      "step": "energy-balance",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 1080
+    },
+    {
+      "mode": "student",
+      "step": "energy-balance",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 1080
+    },
+    {
+      "mode": "student",
+      "step": "ac-dc-ledger",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 1080
+    },
+    {
+      "mode": "student",
+      "step": "ac-dc-ledger",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 1080
+    },
+    {
+      "mode": "student",
+      "step": "one-load",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 720
+    },
+    {
+      "mode": "student",
+      "step": "current-prediction",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 720
+    },
+    {
+      "mode": "student",
+      "step": "current-prediction",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 720
+    },
+    {
+      "mode": "student",
+      "step": "conductor-loss",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 720
+    },
+    {
+      "mode": "student",
+      "step": "conductor-loss",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 720
+    },
+    {
+      "mode": "student",
+      "step": "conversion-in-rack",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 720
+    },
+    {
+      "mode": "student",
+      "step": "conversion-in-sidecar",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 720
+    },
+    {
+      "mode": "student",
+      "step": "conversion-farther-upstream",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 720
+    },
+    {
+      "mode": "student",
+      "step": "energy-balance",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 720
+    },
+    {
+      "mode": "student",
+      "step": "energy-balance",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 720
+    },
+    {
+      "mode": "student",
+      "step": "ac-dc-ledger",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 720
+    },
+    {
+      "mode": "student",
+      "step": "ac-dc-ledger",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 720
+    },
+    {
+      "mode": "student",
+      "step": "one-load",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 768
+    },
+    {
+      "mode": "student",
+      "step": "current-prediction",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 768
+    },
+    {
+      "mode": "student",
+      "step": "current-prediction",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 768
+    },
+    {
+      "mode": "student",
+      "step": "conductor-loss",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 768
+    },
+    {
+      "mode": "student",
+      "step": "conductor-loss",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 768
+    },
+    {
+      "mode": "student",
+      "step": "conversion-in-rack",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 768
+    },
+    {
+      "mode": "student",
+      "step": "conversion-in-sidecar",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 768
+    },
+    {
+      "mode": "student",
+      "step": "conversion-farther-upstream",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 768
+    },
+    {
+      "mode": "student",
+      "step": "energy-balance",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 768
+    },
+    {
+      "mode": "student",
+      "step": "energy-balance",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 768
+    },
+    {
+      "mode": "student",
+      "step": "ac-dc-ledger",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 768
+    },
+    {
+      "mode": "student",
+      "step": "ac-dc-ledger",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 768
+    },
+    {
+      "mode": "student",
+      "step": "one-load",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 888
+    },
+    {
+      "mode": "student",
+      "step": "current-prediction",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 844
+    },
+    {
+      "mode": "student",
+      "step": "current-prediction",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 844
+    },
+    {
+      "mode": "student",
+      "step": "conductor-loss",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 844
+    },
+    {
+      "mode": "student",
+      "step": "conductor-loss",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 844
+    },
+    {
+      "mode": "student",
+      "step": "conversion-in-rack",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 1236
+    },
+    {
+      "mode": "student",
+      "step": "conversion-in-sidecar",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 1162
+    },
+    {
+      "mode": "student",
+      "step": "conversion-farther-upstream",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 1162
+    },
+    {
+      "mode": "student",
+      "step": "energy-balance",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 965
+    },
+    {
+      "mode": "student",
+      "step": "energy-balance",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 981
+    },
+    {
+      "mode": "student",
+      "step": "ac-dc-ledger",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 1044
+    },
+    {
+      "mode": "student",
+      "step": "ac-dc-ledger",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 1148
+    },
+    {
+      "mode": "student",
+      "step": "one-load",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 658
+    },
+    {
+      "mode": "student",
+      "step": "current-prediction",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 658
+    },
+    {
+      "mode": "student",
+      "step": "current-prediction",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 658
+    },
+    {
+      "mode": "student",
+      "step": "conductor-loss",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 658
+    },
+    {
+      "mode": "student",
+      "step": "conductor-loss",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 658
+    },
+    {
+      "mode": "student",
+      "step": "conversion-in-rack",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 658
+    },
+    {
+      "mode": "student",
+      "step": "conversion-in-sidecar",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 658
+    },
+    {
+      "mode": "student",
+      "step": "conversion-farther-upstream",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 658
+    },
+    {
+      "mode": "student",
+      "step": "energy-balance",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 658
+    },
+    {
+      "mode": "student",
+      "step": "energy-balance",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 658
+    },
+    {
+      "mode": "student",
+      "step": "ac-dc-ledger",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 658
+    },
+    {
+      "mode": "student",
+      "step": "ac-dc-ledger",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 658
     }
   ],
   "checks": [
-    "One visual at a time; audience notes excluded",
-    "No desktop scroll at recording sizes",
-    "Mobile and short landscape overflow",
-    "Prediction before reveal",
-    "DC arithmetic and units",
-    "Keyboard advance after reveal",
-    "Slider keyboard ownership",
-    "Separate presenter window",
-    "Bidirectional step, reveal and voltage synchronization",
-    "Fullscreen entry and exit",
+    "Eight visual steps in teaching and student modes at five viewport sizes",
+    "Teaching notes excluded from visuals and no recording-setup instructions",
+    "No teaching-view scroll at 1920×1080, 1280×720 or 1024×768",
+    "No horizontal overflow or clipped labels on phone and short landscape",
+    "Student explanations expand for all eight steps at all five sizes",
+    "Student mode hides notes/fullscreen and P/F shortcuts do not activate them",
+    "Prediction before reveal for currents, conductor loss and both energy ledgers",
+    "DC current, I²R losses and source power balance checked numerically",
+    "Complete-path default, break-even and reversed energy budgets",
+    "Keyboard advance after reveal and slider keyboard ownership",
+    "Separate presenter window with bidirectional navigation/reveal synchronization",
+    "Voltage and DC-conversion slider state synchronized to notes",
+    "Fullscreen entry and exit in teaching mode",
+    "Old feeder-transfer hash routes to the complete-path comparison",
     "Source reading view preserved"
   ],
   "errors": []

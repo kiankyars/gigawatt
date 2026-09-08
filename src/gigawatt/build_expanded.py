@@ -211,7 +211,7 @@ def load_course(root=ROOT):
     return {
         "title": "GIGAWATT",
         "status": "Authored draft — external expert and learner reviews pending",
-        "as_of": "2026-09-06",
+        "as_of": "2026-09-08",
         "domains": sorted(domain_map["domains"], key=lambda d: order[d["id"]]),
         "lessons": lessons,
         "sources": [s for s in catalog if s["id"] in used],

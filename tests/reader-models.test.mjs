@@ -83,3 +83,45 @@ test("Invalid and nonfinite inputs fail instead of producing plausible outputs",
   ])
     assert.throws(f, RangeError);
 });
+
+test("Receiving-end DC voltage closes both power and energy balances", () => {
+  const low = m.dcConductorModel(100, 48, 0.001, 1);
+  const high = m.dcConductorModel(100, 800, 0.001, 1);
+  close(low.lossKW, 4.340277777777778);
+  close(high.lossKW, 0.015625);
+  close(low.sendingVolts, 50.083333333333336);
+  close(high.sendingVolts, 800.125);
+  close(low.inputKW, 104.34027777777777);
+  close(high.inputKW, 100.015625);
+  close(low.inputKWh - high.inputKWh, 4.3246527777777715);
+  for (const x of [low, high]) {
+    close(x.inputKW, (x.amps * x.sendingVolts) / 1000);
+    close(x.inputKWh, x.deliveredKWh + x.lossKWh);
+  }
+  close(m.dcConductorModel(100, 800, 0.001, 2).inputKWh, 2 * high.inputKWh);
+  close(m.dcConductorModel(100, 48, 0, 1).inputKW, 100);
+});
+test("Whole-path losses can reverse the AC versus DC energy result", () => {
+  const ac = m.deliveryPathModel(100, 4, 1, 1);
+  const dc = m.deliveryPathModel(100, 3, 0.1, 1);
+  const changed = m.deliveryPathModel(100, 6, 0.1, 1);
+  close(ac.inputKW, 105);
+  close(dc.inputKW, 103.1);
+  close(ac.inputKWh - dc.inputKWh, 1.9);
+  close(changed.inputKWh - ac.inputKWh, 1.1);
+  close(m.deliveryPathModel(100, 4.9, 0.1, 1).inputKW, ac.inputKW);
+  close(m.deliveryPathModel(100, 0, 0, 2).inputKWh, 200);
+  assert.ok(ac.efficiency < 1 && dc.efficiency < 1);
+});
+test("Energy ledgers reject invalid resistance, time and loss budgets", () => {
+  for (const fn of [
+    () => m.dcConductorModel(100, 0, 0.001, 1),
+    () => m.dcConductorModel(100, 800, -1, 1),
+    () => m.dcConductorModel(100, 800, Infinity, 1),
+    () => m.dcConductorModel(100, 800, 0.001, 0),
+    () => m.deliveryPathModel(100, -1, 0.1, 1),
+    () => m.deliveryPathModel(100, 3, NaN, 1),
+    () => m.deliveryPathModel(100, 3, 0.1, 0),
+  ])
+    assert.throws(fn, RangeError);
+});
