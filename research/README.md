@@ -7,6 +7,10 @@ Markdown research note per curated source or selected discovery candidate.
 [Browse the source index](INDEX.md) · [Curated search log](discovery-searches.md)
 · [Editable catalog](../course/research-sources.json)
 
+[Power-conversion research notes](power-conversion-notes.md): a concise synthesis
+of Kian's SST, AC/HVDC and insulation questions, with networking context kept as
+reference rather than additional teaching scope.
+
 The library covers SemiAnalysis **and** primary sources from operators, vendors,
 standards bodies, public agencies and original research. It separates discovery,
 source review and verification of a specific claim. No publisher or archive is
