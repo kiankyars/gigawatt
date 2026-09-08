@@ -78,9 +78,9 @@ legibility remain open.
 Kian will first teach without recording to expose gaps in knowledge and improve
 flow. Use the [teaching endpoint](teach.html), not a prose-reading assignment,
 for this pass. The 2026-09-08 feedback identified a misleading feeder/load arrow,
-an unstated distinction between DC voltage and AC/DC architecture comparisons,
-and missing rack-unit terminology. The sample now closes energy balances and
-uses explicit hypothetical AC/DC loss budgets; the rack-interface lesson adds
+a mistaken 48 V DC reference subsequently clarified as 480 V three-phase AC,
+and missing rack-unit terminology. The sample now calculates AC/DC conductor
+losses and includes assumed conversion losses at their specified positions; the rack-interface lesson adds
 U, mechanical fit and OpenU. The revised teaching still needs rehearsal.
 
 ## Pre-recording gates
@@ -118,3 +118,7 @@ Review comments and retention at 24 hours, 7 days, and 30 days after the expande
 | 30 days — planned | Review unresolved issues, repeated misconceptions, resource use, source drift, and whether learners can reason across domains. | Publish verified corrections and dated reference updates with links to affected chapters. | Decide which depth gaps warrant a new edition or focused supplement; do not treat requests alone as proof of a broken learner contract. | Preserve the learner-first process; avoid adding gates for isolated preferences without corroboration. |
 
 Follow the [improvement system](https://github.com/kiankyars/youtube/blob/main/freecodecamp/improvement-system.md): one evidenced correctness, security, accessibility, or reproducibility failure can justify a permanent gate; taste changes require independent corroboration or matching retention evidence. Keep the evidence separate from the action and state when analytics or learner results are unavailable.
+
+## Added coverage question — UPS redundancy
+
+**2026-09-08:** Can a learner distinguish N, N+1, N+2, 2N and 2(N+1), then test surviving capacity and path independence during maintenance plus a fault? The [redundancy coverage audit](../research/redundancy-coverage-review.md) finds useful N+1 and common-dependency foundations, but missing N+2/2(N+1), UPS bypass and single-corded interface teaching, and no complete redundancy presentation or transfer assessment. Add the bounded comparison and exercise before treating D05.3 as complete.

@@ -78,6 +78,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [E2C35A11B05 — NVIDIA Triton — Batchers](sources/E2C35A11B05.md) | docs.nvidia.com | D02 | page_reviewed |
 | [E2E0C218DA7 — Asynchronous Saving with Distributed Checkpoint](sources/E2E0C218DA7.md) | docs.pytorch.org | D09 | page_reviewed |
 | [E320A75F233 — NVIDIA H100 SuperPOD: Planning a Data Center Deployment](sources/E320A75F233.md) | docs.nvidia.com | D12 | page_reviewed |
+| [E37FE7B98A1 — Schneider Electric — Easy UPS 3-Phase Modular 50–250 kW: UPS Modes](sources/E37FE7B98A1.md) | Schneider Electric | D05 | page_reviewed |
 | [E3F4CB1B7FF — DOE — Best Practices Guide for Energy-Efficient Data Center Design](sources/E3F4CB1B7FF.md) | www.energy.gov | D01, D04 | page_reviewed |
 | [E45AB7B1BC1 — Schneider Electric — Installed apparent power](sources/E45AB7B1BC1.md) | www.electrical-installation.org | D03, D04 | page_reviewed |
 | [E4ABDC02D45 — NVIDIA DGX SuperPOD — Network Fabrics](sources/E4ABDC02D45.md) | docs.nvidia.com | D07, D08 | page_reviewed |
@@ -91,12 +92,14 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [E775A7D4E10 — OpenAI: Five new Stargate sites](sources/E775A7D4E10.md) | openai.com | D15 | page_reviewed |
 | [E7B9A3E66DB — Google SRE: Service Level Objectives](sources/E7B9A3E66DB.md) | sre.google | D14 | page_reviewed |
 | [E80C73CE756 — Scaling AI Factories with Co-Packaged Optics for Better Power Efficiency](sources/E80C73CE756.md) | developer.nvidia.com | D08 | page_reviewed |
+| [E836C561209 — Schneider Electric — Why Two Cords Do Not Guarantee Power Redundancy to an IT Device](sources/E836C561209.md) | Schneider Electric | D05, D06 | page_reviewed |
 | [E89E077D5C1 — DOE FEMP: Cooling Tower Management](sources/E89E077D5C1.md) | www.energy.gov | D11 | page_reviewed |
 | [E8D4F19907B — Open Compute Project — Open Rack V3 Base Specification, revision 1.0](sources/E8D4F19907B.md) | Open Compute Project | D06 | page_reviewed |
 | [E95181BB427 — USGS: What is seismic hazard?](sources/E95181BB427.md) | www.usgs.gov | D12 | page_reviewed |
 | [E960EB5ED2E — Eaton — Rack Basics: Selection, Installation and Cooling](sources/E960EB5ED2E.md) | Eaton | D06 | public_excerpt_reviewed |
 | [E9ACF1B58FE — NVIDIA Optical Transceivers and Cables](sources/E9ACF1B58FE.md) | www.nvidia.com | D08 | page_reviewed |
 | [E9FFEE6828F — Schneider Electric — Coordination between circuit-breakers](sources/E9FFEE6828F.md) | www.electrical-installation.org | D05 | page_reviewed |
+| [EA0B6C5ED33 — Schneider Electric — Comparing UPS System Design Configurations, White Paper 75 Revision 4](sources/EA0B6C5ED33.md) | Schneider Electric | D05, D06 | page_reviewed |
 | [EA7B686AF9E — NVIDIA, Partners Drive Next-Gen Efficient Gigawatt AI Factories in Buildup for Vera Rubin](sources/EA7B686AF9E.md) | NVIDIA | D04, D06 | page_reviewed |
 | [EB0CA366091 — NCCL Collective Operations](sources/EB0CA366091.md) | docs.nvidia.com | D08 | page_reviewed |
 | [EB34D92F523 — OpenStax — Electrical Energy and Power](sources/EB34D92F523.md) | openstax.org | D01, D03, D05 | page_reviewed |
@@ -110,6 +113,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [EE02276C332 — MLCommons — MLPerf Inference: Datacenter](sources/EE02276C332.md) | mlcommons.org | D01, D02 | page_reviewed |
 | [EE0FC346C72 — Control Group in Slurm](sources/EE0FC346C72.md) | slurm.schedmd.com | D09 | page_reviewed |
 | [EE136EB8E02 — Open Compute Project — Cold Plate workstream](sources/EE136EB8E02.md) | www.opencompute.org | D10 | public_excerpt_reviewed |
+| [EE53DCAF5E1 — Uptime Institute — Myths and Misconceptions Regarding the Tier Certification System](sources/EE53DCAF5E1.md) | Uptime Institute | D05, D14 | public_excerpt_reviewed |
 | [EEFB073374C — NIST Handbook 135, 2025: Life Cycle Costing Manual](sources/EEFB073374C.md) | nvlpubs.nist.gov | D15 | page_reviewed |
 | [EFB703CFC3D — Schneider Electric — PM2200 total power calculation for accuracy verification](sources/EFB703CFC3D.md) | Schneider Electric | D01, D04, D06 | page_reviewed |
 | [P01 — Best Practices Guide for Energy-Efficient Data Center Design](sources/P01.md) | U.S. Department of Energy, Federal Energy Management Program | D01, D04, D10, D11, D15 | page_reviewed |

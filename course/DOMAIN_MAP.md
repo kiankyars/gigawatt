@@ -538,6 +538,10 @@ Explain why fault clearing and grounding require topology-specific AC/DC protect
 - [E9FFEE6828F — Schneider Electric — Coordination between circuit-breakers](https://www.electrical-installation.org/enwiki/Coordination_between_circuit-breakers) · `page_reviewed` · [local note](../research/sources/E9FFEE6828F.md)
 - [E1423005C7C — ABB — Protection Devices for Direct Current Applications](https://library.e.abb.com/public/5cd83dcb95a74dcdb571be5f256e1af8/9AKK108470A9606_en_B_Protection%20Devices%20for%20Direct%20Current%20Applications%20-%20Technical%20Application%20Paper.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/E1423005C7C.md)
 - [E2A3F76B3F9 — Schneider Electric — Definition of standardised earthing schemes](https://www.electrical-installation.org/enwiki/Definition_of_standardised_earthing_schemes) · `public_excerpt_reviewed` · [local note](../research/sources/E2A3F76B3F9.md)
+- [EE53DCAF5E1 — Uptime Institute — Myths and Misconceptions Regarding the Tier Certification System](https://journal.uptimeinstitute.com/myths-and-misconceptions-regarding-the-uptime-institutes-tier-certification-system/) · `public_excerpt_reviewed` · [local note](../research/sources/EE53DCAF5E1.md)
+- [EA0B6C5ED33 — Schneider Electric — Comparing UPS System Design Configurations, White Paper 75 Revision 4](https://www.se.com/us/en/download/document/SPD_SADE-5TPL8X_EN/) · `page_reviewed` · [local note](../research/sources/EA0B6C5ED33.md)
+- [E836C561209 — Schneider Electric — Why Two Cords Do Not Guarantee Power Redundancy to an IT Device](https://blog.se.com/datacenter/architecture/2014/08/06/two-cords-guarantee-power-redundancy-device/) · `page_reviewed` · [local note](../research/sources/E836C561209.md)
+- [E37FE7B98A1 — Schneider Electric — Easy UPS 3-Phase Modular 50–250 kW: UPS Modes](https://productinfo.se.com/easyups3pmodular/990-6537-easy-ups-3-phase-modular-50-250-kw-operation/English/990-6537%20Operation%20Easy%20UPS%203-Phase%20Modular%2050-250%20kW_0001015104.xml/%24/GalaxyPX_UPSModes_0000761714) · `page_reviewed` · [local note](../research/sources/E37FE7B98A1.md)
 
 <a id="d06"></a>
 
@@ -626,6 +630,8 @@ Explain how retrofit constraints can reverse a seemingly attractive greenfield a
 - [E8D4F19907B — Open Compute Project — Open Rack V3 Base Specification, revision 1.0](https://www.opencompute.org/documents/open-rack-base-specification-version-3-pdf) · `page_reviewed` · [local note](../research/sources/E8D4F19907B.md)
 - [EFB703CFC3D — Schneider Electric — PM2200 total power calculation for accuracy verification](https://productinfo.se.com/pm2200/5afc2b5546e0fb00011e5e9d/PM2200%20series%20User%20Manual/English/BM_PM2200seriesUserManual_0000074170.ditamap.xml/%24/C_VerifyingAccuracy_PowerTotCalcuation_0000034437) · `page_reviewed` · [local note](../research/sources/EFB703CFC3D.md)
 - [EA7B686AF9E — NVIDIA, Partners Drive Next-Gen Efficient Gigawatt AI Factories in Buildup for Vera Rubin](https://blogs.nvidia.com/blog/gigawatt-ai-factories-ocp-vera-rubin/) · `page_reviewed` · [local note](../research/sources/EA7B686AF9E.md)
+- [EA0B6C5ED33 — Schneider Electric — Comparing UPS System Design Configurations, White Paper 75 Revision 4](https://www.se.com/us/en/download/document/SPD_SADE-5TPL8X_EN/) · `page_reviewed` · [local note](../research/sources/EA0B6C5ED33.md)
+- [E836C561209 — Schneider Electric — Why Two Cords Do Not Guarantee Power Redundancy to an IT Device](https://blog.se.com/datacenter/architecture/2014/08/06/two-cords-guarantee-power-redundancy-device/) · `page_reviewed` · [local note](../research/sources/E836C561209.md)
 
 <a id="d07"></a>
 
@@ -1354,6 +1360,7 @@ Convert a failure or capacity incident into an evidence-based recovery and preve
 - [E71B82C307F — Google SRE: Monitoring Distributed Systems](https://sre.google/sre-book/monitoring-distributed-systems/) · `page_reviewed` · [local note](../research/sources/E71B82C307F.md)
 - [E7B9A3E66DB — Google SRE: Service Level Objectives](https://sre.google/sre-book/service-level-objectives/) · `page_reviewed` · [local note](../research/sources/E7B9A3E66DB.md)
 - [E571B75F6E0 — Google SRE: Postmortem Culture](https://sre.google/sre-book/postmortem-culture/) · `page_reviewed` · [local note](../research/sources/E571B75F6E0.md)
+- [EE53DCAF5E1 — Uptime Institute — Myths and Misconceptions Regarding the Tier Certification System](https://journal.uptimeinstitute.com/myths-and-misconceptions-regarding-the-uptime-institutes-tier-certification-system/) · `public_excerpt_reviewed` · [local note](../research/sources/EE53DCAF5E1.md)
 
 <a id="d15"></a>
 

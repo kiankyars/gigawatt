@@ -207,3 +207,12 @@ notes distinguish those references from measured savings: converter losses are
 teaching assumptions and conductor losses are original calculations. The main
 50-lesson manuscript still uses 59 source records; sample-specific evidence is
 included in the sample's own reference list.
+
+## UPS redundancy coverage audit — 2026-09-08
+
+[The coverage review](redundancy-coverage-review.md) finds developed N+1 material
+but missing N+2, 2(N+1), bypass and load-interface teaching, plus incomplete 2N
+assessment. It proposes a bounded presenter sequence and changed-load exercise.
+Four primary references were added with specific page, revision and access
+limits. The catalog now contains 109 curated records. These additions do not
+mark the missing lesson content or presentation as complete.

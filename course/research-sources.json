@@ -1804,6 +1804,72 @@
       "use": "The introductory discussion and Kyber section explicitly identify 415 or 480 V AC three-phase distribution as baselines for the proposed move to 800 V DC. This supports the relevance of the course comparison.",
       "caution": "Used to identify the AC distribution baseline, not to validate vendor efficiency, current, copper, capacity or deployment claims. The page contains later branding edits. All sample loads, resistance values and converter losses remain original teaching assumptions.",
       "discovered_via": "Primary-source verification of 480 V AC baseline relevance, 2026-09-08."
+    },
+    {
+      "title": "Uptime Institute — Myths and Misconceptions Regarding the Tier Certification System",
+      "url": "https://journal.uptimeinstitute.com/myths-and-misconceptions-regarding-the-uptime-institutes-tier-certification-system/",
+      "publisher": "Uptime Institute",
+      "kind": "technical_article",
+      "published_on": "2017-07-20",
+      "review_status": "public_excerpt_reviewed",
+      "domains": [
+        "D05",
+        "D14"
+      ],
+      "use": "Explains why N+1, N+2, 2N and 2(N+1) component counts alone do not establish a Tier; includes rack ATS considerations.",
+      "caution": "Publisher-indexed substantive passages reviewed; direct page access returned 403. This is clarification of the Tier framework, not review of the full standard or certification of the course example.",
+      "id": "EE53DCAF5E1",
+      "reviewed_on": "2026-09-08",
+      "discovered_via": "UPS redundancy coverage audit, 2026-09-08."
+    },
+    {
+      "title": "Schneider Electric — Comparing UPS System Design Configurations, White Paper 75 Revision 4",
+      "url": "https://www.se.com/us/en/download/document/SPD_SADE-5TPL8X_EN/",
+      "publisher": "Schneider Electric",
+      "kind": "technical_white_paper",
+      "published_on": "2016-03-11",
+      "review_status": "page_reviewed",
+      "domains": [
+        "D05",
+        "D06"
+      ],
+      "use": "Pages 8–9 and 15–17 compare parallel redundancy, shared buses, system-plus-system arrangements and maintenance behavior.",
+      "caution": "Publisher version and selected PDF pages reviewed. Do not import reliability percentages or blanket Tier IV dual-cord statements; consult the Uptime clarification for the framework. The course must use original topology drawings.",
+      "id": "EA0B6C5ED33",
+      "reviewed_on": "2026-09-08",
+      "discovered_via": "UPS redundancy coverage audit, 2026-09-08."
+    },
+    {
+      "title": "Schneider Electric — Why Two Cords Do Not Guarantee Power Redundancy to an IT Device",
+      "url": "https://blog.se.com/datacenter/architecture/2014/08/06/two-cords-guarantee-power-redundancy-device/",
+      "publisher": "Schneider Electric",
+      "kind": "technical_article",
+      "published_on": "2014-08-06",
+      "review_status": "page_reviewed",
+      "domains": [
+        "D05",
+        "D06"
+      ],
+      "use": "Explains how PSU grouping, upstream connections and surviving-feed loading determine whether two cords provide redundancy.",
+      "caution": "Public article reviewed. The linked White Paper 206 was not reviewed; this page supplies no universal transfer-time or overload allowance.",
+      "id": "E836C561209",
+      "reviewed_on": "2026-09-08",
+      "discovered_via": "UPS redundancy coverage audit, 2026-09-08."
+    },
+    {
+      "title": "Schneider Electric — Easy UPS 3-Phase Modular 50–250 kW: UPS Modes",
+      "url": "https://productinfo.se.com/easyups3pmodular/990-6537-easy-ups-3-phase-modular-50-250-kw-operation/English/990-6537%20Operation%20Easy%20UPS%203-Phase%20Modular%2050-250%20kW_0001015104.xml/%24/GalaxyPX_UPSModes_0000761714",
+      "publisher": "Schneider Electric",
+      "kind": "equipment_manual",
+      "review_status": "page_reviewed",
+      "domains": [
+        "D05"
+      ],
+      "use": "Named product example distinguishes requested bypass, forced bypass and internal/external maintenance-bypass modes, including differences in battery support and isolation.",
+      "caution": "Selected public mode descriptions in manual 990-6537E-001 reviewed; publication date unavailable. Mode behavior is product-specific. Actual transfer, overload, protection and load acceptance need the applicable equipment data.",
+      "id": "E37FE7B98A1",
+      "reviewed_on": "2026-09-08",
+      "discovered_via": "UPS redundancy coverage audit, 2026-09-08."
     }
   ]
 }
