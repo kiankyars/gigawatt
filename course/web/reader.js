@@ -330,6 +330,10 @@ function renderLab(l) {
       "The same peak, a different energy bill",
       "Before moving a control, predict what changes: the height of the power trace or its area?",
     ],
+    acdc: [
+      "480 V three-phase AC versus 800 V DC",
+      "Hold delivered real power fixed. Distinguish current in each conductor from the heat produced by all conductors.",
+    ],
     dc: [
       "Move the conversion boundary",
       "Compare topology separately from current arithmetic. A change in distribution voltage cannot by itself prove an efficiency or cost claim.",
@@ -374,6 +378,15 @@ function renderLab(l) {
     controls =
       control("lab-kw", "DC load", 50, 300, 10, 100, "kW") +
       control("lab-volts", "DC distribution voltage", 48, 800, 1, 48, "V");
+    extra =
+      '<div class="segmented" aria-label="Illustrative power architecture"><button data-arch="ac" aria-pressed="true">AC to the rack</button><button data-arch="hybrid" aria-pressed="false">AC + DC sidecar</button><button data-arch="facility" aria-pressed="false">Broader facility DC</button></div><div id="architecture"></div>';
+  }
+  if (type === "acdc") {
+    controls =
+      control("lab-kw", "Delivered real power", 50, 300, 10, 100, "kW") +
+      control("lab-volts", "DC pair voltage", 400, 1000, 1, 800, "V") +
+      control("lab-pf", "AC power factor", 0.7, 1, 0.01, 1, "") +
+      control("lab-resistance", "Resistance per conductor", 1, 20, 1, 10, "mΩ");
     extra =
       '<div class="segmented" aria-label="Illustrative power architecture"><button data-arch="ac" aria-pressed="true">AC to the rack</button><button data-arch="hybrid" aria-pressed="false">AC + DC sidecar</button><button data-arch="facility" aria-pressed="false">Broader facility DC</button></div><div id="architecture"></div>';
   }
@@ -453,7 +466,7 @@ function renderLab(l) {
       );
   $("lab").innerHTML =
     `<div class="eyebrow">TEST A BOUNDED MODEL</div><h2 id="lab-title">${spec[0]}</h2><p class="lab-intro">${spec[1]}</p>${extra}<div class="lab-controls">${controls}</div><div id="lab-graphic"></div><div id="lab-output" class="lab-output" role="status"></div><p id="lab-boundary" class="boundary"></p>`;
-  if (type === "dc") {
+  if (type === "dc" || type === "acdc") {
     const architectures = {
       ac: [
         "Facility AC",
@@ -490,7 +503,7 @@ function renderLab(l) {
         .forEach((b) =>
           b.setAttribute("aria-pressed", String(b.dataset.arch === id)),
         );
-      if (refresh) {
+      if (refresh && type === "dc") {
         $("lab-volts").value = id === "ac" ? 48 : 800;
         update();
       }
@@ -538,6 +551,31 @@ function renderLab(l) {
         ],
         Math.max(m.referenceAmps, m.amps),
         "Current decreases as voltage increases at fixed DC power.",
+      );
+    }
+    if (type === "acdc") {
+      const m = acdcConductorModel(
+        val("lab-kw"),
+        480,
+        val("lab-volts"),
+        val("lab-pf"),
+        val("lab-resistance") / 1000,
+        1,
+      );
+      output = `AC: ${fmt(m.ac.amps)} A RMS per line, ${fmt(m.ac.lossKW * 1000)} W conductor heat. DC: ${fmt(m.dc.amps)} A per conductor, ${fmt(m.dc.lossKW * 1000)} W conductor heat. DC loss is ${fmt(m.lossRatio * 100, 1)}% of AC loss.`;
+      boundary =
+        "Receiving-end voltages: 480 V AC line-to-line RMS; DC voltage across the pair. Balanced sinusoidal three-phase AC, three current-carrying conductors versus two for DC. Equal effective resistance per conductor, with neutral and protective earth excluded from this count. AC: P = √3 × V × I × PF and heat = 3I²R. DC: P = VI and heat = 2I²R. Sources supply delivered power plus heat. Converters and cooling are excluded; this does not size a cable or establish equipment compatibility. Architecture buttons locate conversion independently of these arithmetic controls.";
+      graphic = barChart(
+        [
+          ["480 V AC: total conductor heat (W)", m.ac.lossKW * 1000, "#78999e"],
+          [
+            `${val("lab-volts")} V DC: total conductor heat (W)`,
+            m.dc.lossKW * 1000,
+            "#e5bb6e",
+          ],
+        ],
+        Math.max(m.ac.lossKW, m.dc.lossKW) * 1000,
+        "Total conductor heat at equal delivered real power and resistance per conductor.",
       );
     }
     if (type === "heat") {

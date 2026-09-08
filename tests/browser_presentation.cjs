@@ -38,6 +38,12 @@ let browser;
   const layouts = [];
   assert.equal(data.steps.length, 8);
   assert.ok(!JSON.stringify(data).toLowerCase().includes("recording setup"));
+  const finalStep = data.steps.find((step) => step.kind === "paths");
+  assert.doesNotMatch(
+    JSON.stringify(finalStep),
+    /\b103\.1\b|\b106\.1\b|\b4\.9\b|\b1\.9\b|\b1\.1\b/,
+    "Final narration must use the calculated conductor losses",
+  );
   for (const mode of ["teach", "student"]) {
     for (const viewport of [
       { width: 1920, height: 1080 },
@@ -105,7 +111,10 @@ let browser;
             `${mode}/${step.id}: clipped labels`,
           );
           for (const note of step.notes) assert.ok(!layout.text.includes(note));
-          assert.doesNotMatch(layout.text, /NaN|Infinity|150 kW|160 kW/);
+          assert.doesNotMatch(
+            layout.text,
+            /NaN|Infinity|150 kW|160 kW|\b48 V DC\b|2,?083|0\.36\s*%/,
+          );
           layouts.push({
             mode,
             step: step.id,
@@ -160,14 +169,28 @@ let browser;
   await page.keyboard.press("ArrowLeft");
   await page.locator("#voltage").focus();
   await page.keyboard.press("Home");
-  assert.equal(await page.locator("#variable-voltage").textContent(), "48");
+  assert.equal(await page.locator("#variable-voltage").textContent(), "400");
+  assert.match(await page.locator("#variable-current").textContent(), /250 A/);
+  await page.keyboard.press("End");
+  assert.match(await page.locator("#variable-current").textContent(), /100 A/);
+  await setRange("voltage", 480);
   assert.match(
     await page.locator("#variable-current").textContent(),
-    /2,083\.3/,
+    /208\.3 A/,
   );
-  await page.keyboard.press("End");
-  assert.match(await page.locator("#variable-current").textContent(), /125/);
+  assert.match(
+    await page.locator(".metric-card").first().innerText(),
+    /120\.3 A/,
+  );
+  await page.locator("#reset-voltage").click();
+  assert.match(await page.locator("#variable-current").textContent(), /125 A/);
   await page.screenshot({ path: resolve(output, "current-1280.png") });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.screenshot({
+    path: resolve(output, "current-mobile.png"),
+    fullPage: true,
+  });
+  await page.setViewportSize({ width: 1280, height: 720 });
   const opened = context.waitForEvent("page");
   await page.locator("#open-notes").click();
   const notes = await opened;
@@ -176,10 +199,7 @@ let browser;
     document.querySelector("#connection").textContent.startsWith("Connected"),
   );
   assert.equal(await notes.locator("#audience").isVisible(), false);
-  assert.match(
-    await notes.locator("#narration").textContent(),
-    /one hundred and twenty-five/,
-  );
+  assert.match(await notes.locator("#narration").textContent(), /125 amperes/);
   assert.doesNotMatch(
     await notes.locator("body").innerText(),
     /recording setup/i,
@@ -192,21 +212,21 @@ let browser;
   await page.waitForURL(/#conductor-loss$/);
   await notes.locator("#notes-reveal").click();
   await page.waitForFunction(() =>
-    document.querySelector("#visual").textContent.includes("0.36"),
+    document.querySelector("#visual").textContent.includes("72"),
   );
   assert.match(
     await page.locator("#caption").textContent(),
-    /Same conductor resistance/,
+    /10 mΩ per conductor/,
   );
   await page.screenshot({ path: resolve(output, "loss-1280.png") });
   await notes.locator('#notes-outline [data-step="1"]').click();
   await page.waitForURL(/#current-prediction$/);
   await page.locator("#voltage").focus();
-  await page.keyboard.press("Home");
+  await setRange("voltage", 480);
   await notes.waitForFunction(() =>
     document
       .querySelector("#narration")
-      .textContent.includes("Live comparison: 48 V"),
+      .textContent.includes("Live DC comparison: 480 V"),
   );
   await page.locator('#steps [data-step="6"]').click();
   await notes.waitForURL(/#energy-balance$/);
@@ -219,29 +239,51 @@ let browser;
   );
   await notes.locator("#notes-reveal").click();
   await page.waitForFunction(() =>
-    document.querySelector(".ledger-result").textContent.includes("4.325"),
+    document.querySelector(".ledger-result").textContent.includes("0.122"),
   );
-  assert.match(await page.locator("#visual").innerText(), /104\.34/);
-  assert.match(await page.locator("#visual").innerText(), /100\.016/);
+  assert.match(await page.locator("#visual").innerText(), /100\.434/);
+  assert.match(await page.locator("#visual").innerText(), /100\.313/);
   assert.match(
     await page.locator("#visual").innerText(),
-    /4\.325 kWh less input over 1 h/,
+    /0\.122 kWh less input over 1 h/,
   );
   const models = await page.evaluate(() => ({
-    low: dcConductorModel(100, 48, 0.001, 1),
-    high: dcConductorModel(100, 800, 0.001, 1),
-    ac: deliveryPathModel(100, 4, 1, 1),
-    dc: deliveryPathModel(100, 3, 0.1, 1),
+    feeder: acdcConductorModel(100, 480, 800, 1, 0.01, 1),
+    equalVoltage: acdcConductorModel(100, 480, 480, 1, 0.01, 1),
+    complete: acdcDeliveryModel(100, 480, 800, 1, 0.01, 1, 4, 3, 1),
+    crossover: acdcDeliveryModel(
+      100,
+      480,
+      800,
+      1,
+      0.01,
+      1,
+      4,
+      4.137030473977177,
+      1,
+    ),
   }));
-  near(models.low.inputKW, 104.34027777777777);
-  near(models.high.inputKW, 100.015625);
-  near(models.low.inputKWh - models.high.inputKWh, 4.32465277777777);
-  for (const model of [models.low, models.high]) {
+  near(models.feeder.ac.amps, 120.28130608117203);
+  near(models.feeder.dc.amps, 125);
+  assert.equal(models.feeder.ac.conductors, 3);
+  assert.equal(models.feeder.dc.conductors, 2);
+  near(models.feeder.ac.lossKW, 0.4340277777777778);
+  near(models.feeder.dc.lossKW, 0.3125);
+  near(models.feeder.ac.inputKW, 100.43402777777777);
+  near(models.feeder.dc.inputKW, 100.3125);
+  near(models.feeder.ac.inputKWh - models.feeder.dc.inputKWh, 0.12152777777777);
+  near(models.feeder.lossRatio, 0.72);
+  for (const model of [models.feeder.ac, models.feeder.dc]) {
     near(model.inputKW, 100 + model.lossKW);
-    near((model.sendingVolts * model.amps) / 1000, model.inputKW);
+    near(model.inputKWh, model.deliveredKWh + model.lossKWh);
   }
-  near(models.ac.inputKW, 105);
-  near(models.dc.inputKW, 103.1);
+  near(models.equalVoltage.dc.amps, 208.33333333333334);
+  near(models.equalVoltage.dc.lossKW, 2 * models.equalVoltage.ac.lossKW);
+  near(models.complete.ac.inputKW, 104.46944444444445);
+  near(models.complete.dc.inputKW, 103.325125);
+  near(models.complete.ac.feederKW, 104);
+  near(models.complete.dc.feederKW, 102);
+  near(models.crossover.ac.inputKW, models.crossover.dc.inputKW);
   await page.screenshot({ path: resolve(output, "energy-balance-1280.png") });
   await notes.locator("#notes-next-button").click();
   await page.waitForURL(/#ac-dc-ledger$/);
@@ -254,15 +296,16 @@ let browser;
   );
   assert.match(
     await page.locator("#path-result").textContent(),
-    /1\.9 kWh less/,
+    /1\.144 kWh less/,
   );
-  assert.match(await page.locator("#dc-path-card").innerText(), /103\.1/);
+  assert.match(await page.locator("#dc-path-card").innerText(), /103\.325/);
   await page.screenshot({ path: resolve(output, "ac-dc-default-1280.png") });
   const pathCases = [
-    [1, 101.1, "DC uses 3.9 kWh less input over 1 h"],
-    [4.9, 105, "Same input energy over 1 h"],
-    [6, 106.1, "DC uses 1.1 kWh more input over 1 h"],
-    [7, 107.1, "DC uses 2.1 kWh more input over 1 h"],
+    [1, 101.313, "DC uses 3.157 kWh less input over 1 h"],
+    [4.1, 104.432, "DC uses 0.037 kWh less input over 1 h"],
+    [4.2, 104.533, "DC uses 0.063 kWh more input over 1 h"],
+    [6, 106.345, "DC uses 1.875 kWh more input over 1 h"],
+    [7, 107.351, "DC uses 2.882 kWh more input over 1 h"],
   ];
   for (const [conversion, input, result] of pathCases) {
     await setRange("dc-conversion", conversion);
@@ -285,7 +328,7 @@ let browser;
   }
   await setRange("dc-conversion", 6);
   await notes.waitForFunction(() =>
-    document.querySelector("#narration").textContent.includes("1.1 kWh more"),
+    document.querySelector("#narration").textContent.includes("1.875 kWh more"),
   );
   await page.screenshot({ path: resolve(output, "ac-dc-reversed-1280.png") });
   await notes.screenshot({
@@ -348,6 +391,52 @@ let browser;
     await page.locator("#title").textContent(),
     /What 800 V changes/,
   );
+  for (const viewport of [
+    { width: 390, height: 844 },
+    { width: 1440, height: 1000 },
+  ]) {
+    await page.setViewportSize(viewport);
+    assert.ok(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth + 1,
+      ),
+      "AC/DC reading lab must not overflow horizontally",
+    );
+  }
+  await page
+    .locator("#lab")
+    .screenshot({ path: resolve(output, "reading-acdc-lab.png") });
+  assert.equal(await page.locator("#lab-volts").inputValue(), "800");
+  assert.equal(await page.locator("#lab-pf").inputValue(), "1");
+  assert.match(
+    await page.locator("#lab-boundary").innerText(),
+    /480 V AC line-to-line RMS/,
+  );
+  assert.match(await page.locator("#lab-output").innerText(), /72% of AC loss/);
+  assert.doesNotMatch(
+    await page.locator("#lab").innerText(),
+    /\b48 V DC\b|2,?083|0\.36\s*%/,
+  );
+  await setRange("lab-volts", 480);
+  assert.match(
+    await page.locator("#lab-output").innerText(),
+    /200% of AC loss/,
+  );
+  await page.locator('[data-arch="hybrid"]').click();
+  assert.equal(await page.locator("#lab-volts").inputValue(), "480");
+  for (const control of ["lab-kw", "lab-volts", "lab-pf", "lab-resistance"]) {
+    await page.locator(`#${control}`).focus();
+    await page.keyboard.press("Home");
+    assert.doesNotMatch(
+      await page.locator("#lab-output").innerText(),
+      /NaN|Infinity|undefined/,
+    );
+    await page.keyboard.press("End");
+    assert.doesNotMatch(
+      await page.locator("#lab-output").innerText(),
+      /NaN|Infinity|undefined/,
+    );
+  }
   assert.deepEqual(errors, []);
   rmSync(resolve(output, "transfer-1280.png"), { force: true });
   const report = {
@@ -364,14 +453,14 @@ let browser;
       "Student explanations expand for all eight steps at all five sizes",
       "Student mode hides notes/fullscreen and P/F shortcuts do not activate them",
       "Prediction before reveal for currents, conductor loss and both energy ledgers",
-      "DC current, I²R losses and source power balance checked numerically",
-      "Complete-path default, break-even and reversed energy budgets",
+      "480 V balanced three-phase AC versus 800 V DC: current, conductor count, 72% heat ratio and energy balance",
+      "Coupled complete-path default, 4.1–4.2 kW crossover bracket and reversed energy budgets",
       "Keyboard advance after reveal and slider keyboard ownership",
       "Separate presenter window with bidirectional navigation/reveal synchronization",
       "Voltage and DC-conversion slider state synchronized to notes",
       "Fullscreen entry and exit in teaching mode",
       "Old feeder-transfer hash routes to the complete-path comparison",
-      "Source reading view preserved",
+      "Reading view uses the AC/DC calculator, including the equal-voltage counterexample and control endpoints",
     ],
     errors,
   };

@@ -5,17 +5,17 @@
   "title": "What 800 V changes",
   "planned_duration_seconds": 365,
   "timing_note": "Unrecorded dry run first. Timing targets are prompts for rehearsal, not an instruction to record or a measured duration.",
-  "review_state": "Revised after presenter dry-run feedback on terminology, audience modes and the loss-comparison premise.",
+  "review_state": "Revised after presenter feedback clarified the intended comparison: 480 V three-phase AC versus 800 V two-wire DC.",
   "defaults": {
     "power_kw": 100,
-    "reference_voltage_v": 48,
+    "reference_voltage_v": 480,
     "comparison_voltage_v": 800,
-    "loop_ohms": 0.001,
     "hours": 1,
     "ac_conversion_kw": 4,
-    "ac_conductor_kw": 1,
     "dc_conversion_kw": 3,
-    "dc_conductor_kw": 0.1
+    "conductor_ohms": 0.01,
+    "power_factor": 1,
+    "dc_upstream_conversion_kw": 1
   },
   "presentation_rules": [
     "Show one step at a time. Keep notes, cues and sources in the separate presenter or reading view.",
@@ -23,61 +23,62 @@
     "Use the same load and diagram positions throughout the architecture sequence; change conversion placement deliberately.",
     "Architecture drawings show selected functional boundaries. They are conceptual schematics, not wiring diagrams.",
     "Show the fixed-resistance assumption alongside the loss comparison, including after revealing its answer.",
-    "Compute displayed answers with the tested DC model rather than embedding numbers in generated illustrations."
+    "Compute displayed answers with the tested three-phase AC and two-wire DC model rather than embedding numbers in generated illustrations.",
+    "Hold receiving-end real power fixed. State AC line-to-line RMS voltage, power factor and resistance per conductor; distinguish amperes, conductor count and total loss."
   ],
   "steps": [
     {
       "id": "one-load",
       "title": "Hold the load fixed",
       "kind": "intro",
-      "headline": "100 kW delivered. Two DC voltages.",
-      "caption": "48 V DC versus 800 V DC, measured at the receiving end.",
+      "headline": "100 kW delivered. AC versus DC.",
+      "caption": "480 V three-phase AC versus 800 V two-wire DC, measured at the feeder receiving end.",
       "notes": [
-        "This first comparison is DC versus DC: forty-eight volts and eight hundred volts at the receiving end. Alternating current enters only when we compare complete delivery arrangements later. Keep those two comparisons distinct.",
-        "We are going to change one thing: the voltage used to deliver power across this selected DC segment. The hypothetical load still receives one hundred kilowatts. Watch that number: it stays fixed during the first comparison.",
-        "Voltage is energy transferred per unit charge. Current is charge flowing per second. For this DC comparison, power equals voltage times current. Higher distribution voltage does not mean that the processor itself operates at eight hundred volts."
+        "The intended comparison is four-hundred-and-eighty-volt balanced three-phase AC versus eight-hundred-volt two-wire DC. Each feeder delivers one hundred kilowatts of real power at its receiving end. Conversion is outside this first comparison; we account for complete delivery paths at the end.",
+        "For AC, four hundred and eighty volts means line-to-line RMS voltage. Line-to-line means measured between two phase conductors. RMS is the effective value used to calculate resistive heating; it is not the peak voltage. Power factor is real power divided by apparent power. Here we use ideal balanced sinusoidal AC with power factor one.",
+        "Count three current-carrying conductors for AC and two for DC. Protective earth and any neutral are outside this simplified comparison. Distribution voltage does not mean that the processor itself operates at eight hundred volts."
       ],
       "duration_seconds": 30,
-      "cue": "Point to the fixed 100 kW load. Explain that the equipment illustration locates the idea but does not define a wired circuit. Introduce P = V × I, then advance.",
+      "cue": "Point to the fixed 100 kW receiving-end power. Define the AC voltage convention; the next visual counts conductors.",
       "explanation": [
-        "This comparison holds delivered DC power at 100 kW while changing the voltage at the load end from 48 V to 800 V. The equipment picture locates the idea; it is not a wiring diagram.",
-        "Voltage and AC/DC waveform are separate variables. Raising voltage within DC is the first experiment. Complete AC-distributed and DC-distributed arrangements are compared at the end."
+        "Compare 480 V balanced three-phase AC with 800 V two-wire DC. Both feeders deliver 100 kW of real power at their receiving ends. The equipment picture locates the idea; it is not a wiring diagram.",
+        "AC voltage is line-to-line RMS, with power factor equal to one. Count three AC lines and two DC conductors; exclude protective earth and any neutral. Conversion losses are outside this feeder comparison."
       ]
     },
     {
       "id": "current-prediction",
       "title": "Predict the current",
       "kind": "current",
-      "headline": "Raise voltage. What happens to current?",
-      "caption": "Same 100 kW; stated voltages are at the load end of the DC segment.",
+      "headline": "Fewer conductors. Less current?",
+      "caption": "100 kW received; 480 V AC line-to-line RMS, power factor 1; compare current per conductor.",
       "notes": [
-        "Before revealing the answer, predict the direction. We need to move the same amount of energy each second. If each unit of charge transfers more energy, do we need more charge per second, or less?",
-        "Divide power in watts by voltage. At forty-eight volts, one hundred thousand divided by forty-eight is about two thousand and eighty-three amperes. At eight hundred volts, it is one hundred and twenty-five amperes.",
-        "The current falls. The load still receives one hundred kilowatts. This is a statement about the selected DC segment, with the same delivered power on both sides of our comparison."
+        "Predict before revealing: does two conductors instead of three automatically mean less current in each? No. The AC feeder transfers power across three phases, so we must use the three-phase power equation rather than the DC equation.",
+        "For DC, current equals power divided by voltage. For balanced three-phase AC, line current equals real power divided by the square root of three times line-to-line RMS voltage times power factor. At one hundred kilowatts and power factor one, the four-hundred-and-eighty-volt AC feeder carries about 120.3 amperes in each line. At eight hundred volts, each DC conductor carries 125 amperes.",
+        "The DC current per conductor is about four percent higher in this comparison. Move only the DC voltage control: raising it reduces DC current, while the 480 V AC reference stays fixed. The following scenes return to the stated 800 V DC case."
       ],
       "duration_seconds": 50,
-      "cue": "Leave both current answers hidden. Pause for a prediction, then Reveal. Point first to the unchanged power, then to the two currents.",
+      "cue": "Leave both currents hidden. Ask whether fewer conductors guarantee less current per conductor, then Reveal. Move the DC voltage slider while keeping the AC reference fixed.",
       "explanation": [
-        "At a DC load boundary, I = P/V. Convert 100 kW to 100,000 W before dividing by voltage. The receiving load needs about 2,083 A at 48 V and 125 A at 800 V.",
-        "The delivered power is unchanged. Higher voltage transfers more energy per unit charge, so less charge must flow each second."
+        "For DC, I = P/V. For balanced three-phase AC, I = P/(√3 × V_line-to-line × PF). At 100 kW, 480 V AC and PF = 1 give 120.3 A per line; 800 V DC gives 125 A per conductor.",
+        "Two instead of three is 33% fewer current-carrying conductors, not 33% less current. The DC voltage slider changes only this scene; later comparisons use 800 V again."
       ]
     },
     {
       "id": "conductor-loss",
       "title": "Connect current to heating",
       "kind": "loss",
-      "headline": "Less current means less conductor heating.",
-      "caption": "Same conductor resistance; compare only I²R conductor loss.",
+      "headline": "Count every conductor's heat.",
+      "caption": "Resistance: 10 mΩ per conductor in both cases; three AC conductors versus two DC conductors.",
       "notes": [
-        "Now predict the effect on heating in the conductor. Electrical resistance turns some of that transferred energy into heat. The loss is current squared times resistance.",
-        "For this one comparison, keep resistance identical. The new current is forty-eight divided by eight hundred of the old current. Square that ratio and the calculated loss becomes zero point three six percent of the original conductor loss.",
-        "Keep the denominator in view: original conductor loss. We have not calculated a whole-facility saving. Changing conductor size changes resistance; converters and the rest of the system also have losses."
+        "Each conductor produces heat at current squared times resistance. AC uses RMS current in this calculation. To compare total feeder heat, add the losses from all three AC conductors or both DC conductors.",
+        "Give each conductor an invented resistance of ten milliohms. For AC, three times 120.281 amperes squared times 0.01 ohm is about 434 watts. For DC, two times 125 amperes squared times 0.01 ohm is 312.5 watts. DC produces 72 percent as much conductor heat, or 28 percent less, despite slightly higher current in each conductor.",
+        "This result depends on the stated voltages, power factor and equal resistance per conductor. It is not a universal DC advantage or a whole-facility saving. Two instead of three also means 33 percent less conductor material only if conductor lengths, cross-sections and materials remain equal. A real design must meet thermal and other constraints."
       ],
       "duration_seconds": 45,
-      "cue": "Pause before Reveal. Read the fixed-resistance assumption aloud. After revealing the ratio, point to the conductor-loss label before proceeding.",
+      "cue": "Ask how to combine heating across the wires. Reveal 3I²R versus 2I²R, then point to 28% less conductor heat. Distinguish that result from current and copper quantity.",
       "explanation": [
-        "Conductor heating is I²R. With equal resistance, the loss ratio is (48/800)² = 0.0036: the 800 V case has 0.36% of the 48 V conductor loss.",
-        "That denominator is original conductor loss, not all facility energy. Changing conductor geometry, conversion losses or operating conditions changes the system comparison."
+        "At equal resistance R per conductor, total feeder heat is 3I_AC²R for balanced three-phase AC and 2I_DC²R for two-wire DC. With R = 0.01 Ω, the losses are about 434.0 W and 312.5 W respectively.",
+        "The DC-to-AC loss ratio is 0.72: 28% less conductor heat under these assumptions. This does not mean 28% less current or 28% less facility electricity. Fewer conductors imply proportionally less conductor material only if their lengths, cross-sections and materials stay equal."
       ]
     },
     {
@@ -136,18 +137,18 @@
       "title": "Close the energy balance",
       "kind": "energy",
       "headline": "Less heat. Less energy required upstream.",
-      "caption": "Receiving-end voltages; 1 mΩ total loop; no converters; one hour.",
+      "caption": "480 V AC versus 800 V DC; 10 mΩ per conductor; converters excluded; one hour.",
       "duration_seconds": 50,
       "cue": "Ask what the source must supply in addition to the 100 kW load. Reveal the balances, then read input = useful output + conductor heat. Explain the one-hour energy comparison.",
       "notes": [
-        "Give the earlier comparison a concrete, invented resistance: one milliohm for the complete outgoing-and-return conductor loop, held equal in both cases. The forty-eight and eight-hundred-volt values are maintained at the receiving end. The sending-end voltage rises enough to cover the conductor voltage drop.",
-        "At forty-eight volts, conductor heating is about 4.340 kilowatts, so the source supplies about 104.340 kilowatts. At eight hundred volts, heating is 0.015625 kilowatts, so the source supplies 100.015625 kilowatts. Both loads receive exactly one hundred kilowatts. No energy is created.",
-        "For one hour, the higher-voltage case requires about 4.325 fewer kilowatt-hours at this segment input. It wastes less energy as conductor heat. These are two DC segments with an identical invented resistance, not an AC-versus-DC efficiency measurement. Converters and cooling equipment are outside this balance."
+        "Keep the same feeder assumptions: one hundred kilowatts received, four hundred and eighty volts line-to-line RMS for balanced AC at power factor one, eight hundred volts for DC, and ten milliohms per conductor. These are receiving-end voltages. The sending supply must cover the resistive voltage drop.",
+        "The three AC conductors together dissipate about 0.434 kilowatts, so the source supplies about 100.434 kilowatts. The two DC conductors dissipate 0.3125 kilowatts, so their source supplies 100.3125 kilowatts. Both receiving ends get exactly one hundred kilowatts. Input equals useful output plus heat.",
+        "Over one hour, this DC feeder requires about 0.122 fewer kilowatt-hours at its input. It wastes less energy as conductor heat; no energy is created. Converters and cooling are excluded. A 28 percent reduction in this small conductor-loss budget is a much smaller percentage of total input energy."
       ],
       "explanation": [
-        "Assume a 1 mΩ complete conductor loop, equal in both cases. Maintain 100 kW at the load end at either 48 V DC or 800 V DC. The source voltage covers the additional conductor drop.",
-        "The source supplies the load plus conductor heat: about 104.340 kW in the 48 V case and 100.016 kW in the 800 V case. Over one hour, the latter requires about 4.325 kWh less input. No energy is created.",
-        "This is still a DC-versus-DC conductor comparison. Converter and cooling losses are excluded."
+        "Keep 100 kW at each feeder receiving end: 480 V balanced three-phase AC at power factor one versus 800 V two-wire DC. Each conductor has 10 mΩ resistance. The sending supply covers the conductor voltage drop.",
+        "Input equals delivered power plus conductor heat: about 100.434 kW for AC and 100.313 kW for DC. Over one hour, DC requires about 0.122 kWh less input under these assumptions.",
+        "The 28% figure applies to conductor heat, not total input energy. Converter and cooling losses remain outside this feeder balance."
       ]
     },
     {
@@ -155,19 +156,21 @@
       "title": "Compare complete delivery paths",
       "kind": "paths",
       "headline": "AC versus DC: account for every loss.",
-      "caption": "Synthetic loss budgets; same final DC load; all conversion included; cooling excluded.",
+      "caption": "480 V AC: three-phase, line-to-line RMS, PF 1. 800 V DC: two conductors. Resistance: 10 mΩ/conductor.",
       "duration_seconds": 70,
-      "cue": "First reveal the two complete input budgets. Then raise the DC conversion loss to 6 kW and ask whether the advantage survives. End with energy saved or wasted, not energy created.",
+      "cue": "Point to the final 100 kW DC load and the conversion stages. Reveal the input balances. Raise total DC conversion loss to 6 kW; track the resulting feeder power and heat before comparing inputs.",
       "notes": [
-        "Now change the question. Compare an AC-distributed arrangement and a DC-distributed arrangement serving the same final one-hundred-kilowatt DC load. Both still need conversion. We stipulate total conductor and conversion losses across each complete delivery path at this operating point. These loss budgets are invented teaching inputs, not specifications or measured efficiencies.",
-        "Give the AC path one kilowatt of conductor loss and four kilowatts of total conversion loss: its input is one hundred and five kilowatts. Give the DC path 0.1 kilowatt of conductor loss and three kilowatts of total conversion loss: its input is 103.1 kilowatts. Over one hour, that particular DC arrangement requires 1.9 fewer kilowatt-hours.",
-        "Move the DC conversion-loss control to six kilowatts. It now requires 106.1 kilowatts, so it uses 1.1 more kilowatt-hours over the hour than the AC arrangement. Lower conductor loss did not guarantee lower total input. The break-even DC conversion loss in these stated budgets is 4.9 kilowatts.",
-        "The point of an 800 V architecture is to change the delivery constraints and potentially reduce losses through higher-voltage distribution and different conversion placement. The whole-path advantage has to be established from actual equipment and operating conditions. The forty-eight-versus-eight-hundred-volt calculation alone cannot establish it."
+        "Now change the boundary deliberately. Earlier, each feeder delivered one hundred kilowatts at its receiving end, with conversion excluded. Here both paths begin at the same facility AC supply boundary and serve the same final one-hundred-kilowatt DC load. A converter downstream of a feeder needs input power for the useful load plus its own losses. That extra power raises feeder current and conductor heat.",
+        "Keep the feeder voltages and resistance: four hundred and eighty volts line-to-line RMS for balanced three-phase AC at power factor one, eight hundred volts for two-wire DC, and ten milliohms per conductor. Assume four kilowatts of conversion loss downstream of the AC feeder, so it must deliver 104 kilowatts. For DC, assume one kilowatt of upstream rectifier loss and two kilowatts of downstream DC-to-DC loss. Its feeder must deliver 102 kilowatts.",
+        "Calculate conductor heat from those receiving-end powers. AC conductor heat is about 0.469 kilowatts; its required facility input is about 104.469 kilowatts. DC conductor heat is about 0.325 kilowatts; adding both conversion losses gives about 103.325 kilowatts input. Over one hour, this DC arrangement requires about 1.144 fewer kilowatt-hours.",
+        "Raise total DC conversion loss to six kilowatts. The upstream rectifier loss stays at one, so downstream loss becomes five. The DC feeder now delivers 105 kilowatts, conductor heat rises to about 0.345 kilowatts, and facility input becomes about 106.345 kilowatts. It uses about 1.875 more kilowatt-hours over the hour than AC. Break-even total DC conversion loss is about 4.137 kilowatts, between the slider positions 4.1 and 4.2.",
+        "The conversion losses are hypothetical watts at these operating points, not manufacturer efficiencies. Conductor heat is calculated, not assigned a separate budget. Cooling and other losses are excluded, and voltage compatibility is not modeled. For dense racks, the useful question is how 800 V DC distribution and conversion placement change conductor, space and heat constraints while still meeting the complete energy balance. The earlier 28 percent conductor-loss reduction is not a fixed whole-path or facility saving."
       ],
       "explanation": [
-        "Compare complete delivery paths serving the same 100 kW final DC load. The loss figures here are invented at this operating point. Both paths include their total conversion losses.",
-        "At the defaults, AC needs 100 + 1 + 4 = 105 kW and DC needs 100 + 0.1 + 3 = 103.1 kW. Over one hour, the DC arrangement uses 1.9 kWh less input.",
-        "Raise DC conversion loss to 6 kW: DC input becomes 106.1 kW and exceeds AC input. The advantage depends on the whole loss budget, not the AC/DC label alone."
+        "Earlier, the 100 kW boundary was each feeder receiving end. Now it is the final useful DC load, and both paths start at the same facility AC supply boundary. Downstream conversion losses add to the power the feeder must deliver, so they also affect its current and conductor heat.",
+        "The 480 V AC feeder delivers 104 kW: 100 kW useful load plus 4 kW assumed downstream conversion loss. The 800 V DC feeder delivers 102 kW: 100 kW useful load plus 2 kW assumed downstream loss. DC also has a fixed 1 kW upstream rectifier loss. With 10 mΩ per conductor, calculated conductor heat is about 0.469 kW for AC and 0.325 kW for DC.",
+        "Required input is about 104.469 kW for AC and 103.325 kW for DC. Over one hour, DC uses about 1.144 kWh less input. Raise total DC conversion loss from 3 to 6 kW: downstream loss and feeder current increase, and DC then uses about 1.875 kWh more than AC.",
+        "Conversion losses are hypothetical operating-point assumptions; conductor heat is calculated from them. Cooling, other losses and voltage compatibility are outside the model. This comparison does not establish a universal AC/DC efficiency ranking."
       ]
     }
   ],
@@ -175,9 +178,23 @@
     {
       "title": "NVIDIA: Why Scaling AI Compute Performance Requires a New Power Architecture",
       "url": "https://blogs.nvidia.com/blog/800-vdc-power-architecture-ai-factory/",
-      "claim": "Architecture context only; all loads, voltage comparisons and feeder limits are original teaching assumptions inherited from the existing sample.",
-      "reviewed_on": "2026-09-06",
+      "claim": "Architecture context for higher-voltage DC distribution and conversion placement. Feeder values and conversion losses are original teaching assumptions; conductor heat is calculated from the power each feeder must deliver.",
+      "reviewed_on": "2026-09-08",
       "limits": "Vendor roadmap; proposed architecture and availability expectations are distinct from verified installed deployment."
+    },
+    {
+      "title": "Schneider Electric: Total power calculation for accuracy verification testing",
+      "url": "https://productinfo.se.com/pm2200/5afc2b5546e0fb00011e5e9d/PM2200%20series%20User%20Manual/English/BM_PM2200seriesUserManual_0000074170.ditamap.xml/%24/C_VerifyingAccuracy_PowerTotCalcuation_0000034437",
+      "claim": "Balanced three-phase real power is 3 × line-to-neutral RMS voltage × line current × power factor, equivalent to √3 × line-to-line RMS voltage × line current × power factor.",
+      "reviewed_on": "2026-09-08",
+      "limits": "Balanced three-phase relationship. Numerical loads, voltages, resistance and conversion losses are original teaching assumptions; calculated conductor losses are not equipment specifications."
+    },
+    {
+      "title": "NVIDIA: Gigawatt AI factories and the 800 V DC transition",
+      "url": "https://blogs.nvidia.com/blog/gigawatt-ai-factories-ocp-vera-rubin/",
+      "claim": "Identifies 415 or 480 V three-phase AC systems as relevant baselines for the proposed transition to 800 V DC.",
+      "reviewed_on": "2026-09-08",
+      "limits": "Used only for baseline relevance. Vendor current, efficiency, copper and deployment claims are not validated by this teaching calculation."
     }
   ],
   "aliases": {

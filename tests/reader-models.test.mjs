@@ -113,6 +113,69 @@ test("Whole-path losses can reverse the AC versus DC energy result", () => {
   close(m.deliveryPathModel(100, 0, 0, 2).inputKWh, 200);
   assert.ok(ac.efficiency < 1 && dc.efficiency < 1);
 });
+test("480 V three-phase AC and 800 V DC separate current from total conductor heat", () => {
+  const { ac, dc, lossRatio } = m.acdcConductorModel(100, 480, 800, 1, 0.01, 1);
+  close(ac.amps, 120.28130608117205);
+  close(dc.amps, 125);
+  assert.ok(dc.amps > ac.amps);
+  close(ac.lossKW, 0.4340277777777778);
+  close(dc.lossKW, 0.3125);
+  close(lossRatio, 0.72);
+  close(ac.inputKWh - dc.inputKWh, 0.1215277777777778);
+  for (const x of [ac, dc]) close(x.inputKWh, x.deliveredKWh + x.lossKWh);
+  close(ac.amps * (480 / Math.sqrt(3)) * 3, 100000);
+  close(dc.amps * 800, 100000);
+});
+test("Equal numerical voltage, power factor and conductor resistance alter the comparison", () => {
+  const sameVoltage = m.acdcConductorModel(100, 480, 480, 1, 0.01, 1);
+  close(sameVoltage.dc.amps / sameVoltage.ac.amps, Math.sqrt(3));
+  close(sameVoltage.lossRatio, 2);
+  const lowerPF = m.acdcConductorModel(100, 480, 800, 0.8, 0.01, 2);
+  close(lowerPF.ac.amps, 150.35163260146505);
+  close(lowerPF.lossRatio, 0.4608);
+  close(lowerPF.dc.inputKWh, 200.625);
+  const zeroR = m.acdcConductorModel(100, 480, 800, 1, 0, 1);
+  close(zeroR.ac.inputKW, 100);
+  close(zeroR.dc.inputKW, 100);
+});
+test("The AC/DC comparison rejects invalid electrical assumptions", () => {
+  for (const args of [
+    [100, 0, 800, 1, 0.01, 1],
+    [100, 480, NaN, 1, 0.01, 1],
+    [100, 480, 800, 0, 0.01, 1],
+    [100, 480, 800, 1.1, 0.01, 1],
+    [100, 480, 800, 1, -1, 1],
+    [100, 480, 800, 1, Infinity, 1],
+    [100, 480, 800, 1, 0.01, 0],
+  ])
+    assert.throws(() => m.acdcConductorModel(...args), RangeError);
+});
+test("Complete paths include conversion in feeder loading at the correct position", () => {
+  const run = (dcLoss) =>
+    m.acdcDeliveryModel(100, 480, 800, 1, 0.01, 1, 4, dcLoss, 1);
+  const { ac, dc } = run(3);
+  close(ac.feederKW, 104);
+  close(dc.feederKW, 102);
+  close(ac.conductorLossKW, 0.46944444444444444);
+  close(dc.conductorLossKW, 0.325125);
+  close(ac.inputKW, 104.46944444444445);
+  close(dc.inputKW, 103.325125);
+  close(ac.inputKWh - dc.inputKWh, 1.1443194444444487);
+  const reversed = run(6).dc;
+  close(reversed.feederKW, 105);
+  close(reversed.inputKW, 106.34453125);
+  assert.ok(reversed.inputKW > ac.inputKW);
+  assert.ok(reversed.conductorLossKW < ac.conductorLossKW);
+  close(run(4.137030473976019).dc.inputKW, ac.inputKW);
+  for (const x of [ac, dc, reversed]) close(x.inputKW, 100 + x.lossKW);
+  const shifted = m.acdcDeliveryModel(100, 480, 800, 1, 0.01, 1, 4, 3, 3);
+  close(shifted.dc.feederKW, 100);
+  close(shifted.dc.conductorLossKW, 0.3125);
+  assert.throws(
+    () => m.acdcDeliveryModel(100, 480, 800, 1, 0.01, 1, 4, 2, 3),
+    RangeError,
+  );
+});
 test("Energy ledgers reject invalid resistance, time and loss budgets", () => {
   for (const fn of [
     () => m.dcConductorModel(100, 0, 0.001, 1),

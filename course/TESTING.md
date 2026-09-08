@@ -223,3 +223,37 @@ course now indexes 140 glossary terms and 59 lesson source records.
 These checks verify the artifact and calculations. They do not establish that
 Kian has completed the revised dry run, that learners understand the explanation,
 or that the course has received specialist engineering review.
+
+## Corrected 480 V AC / 800 V DC comparison — 2026-09-08
+
+Kian clarified that the sample's reference was 480 V three-phase AC. The earlier
+48 V DC premise is superseded for this sample. The eight steps now distinguish
+per-conductor current, conductor count, total conductor heat, and complete-path
+input energy. The reading calculator uses the same AC/DC conductor model.
+
+- 36 Python tests and 21 JavaScript numerical tests passed. The sample builder
+  now includes catalog sources used only by the sample, with a regression check
+  that every cited record is embedded in its reading page.
+- 120 presentation layout states and 40 student explanation expansions passed
+  across both audience modes and five viewports. Notes synchronization, keyboard
+  controls, old-hash routing, converter-loss changes and the reader AC/DC controls
+  passed. Desktop and phone current/ledger renders were visually inspected.
+- At 100 kW feeder receiving power, 480 V AC line-to-line RMS at PF 1 requires
+  120.281 A per line; 800 V DC requires 125 A per conductor. With 10 mΩ per
+  conductor, total heat is 0.434028 versus 0.3125 kW. The 28% reduction applies
+  to conductor heat, and gives 0.121528 kWh less input over one hour.
+- The final model instead fixes a 100 kW useful DC load. Assumed downstream
+  converter losses enter feeder demand before conductor heat is calculated.
+  With AC conversion loss 4 kW downstream, AC input is 104.469444 kW. With DC
+  conversion loss 1 kW upstream plus 2 kW downstream, DC input is 103.325125 kW.
+  Raising total DC conversion loss to 6 kW produces 106.344531 kW input. The
+  crossover at approximately 4.137 kW is bracketed by the 4.1/4.2 kW controls.
+- An independent physics audit confirmed conservation and converter placement.
+  Conversion losses remain explicit teaching assumptions. This is neither an
+  equipment performance measurement nor a whole-facility efficiency estimate.
+- Source catalog, domain map, generated pages, Python formatting/lint, JavaScript
+  syntax and whitespace checks passed. Local site staging succeeded.
+
+The earlier test records above describe earlier iterations. Current report and
+screenshots are in `qa/presentation/`. Comprehension and spoken delivery still
+require Kian's unrecorded rehearsal.

@@ -1770,6 +1770,40 @@
       "use": "Sections 6, 6.1.2 and 6.1.3 distinguish 48 mm OpenU spacing from optional 44.45 mm EIA rack-unit support and allow exterior frame dimensions to vary.",
       "caution": "Reviewed the public PDF mechanical sections on printed pages 7, 9 and 11, plus revision table on page 6. Revision 1.0 is the identified reference, not a claim to the latest revision. Electrical, connector and qualification requirements were not audited; the lesson does not infer interchangeability from height alone.",
       "discovered_via": "Rack-format gap review, 2026-09-08."
+    },
+    {
+      "id": "EFB703CFC3D",
+      "title": "Schneider Electric — PM2200 total power calculation for accuracy verification",
+      "url": "https://productinfo.se.com/pm2200/5afc2b5546e0fb00011e5e9d/PM2200%20series%20User%20Manual/English/BM_PM2200seriesUserManual_0000074170.ditamap.xml/%24/C_VerifyingAccuracy_PowerTotCalcuation_0000034437",
+      "publisher": "Schneider Electric",
+      "kind": "technical_documentation",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-08",
+      "domains": [
+        "D01",
+        "D04",
+        "D06"
+      ],
+      "use": "The selected PM2200 manual page gives balanced three-phase real power as 3 × line-to-neutral voltage × current × power factor. The course uses the equivalent line-to-line form with RMS voltage and current.",
+      "caution": "Reviewed only the linked calculation page, not the whole PM2200 manual. Its balanced three-phase formula supports the electrical relationship, not data-center topology, cable sizing, converter efficiency or any claimed measured savings. Numerical course examples are original calculations.",
+      "discovered_via": "480 V AC versus 800 V DC teaching sample correction, 2026-09-08."
+    },
+    {
+      "id": "EA7B686AF9E",
+      "title": "NVIDIA, Partners Drive Next-Gen Efficient Gigawatt AI Factories in Buildup for Vera Rubin",
+      "url": "https://blogs.nvidia.com/blog/gigawatt-ai-factories-ocp-vera-rubin/",
+      "publisher": "NVIDIA",
+      "kind": "vendor_announcement",
+      "published_on": "2025-10-13",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-08",
+      "domains": [
+        "D04",
+        "D06"
+      ],
+      "use": "The introductory discussion and Kyber section explicitly identify 415 or 480 V AC three-phase distribution as baselines for the proposed move to 800 V DC. This supports the relevance of the course comparison.",
+      "caution": "Used to identify the AC distribution baseline, not to validate vendor efficiency, current, copper, capacity or deployment claims. The page contains later branding edits. All sample loads, resistance values and converter losses remain original teaching assumptions.",
+      "discovered_via": "Primary-source verification of 480 V AC baseline relevance, 2026-09-08."
     }
   ]
 }

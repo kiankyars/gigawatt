@@ -10,8 +10,8 @@ feedback on 2026-09-08 established the following:
 - The default student experience should not display instructor controls.
 - The 150 kW feeder / 160 kW load drawing looked like a real operating transfer,
   although it was intended as an impossible requested load.
-- The sample had not sufficiently distinguished its 48 V DC versus 800 V DC
-  comparison from an AC-versus-DC architecture comparison.
+- Kian clarified that the intended comparison was 480 V AC versus 800 V DC.
+  The earlier 48 V DC premise was a misunderstanding and has been replaced.
 - Rack units were missing from the explicit terminology teaching.
 
 The [teaching endpoint](teach.html) now supports the dry run. The default
@@ -21,18 +21,26 @@ The [full explanation](sample-reading.html) remains available for reference.
 
 ## What to rehearse next
 
-1. Explain why 100 kW delivered at 48 V DC and at 800 V DC requires different
-   current. Identify where voltage is measured.
-2. Explain the fixed-resistance conductor-loss comparison, then close input =
-   delivered power + conductor heat. Nothing is created by the higher voltage.
-3. Trace conversion placement across the three functional diagrams.
-4. In the final, separately stipulated AC/DC delivery budgets, reveal the
-   required inputs. Increase DC conversion loss from 3 kW to 6 kW and explain
-   why the total-energy advantage reverses despite lower conductor loss.
+1. Compare current at 100 kW received: 480 V balanced three-phase AC gives
+   about 120.3 A per line, while 800 V DC gives 125 A per conductor. Explain
+   line-to-line RMS voltage and the power-factor-one assumption.
+2. With 10 mΩ per conductor, add heat across three AC conductors or two DC
+   conductors. Explain why 28% less conductor heat is neither less current
+   per conductor nor a 28% reduction in facility electricity.
+3. Trace conversion placement across the three functional diagrams and connect
+   it to dense-rack space, conductor and heat constraints.
+4. In the final comparison, move the fixed 100 kW boundary to the final useful
+   DC load. Explain why downstream conversion losses increase feeder power and
+   conductor heat. Reveal the required inputs, then raise total DC conversion
+   loss from 3 to 6 kW and explain the reversal.
 
-The final comparison uses invented losses, not market measurements. It deliberately
-shows both a DC advantage and a counterexample. It does not claim a universal
-AC/DC winner. The revised premise and ending await another dry run.
+The final model assumes conversion losses and calculates conductor heat from the
+power each feeder must deliver. Both paths begin at the same facility AC supply
+boundary. At the defaults, DC requires about 1.144 kWh less input over one hour;
+with 6 kW total DC conversion loss, it requires about 1.875 kWh more. Cooling,
+other losses and voltage compatibility are excluded. These are teaching
+assumptions, not manufacturer efficiencies or a universal AC/DC ranking.
+The revised premise and ending await another dry run.
 
 For rack units, see [A rack upgrade is an interface negotiation](index.html#d06-rack-migration):
 U and usable height, the 19-inch mounting format, an original 42U allocation,

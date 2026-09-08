@@ -30,8 +30,9 @@ The [student sample](course/sample.html) offers visual steps and optional
 explanations. The separate [teaching endpoint](course/teach.html) enables presenter
 controls and synchronized notes. Kian will teach an unrecorded dry run first to
 identify gaps, then refine the explanation before recording. The eight-step
-sample now distinguishes a DC voltage comparison from a complete AC/DC loss
-budget. [Dry-run workflow](course/PRESENTING.md).
+sample compares 480 V three-phase AC with 800 V DC, then holds the final DC load
+fixed and calculates how conversion losses affect feeder current, conductor heat
+and required facility input. [Dry-run workflow](course/PRESENTING.md).
 
 The 50-lesson reader is the study/reference companion. Only the sample currently
 has a deliberately authored presentation sequence; the remaining lessons need

@@ -1289,6 +1289,43 @@ function dcConductorModel(loadKW, loadVolts, loopOhms, hours) {
     inputKWh: inputKW * hours,
   };
 }
+function acdcConductorModel(
+  loadKW,
+  acVolts,
+  dcVolts,
+  powerFactor,
+  conductorOhms,
+  hours,
+) {
+  positive(loadKW, "Delivered real power");
+  positive(acVolts, "Receiving-end AC line-to-line RMS voltage");
+  positive(dcVolts, "Receiving-end DC pair voltage");
+  positive(hours, "Duration");
+  if (!Number.isFinite(powerFactor) || powerFactor <= 0 || powerFactor > 1)
+    throw new RangeError("Power factor must lie in (0, 1]");
+  if (!Number.isFinite(conductorOhms) || conductorOhms < 0)
+    throw new RangeError(
+      "Resistance per conductor must be nonnegative and finite",
+    );
+  function segment(amps, conductors) {
+    const lossKW = (conductors * amps ** 2 * conductorOhms) / 1000;
+    return {
+      amps,
+      conductors,
+      lossKW,
+      inputKW: loadKW + lossKW,
+      deliveredKWh: loadKW * hours,
+      lossKWh: lossKW * hours,
+      inputKWh: (loadKW + lossKW) * hours,
+    };
+  }
+  const ac = segment(
+    (loadKW * 1000) / (Math.sqrt(3) * acVolts * powerFactor),
+    3,
+  );
+  const dc = segment((loadKW * 1000) / dcVolts, 2);
+  return { ac, dc, lossRatio: (2 * dc.amps ** 2) / (3 * ac.amps ** 2) };
+}
 function deliveryPathModel(
   loadKW,
   conversionLossKW,
@@ -1309,6 +1346,61 @@ function deliveryPathModel(
     inputKW: loadKW + lossKW,
     inputKWh: (loadKW + lossKW) * hours,
     efficiency: loadKW / (loadKW + lossKW),
+  };
+}
+function acdcDeliveryModel(
+  loadKW,
+  acVolts,
+  dcVolts,
+  powerFactor,
+  conductorOhms,
+  hours,
+  acConversionKW,
+  dcConversionKW,
+  dcUpstreamConversionKW,
+) {
+  if (
+    ![acConversionKW, dcConversionKW, dcUpstreamConversionKW].every(
+      (v) => Number.isFinite(v) && v >= 0,
+    ) ||
+    dcUpstreamConversionKW > dcConversionKW
+  )
+    throw new RangeError(
+      "Conversion losses must be nonnegative with upstream loss within the DC total",
+    );
+  const dcDownstreamKW = dcConversionKW - dcUpstreamConversionKW;
+  const acFeederKW = loadKW + acConversionKW;
+  const dcFeederKW = loadKW + dcDownstreamKW;
+  const ac = acdcConductorModel(
+    acFeederKW,
+    acVolts,
+    dcVolts,
+    powerFactor,
+    conductorOhms,
+    hours,
+  ).ac;
+  const dc = acdcConductorModel(
+    dcFeederKW,
+    acVolts,
+    dcVolts,
+    powerFactor,
+    conductorOhms,
+    hours,
+  ).dc;
+  return {
+    ac: {
+      ...deliveryPathModel(loadKW, acConversionKW, ac.lossKW, hours),
+      conductorLossKW: ac.lossKW,
+      amps: ac.amps,
+      feederKW: acFeederKW,
+    },
+    dc: {
+      ...deliveryPathModel(loadKW, dcConversionKW, dc.lossKW, hours),
+      conductorLossKW: dc.lossKW,
+      amps: dc.amps,
+      feederKW: dcFeederKW,
+    },
+    dcDownstreamKW,
   };
 }
 
@@ -1644,6 +1736,10 @@ function renderLab(l) {
       "The same peak, a different energy bill",
       "Before moving a control, predict what changes: the height of the power trace or its area?",
     ],
+    acdc: [
+      "480 V three-phase AC versus 800 V DC",
+      "Hold delivered real power fixed. Distinguish current in each conductor from the heat produced by all conductors.",
+    ],
     dc: [
       "Move the conversion boundary",
       "Compare topology separately from current arithmetic. A change in distribution voltage cannot by itself prove an efficiency or cost claim.",
@@ -1688,6 +1784,15 @@ function renderLab(l) {
     controls =
       control("lab-kw", "DC load", 50, 300, 10, 100, "kW") +
       control("lab-volts", "DC distribution voltage", 48, 800, 1, 48, "V");
+    extra =
+      '<div class="segmented" aria-label="Illustrative power architecture"><button data-arch="ac" aria-pressed="true">AC to the rack</button><button data-arch="hybrid" aria-pressed="false">AC + DC sidecar</button><button data-arch="facility" aria-pressed="false">Broader facility DC</button></div><div id="architecture"></div>';
+  }
+  if (type === "acdc") {
+    controls =
+      control("lab-kw", "Delivered real power", 50, 300, 10, 100, "kW") +
+      control("lab-volts", "DC pair voltage", 400, 1000, 1, 800, "V") +
+      control("lab-pf", "AC power factor", 0.7, 1, 0.01, 1, "") +
+      control("lab-resistance", "Resistance per conductor", 1, 20, 1, 10, "mΩ");
     extra =
       '<div class="segmented" aria-label="Illustrative power architecture"><button data-arch="ac" aria-pressed="true">AC to the rack</button><button data-arch="hybrid" aria-pressed="false">AC + DC sidecar</button><button data-arch="facility" aria-pressed="false">Broader facility DC</button></div><div id="architecture"></div>';
   }
@@ -1767,7 +1872,7 @@ function renderLab(l) {
       );
   $("lab").innerHTML =
     `<div class="eyebrow">TEST A BOUNDED MODEL</div><h2 id="lab-title">${spec[0]}</h2><p class="lab-intro">${spec[1]}</p>${extra}<div class="lab-controls">${controls}</div><div id="lab-graphic"></div><div id="lab-output" class="lab-output" role="status"></div><p id="lab-boundary" class="boundary"></p>`;
-  if (type === "dc") {
+  if (type === "dc" || type === "acdc") {
     const architectures = {
       ac: [
         "Facility AC",
@@ -1804,7 +1909,7 @@ function renderLab(l) {
         .forEach((b) =>
           b.setAttribute("aria-pressed", String(b.dataset.arch === id)),
         );
-      if (refresh) {
+      if (refresh && type === "dc") {
         $("lab-volts").value = id === "ac" ? 48 : 800;
         update();
       }
@@ -1852,6 +1957,31 @@ function renderLab(l) {
         ],
         Math.max(m.referenceAmps, m.amps),
         "Current decreases as voltage increases at fixed DC power.",
+      );
+    }
+    if (type === "acdc") {
+      const m = acdcConductorModel(
+        val("lab-kw"),
+        480,
+        val("lab-volts"),
+        val("lab-pf"),
+        val("lab-resistance") / 1000,
+        1,
+      );
+      output = `AC: ${fmt(m.ac.amps)} A RMS per line, ${fmt(m.ac.lossKW * 1000)} W conductor heat. DC: ${fmt(m.dc.amps)} A per conductor, ${fmt(m.dc.lossKW * 1000)} W conductor heat. DC loss is ${fmt(m.lossRatio * 100, 1)}% of AC loss.`;
+      boundary =
+        "Receiving-end voltages: 480 V AC line-to-line RMS; DC voltage across the pair. Balanced sinusoidal three-phase AC, three current-carrying conductors versus two for DC. Equal effective resistance per conductor, with neutral and protective earth excluded from this count. AC: P = √3 × V × I × PF and heat = 3I²R. DC: P = VI and heat = 2I²R. Sources supply delivered power plus heat. Converters and cooling are excluded; this does not size a cable or establish equipment compatibility. Architecture buttons locate conversion independently of these arithmetic controls.";
+      graphic = barChart(
+        [
+          ["480 V AC: total conductor heat (W)", m.ac.lossKW * 1000, "#78999e"],
+          [
+            `${val("lab-volts")} V DC: total conductor heat (W)`,
+            m.dc.lossKW * 1000,
+            "#e5bb6e",
+          ],
+        ],
+        Math.max(m.ac.lossKW, m.dc.lossKW) * 1000,
+        "Total conductor heat at equal delivered real power and resistance per conductor.",
       );
     }
     if (type === "heat") {

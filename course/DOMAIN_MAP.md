@@ -193,6 +193,7 @@ Separate physical principles, design specifications, observed deployments, annou
 - [ED20FD8CBCF — EIA — Measuring electricity](https://www.eia.gov/energyexplained/electricity/measuring-electricity.php) · `page_reviewed` · [local note](../research/sources/ED20FD8CBCF.md)
 - [EB34D92F523 — OpenStax — Electrical Energy and Power](https://openstax.org/books/university-physics-volume-2/pages/9-5-electrical-energy-and-power) · `page_reviewed` · [local note](../research/sources/EB34D92F523.md)
 - [EE02276C332 — MLCommons — MLPerf Inference: Datacenter](https://mlcommons.org/benchmarks/inference-datacenter/) · `page_reviewed` · [local note](../research/sources/EE02276C332.md)
+- [EFB703CFC3D — Schneider Electric — PM2200 total power calculation for accuracy verification](https://productinfo.se.com/pm2200/5afc2b5546e0fb00011e5e9d/PM2200%20series%20User%20Manual/English/BM_PM2200seriesUserManual_0000074170.ditamap.xml/%24/C_VerifyingAccuracy_PowerTotCalcuation_0000034437) · `page_reviewed` · [local note](../research/sources/EFB703CFC3D.md)
 
 <a id="d02"></a>
 
@@ -448,6 +449,8 @@ Reconcile IT and auxiliary loads with a downstream electrical capacity budget ac
 - [E3F4CB1B7FF — DOE — Best Practices Guide for Energy-Efficient Data Center Design](https://www.energy.gov/sites/default/files/2024-07/best-practice-guide-data-center-design_0.pdf) · `page_reviewed` · [local note](../research/sources/E3F4CB1B7FF.md)
 - [E45AB7B1BC1 — Schneider Electric — Installed apparent power](https://www.electrical-installation.org/enwiki/Installed_apparent_power_(kVA)) · `page_reviewed` · [local note](../research/sources/E45AB7B1BC1.md)
 - [EBFFD23506A — Schneider Electric — Choice of transformer rating](https://www.electrical-installation.org/enwiki/Choice_of_transformer_rating) · `page_reviewed` · [local note](../research/sources/EBFFD23506A.md)
+- [EFB703CFC3D — Schneider Electric — PM2200 total power calculation for accuracy verification](https://productinfo.se.com/pm2200/5afc2b5546e0fb00011e5e9d/PM2200%20series%20User%20Manual/English/BM_PM2200seriesUserManual_0000074170.ditamap.xml/%24/C_VerifyingAccuracy_PowerTotCalcuation_0000034437) · `page_reviewed` · [local note](../research/sources/EFB703CFC3D.md)
+- [EA7B686AF9E — NVIDIA, Partners Drive Next-Gen Efficient Gigawatt AI Factories in Buildup for Vera Rubin](https://blogs.nvidia.com/blog/gigawatt-ai-factories-ocp-vera-rubin/) · `page_reviewed` · [local note](../research/sources/EA7B686AF9E.md)
 
 <a id="d05"></a>
 
@@ -621,6 +624,8 @@ Explain how retrofit constraints can reverse a seemingly attractive greenfield a
 - [P17 — NVIDIA NVL72 AI Factory — System Hardware & Components](https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/components.html) · `page_reviewed` · [local note](../research/sources/P17.md)
 - [E960EB5ED2E — Eaton — Rack Basics: Selection, Installation and Cooling](https://tripplite.eaton.com/support/rack-cabinet-basics-selection-installation-cooling) · `public_excerpt_reviewed` · [local note](../research/sources/E960EB5ED2E.md)
 - [E8D4F19907B — Open Compute Project — Open Rack V3 Base Specification, revision 1.0](https://www.opencompute.org/documents/open-rack-base-specification-version-3-pdf) · `page_reviewed` · [local note](../research/sources/E8D4F19907B.md)
+- [EFB703CFC3D — Schneider Electric — PM2200 total power calculation for accuracy verification](https://productinfo.se.com/pm2200/5afc2b5546e0fb00011e5e9d/PM2200%20series%20User%20Manual/English/BM_PM2200seriesUserManual_0000074170.ditamap.xml/%24/C_VerifyingAccuracy_PowerTotCalcuation_0000034437) · `page_reviewed` · [local note](../research/sources/EFB703CFC3D.md)
+- [EA7B686AF9E — NVIDIA, Partners Drive Next-Gen Efficient Gigawatt AI Factories in Buildup for Vera Rubin](https://blogs.nvidia.com/blog/gigawatt-ai-factories-ocp-vera-rubin/) · `page_reviewed` · [local note](../research/sources/EA7B686AF9E.md)
 
 <a id="d07"></a>
 

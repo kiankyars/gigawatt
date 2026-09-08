@@ -36,11 +36,18 @@ unsupported assumption. Resolve knowledge gaps and revise the visual before
 rehearsing it again. These observations are more useful now than a recording setup
 checklist or polished delivery of an explanation that is not yet understood.
 
-The revised sample has eight steps. It first compares **48 V DC with 800 V DC**
-at the receiving end of a fixed load. It then closes the conductor energy balance
-using an invented loop resistance. Finally, a separate hypothetical loss budget
-compares complete AC-distributed and DC-distributed arrangements serving the same
-final DC load. The distinction is stated explicitly in the visuals and notes.
+The revised sample has eight steps. It first compares **480 V balanced three-phase
+AC with 800 V two-wire DC**, holding receiving-end real power at 100 kW. With
+10 mΩ resistance per conductor, it distinguishes current in each conductor from
+total conductor heat and closes input = delivered power + heat.
+
+The final comparison holds the **final useful DC load** at 100 kW instead. Both
+paths begin at the same facility AC supply boundary. Assumed downstream conversion
+losses raise the power each feeder delivers, and conductor heat is calculated from
+that power. At the default conversion losses, DC requires about 1.144 kWh less
+input over one hour. Raising total DC conversion loss from 3 to 6 kW reverses the
+result: DC requires about 1.875 kWh more. Keep the boundary change visible; the
+preceding 28% conductor-heat reduction is not a fixed whole-path saving.
 
 The earlier 150 kW feeder / 160 kW load exercise was an infeasible request, but its
 ordinary arrow made it look like an operating flow. It is removed from the sample

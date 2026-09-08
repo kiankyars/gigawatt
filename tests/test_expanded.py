@@ -102,6 +102,16 @@ class ExpansionTests(unittest.TestCase):
         ].split("</script>")[0]
         self.assertEqual(len(json.loads(payload)["lessons"]), 50)
 
+    def test_sample_embeds_every_cited_catalog_record(self):
+        html = (b.ROOT / "course/sample-reading.html").read_text()
+        payload = json.loads(
+            html.split('<script id="expanded-data" type="application/json">')[1].split(
+                "</script>"
+            )[0]
+        )
+        cited = set(payload["lessons"][0]["source_ids"])
+        self.assertEqual(cited, {s["id"] for s in payload["sources"]})
+
 
 if __name__ == "__main__":
     unittest.main()

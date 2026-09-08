@@ -311,6 +311,32 @@ h1 {
   font-size: clamp(13px, 1.2vw, 18px);
   margin: 0;
 }
+.conductor-lines {
+  display: grid;
+  gap: 6px;
+  margin-top: 8px;
+  min-height: 48px;
+  align-content: center;
+}
+.conductor-lines > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 12px;
+}
+.conductor-lines span {
+  width: 20px;
+  font-size: 11px;
+}
+.conductor-lines i {
+  flex: 1;
+  height: 4px;
+  background: var(--amber);
+  border-radius: 2px;
+}
+.changed .conductor-lines i {
+  background: #a3d597;
+}
 .reveal {
   background: #d1e9cd;
   color: var(--ink);
@@ -926,6 +952,13 @@ h1 {
   font:
     clamp(18px, 2vw, 28px) Georgia,
     serif;
+}
+.path-assumption {
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.4;
 }
 .ledger-card {
   border: 1px solid var(--line);

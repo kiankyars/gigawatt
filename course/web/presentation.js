@@ -51,8 +51,8 @@ function validState(value) {
     Array.isArray(value.revealed) &&
     value.revealed.every((id) => STEPS.some((s) => s.id === id)) &&
     Number.isFinite(value.volts) &&
-    value.volts >= 48 &&
-    value.volts <= 800 &&
+    value.volts >= 400 &&
+    value.volts <= 1000 &&
     Number.isFinite(value.dcConversionKW) &&
     value.dcConversionKW >= 1 &&
     value.dcConversionKW <= 7
@@ -103,18 +103,30 @@ function metric(value, unit) {
   return `<div class="metric">${value} <small>${unit}</small></div>`;
 }
 function intro() {
-  return `<div class="hero"><div class="hero-copy"><span class="chip">ONE DC DISTRIBUTION SEGMENT</span><div class="hero-number">100<small> kW</small></div><p>Power arriving<br>at the load</p></div><img src="assets/power-equipment.png" width="1672" height="941" alt="Illustrative conversion equipment beside a compute rack; not a wiring diagram or an equipment rating." /></div>`;
+  return `<div class="hero"><div class="hero-copy"><span class="chip">480 V AC ↔ 800 V DC</span><div class="hero-number">100<small> kW</small></div><p>Real power arriving<br>at the feeder end</p></div><img src="assets/power-equipment.png" width="1672" height="941" alt="Illustrative conversion equipment beside a compute rack; not a wiring diagram or an equipment rating." /></div>`;
+}
+function conductorNumbers(volts = DEFAULTS.comparison_voltage_v) {
+  return acdcConductorModel(
+    DEFAULTS.power_kw,
+    DEFAULTS.reference_voltage_v,
+    volts,
+    DEFAULTS.power_factor,
+    DEFAULTS.conductor_ohms,
+    DEFAULTS.hours,
+  );
+}
+function conductors(labels) {
+  return `<div class="conductor-lines" aria-label="${labels.length} current-carrying conductors">${labels.map((label) => `<div><span>${label}</span><i></i></div>`).join("")}</div>`;
 }
 function current() {
-  const dc = dcModel(DEFAULTS.power_kw, state.volts);
+  const { ac, dc } = conductorNumbers(state.volts);
   const shown = isRevealed();
-  return `<div class="model"><div class="model-top"><span class="chip">DELIVERED POWER · ${DEFAULTS.power_kw} kW</span><span class="formula">I = P ÷ V</span></div><div class="comparison"><div class="metric-card"><p class="metric-label">${DEFAULTS.reference_voltage_v} V DC</p>${metric(shown ? fmt(dc.referenceAmps) : "?", "A")}<p class="metric-sub">${shown ? `${fmt(DEFAULTS.power_kw * 1000)} W ÷ ${DEFAULTS.reference_voltage_v} V` : "Reference segment"}</p></div><div class="metric-card changed"><p class="metric-label"><span id="variable-voltage">${state.volts}</span> V DC</p><div id="variable-current">${metric(shown ? fmt(dc.amps, 1) : "?", "A")}</div><p class="metric-sub" id="variable-derivation">${shown ? `${fmt(DEFAULTS.power_kw * 1000)} W ÷ ${state.volts} V` : "Same delivered power"}</p></div></div>${shown ? `<div class="control-line"><label for="voltage">Try another voltage</label><input id="voltage" type="range" min="48" max="800" step="1" value="${state.volts}" /><output id="voltage-value" for="voltage">${state.volts} V</output><button id="reset-voltage">800 V</button></div>` : `<div class="control-line"><button class="reveal" id="reveal">Reveal the currents</button></div>`}</div>`;
+  return `<div class="model"><div class="model-top"><span class="chip">${DEFAULTS.power_kw} kW REAL POWER · AC PF = ${DEFAULTS.power_factor}</span><span class="ledger-formula">Current in each conductor</span></div><div class="comparison"><div class="metric-card"><p class="metric-label">${DEFAULTS.reference_voltage_v} V three-phase AC</p>${metric(shown ? fmt(ac.amps, 1) : "?", "A")}<p class="metric-sub">RMS · I = P / (√3 × V<sub>LL</sub> × PF)</p>${conductors(["L1", "L2", "L3"])}</div><div class="metric-card changed"><p class="metric-label"><span id="variable-voltage">${state.volts}</span> V DC</p><div id="variable-current">${metric(shown ? fmt(dc.amps, 1) : "?", "A")}</div><p class="metric-sub" id="variable-derivation">${shown ? `${fmt(DEFAULTS.power_kw * 1000)} W ÷ ${state.volts} V` : "I = P / V"}</p>${conductors(["+", "−"])}</div></div>${shown ? `<div class="control-line"><label for="voltage">Try another DC voltage</label><input id="voltage" type="range" min="400" max="1000" step="1" value="${state.volts}" /><output id="voltage-value" for="voltage">${state.volts} V</output><button id="reset-voltage">800 V</button></div>` : `<div class="control-line"><button class="reveal" id="reveal">Reveal the currents</button></div>`}</div>`;
 }
 function loss() {
   const shown = isRevealed(),
-    ratio =
-      dcModel(DEFAULTS.power_kw, DEFAULTS.comparison_voltage_v).lossRatio * 100;
-  return `<div class="model"><div class="model-top"><span class="chip">CONDUCTOR LOSS · RESISTANCE HELD FIXED</span><span class="formula">P<sub>loss</sub> = I²R</span></div><div class="comparison"><div class="metric-card"><p class="metric-label">48 V reference</p>${metric("100", "%")}<p class="metric-sub">Original conductor loss</p><div class="loss-track"><div class="loss-bar" style="width:100%"></div></div></div><div class="metric-card changed"><p class="metric-label">800 V comparison</p>${metric(shown ? fmt(ratio, 2) : "?", "%")}<p class="metric-sub">Of the original conductor loss</p><div class="loss-track">${shown ? `<div class="loss-bar" style="width:${ratio}%"></div>` : ""}</div></div></div>${shown ? `<p class="bridge">This conductor ≠ the whole facility</p>` : `<div class="control-line"><button class="reveal" id="reveal">Reveal the loss comparison</button></div>`}</div>`;
+    ratio = conductorNumbers().lossRatio * 100;
+  return `<div class="model"><div class="model-top"><span class="chip">EQUAL RESISTANCE PER CONDUCTOR · PF = 1</span><span class="ledger-formula">Add the heat from every conductor</span></div><div class="comparison"><div class="metric-card"><p class="metric-label">480 V three-phase AC</p>${metric("100", "%")}<p class="metric-sub">3 × I²R · reference conductor loss</p><div class="loss-track"><div class="loss-bar" style="width:100%"></div></div></div><div class="metric-card changed"><p class="metric-label">800 V DC</p>${metric(shown ? fmt(ratio, 1) : "?", "%")}<p class="metric-sub">2 × I²R · of the AC conductor loss</p><div class="loss-track">${shown ? `<div class="loss-bar" style="width:${ratio}%"></div>` : ""}</div></div></div>${shown ? `<p class="bridge">${fmt(100 - ratio)}% less conductor heat at these assumptions.</p>` : `<div class="control-line"><button class="reveal" id="reveal">Reveal the loss comparison</button></div>`}</div>`;
 }
 function unit(label, style = "", detail = "") {
   return `<div class="unit ${style}">${label}${detail ? `<small>${detail}</small>` : ""}</div>`;
@@ -151,83 +163,69 @@ function ledgerCard(title, rows, inputKW, shown, changed = false) {
   return `<section class="ledger-card ${changed ? "changed" : ""}"><h2>${title}</h2><dl>${rows.map(([label, value]) => `<div><dt>${label}</dt><dd>${value} <small>kW</small></dd></div>`).join("")}</dl><div class="ledger-total"><span>Required input</span><strong>${shown ? fmt(inputKW, 3) : "?"} <small>kW</small></strong></div></section>`;
 }
 function energy() {
-  const low = dcConductorModel(
-    DEFAULTS.power_kw,
-    48,
-    DEFAULTS.loop_ohms,
-    DEFAULTS.hours,
-  );
-  const high = dcConductorModel(
-    DEFAULTS.power_kw,
-    800,
-    DEFAULTS.loop_ohms,
-    DEFAULTS.hours,
-  );
+  const { ac, dc } = conductorNumbers();
   const shown = isRevealed();
-  return `<div class="energy-ledger"><div class="model-top"><span class="chip">DC SEGMENT · 100 kW DELIVERED</span><span class="ledger-formula">Input = delivered power + heat</span></div><div class="comparison">${ledgerCard(
-    "48 V DC at the load",
+  return `<div class="energy-ledger"><div class="model-top"><span class="chip">SAME 100 kW AT THE FEEDER END</span><span class="ledger-formula">Input = delivered power + heat</span></div><div class="comparison">${ledgerCard(
+    "480 V three-phase AC",
     [
       ["Delivered power", "100"],
-      ["Conductor heat", fmt(low.lossKW, 3)],
+      ["Conductor heat", fmt(ac.lossKW, 3)],
     ],
-    low.inputKW,
+    ac.inputKW,
     shown,
   )}${ledgerCard(
-    "800 V DC at the load",
+    "800 V DC",
     [
       ["Delivered power", "100"],
-      ["Conductor heat", fmt(high.lossKW, 3)],
+      ["Conductor heat", fmt(dc.lossKW, 3)],
     ],
-    high.inputKW,
+    dc.inputKW,
     shown,
     true,
-  )}</div><div class="ledger-result">${shown ? `<strong>${fmt(low.inputKWh - high.inputKWh, 3)} kWh less input over 1 h</strong><span>Same useful output. Less energy dissipated as heat.</span>` : `<button id="reveal">Reveal the required input</button>`}</div></div>`;
+  )}</div><div class="ledger-result">${shown ? `<strong>${fmt(ac.inputKWh - dc.inputKWh, 3)} kWh less input over 1 h</strong><span>Same delivered power. Less conductor heat. Converters excluded.</span>` : `<button id="reveal">Reveal the required input</button>`}</div></div>`;
 }
 function pathNumbers() {
-  return {
-    ac: deliveryPathModel(
-      DEFAULTS.power_kw,
-      DEFAULTS.ac_conversion_kw,
-      DEFAULTS.ac_conductor_kw,
-      DEFAULTS.hours,
-    ),
-    dc: deliveryPathModel(
-      DEFAULTS.power_kw,
-      state.dcConversionKW,
-      DEFAULTS.dc_conductor_kw,
-      DEFAULTS.hours,
-    ),
-  };
+  return acdcDeliveryModel(
+    DEFAULTS.power_kw,
+    DEFAULTS.reference_voltage_v,
+    DEFAULTS.comparison_voltage_v,
+    DEFAULTS.power_factor,
+    DEFAULTS.conductor_ohms,
+    DEFAULTS.hours,
+    DEFAULTS.ac_conversion_kw,
+    state.dcConversionKW,
+    DEFAULTS.dc_upstream_conversion_kw,
+  );
 }
 function pathResult(ac, dc) {
   const difference = ac.inputKWh - dc.inputKWh;
   return Math.abs(difference) < 1e-9
     ? "Same input energy over 1 h"
-    : `DC uses ${fmt(Math.abs(difference), 1)} kWh ${difference > 0 ? "less" : "more"} input over 1 h`;
+    : `DC uses ${fmt(Math.abs(difference), 3)} kWh ${difference > 0 ? "less" : "more"} input over 1 h`;
 }
 function paths() {
   const { ac, dc } = pathNumbers(),
     shown = isRevealed();
-  return `<div class="energy-ledger"><div class="model-top"><span class="chip">HYPOTHETICAL LOSSES · 100 kW FINAL DC LOAD</span><span class="ledger-formula">Input = load + all path losses</span></div><div class="comparison">${ledgerCard(
-    "AC-distributed path",
+  return `<div class="energy-ledger"><div class="model-top"><span class="chip">SAME AC INPUT BOUNDARY · 100 kW FINAL DC LOAD</span><span class="ledger-formula">Input = load + all path losses</span></div><div class="comparison">${ledgerCard(
+    "480 V AC-distributed path",
     [
       ["Final DC load", "100"],
-      ["Conductors", fmt(DEFAULTS.ac_conductor_kw)],
-      ["All conversion", fmt(DEFAULTS.ac_conversion_kw)],
+      ["Conductors · calculated", fmt(ac.conductorLossKW, 3)],
+      ["Conversion · assumed", fmt(DEFAULTS.ac_conversion_kw)],
     ],
     ac.inputKW,
     shown,
   )}<div id="dc-path-card">${ledgerCard(
-    "DC-distributed path",
+    "800 V DC-distributed path",
     [
       ["Final DC load", "100"],
-      ["Conductors", fmt(DEFAULTS.dc_conductor_kw, 1)],
-      ["All conversion", fmt(state.dcConversionKW, 1)],
+      ["Conductors · calculated", fmt(dc.conductorLossKW, 3)],
+      ["Conversion · assumed", fmt(state.dcConversionKW, 1)],
     ],
     dc.inputKW,
     shown,
     true,
-  )}</div></div>${shown ? `<div class="control-line"><label for="dc-conversion">DC conversion loss</label><input id="dc-conversion" type="range" min="1" max="7" step="0.1" value="${state.dcConversionKW}" /><output id="dc-conversion-value" for="dc-conversion">${fmt(state.dcConversionKW, 1)} kW</output><button id="dc-loss-reset">Reset</button></div><div class="ledger-result"><strong id="path-result">${pathResult(ac, dc)}</strong></div>` : `<div class="ledger-result"><button id="reveal">Reveal both input budgets</button></div>`}</div>`;
+  )}</div></div><p class="path-assumption">AC: conversion after feeder. DC: 1 kW before feeder; remaining conversion after.</p>${shown ? `<div class="control-line"><label for="dc-conversion">Total DC conversion loss</label><input id="dc-conversion" type="range" min="1" max="7" step="0.1" value="${state.dcConversionKW}" /><output id="dc-conversion-value" for="dc-conversion">${fmt(state.dcConversionKW, 1)} kW</output><button id="dc-loss-reset">Reset</button></div><div class="ledger-result"><strong id="path-result">${pathResult(ac, dc)}</strong></div>` : `<div class="ledger-result"><button id="reveal">Reveal both input budgets</button></div>`}</div>`;
 }
 function renderNotes() {
   const step = STEPS[state.index];
@@ -242,13 +240,13 @@ function renderNotes() {
   if (step.kind === "current" && isRevealed())
     byId("narration").insertAdjacentHTML(
       "afterbegin",
-      `<p class="cue">Live comparison: ${state.volts} V · ${fmt(dcModel(DEFAULTS.power_kw, state.volts).amps, 1)} A</p>`,
+      `<p class="cue">Live DC comparison: ${state.volts} V · ${fmt(conductorNumbers(state.volts).dc.amps, 1)} A. AC stays at 480 V · ${fmt(conductorNumbers().ac.amps, 1)} A RMS</p>`,
     );
   if (step.kind === "paths" && isRevealed()) {
     const { ac, dc } = pathNumbers();
     byId("narration").insertAdjacentHTML(
       "afterbegin",
-      `<p class="cue">Live DC conversion loss: ${fmt(state.dcConversionKW, 1)} kW. ${pathResult(ac, dc)}.</p>`,
+      `<p class="cue">Live DC conversion loss: ${fmt(state.dcConversionKW, 1)} kW total; ${fmt(state.dcConversionKW - DEFAULTS.dc_upstream_conversion_kw, 1)} kW after the feeder. DC feeder carries ${fmt(dc.feederKW, 1)} kW at ${fmt(dc.amps, 2)} A. ${pathResult(ac, dc)}.</p>`,
     );
   }
   byId("notes-next").textContent =
@@ -268,11 +266,11 @@ function bindVisual() {
     state.dcConversionKW = Number(event.target.value);
     const { ac, dc } = pathNumbers();
     byId("dc-path-card").innerHTML = ledgerCard(
-      "DC-distributed path",
+      "800 V DC-distributed path",
       [
         ["Final DC load", "100"],
-        ["Conductors", fmt(DEFAULTS.dc_conductor_kw, 1)],
-        ["All conversion", fmt(state.dcConversionKW, 1)],
+        ["Conductors · calculated", fmt(dc.conductorLossKW, 3)],
+        ["Conversion · assumed", fmt(state.dcConversionKW, 1)],
       ],
       dc.inputKW,
       true,
@@ -291,7 +289,7 @@ function bindVisual() {
     state.volts = Number(event.target.value);
     byId("variable-voltage").textContent = state.volts;
     byId("variable-current").innerHTML = metric(
-      fmt(dcModel(DEFAULTS.power_kw, state.volts).amps, 1),
+      fmt(conductorNumbers(state.volts).dc.amps, 1),
       "A",
     );
     byId("voltage-value").textContent = `${state.volts} V`;

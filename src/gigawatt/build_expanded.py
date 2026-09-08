@@ -327,14 +327,16 @@ def build(root=ROOT, check=False):
         )
         + "\n",
     }
+    catalog = read(root / "course/research-sources.json")["sources"]
     sample = normalize(
         read(root / "course/expansion/sample.json"),
-        {canonical_url(s["url"]): s for s in data["sources"]},
+        {canonical_url(s["url"]): s for s in catalog},
         {o["id"] for d in data["domains"] for o in d["objectives"]},
     )
     sample_data = {
         **data,
         "lessons": [sample],
+        "sources": [s for s in catalog if s["id"] in sample["source_ids"]],
         "glossary": [{**term, "lesson": sample["id"]} for term in sample["terms"]],
     }
     sample_replacements = {
@@ -348,7 +350,9 @@ def build(root=ROOT, check=False):
         lambda m: sample_replacements[m[0]],
         template,
     )
-    outputs[Path("course/SAMPLE.md")] = lesson_markdown(sample, sources)
+    outputs[Path("course/SAMPLE.md")] = lesson_markdown(
+        sample, {s["id"]: s for s in sample_data["sources"]}
+    )
     outputs.update(presentation_outputs(root, sample["id"]))
     index = [
         "# GIGAWATT — From watts to useful compute",

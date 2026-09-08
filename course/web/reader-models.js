@@ -130,6 +130,43 @@ export function dcConductorModel(loadKW, loadVolts, loopOhms, hours) {
     inputKWh: inputKW * hours,
   };
 }
+export function acdcConductorModel(
+  loadKW,
+  acVolts,
+  dcVolts,
+  powerFactor,
+  conductorOhms,
+  hours,
+) {
+  positive(loadKW, "Delivered real power");
+  positive(acVolts, "Receiving-end AC line-to-line RMS voltage");
+  positive(dcVolts, "Receiving-end DC pair voltage");
+  positive(hours, "Duration");
+  if (!Number.isFinite(powerFactor) || powerFactor <= 0 || powerFactor > 1)
+    throw new RangeError("Power factor must lie in (0, 1]");
+  if (!Number.isFinite(conductorOhms) || conductorOhms < 0)
+    throw new RangeError(
+      "Resistance per conductor must be nonnegative and finite",
+    );
+  function segment(amps, conductors) {
+    const lossKW = (conductors * amps ** 2 * conductorOhms) / 1000;
+    return {
+      amps,
+      conductors,
+      lossKW,
+      inputKW: loadKW + lossKW,
+      deliveredKWh: loadKW * hours,
+      lossKWh: lossKW * hours,
+      inputKWh: (loadKW + lossKW) * hours,
+    };
+  }
+  const ac = segment(
+    (loadKW * 1000) / (Math.sqrt(3) * acVolts * powerFactor),
+    3,
+  );
+  const dc = segment((loadKW * 1000) / dcVolts, 2);
+  return { ac, dc, lossRatio: (2 * dc.amps ** 2) / (3 * ac.amps ** 2) };
+}
 export function deliveryPathModel(
   loadKW,
   conversionLossKW,
@@ -150,5 +187,60 @@ export function deliveryPathModel(
     inputKW: loadKW + lossKW,
     inputKWh: (loadKW + lossKW) * hours,
     efficiency: loadKW / (loadKW + lossKW),
+  };
+}
+export function acdcDeliveryModel(
+  loadKW,
+  acVolts,
+  dcVolts,
+  powerFactor,
+  conductorOhms,
+  hours,
+  acConversionKW,
+  dcConversionKW,
+  dcUpstreamConversionKW,
+) {
+  if (
+    ![acConversionKW, dcConversionKW, dcUpstreamConversionKW].every(
+      (v) => Number.isFinite(v) && v >= 0,
+    ) ||
+    dcUpstreamConversionKW > dcConversionKW
+  )
+    throw new RangeError(
+      "Conversion losses must be nonnegative with upstream loss within the DC total",
+    );
+  const dcDownstreamKW = dcConversionKW - dcUpstreamConversionKW;
+  const acFeederKW = loadKW + acConversionKW;
+  const dcFeederKW = loadKW + dcDownstreamKW;
+  const ac = acdcConductorModel(
+    acFeederKW,
+    acVolts,
+    dcVolts,
+    powerFactor,
+    conductorOhms,
+    hours,
+  ).ac;
+  const dc = acdcConductorModel(
+    dcFeederKW,
+    acVolts,
+    dcVolts,
+    powerFactor,
+    conductorOhms,
+    hours,
+  ).dc;
+  return {
+    ac: {
+      ...deliveryPathModel(loadKW, acConversionKW, ac.lossKW, hours),
+      conductorLossKW: ac.lossKW,
+      amps: ac.amps,
+      feederKW: acFeederKW,
+    },
+    dc: {
+      ...deliveryPathModel(loadKW, dcConversionKW, dc.lossKW, hours),
+      conductorLossKW: dc.lossKW,
+      amps: dc.amps,
+      feederKW: dcFeederKW,
+    },
+    dcDownstreamKW,
   };
 }

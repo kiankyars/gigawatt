@@ -196,3 +196,14 @@ and OCP Open Rack V3 Base Specification rev. 1.0 (selected mechanical sections
 reviewed). The current catalog contains 103 curated records, and 59 source
 records support the authored lessons. The new notes preserve the specific
 access and revision limits.
+
+## AC/DC sample correction — 2026-09-08
+
+The catalog now contains 105 curated records. The added Schneider Electric
+PM2200 calculation page supports balanced three-phase power arithmetic in the
+480 V AC / 800 V DC teaching sample. An NVIDIA OCP announcement explicitly
+identifies 415 or 480 V three-phase AC as relevant distribution baselines. These
+notes distinguish those references from measured savings: converter losses are
+teaching assumptions and conductor losses are original calculations. The main
+50-lesson manuscript still uses 59 source records; sample-specific evidence is
+included in the sample's own reference list.

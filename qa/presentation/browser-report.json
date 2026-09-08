@@ -508,7 +508,7 @@
       },
       "revealed": true,
       "horizontal_overflow": false,
-      "document_height": 921
+      "document_height": 938
     },
     {
       "mode": "teach",
@@ -519,7 +519,7 @@
       },
       "revealed": false,
       "horizontal_overflow": false,
-      "document_height": 984
+      "document_height": 1053
     },
     {
       "mode": "teach",
@@ -530,7 +530,7 @@
       },
       "revealed": true,
       "horizontal_overflow": false,
-      "document_height": 1088
+      "document_height": 1157
     },
     {
       "mode": "teach",
@@ -552,7 +552,7 @@
       },
       "revealed": false,
       "horizontal_overflow": false,
-      "document_height": 516
+      "document_height": 544
     },
     {
       "mode": "teach",
@@ -563,7 +563,7 @@
       },
       "revealed": true,
       "horizontal_overflow": false,
-      "document_height": 516
+      "document_height": 544
     },
     {
       "mode": "teach",
@@ -651,7 +651,7 @@
       },
       "revealed": false,
       "horizontal_overflow": false,
-      "document_height": 533
+      "document_height": 565
     },
     {
       "mode": "teach",
@@ -662,7 +662,7 @@
       },
       "revealed": true,
       "horizontal_overflow": false,
-      "document_height": 589
+      "document_height": 621
     },
     {
       "mode": "student",
@@ -926,7 +926,7 @@
       },
       "revealed": true,
       "horizontal_overflow": false,
-      "document_height": 720
+      "document_height": 739
     },
     {
       "mode": "student",
@@ -1058,7 +1058,7 @@
       },
       "revealed": true,
       "horizontal_overflow": false,
-      "document_height": 768
+      "document_height": 770
     },
     {
       "mode": "student",
@@ -1168,7 +1168,7 @@
       },
       "revealed": true,
       "horizontal_overflow": false,
-      "document_height": 981
+      "document_height": 998
     },
     {
       "mode": "student",
@@ -1179,7 +1179,7 @@
       },
       "revealed": false,
       "horizontal_overflow": false,
-      "document_height": 1044
+      "document_height": 1113
     },
     {
       "mode": "student",
@@ -1190,7 +1190,7 @@
       },
       "revealed": true,
       "horizontal_overflow": false,
-      "document_height": 1148
+      "document_height": 1217
     },
     {
       "mode": "student",
@@ -1322,7 +1322,7 @@
       },
       "revealed": true,
       "horizontal_overflow": false,
-      "document_height": 658
+      "document_height": 689
     }
   ],
   "checks": [
@@ -1333,14 +1333,14 @@
     "Student explanations expand for all eight steps at all five sizes",
     "Student mode hides notes/fullscreen and P/F shortcuts do not activate them",
     "Prediction before reveal for currents, conductor loss and both energy ledgers",
-    "DC current, I²R losses and source power balance checked numerically",
-    "Complete-path default, break-even and reversed energy budgets",
+    "480 V balanced three-phase AC versus 800 V DC: current, conductor count, 72% heat ratio and energy balance",
+    "Coupled complete-path default, 4.1–4.2 kW crossover bracket and reversed energy budgets",
     "Keyboard advance after reveal and slider keyboard ownership",
     "Separate presenter window with bidirectional navigation/reveal synchronization",
     "Voltage and DC-conversion slider state synchronized to notes",
     "Fullscreen entry and exit in teaching mode",
     "Old feeder-transfer hash routes to the complete-path comparison",
-    "Source reading view preserved"
+    "Reading view uses the AC/DC calculator, including the equal-voltage counterexample and control endpoints"
   ],
   "errors": []
 }
