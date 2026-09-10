@@ -66,8 +66,12 @@ Assign each scene a `pedagogical_role`: `problem`, `comparison`, `mechanism`,
 `architecture`, `balance`, `counterexample` or `transfer`. Begin with the problem,
 teach its mechanism and end with transfer. Intermediate scenes depend on the topic.
 
-Keep the audience headline and caption short, with separate notes, an action cue,
-a student explanation and a provisional rehearsal duration. Preserve stable scene
+Keep the audience headline and caption short. Presenter notes should be a few
+short bullet points, usually three to five: the mechanism, essential numbers,
+important boundary and takeaway. Use phrases the speaker can glance at and
+explain in their own words. Put the action or prediction prompt in the separate
+cue; keep complete prose and derivations in the student explanation. Include a
+provisional rehearsal duration. Preserve stable scene
 IDs and replacement aliases. The builder checks these fields, text budgets and
 timing totals. The current renderer is specific to the 800 V sample; another
 domain needs an authored visual and appropriate model, not only a new JSON title.
@@ -99,7 +103,7 @@ electrical connections or quantitative scales. Distinguish physical flows from
 commercial and control relationships, and coolant circulation from heat transfer.
 Motion must explain a defined change and remain intelligible when paused.
 
-Keep one active visual prominent. Move narration and action cues to notes, and
+Keep one active visual prominent. Put speaking prompts and action cues in notes, and
 derivations and source limits to the reference. Do not auto-convert paragraphs
 into slides. The student view is the default; a deliberate teaching endpoint adds
 instructor controls. Those modes are presentation choices, not access control.

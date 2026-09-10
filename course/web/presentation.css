@@ -712,7 +712,7 @@ h1 {
 #presenter {
   max-width: 1320px;
   margin: auto;
-  padding: 32px;
+  padding: 24px;
 }
 .notes-header {
   display: flex;
@@ -720,31 +720,44 @@ h1 {
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid var(--line);
-  padding-bottom: 24px;
+  padding-bottom: 12px;
 }
 .notes-header h1 {
-  font-size: 36px;
+  font-size: 24px;
 }
 .notes-layout {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 60px;
-  margin: 24px 0 110px;
+  gap: 36px;
+  margin: 16px 0 90px;
 }
 .notes-layout article h2 {
   font:
-    36px Georgia,
+    28px Georgia,
     serif;
-  margin: 0 0 22px;
+  margin: 0 0 14px;
 }
 .notes-layout p {
   font-size: 18px;
   line-height: 1.65;
 }
+.speaker-points {
+  display: grid;
+  gap: 12px;
+  padding-left: 1.25em;
+  font-size: 20px;
+  line-height: 1.45;
+}
+.speaker-points li::marker {
+  color: var(--teal);
+}
 .notes-layout .cue {
   background: #e5ece3;
-  padding: 18px;
+  padding: 10px 14px;
   border-left: 3px solid var(--teal);
+  font-size: 16px;
+  line-height: 1.4;
+  margin: 0 0 12px;
 }
 .notes-layout aside {
   border-left: 1px solid var(--line);

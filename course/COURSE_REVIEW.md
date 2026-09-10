@@ -12,11 +12,13 @@ and assessments; edit [its JSON source](domain-map.json). The
 [teaching standard](TEACHING_STANDARD.md) owns lesson and visual authoring rules.
 [PRESENTING.md](PRESENTING.md) explains the rehearsal controls and procedure.
 Those documents implement this design rather than establishing separate course scopes.
+Use the domain map to look up the section being prepared; there is no need to
+read it end to end.
 
 **Current state:** 50 authored draft lessons cover 65 objective IDs. The ten-scene
 800 V DC sample is the only complete presentation prototype. Technical review,
 learner review, adaptation of the remaining material, recording and delivery
-remain pending. No release gate below is complete.
+remain pending. Prepare and rehearse one section at a time.
 
 ## Learner contract
 
@@ -170,92 +172,60 @@ contrast, zoom and reduced motion. Avoid encoding meaning in color alone. Test t
 densest final recording visuals at 480p and 720p; shrinking a campus schematic
 until it fits is not sufficient.
 
-### Production priorities and presentation backlog
+### How the video flows
 
-Kian will **teach without recording first** to expose knowledge gaps and improve
-flow. The [rehearsal guide](PRESENTING.md) contains the operating instructions and
-questions to test. The sample's fifteen-minute allowance is provisional, not a
-measured runtime or a target to fill.
+Teach one linear journey through the [six acts](DOMAIN_MAP.md#proposed-teaching-sequence).
+The fifteen domains organize the material behind that journey. Keep returning to
+one evolving facility drawing and bill of materials so each addition has a place
+and a purpose. The companion lets students revisit, explore and practise independently.
 
-1. Rehearse the revised 800 V sample: conductor copper, equipment placement,
-   current, complete energy balance and the changed-load capacity limit.
-2. Resolve D05's documented redundancy gaps. The
-   [coverage audit](../research/redundancy-coverage-review.md) calls for N, N+1,
-   N+2, 2N and 2(N+1), UPS normal/battery/bypass paths, single-corded interfaces,
-   and maintenance plus a fault. Test surviving capacity and path independence
-   before treating that capability as reviewed.
-3. Use the [new BTM deep-dive source note](../research/sources/SA41.md) to deepen
-   the existing D03/D05/D12/D13/D15 treatments: connection arrangements, fuel and
-   project delivery, island operating behavior and the later transition to grid
-   service. The current import/island budget is an introduction, not complete
-   coverage of BTM execution. Verify consequential claims with primary sources
-   and add changed-case assessments before calling that coverage complete.
-4. Build the opening orientation and persistent facility artifact. Introduce
-   equipment and terms at first use; connect behind-the-meter and physical-space
-   teaching to the relevant boundaries.
-5. Adapt the remaining material in dependency order, revising lesson divisions
-   around the reasoning task. Kian's familiarity with generation or campus
-   distribution can accelerate preparation; it does not establish teaching quality.
+Within each section: **pose a problem → show the mechanism → work an example →
+change one condition → explain the result**. Ask brief prediction questions during
+the explanation. At a domain boundary, use one short scenario that tests the main
+idea, invite viewers to pause, then show the reasoning and connect it to the next
+problem. For continuity, that might mean removing a UPS for maintenance and then
+losing another unit: what can still run, and why?
 
-The table below is a **planned presentation backlog**, not another set of
-curriculum objectives. The domain map owns detailed objectives and sequence.
-Each proposed visual still needs authorship and a dry run; merge or replace these
-treatments where rehearsal supports a better explanation.
+Use the existing integrated capstones where several systems meet; longer exercises
+can be optional companion practice. The video needs no scoring, mandatory quiz
+screen or separate examination after every chapter. This rhythm is the production
+approach; the 800 V prototype is implemented, while the remaining presenter
+sequences still need authorship and dry runs.
 
-| Domain                         | Presentation treatment to develop                                                 | Changed case / facility-artifact update                              |
-| ------------------------------ | --------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| D01 Quantities and boundaries  | Trace one rack's inputs, useful service and losses                                | Move the measurement boundary; reconcile kW and kWh                  |
-| D02 Workload brief             | Turn workload demand into continuous and transient requirements                   | Change duty cycle; update the load brief                             |
-| D03 Grid and supply            | Show energization dependencies, meter boundary and grid-connected/islanded supply | Delay a dependency or lose grid supply; revise usable capacity/date  |
-| D04 Distribution               | Trace voltage, current and capacity along a power path                            | Change feeder demand; update distribution interfaces                 |
-| D05 Continuity                 | Trace UPS states and distinguish spare modules from independent routes            | Maintenance plus a fault; update surviving capacity                  |
-| D06 Rack power                 | Count copper, locate conversion and close the energy account                      | Double rack demand; identify the unverified capacity limit           |
-| D07 Compute and memory         | Follow a workload through memory and compute limits                               | Change arithmetic intensity; locate the limiting resource            |
-| D08 Networks                   | Show ports, links and traffic on one topology                                     | Remove a link or change traffic; update usable throughput            |
-| D09 Storage and recovery       | Follow a write, checkpoint and restart                                            | Lose a component; distinguish stored, durable and recoverable state  |
-| D10 Heat capture               | Trace chip → cold plate → fluid, including residual air heat                      | Increase rack duty; update cooling interfaces                        |
-| D11 Heat rejection             | Close the outdoor heat account at stated ambient conditions                       | Change weather or water availability; update the operating envelope  |
-| D12 Physical site              | Overlay equipment, white/grey space, access and service routes                    | Replace the largest component; test clearances and dependencies      |
-| D13 Delivery and commissioning | Trace the critical path and accepted service paths                                | Delay an unaccepted subsystem; revise usable capacity                |
-| D14 Operations                 | Trace measurements, controls, failure and restoration                             | Introduce misleading telemetry or maintenance; revise service status |
-| D15 System decisions           | Combine electrical, cooling and accepted-path constraints                         | Move the binding constraint; update capacity and cost                |
-| Integrated capstones           | Reuse the accumulated facility model                                              | Solve unfamiliar coupled cases without new unexplained concepts      |
+### Next teaching step
 
-## Pre-recording gates
+Use the 800 V sample as the teaching baseline: a concrete problem, a visible
+mechanism, a worked comparison and a changed case. Kian has found this format
+useful. Further dry runs can refine it while the next section is developed.
 
-Check a gate only after recording what passed, when and where its evidence is.
-Planned work stays unchecked; an inapplicable subcase gets an explicit reason.
+**Prepare D05 continuity next: what keeps the rack running when a power path
+fails?** Use one facility drawing to trace UPS normal, battery and bypass paths;
+compare N, N+1, N+2, 2N and 2(N+1); then remove equipment for maintenance and
+introduce another failure. The [existing audit](../research/redundancy-coverage-review.md)
+identifies the content gaps and provides a worked capacity comparison.
 
-- [ ] I reviewed every expanded section from the learner's starting point, using the domain map to identify hidden prerequisites and unexplained jumps; the final script records the resulting changes.
-- [ ] The opening states the intended learner, arithmetic/graph prerequisites, achievable outcomes, scope limits, and a short system map before detailed architecture.
-- [ ] Essential vocabulary is introduced before it carries explanatory weight; the glossary and first-use order are checked against the complete script.
-- [ ] For any software or setup workflow, the complete workflow passes from a fresh environment with supported browsers/platforms/versions stated. Building and operating the course interactions must be checked; learner account setup is currently not part of the course, so account-specific steps are N/A unless a demo adds them.
-- [ ] For any added software/setup demo, accounts, costs, permissions, security consequences, limitations, and likely drift are explained before setup. Current account/installation requirements are N/A because the planned learner experience is viewing the course and browser-based examples; revisit this if the scope changes.
-- [ ] Material technical claims, calculations, architecture comparisons, source links, and recommendations are verified against appropriate primary evidence, with source and check dates recorded and forecasts/disagreements labeled.
-- [ ] Every promised capability has a worked example and a changed-scenario question; the map's remaining coverage gaps are resolved or explicitly excluded from the learner contract.
-- [ ] Each substantial section earns its place through a mechanism, worked example, tradeoff, failure or limiting case, and transfer question. The script follows connected problems rather than an article-by-article or component-by-component survey; cut repetitions and runtime padding.
-- [ ] Quantitative and visual models pass independent example and limiting-case checks for units, boundaries, assumptions, and failures; diagrams remain correct and explanatory when paused.
-- [ ] A dense five-minute section is rehearsed with an intended learner who can explain what happened, why it matters, and what comes next. Start with the electrical architecture comparison or coupled outage case. If no reviewer is available, document a deliberate novice pass and its limitations.
-- [ ] Technical review addresses the highest-risk cross-domain claims, especially electrical protection/continuity, cooling operating envelopes, and the useful-compute model; record reviewer scope or the independent evidence used, without claiming unperformed expert validation.
-- [ ] A 60-second sample of the densest final diagrams passes phone viewing at 480p and 720p using the final capture settings. The visual fills the frame, labels need no zoom, and narration explains mechanisms rather than reading text.
+Kian's next task is to learn and **teach this section without recording**, using
+the visual and brief notes. Capture where the explanation stalls or a term is
+unclear. The agent's task is to prepare the visual, check the example, fill those
+gaps and revise from the dry run. The [rehearsal guide](PRESENTING.md) explains the
+current sample controls.
 
-## Pre-delivery gates
+Repeat this process through the domain map's dependency order. Author each
+mechanism and example for its topic; converting the existing prose into slides
+will not by itself finish the course. Build the facility drawing and bill of
+materials as the lessons need them, then assemble the opening orientation from
+that shared model. The [BTM source note](../research/sources/SA41.md) remains an
+input for deeper supply, island operation, fuel, delivery and grid-transition
+teaching within the existing domains. Neither the entire source library nor the
+whole presentation must be finished before the next dry run.
 
-- [ ] Review the first and last two minutes, every cut within a calculation, and transitions between diagrams or applications for bloopers, skipped reasoning, stale labels, and unexplained terms.
-- [ ] The final export passes the phone-legibility test, including the densest comparison and system diagram; captions and narration preserve important units and vocabulary.
-- [ ] The description and pinned comment link durable course notes, the navigable domain map, chapter timestamps, prerequisites, source/version dates, limitations, acknowledgments, and an errata location; verify every public link.
-- [ ] The companion's learning and lookup routes work on a phone, connect lessons to their practice and evidence, and identify the recorded edition versus subsequent corrections. Search, calculators, and source availability are described only to the extent actually implemented and checked.
-- [ ] The final course delivers the integrated worked case and a changed-scenario assessment, with a complete explanation of the answer and its assumptions.
-- [ ] Course visuals, source notes, and the public artifact match the recorded version; use the applicable checks in [TESTING.md](TESTING.md) and inspect changed content after deployment. A passed build alone does not close the teaching or recording gates.
+## Before recording
 
-## Post-release review
+- [ ] Teach the section aloud without recording; fix confusing terms and skipped reasoning.
+- [ ] Check its technical claims, worked examples and any demonstrated workflow.
+- [ ] Check a short capture for readable visuals and clear audio.
 
-Review comments and retention at 24 hours, 7 days, and 30 days after the expanded video is published. Publication and review dates are not yet scheduled. The table records planned reviews, not audience evidence already collected.
+## Before delivery
 
-| Review             | Main evidence                                                                                                                                            | Fix this release                                                                                                                | Change the next course                                                                                                                  | New permanent gate                                                                                          |
-| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| 24 hours — planned | Inspect comments about prerequisites, first-use vocabulary, missing resources, and phone legibility; examine retention at cited timestamps if available. | Verify and correct consequential technical errors or broken resources; add a dated erratum where needed. No observed issue yet. | Record repeated confusion in the opening/system map. No audience result yet.                                                            | Apply the improvement system's severe-issue or corroboration rule; none proposed from nonexistent feedback. |
-| 7 days — planned   | Group substantive comments by domain and misunderstanding; compare repeated reports with retention and transfer-question responses where available.      | Recheck disputed calculations, architecture labels, and time-sensitive deployment claims before correcting them.                | Revise explanatory order, pacing, or chapter navigation where evidence supports it.                                                     | Record the evidence and scope before adopting a new gate.                                                   |
-| 30 days — planned  | Review unresolved issues, repeated misconceptions, resource use, source drift, and whether learners can reason across domains.                           | Publish verified corrections and dated reference updates with links to affected chapters.                                       | Decide which depth gaps warrant a new edition or focused supplement; do not treat requests alone as proof of a broken learner contract. | Preserve the learner-first process; avoid adding gates for isolated preferences without corroboration.      |
-
-Follow the [improvement system](https://github.com/kiankyars/youtube/blob/main/freecodecamp/improvement-system.md): one evidenced correctness, security, accessibility, or reproducibility failure can justify a permanent gate; taste changes require independent corroboration or matching retention evidence. Keep the evidence separate from the action and state when analytics or learner results are unavailable.
+- [ ] Watch the edited video and fix mistakes or missing steps.
+- [ ] Check chapter timestamps and public resources; ensure they match the video.

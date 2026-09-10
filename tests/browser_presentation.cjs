@@ -272,7 +272,8 @@ let browser;
     document.querySelector("#connection").textContent.startsWith("Connected"),
   );
   assert.equal(await notes.locator("#audience").isVisible(), false);
-  assert.match(await notes.locator("#narration").textContent(), /125 amperes/);
+  assert.match(await notes.locator("#narration").textContent(), /125 A/);
+  assert.equal(await notes.locator(".speaker-points li").count(), 4);
   assert.doesNotMatch(
     await notes.locator("body").innerText(),
     /recording setup/i,
@@ -457,7 +458,7 @@ let browser;
   );
   assert.match(
     await notes.locator("#narration").innerText(),
-    /safe-capacity verdict is unknown/,
+    /Capacity unknown/,
   );
   await page.screenshot({ path: resolve(output, "capacity-1280.png") });
   await page.setViewportSize({ width: 390, height: 844 });

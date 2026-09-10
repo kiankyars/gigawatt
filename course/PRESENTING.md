@@ -7,7 +7,7 @@ The ten-scene 800 V sample is the current presentation prototype. Allow roughly
 fifteen minutes for explanation, predictions and discussion, then revise that
 provisional allowance from the dry run. The remaining reading lessons need their
 own authored visuals and rehearsal; current production priorities are in the
-[filled-in course template](COURSE_REVIEW.md#production-priorities-and-presentation-backlog).
+[filled-in course template](COURSE_REVIEW.md#next-teaching-step).
 
 ## Open and control the presentation
 
@@ -15,7 +15,7 @@ own authored visuals and rehearsal; current production priorities are in the
 | --------------------- | ------------------------------------------------------------------------------------------------------ |
 | `sample.html`         | Default student visuals, prediction/reveal and optional explanations; no instructor controls           |
 | `teach.html`          | Teaching visuals with fullscreen and a separate synchronized notes window                              |
-| `sample-notes.html`   | Narration, action cues, next-step context and sequence; open it from teaching mode to pair the windows |
+| `sample-notes.html`   | Short speaking bullets, action cue and next-step context; open it from teaching mode to pair the windows |
 | `sample-reading.html` | Full explanation, derivations and source limits for study or lookup                                    |
 
 Use **Next / →** to advance, **←** to return and **R** to reveal or hide an answer.
@@ -26,7 +26,8 @@ Teaching mode is a presentation choice, not authentication or access control.
 
 ## Test the revised explanation
 
-Explain each visual in your own words. Ask for a prediction before revealing an
+Glance at the speaking bullets, then explain each visual in your own words.
+The full explanation stays in the student reading view. Ask for a prediction before revealing an
 answer, and use these checks to find where the explanation stops being clear:
 
 1. **Copper:** compare three equal copper lengths with two at the same 100 kW

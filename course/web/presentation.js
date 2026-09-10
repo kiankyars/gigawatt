@@ -264,9 +264,9 @@ function renderNotes() {
     `VISUAL ${state.index + 1} OF ${STEPS.length} · ~${step.duration_seconds} SECONDS PLANNED`;
   byId("notes-headline").textContent = step.headline;
   byId("notes-cue").textContent = step.cue;
-  byId("narration").innerHTML = step.notes
-    .map((p) => `<p>${escapeHTML(p)}</p>`)
-    .join("");
+  byId("narration").innerHTML = `<ul class="speaker-points">${step.notes
+    .map((point) => `<li>${escapeHTML(point)}</li>`)
+    .join("")}</ul>`;
   if (step.kind === "current" && isRevealed())
     byId("narration").insertAdjacentHTML(
       "afterbegin",
