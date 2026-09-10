@@ -80,3 +80,8 @@ refer only to that historical introduction; the expanded manuscript reports
 Earlier `evidence/` ledgers and `diagram/` engineering maps remain dated research
 references. Retired course-design documents and experimental players are in Git
 history; their published document paths point to the consolidated guidance.
+
+Saved publisher text is searchable locally in `research/articles/`, with a capture
+index at `research/articles/INDEX.md`. The [research workflow](research/README.md)
+explains syncing, importing authorized full exports and checking integrity. The
+public source notes record review scope separately from article capture.

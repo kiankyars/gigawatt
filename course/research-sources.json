@@ -1935,6 +1935,33 @@
       "use": "Local generation and designed island operation are distinct; many solar systems disconnect during loss of the wider grid.",
       "caution": "Reviewed Distributed Energy Resources and Islands and Microgrids. The course does not assume that a data-center generator, inverter, or campus inherits island capability from location or nameplate alone.",
       "discovered_via": "Behind-the-meter and space-terminology coverage review, 2026-09-10."
+    },
+    {
+      "id": "SA41",
+      "title": "What is So Hard About Behind-The-Meter Power For Datacenters? Part 1",
+      "url": "https://newsletter.semianalysis.com/p/what-is-so-hard-about-behind-the",
+      "publisher": "SemiAnalysis",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-10",
+      "published_on": "2026-09-10",
+      "authors": [
+        "Ellie Holbrook",
+        "Robert Boswall",
+        "Jeremie Eliahou Ontiveros",
+        "Nicolas Bontigui",
+        "Dylan Patel"
+      ],
+      "domains": [
+        "D03",
+        "D05",
+        "D12",
+        "D13",
+        "D15"
+      ],
+      "use": "Connect grid relationship and operating state to project deliverability, fuel, equipment, commissioning, island operation and economic decisions. Use the report to expose missing questions across existing domains.",
+      "caution": "Reviewed the public opening, connection taxonomy and project-delivery framing; inspected the exposed section structure. The page ends at a paywall and this is not a full paid-article review. Proprietary estimates, named-project claims and regulatory details require separate primary checks.",
+      "discovered_via": "User-provided article and public sitemap/feed refresh, 2026-09-10."
     }
   ]
 }

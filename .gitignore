@@ -12,3 +12,6 @@ dist/
 .mypy_cache/
 .ruff_cache/
 _site/
+
+# Local publisher article captures and authorized exports; excluded from Pages.
+research/articles/

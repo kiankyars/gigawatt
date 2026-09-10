@@ -2,7 +2,8 @@
 
 Use this library before repeating a web search. It connects the course's
 [domain map](../course/DOMAIN_MAP.md) to a persistent source inventory and one
-Markdown research note per curated source or selected discovery candidate.
+Markdown research note per curated source or selected discovery candidate. A local
+article archive now stores searchable source text alongside those original notes.
 
 [Browse the source index](INDEX.md) · [Curated search log](discovery-searches.md)
 · [Editable catalog](../course/research-sources.json)
@@ -15,6 +16,69 @@ The library covers SemiAnalysis **and** primary sources from operators, vendors,
 standards bodies, public agencies and original research. It separates discovery,
 source review and verification of a specific claim. No publisher or archive is
 the course's source of truth.
+
+## Read and maintain the article archive
+
+The three layers have distinct jobs:
+
+- `research/discovery.json` indexes publisher metadata and relevance decisions.
+- `research/articles/INDEX.md` indexes local article captures; each source has a
+  Markdown file such as `research/articles/SA41.md`, with authors, date, URL,
+  capture status, permission context and file hash. `manifest.json` records the
+  capture inventory and failures. This folder is ignored by Git and excluded
+  from Pages; it is the working text library for course research.
+- `research/sources/SA41.md` contains original claim checks, curriculum connections
+  and unresolved questions. These source notes remain public and separately reviewed.
+
+Kian reported confirmation from SemiAnalysis's publishers on 2026-09-10 that the
+course research use is permitted. That context is recorded in the local archive.
+The original source text remains distinguishable from the course's explanations.
+
+```sh
+# Reuse existing captures; fetch missing curated SemiAnalysis articles.
+uv run gigawatt-research archive sync
+
+# Also capture mapped discovery candidates; their relevance remains unreviewed.
+uv run gigawatt-research archive sync --include-candidates
+
+# Refresh one article explicitly. A preview cannot replace a saved full article.
+uv run gigawatt-research archive sync --source SA41 --refresh
+
+# Import a complete publisher-provided or authorized local export.
+uv run gigawatt-research archive import \
+  --source SA41 --file /absolute/path/to/article.md --complete
+
+# Verify saved bytes offline, then search article text without another web query.
+uv run gigawatt-research archive check
+rg -n -i 'behind.the.meter|islanding|fuel supply' research/articles/
+```
+
+The archive currently supports SemiAnalysis's article markup and common legacy
+article-body containers, plus provided Markdown/text/HTML exports. It preserves
+headings, paragraphs, lists, tables, code and source links. Figures remain links
+to publisher assets; their image files are not downloaded. Unknown page structures,
+login shells and short/non-article responses produce an explicit failure instead
+of being stored as a complete article.
+
+`public_article` means the publisher marked the captured article freely accessible;
+`public_preview` means a paywall or paid-access signal was present.
+`unverified_capture` means the body was extracted but completeness is not established.
+`imported_full_article` records a supplied export declared complete with `--complete`;
+`imported_text_unverified` preserves an export without that declaration. None of
+these statuses means the technical claims were reviewed. HTML containing an explicit paywall cannot
+be labeled complete by the importer; a provided full paid export can be declared
+complete even when its metadata identifies a subscriber article. Failed requests retain earlier captures and
+report a nonzero exit status; edited local files are preserved and flagged.
+
+The public fetch does not use browser credentials. Publisher permission and
+technical access are separate: importing an available full export fills a paid
+article's missing portion. The linked BTM report is `SA41`; its public capture
+is explicitly a preview. Its source note maps further work into existing domains.
+
+On a fresh machine, record the permission context once with
+`archive sync --permission-note "Publisher permission context"`; later runs reuse
+that local record. `--source` can be repeated; `--timeout` and `--delay` bound
+requests. The archive uses no LLM summaries or automatic lesson promotion.
 
 ## Run the pipeline
 
@@ -55,14 +119,14 @@ failed refresh never erases previous records or decisions.
 
 ## Which file owns what
 
-| File | Role | Edit policy |
-| --- | --- | --- |
-| `course/research-sources.json` | Curated source identity, review scope, dates, original use/caution notes and domain mappings | Edit after reviewing the relevant material. Keep stable source IDs. |
-| `research/discovery.json` | Durable metadata inventory, URL aliases, keyword suggestions, triage decisions and run history | Discovery refreshes metadata. Edit `triage`, `domains` and `notes` to record decisions; later refreshes preserve them. |
-| `research/sources/SAxx.md`, `Pxx.md` | One local note for each curated source | The marked metadata region is generated. Write original claim checks and teaching notes below it. |
-| `research/sources/DISC_*.md` | Notes for candidates with domain suggestions or explicit domain assignments | These are unreviewed leads. A deterministic URL-based ID avoids repeated files for the same URL. |
-| `research/INDEX.md` | Navigable index across the generated source notes | The marked index region is generated; the body below it is preserved. |
-| `research/discovery-searches.md` | Human-readable search trail and scope limits | Record queries, indexes inspected, what was actually read and remaining gaps. |
+| File                                 | Role                                                                                           | Edit policy                                                                                                            |
+| ------------------------------------ | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `course/research-sources.json`       | Curated source identity, review scope, dates, original use/caution notes and domain mappings   | Edit after reviewing the relevant material. Keep stable source IDs.                                                    |
+| `research/discovery.json`            | Durable metadata inventory, URL aliases, keyword suggestions, triage decisions and run history | Discovery refreshes metadata. Edit `triage`, `domains` and `notes` to record decisions; later refreshes preserve them. |
+| `research/sources/SAxx.md`, `Pxx.md` | One local note for each curated source                                                         | The marked metadata region is generated. Write original claim checks and teaching notes below it.                      |
+| `research/sources/DISC_*.md`         | Notes for candidates with domain suggestions or explicit domain assignments                    | These are unreviewed leads. A deterministic URL-based ID avoids repeated files for the same URL.                       |
+| `research/INDEX.md`                  | Navigable index across the generated source notes                                              | The marked index region is generated; the body below it is preserved.                                                  |
+| `research/discovery-searches.md`     | Human-readable search trail and scope limits                                                   | Record queries, indexes inspected, what was actually read and remaining gaps.                                          |
 
 The generator refuses to overwrite a note without its expected managed-region
 markers. It prepares outputs before writing, preserves everything after the
@@ -150,17 +214,14 @@ of its objectives is certified complete by the research pipeline.
 
 ## Content and reuse
 
-Markdown source notes contain original summaries, bibliographic metadata,
-limited excerpts where useful, cross-checks and teaching decisions. They are
-not complete copies of articles. Educational purpose is one fair-use factor,
-not an automatic right to reproduce a whole work; see the
-[U.S. Copyright Office guidance](https://www.copyright.gov/fair-use/).
-Full documents and third-party assets may be included where their license or
-permission permits that use. Public access and a subscription are not treated
-as blanket redistribution permissions. This pipeline uses public sources only.
+The public library contains original research notes, citations and course material.
+The local article archive retains publisher text under the permission context
+reported by Kian, with provenance and access limits. It is not staged for public
+redistribution. Capture does not certify technical claims or add a curriculum
+requirement; course design remains in the filled-in template.
 
 The purpose is to preserve useful research so future authoring starts with the
-known source, its limits and the next unresolved question—not a fresh search.
+saved text, known source, its limits and the next unresolved question.
 
 ## Initial run — 2026-09-06
 

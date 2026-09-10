@@ -317,3 +317,29 @@ keeps the customer bus fixed: 8 MW load = 6 MW local + 2 MW grid; with a support
 island, 4 MWh of usable storage at a 2 MW deficit lasts two hours. These are
 synthetic assumptions, not site capability evidence. External technical review,
 learner rehearsal and full-course presentation adaptation remain pending.
+
+
+## Local article archive — 2026-09-10
+
+The source pipeline now has explicit archive sync, import and offline integrity
+commands. Publisher permission context is recorded locally. Metadata discovery,
+article capture, source review and curriculum changes remain distinct operations.
+
+- 51 Python tests passed, including 11 archive tests for structured extraction,
+  mathematical source text, preview detection, complete provided exports,
+  caching, failed refreshes, manual-edit preservation, source identity and
+  exclusion from the public site. Existing generated-course checks still pass.
+- The refreshed discovery inventory has 336 URLs. The bounded archive contains
+  97 selected SemiAnalysis captures: 41 curated sources and 56 discovery
+  candidates, with 16 publisher-marked public articles and 81 public previews.
+  Both capture passes completed without a request failure. This is not a claim
+  of an exhaustive relevant corpus or completed reading.
+- All 97 file hashes verified. A subsequent sync returned 97 cache hits without
+  fetching article bodies again. The new BTM report, SA41, remains labeled a
+  public preview; importing a complete authorized export is supported.
+- The actual `research/articles/` folder is Git-ignored and absent from the
+  staged Pages artifact. Public original research notes, the source catalog,
+  domain mappings, code and workflow documentation remain publishable outputs.
+
+The archive retains publisher figure links instead of downloading images.
+Captured source prose does not become lesson prose or technical-review evidence.

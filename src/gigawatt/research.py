@@ -1,4 +1,4 @@
-"""Build source notes and discover public metadata without following article links."""
+"""Discover sources, build research notes, and maintain a local article archive."""
 
 from __future__ import annotations
 
@@ -26,7 +26,7 @@ SA_HOSTS = {"semianalysis.com", "www.semianalysis.com", "newsletter.semianalysis
 KEYWORDS = {
     "D01": r"\b(power|energy|megawatt|gigawatt|pue)\b",
     "D02": r"\b(workload|training|inference|latency|tokens|batch)\b",
-    "D03": r"\b(grid|utility|utilities|nuclear|gas|generation|interconnection)\b",
+    "D03": r"\b(grid|utility|utilities|nuclear|gas|generation|interconnection|behind.the.meter|btm)\b",
     "D04": r"\b(electrical|substation|transformer|switchgear|distribution)\b",
     "D05": r"\b(ups|battery|batteries|generator|redundancy|backup|protection|bbu)\b",
     "D06": r"\b(800\s*v(?:dc)?|800vdc|54v|48v|busbar|rack power)\b",
@@ -110,7 +110,15 @@ def canonical_url(value: str) -> str:
             and key.lower() not in {"fbclid", "gclid"}
             and not (
                 parts.hostname.lower() in SA_HOSTS
-                and key.lower() in {"s", "r", "triedredirect"}
+                and key.lower()
+                in {
+                    "s",
+                    "r",
+                    "triedredirect",
+                    "publication_id",
+                    "post_id",
+                    "isfreemail",
+                }
             )
         )
     )
@@ -672,8 +680,74 @@ def main(argv: list[str] | None = None) -> int:
     sub.add_argument("--max-documents", type=int, default=4)
     sub.add_argument("--timeout", type=float, default=20)
     sub.add_argument("--delay", type=float, default=1)
+    archive = subcommands.add_parser(
+        "archive", help="Local permitted article captures and exports"
+    )
+    actions = archive.add_subparsers(dest="archive_action", required=True)
+    sync = actions.add_parser(
+        "sync", help="Capture public article bodies; label previews explicitly"
+    )
+    sync.add_argument("--source", action="append", dest="source_ids")
+    sync.add_argument("--include-candidates", action="store_true")
+    sync.add_argument("--refresh", action="store_true")
+    sync.add_argument("--timeout", type=float, default=20)
+    sync.add_argument("--delay", type=float, default=1)
+    sync.add_argument(
+        "--permission-note",
+        help="Publisher permission context; saved locally for later runs",
+    )
+    imp = actions.add_parser(
+        "import", help="Import a provided Markdown, text or HTML article export"
+    )
+    imp.add_argument("--source", required=True)
+    imp.add_argument("--file", type=Path, required=True)
+    imp.add_argument(
+        "--complete",
+        action="store_true",
+        help="The supplied export contains the complete article",
+    )
+    imp.add_argument("--permission-note")
+    actions.add_parser(
+        "check", help="Verify captured file hashes without network access"
+    )
     args = parser.parse_args(argv)
     try:
+        if args.command == "archive":
+            from gigawatt import article_archive
+
+            if args.archive_action == "check":
+                print(
+                    f"Verified {article_archive.check(args.root)} local article captures."
+                )
+                return 0
+            if args.archive_action == "import":
+                status = article_archive.import_article(
+                    args.root,
+                    args.source,
+                    args.file,
+                    complete=args.complete,
+                    permission_note=args.permission_note,
+                )
+                print(f"{args.source}: {status}")
+                return 0
+            if args.timeout <= 0 or args.delay < 0:
+                raise ResearchError("Timeout must be positive and delay nonnegative")
+            results = article_archive.sync(
+                args.root,
+                args.source_ids,
+                include_candidates=args.include_candidates,
+                refresh=args.refresh,
+                timeout=args.timeout,
+                delay=args.delay,
+                permission_note=args.permission_note,
+            )
+            counts = {
+                status: sum(s == status for _, s in results) for _, status in results
+            }
+            print(
+                f"Archive: {len(results)} selected sources; {json.dumps(counts, sort_keys=True)}"
+            )
+            return 1 if counts.get("fetch_failed") else 0
         if args.command in {"build", "check"}:
             changed = build_notes(
                 args.root, args.include_candidates, args.command == "check"
@@ -700,7 +774,7 @@ def main(argv: list[str] | None = None) -> int:
                 file=sys.stderr,
             )
         return 0 if run["status"] == "completed" else 1
-    except (ResearchError, OSError) as exc:
+    except (ValueError, OSError) as exc:
         print(f"Research error: {exc}", file=sys.stderr)
         return 1
 

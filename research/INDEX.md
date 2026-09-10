@@ -31,6 +31,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [DISC_5cbeabab4a20e769 — nvidia tensor core evolution from volta to blackwell](sources/DISC_5cbeabab4a20e769.md) | SemiAnalysis | D07 | candidate_not_reviewed |
 | [DISC_6be13934b10b48ab — intel cuts fab buildout by 4b to](sources/DISC_6be13934b10b48ab.md) | SemiAnalysis | D13 | candidate_not_reviewed |
 | [DISC_719ff31b1db46892 — tsmcs heroic assumption low utilization](sources/DISC_719ff31b1db46892.md) | SemiAnalysis | D15 | candidate_not_reviewed |
+| [DISC_7500c55a4d9dc833 — TPU Inference Externalization Full Steam Ahead - InferenceX](sources/DISC_7500c55a4d9dc833.md) | SemiAnalysis | D02, D07 | candidate_not_reviewed |
 | [DISC_7a5989866fbfeea9 — mi300x vs h100 vs h200 benchmark part 1 training](sources/DISC_7a5989866fbfeea9.md) | SemiAnalysis | D02 | candidate_not_reviewed |
 | [DISC_7bdebe9a2cdc4074 — semi supply chain cutting expectations](sources/DISC_7bdebe9a2cdc4074.md) | SemiAnalysis | D13 | candidate_not_reviewed |
 | [DISC_7c49e1c66c5c148a — Vera Rubin NVL72 vs GB200 NVL72? Inference TCO & Architecture Analysis](sources/DISC_7c49e1c66c5c148a.md) | SemiAnalysis | D02, D07, D15 | candidate_not_reviewed |
@@ -177,6 +178,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [SA38 — How Oracle Is Winning the AI Compute Market](sources/SA38.md) | SemiAnalysis | D03, D09, D13, D14, D15 | public_excerpt_reviewed |
 | [SA39 — OpenAI Stargate Joint Venture Demystified \| Microsoft Sore Loser, Does Softbank Have The Capital?, Texas GigaCampus, Winners & Losers](sources/SA39.md) | SemiAnalysis | D01, D03, D13, D15 | public_excerpt_reviewed |
 | [SA40 — Google AI Infrastructure Supremacy: Systems Matter More Than Microarchitecture](sources/SA40.md) | SemiAnalysis | D02, D07, D08, D09, D15 | public_excerpt_reviewed |
+| [SA41 — What is So Hard About Behind-The-Meter Power For Datacenters? Part 1](sources/SA41.md) | SemiAnalysis | D03, D05, D12, D13, D15 | public_excerpt_reviewed |
 <!-- gigawatt-research:managed:end -->
 
 ## Research notes

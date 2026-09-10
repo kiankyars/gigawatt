@@ -108,10 +108,13 @@ it does not establish a campus's installed configuration or performance.
 Record the relevant material actually read, supported claim, version/date,
 verification date and limits in the research library and lesson source records.
 State disagreements and unknowns. A listed URL or generated note is not evidence
-that its full text was read. The public-source pipeline preserves original
-research notes and citations; it does not collect whole articles. Use original
-explanations and diagrams, recording permission for reused assets where needed.
-Acknowledgment and educational purpose alone do not authorize reproduction.
+that its full text was read. The public library preserves original research notes
+and citations. A separate local Markdown archive retains article text under the
+publisher permission reported by Kian on 2026-09-10. It labels public previews and
+accepts authorized full exports without promoting capture to technical review.
+Use original explanations and diagrams in the course; the article archive is
+excluded from the public site. The [research workflow](../research/README.md) owns
+ingestion commands and capture-state definitions.
 
 ### Companion experience
 
@@ -181,10 +184,16 @@ measured runtime or a target to fill.
    N+2, 2N and 2(N+1), UPS normal/battery/bypass paths, single-corded interfaces,
    and maintenance plus a fault. Test surviving capacity and path independence
    before treating that capability as reviewed.
-3. Build the opening orientation and persistent facility artifact. Introduce
+3. Use the [new BTM deep-dive source note](../research/sources/SA41.md) to deepen
+   the existing D03/D05/D12/D13/D15 treatments: connection arrangements, fuel and
+   project delivery, island operating behavior and the later transition to grid
+   service. The current import/island budget is an introduction, not complete
+   coverage of BTM execution. Verify consequential claims with primary sources
+   and add changed-case assessments before calling that coverage complete.
+4. Build the opening orientation and persistent facility artifact. Introduce
    equipment and terms at first use; connect behind-the-meter and physical-space
    teaching to the relevant boundaries.
-4. Adapt the remaining material in dependency order, revising lesson divisions
+5. Adapt the remaining material in dependency order, revising lesson divisions
    around the reasoning task. Kian's familiarity with generation or campus
    distribution can accelerate preparation; it does not establish teaching quality.
 

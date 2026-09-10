@@ -12,9 +12,9 @@
 - **Title origin:** url_slug
 - **Discovered via:** https://newsletter.semianalysis.com/sitemap.xml
 - **First seen:** 2026-09-06T22:19:48+00:00
-- **Last seen:** 2026-09-06T22:19:48+00:00
+- **Last seen:** 2026-09-10T17:43:52+00:00
 
-Catalog metadata fingerprint: dcec9865ca7ee9e5a3d56204befef79a2ad0e2dd9e40d0c9a57995a88ca7f2eb
+Catalog metadata fingerprint: b4cdeadb81dfd35967a1bdf628e666443a7af3f82e157d4dd966f5e1745a2c25
 <!-- gigawatt-research:managed:end -->
 
 ## Claim-level notes

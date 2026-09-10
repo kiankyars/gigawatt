@@ -367,6 +367,7 @@ Compare utility-only and behind-the-meter supply against energy, capacity, fuel 
 - [E21653C0173 — ERCOT — Batch Zero large-load connection announcement, June 18, 2026](https://www.ercot.com/news/release/06182026-puct-approves-ercots) · `page_reviewed` · [local note](../research/sources/E21653C0173.md)
 - [E38B3BEAAC1 — NARUC — Regulators’ Financial Toolbox: Behind-the-Meter Energy Storage](https://pubs.naruc.org/pub/6233DBE2-B58B-52FF-925E-250DD26DECF9) · `public_excerpt_reviewed` · [local note](../research/sources/E38B3BEAAC1.md)
 - [E0410763323 — DOE — Solar Integration: Distributed Energy Resources and Microgrids Basics](https://www.energy.gov/cmei/systems/solar-integration-distributed-energy-resources-and-microgrids-basics) · `page_reviewed` · [local note](../research/sources/E0410763323.md)
+- [SA41 — What is So Hard About Behind-The-Meter Power For Datacenters? Part 1](https://newsletter.semianalysis.com/p/what-is-so-hard-about-behind-the) · `public_excerpt_reviewed` · [local note](../research/sources/SA41.md)
 
 <a id="d04"></a>
 
@@ -541,6 +542,7 @@ Explain why fault clearing and grounding require topology-specific AC/DC protect
 - [E37FE7B98A1 — Schneider Electric — Easy UPS 3-Phase Modular 50–250 kW: UPS Modes](https://productinfo.se.com/easyups3pmodular/990-6537-easy-ups-3-phase-modular-50-250-kw-operation/English/990-6537%20Operation%20Easy%20UPS%203-Phase%20Modular%2050-250%20kW_0001015104.xml/%24/GalaxyPX_UPSModes_0000761714) · `page_reviewed` · [local note](../research/sources/E37FE7B98A1.md)
 - [E38B3BEAAC1 — NARUC — Regulators’ Financial Toolbox: Behind-the-Meter Energy Storage](https://pubs.naruc.org/pub/6233DBE2-B58B-52FF-925E-250DD26DECF9) · `public_excerpt_reviewed` · [local note](../research/sources/E38B3BEAAC1.md)
 - [E0410763323 — DOE — Solar Integration: Distributed Energy Resources and Microgrids Basics](https://www.energy.gov/cmei/systems/solar-integration-distributed-energy-resources-and-microgrids-basics) · `page_reviewed` · [local note](../research/sources/E0410763323.md)
+- [SA41 — What is So Hard About Behind-The-Meter Power For Datacenters? Part 1](https://newsletter.semianalysis.com/p/what-is-so-hard-about-behind-the) · `public_excerpt_reviewed` · [local note](../research/sources/SA41.md)
 
 <a id="d06"></a>
 
@@ -1165,6 +1167,7 @@ Trace physical and control-system access boundaries and explain why availability
 - [EDEEDB16DDE — OSHA 1910.333: Electrical work practices](https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.333) · `public_excerpt_reviewed` · [local note](../research/sources/EDEEDB16DDE.md)
 - [E7A716A810E — Leviton — Data center white space and gray space](https://leviton.com/support/literature/newsletters/insider/insideroctober2025/focusedproductoctober2025) · `page_reviewed` · [local note](../research/sources/E7A716A810E.md)
 - [EFE70308E0A — Vertiv — Deploying Liquid Cooling in the Data Center](https://prod.vertiv.cn/4a9616/globalassets/documents/white-papers/liquid-cooling/vertiv-liquidcooling-wp-en-na-sl-71113-web.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/EFE70308E0A.md)
+- [SA41 — What is So Hard About Behind-The-Meter Power For Datacenters? Part 1](https://newsletter.semianalysis.com/p/what-is-so-hard-about-behind-the) · `public_excerpt_reviewed` · [local note](../research/sources/SA41.md)
 
 <a id="d13"></a>
 
@@ -1258,6 +1261,7 @@ Specify an integrated acceptance and handover plan for a phased deployment.
 - [P16 — Why Scaling AI Compute Performance Requires a New Power Architecture](https://blogs.nvidia.com/blog/800-vdc-power-architecture-ai-factory/) · `page_reviewed` · [local note](../research/sources/P16.md)
 - [E50E0F856B0 — GAO Schedule Assessment Guide](https://www.gao.gov/products/gao-16-89g) · `page_reviewed` · [local note](../research/sources/E50E0F856B0.md)
 - [ECB7071035F — WBDG: Commissioning Documents](https://legacy.wbdg.org/building-commissioning/commissioning-documents) · `page_reviewed` · [local note](../research/sources/ECB7071035F.md)
+- [SA41 — What is So Hard About Behind-The-Meter Power For Datacenters? Part 1](https://newsletter.semianalysis.com/p/what-is-so-hard-about-behind-the) · `public_excerpt_reviewed` · [local note](../research/sources/SA41.md)
 
 <a id="d14"></a>
 
@@ -1483,6 +1487,7 @@ Audit a named project's public evidence without filling unknown capacity, topolo
 - [E50E0F856B0 — GAO Schedule Assessment Guide](https://www.gao.gov/products/gao-16-89g) · `page_reviewed` · [local note](../research/sources/E50E0F856B0.md)
 - [EEFB073374C — NIST Handbook 135, 2025: Life Cycle Costing Manual](https://nvlpubs.nist.gov/nistpubs/hb/2025/NIST.HB.135e2025.pdf) · `page_reviewed` · [local note](../research/sources/EEFB073374C.md)
 - [E775A7D4E10 — OpenAI: Five new Stargate sites](https://openai.com/index/five-new-stargate-sites/) · `page_reviewed` · [local note](../research/sources/E775A7D4E10.md)
+- [SA41 — What is So Hard About Behind-The-Meter Power For Datacenters? Part 1](https://newsletter.semianalysis.com/p/what-is-so-hard-about-behind-the) · `public_excerpt_reviewed` · [local note](../research/sources/SA41.md)
 
 ## Paths through the system
 
