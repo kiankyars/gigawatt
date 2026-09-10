@@ -96,7 +96,8 @@
         "term": "Dependency path",
         "definition": "The connected equipment, supplies and controls required for a service to continue."
       }
-    ]
+    ],
+    "capstone_id": "C01"
   },
   {
     "id": "c02-weather-capacity",
@@ -175,7 +176,8 @@
         "term": "Binding constraint",
         "definition": "The necessary limit that prevents further output or capacity growth at a specified operating point."
       }
-    ]
+    ],
+    "capstone_id": "C02"
   },
   {
     "id": "c03-density-retrofit",
@@ -258,7 +260,8 @@
         "term": "Service envelope",
         "definition": "The space and access required to inspect, maintain, remove and replace equipment, beyond its installed footprint."
       }
-    ]
+    ],
+    "capstone_id": "C03"
   },
   {
     "id": "c04-stalled-job",
@@ -340,7 +343,8 @@
         "term": "Critical-path time",
         "definition": "Time on the dependency chain that determines completion; speeding work outside that chain may not reduce total duration."
       }
-    ]
+    ],
+    "capstone_id": "C04"
   },
   {
     "id": "c05-open-a-phase",
@@ -422,6 +426,7 @@
         "term": "Acceptance register",
         "definition": "A record linking a specified service or equipment group to required tests, results, unresolved issues and authorized acceptance."
       }
-    ]
+    ],
+    "capstone_id": "C05"
   }
 ]

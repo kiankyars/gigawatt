@@ -1,5 +1,7 @@
 # Move power with fewer amperes
 
+Generated reading view. Edit [`course/expansion/foundations-power.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/foundations-power.json), lesson `d03-voltage-and-distance`, then run `uv run gigawatt-expand`.
+
 **D03 · Authored draft · Objectives:** D03.2
 
 Derive a balanced three-phase current comparison, calculate conductor heating, and identify what the comparison cannot decide.

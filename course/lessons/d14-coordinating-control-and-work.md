@@ -1,5 +1,7 @@
 # The scheduler cannot negotiate with physics after the fact
 
+Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/heat-delivery-operations.json), lesson `d14-coordinating-control-and-work`, then run `uv run gigawatt-expand`.
+
 **D14 · Authored draft · Objectives:** D14.2
 
 Separate fast local control, plant-level coordination and workload decisions, then account for a stipulated delay and thermal-energy buffer.

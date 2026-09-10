@@ -37,7 +37,7 @@ class DomainMapTests(unittest.TestCase):
             domain_map["domains"][0]["source_ids"], ["stale-duplicate-map"]
         )
         self.assertEqual(
-            normalized["existing_lessons"],
+            normalized["baseline_lessons"],
             [{"id": l["id"], "title": l["title"]} for l in lessons["lessons"]],
         )
 
@@ -54,11 +54,11 @@ class DomainMapTests(unittest.TestCase):
                 prerequisites=["unknown"]
             ),
             "unknown lesson": lambda m, r: m["domains"][0]["objectives"][0].update(
-                existing_lessons=["unknown"]
+                baseline_lessons=["unknown"]
             ),
             "unsupported completion": lambda m, r: m["domains"][0]["objectives"][
                 0
-            ].update(coverage="complete"),
+            ].update(baseline_coverage="complete"),
             "empty assessment": lambda m, r: m["domains"][0]["objectives"][0].update(
                 assessment=""
             ),

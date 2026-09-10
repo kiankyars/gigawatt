@@ -1,5 +1,7 @@
 # A rack upgrade is an interface negotiation
 
+Generated reading view. Edit [`course/expansion/racks-compute-heat.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/racks-compute-heat.json), lesson `d06-rack-migration`, then run `uv run gigawatt-expand`.
+
 **D06 · Authored draft · Objectives:** D06.3, D06.4, D06.5
 
 Test a higher-density rack against electrical, thermal, mechanical and operational constraints before accepting the upgrade path.

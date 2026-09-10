@@ -1,5 +1,7 @@
 # Two liquid loops exchange heat, not fluid
 
+Generated reading view. Edit [`course/expansion/racks-compute-heat.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/racks-compute-heat.json), lesson `d10-cdu-interfaces`, then run `uv run gigawatt-expand`.
+
 **D10 · Authored draft · Objectives:** D10.2, D10.3, D10.4
 
 Label a liquid-to-liquid CDU, solve its thermal interfaces and compare cooling choices against a retrofit service brief.

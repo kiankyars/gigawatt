@@ -1,5 +1,7 @@
 # Commission the intersection, not the inventory
 
+Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/heat-delivery-operations.json), lesson `d13-commissioning-complete-paths`, then run `uv run gigawatt-expand`.
+
 **D13 · Authored draft · Objectives:** D13.3, D13.4
 
 Distinguish installation and subsystem tests from integrated acceptance, then count overlapping accepted rack paths rather than adding milestone totals.

@@ -103,7 +103,7 @@ terms, five GPT ImageGen illustrations and eight types of numerical model.
 These are implementation counts. At this initial expansion check, external
 engineering review, learner feedback, recording and export checks were pending.
 Kian subsequently identified text crowding and an unclear recording workflow;
-see the presentation revision below and [REVIEW_HELP.md](REVIEW_HELP.md).
+see the presentation revision below and [PRESENTING.md](PRESENTING.md).
 
 - **34 Python tests and 14 JavaScript numerical tests passed.** Checks include
   complete objective mapping, worked-answer and source-boundary preservation,
@@ -279,7 +279,7 @@ a changed-load exercise follows the complete-path energy counterexample.
   visually inspected. No overflow or clipped labels was found, including the
   ten-step mobile navigation. Report and captures remain in `qa/presentation/`.
 - The builder now validates a learning contract, teaching roles, timing totals
-  and aliases without a fixed sequence length. The new teaching standard maps
+  and aliases without a fixed sequence length. The course template now tracks
   adaptation work across all domains; it does not claim those presentations exist.
 
 Rehearsal allocations were subsequently increased to allow explanation and
@@ -287,3 +287,33 @@ predictions; approximately fifteen minutes is a provisional allowance, not a
 measured duration. Learner comprehension and spoken delivery remain unverified
 until the revised dry run. The other 50 reading lessons and the persistent
 functional BOM remain pending adaptation.
+
+
+## Ownership consolidation and terminology — 2026-09-10
+
+The filled-in course template now owns scope, companion commitments and production
+status. The domain map owns objectives and sequence; its renamed
+`baseline_coverage` / `baseline_lessons` fields explicitly refer to the retained
+introduction. Four overlapping guidance files were retired after consolidation;
+the site builder preserves their published paths as replacement links.
+
+- All generated-output checks, 40 Python tests and 22 JavaScript numerical tests
+  passed. Regression checks allow a domain's lessons to merge while retaining
+  objective coverage, reject an uncovered objective, and validate capstone IDs
+  against the map instead of a hardcoded lesson count.
+- The reader passed 100 desktop/phone lesson states, search, glossary, practice
+  and its eight numerical models. After the final terminology/practice edits,
+  the three affected lessons passed six additional staged-site viewport states.
+- The domain map passed nine selected-domain states at 1440, 768 and 390 pixels,
+  including historical-coverage labels, BTM search, coverage filtering and no
+  horizontal overflow or page errors. The phone layout was visually inspected.
+- 1,196 local Markdown link targets resolved. All four retired published paths
+  resolved to the consolidated guidance in the staged site. Ruff and whitespace
+  checks passed; generated builds were current.
+
+D01/D12 white/grey-space explanations and D03 behind-the-meter supply now include
+original application questions and scoped primary citations. The D03 arithmetic
+keeps the customer bus fixed: 8 MW load = 6 MW local + 2 MW grid; with a supported
+island, 4 MWh of usable storage at a 2 MW deficit lasts two hours. These are
+synthetic assumptions, not site capability evidence. External technical review,
+learner rehearsal and full-course presentation adaptation remain pending.

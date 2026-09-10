@@ -1,5 +1,7 @@
 # Two adequate products can form an inadequate system
 
+Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/heat-delivery-operations.json), lesson `d13-interface-contracts`, then run `uv run gigawatt-expand`.
+
 **D13 · Authored draft · Objectives:** D13.2
 
 Translate requirements into measurable interfaces and use a simple flow calculation to expose an incompatibility before equipment arrives.

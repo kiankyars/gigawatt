@@ -1,5 +1,7 @@
 # A shared boundary can defeat two independent systems
 
+Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/heat-delivery-operations.json), lesson `d12-safety-and-control-boundaries`, then run `uv run gigawatt-expand`.
+
 **D12 · Authored draft · Objectives:** D12.3, D12.4
 
 Draw hazard and access boundaries around equipment and control systems, then trace an original shared-dependency scenario.

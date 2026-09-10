@@ -1,5 +1,7 @@
 # Find the constraint after reconciling the boundaries
 
+Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/heat-delivery-operations.json), lesson `d15-capacity-ledger`, then run `uv run gigawatt-expand`.
+
 **D15 · Authored draft · Objectives:** D15.1
 
 Reconcile facility overhead, non-compute IT, electrical and thermal limits, network scope and accepted service in one synthetic ledger.

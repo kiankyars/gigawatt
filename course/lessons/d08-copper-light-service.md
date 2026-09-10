@@ -1,5 +1,7 @@
 # Choose where electricity becomes light
 
+Generated reading view. Edit [`course/expansion/racks-compute-heat.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/racks-compute-heat.json), lesson `d08-copper-light-service`, then run `uv run gigawatt-expand`.
+
 **D08 · Authored draft · Objectives:** D08.4, D08.5
 
 Compare media and optical packaging at the link level, then include their effects on switch cooling, cabling and repair.

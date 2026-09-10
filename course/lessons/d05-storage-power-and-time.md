@@ -1,5 +1,7 @@
 # A battery has two limits before it has a runtime
 
+Generated reading view. Edit [`course/expansion/foundations-power.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/foundations-power.json), lesson `d05-storage-power-and-time`, then run `uv run gigawatt-expand`.
+
 **D05 · Authored draft · Objectives:** D05.1, D05.2
 
 Calculate output energy after usable-capacity and reserve assumptions, screen discharge power separately, and distinguish a UPS role from a generic storage inventory.

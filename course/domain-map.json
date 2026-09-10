@@ -1,18 +1,9 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "title": "GIGAWATT — the domain map",
   "subtitle": "From grid connection to useful compute. Follow the power, close the heat path, operate the system.",
-  "as_of": "2026-09-06",
-  "status": "Planning baseline; expanded lessons, visuals and assessments are not yet implemented or reviewed.",
-  "scope": "Modern AI data-center infrastructure, including conventional facilities and retrofit alternatives needed to explain engineering choices. System understanding and bounded quantitative decisions, not professional design qualification.",
-  "target_audience": "Technically curious learners with arithmetic, percentages, unit conversion, simple graph reading and general computer literacy. No prior data-center, electrical, cooling or networking vocabulary is assumed. Explain additional algebra before relying on it; introduce specialized mathematics and professional practice only to the depth needed for the stated outcomes.",
-  "runtime": "A substantial single course, potentially up to ten hours. Runtime is unallocated until section prototypes and learner rehearsals establish the depth each objective needs; this map is not a ten-hour script.",
-  "coverage_definition": {
-    "partial": "The current player teaches a useful fragment of this objective. It still needs expansion, an application assessment and review.",
-    "missing": "The current player does not substantively teach this objective. Related mentions or source links do not count as teaching.",
-    "complete": "Reserved for a scripted, implemented and reviewed objective with an application assessment. No objective is marked complete in this planning baseline."
-  },
-  "evidence_policy": "Source mappings identify research leads for domains, not verified support for every proposed claim or objective. The seed corpus is not exhaustive. Verify particular claims at lesson authoring, follow original references, retain dates and assumptions, and record contradictions rather than averaging them away.",
+  "as_of": "2026-09-10",
+  "status": "Curriculum objectives and sequence. Authored lesson coverage is reported in EXPANDED_COURSE.md; presentation adaptation and review status are tracked in COURSE_REVIEW.md.",
   "lanes": [
     {
       "id": "foundations",
@@ -49,6 +40,7 @@
       "purpose": "Give every later calculation a unit, a boundary, and an operating condition.",
       "scope": [
         "Campus, building, hall, row, rack, server, package and die",
+        "White space and grey/gray space as layout conventions; distinguish rack space, data-hall area and support areas",
         "Power, energy, real/apparent power, efficiency and time",
         "Nameplate, reserved, commissioned, available, demanded and productive capacity",
         "Physical flows versus commercial relationships; reference designs versus actual sites"
@@ -58,43 +50,43 @@
         {
           "id": "D01.1",
           "capability": "Trace electrical energy, heat, and information through a data center while keeping the accounting boundaries separate.",
-          "assessment": "Annotate one campus diagram with three paths and explain why useful computation and dissipated heat are not competing energy allocations.",
-          "existing_lessons": [
+          "assessment": "Annotate one campus diagram with electrical, heat and information paths; identify white and grey space on its floor plan and explain why those area labels are not energy-accounting boundaries. Explain why useful computation and dissipated heat are not competing energy allocations.",
+          "baseline_coverage": "partial",
+          "baseline_lessons": [
             "one-rack",
             "electrical-to-heat",
             "whole-system"
-          ],
-          "coverage": "partial"
+          ]
         },
         {
           "id": "D01.2",
           "capability": "Convert power and energy across units and time; distinguish a measured load from a capacity rating.",
           "assessment": "Calculate an energy total from a stepped load profile and identify what cannot be inferred from a service rating.",
-          "existing_lessons": [
+          "baseline_coverage": "partial",
+          "baseline_lessons": [
             "power-and-energy",
             "capacity-stages"
-          ],
-          "coverage": "partial"
+          ]
         },
         {
           "id": "D01.3",
           "capability": "Define denominators for facility, IT and compute-only metrics and label the time window.",
           "assessment": "Reconcile a facility energy ledger with IT energy, overhead and a separately measured workload output.",
-          "existing_lessons": [
+          "baseline_coverage": "partial",
+          "baseline_lessons": [
             "facility-overhead",
             "useful-compute"
-          ],
-          "coverage": "partial"
+          ]
         },
         {
           "id": "D01.4",
           "capability": "Separate physical principles, design specifications, observed deployments, announcements, forecasts and teaching assumptions.",
           "assessment": "Classify six supplied claims and state the additional evidence needed to call capacity operational.",
-          "existing_lessons": [
+          "baseline_coverage": "partial",
+          "baseline_lessons": [
             "abilene-case",
             "capacity-stages"
-          ],
-          "coverage": "partial"
+          ]
         }
       ],
       "visual": {
@@ -127,33 +119,33 @@
           "id": "D02.1",
           "capability": "Translate a workload brief into compute, memory, network, storage, power and service requirements.",
           "assessment": "Compare two supplied training and inference briefs and explain which requirements need measurement rather than a rack-count estimate.",
-          "existing_lessons": [
+          "baseline_coverage": "partial",
+          "baseline_lessons": [
             "useful-compute"
-          ],
-          "coverage": "partial"
+          ]
         },
         {
           "id": "D02.2",
           "capability": "Distinguish hardware occupancy, power draw and productive utilization.",
           "assessment": "Explain three traces in which the same installed hardware produces different useful output; identify idle and waiting intervals.",
-          "existing_lessons": [
+          "baseline_coverage": "partial",
+          "baseline_lessons": [
             "useful-compute"
-          ],
-          "coverage": "partial"
+          ]
         },
         {
           "id": "D02.3",
           "capability": "Explain how batching, parallel execution and synchronized job phases change the infrastructure demand profile.",
           "assessment": "Read a supplied job timeline and predict communication, checkpoint and load-transition intervals without assuming a universal waveform.",
-          "existing_lessons": [],
-          "coverage": "missing"
+          "baseline_coverage": "missing",
+          "baseline_lessons": []
         },
         {
           "id": "D02.4",
           "capability": "State an infrastructure design envelope and identify which assumptions a benchmark can and cannot validate.",
           "assessment": "Write acceptance criteria for a hypothetical cluster using declared workload, precision, batch, latency and availability conditions.",
-          "existing_lessons": [],
-          "coverage": "missing"
+          "baseline_coverage": "missing",
+          "baseline_lessons": []
         }
       ],
       "visual": {
@@ -174,7 +166,7 @@
       "purpose": "Connect the physical site decision to grid constraints, available infrastructure and the project schedule.",
       "scope": [
         "Load connection, utility studies, substations, transmission and distribution interfaces",
-        "Generation and behind-the-meter supply where they affect delivery, dispatch or resilience",
+        "Behind-the-meter supply: the customer-side meter boundary, grid import/export, and separately established island capability",
         "Capacity, energy, fuel, emissions, curtailment and time matching",
         "Land, fiber, water, climate and local constraints as joint siting inputs"
       ],
@@ -187,35 +179,35 @@
           "id": "D03.1",
           "capability": "Trace a physical supply path and distinguish it from a power purchase agreement or energy attribute claim.",
           "assessment": "Draw the metered connection separately from two commercial arrangements; name what each establishes.",
-          "existing_lessons": [
+          "baseline_coverage": "partial",
+          "baseline_lessons": [
             "sources-and-grid"
-          ],
-          "coverage": "partial"
+          ]
         },
         {
           "id": "D03.2",
           "capability": "Explain voltage, current and conductor loss in a bounded AC or DC comparison.",
           "assessment": "Compare two balanced three-phase transfer scenarios with stated power factor and conductor resistance; list excluded losses.",
-          "existing_lessons": [
+          "baseline_coverage": "partial",
+          "baseline_lessons": [
             "raise-voltage"
-          ],
-          "coverage": "partial"
+          ]
         },
         {
           "id": "D03.3",
           "capability": "Explain the milestones and constraints between a proposed large load and service available to that load.",
           "assessment": "Turn a supplied project timeline into a capacity ledger without treating an application, agreement or energized substation as commissioned IT.",
-          "existing_lessons": [
+          "baseline_coverage": "partial",
+          "baseline_lessons": [
             "capacity-stages"
-          ],
-          "coverage": "partial"
+          ]
         },
         {
           "id": "D03.4",
-          "capability": "Compare utility-only and on-site supply options against energy, capacity, fuel, grid and operating requirements.",
-          "assessment": "Evaluate a synthetic siting brief with outage, fuel-delivery and curtailment constraints; record unresolved utility and local requirements.",
-          "existing_lessons": [],
-          "coverage": "missing"
+          "capability": "Compare utility-only and behind-the-meter supply against energy, capacity, fuel and operating requirements; distinguish customer-side location from island capability.",
+          "assessment": "Calculate grid import or export for a synthetic on-site supply case, then the islanded power deficit and storage duration. Evaluate fuel and curtailment constraints and record unresolved interconnection and operating requirements.",
+          "baseline_coverage": "missing",
+          "baseline_lessons": []
         }
       ],
       "visual": {
@@ -250,37 +242,37 @@
           "id": "D04.1",
           "capability": "Read a generic single-line diagram and explain what each distribution component changes, measures, switches or protects.",
           "assessment": "Annotate an unfamiliar generic diagram and identify the loads behind each boundary.",
-          "existing_lessons": [
+          "baseline_coverage": "partial",
+          "baseline_lessons": [
             "substation-functions",
             "building-power-train"
-          ],
-          "coverage": "partial"
+          ]
         },
         {
           "id": "D04.2",
           "capability": "Translate load requirements into currents and equipment loading without confusing kW with kVA or nameplate with usable capacity.",
           "assessment": "Calculate loading in a stated balanced scenario, including conversion efficiency and a supplied power factor; explain missing design inputs.",
-          "existing_lessons": [
+          "baseline_coverage": "partial",
+          "baseline_lessons": [
             "raise-voltage"
-          ],
-          "coverage": "partial"
+          ]
         },
         {
           "id": "D04.3",
           "capability": "Compare centralized and distributed conversion and identify which conductors, equipment and loss boundaries change.",
           "assessment": "Mark the changed interfaces on AC, near-rack DC and facility DC reference diagrams without claiming one universal efficiency improvement.",
-          "existing_lessons": [],
-          "coverage": "missing"
+          "baseline_coverage": "missing",
+          "baseline_lessons": []
         },
         {
           "id": "D04.4",
           "capability": "Reconcile IT and auxiliary loads with a downstream electrical capacity budget across project phases.",
           "assessment": "Find the binding transformer, feeder or service constraint in a synthetic phase-opening plan.",
-          "existing_lessons": [
+          "baseline_coverage": "partial",
+          "baseline_lessons": [
             "capacity-bottleneck",
             "building-power-train"
-          ],
-          "coverage": "partial"
+          ]
         }
       ],
       "visual": {
@@ -315,37 +307,37 @@
           "id": "D05.1",
           "capability": "Calculate bounded stored-energy runtime while checking discharge power and reserve assumptions.",
           "assessment": "Compare two storage systems with the same MWh but different MW limits; explain why neither energy alone nor nameplate guarantees ride-through.",
-          "existing_lessons": [
+          "baseline_coverage": "partial",
+          "baseline_lessons": [
             "ride-through"
-          ],
-          "coverage": "partial"
+          ]
         },
         {
           "id": "D05.2",
           "capability": "Trace an interruption, transfer and restoration sequence including IT, cooling and controls.",
           "assessment": "Predict which loads remain supported at each step of a supplied sequence; identify a missing auxiliary supply.",
-          "existing_lessons": [
+          "baseline_coverage": "partial",
+          "baseline_lessons": [
             "ride-through",
             "redundant-paths"
-          ],
-          "coverage": "partial"
+          ]
         },
         {
           "id": "D05.3",
           "capability": "Evaluate path independence and surviving capacity during both a fault and planned maintenance.",
           "assessment": "Find a common-mode dependency in a two-feed diagram and calculate load support with one path unavailable.",
-          "existing_lessons": [
+          "baseline_coverage": "partial",
+          "baseline_lessons": [
             "redundant-paths",
             "fault-domains"
-          ],
-          "coverage": "partial"
+          ]
         },
         {
           "id": "D05.4",
           "capability": "Explain why fault clearing and grounding require topology-specific AC/DC protection design.",
           "assessment": "Compare two conceptual isolation sequences and list the protection evidence needed before endorsing either architecture.",
-          "existing_lessons": [],
-          "coverage": "missing"
+          "baseline_coverage": "missing",
+          "baseline_lessons": []
         }
       ],
       "visual": {
@@ -381,41 +373,41 @@
           "id": "D06.1",
           "capability": "Trace conversion from rack input to processor rails and distinguish whole-rack power from chip power.",
           "assessment": "Label every voltage and power boundary on two supplied rack diagrams and reject a misleading per-GPU TDP calculation.",
-          "existing_lessons": [
+          "baseline_coverage": "partial",
+          "baseline_lessons": [
             "rack-conversion",
             "low-voltage-current"
-          ],
-          "coverage": "partial"
+          ]
         },
         {
           "id": "D06.2",
           "capability": "Quantify how distribution voltage changes current at fixed DC power without treating conductor loss as total system efficiency.",
           "assessment": "Compute currents for a declared 100 kW DC boundary at 50 V and 800 V, then state why this does not size a real conductor or establish an efficiency delta.",
-          "existing_lessons": [
+          "baseline_coverage": "partial",
+          "baseline_lessons": [
             "low-voltage-current"
-          ],
-          "coverage": "partial"
+          ]
         },
         {
           "id": "D06.3",
           "capability": "Compare near-rack sidecars, rack-level conversion and facility DC as distinct architectures.",
           "assessment": "Place conversion, storage, protection and AC/DC boundaries for each; distinguish announced products from proposed future designs.",
-          "existing_lessons": [],
-          "coverage": "missing"
+          "baseline_coverage": "missing",
+          "baseline_lessons": []
         },
         {
           "id": "D06.4",
           "capability": "Evaluate a rack power upgrade against connector, bus, protection, auxiliary and transient interfaces.",
           "assessment": "Write an interface checklist for a synthetic higher-density rack migration, with every unknown left explicit.",
-          "existing_lessons": [],
-          "coverage": "missing"
+          "baseline_coverage": "missing",
+          "baseline_lessons": []
         },
         {
           "id": "D06.5",
           "capability": "Explain how retrofit constraints can reverse a seemingly attractive greenfield architecture choice.",
           "assessment": "Choose between two supplied migration paths using space, downtime, conversion and maintenance assumptions; show what would change the decision.",
-          "existing_lessons": [],
-          "coverage": "missing"
+          "baseline_coverage": "missing",
+          "baseline_lessons": []
         }
       ],
       "visual": {
@@ -450,33 +442,33 @@
           "id": "D07.1",
           "capability": "Locate compute, memory and communication components within a server and rack and explain their roles.",
           "assessment": "Trace a simplified data path from storage through host memory to accelerator memory and compute.",
-          "existing_lessons": [
+          "baseline_coverage": "partial",
+          "baseline_lessons": [
             "rack-conversion"
-          ],
-          "coverage": "partial"
+          ]
         },
         {
           "id": "D07.2",
           "capability": "Distinguish memory-capacity, memory-bandwidth, compute and communication limits.",
           "assessment": "Use supplied workload and hardware numbers to identify a plausible bottleneck and state the model's assumptions.",
-          "existing_lessons": [],
-          "coverage": "missing"
+          "baseline_coverage": "missing",
+          "baseline_lessons": []
         },
         {
           "id": "D07.3",
           "capability": "Explain why chip count, advertised FLOPS and installed MW cannot independently establish job throughput.",
           "assessment": "Compare two synthetic rack configurations with equal power envelopes but different memory and communication constraints.",
-          "existing_lessons": [
+          "baseline_coverage": "partial",
+          "baseline_lessons": [
             "useful-compute"
-          ],
-          "coverage": "partial"
+          ]
         },
         {
           "id": "D07.4",
           "capability": "Connect server and rack organization to power, cooling, weight and maintenance interfaces.",
           "assessment": "Identify the facility interface changes caused by replacing an air-cooled server row with a specified dense rack-scale system.",
-          "existing_lessons": [],
-          "coverage": "missing"
+          "baseline_coverage": "missing",
+          "baseline_lessons": []
         }
       ],
       "visual": {
@@ -512,36 +504,36 @@
           "id": "D08.1",
           "capability": "Distinguish scale-up, scale-out and wide-area communication requirements.",
           "assessment": "Place three communication patterns on a rack, cluster and regional map and identify the relevant bottleneck.",
-          "existing_lessons": [],
-          "coverage": "missing"
+          "baseline_coverage": "missing",
+          "baseline_lessons": []
         },
         {
           "id": "D08.2",
           "capability": "Calculate an illustrative topology's endpoint ports, oversubscription and transfer-time lower bounds.",
           "assessment": "Compare two small supplied topologies, including units and stated routing assumptions; identify why bandwidth alone does not predict application time.",
-          "existing_lessons": [],
-          "coverage": "missing"
+          "baseline_coverage": "missing",
+          "baseline_lessons": []
         },
         {
           "id": "D08.3",
           "capability": "Explain how congestion, collectives and topology-aware placement affect job progress.",
           "assessment": "Predict the effect of a constrained link during a collective and describe a placement or architecture alternative.",
-          "existing_lessons": [],
-          "coverage": "missing"
+          "baseline_coverage": "missing",
+          "baseline_lessons": []
         },
         {
           "id": "D08.4",
           "capability": "Compare interconnect media and packaging choices using reach, bandwidth, power, cooling and replacement boundaries.",
           "assessment": "Evaluate copper, pluggable optics and a specified CPO proposal for a declared use case without treating a roadmap as a deployed default.",
-          "existing_lessons": [],
-          "coverage": "missing"
+          "baseline_coverage": "missing",
+          "baseline_lessons": []
         },
         {
           "id": "D08.5",
           "capability": "Trace a network failure or degraded link into workload, cabling and operational consequences.",
           "assessment": "Explain why a powered and cooled cluster can miss its useful-throughput acceptance target after a partial fabric failure.",
-          "existing_lessons": [],
-          "coverage": "missing"
+          "baseline_coverage": "missing",
+          "baseline_lessons": []
         }
       ],
       "visual": {
@@ -578,29 +570,29 @@
           "id": "D09.1",
           "capability": "Trace the dataset and checkpoint paths and distinguish capacity, throughput and metadata constraints.",
           "assessment": "Calculate an idealized checkpoint transfer time from supplied sizes and effective bandwidth, then identify additional bottlenecks.",
-          "existing_lessons": [],
-          "coverage": "missing"
+          "baseline_coverage": "missing",
+          "baseline_lessons": []
         },
         {
           "id": "D09.2",
           "capability": "Explain how checkpoint frequency, failure behavior and restart time affect completed work.",
           "assessment": "Compare two explicit checkpoint policies on a synthetic timeline that includes a failure and recovery.",
-          "existing_lessons": [],
-          "coverage": "missing"
+          "baseline_coverage": "missing",
+          "baseline_lessons": []
         },
         {
           "id": "D09.3",
           "capability": "Explain scheduling, placement, provisioning and isolation as prerequisites for usable cluster capacity.",
           "assessment": "Diagnose a scenario in which hardware is healthy but jobs cannot obtain the required topology, software environment or storage access.",
-          "existing_lessons": [],
-          "coverage": "missing"
+          "baseline_coverage": "missing",
+          "baseline_lessons": []
         },
         {
           "id": "D09.4",
           "capability": "Specify a service acceptance exercise that tests end-to-end data access, job launch, useful output and recovery.",
           "assessment": "Write a reproducible test plan for a synthetic tenant without reducing acceptance to a device-count or power-on check.",
-          "existing_lessons": [],
-          "coverage": "missing"
+          "baseline_coverage": "missing",
+          "baseline_lessons": []
         }
       ],
       "visual": {
@@ -635,36 +627,36 @@
           "id": "D10.1",
           "capability": "Trace parallel air and liquid heat paths and explain why rack power alone does not specify local cooling difficulty.",
           "assessment": "Compare two hypothetical devices with the same total heat but different heat flux or thermal resistance.",
-          "existing_lessons": [
+          "baseline_coverage": "partial",
+          "baseline_lessons": [
             "electrical-to-heat",
             "residual-air"
-          ],
-          "coverage": "partial"
+          ]
         },
         {
           "id": "D10.2",
           "capability": "Calculate a single-phase heat-transport flow under stated fluid and temperature assumptions.",
           "assessment": "Solve a heat/flow/temperature-rise example and explain why the result alone does not select a pump or cold plate.",
-          "existing_lessons": [
+          "baseline_coverage": "partial",
+          "baseline_lessons": [
             "liquid-heat-transport"
-          ],
-          "coverage": "partial"
+          ]
         },
         {
           "id": "D10.3",
           "capability": "Explain a CDU's fluid separation, heat-exchange and control functions while distinguishing loop rise from approach temperature.",
           "assessment": "Draw two closed loops, label their temperature points and predict the effect of a constrained heat-exchanger interface.",
-          "existing_lessons": [
+          "baseline_coverage": "partial",
+          "baseline_lessons": [
             "heat-exchanger"
-          ],
-          "coverage": "partial"
+          ]
         },
         {
           "id": "D10.4",
           "capability": "Compare air, cold-plate, rear-door and immersion approaches against a declared density and service brief.",
           "assessment": "Evaluate a synthetic retrofit with residual-air, fluid, pressure, access and maintenance requirements; identify missing compatibility evidence.",
-          "existing_lessons": [],
-          "coverage": "missing"
+          "baseline_coverage": "missing",
+          "baseline_lessons": []
         }
       ],
       "visual": {
@@ -699,42 +691,42 @@
           "id": "D11.1",
           "capability": "Distinguish dry cooling, refrigeration, evaporative rejection and economizer operating modes.",
           "assessment": "Trace four reference heat paths and identify where electricity and water enter each.",
-          "existing_lessons": [
+          "baseline_coverage": "partial",
+          "baseline_lessons": [
             "outdoor-rejection"
-          ],
-          "coverage": "partial"
+          ]
         },
         {
           "id": "D11.2",
           "capability": "Close a declared chiller energy balance and calculate cooling COP with the correct numerator and denominator.",
           "assessment": "Given cooling duty and compressor input, calculate COP and condenser heat; place pumps and fans at their stated boundaries.",
-          "existing_lessons": [
+          "baseline_coverage": "partial",
+          "baseline_lessons": [
             "outdoor-rejection"
-          ],
-          "coverage": "partial"
+          ]
         },
         {
           "id": "D11.3",
           "capability": "Explain how ambient conditions, supply temperatures and equipment performance constrain capacity and economizer operation.",
           "assessment": "Use supplied equipment curves and weather bins to compare two operating modes without applying a universal free-cooling threshold.",
-          "existing_lessons": [],
-          "coverage": "missing"
+          "baseline_coverage": "missing",
+          "baseline_lessons": []
         },
         {
           "id": "D11.4",
           "capability": "Compute energy and water metrics with explicit boundaries and distinguish consumption from withdrawal.",
           "assessment": "Compare two scenarios over the same period using stated facility/IT energies and water accounting; explain what PUE and WUE omit.",
-          "existing_lessons": [
+          "baseline_coverage": "partial",
+          "baseline_lessons": [
             "facility-overhead"
-          ],
-          "coverage": "partial"
+          ]
         },
         {
           "id": "D11.5",
           "capability": "Evaluate cooling architecture or heat reuse against climate, water, electrical capacity and receiving-load constraints.",
           "assessment": "Compare a hot-weather and a water-constrained site using a supplied design brief; identify what changes the preferred choice.",
-          "existing_lessons": [],
-          "coverage": "missing"
+          "baseline_coverage": "missing",
+          "baseline_lessons": []
         }
       ],
       "visual": {
@@ -768,30 +760,30 @@
         {
           "id": "D12.1",
           "capability": "Translate a reference equipment layout into space, weight, access and replacement-route requirements.",
-          "assessment": "Reject a synthetic rack/plant layout that fits in area but fails a supplied loading or service-access constraint.",
-          "existing_lessons": [],
-          "coverage": "missing"
+          "assessment": "Reject a synthetic layout that fits in area but fails a loading or service-access constraint. Distinguish freed rack units, occupied white/grey space and total facility footprint when equipment moves.",
+          "baseline_coverage": "missing",
+          "baseline_lessons": []
         },
         {
           "id": "D12.2",
           "capability": "Identify site hazards and permitting interfaces that require location-specific evidence.",
           "assessment": "Build a siting risk register for two hypothetical locations and distinguish generic questions from verified local requirements.",
-          "existing_lessons": [],
-          "coverage": "missing"
+          "baseline_coverage": "missing",
+          "baseline_lessons": []
         },
         {
           "id": "D12.3",
           "capability": "Explain how fire, electrical, fluid and stored-energy hazards influence layout and operating boundaries.",
           "assessment": "Annotate a conceptual layout with required specialist reviews and separation/access questions without presenting it as a compliant design.",
-          "existing_lessons": [],
-          "coverage": "missing"
+          "baseline_coverage": "missing",
+          "baseline_lessons": []
         },
         {
           "id": "D12.4",
           "capability": "Trace physical and control-system access boundaries and explain why availability depends on controlled changes and access.",
           "assessment": "Identify a shared access or control dependency in a supplied facility/tenant interface diagram.",
-          "existing_lessons": [],
-          "coverage": "missing"
+          "baseline_coverage": "missing",
+          "baseline_lessons": []
         }
       ],
       "visual": {
@@ -831,32 +823,32 @@
           "id": "D13.1",
           "capability": "Build a dependency-based delivery plan and distinguish a critical path from the longest equipment lead time.",
           "assessment": "Sequence a synthetic project with parallel procurement, utility work, installation and testing; identify which delay changes service availability.",
-          "existing_lessons": [],
-          "coverage": "missing"
+          "baseline_coverage": "missing",
+          "baseline_lessons": []
         },
         {
           "id": "D13.2",
           "capability": "Track interface requirements across vendors and design changes.",
           "assessment": "Diagnose a rack/CDU or power/control interface mismatch before equipment shipment and state the acceptance evidence required.",
-          "existing_lessons": [],
-          "coverage": "missing"
+          "baseline_coverage": "missing",
+          "baseline_lessons": []
         },
         {
           "id": "D13.3",
           "capability": "Distinguish installed, energized, individually tested, integrated-tested and service-accepted states.",
           "assessment": "Classify supplied milestone evidence and identify which complete electrical, thermal and information paths remain unproven.",
-          "existing_lessons": [
+          "baseline_coverage": "partial",
+          "baseline_lessons": [
             "capacity-stages",
             "abilene-case"
-          ],
-          "coverage": "partial"
+          ]
         },
         {
           "id": "D13.4",
           "capability": "Specify an integrated acceptance and handover plan for a phased deployment.",
           "assessment": "Propose normal, failure, maintenance and recovery tests, instrumentation, acceptance criteria, records and operator handover for a synthetic phase.",
-          "existing_lessons": [],
-          "coverage": "missing"
+          "baseline_coverage": "missing",
+          "baseline_lessons": []
         }
       ],
       "visual": {
@@ -894,39 +886,39 @@
           "id": "D14.1",
           "capability": "Place sensors and meters so an operator can distinguish an actual constraint from missing or misleading telemetry.",
           "assessment": "Diagnose a synthetic thermal alarm using a labeled trend set; state where additional measurements are needed.",
-          "existing_lessons": [],
-          "coverage": "missing"
+          "baseline_coverage": "missing",
+          "baseline_lessons": []
         },
         {
           "id": "D14.2",
           "capability": "Explain the difference between a device controller, a facility sequence and workload scheduling.",
           "assessment": "Trace a supplied setpoint or load change through these layers and identify the required coordination and limits.",
-          "existing_lessons": [],
-          "coverage": "missing"
+          "baseline_coverage": "missing",
+          "baseline_lessons": []
         },
         {
           "id": "D14.3",
           "capability": "Evaluate maintainability using a procedure, surviving capacity and real isolation boundaries.",
           "assessment": "Walk through a synthetic maintenance plan and identify the shared dependency or restoration step that threatens service.",
-          "existing_lessons": [
+          "baseline_coverage": "partial",
+          "baseline_lessons": [
             "redundant-paths",
             "fault-domains"
-          ],
-          "coverage": "partial"
+          ]
         },
         {
           "id": "D14.4",
           "capability": "Distinguish component reliability, topology claims and measured service availability.",
           "assessment": "Critique a naive multiplication of component availabilities and specify which correlated failures and repair assumptions are missing.",
-          "existing_lessons": [],
-          "coverage": "missing"
+          "baseline_coverage": "missing",
+          "baseline_lessons": []
         },
         {
           "id": "D14.5",
           "capability": "Convert a failure or capacity incident into an evidence-based recovery and prevention plan.",
           "assessment": "Reconstruct a supplied incident timeline, separate observations from hypotheses, and propose a verification step for each corrective action.",
-          "existing_lessons": [],
-          "coverage": "missing"
+          "baseline_coverage": "missing",
+          "baseline_lessons": []
         }
       ],
       "visual": {
@@ -967,43 +959,43 @@
           "id": "D15.1",
           "capability": "Reconcile electrical, thermal, spatial, network and commissioned-service limits using the same boundaries.",
           "assessment": "Calculate a synthetic capacity ceiling and identify tied constraints without treating it as measured operating demand.",
-          "existing_lessons": [
+          "baseline_coverage": "partial",
+          "baseline_lessons": [
             "capacity-bottleneck",
             "facility-overhead"
-          ],
-          "coverage": "partial"
+          ]
         },
         {
           "id": "D15.2",
           "capability": "Build an auditable cost model that separates capital, energy, operations, ownership and financing assumptions.",
           "assessment": "Compare two supplied ownership or service models over an explicit horizon with a consistent denominator and utilization scenario.",
-          "existing_lessons": [],
-          "coverage": "missing"
+          "baseline_coverage": "missing",
+          "baseline_lessons": []
         },
         {
           "id": "D15.3",
           "capability": "Explain why cost per MW, per installed accelerator and per useful result answer different questions.",
           "assessment": "Recalculate a scenario after changing throughput or utilization while leaving installed capacity constant.",
-          "existing_lessons": [
+          "baseline_coverage": "partial",
+          "baseline_lessons": [
             "useful-compute"
-          ],
-          "coverage": "partial"
+          ]
         },
         {
           "id": "D15.4",
           "capability": "Evaluate an upgrade using sensitivity to delivery date, service output, efficiency and constraints.",
           "assessment": "Choose a synthetic power, cooling or network investment and identify the assumptions that reverse its ranking.",
-          "existing_lessons": [],
-          "coverage": "missing"
+          "baseline_coverage": "missing",
+          "baseline_lessons": []
         },
         {
           "id": "D15.5",
           "capability": "Audit a named project's public evidence without filling unknown capacity, topology or economics with generic assumptions.",
           "assessment": "Produce a dated case ledger separating announced, designed, permitted, commissioned and observed facts; list unresolved questions.",
-          "existing_lessons": [
+          "baseline_coverage": "partial",
+          "baseline_lessons": [
             "abilene-case"
-          ],
-          "coverage": "partial"
+          ]
         }
       ],
       "visual": {
@@ -1208,45 +1200,8 @@
       "assessment": "Count only complete, accepted service paths for the synthetic brief; leave the named site's unestablished commissioning and demand values unknown."
     }
   ],
-  "exclusions": [
-    {
-      "topic": "Full semiconductor manufacturing and transistor/device physics",
-      "reason": "CHIPS and specialist material own fabrication depth. Here packaging, devices and memory matter where they change rack and facility requirements.",
-      "reentry": "Include a mechanism when it is necessary to explain a compute, electrical or thermal interface."
-    },
-    {
-      "topic": "Detailed electrical, structural, fire or mechanical design qualification",
-      "reason": "This course teaches interpretation and bounded reasoning, not stamped designs, field switching procedures or jurisdiction-wide compliance.",
-      "reentry": "Teach the relevant design question and point to dated local requirements and qualified review; do not omit safety interfaces."
-    },
-    {
-      "topic": "A complete generation-technology or electricity-market survey",
-      "reason": "Depth is limited to the supply, fuel, interconnection, emissions and commercial distinctions needed for data-center decisions.",
-      "reentry": "Include a supply option when it materially changes deliverability, operating behavior or project economics."
-    },
-    {
-      "topic": "Supplier rankings, investment recommendations and exhaustive company histories",
-      "reason": "The curriculum is organized around capabilities and decisions. Company detail is a dated example, not the organizing principle.",
-      "reentry": "Use a sourced case when it explains a specific architecture, delivery constraint or measurable tradeoff."
-    },
-    {
-      "topic": "Full GPU programming, model training and cloud administration tutorials",
-      "reason": "Workload and software mechanisms are included to explain infrastructure behavior; implementing every software layer would be a separate course.",
-      "reentry": "Include a small reproducible experiment when it tests an infrastructure learning objective."
-    },
-    {
-      "topic": "Every enterprise/edge/telecom facility variant",
-      "reason": "Modern AI facilities are the center. Conventional and retrofit configurations are taught where they establish prerequisites or meaningful alternatives.",
-      "reentry": "Include a contrasting case when it changes an assumption in the central model."
-    }
-  ],
-  "production_priorities": [
-    "Prototype one electrical architecture comparison, one thermal model and one network/recovery scenario before allocating runtime.",
-    "Review prerequisites and first-use vocabulary against the six-act sequence; domain IDs are stable reference IDs, not chapter numbers.",
-    "Expand the seed source catalog into a dated article inventory; record access/review status, domain mappings, duplicates, exclusions and unresolved primary evidence.",
-    "At lesson authoring, map each objective to exact claims, citations, original visual assets and an application assessment. A domain-level source link is not sufficient.",
-    "Obtain separate electrical/facilities and cluster/network technical reviews, then rehearse dense sections with intended learners.",
-    "Publish the long-form recording with navigable text, source dates, glossary, calculators and an errata location; maintain the companion when implementations change."
-  ],
-  "anti_pattern": "The encyclopedic survey: naming every component, paraphrasing every article, animating an inventory or increasing runtime without teaching a mechanism, worked example, consequential tradeoff, failure or limiting case, and transfer to a changed situation."
+  "baseline_coverage_definition": {
+    "partial": "The retained 22-lesson introduction teaches a fragment of this objective. This is a historical reuse label, not the status of the expanded course.",
+    "missing": "The retained 22-lesson introduction does not substantively teach this objective. See the generated expanded manuscript for current authored coverage."
+  }
 }

@@ -1,5 +1,7 @@
 # Measure the service, investigate the incident
 
+Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/heat-delivery-operations.json), lesson `d14-maintenance-and-service-reliability`, then run `uv run gigawatt-expand`.
+
 **D14 · Authored draft · Objectives:** D14.3, D14.4, D14.5
 
 Evaluate maintenance against surviving capacity, calculate a defined service metric and build an evidence-based incident explanation.

@@ -1,5 +1,7 @@
 # The heat does not disappear at the chiller
 
+Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/heat-delivery-operations.json), lesson `d11-heat-rejection`, then run `uv run gigawatt-expand`.
+
 **D11 · Authored draft · Objectives:** D11.1, D11.2
 
 Trace dry, evaporative, refrigerated and economizer paths, then close the energy balance around the equipment actually being measured.

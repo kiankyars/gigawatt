@@ -4,7 +4,7 @@
     "domain": "D01",
     "title": "One rack, three paths",
     "question": "What crosses the boundary of a working data center?",
-    "summary": "Trace electricity, heat, and information through a nested system, then close a facility energy balance without counting any load twice.",
+    "summary": "Locate white and grey space, trace electricity, heat, and information, then close a facility energy balance without counting any load twice.",
     "takeaway": "Choose the boundary before adding watts; useful computation does not remove the heat obligation.",
     "objectives": [
       "D01.1",
@@ -15,6 +15,7 @@
         "heading": "Start with a place, then trace a connection",
         "paragraphs": [
           "Imagine standing in front of a rack: a cabinet holding computing equipment and the hardware that supports it. A server is a computer inside that cabinet; a board connects components inside a server; a package contains one or more semiconductor dies. A row holds several racks, a hall several rows, a building one or more halls, and a campus one or more buildings plus shared infrastructure. These are locations nested inside locations. None of those words specifies a universal power requirement.",
+          "Two floor-plan terms help locate those systems. White space is the area housing IT equipment and its immediate support infrastructure. Grey space, also spelled gray space, is the supporting electrical, mechanical, and service area outside the IT hall, such as an electrical room or mechanical gallery. These labels describe areas in a particular layout. They are not equipment categories: a power shelf or a cooling distribution unit can occupy white space when installed with the racks.",
           "Now draw three paths through the same picture. Electrical energy arrives through conductors and conversion equipment. Heat leaves through air, liquid, and heat-transfer equipment. Information arrives, moves between machines, and leaves through communication links. Their arrows mean different things. Coolant circulates around a loop; heat crosses an exchanger between separate loops. Data may travel both ways along a link while electrical energy continues to enter the associated equipment. Giving each arrow a clear meaning prevents an attractive drawing from teaching a false connection.",
           "A boundary is the imaginary line around the equipment you are accounting for. Draw it tightly around a processor and its regulators may lie outside. Draw it around a rack and those regulators, fans, and power supplies may all be inside. Draw it around the facility and cooling pumps and outdoor rejection equipment enter the account. Widening a boundary changes which loads must be counted; it does not physically change their consumption. Always ask where the meter sits relative to that line."
         ]
@@ -32,6 +33,7 @@
         "paragraphs": [
           "A second analyst adds 1,000 kW of rack power, 80 kW of rack power-supply losses, and the 100 kW networking load. The sum is wrong if the 1,000 kW was measured at rack inlets: the supplies already consume their power inside that boundary. Their 80 kW is an internal allocation of the rack total. It becomes an extra term only if the stated 1,000 kW was delivered downstream of the supplies. One changed meter location changes the arithmetic, even though all the equipment names remain identical.",
           "A detailed ledger is more work than one campus number, but it allows a useful question: did an improvement reduce electrical losses, cooling overhead, or the energy required per completed task? Those are different mechanisms. Reducing rack input by 100 kW normally reduces the corresponding heat source, whereas merely moving a converter outside the rack moves a heat-accounting boundary. A visually smaller rack loss does not prove that the facility uses less energy.",
+          "Try a location check before claiming a space saving. A converter moves out of the rack into a cabinet beside it. Rack mounting space may be released, but the sidecar still occupies white-space floor area. Move the converter into a separate electrical room and it occupies grey space instead. To claim a smaller facility footprint, compare both layouts, their service access, and their replacement routes. Moving a box across a boundary changes its address; it does not prove that its total space or energy requirement vanished.",
           "Test yourself by removing the cooling power arrow while leaving IT electricity connected. The diagram should not imply continued indefinite operation. The rack remains an active heat source without a complete removal path. The immediate temperature history requires thermal storage, flow, controls, and equipment limits that this ledger does not contain. We can identify the missing dependency without inventing a shutdown time. That habit will carry through every later electrical and thermal comparison."
         ]
       }
@@ -79,10 +81,10 @@
       "response": "Identify the unsupported thermal path and require a thermal model before predicting duration."
     },
     "practice": {
-      "question": "If 80 kW of the ten racks’ measured input is internal supply loss, should facility power become 1,400 kW?",
+      "question": "If 80 kW of the ten racks’ measured input is internal supply loss, should facility power become 1,400 kW? Separately, sketch an IT hall and its supporting electrical room. A rack converter moves to a cabinet beside the rack, then to that room. Label white and grey space at each step. Has either move established lower facility power or a smaller building?",
       "hint": "Ask whether the supply loss is already inside the rack inlet measurement.",
-      "answer": "No. It remains 1,320 kW.",
-      "reasoning": "The 80 kW is part of the 1,000 kW rack inlet total. Add it separately only when starting from a downstream power boundary that excludes it."
+      "answer": "No. It remains 1,320 kW. The rack and adjacent cabinet occupy white space; the separate electrical room is grey space. Neither move alone establishes lower facility power or a smaller building.",
+      "reasoning": "The 80 kW is part of the 1,000 kW rack inlet total. Add it separately only when starting from a downstream power boundary that excludes it. Area labels locate equipment. Placement does not remove its electrical load, and freeing a rack slot does not account for the new cabinet, room, access or cable routes."
     },
     "sources": [
       {
@@ -98,6 +100,20 @@
         "claim": "Data-center accounting separates IT, electrical, and cooling systems.",
         "reviewed_on": "2026-09-06",
         "limits": "Read the guide overview and relevant system/metrics material; no named facility configuration or operating measurement is inferred."
+      },
+      {
+        "title": "Leviton — Data center white space and gray space",
+        "url": "https://leviton.com/support/literature/newsletters/insider/insideroctober2025/focusedproductoctober2025",
+        "claim": "White space houses IT; gray space describes supporting back-of-house infrastructure.",
+        "reviewed_on": "2026-09-10",
+        "limits": "Reviewed the White Space and Gray Space definitions under Leviton Solutions for Data Centers. These are area conventions, not a rule assigning every power or cooling device to one room type."
+      },
+      {
+        "title": "Vertiv — Deploying Liquid Cooling in the Data Center",
+        "url": "https://prod.vertiv.cn/4a9616/globalassets/documents/white-papers/liquid-cooling/vertiv-liquidcooling-wp-en-na-sl-71113-web.pdf",
+        "claim": "Cooling equipment may occupy white space or a grey-space mechanical gallery; service and replacement need room in either location.",
+        "reviewed_on": "2026-09-10",
+        "limits": "Reviewed Designing Mechanical Space, printed pages 14–15, and the space-use discussion on page 13. No equipment clearance, floor rating, or universal footprint saving is taken from this example."
       }
     ],
     "terms": [
@@ -112,6 +128,14 @@
       {
         "term": "Steady state",
         "definition": "An interval in which stored energy is not changing enough to affect the simplified balance."
+      },
+      {
+        "term": "White space",
+        "definition": "The area housing IT equipment and its immediate support infrastructure; mark its extent on the actual floor plan."
+      },
+      {
+        "term": "Grey space (gray space)",
+        "definition": "Supporting electrical, mechanical, and service areas outside the IT hall, such as electrical rooms and mechanical galleries; an area convention rather than an equipment category."
       }
     ],
     "visual": {
@@ -1113,10 +1137,10 @@
   {
     "id": "d03-service-and-siting",
     "domain": "D03",
-    "title": "The first usable megawatt has dependencies",
-    "question": "Which site can deliver the required service, and what happens when supply is constrained?",
-    "summary": "Evaluate a phased site schedule and an islanded supply budget without confusing available land, connection approval, or generation nameplates with usable service.",
-    "takeaway": "Usable service requires every necessary path and permission in the stated operating condition; the last dependency and the smallest capacity both matter.",
+    "title": "Behind the meter and the first usable megawatt",
+    "question": "Can behind-the-meter supply bring a site online sooner and keep its protected load running during an outage?",
+    "summary": "Locate the customer meter, calculate grid import and an islanded supply deficit, then combine those limits with a phased site schedule.",
+    "takeaway": "Behind the meter names an electrical location. Usable capacity, grid exchange, and island operation each need their own demonstrated conditions.",
     "objectives": [
       "D03.3",
       "D03.4"
@@ -1131,11 +1155,21 @@
         ]
       },
       {
+        "heading": "Behind the meter describes a boundary, not independence",
+        "paragraphs": [
+          "Behind-the-meter (BTM) generation or storage is electrically on the customer side of the utility meter used for the comparison. Draw that meter between the grid and the customer bus, then connect the local generator, storage, and site loads to the customer bus. Several meters may exist on a real campus, so state which one defines the claim. A property fence, equipment owner, or nearby power plant does not by itself establish this electrical arrangement.",
+          "Keep three descriptions separate. On-site describes physical location. Behind the meter describes the electrical relationship to the stated utility meter. Islanded describes operation while disconnected from the wider grid; off-grid can describe a site operated without a utility connection. An off-site power purchase agreement (PPA) is a commercial supply arrangement. It does not move that generator inside the customer boundary or demonstrate that it can supply this campus after the grid path is lost.",
+          "Use one original, simplified boundary at Site B. The customer bus supplies 8 MW, including the declared cooling, controls, and downstream losses. A local generator delivers 6 MW net to that bus, and storage is idle. Neglect losses between the meter and this bus. Grid import is 8 − 6 = 2 MW. Over one hour the site uses 8 MWh, supplied by 6 MWh locally and 2 MWh through the meter. Reduced purchased electricity is not an efficiency gain: the site still requires 8 MW, and producing the local 6 MW also consumes its declared fuel or other energy resource.",
+          "Now change only local generation to 10 MW with the same 8 MW load and idle storage. The signed grid balance is 8 − 10 = −2 MW: the negative sign describes a proposed 2 MW export. That operating point requires an export-capable, authorized arrangement. If export is unavailable, the proposed state must change, for example through permitted generation reduction or charging within the storage limits. At exactly 8 MW of generation, zero net import would still not tell you whether the grid connection is open.",
+          "Finally remove grid support from the original 8 MW load and 6 MW generation case. A suitably designed island must replace the missing 2 MW and maintain a stable supply. The BTM label alone supplies neither function. DOE’s microgrid explanation shows why coordinated controls and equipment matter, and why some local solar systems disconnect during a grid outage. The following duration calculation assumes that an authorized island mode is already established; it does not calculate transfer time or prove seamless continuity."
+        ]
+      },
+      {
         "heading": "Find the last required dependency, then the usable limit",
         "paragraphs": [
           "Compare two hypothetical sites for a service that requires power, a finished building, cooling, and fiber. At Site A, the supplied readiness dates are months 18, 22, 21, and 20 respectively. At Site B, they are months 20, 19, 20, and 21. Under the explicit assumption that these dates represent accepted readiness and all other requirements are satisfied, Site A cannot supply the complete service before month 22; Site B cannot before month 21.",
           "The calculation is a maximum, not an average. Averaging Site A's four dates gives 20.25, but there is no useful 20.25-month service if its required building is unavailable until month 22. The maximum identifies the last necessary dependency. These are supplied scenario dates rather than a forecast of an actual project. If the dates are only expected installation dates, additional acceptance and commissioning work must remain on the schedule.",
-          "Capacity uses a different operation. Suppose Site B eventually has 12 MW of facility service, but the supported island mode is defined around an 8 MW protected load, including all declared auxiliaries. An available on-site generator supplies 6 MW in that mode. Storage must supply the remaining 2 MW. If it has 4 MWh usable output and a 3 MW output rating, the power screen passes but energy lasts only 4/2 = 2 hours. The utility service rating does not extend that islanded duration.",
+          "Capacity uses a different operation. Suppose Site B eventually has a 12 MW facility service rating. Return to the 8 MW protected load and 6 MW net generator output at the same customer bus. With the grid available and storage idle, import was 2 MW. In the assumed supported island mode, grid import becomes zero and storage must now supply that same 2 MW deficit. If storage has 4 MWh usable output and a 3 MW output rating at this bus, its power screen passes but its energy lasts only 4/2 = 2 hours. The 12 MW utility service rating contributes nothing while that connection is unavailable.",
           "Add the supplied fuel constraint: the generator can operate for four hours at its assumed 6 MW output before fuel replenishment is required. The battery deficit reaches its limit sooner, after two hours. If the protected load were reduced to 6 MW, the battery deficit would disappear in this steady simplified interval, but generator fuel would still limit duration. This comparison assumes the generator is already stable; starting and transfer behavior require a separate timeline."
         ]
       },
@@ -1144,17 +1178,19 @@
         "paragraphs": [
           "Land, fiber, climate, water, electrical service, equipment access, and local requirements influence one another. A site with earlier grid availability may need a cooling solution that changes auxiliary power and delivery time. A location with low energy prices may impose a workload latency disadvantage or a difficult expansion path. A single weighted score can be useful for preferences, but it should not average away a hard requirement that the site fails.",
           "Separate requirements into conditions that must pass and tradeoffs among feasible options. If an application needs a maximum network round-trip time, a location outside that envelope may be unsuitable regardless of its lower cost. If a cooling design depends on a water allocation that has not been established, that is unresolved evidence rather than zero cost. List the missing fact and the party or document that could establish it.",
-          "On-site supply can provide a different option set, but it adds its own fuel, maintenance, control, emissions, connection, and operating questions. A behind-the-meter generator does not automatically grant permission or technical ability to isolate from the grid. A generation nameplate does not establish its usable output under every ambient condition or with required reserve. The conceptual comparison asks what each option must demonstrate, without supplying field procedures or jurisdiction-specific legal conclusions.",
+          "On-site supply can reduce grid import for a fixed site load and may help an earlier phase become feasible. In the 8 MW example, a proposed interim 2 MW import limit would cover the normal remainder only while the local 6 MW is available. If that generator stops and storage remains idle, the requested import becomes 8 MW. The proposal must address that changed state through an established supply or load-management plan; the generator nameplate alone has not solved the grid-capacity problem. Fuel, maintenance, controls, emissions, connection requirements, and the generator’s net output under actual conditions remain dependencies.",
           "The final choice should state a complete service envelope: how much load, beginning when, under which normal and degraded conditions, and with which remaining uncertainties. This converts a location comparison into an infrastructure decision. It also identifies where further work has the greatest value: the dependency controlling the delivery date, the capacity limiting accepted load, or the operating condition that breaks the proposed service promise."
         ]
       }
     ],
     "example": {
-      "title": "Schedule and island capacity are different constraints",
+      "title": "The same 8 MW load before and after grid support is lost",
       "assumptions": [
-        "All readiness dates are supplied accepted-readiness assumptions.",
-        "The 8 MW island load includes its stated cooling and control auxiliaries.",
-        "The generator is already operating at 6 MW; startup is excluded."
+        "All readiness dates are supplied accepted-readiness assumptions; the 12 MW service rating is a capacity limit, not the actual load.",
+        "The customer bus supplies 8 MW including stated auxiliaries and downstream losses; losses between this bus and the utility meter are neglected.",
+        "The generator delivers 6 MW net to the bus; storage has 4 MWh usable output and a 3 MW output limit at that bus.",
+        "Grid-connected storage is idle; the island calculation starts after stable, authorized island operation has been established. Startup and transfer are excluded.",
+        "The generator has four hours of fuel at its stated 6 MW output."
       ],
       "steps": [
         {
@@ -1168,9 +1204,14 @@
           "explanation": "Earlier grid readiness alone does not choose the earlier complete site."
         },
         {
-          "label": "Island deficit",
-          "expression": "8 MW load − 6 MW generation = 2 MW",
-          "explanation": "Storage must cover the difference at the same electrical boundary."
+          "label": "Grid-connected import",
+          "expression": "8 MW load − 6 MW generation = 2 MW from the grid",
+          "explanation": "The meter sees the remainder; the customer load has not become 2 MW."
+        },
+        {
+          "label": "Supported island",
+          "expression": "6 MW generation + 2 MW storage + 0 MW grid = 8 MW load",
+          "explanation": "The same deficit moves from the grid to storage only under the stated island-capability assumption."
         },
         {
           "label": "Storage duration",
@@ -1178,7 +1219,7 @@
           "explanation": "The 3 MW storage output rating exceeds the 2 MW deficit; usable energy binds first."
         }
       ],
-      "result": "Site B is earlier under the supplied schedule; its stated island support lasts two hours before the storage deficit is exhausted.",
+      "result": "Site B is ready earlier under the supplied schedule. Its 8 MW load imports 2 MW when grid-connected; the assumed island lasts two hours before usable storage energy is exhausted.",
       "boundary": "These are planning scenarios, not project forecasts, field operating procedures, or proof of local operating authorization."
     },
     "tradeoff": {
@@ -1192,10 +1233,10 @@
       "response": "Track complete blocks and keep readiness, commissioning, and observed operation as separate evidence states."
     },
     "practice": {
-      "question": "The 8 MW island load can temporarily shed 1 MW. With the same 6 MW generator and 4 MWh storage, how long does the energy balance last?",
-      "hint": "Recalculate the deficit, then compare battery duration with the four-hour fuel condition.",
-      "answer": "Four hours, with both battery energy and the stated generator fuel duration reaching their limits.",
-      "reasoning": "The remaining 7 MW load needs 1 MW from storage, so 4/1 = 4 h. This steady result still excludes starting, transfers, and the consequences of shedding that workload."
+      "question": "In the assumed supported island, the 8 MW load sheds 1 MW. How long can the same generator and storage sustain it? Would an off-site 6 MW PPA alone support that calculation after the grid path is lost?",
+      "hint": "Recalculate the local deficit and compare energy with fuel duration; then redraw the physical supply boundary.",
+      "answer": "Four hours with the stated local generator and storage. An off-site PPA alone does not establish the required island supply.",
+      "reasoning": "The remaining 7 MW load needs 1 MW from storage, so 4/1 = 4 h, equal to the supplied generator fuel duration. The calculation assumes the generator can deliver inside this island; a purchase contract does not establish that electrical path. Starting, transfers, and the service consequences of shedding remain separate."
     },
     "sources": [
       {
@@ -1216,8 +1257,29 @@
         "title": "DOE — Islanding a Microgrid",
         "url": "https://www.energy.gov/cmei/femp/articles/islanding-microgrid",
         "claim": "Grid-connected and islanded operation require a coordinated system of sources and loads.",
-        "reviewed_on": "2026-09-06",
-        "limits": "Read the public DOE explanation; no specific generation or fuel system was assessed."
+        "reviewed_on": "2026-09-10",
+        "limits": "Reviewed the public animation transcript, including coordinated source operation and loss of grid support. The example assumes an established island and does not reproduce its switching sequence or assess a real plant."
+      },
+      {
+        "title": "NARUC — Regulators’ Financial Toolbox: Behind-the-Meter Energy Storage",
+        "url": "https://pubs.naruc.org/pub/6233DBE2-B58B-52FF-925E-250DD26DECF9",
+        "claim": "Behind-the-meter describes the customer side of the utility meter; it can include resources that exchange power with the grid.",
+        "reviewed_on": "2026-09-10",
+        "limits": "Reviewed the BTM/FTM definition and diagram on printed pages 2–3. The lesson generalizes the electrical-boundary distinction to its stated generator-and-storage example; no tariff benefit or export permission is assumed."
+      },
+      {
+        "title": "DOE — Solar Integration: Distributed Energy Resources and Microgrids Basics",
+        "url": "https://www.energy.gov/cmei/systems/solar-integration-distributed-energy-resources-and-microgrids-basics",
+        "claim": "Local generation and designed island operation are distinct; many solar systems disconnect during loss of the wider grid.",
+        "reviewed_on": "2026-09-10",
+        "limits": "Reviewed Distributed Energy Resources and Islands and Microgrids. The course does not assume that a data-center generator, inverter, or campus inherits island capability from location or nameplate alone."
+      },
+      {
+        "title": "US EPA — Physical PPA",
+        "url": "https://www.epa.gov/green-power-markets/physical-ppa",
+        "claim": "A physical PPA is a purchase arrangement that may involve on-site or off-site generation; an off-site project can deliver through the grid.",
+        "reviewed_on": "2026-09-10",
+        "limits": "Reviewed What is a Physical Power Purchase Agreement? and How Do Physical PPAs Work? Contract structure does not establish a dedicated electrical path or island supply for the example."
       }
     ],
     "terms": [
@@ -1232,26 +1294,38 @@
       {
         "term": "Protected load",
         "definition": "The explicitly chosen set of loads whose continuity the scenario aims to support."
+      },
+      {
+        "term": "Behind the meter (BTM)",
+        "definition": "Electrically on the customer side of the stated utility meter; this location alone does not establish export permission or island capability."
+      },
+      {
+        "term": "Net grid import",
+        "definition": "Power entering the stated customer boundary from the grid after local generation and storage flows are accounted for; negative signed import denotes export."
+      },
+      {
+        "term": "On-site supply",
+        "definition": "Generation or storage physically at the site; its metering relationship and ability to support an island require separate evidence."
       }
     ],
     "visual": {
-      "kind": "timeline",
-      "title": "Complete service waits for its last dependency",
+      "kind": "comparison",
+      "title": "One customer boundary, two supply conditions",
       "nodes": [
         {
-          "label": "Site A",
-          "detail": "Power 18; building 22; cooling 21; fiber 20 → month 22"
+          "label": "Grid-connected",
+          "detail": "6 MW local + 2 MW grid = 8 MW load; storage idle"
         },
         {
-          "label": "Site B",
-          "detail": "Power 20; building 19; cooling 20; fiber 21 → month 21"
+          "label": "Supported island",
+          "detail": "6 MW local + 2 MW storage = 8 MW load; grid disconnected"
         },
         {
-          "label": "After opening",
-          "detail": "An 8 MW island load still needs a separately checked supply budget"
+          "label": "Duration limit",
+          "detail": "4 MWh usable / 2 MW deficit = 2 h; startup and transfer excluded"
         }
       ],
-      "caption": "Readiness dates are supplied assumptions; a completed path must also have adequate capacity."
+      "caption": "All flows refer to the same customer bus. Behind the meter locates equipment; supported island operation is an additional assumption."
     }
   },
   {

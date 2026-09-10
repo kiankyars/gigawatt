@@ -1,5 +1,7 @@
 # A contract is not a cable
 
+Generated reading view. Edit [`course/expansion/foundations-power.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/foundations-power.json), lesson `d03-power-and-procurement`, then run `uv run gigawatt-expand`.
+
 **D03 · Authored draft · Objectives:** D03.1, D03.4
 
 Separate the shared grid, commercial arrangements, and time-matched supply, then calculate the storage a matching claim leaves out.

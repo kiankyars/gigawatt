@@ -1,5 +1,7 @@
 # Flow arithmetic is only the first pump question
 
+Generated reading view. Edit [`course/expansion/racks-compute-heat.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/racks-compute-heat.json), lesson `d10-flow-and-pressure`, then run `uv run gigawatt-expand`.
+
 **D10 · Authored draft · Objectives:** D10.1, D10.2
 
 Derive a single-phase flow requirement, then add pressure drop, pump operating point and branch maldistribution.

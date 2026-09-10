@@ -1,5 +1,7 @@
 # The rack becomes a service boundary
 
+Generated reading view. Edit [`course/expansion/racks-compute-heat.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/racks-compute-heat.json), lesson `d07-rack-as-system`, then run `uv run gigawatt-expand`.
+
 **D07 · Authored draft · Objectives:** D07.1, D07.3, D07.4
 
 Connect tray and rack organization to physical interfaces and failure scope, then distinguish nominal from schedulable capacity.

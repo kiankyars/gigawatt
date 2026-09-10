@@ -1,5 +1,7 @@
 # A rack is a path through several memories
 
+Generated reading view. Edit [`course/expansion/racks-compute-heat.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/racks-compute-heat.json), lesson `d07-data-path`, then run `uv run gigawatt-expand`.
+
 **D07 · Authored draft · Objectives:** D07.1, D07.2
 
 Follow bytes through storage, host processing, accelerator memory, execution and communication, and distinguish movement from ownership.

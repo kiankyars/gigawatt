@@ -92,10 +92,6 @@ def validate_map(domain_map: object, research: object, lessons: object) -> dict:
         "subtitle",
         "as_of",
         "status",
-        "scope",
-        "target_audience",
-        "runtime",
-        "evidence_policy",
     ):
         _text(result.get(key), key)
     lanes = _index(_records(result.get("lanes"), "lanes"), "lane")
@@ -135,20 +131,23 @@ def validate_map(domain_map: object, research: object, lessons: object) -> dict:
             objectives[oid] = objective
             for key in ("capability", "assessment"):
                 _text(objective.get(key), f"{oid}.{key}")
-            if objective.get("coverage") not in {"partial", "missing"}:
+            if objective.get("baseline_coverage") not in {"partial", "missing"}:
                 raise DomainMapError(
                     f"{oid}: baseline coverage must be partial or missing"
                 )
             _refs(
-                objective.get("existing_lessons"), baseline, f"{oid}.existing_lessons"
+                objective.get("baseline_lessons"), baseline, f"{oid}.baseline_lessons"
             )
-            if objective["coverage"] == "partial" and not objective["existing_lessons"]:
+            if (
+                objective["baseline_coverage"] == "partial"
+                and not objective["baseline_lessons"]
+            ):
                 raise DomainMapError(f"{oid}: partial coverage needs a baseline lesson")
         domain["source_ids"] = []
     reused = {
         lid
         for objective in objectives.values()
-        for lid in objective["existing_lessons"]
+        for lid in objective["baseline_lessons"]
     }
     if reused != set(baseline):
         raise DomainMapError(
@@ -207,11 +206,7 @@ def validate_map(domain_map: object, research: object, lessons: object) -> dict:
                 raise DomainMapError(
                     f"Teaching sequence places {did} before prerequisite {prerequisite}"
                 )
-    for exclusion in _records(result.get("exclusions"), "exclusions"):
-        for key in ("topic", "reason", "reentry"):
-            _text(exclusion.get(key), f"exclusion.{key}")
-    _strings(result.get("production_priorities"), "production_priorities", empty=False)
-    result["existing_lessons"] = [
+    result["baseline_lessons"] = [
         {"id": lesson["id"], "title": lesson["title"]} for lesson in baseline.values()
     ]
     return result
@@ -260,7 +255,7 @@ def render_markdown(domain_map: dict, research: dict) -> str:
     """Render the complete editable graph without inventing a second curriculum."""
     m = domain_map
     domains = {d["id"]: d for d in m["domains"]}
-    lessons = {l["id"]: l["title"] for l in m["existing_lessons"]}
+    lessons = {l["id"]: l["title"] for l in m["baseline_lessons"]}
     sources = {s["id"]: s for s in research["sources"]}
     lines = [
         f"# {_md(m['title'])}",
@@ -273,24 +268,19 @@ def render_markdown(domain_map: dict, research: dict) -> str:
         "",
         "[Interactive map](domain-map.html) · [Course review](COURSE_REVIEW.md) · [Source index](../research/INDEX.md) · [Research library](../research/README.md)",
         "",
-        "## Teaching contract",
+        "## How to read this map",
         "",
-        f"**Scope:** {_md(m['scope'])}",
+        "The [filled-in course template](COURSE_REVIEW.md) owns audience, overall scope, exclusions, runtime and production priorities. This map owns the detailed objectives, prerequisites, teaching sequence and capstone briefs within that design.",
         "",
-        f"**Audience:** {_md(m['target_audience'])}",
+        "[Current authored coverage](EXPANDED_COURSE.md#objective-to-lesson-coverage) is generated from the lesson records. Presentation adaptation and review status are tracked in the course template.",
         "",
-        f"**Runtime:** {_md(m['runtime'])}",
-        "",
-        "## Evidence and baseline coverage",
-        "",
-        _md(m["evidence_policy"]),
+        "## Evidence and historical introduction coverage",
         "",
         "Source-to-domain mappings are derived from `research-sources.json` → `sources[].domains`. They identify research connections, not verified support for every objective.",
         "",
     ]
-    for status, definition in m.get("coverage_definition", {}).items():
+    for status, definition in m.get("baseline_coverage_definition", {}).items():
         lines.append(f"- **{_md(status)}:** {_md(definition)}")
-    lines.extend(["", "**Anti-pattern:** " + _md(m["anti_pattern"]), ""])
     lines.extend(["", "## System lanes", ""])
     for lane in m["lanes"]:
         lines.extend([f"### {_md(lane['title'])}", "", _md(lane["description"]), ""])
@@ -358,7 +348,7 @@ def render_markdown(domain_map: dict, research: dict) -> str:
             baseline = (
                 "; ".join(
                     f"`{lid}` — {_md(lessons[lid])}"
-                    for lid in objective["existing_lessons"]
+                    for lid in objective["baseline_lessons"]
                 )
                 or "No existing lesson mapped."
             )
@@ -370,7 +360,7 @@ def render_markdown(domain_map: dict, research: dict) -> str:
                     "",
                     f"**Assessment:** {_md(objective['assessment'])}",
                     "",
-                    f"**Existing baseline:** {objective['coverage']}. {baseline}",
+                    f"**Historical introduction coverage:** {objective['baseline_coverage']}. {baseline}",
                     "",
                 ]
             )
@@ -434,11 +424,11 @@ def render_markdown(domain_map: dict, research: dict) -> str:
         )
     lines.extend(
         [
-            "## Existing lesson migration",
+            "## Historical introduction reuse",
             "",
-            "Every current lesson has a proposed reuse location. These are introductory foundations, not completion evidence for the expanded course.",
+            "Every lesson in the retained 22-lesson introduction has a reuse location. These historical mappings do not describe the current authored course or establish completion.",
             "",
-            "| Current lesson | Proposed objectives |",
+            "| Introduction lesson | Objectives |",
             "| --- | --- |",
         ]
     )
@@ -447,26 +437,9 @@ def render_markdown(domain_map: dict, research: dict) -> str:
             o["id"]
             for d in m["domains"]
             for o in d["objectives"]
-            if lid in o["existing_lessons"]
+            if lid in o["baseline_lessons"]
         ]
         lines.append(f"| `{lid}` — {_md(title)} | {', '.join(targets)} |")
-    lines.extend(["", "## Deliberate exclusions and re-entry conditions", ""])
-    for exclusion in m["exclusions"]:
-        lines.extend(
-            [
-                f"### {_md(exclusion['topic'])}",
-                "",
-                _md(exclusion["reason"]),
-                "",
-                f"**Reconsider when:** {_md(exclusion['reentry'])}",
-                "",
-            ]
-        )
-    lines.extend(["## Production priorities", ""])
-    lines.extend(
-        f"{index}. {_md(item)}"
-        for index, item in enumerate(m["production_priorities"], 1)
-    )
     return "\n".join(lines).rstrip() + "\n"
 
 

@@ -1,5 +1,7 @@
 # A megawatt is not a megawatt-hour
 
+Generated reading view. Edit [`course/expansion/foundations-power.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/foundations-power.json), lesson `d01-power-over-time`, then run `uv run gigawatt-expand`.
+
 **D01 · Authored draft · Objectives:** D01.2, D01.3
 
 Integrate a stepped load profile, distinguish average and peak demand, and test what interval sampling hides.

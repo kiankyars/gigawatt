@@ -1,5 +1,7 @@
 # 800 V is an interface, not an entire architecture
 
+Generated reading view. Edit [`course/expansion/racks-compute-heat.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/racks-compute-heat.json), lesson `d06-eight-hundred-volt-architectures`, then run `uv run gigawatt-expand`.
+
 **D06 · Authored draft · Objectives:** D06.2, D06.3, D06.4
 
 Compare three declared architectures while preserving their conversion, storage and protection interfaces.

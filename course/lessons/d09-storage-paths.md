@@ -1,5 +1,7 @@
 # Storage is a traffic and state system
 
+Generated reading view. Edit [`course/expansion/racks-compute-heat.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/racks-compute-heat.json), lesson `d09-storage-paths`, then run `uv run gigawatt-expand`.
+
 **D09 · Authored draft · Objectives:** D09.1, D09.3
 
 Separate dataset, cache and checkpoint paths, then model capacity, metadata and sustained throughput independently.

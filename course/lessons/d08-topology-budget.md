@@ -1,5 +1,7 @@
 # Count the paths, not just the advertised ports
 
+Generated reading view. Edit [`course/expansion/racks-compute-heat.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/racks-compute-heat.json), lesson `d08-topology-budget`, then run `uv run gigawatt-expand`.
+
 **D08 · Authored draft · Objectives:** D08.1, D08.2
 
 Build a small fabric, account for every port and cable, and calculate lower bounds with explicit traffic assumptions.

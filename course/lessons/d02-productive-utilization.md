@@ -1,5 +1,7 @@
 # Busy, powered, and productive are different
 
+Generated reading view. Edit [`course/expansion/foundations-power.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/foundations-power.json), lesson `d02-productive-utilization`, then run `uv run gigawatt-expand`.
+
 **D02 · Authored draft · Objectives:** D02.2, D02.4
 
 Read allocation, execution, waiting, power, and accepted output as separate traces instead of treating one utilization percentage as the answer.

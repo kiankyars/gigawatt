@@ -1,5 +1,7 @@
 # The site boundary does not stop the hazard
 
+Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/heat-delivery-operations.json), lesson `d12-hazards-and-site-evidence`, then run `uv run gigawatt-expand`.
+
 **D12 · Authored draft · Objectives:** D12.2
 
 Connect hazards to exposed assets and service dependencies, then use explicit hypothetical probabilities without turning them into a site forecast.

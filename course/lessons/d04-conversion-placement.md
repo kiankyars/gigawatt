@@ -1,5 +1,7 @@
 # Moving a converter moves an interface
 
+Generated reading view. Edit [`course/expansion/foundations-power.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/foundations-power.json), lesson `d04-conversion-placement`, then run `uv run gigawatt-expand`.
+
 **D04 · Authored draft · Objectives:** D04.3, D04.4
 
 Compare two complete hypothetical paths at the same delivered boundary, allocate their losses, and test how centralization changes failure and expansion exposure.

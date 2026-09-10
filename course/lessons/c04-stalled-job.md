@@ -1,5 +1,7 @@
 # The powered cluster that keeps waiting
 
+Generated reading view. Edit [`course/expansion/capstones.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/capstones.json), lesson `c04-stalled-job`, then run `uv run gigawatt-expand`.
+
 **capstone · Authored draft · Objectives:** D02.2, D07.3, D08.2, D08.3, D09.1, D09.2, D14.5
 
 Build a serial job timeline from supplied measurements, compare two proposed improvements, and test recovery rather than relying on GPU occupancy.

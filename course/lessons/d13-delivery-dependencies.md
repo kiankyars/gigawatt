@@ -1,5 +1,7 @@
 # The longest lead time is not the completion date
 
+Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/heat-delivery-operations.json), lesson `d13-delivery-dependencies`, then run `uv run gigawatt-expand`.
+
 **D13 · Authored draft · Objectives:** D13.1
 
 Build a dependency graph, calculate the earliest finish, and identify which acceleration would change the result.

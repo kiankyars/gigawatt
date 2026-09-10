@@ -175,7 +175,10 @@ def load_course(root=ROOT):
     raw_lessons = []
     for name in PARTS:
         part = read(root / "course/expansion" / name)
-        raw_lessons.extend(part["lessons"] if isinstance(part, dict) else part)
+        raw_lessons.extend(
+            {**lesson, "source_path": f"course/expansion/{name}"}
+            for lesson in (part["lessons"] if isinstance(part, dict) else part)
+        )
     lessons = [normalize(l, by_url, known) for l in raw_lessons]
     ids = [l["id"] for l in lessons]
     if len(ids) != len(set(ids)):
@@ -189,11 +192,14 @@ def load_course(root=ROOT):
     if any(l["domain"] not in order for l in lessons):
         raise ExpansionError("Unknown lesson domain")
     lessons.sort(key=lambda l: order[l["domain"]])
-    for d in domain_map["domains"]:
-        if sum(l["domain"] == d["id"] for l in lessons) < 3:
-            raise ExpansionError(f"{d['id']}: domain expansion incomplete")
-    if sum(l["domain"] == "capstone" for l in lessons) != 5:
-        raise ExpansionError("Expected the five integrated capstones")
+    expected_capstones = {c["id"] for c in domain_map["capstones"]}
+    authored_capstones = [
+        l.get("capstone_id") for l in lessons if l["domain"] == "capstone"
+    ]
+    if set(authored_capstones) != expected_capstones:
+        raise ExpansionError(
+            "Authored capstones must cover the domain map's capstone IDs"
+        )
     glossary, seen_terms = [], set()
     for l in lessons:
         for term in l.get("terms", []):
@@ -211,7 +217,7 @@ def load_course(root=ROOT):
     return {
         "title": "GIGAWATT",
         "status": "Authored draft — external expert and learner reviews pending",
-        "as_of": "2026-09-08",
+        "as_of": domain_map["as_of"],
         "domains": sorted(domain_map["domains"], key=lambda d: order[d["id"]]),
         "lessons": lessons,
         "sources": [s for s in catalog if s["id"] in used],
@@ -219,7 +225,7 @@ def load_course(root=ROOT):
     }
 
 
-def lesson_markdown(l, sources):
+def lesson_markdown(l, sources, *, include_source=True):
     lines = [
         f"# {l['title']}",
         "",
@@ -230,6 +236,12 @@ def lesson_markdown(l, sources):
         f"**Driving question:** {l['question']}",
         "",
     ]
+    if include_source:
+        path = l.get("source_path", "course/expansion/sample.json")
+        lines[2:2] = [
+            f"Generated reading view. Edit [`{path}`](https://github.com/kiankyars/gigawatt/blob/main/{path}), lesson `{l['id']}`, then run `uv run gigawatt-expand`.",
+            "",
+        ]
     for section in l["sections"]:
         lines.extend([f"## {section['heading']}", ""])
         for p in section["paragraphs"]:
@@ -361,7 +373,9 @@ def build(root=ROOT, check=False):
         "",
         "The course is organized around mechanisms, solved examples, tradeoffs and changed-scenario practice. Runtime follows teaching and rehearsal; no ten-hour duration is asserted.",
         "",
-        "[Open the visual reader](index.html) · [Domain map](DOMAIN_MAP.md) · [Review help](REVIEW_HELP.md)",
+        "Generated from the lesson records in `course/expansion/` with `uv run gigawatt-expand`. This is a reading view; the [filled-in course template](COURSE_REVIEW.md) owns course design and production decisions.",
+        "",
+        "[Open the visual reader](index.html) · [Domain map](DOMAIN_MAP.md) · [Dry-run guide](PRESENTING.md)",
         "",
         "## Learning path",
         "",
@@ -398,7 +412,9 @@ def build(root=ROOT, check=False):
             "## Full course text",
             "",
             *[
-                lesson_markdown(l, sources).replace("# ", "## ", 1)
+                lesson_markdown(l, sources, include_source=False).replace(
+                    "# ", "## ", 1
+                )
                 for l in data["lessons"]
             ],
         ]

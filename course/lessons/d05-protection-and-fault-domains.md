@@ -1,5 +1,7 @@
 # A fault needs a boundary and an exit
 
+Generated reading view. Edit [`course/expansion/foundations-power.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/foundations-power.json), lesson `d05-protection-and-fault-domains`, then run `uv run gigawatt-expand`.
+
 **D05 · Authored draft · Objectives:** D05.4, D05.3
 
 Explain fault detection and selective isolation, distinguish AC and DC interruption, and use a bounded heating example without pretending to choose real protection settings.

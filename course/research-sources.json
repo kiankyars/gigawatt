@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-09-06",
+  "as_of": "2026-09-10",
   "inventory_status": "seed_not_exhaustive",
   "method": "A bounded curated discovery pass over 40 SemiAnalysis articles and 15 independent primary-source starting points. Sources are mapped many-to-many to domain IDs for curriculum research, not certified as complete coverage or sources of truth. The additional SA11–SA40 sample used 16 search queries and selected entries from the publisher's 2023–2026 annual sitemaps; research/discovery-searches.md records the method and limits. page_reviewed means the stated web page was inspected, with partial-reading and linked-document limits recorded in caution; public_excerpt_reviewed includes accessible previews, abstracts or selected public sections and never implies review of a complete paid work. candidate_not_reviewed means substantive content has not been reviewed. A domain mapping identifies intended research use, not verified support for every objective or claim. reviewed_on is the review date; published_on, where present, is the source's displayed publication date and is null when not established.",
   "sources": [
@@ -1204,12 +1204,12 @@
       "publisher": "www.epa.gov",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-06",
+      "reviewed_on": "2026-09-10",
       "domains": [
         "D03"
       ],
-      "use": "Physical and financial PPAs differ in whether electricity is physically delivered or title is conveyed under the arrangement.",
-      "caution": "Read the public EPA distinctions; contractual eligibility and local legal requirements are outside this lesson.",
+      "use": "Physical PPAs can involve on-site or off-site generation; contractual delivery and the physical electrical path must be distinguished.",
+      "caution": "Reviewed the public EPA definitions and on-site/off-site distinctions. A PPA does not by itself establish behind-the-meter location, island capability, or local contractual eligibility.",
       "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
     },
     {
@@ -1219,12 +1219,12 @@
       "publisher": "www.energy.gov",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-06",
+      "reviewed_on": "2026-09-10",
       "domains": [
         "D03"
       ],
       "use": "Islanding requires coordinated operation of sources and loads within an electrical boundary.",
-      "caution": "Read the public DOE explanation; no particular on-site plant or local interconnection permission is established.",
+      "caution": "Reviewed the public animation transcript and coordinated grid/island operation. No particular on-site plant, uninterrupted transfer, or local interconnection permission is established.",
       "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
     },
     {
@@ -1870,6 +1870,71 @@
       "id": "E37FE7B98A1",
       "reviewed_on": "2026-09-08",
       "discovered_via": "UPS redundancy coverage audit, 2026-09-08."
+    },
+    {
+      "id": "E7A716A810E",
+      "title": "Leviton — Data center white space and gray space",
+      "url": "https://leviton.com/support/literature/newsletters/insider/insideroctober2025/focusedproductoctober2025",
+      "publisher": "leviton.com",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-10",
+      "domains": [
+        "D01",
+        "D12"
+      ],
+      "use": "White space houses IT; gray space describes supporting back-of-house infrastructure.",
+      "caution": "Reviewed the White Space and Gray Space definitions under Leviton Solutions for Data Centers. These are area conventions, not a rule assigning every power or cooling device to one room type.",
+      "discovered_via": "Behind-the-meter and space-terminology coverage review, 2026-09-10."
+    },
+    {
+      "id": "EFE70308E0A",
+      "title": "Vertiv — Deploying Liquid Cooling in the Data Center",
+      "url": "https://prod.vertiv.cn/4a9616/globalassets/documents/white-papers/liquid-cooling/vertiv-liquidcooling-wp-en-na-sl-71113-web.pdf",
+      "publisher": "prod.vertiv.cn",
+      "kind": "primary_reference",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-10",
+      "domains": [
+        "D01",
+        "D10",
+        "D12"
+      ],
+      "use": "Cooling equipment may occupy white space or a grey-space mechanical gallery; service and replacement need room in either location.",
+      "caution": "Reviewed Designing Mechanical Space, printed pages 14–15, and the space-use discussion on page 13. No equipment clearance, floor rating, or universal footprint saving is taken from this example.",
+      "discovered_via": "Behind-the-meter and space-terminology coverage review, 2026-09-10."
+    },
+    {
+      "id": "E38B3BEAAC1",
+      "title": "NARUC — Regulators’ Financial Toolbox: Behind-the-Meter Energy Storage",
+      "url": "https://pubs.naruc.org/pub/6233DBE2-B58B-52FF-925E-250DD26DECF9",
+      "publisher": "pubs.naruc.org",
+      "kind": "primary_reference",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-10",
+      "domains": [
+        "D03",
+        "D05"
+      ],
+      "use": "Behind-the-meter describes the customer side of the utility meter; it can include resources that exchange power with the grid.",
+      "caution": "Reviewed the BTM/FTM definition and diagram on printed pages 2–3. The lesson generalizes the electrical-boundary distinction to its stated generator-and-storage example; no tariff benefit or export permission is assumed.",
+      "discovered_via": "Behind-the-meter and space-terminology coverage review, 2026-09-10."
+    },
+    {
+      "id": "E0410763323",
+      "title": "DOE — Solar Integration: Distributed Energy Resources and Microgrids Basics",
+      "url": "https://www.energy.gov/cmei/systems/solar-integration-distributed-energy-resources-and-microgrids-basics",
+      "publisher": "www.energy.gov",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-10",
+      "domains": [
+        "D03",
+        "D05"
+      ],
+      "use": "Local generation and designed island operation are distinct; many solar systems disconnect during loss of the wider grid.",
+      "caution": "Reviewed Distributed Energy Resources and Islands and Microgrids. The course does not assume that a data-center generator, inverter, or campus inherits island capability from location or nameplate alone.",
+      "discovered_via": "Behind-the-meter and space-terminology coverage review, 2026-09-10."
     }
   ]
 }

@@ -1,5 +1,7 @@
 # The workload has a rhythm
 
+Generated reading view. Edit [`course/expansion/foundations-power.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/foundations-power.json), lesson `d02-phases-and-envelopes`, then run `uv run gigawatt-expand`.
+
 **D02 · Authored draft · Objectives:** D02.3, D02.4, D02.1
 
 Connect request queues and job phases to latency, aggregate power, and the limits of a benchmark-derived design envelope.

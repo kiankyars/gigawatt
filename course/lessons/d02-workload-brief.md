@@ -1,5 +1,7 @@
 # Design for a job, not a rack count
 
+Generated reading view. Edit [`course/expansion/foundations-power.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/foundations-power.json), lesson `d02-workload-brief`, then run `uv run gigawatt-expand`.
+
 **D02 · Authored draft · Objectives:** D02.1, D02.4
 
 Turn contrasting training and inference requests into explicit compute, memory, communication, storage, and service requirements.

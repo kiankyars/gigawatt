@@ -1,5 +1,7 @@
 # Open one phase, with evidence
 
+Generated reading view. Edit [`course/expansion/capstones.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/capstones.json), lesson `c05-open-a-phase`, then run `uv run gigawatt-expand`.
+
 **capstone · Authored draft · Objectives:** D03.3, D09.4, D13.1, D13.3, D13.4, D15.1, D15.5
 
 Reconcile installation, energization, integrated testing and service acceptance. Build a dependency schedule without treating announcements as operational measurements.

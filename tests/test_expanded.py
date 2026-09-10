@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import unittest
 from copy import deepcopy
+from unittest.mock import patch
 
 from gigawatt import build_expanded as b
 from gigawatt.build_presentation import validate_presentation
@@ -30,10 +31,52 @@ class ExpansionTests(unittest.TestCase):
             for o in l["objectives"]
         }
         self.assertEqual(covered, self.objectives)
-        self.assertEqual(len(self.course["lessons"]), 50)
         self.assertEqual(
-            sum(l["domain"] == "capstone" for l in self.course["lessons"]), 5
+            {
+                l["capstone_id"]
+                for l in self.course["lessons"]
+                if l["domain"] == "capstone"
+            },
+            {c["id"] for c in b.read(b.ROOT / "course/domain-map.json")["capstones"]},
         )
+
+    def test_merging_lessons_preserves_objective_coverage_without_a_lesson_quota(self):
+        original_read = b.read
+        part = original_read(b.ROOT / "course/expansion/foundations-power.json")
+        domain_lessons = [l for l in part if l["domain"] == "D01"]
+        merged = deepcopy(domain_lessons[0])
+        merged["objectives"] = sorted(
+            {o for l in domain_lessons for o in l["objectives"]}
+        )
+        changed = [merged] + [l for l in part if l["domain"] != "D01"]
+
+        def read(path):
+            return (
+                changed
+                if path.name == "foundations-power.json"
+                else original_read(path)
+            )
+
+        with patch.object(b, "read", side_effect=read):
+            course = b.load_course()
+            self.assertEqual(sum(l["domain"] == "D01" for l in course["lessons"]), 1)
+            changed.remove(merged)
+            with self.assertRaisesRegex(b.ExpansionError, "no authored lesson"):
+                b.load_course()
+
+    def test_capstone_identity_comes_from_the_map_not_a_fixed_count(self):
+        original_read = b.read
+        changed = original_read(b.ROOT / "course/expansion/capstones.json")
+        changed[0]["capstone_id"] = "C99"
+
+        def read(path):
+            return changed if path.name == "capstones.json" else original_read(path)
+
+        with (
+            patch.object(b, "read", side_effect=read),
+            self.assertRaisesRegex(b.ExpansionError, "capstone IDs"),
+        ):
+            b.load_course()
 
     def test_normalization_preserves_worked_steps_and_specific_source_limits(self):
         l = b.normalize(self.raw, self.catalog, self.objectives)
@@ -130,7 +173,9 @@ class ExpansionTests(unittest.TestCase):
         payload = html.split('<script id="expanded-data" type="application/json">')[
             1
         ].split("</script>")[0]
-        self.assertEqual(len(json.loads(payload)["lessons"]), 50)
+        self.assertEqual(
+            len(json.loads(payload)["lessons"]), len(self.course["lessons"])
+        )
 
     def test_sample_embeds_every_cited_catalog_record(self):
         html = (b.ROOT / "course/sample-reading.html").read_text()

@@ -1,5 +1,7 @@
 # Count water at the boundary, then ask who can use the heat
 
+Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/heat-delivery-operations.json), lesson `d11-water-and-heat-reuse`, then run `uv run gigawatt-expand`.
+
 **D11 · Authored draft · Objectives:** D11.4, D11.5
 
 Reconcile tower makeup and blowdown, distinguish withdrawal from consumption, and evaluate heat reuse against an actual receiving load.

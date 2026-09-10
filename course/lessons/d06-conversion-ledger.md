@@ -1,5 +1,7 @@
 # Follow the watts through the rack
 
+Generated reading view. Edit [`course/expansion/racks-compute-heat.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/racks-compute-heat.json), lesson `d06-conversion-ledger`, then run `uv run gigawatt-expand`.
+
 **D06 · Authored draft · Objectives:** D06.1, D06.2
 
 Build an electrical ledger from the rack inlet to useful device rails, with separate conversion losses and auxiliary loads.

@@ -2,32 +2,24 @@
 
 <!-- Generated from domain-map.json, research-sources.json and lessons.json. Edit those sources; run uv run gigawatt-map. -->
 
-As of **2026-09-06**. Planning baseline; expanded lessons, visuals and assessments are not yet implemented or reviewed.
+As of **2026-09-10**. Curriculum objectives and sequence. Authored lesson coverage is reported in EXPANDED_COURSE.md; presentation adaptation and review status are tracked in COURSE_REVIEW.md.
 
 From grid connection to useful compute. Follow the power, close the heat path, operate the system.
 
 [Interactive map](domain-map.html) · [Course review](COURSE_REVIEW.md) · [Source index](../research/INDEX.md) · [Research library](../research/README.md)
 
-## Teaching contract
+## How to read this map
 
-**Scope:** Modern AI data-center infrastructure, including conventional facilities and retrofit alternatives needed to explain engineering choices. System understanding and bounded quantitative decisions, not professional design qualification.
+The [filled-in course template](COURSE_REVIEW.md) owns audience, overall scope, exclusions, runtime and production priorities. This map owns the detailed objectives, prerequisites, teaching sequence and capstone briefs within that design.
 
-**Audience:** Technically curious learners with arithmetic, percentages, unit conversion, simple graph reading and general computer literacy. No prior data-center, electrical, cooling or networking vocabulary is assumed. Explain additional algebra before relying on it; introduce specialized mathematics and professional practice only to the depth needed for the stated outcomes.
+[Current authored coverage](EXPANDED_COURSE.md#objective-to-lesson-coverage) is generated from the lesson records. Presentation adaptation and review status are tracked in the course template.
 
-**Runtime:** A substantial single course, potentially up to ten hours. Runtime is unallocated until section prototypes and learner rehearsals establish the depth each objective needs; this map is not a ten-hour script.
-
-## Evidence and baseline coverage
-
-Source mappings identify research leads for domains, not verified support for every proposed claim or objective. The seed corpus is not exhaustive. Verify particular claims at lesson authoring, follow original references, retain dates and assumptions, and record contradictions rather than averaging them away.
+## Evidence and historical introduction coverage
 
 Source-to-domain mappings are derived from `research-sources.json` → `sources[].domains`. They identify research connections, not verified support for every objective.
 
-- **partial:** The current player teaches a useful fragment of this objective. It still needs expansion, an application assessment and review.
-- **missing:** The current player does not substantively teach this objective. Related mentions or source links do not count as teaching.
-- **complete:** Reserved for a scripted, implemented and reviewed objective with an application assessment. No objective is marked complete in this planning baseline.
-
-**Anti-pattern:** The encyclopedic survey: naming every component, paraphrasing every article, animating an inventory or increasing runtime without teaching a mechanism, worked example, consequential tradeoff, failure or limiting case, and transfer to a changed situation.
-
+- **partial:** The retained 22-lesson introduction teaches a fragment of this objective. This is a historical reuse label, not the status of the expanded course.
+- **missing:** The retained 22-lesson introduction does not substantively teach this objective. See the generated expanded manuscript for current authored coverage.
 
 ## System lanes
 
@@ -124,6 +116,7 @@ Give every later calculation a unit, a boundary, and an operating condition.
 **Included scope:**
 
 - Campus, building, hall, row, rack, server, package and die
+- White space and grey/gray space as layout conventions; distinguish rack space, data-hall area and support areas
 - Power, energy, real/apparent power, efficiency and time
 - Nameplate, reserved, commissioned, available, demanded and productive capacity
 - Physical flows versus commercial relationships; reference designs versus actual sites
@@ -136,9 +129,9 @@ Give every later calculation a unit, a boundary, and an operating condition.
 
 Trace electrical energy, heat, and information through a data center while keeping the accounting boundaries separate.
 
-**Assessment:** Annotate one campus diagram with three paths and explain why useful computation and dissipated heat are not competing energy allocations.
+**Assessment:** Annotate one campus diagram with electrical, heat and information paths; identify white and grey space on its floor plan and explain why those area labels are not energy-accounting boundaries. Explain why useful computation and dissipated heat are not competing energy allocations.
 
-**Existing baseline:** partial. `one-rack` — One campus. Two journeys.; `electrical-to-heat` — The watt becomes heat.; `whole-system` — Follow the power. Close the heat path.
+**Historical introduction coverage:** partial. `one-rack` — One campus. Two journeys.; `electrical-to-heat` — The watt becomes heat.; `whole-system` — Follow the power. Close the heat path.
 
 #### D01.2
 
@@ -146,7 +139,7 @@ Convert power and energy across units and time; distinguish a measured load from
 
 **Assessment:** Calculate an energy total from a stepped load profile and identify what cannot be inferred from a service rating.
 
-**Existing baseline:** partial. `power-and-energy` — A watt is a rate.; `capacity-stages` — Connected is a milestone.
+**Historical introduction coverage:** partial. `power-and-energy` — A watt is a rate.; `capacity-stages` — Connected is a milestone.
 
 #### D01.3
 
@@ -154,7 +147,7 @@ Define denominators for facility, IT and compute-only metrics and label the time
 
 **Assessment:** Reconcile a facility energy ledger with IT energy, overhead and a separately measured workload output.
 
-**Existing baseline:** partial. `facility-overhead` — Budget the whole facility.; `useful-compute` — Watts do not measure useful work.
+**Historical introduction coverage:** partial. `facility-overhead` — Budget the whole facility.; `useful-compute` — Watts do not measure useful work.
 
 #### D01.4
 
@@ -162,7 +155,7 @@ Separate physical principles, design specifications, observed deployments, annou
 
 **Assessment:** Classify six supplied claims and state the additional evidence needed to call capacity operational.
 
-**Existing baseline:** partial. `abilene-case` — Read a real headline precisely.; `capacity-stages` — Connected is a milestone.
+**Historical introduction coverage:** partial. `abilene-case` — Read a real headline precisely.; `capacity-stages` — Connected is a milestone.
 
 **Visual plan: One campus, three paths**
 
@@ -194,6 +187,8 @@ Separate physical principles, design specifications, observed deployments, annou
 - [EB34D92F523 — OpenStax — Electrical Energy and Power](https://openstax.org/books/university-physics-volume-2/pages/9-5-electrical-energy-and-power) · `page_reviewed` · [local note](../research/sources/EB34D92F523.md)
 - [EE02276C332 — MLCommons — MLPerf Inference: Datacenter](https://mlcommons.org/benchmarks/inference-datacenter/) · `page_reviewed` · [local note](../research/sources/EE02276C332.md)
 - [EFB703CFC3D — Schneider Electric — PM2200 total power calculation for accuracy verification](https://productinfo.se.com/pm2200/5afc2b5546e0fb00011e5e9d/PM2200%20series%20User%20Manual/English/BM_PM2200seriesUserManual_0000074170.ditamap.xml/%24/C_VerifyingAccuracy_PowerTotCalcuation_0000034437) · `page_reviewed` · [local note](../research/sources/EFB703CFC3D.md)
+- [E7A716A810E — Leviton — Data center white space and gray space](https://leviton.com/support/literature/newsletters/insider/insideroctober2025/focusedproductoctober2025) · `page_reviewed` · [local note](../research/sources/E7A716A810E.md)
+- [EFE70308E0A — Vertiv — Deploying Liquid Cooling in the Data Center](https://prod.vertiv.cn/4a9616/globalassets/documents/white-papers/liquid-cooling/vertiv-liquidcooling-wp-en-na-sl-71113-web.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/EFE70308E0A.md)
 
 <a id="d02"></a>
 
@@ -220,7 +215,7 @@ Translate a workload brief into compute, memory, network, storage, power and ser
 
 **Assessment:** Compare two supplied training and inference briefs and explain which requirements need measurement rather than a rack-count estimate.
 
-**Existing baseline:** partial. `useful-compute` — Watts do not measure useful work.
+**Historical introduction coverage:** partial. `useful-compute` — Watts do not measure useful work.
 
 #### D02.2
 
@@ -228,7 +223,7 @@ Distinguish hardware occupancy, power draw and productive utilization.
 
 **Assessment:** Explain three traces in which the same installed hardware produces different useful output; identify idle and waiting intervals.
 
-**Existing baseline:** partial. `useful-compute` — Watts do not measure useful work.
+**Historical introduction coverage:** partial. `useful-compute` — Watts do not measure useful work.
 
 #### D02.3
 
@@ -236,7 +231,7 @@ Explain how batching, parallel execution and synchronized job phases change the 
 
 **Assessment:** Read a supplied job timeline and predict communication, checkpoint and load-transition intervals without assuming a universal waveform.
 
-**Existing baseline:** missing. No existing lesson mapped.
+**Historical introduction coverage:** missing. No existing lesson mapped.
 
 #### D02.4
 
@@ -244,7 +239,7 @@ State an infrastructure design envelope and identify which assumptions a benchma
 
 **Assessment:** Write acceptance criteria for a hypothetical cluster using declared workload, precision, batch, latency and availability conditions.
 
-**Existing baseline:** missing. No existing lesson mapped.
+**Historical introduction coverage:** missing. No existing lesson mapped.
 
 **Visual plan: From job timeline to demand**
 
@@ -295,7 +290,7 @@ Connect the physical site decision to grid constraints, available infrastructure
 **Included scope:**
 
 - Load connection, utility studies, substations, transmission and distribution interfaces
-- Generation and behind-the-meter supply where they affect delivery, dispatch or resilience
+- Behind-the-meter supply: the customer-side meter boundary, grid import/export, and separately established island capability
 - Capacity, energy, fuel, emissions, curtailment and time matching
 - Land, fiber, water, climate and local constraints as joint siting inputs
 
@@ -309,7 +304,7 @@ Trace a physical supply path and distinguish it from a power purchase agreement 
 
 **Assessment:** Draw the metered connection separately from two commercial arrangements; name what each establishes.
 
-**Existing baseline:** partial. `sources-and-grid` — Follow the physical connection.
+**Historical introduction coverage:** partial. `sources-and-grid` — Follow the physical connection.
 
 #### D03.2
 
@@ -317,7 +312,7 @@ Explain voltage, current and conductor loss in a bounded AC or DC comparison.
 
 **Assessment:** Compare two balanced three-phase transfer scenarios with stated power factor and conductor resistance; list excluded losses.
 
-**Existing baseline:** partial. `raise-voltage` — Go farther. Raise the voltage.
+**Historical introduction coverage:** partial. `raise-voltage` — Go farther. Raise the voltage.
 
 #### D03.3
 
@@ -325,15 +320,15 @@ Explain the milestones and constraints between a proposed large load and service
 
 **Assessment:** Turn a supplied project timeline into a capacity ledger without treating an application, agreement or energized substation as commissioned IT.
 
-**Existing baseline:** partial. `capacity-stages` — Connected is a milestone.
+**Historical introduction coverage:** partial. `capacity-stages` — Connected is a milestone.
 
 #### D03.4
 
-Compare utility-only and on-site supply options against energy, capacity, fuel, grid and operating requirements.
+Compare utility-only and behind-the-meter supply against energy, capacity, fuel and operating requirements; distinguish customer-side location from island capability.
 
-**Assessment:** Evaluate a synthetic siting brief with outage, fuel-delivery and curtailment constraints; record unresolved utility and local requirements.
+**Assessment:** Calculate grid import or export for a synthetic on-site supply case, then the islanded power deficit and storage duration. Evaluate fuel and curtailment constraints and record unresolved interconnection and operating requirements.
 
-**Existing baseline:** missing. No existing lesson mapped.
+**Historical introduction coverage:** missing. No existing lesson mapped.
 
 **Visual plan: Two maps: electrons and agreements**
 
@@ -370,6 +365,8 @@ Compare utility-only and on-site supply options against energy, capacity, fuel, 
 - [E61807424F1 — DOE — Islanding a Microgrid](https://www.energy.gov/cmei/femp/articles/islanding-microgrid) · `page_reviewed` · [local note](../research/sources/E61807424F1.md)
 - [E45AB7B1BC1 — Schneider Electric — Installed apparent power](https://www.electrical-installation.org/enwiki/Installed_apparent_power_(kVA)) · `page_reviewed` · [local note](../research/sources/E45AB7B1BC1.md)
 - [E21653C0173 — ERCOT — Batch Zero large-load connection announcement, June 18, 2026](https://www.ercot.com/news/release/06182026-puct-approves-ercots) · `page_reviewed` · [local note](../research/sources/E21653C0173.md)
+- [E38B3BEAAC1 — NARUC — Regulators’ Financial Toolbox: Behind-the-Meter Energy Storage](https://pubs.naruc.org/pub/6233DBE2-B58B-52FF-925E-250DD26DECF9) · `public_excerpt_reviewed` · [local note](../research/sources/E38B3BEAAC1.md)
+- [E0410763323 — DOE — Solar Integration: Distributed Energy Resources and Microgrids Basics](https://www.energy.gov/cmei/systems/solar-integration-distributed-energy-resources-and-microgrids-basics) · `page_reviewed` · [local note](../research/sources/E0410763323.md)
 
 <a id="d04"></a>
 
@@ -397,7 +394,7 @@ Read a generic single-line diagram and explain what each distribution component 
 
 **Assessment:** Annotate an unfamiliar generic diagram and identify the loads behind each boundary.
 
-**Existing baseline:** partial. `substation-functions` — Open the substation.; `building-power-train` — Bring the power to the rack.
+**Historical introduction coverage:** partial. `substation-functions` — Open the substation.; `building-power-train` — Bring the power to the rack.
 
 #### D04.2
 
@@ -405,7 +402,7 @@ Translate load requirements into currents and equipment loading without confusin
 
 **Assessment:** Calculate loading in a stated balanced scenario, including conversion efficiency and a supplied power factor; explain missing design inputs.
 
-**Existing baseline:** partial. `raise-voltage` — Go farther. Raise the voltage.
+**Historical introduction coverage:** partial. `raise-voltage` — Go farther. Raise the voltage.
 
 #### D04.3
 
@@ -413,7 +410,7 @@ Compare centralized and distributed conversion and identify which conductors, eq
 
 **Assessment:** Mark the changed interfaces on AC, near-rack DC and facility DC reference diagrams without claiming one universal efficiency improvement.
 
-**Existing baseline:** missing. No existing lesson mapped.
+**Historical introduction coverage:** missing. No existing lesson mapped.
 
 #### D04.4
 
@@ -421,7 +418,7 @@ Reconcile IT and auxiliary loads with a downstream electrical capacity budget ac
 
 **Assessment:** Find the binding transformer, feeder or service constraint in a synthetic phase-opening plan.
 
-**Existing baseline:** partial. `capacity-bottleneck` — The smallest limit wins.; `building-power-train` — Bring the power to the rack.
+**Historical introduction coverage:** partial. `capacity-bottleneck` — The smallest limit wins.; `building-power-train` — Bring the power to the rack.
 
 **Visual plan: A living single-line diagram**
 
@@ -478,7 +475,7 @@ Calculate bounded stored-energy runtime while checking discharge power and reser
 
 **Assessment:** Compare two storage systems with the same MWh but different MW limits; explain why neither energy alone nor nameplate guarantees ride-through.
 
-**Existing baseline:** partial. `ride-through` — The battery buys time.
+**Historical introduction coverage:** partial. `ride-through` — The battery buys time.
 
 #### D05.2
 
@@ -486,7 +483,7 @@ Trace an interruption, transfer and restoration sequence including IT, cooling a
 
 **Assessment:** Predict which loads remain supported at each step of a supplied sequence; identify a missing auxiliary supply.
 
-**Existing baseline:** partial. `ride-through` — The battery buys time.; `redundant-paths` — A second path must be useful.
+**Historical introduction coverage:** partial. `ride-through` — The battery buys time.; `redundant-paths` — A second path must be useful.
 
 #### D05.3
 
@@ -494,7 +491,7 @@ Evaluate path independence and surviving capacity during both a fault and planne
 
 **Assessment:** Find a common-mode dependency in a two-feed diagram and calculate load support with one path unavailable.
 
-**Existing baseline:** partial. `redundant-paths` — A second path must be useful.; `fault-domains` — Keep one fault from spreading.
+**Historical introduction coverage:** partial. `redundant-paths` — A second path must be useful.; `fault-domains` — Keep one fault from spreading.
 
 #### D05.4
 
@@ -502,7 +499,7 @@ Explain why fault clearing and grounding require topology-specific AC/DC protect
 
 **Assessment:** Compare two conceptual isolation sequences and list the protection evidence needed before endorsing either architecture.
 
-**Existing baseline:** missing. No existing lesson mapped.
+**Historical introduction coverage:** missing. No existing lesson mapped.
 
 **Visual plan: Failure timeline and surviving paths**
 
@@ -542,6 +539,8 @@ Explain why fault clearing and grounding require topology-specific AC/DC protect
 - [EA0B6C5ED33 — Schneider Electric — Comparing UPS System Design Configurations, White Paper 75 Revision 4](https://www.se.com/us/en/download/document/SPD_SADE-5TPL8X_EN/) · `page_reviewed` · [local note](../research/sources/EA0B6C5ED33.md)
 - [E836C561209 — Schneider Electric — Why Two Cords Do Not Guarantee Power Redundancy to an IT Device](https://blog.se.com/datacenter/architecture/2014/08/06/two-cords-guarantee-power-redundancy-device/) · `page_reviewed` · [local note](../research/sources/E836C561209.md)
 - [E37FE7B98A1 — Schneider Electric — Easy UPS 3-Phase Modular 50–250 kW: UPS Modes](https://productinfo.se.com/easyups3pmodular/990-6537-easy-ups-3-phase-modular-50-250-kw-operation/English/990-6537%20Operation%20Easy%20UPS%203-Phase%20Modular%2050-250%20kW_0001015104.xml/%24/GalaxyPX_UPSModes_0000761714) · `page_reviewed` · [local note](../research/sources/E37FE7B98A1.md)
+- [E38B3BEAAC1 — NARUC — Regulators’ Financial Toolbox: Behind-the-Meter Energy Storage](https://pubs.naruc.org/pub/6233DBE2-B58B-52FF-925E-250DD26DECF9) · `public_excerpt_reviewed` · [local note](../research/sources/E38B3BEAAC1.md)
+- [E0410763323 — DOE — Solar Integration: Distributed Energy Resources and Microgrids Basics](https://www.energy.gov/cmei/systems/solar-integration-distributed-energy-resources-and-microgrids-basics) · `page_reviewed` · [local note](../research/sources/E0410763323.md)
 
 <a id="d06"></a>
 
@@ -569,7 +568,7 @@ Trace conversion from rack input to processor rails and distinguish whole-rack p
 
 **Assessment:** Label every voltage and power boundary on two supplied rack diagrams and reject a misleading per-GPU TDP calculation.
 
-**Existing baseline:** partial. `rack-conversion` — The rack changes the rules.; `low-voltage-current` — Low voltage. Enormous current.
+**Historical introduction coverage:** partial. `rack-conversion` — The rack changes the rules.; `low-voltage-current` — Low voltage. Enormous current.
 
 #### D06.2
 
@@ -577,7 +576,7 @@ Quantify how distribution voltage changes current at fixed DC power without trea
 
 **Assessment:** Compute currents for a declared 100 kW DC boundary at 50 V and 800 V, then state why this does not size a real conductor or establish an efficiency delta.
 
-**Existing baseline:** partial. `low-voltage-current` — Low voltage. Enormous current.
+**Historical introduction coverage:** partial. `low-voltage-current` — Low voltage. Enormous current.
 
 #### D06.3
 
@@ -585,7 +584,7 @@ Compare near-rack sidecars, rack-level conversion and facility DC as distinct ar
 
 **Assessment:** Place conversion, storage, protection and AC/DC boundaries for each; distinguish announced products from proposed future designs.
 
-**Existing baseline:** missing. No existing lesson mapped.
+**Historical introduction coverage:** missing. No existing lesson mapped.
 
 #### D06.4
 
@@ -593,7 +592,7 @@ Evaluate a rack power upgrade against connector, bus, protection, auxiliary and 
 
 **Assessment:** Write an interface checklist for a synthetic higher-density rack migration, with every unknown left explicit.
 
-**Existing baseline:** missing. No existing lesson mapped.
+**Historical introduction coverage:** missing. No existing lesson mapped.
 
 #### D06.5
 
@@ -601,7 +600,7 @@ Explain how retrofit constraints can reverse a seemingly attractive greenfield a
 
 **Assessment:** Choose between two supplied migration paths using space, downtime, conversion and maintenance assumptions; show what would change the decision.
 
-**Existing baseline:** missing. No existing lesson mapped.
+**Historical introduction coverage:** missing. No existing lesson mapped.
 
 **Visual plan: Move the conversion boundary**
 
@@ -659,7 +658,7 @@ Locate compute, memory and communication components within a server and rack and
 
 **Assessment:** Trace a simplified data path from storage through host memory to accelerator memory and compute.
 
-**Existing baseline:** partial. `rack-conversion` — The rack changes the rules.
+**Historical introduction coverage:** partial. `rack-conversion` — The rack changes the rules.
 
 #### D07.2
 
@@ -667,7 +666,7 @@ Distinguish memory-capacity, memory-bandwidth, compute and communication limits.
 
 **Assessment:** Use supplied workload and hardware numbers to identify a plausible bottleneck and state the model's assumptions.
 
-**Existing baseline:** missing. No existing lesson mapped.
+**Historical introduction coverage:** missing. No existing lesson mapped.
 
 #### D07.3
 
@@ -675,7 +674,7 @@ Explain why chip count, advertised FLOPS and installed MW cannot independently e
 
 **Assessment:** Compare two synthetic rack configurations with equal power envelopes but different memory and communication constraints.
 
-**Existing baseline:** partial. `useful-compute` — Watts do not measure useful work.
+**Historical introduction coverage:** partial. `useful-compute` — Watts do not measure useful work.
 
 #### D07.4
 
@@ -683,7 +682,7 @@ Connect server and rack organization to power, cooling, weight and maintenance i
 
 **Assessment:** Identify the facility interface changes caused by replacing an air-cooled server row with a specified dense rack-scale system.
 
-**Existing baseline:** missing. No existing lesson mapped.
+**Historical introduction coverage:** missing. No existing lesson mapped.
 
 **Visual plan: A rack as a data path**
 
@@ -752,7 +751,7 @@ Distinguish scale-up, scale-out and wide-area communication requirements.
 
 **Assessment:** Place three communication patterns on a rack, cluster and regional map and identify the relevant bottleneck.
 
-**Existing baseline:** missing. No existing lesson mapped.
+**Historical introduction coverage:** missing. No existing lesson mapped.
 
 #### D08.2
 
@@ -760,7 +759,7 @@ Calculate an illustrative topology's endpoint ports, oversubscription and transf
 
 **Assessment:** Compare two small supplied topologies, including units and stated routing assumptions; identify why bandwidth alone does not predict application time.
 
-**Existing baseline:** missing. No existing lesson mapped.
+**Historical introduction coverage:** missing. No existing lesson mapped.
 
 #### D08.3
 
@@ -768,7 +767,7 @@ Explain how congestion, collectives and topology-aware placement affect job prog
 
 **Assessment:** Predict the effect of a constrained link during a collective and describe a placement or architecture alternative.
 
-**Existing baseline:** missing. No existing lesson mapped.
+**Historical introduction coverage:** missing. No existing lesson mapped.
 
 #### D08.4
 
@@ -776,7 +775,7 @@ Compare interconnect media and packaging choices using reach, bandwidth, power, 
 
 **Assessment:** Evaluate copper, pluggable optics and a specified CPO proposal for a declared use case without treating a roadmap as a deployed default.
 
-**Existing baseline:** missing. No existing lesson mapped.
+**Historical introduction coverage:** missing. No existing lesson mapped.
 
 #### D08.5
 
@@ -784,7 +783,7 @@ Trace a network failure or degraded link into workload, cabling and operational 
 
 **Assessment:** Explain why a powered and cooled cluster can miss its useful-throughput acceptance target after a partial fabric failure.
 
-**Existing baseline:** missing. No existing lesson mapped.
+**Historical introduction coverage:** missing. No existing lesson mapped.
 
 **Visual plan: Watch a collective cross the fabric**
 
@@ -849,7 +848,7 @@ Trace the dataset and checkpoint paths and distinguish capacity, throughput and 
 
 **Assessment:** Calculate an idealized checkpoint transfer time from supplied sizes and effective bandwidth, then identify additional bottlenecks.
 
-**Existing baseline:** missing. No existing lesson mapped.
+**Historical introduction coverage:** missing. No existing lesson mapped.
 
 #### D09.2
 
@@ -857,7 +856,7 @@ Explain how checkpoint frequency, failure behavior and restart time affect compl
 
 **Assessment:** Compare two explicit checkpoint policies on a synthetic timeline that includes a failure and recovery.
 
-**Existing baseline:** missing. No existing lesson mapped.
+**Historical introduction coverage:** missing. No existing lesson mapped.
 
 #### D09.3
 
@@ -865,7 +864,7 @@ Explain scheduling, placement, provisioning and isolation as prerequisites for u
 
 **Assessment:** Diagnose a scenario in which hardware is healthy but jobs cannot obtain the required topology, software environment or storage access.
 
-**Existing baseline:** missing. No existing lesson mapped.
+**Historical introduction coverage:** missing. No existing lesson mapped.
 
 #### D09.4
 
@@ -873,7 +872,7 @@ Specify a service acceptance exercise that tests end-to-end data access, job lau
 
 **Assessment:** Write a reproducible test plan for a synthetic tenant without reducing acceptance to a device-count or power-on check.
 
-**Existing baseline:** missing. No existing lesson mapped.
+**Historical introduction coverage:** missing. No existing lesson mapped.
 
 **Visual plan: Progress survives—or starts again**
 
@@ -943,7 +942,7 @@ Trace parallel air and liquid heat paths and explain why rack power alone does n
 
 **Assessment:** Compare two hypothetical devices with the same total heat but different heat flux or thermal resistance.
 
-**Existing baseline:** partial. `electrical-to-heat` — The watt becomes heat.; `residual-air` — This rack still needs air.
+**Historical introduction coverage:** partial. `electrical-to-heat` — The watt becomes heat.; `residual-air` — This rack still needs air.
 
 #### D10.2
 
@@ -951,7 +950,7 @@ Calculate a single-phase heat-transport flow under stated fluid and temperature 
 
 **Assessment:** Solve a heat/flow/temperature-rise example and explain why the result alone does not select a pump or cold plate.
 
-**Existing baseline:** partial. `liquid-heat-transport` — Heat needs a moving carrier.
+**Historical introduction coverage:** partial. `liquid-heat-transport` — Heat needs a moving carrier.
 
 #### D10.3
 
@@ -959,7 +958,7 @@ Explain a CDU's fluid separation, heat-exchange and control functions while dist
 
 **Assessment:** Draw two closed loops, label their temperature points and predict the effect of a constrained heat-exchanger interface.
 
-**Existing baseline:** partial. `heat-exchanger` — Heat crosses. Fluids stay apart.
+**Historical introduction coverage:** partial. `heat-exchanger` — Heat crosses. Fluids stay apart.
 
 #### D10.4
 
@@ -967,7 +966,7 @@ Compare air, cold-plate, rear-door and immersion approaches against a declared d
 
 **Assessment:** Evaluate a synthetic retrofit with residual-air, fluid, pressure, access and maintenance requirements; identify missing compatibility evidence.
 
-**Existing baseline:** missing. No existing lesson mapped.
+**Historical introduction coverage:** missing. No existing lesson mapped.
 
 **Visual plan: Two fluids, one heat transfer**
 
@@ -1000,6 +999,7 @@ Compare air, cold-plate, rear-door and immersion approaches against a declared d
 - [P17 — NVIDIA NVL72 AI Factory — System Hardware & Components](https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/components.html) · `page_reviewed` · [local note](../research/sources/P17.md)
 - [E709C9E5196 — ASHRAE — Emergence and Expansion of Liquid Cooling in Mainstream Data Centers](https://www.ashrae.org/file%20library/technical%20resources/bookstore/emergence-and-expansion-of-liquid-cooling-in-mainstream-data-centers_wp.pdf) · `page_reviewed` · [local note](../research/sources/E709C9E5196.md)
 - [EE136EB8E02 — Open Compute Project — Cold Plate workstream](https://www.opencompute.org/wiki/Cooling_Environments/Cold_Plate) · `public_excerpt_reviewed` · [local note](../research/sources/EE136EB8E02.md)
+- [EFE70308E0A — Vertiv — Deploying Liquid Cooling in the Data Center](https://prod.vertiv.cn/4a9616/globalassets/documents/white-papers/liquid-cooling/vertiv-liquidcooling-wp-en-na-sl-71113-web.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/EFE70308E0A.md)
 
 <a id="d11"></a>
 
@@ -1027,7 +1027,7 @@ Distinguish dry cooling, refrigeration, evaporative rejection and economizer ope
 
 **Assessment:** Trace four reference heat paths and identify where electricity and water enter each.
 
-**Existing baseline:** partial. `outdoor-rejection` — Moving heat adds heat.
+**Historical introduction coverage:** partial. `outdoor-rejection` — Moving heat adds heat.
 
 #### D11.2
 
@@ -1035,7 +1035,7 @@ Close a declared chiller energy balance and calculate cooling COP with the corre
 
 **Assessment:** Given cooling duty and compressor input, calculate COP and condenser heat; place pumps and fans at their stated boundaries.
 
-**Existing baseline:** partial. `outdoor-rejection` — Moving heat adds heat.
+**Historical introduction coverage:** partial. `outdoor-rejection` — Moving heat adds heat.
 
 #### D11.3
 
@@ -1043,7 +1043,7 @@ Explain how ambient conditions, supply temperatures and equipment performance co
 
 **Assessment:** Use supplied equipment curves and weather bins to compare two operating modes without applying a universal free-cooling threshold.
 
-**Existing baseline:** missing. No existing lesson mapped.
+**Historical introduction coverage:** missing. No existing lesson mapped.
 
 #### D11.4
 
@@ -1051,7 +1051,7 @@ Compute energy and water metrics with explicit boundaries and distinguish consum
 
 **Assessment:** Compare two scenarios over the same period using stated facility/IT energies and water accounting; explain what PUE and WUE omit.
 
-**Existing baseline:** partial. `facility-overhead` — Budget the whole facility.
+**Historical introduction coverage:** partial. `facility-overhead` — Budget the whole facility.
 
 #### D11.5
 
@@ -1059,7 +1059,7 @@ Evaluate cooling architecture or heat reuse against climate, water, electrical c
 
 **Assessment:** Compare a hot-weather and a water-constrained site using a supplied design brief; identify what changes the preferred choice.
 
-**Existing baseline:** missing. No existing lesson mapped.
+**Historical introduction coverage:** missing. No existing lesson mapped.
 
 **Visual plan: The heat balance meets the weather**
 
@@ -1109,9 +1109,9 @@ Make spatial, environmental, access and safety constraints visible before treati
 
 Translate a reference equipment layout into space, weight, access and replacement-route requirements.
 
-**Assessment:** Reject a synthetic rack/plant layout that fits in area but fails a supplied loading or service-access constraint.
+**Assessment:** Reject a synthetic layout that fits in area but fails a loading or service-access constraint. Distinguish freed rack units, occupied white/grey space and total facility footprint when equipment moves.
 
-**Existing baseline:** missing. No existing lesson mapped.
+**Historical introduction coverage:** missing. No existing lesson mapped.
 
 #### D12.2
 
@@ -1119,7 +1119,7 @@ Identify site hazards and permitting interfaces that require location-specific e
 
 **Assessment:** Build a siting risk register for two hypothetical locations and distinguish generic questions from verified local requirements.
 
-**Existing baseline:** missing. No existing lesson mapped.
+**Historical introduction coverage:** missing. No existing lesson mapped.
 
 #### D12.3
 
@@ -1127,7 +1127,7 @@ Explain how fire, electrical, fluid and stored-energy hazards influence layout a
 
 **Assessment:** Annotate a conceptual layout with required specialist reviews and separation/access questions without presenting it as a compliant design.
 
-**Existing baseline:** missing. No existing lesson mapped.
+**Historical introduction coverage:** missing. No existing lesson mapped.
 
 #### D12.4
 
@@ -1135,7 +1135,7 @@ Trace physical and control-system access boundaries and explain why availability
 
 **Assessment:** Identify a shared access or control dependency in a supplied facility/tenant interface diagram.
 
-**Existing baseline:** missing. No existing lesson mapped.
+**Historical introduction coverage:** missing. No existing lesson mapped.
 
 **Visual plan: The schematic has to fit somewhere**
 
@@ -1163,6 +1163,8 @@ Trace physical and control-system access boundaries and explain why availability
 - [E95181BB427 — USGS: What is seismic hazard?](https://www.usgs.gov/faqs/what-seismic-hazard-what-a-seismic-hazard-map-and-how-are-they-used) · `page_reviewed` · [local note](../research/sources/E95181BB427.md)
 - [E013A66FA9A — NIST SP 800-82 Revision 3: OT Security](https://csrc.nist.gov/pubs/sp/800/82/r3/final) · `public_excerpt_reviewed` · [local note](../research/sources/E013A66FA9A.md)
 - [EDEEDB16DDE — OSHA 1910.333: Electrical work practices](https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.333) · `public_excerpt_reviewed` · [local note](../research/sources/EDEEDB16DDE.md)
+- [E7A716A810E — Leviton — Data center white space and gray space](https://leviton.com/support/literature/newsletters/insider/insideroctober2025/focusedproductoctober2025) · `page_reviewed` · [local note](../research/sources/E7A716A810E.md)
+- [EFE70308E0A — Vertiv — Deploying Liquid Cooling in the Data Center](https://prod.vertiv.cn/4a9616/globalassets/documents/white-papers/liquid-cooling/vertiv-liquidcooling-wp-en-na-sl-71113-web.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/EFE70308E0A.md)
 
 <a id="d13"></a>
 
@@ -1190,7 +1192,7 @@ Build a dependency-based delivery plan and distinguish a critical path from the 
 
 **Assessment:** Sequence a synthetic project with parallel procurement, utility work, installation and testing; identify which delay changes service availability.
 
-**Existing baseline:** missing. No existing lesson mapped.
+**Historical introduction coverage:** missing. No existing lesson mapped.
 
 #### D13.2
 
@@ -1198,7 +1200,7 @@ Track interface requirements across vendors and design changes.
 
 **Assessment:** Diagnose a rack/CDU or power/control interface mismatch before equipment shipment and state the acceptance evidence required.
 
-**Existing baseline:** missing. No existing lesson mapped.
+**Historical introduction coverage:** missing. No existing lesson mapped.
 
 #### D13.3
 
@@ -1206,7 +1208,7 @@ Distinguish installed, energized, individually tested, integrated-tested and ser
 
 **Assessment:** Classify supplied milestone evidence and identify which complete electrical, thermal and information paths remain unproven.
 
-**Existing baseline:** partial. `capacity-stages` — Connected is a milestone.; `abilene-case` — Read a real headline precisely.
+**Historical introduction coverage:** partial. `capacity-stages` — Connected is a milestone.; `abilene-case` — Read a real headline precisely.
 
 #### D13.4
 
@@ -1214,7 +1216,7 @@ Specify an integrated acceptance and handover plan for a phased deployment.
 
 **Assessment:** Propose normal, failure, maintenance and recovery tests, instrumentation, acceptance criteria, records and operator handover for a synthetic phase.
 
-**Existing baseline:** missing. No existing lesson mapped.
+**Historical introduction coverage:** missing. No existing lesson mapped.
 
 **Visual plan: Only complete paths count**
 
@@ -1283,7 +1285,7 @@ Place sensors and meters so an operator can distinguish an actual constraint fro
 
 **Assessment:** Diagnose a synthetic thermal alarm using a labeled trend set; state where additional measurements are needed.
 
-**Existing baseline:** missing. No existing lesson mapped.
+**Historical introduction coverage:** missing. No existing lesson mapped.
 
 #### D14.2
 
@@ -1291,7 +1293,7 @@ Explain the difference between a device controller, a facility sequence and work
 
 **Assessment:** Trace a supplied setpoint or load change through these layers and identify the required coordination and limits.
 
-**Existing baseline:** missing. No existing lesson mapped.
+**Historical introduction coverage:** missing. No existing lesson mapped.
 
 #### D14.3
 
@@ -1299,7 +1301,7 @@ Evaluate maintainability using a procedure, surviving capacity and real isolatio
 
 **Assessment:** Walk through a synthetic maintenance plan and identify the shared dependency or restoration step that threatens service.
 
-**Existing baseline:** partial. `redundant-paths` — A second path must be useful.; `fault-domains` — Keep one fault from spreading.
+**Historical introduction coverage:** partial. `redundant-paths` — A second path must be useful.; `fault-domains` — Keep one fault from spreading.
 
 #### D14.4
 
@@ -1307,7 +1309,7 @@ Distinguish component reliability, topology claims and measured service availabi
 
 **Assessment:** Critique a naive multiplication of component availabilities and specify which correlated failures and repair assumptions are missing.
 
-**Existing baseline:** missing. No existing lesson mapped.
+**Historical introduction coverage:** missing. No existing lesson mapped.
 
 #### D14.5
 
@@ -1315,7 +1317,7 @@ Convert a failure or capacity incident into an evidence-based recovery and preve
 
 **Assessment:** Reconstruct a supplied incident timeline, separate observations from hypotheses, and propose a verification step for each corrective action.
 
-**Existing baseline:** missing. No existing lesson mapped.
+**Historical introduction coverage:** missing. No existing lesson mapped.
 
 **Visual plan: Operate the same campus**
 
@@ -1388,7 +1390,7 @@ Reconcile electrical, thermal, spatial, network and commissioned-service limits 
 
 **Assessment:** Calculate a synthetic capacity ceiling and identify tied constraints without treating it as measured operating demand.
 
-**Existing baseline:** partial. `capacity-bottleneck` — The smallest limit wins.; `facility-overhead` — Budget the whole facility.
+**Historical introduction coverage:** partial. `capacity-bottleneck` — The smallest limit wins.; `facility-overhead` — Budget the whole facility.
 
 #### D15.2
 
@@ -1396,7 +1398,7 @@ Build an auditable cost model that separates capital, energy, operations, owners
 
 **Assessment:** Compare two supplied ownership or service models over an explicit horizon with a consistent denominator and utilization scenario.
 
-**Existing baseline:** missing. No existing lesson mapped.
+**Historical introduction coverage:** missing. No existing lesson mapped.
 
 #### D15.3
 
@@ -1404,7 +1406,7 @@ Explain why cost per MW, per installed accelerator and per useful result answer 
 
 **Assessment:** Recalculate a scenario after changing throughput or utilization while leaving installed capacity constant.
 
-**Existing baseline:** partial. `useful-compute` — Watts do not measure useful work.
+**Historical introduction coverage:** partial. `useful-compute` — Watts do not measure useful work.
 
 #### D15.4
 
@@ -1412,7 +1414,7 @@ Evaluate an upgrade using sensitivity to delivery date, service output, efficien
 
 **Assessment:** Choose a synthetic power, cooling or network investment and identify the assumptions that reverse its ranking.
 
-**Existing baseline:** missing. No existing lesson mapped.
+**Historical introduction coverage:** missing. No existing lesson mapped.
 
 #### D15.5
 
@@ -1420,7 +1422,7 @@ Audit a named project's public evidence without filling unknown capacity, topolo
 
 **Assessment:** Produce a dated case ledger separating announced, designed, permitted, commissioned and observed facts; list unresolved questions.
 
-**Existing baseline:** partial. `abilene-case` — Read a real headline precisely.
+**Historical introduction coverage:** partial. `abilene-case` — Read a real headline precisely.
 
 **Visual plan: Find the constraint, then change it**
 
@@ -1560,11 +1562,11 @@ Domains: [D03](#d03), [D04](#d04), [D05](#d05), [D09](#d09), [D11](#d11), [D12](
 
 **Assessment:** Count only complete, accepted service paths for the synthetic brief; leave the named site's unestablished commissioning and demand values unknown.
 
-## Existing lesson migration
+## Historical introduction reuse
 
-Every current lesson has a proposed reuse location. These are introductory foundations, not completion evidence for the expanded course.
+Every lesson in the retained 22-lesson introduction has a reuse location. These historical mappings do not describe the current authored course or establish completion.
 
-| Current lesson | Proposed objectives |
+| Introduction lesson | Objectives |
 | --- | --- |
 | `one-rack` — One campus. Two journeys. | D01.1 |
 | `power-and-energy` — A watt is a rate. | D01.2 |
@@ -1588,50 +1590,3 @@ Every current lesson has a proposed reuse location. These are introductory found
 | `capacity-bottleneck` — The smallest limit wins. | D04.4, D15.1 |
 | `abilene-case` — Read a real headline precisely. | D01.4, D13.3, D15.5 |
 | `whole-system` — Follow the power. Close the heat path. | D01.1 |
-
-## Deliberate exclusions and re-entry conditions
-
-### Full semiconductor manufacturing and transistor/device physics
-
-CHIPS and specialist material own fabrication depth. Here packaging, devices and memory matter where they change rack and facility requirements.
-
-**Reconsider when:** Include a mechanism when it is necessary to explain a compute, electrical or thermal interface.
-
-### Detailed electrical, structural, fire or mechanical design qualification
-
-This course teaches interpretation and bounded reasoning, not stamped designs, field switching procedures or jurisdiction-wide compliance.
-
-**Reconsider when:** Teach the relevant design question and point to dated local requirements and qualified review; do not omit safety interfaces.
-
-### A complete generation-technology or electricity-market survey
-
-Depth is limited to the supply, fuel, interconnection, emissions and commercial distinctions needed for data-center decisions.
-
-**Reconsider when:** Include a supply option when it materially changes deliverability, operating behavior or project economics.
-
-### Supplier rankings, investment recommendations and exhaustive company histories
-
-The curriculum is organized around capabilities and decisions. Company detail is a dated example, not the organizing principle.
-
-**Reconsider when:** Use a sourced case when it explains a specific architecture, delivery constraint or measurable tradeoff.
-
-### Full GPU programming, model training and cloud administration tutorials
-
-Workload and software mechanisms are included to explain infrastructure behavior; implementing every software layer would be a separate course.
-
-**Reconsider when:** Include a small reproducible experiment when it tests an infrastructure learning objective.
-
-### Every enterprise/edge/telecom facility variant
-
-Modern AI facilities are the center. Conventional and retrofit configurations are taught where they establish prerequisites or meaningful alternatives.
-
-**Reconsider when:** Include a contrasting case when it changes an assumption in the central model.
-
-## Production priorities
-
-1. Prototype one electrical architecture comparison, one thermal model and one network/recovery scenario before allocating runtime.
-2. Review prerequisites and first-use vocabulary against the six-act sequence; domain IDs are stable reference IDs, not chapter numbers.
-3. Expand the seed source catalog into a dated article inventory; record access/review status, domain mappings, duplicates, exclusions and unresolved primary evidence.
-4. At lesson authoring, map each objective to exact claims, citations, original visual assets and an application assessment. A domain-level source link is not sufficient.
-5. Obtain separate electrical/facilities and cluster/network technical reviews, then rehearse dense sections with intended learners.
-6. Publish the long-form recording with navigable text, source dates, glossary, calculators and an errata location; maintain the companion when implementations change.

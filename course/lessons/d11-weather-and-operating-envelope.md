@@ -1,5 +1,7 @@
 # The weather changes two constraints at once
 
+Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/heat-delivery-operations.json), lesson `d11-weather-and-operating-envelope`, then run `uv run gigawatt-expand`.
+
 **D11 · Authored draft · Objectives:** D11.1, D11.3, D11.5
 
 Use an explicitly synthetic operating table to connect ambient conditions, cooling input and a fixed site power ceiling.

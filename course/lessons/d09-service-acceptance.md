@@ -1,5 +1,7 @@
 # Turn installed hardware into an accepted service
 
+Generated reading view. Edit [`course/expansion/racks-compute-heat.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/racks-compute-heat.json), lesson `d09-service-acceptance`, then run `uv run gigawatt-expand`.
+
 **D09 · Authored draft · Objectives:** D09.3, D09.4, D09.2
 
 Connect scheduling, provisioning, isolation and observability to a reproducible end-to-end acceptance exercise.

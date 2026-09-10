@@ -2,72 +2,64 @@
 
 **From watts to racks, useful compute, and operation.**
 
-[Read the course](course/index.html) · [Explore the 800 V sample](course/sample.html) · [Teach](course/teach.html)
-· [Domain atlas](course/domain-map.html) · [Research library](research/INDEX.md)
+[Read the course](course/index.html) · [Explore the 800 V sample](course/sample.html)
+· [Teach](course/teach.html) · [Domain atlas](course/domain-map.html)
+· [Research library](research/INDEX.md)
 
-GIGAWATT is an authored draft of a visual reference course on modern AI data
-centers. Its 50 lessons cover 15 connected domains and five integrated cases:
-grid interruption, hot-weather capacity, a dense-rack retrofit, a stalled job,
-and phased service acceptance. Each lesson includes developed explanations,
-a solved example, a tradeoff, a failure or limit, and changed-scenario practice.
-All 65 domain objectives have authored teaching and practice mappings.
+## Start with the filled-in template
 
-The reader combines five original GPT ImageGen equipment illustrations with
-eight kinds of numerical interaction, searchable lessons, a 140-term glossary,
-source reading boundaries, and worked-answer reveals. Exact calculations are
-rendered in code; illustrative equipment geometry never establishes a rating
-or a buildable design. The [22-lesson introduction](diagram/index.html) remains
-available for its compact SVG experiments.
+[COURSE_REVIEW.md](course/COURSE_REVIEW.md) is this course's **filled-in
+freeCodeCamp template**. It owns the audience, scope, outcomes, companion design,
+production priorities and review gates. Start there when deciding what the
+course should become.
 
-**The encyclopedic survey is an anti-pattern.** Articles inform questions and
-evidence; they do not earn chapters automatically. Runtime is determined by
-explanation, practice and rehearsal. The roughly 51,000 words in this draft do
-not establish a recorded duration, learner comprehension or engineering review.
+The reusable original remains in the YouTube repository:
+[course-review-template.md](https://github.com/kiankyars/youtube/blob/main/freecodecamp/course-review-template.md).
+The original is a blank format; the filled-in file here holds GIGAWATT's decisions.
 
-## Teach, present, and read
+| When changing…                                                  | Edit this owner                                                                                |
+| --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| Course promise, scope, companion or production status           | [Filled-in template](course/COURSE_REVIEW.md)                                                  |
+| Detailed objectives, prerequisites, sequence or capstone briefs | [domain-map.json](course/domain-map.json)                                                      |
+| How lessons, visuals, models and evidence should be authored    | [TEACHING_STANDARD.md](course/TEACHING_STANDARD.md)                                            |
+| An explanation, worked example, assessment or presentation beat | [Lesson sources](course/README.md)                                                             |
+| Source identity, review scope or domain mapping                 | [research-sources.json](course/research-sources.json); [research workflow](research/README.md) |
+| Presenter controls or dry-run procedure                         | [PRESENTING.md](course/PRESENTING.md)                                                          |
 
-The [student sample](course/sample.html) offers visual steps and optional
-explanations. The separate [teaching endpoint](course/teach.html) enables presenter
-controls and synchronized notes. Kian will teach an unrecorded dry run first to
-identify gaps, then refine the explanation before recording. The eight-step
-sample compares 480 V three-phase AC with 800 V DC, then holds the final DC load
-fixed and calculates how conversion losses affect feeder current, conductor heat
-and required facility input. [Dry-run workflow](course/PRESENTING.md).
+The domain map implements the template's scope. Generated Markdown and HTML
+are reading views, not additional design authorities. Research notes preserve
+evidence; they do not add curriculum requirements. Technical checks live in
+[TESTING.md](course/TESTING.md), separately from the template's review decisions.
 
-The 50-lesson reader is the study/reference companion. Only the sample currently
-has a deliberately authored presentation sequence; the remaining lessons need
-that adaptation and rehearsal before recording.
+## Current state
 
-## Run and edit
+The expanded reader contains 50 authored lessons across 15 domains, including
+five integrated cases, with teaching and practice mapped to all 65 objectives.
+It includes searchable text, a glossary, eight numerical model types and five
+original GPT ImageGen equipment illustrations. Exact calculations use code;
+illustrative geometry does not establish equipment ratings.
+
+The ten-step 480 V AC / 800 V DC sample has separate student, teaching and
+presenter-note views. It makes copper and conversion placement visible, then
+compares current, losses and a changed load. The full-course presentation
+adaptation, external engineering review and learner dry runs remain pending.
+Authored coverage and passing builds do not establish comprehension or runtime.
+
+**The encyclopedic survey is an anti-pattern:** articles inform evidence and
+questions; they do not automatically earn chapters. The template states the
+course's scope and the teaching standard defines the depth each lesson needs.
+
+## Build and verify
 
 ```sh
 uv run gigawatt-expand
 uv run gigawatt-research build --include-candidates
 uv run gigawatt-map
-python3 -m http.server 8765
+uv run python -m http.server 8765
 ```
 
-Open [the local reader](http://localhost:8765/course/index.html). Its styles,
-lesson data and code are embedded; the five PNG illustrations are local assets.
-No account or remote runtime dependency is needed to read or use the models.
-
-- `course/expansion/` contains editable lesson records and the review sample.
-- `course/web/reader.*` and `reader-models.js` contain the reader and exact models.
-- `course/web/presentation.*` contains the visual sample and separate notes console.
-- `course/assets/` contains generated illustrations, their prompts and limits.
-- `gigawatt-expand` generates the reader, standalone Markdown lessons, the full
-  manuscript, glossary, objective mapping and an edition manifest.
-- `course/research-sources.json` owns source identity and domain mappings;
-  each authored lesson also records the specific claim and reading boundary.
-- `course/domain-map.json` owns the learner capabilities and prerequisite order.
-- [COURSE_REVIEW.md](course/COURSE_REVIEW.md) owns the production review.
-
-Generated files are not editing targets. The old `course/lessons.json` and
-`course/web/course.*` continue to own the compact introduction, built with
-`gigawatt-build`. The domain atlas's partial/missing labels describe that
-historical introductory baseline, not the new authored coverage.
-
-## Verify and publish
+Open [the local reader](http://localhost:8765/course/index.html). Editable inputs
+and their outputs are listed in the [source index](course/README.md).
 
 ```sh
 uv run gigawatt-build --check
@@ -79,19 +71,12 @@ node --test tests/*.test.mjs
 git diff --check
 ```
 
-[TESTING.md](course/TESTING.md) records browser and model checks, including what
-they do not establish. GitHub Pages validates generated artifacts and publishes
-the reader, sample, local assets, introduction and reference documents when
-`main` changes. Old introductory lesson hashes retain their route.
-
-External engineering review, learner rehearsal, the recorded script and final
-video legibility remain pending. The [first sample review](course/REVIEW_HELP.md)
-identified text crowding and an unclear recording workflow; the revised format
-awaits further review. No expert or learner sign-off is implied.
-The public course is [GIGAWATT](https://kiankyars.github.io/gigawatt/).
-
-The research library includes SemiAnalysis and primary references. It stores
-original notes, claims and citations, with access limitations recorded; it does
-not collect whole copyrighted articles or treat any publisher as final truth.
-Earlier ledgers and engineering maps remain in `evidence/` and `diagram/` as
-dated references. Retired experimental players remain in Git history.
+GitHub Pages validates and publishes changes to `main` at
+[GIGAWATT](https://kiankyars.github.io/gigawatt/).
+The [retained 22-lesson introduction](diagram/index.html) and old lesson hashes
+remain accessible. The map's `baseline_coverage` and `baseline_lessons` fields
+refer only to that historical introduction; the expanded manuscript reports
+[current authored coverage](course/EXPANDED_COURSE.md#objective-to-lesson-coverage).
+Earlier `evidence/` ledgers and `diagram/` engineering maps remain dated research
+references. Retired course-design documents and experimental players are in Git
+history; their published document paths point to the consolidated guidance.

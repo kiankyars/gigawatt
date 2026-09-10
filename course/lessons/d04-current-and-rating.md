@@ -1,5 +1,7 @@
 # Kilowatts do not fill a kilovolt-ampere nameplate
 
+Generated reading view. Edit [`course/expansion/foundations-power.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/foundations-power.json), lesson `d04-current-and-rating`, then run `uv run gigawatt-expand`.
+
 **D04 · Authored draft · Objectives:** D04.2
 
 Move backward from a required DC output through conversion efficiency, apparent power, and three-phase current, preserving every denominator.

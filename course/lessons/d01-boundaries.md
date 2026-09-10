@@ -1,14 +1,18 @@
 # One rack, three paths
 
+Generated reading view. Edit [`course/expansion/foundations-power.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/foundations-power.json), lesson `d01-boundaries`, then run `uv run gigawatt-expand`.
+
 **D01 · Authored draft · Objectives:** D01.1, D01.3
 
-Trace electricity, heat, and information through a nested system, then close a facility energy balance without counting any load twice.
+Locate white and grey space, trace electricity, heat, and information, then close a facility energy balance without counting any load twice.
 
 **Driving question:** What crosses the boundary of a working data center?
 
 ## Start with a place, then trace a connection
 
 Imagine standing in front of a rack: a cabinet holding computing equipment and the hardware that supports it. A server is a computer inside that cabinet; a board connects components inside a server; a package contains one or more semiconductor dies. A row holds several racks, a hall several rows, a building one or more halls, and a campus one or more buildings plus shared infrastructure. These are locations nested inside locations. None of those words specifies a universal power requirement.
+
+Two floor-plan terms help locate those systems. White space is the area housing IT equipment and its immediate support infrastructure. Grey space, also spelled gray space, is the supporting electrical, mechanical, and service area outside the IT hall, such as an electrical room or mechanical gallery. These labels describe areas in a particular layout. They are not equipment categories: a power shelf or a cooling distribution unit can occupy white space when installed with the racks.
 
 Now draw three paths through the same picture. Electrical energy arrives through conductors and conversion equipment. Heat leaves through air, liquid, and heat-transfer equipment. Information arrives, moves between machines, and leaves through communication links. Their arrows mean different things. Coolant circulates around a loop; heat crosses an exchanger between separate loops. Data may travel both ways along a link while electrical energy continues to enter the associated equipment. Giving each arrow a clear meaning prevents an attractive drawing from teaching a false connection.
 
@@ -27,6 +31,8 @@ The word approximately matters. Stored electrical energy and warming material ca
 A second analyst adds 1,000 kW of rack power, 80 kW of rack power-supply losses, and the 100 kW networking load. The sum is wrong if the 1,000 kW was measured at rack inlets: the supplies already consume their power inside that boundary. Their 80 kW is an internal allocation of the rack total. It becomes an extra term only if the stated 1,000 kW was delivered downstream of the supplies. One changed meter location changes the arithmetic, even though all the equipment names remain identical.
 
 A detailed ledger is more work than one campus number, but it allows a useful question: did an improvement reduce electrical losses, cooling overhead, or the energy required per completed task? Those are different mechanisms. Reducing rack input by 100 kW normally reduces the corresponding heat source, whereas merely moving a converter outside the rack moves a heat-accounting boundary. A visually smaller rack loss does not prove that the facility uses less energy.
+
+Try a location check before claiming a space saving. A converter moves out of the rack into a cabinet beside it. Rack mounting space may be released, but the sidecar still occupies white-space floor area. Move the converter into a separate electrical room and it occupies grey space instead. To claim a smaller facility footprint, compare both layouts, their service access, and their replacement routes. Moving a box across a boundary changes its address; it does not prove that its total space or energy requirement vanished.
 
 Test yourself by removing the cooling power arrow while leaving IT electricity connected. The diagram should not imply continued indefinite operation. The rack remains an active heat source without a complete removal path. The immediate temperature history requires thermal storage, flow, controls, and equipment limits that this ledger does not contain. We can identify the missing dependency without inventing a shutdown time. That habit will carry through every later electrical and thermal comparison.
 
@@ -63,14 +69,14 @@ Response: Identify the unsupported thermal path and require a thermal model befo
 
 ## Apply the idea
 
-If 80 kW of the ten racks’ measured input is internal supply loss, should facility power become 1,400 kW?
+If 80 kW of the ten racks’ measured input is internal supply loss, should facility power become 1,400 kW? Separately, sketch an IT hall and its supporting electrical room. A rack converter moves to a cabinet beside the rack, then to that room. Label white and grey space at each step. Has either move established lower facility power or a smaller building?
 
 <details>
 <summary>Reveal the worked answer</summary>
 
-No. It remains 1,320 kW.
+No. It remains 1,320 kW. The rack and adjacent cabinet occupy white space; the separate electrical room is grey space. Neither move alone establishes lower facility power or a smaller building.
 
-The 80 kW is part of the 1,000 kW rack inlet total. Add it separately only when starting from a downstream power boundary that excludes it.
+The 80 kW is part of the 1,000 kW rack inlet total. Add it separately only when starting from a downstream power boundary that excludes it. Area labels locate equipment. Placement does not remove its electrical load, and freeing a rack slot does not account for the new cabinet, room, access or cable routes.
 
 </details>
 
@@ -80,3 +86,5 @@ The 80 kW is part of the 1,000 kW rack inlet total. Add it separately only when 
 
 - [EIA — Laws of energy](https://www.eia.gov/energyexplained/what-is-energy/laws-of-energy.php) — Energy changes form rather than disappearing; the ledger uses conservation. Read 2026-09-06. Read the public energy-conservation explanation. The campus quantities and deductions are original hypothetical examples.
 - [DOE — Best Practices Guide for Energy-Efficient Data Center Design](https://www.energy.gov/sites/default/files/2024-07/best-practice-guide-data-center-design_0.pdf) — Data-center accounting separates IT, electrical, and cooling systems. Read 2026-09-06. Read the guide overview and relevant system/metrics material; no named facility configuration or operating measurement is inferred.
+- [Leviton — Data center white space and gray space](https://leviton.com/support/literature/newsletters/insider/insideroctober2025/focusedproductoctober2025) — White space houses IT; gray space describes supporting back-of-house infrastructure. Read 2026-09-10. Reviewed the White Space and Gray Space definitions under Leviton Solutions for Data Centers. These are area conventions, not a rule assigning every power or cooling device to one room type.
+- [Vertiv — Deploying Liquid Cooling in the Data Center](https://prod.vertiv.cn/4a9616/globalassets/documents/white-papers/liquid-cooling/vertiv-liquidcooling-wp-en-na-sl-71113-web.pdf) — Cooling equipment may occupy white space or a grey-space mechanical gallery; service and replacement need room in either location. Read 2026-09-10. Reviewed Designing Mechanical Space, printed pages 14–15, and the space-use discussion on page 13. No equipment clearance, floor rating, or universal footprint saving is taken from this example.

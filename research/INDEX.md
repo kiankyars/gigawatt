@@ -65,6 +65,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [DISC_fd6c8ff4f8675c14 — tesla ai capacity expansion h100](sources/DISC_fd6c8ff4f8675c14.md) | SemiAnalysis | D15 | candidate_not_reviewed |
 | [DISC_ff78da811faa2482 — amd vs nvidia inference benchmark who wins performance cost per million tokens](sources/DISC_ff78da811faa2482.md) | SemiAnalysis | D02, D15 | candidate_not_reviewed |
 | [E013A66FA9A — NIST SP 800-82 Revision 3: OT Security](sources/E013A66FA9A.md) | csrc.nist.gov | D12, D14 | public_excerpt_reviewed |
+| [E0410763323 — DOE — Solar Integration: Distributed Energy Resources and Microgrids Basics](sources/E0410763323.md) | www.energy.gov | D03, D05 | page_reviewed |
 | [E0814EDF226 — Vertiv — BESS and UPS roles in large data center power architecture](sources/E0814EDF226.md) | www.vertiv.com | D02, D05 | page_reviewed |
 | [E0CDE775C43 — NVIDIA DGX SuperPOD — Software](sources/E0CDE775C43.md) | docs.nvidia.com | D09 | page_reviewed |
 | [E134D3535CB — Matrix Multiplication Background User’s Guide](sources/E134D3535CB.md) | docs.nvidia.com | D07 | page_reviewed |
@@ -79,6 +80,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [E2E0C218DA7 — Asynchronous Saving with Distributed Checkpoint](sources/E2E0C218DA7.md) | docs.pytorch.org | D09 | page_reviewed |
 | [E320A75F233 — NVIDIA H100 SuperPOD: Planning a Data Center Deployment](sources/E320A75F233.md) | docs.nvidia.com | D12 | page_reviewed |
 | [E37FE7B98A1 — Schneider Electric — Easy UPS 3-Phase Modular 50–250 kW: UPS Modes](sources/E37FE7B98A1.md) | Schneider Electric | D05 | page_reviewed |
+| [E38B3BEAAC1 — NARUC — Regulators’ Financial Toolbox: Behind-the-Meter Energy Storage](sources/E38B3BEAAC1.md) | pubs.naruc.org | D03, D05 | public_excerpt_reviewed |
 | [E3F4CB1B7FF — DOE — Best Practices Guide for Energy-Efficient Data Center Design](sources/E3F4CB1B7FF.md) | www.energy.gov | D01, D04 | page_reviewed |
 | [E45AB7B1BC1 — Schneider Electric — Installed apparent power](sources/E45AB7B1BC1.md) | www.electrical-installation.org | D03, D04 | page_reviewed |
 | [E4ABDC02D45 — NVIDIA DGX SuperPOD — Network Fabrics](sources/E4ABDC02D45.md) | docs.nvidia.com | D07, D08 | page_reviewed |
@@ -90,6 +92,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [E709C9E5196 — ASHRAE — Emergence and Expansion of Liquid Cooling in Mainstream Data Centers](sources/E709C9E5196.md) | www.ashrae.org | D10 | page_reviewed |
 | [E71B82C307F — Google SRE: Monitoring Distributed Systems](sources/E71B82C307F.md) | sre.google | D14 | page_reviewed |
 | [E775A7D4E10 — OpenAI: Five new Stargate sites](sources/E775A7D4E10.md) | openai.com | D15 | page_reviewed |
+| [E7A716A810E — Leviton — Data center white space and gray space](sources/E7A716A810E.md) | leviton.com | D01, D12 | page_reviewed |
 | [E7B9A3E66DB — Google SRE: Service Level Objectives](sources/E7B9A3E66DB.md) | sre.google | D14 | page_reviewed |
 | [E80C73CE756 — Scaling AI Factories with Co-Packaged Optics for Better Power Efficiency](sources/E80C73CE756.md) | developer.nvidia.com | D08 | page_reviewed |
 | [E836C561209 — Schneider Electric — Why Two Cords Do Not Guarantee Power Redundancy to an IT Device](sources/E836C561209.md) | Schneider Electric | D05, D06 | page_reviewed |
@@ -116,6 +119,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [EE53DCAF5E1 — Uptime Institute — Myths and Misconceptions Regarding the Tier Certification System](sources/EE53DCAF5E1.md) | Uptime Institute | D05, D14 | public_excerpt_reviewed |
 | [EEFB073374C — NIST Handbook 135, 2025: Life Cycle Costing Manual](sources/EEFB073374C.md) | nvlpubs.nist.gov | D15 | page_reviewed |
 | [EFB703CFC3D — Schneider Electric — PM2200 total power calculation for accuracy verification](sources/EFB703CFC3D.md) | Schneider Electric | D01, D04, D06 | page_reviewed |
+| [EFE70308E0A — Vertiv — Deploying Liquid Cooling in the Data Center](sources/EFE70308E0A.md) | prod.vertiv.cn | D01, D10, D12 | public_excerpt_reviewed |
 | [P01 — Best Practices Guide for Energy-Efficient Data Center Design](sources/P01.md) | U.S. Department of Energy, Federal Energy Management Program | D01, D04, D10, D11, D15 | page_reviewed |
 | [P02 — Commissioning & Performance Validation \| AI Data Center Energy Performance Framework](sources/P02.md) | ASHRAE | D01, D03, D04, D05, D09, D10, D12, D13, D14, D15 | page_reviewed |
 | [P03 — Management and Operations Guideline](sources/P03.md) | Uptime Institute | D05, D13, D14 | page_reviewed |

@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[2]
 def stage(root=ROOT, destination=None):
     destination = destination or root / "_site"
     destination.mkdir(parents=True, exist_ok=True)
-    paths = [Path("README.md"), Path("STRATEGY.md"), Path("diagram/index.html")]
+    paths = [Path("README.md"), Path("diagram/index.html")]
     for directory in ("course", "research"):
         paths.extend(p.relative_to(root) for p in (root / directory).glob("*.md"))
         paths.extend(p.relative_to(root) for p in (root / directory).glob("*.json"))
@@ -50,6 +50,19 @@ location.replace((legacy.has(id)?"diagram/index.html":"course/index.html")+locat
     )
     for name in aliases:
         (destination / name).write_text(redirect, encoding="utf-8")
+    retired_docs = {
+        "STRATEGY.md": "course/COURSE_REVIEW.md",
+        "course/COMPANION.md": "COURSE_REVIEW.md#companion-experience",
+        "course/REVIEW_HELP.md": "PRESENTING.md",
+        "course/expansion/AUTHORING.md": "../TEACHING_STANDARD.md",
+    }
+    for old_path, replacement in retired_docs.items():
+        target = destination / old_path
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(
+            f"# This document has moved\n\nRead the [consolidated guidance]({replacement}).\n",
+            encoding="utf-8",
+        )
     (destination / ".nojekyll").touch()
     return destination
 

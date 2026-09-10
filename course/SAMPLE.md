@@ -1,5 +1,7 @@
 # 800 V DC: less copper, room for compute
 
+Generated reading view. Edit [`course/expansion/sample.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/sample.json), lesson `sample-800v`, then run `uv run gigawatt-expand`.
+
 **D06 · Authored draft · Objectives:** D06.2, D06.3
 
 Make copper quantity visible at equal delivered power, then trace where conversion equipment moves. Use current and loss calculations to distinguish material, space and efficiency claims before testing a higher-load case.
