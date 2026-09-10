@@ -257,3 +257,33 @@ input energy. The reading calculator uses the same AC/DC conductor model.
 The earlier test records above describe earlier iterations. Current report and
 screenshots are in `qa/presentation/`. Comprehension and spoken delivery still
 require Kian's unrecorded rehearsal.
+
+## Copper, space and course-wide teaching standard — 2026-09-09
+
+The sample now has ten scenes. A copper comparison precedes current and heating;
+the architecture sequence marks released rack space and relocated conversion;
+a changed-load exercise follows the complete-path energy counterexample.
+
+- 38 Python tests and 22 JavaScript numerical tests passed. The new numerical
+  check confirms 200 kW at 800 V gives 250 A and 1.25 kW conductor heat at
+  10 mΩ per conductor. The model does not establish equipment capacity.
+- 160 browser layout states and 50 student explanation expansions passed.
+  All five solid copper bars have equal rendered width and height, with three
+  in the AC bundle and two in DC. The revealed material reduction is 33.3%
+  under the visible geometry assumptions.
+- The final question hides its calculated current/heat and capacity conclusion
+  until reveal. Its answer synchronizes to the separate notes window. Existing
+  current, loss, complete-path reversal, sliders, keyboard, fullscreen, student
+  mode separation and legacy hash checks remain covered.
+- Desktop and phone copper, capacity, sidecar and power-room diagrams were
+  visually inspected. No overflow or clipped labels was found, including the
+  ten-step mobile navigation. Report and captures remain in `qa/presentation/`.
+- The builder now validates a learning contract, teaching roles, timing totals
+  and aliases without a fixed sequence length. The new teaching standard maps
+  adaptation work across all domains; it does not claim those presentations exist.
+
+Rehearsal allocations were subsequently increased to allow explanation and
+predictions; approximately fifteen minutes is a provisional allowance, not a
+measured duration. Learner comprehension and spoken delivery remain unverified
+until the revised dry run. The other 50 reading lessons and the persistent
+functional BOM remain pending adaptation.

@@ -1,6 +1,6 @@
 # Course review
 
-Planning review updated **2026-09-08**, instantiated from the [freeCodeCamp course review template](https://github.com/kiankyars/youtube/blob/main/freecodecamp/course-review-template.md) and its [evidence-based improvement system](https://github.com/kiankyars/youtube/blob/main/freecodecamp/improvement-system.md). The expanded course now has 50 authored lessons, five solved capstones, five ImageGen illustrations and eight interactive model types. This is a draft review, not a completed recording review. All release gates remain open.
+Planning review updated **2026-09-09**, instantiated from the [freeCodeCamp course review template](https://github.com/kiankyars/youtube/blob/main/freecodecamp/course-review-template.md) and its [evidence-based improvement system](https://github.com/kiankyars/youtube/blob/main/freecodecamp/improvement-system.md). The expanded course now has 50 authored lessons, five solved capstones, five ImageGen illustrations and eight interactive model types. This is a draft review, not a completed recording review. All release gates remain open.
 
 ## Learner contract
 
@@ -67,7 +67,7 @@ review, demonstrated learner comprehension or complete source-corpus audit is cl
 **Validation available so far.** The [testing record](TESTING.md) distinguishes
 the prior introduction review from the expanded reader's model, build and
 browser checks. Kian’s initial feedback identified too much text and an unclear
-recording workflow. The [teaching sample](teach.html) now uses eight visual steps with
+recording workflow. The [teaching sample](teach.html) now uses ten visual steps with
 separate presenter notes and a reading companion. Rehearsal and review of this
 revised format remain pending; see [REVIEW_HELP.md](REVIEW_HELP.md).
 External specialist review, final narration, recording settings and export
@@ -122,3 +122,19 @@ Follow the [improvement system](https://github.com/kiankyars/youtube/blob/main/f
 ## Added coverage question — UPS redundancy
 
 **2026-09-08:** Can a learner distinguish N, N+1, N+2, 2N and 2(N+1), then test surviving capacity and path independence during maintenance plus a fault? The [redundancy coverage audit](../research/redundancy-coverage-review.md) finds useful N+1 and common-dependency foundations, but missing N+2/2(N+1), UPS bypass and single-corded interface teaching, and no complete redundancy presentation or transfer assessment. Add the bounded comparison and exercise before treating D05.3 as complete.
+
+## Generalize the revised teaching sample — 2026-09-09
+
+The 800 V sequence now begins with a physical copper comparison and makes
+released compute-rack space visible as conversion moves. Current, conductor heat
+and complete-path efficiency remain separate accounts. It ends with a 200 kW
+changed-load question, not the hypothetical energy-saving number.
+
+[TEACHING_STANDARD.md](TEACHING_STANDARD.md) turns these revisions into a
+reusable learning contract and a domain-by-domain adaptation plan. The authoring
+builder checks the declared problem, mechanism and transfer roles, separate
+notes, text budgets and timing totals; it no longer enforces eight scenes.
+Only the sample is implemented in this format. The other 50 reading lessons,
+the persistent functional BOM and the UPS teaching sequence remain to be adapted.
+A dry run is still needed to establish whether the revised sample resolves the
+confusion before repeating its specific visual choices across the course.

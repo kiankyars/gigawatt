@@ -26,7 +26,7 @@ The [domain map](DOMAIN_MAP.md) currently organizes 65 objectives into 15 domain
 
 The default [student sample](sample.html), [teaching endpoint](teach.html) and
 separate presenter notes implement these surfaces. Kian will first teach an
-unrecorded dry run to identify gaps before preparing the recording. Its eight visual steps were
+unrecorded dry run to identify gaps before preparing the recording. Its ten visual steps were
 authored deliberately; the other 50 lesson texts remain reading material pending
 presentation adaptation. [PRESENTING.md](PRESENTING.md) describes the recording
 workflow and the contract for converting later lessons. A long scrolling page

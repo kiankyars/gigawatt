@@ -241,6 +241,152 @@ h1 {
   margin: 20px 0 0;
   line-height: 1.2;
 }
+.hero-goal {
+  display: block;
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 15px;
+}
+.copper-bundle {
+  display: grid;
+  gap: 22px;
+  margin: 26px 12px 20px 0;
+}
+.copper-row {
+  display: grid;
+  grid-template-columns: 26px 1fr;
+  gap: 14px;
+  align-items: center;
+  height: 25px;
+}
+.copper-row span {
+  font-size: 13px;
+  font-weight: 700;
+}
+.copper-bar {
+  display: block;
+  height: 23px;
+  position: relative;
+  background: linear-gradient(
+    180deg,
+    #f5bd8c 0%,
+    #c7804b 25%,
+    #ba6b34 70%,
+    #995027 100%
+  );
+  box-shadow:
+    0 5px 0 #754020,
+    0 9px 12px #0002;
+  border: 1px solid #a35d30;
+  border-radius: 2px;
+}
+.copper-bar::after {
+  content: "";
+  position: absolute;
+  inset: 2px 0 2px auto;
+  width: 8px;
+  border-left: 1px solid #7a421e;
+  background: #d38c55;
+}
+.copper-removed {
+  color: #b8d5cb;
+}
+.copper-removed i {
+  display: block;
+  height: 23px;
+  border: 1px dashed #86a79c;
+  border-radius: 2px;
+}
+.copper-quantity {
+  margin: 0;
+  font-size: 16px;
+}
+.copper-quantity strong {
+  font-size: 30px;
+  font-weight: 500;
+  margin-right: 6px;
+}
+.copper-result,
+.capacity-result {
+  display: grid;
+  gap: 8px;
+  text-align: center;
+}
+.copper-result strong,
+.capacity-result strong {
+  font:
+    clamp(23px, 2.6vw, 39px) Georgia,
+    serif;
+  color: var(--teal);
+}
+.copper-result span,
+.capacity-result span {
+  font-size: 14px;
+  color: var(--muted);
+}
+.rack-space {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border: 1px dashed var(--teal);
+  border-radius: 6px;
+  background: #e5f0e3;
+  font-size: 12px;
+  color: #256053;
+}
+.rack-space.occupied {
+  background: #fff1d8;
+  border: 1px solid #bc9358;
+  color: #754a16;
+}
+.capacity-table {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fffefa;
+}
+.capacity-row {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  align-items: stretch;
+}
+.capacity-row:not(:last-child) {
+  border-bottom: 1px solid var(--line);
+}
+.capacity-row > * {
+  padding: 13px 24px;
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+}
+.capacity-row > span {
+  font-size: clamp(16px, 1.7vw, 25px);
+  align-items: center;
+}
+.capacity-row > strong {
+  justify-content: flex-end;
+  font-size: clamp(24px, 2.9vw, 40px);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+.capacity-row > strong:last-child {
+  background: var(--ink);
+  color: #fffefa;
+}
+.capacity-row small {
+  font-size: 0.5em;
+}
+.capacity-row.capacity-heading > * {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted);
+}
+.capacity-heading > strong:last-child {
+  color: #b8d5cb;
+}
 .chip {
   display: inline-flex;
   padding: 8px 13px;
@@ -826,7 +972,7 @@ h1 {
     gap: 2px;
   }
   #steps button {
-    width: 29px;
+    width: 24px;
     height: 29px;
   }
   .workflow {
@@ -1105,5 +1251,32 @@ body[data-view="student"] #visual {
   }
   #student-context p {
     font-size: 16px;
+  }
+  .copper-bundle {
+    gap: 17px;
+    margin: 20px 0;
+  }
+  .copper-row {
+    grid-template-columns: 18px 1fr;
+    gap: 6px;
+  }
+  .copper-quantity {
+    font-size: 12px;
+  }
+  .copper-quantity strong {
+    font-size: 24px;
+  }
+  .capacity-row > * {
+    padding: 13px 8px;
+    gap: 2px;
+  }
+  .capacity-row > span {
+    font-size: 13px;
+  }
+  .capacity-row > strong {
+    font-size: 22px;
+  }
+  .capacity-row.capacity-heading > * {
+    font-size: 11px;
   }
 }

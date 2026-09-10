@@ -7,7 +7,21 @@ const output = resolve(process.argv[3] || "qa/presentation");
 const data = JSON.parse(
   readFileSync("course/expansion/sample-presentation.json", "utf8"),
 );
-const revealKinds = new Set(["current", "loss", "energy", "paths"]);
+const revealKinds = new Set([
+  "copper",
+  "current",
+  "loss",
+  "energy",
+  "paths",
+  "decision",
+]);
+const stepById = (id) => {
+  const step = data.steps.find((item) => item.id === id);
+  assert.ok(step, `Unknown step: ${id}`);
+  return step;
+};
+const stepSelector = (container, id) =>
+  `${container} [data-step="${data.steps.indexOf(stepById(id))}"]`;
 const near = (actual, expected) =>
   assert.ok(Math.abs(actual - expected) < 1e-9, `${actual} ≠ ${expected}`);
 let browser;
@@ -36,13 +50,15 @@ let browser;
     }, value);
   }
   const layouts = [];
-  assert.equal(data.steps.length, 8);
+  assert.equal(data.steps.length, 10);
+  assert.equal(data.steps.at(-1).id, "capacity-check");
+  assert.equal(data.steps.at(-1).kind, "decision");
   assert.ok(!JSON.stringify(data).toLowerCase().includes("recording setup"));
-  const finalStep = data.steps.find((step) => step.kind === "paths");
+  const pathStep = stepById("ac-dc-ledger");
   assert.doesNotMatch(
-    JSON.stringify(finalStep),
+    JSON.stringify(pathStep),
     /\b103\.1\b|\b106\.1\b|\b4\.9\b|\b1\.9\b|\b1\.1\b/,
-    "Final narration must use the calculated conductor losses",
+    "Complete-path narration must use the calculated conductor losses",
   );
   for (const mode of ["teach", "student"]) {
     for (const viewport of [
@@ -76,6 +92,11 @@ let browser;
           await page.locator("#student-context").isVisible(),
           mode === "student",
         );
+        assert.equal(await page.locator("#steps button").count(), 10);
+        assert.equal(
+          await page.locator("#next").isDisabled(),
+          step.id === "capacity-check",
+        );
         for (const revealed of revealKinds.has(step.kind)
           ? [false, true]
           : [false]) {
@@ -86,7 +107,7 @@ let browser;
             text: document.querySelector("#scene").innerText,
             clipped: [
               ...document.querySelectorAll(
-                ".unit,.metric-card,.ledger-card,.ledger-total",
+                ".unit,.metric-card,.ledger-card,.ledger-total,.copper-result,.capacity-result,.capacity-row > *,#steps,.transport",
               ),
             ]
               .filter((e) => e.scrollWidth > e.clientWidth + 1)
@@ -159,7 +180,59 @@ let browser;
     path: resolve(output, "student-explanation-1280.png"),
     fullPage: true,
   });
+  await fresh("teach", "conductor-copper");
+  assert.equal(
+    await page.locator('.copper-bundle[data-supply="ac"] .copper-bar').count(),
+    3,
+  );
+  assert.equal(
+    await page.locator('.copper-bundle[data-supply="dc"] .copper-bar').count(),
+    2,
+  );
+  const copperGeometry = await page.locator(".copper-bar").evaluateAll((bars) =>
+    bars.map((bar) => {
+      const bounds = bar.getBoundingClientRect();
+      return { width: bounds.width, height: bounds.height };
+    }),
+  );
+  for (const conductor of copperGeometry) {
+    near(conductor.width, copperGeometry[0].width);
+    near(conductor.height, copperGeometry[0].height);
+  }
+  assert.equal(await page.locator(".copper-result").count(), 0);
+  assert.match(
+    await page.locator("#caption").innerText(),
+    /Equal length, material and cross-section/,
+  );
+  await page.locator("#reveal").click();
+  assert.match(
+    await page.locator(".copper-result").innerText(),
+    /33\.3% less conductor copper/,
+  );
+  assert.match(
+    await page.locator(".copper-result").innerText(),
+    /Equal length, cross-section and material/,
+  );
+  await page.screenshot({ path: resolve(output, "copper-1280.png") });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.screenshot({
+    path: resolve(output, "copper-mobile.png"),
+    fullPage: true,
+  });
+  await page.setViewportSize({ width: 1280, height: 720 });
   await fresh("teach", "current-prediction");
+  assert.equal(
+    await page
+      .locator(".metric-card")
+      .first()
+      .locator(".conductor-lines > div")
+      .count(),
+    3,
+  );
+  assert.equal(
+    await page.locator(".metric-card.changed .conductor-lines > div").count(),
+    2,
+  );
   assert.ok(!(await page.locator("#visual").innerText()).includes("125"));
   await page.locator("#reveal").click();
   assert.match(await page.locator("#variable-current").textContent(), /125 A/);
@@ -219,7 +292,9 @@ let browser;
     /10 mΩ per conductor/,
   );
   await page.screenshot({ path: resolve(output, "loss-1280.png") });
-  await notes.locator('#notes-outline [data-step="1"]').click();
+  await notes
+    .locator(stepSelector("#notes-outline", "current-prediction"))
+    .click();
   await page.waitForURL(/#current-prediction$/);
   await page.locator("#voltage").focus();
   await setRange("voltage", 480);
@@ -228,7 +303,7 @@ let browser;
       .querySelector("#narration")
       .textContent.includes("Live DC comparison: 480 V"),
   );
-  await page.locator('#steps [data-step="6"]').click();
+  await page.locator(stepSelector("#steps", "energy-balance")).click();
   await notes.waitForURL(/#energy-balance$/);
   assert.equal(
     await page
@@ -287,7 +362,7 @@ let browser;
   await page.screenshot({ path: resolve(output, "energy-balance-1280.png") });
   await notes.locator("#notes-next-button").click();
   await page.waitForURL(/#ac-dc-ledger$/);
-  assert.equal(await page.locator("#next").isDisabled(), true);
+  assert.equal(await page.locator("#next").isDisabled(), false);
   await page.locator("#reveal").click();
   await notes.waitForFunction(() =>
     document
@@ -347,6 +422,50 @@ let browser;
       .querySelector("#narration")
       .textContent.includes("Live DC conversion loss: 3 kW"),
   );
+  await notes.locator("#notes-next-button").click();
+  await page.waitForURL(/#capacity-check$/);
+  assert.equal(await page.locator("#next").isDisabled(), true);
+  assert.equal(await page.locator(".capacity-result").count(), 0);
+  const growthValues = page.locator(
+    ".capacity-row:not(.capacity-heading) > strong:last-child",
+  );
+  assert.match((await growthValues.allTextContents())[2], /\?/);
+  assert.match((await growthValues.allTextContents())[3], /\?/);
+  await notes.locator("#notes-reveal").click();
+  await page.locator(".capacity-result").waitFor();
+  const currentRow = page
+    .locator(".capacity-row")
+    .filter({ hasText: "Current per wire" });
+  const heatRow = page
+    .locator(".capacity-row")
+    .filter({ hasText: "Total conductor heat" });
+  assert.deepEqual(await currentRow.locator("strong").allTextContents(), [
+    "125 A",
+    "250 A",
+  ]);
+  assert.deepEqual(await heatRow.locator("strong").allTextContents(), [
+    "0.3125 kW",
+    "1.25 kW",
+  ]);
+  assert.match(
+    await page.locator(".capacity-result").innerText(),
+    /2× power · same copper · 4× conductor heat/,
+  );
+  assert.match(
+    await page.locator(".capacity-status").innerText(),
+    /Capacity unverified/,
+  );
+  assert.match(
+    await notes.locator("#narration").innerText(),
+    /safe-capacity verdict is unknown/,
+  );
+  await page.screenshot({ path: resolve(output, "capacity-1280.png") });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.screenshot({
+    path: resolve(output, "capacity-mobile.png"),
+    fullPage: true,
+  });
+  await page.setViewportSize({ width: 1280, height: 720 });
   await notes.close();
   await fresh("teach", "one-load");
   await page.waitForFunction(
@@ -368,6 +487,37 @@ let browser;
     path: resolve(output, "architecture-mobile.png"),
     fullPage: true,
   });
+  for (const [id, filename] of [
+    ["conversion-in-sidecar", "sidecar"],
+    ["conversion-farther-upstream", "facility-dc"],
+  ]) {
+    await page.setViewportSize({ width: 1280, height: 720 });
+    await fresh("teach", id);
+    assert.match(await page.locator(".rack-space").innerText(), /Released/);
+    assert.equal(await page.locator(".zone.rack .unit.converter").count(), 1);
+    const zones = page.locator(".zone");
+    if (id === "conversion-in-sidecar") {
+      assert.match(await zones.nth(0).innerText(), /Facility AC/);
+      assert.match(await zones.nth(1).innerText(), /AC → DC/);
+      assert.match(
+        await page.locator(".boundary-line").innerText(),
+        /sidecar occupies nearby space/,
+      );
+    } else {
+      assert.match(await zones.nth(0).innerText(), /AC → DC/);
+      assert.match(await zones.nth(1).innerText(), /800 V DC/);
+      assert.match(
+        await page.locator(".boundary-line").innerText(),
+        /out of the hall to the power room/,
+      );
+    }
+    await page.screenshot({ path: resolve(output, `${filename}-1280.png`) });
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.screenshot({
+      path: resolve(output, `${filename}-mobile.png`),
+      fullPage: true,
+    });
+  }
   await fresh("student", "ac-dc-ledger");
   await page.locator("#reveal").click();
   await page.screenshot({
@@ -378,7 +528,7 @@ let browser;
     await fresh(mode, "feeder-transfer");
     assert.equal(
       await page.locator("#scene-title").textContent(),
-      data.steps[7].headline,
+      pathStep.headline,
     );
     assert.doesNotMatch(
       await page.locator("#visual").innerText(),
@@ -389,7 +539,7 @@ let browser;
   assert.ok(await page.locator("#prose").isVisible());
   assert.match(
     await page.locator("#title").textContent(),
-    /What 800 V changes/,
+    /800 V DC: less copper, room for compute/,
   );
   for (const viewport of [
     { width: 390, height: 844 },
@@ -437,22 +587,27 @@ let browser;
       /NaN|Infinity|undefined/,
     );
   }
+  assert.equal(layouts.length, 160);
   assert.deepEqual(errors, []);
   rmSync(resolve(output, "transfer-1280.png"), { force: true });
   const report = {
-    checked_on: "2026-09-08",
+    checked_on: new Date().toISOString().slice(0, 10),
     browser: "Headless Chromium / Playwright",
     base,
     layout_states: layouts.length,
     layouts,
     checks: [
-      "Eight visual steps in teaching and student modes at five viewport sizes",
+      "Ten visual steps and six reveal states in teaching and student modes at five viewport sizes",
       "Teaching notes excluded from visuals and no recording-setup instructions",
       "No teaching-view scroll at 1920×1080, 1280×720 or 1024×768",
       "No horizontal overflow or clipped labels on phone and short landscape",
-      "Student explanations expand for all eight steps at all five sizes",
+      "Student explanations expand for all ten steps at all five sizes",
       "Student mode hides notes/fullscreen and P/F shortcuts do not activate them",
-      "Prediction before reveal for currents, conductor loss and both energy ledgers",
+      "Prediction before reveal for copper, currents, conductor loss, both energy ledgers and the capacity transfer",
+      "Equal-geometry copper comparison: three bars versus two, 33.3% less conductor copper",
+      "Capacity transfer: 125 to 250 A, 0.3125 to 1.25 kW conductor heat, unchanged copper and unverified safe capacity",
+      "Moved conversion: sidecar retains upstream AC and nearby footprint; facility DC moves conversion to power room",
+      "All ten footer steps remain accessible without horizontal overflow; only capacity-check is the final scene",
       "480 V balanced three-phase AC versus 800 V DC: current, conductor count, 72% heat ratio and energy balance",
       "Coupled complete-path default, 4.1–4.2 kW crossover bracket and reversed energy budgets",
       "Keyboard advance after reveal and slider keyboard ownership",

@@ -6,18 +6,53 @@ import json
 import re
 from pathlib import Path
 
-KINDS = ("intro", "current", "loss", "ac", "sidecar", "facility", "energy", "paths")
+KINDS = {
+    "intro",
+    "copper",
+    "current",
+    "loss",
+    "ac",
+    "sidecar",
+    "facility",
+    "energy",
+    "paths",
+    "decision",
+}
+ROLES = {
+    "problem",
+    "comparison",
+    "mechanism",
+    "architecture",
+    "balance",
+    "counterexample",
+    "transfer",
+}
+CONTRACT_FIELDS = (
+    "driving_question",
+    "fixed_boundary",
+    "changed_variable",
+    "primary_payoff",
+    "misconception",
+    "transfer_question",
+)
 
 
-def presentation_outputs(root: Path, sample_id: str) -> dict[Path, str]:
-    data = json.loads((root / "course/expansion/sample-presentation.json").read_text())
-    if data["source_lesson_id"] != sample_id:
-        raise ValueError("Presentation must refer to the authored sample")
+def validate_presentation(data: dict) -> None:
+    """Enforce teaching boundaries without imposing one lesson's scene order."""
+    contract = data.get("learning_contract", {})
+    for field in CONTRACT_FIELDS:
+        if not isinstance(contract.get(field), str) or not contract[field].strip():
+            raise ValueError(f"Missing learning contract: {field}")
     steps = data["steps"]
-    if tuple(step["kind"] for step in steps) != KINDS:
-        raise ValueError(
-            "Presentation requires the authored eight-step teaching sequence"
-        )
+    if not steps or any(step["kind"] not in KINDS for step in steps):
+        raise ValueError("Presentation requires supported visual kinds")
+    roles = [step.get("pedagogical_role") for step in steps]
+    if any(role not in ROLES for role in roles):
+        raise ValueError("Each visual needs a declared teaching purpose")
+    if roles[0] != "problem" or roles[-1] != "transfer":
+        raise ValueError("Start with the problem and finish with changed-case transfer")
+    if "mechanism" not in roles:
+        raise ValueError("Explain the mechanism before assessing transfer")
     if len({step["id"] for step in steps}) != len(steps):
         raise ValueError("Duplicate presentation step IDs")
     for step in steps:
@@ -32,6 +67,18 @@ def presentation_outputs(root: Path, sample_id: str) -> dict[Path, str]:
             raise ValueError(
                 "Presenter reasoning and action cues must be authored separately"
             )
+    if data["planned_duration_seconds"] != sum(s["duration_seconds"] for s in steps):
+        raise ValueError("Planned duration must match the authored scene timings")
+    for target in data.get("aliases", {}).values():
+        if target not in {step["id"] for step in steps}:
+            raise ValueError("Presentation alias points to a missing scene")
+
+
+def presentation_outputs(root: Path, sample_id: str) -> dict[Path, str]:
+    data = json.loads((root / "course/expansion/sample-presentation.json").read_text())
+    if data["source_lesson_id"] != sample_id:
+        raise ValueError("Presentation must refer to the authored sample")
+    validate_presentation(data)
     web = root / "course/web"
     script = re.sub(
         r"^export ", "", (web / "reader-models.js").read_text(), flags=re.MULTILINE

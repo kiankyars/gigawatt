@@ -126,6 +126,15 @@ test("480 V three-phase AC and 800 V DC separate current from total conductor he
   close(ac.amps * (480 / Math.sqrt(3)) * 3, 100000);
   close(dc.amps * 800, 100000);
 });
+test("Doubling the DC load on unchanged conductors doubles current and quadruples heat", () => {
+  const start = m.acdcConductorModel(100, 480, 800, 1, 0.01, 1).dc;
+  const grown = m.dcConductorModel(200, 800, 0.02, 1);
+  close(grown.amps, 250);
+  close(grown.amps / start.amps, 2);
+  close(grown.lossKW, 1.25);
+  close(grown.lossKW / start.lossKW, 4);
+  close(grown.inputKW, 201.25);
+});
 test("Equal numerical voltage, power factor and conductor resistance alter the comparison", () => {
   const sameVoltage = m.acdcConductorModel(100, 480, 480, 1, 0.01, 1);
   close(sameVoltage.dc.amps / sameVoltage.ac.amps, Math.sqrt(3));

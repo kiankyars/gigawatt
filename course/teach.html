@@ -249,6 +249,152 @@ h1 {
   margin: 20px 0 0;
   line-height: 1.2;
 }
+.hero-goal {
+  display: block;
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 15px;
+}
+.copper-bundle {
+  display: grid;
+  gap: 22px;
+  margin: 26px 12px 20px 0;
+}
+.copper-row {
+  display: grid;
+  grid-template-columns: 26px 1fr;
+  gap: 14px;
+  align-items: center;
+  height: 25px;
+}
+.copper-row span {
+  font-size: 13px;
+  font-weight: 700;
+}
+.copper-bar {
+  display: block;
+  height: 23px;
+  position: relative;
+  background: linear-gradient(
+    180deg,
+    #f5bd8c 0%,
+    #c7804b 25%,
+    #ba6b34 70%,
+    #995027 100%
+  );
+  box-shadow:
+    0 5px 0 #754020,
+    0 9px 12px #0002;
+  border: 1px solid #a35d30;
+  border-radius: 2px;
+}
+.copper-bar::after {
+  content: "";
+  position: absolute;
+  inset: 2px 0 2px auto;
+  width: 8px;
+  border-left: 1px solid #7a421e;
+  background: #d38c55;
+}
+.copper-removed {
+  color: #b8d5cb;
+}
+.copper-removed i {
+  display: block;
+  height: 23px;
+  border: 1px dashed #86a79c;
+  border-radius: 2px;
+}
+.copper-quantity {
+  margin: 0;
+  font-size: 16px;
+}
+.copper-quantity strong {
+  font-size: 30px;
+  font-weight: 500;
+  margin-right: 6px;
+}
+.copper-result,
+.capacity-result {
+  display: grid;
+  gap: 8px;
+  text-align: center;
+}
+.copper-result strong,
+.capacity-result strong {
+  font:
+    clamp(23px, 2.6vw, 39px) Georgia,
+    serif;
+  color: var(--teal);
+}
+.copper-result span,
+.capacity-result span {
+  font-size: 14px;
+  color: var(--muted);
+}
+.rack-space {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border: 1px dashed var(--teal);
+  border-radius: 6px;
+  background: #e5f0e3;
+  font-size: 12px;
+  color: #256053;
+}
+.rack-space.occupied {
+  background: #fff1d8;
+  border: 1px solid #bc9358;
+  color: #754a16;
+}
+.capacity-table {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fffefa;
+}
+.capacity-row {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  align-items: stretch;
+}
+.capacity-row:not(:last-child) {
+  border-bottom: 1px solid var(--line);
+}
+.capacity-row > * {
+  padding: 13px 24px;
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+}
+.capacity-row > span {
+  font-size: clamp(16px, 1.7vw, 25px);
+  align-items: center;
+}
+.capacity-row > strong {
+  justify-content: flex-end;
+  font-size: clamp(24px, 2.9vw, 40px);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+.capacity-row > strong:last-child {
+  background: var(--ink);
+  color: #fffefa;
+}
+.capacity-row small {
+  font-size: 0.5em;
+}
+.capacity-row.capacity-heading > * {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted);
+}
+.capacity-heading > strong:last-child {
+  color: #b8d5cb;
+}
 .chip {
   display: inline-flex;
   padding: 8px 13px;
@@ -834,7 +980,7 @@ h1 {
     gap: 2px;
   }
   #steps button {
-    width: 29px;
+    width: 24px;
     height: 29px;
   }
   .workflow {
@@ -1114,6 +1260,33 @@ body[data-view="student"] #visual {
   #student-context p {
     font-size: 16px;
   }
+  .copper-bundle {
+    gap: 17px;
+    margin: 20px 0;
+  }
+  .copper-row {
+    grid-template-columns: 18px 1fr;
+    gap: 6px;
+  }
+  .copper-quantity {
+    font-size: 12px;
+  }
+  .copper-quantity strong {
+    font-size: 24px;
+  }
+  .capacity-row > * {
+    padding: 13px 8px;
+    gap: 2px;
+  }
+  .capacity-row > span {
+    font-size: 13px;
+  }
+  .capacity-row > strong {
+    font-size: 22px;
+  }
+  .capacity-row.capacity-heading > * {
+    font-size: 11px;
+  }
 }
 
     </style>
@@ -1198,7 +1371,7 @@ body[data-view="student"] #visual {
       </p></noscript
     >
     <script id="presentation-data" type="application/json">
-      {"schema_version":1,"id":"sample-800v-presentation","source_lesson_id":"sample-800v","title":"What 800 V changes","planned_duration_seconds":365,"timing_note":"Unrecorded dry run first. Timing targets are prompts for rehearsal, not an instruction to record or a measured duration.","review_state":"Revised after presenter feedback clarified the intended comparison: 480 V three-phase AC versus 800 V two-wire DC.","defaults":{"power_kw":100,"reference_voltage_v":480,"comparison_voltage_v":800,"hours":1,"ac_conversion_kw":4,"dc_conversion_kw":3,"conductor_ohms":0.01,"power_factor":1,"dc_upstream_conversion_kw":1},"presentation_rules":["Show one step at a time. Keep notes, cues and sources in the separate presenter or reading view.","On current, loss, energy and path-comparison steps, ask for a prediction before revealing the result.","Use the same load and diagram positions throughout the architecture sequence; change conversion placement deliberately.","Architecture drawings show selected functional boundaries. They are conceptual schematics, not wiring diagrams.","Show the fixed-resistance assumption alongside the loss comparison, including after revealing its answer.","Compute displayed answers with the tested three-phase AC and two-wire DC model rather than embedding numbers in generated illustrations.","Hold receiving-end real power fixed. State AC line-to-line RMS voltage, power factor and resistance per conductor; distinguish amperes, conductor count and total loss."],"steps":[{"id":"one-load","title":"Hold the load fixed","kind":"intro","headline":"100 kW delivered. AC versus DC.","caption":"480 V three-phase AC versus 800 V two-wire DC, measured at the feeder receiving end.","notes":["The intended comparison is four-hundred-and-eighty-volt balanced three-phase AC versus eight-hundred-volt two-wire DC. Each feeder delivers one hundred kilowatts of real power at its receiving end. Conversion is outside this first comparison; we account for complete delivery paths at the end.","For AC, four hundred and eighty volts means line-to-line RMS voltage. Line-to-line means measured between two phase conductors. RMS is the effective value used to calculate resistive heating; it is not the peak voltage. Power factor is real power divided by apparent power. Here we use ideal balanced sinusoidal AC with power factor one.","Count three current-carrying conductors for AC and two for DC. Protective earth and any neutral are outside this simplified comparison. Distribution voltage does not mean that the processor itself operates at eight hundred volts."],"duration_seconds":30,"cue":"Point to the fixed 100 kW receiving-end power. Define the AC voltage convention; the next visual counts conductors.","explanation":["Compare 480 V balanced three-phase AC with 800 V two-wire DC. Both feeders deliver 100 kW of real power at their receiving ends. The equipment picture locates the idea; it is not a wiring diagram.","AC voltage is line-to-line RMS, with power factor equal to one. Count three AC lines and two DC conductors; exclude protective earth and any neutral. Conversion losses are outside this feeder comparison."]},{"id":"current-prediction","title":"Predict the current","kind":"current","headline":"Fewer conductors. Less current?","caption":"100 kW received; 480 V AC line-to-line RMS, power factor 1; compare current per conductor.","notes":["Predict before revealing: does two conductors instead of three automatically mean less current in each? No. The AC feeder transfers power across three phases, so we must use the three-phase power equation rather than the DC equation.","For DC, current equals power divided by voltage. For balanced three-phase AC, line current equals real power divided by the square root of three times line-to-line RMS voltage times power factor. At one hundred kilowatts and power factor one, the four-hundred-and-eighty-volt AC feeder carries about 120.3 amperes in each line. At eight hundred volts, each DC conductor carries 125 amperes.","The DC current per conductor is about four percent higher in this comparison. Move only the DC voltage control: raising it reduces DC current, while the 480 V AC reference stays fixed. The following scenes return to the stated 800 V DC case."],"duration_seconds":50,"cue":"Leave both currents hidden. Ask whether fewer conductors guarantee less current per conductor, then Reveal. Move the DC voltage slider while keeping the AC reference fixed.","explanation":["For DC, I = P/V. For balanced three-phase AC, I = P/(√3 × V_line-to-line × PF). At 100 kW, 480 V AC and PF = 1 give 120.3 A per line; 800 V DC gives 125 A per conductor.","Two instead of three is 33% fewer current-carrying conductors, not 33% less current. The DC voltage slider changes only this scene; later comparisons use 800 V again."]},{"id":"conductor-loss","title":"Connect current to heating","kind":"loss","headline":"Count every conductor's heat.","caption":"Resistance: 10 mΩ per conductor in both cases; three AC conductors versus two DC conductors.","notes":["Each conductor produces heat at current squared times resistance. AC uses RMS current in this calculation. To compare total feeder heat, add the losses from all three AC conductors or both DC conductors.","Give each conductor an invented resistance of ten milliohms. For AC, three times 120.281 amperes squared times 0.01 ohm is about 434 watts. For DC, two times 125 amperes squared times 0.01 ohm is 312.5 watts. DC produces 72 percent as much conductor heat, or 28 percent less, despite slightly higher current in each conductor.","This result depends on the stated voltages, power factor and equal resistance per conductor. It is not a universal DC advantage or a whole-facility saving. Two instead of three also means 33 percent less conductor material only if conductor lengths, cross-sections and materials remain equal. A real design must meet thermal and other constraints."],"duration_seconds":45,"cue":"Ask how to combine heating across the wires. Reveal 3I²R versus 2I²R, then point to 28% less conductor heat. Distinguish that result from current and copper quantity.","explanation":["At equal resistance R per conductor, total feeder heat is 3I_AC²R for balanced three-phase AC and 2I_DC²R for two-wire DC. With R = 0.01 Ω, the losses are about 434.0 W and 312.5 W respectively.","The DC-to-AC loss ratio is 0.72: 28% less conductor heat under these assumptions. This does not mean 28% less current or 28% less facility electricity. Fewer conductors imply proportionally less conductor material only if their lengths, cross-sections and materials stay equal."]},{"id":"conversion-in-rack","title":"Locate conversion in the rack","kind":"ac","headline":"First, locate the converter.","caption":"AC reaches the rack. Conceptual schematic, not a wiring diagram.","notes":["The current calculation does not choose an architecture for us. We also need to locate the equipment that changes voltage and converts alternating current to direct current.","In this simplified arrangement, facility AC reaches the compute rack. Conversion happens there, followed by regulation near the devices. Trace those functions from the incoming supply toward the load. We are showing selected functional boundaries; protection, grounding and other required equipment are omitted from this schematic."],"duration_seconds":40,"cue":"Trace the diagram left to right. Point to rack conversion and final device regulation. Keep the load position consistent for the next two steps.","explanation":["A simplified AC-to-rack arrangement brings alternating current to the rack, converts it to DC there, and regulates voltage again near the devices.","The functional drawing omits protection, grounding and other required equipment. It locates conversion without specifying a buildable installation."]},{"id":"conversion-in-sidecar","title":"Move conversion into a sidecar","kind":"sidecar","headline":"Move conversion. Keep the upstream obligations.","caption":"Existing upstream AC remains. Conceptual schematic, not a wiring diagram.","notes":["Now move conversion into a nearby power rack or sidecar. The higher-voltage DC segment begins after that converter. Existing facility AC is still upstream; follow that retained path before looking at the new segment.","Moving conversion can free space in the compute rack and move some heat elsewhere. The converter still needs space, cooling and service access. Its upstream electrical limits remain relevant. Final voltage reduction near the processor also remains necessary. We have moved equipment and interfaces, not made their requirements disappear."],"duration_seconds":45,"cue":"Point to the converter's new location, then deliberately return to the retained upstream AC path. Finish at the device-regulation stage.","explanation":["A sidecar arrangement keeps upstream AC but places AC-to-DC conversion in nearby equipment. The 800 V DC segment begins after that conversion.","Moving the converter moves its space, heat and maintenance requirements. The processor still needs a much lower voltage; upstream AC limits remain relevant."]},{"id":"conversion-farther-upstream","title":"Move conversion farther upstream","kind":"facility","headline":"A broader DC path changes more interfaces.","caption":"Conversion moves upstream. Conceptual schematic, not a wiring diagram.","notes":["A broader facility-DC proposal moves conversion farther upstream. That extends the portion of the path carrying DC and changes which equipment interfaces must be designed together.","These three views show different placements of functions. They do not rank whole-system efficiency. Converter performance, protection, insulation, transients, cooling and maintenance still need evaluation. The useful question is which actual project constraint this arrangement would relieve."],"duration_seconds":35,"cue":"Trace where DC now begins. Compare conversion placement with the preceding views; avoid implying that either proposal is a measured installed deployment.","explanation":["Broader facility DC places conversion farther upstream and extends the DC portion of the path. That changes which interfaces must be coordinated.","These diagrams compare placement. They do not establish an efficiency ranking or demonstrate an installed deployment."]},{"id":"energy-balance","title":"Close the energy balance","kind":"energy","headline":"Less heat. Less energy required upstream.","caption":"480 V AC versus 800 V DC; 10 mΩ per conductor; converters excluded; one hour.","duration_seconds":50,"cue":"Ask what the source must supply in addition to the 100 kW load. Reveal the balances, then read input = useful output + conductor heat. Explain the one-hour energy comparison.","notes":["Keep the same feeder assumptions: one hundred kilowatts received, four hundred and eighty volts line-to-line RMS for balanced AC at power factor one, eight hundred volts for DC, and ten milliohms per conductor. These are receiving-end voltages. The sending supply must cover the resistive voltage drop.","The three AC conductors together dissipate about 0.434 kilowatts, so the source supplies about 100.434 kilowatts. The two DC conductors dissipate 0.3125 kilowatts, so their source supplies 100.3125 kilowatts. Both receiving ends get exactly one hundred kilowatts. Input equals useful output plus heat.","Over one hour, this DC feeder requires about 0.122 fewer kilowatt-hours at its input. It wastes less energy as conductor heat; no energy is created. Converters and cooling are excluded. A 28 percent reduction in this small conductor-loss budget is a much smaller percentage of total input energy."],"explanation":["Keep 100 kW at each feeder receiving end: 480 V balanced three-phase AC at power factor one versus 800 V two-wire DC. Each conductor has 10 mΩ resistance. The sending supply covers the conductor voltage drop.","Input equals delivered power plus conductor heat: about 100.434 kW for AC and 100.313 kW for DC. Over one hour, DC requires about 0.122 kWh less input under these assumptions.","The 28% figure applies to conductor heat, not total input energy. Converter and cooling losses remain outside this feeder balance."]},{"id":"ac-dc-ledger","title":"Compare complete delivery paths","kind":"paths","headline":"AC versus DC: account for every loss.","caption":"480 V AC: three-phase, line-to-line RMS, PF 1. 800 V DC: two conductors. Resistance: 10 mΩ/conductor.","duration_seconds":70,"cue":"Point to the final 100 kW DC load and the conversion stages. Reveal the input balances. Raise total DC conversion loss to 6 kW; track the resulting feeder power and heat before comparing inputs.","notes":["Now change the boundary deliberately. Earlier, each feeder delivered one hundred kilowatts at its receiving end, with conversion excluded. Here both paths begin at the same facility AC supply boundary and serve the same final one-hundred-kilowatt DC load. A converter downstream of a feeder needs input power for the useful load plus its own losses. That extra power raises feeder current and conductor heat.","Keep the feeder voltages and resistance: four hundred and eighty volts line-to-line RMS for balanced three-phase AC at power factor one, eight hundred volts for two-wire DC, and ten milliohms per conductor. Assume four kilowatts of conversion loss downstream of the AC feeder, so it must deliver 104 kilowatts. For DC, assume one kilowatt of upstream rectifier loss and two kilowatts of downstream DC-to-DC loss. Its feeder must deliver 102 kilowatts.","Calculate conductor heat from those receiving-end powers. AC conductor heat is about 0.469 kilowatts; its required facility input is about 104.469 kilowatts. DC conductor heat is about 0.325 kilowatts; adding both conversion losses gives about 103.325 kilowatts input. Over one hour, this DC arrangement requires about 1.144 fewer kilowatt-hours.","Raise total DC conversion loss to six kilowatts. The upstream rectifier loss stays at one, so downstream loss becomes five. The DC feeder now delivers 105 kilowatts, conductor heat rises to about 0.345 kilowatts, and facility input becomes about 106.345 kilowatts. It uses about 1.875 more kilowatt-hours over the hour than AC. Break-even total DC conversion loss is about 4.137 kilowatts, between the slider positions 4.1 and 4.2.","The conversion losses are hypothetical watts at these operating points, not manufacturer efficiencies. Conductor heat is calculated, not assigned a separate budget. Cooling and other losses are excluded, and voltage compatibility is not modeled. For dense racks, the useful question is how 800 V DC distribution and conversion placement change conductor, space and heat constraints while still meeting the complete energy balance. The earlier 28 percent conductor-loss reduction is not a fixed whole-path or facility saving."],"explanation":["Earlier, the 100 kW boundary was each feeder receiving end. Now it is the final useful DC load, and both paths start at the same facility AC supply boundary. Downstream conversion losses add to the power the feeder must deliver, so they also affect its current and conductor heat.","The 480 V AC feeder delivers 104 kW: 100 kW useful load plus 4 kW assumed downstream conversion loss. The 800 V DC feeder delivers 102 kW: 100 kW useful load plus 2 kW assumed downstream loss. DC also has a fixed 1 kW upstream rectifier loss. With 10 mΩ per conductor, calculated conductor heat is about 0.469 kW for AC and 0.325 kW for DC.","Required input is about 104.469 kW for AC and 103.325 kW for DC. Over one hour, DC uses about 1.144 kWh less input. Raise total DC conversion loss from 3 to 6 kW: downstream loss and feeder current increase, and DC then uses about 1.875 kWh more than AC.","Conversion losses are hypothetical operating-point assumptions; conductor heat is calculated from them. Cooling, other losses and voltage compatibility are outside the model. This comparison does not establish a universal AC/DC efficiency ranking."]}],"sources":[{"title":"NVIDIA: Why Scaling AI Compute Performance Requires a New Power Architecture","url":"https://blogs.nvidia.com/blog/800-vdc-power-architecture-ai-factory/","claim":"Architecture context for higher-voltage DC distribution and conversion placement. Feeder values and conversion losses are original teaching assumptions; conductor heat is calculated from the power each feeder must deliver.","reviewed_on":"2026-09-08","limits":"Vendor roadmap; proposed architecture and availability expectations are distinct from verified installed deployment."},{"title":"Schneider Electric: Total power calculation for accuracy verification testing","url":"https://productinfo.se.com/pm2200/5afc2b5546e0fb00011e5e9d/PM2200%20series%20User%20Manual/English/BM_PM2200seriesUserManual_0000074170.ditamap.xml/%24/C_VerifyingAccuracy_PowerTotCalcuation_0000034437","claim":"Balanced three-phase real power is 3 × line-to-neutral RMS voltage × line current × power factor, equivalent to √3 × line-to-line RMS voltage × line current × power factor.","reviewed_on":"2026-09-08","limits":"Balanced three-phase relationship. Numerical loads, voltages, resistance and conversion losses are original teaching assumptions; calculated conductor losses are not equipment specifications."},{"title":"NVIDIA: Gigawatt AI factories and the 800 V DC transition","url":"https://blogs.nvidia.com/blog/gigawatt-ai-factories-ocp-vera-rubin/","claim":"Identifies 415 or 480 V three-phase AC systems as relevant baselines for the proposed transition to 800 V DC.","reviewed_on":"2026-09-08","limits":"Used only for baseline relevance. Vendor current, efficiency, copper and deployment claims are not validated by this teaching calculation."}],"aliases":{"feeder-transfer":"ac-dc-ledger"}}
+      {"schema_version":1,"id":"sample-800v-presentation","source_lesson_id":"sample-800v","title":"800 V DC: less copper, room for compute","planned_duration_seconds":900,"timing_note":"Unrecorded dry run first. Allow roughly fifteen minutes for explanation, predictions and discussion; these are provisional rehearsal allocations, not a measured runtime or a target to fill.","review_state":"Copper and equipment space lead the revised draft. Numerical comparisons and capacity limits await another unrecorded dry run.","defaults":{"power_kw":100,"reference_voltage_v":480,"comparison_voltage_v":800,"hours":1,"ac_conversion_kw":4,"dc_conversion_kw":3,"conductor_ohms":0.01,"power_factor":1,"dc_upstream_conversion_kw":1},"presentation_rules":["Show one step at a time. Keep notes, cues and sources in the separate presenter or reading view.","Lead with a physical constraint and a visible material comparison before introducing equations.","On copper, current, loss, energy, path-comparison and capacity-check steps, ask for a prediction before revealing the result.","Use the same load and diagram positions throughout the architecture sequence; change conversion placement deliberately.","Architecture drawings show selected functional boundaries. They are conceptual schematics, not wiring diagrams.","Keep equal conductor geometry visible in the copper scene. Equal effective resistance in the heat model is a separate idealization.","Compute displayed answers with the tested three-phase AC and two-wire DC model rather than embedding numbers in generated illustrations.","Hold receiving-end real power fixed until the explicit transfer question. State AC line-to-line RMS voltage, power factor and resistance per conductor.","Distinguish three claims: copper under equal geometry; space under a specified equipment placement; input energy under a complete loss balance.","End with a changed case that requires a prediction and identifies information the calculation cannot supply."],"steps":[{"id":"one-load","title":"Start with the physical constraint","kind":"intro","headline":"More power. Less copper. Room for compute.","caption":"Start at 100 kW: 480 V three-phase AC versus 800 V two-wire DC.","notes":["The ambition is to deliver more power using less distribution copper, while freeing compute-rack and potentially data-hall space occupied by power-conversion equipment. Those are material and placement questions before they are energy-saving claims. A sidecar frees compute-rack space but still occupies space nearby; a power-room arrangement moves a different boundary.","Start at equal delivered power so we can see what changed: one hundred kilowatts at each feeder receiving end. Compare four-hundred-and-eighty-volt balanced three-phase AC with eight-hundred-volt two-wire DC. Conversion is outside this first comparison; later both paths serve the same final DC load.","For AC, 480 V is line-to-line RMS voltage: measured between phase conductors, using the effective value rather than the peak. Assume balanced sinusoidal AC with power factor one. Count three current-carrying AC conductors and two DC conductors; omit protective earth and any neutral. The processor still operates at much lower voltage."],"duration_seconds":60,"cue":"Locate the conductors and the conversion equipment. State the ambition, then hold the delivered load fixed for a fair comparison.","explanation":["The design ambition is more usable compute power with less distribution copper and less compute-rack space occupied by power-conversion equipment. Hall-space benefits depend on where that equipment moves.","Begin with 100 kW at each feeder receiving end: 480 V balanced three-phase AC, line-to-line RMS and power factor one, versus 800 V two-wire DC. This first comparison excludes converters and cooling."],"pedagogical_role":"problem"},{"id":"conductor-copper","title":"Make the copper comparison visible","kind":"copper","pedagogical_role":"comparison","headline":"Start with the copper.","caption":"Equal length, material and cross-section; compare current-carrying copper only.","duration_seconds":90,"cue":"Ask which bundle contains less copper before Reveal. Count three equal pieces versus two; name the geometric assumptions before the percentage.","notes":["Imagine laying the power-carrying copper on a table: three equal conductors for the AC feeder, two for the DC feeder. Give every conductor the same length, cross-sectional area and copper material. Cross-sectional area means the amount of copper exposed by a cut across the conductor.","Copper volume is conductor count times length times cross-sectional area. With the same copper density, mass has the same ratio: two divided by three. The DC bundle contains two-thirds as much current-carrying copper, or 33.3 percent less. This result comes from the stated geometry and conductor count; it is not a current saving or a vendor cable-sizing claim.","Protective earth, any neutral, insulation, terminations and other equipment are outside this material count. We have not shown that the chosen cross-section meets ampacity, temperature or voltage-drop requirements. Equal effective resistance in the later heat calculation is another explicit idealization; equal copper geometry alone does not ensure identical AC and DC resistance in service.","This equal-power comparison makes one material mechanism visible. It does not yet prove that we can simultaneously reduce copper and raise the load. We will test that leap at the end."],"explanation":["For equal conductor length L, cross-sectional area A and copper density, mass is proportional to count × L × A. Three AC conductors versus two DC conductors therefore gives a DC/AC copper ratio of 2/3: 33.3% less current-carrying conductor copper at the stated equal 100 kW load.","This excludes protective earth, any neutral, insulation and terminations. It compares material quantity; it does not establish an ampacity-qualified installation. The later equal-effective-resistance heat calculation is a separate idealization.","The ambition is more power with less material. This controlled comparison establishes the material arithmetic first; it does not yet establish safe additional power capacity."]},{"id":"current-prediction","title":"Predict the current","kind":"current","headline":"Fewer conductors. Less current?","caption":"100 kW received; 480 V AC line-to-line RMS, power factor 1; compare current per conductor.","notes":["The copper bundle has become smaller. Now predict before revealing: does that mean less current in each conductor? No. The AC feeder transfers power across three phases, so use the three-phase power equation rather than applying the DC equation to both feeders.","For DC, current equals power divided by voltage. For balanced three-phase AC, line current equals real power divided by the square root of three times line-to-line RMS voltage times power factor. At one hundred kilowatts and power factor one, the four-hundred-and-eighty-volt AC feeder carries about 120.3 amperes in each line. At eight hundred volts, each DC conductor carries 125 amperes.","The DC current per conductor is about four percent higher in this comparison. Move only the DC voltage control: raising it reduces DC current, while the 480 V AC reference stays fixed. The following scenes return to the stated 800 V DC case."],"duration_seconds":90,"cue":"Leave both currents hidden. Ask whether fewer conductors guarantee less current per conductor, then Reveal. Move the DC voltage slider while keeping the AC reference fixed.","explanation":["For DC, I = P/V. For balanced three-phase AC, I = P/(√3 × V_line-to-line × PF). At 100 kW, 480 V AC and PF = 1 give 120.3 A per line; 800 V DC gives 125 A per conductor.","Two instead of three is 33.3% less conductor copper under the preceding geometry assumptions, not 33.3% less current. The DC voltage slider changes only this scene; later comparisons return to 800 V."],"pedagogical_role":"mechanism"},{"id":"conductor-loss","title":"Connect current to heating","kind":"loss","headline":"Count every conductor's heat.","caption":"Resistance: 10 mΩ per conductor in both cases; three AC conductors versus two DC conductors.","notes":["Each conductor produces heat at current squared times resistance. AC uses RMS current in this calculation. To compare total feeder heat, add the losses from all three AC conductors or both DC conductors.","Add a separate idealization: every conductor has an effective resistance of ten milliohms at the modeled operating point. Equal geometry does not by itself guarantee identical effective AC and DC resistance; this teaching model sets them equal. For AC, three times 120.281 amperes squared times 0.01 ohm is about 434 watts. For DC, two times 125 amperes squared times 0.01 ohm is 312.5 watts. DC produces 72 percent as much conductor heat, or 28 percent less, despite slightly higher current in each conductor.","The 28 percent result describes conductor heat at the stated voltages, power factor and resistance. The 33.3 percent result described copper under fixed geometry. Keep those denominators separate. Neither percentage establishes total facility savings or practical cable sizing."],"duration_seconds":90,"cue":"Ask how to combine heating across the wires. Reveal 3I²R versus 2I²R, then point to 28% less conductor heat. Distinguish that result from current and copper quantity.","explanation":["At equal resistance R per conductor, total feeder heat is 3I_AC²R for balanced three-phase AC and 2I_DC²R for two-wire DC. With R = 0.01 Ω, the losses are about 434.0 W and 312.5 W respectively.","The DC-to-AC heat ratio is 0.72: 28% less conductor heat. Equal effective resistance is an additional model assumption, not an automatic consequence of equal copper geometry. The earlier 33.3% figure described material; neither number is a whole-facility saving."],"pedagogical_role":"mechanism"},{"id":"conversion-in-rack","title":"Locate conversion in the rack","kind":"ac","headline":"Rack conversion occupies room for compute.","caption":"AC reaches the compute rack; conversion and regulation occupy space there.","notes":["Now follow the second physical constraint: space for power-conversion equipment. In this simplified AC-to-rack arrangement, conversion occupies space in the compute rack. The equipment location matters even before we calculate its losses.","In this simplified arrangement, facility AC reaches the compute rack. Conversion happens there, followed by regulation near the devices. Trace those functions from the incoming supply toward the load. We are showing selected functional boundaries; protection, grounding and other required equipment are omitted from this schematic."],"duration_seconds":45,"cue":"Trace the diagram left to right. Point to rack conversion and final device regulation. Keep the load position consistent for the next two steps.","explanation":["A simplified AC-to-rack arrangement brings AC to the compute rack, converts it to DC there, and regulates voltage again near the devices. Conversion equipment occupies rack space that could otherwise serve other functions.","The functional drawing omits protection, grounding and other required equipment. It locates conversion without specifying a buildable installation."],"pedagogical_role":"architecture"},{"id":"conversion-in-sidecar","title":"Move conversion into a sidecar","kind":"sidecar","headline":"Free rack space. Locate the displaced equipment.","caption":"A nearby sidecar supplies DC; upstream AC and nearby equipment space remain.","notes":["Now move conversion into a nearby power rack or sidecar. The higher-voltage DC segment begins after that converter. Existing facility AC is still upstream; follow that retained path before looking at the new segment.","Moving conversion can free compute-rack space and move some heat elsewhere. It does not demonstrate a net data-hall space saving: the sidecar still needs footprint, cooling and service access. Its upstream AC electrical limits remain relevant. Final voltage reduction near the processor is also still necessary. Name what moved, where it went and which constraint that relieves."],"duration_seconds":60,"cue":"Point to the converter's new location, then deliberately return to the retained upstream AC path. Finish at the device-regulation stage.","explanation":["A sidecar arrangement keeps upstream AC but places AC-to-DC conversion in nearby equipment. The 800 V DC segment begins after that conversion.","A sidecar can free compute-rack space while occupying space nearby. It does not by itself establish net hall-space savings. The converter still needs cooling and service access; upstream AC limits and final device regulation remain."],"pedagogical_role":"architecture"},{"id":"conversion-farther-upstream","title":"Move conversion farther upstream","kind":"facility","headline":"Move conversion toward the power room.","caption":"A longer DC distribution path can move conversion equipment out of the data hall.","notes":["A broader facility-DC proposal moves conversion farther upstream, for example into a power room. That extends the DC distribution segment and can move selected conversion equipment out of the data hall. This is a different space claim from the sidecar: equipment has a stated destination beyond the compute row, not an assumed disappearance.","Trace the new equipment placement and retained final device regulation. Protection, insulation, transients, cooling, service access and total footprint still require evaluation. These diagrams show conceptual placements, not installed results or a whole-system efficiency ranking. NVIDIA also discusses replacing long 54 V rack-distribution segments with higher voltage; that is a separate boundary from our 480 V AC feeder comparison."],"duration_seconds":60,"cue":"Trace where DC now begins. Compare conversion placement with the preceding views; avoid implying that either proposal is a measured installed deployment.","explanation":["Moving conversion into a power room extends the DC distribution segment and can free hall space occupied by selected conversion equipment. The equipment still has a footprint and supporting requirements at its new location.","NVIDIA also describes a separate 54 V DC rack-distribution constraint. Our numerical baseline remains the 480 V AC feeder. Final low-voltage device conversion remains necessary in both cases.","These conceptual diagrams compare placement; they do not establish installed results, total-footprint savings or an efficiency ranking."],"pedagogical_role":"architecture"},{"id":"energy-balance","title":"Close the energy balance","kind":"energy","headline":"Account for heat without overstating the saving.","caption":"480 V AC versus 800 V DC; 10 mΩ per conductor; converters excluded; one hour.","duration_seconds":90,"cue":"Ask what the source must supply in addition to the 100 kW load. Reveal the balances, then read input = useful output + conductor heat. Explain the one-hour energy comparison.","notes":["Keep the same feeder assumptions: one hundred kilowatts received, four hundred and eighty volts line-to-line RMS for balanced AC at power factor one, eight hundred volts for DC, and ten milliohms per conductor. These are receiving-end voltages. The sending supply must cover the resistive voltage drop.","The three AC conductors together dissipate about 0.434 kilowatts, so the source supplies about 100.434 kilowatts. The two DC conductors dissipate 0.3125 kilowatts, so their source supplies 100.3125 kilowatts. Both receiving ends get exactly one hundred kilowatts. Input equals useful output plus heat.","Over one hour, this DC feeder requires about 0.122 fewer kilowatt-hours at its input. Both feeders were made low-loss by the invented ten-milliohm resistance. The small absolute difference describes this exercise, not the measured efficiency benefit of real 800 V architectures. The material comparison and equipment-space comparison remain distinct benefits. No energy is created; converters and cooling remain outside this feeder balance."],"explanation":["Keep 100 kW at each feeder receiving end: 480 V balanced three-phase AC at power factor one versus 800 V two-wire DC. Each conductor has 10 mΩ resistance. The sending supply covers the conductor voltage drop.","Input equals delivered power plus conductor heat: about 100.434 kW for AC and 100.313 kW for DC. Over one hour, DC requires about 0.122 kWh less input under these assumptions.","The 28% reduction applies to a deliberately small conductor-loss budget. The hypothetical 10 mΩ resistance makes both feeders efficient; this small difference does not predict real architecture savings. Material and equipment-space claims remain separate, and converter and cooling losses are excluded."],"pedagogical_role":"balance"},{"id":"ac-dc-ledger","title":"Compare complete delivery paths","kind":"paths","headline":"Conversion losses can reverse the energy comparison.","caption":"Same final 100 kW load; calculated conductor heat plus explicitly assumed conversion losses.","duration_seconds":180,"cue":"Point to the final 100 kW DC load and the conversion stages. Reveal the input balances. Raise total DC conversion loss to 6 kW; track the resulting feeder power and heat before comparing inputs.","notes":["Now change the boundary deliberately. Earlier, each feeder delivered one hundred kilowatts at its receiving end, with conversion excluded. Here both paths begin at the same facility AC supply boundary and serve the same final one-hundred-kilowatt DC load. A converter downstream of a feeder needs input power for the useful load plus its own losses. That extra power raises feeder current and conductor heat.","Keep the feeder voltages and resistance: four hundred and eighty volts line-to-line RMS for balanced three-phase AC at power factor one, eight hundred volts for two-wire DC, and ten milliohms per conductor. Assume four kilowatts of conversion loss downstream of the AC feeder, so it must deliver 104 kilowatts. For DC, assume one kilowatt of upstream rectifier loss and two kilowatts of downstream DC-to-DC loss. Its feeder must deliver 102 kilowatts.","Calculate conductor heat from those receiving-end powers. AC conductor heat is about 0.469 kilowatts; its required facility input is about 104.469 kilowatts. DC conductor heat is about 0.325 kilowatts; adding both conversion losses gives about 103.325 kilowatts input. Over one hour, this DC arrangement requires about 1.144 fewer kilowatt-hours.","Raise total DC conversion loss to six kilowatts. The upstream rectifier loss stays at one, so downstream loss becomes five. The DC feeder now delivers 105 kilowatts, conductor heat rises to about 0.345 kilowatts, and facility input becomes about 106.345 kilowatts. It uses about 1.875 more kilowatt-hours over the hour than AC. Break-even total DC conversion loss is about 4.137 kilowatts, between the slider positions 4.1 and 4.2.","These conversion losses are hypothetical watts at the operating points, not manufacturer efficiencies. Conductor heat is calculated, not assigned a separate budget. Cooling and other losses are excluded, and voltage compatibility is not modeled. This is a counterexample to an automatic efficiency ranking. It does not erase the earlier material arithmetic or equipment relocation; it shows why an energy claim needs its own complete boundary and equipment evidence."],"explanation":["Earlier, the 100 kW boundary was each feeder receiving end. Now it is the final useful DC load, and both paths start at the same facility AC supply boundary. Downstream conversion losses add to the power the feeder must deliver, so they also affect its current and conductor heat.","The 480 V AC feeder delivers 104 kW: 100 kW useful load plus 4 kW assumed downstream conversion loss. The 800 V DC feeder delivers 102 kW: 100 kW useful load plus 2 kW assumed downstream loss. DC also has a fixed 1 kW upstream rectifier loss. With 10 mΩ per conductor, calculated conductor heat is about 0.469 kW for AC and 0.325 kW for DC.","Required input is about 104.469 kW for AC and 103.325 kW for DC. Over one hour, DC uses about 1.144 kWh less input. Raise total DC conversion loss from 3 to 6 kW: downstream loss and feeder current increase, and DC then uses about 1.875 kWh more than AC.","Conversion losses are hypothetical operating-point assumptions; conductor heat is calculated from them. Cooling, other losses and voltage compatibility are outside the model. The reversal disproves an automatic energy advantage; it does not undo the separately defined copper comparison or equipment relocation."],"pedagogical_role":"counterexample"},{"id":"capacity-check","title":"Test the claim at a higher load","kind":"decision","pedagogical_role":"transfer","headline":"Same copper. Twice the power. What changes?","caption":"800 V DC; 100 → 200 kW received; unchanged conductors; 10 mΩ each.","duration_seconds":135,"cue":"Ask for current, heat and a safe-capacity verdict before Reveal. Require the learner to name missing engineering evidence, then reconnect material, space and energy.","notes":["We began with the ambition to deliver more power using less distribution copper and less space for conversion equipment. Test whether the fixed-power comparison was enough to prove the capacity claim. Keep the same two DC conductors and 800 V receiving-end voltage, but increase received load from one hundred to two hundred kilowatts. Predict current, conductor heat and whether safe operation has been established.","Current doubles from 125 to 250 amperes. Holding effective resistance at ten milliohms per conductor, heat rises from two times 125 squared times 0.01, or 312.5 watts, to two times 250 squared times 0.01, or 1,250 watts. Twice the power means twice the current and four times the conductor heat at fixed voltage and resistance. The physical copper quantity is unchanged by assumption.","The safe-capacity verdict is unknown. We have not supplied ampacity, allowable temperature rise, installation conditions, insulation, voltage-drop limits, termination or protection ratings, converter capacity or cooling capacity. Resistance itself changes with conductor temperature in service; the fourfold result is the stated fixed-resistance model. More watts in an equation is not evidence of approved or usable capacity.","Finish by separating three claims. Equal geometry gave a material comparison; specified conversion placement gave a space comparison; the complete loss ledger gave an energy comparison. A denser-rack design must meet all its constraints together. The takeaway is a way to evaluate delivering more power with less material, not a universal savings percentage."],"explanation":["At the same 800 V DC receiving end, raising delivered power from 100 to 200 kW doubles current from 125 to 250 A. With two conductors fixed at 0.01 Ω each, conductor heat rises from 0.3125 to 1.25 kW: four times as much. Copper quantity stays fixed because the conductors were held unchanged.","Safe operating capacity is unknown. The model supplies neither conductor ampacity nor installation, temperature, voltage-drop, terminal, protection, converter or cooling limits. Resistance also varies with temperature in a real installation.","Judge copper with explicit geometry, space with explicit equipment placement, and energy with a complete loss balance. Those tools help evaluate denser racks; they do not make additional usable capacity automatic."]}],"sources":[{"title":"NVIDIA: Why Scaling AI Compute Performance Requires a New Power Architecture","url":"https://blogs.nvidia.com/blog/800-vdc-power-architecture-ai-factory/","claim":"Architecture context for higher-voltage DC distribution and conversion placement. Feeder values and conversion losses are original teaching assumptions; conductor heat is calculated from the power each feeder must deliver.","reviewed_on":"2026-09-08","limits":"Vendor roadmap; proposed architecture and availability expectations are distinct from verified installed deployment."},{"title":"Schneider Electric: Total power calculation for accuracy verification testing","url":"https://productinfo.se.com/pm2200/5afc2b5546e0fb00011e5e9d/PM2200%20series%20User%20Manual/English/BM_PM2200seriesUserManual_0000074170.ditamap.xml/%24/C_VerifyingAccuracy_PowerTotCalcuation_0000034437","claim":"Balanced three-phase real power is 3 × line-to-neutral RMS voltage × line current × power factor, equivalent to √3 × line-to-line RMS voltage × line current × power factor.","reviewed_on":"2026-09-08","limits":"Balanced three-phase relationship. Numerical loads, voltages, resistance and conversion losses are original teaching assumptions; calculated conductor losses are not equipment specifications."},{"title":"NVIDIA: Gigawatt AI factories and the 800 V DC transition","url":"https://blogs.nvidia.com/blog/gigawatt-ai-factories-ocp-vera-rubin/","claim":"Identifies 415 or 480 V three-phase AC systems as relevant baselines for the proposed transition to 800 V DC.","reviewed_on":"2026-09-08","limits":"Used only for baseline relevance. Vendor current, efficiency, copper and deployment claims are not validated by this teaching calculation."},{"title":"NVIDIA: 800 VDC Architecture Will Power the Next Generation of AI Factories","url":"https://developer.nvidia.com/blog/nvidia-800-v-hvdc-architecture-will-power-the-next-generation-of-ai-factories/","claim":"Primary context for copper and rack-space constraints, upstream conversion, and the distinct 54 V rack-distribution boundary. Numerical feeder examples are original teaching calculations.","reviewed_on":"2026-09-09","limits":"May 2025 vendor roadmap. Proposed capacity, deployment and savings figures are not field validation; its percentage claims are not used as calculated sample results."}],"aliases":{"feeder-transfer":"ac-dc-ledger"},"learning_contract":{"driving_question":"How can denser racks use less distribution copper and less space for power conversion?","fixed_boundary":"100 kW at each feeder receiving end; later 100 kW at the final DC load.","changed_variable":"480 V three-phase AC versus 800 V two-wire DC, then conversion placement.","primary_payoff":"Explain copper quantity and equipment placement before evaluating energy savings.","misconception":"Fewer conductors means less current, or 800 V alone guarantees usable extra capacity.","transfer_question":"Can the unchanged 800 V DC feeder safely deliver 200 kW? What evidence is missing?"}}
     </script>
     <script>
       function positive(value, name) {
@@ -1489,7 +1662,14 @@ const channel =
     ? new BroadcastChannel(`gigawatt-sample-${session}`)
     : null;
 const role = notesMode ? "notes" : "audience";
-const revealKinds = new Set(["current", "loss", "energy", "paths"]);
+const revealKinds = new Set([
+  "copper",
+  "current",
+  "loss",
+  "energy",
+  "paths",
+  "decision",
+]);
 const isRevealed = () => state.revealed.includes(STEPS[state.index].id);
 
 function validState(value) {
@@ -1553,7 +1733,7 @@ function metric(value, unit) {
   return `<div class="metric">${value} <small>${unit}</small></div>`;
 }
 function intro() {
-  return `<div class="hero"><div class="hero-copy"><span class="chip">480 V AC ↔ 800 V DC</span><div class="hero-number">100<small> kW</small></div><p>Real power arriving<br>at the feeder end</p></div><img src="assets/power-equipment.png" width="1672" height="941" alt="Illustrative conversion equipment beside a compute rack; not a wiring diagram or an equipment rating." /></div>`;
+  return `<div class="hero"><div class="hero-copy"><span class="chip">480 V AC ↔ 800 V DC</span><div class="hero-number">100<small> kW</small></div><p>Start with the same power.<br>Use less copper.</p><span class="hero-goal">Then examine space, losses and growth.</span></div><img src="assets/power-equipment.png" width="1672" height="941" alt="Illustrative conversion equipment beside a compute rack; not a wiring diagram or an equipment rating." /></div>`;
 }
 function conductorNumbers(volts = DEFAULTS.comparison_voltage_v) {
   return acdcConductorModel(
@@ -1567,6 +1747,15 @@ function conductorNumbers(volts = DEFAULTS.comparison_voltage_v) {
 }
 function conductors(labels) {
   return `<div class="conductor-lines" aria-label="${labels.length} current-carrying conductors">${labels.map((label) => `<div><span>${label}</span><i></i></div>`).join("")}</div>`;
+}
+function copper() {
+  const shown = isRevealed();
+  const { ac, dc } = conductorNumbers();
+  const ratio = dc.conductors / ac.conductors;
+  function bundle(supply, labels) {
+    return `<div class="copper-bundle" data-supply="${supply}" aria-label="${labels.length} copper conductors of equal length and cross-section">${labels.map((label) => `<div class="copper-row"><span>${label}</span><i class="copper-bar" aria-hidden="true"></i></div>`).join("")}${supply === "dc" ? '<div class="copper-row copper-removed" aria-label="One fewer conductor"><span>−1</span><i aria-hidden="true"></i></div>' : ""}</div>`;
+  }
+  return `<div class="model copper-model"><div class="model-top"><span class="chip">SAME 100 kW DELIVERED</span><span class="ledger-formula">Copper volume = count × length × area</span></div><div class="comparison"><section class="metric-card"><p class="metric-label">480 V three-phase AC</p>${bundle("ac", ["L1", "L2", "L3"])}<p class="copper-quantity"><strong>3</strong> equal copper lengths</p></section><section class="metric-card changed"><p class="metric-label">800 V DC</p>${bundle("dc", ["+", "−"])}<p class="copper-quantity"><strong>2</strong> equal copper lengths</p></section></div>${shown ? `<div class="copper-result"><strong>${fmt((1 - ratio) * 100, 1)}% less conductor copper</strong><span>Equal length, cross-section and material. Current comes next.</span></div>` : '<div class="control-line"><button id="reveal" class="reveal">How much copper is removed?</button></div>'}</div>`;
 }
 function current() {
   const { ac, dc } = conductorNumbers(state.volts);
@@ -1599,15 +1788,16 @@ function architecture(kind) {
   }
   if (kind === "facility") {
     facility = converter;
-    adjacent = unit("Broader DC path");
+    adjacent = unit("800 V DC", "", "hall distribution");
     rack = regulator + arrow + chip;
   }
   const observation = {
     ac: "Conversion occupies space in the compute rack.",
-    sidecar: "The sidecar still needs power, cooling and service access.",
-    facility: "A longer DC path means more interfaces to coordinate.",
+    sidecar: "Rack space is released; the sidecar occupies nearby space.",
+    facility: "AC/DC conversion moves out of the hall to the power room.",
   }[kind];
-  return `<div class="architecture"><div class="path"><section class="zone ${kind === "facility" ? "active" : ""}"><h2 class="zone-title">Upstream facility</h2><div class="zone-body">${facility}</div></section><section class="zone ${kind === "sidecar" ? "active" : ""}"><h2 class="zone-title">${kind === "sidecar" ? "Nearby power rack / sidecar" : "Distribution space"}</h2><div class="zone-body">${adjacent}</div></section><section class="zone rack ${kind === "ac" ? "active" : ""}"><h2 class="zone-title">Compute rack</h2><div class="zone-body">${rack}</div></section></div><p class="path-label">${kind === "ac" ? "AC toward the rack" : kind === "sidecar" ? "AC to the sidecar → 800 V DC toward the rack" : "AC conversion upstream → DC across the facility"}</p><p class="boundary-line">${observation}</p></div>`;
+  const space = `<div class="rack-space ${kind === "ac" ? "occupied" : "released"}"><span>${kind === "ac" ? "AC/DC equipment footprint" : "Former AC/DC equipment space"}</span><strong>${kind === "ac" ? "Occupied" : "Released"}</strong></div>`;
+  return `<div class="architecture"><div class="path"><section class="zone ${kind === "facility" ? "active" : ""}"><h2 class="zone-title">Upstream power room</h2><div class="zone-body">${facility}</div></section><section class="zone ${kind === "sidecar" ? "active" : ""}"><h2 class="zone-title">${kind === "sidecar" ? "Nearby power rack / sidecar" : "Hall distribution"}</h2><div class="zone-body">${adjacent}</div></section><section class="zone rack ${kind === "ac" ? "active" : ""}"><h2 class="zone-title">Compute rack</h2><div class="zone-body">${rack}</div>${space}</section></div><p class="path-label">${kind === "ac" ? "AC toward the rack" : kind === "sidecar" ? "AC to the sidecar → 800 V DC toward the rack" : "AC conversion in power room → 800 V DC through the hall"}</p><p class="boundary-line">${observation}</p></div>`;
 }
 function ledgerCard(title, rows, inputKW, shown, changed = false) {
   return `<section class="ledger-card ${changed ? "changed" : ""}"><h2>${title}</h2><dl>${rows.map(([label, value]) => `<div><dt>${label}</dt><dd>${value} <small>kW</small></dd></div>`).join("")}</dl><div class="ledger-total"><span>Required input</span><strong>${shown ? fmt(inputKW, 3) : "?"} <small>kW</small></strong></div></section>`;
@@ -1676,6 +1866,19 @@ function paths() {
     shown,
     true,
   )}</div></div><p class="path-assumption">AC: conversion after feeder. DC: 1 kW before feeder; remaining conversion after.</p>${shown ? `<div class="control-line"><label for="dc-conversion">Total DC conversion loss</label><input id="dc-conversion" type="range" min="1" max="7" step="0.1" value="${state.dcConversionKW}" /><output id="dc-conversion-value" for="dc-conversion">${fmt(state.dcConversionKW, 1)} kW</output><button id="dc-loss-reset">Reset</button></div><div class="ledger-result"><strong id="path-result">${pathResult(ac, dc)}</strong></div>` : `<div class="ledger-result"><button id="reveal">Reveal both input budgets</button></div>`}</div>`;
+}
+function decision() {
+  const shown = isRevealed();
+  const base = conductorNumbers().dc;
+  const grown = dcConductorModel(
+    DEFAULTS.power_kw * 2,
+    DEFAULTS.comparison_voltage_v,
+    2 * DEFAULTS.conductor_ohms,
+    DEFAULTS.hours,
+  );
+  const row = (label, before, after, unit, given = false) =>
+    `<div class="capacity-row"><span>${label}</span><strong>${before}<small> ${unit}</small></strong><strong>${shown || given ? after : "?"}<small> ${unit}</small></strong></div>`;
+  return `<div class="model capacity-model"><div class="model-top"><span class="chip">800 V DC · KEEP THE SAME TWO CONDUCTORS</span><span class="ledger-formula">Can this feeder serve twice the load?</span></div><div class="capacity-table"><div class="capacity-row capacity-heading"><span>At the feeder end</span><strong>Starting case</strong><strong>Proposed growth</strong></div>${row("Delivered power", fmt(DEFAULTS.power_kw), fmt(DEFAULTS.power_kw * 2), "kW", true)}${row("Conductor copper", "1×", "1×", "", true)}${row("Current per wire", fmt(base.amps), fmt(grown.amps), "A")}${row("Total conductor heat", fmt(base.lossKW, 4), fmt(grown.lossKW, 2), "kW")}</div>${shown ? `<div class="capacity-result"><strong>2× power · same copper · 4× conductor heat</strong><span class="capacity-status">Capacity unverified: check conductor temperature, voltage drop and equipment ratings.</span></div>` : '<div class="control-line"><button id="reveal" class="reveal">Predict current, heat and the capacity verdict</button></div>'}</div>`;
 }
 function renderNotes() {
   const step = STEPS[state.index];
@@ -1765,7 +1968,7 @@ function render() {
   byId("scene-title").textContent = step.headline;
   byId("caption").textContent = step.caption;
   byId("visual").innerHTML = (
-    { intro, current, loss, energy, paths }[step.kind] ||
+    { intro, copper, current, loss, energy, paths, decision }[step.kind] ||
     (() => architecture(step.kind))
   )();
   byId("previous").disabled = state.index === 0;

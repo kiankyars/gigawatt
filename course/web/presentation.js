@@ -39,7 +39,14 @@ const channel =
     ? new BroadcastChannel(`gigawatt-sample-${session}`)
     : null;
 const role = notesMode ? "notes" : "audience";
-const revealKinds = new Set(["current", "loss", "energy", "paths"]);
+const revealKinds = new Set([
+  "copper",
+  "current",
+  "loss",
+  "energy",
+  "paths",
+  "decision",
+]);
 const isRevealed = () => state.revealed.includes(STEPS[state.index].id);
 
 function validState(value) {
@@ -103,7 +110,7 @@ function metric(value, unit) {
   return `<div class="metric">${value} <small>${unit}</small></div>`;
 }
 function intro() {
-  return `<div class="hero"><div class="hero-copy"><span class="chip">480 V AC ↔ 800 V DC</span><div class="hero-number">100<small> kW</small></div><p>Real power arriving<br>at the feeder end</p></div><img src="assets/power-equipment.png" width="1672" height="941" alt="Illustrative conversion equipment beside a compute rack; not a wiring diagram or an equipment rating." /></div>`;
+  return `<div class="hero"><div class="hero-copy"><span class="chip">480 V AC ↔ 800 V DC</span><div class="hero-number">100<small> kW</small></div><p>Start with the same power.<br>Use less copper.</p><span class="hero-goal">Then examine space, losses and growth.</span></div><img src="assets/power-equipment.png" width="1672" height="941" alt="Illustrative conversion equipment beside a compute rack; not a wiring diagram or an equipment rating." /></div>`;
 }
 function conductorNumbers(volts = DEFAULTS.comparison_voltage_v) {
   return acdcConductorModel(
@@ -117,6 +124,15 @@ function conductorNumbers(volts = DEFAULTS.comparison_voltage_v) {
 }
 function conductors(labels) {
   return `<div class="conductor-lines" aria-label="${labels.length} current-carrying conductors">${labels.map((label) => `<div><span>${label}</span><i></i></div>`).join("")}</div>`;
+}
+function copper() {
+  const shown = isRevealed();
+  const { ac, dc } = conductorNumbers();
+  const ratio = dc.conductors / ac.conductors;
+  function bundle(supply, labels) {
+    return `<div class="copper-bundle" data-supply="${supply}" aria-label="${labels.length} copper conductors of equal length and cross-section">${labels.map((label) => `<div class="copper-row"><span>${label}</span><i class="copper-bar" aria-hidden="true"></i></div>`).join("")}${supply === "dc" ? '<div class="copper-row copper-removed" aria-label="One fewer conductor"><span>−1</span><i aria-hidden="true"></i></div>' : ""}</div>`;
+  }
+  return `<div class="model copper-model"><div class="model-top"><span class="chip">SAME 100 kW DELIVERED</span><span class="ledger-formula">Copper volume = count × length × area</span></div><div class="comparison"><section class="metric-card"><p class="metric-label">480 V three-phase AC</p>${bundle("ac", ["L1", "L2", "L3"])}<p class="copper-quantity"><strong>3</strong> equal copper lengths</p></section><section class="metric-card changed"><p class="metric-label">800 V DC</p>${bundle("dc", ["+", "−"])}<p class="copper-quantity"><strong>2</strong> equal copper lengths</p></section></div>${shown ? `<div class="copper-result"><strong>${fmt((1 - ratio) * 100, 1)}% less conductor copper</strong><span>Equal length, cross-section and material. Current comes next.</span></div>` : '<div class="control-line"><button id="reveal" class="reveal">How much copper is removed?</button></div>'}</div>`;
 }
 function current() {
   const { ac, dc } = conductorNumbers(state.volts);
@@ -149,15 +165,16 @@ function architecture(kind) {
   }
   if (kind === "facility") {
     facility = converter;
-    adjacent = unit("Broader DC path");
+    adjacent = unit("800 V DC", "", "hall distribution");
     rack = regulator + arrow + chip;
   }
   const observation = {
     ac: "Conversion occupies space in the compute rack.",
-    sidecar: "The sidecar still needs power, cooling and service access.",
-    facility: "A longer DC path means more interfaces to coordinate.",
+    sidecar: "Rack space is released; the sidecar occupies nearby space.",
+    facility: "AC/DC conversion moves out of the hall to the power room.",
   }[kind];
-  return `<div class="architecture"><div class="path"><section class="zone ${kind === "facility" ? "active" : ""}"><h2 class="zone-title">Upstream facility</h2><div class="zone-body">${facility}</div></section><section class="zone ${kind === "sidecar" ? "active" : ""}"><h2 class="zone-title">${kind === "sidecar" ? "Nearby power rack / sidecar" : "Distribution space"}</h2><div class="zone-body">${adjacent}</div></section><section class="zone rack ${kind === "ac" ? "active" : ""}"><h2 class="zone-title">Compute rack</h2><div class="zone-body">${rack}</div></section></div><p class="path-label">${kind === "ac" ? "AC toward the rack" : kind === "sidecar" ? "AC to the sidecar → 800 V DC toward the rack" : "AC conversion upstream → DC across the facility"}</p><p class="boundary-line">${observation}</p></div>`;
+  const space = `<div class="rack-space ${kind === "ac" ? "occupied" : "released"}"><span>${kind === "ac" ? "AC/DC equipment footprint" : "Former AC/DC equipment space"}</span><strong>${kind === "ac" ? "Occupied" : "Released"}</strong></div>`;
+  return `<div class="architecture"><div class="path"><section class="zone ${kind === "facility" ? "active" : ""}"><h2 class="zone-title">Upstream power room</h2><div class="zone-body">${facility}</div></section><section class="zone ${kind === "sidecar" ? "active" : ""}"><h2 class="zone-title">${kind === "sidecar" ? "Nearby power rack / sidecar" : "Hall distribution"}</h2><div class="zone-body">${adjacent}</div></section><section class="zone rack ${kind === "ac" ? "active" : ""}"><h2 class="zone-title">Compute rack</h2><div class="zone-body">${rack}</div>${space}</section></div><p class="path-label">${kind === "ac" ? "AC toward the rack" : kind === "sidecar" ? "AC to the sidecar → 800 V DC toward the rack" : "AC conversion in power room → 800 V DC through the hall"}</p><p class="boundary-line">${observation}</p></div>`;
 }
 function ledgerCard(title, rows, inputKW, shown, changed = false) {
   return `<section class="ledger-card ${changed ? "changed" : ""}"><h2>${title}</h2><dl>${rows.map(([label, value]) => `<div><dt>${label}</dt><dd>${value} <small>kW</small></dd></div>`).join("")}</dl><div class="ledger-total"><span>Required input</span><strong>${shown ? fmt(inputKW, 3) : "?"} <small>kW</small></strong></div></section>`;
@@ -226,6 +243,19 @@ function paths() {
     shown,
     true,
   )}</div></div><p class="path-assumption">AC: conversion after feeder. DC: 1 kW before feeder; remaining conversion after.</p>${shown ? `<div class="control-line"><label for="dc-conversion">Total DC conversion loss</label><input id="dc-conversion" type="range" min="1" max="7" step="0.1" value="${state.dcConversionKW}" /><output id="dc-conversion-value" for="dc-conversion">${fmt(state.dcConversionKW, 1)} kW</output><button id="dc-loss-reset">Reset</button></div><div class="ledger-result"><strong id="path-result">${pathResult(ac, dc)}</strong></div>` : `<div class="ledger-result"><button id="reveal">Reveal both input budgets</button></div>`}</div>`;
+}
+function decision() {
+  const shown = isRevealed();
+  const base = conductorNumbers().dc;
+  const grown = dcConductorModel(
+    DEFAULTS.power_kw * 2,
+    DEFAULTS.comparison_voltage_v,
+    2 * DEFAULTS.conductor_ohms,
+    DEFAULTS.hours,
+  );
+  const row = (label, before, after, unit, given = false) =>
+    `<div class="capacity-row"><span>${label}</span><strong>${before}<small> ${unit}</small></strong><strong>${shown || given ? after : "?"}<small> ${unit}</small></strong></div>`;
+  return `<div class="model capacity-model"><div class="model-top"><span class="chip">800 V DC · KEEP THE SAME TWO CONDUCTORS</span><span class="ledger-formula">Can this feeder serve twice the load?</span></div><div class="capacity-table"><div class="capacity-row capacity-heading"><span>At the feeder end</span><strong>Starting case</strong><strong>Proposed growth</strong></div>${row("Delivered power", fmt(DEFAULTS.power_kw), fmt(DEFAULTS.power_kw * 2), "kW", true)}${row("Conductor copper", "1×", "1×", "", true)}${row("Current per wire", fmt(base.amps), fmt(grown.amps), "A")}${row("Total conductor heat", fmt(base.lossKW, 4), fmt(grown.lossKW, 2), "kW")}</div>${shown ? `<div class="capacity-result"><strong>2× power · same copper · 4× conductor heat</strong><span class="capacity-status">Capacity unverified: check conductor temperature, voltage drop and equipment ratings.</span></div>` : '<div class="control-line"><button id="reveal" class="reveal">Predict current, heat and the capacity verdict</button></div>'}</div>`;
 }
 function renderNotes() {
   const step = STEPS[state.index];
@@ -315,7 +345,7 @@ function render() {
   byId("scene-title").textContent = step.headline;
   byId("caption").textContent = step.caption;
   byId("visual").innerHTML = (
-    { intro, current, loss, energy, paths }[step.kind] ||
+    { intro, copper, current, loss, energy, paths, decision }[step.kind] ||
     (() => architecture(step.kind))
   )();
   byId("previous").disabled = state.index === 0;

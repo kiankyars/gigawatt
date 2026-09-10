@@ -8,6 +8,9 @@ The default [student sample](sample.html) has visual steps and optional
 explanations. [Teaching mode](teach.html) provides the presentation controls and
 separate notes for Kian's unrecorded dry run. The remaining lessons are reading
 material pending adaptation. See [PRESENTING.md](PRESENTING.md).
+The [teaching standard](TEACHING_STANDARD.md) carries the sample's lessons into
+the full curriculum, with a domain-by-domain adaptation plan and a functional
+bill-of-materials proposal. It distinguishes implemented visuals from planned work.
 
 The reader uses `web/reader.html`, `reader.css`, `reader.js`, and
 `reader-models.js`, with GPT ImageGen illustrations in `assets/`. The

@@ -1,8 +1,8 @@
 {
-  "checked_on": "2026-09-08",
+  "checked_on": "2026-09-10",
   "browser": "Headless Chromium / Playwright",
   "base": "http://127.0.0.1:8765/course/",
-  "layout_states": 120,
+  "layout_states": 160,
   "layouts": [
     {
       "mode": "teach",
@@ -17,6 +17,28 @@
     },
     {
       "mode": "teach",
+      "step": "conductor-copper",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 1080
+    },
+    {
+      "mode": "teach",
+      "step": "conductor-copper",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 1080
+    },
+    {
+      "mode": "teach",
       "step": "current-prediction",
       "viewport": {
         "width": 1920,
@@ -128,6 +150,28 @@
     {
       "mode": "teach",
       "step": "ac-dc-ledger",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 1080
+    },
+    {
+      "mode": "teach",
+      "step": "capacity-check",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 1080
+    },
+    {
+      "mode": "teach",
+      "step": "capacity-check",
       "viewport": {
         "width": 1920,
         "height": 1080
@@ -149,6 +193,28 @@
     },
     {
       "mode": "teach",
+      "step": "conductor-copper",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 720
+    },
+    {
+      "mode": "teach",
+      "step": "conductor-copper",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 720
+    },
+    {
+      "mode": "teach",
       "step": "current-prediction",
       "viewport": {
         "width": 1280,
@@ -260,6 +326,28 @@
     {
       "mode": "teach",
       "step": "ac-dc-ledger",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 720
+    },
+    {
+      "mode": "teach",
+      "step": "capacity-check",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 720
+    },
+    {
+      "mode": "teach",
+      "step": "capacity-check",
       "viewport": {
         "width": 1280,
         "height": 720
@@ -281,6 +369,28 @@
     },
     {
       "mode": "teach",
+      "step": "conductor-copper",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 768
+    },
+    {
+      "mode": "teach",
+      "step": "conductor-copper",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 768
+    },
+    {
+      "mode": "teach",
       "step": "current-prediction",
       "viewport": {
         "width": 1024,
@@ -392,6 +502,28 @@
     {
       "mode": "teach",
       "step": "ac-dc-ledger",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 768
+    },
+    {
+      "mode": "teach",
+      "step": "capacity-check",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 768
+    },
+    {
+      "mode": "teach",
+      "step": "capacity-check",
       "viewport": {
         "width": 1024,
         "height": 768
@@ -409,6 +541,28 @@
       },
       "revealed": false,
       "horizontal_overflow": false,
+      "document_height": 912
+    },
+    {
+      "mode": "teach",
+      "step": "conductor-copper",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 844
+    },
+    {
+      "mode": "teach",
+      "step": "conductor-copper",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
       "document_height": 844
     },
     {
@@ -464,7 +618,7 @@
       },
       "revealed": false,
       "horizontal_overflow": false,
-      "document_height": 1176
+      "document_height": 1267
     },
     {
       "mode": "teach",
@@ -475,7 +629,7 @@
       },
       "revealed": false,
       "horizontal_overflow": false,
-      "document_height": 1102
+      "document_height": 1155
     },
     {
       "mode": "teach",
@@ -486,7 +640,7 @@
       },
       "revealed": false,
       "horizontal_overflow": false,
-      "document_height": 1102
+      "document_height": 1172
     },
     {
       "mode": "teach",
@@ -497,7 +651,7 @@
       },
       "revealed": false,
       "horizontal_overflow": false,
-      "document_height": 905
+      "document_height": 943
     },
     {
       "mode": "teach",
@@ -508,7 +662,7 @@
       },
       "revealed": true,
       "horizontal_overflow": false,
-      "document_height": 938
+      "document_height": 976
     },
     {
       "mode": "teach",
@@ -519,7 +673,7 @@
       },
       "revealed": false,
       "horizontal_overflow": false,
-      "document_height": 1053
+      "document_height": 1091
     },
     {
       "mode": "teach",
@@ -530,7 +684,29 @@
       },
       "revealed": true,
       "horizontal_overflow": false,
-      "document_height": 1157
+      "document_height": 1195
+    },
+    {
+      "mode": "teach",
+      "step": "capacity-check",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 844
+    },
+    {
+      "mode": "teach",
+      "step": "capacity-check",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 852
     },
     {
       "mode": "teach",
@@ -542,6 +718,28 @@
       "revealed": false,
       "horizontal_overflow": false,
       "document_height": 516
+    },
+    {
+      "mode": "teach",
+      "step": "conductor-copper",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 609
+    },
+    {
+      "mode": "teach",
+      "step": "conductor-copper",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 618
     },
     {
       "mode": "teach",
@@ -596,7 +794,7 @@
       },
       "revealed": false,
       "horizontal_overflow": false,
-      "document_height": 516
+      "document_height": 532
     },
     {
       "mode": "teach",
@@ -607,7 +805,7 @@
       },
       "revealed": false,
       "horizontal_overflow": false,
-      "document_height": 516
+      "document_height": 530
     },
     {
       "mode": "teach",
@@ -618,7 +816,7 @@
       },
       "revealed": false,
       "horizontal_overflow": false,
-      "document_height": 516
+      "document_height": 530
     },
     {
       "mode": "teach",
@@ -665,6 +863,28 @@
       "document_height": 621
     },
     {
+      "mode": "teach",
+      "step": "capacity-check",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 607
+    },
+    {
+      "mode": "teach",
+      "step": "capacity-check",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 616
+    },
+    {
       "mode": "student",
       "step": "one-load",
       "viewport": {
@@ -672,6 +892,28 @@
         "height": 1080
       },
       "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 1080
+    },
+    {
+      "mode": "student",
+      "step": "conductor-copper",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 1080
+    },
+    {
+      "mode": "student",
+      "step": "conductor-copper",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "revealed": true,
       "horizontal_overflow": false,
       "document_height": 1080
     },
@@ -798,6 +1040,28 @@
     },
     {
       "mode": "student",
+      "step": "capacity-check",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 1080
+    },
+    {
+      "mode": "student",
+      "step": "capacity-check",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 1080
+    },
+    {
+      "mode": "student",
       "step": "one-load",
       "viewport": {
         "width": 1280,
@@ -806,6 +1070,28 @@
       "revealed": false,
       "horizontal_overflow": false,
       "document_height": 720
+    },
+    {
+      "mode": "student",
+      "step": "conductor-copper",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 720
+    },
+    {
+      "mode": "student",
+      "step": "conductor-copper",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 722
     },
     {
       "mode": "student",
@@ -930,12 +1216,56 @@
     },
     {
       "mode": "student",
+      "step": "capacity-check",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 753
+    },
+    {
+      "mode": "student",
+      "step": "capacity-check",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 774
+    },
+    {
+      "mode": "student",
       "step": "one-load",
       "viewport": {
         "width": 1024,
         "height": 768
       },
       "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 768
+    },
+    {
+      "mode": "student",
+      "step": "conductor-copper",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 768
+    },
+    {
+      "mode": "student",
+      "step": "conductor-copper",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "revealed": true,
       "horizontal_overflow": false,
       "document_height": 768
     },
@@ -1062,6 +1392,28 @@
     },
     {
       "mode": "student",
+      "step": "capacity-check",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 768
+    },
+    {
+      "mode": "student",
+      "step": "capacity-check",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 768
+    },
+    {
+      "mode": "student",
       "step": "one-load",
       "viewport": {
         "width": 390,
@@ -1069,7 +1421,29 @@
       },
       "revealed": false,
       "horizontal_overflow": false,
-      "document_height": 888
+      "document_height": 972
+    },
+    {
+      "mode": "student",
+      "step": "conductor-copper",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 844
+    },
+    {
+      "mode": "student",
+      "step": "conductor-copper",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 856
     },
     {
       "mode": "student",
@@ -1124,7 +1498,7 @@
       },
       "revealed": false,
       "horizontal_overflow": false,
-      "document_height": 1236
+      "document_height": 1327
     },
     {
       "mode": "student",
@@ -1135,7 +1509,7 @@
       },
       "revealed": false,
       "horizontal_overflow": false,
-      "document_height": 1162
+      "document_height": 1215
     },
     {
       "mode": "student",
@@ -1146,7 +1520,7 @@
       },
       "revealed": false,
       "horizontal_overflow": false,
-      "document_height": 1162
+      "document_height": 1232
     },
     {
       "mode": "student",
@@ -1157,7 +1531,7 @@
       },
       "revealed": false,
       "horizontal_overflow": false,
-      "document_height": 965
+      "document_height": 1003
     },
     {
       "mode": "student",
@@ -1168,7 +1542,7 @@
       },
       "revealed": true,
       "horizontal_overflow": false,
-      "document_height": 998
+      "document_height": 1036
     },
     {
       "mode": "student",
@@ -1179,7 +1553,7 @@
       },
       "revealed": false,
       "horizontal_overflow": false,
-      "document_height": 1113
+      "document_height": 1151
     },
     {
       "mode": "student",
@@ -1190,7 +1564,29 @@
       },
       "revealed": true,
       "horizontal_overflow": false,
-      "document_height": 1217
+      "document_height": 1255
+    },
+    {
+      "mode": "student",
+      "step": "capacity-check",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 860
+    },
+    {
+      "mode": "student",
+      "step": "capacity-check",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 912
     },
     {
       "mode": "student",
@@ -1202,6 +1598,28 @@
       "revealed": false,
       "horizontal_overflow": false,
       "document_height": 658
+    },
+    {
+      "mode": "student",
+      "step": "conductor-copper",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 677
+    },
+    {
+      "mode": "student",
+      "step": "conductor-copper",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 686
     },
     {
       "mode": "student",
@@ -1323,16 +1741,42 @@
       "revealed": true,
       "horizontal_overflow": false,
       "document_height": 689
+    },
+    {
+      "mode": "student",
+      "step": "capacity-check",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "revealed": false,
+      "horizontal_overflow": false,
+      "document_height": 675
+    },
+    {
+      "mode": "student",
+      "step": "capacity-check",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "revealed": true,
+      "horizontal_overflow": false,
+      "document_height": 684
     }
   ],
   "checks": [
-    "Eight visual steps in teaching and student modes at five viewport sizes",
+    "Ten visual steps and six reveal states in teaching and student modes at five viewport sizes",
     "Teaching notes excluded from visuals and no recording-setup instructions",
     "No teaching-view scroll at 1920×1080, 1280×720 or 1024×768",
     "No horizontal overflow or clipped labels on phone and short landscape",
-    "Student explanations expand for all eight steps at all five sizes",
+    "Student explanations expand for all ten steps at all five sizes",
     "Student mode hides notes/fullscreen and P/F shortcuts do not activate them",
-    "Prediction before reveal for currents, conductor loss and both energy ledgers",
+    "Prediction before reveal for copper, currents, conductor loss, both energy ledgers and the capacity transfer",
+    "Equal-geometry copper comparison: three bars versus two, 33.3% less conductor copper",
+    "Capacity transfer: 125 to 250 A, 0.3125 to 1.25 kW conductor heat, unchanged copper and unverified safe capacity",
+    "Moved conversion: sidecar retains upstream AC and nearby footprint; facility DC moves conversion to power room",
+    "All ten footer steps remain accessible without horizontal overflow; only capacity-check is the final scene",
     "480 V balanced three-phase AC versus 800 V DC: current, conductor count, 72% heat ratio and energy balance",
     "Coupled complete-path default, 4.1–4.2 kW crossover bracket and reversed energy budgets",
     "Keyboard advance after reveal and slider keyboard ownership",
