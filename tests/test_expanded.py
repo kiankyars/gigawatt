@@ -129,7 +129,10 @@ class ExpansionTests(unittest.TestCase):
         self.assertTrue((b.ROOT / "course/sample-notes.html").is_file())
         data = b.read(b.ROOT / "course/expansion/sample-presentation.json")
         self.assertEqual(data["source_lesson_id"], "sample-800v")
-        self.assertEqual(len(data["steps"]), 10)
+        self.assertEqual(
+            [s["kind"] for s in data["steps"][1:5]],
+            ["dc-basics", "ac-basics", "three-phase", "voltage-basis"],
+        )
         for step in data["steps"]:
             self.assertLessEqual(len(step["headline"].split()), 10)
             self.assertLessEqual(len(step["caption"].split()), 18)
@@ -176,6 +179,21 @@ class ExpansionTests(unittest.TestCase):
         self.assertEqual(
             len(json.loads(payload)["lessons"]), len(self.course["lessons"])
         )
+
+    def test_reference_figures_keep_sources_and_relative_asset_links(self):
+        lesson = next(l for l in self.course["lessons"] if l["id"] == "d04-conversion-placement")
+        figures = [f for s in lesson["sections"] for f in s.get("figures", [])]
+        self.assertEqual(len(figures), 2)
+        sources = {s["id"]: s for s in self.course["sources"]}
+        markdown = b.lesson_markdown(lesson, sources, asset_prefix="../assets/")
+        for figure in figures:
+            self.assertIn(f"../assets/{figure['asset']}", markdown)
+            self.assertIn(figure["source_url"], markdown)
+            self.assertTrue((b.ROOT / "course/assets" / figure["asset"]).is_file())
+        changed = deepcopy(self.raw)
+        changed["sections"][0]["figures"] = [dict(figures[0], asset="../../private.png")]
+        with self.assertRaisesRegex(b.ExpansionError, "Unsafe reference figure path"):
+            b.normalize(changed, self.catalog, self.objectives)
 
     def test_sample_embeds_every_cited_catalog_record(self):
         html = (b.ROOT / "course/sample-reading.html").read_text()

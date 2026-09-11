@@ -1,0 +1,1652 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="theme-color"
+      content="#f4f3ee"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#101b1f"
+      media="(prefers-color-scheme: dark)"
+    />
+    <title>UPS — spatial teaching prototype</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f4f3ee;
+        --ink: #193139;
+        --muted: #63716b;
+        --green: #097867;
+        --line: #d6ddd3;
+        --gold: #b36717;
+        font-family:
+          Inter,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        color: var(--ink);
+        background: var(--paper);
+      }
+      @media screen and (prefers-color-scheme: dark) {
+        :root {
+          color-scheme: dark;
+          --paper: #101b1f;
+          --ink: #e8eee8;
+          --muted: #a8b9b4;
+          --green: #69d5be;
+          --line: #354a4c;
+          --gold: #f3bc70;
+          --on-strong: #101b1f;
+          --shadow: #00000040;
+          --spotlight-veil: #101b1f66;
+          --overlay: #101b1feb;
+          --status-surface: #182c2b;
+          --status-border: #36574d;
+          --warning-surface: #30291f;
+          --warning-border: #695239;
+          --enclosure: #18272b;
+          --enclosure-border: #405755;
+          --diagram-face: #213638;
+          --diagram-border: #8caf9f;
+          --inactive-face: #202e32;
+          --inactive-border: #657872;
+          --symbol: #b8d9cd;
+          --inactive-symbol: #8d9f98;
+          --inactive-wire: #728880;
+          --unavailable: #9aaea5;
+          --note-surface: #1b332f;
+          --cabinet-shadow: #0b1518;
+          --cabinet-top: #3a5650;
+          --cabinet-side: #253d39;
+          --cabinet-front: #344b46;
+          --cabinet-border: #729184;
+          --cabinet-seam: #658074;
+          --cabinet-detail: #a3bdb0;
+          --cabinet-screen: #0c211d;
+          --cabinet-screen-ink: #b8efd0;
+          --rack-frame: #547f6d;
+          --rack-slot: #213638;
+          --battery-charge: #416751;
+          --available: #69d5be;
+          --maintenance: #f3bc70;
+          --fault: #a8b9b4;
+          --inactive-route: #728880;
+          --rack-surface: #203331;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+      }
+      button,
+      a {
+        font: inherit;
+      }
+      button {
+        cursor: pointer;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: transparent;
+        color: inherit;
+        padding: 9px 16px;
+      }
+      a {
+        color: var(--green);
+      }
+      button:focus-visible,
+      a:focus-visible {
+        outline: 3px solid var(--gold);
+        outline-offset: 4px;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      #viewer {
+        height: 100svh;
+        display: grid;
+        grid-template-rows: 52px 1fr 62px;
+        max-width: 1920px;
+        margin: auto;
+      }
+      .toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 28px;
+        border-bottom: 1px solid var(--line);
+        gap: 15px;
+      }
+      .brand {
+        font-weight: 800;
+        letter-spacing: 1px;
+        font-size: 13px;
+      }
+      .toolbar small {
+        font-size: 11px;
+        color: var(--muted);
+        margin-left: 16px;
+      }
+      .toolbar nav {
+        display: flex;
+        gap: 10px;
+      }
+      .toolbar button {
+        font-size: 12px;
+        padding: 7px 11px;
+      }
+      main {
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        padding: 20px 4vw 12px;
+        gap: 10px;
+      }
+      .eyebrow {
+        font-size: 10px;
+        font-weight: 750;
+        letter-spacing: 2px;
+        color: var(--green);
+        margin: 0 0 8px;
+      }
+      h1 {
+        font:
+          400 clamp(30px, 3.6vw, 60px)/1.07 Georgia,
+          serif;
+        letter-spacing: -1px;
+        margin: 0;
+      }
+      .location {
+        font-size: 12px;
+        color: var(--muted);
+        margin: 8px 0 0;
+      }
+      #stage {
+        flex: 1;
+        min-height: 0;
+        position: relative;
+        overflow: hidden;
+        border-radius: 12px;
+      }
+      #spatial {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+      }
+      #campus {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        transform-origin: 29% 56%;
+        transition: transform 850ms cubic-bezier(0.2, 0.7, 0.2, 1);
+      }
+      #campus.close {
+        transform: scale(2.25);
+      }
+      .pin {
+        position: absolute;
+        padding: 8px 12px;
+        border: 1px solid rgba(255, 255, 255, 0.75);
+        border-radius: 6px;
+        background: var(--ink);
+        color: var(--on-strong, white);
+        font-size: 14px;
+        box-shadow: 0 4px 16px var(--shadow, #19313920);
+        transform: translate(-50%, -50%);
+      }
+      .pin.room {
+        left: 28%;
+        top: 58%;
+      }
+      .pin.rack {
+        left: 61%;
+        top: 48%;
+      }
+      .pin.room.focus {
+        left: 29%;
+        top: 60%;
+        font-size: 20px;
+        background: var(--green);
+      }
+      .spotlight {
+        position: absolute;
+        left: 18%;
+        top: 42%;
+        width: 23%;
+        height: 37%;
+        border: 3px solid var(--gold);
+        border-radius: 18px;
+        box-shadow: 0 0 0 1800px var(--spotlight-veil, #f4f3ee50);
+        pointer-events: none;
+      }
+      .image-label {
+        position: absolute;
+        bottom: 10px;
+        left: 12px;
+        color: var(--muted);
+        font-size: 11px;
+        background: var(--overlay, #f4f3eedb);
+        padding: 5px 8px;
+        border-radius: 5px;
+      }
+      #equipment {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 12px;
+      }
+      #equipment-view {
+        display: block;
+        width: 100%;
+        flex: 1;
+        min-height: 230px;
+        max-height: 490px;
+      }
+      .reference {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px 20px;
+        padding: 12px 16px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        font-size: 13px;
+        line-height: 1.5;
+      }
+      .reference strong {
+        display: block;
+        font-size: 14px;
+      }
+      .equipment-scope {
+        margin: 0;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      #mechanism {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 12px;
+      }
+      .state-strip {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        padding: 11px 16px;
+        border: 1px solid var(--status-border, #cbd8cc);
+        border-radius: 8px;
+        background: var(--status-surface, #e9eee6);
+        font-size: 14px;
+      }
+      .state-strip strong {
+        color: var(--green);
+      }
+      #supply-state {
+        font-weight: 750;
+        letter-spacing: 0.04em;
+        font-size: 12px;
+      }
+      #mechanism[data-outage="true"] .state-strip {
+        background: var(--warning-surface, #f2e8d8);
+        border-color: var(--warning-border, #dfcdae);
+      }
+      #circuit {
+        display: block;
+        width: 100%;
+        flex: 1;
+        min-height: 220px;
+        max-height: 490px;
+      }
+      #circuit text {
+        font-family: inherit;
+      }
+      .ups-enclosure {
+        fill: var(--enclosure, #e8ede6);
+        stroke: var(--enclosure-border, #bdcdbf);
+        stroke-width: 1.5;
+      }
+      .diagram-label {
+        fill: var(--ink);
+        font-size: 24px;
+        font-weight: 700;
+      }
+      .diagram-detail {
+        fill: var(--muted);
+        font-size: 17px;
+      }
+      .diagram-kicker {
+        fill: var(--muted);
+        font-size: 12px;
+        font-weight: 750;
+        letter-spacing: 1.7px;
+      }
+      .diagram-value {
+        fill: var(--ink);
+        font-size: 34px;
+        font-weight: 750;
+        letter-spacing: -1px;
+      }
+      .equipment-face {
+        fill: var(--diagram-face, #f9faf6);
+        stroke: var(--diagram-border, #6c897e);
+        stroke-width: 2;
+      }
+      .equipment-face.inactive {
+        fill: var(--inactive-face, #ecede8);
+        stroke: var(--inactive-border, #adb8ad);
+      }
+      .symbol {
+        fill: none;
+        stroke: var(--symbol, #214c41);
+        stroke-width: 2.5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .inactive .symbol {
+        stroke: var(--inactive-symbol, #9aa79d);
+      }
+      .wire {
+        fill: none;
+        stroke: var(--inactive-wire, #a7b6a9);
+        stroke-width: 3;
+        stroke-linejoin: round;
+        stroke-linecap: round;
+      }
+      .wire.active {
+        stroke: var(--green);
+        stroke-width: 6;
+      }
+      .direction {
+        fill: var(--green);
+      }
+      .connection {
+        fill: var(--green);
+        stroke: var(--paper);
+        stroke-width: 2;
+      }
+      .ready-label {
+        fill: var(--green);
+        font-size: 15px;
+        font-weight: 700;
+      }
+      .unavailable-label {
+        fill: var(--unavailable, #7f8980);
+        font-size: 15px;
+        font-weight: 700;
+      }
+      .diagram-foot {
+        min-height: 38px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 14px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .diagram-foot button {
+        background: var(--ink);
+        color: var(--on-strong, white);
+        white-space: nowrap;
+      }
+      .diagram-key {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .diagram-key::before {
+        content: "";
+        display: block;
+        width: 26px;
+        height: 5px;
+        border-radius: 2px;
+        background: var(--green);
+      }
+      .equipment-list {
+        position: absolute;
+        bottom: 12px;
+        right: 12px;
+        display: flex;
+        gap: 10px;
+      }
+      .equipment-list div {
+        padding: 13px 17px;
+        background: var(--overlay, #f4f3eef0);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        max-width: 220px;
+        font-size: 13px;
+      }
+      .equipment-list strong {
+        display: block;
+        font-size: 17px;
+        margin-bottom: 4px;
+      }
+      #caption {
+        font-size: clamp(14px, 1.25vw, 19px);
+        text-align: center;
+        line-height: 1.35;
+        margin: 0;
+        color: var(--muted);
+      }
+      footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 0 28px;
+        border-top: 1px solid var(--line);
+      }
+      #next {
+        background: var(--ink);
+        color: var(--on-strong, white);
+      }
+      #sequence {
+        display: flex;
+        gap: 6px;
+      }
+      #sequence button {
+        border: 0;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        font-size: 12px;
+      }
+      #sequence button[aria-current] {
+        background: var(--green);
+        color: var(--on-strong, white);
+      }
+      button:disabled {
+        opacity: 0.3;
+        cursor: default;
+      }
+      #notes {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 32px;
+      }
+      #notes h1 {
+        font-size: 36px;
+      }
+      .note-cue {
+        padding: 14px 18px;
+        background: var(--note-surface, #e2ece3);
+        border-left: 3px solid var(--green);
+        line-height: 1.5;
+      }
+      .note-points {
+        font-size: 22px;
+        line-height: 1.5;
+        display: grid;
+        gap: 16px;
+        padding-left: 25px;
+      }
+      .note-controls {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 32px;
+      }
+      .note-source {
+        font-size: 14px;
+        line-height: 1.5;
+        color: var(--muted);
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #campus {
+          transition: none;
+        }
+      }
+      @media (max-width: 799px) {
+        #viewer {
+          height: auto;
+          min-height: 100svh;
+          grid-template-rows: auto 1fr auto;
+        }
+        .toolbar {
+          padding: 14px 18px;
+        }
+        .toolbar small {
+          display: block;
+          margin: 4px 0 0;
+        }
+        .toolbar nav {
+          flex-wrap: wrap;
+          justify-content: flex-end;
+        }
+        .toolbar button {
+          font-size: 11px;
+        }
+        .toolbar #fullscreen {
+          display: none;
+        }
+        main {
+          padding: 20px;
+          gap: 18px;
+        }
+        h1 {
+          font-size: 34px;
+        }
+        #stage {
+          min-height: 400px;
+          flex: none;
+        }
+        #stage:has(#mechanism:not([hidden])) {
+          overflow: visible;
+          min-height: 450px;
+        }
+        #spatial,
+        #equipment {
+          min-height: 400px;
+        }
+        .pin {
+          font-size: 11px;
+        }
+        .pin.room.focus {
+          font-size: 14px;
+        }
+        .reference {
+          font-size: 12px;
+          padding: 12px;
+        }
+        .reference strong {
+          font-size: 13px;
+        }
+        #stage:has(#equipment:not([hidden])) {
+          height: auto;
+          overflow: visible;
+        }
+        #equipment {
+          height: auto;
+        }
+        #equipment-view {
+          min-height: 260px;
+          height: 260px;
+          flex: none;
+        }
+        #equipment-view .diagram-label {
+          font-size: 32px;
+        }
+        #equipment-view .diagram-detail {
+          font-size: 26px;
+        }
+        #circuit .diagram-label {
+          font-size: 20px;
+        }
+        #circuit .diagram-detail {
+          font-size: 15px;
+        }
+        #circuit .ready-label,
+        #circuit .unavailable-label {
+          font-size: 13px;
+        }
+        .equipment-list {
+          left: 0;
+          right: 0;
+          bottom: 0;
+          gap: 6px;
+        }
+        .equipment-list div {
+          font-size: 11px;
+          padding: 10px;
+        }
+        .equipment-list strong {
+          font-size: 14px;
+        }
+        .state-strip,
+        .diagram-foot {
+          flex-wrap: wrap;
+          font-size: 12px;
+        }
+        #circuit {
+          flex: none;
+          min-height: 0;
+          height: auto;
+          max-height: none;
+          aspect-ratio: 360 / 680;
+          overflow: visible;
+        }
+        .state-strip strong {
+          font-size: 12px;
+        }
+        #supply-state {
+          font-size: 11px;
+        }
+        .diagram-foot {
+          margin-top: 12px;
+        }
+        footer {
+          padding: 12px 16px;
+        }
+        footer > button {
+          padding: 8px;
+        }
+        #sequence {
+          gap: 2px;
+        }
+        #sequence button {
+          width: 27px;
+        }
+        .note-points {
+          font-size: 19px;
+        }
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+      }
+      #scene-jump {
+        max-width: min(420px, 45vw);
+        padding: 8px;
+        border: 0;
+        background: transparent;
+        color: var(--ink);
+        font: inherit;
+        font-size: 13px;
+      }
+      #redundancy-view {
+        flex: 1;
+        min-height: 200px;
+        max-height: 490px;
+      }
+      #exercise-controls,
+      #note-actions {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      #exercise-controls:empty,
+      #note-actions:empty {
+        display: none;
+      }
+      [data-action] {
+        font-size: 13px;
+      }
+      [data-action][aria-pressed="true"] {
+        background: var(--ink);
+        color: var(--on-strong, white);
+      }
+      @media (max-width: 799px) {
+        #redundancy-view {
+          min-height: 570px;
+        }
+        #scene-jump {
+          max-width: 42vw;
+          font-size: 11px;
+        }
+        #exercise-controls {
+          justify-content: flex-start;
+        }
+      }
+      @media (min-width: 800px) and (max-height: 650px) {
+        #viewer {
+          height: auto;
+          min-height: 100svh;
+          grid-template-rows: 52px auto 62px;
+        }
+        #stage {
+          min-height: 520px;
+          flex: none;
+        }
+        #stage:has(#mechanism:not([hidden])),
+        #stage:has(#equipment:not([hidden])) {
+          overflow: visible;
+        }
+        #mechanism,
+        #equipment {
+          height: auto;
+          min-height: 520px;
+        }
+        #circuit,
+        #redundancy-view,
+        #equipment-view {
+          flex: none;
+          height: 360px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="viewer">
+      <header class="toolbar">
+        <div class="brand">
+          ϟ GIGAWATT <small>UPS · BYPASS · REDUNDANCY</small>
+        </div>
+        <nav>
+          <button id="open-notes">Speaker notes ↗</button
+          ><button id="fullscreen">Fullscreen</button>
+        </nav>
+      </header>
+      <main>
+        <div>
+          <p id="position" class="eyebrow"></p>
+          <h1 id="title"></h1>
+          <p id="location" class="location"></p>
+        </div>
+        <div id="stage">
+          <div id="spatial">
+            <img
+              id="campus"
+              src="../assets/campus-cutaway.png"
+              alt="Illustrative data center cutaway with electrical equipment, computing racks and heat rejection."
+            />
+            <div id="spot" class="spotlight" hidden></div>
+            <span id="room-pin" class="pin room">Electrical room</span
+            ><span id="rack-pin" class="pin rack">The racks</span
+            ><span class="image-label"
+              >Generated spatial illustration · placement and scale are
+              schematic</span
+            >
+            <div id="equipment-list" class="equipment-list" hidden>
+              <div>
+                <strong>UPS</strong>Maintains AC output from the available
+                energy source.
+              </div>
+              <div>
+                <strong>Battery</strong>Stored energy for a finite interruption.
+              </div>
+            </div>
+          </div>
+          <div id="equipment" hidden>
+            <svg
+              id="equipment-view"
+              viewBox="0 0 1120 420"
+              role="img"
+              aria-labelledby="equipment-title equipment-desc"
+            >
+              <title id="equipment-title">
+                UPS electronics and battery storage have different jobs.
+              </title>
+              <desc id="equipment-desc">
+                Two simple external cabinet silhouettes represent conversion
+                electronics and battery storage. This is a functional
+                illustration, not a drawing of a manufacturer's product or its
+                internal construction.
+              </desc>
+              <ellipse
+                cx="350"
+                cy="345"
+                rx="148"
+                ry="13"
+                fill="var(--cabinet-shadow, #d7ded2)"
+              />
+              <ellipse
+                cx="777"
+                cy="345"
+                rx="148"
+                ry="13"
+                fill="var(--cabinet-shadow, #d7ded2)"
+              />
+              <path
+                d="M258 115L298 88H472L432 115Z"
+                fill="var(--cabinet-top, #d1ddce)"
+                stroke="var(--cabinet-border, #789080)"
+              />
+              <path
+                d="M432 115L472 88V312L432 342Z"
+                fill="var(--cabinet-side, #a6bdab)"
+                stroke="var(--cabinet-border, #789080)"
+              />
+              <rect
+                x="258"
+                y="115"
+                width="174"
+                height="227"
+                rx="3"
+                fill="var(--cabinet-front, #e7eee1)"
+                stroke="var(--cabinet-border, #789080)"
+                stroke-width="2"
+              />
+              <path
+                d="M278 131H412V323H278Z"
+                fill="none"
+                stroke="var(--cabinet-seam, #adbdab)"
+              />
+              <path
+                d="M400 216V244"
+                stroke="var(--cabinet-detail, #496654)"
+                stroke-width="4"
+                stroke-linecap="round"
+              />
+              <rect
+                x="311"
+                y="177"
+                width="70"
+                height="43"
+                rx="4"
+                fill="var(--cabinet-screen, #23483c)"
+              />
+              <text
+                x="346"
+                y="204"
+                text-anchor="middle"
+                fill="var(--cabinet-screen-ink, #eaf3e4)"
+                font-size="17"
+                font-family="inherit"
+                font-weight="750"
+              >
+                UPS
+              </text>
+              <path
+                d="M684 115L724 88H898L858 115Z"
+                fill="var(--cabinet-top, #d5d9ce)"
+                stroke="var(--cabinet-border, #87917f)"
+              />
+              <path
+                d="M858 115L898 88V312L858 342Z"
+                fill="var(--cabinet-side, #b6bfae)"
+                stroke="var(--cabinet-border, #87917f)"
+              />
+              <rect
+                x="684"
+                y="115"
+                width="174"
+                height="227"
+                rx="3"
+                fill="var(--cabinet-front, #e8eadf)"
+                stroke="var(--cabinet-border, #87917f)"
+                stroke-width="2"
+              />
+              <path
+                d="M704 131H838V323H704Z"
+                fill="none"
+                stroke="var(--cabinet-seam, #b9c0af)"
+              />
+              <path
+                d="M826 216V244"
+                stroke="var(--cabinet-detail, #65715d)"
+                stroke-width="4"
+                stroke-linecap="round"
+              />
+              <rect
+                x="747"
+                y="174"
+                width="48"
+                height="64"
+                rx="4"
+                fill="none"
+                stroke="var(--cabinet-detail, #3c624c)"
+                stroke-width="2"
+              />
+              <path
+                d="M763 171H779 M761 188H781 M771 180V196 M761 226H781"
+                fill="none"
+                stroke="var(--cabinet-detail, #3c624c)"
+                stroke-width="2"
+              />
+              <text x="350" y="48" text-anchor="middle" class="diagram-label">
+                UPS electronics
+              </text>
+              <text x="777" y="48" text-anchor="middle" class="diagram-label">
+                Battery storage
+              </text>
+              <text x="350" y="388" text-anchor="middle" class="diagram-detail">
+                Converts and controls power
+              </text>
+              <text x="777" y="388" text-anchor="middle" class="diagram-detail">
+                Provides stored energy
+              </text>
+            </svg>
+            <p class="equipment-scope">
+              Schematic external form · cabinet sizes, arrangement and internal
+              construction are not specified.
+            </p>
+            <aside class="reference">
+              <span
+                ><strong>A real operating example</strong>Schneider Easy UPS
+                3-Phase Modular · 50–250 kW product family</span
+              >
+              <a
+                href="https://productinfo.se.com/easyups3pmodular/viewer?docidentity=UPSModes-1DE8911A&amp;extension=xml&amp;lang=en&amp;manualidentity=OperationEasyUPS3-PhaseModular50-25-BF409413"
+                target="_blank"
+                rel="noopener"
+                >Manufacturer’s operating modes ↗</a
+              >
+              <a
+                href="../assets/references/schneider-easy-ups-3phase-modular.jpg"
+                target="_blank"
+                rel="noopener"
+                >Product-family photograph ↗</a
+              >
+            </aside>
+          </div>
+          <div id="mechanism" hidden>
+            <div class="state-strip">
+              <span id="supply-state"></span
+              ><strong>Same protected load · 100 kW</strong>
+            </div>
+            <svg
+              id="circuit"
+              viewBox="0 0 1200 490"
+              role="img"
+              aria-labelledby="circuit-title"
+            ></svg>
+            <div id="redundancy-view" hidden></div>
+            <div class="diagram-foot">
+              <span class="diagram-key">Green = supplying the load</span>
+              <span id="model-scope"
+                >Functional paths · one line does not mean one conductor</span
+              ><button id="toggle-supply">Restore utility</button>
+            </div>
+            <div id="exercise-controls"></div>
+          </div>
+        </div>
+        <p id="caption"></p>
+      </main>
+      <footer>
+        <button id="back">← Back</button>
+        <nav id="sequence" aria-label="Scene sequence"></nav>
+        <button id="next">Next →</button>
+      </footer>
+    </div>
+    <section id="notes" hidden>
+      <p id="note-position" class="eyebrow"></p>
+      <h1 id="note-title"></h1>
+      <p id="note-cue" class="note-cue"></p>
+      <ul id="note-points" class="note-points"></ul>
+      <div id="note-actions"></div>
+      <p class="note-source">
+        References:
+        <a
+          href="https://www.se.com/us/en/faqs/FAQ000244169/"
+          target="_blank"
+          rel="noopener"
+          >UPS operating principles</a
+        >
+        ·
+        <a
+          href="https://productinfo.se.com/easyups3pmodular/viewer?docidentity=UPSModes-1DE8911A&amp;extension=xml&amp;lang=en&amp;manualidentity=OperationEasyUPS3-PhaseModular50-25-BF409413"
+          target="_blank"
+          rel="noopener"
+          >Named product modes</a
+        >. Original conceptual examples; 50 kW modules are hypothetical
+        usable-output units. Separate A/B PSU groups can each accept the full
+        load. Isolated failures, compatible paths and adequate battery support
+        are assumed. These diagrams do not specify protection, switching
+        procedures or a sitewide availability rating.
+        <a
+          href="https://www.se.com/us/en/download/document/SPD_SADE-5TPL8X_EN/"
+          target="_blank"
+          rel="noopener"
+          >UPS configurations, WP75</a
+        >.
+      </p>
+      <div class="note-controls">
+        <button id="note-back">← Back</button
+        ><button id="note-toggle">Switch supply state</button
+        ><button id="note-next">Next →</button>
+      </div>
+    </section>
+    <script type="module">
+      import { renderBypassDiagram } from "./ups-bypass.js";
+      import { redundancyModel, renderRedundancy } from "./ups-redundancy.js";
+      const scenes = [
+        {
+          id: "campus",
+          title: "The grid stops. What keeps the racks running?",
+          location: "Campus → building → rack",
+          caption: "An interruption upstream does not have to stop the load.",
+          notes: [
+            "Locate the racks, electrical room and external supply.",
+            "The load needs continuous electrical service; sources can disappear.",
+            "Follow the equipment that bridges an interruption.",
+          ],
+          cue: "Locate the electrical room before moving closer.",
+        },
+        {
+          id: "electrical-room",
+          title: "Follow the power into the building.",
+          location: "Campus → electrical room",
+          caption:
+            "The uninterruptible power supply (UPS) bridges a supply interruption.",
+          notes: [
+            "Electrical support occupies space beside the computing area.",
+            "The campus view locates a support area; cabinet appearances and wiring are not equipment evidence.",
+            "Move from location to the function of the UPS.",
+          ],
+          cue: "Keep the electrical room in view as the camera moves closer.",
+        },
+        {
+          id: "equipment",
+          title: "The UPS converts power. The battery stores energy.",
+          location: "Electrical room → equipment",
+          caption:
+            "Conversion electronics maintain the output; a battery supplies stored energy.",
+          notes: [
+            "Distinguish UPS electronics from battery storage.",
+            "Closed cabinet silhouettes distinguish the two jobs; they do not establish internal construction.",
+            "Rectifier: AC to DC. Inverter: DC to AC.",
+          ],
+          cue: "Point to the electronics and battery cabinet. Introduce their separate jobs.",
+        },
+        {
+          id: "normal",
+          title: "The inverter supplies the load.",
+          location: "Equipment → operating principle",
+          caption:
+            "AC → DC → AC. Two conversions; one continuous path to the load.",
+          notes: [
+            "Rectifier converts incoming AC to the DC link.",
+            "Inverter converts that DC to the AC output required by the load.",
+            "The battery has an interface to the DC link; its charging detail is omitted here.",
+            "Trace load-supplying power only; charging and bypass need separate explanations.",
+          ],
+          cue: "Trace the active path from left to right. Predict which part must keep working during a utility outage.",
+        },
+        {
+          id: "outage",
+          title: "The battery takes over at the DC link.",
+          location: "Same equipment → changed condition",
+          caption:
+            "With available battery support, stored DC energy sustains the AC output.",
+          notes: [
+            "Utility input is unavailable; the rectifier path is inactive.",
+            "Battery energy reaches the DC link through its battery interface.",
+            "The inverter continues supplying the same supported load.",
+            "Runtime is finite; this scene assumes a ready battery and a functioning inverter.",
+          ],
+          cue: "Trace the new active path, then restore utility to compare the two states.",
+        },
+        {
+          id: "static-bypass",
+          title: "Bypass carries power around the inverter.",
+          location: "Forced static bypass · inverter unavailable",
+          caption: "Powered does not mean battery-backed.",
+          mode: "static",
+          notes: [
+            "Inverter unavailable; an acceptable bypass source supplies the load.",
+            "This is forced static bypass, not requested bypass.",
+            "Remove the source: stored DC energy cannot bypass the unavailable inverter.",
+          ],
+          cue: "Trace the bypass path, then remove its source.",
+        },
+        {
+          id: "maintenance-bypass",
+          title: "Keep the load powered. Isolate the UPS.",
+          location: "External maintenance bypass",
+          caption: "Inputs, output and battery connection isolated.",
+          mode: "maintenance",
+          notes: [
+            "External bypass carries the load around the whole UPS.",
+            "UPS inputs, output and battery connection are shown isolated.",
+            "Battery cabinet remains an energy source; this is a completed state, not a switching procedure.",
+          ],
+          cue: "Locate every open connection into the UPS.",
+        },
+        {
+          id: "capacity-n",
+          title: "N is the capacity the load needs.",
+          location: "One bank · one output bus",
+          caption: "100 kW ÷ 50 kW per module = 2 modules.",
+          redundancy: "n",
+          notes: [
+            "Each hypothetical module provides 50 kW usable output.",
+            "Two modules meet the fixed 100 kW demand.",
+            "A module loss leaves insufficient UPS capacity; overload behavior is not modeled.",
+          ],
+          cue: "Remove a module and compare available capacity with demand.",
+        },
+        {
+          id: "capacity-n1",
+          title: "Maintenance uses the spare.",
+          location: "N+1 · one extra module",
+          caption: "One unavailable module fits. Two do not.",
+          redundancy: "n1",
+          notes: [
+            "Three 50 kW modules supply one common bus.",
+            "One isolated module leaves 100 kW usable capacity.",
+            "A second unavailable module leaves 50 kW; the 100 kW demand cannot be supported.",
+          ],
+          cue: "Isolate one module for maintenance, then fail another.",
+        },
+        {
+          id: "capacity-n2",
+          title: "Two spares. Still one shared bus.",
+          location: "N+2 · two extra modules",
+          caption: "Four modules minus two leaves the required two.",
+          redundancy: "n2",
+          notes: [
+            "Four 50 kW modules provide two spare capacity units.",
+            "Maintenance plus one isolated fault leaves 100 kW.",
+            "All modules still depend on the same output bus.",
+          ],
+          cue: "Repeat the same two events with the extra module.",
+        },
+        {
+          id: "shared-bus",
+          title: "Extra modules cannot repair a bus.",
+          location: "Same N+2 bank · changed failure",
+          caption: "A shared output-bus fault removes every route through it.",
+          redundancy: "n2",
+          notes: [
+            "Keep all four modules healthy.",
+            "Fail their common downstream bus.",
+            "Spare module capacity does not create an alternate distribution route.",
+          ],
+          cue: "Fail the shared output bus.",
+        },
+        {
+          id: "two-n",
+          title: "The same four modules, on two paths.",
+          location: "2N · A and B each meet the whole load",
+          caption:
+            "Separate distribution and full-capacity PSU inputs are assumed.",
+          redundancy: "two_n",
+          notes: [
+            "Two 50 kW modules on A and two on B.",
+            "Each complete path can support 100 kW.",
+            "Maintaining A leaves B with no spare module; one more B fault creates insufficient capacity.",
+          ],
+          cue: "Compare the arrangement with N+2, then take A out of service.",
+        },
+        {
+          id: "two-n-plus-one",
+          title: "A spare on each complete path.",
+          location: "2(N+1)",
+          caption:
+            "With A isolated, B can lose one module and still meet 100 kW.",
+          redundancy: "two_n1",
+          notes: [
+            "Three 50 kW modules on each path.",
+            "Remove A, then one module on B.",
+            "B retains 100 kW; independence, batteries and load acceptance remain explicit assumptions.",
+          ],
+          cue: "Repeat maintenance plus one fault on the surviving path.",
+        },
+        {
+          id: "load-growth",
+          title: "More load changes what N means.",
+          location: "Same installed 3 + 3 modules",
+          caption:
+            "Raise demand to 150 kW with A isolated and one B module unavailable.",
+          redundancy: "two_n1",
+          initial: {
+            maintenance: true,
+            fault: true,
+          },
+          notes: [
+            "At 100 kW, 3 + 3 is 2(N+1).",
+            "At 150 kW, N becomes three modules per path, so 3 + 3 is 2N.",
+            "Under the shown two events only 100 kW remains available.",
+          ],
+          cue: "Predict the new N label and capacity margin before raising demand.",
+        },
+        {
+          id: "return",
+          title: "Follow the path that survives.",
+          location: "UPS → distribution → rack",
+          caption: "Capacity. Stored energy. A usable route.",
+          notes: [
+            "Return to the same electrical room and racks.",
+            "A redundancy label is scoped to a load and a system boundary.",
+            "Power, storage, protection and cooling must all support the claimed service.",
+          ],
+          cue: "Ask which event the drawn facility can survive, and why.",
+        },
+      ];
+      const $ = (id) => document.getElementById(id);
+      const params = new URLSearchParams(location.search);
+      const notesMode = params.has("notes");
+      const session = params.get("session") || crypto.randomUUID();
+      const channel =
+        typeof BroadcastChannel === "function"
+          ? new BroadcastChannel("gigawatt-format-" + session)
+          : null;
+      function initialState(index) {
+        index = Math.max(0, Math.min(scenes.length - 1, index));
+        return {
+          index,
+          outage: scenes[index].id === "outage",
+          supplyAvailable: true,
+          maintenance: false,
+          fault: false,
+          busFault: false,
+          loadKW: 100,
+          ...scenes[index].initial,
+        };
+      }
+      let state = initialState(
+        Math.max(
+          0,
+          scenes.findIndex((s) => s.id === location.hash.slice(1)),
+        ),
+      );
+      const esc = (s) =>
+        String(s).replace(
+          /[&<>"']/g,
+          (c) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[c],
+        );
+      function label(x, y, text, klass = "diagram-label", anchor = "middle") {
+        return `<text x="${x}" y="${y}" class="${klass}" text-anchor="${anchor}">${esc(text)}</text>`;
+      }
+      function acSymbol(x, y, size = 1) {
+        return `<path d="M-19 0 C-12 -21 -6 -21 0 0 S12 21 19 0" class="symbol" transform="translate(${x} ${y}) scale(${size})"/>`;
+      }
+      function dcSymbol(x, y, size = 1) {
+        return `<g class="symbol" transform="translate(${x} ${y}) scale(${size})"><path d="M-16 -4H16"/><path d="M-16 5H-9 M-3 5H3 M9 5H16"/></g>`;
+      }
+      function converter(x, y, kind, active = true) {
+        const rectifier = kind === "rectifier";
+        return `<g class="${active ? "" : "inactive"}" data-component="${kind}">
+          <rect x="${x}" y="${y}" width="112" height="112" rx="5" class="equipment-face ${active ? "" : "inactive"}"/>
+          <path d="M${x + 10} ${y + 102}L${x + 102} ${y + 10}" class="symbol" opacity=".45"/>
+          ${rectifier ? acSymbol(x + 33, y + 35, 0.75) + dcSymbol(x + 80, y + 80, 0.8) : dcSymbol(x + 33, y + 35, 0.8) + acSymbol(x + 80, y + 80, 0.75)}
+        </g>`;
+      }
+      function rack(x, y, compact = false) {
+        const w = compact ? 60 : 78;
+        const h = compact ? 76 : 112;
+        return `<g aria-hidden="true"><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="5" fill="var(--rack-frame, #243e36)"/>
+          ${[0, 1, 2].map((i) => `<rect x="${x + 8}" y="${y + 9 + (i * (h - 15)) / 3}" width="${w - 16}" height="${(h - 24) / 3}" rx="2" fill="var(--rack-slot, #edf2e9)"/><circle cx="${x + w - 17}" cy="${y + 9 + (i * (h - 15)) / 3 + (h - 24) / 6}" r="2.5" fill="var(--green, #097867)"/>`).join("")}
+        </g>`;
+      }
+      function battery(x, y, width = 78, height = 96) {
+        return `<g aria-hidden="true"><rect x="${x + width * 0.35}" y="${y - 7}" width="${width * 0.3}" height="8" rx="2" fill="var(--diagram-border, #416958)"/>
+          <rect x="${x}" y="${y}" width="${width}" height="${height}" rx="5" fill="var(--diagram-face, #f6f8f1)" stroke="var(--diagram-border, #416958)" stroke-width="2"/>
+          <path d="M${x + width * 0.3} ${y + height * 0.2}h${width * 0.4} M${x + width * 0.5} ${y + height * 0.1}v${height * 0.2} M${x + width * 0.3} ${y + height * 0.78}h${width * 0.4}" class="symbol"/>
+          <rect x="${x + 9}" y="${y + height * 0.4}" width="${width - 18}" height="${height * 0.17}" rx="2" fill="var(--battery-charge, #c7d9c8)"/>
+        </g>`;
+      }
+      function wire(d, active, id = "") {
+        return `<path d="${d}" class="wire ${active ? "active" : ""}" ${id ? `data-path="${id}"` : ""}/>`;
+      }
+      function arrow(x, y, rotate = 0) {
+        return `<path d="M-5 -6L5 0L-5 6Z" class="direction" transform="translate(${x} ${y}) rotate(${rotate})"/>`;
+      }
+      function diagram() {
+        const out = state.outage;
+        const compact = matchMedia("(max-width: 799px)").matches;
+        const title = out
+          ? "Utility unavailable. Battery supplies the DC link through its interface. The inverter continues supplying the same 100 kW AC load."
+          : "Utility AC supplies the rectifier, DC link, inverter and 100 kW AC load. Battery is ready; charging is omitted.";
+        let drawing;
+        if (!compact) {
+          drawing = `
+            <rect x="240" y="36" width="654" height="400" rx="18" class="ups-enclosure"/>
+            ${label(270, 67, "UPS · DOUBLE CONVERSION", "diagram-kicker", "start")}
+            ${label(864, 67, "Bypass omitted", "diagram-detail", "end")}
+            ${wire("M131 188H314", !out, "utility")}
+            ${wire("M426 188H568", !out, "rectifier-output")}
+            ${wire("M568 188H710", true, "dc-link")}
+            ${wire("M822 188H1026", true, "ac-output")}
+            ${wire("M139 354H383", out, "battery")}
+            ${wire("M553 354H568V188", out, "battery-interface")}
+            ${!out ? arrow(231, 188) + arrow(483, 188) : ""}
+            ${arrow(645, 188)}${arrow(957, 188)}
+            ${out ? arrow(270, 354) + arrow(568, 263, -90) : ""}
+            <circle cx="91" cy="188" r="40" class="equipment-face ${out ? "inactive" : ""}"/>
+            <g class="${out ? "inactive" : ""}">${acSymbol(91, 188, 1.2)}</g>
+            ${label(91, 120, "Utility AC")}
+            ${label(91, 252, out ? "Unavailable" : "Supplying power", out ? "unavailable-label" : "ready-label")}
+            ${converter(314, 132, "rectifier", !out)}
+            ${label(370, 111, "Rectifier")}${label(370, 272, "AC → DC", "diagram-detail")}
+            <circle cx="568" cy="188" r="7" class="connection"/>
+            ${label(568, 144, "DC link")}
+
+            ${converter(710, 132, "inverter")}
+            ${label(766, 111, "Inverter")}${label(766, 272, "DC → AC", "diagram-detail")}
+            ${label(946, 160, "AC", "diagram-detail")}
+            ${rack(1026, 132)}
+            ${label(1065, 111, "Protected load")}
+            ${label(1065, 288, "100 kW", "diagram-value")}
+            ${label(1065, 312, "Output continues", "ready-label")}
+            ${battery(61, 306)}
+            ${label(101, 433, "Battery")}
+            ${label(221, 333, out ? "Discharging" : "Ready", "ready-label", "start")}
+            ${!out ? label(221, 380, "Charging not shown", "diagram-detail", "start") : label(221, 380, "Stored energy", "diagram-detail", "start")}
+            <rect x="383" y="327" width="170" height="54" rx="7" class="equipment-face"/>
+            ${label(468, 350, "Battery interface", "diagram-detail")}
+            ${label(468, 371, "DC connection", "diagram-kicker")}
+            ${label(703, 367, out ? "Same inverter." : "Battery joins here.", "diagram-label")}
+            ${label(703, 391, out ? "Same supported load." : "On the DC side.", "diagram-detail")}
+          `;
+        } else {
+          drawing = `
+            <rect x="17" y="103" width="326" height="412" rx="16" class="ups-enclosure"/>
+            ${label(32, 130, "UPS", "diagram-kicker", "start")}
+
+            ${wire("M108 77V163", !out, "utility")}
+            ${wire("M108 275V337", !out, "rectifier-output")}
+            ${wire("M108 337V370", true, "dc-link")}
+            ${wire("M108 482V588", true, "ac-output")}
+            ${wire("M268 98V299", out, "battery")}
+            ${wire("M248 337H108", out, "battery-interface")}
+            ${!out ? arrow(108, 149, 90) + arrow(108, 301, 90) : ""}
+            ${arrow(108, 541, 90)}
+            ${out ? arrow(268, 271, 90) + arrow(192, 337, 180) : ""}
+            <circle cx="108" cy="44" r="33" class="equipment-face ${out ? "inactive" : ""}"/>
+            <g class="${out ? "inactive" : ""}">${acSymbol(108, 44)}</g>
+            ${label(79, 95, "Utility AC", "diagram-detail", "end")}
+            ${converter(52, 163, "rectifier", !out)}
+            ${label(182, 211, "Rectifier", "diagram-detail", "start")}
+            ${label(182, 235, "AC → DC", "diagram-detail", "start")}
+            <circle cx="108" cy="337" r="7" class="connection"/>
+            ${label(59, 346, "DC link", "diagram-kicker")}
+            ${converter(52, 370, "inverter")}
+            ${label(182, 418, "Inverter", "diagram-detail", "start")}
+            ${label(182, 442, "DC → AC", "diagram-detail", "start")}
+            ${battery(242, 25, 52, 73)}
+            ${label(268, 15, "Battery", "diagram-detail")}
+            <rect x="212" y="299" width="112" height="65" rx="6" class="equipment-face"/>
+            ${label(268, 326, "Battery", "diagram-detail")}
+            ${label(268, 347, "interface", "diagram-detail")}
+            ${label(294, 169, out ? "Active" : "Ready", "ready-label", "start")}
+            ${label(182, 474, out ? "Finite energy" : "Charging omitted", "diagram-kicker", "start")}
+            ${label(182, 497, "Bypass omitted", "diagram-kicker", "start")}
+            ${rack(78, 588, true)}
+            ${label(166, 605, "Protected load", "diagram-detail", "start")}
+            ${label(164, 644, "100 kW", "diagram-value", "start")}
+            ${label(166, 669, "Output continues", "ready-label", "start")}
+          `;
+        }
+        $("circuit").setAttribute(
+          "viewBox",
+          compact ? "0 0 360 680" : "0 0 1200 490",
+        );
+        $("circuit").innerHTML =
+          `<title id="circuit-title">${esc(title)}</title><desc>Functional equipment diagram of an online double-conversion UPS. Lines represent power paths, not individual conductors. Charging, bypass and switching details are omitted.</desc>${drawing}`;
+        $("mechanism").dataset.outage = String(out);
+        $("supply-state").textContent = out
+          ? "UTILITY UNAVAILABLE · BATTERY OPERATION"
+          : "UTILITY AVAILABLE · NORMAL OPERATION";
+        $("toggle-supply").textContent = out
+          ? "Restore utility"
+          : "Remove utility";
+        $("toggle-supply").hidden = state.index !== 4;
+      }
+      function placeImageLabels() {
+        $("equipment-view").setAttribute(
+          "viewBox",
+          matchMedia("(max-width: 799px)").matches
+            ? "180 0 760 420"
+            : "0 0 1120 420",
+        );
+        function point(img, x, y, scale, originX, originY) {
+          const w = img.clientWidth;
+          const h = img.clientHeight;
+          const fit = Math.min(w / img.naturalWidth, h / img.naturalHeight);
+          const fw = img.naturalWidth * fit;
+          const fh = img.naturalHeight * fit;
+          return [
+            originX * w + scale * ((w - fw) / 2 + x * fw - originX * w),
+            originY * h + scale * ((h - fh) / 2 + y * fh - originY * h),
+          ];
+        }
+        function place(el, coordinates) {
+          el.style.left = coordinates[0] + "px";
+          el.style.top = coordinates[1] + "px";
+        }
+        if (
+          ["campus", "electrical-room", "return"].includes(
+            scenes[state.index].id,
+          )
+        ) {
+          const img = $("campus");
+          if (!img.naturalWidth) return;
+          const close = state.index === 1;
+          const p = (x, y) => point(img, x, y, close ? 2.25 : 1, 0.29, 0.56);
+          place($("room-pin"), p(0.24, 0.58));
+          place($("rack-pin"), p(0.635, 0.48));
+          const a = p(0.2, 0.44);
+          const b = p(0.35, 0.68);
+          place($("spot"), a);
+          $("spot").style.width = b[0] - a[0] + "px";
+          $("spot").style.height = b[1] - a[1] + "px";
+        }
+      }
+      function actionButtons(s) {
+        if (!s.redundancy) return "";
+        const button = (key, label, active) =>
+          `<button data-action="${key}" aria-pressed="${active}">${label}</button>`;
+        if (s.id === "load-growth")
+          return button(
+            "loadKW",
+            state.loadKW === 100 ? "Raise load to 150 kW" : "Return to 100 kW",
+            state.loadKW === 150,
+          );
+        if (s.id === "shared-bus")
+          return button(
+            "busFault",
+            state.busFault ? "Restore bus" : "Fail shared bus",
+            state.busFault,
+          );
+        return (
+          (s.id === "capacity-n"
+            ? ""
+            : button(
+                "maintenance",
+                s.redundancy.startsWith("two_")
+                  ? state.maintenance
+                    ? "Restore path A"
+                    : "Isolate path A"
+                  : state.maintenance
+                    ? "Return maintained module"
+                    : "Maintain one module",
+                state.maintenance,
+              )) +
+          button(
+            "fault",
+            state.fault
+              ? "Restore failed module"
+              : s.redundancy.startsWith("two_")
+                ? "Fail a B module"
+                : "Fail one module",
+            state.fault,
+          )
+        );
+      }
+      function bindActions(container) {
+        container.querySelectorAll("[data-action]").forEach(
+          (button) =>
+            (button.onclick = () => {
+              const key = button.dataset.action;
+              state[key] =
+                key === "loadKW"
+                  ? state.loadKW === 100
+                    ? 150
+                    : 100
+                  : !state[key];
+              render();
+              publish();
+            }),
+        );
+      }
+      function renderMechanism(s) {
+        const compact = matchMedia("(max-width: 799px)").matches;
+        $("circuit").toggleAttribute("hidden", Boolean(s.redundancy));
+        $("redundancy-view").hidden = !s.redundancy;
+        $("exercise-controls").innerHTML = actionButtons(s);
+        bindActions($("exercise-controls"));
+        $("toggle-supply").hidden = !(s.id === "outage" || s.mode);
+        if (s.redundancy) {
+          const model = redundancyModel({ kind: s.redundancy, ...state });
+          $("redundancy-view").innerHTML = renderRedundancy(model, { compact });
+          $("supply-state").textContent = model.label;
+          document.querySelector(".state-strip strong").textContent =
+            "50 kW usable output per module";
+          $("mechanism").dataset.outage = String(!model.canSupportLoad);
+          document.querySelector(".diagram-key").textContent =
+            "Green = available capacity and route";
+          $("model-scope").textContent = model.dual
+            ? "Each PSU group accepts the full load · capacity comparison"
+            : "Capacity comparison · overload and transfer behavior excluded";
+          return;
+        }
+        document.querySelector(".state-strip strong").textContent =
+          "100 kW load demand";
+        document.querySelector(".diagram-key").textContent =
+          "Green = carrying power to the load";
+        $("model-scope").textContent =
+          "Functional paths · one line does not mean one conductor";
+        if (s.mode) {
+          const result = renderBypassDiagram({
+            mode: s.mode,
+            sourceAvailable: state.supplyAvailable,
+            compact,
+          });
+          $("circuit").setAttribute("viewBox", result.viewBox);
+          $("circuit").innerHTML = result.svg;
+          $("supply-state").textContent = state.supplyAvailable
+            ? s.mode === "static"
+              ? "FORCED STATIC BYPASS"
+              : "EXTERNAL MAINTENANCE BYPASS"
+            : "BYPASS SOURCE UNAVAILABLE";
+          $("mechanism").dataset.outage = String(!state.supplyAvailable);
+          $("toggle-supply").textContent = state.supplyAvailable
+            ? "Lose bypass source"
+            : "Restore bypass source";
+        } else diagram();
+      }
+      function render() {
+        const s = scenes[state.index];
+        document.title = s.title + " — GIGAWATT prototype";
+        history.replaceState(null, "", "#" + s.id);
+        if (notesMode) {
+          $("note-position").textContent =
+            `SCENE ${state.index + 1} / ${scenes.length}`;
+          $("note-title").textContent = s.title;
+          $("note-cue").textContent = s.cue;
+          $("note-points").innerHTML = s.notes
+            .map((n) => `<li>${esc(n)}</li>`)
+            .join("");
+          $("note-toggle").hidden = !(s.id === "outage" || s.mode);
+          $("note-actions").innerHTML = actionButtons(s);
+          bindActions($("note-actions"));
+          $("note-back").disabled = state.index === 0;
+          $("note-next").disabled = state.index === scenes.length - 1;
+          return;
+        }
+        $("position").textContent =
+          `UPS / ${String(state.index + 1).padStart(2, "0")}`;
+        $("title").textContent = s.title;
+        $("location").textContent = s.location;
+        $("caption").textContent = s.caption;
+        const spatial = ["campus", "electrical-room", "return"].includes(s.id);
+        $("spatial").hidden = !spatial;
+        $("equipment").hidden = s.id !== "equipment";
+        $("mechanism").hidden = spatial || s.id === "equipment";
+        $("campus").classList.toggle("close", s.id === "electrical-room");
+        $("room-pin").classList.toggle("focus", s.id === "electrical-room");
+        $("rack-pin").hidden = s.id === "electrical-room";
+        $("spot").hidden = s.id !== "electrical-room";
+        $("equipment-list").hidden = s.id !== "return";
+        if (!$("mechanism").hidden) renderMechanism(s);
+        $("back").disabled = state.index === 0;
+        $("next").disabled = state.index === scenes.length - 1;
+        $("next").textContent =
+          state.index === scenes.length - 1 ? "End" : "Next →";
+        $("sequence").innerHTML =
+          `<label class="sr-only" for="scene-jump">Jump to scene</label><select id="scene-jump">${scenes.map((v, i) => `<option value="${i}" ${i === state.index ? "selected" : ""}>${i + 1} / ${scenes.length} · ${esc(v.title)}</option>`).join("")}</select>`;
+        $("scene-jump").onchange = (e) => go(Number(e.target.value));
+        placeImageLabels();
+      }
+      function publish() {
+        channel?.postMessage({ type: "state", notesMode, state });
+      }
+      function go(index) {
+        state = initialState(index);
+        render();
+        publish();
+      }
+      function toggle() {
+        const s = scenes[state.index];
+        if (s.id === "outage") state.outage = !state.outage;
+        else if (s.mode) state.supplyAvailable = !state.supplyAvailable;
+        else return;
+        render();
+        publish();
+      }
+      $("open-notes").hidden = !params.has("rehearse");
+      $("viewer").hidden = notesMode;
+      $("notes").hidden = !notesMode;
+      $("back").onclick = $("note-back").onclick = () => go(state.index - 1);
+      $("next").onclick = $("note-next").onclick = () => go(state.index + 1);
+      $("toggle-supply").onclick = $("note-toggle").onclick = toggle;
+      $("open-notes").onclick = () =>
+        window.open(
+          `?notes=1&session=${encodeURIComponent(session)}#${scenes[state.index].id}`,
+          "gigawatt-format-notes-" + session,
+          "popup,width=1000,height=760",
+        );
+      $("fullscreen").onclick = () =>
+        document.fullscreenElement
+          ? document.exitFullscreen()
+          : document.documentElement.requestFullscreen();
+      document.addEventListener("keydown", (e) => {
+        if (
+          e.altKey ||
+          e.metaKey ||
+          e.ctrlKey ||
+          /INPUT|TEXTAREA|SELECT/.test(e.target.tagName)
+        )
+          return;
+        if (["ArrowRight", "PageDown", "ArrowLeft", "PageUp"].includes(e.key)) {
+          e.preventDefault();
+          go(
+            state.index + (["ArrowRight", "PageDown"].includes(e.key) ? 1 : -1),
+          );
+        }
+        if (e.key.toLowerCase() === "r") toggle();
+      });
+      window.addEventListener("hashchange", () => {
+        const i = scenes.findIndex((s) => s.id === location.hash.slice(1));
+        if (i >= 0) go(i);
+      });
+      channel?.addEventListener("message", ({ data }) => {
+        if (data.notesMode === notesMode) return;
+        if (data.type === "hello" && !notesMode) publish();
+        if (
+          data.type === "state" &&
+          Number.isInteger(data.state?.index) &&
+          data.state.index >= 0 &&
+          data.state.index < scenes.length &&
+          typeof data.state.outage === "boolean" &&
+          typeof data.state.supplyAvailable === "boolean" &&
+          ["maintenance", "fault", "busFault"].every(
+            (k) => typeof data.state[k] === "boolean",
+          ) &&
+          [100, 150].includes(data.state.loadKW)
+        ) {
+          state = data.state;
+          render();
+        }
+      });
+      if (notesMode) channel?.postMessage({ type: "hello", notesMode });
+      matchMedia("(max-width: 799px)").addEventListener("change", () => {
+        if (!notesMode && !$("mechanism").hidden)
+          renderMechanism(scenes[state.index]);
+      });
+      new ResizeObserver(placeImageLabels).observe($("stage"));
+      document
+        .querySelectorAll("#stage img")
+        .forEach((img) => img.addEventListener("load", placeImageLabels));
+      render();
+    </script>
+  </body>
+</html>

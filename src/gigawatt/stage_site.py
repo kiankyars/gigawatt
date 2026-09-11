@@ -17,10 +17,20 @@ def stage(root=ROOT, destination=None):
         paths.extend(p.relative_to(root) for p in (root / directory).glob("*.md"))
         paths.extend(p.relative_to(root) for p in (root / directory).glob("*.json"))
     paths.extend(p.relative_to(root) for p in (root / "course").glob("*.html"))
+    paths.extend(
+        p.relative_to(root)
+        for p in (root / "course/prototypes").glob("*")
+        if p.is_file() and p.suffix in {".html", ".js"}
+    )
     for directory in ("course/assets", "course/lessons", "research/sources"):
         paths.extend(
             p.relative_to(root) for p in (root / directory).glob("*") if p.is_file()
         )
+    paths.extend(
+        p.relative_to(root)
+        for p in (root / "course/assets/references").glob("*")
+        if p.is_file()
+    )
     for path in paths:
         target = destination / path
         target.parent.mkdir(parents=True, exist_ok=True)

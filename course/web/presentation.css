@@ -5,6 +5,34 @@
   --teal: #0b756a;
   --amber: #ad650d;
   --line: #d7ded5;
+  --surface: #fffefa;
+  --surface-soft: #e5ece3;
+  --hover: #e6ebe3;
+  --focus: #c77a15;
+  --on-action: #fff;
+  --emphasis: #193139;
+  --on-emphasis: #fffefa;
+  --emphasis-muted: #b8d5cb;
+  --energy-muted: #d4e6dc;
+  --energy-ink: #f4f3ee;
+  --positive-surface: #e5f0e3;
+  --positive-ink: #256053;
+  --warning-surface: #fff1d8;
+  --warning-ink: #754a16;
+  --warning-line: #bc9358;
+  --reveal-surface: #d1e9cd;
+  --reveal-hover: #e7f5e3;
+  --loss-track: #e3e7de;
+  --strong-line: #80998d;
+  --zone-line: #c5cfc4;
+  --active-line: #94b59f;
+  --ledger-line: #9dafaa;
+  --circuit-source: #e9ede5;
+  --circuit-load: #e2ece4;
+  --phase-one: #087b70;
+  --phase-two: #b05c15;
+  --phase-three: #715ca8;
+  color-scheme: light;
   font-family:
     Inter,
     -apple-system,
@@ -39,7 +67,7 @@ button {
   background: transparent;
 }
 button:hover {
-  background: #e6ebe3;
+  background: var(--hover);
 }
 button:disabled {
   opacity: 0.35;
@@ -52,7 +80,7 @@ a {
 button:focus-visible,
 a:focus-visible,
 input:focus-visible {
-  outline: 3px solid #c77a15;
+  outline: 3px solid var(--focus);
   outline-offset: 4px;
 }
 [hidden] {
@@ -63,7 +91,7 @@ input:focus-visible {
   top: 10px;
   left: 10px;
   padding: 12px;
-  background: white;
+  background: var(--surface);
   z-index: 9;
   transform: translateY(-160%);
 }
@@ -170,11 +198,13 @@ h1 {
 }
 .transport #next {
   background: var(--ink);
-  color: white;
+  color: var(--on-action);
   border-color: var(--ink);
 }
 #steps {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 8px;
 }
 #steps button {
@@ -188,7 +218,7 @@ h1 {
 }
 #steps button[aria-current="step"] {
   background: var(--teal);
-  color: white;
+  color: var(--on-action);
 }
 .workflow {
   font-size: 11px;
@@ -206,7 +236,7 @@ h1 {
   left: 5%;
   padding: 12px;
   background: var(--ink);
-  color: white;
+  color: var(--on-action);
   border-radius: 8px;
   z-index: 8;
 }
@@ -289,7 +319,7 @@ h1 {
   background: #d38c55;
 }
 .copper-removed {
-  color: #b8d5cb;
+  color: var(--emphasis-muted);
 }
 .copper-removed i {
   display: block;
@@ -332,20 +362,20 @@ h1 {
   padding: 12px;
   border: 1px dashed var(--teal);
   border-radius: 6px;
-  background: #e5f0e3;
+  background: var(--positive-surface);
   font-size: 12px;
-  color: #256053;
+  color: var(--positive-ink);
 }
 .rack-space.occupied {
-  background: #fff1d8;
-  border: 1px solid #bc9358;
-  color: #754a16;
+  background: var(--warning-surface);
+  border: 1px solid var(--warning-line);
+  color: var(--warning-ink);
 }
 .capacity-table {
   border: 1px solid var(--line);
   border-radius: 14px;
   overflow: hidden;
-  background: #fffefa;
+  background: var(--surface);
 }
 .capacity-row {
   display: grid;
@@ -373,8 +403,8 @@ h1 {
   font-variant-numeric: tabular-nums;
 }
 .capacity-row > strong:last-child {
-  background: var(--ink);
-  color: #fffefa;
+  background: var(--emphasis);
+  color: var(--on-emphasis);
 }
 .capacity-row small {
   font-size: 0.5em;
@@ -385,13 +415,13 @@ h1 {
   color: var(--muted);
 }
 .capacity-heading > strong:last-child {
-  color: #b8d5cb;
+  color: var(--emphasis-muted);
 }
 .chip {
   display: inline-flex;
   padding: 8px 13px;
   border-radius: 30px;
-  background: #e5ece3;
+  background: var(--surface-soft);
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.3px;
@@ -420,7 +450,7 @@ h1 {
   gap: 24px;
 }
 .metric-card {
-  background: #fffefa;
+  background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 16px;
   padding: 28px 32px;
@@ -431,9 +461,9 @@ h1 {
   gap: 10px;
 }
 .metric-card.changed {
-  background: var(--ink);
-  color: #fffefa;
-  border-color: var(--ink);
+  background: var(--emphasis);
+  color: var(--on-emphasis);
+  border-color: var(--emphasis);
 }
 .metric-label {
   font-size: clamp(18px, 1.8vw, 27px);
@@ -441,7 +471,7 @@ h1 {
   margin: 0;
 }
 .changed .metric-label {
-  color: #b8d5cb;
+  color: var(--emphasis-muted);
 }
 .metric {
   font-size: clamp(50px, 6vw, 92px);
@@ -484,14 +514,14 @@ h1 {
   background: #a3d597;
 }
 .reveal {
-  background: #d1e9cd;
+  background: var(--reveal-surface);
   color: var(--ink);
   border: 0;
   font-weight: 600;
   align-self: flex-start;
 }
 .changed button:hover {
-  background: #e7f5e3;
+  background: var(--reveal-hover);
 }
 .control-line {
   display: flex;
@@ -517,7 +547,7 @@ h1 {
 }
 .loss-track {
   height: 14px;
-  background: #e3e7de;
+  background: var(--loss-track);
   border-radius: 2px;
   overflow: hidden;
   margin-top: 8px;
@@ -554,7 +584,7 @@ h1 {
   align-items: stretch;
 }
 .zone {
-  border: 1px solid #c5cfc4;
+  border: 1px solid var(--zone-line);
   border-radius: 14px;
   padding: 18px;
   position: relative;
@@ -572,11 +602,11 @@ h1 {
   margin: 0;
 }
 .zone.active {
-  background: #e5ece3;
-  border-color: #94b59f;
+  background: var(--surface-soft);
+  border-color: var(--active-line);
 }
 .zone.rack {
-  background: #fffefa;
+  background: var(--surface);
 }
 .zone-body {
   display: flex;
@@ -586,7 +616,7 @@ h1 {
   justify-content: center;
 }
 .unit {
-  border: 1.5px solid #80998d;
+  border: 1.5px solid var(--strong-line);
   background: var(--paper);
   border-radius: 8px;
   min-height: 95px;
@@ -603,19 +633,19 @@ h1 {
 }
 .unit.converter {
   border: 2px solid var(--amber);
-  background: #fff1d8;
+  background: var(--warning-surface);
 }
 .unit.chip-unit {
-  background: var(--ink);
-  color: #fffefa;
-  border-color: var(--ink);
+  background: var(--emphasis);
+  color: var(--on-emphasis);
+  border-color: var(--emphasis);
 }
 .unit small {
   font-size: 11px;
   color: var(--muted);
 }
 .chip-unit small {
-  color: #b8d5cb;
+  color: var(--emphasis-muted);
 }
 .wire {
   color: var(--amber);
@@ -650,7 +680,7 @@ h1 {
   display: inline-block;
   width: 10px;
   height: 10px;
-  background: #fff1d8;
+  background: var(--warning-surface);
   border: 2px solid var(--amber);
   margin-right: 8px;
 }
@@ -683,7 +713,7 @@ h1 {
 }
 .answer-strip {
   padding: 20px 26px;
-  background: #e5ece3;
+  background: var(--surface-soft);
   border-radius: 10px;
   display: flex;
   gap: 24px;
@@ -703,7 +733,7 @@ h1 {
 }
 .answer-strip button {
   background: var(--ink);
-  color: white;
+  color: var(--on-action);
   margin: auto;
 }
 .transfer .metric-label {
@@ -752,7 +782,7 @@ h1 {
   color: var(--teal);
 }
 .notes-layout .cue {
-  background: #e5ece3;
+  background: var(--surface-soft);
   padding: 10px 14px;
   border-left: 3px solid var(--teal);
   font-size: 16px;
@@ -790,7 +820,7 @@ h1 {
 }
 .notes-controls button:last-child {
   background: var(--ink);
-  color: white;
+  color: var(--on-action);
 }
 #notes-outline {
   display: grid;
@@ -803,7 +833,7 @@ h1 {
 }
 #notes-outline button[aria-current="step"] {
   background: var(--ink);
-  color: white;
+  color: var(--on-action);
 }
 #connection {
   font-size: 13px;
@@ -1122,14 +1152,14 @@ h1 {
 .ledger-card {
   border: 1px solid var(--line);
   border-radius: 14px;
-  background: #fffefa;
+  background: var(--surface);
   padding: 20px 26px;
   height: 100%;
 }
 .ledger-card.changed {
-  background: var(--ink);
-  color: #fffefa;
-  border-color: var(--ink);
+  background: var(--emphasis);
+  color: var(--on-emphasis);
+  border-color: var(--emphasis);
 }
 .ledger-card h2 {
   font-size: clamp(18px, 1.8vw, 27px);
@@ -1156,7 +1186,7 @@ h1 {
   font-size: 0.75em;
 }
 .ledger-total {
-  border-top: 1px solid #9dafaa;
+  border-top: 1px solid var(--ledger-line);
   margin-top: 18px;
   padding-top: 12px;
   display: flex;
@@ -1192,7 +1222,7 @@ h1 {
 }
 .ledger-result button {
   background: var(--ink);
-  color: white;
+  color: var(--on-action);
 }
 #student-context {
   max-width: 1000px;
@@ -1291,5 +1321,293 @@ body[data-view="student"] #visual {
   }
   .capacity-row.capacity-heading > * {
     font-size: 11px;
+  }
+}
+
+.electrical-model {
+  width: 100%;
+}
+.energy-band {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  background: var(--emphasis);
+  color: var(--energy-ink);
+  border-radius: 8px;
+  padding: 12px 18px;
+  font-size: 16px;
+}
+.energy-band span {
+  color: var(--energy-muted);
+  font-size: 14px;
+}
+.electrical-grid {
+  display: grid;
+  grid-template-columns: 0.95fr 1.25fr;
+  gap: 28px;
+  align-items: center;
+  padding: 12px 0;
+}
+.electrical-charts {
+  min-width: 0;
+  display: grid;
+  gap: 8px;
+}
+.electrical-plot h3 {
+  font-size: 14px;
+  margin: 0;
+  font-weight: 600;
+}
+.electrical-plot h3 small {
+  color: var(--muted);
+  margin-left: 8px;
+}
+.electrical-plot svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.electrical-plot svg text {
+  font-family: inherit;
+  font-size: 12px;
+  fill: var(--muted);
+}
+.wave-key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  font-size: 11px;
+}
+.wave-key span::before {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  border-top: 3px solid var(--wave-color);
+  margin-right: 5px;
+  vertical-align: middle;
+}
+.current-circuit {
+  width: 100%;
+  max-height: 260px;
+  display: block;
+}
+.current-circuit text {
+  font-family: inherit;
+  font-size: 19px;
+  fill: var(--ink);
+}
+.current-circuit .svg-small {
+  font-size: 15px;
+}
+.current-circuit .svg-value {
+  font-size: 17px;
+  font-weight: 700;
+}
+.circuit-box {
+  fill: var(--circuit-source);
+  stroke: var(--line);
+  stroke-width: 2;
+}
+.circuit-box.load {
+  fill: var(--circuit-load);
+}
+.circuit-wire {
+  fill: none;
+  stroke: var(--teal);
+  stroke-width: 3;
+}
+.circuit-reading {
+  font-size: 18px;
+  line-height: 1.35;
+  margin: 8px 0;
+}
+.wave-result {
+  font-size: 19px;
+  font-weight: 650;
+  color: var(--teal);
+  margin: 10px 0;
+}
+.electrical-guard {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--muted);
+  margin: 8px 0 0;
+}
+.electrical-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+  margin: 0;
+  font-size: 15px;
+}
+.electrical-footer span {
+  font-size: 12px;
+  color: var(--muted);
+}
+.cycle-control {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-top: 12px;
+  font-size: 13px;
+}
+.cycle-control input {
+  min-width: 100px;
+  flex: 1;
+  accent-color: var(--teal);
+}
+.cycle-control output {
+  min-width: 130px;
+  font-variant-numeric: tabular-nums;
+}
+.voltage-pair {
+  margin: 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.voltage-pair strong {
+  font-size: 50px;
+  font-weight: 450;
+  letter-spacing: -1px;
+}
+.voltage-pair small {
+  font-size: 18px;
+}
+.voltage-pair span {
+  font-size: 16px;
+  color: var(--muted);
+}
+.voltage-identity {
+  font-size: 24px;
+  margin: 12px 0;
+  color: var(--teal);
+}
+@media (min-width: 800px) and (max-height: 800px) {
+  .electrical-grid {
+    padding: 8px 0;
+    gap: 20px;
+  }
+  .current-circuit {
+    max-height: 210px;
+  }
+  .energy-band {
+    padding: 8px 12px;
+  }
+  .electrical-guard {
+    font-size: 12px;
+  }
+  .circuit-reading {
+    font-size: 16px;
+  }
+  .wave-result {
+    margin: 6px 0;
+    font-size: 17px;
+  }
+  .voltage-pair {
+    margin: 10px 0;
+  }
+  .voltage-pair strong {
+    font-size: 38px;
+  }
+}
+@media (max-width: 799px) {
+  .energy-band,
+  .electrical-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+  .energy-band {
+    font-size: 15px;
+  }
+  .electrical-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .electrical-plot svg {
+    max-height: none;
+  }
+  .cycle-control {
+    flex-wrap: wrap;
+  }
+  .cycle-control label {
+    width: 100%;
+  }
+  .cycle-control output {
+    min-width: 115px;
+  }
+  #steps {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+#scene:has(.electrical-model) #visual {
+  flex: 0 0 auto;
+  min-height: 0;
+}
+.electrical-footer strong {
+  font-weight: 400;
+}
+@media (min-width: 800px) and (max-height: 800px) {
+  #scene:has(.electrical-model) {
+    gap: 10px;
+    padding-top: 14px;
+  }
+  #scene:has(.electrical-model) h1 {
+    font-size: 38px;
+    letter-spacing: -1px;
+  }
+}
+@media (max-width: 799px) {
+  .electrical-plot svg text {
+    font-size: 22px;
+  }
+}
+
+/* Device preference is the only theme setting; CSS also updates an open lesson live. */
+@media screen and (prefers-color-scheme: dark) {
+  :root {
+    --paper: #101b1f;
+    --ink: #e8eee8;
+    --muted: #a8b9b4;
+    --teal: #69d5be;
+    --amber: #f3bc70;
+    --line: #354a4c;
+    --surface: #18272b;
+    --surface-soft: #203436;
+    --hover: #294044;
+    --focus: #f3bc70;
+    --on-action: #101b1f;
+    --emphasis: #233c3e;
+    --on-emphasis: #e8eee8;
+    --emphasis-muted: #b8d5cb;
+    --energy-muted: #c4dacf;
+    --energy-ink: #e8eee8;
+    --positive-surface: #203b32;
+    --positive-ink: #a5dfc7;
+    --warning-surface: #3b3022;
+    --warning-ink: #f3ce99;
+    --warning-line: #9c7849;
+    --reveal-surface: #315944;
+    --reveal-hover: #3e6c53;
+    --loss-track: #32464a;
+    --strong-line: #7c9690;
+    --zone-line: #4e6664;
+    --active-line: #6c9d8d;
+    --ledger-line: #728f89;
+    --circuit-source: #1c3035;
+    --circuit-load: #233d35;
+    --phase-one: #69d5be;
+    --phase-two: #f3bc70;
+    --phase-three: #bdabf1;
+    color-scheme: dark;
+  }
+  .hero img {
+    mix-blend-mode: normal;
   }
 }

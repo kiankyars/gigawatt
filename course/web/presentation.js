@@ -31,6 +31,7 @@ let state = {
   revealed: [],
   volts: DEFAULTS.comparison_voltage_v,
   dcConversionKW: DEFAULTS.dc_conversion_kw,
+  cycleDegrees: 30,
 };
 const session =
   new URLSearchParams(location.search).get("session") || crypto.randomUUID();
@@ -62,7 +63,10 @@ function validState(value) {
     value.volts <= 1000 &&
     Number.isFinite(value.dcConversionKW) &&
     value.dcConversionKW >= 1 &&
-    value.dcConversionKW <= 7
+    value.dcConversionKW <= 7 &&
+    Number.isFinite(value.cycleDegrees) &&
+    value.cycleDegrees >= 0 &&
+    value.cycleDegrees <= 360
   );
 }
 function publish() {
@@ -267,6 +271,13 @@ function renderNotes() {
   byId("narration").innerHTML = `<ul class="speaker-points">${step.notes
     .map((point) => `<li>${escapeHTML(point)}</li>`)
     .join("")}</ul>`;
+  if (["ac-basics", "three-phase", "voltage-basis"].includes(step.kind)) {
+    const now = acdcWaveModel(step.kind, state.cycleDegrees);
+    byId("narration").insertAdjacentHTML(
+      "afterbegin",
+      `<p class="cue" id="notes-cycle">Cycle: ${state.cycleDegrees}° · ${fmt(now.instantKW, 1)} kW received now · 100 kW average.</p>`,
+    );
+  }
   if (step.kind === "current" && isRevealed())
     byId("narration").insertAdjacentHTML(
       "afterbegin",
@@ -292,6 +303,13 @@ function renderNotes() {
     `teach.html?session=${encodeURIComponent(session)}#${step.id}`;
 }
 function bindVisual() {
+  byId("cycle-angle")?.addEventListener("input", (event) => {
+    state.cycleDegrees = Number(event.target.value);
+    byId("wave-content").innerHTML = electricalContent(STEPS[state.index].kind);
+    byId("cycle-value").textContent =
+      `${state.cycleDegrees}° · ${fmt((state.cycleDegrees / 360 / 60) * 1000, 2)} ms`;
+    publish();
+  });
   byId("dc-conversion")?.addEventListener("input", (event) => {
     state.dcConversionKW = Number(event.target.value);
     const { ac, dc } = pathNumbers();
@@ -345,8 +363,19 @@ function render() {
   byId("scene-title").textContent = step.headline;
   byId("caption").textContent = step.caption;
   byId("visual").innerHTML = (
-    { intro, copper, current, loss, energy, paths, decision }[step.kind] ||
-    (() => architecture(step.kind))
+    {
+      intro,
+      copper,
+      current,
+      loss,
+      energy,
+      paths,
+      decision,
+      "dc-basics": () => electricalVisual("dc-basics"),
+      "ac-basics": () => electricalVisual("ac-basics"),
+      "three-phase": () => electricalVisual("three-phase"),
+      "voltage-basis": () => electricalVisual("voltage-basis"),
+    }[step.kind] || (() => architecture(step.kind))
   )();
   byId("previous").disabled = state.index === 0;
   byId("next").disabled = state.index === STEPS.length - 1;

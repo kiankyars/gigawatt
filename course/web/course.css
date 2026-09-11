@@ -1,4 +1,5 @@
 :root {
+  color-scheme: light;
   --paper: #f4f3ee;
   --ink: #172633;
   --muted: #5c6871;
@@ -1179,4 +1180,32 @@ main > .course-footer {
   .chapters::-webkit-scrollbar {
     display: none;
   }
+}
+
+/* The lesson stage retains its diagram palette; the reading surface follows the device. */
+@media screen and (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --paper: #101b1f;
+    --ink: #e8eee8;
+    --muted: #a8b9b4;
+    --rule: #354a4c;
+    --orange: #f3bc70;
+  }
+  ::selection { background: #31554d; color: var(--ink); }
+  .skip, .notes { background: #18272b; }
+  .chapter, .lesson-body, .label, .progress-group > span,
+  .notes p, .answer-feedback, .contents-chapter h3,
+  .source-item small, .source-note { color: var(--muted); }
+  .eyebrow, .text-button:hover, .contents-chapter button span { color: var(--orange); }
+  .brand > span, .text-button, .nav-button, .notes,
+  .answer-button, .answer-button span { border-color: var(--rule); }
+  .nav-button:hover:not(:disabled) { background: #263b3f; }
+  .nav-button.next:hover { background: #c7d7d0; }
+  .progress button:after { background: var(--rule); }
+  .progress button.past:after { background: #819a9a; }
+  .progress button.active:after { background: var(--orange); }
+  .answer-button[aria-pressed="true"] { border-color: var(--orange); background: #392e1d; }
+  .answer-button.correct { border-color: #69d5be; background: #193b33; }
+  button:focus-visible, a:focus-visible, summary:focus-visible, input:focus-visible { outline-color: var(--orange); }
 }

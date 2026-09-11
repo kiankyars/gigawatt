@@ -1,12 +1,21 @@
 # UPS redundancy coverage review
 
+**Implementation update, 2026-09-10.** The local [UPS prototype](../course/prototypes/ups-format.html)
+now includes normal/battery operation, forced static and external maintenance
+bypass, N/N+1/N+2/2N/2(N+1), a shared-bus fault, maintenance followed by a fault,
+and a changed-load exercise. It uses 100 kW and 50 kW modules; the larger worked
+example below remains research material. Speaker cues are optional. Single-corded
+loads/STS, equipment-specific transition behavior, and joined cooling/control
+acceptance remain outside this short sequence. The September 8 audit below is
+preserved as the original coverage snapshot and proposal, not current presentation status.
+
 Reviewed **2026-09-08**. Research question: **Does GIGAWATT teach a learner to distinguish N, N+1, N+2, 2N and 2(N+1), and test the promised service through a failure and maintenance?**
 
 **Verdict: not yet sufficiently comprehensive for that outcome.** D05 already develops N+1 capacity arithmetic, maintenance followed by another module loss, the difference between capacity and path independence, and electrical/thermal continuity. Those are useful foundations. N+2 and 2(N+1) are absent from the authored expansion; 2N receives a conceptual comparison without a worked module/path comparison or a changed-case redundancy exercise. UPS bypass paths and single-corded load interfaces are material omissions. Add one bounded redundancy sequence before treating D05.3 as taught and assessed.
 
 This is a coverage audit and teaching proposal, not a course rewrite, equipment design or certification assessment. The lesson sources and baseline diagram code were inspected; no new UPS presentation was built or visually validated. Only the separate AC/DC sample currently has a complete dedicated presentation sequence, as [PRESENTING.md](../course/PRESENTING.md) states.
 
-## Actual coverage
+## Coverage at the September 8 audit
 
 “Developed” means explanatory prose that establishes a mechanism; it does not imply a worked example, transfer problem or presentation readiness. Links below point to the readable lessons; editable sources are [foundations-power.json](../course/expansion/foundations-power.json), [heat-delivery-operations.json](../course/expansion/heat-delivery-operations.json) and [capstones.json](../course/expansion/capstones.json).
 

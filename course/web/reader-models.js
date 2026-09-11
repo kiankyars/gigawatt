@@ -12,6 +12,73 @@ export function dcModel(kw, volts) {
     lossRatio: (48 / volts) ** 2,
   };
 }
+
+// Ideal source and resistive load: voltage and current are in phase. This
+// model excludes conversion losses, conductor losses, harmonics and imbalance.
+// Three-phase voltages are phase-to-neutral in a balanced wye equivalent;
+// the neutral current is zero, so the neutral need not be a load conductor.
+export function acdcWaveModel(
+  kind,
+  angleDegrees,
+  loadKW = 100,
+  dcV = 800,
+  lineV = 480,
+) {
+  if (!["dc-basics", "ac-basics", "three-phase", "voltage-basis"].includes(kind))
+    throw new RangeError("Unknown AC/DC waveform kind");
+  if (!Number.isFinite(angleDegrees))
+    throw new RangeError("Phase angle must be finite");
+  if (!Number.isFinite(loadKW) || loadKW < 0)
+    throw new RangeError("Average load power must be nonnegative and finite");
+  positive(dcV, "DC pair voltage");
+  positive(lineV, "AC RMS voltage");
+
+  const isDC = kind === "dc-basics";
+  const isThreePhase = kind === "three-phase" || kind === "voltage-basis";
+  const phaseVoltageRMSV = isDC
+    ? dcV
+    : isThreePhase
+      ? lineV / Math.sqrt(3)
+      : lineV;
+  const rmsCurrentA =
+    (loadKW * 1000) / ((isThreePhase ? 3 : 1) * phaseVoltageRMSV);
+  const peakV = phaseVoltageRMSV * (isDC ? 1 : Math.SQRT2);
+  const peakA = rmsCurrentA * (isDC ? 1 : Math.SQRT2);
+  const offsets = isThreePhase
+    ? [["A", 0], ["B", -120], ["C", 120]]
+    : [[isDC ? "DC" : "AC", 0]];
+  const phases = offsets.map(([label, offset]) => {
+    const wave = isDC
+      ? 1
+      : Math.sin((((angleDegrees % 360) + offset) * Math.PI) / 180);
+    const voltageV = peakV * wave;
+    const currentA = peakA * wave;
+    return {
+      label,
+      voltageV,
+      currentA,
+      powerKW: (voltageV * currentA) / 1000,
+      rmsVoltageV: phaseVoltageRMSV,
+      rmsCurrentA,
+      peakV,
+      peakA,
+    };
+  });
+  return {
+    kind,
+    angleDegrees,
+    averageKW: loadKW,
+    instantKW: phases.reduce((sum, phase) => sum + phase.powerKW, 0),
+    currentSumA: phases.reduce((sum, phase) => sum + phase.currentA, 0),
+    lineVoltageRMSV: isDC ? dcV : lineV,
+    phaseVoltageRMSV,
+    lineABVoltageV: isThreePhase
+      ? phases[0].voltageV - phases[1].voltageV
+      : phases[0].voltageV,
+    phases,
+  };
+}
+
 export function thermalModel(kw, deltaT, auxiliaryKW) {
   positive(kw, "Heat duty");
   positive(deltaT, "Temperature rise");

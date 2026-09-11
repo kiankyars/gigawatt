@@ -1,0 +1,36 @@
+[
+  {
+    "file": "semianalysis-800vdc-architecture.jpeg",
+    "source_url": "https://substack-post-media.s3.amazonaws.com/public/images/34d6f68c-9b87-41df-a49a-d2c3d56c1f31_1386x771.jpeg",
+    "publisher": "SemiAnalysis",
+    "retrieved_on": "2026-09-10",
+    "sha256": "a52303d0e1e2e63798ee41a56ab0950f62c0a86654bb788955552e5865754c3b",
+    "note": "Recovered publisher original matching the missing attachment UUID; encoding differs from the missing local WEBP. Source watermark retained."
+  },
+  {
+    "file": "nvidia-800vdc-wolfspeed-user-figure.png",
+    "source_url": "https://assets.wolfspeed.com/uploads/2026/03/Wolfspeed_Powering_AI_with_reliable_SiC-based_solid-state_transformers_white_paper.pdf",
+    "publisher": "NVIDIA, reproduced in Wolfspeed Figure 1",
+    "retrieved_on": "2026-09-10",
+    "sha256": "0033ab88ef7b528c87166422f60beadebb135098eb5005f03ad4a4495043c0db",
+    "note": "User-supplied PNG copied unchanged; matched to PDF page 3. User image includes an overlay; it has not been removed."
+  },
+  {
+    "file": "semianalysis-sst-market-forecast-2026-2030.png",
+    "source_url": "https://substack-post-media.s3.amazonaws.com/public/images/7b4948fe-0850-4ce8-a562-b003ab2976fe_2456x1834.png",
+    "article_url": "https://newsletter.semianalysis.com/p/inside-the-800vdc-revolution-part",
+    "publisher": "SemiAnalysis Industrials Model",
+    "published_on": "2026-05-26",
+    "retrieved_on": "2026-09-10",
+    "sha256": "db1ca6fb7095041bca0fc9f964d5d10f7e650e18246b9bdd20d7c9ece318346d",
+    "note": "User-supplied PNG copied unchanged and visually matched to the publisher original in the SST Market Opportunity and TAM sizing section. Source watermark retained. Forecast, not observed revenue or deployed capacity; unlabelled points are not transcribed."
+  },
+  {
+    "file": "schneider-easy-ups-3phase-modular.jpg",
+    "source_url": "https://download.schneider-electric.com/files?p_Doc_Ref=EasyUPS3PHMod_RNG_V&p_File_Type=rendition_369_jpg&default_image=DefaultProductImage.png",
+    "publisher": "Schneider Electric",
+    "retrieved_on": "2026-09-10",
+    "sha256": "8e6791fa154de283f8ed7bf3737daacab65503b7b98aa6413f7ab8d31aad7321",
+    "note": "Product-family image from official Easy UPS 3-Phase Modular page. Two cabinet views do not establish a redundant topology or a UPS-and-battery pair."
+  }
+]

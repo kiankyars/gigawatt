@@ -12,7 +12,7 @@ The bridge creates an alternating waveform across the transformer. The input or 
 
 **Does this replace backup power?** Conversion does not create reserve energy. Storage and coordinated protection still need specifying, even if integrated into one product. DC compatibility also does not mean batteries or solar can be connected without appropriate interfaces. [Infineon: grid-to-core power functions](https://www.infineon.com/applications/ai-data-center/data-center-power-solutions).
 
-Teaching use: answer those three questions alongside the existing [conversion-placement lesson](../course/lessons/d04-conversion-placement.md). No new lesson or presentation sequence has been added.
+Teaching use: answer those three questions alongside the existing [conversion-placement lesson](../course/lessons/d04-conversion-placement.md). The conversion-placement lesson now includes the step-down/rectification distinction and both user-supplied architecture figures; this remains within D04.
 
 ## AC and HVDC: keep the whole-path comparison
 
@@ -32,3 +32,9 @@ Insulation resistance concerns leakage under applied voltage. Dielectric strengt
 Distinguish a network's role (scale-up/out), switching tier (L1/L2 in a specified design), and physical medium (copper/optics). They are not interchangeable labels. GB300 NVL72 has a switched in-rack NVLink L1 domain and a separate scale-out network; do not generalize its hardware counts to other generations. [NVIDIA architecture](https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/components.html).
 
 Copper/optics choice depends on qualified reach, rate, power, routing, and serviceability—not a universal one-metre rule. Reuse the existing [media-choice lesson](../course/lessons/d08-copper-light-service.md), which records its primary-source boundaries. The original question about **what engineering changes produced NVLink's generation-to-generation bandwidth increase remains unanswered**; this compression does not pretend otherwise.
+
+## Why not rectify before stepping down?
+
+A conventional transformer supplies voltage reduction and isolation before the AC/DC converter. An SST can move electronic conversion onto the medium-voltage side while retaining an internal isolation transformer. Converter topology determines individual device stress: series/cascaded cells can share the system voltage ([P21](sources/P21.md), [P22](sources/P22.md)). The 10 kV SiC announcement is a dated product claim ([P23](sources/P23.md)), not a hard system-voltage limit.
+
+The two supplied figures are embedded in [D04 conversion placement](../course/lessons/d04-conversion-placement.md). Read their large system blocks as condensed functions, not evidence that isolation, protection, conversion losses or storage requirements vanish.

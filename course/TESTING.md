@@ -343,3 +343,56 @@ article capture, source review and curriculum changes remain distinct operations
 
 The archive retains publisher figure links instead of downloading images.
 Captured source prose does not become lesson prose or technical-review evidence.
+
+
+## AC/DC foundations — 2026-09-10
+
+The 800 V sample now has fourteen scenes, including a closed DC loop, single-phase
+AC reversal, balanced three-phase current/power and line-to-line voltage. All keep
+100 kW average received power explicit. The provisional rehearsal allocation is
+now about 23 minutes. D05 had no presenter sequence at that checkpoint; see the
+UPS prototype update below.
+
+- 51 Python and 31 numerical JavaScript tests passed. Nine new waveform tests
+  check RMS/cycle averages, polarity reversal, balanced power/current sums,
+  voltage subtraction, alternate inputs and invalid values.
+- The existing presentation browser check passed 200 layout/reveal states.
+  `tests/browser_electrical.cjs` additionally checks 20 primer layouts, title/visual
+  separation, the fixed energy reference, cycle controls, phase balance, keyboard
+  access and synchronized presenter notes. Screenshots were visually inspected.
+- New primary source notes P18/P19 support the introductory electrical identities.
+  Ideal resistive examples explain the quantities; they are not rack-input
+  waveforms, equipment ratings or measured architecture efficiencies.
+
+## UPS, bypass and redundancy prototype — 2026-09-10
+
+The local `course/prototypes/ups-format.html` now has fifteen scenes. The new
+bypass and redundancy diagrams are code-rendered; the campus image remains an
+orientation aid. Notes are optional through `?rehearse=1`.
+
+- 52 Python tests passed, with research, domain-map and generated-course checks
+  current. The SST chart is included in D06 with a forecast caption and source;
+  its SHA-256 matches the supplied image. Reader checks passed 100 lesson/viewport
+  states and confirmed the image loads.
+- `node --test tests/ups-bypass.test.mjs tests/ups-redundancy.test.mjs` passed
+  20 tests. These trace rendered bypass connections, check source loss and
+  maintenance isolation, and independently check surviving module/path capacity.
+- `node tests/browser_ups.cjs` (with Playwright available) passed 60 layouts
+  across 1440×900, 1280×720, 390×844 and 844×390, plus source, fault, maintenance,
+  bus and load-growth interactions. SVG exclusivity, keyboard navigation and
+  optional note synchronization passed. Representative screenshots were inspected;
+  short landscape layouts scroll instead of clipping the controls.
+
+These checks establish the stated teaching-model behavior, not equipment-specific
+transfer performance, a switching procedure or completed learner review of D05.
+
+## Automatic device themes — 2026-09-10
+
+The reader, sample/teaching/notes views, UPS prototype, domain map and introduction
+follow `prefers-color-scheme` with CSS. Checked 48 light → dark → light states
+across eight pages and desktop/mobile layouts: preference changes apply without
+navigation, preserve the current scene and source images, and keep printing light.
+The full reader check also passed 100 lesson/viewport states in dark mode.
+UPS checks passed all 60 scene layouts in each theme; sample controls and note
+synchronization still pass. Representative screenshots were visually inspected.
+All 52 Python tests and generated-output checks pass. Changes remain local.

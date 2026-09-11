@@ -189,6 +189,7 @@ Separate physical principles, design specifications, observed deployments, annou
 - [EFB703CFC3D — Schneider Electric — PM2200 total power calculation for accuracy verification](https://productinfo.se.com/pm2200/5afc2b5546e0fb00011e5e9d/PM2200%20series%20User%20Manual/English/BM_PM2200seriesUserManual_0000074170.ditamap.xml/%24/C_VerifyingAccuracy_PowerTotCalcuation_0000034437) · `page_reviewed` · [local note](../research/sources/EFB703CFC3D.md)
 - [E7A716A810E — Leviton — Data center white space and gray space](https://leviton.com/support/literature/newsletters/insider/insideroctober2025/focusedproductoctober2025) · `page_reviewed` · [local note](../research/sources/E7A716A810E.md)
 - [EFE70308E0A — Vertiv — Deploying Liquid Cooling in the Data Center](https://prod.vertiv.cn/4a9616/globalassets/documents/white-papers/liquid-cooling/vertiv-liquidcooling-wp-en-na-sl-71113-web.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/EFE70308E0A.md)
+- [P18 — OpenStax — 20.5 Alternating Current versus Direct Current (College Physics 2e)](https://openstax.org/books/college-physics-2e/pages/20-5-alternating-current-versus-direct-current) · `page_reviewed` · [local note](../research/sources/P18.md)
 
 <a id="d02"></a>
 
@@ -449,6 +450,12 @@ Reconcile IT and auxiliary loads with a downstream electrical capacity budget ac
 - [EBFFD23506A — Schneider Electric — Choice of transformer rating](https://www.electrical-installation.org/enwiki/Choice_of_transformer_rating) · `page_reviewed` · [local note](../research/sources/EBFFD23506A.md)
 - [EFB703CFC3D — Schneider Electric — PM2200 total power calculation for accuracy verification](https://productinfo.se.com/pm2200/5afc2b5546e0fb00011e5e9d/PM2200%20series%20User%20Manual/English/BM_PM2200seriesUserManual_0000074170.ditamap.xml/%24/C_VerifyingAccuracy_PowerTotCalcuation_0000034437) · `page_reviewed` · [local note](../research/sources/EFB703CFC3D.md)
 - [EA7B686AF9E — NVIDIA, Partners Drive Next-Gen Efficient Gigawatt AI Factories in Buildup for Vera Rubin](https://blogs.nvidia.com/blog/gigawatt-ai-factories-ocp-vera-rubin/) · `page_reviewed` · [local note](../research/sources/EA7B686AF9E.md)
+- [P18 — OpenStax — 20.5 Alternating Current versus Direct Current (College Physics 2e)](https://openstax.org/books/college-physics-2e/pages/20-5-alternating-current-versus-direct-current) · `page_reviewed` · [local note](../research/sources/P18.md)
+- [P19 — Steven H. Low — Power System Analysis: Analytical tools and structural properties (April 7, 2025 draft)](https://netlab.caltech.edu/assets/book/PSA/Low-PSA-v20250407.pdf) · `page_reviewed` · [local note](../research/sources/P19.md)
+- [P20 — Wolfspeed — Powering AI with reliable SiC-based solid-state transformers](https://assets.wolfspeed.com/uploads/2026/03/Wolfspeed_Powering_AI_with_reliable_SiC-based_solid-state_transformers_white_paper.pdf) · `page_reviewed` · [local note](../research/sources/P20.md)
+- [P21 — Texas Instruments — TIDA-011012 modular solid-state transformer reference design](https://www.ti.com/tool/TIDA-011012) · `page_reviewed` · [local note](../research/sources/P21.md)
+- [P22 — Huber et al. — Comparative Evaluation of MVAC–LVDC SST and Hybrid Transformer Concepts for Future Datacenters (IPEC 2022)](https://www.ams-publications.ee.ethz.ch/uploads/tx_ethpublications/1_IPEC_2022_Final_Huber.pdf) · `page_reviewed` · [local note](../research/sources/P22.md)
+- [P23 — Wolfspeed — Introduction of a commercially available 10 kV SiC power MOSFET](https://www.wolfspeed.com/company/news-events/news/wolfspeed-introduces-industrys-first-commercially-available-10000v-silicon-carbide-power-mosfet/) · `page_reviewed` · [local note](../research/sources/P23.md)
 
 <a id="d05"></a>
 
@@ -633,6 +640,12 @@ Explain how retrofit constraints can reverse a seemingly attractive greenfield a
 - [EA7B686AF9E — NVIDIA, Partners Drive Next-Gen Efficient Gigawatt AI Factories in Buildup for Vera Rubin](https://blogs.nvidia.com/blog/gigawatt-ai-factories-ocp-vera-rubin/) · `page_reviewed` · [local note](../research/sources/EA7B686AF9E.md)
 - [EA0B6C5ED33 — Schneider Electric — Comparing UPS System Design Configurations, White Paper 75 Revision 4](https://www.se.com/us/en/download/document/SPD_SADE-5TPL8X_EN/) · `page_reviewed` · [local note](../research/sources/EA0B6C5ED33.md)
 - [E836C561209 — Schneider Electric — Why Two Cords Do Not Guarantee Power Redundancy to an IT Device](https://blog.se.com/datacenter/architecture/2014/08/06/two-cords-guarantee-power-redundancy-device/) · `page_reviewed` · [local note](../research/sources/E836C561209.md)
+- [P18 — OpenStax — 20.5 Alternating Current versus Direct Current (College Physics 2e)](https://openstax.org/books/college-physics-2e/pages/20-5-alternating-current-versus-direct-current) · `page_reviewed` · [local note](../research/sources/P18.md)
+- [P19 — Steven H. Low — Power System Analysis: Analytical tools and structural properties (April 7, 2025 draft)](https://netlab.caltech.edu/assets/book/PSA/Low-PSA-v20250407.pdf) · `page_reviewed` · [local note](../research/sources/P19.md)
+- [P20 — Wolfspeed — Powering AI with reliable SiC-based solid-state transformers](https://assets.wolfspeed.com/uploads/2026/03/Wolfspeed_Powering_AI_with_reliable_SiC-based_solid-state_transformers_white_paper.pdf) · `page_reviewed` · [local note](../research/sources/P20.md)
+- [P21 — Texas Instruments — TIDA-011012 modular solid-state transformer reference design](https://www.ti.com/tool/TIDA-011012) · `page_reviewed` · [local note](../research/sources/P21.md)
+- [P22 — Huber et al. — Comparative Evaluation of MVAC–LVDC SST and Hybrid Transformer Concepts for Future Datacenters (IPEC 2022)](https://www.ams-publications.ee.ethz.ch/uploads/tx_ethpublications/1_IPEC_2022_Final_Huber.pdf) · `page_reviewed` · [local note](../research/sources/P22.md)
+- [P23 — Wolfspeed — Introduction of a commercially available 10 kV SiC power MOSFET](https://www.wolfspeed.com/company/news-events/news/wolfspeed-introduces-industrys-first-commercially-available-10000v-silicon-carbide-power-mosfet/) · `page_reviewed` · [local note](../research/sources/P23.md)
 
 <a id="d07"></a>
 

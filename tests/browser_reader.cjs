@@ -25,9 +25,11 @@ const course = JSON.parse(readFileSync("course/expanded-course.json", "utf8"));
   });
   async function lesson(id) {
     await page.goto(`${base}index.html#${id}`);
-    await page.locator("#teaching-image").waitFor();
+    await page.locator("#title").waitFor();
     await page.waitForFunction(
-      () => document.querySelector("#teaching-image").complete,
+      () =>
+        document.querySelector("#teaching-image").closest("figure").hidden ||
+        document.querySelector("#teaching-image").complete,
     );
   }
   for (const viewport of [
@@ -42,6 +44,9 @@ const course = JSON.parse(readFileSync("course/expanded-course.json", "utf8"));
         width: innerWidth,
         scroll: document.documentElement.scrollWidth,
         image: document.querySelector("#teaching-image").naturalWidth,
+        imageVisible: !document
+          .querySelector("#teaching-image")
+          .closest("figure").hidden,
         sections: document.querySelectorAll(".reading-section").length,
         steps: document.querySelectorAll("#worked ol li").length,
       }));
@@ -49,7 +54,23 @@ const course = JSON.parse(readFileSync("course/expanded-course.json", "utf8"));
         state.scroll <= state.width + 1,
         `${l.id}: horizontal overflow ${JSON.stringify(state)}`,
       );
-      assert.ok(state.image > 0, `${l.id}: missing image`);
+      assert.equal(
+        state.imageVisible,
+        l.image === "campus",
+        `${l.id}: unreviewed illustration shown`,
+      );
+      if (state.imageVisible)
+        assert.ok(state.image > 0, `${l.id}: missing image`);
+      const figures = l.sections.flatMap((s) => s.figures || []);
+      assert.equal(
+        await page.locator(".source-figure img").count(),
+        figures.length,
+      );
+      for (const figure of await page.locator(".source-figure img").all()) {
+        await figure.scrollIntoViewIfNeeded();
+        await figure.evaluate((img) => img.decode());
+        assert.ok(await figure.evaluate((img) => img.naturalWidth > 0));
+      }
       assert.ok(state.sections >= 2 && state.steps >= 2);
       await page.locator("#practice summary").click();
       assert.ok(
@@ -59,7 +80,7 @@ const course = JSON.parse(readFileSync("course/expanded-course.json", "utf8"));
         id: l.id,
         width: viewport.width,
         overflow: false,
-        image: true,
+        image: state.imageVisible ? "orientation" : "omitted",
         answer: true,
       });
     }

@@ -8,6 +8,10 @@ from pathlib import Path
 
 KINDS = {
     "intro",
+    "dc-basics",
+    "ac-basics",
+    "three-phase",
+    "voltage-basis",
     "copper",
     "current",
     "loss",
@@ -83,6 +87,7 @@ def presentation_outputs(root: Path, sample_id: str) -> dict[Path, str]:
     script = re.sub(
         r"^export ", "", (web / "reader-models.js").read_text(), flags=re.MULTILINE
     )
+    script += "\n" + (web / "electrical-visuals.js").read_text()
     script += "\n" + (web / "presentation.js").read_text()
     replacements = {
         "__PRESENTATION_CSS__": (web / "presentation.css").read_text(),

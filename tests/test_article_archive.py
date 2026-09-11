@@ -210,9 +210,22 @@ class ArticleArchiveTests(unittest.TestCase):
         private.mkdir(parents=True)
         (private / "SA01.md").write_text("PRIVATE SOURCE TEXT")
         (self.root / "research/README.md").write_text("Public research workflow")
+        prototype = self.root / "course/prototypes"
+        prototype.mkdir()
+        teaching_files = {
+            "ups-format.html": '<script type="module" src="./ups-bypass.js"></script>',
+            "ups-bypass.js": 'export { renderRedundancy } from "./ups-redundancy.js";',
+            "ups-redundancy.js": "export function renderRedundancy() {}",
+        }
+        for name, content in teaching_files.items():
+            (prototype / name).write_text(content)
         destination = stage(self.root)
         self.assertTrue((destination / "research/README.md").exists())
         self.assertFalse((destination / a.ARCHIVE).exists())
+        for name, content in teaching_files.items():
+            self.assertEqual(
+                (destination / "course/prototypes" / name).read_text(), content
+            )
 
     def test_email_tracking_does_not_create_a_second_article_identity(self):
         tracked = (

@@ -16,7 +16,9 @@ consequential tradeoff, failure or limiting case, and changed-scenario practice.
 The practice must require applying the reasoning rather than copying a result.
 
 Use original explanatory prose. Explain algebra and specialist terms before using
-them. Locate equipment and show its job at first use; a glossary or opening
+them. Before comparing electrical architectures, teach the closed DC loop, AC reversal,
+RMS values and balanced three-phase return paths. Keep received average power and
+measurement conventions explicit as waveforms change. Locate equipment and show its job at first use; a glossary or opening
 orientation supplements that introduction. Do not paraphrase articles in sequence
 or reproduce third-party prose/figures wholesale.
 
@@ -66,19 +68,20 @@ Assign each scene a `pedagogical_role`: `problem`, `comparison`, `mechanism`,
 `architecture`, `balance`, `counterexample` or `transfer`. Begin with the problem,
 teach its mechanism and end with transfer. Intermediate scenes depend on the topic.
 
-Keep the audience headline and caption short. Presenter notes should be a few
-short bullet points, usually three to five: the mechanism, essential numbers,
-important boundary and takeaway. Use phrases the speaker can glance at and
-explain in their own words. Put the action or prediction prompt in the separate
-cue; keep complete prose and derivations in the student explanation. Include a
-provisional rehearsal duration. Preserve stable scene
+Let the diagram and its changing state carry the explanation. Keep only the
+headline, essential labels, quantities and decisive assumptions on the slide.
+The speaker explains the connections in their own words; notes must not contain
+an essential step that the visual fails to establish. Rehearsal notes are optional:
+when useful, use a few brief cues, not a script. Keep complete prose and derivations
+in the student reference. Preserve stable scene
 IDs and replacement aliases. The builder checks these fields, text budgets and
 timing totals. The current renderer is specific to the 800 V sample; another
 domain needs an authored visual and appropriate model, not only a new JSON title.
 
 The sample's sources are `course/expansion/sample.json` for full teaching prose
 and `course/expansion/sample-presentation.json` for the visual sequence.
-`course/web/presentation.*` implements the surfaces; `reader-models.js` supplies
+`course/web/presentation.*` implements the surfaces; `electrical-visuals.js`
+draws the AC/DC foundation scenes; `reader-models.js` supplies
 shared numerical functions. Keep assumptions and calculations consistent across
 student exploration, teaching mode, presenter notes and the written reference.
 
@@ -97,14 +100,21 @@ student exploration, teaching mode, presenter notes and the written reference.
 6. Apply the reasoning to a changed case. Update the facility artifact and state
    which conclusions still require an equipment rating or additional evidence.
 
-Use exact, code-rendered diagrams for quantities, connections and failure states.
-Generated equipment imagery can provide orientation; it must not invent ratings,
-electrical connections or quantitative scales. Distinguish physical flows from
-commercial and control relationships, and coolant circulation from heat transfer.
-Motion must explain a defined change and remain intelligible when paused.
+Use code-rendered diagrams for quantities, connections and failure states, and
+check their connections and paths against the stated model and sources. Rendering
+correctly does not establish technical correctness. Generated imagery can provide
+orientation; visual inspection alone does not validate anatomy, piping or wiring.
+Follow the existing images' [role limits](assets/README.md), and replace misleading
+details instead of relying on a disclaimer. Sourced images also need provenance
+and checks of the product, configuration and claim they illustrate. Distinguish
+physical flows from commercial and control relationships, and coolant circulation
+from heat transfer. Motion must explain a defined change and remain intelligible
+when paused.
 
-Keep one active visual prominent. Put speaking prompts and action cues in notes, and
-derivations and source limits to the reference. Do not auto-convert paragraphs
+Keep one active visual prominent. Put optional speaking prompts in a separate
+rehearsal view, and keep derivations and source limits in the reference. Prediction
+controls and the changed condition must remain understandable without notes.
+Do not auto-convert paragraphs
 into slides. The student view is the default; a deliberate teaching endpoint adds
 instructor controls. Those modes are presentation choices, not access control.
 

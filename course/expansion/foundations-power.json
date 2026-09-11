@@ -156,7 +156,8 @@
         }
       ],
       "caption": "The energy balance follows the electrical and thermal arrows; the information arrow describes the service."
-    }
+    },
+    "image": "campus"
   },
   {
     "id": "d01-power-over-time",
@@ -1003,16 +1004,31 @@
     "domain": "D03",
     "title": "Move power with fewer amperes",
     "question": "Why does a higher transport voltage reduce one important class of losses?",
-    "summary": "Derive a balanced three-phase current comparison, calculate conductor heating, and identify what the comparison cannot decide.",
+    "summary": "Start with a closed DC circuit and AC waveforms, explain the three-phase power equation, then compare transport current and conductor heating at a fixed campus load.",
     "takeaway": "At fixed real power and power factor, higher voltage reduces current; the conductor-loss benefit depends on the resistance being compared.",
     "objectives": [
       "D03.2"
     ],
     "sections": [
       {
-        "heading": "Voltage and current perform different jobs",
+        "heading": "Build from a closed DC loop to alternating current",
         "paragraphs": [
           "Voltage is an electrical potential difference: energy transferred per unit charge. Current is the rate at which charge passes a point. In a simple DC boundary, their product gives electrical power. A higher voltage can therefore transfer the same power with less current. That observation is the starting point for understanding transport voltage, but it does not by itself choose an installation voltage. Equipment interfaces, insulation, protection, clearances, conversion, and cost still matter.",
+          "In a steady DC circuit, voltage keeps one polarity and conventional current travels around a complete source–load–return loop. Both the outgoing and return conductors carry the same current; adding their magnitudes counts one circuit current twice. For an ideal resistive load receiving 100 kW at 800 V DC, each conductor carries 125 A. The introductory circuit has no conductor or converter losses.",
+          "Now use a single-phase sinusoidal AC source and another resistive load, still chosen to receive 100 kW on average. Voltage and current reverse together every half-cycle. Instantaneous power is their product, so the resistor keeps receiving power when both signs reverse. RMS is the effective value for resistive heating, not the peak: a 480 V RMS sine wave peaks at about 679 V. This single-phase example needs 208.33 A RMS; its received power ranges from zero to 200 kW and averages 100 kW. The equal-power anchor describes the load requirement, not an unchanged resistor."
+        ]
+      },
+      {
+        "heading": "Combine three phases without changing the power requirement",
+        "paragraphs": [
+          "Balanced three-phase AC uses three equal phase voltages separated by 120 degrees, or one-third of a cycle. Picture three equal resistive load branches sharing a star point, a wye connection. Each branch averages one-third of the total power. Their staggered instantaneous powers add to a constant 100 kW in this ideal balanced sinusoidal model. Three phases do not mean three times the specified total load.",
+          "The signed line currents sum to zero at every instant. Current entering on some phase conductors leaves on the others, so a neutral would carry zero load current in this balanced sinusoidal case. Real unequal loads or nonlinear current waveforms can require a neutral. Protective earth is not the normal load-current return, and a three-conductor teaching model is not a complete installation drawing.",
+          "At 480 V line-to-line RMS, each wye branch sees 480/√3 ≈ 277 V RMS from phase to star point. Line-to-line voltage is the difference between two phase voltages separated by 120 degrees, giving the √3 relationship. Add the three branch powers at power factor one: P = 3 × V_phase-to-neutral × I_line = √3 × V_line-to-line × I_line. The 100 kW example therefore uses 120.281 A RMS per line. The 800 V DC example uses 125 A per conductor; average energy delivery remains equal. The visual 800 V sample develops this circuit and waveform sequence before its copper comparison."
+        ]
+      },
+      {
+        "heading": "Use the three-phase formula with a named boundary",
+        "paragraphs": [
           "For a balanced three-phase AC example, real power is P = √3 × VLL × I × PF. VLL is the line-to-line RMS voltage, I is RMS line current, and PF is the real-to-apparent power ratio. The factor √3, approximately 1.732, comes from the relationship among the three phases and the line-to-line voltage convention. Do not insert a phase-to-neutral voltage into this version of the equation. That would mix definitions and produce an incorrect current.",
           "To solve for current, divide both sides by √3 × VLL × PF. The result is I = P/(√3 × VLL × PF). We will use a balanced, sinusoidal, unity-power-factor scenario so the comparison stays narrow. Later lessons add equipment efficiency and apparent-power limits. For now, the purpose is to predict the direction and size of a current change before relying on a calculator."
         ]
@@ -1020,7 +1036,7 @@
       {
         "heading": "Work through a two-voltage transport comparison",
         "paragraphs": [
-          "Deliver a hypothetical 10 MW to a receiving boundary at either 10 kV or 20 kV line-to-line, with PF = 1. At 10 kV, current is 10,000,000/(1.732 × 10,000), approximately 577.4 A. At 20 kV it is approximately 288.7 A. Doubling voltage has halved current because the delivered real power and power factor are held fixed. We have not claimed that the same piece of equipment can simply be operated at either voltage.",
+          "Now increase the example load explicitly from the 100 kW electrical primer to a hypothetical 10 MW campus receiving boundary. Deliver that same 10 MW at either 10 kV or 20 kV line-to-line, with PF = 1. At 10 kV, current is 10,000,000/(1.732 × 10,000), approximately 577.4 A. At 20 kV it is approximately 288.7 A. Doubling voltage has halved current because the delivered real power and power factor are held fixed. We have not claimed that the same piece of equipment can simply be operated at either voltage.",
           "Assume each of the three phase conductors has 0.10 ohm resistance at the operating condition being compared. Resistive heating is I²R per conductor. Across three equal conductors it is 3I²R. The lower-voltage case loses 3 × 577.4² × 0.10, approximately 100,000 W, or 100 kW. The higher-voltage case loses approximately 25 kW. Halving current quarters this particular loss because the current is squared.",
           "The difference is 75 kW. If both cases remained at their stated load for eight hours, the conductor-energy difference would be 75 kW × 8 h = 600 kWh. This isolates one mechanism. It excludes transformer losses, converter losses, reactive effects beyond the stated power factor, additional auxiliaries, and any change in conductor design. It is not a total-system efficiency prediction or a construction specification.",
           "Check the electrical accounting. We specified 10 MW delivered at the receiving boundary, so the sending source must cover that plus the modeled conductor heating. In this simplified comparison it supplies 10.100 MW in the first case and 10.025 MW in the second. If a diagram labels both ends 10 MW while also showing positive losses, the numbers do not balance. A clear diagram makes the receiving and sending boundaries visible."
@@ -1098,9 +1114,35 @@
         "claim": "Resistive heating follows I²R under the stated resistor model.",
         "reviewed_on": "2026-09-06",
         "limits": "Read the electrical-power equations; conductor resistance and all numerical values are original assumptions."
+      },
+      {
+        "title": "OpenStax — Alternating Current versus Direct Current",
+        "url": "https://openstax.org/books/college-physics-2e/pages/20-5-alternating-current-versus-direct-current",
+        "claim": "Explains AC and DC, sinusoidal peak and RMS values, and average power delivered to a resistive load. The 100 kW comparisons are original teaching models.",
+        "reviewed_on": "2026-09-10",
+        "limits": "The AC primer assumes a sinusoidal source and a resistive load with power factor one; it does not model nonlinear rack power electronics."
+      },
+      {
+        "title": "Steven H. Low, Caltech — Power System Analysis",
+        "url": "https://netlab.caltech.edu/assets/book/PSA/Low-PSA-v20250407.pdf",
+        "claim": "Sections 1.2–1.3 develop balanced three-phase circuits, phase-to-line voltage relationships, constant total instantaneous power and zero neutral current under balanced conditions.",
+        "reviewed_on": "2026-09-10",
+        "limits": "April 7, 2025 draft; used for the balanced sinusoidal circuit derivation. No real installation, neutral sizing or protection design follows from the simplified teaching model."
       }
     ],
     "terms": [
+      {
+        "term": "Direct current (DC)",
+        "definition": "Current that maintains one direction; this lesson begins with constant voltage and current in a complete loop."
+      },
+      {
+        "term": "Alternating current (AC)",
+        "definition": "Current that periodically reverses direction; in the resistive model, voltage and current reverse together while the load receives power."
+      },
+      {
+        "term": "Three-phase AC",
+        "definition": "Three alternating phases separated by one-third of a cycle. Equal sinusoidal phases feeding a balanced resistive load have a constant total instantaneous power."
+      },
       {
         "term": "RMS",
         "definition": "Root-mean-square value used here to describe the effective magnitude of AC voltage or current."
@@ -1483,6 +1525,7 @@
       {
         "heading": "Start at the load and work toward the source",
         "paragraphs": [
+          "Use the electrical foundations from “Move power with fewer amperes”: RMS values describe effective AC magnitudes; 480 V line-to-line is measured between phases, and √3 connects that voltage convention to total balanced three-phase power. The earlier resistive examples used power factor one. Here we deliberately change the model to a converter with specified efficiency and a supplied power factor below one, and name its 900 kW DC output boundary before working upstream.",
           "A rack-side system needs 900 kW of DC output. The upstream AC equipment does not supply only 900 kW if conversion has losses. Define conversion efficiency as output real power divided by input real power. At an assumed 96 percent efficiency, every 0.96 units delivered require one unit at the converter input. To recover the input requirement, divide the output by 0.96. Multiplying by 0.96 would move in the wrong direction and suggest that losses create power.",
           "The AC boundary introduces another quantity: apparent power, expressed in kVA or MVA. It combines voltage and current magnitudes in the stated system. Power factor is real power divided by apparent power. A supplied power factor of 0.90 means that 0.90 kW of real input accompanies each kVA at that operating point. Therefore apparent power is real power divided by 0.90. The difference between kVA and kW is not itself a real-power heat term. However, the associated higher current can increase actual conductor and equipment losses, which require their own accounting.",
           "For balanced three-phase conditions, current is apparent power divided by √3 times the line-to-line RMS voltage. Keep the unit conversion explicit: kVA multiplied by one thousand gives VA. In this lesson the voltage is 480 V line-to-line. The numerical exercise assumes the specified balanced conditions and a supplied total power factor. It does not infer power factor from an arbitrary phase-angle measurement of a distorted load."
@@ -1635,6 +1678,36 @@
         ]
       },
       {
+        "heading": "Why step down before rectifying?",
+        "paragraphs": [
+          "A conventional route is medium-voltage AC → isolation and step-down transformer → controlled AC/DC converter → 800 V DC. The transformer reduces the voltage seen by the electronics and supplies isolation. The controlled converter establishes the required DC output; a plain rectifier alone does not turn 13.8 kV AC into an isolated 800 V bus.",
+          "Rectifying at medium voltage is possible. The design must manage device blocking voltage, AC peaks, transients, insulation and voltage sharing. Cascaded converter cells can divide the input voltage, so each semiconductor need not withstand the full system voltage. An SST combines electronic conversion with an internal high-frequency isolation transformer. It is one way to build the interface; 800 V DC distribution also works with conventional transformers and rectifiers.",
+          "Keep the units and product claim precise: 10 kV = 10,000 V. Wolfspeed announced a commercially available 10 kV SiC power MOSFET in March 2026. That is a device-category announcement, not a ceiling on rectifiable system voltage. A 2022 ETH/Delta/Paderborn study already described a 13.2 kV cascaded SST using 1,200 V devices."
+        ]
+      },
+      {
+        "heading": "Read the architecture drawings from the same boundaries",
+        "paragraphs": [
+          "In the first drawing, compare which AC conversion and distribution functions are grouped into the future 800 V DC interface. The single “medium voltage rectifier or solid-state transformer” block is a system abstraction: voltage reduction, isolation, controls and protection still need an implementation. The drawing’s “Today” and “Future” are the publisher’s conceptual alternatives, not a claim that all facilities follow either path."
+        ],
+        "figures": [
+          {
+            "asset": "references/nvidia-800vdc-wolfspeed-user-figure.png",
+            "alt": "NVIDIA conceptual comparison of AC distribution through UPS and PDUs with future 800 V DC distribution, reproduced in a Wolfspeed paper.",
+            "caption": "NVIDIA architecture comparison, reproduced as Figure 1 in Wolfspeed’s March 2026 paper. User-supplied image preserved unchanged. The 480 V and 415 V labels belong to this example; storage and conversion details are condensed.",
+            "source_url": "https://assets.wolfspeed.com/uploads/2026/03/Wolfspeed_Powering_AI_with_reliable_SiC-based_solid-state_transformers_white_paper.pdf",
+            "source_title": "Wolfspeed, Figure 1, PDF page 3"
+          },
+          {
+            "asset": "references/semianalysis-800vdc-architecture.jpeg",
+            "alt": "SemiAnalysis concept with upstream MVAC-to-800-VDC conversion, a battery rack with distribution, battery and capacitor shelves, and an 800-V compute rack.",
+            "caption": "SemiAnalysis battery-rack concept. Upstream rectification does not remove downstream energy storage or distribution. The 800 kW and Kyber/Rubin Ultra labels are source-specific proposal labels, not validated course equipment ratings. “DC/DC distribution” here does not establish a voltage step-down.",
+            "source_url": "https://newsletter.semianalysis.com/p/inside-the-800vdc-revolution-part",
+            "source_title": "SemiAnalysis — Inside the 800VDC Revolution, Part 1"
+          }
+        ]
+      },
+      {
         "heading": "A complete two-stage loss calculation",
         "paragraphs": [
           "Use an original scenario delivering 1 MW at the same rack-side DC boundary. Path A distributes AC with an assumed 98 percent path efficiency, then converts near the rack at 96 percent efficiency. Work backward from the 1 MW output. The rack converter needs 1/0.96 = 1.041667 MW input. The upstream AC distribution needs 1.041667/0.98 = 1.062925 MW. Total modeled loss is therefore approximately 62.925 kW.",
@@ -1715,6 +1788,41 @@
         "claim": "Initial and future loading and installation conditions matter to upstream equipment selection.",
         "reviewed_on": "2026-09-06",
         "limits": "Read the public selection considerations; the lesson does not size a real transformer or declare an architecture optimal."
+      },
+      {
+        "title": "Wolfspeed — Powering AI with reliable SiC-based solid-state transformers",
+        "url": "https://assets.wolfspeed.com/uploads/2026/03/Wolfspeed_Powering_AI_with_reliable_SiC-based_solid-state_transformers_white_paper.pdf",
+        "claim": "Identify the supplied NVIDIA AC-versus-800-V-DC architecture figure and distinguish a system block from its internal conversion functions.",
+        "reviewed_on": "2026-09-10",
+        "limits": "Reviewed Figure 1 on PDF page 3 and surrounding architecture discussion. Vendor concept comparison, not an as-built site or universal migration plan. Numerical promotional claims are not adopted."
+      },
+      {
+        "title": "Texas Instruments — TIDA-011012 modular solid-state transformer reference design",
+        "url": "https://www.ti.com/tool/TIDA-011012",
+        "claim": "Explain how input-series converter submodules divide medium-voltage stress across lower-voltage semiconductor devices.",
+        "reviewed_on": "2026-09-10",
+        "limits": "Reviewed overview and feature list. Reference-design architecture, not a deployed data-center system; its stated DC-link voltages are not an 800 V output specification."
+      },
+      {
+        "title": "Huber et al. — Comparative Evaluation of MVAC–LVDC SST and Hybrid Transformer Concepts for Future Datacenters (IPEC 2022)",
+        "url": "https://www.ams-publications.ee.ethz.ch/uploads/tx_ethpublications/1_IPEC_2022_Final_Huber.pdf",
+        "claim": "Compare transformer-plus-rectifier and SST architectures for 800 V DC; separate system voltage from per-device voltage.",
+        "reviewed_on": "2026-09-10",
+        "limits": "Reviewed Figure 1 and Sections II–IV. The study includes a 13.2 kV cascaded design using 1,200 V devices. Efficiency and density results belong to its 2022 models and are not current universal rankings."
+      },
+      {
+        "title": "Wolfspeed — Introduction of a commercially available 10 kV SiC power MOSFET",
+        "url": "https://www.wolfspeed.com/company/news-events/news/wolfspeed-introduces-industrys-first-commercially-available-10000v-silicon-carbide-power-mosfet/",
+        "claim": "Scope and date the 10 kV SiC MOSFET announcement; distinguish device availability from achievable converter system voltage.",
+        "reviewed_on": "2026-09-10",
+        "limits": "Manufacturer announcement, March 5, 2026. Attribute the first-commercially-available claim to Wolfspeed and its SiC power MOSFET category. It does not establish that only one semiconductor technology or supplier can rectify medium voltage."
+      },
+      {
+        "title": "SemiAnalysis — Inside the 800VDC Revolution, Part 1",
+        "url": "https://newsletter.semianalysis.com/p/inside-the-800vdc-revolution-part",
+        "claim": "The supplied battery-rack illustration motivates separating central rectification from downstream storage and distribution.",
+        "reviewed_on": "2026-09-10",
+        "limits": "Read the Phase 3 battery-rack section and voltage-rating claim. Figures are attributed source concepts; product forecasts and broad semiconductor-rating statements are not adopted as facts."
       }
     ],
     "terms": [
@@ -1729,6 +1837,14 @@
       {
         "term": "Brownfield migration",
         "definition": "Changing infrastructure within an existing installation whose retained interfaces and constraints still matter."
+      },
+      {
+        "term": "Device blocking voltage",
+        "definition": "The voltage an individual semiconductor is specified to withstand in its nonconducting state, under stated conditions; it is not the whole converter system voltage."
+      },
+      {
+        "term": "Solid-state transformer (SST)",
+        "definition": "A conversion system combining power electronics with a higher-frequency isolation transformer; internal switching creates the alternating waveform needed by that transformer."
       }
     ],
     "visual": {

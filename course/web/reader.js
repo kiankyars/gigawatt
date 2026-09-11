@@ -120,19 +120,15 @@ const ART = {
   },
 };
 function artFor(l) {
-  if (l.image && ART[l.image]) return ART[l.image];
-  const d = l.domain;
-  return ART[
-    ["D04", "D05", "D06"].includes(d)
-      ? "power"
-      : ["D07"].includes(d)
-        ? "rack"
-        : ["D08", "D09", "D02"].includes(d)
-          ? "network"
-          : ["D10", "D11"].includes(d)
-            ? "cooling"
-            : "campus"
-  ];
+  return l.image === "campus" ? ART.campus : null;
+}
+function referenceFigures(figures) {
+  return (figures || [])
+    .map(
+      (f) =>
+        `<figure class="source-figure"><a href="assets/${esc(f.asset)}" target="_blank" rel="noopener" aria-label="Open full-size: ${esc(f.alt)}"><img src="assets/${esc(f.asset)}" alt="${esc(f.alt)}" loading="lazy" /></a><figcaption>${esc(f.caption)} <a href="${esc(f.source_url)}" target="_blank" rel="noopener">${esc(f.source_title)}</a> · <a href="assets/${esc(f.asset)}" target="_blank" rel="noopener">Open full-size diagram</a></figcaption></figure>`,
+    )
+    .join("");
 }
 function renderContents() {
   const q = $("search").value.trim().toLowerCase(),
@@ -218,35 +214,22 @@ function renderLesson() {
   $("question").textContent = l.question;
   $("lesson-meta").innerHTML =
     `<span>${esc(l.domain === "capstone" ? "Integrated practice" : l.domain)}</span><span>Authored draft</span><span>Worked example + transfer practice</span>`;
-  $("teaching-image").src = `assets/${art.file}`;
-  $("teaching-image").alt = art.alt;
-  $("image-index").textContent = art.title;
-  $("image-caption").textContent =
-    "GPT ImageGen illustration of a hypothetical system. Equipment geometry is illustrative; exact relationships and quantities are explained below.";
-  $("anatomy").innerHTML = art.parts
-    .map(
-      ([title, body], i) =>
-        `<button aria-pressed="false" data-part="${i}"><b>${i + 1}. ${esc(title)}</b><span>${esc(body)}</span></button>`,
-    )
-    .join("");
-  $("anatomy")
-    .querySelectorAll("button")
-    .forEach((b) =>
-      b.addEventListener("click", () => {
-        const active = b.getAttribute("aria-pressed") === "true";
-        $("anatomy")
-          .querySelectorAll("button")
-          .forEach((x) => x.setAttribute("aria-pressed", "false"));
-        b.setAttribute("aria-pressed", String(!active));
-        $("image-index").textContent = active
-          ? art.title
-          : art.parts[Number(b.dataset.part)][0].toUpperCase();
-      }),
-    );
+  $("teaching-image").closest("figure").hidden = !art;
+  if (art) {
+    $("teaching-image").src = `assets/${art.file}`;
+    $("teaching-image").alt =
+      "Hypothetical campus locator; equipment geometry and connections are not validated.";
+    $("image-index").textContent = "CAMPUS ORIENTATION";
+    $("image-caption").textContent =
+      "Generated spatial illustration. Use it to locate broad areas; cable routes, plumbing and equipment internals are not a verified design.";
+  } else {
+    $("teaching-image").removeAttribute("src");
+  }
+  $("anatomy").replaceChildren();
   $("prose").innerHTML = l.sections
     .map(
       (s, i) =>
-        `<section class="reading-section" id="section-${i + 1}"><h2>${esc(s.heading)}</h2>${prose(s.paragraphs)}</section>`,
+        `<section class="reading-section" id="section-${i + 1}"><h2>${esc(s.heading)}</h2>${prose(s.paragraphs)}${referenceFigures(s.figures)}</section>`,
     )
     .join("");
   const lane = d?.lane || "delivery";

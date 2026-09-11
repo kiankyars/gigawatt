@@ -84,6 +84,15 @@ def normalize(raw, catalog_by_url, known_objectives):
         section["paragraphs"] = paragraphs(
             section.get("paragraphs"), "section.paragraphs"
         )
+        for figure in section.get("figures", []):
+            asset = text(figure.get("asset"), "figure.asset")
+            if not re.fullmatch(r"references/[a-z0-9-]+\.(?:png|jpeg|jpg|svg)", asset):
+                raise ExpansionError(f"Unsafe reference figure path: {asset}")
+            for field in ("alt", "caption", "source_title"):
+                text(figure.get(field), f"figure.{field}")
+            url = canonical_url(text(figure.get("source_url"), "figure.source_url"))
+            if url not in catalog_by_url:
+                raise ExpansionError(f"{lesson['id']}: figure source not in library: {url}")
     example = lesson.get("example", lesson.get("worked_example"))
     if not isinstance(example, dict):
         raise ExpansionError(f"{lesson['id']}: missing worked example")
@@ -225,7 +234,7 @@ def load_course(root=ROOT):
     }
 
 
-def lesson_markdown(l, sources, *, include_source=True):
+def lesson_markdown(l, sources, *, include_source=True, asset_prefix="assets/"):
     lines = [
         f"# {l['title']}",
         "",
@@ -246,6 +255,13 @@ def lesson_markdown(l, sources, *, include_source=True):
         lines.extend([f"## {section['heading']}", ""])
         for p in section["paragraphs"]:
             lines.extend([p, ""])
+        for figure in section.get("figures", []):
+            lines.extend([
+                f"![{figure['alt']}]({asset_prefix}{figure['asset']})",
+                "",
+                f"{figure['caption']} [{figure['source_title']}]({figure['source_url']})",
+                "",
+            ])
     w = l["worked_example"]
     lines.extend(
         [
@@ -331,6 +347,11 @@ def build(root=ROOT, check=False):
     for name in IMAGES:
         if not (root / "course/assets" / name).is_file():
             raise ExpansionError(f"Missing teaching illustration: {name}")
+    for lesson in data["lessons"]:
+        for section in lesson["sections"]:
+            for figure in section.get("figures", []):
+                if not (root / "course/assets" / figure["asset"]).is_file():
+                    raise ExpansionError(f"Missing source figure: {figure['asset']}")
     sources = {s["id"]: s for s in data["sources"]}
     outputs = {
         Path("course/index.html"): html,
@@ -382,7 +403,7 @@ def build(root=ROOT, check=False):
     ]
     for l in data["lessons"]:
         outputs[Path("course/lessons") / (l["id"] + ".md")] = lesson_markdown(
-            l, sources
+            l, sources, asset_prefix="../assets/"
         )
         index.append(
             f"- **{l['domain']}** [{l['title']}](lessons/{l['id']}.md) — {l['question']}"

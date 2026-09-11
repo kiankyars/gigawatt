@@ -15,8 +15,9 @@ Those documents implement this design rather than establishing separate course s
 Use the domain map to look up the section being prepared; there is no need to
 read it end to end.
 
-**Current state:** 50 authored draft lessons cover 65 objective IDs. The ten-scene
-800 V DC sample is the only complete presentation prototype. Technical review,
+**Current state:** 50 authored draft lessons cover 65 objective IDs. The fourteen-scene
+800 V DC sample and fifteen-scene UPS sequence are implemented teaching prototypes.
+They cover selected parts of the curriculum, not two finished domains. Technical review,
 learner review, adaptation of the remaining material, recording and delivery
 remain pending. Prepare and rehearse one section at a time.
 
@@ -75,7 +76,8 @@ relationships. Current authored lesson-to-objective mappings are generated in
 | --------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
 | [Reader and lesson notes](index.html)                     | Drafted explanations, worked examples, tradeoffs, failure cases and changed-scenario answers                           | Complete claim review, learner comprehension checks and final narration              |
 | [Five capstones](DOMAIN_MAP.md#proposed-capstones)        | Drafted synthetic briefs and worked solutions; scope belongs to the domain map                                         | Check assumptions and demonstrate transfer across domains                            |
-| [800 V DC presentation](teach.html)                       | Ten authored visual scenes, separate notes, student explanations and shared calculations                               | Rehearse the revised copper/space premise and final capacity question                |
+| [800 V DC presentation](teach.html)                       | Fourteen authored visual scenes, separate notes, student explanations and shared calculations                               | Rehearse the revised copper/space premise and final capacity question                |
+| [UPS, bypass and redundancy](prototypes/ups-format.html) | Fifteen visual scenes with optional notes, power-path changes and surviving-capacity exercises; part of D05 | Dry-run the minimal-text format and report unclear mechanisms or terminology |
 | Search, glossary and practice                             | Implemented in the reader                                                                                              | Check findability, first-use vocabulary and learner reasoning                        |
 | Numerical models                                          | Eight bounded model types with arithmetic checks                                                                       | Specialist review of physical boundaries and any real-case inputs                    |
 | [Illustrations](assets/README.md)                         | Five ImageGen orientation images with preserved prompts; exact engineering labels and calculations rendered separately | Verify final-size legibility and narration                                           |
@@ -189,26 +191,24 @@ losing another unit: what can still run, and why?
 Use the existing integrated capstones where several systems meet; longer exercises
 can be optional companion practice. The video needs no scoring, mandatory quiz
 screen or separate examination after every chapter. This rhythm is the production
-approach; the 800 V prototype is implemented, while the remaining presenter
+approach; the 800 V and UPS prototypes are implemented, while the remaining presenter
 sequences still need authorship and dry runs.
 
 ### Next teaching step
 
-Use the 800 V sample as the teaching baseline: a concrete problem, a visible
-mechanism, a worked comparison and a changed case. Kian has found this format
-useful. Further dry runs can refine it while the next section is developed.
+Review the [UPS sequence](prototypes/ups-format.html) first: normal and battery
+operation, bypass, then module capacity versus independent paths. This is a
+bounded part of D05, with the latest minimal-text format. Then revisit the
+[800 V sample](teach.html), including its AC/DC and three-phase foundations.
+That sample belongs to D06 and draws on D01/D04 concepts.
 
-**Prepare D05 continuity next: what keeps the rack running when a power path
-fails?** Use one facility drawing to trace UPS normal, battery and bypass paths;
-compare N, N+1, N+2, 2N and 2(N+1); then remove equipment for maintenance and
-introduce another failure. The [existing audit](../research/redundancy-coverage-review.md)
-identifies the content gaps and provides a worked capacity comparison.
-
-Kian's next task is to learn and **teach this section without recording**, using
-the visual and brief notes. Capture where the explanation stalls or a term is
-unclear. The agent's task is to prepare the visual, check the example, fill those
-gaps and revise from the dry run. The [rehearsal guide](PRESENTING.md) explains the
-current sample controls.
+**Teach each sequence aloud without recording.** Use the reading explanations
+when a mechanism is unclear; reviewing all fifty draft lessons or the full source
+library is not a prerequisite. Send the scene and what confused you, seemed wrong,
+or needed a different visual. Notes are optional. The agent revises these two
+sequences from that feedback before carrying the settled format into the next
+section. The concise review playbook and optional references are in
+[PRESENTING.md](PRESENTING.md).
 
 Repeat this process through the domain map's dependency order. Author each
 mechanism and example for its topic; converting the existing prose into slides

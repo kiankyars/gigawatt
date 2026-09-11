@@ -1,13 +1,45 @@
-# Rehearse the teaching sample
+# Rehearse the teaching sequences
 
 [Teaching endpoint](teach.html) · [Student exploration](sample.html) · [Written lesson](sample-reading.html)
 
-Teach **without recording first** to find gaps in understanding and improve flow.
-The ten-scene 800 V sample is the current presentation prototype. Allow roughly
-fifteen minutes for explanation, predictions and discussion, then revise that
-provisional allowance from the dry run. The remaining reading lessons need their
-own authored visuals and rehearsal; current production priorities are in the
-[filled-in course template](COURSE_REVIEW.md#next-teaching-step).
+## Your next feedback pass
+
+1. **[UPS, bypass and redundancy](prototypes/ups-format.html): fifteen scenes,
+   part of D05.** Start here to review the latest visual format. Explain each
+   diagram aloud and try the failure/maintenance controls.
+2. **[AC/DC foundations → 800 V](teach.html): fourteen scenes, the D06 sample
+   with D01/D04 foundations.** Check whether the electrical primer makes the
+   copper, conversion-placement and energy comparisons clear.
+3. For either sequence, send the **scene/link and what confused you, seemed
+   wrong or needed a clearer visual**. Teach without recording; notes are optional.
+   We revise these sequences, then carry the settled approach into the next section.
+
+These are reviewable teaching sequences, not finished domains. There is no need to
+read the entire course or research library first. When an explanation needs more
+depth, use the [UPS storage reference](index.html#d05-storage-power-and-time),
+[UPS paths reference](index.html#d05-paths-and-transitions) or
+[800 V written lesson](sample-reading.html). The UPS prototype contains newer
+bypass and redundancy visuals than those draft reader lessons.
+
+The website follows the device's light/dark setting automatically, including
+changes made while the page is open. No website toggle is required.
+
+## UPS, bypass and redundancy prototype
+
+Open [the UPS sequence](prototypes/ups-format.html). Its fifteen scenes move from
+the campus into one UPS, trace normal and battery operation, then compare forced
+static bypass, external maintenance bypass, N, N+1, N+2, 2N and 2(N+1).
+The same 100 kW load and hypothetical 50 kW modules anchor the comparison.
+Remove modules, isolate a route or fail the shared bus; finish by raising demand
+to 150 kW without adding equipment. Let the changed paths and surviving capacity
+carry the explanation.
+
+Use **Next / →**, **Back / ←**, the scene selector and the diagram's buttons.
+Notes are hidden by default. The optional [rehearsal endpoint](prototypes/ups-format.html?rehearse=1)
+can open a separate synchronized cue window. The sequence should be teachable
+without it. This is a teaching prototype for a dry run; it does not establish that
+all of D05 is finished. Bypass drawings show completed functional states,
+not an equipment switching procedure.
 
 ## Open and control the presentation
 
@@ -24,9 +56,19 @@ arrow keys to change its value. Paired notes synchronize the scene, answer state
 DC voltage and final conversion-loss control. All modes share the calculations.
 Teaching mode is a presentation choice, not authentication or access control.
 
+## Establish the electrical foundation
+
+Before the copper comparison, teach the four new scenes: the DC closed loop,
+one AC cycle, three balanced phases, and line-to-line versus phase voltage.
+Move the cycle slider to compare current direction with load power. The fixed
+band means **100 kW average received power**, or 100 kWh in one hour, throughout.
+Single-phase instantaneous power pulses; its average is the comparison anchor.
+The primer uses equivalent ideal resistor loads, then adds conductor losses
+explicitly in the later comparison.
+
 ## Test the revised explanation
 
-Glance at the speaking bullets, then explain each visual in your own words.
+Explain each visual in your own words; use the optional speaking cues only if helpful.
 The full explanation stays in the student reading view. Ask for a prediction before revealing an
 answer, and use these checks to find where the explanation stops being clear:
 

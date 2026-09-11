@@ -4,7 +4,7 @@ Generated reading view. Edit [`course/expansion/sample.json`](https://github.com
 
 **D06 · Authored draft · Objectives:** D06.2, D06.3
 
-Make copper quantity visible at equal delivered power, then trace where conversion equipment moves. Use current and loss calculations to distinguish material, space and efficiency claims before testing a higher-load case.
+Keep a 100 kW average-power anchor while building from a closed DC circuit to alternating current, RMS and three phases. Then compare copper quantity, conversion placement and energy losses before testing a higher-load case.
 
 **Driving question:** How can denser racks use less distribution copper and less space for power conversion?
 
@@ -12,15 +12,57 @@ Make copper quantity visible at equal delivered power, then trace where conversi
 
 The design ambition is to deliver more power using less distribution copper while freeing compute-rack and potentially data-hall space occupied by power-conversion equipment. Copper, equipment placement and energy efficiency are related design questions, but they require different evidence. Begin with material and space; use the energy ledger to test an efficiency claim.
 
-To isolate one change, first hold delivered power at 100 kW. Comparing equal power makes the material arithmetic legible. It does not by itself prove that a new design can simultaneously use less copper and safely serve a larger load. The closing exercise changes the load and tests that additional claim.
+To isolate one change, hold average received real power at 100 kW. First learn what voltage, current and three phases mean with ideal resistive teaching loads. Then compare equal received power to make the conductor-material arithmetic legible. Equal power alone does not prove that a new design can simultaneously use less copper and safely serve a larger load. The closing exercise changes the load and tests that additional claim.
 
-## Keep received power and voltage conventions explicit
+## Trace a complete DC circuit
 
-The intended comparison is 480 V balanced three-phase AC versus 800 V two-wire DC. Both feeders deliver 100 kW of real power at their receiving ends. This first boundary contains only the feeder conductors; conversion and cooling losses are excluded. Later we compare complete delivery paths serving the same final DC load.
+A voltage is an electrical potential difference: energy per unit charge. Current measures the rate at which charge passes a point. A source, a load and a complete conducting loop allow current to flow. The load receives electrical energy while charge continues around the circuit; the load does not consume the charge.
 
-For AC, 480 V means line-to-line RMS voltage: measured between two phase conductors, not from one phase to neutral. RMS is the effective value used for resistive-heating calculations, not the waveform peak. Power factor (PF) is real power divided by apparent power. Assume balanced sinusoidal AC with PF = 1, meaning equal phase magnitudes separated by 120 degrees and no reactive power at the receiving boundary.
+In this steady DC model, the source maintains a fixed polarity and 800 V across the load. Conventional current travels from the positive supply connection, through the load, and back through the return conductor. Both conductors carry 125 A as parts of the same loop. Adding their current magnitudes would count the same circuit current twice.
 
-For DC, 800 V is the voltage between the outgoing and return conductors. Count three current-carrying AC conductors and two DC conductors. Protective earth and any neutral are outside this simplified comparison. The distribution voltage does not mean that an accelerator chip itself operates at 800 V.
+The received power is P = V × I = 800 × 125 = 100,000 W, or 100 kW. It is constant in this model. Direct current need not always have constant magnitude; steady values are the deliberate simplification here. Protective earth is not the normal load-current return.
+
+The waveform primer assumes ideal conductors and no converters. At this boundary, source power equals received power. Later scenes add resistance and conversion losses rather than silently changing this energy balance.
+
+## Separate alternating current from delivered energy
+
+Start with one sinusoidal AC source and a resistive load. The voltage changes polarity every half-cycle. The current also reverses, in step with the voltage. With voltage and current referenced consistently at the receiving load, instantaneous power is their product: p(t) = v(t) × i(t). During the negative half-cycle both signs reverse, so the resistor continues receiving positive power. Alternating current does not imply that a resistor returns all the delivered energy every half-cycle.
+
+An AC value must say whether it is a peak or an effective value. RMS means root mean square: square the waveform, average over a cycle, then take the square root. A given RMS current produces the same average heating in the same resistance as that numerical DC current. For a sine wave, peak = √2 × RMS; 480 V RMS therefore has a peak of about 679 V.
+
+Choose this illustrative single-phase load to receive the same 100 kW average power. At 480 V RMS, its current is 100,000/480 = 208.33 A RMS. Voltage and current are sinusoidal and in phase, so power factor is one. Its instantaneous received power is p(θ) = 200 sin²(θ) kW: zero at the waveform crossings, 200 kW at the peaks, and 100 kW averaged over a complete cycle.
+
+The average remains the comparison anchor even though instantaneous power changes. Over one hour at this operating point, the load receives 100 kWh, just as the preceding ideal DC load does. This single-phase case explains the waveform; the data-hall comparison will use balanced three-phase AC. Actual rack power electronics are not resistors and can change current waveforms and power factor.
+
+## Combine three timed AC phases
+
+Three-phase AC uses three sinusoidal phase voltages of equal magnitude, offset from one another by 120 degrees, or one-third of a cycle. For this teaching model, connect three equal resistive load branches at a shared star point, called a wye connection. A phase conductor connects to the other end of each branch.
+
+Keep the total average received power at 100 kW. Each branch averages one-third of that, about 33.3 kW. Its instantaneous power rises and falls between zero and about 66.7 kW. Because the three waveforms are staggered, their instantaneous powers add to a constant 100 kW in this balanced sinusoidal model. A moment of zero voltage on one phase is not a moment of zero total power.
+
+The three signed line currents also add to zero at every instant, but that statement concerns charge flow, not power. Current entering the load through some phase conductors leaves through the others; their roles vary over the cycle. A neutral conductor between the source neutral and load star point would carry zero load current in this ideal balanced case, so the normal load-current circuit can operate with three phase conductors.
+
+Zero neutral current is conditional on this balanced sinusoidal model. Unequal loads and nonlinear current waveforms can require a neutral; protection and grounding requirements also remain. The later copper comparison counts three AC phase conductors under the stated idealization, not every conductor required in every real installation.
+
+The DC, single-phase AC and three-phase AC examples all deliver 100 kW on average. DC is steady in its introductory model, single-phase resistive power pulsates, and the three-phase total is steady under balanced conditions. None of the three phases creates extra energy.
+
+## Read the voltage before calculating current
+
+In the data-hall comparison, 480 V AC means the RMS voltage measured between two phase conductors: line-to-line voltage. It is not the voltage across each branch of the wye teaching load. Each branch sees the phase-to-neutral voltage, measured from its phase conductor to the star point. In a balanced system that RMS value is 480/√3 ≈ 277.1 V.
+
+Line-to-line voltage is the instantaneous difference between two phase voltages. Those equal sine waves are separated by 120 degrees, so the difference has √3 times the magnitude of either phase voltage. This is why the conversion uses √3; treating each branch as a separate 480 V load would mix measurement conventions.
+
+Add the three branch powers. With sinusoidal currents in phase with their respective phase voltages, total real power is P = 3 × V_phase-to-neutral,RMS × I_line,RMS. Substitute V_phase-to-neutral = V_line-to-line/√3 to obtain P = √3 × V_line-to-line,RMS × I_line,RMS. More generally, balanced three-phase real power includes a power-factor multiplier, PF: real power divided by apparent power. The ideal resistive model uses PF = 1.
+
+At 100 kW and 480 V line-to-line RMS, each line carries 100,000/(√3 × 480) = 120.281 A RMS. The corresponding 800 V DC example carries 100,000/800 = 125 A in each of its two conductors. The current magnitudes are close because the AC formula uses three phases and a line-to-line voltage convention. The voltage labels alone do not specify equal circuit arrangements.
+
+The single-phase primer at 480 V RMS used a different arrangement and therefore required 208.33 A RMS for the same average power. It is not the baseline for the copper comparison. From the next scene onward, compare 480 V balanced three-phase AC with 800 V two-wire DC at the same 100 kW receiving-end power; introduce conductor resistance only when calculating heat.
+
+## Fix the data-hall comparison before counting copper
+
+The comparison from here is 480 V balanced three-phase AC versus 800 V two-wire DC. Both feeders deliver 100 kW of real power at their receiving ends. AC uses line-to-line RMS voltage, balanced sinusoidal currents and power factor one. DC voltage is measured between outgoing and return conductors. Conversion and cooling losses are excluded until a later complete-path comparison.
+
+Count three AC phase conductors and two DC conductors under these assumptions. Protective earth and any neutral are outside the material count. Later we explicitly assign resistance per conductor; the ideal waveform demonstrations above contained no conductor loss. The distribution voltage does not mean that an accelerator chip itself operates at 800 V.
 
 NVIDIA explicitly discusses moving from 415 or 480 V three-phase AC distribution to 800 V DC. This makes 480 V AC a relevant representative baseline for the lesson, not a universal facility voltage. The lower DC voltage inside a rack is a different comparison boundary.
 
@@ -142,3 +184,5 @@ Use I = P/V and total DC conductor heat = 2I²R. Doubling current quadruples hea
 - [Schneider Electric — PM2200 total power calculation for accuracy verification](https://productinfo.se.com/pm2200/5afc2b5546e0fb00011e5e9d/PM2200%20series%20User%20Manual/English/BM_PM2200seriesUserManual_0000074170.ditamap.xml/%24/C_VerifyingAccuracy_PowerTotCalcuation_0000034437) — Balanced three-phase real power is 3 × line-to-neutral RMS voltage × line current × power factor, equivalent to √3 × line-to-line RMS voltage × line current × power factor. Read 2026-09-08. Balanced three-phase relationship. Numerical loads, voltages, resistance and conversion losses are original teaching assumptions; calculated conductor losses are not equipment specifications.
 - [NVIDIA, Partners Drive Next-Gen Efficient Gigawatt AI Factories in Buildup for Vera Rubin](https://blogs.nvidia.com/blog/gigawatt-ai-factories-ocp-vera-rubin/) — Identifies 415 or 480 V three-phase AC systems as relevant baselines for the proposed transition to 800 V DC. Read 2026-09-08. Used only for baseline relevance. Vendor current, efficiency, copper and deployment claims are not validated by this teaching calculation.
 - [NVIDIA 800 VDC Architecture Will Power the Next Generation of AI Factories](https://developer.nvidia.com/blog/nvidia-800-v-hvdc-architecture-will-power-the-next-generation-of-ai-factories/) — Primary context for copper and rack-space constraints, upstream conversion, and the distinct 54 V rack-distribution boundary. Numerical feeder examples are original teaching calculations. Read 2026-09-09. May 2025 vendor roadmap. Proposed capacity, deployment and savings figures are not field validation; its percentage claims are not used as calculated sample results.
+- [OpenStax — 20.5 Alternating Current versus Direct Current (College Physics 2e)](https://openstax.org/books/college-physics-2e/pages/20-5-alternating-current-versus-direct-current) — Explains AC and DC, sinusoidal peak and RMS values, and average power delivered to a resistive load. The 100 kW comparisons are original teaching models. Read 2026-09-10. The AC primer assumes a sinusoidal source and a resistive load with power factor one; it does not model nonlinear rack power electronics.
+- [Steven H. Low — Power System Analysis: Analytical tools and structural properties (April 7, 2025 draft)](https://netlab.caltech.edu/assets/book/PSA/Low-PSA-v20250407.pdf) — Sections 1.2–1.3 develop balanced three-phase circuits, phase-to-line voltage relationships, constant total instantaneous power and zero neutral current under balanced conditions. Read 2026-09-10. April 7, 2025 draft; used for the balanced sinusoidal circuit derivation. No real installation, neutral sizing or protection design follows from the simplified teaching model.

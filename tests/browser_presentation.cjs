@@ -50,7 +50,10 @@ let browser;
     }, value);
   }
   const layouts = [];
-  assert.equal(data.steps.length, 10);
+  assert.deepEqual(
+    data.steps.slice(1, 5).map((s) => s.kind),
+    ["dc-basics", "ac-basics", "three-phase", "voltage-basis"],
+  );
   assert.equal(data.steps.at(-1).id, "capacity-check");
   assert.equal(data.steps.at(-1).kind, "decision");
   assert.ok(!JSON.stringify(data).toLowerCase().includes("recording setup"));
@@ -92,7 +95,10 @@ let browser;
           await page.locator("#student-context").isVisible(),
           mode === "student",
         );
-        assert.equal(await page.locator("#steps button").count(), 10);
+        assert.equal(
+          await page.locator("#steps button").count(),
+          data.steps.length,
+        );
         assert.equal(
           await page.locator("#next").isDisabled(),
           step.id === "capacity-check",
@@ -588,7 +594,14 @@ let browser;
       /NaN|Infinity|undefined/,
     );
   }
-  assert.equal(layouts.length, 160);
+  assert.equal(
+    layouts.length,
+    10 *
+      data.steps.reduce(
+        (n, step) => n + (revealKinds.has(step.kind) ? 2 : 1),
+        0,
+      ),
+  );
   assert.deepEqual(errors, []);
   rmSync(resolve(output, "transfer-1280.png"), { force: true });
   const report = {
@@ -598,17 +611,17 @@ let browser;
     layout_states: layouts.length,
     layouts,
     checks: [
-      "Ten visual steps and six reveal states in teaching and student modes at five viewport sizes",
+      "Fourteen visual steps and six reveal states in teaching and student modes at five viewport sizes",
       "Teaching notes excluded from visuals and no recording-setup instructions",
       "No teaching-view scroll at 1920×1080, 1280×720 or 1024×768",
       "No horizontal overflow or clipped labels on phone and short landscape",
-      "Student explanations expand for all ten steps at all five sizes",
+      "Student explanations expand for all fourteen steps at all five sizes",
       "Student mode hides notes/fullscreen and P/F shortcuts do not activate them",
       "Prediction before reveal for copper, currents, conductor loss, both energy ledgers and the capacity transfer",
       "Equal-geometry copper comparison: three bars versus two, 33.3% less conductor copper",
       "Capacity transfer: 125 to 250 A, 0.3125 to 1.25 kW conductor heat, unchanged copper and unverified safe capacity",
       "Moved conversion: sidecar retains upstream AC and nearby footprint; facility DC moves conversion to power room",
-      "All ten footer steps remain accessible without horizontal overflow; only capacity-check is the final scene",
+      "All fourteen footer steps remain accessible without horizontal overflow; only capacity-check is the final scene",
       "480 V balanced three-phase AC versus 800 V DC: current, conductor count, 72% heat ratio and energy balance",
       "Coupled complete-path default, 4.1–4.2 kW crossover bracket and reversed energy budgets",
       "Keyboard advance after reveal and slider keyboard ownership",

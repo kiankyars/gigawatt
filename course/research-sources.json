@@ -167,7 +167,7 @@
       "publisher": "SemiAnalysis",
       "kind": "analysis",
       "review_status": "public_excerpt_reviewed",
-      "reviewed_on": "2026-09-06",
+      "reviewed_on": "2026-09-10",
       "domains": [
         "D04",
         "D05",
@@ -177,7 +177,7 @@
         "D15"
       ],
       "use": "Compare low-voltage rack distribution, power sidecars and facility DC architectures; trace how current, conversion placement and protection interact.",
-      "caution": "Public sections reviewed, not the complete paid report. Its four-phase adoption path and savings are analyst framing and estimates, not a universal standard or proof of installed capacity; verify each architecture with current primary specifications."
+      "caution": "Selected sections and the supplied battery-rack figure reviewed, not every claim in the report. Architecture dates and product labels are analyst forecasts. Its statement that rectifying medium voltage requires individual devices above 10 kV is too broad: series/cascaded cells divide voltage, as P21 and P22 demonstrate. The 10 kV announcement is specifically scoped in P23. The figure’s MV rectifier/SST block hides internal step-down, isolation and protection functions."
     },
     {
       "id": "P01",
@@ -1962,6 +1962,106 @@
       "use": "Connect grid relationship and operating state to project deliverability, fuel, equipment, commissioning, island operation and economic decisions. Use the report to expose missing questions across existing domains.",
       "caution": "Reviewed the public opening, connection taxonomy and project-delivery framing; inspected the exposed section structure. The page ends at a paywall and this is not a full paid-article review. Proprietary estimates, named-project claims and regulatory details require separate primary checks.",
       "discovered_via": "User-provided article and public sitemap/feed refresh, 2026-09-10."
+    },
+    {
+      "id": "P18",
+      "title": "OpenStax — 20.5 Alternating Current versus Direct Current (College Physics 2e)",
+      "url": "https://openstax.org/books/college-physics-2e/pages/20-5-alternating-current-versus-direct-current",
+      "publisher": "OpenStax, Rice University",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-10",
+      "domains": [
+        "D01",
+        "D04",
+        "D06"
+      ],
+      "use": "Explain current direction, sinusoidal AC, RMS and average resistive power before comparing 480 V AC with 800 V DC.",
+      "caution": "Reviewed section 20.5. Its elementary power formulas assume the stated resistive sinusoidal case. RMS is not the arithmetic mean, and real converter input currents need not be sinusoidal. Course waveforms and numerical scenarios are original.",
+      "discovered_via": "AC/DC and three-phase prerequisite review, 2026-09-10."
+    },
+    {
+      "id": "P19",
+      "title": "Steven H. Low — Power System Analysis: Analytical tools and structural properties (April 7, 2025 draft)",
+      "url": "https://netlab.caltech.edu/assets/book/PSA/Low-PSA-v20250407.pdf",
+      "publisher": "Steven H. Low, California Institute of Technology",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-10",
+      "updated_on": "2025-04-07",
+      "domains": [
+        "D04",
+        "D06"
+      ],
+      "use": "Derive balanced three-phase voltage relationships, zero neutral current and constant total instantaneous power from the phase waveforms.",
+      "caution": "Reviewed selected basic-concept material in sections 1.2–1.3, not the complete book. These are explicitly draft lecture notes. Use the independently checked ideal balanced sinusoidal identities; do not generalize them to unbalanced or harmonic-rich loads or to installation requirements.",
+      "discovered_via": "AC/DC and three-phase prerequisite review, 2026-09-10."
+    },
+    {
+      "id": "P20",
+      "title": "Wolfspeed — Powering AI with reliable SiC-based solid-state transformers",
+      "url": "https://assets.wolfspeed.com/uploads/2026/03/Wolfspeed_Powering_AI_with_reliable_SiC-based_solid-state_transformers_white_paper.pdf",
+      "publisher": "Wolfspeed",
+      "use": "Identify the supplied NVIDIA AC-versus-800-V-DC architecture figure and distinguish a system block from its internal conversion functions.",
+      "caution": "Reviewed Figure 1 on PDF page 3 and surrounding architecture discussion. Vendor concept comparison, not an as-built site or universal migration plan. Numerical promotional claims are not adopted.",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-10",
+      "domains": [
+        "D04",
+        "D06"
+      ],
+      "discovered_via": "User-supplied architecture figures and medium-voltage rectification question, 2026-09-10."
+    },
+    {
+      "id": "P21",
+      "title": "Texas Instruments — TIDA-011012 modular solid-state transformer reference design",
+      "url": "https://www.ti.com/tool/TIDA-011012",
+      "publisher": "Texas Instruments",
+      "use": "Explain how input-series converter submodules divide medium-voltage stress across lower-voltage semiconductor devices.",
+      "caution": "Reviewed overview and feature list. Reference-design architecture, not a deployed data-center system; its stated DC-link voltages are not an 800 V output specification.",
+      "published_on": "2026-06-04",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-10",
+      "domains": [
+        "D04",
+        "D06"
+      ],
+      "discovered_via": "User-supplied architecture figures and medium-voltage rectification question, 2026-09-10."
+    },
+    {
+      "id": "P22",
+      "title": "Huber et al. — Comparative Evaluation of MVAC–LVDC SST and Hybrid Transformer Concepts for Future Datacenters (IPEC 2022)",
+      "url": "https://www.ams-publications.ee.ethz.ch/uploads/tx_ethpublications/1_IPEC_2022_Final_Huber.pdf",
+      "publisher": "ETH Zurich, Delta Electronics and Paderborn University",
+      "use": "Compare transformer-plus-rectifier and SST architectures for 800 V DC; separate system voltage from per-device voltage.",
+      "caution": "Reviewed Figure 1 and Sections II–IV. The study includes a 13.2 kV cascaded design using 1,200 V devices. Efficiency and density results belong to its 2022 models and are not current universal rankings.",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-10",
+      "domains": [
+        "D04",
+        "D06"
+      ],
+      "discovered_via": "User-supplied architecture figures and medium-voltage rectification question, 2026-09-10."
+    },
+    {
+      "id": "P23",
+      "title": "Wolfspeed — Introduction of a commercially available 10 kV SiC power MOSFET",
+      "url": "https://www.wolfspeed.com/company/news-events/news/wolfspeed-introduces-industrys-first-commercially-available-10000v-silicon-carbide-power-mosfet/",
+      "publisher": "Wolfspeed",
+      "use": "Scope and date the 10 kV SiC MOSFET announcement; distinguish device availability from achievable converter system voltage.",
+      "caution": "Manufacturer announcement, March 5, 2026. Attribute the first-commercially-available claim to Wolfspeed and its SiC power MOSFET category. It does not establish that only one semiconductor technology or supplier can rectify medium voltage.",
+      "published_on": "2026-03-05",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-10",
+      "domains": [
+        "D04",
+        "D06"
+      ],
+      "discovered_via": "User-supplied architecture figures and medium-voltage rectification question, 2026-09-10."
     }
   ]
 }
