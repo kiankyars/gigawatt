@@ -70,9 +70,11 @@ Before the copper comparison, teach the four new scenes: the DC closed loop,
 one AC cycle, three balanced phases, and line-to-line voltage measurement.
 Move the cycle slider to compare current direction with load power. The power band means **100 kW average received power** throughout the circuit examples.
 The voltage-measurement slide then isolates the meter probes; L1 and L2 are both
-live phases, and L3 is another live phase, not ground.
+live phases, and L3 is another live phase, not ground. Open **Why not 960 V?**
+and scrub the cycle: all three pairs measure 480 V RMS, while their signed
+instantaneous differences sum to zero.
 Single-phase instantaneous power pulses; its average is the comparison anchor.
-The primer uses equivalent ideal resistor loads, then adds conductor losses
+The primer uses equivalent ideal resistive loads, then adds conductor losses
 explicitly in the later comparison.
 
 ## Test the revised explanation
@@ -81,9 +83,9 @@ Explain each visual in your own words; use the optional speaking cues only if he
 The full explanation stays in the student reading view. Ask for a prediction before revealing an
 answer, and use these checks to find where the explanation stops being clear:
 
-1. **Copper:** compare three equal copper lengths with two at the same 100 kW
-   received. Explain 33.3% less current-carrying copper under equal length,
-   cross-section and material assumptions. This is not a qualified cable design.
+1. **Copper:** show three equal copper lengths beside two at the same 100 kW
+   received. The geometry is visible immediately; no reveal is needed. Equal
+   length, cross-section and material are assumptions, not a qualified cable design.
 2. **Current:** 480 V balanced three-phase AC gives about 120.3 A per line;
    800 V two-wire DC gives 125 A per conductor. Introduce line-to-line RMS voltage
    and power factor one. Fewer conductors does not mean lower current in each.
@@ -93,14 +95,18 @@ answer, and use these checks to find where the explanation stops being clear:
 4. **Placement:** follow conversion from the rack to a sidecar or upstream power
    room. Identify released rack space and where equipment moved. A nearby sidecar
    still occupies space; moving a converter does not establish a net hall-area saving.
-5. **Conversion:** distinguish conductor heating from loss inside the converter.
+5. **Conversion:** isolate one power supply, with 480 V three-phase AC input
+   and 800 V DC output. This is not the UPS AC→DC→AC path. Distinguish
+   conductor heating from loss inside the converter.
    Resistance, switching, magnetic components and auxiliaries dissipate power;
    the amount depends on equipment, loading, operating mode and temperature.
    The explicitly illustrative 98% converter needs 102.04 kW input for 100 kW
    output, leaving 2.04 kW as heat. This is not a measured AC/DC architecture advantage.
 6. **Ending:** return to the equipment-placement comparison. Identify what copper
    is removed, where conversion moves, and which space becomes available for
-   compute. The load-doubling slide is removed; its old link opens upstream conversion.
+   compute. The dates are SemiAnalysis’s May 2026 forecast: the AC baseline,
+   grouped Phases 1–2 (2026/27 and 2027/28), then Phase 3 (late 2028/2029).
+   The load-doubling slide is removed; its old link opens upstream conversion.
 
 For rack terminology, review [A rack upgrade is an interface negotiation](index.html#d06-rack-migration):
 U and usable height, 19-inch mounting, the illustrative 42U allocation, independent

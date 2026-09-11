@@ -446,3 +446,28 @@ conversion. A changed-case ending is no longer mandatory in the authoring schema
   isolation. Desktop/mobile screenshots were inspected; compact labels were
   moved inside component boxes to avoid intersecting the wires. The staged site
   includes the generator diagram module.
+
+## AC foundations and adoption dates — 2026-09-11
+
+The twelve-slide sample now motivates balanced three-phase AC with the power
+pulses of an explicitly resistive single-phase teaching load. The voltage slide
+adds a synchronized three-pair waveform view; the copper geometry is shown
+without a reveal, conductor heat includes its equations, and the converter
+example explicitly isolates one 480 V AC-to-800 V DC supply. Architecture dates
+are attributed to the May 2026 SemiAnalysis forecast, with the baseline and
+combined Phases 1–2 distinguished from Phase 3.
+
+- All 52 Python and 51 JavaScript tests passed. Course, expansion, domain-map
+  and research metadata checks passed, along with Ruff and whitespace checks.
+- The presentation harness passed 150 layout/reveal states, including controls,
+  student explanations, historical links and synchronized notes.
+- The electrical harness passed 20 primer and five phase-pair layouts. Sampling
+  a complete cycle independently recovered 480 V RMS for each pair and verified
+  that signed instantaneous pair differences sum to zero. Current reversal,
+  balanced power, keyboard controls and notes synchronization passed.
+- An additional 24 desktop/mobile light/dark layouts passed overflow and overlap
+  checks. Representative waveform, heat, converter and architecture screenshots
+  were visually inspected.
+
+These are ideal teaching models and dated adoption forecasts, not measured
+converter performance, universal deployment dates or equipment-specific designs.

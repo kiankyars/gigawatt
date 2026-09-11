@@ -19,6 +19,7 @@ function waveView(angle) {
     phasePowers: three.phases.map((p) => p.powerKW),
     phaseVoltage1: three.phases[0].voltageV,
     phaseVoltage2: three.phases[1].voltageV,
+    phaseVoltage3: three.phases[2].voltageV,
     threePower: three.instantKW,
     lineVoltage: three.lineABVoltageV,
   };
@@ -67,11 +68,11 @@ function circuitLoop(dc, instant) {
   const power = dc ? 100 : instant.singlePower;
   const polarity =
     volts < -0.01 ? ["−", "+"] : volts > 0.01 ? ["+", "−"] : ["0", "0"];
-  return `<svg class="current-circuit" viewBox="0 0 470 290" role="img" aria-label="Arrows show instantaneous conventional current. Closed two-conductor circuit. Conventional current ${current < 0 ? "reverses" : "leaves the positive source terminal and returns through the other conductor"}. The resistor absorbs ${fmt(power, 1)} kilowatts."><rect class="circuit-box" x="20" y="56" width="94" height="186" rx="12"/><rect class="circuit-box load" x="346" y="56" width="104" height="186" rx="12"/><path class="circuit-wire" d="M114 82H346 M114 216H346"/><text x="67" y="144" text-anchor="middle">${dc ? "DC" : "AC"}</text><text x="67" y="167" text-anchor="middle" class="svg-small">source</text><text x="97" y="89">${polarity[0]}</text><text x="97" y="222">${polarity[1]}</text><text x="398" y="136" text-anchor="middle">Load</text><text x="398" y="159" text-anchor="middle" class="svg-small">resistor</text><text x="398" y="187" text-anchor="middle" class="svg-value">${fmt(power, 1)} kW</text>${directionArrow(226, 82, current)}${directionArrow(226, 216, -current)}<text x="230" y="278" text-anchor="middle" class="svg-small">${dc ? "800 V across the load" : "Polarity reverses · " + fmt(volts, 1) + " V now"}</text></svg>`;
+  return `<svg class="current-circuit" viewBox="0 0 470 290" role="img" aria-label="Arrows show instantaneous conventional current. Closed two-conductor circuit. Conventional current ${current < 0 ? "reverses" : "leaves the positive source terminal and returns through the other conductor"}. The ideal resistive load absorbs ${fmt(power, 1)} kilowatts."><rect class="circuit-box" x="20" y="56" width="94" height="186" rx="12"/><rect class="circuit-box load" x="346" y="56" width="104" height="186" rx="12"/><path class="circuit-wire" d="M114 82H346 M114 216H346"/><text x="67" y="144" text-anchor="middle">${dc ? "DC" : "AC"}</text><text x="67" y="167" text-anchor="middle" class="svg-small">source</text><text x="97" y="89">${polarity[0]}</text><text x="97" y="222">${polarity[1]}</text><text x="398" y="136" text-anchor="middle">Load</text><text x="398" y="187" text-anchor="middle" class="svg-value">${fmt(power, 1)} kW</text>${directionArrow(226, 82, current)}${directionArrow(226, 216, -current)}<text x="230" y="278" text-anchor="middle" class="svg-small">${dc ? "800 V across the load" : "Polarity reverses · " + fmt(volts, 1) + " V now"}</text></svg>`;
 }
 
 function threePhaseCircuit(instant) {
-  return `<svg class="current-circuit" viewBox="0 0 470 290" role="img" aria-label="Arrows show instantaneous conventional current. Three conductors connect a balanced source and wye resistor load. Signed line currents sum to zero; other lines carry the return current."><rect class="circuit-box" x="10" y="24" width="88" height="212" rx="12"/><text x="54" y="123" text-anchor="middle">AC</text><text x="54" y="146" text-anchor="middle" class="svg-small">source</text><rect class="circuit-box load" x="318" y="24" width="142" height="212" rx="12"/><text x="391" y="45" text-anchor="middle" class="svg-small">Balanced load</text>${instant.phaseCurrents
+  return `<svg class="current-circuit" viewBox="0 0 470 290" role="img" aria-label="Arrows show instantaneous conventional current. Three conductors connect a balanced source and wye-connected resistive load. Signed line currents sum to zero; other lines carry the return current."><rect class="circuit-box" x="10" y="24" width="88" height="212" rx="12"/><text x="54" y="123" text-anchor="middle">AC</text><text x="54" y="146" text-anchor="middle" class="svg-small">source</text><rect class="circuit-box load" x="318" y="24" width="142" height="212" rx="12"/><text x="391" y="45" text-anchor="middle" class="svg-small">Balanced load</text>${instant.phaseCurrents
     .map((amps, n) => {
       const y = 75 + n * 65;
       return `<text x="108" y="${y + 22}" fill="${phaseColors[n]}" class="svg-small">L${n + 1}</text><path d="M98 ${y}H332" stroke="${phaseColors[n]}" stroke-width="3" fill="none"/>${directionArrow(215, y, amps, phaseColors[n])}<rect x="333" y="${y - 8}" width="36" height="16" fill="var(--paper)" stroke="${phaseColors[n]}" stroke-width="2"/><path d="M369 ${y}H429V140" stroke="${phaseColors[n]}" stroke-width="2" fill="none"/>`;
@@ -84,6 +85,35 @@ function threePhaseCircuit(instant) {
 function voltageMeasurement() {
   return `<div class="voltage-measurement"><svg viewBox="0 0 900 455" role="img" aria-labelledby="meter-title"><title id="meter-title">Voltmeter probes connect to live phase L1 and live phase L2. They measure 480 volts RMS. L3 is also live and is not ground.</title>${[80, 300, 390].map((y, n) => `<text x="36" y="${y + 8}" class="meter-line-label">L${n + 1} · live</text><path d="M180 ${y}H860" fill="none" stroke="${phaseColors[n]}" stroke-width="5"/>`).join("")}<circle cx="450" cy="80" r="7" fill="var(--phase-one)"/><path d="M450 80V135" fill="none" stroke="var(--phase-one)" stroke-width="4"/><circle cx="560" cy="300" r="7" fill="var(--phase-two)"/><path d="M560 245V300" fill="none" stroke="var(--phase-two)" stroke-width="4"/><rect x="385" y="135" width="240" height="110" rx="14" fill="var(--circuit-load)" stroke="var(--strong-line)" stroke-width="2"/><text x="505" y="183" text-anchor="middle" class="meter-number">480 V</text><text x="505" y="220" text-anchor="middle">RMS · L1 to L2</text><text x="785" y="165" text-anchor="middle" class="meter-note">Voltmeter</text></svg><p class="phase-measurement-note">All three phases are live. Protective earth is separate.</p></div>`;
 }
+function pairVoltages(angle) {
+  const v = waveView(angle);
+  return [
+    v.phaseVoltage1 - v.phaseVoltage2,
+    v.phaseVoltage2 - v.phaseVoltage3,
+    v.phaseVoltage3 - v.phaseVoltage1,
+  ];
+}
+function pairVoltageComparison() {
+  const names = ["L1 − L2", "L2 − L3", "L3 − L1"],
+    values = pairVoltages(state.cycleDegrees),
+    x = (angle) => 65 + (angle / 360) * 660,
+    y = (voltage) => 140 - (voltage / 700) * 110;
+  const curves = names
+    .map((name, i) => {
+      const path = Array.from(
+        { length: 121 },
+        (_, n) =>
+          `${n ? "L" : "M"}${x(n * 3).toFixed(2)} ${y(pairVoltages(n * 3)[i]).toFixed(2)}`,
+      ).join(" ");
+      return `<path d="${path}" fill="none" stroke="${phaseColors[i]}" stroke-width="4" ${i === 1 ? 'stroke-dasharray="9 7"' : ""}/><circle cx="${x(state.cycleDegrees)}" cy="${y(values[i])}" r="6" fill="${phaseColors[i]}" stroke="var(--paper)" stroke-width="2"/>`;
+    })
+    .join("");
+  const signed = (value) =>
+    Math.abs(value) < 0.05
+      ? "0"
+      : `${value > 0 ? "+" : "−"}${fmt(Math.abs(value), 1)}`;
+  return `<div class="pair-comparison"><div class="pair-readings">${names.map((name, i) => `<div style="--pair-color:${phaseColors[i]}"><span>${name}</span><strong>480 <small>V RMS</small></strong><span data-pair-voltage="${i}">${signed(values[i])} V now</span></div>`).join("")}</div><svg class="pair-waveform" viewBox="0 0 780 285" role="img" aria-label="Three pair-voltage waveforms have the same RMS magnitude and different timing. Their signed instantaneous values sum to zero.">${[-680, 0, 680].map((v) => `<line x1="65" y1="${y(v)}" x2="725" y2="${y(v)}" stroke="var(--line)"/><text x="55" y="${y(v) + 6}" text-anchor="end">${v}</text>`).join("")}<line x1="${x(state.cycleDegrees)}" x2="${x(state.cycleDegrees)}" y1="25" y2="253" stroke="var(--muted)" stroke-dasharray="4 6"/>${curves}<text x="65" y="280">0</text><text x="725" y="280" text-anchor="end">One cycle</text></svg><p class="pair-identity">${values.map(signed).join(" + ").replaceAll("+ −", "− ").replaceAll("+ +", "+ ")} ≈ 0 V <span>Signed voltages now</span></p><p class="pair-principle">480 V is an RMS magnitude, not a fixed +480 V step.</p></div>`;
+}
 function electricalContent(kind) {
   const now = waveView(state.cycleDegrees);
   const make = (label, color, key, dash = false, width = 2.5) => ({
@@ -93,7 +123,10 @@ function electricalContent(kind) {
     dash,
     width,
   });
-  if (kind === "voltage-basis") return voltageMeasurement();
+  if (kind === "voltage-basis")
+    return state.voltageView === "pairs"
+      ? pairVoltageComparison()
+      : voltageMeasurement();
   if (kind === "dc-basics") {
     return `<div class="dc-essential">${circuitLoop(true, now)}<div class="equation-block"><span>P = V × I</span><strong>800 V × 125 A = 100 kW</strong></div></div>`;
   }
@@ -139,11 +172,19 @@ function electricalContent(kind) {
         "V",
       ) +
       electricalPlot(
-        "Current reverses with it",
-        [make("Current", phaseColors[0], "singleCurrent")],
-        -300,
-        300,
-        "A",
+        "Load power dips to zero",
+        [
+          make("Instantaneous power", phaseColors[0], "singlePower"),
+          {
+            label: "100 kW average",
+            color: "var(--muted)",
+            value: () => 100,
+            dash: true,
+          },
+        ],
+        0,
+        200,
+        "kW",
       );
   const result = three
     ? "100 kW total at every instant"
@@ -151,14 +192,16 @@ function electricalContent(kind) {
   return `<div class="electrical-grid"><div class="electrical-circuit-panel">${three ? threePhaseCircuit(now) : circuitLoop(false, now)}<div class="wave-result">${result}</div></div><div class="electrical-charts">${charts}</div></div>`;
 }
 function electricalVisual(kind) {
-  const scrub = ["ac-basics", "three-phase"].includes(kind);
+  const scrub =
+    ["ac-basics", "three-phase"].includes(kind) ||
+    (kind === "voltage-basis" && state.voltageView === "pairs");
   const condition =
     kind === "dc-basics"
       ? "800 V DC · ideal wires"
       : kind === "ac-basics"
-        ? "Single-phase example · 480 V RMS · resistive load"
+        ? "480 V RMS · single-phase model · resistive load"
         : kind === "three-phase"
           ? "480 V three-phase · balanced resistive load · PF = 1"
           : "Balanced 480 V three-phase system";
-  return `<div class="electrical-model"><div class="energy-band"><strong>${kind === "voltage-basis" ? condition : "100 kW average at the load"}</strong>${kind === "voltage-basis" ? "" : `<span>${condition}</span>`}</div><div id="wave-content">${electricalContent(kind)}</div>${scrub ? `<div class="cycle-control"><label for="cycle-angle">One AC cycle · 60 Hz</label><input type="range" id="cycle-angle" min="0" max="360" step="1" value="${state.cycleDegrees}"/><output id="cycle-value" for="cycle-angle">${state.cycleDegrees}°</output></div>` : ""}</div>`;
+  return `<div class="electrical-model"><div class="energy-band"><strong>${kind === "voltage-basis" ? condition : "100 kW average at the load"}</strong>${kind === "voltage-basis" ? "" : `<span>${condition}</span>`}</div>${kind === "voltage-basis" ? `<div class="voltage-view-controls"><button data-voltage-view="meter" aria-pressed="${state.voltageView === "meter"}">Meter connections</button><button data-voltage-view="pairs" aria-pressed="${state.voltageView === "pairs"}">Why not 960 V?</button></div>` : ""}<div id="wave-content">${electricalContent(kind)}</div>${scrub ? `<div class="cycle-control"><label for="cycle-angle">One AC cycle · 60 Hz</label><input type="range" id="cycle-angle" min="0" max="360" step="1" value="${state.cycleDegrees}"/><output id="cycle-value" for="cycle-angle">${state.cycleDegrees}°</output></div>` : ""}</div>`;
 }

@@ -31,6 +31,7 @@ let state = {
   revealed: [],
   volts: DEFAULTS.comparison_voltage_v,
   cycleDegrees: 30,
+  voltageView: "meter",
 };
 const session =
   new URLSearchParams(location.search).get("session") || crypto.randomUUID();
@@ -39,7 +40,7 @@ const channel =
     ? new BroadcastChannel(`gigawatt-sample-${session}`)
     : null;
 const role = notesMode ? "notes" : "audience";
-const revealKinds = new Set(["copper", "current", "loss", "conversion-loss"]);
+const revealKinds = new Set(["current", "loss", "conversion-loss"]);
 const isRevealed = () => state.revealed.includes(STEPS[state.index].id);
 
 function validState(value) {
@@ -55,7 +56,8 @@ function validState(value) {
     value.volts <= 1000 &&
     Number.isFinite(value.cycleDegrees) &&
     value.cycleDegrees >= 0 &&
-    value.cycleDegrees <= 360
+    value.cycleDegrees <= 360 &&
+    ["meter", "pairs"].includes(value.voltageView)
   );
 }
 function publish() {
@@ -119,13 +121,10 @@ function conductors(labels) {
   return `<div class="conductor-lines" aria-label="${labels.length} current-carrying conductors">${labels.map((label) => `<div><span>${label}</span><i></i></div>`).join("")}</div>`;
 }
 function copper() {
-  const shown = isRevealed();
-  const { ac, dc } = conductorNumbers();
-  const ratio = dc.conductors / ac.conductors;
   function bundle(supply, labels) {
     return `<div class="copper-bundle" data-supply="${supply}" aria-label="${labels.length} copper conductors of equal length and cross-section">${labels.map((label) => `<div class="copper-row"><span>${label}</span><i class="copper-bar" aria-hidden="true"></i></div>`).join("")}${supply === "dc" ? '<div class="copper-row copper-removed" aria-label="One fewer conductor"><span>−1</span><i aria-hidden="true"></i></div>' : ""}</div>`;
   }
-  return `<div class="model copper-model"><div class="model-top"><span class="chip">SAME 100 kW DELIVERED</span><span class="ledger-formula">Copper volume = count × length × area</span></div><div class="comparison"><section class="metric-card"><p class="metric-label">480 V three-phase AC</p>${bundle("ac", ["L1", "L2", "L3"])}<p class="copper-quantity"><strong>3</strong> equal copper lengths</p></section><section class="metric-card changed"><p class="metric-label">800 V DC</p>${bundle("dc", ["+", "−"])}<p class="copper-quantity"><strong>2</strong> equal copper lengths</p></section></div>${shown ? `<div class="copper-result"><strong>${fmt((1 - ratio) * 100, 1)}% less conductor copper</strong><span>Equal length, cross-section and material. Current comes next.</span></div>` : '<div class="control-line"><button id="reveal" class="reveal">How much copper is removed?</button></div>'}</div>`;
+  return `<div class="model copper-model"><div class="model-top"><span class="chip">SAME 100 kW DELIVERED</span><span class="ledger-formula">Equal length, cross-section and material</span></div><div class="comparison"><section class="metric-card"><p class="metric-label">480 V three-phase AC</p>${bundle("ac", ["L1", "L2", "L3"])}<p class="copper-quantity"><strong>3</strong> equal copper lengths</p></section><section class="metric-card changed"><p class="metric-label">800 V DC</p>${bundle("dc", ["+", "−"])}<p class="copper-quantity"><strong>2</strong> equal copper lengths</p></section></div></div>`;
 }
 function current() {
   const { ac, dc } = conductorNumbers(state.volts);
@@ -135,7 +134,7 @@ function current() {
 function loss() {
   const shown = isRevealed(),
     { ac, dc, lossRatio } = conductorNumbers();
-  return `<div class="model"><div class="model-top"><span class="chip">100 kW delivered · PF = 1</span><span class="ledger-formula">10 mΩ per conductor</span></div><div class="comparison"><section class="metric-card"><p class="metric-label">480 V three-phase AC</p>${metric(fmt(ac.lossKW * 1000), "W heat")}<p class="metric-sub">3 × 120.3² × 0.01</p><div class="loss-track"><div class="loss-bar" style="width:100%"></div></div></section><section class="metric-card changed"><p class="metric-label">800 V DC</p>${metric(shown ? fmt(dc.lossKW * 1000, 1) : "?", "W heat")}<p class="metric-sub">2 × 125² × 0.01</p><div class="loss-track">${shown ? `<div class="loss-bar" style="width:${lossRatio * 100}%"></div>` : ""}</div></section></div>${shown ? `<p class="comparison-result"><strong>${fmt((ac.lossKW - dc.lossKW) * 1000)} W less heat</strong><span>About 0.12% of the 100 kW delivered · conductors only</span></p>` : `<div class="control-line"><button class="reveal" id="reveal">Calculate DC conductor heat</button></div>`}</div>`;
+  return `<div class="model"><div class="model-top"><span class="chip">100 kW delivered · PF = 1</span><span class="ledger-formula">10 mΩ per conductor</span></div><div class="comparison"><section class="metric-card"><p class="metric-label">480 V three-phase AC</p>${metric(fmt(ac.lossKW * 1000), "W heat")}<p class="metric-sub">P<sub>heat</sub> = 3 I<sub>RMS</sub>²R<br>3 × 120.3² × 0.01</p><div class="loss-track"><div class="loss-bar" style="width:100%"></div></div></section><section class="metric-card changed"><p class="metric-label">800 V DC</p>${metric(shown ? fmt(dc.lossKW * 1000, 1) : "?", "W heat")}<p class="metric-sub">P<sub>heat</sub> = 2 I²R<br>2 × 125² × 0.01</p><div class="loss-track">${shown ? `<div class="loss-bar" style="width:${lossRatio * 100}%"></div>` : ""}</div></section></div>${shown ? `<p class="comparison-result"><strong>${fmt((ac.lossKW - dc.lossKW) * 1000)} W less heat</strong><span>About 0.12% of the 100 kW delivered · conductors only</span></p>` : `<div class="control-line"><button class="reveal" id="reveal">Calculate DC conductor heat</button></div>`}</div>`;
 }
 function unit(label, style = "", detail = "") {
   return `<div class="unit ${style}">${label}${detail ? `<small>${detail}</small>` : ""}</div>`;
@@ -162,7 +161,9 @@ function architecture(kind) {
     rack = regulator + arrow + chip;
   }
   const space = `<div class="rack-space ${kind === "ac" ? "occupied" : "released"}"><span>AC/DC equipment space</span><strong>${kind === "ac" ? "Occupied" : "Freed"}</strong></div>`;
-  return `<div class="architecture"><div class="path"><section class="zone ${kind === "facility" ? "active" : ""}"><h2 class="zone-title">Upstream power room</h2><div class="zone-body">${facility}</div></section><section class="zone ${kind === "sidecar" ? "active" : ""}"><h2 class="zone-title">${kind === "sidecar" ? "Power rack in the hall" : "Hall distribution"}</h2><div class="zone-body">${adjacent}</div></section><section class="zone rack ${kind === "ac" ? "active" : ""}"><h2 class="zone-title">Compute rack</h2><div class="zone-body">${rack}</div>${space}</section></div></div>`;
+  const step = STEPS[state.index];
+  const roadmap = `<div class="roadmap-context"><span class="chip">${escapeHTML(step.roadmap_label)}</span>${kind === "ac" ? "" : '<a href="https://newsletter.semianalysis.com/p/inside-the-800vdc-revolution-part" target="_blank" rel="noopener">SemiAnalysis forecast · May 2026</a>'}</div>`;
+  return `<div class="architecture">${roadmap}<div class="path"><section class="zone ${kind === "facility" ? "active" : ""}"><h2 class="zone-title">Upstream power room</h2><div class="zone-body">${facility}</div></section><section class="zone ${kind === "sidecar" ? "active" : ""}"><h2 class="zone-title">${kind === "sidecar" ? "Power rack in the hall" : "Hall distribution"}</h2><div class="zone-body">${adjacent}</div></section><section class="zone rack ${kind === "ac" ? "active" : ""}"><h2 class="zone-title">Compute rack</h2><div class="zone-body">${rack}</div>${space}</section></div></div>`;
 }
 function conversionLoss() {
   const output = DEFAULTS.power_kw,
@@ -170,7 +171,7 @@ function conversionLoss() {
   const input = output / efficiency,
     loss = input - output,
     shown = isRevealed();
-  return `<div class="converter-example"><div class="model-top"><span class="chip">Illustration · 98% efficiency at this load</span></div><div class="converter-flow"><div class="power-port"><span>Input</span><strong>${shown ? fmt(input, 2) : "?"}<small> kW</small></strong></div><span class="conversion-arrow" aria-hidden="true">→</span><div class="converter-box"><strong>Power converter</strong><span>Useful output ÷ input = 98%</span></div><span class="conversion-arrow" aria-hidden="true">→</span><div class="power-port"><span>Useful output</span><strong>100<small> kW</small></strong></div><div class="converter-heat"><span aria-hidden="true">↓</span><strong>${shown ? fmt(loss, 2) : "?"} kW <small>converter heat</small></strong></div></div><div class="loss-causes"><span>Resistance heats conductors</span><span>Switching dissipates energy</span><span>Magnetic cores heat up</span><span>Controls &amp; fans draw power</span></div>${shown ? '<div class="equation-block">100 ÷ 0.98 − 100 = <strong>2.04 kW</strong></div>' : '<div class="control-line"><button class="reveal" id="reveal">Calculate the lost power</button></div>'}</div>`;
+  return `<div class="converter-example"><div class="model-top"><span class="chip">One AC/DC power supply · 98% efficiency assumed</span></div><div class="converter-flow"><div class="power-port"><span>480 V three-phase AC input</span><strong>${shown ? fmt(input, 2) : "?"}<small> kW</small></strong></div><span class="conversion-arrow" aria-hidden="true">→</span><div class="converter-box"><strong>AC → DC</strong><span>Useful output ÷ input = 98%</span></div><span class="conversion-arrow" aria-hidden="true">→</span><div class="power-port"><span>800 V DC output</span><strong>100<small> kW</small></strong></div><div class="converter-heat"><span aria-hidden="true">↓</span><strong>${shown ? fmt(loss, 2) : "?"} kW <small>converter heat</small></strong></div></div><div class="loss-causes"><span>Resistance heats conductors</span><span>Switching dissipates energy</span><span>Magnetic cores heat up</span><span>Controls &amp; fans draw power</span></div>${shown ? '<div class="equation-block">100 ÷ 0.98 − 100 = <strong>2.04 kW</strong></div>' : '<div class="control-line"><button class="reveal" id="reveal">Calculate the lost power</button></div>'}</div>`;
 }
 function renderNotes() {
   const step = STEPS[state.index];
@@ -207,6 +208,14 @@ function renderNotes() {
     `teach.html?session=${encodeURIComponent(session)}#${step.id}`;
 }
 function bindVisual() {
+  document.querySelectorAll("[data-voltage-view]").forEach((button) => {
+    button.addEventListener("click", () => {
+      change({ voltageView: button.dataset.voltageView });
+      document
+        .querySelector(`[data-voltage-view="${state.voltageView}"]`)
+        .focus({ preventScroll: true });
+    });
+  });
   byId("cycle-angle")?.addEventListener("input", (event) => {
     state.cycleDegrees = Number(event.target.value);
     byId("wave-content").innerHTML = electricalContent(STEPS[state.index].kind);

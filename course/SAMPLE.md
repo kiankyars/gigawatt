@@ -26,7 +26,9 @@ The waveform primer assumes ideal conductors and no converters. At this boundary
 
 ## Separate alternating current from delivered energy
 
-Start with one sinusoidal AC source and a resistive load. The voltage changes polarity every half-cycle. The current also reverses, in step with the voltage. With voltage and current referenced consistently at the receiving load, instantaneous power is their product: p(t) = v(t) × i(t). During the negative half-cycle both signs reverse, so the resistor continues receiving positive power. Alternating current does not imply that a resistor returns all the delivered energy every half-cycle.
+The load is the equipment receiving power. Here it is modeled as an ideal resistance so the waveform arithmetic is transparent. A 480 V single-phase load can be supplied between two phases of a three-phase system; the voltage label alone does not specify the number of phases. This introductory circuit is not the three-phase data-hall feeder used in the later comparison.
+
+Start with one sinusoidal AC source and a resistive load. The voltage changes polarity every half-cycle. The current also reverses, in step with the voltage. With voltage and current referenced consistently at the receiving load, instantaneous power is their product: p(t) = v(t) × i(t). During the negative half-cycle both signs reverse, so the load continues receiving positive power. Alternating current does not imply that this load returns all the delivered energy every half-cycle.
 
 An AC value must say whether it is a peak or an effective value. RMS means root mean square: square the waveform, average over a cycle, then take the square root. A given RMS current produces the same average heating in the same resistance as that numerical DC current. For a sine wave, peak = √2 × RMS; 480 V RMS therefore has a peak of about 679 V.
 
@@ -49,6 +51,8 @@ The DC, single-phase AC and three-phase AC examples all deliver 100 kW on averag
 ## Read the voltage before calculating current
 
 L1, L2 and L3 are three live phase conductors. Neither of the two meter connections is ground. In the balanced system, any phase pair measures 480 V RMS: L1–L2, L2–L3 or L3–L1. Voltage uses two measurement points even when the system has three phases. Neutral and protective earth have distinct roles; they are not an unmentioned third phase.
+
+The 480 V label is an RMS value over a cycle, not a constant signed voltage difference. Instantaneous differences obey v12 + v23 + v31 = 0. Their waveforms are shifted in time, so the RMS magnitudes cannot be added as 480 + 480. For example, at one instant phase-to-neutral voltages are about +392, −196 and −196 V: the three signed pair differences are about +588, 0 and −588 V. Each pair still measures 480 V RMS over a full cycle.
 
 In the data-hall comparison, 480 V AC means the RMS voltage measured between two phase conductors: line-to-line voltage. It is not the voltage across each branch of the wye teaching load. Each branch sees the phase-to-neutral voltage, measured from its phase conductor to the star point. In a balanced system that RMS value is 480/√3 ≈ 277.1 V.
 
@@ -102,6 +106,12 @@ A power-room conversion arrangement can move selected conversion equipment out o
 
 These are possible architecture choices, not a mandatory sequence for every data center. A real facility may combine AC and DC segments differently.
 
+This is the conventional AC baseline, not SemiAnalysis Phase 1. The later labels refer to the article’s forecast adoption phases, which are unrelated to the three electrical phases of an AC waveform.
+
+In the May 26, 2026 SemiAnalysis forecast, Phase 1 (2026/2027) and Phase 2 (2027/2028) both use near-rack conversion. The important internal distinction is where 800 V is stepped down: a rack shelf in Phase 1 versus on-blade conversion in Phase 2. This drawing groups their shared AC-fed sidecar arrangement; it does not depict identical rack internals. Backup is omitted from these placement drawings: the article discusses DC-coupled batteries and supercapacitors replacing central UPS functions, while also expecting some operators to retain a central UPS. The forecast does not imply one universal backup topology.
+
+SemiAnalysis forecasts Phase 3 for late 2028/2029: conventional step-down followed by a low-voltage AC-to-800 V DC rectifier upstream. Its separate Phase 4 concerns medium-voltage input and SSTs; the heading says after 2029 while its body says early 2029, so no single exact date is adopted for that phase. These are dated forecasts, not confirmed installation dates.
+
 ## Close the conductor energy balance
 
 Use the same feeder assumptions: 100 kW received, 480 V balanced three-phase AC at PF = 1 versus 800 V two-wire DC, with 10 mΩ per conductor. The stated voltages are maintained at the receiving end. The sending supply provides enough voltage to cover the resistive drop; treating sending and receiving voltages as identical would silently discard that drop.
@@ -111,6 +121,8 @@ The AC source supplies 100 + 0.434028 = 100.434028 kW. The DC source supplies 10
 Over one hour, the DC feeder requires 0.121528 kWh less input, about 0.122 kWh. No energy is created. The invented 10 mΩ resistance makes both feeders low-loss, so a 28% reduction in their small conductor-loss budget is a much smaller percentage of total input energy. This chosen small difference is not a prediction of real 800 V architecture savings. Converter and cooling losses remain outside this balance.
 
 ## What determines converter losses?
+
+This example isolates one AC/DC power supply: 480 V three-phase AC at its input and 800 V DC at its output. It represents the conversion function moved into a power rack or power room in the following architecture drawings. The supply may contain multiple internal conversion stages. It is not a UPS AC-to-DC-to-AC path or a model of the whole data center.
 
 Conversion changes voltage or electrical form with real components. Current through semiconductor on-resistance, winding resistance and diode drops dissipates power. Switching transitions dissipate energy as current and voltage overlap; repeating those transitions adds average loss. Magnetic cores, controllers, gate drivers and fans also consume power. The balance depends on converter topology, device choices, voltage, load, switching frequency, temperature and operating mode.
 
@@ -182,3 +194,4 @@ Locate the displaced equipment before counting freed space. Compare actual conve
 - [Steven H. Low — Power System Analysis: Analytical tools and structural properties (April 7, 2025 draft)](https://netlab.caltech.edu/assets/book/PSA/Low-PSA-v20250407.pdf) — Sections 1.2–1.3 develop balanced three-phase circuits, phase-to-line voltage relationships, constant total instantaneous power and zero neutral current under balanced conditions. Read 2026-09-10. April 7, 2025 draft; used for the balanced sinusoidal circuit derivation. No real installation, neutral sizing or protection design follows from the simplified teaching model.
 - [Schneider Electric — What is UPS efficiency and how is it calculated?](https://www.se.com/us/en/faqs/FAQ000244215/) — Efficiency is output power divided by input power and varies with operating load. Read 2026-09-11. Uses the general efficiency definition and load dependence; no product efficiency or eConversion claim is adopted.
 - [Texas Instruments — Power Loss in Switching Power Supplies](https://www.ti.com/document-viewer/lit/html/SLUAAL9) — Explains transistor conduction and switching losses in switching power supplies. Read 2026-09-11. August 2022 application brief. Mechanisms only, not an efficiency prediction for data-center converters.
+- [Inside the 800VDC Revolution – Part 1](https://newsletter.semianalysis.com/p/inside-the-800vdc-revolution-part) — Forecast adoption phases: 2026/2027, 2027/2028 and late 2028/2029; distinction between near-rack conversion and upstream low-voltage rectification. Read 2026-09-11. May 26, 2026 analysis. Architecture dates are forecasts. Phase 4 timing is internally inconsistent: heading >2029, body early 2029. The three teaching drawings are a baseline plus grouped Phases 1–2 and Phase 3.

@@ -7475,7 +7475,7 @@
       "publisher": "SemiAnalysis",
       "kind": "analysis",
       "review_status": "public_excerpt_reviewed",
-      "reviewed_on": "2026-09-10",
+      "reviewed_on": "2026-09-11",
       "domains": [
         "D04",
         "D05",
@@ -7484,8 +7484,8 @@
         "D13",
         "D15"
       ],
-      "use": "Compare low-voltage rack distribution, power sidecars and facility DC architectures; trace how current, conversion placement and protection interact.",
-      "caution": "Selected sections and the supplied battery-rack figure reviewed, not every claim in the report. Architecture dates and product labels are analyst forecasts. Its statement that rectifying medium voltage requires individual devices above 10 kV is too broad: series/cascaded cells divide voltage, as P21 and P22 demonstrate. The 10 kV announcement is specifically scoped in P23. The figure’s MV rectifier/SST block hides internal step-down, isolation and protection functions."
+      "use": "Compare low-voltage rack distribution, power sidecars and facility DC architectures; trace how current, conversion placement and protection interact. Checked forecast adoption dates and rack-shelf versus on-blade conversion in Phases 1–2.",
+      "caution": "Selected sections and the supplied battery-rack figure reviewed, not every claim in the report. Architecture dates and product labels are analyst forecasts. Its statement that rectifying medium voltage requires individual devices above 10 kV is too broad: series/cascaded cells divide voltage, as P21 and P22 demonstrate. The 10 kV announcement is specifically scoped in P23. The figure’s MV rectifier/SST block hides internal step-down, isolation and protection functions. Phase 4 timing is internally inconsistent: heading >2029, body early 2029."
     },
     {
       "id": "P01",

@@ -3,9 +3,9 @@
   "id": "sample-800v-presentation",
   "source_lesson_id": "sample-800v",
   "title": "800 V DC: less copper, room for compute",
-  "planned_duration_seconds": 1065,
+  "planned_duration_seconds": 1020,
   "timing_note": "Dry-run allowances only; revise from actual explanation and discussion rather than filling a runtime target.",
-  "review_state": "Reviewed revisions: concise headlines, generator context in the UPS sequence, and an architecture ending instead of an unrelated load-doubling exercise.",
+  "review_state": "Learner-feedback revision: explicit single-phase power dips, three-pair voltage explanation, scoped converter losses and attributed architecture forecasts. Ready for the next dry run.",
   "defaults": {
     "power_kw": 100,
     "reference_voltage_v": 480,
@@ -19,7 +19,7 @@
     "Use one explanatory headline per slide. Show essential labels and assumptions beside the diagram; omit bottom captions and repeated takeaway slogans.",
     "Start with a physical constraint, then build closed-circuit and waveform intuition before the copper and heat arithmetic.",
     "Keep the 100 kW average real-power anchor visible through DC, single-phase AC and balanced three-phase AC. Distinguish instantaneous power from its cycle average; introduce losses at an explicit boundary change.",
-    "On copper, current, conductor-loss, and conversion-loss steps, ask for a prediction before revealing the result.",
+    "On current, conductor-loss, and conversion-loss steps, ask for a prediction before revealing the result.",
     "Use the same load and diagram positions throughout the architecture sequence; change conversion placement deliberately.",
     "Architecture drawings show selected functional boundaries. They are conceptual schematics, not wiring diagrams.",
     "Keep equal conductor geometry visible in the copper scene. Equal effective resistance in the heat model is a separate idealization.",
@@ -73,21 +73,23 @@
     },
     {
       "id": "ac-cycle",
-      "title": "Single-phase AC reverses current while the resistor keeps receiving energy.",
+      "title": "Single-phase AC makes this load’s power dip twice per cycle.",
       "kind": "ac-basics",
       "pedagogical_role": "mechanism",
-      "headline": "Single-phase AC reverses current while the resistor keeps receiving energy.",
+      "headline": "Single-phase AC makes this load’s power dip twice per cycle.",
       "duration_seconds": 120,
-      "cue": "Scrub through a full cycle, comparing the two half-cycles. Ask what happens to voltage × current when both signs reverse.",
+      "cue": "Follow the current reversal, then pause at a zero crossing: received power dips to zero. Ask what three staggered phases would change.",
       "notes": [
-        "Single phase first: voltage and current reverse together through a resistive load.",
+        "Single-phase teaching model: voltage and current reverse together through an ideal resistive load.",
         "Instantaneous power = voltage × current; two negative signs still give positive received power.",
         "RMS: same resistive heating as a DC value; 480 V RMS is about 679 V peak for a sine wave.",
         "208.3 A RMS here; received power swings 0–200 kW but averages 100 kW.",
-        "This resistive example has power factor 1; real rack electronics need a separate model."
+        "This resistive example has power factor 1; real rack electronics need a separate model.",
+        "The actual data-hall comparison is three-phase. The dip belongs to this ideal load model; it does not mean a real server switches off at every zero crossing."
       ],
       "explanation": [
-        "Start with one sinusoidal AC source and a resistive load. The voltage changes polarity every half-cycle. The current also reverses, in step with the voltage. With voltage and current referenced consistently at the receiving load, instantaneous power is their product: p(t) = v(t) × i(t). During the negative half-cycle both signs reverse, so the resistor continues receiving positive power. Alternating current does not imply that a resistor returns all the delivered energy every half-cycle. The slider uses a 60 Hz example: 60 complete cycles per second, or about 16.7 milliseconds per cycle. Changing frequency changes that period; the power reasoning shown here still applies to the ideal resistive load.",
+        "The load is the equipment receiving power. Here it is modeled as an ideal resistance so the waveform arithmetic is transparent. A 480 V single-phase load can be supplied between two phases of a three-phase system; the voltage label alone does not specify the number of phases. This introductory circuit is not the three-phase data-hall feeder used in the later comparison.",
+        "Start with one sinusoidal AC source and a resistive load. The voltage changes polarity every half-cycle. The current also reverses, in step with the voltage. With voltage and current referenced consistently at the receiving load, instantaneous power is their product: p(t) = v(t) × i(t). During the negative half-cycle both signs reverse, so the load continues receiving positive power. Alternating current does not imply that this load returns all the delivered energy every half-cycle. The slider uses a 60 Hz example: 60 complete cycles per second, or about 16.7 milliseconds per cycle. Changing frequency changes that period; the power reasoning shown here still applies to the ideal resistive load.",
         "An AC value must say whether it is a peak or an effective value. RMS means root mean square: square the waveform, average over a cycle, then take the square root. A given RMS current produces the same average heating in the same resistance as that numerical DC current. For a sine wave, peak = √2 × RMS; 480 V RMS therefore has a peak of about 679 V.",
         "Choose this illustrative single-phase load to receive the same 100 kW average power. At 480 V RMS, its current is 100,000/480 = 208.33 A RMS. Voltage and current are sinusoidal and in phase, so power factor is one. Its instantaneous received power is p(θ) = 200 sin²(θ) kW: zero at the waveform crossings, 200 kW at the peaks, and 100 kW averaged over a complete cycle.",
         "The average remains the comparison anchor even though instantaneous power changes. Over one hour at this operating point, the load receives 100 kWh, just as the preceding ideal DC load does. This single-phase case explains the waveform; the data-hall comparison will use balanced three-phase AC. Actual rack power electronics are not resistors and can change current waveforms and power factor."
@@ -95,10 +97,10 @@
     },
     {
       "id": "three-phase",
-      "title": "Three balanced phases deliver constant total power in this model.",
+      "title": "Three balanced phases fill the power dips of a single phase.",
       "kind": "three-phase",
       "pedagogical_role": "mechanism",
-      "headline": "Three balanced phases deliver constant total power in this model.",
+      "headline": "Three balanced phases fill the power dips of a single phase.",
       "duration_seconds": 150,
       "cue": "Scrub the cycle: follow one phase, then combine all three. Contrast the sum of currents with the sum of received powers.",
       "notes": [
@@ -124,15 +126,17 @@
       "pedagogical_role": "mechanism",
       "headline": "480 V is the voltage between two live phase conductors.",
       "duration_seconds": 120,
-      "cue": "Point to both meter probes; ask whether L3 is ground.",
+      "cue": "Identify both meter probes, then open Why not 960 V? and move through a cycle.",
       "notes": [
         "Voltage is always measured between two points.",
         "L1, L2 and L3 are all live phases; the meter probes L1 and L2.",
         "The other pairs L2–L3 and L3–L1 also measure 480 V RMS in this balanced system.",
-        "In a 480Y/277 V wye system, phase-to-neutral is about 277 V; neutral is distinct from protective earth."
+        "In a 480Y/277 V wye system, phase-to-neutral is about 277 V; neutral is distinct from protective earth.",
+        "Compare the pair waveforms: equal RMS magnitude, different timing. Add signed values at the same instant, not the RMS labels."
       ],
       "explanation": [
         "L1, L2 and L3 are three live phase conductors. Neither of the two meter connections is ground. In the balanced system, any phase pair measures 480 V RMS: L1–L2, L2–L3 or L3–L1. Voltage uses two measurement points even when the system has three phases. Neutral and protective earth have distinct roles; they are not an unmentioned third phase.",
+        "The 480 V label is an RMS value over a cycle, not a constant signed voltage difference. Instantaneous differences obey v12 + v23 + v31 = 0. Their waveforms are shifted in time, so the RMS magnitudes cannot be added as 480 + 480. For example, at one instant phase-to-neutral voltages are about +392, −196 and −196 V: the three signed pair differences are about +588, 0 and −588 V. Each pair still measures 480 V RMS over a full cycle.",
         "In the data-hall comparison, 480 V AC means the RMS voltage measured between two phase conductors: line-to-line voltage. It is not the voltage across each branch of the wye teaching load. Each branch sees the phase-to-neutral voltage, measured from its phase conductor to the star point. In a balanced system that RMS value is 480/√3 ≈ 277.1 V.",
         "Line-to-line voltage is the instantaneous difference between two phase voltages. Those equal sine waves are separated by 120 degrees, so the difference has √3 times the magnitude of either phase voltage. This is why the conversion uses √3; treating each branch as a separate 480 V load would mix measurement conventions.",
         "Add the three branch powers. With sinusoidal currents in phase with their respective phase voltages, total real power is P = 3 × V_phase-to-neutral,RMS × I_line,RMS. Substitute V_phase-to-neutral = V_line-to-line/√3 to obtain P = √3 × V_line-to-line,RMS × I_line,RMS. More generally, balanced three-phase real power includes a power-factor multiplier, PF: real power divided by apparent power. The ideal resistive model uses PF = 1.",
@@ -146,8 +150,8 @@
       "kind": "copper",
       "pedagogical_role": "comparison",
       "headline": "Two DC conductors use one-third less copper than three equal AC conductors.",
-      "duration_seconds": 90,
-      "cue": "Ask which bundle uses less copper. Count the pieces, then reveal.",
+      "duration_seconds": 45,
+      "cue": "Show three equal AC conductors beside two DC conductors, then continue to the non-obvious current comparison.",
       "notes": [
         "Equal length, cross-section and copper material for every conductor.",
         "Copper mass ∝ conductor count × length × cross-section: two pieces versus three.",
@@ -201,19 +205,20 @@
     },
     {
       "id": "ac-dc-ledger",
-      "title": "Converter losses depend on the equipment and its operating point.",
+      "title": "Converting AC to DC produces heat, wherever the power supply sits.",
       "kind": "conversion-loss",
-      "headline": "Converter losses depend on the equipment and its operating point.",
+      "headline": "Converting AC to DC produces heat, wherever the power supply sits.",
       "duration_seconds": 90,
-      "cue": "Trace input power into useful output and heat. Explain the loss mechanisms before using efficiency.",
+      "cue": "Locate the AC input and DC output. The next slides move this conversion function; moving it does not remove its losses.",
       "notes": [
-        "Current produces conduction losses in switches and windings.",
-        "Switching transitions, magnetic cores and auxiliary circuits add losses.",
-        "Efficiency depends on load, voltage, temperature and operating mode; use the selected equipment’s curve.",
-        "Illustration: 98% efficiency at 100 kW output needs 102.04 kW input and loses 2.04 kW.",
-        "The former 1–7 kW slider had no product basis; it is removed."
+        "Boundary: one AC/DC power supply, taking 480 V three-phase AC and delivering 800 V DC.",
+        "It represents the function placed in a sidecar or power room in the next drawings; its internal stages are not shown.",
+        "This is not the UPS AC-to-DC-to-AC path and not a whole-data-center efficiency figure.",
+        "Conduction, switching, magnetic components and auxiliaries create losses; equipment loading and operating conditions set efficiency.",
+        "Assumed 98% efficiency: 102.04 kW input supplies 100 kW DC output and 2.04 kW heat."
       ],
       "explanation": [
+        "This example isolates one AC/DC power supply: 480 V three-phase AC at its input and 800 V DC at its output. It represents the conversion function moved into a power rack or power room in the following architecture drawings. The supply may contain multiple internal conversion stages. It is not a UPS AC-to-DC-to-AC path or a model of the whole data center.",
         "Conversion changes voltage or electrical form with real components. Current through semiconductor on-resistance, winding resistance and diode drops dissipates power. Switching transitions dissipate energy as current and voltage overlap; repeating those transitions adds average loss. Magnetic cores, controllers, gate drivers and fans also consume power. The balance depends on converter topology, device choices, voltage, load, switching frequency, temperature and operating mode.",
         "Efficiency η is useful output power divided by input power. At a fixed output, P_loss = P_out × (1/η − 1). The slide assumes 98% efficiency solely to demonstrate the calculation: 100/0.98 = 102.0408 kW input, so loss is 2.0408 kW. It is not the efficiency of the pictured UPS or a measured advantage of AC or DC distribution.",
         "To compare architectures, read the actual equipment efficiency curves at the required loading and mode, then sum losses along the complete path. Fewer conversion boxes or lower conductor heat alone does not establish lower total facility input."
@@ -235,9 +240,11 @@
       "explanation": [
         "A simplified AC-to-rack arrangement brings AC to the compute rack, converts it to DC there, and regulates voltage again near the devices. Conversion equipment occupies rack space that could otherwise serve other functions.",
         "The functional drawing omits protection, grounding and other required equipment. It locates conversion without specifying a buildable installation.",
-        "These are representative architecture choices, consistent with NVIDIA’s dated AC, hybrid and native-DC roadmap. They are not three required stages that every facility must pass through; actual deployments can combine approaches."
+        "These are representative architecture choices, consistent with NVIDIA’s dated AC, hybrid and native-DC roadmap. They are not three required stages that every facility must pass through; actual deployments can combine approaches.",
+        "This is the conventional AC baseline, not SemiAnalysis Phase 1. The later labels refer to the article’s forecast adoption phases, which are unrelated to the three electrical phases of an AC waveform."
       ],
-      "pedagogical_role": "architecture"
+      "pedagogical_role": "architecture",
+      "roadmap_label": "Conventional AC baseline"
     },
     {
       "id": "conversion-in-sidecar",
@@ -247,16 +254,19 @@
       "notes": [
         "Move conversion beside the compute rack; DC begins after the sidecar converter.",
         "Compute-rack space released; sidecar still needs hall space, cooling and service access.",
-        "Upstream AC constraints and final low-voltage device regulation remain."
+        "Upstream AC constraints and final low-voltage device regulation remain.",
+        "SemiAnalysis forecasts Phase 1 in 2026/27 and Phase 2 in 2027/28. Both use an AC-fed power rack; DC/DC conversion moves from a rack shelf in Phase 1 onto the blade in Phase 2."
       ],
       "duration_seconds": 60,
       "cue": "Move the converter; ask which space is freed and which space is now occupied.",
       "explanation": [
         "A sidecar arrangement keeps upstream AC but places AC-to-DC conversion in nearby equipment. The 800 V DC segment begins after that conversion.",
         "A sidecar can free compute-rack space while occupying space nearby. It does not by itself establish net hall-space savings. The converter still needs cooling and service access; upstream AC limits and final device regulation remain.",
-        "These are representative architecture choices, consistent with NVIDIA’s dated AC, hybrid and native-DC roadmap. They are not three required stages that every facility must pass through; actual deployments can combine approaches."
+        "These are representative architecture choices, consistent with NVIDIA’s dated AC, hybrid and native-DC roadmap. They are not three required stages that every facility must pass through; actual deployments can combine approaches.",
+        "In the May 26, 2026 SemiAnalysis forecast, Phase 1 (2026/2027) and Phase 2 (2027/2028) both use near-rack conversion. The important internal distinction is where 800 V is stepped down: a rack shelf in Phase 1 versus on-blade conversion in Phase 2. This drawing groups their shared AC-fed sidecar arrangement; it does not depict identical rack internals. Backup is omitted from these placement drawings: the article discusses DC-coupled batteries and supercapacitors replacing central UPS functions, while also expecting some operators to retain a central UPS. The forecast does not imply one universal backup topology."
       ],
-      "pedagogical_role": "architecture"
+      "pedagogical_role": "architecture",
+      "roadmap_label": "Phases 1–2 · 2026/27 and 2027/28"
     },
     {
       "id": "conversion-farther-upstream",
@@ -267,7 +277,8 @@
         "Move conversion into a power room → longer DC distribution segment.",
         "Selected equipment leaves the hall; its footprint and supporting services move elsewhere.",
         "Final device regulation remains; conceptual placement does not establish installed results or total footprint savings.",
-        "NVIDIA’s 54 V DC rack comparison uses another boundary; our numerical baseline stays 480 V AC."
+        "NVIDIA’s 54 V DC rack comparison uses another boundary; our numerical baseline stays 480 V AC.",
+        "SemiAnalysis Phase 3: late 2028/2029, moving a low-voltage AC rectifier into the power room. This drawing does not show an SST."
       ],
       "duration_seconds": 60,
       "cue": "Trace where DC begins; compare the released hall space with the new power-room footprint.",
@@ -275,9 +286,11 @@
         "Moving conversion into a power room extends the DC distribution segment and can free hall space occupied by selected conversion equipment. The equipment still has a footprint and supporting requirements at its new location.",
         "NVIDIA also describes a separate 54 V DC rack-distribution constraint. Our numerical baseline remains the 480 V AC feeder. Final low-voltage device conversion remains necessary in both cases.",
         "These conceptual diagrams compare placement; they do not establish installed results, total-footprint savings or an efficiency ranking.",
-        "These are representative architecture choices, consistent with NVIDIA’s dated AC, hybrid and native-DC roadmap. They are not three required stages that every facility must pass through; actual deployments can combine approaches."
+        "These are representative architecture choices, consistent with NVIDIA’s dated AC, hybrid and native-DC roadmap. They are not three required stages that every facility must pass through; actual deployments can combine approaches.",
+        "SemiAnalysis forecasts Phase 3 for late 2028/2029: conventional step-down followed by a low-voltage AC-to-800 V DC rectifier upstream. Its separate Phase 4 concerns medium-voltage input and SSTs; the heading says after 2029 while its body says early 2029, so no single exact date is adopted for that phase. These are dated forecasts, not confirmed installation dates."
       ],
-      "pedagogical_role": "architecture"
+      "pedagogical_role": "architecture",
+      "roadmap_label": "Phase 3 · late 2028/2029"
     }
   ],
   "sources": [
@@ -322,6 +335,13 @@
       "claim": "Sections 1.2–1.3 develop balanced three-phase circuits, phase-to-line voltage relationships, constant total instantaneous power and zero neutral current under balanced conditions.",
       "reviewed_on": "2026-09-10",
       "limits": "April 7, 2025 draft; used for the balanced sinusoidal circuit derivation. No real installation, neutral sizing or protection design follows from the simplified teaching model."
+    },
+    {
+      "title": "SemiAnalysis — Inside the 800VDC Revolution – Part 1",
+      "url": "https://newsletter.semianalysis.com/p/inside-the-800vdc-revolution-part",
+      "claim": "Forecast adoption phases: 2026/2027, 2027/2028 and late 2028/2029; distinction between near-rack conversion and upstream low-voltage rectification.",
+      "reviewed_on": "2026-09-11",
+      "limits": "May 26, 2026 analysis. Architecture dates are forecasts. Phase 4 timing is internally inconsistent: heading >2029, body early 2029. The three teaching drawings are a baseline plus grouped Phases 1–2 and Phase 3."
     }
   ],
   "aliases": {

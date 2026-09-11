@@ -49,6 +49,34 @@ const scenes = ["dc-circuit", "ac-cycle", "three-phase", "voltage-basis"];
             await page.locator(".energy-band").innerText(),
             /100 kW average at the load/,
           );
+        if (id === "voltage-basis") {
+          await page.locator('[data-voltage-view="pairs"]').click();
+          assert.equal(await page.locator(".pair-readings strong").count(), 3);
+          assert.ok(
+            await page
+              .locator(".pair-readings strong")
+              .evaluateAll((els) =>
+                els.every((el) => el.textContent.includes("480")),
+              ),
+          );
+          assert.ok(
+            await page.evaluate(
+              () => document.documentElement.scrollWidth <= innerWidth + 1,
+            ),
+          );
+          if (size.width >= 1024)
+            assert.ok(
+              await page.evaluate(
+                () => document.documentElement.scrollHeight <= innerHeight + 1,
+              ),
+              "phase pair view should fit teaching viewport",
+            );
+          await page.screenshot({
+            path: `${output}/pair-voltages-${size.width}.png`,
+            fullPage: size.width < 800,
+          });
+          await page.locator('[data-voltage-view="meter"]').click();
+        }
         await page.screenshot({
           path: `${output}/${id}-${size.width}.png`,
           fullPage: size.width < 800,
@@ -87,10 +115,7 @@ const scenes = ["dc-circuit", "ac-cycle", "three-phase", "voltage-basis"];
     );
     await angle(180);
     assert.match(await page.locator(".wave-result").innerText(), /0 kW now/);
-    assert.match(
-      await page.locator(".current-circuit").textContent(),
-      /0 kW/,
-    );
+    assert.match(await page.locator(".current-circuit").textContent(), /0 kW/);
     await page.locator("#cycle-angle").focus();
     await page.keyboard.press("ArrowRight");
     assert.equal(await page.locator("#cycle-angle").inputValue(), "181");
@@ -134,6 +159,37 @@ const scenes = ["dc-circuit", "ac-cycle", "three-phase", "voltage-basis"];
     );
     for (const difference of voltageRelations)
       assert.ok(Math.abs(difference) < 1e-9);
+    await page.locator('[data-voltage-view="pairs"]').click();
+    const pairCheck = await page.evaluate(() => {
+      const sums = [0, 0, 0];
+      let closureError = 0;
+      for (let d = 0; d < 360; d++) {
+        const values = pairVoltages(d);
+        closureError = Math.max(
+          closureError,
+          Math.abs(values.reduce((a, b) => a + b, 0)),
+        );
+        values.forEach((v, i) => (sums[i] += (v * v) / 360));
+      }
+      return { rms: sums.map(Math.sqrt), closureError };
+    });
+    pairCheck.rms.forEach((value) => assert.ok(Math.abs(value - 480) < 1e-9));
+    assert.ok(pairCheck.closureError < 1e-9);
+    await page.locator("#cycle-angle").fill("90");
+    assert.match(
+      await page.locator('[data-pair-voltage="0"]').textContent(),
+      /587\.9/,
+    );
+    assert.match(
+      await page.locator('[data-pair-voltage="1"]').textContent(),
+      /^0 V now$/,
+    );
+    assert.match(
+      await page.locator('[data-pair-voltage="2"]').textContent(),
+      /−587\.9/,
+    );
+    await page.locator('[data-voltage-view="meter"]').click();
+    assert.equal(await page.locator("#cycle-angle").count(), 0);
     await page.goto(`${base}teach.html#dc-circuit`);
     assert.equal(await page.locator(".wave-chart").count(), 0);
     assert.match(
@@ -142,7 +198,7 @@ const scenes = ["dc-circuit", "ac-cycle", "three-phase", "voltage-basis"];
     );
     assert.deepEqual(errors, []);
     console.log(
-      "Passed 20 primer layouts, fixed energy reference, polarity reversal, phase balance, voltage subtraction, keyboard and notes synchronization.",
+      "Passed 20 primer layouts and 5 phase-pair layouts, fixed energy reference, polarity reversal, phase balance, voltage subtraction, keyboard and notes synchronization.",
     );
   } finally {
     await browser.close();

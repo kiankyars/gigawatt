@@ -7,7 +7,7 @@ const output = resolve(process.argv[3] || "qa/presentation");
 const data = JSON.parse(
   readFileSync("course/expansion/sample-presentation.json", "utf8"),
 );
-const revealKinds = new Set(["copper", "current", "loss", "conversion-loss"]);
+const revealKinds = new Set(["current", "loss", "conversion-loss"]);
 const stepById = (id) => {
   const step = data.steps.find((item) => item.id === id);
   assert.ok(step, `Unknown step: ${id}`);
@@ -204,13 +204,9 @@ let browser;
     await page.locator(".copper-bundle").first().getAttribute("aria-label"),
     /equal length and cross-section/,
   );
-  await page.locator("#reveal").click();
+  assert.equal(await page.locator("#reveal").count(), 0);
   assert.match(
-    await page.locator(".copper-result").innerText(),
-    /33\.3% less conductor copper/,
-  );
-  assert.match(
-    await page.locator(".copper-result").innerText(),
+    await page.locator(".model-top").innerText(),
     /Equal length, cross-section and material/,
   );
   await page.screenshot({ path: resolve(output, "copper-1280.png") });
@@ -358,7 +354,7 @@ let browser;
   );
   assert.match(
     await page.locator(".converter-example").innerText(),
-    /Illustration.*98% efficiency/,
+    /One AC\/DC power supply.*98% efficiency assumed/,
   );
   const conversion = await page.evaluate(() => ({
     input: DEFAULTS.power_kw / DEFAULTS.converter_efficiency,
@@ -368,6 +364,14 @@ let browser;
   near(conversion.input, 102.04081632653062);
   near(conversion.output / conversion.input, 0.98);
   near(conversion.input - conversion.output, 2.040816326530617);
+  assert.match(
+    await page.locator(".power-port").first().innerText(),
+    /480 V three-phase AC input/,
+  );
+  assert.match(
+    await page.locator(".power-port").last().innerText(),
+    /800 V DC output/,
+  );
   await page.screenshot({ path: resolve(output, "converter-loss-1280.png") });
   await notes.screenshot({
     path: resolve(output, "presenter-notes.png"),
@@ -417,6 +421,16 @@ let browser;
     await fresh("teach", id);
     assert.match(await page.locator(".rack-space").innerText(), /Freed/);
     assert.equal(await page.locator(".zone.rack .unit.converter").count(), 1);
+    assert.match(
+      await page.locator(".roadmap-context").innerText(),
+      id === "conversion-in-sidecar"
+        ? /Phases 1–2.*2026\/27 and 2027\/28/
+        : /Phase 3.*late 2028\/2029/,
+    );
+    assert.match(
+      await page.locator(".roadmap-context").innerText(),
+      /SemiAnalysis forecast/,
+    );
     const zones = page.locator(".zone");
     if (id === "conversion-in-sidecar") {
       assert.match(await zones.nth(0).innerText(), /Facility AC/);
@@ -528,13 +542,13 @@ let browser;
     layout_states: layouts.length,
     layouts,
     checks: [
-      "Twelve visual steps and four reveal states in teaching and student modes at five viewport sizes",
+      "Twelve visual steps and three reveal states in teaching and student modes at five viewport sizes",
       "Teaching notes excluded from visuals and no recording-setup instructions",
       "No teaching-view scroll at 1920×1080, 1280×720 or 1024×768",
       "No horizontal overflow or clipped labels on phone and short landscape",
       "Student explanations expand for all twelve steps at all five sizes",
       "Student mode hides notes/fullscreen and P/F shortcuts do not activate them",
-      "Prediction before reveal for copper, currents, conductor loss, the single converter energy balance",
+      "Prediction before reveal for currents, conductor loss, the single converter energy balance",
       "Equal-geometry copper comparison: three bars versus two, 33.3% less conductor copper",
       "Moved conversion: sidecar retains upstream AC and nearby footprint; facility DC moves conversion to power room",
       "All twelve footer steps remain accessible without horizontal overflow; upstream conversion resolves the architecture question",
