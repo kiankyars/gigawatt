@@ -1075,6 +1075,8 @@ For communications, verify capacity, route length, delivery dates, site entrance
 
 ## Secure the parcel and the rights across it
 
+A land-purchase option gives the developer a time-limited right to buy on agreed terms without an obligation to complete the purchase. The option is commonly paid for. It can reserve the purchase decision while the developer investigates the site; testing access, extensions and other permissions still depend on the agreement. If the conditions cannot be resolved before expiry, the developer may need to negotiate an extension or let the option lapse.
+
 Purchase, lease and option arrangements give different rights for different periods. Check the actual terms for investigations, access, assignment, closing conditions and extensions, then compare their dates with the utility and permit work. Review title exceptions, recorded easements and the additional routes needed to bring power, gas, fiber and water to the campus. A line crossing another owner’s property needs its own established right; control of the main parcel does not supply it.
 
 In Texas, the surface and mineral estates can have different owners. The Railroad Commission explains that mineral development can carry rights to reasonably necessary surface use, subject to applicable limits. A surface purchase alone therefore does not settle potential mineral-development conflicts. The example assumes Parcel B’s required rights are resolved through month 26. Parcel A’s option ends in month 18 with no agreed extension; that is unresolved control, not a date that can silently slide to month 30.
@@ -1083,7 +1085,7 @@ In Texas, the surface and mineral estates can have different owners. The Railroa
 
 Identify the approvals and conditions for this layout: land use, air emissions, noise, water, drainage, construction and fire access. Equipment intended for continuous generation can raise different questions from standby equipment. Nearby homes, schools and other sensitive uses affect the actual siting conversation. A permit for one phase does not establish approval for the later campus.
 
-Industrial reuse may offer roads, utility connections and a building, while also carrying obsolete equipment or contamination. EPA distinguishes historical and site-condition review from sampling and cleanup planning. Establish what can remain, what must be removed, and any restrictions on the intended use. An apparently empty contamination folder is not equivalent to completed investigation.
+A greenfield project starts on previously undeveloped land; industrial reuse begins with an existing site and its history. Industrial reuse may offer roads, utility connections and a building, while also carrying obsolete equipment or contamination. EPA distinguishes historical and site-condition review from sampling and cleanup planning. Establish what can remain, what must be removed, and any restrictions on the intended use. An apparently empty contamination folder is not equivalent to completed investigation.
 
 ## Two real connections show why the delivery details matter
 
@@ -1150,6 +1152,7 @@ A replacement route or changed service requirement would need explicit acceptanc
 - [MLGW — 2025 xAI Update](https://www.mlgw.com/images/content/files/pdf/new/xAI%202025%20Update.pdf) — The Paul Lowery Road site reused the Electrolux facility and an existing 16-inch gas main; xAI paid for an 8-inch tap. The update separately describes a pending gas-capacity study at Tulane Road. Read 2026-09-11. Historical 2025 utility update, not September 2026 operating status. The tap is not evidence that xAI built a regional gas pipeline; the two sites and their service states must remain distinct.
 - [Energy Transfer — Q2 2026 investor presentation](https://ir.energytransfer.com/static-files/c29697db-5336-4262-8bf3-3c6e409ccb19) — Printed slide 3 reports a Q2 2026 agreement to construct gas-delivery facilities for Crusoe’s Abilene campus expansion. Read 2026-09-11. Primary search-extracted slide text reviewed; full PDF fetch returned HTTP 403. An agreement is not operational completion. A separate bullet about a completed 14-mile Abilene lateral is not attributed to Crusoe without explicit linkage.
 - [DOE — CHP Technologies: Gas Turbines](https://betterbuildingssolutioncenter.energy.gov/sites/default/files/attachments/CHP_Gas_Turbines.pdf) — The fuel-supply discussion explains that insufficient site gas pressure requires a fuel-gas compressor. Read 2026-09-11. Primary searchable PDF excerpt reviewed; full fetch returned HTTP 502. No generic pressure, efficiency or cost is adopted as an actual data-center turbine specification.
+- [Cornell Legal Information Institute — Option](https://www.law.cornell.edu/wex/option) — An option reserves a contractual right to transact during an agreed period without obliging its holder to exercise it; real-estate options depend on specified terms. Read 2026-09-11. Read the definition and real-estate discussion. General terminology only; no particular land agreement or jurisdictional enforceability is assessed.
 
 ## A shared boundary can defeat two independent systems
 

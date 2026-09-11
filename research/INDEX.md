@@ -162,6 +162,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P39 — Energy Transfer — Q2 2026 investor presentation](sources/P39.md) | Energy Transfer | D03, D12, D13 | public_excerpt_reviewed |
 | [P40 — DOE — CHP Technologies: Gas Turbines](sources/P40.md) | US Department of Energy | D03, D12 | public_excerpt_reviewed |
 | [P41 — Texas Instruments — TIDA-00349 isolated DC/DC converter](sources/P41.md) | Texas Instruments | D04, D05 | page_reviewed |
+| [P42 — Cornell Legal Information Institute — Option](sources/P42.md) | Cornell Legal Information Institute | D12 | page_reviewed |
 | [SA01 — Datacenter Anatomy Part 1: Electrical Systems](sources/SA01.md) | SemiAnalysis | D04, D05, D06, D13, D15 | public_excerpt_reviewed |
 | [SA02 — Datacenter Anatomy Part 2 – Cooling Systems](sources/SA02.md) | SemiAnalysis | D10, D11, D15 | public_excerpt_reviewed |
 | [SA03 — 100,000 H100 Clusters: Power, Network Topology, Ethernet vs InfiniBand, Reliability, Failures, Checkpointing](sources/SA03.md) | SemiAnalysis | D02, D07, D08, D09, D14 | public_excerpt_reviewed |

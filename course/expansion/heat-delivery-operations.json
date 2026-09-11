@@ -595,6 +595,7 @@
       {
         "heading": "Secure the parcel and the rights across it",
         "paragraphs": [
+          "A land-purchase option gives the developer a time-limited right to buy on agreed terms without an obligation to complete the purchase. The option is commonly paid for. It can reserve the purchase decision while the developer investigates the site; testing access, extensions and other permissions still depend on the agreement. If the conditions cannot be resolved before expiry, the developer may need to negotiate an extension or let the option lapse.",
           "Purchase, lease and option arrangements give different rights for different periods. Check the actual terms for investigations, access, assignment, closing conditions and extensions, then compare their dates with the utility and permit work. Review title exceptions, recorded easements and the additional routes needed to bring power, gas, fiber and water to the campus. A line crossing another owner’s property needs its own established right; control of the main parcel does not supply it.",
           "In Texas, the surface and mineral estates can have different owners. The Railroad Commission explains that mineral development can carry rights to reasonably necessary surface use, subject to applicable limits. A surface purchase alone therefore does not settle potential mineral-development conflicts. The example assumes Parcel B’s required rights are resolved through month 26. Parcel A’s option ends in month 18 with no agreed extension; that is unresolved control, not a date that can silently slide to month 30."
         ]
@@ -603,7 +604,7 @@
         "heading": "Check permitted uses, neighbors and what the old site leaves behind",
         "paragraphs": [
           "Identify the approvals and conditions for this layout: land use, air emissions, noise, water, drainage, construction and fire access. Equipment intended for continuous generation can raise different questions from standby equipment. Nearby homes, schools and other sensitive uses affect the actual siting conversation. A permit for one phase does not establish approval for the later campus.",
-          "Industrial reuse may offer roads, utility connections and a building, while also carrying obsolete equipment or contamination. EPA distinguishes historical and site-condition review from sampling and cleanup planning. Establish what can remain, what must be removed, and any restrictions on the intended use. An apparently empty contamination folder is not equivalent to completed investigation."
+          "A greenfield project starts on previously undeveloped land; industrial reuse begins with an existing site and its history. Industrial reuse may offer roads, utility connections and a building, while also carrying obsolete equipment or contamination. EPA distinguishes historical and site-condition review from sampling and cleanup planning. Establish what can remain, what must be removed, and any restrictions on the intended use. An apparently empty contamination folder is not equivalent to completed investigation."
         ]
       },
       {
@@ -727,6 +728,13 @@
         "reviewed_on": "2026-09-11",
         "claim": "The fuel-supply discussion explains that insufficient site gas pressure requires a fuel-gas compressor.",
         "limits": "Primary searchable PDF excerpt reviewed; full fetch returned HTTP 502. No generic pressure, efficiency or cost is adopted as an actual data-center turbine specification."
+      },
+      {
+        "title": "Cornell Legal Information Institute — Option",
+        "url": "https://www.law.cornell.edu/wex/option",
+        "claim": "An option reserves a contractual right to transact during an agreed period without obliging its holder to exercise it; real-estate options depend on specified terms.",
+        "reviewed_on": "2026-09-11",
+        "limits": "Read the definition and real-estate discussion. General terminology only; no particular land agreement or jurisdictional enforceability is assessed."
       }
     ],
     "terms": [

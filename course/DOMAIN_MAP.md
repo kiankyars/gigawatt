@@ -1216,6 +1216,7 @@ Trace physical and control-system access boundaries and explain why availability
 - [P38 — MLGW — 2025 xAI Update](https://www.mlgw.com/images/content/files/pdf/new/xAI%202025%20Update.pdf) · `page_reviewed` · [local note](../research/sources/P38.md)
 - [P39 — Energy Transfer — Q2 2026 investor presentation](https://ir.energytransfer.com/static-files/c29697db-5336-4262-8bf3-3c6e409ccb19) · `public_excerpt_reviewed` · [local note](../research/sources/P39.md)
 - [P40 — DOE — CHP Technologies: Gas Turbines](https://betterbuildingssolutioncenter.energy.gov/sites/default/files/attachments/CHP_Gas_Turbines.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P40.md)
+- [P42 — Cornell Legal Information Institute — Option](https://www.law.cornell.edu/wex/option) · `page_reviewed` · [local note](../research/sources/P42.md)
 
 <a id="d13"></a>
 

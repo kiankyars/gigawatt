@@ -2336,6 +2336,20 @@
       ],
       "use": "The fuel-supply discussion explains that insufficient site gas pressure requires a fuel-gas compressor.",
       "caution": "Primary searchable PDF excerpt reviewed; full fetch returned HTTP 502. No generic pressure, efficiency or cost is adopted as an actual data-center turbine specification."
+    },
+    {
+      "id": "P42",
+      "title": "Cornell Legal Information Institute — Option",
+      "url": "https://www.law.cornell.edu/wex/option",
+      "publisher": "Cornell Legal Information Institute",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-11",
+      "domains": [
+        "D12"
+      ],
+      "use": "An option reserves a contractual right to transact during an agreed period without obliging its holder to exercise it; real-estate options depend on specified terms.",
+      "caution": "Read the definition and real-estate discussion. General terminology only; no particular land agreement or jurisdictional enforceability is assessed."
     }
   ]
 }
