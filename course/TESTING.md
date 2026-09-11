@@ -471,3 +471,20 @@ combined Phases 1–2 distinguished from Phase 3.
 
 These are ideal teaching models and dated adoption forecasts, not measured
 converter performance, universal deployment dates or equipment-specific designs.
+
+## DC-link buffering and step-down context — 2026-09-11
+
+Slide 9 now identifies conventional MV-to-480-V AC step-down and isolation before
+its AC/DC supply boundary. Reader text distinguishes the 415 V AC input in
+SemiAnalysis Phase 3 and rejects a universal 10 kV rectification ceiling. Normal
+and battery UPS views identify DC-link capacitor buffering; D05 includes the
+hypothetical 0.20 F, 800→700 V, 1 MW capacitor-only hold-up calculation.
+
+All 52 Python and 51 JavaScript tests passed, with generated-output, catalog,
+map, lint and whitespace checks. Presentation checks passed 150 states and now
+check that the converter equation clears the navigation. UPS checks passed 64
+layouts, 12 introductory theme views, bypass/redundancy interactions and notes
+synchronization. Eight targeted converter/storage views passed in light and dark
+at desktop/mobile sizes. Representative converter and UPS screenshots were
+inspected. Independent arithmetic gives 15 kJ usable, 15 ms hold-up and 49 kJ
+remaining below the selected voltage threshold; these are not UPS specifications.

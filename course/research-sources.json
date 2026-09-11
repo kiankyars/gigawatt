@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-09-10",
+  "as_of": "2026-09-11",
   "inventory_status": "seed_not_exhaustive",
   "method": "A bounded curated discovery pass over 40 SemiAnalysis articles and 15 independent primary-source starting points. Sources are mapped many-to-many to domain IDs for curriculum research, not certified as complete coverage or sources of truth. The additional SA11–SA40 sample used 16 search queries and selected entries from the publisher's 2023–2026 annual sitemaps; research/discovery-searches.md records the method and limits. page_reviewed means the stated web page was inspected, with partial-reading and linked-document limits recorded in caution; public_excerpt_reviewed includes accessible previews, abstracts or selected public sections and never implies review of a complete paid work. candidate_not_reviewed means substantive content has not been reviewed. A domain mapping identifies intended research use, not verified support for every objective or claim. reviewed_on is the review date; published_on, where present, is the source's displayed publication date and is null when not established.",
   "sources": [
@@ -2169,6 +2169,35 @@
       ],
       "use": "Battery backup must cover generator startup and takeover; generator supply feeds the UPS input.",
       "caution": "General UPS-generator coordination. The diagram assumes adequate battery runtime and an accepted generator source; charging and actual compatibility remain equipment-specific."
+    },
+    {
+      "id": "P31",
+      "title": "Eaton — DC-link capacitor modules",
+      "url": "https://www.eaton.com/gb/en-gb/products/electronic-components/topics/dc-link-modules.html",
+      "publisher": "Eaton",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-11",
+      "domains": [
+        "D05",
+        "D06"
+      ],
+      "use": "Locate DC-link capacitors between rectifier and inverter; explain voltage buffering, ripple and rapid load transitions.",
+      "caution": "Reviewed the opening functional explanation and UPS application listing. Listed product values do not specify the course UPS or the hypothetical 0.20 F bus."
+    },
+    {
+      "id": "P32",
+      "title": "Eaton — Choosing the optimal UPS topology",
+      "url": "https://www.eaton.com/us/en-us/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/choosing-the-optimal-ups-topology-.html",
+      "publisher": "Eaton",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-11",
+      "domains": [
+        "D05"
+      ],
+      "use": "Distinguish zero output transfer time in online double-conversion operation from standby and line-interactive transfers.",
+      "caution": "Reviewed topology and Online UPS sections. Zero transfer time is not a guarantee of zero internal transient or an equipment-specific battery-interface response time."
     }
   ]
 }

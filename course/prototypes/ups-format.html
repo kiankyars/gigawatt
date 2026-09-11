@@ -1028,6 +1028,20 @@
           target="_blank"
           rel="noopener"
           >Rack BBU example</a
+        >
+        ·
+        <a
+          href="https://www.eaton.com/gb/en-gb/products/electronic-components/topics/dc-link-modules.html"
+          target="_blank"
+          rel="noopener"
+          >DC-link capacitors</a
+        >
+        ·
+        <a
+          href="https://www.eaton.com/us/en-us/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/choosing-the-optimal-ups-topology-.html"
+          target="_blank"
+          rel="noopener"
+          >Online UPS continuity</a
         >. Original conceptual examples; 50 kW modules are hypothetical
         usable-output units. Separate A/B PSU groups can each accept the full
         load. Isolated failures, compatible paths and adequate battery support
@@ -1095,6 +1109,7 @@
             "Rectifier converts incoming AC to the DC link.",
             "Inverter converts that DC to the AC output required by the load.",
             "The battery has an interface to the DC link; its charging detail is omitted here.",
+            "DC-link capacitors smooth ripple and buffer rapid power mismatches while source current adjusts.",
             "Trace load-supplying power only; charging and bypass need separate explanations.",
           ],
           cue: "Trace the active path from left to right. Predict which part must keep working during a utility outage.",
@@ -1107,7 +1122,9 @@
           notes: [
             "Utility input is unavailable; the rectifier path is inactive.",
             "Battery energy reaches the DC link through its battery interface.",
-            "The inverter continues supplying the same supported load.",
+            "The inverter continues supplying the same supported load; no output transfer switch is needed in double-conversion operation.",
+            "Zero transfer time does not mean instantaneous internal response: DC-link capacitors buffer fast transients while the battery path supports sustained demand.",
+            "A battery interface may connect directly or use a DC/DC converter. The separate 800 V, 0.20 F capacitor example is not a specification of this UPS.",
             "Runtime is finite; this scene assumes a ready battery and a functioning inverter.",
           ],
           cue: "Trace the new active path, then restore utility to compare the two states.",
@@ -1357,7 +1374,8 @@
             ${converter(314, 132, "rectifier", !out)}
             ${label(370, 111, "Rectifier")}${label(370, 272, "AC → DC", "diagram-detail")}
             <circle cx="568" cy="188" r="7" class="connection"/>
-            ${label(568, 144, "DC link")}
+            ${label(568, 130, "DC link")}
+            ${label(568, 156, "Capacitors buffer transients", "diagram-detail")}
 
             ${converter(710, 132, "inverter")}
             ${label(766, 111, "Inverter")}${label(766, 272, "DC → AC", "diagram-detail")}
@@ -1407,8 +1425,8 @@
             ${label(268, 326, "Battery", "diagram-detail")}
             ${label(268, 347, "interface", "diagram-detail")}
             ${label(294, 169, out ? "Active" : "Ready", "ready-label", "start")}
-            ${label(182, 474, out ? "Finite energy" : "Charging omitted", "diagram-kicker", "start")}
-            ${label(182, 497, "Bypass omitted", "diagram-kicker", "start")}
+            ${label(182, 474, "DC-link capacitors", "diagram-kicker", "start")}
+            ${label(182, 497, "Fast bus buffering", "diagram-kicker", "start")}
             ${rack(78, 588, true)}
             ${label(166, 605, "Protected load", "diagram-detail", "start")}
             ${label(164, 644, "100 kW", "diagram-value", "start")}
@@ -1420,7 +1438,7 @@
           compact ? "0 0 360 680" : "0 0 1200 490",
         );
         $("circuit").innerHTML =
-          `<title id="circuit-title">${esc(title)}</title><desc>Functional equipment diagram of an online double-conversion UPS. Lines represent power paths, not individual conductors. Charging, bypass and switching details are omitted.</desc>${drawing}`;
+          `<title id="circuit-title">${esc(title)}</title><desc>Functional equipment diagram of an online double-conversion UPS. Lines represent power paths, not individual conductors. DC-link capacitors buffer ripple and fast power mismatches. Charging, bypass and switching details are omitted.</desc>${drawing}`;
         $("mechanism").dataset.outage = String(out);
         $("supply-state").textContent = out
           ? "UTILITY UNAVAILABLE · BATTERY OPERATION"

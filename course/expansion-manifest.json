@@ -1,11 +1,11 @@
 {
   "as_of": "2026-09-10",
   "lessons": 50,
-  "words": 53889,
+  "words": 54224,
   "objectives": 65,
   "capstones": 5,
   "glossary_terms": 150,
-  "source_records": 70,
+  "source_records": 72,
   "image_sha256": {
     "campus-cutaway.png": "fbd12d4b4f55d0aec1d6f491626180bf5d73747383ea61e0f59ee2448680d139",
     "rack-anatomy.png": "dcdb17925744a205464c6d327781875e94b14f83c8ffb5daa218e5f68565b457",

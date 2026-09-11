@@ -105,6 +105,13 @@ let browser;
             width: document.documentElement.scrollWidth,
             height: document.documentElement.scrollHeight,
             text: document.querySelector("#scene").innerText,
+            equationBottom:
+              document
+                .querySelector(".converter-example .equation-block")
+                ?.getBoundingClientRect().bottom ?? 0,
+            footerTop: document
+              .querySelector(".transport")
+              .getBoundingClientRect().top,
             clipped: [
               ...document.querySelectorAll(
                 ".unit,.metric-card,.ledger-card,.ledger-total,.copper-result,.capacity-result,.capacity-row > *,#steps,.transport",
@@ -126,6 +133,10 @@ let browser;
               layout.height <= viewport.height + 1,
               `${step.id} ${viewport.width}×${viewport.height}: teaching view scrolls (${layout.height})`,
             );
+          assert.ok(
+            layout.equationBottom <= layout.footerTop + 1,
+            `${mode}/${step.id}: converter equation overlaps navigation`,
+          );
           assert.deepEqual(
             layout.clipped,
             [],

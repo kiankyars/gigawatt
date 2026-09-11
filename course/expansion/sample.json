@@ -116,6 +116,9 @@
       "heading": "What determines converter losses?",
       "paragraphs": [
         "This example isolates one AC/DC power supply: 480 V three-phase AC at its input and 800 V DC at its output. It represents the conversion function moved into a power rack or power room in the following architecture drawings. The supply may contain multiple internal conversion stages. It is not a UPS AC-to-DC-to-AC path or a model of the whole data center.",
+        "Before this example’s 480 V AC input, a conventional transformer steps medium-voltage AC down and provides galvanic isolation. Lower AC voltage reduces the voltage stress handled by the following power electronics. The transformer’s own losses are outside the one-power-supply calculation shown here.",
+        "The controlled AC/DC supply establishes the 800 V DC output; a simple rectifier is not a voltage-independent route to 800 V. SemiAnalysis’s Phase 3 example uses 415 V AC after conventional step-down. This numerical example retains 480 V AC; neither is a universal required input voltage.",
+        "A conventional transformer changes AC voltage; it does not rectify. There is no universal 10 kV ceiling on rectification. Cascaded converter cells can share medium-voltage stress among lower-voltage semiconductors. An SST is an alternative architecture that combines electronic stages with high-frequency isolation, not a prerequisite for an 800 V DC bus. See D04, “Why step down before rectifying?”, for the device-rating distinction.",
         "Conversion changes voltage or electrical form with real components. Current through semiconductor on-resistance, winding resistance and diode drops dissipates power. Switching transitions dissipate energy as current and voltage overlap; repeating those transitions adds average loss. Magnetic cores, controllers, gate drivers and fans also consume power. The balance depends on converter topology, device choices, voltage, load, switching frequency, temperature and operating mode.",
         "Efficiency η is useful output power divided by input power. At a fixed output, P_loss = P_out × (1/η − 1). The slide assumes 98% efficiency solely to demonstrate the calculation: 100/0.98 = 102.0408 kW input, so loss is 2.0408 kW. It is not the efficiency of the pictured UPS or a measured advantage of AC or DC distribution.",
         "To compare architectures, read the actual equipment efficiency curves at the required loading and mode, then sum losses along the complete path. Fewer conversion boxes or lower conductor heat alone does not establish lower total facility input."
@@ -225,6 +228,20 @@
       "claim": "Forecast adoption phases: 2026/2027, 2027/2028 and late 2028/2029; distinction between near-rack conversion and upstream low-voltage rectification.",
       "reviewed_on": "2026-09-11",
       "limits": "May 26, 2026 analysis. Architecture dates are forecasts. Phase 4 timing is internally inconsistent: heading >2029, body early 2029. The three teaching drawings are a baseline plus grouped Phases 1–2 and Phase 3."
+    },
+    {
+      "title": "Texas Instruments — TIDA-011012 modular solid-state transformer reference design",
+      "url": "https://www.ti.com/tool/TIDA-011012",
+      "claim": "Explain how input-series converter submodules divide medium-voltage stress across lower-voltage semiconductor devices.",
+      "reviewed_on": "2026-09-10",
+      "limits": "Reviewed overview and feature list. Reference-design architecture, not a deployed data-center system; its stated DC-link voltages are not an 800 V output specification."
+    },
+    {
+      "title": "Huber et al. — Comparative Evaluation of MVAC–LVDC SST and Hybrid Transformer Concepts for Future Datacenters (IPEC 2022)",
+      "url": "https://www.ams-publications.ee.ethz.ch/uploads/tx_ethpublications/1_IPEC_2022_Final_Huber.pdf",
+      "claim": "Compare transformer-plus-rectifier and SST architectures for 800 V DC; separate system voltage from per-device voltage.",
+      "reviewed_on": "2026-09-10",
+      "limits": "Reviewed Figure 1 and Sections II–IV. The study includes a 13.2 kV cascaded design using 1,200 V devices. Efficiency and density results belong to its 2022 models and are not current universal rankings."
     }
   ],
   "terms": [
