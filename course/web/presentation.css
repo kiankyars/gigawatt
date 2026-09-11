@@ -1971,3 +1971,138 @@ body[data-view="student"] #visual {
     margin-bottom: 16px;
   }
 }
+
+.conversion-views {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 4px 0 20px;
+}
+.conversion-views button[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--paper);
+}
+.stepdown-example {
+  width: 100%;
+  margin: auto;
+}
+.stepdown-path {
+  display: grid;
+  grid-template-columns: 1fr auto 1.25fr auto 1.4fr;
+  gap: 16px;
+  align-items: center;
+}
+.stepdown-path section {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 26px 18px;
+  display: grid;
+  gap: 14px;
+  text-align: center;
+}
+.stepdown-path strong {
+  font-size: clamp(20px, 2vw, 30px);
+}
+.stepdown-path span {
+  color: var(--muted);
+  font-size: 17px;
+}
+.stepdown-path b {
+  color: var(--teal);
+  font-size: 28px;
+}
+.stepdown-path .stepdown-electronics {
+  border-color: var(--teal);
+  background: var(--surface-soft);
+}
+.device-comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 35px;
+  margin: 32px 0 16px;
+}
+.device-comparison section {
+  border-top: 2px solid var(--teal);
+  padding-top: 12px;
+}
+.device-comparison h2 {
+  font-size: 19px;
+  margin: 0 0 8px;
+}
+.device-comparison p {
+  font-size: 18px;
+  margin: 0;
+  line-height: 1.4;
+  color: var(--muted);
+}
+.stepdown-rating {
+  font-size: 17px;
+  text-align: center;
+  margin: 24px 0 0;
+}
+@media (max-width: 700px) {
+  .stepdown-path {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .stepdown-path b {
+    transform: rotate(90deg);
+    text-align: center;
+  }
+  .stepdown-path section {
+    padding: 18px;
+  }
+  .device-comparison {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .conversion-views {
+    flex-wrap: wrap;
+  }
+}
+#visual:has(.conversion-views) {
+  flex-direction: column;
+  align-items: stretch;
+}
+.conversion-views {
+  flex: none;
+}
+@media (min-width: 1024px) and (max-height: 820px) {
+  .conversion-views {
+    margin-bottom: 12px;
+  }
+  .converter-flow {
+    margin-top: 12px;
+    gap: 12px;
+    row-gap: 4px;
+  }
+  .converter-box {
+    padding: 18px 12px;
+    gap: 10px;
+  }
+  .converter-heat {
+    display: flex;
+    gap: 12px;
+    margin: 4px 0;
+    font-size: 25px;
+  }
+  .converter-heat > span {
+    font-size: 30px;
+  }
+  .converter-heat small {
+    display: inline;
+    margin: 0 0 0 5px;
+  }
+  .loss-causes {
+    margin: 10px 0;
+    gap: 10px;
+    font-size: 16px;
+  }
+  .loss-causes span {
+    padding: 6px;
+  }
+  .converter-example .equation-block {
+    margin-top: 12px;
+    font-size: 25px;
+  }
+}

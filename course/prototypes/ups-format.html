@@ -348,6 +348,34 @@
       #circuit text {
         font-family: inherit;
       }
+      .cb-label,
+      .cb-tick {
+        fill: var(--ink);
+        font-size: 20px;
+      }
+      .cb-detail {
+        fill: var(--muted);
+        font-size: 17px;
+      }
+      .cb-value {
+        fill: var(--ink);
+        font-size: 26px;
+        font-weight: 750;
+      }
+      .cb-big {
+        fill: var(--green);
+        font-size: 46px;
+        font-weight: 750;
+      }
+      @media (max-width: 799px) {
+        #mechanism[data-capacitors="true"] #circuit {
+          min-height: 500px;
+          max-height: none;
+        }
+        #stage:has(#mechanism[data-capacitors="true"]:not([hidden])) {
+          overflow: visible;
+        }
+      }
       .ups-enclosure {
         fill: var(--enclosure, #e8ede6);
         stroke: var(--enclosure-border, #bdcdbf);
@@ -726,6 +754,7 @@
         font-size: 13px;
       }
       [data-action][aria-pressed="true"],
+      button[data-capacitor-mode][aria-pressed="true"],
       button[data-generator-stage][aria-pressed="true"] {
         background: var(--ink);
         color: var(--on-strong, white);
@@ -1061,6 +1090,7 @@
       </div>
     </section>
     <script type="module">
+      import { renderCapacitorDiagram } from "./ups-capacitors.js";
       import { renderGeneratorDiagram } from "./ups-generator.js";
       import { renderBypassDiagram } from "./ups-bypass.js";
       import { redundancyModel, renderRedundancy } from "./ups-redundancy.js";
@@ -1128,6 +1158,19 @@
             "Runtime is finite; this scene assumes a ready battery and a functioning inverter.",
           ],
           cue: "Trace the new active path, then restore utility to compare the two states.",
+        },
+        {
+          id: "capacitors",
+          label: "Capacitor buffer",
+          title: "Capacitors cover the power gap while battery power rises.",
+          notes: [
+            "Separate DC-bus model: 1 MW, 0.20 F, 800 V initially, 700 V shutdown threshold. These are not UPS product specifications.",
+            "Capacitor-only case: 15 kJ is usable above the threshold, so the load loses support at 15 ms. The capacitor still stores 49 kJ.",
+            "The second case assumes battery power ramps from zero to 1 MW during the first 10 ms. The capacitor supplies the overlapping deficit, not a first 15 ms shift followed by the battery.",
+            "The triangular power deficit is 5 kJ. Bus voltage reaches 768.1 V; once the battery matches the load it stops falling. Recharging would need surplus power.",
+            "This is an ideal energy model. Switching ripple, losses, inductance, ESR and actual battery-interface controls require equipment-specific treatment.",
+          ],
+          cue: "Compare the shaded capacitor energy in the two cases. Point to battery power rising from time zero; 15 ms is an endurance limit, not a start command.",
         },
         {
           id: "generator",
@@ -1283,6 +1326,7 @@
           index,
           outage: scenes[index].id === "outage",
           generatorStage: "waiting",
+          capacitorMode: "alone",
           supplyAvailable: true,
           maintenance: false,
           fault: false,
@@ -1483,6 +1527,16 @@
         }
       }
       function actionButtons(s) {
+        if (s.id === "capacitors")
+          return [
+            ["alone", "Capacitor only"],
+            ["ramp", "Assumed 10 ms battery ramp"],
+          ]
+            .map(
+              ([mode, label]) =>
+                `<button data-capacitor-mode="${mode}" aria-pressed="${state.capacitorMode === mode}">${label}</button>`,
+            )
+            .join("");
         if (s.id === "generator")
           return [
             ["utility", "Utility supplying"],
@@ -1536,6 +1590,15 @@
       }
       function bindActions(container) {
         container
+          .querySelectorAll("button[data-capacitor-mode]")
+          .forEach((button) => {
+            button.onclick = () => {
+              state.capacitorMode = button.dataset.capacitorMode;
+              render();
+              publish();
+            };
+          });
+        container
           .querySelectorAll("button[data-generator-stage]")
           .forEach((button) => {
             button.onclick = () => {
@@ -1562,11 +1625,29 @@
       function renderMechanism(s) {
         const compact = matchMedia("(max-width: 799px)").matches;
         $("mechanism").dataset.generator = String(s.id === "generator");
+        $("mechanism").dataset.capacitors = String(s.id === "capacitors");
         $("circuit").toggleAttribute("hidden", Boolean(s.redundancy));
         $("redundancy-view").hidden = !s.redundancy;
         $("exercise-controls").innerHTML = actionButtons(s);
         bindActions($("exercise-controls"));
         $("toggle-supply").hidden = !(s.id === "outage" || s.mode);
+        if (s.id === "capacitors") {
+          const result = renderCapacitorDiagram(state.capacitorMode, {
+            compact,
+          });
+          $("circuit").setAttribute("viewBox", result.viewBox);
+          $("circuit").innerHTML = result.svg;
+          $("mechanism").dataset.outage = "false";
+          $("supply-state").textContent =
+            "Separate DC bus · 0.20 F · 800 → 700 V";
+          document.querySelector(".state-strip strong").textContent =
+            "1 MW load";
+          document.querySelector(".diagram-key").textContent =
+            "Shaded area = energy supplied";
+          $("model-scope").textContent =
+            "Ideal example · no losses or parasitics · not a UPS timing specification";
+          return;
+        }
         if (s.redundancy) {
           const model = redundancyModel({ kind: s.redundancy, ...state });
           $("redundancy-view").innerHTML = renderRedundancy(model, { compact });
@@ -1725,6 +1806,7 @@
           data.state.index < scenes.length &&
           typeof data.state.outage === "boolean" &&
           typeof data.state.supplyAvailable === "boolean" &&
+          ["alone", "ramp"].includes(data.state.capacitorMode) &&
           ["utility", "waiting", "generator"].includes(
             data.state.generatorStage,
           ) &&

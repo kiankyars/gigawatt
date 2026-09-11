@@ -32,6 +32,7 @@ let state = {
   volts: DEFAULTS.comparison_voltage_v,
   cycleDegrees: 30,
   voltageView: "meter",
+  converterView: "supply",
 };
 const session =
   new URLSearchParams(location.search).get("session") || crypto.randomUUID();
@@ -57,7 +58,8 @@ function validState(value) {
     Number.isFinite(value.cycleDegrees) &&
     value.cycleDegrees >= 0 &&
     value.cycleDegrees <= 360 &&
-    ["meter", "pairs"].includes(value.voltageView)
+    ["meter", "pairs"].includes(value.voltageView) &&
+    ["supply", "heat"].includes(value.converterView)
   );
 }
 function publish() {
@@ -78,6 +80,7 @@ function reveal() {
   const step = STEPS[state.index];
   if (!revealKinds.has(step.kind)) return;
   change({
+    ...(step.kind === "conversion-loss" ? { converterView: "heat" } : {}),
     revealed: isRevealed()
       ? state.revealed.filter((id) => id !== step.id)
       : [...state.revealed, step.id],
@@ -165,13 +168,29 @@ function architecture(kind) {
   const roadmap = `<div class="roadmap-context"><span class="chip">${escapeHTML(step.roadmap_label)}</span>${kind === "ac" ? "" : '<a href="https://newsletter.semianalysis.com/p/inside-the-800vdc-revolution-part" target="_blank" rel="noopener">SemiAnalysis forecast · May 2026</a>'}</div>`;
   return `<div class="architecture">${roadmap}<div class="path"><section class="zone ${kind === "facility" ? "active" : ""}"><h2 class="zone-title">Upstream power room</h2><div class="zone-body">${facility}</div></section><section class="zone ${kind === "sidecar" ? "active" : ""}"><h2 class="zone-title">${kind === "sidecar" ? "Power rack in the hall" : "Hall distribution"}</h2><div class="zone-body">${adjacent}</div></section><section class="zone rack ${kind === "ac" ? "active" : ""}"><h2 class="zone-title">Compute rack</h2><div class="zone-body">${rack}</div>${space}</section></div></div>`;
 }
+function conversionViews() {
+  const tabs = `<div class="conversion-views">${[
+    ["supply", "Why step down?"],
+    ["heat", "Conversion heat"],
+  ]
+    .map(
+      ([view, label]) =>
+        `<button data-converter-view="${view}" aria-pressed="${state.converterView === view}">${label}</button>`,
+    )
+    .join("")}</div>`;
+  if (state.converterView === "heat") return tabs + conversionLoss();
+  return (
+    tabs +
+    `<div class="stepdown-example"><div class="stepdown-path"><section><p class="metric-label">Incoming supply</p><strong>Medium-voltage AC</strong><span>13.8 kV example</span></section><b aria-hidden="true">→</b><section><p class="metric-label">Transformer</p><strong>13.8 kV → 480 V AC</strong><span>Step-down + isolation</span></section><b aria-hidden="true">→</b><section class="stepdown-electronics"><p class="metric-label">Controlled converter</p><strong>480 V AC → 800 V DC</strong><span>Rectification + regulation</span></section></div><div class="device-comparison"><section><h2>After step-down</h2><p>Lower-voltage semiconductors handle the AC/DC conversion.</p></section><section><h2>For a direct MV input</h2><p>Use higher-rated devices or cascaded cells that share voltage, with added insulation and control demands.</p></section></div><p class="stepdown-rating">A device’s voltage rating is not the voltage ceiling of a complete converter.</p></div>`
+  );
+}
 function conversionLoss() {
   const output = DEFAULTS.power_kw,
     efficiency = DEFAULTS.converter_efficiency;
   const input = output / efficiency,
     loss = input - output,
     shown = isRevealed();
-  return `<div class="converter-example"><div class="model-top"><span class="chip">One AC/DC power supply · 98% efficiency assumed</span><div class="converter-upstream"><strong>First: MV AC → transformer → 480 V AC</strong><span>Step-down + isolation · lower device voltage stress</span></div></div><div class="converter-flow"><div class="power-port"><span>480 V three-phase AC input</span><strong>${shown ? fmt(input, 2) : "?"}<small> kW</small></strong></div><span class="conversion-arrow" aria-hidden="true">→</span><div class="converter-box"><strong>AC → DC</strong><span>Useful output ÷ input = 98%</span></div><span class="conversion-arrow" aria-hidden="true">→</span><div class="power-port"><span>800 V DC output</span><strong>100<small> kW</small></strong></div><div class="converter-heat"><span aria-hidden="true">↓</span><strong>${shown ? fmt(loss, 2) : "?"} kW <small>converter heat</small></strong></div></div><div class="loss-causes"><span>Resistance heats conductors</span><span>Switching dissipates energy</span><span>Magnetic cores heat up</span><span>Controls &amp; fans draw power</span></div>${shown ? '<div class="equation-block">100 ÷ 0.98 − 100 = <strong>2.04 kW</strong></div>' : '<div class="control-line"><button class="reveal" id="reveal">Calculate the lost power</button></div>'}</div>`;
+  return `<div class="converter-example"><div class="model-top"><span class="chip">One AC/DC power supply · 98% efficiency assumed</span></div><div class="converter-flow"><div class="power-port"><span>480 V three-phase AC input</span><strong>${shown ? fmt(input, 2) : "?"}<small> kW</small></strong></div><span class="conversion-arrow" aria-hidden="true">→</span><div class="converter-box"><strong>AC → DC</strong><span>Useful output ÷ input = 98%</span></div><span class="conversion-arrow" aria-hidden="true">→</span><div class="power-port"><span>800 V DC output</span><strong>100<small> kW</small></strong></div><div class="converter-heat"><span aria-hidden="true">↓</span><strong>${shown ? fmt(loss, 2) : "?"} kW <small>converter heat</small></strong></div></div><div class="loss-causes"><span>Resistance heats conductors</span><span>Switching dissipates energy</span><span>Magnetic cores heat up</span><span>Controls &amp; fans draw power</span></div>${shown ? '<div class="equation-block">100 ÷ 0.98 − 100 = <strong>2.04 kW</strong></div>' : '<div class="control-line"><button class="reveal" id="reveal">Calculate the lost power</button></div>'}</div>`;
 }
 function renderNotes() {
   const step = STEPS[state.index];
@@ -208,6 +227,14 @@ function renderNotes() {
     `teach.html?session=${encodeURIComponent(session)}#${step.id}`;
 }
 function bindVisual() {
+  document.querySelectorAll("[data-converter-view]").forEach((button) =>
+    button.addEventListener("click", () => {
+      change({ converterView: button.dataset.converterView });
+      document
+        .querySelector(`[data-converter-view="${state.converterView}"]`)
+        .focus({ preventScroll: true });
+    }),
+  );
   document.querySelectorAll("[data-voltage-view]").forEach((button) => {
     button.addEventListener("click", () => {
       change({ voltageView: button.dataset.voltageView });
@@ -251,14 +278,17 @@ function render() {
   const focus = document.activeElement?.id;
   byId("chapter").textContent =
     `800 V DC · ${state.index + 1} / ${STEPS.length}`;
-  byId("scene-title").textContent = step.headline;
+  byId("scene-title").textContent =
+    step.kind === "conversion-loss" && state.converterView === "heat"
+      ? step.heat_headline
+      : step.headline;
   byId("visual").innerHTML = (
     {
       intro,
       copper,
       current,
       loss,
-      "conversion-loss": conversionLoss,
+      "conversion-loss": conversionViews,
       "dc-basics": () => electricalVisual("dc-basics"),
       "ac-basics": () => electricalVisual("ac-basics"),
       "three-phase": () => electricalVisual("three-phase"),

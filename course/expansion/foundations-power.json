@@ -1678,9 +1678,18 @@
         ]
       },
       {
+        "heading": "A DC/DC converter can contain a transformer, but it is not one",
+        "paragraphs": [
+          "A transformer transfers energy through a changing magnetic field. It does not take steady DC on its own and continuously deliver a different DC voltage. A DC/DC converter is the complete circuit that changes DC voltage or regulates a DC output.",
+          "A non-isolated buck converter lowers voltage using a controlled switch, an inductor and filtering capacitors; it needs no transformer. In an isolated DC/DC converter, switches turn the DC input into a changing waveform, a transformer transfers energy and provides isolation, and rectification plus filtering produces the DC output. The transformer is one component inside that converter.",
+          "The UPS battery interface in the teaching diagram is intentionally generic: some designs connect batteries directly to the DC link, while others use a controlled converter. Neither arrangement justifies an assumption of zero internal transient or a universal battery-start delay."
+        ]
+      },
+      {
         "heading": "Why step down before rectifying?",
         "paragraphs": [
           "A conventional route is medium-voltage AC → isolation and step-down transformer → controlled AC/DC converter → 800 V DC. The transformer reduces the voltage seen by the electronics and supplies isolation. The controlled converter establishes the required DC output; a plain rectifier alone does not turn 13.8 kV AC into an isolated 800 V bus.",
+          "This is a semiconductor and system-design tradeoff. A compact direct-MV converter needs devices that withstand higher voltage or multiple switches/cells that share it, with added isolation, control and protection demands. Commercial availability of higher-voltage SiC devices can reduce that complexity. The SemiAnalysis passage that motivates this question later explicitly acknowledges conventional MV rectification using series-stacked silicon devices; its device-scarcity point should not be converted into a universal 10 kV system limit.",
           "Rectifying at medium voltage is possible. The design must manage device blocking voltage, AC peaks, transients, insulation and voltage sharing. Cascaded converter cells can divide the input voltage, so each semiconductor need not withstand the full system voltage. An SST combines electronic conversion with an internal high-frequency isolation transformer. It is one way to build the interface; 800 V DC distribution also works with conventional transformers and rectifiers.",
           "Keep the units and product claim precise: 10 kV = 10,000 V. Wolfspeed announced a commercially available 10 kV SiC power MOSFET in March 2026. That is a device-category announcement, not a ceiling on rectifiable system voltage. A 2022 ETH/Delta/Paderborn study already described a 13.2 kV cascaded SST using 1,200 V devices."
         ]
@@ -1823,6 +1832,20 @@
         "claim": "The supplied battery-rack illustration motivates separating central rectification from downstream storage and distribution.",
         "reviewed_on": "2026-09-10",
         "limits": "Read the Phase 3 battery-rack section and voltage-rating claim. Figures are attributed source concepts; product forecasts and broad semiconductor-rating statements are not adopted as facts."
+      },
+      {
+        "title": "Texas Instruments — Basic Calculation of a Buck Converter’s Power Stage",
+        "url": "https://www.ti.com/lit/an/slva477b/slva477b.pdf",
+        "claim": "Figure 1 shows a buck converter made from switching, inductance and capacitance without a transformer.",
+        "reviewed_on": "2026-09-11",
+        "limits": "Reviewed basic configuration and inductor-ripple discussion. The continuous-conduction calculation is not an 800 V converter or UPS design."
+      },
+      {
+        "title": "Texas Instruments — TIDA-00349 isolated DC/DC converter",
+        "url": "https://www.ti.com/tool/TIDA-00349",
+        "claim": "Distinguish an isolated DC/DC converter system from its transformer: switching on the primary side and rectification on the secondary side are required functions.",
+        "reviewed_on": "2026-09-11",
+        "limits": "Low-power reference-design overview and topology reviewed; no efficiency, dimensions or power rating are extrapolated to a data-center battery interface."
       }
     ],
     "terms": [
@@ -1893,7 +1916,9 @@
           "An online UPS in double-conversion mode already supplies the load through its inverter. Losing the rectifier input does not require switching the load onto a newly started inverter. Zero transfer time describes that output continuity, not instantaneous internal current changes. The battery interface may be a direct DC connection or a controlled DC/DC converter, depending on the equipment; an isolated DC/DC converter may contain a high-frequency transformer.",
           "DC-link capacitors remain useful in online operation. They supply and absorb rapid current differences, smooth switching ripple and support bus voltage while the rectifier or battery path responds. Batteries sustain the longer energy demand. Offline or line-interactive transfer gaps are another reason for load-side hold-up, not the only reason capacitors exist. Capacitors in the UPS DC link and capacitors on a separate rack DC bus occupy different boundaries.",
           "For a separate, hypothetical 800 V rack bus, take an effective 0.20 F capacitance directly across the bus, a constant 1 MW bus load and a 700 V converter shutdown threshold. Assume the converters stay regulated down to that threshold and that no other source contributes. Usable energy is ½ × 0.20 × (800² − 700²) = 15,000 J. Hold-up is 15,000 J / 1,000,000 W = 0.015 s, or 15 ms. At 700 V the bank still stores 49,000 J; that energy is below the permitted operating range. These are chosen teaching values, not specifications of the pictured UPS.",
-          "This 15 ms is capacitor-only hold-up, not a UPS transfer time. The load is defined at the DC bus, so do not count downstream converter losses twice; if instead 1 MW were useful downstream output, bus power would include those losses. Once a battery or other source contributes, capacitor energy supplies only the remaining power deficit. More generally, the time integral of P_load − P_source equals the energy withdrawn from the capacitor. The ideal calculation ignores capacitance variation, ESR, wiring resistance and inductance; those affect actual voltage excursions and usable hold-up."
+          "This 15 ms is capacitor-only hold-up, not a UPS transfer time. The load is defined at the DC bus, so do not count downstream converter losses twice; if instead 1 MW were useful downstream output, bus power would include those losses. Once a battery or other source contributes, capacitor energy supplies only the remaining power deficit. More generally, the time integral of P_load − P_source equals the energy withdrawn from the capacitor. The ideal calculation ignores capacitance variation, ESR, wiring resistance and inductance; those affect actual voltage excursions and usable hold-up.",
+          "Now allow the battery contribution at that same bus to rise linearly from zero to 1 MW during the first 10 ms. This assumed ramp starts at time zero; it does not wait for the 15 ms capacitor-only limit. The battery supplies 5 kJ and the capacitor supplies the other 5 kJ during those 10 ms. The capacitor deficit is the area of a triangle: ½ × 1 MW × 0.010 s = 5 kJ. Bus voltage reaches √(800² − 2 × 5,000/0.20) = 768.1 V, above the 700 V cutoff.",
+          "From 10 ms onward the battery supplies the full 1 MW, so the capacitor no longer loses energy in this ideal model. Its voltage does not automatically return to 800 V: recharge requires power above the ongoing load. The UPS presenter sequence teaches both cases directly in the “Capacitor buffer” scene. Its 10 ms ramp is an assumed comparison, not a measurement of the photographed UPS."
         ]
       },
       {

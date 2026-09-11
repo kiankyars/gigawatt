@@ -488,3 +488,21 @@ synchronization. Eight targeted converter/storage views passed in light and dark
 at desktop/mobile sizes. Representative converter and UPS screenshots were
 inspected. Independent arithmetic gives 15 kJ usable, 15 ms hold-up and 49 kJ
 remaining below the selected voltage threshold; these are not UPS specifications.
+
+## Capacitor support, conversion placement and parcel selection — 2026-09-11
+
+The UPS prototype now directly compares capacitor-only endurance with an assumed
+battery-power ramp. Four numerical tests check the 15 ms cutoff, simultaneous
+contributions, 5 kJ deficit, 768.1 V result and energy conservation. These are
+hypothetical inputs, not measured UPS timing. The 800 V sample opens slide 9 with
+conventional step-down and controlled rectification; conversion heat is optional.
+D12 replaces generic downtime arithmetic with an interactive two-parcel screen.
+
+Validation passed: 52 Python tests, 55 JavaScript tests, generated-artifact and
+research checks, Ruff and whitespace checks. Browser coverage includes 150 sample
+layout states plus its new step-down view, 68 UPS layouts, 16 theme views,
+scenario controls and existing notes/keyboard behavior. The parcel comparison
+was checked in light/dark at 1440 and 390 pixels, including keyboard selection,
+area/date arithmetic and navigation back to ordinary lessons. Representative
+screenshots were inspected. The parcel lesson is a reader draft, not a completed
+presenter sequence or an assessed real site.

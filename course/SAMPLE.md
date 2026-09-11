@@ -122,6 +122,8 @@ Over one hour, the DC feeder requires 0.121528 kWh less input, about 0.122 kWh. 
 
 ## What determines converter losses?
 
+The first view of slide 9 now traces medium-voltage AC through a conventional transformer into lower-voltage conversion electronics. The heat calculation is a separate view of that converter. Stepping down reduces semiconductor voltage stress. A direct medium-voltage design instead needs higher-rated devices or cascaded voltage-sharing cells and their supporting insulation, protection and controls. The cited SemiAnalysis discussion explicitly acknowledges the stacked-device route; the commercial constraint is not an absolute 10 kV rectification ceiling.
+
 This example isolates one AC/DC power supply: 480 V three-phase AC at its input and 800 V DC at its output. It represents the conversion function moved into a power rack or power room in the following architecture drawings. The supply may contain multiple internal conversion stages. It is not a UPS AC-to-DC-to-AC path or a model of the whole data center.
 
 Before this example’s 480 V AC input, a conventional transformer steps medium-voltage AC down and provides galvanic isolation. Lower AC voltage reduces the voltage stress handled by the following power electronics. The transformer’s own losses are outside the one-power-supply calculation shown here.

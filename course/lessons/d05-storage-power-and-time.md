@@ -26,6 +26,10 @@ For a separate, hypothetical 800 V rack bus, take an effective 0.20 F capacitanc
 
 This 15 ms is capacitor-only hold-up, not a UPS transfer time. The load is defined at the DC bus, so do not count downstream converter losses twice; if instead 1 MW were useful downstream output, bus power would include those losses. Once a battery or other source contributes, capacitor energy supplies only the remaining power deficit. More generally, the time integral of P_load − P_source equals the energy withdrawn from the capacitor. The ideal calculation ignores capacitance variation, ESR, wiring resistance and inductance; those affect actual voltage excursions and usable hold-up.
 
+Now allow the battery contribution at that same bus to rise linearly from zero to 1 MW during the first 10 ms. This assumed ramp starts at time zero; it does not wait for the 15 ms capacitor-only limit. The battery supplies 5 kJ and the capacitor supplies the other 5 kJ during those 10 ms. The capacitor deficit is the area of a triangle: ½ × 1 MW × 0.010 s = 5 kJ. Bus voltage reaches √(800² − 2 × 5,000/0.20) = 768.1 V, above the 700 V cutoff.
+
+From 10 ms onward the battery supplies the full 1 MW, so the capacitor no longer loses energy in this ideal model. Its voltage does not automatically return to 800 V: recharge requires power above the ongoing load. The UPS presenter sequence teaches both cases directly in the “Capacitor buffer” scene. Its 10 ms ramp is an assumed comparison, not a measurement of the photographed UPS.
+
 ## Solve one reserve-aware runtime
 
 Consider two hypothetical storage systems. Each begins with a stated 1.0 MWh energy inventory. The scenario permits an 80 percent usable operating window, leaving 0.8 MWh within that window. A policy then reserves 0.2 MWh at the battery-output accounting boundary. The energy available for this event is 0.8 − 0.2 = 0.6 MWh before the specified output conversion loss. This sequence avoids treating the reserve as both a fraction and another unannounced reduction.

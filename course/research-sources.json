@@ -177,7 +177,7 @@
         "D15"
       ],
       "use": "Compare low-voltage rack distribution, power sidecars and facility DC architectures; trace how current, conversion placement and protection interact. Checked forecast adoption dates and rack-shelf versus on-blade conversion in Phases 1–2.",
-      "caution": "Selected sections and the supplied battery-rack figure reviewed, not every claim in the report. Architecture dates and product labels are analyst forecasts. Its statement that rectifying medium voltage requires individual devices above 10 kV is too broad: series/cascaded cells divide voltage, as P21 and P22 demonstrate. The 10 kV announcement is specifically scoped in P23. The figure’s MV rectifier/SST block hides internal step-down, isolation and protection functions. Phase 4 timing is internally inconsistent: heading >2029, body early 2029."
+      "caution": "Selected sections and the supplied battery-rack figure reviewed, not every claim in the report. Architecture dates and product labels are analyst forecasts. Its statement that rectifying medium voltage requires individual devices above 10 kV is too broad: series/cascaded cells divide voltage, as P21 and P22 demonstrate. The 10 kV announcement is specifically scoped in P23. The figure’s MV rectifier/SST block hides internal step-down, isolation and protection functions. Phase 4 timing is internally inconsistent: heading >2029, body early 2029. The same MV-rectifier discussion explicitly acknowledges series-stacked silicon devices; teach the higher-voltage semiconductor constraint as a topology and commercialization tradeoff."
     },
     {
       "id": "P01",
@@ -2198,6 +2198,144 @@
       ],
       "use": "Distinguish zero output transfer time in online double-conversion operation from standby and line-interactive transfers.",
       "caution": "Reviewed topology and Online UPS sections. Zero transfer time is not a guarantee of zero internal transient or an equipment-specific battery-interface response time."
+    },
+    {
+      "id": "P33",
+      "title": "Texas Instruments — Basic Calculation of a Buck Converter’s Power Stage",
+      "url": "https://www.ti.com/lit/an/slva477b/slva477b.pdf",
+      "publisher": "Texas Instruments",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-11",
+      "domains": [
+        "D04",
+        "D05",
+        "D06"
+      ],
+      "use": "Figure 1 shows a buck converter made from switching, inductance and capacitance without a transformer.",
+      "caution": "Reviewed basic configuration and inductor-ripple discussion. The continuous-conduction calculation is not an 800 V converter or UPS design."
+    },
+    {
+      "id": "P41",
+      "title": "Texas Instruments — TIDA-00349 isolated DC/DC converter",
+      "url": "https://www.ti.com/tool/TIDA-00349",
+      "publisher": "Texas Instruments",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-11",
+      "domains": [
+        "D04",
+        "D05"
+      ],
+      "use": "Distinguish an isolated DC/DC converter system from its transformer: switching on the primary side and rectification on the secondary side are required functions.",
+      "caution": "Low-power reference-design overview and topology reviewed; no efficiency, dimensions or power rating are extrapolated to a data-center battery interface."
+    },
+    {
+      "id": "P34",
+      "title": "DOE — Beyond Land Leases: Harnessing Data Centers for Tribal Economic Development",
+      "url": "https://www.energy.gov/indianenergy/beyond-land-leases-harnessing-data-centers-tribal-economic-development-webinar",
+      "publisher": "US Department of Energy",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-11",
+      "domains": [
+        "D03",
+        "D11",
+        "D12",
+        "D13"
+      ],
+      "use": "DOE speakers connect land, power access, water and cooling choices, fiber, roads, local impacts and development timing.",
+      "caution": "Reviewed introductory transcript, especially the siting discussion. Speaker-specific projects and claimed performance are not adopted as general data-center facts."
+    },
+    {
+      "id": "P35",
+      "title": "USDA NRCS — Understanding Soil Risks and Hazards",
+      "url": "https://www.nrcs.usda.gov/sites/default/files/2023-01/Understanding-Soil-Risks-and-Hazards.pdf",
+      "publisher": "USDA Natural Resources Conservation Service",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-11",
+      "domains": [
+        "D12"
+      ],
+      "use": "Soil-survey limitations distinguish regional screening from parcel-specific investigation and contamination testing.",
+      "caution": "Reviewed introduction and Limitations of Soil Surveys, not every hazard chapter. No parcel conditions or geotechnical design values are established."
+    },
+    {
+      "id": "P36",
+      "title": "Railroad Commission of Texas — Oil and Gas Exploration and Surface Ownership",
+      "url": "https://www.rrc.texas.gov/about-us/faqs/oil-gas-faq/oil-gas-exploration-and-surface-ownership/",
+      "publisher": "Railroad Commission of Texas",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-11",
+      "domains": [
+        "D12"
+      ],
+      "use": "Texas surface and mineral estates can be separately owned; mineral development can entail reasonably necessary surface use subject to applicable limits.",
+      "caution": "Texas-specific general guidance. It neither determines the title of a particular parcel nor prescribes the rights needed for a data-center transaction."
+    },
+    {
+      "id": "P37",
+      "title": "EPA — Eligible Brownfields Planning Activities",
+      "url": "https://www.epa.gov/brownfields/eligible-planning-activities",
+      "publisher": "US Environmental Protection Agency",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-11",
+      "domains": [
+        "D12",
+        "D13"
+      ],
+      "use": "Phase I environmental assessment examines site history and conditions; Phase II can investigate contamination; cleanup planning depends on intended reuse.",
+      "caution": "Reviewed planning and assessment descriptions. Funding eligibility and liability protections are not inferred for any teaching parcel."
+    },
+    {
+      "id": "P38",
+      "title": "MLGW — 2025 xAI Update",
+      "url": "https://www.mlgw.com/images/content/files/pdf/new/xAI%202025%20Update.pdf",
+      "publisher": "Memphis Light, Gas and Water",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-11",
+      "domains": [
+        "D03",
+        "D12",
+        "D13"
+      ],
+      "use": "The Paul Lowery Road site reused the Electrolux facility and an existing 16-inch gas main; xAI paid for an 8-inch tap. The update separately describes a pending gas-capacity study at Tulane Road.",
+      "caution": "Historical 2025 utility update, not September 2026 operating status. The tap is not evidence that xAI built a regional gas pipeline; the two sites and their service states must remain distinct."
+    },
+    {
+      "id": "P39",
+      "title": "Energy Transfer — Q2 2026 investor presentation",
+      "url": "https://ir.energytransfer.com/static-files/c29697db-5336-4262-8bf3-3c6e409ccb19",
+      "publisher": "Energy Transfer",
+      "kind": "primary_reference",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-11",
+      "domains": [
+        "D03",
+        "D12",
+        "D13"
+      ],
+      "use": "Printed slide 3 reports a Q2 2026 agreement to construct gas-delivery facilities for Crusoe’s Abilene campus expansion.",
+      "caution": "Primary search-extracted slide text reviewed; full PDF fetch returned HTTP 403. An agreement is not operational completion. A separate bullet about a completed 14-mile Abilene lateral is not attributed to Crusoe without explicit linkage."
+    },
+    {
+      "id": "P40",
+      "title": "DOE — CHP Technologies: Gas Turbines",
+      "url": "https://betterbuildingssolutioncenter.energy.gov/sites/default/files/attachments/CHP_Gas_Turbines.pdf",
+      "publisher": "US Department of Energy",
+      "kind": "primary_reference",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-11",
+      "domains": [
+        "D03",
+        "D12"
+      ],
+      "use": "The fuel-supply discussion explains that insufficient site gas pressure requires a fuel-gas compressor.",
+      "caution": "Primary searchable PDF excerpt reviewed; full fetch returned HTTP 502. No generic pressure, efficiency or cost is adopted as an actual data-center turbine specification."
     }
   ]
 }

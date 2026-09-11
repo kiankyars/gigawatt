@@ -4,7 +4,7 @@
 
 ## Your next feedback pass
 
-1. **[UPS, bypass and redundancy](prototypes/ups-format.html): sixteen scenes,
+1. **[UPS, bypass and redundancy](prototypes/ups-format.html): seventeen scenes,
    part of D05.** Start here to review the latest visual format. Explain each
    diagram aloud and try the failure/maintenance controls.
 2. **[AC/DC foundations → 800 V](teach.html): twelve scenes, the D06 sample
@@ -26,13 +26,14 @@ changes made while the page is open. No website toggle is required.
 
 ## UPS, bypass and redundancy prototype
 
-Open [the UPS sequence](prototypes/ups-format.html). Its sixteen scenes move from
+Open [the UPS sequence](prototypes/ups-format.html). Its seventeen scenes move from
 the campus into one UPS, trace normal and battery operation, follow generator takeover, then compare forced
 static bypass, external maintenance bypass, N, N+1, N+2, 2N and 2(N+1).
 The product slide shows a real freestanding UPS cabinet and distinguishes its external
 UPS battery from rack battery backup units (BBUs). The electrical room is the
 placement chosen for this layout, not a universal rule.
-The same 100 kW load and hypothetical 50 kW modules anchor the comparison.
+The UPS-path and redundancy comparisons retain the 100 kW load and hypothetical
+50 kW modules. The capacitor scene explicitly introduces a separate DC-bus model.
 Remove modules, isolate a route or fail the shared bus; finish by raising demand
 to 150 kW without adding equipment. Let the changed paths and surviving capacity
 carry the explanation.
@@ -41,6 +42,13 @@ On **Generator handoff**, choose utility supplying, generator starting and gener
 supplying. The battery covers the interruption; accepted generator AC then feeds
 the rectifier. Source transfer occurs upstream, while bypass routes around UPS
 equipment. Bypass source-loss controls remain independent.
+
+On **Capacitor buffer**, compare the capacitor-only case with the **assumed 10 ms
+battery ramp**. This separate 1 MW DC-bus example starts at 800 V with 0.20 F and a
+700 V load-shutdown threshold. Capacitors alone supply 15 kJ before that threshold
+is reached at 15 ms. In the ramp case, battery power rises from time zero; the
+capacitor covers the overlapping 5 kJ deficit. The 15 ms limit is not a command to
+start the battery, and these values are not specifications of the UPS product.
 
 Use **Next / →**, **Back / ←**, the short-label slide selector and the diagram's buttons.
 Notes are hidden by default. The optional [rehearsal endpoint](prototypes/ups-format.html?rehearse=1)
@@ -95,13 +103,14 @@ answer, and use these checks to find where the explanation stops being clear:
 4. **Placement:** follow conversion from the rack to a sidecar or upstream power
    room. Identify released rack space and where equipment moved. A nearby sidecar
    still occupies space; moving a converter does not establish a net hall-area saving.
-5. **Conversion:** isolate one power supply, with 480 V three-phase AC input
-   and 800 V DC output. This is not the UPS AC→DC→AC path. Distinguish
-   conductor heating from loss inside the converter.
-   Resistance, switching, magnetic components and auxiliaries dissipate power;
-   the amount depends on equipment, loading, operating mode and temperature.
-   The explicitly illustrative 98% converter needs 102.04 kW input for 100 kW
-   output, leaving 2.04 kW as heat. This is not a measured AC/DC architecture advantage.
+5. **Slide 9 — why step down?** Start with the transformer providing AC voltage
+   reduction and isolation before the controlled AC/DC converter establishes
+   800 V DC. Rectification has no universal 10 kV ceiling; direct medium-voltage
+   conversion changes the equipment and voltage-sharing problem.
+   **Conversion heat** is optional: isolate one 480 V AC-to-800 V DC supply,
+   separate from the UPS AC→DC→AC path. With explicitly assumed 98% efficiency,
+   102.04 kW enters, 100 kW leaves and 2.04 kW becomes heat. Use this only to explain
+   losses inside the converter, not to claim a measured architecture advantage.
 6. **Ending:** return to the equipment-placement comparison. Identify what copper
    is removed, where conversion moves, and which space becomes available for
    compute. The dates are SemiAnalysis’s May 2026 forecast: the AC baseline,

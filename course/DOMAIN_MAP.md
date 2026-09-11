@@ -369,6 +369,10 @@ Compare utility-only and behind-the-meter supply against energy, capacity, fuel 
 - [E38B3BEAAC1 — NARUC — Regulators’ Financial Toolbox: Behind-the-Meter Energy Storage](https://pubs.naruc.org/pub/6233DBE2-B58B-52FF-925E-250DD26DECF9) · `public_excerpt_reviewed` · [local note](../research/sources/E38B3BEAAC1.md)
 - [E0410763323 — DOE — Solar Integration: Distributed Energy Resources and Microgrids Basics](https://www.energy.gov/cmei/systems/solar-integration-distributed-energy-resources-and-microgrids-basics) · `page_reviewed` · [local note](../research/sources/E0410763323.md)
 - [SA41 — What is So Hard About Behind-The-Meter Power For Datacenters? Part 1](https://newsletter.semianalysis.com/p/what-is-so-hard-about-behind-the) · `public_excerpt_reviewed` · [local note](../research/sources/SA41.md)
+- [P34 — DOE — Beyond Land Leases: Harnessing Data Centers for Tribal Economic Development](https://www.energy.gov/indianenergy/beyond-land-leases-harnessing-data-centers-tribal-economic-development-webinar) · `page_reviewed` · [local note](../research/sources/P34.md)
+- [P38 — MLGW — 2025 xAI Update](https://www.mlgw.com/images/content/files/pdf/new/xAI%202025%20Update.pdf) · `page_reviewed` · [local note](../research/sources/P38.md)
+- [P39 — Energy Transfer — Q2 2026 investor presentation](https://ir.energytransfer.com/static-files/c29697db-5336-4262-8bf3-3c6e409ccb19) · `public_excerpt_reviewed` · [local note](../research/sources/P39.md)
+- [P40 — DOE — CHP Technologies: Gas Turbines](https://betterbuildingssolutioncenter.energy.gov/sites/default/files/attachments/CHP_Gas_Turbines.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P40.md)
 
 <a id="d04"></a>
 
@@ -460,6 +464,8 @@ Reconcile IT and auxiliary loads with a downstream electrical capacity budget ac
 - [P25 — Texas Instruments — Power Loss in Switching Power Supplies](https://www.ti.com/document-viewer/lit/html/SLUAAL9) · `page_reviewed` · [local note](../research/sources/P25.md)
 - [P29 — Eaton — Automatic transfer switch fundamentals](https://www.eaton.com/us/en-us/products/low-voltage-power-distribution-control-systems/automatic-transfer-switches/automatic-transfer-switch-fundamentals.html) · `page_reviewed` · [local note](../research/sources/P29.md)
 - [P30 — Schneider Electric — Presence of an Uninterruptible Power Supply (UPS)](https://www.electrical-installation.org/enwiki/Presence_of_an_Uninterruptible_Power_Supply_%28UPS%29) · `page_reviewed` · [local note](../research/sources/P30.md)
+- [P33 — Texas Instruments — Basic Calculation of a Buck Converter’s Power Stage](https://www.ti.com/lit/an/slva477b/slva477b.pdf) · `page_reviewed` · [local note](../research/sources/P33.md)
+- [P41 — Texas Instruments — TIDA-00349 isolated DC/DC converter](https://www.ti.com/tool/TIDA-00349) · `page_reviewed` · [local note](../research/sources/P41.md)
 
 <a id="d05"></a>
 
@@ -563,6 +569,8 @@ Explain why fault clearing and grounding require topology-specific AC/DC protect
 - [P30 — Schneider Electric — Presence of an Uninterruptible Power Supply (UPS)](https://www.electrical-installation.org/enwiki/Presence_of_an_Uninterruptible_Power_Supply_%28UPS%29) · `page_reviewed` · [local note](../research/sources/P30.md)
 - [P31 — Eaton — DC-link capacitor modules](https://www.eaton.com/gb/en-gb/products/electronic-components/topics/dc-link-modules.html) · `page_reviewed` · [local note](../research/sources/P31.md)
 - [P32 — Eaton — Choosing the optimal UPS topology](https://www.eaton.com/us/en-us/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/choosing-the-optimal-ups-topology-.html) · `page_reviewed` · [local note](../research/sources/P32.md)
+- [P33 — Texas Instruments — Basic Calculation of a Buck Converter’s Power Stage](https://www.ti.com/lit/an/slva477b/slva477b.pdf) · `page_reviewed` · [local note](../research/sources/P33.md)
+- [P41 — Texas Instruments — TIDA-00349 isolated DC/DC converter](https://www.ti.com/tool/TIDA-00349) · `page_reviewed` · [local note](../research/sources/P41.md)
 
 <a id="d06"></a>
 
@@ -663,6 +671,7 @@ Explain how retrofit constraints can reverse a seemingly attractive greenfield a
 - [P25 — Texas Instruments — Power Loss in Switching Power Supplies](https://www.ti.com/document-viewer/lit/html/SLUAAL9) · `page_reviewed` · [local note](../research/sources/P25.md)
 - [P28 — Open Compute Project — Open Rack V3 BBU Module Specification 1.4](https://www.opencompute.org/documents/open-rack-v3-bbu-module-spec-1-4-pdf) · `page_reviewed` · [local note](../research/sources/P28.md)
 - [P31 — Eaton — DC-link capacitor modules](https://www.eaton.com/gb/en-gb/products/electronic-components/topics/dc-link-modules.html) · `page_reviewed` · [local note](../research/sources/P31.md)
+- [P33 — Texas Instruments — Basic Calculation of a Buck Converter’s Power Stage](https://www.ti.com/lit/an/slva477b/slva477b.pdf) · `page_reviewed` · [local note](../research/sources/P33.md)
 
 <a id="d07"></a>
 
@@ -1116,6 +1125,7 @@ Evaluate cooling architecture or heat reuse against climate, water, electrical c
 - [P15 — Liquid to Liquid CDU Test Methodology and Performance Rating — Revision 1.0](https://www.opencompute.org/documents/ocp-wp-l-lcdu-test-methodology-performance-rating-r1-pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P15.md)
 - [E89E077D5C1 — DOE FEMP: Cooling Tower Management](https://www.energy.gov/cmei/femp/best-management-practice-10-cooling-tower-management) · `page_reviewed` · [local note](../research/sources/E89E077D5C1.md)
 - [E6DF2655A78 — USGS National Water Availability Assessment Data Companion](https://waterdata.usgs.gov/blog/nwdc-overview/) · `page_reviewed` · [local note](../research/sources/E6DF2655A78.md)
+- [P34 — DOE — Beyond Land Leases: Harnessing Data Centers for Tribal Economic Development](https://www.energy.gov/indianenergy/beyond-land-leases-harnessing-data-centers-tribal-economic-development-webinar) · `page_reviewed` · [local note](../research/sources/P34.md)
 
 <a id="d12"></a>
 
@@ -1127,7 +1137,8 @@ Make spatial, environmental, access and safety constraints visible before treati
 
 **Included scope:**
 
-- Land, geotechnical and civil interfaces; buildings, structural loading and floor layouts
+- Parcel feasibility, land control, usable acreage, geotechnical and civil conditions; buildings, structural loading and floor layouts
+- Site-specific power and gas delivery, cooling/water, fiber routes, easements, title and mineral/surface rights; industrial reuse and contamination
 - Flood, seismic, weather and other site hazards as jurisdiction-specific inputs
 - Equipment access, lifting, replacement routes, egress and service clearances
 - Fire detection/suppression, electrical hazards and battery/fuel arrangements at conceptual level
@@ -1147,9 +1158,9 @@ Translate a reference equipment layout into space, weight, access and replacemen
 
 #### D12.2
 
-Identify site hazards and permitting interfaces that require location-specific evidence.
+Evaluate whether a parcel can support the required phased campus by checking usable land, utility delivery, site conditions, rights and permissions.
 
-**Assessment:** Build a siting risk register for two hypothetical locations and distinguish generic questions from verified local requirements.
+**Assessment:** Compare two hypothetical parcels against one capacity, area and opening-date brief. Identify the binding constraint, distinguish nearby infrastructure from deliverable service, and name the evidence that could change the choice.
 
 **Historical introduction coverage:** missing. No existing lesson mapped.
 
@@ -1175,9 +1186,9 @@ Trace physical and control-system access boundaries and explain why availability
 - Interaction: Switch a hall between normal operation, equipment replacement and emergency-access views; reveal footprints and clearance envelopes.
 - Model boundary: Illustrative envelopes are not code-compliant dimensions. Applicable requirements depend on jurisdiction, equipment and design review.
 
-**Worked example:** Fit a hypothetical rack and replacement route into a supplied floor plan using declared dimensions and structural limits.
+**Worked example:** Compare two hypothetical parcels using usable acreage, dated services and land-control terms, then fit a rack and replacement route within the selected building using declared dimensions and structural limits.
 
-**Design tradeoff:** Density and compactness must be weighed against access, hazard separation, replacement logistics and expansion space.
+**Design tradeoff:** A larger or cheaper tract can offer expansion space while losing the first phase to utility delivery, civil conditions or unresolved rights; compact layouts still need access and replacement space.
 
 **Failure or maintenance scenario:** A component cannot be replaced while maintaining the planned service path, despite adequate spare electrical capacity.
 
@@ -1198,6 +1209,13 @@ Trace physical and control-system access boundaries and explain why availability
 - [E7A716A810E — Leviton — Data center white space and gray space](https://leviton.com/support/literature/newsletters/insider/insideroctober2025/focusedproductoctober2025) · `page_reviewed` · [local note](../research/sources/E7A716A810E.md)
 - [EFE70308E0A — Vertiv — Deploying Liquid Cooling in the Data Center](https://prod.vertiv.cn/4a9616/globalassets/documents/white-papers/liquid-cooling/vertiv-liquidcooling-wp-en-na-sl-71113-web.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/EFE70308E0A.md)
 - [SA41 — What is So Hard About Behind-The-Meter Power For Datacenters? Part 1](https://newsletter.semianalysis.com/p/what-is-so-hard-about-behind-the) · `public_excerpt_reviewed` · [local note](../research/sources/SA41.md)
+- [P34 — DOE — Beyond Land Leases: Harnessing Data Centers for Tribal Economic Development](https://www.energy.gov/indianenergy/beyond-land-leases-harnessing-data-centers-tribal-economic-development-webinar) · `page_reviewed` · [local note](../research/sources/P34.md)
+- [P35 — USDA NRCS — Understanding Soil Risks and Hazards](https://www.nrcs.usda.gov/sites/default/files/2023-01/Understanding-Soil-Risks-and-Hazards.pdf) · `page_reviewed` · [local note](../research/sources/P35.md)
+- [P36 — Railroad Commission of Texas — Oil and Gas Exploration and Surface Ownership](https://www.rrc.texas.gov/about-us/faqs/oil-gas-faq/oil-gas-exploration-and-surface-ownership/) · `page_reviewed` · [local note](../research/sources/P36.md)
+- [P37 — EPA — Eligible Brownfields Planning Activities](https://www.epa.gov/brownfields/eligible-planning-activities) · `page_reviewed` · [local note](../research/sources/P37.md)
+- [P38 — MLGW — 2025 xAI Update](https://www.mlgw.com/images/content/files/pdf/new/xAI%202025%20Update.pdf) · `page_reviewed` · [local note](../research/sources/P38.md)
+- [P39 — Energy Transfer — Q2 2026 investor presentation](https://ir.energytransfer.com/static-files/c29697db-5336-4262-8bf3-3c6e409ccb19) · `public_excerpt_reviewed` · [local note](../research/sources/P39.md)
+- [P40 — DOE — CHP Technologies: Gas Turbines](https://betterbuildingssolutioncenter.energy.gov/sites/default/files/attachments/CHP_Gas_Turbines.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P40.md)
 
 <a id="d13"></a>
 
@@ -1292,6 +1310,10 @@ Specify an integrated acceptance and handover plan for a phased deployment.
 - [E50E0F856B0 — GAO Schedule Assessment Guide](https://www.gao.gov/products/gao-16-89g) · `page_reviewed` · [local note](../research/sources/E50E0F856B0.md)
 - [ECB7071035F — WBDG: Commissioning Documents](https://legacy.wbdg.org/building-commissioning/commissioning-documents) · `page_reviewed` · [local note](../research/sources/ECB7071035F.md)
 - [SA41 — What is So Hard About Behind-The-Meter Power For Datacenters? Part 1](https://newsletter.semianalysis.com/p/what-is-so-hard-about-behind-the) · `public_excerpt_reviewed` · [local note](../research/sources/SA41.md)
+- [P34 — DOE — Beyond Land Leases: Harnessing Data Centers for Tribal Economic Development](https://www.energy.gov/indianenergy/beyond-land-leases-harnessing-data-centers-tribal-economic-development-webinar) · `page_reviewed` · [local note](../research/sources/P34.md)
+- [P37 — EPA — Eligible Brownfields Planning Activities](https://www.epa.gov/brownfields/eligible-planning-activities) · `page_reviewed` · [local note](../research/sources/P37.md)
+- [P38 — MLGW — 2025 xAI Update](https://www.mlgw.com/images/content/files/pdf/new/xAI%202025%20Update.pdf) · `page_reviewed` · [local note](../research/sources/P38.md)
+- [P39 — Energy Transfer — Q2 2026 investor presentation](https://ir.energytransfer.com/static-files/c29697db-5336-4262-8bf3-3c6e409ccb19) · `public_excerpt_reviewed` · [local note](../research/sources/P39.md)
 
 <a id="d14"></a>
 

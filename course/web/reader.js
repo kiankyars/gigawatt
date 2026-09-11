@@ -250,7 +250,14 @@ function renderLesson() {
     `Objectives<br>${l.objectives.map((o) => `<span>${esc(o)}</span>`).join("")}`;
   const visual = l.visual;
   $("concept").hidden = !visual;
-  if (visual) {
+  $("concept").classList.remove("parcel-concept");
+  if (visual?.kind === "parcel") {
+    $("prose").closest(".reading-layout").before($("concept"));
+    renderParcelComparison(visual);
+  } else {
+    $("lab").before($("concept"));
+  }
+  if (visual && visual.kind !== "parcel") {
     $("concept").innerHTML =
       `<div class="eyebrow">THE MECHANISM AT A GLANCE</div><h2 id="concept-title">${esc(visual.title)}</h2><div class="concept-grid">${visual.nodes.map((n, i) => `<div class="concept-node"><span>${String(i + 1).padStart(2, "0")}</span><h3>${esc(n.label)}</h3><p>${esc(n.detail)}</p></div>`).join("")}</div><p class="boundary">Read these roles with the explanation above. The cards summarize relationships; their order and spacing do not specify a physical circuit or a quantitative flow scale.</p>`;
   }
@@ -278,6 +285,52 @@ function renderLesson() {
     current === LESSONS.length - 1 ? "Back to start ↻" : "Next lesson →";
   renderLab(l);
 }
+function renderParcelComparison(visual) {
+  const brief = visual.brief;
+  $("concept").classList.add("parcel-concept");
+  $("concept").innerHTML =
+    `<div class="eyebrow">ONE BRIEF · TWO PARCELS</div><h2 id="concept-title">${esc(visual.title)}</h2><ul class="parcel-brief"><li>${brief.power_mw} MW at the customer bus</li><li>${brief.campus_acres} usable acres</li><li>${brief.fiber_routes} separate fiber routes</li></ul><div class="parcel-picker" role="group" aria-label="Choose a hypothetical parcel">${visual.parcels.map((p, i) => `<button data-parcel="${esc(p.id)}" aria-pressed="${i === 0}">${esc(p.label)} <span>${p.gross_acres} gross ac</span></button>`).join("")}</div><div id="parcel-view"></div><p class="boundary">${esc(visual.caption)}</p>`;
+  const update = (id) => {
+    const p = visual.parcels.find((parcel) => parcel.id === id);
+    const usable = p.gross_acres - p.drainage_acres - p.easement_acres;
+    const ready = Math.max(...Object.values(p.readiness));
+    const constraint = Object.entries(p.readiness).find(
+      ([, month]) => month === ready,
+    )[0];
+    const pass =
+      usable >= brief.campus_acres &&
+      ready <= brief.deadline_month &&
+      p.rights_resolved &&
+      p.control_month >= ready;
+    const scale =
+      600 / Math.max(...visual.parcels.map((parcel) => parcel.gross_acres));
+    const parcelWidth = p.gross_acres * scale;
+    const drainageWidth = p.drainage_acres * scale;
+    const easementWidth = p.easement_acres * scale;
+    const usableX = 20 + drainageWidth + easementWidth;
+    const usableWidth = usable * scale;
+    const campusWidth = brief.campus_acres * scale;
+    const campusX = usableX + (usableWidth - campusWidth) / 2;
+    const campusCenter = campusX + campusWidth / 2;
+    $("concept")
+      .querySelectorAll("[data-parcel]")
+      .forEach((button) =>
+        button.setAttribute(
+          "aria-pressed",
+          String(button.dataset.parcel === id),
+        ),
+      );
+    $("parcel-view").innerHTML =
+      `<div class="parcel-map"><svg viewBox="0 0 640 330" role="img" aria-label="${esc(p.label)}: ${p.gross_acres} gross acres, ${p.drainage_acres} drainage and flood exclusion acres, ${p.easement_acres} easement acres, ${usable} usable acres. The supplied 40-acre campus envelope fits. Equipment and route locations are schematic."><rect x="20" y="60" width="${parcelWidth}" height="180" rx="5" class="parcel-land"/><path d="M20 60h${drainageWidth}v180H20Z" class="parcel-drainage"/><path d="M${20 + drainageWidth} 60h${easementWidth}v180h-${easementWidth}Z" class="parcel-easement"/><path d="M${20 + drainageWidth + easementWidth / 2} 70v160" class="parcel-corridor"/><rect x="${campusX}" y="60" width="${campusWidth}" height="180" class="parcel-envelope"/><rect x="${campusX + campusWidth * 0.12}" y="106" width="${campusWidth * 0.43}" height="84" rx="4" class="parcel-building"/><path d="M${campusX + campusWidth * 0.19} 122h${campusWidth * 0.28}M${campusX + campusWidth * 0.19} 147h${campusWidth * 0.28}M${campusX + campusWidth * 0.19} 173h${campusWidth * 0.28}" class="parcel-roof"/><rect x="${campusX + campusWidth * 0.65}" y="112" width="${campusWidth * 0.22}" height="32" rx="3" class="parcel-plant"/><rect x="${campusX + campusWidth * 0.65}" y="158" width="${campusWidth * 0.22}" height="32" rx="3" class="parcel-plant"/><path d="M${campusCenter} 18v42" class="parcel-grid-line"/><circle cx="${campusCenter}" cy="18" r="6" class="parcel-grid-point"/><text x="${campusCenter + 14}" y="25" class="parcel-map-label">Grid · month ${p.readiness.Power}</text><text x="${campusCenter}" y="88" text-anchor="middle" class="parcel-map-label">${brief.campus_acres} ac campus</text><path d="M${campusX + campusWidth * 0.2} 240v30H35M${campusX + campusWidth * 0.8} 240v64H605" class="parcel-fiber-line"/><circle cx="35" cy="270" r="5" class="parcel-fiber-point"/><circle cx="605" cy="304" r="5" class="parcel-fiber-point"/><text x="43" y="294" class="parcel-route-label">Fiber 1</text><text x="600" y="287" text-anchor="end" class="parcel-route-label">Fiber 2</text></svg><div class="parcel-area-ledger"><span><i class="parcel-key drainage"></i>Drainage / flood <b>${p.drainage_acres} ac</b></span><span><i class="parcel-key easement"></i>Easements <b>${p.easement_acres} ac</b></span><span><i class="parcel-key usable"></i>Usable <b>${usable} ac</b></span></div></div><div class="parcel-verdict ${pass ? "passes" : "blocked"}" role="status"><strong>${pass ? `${esc(p.label)} meets the month-${brief.deadline_month} brief` : `${esc(p.label)} misses the month-${brief.deadline_month} brief`}</strong><span>Services ready in month ${ready} · ${esc(constraint === "Two fiber routes" ? "the second fiber route" : constraint.toLowerCase())} sets the date${p.rights_resolved ? "" : "; land control remains unresolved"}.</span></div><dl class="parcel-decisions">${p.decisions.map((decision) => `<div class="${esc(decision.status)}"><dt>${esc(decision.label)}${decision.status === "pass" ? "" : `<span>${decision.status === "late" ? "Late" : "Unresolved"}</span>`}</dt><dd>${esc(decision.detail)}</dd></div>`).join("")}</dl>`;
+  };
+  $("concept")
+    .querySelectorAll("[data-parcel]")
+    .forEach((button) =>
+      button.addEventListener("click", () => update(button.dataset.parcel)),
+    );
+  update(visual.parcels[0].id);
+}
+
 function control(id, label, min, max, step, value, unit) {
   return `<div class="lab-control"><label for="${id}">${esc(label)} <output id="${id}-value">${value} ${unit}</output></label><input id="${id}" type="range" min="${min}" max="${max}" step="${step}" value="${value}" data-unit="${unit}"></div>`;
 }
@@ -288,6 +341,11 @@ function barChart(rows, max, label) {
   return `<div class="bars" role="img" aria-label="${esc(label)}">${rows.map(([title, value, color]) => `<div class="bar-item"><div class="bar-label"><span>${esc(title)}</span><b>${fmt(value)}</b></div><div class="bar-track"><div style="width:${Math.max(0, (value / max) * 100)}%;background:${color}"></div></div></div>`).join("")}</div>`;
 }
 function renderLab(l) {
+  if (l.visual?.kind === "parcel") {
+    $("lab").hidden = true;
+    $("lab").replaceChildren();
+    return;
+  }
   let type =
     l.lab ||
     {

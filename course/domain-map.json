@@ -746,7 +746,8 @@
       "question": "What must the actual place support beyond electrical and thermal ratings?",
       "purpose": "Make spatial, environmental, access and safety constraints visible before treating a schematic as buildable.",
       "scope": [
-        "Land, geotechnical and civil interfaces; buildings, structural loading and floor layouts",
+        "Parcel feasibility, land control, usable acreage, geotechnical and civil conditions; buildings, structural loading and floor layouts",
+        "Site-specific power and gas delivery, cooling/water, fiber routes, easements, title and mineral/surface rights; industrial reuse and contamination",
         "Flood, seismic, weather and other site hazards as jurisdiction-specific inputs",
         "Equipment access, lifting, replacement routes, egress and service clearances",
         "Fire detection/suppression, electrical hazards and battery/fuel arrangements at conceptual level",
@@ -766,8 +767,8 @@
         },
         {
           "id": "D12.2",
-          "capability": "Identify site hazards and permitting interfaces that require location-specific evidence.",
-          "assessment": "Build a siting risk register for two hypothetical locations and distinguish generic questions from verified local requirements.",
+          "capability": "Evaluate whether a parcel can support the required phased campus by checking usable land, utility delivery, site conditions, rights and permissions.",
+          "assessment": "Compare two hypothetical parcels against one capacity, area and opening-date brief. Identify the binding constraint, distinguish nearby infrastructure from deliverable service, and name the evidence that could change the choice.",
           "baseline_coverage": "missing",
           "baseline_lessons": []
         },
@@ -792,8 +793,8 @@
         "prediction": "Can a higher-density rack reduce rack count while making the existing building harder to use?",
         "boundary": "Illustrative envelopes are not code-compliant dimensions. Applicable requirements depend on jurisdiction, equipment and design review."
       },
-      "worked_example": "Fit a hypothetical rack and replacement route into a supplied floor plan using declared dimensions and structural limits.",
-      "tradeoff": "Density and compactness must be weighed against access, hazard separation, replacement logistics and expansion space.",
+      "worked_example": "Compare two hypothetical parcels using usable acreage, dated services and land-control terms, then fit a rack and replacement route within the selected building using declared dimensions and structural limits.",
+      "tradeoff": "A larger or cheaper tract can offer expansion space while losing the first phase to utility delivery, civil conditions or unresolved rights; compact layouts still need access and replacement space.",
       "failure": "A component cannot be replaced while maintaining the planned service path, despite adequate spare electrical capacity."
     },
     {

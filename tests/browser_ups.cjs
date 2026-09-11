@@ -176,6 +176,7 @@ const sceneIds = [
         "equipment",
         "normal",
         "outage",
+        "capacitors",
         "generator",
         "static-bypass",
         "maintenance-bypass",
@@ -185,6 +186,7 @@ const sceneIds = [
         const circuitScene = [
           "normal",
           "outage",
+          "capacitors",
           "generator",
           "static-bypass",
           "maintenance-bypass",
@@ -328,7 +330,12 @@ const sceneIds = [
       await page.setViewportSize(size);
       for (const colorScheme of ["light", "dark"]) {
         await page.emulateMedia({ colorScheme });
-        for (const id of ["campus", "electrical-room", "equipment"]) {
+        for (const id of [
+          "campus",
+          "electrical-room",
+          "equipment",
+          "capacitors",
+        ]) {
           await navigate(id);
           const theme = await page.evaluate(() => ({
             declared: getComputedStyle(document.documentElement).colorScheme,
@@ -347,6 +354,45 @@ const sceneIds = [
             theme.background,
             `${id}: heading invisible in ${colorScheme}`,
           );
+          if (id === "capacitors") {
+            const choose = (mode) =>
+              page.locator(
+                `#exercise-controls [data-capacitor-mode="${mode}"]`,
+              );
+            assert.equal(
+              await choose("alone").getAttribute("aria-pressed"),
+              "true",
+            );
+            assert.match(await page.locator("#circuit").textContent(), /15 kJ/);
+            assert.match(await page.locator("#circuit").textContent(), /49 kJ/);
+            await choose("ramp").click();
+            assert.equal(
+              await choose("ramp").getAttribute("aria-pressed"),
+              "true",
+            );
+            assert.match(await page.locator("#circuit").textContent(), /5 kJ/);
+            assert.match(
+              await page.locator("#circuit").textContent(),
+              /768.1 V/,
+            );
+            assert.match(
+              await page.locator(".state-strip").innerText(),
+              /Separate DC bus.*1 MW load/s,
+            );
+            const activeColor = await choose("ramp").evaluate(
+              (e) => getComputedStyle(e).backgroundColor,
+            );
+            const idleColor = await choose("alone").evaluate(
+              (e) => getComputedStyle(e).backgroundColor,
+            );
+            assert.notEqual(
+              activeColor,
+              idleColor,
+              "Capacitor scenario selection must be visible",
+            );
+            await choose("alone").click();
+            assert.match(await page.locator("#circuit").textContent(), /15 kJ/);
+          }
           if (id === "equipment") {
             assert.equal(
               await page
@@ -455,6 +501,8 @@ const sceneIds = [
     await page.locator("#title").click();
     await page.keyboard.press("ArrowRight");
     await page.waitForURL(/#outage$/);
+    await page.keyboard.press("PageDown");
+    await page.waitForURL(/#capacitors$/);
     await page.keyboard.press("PageDown");
     await page.waitForURL(/#generator$/);
     await page.keyboard.press("PageDown");
@@ -566,7 +614,7 @@ const sceneIds = [
     }
     assert.deepEqual(errors, []);
     console.log(
-      "Passed 64 scene layouts, 12 introductory theme views, real product photograph and caption visibility, no competing subtitles, bypass-source loss/restoration, 14 redundancy cases, SVG exclusivity, optional notes sync and keyboard navigation.",
+      "Passed 68 scene layouts, 16 theme views and capacitor scenario controls, real product photograph and caption visibility, no competing subtitles, bypass-source loss/restoration, 14 redundancy cases, SVG exclusivity, optional notes sync and keyboard navigation.",
     );
   } finally {
     await browser.close();

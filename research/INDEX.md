@@ -153,6 +153,15 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P30 — Schneider Electric — Presence of an Uninterruptible Power Supply (UPS)](sources/P30.md) | Schneider Electric | D04, D05 | page_reviewed |
 | [P31 — Eaton — DC-link capacitor modules](sources/P31.md) | Eaton | D05, D06 | page_reviewed |
 | [P32 — Eaton — Choosing the optimal UPS topology](sources/P32.md) | Eaton | D05 | page_reviewed |
+| [P33 — Texas Instruments — Basic Calculation of a Buck Converter’s Power Stage](sources/P33.md) | Texas Instruments | D04, D05, D06 | page_reviewed |
+| [P34 — DOE — Beyond Land Leases: Harnessing Data Centers for Tribal Economic Development](sources/P34.md) | US Department of Energy | D03, D11, D12, D13 | page_reviewed |
+| [P35 — USDA NRCS — Understanding Soil Risks and Hazards](sources/P35.md) | USDA Natural Resources Conservation Service | D12 | page_reviewed |
+| [P36 — Railroad Commission of Texas — Oil and Gas Exploration and Surface Ownership](sources/P36.md) | Railroad Commission of Texas | D12 | page_reviewed |
+| [P37 — EPA — Eligible Brownfields Planning Activities](sources/P37.md) | US Environmental Protection Agency | D12, D13 | page_reviewed |
+| [P38 — MLGW — 2025 xAI Update](sources/P38.md) | Memphis Light, Gas and Water | D03, D12, D13 | page_reviewed |
+| [P39 — Energy Transfer — Q2 2026 investor presentation](sources/P39.md) | Energy Transfer | D03, D12, D13 | public_excerpt_reviewed |
+| [P40 — DOE — CHP Technologies: Gas Turbines](sources/P40.md) | US Department of Energy | D03, D12 | public_excerpt_reviewed |
+| [P41 — Texas Instruments — TIDA-00349 isolated DC/DC converter](sources/P41.md) | Texas Instruments | D04, D05 | page_reviewed |
 | [SA01 — Datacenter Anatomy Part 1: Electrical Systems](sources/SA01.md) | SemiAnalysis | D04, D05, D06, D13, D15 | public_excerpt_reviewed |
 | [SA02 — Datacenter Anatomy Part 2 – Cooling Systems](sources/SA02.md) | SemiAnalysis | D10, D11, D15 | public_excerpt_reviewed |
 | [SA03 — 100,000 H100 Clusters: Power, Network Topology, Ethernet vs InfiniBand, Reliability, Failures, Checkpointing](sources/SA03.md) | SemiAnalysis | D02, D07, D08, D09, D14 | public_excerpt_reviewed |

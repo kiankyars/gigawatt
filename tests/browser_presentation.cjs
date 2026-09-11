@@ -97,6 +97,44 @@ let browser;
           await page.locator("#next").isDisabled(),
           step.id === "conversion-farther-upstream",
         );
+        if (step.kind === "conversion-loss") {
+          assert.equal(await page.locator(".stepdown-path section").count(), 3);
+          const supplyBounds = await page.evaluate(() => ({
+            width: document.documentElement.scrollWidth,
+            bottom: document
+              .querySelector(".stepdown-example")
+              .getBoundingClientRect().bottom,
+            footer: document.querySelector(".transport").getBoundingClientRect()
+              .top,
+            titleBottom: document
+              .querySelector("#scene-title")
+              .getBoundingClientRect().bottom,
+            controlsTop: document
+              .querySelector(".conversion-views")
+              .getBoundingClientRect().top,
+          }));
+          assert.ok(
+            supplyBounds.width <= viewport.width + 1,
+            "Step-down diagram overflows horizontally",
+          );
+          assert.ok(
+            supplyBounds.bottom <= supplyBounds.footer + 1,
+            "Step-down diagram overlaps navigation",
+          );
+          assert.ok(
+            supplyBounds.titleBottom <= supplyBounds.controlsTop + 1,
+            "Step-down controls overlap headline",
+          );
+          await page.screenshot({
+            path: `${output}/${mode}-stepdown-${viewport.width}.png`,
+            fullPage: true,
+          });
+          await page.locator('[data-converter-view="heat"]').click();
+          assert.equal(
+            await page.locator("#scene-title").textContent(),
+            step.heat_headline,
+          );
+        }
         for (const revealed of revealKinds.has(step.kind)
           ? [false, true]
           : [false]) {
@@ -352,6 +390,7 @@ let browser;
   await notes.waitForURL(/#ac-dc-ledger$/);
   assert.equal(await page.locator("#dc-conversion").count(), 0);
   assert.equal(await page.locator("#next").isDisabled(), false);
+  await page.locator('[data-converter-view="heat"]').click();
   assert.match(await page.locator(".power-port").first().innerText(), /\?/);
   await notes.locator("#notes-reveal").click();
   await page.waitForFunction(() =>
@@ -458,6 +497,7 @@ let browser;
     });
   }
   await fresh("student", "ac-dc-ledger");
+  await page.locator('[data-converter-view="heat"]').click();
   await page.locator("#reveal").click();
   await page.screenshot({
     path: resolve(output, "student-ledger-mobile.png"),

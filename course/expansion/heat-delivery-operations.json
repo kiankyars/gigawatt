@@ -556,81 +556,113 @@
   {
     "id": "d12-hazards-and-site-evidence",
     "domain": "D12",
-    "title": "The site boundary does not stop the hazard",
-    "question": "What evidence distinguishes an attractive parcel from a deliverable and resilient location?",
-    "summary": "Connect hazards to exposed assets and service dependencies, then use explicit hypothetical probabilities without turning them into a site forecast.",
-    "takeaway": "A site comparison needs local evidence and consequence paths. A hazard score or map color cannot establish facility performance.",
+    "title": "Choose a site that can deliver the first phase",
+    "question": "Which parcel can support the required campus, with usable land and services ready on time?",
+    "summary": "Compare two parcels by usable area, utility delivery, cooling, fiber, land rights and permissions. Follow the constraint that prevents opening, rather than choosing the largest tract.",
+    "takeaway": "Nearby infrastructure and gross acreage are starting points. A site needs usable space, enforceable rights and services that meet the same capacity and date.",
     "objectives": [
       "D12.2"
     ],
     "sections": [
       {
-        "heading": "A hazard becomes a service problem through an exposed path",
+        "heading": "Start with a campus requirement, not a land listing",
         "paragraphs": [
-          "A hazard describes a potentially damaging condition. Exposure identifies the equipment, people and infrastructure that can encounter it. Vulnerability concerns how that exposed system responds. Consequence asks what happens to the intended service. These are different questions. A flood near the parcel may spare the data hall while disabling the access road, utility substation or fuel delivery route. Conversely, evidence of a regional hazard does not prove that a particular protected installation will fail.",
-          "National Weather Service material identifies several flood mechanisms, including intense rainfall and river overflow. USGS explains that seismic hazard assessment considers faults, wave propagation and local near-surface conditions. Those references establish why a single generic city label is insufficient. They do not provide the parcel’s elevations, drainage capacity, soil response, equipment anchorage or operating plan. An actual site assessment must identify which local documents and specialists resolve those missing details.",
-          "Draw the facility’s dependencies outside the fence. Trace electrical supply, water, telecommunications, road access and shared emergency resources. Two routes that appear independent on a building drawing may share the same bridge, trench or regional constraint. The question is not simply how many providers have contracts; it is which physical failure or operating restriction can affect them together. Keep uncertainty visible when that topology is unavailable."
+          "In this original example, the first phase needs 60 MW delivered at the customer bus, including the stated campus auxiliaries, a 40-acre campus envelope, two physically separate fiber routes, and opening by month 24. The campus envelope includes the buildings, electrical and cooling plant, access and service areas. It is a supplied layout requirement, not an acres-per-megawatt rule. Compare every parcel against that same brief.",
+          "A parcel’s price and acreage cannot establish whether that campus can be built. A utility line may be nearby without available capacity. A large tract may lose useful area to drainage or existing rights of way. A land option may expire before the project can resolve its conditions. Keep each unresolved fact visible; a weighted score cannot compensate for a condition that prevents the first phase."
         ]
       },
       {
-        "heading": "A risk register should lead to a decision",
+        "heading": "Confirm the power and fuel that can reach the site",
         "paragraphs": [
-          "A useful site register connects each question to an owner, evidence, consequence and decision. For example: could stormwater isolate the service yard; which civil survey and drainage model address it; who reviews the result; and what layout or project decision changes if the result is unfavorable? A generic list of weather words can look comprehensive without answering any of these questions. The register earns its place when a missing fact has a clear route to resolution.",
-          "Permitting is another dependency graph. Air emissions, noise, water abstraction, discharge, construction, land use and fire arrangements can involve different authorities and conditions. Their relevance depends on the jurisdiction and proposed equipment. A generator purchase order does not itself demonstrate permission to operate it in the contemplated way. Equally, a permit for one phase cannot silently be treated as authorization for a larger future layout.",
-          "Compare alternatives at the same stage of knowledge. One parcel with documented problems may be more understandable than another with an empty folder. Absence of reported issues is not evidence that the same investigations were performed. Record whether an item is observed, modeled, required, unresolved or excluded by the actual scope. Do not convert those states into equally certain numbers simply to complete a scoring spreadsheet."
+          "Obtain the capacity, delivery point, required upgrades, operating restrictions and date from the actual utility process. A substation rating is not a commitment to supply that amount to this customer. D03 develops the electrical service boundary; here the question is whether the proposed parcel can obtain that service on the project schedule.",
+          "An on-site gas plant replaces some electrical dependencies with fuel dependencies. Establish required gas volume and pressure, supply and transportation terms, curtailment conditions, and the tap, metering, lateral and any compression needed to connect. Confirm who builds them, when, and across whose land. DOE’s gas-turbine guidance explains why insufficient pressure can require a fuel-gas compressor. Owning a generator and seeing a gas pipeline on a map do not answer those questions."
         ]
       },
       {
-        "heading": "Probability arithmetic helps only when the assumptions survive",
+        "heading": "Draw the land that the campus can actually use",
         "paragraphs": [
-          "Imagine a synthetic hazard with a 2 percent annual occurrence probability. Conditional on that hazard, the modeled facility has a 25 percent probability of a service interruption lasting ten hours. Under this deliberately simple one-event model, expected interruption time is 0.02 × 0.25 × 10 = 0.05 hours per year. That is a long-run mathematical expectation under the supplied assumptions, not a forecast that this facility will lose three minutes every year.",
-          "An expected value can conceal the shape of the consequence. A rare ten-hour event and frequent brief interruptions can have the same average while producing different workload recovery, contractual and safety consequences. The independence assumptions also matter. If a hazard simultaneously damages power, communications and roads, multiplying their individual availabilities as though unrelated understates the shared cause. A proposed intervention should identify which conditional probability or consequence it changes.",
-          "A site decision therefore combines quantitative scenarios with unresolved evidence and feasibility conditions. Recalculate when the design changes or a more informative local study appears. Keep the base date and model scope attached to the result. A score that survives only because old assumptions were never revisited is a poor reference for procurement, commissioning or operation."
+          "Parcel A has 100 gross acres. The example excludes 25 acres for drainage and flood constraints and a separate, nonoverlapping 15 acres of easements, leaving 60 usable acres. Parcel B has 72 gross acres, with 12 acres of drainage exclusion and 8 separate easement acres, leaving 52. Both exceed the supplied 40-acre campus envelope. Real exclusion polygons can overlap; calculate their union rather than subtracting the same ground twice.",
+          "The supplied area screen assumes a contiguous envelope with suitable access. It does not establish foundation design. A topographic survey, grading and drainage plan, geotechnical investigation, equipment routes and expansion layout resolve different questions. USDA warns that regional soil surveys are not site-specific evaluations and do not test for toxic spills. A flood can also disable an off-site substation, bridge or fuel route while leaving the building dry: trace the dependency beyond the fence."
+        ]
+      },
+      {
+        "heading": "Match cooling and fiber to the actual design",
+        "paragraphs": [
+          "For cooling, establish the available water source, allocation, quality and discharge conditions against the chosen heat-rejection design and local weather. A recirculating loop can still need makeup water; dry cooling instead changes the equipment and hot-weather operating requirements. D11 owns those heat and water calculations. Here, retain the resulting capacity and readiness conditions in the site comparison.",
+          "For communications, verify capacity, route length, delivery dates, site entrances and the rights to construct each route. Two carrier contracts can share a trench or bridge. In this example, two physically separate routes are a stated requirement; Parcel B’s second route arriving in month 23 is the last supplied prerequisite. Its first route arriving earlier does not satisfy both paths."
+        ]
+      },
+      {
+        "heading": "Secure the parcel and the rights across it",
+        "paragraphs": [
+          "Purchase, lease and option arrangements give different rights for different periods. Check the actual terms for investigations, access, assignment, closing conditions and extensions, then compare their dates with the utility and permit work. Review title exceptions, recorded easements and the additional routes needed to bring power, gas, fiber and water to the campus. A line crossing another owner’s property needs its own established right; control of the main parcel does not supply it.",
+          "In Texas, the surface and mineral estates can have different owners. The Railroad Commission explains that mineral development can carry rights to reasonably necessary surface use, subject to applicable limits. A surface purchase alone therefore does not settle potential mineral-development conflicts. The example assumes Parcel B’s required rights are resolved through month 26. Parcel A’s option ends in month 18 with no agreed extension; that is unresolved control, not a date that can silently slide to month 30."
+        ]
+      },
+      {
+        "heading": "Check permitted uses, neighbors and what the old site leaves behind",
+        "paragraphs": [
+          "Identify the approvals and conditions for this layout: land use, air emissions, noise, water, drainage, construction and fire access. Equipment intended for continuous generation can raise different questions from standby equipment. Nearby homes, schools and other sensitive uses affect the actual siting conversation. A permit for one phase does not establish approval for the later campus.",
+          "Industrial reuse may offer roads, utility connections and a building, while also carrying obsolete equipment or contamination. EPA distinguishes historical and site-condition review from sampling and cleanup planning. Establish what can remain, what must be removed, and any restrictions on the intended use. An apparently empty contamination folder is not equivalent to completed investigation."
+        ]
+      },
+      {
+        "heading": "Two real connections show why the delivery details matter",
+        "paragraphs": [
+          "MLGW’s 2025 xAI update describes the Paul Lowery Road campus in the former Electrolux facility: an existing 16-inch gas main served the site, and xAI paid for an 8-inch tap. The same dated update describes additional gas capacity at the separate Tulane Road site as still under study. Infrastructure reuse, a funded connection and a pending service study are three different states. This historical record does not establish either site’s September 2026 capacity.",
+          "Energy Transfer’s Q2 2026 presentation reports an agreement to construct gas-delivery facilities for Crusoe’s Abilene expansion. It verifies an infrastructure agreement, not completed service. A separate slide bullet about a completed Abilene lateral does not identify that lateral as the Crusoe project. Neither case supports casually saying that an AI company built a regional pipeline."
         ]
       }
     ],
     "example": {
-      "title": "A conditional risk calculation, not a site prediction",
+      "title": "The smaller parcel meets the opening brief",
       "assumptions": [
-        "Entirely synthetic: annual hazard probability 0.02.",
-        "Conditional service-interruption probability 0.25 and conditional downtime 10 hours.",
-        "This simplified model excludes multiple events, changing climate and other causes of interruption."
+        "Original hypothetical brief: 60 MW net at the customer bus, including auxiliaries; 40 contiguous usable acres; two physically separate fiber routes; opening by month 24.",
+        "Parcel A: 100 gross acres minus 25 drainage/flood acres and 15 nonoverlapping easement acres. Parcel B: 72 minus 12 and 8 respectively. Layout fit, soil suitability and access within the remaining envelope are supplied assumptions.",
+        "Accepted-readiness months for power, civil works, cooling/water, two fiber routes and permits: A = 30, 20, 20, 21, 22; B = 22, 21, 20, 23, 21. These are teaching inputs, not project forecasts.",
+        "A’s land option ends in month 18 without an agreed extension; its proposed gas bridge has no established volume, pressure or lateral rights. B’s required land and service rights are resolved through month 26; its permitted first phase does not rely on gas generation.",
+        "All other prerequisites, including the supplied Phase I/II findings and any required remediation, are assumed resolved for B. The model screens stated conditions; it is not engineering or legal approval."
       ],
       "steps": [
         {
-          "label": "Annual interruption probability from this modeled cause",
-          "expression": "0.02 × 0.25 = 0.005",
-          "explanation": "The hazard must occur and produce the specified service consequence."
+          "label": "Usable area",
+          "expression": "A: 100 − 25 − 15 = 60 ac; B: 72 − 12 − 8 = 52 ac",
+          "explanation": "Both fit the supplied 40-acre envelope. The larger acreage is not the deciding constraint."
         },
         {
-          "label": "Expected downtime",
-          "expression": "0.005 × 10 h = 0.05 h/year",
-          "explanation": "The average is 3 minutes/year across hypothetical repetitions, not a scheduled annual outage."
+          "label": "Earliest service date",
+          "expression": "A: max(30, 20, 20, 21, 22) = month 30; B: max(22, 21, 20, 23, 21) = month 23",
+          "explanation": "A misses the month-24 brief. B waits for its second fiber route."
         },
         {
-          "label": "Improved conditional resilience",
-          "expression": "0.02 × 0.10 × 10 h = 0.02 h/year",
-          "explanation": "A stated change to conditional vulnerability reduces this modeled contribution, without proving total site risk."
+          "label": "Control and fuel",
+          "expression": "A: option ends at 18 < 30; gas bridge unresolved. B: control through 26 > 23",
+          "explanation": "A needs a new land agreement and evidence for any alternative supply. The proposed gas plant cannot be credited as available power."
+        },
+        {
+          "label": "First-phase selection",
+          "expression": "B: 52 ≥ 40 ac; 60 MW; month 23 ≤ 24",
+          "explanation": "B passes the declared screen with 12 acres outside the initial envelope. That remainder is not proven future MW."
         }
       ],
-      "result": "The intervention reduces the modeled contribution by 0.03 expected hours/year, subject to every stated assumption.",
-      "boundary": "The probabilities are not assigned to any real location, and no site selection or insurance result follows."
+      "result": "Select Parcel B for the supplied brief. Parcel A’s extra land does not resolve its later power date or expired land-control assumption.",
+      "boundary": "Area exclusions are disjoint and dimensions schematic. Dates represent supplied accepted readiness. No actual site, contract, water allocation, gas capacity, permit or construction program is approved by this example."
     },
     "tradeoff": {
-      "choice": "Add a second access or supply route.",
-      "benefit": "It may reduce consequences from a failure specific to one route.",
-      "cost": "Its value depends on physical separation, shared hazards, permissions, upkeep and availability when needed."
+      "choice": "Favor a smaller parcel whose first-phase services and rights are established.",
+      "benefit": "It can meet the stated opening date without relying on unresolved supply or land extensions.",
+      "cost": "Less remaining land may constrain expansion; future capacity still needs its own layout and service evidence."
     },
     "failure": {
-      "trigger": "Both nominally separate service routes cross the same vulnerable off-site interface.",
-      "mechanism": "One external event defeats the assumed independence.",
-      "response": "Update the dependency model and obtain route-specific evidence before crediting the redundancy."
+      "trigger": "Two nominal fiber providers share the only bridge into the site, or the required independent route slips.",
+      "mechanism": "The network requirement fails even though the campus buildings and power are ready.",
+      "response": "Verify the physical routes and delivery obligation; revise the opening plan or the service requirement explicitly."
     },
     "practice": {
-      "question": "A second synthetic design reduces interruption probability after the hazard to 0.10, but repair takes 30 hours because access is harder. Is its expected downtime lower than the original 0.05 h/year?",
-      "hint": "The intervention changes two factors, so recompute the product.",
-      "answer": "No. Expected downtime is 0.02 × 0.10 × 30 = 0.06 h/year.",
-      "reasoning": "The design experiences fewer modeled interruptions but each lasts longer. The average worsens slightly, and its consequence distribution also changes. A preference still requires service requirements and other considerations; neither the lower event probability nor this one expected-value metric settles the entire decision."
+      "question": "Parcel B’s second fiber route is delayed from month 23 to month 28. Its land-control period still ends in month 26. Does the parcel still meet the brief?",
+      "hint": "Check the opening requirement and the control period separately.",
+      "answer": "No. Earliest readiness becomes month 28, after both the month-24 opening deadline and the month-26 control period.",
+      "reasoning": "A replacement route or changed service requirement would need explicit acceptance. A land extension would solve only the control problem, not the month-24 deadline. Neither change can be assumed from the original parcel choice."
     },
     "sources": [
       {
@@ -646,44 +678,191 @@
         "claim": "Seismic hazard maps incorporate fault, propagation and near-surface site information.",
         "reviewed_on": "2026-09-06",
         "limits": "FAQ reviewed; it is not a parcel assessment or a code-specific structural design input."
+      },
+      {
+        "title": "DOE — Beyond Land Leases: Harnessing Data Centers for Tribal Economic Development",
+        "url": "https://www.energy.gov/indianenergy/beyond-land-leases-harnessing-data-centers-tribal-economic-development-webinar",
+        "reviewed_on": "2026-09-11",
+        "claim": "DOE speakers connect land, power access, water and cooling choices, fiber, roads, local impacts and development timing.",
+        "limits": "Reviewed introductory transcript, especially the siting discussion. Speaker-specific projects and claimed performance are not adopted as general data-center facts."
+      },
+      {
+        "title": "USDA NRCS — Understanding Soil Risks and Hazards",
+        "url": "https://www.nrcs.usda.gov/sites/default/files/2023-01/Understanding-Soil-Risks-and-Hazards.pdf",
+        "reviewed_on": "2026-09-11",
+        "claim": "Soil-survey limitations distinguish regional screening from parcel-specific investigation and contamination testing.",
+        "limits": "Reviewed introduction and Limitations of Soil Surveys, not every hazard chapter. No parcel conditions or geotechnical design values are established."
+      },
+      {
+        "title": "Railroad Commission of Texas — Oil and Gas Exploration and Surface Ownership",
+        "url": "https://www.rrc.texas.gov/about-us/faqs/oil-gas-faq/oil-gas-exploration-and-surface-ownership/",
+        "reviewed_on": "2026-09-11",
+        "claim": "Texas surface and mineral estates can be separately owned; mineral development can entail reasonably necessary surface use subject to applicable limits.",
+        "limits": "Texas-specific general guidance. It neither determines the title of a particular parcel nor prescribes the rights needed for a data-center transaction."
+      },
+      {
+        "title": "EPA — Eligible Brownfields Planning Activities",
+        "url": "https://www.epa.gov/brownfields/eligible-planning-activities",
+        "reviewed_on": "2026-09-11",
+        "claim": "Phase I environmental assessment examines site history and conditions; Phase II can investigate contamination; cleanup planning depends on intended reuse.",
+        "limits": "Reviewed planning and assessment descriptions. Funding eligibility and liability protections are not inferred for any teaching parcel."
+      },
+      {
+        "title": "MLGW — 2025 xAI Update",
+        "url": "https://www.mlgw.com/images/content/files/pdf/new/xAI%202025%20Update.pdf",
+        "reviewed_on": "2026-09-11",
+        "claim": "The Paul Lowery Road site reused the Electrolux facility and an existing 16-inch gas main; xAI paid for an 8-inch tap. The update separately describes a pending gas-capacity study at Tulane Road.",
+        "limits": "Historical 2025 utility update, not September 2026 operating status. The tap is not evidence that xAI built a regional gas pipeline; the two sites and their service states must remain distinct."
+      },
+      {
+        "title": "Energy Transfer — Q2 2026 investor presentation",
+        "url": "https://ir.energytransfer.com/static-files/c29697db-5336-4262-8bf3-3c6e409ccb19",
+        "reviewed_on": "2026-09-11",
+        "claim": "Printed slide 3 reports a Q2 2026 agreement to construct gas-delivery facilities for Crusoe’s Abilene campus expansion.",
+        "limits": "Primary search-extracted slide text reviewed; full PDF fetch returned HTTP 403. An agreement is not operational completion. A separate bullet about a completed 14-mile Abilene lateral is not attributed to Crusoe without explicit linkage."
+      },
+      {
+        "title": "DOE — CHP Technologies: Gas Turbines",
+        "url": "https://betterbuildingssolutioncenter.energy.gov/sites/default/files/attachments/CHP_Gas_Turbines.pdf",
+        "reviewed_on": "2026-09-11",
+        "claim": "The fuel-supply discussion explains that insufficient site gas pressure requires a fuel-gas compressor.",
+        "limits": "Primary searchable PDF excerpt reviewed; full fetch returned HTTP 502. No generic pressure, efficiency or cost is adopted as an actual data-center turbine specification."
       }
     ],
     "terms": [
       {
+        "term": "Usable acreage",
+        "definition": "Land remaining available for the specified layout after actual exclusions, rights and site constraints are applied; distinct from gross parcel area."
+      },
+      {
+        "term": "Site control",
+        "definition": "The specific ownership or contractual rights to investigate, access or develop land for a defined period and purpose."
+      },
+      {
+        "term": "Gas lateral",
+        "definition": "A connecting pipeline segment between a larger gas system and a delivery point; its capacity, pressure, rights and readiness need separate evidence."
+      },
+      {
+        "term": "Split estate",
+        "definition": "Separate ownership of surface and mineral interests; the applicable rights depend on the jurisdiction and actual title."
+      },
+      {
+        "term": "Brownfield",
+        "definition": "A property whose redevelopment or reuse can be complicated by actual or potential contamination."
+      },
+      {
         "term": "Exposure",
         "definition": "Assets or dependencies situated where a hazard can affect them."
-      },
-      {
-        "term": "Conditional probability",
-        "definition": "A probability evaluated given that another stated event has occurred."
-      },
-      {
-        "term": "Expected value",
-        "definition": "A probability-weighted average over modeled outcomes, not a promised individual outcome."
       }
     ],
     "visual": {
-      "kind": "flow",
-      "title": "From hazard to service loss",
-      "nodes": [
+      "kind": "parcel",
+      "title": "Which parcel can open by month 24?",
+      "brief": {
+        "power_mw": 60,
+        "campus_acres": 40,
+        "deadline_month": 24,
+        "fiber_routes": 2
+      },
+      "caption": "Original scenario. Both parcels use the same area scale; routes and equipment locations are schematic. Exclusions do not overlap.",
+      "parcels": [
         {
-          "label": "Hazard",
-          "detail": "Specified event and probability"
+          "id": "a",
+          "label": "Parcel A",
+          "gross_acres": 100,
+          "drainage_acres": 25,
+          "easement_acres": 15,
+          "control_month": 18,
+          "readiness": {
+            "Power": 30,
+            "Civil works": 20,
+            "Cooling / water": 20,
+            "Two fiber routes": 21,
+            "Permits": 22
+          },
+          "rights_resolved": false,
+          "decisions": [
+            {
+              "label": "Power / gas",
+              "status": "late",
+              "detail": "60 MW grid supply · month 30. Gas bridge unverified."
+            },
+            {
+              "label": "Usable land",
+              "status": "pass",
+              "detail": "60 ac; the 40-ac campus envelope fits."
+            },
+            {
+              "label": "Cooling / water",
+              "status": "pass",
+              "detail": "Required cooling and water ready · month 20."
+            },
+            {
+              "label": "Fiber / access",
+              "status": "pass",
+              "detail": "Two separate routes and access ready · month 21."
+            },
+            {
+              "label": "Land rights",
+              "status": "unknown",
+              "detail": "Option ends month 18; no extension agreed."
+            },
+            {
+              "label": "Permits / reuse",
+              "status": "pass",
+              "detail": "Specified approvals and site works ready · month 22."
+            }
+          ]
         },
         {
-          "label": "Exposure",
-          "detail": "Which route or asset is affected?"
-        },
-        {
-          "label": "Vulnerability",
-          "detail": "What fails under that condition?"
-        },
-        {
-          "label": "Service consequence",
-          "detail": "Loss duration, scope and recovery"
+          "id": "b",
+          "label": "Parcel B",
+          "gross_acres": 72,
+          "drainage_acres": 12,
+          "easement_acres": 8,
+          "control_month": 26,
+          "readiness": {
+            "Power": 22,
+            "Civil works": 21,
+            "Cooling / water": 20,
+            "Two fiber routes": 23,
+            "Permits": 21
+          },
+          "rights_resolved": true,
+          "decisions": [
+            {
+              "label": "Power / gas",
+              "status": "pass",
+              "detail": "60 MW grid supply · month 22. No gas bridge required."
+            },
+            {
+              "label": "Usable land",
+              "status": "pass",
+              "detail": "52 ac; the 40-ac campus envelope fits."
+            },
+            {
+              "label": "Cooling / water",
+              "status": "pass",
+              "detail": "Required cooling and water ready · month 20."
+            },
+            {
+              "label": "Fiber / access",
+              "status": "pass",
+              "detail": "Second separate route ready · month 23."
+            },
+            {
+              "label": "Land rights",
+              "status": "pass",
+              "detail": "Required rights resolved through month 26."
+            },
+            {
+              "label": "Permits / reuse",
+              "status": "pass",
+              "detail": "Approvals and environmental conditions resolved · month 21."
+            }
+          ]
         }
-      ],
-      "caption": "An analytical chain for a hypothetical site. The graphic does not assign a hazard class to any location."
+      ]
     }
   },
   {
