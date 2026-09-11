@@ -2139,6 +2139,36 @@
       ],
       "use": "Rack battery backup modules provide a concrete contrast with the facility AC UPS and its external battery cabinet.",
       "caution": "Used for module/shelf form factor and rack DC backup role; not a universal definition of all BBUs or a specification of the facility battery drawn in the UPS sequence."
+    },
+    {
+      "id": "P29",
+      "title": "Eaton — Automatic transfer switch fundamentals",
+      "url": "https://www.eaton.com/us/en-us/products/low-voltage-power-distribution-control-systems/automatic-transfer-switches/automatic-transfer-switch-fundamentals.html",
+      "publisher": "Eaton",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-11",
+      "domains": [
+        "D04",
+        "D05"
+      ],
+      "use": "Source transfer selects utility or generator after alternate-source voltage and frequency meet tolerances.",
+      "caution": "General operating principles only. Teaching shows functional completed states, not wiring or a switching procedure; no startup time or site-specific interlock is specified."
+    },
+    {
+      "id": "P30",
+      "title": "Schneider Electric — Presence of an Uninterruptible Power Supply (UPS)",
+      "url": "https://www.electrical-installation.org/enwiki/Presence_of_an_Uninterruptible_Power_Supply_%28UPS%29",
+      "publisher": "Schneider Electric",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-11",
+      "domains": [
+        "D04",
+        "D05"
+      ],
+      "use": "Battery backup must cover generator startup and takeover; generator supply feeds the UPS input.",
+      "caution": "General UPS-generator coordination. The diagram assumes adequate battery runtime and an accepted generator source; charging and actual compatibility remain equipment-specific."
     }
   ]
 }

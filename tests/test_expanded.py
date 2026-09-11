@@ -138,17 +138,19 @@ class ExpansionTests(unittest.TestCase):
             self.assertNotIn("caption", step)
             self.assertTrue(step["notes"] and step["cue"] and step["explanation"])
 
-    def test_presentation_contract_requires_a_problem_mechanism_and_transfer(self):
+    def test_presentation_contract_requires_a_problem_mechanism_and_relevant_ending(self):
         data = b.read(b.ROOT / "course/expansion/sample-presentation.json")
         validate_presentation(data)
-        for field in ("fixed_boundary", "primary_payoff", "transfer_question"):
+        for field in ("fixed_boundary", "primary_payoff", "closing_question"):
             changed = deepcopy(data)
             changed["learning_contract"][field] = ""
             with self.assertRaisesRegex(ValueError, "learning contract"):
                 validate_presentation(changed)
         changed = deepcopy(data)
         changed["steps"][-1]["pedagogical_role"] = "balance"
-        with self.assertRaisesRegex(ValueError, "changed-case transfer"):
+        validate_presentation(changed)
+        changed["steps"][0]["pedagogical_role"] = "balance"
+        with self.assertRaisesRegex(ValueError, "Start with the problem"):
             validate_presentation(changed)
 
     def test_presentation_contract_allows_authored_sequence_lengths(self):

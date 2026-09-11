@@ -39,13 +39,7 @@ const channel =
     ? new BroadcastChannel(`gigawatt-sample-${session}`)
     : null;
 const role = notesMode ? "notes" : "audience";
-const revealKinds = new Set([
-  "copper",
-  "current",
-  "loss",
-  "conversion-loss",
-  "decision",
-]);
+const revealKinds = new Set(["copper", "current", "loss", "conversion-loss"]);
 const isRevealed = () => state.revealed.includes(STEPS[state.index].id);
 
 function validState(value) {
@@ -178,20 +172,6 @@ function conversionLoss() {
     shown = isRevealed();
   return `<div class="converter-example"><div class="model-top"><span class="chip">Illustration · 98% efficiency at this load</span></div><div class="converter-flow"><div class="power-port"><span>Input</span><strong>${shown ? fmt(input, 2) : "?"}<small> kW</small></strong></div><span class="conversion-arrow" aria-hidden="true">→</span><div class="converter-box"><strong>Power converter</strong><span>Useful output ÷ input = 98%</span></div><span class="conversion-arrow" aria-hidden="true">→</span><div class="power-port"><span>Useful output</span><strong>100<small> kW</small></strong></div><div class="converter-heat"><span aria-hidden="true">↓</span><strong>${shown ? fmt(loss, 2) : "?"} kW <small>converter heat</small></strong></div></div><div class="loss-causes"><span>Resistance heats conductors</span><span>Switching dissipates energy</span><span>Magnetic cores heat up</span><span>Controls &amp; fans draw power</span></div>${shown ? '<div class="equation-block">100 ÷ 0.98 − 100 = <strong>2.04 kW</strong></div>' : '<div class="control-line"><button class="reveal" id="reveal">Calculate the lost power</button></div>'}</div>`;
 }
-function decision() {
-  const shown = isRevealed(),
-    base = conductorNumbers().dc;
-  const grown = dcConductorModel(
-    DEFAULTS.power_kw * 2,
-    DEFAULTS.comparison_voltage_v,
-    2 * DEFAULTS.conductor_ohms,
-    DEFAULTS.hours,
-  );
-  function caseCard(label, power, amps, heat, changed) {
-    return `<section class="metric-card ${changed ? "changed" : ""}"><p class="metric-label">${label}</p>${metric(fmt(power), "kW to load")}<div class="growth-equation">${fmt(power * 1000)} W ÷ 800 V<br>= <strong>${changed && !shown ? "?" : fmt(amps)} A</strong> per conductor</div><p class="metric-sub">Conductor heat: ${changed && !shown ? "?" : fmt(heat * 1000, 1)} W</p></section>`;
-  }
-  return `<div class="model capacity-model"><div class="model-top"><span class="chip">Same two conductors · 800 V at the load · 10 mΩ each</span></div><div class="comparison">${caseCard("Original load", DEFAULTS.power_kw, base.amps, base.lossKW, false)}${caseCard("Double the load", DEFAULTS.power_kw * 2, grown.amps, grown.lossKW, true)}</div>${shown ? '<p class="comparison-result"><span>Current rating, temperature and voltage drop still limit usable capacity.</span></p>' : '<div class="control-line"><button id="reveal" class="reveal">Calculate the new current</button></div>'}</div>`;
-}
 function renderNotes() {
   const step = STEPS[state.index];
   byId("notes-title").textContent = PRESENTATION.title;
@@ -216,7 +196,7 @@ function renderNotes() {
     );
   byId("notes-next").textContent =
     STEPS[state.index + 1]?.headline ||
-    "End of sample. Discuss the learner’s reasoning.";
+    "End of sample. Return to the copper and equipment-placement question.";
   byId("notes-previous").disabled = state.index === 0;
   byId("notes-next-button").disabled = state.index === STEPS.length - 1;
   byId("notes-reveal").hidden = !revealKinds.has(step.kind);
@@ -270,7 +250,6 @@ function render() {
       current,
       loss,
       "conversion-loss": conversionLoss,
-      decision,
       "dc-basics": () => electricalVisual("dc-basics"),
       "ac-basics": () => electricalVisual("ac-basics"),
       "three-phase": () => electricalVisual("three-phase"),

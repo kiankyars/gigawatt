@@ -3,7 +3,7 @@
   "domain": "D06",
   "title": "800 V DC: less copper, room for compute",
   "question": "How can denser racks use less distribution copper and less space for power conversion?",
-  "summary": "Learn the electrical foundations, then compare distribution copper, conversion placement and the current required by a growing load.",
+  "summary": "Learn the electrical foundations, then compare distribution copper and the placement of conversion equipment.",
   "takeaway": "Judge copper with explicit geometry, space with explicit equipment placement, and energy with a complete loss balance. An 800 V label alone does not establish usable extra capacity.",
   "objectives": [
     "D06.2",
@@ -16,7 +16,7 @@
       "heading": "Start with the constraint on denser racks",
       "paragraphs": [
         "The design ambition is to deliver more power using less distribution copper while freeing compute-rack and potentially data-hall space occupied by power-conversion equipment. Copper, equipment placement and energy efficiency are related design questions, but they require different evidence. Begin with material and space; use measured equipment efficiency to evaluate total losses.",
-        "To isolate one change, hold average received real power at 100 kW. First learn what voltage, current and three phases mean with ideal resistive teaching loads. Then compare equal received power to make the conductor-material arithmetic legible. Equal power alone does not prove that a new design can simultaneously use less copper and safely serve a larger load. The closing exercise changes the load and tests that additional claim."
+        "To isolate one change, hold average received real power at 100 kW. First learn what voltage, current and three phases mean with ideal resistive teaching loads. Then compare equal received power to make the conductor-material arithmetic legible. Equal power alone does not prove that a new design can simultaneously use less copper and safely serve a larger load."
       ]
     },
     {
@@ -116,12 +116,10 @@
       ]
     },
     {
-      "heading": "Change the load and test the capacity claim",
+      "heading": "What the architecture comparison establishes",
       "paragraphs": [
-        "Return to the conductor-only boundary. Keep the same two DC conductors and 800 V receiving-end voltage, but raise received power from 100 to 200 kW. Predict the current, conductor heat and safe-capacity verdict before calculating. Copper quantity is unchanged because conductor count and geometry are unchanged.",
-        "Current rises from 100,000/800 = 125 A to 200,000/800 = 250 A. Holding effective resistance at 0.01 Ω per conductor, heat rises from 2 × 125² × 0.01 = 312.5 W to 2 × 250² × 0.01 = 1,250 W. At fixed voltage and resistance, doubling delivered power doubles current and quadruples conductor heat.",
-        "Safe operating capability is unknown. The calculation supplies no ampacity, installation conditions, allowable temperature rise, voltage-drop limits, terminal or protection ratings, converter rating or cooling headroom. Resistance itself varies with temperature in service. Additional usable power must be engineered; a larger number in the power equation is not proof that an unchanged installation can carry it.",
-        "The ambition remains more power with less material and more room for compute. The method is to specify the copper geometry, locate the equipment, close the energy balance and test the limiting conditions together. There is no universal savings percentage that replaces those checks."
+        "At the same delivered power, the stated equal-geometry comparison uses two current-carrying copper conductors instead of three. Moving AC-to-DC conversion out of the compute rack frees its occupied rack space. A sidecar still occupies nearby hall space; upstream conversion can move that equipment to the power room.",
+        "These are the physical changes the lesson set out to explain. Overall hall footprint and facility energy savings require the actual equipment arrangement and losses."
       ]
     }
   ],
@@ -154,9 +152,9 @@
     "response": "Close the electrical and thermal ledgers at the same boundary before claiming more usable racks."
   },
   "practice": {
-    "question": "An 800 V DC feeder delivers 100 kW through two conductors, each modeled at 10 mΩ. Keep those conductors and receiving-end voltage unchanged, then raise received load to 200 kW. Predict current, conductor heat, copper quantity and whether safe operation has been established.",
-    "answer": "Current doubles from 125 to 250 A. Conductor heat rises fourfold from 0.3125 to 1.25 kW under the fixed-resistance model. Copper quantity is unchanged by assumption. Safe operating capability is unknown.",
-    "reasoning": "Use I = P/V and total DC conductor heat = 2I²R. Doubling current quadruples heat when R is held fixed. No ampacity, temperature, installation, voltage-drop, terminal, protection, converter or cooling limits were supplied; resistance also varies with temperature in service. The calculation cannot establish usable extra capacity."
+    "question": "A power sidecar takes AC-to-DC conversion out of a compute rack but stays beside it in the data hall. Which space is freed, and does this establish a smaller data hall or lower electricity use?",
+    "answer": "Space inside the compute rack is freed. The sidecar still needs hall space and service access. Neither a smaller total hall footprint nor lower electricity use follows automatically.",
+    "reasoning": "Locate the displaced equipment before counting freed space. Compare actual converter losses at the same useful output before claiming an energy saving."
   },
   "sources": [
     {
@@ -272,6 +270,6 @@
     "changed_variable": "480 V three-phase AC versus 800 V two-wire DC, then conversion placement.",
     "primary_payoff": "Explain copper quantity and equipment placement before evaluating energy savings.",
     "misconception": "Alternating current means no net energy delivery; three conductors triple the load; fewer conductors means less current; or 800 V alone guarantees usable extra capacity.",
-    "transfer_question": "Can the unchanged 800 V DC feeder safely deliver 200 kW? What evidence is missing?"
+    "closing_question": "What copper is removed, what conversion equipment moves, and which space is freed by the chosen 800 V architecture?"
   }
 }

@@ -3,9 +3,9 @@
   "id": "sample-800v-presentation",
   "source_lesson_id": "sample-800v",
   "title": "800 V DC: less copper, room for compute",
-  "planned_duration_seconds": 1200,
+  "planned_duration_seconds": 1065,
   "timing_note": "Dry-run allowances only; revise from actual explanation and discussion rather than filling a runtime target.",
-  "review_state": "Revised after the September 11 learner review: one explanatory headline, clearer electrical measurement, and no arbitrary architecture-loss slider.",
+  "review_state": "Reviewed revisions: concise headlines, generator context in the UPS sequence, and an architecture ending instead of an unrelated load-doubling exercise.",
   "defaults": {
     "power_kw": 100,
     "reference_voltage_v": 480,
@@ -19,14 +19,14 @@
     "Use one explanatory headline per slide. Show essential labels and assumptions beside the diagram; omit bottom captions and repeated takeaway slogans.",
     "Start with a physical constraint, then build closed-circuit and waveform intuition before the copper and heat arithmetic.",
     "Keep the 100 kW average real-power anchor visible through DC, single-phase AC and balanced three-phase AC. Distinguish instantaneous power from its cycle average; introduce losses at an explicit boundary change.",
-    "On copper, current, conductor-loss, conversion-loss and capacity-check steps, ask for a prediction before revealing the result.",
+    "On copper, current, conductor-loss, and conversion-loss steps, ask for a prediction before revealing the result.",
     "Use the same load and diagram positions throughout the architecture sequence; change conversion placement deliberately.",
     "Architecture drawings show selected functional boundaries. They are conceptual schematics, not wiring diagrams.",
     "Keep equal conductor geometry visible in the copper scene. Equal effective resistance in the heat model is a separate idealization.",
     "Compute displayed answers with the tested three-phase AC and two-wire DC model rather than embedding numbers in generated illustrations.",
-    "Hold receiving-end real power fixed until the explicit transfer question. State AC line-to-line RMS voltage, power factor and resistance per conductor.",
+    "Hold receiving-end real power fixed within each declared comparison. State AC line-to-line RMS voltage, power factor and resistance per conductor.",
     "Distinguish three claims: copper under equal geometry; space under a specified equipment placement; input energy under a complete loss balance.",
-    "End with a changed case that requires a prediction and identifies information the calculation cannot supply."
+    "Finish by resolving the architecture question. Add an exercise only when it advances the engineering reasoning."
   ],
   "steps": [
     {
@@ -200,6 +200,27 @@
       "pedagogical_role": "mechanism"
     },
     {
+      "id": "ac-dc-ledger",
+      "title": "Converter losses depend on the equipment and its operating point.",
+      "kind": "conversion-loss",
+      "headline": "Converter losses depend on the equipment and its operating point.",
+      "duration_seconds": 90,
+      "cue": "Trace input power into useful output and heat. Explain the loss mechanisms before using efficiency.",
+      "notes": [
+        "Current produces conduction losses in switches and windings.",
+        "Switching transitions, magnetic cores and auxiliary circuits add losses.",
+        "Efficiency depends on load, voltage, temperature and operating mode; use the selected equipment’s curve.",
+        "Illustration: 98% efficiency at 100 kW output needs 102.04 kW input and loses 2.04 kW.",
+        "The former 1–7 kW slider had no product basis; it is removed."
+      ],
+      "explanation": [
+        "Conversion changes voltage or electrical form with real components. Current through semiconductor on-resistance, winding resistance and diode drops dissipates power. Switching transitions dissipate energy as current and voltage overlap; repeating those transitions adds average loss. Magnetic cores, controllers, gate drivers and fans also consume power. The balance depends on converter topology, device choices, voltage, load, switching frequency, temperature and operating mode.",
+        "Efficiency η is useful output power divided by input power. At a fixed output, P_loss = P_out × (1/η − 1). The slide assumes 98% efficiency solely to demonstrate the calculation: 100/0.98 = 102.0408 kW input, so loss is 2.0408 kW. It is not the efficiency of the pictured UPS or a measured advantage of AC or DC distribution.",
+        "To compare architectures, read the actual equipment efficiency curves at the required loading and mode, then sum losses along the complete path. Fewer conversion boxes or lower conductor heat alone does not establish lower total facility input."
+      ],
+      "pedagogical_role": "mechanism"
+    },
+    {
       "id": "conversion-in-rack",
       "title": "AC enters the compute rack and is converted to DC inside it.",
       "kind": "ac",
@@ -257,48 +278,6 @@
         "These are representative architecture choices, consistent with NVIDIA’s dated AC, hybrid and native-DC roadmap. They are not three required stages that every facility must pass through; actual deployments can combine approaches."
       ],
       "pedagogical_role": "architecture"
-    },
-    {
-      "id": "ac-dc-ledger",
-      "title": "Converter losses depend on the equipment and its operating point.",
-      "kind": "conversion-loss",
-      "headline": "Converter losses depend on the equipment and its operating point.",
-      "duration_seconds": 90,
-      "cue": "Trace input power into useful output and heat. Explain the loss mechanisms before using efficiency.",
-      "notes": [
-        "Current produces conduction losses in switches and windings.",
-        "Switching transitions, magnetic cores and auxiliary circuits add losses.",
-        "Efficiency depends on load, voltage, temperature and operating mode; use the selected equipment’s curve.",
-        "Illustration: 98% efficiency at 100 kW output needs 102.04 kW input and loses 2.04 kW.",
-        "The former 1–7 kW slider had no product basis; it is removed."
-      ],
-      "explanation": [
-        "Conversion changes voltage or electrical form with real components. Current through semiconductor on-resistance, winding resistance and diode drops dissipates power. Switching transitions dissipate energy as current and voltage overlap; repeating those transitions adds average loss. Magnetic cores, controllers, gate drivers and fans also consume power. The balance depends on converter topology, device choices, voltage, load, switching frequency, temperature and operating mode.",
-        "Efficiency η is useful output power divided by input power. At a fixed output, P_loss = P_out × (1/η − 1). The slide assumes 98% efficiency solely to demonstrate the calculation: 100/0.98 = 102.0408 kW input, so loss is 2.0408 kW. It is not the efficiency of the pictured UPS or a measured advantage of AC or DC distribution.",
-        "To compare architectures, read the actual equipment efficiency curves at the required loading and mode, then sum losses along the complete path. Fewer conversion boxes or lower conductor heat alone does not establish lower total facility input."
-      ],
-      "pedagogical_role": "mechanism"
-    },
-    {
-      "id": "capacity-check",
-      "title": "Doubling power at 800 V doubles current in the same conductors.",
-      "kind": "decision",
-      "pedagogical_role": "transfer",
-      "headline": "Doubling power at 800 V doubles current in the same conductors.",
-      "duration_seconds": 135,
-      "cue": "Hold the receiving voltage at 800 V, increase the delivered load from 100 to 200 kW, then calculate current.",
-      "notes": [
-        "Before: 100,000 W ÷ 800 V = 125 A per conductor.",
-        "After: 200,000 W ÷ 800 V = 250 A per conductor.",
-        "Voltage and conductors are unchanged; the load power doubled.",
-        "I²R means four times the conductor heat; copper remains unchanged by assumption.",
-        "A calculation does not establish that the conductors and equipment are rated for 250 A."
-      ],
-      "explanation": [
-        "At the same 800 V DC receiving end, raising delivered power from 100 to 200 kW doubles current from 125 to 250 A. With two conductors fixed at 0.01 Ω each, conductor heat rises from 0.3125 to 1.25 kW: four times as much. Copper quantity stays fixed because the conductors were held unchanged.",
-        "Safe operating capacity is unknown. The model supplies neither conductor ampacity nor installation, temperature, voltage-drop, terminal, protection, converter or cooling limits. Resistance also varies with temperature in a real installation.",
-        "Judge copper with explicit geometry, space with explicit equipment placement, and energy with a complete loss balance. Those tools help evaluate denser racks; they do not make additional usable capacity automatic."
-      ]
     }
   ],
   "sources": [
@@ -347,7 +326,8 @@
   ],
   "aliases": {
     "feeder-transfer": "ac-dc-ledger",
-    "energy-balance": "conductor-loss"
+    "energy-balance": "conductor-loss",
+    "capacity-check": "conversion-farther-upstream"
   },
   "learning_contract": {
     "driving_question": "How can denser racks use less distribution copper and less space for power conversion?",
@@ -355,6 +335,6 @@
     "changed_variable": "480 V three-phase AC versus 800 V two-wire DC, then conversion placement.",
     "primary_payoff": "Explain copper quantity and equipment placement before evaluating energy savings.",
     "misconception": "Alternating current means no net energy delivery; three conductors triple the load; fewer conductors means less current; or 800 V alone guarantees usable extra capacity.",
-    "transfer_question": "At the same 800 V receiving voltage, what current delivers 200 kW and what must be rated for it?"
+    "closing_question": "What copper is removed, what conversion equipment moves, and which space is freed by the chosen 800 V architecture?"
   }
 }

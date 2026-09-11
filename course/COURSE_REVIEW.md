@@ -15,8 +15,8 @@ Those documents implement this design rather than establishing separate course s
 Use the domain map to look up the section being prepared; there is no need to
 read it end to end.
 
-**Current state:** 50 authored draft lessons cover 65 objective IDs. The fourteen-scene
-800 V DC sample and fifteen-scene UPS sequence are implemented teaching prototypes.
+**Current state:** 50 authored draft lessons cover 65 objective IDs. The twelve-scene
+800 V DC sample and sixteen-scene UPS sequence are implemented teaching prototypes.
 They cover selected parts of the curriculum, not two finished domains. Technical review,
 learner review, adaptation of the remaining material, recording and delivery
 remain pending. Prepare and rehearse one section at a time.
@@ -76,8 +76,8 @@ relationships. Current authored lesson-to-objective mappings are generated in
 | --------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
 | [Reader and lesson notes](index.html)                     | Drafted explanations, worked examples, tradeoffs, failure cases and changed-scenario answers                           | Complete claim review, learner comprehension checks and final narration              |
 | [Five capstones](DOMAIN_MAP.md#proposed-capstones)        | Drafted synthetic briefs and worked solutions; scope belongs to the domain map                                         | Check assumptions and demonstrate transfer across domains                            |
-| [800 V DC presentation](teach.html)                       | Thirteen authored visual scenes, separate notes, student explanations and shared calculations                               | Rehearse the revised copper/space premise and final capacity question                |
-| [UPS, bypass and redundancy](prototypes/ups-format.html) | Fifteen visual scenes with optional notes, power-path changes and surviving-capacity exercises; part of D05 | Dry-run the minimal-text format and report unclear mechanisms or terminology |
+| [800 V DC presentation](teach.html)                       | Twelve authored visual scenes, separate notes, student explanations and shared calculations                               | Rehearse the revised copper/space premise and conversion-placement ending                |
+| [UPS, bypass and redundancy](prototypes/ups-format.html) | Sixteen visual scenes with optional notes, power-path changes and surviving-capacity exercises; part of D05 | Dry-run the minimal-text format and report unclear mechanisms or terminology |
 | Search, glossary and practice                             | Implemented in the reader                                                                                              | Check findability, first-use vocabulary and learner reasoning                        |
 | Numerical models                                          | Eight bounded model types with arithmetic checks                                                                       | Specialist review of physical boundaries and any real-case inputs                    |
 | [Illustrations](assets/README.md)                         | Five ImageGen orientation images with preserved prompts; exact engineering labels and calculations rendered separately | Verify final-size legibility and narration                                           |

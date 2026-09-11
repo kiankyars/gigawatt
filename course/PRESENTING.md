@@ -4,10 +4,10 @@
 
 ## Your next feedback pass
 
-1. **[UPS, bypass and redundancy](prototypes/ups-format.html): fifteen scenes,
+1. **[UPS, bypass and redundancy](prototypes/ups-format.html): sixteen scenes,
    part of D05.** Start here to review the latest visual format. Explain each
    diagram aloud and try the failure/maintenance controls.
-2. **[AC/DC foundations → 800 V](teach.html): thirteen scenes, the D06 sample
+2. **[AC/DC foundations → 800 V](teach.html): twelve scenes, the D06 sample
    with D01/D04 foundations.** Check whether the electrical primer makes the
    copper, current and conversion-placement comparisons clear.
 3. For either sequence, send the **slide number (or its URL) and what confused you, seemed
@@ -26,8 +26,8 @@ changes made while the page is open. No website toggle is required.
 
 ## UPS, bypass and redundancy prototype
 
-Open [the UPS sequence](prototypes/ups-format.html). Its fifteen scenes move from
-the campus into one UPS, trace normal and battery operation, then compare forced
+Open [the UPS sequence](prototypes/ups-format.html). Its sixteen scenes move from
+the campus into one UPS, trace normal and battery operation, follow generator takeover, then compare forced
 static bypass, external maintenance bypass, N, N+1, N+2, 2N and 2(N+1).
 The product slide shows a real freestanding UPS cabinet and distinguishes its external
 UPS battery from rack battery backup units (BBUs). The electrical room is the
@@ -37,7 +37,12 @@ Remove modules, isolate a route or fail the shared bus; finish by raising demand
 to 150 kW without adding equipment. Let the changed paths and surviving capacity
 carry the explanation.
 
-Use **Next / →**, **Back / ←**, the scene selector and the diagram's buttons.
+On **Generator handoff**, choose utility supplying, generator starting and generator
+supplying. The battery covers the interruption; accepted generator AC then feeds
+the rectifier. Source transfer occurs upstream, while bypass routes around UPS
+equipment. Bypass source-loss controls remain independent.
+
+Use **Next / →**, **Back / ←**, the short-label slide selector and the diagram's buttons.
 Notes are hidden by default. The optional [rehearsal endpoint](prototypes/ups-format.html?rehearse=1)
 can open a separate synchronized cue window. The sequence should be teachable
 without it. This is a teaching prototype for a dry run; it does not establish that
@@ -93,10 +98,9 @@ answer, and use these checks to find where the explanation stops being clear:
    the amount depends on equipment, loading, operating mode and temperature.
    The explicitly illustrative 98% converter needs 102.04 kW input for 100 kW
    output, leaving 2.04 kW as heat. This is not a measured AC/DC architecture advantage.
-6. **Transfer:** at `#capacity-check`, double delivered DC power to 200 kW while
-   holding 800 V and the conductors unchanged. Predict 250 A and 1.25 kW conductor
-   heat: twice the current, four times the heat, unchanged copper by assumption.
-   Explain why usable capacity still requires equipment, thermal and voltage-drop limits.
+6. **Ending:** return to the equipment-placement comparison. Identify what copper
+   is removed, where conversion moves, and which space becomes available for
+   compute. The load-doubling slide is removed; its old link opens upstream conversion.
 
 For rack terminology, review [A rack upgrade is an interface negotiation](index.html#d06-rack-migration):
 U and usable height, 19-inch mounting, the illustrative 42U allocation, independent

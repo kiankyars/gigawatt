@@ -62,11 +62,13 @@ declares six fields in a `learning_contract`:
 | `changed_variable`  | What the controlled comparison changes                                          |
 | `primary_payoff`    | Why the mechanism matters to the engineering decision                           |
 | `misconception`     | The plausible wrong inference the visual must expose                            |
-| `transfer_question` | A changed case to reason through before revealing its answer                    |
+| `closing_question` | How the ending resolves the engineering question                    |
 
 Assign each scene a `pedagogical_role`: `problem`, `comparison`, `mechanism`,
 `architecture`, `balance`, `counterexample` or `transfer`. Begin with the problem,
-teach its mechanism and end with transfer. Intermediate scenes depend on the topic.
+teach its mechanism and return to that problem at the end. Use an application
+exercise when it advances the reasoning; do not append arbitrary arithmetic
+to satisfy a fixed lesson format. Intermediate scenes depend on the topic.
 
 Let the diagram and its changing state carry the explanation. Keep only the
 headline, essential labels, quantities and decisive assumptions on the slide.

@@ -423,3 +423,26 @@ and the final current calculation shows the 100 → 200 kW load change directly.
 
 These checks verify the implemented teaching models and presentation behavior.
 They do not establish measured equipment efficiencies or learning outcomes.
+
+## Generator handoff and architecture ending — 2026-09-11
+
+The UPS sequence now has sixteen slides, with a three-state utility / battery
+bridge / accepted-generator diagram before bypass. Navigation uses short labels;
+the full teaching sentence appears only in the headline. The 800 V sequence now
+has twelve slides and ends with conversion placement. The unrelated load-doubling
+slide and matching written exercise are removed; its old hash opens upstream
+conversion. A changed-case ending is no longer mandatory in the authoring schema.
+
+- 52 Python and 51 JavaScript tests passed, along with all generated-output,
+  research, map, lint and whitespace checks.
+- Presentation checks passed 160 layout/reveal states and verified the revised
+  ending, historical links, controls and note synchronization.
+- UPS checks passed 64 slide layouts, 12 introductory theme views, short-label
+  menu fit, the existing 14 redundancy cases and bypass controls. Twelve further
+  generator states covered three sources/stages, two viewports and both themes:
+  only the selected source contact closes; startup uses the battery/DC link;
+  the generator feeds the rectifier; inverter output remains supplied.
+- The new diagram was checked independently for path continuity and source
+  isolation. Desktop/mobile screenshots were inspected; compact labels were
+  moved inside component boxes to avoid intersecting the wires. The staged site
+  includes the generator diagram module.

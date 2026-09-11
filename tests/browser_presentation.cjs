@@ -7,13 +7,7 @@ const output = resolve(process.argv[3] || "qa/presentation");
 const data = JSON.parse(
   readFileSync("course/expansion/sample-presentation.json", "utf8"),
 );
-const revealKinds = new Set([
-  "copper",
-  "current",
-  "loss",
-  "conversion-loss",
-  "decision",
-]);
+const revealKinds = new Set(["copper", "current", "loss", "conversion-loss"]);
 const stepById = (id) => {
   const step = data.steps.find((item) => item.id === id);
   assert.ok(step, `Unknown step: ${id}`);
@@ -53,8 +47,8 @@ let browser;
     data.steps.slice(1, 5).map((s) => s.kind),
     ["dc-basics", "ac-basics", "three-phase", "voltage-basis"],
   );
-  assert.equal(data.steps.at(-1).id, "capacity-check");
-  assert.equal(data.steps.at(-1).kind, "decision");
+  assert.equal(data.steps.at(-1).id, "conversion-farther-upstream");
+  assert.equal(data.steps.at(-1).kind, "facility");
   assert.ok(!JSON.stringify(data).toLowerCase().includes("recording setup"));
   const pathStep = stepById("ac-dc-ledger");
   assert.doesNotMatch(
@@ -101,7 +95,7 @@ let browser;
         );
         assert.equal(
           await page.locator("#next").isDisabled(),
-          step.id === "capacity-check",
+          step.id === "conversion-farther-upstream",
         );
         for (const revealed of revealKinds.has(step.kind)
           ? [false, true]
@@ -385,35 +379,15 @@ let browser;
   await page.waitForFunction(() =>
     document.querySelector(".converter-heat").textContent.includes("2.04"),
   );
-  await notes.locator("#notes-next-button").click();
-  await page.waitForURL(/#capacity-check$/);
+  await page
+    .locator(stepSelector("#steps", "conversion-farther-upstream"))
+    .click();
+  await notes.waitForURL(/#conversion-farther-upstream$/);
   assert.equal(await page.locator("#next").isDisabled(), true);
-  assert.match(
-    await page.locator(".growth-equation").last().innerText(),
-    /\? A/,
-  );
-  await notes.locator("#notes-reveal").click();
-  await page.waitForFunction(
-    () =>
-      document.querySelector(".growth-equation:last-of-type") &&
-      document.querySelector("#visual").textContent.includes("250 A"),
-  );
-  const cards = page.locator(".metric-card");
-  assert.match(await cards.first().innerText(), /100,000 W ÷ 800 V\s*= 125 A/);
-  assert.match(await cards.last().innerText(), /200,000 W ÷ 800 V\s*= 250 A/);
-  assert.match(await cards.first().innerText(), /312.5 W/);
-  assert.match(await cards.last().innerText(), /1,250 W/);
-  assert.match(
+  assert.doesNotMatch(
     await page.locator("#visual").innerText(),
-    /Current rating, temperature and voltage drop/,
+    /200 kW|250 A/,
   );
-  await page.screenshot({ path: resolve(output, "capacity-1280.png") });
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.screenshot({
-    path: resolve(output, "capacity-mobile.png"),
-    fullPage: true,
-  });
-  await page.setViewportSize({ width: 1280, height: 720 });
   await notes.close();
   await fresh("teach", "one-load");
   await page.waitForFunction(
@@ -475,6 +449,11 @@ let browser;
       /150 kW|160 kW|200 A/,
     );
   }
+  await fresh("teach", "capacity-check");
+  assert.equal(
+    await page.locator("#scene-title").textContent(),
+    stepById("conversion-farther-upstream").headline,
+  );
   await fresh("teach", "energy-balance");
   assert.equal(
     await page.locator("#scene-title").textContent(),
@@ -549,17 +528,16 @@ let browser;
     layout_states: layouts.length,
     layouts,
     checks: [
-      "Thirteen visual steps and five reveal states in teaching and student modes at five viewport sizes",
+      "Twelve visual steps and four reveal states in teaching and student modes at five viewport sizes",
       "Teaching notes excluded from visuals and no recording-setup instructions",
       "No teaching-view scroll at 1920×1080, 1280×720 or 1024×768",
       "No horizontal overflow or clipped labels on phone and short landscape",
-      "Student explanations expand for all thirteen steps at all five sizes",
+      "Student explanations expand for all twelve steps at all five sizes",
       "Student mode hides notes/fullscreen and P/F shortcuts do not activate them",
-      "Prediction before reveal for copper, currents, conductor loss, the single converter energy balance and the capacity transfer",
+      "Prediction before reveal for copper, currents, conductor loss, the single converter energy balance",
       "Equal-geometry copper comparison: three bars versus two, 33.3% less conductor copper",
-      "Capacity transfer: 125 to 250 A, 0.3125 to 1.25 kW conductor heat, unchanged copper and unverified safe capacity",
       "Moved conversion: sidecar retains upstream AC and nearby footprint; facility DC moves conversion to power room",
-      "All thirteen footer steps remain accessible without horizontal overflow; only capacity-check is the final scene",
+      "All twelve footer steps remain accessible without horizontal overflow; upstream conversion resolves the architecture question",
       "480 V balanced three-phase AC versus 800 V DC: current, conductor count, 72% heat ratio and energy balance",
       "Single converter balance at an explicit illustrative 98% efficiency",
       "Keyboard advance after reveal and slider keyboard ownership",

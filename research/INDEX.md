@@ -149,6 +149,8 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P26 — Schneider Electric — Easy UPS 3-Phase Modular physical specifications](sources/P26.md) | Schneider Electric | D05 | page_reviewed |
 | [P27 — Schneider Electric — Easy UPS 3-Phase Modular hardware options](sources/P27.md) | Schneider Electric | D05 | page_reviewed |
 | [P28 — Open Compute Project — Open Rack V3 BBU Module Specification 1.4](sources/P28.md) | Open Compute Project | D05, D06 | page_reviewed |
+| [P29 — Eaton — Automatic transfer switch fundamentals](sources/P29.md) | Eaton | D04, D05 | page_reviewed |
+| [P30 — Schneider Electric — Presence of an Uninterruptible Power Supply (UPS)](sources/P30.md) | Schneider Electric | D04, D05 | page_reviewed |
 | [SA01 — Datacenter Anatomy Part 1: Electrical Systems](sources/SA01.md) | SemiAnalysis | D04, D05, D06, D13, D15 | public_excerpt_reviewed |
 | [SA02 — Datacenter Anatomy Part 2 – Cooling Systems](sources/SA02.md) | SemiAnalysis | D10, D11, D15 | public_excerpt_reviewed |
 | [SA03 — 100,000 H100 Clusters: Power, Network Topology, Ethernet vs InfiniBand, Reliability, Failures, Checkpointing](sources/SA03.md) | SemiAnalysis | D02, D07, D08, D09, D14 | public_excerpt_reviewed |

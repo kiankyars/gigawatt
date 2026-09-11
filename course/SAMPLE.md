@@ -4,7 +4,7 @@ Generated reading view. Edit [`course/expansion/sample.json`](https://github.com
 
 **D06 · Authored draft · Objectives:** D06.2, D06.3
 
-Learn the electrical foundations, then compare distribution copper, conversion placement and the current required by a growing load.
+Learn the electrical foundations, then compare distribution copper and the placement of conversion equipment.
 
 **Driving question:** How can denser racks use less distribution copper and less space for power conversion?
 
@@ -12,7 +12,7 @@ Learn the electrical foundations, then compare distribution copper, conversion p
 
 The design ambition is to deliver more power using less distribution copper while freeing compute-rack and potentially data-hall space occupied by power-conversion equipment. Copper, equipment placement and energy efficiency are related design questions, but they require different evidence. Begin with material and space; use measured equipment efficiency to evaluate total losses.
 
-To isolate one change, hold average received real power at 100 kW. First learn what voltage, current and three phases mean with ideal resistive teaching loads. Then compare equal received power to make the conductor-material arithmetic legible. Equal power alone does not prove that a new design can simultaneously use less copper and safely serve a larger load. The closing exercise changes the load and tests that additional claim.
+To isolate one change, hold average received real power at 100 kW. First learn what voltage, current and three phases mean with ideal resistive teaching loads. Then compare equal received power to make the conductor-material arithmetic legible. Equal power alone does not prove that a new design can simultaneously use less copper and safely serve a larger load.
 
 ## Trace a complete DC circuit
 
@@ -118,15 +118,11 @@ Efficiency η is useful output power divided by input power. At a fixed output, 
 
 To compare architectures, read the actual equipment efficiency curves at the required loading and mode, then sum losses along the complete path. Fewer conversion boxes or lower conductor heat alone does not establish lower total facility input.
 
-## Change the load and test the capacity claim
+## What the architecture comparison establishes
 
-Return to the conductor-only boundary. Keep the same two DC conductors and 800 V receiving-end voltage, but raise received power from 100 to 200 kW. Predict the current, conductor heat and safe-capacity verdict before calculating. Copper quantity is unchanged because conductor count and geometry are unchanged.
+At the same delivered power, the stated equal-geometry comparison uses two current-carrying copper conductors instead of three. Moving AC-to-DC conversion out of the compute rack frees its occupied rack space. A sidecar still occupies nearby hall space; upstream conversion can move that equipment to the power room.
 
-Current rises from 100,000/800 = 125 A to 200,000/800 = 250 A. Holding effective resistance at 0.01 Ω per conductor, heat rises from 2 × 125² × 0.01 = 312.5 W to 2 × 250² × 0.01 = 1,250 W. At fixed voltage and resistance, doubling delivered power doubles current and quadruples conductor heat.
-
-Safe operating capability is unknown. The calculation supplies no ampacity, installation conditions, allowable temperature rise, voltage-drop limits, terminal or protection ratings, converter rating or cooling headroom. Resistance itself varies with temperature in service. Additional usable power must be engineered; a larger number in the power equation is not proof that an unchanged installation can carry it.
-
-The ambition remains more power with less material and more room for compute. The method is to specify the copper geometry, locate the equipment, close the energy balance and test the limiting conditions together. There is no universal savings percentage that replaces those checks.
+These are the physical changes the lesson set out to explain. Overall hall footprint and facility energy savings require the actual equipment arrangement and losses.
 
 ## Worked example: 100 kW: count copper, then calculate current and heat
 
@@ -163,14 +159,14 @@ Response: Close the electrical and thermal ledgers at the same boundary before c
 
 ## Apply the idea
 
-An 800 V DC feeder delivers 100 kW through two conductors, each modeled at 10 mΩ. Keep those conductors and receiving-end voltage unchanged, then raise received load to 200 kW. Predict current, conductor heat, copper quantity and whether safe operation has been established.
+A power sidecar takes AC-to-DC conversion out of a compute rack but stays beside it in the data hall. Which space is freed, and does this establish a smaller data hall or lower electricity use?
 
 <details>
 <summary>Reveal the worked answer</summary>
 
-Current doubles from 125 to 250 A. Conductor heat rises fourfold from 0.3125 to 1.25 kW under the fixed-resistance model. Copper quantity is unchanged by assumption. Safe operating capability is unknown.
+Space inside the compute rack is freed. The sidecar still needs hall space and service access. Neither a smaller total hall footprint nor lower electricity use follows automatically.
 
-Use I = P/V and total DC conductor heat = 2I²R. Doubling current quadruples heat when R is held fixed. No ampacity, temperature, installation, voltage-drop, terminal, protection, converter or cooling limits were supplied; resistance also varies with temperature in service. The calculation cannot establish usable extra capacity.
+Locate the displaced equipment before counting freed space. Compare actual converter losses at the same useful output before claiming an energy saving.
 
 </details>
 

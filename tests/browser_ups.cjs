@@ -26,6 +26,25 @@ const sceneIds = [
     const navigate = async (id, query = "") => {
       await page.goto(`${base}${query}#${id}`);
       await page.waitForSelector("#scene-jump");
+      const menuFits = await page.locator("#scene-jump").evaluate((select) => {
+        const style = getComputedStyle(select);
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        ctx.font = style.font;
+        const longest = Math.max(
+          ...Array.from(
+            select.options,
+            (option) => ctx.measureText(option.text).width,
+          ),
+        );
+        return (
+          longest +
+            parseFloat(style.paddingLeft) +
+            parseFloat(style.paddingRight) <=
+          select.clientWidth + 1
+        );
+      });
+      assert.ok(menuFits, `${id}: navigation label clips`);
       assert.equal(
         await page.locator("#caption").count(),
         0,
@@ -157,6 +176,7 @@ const sceneIds = [
         "equipment",
         "normal",
         "outage",
+        "generator",
         "static-bypass",
         "maintenance-bypass",
         "return",
@@ -165,6 +185,7 @@ const sceneIds = [
         const circuitScene = [
           "normal",
           "outage",
+          "generator",
           "static-bypass",
           "maintenance-bypass",
         ].includes(id);
@@ -262,7 +283,10 @@ const sceneIds = [
             `${name}: product photograph reduced to a thumbnail`,
           );
           assert.match(product.caption, /Schneider Easy UPS 3-Phase Modular/);
-          assert.match(product.caption, /both pictured cabinets are UPS\s+units/);
+          assert.match(
+            product.caption,
+            /both pictured cabinets are UPS\s+units/,
+          );
           assert.ok(
             product.bottom <= bounds.stage.bottom + 1,
             `${name}: equipment caption clips below stage`,
@@ -432,6 +456,8 @@ const sceneIds = [
     await page.keyboard.press("ArrowRight");
     await page.waitForURL(/#outage$/);
     await page.keyboard.press("PageDown");
+    await page.waitForURL(/#generator$/);
+    await page.keyboard.press("PageDown");
     await page.waitForURL(/#static-bypass$/);
     assert.equal(await page.locator("#circuit").isVisible(), true);
     assert.equal(await page.locator("#redundancy-view").isVisible(), false);
@@ -485,9 +511,62 @@ const sceneIds = [
           .getAttribute("aria-pressed") === "true",
     );
     await notes.close();
+    for (const viewport of [
+      { width: 1280, height: 720 },
+      { width: 390, height: 844 },
+    ]) {
+      await page.setViewportSize(viewport);
+      for (const colorScheme of ["light", "dark"]) {
+        await page.emulateMedia({ colorScheme });
+        await navigate("generator");
+        for (const stage of ["utility", "waiting", "generator"]) {
+          await page
+            .locator(
+              `#exercise-controls button[data-generator-stage="${stage}"]`,
+            )
+            .click();
+          for (const [path, active] of [
+            ["utility-input", stage === "utility"],
+            ["generator-input", stage === "generator"],
+            ["battery-to-dc-link", stage === "waiting"],
+            ["dc-link", true],
+            ["inverter-output", true],
+          ]) {
+            assert.equal(
+              await page
+                .locator(`#circuit [data-path="${path}"]`)
+                .evaluate((el) => el.classList.contains("active")),
+              active,
+            );
+          }
+          assert.equal(
+            await page
+              .locator('#circuit [data-contact="utility"]')
+              .getAttribute("data-closed"),
+            String(stage === "utility"),
+          );
+          assert.equal(
+            await page
+              .locator('#circuit [data-contact="generator"]')
+              .getAttribute("data-closed"),
+            String(stage === "generator"),
+          );
+          assert.match(await page.locator("#circuit").textContent(), /100 kW/);
+          if (stage === "generator")
+            assert.match(
+              await page.locator("#supply-state").innerText(),
+              /UTILITY UNAVAILABLE/,
+            );
+          await page.screenshot({
+            path: `${output}/generator-${stage}-${viewport.width}-${colorScheme}.png`,
+            fullPage: true,
+          });
+        }
+      }
+    }
     assert.deepEqual(errors, []);
     console.log(
-      "Passed 60 scene layouts, 12 introductory theme views, real product photograph and caption visibility, no competing subtitles, bypass-source loss/restoration, 14 redundancy cases, SVG exclusivity, optional notes sync and keyboard navigation.",
+      "Passed 64 scene layouts, 12 introductory theme views, real product photograph and caption visibility, no competing subtitles, bypass-source loss/restoration, 14 redundancy cases, SVG exclusivity, optional notes sync and keyboard navigation.",
     );
   } finally {
     await browser.close();

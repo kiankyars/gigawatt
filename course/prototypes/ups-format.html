@@ -686,13 +686,25 @@
         white-space: nowrap;
       }
       #scene-jump {
-        max-width: min(420px, 45vw);
-        padding: 8px;
+        width: 235px;
+        max-width: 100%;
+        min-height: 42px;
+        line-height: 1.5;
+        padding: 8px 28px 8px 8px;
         border: 0;
         background: transparent;
         color: var(--ink);
         font: inherit;
         font-size: 13px;
+      }
+      .generator-label {
+        fill: var(--ink);
+        font-size: 21px;
+        font-weight: 650;
+      }
+      .generator-small {
+        fill: var(--muted);
+        font-size: 15px;
       }
       #redundancy-view {
         flex: 1;
@@ -713,16 +725,35 @@
       [data-action] {
         font-size: 13px;
       }
-      [data-action][aria-pressed="true"] {
+      [data-action][aria-pressed="true"],
+      button[data-generator-stage][aria-pressed="true"] {
         background: var(--ink);
         color: var(--on-strong, white);
       }
       @media (max-width: 799px) {
+        #mechanism[data-generator="true"] #circuit {
+          min-height: 570px;
+          max-height: none;
+          flex: none;
+        }
+        #mechanism[data-generator="true"] {
+          height: auto;
+        }
+        #stage:has(#mechanism[data-generator="true"]:not([hidden])) {
+          height: auto;
+        }
+        .generator-label {
+          font-size: 17px;
+        }
+        .generator-small {
+          font-size: 14px;
+        }
         #redundancy-view {
           min-height: 570px;
         }
         #scene-jump {
-          max-width: 42vw;
+          width: 190px;
+          max-width: 48vw;
           font-size: 11px;
         }
         #exercise-controls {
@@ -951,6 +982,20 @@
       <p class="note-source">
         References:
         <a
+          href="https://www.eaton.com/us/en-us/products/low-voltage-power-distribution-control-systems/automatic-transfer-switches/automatic-transfer-switch-fundamentals.html"
+          target="_blank"
+          rel="noopener"
+          >Source transfer</a
+        >
+        ·
+        <a
+          href="https://www.electrical-installation.org/enwiki/Presence_of_an_Uninterruptible_Power_Supply_%28UPS%29"
+          target="_blank"
+          rel="noopener"
+          >Battery bridge and generator takeover</a
+        >
+        ·
+        <a
           href="https://www.se.com/us/en/faqs/FAQ000244169/"
           target="_blank"
           rel="noopener"
@@ -1002,11 +1047,13 @@
       </div>
     </section>
     <script type="module">
+      import { renderGeneratorDiagram } from "./ups-generator.js";
       import { renderBypassDiagram } from "./ups-bypass.js";
       import { redundancyModel, renderRedundancy } from "./ups-redundancy.js";
       const scenes = [
         {
           id: "campus",
+          label: "Overview",
           title:
             "A UPS keeps the racks powered through a brief supply interruption.",
           notes: [
@@ -1018,6 +1065,7 @@
         },
         {
           id: "electrical-room",
+          label: "Electrical room",
           title:
             "In this layout, the UPS sits in an electrical room beside the data hall.",
           notes: [
@@ -1029,6 +1077,7 @@
         },
         {
           id: "equipment",
+          label: "UPS and battery",
           title: "This UPS uses a separate battery cabinet for backup energy.",
           notes: [
             "This is a facility AC UPS with an external UPS battery cabinet, rather than a battery shelf installed inside a compute rack.",
@@ -1040,6 +1089,7 @@
         },
         {
           id: "normal",
+          label: "Normal operation",
           title: "Normal operation converts AC to DC and back to AC.",
           notes: [
             "Rectifier converts incoming AC to the DC link.",
@@ -1051,6 +1101,7 @@
         },
         {
           id: "outage",
+          label: "Battery operation",
           title:
             "During an outage, the battery supplies the inverter through the DC link.",
           notes: [
@@ -1062,7 +1113,20 @@
           cue: "Trace the new active path, then restore utility to compare the two states.",
         },
         {
+          id: "generator",
+          label: "Generator handoff",
+          title: "The UPS battery bridges the wait for generator power.",
+          notes: [
+            "Source transfer switchgear selects utility or generator upstream of the UPS; it does not route around the UPS.",
+            "During generator startup and source transfer, the battery feeds the DC link and inverter.",
+            "Once generator voltage and frequency are accepted and transfer completes, its AC supplies the rectifier; the inverter still supplies the racks.",
+            "Utility remains unavailable in the generator state. Battery charging is omitted, and sufficient battery runtime is assumed; no universal startup duration is claimed.",
+          ],
+          cue: "Choose utility, generator starting, then generator supplying. Trace the source and the unchanged inverter-to-load path.",
+        },
+        {
           id: "static-bypass",
+          label: "Static bypass",
           title: "Static bypass feeds the load around an unavailable inverter.",
           mode: "static",
           notes: [
@@ -1074,6 +1138,7 @@
         },
         {
           id: "maintenance-bypass",
+          label: "Maintenance bypass",
           title:
             "Maintenance bypass powers the load while the UPS is isolated.",
           mode: "maintenance",
@@ -1086,6 +1151,7 @@
         },
         {
           id: "capacity-n",
+          label: "N capacity",
           title: "Two 50 kW modules provide the 100 kW this load needs.",
           redundancy: "n",
           notes: [
@@ -1097,6 +1163,7 @@
         },
         {
           id: "capacity-n1",
+          label: "N+1 modules",
           title: "N+1 keeps enough capacity when one module is unavailable.",
           redundancy: "n1",
           notes: [
@@ -1108,6 +1175,7 @@
         },
         {
           id: "capacity-n2",
+          label: "N+2 modules",
           title: "N+2 keeps enough capacity when two modules are unavailable.",
           redundancy: "n2",
           notes: [
@@ -1119,6 +1187,7 @@
         },
         {
           id: "shared-bus",
+          label: "Shared bus",
           title: "A shared bus failure defeats every module connected to it.",
           redundancy: "n2",
           notes: [
@@ -1130,6 +1199,7 @@
         },
         {
           id: "two-n",
+          label: "2N paths",
           title:
             "2N gives the load two separate paths, each with its full capacity.",
           redundancy: "two_n",
@@ -1142,6 +1212,7 @@
         },
         {
           id: "two-n-plus-one",
+          label: "2(N+1) paths",
           title: "2(N+1) adds a spare module to each full-capacity path.",
           redundancy: "two_n1",
           notes: [
@@ -1153,6 +1224,7 @@
         },
         {
           id: "load-growth",
+          label: "Load growth",
           title:
             "A higher load consumes the spare capacity in the same UPS system.",
           redundancy: "two_n1",
@@ -1169,6 +1241,7 @@
         },
         {
           id: "return",
+          label: "Recap",
           title:
             "To survive an interruption, the load needs enough power and an intact path.",
           notes: [
@@ -1192,6 +1265,7 @@
         return {
           index,
           outage: scenes[index].id === "outage",
+          generatorStage: "waiting",
           supplyAvailable: true,
           maintenance: false,
           fault: false,
@@ -1391,6 +1465,17 @@
         }
       }
       function actionButtons(s) {
+        if (s.id === "generator")
+          return [
+            ["utility", "Utility supplying"],
+            ["waiting", "Generator starting"],
+            ["generator", "Generator supplying"],
+          ]
+            .map(
+              ([stage, label]) =>
+                `<button data-generator-stage="${stage}" aria-pressed="${stage === state.generatorStage}">${label}</button>`,
+            )
+            .join("");
         if (!s.redundancy) return "";
         const button = (key, label, active) =>
           `<button data-action="${key}" aria-pressed="${active}">${label}</button>`;
@@ -1432,6 +1517,15 @@
         );
       }
       function bindActions(container) {
+        container
+          .querySelectorAll("button[data-generator-stage]")
+          .forEach((button) => {
+            button.onclick = () => {
+              state.generatorStage = button.dataset.generatorStage;
+              render();
+              publish();
+            };
+          });
         container.querySelectorAll("[data-action]").forEach(
           (button) =>
             (button.onclick = () => {
@@ -1449,6 +1543,7 @@
       }
       function renderMechanism(s) {
         const compact = matchMedia("(max-width: 799px)").matches;
+        $("mechanism").dataset.generator = String(s.id === "generator");
         $("circuit").toggleAttribute("hidden", Boolean(s.redundancy));
         $("redundancy-view").hidden = !s.redundancy;
         $("exercise-controls").innerHTML = actionButtons(s);
@@ -1474,7 +1569,23 @@
           "Green = carrying power to the load";
         $("model-scope").textContent =
           "Functional paths · one line does not mean one conductor";
-        if (s.mode) {
+        if (s.id === "generator") {
+          const result = renderGeneratorDiagram({
+            stage: state.generatorStage,
+            compact,
+          });
+          $("circuit").setAttribute("viewBox", result.viewBox);
+          $("circuit").innerHTML = result.svg;
+          $("mechanism").dataset.generator = "true";
+          $("mechanism").dataset.outage = String(result.model.batterySupplying);
+          $("supply-state").textContent = {
+            utility: "UTILITY SUPPLYING",
+            waiting: "GENERATOR STARTING · BATTERY BRIDGE",
+            generator: "GENERATOR ACCEPTED · UTILITY UNAVAILABLE",
+          }[state.generatorStage];
+          $("model-scope").textContent =
+            "Source transfer is upstream of the UPS · battery charging omitted";
+        } else if (s.mode) {
           const result = renderBypassDiagram({
             mode: s.mode,
             sourceAvailable: state.supplyAvailable,
@@ -1513,7 +1624,7 @@
           return;
         }
         $("position").textContent =
-          `UPS / ${String(state.index + 1).padStart(2, "0")}`;
+          `UPS / ${String(state.index + 1).padStart(2, "0")} OF ${scenes.length}`;
         $("title").textContent = s.title;
         const spatial = ["campus", "electrical-room", "return"].includes(s.id);
         $("spatial").hidden = !spatial;
@@ -1530,7 +1641,7 @@
         $("next").textContent =
           state.index === scenes.length - 1 ? "End" : "Next →";
         $("sequence").innerHTML =
-          `<label class="sr-only" for="scene-jump">Jump to scene</label><select id="scene-jump">${scenes.map((v, i) => `<option value="${i}" ${i === state.index ? "selected" : ""}>${i + 1} / ${scenes.length} · ${esc(v.title)}</option>`).join("")}</select>`;
+          `<label class="sr-only" for="scene-jump">Jump to scene</label><select id="scene-jump">${scenes.map((v, i) => `<option value="${i}" ${i === state.index ? "selected" : ""}>${i + 1}. ${esc(v.label)}</option>`).join("")}</select>`;
         $("scene-jump").onchange = (e) => go(Number(e.target.value));
         placeImageLabels();
       }
@@ -1596,6 +1707,9 @@
           data.state.index < scenes.length &&
           typeof data.state.outage === "boolean" &&
           typeof data.state.supplyAvailable === "boolean" &&
+          ["utility", "waiting", "generator"].includes(
+            data.state.generatorStage,
+          ) &&
           ["maintenance", "fault", "busFault"].every(
             (k) => typeof data.state[k] === "boolean",
           ) &&

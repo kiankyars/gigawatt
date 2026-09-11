@@ -19,7 +19,6 @@ KINDS = {
     "sidecar",
     "facility",
     "conversion-loss",
-    "decision",
 }
 ROLES = {
     "problem",
@@ -36,7 +35,7 @@ CONTRACT_FIELDS = (
     "changed_variable",
     "primary_payoff",
     "misconception",
-    "transfer_question",
+    "closing_question",
 )
 
 
@@ -52,10 +51,10 @@ def validate_presentation(data: dict) -> None:
     roles = [step.get("pedagogical_role") for step in steps]
     if any(role not in ROLES for role in roles):
         raise ValueError("Each visual needs a declared teaching purpose")
-    if roles[0] != "problem" or roles[-1] != "transfer":
-        raise ValueError("Start with the problem and finish with changed-case transfer")
+    if roles[0] != "problem":
+        raise ValueError("Start with the problem")
     if "mechanism" not in roles:
-        raise ValueError("Explain the mechanism before assessing transfer")
+        raise ValueError("Explain the mechanism")
     if len({step["id"] for step in steps}) != len(steps):
         raise ValueError("Duplicate presentation step IDs")
     for step in steps:
