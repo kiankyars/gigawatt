@@ -11,8 +11,7 @@ const revealKinds = new Set([
   "copper",
   "current",
   "loss",
-  "energy",
-  "paths",
+  "conversion-loss",
   "decision",
 ]);
 const stepById = (id) => {
@@ -78,6 +77,7 @@ let browser;
           await page.locator("body").getAttribute("data-view"),
           mode,
         );
+        assert.equal(await page.locator("#caption").count(), 0);
         assert.equal(
           await page.locator("#scene-title").textContent(),
           step.headline,
@@ -207,8 +207,8 @@ let browser;
   }
   assert.equal(await page.locator(".copper-result").count(), 0);
   assert.match(
-    await page.locator("#caption").innerText(),
-    /Equal length, material and cross-section/,
+    await page.locator(".copper-bundle").first().getAttribute("aria-label"),
+    /equal length and cross-section/,
   );
   await page.locator("#reveal").click();
   assert.match(
@@ -292,10 +292,10 @@ let browser;
   await page.waitForURL(/#conductor-loss$/);
   await notes.locator("#notes-reveal").click();
   await page.waitForFunction(() =>
-    document.querySelector("#visual").textContent.includes("72"),
+    document.querySelector("#visual").textContent.includes("312.5"),
   );
   assert.match(
-    await page.locator("#caption").textContent(),
+    await page.locator("#visual").textContent(),
     /10 mΩ per conductor/,
   );
   await page.screenshot({ path: resolve(output, "loss-1280.png") });
@@ -309,25 +309,6 @@ let browser;
     document
       .querySelector("#narration")
       .textContent.includes("Live DC comparison: 480 V"),
-  );
-  await page.locator(stepSelector("#steps", "energy-balance")).click();
-  await notes.waitForURL(/#energy-balance$/);
-  assert.equal(
-    await page
-      .locator(".ledger-total strong")
-      .allTextContents()
-      .then((items) => items.every((s) => s.startsWith("?"))),
-    true,
-  );
-  await notes.locator("#notes-reveal").click();
-  await page.waitForFunction(() =>
-    document.querySelector(".ledger-result").textContent.includes("0.122"),
-  );
-  assert.match(await page.locator("#visual").innerText(), /100\.434/);
-  assert.match(await page.locator("#visual").innerText(), /100\.313/);
-  assert.match(
-    await page.locator("#visual").innerText(),
-    /0\.122 kWh less input over 1 h/,
   );
   const models = await page.evaluate(() => ({
     feeder: acdcConductorModel(100, 480, 800, 1, 0.01, 1),
@@ -366,53 +347,34 @@ let browser;
   near(models.complete.ac.feederKW, 104);
   near(models.complete.dc.feederKW, 102);
   near(models.crossover.ac.inputKW, models.crossover.dc.inputKW);
-  await page.screenshot({ path: resolve(output, "energy-balance-1280.png") });
-  await notes.locator("#notes-next-button").click();
-  await page.waitForURL(/#ac-dc-ledger$/);
+  await page.locator(stepSelector("#steps", "ac-dc-ledger")).click();
+  await notes.waitForURL(/#ac-dc-ledger$/);
+  assert.equal(await page.locator("#dc-conversion").count(), 0);
   assert.equal(await page.locator("#next").isDisabled(), false);
-  await page.locator("#reveal").click();
-  await notes.waitForFunction(() =>
-    document
-      .querySelector("#narration")
-      .textContent.includes("Live DC conversion loss: 3 kW"),
+  assert.match(await page.locator(".power-port").first().innerText(), /\?/);
+  await notes.locator("#notes-reveal").click();
+  await page.waitForFunction(() =>
+    document.querySelector(".converter-heat").textContent.includes("2.04"),
+  );
+  assert.match(await page.locator(".power-port").first().innerText(), /102.04/);
+  assert.match(await page.locator(".power-port").last().innerText(), /100/);
+  assert.match(
+    await page.locator(".converter-heat").innerText(),
+    /2.04 kW\s+converter heat/,
   );
   assert.match(
-    await page.locator("#path-result").textContent(),
-    /1\.144 kWh less/,
+    await page.locator(".converter-example").innerText(),
+    /Illustration.*98% efficiency/,
   );
-  assert.match(await page.locator("#dc-path-card").innerText(), /103\.325/);
-  await page.screenshot({ path: resolve(output, "ac-dc-default-1280.png") });
-  const pathCases = [
-    [1, 101.313, "DC uses 3.157 kWh less input over 1 h"],
-    [4.1, 104.432, "DC uses 0.037 kWh less input over 1 h"],
-    [4.2, 104.533, "DC uses 0.063 kWh more input over 1 h"],
-    [6, 106.345, "DC uses 1.875 kWh more input over 1 h"],
-    [7, 107.351, "DC uses 2.882 kWh more input over 1 h"],
-  ];
-  for (const [conversion, input, result] of pathCases) {
-    await setRange("dc-conversion", conversion);
-    assert.equal(await page.locator("#path-result").textContent(), result);
-    near(
-      Number(
-        (await page.locator("#dc-path-card .ledger-total strong").textContent())
-          .replace("kW", "")
-          .trim(),
-      ),
-      input,
-    );
-    await notes.waitForFunction(
-      (value) =>
-        document
-          .querySelector("#narration")
-          .textContent.includes(`Live DC conversion loss: ${value} kW`),
-      conversion,
-    );
-  }
-  await setRange("dc-conversion", 6);
-  await notes.waitForFunction(() =>
-    document.querySelector("#narration").textContent.includes("1.875 kWh more"),
-  );
-  await page.screenshot({ path: resolve(output, "ac-dc-reversed-1280.png") });
+  const conversion = await page.evaluate(() => ({
+    input: DEFAULTS.power_kw / DEFAULTS.converter_efficiency,
+    output: DEFAULTS.power_kw,
+    efficiency: DEFAULTS.converter_efficiency,
+  }));
+  near(conversion.input, 102.04081632653062);
+  near(conversion.output / conversion.input, 0.98);
+  near(conversion.input - conversion.output, 2.040816326530617);
+  await page.screenshot({ path: resolve(output, "converter-loss-1280.png") });
   await notes.screenshot({
     path: resolve(output, "presenter-notes.png"),
     fullPage: true,
@@ -420,51 +382,30 @@ let browser;
   await notes.locator("#notes-reveal").click();
   await page.locator("#reveal").waitFor();
   await notes.locator("#notes-reveal").click();
-  await page.locator("#dc-conversion").waitFor();
-  assert.equal(await page.locator("#dc-conversion").inputValue(), "6");
-  await page.locator("#dc-loss-reset").click();
-  assert.equal(await page.locator("#dc-conversion").inputValue(), "3");
-  await notes.waitForFunction(() =>
-    document
-      .querySelector("#narration")
-      .textContent.includes("Live DC conversion loss: 3 kW"),
+  await page.waitForFunction(() =>
+    document.querySelector(".converter-heat").textContent.includes("2.04"),
   );
   await notes.locator("#notes-next-button").click();
   await page.waitForURL(/#capacity-check$/);
   assert.equal(await page.locator("#next").isDisabled(), true);
-  assert.equal(await page.locator(".capacity-result").count(), 0);
-  const growthValues = page.locator(
-    ".capacity-row:not(.capacity-heading) > strong:last-child",
+  assert.match(
+    await page.locator(".growth-equation").last().innerText(),
+    /\? A/,
   );
-  assert.match((await growthValues.allTextContents())[2], /\?/);
-  assert.match((await growthValues.allTextContents())[3], /\?/);
   await notes.locator("#notes-reveal").click();
-  await page.locator(".capacity-result").waitFor();
-  const currentRow = page
-    .locator(".capacity-row")
-    .filter({ hasText: "Current per wire" });
-  const heatRow = page
-    .locator(".capacity-row")
-    .filter({ hasText: "Total conductor heat" });
-  assert.deepEqual(await currentRow.locator("strong").allTextContents(), [
-    "125 A",
-    "250 A",
-  ]);
-  assert.deepEqual(await heatRow.locator("strong").allTextContents(), [
-    "0.3125 kW",
-    "1.25 kW",
-  ]);
-  assert.match(
-    await page.locator(".capacity-result").innerText(),
-    /2× power · same copper · 4× conductor heat/,
+  await page.waitForFunction(
+    () =>
+      document.querySelector(".growth-equation:last-of-type") &&
+      document.querySelector("#visual").textContent.includes("250 A"),
   );
+  const cards = page.locator(".metric-card");
+  assert.match(await cards.first().innerText(), /100,000 W ÷ 800 V\s*= 125 A/);
+  assert.match(await cards.last().innerText(), /200,000 W ÷ 800 V\s*= 250 A/);
+  assert.match(await cards.first().innerText(), /312.5 W/);
+  assert.match(await cards.last().innerText(), /1,250 W/);
   assert.match(
-    await page.locator(".capacity-status").innerText(),
-    /Capacity unverified/,
-  );
-  assert.match(
-    await notes.locator("#narration").innerText(),
-    /Capacity unknown/,
+    await page.locator("#visual").innerText(),
+    /Current rating, temperature and voltage drop/,
   );
   await page.screenshot({ path: resolve(output, "capacity-1280.png") });
   await page.setViewportSize({ width: 390, height: 844 });
@@ -500,23 +441,15 @@ let browser;
   ]) {
     await page.setViewportSize({ width: 1280, height: 720 });
     await fresh("teach", id);
-    assert.match(await page.locator(".rack-space").innerText(), /Released/);
+    assert.match(await page.locator(".rack-space").innerText(), /Freed/);
     assert.equal(await page.locator(".zone.rack .unit.converter").count(), 1);
     const zones = page.locator(".zone");
     if (id === "conversion-in-sidecar") {
       assert.match(await zones.nth(0).innerText(), /Facility AC/);
       assert.match(await zones.nth(1).innerText(), /AC → DC/);
-      assert.match(
-        await page.locator(".boundary-line").innerText(),
-        /sidecar occupies nearby space/,
-      );
     } else {
       assert.match(await zones.nth(0).innerText(), /AC → DC/);
       assert.match(await zones.nth(1).innerText(), /800 V DC/);
-      assert.match(
-        await page.locator(".boundary-line").innerText(),
-        /out of the hall to the power room/,
-      );
     }
     await page.screenshot({ path: resolve(output, `${filename}-1280.png`) });
     await page.setViewportSize({ width: 390, height: 844 });
@@ -542,6 +475,11 @@ let browser;
       /150 kW|160 kW|200 A/,
     );
   }
+  await fresh("teach", "energy-balance");
+  assert.equal(
+    await page.locator("#scene-title").textContent(),
+    stepById("conductor-loss").headline,
+  );
   await page.goto(`${base}sample-reading.html`);
   assert.ok(await page.locator("#prose").isVisible());
   assert.match(
@@ -611,24 +549,24 @@ let browser;
     layout_states: layouts.length,
     layouts,
     checks: [
-      "Fourteen visual steps and six reveal states in teaching and student modes at five viewport sizes",
+      "Thirteen visual steps and five reveal states in teaching and student modes at five viewport sizes",
       "Teaching notes excluded from visuals and no recording-setup instructions",
       "No teaching-view scroll at 1920×1080, 1280×720 or 1024×768",
       "No horizontal overflow or clipped labels on phone and short landscape",
-      "Student explanations expand for all fourteen steps at all five sizes",
+      "Student explanations expand for all thirteen steps at all five sizes",
       "Student mode hides notes/fullscreen and P/F shortcuts do not activate them",
-      "Prediction before reveal for copper, currents, conductor loss, both energy ledgers and the capacity transfer",
+      "Prediction before reveal for copper, currents, conductor loss, the single converter energy balance and the capacity transfer",
       "Equal-geometry copper comparison: three bars versus two, 33.3% less conductor copper",
       "Capacity transfer: 125 to 250 A, 0.3125 to 1.25 kW conductor heat, unchanged copper and unverified safe capacity",
       "Moved conversion: sidecar retains upstream AC and nearby footprint; facility DC moves conversion to power room",
-      "All fourteen footer steps remain accessible without horizontal overflow; only capacity-check is the final scene",
+      "All thirteen footer steps remain accessible without horizontal overflow; only capacity-check is the final scene",
       "480 V balanced three-phase AC versus 800 V DC: current, conductor count, 72% heat ratio and energy balance",
-      "Coupled complete-path default, 4.1–4.2 kW crossover bracket and reversed energy budgets",
+      "Single converter balance at an explicit illustrative 98% efficiency",
       "Keyboard advance after reveal and slider keyboard ownership",
       "Separate presenter window with bidirectional navigation/reveal synchronization",
-      "Voltage and DC-conversion slider state synchronized to notes",
+      "Voltage and answer state synchronized to notes",
       "Fullscreen entry and exit in teaching mode",
-      "Old feeder-transfer hash routes to the complete-path comparison",
+      "Old feeder-transfer hash routes to the converter-loss example",
       "Reading view uses the AC/DC calculator, including the equal-voltage counterexample and control endpoints",
     ],
     errors,

@@ -4,13 +4,13 @@ Generated reading view. Edit [`course/expansion/sample.json`](https://github.com
 
 **D06 · Authored draft · Objectives:** D06.2, D06.3
 
-Keep a 100 kW average-power anchor while building from a closed DC circuit to alternating current, RMS and three phases. Then compare copper quantity, conversion placement and energy losses before testing a higher-load case.
+Learn the electrical foundations, then compare distribution copper, conversion placement and the current required by a growing load.
 
 **Driving question:** How can denser racks use less distribution copper and less space for power conversion?
 
 ## Start with the constraint on denser racks
 
-The design ambition is to deliver more power using less distribution copper while freeing compute-rack and potentially data-hall space occupied by power-conversion equipment. Copper, equipment placement and energy efficiency are related design questions, but they require different evidence. Begin with material and space; use the energy ledger to test an efficiency claim.
+The design ambition is to deliver more power using less distribution copper while freeing compute-rack and potentially data-hall space occupied by power-conversion equipment. Copper, equipment placement and energy efficiency are related design questions, but they require different evidence. Begin with material and space; use measured equipment efficiency to evaluate total losses.
 
 To isolate one change, hold average received real power at 100 kW. First learn what voltage, current and three phases mean with ideal resistive teaching loads. Then compare equal received power to make the conductor-material arithmetic legible. Equal power alone does not prove that a new design can simultaneously use less copper and safely serve a larger load. The closing exercise changes the load and tests that additional claim.
 
@@ -47,6 +47,8 @@ Zero neutral current is conditional on this balanced sinusoidal model. Unequal l
 The DC, single-phase AC and three-phase AC examples all deliver 100 kW on average. DC is steady in its introductory model, single-phase resistive power pulsates, and the three-phase total is steady under balanced conditions. None of the three phases creates extra energy.
 
 ## Read the voltage before calculating current
+
+L1, L2 and L3 are three live phase conductors. Neither of the two meter connections is ground. In the balanced system, any phase pair measures 480 V RMS: L1–L2, L2–L3 or L3–L1. Voltage uses two measurement points even when the system has three phases. Neutral and protective earth have distinct roles; they are not an unmentioned third phase.
 
 In the data-hall comparison, 480 V AC means the RMS voltage measured between two phase conductors: line-to-line voltage. It is not the voltage across each branch of the wye teaching load. Each branch sees the phase-to-neutral voltage, measured from its phase conductor to the star point. In a balanced system that RMS value is 480/√3 ≈ 277.1 V.
 
@@ -98,6 +100,8 @@ In the sidecar view, locate the existing facility AC. That upstream path still h
 
 A power-room conversion arrangement can move selected conversion equipment out of the data hall, whereas a nearby sidecar still uses local space. Neither drawing establishes total facility-footprint savings. NVIDIA separately describes the copper and space constraints of 54 V DC rack distribution; that is a different electrical segment from this lesson’s 480 V AC feeder baseline. Final low-voltage device conversion remains necessary.
 
+These are possible architecture choices, not a mandatory sequence for every data center. A real facility may combine AC and DC segments differently.
+
 ## Close the conductor energy balance
 
 Use the same feeder assumptions: 100 kW received, 480 V balanced three-phase AC at PF = 1 versus 800 V two-wire DC, with 10 mΩ per conductor. The stated voltages are maintained at the receiving end. The sending supply provides enough voltage to cover the resistive drop; treating sending and receiving voltages as identical would silently discard that drop.
@@ -106,19 +110,13 @@ The AC source supplies 100 + 0.434028 = 100.434028 kW. The DC source supplies 10
 
 Over one hour, the DC feeder requires 0.121528 kWh less input, about 0.122 kWh. No energy is created. The invented 10 mΩ resistance makes both feeders low-loss, so a 28% reduction in their small conductor-loss budget is a much smaller percentage of total input energy. This chosen small difference is not a prediction of real 800 V architecture savings. Converter and cooling losses remain outside this balance.
 
-## Compare complete delivery paths at the same final load
+## What determines converter losses?
 
-Now move the fixed 100 kW boundary from each feeder receiving end to the final useful DC load. Both delivery paths begin at the same facility AC supply boundary. A downstream converter needs enough input to supply the useful load and cover its own losses. Its losses therefore increase the power carried by the feeder, which raises current and conductor heat. This boundary change explains why the final conductor losses differ from the preceding conductor-only example.
+Conversion changes voltage or electrical form with real components. Current through semiconductor on-resistance, winding resistance and diode drops dissipates power. Switching transitions dissipate energy as current and voltage overlap; repeating those transitions adds average loss. Magnetic cores, controllers, gate drivers and fans also consume power. The balance depends on converter topology, device choices, voltage, load, switching frequency, temperature and operating mode.
 
-Keep the same feeder assumptions: 480 V balanced three-phase AC, line-to-line RMS, at power factor one; 800 V two-wire DC; and 10 mΩ per conductor. Assume the AC path has 4 kW of conversion loss, all downstream of the feeder. Its feeder must deliver 104 kW. Assume the DC path has 3 kW total conversion loss by default: a fixed 1 kW upstream rectifier loss and 2 kW downstream DC/DC loss. Its feeder must deliver 102 kW.
+Efficiency η is useful output power divided by input power. At a fixed output, P_loss = P_out × (1/η − 1). The slide assumes 98% efficiency solely to demonstrate the calculation: 100/0.98 = 102.0408 kW input, so loss is 2.0408 kW. It is not the efficiency of the pictured UPS or a measured advantage of AC or DC distribution.
 
-Calculate each feeder current from that receiving-end power, then calculate heat across all its conductors. AC conductor heat is 0.469444 kW, giving required facility input of 100 + 4 + 0.469444 = 104.469444 kW. DC conductor heat is 0.325125 kW, giving input of 100 + 1 + 2 + 0.325125 = 103.325125 kW. Over one hour, this DC arrangement requires 1.144319 kWh less input.
-
-Raise total DC conversion loss to 6 kW. Upstream loss remains 1 kW; downstream loss becomes 5 kW. The DC feeder now delivers 105 kW, and its conductor heat rises to 0.344531 kW. Required facility input becomes 106.344531 kW, or 1.875087 kW more than AC. Over one hour it uses 1.875087 kWh more. Break-even total DC conversion loss is about 4.137 kW; the slider brackets it at 4.1 and 4.2 kW.
-
-Conversion losses here are hypothetical watts at the specified operating points, not manufacturer efficiencies. Conductor losses are calculated from the feeder power rather than supplied as independent budgets. Cooling, other losses and voltage compatibility are outside the model. Actual designs need equipment performance, loading, protection, conductor geometry and thermal constraints evaluated together.
-
-This energy counterexample does not undo the separately specified copper comparison or equipment relocation. It shows why an efficiency claim needs its own complete boundary and equipment evidence. Evaluate copper quantity, equipment space and input energy separately before deciding whether a design provides more usable compute power.
+To compare architectures, read the actual equipment efficiency curves at the required loading and mode, then sum losses along the complete path. Fewer conversion boxes or lower conductor heat alone does not establish lower total facility input.
 
 ## Change the load and test the capacity claim
 
@@ -186,3 +184,5 @@ Use I = P/V and total DC conductor heat = 2I²R. Doubling current quadruples hea
 - [NVIDIA 800 VDC Architecture Will Power the Next Generation of AI Factories](https://developer.nvidia.com/blog/nvidia-800-v-hvdc-architecture-will-power-the-next-generation-of-ai-factories/) — Primary context for copper and rack-space constraints, upstream conversion, and the distinct 54 V rack-distribution boundary. Numerical feeder examples are original teaching calculations. Read 2026-09-09. May 2025 vendor roadmap. Proposed capacity, deployment and savings figures are not field validation; its percentage claims are not used as calculated sample results.
 - [OpenStax — 20.5 Alternating Current versus Direct Current (College Physics 2e)](https://openstax.org/books/college-physics-2e/pages/20-5-alternating-current-versus-direct-current) — Explains AC and DC, sinusoidal peak and RMS values, and average power delivered to a resistive load. The 100 kW comparisons are original teaching models. Read 2026-09-10. The AC primer assumes a sinusoidal source and a resistive load with power factor one; it does not model nonlinear rack power electronics.
 - [Steven H. Low — Power System Analysis: Analytical tools and structural properties (April 7, 2025 draft)](https://netlab.caltech.edu/assets/book/PSA/Low-PSA-v20250407.pdf) — Sections 1.2–1.3 develop balanced three-phase circuits, phase-to-line voltage relationships, constant total instantaneous power and zero neutral current under balanced conditions. Read 2026-09-10. April 7, 2025 draft; used for the balanced sinusoidal circuit derivation. No real installation, neutral sizing or protection design follows from the simplified teaching model.
+- [Schneider Electric — What is UPS efficiency and how is it calculated?](https://www.se.com/us/en/faqs/FAQ000244215/) — Efficiency is output power divided by input power and varies with operating load. Read 2026-09-11. Uses the general efficiency definition and load dependence; no product efficiency or eConversion claim is adopted.
+- [Texas Instruments — Power Loss in Switching Power Supplies](https://www.ti.com/document-viewer/lit/html/SLUAAL9) — Explains transistor conduction and switching losses in switching power supplies. Read 2026-09-11. August 2022 application brief. Mechanisms only, not an efficiency prediction for data-center converters.

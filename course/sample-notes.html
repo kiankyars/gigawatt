@@ -1630,6 +1630,250 @@ body[data-view="student"] #visual {
   }
 }
 
+/* A single headline introduces the mechanism; diagram labels carry the evidence. */
+.scene-heading h1 {
+  max-width: 1400px;
+  font-size: clamp(30px, 3.5vw, 56px);
+  text-wrap: balance;
+}
+.dc-essential {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.8fr);
+  align-items: center;
+  gap: 36px;
+}
+.dc-essential .current-circuit {
+  width: 100%;
+  max-height: 450px;
+}
+.equation-block {
+  font-size: clamp(24px, 2.6vw, 38px);
+  line-height: 1.5;
+  text-align: center;
+}
+.equation-block span,
+.equation-block strong {
+  display: block;
+}
+.equation-block span {
+  color: var(--muted);
+  font-size: 0.7em;
+  margin-bottom: 12px;
+}
+.electrical-grid .wave-result {
+  font-size: clamp(16px, 1.5vw, 22px);
+}
+.voltage-measurement {
+  max-width: 1100px;
+  width: 100%;
+  margin: auto;
+}
+.voltage-measurement svg {
+  width: 100%;
+  max-height: 430px;
+  display: block;
+}
+.voltage-measurement text {
+  fill: var(--ink);
+  font:
+    22px Inter,
+    system-ui,
+    sans-serif;
+}
+.voltage-measurement .meter-line-label {
+  font-size: 26px;
+  font-weight: 650;
+}
+.voltage-measurement .meter-number {
+  font-size: 42px;
+  font-weight: 750;
+}
+.voltage-measurement .meter-note {
+  fill: var(--muted);
+}
+.phase-measurement-note {
+  text-align: center;
+  font-size: 20px;
+  margin: 10px 0;
+}
+.comparison-result {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+  margin: 18px 0 0;
+  font-size: 24px;
+}
+.comparison-result span {
+  color: var(--muted);
+  font-size: 16px;
+}
+.converter-example {
+  width: 100%;
+  max-width: 1300px;
+  margin: auto;
+}
+.converter-flow {
+  display: grid;
+  grid-template-columns: 1fr auto 1.5fr auto 1fr;
+  align-items: center;
+  gap: 24px;
+  margin-top: 30px;
+  row-gap: 8px;
+}
+.converter-example .equation-block strong {
+  display: inline;
+}
+.power-port {
+  text-align: center;
+  display: grid;
+  gap: 12px;
+}
+.power-port span {
+  font-size: 18px;
+  color: var(--muted);
+}
+.power-port strong {
+  font-size: clamp(26px, 3vw, 44px);
+  white-space: nowrap;
+}
+.power-port small {
+  font-size: 0.5em;
+}
+.conversion-arrow {
+  font-size: 40px;
+  color: var(--teal);
+}
+.converter-box {
+  background: var(--surface-soft);
+  border: 2px solid var(--teal);
+  border-radius: 12px;
+  padding: 36px 16px;
+  display: grid;
+  gap: 14px;
+  text-align: center;
+}
+.converter-box strong {
+  font-size: 25px;
+}
+.converter-box span {
+  font-size: 16px;
+  color: var(--muted);
+}
+.converter-heat {
+  display: grid;
+  justify-items: center;
+  color: var(--amber);
+  font-size: 28px;
+  gap: 10px;
+  margin: 2px 0 10px;
+  grid-column: 3;
+  grid-row: 2;
+}
+.converter-heat small {
+  display: block;
+  font-size: 0.6em;
+  text-align: center;
+  margin-top: 8px;
+}
+.converter-heat > span {
+  font-size: 42px;
+}
+.loss-causes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px 24px;
+  color: var(--muted);
+  font-size: 18px;
+  margin: 18px 0 26px;
+}
+.loss-causes span {
+  border-bottom: 1px solid var(--line);
+  padding: 8px;
+}
+.growth-equation {
+  font-size: clamp(21px, 2.5vw, 34px);
+  line-height: 1.5;
+  margin-top: 22px;
+}
+.growth-equation strong {
+  font-size: 1.3em;
+}
+@media (max-width: 799px) {
+  .dc-essential {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .equation-block {
+    font-size: 27px;
+  }
+  .voltage-measurement {
+    overflow: visible;
+  }
+  .voltage-measurement svg {
+    min-height: 230px;
+  }
+  .voltage-measurement text,
+  .voltage-measurement .meter-line-label {
+    font-size: 36px;
+  }
+  .voltage-measurement .meter-number {
+    font-size: 56px;
+  }
+  .voltage-measurement .meter-note {
+    font-size: 30px;
+  }
+  .phase-measurement-note {
+    font-size: 17px;
+  }
+  .converter-flow {
+    gap: 10px;
+    grid-template-columns: minmax(0, 1fr) auto;
+    margin-top: 20px;
+  }
+  .converter-flow .conversion-arrow {
+    transform: rotate(90deg);
+    text-align: center;
+    line-height: 1;
+  }
+  .converter-box {
+    padding: 20px;
+  }
+  .converter-flow > :nth-child(1) {
+    grid-area: 1 / 1;
+  }
+  .converter-flow > :nth-child(2) {
+    grid-area: 2 / 1;
+  }
+  .converter-flow > :nth-child(3) {
+    grid-area: 3 / 1;
+  }
+  .converter-flow > :nth-child(4) {
+    grid-area: 4 / 1;
+  }
+  .converter-flow > :nth-child(5) {
+    grid-area: 5 / 1;
+  }
+  .converter-heat {
+    grid-area: 3 / 2;
+    display: flex;
+    gap: 4px;
+    margin: 0;
+    font-size: 20px;
+  }
+  .converter-heat > span {
+    font-size: 30px;
+    transform: rotate(-90deg);
+  }
+  .comparison-result {
+    font-size: 21px;
+  }
+  .loss-causes {
+    font-size: 16px;
+  }
+}
+
     </style>
   </head>
   <body data-view="notes">
@@ -1653,7 +1897,6 @@ body[data-view="student"] #visual {
           <h1 id="scene-title"></h1>
         </div>
         <div id="visual"></div>
-        <p id="caption" class="caption"></p>
         <details id="student-context" hidden>
           <summary>Explanation and source</summary>
           <div id="student-explanation"></div>
@@ -1712,7 +1955,7 @@ body[data-view="student"] #visual {
       </p></noscript
     >
     <script id="presentation-data" type="application/json">
-      {"schema_version":1,"id":"sample-800v-presentation","source_lesson_id":"sample-800v","title":"800 V DC: less copper, room for compute","planned_duration_seconds":1380,"timing_note":"Unrecorded dry run first. Allow roughly twenty-three minutes including the new electrical foundations, predictions and discussion; these are provisional rehearsal allocations, not a measured runtime or a target to fill.","review_state":"Electrical foundations now precede the copper and equipment-space comparison. The expanded sequence awaits an unrecorded dry run.","defaults":{"power_kw":100,"reference_voltage_v":480,"comparison_voltage_v":800,"hours":1,"ac_conversion_kw":4,"dc_conversion_kw":3,"conductor_ohms":0.01,"power_factor":1,"dc_upstream_conversion_kw":1},"presentation_rules":["Show one step at a time. Presenter notes use a few short speaking prompts; full explanations and sources belong in student reading.","Start with a physical constraint, then build closed-circuit and waveform intuition before the copper and heat arithmetic.","Keep the 100 kW average real-power anchor visible through DC, single-phase AC and balanced three-phase AC. Distinguish instantaneous power from its cycle average; introduce losses at an explicit boundary change.","On copper, current, loss, energy, path-comparison and capacity-check steps, ask for a prediction before revealing the result.","Use the same load and diagram positions throughout the architecture sequence; change conversion placement deliberately.","Architecture drawings show selected functional boundaries. They are conceptual schematics, not wiring diagrams.","Keep equal conductor geometry visible in the copper scene. Equal effective resistance in the heat model is a separate idealization.","Compute displayed answers with the tested three-phase AC and two-wire DC model rather than embedding numbers in generated illustrations.","Hold receiving-end real power fixed until the explicit transfer question. State AC line-to-line RMS voltage, power factor and resistance per conductor.","Distinguish three claims: copper under equal geometry; space under a specified equipment placement; input energy under a complete loss balance.","End with a changed case that requires a prediction and identifies information the calculation cannot supply."],"steps":[{"id":"one-load","title":"Start with the physical constraint","kind":"intro","headline":"More power. Less copper. Room for compute.","caption":"Fix the received load at 100 kW. First learn what the supply labels mean.","notes":["Goal: less distribution copper; more compute-rack space.","Anchor: 100 kW received by the load, averaged over an electrical cycle.","First: closed circuits, alternating current, then three phases.","Keep material, equipment space and energy efficiency as separate questions."],"duration_seconds":60,"cue":"Point to the 100 kW load; introduce the supply labels as the question the next scenes will explain.","explanation":["The design ambition is more usable compute power with less distribution copper and less compute-rack space occupied by power-conversion equipment. Hall-space benefits depend on where that equipment moves.","Keep one reference visible: the load receives 100 kW of average real power. First establish how a closed circuit delivers energy, what changes with alternating current and why three phases can use three current-carrying conductors. Then compare 480 V three-phase AC with 800 V DC.","The introductory waveforms use equivalent resistive loads chosen to receive the same average power. They explain electrical quantities; they do not represent rack power electronics or establish that the same equipment can accept each supply directly. Conductor and converter losses enter explicitly in later scenes."],"pedagogical_role":"problem"},{"id":"dc-circuit","title":"Trace a complete DC circuit","kind":"dc-basics","pedagogical_role":"mechanism","headline":"Current needs a complete circuit.","caption":"Steady 800 V DC × 125 A = 100 kW received. Both conductors complete one loop.","duration_seconds":90,"cue":"Trace the complete loop through source, load and return; distinguish current direction from delivered power.","notes":["Voltage: energy per unit charge. Current: charge passing per second.","Steady DC here: fixed polarity; conventional current keeps one direction around the loop.","800 V across the load × 125 A through it = 100 kW.","Outgoing and return each carry 125 A; do not add them as 250 A of delivered current.","Ideal wires for now; protective earth is not the normal return conductor."],"explanation":["A voltage is an electrical potential difference: energy per unit charge. Current measures the rate at which charge passes a point. A source, a load and a complete conducting loop allow current to flow. The load receives electrical energy while charge continues around the circuit; the load does not consume the charge.","In this steady DC model, the source maintains a fixed polarity and 800 V across the load. Conventional current travels from the positive supply connection, through the load, and back through the return conductor. Both conductors carry 125 A as parts of the same loop. Adding their current magnitudes would count the same circuit current twice.","The received power is P = V × I = 800 × 125 = 100,000 W, or 100 kW. It is constant in this model. Direct current need not always have constant magnitude; steady values are the deliberate simplification here. Protective earth is not the normal load-current return.","The waveform primer assumes ideal conductors and no converters. At this boundary, source power equals received power. Later scenes add resistance and conversion losses rather than silently changing this energy balance."]},{"id":"ac-cycle","title":"Separate alternating current from delivered energy","kind":"ac-basics","pedagogical_role":"mechanism","headline":"Current reverses. The resistor still receives energy.","caption":"One resistive AC load: 480 V RMS, 208.3 A RMS; average received power stays 100 kW.","duration_seconds":120,"cue":"Scrub through a full cycle, comparing the two half-cycles. Ask what happens to voltage × current when both signs reverse.","notes":["Single phase first: voltage and current reverse together through a resistive load.","Instantaneous power = voltage × current; two negative signs still give positive received power.","RMS: same resistive heating as a DC value; 480 V RMS is about 679 V peak for a sine wave.","208.3 A RMS here; received power swings 0–200 kW but averages 100 kW.","This resistive example has power factor 1; real rack electronics need a separate model."],"explanation":["Start with one sinusoidal AC source and a resistive load. The voltage changes polarity every half-cycle. The current also reverses, in step with the voltage. With voltage and current referenced consistently at the receiving load, instantaneous power is their product: p(t) = v(t) × i(t). During the negative half-cycle both signs reverse, so the resistor continues receiving positive power. Alternating current does not imply that a resistor returns all the delivered energy every half-cycle. The slider uses a 60 Hz example: 60 complete cycles per second, or about 16.7 milliseconds per cycle. Changing frequency changes that period; the power reasoning shown here still applies to the ideal resistive load.","An AC value must say whether it is a peak or an effective value. RMS means root mean square: square the waveform, average over a cycle, then take the square root. A given RMS current produces the same average heating in the same resistance as that numerical DC current. For a sine wave, peak = √2 × RMS; 480 V RMS therefore has a peak of about 679 V.","Choose this illustrative single-phase load to receive the same 100 kW average power. At 480 V RMS, its current is 100,000/480 = 208.33 A RMS. Voltage and current are sinusoidal and in phase, so power factor is one. Its instantaneous received power is p(θ) = 200 sin²(θ) kW: zero at the waveform crossings, 200 kW at the peaks, and 100 kW averaged over a complete cycle.","The average remains the comparison anchor even though instantaneous power changes. Over one hour at this operating point, the load receives 100 kWh, just as the preceding ideal DC load does. This single-phase case explains the waveform; the data-hall comparison will use balanced three-phase AC. Actual rack power electronics are not resistors and can change current waveforms and power factor."]},{"id":"three-phase","title":"Combine three timed AC phases","kind":"three-phase","pedagogical_role":"mechanism","headline":"Three phases share the work across a cycle.","caption":"Equal phases, one-third cycle apart: their powers add to a steady 100 kW in this ideal model.","duration_seconds":150,"cue":"Scrub the cycle: follow one phase, then combine all three. Contrast the sum of currents with the sum of received powers.","notes":["Three equal AC phases, shifted by 120°: one-third of a cycle.","Balanced wye teaching load: three equal resistive branches meet at a common star point.","Each branch averages 33.3 kW; staggered power pulses add to 100 kW at every instant.","The three line currents sum to zero: other phases complete the return path.","No neutral load current only in this balanced sinusoidal model; real systems may need a neutral."],"explanation":["Three-phase AC uses three sinusoidal phase voltages of equal magnitude, offset from one another by 120 degrees, or one-third of a cycle. For this teaching model, connect three equal resistive load branches at a shared star point, called a wye connection. A phase conductor connects to the other end of each branch.","Keep the total average received power at 100 kW. Each branch averages one-third of that, about 33.3 kW. Its instantaneous power rises and falls between zero and about 66.7 kW. Because the three waveforms are staggered, their instantaneous powers add to a constant 100 kW in this balanced sinusoidal model. A moment of zero voltage on one phase is not a moment of zero total power.","The three signed line currents also add to zero at every instant, but that statement concerns charge flow, not power. Current entering the load through some phase conductors leaves through the others; their roles vary over the cycle. A neutral conductor between the source neutral and load star point would carry zero load current in this ideal balanced case, so the normal load-current circuit can operate with three phase conductors.","Zero neutral current is conditional on this balanced sinusoidal model. Unequal loads and nonlinear current waveforms can require a neutral; protection and grounding requirements also remain. The later copper comparison counts three AC phase conductors under the stated idealization, not every conductor required in every real installation.","The DC, single-phase AC and three-phase AC examples all deliver 100 kW on average. DC is steady in its introductory model, single-phase resistive power pulsates, and the three-phase total is steady under balanced conditions. None of the three phases creates extra energy."]},{"id":"voltage-basis","title":"Read the voltage before calculating current","kind":"voltage-basis","pedagogical_role":"mechanism","headline":"480 V is measured between two phases.","caption":"480 V line-to-line RMS = about 277 V phase-to-neutral RMS; total received power remains 100 kW.","duration_seconds":120,"cue":"Identify both voltage measurement points. Build total power from three branches before showing the compact formula.","notes":["480 V names the RMS voltage between two phase conductors.","Each wye branch sees 480/√3 ≈ 277 V RMS to the star point.","√3 comes from subtracting equal phase voltages separated by 120°; it is not three times 480 V.","Total power = 3 × phase voltage × line current = √3 × 480 × line current at PF 1.","100 kW: 120.3 A RMS per AC line; 125 A per 800 V DC conductor. Average energy delivery is equal."],"explanation":["In the data-hall comparison, 480 V AC means the RMS voltage measured between two phase conductors: line-to-line voltage. It is not the voltage across each branch of the wye teaching load. Each branch sees the phase-to-neutral voltage, measured from its phase conductor to the star point. In a balanced system that RMS value is 480/√3 ≈ 277.1 V.","Line-to-line voltage is the instantaneous difference between two phase voltages. Those equal sine waves are separated by 120 degrees, so the difference has √3 times the magnitude of either phase voltage. This is why the conversion uses √3; treating each branch as a separate 480 V load would mix measurement conventions.","Add the three branch powers. With sinusoidal currents in phase with their respective phase voltages, total real power is P = 3 × V_phase-to-neutral,RMS × I_line,RMS. Substitute V_phase-to-neutral = V_line-to-line/√3 to obtain P = √3 × V_line-to-line,RMS × I_line,RMS. More generally, balanced three-phase real power includes a power-factor multiplier, PF: real power divided by apparent power. The ideal resistive model uses PF = 1.","At 100 kW and 480 V line-to-line RMS, each line carries 100,000/(√3 × 480) = 120.281 A RMS. The corresponding 800 V DC example carries 100,000/800 = 125 A in each of its two conductors. The current magnitudes are close because the AC formula uses three phases and a line-to-line voltage convention. The voltage labels alone do not specify equal circuit arrangements.","The single-phase primer at 480 V RMS used a different arrangement and therefore required 208.33 A RMS for the same average power. It is not the baseline for the copper comparison. From the next scene onward, compare 480 V balanced three-phase AC with 800 V two-wire DC at the same 100 kW receiving-end power; introduce conductor resistance only when calculating heat."]},{"id":"conductor-copper","title":"Make the copper comparison visible","kind":"copper","pedagogical_role":"comparison","headline":"Start with the copper.","caption":"Equal length, material and cross-section; compare current-carrying copper only.","duration_seconds":90,"cue":"Ask which bundle uses less copper. Count the pieces, then reveal.","notes":["Equal length, cross-section and copper material for every conductor.","Copper mass ∝ conductor count × length × cross-section: two pieces versus three.","2/3 as much copper → 33.3% less; a material comparison.","Cable capacity unproven; equal effective resistance is a separate assumption."],"explanation":["For equal conductor length L, cross-sectional area A and copper density, mass is proportional to count × L × A. Three AC conductors versus two DC conductors therefore gives a DC/AC copper ratio of 2/3: 33.3% less current-carrying conductor copper at the stated equal 100 kW load.","This excludes protective earth, any neutral, insulation and terminations. It compares material quantity; it does not establish an ampacity-qualified installation. The later equal-effective-resistance heat calculation is a separate idealization.","The ambition is more power with less material. This controlled comparison establishes the material arithmetic first; it does not yet establish safe additional power capacity."]},{"id":"current-prediction","title":"Predict the current","kind":"current","headline":"Fewer conductors. Less current?","caption":"100 kW received; 480 V AC line-to-line RMS, power factor 1; compare current per conductor.","notes":["DC: I = P/V. Balanced three-phase AC: I = P/(√3 × V_line-to-line × PF).","At 100 kW: 480 V AC → 120.3 A RMS per line; 800 V DC → 125 A per conductor.","DC current is slightly higher here; fewer conductors explain the copper reduction.","Raise DC voltage → lower DC current. Later scenes reset to 800 V."],"duration_seconds":90,"cue":"Ask whether fewer conductors means less current per conductor. Reveal, then move the DC voltage slider.","explanation":["For DC, I = P/V. For balanced three-phase AC, I = P/(√3 × V_line-to-line × PF). At 100 kW, 480 V AC and PF = 1 give 120.3 A per line; 800 V DC gives 125 A per conductor.","Two instead of three is 33.3% less conductor copper under the preceding geometry assumptions, not 33.3% less current. The DC voltage slider changes only this scene; later comparisons return to 800 V."],"pedagogical_role":"mechanism"},{"id":"conductor-loss","title":"Connect current to heating","kind":"loss","headline":"Count every conductor's heat.","caption":"Resistance: 10 mΩ per conductor in both cases; three AC conductors versus two DC conductors.","notes":["Each conductor: I²R heat. Sum all three AC conductors or both DC conductors.","Assume 10 mΩ effective resistance per conductor; AC calculation uses RMS current.","AC: 434 W. DC: 312.5 W → 28% less conductor heat.","Keep denominators distinct: 28% less heat; 33.3% less copper. Neither establishes facility savings."],"duration_seconds":90,"cue":"Ask how to total the heating across all wires, then reveal.","explanation":["At equal resistance R per conductor, total feeder heat is 3I_AC²R for balanced three-phase AC and 2I_DC²R for two-wire DC. With R = 0.01 Ω, the losses are about 434.0 W and 312.5 W respectively.","The DC-to-AC heat ratio is 0.72: 28% less conductor heat. Equal effective resistance is an additional model assumption, not an automatic consequence of equal copper geometry. The earlier 33.3% figure described material; neither number is a whole-facility saving."],"pedagogical_role":"mechanism"},{"id":"conversion-in-rack","title":"Locate conversion in the rack","kind":"ac","headline":"Rack conversion occupies room for compute.","caption":"AC reaches the compute rack; conversion and regulation occupy space there.","notes":["Follow facility AC into the compute rack; locate conversion, then device regulation.","Conversion equipment occupies rack space that could otherwise support compute.","Conceptual placement: protection, grounding and other required equipment omitted."],"duration_seconds":45,"cue":"Trace the incoming supply to the devices; point out the space occupied by conversion.","explanation":["A simplified AC-to-rack arrangement brings AC to the compute rack, converts it to DC there, and regulates voltage again near the devices. Conversion equipment occupies rack space that could otherwise serve other functions.","The functional drawing omits protection, grounding and other required equipment. It locates conversion without specifying a buildable installation."],"pedagogical_role":"architecture"},{"id":"conversion-in-sidecar","title":"Move conversion into a sidecar","kind":"sidecar","headline":"Free rack space. Locate the displaced equipment.","caption":"A nearby sidecar supplies DC; upstream AC and nearby equipment space remain.","notes":["Move conversion beside the compute rack; DC begins after the sidecar converter.","Compute-rack space released; sidecar still needs hall space, cooling and service access.","Upstream AC constraints and final low-voltage device regulation remain."],"duration_seconds":60,"cue":"Move the converter; ask which space is freed and which space is now occupied.","explanation":["A sidecar arrangement keeps upstream AC but places AC-to-DC conversion in nearby equipment. The 800 V DC segment begins after that conversion.","A sidecar can free compute-rack space while occupying space nearby. It does not by itself establish net hall-space savings. The converter still needs cooling and service access; upstream AC limits and final device regulation remain."],"pedagogical_role":"architecture"},{"id":"conversion-farther-upstream","title":"Move conversion farther upstream","kind":"facility","headline":"Move conversion toward the power room.","caption":"A longer DC distribution path can move conversion equipment out of the data hall.","notes":["Move conversion into a power room → longer DC distribution segment.","Selected equipment leaves the hall; its footprint and supporting services move elsewhere.","Final device regulation remains; conceptual placement does not establish installed results or total footprint savings.","NVIDIA’s 54 V DC rack comparison uses another boundary; our numerical baseline stays 480 V AC."],"duration_seconds":60,"cue":"Trace where DC begins; compare the released hall space with the new power-room footprint.","explanation":["Moving conversion into a power room extends the DC distribution segment and can free hall space occupied by selected conversion equipment. The equipment still has a footprint and supporting requirements at its new location.","NVIDIA also describes a separate 54 V DC rack-distribution constraint. Our numerical baseline remains the 480 V AC feeder. Final low-voltage device conversion remains necessary in both cases.","These conceptual diagrams compare placement; they do not establish installed results, total-footprint savings or an efficiency ranking."],"pedagogical_role":"architecture"},{"id":"energy-balance","title":"Close the energy balance","kind":"energy","headline":"Account for heat without overstating the saving.","caption":"480 V AC versus 800 V DC; 10 mΩ per conductor; converters excluded; one hour.","duration_seconds":90,"cue":"Ask what the source supplies beyond the load. Reveal; convert the difference to one hour of energy.","notes":["Boundary: 100 kW received; 10 mΩ per conductor; converters and cooling excluded.","Input = received power + conductor heat; sending supply also covers voltage drop.","AC input: 100.434 kW. DC input: 100.3125 kW.","One hour → 0.122 kWh less DC input. Small assumed resistance makes both feeders efficient."],"explanation":["Keep 100 kW at each feeder receiving end: 480 V balanced three-phase AC at power factor one versus 800 V two-wire DC. Each conductor has 10 mΩ resistance. The sending supply covers the conductor voltage drop.","Input equals delivered power plus conductor heat: about 100.434 kW for AC and 100.313 kW for DC. Over one hour, DC requires about 0.122 kWh less input under these assumptions.","The 28% reduction applies to a deliberately small conductor-loss budget. The hypothetical 10 mΩ resistance makes both feeders efficient; this small difference does not predict real architecture savings. Material and equipment-space claims remain separate, and converter and cooling losses are excluded."],"pedagogical_role":"balance"},{"id":"ac-dc-ledger","title":"Compare complete delivery paths","kind":"paths","headline":"Conversion losses can reverse the energy comparison.","caption":"Same final 100 kW load; calculated conductor heat plus explicitly assumed conversion losses.","duration_seconds":180,"cue":"Reveal the default balance. Raise DC conversion loss to 6 kW; ask why the ranking reverses.","notes":["New boundary: same facility AC supply → same final 100 kW DC load.","Default losses: AC 4 kW downstream; DC 1 kW upstream + 2 kW downstream.","Downstream loss raises feeder power, current and I²R heat: AC feeder 104 kW; DC feeder 102 kW.","Default: DC saves 1.144 kWh over one hour. Set DC conversion loss to 6 kW → uses 1.875 kWh more.","Hypothetical conversion losses; cooling excluded. Copper, equipment placement and input energy require separate comparisons."],"explanation":["Earlier, the 100 kW boundary was each feeder receiving end. Now it is the final useful DC load, and both paths start at the same facility AC supply boundary. Downstream conversion losses add to the power the feeder must deliver, so they also affect its current and conductor heat.","The 480 V AC feeder delivers 104 kW: 100 kW useful load plus 4 kW assumed downstream conversion loss. The 800 V DC feeder delivers 102 kW: 100 kW useful load plus 2 kW assumed downstream loss. DC also has a fixed 1 kW upstream rectifier loss. With 10 mΩ per conductor, calculated conductor heat is about 0.469 kW for AC and 0.325 kW for DC.","Required input is about 104.469 kW for AC and 103.325 kW for DC. Over one hour, DC uses about 1.144 kWh less input. Raise total DC conversion loss from 3 to 6 kW: downstream loss and feeder current increase, and DC then uses about 1.875 kWh more than AC.","Conversion losses are hypothetical operating-point assumptions; conductor heat is calculated from them. Cooling, other losses and voltage compatibility are outside the model. The reversal disproves an automatic energy advantage; it does not undo the separately defined copper comparison or equipment relocation."],"pedagogical_role":"counterexample"},{"id":"capacity-check","title":"Test the claim at a higher load","kind":"decision","pedagogical_role":"transfer","headline":"Same copper. Twice the power. What changes?","caption":"800 V DC; 100 → 200 kW received; unchanged conductors; 10 mΩ each.","duration_seconds":135,"cue":"Ask for current, heat and a capacity verdict. Reveal, then discuss the missing limits.","notes":["Hold 800 V and both conductors fixed; raise received power from 100 to 200 kW.","Current: 125 → 250 A. Conductor heat: 0.3125 → 1.25 kW at fixed resistance.","Capacity unknown: need temperature, voltage-drop and equipment limits; copper quantity stays unchanged.","Close: compare copper geometry, equipment placement and complete energy balance separately."],"explanation":["At the same 800 V DC receiving end, raising delivered power from 100 to 200 kW doubles current from 125 to 250 A. With two conductors fixed at 0.01 Ω each, conductor heat rises from 0.3125 to 1.25 kW: four times as much. Copper quantity stays fixed because the conductors were held unchanged.","Safe operating capacity is unknown. The model supplies neither conductor ampacity nor installation, temperature, voltage-drop, terminal, protection, converter or cooling limits. Resistance also varies with temperature in a real installation.","Judge copper with explicit geometry, space with explicit equipment placement, and energy with a complete loss balance. Those tools help evaluate denser racks; they do not make additional usable capacity automatic."]}],"sources":[{"title":"NVIDIA: Why Scaling AI Compute Performance Requires a New Power Architecture","url":"https://blogs.nvidia.com/blog/800-vdc-power-architecture-ai-factory/","claim":"Architecture context for higher-voltage DC distribution and conversion placement. Feeder values and conversion losses are original teaching assumptions; conductor heat is calculated from the power each feeder must deliver.","reviewed_on":"2026-09-08","limits":"Vendor roadmap; proposed architecture and availability expectations are distinct from verified installed deployment."},{"title":"Schneider Electric: Total power calculation for accuracy verification testing","url":"https://productinfo.se.com/pm2200/5afc2b5546e0fb00011e5e9d/PM2200%20series%20User%20Manual/English/BM_PM2200seriesUserManual_0000074170.ditamap.xml/%24/C_VerifyingAccuracy_PowerTotCalcuation_0000034437","claim":"Balanced three-phase real power is 3 × line-to-neutral RMS voltage × line current × power factor, equivalent to √3 × line-to-line RMS voltage × line current × power factor.","reviewed_on":"2026-09-08","limits":"Balanced three-phase relationship. Numerical loads, voltages, resistance and conversion losses are original teaching assumptions; calculated conductor losses are not equipment specifications."},{"title":"NVIDIA: Gigawatt AI factories and the 800 V DC transition","url":"https://blogs.nvidia.com/blog/gigawatt-ai-factories-ocp-vera-rubin/","claim":"Identifies 415 or 480 V three-phase AC systems as relevant baselines for the proposed transition to 800 V DC.","reviewed_on":"2026-09-08","limits":"Used only for baseline relevance. Vendor current, efficiency, copper and deployment claims are not validated by this teaching calculation."},{"title":"NVIDIA: 800 VDC Architecture Will Power the Next Generation of AI Factories","url":"https://developer.nvidia.com/blog/nvidia-800-v-hvdc-architecture-will-power-the-next-generation-of-ai-factories/","claim":"Primary context for copper and rack-space constraints, upstream conversion, and the distinct 54 V rack-distribution boundary. Numerical feeder examples are original teaching calculations.","reviewed_on":"2026-09-09","limits":"May 2025 vendor roadmap. Proposed capacity, deployment and savings figures are not field validation; its percentage claims are not used as calculated sample results."},{"title":"OpenStax — Alternating Current versus Direct Current","url":"https://openstax.org/books/college-physics-2e/pages/20-5-alternating-current-versus-direct-current","claim":"Explains AC and DC, sinusoidal peak and RMS values, and average power delivered to a resistive load. The 100 kW comparisons are original teaching models.","reviewed_on":"2026-09-10","limits":"The AC primer assumes a sinusoidal source and a resistive load with power factor one; it does not model nonlinear rack power electronics."},{"title":"Steven H. Low, Caltech — Power System Analysis","url":"https://netlab.caltech.edu/assets/book/PSA/Low-PSA-v20250407.pdf","claim":"Sections 1.2–1.3 develop balanced three-phase circuits, phase-to-line voltage relationships, constant total instantaneous power and zero neutral current under balanced conditions.","reviewed_on":"2026-09-10","limits":"April 7, 2025 draft; used for the balanced sinusoidal circuit derivation. No real installation, neutral sizing or protection design follows from the simplified teaching model."}],"aliases":{"feeder-transfer":"ac-dc-ledger"},"learning_contract":{"driving_question":"How can denser racks use less distribution copper and less space for power conversion?","fixed_boundary":"100 kW average real power received throughout the electrical foundations and feeder comparison; later 100 kW at the final DC load.","changed_variable":"480 V three-phase AC versus 800 V two-wire DC, then conversion placement.","primary_payoff":"Explain copper quantity and equipment placement before evaluating energy savings.","misconception":"Alternating current means no net energy delivery; three conductors triple the load; fewer conductors means less current; or 800 V alone guarantees usable extra capacity.","transfer_question":"Can the unchanged 800 V DC feeder safely deliver 200 kW? What evidence is missing?"}}
+      {"schema_version":1,"id":"sample-800v-presentation","source_lesson_id":"sample-800v","title":"800 V DC: less copper, room for compute","planned_duration_seconds":1200,"timing_note":"Dry-run allowances only; revise from actual explanation and discussion rather than filling a runtime target.","review_state":"Revised after the September 11 learner review: one explanatory headline, clearer electrical measurement, and no arbitrary architecture-loss slider.","defaults":{"power_kw":100,"reference_voltage_v":480,"comparison_voltage_v":800,"hours":1,"conductor_ohms":0.01,"power_factor":1,"converter_efficiency":0.98},"presentation_rules":["Use one explanatory headline per slide. Show essential labels and assumptions beside the diagram; omit bottom captions and repeated takeaway slogans.","Start with a physical constraint, then build closed-circuit and waveform intuition before the copper and heat arithmetic.","Keep the 100 kW average real-power anchor visible through DC, single-phase AC and balanced three-phase AC. Distinguish instantaneous power from its cycle average; introduce losses at an explicit boundary change.","On copper, current, conductor-loss, conversion-loss and capacity-check steps, ask for a prediction before revealing the result.","Use the same load and diagram positions throughout the architecture sequence; change conversion placement deliberately.","Architecture drawings show selected functional boundaries. They are conceptual schematics, not wiring diagrams.","Keep equal conductor geometry visible in the copper scene. Equal effective resistance in the heat model is a separate idealization.","Compute displayed answers with the tested three-phase AC and two-wire DC model rather than embedding numbers in generated illustrations.","Hold receiving-end real power fixed until the explicit transfer question. State AC line-to-line RMS voltage, power factor and resistance per conductor.","Distinguish three claims: copper under equal geometry; space under a specified equipment placement; input energy under a complete loss balance.","End with a changed case that requires a prediction and identifies information the calculation cannot supply."],"steps":[{"id":"one-load","title":"How can 800 V DC reduce copper and free compute-rack space?","kind":"intro","headline":"How can 800 V DC reduce copper and free compute-rack space?","notes":["Goal: less distribution copper; more compute-rack space.","Anchor: 100 kW received by the load, averaged over an electrical cycle.","First: closed circuits, alternating current, then three phases.","Keep material, equipment space and energy efficiency as separate questions."],"duration_seconds":60,"cue":"Point to the 100 kW load; introduce the supply labels as the question the next scenes will explain.","explanation":["The design ambition is more usable compute power with less distribution copper and less compute-rack space occupied by power-conversion equipment. Hall-space benefits depend on where that equipment moves.","Keep one reference visible: the load receives 100 kW of average real power. First establish how a closed circuit delivers energy, what changes with alternating current and why three phases can use three current-carrying conductors. Then compare 480 V three-phase AC with 800 V DC.","The introductory waveforms use equivalent resistive loads chosen to receive the same average power. They explain electrical quantities; they do not represent rack power electronics or establish that the same equipment can accept each supply directly. Conductor and converter losses enter explicitly in later scenes."],"pedagogical_role":"problem"},{"id":"dc-circuit","title":"A closed DC circuit carries current to the load and back.","kind":"dc-basics","pedagogical_role":"mechanism","headline":"A closed DC circuit carries current to the load and back.","duration_seconds":90,"cue":"Trace the complete loop through source, load and return; distinguish current direction from delivered power.","notes":["Voltage: energy per unit charge. Current: charge passing per second.","Steady DC here: fixed polarity; conventional current keeps one direction around the loop.","800 V across the load × 125 A through it = 100 kW.","Outgoing and return each carry 125 A; do not add them as 250 A of delivered current.","Ideal wires for now; protective earth is not the normal return conductor."],"explanation":["A voltage is an electrical potential difference: energy per unit charge. Current measures the rate at which charge passes a point. A source, a load and a complete conducting loop allow current to flow. The load receives electrical energy while charge continues around the circuit; the load does not consume the charge.","In this steady DC model, the source maintains a fixed polarity and 800 V across the load. Conventional current travels from the positive supply connection, through the load, and back through the return conductor. Both conductors carry 125 A as parts of the same loop. Adding their current magnitudes would count the same circuit current twice.","The received power is P = V × I = 800 × 125 = 100,000 W, or 100 kW. It is constant in this model. Direct current need not always have constant magnitude; steady values are the deliberate simplification here. Protective earth is not the normal load-current return.","The waveform primer assumes ideal conductors and no converters. At this boundary, source power equals received power. Later scenes add resistance and conversion losses rather than silently changing this energy balance."]},{"id":"ac-cycle","title":"Single-phase AC reverses current while the resistor keeps receiving energy.","kind":"ac-basics","pedagogical_role":"mechanism","headline":"Single-phase AC reverses current while the resistor keeps receiving energy.","duration_seconds":120,"cue":"Scrub through a full cycle, comparing the two half-cycles. Ask what happens to voltage × current when both signs reverse.","notes":["Single phase first: voltage and current reverse together through a resistive load.","Instantaneous power = voltage × current; two negative signs still give positive received power.","RMS: same resistive heating as a DC value; 480 V RMS is about 679 V peak for a sine wave.","208.3 A RMS here; received power swings 0–200 kW but averages 100 kW.","This resistive example has power factor 1; real rack electronics need a separate model."],"explanation":["Start with one sinusoidal AC source and a resistive load. The voltage changes polarity every half-cycle. The current also reverses, in step with the voltage. With voltage and current referenced consistently at the receiving load, instantaneous power is their product: p(t) = v(t) × i(t). During the negative half-cycle both signs reverse, so the resistor continues receiving positive power. Alternating current does not imply that a resistor returns all the delivered energy every half-cycle. The slider uses a 60 Hz example: 60 complete cycles per second, or about 16.7 milliseconds per cycle. Changing frequency changes that period; the power reasoning shown here still applies to the ideal resistive load.","An AC value must say whether it is a peak or an effective value. RMS means root mean square: square the waveform, average over a cycle, then take the square root. A given RMS current produces the same average heating in the same resistance as that numerical DC current. For a sine wave, peak = √2 × RMS; 480 V RMS therefore has a peak of about 679 V.","Choose this illustrative single-phase load to receive the same 100 kW average power. At 480 V RMS, its current is 100,000/480 = 208.33 A RMS. Voltage and current are sinusoidal and in phase, so power factor is one. Its instantaneous received power is p(θ) = 200 sin²(θ) kW: zero at the waveform crossings, 200 kW at the peaks, and 100 kW averaged over a complete cycle.","The average remains the comparison anchor even though instantaneous power changes. Over one hour at this operating point, the load receives 100 kWh, just as the preceding ideal DC load does. This single-phase case explains the waveform; the data-hall comparison will use balanced three-phase AC. Actual rack power electronics are not resistors and can change current waveforms and power factor."]},{"id":"three-phase","title":"Three balanced phases deliver constant total power in this model.","kind":"three-phase","pedagogical_role":"mechanism","headline":"Three balanced phases deliver constant total power in this model.","duration_seconds":150,"cue":"Scrub the cycle: follow one phase, then combine all three. Contrast the sum of currents with the sum of received powers.","notes":["Three equal AC phases, shifted by 120°: one-third of a cycle.","Balanced wye teaching load: three equal resistive branches meet at a common star point.","Each branch averages 33.3 kW; staggered power pulses add to 100 kW at every instant.","The three line currents sum to zero: other phases complete the return path.","No neutral load current only in this balanced sinusoidal model; real systems may need a neutral."],"explanation":["Three-phase AC uses three sinusoidal phase voltages of equal magnitude, offset from one another by 120 degrees, or one-third of a cycle. For this teaching model, connect three equal resistive load branches at a shared star point, called a wye connection. A phase conductor connects to the other end of each branch.","Keep the total average received power at 100 kW. Each branch averages one-third of that, about 33.3 kW. Its instantaneous power rises and falls between zero and about 66.7 kW. Because the three waveforms are staggered, their instantaneous powers add to a constant 100 kW in this balanced sinusoidal model. A moment of zero voltage on one phase is not a moment of zero total power.","The three signed line currents also add to zero at every instant, but that statement concerns charge flow, not power. Current entering the load through some phase conductors leaves through the others; their roles vary over the cycle. A neutral conductor between the source neutral and load star point would carry zero load current in this ideal balanced case, so the normal load-current circuit can operate with three phase conductors.","Zero neutral current is conditional on this balanced sinusoidal model. Unequal loads and nonlinear current waveforms can require a neutral; protection and grounding requirements also remain. The later copper comparison counts three AC phase conductors under the stated idealization, not every conductor required in every real installation.","The DC, single-phase AC and three-phase AC examples all deliver 100 kW on average. DC is steady in its introductory model, single-phase resistive power pulsates, and the three-phase total is steady under balanced conditions. None of the three phases creates extra energy.","Constant aggregate instantaneous power in this model is a waveform property. It is not a claim that three phases create redundant feeds or guarantee reliability. A real rectifier load can have different current waveforms."]},{"id":"voltage-basis","title":"480 V is the voltage between two live phase conductors.","kind":"voltage-basis","pedagogical_role":"mechanism","headline":"480 V is the voltage between two live phase conductors.","duration_seconds":120,"cue":"Point to both meter probes; ask whether L3 is ground.","notes":["Voltage is always measured between two points.","L1, L2 and L3 are all live phases; the meter probes L1 and L2.","The other pairs L2–L3 and L3–L1 also measure 480 V RMS in this balanced system.","In a 480Y/277 V wye system, phase-to-neutral is about 277 V; neutral is distinct from protective earth."],"explanation":["L1, L2 and L3 are three live phase conductors. Neither of the two meter connections is ground. In the balanced system, any phase pair measures 480 V RMS: L1–L2, L2–L3 or L3–L1. Voltage uses two measurement points even when the system has three phases. Neutral and protective earth have distinct roles; they are not an unmentioned third phase.","In the data-hall comparison, 480 V AC means the RMS voltage measured between two phase conductors: line-to-line voltage. It is not the voltage across each branch of the wye teaching load. Each branch sees the phase-to-neutral voltage, measured from its phase conductor to the star point. In a balanced system that RMS value is 480/√3 ≈ 277.1 V.","Line-to-line voltage is the instantaneous difference between two phase voltages. Those equal sine waves are separated by 120 degrees, so the difference has √3 times the magnitude of either phase voltage. This is why the conversion uses √3; treating each branch as a separate 480 V load would mix measurement conventions.","Add the three branch powers. With sinusoidal currents in phase with their respective phase voltages, total real power is P = 3 × V_phase-to-neutral,RMS × I_line,RMS. Substitute V_phase-to-neutral = V_line-to-line/√3 to obtain P = √3 × V_line-to-line,RMS × I_line,RMS. More generally, balanced three-phase real power includes a power-factor multiplier, PF: real power divided by apparent power. The ideal resistive model uses PF = 1.","At 100 kW and 480 V line-to-line RMS, each line carries 100,000/(√3 × 480) = 120.281 A RMS. The corresponding 800 V DC example carries 100,000/800 = 125 A in each of its two conductors. The current magnitudes are close because the AC formula uses three phases and a line-to-line voltage convention. The voltage labels alone do not specify equal circuit arrangements.","The single-phase primer at 480 V RMS used a different arrangement and therefore required 208.33 A RMS for the same average power. It is not the baseline for the copper comparison. From the next scene onward, compare 480 V balanced three-phase AC with 800 V two-wire DC at the same 100 kW receiving-end power; introduce conductor resistance only when calculating heat."]},{"id":"conductor-copper","title":"Two DC conductors use one-third less copper than three equal AC conductors.","kind":"copper","pedagogical_role":"comparison","headline":"Two DC conductors use one-third less copper than three equal AC conductors.","duration_seconds":90,"cue":"Ask which bundle uses less copper. Count the pieces, then reveal.","notes":["Equal length, cross-section and copper material for every conductor.","Copper mass ∝ conductor count × length × cross-section: two pieces versus three.","2/3 as much copper → 33.3% less; a material comparison.","Cable capacity unproven; equal effective resistance is a separate assumption."],"explanation":["For equal conductor length L, cross-sectional area A and copper density, mass is proportional to count × L × A. Three AC conductors versus two DC conductors therefore gives a DC/AC copper ratio of 2/3: 33.3% less current-carrying conductor copper at the stated equal 100 kW load.","This excludes protective earth, any neutral, insulation and terminations. It compares material quantity; it does not establish an ampacity-qualified installation. The later equal-effective-resistance heat calculation is a separate idealization.","The ambition is more power with less material. This controlled comparison establishes the material arithmetic first; it does not yet establish safe additional power capacity."]},{"id":"current-prediction","title":"The same 100 kW needs nearly the same current in each conductor.","kind":"current","headline":"The same 100 kW needs nearly the same current in each conductor.","notes":["DC: I = P/V. Balanced three-phase AC: I = P/(√3 × V_line-to-line × PF).","At 100 kW: 480 V AC → 120.3 A RMS per line; 800 V DC → 125 A per conductor.","DC current is slightly higher here; fewer conductors explain the copper reduction.","Raise DC voltage → lower DC current. Later scenes reset to 800 V."],"duration_seconds":90,"cue":"Ask whether fewer conductors means less current per conductor. Reveal, then move the DC voltage slider.","explanation":["For DC, I = P/V. For balanced three-phase AC, I = P/(√3 × V_line-to-line × PF). At 100 kW, 480 V AC and PF = 1 give 120.3 A per line; 800 V DC gives 125 A per conductor.","Two instead of three is 33.3% less conductor copper under the preceding geometry assumptions, not 33.3% less current. The DC voltage slider changes only this scene; later comparisons return to 800 V."],"pedagogical_role":"mechanism"},{"id":"conductor-loss","title":"Two DC conductors produce 28% less heat in this comparison.","kind":"loss","headline":"Two DC conductors produce 28% less heat in this comparison.","notes":["Same copper resistivity, length and area: equal 10 mΩ effective resistance per conductor is the heat-model assumption.","AC: 3 × 120.28² × 0.01 = 434 W. DC: 2 × 125² × 0.01 = 312.5 W.","DC produces 28% less conductor heat, not 28% lower conductivity.","The difference is about 122 W at 100 kW delivered; this is not a 28% facility-energy saving."],"duration_seconds":90,"cue":"Ask how to total the heating across all wires, then reveal.","explanation":["At equal resistance R per conductor, total feeder heat is 3I_AC²R for balanced three-phase AC and 2I_DC²R for two-wire DC. With R = 0.01 Ω, the losses are about 434.0 W and 312.5 W respectively.","The DC-to-AC heat ratio is 0.72: 28% less conductor heat. Equal effective resistance is an additional model assumption, not an automatic consequence of equal copper geometry. The earlier 33.3% figure described material; neither number is a whole-facility saving.","Conductivity is the material property; it has not changed here. The difference is about 122 W, or 0.12% of the 100 kW delivered load. The local heating comparison helps explain conductor count, but cannot establish an architecture-wide efficiency gain."],"pedagogical_role":"mechanism"},{"id":"conversion-in-rack","title":"AC enters the compute rack and is converted to DC inside it.","kind":"ac","headline":"AC enters the compute rack and is converted to DC inside it.","notes":["Follow facility AC into the compute rack; locate conversion, then device regulation.","Conversion equipment occupies rack space that could otherwise support compute.","Conceptual placement: protection, grounding and other required equipment omitted."],"duration_seconds":45,"cue":"Trace the incoming supply to the devices; point out the space occupied by conversion.","explanation":["A simplified AC-to-rack arrangement brings AC to the compute rack, converts it to DC there, and regulates voltage again near the devices. Conversion equipment occupies rack space that could otherwise serve other functions.","The functional drawing omits protection, grounding and other required equipment. It locates conversion without specifying a buildable installation.","These are representative architecture choices, consistent with NVIDIA’s dated AC, hybrid and native-DC roadmap. They are not three required stages that every facility must pass through; actual deployments can combine approaches."],"pedagogical_role":"architecture"},{"id":"conversion-in-sidecar","title":"A nearby power rack converts AC to DC, freeing space inside the compute rack.","kind":"sidecar","headline":"A nearby power rack converts AC to DC, freeing space inside the compute rack.","notes":["Move conversion beside the compute rack; DC begins after the sidecar converter.","Compute-rack space released; sidecar still needs hall space, cooling and service access.","Upstream AC constraints and final low-voltage device regulation remain."],"duration_seconds":60,"cue":"Move the converter; ask which space is freed and which space is now occupied.","explanation":["A sidecar arrangement keeps upstream AC but places AC-to-DC conversion in nearby equipment. The 800 V DC segment begins after that conversion.","A sidecar can free compute-rack space while occupying space nearby. It does not by itself establish net hall-space savings. The converter still needs cooling and service access; upstream AC limits and final device regulation remain.","These are representative architecture choices, consistent with NVIDIA’s dated AC, hybrid and native-DC roadmap. They are not three required stages that every facility must pass through; actual deployments can combine approaches."],"pedagogical_role":"architecture"},{"id":"conversion-farther-upstream","title":"Upstream conversion lets 800 V DC run through the data hall.","kind":"facility","headline":"Upstream conversion lets 800 V DC run through the data hall.","notes":["Move conversion into a power room → longer DC distribution segment.","Selected equipment leaves the hall; its footprint and supporting services move elsewhere.","Final device regulation remains; conceptual placement does not establish installed results or total footprint savings.","NVIDIA’s 54 V DC rack comparison uses another boundary; our numerical baseline stays 480 V AC."],"duration_seconds":60,"cue":"Trace where DC begins; compare the released hall space with the new power-room footprint.","explanation":["Moving conversion into a power room extends the DC distribution segment and can free hall space occupied by selected conversion equipment. The equipment still has a footprint and supporting requirements at its new location.","NVIDIA also describes a separate 54 V DC rack-distribution constraint. Our numerical baseline remains the 480 V AC feeder. Final low-voltage device conversion remains necessary in both cases.","These conceptual diagrams compare placement; they do not establish installed results, total-footprint savings or an efficiency ranking.","These are representative architecture choices, consistent with NVIDIA’s dated AC, hybrid and native-DC roadmap. They are not three required stages that every facility must pass through; actual deployments can combine approaches."],"pedagogical_role":"architecture"},{"id":"ac-dc-ledger","title":"Converter losses depend on the equipment and its operating point.","kind":"conversion-loss","headline":"Converter losses depend on the equipment and its operating point.","duration_seconds":90,"cue":"Trace input power into useful output and heat. Explain the loss mechanisms before using efficiency.","notes":["Current produces conduction losses in switches and windings.","Switching transitions, magnetic cores and auxiliary circuits add losses.","Efficiency depends on load, voltage, temperature and operating mode; use the selected equipment’s curve.","Illustration: 98% efficiency at 100 kW output needs 102.04 kW input and loses 2.04 kW.","The former 1–7 kW slider had no product basis; it is removed."],"explanation":["Conversion changes voltage or electrical form with real components. Current through semiconductor on-resistance, winding resistance and diode drops dissipates power. Switching transitions dissipate energy as current and voltage overlap; repeating those transitions adds average loss. Magnetic cores, controllers, gate drivers and fans also consume power. The balance depends on converter topology, device choices, voltage, load, switching frequency, temperature and operating mode.","Efficiency η is useful output power divided by input power. At a fixed output, P_loss = P_out × (1/η − 1). The slide assumes 98% efficiency solely to demonstrate the calculation: 100/0.98 = 102.0408 kW input, so loss is 2.0408 kW. It is not the efficiency of the pictured UPS or a measured advantage of AC or DC distribution.","To compare architectures, read the actual equipment efficiency curves at the required loading and mode, then sum losses along the complete path. Fewer conversion boxes or lower conductor heat alone does not establish lower total facility input."],"pedagogical_role":"mechanism"},{"id":"capacity-check","title":"Doubling power at 800 V doubles current in the same conductors.","kind":"decision","pedagogical_role":"transfer","headline":"Doubling power at 800 V doubles current in the same conductors.","duration_seconds":135,"cue":"Hold the receiving voltage at 800 V, increase the delivered load from 100 to 200 kW, then calculate current.","notes":["Before: 100,000 W ÷ 800 V = 125 A per conductor.","After: 200,000 W ÷ 800 V = 250 A per conductor.","Voltage and conductors are unchanged; the load power doubled.","I²R means four times the conductor heat; copper remains unchanged by assumption.","A calculation does not establish that the conductors and equipment are rated for 250 A."],"explanation":["At the same 800 V DC receiving end, raising delivered power from 100 to 200 kW doubles current from 125 to 250 A. With two conductors fixed at 0.01 Ω each, conductor heat rises from 0.3125 to 1.25 kW: four times as much. Copper quantity stays fixed because the conductors were held unchanged.","Safe operating capacity is unknown. The model supplies neither conductor ampacity nor installation, temperature, voltage-drop, terminal, protection, converter or cooling limits. Resistance also varies with temperature in a real installation.","Judge copper with explicit geometry, space with explicit equipment placement, and energy with a complete loss balance. Those tools help evaluate denser racks; they do not make additional usable capacity automatic."]}],"sources":[{"title":"NVIDIA: Why Scaling AI Compute Performance Requires a New Power Architecture","url":"https://blogs.nvidia.com/blog/800-vdc-power-architecture-ai-factory/","claim":"Architecture context for higher-voltage DC distribution and conversion placement. Feeder values and conversion losses are original teaching assumptions; conductor heat is calculated from the power each feeder must deliver.","reviewed_on":"2026-09-08","limits":"Vendor roadmap; proposed architecture and availability expectations are distinct from verified installed deployment."},{"title":"Schneider Electric: Total power calculation for accuracy verification testing","url":"https://productinfo.se.com/pm2200/5afc2b5546e0fb00011e5e9d/PM2200%20series%20User%20Manual/English/BM_PM2200seriesUserManual_0000074170.ditamap.xml/%24/C_VerifyingAccuracy_PowerTotCalcuation_0000034437","claim":"Balanced three-phase real power is 3 × line-to-neutral RMS voltage × line current × power factor, equivalent to √3 × line-to-line RMS voltage × line current × power factor.","reviewed_on":"2026-09-08","limits":"Balanced three-phase relationship. Numerical loads, voltages, resistance and conversion losses are original teaching assumptions; calculated conductor losses are not equipment specifications."},{"title":"NVIDIA: Gigawatt AI factories and the 800 V DC transition","url":"https://blogs.nvidia.com/blog/gigawatt-ai-factories-ocp-vera-rubin/","claim":"Identifies 415 or 480 V three-phase AC systems as relevant baselines for the proposed transition to 800 V DC.","reviewed_on":"2026-09-08","limits":"Used only for baseline relevance. Vendor current, efficiency, copper and deployment claims are not validated by this teaching calculation."},{"title":"NVIDIA: 800 VDC Architecture Will Power the Next Generation of AI Factories","url":"https://developer.nvidia.com/blog/nvidia-800-v-hvdc-architecture-will-power-the-next-generation-of-ai-factories/","claim":"Primary context for copper and rack-space constraints, upstream conversion, and the distinct 54 V rack-distribution boundary. Numerical feeder examples are original teaching calculations.","reviewed_on":"2026-09-09","limits":"May 2025 vendor roadmap. Proposed capacity, deployment and savings figures are not field validation; its percentage claims are not used as calculated sample results."},{"title":"OpenStax — Alternating Current versus Direct Current","url":"https://openstax.org/books/college-physics-2e/pages/20-5-alternating-current-versus-direct-current","claim":"Explains AC and DC, sinusoidal peak and RMS values, and average power delivered to a resistive load. The 100 kW comparisons are original teaching models.","reviewed_on":"2026-09-10","limits":"The AC primer assumes a sinusoidal source and a resistive load with power factor one; it does not model nonlinear rack power electronics."},{"title":"Steven H. Low, Caltech — Power System Analysis","url":"https://netlab.caltech.edu/assets/book/PSA/Low-PSA-v20250407.pdf","claim":"Sections 1.2–1.3 develop balanced three-phase circuits, phase-to-line voltage relationships, constant total instantaneous power and zero neutral current under balanced conditions.","reviewed_on":"2026-09-10","limits":"April 7, 2025 draft; used for the balanced sinusoidal circuit derivation. No real installation, neutral sizing or protection design follows from the simplified teaching model."}],"aliases":{"feeder-transfer":"ac-dc-ledger","energy-balance":"conductor-loss"},"learning_contract":{"driving_question":"How can denser racks use less distribution copper and less space for power conversion?","fixed_boundary":"100 kW average power received throughout the electrical primer and feeder comparison. The converter-loss illustration has a separate 100 kW output boundary.","changed_variable":"480 V three-phase AC versus 800 V two-wire DC, then conversion placement.","primary_payoff":"Explain copper quantity and equipment placement before evaluating energy savings.","misconception":"Alternating current means no net energy delivery; three conductors triple the load; fewer conductors means less current; or 800 V alone guarantees usable extra capacity.","transfer_question":"At the same 800 V receiving voltage, what current delivers 200 kW and what must be rated for it?"}}
     </script>
     <script>
       function positive(value, name) {
@@ -2098,7 +2341,7 @@ function circuitLoop(dc, instant) {
   const power = dc ? 100 : instant.singlePower;
   const polarity =
     volts < -0.01 ? ["−", "+"] : volts > 0.01 ? ["+", "−"] : ["0", "0"];
-  return `<svg class="current-circuit" viewBox="0 0 470 290" role="img" aria-label="Arrows show instantaneous conventional current. Closed two-conductor circuit. Conventional current ${current < 0 ? "reverses" : "leaves the positive source terminal and returns through the other conductor"}. The resistor absorbs ${fmt(power, 1)} kilowatts."><rect class="circuit-box" x="20" y="56" width="94" height="186" rx="12"/><rect class="circuit-box load" x="346" y="56" width="104" height="186" rx="12"/><path class="circuit-wire" d="M114 82H346 M114 216H346"/><text x="67" y="144" text-anchor="middle">${dc ? "DC" : "AC"}</text><text x="67" y="167" text-anchor="middle" class="svg-small">source</text><text x="97" y="89">${polarity[0]}</text><text x="97" y="222">${polarity[1]}</text><text x="398" y="136" text-anchor="middle">Load</text><text x="398" y="159" text-anchor="middle" class="svg-small">resistor</text><text x="398" y="187" text-anchor="middle" class="svg-value">${fmt(power, 1)} kW</text>${directionArrow(226, 82, current)}${directionArrow(226, 216, -current)}${power > 0.01 ? '<path d="M153 143H306 l-12 -8 m12 8 l-12 8" stroke="var(--amber)" stroke-width="5" fill="none"/>' : '<line x1="153" y1="143" x2="306" y2="143" stroke="var(--line)" stroke-dasharray="4 6"/>'}<text x="230" y="173" text-anchor="middle" class="svg-small">${power < 0.01 ? "Zero power at this instant" : "Energy absorbed by load"}</text><text x="230" y="278" text-anchor="middle" class="svg-small">${dc ? "Fixed polarity · 800 V" : "Polarity reverses · " + fmt(volts, 1) + " V now"}</text></svg>`;
+  return `<svg class="current-circuit" viewBox="0 0 470 290" role="img" aria-label="Arrows show instantaneous conventional current. Closed two-conductor circuit. Conventional current ${current < 0 ? "reverses" : "leaves the positive source terminal and returns through the other conductor"}. The resistor absorbs ${fmt(power, 1)} kilowatts."><rect class="circuit-box" x="20" y="56" width="94" height="186" rx="12"/><rect class="circuit-box load" x="346" y="56" width="104" height="186" rx="12"/><path class="circuit-wire" d="M114 82H346 M114 216H346"/><text x="67" y="144" text-anchor="middle">${dc ? "DC" : "AC"}</text><text x="67" y="167" text-anchor="middle" class="svg-small">source</text><text x="97" y="89">${polarity[0]}</text><text x="97" y="222">${polarity[1]}</text><text x="398" y="136" text-anchor="middle">Load</text><text x="398" y="159" text-anchor="middle" class="svg-small">resistor</text><text x="398" y="187" text-anchor="middle" class="svg-value">${fmt(power, 1)} kW</text>${directionArrow(226, 82, current)}${directionArrow(226, 216, -current)}<text x="230" y="278" text-anchor="middle" class="svg-small">${dc ? "800 V across the load" : "Polarity reverses · " + fmt(volts, 1) + " V now"}</text></svg>`;
 }
 
 function threePhaseCircuit(instant) {
@@ -2109,9 +2352,12 @@ function threePhaseCircuit(instant) {
     })
     .join(
       "",
-    )}<circle cx="429" cy="140" r="5" fill="var(--ink)"/><text x="235" y="267" text-anchor="middle" class="svg-small">i₁ + i₂ + i₃ = ${fmt(Math.abs(instant.phaseCurrents.reduce((a, b) => a + b, 0)) < 0.01 ? 0 : instant.phaseCurrents.reduce((a, b) => a + b, 0), 1)} A · no neutral current</text></svg>`;
+    )}<circle cx="429" cy="140" r="5" fill="var(--ink)"/><text x="235" y="267" text-anchor="middle" class="svg-small">i₁ + i₂ + i₃ = ${fmt(Math.abs(instant.phaseCurrents.reduce((a, b) => a + b, 0)) < 0.01 ? 0 : instant.phaseCurrents.reduce((a, b) => a + b, 0), 1)} A</text></svg>`;
 }
 
+function voltageMeasurement() {
+  return `<div class="voltage-measurement"><svg viewBox="0 0 900 455" role="img" aria-labelledby="meter-title"><title id="meter-title">Voltmeter probes connect to live phase L1 and live phase L2. They measure 480 volts RMS. L3 is also live and is not ground.</title>${[80, 300, 390].map((y, n) => `<text x="36" y="${y + 8}" class="meter-line-label">L${n + 1} · live</text><path d="M180 ${y}H860" fill="none" stroke="${phaseColors[n]}" stroke-width="5"/>`).join("")}<circle cx="450" cy="80" r="7" fill="var(--phase-one)"/><path d="M450 80V135" fill="none" stroke="var(--phase-one)" stroke-width="4"/><circle cx="560" cy="300" r="7" fill="var(--phase-two)"/><path d="M560 245V300" fill="none" stroke="var(--phase-two)" stroke-width="4"/><rect x="385" y="135" width="240" height="110" rx="14" fill="var(--circuit-load)" stroke="var(--strong-line)" stroke-width="2"/><text x="505" y="183" text-anchor="middle" class="meter-number">480 V</text><text x="505" y="220" text-anchor="middle">RMS · L1 to L2</text><text x="785" y="165" text-anchor="middle" class="meter-note">Voltmeter</text></svg><p class="phase-measurement-note">All three phases are live. Protective earth is separate.</p></div>`;
+}
 function electricalContent(kind) {
   const now = waveView(state.cycleDegrees);
   const make = (label, color, key, dash = false, width = 2.5) => ({
@@ -2121,18 +2367,16 @@ function electricalContent(kind) {
     dash,
     width,
   });
-  if (kind === "voltage-basis") {
-    return `<div class="electrical-grid"><div class="voltage-reference"><span class="eyebrow">SAME BALANCED WYE SYSTEM</span><div class="voltage-pair"><strong>277<small> V RMS</small></strong><span>one phase → star point</span></div><div class="voltage-pair"><strong>480<small> V RMS</small></strong><span>phase → another phase</span></div><p class="voltage-identity">480 = √3 × 277.1</p><p class="electrical-guard">RMS: the DC value giving equal resistor heating.<br>A sine wave’s peak is √2 × RMS.</p></div><div class="electrical-charts">${electricalPlot("Two phase voltages", [make("L1 to star", phaseColors[0], "phaseVoltage1"), make("L2 to star", phaseColors[1], "phaseVoltage2", true)], -400, 400, "V")}${electricalPlot("Subtract at the same instant", [make("L1 − L2", "var(--ink)", "lineVoltage")], -700, 700, "V")}<p class="wave-result">480 V RMS between lines → 679 V peak</p></div></div><p class="electrical-footer"><strong>P = 3 × V<sub>phase</sub> × I = √3 × V<sub>line-to-line</sub> × I</strong><span>Balanced sine waves · power factor 1</span></p>`;
+  if (kind === "voltage-basis") return voltageMeasurement();
+  if (kind === "dc-basics") {
+    return `<div class="dc-essential">${circuitLoop(true, now)}<div class="equation-block"><span>P = V × I</span><strong>800 V × 125 A = 100 kW</strong></div></div>`;
   }
-  const dc = kind === "dc-basics",
-    three = kind === "three-phase";
-  let charts;
-  if (three) {
-    charts =
-      electricalPlot(
-        "Current in each line",
+  const three = kind === "three-phase";
+  const charts = three
+    ? electricalPlot(
+        "Current in each phase",
         [0, 1, 2].map((n) => ({
-          label: `L${n + 1} · ${n * 120}° offset`,
+          label: `L${n + 1}`,
           color: phaseColors[n],
           dash: n === 1,
           value: (d) => waveView(d).phaseCurrents[n],
@@ -2142,10 +2386,10 @@ function electricalContent(kind) {
         "A",
       ) +
       electricalPlot(
-        "Power adds across the three loads",
+        "Three phase powers add",
         [
           ...Array.from({ length: 3 }, (_, n) => ({
-            label: `Phase ${n + 1}`,
+            label: `L${n + 1}`,
             color: phaseColors[n],
             width: 2,
             value: (d) => waveView(d).phasePowers[n],
@@ -2158,51 +2402,39 @@ function electricalContent(kind) {
           },
         ],
         0,
-        200,
+        120,
         "kW",
-      );
-  } else {
-    charts =
-      electricalPlot(
-        "Voltage polarity",
-        [
-          make(
-            dc ? "DC voltage" : "AC voltage",
-            phaseColors[0],
-            dc ? "dcVoltage" : "singleVoltage",
-          ),
-        ],
+      )
+    : electricalPlot(
+        "Voltage reverses",
+        [make("Voltage", phaseColors[0], "singleVoltage")],
         -800,
         800,
         "V",
       ) +
       electricalPlot(
-        "Conventional current",
-        [
-          make(
-            dc ? "DC current" : "AC current",
-            phaseColors[0],
-            dc ? "dcCurrent" : "singleCurrent",
-          ),
-        ],
+        "Current reverses with it",
+        [make("Current", phaseColors[0], "singleCurrent")],
         -300,
         300,
         "A",
-      ) +
-      electricalPlot(
-        "Power absorbed: p(t) = v(t) × i(t)",
-        [make("Load power", "var(--ink)", dc ? "dcPower" : "singlePower")],
-        0,
-        200,
-        "kW",
       );
-  }
-  return `<div class="electrical-grid"><div class="electrical-circuit-panel"><p class="eyebrow">INSTANTANEOUS CURRENT · FOLLOW THE ARROWS</p>${three ? threePhaseCircuit(now) : circuitLoop(dc, now)}<p class="circuit-reading">${three ? "Three phases, one-third of a cycle apart." : dc ? "Charge follows one direction around a closed loop." : "Current and voltage reverse together in this resistor."}</p><div class="wave-result">${three ? "100 kW total at every instant" : dc ? "100 kW at every instant" : `${fmt(now.singlePower, 1)} kW now · 100 kW average`}</div><p class="electrical-guard">${three ? "Return current uses the other phases. Unbalanced or harmonic loads may need a neutral." : dc ? "Current = charge per second. Voltage = energy per unit charge." : "Negative voltage × negative current = positive load power."}</p></div><div class="electrical-charts">${charts}</div></div><p class="electrical-footer">${three ? "120.3 A RMS per line · 480 V RMS between lines" : dc ? "800 V DC × 125 A = 100 kW" : "480 V RMS × 208.3 A RMS = 100 kW average"}<span>${three ? "Balanced sinusoidal wye load · PF = 1" : "Equivalent resistor load · ideal conductors"}</span></p>`;
+  const result = three
+    ? "100 kW total at every instant"
+    : `${fmt(now.singleVoltage, 1)} V × ${fmt(now.singleCurrent, 1)} A = ${fmt(now.singlePower, 1)} kW now`;
+  return `<div class="electrical-grid"><div class="electrical-circuit-panel">${three ? threePhaseCircuit(now) : circuitLoop(false, now)}<div class="wave-result">${result}</div></div><div class="electrical-charts">${charts}</div></div>`;
 }
-
 function electricalVisual(kind) {
-  const scrub = kind !== "dc-basics";
-  return `<div class="electrical-model"><div class="energy-band"><strong>100 kW average at the load</strong><span>Same hour → 100 kWh received</span></div><div id="wave-content">${electricalContent(kind)}</div>${scrub ? `<div class="cycle-control"><label for="cycle-angle">Time · 60 Hz example (60 cycles/s)</label><input type="range" id="cycle-angle" min="0" max="360" step="1" value="${state.cycleDegrees}"/><output id="cycle-value" for="cycle-angle">${state.cycleDegrees}° · ${fmt((state.cycleDegrees / 360 / 60) * 1000, 2)} ms</output></div>` : ""}</div>`;
+  const scrub = ["ac-basics", "three-phase"].includes(kind);
+  const condition =
+    kind === "dc-basics"
+      ? "800 V DC · ideal wires"
+      : kind === "ac-basics"
+        ? "Single-phase example · 480 V RMS · resistive load"
+        : kind === "three-phase"
+          ? "480 V three-phase · balanced resistive load · PF = 1"
+          : "Balanced 480 V three-phase system";
+  return `<div class="electrical-model"><div class="energy-band"><strong>${kind === "voltage-basis" ? condition : "100 kW average at the load"}</strong>${kind === "voltage-basis" ? "" : `<span>${condition}</span>`}</div><div id="wave-content">${electricalContent(kind)}</div>${scrub ? `<div class="cycle-control"><label for="cycle-angle">One AC cycle · 60 Hz</label><input type="range" id="cycle-angle" min="0" max="360" step="1" value="${state.cycleDegrees}"/><output id="cycle-value" for="cycle-angle">${state.cycleDegrees}°</output></div>` : ""}</div>`;
 }
 
 const PRESENTATION = JSON.parse(
@@ -2237,7 +2469,6 @@ let state = {
   index,
   revealed: [],
   volts: DEFAULTS.comparison_voltage_v,
-  dcConversionKW: DEFAULTS.dc_conversion_kw,
   cycleDegrees: 30,
 };
 const session =
@@ -2251,8 +2482,7 @@ const revealKinds = new Set([
   "copper",
   "current",
   "loss",
-  "energy",
-  "paths",
+  "conversion-loss",
   "decision",
 ]);
 const isRevealed = () => state.revealed.includes(STEPS[state.index].id);
@@ -2268,9 +2498,6 @@ function validState(value) {
     Number.isFinite(value.volts) &&
     value.volts >= 400 &&
     value.volts <= 1000 &&
-    Number.isFinite(value.dcConversionKW) &&
-    value.dcConversionKW >= 1 &&
-    value.dcConversionKW <= 7 &&
     Number.isFinite(value.cycleDegrees) &&
     value.cycleDegrees >= 0 &&
     value.cycleDegrees <= 360
@@ -2321,7 +2548,7 @@ function metric(value, unit) {
   return `<div class="metric">${value} <small>${unit}</small></div>`;
 }
 function intro() {
-  return `<div class="hero"><div class="hero-copy"><span class="chip">480 V AC ↔ 800 V DC</span><div class="hero-number">100<small> kW</small></div><p>Start with the same power.<br>Use less copper.</p><span class="hero-goal">Then examine space, losses and growth.</span></div><img src="assets/power-equipment.png" width="1672" height="941" alt="Illustrative conversion equipment beside a compute rack; not a wiring diagram or an equipment rating." /></div>`;
+  return `<div class="hero"><div class="hero-copy"><span class="chip">480 V three-phase AC ↔ 800 V DC</span><div class="hero-number">100<small> kW</small></div><span class="hero-goal">Same power delivered to the load</span></div><img src="assets/power-equipment.png" width="1672" height="941" alt="Concept illustration of conversion equipment beside a compute rack." /></div>`;
 }
 function conductorNumbers(volts = DEFAULTS.comparison_voltage_v) {
   return acdcConductorModel(
@@ -2352,8 +2579,8 @@ function current() {
 }
 function loss() {
   const shown = isRevealed(),
-    ratio = conductorNumbers().lossRatio * 100;
-  return `<div class="model"><div class="model-top"><span class="chip">EQUAL RESISTANCE PER CONDUCTOR · PF = 1</span><span class="ledger-formula">Add the heat from every conductor</span></div><div class="comparison"><div class="metric-card"><p class="metric-label">480 V three-phase AC</p>${metric("100", "%")}<p class="metric-sub">3 × I²R · reference conductor loss</p><div class="loss-track"><div class="loss-bar" style="width:100%"></div></div></div><div class="metric-card changed"><p class="metric-label">800 V DC</p>${metric(shown ? fmt(ratio, 1) : "?", "%")}<p class="metric-sub">2 × I²R · of the AC conductor loss</p><div class="loss-track">${shown ? `<div class="loss-bar" style="width:${ratio}%"></div>` : ""}</div></div></div>${shown ? `<p class="bridge">${fmt(100 - ratio)}% less conductor heat at these assumptions.</p>` : `<div class="control-line"><button class="reveal" id="reveal">Reveal the loss comparison</button></div>`}</div>`;
+    { ac, dc, lossRatio } = conductorNumbers();
+  return `<div class="model"><div class="model-top"><span class="chip">100 kW delivered · PF = 1</span><span class="ledger-formula">10 mΩ per conductor</span></div><div class="comparison"><section class="metric-card"><p class="metric-label">480 V three-phase AC</p>${metric(fmt(ac.lossKW * 1000), "W heat")}<p class="metric-sub">3 × 120.3² × 0.01</p><div class="loss-track"><div class="loss-bar" style="width:100%"></div></div></section><section class="metric-card changed"><p class="metric-label">800 V DC</p>${metric(shown ? fmt(dc.lossKW * 1000, 1) : "?", "W heat")}<p class="metric-sub">2 × 125² × 0.01</p><div class="loss-track">${shown ? `<div class="loss-bar" style="width:${lossRatio * 100}%"></div>` : ""}</div></section></div>${shown ? `<p class="comparison-result"><strong>${fmt((ac.lossKW - dc.lossKW) * 1000)} W less heat</strong><span>About 0.12% of the 100 kW delivered · conductors only</span></p>` : `<div class="control-line"><button class="reveal" id="reveal">Calculate DC conductor heat</button></div>`}</div>`;
 }
 function unit(label, style = "", detail = "") {
   return `<div class="unit ${style}">${label}${detail ? `<small>${detail}</small>` : ""}</div>`;
@@ -2379,94 +2606,30 @@ function architecture(kind) {
     adjacent = unit("800 V DC", "", "hall distribution");
     rack = regulator + arrow + chip;
   }
-  const observation = {
-    ac: "Conversion occupies space in the compute rack.",
-    sidecar: "Rack space is released; the sidecar occupies nearby space.",
-    facility: "AC/DC conversion moves out of the hall to the power room.",
-  }[kind];
-  const space = `<div class="rack-space ${kind === "ac" ? "occupied" : "released"}"><span>${kind === "ac" ? "AC/DC equipment footprint" : "Former AC/DC equipment space"}</span><strong>${kind === "ac" ? "Occupied" : "Released"}</strong></div>`;
-  return `<div class="architecture"><div class="path"><section class="zone ${kind === "facility" ? "active" : ""}"><h2 class="zone-title">Upstream power room</h2><div class="zone-body">${facility}</div></section><section class="zone ${kind === "sidecar" ? "active" : ""}"><h2 class="zone-title">${kind === "sidecar" ? "Nearby power rack / sidecar" : "Hall distribution"}</h2><div class="zone-body">${adjacent}</div></section><section class="zone rack ${kind === "ac" ? "active" : ""}"><h2 class="zone-title">Compute rack</h2><div class="zone-body">${rack}</div>${space}</section></div><p class="path-label">${kind === "ac" ? "AC toward the rack" : kind === "sidecar" ? "AC to the sidecar → 800 V DC toward the rack" : "AC conversion in power room → 800 V DC through the hall"}</p><p class="boundary-line">${observation}</p></div>`;
+  const space = `<div class="rack-space ${kind === "ac" ? "occupied" : "released"}"><span>AC/DC equipment space</span><strong>${kind === "ac" ? "Occupied" : "Freed"}</strong></div>`;
+  return `<div class="architecture"><div class="path"><section class="zone ${kind === "facility" ? "active" : ""}"><h2 class="zone-title">Upstream power room</h2><div class="zone-body">${facility}</div></section><section class="zone ${kind === "sidecar" ? "active" : ""}"><h2 class="zone-title">${kind === "sidecar" ? "Power rack in the hall" : "Hall distribution"}</h2><div class="zone-body">${adjacent}</div></section><section class="zone rack ${kind === "ac" ? "active" : ""}"><h2 class="zone-title">Compute rack</h2><div class="zone-body">${rack}</div>${space}</section></div></div>`;
 }
-function ledgerCard(title, rows, inputKW, shown, changed = false) {
-  return `<section class="ledger-card ${changed ? "changed" : ""}"><h2>${title}</h2><dl>${rows.map(([label, value]) => `<div><dt>${label}</dt><dd>${value} <small>kW</small></dd></div>`).join("")}</dl><div class="ledger-total"><span>Required input</span><strong>${shown ? fmt(inputKW, 3) : "?"} <small>kW</small></strong></div></section>`;
-}
-function energy() {
-  const { ac, dc } = conductorNumbers();
-  const shown = isRevealed();
-  return `<div class="energy-ledger"><div class="model-top"><span class="chip">SAME 100 kW AT THE FEEDER END</span><span class="ledger-formula">Input = delivered power + heat</span></div><div class="comparison">${ledgerCard(
-    "480 V three-phase AC",
-    [
-      ["Delivered power", "100"],
-      ["Conductor heat", fmt(ac.lossKW, 3)],
-    ],
-    ac.inputKW,
-    shown,
-  )}${ledgerCard(
-    "800 V DC",
-    [
-      ["Delivered power", "100"],
-      ["Conductor heat", fmt(dc.lossKW, 3)],
-    ],
-    dc.inputKW,
-    shown,
-    true,
-  )}</div><div class="ledger-result">${shown ? `<strong>${fmt(ac.inputKWh - dc.inputKWh, 3)} kWh less input over 1 h</strong><span>Same delivered power. Less conductor heat. Converters excluded.</span>` : `<button id="reveal">Reveal the required input</button>`}</div></div>`;
-}
-function pathNumbers() {
-  return acdcDeliveryModel(
-    DEFAULTS.power_kw,
-    DEFAULTS.reference_voltage_v,
-    DEFAULTS.comparison_voltage_v,
-    DEFAULTS.power_factor,
-    DEFAULTS.conductor_ohms,
-    DEFAULTS.hours,
-    DEFAULTS.ac_conversion_kw,
-    state.dcConversionKW,
-    DEFAULTS.dc_upstream_conversion_kw,
-  );
-}
-function pathResult(ac, dc) {
-  const difference = ac.inputKWh - dc.inputKWh;
-  return Math.abs(difference) < 1e-9
-    ? "Same input energy over 1 h"
-    : `DC uses ${fmt(Math.abs(difference), 3)} kWh ${difference > 0 ? "less" : "more"} input over 1 h`;
-}
-function paths() {
-  const { ac, dc } = pathNumbers(),
+function conversionLoss() {
+  const output = DEFAULTS.power_kw,
+    efficiency = DEFAULTS.converter_efficiency;
+  const input = output / efficiency,
+    loss = input - output,
     shown = isRevealed();
-  return `<div class="energy-ledger"><div class="model-top"><span class="chip">SAME AC INPUT BOUNDARY · 100 kW FINAL DC LOAD</span><span class="ledger-formula">Input = load + all path losses</span></div><div class="comparison">${ledgerCard(
-    "480 V AC-distributed path",
-    [
-      ["Final DC load", "100"],
-      ["Conductors · calculated", fmt(ac.conductorLossKW, 3)],
-      ["Conversion · assumed", fmt(DEFAULTS.ac_conversion_kw)],
-    ],
-    ac.inputKW,
-    shown,
-  )}<div id="dc-path-card">${ledgerCard(
-    "800 V DC-distributed path",
-    [
-      ["Final DC load", "100"],
-      ["Conductors · calculated", fmt(dc.conductorLossKW, 3)],
-      ["Conversion · assumed", fmt(state.dcConversionKW, 1)],
-    ],
-    dc.inputKW,
-    shown,
-    true,
-  )}</div></div><p class="path-assumption">AC: conversion after feeder. DC: 1 kW before feeder; remaining conversion after.</p>${shown ? `<div class="control-line"><label for="dc-conversion">Total DC conversion loss</label><input id="dc-conversion" type="range" min="1" max="7" step="0.1" value="${state.dcConversionKW}" /><output id="dc-conversion-value" for="dc-conversion">${fmt(state.dcConversionKW, 1)} kW</output><button id="dc-loss-reset">Reset</button></div><div class="ledger-result"><strong id="path-result">${pathResult(ac, dc)}</strong></div>` : `<div class="ledger-result"><button id="reveal">Reveal both input budgets</button></div>`}</div>`;
+  return `<div class="converter-example"><div class="model-top"><span class="chip">Illustration · 98% efficiency at this load</span></div><div class="converter-flow"><div class="power-port"><span>Input</span><strong>${shown ? fmt(input, 2) : "?"}<small> kW</small></strong></div><span class="conversion-arrow" aria-hidden="true">→</span><div class="converter-box"><strong>Power converter</strong><span>Useful output ÷ input = 98%</span></div><span class="conversion-arrow" aria-hidden="true">→</span><div class="power-port"><span>Useful output</span><strong>100<small> kW</small></strong></div><div class="converter-heat"><span aria-hidden="true">↓</span><strong>${shown ? fmt(loss, 2) : "?"} kW <small>converter heat</small></strong></div></div><div class="loss-causes"><span>Resistance heats conductors</span><span>Switching dissipates energy</span><span>Magnetic cores heat up</span><span>Controls &amp; fans draw power</span></div>${shown ? '<div class="equation-block">100 ÷ 0.98 − 100 = <strong>2.04 kW</strong></div>' : '<div class="control-line"><button class="reveal" id="reveal">Calculate the lost power</button></div>'}</div>`;
 }
 function decision() {
-  const shown = isRevealed();
-  const base = conductorNumbers().dc;
+  const shown = isRevealed(),
+    base = conductorNumbers().dc;
   const grown = dcConductorModel(
     DEFAULTS.power_kw * 2,
     DEFAULTS.comparison_voltage_v,
     2 * DEFAULTS.conductor_ohms,
     DEFAULTS.hours,
   );
-  const row = (label, before, after, unit, given = false) =>
-    `<div class="capacity-row"><span>${label}</span><strong>${before}<small> ${unit}</small></strong><strong>${shown || given ? after : "?"}<small> ${unit}</small></strong></div>`;
-  return `<div class="model capacity-model"><div class="model-top"><span class="chip">800 V DC · KEEP THE SAME TWO CONDUCTORS</span><span class="ledger-formula">Can this feeder serve twice the load?</span></div><div class="capacity-table"><div class="capacity-row capacity-heading"><span>At the feeder end</span><strong>Starting case</strong><strong>Proposed growth</strong></div>${row("Delivered power", fmt(DEFAULTS.power_kw), fmt(DEFAULTS.power_kw * 2), "kW", true)}${row("Conductor copper", "1×", "1×", "", true)}${row("Current per wire", fmt(base.amps), fmt(grown.amps), "A")}${row("Total conductor heat", fmt(base.lossKW, 4), fmt(grown.lossKW, 2), "kW")}</div>${shown ? `<div class="capacity-result"><strong>2× power · same copper · 4× conductor heat</strong><span class="capacity-status">Capacity unverified: check conductor temperature, voltage drop and equipment ratings.</span></div>` : '<div class="control-line"><button id="reveal" class="reveal">Predict current, heat and the capacity verdict</button></div>'}</div>`;
+  function caseCard(label, power, amps, heat, changed) {
+    return `<section class="metric-card ${changed ? "changed" : ""}"><p class="metric-label">${label}</p>${metric(fmt(power), "kW to load")}<div class="growth-equation">${fmt(power * 1000)} W ÷ 800 V<br>= <strong>${changed && !shown ? "?" : fmt(amps)} A</strong> per conductor</div><p class="metric-sub">Conductor heat: ${changed && !shown ? "?" : fmt(heat * 1000, 1)} W</p></section>`;
+  }
+  return `<div class="model capacity-model"><div class="model-top"><span class="chip">Same two conductors · 800 V at the load · 10 mΩ each</span></div><div class="comparison">${caseCard("Original load", DEFAULTS.power_kw, base.amps, base.lossKW, false)}${caseCard("Double the load", DEFAULTS.power_kw * 2, grown.amps, grown.lossKW, true)}</div>${shown ? '<p class="comparison-result"><span>Current rating, temperature and voltage drop still limit usable capacity.</span></p>' : '<div class="control-line"><button id="reveal" class="reveal">Calculate the new current</button></div>'}</div>`;
 }
 function renderNotes() {
   const step = STEPS[state.index];
@@ -2478,7 +2641,7 @@ function renderNotes() {
   byId("narration").innerHTML = `<ul class="speaker-points">${step.notes
     .map((point) => `<li>${escapeHTML(point)}</li>`)
     .join("")}</ul>`;
-  if (["ac-basics", "three-phase", "voltage-basis"].includes(step.kind)) {
+  if (["ac-basics", "three-phase"].includes(step.kind)) {
     const now = acdcWaveModel(step.kind, state.cycleDegrees);
     byId("narration").insertAdjacentHTML(
       "afterbegin",
@@ -2490,13 +2653,6 @@ function renderNotes() {
       "afterbegin",
       `<p class="cue">Live DC comparison: ${state.volts} V · ${fmt(conductorNumbers(state.volts).dc.amps, 1)} A. AC stays at 480 V · ${fmt(conductorNumbers().ac.amps, 1)} A RMS</p>`,
     );
-  if (step.kind === "paths" && isRevealed()) {
-    const { ac, dc } = pathNumbers();
-    byId("narration").insertAdjacentHTML(
-      "afterbegin",
-      `<p class="cue">Live DC conversion loss: ${fmt(state.dcConversionKW, 1)} kW total; ${fmt(state.dcConversionKW - DEFAULTS.dc_upstream_conversion_kw, 1)} kW after the feeder. DC feeder carries ${fmt(dc.feederKW, 1)} kW at ${fmt(dc.amps, 2)} A. ${pathResult(ac, dc)}.</p>`,
-    );
-  }
   byId("notes-next").textContent =
     STEPS[state.index + 1]?.headline ||
     "End of sample. Discuss the learner’s reasoning.";
@@ -2517,28 +2673,6 @@ function bindVisual() {
       `${state.cycleDegrees}° · ${fmt((state.cycleDegrees / 360 / 60) * 1000, 2)} ms`;
     publish();
   });
-  byId("dc-conversion")?.addEventListener("input", (event) => {
-    state.dcConversionKW = Number(event.target.value);
-    const { ac, dc } = pathNumbers();
-    byId("dc-path-card").innerHTML = ledgerCard(
-      "800 V DC-distributed path",
-      [
-        ["Final DC load", "100"],
-        ["Conductors · calculated", fmt(dc.conductorLossKW, 3)],
-        ["Conversion · assumed", fmt(state.dcConversionKW, 1)],
-      ],
-      dc.inputKW,
-      true,
-      true,
-    );
-    byId("dc-conversion-value").textContent =
-      `${fmt(state.dcConversionKW, 1)} kW`;
-    byId("path-result").textContent = pathResult(ac, dc);
-    publish();
-  });
-  byId("dc-loss-reset")?.addEventListener("click", () =>
-    change({ dcConversionKW: DEFAULTS.dc_conversion_kw }),
-  );
   byId("reveal")?.addEventListener("click", reveal);
   byId("voltage")?.addEventListener("input", (event) => {
     state.volts = Number(event.target.value);
@@ -2566,17 +2700,15 @@ function render() {
   }
   const focus = document.activeElement?.id;
   byId("chapter").textContent =
-    `800 V DC / ${String(state.index + 1).padStart(2, "0")} · ${step.title}`;
+    `800 V DC · ${state.index + 1} / ${STEPS.length}`;
   byId("scene-title").textContent = step.headline;
-  byId("caption").textContent = step.caption;
   byId("visual").innerHTML = (
     {
       intro,
       copper,
       current,
       loss,
-      energy,
-      paths,
+      "conversion-loss": conversionLoss,
       decision,
       "dc-basics": () => electricalVisual("dc-basics"),
       "ac-basics": () => electricalVisual("ac-basics"),

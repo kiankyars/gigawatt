@@ -18,8 +18,7 @@ KINDS = {
     "ac",
     "sidecar",
     "facility",
-    "energy",
-    "paths",
+    "conversion-loss",
     "decision",
 }
 ROLES = {
@@ -62,7 +61,7 @@ def validate_presentation(data: dict) -> None:
     for step in steps:
         if not re.fullmatch(r"[a-z0-9-]+", step["id"]):
             raise ValueError("Unsafe presentation step ID")
-        for field, limit in (("headline", 10), ("caption", 18)):
+        for field, limit in (("headline", 18),):
             if not 0 < len(step[field].split()) <= limit:
                 raise ValueError(
                     f"{step['id']}: audience {field} exceeds the text budget"

@@ -7,10 +7,10 @@
 1. **[UPS, bypass and redundancy](prototypes/ups-format.html): fifteen scenes,
    part of D05.** Start here to review the latest visual format. Explain each
    diagram aloud and try the failure/maintenance controls.
-2. **[AC/DC foundations → 800 V](teach.html): fourteen scenes, the D06 sample
+2. **[AC/DC foundations → 800 V](teach.html): thirteen scenes, the D06 sample
    with D01/D04 foundations.** Check whether the electrical primer makes the
-   copper, conversion-placement and energy comparisons clear.
-3. For either sequence, send the **scene/link and what confused you, seemed
+   copper, current and conversion-placement comparisons clear.
+3. For either sequence, send the **slide number (or its URL) and what confused you, seemed
    wrong or needed a clearer visual**. Teach without recording; notes are optional.
    We revise these sequences, then carry the settled approach into the next section.
 
@@ -29,6 +29,9 @@ changes made while the page is open. No website toggle is required.
 Open [the UPS sequence](prototypes/ups-format.html). Its fifteen scenes move from
 the campus into one UPS, trace normal and battery operation, then compare forced
 static bypass, external maintenance bypass, N, N+1, N+2, 2N and 2(N+1).
+The product slide shows a real freestanding UPS cabinet and distinguishes its external
+UPS battery from rack battery backup units (BBUs). The electrical room is the
+placement chosen for this layout, not a universal rule.
 The same 100 kW load and hypothetical 50 kW modules anchor the comparison.
 Remove modules, isolate a route or fail the shared bus; finish by raising demand
 to 150 kW without adding equipment. Let the changed paths and surviving capacity
@@ -53,15 +56,16 @@ not an equipment switching procedure.
 Use **Next / →** to advance, **←** to return and **R** to reveal or hide an answer.
 Teaching mode adds **P** for notes and **F** for fullscreen. A focused slider uses
 arrow keys to change its value. Paired notes synchronize the scene, answer state,
-DC voltage and final conversion-loss control. All modes share the calculations.
+DC voltage and cycle position. All modes share the calculations.
 Teaching mode is a presentation choice, not authentication or access control.
 
 ## Establish the electrical foundation
 
 Before the copper comparison, teach the four new scenes: the DC closed loop,
-one AC cycle, three balanced phases, and line-to-line versus phase voltage.
-Move the cycle slider to compare current direction with load power. The fixed
-band means **100 kW average received power**, or 100 kWh in one hour, throughout.
+one AC cycle, three balanced phases, and line-to-line voltage measurement.
+Move the cycle slider to compare current direction with load power. The power band means **100 kW average received power** throughout the circuit examples.
+The voltage-measurement slide then isolates the meter probes; L1 and L2 are both
+live phases, and L3 is another live phase, not ground.
 Single-phase instantaneous power pulses; its average is the comparison anchor.
 The primer uses equivalent ideal resistor loads, then adds conductor losses
 explicitly in the later comparison.
@@ -84,12 +88,11 @@ answer, and use these checks to find where the explanation stops being clear:
 4. **Placement:** follow conversion from the rack to a sidecar or upstream power
    room. Identify released rack space and where equipment moved. A nearby sidecar
    still occupies space; moving a converter does not establish a net hall-area saving.
-5. **Complete path:** explicitly move the fixed 100 kW boundary to the final useful
-   DC load. Both alternatives start at the same facility AC supply. Downstream
-   conversion losses raise feeder power and its calculated heat. At the illustrative
-   defaults, DC uses about 1.144 kWh less input over one hour. Raising total DC
-   conversion loss from 3 to 6 kW makes DC use about 1.875 kWh more. These assumed
-   losses are not manufacturer efficiencies; cooling and other losses are excluded.
+5. **Conversion:** distinguish conductor heating from loss inside the converter.
+   Resistance, switching, magnetic components and auxiliaries dissipate power;
+   the amount depends on equipment, loading, operating mode and temperature.
+   The explicitly illustrative 98% converter needs 102.04 kW input for 100 kW
+   output, leaving 2.04 kW as heat. This is not a measured AC/DC architecture advantage.
 6. **Transfer:** at `#capacity-check`, double delivered DC power to 200 kW while
    holding 800 V and the conductors unchanged. Predict 250 A and 1.25 kW conductor
    heat: twice the current, four times the heat, unchanged copper by assumption.
@@ -113,7 +116,7 @@ of student and teacher controls, the intended **480 V AC versus 800 V DC** premi
 and copper/space being obscured by the energy comparison. The former 150 kW feeder /
 160 kW load drawing appeared to show an operating flow despite being intended as
 an infeasible request; it has been removed. Its old `#feeder-transfer` link opens
-the complete-path comparison. Repetitive recording-setup advice is omitted from
+the converter-loss example. Repetitive recording-setup advice is omitted from
 the notes.
 
 Use the [teaching standard](TEACHING_STANDARD.md) when revising source material.

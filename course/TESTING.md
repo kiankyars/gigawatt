@@ -396,3 +396,30 @@ The full reader check also passed 100 lesson/viewport states in dark mode.
 UPS checks passed all 60 scene layouts in each theme; sample controls and note
 synchronization still pass. Representative screenshots were visually inspected.
 All 52 Python tests and generated-output checks pass. Changes remain local.
+
+
+## Learner-review revision — 2026-09-11
+
+Both teaching sequences now use one explanatory headline and omit competing
+bottom subtitles. The UPS sequence embeds the named product photograph and
+identifies the separate UPS battery. The 800 V sequence has thirteen scenes;
+its converter-loss example uses an explicitly illustrative 98% efficiency,
+and the final current calculation shows the 100 → 200 kW load change directly.
+
+- 52 Python and 51 JavaScript tests passed, including waveform identities,
+  conductor losses, bypass connectivity and surviving capacity. Generated
+  course, research and domain-map checks passed; Ruff and whitespace checks passed.
+- The updated presentation check passed 180 layout/reveal states across teaching
+  and student modes at five viewport sizes, with no desktop presentation scroll,
+  horizontal overflow or clipped labels. It checks the converter energy balance,
+  current/heat arithmetic, old deep-link aliases, keyboard controls and note sync.
+- The electrical-primer check passed 20 layouts plus current reversal, balanced
+  total power, voltage measurement and synchronized controls. DC now uses a closed
+  circuit and equation; the voltmeter connects to two explicitly live phases.
+- UPS checks passed 60 layouts and 12 introductory light/dark views, product-image
+  loading, bypass source changes, 14 redundancy cases and optional note sync.
+- Desktop and mobile screenshots were visually inspected, including the meter,
+  converter heat branch and final current comparison in light and dark modes.
+
+These checks verify the implemented teaching models and presentation behavior.
+They do not establish measured equipment efficiencies or learning outcomes.

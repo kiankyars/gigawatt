@@ -31,6 +31,10 @@
     "publisher": "Schneider Electric",
     "retrieved_on": "2026-09-10",
     "sha256": "8e6791fa154de283f8ed7bf3737daacab65503b7b98aa6413f7ab8d31aad7321",
-    "note": "Product-family image from official Easy UPS 3-Phase Modular page. Two cabinet views do not establish a redundant topology or a UPS-and-battery pair."
+    "note": "Product-family image from official Easy UPS 3-Phase Modular page. Two cabinet views do not establish a redundant topology or a UPS-and-battery pair. The embedded teaching slide uses P26 for the freestanding UPS dimensions and P27 for the external battery option; the separate battery drawing remains schematic.",
+    "specification_sources": [
+      "P26",
+      "P27"
+    ]
   }
 ]

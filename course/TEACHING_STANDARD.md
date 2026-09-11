@@ -1,6 +1,6 @@
 # Lesson and visual authoring standard
 
-Updated **2026-09-10**. This document owns **how to author and check teaching
+Updated **2026-09-11**. This document owns **how to author and check teaching
 material**. The [filled-in course template](COURSE_REVIEW.md) owns audience,
 scope, companion commitments and production priorities. The [domain map](domain-map.json)
 owns objective IDs, prerequisites and sequence. Rehearsal controls belong in
@@ -18,7 +18,7 @@ The practice must require applying the reasoning rather than copying a result.
 Use original explanatory prose. Explain algebra and specialist terms before using
 them. Before comparing electrical architectures, teach the closed DC loop, AC reversal,
 RMS values and balanced three-phase return paths. Keep received average power and
-measurement conventions explicit as waveforms change. Locate equipment and show its job at first use; a glossary or opening
+measurement conventions explicit as waveforms change. Locate equipment, distinguish its form factor and show its job at first use; a glossary or opening
 orientation supplements that introduction. Do not paraphrase articles in sequence
 or reproduce third-party prose/figures wholesale.
 
@@ -70,6 +70,9 @@ teach its mechanism and end with transfer. Intermediate scenes depend on the top
 
 Let the diagram and its changing state carry the explanation. Keep only the
 headline, essential labels, quantities and decisive assumptions on the slide.
+Write one complete, explanatory headline. Do not repeat its message in a bottom
+subtitle, a second title inside the diagram, or a slogan. Essential component labels
+and model assumptions belong beside the relevant object or calculation.
 The speaker explains the connections in their own words; notes must not contain
 an essential step that the visual fails to establish. Rehearsal notes are optional:
 when useful, use a few brief cues, not a script. Keep complete prose and derivations
@@ -105,7 +108,8 @@ check their connections and paths against the stated model and sources. Renderin
 correctly does not establish technical correctness. Generated imagery can provide
 orientation; visual inspection alone does not validate anatomy, piping or wiring.
 Follow the existing images' [role limits](assets/README.md), and replace misleading
-details instead of relying on a disclaimer. Sourced images also need provenance
+details instead of relying on a disclaimer. Embed the actual product photograph when teaching a real example; a link alone
+does not show the learner what the equipment looks like. Sourced images also need provenance
 and checks of the product, configuration and claim they illustrate. Distinguish
 physical flows from commercial and control relationships, and coolant circulation
 from heat transfer. Motion must explain a defined change and remain intelligible

@@ -2062,6 +2062,83 @@
         "D06"
       ],
       "discovered_via": "User-supplied architecture figures and medium-voltage rectification question, 2026-09-10."
+    },
+    {
+      "id": "P24",
+      "title": "Schneider Electric — What is UPS efficiency and how is it calculated?",
+      "url": "https://www.se.com/us/en/faqs/FAQ000244215/",
+      "publisher": "Schneider Electric",
+      "use": "Efficiency is output power divided by input power and varies with operating load.",
+      "caution": "Uses the general efficiency definition and load dependence; no product efficiency or eConversion claim is adopted.",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-11",
+      "domains": [
+        "D04",
+        "D05",
+        "D06"
+      ],
+      "discovered_via": "September 11 learner review of converter losses."
+    },
+    {
+      "id": "P25",
+      "title": "Texas Instruments — Power Loss in Switching Power Supplies",
+      "url": "https://www.ti.com/document-viewer/lit/html/SLUAAL9",
+      "publisher": "Texas Instruments",
+      "use": "Explains transistor conduction and switching losses in switching power supplies.",
+      "caution": "August 2022 application brief. Mechanisms only, not an efficiency prediction for data-center converters.",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-11",
+      "domains": [
+        "D04",
+        "D05",
+        "D06"
+      ],
+      "discovered_via": "September 11 learner review of converter losses."
+    },
+    {
+      "id": "P26",
+      "title": "Schneider Electric — Easy UPS 3-Phase Modular physical specifications",
+      "url": "https://productinfo.se.com/easyups3pmodular/990-91580-technical-specifications-easy-ups-3-phase-modular/English/990-91580%20Technical%20Specifications%20Easy%20UPS%203-Phase%20Modular50-250%20kW%20UPS_0001011916.xml/%24/PhysicalREF_0000019941",
+      "publisher": "Schneider Electric",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-11",
+      "domains": [
+        "D05"
+      ],
+      "use": "Cabinet dimensions and floor footprint for the product shown in the UPS teaching sequence.",
+      "caution": "Selected dimensions reviewed: 1,991 mm high, 600 mm wide and 850 mm deep. Does not identify the installed rating or internal arrangement of either cabinet in the product-family photo."
+    },
+    {
+      "id": "P27",
+      "title": "Schneider Electric — Easy UPS 3-Phase Modular hardware options",
+      "url": "https://productinfo.se.com/easyups3pmodular/990-91580-technical-specifications-easy-ups-3-phase-modular/English/990-91580%20Technical%20Specifications%20Easy%20UPS%203-Phase%20Modular50-250%20kW%20UPS_0001011916.xml/%24/GalaxyPX_HardwareOptions_0000862721",
+      "publisher": "Schneider Electric",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-11",
+      "domains": [
+        "D05"
+      ],
+      "use": "External battery cabinet options for the named UPS family.",
+      "caution": "Options list only. No particular battery cabinet, chemistry, installation layout or runtime is selected by the teaching schematic."
+    },
+    {
+      "id": "P28",
+      "title": "Open Compute Project — Open Rack V3 BBU Module Specification 1.4",
+      "url": "https://www.opencompute.org/documents/open-rack-v3-bbu-module-spec-1-4-pdf",
+      "publisher": "Open Compute Project",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-11",
+      "domains": [
+        "D05",
+        "D06"
+      ],
+      "use": "Rack battery backup modules provide a concrete contrast with the facility AC UPS and its external battery cabinet.",
+      "caution": "Used for module/shelf form factor and rack DC backup role; not a universal definition of all BBUs or a specification of the facility battery drawn in the UPS sequence."
     }
   ]
 }

@@ -14,7 +14,7 @@
       content="#101b1f"
       media="(prefers-color-scheme: dark)"
     />
-    <title>UPS — spatial teaching prototype</title>
+    <title>UPS, bypass and redundancy</title>
     <style>
       :root {
         color-scheme: light;
@@ -161,13 +161,10 @@
           400 clamp(30px, 3.6vw, 60px)/1.07 Georgia,
           serif;
         letter-spacing: -1px;
+        text-wrap: balance;
         margin: 0;
       }
-      .location {
-        font-size: 12px;
-        color: var(--muted);
-        margin: 8px 0 0;
-      }
+
       #stage {
         flex: 1;
         min-height: 0;
@@ -227,16 +224,7 @@
         box-shadow: 0 0 0 1800px var(--spotlight-veil, #f4f3ee50);
         pointer-events: none;
       }
-      .image-label {
-        position: absolute;
-        bottom: 10px;
-        left: 12px;
-        color: var(--muted);
-        font-size: 11px;
-        background: var(--overlay, #f4f3eedb);
-        padding: 5px 8px;
-        border-radius: 5px;
-      }
+
       #equipment {
         height: 100%;
         display: flex;
@@ -247,9 +235,8 @@
       #equipment-view {
         display: block;
         width: 100%;
-        flex: 1;
-        min-height: 230px;
-        max-height: 490px;
+        height: min(390px, max(260px, calc(100svh - 340px)));
+        min-height: 0;
       }
       .reference {
         display: flex;
@@ -271,6 +258,55 @@
         margin: 0;
         font-size: 12px;
         color: var(--muted);
+      }
+      .equipment-pair {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        align-items: center;
+        gap: clamp(20px, 5vw, 90px);
+        width: min(1080px, 100%);
+        height: 100%;
+        margin: 0 auto;
+      }
+      .equipment-pair figure {
+        margin: 0;
+        min-width: 0;
+      }
+      .product-photo img {
+        display: block;
+        width: min(100%, 390px);
+        max-height: max(220px, calc(100svh - 410px));
+        height: auto;
+        object-fit: contain;
+        margin: 0 auto 14px;
+        border-radius: 10px;
+        background: white;
+      }
+      .product-photo figcaption {
+        display: grid;
+        gap: 4px;
+        text-align: center;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.4;
+      }
+      .product-photo figcaption strong {
+        color: var(--ink);
+        font-size: 16px;
+      }
+      .product-photo figcaption a {
+        font-size: 11px;
+      }
+      .battery-schematic {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .battery-schematic .equipment-scope {
+        max-width: 350px;
+        text-align: center;
+        line-height: 1.4;
       }
       #mechanism {
         height: 100%;
@@ -433,13 +469,7 @@
         font-size: 17px;
         margin-bottom: 4px;
       }
-      #caption {
-        font-size: clamp(14px, 1.25vw, 19px);
-        text-align: center;
-        line-height: 1.35;
-        margin: 0;
-        color: var(--muted);
-      }
+
       footer {
         display: flex;
         align-items: center;
@@ -571,16 +601,18 @@
         #equipment {
           height: auto;
         }
+        .equipment-pair {
+          grid-template-columns: 1fr;
+          gap: 28px;
+        }
+        .product-photo img {
+          width: min(100%, 369px);
+          max-height: none;
+        }
         #equipment-view {
-          min-height: 260px;
-          height: 260px;
-          flex: none;
-        }
-        #equipment-view .diagram-label {
-          font-size: 32px;
-        }
-        #equipment-view .diagram-detail {
-          font-size: 26px;
+          height: 300px;
+          max-height: none;
+          width: min(100%, 400px);
         }
         #circuit .diagram-label {
           font-size: 20px;
@@ -740,7 +772,6 @@
         <div>
           <p id="position" class="eyebrow"></p>
           <h1 id="title"></h1>
-          <p id="location" class="location"></p>
         </div>
         <div id="stage">
           <div id="spatial">
@@ -751,11 +782,7 @@
             />
             <div id="spot" class="spotlight" hidden></div>
             <span id="room-pin" class="pin room">Electrical room</span
-            ><span id="rack-pin" class="pin rack">The racks</span
-            ><span class="image-label"
-              >Generated spatial illustration · placement and scale are
-              schematic</span
-            >
+            ><span id="rack-pin" class="pin rack">The racks</span>
             <div id="equipment-list" class="equipment-list" hidden>
               <div>
                 <strong>UPS</strong>Maintains AC output from the available
@@ -767,167 +794,125 @@
             </div>
           </div>
           <div id="equipment" hidden>
-            <svg
-              id="equipment-view"
-              viewBox="0 0 1120 420"
-              role="img"
-              aria-labelledby="equipment-title equipment-desc"
-            >
-              <title id="equipment-title">
-                UPS electronics and battery storage have different jobs.
-              </title>
-              <desc id="equipment-desc">
-                Two simple external cabinet silhouettes represent conversion
-                electronics and battery storage. This is a functional
-                illustration, not a drawing of a manufacturer's product or its
-                internal construction.
-              </desc>
-              <ellipse
-                cx="350"
-                cy="345"
-                rx="148"
-                ry="13"
-                fill="var(--cabinet-shadow, #d7ded2)"
-              />
-              <ellipse
-                cx="777"
-                cy="345"
-                rx="148"
-                ry="13"
-                fill="var(--cabinet-shadow, #d7ded2)"
-              />
-              <path
-                d="M258 115L298 88H472L432 115Z"
-                fill="var(--cabinet-top, #d1ddce)"
-                stroke="var(--cabinet-border, #789080)"
-              />
-              <path
-                d="M432 115L472 88V312L432 342Z"
-                fill="var(--cabinet-side, #a6bdab)"
-                stroke="var(--cabinet-border, #789080)"
-              />
-              <rect
-                x="258"
-                y="115"
-                width="174"
-                height="227"
-                rx="3"
-                fill="var(--cabinet-front, #e7eee1)"
-                stroke="var(--cabinet-border, #789080)"
-                stroke-width="2"
-              />
-              <path
-                d="M278 131H412V323H278Z"
-                fill="none"
-                stroke="var(--cabinet-seam, #adbdab)"
-              />
-              <path
-                d="M400 216V244"
-                stroke="var(--cabinet-detail, #496654)"
-                stroke-width="4"
-                stroke-linecap="round"
-              />
-              <rect
-                x="311"
-                y="177"
-                width="70"
-                height="43"
-                rx="4"
-                fill="var(--cabinet-screen, #23483c)"
-              />
-              <text
-                x="346"
-                y="204"
-                text-anchor="middle"
-                fill="var(--cabinet-screen-ink, #eaf3e4)"
-                font-size="17"
-                font-family="inherit"
-                font-weight="750"
-              >
-                UPS
-              </text>
-              <path
-                d="M684 115L724 88H898L858 115Z"
-                fill="var(--cabinet-top, #d5d9ce)"
-                stroke="var(--cabinet-border, #87917f)"
-              />
-              <path
-                d="M858 115L898 88V312L858 342Z"
-                fill="var(--cabinet-side, #b6bfae)"
-                stroke="var(--cabinet-border, #87917f)"
-              />
-              <rect
-                x="684"
-                y="115"
-                width="174"
-                height="227"
-                rx="3"
-                fill="var(--cabinet-front, #e8eadf)"
-                stroke="var(--cabinet-border, #87917f)"
-                stroke-width="2"
-              />
-              <path
-                d="M704 131H838V323H704Z"
-                fill="none"
-                stroke="var(--cabinet-seam, #b9c0af)"
-              />
-              <path
-                d="M826 216V244"
-                stroke="var(--cabinet-detail, #65715d)"
-                stroke-width="4"
-                stroke-linecap="round"
-              />
-              <rect
-                x="747"
-                y="174"
-                width="48"
-                height="64"
-                rx="4"
-                fill="none"
-                stroke="var(--cabinet-detail, #3c624c)"
-                stroke-width="2"
-              />
-              <path
-                d="M763 171H779 M761 188H781 M771 180V196 M761 226H781"
-                fill="none"
-                stroke="var(--cabinet-detail, #3c624c)"
-                stroke-width="2"
-              />
-              <text x="350" y="48" text-anchor="middle" class="diagram-label">
-                UPS electronics
-              </text>
-              <text x="777" y="48" text-anchor="middle" class="diagram-label">
-                Battery storage
-              </text>
-              <text x="350" y="388" text-anchor="middle" class="diagram-detail">
-                Converts and controls power
-              </text>
-              <text x="777" y="388" text-anchor="middle" class="diagram-detail">
-                Provides stored energy
-              </text>
-            </svg>
-            <p class="equipment-scope">
-              Schematic external form · cabinet sizes, arrangement and internal
-              construction are not specified.
-            </p>
-            <aside class="reference">
-              <span
-                ><strong>A real operating example</strong>Schneider Easy UPS
-                3-Phase Modular · 50–250 kW product family</span
-              >
-              <a
-                href="https://productinfo.se.com/easyups3pmodular/viewer?docidentity=UPSModes-1DE8911A&amp;extension=xml&amp;lang=en&amp;manualidentity=OperationEasyUPS3-PhaseModular50-25-BF409413"
-                target="_blank"
-                rel="noopener"
-                >Manufacturer’s operating modes ↗</a
-              >
-              <a
-                href="../assets/references/schneider-easy-ups-3phase-modular.jpg"
-                target="_blank"
-                rel="noopener"
-                >Product-family photograph ↗</a
-              >
-            </aside>
+            <div class="equipment-pair">
+              <figure class="product-photo">
+                <img
+                  src="../assets/references/schneider-easy-ups-3phase-modular.jpg"
+                  alt="Official Schneider Electric photograph showing black and grey Easy UPS 3-Phase Modular cabinets; both pictured cabinets are UPS units."
+                  width="369"
+                  height="369"
+                />
+                <figcaption>
+                  <strong>Schneider Easy UPS 3-Phase Modular</strong>
+                  <span
+                    >50–250 kW family · both pictured cabinets are UPS
+                    units</span
+                  >
+                  <span
+                    >Freestanding cabinet · 1.99 m H × 0.60 m W × 0.85 m D</span
+                  >
+                  <a
+                    href="https://download.schneider-electric.com/files?p_Doc_Ref=EasyUPS3PHMod_RNG_V&amp;p_File_Type=rendition_369_jpg&amp;default_image=DefaultProductImage.png"
+                    target="_blank"
+                    rel="noopener"
+                    >Photo: Schneider Electric</a
+                  >
+                </figcaption>
+              </figure>
+              <figure class="battery-schematic">
+                <svg
+                  id="equipment-view"
+                  viewBox="570 0 420 420"
+                  role="img"
+                  aria-labelledby="equipment-title equipment-desc"
+                >
+                  <title id="equipment-title">
+                    External UPS battery cabinet: stored energy feeds the UPS DC
+                    link.
+                  </title>
+                  <desc id="equipment-desc">
+                    A schematic freestanding battery cabinet represents external
+                    DC storage for the UPS. This is not a product photograph or
+                    a drawing of its internal construction, dimensions or
+                    arrangement.
+                  </desc>
+                  <ellipse
+                    cx="777"
+                    cy="345"
+                    rx="148"
+                    ry="13"
+                    fill="var(--cabinet-shadow, #d7ded2)"
+                  />
+                  <path
+                    d="M684 115L724 88H898L858 115Z"
+                    fill="var(--cabinet-top, #d5d9ce)"
+                    stroke="var(--cabinet-border, #87917f)"
+                  />
+                  <path
+                    d="M858 115L898 88V312L858 342Z"
+                    fill="var(--cabinet-side, #b6bfae)"
+                    stroke="var(--cabinet-border, #87917f)"
+                  />
+                  <rect
+                    x="684"
+                    y="115"
+                    width="174"
+                    height="227"
+                    rx="3"
+                    fill="var(--cabinet-front, #e8eadf)"
+                    stroke="var(--cabinet-border, #87917f)"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="M704 131H838V323H704Z"
+                    fill="none"
+                    stroke="var(--cabinet-seam, #b9c0af)"
+                  />
+                  <path
+                    d="M826 216V244"
+                    stroke="var(--cabinet-detail, #65715d)"
+                    stroke-width="4"
+                    stroke-linecap="round"
+                  />
+                  <rect
+                    x="747"
+                    y="174"
+                    width="48"
+                    height="64"
+                    rx="4"
+                    fill="none"
+                    stroke="var(--cabinet-detail, #3c624c)"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="M763 171H779 M761 188H781 M771 180V196 M761 226H781"
+                    fill="none"
+                    stroke="var(--cabinet-detail, #3c624c)"
+                    stroke-width="2"
+                  />
+                  <text
+                    x="777"
+                    y="48"
+                    text-anchor="middle"
+                    class="diagram-label"
+                  >
+                    UPS battery cabinet
+                  </text>
+                  <text
+                    x="777"
+                    y="388"
+                    text-anchor="middle"
+                    class="diagram-detail"
+                  >
+                    Stored DC energy
+                  </text>
+                </svg>
+                <figcaption class="equipment-scope">
+                  Schematic cabinet · internal construction, size and
+                  arrangement are not specified.
+                </figcaption>
+              </figure>
+            </div>
           </div>
           <div id="mechanism" hidden>
             <div class="state-strip">
@@ -950,7 +935,6 @@
             <div id="exercise-controls"></div>
           </div>
         </div>
-        <p id="caption"></p>
       </main>
       <footer>
         <button id="back">← Back</button>
@@ -978,6 +962,27 @@
           target="_blank"
           rel="noopener"
           >Named product modes</a
+        >
+        ·
+        <a
+          href="https://productinfo.se.com/easyups3pmodular/990-91580-technical-specifications-easy-ups-3-phase-modular/English/990-91580%20Technical%20Specifications%20Easy%20UPS%203-Phase%20Modular50-250%20kW%20UPS_0001011916.xml/%24/PhysicalREF_0000019941"
+          target="_blank"
+          rel="noopener"
+          >UPS cabinet dimensions</a
+        >
+        ·
+        <a
+          href="https://productinfo.se.com/easyups3pmodular/990-91580-technical-specifications-easy-ups-3-phase-modular/English/990-91580%20Technical%20Specifications%20Easy%20UPS%203-Phase%20Modular50-250%20kW%20UPS_0001011916.xml/%24/GalaxyPX_HardwareOptions_0000862721"
+          target="_blank"
+          rel="noopener"
+          >External battery cabinet options</a
+        >
+        ·
+        <a
+          href="https://www.opencompute.org/documents/open-rack-v3-bbu-module-spec-1-4-pdf"
+          target="_blank"
+          rel="noopener"
+          >Rack BBU example</a
         >. Original conceptual examples; 50 kW modules are hypothetical
         usable-output units. Separate A/B PSU groups can each accept the full
         load. Isolated failures, compatible paths and adequate battery support
@@ -1002,9 +1007,8 @@
       const scenes = [
         {
           id: "campus",
-          title: "The grid stops. What keeps the racks running?",
-          location: "Campus → building → rack",
-          caption: "An interruption upstream does not have to stop the load.",
+          title:
+            "A UPS keeps the racks powered through a brief supply interruption.",
           notes: [
             "Locate the racks, electrical room and external supply.",
             "The load needs continuous electrical service; sources can disappear.",
@@ -1014,36 +1018,29 @@
         },
         {
           id: "electrical-room",
-          title: "Follow the power into the building.",
-          location: "Campus → electrical room",
-          caption:
-            "The uninterruptible power supply (UPS) bridges a supply interruption.",
+          title:
+            "In this layout, the UPS sits in an electrical room beside the data hall.",
           notes: [
-            "Electrical support occupies space beside the computing area.",
-            "The campus view locates a support area; cabinet appearances and wiring are not equipment evidence.",
+            "This example chooses a facility UPS in an electrical support room; UPS equipment can also be distributed nearer to, or within, the data hall.",
+            "The campus view locates this chosen arrangement. It does not establish that every data center has the same equipment placement.",
             "Move from location to the function of the UPS.",
           ],
           cue: "Keep the electrical room in view as the camera moves closer.",
         },
         {
           id: "equipment",
-          title: "The UPS converts power. The battery stores energy.",
-          location: "Electrical room → equipment",
-          caption:
-            "Conversion electronics maintain the output; a battery supplies stored energy.",
+          title: "This UPS uses a separate battery cabinet for backup energy.",
           notes: [
-            "Distinguish UPS electronics from battery storage.",
-            "Closed cabinet silhouettes distinguish the two jobs; they do not establish internal construction.",
-            "Rectifier: AC to DC. Inverter: DC to AC.",
+            "This is a facility AC UPS with an external UPS battery cabinet, rather than a battery shelf installed inside a compute rack.",
+            "The photograph shows two UPS cabinets from the named family, not a UPS-and-battery pair. The separate battery drawing is schematic; no specific battery product or runtime is claimed.",
+            "The UPS cabinet is about two metres tall, with its own floor footprint. A rack BBU (battery backup unit) instead supplies a rack DC bus. BESS means battery energy storage system and is broader; a campus BESS is not the specific storage shown here.",
+            "The photographed family supports external lithium-ion and conventional battery cabinets. Their sizes, placement and chemistry depend on the installed design.",
           ],
-          cue: "Point to the electronics and battery cabinet. Introduce their separate jobs.",
+          cue: "Point to the actual UPS cabinets and the separate battery symbol. Explain where each sits and which job it does.",
         },
         {
           id: "normal",
-          title: "The inverter supplies the load.",
-          location: "Equipment → operating principle",
-          caption:
-            "AC → DC → AC. Two conversions; one continuous path to the load.",
+          title: "Normal operation converts AC to DC and back to AC.",
           notes: [
             "Rectifier converts incoming AC to the DC link.",
             "Inverter converts that DC to the AC output required by the load.",
@@ -1054,10 +1051,8 @@
         },
         {
           id: "outage",
-          title: "The battery takes over at the DC link.",
-          location: "Same equipment → changed condition",
-          caption:
-            "With available battery support, stored DC energy sustains the AC output.",
+          title:
+            "During an outage, the battery supplies the inverter through the DC link.",
           notes: [
             "Utility input is unavailable; the rectifier path is inactive.",
             "Battery energy reaches the DC link through its battery interface.",
@@ -1068,9 +1063,7 @@
         },
         {
           id: "static-bypass",
-          title: "Bypass carries power around the inverter.",
-          location: "Forced static bypass · inverter unavailable",
-          caption: "Powered does not mean battery-backed.",
+          title: "Static bypass feeds the load around an unavailable inverter.",
           mode: "static",
           notes: [
             "Inverter unavailable; an acceptable bypass source supplies the load.",
@@ -1081,9 +1074,8 @@
         },
         {
           id: "maintenance-bypass",
-          title: "Keep the load powered. Isolate the UPS.",
-          location: "External maintenance bypass",
-          caption: "Inputs, output and battery connection isolated.",
+          title:
+            "Maintenance bypass powers the load while the UPS is isolated.",
           mode: "maintenance",
           notes: [
             "External bypass carries the load around the whole UPS.",
@@ -1094,9 +1086,7 @@
         },
         {
           id: "capacity-n",
-          title: "N is the capacity the load needs.",
-          location: "One bank · one output bus",
-          caption: "100 kW ÷ 50 kW per module = 2 modules.",
+          title: "Two 50 kW modules provide the 100 kW this load needs.",
           redundancy: "n",
           notes: [
             "Each hypothetical module provides 50 kW usable output.",
@@ -1107,9 +1097,7 @@
         },
         {
           id: "capacity-n1",
-          title: "Maintenance uses the spare.",
-          location: "N+1 · one extra module",
-          caption: "One unavailable module fits. Two do not.",
+          title: "N+1 keeps enough capacity when one module is unavailable.",
           redundancy: "n1",
           notes: [
             "Three 50 kW modules supply one common bus.",
@@ -1120,9 +1108,7 @@
         },
         {
           id: "capacity-n2",
-          title: "Two spares. Still one shared bus.",
-          location: "N+2 · two extra modules",
-          caption: "Four modules minus two leaves the required two.",
+          title: "N+2 keeps enough capacity when two modules are unavailable.",
           redundancy: "n2",
           notes: [
             "Four 50 kW modules provide two spare capacity units.",
@@ -1133,9 +1119,7 @@
         },
         {
           id: "shared-bus",
-          title: "Extra modules cannot repair a bus.",
-          location: "Same N+2 bank · changed failure",
-          caption: "A shared output-bus fault removes every route through it.",
+          title: "A shared bus failure defeats every module connected to it.",
           redundancy: "n2",
           notes: [
             "Keep all four modules healthy.",
@@ -1146,10 +1130,8 @@
         },
         {
           id: "two-n",
-          title: "The same four modules, on two paths.",
-          location: "2N · A and B each meet the whole load",
-          caption:
-            "Separate distribution and full-capacity PSU inputs are assumed.",
+          title:
+            "2N gives the load two separate paths, each with its full capacity.",
           redundancy: "two_n",
           notes: [
             "Two 50 kW modules on A and two on B.",
@@ -1160,10 +1142,7 @@
         },
         {
           id: "two-n-plus-one",
-          title: "A spare on each complete path.",
-          location: "2(N+1)",
-          caption:
-            "With A isolated, B can lose one module and still meet 100 kW.",
+          title: "2(N+1) adds a spare module to each full-capacity path.",
           redundancy: "two_n1",
           notes: [
             "Three 50 kW modules on each path.",
@@ -1174,10 +1153,8 @@
         },
         {
           id: "load-growth",
-          title: "More load changes what N means.",
-          location: "Same installed 3 + 3 modules",
-          caption:
-            "Raise demand to 150 kW with A isolated and one B module unavailable.",
+          title:
+            "A higher load consumes the spare capacity in the same UPS system.",
           redundancy: "two_n1",
           initial: {
             maintenance: true,
@@ -1192,9 +1169,8 @@
         },
         {
           id: "return",
-          title: "Follow the path that survives.",
-          location: "UPS → distribution → rack",
-          caption: "Capacity. Stored energy. A usable route.",
+          title:
+            "To survive an interruption, the load needs enough power and an intact path.",
           notes: [
             "Return to the same electrical room and racks.",
             "A redundancy label is scoped to a load and a system boundary.",
@@ -1317,7 +1293,7 @@
             ${label(1065, 288, "100 kW", "diagram-value")}
             ${label(1065, 312, "Output continues", "ready-label")}
             ${battery(61, 306)}
-            ${label(101, 433, "Battery")}
+            ${label(101, 433, "UPS battery")}
             ${label(221, 333, out ? "Discharging" : "Ready", "ready-label", "start")}
             ${!out ? label(221, 380, "Charging not shown", "diagram-detail", "start") : label(221, 380, "Stored energy", "diagram-detail", "start")}
             <rect x="383" y="327" width="170" height="54" rx="7" class="equipment-face"/>
@@ -1352,7 +1328,7 @@
             ${label(182, 418, "Inverter", "diagram-detail", "start")}
             ${label(182, 442, "DC → AC", "diagram-detail", "start")}
             ${battery(242, 25, 52, 73)}
-            ${label(268, 15, "Battery", "diagram-detail")}
+            ${label(268, 15, "UPS battery", "diagram-detail")}
             <rect x="212" y="299" width="112" height="65" rx="6" class="equipment-face"/>
             ${label(268, 326, "Battery", "diagram-detail")}
             ${label(268, 347, "interface", "diagram-detail")}
@@ -1381,12 +1357,6 @@
         $("toggle-supply").hidden = state.index !== 4;
       }
       function placeImageLabels() {
-        $("equipment-view").setAttribute(
-          "viewBox",
-          matchMedia("(max-width: 799px)").matches
-            ? "180 0 760 420"
-            : "0 0 1120 420",
-        );
         function point(img, x, y, scale, originX, originY) {
           const w = img.clientWidth;
           const h = img.clientHeight;
@@ -1545,8 +1515,6 @@
         $("position").textContent =
           `UPS / ${String(state.index + 1).padStart(2, "0")}`;
         $("title").textContent = s.title;
-        $("location").textContent = s.location;
-        $("caption").textContent = s.caption;
         const spatial = ["campus", "electrical-room", "return"].includes(s.id);
         $("spatial").hidden = !spatial;
         $("equipment").hidden = s.id !== "equipment";

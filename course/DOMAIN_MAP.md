@@ -456,6 +456,8 @@ Reconcile IT and auxiliary loads with a downstream electrical capacity budget ac
 - [P21 — Texas Instruments — TIDA-011012 modular solid-state transformer reference design](https://www.ti.com/tool/TIDA-011012) · `page_reviewed` · [local note](../research/sources/P21.md)
 - [P22 — Huber et al. — Comparative Evaluation of MVAC–LVDC SST and Hybrid Transformer Concepts for Future Datacenters (IPEC 2022)](https://www.ams-publications.ee.ethz.ch/uploads/tx_ethpublications/1_IPEC_2022_Final_Huber.pdf) · `page_reviewed` · [local note](../research/sources/P22.md)
 - [P23 — Wolfspeed — Introduction of a commercially available 10 kV SiC power MOSFET](https://www.wolfspeed.com/company/news-events/news/wolfspeed-introduces-industrys-first-commercially-available-10000v-silicon-carbide-power-mosfet/) · `page_reviewed` · [local note](../research/sources/P23.md)
+- [P24 — Schneider Electric — What is UPS efficiency and how is it calculated?](https://www.se.com/us/en/faqs/FAQ000244215/) · `page_reviewed` · [local note](../research/sources/P24.md)
+- [P25 — Texas Instruments — Power Loss in Switching Power Supplies](https://www.ti.com/document-viewer/lit/html/SLUAAL9) · `page_reviewed` · [local note](../research/sources/P25.md)
 
 <a id="d05"></a>
 
@@ -550,6 +552,11 @@ Explain why fault clearing and grounding require topology-specific AC/DC protect
 - [E38B3BEAAC1 — NARUC — Regulators’ Financial Toolbox: Behind-the-Meter Energy Storage](https://pubs.naruc.org/pub/6233DBE2-B58B-52FF-925E-250DD26DECF9) · `public_excerpt_reviewed` · [local note](../research/sources/E38B3BEAAC1.md)
 - [E0410763323 — DOE — Solar Integration: Distributed Energy Resources and Microgrids Basics](https://www.energy.gov/cmei/systems/solar-integration-distributed-energy-resources-and-microgrids-basics) · `page_reviewed` · [local note](../research/sources/E0410763323.md)
 - [SA41 — What is So Hard About Behind-The-Meter Power For Datacenters? Part 1](https://newsletter.semianalysis.com/p/what-is-so-hard-about-behind-the) · `public_excerpt_reviewed` · [local note](../research/sources/SA41.md)
+- [P24 — Schneider Electric — What is UPS efficiency and how is it calculated?](https://www.se.com/us/en/faqs/FAQ000244215/) · `page_reviewed` · [local note](../research/sources/P24.md)
+- [P25 — Texas Instruments — Power Loss in Switching Power Supplies](https://www.ti.com/document-viewer/lit/html/SLUAAL9) · `page_reviewed` · [local note](../research/sources/P25.md)
+- [P26 — Schneider Electric — Easy UPS 3-Phase Modular physical specifications](https://productinfo.se.com/easyups3pmodular/990-91580-technical-specifications-easy-ups-3-phase-modular/English/990-91580%20Technical%20Specifications%20Easy%20UPS%203-Phase%20Modular50-250%20kW%20UPS_0001011916.xml/%24/PhysicalREF_0000019941) · `page_reviewed` · [local note](../research/sources/P26.md)
+- [P27 — Schneider Electric — Easy UPS 3-Phase Modular hardware options](https://productinfo.se.com/easyups3pmodular/990-91580-technical-specifications-easy-ups-3-phase-modular/English/990-91580%20Technical%20Specifications%20Easy%20UPS%203-Phase%20Modular50-250%20kW%20UPS_0001011916.xml/%24/GalaxyPX_HardwareOptions_0000862721) · `page_reviewed` · [local note](../research/sources/P27.md)
+- [P28 — Open Compute Project — Open Rack V3 BBU Module Specification 1.4](https://www.opencompute.org/documents/open-rack-v3-bbu-module-spec-1-4-pdf) · `page_reviewed` · [local note](../research/sources/P28.md)
 
 <a id="d06"></a>
 
@@ -646,6 +653,9 @@ Explain how retrofit constraints can reverse a seemingly attractive greenfield a
 - [P21 — Texas Instruments — TIDA-011012 modular solid-state transformer reference design](https://www.ti.com/tool/TIDA-011012) · `page_reviewed` · [local note](../research/sources/P21.md)
 - [P22 — Huber et al. — Comparative Evaluation of MVAC–LVDC SST and Hybrid Transformer Concepts for Future Datacenters (IPEC 2022)](https://www.ams-publications.ee.ethz.ch/uploads/tx_ethpublications/1_IPEC_2022_Final_Huber.pdf) · `page_reviewed` · [local note](../research/sources/P22.md)
 - [P23 — Wolfspeed — Introduction of a commercially available 10 kV SiC power MOSFET](https://www.wolfspeed.com/company/news-events/news/wolfspeed-introduces-industrys-first-commercially-available-10000v-silicon-carbide-power-mosfet/) · `page_reviewed` · [local note](../research/sources/P23.md)
+- [P24 — Schneider Electric — What is UPS efficiency and how is it calculated?](https://www.se.com/us/en/faqs/FAQ000244215/) · `page_reviewed` · [local note](../research/sources/P24.md)
+- [P25 — Texas Instruments — Power Loss in Switching Power Supplies](https://www.ti.com/document-viewer/lit/html/SLUAAL9) · `page_reviewed` · [local note](../research/sources/P25.md)
+- [P28 — Open Compute Project — Open Rack V3 BBU Module Specification 1.4](https://www.opencompute.org/documents/open-rack-v3-bbu-module-spec-1-4-pdf) · `page_reviewed` · [local note](../research/sources/P28.md)
 
 <a id="d07"></a>
 

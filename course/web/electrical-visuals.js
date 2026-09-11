@@ -67,7 +67,7 @@ function circuitLoop(dc, instant) {
   const power = dc ? 100 : instant.singlePower;
   const polarity =
     volts < -0.01 ? ["−", "+"] : volts > 0.01 ? ["+", "−"] : ["0", "0"];
-  return `<svg class="current-circuit" viewBox="0 0 470 290" role="img" aria-label="Arrows show instantaneous conventional current. Closed two-conductor circuit. Conventional current ${current < 0 ? "reverses" : "leaves the positive source terminal and returns through the other conductor"}. The resistor absorbs ${fmt(power, 1)} kilowatts."><rect class="circuit-box" x="20" y="56" width="94" height="186" rx="12"/><rect class="circuit-box load" x="346" y="56" width="104" height="186" rx="12"/><path class="circuit-wire" d="M114 82H346 M114 216H346"/><text x="67" y="144" text-anchor="middle">${dc ? "DC" : "AC"}</text><text x="67" y="167" text-anchor="middle" class="svg-small">source</text><text x="97" y="89">${polarity[0]}</text><text x="97" y="222">${polarity[1]}</text><text x="398" y="136" text-anchor="middle">Load</text><text x="398" y="159" text-anchor="middle" class="svg-small">resistor</text><text x="398" y="187" text-anchor="middle" class="svg-value">${fmt(power, 1)} kW</text>${directionArrow(226, 82, current)}${directionArrow(226, 216, -current)}${power > 0.01 ? '<path d="M153 143H306 l-12 -8 m12 8 l-12 8" stroke="var(--amber)" stroke-width="5" fill="none"/>' : '<line x1="153" y1="143" x2="306" y2="143" stroke="var(--line)" stroke-dasharray="4 6"/>'}<text x="230" y="173" text-anchor="middle" class="svg-small">${power < 0.01 ? "Zero power at this instant" : "Energy absorbed by load"}</text><text x="230" y="278" text-anchor="middle" class="svg-small">${dc ? "Fixed polarity · 800 V" : "Polarity reverses · " + fmt(volts, 1) + " V now"}</text></svg>`;
+  return `<svg class="current-circuit" viewBox="0 0 470 290" role="img" aria-label="Arrows show instantaneous conventional current. Closed two-conductor circuit. Conventional current ${current < 0 ? "reverses" : "leaves the positive source terminal and returns through the other conductor"}. The resistor absorbs ${fmt(power, 1)} kilowatts."><rect class="circuit-box" x="20" y="56" width="94" height="186" rx="12"/><rect class="circuit-box load" x="346" y="56" width="104" height="186" rx="12"/><path class="circuit-wire" d="M114 82H346 M114 216H346"/><text x="67" y="144" text-anchor="middle">${dc ? "DC" : "AC"}</text><text x="67" y="167" text-anchor="middle" class="svg-small">source</text><text x="97" y="89">${polarity[0]}</text><text x="97" y="222">${polarity[1]}</text><text x="398" y="136" text-anchor="middle">Load</text><text x="398" y="159" text-anchor="middle" class="svg-small">resistor</text><text x="398" y="187" text-anchor="middle" class="svg-value">${fmt(power, 1)} kW</text>${directionArrow(226, 82, current)}${directionArrow(226, 216, -current)}<text x="230" y="278" text-anchor="middle" class="svg-small">${dc ? "800 V across the load" : "Polarity reverses · " + fmt(volts, 1) + " V now"}</text></svg>`;
 }
 
 function threePhaseCircuit(instant) {
@@ -78,9 +78,12 @@ function threePhaseCircuit(instant) {
     })
     .join(
       "",
-    )}<circle cx="429" cy="140" r="5" fill="var(--ink)"/><text x="235" y="267" text-anchor="middle" class="svg-small">i₁ + i₂ + i₃ = ${fmt(Math.abs(instant.phaseCurrents.reduce((a, b) => a + b, 0)) < 0.01 ? 0 : instant.phaseCurrents.reduce((a, b) => a + b, 0), 1)} A · no neutral current</text></svg>`;
+    )}<circle cx="429" cy="140" r="5" fill="var(--ink)"/><text x="235" y="267" text-anchor="middle" class="svg-small">i₁ + i₂ + i₃ = ${fmt(Math.abs(instant.phaseCurrents.reduce((a, b) => a + b, 0)) < 0.01 ? 0 : instant.phaseCurrents.reduce((a, b) => a + b, 0), 1)} A</text></svg>`;
 }
 
+function voltageMeasurement() {
+  return `<div class="voltage-measurement"><svg viewBox="0 0 900 455" role="img" aria-labelledby="meter-title"><title id="meter-title">Voltmeter probes connect to live phase L1 and live phase L2. They measure 480 volts RMS. L3 is also live and is not ground.</title>${[80, 300, 390].map((y, n) => `<text x="36" y="${y + 8}" class="meter-line-label">L${n + 1} · live</text><path d="M180 ${y}H860" fill="none" stroke="${phaseColors[n]}" stroke-width="5"/>`).join("")}<circle cx="450" cy="80" r="7" fill="var(--phase-one)"/><path d="M450 80V135" fill="none" stroke="var(--phase-one)" stroke-width="4"/><circle cx="560" cy="300" r="7" fill="var(--phase-two)"/><path d="M560 245V300" fill="none" stroke="var(--phase-two)" stroke-width="4"/><rect x="385" y="135" width="240" height="110" rx="14" fill="var(--circuit-load)" stroke="var(--strong-line)" stroke-width="2"/><text x="505" y="183" text-anchor="middle" class="meter-number">480 V</text><text x="505" y="220" text-anchor="middle">RMS · L1 to L2</text><text x="785" y="165" text-anchor="middle" class="meter-note">Voltmeter</text></svg><p class="phase-measurement-note">All three phases are live. Protective earth is separate.</p></div>`;
+}
 function electricalContent(kind) {
   const now = waveView(state.cycleDegrees);
   const make = (label, color, key, dash = false, width = 2.5) => ({
@@ -90,18 +93,16 @@ function electricalContent(kind) {
     dash,
     width,
   });
-  if (kind === "voltage-basis") {
-    return `<div class="electrical-grid"><div class="voltage-reference"><span class="eyebrow">SAME BALANCED WYE SYSTEM</span><div class="voltage-pair"><strong>277<small> V RMS</small></strong><span>one phase → star point</span></div><div class="voltage-pair"><strong>480<small> V RMS</small></strong><span>phase → another phase</span></div><p class="voltage-identity">480 = √3 × 277.1</p><p class="electrical-guard">RMS: the DC value giving equal resistor heating.<br>A sine wave’s peak is √2 × RMS.</p></div><div class="electrical-charts">${electricalPlot("Two phase voltages", [make("L1 to star", phaseColors[0], "phaseVoltage1"), make("L2 to star", phaseColors[1], "phaseVoltage2", true)], -400, 400, "V")}${electricalPlot("Subtract at the same instant", [make("L1 − L2", "var(--ink)", "lineVoltage")], -700, 700, "V")}<p class="wave-result">480 V RMS between lines → 679 V peak</p></div></div><p class="electrical-footer"><strong>P = 3 × V<sub>phase</sub> × I = √3 × V<sub>line-to-line</sub> × I</strong><span>Balanced sine waves · power factor 1</span></p>`;
+  if (kind === "voltage-basis") return voltageMeasurement();
+  if (kind === "dc-basics") {
+    return `<div class="dc-essential">${circuitLoop(true, now)}<div class="equation-block"><span>P = V × I</span><strong>800 V × 125 A = 100 kW</strong></div></div>`;
   }
-  const dc = kind === "dc-basics",
-    three = kind === "three-phase";
-  let charts;
-  if (three) {
-    charts =
-      electricalPlot(
-        "Current in each line",
+  const three = kind === "three-phase";
+  const charts = three
+    ? electricalPlot(
+        "Current in each phase",
         [0, 1, 2].map((n) => ({
-          label: `L${n + 1} · ${n * 120}° offset`,
+          label: `L${n + 1}`,
           color: phaseColors[n],
           dash: n === 1,
           value: (d) => waveView(d).phaseCurrents[n],
@@ -111,10 +112,10 @@ function electricalContent(kind) {
         "A",
       ) +
       electricalPlot(
-        "Power adds across the three loads",
+        "Three phase powers add",
         [
           ...Array.from({ length: 3 }, (_, n) => ({
-            label: `Phase ${n + 1}`,
+            label: `L${n + 1}`,
             color: phaseColors[n],
             width: 2,
             value: (d) => waveView(d).phasePowers[n],
@@ -127,49 +128,37 @@ function electricalContent(kind) {
           },
         ],
         0,
-        200,
+        120,
         "kW",
-      );
-  } else {
-    charts =
-      electricalPlot(
-        "Voltage polarity",
-        [
-          make(
-            dc ? "DC voltage" : "AC voltage",
-            phaseColors[0],
-            dc ? "dcVoltage" : "singleVoltage",
-          ),
-        ],
+      )
+    : electricalPlot(
+        "Voltage reverses",
+        [make("Voltage", phaseColors[0], "singleVoltage")],
         -800,
         800,
         "V",
       ) +
       electricalPlot(
-        "Conventional current",
-        [
-          make(
-            dc ? "DC current" : "AC current",
-            phaseColors[0],
-            dc ? "dcCurrent" : "singleCurrent",
-          ),
-        ],
+        "Current reverses with it",
+        [make("Current", phaseColors[0], "singleCurrent")],
         -300,
         300,
         "A",
-      ) +
-      electricalPlot(
-        "Power absorbed: p(t) = v(t) × i(t)",
-        [make("Load power", "var(--ink)", dc ? "dcPower" : "singlePower")],
-        0,
-        200,
-        "kW",
       );
-  }
-  return `<div class="electrical-grid"><div class="electrical-circuit-panel"><p class="eyebrow">INSTANTANEOUS CURRENT · FOLLOW THE ARROWS</p>${three ? threePhaseCircuit(now) : circuitLoop(dc, now)}<p class="circuit-reading">${three ? "Three phases, one-third of a cycle apart." : dc ? "Charge follows one direction around a closed loop." : "Current and voltage reverse together in this resistor."}</p><div class="wave-result">${three ? "100 kW total at every instant" : dc ? "100 kW at every instant" : `${fmt(now.singlePower, 1)} kW now · 100 kW average`}</div><p class="electrical-guard">${three ? "Return current uses the other phases. Unbalanced or harmonic loads may need a neutral." : dc ? "Current = charge per second. Voltage = energy per unit charge." : "Negative voltage × negative current = positive load power."}</p></div><div class="electrical-charts">${charts}</div></div><p class="electrical-footer">${three ? "120.3 A RMS per line · 480 V RMS between lines" : dc ? "800 V DC × 125 A = 100 kW" : "480 V RMS × 208.3 A RMS = 100 kW average"}<span>${three ? "Balanced sinusoidal wye load · PF = 1" : "Equivalent resistor load · ideal conductors"}</span></p>`;
+  const result = three
+    ? "100 kW total at every instant"
+    : `${fmt(now.singleVoltage, 1)} V × ${fmt(now.singleCurrent, 1)} A = ${fmt(now.singlePower, 1)} kW now`;
+  return `<div class="electrical-grid"><div class="electrical-circuit-panel">${three ? threePhaseCircuit(now) : circuitLoop(false, now)}<div class="wave-result">${result}</div></div><div class="electrical-charts">${charts}</div></div>`;
 }
-
 function electricalVisual(kind) {
-  const scrub = kind !== "dc-basics";
-  return `<div class="electrical-model"><div class="energy-band"><strong>100 kW average at the load</strong><span>Same hour → 100 kWh received</span></div><div id="wave-content">${electricalContent(kind)}</div>${scrub ? `<div class="cycle-control"><label for="cycle-angle">Time · 60 Hz example (60 cycles/s)</label><input type="range" id="cycle-angle" min="0" max="360" step="1" value="${state.cycleDegrees}"/><output id="cycle-value" for="cycle-angle">${state.cycleDegrees}° · ${fmt((state.cycleDegrees / 360 / 60) * 1000, 2)} ms</output></div>` : ""}</div>`;
+  const scrub = ["ac-basics", "three-phase"].includes(kind);
+  const condition =
+    kind === "dc-basics"
+      ? "800 V DC · ideal wires"
+      : kind === "ac-basics"
+        ? "Single-phase example · 480 V RMS · resistive load"
+        : kind === "three-phase"
+          ? "480 V three-phase · balanced resistive load · PF = 1"
+          : "Balanced 480 V three-phase system";
+  return `<div class="electrical-model"><div class="energy-band"><strong>${kind === "voltage-basis" ? condition : "100 kW average at the load"}</strong>${kind === "voltage-basis" ? "" : `<span>${condition}</span>`}</div><div id="wave-content">${electricalContent(kind)}</div>${scrub ? `<div class="cycle-control"><label for="cycle-angle">One AC cycle · 60 Hz</label><input type="range" id="cycle-angle" min="0" max="360" step="1" value="${state.cycleDegrees}"/><output id="cycle-value" for="cycle-angle">${state.cycleDegrees}°</output></div>` : ""}</div>`;
 }

@@ -26,6 +26,30 @@ const sceneIds = [
     const navigate = async (id, query = "") => {
       await page.goto(`${base}${query}#${id}`);
       await page.waitForSelector("#scene-jump");
+      assert.equal(
+        await page.locator("#caption").count(),
+        0,
+        `${id}: bottom subtitle returned`,
+      );
+      assert.equal(
+        await page.locator("#location").count(),
+        0,
+        `${id}: secondary teaching subtitle returned`,
+      );
+      assert.equal(
+        await page.locator(".image-label").count(),
+        0,
+        `${id}: generated illustration label returned`,
+      );
+      assert.equal(
+        await page.locator("#viewer h1:visible").count(),
+        1,
+        `${id}: expected one audience headline`,
+      );
+      assert.doesNotMatch(
+        await page.locator("#viewer").innerText(),
+        /Generated spatial illustration|placement and scale are schematic|An interruption upstream does not have to stop the load|Conversion electronics maintain the output/,
+      );
     };
     const svg = () => page.locator("#redundancy-view svg");
     const action = (key) =>
@@ -64,7 +88,6 @@ const sceneIds = [
             stage: rect("#stage"),
             svg: outer,
             controls: rect("#exercise-controls"),
-            caption: rect("#caption"),
             footer: rect("footer"),
             strip: rect(".state-strip"),
             width: document.documentElement.scrollWidth,
@@ -103,12 +126,12 @@ const sceneIds = [
           `${name}: controls overlap SVG`,
         );
         assert.ok(
-          bounds.controls.bottom <= bounds.caption.top + 1,
-          `${name}: caption overlaps controls`,
+          bounds.controls.bottom <= bounds.footer.top + 1,
+          `${name}: footer overlaps controls`,
         );
         assert.ok(
-          bounds.caption.bottom <= bounds.footer.top + 1,
-          `${name}: footer overlaps caption`,
+          bounds.stage.bottom <= bounds.footer.top + 1,
+          `${name}: footer overlaps stage`,
         );
         assert.deepEqual(bounds.clippedText, [], `${name}: SVG text clips`);
         assert.equal(
@@ -160,7 +183,6 @@ const sceneIds = [
             width: document.documentElement.scrollWidth,
             stage: rect("#stage"),
             title: rect("#title"),
-            caption: rect("#caption"),
             footer: rect("footer"),
             strip: circuitScene ? rect(".state-strip") : null,
             diagram,
@@ -190,8 +212,8 @@ const sceneIds = [
           `${name}: title overlap`,
         );
         assert.ok(
-          bounds.caption.bottom <= bounds.footer.top + 1,
-          `${name}: footer overlap`,
+          bounds.stage.bottom <= bounds.footer.top + 1,
+          `${name}: footer overlaps stage`,
         );
         assert.deepEqual(bounds.clipped, [], `${name}: clipped diagram labels`);
         if (circuitScene) {
@@ -208,8 +230,53 @@ const sceneIds = [
             `${name}: diagram overlaps controls`,
           );
           assert.ok(
-            bounds.foot.bottom <= bounds.caption.top + 1,
-            `${name}: controls overlap caption`,
+            bounds.foot.bottom <= bounds.footer.top + 1,
+            `${name}: footer overlaps controls`,
+          );
+        }
+        if (id === "equipment") {
+          const photo = page.locator(".product-photo img");
+          assert.equal(
+            await photo.isVisible(),
+            true,
+            `${name}: actual product photograph absent`,
+          );
+          const product = await photo.evaluate((img) => ({
+            loaded:
+              img.complete &&
+              img.naturalWidth >= 300 &&
+              img.naturalHeight >= 300,
+            height: img.getBoundingClientRect().height,
+            width: img.getBoundingClientRect().width,
+            caption: img.closest("figure").querySelector("figcaption")
+              .textContent,
+            bottom: img.closest("figure").getBoundingClientRect().bottom,
+          }));
+          assert.equal(
+            product.loaded,
+            true,
+            `${name}: product photograph did not load`,
+          );
+          assert.ok(
+            product.height >= 200 && product.width >= 250,
+            `${name}: product photograph reduced to a thumbnail`,
+          );
+          assert.match(product.caption, /Schneider Easy UPS 3-Phase Modular/);
+          assert.match(product.caption, /both pictured cabinets are UPS\s+units/);
+          assert.ok(
+            product.bottom <= bounds.stage.bottom + 1,
+            `${name}: equipment caption clips below stage`,
+          );
+          const battery = await page
+            .locator(".battery-schematic")
+            .boundingBox();
+          assert.ok(
+            battery.y + battery.height <= bounds.stage.bottom + 1,
+            `${name}: battery cabinet caption clips below stage`,
+          );
+          assert.match(
+            await page.locator(".battery-schematic").textContent(),
+            /UPS battery cabinet/,
           );
         }
         if (id.endsWith("bypass")) {
@@ -235,6 +302,42 @@ const sceneIds = [
       { width: 390, height: 844 },
     ]) {
       await page.setViewportSize(size);
+      for (const colorScheme of ["light", "dark"]) {
+        await page.emulateMedia({ colorScheme });
+        for (const id of ["campus", "electrical-room", "equipment"]) {
+          await navigate(id);
+          const theme = await page.evaluate(() => ({
+            declared: getComputedStyle(document.documentElement).colorScheme,
+            titleColor: getComputedStyle(document.querySelector("#title"))
+              .color,
+            background: getComputedStyle(document.documentElement)
+              .backgroundColor,
+          }));
+          assert.equal(
+            theme.declared,
+            colorScheme,
+            `${id}: device theme not applied`,
+          );
+          assert.notEqual(
+            theme.titleColor,
+            theme.background,
+            `${id}: heading invisible in ${colorScheme}`,
+          );
+          if (id === "equipment") {
+            assert.equal(
+              await page
+                .locator(".product-photo img")
+                .evaluate((img) => img.complete && img.naturalWidth > 0),
+              true,
+            );
+          }
+          await page.screenshot({
+            path: `${output}/${id}-${size.width}-${colorScheme}.png`,
+            fullPage: true,
+          });
+        }
+      }
+      await page.emulateMedia({ colorScheme: "light" });
       await navigate("capacity-n");
       await action("fault").click();
       await supported(false);
@@ -384,7 +487,7 @@ const sceneIds = [
     await notes.close();
     assert.deepEqual(errors, []);
     console.log(
-      "Passed 60 scene layouts, bypass-source loss/restoration, 14 redundancy cases, SVG exclusivity, optional notes sync and keyboard navigation.",
+      "Passed 60 scene layouts, 12 introductory theme views, real product photograph and caption visibility, no competing subtitles, bypass-source loss/restoration, 14 redundancy cases, SVG exclusivity, optional notes sync and keyboard navigation.",
     );
   } finally {
     await browser.close();

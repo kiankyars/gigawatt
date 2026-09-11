@@ -144,6 +144,11 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P21 — Texas Instruments — TIDA-011012 modular solid-state transformer reference design](sources/P21.md) | Texas Instruments | D04, D06 | page_reviewed |
 | [P22 — Huber et al. — Comparative Evaluation of MVAC–LVDC SST and Hybrid Transformer Concepts for Future Datacenters (IPEC 2022)](sources/P22.md) | ETH Zurich, Delta Electronics and Paderborn University | D04, D06 | page_reviewed |
 | [P23 — Wolfspeed — Introduction of a commercially available 10 kV SiC power MOSFET](sources/P23.md) | Wolfspeed | D04, D06 | page_reviewed |
+| [P24 — Schneider Electric — What is UPS efficiency and how is it calculated?](sources/P24.md) | Schneider Electric | D04, D05, D06 | page_reviewed |
+| [P25 — Texas Instruments — Power Loss in Switching Power Supplies](sources/P25.md) | Texas Instruments | D04, D05, D06 | page_reviewed |
+| [P26 — Schneider Electric — Easy UPS 3-Phase Modular physical specifications](sources/P26.md) | Schneider Electric | D05 | page_reviewed |
+| [P27 — Schneider Electric — Easy UPS 3-Phase Modular hardware options](sources/P27.md) | Schneider Electric | D05 | page_reviewed |
+| [P28 — Open Compute Project — Open Rack V3 BBU Module Specification 1.4](sources/P28.md) | Open Compute Project | D05, D06 | page_reviewed |
 | [SA01 — Datacenter Anatomy Part 1: Electrical Systems](sources/SA01.md) | SemiAnalysis | D04, D05, D06, D13, D15 | public_excerpt_reviewed |
 | [SA02 — Datacenter Anatomy Part 2 – Cooling Systems](sources/SA02.md) | SemiAnalysis | D10, D11, D15 | public_excerpt_reviewed |
 | [SA03 — 100,000 H100 Clusters: Power, Network Topology, Ethernet vs InfiniBand, Reliability, Failures, Checkpointing](sources/SA03.md) | SemiAnalysis | D02, D07, D08, D09, D14 | public_excerpt_reviewed |

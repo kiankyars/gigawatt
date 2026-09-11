@@ -30,7 +30,6 @@ const scenes = ["dc-circuit", "ac-cycle", "three-phase", "voltage-basis"];
           return {
             title: rect(".scene-heading"),
             visual: rect("#visual"),
-            caption: rect("#caption"),
             footer: rect(".transport"),
             width: document.documentElement.scrollWidth,
           };
@@ -41,21 +40,15 @@ const scenes = ["dc-circuit", "ac-cycle", "three-phase", "voltage-basis"];
           `${id}: visual overlaps title`,
         );
         assert.ok(
-          bounds.visual.bottom <= bounds.caption.top + 1,
-          `${id}: visual overlaps caption`,
+          bounds.visual.bottom <= bounds.footer.top + 1,
+          `${id}: visual overlaps footer`,
         );
-        assert.ok(
-          bounds.caption.bottom <= bounds.footer.top + 1,
-          `${id}: footer overlaps caption`,
-        );
-        assert.match(
-          await page.locator(".energy-band").innerText(),
-          /100 kW average at the load/,
-        );
-        assert.match(
-          await page.locator(".energy-band").innerText(),
-          /100 kWh received/,
-        );
+        assert.equal(await page.locator("#caption").count(), 0);
+        if (id !== "voltage-basis")
+          assert.match(
+            await page.locator(".energy-band").innerText(),
+            /100 kW average at the load/,
+          );
         await page.screenshot({
           path: `${output}/${id}-${size.width}.png`,
           fullPage: size.width < 800,
@@ -96,7 +89,7 @@ const scenes = ["dc-circuit", "ac-cycle", "three-phase", "voltage-basis"];
     assert.match(await page.locator(".wave-result").innerText(), /0 kW now/);
     assert.match(
       await page.locator(".current-circuit").textContent(),
-      /Zero power at this instant/,
+      /0 kW/,
     );
     await page.locator("#cycle-angle").focus();
     await page.keyboard.press("ArrowRight");
@@ -116,14 +109,37 @@ const scenes = ["dc-circuit", "ac-cycle", "three-phase", "voltage-basis"];
       );
     }
     await page.goto(`${base}teach.html#voltage-basis`);
-    for (const degrees of [0, 90, 180, 270]) {
-      await page.locator("#cycle-angle").fill(String(degrees));
-      const values = await page.evaluate(() => {
-        const v = waveView(state.cycleDegrees);
-        return [v.lineVoltage, v.phaseVoltage1 - v.phaseVoltage2];
-      });
-      assert.ok(Math.abs(values[0] - values[1]) < 1e-9);
-    }
+    assert.equal(await page.locator("#cycle-angle").count(), 0);
+    assert.match(
+      await page.locator(".voltage-measurement").innerText(),
+      /480 V/,
+    );
+    assert.match(
+      await page.locator(".voltage-measurement").innerText(),
+      /L1 to L2/,
+    );
+    assert.match(
+      await page.locator(".phase-measurement-note").innerText(),
+      /All three phases are live/,
+    );
+    assert.match(
+      await page.locator(".voltage-measurement svg title").textContent(),
+      /L3 is also live and is not ground/,
+    );
+    const voltageRelations = await page.evaluate(() =>
+      [0, 90, 180, 270].map((degrees) => {
+        const v = waveView(degrees);
+        return v.lineVoltage - (v.phaseVoltage1 - v.phaseVoltage2);
+      }),
+    );
+    for (const difference of voltageRelations)
+      assert.ok(Math.abs(difference) < 1e-9);
+    await page.goto(`${base}teach.html#dc-circuit`);
+    assert.equal(await page.locator(".wave-chart").count(), 0);
+    assert.match(
+      await page.locator(".equation-block").innerText(),
+      /800 V × 125 A/,
+    );
     assert.deepEqual(errors, []);
     console.log(
       "Passed 20 primer layouts, fixed energy reference, polarity reversal, phase balance, voltage subtraction, keyboard and notes synchronization.",

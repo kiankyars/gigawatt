@@ -134,8 +134,8 @@ class ExpansionTests(unittest.TestCase):
             ["dc-basics", "ac-basics", "three-phase", "voltage-basis"],
         )
         for step in data["steps"]:
-            self.assertLessEqual(len(step["headline"].split()), 10)
-            self.assertLessEqual(len(step["caption"].split()), 18)
+            self.assertLessEqual(len(step["headline"].split()), 18)
+            self.assertNotIn("caption", step)
             self.assertTrue(step["notes"] and step["cue"] and step["explanation"])
 
     def test_presentation_contract_requires_a_problem_mechanism_and_transfer(self):

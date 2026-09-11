@@ -30,7 +30,6 @@ let state = {
   index,
   revealed: [],
   volts: DEFAULTS.comparison_voltage_v,
-  dcConversionKW: DEFAULTS.dc_conversion_kw,
   cycleDegrees: 30,
 };
 const session =
@@ -44,8 +43,7 @@ const revealKinds = new Set([
   "copper",
   "current",
   "loss",
-  "energy",
-  "paths",
+  "conversion-loss",
   "decision",
 ]);
 const isRevealed = () => state.revealed.includes(STEPS[state.index].id);
@@ -61,9 +59,6 @@ function validState(value) {
     Number.isFinite(value.volts) &&
     value.volts >= 400 &&
     value.volts <= 1000 &&
-    Number.isFinite(value.dcConversionKW) &&
-    value.dcConversionKW >= 1 &&
-    value.dcConversionKW <= 7 &&
     Number.isFinite(value.cycleDegrees) &&
     value.cycleDegrees >= 0 &&
     value.cycleDegrees <= 360
@@ -114,7 +109,7 @@ function metric(value, unit) {
   return `<div class="metric">${value} <small>${unit}</small></div>`;
 }
 function intro() {
-  return `<div class="hero"><div class="hero-copy"><span class="chip">480 V AC ↔ 800 V DC</span><div class="hero-number">100<small> kW</small></div><p>Start with the same power.<br>Use less copper.</p><span class="hero-goal">Then examine space, losses and growth.</span></div><img src="assets/power-equipment.png" width="1672" height="941" alt="Illustrative conversion equipment beside a compute rack; not a wiring diagram or an equipment rating." /></div>`;
+  return `<div class="hero"><div class="hero-copy"><span class="chip">480 V three-phase AC ↔ 800 V DC</span><div class="hero-number">100<small> kW</small></div><span class="hero-goal">Same power delivered to the load</span></div><img src="assets/power-equipment.png" width="1672" height="941" alt="Concept illustration of conversion equipment beside a compute rack." /></div>`;
 }
 function conductorNumbers(volts = DEFAULTS.comparison_voltage_v) {
   return acdcConductorModel(
@@ -145,8 +140,8 @@ function current() {
 }
 function loss() {
   const shown = isRevealed(),
-    ratio = conductorNumbers().lossRatio * 100;
-  return `<div class="model"><div class="model-top"><span class="chip">EQUAL RESISTANCE PER CONDUCTOR · PF = 1</span><span class="ledger-formula">Add the heat from every conductor</span></div><div class="comparison"><div class="metric-card"><p class="metric-label">480 V three-phase AC</p>${metric("100", "%")}<p class="metric-sub">3 × I²R · reference conductor loss</p><div class="loss-track"><div class="loss-bar" style="width:100%"></div></div></div><div class="metric-card changed"><p class="metric-label">800 V DC</p>${metric(shown ? fmt(ratio, 1) : "?", "%")}<p class="metric-sub">2 × I²R · of the AC conductor loss</p><div class="loss-track">${shown ? `<div class="loss-bar" style="width:${ratio}%"></div>` : ""}</div></div></div>${shown ? `<p class="bridge">${fmt(100 - ratio)}% less conductor heat at these assumptions.</p>` : `<div class="control-line"><button class="reveal" id="reveal">Reveal the loss comparison</button></div>`}</div>`;
+    { ac, dc, lossRatio } = conductorNumbers();
+  return `<div class="model"><div class="model-top"><span class="chip">100 kW delivered · PF = 1</span><span class="ledger-formula">10 mΩ per conductor</span></div><div class="comparison"><section class="metric-card"><p class="metric-label">480 V three-phase AC</p>${metric(fmt(ac.lossKW * 1000), "W heat")}<p class="metric-sub">3 × 120.3² × 0.01</p><div class="loss-track"><div class="loss-bar" style="width:100%"></div></div></section><section class="metric-card changed"><p class="metric-label">800 V DC</p>${metric(shown ? fmt(dc.lossKW * 1000, 1) : "?", "W heat")}<p class="metric-sub">2 × 125² × 0.01</p><div class="loss-track">${shown ? `<div class="loss-bar" style="width:${lossRatio * 100}%"></div>` : ""}</div></section></div>${shown ? `<p class="comparison-result"><strong>${fmt((ac.lossKW - dc.lossKW) * 1000)} W less heat</strong><span>About 0.12% of the 100 kW delivered · conductors only</span></p>` : `<div class="control-line"><button class="reveal" id="reveal">Calculate DC conductor heat</button></div>`}</div>`;
 }
 function unit(label, style = "", detail = "") {
   return `<div class="unit ${style}">${label}${detail ? `<small>${detail}</small>` : ""}</div>`;
@@ -172,94 +167,30 @@ function architecture(kind) {
     adjacent = unit("800 V DC", "", "hall distribution");
     rack = regulator + arrow + chip;
   }
-  const observation = {
-    ac: "Conversion occupies space in the compute rack.",
-    sidecar: "Rack space is released; the sidecar occupies nearby space.",
-    facility: "AC/DC conversion moves out of the hall to the power room.",
-  }[kind];
-  const space = `<div class="rack-space ${kind === "ac" ? "occupied" : "released"}"><span>${kind === "ac" ? "AC/DC equipment footprint" : "Former AC/DC equipment space"}</span><strong>${kind === "ac" ? "Occupied" : "Released"}</strong></div>`;
-  return `<div class="architecture"><div class="path"><section class="zone ${kind === "facility" ? "active" : ""}"><h2 class="zone-title">Upstream power room</h2><div class="zone-body">${facility}</div></section><section class="zone ${kind === "sidecar" ? "active" : ""}"><h2 class="zone-title">${kind === "sidecar" ? "Nearby power rack / sidecar" : "Hall distribution"}</h2><div class="zone-body">${adjacent}</div></section><section class="zone rack ${kind === "ac" ? "active" : ""}"><h2 class="zone-title">Compute rack</h2><div class="zone-body">${rack}</div>${space}</section></div><p class="path-label">${kind === "ac" ? "AC toward the rack" : kind === "sidecar" ? "AC to the sidecar → 800 V DC toward the rack" : "AC conversion in power room → 800 V DC through the hall"}</p><p class="boundary-line">${observation}</p></div>`;
+  const space = `<div class="rack-space ${kind === "ac" ? "occupied" : "released"}"><span>AC/DC equipment space</span><strong>${kind === "ac" ? "Occupied" : "Freed"}</strong></div>`;
+  return `<div class="architecture"><div class="path"><section class="zone ${kind === "facility" ? "active" : ""}"><h2 class="zone-title">Upstream power room</h2><div class="zone-body">${facility}</div></section><section class="zone ${kind === "sidecar" ? "active" : ""}"><h2 class="zone-title">${kind === "sidecar" ? "Power rack in the hall" : "Hall distribution"}</h2><div class="zone-body">${adjacent}</div></section><section class="zone rack ${kind === "ac" ? "active" : ""}"><h2 class="zone-title">Compute rack</h2><div class="zone-body">${rack}</div>${space}</section></div></div>`;
 }
-function ledgerCard(title, rows, inputKW, shown, changed = false) {
-  return `<section class="ledger-card ${changed ? "changed" : ""}"><h2>${title}</h2><dl>${rows.map(([label, value]) => `<div><dt>${label}</dt><dd>${value} <small>kW</small></dd></div>`).join("")}</dl><div class="ledger-total"><span>Required input</span><strong>${shown ? fmt(inputKW, 3) : "?"} <small>kW</small></strong></div></section>`;
-}
-function energy() {
-  const { ac, dc } = conductorNumbers();
-  const shown = isRevealed();
-  return `<div class="energy-ledger"><div class="model-top"><span class="chip">SAME 100 kW AT THE FEEDER END</span><span class="ledger-formula">Input = delivered power + heat</span></div><div class="comparison">${ledgerCard(
-    "480 V three-phase AC",
-    [
-      ["Delivered power", "100"],
-      ["Conductor heat", fmt(ac.lossKW, 3)],
-    ],
-    ac.inputKW,
-    shown,
-  )}${ledgerCard(
-    "800 V DC",
-    [
-      ["Delivered power", "100"],
-      ["Conductor heat", fmt(dc.lossKW, 3)],
-    ],
-    dc.inputKW,
-    shown,
-    true,
-  )}</div><div class="ledger-result">${shown ? `<strong>${fmt(ac.inputKWh - dc.inputKWh, 3)} kWh less input over 1 h</strong><span>Same delivered power. Less conductor heat. Converters excluded.</span>` : `<button id="reveal">Reveal the required input</button>`}</div></div>`;
-}
-function pathNumbers() {
-  return acdcDeliveryModel(
-    DEFAULTS.power_kw,
-    DEFAULTS.reference_voltage_v,
-    DEFAULTS.comparison_voltage_v,
-    DEFAULTS.power_factor,
-    DEFAULTS.conductor_ohms,
-    DEFAULTS.hours,
-    DEFAULTS.ac_conversion_kw,
-    state.dcConversionKW,
-    DEFAULTS.dc_upstream_conversion_kw,
-  );
-}
-function pathResult(ac, dc) {
-  const difference = ac.inputKWh - dc.inputKWh;
-  return Math.abs(difference) < 1e-9
-    ? "Same input energy over 1 h"
-    : `DC uses ${fmt(Math.abs(difference), 3)} kWh ${difference > 0 ? "less" : "more"} input over 1 h`;
-}
-function paths() {
-  const { ac, dc } = pathNumbers(),
+function conversionLoss() {
+  const output = DEFAULTS.power_kw,
+    efficiency = DEFAULTS.converter_efficiency;
+  const input = output / efficiency,
+    loss = input - output,
     shown = isRevealed();
-  return `<div class="energy-ledger"><div class="model-top"><span class="chip">SAME AC INPUT BOUNDARY · 100 kW FINAL DC LOAD</span><span class="ledger-formula">Input = load + all path losses</span></div><div class="comparison">${ledgerCard(
-    "480 V AC-distributed path",
-    [
-      ["Final DC load", "100"],
-      ["Conductors · calculated", fmt(ac.conductorLossKW, 3)],
-      ["Conversion · assumed", fmt(DEFAULTS.ac_conversion_kw)],
-    ],
-    ac.inputKW,
-    shown,
-  )}<div id="dc-path-card">${ledgerCard(
-    "800 V DC-distributed path",
-    [
-      ["Final DC load", "100"],
-      ["Conductors · calculated", fmt(dc.conductorLossKW, 3)],
-      ["Conversion · assumed", fmt(state.dcConversionKW, 1)],
-    ],
-    dc.inputKW,
-    shown,
-    true,
-  )}</div></div><p class="path-assumption">AC: conversion after feeder. DC: 1 kW before feeder; remaining conversion after.</p>${shown ? `<div class="control-line"><label for="dc-conversion">Total DC conversion loss</label><input id="dc-conversion" type="range" min="1" max="7" step="0.1" value="${state.dcConversionKW}" /><output id="dc-conversion-value" for="dc-conversion">${fmt(state.dcConversionKW, 1)} kW</output><button id="dc-loss-reset">Reset</button></div><div class="ledger-result"><strong id="path-result">${pathResult(ac, dc)}</strong></div>` : `<div class="ledger-result"><button id="reveal">Reveal both input budgets</button></div>`}</div>`;
+  return `<div class="converter-example"><div class="model-top"><span class="chip">Illustration · 98% efficiency at this load</span></div><div class="converter-flow"><div class="power-port"><span>Input</span><strong>${shown ? fmt(input, 2) : "?"}<small> kW</small></strong></div><span class="conversion-arrow" aria-hidden="true">→</span><div class="converter-box"><strong>Power converter</strong><span>Useful output ÷ input = 98%</span></div><span class="conversion-arrow" aria-hidden="true">→</span><div class="power-port"><span>Useful output</span><strong>100<small> kW</small></strong></div><div class="converter-heat"><span aria-hidden="true">↓</span><strong>${shown ? fmt(loss, 2) : "?"} kW <small>converter heat</small></strong></div></div><div class="loss-causes"><span>Resistance heats conductors</span><span>Switching dissipates energy</span><span>Magnetic cores heat up</span><span>Controls &amp; fans draw power</span></div>${shown ? '<div class="equation-block">100 ÷ 0.98 − 100 = <strong>2.04 kW</strong></div>' : '<div class="control-line"><button class="reveal" id="reveal">Calculate the lost power</button></div>'}</div>`;
 }
 function decision() {
-  const shown = isRevealed();
-  const base = conductorNumbers().dc;
+  const shown = isRevealed(),
+    base = conductorNumbers().dc;
   const grown = dcConductorModel(
     DEFAULTS.power_kw * 2,
     DEFAULTS.comparison_voltage_v,
     2 * DEFAULTS.conductor_ohms,
     DEFAULTS.hours,
   );
-  const row = (label, before, after, unit, given = false) =>
-    `<div class="capacity-row"><span>${label}</span><strong>${before}<small> ${unit}</small></strong><strong>${shown || given ? after : "?"}<small> ${unit}</small></strong></div>`;
-  return `<div class="model capacity-model"><div class="model-top"><span class="chip">800 V DC · KEEP THE SAME TWO CONDUCTORS</span><span class="ledger-formula">Can this feeder serve twice the load?</span></div><div class="capacity-table"><div class="capacity-row capacity-heading"><span>At the feeder end</span><strong>Starting case</strong><strong>Proposed growth</strong></div>${row("Delivered power", fmt(DEFAULTS.power_kw), fmt(DEFAULTS.power_kw * 2), "kW", true)}${row("Conductor copper", "1×", "1×", "", true)}${row("Current per wire", fmt(base.amps), fmt(grown.amps), "A")}${row("Total conductor heat", fmt(base.lossKW, 4), fmt(grown.lossKW, 2), "kW")}</div>${shown ? `<div class="capacity-result"><strong>2× power · same copper · 4× conductor heat</strong><span class="capacity-status">Capacity unverified: check conductor temperature, voltage drop and equipment ratings.</span></div>` : '<div class="control-line"><button id="reveal" class="reveal">Predict current, heat and the capacity verdict</button></div>'}</div>`;
+  function caseCard(label, power, amps, heat, changed) {
+    return `<section class="metric-card ${changed ? "changed" : ""}"><p class="metric-label">${label}</p>${metric(fmt(power), "kW to load")}<div class="growth-equation">${fmt(power * 1000)} W ÷ 800 V<br>= <strong>${changed && !shown ? "?" : fmt(amps)} A</strong> per conductor</div><p class="metric-sub">Conductor heat: ${changed && !shown ? "?" : fmt(heat * 1000, 1)} W</p></section>`;
+  }
+  return `<div class="model capacity-model"><div class="model-top"><span class="chip">Same two conductors · 800 V at the load · 10 mΩ each</span></div><div class="comparison">${caseCard("Original load", DEFAULTS.power_kw, base.amps, base.lossKW, false)}${caseCard("Double the load", DEFAULTS.power_kw * 2, grown.amps, grown.lossKW, true)}</div>${shown ? '<p class="comparison-result"><span>Current rating, temperature and voltage drop still limit usable capacity.</span></p>' : '<div class="control-line"><button id="reveal" class="reveal">Calculate the new current</button></div>'}</div>`;
 }
 function renderNotes() {
   const step = STEPS[state.index];
@@ -271,7 +202,7 @@ function renderNotes() {
   byId("narration").innerHTML = `<ul class="speaker-points">${step.notes
     .map((point) => `<li>${escapeHTML(point)}</li>`)
     .join("")}</ul>`;
-  if (["ac-basics", "three-phase", "voltage-basis"].includes(step.kind)) {
+  if (["ac-basics", "three-phase"].includes(step.kind)) {
     const now = acdcWaveModel(step.kind, state.cycleDegrees);
     byId("narration").insertAdjacentHTML(
       "afterbegin",
@@ -283,13 +214,6 @@ function renderNotes() {
       "afterbegin",
       `<p class="cue">Live DC comparison: ${state.volts} V · ${fmt(conductorNumbers(state.volts).dc.amps, 1)} A. AC stays at 480 V · ${fmt(conductorNumbers().ac.amps, 1)} A RMS</p>`,
     );
-  if (step.kind === "paths" && isRevealed()) {
-    const { ac, dc } = pathNumbers();
-    byId("narration").insertAdjacentHTML(
-      "afterbegin",
-      `<p class="cue">Live DC conversion loss: ${fmt(state.dcConversionKW, 1)} kW total; ${fmt(state.dcConversionKW - DEFAULTS.dc_upstream_conversion_kw, 1)} kW after the feeder. DC feeder carries ${fmt(dc.feederKW, 1)} kW at ${fmt(dc.amps, 2)} A. ${pathResult(ac, dc)}.</p>`,
-    );
-  }
   byId("notes-next").textContent =
     STEPS[state.index + 1]?.headline ||
     "End of sample. Discuss the learner’s reasoning.";
@@ -310,28 +234,6 @@ function bindVisual() {
       `${state.cycleDegrees}° · ${fmt((state.cycleDegrees / 360 / 60) * 1000, 2)} ms`;
     publish();
   });
-  byId("dc-conversion")?.addEventListener("input", (event) => {
-    state.dcConversionKW = Number(event.target.value);
-    const { ac, dc } = pathNumbers();
-    byId("dc-path-card").innerHTML = ledgerCard(
-      "800 V DC-distributed path",
-      [
-        ["Final DC load", "100"],
-        ["Conductors · calculated", fmt(dc.conductorLossKW, 3)],
-        ["Conversion · assumed", fmt(state.dcConversionKW, 1)],
-      ],
-      dc.inputKW,
-      true,
-      true,
-    );
-    byId("dc-conversion-value").textContent =
-      `${fmt(state.dcConversionKW, 1)} kW`;
-    byId("path-result").textContent = pathResult(ac, dc);
-    publish();
-  });
-  byId("dc-loss-reset")?.addEventListener("click", () =>
-    change({ dcConversionKW: DEFAULTS.dc_conversion_kw }),
-  );
   byId("reveal")?.addEventListener("click", reveal);
   byId("voltage")?.addEventListener("input", (event) => {
     state.volts = Number(event.target.value);
@@ -359,17 +261,15 @@ function render() {
   }
   const focus = document.activeElement?.id;
   byId("chapter").textContent =
-    `800 V DC / ${String(state.index + 1).padStart(2, "0")} · ${step.title}`;
+    `800 V DC · ${state.index + 1} / ${STEPS.length}`;
   byId("scene-title").textContent = step.headline;
-  byId("caption").textContent = step.caption;
   byId("visual").innerHTML = (
     {
       intro,
       copper,
       current,
       loss,
-      energy,
-      paths,
+      "conversion-loss": conversionLoss,
       decision,
       "dc-basics": () => electricalVisual("dc-basics"),
       "ac-basics": () => electricalVisual("ac-basics"),
