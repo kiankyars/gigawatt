@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/foundations-power.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/foundations-power.json), lesson `d05-protection-and-fault-domains`, then run `uv run gigawatt-expand`.
 
-**Continuity, storage and protection · Authored draft**
+**7. Continuity, storage and protection · Authored draft**
 
 Explain fault detection and selective isolation, distinguish AC and DC interruption, and use a bounded heating example without pretending to choose real protection settings.
 

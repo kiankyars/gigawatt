@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/heat-delivery-operations.json), lesson `d13-delivery-dependencies`, then run `uv run gigawatt-expand`.
 
-**Design, procurement and commissioning · Authored draft**
+**14. Design, procurement and commissioning · Authored draft**
 
 Build a dependency graph, compare site-built and prefabricated delivery of the same 20 MW phase, and decide which work a late rack change actually delays.
 

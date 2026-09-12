@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/heat-delivery-operations.json), lesson `d11-heat-rejection`, then run `uv run gigawatt-expand`.
 
-**Heat rejection, climate and water · Authored draft**
+**13. Heat rejection, climate and water · Authored draft**
 
 Separate rack heat capture from outdoor dry, wet and hybrid rejection; distinguish air- and water-cooled chillers, then close the heat and work balance.
 

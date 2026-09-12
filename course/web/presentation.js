@@ -274,7 +274,7 @@ function sourceFigure() {
 }
 function render() {
   const step = STEPS[state.index];
-  document.title = `${notesMode ? "Presenter notes · " : ""}${step.title} — GIGAWATT`;
+  document.title = `${notesMode ? "Presenter notes · " : ""}${presentationLabels['rack-800v']} · ${step.title} · GIGAWATT`;
   renderSteps();
   if (notesMode) {
     renderNotes();
@@ -282,7 +282,7 @@ function render() {
   }
   const focus = document.activeElement?.id;
   byId("chapter").textContent =
-    `800 V DC · ${state.index + 1} / ${STEPS.length}`;
+    `${presentationLabels['rack-800v']} · ${state.index + 1} / ${STEPS.length}`;
   byId("scene-title").textContent =
     step.kind === "conversion-loss" && state.converterView === "heat"
       ? step.heat_headline

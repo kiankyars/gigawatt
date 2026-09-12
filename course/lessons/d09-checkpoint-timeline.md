@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/racks-compute-heat.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/racks-compute-heat.json), lesson `d09-checkpoint-timeline`, then run `uv run gigawatt-expand`.
 
-**Storage, orchestration and recovery · Authored draft**
+**11. Storage, orchestration and recovery · Authored draft**
 
 Compare explicit failure timelines and explain why asynchronous saving and replicated storage do not eliminate recovery design.
 

@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/racks-compute-heat.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/racks-compute-heat.json), lesson `d08-topology-budget`, then run `uv run gigawatt-expand`.
 
-**Networking and interconnects · Authored draft**
+**10. Networking and interconnects · Authored draft**
 
 Account for a cluster's ports and cables, then trace its connection through the campus boundary to external networks.
 

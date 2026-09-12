@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/heat-delivery-operations.json), lesson `d12-hazards-and-site-evidence`, then run `uv run gigawatt-expand`.
 
-**Physical site, buildings and safety · Authored draft**
+**5. Physical site, buildings and safety · Authored draft**
 
 Compare greenfield development with brownfield reuse, then evaluate land, utilities, site risks and the date when a first phase can operate. Original Colossus and Abilene provide the land-use case study.
 

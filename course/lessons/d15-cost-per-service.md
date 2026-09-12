@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/heat-delivery-operations.json), lesson `d15-cost-per-service`, then run `uv run gigawatt-expand`.
 
-**Capacity, cost and system decisions · Authored draft**
+**16. Capacity, cost and system decisions · Authored draft**
 
 Build a scoped three-year present-value comparison and show how a stable cost changes meaning when useful output falls.
 

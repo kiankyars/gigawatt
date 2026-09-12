@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/racks-compute-heat.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/racks-compute-heat.json), lesson `d07-bottleneck-model`, then run `uv run gigawatt-expand`.
 
-**Compute, memory and the rack · Authored draft**
+**9. Compute, memory and the rack · Authored draft**
 
 Apply a small performance model, then test its assumptions against capacity and the job’s critical path.
 

@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/heat-delivery-operations.json), lesson `d11-water-and-heat-reuse`, then run `uv run gigawatt-expand`.
 
-**Heat rejection, climate and water · Authored draft**
+**13. Heat rejection, climate and water · Authored draft**
 
 Reconcile tower makeup and blowdown, distinguish withdrawal from consumption, and evaluate heat reuse against an actual receiving load.
 

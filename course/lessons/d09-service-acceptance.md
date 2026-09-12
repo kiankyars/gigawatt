@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/racks-compute-heat.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/racks-compute-heat.json), lesson `d09-service-acceptance`, then run `uv run gigawatt-expand`.
 
-**Storage, orchestration and recovery · Authored draft**
+**11. Storage, orchestration and recovery · Authored draft**
 
 Connect scheduling, provisioning, isolation and observability to a reproducible end-to-end acceptance exercise.
 

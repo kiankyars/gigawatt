@@ -710,3 +710,21 @@ Verification on the reviewed source:
 No standalone browser or browser installer was launched for this review. The planned timing still needs an aloud dry run and learner feedback. FEEDBACK_AUDIT.md tracks every user request and publication status.
 
 Publication verification: commit `8aa6549a1a72db6f693c4a71c9dccacdfc63ed69` deployed successfully in Pages run `34720114864`. Sixteen live files matched local bytes, including both revised presentation shells and changed modules, reader, domain map, course data, case module, land/delivery lessons and author records. The course map also rendered descriptive topic names without visible domain-code labels or horizontal overflow at desktop size.
+
+
+## Numbered chapters and presentation directory — 2026-09-12
+
+The reader now has one numbered chapter directory, an All chapters / Slides available filter, expandable readings and direct presentation links. The presentation catalog is teaching-sequences.json; numbers follow the curriculum sequence, starting with the Primer and ending with the integrated cases. Six distinct decks appear in seven chapter placements because cooling spans two chapters. UPS, 800 V and cooling are marked as selected topics. The duplicate footer menu and historical-introduction link are removed. Author resources are collapsed separately.
+
+The four production follow-ups are unchecked in COURSE_REVIEW.md; TEACHING_STANDARD.md records the required chapter/case handoffs. The previous long feedback audit is replaced with the confirmed decisions and links to those owners.
+
+Verification:
+
+- 66 Python tests and 94 JavaScript model tests pass. Seven catalog tests cover derived numbering, shared-deck placement, missing files, invalid routes, duplicates, selected-topic scope and numbered manuscript labels. Two staging tests verify retirement and durable redirects. All generated-course, domain-map and research freshness checks pass.
+- The built-in browser opened all seven sidebar presentation links at 1280 × 720 and 390 × 844, including the heat-rejection deep link. Shared numbered titles loaded and no horizontal overflow was observed. Desktop and mobile screenshots of the new sidebar were inspected.
+- Checked the slides filter, title search, empty results, all-chapter reading search, numbered reading navigation and the mobile drawer. The selected view persists in the URL. Readings close the mobile drawer after navigation.
+- The 800 V deck and presenter notes render after the script's module conversion; navigating to its circuit scene works. Its sample reader retains chapter number 8.
+- The staged historical introduction redirects an Abilene hash to the corresponding current lesson and preserves the slides filter. A root legacy lesson hash also resolves to the current reader. Separate JavaScript checks exercised all 22 old hashes, root/diagram paths, malformed/current/unknown hashes and query parameters (52 redirect executions).
+- No browser console warnings or errors were observed. Testing used the built-in browser; no standalone browser was launched or downloaded.
+
+These checks verify navigation and existing presentation startup, not completion of the four production follow-ups or rehearsal of the course.

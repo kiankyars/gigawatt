@@ -1090,6 +1090,8 @@
       </div>
     </section>
     <script type="module">
+      import { presentationLabels } from './teaching-navigation.js';
+      document.querySelector('.brand small').textContent = presentationLabels.ups;
       import { renderCapacitorDiagram } from "./ups-capacitors.js";
       import { renderGeneratorDiagram } from "./ups-generator.js";
       import { renderBypassDiagram } from "./ups-bypass.js";
@@ -1705,7 +1707,7 @@
       }
       function render() {
         const s = scenes[state.index];
-        document.title = s.title + " — GIGAWATT prototype";
+        document.title = `${presentationLabels.ups} · ${s.title} · GIGAWATT`;
         history.replaceState(null, "", "#" + s.id);
         if (notesMode) {
           $("note-position").textContent =

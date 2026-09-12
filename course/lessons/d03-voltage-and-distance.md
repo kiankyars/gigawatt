@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/foundations-power.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/foundations-power.json), lesson `d03-voltage-and-distance`, then run `uv run gigawatt-expand`.
 
-**Siting, grid connection and supply · Authored draft**
+**4. Siting, grid connection and supply · Authored draft**
 
 Start with a closed DC circuit and AC waveforms, explain the three-phase power equation, then compare transport current and conductor heating at a fixed campus load.
 

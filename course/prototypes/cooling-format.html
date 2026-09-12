@@ -787,6 +787,8 @@
       </details>
     </dialog>
     <script type="module">
+      import { presentationLabels } from './teaching-navigation.js';
+      document.querySelector('main .eyebrow').textContent = presentationLabels.cooling;
       import { renderFoundation } from "./cooling-foundations.js?v=20260911-formula5";
       import { renderRejection } from "./cooling-rejection.js";
       import { renderCDU } from "./cooling-cdu.js";
@@ -1328,7 +1330,7 @@
               .focus();
           }),
         );
-        document.title = `${scene.label} · GIGAWATT cooling`;
+        document.title = `${presentationLabels.cooling} · ${scene.label} · GIGAWATT`;
       }
       function go(index) {
         if (index < 0 || index >= scenes.length) return;

@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/foundations-power.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/foundations-power.json), lesson `d03-power-and-procurement`, then run `uv run gigawatt-expand`.
 
-**Siting, grid connection and supply · Authored draft**
+**4. Siting, grid connection and supply · Authored draft**
 
 Separate the shared grid, commercial arrangements, and time-matched supply, then calculate the storage a matching claim leaves out.
 

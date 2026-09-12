@@ -190,6 +190,95 @@ button[hidden],
   white-space: nowrap;
   color: var(--muted);
 }
+.contents-filter {
+  display: flex;
+  padding: 3px;
+  gap: 3px;
+  background: var(--soft);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+.contents-filter button {
+  flex: 1;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  padding: 9px 4px;
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--muted);
+}
+.contents-filter button[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--on-ink);
+}
+.chapter-group, .chapter-card {
+  border-top: 1px solid var(--rule);
+  padding: 14px 0;
+}
+.chapter-group > summary {
+  position: relative;
+  padding-right: 17px;
+  cursor: pointer;
+  list-style: none;
+}
+.chapter-group > summary::-webkit-details-marker { display: none; }
+.chapter-group > summary::after {
+  content: "+";
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: var(--muted);
+}
+.chapter-group[open] > summary::after { content: "−"; }
+.chapter-name, .chapter-card h3 {
+  display: block;
+  font-size: 13px;
+  line-height: 1.45;
+  font-weight: 650;
+  margin: 0;
+}
+.chapter-status {
+  display: block;
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 5px;
+}
+.chapter-status.has-slides { color: var(--teal); }
+.chapter-content { padding-top: 12px; }
+.chapter-card .deck-entry { margin-top: 11px; }
+.slides-link {
+  display: inline-flex;
+  gap: 7px;
+  align-items: center;
+  padding: 8px 11px;
+  border: 1px solid var(--teal);
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 650;
+  background: var(--white);
+}
+.slides-link:hover { background: var(--soft); }
+.coverage-note {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+  margin: 6px 0 0;
+}
+.reading-label {
+  color: var(--muted);
+  font-size: 10px;
+  margin: 14px 0 5px;
+}
+.lesson-number { color: var(--muted); font-size: 10px; }
+#chapter-slides {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin: 0 0 25px;
+}
 .search-label {
   font-size: 11px;
   font-weight: 700;
@@ -250,14 +339,15 @@ button[hidden],
   border-radius: 0 5px 5px 0;
 }
 .rail-foot {
-  display: grid;
-  gap: 11px;
   border-top: 1px solid var(--rule);
   margin-top: 26px;
   padding-top: 23px;
   font-size: 11px;
 }
+.rail-foot summary { cursor: pointer; color: var(--muted); }
 .rail-foot a {
+  display: block;
+  margin-top: 13px;
   text-decoration: none;
 }
 .rail-foot p {

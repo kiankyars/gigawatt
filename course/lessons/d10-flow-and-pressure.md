@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/racks-compute-heat.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/racks-compute-heat.json), lesson `d10-flow-and-pressure`, then run `uv run gigawatt-expand`.
 
-**Chip and rack heat capture · Authored draft**
+**12. Chip and rack heat capture · Authored draft**
 
 Derive a single-phase flow requirement, then add pressure drop, pump operating point and branch maldistribution.
 

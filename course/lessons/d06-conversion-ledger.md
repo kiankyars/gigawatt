@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/racks-compute-heat.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/racks-compute-heat.json), lesson `d06-conversion-ledger`, then run `uv run gigawatt-expand`.
 
-**Rack power and the 800 V DC transition · Authored draft**
+**8. Rack power and the 800 V DC transition · Authored draft**
 
 Build an electrical ledger from the rack inlet to useful device rails, with separate conversion losses and auxiliary loads.
 

@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/capstones.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/capstones.json), lesson `c05-open-a-phase`, then run `uv run gigawatt-expand`.
 
-**Integrated practice · Authored draft**
+**17. Put the system together · Authored draft**
 
 Reconcile installation, energization, integrated testing and service acceptance. Build a dependency schedule without treating announcements as operational measurements.
 

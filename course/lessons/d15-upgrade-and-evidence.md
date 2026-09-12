@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/heat-delivery-operations.json), lesson `d15-upgrade-and-evidence`, then run `uv run gigawatt-expand`.
 
-**Capacity, cost and system decisions · Authored draft**
+**16. Capacity, cost and system decisions · Authored draft**
 
 Compare original intervention scenarios with different delivery dates, then audit a dated Stargate announcement without converting planned capacity into measured operation.
 

@@ -2,9 +2,13 @@
 
 **From watts to racks, useful compute, and operation.**
 
-[Primer](course/prototypes/terminology-format.html) · [Read the course](course/index.html) · [Explore the 800 V sample](course/sample.html)
-· [Teach](course/teach.html) · [Domain atlas](course/domain-map.html)
-· [Research library](research/INDEX.md)
+[Open the course](course/index.html) · [Slides available](course/index.html?view=slides)
+
+The sidebar is the course directory. Chapters use numbered descriptive names,
+starting with **1. Primer**, **2. Data center overview** and **3. Workloads and
+requirements**. Each chapter shows its reading and available slides. Choose
+**Slides available** to see only chapters with teaching material; selected-topic
+sequences are labelled so they do not imply a complete chapter deck.
 
 ## Start with the filled-in template
 
@@ -23,6 +27,7 @@ The original is a blank format; the filled-in file here holds GIGAWATT's decisio
 | Detailed objectives, prerequisites, sequence or capstone briefs | [domain-map.json](course/domain-map.json)                                                      |
 | How lessons, visuals, models and evidence should be authored    | [TEACHING_STANDARD.md](course/TEACHING_STANDARD.md)                                            |
 | An explanation, worked example, assessment or presentation beat | [Lesson sources](course/README.md)                                                             |
+| Which presentations appear in the course sidebar               | [Teaching catalog](course/teaching-sequences.json)                                             |
 | Source identity, review scope or domain mapping                 | [research-sources.json](course/research-sources.json); [research workflow](research/README.md) |
 | Presenter controls or dry-run procedure                         | [PRESENTING.md](course/PRESENTING.md)                                                          |
 
@@ -33,12 +38,8 @@ evidence; they do not add curriculum requirements. Technical checks live in
 
 ## Current state
 
-Begin with [Primer](course/prototypes/terminology-format.html)
-for a first exposure, then continue to the existing
-[Data center overview](course/prototypes/orientation-format.html).
-Primer aims for about 20 minutes, pending rehearsal. It gives familiar names to
-ideas that will be explained again when each system needs them; it adds no
-required domain or objective to the curriculum.
+The course begins with the Primer: about 20 minutes of electricity, equipment,
+computing and cooling vocabulary, pending rehearsal. It adds no assessed objective.
 
 The expanded reader contains 50 authored lessons across 15 domains, including
 five integrated cases, with teaching and practice mapped to all 65 objectives.
@@ -46,15 +47,13 @@ It includes searchable text, a glossary, eight numerical model types and five
 original GPT ImageGen equipment illustrations. Exact calculations use code;
 illustrative geometry does not establish equipment ratings.
 
-The new [Workloads and requirements](course/prototypes/workload-format.html?teach=1) adds
-19 scenes on workload requirements, memory budgets, useful output, batching and
-demand timing. Both new sections await an aloud dry run.
-
-The thirteen-scene 480 V AC / 800 V DC sample has separate student, teaching and
-presenter-note views. It makes copper and conversion placement visible, then
-compares current, losses and a changed load. The full-course presentation
-adaptation, external engineering review and learner dry runs remain pending.
-Authored coverage and passing builds do not establish comprehension or runtime.
+The sidebar reports which chapters have slides and whether they cover the chapter
+or selected topics. [COURSE_REVIEW.md](course/COURSE_REVIEW.md#next-teaching-step)
+owns the remaining production work, including check-in connections, case and
+delivery slides, consistent use of Abilene, and teaching rehearsals.
+[TEACHING_STANDARD.md](course/TEACHING_STANDARD.md#required-section-handoffs)
+records the cases and exercises each relevant chapter must carry into its teaching
+material. Authored coverage and passing builds do not establish comprehension or runtime.
 
 **The encyclopedic survey is an anti-pattern:** articles inform evidence and
 questions; they do not automatically earn chapters. The template states the
@@ -84,9 +83,10 @@ git diff --check
 
 GitHub Pages validates and publishes changes to `main` at
 [GIGAWATT](https://kiankyars.github.io/gigawatt/).
-The [retained 22-lesson introduction](diagram/index.html) and old lesson hashes
-remain accessible. The map's `baseline_coverage` and `baseline_lessons` fields
-refer only to that historical introduction; the expanded manuscript reports
+The historical 22-lesson introduction is retired from the published course.
+Its source remains in the repository; its old page and lesson links redirect to
+relevant lessons in the current reader. The map's `baseline_coverage` and
+`baseline_lessons` fields refer only to that historical introduction; the manuscript reports
 [current authored coverage](course/EXPANDED_COURSE.md#objective-to-lesson-coverage).
 Earlier `evidence/` ledgers and `diagram/` engineering maps remain dated research
 references. Retired course-design documents and experimental players are in Git

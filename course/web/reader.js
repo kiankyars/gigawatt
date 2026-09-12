@@ -18,10 +18,15 @@ const fmt = (n, d = 1) =>
 const LESSONS = DATA.lessons,
   byLesson = new Map(LESSONS.map((l, i) => [l.id, i]));
 const domainById = new Map(DATA.domains.map((d) => [d.id, d]));
-const topicTitle = (id) => domainById.get(id)?.title || "Integrated cases";
+const CHAPTERS = DATA.chapters;
+const chapterById = new Map(CHAPTERS.map((chapter) => [chapter.id, chapter]));
+const chapterName = (chapter) => `${chapter.number}. ${chapter.title}`;
+const topicTitle = (id) => chapterById.has(id)
+  ? chapterName(chapterById.get(id)) : "Integrated cases";
 const sourcesById = new Map(DATA.sources.map((s) => [s.id, s]));
 let current = 0,
-  lookupMode = false;
+  lookupMode = false,
+  slidesOnly = new URLSearchParams(location.search).get("view") === "slides";
 const drafts = new Map();
 const checkinDrafts = new Map();
 const CASE_STUDY_LINKS = {
@@ -143,31 +148,55 @@ function referenceFigures(figures) {
 function renderContents() {
   const q = $("search").value.trim().toLowerCase(),
     terms = q.split(/\s+/).filter(Boolean);
-  const filtered = LESSONS.filter((l) =>
-    terms.every((t) =>
-      `${l.domain_checkin ? "domain check-in checkin " : ""}${JSON.stringify(l)}`
-        .toLowerCase()
-        .includes(t),
-    ),
-  );
-  $("lesson-count").textContent = `${LESSONS.length} lessons`;
-  $("search-status").textContent = q
-    ? `${filtered.length} matching lessons`
-    : "A connected system, one question at a time.";
-  $("contents").innerHTML =
-    DATA.domains
-      .concat([{ id: "capstone", title: "Put the system together" }])
-      .map((d) => {
-        const ls = filtered.filter((l) => l.domain === d.id);
-        if (!ls.length) return "";
-        return `<section class="domain-group"><h3>${esc(d.title)}</h3>${ls.map((l) => `<button class="lesson-link${LESSONS[current]?.id === l.id && !lookupMode ? " active" : ""}" data-lesson="${esc(l.id)}" ${LESSONS[current]?.id === l.id && !lookupMode ? 'aria-current="page"' : ""}>${esc(l.title)}${l.domain_checkin ? '<small class="lesson-checkin-note">Ends with a check-in</small>' : ""}</button>`).join("")}</section>`;
-      })
-      .join("") ||
-    '<p class="muted">No matching lessons. Try a shorter term.</p>';
+  const matches = (value) => terms.every((term) => value.toLowerCase().includes(term));
+  const visible = CHAPTERS.map((chapter) => {
+    const chapterMatch = matches(`${chapterName(chapter)} ${chapter.presentations.map((p) => `${p.id} ${p.title}`).join(" ")}`);
+    const lessons = chapter.lesson_ids.map((id) => LESSONS[byLesson.get(id)])
+      .filter((lesson) => lesson && (chapterMatch || matches(JSON.stringify(lesson))));
+    return { chapter, lessons, show: slidesOnly
+      ? chapter.presentations.length > 0 && chapterMatch
+      : chapterMatch || lessons.length > 0 };
+  }).filter((item) => item.show);
+  $("lesson-count").textContent = `${CHAPTERS.length} ${CHAPTERS.length === 1 ? "chapter" : "chapters"}`;
+  $("all-chapters").setAttribute("aria-pressed", String(!slidesOnly));
+  $("slides-only").setAttribute("aria-pressed", String(slidesOnly));
+  $("search-label").textContent = slidesOnly ? "Find a chapter or deck" : "Find a lesson or concept";
+  $("search").placeholder = slidesOnly ? "Try primer, UPS, cooling…" : "Try 800 V, cooling, checkpoint…";
+  $("search-status").textContent = q ? `${visible.length} matching ${visible.length === 1 ? "chapter" : "chapters"}`
+    : slidesOnly ? "Open a deck below. Selected topics are marked."
+    : "Open a chapter for its reading and slides.";
+  $("contents").innerHTML = visible.map(({ chapter, lessons }) => {
+    const decks = chapter.presentations;
+    const slideLinks = presentationLinks(chapter);
+    const activeChapter = chapter.id === LESSONS[current]?.domain && !lookupMode;
+    const status = decks.length ? decks.every((deck) => deck.coverage === "selected")
+      ? "Selected slides" : "Slides available" : "Reading";
+    const heading = `<span class="chapter-name">${esc(chapterName(chapter))}</span><small class="chapter-status${decks.length ? " has-slides" : ""}">${status}</small>`;
+    if (slidesOnly) return `<section class="chapter-card"><h3>${esc(chapterName(chapter))}</h3>${slideLinks}</section>`;
+    const reading = lessons.map((lesson) => {
+      const selected = LESSONS[current]?.id === lesson.id && !lookupMode;
+      const number = `${chapter.number}.${chapter.lesson_ids.indexOf(lesson.id) + 1}`;
+      return `<button class="lesson-link${selected ? " active" : ""}" data-lesson="${esc(lesson.id)}" ${selected ? 'aria-current="page"' : ""}><span class="lesson-number">${number}</span> ${esc(lesson.title)}${lesson.domain_checkin ? '<small class="lesson-checkin-note">Ends with a check-in</small>' : ""}</button>`;
+    }).join("");
+    return `<details class="chapter-group" data-chapter="${esc(chapter.id)}" ${q || activeChapter || chapter.id === "primer" ? "open" : ""}><summary>${heading}</summary><div class="chapter-content">${slideLinks}${reading ? '<p class="reading-label">Reading</p>' + reading : ""}</div></details>`;
+  }).join("") || '<p class="muted">No matching chapters. Try another term or show all chapters.</p>';
   $("contents")
     .querySelectorAll("[data-lesson]")
     .forEach((b) => b.addEventListener("click", () => go(b.dataset.lesson)));
   renderGlossary(q);
+}
+function presentationLinks(chapter) {
+  return chapter.presentations.map((deck) =>
+    `<div class="deck-entry"><a class="slides-link" href="${esc(deck.href)}" aria-label="Open slides for ${esc(chapterName(chapter))}: ${esc(deck.title)}"><span aria-hidden="true">▷</span> Open slides</a>${deck.coverage === "selected" ? `<p class="coverage-note">Selected topics: ${esc(deck.title)}</p>` : ""}</div>`,
+  ).join("");
+}
+function setContentsFilter(value) {
+  slidesOnly = value;
+  const url = new URL(location.href);
+  if (slidesOnly) url.searchParams.set("view", "slides");
+  else url.searchParams.delete("view");
+  history.replaceState(null, "", url);
+  renderContents();
 }
 function renderGlossary(query = "") {
   const items = DATA.glossary.filter((g) =>
@@ -231,9 +260,11 @@ function renderLesson() {
   const l = LESSONS[current],
     d = domainById.get(l.domain),
     art = artFor(l);
+  const chapter = chapterById.get(l.domain);
+  const lessonNumber = chapter.lesson_ids.indexOf(l.id) + 1;
   document.title = `${l.title} — GIGAWATT`;
   $("eyebrow").textContent =
-    `${String(current + 1).padStart(2, "0")} / ${d?.title || "Integrated case"}`;
+    `${chapter.number}.${lessonNumber} · ${chapter.title}`;
   $("title").textContent = l.title;
   $("summary").textContent = l.summary;
   const caseLinks = CASE_STUDY_LINKS[l.id] || [];
@@ -243,7 +274,9 @@ function renderLesson() {
     : "";
   $("question").textContent = l.question;
   $("lesson-meta").innerHTML =
-    `<span>Authored draft</span><span>Worked example + transfer practice</span>`;
+    `<span>Reading lesson</span>${chapter.presentations.length ? "" : "<span>Chapter slides not yet available</span>"}`;
+  $("chapter-slides").hidden = chapter.presentations.length === 0;
+  $("chapter-slides").innerHTML = presentationLinks(chapter);
   $("teaching-image").closest("figure").hidden = !art;
   if (art) {
     $("teaching-image").src = `assets/${art.file}`;
@@ -310,7 +343,7 @@ function renderLesson() {
       })
       .join("")}</details>`;
   renderDomainCheckin(l.domain_checkin);
-  $("position").textContent = `${current + 1} / ${LESSONS.length}`;
+  $("position").textContent = `Reading ${lessonNumber} of ${chapter.lesson_ids.length}`;
   $("previous").disabled = current === 0;
   $("next").textContent =
     current === LESSONS.length - 1
@@ -786,6 +819,8 @@ function renderLab(l) {
   update();
 }
 $("search").addEventListener("input", renderContents);
+$("all-chapters").addEventListener("click", () => setContentsFilter(false));
+$("slides-only").addEventListener("click", () => setContentsFilter(true));
 $("contents-toggle").addEventListener("click", () => {
   const open = $("sidebar").classList.toggle("open");
   $("contents-toggle").setAttribute("aria-expanded", String(open));
@@ -799,6 +834,7 @@ $("next").addEventListener("click", () =>
   go(LESSONS[(current + 1) % LESSONS.length].id),
 );
 window.addEventListener("popstate", () => {
+  slidesOnly = new URLSearchParams(location.search).get("view") === "slides";
   let id;
   try {
     id = decodeURIComponent(location.hash.slice(1));

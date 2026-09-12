@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/foundations-power.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/foundations-power.json), lesson `d01-boundaries`, then run `uv run gigawatt-expand`.
 
-**System boundaries and quantities · Authored draft**
+**2. Data center overview · Authored draft**
 
 Locate white and grey space, trace electricity, heat, and information, then close a facility energy balance without counting any load twice.
 

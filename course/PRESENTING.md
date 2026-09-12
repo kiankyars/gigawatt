@@ -14,6 +14,8 @@ uses the same diagrams. The goal is enough vocabulary to follow part of an exper
 conversation. Introduce each word through a concrete object or example. Keep the
 slides self-contained: no optional label, chapter pointers, skip link or promises
 about future lessons. The presenter can decide how to introduce the audience to it.
+Keep the N+1 definition and spare-module example. Source citations may remain;
+they were not the chapter references the feedback asked to remove.
 
 The following **[Data center overview](prototypes/orientation-format.html?teach=1#three-paths)** remains intact.
 Its thirteen scenes tour the three paths, white/gray space, generation,
@@ -159,3 +161,8 @@ case in its named domain, invite a prediction before revealing the explanation,
 and return to its linked reader lesson for the derivation and source limits.
 The accompanying Abilene reference is a dated campus case, not a claim that all
 hypothetical equipment values represent the site.
+Standalone cases are authored, but their integration into the relevant chapter
+presentations is still pending. Before rehearsing a new chapter, use the
+[required section handoffs](TEACHING_STANDARD.md#required-section-handoffs) to
+check its case, domain check-in and recurring-campus treatment. Record remaining
+work in the [existing production follow-ups](COURSE_REVIEW.md#next-teaching-step).

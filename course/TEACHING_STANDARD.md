@@ -8,7 +8,7 @@ an individual lesson.
 
 ## Carry the reasoning across the course
 
-The reviewed UPS, 800 V and Chip and rack heat capture/Heat rejection, climate and water cooling sequences establish an approach:
+The reviewed UPS, 800 V and cooling sequences establish an approach:
 **pose a concrete problem → show the mechanism → change one condition → explain
 the consequence**. Select the visual and example that make the particular topic
 understandable. The course template records the working goal of at least 300
@@ -27,9 +27,13 @@ visible objects and concrete examples. Use simple English. Do not label it optio
 include a skip link, refer to other chapters or quote promises about future teaching.
 The presenter decides how to introduce it. The primer adds no assessed objective;
 teach each concept in context when it becomes useful in the main course.
+Keep the N+1 definition and spare-module example; omit the sentence promising a
+later surviving-service test. Citation controls are discretionary: the restriction
+is on chapter pointers and future-teaching promises, not source citations.
 
-Use descriptive topic names in the website and presentations. Stable internal IDs
-remain for source mapping and existing links, but are not audience-facing labels.
+Use numbered descriptive chapter names in the website and presentations, beginning
+with **1. Primer**. Stable internal IDs remain for source mapping and existing
+links, but are not audience-facing labels.
 
 Data center overview remains a broad orientation: preview the equipment, locations and paths
 that later sections explain in depth. Briefly naming generation, transmission,
@@ -74,6 +78,42 @@ The reader implements one active check-in at each domain boundary.
 Use those authored scenarios when adapting the remaining presentation sequences,
 with a spoken pause before the answer and a bridge to the next domain in the
 actual teaching order. Check-ins do not require a score or block progression.
+
+### Required section handoffs
+
+Before marking a section's teaching material complete, check its required case
+below, place the case in the teaching order and record its deck/scene link in the
+last column. These cases already have reader treatments and standalone teaching
+scenes; **none of those establishes integration into the relevant chapter deck**.
+The open production tasks remain in [the course review](COURSE_REVIEW.md#next-teaching-step).
+
+| Section | Required teaching case | Existing standalone scenes | Chapter integration |
+| --- | --- | --- | --- |
+| Siting, grid connection and supply (`d03`) | SemiAnalysis's Southaven/MiniHard procurement workaround: equipment lead time versus the consequences of MV distribution | [Procurement](prototypes/case-studies.html?teach=1#procurement), [current comparison](prototypes/case-studies.html?teach=1#current) | Pending |
+| Continuity, storage and protection (`d05`) | Crusoe/Redwood in Sparks: solar power, battery energy, discharge power and grid backup | [Solar and battery](prototypes/case-studies.html?teach=1#sparks), [availability](prototypes/case-studies.html?teach=1#availability) | Pending |
+| Storage, orchestration and recovery (`d09`) | Google flexible scheduling: which work can move without missing its service requirement? | [Demand response](prototypes/case-studies.html?teach=1#demand-response) | Pending |
+| Heat rejection, climate and water (`d11`) | Abilene cooling: closed coolant loops, outdoor heat rejection and the boundary of water-use claims | [Abilene cooling](prototypes/case-studies.html?teach=1#abilene-cooling) | Pending; existing cooling deck does not yet integrate this case |
+| Physical site, buildings and safety (`d12`) | Greenfield versus brownfield, using Abilene and original Colossus; factory reuse still required new power infrastructure | [Land comparison](prototypes/case-studies.html?teach=1#land), [original Colossus](prototypes/case-studies.html?teach=1#colossus) | Pending |
+| Capacity, cost and system decisions (`d15`) | Abilene's dated capacity milestones: distinguish the original campus, adjacent project, energized capacity and useful output | [Capacity ledger](prototypes/case-studies.html?teach=1#abilene-ledger) | Pending |
+
+For **Design, procurement and commissioning (`d13`)**, adapt the existing reader
+comparison into slides: EPC responsibilities versus manufacturing strategy; factory
+and site work; parallel schedules; design freezes; transport; and ownership of
+module interfaces. Hold 20 MW constant while 200 × 100 kW racks become 100 × 200 kW
+just before fabrication. Require the learner to decide what proceeds, what is held
+and which electrical, hydraulic, spatial and schedule evidence releases each hold.
+Retain the existing boundary check as the closing transfer exercise.
+
+At every section handoff, verify its check-in is reachable from the actual teaching
+sequence, check any Abilene claim against its dated source and update the chapter's
+presentation status. A reader draft, standalone case and integrated deck are
+different completion states.
+Register each deck in [the teaching catalog](teaching-sequences.json) so it appears
+in the sidebar's **Slides available** view. Classify whether it teaches the chapter
+or selected topics; a partial sequence must not imply a complete chapter deck.
+Chapter numbers are generated from the curriculum teaching order; do not maintain a separate numbering list.
+
+### Build the teaching sequence
 
 Use these rules when adapting each sequence:
 

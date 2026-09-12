@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/racks-compute-heat.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/racks-compute-heat.json), lesson `d07-data-path`, then run `uv run gigawatt-expand`.
 
-**Compute, memory and the rack · Authored draft**
+**9. Compute, memory and the rack · Authored draft**
 
 Follow bytes through storage, host processing, accelerator memory, execution and communication, and distinguish movement from ownership.
 

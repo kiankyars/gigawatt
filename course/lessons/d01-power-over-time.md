@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/foundations-power.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/foundations-power.json), lesson `d01-power-over-time`, then run `uv run gigawatt-expand`.
 
-**System boundaries and quantities · Authored draft**
+**2. Data center overview · Authored draft**
 
 Integrate a stepped load profile, distinguish average and peak demand, and test what interval sampling hides.
 

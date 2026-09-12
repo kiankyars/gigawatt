@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/racks-compute-heat.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/racks-compute-heat.json), lesson `d07-rack-as-system`, then run `uv run gigawatt-expand`.
 
-**Compute, memory and the rack · Authored draft**
+**9. Compute, memory and the rack · Authored draft**
 
 Connect tray and rack organization to physical interfaces and failure scope, then distinguish nominal from schedulable capacity.
 

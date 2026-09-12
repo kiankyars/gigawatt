@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/racks-compute-heat.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/racks-compute-heat.json), lesson `d10-cdu-interfaces`, then run `uv run gigawatt-expand`.
 
-**Chip and rack heat capture · Authored draft**
+**12. Chip and rack heat capture · Authored draft**
 
 Label a liquid-to-liquid CDU, distinguish loop rise from approach, and read a real 2 MW CoolIT example against its stated conditions.
 

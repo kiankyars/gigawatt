@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/sample.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/sample.json), lesson `sample-800v`, then run `uv run gigawatt-expand`.
 
-**Rack power and the 800 V DC transition · Authored draft**
+**8. Rack power and the 800 V DC transition · Authored draft**
 
 Learn the electrical foundations, then compare distribution copper and the placement of conversion equipment.
 

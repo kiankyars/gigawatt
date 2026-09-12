@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/heat-delivery-operations.json), lesson `d11-weather-and-operating-envelope`, then run `uv run gigawatt-expand`.
 
-**Heat rejection, climate and water · Authored draft**
+**13. Heat rejection, climate and water · Authored draft**
 
 Compare dry and wet heat rejection at explicitly labeled temperatures, check cooling electricity against the site ceiling, and distinguish redundant cooling from reduced-power operation after a fault.
 

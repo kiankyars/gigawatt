@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/capstones.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/capstones.json), lesson `c04-stalled-job`, then run `uv run gigawatt-expand`.
 
-**Integrated practice · Authored draft**
+**17. Put the system together · Authored draft**
 
 Build a serial job timeline from supplied measurements, compare two proposed improvements, and test recovery rather than relying on GPU occupancy.
 

@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/foundations-power.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/foundations-power.json), lesson `d02-phases-and-envelopes`, then run `uv run gigawatt-expand`.
 
-**Workloads and the infrastructure brief · Authored draft**
+**3. Workloads and requirements · Authored draft**
 
 Connect request queues and job phases to latency, aggregate power, and the limits of a benchmark-derived design envelope.
 

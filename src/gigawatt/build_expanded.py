@@ -8,6 +8,7 @@ import json
 import re
 from copy import deepcopy
 from pathlib import Path
+from urllib.parse import urlsplit
 
 from gigawatt.build_presentation import presentation_outputs
 from gigawatt.research import canonical_url
@@ -229,6 +230,128 @@ def attach_domain_checkins(raw, lessons, sequence):
         last[domain]["domain_checkin"] = checkin
 
 
+def teaching_chapters(raw, domain_map, lessons, root=ROOT):
+    """Resolve available teaching sequences against the single curriculum order.
+
+    Coverage describes the scope of a presentation, not its review or rehearsal
+    status. A chapter without a presentation still has its authored reading.
+    """
+    if not isinstance(raw, dict) or set(raw) != {"version", "presentations"}:
+        raise ExpansionError("Teaching catalog: missing or unexpected fields")
+    if raw["version"] != 1 or not isinstance(raw["presentations"], list):
+        raise ExpansionError("Teaching catalog: expected version 1 and presentations")
+    domains = {d["id"]: d for d in domain_map["domains"]}
+    sequence = [did for act in domain_map["sequence"] for did in act["domains"]]
+    if len(sequence) != len(set(sequence)) or set(sequence) != set(domains):
+        raise ExpansionError(
+            "Teaching chapters: sequence must contain every domain once"
+        )
+    titles = {
+        **{did: domain["title"] for did, domain in domains.items()},
+        "primer": "Primer",
+        "D01": "Data center overview",
+        "D02": "Workloads and requirements",
+        "capstone": "Put the system together",
+    }
+    chapters = [
+        {
+            "id": did,
+            "number": number,
+            "title": titles[did],
+            "lesson_ids": [l["id"] for l in lessons if l["domain"] == did],
+            "presentations": [],
+        }
+        for number, did in enumerate(["primer", *sequence, "capstone"], 1)
+    ]
+    by_id = {chapter["id"]: chapter for chapter in chapters}
+    seen = set()
+    for presentation in raw["presentations"]:
+        if not isinstance(presentation, dict) or set(presentation) != {
+            "id",
+            "title",
+            "chapters",
+        }:
+            raise ExpansionError("Teaching presentation: missing or unexpected fields")
+        pid = text(presentation["id"], "teaching presentation.id")
+        if not re.fullmatch(r"[a-z][a-z0-9-]*", pid):
+            raise ExpansionError(f"Unsafe teaching presentation ID: {pid}")
+        if pid in seen:
+            raise ExpansionError(f"Duplicate teaching presentation: {pid}")
+        seen.add(pid)
+        title = text(presentation["title"], "teaching presentation.title")
+        placements = presentation["chapters"]
+        if not isinstance(placements, list) or not placements:
+            raise ExpansionError(f"{pid}: expected at least one chapter placement")
+        placed = set()
+        for placement in placements:
+            if not isinstance(placement, dict) or set(placement) != {
+                "id",
+                "href",
+                "coverage",
+            }:
+                raise ExpansionError(f"{pid}: invalid chapter placement fields")
+            did = text(placement["id"], f"{pid}.chapter.id")
+            if did not in by_id:
+                raise ExpansionError(f"{pid}: unknown teaching chapter: {did}")
+            if did in placed:
+                raise ExpansionError(f"{pid}: duplicate presentation in chapter: {did}")
+            placed.add(did)
+            if not isinstance(placement["coverage"], str) or placement[
+                "coverage"
+            ] not in {"chapter", "selected"}:
+                raise ExpansionError(f"{pid}: coverage must be chapter or selected")
+            href = text(placement["href"], f"{pid}.href")
+            route = urlsplit(href)
+            if (
+                route.scheme
+                or route.netloc
+                or not re.fullmatch(r"(?:[a-z0-9-]+/)*[a-z0-9-]+\.html", route.path)
+                or (route.fragment and not re.fullmatch(r"[a-z0-9-]+", route.fragment))
+            ):
+                raise ExpansionError(
+                    f"{pid}: expected a local course presentation href"
+                )
+            if not (root / "course" / route.path).is_file():
+                raise ExpansionError(
+                    f"{pid}: missing teaching presentation: {route.path}"
+                )
+            by_id[did]["presentations"].append(
+                {
+                    "id": pid,
+                    "title": title,
+                    "href": href,
+                    "coverage": placement["coverage"],
+                }
+            )
+    return chapters
+
+
+def presentation_identities(chapters):
+    """Build small shared labels so decks never maintain their own chapter numbers."""
+    presentations = {}
+    for chapter in chapters:
+        for presentation in chapter["presentations"]:
+            item = presentations.setdefault(
+                presentation["id"], {"title": presentation["title"], "numbers": []}
+            )
+            item["numbers"].append(chapter["number"])
+    labels = {}
+    for pid, item in presentations.items():
+        numbers = item["numbers"]
+        if len(numbers) > 1 and numbers == list(range(numbers[0], numbers[-1] + 1)):
+            ordinal = f"{numbers[0]}–{numbers[-1]}"
+        else:
+            ordinal = ", ".join(str(number) for number in numbers)
+        labels[pid] = f"{ordinal}. {item['title']}"
+    return (
+        "// Generated from teaching-sequences.json and domain-map.json.\n"
+        "// Run uv run gigawatt-expand; chapter numbering follows the curriculum order.\n"
+        "export const presentationLabels = Object.freeze("
+        + json.dumps(labels, ensure_ascii=False, indent=2).replace("<", "\\u003c")
+        + ");\n"
+    )
+
+
 def load_course(root=ROOT):
     domain_map = read(root / "course/domain-map.json")
     catalog = read(root / "course/research-sources.json")["sources"]
@@ -284,6 +407,9 @@ def load_course(root=ROOT):
         "status": "Authored draft — external expert and learner reviews pending",
         "as_of": domain_map["as_of"],
         "domains": sorted(domain_map["domains"], key=lambda d: order[d["id"]]),
+        "chapters": teaching_chapters(
+            read(root / "course/teaching-sequences.json"), domain_map, lessons, root
+        ),
         "lessons": lessons,
         "sources": [s for s in catalog if s["id"] in used],
         "glossary": glossary,
@@ -291,10 +417,13 @@ def load_course(root=ROOT):
 
 
 def lesson_markdown(
-    l, sources, *, include_source=True, asset_prefix="assets/", domains=()
+    l, sources, *, include_source=True, asset_prefix="assets/", domains=(), chapters=()
 ):
     topics = {d["id"]: d for d in domains}
     topic_title = topics.get(l["domain"], {}).get("title", "Integrated practice")
+    chapter = next((c for c in chapters if c["id"] == l["domain"]), None)
+    if chapter:
+        topic_title = f"{chapter['number']}. {chapter['title']}"
     lines = [
         f"# {l['title']}",
         "",
@@ -450,6 +579,9 @@ def build(root=ROOT, check=False):
     sources = {s["id"]: s for s in data["sources"]}
     outputs = {
         Path("course/index.html"): html,
+        Path("course/prototypes/teaching-navigation.js"): presentation_identities(
+            data["chapters"]
+        ),
         Path("course/expanded-course.json"): json.dumps(
             data, ensure_ascii=False, indent=2
         )
@@ -463,6 +595,11 @@ def build(root=ROOT, check=False):
     )
     sample_data = {
         **data,
+        "chapters": [
+            {**chapter, "lesson_ids": [sample["id"]]}
+            for chapter in data["chapters"]
+            if chapter["id"] == sample["domain"]
+        ],
         "lessons": [sample],
         "sources": [s for s in catalog if s["id"] in sample["source_ids"]],
         "glossary": [{**term, "lesson": sample["id"]} for term in sample["terms"]],
@@ -479,7 +616,10 @@ def build(root=ROOT, check=False):
         template,
     )
     outputs[Path("course/SAMPLE.md")] = lesson_markdown(
-        sample, {s["id"]: s for s in sample_data["sources"]}, domains=data["domains"]
+        sample,
+        {s["id"]: s for s in sample_data["sources"]},
+        domains=data["domains"],
+        chapters=data["chapters"],
     )
     outputs.update(presentation_outputs(root, sample["id"]))
     index = [
@@ -500,9 +640,29 @@ def build(root=ROOT, check=False):
     ]
     for l in data["lessons"]:
         outputs[Path("course/lessons") / (l["id"] + ".md")] = lesson_markdown(
-            l, sources, asset_prefix="../assets/", domains=data["domains"]
+            l,
+            sources,
+            asset_prefix="../assets/",
+            domains=data["domains"],
+            chapters=data["chapters"],
         )
-        index.append(f"- [{l['title']}](lessons/{l['id']}.md) — {l['question']}")
+    for chapter in data["chapters"]:
+        index.extend([f"### {chapter['number']}. {chapter['title']}", ""])
+        for presentation in chapter["presentations"]:
+            scope = (
+                "Selected-topic slides"
+                if presentation["coverage"] == "selected"
+                else "Slides"
+            )
+            index.append(
+                f"- {scope}: [{presentation['title']}]({presentation['href']})"
+            )
+        index.extend(
+            f"- [{l['title']}](lessons/{l['id']}.md) — {l['question']}"
+            for l in data["lessons"]
+            if l["id"] in chapter["lesson_ids"]
+        )
+        index.append("")
     index.extend(
         [
             "",
@@ -529,7 +689,11 @@ def build(root=ROOT, check=False):
             "",
             *[
                 lesson_markdown(
-                    l, sources, include_source=False, domains=data["domains"]
+                    l,
+                    sources,
+                    include_source=False,
+                    domains=data["domains"],
+                    chapters=data["chapters"],
                 ).replace("# ", "## ", 1)
                 for l in data["lessons"]
             ],

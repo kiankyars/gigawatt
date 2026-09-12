@@ -20,9 +20,9 @@ read it end to end.
 A fourteen-scene cooling presentation extends that approach to capture methods,
 CDU ratings and approach, weather and outdoor heat rejection.
 A separate [Primer](prototypes/terminology-format.html) introduces
-electricity basics and recurring terminology before the core course. Its 18 slides
+electricity basics and recurring terminology before the core course. Its 19 slides
 have a 20-minute target that remains provisional until rehearsal.
-The thirteen-scene Data center overview overview remains intact: it tours generation, transmission, campus power, backup,
+The thirteen-scene Data center overview remains intact: it tours generation, transmission, campus power, backup,
 GB300 hardware, compute, networks and cooling before introducing load, energy and PUE.
 The new [Workloads and requirements presentation](prototypes/workload-format.html) has 19 scenes covering
 workload requirements, memory, useful output, batching, latency and job-demand
@@ -42,7 +42,7 @@ and delivery remain pending. Prepare and rehearse one section at a time.
 - **Scope and explicit exclusions:** Modern AI data centers from grid access through useful compute and operation, with the narrative spine of watts to racks and heat back out. Include siting, delivery, economics, and sustainability where they change infrastructure choices. Explain networking and storage far enough to reason about cluster service. Exclude detailed chip fabrication, exhaustive generator technology surveys, investment recommendations, country-by-country permitting instructions, and professional installation, switching, or certification procedures.
 - **Supported platforms or architectural scope, source cut-off, and recording date:** Compare generic architectures and explicitly dated product/site cases; do not promise one universal data-center design. The historical domain baseline began on 2026-09-06. An expanded-course source cut-off and recording date have not been set. Record publication/update and verification dates for each material source before scripting is frozen. Confirm the companion’s supported browser scope before delivery.
 - **Provisional runtime and why the outcomes need that time:** Aim for at least 300 substantive teaching slides across the 15 domains, with roughly ten hours as a provisional course length. At 300 slides, ten hours averages two minutes per slide, including spoken explanation and demonstrations. This is an authoring target, not a finished storyboard; actual runtime follows dry runs. Keep slides concise and earn length through mechanisms, worked examples and learner practice. Avoid the encyclopedic survey: runtime, topics, articles, and named equipment are not success measures. Merge or cut sections that only add facts without improving the learner's reasoning.
-- **Public code, notes, or slides:** The [reader](index.html), [manuscript](EXPANDED_COURSE.md), [domain map](DOMAIN_MAP.md), [teaching sample](teach.html) and [research library](../research/README.md) are the current draft resources. The [source index](README.md) identifies what to edit. The [22-lesson introduction](../diagram/index.html) is retained as a historical baseline. Final chapter timestamps, recorded edition and errata links remain pending.
+- **Public code, notes, or slides:** The [reader](index.html), [manuscript](EXPANDED_COURSE.md), [domain map](DOMAIN_MAP.md), [teaching sample](teach.html) and [research library](../research/README.md) are the current draft resources. The [source index](README.md) identifies what to edit. The historical 22-lesson introduction is retired from the published course; its source remains in the repository as a baseline. Final chapter timestamps, recorded edition and errata links remain pending.
 
 **Explicit anti-pattern: an encyclopedic survey of articles or components.**
 The course follows engineering questions and dependencies. More hours, articles,
@@ -87,7 +87,7 @@ relationships. Current authored lesson-to-objective mappings are generated in
 | [Primer](prototypes/terminology-format.html) | Primer before the data center overview; approximately 20-minute target, pending rehearsal | Rehearse pacing and check that first exposure reduces unfamiliarity without implying mastery |
 | [Reader and lesson notes](index.html)                     | Drafted explanations, worked examples, tradeoffs, failure cases and changed-scenario answers                           | Complete claim review, learner comprehension checks and final narration              |
 | [Five capstones](DOMAIN_MAP.md#proposed-capstones)        | Drafted synthetic briefs and worked solutions; scope belongs to the domain map                                         | Check assumptions and demonstrate transfer across domains                            |
-| [Workloads and requirements — Workloads and requirements](prototypes/workload-format.html) | 19 authored scenes covering the three Workloads and requirements lessons, with numerical comparisons and changed cases | Rehearse explanations, timing and transfer; complete technical and learner review |
+| [Workloads and requirements](prototypes/workload-format.html) | 19 authored scenes covering its three reader lessons, with numerical comparisons and changed cases | Rehearse explanations, timing and transfer; complete technical and learner review |
 | [800 V DC presentation](teach.html)                       | Thirteen authored visual scenes, separate notes, student explanations and shared calculations                               | Rehearse the revised copper/space premise and conversion-placement ending                |
 | [UPS, bypass and redundancy](prototypes/ups-format.html) | Seventeen visual scenes with optional notes, power-path changes and surviving-capacity exercises; part of Continuity, storage and protection | Dry-run the minimal-text format and report unclear mechanisms or terminology |
 | Search, glossary and practice                             | Implemented in the reader                                                                                              | Check findability, first-use vocabulary and learner reasoning                        |
@@ -223,6 +223,30 @@ approach; the 800 V and UPS prototypes are implemented, while the remaining pres
 sequences still need authorship and dry runs.
 
 ### Next teaching step
+
+Keep these follow-ups open as each section is authored. The
+[section handoff checklist](TEACHING_STANDARD.md#required-section-handoffs) identifies
+the case scenes to bring into each presentation; update it with the deck and scene
+links when integration is complete.
+
+- [ ] **Domain check-ins:** connect every applicable teaching sequence to its
+  authored check-in, with a prediction pause, answer reveal and next-section
+  transition. All fifteen exist in the reader; only the overview and workloads
+  presentations currently link directly to theirs.
+- [ ] **Delivery exercise and case integration:** turn the site-built versus
+  prefabricated/modular comparison and the fixed-20 MW rack-density change into
+  a teaching sequence. Preserve electrical, hydraulic, spatial and scheduling
+  reasoning, with an owner and release evidence for each hold. Integrate the six
+  required case treatments listed in the section handoff checklist; standalone
+  case slides and reader coverage do not complete this task.
+- [ ] **Recurring campus:** audit every lesson and presentation for consistent
+  use of the original Crusoe-built Stargate campus in **Abilene, Texas**. Keep
+  dated site facts, illustrative examples, the adjacent Microsoft project and
+  other case-study sites distinct; record the checked sections before closing.
+- [ ] **Primer rehearsal:** teach all nineteen slides aloud with a beginner,
+  record the actual runtime against the approximately 20-minute target, and test
+  whether they can follow part of an expert conversation. Revise the specific
+  unfamiliar terms or missing reasoning; browser checks do not establish this.
 
 The reviewed UPS and 800 V sequences establish the teaching approach for the
 remaining course. Apply their minimal text, explicit boundaries, visible

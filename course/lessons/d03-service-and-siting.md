@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/foundations-power.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/foundations-power.json), lesson `d03-service-and-siting`, then run `uv run gigawatt-expand`.
 
-**Siting, grid connection and supply · Authored draft**
+**4. Siting, grid connection and supply · Authored draft**
 
 Locate the customer meter, calculate grid import and an islanded supply deficit, then combine those limits with a phased site schedule.
 

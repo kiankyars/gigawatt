@@ -26,9 +26,9 @@
   <body>
     <a class="skip" href="#lesson">Skip to lesson</a>
     <header class="mast">
-      <a class="brand" href="#"
+      <a class="brand" href="index.html"
         ><span aria-hidden="true">ϟ</span> GIGAWATT
-        <small>READING COMPANION</small></a
+        <small>THE COURSE</small></a
       >
       <nav aria-label="Course tools">
         <button
@@ -36,17 +36,20 @@
           aria-expanded="false"
           aria-controls="sidebar"
         >
-          Contents</button
-        ><button id="lookup-toggle" aria-pressed="false">Look up</button
-        ><a href="sample.html">Explore the sample ↗</a>
+          Chapters</button
+        ><button id="lookup-toggle" aria-pressed="false">Glossary</button>
       </nav>
     </header>
     <div class="book-layout">
       <aside id="sidebar" class="sidebar">
         <div class="rail-heading">
-          <span>THE LEARNING PATH</span><small id="lesson-count"></small>
+          <span>CHAPTERS</span><small id="lesson-count"></small>
         </div>
-        <label class="search-label" for="search">Find a lesson or concept</label
+        <div class="contents-filter" role="group" aria-label="Show chapters">
+          <button id="all-chapters" aria-pressed="true">All chapters</button>
+          <button id="slides-only" aria-pressed="false">Slides available</button>
+        </div>
+        <label class="search-label" id="search-label" for="search">Find a lesson or concept</label
         ><input
           id="search"
           type="search"
@@ -54,27 +57,13 @@
           autocomplete="off"
         />
         <p id="search-status" class="muted" aria-live="polite"></p>
-        <nav aria-label="Primer" class="domain-group">
-          <h3>Primer · about 20 minutes</h3>
-          <a class="lesson-link" href="prototypes/terminology-format.html"
-            >Electricity basics and recurring terminology ↗</a
-          >
-        </nav>
-        <nav id="contents" aria-label="Lessons"></nav>
-        <div class="rail-foot">
-          <a href="domain-map.html">Domain map ↗</a
-          ><a href="index.html">Full course ↗</a
-          ><a href="prototypes/orientation-format.html">Data center overview ↗</a
-          ><a href="prototypes/workload-format.html">Workloads and requirements ↗</a
-          ><a href="prototypes/case-studies.html">Real campus case studies ↗</a
-          ><a href="sample.html">800 V visual sample ↗</a
-          ><a href="prototypes/ups-format.html">UPS visual sequence ↗</a
-          ><a href="prototypes/cooling-format.html">Cooling visual draft ↗</a
-          ><a href="../diagram/index.html">Historical 22-lesson introduction ↗</a
-          ><a href="../research/INDEX.md">Research library ↗</a
-          ><a href="PRESENTING.md">Review this draft ↗</a>
-          <p>Authored draft · September 2026</p>
-        </div>
+        <nav id="contents" aria-label="Course chapters"></nav>
+        <details class="rail-foot">
+          <summary>Author resources</summary>
+          <a href="domain-map.html">Objectives and prerequisites</a>
+          <a href="COURSE_REVIEW.md">Production follow-ups</a>
+          <a href="../research/INDEX.md">Research library</a>
+        </details>
       </aside>
       <main id="main">
         <section id="lookup" hidden aria-labelledby="lookup-title">
@@ -92,6 +81,7 @@
             <h1 id="title"></h1>
             <p class="lede" id="summary"></p>
             <div class="lesson-meta" id="lesson-meta"></div>
+            <nav id="chapter-slides" aria-label="Presentation for this chapter" hidden></nav>
             <nav id="case-links" aria-label="Case-study slides for this lesson" hidden></nav>
           </div>
           <figure class="illustration">

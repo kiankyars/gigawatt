@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/foundations-power.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/foundations-power.json), lesson `d04-conversion-placement`, then run `uv run gigawatt-expand`.
 
-**Campus and building power distribution · Authored draft**
+**6. Campus and building power distribution · Authored draft**
 
 Compare two complete hypothetical paths at the same delivered boundary, allocate their losses, and test how centralization changes failure and expansion exposure.
 

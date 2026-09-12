@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/foundations-power.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/foundations-power.json), lesson `d02-workload-brief`, then run `uv run gigawatt-expand`.
 
-**Workloads and the infrastructure brief · Authored draft**
+**3. Workloads and requirements · Authored draft**
 
 Turn contrasting training and inference requests into explicit compute, memory, communication, storage, and service requirements.
 

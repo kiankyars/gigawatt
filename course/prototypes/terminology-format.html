@@ -368,6 +368,8 @@
 <dialog id="reading" aria-labelledby="reading-title"><header><h2 id="reading-title">Primer</h2><button id="close-reading" aria-label="Close explanation">×</button></header><h3 id="explanation-title"></h3><p id="explanation"></p><details id="teaching-cues" hidden><summary>Rehearsal cue</summary><p id="timing"></p><p>Introduce the name and point at what it describes. Allow about twenty minutes, pending an aloud rehearsal.</p></details></dialog>
 <noscript><p>JavaScript enables the interactive diagrams. A complete circuit carries current from a source through a load and back. Voltage is measured across two points, current through a path, power in watts, and energy in watt-hours.</p></noscript>
 <script type="module">
+import { presentationLabels } from './teaching-navigation.js';
+document.querySelector('main > header > .eyebrow').textContent = presentationLabels.primer;
 import {scenes,sceneAliases} from './terminology-scenes.js';
 import {renderTerminology} from './terminology-visuals.js';
 const $=id=>document.getElementById(id);
@@ -384,7 +386,7 @@ function draw(){
 }
 function render(){
  const s=scenes[index];
- $('title').textContent=s.title;document.title=`Primer · ${s.label} · GIGAWATT`;
+ $('title').textContent=s.title;document.title=`${presentationLabels.primer} · ${s.label} · GIGAWATT`;
  $('scenes').value=String(index);$('progress').textContent=`${index+1} / ${scenes.length}`;
  $('previous').disabled=index===0;$('next').disabled=index===scenes.length-1;
  $('actions').innerHTML=s.options?`<div class="choices" role="group" aria-label="${s.group}"><span class="choices-label" aria-hidden="true">${s.group}</span>${s.options.map(([value,label])=>`<button data-setting="${s.key}" data-value="${value}" aria-pressed="${state[s.key]===value}">${label}</button>`).join('')}</div>`:'';

@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/foundations-power.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/foundations-power.json), lesson `d01-metrics-and-evidence`, then run `uv run gigawatt-expand`.
 
-**System boundaries and quantities · Authored draft**
+**2. Data center overview · Authored draft**
 
 Reconcile facility and IT metrics, then separate engineering laws, scenarios, product specifications, and operating evidence.
 

@@ -358,6 +358,8 @@
 </ul></details><p><a id="lesson-reference" href="../index.html#d02-workload-brief">Read the expanded lesson →</a></p><nav class="route-links" aria-label="Course sequence"><a href="orientation-format.html">← Data center overview</a><a href="../index.html?checkin=1#d02-phases-and-envelopes">Check your understanding →</a></nav><p class="scope">19 authored scenes · Ready for a dry run, not a completed technical or learner review. Use ← / → to navigate, R for an available reveal, and F for fullscreen in teaching mode.</p></dialog>
 <noscript><p>This interactive presentation needs JavaScript. Read the same reasoning in <a href="../lessons/d02-workload-brief.md">the workload brief</a>, <a href="../lessons/d02-productive-utilization.md">productive utilization</a> and <a href="../lessons/d02-phases-and-envelopes.md">phases and envelopes</a>.</p></noscript>
 <script type="module">
+import { presentationLabels } from './teaching-navigation.js';
+document.title = `${presentationLabels.workloads} · GIGAWATT`;
 import { scenes, initialState } from './workload-scenes.js';
 import { renderWorkload } from './workload-visuals.js';
 const $=id=>document.getElementById(id), state={...initialState};

@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/foundations-power.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/foundations-power.json), lesson `d02-productive-utilization`, then run `uv run gigawatt-expand`.
 
-**Workloads and the infrastructure brief · Authored draft**
+**3. Workloads and requirements · Authored draft**
 
 Read allocation, execution, waiting, power, and accepted output as separate traces instead of treating one utilization percentage as the answer.
 

@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/heat-delivery-operations.json), lesson `d12-safety-and-control-boundaries`, then run `uv run gigawatt-expand`.
 
-**Physical site, buildings and safety · Authored draft**
+**5. Physical site, buildings and safety · Authored draft**
 
 Draw hazard and access boundaries around equipment and control systems, then trace an original shared-dependency scenario.
 

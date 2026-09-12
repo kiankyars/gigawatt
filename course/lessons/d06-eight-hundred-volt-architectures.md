@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/racks-compute-heat.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/racks-compute-heat.json), lesson `d06-eight-hundred-volt-architectures`, then run `uv run gigawatt-expand`.
 
-**Rack power and the 800 V DC transition · Authored draft**
+**8. Rack power and the 800 V DC transition · Authored draft**
 
 Compare three declared architectures while preserving their conversion, storage and protection interfaces.
 

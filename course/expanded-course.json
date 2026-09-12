@@ -982,6 +982,242 @@
       "failure": "A technically successful upgrade leaves a separate delivery, network or workload constraint binding."
     }
   ],
+  "chapters": [
+    {
+      "id": "primer",
+      "number": 1,
+      "title": "Primer",
+      "lesson_ids": [],
+      "presentations": [
+        {
+          "id": "primer",
+          "title": "Primer",
+          "href": "prototypes/terminology-format.html?teach=1",
+          "coverage": "chapter"
+        }
+      ]
+    },
+    {
+      "id": "D01",
+      "number": 2,
+      "title": "Data center overview",
+      "lesson_ids": [
+        "d01-boundaries",
+        "d01-power-over-time",
+        "d01-metrics-and-evidence"
+      ],
+      "presentations": [
+        {
+          "id": "overview",
+          "title": "Data center overview",
+          "href": "prototypes/orientation-format.html?teach=1",
+          "coverage": "chapter"
+        }
+      ]
+    },
+    {
+      "id": "D02",
+      "number": 3,
+      "title": "Workloads and requirements",
+      "lesson_ids": [
+        "d02-workload-brief",
+        "d02-productive-utilization",
+        "d02-phases-and-envelopes"
+      ],
+      "presentations": [
+        {
+          "id": "workloads",
+          "title": "Workloads and requirements",
+          "href": "prototypes/workload-format.html?teach=1",
+          "coverage": "chapter"
+        }
+      ]
+    },
+    {
+      "id": "D03",
+      "number": 4,
+      "title": "Siting, grid connection and supply",
+      "lesson_ids": [
+        "d03-power-and-procurement",
+        "d03-voltage-and-distance",
+        "d03-service-and-siting"
+      ],
+      "presentations": []
+    },
+    {
+      "id": "D12",
+      "number": 5,
+      "title": "Physical site, buildings and safety",
+      "lesson_ids": [
+        "d12-room-and-replacement-route",
+        "d12-hazards-and-site-evidence",
+        "d12-safety-and-control-boundaries"
+      ],
+      "presentations": []
+    },
+    {
+      "id": "D04",
+      "number": 6,
+      "title": "Campus and building power distribution",
+      "lesson_ids": [
+        "d04-read-the-power-train",
+        "d04-current-and-rating",
+        "d04-conversion-placement"
+      ],
+      "presentations": []
+    },
+    {
+      "id": "D05",
+      "number": 7,
+      "title": "Continuity, storage and protection",
+      "lesson_ids": [
+        "d05-storage-power-and-time",
+        "d05-paths-and-transitions",
+        "d05-protection-and-fault-domains"
+      ],
+      "presentations": [
+        {
+          "id": "ups",
+          "title": "UPS, bypass and redundancy",
+          "href": "prototypes/ups-format.html",
+          "coverage": "selected"
+        }
+      ]
+    },
+    {
+      "id": "D06",
+      "number": 8,
+      "title": "Rack power and the 800 V DC transition",
+      "lesson_ids": [
+        "d06-conversion-ledger",
+        "d06-eight-hundred-volt-architectures",
+        "d06-rack-migration"
+      ],
+      "presentations": [
+        {
+          "id": "rack-800v",
+          "title": "800 V DC",
+          "href": "teach.html",
+          "coverage": "selected"
+        }
+      ]
+    },
+    {
+      "id": "D07",
+      "number": 9,
+      "title": "Compute, memory and the rack",
+      "lesson_ids": [
+        "d07-data-path",
+        "d07-bottleneck-model",
+        "d07-rack-as-system"
+      ],
+      "presentations": []
+    },
+    {
+      "id": "D08",
+      "number": 10,
+      "title": "Networking and interconnects",
+      "lesson_ids": [
+        "d08-topology-budget",
+        "d08-collective-progress",
+        "d08-copper-light-service"
+      ],
+      "presentations": []
+    },
+    {
+      "id": "D09",
+      "number": 11,
+      "title": "Storage, orchestration and recovery",
+      "lesson_ids": [
+        "d09-storage-paths",
+        "d09-checkpoint-timeline",
+        "d09-service-acceptance"
+      ],
+      "presentations": []
+    },
+    {
+      "id": "D10",
+      "number": 12,
+      "title": "Chip and rack heat capture",
+      "lesson_ids": [
+        "d10-local-thermal-paths",
+        "d10-flow-and-pressure",
+        "d10-cdu-interfaces"
+      ],
+      "presentations": [
+        {
+          "id": "cooling",
+          "title": "From the chip to the outdoors",
+          "href": "prototypes/cooling-format.html?teach=1",
+          "coverage": "selected"
+        }
+      ]
+    },
+    {
+      "id": "D11",
+      "number": 13,
+      "title": "Heat rejection, climate and water",
+      "lesson_ids": [
+        "d11-heat-rejection",
+        "d11-weather-and-operating-envelope",
+        "d11-water-and-heat-reuse"
+      ],
+      "presentations": [
+        {
+          "id": "cooling",
+          "title": "From the chip to the outdoors",
+          "href": "prototypes/cooling-format.html?teach=1#rejection",
+          "coverage": "selected"
+        }
+      ]
+    },
+    {
+      "id": "D13",
+      "number": 14,
+      "title": "Design, procurement and commissioning",
+      "lesson_ids": [
+        "d13-delivery-dependencies",
+        "d13-interface-contracts",
+        "d13-commissioning-complete-paths"
+      ],
+      "presentations": []
+    },
+    {
+      "id": "D14",
+      "number": 15,
+      "title": "Controls, operations and reliability",
+      "lesson_ids": [
+        "d14-telemetry-and-observability",
+        "d14-coordinating-control-and-work",
+        "d14-maintenance-and-service-reliability"
+      ],
+      "presentations": []
+    },
+    {
+      "id": "D15",
+      "number": 16,
+      "title": "Capacity, cost and system decisions",
+      "lesson_ids": [
+        "d15-capacity-ledger",
+        "d15-cost-per-service",
+        "d15-upgrade-and-evidence"
+      ],
+      "presentations": []
+    },
+    {
+      "id": "capstone",
+      "number": 17,
+      "title": "Put the system together",
+      "lesson_ids": [
+        "c01-coupled-outage",
+        "c02-weather-capacity",
+        "c03-density-retrofit",
+        "c04-stalled-job",
+        "c05-open-a-phase"
+      ],
+      "presentations": []
+    }
+  ],
   "lessons": [
     {
       "id": "d01-boundaries",

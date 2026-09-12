@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/heat-delivery-operations.json), lesson `d14-coordinating-control-and-work`, then run `uv run gigawatt-expand`.
 
-**Controls, operations and reliability · Authored draft**
+**15. Controls, operations and reliability · Authored draft**
 
 Separate fast local control, plant-level coordination and workload decisions, then account for a stipulated delay and thermal-energy buffer.
 

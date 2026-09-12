@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/heat-delivery-operations.json), lesson `d14-maintenance-and-service-reliability`, then run `uv run gigawatt-expand`.
 
-**Controls, operations and reliability · Authored draft**
+**15. Controls, operations and reliability · Authored draft**
 
 Evaluate maintenance against surviving capacity, calculate a defined service metric and build an evidence-based incident explanation.
 

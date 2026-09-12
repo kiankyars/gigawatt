@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/heat-delivery-operations.json), lesson `d12-room-and-replacement-route`, then run `uv run gigawatt-expand`.
 
-**Physical site, buildings and safety · Authored draft**
+**5. Physical site, buildings and safety · Authored draft**
 
 Separate white and grey space, equipment footprints, service and movement envelopes, and the loads actually applied to a structure.
 

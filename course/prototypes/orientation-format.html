@@ -557,6 +557,8 @@
       </p></noscript
     >
     <script type="module">
+      import { presentationLabels } from './teaching-navigation.js';
+      document.querySelector('main .eyebrow').textContent = presentationLabels.overview;
       import { renderSpatial } from "./orientation-spatial.js";
       import { renderQuantities } from "./orientation-quantities.js";
       import { renderPowerTour } from "./orientation-power-tour.js";
@@ -769,7 +771,7 @@
       function render() {
         const s = scenes[index];
         $("title").textContent = s.title;
-        document.title = `${s.label} · GIGAWATT`;
+        document.title = `${presentationLabels.overview} · ${s.label} · GIGAWATT`;
         $("scenes").value = String(index);
         $("progress").textContent = `${index + 1} / ${scenes.length}`;
         $("previous").disabled = index === 0;
