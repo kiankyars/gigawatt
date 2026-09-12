@@ -2510,6 +2510,22 @@
       ],
       "use": "Dated identification of integrated filtration and service access for pumps, filters and sensors.",
       "caution": "2025 product description. Comparative performance, availability and footprint-density claims are not reused as current specifications. Current procurement needs current selection data."
+    },
+    {
+      "id": "P54",
+      "title": "OCP — Data Center Facility: Low Voltage Direct Current Power Distribution, v1.0",
+      "url": "https://www.opencompute.org/documents/dcf-power-distribution-lvdc-white-paper-version-1-0-final-pdf-1",
+      "publisher": "Open Compute Project",
+      "kind": "technical white paper",
+      "published_on": "2026-03-30",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-11",
+      "domains": [
+        "D04",
+        "D06"
+      ],
+      "use": "Compare representative LVDC distribution architectures and their conversion boundaries. Related context for the supplied three-column traditional AC, sidecar and direct-MV-DC image.",
+      "caution": "Introduction and document metadata inspected. The exact origin of the user-supplied image remains unverified. Do not assign a figure number, mandate this topology, or treat these alternatives as a dated deployment sequence."
     }
   ]
 }

@@ -132,6 +132,24 @@
         "At the same delivered power, the stated equal-geometry comparison uses two current-carrying copper conductors instead of three. Moving AC-to-DC conversion out of the compute rack frees its occupied rack space. A sidecar still occupies nearby hall space; upstream conversion can move that equipment to the power room.",
         "These are the physical changes the lesson set out to explain. Overall hall footprint and facility energy savings require the actual equipment arrangement and losses."
       ]
+    },
+    {
+      "heading": "Compare the three distribution paths side by side",
+      "paragraphs": [
+        "Trace each column from medium-voltage input to the rack. Traditional AC keeps lower-voltage AC distribution through the hall. The DC sidecar retains those upstream stages, then creates an 800 V DC interface near the rack. The third path makes 800 V DC upstream of the hall distribution and busway through a medium-voltage conversion system.",
+        "The right-hand column is a direct-medium-voltage design. It differs from the preceding transformer-plus-low-voltage-rectifier example: both can feed an 800 V DC hall. A compact system block does not mean that voltage reduction, isolation, storage, protection or downstream rack DC/DC conversion cease to be necessary functions where the design requires them. The diagram leaves several of these functions out.",
+        "Use this drawing to compare conversion placement and AC/DC interfaces. It has no deployment dates and does not prove an efficiency percentage or equipment readiness. Keep the dated SemiAnalysis roadmap separate from these architectural alternatives."
+      ],
+      "figures": [
+        {
+          "asset": "references/ocp-ac-sidecar-direct-mvdc.png",
+          "alt": "Three electrical paths. Traditional AC: medium-voltage AC, step-down transformer, AC switchboards, AC PDUs, AC IT racks. DC sidecar: the same upstream AC stages followed by a rack-level AC-to-800-V-DC rectifier and 800-V-DC IT racks. Direct medium-voltage DC: medium-voltage rectifier or solid-state transformer, 800-V-DC distribution, DC busway and DC IT racks. Yellow denotes 10 to 35 kV, blue 400 to 480 V, and green 800 V DC.",
+          "caption": "User-supplied figure, attributed to the Open Compute Project; the original publication has not yet been identified. The linked OCP paper provides related LVDC architecture context. The right-hand path depicts direct medium-voltage conversion, not the conventional transformer-plus-low-voltage-rectifier route. These are selected conversion and distribution functions, not complete power or protection designs.",
+          "source_url": "https://www.opencompute.org/documents/dcf-power-distribution-lvdc-white-paper-version-1-0-final-pdf-1",
+          "source_title": "Related OCP LVDC architecture paper",
+          "credit": "User-supplied figure · attributed to OCP"
+        }
+      ]
     }
   ],
   "example": {
@@ -265,6 +283,13 @@
       "claim": "Eaton lists a 2 MW MVSST with 12.47 kV nominal input and 800 V DC output, demonstrating a direct-MV product offering.",
       "reviewed_on": "2026-09-11",
       "limits": "Manufacturer product listing reviewed on 2026-09-11. Offered specifications do not establish installed capacity, deployment prevalence, lead time or a measured efficiency advantage."
+    },
+    {
+      "title": "OCP — Data Center Facility: Low Voltage Direct Current Power Distribution, v1.0",
+      "url": "https://www.opencompute.org/documents/dcf-power-distribution-lvdc-white-paper-version-1-0-final-pdf-1",
+      "claim": "Context for representative LVDC power-distribution architectures; not a confirmed source for the supplied three-column figure.",
+      "reviewed_on": "2026-09-11",
+      "limits": "Introduction and document metadata inspected. The exact origin of the user-supplied image remains unverified. Do not assign a figure number, mandate this topology, or treat these alternatives as a dated deployment sequence."
     }
   ],
   "terms": [

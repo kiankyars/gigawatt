@@ -40,3 +40,9 @@ the missing attachment's image UUID; the supplied NVIDIA/Wolfspeed PNG is unchan
 The Schneider Easy UPS product-family photograph is an official external view.
 Its two pictured cabinets do not establish a UPS/battery pairing or redundancy
 configuration; use the manufacturer's documentation for those relationships.
+
+The user-supplied three-column AC / DC sidecar / direct-MV-DC figure is embedded
+in the 800 V teaching sequence and D06 reference. Its attribution to OCP is from
+the user; the exact publication is still unverified. The linked OCP LVDC paper
+is related context. The PNG is unchanged; these alternatives carry no adoption
+dates and do not specify complete protection or storage arrangements.

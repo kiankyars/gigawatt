@@ -10,6 +10,7 @@ const variants = {
   "heat-path": [null],
   "capture-options": ["air", "coldplate", "rear-door", "immersion"],
   "cold-plate": [null],
+  "water-balance": ["2.5", "5"],
   approach: [null],
   "coolit-cdu": ["true", "false"],
   rejection: [null],
@@ -93,7 +94,7 @@ async function checkDiagramGeometry(page, state) {
           await go(id);
           assert.equal(await page.locator("h1:visible").count(), 1);
           assert.equal(await page.locator("#fullscreen").isVisible(), false);
-          assert.equal(await page.locator("#scenes option").count(), 11);
+          assert.equal(await page.locator("#scenes option").count(), 12);
           for (const selected of states) {
             if (selected === "restored")
               await page.locator("#toggle-facility").click();
@@ -164,6 +165,29 @@ async function checkDiagramGeometry(page, state) {
               ])
                 assert.ok(content.includes(word), `${name}: missing ${word}`);
             }
+            if (id === "water-balance") {
+              const m = await page
+                .locator("[data-flow-kg-s]")
+                .evaluate((e) => ({
+                  flow: Number(e.dataset.flowKgS),
+                  heat: Number(e.dataset.heatKw),
+                  inlet: Number(e.dataset.inletC),
+                  outlet: Number(e.dataset.outletC),
+                  rise: Number(e.dataset.riseK),
+                }));
+              assert.equal(m.flow, Number(selected));
+              assert.equal(m.heat, 100);
+              assert.equal(m.inlet, 35);
+              assert.ok(Math.abs(m.flow * 4.18 * m.rise - m.heat) < 1e-10);
+              assert.ok(Math.abs(m.outlet - m.inlet - m.rise) < 1e-10);
+              assert.match(content, /Steady-flow sensible-heat balance/);
+              assert.ok(
+                content.includes(selected === "5" ? "39.78°C" : "44.57°C"),
+              );
+              assert.ok(
+                content.includes(selected === "5" ? "4.78 K" : "9.57 K"),
+              );
+            }
             if (id === "approach") assert.match(content, /35 − 30 = 5 K/);
             if (id === "capture-options" && selected === "air")
               assert.match(content, /CRAH/);
@@ -199,8 +223,7 @@ async function checkDiagramGeometry(page, state) {
           }
         }
         for (const [oldId, newId] of Object.entries({
-          "water-balance": "why-liquid",
-          "less-flow": "why-liquid",
+          "less-flow": "water-balance",
           "two-loops": "heat-path",
           outdoors: "rejection",
           trace: "heat-path",

@@ -3,7 +3,7 @@
   "id": "sample-800v-presentation",
   "source_lesson_id": "sample-800v",
   "title": "800 V DC: less copper, room for compute",
-  "planned_duration_seconds": 1020,
+  "planned_duration_seconds": 1110,
   "timing_note": "Dry-run allowances only; revise from actual explanation and discussion rather than filling a runtime target.",
   "review_state": "Learner-feedback revision: explicit single-phase power dips, three-pair voltage explanation, scoped converter losses and attributed architecture forecasts. Ready for the next dry run.",
   "defaults": {
@@ -298,6 +298,35 @@
       ],
       "pedagogical_role": "architecture",
       "roadmap_label": "Phase 3 · late 2028/2029"
+    },
+    {
+      "id": "ocp-power-architectures",
+      "title": "Upstream rectification replaces AC distribution in the hall.",
+      "headline": "Upstream rectification replaces AC distribution in the hall.",
+      "kind": "source-figure",
+      "pedagogical_role": "architecture",
+      "duration_seconds": 90,
+      "cue": "Trace each column down to the rack, then locate the boundary where AC becomes DC.",
+      "notes": [
+        "Left: AC remains in the hall; middle: near-rack rectification retains upstream AC equipment.",
+        "Right: direct MV-to-800-V-DC conversion replaces the separate transformer and low-voltage rectifier with a system interface.",
+        "Compare with the prior slide: an 800 V DC hall also works with a conventional upstream transformer.",
+        "The drawing compares selected functions; it neither dates adoption nor specifies a complete protected power path."
+      ],
+      "explanation": [
+        "Trace each column from medium-voltage input to the rack. Traditional AC keeps lower-voltage AC distribution through the hall. The DC sidecar retains those upstream stages, then creates an 800 V DC interface near the rack. The third path makes 800 V DC upstream of the hall distribution and busway through a medium-voltage conversion system.",
+        "The right-hand column is a direct-medium-voltage design. It differs from the preceding transformer-plus-low-voltage-rectifier example: both can feed an 800 V DC hall. A compact system block does not mean that voltage reduction, isolation, storage, protection or downstream rack DC/DC conversion cease to be necessary functions where the design requires them. The diagram leaves several of these functions out.",
+        "Use this drawing to compare conversion placement and AC/DC interfaces. It has no deployment dates and does not prove an efficiency percentage or equipment readiness. Keep the dated SemiAnalysis roadmap separate from these architectural alternatives.",
+        "The supplied image is preserved unchanged. Kian attributes it to the Open Compute Project; its original publication has not yet been identified. The linked OCP LVDC paper is related context, not a verified source for this exact image."
+      ],
+      "figure": {
+        "asset": "references/ocp-ac-sidecar-direct-mvdc.png",
+        "alt": "Three electrical paths. Traditional AC: medium-voltage AC, step-down transformer, AC switchboards, AC PDUs, AC IT racks. DC sidecar: the same upstream AC stages followed by a rack-level AC-to-800-V-DC rectifier and 800-V-DC IT racks. Direct medium-voltage DC: medium-voltage rectifier or solid-state transformer, 800-V-DC distribution, DC busway and DC IT racks. Yellow denotes 10 to 35 kV, blue 400 to 480 V, and green 800 V DC.",
+        "caption": "User-supplied figure, attributed to the Open Compute Project; the original publication has not yet been identified. The linked OCP paper provides related LVDC architecture context. The right-hand path depicts direct medium-voltage conversion, not the conventional transformer-plus-low-voltage-rectifier route. These are selected conversion and distribution functions, not complete power or protection designs.",
+        "source_url": "https://www.opencompute.org/documents/dcf-power-distribution-lvdc-white-paper-version-1-0-final-pdf-1",
+        "source_title": "Related OCP LVDC architecture paper",
+        "credit": "User-supplied figure · attributed to OCP"
+      }
     }
   ],
   "sources": [
@@ -363,6 +392,13 @@
       "claim": "Compare transformer-plus-rectifier and SST architectures for 800 V DC; separate system voltage from per-device voltage.",
       "reviewed_on": "2026-09-10",
       "limits": "Reviewed Figure 1 and Sections II–IV. The study includes a 13.2 kV cascaded design using 1,200 V devices. Efficiency and density results belong to its 2022 models and are not current universal rankings."
+    },
+    {
+      "title": "OCP — Data Center Facility: Low Voltage Direct Current Power Distribution, v1.0",
+      "url": "https://www.opencompute.org/documents/dcf-power-distribution-lvdc-white-paper-version-1-0-final-pdf-1",
+      "claim": "Context for representative LVDC power-distribution architectures; not a confirmed source for the supplied three-column figure.",
+      "reviewed_on": "2026-09-11",
+      "limits": "Introduction and document metadata inspected. The exact origin of the user-supplied image remains unverified. Do not assign a figure number, mandate this topology, or treat these alternatives as a dated deployment sequence."
     }
   ],
   "aliases": {

@@ -469,6 +469,7 @@ Reconcile IT and auxiliary loads with a downstream electrical capacity budget ac
 - [P43 — Hitachi Energy — Core-type transformers](https://www.hitachienergy.com/products-and-solutions/transformers/power-transformers/generator-step-up-transformers-gsu/core-type-transformers) · `page_reviewed` · [local note](../research/sources/P43.md)
 - [P44 — Schneider Electric — AA and AA/FA transformer cooling](https://www.se.com/ca/en/faqs/FA102583/) · `page_reviewed` · [local note](../research/sources/P44.md)
 - [P45 — Eaton — Medium-voltage solid-state transformer](https://www.eaton.com/us/en-us/catalog/medium-voltage-power-distribution-control-systems/medium-voltage-solid-state-transformer.html) · `page_reviewed` · [local note](../research/sources/P45.md)
+- [P54 — OCP — Data Center Facility: Low Voltage Direct Current Power Distribution, v1.0](https://www.opencompute.org/documents/dcf-power-distribution-lvdc-white-paper-version-1-0-final-pdf-1) · `public_excerpt_reviewed` · [local note](../research/sources/P54.md)
 
 <a id="d05"></a>
 
@@ -678,6 +679,7 @@ Explain how retrofit constraints can reverse a seemingly attractive greenfield a
 - [P43 — Hitachi Energy — Core-type transformers](https://www.hitachienergy.com/products-and-solutions/transformers/power-transformers/generator-step-up-transformers-gsu/core-type-transformers) · `page_reviewed` · [local note](../research/sources/P43.md)
 - [P44 — Schneider Electric — AA and AA/FA transformer cooling](https://www.se.com/ca/en/faqs/FA102583/) · `page_reviewed` · [local note](../research/sources/P44.md)
 - [P45 — Eaton — Medium-voltage solid-state transformer](https://www.eaton.com/us/en-us/catalog/medium-voltage-power-distribution-control-systems/medium-voltage-solid-state-transformer.html) · `page_reviewed` · [local note](../research/sources/P45.md)
+- [P54 — OCP — Data Center Facility: Low Voltage Direct Current Power Distribution, v1.0](https://www.opencompute.org/documents/dcf-power-distribution-lvdc-white-paper-version-1-0-final-pdf-1) · `public_excerpt_reviewed` · [local note](../research/sources/P54.md)
 
 <a id="d07"></a>
 

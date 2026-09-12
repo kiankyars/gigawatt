@@ -47,8 +47,8 @@ let browser;
     data.steps.slice(1, 5).map((s) => s.kind),
     ["dc-basics", "ac-basics", "three-phase", "voltage-basis"],
   );
-  assert.equal(data.steps.at(-1).id, "conversion-farther-upstream");
-  assert.equal(data.steps.at(-1).kind, "facility");
+  assert.equal(data.steps.at(-1).id, "ocp-power-architectures");
+  assert.equal(data.steps.at(-1).kind, "source-figure");
   assert.ok(!JSON.stringify(data).toLowerCase().includes("recording setup"));
   const pathStep = stepById("ac-dc-ledger");
   assert.doesNotMatch(
@@ -95,8 +95,22 @@ let browser;
         );
         assert.equal(
           await page.locator("#next").isDisabled(),
-          step.id === "conversion-farther-upstream",
+          step.id === data.steps.at(-1).id,
         );
+        if (step.kind === "source-figure") {
+          const picture = page.locator(".source-figure img");
+          await picture.evaluate((img) => img.decode());
+          assert.equal(await picture.evaluate((img) => img.naturalWidth), 936);
+          assert.ok(await picture.getAttribute("alt"));
+          const bounds = await picture.boundingBox();
+          assert.ok(bounds.x >= 0 && bounds.x + bounds.width <= viewport.width + 1);
+          const figure = await page.locator(".source-figure").boundingBox();
+          const heading = await page.locator("#scene-title").boundingBox();
+          const footer = await page.locator(".transport").boundingBox();
+          assert.ok(figure.y >= heading.y + heading.height, "Figure overlaps headline");
+          assert.ok(figure.y + figure.height <= footer.y, "Figure attribution overlaps navigation");
+          await page.screenshot({ path: `${output}/${mode}-ocp-${viewport.width}.png` });
+        }
         if (step.kind === "conversion-loss") {
           assert.equal(await page.locator(".stepdown-path section").count(), 3);
           const supplyBounds = await page.evaluate(() => ({
@@ -437,7 +451,7 @@ let browser;
     .locator(stepSelector("#steps", "conversion-farther-upstream"))
     .click();
   await notes.waitForURL(/#conversion-farther-upstream$/);
-  assert.equal(await page.locator("#next").isDisabled(), true);
+  assert.equal(await page.locator("#next").isDisabled(), false);
   assert.doesNotMatch(
     await page.locator("#visual").innerText(),
     /200 kW|250 A/,
@@ -593,16 +607,16 @@ let browser;
     layout_states: layouts.length,
     layouts,
     checks: [
-      "Twelve visual steps and three reveal states in teaching and student modes at five viewport sizes",
+      "Thirteen visual steps and three reveal states in teaching and student modes at five viewport sizes",
       "Teaching notes excluded from visuals and no recording-setup instructions",
       "No teaching-view scroll at 1920×1080, 1280×720 or 1024×768",
       "No horizontal overflow or clipped labels on phone and short landscape",
-      "Student explanations expand for all twelve steps at all five sizes",
+      "Student explanations expand for all thirteen steps at all five sizes",
       "Student mode hides notes/fullscreen and P/F shortcuts do not activate them",
       "Prediction before reveal for currents, conductor loss, the single converter energy balance",
       "Equal-geometry copper comparison: three bars versus two, 33.3% less conductor copper",
       "Moved conversion: sidecar retains upstream AC and nearby footprint; facility DC moves conversion to power room",
-      "All twelve footer steps remain accessible without horizontal overflow; upstream conversion resolves the architecture question",
+      "All thirteen footer steps remain accessible without horizontal overflow; the OCP source figure closes the architecture comparison",
       "480 V balanced three-phase AC versus 800 V DC: current, conductor count, 72% heat ratio and energy balance",
       "Single converter balance at an explicit illustrative 98% efficiency",
       "Keyboard advance after reveal and slider keyboard ownership",

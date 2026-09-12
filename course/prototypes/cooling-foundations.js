@@ -1,4 +1,8 @@
-import { heatTransportComparison } from "./cooling-model.js?v=20260911-cooling2";
+import {
+  heatTransportComparison,
+  liquidHeatBalance,
+  COOLING_EXAMPLE,
+} from "./cooling-model.js?v=20260911-cooling2";
 const text = (x, y, value, cls = "svg-label", owner = "", anchor = "start") =>
   `<text x="${x}" y="${y}" class="${cls}" text-anchor="${anchor}"${owner ? ` data-label-for="foundation-${owner}"` : ""}>${value}</text>`;
 const box = (id, x, y, w, h, cls = "panel") =>
@@ -117,6 +121,139 @@ function whyLiquid(compact) {
       "middle",
     )
   );
+}
+
+function waterBalance(compact, state) {
+  const flowKgS = state.flow === 5 ? 5 : 2.5;
+  const m = liquidHeatBalance({ heatKw: COOLING_EXAMPLE.heatKw, flowKgS });
+  const inletC = 35;
+  const outletC = inletC + m.deltaTK;
+  const temperature = (x, y, value, label, compact) =>
+    text(x, y - (compact ? 26 : 37), label, "svg-small", "", "middle") +
+    text(
+      x,
+      y,
+      `${value.toFixed(2)}°C`,
+      compact ? "svg-label" : "svg-equation",
+      "",
+      "middle",
+    );
+  const output = compact
+    ? text(
+        186,
+        25,
+        "SELECTED LIQUID PATH · STEADY STATE",
+        "svg-tiny",
+        "",
+        "middle",
+      ) +
+      text(186, 73, "100 kW", "svg-number heat-text", "", "middle") +
+      path("M186 83 V113", "heat", true) +
+      box("pickup", 108, 118, 156, 104) +
+      text(186, 147, "Heat pickup", "svg-label", "pickup", "middle") +
+      path("M16 187 H356", "tech") +
+      path("M51 187 H101", "tech", true) +
+      path("M274 187 H348", "tech", true) +
+      temperature(51, 162, inletC, "Inlet", true) +
+      temperature(319, 162, outletC, "Outlet", true) +
+      text(186, 280, `${flowKgS} kg/s`, "svg-number tech-text", "", "middle") +
+      text(
+        186,
+        329,
+        `ΔT = ${m.deltaTK.toFixed(2)} K`,
+        "svg-number heat-text",
+        "",
+        "middle",
+      ) +
+      text(
+        186,
+        381,
+        "Steady-flow sensible-heat balance",
+        "svg-label",
+        "",
+        "middle",
+      ) +
+      text(186, 418, "Q̇ = ṁ cₚ ΔT", "svg-equation", "", "middle") +
+      text(
+        186,
+        449,
+        `100 ÷ (${flowKgS} × 4.18) ≈ ${m.deltaTK.toFixed(2)} K`,
+        "svg-label",
+        "",
+        "middle",
+      ) +
+      text(24, 488, "Q̇ heat rate · ṁ mass flow", "svg-small") +
+      text(24, 511, "cₚ specific heat · ΔT coolant rise", "svg-small") +
+      text(
+        186,
+        552,
+        "Water cₚ = 4.18 kJ/(kg·K) · inlet fixed at 35°C",
+        "svg-small",
+        "",
+        "middle",
+      )
+    : text(
+        334,
+        29,
+        "SELECTED LIQUID PATH · STEADY STATE",
+        "svg-tiny",
+        "",
+        "middle",
+      ) +
+      text(334, 88, "100 kW", "svg-number heat-text", "", "middle") +
+      path("M334 99 V133", "heat", true) +
+      box("pickup", 232, 138, 204, 108) +
+      text(334, 168, "Heat pickup", "svg-label", "pickup", "middle") +
+      path("M59 213 H608", "tech") +
+      path("M152 213 H224", "tech", true) +
+      path("M446 213 H583", "tech", true) +
+      temperature(131, 181, inletC, "Inlet", false) +
+      temperature(540, 181, outletC, "Outlet", false) +
+      text(
+        334,
+        306,
+        `${flowKgS} kg/s water`,
+        "svg-number tech-text",
+        "",
+        "middle",
+      ) +
+      text(
+        334,
+        359,
+        `ΔT = ${m.deltaTK.toFixed(2)} K`,
+        "svg-number heat-text",
+        "",
+        "middle",
+      ) +
+      text(
+        334,
+        397,
+        "Inlet held at 35°C · coolant temperature, not chip temperature",
+        "svg-small",
+        "",
+        "middle",
+      ) +
+      text(
+        869,
+        94,
+        "Steady-flow sensible-heat balance",
+        "svg-label",
+        "",
+        "middle",
+      ) +
+      text(869, 151, "Q̇ = ṁ cₚ ΔT", "svg-number", "", "middle") +
+      text(
+        869,
+        200,
+        `100 ÷ (${flowKgS} × 4.18) ≈ ${m.deltaTK.toFixed(2)} K`,
+        "svg-label",
+        "",
+        "middle",
+      ) +
+      text(701, 273, "Q̇ heat rate · ṁ mass flow", "svg-label") +
+      text(701, 308, "cₚ specific heat · ΔT coolant rise", "svg-label") +
+      text(701, 359, "Water cₚ = 4.18 kJ/(kg·K)", "svg-label");
+  return `<g data-flow-kg-s="${flowKgS}" data-inlet-c="${inletC}" data-outlet-c="${outletC}" data-rise-k="${m.deltaTK}" data-heat-kw="${m.heatKw}">${output}</g>`;
 }
 
 function airCapture(compact) {
@@ -389,6 +526,7 @@ function approach(compact) {
 
 export function renderFoundation(kind, compact, state = {}) {
   if (kind === "why-liquid") return airMarker + whyLiquid(compact);
+  if (kind === "water-balance") return waterBalance(compact, state);
   if (kind === "approach") return airMarker + approach(compact);
   if (kind === "capture-options") {
     const renderers = {

@@ -36,5 +36,14 @@
       "P26",
       "P27"
     ]
+  },
+  {
+    "file": "ocp-ac-sidecar-direct-mvdc.png",
+    "publisher": "Open Compute Project (user attribution; exact provenance unverified)",
+    "source_url": null,
+    "context_url": "https://www.opencompute.org/documents/dcf-power-distribution-lvdc-white-paper-version-1-0-final-pdf-1",
+    "retrieved_on": "2026-09-11",
+    "sha256": "8778a5a5facf75cd7f7439202c40cb81c21284c37b200f1ee3089682161730ca",
+    "note": "User-supplied PNG copied unchanged. Original publication and figure number remain unverified; the context URL is a related OCP paper, not a confirmed source for this image. Compares selected functional paths, not deployment dates or complete electrical designs."
   }
 ]

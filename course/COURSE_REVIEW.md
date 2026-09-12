@@ -15,9 +15,9 @@ Those documents implement this design rather than establishing separate course s
 Use the domain map to look up the section being prepared; there is no need to
 read it end to end.
 
-**Current state:** 50 authored draft lessons cover 65 objective IDs. The twelve-scene
+**Current state:** 50 authored draft lessons cover 65 objective IDs. The thirteen-scene
 800 V DC sample and seventeen-scene UPS sequence are implemented teaching prototypes.
-An eleven-scene cooling presentation extends that approach to capture methods,
+A twelve-scene cooling presentation extends that approach to capture methods,
 CDU ratings and approach, weather and outdoor heat rejection.
 These cover selected parts of the curriculum; they do not establish finished domains.
 Technical review, learner review, adaptation of the remaining material, recording

@@ -19,6 +19,7 @@ KINDS = {
     "sidecar",
     "facility",
     "conversion-loss",
+    "source-figure",
 }
 ROLES = {
     "problem",
@@ -69,6 +70,16 @@ def validate_presentation(data: dict) -> None:
             raise ValueError(
                 "Presenter reasoning and action cues must be authored separately"
             )
+        if step["kind"] == "source-figure":
+            figure = step.get("figure", {})
+            if not re.fullmatch(
+                r"references/[a-z0-9-]+\.(?:png|jpeg|jpg|svg)",
+                figure.get("asset", ""),
+            ):
+                raise ValueError("Source figure requires a local reference asset")
+            for field in ("alt", "source_title", "source_url"):
+                if not isinstance(figure.get(field), str) or not figure[field].strip():
+                    raise ValueError(f"Source figure requires {field}")
     if data["planned_duration_seconds"] != sum(s["duration_seconds"] for s in steps):
         raise ValueError("Planned duration must match the authored scene timings")
     for target in data.get("aliases", {}).values():

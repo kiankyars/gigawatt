@@ -3905,6 +3905,24 @@
           ]
         },
         {
+          "heading": "Compare the three distribution paths side by side",
+          "paragraphs": [
+            "Trace each column from medium-voltage input to the rack. Traditional AC keeps lower-voltage AC distribution through the hall. The DC sidecar retains those upstream stages, then creates an 800 V DC interface near the rack. The third path makes 800 V DC upstream of the hall distribution and busway through a medium-voltage conversion system.",
+            "The right-hand column is a direct-medium-voltage design. It differs from the preceding transformer-plus-low-voltage-rectifier example: both can feed an 800 V DC hall. A compact system block does not mean that voltage reduction, isolation, storage, protection or downstream rack DC/DC conversion cease to be necessary functions where the design requires them. The diagram leaves several of these functions out.",
+            "Use this drawing to compare conversion placement and AC/DC interfaces. It has no deployment dates and does not prove an efficiency percentage or equipment readiness. Keep the dated SemiAnalysis roadmap separate from these architectural alternatives."
+          ],
+          "figures": [
+            {
+              "asset": "references/ocp-ac-sidecar-direct-mvdc.png",
+              "alt": "Three electrical paths. Traditional AC: medium-voltage AC, step-down transformer, AC switchboards, AC PDUs, AC IT racks. DC sidecar: the same upstream AC stages followed by a rack-level AC-to-800-V-DC rectifier and 800-V-DC IT racks. Direct medium-voltage DC: medium-voltage rectifier or solid-state transformer, 800-V-DC distribution, DC busway and DC IT racks. Yellow denotes 10 to 35 kV, blue 400 to 480 V, and green 800 V DC.",
+              "caption": "User-supplied figure, attributed to the Open Compute Project; the original publication has not yet been identified. The linked OCP paper provides related LVDC architecture context. The right-hand path depicts direct medium-voltage conversion, not the conventional transformer-plus-low-voltage-rectifier route. These are selected conversion and distribution functions, not complete power or protection designs.",
+              "source_url": "https://www.opencompute.org/documents/dcf-power-distribution-lvdc-white-paper-version-1-0-final-pdf-1",
+              "source_title": "Related OCP LVDC architecture paper",
+              "credit": "User-supplied figure · attributed to OCP"
+            }
+          ]
+        },
+        {
           "heading": "Read a roadmap as a dated design proposal",
           "paragraphs": [
             "NVIDIA’s May 2025 account described a facility-level 800 VDC concept and linked full-scale production to 2027 systems. Its August 11, 2026 update separately described a hybrid power rack expected in the second half of 2026, a row power center expected in 2027, and a broader DC power block. These are vendor descriptions and availability expectations as published. They establish proposed architecture categories, not evidence that a named site has accepted an operating installation or achieved a claimed efficiency.",
@@ -4004,7 +4022,8 @@
       "source_ids": [
         "P05",
         "P16",
-        "SA10"
+        "SA10",
+        "P54"
       ],
       "source_notes": [
         {
@@ -4024,9 +4043,15 @@
           "claim": "User-supplied SST market forecast and its equipment-content assumption in the 26 May 2026 article.",
           "reviewed_on": "2026-09-10",
           "limits": "Analyst forecast, not observed revenue, commissioned capacity, an independently reproduced market model or a requirement to use SSTs. Unlabelled 2026/2027 revenue bars and exact GW values are not inferred from chart pixels."
+        },
+        {
+          "id": "P54",
+          "claim": "Context for representative LVDC power-distribution architectures; not a confirmed source for the supplied three-column figure.",
+          "reviewed_on": "2026-09-11",
+          "limits": "Introduction and document metadata inspected. The exact origin of the user-supplied image remains unverified. Do not assign a figure number, mandate this topology, or treat these alternatives as a dated deployment sequence."
         }
       ],
-      "word_count": 1018
+      "word_count": 1301
     },
     {
       "id": "d06-rack-migration",
@@ -9350,6 +9375,22 @@
       ],
       "use": "Dated identification of integrated filtration and service access for pumps, filters and sensors.",
       "caution": "2025 product description. Comparative performance, availability and footprint-density claims are not reused as current specifications. Current procurement needs current selection data."
+    },
+    {
+      "id": "P54",
+      "title": "OCP — Data Center Facility: Low Voltage Direct Current Power Distribution, v1.0",
+      "url": "https://www.opencompute.org/documents/dcf-power-distribution-lvdc-white-paper-version-1-0-final-pdf-1",
+      "publisher": "Open Compute Project",
+      "kind": "technical white paper",
+      "published_on": "2026-03-30",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-11",
+      "domains": [
+        "D04",
+        "D06"
+      ],
+      "use": "Compare representative LVDC distribution architectures and their conversion boundaries. Related context for the supplied three-column traditional AC, sidecar and direct-MV-DC image.",
+      "caution": "Introduction and document metadata inspected. The exact origin of the user-supplied image remains unverified. Do not assign a figure number, mandate this topology, or treat these alternatives as a dated deployment sequence."
     }
   ],
   "glossary": [

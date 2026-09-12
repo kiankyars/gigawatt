@@ -495,6 +495,14 @@
           cold-plate performance or proof all rack heat enters the liquid path.
         </p>
         <p>
+          The interactive water example holds heat already captured by one
+          liquid path at 100 kW and stipulates a 35°C inlet. With cₚ = 4.18
+          kJ/(kg·K), changing flow from 2.5 to 5 kg/s lowers the calculated
+          coolant rise from 9.57 to 4.78 K and outlet from 44.57 to 39.78°C.
+          This compares two ideal steady operating points; it does not predict
+          the transient response, chip temperature or added pumping power.
+        </p>
+        <p>
           The separate CDU example uses an 84 kW load, 2 kg/s in each water loop
           and rounded cₚ = 4.2 kJ/(kg·K). Technology supply/return is 35/45°C
           and facility supply/return is 30/40°C. Loop rise is 10 K; CDU approach
@@ -670,7 +678,7 @@
     </dialog>
     <script type="module">
       import { facilityFlowState } from "./cooling-model.js?v=20260911-cooling2";
-      import { renderFoundation } from "./cooling-foundations.js";
+      import { renderFoundation } from "./cooling-foundations.js?v=20260911-flow3";
       import { renderRejection } from "./cooling-rejection.js";
       import { renderCDU } from "./cooling-cdu.js";
       const scenes = [
@@ -708,6 +716,15 @@
           kind: "plate",
           description:
             "Processor heat crosses the package, thermal interface and plate metal into coolant channels. The coolant does not contact the silicon junction.",
+        },
+        {
+          id: "water-balance",
+          label: "Flow and temperature rise",
+          title:
+            "Doubling coolant flow halves its temperature rise at the same heat load.",
+          kind: "water-balance",
+          description:
+            "Hold the selected liquid-path heat pickup at 100 kilowatts and water inlet at 35 degrees Celsius. Doubling mass flow from 2.5 to 5 kilograms per second halves its steady temperature rise from 9.57 to 4.78 kelvin. The outlet falls from 44.57 to 39.78 degrees Celsius; these are coolant, not chip, temperatures.",
         },
         {
           id: "approach",
@@ -778,14 +795,14 @@
       const state = {
         index: 0,
         facility: false,
+        flow: 2.5,
         capture: "air",
         humidity: "dry",
         plant: "adiabatic",
         interior: true,
       };
       const aliases = {
-        "water-balance": "why-liquid",
-        "less-flow": "why-liquid",
+        "less-flow": "water-balance",
         "two-loops": "heat-path",
         outdoors: "rejection",
         trace: "heat-path",
@@ -1073,7 +1090,12 @@
           "diagram-title diagram-description",
         );
         $("diagram").dataset.scene = scene.id;
-        const foundationKinds = ["why-liquid", "capture-options", "approach"];
+        const foundationKinds = [
+          "why-liquid",
+          "capture-options",
+          "water-balance",
+          "approach",
+        ];
         const rejectionKinds = [
           "rejection",
           "weather",
@@ -1090,7 +1112,7 @@
                 ? plate(compact)
                 : route(scene, compact);
         $("diagram").innerHTML =
-          `<title id="diagram-title">${$("title").textContent}</title><desc id="diagram-description">${scene.description}${scene.kind === "failure" ? ` Facility flow is ${state.facility ? "restored" : "stopped"}.` : ""}</desc>${defs}${content}`;
+          `<title id="diagram-title">${$("title").textContent}</title><desc id="diagram-description">${scene.description}${scene.kind === "water-balance" ? ` Selected mass flow is ${state.flow} kilograms per second.` : ""}${scene.kind === "failure" ? ` Facility flow is ${state.facility ? "restored" : "stopped"}.` : ""}</desc>${defs}${content}`;
         const choices = (key, options) =>
           options
             .map(
@@ -1101,35 +1123,45 @@
         $("actions").innerHTML =
           scene.kind === "failure"
             ? `<button id="toggle-facility">${state.facility ? "Stop" : "Restore"} facility flow</button>`
-            : scene.kind === "capture-options"
-              ? choices("capture", [
-                  ["air", "Air / CRAH"],
-                  ["coldplate", "Cold plates"],
-                  ["rear-door", "Rear door"],
-                  ["immersion", "Immersion"],
+            : scene.kind === "water-balance"
+              ? choices("flow", [
+                  ["2.5", "2.5 kg/s"],
+                  ["5", "Double flow: 5 kg/s"],
                 ])
-              : ["weather", "approach-outdoors"].includes(scene.kind)
-                ? choices("humidity", [
-                    ["dry", "Drier air: 22°C wet bulb"],
-                    ["humid", "More humid: 28°C wet bulb"],
+              : scene.kind === "capture-options"
+                ? choices("capture", [
+                    ["air", "Air / CRAH"],
+                    ["coldplate", "Cold plates"],
+                    ["rear-door", "Rear door"],
+                    ["immersion", "Immersion"],
                   ])
-                : scene.kind === "plant-options"
-                  ? choices("plant", [
-                      ["adiabatic", "Adiabatic"],
-                      ["air-chiller", "Air-cooled chiller"],
-                      ["water-chiller", "Water-cooled chiller"],
-                      ["economizer", "Economizer"],
+                : ["weather", "approach-outdoors"].includes(scene.kind)
+                  ? choices("humidity", [
+                      ["dry", "Drier air: 22°C wet bulb"],
+                      ["humid", "More humid: 28°C wet bulb"],
                     ])
-                  : scene.kind === "cdu"
-                    ? choices("interior", [
-                        ["false", "Cabinet"],
-                        ["true", "Inside the CDU"],
+                  : scene.kind === "plant-options"
+                    ? choices("plant", [
+                        ["adiabatic", "Adiabatic"],
+                        ["air-chiller", "Air-cooled chiller"],
+                        ["water-chiller", "Water-cooled chiller"],
+                        ["economizer", "Economizer"],
                       ])
-                    : "";
+                    : scene.kind === "cdu"
+                      ? choices("interior", [
+                          ["false", "Cabinet"],
+                          ["true", "Inside the CDU"],
+                        ])
+                      : "";
         document.querySelectorAll("[data-setting]").forEach((button) =>
           button.addEventListener("click", () => {
             const { setting, value } = button.dataset;
-            state[setting] = setting === "interior" ? value === "true" : value;
+            state[setting] =
+              setting === "interior"
+                ? value === "true"
+                : setting === "flow"
+                  ? Number(value)
+                  : value;
             render();
             document
               .querySelector(

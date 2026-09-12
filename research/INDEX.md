@@ -174,6 +174,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P51 — CoolIT Systems — CHx2000 Row-Based CDU for AI](sources/P51.md) | CoolIT Systems | D10 | page_reviewed |
 | [P52 — CoolIT Systems — Cooling Distribution Units](sources/P52.md) | CoolIT Systems | D10 | page_reviewed |
 | [P53 — CoolIT Systems — CHx2000 launch announcement, April 15, 2025](sources/P53.md) | CoolIT Systems | D10 | page_reviewed |
+| [P54 — OCP — Data Center Facility: Low Voltage Direct Current Power Distribution, v1.0](sources/P54.md) | Open Compute Project | D04, D06 | public_excerpt_reviewed |
 | [SA01 — Datacenter Anatomy Part 1: Electrical Systems](sources/SA01.md) | SemiAnalysis | D04, D05, D06, D13, D15 | public_excerpt_reviewed |
 | [SA02 — Datacenter Anatomy Part 2 – Cooling Systems](sources/SA02.md) | SemiAnalysis | D10, D11, D15 | public_excerpt_reviewed |
 | [SA03 — 100,000 H100 Clusters: Power, Network Topology, Ethernet vs InfiniBand, Reliability, Failures, Checkpointing](sources/SA03.md) | SemiAnalysis | D02, D07, D08, D09, D14 | public_excerpt_reviewed |

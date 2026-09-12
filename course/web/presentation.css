@@ -577,6 +577,61 @@ h1 {
   display: grid;
   gap: 26px;
 }
+.source-figure {
+  margin: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.source-image {
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+}
+.source-figure img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: calc(100svh - 250px);
+  border-radius: 8px;
+}
+.source-figure figcaption {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  font-size: 12px;
+}
+@media (min-width: 800px) and (min-height: 560px) {
+  #visual:has(.source-figure) {
+    position: relative;
+  }
+  .source-figure {
+    position: absolute;
+    inset: 0;
+    min-height: 0;
+  }
+  .source-image {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+  }
+  .source-figure img {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+}
+@media (max-width: 799px), (max-height: 559px) {
+  .source-figure img {
+    max-height: none;
+    width: min(100%, 936px);
+  }
+}
 .path {
   display: grid;
   grid-template-columns: 1.15fr 2fr 2fr;

@@ -267,6 +267,11 @@ function bindVisual() {
     change({ volts: DEFAULTS.comparison_voltage_v }),
   );
 }
+function sourceFigure() {
+  const figure = STEPS[state.index].figure;
+  const asset = `assets/${figure.asset}`;
+  return `<figure class="source-figure"><a class="source-image" href="${escapeHTML(asset)}" target="_blank" rel="noopener" aria-label="Open diagram at full size"><img src="${escapeHTML(asset)}" alt="${escapeHTML(figure.alt)}"></a><figcaption><span>${escapeHTML(figure.credit)}</span><a href="${escapeHTML(figure.source_url)}" target="_blank" rel="noopener">${escapeHTML(figure.source_title)}</a><a href="${escapeHTML(asset)}" target="_blank" rel="noopener">Open full size ↗</a></figcaption></figure>`;
+}
 function render() {
   const step = STEPS[state.index];
   document.title = `${notesMode ? "Presenter notes · " : ""}${step.title} — GIGAWATT`;
@@ -289,6 +294,7 @@ function render() {
       current,
       loss,
       "conversion-loss": conversionViews,
+      "source-figure": sourceFigure,
       "dc-basics": () => electricalVisual("dc-basics"),
       "ac-basics": () => electricalVisual("ac-basics"),
       "three-phase": () => electricalVisual("three-phase"),
