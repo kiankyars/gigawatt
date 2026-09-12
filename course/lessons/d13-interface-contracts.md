@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/heat-delivery-operations.json), lesson `d13-interface-contracts`, then run `uv run gigawatt-expand`.
 
-**D13 · Authored draft · Objectives:** D13.2
+**Design, procurement and commissioning · Authored draft**
 
 Keep a 20 MW IT duty fixed, test the changed electrical, hydraulic and spatial interfaces, and assign the evidence needed to release fabrication and schedule holds.
 

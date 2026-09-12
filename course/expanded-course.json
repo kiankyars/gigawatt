@@ -2493,7 +2493,7 @@
       "domain": "D12",
       "title": "Choose a site that can deliver the first phase",
       "question": "Which parcel can support the required campus, with usable land and services ready on time?",
-      "summary": "Compare two parcels by usable area, utility delivery, cooling, fiber, land rights and permissions. Follow the constraint that prevents opening, rather than choosing the largest tract.",
+      "summary": "Compare greenfield development with brownfield reuse, then evaluate land, utilities, site risks and the date when a first phase can operate. Original Colossus and Abilene provide the land-use case study.",
       "takeaway": "Nearby infrastructure and gross acreage are starting points. A site needs usable space, enforceable rights and services that meet the same capacity and date.",
       "objectives": [
         "D12.2"
@@ -2509,7 +2509,7 @@
         {
           "heading": "Confirm the power and fuel that can reach the site",
           "paragraphs": [
-            "Obtain the capacity, delivery point, required upgrades, operating restrictions and date from the actual utility process. A substation rating is not a commitment to supply that amount to this customer. D03 develops the electrical service boundary; here the question is whether the proposed parcel can obtain that service on the project schedule.",
+            "Obtain the capacity, delivery point, required upgrades, operating restrictions and date from the actual utility process. A substation rating is not a commitment to supply that amount to this customer. The grid-connection section develops the electrical service boundary; here the question is whether the proposed parcel can obtain that service on the project schedule.",
             "An on-site gas plant replaces some electrical dependencies with fuel dependencies. Establish required gas volume and pressure, supply and transportation terms, curtailment conditions, and the tap, metering, lateral and any compression needed to connect. Confirm who builds them, when, and across whose land. DOE’s gas-turbine guidance explains why insufficient pressure can require a fuel-gas compressor. Owning a generator and seeing a gas pipeline on a map do not answer those questions."
           ]
         },
@@ -2523,7 +2523,7 @@
         {
           "heading": "Match cooling and fiber to the actual design",
           "paragraphs": [
-            "For cooling, establish the available water source, allocation, quality and discharge conditions against the chosen heat-rejection design and local weather. A recirculating loop can still need makeup water; dry cooling instead changes the equipment and hot-weather operating requirements. D11 owns those heat and water calculations. Here, retain the resulting capacity and readiness conditions in the site comparison.",
+            "For cooling, establish the available water source, allocation, quality and discharge conditions against the chosen heat-rejection design and local weather. A recirculating loop can still need makeup water; dry cooling instead changes the equipment and hot-weather operating requirements. The heat-rejection section explains those heat and water calculations. Here, retain the resulting capacity and readiness conditions in the site comparison.",
             "For communications, verify capacity, route length, delivery dates, site entrances and the rights to construct each route. Two carrier contracts can share a trench or bridge. In this example, two physically separate routes are a stated requirement; Parcel B’s second route arriving in month 23 is the last supplied prerequisite. Its first route arriving earlier does not satisfy both paths."
           ]
         },
@@ -2536,9 +2536,14 @@
           ]
         },
         {
-          "heading": "Check permitted uses, neighbors and what the old site leaves behind",
+          "heading": "Check permitted uses and neighbors",
           "paragraphs": [
-            "Identify the approvals and conditions for this layout: land use, air emissions, noise, water, drainage, construction and fire access. Equipment intended for continuous generation can raise different questions from standby equipment. Nearby homes, schools and other sensitive uses affect the actual siting conversation. A permit for one phase does not establish approval for the later campus.",
+            "Identify the approvals and conditions for this layout: land use, air emissions, noise, water, drainage, construction and fire access. Equipment intended for continuous generation can raise different questions from standby equipment. Nearby homes, schools and other sensitive uses affect the actual siting conversation. A permit for one phase does not establish approval for the later campus."
+          ]
+        },
+        {
+          "heading": "Greenfield and brownfield: new land or an existing site",
+          "paragraphs": [
             "A greenfield project starts on previously undeveloped land; brownfield redevelopment, in the ordinary site-reuse sense, begins with an existing site and its history. Industrial reuse may offer roads, utility connections and a building, while also carrying obsolete equipment or contamination. EPA distinguishes historical and site-condition review from sampling and cleanup planning. Establish what can remain, what must be removed, and any restrictions on the intended use. An apparently empty contamination folder is not equivalent to completed investigation. This use of brownfield does not establish a statutory designation or contamination at a named site."
           ]
         },
@@ -2577,6 +2582,10 @@
       },
       "terms": [
         {
+          "term": "Greenfield",
+          "definition": "Development on previously undeveloped land, with more freedom to arrange the new facility and a need to establish its buildings and service paths."
+        },
+        {
           "term": "Usable acreage",
           "definition": "Land remaining available for the specified layout after actual exclusions, rights and site constraints are applied; distinct from gross parcel area."
         },
@@ -2594,7 +2603,7 @@
         },
         {
           "term": "Brownfield",
-          "definition": "A property whose redevelopment or reuse can be complicated by actual or potential contamination."
+          "definition": "In this course’s redevelopment comparison, an existing developed site reused for a new or changed facility. Environmental usage can specifically concern actual or potential contamination; the redevelopment label alone does not establish contamination."
         },
         {
           "term": "Exposure",
@@ -2810,7 +2819,7 @@
           "limits": "Selected web sections reviewed, not the linked full report. Equipment ratings are not measured continuous output or usable battery energy. Company-wide renewable procurement claims cannot establish hourly matching at every campus."
         }
       ],
-      "word_count": 1869
+      "word_count": 1880
     },
     {
       "id": "d12-safety-and-control-boundaries",
@@ -4858,7 +4867,7 @@
           "heading": "Follow the campus connection to a carrier",
           "paragraphs": [
             "Trace an external path from the cluster network through border equipment and patch panels to the outside fiber route. The entrance facility brings outside-plant cabling into the building. A meet-me room (MMR) provides an interconnection area for tenant, operator and carrier cabling; a private campus may use a different room arrangement. These are functions to locate, not a universal sequence of separate rooms. Corning's multitenant example connects outside plant, the MMR and customer rack cabling.",
-            "At the agreed demarcation point, mark where one party's service responsibility ends and the next begins. In Equinix's example, customers patch their equipment to the operator's demarcation. An intra-facility cable reaches the MMR and a cross-connect completes the physical connection there. That cable alone does not supply Internet transit: identify the actual carrier or private service, endpoint, capacity and acceptance boundary. D12 checks whether the route and construction rights can be delivered; D08 checks what the resulting connection carries."
+            "At the agreed demarcation point, mark where one party's service responsibility ends and the next begins. In Equinix's example, customers patch their equipment to the operator's demarcation. An intra-facility cable reaches the MMR and a cross-connect completes the physical connection there. That cable alone does not supply Internet transit: identify the actual carrier or private service, endpoint, capacity and acceptance boundary. The site-planning section checks whether the route and construction rights can be delivered; the networking section checks what the resulting connection carries."
           ]
         },
         {
@@ -5007,7 +5016,7 @@
           "limits": "Paragraphs 62–63 on printed page 26 reviewed. NG911 proposed rulemaking used only for the engineering distinction, not data-center legal requirements."
         }
       ],
-      "word_count": 1411
+      "word_count": 1415
     },
     {
       "id": "d08-collective-progress",
@@ -6051,7 +6060,7 @@
             "Redundancy can be built into pumps and power supplies inside a CDU, across a group of CDUs, or through facility pumps, chillers, heat rejection, piping, power and controls. These are different failure boundaries. NVIDIA’s DSX reference describes N+1 CDU groups with shared piping in mechanical galleries. That is a concrete example of group redundancy; it does not establish two independent facility-water paths. The current CoolIT CHx2000 page is not used to assign an N+1 pump arrangement.",
             "In the original teaching example, a selected liquid heat load is 1,000 kW and each CDU is qualified for 600 kW at the stated fluid conditions. N is therefore two CDUs at the design duty, and three installed units give N+1. An independently isolated unit failure leaves 1,200 kW. The sum is usable only if the surviving branches, headers, pumps and outdoor plant can deliver the required conditions. Loss of their shared facility path defeats the heat-removal route despite healthy CDU cabinets. Spare units do not repair a failed common control panel or a leak in a shared manifold.",
             "A separate 2N example has two upstream trains, each with two 600 kW CDU modules and independent facility-water, outdoor rejection, power and control paths. The model transfers the selected 1,000 kW demand to one compatible surviving train, so its displayed capacity is the larger surviving train capacity rather than A+B. The downstream load interface remains shared. A fault in that shared interface is outside the failure survived by this example; a 2N label at one boundary does not establish whole-campus fault tolerance.",
-            "If two of the three CDUs in the first example fail, 600 kW remains. A coordinated IT response is assumed to reduce heat entering that liquid path from 1,000 to 500 kW, leaving 100 kW of thermal capacity margin. This is a comparison of operating points, not a prediction that a controller can react before a temperature limit is reached. A real policy has to account for the hardware’s power scope, heat capture fraction, local flow and temperature limits, and confirmed achieved power. D11 develops the distinction between that planned reduction, local thermal protection, and shutdown or isolation when no compatible cooling path remains."
+            "If two of the three CDUs in the first example fail, 600 kW remains. A coordinated IT response is assumed to reduce heat entering that liquid path from 1,000 to 500 kW, leaving 100 kW of thermal capacity margin. This is a comparison of operating points, not a prediction that a controller can react before a temperature limit is reached. A real policy has to account for the hardware’s power scope, heat capture fraction, local flow and temperature limits, and confirmed achieved power. The heat-rejection section develops the distinction between that planned reduction, local thermal protection, and shutdown or isolation when no compatible cooling path remains."
           ]
         },
         {
@@ -6207,7 +6216,7 @@
           "limits": "Selected CDU and gallery sections reviewed in mutable HTML. One reference design does not prove site deployment, independent facility-water paths or the ratings and response time of the synthetic course example."
         }
       ],
-      "word_count": 1796,
+      "word_count": 1798,
       "domain_checkin": {
         "domain": "D10",
         "title": "The liquid loop is not the whole rack",
@@ -6238,8 +6247,8 @@
         {
           "heading": "Follow the heat before naming the equipment",
           "paragraphs": [
-            "D10 collected heat at an air stream, rear-door exchanger, cold plate or immersion bath. Here the question is how that heat leaves the site. A dry cooler moves warm liquid through a coil while outdoor air passes over it. The streams stay separate and the liquid cools without intentional evaporation. Dry describes outdoor rejection: water can still circulate through the building. The relevant air temperature is the dry bulb, introduced and compared with wet bulb in the next lesson.",
-            "Wet cooling uses evaporation. In an open cooling tower, some circulating water evaporates as air contacts it; the remaining water cools and returns to collect more heat. A closed-circuit evaporative cooler instead keeps process liquid inside a coil while separate spray water evaporates outside it. Neither arrangement implies that rack coolant is sprayed into the air. Identify the water circuit that consumes makeup water; D11’s water ledger follows that circuit.",
+            "The chip-cooling section collected heat at an air stream, rear-door exchanger, cold plate or immersion bath. Here the question is how that heat leaves the site. A dry cooler moves warm liquid through a coil while outdoor air passes over it. The streams stay separate and the liquid cools without intentional evaporation. Dry describes outdoor rejection: water can still circulate through the building. The relevant air temperature is the dry bulb, introduced and compared with wet bulb in the next lesson.",
+            "Wet cooling uses evaporation. In an open cooling tower, some circulating water evaporates as air contacts it; the remaining water cools and returns to collect more heat. A closed-circuit evaporative cooler instead keeps process liquid inside a coil while separate spray water evaporates outside it. Neither arrangement implies that rack coolant is sprayed into the air. Identify the water circuit that consumes makeup water; the water ledger follows that circuit.",
             "Hybrid equipment combines dry and evaporative operation. One adiabatic arrangement precools entering air through wetted pads before that air reaches a dry coil. The process liquid remains inside the coil, while the precooling step consumes water. Humidity limits the evaporative benefit, and the controller can enable wet operation only under selected conditions. A wet pad is not a compressor, and adding one does not guarantee the required temperature on every day.",
             "A chiller uses refrigeration to transfer heat from its colder evaporator to its warmer condenser. Air-cooled means the condenser rejects to air; water-cooled means it rejects to a separate water circuit. That water circuit commonly leads to a tower, though the supplied design must identify its actual final sink. Both types can deliver chilled water to the same load. Thus liquid cooling at the rack does not determine the chiller type or prove that outdoor rejection consumes evaporative water.",
             "An economizer is an operating arrangement that uses favorable outdoor conditions to reduce or avoid compressor operation. An airside arrangement can use outdoor air to cool the room; a waterside arrangement can transfer heat through a cooler or tower path. Pumps, fans, filtration and controls still require resources. Mark each heat-transfer interface, electrical input and water intake on the same drawing before comparing modes."
@@ -6399,7 +6408,7 @@
           "limits": "Opening definition reviewed. No software performance curve is reused or extrapolated."
         }
       ],
-      "word_count": 1245
+      "word_count": 1247
     },
     {
       "id": "d11-weather-and-operating-envelope",
@@ -6425,14 +6434,14 @@
         {
           "heading": "Approach belongs to two named temperature points",
           "paragraphs": [
-            "For a cooling tower, approach is leaving-water temperature minus entering-air wet bulb. For the dry cooler in our example, we explicitly use leaving-fluid temperature minus entering-air dry bulb. At the liquid-to-liquid CDU, D10 uses technology supply minus facility supply. State the equipment and the two sensor locations every time: approach is not one universal gap that can be copied between all three.",
+            "For a cooling tower, approach is leaving-water temperature minus entering-air wet bulb. For the dry cooler in our example, we explicitly use leaving-fluid temperature minus entering-air dry bulb. At the liquid-to-liquid CDU, the chip-cooling example uses technology supply minus facility supply. State the equipment and the two sensor locations every time: approach is not one universal gap that can be copied between all three.",
             "Loop temperature rise compares warm return with cool supply in one circuit. The same circuit can rise by 10 K across its load while its cooler operates at a 3 K or 5 K approach to another temperature. At the tower the inlet-to-outlet drop is called range. Approach can change with load, flow and equipment configuration; a smaller value at one operating point is not a guaranteed value across the operating envelope."
           ]
         },
         {
           "heading": "Trace one 84 kW load through the two outdoor options",
           "paragraphs": [
-            "Reuse D10’s synthetic 84 kW load and 2 kg/s water loops with heat capacity 4.2 kJ/(kg·K), giving a 10 K temperature rise. Require technology supply at or below 35°C, and stipulate a 5 K CDU approach. For this comparison only, specify outdoor air at 35°C dry bulb and 22°C wet bulb. In the wet route chosen here, open-tower water is kept separate from the facility loop, so this design includes another heat exchanger. Count that interface when comparing the complete routes.",
+            "Reuse the chip-cooling example’s synthetic 84 kW load and 2 kg/s water loops with heat capacity 4.2 kJ/(kg·K), giving a 10 K temperature rise. Require technology supply at or below 35°C, and stipulate a 5 K CDU approach. For this comparison only, specify outdoor air at 35°C dry bulb and 22°C wet bulb. In the wet route chosen here, open-tower water is kept separate from the facility loop, so this design includes another heat exchanger. Count that interface when comparing the complete routes.",
             "Dry route: stipulate a 5 K dry-cooler approach at this load. Its 35°C entering air permits a modeled 40°C facility supply. The CDU’s additional 5 K makes technology supply 45°C, above the 35°C requirement. The full steady temperature pairs would be facility 40°C supply / 50°C return and technology 45°C supply / 55°C return. This is a failed temperature screen, not permission to operate the rack at that point.",
             "Wet route: stipulate a 3 K tower approach, so 22°C wet bulb gives 25°C tower outlet water. A separate counterflow exchanger with a stipulated 5 K approach gives 30°C facility supply. The CDU adds its 5 K to give 35°C technology supply. Label every loop: tower 25°C supply / 35°C return; facility 30°C / 40°C; technology 35°C / 45°C. Both ends of each counterflow exchanger retain a 5 K difference. The additional separating exchanger has been counted rather than hidden.",
             "For this temperature comparison, all circulating-water rates are approximated as 2 kg/s; pump heat and the small flow change caused by evaporation are excluded. Every exchanger is stipulated to transfer 84 kW at its stated point. The tower’s water makeup and blowdown need their own ledger. These 3 K and 5 K approaches are invented inputs, not standard equipment performance. Meeting the temperature screen alone does not establish capacity reserve, control behavior or a complete plant design."
@@ -6628,7 +6637,7 @@
           "limits": "Selected sections reviewed. The course does not adopt universal flow rules, numerical reliability estimates, or the document's inconsistently written energy/flow units. Synthetic examples are original."
         }
       ],
-      "word_count": 2002
+      "word_count": 2006
     },
     {
       "id": "d11-water-and-heat-reuse",
@@ -10394,7 +10403,7 @@
     },
     {
       "term": "Brownfield",
-      "definition": "A property whose redevelopment or reuse can be complicated by actual or potential contamination.",
+      "definition": "In this course’s redevelopment comparison, an existing developed site reused for a new or changed facility. Environmental usage can specifically concern actual or potential contamination; the redevelopment label alone does not establish contamination.",
       "lesson": "d12-hazards-and-site-evidence"
     },
     {
@@ -10615,6 +10624,11 @@
     {
       "term": "Gas lateral",
       "definition": "A connecting pipeline segment between a larger gas system and a delivery point; its capacity, pressure, rights and readiness need separate evidence.",
+      "lesson": "d12-hazards-and-site-evidence"
+    },
+    {
+      "term": "Greenfield",
+      "definition": "Development on previously undeveloped land, with more freedom to arrange the new facility and a need to establish its buildings and service paths.",
       "lesson": "d12-hazards-and-site-evidence"
     },
     {

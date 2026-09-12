@@ -27,79 +27,79 @@ Source-to-domain mappings are derived from `research-sources.json` → `sources[
 
 Define quantities and the useful work the system must deliver.
 
-- [D01 — System boundaries and quantities](#d01)
-- [D02 — Workloads and the infrastructure brief](#d02)
+- [System boundaries and quantities](#d01)
+- [Workloads and the infrastructure brief](#d02)
 
 ### Bring power to the racks
 
 Connect, distribute, protect and convert electricity.
 
-- [D03 — Siting, grid connection and supply](#d03)
-- [D04 — Campus and building power distribution](#d04)
-- [D05 — Continuity, storage and protection](#d05)
-- [D06 — Rack power and the 800 V DC transition](#d06)
+- [Siting, grid connection and supply](#d03)
+- [Campus and building power distribution](#d04)
+- [Continuity, storage and protection](#d05)
+- [Rack power and the 800 V DC transition](#d06)
 
 ### Turn hardware into useful work
 
 Coordinate compute, memory, networks, storage and jobs.
 
-- [D07 — Compute, memory and the rack](#d07)
-- [D08 — Networking and interconnects](#d08)
-- [D09 — Storage, orchestration and recovery](#d09)
+- [Compute, memory and the rack](#d07)
+- [Networking and interconnects](#d08)
+- [Storage, orchestration and recovery](#d09)
 
 ### Return the heat
 
 Capture heat at the devices and reject it under real site conditions.
 
-- [D10 — Chip and rack heat capture](#d10)
-- [D11 — Heat rejection, climate and water](#d11)
+- [Chip and rack heat capture](#d10)
+- [Heat rejection, climate and water](#d11)
 
 ### Build, operate and decide
 
 Make the physical system deliverable, testable, maintainable and economically coherent.
 
-- [D12 — Physical site, buildings and safety](#d12)
-- [D13 — Design, procurement and commissioning](#d13)
-- [D14 — Controls, operations and reliability](#d14)
-- [D15 — Capacity, cost and system decisions](#d15)
+- [Physical site, buildings and safety](#d12)
+- [Design, procurement and commissioning](#d13)
+- [Controls, operations and reliability](#d14)
+- [Capacity, cost and system decisions](#d15)
 
 ## Proposed teaching sequence
 
-Domain IDs are stable references, not chapter numbers. This sequence respects prerequisites; runtime is not yet allocated.
+Topics follow their prerequisites; runtime is not yet allocated.
 
 ### A01 — See the system and define the job
 
-[D01](#d01) → [D02](#d02)
+[System boundaries and quantities](#d01) → [Workloads and the infrastructure brief](#d02)
 
 Establish the vocabulary, three paths and the workload brief used throughout.
 
 ### A02 — Find a site and deliver power
 
-[D03](#d03) → [D12](#d12) → [D04](#d04)
+[Siting, grid connection and supply](#d03) → [Physical site, buildings and safety](#d12) → [Campus and building power distribution](#d04)
 
 Make the physical location, utility connection and single-line diagram legible.
 
 ### A03 — Keep it running and enter the rack
 
-[D05](#d05) → [D06](#d06)
+[Continuity, storage and protection](#d05) → [Rack power and the 800 V DC transition](#d06)
 
 Compare continuity and conversion choices, including 800 V DC, against interfaces and failures.
 
 ### A04 — Make the cluster productive
 
-[D07](#d07) → [D08](#d08) → [D09](#d09)
+[Compute, memory and the rack](#d07) → [Networking and interconnects](#d08) → [Storage, orchestration and recovery](#d09)
 
 Connect compute, memory, communication, storage and scheduling to useful progress.
 
 ### A05 — Close the heat and water balances
 
-[D10](#d10) → [D11](#d11)
+[Chip and rack heat capture](#d10) → [Heat rejection, climate and water](#d11)
 
 Follow heat from local device limits to climate-dependent rejection and resource use.
 
 ### A06 — Deliver, operate and make decisions
 
-[D13](#d13) → [D14](#d14) → [D15](#d15)
+[Design, procurement and commissioning](#d13) → [Controls, operations and reliability](#d14) → [Capacity, cost and system decisions](#d15)
 
 Test complete service paths, operate them, and defend a system decision with uncertainty.
 
@@ -107,7 +107,7 @@ Test complete service paths, operate them, and defend a system decision with unc
 
 <a id="d01"></a>
 
-### D01 — System boundaries and quantities
+### System boundaries and quantities
 
 **Central question:** What exactly does a megawatt of data-center capacity describe?
 
@@ -125,7 +125,7 @@ Give every later calculation a unit, a boundary, and an operating condition.
 
 **Learning objectives and assessments:**
 
-#### D01.1
+#### Learning objective 1
 
 Trace electrical energy, heat, and information through a data center while keeping the accounting boundaries separate.
 
@@ -133,7 +133,7 @@ Trace electrical energy, heat, and information through a data center while keepi
 
 **Historical introduction coverage:** partial. `one-rack` — One campus. Two journeys.; `electrical-to-heat` — The watt becomes heat.; `whole-system` — Follow the power. Close the heat path.
 
-#### D01.2
+#### Learning objective 2
 
 Convert power and energy across units and time; distinguish a measured load from a capacity rating.
 
@@ -141,7 +141,7 @@ Convert power and energy across units and time; distinguish a measured load from
 
 **Historical introduction coverage:** partial. `power-and-energy` — A watt is a rate.; `capacity-stages` — Connected is a milestone.
 
-#### D01.3
+#### Learning objective 3
 
 Define denominators for facility, IT and compute-only metrics and label the time window.
 
@@ -149,7 +149,7 @@ Define denominators for facility, IT and compute-only metrics and label the time
 
 **Historical introduction coverage:** partial. `facility-overhead` — Budget the whole facility.; `useful-compute` — Watts do not measure useful work.
 
-#### D01.4
+#### Learning objective 4
 
 Separate physical principles, design specifications, observed deployments, announcements, forecasts and teaching assumptions.
 
@@ -200,7 +200,7 @@ Separate physical principles, design specifications, observed deployments, annou
 
 <a id="d02"></a>
 
-### D02 — Workloads and the infrastructure brief
+### Workloads and the infrastructure brief
 
 **Central question:** What useful work must the facility deliver, and on what schedule?
 
@@ -213,11 +213,11 @@ Derive infrastructure requirements from the service or job rather than starting 
 - Parallelism, communication, checkpointing and workload-driven power variation
 - Design envelopes and uncertainty; avoiding universal watts-to-tokens conversions
 
-**Prerequisites:** [D01 — System boundaries and quantities](#d01)
+**Prerequisites:** [System boundaries and quantities](#d01)
 
 **Learning objectives and assessments:**
 
-#### D02.1
+#### Learning objective 1
 
 Translate a workload brief into compute, memory, network, storage, power and service requirements.
 
@@ -225,7 +225,7 @@ Translate a workload brief into compute, memory, network, storage, power and ser
 
 **Historical introduction coverage:** partial. `useful-compute` — Watts do not measure useful work.
 
-#### D02.2
+#### Learning objective 2
 
 Distinguish hardware occupancy, power draw and productive utilization.
 
@@ -233,7 +233,7 @@ Distinguish hardware occupancy, power draw and productive utilization.
 
 **Historical introduction coverage:** partial. `useful-compute` — Watts do not measure useful work.
 
-#### D02.3
+#### Learning objective 3
 
 Explain how batching, parallel execution and synchronized job phases change the infrastructure demand profile.
 
@@ -241,7 +241,7 @@ Explain how batching, parallel execution and synchronized job phases change the 
 
 **Historical introduction coverage:** missing. No existing lesson mapped.
 
-#### D02.4
+#### Learning objective 4
 
 State an infrastructure design envelope and identify which assumptions a benchmark can and cannot validate.
 
@@ -291,7 +291,7 @@ State an infrastructure design envelope and identify which assumptions a benchma
 
 <a id="d03"></a>
 
-### D03 — Siting, grid connection and supply
+### Siting, grid connection and supply
 
 **Central question:** Where can the required power actually arrive, and when?
 
@@ -304,11 +304,11 @@ Connect the physical site decision to grid constraints, available infrastructure
 - Capacity, energy, fuel, emissions, curtailment and time matching
 - Land, fiber, water, climate and local constraints as joint siting inputs
 
-**Prerequisites:** [D01 — System boundaries and quantities](#d01), [D02 — Workloads and the infrastructure brief](#d02)
+**Prerequisites:** [System boundaries and quantities](#d01), [Workloads and the infrastructure brief](#d02)
 
 **Learning objectives and assessments:**
 
-#### D03.1
+#### Learning objective 1
 
 Trace a physical supply path and distinguish it from a power purchase agreement or energy attribute claim.
 
@@ -316,7 +316,7 @@ Trace a physical supply path and distinguish it from a power purchase agreement 
 
 **Historical introduction coverage:** partial. `sources-and-grid` — Follow the physical connection.
 
-#### D03.2
+#### Learning objective 2
 
 Explain voltage, current and conductor loss in a bounded AC or DC comparison.
 
@@ -324,7 +324,7 @@ Explain voltage, current and conductor loss in a bounded AC or DC comparison.
 
 **Historical introduction coverage:** partial. `raise-voltage` — Go farther. Raise the voltage.
 
-#### D03.3
+#### Learning objective 3
 
 Explain the milestones and constraints between a proposed large load and service available to that load.
 
@@ -332,7 +332,7 @@ Explain the milestones and constraints between a proposed large load and service
 
 **Historical introduction coverage:** partial. `capacity-stages` — Connected is a milestone.
 
-#### D03.4
+#### Learning objective 4
 
 Compare utility-only and behind-the-meter supply against energy, capacity, fuel and operating requirements; distinguish customer-side location from island capability.
 
@@ -394,7 +394,7 @@ Compare utility-only and behind-the-meter supply against energy, capacity, fuel 
 
 <a id="d04"></a>
 
-### D04 — Campus and building power distribution
+### Campus and building power distribution
 
 **Central question:** How does power get from the connection to each load?
 
@@ -408,11 +408,11 @@ Teach electrical topology, equipment roles and rating boundaries before comparin
 - AC distribution and alternative DC conversion locations
 - House loads, IT loads, reserved capacity and expansion phases
 
-**Prerequisites:** [D01 — System boundaries and quantities](#d01), [D03 — Siting, grid connection and supply](#d03)
+**Prerequisites:** [System boundaries and quantities](#d01), [Siting, grid connection and supply](#d03)
 
 **Learning objectives and assessments:**
 
-#### D04.1
+#### Learning objective 1
 
 Read a generic single-line diagram and explain what each distribution component changes, measures, switches or protects.
 
@@ -420,7 +420,7 @@ Read a generic single-line diagram and explain what each distribution component 
 
 **Historical introduction coverage:** partial. `substation-functions` — Open the substation.; `building-power-train` — Bring the power to the rack.
 
-#### D04.2
+#### Learning objective 2
 
 Translate load requirements into currents and equipment loading without confusing kW with kVA or nameplate with usable capacity.
 
@@ -428,7 +428,7 @@ Translate load requirements into currents and equipment loading without confusin
 
 **Historical introduction coverage:** partial. `raise-voltage` — Go farther. Raise the voltage.
 
-#### D04.3
+#### Learning objective 3
 
 Compare centralized and distributed conversion and identify which conductors, equipment and loss boundaries change.
 
@@ -436,7 +436,7 @@ Compare centralized and distributed conversion and identify which conductors, eq
 
 **Historical introduction coverage:** missing. No existing lesson mapped.
 
-#### D04.4
+#### Learning objective 4
 
 Reconcile IT and auxiliary loads with a downstream electrical capacity budget across project phases.
 
@@ -497,7 +497,7 @@ Reconcile IT and auxiliary loads with a downstream electrical capacity budget ac
 
 <a id="d05"></a>
 
-### D05 — Continuity, storage and protection
+### Continuity, storage and protection
 
 **Central question:** What survives a disturbance, and for how long?
 
@@ -511,11 +511,11 @@ Connect backup supply, fault isolation and maintenance to complete operating pat
 - Grounding, fault detection, selective isolation and AC/DC protection concepts
 - Electrical and thermal ride-through together
 
-**Prerequisites:** [D01 — System boundaries and quantities](#d01), [D04 — Campus and building power distribution](#d04)
+**Prerequisites:** [System boundaries and quantities](#d01), [Campus and building power distribution](#d04)
 
 **Learning objectives and assessments:**
 
-#### D05.1
+#### Learning objective 1
 
 Calculate bounded stored-energy runtime while checking discharge power and reserve assumptions.
 
@@ -523,7 +523,7 @@ Calculate bounded stored-energy runtime while checking discharge power and reser
 
 **Historical introduction coverage:** partial. `ride-through` — The battery buys time.
 
-#### D05.2
+#### Learning objective 2
 
 Trace an interruption, transfer and restoration sequence including IT, cooling and controls.
 
@@ -531,7 +531,7 @@ Trace an interruption, transfer and restoration sequence including IT, cooling a
 
 **Historical introduction coverage:** partial. `ride-through` — The battery buys time.; `redundant-paths` — A second path must be useful.
 
-#### D05.3
+#### Learning objective 3
 
 Evaluate path independence and surviving capacity during both a fault and planned maintenance.
 
@@ -539,7 +539,7 @@ Evaluate path independence and surviving capacity during both a fault and planne
 
 **Historical introduction coverage:** partial. `redundant-paths` — A second path must be useful.; `fault-domains` — Keep one fault from spreading.
 
-#### D05.4
+#### Learning objective 4
 
 Explain why fault clearing and grounding require topology-specific AC/DC protection design.
 
@@ -606,7 +606,7 @@ Explain why fault clearing and grounding require topology-specific AC/DC protect
 
 <a id="d06"></a>
 
-### D06 — Rack power and the 800 V DC transition
+### Rack power and the 800 V DC transition
 
 **Central question:** Where should voltage conversion happen as rack demand changes?
 
@@ -620,11 +620,11 @@ Use 800 V DC as an architecture comparison grounded in current, interfaces and d
 - Copper, connectors, busbars, stored energy, service access and space
 - Load transients, protection interfaces, brownfield and greenfield choices
 
-**Prerequisites:** [D01 — System boundaries and quantities](#d01), [D04 — Campus and building power distribution](#d04), [D05 — Continuity, storage and protection](#d05)
+**Prerequisites:** [System boundaries and quantities](#d01), [Campus and building power distribution](#d04), [Continuity, storage and protection](#d05)
 
 **Learning objectives and assessments:**
 
-#### D06.1
+#### Learning objective 1
 
 Trace conversion from rack input to processor rails and distinguish whole-rack power from chip power.
 
@@ -632,7 +632,7 @@ Trace conversion from rack input to processor rails and distinguish whole-rack p
 
 **Historical introduction coverage:** partial. `rack-conversion` — The rack changes the rules.; `low-voltage-current` — Low voltage. Enormous current.
 
-#### D06.2
+#### Learning objective 2
 
 Quantify how distribution voltage changes current at fixed DC power without treating conductor loss as total system efficiency.
 
@@ -640,7 +640,7 @@ Quantify how distribution voltage changes current at fixed DC power without trea
 
 **Historical introduction coverage:** partial. `low-voltage-current` — Low voltage. Enormous current.
 
-#### D06.3
+#### Learning objective 3
 
 Compare near-rack sidecars, rack-level conversion and facility DC as distinct architectures.
 
@@ -648,7 +648,7 @@ Compare near-rack sidecars, rack-level conversion and facility DC as distinct ar
 
 **Historical introduction coverage:** missing. No existing lesson mapped.
 
-#### D06.4
+#### Learning objective 4
 
 Evaluate a rack power upgrade against connector, bus, protection, auxiliary and transient interfaces.
 
@@ -656,7 +656,7 @@ Evaluate a rack power upgrade against connector, bus, protection, auxiliary and 
 
 **Historical introduction coverage:** missing. No existing lesson mapped.
 
-#### D06.5
+#### Learning objective 5
 
 Explain how retrofit constraints can reverse a seemingly attractive greenfield architecture choice.
 
@@ -714,7 +714,7 @@ Explain how retrofit constraints can reverse a seemingly attractive greenfield a
 
 <a id="d07"></a>
 
-### D07 — Compute, memory and the rack
+### Compute, memory and the rack
 
 **Central question:** What inside the rack determines useful performance?
 
@@ -728,11 +728,11 @@ Explain hardware organization only as deeply as needed to connect workload progr
 - Packaging and power/thermal density where they affect the facility
 - Product specifications, measured performance and workload-dependent limits
 
-**Prerequisites:** [D01 — System boundaries and quantities](#d01), [D02 — Workloads and the infrastructure brief](#d02)
+**Prerequisites:** [System boundaries and quantities](#d01), [Workloads and the infrastructure brief](#d02)
 
 **Learning objectives and assessments:**
 
-#### D07.1
+#### Learning objective 1
 
 Locate compute, memory and communication components within a server and rack and explain their roles.
 
@@ -740,7 +740,7 @@ Locate compute, memory and communication components within a server and rack and
 
 **Historical introduction coverage:** partial. `rack-conversion` — The rack changes the rules.
 
-#### D07.2
+#### Learning objective 2
 
 Distinguish memory-capacity, memory-bandwidth, compute and communication limits.
 
@@ -748,7 +748,7 @@ Distinguish memory-capacity, memory-bandwidth, compute and communication limits.
 
 **Historical introduction coverage:** missing. No existing lesson mapped.
 
-#### D07.3
+#### Learning objective 3
 
 Explain why chip count, advertised FLOPS and installed MW cannot independently establish job throughput.
 
@@ -756,7 +756,7 @@ Explain why chip count, advertised FLOPS and installed MW cannot independently e
 
 **Historical introduction coverage:** partial. `useful-compute` — Watts do not measure useful work.
 
-#### D07.4
+#### Learning objective 4
 
 Connect server and rack organization to power, cooling, weight and maintenance interfaces.
 
@@ -809,7 +809,7 @@ Connect server and rack organization to power, cooling, weight and maintenance i
 
 <a id="d08"></a>
 
-### D08 — Networking and interconnects
+### Networking and interconnects
 
 **Central question:** How do many devices make progress as one system?
 
@@ -824,11 +824,11 @@ Teach communication cost and topology as constraints on useful compute and physi
 - Copper, pluggable optics and co-packaged optics; reach, power, cabling and serviceability
 - Campus fiber entrances, meet-me rooms, demarcation and carrier connections; physical route diversity
 
-**Prerequisites:** [D01 — System boundaries and quantities](#d01), [D02 — Workloads and the infrastructure brief](#d02), [D07 — Compute, memory and the rack](#d07)
+**Prerequisites:** [System boundaries and quantities](#d01), [Workloads and the infrastructure brief](#d02), [Compute, memory and the rack](#d07)
 
 **Learning objectives and assessments:**
 
-#### D08.1
+#### Learning objective 1
 
 Distinguish scale-up, scale-out and wide-area communication requirements.
 
@@ -836,7 +836,7 @@ Distinguish scale-up, scale-out and wide-area communication requirements.
 
 **Historical introduction coverage:** missing. No existing lesson mapped.
 
-#### D08.2
+#### Learning objective 2
 
 Calculate an illustrative topology's endpoint ports, oversubscription and transfer-time lower bounds.
 
@@ -844,7 +844,7 @@ Calculate an illustrative topology's endpoint ports, oversubscription and transf
 
 **Historical introduction coverage:** missing. No existing lesson mapped.
 
-#### D08.3
+#### Learning objective 3
 
 Explain how congestion, collectives and topology-aware placement affect job progress.
 
@@ -852,7 +852,7 @@ Explain how congestion, collectives and topology-aware placement affect job prog
 
 **Historical introduction coverage:** missing. No existing lesson mapped.
 
-#### D08.4
+#### Learning objective 4
 
 Compare interconnect media and packaging choices using reach, bandwidth, power, cooling and replacement boundaries.
 
@@ -860,7 +860,7 @@ Compare interconnect media and packaging choices using reach, bandwidth, power, 
 
 **Historical introduction coverage:** missing. No existing lesson mapped.
 
-#### D08.5
+#### Learning objective 5
 
 Trace a network failure or degraded link into workload, cabling and operational consequences.
 
@@ -911,7 +911,7 @@ Trace a network failure or degraded link into workload, cabling and operational 
 
 <a id="d09"></a>
 
-### D09 — Storage, orchestration and recovery
+### Storage, orchestration and recovery
 
 **Central question:** Can data and jobs reach the hardware, and can useful progress survive failures?
 
@@ -925,11 +925,11 @@ Connect storage and cluster software to the delivery of a usable service.
 - Cluster bring-up, provisioning, observability and tenant/service acceptance
 - Recovery objectives, redundancy and backup as different concepts
 
-**Prerequisites:** [D01 — System boundaries and quantities](#d01), [D02 — Workloads and the infrastructure brief](#d02), [D07 — Compute, memory and the rack](#d07), [D08 — Networking and interconnects](#d08)
+**Prerequisites:** [System boundaries and quantities](#d01), [Workloads and the infrastructure brief](#d02), [Compute, memory and the rack](#d07), [Networking and interconnects](#d08)
 
 **Learning objectives and assessments:**
 
-#### D09.1
+#### Learning objective 1
 
 Trace the dataset and checkpoint paths and distinguish capacity, throughput and metadata constraints.
 
@@ -937,7 +937,7 @@ Trace the dataset and checkpoint paths and distinguish capacity, throughput and 
 
 **Historical introduction coverage:** missing. No existing lesson mapped.
 
-#### D09.2
+#### Learning objective 2
 
 Explain how checkpoint frequency, failure behavior and restart time affect completed work.
 
@@ -945,7 +945,7 @@ Explain how checkpoint frequency, failure behavior and restart time affect compl
 
 **Historical introduction coverage:** missing. No existing lesson mapped.
 
-#### D09.3
+#### Learning objective 3
 
 Explain scheduling, placement, provisioning and isolation as prerequisites for usable cluster capacity.
 
@@ -953,7 +953,7 @@ Explain scheduling, placement, provisioning and isolation as prerequisites for u
 
 **Historical introduction coverage:** missing. No existing lesson mapped.
 
-#### D09.4
+#### Learning objective 4
 
 Specify a service acceptance exercise that tests end-to-end data access, job launch, useful output and recovery.
 
@@ -1008,7 +1008,7 @@ Specify a service acceptance exercise that tests end-to-end data access, job lau
 
 <a id="d10"></a>
 
-### D10 — Chip and rack heat capture
+### Chip and rack heat capture
 
 **Central question:** How does heat leave the devices without exceeding their operating limits?
 
@@ -1022,11 +1022,11 @@ Connect local thermal constraints with airflow, coolant and rack interfaces.
 - Technology coolant, manifolds, quick disconnects and CDUs
 - Flow, pressure drop, approach temperature, material compatibility and leak management
 
-**Prerequisites:** [D01 — System boundaries and quantities](#d01), [D07 — Compute, memory and the rack](#d07)
+**Prerequisites:** [System boundaries and quantities](#d01), [Compute, memory and the rack](#d07)
 
 **Learning objectives and assessments:**
 
-#### D10.1
+#### Learning objective 1
 
 Trace parallel air and liquid heat paths and explain why rack power alone does not specify local cooling difficulty.
 
@@ -1034,7 +1034,7 @@ Trace parallel air and liquid heat paths and explain why rack power alone does n
 
 **Historical introduction coverage:** partial. `electrical-to-heat` — The watt becomes heat.; `residual-air` — This rack still needs air.
 
-#### D10.2
+#### Learning objective 2
 
 Calculate a single-phase heat-transport flow under stated fluid and temperature assumptions.
 
@@ -1042,7 +1042,7 @@ Calculate a single-phase heat-transport flow under stated fluid and temperature 
 
 **Historical introduction coverage:** partial. `liquid-heat-transport` — Heat needs a moving carrier.
 
-#### D10.3
+#### Learning objective 3
 
 Explain a CDU's fluid separation, heat-exchange and control functions while distinguishing loop rise from approach temperature.
 
@@ -1050,7 +1050,7 @@ Explain a CDU's fluid separation, heat-exchange and control functions while dist
 
 **Historical introduction coverage:** partial. `heat-exchanger` — Heat crosses. Fluids stay apart.
 
-#### D10.4
+#### Learning objective 4
 
 Compare air, cold-plate, rear-door and immersion approaches against a declared density and service brief.
 
@@ -1107,7 +1107,7 @@ Compare air, cold-plate, rear-door and immersion approaches against a declared d
 
 <a id="d11"></a>
 
-### D11 — Heat rejection, climate and water
+### Heat rejection, climate and water
 
 **Central question:** Where does the heat finally go, and what does moving it consume?
 
@@ -1121,11 +1121,11 @@ Close the energy and water balances through facility cooling and the outdoor env
 - Dry-bulb/wet-bulb conditions, water supply, treatment and consumption
 - PUE/WUE boundaries, heat reuse and environmental tradeoffs
 
-**Prerequisites:** [D01 — System boundaries and quantities](#d01), [D10 — Chip and rack heat capture](#d10)
+**Prerequisites:** [System boundaries and quantities](#d01), [Chip and rack heat capture](#d10)
 
 **Learning objectives and assessments:**
 
-#### D11.1
+#### Learning objective 1
 
 Distinguish dry cooling, refrigeration, evaporative rejection and economizer operating modes.
 
@@ -1133,7 +1133,7 @@ Distinguish dry cooling, refrigeration, evaporative rejection and economizer ope
 
 **Historical introduction coverage:** partial. `outdoor-rejection` — Moving heat adds heat.
 
-#### D11.2
+#### Learning objective 2
 
 Close a declared chiller energy balance and calculate cooling COP with the correct numerator and denominator.
 
@@ -1141,7 +1141,7 @@ Close a declared chiller energy balance and calculate cooling COP with the corre
 
 **Historical introduction coverage:** partial. `outdoor-rejection` — Moving heat adds heat.
 
-#### D11.3
+#### Learning objective 3
 
 Explain how ambient conditions, supply temperatures and equipment performance constrain capacity and economizer operation.
 
@@ -1149,7 +1149,7 @@ Explain how ambient conditions, supply temperatures and equipment performance co
 
 **Historical introduction coverage:** missing. No existing lesson mapped.
 
-#### D11.4
+#### Learning objective 4
 
 Compute energy and water metrics with explicit boundaries and distinguish consumption from withdrawal.
 
@@ -1157,7 +1157,7 @@ Compute energy and water metrics with explicit boundaries and distinguish consum
 
 **Historical introduction coverage:** partial. `facility-overhead` — Budget the whole facility.
 
-#### D11.5
+#### Learning objective 5
 
 Evaluate cooling architecture or heat reuse against climate, water, electrical capacity and receiving-load constraints.
 
@@ -1205,7 +1205,7 @@ Evaluate cooling architecture or heat reuse against climate, water, electrical c
 
 <a id="d12"></a>
 
-### D12 — Physical site, buildings and safety
+### Physical site, buildings and safety
 
 **Central question:** What must the actual place support beyond electrical and thermal ratings?
 
@@ -1220,11 +1220,11 @@ Make spatial, environmental, access and safety constraints visible before treati
 - Fire detection/suppression, electrical hazards and battery/fuel arrangements at conceptual level
 - Physical security and OT/IT trust boundaries; noise, water and environmental permits
 
-**Prerequisites:** [D01 — System boundaries and quantities](#d01), [D03 — Siting, grid connection and supply](#d03)
+**Prerequisites:** [System boundaries and quantities](#d01), [Siting, grid connection and supply](#d03)
 
 **Learning objectives and assessments:**
 
-#### D12.1
+#### Learning objective 1
 
 Translate a reference equipment layout into space, weight, access and replacement-route requirements.
 
@@ -1232,7 +1232,7 @@ Translate a reference equipment layout into space, weight, access and replacemen
 
 **Historical introduction coverage:** missing. No existing lesson mapped.
 
-#### D12.2
+#### Learning objective 2
 
 Evaluate whether a parcel can support the required phased campus by checking usable land, utility delivery, site conditions, rights and permissions.
 
@@ -1240,7 +1240,7 @@ Evaluate whether a parcel can support the required phased campus by checking usa
 
 **Historical introduction coverage:** missing. No existing lesson mapped.
 
-#### D12.3
+#### Learning objective 3
 
 Explain how fire, electrical, fluid and stored-energy hazards influence layout and operating boundaries.
 
@@ -1248,7 +1248,7 @@ Explain how fire, electrical, fluid and stored-energy hazards influence layout a
 
 **Historical introduction coverage:** missing. No existing lesson mapped.
 
-#### D12.4
+#### Learning objective 4
 
 Trace physical and control-system access boundaries and explain why availability depends on controlled changes and access.
 
@@ -1302,7 +1302,7 @@ Trace physical and control-system access boundaries and explain why availability
 
 <a id="d13"></a>
 
-### D13 — Design, procurement and commissioning
+### Design, procurement and commissioning
 
 **Central question:** How does a design become a tested, usable service?
 
@@ -1316,11 +1316,11 @@ Teach delivery as a chain of interfaces and evidence, not a chronology of announ
 - Functional and integrated systems testing, failure scenarios and acceptance
 - Phased handover, as-built records, procedures and operator training
 
-**Prerequisites:** [D03 — Siting, grid connection and supply](#d03), [D04 — Campus and building power distribution](#d04), [D05 — Continuity, storage and protection](#d05), [D09 — Storage, orchestration and recovery](#d09), [D10 — Chip and rack heat capture](#d10), [D11 — Heat rejection, climate and water](#d11), [D12 — Physical site, buildings and safety](#d12)
+**Prerequisites:** [Siting, grid connection and supply](#d03), [Campus and building power distribution](#d04), [Continuity, storage and protection](#d05), [Storage, orchestration and recovery](#d09), [Chip and rack heat capture](#d10), [Heat rejection, climate and water](#d11), [Physical site, buildings and safety](#d12)
 
 **Learning objectives and assessments:**
 
-#### D13.1
+#### Learning objective 1
 
 Build a dependency-based delivery plan and distinguish a critical path from the longest equipment lead time.
 
@@ -1328,7 +1328,7 @@ Build a dependency-based delivery plan and distinguish a critical path from the 
 
 **Historical introduction coverage:** missing. No existing lesson mapped.
 
-#### D13.2
+#### Learning objective 2
 
 Track interface requirements across vendors and design changes.
 
@@ -1336,7 +1336,7 @@ Track interface requirements across vendors and design changes.
 
 **Historical introduction coverage:** missing. No existing lesson mapped.
 
-#### D13.3
+#### Learning objective 3
 
 Distinguish installed, energized, individually tested, integrated-tested and service-accepted states.
 
@@ -1344,7 +1344,7 @@ Distinguish installed, energized, individually tested, integrated-tested and ser
 
 **Historical introduction coverage:** partial. `capacity-stages` — Connected is a milestone.; `abilene-case` — Read a real headline precisely.
 
-#### D13.4
+#### Learning objective 4
 
 Specify an integrated acceptance and handover plan for a phased deployment.
 
@@ -1406,7 +1406,7 @@ Specify an integrated acceptance and handover plan for a phased deployment.
 
 <a id="d14"></a>
 
-### D14 — Controls, operations and reliability
+### Controls, operations and reliability
 
 **Central question:** How does the system remain within its limits after handover?
 
@@ -1420,11 +1420,11 @@ Turn the static design into monitored operation, maintenance and incident recove
 - Failure domains, common causes, service availability and incident learning
 - Workload load changes, capacity management, aging and retrofit operations
 
-**Prerequisites:** [D05 — Continuity, storage and protection](#d05), [D09 — Storage, orchestration and recovery](#d09), [D11 — Heat rejection, climate and water](#d11), [D12 — Physical site, buildings and safety](#d12), [D13 — Design, procurement and commissioning](#d13)
+**Prerequisites:** [Continuity, storage and protection](#d05), [Storage, orchestration and recovery](#d09), [Heat rejection, climate and water](#d11), [Physical site, buildings and safety](#d12), [Design, procurement and commissioning](#d13)
 
 **Learning objectives and assessments:**
 
-#### D14.1
+#### Learning objective 1
 
 Place sensors and meters so an operator can distinguish an actual constraint from missing or misleading telemetry.
 
@@ -1432,7 +1432,7 @@ Place sensors and meters so an operator can distinguish an actual constraint fro
 
 **Historical introduction coverage:** missing. No existing lesson mapped.
 
-#### D14.2
+#### Learning objective 2
 
 Explain the difference between a device controller, a facility sequence and workload scheduling.
 
@@ -1440,7 +1440,7 @@ Explain the difference between a device controller, a facility sequence and work
 
 **Historical introduction coverage:** missing. No existing lesson mapped.
 
-#### D14.3
+#### Learning objective 3
 
 Evaluate maintainability using a procedure, surviving capacity and real isolation boundaries.
 
@@ -1448,7 +1448,7 @@ Evaluate maintainability using a procedure, surviving capacity and real isolatio
 
 **Historical introduction coverage:** partial. `redundant-paths` — A second path must be useful.; `fault-domains` — Keep one fault from spreading.
 
-#### D14.4
+#### Learning objective 4
 
 Distinguish component reliability, topology claims and measured service availability.
 
@@ -1456,7 +1456,7 @@ Distinguish component reliability, topology claims and measured service availabi
 
 **Historical introduction coverage:** missing. No existing lesson mapped.
 
-#### D14.5
+#### Learning objective 5
 
 Convert a failure or capacity incident into an evidence-based recovery and prevention plan.
 
@@ -1512,7 +1512,7 @@ Convert a failure or capacity incident into an evidence-based recovery and preve
 
 <a id="d15"></a>
 
-### D15 — Capacity, cost and system decisions
+### Capacity, cost and system decisions
 
 **Central question:** Which constraint limits useful service, and which change is worth making?
 
@@ -1526,11 +1526,11 @@ Combine engineering, delivery and workload models into a bounded decision with e
 - Cost per useful workload outcome versus cost per MW or GPU-hour
 - Sensitivity, scenarios, uncertainty, retrofit and retirement
 
-**Prerequisites:** [D02 — Workloads and the infrastructure brief](#d02), [D04 — Campus and building power distribution](#d04), [D06 — Rack power and the 800 V DC transition](#d06), [D08 — Networking and interconnects](#d08), [D09 — Storage, orchestration and recovery](#d09), [D11 — Heat rejection, climate and water](#d11), [D13 — Design, procurement and commissioning](#d13), [D14 — Controls, operations and reliability](#d14)
+**Prerequisites:** [Workloads and the infrastructure brief](#d02), [Campus and building power distribution](#d04), [Rack power and the 800 V DC transition](#d06), [Networking and interconnects](#d08), [Storage, orchestration and recovery](#d09), [Heat rejection, climate and water](#d11), [Design, procurement and commissioning](#d13), [Controls, operations and reliability](#d14)
 
 **Learning objectives and assessments:**
 
-#### D15.1
+#### Learning objective 1
 
 Reconcile electrical, thermal, spatial, network and commissioned-service limits using the same boundaries.
 
@@ -1538,7 +1538,7 @@ Reconcile electrical, thermal, spatial, network and commissioned-service limits 
 
 **Historical introduction coverage:** partial. `capacity-bottleneck` — The smallest limit wins.; `facility-overhead` — Budget the whole facility.
 
-#### D15.2
+#### Learning objective 2
 
 Build an auditable cost model that separates capital, energy, operations, ownership and financing assumptions.
 
@@ -1546,7 +1546,7 @@ Build an auditable cost model that separates capital, energy, operations, owners
 
 **Historical introduction coverage:** missing. No existing lesson mapped.
 
-#### D15.3
+#### Learning objective 3
 
 Explain why cost per MW, per installed accelerator and per useful result answer different questions.
 
@@ -1554,7 +1554,7 @@ Explain why cost per MW, per installed accelerator and per useful result answer 
 
 **Historical introduction coverage:** partial. `useful-compute` — Watts do not measure useful work.
 
-#### D15.4
+#### Learning objective 4
 
 Evaluate an upgrade using sensitivity to delivery date, service output, efficiency and constraints.
 
@@ -1562,7 +1562,7 @@ Evaluate an upgrade using sensitivity to delivery date, service output, efficien
 
 **Historical introduction coverage:** missing. No existing lesson mapped.
 
-#### D15.5
+#### Learning objective 5
 
 Audit a named project's public evidence without filling unknown capacity, topology or economics with generic assumptions.
 
@@ -1638,25 +1638,25 @@ Audit a named project's public evidence without filling unknown capacity, topolo
 
 ### Power → rack
 
-[D01](#d01) → [D03](#d03) → [D04](#d04) → [D05](#d05) → [D06](#d06) → [D07](#d07)
+[System boundaries and quantities](#d01) → [Siting, grid connection and supply](#d03) → [Campus and building power distribution](#d04) → [Continuity, storage and protection](#d05) → [Rack power and the 800 V DC transition](#d06) → [Compute, memory and the rack](#d07)
 
 Physical electrical journey. This is a conceptual path, not a universal installed topology.
 
 ### Chip → environment
 
-[D07](#d07) → [D10](#d10) → [D11](#d11)
+[Compute, memory and the rack](#d07) → [Chip and rack heat capture](#d10) → [Heat rejection, climate and water](#d11)
 
 Thermal journey, including parallel air/liquid paths and auxiliary heat inputs.
 
 ### Workload → useful service
 
-[D02](#d02) → [D07](#d07) → [D08](#d08) → [D09](#d09) → [D14](#d14) → [D15](#d15)
+[Workloads and the infrastructure brief](#d02) → [Compute, memory and the rack](#d07) → [Networking and interconnects](#d08) → [Storage, orchestration and recovery](#d09) → [Controls, operations and reliability](#d14) → [Capacity, cost and system decisions](#d15)
 
 Information and service dependencies, not a literal packet route.
 
 ### Site → service → upgrade
 
-[D02](#d02) → [D03](#d03) → [D12](#d12) → [D04](#d04) → [D13](#d13) → [D14](#d14) → [D15](#d15)
+[Workloads and the infrastructure brief](#d02) → [Siting, grid connection and supply](#d03) → [Physical site, buildings and safety](#d12) → [Campus and building power distribution](#d04) → [Design, procurement and commissioning](#d13) → [Controls, operations and reliability](#d14) → [Capacity, cost and system decisions](#d15)
 
 A lifecycle view across domains. Design and procurement iterate; this is not a strict construction schedule.
 
@@ -1666,7 +1666,7 @@ A lifecycle view across domains. Design and procurement iterate; this is not a s
 
 A utility interruption occurs in a hypothetical facility. IT storage support and cooling/control supply paths are specified separately.
 
-Domains: [D04](#d04), [D05](#d05), [D10](#d10), [D11](#d11), [D14](#d14)
+Domains: [Campus and building power distribution](#d04), [Continuity, storage and protection](#d05), [Chip and rack heat capture](#d10), [Heat rejection, climate and water](#d11), [Controls, operations and reliability](#d14)
 
 **Deliverable:** An annotated topology, discrete failure timeline, energy and power budgets, and a list of missing thermal evidence.
 
@@ -1676,7 +1676,7 @@ Domains: [D04](#d04), [D05](#d05), [D10](#d10), [D11](#d11), [D14](#d14)
 
 Ambient conditions move across supplied cooling performance curves while the site electrical limit remains fixed.
 
-Domains: [D01](#d01), [D10](#d10), [D11](#d11), [D14](#d14), [D15](#d15)
+Domains: [System boundaries and quantities](#d01), [Chip and rack heat capture](#d10), [Heat rejection, climate and water](#d11), [Controls, operations and reliability](#d14), [Capacity, cost and system decisions](#d15)
 
 **Deliverable:** A before/after power and heat balance with binding constraints and a stated operating response.
 
@@ -1686,7 +1686,7 @@ Domains: [D01](#d01), [D10](#d10), [D11](#d11), [D14](#d14), [D15](#d15)
 
 Compare a higher-density rack migration using the existing AC plant, a sidecar option and a separately specified broader DC alternative.
 
-Domains: [D04](#d04), [D05](#d05), [D06](#d06), [D07](#d07), [D10](#d10), [D12](#d12), [D13](#d13), [D15](#d15)
+Domains: [Campus and building power distribution](#d04), [Continuity, storage and protection](#d05), [Rack power and the 800 V DC transition](#d06), [Compute, memory and the rack](#d07), [Chip and rack heat capture](#d10), [Physical site, buildings and safety](#d12), [Design, procurement and commissioning](#d13), [Capacity, cost and system decisions](#d15)
 
 **Deliverable:** Interface matrix, conversion diagrams, current and heat-flow calculations, floor/service-access review, migration sequence and scenario cost comparison.
 
@@ -1696,7 +1696,7 @@ Domains: [D04](#d04), [D05](#d05), [D06](#d06), [D07](#d07), [D10](#d10), [D12](
 
 The hardware has adequate power and cooling, but a synthetic workload suffers fabric congestion and checkpoint stalls.
 
-Domains: [D02](#d02), [D07](#d07), [D08](#d08), [D09](#d09), [D14](#d14), [D15](#d15)
+Domains: [Workloads and the infrastructure brief](#d02), [Compute, memory and the rack](#d07), [Networking and interconnects](#d08), [Storage, orchestration and recovery](#d09), [Controls, operations and reliability](#d14), [Capacity, cost and system decisions](#d15)
 
 **Deliverable:** Work/wait/recovery timeline, a bounded bottleneck calculation, and an experiment that distinguishes competing causes.
 
@@ -1706,7 +1706,7 @@ Domains: [D02](#d02), [D07](#d07), [D08](#d08), [D09](#d09), [D14](#d14), [D15](
 
 An illustrative project has utility service, some installed racks and uneven subsystem completion. A separate named-site exercise uses only dated public evidence.
 
-Domains: [D03](#d03), [D04](#d04), [D05](#d05), [D09](#d09), [D11](#d11), [D12](#d12), [D13](#d13), [D14](#d14), [D15](#d15)
+Domains: [Siting, grid connection and supply](#d03), [Campus and building power distribution](#d04), [Continuity, storage and protection](#d05), [Storage, orchestration and recovery](#d09), [Heat rejection, climate and water](#d11), [Physical site, buildings and safety](#d12), [Design, procurement and commissioning](#d13), [Controls, operations and reliability](#d14), [Capacity, cost and system decisions](#d15)
 
 **Deliverable:** Capacity-state ledger, dependency schedule, integrated acceptance plan and unresolved-evidence list.
 

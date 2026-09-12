@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/heat-delivery-operations.json), lesson `d15-upgrade-and-evidence`, then run `uv run gigawatt-expand`.
 
-**D15 · Authored draft · Objectives:** D15.4, D15.5
+**Capacity, cost and system decisions · Authored draft**
 
 Compare original intervention scenarios with different delivery dates, then audit a dated Stargate announcement without converting planned capacity into measured operation.
 
@@ -83,9 +83,9 @@ The first statement supports a publisher-reported instance of operation at a nam
 - [GAO Schedule Assessment Guide](https://www.gao.gov/products/gao-16-89g) — The guide overview connects schedule credibility and slippage with program cost assessment. Read 2026-09-06. Overview reviewed. The intervention prices, rates, horizon and screening ratios are original and are not project forecasts.
 - [OpenAI: Five new Stargate sites](https://openai.com/index/five-new-stargate-sites/) — The article distinguishes a multi-site planned capacity total from its statement about early workloads at Abilene. Read 2026-09-06. Main article and visible October 22, 2025 update inspected on September 6, 2026. This lesson audits the dated statements; it does not establish current operating MW, complete topology or site economics.
 
-## D15 domain check-in: Which upgrade changes the ceiling?
+## Check your understanding: Which upgrade changes the ceiling?
 
-Optional: pause and make a prediction, then compare your reasoning. You can continue whenever you are ready.
+Pause and make a prediction, then compare your reasoning.
 
 For the same hypothetical rack population and operating condition, electrical capacity supports 12 racks, cooling 8, networking 10 and accepted service 9. Option A raises electrical capacity to 16; option B raises cooling capacity to 11. Assume the other limits stay fixed.
 

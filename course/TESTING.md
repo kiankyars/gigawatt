@@ -690,3 +690,21 @@ joins it before 2 weeks of connections and 2 of acceptance. Approval at weeks
 Source review dates are preserved; no new external review is claimed. The reader
 now displays the authored visual captions so numerical assumptions remain visible
 next to its summary diagrams.
+
+
+## Primer, workload copy and feedback verification — 2026-09-12
+
+This revision supersedes the earlier primer scene counts and the direct workload-to-supply handoff recorded above. The Primer has 19 scenes and 1,205 seconds of planned cues. It has no optional label, skip link, course-forward reference or reassurance outro. New examples cover AC waveforms, power factor, standby versus online UPS, model loading, payload completion and cold-plate heat transfer. Author-only provenance is in PRIMER_EVIDENCE.md.
+
+All 19 workload scenes were edited for concise headings and diagrams. Repeated eyebrow, SVG subtitle banners, stage boundary paragraph and narrative recaps were removed. Detailed assumptions remain in the Explanation dialog; essential assumptions and units remain beside the quantities.
+
+Verification on the reviewed source:
+
+- 57 Python tests and 94 JavaScript model tests pass. Generated historical course, expanded reader, domain map and research metadata are current; Python lint and diff checks pass.
+- Primer static checks cover 19 scenes, every control/diagram state, new arithmetic and UPS paths, legacy hashes and zero reference/chapter pointers. Workload static checks cover 82 scene/state/layout combinations and parse generated SVG as XML.
+- The built-in Codex browser checked all 19 default scenes in each presentation at 1280 × 720 and 390 × 844 for SVG text bounds, collisions and horizontal page overflow. Three workload timeline label collisions were fixed and rechecked. Representative desktop and mobile screenshots were inspected and retained in the task.
+- Additional interactions checked AC polarity, UPS interruption, 1,000 Mb/s payload timing, two/four training devices, answer reveal and Explanation open/close. These checks sample controls; they are not a fresh exhaustive browser run of every state, theme, zoom and screen size.
+- Both final presentation actions were clicked and landed on their respective reader check-ins with focus and scroll placement. Answer reveal and continuation to the next topic worked. The land lesson visibly offers the greenfield/brownfield comparison and original Colossus case beside its introduction.
+- Descriptive topic names replace visible domain codes in current course interfaces and guidance. Stable internal IDs and historical verification entries remain.
+
+No standalone browser or browser installer was launched for this review. The planned timing still needs an aloud dry run and learner feedback. FEEDBACK_AUDIT.md tracks every user request and publication status.

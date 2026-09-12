@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/sample.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/sample.json), lesson `sample-800v`, then run `uv run gigawatt-expand`.
 
-**D06 · Authored draft · Objectives:** D06.2, D06.3
+**Rack power and the 800 V DC transition · Authored draft**
 
 Learn the electrical foundations, then compare distribution copper and the placement of conversion equipment.
 
@@ -132,7 +132,7 @@ Before this example’s 480 V AC input, a conventional transformer steps medium-
 
 The controlled AC/DC supply establishes the 800 V DC output; a simple rectifier is not a voltage-independent route to 800 V. SemiAnalysis’s Phase 3 example uses 415 V AC after conventional step-down. This numerical example retains 480 V AC; neither is a universal required input voltage.
 
-A conventional transformer changes AC voltage; it does not rectify. There is no universal 10 kV ceiling on rectification. Cascaded converter cells can share medium-voltage stress among lower-voltage semiconductors. An SST is an alternative architecture that combines electronic stages with high-frequency isolation, not a prerequisite for an 800 V DC bus. See D04, “Why step down before rectifying?”, for the device-rating distinction.
+A conventional transformer changes AC voltage; it does not rectify. There is no universal 10 kV ceiling on rectification. Cascaded converter cells can share medium-voltage stress among lower-voltage semiconductors. An SST is an alternative architecture that combines electronic stages with high-frequency isolation, not a prerequisite for an 800 V DC bus. See “Why step down before rectifying?”, for the device-rating distinction.
 
 Conversion changes voltage or electrical form with real components. Current through semiconductor on-resistance, winding resistance and diode drops dissipates power. Switching transitions dissipate energy as current and voltage overlap; repeating those transitions adds average loss. Magnetic cores, controllers, gate drivers and fans also consume power. The balance depends on converter topology, device choices, voltage, load, switching frequency, temperature and operating mode.
 

@@ -1,22 +1,21 @@
 # Rehearse the teaching sequences
 
-[D00 optional primer](prototypes/terminology-format.html?teach=1)
-· [D01 overview](prototypes/orientation-format.html?teach=1)
-· [D02 workloads](prototypes/workload-format.html?teach=1) · [800 V](teach.html)
+[Primer](prototypes/terminology-format.html?teach=1)
+· [Data center overview](prototypes/orientation-format.html?teach=1)
+· [Workloads and requirements](prototypes/workload-format.html?teach=1) · [800 V](teach.html)
 · [UPS](prototypes/ups-format.html) · [Cooling](prototypes/cooling-format.html?teach=1)
 
 ## The next pass
 
-The next dry run is **[D00 — Electricity basics and recurring terminology](prototypes/terminology-format.html?teach=1)**.
-This optional prelude aims for approximately 20 minutes; time it aloud before
-treating that as an established runtime. Its [student route](prototypes/terminology-format.html)
-provides the same first exposure. Open with the reassurance: “I'm going to tell
-you these terms now. Don't worry; I'm going to explain them again once we get
-there.” Use the diagrams to make the words familiar, without requiring recall
-or mastery before the course begins. Check which terms still feel disconnected,
-and reintroduce them in their system sections regardless of primer attendance.
+The next dry run is **[Primer](prototypes/terminology-format.html?teach=1)**.
+The primer aims for approximately 20 minutes; time it aloud before treating that
+as an established runtime. Its [student route](prototypes/terminology-format.html)
+uses the same diagrams. The goal is enough vocabulary to follow part of an expert
+conversation. Introduce each word through a concrete object or example. Keep the
+slides self-contained: no optional label, chapter pointers, skip link or promises
+about future lessons. The presenter can decide how to introduce the audience to it.
 
-The following **[D01 — Data center overview](prototypes/orientation-format.html?teach=1#three-paths)** remains intact.
+The following **[Data center overview](prototypes/orientation-format.html?teach=1#three-paths)** remains intact.
 Its thirteen scenes tour the three paths, white/gray space, generation,
 transmission, campus distribution, backup power, GB300 hardware, chip-to-cluster
 scale, network and cooling paths, then rating, LLM batch scheduling and PUE.
@@ -31,23 +30,22 @@ experiments; each scene's explanation and sources open on demand.
 3. We revise that section, then continue through the domain map's dependencies.
    The domains track coverage; they do not impose fifteen identical slide decks.
 
-D00 precedes the existing 15 curriculum domains and adds no required objectives.
-D01's overview covers selected material, not all of D01/D02. Source-claim evaluation
-remains in the D01 reference. The new **[D02 teaching sequence](prototypes/workload-format.html?teach=1)**
-has 19 scenes across the workload brief, productive utilization and job timing.
-Teach those three parts in order: define accepted work and memory needs; account
-for waiting energy and useful output; then compare batching, latency and aggregate
-demand. Try the changed cases and final acceptance exercise before opening the
-explanation. Both D00 and D02 still need an aloud learner dry run.
+The primer comes before the fifteen course topics and adds no assessed objectives.
+The overview covers selected material; detailed evidence evaluation remains in its
+reading companion. **[Workloads and requirements](prototypes/workload-format.html?teach=1)**
+has 19 scenes: define accepted work and memory needs, account for useful output and
+waiting energy, then compare batching, latency and demand timing. Both presentations
+end with a link to their check-in. Pause for a prediction before revealing the answer.
+The primer and workloads still need an aloud learner dry run.
 
-The implemented presentations currently cover D00, selected D01 material, D02,
-parts of D05 (UPS) and D06 (800 V), and D10/D11 (cooling). D08 and D15 have authored
-reader lessons, but their own teaching presentations remain to be built. D03 is
-the next core section to author after reviewing D02.
+Presentations exist for the primer, the overview, workloads, and selected UPS,
+800 V and cooling material. Networking and capacity decisions have authored reader
+lessons; their own presentations remain to be built. Grid connection and supply is
+the next core presentation to author after reviewing workloads.
 
-D08's written networking section covers copper, fiber, pluggable and co-packaged
-optics, scale-up/scale-out, plus campus entrances, meet-me rooms, carrier handoff,
-DCI/WAN and shared-route risks. Its teaching sequence remains to be authored.
+The networking reading covers copper, fiber, pluggable and co-packaged optics,
+scale-up and scale-out, campus entrances, meet-me rooms, carrier handoff, DCI/WAN
+and shared-route risks.
 
 ## Cooling reference sequence
 
@@ -57,13 +55,13 @@ heat balance, CDU approach, a real CoolIT CHx2000, dry/wet rejection, weather,
 chillers, hybrid and economizer modes, and CDU redundancy, independent facility
 paths and reduced-power operation after a cooling failure.
 
-**D10 and D11 in the expanded reader are the reference chapters.** They provide
+**Chip and rack heat capture and Heat rejection, climate and water in the expanded reader are the reference chapters.** They provide
 derivations, source discussion and additional detail; the presentation should
 teach its selected topics without requiring the audience to open those chapters.
 The flow experiment keeps heat load fixed: double coolant flow and watch the
 temperature rise halve. The air-versus-water comparison separately explains why
 liquid cooling is useful. Further domain detail remains
-in [D10](index.html#d10-local-thermal-paths) and [D11](index.html#d11-heat-rejection).
+in [Chip and rack heat capture](index.html#d10-local-thermal-paths) and [Heat rejection, climate and water](index.html#d11-heat-rejection).
 [The revised ending](prototypes/cooling-format.html?teach=1#lost-flow) starts with
 spare CDUs, then independent facility paths, then the load reduction that can fit
 remaining cooling capacity. Its kW values are hypothetical qualified operating
@@ -82,7 +80,7 @@ conversion is not the production method.
 ## UPS, bypass and redundancy
 
 Open [the UPS sequence](prototypes/ups-format.html). Its seventeen scenes cover
-selected parts of D05: location and form, normal and battery operation, capacitor
+selected parts of Continuity, storage and protection: location and form, normal and battery operation, capacitor
 buffering, generator handoff, static and maintenance bypass, then N, N+1, N+2,
 2N and 2(N+1).
 
@@ -103,8 +101,8 @@ synchronized cue window. No notes are required for the main teaching route.
 
 ## AC/DC foundations and 800 V
 
-Open [the thirteen-scene teaching sequence](teach.html). It covers selected D06
-ideas with D01/D04 foundations: closed DC loop, AC power dips, three balanced
+Open [the thirteen-scene teaching sequence](teach.html). It covers selected Rack power and the 800 V DC transition
+ideas with Data center overview/Campus and building power distribution foundations: closed DC loop, AC power dips, three balanced
 phases, line-to-line voltage, copper and current, then conversion placement.
 
 The comparisons retain **100 kW received power** unless the scene explicitly
@@ -148,12 +146,13 @@ follows the device's light/dark setting, including changes while it is open.
 [TESTING.md](TESTING.md) records browser and numerical checks. Those checks support
 a working visual; the dry run reveals whether it teaches clearly.
 
-### D00 opening and case-study use
+### Primer opening and case-study use
 
-D00 begins with the circuit. Speak the brief reassurance while pointing at the
-source and load; there is no separate welcome or outro scene. Sixteen substantive
-scenes have 18:30 of planned cues, leaving room within about twenty minutes for
-transitions. Finish PUE and use Continue to D01. Rehearsal establishes actual pace.
+The primer begins with the circuit and ends with the PUE example. There is no
+welcome, roadmap, closing quotation or link to another chapter. Its revised
+sequence includes waveform shapes, power factor and UPS types, with concrete
+memory, networking and heat examples. Planned cues target about twenty minutes;
+rehearsal establishes the actual pace.
 
 Open `prototypes/case-studies.html?teach=1` for the short case treatments. Use each
 case in its named domain, invite a prediction before revealing the explanation,

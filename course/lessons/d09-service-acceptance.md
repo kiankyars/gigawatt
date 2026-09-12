@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/racks-compute-heat.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/racks-compute-heat.json), lesson `d09-service-acceptance`, then run `uv run gigawatt-expand`.
 
-**D09 · Authored draft · Objectives:** D09.3, D09.4, D09.2
+**Storage, orchestration and recovery · Authored draft**
 
 Connect scheduling, provisioning, isolation and observability to a reproducible end-to-end acceptance exercise.
 
@@ -90,9 +90,9 @@ Relaxing a constraint creates a new configuration. It may be worthwhile even wit
 - [NVIDIA DGX SuperPOD — Software](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/dgx-software.html) — A reference cluster includes orchestration, system management, libraries and operating-system components. Read 2026-09-06. Vendor reference stack, updated November 19, 2025; it does not certify an arbitrary tenant environment.
 - [Google — Supporting power grids with demand response](https://cloud.google.com/blog/products/infrastructure/using-demand-response-to-reduce-data-center-power-consumption) — Compare storing energy with rescheduling eligible non-urgent work during grid stress. Read 2026-09-12. Publisher-indexed introduction reviewed after direct fetch timed out. Historical pilot description; no claim that every workload can move or that reduced demand necessarily reduces total energy.
 
-## D09 domain check-in: Which progress comes back?
+## Check your understanding: Which progress comes back?
 
-Optional: pause and make a prediction, then compare your reasoning. You can continue whenever you are ready.
+Pause and make a prediction, then compare your reasoning.
 
 In a hypothetical run, the latest validated, durable checkpoint represents progress through minute 20. A failure occurs at minute 28; no newer checkpoint survives. Restoration takes 3 minutes, and the same work runs at the same rate afterward.
 
@@ -109,4 +109,4 @@ Restoration ends at minute 31. Replaying the 8 minutes after the durable checkpo
 
 **The next problem:** While the recovered job runs, its hardware keeps producing heat. Can every device transfer that heat into a supported cooling path?
 
-Continue in **D10**: A cool room can contain an overheating chip.
+Continue in **Chip and rack heat capture**: A cool room can contain an overheating chip.

@@ -8,7 +8,7 @@ an individual lesson.
 
 ## Carry the reasoning across the course
 
-The reviewed UPS, 800 V and D10/D11 cooling sequences establish an approach:
+The reviewed UPS, 800 V and Chip and rack heat capture/Heat rejection, climate and water cooling sequences establish an approach:
 **pose a concrete problem → show the mechanism → change one condition → explain
 the consequence**. Select the visual and example that make the particular topic
 understandable. The course template records the working goal of at least 300
@@ -20,16 +20,18 @@ the facility. Cut article-by-article narration, equipment inventories without a
 purpose and arithmetic that does not affect the engineering decision. A longer
 reference is useful; narrating it does not produce a better lesson.
 
-The optional [D00 primer](prototypes/terminology-format.html) precedes D01 and aims
-for about 20 minutes, subject to rehearsal. Introduce electricity basics and
-recurring electrical, thermal and computing terms through a few visible
-relationships. The promise is: “You are hearing these terms once now. Don't worry;
-we will explain them again when we get to the system that uses them.” Seek
-recognition, not memorization or mastery. D00 adds no prerequisite, required
-domain or assessed objective. Reintroduce every term at its first useful
-application even if it appeared in the primer.
+The [Primer](prototypes/terminology-format.html) aims for about 20 minutes,
+subject to rehearsal. It gives a beginner enough vocabulary to follow part of an
+expert conversation: electricity, equipment, computing and cooling, attached to
+visible objects and concrete examples. Use simple English. Do not label it optional,
+include a skip link, refer to other chapters or quote promises about future teaching.
+The presenter decides how to introduce it. The primer adds no assessed objective;
+teach each concept in context when it becomes useful in the main course.
 
-D01 remains a broad orientation: preview the equipment, locations and paths
+Use descriptive topic names in the website and presentations. Stable internal IDs
+remain for source mapping and existing links, but are not audience-facing labels.
+
+Data center overview remains a broad orientation: preview the equipment, locations and paths
 that later sections explain in depth. Briefly naming generation, transmission,
 backup, compute, networking and cooling is useful here; each preview needs a
 visible role in the same facility journey. Save detailed comparisons for the
@@ -47,12 +49,12 @@ Carry the same facility through these questions:
 
 | Domains | Return to the campus to ask |
 | --- | --- |
-| D01–D02 | Which boundary and useful service are we describing? Preserve the existing D01 slides. |
-| D03–D06 | Which supply is available, which equipment can be delivered, and where are storage and conversion? |
-| D07–D09 | What compute, memory, network and storage inputs would establish accepted work? |
-| D10–D11 | How is heat captured, moved and rejected; which water circuit is being counted? |
-| D12–D14 | What must be built, accepted, maintained and recovered for that service to run? |
-| D15 | Which dated capacity, output and cost claims can actually enter the ledger? |
+| Data center overview through Workloads and requirements | Which boundary and useful service are we describing? Preserve the existing Data center overview slides. |
+| Siting, grid connection and supply through Rack power and the 800 V DC transition | Which supply is available, which equipment can be delivered, and where are storage and conversion? |
+| Compute, memory and the rack through Storage, orchestration and recovery | What compute, memory, network and storage inputs would establish accepted work? |
+| Chip and rack heat capture through Heat rejection, climate and water | How is heat captured, moved and rejected; which water circuit is being counted? |
+| Physical site, buildings and safety through Controls, operations and reliability | What must be built, accepted, maintained and recovered for that service to run? |
+| Capacity, cost and system decisions | Which dated capacity, output and cost claims can actually enter the ledger? |
 
 Use published Abilene facts only where the source supports the exact building,
 date and condition. Otherwise label the mechanism or calculation **illustrative**;
@@ -65,10 +67,10 @@ speed versus electrical efficiency; Sparks for solar, battery energy and backup;
 Abilene for non-evaporative rejection; Google for scheduling flexible demand.
 Each case needs a concrete choice, a mechanism, a changed condition and a short
 prediction with a revealed explanation. Keep source interpretation out of the
-main visual unless it changes the engineering conclusion. D00 remains first
+main visual unless it changes the engineering conclusion. Primer remains first
 exposure to terms; detailed cases belong in the domains.
 
-The reader implements one optional active check-in at each domain boundary.
+The reader implements one active check-in at each domain boundary.
 Use those authored scenarios when adapting the remaining presentation sequences,
 with a spoken pause before the answer and a bridge to the next domain in the
 actual teaching order. Check-ins do not require a score or block progression.

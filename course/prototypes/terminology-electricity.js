@@ -1,4 +1,4 @@
-/* D00 recognition diagrams. Ideal teaching circuits, not installation layouts. */
+/* Primer diagrams. Ideal teaching circuits, not installation layouts. */
 const esc = (value) => String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;");
 const text = (x, y, value, size = 22, color = "text", anchor = "middle") =>
   `<text x="${x}" y="${y}" font-size="${size}" text-anchor="${anchor}" fill="var(--${color})">${esc(value)}</text>`;
@@ -123,49 +123,106 @@ function axes(x, mid, width, amplitude, compact) {
 }
 function acdc(compact, state) {
   const angle = [90,180,270].includes(Number(state.angle)) ? Number(state.angle) : 90;
+  const sign = angle === 90 ? 1 : angle === 270 ? -1 : 0;
   let out = "";
   ["DC", "AC"].forEach((kind, i) => {
     const x = compact ? 52 : 135+i*550, width = compact ? 280 : 380;
-    const mid = compact ? 205+i*295 : 298, amp = compact ? 60 : 92;
-    out += text(x+width/2, mid-amp-61, kind === "DC" ? "Direct current (DC)" : "Alternating current (AC)", compact ? 23 : 26);
-    out += text(x, mid-amp-25, "current", 18, "muted", "start") + axes(x, mid, width, amp, compact);
-    out += kind === "DC" ? path(`M${x} ${mid-amp*.70}H${x+width}`, "power", 4) : path(wave(x, mid, width, amp), "data", 4);
+    const mid = compact ? 170+i*295 : 275, amp = compact ? 49 : 78;
+    out += text(x+width/2, compact ? mid-94 : 92, kind === "DC" ? "DC voltage" : "AC voltage", compact ? 25 : 29);
+    out += text(x, mid-amp-22, "Voltage A relative to B", compact ? 17 : 20, "muted", "start") + axes(x, mid, width, amp, compact);
+    out += text(x-15, mid-amp+8, "+", 18, "muted") + text(x-15, mid+amp, "−", 18, "muted");
+    // Ripple changes the DC magnitude without reversing its terminal polarity.
+    out += kind === "DC" ? path(wave(x, mid-amp*.72, width, amp*.12, 0, 5), "power", 4) : path(wave(x, mid, width, amp), "data", 4);
     if (kind === "AC") {
       const sampleX = x+width*angle/720, sampleY = mid-amp*Math.sin(angle*Math.PI/180);
       out += path(`M${sampleX} ${mid-amp-8}V${mid+amp+8}`, "data", 2, 'stroke-dasharray="4 5"') + dot(sampleX, sampleY, "data");
     }
-    out += text(x+width/2, mid+amp+82, kind === "DC" ? "Constant, one direction" : angle === 90 ? "Positive current →" : angle === 270 ? "← Negative current" : "Zero current at this instant", compact ? 19 : 23, kind === "DC" ? "power" : "data");
-    if (kind === "AC") out += text(x+width/2, mid+amp+118, "60 Hz = 60 cycles each second", compact ? 18 : 21, "muted");
+    const labelY = compact ? mid+amp+72 : 439;
+    out += text(x+width/2, labelY, kind === "DC" ? "Keeps the same polarity" : sign > 0 ? "A + / B −" : sign < 0 ? "A − / B +" : "Zero voltage at this instant", compact ? 21 : 24, kind === "DC" ? "power" : "data");
+    out += text(x+width/2, labelY+32, kind === "DC" ? "Magnitude can vary (ripple)" : sign > 0 ? "Resistor current: A → B" : sign < 0 ? "Resistor current: B → A" : "Resistor current: zero", compact ? 18 : 21, "muted");
   });
-  return `<g data-phase-angle="${angle}" data-ac-current-sign="${angle === 90 ? 1 : angle === 270 ? -1 : 0}">${out}</g>`;
+  out += text(compact ? 195 : 580, compact ? 666 : 541, compact ? "AC reverses voltage polarity." : "AC reverses voltage polarity; resistor current reverses with it.", compact ? 20 : 23);
+  if (compact) out += text(195, 697, "Resistor current reverses with it.", 19, "muted");
+  return `<g data-phase-angle="${angle}" data-ac-voltage-sign="${sign}" data-ac-current-sign="${sign}">${out}</g>`;
+}
+
+function acShapes(compact) {
+  let out = "";
+  const names = ["Sine", "Square", "Triangle (zigzag)", "Sawtooth"];
+  names.forEach((name, i) => {
+    const x = compact ? 53 : 125+(i%2)*555, width = compact ? 280 : 365;
+    const mid = compact ? 130+i*135 : 183+Math.floor(i/2)*205, amp = compact ? 36 : 50;
+    out += text(x+width/2, mid-amp-20, name, compact ? 21 : 24);
+    out += path(`M${x} ${mid-amp-8}V${mid+amp+8}`, "line", 2) + arrow(`M${x} ${mid}H${x+width+8}`, "muted", 2);
+    out += text(x-14, mid+6, "0", 16, "muted") + text(x-14, mid-amp+6, "+", 16, "muted") + text(x-14, mid+amp+6, "−", 16, "muted");
+    let d = "";
+    if (i === 0) d = wave(x, mid, width, amp, 0, 2);
+    if (i === 1) d = `M${x} ${mid-amp}H${x+width/4}V${mid+amp}H${x+width/2}V${mid-amp}H${x+width*3/4}V${mid+amp}H${x+width}`;
+    if (i === 2) d = `M${x} ${mid}L${x+width/8} ${mid-amp}L${x+width*3/8} ${mid+amp}L${x+width*5/8} ${mid-amp}L${x+width*7/8} ${mid+amp}L${x+width} ${mid}`;
+    if (i === 3) d = `M${x} ${mid+amp}L${x+width/2} ${mid-amp}V${mid+amp}L${x+width} ${mid-amp}V${mid+amp}`;
+    out += path(d, "data", 3);
+    out += text(x+width, mid+amp+25, "time →", 16, "muted", "end");
+  });
+  if (compact) {
+    out += text(195, 625, "Voltage between the same two points", 17, "muted");
+    out += text(195, 668, "Utility AC is approximately sinusoidal.", 17, "muted");
+    out += text(195, 697, "Ripple alone does not make DC into AC.", 17, "muted");
+  } else {
+    out += text(580, 505, "Voltage between the same two points", 22, "muted");
+    out += text(580, 551, "Utility AC is approximately sinusoidal. Ripple alone does not make DC into AC.", 22, "muted");
+  }
+  return out;
 }
 
 function threePhase(compact) {
   const x = compact ? 46 : 120, width = compact ? 300 : 930;
   let out = "";
-  const amps = compact ? 39 : 90;
+  const amps = compact ? 32 : 90;
   const phases = [0, -2*Math.PI/3, -4*Math.PI/3];
   if (compact) {
+
     ["A", "B", "C"].forEach((label, i) => {
-      const mid = 117+i*148, color = ["power", "data", "heat"][i];
-      out += text(x, mid-57, `Phase ${label}`, 20, color, "start");
+      const mid = 155+i*140, color = ["power", "data", "heat"][i];
+      out += text(x, mid-50, `Phase ${label}`, 20, color, "start");
       out += axes(x, mid, width, amps, true) + path(wave(x, mid, width, amps, phases[i], 1), color, 3);
     });
-    out += text(195, 547, "Equal sine waves · 120° apart", 21);
-    out += text(195, 593, "RMS: effective AC magnitude", 19, "muted");
-    out += text(195, 629, "Power factor (PF) = kW ÷ kVA", 20);
-    out += text(195, 677, "Phase voltages · common reference", 17, "muted");
+    out += text(195, 548, "120° apart · common voltage reference", 18, "muted");
+    out += text(195, 635, "RMS: effective AC voltage", 21);
   } else {
-    const mid = 265;
+
+    const mid = 279;
     out += axes(x, mid, width, amps, false);
     phases.forEach((phase, i) => {
       const color = ["power", "data", "heat"][i];
       out += path(wave(x, mid, width, amps, phase, 1), color, 4);
-      out += path(`M${275+i*280} 72H${315+i*280}`, color, 4) + text(330+i*280, 79, `Phase ${["A", "B", "C"][i]}`, 23, color, "start");
+      out += path(`M${275+i*280} 112H${315+i*280}`, color, 4) + text(330+i*280, 119, `Phase ${["A", "B", "C"][i]}`, 23, color, "start");
     });
-    out += text(580, 434, "Equal sine waves · 120° apart", 26);
-    out += text(580, 483, "RMS: effective AC magnitude · Power factor (PF) = kW ÷ kVA", 25);
-    out += text(580, 526, "Phase voltages share one reference", 22, "muted");
+    out += text(580, 448, "120° apart · common voltage reference", 22, "muted");
+    out += text(580, 525, "RMS: effective AC voltage", 24);
+  }
+  return out;
+}
+
+function powerFactor(compact) {
+  let out = text(compact ? 195 : 580, compact ? 66 : 87, "Power factor (PF) = kW ÷ kVA", compact ? 21 : 26);
+  [1, .8].forEach((pf, i) => {
+    const x = compact ? 30 : 135+i*510, y = compact ? 111+i*233 : 146;
+    const w = compact ? 330 : 390, bar = w-44, kva = 8/pf;
+    out += `<g data-power-factor="${pf}" data-real-kw="8" data-apparent-kva="${kva}">`;
+    out += rect(x, y, w, compact ? 211 : 258);
+    out += text(x+w/2, y+36, `PF = ${pf}`, 26);
+    out += text(x+22, y+76, "Real power delivered: 8 kW", compact ? 19 : 21, "power", "start");
+    out += rect(x+22, y+91, bar*.8, 22, "power", "power", 3);
+    out += text(x+22, y+(compact ? 146 : 170), `AC capacity used: ${kva} kVA`, compact ? 19 : 21, "data", "start");
+    out += rect(x+22, y+(compact ? 161 : 185), bar*kva/10, 22, "data", "data", 3);
+    out += "</g>";
+  });
+  if (compact) {
+    out += text(195, 613, "PF 0.8: 25% more RMS current", 21, "data");
+    out += text(195, 659, "Same voltage and phase arrangement", 18, "muted");
+  } else {
+    out += text(580, 476, "PF 0.8: 25% more RMS current", 27, "data");
+    out += text(580, 542, "Same voltage and phase arrangement", 22, "muted");
   }
   return out;
 }
@@ -220,7 +277,9 @@ export function renderElectricity(id, state = {}, compact = false) {
     power: () => circuit(compact, "power"),
     energy: () => energy(compact, state),
     "ac-dc": () => acdc(compact, state),
+    "ac-shapes": () => acShapes(compact),
     "three-phase": () => threePhase(compact),
+    "power-factor": () => powerFactor(compact),
     conversion: () => conversion(compact),
   };
   return renderers[id] ? `<g data-electricity-scene="${id}">${defs}${renderers[id]()}</g>` : "";

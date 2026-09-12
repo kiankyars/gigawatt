@@ -97,7 +97,9 @@ class ExpansionTests(unittest.TestCase):
                     checkin = lesson["domain_checkin"]
                     self.assertEqual(checkin["domain"], lesson["domain"])
                     self.assertEqual(checkin["next_lesson"], lessons[index + 1]["id"])
-                    self.assertEqual(checkin["next_domain"], lessons[index + 1]["domain"])
+                    self.assertEqual(
+                        checkin["next_domain"], lessons[index + 1]["domain"]
+                    )
                     self.assertEqual(checkin["next_title"], lessons[index + 1]["title"])
 
     def test_checkins_follow_teaching_order_and_survive_lesson_merges(self):
@@ -114,7 +116,8 @@ class ExpansionTests(unittest.TestCase):
         self.assertEqual(first_d01["domain_checkin"]["next_domain"], "D02")
         bridges = {
             l["domain"]: l["domain_checkin"]["next_domain"]
-            for l in lessons if "domain_checkin" in l
+            for l in lessons
+            if "domain_checkin" in l
         }
         self.assertEqual(bridges["D03"], "D12")
         self.assertEqual(bridges["D12"], "D04")
@@ -131,15 +134,22 @@ class ExpansionTests(unittest.TestCase):
         unknown = deepcopy(raw)
         unknown["checkins"][0]["domain"] = "D99"
         misrouted = deepcopy(raw)
-        next(c for c in misrouted["checkins"] if c["domain"] == "D03")["next_domain"] = "D04"
+        next(c for c in misrouted["checkins"] if c["domain"] == "D03")[
+            "next_domain"
+        ] = "D04"
         for record, message in [
             (missing, "cover every domain"),
             (duplicate, "Duplicate domain check-in"),
             (unknown, "cover every domain"),
             (misrouted, "follow course sequence"),
         ]:
-            with self.subTest(message=message), self.assertRaisesRegex(b.ExpansionError, message):
-                b.attach_domain_checkins(record, deepcopy(self.course["lessons"]), sequence)
+            with (
+                self.subTest(message=message),
+                self.assertRaisesRegex(b.ExpansionError, message),
+            ):
+                b.attach_domain_checkins(
+                    record, deepcopy(self.course["lessons"]), sequence
+                )
 
     def test_checkins_require_a_scenario_prediction_reasoning_and_bridge(self):
         raw = b.read(b.ROOT / "course/domain-checkins.json")
@@ -148,29 +158,39 @@ class ExpansionTests(unittest.TestCase):
             changed = deepcopy(raw)
             changed["checkins"][0][field] = [] if field == "explanation" else ""
             with self.subTest(field=field), self.assertRaises(b.ExpansionError):
-                b.attach_domain_checkins(changed, deepcopy(self.course["lessons"]), sequence)
+                b.attach_domain_checkins(
+                    changed, deepcopy(self.course["lessons"]), sequence
+                )
         changed = deepcopy(raw)
         changed["checkins"][0]["promtp"] = changed["checkins"][0].pop("prompt")
         with self.assertRaisesRegex(b.ExpansionError, "missing or unexpected fields"):
-            b.attach_domain_checkins(changed, deepcopy(self.course["lessons"]), sequence)
+            b.attach_domain_checkins(
+                changed, deepcopy(self.course["lessons"]), sequence
+            )
 
-    def test_markdown_includes_optional_domain_checkin_with_hidden_reasoning(self):
+    def test_markdown_includes_checkin_with_hidden_reasoning(self):
         sources = {s["id"]: s for s in self.course["sources"]}
         for lesson in self.course["lessons"]:
             markdown = b.lesson_markdown(lesson, sources)
             if checkin := lesson.get("domain_checkin"):
                 with self.subTest(domain=lesson["domain"]):
-                    boundary_text = markdown.split(" domain check-in: ", 1)[1]
-                    self.assertIn("Optional: pause and make a prediction", boundary_text)
+                    boundary_text = markdown.split("## Check your understanding: ", 1)[
+                        1
+                    ]
+                    self.assertIn("Pause and make a prediction", boundary_text)
                     self.assertIn(checkin["scenario"], boundary_text)
                     self.assertIn(checkin["prompt"], boundary_text)
-                    reveal = boundary_text.split("<details>", 1)[1].split("</details>", 1)[0]
+                    reveal = boundary_text.split("<details>", 1)[1].split(
+                        "</details>", 1
+                    )[0]
                     self.assertIn(checkin["answer"], reveal)
                     for explanation in checkin["explanation"]:
                         self.assertIn(explanation, reveal)
-                    self.assertIn(checkin["bridge"], boundary_text.split("</details>", 1)[1])
+                    self.assertIn(
+                        checkin["bridge"], boundary_text.split("</details>", 1)[1]
+                    )
             else:
-                self.assertNotIn(" domain check-in: ", markdown)
+                self.assertNotIn("## Check your understanding: ", markdown)
 
     def test_normalization_preserves_worked_steps_and_specific_source_limits(self):
         l = b.normalize(self.raw, self.catalog, self.objectives)
@@ -232,7 +252,9 @@ class ExpansionTests(unittest.TestCase):
             self.assertNotIn("caption", step)
             self.assertTrue(step["notes"] and step["cue"] and step["explanation"])
 
-    def test_presentation_contract_requires_a_problem_mechanism_and_relevant_ending(self):
+    def test_presentation_contract_requires_a_problem_mechanism_and_relevant_ending(
+        self,
+    ):
         data = b.read(b.ROOT / "course/expansion/sample-presentation.json")
         validate_presentation(data)
         for field in ("fixed_boundary", "primary_payoff", "closing_question"):
@@ -277,7 +299,9 @@ class ExpansionTests(unittest.TestCase):
         )
 
     def test_reference_figures_keep_sources_and_relative_asset_links(self):
-        lesson = next(l for l in self.course["lessons"] if l["id"] == "d04-conversion-placement")
+        lesson = next(
+            l for l in self.course["lessons"] if l["id"] == "d04-conversion-placement"
+        )
         figures = [f for s in lesson["sections"] for f in s.get("figures", [])]
         self.assertEqual(len(figures), 2)
         sources = {s["id"]: s for s in self.course["sources"]}
@@ -287,7 +311,9 @@ class ExpansionTests(unittest.TestCase):
             self.assertIn(figure["source_url"], markdown)
             self.assertTrue((b.ROOT / "course/assets" / figure["asset"]).is_file())
         changed = deepcopy(self.raw)
-        changed["sections"][0]["figures"] = [dict(figures[0], asset="../../private.png")]
+        changed["sections"][0]["figures"] = [
+            dict(figures[0], asset="../../private.png")
+        ]
         with self.assertRaisesRegex(b.ExpansionError, "Unsafe reference figure path"):
             b.normalize(changed, self.catalog, self.objectives)
 

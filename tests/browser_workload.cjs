@@ -128,13 +128,14 @@ async function checkGeometry(page, viewport) {
     }
     const rect = svg.getBoundingClientRect();
     const header = document.querySelector("main > header").getBoundingClientRect();
-    const boundary = document.querySelector("#boundary").getBoundingClientRect();
     const actions = document.querySelector("#actions").getBoundingClientRect();
     const footer = document.querySelector("footer").getBoundingClientRect();
     if (header.bottom > rect.top + 1) failures.push("Heading overlaps diagram");
-    if (rect.bottom > boundary.top + 1) failures.push("Diagram overlaps boundary");
-    if (actions.height && boundary.bottom > actions.top + 1) failures.push("Boundary overlaps controls");
-    if (Math.max(boundary.bottom, actions.bottom) > footer.top + 1) failures.push("Content overlaps footer");
+    if (actions.height && rect.bottom > actions.top + 1) failures.push("Diagram overlaps controls");
+    if (Math.max(rect.bottom, actions.bottom) > footer.top + 1) failures.push("Content overlaps footer");
+    if ([...document.querySelectorAll("main .eyebrow, #boundary, main .subtitle")]
+      .some((element) => element.getBoundingClientRect().height > 0))
+      failures.push("A repeated subtitle or boundary layer is visible on the stage");
     return { failures, width: document.documentElement.scrollWidth, height: document.documentElement.scrollHeight, footerBottom: footer.bottom };
   });
   assert.deepEqual(result.failures, [], "SVG and control layout");

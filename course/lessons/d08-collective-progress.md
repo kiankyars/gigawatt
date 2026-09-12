@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/racks-compute-heat.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/racks-compute-heat.json), lesson `d08-collective-progress`, then run `uv run gigawatt-expand`.
 
-**D08 · Authored draft · Objectives:** D08.1, D08.2, D08.3, D08.5
+**Networking and interconnects · Authored draft**
 
 Walk through a ring all-reduce, then connect synchronization, congestion and placement to the job timeline.
 

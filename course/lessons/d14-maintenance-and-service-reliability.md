@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/heat-delivery-operations.json), lesson `d14-maintenance-and-service-reliability`, then run `uv run gigawatt-expand`.
 
-**D14 · Authored draft · Objectives:** D14.3, D14.4, D14.5
+**Controls, operations and reliability · Authored draft**
 
 Evaluate maintenance against surviving capacity, calculate a defined service metric and build an evidence-based incident explanation.
 
@@ -84,9 +84,9 @@ Power availability is a different indicator. The service failed its stated laten
 - [Google SRE: Service Level Objectives](https://sre.google/sre-book/service-level-objectives/) — Service indicators and objectives need explicitly defined measurements. Read 2026-09-06. Selected metric-boundary discussion reviewed; the availability example is original.
 - [Google SRE: Postmortem Culture](https://sre.google/sre-book/postmortem-culture/) — Incident review is intended to support learning and improvement rather than blame. Read 2026-09-06. Selected postmortem principles inspected; timeline and proposed evidence questions are original.
 
-## D14 domain check-in: One reassuring number
+## Check your understanding: One reassuring number
 
-Optional: pause and make a prediction, then compare your reasoning. You can continue whenever you are ready.
+Pause and make a prediction, then compare your reasoning.
 
 A hypothetical rack reports high device temperatures while the plant's displayed supply temperature looks normal. The plant reading is ten minutes old, and there is no current measurement of flow through the affected rack branch.
 
@@ -103,4 +103,4 @@ A stale upstream temperature cannot establish current local flow or heat transfe
 
 **The next problem:** Measurements reveal the constraint. Which intervention changes usable service enough to justify its cost and delivery time?
 
-Continue in **D15**: Find the constraint after reconciling the boundaries.
+Continue in **Capacity, cost and system decisions**: Find the constraint after reconciling the boundaries.

@@ -183,8 +183,14 @@
       #actions:empty {
         display: none;
       }
-      #actions button {
+      #actions button,
+      #actions a {
         font-size: 13px;
+      }
+      #actions a {
+        padding: 10px 12px;
+        color: var(--power);
+        text-underline-offset: 3px;
       }
       .choices {
         display: flex;
@@ -370,7 +376,7 @@
       </header>
       <main>
         <header>
-          <p class="eyebrow">D01 · DATA CENTER OVERVIEW</p>
+          <p class="eyebrow">DATA CENTER OVERVIEW</p>
           <h1 id="title"></h1>
         </header>
         <section id="stage" aria-label="Facility systems and measurement">
@@ -590,7 +596,7 @@
           description:
             "A floor plan labels the IT hall as white space and supporting electrical and mechanical rooms as gray space.",
           explanation:
-            "White space is the area housing IT equipment and immediate supporting infrastructure. Gray space describes back-of-house electrical, mechanical and service areas. The names classify areas, not equipment types: some power and cooling equipment can sit alongside racks. This introduction only establishes the room vocabulary. The choice of CDU location affects service access, occupied space and piping; D10 and D12 develop those design tradeoffs. Vertiv discusses white-space and mechanical-gallery placement explicitly on printed pages 14–15.",
+            "White space is the area housing IT equipment and immediate supporting infrastructure. Gray space describes back-of-house electrical, mechanical and service areas. The names classify areas, not equipment types: some power and cooling equipment can sit alongside racks. This introduction only establishes the room vocabulary. The choice of CDU location affects service access, occupied space and piping; The heat-capture and physical-site lessons develop those design tradeoffs. Vertiv discusses white-space and mechanical-gallery placement explicitly on printed pages 14–15.",
         },
         {
           id: "generation",
@@ -602,7 +608,7 @@
           description:
             "Four recognizable generation sources connect to a shared grid: a thermal power plant, wind turbine, solar panels and hydroelectric dam.",
           explanation:
-            "This is a tour of energy-conversion routes, not a ranking of generation technologies. Fuel or nuclear heat can drive a turbine; moving air or water can also turn a generator. Photovoltaic solar cells instead produce DC electricity without a rotating generator, with inverters providing the grid interface. A battery stores energy supplied earlier. Grid-connected facilities draw from an interconnected network, not a traceable dedicated path from one named power plant. Source contracts and behind-the-meter generation are developed in D03.",
+            "This is a tour of energy-conversion routes, not a ranking of generation technologies. Fuel or nuclear heat can drive a turbine; moving air or water can also turn a generator. Photovoltaic solar cells instead produce DC electricity without a rotating generator, with inverters providing the grid interface. A battery stores energy supplied earlier. Grid-connected facilities draw from an interconnected network, not a traceable dedicated path from one named power plant. The siting and supply lessons develop source contracts and behind-the-meter generation.",
         },
         {
           id: "transmission",
@@ -626,7 +632,7 @@
           description:
             "An example campus boundary encloses the substation, building distribution and rack supplies. Optional on-site generation joins the distribution path; its protection and controls are not detailed.",
           explanation:
-            "Follow the grid connection into the campus receiving substation, then the distribution network serving individual buildings. Transformers and switchboards adapt and route supply to building equipment. Switchgear provides switching and protection functions; exact devices, grounding and voltage levels depend on the design. On-site generation can connect within the customer system, but simply owning a generator does not establish island operation, sufficient fuel supply or permission to parallel with the grid. D03 and D04 examine those choices.",
+            "Follow the grid connection into the campus receiving substation, then the distribution network serving individual buildings. Transformers and switchboards adapt and route supply to building equipment. Switchgear provides switching and protection functions; exact devices, grounding and voltage levels depend on the design. On-site generation can connect within the customer system, but simply owning a generator does not establish island operation, sufficient fuel supply or permission to parallel with the grid. The supply and power-distribution lessons examine those choices.",
         },
         {
           id: "continuity-preview",
@@ -638,7 +644,7 @@
           description:
             "Utility and generator inputs meet at a source selector upstream of an online UPS. Inside the UPS, a rectifier supplies a DC link and inverter; a battery connects to the DC link through its interface.",
           explanation:
-            "This is one online-UPS example. In normal operation the rectifier feeds the DC link and the inverter supplies the protected load. During loss of the upstream source, the battery supports that DC link through its battery interface while controls start and qualify the generator. Generator supply can then feed the UPS input through source selection. The inverter is already supplying the load; storage supports the interval rather than waiting for the generator. Runtime, source qualification, redundancy, bypass and the power required by cooling auxiliaries must be designed together. The diagram makes no transfer-time or unlimited-runtime promise; D05 provides the operating states.",
+            "This is one online-UPS example. In normal operation the rectifier feeds the DC link and the inverter supplies the protected load. During loss of the upstream source, the battery supports that DC link through its battery interface while controls start and qualify the generator. Generator supply can then feed the UPS input through source selection. The inverter is already supplying the load; storage supports the interval rather than waiting for the generator. Runtime, source qualification, redundancy, bypass and the power required by cooling auxiliaries must be designed together. The diagram makes no transfer-time or unlimited-runtime promise; the continuity lessons provide the operating states.",
         },
         {
           id: "rack-boundary",
@@ -659,7 +665,7 @@
           description:
             "Physical nesting from chip to compute tray to rack, followed by several interconnected racks forming a logical compute cluster.",
           explanation:
-            "The chip is one component. A compute tray or server brings processors, memory and their connections into an assembled system. Trays mount in a rack alongside support and communication hardware. A cluster is a coordinated collection of connected machines; its logical boundary need not match a room or building boundary. The hierarchy is generic and does not prescribe a universal number of processors, trays or racks. D07 develops compute and memory; D08 and D09 explain communication and coordination.",
+            "The chip is one component. A compute tray or server brings processors, memory and their connections into an assembled system. Trays mount in a rack alongside support and communication hardware. A cluster is a coordinated collection of connected machines; its logical boundary need not match a room or building boundary. The hierarchy is generic and does not prescribe a universal number of processors, trays or racks. The compute lessons develop compute and memory; networking and orchestration explain communication and coordination.",
         },
         {
           id: "network-preview",
@@ -683,7 +689,7 @@
           description:
             "The selected cold-plate heat path uses a technology coolant loop, a CDU heat exchanger and a separate facility loop leading to outdoor heat rejection. The room-air cooling path is outside this diagram.",
           explanation:
-            "Cold plates capture selected component heat into a technology coolant loop. A liquid-to-liquid cooling distribution unit (CDU) transfers that heat across an exchanger to a separate facility loop; the fluids do not mix. Components outside the cold-plate path still need cooling, often through room air and an air handler. The outdoor system ultimately rejects the heat. This preview does not choose dry, evaporative or chilled-water operation; liquid cooling at the rack does not by itself imply that outdoor water is evaporated. D10 and D11 develop flow, approach temperatures, equipment choices and weather limits.",
+            "Cold plates capture selected component heat into a technology coolant loop. A liquid-to-liquid cooling distribution unit (CDU) transfers that heat across an exchanger to a separate facility loop; the fluids do not mix. Components outside the cold-plate path still need cooling, often through room air and an air handler. The outdoor system ultimately rejects the heat. This preview does not choose dry, evaporative or chilled-water operation; liquid cooling at the rack does not by itself imply that outdoor water is evaporated. The heat-capture and heat-rejection lessons develop flow, approach temperatures, equipment choices and weather limits.",
         },
         {
           id: "facility-meter",
@@ -771,6 +777,12 @@
         $("actions").innerHTML = s.options
           ? `<div class="choices" role="group" aria-label="${s.group}"><span class="choices-label" aria-hidden="true">${s.group}</span>${s.options.map(([v, label]) => `<button data-setting="${s.key}" data-value="${v}" aria-pressed="${String(state[s.key]) === v}">${label}</button>`).join("")}</div>`
           : "";
+        if (index === scenes.length - 1) {
+          const checkin = document.createElement("a");
+          checkin.href = "../index.html?checkin=1#d01-metrics-and-evidence";
+          checkin.textContent = "Check your understanding →";
+          $("actions").append(checkin);
+        }
         $("explanation-title").textContent = s.title;
         $("explanation").textContent = s.explanation;
         $("lesson-reference").href = `../index.html#${s.reference}`;

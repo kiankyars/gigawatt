@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/heat-delivery-operations.json), lesson `d13-commissioning-complete-paths`, then run `uv run gigawatt-expand`.
 
-**D13 · Authored draft · Objectives:** D13.3, D13.4
+**Design, procurement and commissioning · Authored draft**
 
 Distinguish installation and subsystem tests from integrated acceptance, then count overlapping accepted rack paths rather than adding milestone totals.
 
@@ -82,9 +82,9 @@ The added cooling evidence closes the missing condition for A01–A20. Positions
 - [Commissioning & Performance Validation | AI Data Center Energy Performance Framework](https://www.ashrae.org/technical-resources/ai-data-center-framework/commissioning-performance-validation) — The staged commissioning and integrated-systems discussion distinguishes component checks from coupled validation. Read 2026-09-06. Selected commissioning-stage and handover discussion inspected; project procedures, pass criteria and synthetic rack sets are original.
 - [WBDG: Commissioning Documents](https://legacy.wbdg.org/building-commissioning/commissioning-documents) — Commissioning records and systems documentation support continued operation and maintenance. Read 2026-09-06. Selected documentation purpose reviewed; this is not a claim to have applied a complete ASHRAE standard or GSA acceptance process.
 
-## D13 domain check-in: 20 MW stays; what can the factory release?
+## Check your understanding: 20 MW stays; what can the factory release?
 
-Optional: pause and make a prediction, then compare your reasoning. You can continue whenever you are ready.
+Pause and make a prediction, then compare your reasoning.
 
 Just before fabrication, the illustrative phase changes from 200 × 100 kW to 100 × 200 kW racks. Each old rack branch permits 160 A and 3.0 kg/s. Use balanced 480 V AC at PF 1; assign all IT heat to water with cp = 4.18 kJ/(kg·K) and a maximum 10 K rise. The new vendor drawing also doubles rack mass on the same four feet. Independent site work remains approved.
 
@@ -109,4 +109,4 @@ Acceptance: controls owners must remap alarms and actions to the new racks, and 
 
 **The next problem:** After those revised paths pass acceptance, which measurements, configuration records and maintenance responsibilities will keep their operating limits visible?
 
-Continue in **D14**: A believable number can describe the wrong thing.
+Continue in **Controls, operations and reliability**: A believable number can describe the wrong thing.

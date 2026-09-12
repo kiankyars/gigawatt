@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/foundations-power.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/foundations-power.json), lesson `d01-metrics-and-evidence`, then run `uv run gigawatt-expand`.
 
-**D01 · Authored draft · Objectives:** D01.3, D01.4
+**System boundaries and quantities · Authored draft**
 
 Reconcile facility and IT metrics, then separate engineering laws, scenarios, product specifications, and operating evidence.
 
@@ -89,9 +89,9 @@ Thirty divided by 150 is 0.20; thirty divided by 120 is 0.25. Neither ratio says
 - [Commissioning & Performance Validation | AI Data Center Energy Performance Framework](https://www.ashrae.org/technical-resources/ai-data-center-framework/commissioning-performance-validation) — Commissioning and documented performance validation have a defined scope and evidentiary role. Read 2026-09-06. Read the public framework discussion; no project report or full paid standard was reviewed.
 - [The Green Grid — PUE: A Comprehensive Examination of the Metric](https://datacenters.lbl.gov/sites/default/files/WP49-PUE%20A%20Comprehensive%20Examination%20of%20the%20Metric_v6.pdf) — PUE compares facility energy with IT equipment energy and cannot by itself establish useful-work efficiency. Read 2026-09-11. Reviewed printed pages 8–9, 14–22 and 34. Original one-hour counterexample; no current standards compliance or measured annual PUE is claimed.
 
-## D01 domain check-in: What does the meter establish?
+## Check your understanding: What does the meter establish?
 
-Optional: pause and make a prediction, then compare your reasoning. You can continue whenever you are ready.
+Pause and make a prediction, then compare your reasoning.
 
 A hypothetical campus records 12 MWh at the facility meter and 10 MWh at its IT meters during the same hour. An analyst adds them and reports 22 MW of useful compute.
 
@@ -108,4 +108,4 @@ The IT boundary sits inside the facility boundary, so adding the two readings co
 
 **The next problem:** We can now account for the watts. What job must those watts support, and what counts as a successful result?
 
-Continue in **D02**: Design for a job, not a rack count.
+Continue in **Workloads and the infrastructure brief**: Design for a job, not a rack count.

@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/heat-delivery-operations.json), lesson `d12-safety-and-control-boundaries`, then run `uv run gigawatt-expand`.
 
-**D12 · Authored draft · Objectives:** D12.3, D12.4
+**Physical site, buildings and safety · Authored draft**
 
 Draw hazard and access boundaries around equipment and control systems, then trace an original shared-dependency scenario.
 
@@ -82,9 +82,9 @@ Adding 100 W increases support demand by 25 percent, so the constant-energy dura
 - [NIST SP 800-82 Revision 3: OT Security](https://csrc.nist.gov/pubs/sp/800/82/r3/final) — The abstract includes building automation and physical access within OT and identifies reliability and safety requirements. Read 2026-09-06. Publication abstract and revision context inspected; this lesson does not claim full implementation review of the 2023 guide or any draft successor.
 - [OSHA 1910.333: Electrical work practices](https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.333) — Indexed regulatory excerpts address stored energy and qualified work. Read 2026-09-06. Relevant public indexed excerpts reviewed; no field procedure or jurisdiction-wide compliance claim is supplied.
 
-## D12 domain check-in: It fits until replacement day
+## Check your understanding: It fits until replacement day
 
-Optional: pause and make a prediction, then compare your reasoning. You can continue whenever you are ready.
+Pause and make a prediction, then compare your reasoning.
 
 A hypothetical equipment room has enough floor area and verified structural capacity. A required cabinet will enter before the final wall is built, but its assembled replacement cannot pass through the finished access route.
 
@@ -101,4 +101,4 @@ Installation, operation and replacement are different physical configurations. A
 
 **The next problem:** With the physical routes established, follow the electrical route: what must each device between the campus connection and the load do?
 
-Continue in **D04**: Read a power train as a set of jobs.
+Continue in **Campus and building power distribution**: Read a power train as a set of jobs.

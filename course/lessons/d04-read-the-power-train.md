@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/foundations-power.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/foundations-power.json), lesson `d04-read-the-power-train`, then run `uv run gigawatt-expand`.
 
-**D04 · Authored draft · Objectives:** D04.1, D04.4
+**Campus and building power distribution · Authored draft**
 
 Learn to read a generic single-line diagram by equipment function, then reconcile IT and auxiliary demand against two independent limits.
 

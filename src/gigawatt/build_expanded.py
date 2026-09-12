@@ -92,7 +92,9 @@ def normalize(raw, catalog_by_url, known_objectives):
                 text(figure.get(field), f"figure.{field}")
             url = canonical_url(text(figure.get("source_url"), "figure.source_url"))
             if url not in catalog_by_url:
-                raise ExpansionError(f"{lesson['id']}: figure source not in library: {url}")
+                raise ExpansionError(
+                    f"{lesson['id']}: figure source not in library: {url}"
+                )
     example = lesson.get("example", lesson.get("worked_example"))
     if not isinstance(example, dict):
         raise ExpansionError(f"{lesson['id']}: missing worked example")
@@ -219,7 +221,9 @@ def attach_domain_checkins(raw, lessons, sequence):
     for domain, next_domain in zip(sequence, sequence[1:] + ["capstone"], strict=True):
         checkin = by_domain[domain]
         if checkin["next_domain"] != next_domain:
-            raise ExpansionError(f"{domain}: check-in bridge must follow course sequence")
+            raise ExpansionError(
+                f"{domain}: check-in bridge must follow course sequence"
+            )
         checkin["next_lesson"] = first[next_domain]["id"]
         checkin["next_title"] = first[next_domain]["title"]
         last[domain]["domain_checkin"] = checkin
@@ -258,7 +262,9 @@ def load_course(root=ROOT):
         raise ExpansionError(
             "Authored capstones must cover the domain map's capstone IDs"
         )
-    attach_domain_checkins(read(root / "course/domain-checkins.json"), lessons, sequence)
+    attach_domain_checkins(
+        read(root / "course/domain-checkins.json"), lessons, sequence
+    )
     glossary, seen_terms = [], set()
     for l in lessons:
         for term in l.get("terms", []):
@@ -284,11 +290,15 @@ def load_course(root=ROOT):
     }
 
 
-def lesson_markdown(l, sources, *, include_source=True, asset_prefix="assets/"):
+def lesson_markdown(
+    l, sources, *, include_source=True, asset_prefix="assets/", domains=()
+):
+    topics = {d["id"]: d for d in domains}
+    topic_title = topics.get(l["domain"], {}).get("title", "Integrated practice")
     lines = [
         f"# {l['title']}",
         "",
-        f"**{l['domain']} · Authored draft · Objectives:** {', '.join(l['objectives'])}",
+        f"**{topic_title} · Authored draft**",
         "",
         l["summary"],
         "",
@@ -306,12 +316,14 @@ def lesson_markdown(l, sources, *, include_source=True, asset_prefix="assets/"):
         for p in section["paragraphs"]:
             lines.extend([p, ""])
         for figure in section.get("figures", []):
-            lines.extend([
-                f"![{figure['alt']}]({asset_prefix}{figure['asset']})",
-                "",
-                f"{figure['caption']} [{figure['source_title']}]({figure['source_url']})",
-                "",
-            ])
+            lines.extend(
+                [
+                    f"![{figure['alt']}]({asset_prefix}{figure['asset']})",
+                    "",
+                    f"{figure['caption']} [{figure['source_title']}]({figure['source_url']})",
+                    "",
+                ]
+            )
     w = l["worked_example"]
     lines.extend(
         [
@@ -364,31 +376,35 @@ def lesson_markdown(l, sources, *, include_source=True, asset_prefix="assets/"):
         next_domain = (
             "the integrated cases"
             if checkin["next_domain"] == "capstone"
-            else checkin["next_domain"]
+            else topics.get(checkin["next_domain"], {}).get(
+                "title", checkin["next_title"]
+            )
         )
-        lines.extend([
-            "",
-            f"## {checkin['domain']} domain check-in: {checkin['title']}",
-            "",
-            "Optional: pause and make a prediction, then compare your reasoning. You can continue whenever you are ready.",
-            "",
-            checkin["scenario"],
-            "",
-            f"**Pause and predict:** {checkin['prompt']}",
-            "",
-            "<details>",
-            "<summary>Compare your reasoning</summary>",
-            "",
-            checkin["answer"],
-            "",
-            *[p + "\n" for p in checkin["explanation"]],
-            "</details>",
-            "",
-            f"**The next problem:** {checkin['bridge']}",
-            "",
-            f"Continue in **{next_domain}**: {checkin['next_title']}.",
-            "",
-        ])
+        lines.extend(
+            [
+                "",
+                f"## Check your understanding: {checkin['title']}",
+                "",
+                "Pause and make a prediction, then compare your reasoning.",
+                "",
+                checkin["scenario"],
+                "",
+                f"**Pause and predict:** {checkin['prompt']}",
+                "",
+                "<details>",
+                "<summary>Compare your reasoning</summary>",
+                "",
+                checkin["answer"],
+                "",
+                *[p + "\n" for p in checkin["explanation"]],
+                "</details>",
+                "",
+                f"**The next problem:** {checkin['bridge']}",
+                "",
+                f"Continue in **{next_domain}**: {checkin['next_title']}.",
+                "",
+            ]
+        )
     return "\n".join(lines).rstrip() + "\n"
 
 
@@ -463,7 +479,7 @@ def build(root=ROOT, check=False):
         template,
     )
     outputs[Path("course/SAMPLE.md")] = lesson_markdown(
-        sample, {s["id"]: s for s in sample_data["sources"]}
+        sample, {s["id"]: s for s in sample_data["sources"]}, domains=data["domains"]
     )
     outputs.update(presentation_outputs(root, sample["id"]))
     index = [
@@ -475,7 +491,7 @@ def build(root=ROOT, check=False):
         "",
         "Generated from the lesson records in `course/expansion/` and boundary exercises in `course/domain-checkins.json` with `uv run gigawatt-expand`. This is a reading view; the [filled-in course template](COURSE_REVIEW.md) owns course design and production decisions.",
         "",
-        "Each domain ends with one optional scenario: pause, make a prediction, compare the reasoning, and connect it to the next problem. These check-ins carry no score and do not block progression.",
+        "Each topic ends with a check-in: pause, make a prediction, compare the reasoning, and connect it to the next problem. These check-ins carry no score and do not block progression.",
         "",
         "[Open the visual reader](index.html) · [Domain map](DOMAIN_MAP.md) · [Dry-run guide](PRESENTING.md)",
         "",
@@ -484,11 +500,9 @@ def build(root=ROOT, check=False):
     ]
     for l in data["lessons"]:
         outputs[Path("course/lessons") / (l["id"] + ".md")] = lesson_markdown(
-            l, sources, asset_prefix="../assets/"
+            l, sources, asset_prefix="../assets/", domains=data["domains"]
         )
-        index.append(
-            f"- **{l['domain']}** [{l['title']}](lessons/{l['id']}.md) — {l['question']}"
-        )
+        index.append(f"- [{l['title']}](lessons/{l['id']}.md) — {l['question']}")
     index.extend(
         [
             "",
@@ -507,16 +521,16 @@ def build(root=ROOT, check=False):
                 for l in data["lessons"]
                 if o["id"] in l["objectives"]
             )
-            index.append(f"| {o['id']} | {links} |")
+            index.append(f"| {o['capability']} | {links} |")
     index.extend(
         [
             "",
             "## Full course text",
             "",
             *[
-                lesson_markdown(l, sources, include_source=False).replace(
-                    "# ", "## ", 1
-                )
+                lesson_markdown(
+                    l, sources, include_source=False, domains=data["domains"]
+                ).replace("# ", "## ", 1)
                 for l in data["lessons"]
             ],
         ]

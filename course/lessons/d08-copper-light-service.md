@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/racks-compute-heat.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/racks-compute-heat.json), lesson `d08-copper-light-service`, then run `uv run gigawatt-expand`.
 
-**D08 · Authored draft · Objectives:** D08.4, D08.5
+**Networking and interconnects · Authored draft**
 
 Compare media and optical packaging at the link level, then include their effects on switch cooling, cabling and repair.
 
@@ -81,9 +81,9 @@ The longer compute duration overwhelms the smaller network energy saving. The sc
 - [Scaling AI Factories with Co-Packaged Optics for Better Power Efficiency](https://developer.nvidia.com/blog/scaling-ai-factories-with-co-packaged-optics-for-better-power-efficiency/) — Describes moving optical conversion nearer switch silicon and the associated electrical-path mechanism. Read 2026-09-06. August 18, 2025 vendor account; availability and benefit claims are dated proposals, not universal deployment evidence.
 - [NVIDIA Optical Transceivers and Cables](https://www.nvidia.com/en-us/networking/interconnect/) — Provides distinct interconnect product categories whose compatibility must be checked at the actual interface. Read 2026-09-06. Product catalog and marketing page; no power, reach or reliability rating is adopted without its specific datasheet.
 
-## D08 domain check-in: Healthy devices, waiting job
+## Check your understanding: Healthy devices, waiting job
 
-Optional: pause and make a prediction, then compare your reasoning. You can continue whenever you are ready.
+Pause and make a prediction, then compare your reasoning.
 
 A hypothetical synchronized training step cannot finish until every participant completes its required exchange. One shared fabric link becomes congested, although every accelerator remains healthy.
 
@@ -100,4 +100,4 @@ Healthy endpoints do not establish a healthy end-to-end communication path. Foll
 
 **The next problem:** The cluster also needs durable data and recoverable progress. What survives when an interruption stops the job?
 
-Continue in **D09**: Storage is a traffic and state system.
+Continue in **Storage, orchestration and recovery**: Storage is a traffic and state system.

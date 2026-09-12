@@ -19,12 +19,12 @@ read it end to end.
 800 V DC sample and seventeen-scene UPS sequence are implemented teaching prototypes.
 A fourteen-scene cooling presentation extends that approach to capture methods,
 CDU ratings and approach, weather and outdoor heat rejection.
-A separate optional [D00 primer](prototypes/terminology-format.html) introduces
+A separate [Primer](prototypes/terminology-format.html) introduces
 electricity basics and recurring terminology before the core course. Its 18 slides
 have a 20-minute target that remains provisional until rehearsal.
-The thirteen-scene D01 overview remains intact: it tours generation, transmission, campus power, backup,
+The thirteen-scene Data center overview overview remains intact: it tours generation, transmission, campus power, backup,
 GB300 hardware, compute, networks and cooling before introducing load, energy and PUE.
-The new [D02 presentation](prototypes/workload-format.html) has 19 scenes covering
+The new [Workloads and requirements presentation](prototypes/workload-format.html) has 19 scenes covering
 workload requirements, memory, useful output, batching, latency and job-demand
 envelopes. Its examples and controls are implemented, pending an aloud dry run.
 These cover selected parts of the curriculum; they do not establish finished domains.
@@ -68,7 +68,7 @@ The domain map decomposes the included scope; a source discovery does not change
 ## Novice pass
 
 - **What feels obvious only because I already know it?** A rack contains computing and support equipment; electrical distribution, coolant circulation and data movement are different systems; more rated MW does not automatically mean more useful computation. AC, DC, voltage, current, power and energy describe different quantities or behaviors.
-- **Which term, assumption, or step could lose the learner first?** A full campus one-line or unexplained UPS, CDU, PUE or NVLink acronym. The optional D00 primer gives first exposure to electricity basics and recurring terminology through visible relationships. Explicitly reassure learners: “Don't worry; we will explain these terms again when we get to the system that uses them.” Reintroduce each term when its function becomes useful; D00 requires neither memorization nor mastery before D01.
+- **Which term, assumption, or step could lose the learner first?** A full campus one-line or unexplained UPS, CDU, PUE or NVLink acronym. The Primer gives first exposure to electricity basics and recurring terminology through visible relationships. Keep the primer self-contained and tie each term to a concrete example. Reintroduce each term when its function becomes useful; Primer requires neither memorization nor mastery before Data center overview.
 - **Does the learner understand why this matters before the details?** Begin with a constraint on useful service and show what a proposed change fixes. For 800 V DC, make conductor copper and conversion-equipment placement visible before calculating current and energy. Do not let an illustrative efficiency result replace the architecture question.
 - **What changed after reviewing from the learner's starting point?** The electrical-and-thermal introduction expanded to useful compute, delivery and operations, organized by capabilities rather than source articles. Kian's sample feedback exposed excessive text, an unclear presentation workflow, a misleading power-flow arrow, missing rack-unit vocabulary, and confusion between copper, current and total energy. The revised sample addresses these issues with separate student/teacher endpoints and distinct material, placement and energy comparisons. The latest review removed competing bottom subtitles, clarified the UPS battery and product form factor, simplified the electrical primer, and replaced assumed AC/DC conversion losses with a single explicit efficiency example. Its next dry run should test these revisions.
 
@@ -84,12 +84,12 @@ relationships. Current authored lesson-to-objective mappings are generated in
 
 | Artifact or capability evidence                           | Current state                                                                                                          | Work before release                                                                  |
 | --------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| [D00 — Electricity basics and recurring terminology](prototypes/terminology-format.html) | Separate optional primer before D01; approximately 20-minute target, pending rehearsal | Rehearse pacing and check that first exposure reduces unfamiliarity without implying mastery |
+| [Primer](prototypes/terminology-format.html) | Primer before the data center overview; approximately 20-minute target, pending rehearsal | Rehearse pacing and check that first exposure reduces unfamiliarity without implying mastery |
 | [Reader and lesson notes](index.html)                     | Drafted explanations, worked examples, tradeoffs, failure cases and changed-scenario answers                           | Complete claim review, learner comprehension checks and final narration              |
 | [Five capstones](DOMAIN_MAP.md#proposed-capstones)        | Drafted synthetic briefs and worked solutions; scope belongs to the domain map                                         | Check assumptions and demonstrate transfer across domains                            |
-| [D02 — Workloads and requirements](prototypes/workload-format.html) | 19 authored scenes covering the three D02 lessons, with numerical comparisons and changed cases | Rehearse explanations, timing and transfer; complete technical and learner review |
+| [Workloads and requirements — Workloads and requirements](prototypes/workload-format.html) | 19 authored scenes covering the three Workloads and requirements lessons, with numerical comparisons and changed cases | Rehearse explanations, timing and transfer; complete technical and learner review |
 | [800 V DC presentation](teach.html)                       | Thirteen authored visual scenes, separate notes, student explanations and shared calculations                               | Rehearse the revised copper/space premise and conversion-placement ending                |
-| [UPS, bypass and redundancy](prototypes/ups-format.html) | Seventeen visual scenes with optional notes, power-path changes and surviving-capacity exercises; part of D05 | Dry-run the minimal-text format and report unclear mechanisms or terminology |
+| [UPS, bypass and redundancy](prototypes/ups-format.html) | Seventeen visual scenes with optional notes, power-path changes and surviving-capacity exercises; part of Continuity, storage and protection | Dry-run the minimal-text format and report unclear mechanisms or terminology |
 | Search, glossary and practice                             | Implemented in the reader                                                                                              | Check findability, first-use vocabulary and learner reasoning                        |
 | Numerical models                                          | Eight bounded model types with arithmetic checks                                                                       | Specialist review of physical boundaries and any real-case inputs                    |
 | [Illustrations](assets/README.md)                         | Five ImageGen orientation images with preserved prompts; exact engineering labels and calculations rendered separately | Verify final-size legibility and narration                                           |
@@ -101,9 +101,9 @@ verification. Passing those checks does not establish comprehension, specialist
 approval or a successful recording. No complete source-corpus audit is claimed.
 
 **Terminology coverage updated 2026-09-10:**
-[D01](index.html#d01-boundaries) now introduces white/grey space;
-[D12](index.html#d12-room-and-replacement-route) applies it to equipment placement,
-service space and total footprint. [D03](index.html#d03-service-and-siting) explicitly
+[Data center overview](index.html#d01-boundaries) now introduces white/grey space;
+[Physical site, buildings and safety](index.html#d12-room-and-replacement-route) applies it to equipment placement,
+service space and total footprint. [Siting, grid connection and supply](index.html#d03-service-and-siting) explicitly
 teaches behind-the-meter location, grid import/export, island capability and
 time-to-power constraints. Its original 8 MW load / 6 MW generator case compares
 2 MW grid import with 2 MW storage output in an assumed supported island.
@@ -196,12 +196,11 @@ until it fits is not sufficient.
 ### How the video flows
 
 Teach one linear journey through the [six acts](DOMAIN_MAP.md#proposed-teaching-sequence).
-The optional **D00 — Electricity basics and recurring terminology** comes first,
-followed by the existing **D01 — Data center overview**. D00 introduces names and
+The **Primer** comes first,
+followed by the existing **Data center overview**. Primer introduces names and
 basic relationships so a later explanation is not the learner's first encounter.
 It is a prelude to the fifteen domains, not a sixteenth required domain, a new
-set of assessed objectives, or the historical 22-lesson introduction. Learners
-can skip it because the relevant system section teaches each term again.
+set of assessed objectives, or the historical 22-lesson introduction. The presenter decides how to introduce it; the slides contain no skip prompt.
 The fifteen domains organize the material behind the main journey. Keep returning to
 one evolving facility drawing and bill of materials so each addition has a place
 and a purpose. The companion lets students revisit, explore and practise independently.
@@ -213,7 +212,7 @@ idea, invite viewers to pause, then show the reasoning and connect it to the nex
 problem. For continuity, that might mean removing a UPS for maintenance and then
 losing another unit: what can still run, and why?
 
-The reading companion now includes fifteen optional domain check-ins with answer
+The reading companion now includes fifteen domain check-ins with answer
 reveals and transitions. The case-study companion provides short authored teaching
 sequences; later domain slide adaptations should integrate those cases in context.
 
@@ -230,18 +229,17 @@ remaining course. Apply their minimal text, explicit boundaries, visible
 mechanisms and controlled comparisons to each new section. Their visual format
 is a reference, not a requirement to use electrical-style diagrams everywhere.
 
-The next dry run is **[D00 — Electricity basics and recurring terminology](prototypes/terminology-format.html?teach=1)**.
+The next dry run is **[Primer](prototypes/terminology-format.html?teach=1)**.
 Check its approximately 20-minute target, whether the diagrams give each term a
-meaningful first exposure, and whether learners understand that every term will
-be explained again in context. Do not test recall as an entry requirement.
+meaningful first exposure, and whether beginners can follow part of a technical conversation. Do not test recall as an entry requirement.
 
-**[D01 — Data center overview](prototypes/orientation-format.html?teach=1#three-paths)** remains as authored.
+**[Data center overview](prototypes/orientation-format.html?teach=1#three-paths)** remains as authored.
 Its thirteen scenes give a broad first tour: facility rooms, generation and
 transmission, campus distribution and backup, a GB300 rack, chip-to-cluster scale,
 network and cooling paths, then rating, demand and fixed-IT PUE comparisons. These concepts
 are directly taught in the presentation. Source-claim evaluation remains in the
-D01 reference. D02 now has a 19-scene teaching sequence across its three written
-lessons; D03 is the next core teaching section to author after the D02 dry run.
+Data center overview reference. Workloads and requirements now has a 19-scene teaching sequence across its three written
+lessons; Siting, grid connection and supply is the next core teaching section to author after the Workloads and requirements dry run.
 
 **Teach the new sequence aloud without recording.** Send the scene and the point
 that confused you or needed a different visual. The agent fixes that mechanism
@@ -252,7 +250,7 @@ review playbook and optional references are in [PRESENTING.md](PRESENTING.md).
 Repeat this process through the domain map's dependency order. Author each
 mechanism and example for its topic; converting the existing prose into slides
 will not by itself finish the course. Build the facility drawing and bill of
-materials as the lessons need them, keeping the D00 primer and D01 overview
+materials as the lessons need them, keeping the primer and data center overview
 consistent with that shared model. The [BTM source note](../research/sources/SA41.md) remains an
 input for deeper supply, island operation, fuel, delivery and grid-transition
 teaching within the existing domains. Neither the entire source library nor the
@@ -269,11 +267,11 @@ whole presentation must be finished before the next dry run.
 - [ ] Watch the edited video and fix mistakes or missing steps.
 - [ ] Check chapter timestamps and public resources; ensure they match the video.
 
-### D13 delivery comparison — 12 September 2026
+### Design, procurement and commissioning delivery comparison — 12 September 2026
 
 The scheduling and interface lessons now share one synthetic 20 MW comparison:
 site-built services versus factory-built service modules under the same EPC
 scope. The late change from 200 × 100 kW to 100 × 200 kW racks drives electrical,
 hydraulic, spatial, controls, transport and schedule holds. Each hold identifies
-its owner and release evidence. The D13 boundary check revisits the same choice;
+its owner and release evidence. The Design, procurement and commissioning boundary check revisits the same choice;
 factory release remains distinct from integrated site acceptance.

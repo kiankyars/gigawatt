@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/capstones.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/capstones.json), lesson `c02-weather-capacity`, then run `uv run gigawatt-expand`.
 
-**capstone · Authored draft · Objectives:** D01.3, D11.3, D15.1, D15.4
+**Integrated practice · Authored draft**
 
 Reconcile the electrical and heat-removal constraints at two supplied operating points, then decide which proposed upgrade would actually help.
 

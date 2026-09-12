@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/capstones.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/capstones.json), lesson `c03-density-retrofit`, then run `uv run gigawatt-expand`.
 
-**capstone · Authored draft · Objectives:** D06.1, D06.2, D06.3, D06.4, D06.5, D12.1, D13.2, D15.4
+**Integrated practice · Authored draft**
 
 Compare two complete electrical ledgers, a cooling duty and a service-space requirement before choosing where conversion should happen.
 

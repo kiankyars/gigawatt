@@ -2,9 +2,9 @@
 
 Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/heat-delivery-operations.json), lesson `d12-hazards-and-site-evidence`, then run `uv run gigawatt-expand`.
 
-**D12 · Authored draft · Objectives:** D12.2
+**Physical site, buildings and safety · Authored draft**
 
-Compare two parcels by usable area, utility delivery, cooling, fiber, land rights and permissions. Follow the constraint that prevents opening, rather than choosing the largest tract.
+Compare greenfield development with brownfield reuse, then evaluate land, utilities, site risks and the date when a first phase can operate. Original Colossus and Abilene provide the land-use case study.
 
 **Driving question:** Which parcel can support the required campus, with usable land and services ready on time?
 
@@ -16,7 +16,7 @@ A parcel’s price and acreage cannot establish whether that campus can be built
 
 ## Confirm the power and fuel that can reach the site
 
-Obtain the capacity, delivery point, required upgrades, operating restrictions and date from the actual utility process. A substation rating is not a commitment to supply that amount to this customer. D03 develops the electrical service boundary; here the question is whether the proposed parcel can obtain that service on the project schedule.
+Obtain the capacity, delivery point, required upgrades, operating restrictions and date from the actual utility process. A substation rating is not a commitment to supply that amount to this customer. The grid-connection section develops the electrical service boundary; here the question is whether the proposed parcel can obtain that service on the project schedule.
 
 An on-site gas plant replaces some electrical dependencies with fuel dependencies. Establish required gas volume and pressure, supply and transportation terms, curtailment conditions, and the tap, metering, lateral and any compression needed to connect. Confirm who builds them, when, and across whose land. DOE’s gas-turbine guidance explains why insufficient pressure can require a fuel-gas compressor. Owning a generator and seeing a gas pipeline on a map do not answer those questions.
 
@@ -28,7 +28,7 @@ The supplied area screen assumes a contiguous envelope with suitable access. It 
 
 ## Match cooling and fiber to the actual design
 
-For cooling, establish the available water source, allocation, quality and discharge conditions against the chosen heat-rejection design and local weather. A recirculating loop can still need makeup water; dry cooling instead changes the equipment and hot-weather operating requirements. D11 owns those heat and water calculations. Here, retain the resulting capacity and readiness conditions in the site comparison.
+For cooling, establish the available water source, allocation, quality and discharge conditions against the chosen heat-rejection design and local weather. A recirculating loop can still need makeup water; dry cooling instead changes the equipment and hot-weather operating requirements. The heat-rejection section explains those heat and water calculations. Here, retain the resulting capacity and readiness conditions in the site comparison.
 
 For communications, verify capacity, route length, delivery dates, site entrances and the rights to construct each route. Two carrier contracts can share a trench or bridge. In this example, two physically separate routes are a stated requirement; Parcel B’s second route arriving in month 23 is the last supplied prerequisite. Its first route arriving earlier does not satisfy both paths.
 
@@ -40,9 +40,11 @@ Purchase, lease and option arrangements give different rights for different peri
 
 In Texas, the surface and mineral estates can have different owners. The Railroad Commission explains that mineral development can carry rights to reasonably necessary surface use, subject to applicable limits. A surface purchase alone therefore does not settle potential mineral-development conflicts. The example assumes Parcel B’s required rights are resolved through month 26. Parcel A’s option ends in month 18 with no agreed extension; that is unresolved control, not a date that can silently slide to month 30.
 
-## Check permitted uses, neighbors and what the old site leaves behind
+## Check permitted uses and neighbors
 
 Identify the approvals and conditions for this layout: land use, air emissions, noise, water, drainage, construction and fire access. Equipment intended for continuous generation can raise different questions from standby equipment. Nearby homes, schools and other sensitive uses affect the actual siting conversation. A permit for one phase does not establish approval for the later campus.
+
+## Greenfield and brownfield: new land or an existing site
 
 A greenfield project starts on previously undeveloped land; brownfield redevelopment, in the ordinary site-reuse sense, begins with an existing site and its history. Industrial reuse may offer roads, utility connections and a building, while also carrying obsolete equipment or contamination. EPA distinguishes historical and site-condition review from sampling and cleanup planning. Establish what can remain, what must be removed, and any restrictions on the intended use. An apparently empty contamination folder is not equivalent to completed investigation. This use of brownfield does not establish a statutory designation or contamination at a named site.
 

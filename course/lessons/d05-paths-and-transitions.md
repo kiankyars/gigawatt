@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/foundations-power.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/foundations-power.json), lesson `d05-paths-and-transitions`, then run `uv run gigawatt-expand`.
 
-**D05 · Authored draft · Objectives:** D05.2, D05.3
+**Continuity, storage and protection · Authored draft**
 
 Follow a supplied electrical/thermal restoration timeline, calculate its energy requirement, and test redundancy under a second unavailable component.
 

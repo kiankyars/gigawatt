@@ -106,8 +106,9 @@ class DomainMapTests(unittest.TestCase):
         markdown = atlas.render_markdown(domain_map, research)
         for domain in domain_map["domains"]:
             self.assertIn(f'<a id="{domain["id"].lower()}"></a>', markdown)
-            for objective in domain["objectives"]:
-                self.assertIn(f"#### {objective['id']}\n", markdown)
+            for number, objective in enumerate(domain["objectives"], 1):
+                self.assertIn(f"#### Learning objective {number}\n", markdown)
+                self.assertIn(atlas._md(objective["capability"]), markdown)
                 self.assertIn(atlas._md(objective["assessment"]), markdown)
             for key in ("prediction", "interaction", "boundary"):
                 self.assertIn(atlas._md(domain["visual"][key]), markdown)

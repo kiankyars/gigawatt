@@ -2,7 +2,7 @@
 
 **From watts to racks, useful compute, and operation.**
 
-[D00 optional primer](course/prototypes/terminology-format.html) · [Read the course](course/index.html) · [Explore the 800 V sample](course/sample.html)
+[Primer](course/prototypes/terminology-format.html) · [Read the course](course/index.html) · [Explore the 800 V sample](course/sample.html)
 · [Teach](course/teach.html) · [Domain atlas](course/domain-map.html)
 · [Research library](research/INDEX.md)
 
@@ -33,10 +33,10 @@ evidence; they do not add curriculum requirements. Technical checks live in
 
 ## Current state
 
-Begin with [D00 — Electricity basics and recurring terminology](course/prototypes/terminology-format.html)
-for an optional first exposure, then continue to the existing
-[D01 — Data center overview](course/prototypes/orientation-format.html).
-D00 aims for about 20 minutes, pending rehearsal. It gives familiar names to
+Begin with [Primer](course/prototypes/terminology-format.html)
+for a first exposure, then continue to the existing
+[Data center overview](course/prototypes/orientation-format.html).
+Primer aims for about 20 minutes, pending rehearsal. It gives familiar names to
 ideas that will be explained again when each system needs them; it adds no
 required domain or objective to the curriculum.
 
@@ -46,7 +46,7 @@ It includes searchable text, a glossary, eight numerical model types and five
 original GPT ImageGen equipment illustrations. Exact calculations use code;
 illustrative geometry does not establish equipment ratings.
 
-The new [D02 teaching sequence](course/prototypes/workload-format.html?teach=1) adds
+The new [Workloads and requirements](course/prototypes/workload-format.html?teach=1) adds
 19 scenes on workload requirements, memory budgets, useful output, batching and
 demand timing. Both new sections await an aloud dry run.
 

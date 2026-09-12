@@ -1324,3 +1324,10 @@ h1 {
     font-size: 17px;
   }
 }
+/* Put relevant case studies beside the lesson introduction. */
+#case-links { margin-top: 1.3rem; padding: 1rem 0; border-top: 1px solid var(--rule); }
+#case-links p { margin: 0 0 .5rem; font-weight: 650; }
+#case-links ul { margin: 0; padding-left: 1.2rem; }
+#case-links li { margin: .4rem 0; }
+#domain-checkin { scroll-margin-top: 6rem; }
+#objective-tags p { margin: .7rem 0; }

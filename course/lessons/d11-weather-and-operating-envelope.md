@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/heat-delivery-operations.json), lesson `d11-weather-and-operating-envelope`, then run `uv run gigawatt-expand`.
 
-**D11 · Authored draft · Objectives:** D11.1, D11.3, D11.5
+**Heat rejection, climate and water · Authored draft**
 
 Compare dry and wet heat rejection at explicitly labeled temperatures, check cooling electricity against the site ceiling, and distinguish redundant cooling from reduced-power operation after a fault.
 
@@ -18,13 +18,13 @@ Neither temperature is a complete equipment rating. Duty also depends on flow, l
 
 ## Approach belongs to two named temperature points
 
-For a cooling tower, approach is leaving-water temperature minus entering-air wet bulb. For the dry cooler in our example, we explicitly use leaving-fluid temperature minus entering-air dry bulb. At the liquid-to-liquid CDU, D10 uses technology supply minus facility supply. State the equipment and the two sensor locations every time: approach is not one universal gap that can be copied between all three.
+For a cooling tower, approach is leaving-water temperature minus entering-air wet bulb. For the dry cooler in our example, we explicitly use leaving-fluid temperature minus entering-air dry bulb. At the liquid-to-liquid CDU, the chip-cooling example uses technology supply minus facility supply. State the equipment and the two sensor locations every time: approach is not one universal gap that can be copied between all three.
 
 Loop temperature rise compares warm return with cool supply in one circuit. The same circuit can rise by 10 K across its load while its cooler operates at a 3 K or 5 K approach to another temperature. At the tower the inlet-to-outlet drop is called range. Approach can change with load, flow and equipment configuration; a smaller value at one operating point is not a guaranteed value across the operating envelope.
 
 ## Trace one 84 kW load through the two outdoor options
 
-Reuse D10’s synthetic 84 kW load and 2 kg/s water loops with heat capacity 4.2 kJ/(kg·K), giving a 10 K temperature rise. Require technology supply at or below 35°C, and stipulate a 5 K CDU approach. For this comparison only, specify outdoor air at 35°C dry bulb and 22°C wet bulb. In the wet route chosen here, open-tower water is kept separate from the facility loop, so this design includes another heat exchanger. Count that interface when comparing the complete routes.
+Reuse the chip-cooling example’s synthetic 84 kW load and 2 kg/s water loops with heat capacity 4.2 kJ/(kg·K), giving a 10 K temperature rise. Require technology supply at or below 35°C, and stipulate a 5 K CDU approach. For this comparison only, specify outdoor air at 35°C dry bulb and 22°C wet bulb. In the wet route chosen here, open-tower water is kept separate from the facility loop, so this design includes another heat exchanger. Count that interface when comparing the complete routes.
 
 Dry route: stipulate a 5 K dry-cooler approach at this load. Its 35°C entering air permits a modeled 40°C facility supply. The CDU’s additional 5 K makes technology supply 45°C, above the 35°C requirement. The full steady temperature pairs would be facility 40°C supply / 50°C return and technology 45°C supply / 55°C return. This is a failed temperature screen, not permission to operate the rack at that point.
 

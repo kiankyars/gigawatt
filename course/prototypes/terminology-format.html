@@ -4,8 +4,8 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="color-scheme" content="light dark" />
-<meta name="description" content="D00: an optional twenty-minute first encounter with electricity basics and the words used throughout GIGAWATT. Every term returns in context." />
-<title>D00 · Electricity basics and recurring terminology · GIGAWATT</title>
+<meta name="description" content="Primer: electricity, computing and cooling concepts through diagrams and examples." />
+<title>Primer · GIGAWATT</title>
 <style>
       :root {
         color-scheme: light;
@@ -354,31 +354,25 @@
         }
       }
 
-#next-section {font-size: 15px; padding: 10px 16px; border: 1px solid var(--power); border-radius: 8px; text-decoration: none;}
-#next-section:hover {background: var(--panel);}
-#reading a {overflow-wrap: anywhere;}
-#primer-note {margin: 10px 0 0; color: var(--muted); font-size: 14px; line-height: 1.4;}
 @media(max-width:600px) { .toolbar .brand {font-size:10px;letter-spacing:1px;} .toolbar nav a {font-size:11px;} .toolbar button {font-size:11px;padding:6px;} .toolbar {padding:0 10px;gap:5px;} }
 </style>
 </head>
 <body>
 <div id="viewer">
-<header class="toolbar"><a class="brand" href="../index.html">GIGAWATT</a><nav aria-label="Lesson resources"><a id="skip-primer" href="orientation-format.html">Skip to D01</a><button id="explain">Explanation</button><button id="fullscreen" hidden>Full screen</button></nav></header>
-<main><header><p class="eyebrow">D00 · OPTIONAL PRIMER</p><h1 id="title">A simple circuit has a source, a load and a return path</h1><p id="primer-note" hidden>No memorization required. We will explain these terms again in their systems.</p></header>
+<header class="toolbar"><span class="brand">GIGAWATT</span><nav aria-label="Presentation controls"><button id="explain">Explanation</button><button id="fullscreen" hidden>Full screen</button></nav></header>
+<main><header><p class="eyebrow">Primer</p><h1 id="title">Current needs a complete loop</h1></header>
 <section id="stage" aria-label="Electricity basics and recurring terminology"><svg id="diagram" role="img" aria-labelledby="diagram-title diagram-description"></svg><div id="actions"></div></section>
 </main>
 <footer><label class="sr-only" for="scenes">Choose scene</label><select id="scenes"></select><div class="navigation"><button id="previous" aria-label="Previous scene">←</button><span id="progress" aria-live="polite"></span><button id="next" aria-label="Next scene">→</button></div></footer>
 </div>
-<dialog id="reading" aria-labelledby="reading-title"><header><h2 id="reading-title">D00 · First exposure</h2><button id="close-reading" aria-label="Close explanation">×</button></header><h3 id="explanation-title"></h3><p id="explanation"></p><p id="returns"></p><p><a id="lesson-reference" href="../index.html#d01-boundaries">Read the later lesson</a></p><details><summary>Sources and reading limits</summary><ul id="source-list"></ul></details><details id="teaching-cues" hidden><summary>Rehearsal cue</summary><p id="timing"></p><p>Introduce the name and point at what it describes. Reassure learners that it returns in context. Allow about twenty minutes, pending an aloud rehearsal.</p></details></dialog>
-<noscript><p>This optional primer introduces the names once. Don't worry: we explain them again when they matter. <a href="../EXPANDED_COURSE.md">Read the course explanations</a> or <a href="orientation-format.html">continue to D01</a>.</p></noscript>
+<dialog id="reading" aria-labelledby="reading-title"><header><h2 id="reading-title">Primer</h2><button id="close-reading" aria-label="Close explanation">×</button></header><h3 id="explanation-title"></h3><p id="explanation"></p><details id="teaching-cues" hidden><summary>Rehearsal cue</summary><p id="timing"></p><p>Introduce the name and point at what it describes. Allow about twenty minutes, pending an aloud rehearsal.</p></details></dialog>
+<noscript><p>JavaScript enables the interactive diagrams. A complete circuit carries current from a source through a load and back. Voltage is measured across two points, current through a path, power in watts, and energy in watt-hours.</p></noscript>
 <script type="module">
-import {scenes,sources,sceneAliases} from './terminology-scenes.js';
+import {scenes,sceneAliases} from './terminology-scenes.js';
 import {renderTerminology} from './terminology-visuals.js';
 const $=id=>document.getElementById(id);
-const state={circuit:'closed',resistanceVoltage:'12',hours:'1',angle:'90'};
+const state={circuit:'closed',resistanceVoltage:'12',hours:'1',angle:'90',upsSupply:'normal',bandwidth:'100'};
 const teaching=new URLSearchParams(location.search).get('teach')==='1';
-const d01=`orientation-format.html${teaching?'?teach=1':''}#three-paths`;
-$('skip-primer').href=d01;
 $('fullscreen').hidden=!teaching;
 $('teaching-cues').hidden=!teaching;
 $('scenes').innerHTML=scenes.map((s,i)=>`<option value="${i}">${i+1}. ${s.label}</option>`).join('');
@@ -390,16 +384,11 @@ function draw(){
 }
 function render(){
  const s=scenes[index];
- $('title').textContent=s.title;document.title=`D00 · ${s.label} · GIGAWATT`;
- $('primer-note').hidden=s.id!=='circuit';
+ $('title').textContent=s.title;document.title=`Primer · ${s.label} · GIGAWATT`;
  $('scenes').value=String(index);$('progress').textContent=`${index+1} / ${scenes.length}`;
  $('previous').disabled=index===0;$('next').disabled=index===scenes.length-1;
- $('actions').innerHTML=s.options?`<div class="choices" role="group" aria-label="${s.group}"><span class="choices-label" aria-hidden="true">${s.group}</span>${s.options.map(([value,label])=>`<button data-setting="${s.key}" data-value="${value}" aria-pressed="${state[s.key]===value}">${label}</button>`).join('')}</div>`:index===scenes.length-1?`<a id="next-section" href="${d01}">Continue to D01</a>`:'';
- $('explanation-title').textContent=s.title;$('explanation').textContent=s.explanation;$('returns').textContent=s.returns;
- $('lesson-reference').href=`../index.html#${s.reference}`;
- $('source-list').replaceChildren();
- for(const key of s.sources){const source=sources[key],li=document.createElement('li'),a=document.createElement('a');a.href=source.url;a.textContent=source.title;li.append(a,document.createTextNode(` — Reviewed ${source.reviewed_on}. ${source.limits}`));$('source-list').append(li);}
- if(!s.sources.length){const li=document.createElement('li');li.textContent='Course navigation and original teaching guidance.';$('source-list').append(li);}
+ $('actions').innerHTML=s.options?`<div class="choices" role="group" aria-label="${s.group}"><span class="choices-label" aria-hidden="true">${s.group}</span>${s.options.map(([value,label])=>`<button data-setting="${s.key}" data-value="${value}" aria-pressed="${state[s.key]===value}">${label}</button>`).join('')}</div>`:'';
+ $('explanation-title').textContent=s.title;$('explanation').textContent=s.explanation;
  const elapsed=scenes.slice(0,index).reduce((total,s)=>total+s.seconds,0),time=n=>`${Math.floor(n/60)}:${String(n%60).padStart(2,'0')}`;
  $('timing').textContent=`Planned cue: ${time(elapsed)}–${time(elapsed+s.seconds)}. About ${s.seconds} seconds for this slide.`;
  draw();

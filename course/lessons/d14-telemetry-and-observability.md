@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/heat-delivery-operations.json), lesson `d14-telemetry-and-observability`, then run `uv run gigawatt-expand`.
 
-**D14 · Authored draft · Objectives:** D14.1
+**Controls, operations and reliability · Authored draft**
 
 Place measurements at physical boundaries, align their times and use conservation checks to discriminate between competing explanations.
 

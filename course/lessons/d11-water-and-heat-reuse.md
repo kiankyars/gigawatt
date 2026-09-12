@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/heat-delivery-operations.json), lesson `d11-water-and-heat-reuse`, then run `uv run gigawatt-expand`.
 
-**D11 · Authored draft · Objectives:** D11.4, D11.5
+**Heat rejection, climate and water · Authored draft**
 
 Reconcile tower makeup and blowdown, distinguish withdrawal from consumption, and evaluate heat reuse against an actual receiving load.
 
@@ -92,9 +92,9 @@ Lower concentration requires more blowdown in this model. It increases intake by
 - [USGS National Water Availability Assessment Data Companion](https://waterdata.usgs.gov/blog/nwdc-overview/) — The water-use discussion distinguishes withdrawals from consumptive use. Read 2026-09-06. Selected definitions inspected; the lesson’s hypothetical return-flow assumption is not an observation about a real basin.
 - [Crusoe — Abilene cooling design](https://www.crusoe.ai/resources/blog/an-inside-look-at-the-abilene-ai-data-center) — Abilene provides a recurring example of grid supply, backup and closed-loop cooling with air-cooled heat rejection. Read 2026-09-12. Energy and water sections reviewed. Historical company design description, not audited operating water use. Initial fill and maintenance remain separate from non-evaporative heat rejection.
 
-## D11 domain check-in: What reaches the condenser?
+## Check your understanding: What reaches the condenser?
 
-Optional: pause and make a prediction, then compare your reasoning. You can continue whenever you are ready.
+Pause and make a prediction, then compare your reasoning.
 
 A hypothetical chiller removes 1.0 MW from its evaporator loop while its compressor consumes 0.2 MW. Ignore other heat transfers and exclude pumps and fans from this stated balance.
 
@@ -111,4 +111,4 @@ The condenser receives the cooling duty plus compressor work: 1.0 + 0.2 MW. Cool
 
 **The next problem:** We have traced the power, work and heat paths. What evidence proves that the delivered equipment can operate as one complete service?
 
-Continue in **D13**: The longest lead time is not the completion date.
+Continue in **Design, procurement and commissioning**: The longest lead time is not the completion date.

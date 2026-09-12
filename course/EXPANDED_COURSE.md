@@ -6,62 +6,62 @@ The course is organized around mechanisms, solved examples, tradeoffs and change
 
 Generated from the lesson records in `course/expansion/` and boundary exercises in `course/domain-checkins.json` with `uv run gigawatt-expand`. This is a reading view; the [filled-in course template](COURSE_REVIEW.md) owns course design and production decisions.
 
-Each domain ends with one optional scenario: pause, make a prediction, compare the reasoning, and connect it to the next problem. These check-ins carry no score and do not block progression.
+Each topic ends with a check-in: pause, make a prediction, compare the reasoning, and connect it to the next problem. These check-ins carry no score and do not block progression.
 
 [Open the visual reader](index.html) · [Domain map](DOMAIN_MAP.md) · [Dry-run guide](PRESENTING.md)
 
 ## Learning path
 
-- **D01** [One rack, three paths](lessons/d01-boundaries.md) — What crosses the boundary of a working data center?
-- **D01** [A megawatt is not a megawatt-hour](lessons/d01-power-over-time.md) — How can two facilities use equal energy but need different electrical capacity?
-- **D01** [Attach a denominator and a date](lessons/d01-metrics-and-evidence.md) — What does an efficiency or capacity claim actually establish?
-- **D02** [Design for a job, not a rack count](lessons/d02-workload-brief.md) — What must the infrastructure deliver for this workload to count as successful?
-- **D02** [Busy, powered, and productive are different](lessons/d02-productive-utilization.md) — Why can lower average power accompany worse energy per useful result?
-- **D02** [The workload has a rhythm](lessons/d02-phases-and-envelopes.md) — How do batching and synchronized phases change demand without changing installed equipment?
-- **D03** [A contract is not a cable](lessons/d03-power-and-procurement.md) — How do energy purchases relate to the physical supply that keeps a rack running?
-- **D03** [Move power with fewer amperes](lessons/d03-voltage-and-distance.md) — Why does a higher transport voltage reduce one important class of losses?
-- **D03** [Behind the meter and the first usable megawatt](lessons/d03-service-and-siting.md) — Can behind-the-meter supply bring a site online sooner and keep its protected load running during an outage?
-- **D12** [A rack must fit on its worst day](lessons/d12-room-and-replacement-route.md) — Why can a layout that fits every rack still be impossible to maintain?
-- **D12** [Choose a site that can deliver the first phase](lessons/d12-hazards-and-site-evidence.md) — Which parcel can support the required campus, with usable land and services ready on time?
-- **D12** [A shared boundary can defeat two independent systems](lessons/d12-safety-and-control-boundaries.md) — How do physical access, stored energy and control permissions shape availability?
-- **D04** [Read a power train as a set of jobs](lessons/d04-read-the-power-train.md) — What changes, branches, and limits between the campus connection and the rack?
-- **D04** [Kilowatts do not fill a kilovolt-ampere nameplate](lessons/d04-current-and-rating.md) — How do efficiency and power factor change upstream equipment loading?
-- **D04** [Moving a converter moves an interface](lessons/d04-conversion-placement.md) — How should centralized and distributed conversion be compared fairly?
-- **D05** [A battery has two limits before it has a runtime](lessons/d05-storage-power-and-time.md) — Can the stored energy reach the load at the required rate?
-- **D05** [Continuity belongs to the complete service](lessons/d05-paths-and-transitions.md) — Which loads remain usable during an interruption, transfer, and maintenance event?
-- **D05** [A fault needs a boundary and an exit](lessons/d05-protection-and-fault-domains.md) — Why can the same breaker arrangement behave differently under another source or grounding scheme?
-- **D06** [Follow the watts through the rack](lessons/d06-conversion-ledger.md) — Why is the sum of processor power ratings not the power entering the rack?
-- **D06** [800 V is an interface, not an entire architecture](lessons/d06-eight-hundred-volt-architectures.md) — What changes when conversion sits in the rack, beside the rack, or at the facility boundary?
-- **D06** [A rack upgrade is an interface negotiation](lessons/d06-rack-migration.md) — Why can a retrofit reject the architecture that looks best on an empty site?
-- **D07** [A rack is a path through several memories](lessons/d07-data-path.md) — What must happen between a stored dataset and a completed accelerator operation?
-- **D07** [Find the limit before buying more arithmetic](lessons/d07-bottleneck-model.md) — Is a workload constrained by memory capacity, memory bandwidth, compute or communication?
-- **D07** [The rack becomes a service boundary](lessons/d07-rack-as-system.md) — How does tighter hardware integration change deployment, maintenance and usable job capacity?
-- **D08** [Count the paths, not just the advertised ports](lessons/d08-topology-budget.md) — How do topology, physical distance and the campus fiber handoff constrain a communication plan?
-- **D08** [A collective makes waiting contagious](lessons/d08-collective-progress.md) — How can one constrained participant delay a job running on many healthy accelerators?
-- **D08** [Choose where electricity becomes light](lessons/d08-copper-light-service.md) — How should reach, power and replacement boundaries shape the choice between copper, pluggable optics and CPO?
-- **D09** [Storage is a traffic and state system](lessons/d09-storage-paths.md) — Why can a large, fast storage array still leave accelerators waiting?
-- **D09** [Count preserved progress, lost progress and recovery](lessons/d09-checkpoint-timeline.md) — When do more frequent checkpoints improve completed work, and when do they only add overhead?
-- **D09** [Turn installed hardware into an accepted service](lessons/d09-service-acceptance.md) — What must a tenant demonstrate before the cluster can be called usable?
-- **D10** [A cool room can contain an overheating chip](lessons/d10-local-thermal-paths.md) — Why do equal rack heat loads create different local cooling problems?
-- **D10** [Flow arithmetic is only the first pump question](lessons/d10-flow-and-pressure.md) — How much liquid transports the heat, and can that flow reach every required branch?
-- **D10** [Two liquid loops exchange heat, not fluid](lessons/d10-cdu-interfaces.md) — What does a CDU do, and why is loop temperature rise different from approach temperature?
-- **D11** [The heat does not disappear at the chiller](lessons/d11-heat-rejection.md) — What reaches the environment after cooling equipment has moved the IT heat?
-- **D11** [The same air temperature can create different cooling limits](lessons/d11-weather-and-operating-envelope.md) — How do dry bulb, wet bulb and exchanger approach determine whether the rack receives cool enough liquid?
-- **D11** [Count water at the boundary, then ask who can use the heat](lessons/d11-water-and-heat-reuse.md) — Can a facility improve one resource metric while making another site constraint harder?
-- **D13** [The longest lead time is not the completion date](lessons/d13-delivery-dependencies.md) — Which delay actually changes the date when a phase can deliver service?
-- **D13** [Two adequate products can form an inadequate system](lessons/d13-interface-contracts.md) — What can proceed when 200 × 100 kW racks become 100 × 200 kW just before fabrication?
-- **D13** [Commission the intersection, not the inventory](lessons/d13-commissioning-complete-paths.md) — When do installed components become a tested service path?
-- **D14** [A believable number can describe the wrong thing](lessons/d14-telemetry-and-observability.md) — How do we distinguish a real cooling constraint from a measurement problem?
-- **D14** [The scheduler cannot negotiate with physics after the fact](lessons/d14-coordinating-control-and-work.md) — How should a workload change relate to equipment control and facility operating sequences?
-- **D14** [Measure the service, investigate the incident](lessons/d14-maintenance-and-service-reliability.md) — Why do equipment uptime and a redundant topology fail to determine useful-service availability?
-- **D15** [Find the constraint after reconciling the boundaries](lessons/d15-capacity-ledger.md) — How many rack equivalents can the specified system support, and what would an upgrade actually change?
-- **D15** [Compare the service you receive, not the invoice label](lessons/d15-cost-per-service.md) — How should ownership, energy, timing and useful output enter a defensible cost comparison?
-- **D15** [Choose the intervention, then audit the claim](lessons/d15-upgrade-and-evidence.md) — Which improvement delivers useful results within the horizon, and which public statements actually support the project model?
-- **capstone** [The servers stay powered. The service does not.](lessons/c01-coupled-outage.md) — Can this facility sustain useful work through the specified utility interruption?
-- **capstone** [A hot day changes two limits at once](lessons/c02-weather-capacity.md) — How many complete rack equivalents remain supportable when weather changes cooling capacity and auxiliary power?
-- **capstone** [The rack upgrade that does not fit the building](lessons/c03-density-retrofit.md) — Does a lower-current rack-power architecture solve the actual retrofit constraint?
-- **capstone** [The powered cluster that keeps waiting](lessons/c04-stalled-job.md) — Which measurement would distinguish a fabric limit from a storage or compute limit?
-- **capstone** [Open one phase, with evidence](lessons/c05-open-a-phase.md) — Which racks can be counted as accepted service, and what must happen before the next phase opens?
+- [One rack, three paths](lessons/d01-boundaries.md) — What crosses the boundary of a working data center?
+- [A megawatt is not a megawatt-hour](lessons/d01-power-over-time.md) — How can two facilities use equal energy but need different electrical capacity?
+- [Attach a denominator and a date](lessons/d01-metrics-and-evidence.md) — What does an efficiency or capacity claim actually establish?
+- [Design for a job, not a rack count](lessons/d02-workload-brief.md) — What must the infrastructure deliver for this workload to count as successful?
+- [Busy, powered, and productive are different](lessons/d02-productive-utilization.md) — Why can lower average power accompany worse energy per useful result?
+- [The workload has a rhythm](lessons/d02-phases-and-envelopes.md) — How do batching and synchronized phases change demand without changing installed equipment?
+- [A contract is not a cable](lessons/d03-power-and-procurement.md) — How do energy purchases relate to the physical supply that keeps a rack running?
+- [Move power with fewer amperes](lessons/d03-voltage-and-distance.md) — Why does a higher transport voltage reduce one important class of losses?
+- [Behind the meter and the first usable megawatt](lessons/d03-service-and-siting.md) — Can behind-the-meter supply bring a site online sooner and keep its protected load running during an outage?
+- [A rack must fit on its worst day](lessons/d12-room-and-replacement-route.md) — Why can a layout that fits every rack still be impossible to maintain?
+- [Choose a site that can deliver the first phase](lessons/d12-hazards-and-site-evidence.md) — Which parcel can support the required campus, with usable land and services ready on time?
+- [A shared boundary can defeat two independent systems](lessons/d12-safety-and-control-boundaries.md) — How do physical access, stored energy and control permissions shape availability?
+- [Read a power train as a set of jobs](lessons/d04-read-the-power-train.md) — What changes, branches, and limits between the campus connection and the rack?
+- [Kilowatts do not fill a kilovolt-ampere nameplate](lessons/d04-current-and-rating.md) — How do efficiency and power factor change upstream equipment loading?
+- [Moving a converter moves an interface](lessons/d04-conversion-placement.md) — How should centralized and distributed conversion be compared fairly?
+- [A battery has two limits before it has a runtime](lessons/d05-storage-power-and-time.md) — Can the stored energy reach the load at the required rate?
+- [Continuity belongs to the complete service](lessons/d05-paths-and-transitions.md) — Which loads remain usable during an interruption, transfer, and maintenance event?
+- [A fault needs a boundary and an exit](lessons/d05-protection-and-fault-domains.md) — Why can the same breaker arrangement behave differently under another source or grounding scheme?
+- [Follow the watts through the rack](lessons/d06-conversion-ledger.md) — Why is the sum of processor power ratings not the power entering the rack?
+- [800 V is an interface, not an entire architecture](lessons/d06-eight-hundred-volt-architectures.md) — What changes when conversion sits in the rack, beside the rack, or at the facility boundary?
+- [A rack upgrade is an interface negotiation](lessons/d06-rack-migration.md) — Why can a retrofit reject the architecture that looks best on an empty site?
+- [A rack is a path through several memories](lessons/d07-data-path.md) — What must happen between a stored dataset and a completed accelerator operation?
+- [Find the limit before buying more arithmetic](lessons/d07-bottleneck-model.md) — Is a workload constrained by memory capacity, memory bandwidth, compute or communication?
+- [The rack becomes a service boundary](lessons/d07-rack-as-system.md) — How does tighter hardware integration change deployment, maintenance and usable job capacity?
+- [Count the paths, not just the advertised ports](lessons/d08-topology-budget.md) — How do topology, physical distance and the campus fiber handoff constrain a communication plan?
+- [A collective makes waiting contagious](lessons/d08-collective-progress.md) — How can one constrained participant delay a job running on many healthy accelerators?
+- [Choose where electricity becomes light](lessons/d08-copper-light-service.md) — How should reach, power and replacement boundaries shape the choice between copper, pluggable optics and CPO?
+- [Storage is a traffic and state system](lessons/d09-storage-paths.md) — Why can a large, fast storage array still leave accelerators waiting?
+- [Count preserved progress, lost progress and recovery](lessons/d09-checkpoint-timeline.md) — When do more frequent checkpoints improve completed work, and when do they only add overhead?
+- [Turn installed hardware into an accepted service](lessons/d09-service-acceptance.md) — What must a tenant demonstrate before the cluster can be called usable?
+- [A cool room can contain an overheating chip](lessons/d10-local-thermal-paths.md) — Why do equal rack heat loads create different local cooling problems?
+- [Flow arithmetic is only the first pump question](lessons/d10-flow-and-pressure.md) — How much liquid transports the heat, and can that flow reach every required branch?
+- [Two liquid loops exchange heat, not fluid](lessons/d10-cdu-interfaces.md) — What does a CDU do, and why is loop temperature rise different from approach temperature?
+- [The heat does not disappear at the chiller](lessons/d11-heat-rejection.md) — What reaches the environment after cooling equipment has moved the IT heat?
+- [The same air temperature can create different cooling limits](lessons/d11-weather-and-operating-envelope.md) — How do dry bulb, wet bulb and exchanger approach determine whether the rack receives cool enough liquid?
+- [Count water at the boundary, then ask who can use the heat](lessons/d11-water-and-heat-reuse.md) — Can a facility improve one resource metric while making another site constraint harder?
+- [The longest lead time is not the completion date](lessons/d13-delivery-dependencies.md) — Which delay actually changes the date when a phase can deliver service?
+- [Two adequate products can form an inadequate system](lessons/d13-interface-contracts.md) — What can proceed when 200 × 100 kW racks become 100 × 200 kW just before fabrication?
+- [Commission the intersection, not the inventory](lessons/d13-commissioning-complete-paths.md) — When do installed components become a tested service path?
+- [A believable number can describe the wrong thing](lessons/d14-telemetry-and-observability.md) — How do we distinguish a real cooling constraint from a measurement problem?
+- [The scheduler cannot negotiate with physics after the fact](lessons/d14-coordinating-control-and-work.md) — How should a workload change relate to equipment control and facility operating sequences?
+- [Measure the service, investigate the incident](lessons/d14-maintenance-and-service-reliability.md) — Why do equipment uptime and a redundant topology fail to determine useful-service availability?
+- [Find the constraint after reconciling the boundaries](lessons/d15-capacity-ledger.md) — How many rack equivalents can the specified system support, and what would an upgrade actually change?
+- [Compare the service you receive, not the invoice label](lessons/d15-cost-per-service.md) — How should ownership, energy, timing and useful output enter a defensible cost comparison?
+- [Choose the intervention, then audit the claim](lessons/d15-upgrade-and-evidence.md) — Which improvement delivers useful results within the horizon, and which public statements actually support the project model?
+- [The servers stay powered. The service does not.](lessons/c01-coupled-outage.md) — Can this facility sustain useful work through the specified utility interruption?
+- [A hot day changes two limits at once](lessons/c02-weather-capacity.md) — How many complete rack equivalents remain supportable when weather changes cooling capacity and auxiliary power?
+- [The rack upgrade that does not fit the building](lessons/c03-density-retrofit.md) — Does a lower-current rack-power architecture solve the actual retrofit constraint?
+- [The powered cluster that keeps waiting](lessons/c04-stalled-job.md) — Which measurement would distinguish a fabric limit from a storage or compute limit?
+- [Open one phase, with evidence](lessons/c05-open-a-phase.md) — Which racks can be counted as accepted service, and what must happen before the next phase opens?
 
 ## Objective-to-lesson coverage
 
@@ -69,77 +69,77 @@ Every entry below is authored and has practice; this is not evidence of learner 
 
 | Objective | Authored lessons |
 | --- | --- |
-| D01.1 | [One rack, three paths](lessons/d01-boundaries.md) |
-| D01.2 | [A megawatt is not a megawatt-hour](lessons/d01-power-over-time.md) |
-| D01.3 | [One rack, three paths](lessons/d01-boundaries.md), [A megawatt is not a megawatt-hour](lessons/d01-power-over-time.md), [Attach a denominator and a date](lessons/d01-metrics-and-evidence.md), [A hot day changes two limits at once](lessons/c02-weather-capacity.md) |
-| D01.4 | [Attach a denominator and a date](lessons/d01-metrics-and-evidence.md) |
-| D02.1 | [Design for a job, not a rack count](lessons/d02-workload-brief.md), [The workload has a rhythm](lessons/d02-phases-and-envelopes.md) |
-| D02.2 | [Busy, powered, and productive are different](lessons/d02-productive-utilization.md), [The powered cluster that keeps waiting](lessons/c04-stalled-job.md) |
-| D02.3 | [The workload has a rhythm](lessons/d02-phases-and-envelopes.md) |
-| D02.4 | [Design for a job, not a rack count](lessons/d02-workload-brief.md), [Busy, powered, and productive are different](lessons/d02-productive-utilization.md), [The workload has a rhythm](lessons/d02-phases-and-envelopes.md) |
-| D03.1 | [A contract is not a cable](lessons/d03-power-and-procurement.md) |
-| D03.2 | [Move power with fewer amperes](lessons/d03-voltage-and-distance.md) |
-| D03.3 | [Behind the meter and the first usable megawatt](lessons/d03-service-and-siting.md), [Open one phase, with evidence](lessons/c05-open-a-phase.md) |
-| D03.4 | [A contract is not a cable](lessons/d03-power-and-procurement.md), [Behind the meter and the first usable megawatt](lessons/d03-service-and-siting.md) |
-| D12.1 | [A rack must fit on its worst day](lessons/d12-room-and-replacement-route.md), [The rack upgrade that does not fit the building](lessons/c03-density-retrofit.md) |
-| D12.2 | [Choose a site that can deliver the first phase](lessons/d12-hazards-and-site-evidence.md) |
-| D12.3 | [A shared boundary can defeat two independent systems](lessons/d12-safety-and-control-boundaries.md) |
-| D12.4 | [A shared boundary can defeat two independent systems](lessons/d12-safety-and-control-boundaries.md) |
-| D04.1 | [Read a power train as a set of jobs](lessons/d04-read-the-power-train.md) |
-| D04.2 | [Kilowatts do not fill a kilovolt-ampere nameplate](lessons/d04-current-and-rating.md) |
-| D04.3 | [Moving a converter moves an interface](lessons/d04-conversion-placement.md) |
-| D04.4 | [Read a power train as a set of jobs](lessons/d04-read-the-power-train.md), [Moving a converter moves an interface](lessons/d04-conversion-placement.md) |
-| D05.1 | [A battery has two limits before it has a runtime](lessons/d05-storage-power-and-time.md), [The servers stay powered. The service does not.](lessons/c01-coupled-outage.md) |
-| D05.2 | [A battery has two limits before it has a runtime](lessons/d05-storage-power-and-time.md), [Continuity belongs to the complete service](lessons/d05-paths-and-transitions.md), [The servers stay powered. The service does not.](lessons/c01-coupled-outage.md) |
-| D05.3 | [Continuity belongs to the complete service](lessons/d05-paths-and-transitions.md), [A fault needs a boundary and an exit](lessons/d05-protection-and-fault-domains.md), [The servers stay powered. The service does not.](lessons/c01-coupled-outage.md) |
-| D05.4 | [A fault needs a boundary and an exit](lessons/d05-protection-and-fault-domains.md) |
-| D06.1 | [Follow the watts through the rack](lessons/d06-conversion-ledger.md), [The rack upgrade that does not fit the building](lessons/c03-density-retrofit.md) |
-| D06.2 | [Follow the watts through the rack](lessons/d06-conversion-ledger.md), [800 V is an interface, not an entire architecture](lessons/d06-eight-hundred-volt-architectures.md), [The rack upgrade that does not fit the building](lessons/c03-density-retrofit.md) |
-| D06.3 | [800 V is an interface, not an entire architecture](lessons/d06-eight-hundred-volt-architectures.md), [A rack upgrade is an interface negotiation](lessons/d06-rack-migration.md), [The rack upgrade that does not fit the building](lessons/c03-density-retrofit.md) |
-| D06.4 | [800 V is an interface, not an entire architecture](lessons/d06-eight-hundred-volt-architectures.md), [A rack upgrade is an interface negotiation](lessons/d06-rack-migration.md), [The rack upgrade that does not fit the building](lessons/c03-density-retrofit.md) |
-| D06.5 | [A rack upgrade is an interface negotiation](lessons/d06-rack-migration.md), [The rack upgrade that does not fit the building](lessons/c03-density-retrofit.md) |
-| D07.1 | [A rack is a path through several memories](lessons/d07-data-path.md), [The rack becomes a service boundary](lessons/d07-rack-as-system.md) |
-| D07.2 | [A rack is a path through several memories](lessons/d07-data-path.md), [Find the limit before buying more arithmetic](lessons/d07-bottleneck-model.md) |
-| D07.3 | [Find the limit before buying more arithmetic](lessons/d07-bottleneck-model.md), [The rack becomes a service boundary](lessons/d07-rack-as-system.md), [The powered cluster that keeps waiting](lessons/c04-stalled-job.md) |
-| D07.4 | [The rack becomes a service boundary](lessons/d07-rack-as-system.md) |
-| D08.1 | [Count the paths, not just the advertised ports](lessons/d08-topology-budget.md), [A collective makes waiting contagious](lessons/d08-collective-progress.md) |
-| D08.2 | [Count the paths, not just the advertised ports](lessons/d08-topology-budget.md), [A collective makes waiting contagious](lessons/d08-collective-progress.md), [The powered cluster that keeps waiting](lessons/c04-stalled-job.md) |
-| D08.3 | [A collective makes waiting contagious](lessons/d08-collective-progress.md), [The powered cluster that keeps waiting](lessons/c04-stalled-job.md) |
-| D08.4 | [Choose where electricity becomes light](lessons/d08-copper-light-service.md) |
-| D08.5 | [Count the paths, not just the advertised ports](lessons/d08-topology-budget.md), [A collective makes waiting contagious](lessons/d08-collective-progress.md), [Choose where electricity becomes light](lessons/d08-copper-light-service.md) |
-| D09.1 | [Storage is a traffic and state system](lessons/d09-storage-paths.md), [Count preserved progress, lost progress and recovery](lessons/d09-checkpoint-timeline.md), [The powered cluster that keeps waiting](lessons/c04-stalled-job.md) |
-| D09.2 | [Count preserved progress, lost progress and recovery](lessons/d09-checkpoint-timeline.md), [Turn installed hardware into an accepted service](lessons/d09-service-acceptance.md), [The powered cluster that keeps waiting](lessons/c04-stalled-job.md) |
-| D09.3 | [Storage is a traffic and state system](lessons/d09-storage-paths.md), [Turn installed hardware into an accepted service](lessons/d09-service-acceptance.md) |
-| D09.4 | [Count preserved progress, lost progress and recovery](lessons/d09-checkpoint-timeline.md), [Turn installed hardware into an accepted service](lessons/d09-service-acceptance.md), [Open one phase, with evidence](lessons/c05-open-a-phase.md) |
-| D10.1 | [A cool room can contain an overheating chip](lessons/d10-local-thermal-paths.md), [Flow arithmetic is only the first pump question](lessons/d10-flow-and-pressure.md) |
-| D10.2 | [Flow arithmetic is only the first pump question](lessons/d10-flow-and-pressure.md), [Two liquid loops exchange heat, not fluid](lessons/d10-cdu-interfaces.md) |
-| D10.3 | [Two liquid loops exchange heat, not fluid](lessons/d10-cdu-interfaces.md) |
-| D10.4 | [A cool room can contain an overheating chip](lessons/d10-local-thermal-paths.md), [Two liquid loops exchange heat, not fluid](lessons/d10-cdu-interfaces.md) |
-| D11.1 | [The heat does not disappear at the chiller](lessons/d11-heat-rejection.md), [The same air temperature can create different cooling limits](lessons/d11-weather-and-operating-envelope.md) |
-| D11.2 | [The heat does not disappear at the chiller](lessons/d11-heat-rejection.md) |
-| D11.3 | [The same air temperature can create different cooling limits](lessons/d11-weather-and-operating-envelope.md), [A hot day changes two limits at once](lessons/c02-weather-capacity.md) |
-| D11.4 | [Count water at the boundary, then ask who can use the heat](lessons/d11-water-and-heat-reuse.md) |
-| D11.5 | [The same air temperature can create different cooling limits](lessons/d11-weather-and-operating-envelope.md), [Count water at the boundary, then ask who can use the heat](lessons/d11-water-and-heat-reuse.md) |
-| D13.1 | [The longest lead time is not the completion date](lessons/d13-delivery-dependencies.md), [Open one phase, with evidence](lessons/c05-open-a-phase.md) |
-| D13.2 | [Two adequate products can form an inadequate system](lessons/d13-interface-contracts.md), [The rack upgrade that does not fit the building](lessons/c03-density-retrofit.md) |
-| D13.3 | [Commission the intersection, not the inventory](lessons/d13-commissioning-complete-paths.md), [Open one phase, with evidence](lessons/c05-open-a-phase.md) |
-| D13.4 | [Commission the intersection, not the inventory](lessons/d13-commissioning-complete-paths.md), [Open one phase, with evidence](lessons/c05-open-a-phase.md) |
-| D14.1 | [A believable number can describe the wrong thing](lessons/d14-telemetry-and-observability.md) |
-| D14.2 | [The scheduler cannot negotiate with physics after the fact](lessons/d14-coordinating-control-and-work.md) |
-| D14.3 | [Measure the service, investigate the incident](lessons/d14-maintenance-and-service-reliability.md) |
-| D14.4 | [Measure the service, investigate the incident](lessons/d14-maintenance-and-service-reliability.md) |
-| D14.5 | [Measure the service, investigate the incident](lessons/d14-maintenance-and-service-reliability.md), [The servers stay powered. The service does not.](lessons/c01-coupled-outage.md), [The powered cluster that keeps waiting](lessons/c04-stalled-job.md) |
-| D15.1 | [Find the constraint after reconciling the boundaries](lessons/d15-capacity-ledger.md), [A hot day changes two limits at once](lessons/c02-weather-capacity.md), [Open one phase, with evidence](lessons/c05-open-a-phase.md) |
-| D15.2 | [Compare the service you receive, not the invoice label](lessons/d15-cost-per-service.md) |
-| D15.3 | [Compare the service you receive, not the invoice label](lessons/d15-cost-per-service.md) |
-| D15.4 | [Choose the intervention, then audit the claim](lessons/d15-upgrade-and-evidence.md), [A hot day changes two limits at once](lessons/c02-weather-capacity.md), [The rack upgrade that does not fit the building](lessons/c03-density-retrofit.md) |
-| D15.5 | [Choose the intervention, then audit the claim](lessons/d15-upgrade-and-evidence.md), [Open one phase, with evidence](lessons/c05-open-a-phase.md) |
+| Trace electrical energy, heat, and information through a data center while keeping the accounting boundaries separate. | [One rack, three paths](lessons/d01-boundaries.md) |
+| Convert power and energy across units and time; distinguish a measured load from a capacity rating. | [A megawatt is not a megawatt-hour](lessons/d01-power-over-time.md) |
+| Define denominators for facility, IT and compute-only metrics and label the time window. | [One rack, three paths](lessons/d01-boundaries.md), [A megawatt is not a megawatt-hour](lessons/d01-power-over-time.md), [Attach a denominator and a date](lessons/d01-metrics-and-evidence.md), [A hot day changes two limits at once](lessons/c02-weather-capacity.md) |
+| Separate physical principles, design specifications, observed deployments, announcements, forecasts and teaching assumptions. | [Attach a denominator and a date](lessons/d01-metrics-and-evidence.md) |
+| Translate a workload brief into compute, memory, network, storage, power and service requirements. | [Design for a job, not a rack count](lessons/d02-workload-brief.md), [The workload has a rhythm](lessons/d02-phases-and-envelopes.md) |
+| Distinguish hardware occupancy, power draw and productive utilization. | [Busy, powered, and productive are different](lessons/d02-productive-utilization.md), [The powered cluster that keeps waiting](lessons/c04-stalled-job.md) |
+| Explain how batching, parallel execution and synchronized job phases change the infrastructure demand profile. | [The workload has a rhythm](lessons/d02-phases-and-envelopes.md) |
+| State an infrastructure design envelope and identify which assumptions a benchmark can and cannot validate. | [Design for a job, not a rack count](lessons/d02-workload-brief.md), [Busy, powered, and productive are different](lessons/d02-productive-utilization.md), [The workload has a rhythm](lessons/d02-phases-and-envelopes.md) |
+| Trace a physical supply path and distinguish it from a power purchase agreement or energy attribute claim. | [A contract is not a cable](lessons/d03-power-and-procurement.md) |
+| Explain voltage, current and conductor loss in a bounded AC or DC comparison. | [Move power with fewer amperes](lessons/d03-voltage-and-distance.md) |
+| Explain the milestones and constraints between a proposed large load and service available to that load. | [Behind the meter and the first usable megawatt](lessons/d03-service-and-siting.md), [Open one phase, with evidence](lessons/c05-open-a-phase.md) |
+| Compare utility-only and behind-the-meter supply against energy, capacity, fuel and operating requirements; distinguish customer-side location from island capability. | [A contract is not a cable](lessons/d03-power-and-procurement.md), [Behind the meter and the first usable megawatt](lessons/d03-service-and-siting.md) |
+| Translate a reference equipment layout into space, weight, access and replacement-route requirements. | [A rack must fit on its worst day](lessons/d12-room-and-replacement-route.md), [The rack upgrade that does not fit the building](lessons/c03-density-retrofit.md) |
+| Evaluate whether a parcel can support the required phased campus by checking usable land, utility delivery, site conditions, rights and permissions. | [Choose a site that can deliver the first phase](lessons/d12-hazards-and-site-evidence.md) |
+| Explain how fire, electrical, fluid and stored-energy hazards influence layout and operating boundaries. | [A shared boundary can defeat two independent systems](lessons/d12-safety-and-control-boundaries.md) |
+| Trace physical and control-system access boundaries and explain why availability depends on controlled changes and access. | [A shared boundary can defeat two independent systems](lessons/d12-safety-and-control-boundaries.md) |
+| Read a generic single-line diagram and explain what each distribution component changes, measures, switches or protects. | [Read a power train as a set of jobs](lessons/d04-read-the-power-train.md) |
+| Translate load requirements into currents and equipment loading without confusing kW with kVA or nameplate with usable capacity. | [Kilowatts do not fill a kilovolt-ampere nameplate](lessons/d04-current-and-rating.md) |
+| Compare centralized and distributed conversion and identify which conductors, equipment and loss boundaries change. | [Moving a converter moves an interface](lessons/d04-conversion-placement.md) |
+| Reconcile IT and auxiliary loads with a downstream electrical capacity budget across project phases. | [Read a power train as a set of jobs](lessons/d04-read-the-power-train.md), [Moving a converter moves an interface](lessons/d04-conversion-placement.md) |
+| Calculate bounded stored-energy runtime while checking discharge power and reserve assumptions. | [A battery has two limits before it has a runtime](lessons/d05-storage-power-and-time.md), [The servers stay powered. The service does not.](lessons/c01-coupled-outage.md) |
+| Trace an interruption, transfer and restoration sequence including IT, cooling and controls. | [A battery has two limits before it has a runtime](lessons/d05-storage-power-and-time.md), [Continuity belongs to the complete service](lessons/d05-paths-and-transitions.md), [The servers stay powered. The service does not.](lessons/c01-coupled-outage.md) |
+| Evaluate path independence and surviving capacity during both a fault and planned maintenance. | [Continuity belongs to the complete service](lessons/d05-paths-and-transitions.md), [A fault needs a boundary and an exit](lessons/d05-protection-and-fault-domains.md), [The servers stay powered. The service does not.](lessons/c01-coupled-outage.md) |
+| Explain why fault clearing and grounding require topology-specific AC/DC protection design. | [A fault needs a boundary and an exit](lessons/d05-protection-and-fault-domains.md) |
+| Trace conversion from rack input to processor rails and distinguish whole-rack power from chip power. | [Follow the watts through the rack](lessons/d06-conversion-ledger.md), [The rack upgrade that does not fit the building](lessons/c03-density-retrofit.md) |
+| Quantify how distribution voltage changes current at fixed DC power without treating conductor loss as total system efficiency. | [Follow the watts through the rack](lessons/d06-conversion-ledger.md), [800 V is an interface, not an entire architecture](lessons/d06-eight-hundred-volt-architectures.md), [The rack upgrade that does not fit the building](lessons/c03-density-retrofit.md) |
+| Compare near-rack sidecars, rack-level conversion and facility DC as distinct architectures. | [800 V is an interface, not an entire architecture](lessons/d06-eight-hundred-volt-architectures.md), [A rack upgrade is an interface negotiation](lessons/d06-rack-migration.md), [The rack upgrade that does not fit the building](lessons/c03-density-retrofit.md) |
+| Evaluate a rack power upgrade against connector, bus, protection, auxiliary and transient interfaces. | [800 V is an interface, not an entire architecture](lessons/d06-eight-hundred-volt-architectures.md), [A rack upgrade is an interface negotiation](lessons/d06-rack-migration.md), [The rack upgrade that does not fit the building](lessons/c03-density-retrofit.md) |
+| Explain how retrofit constraints can reverse a seemingly attractive greenfield architecture choice. | [A rack upgrade is an interface negotiation](lessons/d06-rack-migration.md), [The rack upgrade that does not fit the building](lessons/c03-density-retrofit.md) |
+| Locate compute, memory and communication components within a server and rack and explain their roles. | [A rack is a path through several memories](lessons/d07-data-path.md), [The rack becomes a service boundary](lessons/d07-rack-as-system.md) |
+| Distinguish memory-capacity, memory-bandwidth, compute and communication limits. | [A rack is a path through several memories](lessons/d07-data-path.md), [Find the limit before buying more arithmetic](lessons/d07-bottleneck-model.md) |
+| Explain why chip count, advertised FLOPS and installed MW cannot independently establish job throughput. | [Find the limit before buying more arithmetic](lessons/d07-bottleneck-model.md), [The rack becomes a service boundary](lessons/d07-rack-as-system.md), [The powered cluster that keeps waiting](lessons/c04-stalled-job.md) |
+| Connect server and rack organization to power, cooling, weight and maintenance interfaces. | [The rack becomes a service boundary](lessons/d07-rack-as-system.md) |
+| Distinguish scale-up, scale-out and wide-area communication requirements. | [Count the paths, not just the advertised ports](lessons/d08-topology-budget.md), [A collective makes waiting contagious](lessons/d08-collective-progress.md) |
+| Calculate an illustrative topology's endpoint ports, oversubscription and transfer-time lower bounds. | [Count the paths, not just the advertised ports](lessons/d08-topology-budget.md), [A collective makes waiting contagious](lessons/d08-collective-progress.md), [The powered cluster that keeps waiting](lessons/c04-stalled-job.md) |
+| Explain how congestion, collectives and topology-aware placement affect job progress. | [A collective makes waiting contagious](lessons/d08-collective-progress.md), [The powered cluster that keeps waiting](lessons/c04-stalled-job.md) |
+| Compare interconnect media and packaging choices using reach, bandwidth, power, cooling and replacement boundaries. | [Choose where electricity becomes light](lessons/d08-copper-light-service.md) |
+| Trace a network failure or degraded link into workload, cabling and operational consequences. | [Count the paths, not just the advertised ports](lessons/d08-topology-budget.md), [A collective makes waiting contagious](lessons/d08-collective-progress.md), [Choose where electricity becomes light](lessons/d08-copper-light-service.md) |
+| Trace the dataset and checkpoint paths and distinguish capacity, throughput and metadata constraints. | [Storage is a traffic and state system](lessons/d09-storage-paths.md), [Count preserved progress, lost progress and recovery](lessons/d09-checkpoint-timeline.md), [The powered cluster that keeps waiting](lessons/c04-stalled-job.md) |
+| Explain how checkpoint frequency, failure behavior and restart time affect completed work. | [Count preserved progress, lost progress and recovery](lessons/d09-checkpoint-timeline.md), [Turn installed hardware into an accepted service](lessons/d09-service-acceptance.md), [The powered cluster that keeps waiting](lessons/c04-stalled-job.md) |
+| Explain scheduling, placement, provisioning and isolation as prerequisites for usable cluster capacity. | [Storage is a traffic and state system](lessons/d09-storage-paths.md), [Turn installed hardware into an accepted service](lessons/d09-service-acceptance.md) |
+| Specify a service acceptance exercise that tests end-to-end data access, job launch, useful output and recovery. | [Count preserved progress, lost progress and recovery](lessons/d09-checkpoint-timeline.md), [Turn installed hardware into an accepted service](lessons/d09-service-acceptance.md), [Open one phase, with evidence](lessons/c05-open-a-phase.md) |
+| Trace parallel air and liquid heat paths and explain why rack power alone does not specify local cooling difficulty. | [A cool room can contain an overheating chip](lessons/d10-local-thermal-paths.md), [Flow arithmetic is only the first pump question](lessons/d10-flow-and-pressure.md) |
+| Calculate a single-phase heat-transport flow under stated fluid and temperature assumptions. | [Flow arithmetic is only the first pump question](lessons/d10-flow-and-pressure.md), [Two liquid loops exchange heat, not fluid](lessons/d10-cdu-interfaces.md) |
+| Explain a CDU's fluid separation, heat-exchange and control functions while distinguishing loop rise from approach temperature. | [Two liquid loops exchange heat, not fluid](lessons/d10-cdu-interfaces.md) |
+| Compare air, cold-plate, rear-door and immersion approaches against a declared density and service brief. | [A cool room can contain an overheating chip](lessons/d10-local-thermal-paths.md), [Two liquid loops exchange heat, not fluid](lessons/d10-cdu-interfaces.md) |
+| Distinguish dry cooling, refrigeration, evaporative rejection and economizer operating modes. | [The heat does not disappear at the chiller](lessons/d11-heat-rejection.md), [The same air temperature can create different cooling limits](lessons/d11-weather-and-operating-envelope.md) |
+| Close a declared chiller energy balance and calculate cooling COP with the correct numerator and denominator. | [The heat does not disappear at the chiller](lessons/d11-heat-rejection.md) |
+| Explain how ambient conditions, supply temperatures and equipment performance constrain capacity and economizer operation. | [The same air temperature can create different cooling limits](lessons/d11-weather-and-operating-envelope.md), [A hot day changes two limits at once](lessons/c02-weather-capacity.md) |
+| Compute energy and water metrics with explicit boundaries and distinguish consumption from withdrawal. | [Count water at the boundary, then ask who can use the heat](lessons/d11-water-and-heat-reuse.md) |
+| Evaluate cooling architecture or heat reuse against climate, water, electrical capacity and receiving-load constraints. | [The same air temperature can create different cooling limits](lessons/d11-weather-and-operating-envelope.md), [Count water at the boundary, then ask who can use the heat](lessons/d11-water-and-heat-reuse.md) |
+| Build a dependency-based delivery plan and distinguish a critical path from the longest equipment lead time. | [The longest lead time is not the completion date](lessons/d13-delivery-dependencies.md), [Open one phase, with evidence](lessons/c05-open-a-phase.md) |
+| Track interface requirements across vendors and design changes. | [Two adequate products can form an inadequate system](lessons/d13-interface-contracts.md), [The rack upgrade that does not fit the building](lessons/c03-density-retrofit.md) |
+| Distinguish installed, energized, individually tested, integrated-tested and service-accepted states. | [Commission the intersection, not the inventory](lessons/d13-commissioning-complete-paths.md), [Open one phase, with evidence](lessons/c05-open-a-phase.md) |
+| Specify an integrated acceptance and handover plan for a phased deployment. | [Commission the intersection, not the inventory](lessons/d13-commissioning-complete-paths.md), [Open one phase, with evidence](lessons/c05-open-a-phase.md) |
+| Place sensors and meters so an operator can distinguish an actual constraint from missing or misleading telemetry. | [A believable number can describe the wrong thing](lessons/d14-telemetry-and-observability.md) |
+| Explain the difference between a device controller, a facility sequence and workload scheduling. | [The scheduler cannot negotiate with physics after the fact](lessons/d14-coordinating-control-and-work.md) |
+| Evaluate maintainability using a procedure, surviving capacity and real isolation boundaries. | [Measure the service, investigate the incident](lessons/d14-maintenance-and-service-reliability.md) |
+| Distinguish component reliability, topology claims and measured service availability. | [Measure the service, investigate the incident](lessons/d14-maintenance-and-service-reliability.md) |
+| Convert a failure or capacity incident into an evidence-based recovery and prevention plan. | [Measure the service, investigate the incident](lessons/d14-maintenance-and-service-reliability.md), [The servers stay powered. The service does not.](lessons/c01-coupled-outage.md), [The powered cluster that keeps waiting](lessons/c04-stalled-job.md) |
+| Reconcile electrical, thermal, spatial, network and commissioned-service limits using the same boundaries. | [Find the constraint after reconciling the boundaries](lessons/d15-capacity-ledger.md), [A hot day changes two limits at once](lessons/c02-weather-capacity.md), [Open one phase, with evidence](lessons/c05-open-a-phase.md) |
+| Build an auditable cost model that separates capital, energy, operations, ownership and financing assumptions. | [Compare the service you receive, not the invoice label](lessons/d15-cost-per-service.md) |
+| Explain why cost per MW, per installed accelerator and per useful result answer different questions. | [Compare the service you receive, not the invoice label](lessons/d15-cost-per-service.md) |
+| Evaluate an upgrade using sensitivity to delivery date, service output, efficiency and constraints. | [Choose the intervention, then audit the claim](lessons/d15-upgrade-and-evidence.md), [A hot day changes two limits at once](lessons/c02-weather-capacity.md), [The rack upgrade that does not fit the building](lessons/c03-density-retrofit.md) |
+| Audit a named project's public evidence without filling unknown capacity, topology or economics with generic assumptions. | [Choose the intervention, then audit the claim](lessons/d15-upgrade-and-evidence.md), [Open one phase, with evidence](lessons/c05-open-a-phase.md) |
 
 ## Full course text
 
 ## One rack, three paths
 
-**D01 · Authored draft · Objectives:** D01.1, D01.3
+**System boundaries and quantities · Authored draft**
 
 Locate white and grey space, trace electricity, heat, and information, then close a facility energy balance without counting any load twice.
 
@@ -231,7 +231,7 @@ The 80 kW is part of the 1,000 kW rack inlet total. Add it separately only when 
 
 ## A megawatt is not a megawatt-hour
 
-**D01 · Authored draft · Objectives:** D01.2, D01.3
+**System boundaries and quantities · Authored draft**
 
 Integrate a stepped load profile, distinguish average and peak demand, and test what interval sampling hides.
 
@@ -318,7 +318,7 @@ Ninety seconds is 90/3,600 = 0.025 hours. Multiplying by 2 MW gives 0.05 MWh. En
 
 ## Attach a denominator and a date
 
-**D01 · Authored draft · Objectives:** D01.3, D01.4
+**System boundaries and quantities · Authored draft**
 
 Reconcile facility and IT metrics, then separate engineering laws, scenarios, product specifications, and operating evidence.
 
@@ -405,9 +405,9 @@ Thirty divided by 150 is 0.20; thirty divided by 120 is 0.25. Neither ratio says
 - [Commissioning & Performance Validation | AI Data Center Energy Performance Framework](https://www.ashrae.org/technical-resources/ai-data-center-framework/commissioning-performance-validation) — Commissioning and documented performance validation have a defined scope and evidentiary role. Read 2026-09-06. Read the public framework discussion; no project report or full paid standard was reviewed.
 - [The Green Grid — PUE: A Comprehensive Examination of the Metric](https://datacenters.lbl.gov/sites/default/files/WP49-PUE%20A%20Comprehensive%20Examination%20of%20the%20Metric_v6.pdf) — PUE compares facility energy with IT equipment energy and cannot by itself establish useful-work efficiency. Read 2026-09-11. Reviewed printed pages 8–9, 14–22 and 34. Original one-hour counterexample; no current standards compliance or measured annual PUE is claimed.
 
-## D01 domain check-in: What does the meter establish?
+## Check your understanding: What does the meter establish?
 
-Optional: pause and make a prediction, then compare your reasoning. You can continue whenever you are ready.
+Pause and make a prediction, then compare your reasoning.
 
 A hypothetical campus records 12 MWh at the facility meter and 10 MWh at its IT meters during the same hour. An analyst adds them and reports 22 MW of useful compute.
 
@@ -424,11 +424,11 @@ The IT boundary sits inside the facility boundary, so adding the two readings co
 
 **The next problem:** We can now account for the watts. What job must those watts support, and what counts as a successful result?
 
-Continue in **D02**: Design for a job, not a rack count.
+Continue in **Workloads and the infrastructure brief**: Design for a job, not a rack count.
 
 ## Design for a job, not a rack count
 
-**D02 · Authored draft · Objectives:** D02.1, D02.4
+**Workloads and the infrastructure brief · Authored draft**
 
 Turn contrasting training and inference requests into explicit compute, memory, communication, storage, and service requirements.
 
@@ -515,7 +515,7 @@ This is only a capacity screen. Unmodeled overhead, implementation allocation, a
 
 ## Busy, powered, and productive are different
 
-**D02 · Authored draft · Objectives:** D02.2, D02.4
+**Workloads and the infrastructure brief · Authored draft**
 
 Read allocation, execution, waiting, power, and accepted output as separate traces instead of treating one utilization percentage as the answer.
 
@@ -602,7 +602,7 @@ Energy is 60,000 × 50 + 25,000 × 10 = 3,250,000 J. Output is 50,000 samples. D
 
 ## The workload has a rhythm
 
-**D02 · Authored draft · Objectives:** D02.3, D02.4, D02.1
+**Workloads and the infrastructure brief · Authored draft**
 
 Connect request queues and job phases to latency, aggregate power, and the limits of a benchmark-derived design envelope.
 
@@ -689,9 +689,9 @@ Average response time is 29 ms, yet an average below 30 ms does not mean every r
 - [NVIDIA Triton — Batchers](https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/user_guide/batcher.html) — Dynamic batching can combine requests and introduce a configurable waiting interval. Read 2026-09-06. Read the public dynamic-batcher and delayed-batching sections. All timings and throughput numbers in this lesson are hypothetical.
 - [Vertiv — BESS and UPS roles in large data center power architecture](https://www.vertiv.com/en-us/insights/articles/white-papers/bess-and-ups-roles-in-large-data-center-power-architecture/) — Synchronized AI load changes motivate coordination across power-system levels. Read 2026-09-06. Read the public white-paper landing page only, not the downloadable full white paper; no universal measured waveform is asserted.
 
-## D02 domain check-in: Same hardware, different service
+## Check your understanding: Same hardware, different service
 
-Optional: pause and make a prediction, then compare your reasoning. You can continue whenever you are ready.
+Pause and make a prediction, then compare your reasoning.
 
 Two hypothetical inference services have the same accelerator count and average IT demand. One meets its response-time target; the other builds a queue whenever requests arrive in bursts.
 
@@ -708,11 +708,11 @@ Compare accepted responses under the same arrival pattern, quality requirement a
 
 **The next problem:** Once the workload has an explicit demand envelope, where can the required power actually be delivered?
 
-Continue in **D03**: A contract is not a cable.
+Continue in **Siting, grid connection and supply**: A contract is not a cable.
 
 ## A contract is not a cable
 
-**D03 · Authored draft · Objectives:** D03.1, D03.4
+**Siting, grid connection and supply · Authored draft**
 
 Separate the shared grid, commercial arrangements, and time-matched supply, then calculate the storage a matching claim leaves out.
 
@@ -799,7 +799,7 @@ Twelve MW exceeds the required 10 MW, but 80/10 = 8 hours. More inverter power d
 
 ## Move power with fewer amperes
 
-**D03 · Authored draft · Objectives:** D03.2
+**Siting, grid connection and supply · Authored draft**
 
 Start with a closed DC circuit and AC waveforms, explain the three-phase power equation, then compare transport current and conductor heating at a fixed campus load.
 
@@ -911,7 +911,7 @@ The current-squared ratio is one quarter; multiplying by a resistance ratio of t
 
 ## Behind the meter and the first usable megawatt
 
-**D03 · Authored draft · Objectives:** D03.3, D03.4
+**Siting, grid connection and supply · Authored draft**
 
 Locate the customer meter, calculate grid import and an islanded supply deficit, then combine those limits with a phased site schedule.
 
@@ -1022,9 +1022,9 @@ The remaining 7 MW load needs 1 MW from storage, so 4/1 = 4 h, equal to the supp
 - [US EPA — Physical PPA](https://www.epa.gov/green-power-markets/physical-ppa) — A physical PPA is a purchase arrangement that may involve on-site or off-site generation; an off-site project can deliver through the grid. Read 2026-09-10. Reviewed What is a Physical Power Purchase Agreement? and How Do Physical PPAs Work? Contract structure does not establish a dedicated electrical path or island supply for the example.
 - [Crusoe — Abilene campus development update](https://www.crusoe.ai/resources/newsroom/crusoe-announces-new-900-mw-ai-factory-campus-in-abilene-texas-to-support-microsoft-ai-infrastructure) — Separate the original Abilene campus from the adjacent Microsoft development; distinguish energized buildings from future capacity. Read 2026-09-12. Main announcement reviewed. Dated company account: two original 100 MW buildings energized; six more expected by end-2026; adjacent 900 MW project targets first energization in mid-2027. These are not September 2026 metered loads.
 
-## D03 domain check-in: Can this phase open?
+## Check your understanding: Can this phase open?
 
-Optional: pause and make a prediction, then compare your reasoning. You can continue whenever you are ready.
+Pause and make a prediction, then compare your reasoning.
 
 A hypothetical project has an energy contract covering its planned annual consumption. Its first phase needs 10 MW at the facility connection, but the available connection is limited to 8 MW. No local generation or storage is included.
 
@@ -1041,11 +1041,11 @@ Commercial energy coverage does not increase the physical connection limit. The 
 
 **The next problem:** Power is one site condition. Can the parcel, building, access routes and other services support the same phase?
 
-Continue in **D12**: A rack must fit on its worst day.
+Continue in **Physical site, buildings and safety**: A rack must fit on its worst day.
 
 ## A rack must fit on its worst day
 
-**D12 · Authored draft · Objectives:** D12.1
+**Physical site, buildings and safety · Authored draft**
 
 Separate white and grey space, equipment footprints, service and movement envelopes, and the loads actually applied to a structure.
 
@@ -1133,9 +1133,9 @@ Six contacts reduce the average but still exceed the supplied criterion. Real un
 
 ## Choose a site that can deliver the first phase
 
-**D12 · Authored draft · Objectives:** D12.2
+**Physical site, buildings and safety · Authored draft**
 
-Compare two parcels by usable area, utility delivery, cooling, fiber, land rights and permissions. Follow the constraint that prevents opening, rather than choosing the largest tract.
+Compare greenfield development with brownfield reuse, then evaluate land, utilities, site risks and the date when a first phase can operate. Original Colossus and Abilene provide the land-use case study.
 
 **Driving question:** Which parcel can support the required campus, with usable land and services ready on time?
 
@@ -1147,7 +1147,7 @@ A parcel’s price and acreage cannot establish whether that campus can be built
 
 ## Confirm the power and fuel that can reach the site
 
-Obtain the capacity, delivery point, required upgrades, operating restrictions and date from the actual utility process. A substation rating is not a commitment to supply that amount to this customer. D03 develops the electrical service boundary; here the question is whether the proposed parcel can obtain that service on the project schedule.
+Obtain the capacity, delivery point, required upgrades, operating restrictions and date from the actual utility process. A substation rating is not a commitment to supply that amount to this customer. The grid-connection section develops the electrical service boundary; here the question is whether the proposed parcel can obtain that service on the project schedule.
 
 An on-site gas plant replaces some electrical dependencies with fuel dependencies. Establish required gas volume and pressure, supply and transportation terms, curtailment conditions, and the tap, metering, lateral and any compression needed to connect. Confirm who builds them, when, and across whose land. DOE’s gas-turbine guidance explains why insufficient pressure can require a fuel-gas compressor. Owning a generator and seeing a gas pipeline on a map do not answer those questions.
 
@@ -1159,7 +1159,7 @@ The supplied area screen assumes a contiguous envelope with suitable access. It 
 
 ## Match cooling and fiber to the actual design
 
-For cooling, establish the available water source, allocation, quality and discharge conditions against the chosen heat-rejection design and local weather. A recirculating loop can still need makeup water; dry cooling instead changes the equipment and hot-weather operating requirements. D11 owns those heat and water calculations. Here, retain the resulting capacity and readiness conditions in the site comparison.
+For cooling, establish the available water source, allocation, quality and discharge conditions against the chosen heat-rejection design and local weather. A recirculating loop can still need makeup water; dry cooling instead changes the equipment and hot-weather operating requirements. The heat-rejection section explains those heat and water calculations. Here, retain the resulting capacity and readiness conditions in the site comparison.
 
 For communications, verify capacity, route length, delivery dates, site entrances and the rights to construct each route. Two carrier contracts can share a trench or bridge. In this example, two physically separate routes are a stated requirement; Parcel B’s second route arriving in month 23 is the last supplied prerequisite. Its first route arriving earlier does not satisfy both paths.
 
@@ -1171,9 +1171,11 @@ Purchase, lease and option arrangements give different rights for different peri
 
 In Texas, the surface and mineral estates can have different owners. The Railroad Commission explains that mineral development can carry rights to reasonably necessary surface use, subject to applicable limits. A surface purchase alone therefore does not settle potential mineral-development conflicts. The example assumes Parcel B’s required rights are resolved through month 26. Parcel A’s option ends in month 18 with no agreed extension; that is unresolved control, not a date that can silently slide to month 30.
 
-## Check permitted uses, neighbors and what the old site leaves behind
+## Check permitted uses and neighbors
 
 Identify the approvals and conditions for this layout: land use, air emissions, noise, water, drainage, construction and fire access. Equipment intended for continuous generation can raise different questions from standby equipment. Nearby homes, schools and other sensitive uses affect the actual siting conversation. A permit for one phase does not establish approval for the later campus.
+
+## Greenfield and brownfield: new land or an existing site
 
 A greenfield project starts on previously undeveloped land; brownfield redevelopment, in the ordinary site-reuse sense, begins with an existing site and its history. Industrial reuse may offer roads, utility connections and a building, while also carrying obsolete equipment or contamination. EPA distinguishes historical and site-condition review from sampling and cleanup planning. Establish what can remain, what must be removed, and any restrictions on the intended use. An apparently empty contamination folder is not equivalent to completed investigation. This use of brownfield does not establish a statutory designation or contamination at a named site.
 
@@ -1255,7 +1257,7 @@ A replacement route or changed service requirement would need explicit acceptanc
 
 ## A shared boundary can defeat two independent systems
 
-**D12 · Authored draft · Objectives:** D12.3, D12.4
+**Physical site, buildings and safety · Authored draft**
 
 Draw hazard and access boundaries around equipment and control systems, then trace an original shared-dependency scenario.
 
@@ -1335,9 +1337,9 @@ Adding 100 W increases support demand by 25 percent, so the constant-energy dura
 - [NIST SP 800-82 Revision 3: OT Security](https://csrc.nist.gov/pubs/sp/800/82/r3/final) — The abstract includes building automation and physical access within OT and identifies reliability and safety requirements. Read 2026-09-06. Publication abstract and revision context inspected; this lesson does not claim full implementation review of the 2023 guide or any draft successor.
 - [OSHA 1910.333: Electrical work practices](https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.333) — Indexed regulatory excerpts address stored energy and qualified work. Read 2026-09-06. Relevant public indexed excerpts reviewed; no field procedure or jurisdiction-wide compliance claim is supplied.
 
-## D12 domain check-in: It fits until replacement day
+## Check your understanding: It fits until replacement day
 
-Optional: pause and make a prediction, then compare your reasoning. You can continue whenever you are ready.
+Pause and make a prediction, then compare your reasoning.
 
 A hypothetical equipment room has enough floor area and verified structural capacity. A required cabinet will enter before the final wall is built, but its assembled replacement cannot pass through the finished access route.
 
@@ -1354,11 +1356,11 @@ Installation, operation and replacement are different physical configurations. A
 
 **The next problem:** With the physical routes established, follow the electrical route: what must each device between the campus connection and the load do?
 
-Continue in **D04**: Read a power train as a set of jobs.
+Continue in **Campus and building power distribution**: Read a power train as a set of jobs.
 
 ## Read a power train as a set of jobs
 
-**D04 · Authored draft · Objectives:** D04.1, D04.4
+**Campus and building power distribution · Authored draft**
 
 Learn to read a generic single-line diagram by equipment function, then reconcile IT and auxiliary demand against two independent limits.
 
@@ -1446,7 +1448,7 @@ The IT branch remains below 4.8 MW. The increased support load matters at the wi
 
 ## Kilowatts do not fill a kilovolt-ampere nameplate
 
-**D04 · Authored draft · Objectives:** D04.2
+**Campus and building power distribution · Authored draft**
 
 Move backward from a required DC output through conversion efficiency, apparent power, and three-phase current, preserving every denominator.
 
@@ -1536,7 +1538,7 @@ Input real power remains 937.5 kW. Dividing by 0.99 gives 946.97 kVA; this passe
 
 ## Moving a converter moves an interface
 
-**D04 · Authored draft · Objectives:** D04.3, D04.4
+**Campus and building power distribution · Authored draft**
 
 Compare two complete hypothetical paths at the same delivered boundary, allocate their losses, and test how centralization changes failure and expansion exposure.
 
@@ -1665,9 +1667,9 @@ The altered assumption reverses the ranking. Path B now needs about 11.65 kW mor
 - [Schneider Electric — AA and AA/FA transformer cooling](https://www.se.com/ca/en/faqs/FA102583/) — Natural air convection and added fan cooling are distinct transformer cooling arrangements; fans are not inherent to the transformer function. Read 2026-09-11. FAQ cooling distinctions reviewed. No fan rating, installation requirement or universal capacity threshold is inferred.
 - [Eaton — Medium-voltage solid-state transformer](https://www.eaton.com/us/en-us/catalog/medium-voltage-power-distribution-control-systems/medium-voltage-solid-state-transformer.html) — Eaton lists a 2 MW MVSST with 12.47 kV nominal input and 800 V DC output, demonstrating a direct-MV product offering. Read 2026-09-11. Manufacturer product listing reviewed on 2026-09-11. Offered specifications do not establish installed capacity, deployment prevalence, lead time or a measured efficiency advantage.
 
-## D04 domain check-in: Which rating stops the load?
+## Check your understanding: Which rating stops the load?
 
-Optional: pause and make a prediction, then compare your reasoning. You can continue whenever you are ready.
+Pause and make a prediction, then compare your reasoning.
 
 At a hypothetical AC interface, a load needs 900 kW at power factor 0.9. The upstream transformer is rated 1,000 kVA, while a downstream device at the same voltage is limited to 950 kVA. Ignore losses and other constraints for this screen.
 
@@ -1684,11 +1686,11 @@ The transformer reaches its stated rating, but every element of the path must ca
 
 **The next problem:** A path that carries normal demand is only the start. What happens when supply is interrupted or equipment is unavailable?
 
-Continue in **D05**: A battery has two limits before it has a runtime.
+Continue in **Continuity, storage and protection**: A battery has two limits before it has a runtime.
 
 ## A battery has two limits before it has a runtime
 
-**D05 · Authored draft · Objectives:** D05.1, D05.2
+**Continuity, storage and protection · Authored draft**
 
 Calculate output energy after usable-capacity and reserve assumptions, screen discharge power separately, and distinguish a UPS role from a generic storage inventory.
 
@@ -1802,7 +1804,7 @@ About 5.43 minutes.
 
 ## Continuity belongs to the complete service
 
-**D05 · Authored draft · Objectives:** D05.2, D05.3
+**Continuity, storage and protection · Authored draft**
 
 Follow a supplied electrical/thermal restoration timeline, calculate its energy requirement, and test redundancy under a second unavailable component.
 
@@ -1891,7 +1893,7 @@ About 152.78 kWh is needed; 120 kWh is short by 32.78 kWh.
 
 ## A fault needs a boundary and an exit
 
-**D05 · Authored draft · Objectives:** D05.4, D05.3
+**Continuity, storage and protection · Authored draft**
 
 Explain fault detection and selective isolation, distinguish AC and DC interruption, and use a bounded heating example without pretending to choose real protection settings.
 
@@ -1980,9 +1982,9 @@ Doubling current multiplies I² by four; halving time divides by two. Net heatin
 - [Schneider Electric — Definition of standardised earthing schemes](https://www.electrical-installation.org/enwiki/Definition_of_standardised_earthing_schemes) — Earthing schemes distinguish the source-earth relationship from exposed-part protective connections. Read 2026-09-06. Read publicly indexed definitions of the standardized schemes, not a site-specific grounding study.
 - [OpenStax — Electrical Energy and Power](https://openstax.org/books/university-physics-volume-2/pages/9-5-electrical-energy-and-power) — The fixed-current resistive energy example follows I²R multiplied by time. Read 2026-09-06. Read the public resistor-power equations; all fault currents and durations are hypothetical teaching inputs.
 
-## D05 domain check-in: Maintenance, then another loss
+## Check your understanding: Maintenance, then another loss
 
-Optional: pause and make a prediction, then compare your reasoning. You can continue whenever you are ready.
+Pause and make a prediction, then compare your reasoning.
 
 Three hypothetical UPS modules can each deliver 1 MW to a common output serving 1.8 MW, including all protected auxiliaries. One module is isolated for maintenance; another then fails. Assume the surviving output path remains connected and has enough stored energy for the required bridge interval.
 
@@ -1999,11 +2001,11 @@ With one module unavailable, the two remaining modules supplied 2 MW. Losing ano
 
 **The next problem:** Carry those power, energy and failure boundaries into the rack. Which conversions and interfaces remain when its inlet voltage changes?
 
-Continue in **D06**: Follow the watts through the rack.
+Continue in **Rack power and the 800 V DC transition**: Follow the watts through the rack.
 
 ## Follow the watts through the rack
 
-**D06 · Authored draft · Objectives:** D06.1, D06.2
+**Rack power and the 800 V DC transition · Authored draft**
 
 Build an electrical ledger from the rack inlet to useful device rails, with separate conversion losses and auxiliary loads.
 
@@ -2079,7 +2081,7 @@ Only the conversion stages upstream of a changed branch affect its incremental d
 
 ## 800 V is an interface, not an entire architecture
 
-**D06 · Authored draft · Objectives:** D06.2, D06.3, D06.4
+**Rack power and the 800 V DC transition · Authored draft**
 
 Compare three declared architectures while preserving their conversion, storage and protection interfaces.
 
@@ -2178,7 +2180,7 @@ The unmodeled auxiliary reverses the arithmetic result. This does not show that 
 
 ## A rack upgrade is an interface negotiation
 
-**D06 · Authored draft · Objectives:** D06.3, D06.4, D06.5
+**Rack power and the 800 V DC transition · Authored draft**
 
 Test a higher-density rack against electrical, thermal, mechanical and operational constraints before accepting the upgrade path.
 
@@ -2264,9 +2266,9 @@ The full setting would then fit the expanded 260 kW allocation, with only 7 kW o
 - [Eaton — Rack Basics: Selection, Installation and Cooling](https://tripplite.eaton.com/support/rack-cabinet-basics-selection-installation-cooling) — EIA 19-inch mounting terminology, 1.75-inch rack units, usable U height versus external cabinet height, and separate depth and load considerations. Read 2026-09-08. Reviewed indexed public text under Rack Standards, Rack Units, Height, Width and Depth; direct page retrieval returned 403. Manufacturer explainer, not a review of the full EIA standard. Product-independent classroom allocation is original; no universal AI-rack compatibility or advertised cooling savings are adopted.
 - [Open Compute Project — Open Rack V3 Base Specification, revision 1.0](https://www.opencompute.org/documents/open-rack-base-specification-version-3-pdf) — Sections 6, 6.1.2 and 6.1.3 distinguish 48 mm OpenU spacing from optional 44.45 mm EIA rack-unit support and allow exterior frame dimensions to vary. Read 2026-09-08. Reviewed the public PDF mechanical sections on printed pages 7, 9 and 11, plus revision table on page 6. Revision 1.0 is the identified reference, not a claim to the latest revision. Electrical, connector and qualification requirements were not audited; the lesson does not infer interchangeability from height alone.
 
-## D06 domain check-in: Did moving the converter save energy?
+## Check your understanding: Did moving the converter save energy?
 
-Optional: pause and make a prediction, then compare your reasoning. You can continue whenever you are ready.
+Pause and make a prediction, then compare your reasoning.
 
 A hypothetical redesign moves a converter from each rack to a nearby cabinet. Useful device output, converter efficiency, cable losses and auxiliary demand all remain unchanged.
 
@@ -2283,11 +2285,11 @@ The same output still requires the same total input across the complete path. Co
 
 **The next problem:** Now that power reaches the devices, what determines whether those devices spend their time doing useful work?
 
-Continue in **D07**: A rack is a path through several memories.
+Continue in **Compute, memory and the rack**: A rack is a path through several memories.
 
 ## A rack is a path through several memories
 
-**D07 · Authored draft · Objectives:** D07.1, D07.2
+**Compute, memory and the rack · Authored draft**
 
 Follow bytes through storage, host processing, accelerator memory, execution and communication, and distinguish movement from ownership.
 
@@ -2368,7 +2370,7 @@ The dominant repeated interval is now host preparation. Faster execution shorten
 
 ## Find the limit before buying more arithmetic
 
-**D07 · Authored draft · Objectives:** D07.2, D07.3
+**Compute, memory and the rack · Authored draft**
 
 Apply a small performance model, then test its assumptions against capacity and the job’s critical path.
 
@@ -2449,7 +2451,7 @@ Reducing traffic can be more valuable than buying additional arithmetic. The imp
 
 ## The rack becomes a service boundary
 
-**D07 · Authored draft · Objectives:** D07.1, D07.3, D07.4
+**Compute, memory and the rack · Authored draft**
 
 Connect tray and rack organization to physical interfaces and failure scope, then distinguish nominal from schedulable capacity.
 
@@ -2528,9 +2530,9 @@ The new mode recovers an allocation, but it does not make the fractured topology
 - [NVIDIA DGX SuperPOD — Network Fabrics](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/network-fabrics.html) — A named reference system distinguishes compute, storage and management fabrics and explicit topology groupings. Read 2026-09-06. H100 reference architecture updated November 19, 2025; no component counts or ratios are generalized.
 - [Open Rack/SpecsAndDesigns](https://www.opencompute.org/wiki/Open_Rack/SpecsAndDesigns) — Physical rack, power and liquid interfaces have separate versioned documents. Read 2026-09-06. An index is a starting point; actual installation and maintenance requirements must come from the supplied equipment.
 
-## D07 domain check-in: Twice the arithmetic, same progress?
+## Check your understanding: Twice the arithmetic, same progress?
 
-Optional: pause and make a prediction, then compare your reasoning. You can continue whenever you are ready.
+Pause and make a prediction, then compare your reasoning.
 
 In a hypothetical model, computation and memory transfer overlap completely. A step needs 2 ms of arithmetic and 8 ms to fetch its inputs. An upgrade halves arithmetic time while leaving the memory path and all other conditions unchanged.
 
@@ -2547,11 +2549,11 @@ The memory path sets the limit in this supplied model, so extra arithmetic capac
 
 **The next problem:** Inputs and results also move between devices. What happens when a shared network path becomes the slowest dependency?
 
-Continue in **D08**: Count the paths, not just the advertised ports.
+Continue in **Networking and interconnects**: Count the paths, not just the advertised ports.
 
 ## Count the paths, not just the advertised ports
 
-**D08 · Authored draft · Objectives:** D08.1, D08.2, D08.5
+**Networking and interconnects · Authored draft**
 
 Account for a cluster's ports and cables, then trace its connection through the campus boundary to external networks.
 
@@ -2583,7 +2585,7 @@ After the logical calculation, count cables, endpoint ports and switch ports sep
 
 Trace an external path from the cluster network through border equipment and patch panels to the outside fiber route. The entrance facility brings outside-plant cabling into the building. A meet-me room (MMR) provides an interconnection area for tenant, operator and carrier cabling; a private campus may use a different room arrangement. These are functions to locate, not a universal sequence of separate rooms. Corning's multitenant example connects outside plant, the MMR and customer rack cabling.
 
-At the agreed demarcation point, mark where one party's service responsibility ends and the next begins. In Equinix's example, customers patch their equipment to the operator's demarcation. An intra-facility cable reaches the MMR and a cross-connect completes the physical connection there. That cable alone does not supply Internet transit: identify the actual carrier or private service, endpoint, capacity and acceptance boundary. D12 checks whether the route and construction rights can be delivered; D08 checks what the resulting connection carries.
+At the agreed demarcation point, mark where one party's service responsibility ends and the next begins. In Equinix's example, customers patch their equipment to the operator's demarcation. An intra-facility cable reaches the MMR and a cross-connect completes the physical connection there. That cable alone does not supply Internet transit: identify the actual carrier or private service, endpoint, capacity and acceptance boundary. The site-planning section checks whether the route and construction rights can be delivered; the networking section checks what the resulting connection carries.
 
 ## Test routes, not carrier names
 
@@ -2647,7 +2649,7 @@ Internal link counts and external service counts both need a physical path. Veri
 
 ## A collective makes waiting contagious
 
-**D08 · Authored draft · Objectives:** D08.1, D08.2, D08.3, D08.5
+**Networking and interconnects · Authored draft**
 
 Walk through a ring all-reduce, then connect synchronization, congestion and placement to the job timeline.
 
@@ -2728,7 +2730,7 @@ Only part of the step improves. The communication phase is twice as fast, but th
 
 ## Choose where electricity becomes light
 
-**D08 · Authored draft · Objectives:** D08.4, D08.5
+**Networking and interconnects · Authored draft**
 
 Compare media and optical packaging at the link level, then include their effects on switch cooling, cabling and repair.
 
@@ -2807,9 +2809,9 @@ The longer compute duration overwhelms the smaller network energy saving. The sc
 - [Scaling AI Factories with Co-Packaged Optics for Better Power Efficiency](https://developer.nvidia.com/blog/scaling-ai-factories-with-co-packaged-optics-for-better-power-efficiency/) — Describes moving optical conversion nearer switch silicon and the associated electrical-path mechanism. Read 2026-09-06. August 18, 2025 vendor account; availability and benefit claims are dated proposals, not universal deployment evidence.
 - [NVIDIA Optical Transceivers and Cables](https://www.nvidia.com/en-us/networking/interconnect/) — Provides distinct interconnect product categories whose compatibility must be checked at the actual interface. Read 2026-09-06. Product catalog and marketing page; no power, reach or reliability rating is adopted without its specific datasheet.
 
-## D08 domain check-in: Healthy devices, waiting job
+## Check your understanding: Healthy devices, waiting job
 
-Optional: pause and make a prediction, then compare your reasoning. You can continue whenever you are ready.
+Pause and make a prediction, then compare your reasoning.
 
 A hypothetical synchronized training step cannot finish until every participant completes its required exchange. One shared fabric link becomes congested, although every accelerator remains healthy.
 
@@ -2826,11 +2828,11 @@ Healthy endpoints do not establish a healthy end-to-end communication path. Foll
 
 **The next problem:** The cluster also needs durable data and recoverable progress. What survives when an interruption stops the job?
 
-Continue in **D09**: Storage is a traffic and state system.
+Continue in **Storage, orchestration and recovery**: Storage is a traffic and state system.
 
 ## Storage is a traffic and state system
 
-**D09 · Authored draft · Objectives:** D09.1, D09.3
+**Storage, orchestration and recovery · Authored draft**
 
 Separate dataset, cache and checkpoint paths, then model capacity, metadata and sustained throughput independently.
 
@@ -2911,7 +2913,7 @@ The network can sustain 24 GB/s, but the backend cannot. Fixed metadata and comm
 
 ## Count preserved progress, lost progress and recovery
 
-**D09 · Authored draft · Objectives:** D09.1, D09.2, D09.4
+**Storage, orchestration and recovery · Authored draft**
 
 Compare explicit failure timelines and explain why asynchronous saving and replicated storage do not eliminate recovery design.
 
@@ -2993,7 +2995,7 @@ A loses 11 unsaved minutes while B loses 13, but A spent two additional minutes 
 
 ## Turn installed hardware into an accepted service
 
-**D09 · Authored draft · Objectives:** D09.3, D09.4, D09.2
+**Storage, orchestration and recovery · Authored draft**
 
 Connect scheduling, provisioning, isolation and observability to a reproducible end-to-end acceptance exercise.
 
@@ -3081,9 +3083,9 @@ Relaxing a constraint creates a new configuration. It may be worthwhile even wit
 - [NVIDIA DGX SuperPOD — Software](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/dgx-software.html) — A reference cluster includes orchestration, system management, libraries and operating-system components. Read 2026-09-06. Vendor reference stack, updated November 19, 2025; it does not certify an arbitrary tenant environment.
 - [Google — Supporting power grids with demand response](https://cloud.google.com/blog/products/infrastructure/using-demand-response-to-reduce-data-center-power-consumption) — Compare storing energy with rescheduling eligible non-urgent work during grid stress. Read 2026-09-12. Publisher-indexed introduction reviewed after direct fetch timed out. Historical pilot description; no claim that every workload can move or that reduced demand necessarily reduces total energy.
 
-## D09 domain check-in: Which progress comes back?
+## Check your understanding: Which progress comes back?
 
-Optional: pause and make a prediction, then compare your reasoning. You can continue whenever you are ready.
+Pause and make a prediction, then compare your reasoning.
 
 In a hypothetical run, the latest validated, durable checkpoint represents progress through minute 20. A failure occurs at minute 28; no newer checkpoint survives. Restoration takes 3 minutes, and the same work runs at the same rate afterward.
 
@@ -3100,11 +3102,11 @@ Restoration ends at minute 31. Replaying the 8 minutes after the durable checkpo
 
 **The next problem:** While the recovered job runs, its hardware keeps producing heat. Can every device transfer that heat into a supported cooling path?
 
-Continue in **D10**: A cool room can contain an overheating chip.
+Continue in **Chip and rack heat capture**: A cool room can contain an overheating chip.
 
 ## A cool room can contain an overheating chip
 
-**D10 · Authored draft · Objectives:** D10.1, D10.4
+**Chip and rack heat capture · Authored draft**
 
 Trace heat through local thermal resistances and parallel air/liquid paths, then compare the capture point of different cooling approaches.
 
@@ -3193,7 +3195,7 @@ Lower supply temperature may require additional upstream cooling work or condens
 
 ## Flow arithmetic is only the first pump question
 
-**D10 · Authored draft · Objectives:** D10.1, D10.2
+**Chip and rack heat capture · Authored draft**
 
 Derive a single-phase flow requirement, then add pressure drop, pump operating point and branch maldistribution.
 
@@ -3276,7 +3278,7 @@ The small difference does not invalidate the first-pass calculation, but explici
 
 ## Two liquid loops exchange heat, not fluid
 
-**D10 · Authored draft · Objectives:** D10.2, D10.3, D10.4
+**Chip and rack heat capture · Authored draft**
 
 Label a liquid-to-liquid CDU, distinguish loop rise from approach, and read a real 2 MW CoolIT example against its stated conditions.
 
@@ -3316,7 +3318,7 @@ In the original teaching example, a selected liquid heat load is 1,000 kW and ea
 
 A separate 2N example has two upstream trains, each with two 600 kW CDU modules and independent facility-water, outdoor rejection, power and control paths. The model transfers the selected 1,000 kW demand to one compatible surviving train, so its displayed capacity is the larger surviving train capacity rather than A+B. The downstream load interface remains shared. A fault in that shared interface is outside the failure survived by this example; a 2N label at one boundary does not establish whole-campus fault tolerance.
 
-If two of the three CDUs in the first example fail, 600 kW remains. A coordinated IT response is assumed to reduce heat entering that liquid path from 1,000 to 500 kW, leaving 100 kW of thermal capacity margin. This is a comparison of operating points, not a prediction that a controller can react before a temperature limit is reached. A real policy has to account for the hardware’s power scope, heat capture fraction, local flow and temperature limits, and confirmed achieved power. D11 develops the distinction between that planned reduction, local thermal protection, and shutdown or isolation when no compatible cooling path remains.
+If two of the three CDUs in the first example fail, 600 kW remains. A coordinated IT response is assumed to reduce heat entering that liquid path from 1,000 to 500 kW, leaving 100 kW of thermal capacity margin. This is a comparison of operating points, not a prediction that a controller can react before a temperature limit is reached. A real policy has to account for the hardware’s power scope, heat capture fraction, local flow and temperature limits, and confirmed achieved power. The heat-rejection section develops the distinction between that planned reduction, local thermal protection, and shutdown or isolation when no compatible cooling path remains.
 
 ## Choose a capture method against the complete brief
 
@@ -3383,9 +3385,9 @@ That is 25% more effective conductance at the specified equal-flow operating poi
 - [Vertiv — How N+1 redundancy supports continuous data center cooling](https://www.vertiv.com/en-ca/about/news-and-events/articles/educational-articles/how-n1-redundancy-supports-continuous-data-center-cooling/) — Define cooling N, N+1 and 2N and distinguish redundant units from shared power, water and control dependencies. Read 2026-09-11. Definitions and shared-dependency discussion reviewed. No prevalence, Tier mapping or blanket continuity guarantee adopted; capacity and connectivity require a particular design and operating conditions.
 - [NVIDIA — DSX Facilities Infrastructure Reference Design Overview](https://docs.nvidia.com/dsx/facilities-infra/reference-design-overview) — The mechanical-gallery CDU section specifies N+1 CDU groups with shared piping and separates the technical and facility-water loops. Read 2026-09-11. Selected CDU and gallery sections reviewed in mutable HTML. One reference design does not prove site deployment, independent facility-water paths or the ratings and response time of the synthetic course example.
 
-## D10 domain check-in: The liquid loop is not the whole rack
+## Check your understanding: The liquid loop is not the whole rack
 
-Optional: pause and make a prediction, then compare your reasoning. You can continue whenever you are ready.
+Pause and make a prediction, then compare your reasoning.
 
 A hypothetical 100 kW rack transfers 80 kW into its liquid loop and 20 kW into room air. Its liquid loop remains available, but the room's air-cooling path becomes unavailable.
 
@@ -3402,11 +3404,11 @@ Adequate liquid capacity does not establish cooling for components whose heat en
 
 **The next problem:** Heat captured from the rack has only started its journey. How does it finally reach the outdoor environment?
 
-Continue in **D11**: The heat does not disappear at the chiller.
+Continue in **Heat rejection, climate and water**: The heat does not disappear at the chiller.
 
 ## The heat does not disappear at the chiller
 
-**D11 · Authored draft · Objectives:** D11.1, D11.2
+**Heat rejection, climate and water · Authored draft**
 
 Separate rack heat capture from outdoor dry, wet and hybrid rejection; distinguish air- and water-cooled chillers, then close the heat and work balance.
 
@@ -3414,9 +3416,9 @@ Separate rack heat capture from outdoor dry, wet and hybrid rejection; distingui
 
 ## Follow the heat before naming the equipment
 
-D10 collected heat at an air stream, rear-door exchanger, cold plate or immersion bath. Here the question is how that heat leaves the site. A dry cooler moves warm liquid through a coil while outdoor air passes over it. The streams stay separate and the liquid cools without intentional evaporation. Dry describes outdoor rejection: water can still circulate through the building. The relevant air temperature is the dry bulb, introduced and compared with wet bulb in the next lesson.
+The chip-cooling section collected heat at an air stream, rear-door exchanger, cold plate or immersion bath. Here the question is how that heat leaves the site. A dry cooler moves warm liquid through a coil while outdoor air passes over it. The streams stay separate and the liquid cools without intentional evaporation. Dry describes outdoor rejection: water can still circulate through the building. The relevant air temperature is the dry bulb, introduced and compared with wet bulb in the next lesson.
 
-Wet cooling uses evaporation. In an open cooling tower, some circulating water evaporates as air contacts it; the remaining water cools and returns to collect more heat. A closed-circuit evaporative cooler instead keeps process liquid inside a coil while separate spray water evaporates outside it. Neither arrangement implies that rack coolant is sprayed into the air. Identify the water circuit that consumes makeup water; D11’s water ledger follows that circuit.
+Wet cooling uses evaporation. In an open cooling tower, some circulating water evaporates as air contacts it; the remaining water cools and returns to collect more heat. A closed-circuit evaporative cooler instead keeps process liquid inside a coil while separate spray water evaporates outside it. Neither arrangement implies that rack coolant is sprayed into the air. Identify the water circuit that consumes makeup water; the water ledger follows that circuit.
 
 Hybrid equipment combines dry and evaporative operation. One adiabatic arrangement precools entering air through wetted pads before that air reaches a dry coil. The process liquid remains inside the coil, while the precooling step consumes water. Humidity limits the evaporative benefit, and the controller can enable wet operation only under selected conditions. A wet pad is not a compressor, and adding one does not guarantee the required temperature on every day.
 
@@ -3497,7 +3499,7 @@ More compressor work lowers both ratios while increasing hot-side rejection. The
 
 ## The same air temperature can create different cooling limits
 
-**D11 · Authored draft · Objectives:** D11.1, D11.3, D11.5
+**Heat rejection, climate and water · Authored draft**
 
 Compare dry and wet heat rejection at explicitly labeled temperatures, check cooling electricity against the site ceiling, and distinguish redundant cooling from reduced-power operation after a fault.
 
@@ -3513,13 +3515,13 @@ Neither temperature is a complete equipment rating. Duty also depends on flow, l
 
 ## Approach belongs to two named temperature points
 
-For a cooling tower, approach is leaving-water temperature minus entering-air wet bulb. For the dry cooler in our example, we explicitly use leaving-fluid temperature minus entering-air dry bulb. At the liquid-to-liquid CDU, D10 uses technology supply minus facility supply. State the equipment and the two sensor locations every time: approach is not one universal gap that can be copied between all three.
+For a cooling tower, approach is leaving-water temperature minus entering-air wet bulb. For the dry cooler in our example, we explicitly use leaving-fluid temperature minus entering-air dry bulb. At the liquid-to-liquid CDU, the chip-cooling example uses technology supply minus facility supply. State the equipment and the two sensor locations every time: approach is not one universal gap that can be copied between all three.
 
 Loop temperature rise compares warm return with cool supply in one circuit. The same circuit can rise by 10 K across its load while its cooler operates at a 3 K or 5 K approach to another temperature. At the tower the inlet-to-outlet drop is called range. Approach can change with load, flow and equipment configuration; a smaller value at one operating point is not a guaranteed value across the operating envelope.
 
 ## Trace one 84 kW load through the two outdoor options
 
-Reuse D10’s synthetic 84 kW load and 2 kg/s water loops with heat capacity 4.2 kJ/(kg·K), giving a 10 K temperature rise. Require technology supply at or below 35°C, and stipulate a 5 K CDU approach. For this comparison only, specify outdoor air at 35°C dry bulb and 22°C wet bulb. In the wet route chosen here, open-tower water is kept separate from the facility loop, so this design includes another heat exchanger. Count that interface when comparing the complete routes.
+Reuse the chip-cooling example’s synthetic 84 kW load and 2 kg/s water loops with heat capacity 4.2 kJ/(kg·K), giving a 10 K temperature rise. Require technology supply at or below 35°C, and stipulate a 5 K CDU approach. For this comparison only, specify outdoor air at 35°C dry bulb and 22°C wet bulb. In the wet route chosen here, open-tower water is kept separate from the facility loop, so this design includes another heat exchanger. Count that interface when comparing the complete routes.
 
 Dry route: stipulate a 5 K dry-cooler approach at this load. Its 35°C entering air permits a modeled 40°C facility supply. The CDU’s additional 5 K makes technology supply 45°C, above the 35°C requirement. The full steady temperature pairs would be facility 40°C supply / 50°C return and technology 45°C supply / 55°C return. This is a failed temperature screen, not permission to operate the rack at that point.
 
@@ -3618,7 +3620,7 @@ Better COP frees electrical headroom, but it does not repair the separate heat-r
 
 ## Count water at the boundary, then ask who can use the heat
 
-**D11 · Authored draft · Objectives:** D11.4, D11.5
+**Heat rejection, climate and water · Authored draft**
 
 Reconcile tower makeup and blowdown, distinguish withdrawal from consumption, and evaluate heat reuse against an actual receiving load.
 
@@ -3708,9 +3710,9 @@ Lower concentration requires more blowdown in this model. It increases intake by
 - [USGS National Water Availability Assessment Data Companion](https://waterdata.usgs.gov/blog/nwdc-overview/) — The water-use discussion distinguishes withdrawals from consumptive use. Read 2026-09-06. Selected definitions inspected; the lesson’s hypothetical return-flow assumption is not an observation about a real basin.
 - [Crusoe — Abilene cooling design](https://www.crusoe.ai/resources/blog/an-inside-look-at-the-abilene-ai-data-center) — Abilene provides a recurring example of grid supply, backup and closed-loop cooling with air-cooled heat rejection. Read 2026-09-12. Energy and water sections reviewed. Historical company design description, not audited operating water use. Initial fill and maintenance remain separate from non-evaporative heat rejection.
 
-## D11 domain check-in: What reaches the condenser?
+## Check your understanding: What reaches the condenser?
 
-Optional: pause and make a prediction, then compare your reasoning. You can continue whenever you are ready.
+Pause and make a prediction, then compare your reasoning.
 
 A hypothetical chiller removes 1.0 MW from its evaporator loop while its compressor consumes 0.2 MW. Ignore other heat transfers and exclude pumps and fans from this stated balance.
 
@@ -3727,11 +3729,11 @@ The condenser receives the cooling duty plus compressor work: 1.0 + 0.2 MW. Cool
 
 **The next problem:** We have traced the power, work and heat paths. What evidence proves that the delivered equipment can operate as one complete service?
 
-Continue in **D13**: The longest lead time is not the completion date.
+Continue in **Design, procurement and commissioning**: The longest lead time is not the completion date.
 
 ## The longest lead time is not the completion date
 
-**D13 · Authored draft · Objectives:** D13.1
+**Design, procurement and commissioning · Authored draft**
 
 Build a dependency graph, compare site-built and prefabricated delivery of the same 20 MW phase, and decide which work a late rack change actually delays.
 
@@ -3839,7 +3841,7 @@ Hold only the work whose inputs are unresolved, including any affected supports 
 
 ## Two adequate products can form an inadequate system
 
-**D13 · Authored draft · Objectives:** D13.2
+**Design, procurement and commissioning · Authored draft**
 
 Keep a 20 MW IT duty fixed, test the changed electrical, hydraulic and spatial interfaces, and assign the evidence needed to release fabrication and schedule holds.
 
@@ -3960,7 +3962,7 @@ Electrical and hydraulic adequacy cannot locate connectors or establish floor re
 
 ## Commission the intersection, not the inventory
 
-**D13 · Authored draft · Objectives:** D13.3, D13.4
+**Design, procurement and commissioning · Authored draft**
 
 Distinguish installation and subsystem tests from integrated acceptance, then count overlapping accepted rack paths rather than adding milestone totals.
 
@@ -4040,9 +4042,9 @@ The added cooling evidence closes the missing condition for A01–A20. Positions
 - [Commissioning & Performance Validation | AI Data Center Energy Performance Framework](https://www.ashrae.org/technical-resources/ai-data-center-framework/commissioning-performance-validation) — The staged commissioning and integrated-systems discussion distinguishes component checks from coupled validation. Read 2026-09-06. Selected commissioning-stage and handover discussion inspected; project procedures, pass criteria and synthetic rack sets are original.
 - [WBDG: Commissioning Documents](https://legacy.wbdg.org/building-commissioning/commissioning-documents) — Commissioning records and systems documentation support continued operation and maintenance. Read 2026-09-06. Selected documentation purpose reviewed; this is not a claim to have applied a complete ASHRAE standard or GSA acceptance process.
 
-## D13 domain check-in: 20 MW stays; what can the factory release?
+## Check your understanding: 20 MW stays; what can the factory release?
 
-Optional: pause and make a prediction, then compare your reasoning. You can continue whenever you are ready.
+Pause and make a prediction, then compare your reasoning.
 
 Just before fabrication, the illustrative phase changes from 200 × 100 kW to 100 × 200 kW racks. Each old rack branch permits 160 A and 3.0 kg/s. Use balanced 480 V AC at PF 1; assign all IT heat to water with cp = 4.18 kJ/(kg·K) and a maximum 10 K rise. The new vendor drawing also doubles rack mass on the same four feet. Independent site work remains approved.
 
@@ -4067,11 +4069,11 @@ Acceptance: controls owners must remap alarms and actions to the new racks, and 
 
 **The next problem:** After those revised paths pass acceptance, which measurements, configuration records and maintenance responsibilities will keep their operating limits visible?
 
-Continue in **D14**: A believable number can describe the wrong thing.
+Continue in **Controls, operations and reliability**: A believable number can describe the wrong thing.
 
 ## A believable number can describe the wrong thing
 
-**D14 · Authored draft · Objectives:** D14.1
+**Controls, operations and reliability · Authored draft**
 
 Place measurements at physical boundaries, align their times and use conservation checks to discriminate between competing explanations.
 
@@ -4152,7 +4154,7 @@ Changed heat input, temperature-sensor error, different measurement boundaries a
 
 ## The scheduler cannot negotiate with physics after the fact
 
-**D14 · Authored draft · Objectives:** D14.2
+**Controls, operations and reliability · Authored draft**
 
 Separate fast local control, plant-level coordination and workload decisions, then account for a stipulated delay and thermal-energy buffer.
 
@@ -4234,7 +4236,7 @@ The smaller half-megawatt mismatch more than compensates for the longer delay in
 
 ## Measure the service, investigate the incident
 
-**D14 · Authored draft · Objectives:** D14.3, D14.4, D14.5
+**Controls, operations and reliability · Authored draft**
 
 Evaluate maintenance against surviving capacity, calculate a defined service metric and build an evidence-based incident explanation.
 
@@ -4316,9 +4318,9 @@ Power availability is a different indicator. The service failed its stated laten
 - [Google SRE: Service Level Objectives](https://sre.google/sre-book/service-level-objectives/) — Service indicators and objectives need explicitly defined measurements. Read 2026-09-06. Selected metric-boundary discussion reviewed; the availability example is original.
 - [Google SRE: Postmortem Culture](https://sre.google/sre-book/postmortem-culture/) — Incident review is intended to support learning and improvement rather than blame. Read 2026-09-06. Selected postmortem principles inspected; timeline and proposed evidence questions are original.
 
-## D14 domain check-in: One reassuring number
+## Check your understanding: One reassuring number
 
-Optional: pause and make a prediction, then compare your reasoning. You can continue whenever you are ready.
+Pause and make a prediction, then compare your reasoning.
 
 A hypothetical rack reports high device temperatures while the plant's displayed supply temperature looks normal. The plant reading is ten minutes old, and there is no current measurement of flow through the affected rack branch.
 
@@ -4335,11 +4337,11 @@ A stale upstream temperature cannot establish current local flow or heat transfe
 
 **The next problem:** Measurements reveal the constraint. Which intervention changes usable service enough to justify its cost and delivery time?
 
-Continue in **D15**: Find the constraint after reconciling the boundaries.
+Continue in **Capacity, cost and system decisions**: Find the constraint after reconciling the boundaries.
 
 ## Find the constraint after reconciling the boundaries
 
-**D15 · Authored draft · Objectives:** D15.1
+**Capacity, cost and system decisions · Authored draft**
 
 Reconcile facility overhead, non-compute IT, electrical and thermal limits, network scope and accepted service in one synthetic ledger.
 
@@ -4420,7 +4422,7 @@ Both boundaries allow 70 − 5 = 65 MW of compute, or 650 equivalents. The uncha
 
 ## Compare the service you receive, not the invoice label
 
-**D15 · Authored draft · Objectives:** D15.2, D15.3
+**Capacity, cost and system decisions · Authored draft**
 
 Build a scoped three-year present-value comparison and show how a stable cost changes meaning when useful output falls.
 
@@ -4501,7 +4503,7 @@ Each remaining result bears a larger share of the unchanged cost. A twenty-perce
 
 ## Choose the intervention, then audit the claim
 
-**D15 · Authored draft · Objectives:** D15.4, D15.5
+**Capacity, cost and system decisions · Authored draft**
 
 Compare original intervention scenarios with different delivery dates, then audit a dated Stargate announcement without converting planned capacity into measured operation.
 
@@ -4582,9 +4584,9 @@ The first statement supports a publisher-reported instance of operation at a nam
 - [GAO Schedule Assessment Guide](https://www.gao.gov/products/gao-16-89g) — The guide overview connects schedule credibility and slippage with program cost assessment. Read 2026-09-06. Overview reviewed. The intervention prices, rates, horizon and screening ratios are original and are not project forecasts.
 - [OpenAI: Five new Stargate sites](https://openai.com/index/five-new-stargate-sites/) — The article distinguishes a multi-site planned capacity total from its statement about early workloads at Abilene. Read 2026-09-06. Main article and visible October 22, 2025 update inspected on September 6, 2026. This lesson audits the dated statements; it does not establish current operating MW, complete topology or site economics.
 
-## D15 domain check-in: Which upgrade changes the ceiling?
+## Check your understanding: Which upgrade changes the ceiling?
 
-Optional: pause and make a prediction, then compare your reasoning. You can continue whenever you are ready.
+Pause and make a prediction, then compare your reasoning.
 
 For the same hypothetical rack population and operating condition, electrical capacity supports 12 racks, cooling 8, networking 10 and accepted service 9. Option A raises electrical capacity to 16; option B raises cooling capacity to 11. Assume the other limits stay fixed.
 
@@ -4605,7 +4607,7 @@ Continue in **the integrated cases**: The servers stay powered. The service does
 
 ## The servers stay powered. The service does not.
 
-**capstone · Authored draft · Objectives:** D05.1, D05.2, D05.3, D14.5
+**Integrated practice · Authored draft**
 
 Combine a power budget, an energy budget and a separately supplied cooling path. Identify exactly what the evidence can establish.
 
@@ -4676,7 +4678,7 @@ The energy margin shrinks because the battery now supports both loads. This can 
 
 ## A hot day changes two limits at once
 
-**capstone · Authored draft · Objectives:** D01.3, D11.3, D15.1, D15.4
+**Integrated practice · Authored draft**
 
 Reconcile the electrical and heat-removal constraints at two supplied operating points, then decide which proposed upgrade would actually help.
 
@@ -4747,7 +4749,7 @@ Installed cooling above 60 MW cannot create missing accepted paths. Actual draw 
 
 ## The rack upgrade that does not fit the building
 
-**capstone · Authored draft · Objectives:** D06.1, D06.2, D06.3, D06.4, D06.5, D12.1, D13.2, D15.4
+**Integrated practice · Authored draft**
 
 Compare two complete electrical ledgers, a cooling duty and a service-space requirement before choosing where conversion should happen.
 
@@ -4818,7 +4820,7 @@ Raising density moves the binding constraint to whole-room heat rejection. Annua
 
 ## The powered cluster that keeps waiting
 
-**capstone · Authored draft · Objectives:** D02.2, D07.3, D08.2, D08.3, D09.1, D09.2, D14.5
+**Integrated practice · Authored draft**
 
 Build a serial job timeline from supplied measurements, compare two proposed improvements, and test recovery rather than relying on GPU occupancy.
 
@@ -4889,7 +4891,7 @@ The visible critical-path checkpoint cost is two seconds. Faster storage saves o
 
 ## Open one phase, with evidence
 
-**capstone · Authored draft · Objectives:** D03.3, D09.4, D13.1, D13.3, D13.4, D15.1, D15.5
+**Integrated practice · Authored draft**
 
 Reconcile installation, energization, integrated testing and service acceptance. Build a dependency schedule without treating announcements as operational measurements.
 

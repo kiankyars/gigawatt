@@ -18,11 +18,20 @@ const fmt = (n, d = 1) =>
 const LESSONS = DATA.lessons,
   byLesson = new Map(LESSONS.map((l, i) => [l.id, i]));
 const domainById = new Map(DATA.domains.map((d) => [d.id, d]));
+const topicTitle = (id) => domainById.get(id)?.title || "Integrated cases";
 const sourcesById = new Map(DATA.sources.map((s) => [s.id, s]));
 let current = 0,
   lookupMode = false;
 const drafts = new Map();
 const checkinDrafts = new Map();
+const CASE_STUDY_LINKS = {
+  "d12-hazards-and-site-evidence": [["land", "Greenfield and brownfield: Abilene and Colossus"], ["colossus", "Original Colossus: a reused factory, new power infrastructure"]],
+  "d03-voltage-and-distance": [["procurement", "xAI: equipment lead times and the MV supply path"], ["current", "The current and loss tradeoff"]],
+  "d05-storage-power-and-time": [["sparks", "Crusoe and Redwood: solar and batteries in Sparks"], ["availability", "Solar energy share versus availability"]],
+  "d09-service-acceptance": [["demand-response", "Google: scheduling flexible work"]],
+  "d11-water-and-heat-reuse": [["abilene-cooling", "Abilene: closed-loop cooling and outdoor heat rejection"]],
+  "d15-upgrade-and-evidence": [["abilene-ledger", "Abilene: separate buildings and capacity milestones"]],
+};
 const ART = {
   campus: {
     file: "campus-cutaway.png",
@@ -151,7 +160,7 @@ function renderContents() {
       .map((d) => {
         const ls = filtered.filter((l) => l.domain === d.id);
         if (!ls.length) return "";
-        return `<section class="domain-group"><h3><span>${esc(d.id === "capstone" ? "CASE" : d.id)}</span>${esc(d.title)}</h3>${ls.map((l) => `<button class="lesson-link${LESSONS[current]?.id === l.id && !lookupMode ? " active" : ""}" data-lesson="${esc(l.id)}" ${LESSONS[current]?.id === l.id && !lookupMode ? 'aria-current="page"' : ""}>${esc(l.title)}${l.domain_checkin ? '<small class="lesson-checkin-note">Ends with a domain check-in</small>' : ""}</button>`).join("")}</section>`;
+        return `<section class="domain-group"><h3>${esc(d.title)}</h3>${ls.map((l) => `<button class="lesson-link${LESSONS[current]?.id === l.id && !lookupMode ? " active" : ""}" data-lesson="${esc(l.id)}" ${LESSONS[current]?.id === l.id && !lookupMode ? 'aria-current="page"' : ""}>${esc(l.title)}${l.domain_checkin ? '<small class="lesson-checkin-note">Ends with a check-in</small>' : ""}</button>`).join("")}</section>`;
       })
       .join("") ||
     '<p class="muted">No matching lessons. Try a shorter term.</p>';
@@ -186,7 +195,7 @@ function closeRail() {
   $("sidebar").classList.remove("open");
   $("contents-toggle").setAttribute("aria-expanded", "false");
 }
-function go(id, historyMode = "push") {
+function go(id, historyMode = "push", focusCheckin = false) {
   if (!byLesson.has(id)) id = LESSONS[0].id;
   const previous = LESSONS[current];
   if (previous && $("response")) drafts.set(previous.id, $("response").value);
@@ -197,17 +206,26 @@ function go(id, historyMode = "push") {
   $("lookup").hidden = true;
   $("lesson").hidden = false;
   $("lookup-toggle").setAttribute("aria-pressed", "false");
-  if (historyMode !== "none" && location.hash !== `#${id}`)
+  const targetUrl = new URL(location.href);
+  targetUrl.hash = id;
+  if (focusCheckin) targetUrl.searchParams.set("checkin", "1");
+  else targetUrl.searchParams.delete("checkin");
+  if (historyMode !== "none" && targetUrl.href !== location.href)
     history[historyMode === "replace" ? "replaceState" : "pushState"](
       null,
       "",
-      `#${id}`,
+      targetUrl,
     );
   renderLesson();
   renderContents();
   closeRail();
-  window.scrollTo({ top: 0, behavior: "instant" });
-  $("lesson").focus({ preventScroll: true });
+  const target = focusCheckin && LESSONS[current].domain_checkin
+    ? $("domain-checkin") : $("lesson");
+  if (target.id === "domain-checkin") {
+    target.tabIndex = -1;
+    target.scrollIntoView({ block: "start", behavior: "instant" });
+  } else window.scrollTo({ top: 0, behavior: "instant" });
+  target.focus({ preventScroll: true });
 }
 function renderLesson() {
   const l = LESSONS[current],
@@ -218,9 +236,14 @@ function renderLesson() {
     `${String(current + 1).padStart(2, "0")} / ${d?.title || "Integrated case"}`;
   $("title").textContent = l.title;
   $("summary").textContent = l.summary;
+  const caseLinks = CASE_STUDY_LINKS[l.id] || [];
+  $("case-links").hidden = !caseLinks.length;
+  $("case-links").innerHTML = caseLinks.length
+    ? `<p>Case-study slides</p><ul>${caseLinks.map(([id, label]) => `<li><a href="prototypes/case-studies.html#${esc(id)}">${esc(label)} →</a></li>`).join("")}</ul>`
+    : "";
   $("question").textContent = l.question;
   $("lesson-meta").innerHTML =
-    `<span>${esc(l.domain === "capstone" ? "Integrated practice" : l.domain)}</span><span>Authored draft</span><span>Worked example + transfer practice</span>`;
+    `<span>Authored draft</span><span>Worked example + transfer practice</span>`;
   $("teaching-image").closest("figure").hidden = !art;
   if (art) {
     $("teaching-image").src = `assets/${art.file}`;
@@ -254,7 +277,7 @@ function renderLesson() {
     .join("");
   $("takeaway").textContent = l.takeaway;
   $("objective-tags").innerHTML =
-    `Objectives<br>${l.objectives.map((o) => `<span>${esc(o)}</span>`).join("")}`;
+    `What you will learn${l.objectives.map((id) => `<p>${esc(DATA.domains.flatMap((topic) => topic.objectives).find((o) => o.id === id)?.capability || "Apply the ideas across the system.")}</p>`).join("")}`;
   const visual = l.visual;
   $("concept").hidden = !visual;
   $("concept").classList.remove("parcel-concept");
@@ -295,7 +318,7 @@ function renderLesson() {
       : l.domain_checkin
         ? l.domain_checkin.next_domain === "capstone"
           ? "Continue to the cases →"
-          : `Continue to ${l.domain_checkin.next_domain} →`
+          : `Continue to ${topicTitle(l.domain_checkin.next_domain)} →`
         : "Next lesson →";
   renderLab(l);
 }
@@ -307,9 +330,9 @@ function renderDomainCheckin(checkin) {
   const nextLabel =
     checkin.next_domain === "capstone"
       ? "the integrated cases"
-      : checkin.next_domain;
+      : topicTitle(checkin.next_domain);
   section.innerHTML =
-    `<div class="eyebrow">PAUSE · PREDICT · CONNECT</div><h2 id="domain-checkin-title">${esc(checkin.domain)} domain check-in</h2><h3>${esc(checkin.title)}</h3><p class="boundary">Optional: pause and make a prediction, then compare your reasoning. Continue whenever you are ready.</p>${prose(checkin.scenario)}<p class="checkin-prompt">${esc(checkin.prompt)}</p><label for="checkin-response">Your reasoning — private to this page; clears on reload</label><textarea id="checkin-response" autocomplete="off" placeholder="Make your prediction and explain why."></textarea><details><summary>Compare your reasoning</summary><div><p class="answer">${esc(checkin.answer)}</p>${prose(checkin.explanation)}</div></details><div class="checkin-bridge"><h3>The next problem</h3>${prose(checkin.bridge)}<a href="#${esc(checkin.next_lesson)}" id="checkin-continue">Continue to ${esc(nextLabel)}: ${esc(checkin.next_title)} →</a></div>`;
+    `<div class="eyebrow">PAUSE · PREDICT · CONNECT</div><h2 id="domain-checkin-title">Check your understanding</h2><h3>${esc(checkin.title)}</h3><p class="boundary">Pause and make a prediction, then compare your reasoning.</p>${prose(checkin.scenario)}<p class="checkin-prompt">${esc(checkin.prompt)}</p><label for="checkin-response">Your reasoning — private to this page; clears on reload</label><textarea id="checkin-response" autocomplete="off" placeholder="Make your prediction and explain why."></textarea><details><summary>Compare your reasoning</summary><div><p class="answer">${esc(checkin.answer)}</p>${prose(checkin.explanation)}</div></details><div class="checkin-bridge"><h3>The next problem</h3>${prose(checkin.bridge)}<a href="#${esc(checkin.next_lesson)}" id="checkin-continue">Continue to ${esc(nextLabel)} →</a></div>`;
   $("checkin-response").value = checkinDrafts.get(checkin.domain) || "";
   $("checkin-continue").addEventListener("click", (event) => {
     event.preventDefault();
@@ -782,7 +805,7 @@ window.addEventListener("popstate", () => {
   } catch {
     id = "";
   }
-  go(id, "none");
+  go(id, "none", new URLSearchParams(location.search).get("checkin") === "1");
 });
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") closeRail();
@@ -793,4 +816,4 @@ try {
 } catch {
   start = "";
 }
-go(start, "replace");
+go(start, "replace", new URLSearchParams(location.search).get("checkin") === "1");

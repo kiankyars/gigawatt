@@ -286,20 +286,20 @@ def render_markdown(domain_map: dict, research: dict) -> str:
         lines.extend([f"### {_md(lane['title'])}", "", _md(lane["description"]), ""])
         for domain in m["domains"]:
             if domain["lane"] == lane["id"]:
-                lines.append(
-                    f"- [{domain['id']} — {_md(domain['title'])}](#{domain['id'].lower()})"
-                )
+                lines.append(f"- [{_md(domain['title'])}](#{domain['id'].lower()})")
         lines.append("")
     lines.extend(
         [
             "## Proposed teaching sequence",
             "",
-            "Domain IDs are stable references, not chapter numbers. This sequence respects prerequisites; runtime is not yet allocated.",
+            "Topics follow their prerequisites; runtime is not yet allocated.",
             "",
         ]
     )
     for act in m["sequence"]:
-        route = " → ".join(f"[{did}](#{did.lower()})" for did in act["domains"])
+        route = " → ".join(
+            f"[{_md(domains[did]['title'])}](#{did.lower()})" for did in act["domains"]
+        )
         lines.extend(
             [
                 f"### {act['id']} — {_md(act['title'])}",
@@ -317,7 +317,7 @@ def render_markdown(domain_map: dict, research: dict) -> str:
             [
                 f'<a id="{did.lower()}"></a>',
                 "",
-                f"### {did} — {_md(domain['title'])}",
+                f"### {_md(domain['title'])}",
                 "",
                 f"**Central question:** {_md(domain['question'])}",
                 "",
@@ -330,7 +330,7 @@ def render_markdown(domain_map: dict, research: dict) -> str:
         lines.extend(f"- {_md(item)}" for item in domain["scope"])
         prerequisites = (
             ", ".join(
-                f"[{p} — {_md(domains[p]['title'])}](#{p.lower()})"
+                f"[{_md(domains[p]['title'])}](#{p.lower()})"
                 for p in domain["prerequisites"]
             )
             or "None in this map."
@@ -344,7 +344,7 @@ def render_markdown(domain_map: dict, research: dict) -> str:
                 "",
             ]
         )
-        for objective in domain["objectives"]:
+        for objective_number, objective in enumerate(domain["objectives"], 1):
             baseline = (
                 "; ".join(
                     f"`{lid}` — {_md(lessons[lid])}"
@@ -354,7 +354,7 @@ def render_markdown(domain_map: dict, research: dict) -> str:
             )
             lines.extend(
                 [
-                    f"#### {objective['id']}",
+                    f"#### Learning objective {objective_number}",
                     "",
                     _md(objective["capability"]),
                     "",
@@ -399,7 +399,10 @@ def render_markdown(domain_map: dict, research: dict) -> str:
             [
                 f"### {_md(path['title'])}",
                 "",
-                " → ".join(f"[{did}](#{did.lower()})" for did in path["domains"]),
+                " → ".join(
+                    f"[{_md(domains[did]['title'])}](#{did.lower()})"
+                    for did in path["domains"]
+                ),
                 "",
                 _md(path["purpose"]),
                 "",
@@ -414,7 +417,10 @@ def render_markdown(domain_map: dict, research: dict) -> str:
                 _md(capstone["brief"]),
                 "",
                 "Domains: "
-                + ", ".join(f"[{did}](#{did.lower()})" for did in capstone["domains"]),
+                + ", ".join(
+                    f"[{_md(domains[did]['title'])}](#{did.lower()})"
+                    for did in capstone["domains"]
+                ),
                 "",
                 f"**Deliverable:** {_md(capstone['deliverable'])}",
                 "",

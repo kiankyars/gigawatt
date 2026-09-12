@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/capstones.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/capstones.json), lesson `c01-coupled-outage`, then run `uv run gigawatt-expand`.
 
-**capstone · Authored draft · Objectives:** D05.1, D05.2, D05.3, D14.5
+**Integrated practice · Authored draft**
 
 Combine a power budget, an energy budget and a separately supplied cooling path. Identify exactly what the evidence can establish.
 
