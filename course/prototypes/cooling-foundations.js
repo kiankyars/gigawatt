@@ -57,69 +57,15 @@ function whyLiquid(compact) {
   if (compact)
     return (
       text(186, 25, "SAME 100 kW · SAME 10 K RISE", "svg-tiny", "", "middle") +
-      panel(true, 15, 44, 342, 147) +
-      panel(false, 15, 207, 342, 147) +
-      text(
-        186,
-        384,
-        "Steady-flow sensible-heat balance",
-        "svg-label",
-        "",
-        "middle",
-      ) +
-      text(186, 422, "Q̇ = ṁ cₚ ΔT = ρ V̇ cₚ ΔT", "svg-equation", "", "middle") +
-      text(22, 458, "Q̇  heat rate", "svg-small") +
-      text(195, 458, "ṁ  mass flow", "svg-small") +
-      text(22, 482, "cₚ  specific heat", "svg-small") +
-      text(195, 482, "ρ  density", "svg-small") +
-      text(22, 506, "V̇  volume flow", "svg-small") +
-      text(195, 506, "ΔT  fluid temp. rise", "svg-small") +
-      text(
-        186,
-        550,
-        "Temperature changes without a phase change.",
-        "svg-small",
-        "",
-        "middle",
-      )
+      panel(true, 15, 75, 342, 170) +
+      panel(false, 15, 271, 342, 170) +
+      text(186, 510, "Q̇ = ṁ cₚ ΔT = ρ V̇ cₚ ΔT", "svg-equation", "", "middle")
     );
   return (
-    text(
-      580,
-      29,
-      "SAME 100 kW OF SENSIBLE HEAT · SAME 10 K RISE",
-      "svg-tiny",
-      "",
-      "middle",
-    ) +
-    panel(true, 80, 54, 475, 171) +
-    panel(false, 605, 54, 475, 171) +
-    text(
-      580,
-      265,
-      "Steady-flow sensible-heat balance",
-      "svg-label",
-      "",
-      "middle",
-    ) +
-    text(580, 312, "Q̇ = ṁ cₚ ΔT = ρ V̇ cₚ ΔT", "svg-number", "", "middle") +
-    text(
-      580,
-      352,
-      "Q̇  heat rate · ṁ  mass flow · cₚ  specific heat · ΔT  fluid temperature rise",
-      "svg-label",
-      "",
-      "middle",
-    ) +
-    text(580, 379, "ρ  density · V̇  volume flow", "svg-label", "", "middle") +
-    text(
-      580,
-      409,
-      "Sensible heat changes temperature without a phase change.",
-      "svg-small",
-      "",
-      "middle",
-    )
+    text(580, 29, "SAME 100 kW · SAME 10 K RISE", "svg-tiny", "", "middle") +
+    panel(true, 80, 62, 475, 200) +
+    panel(false, 605, 62, 475, 200) +
+    text(580, 332, "Q̇ = ṁ cₚ ΔT = ρ V̇ cₚ ΔT", "svg-number", "", "middle")
   );
 }
 

@@ -173,6 +173,22 @@
       #actions button {
         font-size: 13px;
       }
+      .control-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 5px 9px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+      }
+      .control-group-label {
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .control-group-buttons {
+        display: flex;
+        gap: 5px;
+      }
       footer {
         border-top: 1px solid var(--line);
         display: flex;
@@ -481,11 +497,29 @@
       <details open>
         <summary>Heat balance, temperature rise and approach</summary>
         <p>
-          The steady-flow sensible-heat balance is Q̇ = ṁ cₚ ΔT. Q̇ is heat
-          transfer rate, ṁ is mass flow, cₚ is specific heat and ΔT is the
-          temperature change of that fluid. For volume flow V̇, mass flow is ρ V̇,
-          where ρ is density. The model assumes steady sensible heating with
-          constant properties and excludes pump/fan work.
+          Heat-transfer rate Q̇ is thermal energy transferred each second: 100 kW
+          means 100 kJ per second. It is thermal power, not the quantity of
+          water flowing and not a temperature-rise rate. Here water warms while
+          remaining liquid. That is sensible heating. Evaporation or boiling
+          also involves latent heat and requires a different energy accounting
+          term.
+        </p>
+        <p>
+          For this steady-flow heat balance, fluid continuously enters and
+          leaves the heat-pickup section. At a settled operating point, the flow
+          and inlet/outlet conditions do not change with time, and energy is not
+          accumulating in that section. The outlet may still be warmer than the
+          inlet: temperature changes along the flow, not continuously with time
+          at one fixed point.
+        </p>
+        <p>
+          Each kilogram gains cₚ ΔT of energy. Multiplying by ṁ kilograms per
+          second gives Q̇ = ṁ cₚ ΔT. Here ṁ is mass flow, cₚ is specific heat and
+          ΔT is outlet minus inlet fluid temperature. Mass flow is density ρ
+          times volume flow V̇, giving Q̇ = ρ V̇ cₚ ΔT. The dots denote rates per
+          second. This approximation uses constant properties, no phase change,
+          negligible kinetic/potential energy changes, and no pump/fan work in
+          the selected heat-pickup boundary.
         </p>
         <p>
           The transport comparison fixes 100 kW and a 10 K rise. Air is modeled
@@ -753,7 +787,7 @@
       </details>
     </dialog>
     <script type="module">
-      import { renderFoundation } from "./cooling-foundations.js?v=20260911-flow3";
+      import { renderFoundation } from "./cooling-foundations.js?v=20260911-formula5";
       import { renderRejection } from "./cooling-rejection.js";
       import { renderCDU } from "./cooling-cdu.js";
       import { renderContinuity } from "./cooling-continuity.js";
@@ -1219,6 +1253,8 @@
                 `<button data-setting="${key}" data-value="${value}" aria-pressed="${String(state[key]) === value}">${label}</button>`,
             )
             .join("");
+        const controlGroup = (name, buttons) =>
+          `<div class="control-group" role="group" aria-label="${name}"><span class="control-group-label" aria-hidden="true">${name}</span><div class="control-group-buttons">${buttons}</div></div>`;
         $("actions").innerHTML =
           scene.kind === "redundancy"
             ? choices("cduFault", [
@@ -1232,11 +1268,20 @@
                   ["shared-path", "Lose path A"],
                 ])
               : scene.kind === "derating"
-                ? choices("loadMode", [
-                    ["full", "Full compute load"],
-                    ["reduced", "Reduce compute power"],
-                  ]) +
-                  `<button id="toggle-remaining-path">${state.deratingPathLost ? "Restore" : "Lose"} remaining path</button>`
+                ? controlGroup(
+                    "Compute power",
+                    choices("loadMode", [
+                      ["full", "Full"],
+                      ["reduced", "Reduced"],
+                    ]),
+                  ) +
+                  controlGroup(
+                    "Facility path",
+                    choices("deratingPathLost", [
+                      ["false", "Available"],
+                      ["true", "Lost"],
+                    ]),
+                  )
                 : scene.kind === "water-balance"
                   ? choices("flow", [
                       ["2.5", "2.5 kg/s"],
@@ -1270,12 +1315,11 @@
         document.querySelectorAll("[data-setting]").forEach((button) =>
           button.addEventListener("click", () => {
             const { setting, value } = button.dataset;
-            state[setting] =
-              setting === "interior"
-                ? value === "true"
-                : setting === "flow"
-                  ? Number(value)
-                  : value;
+            state[setting] = ["interior", "deratingPathLost"].includes(setting)
+              ? value === "true"
+              : setting === "flow"
+                ? Number(value)
+                : value;
             render();
             document
               .querySelector(
@@ -1284,11 +1328,6 @@
               .focus();
           }),
         );
-        $("toggle-remaining-path")?.addEventListener("click", () => {
-          state.deratingPathLost = !state.deratingPathLost;
-          render();
-          $("toggle-remaining-path").focus();
-        });
         document.title = `${scene.label} · GIGAWATT cooling`;
       }
       function go(index) {

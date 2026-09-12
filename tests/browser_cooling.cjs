@@ -172,15 +172,33 @@ async function checkDiagramGeometry(page, state) {
               await page.keyboard.press("Enter");
               assert.equal(await button.getAttribute("aria-pressed"), "true");
               const lost = selected.endsWith("-lost");
-              const toggle = page.locator("#toggle-remaining-path");
-              if ((await toggle.textContent()).startsWith("Restore") !== lost) {
-                await toggle.focus();
-                await page.keyboard.press("Enter");
-              }
-              assert.equal(
-                (await toggle.textContent()).startsWith("Restore"),
-                lost,
+              const pathButton = page.locator(
+                `[data-setting="deratingPathLost"][data-value="${lost}"]`,
               );
+              await pathButton.click();
+              assert.equal(
+                await pathButton.getAttribute("aria-pressed"),
+                "true",
+              );
+              assert.equal(await button.getAttribute("aria-pressed"), "true");
+              for (const setting of ["loadMode", "deratingPathLost"]) {
+                assert.equal(
+                  await page
+                    .locator(`[data-setting="${setting}"][aria-pressed="true"]`)
+                    .count(),
+                  1,
+                );
+                const colors = await page
+                  .locator(`[data-setting="${setting}"]`)
+                  .evaluateAll((buttons) =>
+                    buttons.map((b) => getComputedStyle(b).backgroundColor),
+                  );
+                assert.notEqual(
+                  colors[0],
+                  colors[1],
+                  "Selected state must look distinct",
+                );
+              }
             } else if (selected !== null) {
               const button = page.locator(`[data-value="${selected}"]`);
               await button.focus();
@@ -239,17 +257,7 @@ async function checkDiagramGeometry(page, state) {
             await checkDiagramGeometry(page, name);
             const content = await page.locator("#diagram").textContent();
             if (id === "why-liquid") {
-              for (const word of [
-                "Steady-flow sensible-heat balance",
-                "heat rate",
-                "mass flow",
-                "specific heat",
-                "density",
-                "volume flow",
-                "ΔT",
-                "8,292",
-                "2.39",
-              ])
+              for (const word of ["Q̇ = ṁ cₚ ΔT = ρ V̇ cₚ ΔT", "8,292", "2.39"])
                 assert.ok(content.includes(word), `${name}: missing ${word}`);
             }
             if (id === "water-balance") {
