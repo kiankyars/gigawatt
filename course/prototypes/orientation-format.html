@@ -1,0 +1,762 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="description"
+      content="Trace a data center's power, heat and information paths, choose measurement boundaries, and compare energy, peak demand and useful work."
+    />
+    <title>Inside the facility · GIGAWATT</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f4f3ee;
+        --text: #193139;
+        --muted: #5b6c70;
+        --line: #c8d4d4;
+        --panel: #e8eeea;
+        --surface: #fbfcf8;
+        --power: #086e83;
+        --heat: #ac4e2f;
+        --data: #6951a5;
+        font-family:
+          Inter,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        color: var(--text);
+        background: var(--paper);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          color-scheme: dark;
+          --paper: #101b1f;
+          --text: #e8f1ef;
+          --muted: #a8bfbd;
+          --line: #35504f;
+          --panel: #1b2d31;
+          --surface: #142428;
+          --power: #74d9e6;
+          --heat: #f2a387;
+          --data: #c3b2ff;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+      }
+      button,
+      select,
+      a {
+        font: inherit;
+      }
+      a {
+        color: var(--power);
+      }
+      button,
+      select {
+        color: inherit;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        min-height: 40px;
+        padding: 8px 13px;
+        cursor: pointer;
+      }
+      button:hover,
+      select:hover {
+        border-color: var(--muted);
+      }
+      button:disabled {
+        opacity: 0.35;
+        cursor: default;
+      }
+      button[aria-pressed="true"] {
+        color: var(--paper);
+        background: var(--text);
+        border-color: var(--text);
+      }
+      :is(button, select, a, summary):focus-visible {
+        outline: 3px solid var(--heat);
+        outline-offset: 3px;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+      #viewer {
+        height: 100svh;
+        max-width: 1920px;
+        margin: auto;
+        display: grid;
+        grid-template-rows: 52px minmax(0, 1fr) 62px;
+      }
+      .toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        padding: 0 28px;
+        border-bottom: 1px solid var(--line);
+      }
+      .brand {
+        color: inherit;
+        text-decoration: none;
+        letter-spacing: 1.5px;
+        font-size: 12px;
+        font-weight: 800;
+      }
+      .toolbar nav {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .toolbar button,
+      .toolbar nav a {
+        font-size: 12px;
+      }
+      main {
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        padding: 20px 4vw 0;
+        gap: 8px;
+      }
+      .eyebrow {
+        color: var(--power);
+        font-size: 10px;
+        font-weight: 750;
+        letter-spacing: 2px;
+        margin: 0 0 10px;
+      }
+      h1 {
+        font:
+          400 clamp(29px, 3.3vw, 51px)/1.09 Georgia,
+          serif;
+        letter-spacing: -0.7px;
+        text-wrap: balance;
+        margin: 0;
+        max-width: 1450px;
+      }
+      #stage {
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+      }
+      #diagram {
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+        flex: 1;
+        overflow: visible;
+        font-family: inherit;
+      }
+      #actions {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        flex-wrap: wrap;
+        padding: 0 0 10px;
+      }
+      #actions:empty {
+        display: none;
+      }
+      #actions button {
+        font-size: 13px;
+      }
+      .choices {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        flex-wrap: wrap;
+      }
+      .choices-label {
+        font-size: 12px;
+        color: var(--muted);
+        margin-right: 5px;
+      }
+      footer {
+        border-top: 1px solid var(--line);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        padding: 0 28px;
+      }
+      .navigation {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      #progress {
+        font-size: 12px;
+        font-variant-numeric: tabular-nums;
+        color: var(--muted);
+        min-width: 45px;
+        text-align: center;
+      }
+      #scenes {
+        max-width: 250px;
+        width: min(250px, 35vw);
+        font-size: 13px;
+      }
+      dialog {
+        color: var(--text);
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        width: min(760px, 94vw);
+        max-height: 86svh;
+        padding: 25px 30px;
+        line-height: 1.65;
+      }
+      dialog::backdrop {
+        background: #08131ab3;
+      }
+      dialog header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      dialog h2 {
+        font:
+          normal 29px Georgia,
+          serif;
+        margin: 0;
+      }
+      dialog h3 {
+        font-size: 17px;
+      }
+      dialog summary {
+        cursor: pointer;
+        font-weight: 650;
+      }
+      dialog p {
+        font-size: 15px;
+      }
+      dialog details {
+        border-top: 1px solid var(--line);
+        padding-top: 14px;
+        margin-top: 18px;
+      }
+      dialog li {
+        margin: 9px 0;
+      }
+      dialog .scope {
+        color: var(--muted);
+      }
+      @media (max-width: 600px) {
+        #viewer {
+          height: auto;
+          min-height: 100svh;
+          grid-template-rows: 52px minmax(0, 1fr) 62px;
+        }
+        .toolbar {
+          padding: 0 15px;
+        }
+        .toolbar nav {
+          gap: 6px;
+        }
+        .toolbar .reading-link {
+          display: none;
+        }
+        .toolbar button {
+          padding: 6px 9px;
+        }
+        main {
+          padding: 20px 8px 5px;
+          gap: 12px;
+        }
+        main > header {
+          padding: 0 7px;
+        }
+        h1 {
+          font-size: 31px;
+        }
+        #diagram {
+          min-height: 650px;
+          height: 650px;
+          flex: none;
+        }
+        #actions {
+          padding: 5px 7px 12px;
+        }
+        #actions button {
+          font-size: 12px;
+          padding: 8px 11px;
+        }
+        footer {
+          padding: 0 15px;
+          gap: 8px;
+        }
+        #scenes {
+          width: 44vw;
+        }
+        .navigation {
+          gap: 5px;
+        }
+        footer button {
+          padding: 7px 10px;
+        }
+        dialog {
+          padding: 20px;
+        }
+      }
+      @media (max-height: 500px) and (min-width: 601px) {
+        #viewer {
+          height: auto;
+          min-height: 100svh;
+        }
+        #diagram {
+          min-height: 510px;
+        }
+        footer {
+          height: 62px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          scroll-behavior: auto !important;
+        }
+      }
+      @media print {
+        #viewer {
+          height: auto;
+        }
+        .toolbar,
+        footer,
+        #actions {
+          display: none;
+        }
+        #diagram {
+          min-height: 600px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="viewer">
+      <header class="toolbar">
+        <a class="brand" href="../index.html">GIGAWATT</a>
+        <nav aria-label="Lesson resources">
+          <a class="reading-link" href="../index.html#d01-boundaries">Reading</a
+          ><button id="explain">Explanation &amp; sources</button
+          ><button id="fullscreen" hidden>Full screen</button>
+        </nav>
+      </header>
+      <main>
+        <header>
+          <p class="eyebrow">D01 · INSIDE THE FACILITY</p>
+          <h1 id="title"></h1>
+        </header>
+        <section id="stage" aria-label="Facility systems and measurement">
+          <svg
+            id="diagram"
+            role="img"
+            aria-labelledby="diagram-title diagram-description"
+          ></svg>
+          <div id="actions"></div>
+        </section>
+      </main>
+      <footer>
+        <label class="sr-only" for="scenes">Choose scene</label
+        ><select id="scenes"></select>
+        <div class="navigation">
+          <button id="previous" aria-label="Previous scene">←</button
+          ><span id="progress" aria-live="polite"></span
+          ><button id="next" aria-label="Next scene">→</button>
+        </div>
+      </footer>
+    </div>
+    <dialog id="reading" aria-labelledby="reading-title">
+      <header>
+        <h2 id="reading-title">Inside the facility</h2>
+        <button id="close-reading" aria-label="Close explanation">×</button>
+      </header>
+      <p class="scope">
+        First teaching section · selected D01 foundations. Eight scenes
+        introduce paths, space, meter boundaries, heat, power versus energy,
+        measurement resolution and useful work. The following workload section
+        is still to be authored. All quantities here are hypothetical; diagrams
+        show functional relationships, not installation drawings.
+      </p>
+      <h3 id="explanation-title"></h3>
+      <div id="explanation"></div>
+      <details>
+        <summary>Model assumptions and equations</summary>
+        <p>
+          <strong>One facility ledger:</strong> ten racks at 100 kW each plus
+          100 kW of separately metered network and storage equipment make 1,100
+          kW of IT input. Upstream electrical losses (40 kW), cooling machinery
+          (160 kW) and other facility loads (20 kW) add 220 kW. Facility input
+          is 1,320 kW. The 8 kW of internal supply loss in each rack is already
+          part of its 100 kW input. The rack boundary is an equipment-input
+          account; moving a separately powered CDU into a rack does not
+          automatically classify its power as IT energy.
+        </p>
+        <p>
+          <strong>Heat:</strong> over a steady interval, approximately all this
+          electrical input ultimately leaves as heat. This assumes negligible
+          net stored-energy change and small other energy streams. Information
+          describes the service; it is not a large energy output to subtract
+          from the heat balance. The heat arrows do not imply all 1,320 kW
+          passes through one coolant loop.
+        </p>
+        <p>
+          <strong>Power and energy:</strong> 1 W = 1 J/s; 1 MW = 1,000 kW.
+          Energy = power × duration for a constant segment. Add segment energies
+          for a stepped profile. Average power = total energy ÷ elapsed time.
+          The 24-hour traces both use 184 MWh; shifting flexible work is assumed
+          to preserve that energy and its completion requirements. The
+          illustrative 8 MW supply limit concerns the plotted demand only; real
+          equipment has additional constraints.
+        </p>
+        <p>
+          <strong>Measurement resolution:</strong> 8 MW for five minutes and 12
+          MW for one minute followed by 7 MW for four minutes each use 666.7
+          kWh. Both average 8 MW, but their plotted peaks differ. These assumed
+          piecewise-constant traces cannot establish a real device's millisecond
+          response or protective-trip behavior.
+        </p>
+        <p>
+          <strong>Useful work:</strong> a separate one-hour comparison holds 100
+          identical completed jobs and their quality requirements fixed. Case A
+          uses 1,000 kWh IT + 200 kWh overhead. Case B uses 1,200 kWh IT + 200
+          kWh overhead. PUE = facility energy ÷ IT energy. The ratio falls from
+          1.20 to about 1.17, while facility energy per job rises from 12 to 14
+          kWh. Fixed overhead is an assumption, not a general response to a
+          changing IT load. This is not an annual measured PUE or a hardware
+          benchmark.
+        </p>
+      </details>
+      <details>
+        <summary>
+          Primary sources and reading limits · checked 11 September 2026
+        </summary>
+        <ul>
+          <li>
+            <a
+              href="https://www.energy.gov/sites/default/files/2024-07/best-practice-guide-data-center-design_0.pdf"
+              >DOE / NREL — Best Practices Guide for Energy-Efficient Data
+              Center Design</a
+            >: executive summary and sections 2.2, 2.4, 2.5, 7.1 and 8.1 support
+            system boundaries, internal server consumption and heat recovery.
+            Historical equipment-efficiency figures are not used in these
+            examples.
+          </li>
+          <li>
+            <a
+              href="https://www.eia.gov/energyexplained/electricity/measuring-electricity.php"
+              >EIA — Measuring electricity</a
+            >: power and energy units. The traces and supply limits are original
+            examples.
+          </li>
+          <li>
+            <a
+              href="https://leviton.com/support/literature/newsletters/insider/insideroctober2025/focusedproductoctober2025"
+              >Leviton — White Space and Gray Space</a
+            >: area definitions only; no universal equipment placement or
+            connector configuration is inferred.
+          </li>
+          <li>
+            <a
+              href="https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/components.html"
+              >NVIDIA — NVL72 system hardware and components</a
+            >: component hierarchy and electrical, thermal and network
+            interfaces. This diagram is generic and does not reproduce an NVL72
+            installation or use its product ratings.
+          </li>
+          <li>
+            <a
+              href="https://datacenters.lbl.gov/sites/default/files/WP49-PUE%20A%20Comprehensive%20Examination%20of%20the%20Metric_v6.pdf"
+              >The Green Grid — PUE: A Comprehensive Examination of the
+              Metric</a
+            >: printed pages 8–9, 14–22 and 34 distinguish infrastructure
+            efficiency, IT energy and productivity. Used as metric explanation,
+            not a claim of compliance with a current standard.
+          </li>
+        </ul>
+      </details>
+      <p>
+        <a id="lesson-reference" href="../index.html#d01-boundaries"
+          >Read the expanded lesson →</a
+        >
+      </p>
+    </dialog>
+    <noscript
+      ><p>
+        This interactive teaching view needs JavaScript.
+        <a href="../lessons/d01-boundaries.md">Read the static lesson</a>.
+      </p></noscript
+    >
+    <script type="module">
+      import { renderSpatial } from "./orientation-spatial.js";
+      import { renderQuantities } from "./orientation-quantities.js";
+      const $ = (id) => document.getElementById(id);
+      const state = {
+        path: "power",
+        cduLocation: "hall",
+        rackDetail: false,
+        boundary: "it",
+        schedule: "stepped",
+        trace: "steady",
+        efficiency: "baseline",
+      };
+      const scenes = [
+        {
+          id: "three-paths",
+          label: "Three paths",
+          title:
+            "A working rack needs power, cooling and a connection to other machines.",
+          reference: "d01-boundaries",
+          key: "path",
+          group: "Trace",
+          options: [
+            ["power", "Power"],
+            ["heat", "Heat"],
+            ["data", "Information"],
+          ],
+          description:
+            "The same facility is shown with distinct power, heat and information connections. Select a path to trace its role.",
+          explanation:
+            "Start with the rack in the IT hall. Electrical power reaches it through the electrical room. Its heat travels through cooling systems toward the environment. Information moves between servers, storage and networks. The electrical and thermal arrows track energy; the information arrows track communication. This is a functional map: the full electrical circuit and individual coolant loops are taught in later sections.",
+        },
+        {
+          id: "white-grey",
+          label: "White / grey space",
+          title:
+            "A cooling cabinet can serve the racks from the hall or a mechanical gallery.",
+          reference: "d01-boundaries",
+          key: "cduLocation",
+          group: "Coolant distribution unit",
+          options: [
+            ["hall", "In the hall"],
+            ["gallery", "In the gallery"],
+          ],
+          description:
+            "The IT hall is white space. Supporting rooms and galleries are grey space. Moving a cooling distribution unit changes its location, not its job.",
+          explanation:
+            "White space and grey space describe areas of a layout. White space houses IT equipment; grey space houses supporting electrical and mechanical systems. A CDU is a coolant distribution unit: it connects the rack cooling system to facility cooling while controlling the rack-side conditions. This scene only locates its job; the cooling section teaches its internals. Moving the same cabinet does not by itself remove its power consumption or establish a smaller building.",
+        },
+        {
+          id: "rack-boundary",
+          label: "Rack input",
+          title:
+            "The rack inlet already counts its internal power-supply losses.",
+          reference: "d01-boundaries",
+          key: "rackDetail",
+          group: "Account",
+          options: [
+            ["false", "Rack inlet"],
+            ["true", "Inside the rack"],
+          ],
+          description:
+            "A hypothetical rack receives 100 kW. Eight kilowatts becomes internal power-supply heat and 92 kW feeds downstream electronics and fans. The total remains 100 kW.",
+          explanation:
+            "The meter is upstream of the rack power supplies. In this original example, 8 kW of the measured 100 kW is dissipated in those supplies; 92 kW feeds the remaining rack equipment, including fans. The loss is a subset of the inlet reading. Adding it again would count the same energy twice. A rack is a physical cabinet; a server is equipment inside it. These numbers do not represent a specific product efficiency.",
+        },
+        {
+          id: "facility-meter",
+          label: "Facility input",
+          title:
+            "A facility meter includes the IT load and the systems that support it.",
+          reference: "d01-boundaries",
+          key: "boundary",
+          group: "Meter boundary",
+          options: [
+            ["it", "IT equipment"],
+            ["facility", "Whole facility"],
+          ],
+          description:
+            "Ten 100 kW racks plus 100 kW of networking and storage total 1,100 kW IT. Another 220 kW of facility loads makes the facility input 1,320 kW.",
+          explanation:
+            "Keep the equipment unchanged and widen the measurement boundary. The IT account includes the ten rack inlets and separate network/storage loads. The whole-facility account also includes upstream electrical losses, cooling machinery and other facility loads. These are nonoverlapping categories at the same operating point. White/grey space is a location convention; it does not decide an energy category.",
+        },
+        {
+          id: "heat-account",
+          label: "Heat account",
+          title:
+            "Useful computation does not remove the facility’s heat-rejection duty.",
+          reference: "d01-boundaries",
+          description:
+            "Approximately 1,100 kW from IT and 220 kW from supporting systems ultimately become 1,320 kW of heat across all facility heat paths in steady operation.",
+          explanation:
+            "A computed result is valuable, but it does not carry away a substantial fraction of the supplied electrical energy. In this steady example, the IT input becomes approximately the same rate of heat, while supporting systems add heat elsewhere. The facility therefore releases approximately 1,320 kW in total. These arrows describe heat transfer, not one continuous water pipe. During a transient, some energy can accumulate in warming equipment or storage; that is outside this settled balance.",
+        },
+        {
+          id: "power-energy",
+          label: "Energy and peak",
+          title: "Equal daily energy can require different peak power.",
+          reference: "d01-power-over-time",
+          key: "schedule",
+          group: "Demand",
+          options: [
+            ["stepped", "Original demand"],
+            ["flat", "Shift flexible work"],
+          ],
+          description:
+            "A stepped daily profile uses 184 MWh and peaks at 10 MW. A hypothetical flat schedule uses the same 184 MWh and peaks at 7.67 MW, below an illustrative 8 MW supply limit.",
+          explanation:
+            "Power is the height of the graph; energy is its area. The three original blocks contribute 48 + 120 + 16 = 184 MWh. If flexible work can be rescheduled to spread that energy evenly across the same 24 hours, average and peak become 184 ÷ 24 = 7.67 MW. This ideal comparison holds total energy and completion requirements fixed. The original trace exceeds the 8 MW line; its daily energy total alone cannot tell you whether that supply is sufficient.",
+        },
+        {
+          id: "meter-average",
+          label: "Hidden peaks",
+          title: "An average can hide the peak a power path must carry.",
+          reference: "d01-power-over-time",
+          key: "trace",
+          group: "Five-minute trace",
+          options: [
+            ["steady", "Steady"],
+            ["spike", "Brief peak"],
+          ],
+          description:
+            "Both traces average 8 MW over five minutes. One stays at 8 MW; the other reaches 12 MW for one minute, then 7 MW for four minutes, exceeding the illustrative 10 MW line.",
+          explanation:
+            "The average display cannot distinguish these two traces. Both use about 666.7 kWh in five minutes. Yet the second asks for 12 MW during its first minute. The supply line here is a comparison threshold, not a prediction of a breaker trip. Choose measurement resolution for the event you want to understand; neither a billing total nor a five-minute average reveals every fast excursion.",
+        },
+        {
+          id: "useful-work",
+          label: "Useful work",
+          title:
+            "A lower PUE can accompany more energy for the same completed work.",
+          reference: "d01-metrics-and-evidence",
+          key: "efficiency",
+          group: "One-hour case",
+          options: [
+            ["baseline", "Baseline"],
+            ["extra", "Extra IT draw"],
+          ],
+          description:
+            "With 100 identical jobs completed, PUE falls from 1.20 to 1.17 when IT energy rises from 1,000 to 1,200 kWh and overhead stays at 200 kWh. Facility energy per job rises from 12 to 14 kWh.",
+          explanation:
+            "Power usage effectiveness compares total facility energy with IT energy over the same interval. It does not count completed work. Here the same 100 jobs meet the same quality requirements in both cases. Extra IT consumption enlarges the denominator, so the ratio improves even while energy per job gets worse. This is a counterexample, not a claim that lower PUE is generally bad. It sets up the next question: what job must the facility actually deliver, at what speed and quality?",
+        },
+      ];
+      let index = 0;
+      const teaching =
+        new URLSearchParams(location.search).get("teach") === "1";
+      $("fullscreen").hidden = !teaching;
+      $("scenes").innerHTML = scenes
+        .map((s, i) => `<option value="${i}">${i + 1}. ${s.label}</option>`)
+        .join("");
+      function draw() {
+        const s = scenes[index],
+          compact = matchMedia("(max-width:600px)").matches;
+        $("diagram").setAttribute(
+          "viewBox",
+          compact ? "0 0 390 720" : "0 0 1160 600",
+        );
+        const visual =
+          index < 3
+            ? renderSpatial(s.id, state, compact)
+            : renderQuantities(s.id, state, compact);
+        $("diagram").innerHTML =
+          `<title id="diagram-title">${s.title}</title><desc id="diagram-description">${s.description}</desc>${visual}`;
+      }
+      function render() {
+        const s = scenes[index];
+        $("title").textContent = s.title;
+        document.title = `${s.label} · GIGAWATT`;
+        $("scenes").value = String(index);
+        $("progress").textContent = `${index + 1} / ${scenes.length}`;
+        $("previous").disabled = index === 0;
+        $("next").disabled = index === scenes.length - 1;
+        $("actions").innerHTML = s.options
+          ? `<div class="choices" role="group" aria-label="${s.group}"><span class="choices-label" aria-hidden="true">${s.group}</span>${s.options.map(([v, label]) => `<button data-setting="${s.key}" data-value="${v}" aria-pressed="${String(state[s.key]) === v}">${label}</button>`).join("")}</div>`
+          : "";
+        $("explanation-title").textContent = s.title;
+        $("explanation").textContent = s.explanation;
+        $("lesson-reference").href = `../index.html#${s.reference}`;
+        draw();
+      }
+      function go(i) {
+        index = Math.max(0, Math.min(scenes.length - 1, i));
+        history.replaceState(null, "", `#${scenes[index].id}`);
+        render();
+      }
+      function fromHash() {
+        const found = scenes.findIndex((s) => s.id === location.hash.slice(1));
+        index = found < 0 ? 0 : found;
+        render();
+      }
+      $("actions").addEventListener("click", (e) => {
+        const b = e.target.closest("[data-setting]");
+        if (!b) return;
+        const { setting, value } = b.dataset;
+        state[setting] = setting === "rackDetail" ? value === "true" : value;
+        render();
+        document
+          .querySelector(`[data-setting="${setting}"][data-value="${value}"]`)
+          ?.focus();
+      });
+      $("previous").addEventListener("click", () => go(index - 1));
+      $("next").addEventListener("click", () => go(index + 1));
+      $("scenes").addEventListener("change", (e) => go(Number(e.target.value)));
+      $("explain").addEventListener("click", () => $("reading").showModal());
+      $("close-reading").addEventListener("click", () => $("reading").close());
+      $("reading").addEventListener("click", (e) => {
+        if (e.target === $("reading")) {
+          const r = $("reading").getBoundingClientRect();
+          if (
+            e.clientX < r.left ||
+            e.clientX > r.right ||
+            e.clientY < r.top ||
+            e.clientY > r.bottom
+          )
+            $("reading").close();
+        }
+      });
+      $("fullscreen").addEventListener("click", async () => {
+        try {
+          if (document.fullscreenElement) await document.exitFullscreen();
+          else await $("viewer").requestFullscreen();
+        } catch {
+          $("fullscreen").textContent = "Use browser full screen";
+        }
+      });
+      window.addEventListener("keydown", (e) => {
+        if (
+          $("reading").open ||
+          e.altKey ||
+          e.ctrlKey ||
+          e.metaKey ||
+          e.target.closest("button,select,input,textarea,a,[contenteditable]")
+        )
+          return;
+        if (e.key === "ArrowRight") {
+          e.preventDefault();
+          go(index + 1);
+        }
+        if (e.key === "ArrowLeft") {
+          e.preventDefault();
+          go(index - 1);
+        }
+        if (e.key.toLowerCase() === "f" && teaching) $("fullscreen").click();
+      });
+      window.addEventListener("hashchange", fromHash);
+      matchMedia("(max-width:600px)").addEventListener("change", draw);
+      fromHash();
+    </script>
+  </body>
+</html>

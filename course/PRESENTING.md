@@ -1,19 +1,16 @@
 # Rehearse the teaching sequences
 
-[800 V teaching view](teach.html) · [Student exploration](sample.html) · [Written lesson](sample-reading.html)
+[Opening section](prototypes/orientation-format.html?teach=1) · [800 V](teach.html)
+· [UPS](prototypes/ups-format.html) · [Cooling](prototypes/cooling-format.html?teach=1)
 
 ## The next pass
 
-The reviewed **UPS** and **800 V** sequences now establish the direction for the
-rest of the course. Keep reporting specific confusing scenes, but there is no
-need to reread both sequences before work advances.
-
-The **[cooling presentation](prototypes/cooling-format.html)** is what you teach
-from. Its fourteen scenes now cover why liquid cooling is useful, CRAH and rack
-capture methods, the named sensible-heat balance, CDU approach, a real CoolIT
-CHx2000, dry/wet rejection, weather, chillers, hybrid and economizer modes, and
-CDU redundancy, independent facility paths and reduced-power operation after a
-cooling failure. Use the controls to compare methods or operating states.
+The next dry run is **[D01 — Inside the facility](prototypes/orientation-format.html?teach=1#three-paths)**.
+Its eight scenes cover the three paths, white/grey space, rack and facility meter
+boundaries, the heat account, energy versus peak demand, hidden peaks and PUE
+versus useful work. It applies the approach reviewed in UPS, 800 V and cooling.
+The [student route](prototypes/orientation-format.html) has the same diagrams and
+experiments; each scene's explanation and sources open on demand.
 
 1. Teach the new sequence aloud without recording. Let the visual carry the
    explanation; notes are optional.
@@ -21,6 +18,19 @@ cooling failure. Use the controls to compare methods or operating states.
    wrong or needed a clearer picture.
 3. We revise that section, then continue through the domain map's dependencies.
    The domains track coverage; they do not impose fifteen identical slide decks.
+
+This is the opening teaching section, not all of D01/D02. Source-claim evaluation
+remains in the D01 reference; D02's workload brief and service requirements are
+the next teaching section to build. No need to reread the three reviewed sequences
+or the entire manuscript before this pass.
+
+## Cooling reference sequence
+
+The **[cooling presentation](prototypes/cooling-format.html)** has fourteen scenes
+covering why liquid cooling is useful, CRAH and rack capture methods, the sensible
+heat balance, CDU approach, a real CoolIT CHx2000, dry/wet rejection, weather,
+chillers, hybrid and economizer modes, and CDU redundancy, independent facility
+paths and reduced-power operation after a cooling failure.
 
 **D10 and D11 in the expanded reader are the reference chapters.** They provide
 derivations, source discussion and additional detail; the presentation should

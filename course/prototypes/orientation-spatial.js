@@ -1,0 +1,420 @@
+/* Exact, intentionally simplified spatial diagrams. Flow lines show functional
+ * connections, not a wiring, piping or construction layout. */
+const escape = (value) =>
+  String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll('"', "&quot;");
+const rect = (id, x, y, w, h, options = {}) =>
+  `<rect id="ori-${id}" x="${x}" y="${y}" width="${w}" height="${h}" rx="${options.radius ?? 12}" fill="${options.fill ?? "var(--panel)"}" stroke="${options.stroke ?? "var(--line)"}" stroke-width="${options.width ?? 1.5}"${options.dash ? ' stroke-dasharray="7 6"' : ""}/>`;
+const label = (x, y, value, owner, options = {}) =>
+  `<text x="${x}" y="${y}" text-anchor="${options.anchor ?? "middle"}" fill="${options.color ?? "var(--text)"}" font-size="${options.size ?? 18}" font-weight="${options.weight ?? 500}"${owner ? ` data-label-for="ori-${owner}"` : ""}>${escape(value)}</text>`;
+const line = (d, color, arrow = false, width = 5) =>
+  `<path d="${d}" fill="none" stroke="var(--${color})" stroke-width="${width}" stroke-linecap="round" stroke-linejoin="round"${arrow ? ` marker-end="url(#ori-${color}-arrow)"` : ""}/>`;
+const defs = () =>
+  `<defs>${["power", "heat", "data"].map((color) => `<marker id="ori-${color}-arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="3.3" markerHeight="3.3" orient="auto-start-reverse"><path d="M1 1 L9 5 L1 9Z" fill="var(--${color})"/></marker>`).join("")}</defs>`;
+const route = (name, selected, content) =>
+  `<g data-path="${name}" data-selected="${name === selected}" opacity="${name === selected ? 1 : 0.17}">${content}</g>`;
+
+function cabinet(id, x, y, w, h, name, small = false) {
+  const size = small ? 15 : 20;
+  if (small && h < 75)
+    return (
+      rect(id, x, y, w, h, { radius: 7, fill: "var(--surface)" }) +
+      (Array.isArray(name)
+        ? name
+            .map((part, i) =>
+              label(x + w / 2, y + 22 + i * 19, part, id, { size: 15 }),
+            )
+            .join("")
+        : label(x + w / 2, y + h / 2 + 5, name, id, { size: 15 }))
+    );
+  return (
+    rect(id, x, y, w, h, { radius: 7, fill: "var(--surface)" }) +
+    label(x + w / 2, y + (small ? 22 : 26), name, id, { size }) +
+    [0, 1, 2]
+      .map(
+        (i) =>
+          `<path d="M${x + 13} ${y + h - 16 - i * 7}H${x + w - 13}" stroke="var(--line)" stroke-width="2"/>`,
+      )
+      .join("") +
+    `<circle cx="${x + w - 12}" cy="${y + h - 43}" r="2.5" fill="var(--muted)"/>`
+  );
+}
+
+function rackGroup(compact) {
+  const x = compact ? 43 : 373,
+    y = compact ? 406 : 225;
+  const w = compact ? 204 : 289,
+    h = compact ? 210 : 255;
+  return (
+    rect("racks", x, y, w, h, { fill: "var(--surface)", radius: 10 }) +
+    label(x + w / 2, y + 29, "Compute racks", "racks", {
+      size: compact ? 17 : 20,
+    }) +
+    [0, 1, 2]
+      .map((i) => {
+        const bx = x + (compact ? 11 : 15) + i * (compact ? 61 : 89);
+        const by = y + (compact ? 48 : 66),
+          bw = compact ? 53 : 76,
+          bh = compact ? 143 : 169;
+        return (
+          rect(`rack-${i}`, bx, by, bw, bh, {
+            fill: "var(--panel)",
+            radius: 5,
+          }) +
+          [0, 1, 2, 3, 4]
+            .map((slot) => {
+              const sy = by + 11 + slot * (compact ? 24 : 28);
+              return `<rect x="${bx + 7}" y="${sy}" width="${bw - 14}" height="${compact ? 17 : 20}" rx="2" fill="var(--surface)" stroke="var(--line)"/><circle cx="${bx + bw - 13}" cy="${sy + 8}" r="1.8" fill="var(--muted)"/>`;
+            })
+            .join("")
+        );
+      })
+      .join("")
+  );
+}
+
+function cdu(compact, location, named) {
+  const hall = location === "hall";
+  const x = compact ? (hall ? 267 : 218) : hall ? 692 : 892;
+  const y = compact ? (hall ? 493 : 201) : 335;
+  const w = compact ? (hall ? 89 : 134) : hall ? 112 : 145;
+  const h = compact ? (hall ? 102 : 91) : 105;
+  return (
+    `<g data-cdu-location="${location}">` +
+    rect("cdu", x, y, w, h, {
+      fill: "var(--surface)",
+      stroke: "var(--heat)",
+      width: 2,
+    }) +
+    (named
+      ? label(x + w / 2, y + 26, "CDU", "cdu", {
+          size: compact ? 17 : 22,
+          weight: 650,
+        })
+      : ["Cooling", "interface"]
+          .map((part, i) =>
+            label(
+              x + w / 2,
+              y + (compact ? 23 : 28) + i * (compact ? 19 : 23),
+              part,
+              "cdu",
+              { size: compact ? 16 : 20, weight: 600 },
+            ),
+          )
+          .join("")) +
+    `<g transform="translate(0 ${named ? 0 : compact ? 11 : 17})"><path d="M${x + w / 2 - 16} ${y + 47}h13v25h-13zM${x + w / 2 + 3} ${y + 47}h13v25h-13z" fill="none" stroke="var(--heat)" stroke-width="2"/><path d="M${x + w / 2 - 3} ${y + 50}l6 6-6 6 6 6" fill="none" stroke="var(--muted)" stroke-width="1.5"/></g>` +
+    `</g>`
+  );
+}
+
+function room(id, x, y, w, h, names, space, compact, spaces) {
+  const titleY = y + (compact ? 27 : 34);
+  return (
+    rect(id, x, y, w, h, {
+      fill: id === "it-hall" ? "var(--surface)" : "var(--panel)",
+      stroke: spaces && id === "it-hall" ? "var(--text)" : "var(--line)",
+      width: spaces && id === "it-hall" ? 2.5 : 1.5,
+    }) +
+    names
+      .map((name, index) =>
+        label(x + w / 2, titleY + index * 21, name, id, {
+          size: compact ? 17 : 20,
+          weight: 600,
+        }),
+      )
+      .join("") +
+    (spaces
+      ? label(x + w / 2, y + h - 18, space, id, {
+          size: compact ? 12 : 14,
+          weight: 650,
+          color: "var(--muted)",
+        })
+      : "")
+  );
+}
+
+function floorPlan(state, compact, spaces) {
+  const selected = spaces
+    ? "heat"
+    : ["power", "heat", "data"].includes(state.path)
+      ? state.path
+      : "power";
+  const location = spaces && state.cduLocation === "hall" ? "hall" : "gallery";
+  const badge = (id, x, y, w, h, text, color) =>
+    rect(id, x, y, w, h, { fill: "var(--surface)", radius: 8 }) +
+    label(x + w / 2, y + h / 2 + 6, text, id, {
+      color: `var(--${color})`,
+      size: compact ? 15 : 19,
+      weight: 600,
+    });
+  let out = defs();
+  if (compact) {
+    out += room(
+      "electrical-room",
+      18,
+      99,
+      162,
+      219,
+      ["Electrical", "room"],
+      "GREY SPACE",
+      true,
+      spaces,
+    );
+    out += room(
+      "mechanical-gallery",
+      199,
+      99,
+      173,
+      219,
+      ["Mechanical", "gallery"],
+      "GREY SPACE",
+      true,
+      spaces,
+    );
+    out += room(
+      "it-hall",
+      18,
+      340,
+      354,
+      325,
+      ["IT hall"],
+      "WHITE SPACE",
+      true,
+      spaces,
+    );
+    out += route(
+      "power",
+      selected,
+      line("M96 64V83H29V185H43", "power", true) +
+        line("M96 212V230", "power", true) +
+        line("M96 284V327H29V492H43", "power", true),
+    );
+    out += route(
+      "data",
+      selected,
+      `<path d="M145 674V617" fill="none" stroke="var(--data)" stroke-width="5" marker-start="url(#ori-data-arrow)" marker-end="url(#ori-data-arrow)"/>`,
+    );
+    out += route(
+      "heat",
+      selected,
+      location === "hall"
+        ? line("M247 545H267", "heat", true) +
+            line("M312 493V332H365V78H285V64", "heat", true)
+        : line("M247 545H366V251H352", "heat", true) +
+            line("M285 201V177H365V78H285V64", "heat", true),
+    );
+    out += cabinet("ups", 43, 157, 107, 55, ["Power", "backup"], true);
+    out += rect("distribution", 35, 230, 123, 54, {
+      fill: "var(--surface)",
+      radius: 7,
+    });
+    out += label(96.5, 262, "Distribution", "distribution", { size: 14 });
+    out += rackGroup(true) + cdu(true, location, spaces);
+    out += badge("grid", 31, 24, 130, 40, "Grid", "power");
+    out += badge("outdoors", 213, 24, 145, 40, "Heat rejection", "heat");
+    out += badge("network", 65, 674, 160, 35, "Network", "data");
+  } else {
+    out += rect("building", 56, 111, 1048, 434, {
+      fill: "var(--surface)",
+      radius: 20,
+      width: 2,
+    });
+    out += room(
+      "electrical-room",
+      75,
+      132,
+      245,
+      390,
+      ["Electrical room"],
+      "GREY SPACE",
+      false,
+      spaces,
+    );
+    out += room(
+      "it-hall",
+      340,
+      132,
+      490,
+      390,
+      ["IT hall"],
+      "WHITE SPACE",
+      false,
+      spaces,
+    );
+    out += room(
+      "mechanical-gallery",
+      850,
+      132,
+      235,
+      390,
+      ["Mechanical gallery"],
+      "GREY SPACE",
+      false,
+      spaces,
+    );
+    out += route(
+      "power",
+      selected,
+      line("M197 90V115H93V215H197V242", "power", true) +
+        line("M197 334V379", "power", true) +
+        line("M280 424H350V361H373", "power", true),
+    );
+    out += route(
+      "data",
+      selected,
+      `<path d="M518 90V225" fill="none" stroke="var(--data)" stroke-width="5" marker-start="url(#ori-data-arrow)" marker-end="url(#ori-data-arrow)"/>`,
+    );
+    out += route(
+      "heat",
+      selected,
+      location === "hall"
+        ? line("M662 390H692", "heat", true) +
+            line("M804 390H1064V112H987V90", "heat", true)
+        : line("M662 390H892", "heat", true) +
+            line("M1037 390H1064V112H987V90", "heat", true),
+    );
+    out += cabinet("ups", 115, 242, 165, 92, "Power backup");
+    out += cabinet("distribution", 115, 379, 165, 90, "Distribution");
+    out += rackGroup(false) + cdu(false, location, spaces);
+    out += badge("grid", 112, 40, 170, 50, "Grid", "power");
+    out += badge("network", 428, 40, 180, 50, "Network", "data");
+    out += badge("outdoors", 892, 40, 190, 50, "Heat rejection", "heat");
+  }
+  return `<g data-spatial-scene="${spaces ? "white-grey" : "three-paths"}">${out}</g>`;
+}
+
+function rackBoundary(state, compact) {
+  const detail = !!state.rackDetail;
+  let out = defs();
+  if (compact) {
+    out += rect("rack-boundary", 27, 140, 336, 478, {
+      fill: "var(--surface)",
+      stroke: "var(--power)",
+      width: 2,
+      dash: true,
+    });
+    out += label(45, 169, "Rack boundary", "rack-boundary", {
+      size: 18,
+      weight: 650,
+      anchor: "start",
+    });
+    out += label(195, 47, "Electrical input", "", {
+      size: 17,
+      color: "var(--muted)",
+    });
+    out += `<text x="195" y="101" text-anchor="middle" font-size="45" font-weight="650" fill="var(--power)" data-rack-inlet="100">100 kW</text>`;
+    out += line("M195 117V231", "power", true);
+    if (detail) {
+      out += rect("psu", 66, 239, 258, 93, { fill: "var(--panel)" });
+      out += label(195, 269, "Power supplies", "psu", { size: 19 });
+      out += label(195, 307, "8 kW loss", "psu", {
+        size: 27,
+        color: "var(--heat)",
+        weight: 600,
+      });
+      out += line("M195 332V391", "power", true);
+      out += rect("electronics", 66, 397, 258, 153, { fill: "var(--panel)" });
+      out += label(195, 430, "Electronics + fans", "electronics", { size: 19 });
+      out += label(195, 482, "92 kW", "electronics", {
+        size: 36,
+        weight: 650,
+        color: "var(--power)",
+      });
+      out += label(195, 518, "Downstream of the PSUs", "electronics", {
+        size: 15,
+        color: "var(--muted)",
+      });
+      out += label(195, 594, "8 + 92 = 100 kW", "rack-boundary", {
+        size: 23,
+        weight: 600,
+      });
+    } else {
+      out += cabinet("rack-body", 105, 239, 180, 325, "Compute rack");
+      out += [0, 1, 2, 3, 4]
+        .map(
+          (i) =>
+            `<rect x="125" y="${289 + i * 39}" width="140" height="29" rx="4" fill="var(--panel)" stroke="var(--line)"/><circle cx="249" cy="${303 + i * 39}" r="3" fill="var(--muted)"/>`,
+        )
+        .join("");
+    }
+    out += label(
+      195,
+      667,
+      detail ? "Illustrative allocation" : "Measured at the rack inlet",
+      "",
+      { size: 16, color: "var(--muted)" },
+    );
+  } else {
+    out += rect("rack-boundary", 349, 65, 754, 465, {
+      fill: "var(--surface)",
+      stroke: "var(--power)",
+      width: 2,
+      dash: true,
+    });
+    out += label(726, 111, "Rack boundary", "rack-boundary", {
+      size: 25,
+      weight: 650,
+    });
+    out += label(178, 223, "Electrical input", "", {
+      size: 19,
+      color: "var(--muted)",
+    });
+    out += `<text x="178" y="281" text-anchor="middle" font-size="48" font-weight="650" fill="var(--power)" data-rack-inlet="100">100 kW</text>`;
+    out += line("M96 316H420", "power", true);
+    if (detail) {
+      out += rect("psu", 427, 209, 224, 194, { fill: "var(--panel)" });
+      out += label(539, 250, "Power supplies", "psu", { size: 22 });
+      out += label(539, 322, "8 kW", "psu", {
+        size: 43,
+        color: "var(--heat)",
+        weight: 650,
+      });
+      out += label(539, 369, "Conversion loss", "psu", {
+        size: 19,
+        color: "var(--muted)",
+      });
+      out += line("M651 306H733", "power", true);
+      out += rect("electronics", 741, 180, 294, 252, { fill: "var(--panel)" });
+      out += label(888, 226, "Electronics + fans", "electronics", { size: 23 });
+      out += label(888, 307, "92 kW", "electronics", {
+        size: 48,
+        weight: 650,
+        color: "var(--power)",
+      });
+      out += label(888, 379, "Downstream of the PSUs", "electronics", {
+        size: 18,
+        color: "var(--muted)",
+      });
+      out += label(726, 484, "8 + 92 = 100 kW", "rack-boundary", {
+        size: 30,
+        weight: 600,
+      });
+    } else {
+      out += cabinet("rack-body", 578, 159, 274, 319, "Compute rack");
+      out += [0, 1, 2, 3, 4]
+        .map(
+          (i) =>
+            `<rect x="604" y="${211 + i * 42}" width="222" height="31" rx="4" fill="var(--panel)" stroke="var(--line)"/><circle cx="810" cy="${226 + i * 42}" r="3" fill="var(--muted)"/>`,
+        )
+        .join("");
+      out += line("M420 316H578", "power", true);
+    }
+    out += label(
+      726,
+      570,
+      detail ? "Illustrative allocation" : "Measured at the rack inlet",
+      "",
+      { size: 18, color: "var(--muted)" },
+    );
+  }
+  return `<g data-spatial-scene="rack-boundary" data-rack-detail="${detail}">${out}</g>`;
+}
+
+export function renderSpatial(kind, state = {}, compact = false) {
+  if (kind === "three-paths") return floorPlan(state, compact, false);
+  if (kind === "white-grey") return floorPlan(state, compact, true);
+  if (kind === "rack-boundary") return rackBoundary(state, compact);
+  throw new Error(`Unknown orientation spatial scene: ${kind}`);
+}

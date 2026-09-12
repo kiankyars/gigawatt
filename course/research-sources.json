@@ -2622,6 +2622,22 @@
       ],
       "use": "The mechanical-gallery CDU section specifies N+1 CDU groups with shared piping and separates the technical and facility-water loops.",
       "caution": "Selected CDU and gallery sections reviewed in mutable HTML. One reference design does not prove site deployment, independent facility-water paths or the ratings and response time of the synthetic course example."
+    },
+    {
+      "id": "P61",
+      "title": "The Green Grid — PUE: A Comprehensive Examination of the Metric",
+      "url": "https://datacenters.lbl.gov/sites/default/files/WP49-PUE%20A%20Comprehensive%20Examination%20of%20the%20Metric_v6.pdf",
+      "publisher": "The Green Grid",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-11",
+      "published_on": "2012-10-02",
+      "domains": [
+        "D01",
+        "D15"
+      ],
+      "use": "Define facility/IT energy accounting, distinguish PUE from useful-work productivity, and classify equipment by function rather than room location.",
+      "caution": "Reviewed selected material on printed pages 8–9, 14–20, 21–22 and 34, not the entire paper. Historical 2012 guidance, not verification of current ISO compliance. One-hour teaching examples are hypothetical intervals, not annual reported PUE."
     }
   ]
 }

@@ -19,6 +19,8 @@ read it end to end.
 800 V DC sample and seventeen-scene UPS sequence are implemented teaching prototypes.
 A fourteen-scene cooling presentation extends that approach to capture methods,
 CDU ratings and approach, weather and outdoor heat rejection.
+An eight-scene opening section now teaches selected D01 foundations: facility paths,
+measurement boundaries, power and energy, and metrics versus useful work.
 These cover selected parts of the curriculum; they do not establish finished domains.
 Technical review, learner review, adaptation of the remaining material, recording
 and delivery remain pending. Prepare and rehearse one section at a time.
@@ -203,11 +205,12 @@ remaining course. Apply their minimal text, explicit boundaries, visible
 mechanisms and controlled comparisons to each new section. Their visual format
 is a reference, not a requirement to use electrical-style diagrams everywhere.
 
-The current review is [the cooling presentation](prototypes/cooling-format.html),
-spanning selected D10/D11 concepts. It now directly teaches air/liquid capture,
-CRAH and CDU roles, the CoolIT CHx2000, heat balance versus approach, dry/wet
-rejection and weather, chillers, hybrid and economizer modes. D10/D11 remain the
-expanded reference. The presentation is the teaching surface for these topics.
+The current review is **[D01 — Inside the facility](prototypes/orientation-format.html?teach=1#three-paths)**.
+Its eight scenes apply the approach reviewed in UPS, 800 V and cooling: a shared
+facility map, white/grey space, rack and facility accounts, heat, energy versus
+peak demand, hidden peaks and a PUE/useful-work counterexample. These concepts
+are directly taught in the presentation. Source-claim evaluation remains in the
+D01 reference; D02's workload brief is the next teaching section to author.
 
 **Teach the new sequence aloud without recording.** Send the scene and the point
 that confused you or needed a different visual. The agent fixes that mechanism

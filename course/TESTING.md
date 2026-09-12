@@ -570,3 +570,20 @@ substantive air/water volume-flow comparison; their historical links still work.
 
 The presentation is implemented for a new dry run. Full-domain completeness,
 spoken delivery and learner comprehension are not established by these checks.
+# Opening teaching section — 2026-09-11
+
+`course/prototypes/orientation-format.html` directly teaches eight selected D01
+scenes: three facility paths, white/grey space, rack and facility boundaries,
+heat accounting, equal energy/different peaks, averaging and useful-work metrics.
+`orientation-model.js` supplies the shared ledger, profile and efficiency models;
+eight numerical tests check conservation, double counting, intervals and invalid
+inputs. The examples are original assumptions, not measured site or product data.
+
+`node tests/browser_orientation.cjs` passed 128 scene/state layouts at 1440, 1280,
+844 and 390 pixels in light/dark mode. It checks label containment, text overlap,
+desktop fit, selected controls, restoration, numerical results, mouse, touch,
+keyboard, the source dialog and the teaching-only full-screen button. Screenshots
+were inspected, including narrow heat paths and both demand profiles. Fifty-two
+Python tests and 74 JavaScript tests passed; generated reader, map and research
+checks are current. The sequence is ready for a dry run; broader D01 evidence
+evaluation stays in the reference and D02 presentation remains to be authored.

@@ -190,6 +190,7 @@ Separate physical principles, design specifications, observed deployments, annou
 - [E7A716A810E — Leviton — Data center white space and gray space](https://leviton.com/support/literature/newsletters/insider/insideroctober2025/focusedproductoctober2025) · `page_reviewed` · [local note](../research/sources/E7A716A810E.md)
 - [EFE70308E0A — Vertiv — Deploying Liquid Cooling in the Data Center](https://prod.vertiv.cn/4a9616/globalassets/documents/white-papers/liquid-cooling/vertiv-liquidcooling-wp-en-na-sl-71113-web.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/EFE70308E0A.md)
 - [P18 — OpenStax — 20.5 Alternating Current versus Direct Current (College Physics 2e)](https://openstax.org/books/college-physics-2e/pages/20-5-alternating-current-versus-direct-current) · `page_reviewed` · [local note](../research/sources/P18.md)
+- [P61 — The Green Grid — PUE: A Comprehensive Examination of the Metric](https://datacenters.lbl.gov/sites/default/files/WP49-PUE%20A%20Comprehensive%20Examination%20of%20the%20Metric_v6.pdf) · `page_reviewed` · [local note](../research/sources/P61.md)
 
 <a id="d02"></a>
 
@@ -1577,6 +1578,7 @@ Audit a named project's public evidence without filling unknown capacity, topolo
 - [EEFB073374C — NIST Handbook 135, 2025: Life Cycle Costing Manual](https://nvlpubs.nist.gov/nistpubs/hb/2025/NIST.HB.135e2025.pdf) · `page_reviewed` · [local note](../research/sources/EEFB073374C.md)
 - [E775A7D4E10 — OpenAI: Five new Stargate sites](https://openai.com/index/five-new-stargate-sites/) · `page_reviewed` · [local note](../research/sources/E775A7D4E10.md)
 - [SA41 — What is So Hard About Behind-The-Meter Power For Datacenters? Part 1](https://newsletter.semianalysis.com/p/what-is-so-hard-about-behind-the) · `public_excerpt_reviewed` · [local note](../research/sources/SA41.md)
+- [P61 — The Green Grid — PUE: A Comprehensive Examination of the Metric](https://datacenters.lbl.gov/sites/default/files/WP49-PUE%20A%20Comprehensive%20Examination%20of%20the%20Metric_v6.pdf) · `page_reviewed` · [local note](../research/sources/P61.md)
 
 ## Paths through the system
 

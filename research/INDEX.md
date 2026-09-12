@@ -181,6 +181,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P58 — OCP — Modular Technology Cooling Systems, Revision 1](sources/P58.md) | Open Compute Project | D10, D11, D13 | page_reviewed |
 | [P59 — Vertiv — How N+1 redundancy supports continuous data center cooling](sources/P59.md) | Vertiv | D10, D11, D13 | public_excerpt_reviewed |
 | [P60 — NVIDIA — DSX Facilities Infrastructure Reference Design Overview](sources/P60.md) | NVIDIA | D10, D11 | public_excerpt_reviewed |
+| [P61 — The Green Grid — PUE: A Comprehensive Examination of the Metric](sources/P61.md) | The Green Grid | D01, D15 | page_reviewed |
 | [SA01 — Datacenter Anatomy Part 1: Electrical Systems](sources/SA01.md) | SemiAnalysis | D04, D05, D06, D13, D15 | public_excerpt_reviewed |
 | [SA02 — Datacenter Anatomy Part 2 – Cooling Systems](sources/SA02.md) | SemiAnalysis | D10, D11, D15 | public_excerpt_reviewed |
 | [SA03 — 100,000 H100 Clusters: Power, Network Topology, Ethernet vs InfiniBand, Reliability, Failures, Checkpointing](sources/SA03.md) | SemiAnalysis | D02, D07, D08, D09, D14 | public_excerpt_reviewed |
