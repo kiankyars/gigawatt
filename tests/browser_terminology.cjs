@@ -29,20 +29,22 @@ async function geometry(page, size, context) {
   const html=readFileSync(path.resolve(__dirname,'../course/prototypes/terminology-format.html'),'utf8');
   const forwardPointer=/\bD\d{2}\b|later (?:lesson|section|chapter|sequence|comparison|calculation)|(?:next|other) (?:chapter|section)|(?:explain|introduce|meet|revisit).*again|returns in context|first exposure|optional primer|prelude|Skip to|Read the later|Continue to/i;
   assert.equal(scenes.length,19,'Primer goes straight into its nineteen substantive scenes');
-  assert.equal(scenes.reduce((n,s)=>n+s.seconds,0),1205,'Planned scene pacing is 20:05, pending an aloud rehearsal');
+  assert.ok(scenes.every(scene => !('seconds' in scene)), 'Primer does not prescribe slide timings');
+  assert.doesNotMatch(html, /teaching-cues|Planned cue:|Rehearsal cue|id="timing"/, 'No rehearsal cues in the presentation');
   for(const [before,after] of [['ac-dc','ac-shapes'],['three-phase','power-factor'],['backup','ups-types']]) {
     assert.equal(scenes.findIndex(s=>s.id===after),scenes.findIndex(s=>s.id===before)+1,`${after} immediately follows the concept it develops`);
   }
-  assert.match(html,/<h2 id="reading-title">Primer<\/h2>/);
+  assert.doesNotMatch(html, /<dialog|id="explain"|id="explanation"/, "Primer has no Explanation panel");
   assert.doesNotMatch(html,forwardPointer,'Presentation contains a course-forward pointer');
-  assert.doesNotMatch(html,/<a\b|\bhref=|source-list|lesson-reference|skip-primer|next-section/,'Standalone primer has no reference or course links');
+  assert.doesNotMatch(html,/source-list|lesson-reference|skip-primer|next-section/,'Primer has no chapter-forward or reference links');
+  assert.match(html, /href="\.\.\/index\.html\?view=slides"[^>]*>[^<]*Back to course<\/a>/, 'Every scene has an exit to the course slide directory');
   for(const id of Object.values(sceneAliases))assert.ok(scenes.some(scene=>scene.id===id),`Missing replacement scene: ${id}`);
   for(const scene of scenes){
     assert.equal('returns' in scene || 'reference' in scene || 'sources' in scene,false,`${scene.id}: reference metadata belongs outside the presentation`);
     assert.doesNotMatch(JSON.stringify(scene),forwardPointer,`${scene.id}: course-forward pointer`);
     assert.doesNotMatch(scene.title,/;/,`${scene.id}: title uses simple English without a semicolon`);
     for(const compact of [false,true])for(const [value]of scene.options||[[null]]){
-      const state={circuit:'closed',resistanceVoltage:'12',hours:'1',angle:'90',upsSupply:'normal',bandwidth:'100',...(scene.key?{[scene.key]:value}:{})};
+      const state={circuit:'closed',resistanceVoltage:'12',hours:'1',angle:'90',upsSupply:'normal',bandwidth:'10000',...(scene.key?{[scene.key]:value}:{})};
       const svg=renderTerminology(scene.id,state,compact);
       assert.match(svg,/<text\b/,`${scene.id}: visible teaching content`);
       assert.doesNotMatch(svg,/NaN|undefined/,`${scene.id}: invalid diagram value`);
@@ -56,7 +58,7 @@ async function geometry(page, size, context) {
         assert.equal(rows.length,2,'Power factor compares two loads');
         for(const [,pf,kw,kva] of rows)assert.equal(Number(kw)/Number(kva),Number(pf),'Power factor is real divided by apparent power');
         assert.equal(Number(rows[1][3])/Number(rows[0][3]),1.25,'Current demand rises 25% at fixed voltage and phase arrangement');
-        assert.match(svg,/Same voltage and phase arrangement/,'Current comparison states its fixed electrical conditions');
+        assert.match(svg,/Same single-phase supply/,'Current comparison states its fixed electrical supply');
       }
       if(scene.id==='ups-types') {
         assert.match(svg,new RegExp(`data-standby-path="${value==='interrupted'?'battery-inverter-switch':'utility-switch'}"`),'Standby supply switches between utility and inverter');
@@ -66,7 +68,7 @@ async function geometry(page, size, context) {
       if(scene.id==='network') {
         const attr=name=>Number(svg.match(new RegExp(`data-${name}="([^"]+)"`))[1]);
         assert.equal(attr('sending-ms'),8*8/Number(value)*1000,'Serialization time uses bits, bytes and the selected payload rate');
-        assert.equal(attr('travel-ms'),20,'First-bit travel stays fixed');
+        assert.equal(attr('travel-ms'),0.01,'First-bit path latency stays fixed at 10 microseconds');
         assert.equal(attr('arrival-ms'),attr('sending-ms')+attr('travel-ms'),'Last-bit arrival includes sending and travel');
       }
       if(scene.id==='heat-temperature') {
@@ -106,17 +108,15 @@ async function geometry(page, size, context) {
     assert.equal(await page.locator('#diagram path[marker-end]').count(),0,'Open circuit has no current arrows');
     await page.locator('#next').click();await page.locator('#previous').click();
     assert.equal(await page.locator('[data-value="open"]').getAttribute('aria-pressed'),'true');
-    await page.locator('#explain').click();await page.keyboard.press('ArrowRight');assert.match(page.url(),/#circuit$/);
-    assert.match(await page.locator('#explanation').textContent(),/Voltage can still exist/);
-    await page.keyboard.press('Escape');assert.equal(await page.locator('#reading').evaluate(d=>d.open),false);
+
     await page.goto(url('ready'));await page.waitForURL(/#pue$/);
     assert.equal(await page.locator('#scenes').inputValue(),String(scenes.length-1));
     assert.equal(await page.locator('#next').isDisabled(),true);
-    assert.equal(await page.locator('a').count(),0);
+    assert.equal(await page.getByRole('link', {name: 'Back to course'}).count(),1);
     await page.goto(url('welcome',false));assert.equal(await page.locator('#fullscreen').isVisible(),false);
-    await page.locator('#explain').click();assert.equal(await page.locator('#reading-title').textContent(),'Primer');
-    assert.equal(await page.locator('a').count(),0);
+
+    assert.equal(await page.getByRole('link', {name: 'Back to course'}).count(),1);
     assert.deepEqual(errors,[]);
-    console.log('Passed Primer layouts in four viewports and both themes, all control states, example arithmetic, keyboard/dialog behavior and standalone navigation.');
+    console.log('Passed Primer layouts in four viewports and both themes, all control states, example arithmetic, keyboard behavior and course exit.');
   }finally{await browser.close();}
 })().catch(error=>{console.error(error);process.exitCode=1;});

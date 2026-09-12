@@ -36,11 +36,12 @@ Edit those files directly; their numerical tests and browser checks verify the
 prototype, while the matching reader lessons retain the longer explanations.
 The [Primer](prototypes/terminology-format.html) has teaching mode at `prototypes/terminology-format.html?teach=1`.
 Edit `prototypes/terminology-format.html` (embedded presentation shell and styles),
-`prototypes/terminology-scenes.js` (scene content and explanations) and
+`prototypes/terminology-scenes.js` (headlines and accessible descriptions) and
 `prototypes/terminology-visuals.js` and `prototypes/terminology-electricity.js`
-(diagrams) directly. Its 19 slides have 20:05 of planned cues, pending rehearsal.
+(diagrams) directly. Its 19 slides target roughly twenty minutes, without per-slide timing cues.
 They attach vocabulary to examples so a beginner can follow part of an expert
-conversation. [Evidence and assumptions](PRIMER_EVIDENCE.md) are kept outside the slides.
+conversation. [Background notes](PRIMER_NOTES.md) and
+[evidence and assumptions](PRIMER_EVIDENCE.md) are kept outside the slides.
 
 The following Data center overview sequence is `prototypes/orientation-format.html`, with spatial
 diagrams in `orientation-spatial.js`, quantity diagrams in

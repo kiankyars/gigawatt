@@ -76,96 +76,133 @@ function capacity(compact) {
   return out;
 }
 function hardware(compact) {
-  const x=compact?25:130,w=compact?340:900;
-  let out=box(x,55,w,compact?600:500,'line')+text(x+25,95,'RACK',22,'muted','start');
-  out+=box(x+20,120,w-40,compact?455:340,'power')+text(x+40,162,'Server / compute tray',compact?22:28,'power','start');
-  const chips=[['CPU','General-purpose work'],['GPU','Parallel numerical work'],['Memory','Active data and state']];
-  chips.forEach(([a,b],i)=>{const bx=compact?65:190+i*270,by=compact?195+i*115:255,bw=compact?260:240;out+=block(bx,by,bw,a,b,i===2?'data':'power',95)});
-  out+=text(compact?195:580,compact?618:510,'Connected machines form a cluster',compact?19:25);
-  return out;
+  if(compact) return box(15,25,360,665)+text(37,61,'Rack',22,'muted','start')+
+    box(30,90,330,535,'power')+text(50,127,'Compute server',24,'power','start')+
+    block(55,152,280,'CPU','Runs the system','power',88)+
+    box(55,264,280,72,'data')+text(195,309,'System RAM',24,'data')+
+    box(55,371,280,226,'power')+text(75,408,'GPU',25,'power','start')+
+    box(75,429,240,60,'data')+text(195,467,'GPU memory',23,'data')+
+    box(75,516,240,60,'power')+text(195,554,'GPU cores',23,'power');
+  return box(70,25,1020,535)+text(95,65,'Rack',24,'muted','start')+
+    box(95,95,970,415,'power')+text(120,138,'Compute server',28,'power','start')+
+    block(125,262,220,'CPU','Runs the system','power',100)+
+    box(390,262,220,100,'data')+text(500,321,'System RAM',26,'data')+
+    box(675,177,360,284,'power')+text(700,222,'GPU',28,'power','start')+
+    box(705,252,300,74,'data')+text(855,298,'GPU memory',27,'data')+
+    box(705,357,300,74,'power')+text(855,403,'GPU cores',27,'power');
 }
 function memory(compact) {
-  const stages = [
-    ['Storage', 'Saved model file'],
-    ['System RAM', 'Holds the loaded data'],
-    ['GPU memory', 'Holds the model for use'],
-    ['GPU cores', 'Run the model'],
-  ];
-  let out='';
-  stages.forEach(([name,job],i)=>{
-    const x=compact?50:35+i*290,y=compact?55+i*153:190,w=compact?290:220;
-    out+=block(x,y,w,name,job,'data',95);
-    if(i<3) {
-      out+=compact?line(`M195 ${y+101}V${y+140}`,'data',true):line(`M${x+w+8} ${y+47}H${x+277}`,'data',true);
-      out+=text(compact?260:x+255,compact?y+129:y+12,['Read','Copy','Use'][i],18,'data');
-    }
-  });
-  if(compact)out+=text(195,674,'One common model-loading path',19,'muted');
-  else out+=text(145,335,'Keeps files when off',20,'muted')+text(580,435,'One common model-loading path',22,'muted');
-  return `<g data-loading-path="storage-ram-gpu-memory-gpu-cores">${out}</g>`;
+  let out;
+  if(compact) out=box(25,210,340,482,'power')+text(45,247,'Compute server',24,'power','start')+
+    box(55,407,280,258,'power')+text(75,442,'GPU',25,'power','start')+
+    block(75,25,240,'Storage server','Saved model file','data',90)+
+    line('M195 120V184H340V313H332','data',true)+text(216,168,'Network',20,'data','start')+
+    box(70,278,250,70,'data')+text(195,321,'System RAM',23,'data')+
+    line('M195 352V448','data',true)+text(223,382,'Copy',19,'data','start')+
+    box(75,460,240,65,'data')+text(195,500,'GPU memory',23,'data')+
+    line('M195 530V571','data',true)+
+    box(75,582,240,60,'power')+text(195,620,'GPU cores',23,'power');
+  else out=box(375,95,760,415,'power')+text(400,138,'Compute server',28,'power','start')+
+    box(695,177,405,284,'power')+text(720,222,'GPU',28,'power','start')+
+    block(25,210,215,'Storage server','Saved model file','data',100)+
+    line('M245 260H393','data',true)+text(318,230,'Network',22,'data')+
+    box(405,220,215,90,'data')+text(512,275,'System RAM',26,'data')+
+    line('M625 265H717','data',true)+text(659,236,'Copy',20,'data')+
+    box(730,240,335,74,'data')+text(897,286,'GPU memory',27,'data')+
+    line('M897 319V349','data',true)+
+    box(730,360,335,74,'power')+text(897,406,'GPU cores',27,'power');
+  return `<g data-loading-path="storage-ram-gpu-memory-gpu-cores" data-storage-location="network-storage-server">${out}</g>`;
 }
 function network(compact,state) {
-  const rate=Number(state.bandwidth)===1000?1000:100,payloadMb=8*8,travel=20;
+  const rate=Number(state.bandwidth)===100000?100000:10000,payloadMb=8*8,travel=0.01;
   const sending=payloadMb/rate*1000,arrival=travel+sending;
-  const x=compact?42:170,w=compact?300:880,y=compact?255:220;
-  const scale=w/660,delayWidth=travel*scale,sendWidth=sending*scale;
-  let out=text(compact?195:580,compact?50:60,'Same payload: 8 MB = 64 megabits',compact?20:27,'data');
-  out+=block(compact?35:100,compact?90:95,compact?125:235,'Sender','Sends the bits','data',85)+
-    block(compact?230:825,compact?90:95,compact?125:235,'Receiver','Gets the bits','data',85)+
-    line(compact?'M165 131H224':'M344 138H814','data',true)+
-    text(compact?195:580,compact?215:193,'Last bit arrives after:',compact?23:24);
+  const x=compact?35:140,w=compact?320:880,y=compact?309:269;
+  const scale=w/6.41,delayWidth=travel*scale,sendWidth=sending*scale;
+  let out=text(compact?195:580,compact?42:45,'8 MB chunk = 64 megabits',compact?22:29,'data');
+  if(compact) out+=box(20,87,151,90,'data')+text(95,124,'Storage',22,'data')+text(95,153,'server',21,'data')+
+    box(219,87,151,90,'power')+text(294,124,'Compute',22,'power')+text(294,153,'server',21,'power')+
+    line('M177 132H211','data',true)+text(195,214,'Data-center network',22,'data')+
+    text(195,254,`${rate/1000} Gb/s payload rate`,23,'data');
+  else out+=box(100,90,255,95,'data')+text(227,146,'Storage server',27,'data')+
+    box(805,90,255,95,'power')+text(932,146,'Compute server',27,'power')+
+    line('M363 139H795','data',true)+text(580,116,'Data-center network',24,'data')+
+    text(580,175,`${rate/1000} Gb/s payload rate`,24,'data');
+  out+=text(compact?195:580,compact?291:242,'Illustrative transfer · no queues or overhead',compact?16:21,'muted');
   out+=`<rect x="${x}" y="${y}" width="${delayWidth}" height="56" fill="var(--heat)"/><rect x="${x+delayWidth}" y="${y}" width="${sendWidth}" height="56" fill="var(--data)"/>`;
   out+=line(`M${x} ${y+67}H${x+w}`,'muted');
-  [0,330,660].forEach(n=>{out+=text(x+n*scale,y+96,`${n} ms`,compact?16:21,'muted')});
+  [0,3.2,6.4].forEach(n=>{out+=text(x+n*scale,y+97,`${n} ms`,compact?16:21,'muted',n===0?'start':n===6.4?'end':'middle')});
   const cx=compact?195:580;
-  out+=text(cx,compact?414:389,`${travel} ms travel + ${sending} ms sending`,compact?22:28)+
-    text(cx,compact?467:445,`= ${arrival} ms to receive the whole payload`,compact?19:27,'data');
-  out+=text(cx,compact?542:512,'First bit: 20 ms at either link rate',compact?20:23,'heat');
-  if(compact)out+=text(cx,615,'Ideal payload rate · no queues,',18,'muted')+text(cx,644,'overhead or retransmissions',18,'muted');
-  else out+=text(cx,566,'Ideal payload rate · no queues, overhead or retransmissions',20,'muted');
-  return `<g data-payload-mb="8" data-rate-mbps="${rate}" data-travel-ms="${travel}" data-sending-ms="${sending}" data-arrival-ms="${arrival}">${out}</g>`;
+  out+=text(cx,compact?464:421,`${sending} ms to send all the bits`,compact?25:29,'data')+
+    text(cx,compact?506:463,'10 μs first-bit latency at either rate',compact?20:25,'heat')+
+    text(cx,compact?586:535,`All 8 MB arrive in ${arrival.toFixed(2)} ms`,compact?25:34,'data');
+  return `<g data-payload-mb="8" data-rate-mbps="${rate}" data-travel-ms="${travel}" data-sending-ms="${sending}" data-arrival-ms="${arrival}" data-sender="storage-server" data-receiver="compute-server">${out}</g>`;
 }
 function heat(compact) {
   if(compact) return `<g data-heat-watts="500" data-chip-celsius="70" data-plate-celsius="45" data-inlet-celsius="30" data-outlet-celsius="35">`+
-    block(65,55,260,'Chip','70 °C','heat',95)+
-    line('M195 155V297','heat',true)+text(284,222,'500 W',26,'heat')+
-    text(195,267,'Heat into the cold plate',19,'heat')+
-    block(45,315,300,'Cold plate','45 °C','heat',105)+
-    line('M48 500V400H83','power',true)+line('M307 400H345V500','data',true)+
-    text(86,546,'30 °C in',23,'power')+text(295,546,'35 °C out',23,'data')+
-    text(195,680,'Illustrative steady temperatures and heat rate',16,'muted')+'</g>';
+    text(195,33,'Compute server',22,'power')+
+    box(40,57,310,558,'power')+
+    text(195,89,'500 W electrical input',20,'power')+line('M195 95V112','power',true)+
+    box(65,120,260,155,'power')+text(88,156,'GPU',25,'power','start')+
+    text(195,203,'Running the model',22,'power')+text(195,241,'70 °C',28,'heat')+
+    line('M195 280V347','heat',true)+text(282,310,'500 W',26,'heat')+text(282,339,'Heat',19,'heat')+
+    block(65,365,260,'Cold plate','45 °C','heat',105)+
+    line('M25 563V423H56','power',true)+line('M332 423H365V563','data',true)+
+    text(91,595,'30 °C in',22,'power')+text(299,595,'35 °C out',22,'data')+
+    text(195,662,'Illustrative steady operation',19,'muted')+'</g>';
   return `<g data-heat-watts="500" data-chip-celsius="70" data-plate-celsius="45" data-inlet-celsius="30" data-outlet-celsius="35">`+
-    block(440,65,280,'Chip','70 °C','heat',95)+
-    line('M580 165V295','heat',true)+text(690,235,'500 W',30,'heat')+
-    block(365,315,430,'Cold plate','45 °C','heat',110)+
-    line('M160 478V370H350','power',true)+line('M809 370H1000V478','data',true)+
-    text(160,526,'Coolant in: 30 °C',25,'power')+text(1000,526,'Coolant out: 35 °C',25,'data')+
-    text(580,573,'Illustrative steady temperatures and heat-transfer rate',21,'muted')+'</g>';
+    box(325,30,510,475,'power')+text(350,71,'Compute server',26,'power','start')+
+    box(415,100,330,145,'power')+text(440,140,'GPU',28,'power','start')+
+    text(580,180,'Running the model',25,'power')+text(580,219,'70 °C',29,'heat')+
+    text(170,147,'Electrical input',24,'power')+text(170,183,'500 W',28,'power')+line('M270 178H404','power',true)+
+    line('M580 250V348','heat',true)+text(685,297,'500 W',30,'heat')+text(685,331,'Heat',22,'heat')+
+    block(380,365,400,'Cold plate','45 °C','heat',110)+
+    line('M145 458V420H368','power',true)+line('M792 420H1015V458','data',true)+
+    text(145,507,'Coolant in: 30 °C',23,'power')+text(1015,507,'Coolant out: 35 °C',23,'data')+
+    text(580,561,'Illustrative steady operation',23,'muted')+'</g>';
 }
 function cooling(compact) {
-  if(compact) return text(195,45,'Equipment coolant loop',23,'power')+
-    line('M65 120V255H325V120H65','power')+block(28,125,130,'Cold plate','Chip heat','heat',95)+box(243,120,104,125,'power')+text(295,158,'CDU',21,'power')+text(295,191,'side A',18)+
-    line('M175 120H224','power',true)+line('M215 255H165','power',true)+
-    line('M295 259V392','heat',true)+text(133,319,'Heat crosses',23,'heat')+text(126,351,'Fluids stay apart',19)+
-    line('M65 425V565H325V425H65','data')+box(243,425,104,125,'data')+text(295,464,'CDU',21,'data')+text(295,497,'side B',18)+block(28,439,165,'Outdoor plant','Heat rejection','data',95)+
-    line('M225 565H175','data',true)+text(195,625,'Facility coolant loop',23,'data')+text(195,685,'Liquid-to-liquid CDU example',20,'muted');
-  return text(280,75,'Equipment coolant loop',27,'power')+text(880,75,'Facility coolant loop',27,'data')+
-    line('M125 210V420H495V210H125','power')+line('M665 210V420H1035V210H665','data')+
-    block(35,250,205,'Cold plate','Receives chip heat','heat')+box(450,230,90,160,'power')+box(620,230,90,160,'data')+
-    text(580,157,'CDU heat exchanger',26)+line('M545 310H609','heat',true)+text(580,470,'Heat crosses',24,'heat')+
-    text(580,511,'Fluids stay apart',22)+block(935,250,210,'Outdoor plant','Rejects heat','data')+
-    line('M285 210H350','power',true)+line('M350 420H285','power',true)+line('M800 420H865','data',true)+line('M865 210H800','data',true)+
-    text(580,580,'Liquid-to-liquid CDU example',22,'muted');
+  if(compact) return text(195,31,'Equipment coolant loop',23,'power')+
+    box(40,61,120,64,'power')+text(100,102,'GPU',24,'power')+line('M100 130V174','heat',true)+
+    line('M100 194V286H306V194H100','power')+
+    box(30,183,140,70,'heat')+text(100,227,'Cold plate',23,'heat')+
+    box(256,173,100,102,'power')+text(306,215,'CDU',23,'power')+text(306,247,'side A',18)+
+    line('M177 194H245','power',true)+line('M232 286H176','power',true)+
+    `<circle cx="208" cy="286" r="19" fill="var(--surface)" stroke="var(--power)" stroke-width="2"/>`+
+    line('M215 277L201 286L215 295','power')+text(208,327,'Pump',19,'power')+
+    line('M306 291V420','heat',true)+text(125,365,'Heat crosses',23,'heat')+text(125,398,'Fluids stay apart',19)+
+    line('M100 455V591H306V455H100','data')+
+    box(256,430,100,112,'data')+text(306,474,'CDU',23,'data')+text(306,507,'side B',18)+
+    block(25,445,165,'Outdoor plant','Fans reject heat','data',98)+
+    line('M225 591H164','data',true)+text(195,640,'Facility coolant loop',23,'data');
+  return text(280,42,'Equipment coolant loop',27,'power')+text(880,42,'Facility coolant loop',27,'data')+
+    box(65,82,210,77,'power')+text(170,130,'GPU',28,'power')+line('M170 164V238','heat',true)+
+    line('M170 260V420H495V260H170','power')+line('M665 260V420H1040V260H665','data')+
+    box(55,250,230,90,'heat')+text(170,305,'Cold plate',27,'heat')+
+    box(450,230,90,160,'power')+box(620,230,90,160,'data')+
+    text(580,150,'CDU heat exchanger',26)+line('M546 310H609','heat',true)+
+    text(580,480,'Heat crosses',24,'heat')+text(580,518,'Fluids stay apart',22)+
+    block(930,250,220,'Outdoor plant','Fans reject heat','data')+
+    line('M300 260H359','power',true)+line('M350 420H285','power',true)+
+    `<circle cx="370" cy="420" r="23" fill="var(--surface)" stroke="var(--power)" stroke-width="2"/>`+
+    line('M379 408L360 420L379 432','power')+text(370,469,'Pump',23,'power')+
+    line('M800 420H865','data',true)+line('M865 260H800','data',true);
 }
 function pue(compact) {
-  const x=compact?30:120,y=compact?190:200,w=compact?330:920,h=compact?160:180,it=w*5/6;
-  let out=text(compact?195:580,compact?56:65,'Same illustrative one-hour interval',compact?20:25,'muted');
+  const x=compact?30:120,y=compact?190:215,w=compact?330:920,h=compact?145:145,it=w*5/6;
+  let out=text(compact?195:580,compact?37:48,'Whole facility · one-hour example',compact?20:26,'muted');
+  if(compact) out+=text(167,148,'Computers · storage · network',18,'power');
+  else out+=text(x+it/2,142,'Computers · storage · network',25,'power')+
+    text(x+it+(w-it)/2,110,'Pumps · fans',24,'heat')+
+    text(x+it+(w-it)/2,147,'Power losses',24,'heat')+
+    text(x+it+(w-it)/2,184,'Support',25,'heat');
   out+=`<rect x="${x}" y="${y}" width="${it}" height="${h}" rx="6" fill="var(--power)"/><rect x="${x+it}" y="${y}" width="${w-it}" height="${h}" rx="6" fill="var(--heat)"/>`;
   out+=text(x+it/2,y+65,'IT',compact?27:32,'paper')+text(x+it/2,y+110,'100 kWh',compact?25:32,'paper');
   out+=text(x+it+(w-it)/2,y+72,'20',compact?19:30,'paper')+text(x+it+(w-it)/2,y+112,'kWh',compact?17:25,'paper');
-  out+=text(compact?195:x+it+(w-it)/2,compact?411:166,'Support',compact?23:22,'heat');
-  out+=text(compact?195:580,compact?476:460,'Facility total = 120 kWh',compact?26:32)+text(compact?195:580,compact?549:528,'PUE = 120 ÷ 100 = 1.20',compact?27:36,'power');
-  out+=text(compact?195:580,compact?650:585,'Useful work is measured separately.',compact?21:24,'muted');
+  if(compact) out+=line('M332 340V367H195V382','heat')+text(195,413,'Support',25,'heat')+
+    text(195,449,'Pumps · fans · power losses',20,'heat');
+  out+=text(compact?195:580,compact?526:431,'Facility total = 120 kWh',compact?26:32)+
+    text(compact?195:580,compact?592:493,'Power usage effectiveness',compact?23:26,'power')+
+    text(compact?195:580,compact?640:543,'PUE = 120 ÷ 100 = 1.20',compact?27:36,'power');
   return out;
 }
 export function renderTerminology(id,state={},compact=false) {

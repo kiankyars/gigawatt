@@ -25,7 +25,10 @@ subject to rehearsal. It gives a beginner enough vocabulary to follow part of an
 expert conversation: electricity, equipment, computing and cooling, attached to
 visible objects and concrete examples. Use simple English. Do not label it optional,
 include a skip link, refer to other chapters or quote promises about future teaching.
-The presenter decides how to introduce it. The primer adds no assessed objective;
+The presenter decides how to introduce it. Keep rehearsal cues, exact per-slide
+timings and the Explanation panel out of the primer; preserve supporting detail
+in its author notes. Provide a visible Back to course exit throughout the deck.
+The primer adds no assessed objective;
 teach each concept in context when it becomes useful in the main course.
 Keep the N+1 definition and spare-module example; omit the sentence promising a
 later surviving-service test. Citation controls are discretionary: the restriction

@@ -728,3 +728,37 @@ Verification:
 - No browser console warnings or errors were observed. Testing used the built-in browser; no standalone browser was launched or downloaded.
 
 These checks verify navigation and existing presentation startup, not completion of the four production follow-ups or rehearsal of the course.
+
+## Primer continuity and simpler slide navigation — 2026-09-12
+
+Power factor now compares voltage/current waveforms before introducing the ratio
+in author notes. Slides 14–19 follow a compute server from model loading through
+network transfer, GPU heat and cooling to a separate whole-facility PUE account.
+The network endpoints and illustrative transfer boundary are explicit. The
+unexplained PUE bottom caption is removed.
+
+The Primer has no rehearsal cues, prescribed slide times or Explanation panel.
+Supporting prose is in PRIMER_NOTES.md. Primer and UPS have visible Back to course
+links; workloads has one course exit and its final check-in, with the redundant
+overview and reading links removed.
+
+- All 66 Python tests and 94 JavaScript tests pass. Generated course, expanded
+  reader, domain map, research metadata, site staging and whitespace checks pass.
+- Primer static checks pass for all nineteen scenes and every control state.
+  Independent integration of the actual desktop/mobile SVG traces verifies
+  equal RMS voltage and average power, with 25% greater RMS current at PF 0.8.
+  Network timing checks give 6.41/0.65 ms for an 8 MB chunk at 10/100 Gb/s,
+  including the fixed illustrative 10 µs first-bit latency.
+- The built-in browser checked the seven revised diagrams at 1280 × 720 and
+  390 × 844 in the active light theme for text collisions, SVG bounds and page
+  overflow. Representative power-factor, memory, heat, network and PUE views
+  were visually inspected. Revised final network/PUE labels were rechecked.
+- Checked both network rates and selection restoration, Primer exit from the
+  first slide, entering/leaving fullscreen, UPS exit at mobile width, and the
+  workload opening and end check-in. No browser warnings or errors were found.
+- The legacy workload browser script has no static mode and could not load its
+  absent Playwright dependency. Its browser checks were performed through the
+  built-in browser instead; no browser package was installed or launched.
+
+These checks do not establish spoken runtime, learner comprehension or a new
+exhaustive review of every theme and pre-existing slide state.

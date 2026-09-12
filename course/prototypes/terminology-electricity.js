@@ -204,26 +204,36 @@ function threePhase(compact) {
 }
 
 function powerFactor(compact) {
-  let out = text(compact ? 195 : 580, compact ? 66 : 87, "Power factor (PF) = kW ÷ kVA", compact ? 21 : 26);
+  let out = text(compact ? 195 : 580, 28, "Same single-phase supply", compact ? 20 : 23, "muted");
   [1, .8].forEach((pf, i) => {
-    const x = compact ? 30 : 135+i*510, y = compact ? 111+i*233 : 146;
-    const w = compact ? 330 : 390, bar = w-44, kva = 8/pf;
-    out += `<g data-power-factor="${pf}" data-real-kw="8" data-apparent-kva="${kva}">`;
-    out += rect(x, y, w, compact ? 211 : 258);
-    out += text(x+w/2, y+36, `PF = ${pf}`, 26);
-    out += text(x+22, y+76, "Real power delivered: 8 kW", compact ? 19 : 21, "power", "start");
-    out += rect(x+22, y+91, bar*.8, 22, "power", "power", 3);
-    out += text(x+22, y+(compact ? 146 : 170), `AC capacity used: ${kva} kVA`, compact ? 19 : 21, "data", "start");
-    out += rect(x+22, y+(compact ? 161 : 185), bar*kva/10, 22, "data", "data", 3);
+    const x = compact ? 57 : 110+i*540, width = compact ? 280 : 400;
+    const cx = x+width/2, top = compact ? 55+i*325 : 55;
+    const voltageMid = top+117, currentMid = top+(compact ? 245 : 345);
+    const amplitude = compact ? 29 : 56, currentRatio = 1/pf, lag = Math.acos(pf);
+    // The plots have separate voltage/current scales. Each scale is identical
+    // between cases, so increasing the current amplitude represents higher RMS
+    // current, never a change in the supply voltage. Equal V_rms I_rms cos(phi)
+    // gives the same real power for these ideal sinusoidal loads.
+    out += `<g data-power-factor="${pf}" data-real-kw="8" data-apparent-kva="${8/pf}" data-voltage-rms-relative="1" data-current-rms-relative="${currentRatio}" data-current-lag-radians="${lag}" data-phase-arrangement="single-phase">`;
+    out += text(cx, top+28, i ? "Current lags · PF 0.8" : "In sync · PF 1", compact ? 23 : 29);
+    [voltageMid, currentMid].forEach((mid) => {
+      const extent = amplitude*1.25+6;
+      [0, .25, .5, .75, 1].forEach((fraction) => {
+        out += path(`M${x+width*fraction} ${mid-extent}V${mid+extent}`, "line", 1.5, 'stroke-dasharray="3 5"');
+      });
+      out += arrow(`M${x} ${mid}H${x+width+8}`, "muted", 1.5);
+      out += text(x-13, mid+6, "0", 16, "muted");
+    });
+    out += text(cx, top+70, "Voltage", compact ? 21 : 24, "data");
+    out += path(wave(x, voltageMid, width, amplitude, 0, 1), "data", compact ? 3.5 : 4);
+    out += dot(x+width/4, voltageMid-amplitude, "data");
+    out += text(x+width, top+(compact ? 174 : 207), "time →", 16, "muted", "end");
+    out += text(cx, top+(compact ? 198 : 250), i ? "Current · 1.25× RMS (+25%)" : "Current · 1× RMS", compact ? 19 : 24, "power");
+    out += path(wave(x, currentMid, width, amplitude*currentRatio, -lag, 1), "power", compact ? 3.5 : 4);
+    out += dot(x+width*(.25+lag/(2*Math.PI)), currentMid-amplitude*currentRatio, "power");
+    out += text(cx, top+(compact ? 306 : 480), "8 kW delivered", compact ? 23 : 29);
     out += "</g>";
   });
-  if (compact) {
-    out += text(195, 613, "PF 0.8: 25% more RMS current", 21, "data");
-    out += text(195, 659, "Same voltage and phase arrangement", 18, "muted");
-  } else {
-    out += text(580, 476, "PF 0.8: 25% more RMS current", 27, "data");
-    out += text(580, 542, "Same voltage and phase arrangement", 22, "muted");
-  }
   return out;
 }
 

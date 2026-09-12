@@ -108,12 +108,12 @@
         padding: 0 28px;
         border-bottom: 1px solid var(--line);
       }
-      .brand {
+      .back-to-course {
         color: inherit;
         text-decoration: none;
-        letter-spacing: 1.5px;
+        letter-spacing: normal;
         font-size: 12px;
-        font-weight: 800;
+        font-weight: 600;
       }
       .toolbar nav {
         display: flex;
@@ -264,9 +264,6 @@
         .toolbar nav {
           gap: 6px;
         }
-        .toolbar .reading-link {
-          display: none;
-        }
         .toolbar button {
           padding: 6px 9px;
         }
@@ -340,13 +337,12 @@
         }
       }
 
-      .route-links {display:flex;gap:18px;margin-top:20px;flex-wrap:wrap}
       .choices {border:0;margin:0;padding:0}
       .choices legend {float:left;padding:10px 5px 10px 0;font-size:12px;color:var(--muted)}
       #status {position:absolute}
-      @media(max-width:600px){#diagram{height:680px;min-height:680px}.toolbar .brand{letter-spacing:1px}.toolbar nav{gap:4px}.toolbar button{font-size:11px}#scenes{max-width:44vw}}
+      @media(max-width:600px){#diagram{height:680px;min-height:680px}.toolbar nav{gap:4px}.toolbar button{font-size:11px}#scenes{max-width:44vw}}
 </style></head><body>
-<div id="viewer"><header class="toolbar"><a class="brand" href="../index.html">GIGAWATT</a><nav aria-label="Lesson resources"><a class="reading-link" href="../index.html#d02-workload-brief">Reading</a><button id="explain">Explanation</button><button id="fullscreen" hidden>Full screen</button></nav></header>
+<div id="viewer"><header class="toolbar"><a class="back-to-course" href="../index.html?view=slides">← Back to course</a><nav aria-label="Lesson controls"><button id="explain">Explanation</button><button id="fullscreen" hidden>Full screen</button></nav></header>
 <main><header><h1 id="title"></h1></header><section id="stage" aria-label="Workload mechanisms and experiments"><svg id="diagram" role="img" aria-labelledby="diagram-title diagram-description"></svg><div id="actions"></div><p class="sr-only" id="status" role="status"></p></section></main>
 <footer><label class="sr-only" for="scenes">Choose scene</label><select id="scenes"></select><div class="navigation"><button id="previous" aria-label="Previous scene">←</button><span id="progress" aria-live="polite"></span><button id="next" aria-label="Next scene">→</button></div></footer></div>
 <dialog id="reading" aria-labelledby="reading-title"><header><h2 id="reading-title">Workloads and the brief</h2><button id="close-reading" aria-label="Close explanation">×</button></header><h3 id="explanation-title"></h3><div id="explanation"></div><p class="scope" id="model-scope"></p>
@@ -355,7 +351,7 @@
 <li><a href="https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/user_guide/batcher.html#dynamic-batcher">NVIDIA Triton — Dynamic Batcher and Delayed Batching</a>: read these two sections. Request grouping and configurable scheduler delay support the mechanism. All example timings are original hypothetical inputs; no product result, configuration recommendation or continuous-batching behavior is inferred.</li>
 <li><a href="https://mlcommons.org/benchmarks/inference-datacenter/">MLCommons — MLPerf Inference: Datacenter</a>: read Scenarios &amp; Metrics, the benchmark-definition introduction and Power Measurements. Tests specify input patterns, metrics and quality; measured system AC power applies to the accompanying benchmark. No result tables or normative compliance rules are used.</li>
 <li><a href="https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/dgx-superpod-components.html">NVIDIA — DGX SuperPOD Key Components</a>: read component headings, component descriptions and design requirements. Compute, storage and networking have distinct cooperating roles. The drawing is generic; no H100 counts, memory requirement, power waveform or performance is asserted.</li>
-</ul></details><p><a id="lesson-reference" href="../index.html#d02-workload-brief">Read the expanded lesson →</a></p><nav class="route-links" aria-label="Course sequence"><a href="orientation-format.html">← Data center overview</a><a href="../index.html?checkin=1#d02-phases-and-envelopes">Check your understanding →</a></nav><p class="scope">19 authored scenes · Ready for a dry run, not a completed technical or learner review. Use ← / → to navigate, R for an available reveal, and F for fullscreen in teaching mode.</p></dialog>
+</ul></details></dialog>
 <noscript><p>This interactive presentation needs JavaScript. Read the same reasoning in <a href="../lessons/d02-workload-brief.md">the workload brief</a>, <a href="../lessons/d02-productive-utilization.md">productive utilization</a> and <a href="../lessons/d02-phases-and-envelopes.md">phases and envelopes</a>.</p></noscript>
 <script type="module">
 import { presentationLabels } from './teaching-navigation.js';
@@ -385,10 +381,10 @@ function controls(){
    b.addEventListener('click',()=>{state[group.key]=value;field.querySelectorAll('button').forEach(button=>button.setAttribute('aria-pressed',String(button===b)));draw();});field.append(b);
   }$('actions').append(field);
  }
- if(index===0||index===scenes.length-1){const a=document.createElement('a');a.href=index===0?'orientation-format.html'+(teaching?'?teach=1':''):'../index.html?checkin=1#d02-phases-and-envelopes';a.textContent=index===0?'← Data center overview':'Check your understanding →';$('actions').append(a);}
+ if(index===scenes.length-1){const a=document.createElement('a');a.href='../index.html?checkin=1#d02-phases-and-envelopes';a.textContent='Check your understanding →';$('actions').append(a);}
  if(scene.reveal){const b=document.createElement('button');b.id='reveal';b.textContent=state[scene.reveal]?'Hide reasoning':'Reveal reasoning';b.setAttribute('aria-expanded',String(state[scene.reveal]));b.onclick=()=>{state[scene.reveal]=!state[scene.reveal];b.textContent=state[scene.reveal]?'Hide reasoning':'Reveal reasoning';b.setAttribute('aria-expanded',String(state[scene.reveal]));draw();};$('actions').append(b);}
 }
-function render(){const s=scenes[index];$('title').textContent=s.title;$('scenes').value=s.id;$('progress').textContent=`${index+1} / ${scenes.length}`;$('previous').disabled=index===0;$('next').disabled=index===scenes.length-1;$('explanation-title').textContent=s.title;$('explanation').innerHTML=s.explanation.map(p=>`<p>${p}</p>`).join('');$('model-scope').textContent=s.boundary;$('lesson-reference').href=`../index.html#${s.reference}`;controls();draw();}
+function render(){const s=scenes[index];$('title').textContent=s.title;$('scenes').value=s.id;$('progress').textContent=`${index+1} / ${scenes.length}`;$('previous').disabled=index===0;$('next').disabled=index===scenes.length-1;$('explanation-title').textContent=s.title;$('explanation').innerHTML=s.explanation.map(p=>`<p>${p}</p>`).join('');$('model-scope').textContent=s.boundary;controls();draw();}
 function go(i){index=Math.max(0,Math.min(scenes.length-1,i));history.replaceState(null,'',`#${scenes[index].id}`);render();}
 function fromHash(){const id=location.hash.slice(1),i=scenes.findIndex(s=>s.id===id);index=i<0?0:i;render();}
 $('scenes').onchange=e=>go(scenes.findIndex(s=>s.id===e.target.value));$('previous').onclick=()=>go(index-1);$('next').onclick=()=>go(index+1);

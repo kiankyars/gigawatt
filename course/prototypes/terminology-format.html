@@ -78,7 +78,7 @@
         background: var(--text);
         border-color: var(--text);
       }
-      :is(button, select, a, summary):focus-visible {
+      :is(button, select, a):focus-visible {
         outline: 3px solid var(--heat);
         outline-offset: 3px;
       }
@@ -115,12 +115,15 @@
         padding: 0 28px;
         border-bottom: 1px solid var(--line);
       }
-      .brand {
+      .course-link {
+        display: inline-flex;
+        align-items: center;
+        min-height: 40px;
         color: inherit;
         text-decoration: none;
-        letter-spacing: 1.5px;
         font-size: 12px;
-        font-weight: 800;
+        font-weight: 650;
+        white-space: nowrap;
       }
       .toolbar nav {
         display: flex;
@@ -220,52 +223,6 @@
         width: min(250px, 35vw);
         font-size: 13px;
       }
-      dialog {
-        color: var(--text);
-        background: var(--paper);
-        border: 1px solid var(--line);
-        border-radius: 16px;
-        width: min(760px, 94vw);
-        max-height: 86svh;
-        padding: 25px 30px;
-        line-height: 1.65;
-      }
-      dialog::backdrop {
-        background: #08131ab3;
-      }
-      dialog header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-      }
-      dialog h2 {
-        font:
-          normal 29px Georgia,
-          serif;
-        margin: 0;
-      }
-      dialog h3 {
-        font-size: 17px;
-      }
-      dialog summary {
-        cursor: pointer;
-        font-weight: 650;
-      }
-      dialog p {
-        font-size: 15px;
-      }
-      dialog details {
-        border-top: 1px solid var(--line);
-        padding-top: 14px;
-        margin-top: 18px;
-      }
-      dialog li {
-        margin: 9px 0;
-      }
-      dialog .scope {
-        color: var(--muted);
-      }
       @media (max-width: 600px) {
         #viewer {
           height: auto;
@@ -277,9 +234,6 @@
         }
         .toolbar nav {
           gap: 6px;
-        }
-        .toolbar .reading-link {
-          display: none;
         }
         .toolbar button {
           padding: 6px 9px;
@@ -319,9 +273,6 @@
         footer button {
           padding: 7px 10px;
         }
-        dialog {
-          padding: 20px;
-        }
       }
       @media (max-height: 500px) and (min-width: 601px) {
         #viewer {
@@ -354,18 +305,17 @@
         }
       }
 
-@media(max-width:600px) { .toolbar .brand {font-size:10px;letter-spacing:1px;} .toolbar nav a {font-size:11px;} .toolbar button {font-size:11px;padding:6px;} .toolbar {padding:0 10px;gap:5px;} }
+@media(max-width:600px) { .toolbar .course-link {font-size:11px;} .toolbar button {font-size:11px;padding:6px;} .toolbar {padding:0 10px;gap:5px;} }
 </style>
 </head>
 <body>
 <div id="viewer">
-<header class="toolbar"><span class="brand">GIGAWATT</span><nav aria-label="Presentation controls"><button id="explain">Explanation</button><button id="fullscreen" hidden>Full screen</button></nav></header>
+<header class="toolbar"><a class="course-link" href="../index.html?view=slides">← Back to course</a><nav aria-label="Presentation controls"><button id="fullscreen" hidden>Full screen</button></nav></header>
 <main><header><p class="eyebrow">Primer</p><h1 id="title">Current needs a complete loop</h1></header>
 <section id="stage" aria-label="Electricity basics and recurring terminology"><svg id="diagram" role="img" aria-labelledby="diagram-title diagram-description"></svg><div id="actions"></div></section>
 </main>
 <footer><label class="sr-only" for="scenes">Choose scene</label><select id="scenes"></select><div class="navigation"><button id="previous" aria-label="Previous scene">←</button><span id="progress" aria-live="polite"></span><button id="next" aria-label="Next scene">→</button></div></footer>
 </div>
-<dialog id="reading" aria-labelledby="reading-title"><header><h2 id="reading-title">Primer</h2><button id="close-reading" aria-label="Close explanation">×</button></header><h3 id="explanation-title"></h3><p id="explanation"></p><details id="teaching-cues" hidden><summary>Rehearsal cue</summary><p id="timing"></p><p>Introduce the name and point at what it describes. Allow about twenty minutes, pending an aloud rehearsal.</p></details></dialog>
 <noscript><p>JavaScript enables the interactive diagrams. A complete circuit carries current from a source through a load and back. Voltage is measured across two points, current through a path, power in watts, and energy in watt-hours.</p></noscript>
 <script type="module">
 import { presentationLabels } from './teaching-navigation.js';
@@ -373,10 +323,9 @@ document.querySelector('main > header > .eyebrow').textContent = presentationLab
 import {scenes,sceneAliases} from './terminology-scenes.js';
 import {renderTerminology} from './terminology-visuals.js';
 const $=id=>document.getElementById(id);
-const state={circuit:'closed',resistanceVoltage:'12',hours:'1',angle:'90',upsSupply:'normal',bandwidth:'100'};
+const state={circuit:'closed',resistanceVoltage:'12',hours:'1',angle:'90',upsSupply:'normal',bandwidth:'10000'};
 const teaching=new URLSearchParams(location.search).get('teach')==='1';
 $('fullscreen').hidden=!teaching;
-$('teaching-cues').hidden=!teaching;
 $('scenes').innerHTML=scenes.map((s,i)=>`<option value="${i}">${i+1}. ${s.label}</option>`).join('');
 let index=0;
 function draw(){
@@ -390,18 +339,15 @@ function render(){
  $('scenes').value=String(index);$('progress').textContent=`${index+1} / ${scenes.length}`;
  $('previous').disabled=index===0;$('next').disabled=index===scenes.length-1;
  $('actions').innerHTML=s.options?`<div class="choices" role="group" aria-label="${s.group}"><span class="choices-label" aria-hidden="true">${s.group}</span>${s.options.map(([value,label])=>`<button data-setting="${s.key}" data-value="${value}" aria-pressed="${state[s.key]===value}">${label}</button>`).join('')}</div>`:'';
- $('explanation-title').textContent=s.title;$('explanation').textContent=s.explanation;
- const elapsed=scenes.slice(0,index).reduce((total,s)=>total+s.seconds,0),time=n=>`${Math.floor(n/60)}:${String(n%60).padStart(2,'0')}`;
- $('timing').textContent=`Planned cue: ${time(elapsed)}–${time(elapsed+s.seconds)}. About ${s.seconds} seconds for this slide.`;
  draw();
 }
 function go(i){index=Math.max(0,Math.min(scenes.length-1,i));history.replaceState(null,'',`#${scenes[index].id}`);render();}
 function fromHash(){const requested=location.hash.slice(1),id=sceneAliases[requested]||requested,found=scenes.findIndex(s=>s.id===id);index=found<0?0:found;if(sceneAliases[requested])history.replaceState(null,'',`#${id}`);render();}
 $('actions').addEventListener('click',e=>{const b=e.target.closest('[data-setting]');if(!b)return;state[b.dataset.setting]=b.dataset.value;render();document.querySelector(`[data-setting="${b.dataset.setting}"][data-value="${b.dataset.value}"]`)?.focus();});
 $('previous').addEventListener('click',()=>go(index-1));$('next').addEventListener('click',()=>go(index+1));$('scenes').addEventListener('change',e=>go(Number(e.target.value)));
-$('explain').addEventListener('click',()=>$('reading').showModal());$('close-reading').addEventListener('click',()=>$('reading').close());
 $('fullscreen').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await $('viewer').requestFullscreen();}catch{$('fullscreen').textContent='Use browser full screen';}});
-window.addEventListener('keydown',e=>{if($('reading').open||e.altKey||e.ctrlKey||e.metaKey||e.target.closest('button,select,input,textarea,a,[contenteditable]'))return;if(e.key==='ArrowRight'){e.preventDefault();go(index+1);}if(e.key==='ArrowLeft'){e.preventDefault();go(index-1);}if(e.key.toLowerCase()==='f'&&teaching)$('fullscreen').click();});
+document.addEventListener('fullscreenchange',()=>{$('fullscreen').textContent=document.fullscreenElement?'Exit full screen':'Full screen';});
+window.addEventListener('keydown',e=>{if(e.altKey||e.ctrlKey||e.metaKey||e.target.closest('button,select,input,textarea,a,[contenteditable]'))return;if(e.key==='ArrowRight'){e.preventDefault();go(index+1);}if(e.key==='ArrowLeft'){e.preventDefault();go(index-1);}if(e.key.toLowerCase()==='f'&&teaching)$('fullscreen').click();});
 window.addEventListener('hashchange',fromHash);matchMedia('(max-width:600px)').addEventListener('change',draw);fromHash();
 </script>
 </body>
