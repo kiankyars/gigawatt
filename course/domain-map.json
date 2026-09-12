@@ -492,7 +492,8 @@
         "Latency, bandwidth, bisection capacity, oversubscription and congestion",
         "Collectives, routing and workload placement",
         "Ethernet and InfiniBand as architectures with implementation-specific behavior",
-        "Copper, pluggable optics and co-packaged optics; reach, power, cabling and serviceability"
+        "Copper, pluggable optics and co-packaged optics; reach, power, cabling and serviceability",
+        "Campus fiber entrances, meet-me rooms, demarcation and carrier connections; physical route diversity"
       ],
       "prerequisites": [
         "D01",
@@ -503,7 +504,7 @@
         {
           "id": "D08.1",
           "capability": "Distinguish scale-up, scale-out and wide-area communication requirements.",
-          "assessment": "Place three communication patterns on a rack, cluster and regional map and identify the relevant bottleneck.",
+          "assessment": "Place communication patterns on a rack, cluster and inter-site map; trace the campus fiber handoff and identify the relevant bottleneck.",
           "baseline_coverage": "missing",
           "baseline_lessons": []
         },
@@ -531,7 +532,7 @@
         {
           "id": "D08.5",
           "capability": "Trace a network failure or degraded link into workload, cabling and operational consequences.",
-          "assessment": "Explain why a powered and cooled cluster can miss its useful-throughput acceptance target after a partial fabric failure.",
+          "assessment": "Trace a partial fabric failure or shared external fiber route into lost service; distinguish two carriers from two physically independent paths.",
           "baseline_coverage": "missing",
           "baseline_lessons": []
         }

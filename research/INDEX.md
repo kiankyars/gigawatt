@@ -69,6 +69,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [E0410763323 — DOE — Solar Integration: Distributed Energy Resources and Microgrids Basics](sources/E0410763323.md) | www.energy.gov | D03, D05 | page_reviewed |
 | [E0814EDF226 — Vertiv — BESS and UPS roles in large data center power architecture](sources/E0814EDF226.md) | www.vertiv.com | D02, D05 | page_reviewed |
 | [E0CDE775C43 — NVIDIA DGX SuperPOD — Software](sources/E0CDE775C43.md) | docs.nvidia.com | D09 | page_reviewed |
+| [E0F361052D1 — FCC 25-21 — Physical Diversity, paragraph 63](sources/E0F361052D1.md) | Federal Communications Commission | D08, D12 | public_excerpt_reviewed |
 | [E134D3535CB — Matrix Multiplication Background User’s Guide](sources/E134D3535CB.md) | docs.nvidia.com | D07 | page_reviewed |
 | [E1423005C7C — ABB — Protection Devices for Direct Current Applications](sources/E1423005C7C.md) | library.e.abb.com | D05 | public_excerpt_reviewed |
 | [E21653C0173 — ERCOT — Batch Zero large-load connection announcement, June 18, 2026](sources/E21653C0173.md) | www.ercot.com | D03 | page_reviewed |
@@ -104,6 +105,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [E9ACF1B58FE — NVIDIA Optical Transceivers and Cables](sources/E9ACF1B58FE.md) | www.nvidia.com | D08 | page_reviewed |
 | [E9FFEE6828F — Schneider Electric — Coordination between circuit-breakers](sources/E9FFEE6828F.md) | www.electrical-installation.org | D05 | page_reviewed |
 | [EA0B6C5ED33 — Schneider Electric — Comparing UPS System Design Configurations, White Paper 75 Revision 4](sources/EA0B6C5ED33.md) | Schneider Electric | D05, D06 | page_reviewed |
+| [EA3CEEB6630 — Equinix — Customer-Managed Pre-Cabling and Demarcations](sources/EA3CEEB6630.md) | Equinix | D08 | page_reviewed |
 | [EA7B686AF9E — NVIDIA, Partners Drive Next-Gen Efficient Gigawatt AI Factories in Buildup for Vera Rubin](sources/EA7B686AF9E.md) | NVIDIA | D04, D06 | page_reviewed |
 | [EB0CA366091 — NCCL Collective Operations](sources/EB0CA366091.md) | docs.nvidia.com | D08 | page_reviewed |
 | [EB34D92F523 — OpenStax — Electrical Energy and Power](sources/EB34D92F523.md) | openstax.org | D01, D03, D05 | page_reviewed |
@@ -137,7 +139,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P14 — NVIDIA DGX SuperPOD: Next Generation Scalable Infrastructure for AI Leadership Reference Architecture Featuring NVIDIA DGX H100](sources/P14.md) | NVIDIA | D07, D08, D09, D13, D14 | page_reviewed |
 | [P15 — Liquid to Liquid CDU Test Methodology and Performance Rating — Revision 1.0](sources/P15.md) | Open Compute Project | D10, D11, D13, D14 | public_excerpt_reviewed |
 | [P16 — Why Scaling AI Compute Performance Requires a New Power Architecture](sources/P16.md) | NVIDIA | D04, D05, D06, D12, D13, D15 | page_reviewed |
-| [P17 — NVIDIA NVL72 AI Factory — System Hardware & Components](sources/P17.md) | NVIDIA | D06, D07, D08, D09, D10, D14 | page_reviewed |
+| [P17 — NVIDIA NVL72 AI Factory — System Hardware & Components](sources/P17.md) | NVIDIA | D06, D07, D08, D09, D10, D14, D01 | page_reviewed |
 | [P18 — OpenStax — 20.5 Alternating Current versus Direct Current (College Physics 2e)](sources/P18.md) | OpenStax, Rice University | D01, D04, D06 | page_reviewed |
 | [P19 — Steven H. Low — Power System Analysis: Analytical tools and structural properties (April 7, 2025 draft)](sources/P19.md) | Steven H. Low, California Institute of Technology | D04, D06 | page_reviewed |
 | [P20 — Wolfspeed — Powering AI with reliable SiC-based solid-state transformers](sources/P20.md) | Wolfspeed | D04, D06 | page_reviewed |
@@ -182,6 +184,9 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P59 — Vertiv — How N+1 redundancy supports continuous data center cooling](sources/P59.md) | Vertiv | D10, D11, D13 | public_excerpt_reviewed |
 | [P60 — NVIDIA — DSX Facilities Infrastructure Reference Design Overview](sources/P60.md) | NVIDIA | D10, D11 | public_excerpt_reviewed |
 | [P61 — The Green Grid — PUE: A Comprehensive Examination of the Metric](sources/P61.md) | The Green Grid | D01, D15 | page_reviewed |
+| [P62 — Corning — Meet-Me-Room to Outside Plant Data Center Solutions](sources/P62.md) | Corning | D08, D12 | page_reviewed |
+| [P63 — Google Cloud — Best practices for batch inference on GKE](sources/P63.md) | Google Cloud | D01, D02, D09 | page_reviewed |
+| [P64 — NVIDIA DGX GB200/GB300 hardware guide — Power shelves](sources/P64.md) | NVIDIA | D01, D06 | page_reviewed |
 | [SA01 — Datacenter Anatomy Part 1: Electrical Systems](sources/SA01.md) | SemiAnalysis | D04, D05, D06, D13, D15 | public_excerpt_reviewed |
 | [SA02 — Datacenter Anatomy Part 2 – Cooling Systems](sources/SA02.md) | SemiAnalysis | D10, D11, D15 | public_excerpt_reviewed |
 | [SA03 — 100,000 H100 Clusters: Power, Network Topology, Ethernet vs InfiniBand, Reliability, Failures, Checkpointing](sources/SA03.md) | SemiAnalysis | D02, D07, D08, D09, D14 | public_excerpt_reviewed |

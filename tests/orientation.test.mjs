@@ -13,17 +13,17 @@ const close = (actual, expected) =>
 test("rack inlet, IT and facility boundaries conserve the same incoming power", () => {
   const ledger = facilityLedger();
   assert.deepEqual(ledger, {
-    rackTotalKW: 1000,
-    itKW: 1100,
-    overheadKW: 220,
-    facilityKW: 1320,
+    rackTotalKW: 1420,
+    itKW: 1500,
+    overheadKW: 300,
+    facilityKW: 1800,
     pue: 1.2,
-    internalLossTotalKW: 80,
+    internalLossTotalKW: 0,
   });
   // Looking inside a meter boundary must not create an additional energy load.
   const rackRemainder = ledger.rackTotalKW - ledger.internalLossTotalKW;
   assert.equal(
-    rackRemainder + ledger.internalLossTotalKW + 100 + ledger.overheadKW,
+    rackRemainder + ledger.internalLossTotalKW + 80 + ledger.overheadKW,
     ledger.facilityKW,
   );
 });
@@ -32,9 +32,9 @@ test("changing the internal-loss breakdown never adds rack power a second time",
   for (const rackInternalLossKW of [0, 8, 25, 100]) {
     const ledger = facilityLedger({ rackInternalLossKW });
     assert.equal(ledger.internalLossTotalKW, 10 * rackInternalLossKW);
-    assert.equal(ledger.rackTotalKW, 1000);
-    assert.equal(ledger.itKW, 1100);
-    assert.equal(ledger.facilityKW, 1320);
+    assert.equal(ledger.rackTotalKW, 1420);
+    assert.equal(ledger.itKW, 1500);
+    assert.equal(ledger.facilityKW, 1800);
     assert.equal(ledger.pue, 1.2);
   }
   const noOverhead = facilityLedger({
@@ -59,7 +59,7 @@ test("invalid boundaries cannot produce negative loads or a meaningless PUE", ()
   ])
     for (const value of [-1, NaN, Infinity, "100", null])
       assert.throws(() => facilityLedger({ [field]: value }), RangeError);
-  assert.throws(() => facilityLedger({ rackInternalLossKW: 101 }), RangeError);
+  assert.throws(() => facilityLedger({ rackInternalLossKW: 143 }), RangeError);
   assert.throws(
     () => facilityLedger({ rackKW: 0, networkKW: 0, rackInternalLossKW: 0 }),
     RangeError,
@@ -72,11 +72,11 @@ test("equal 24-hour energy does not imply equal peak power", () => {
   const flat = profileSummary(ORIENTATION_PROFILES.flat);
   for (const summary of [variable, flat]) {
     assert.equal(summary.hours, 24);
-    close(summary.energyMWh, 184);
-    close(summary.averageMW, 184 / 24);
+    close(summary.energyMWh, 144);
+    close(summary.averageMW, 6);
   }
-  assert.equal(variable.peakMW, 10);
-  close(flat.peakMW, 184 / 24);
+  assert.equal(variable.peakMW, 8);
+  close(flat.peakMW, 6);
   assert.ok(variable.peakMW > flat.peakMW);
 });
 
@@ -116,28 +116,37 @@ test("profiles reject impossible durations, powers and overflowing totals", () =
   );
 });
 
-test("a lower PUE can coexist with worse energy per unit of useful work", () => {
+test("reducing facility overhead lowers PUE while the IT energy stays fixed", () => {
   const a = efficiencyCase({
-    itKW: 1000,
-    overheadKW: 200,
+    itKW: 1500,
+    overheadKW: 300,
     usefulUnitsPerHour: 100,
   });
   const b = efficiencyCase({
-    itKW: 1200,
-    overheadKW: 200,
+    itKW: 1500,
+    overheadKW: 150,
     usefulUnitsPerHour: 100,
   });
-  assert.equal(a.facilityKW, 1200);
-  assert.equal(b.facilityKW, 1400);
+  assert.equal(a.facilityKW, 1800);
+  assert.equal(b.facilityKW, 1650);
   close(a.pue, 1.2);
-  close(b.pue, 7 / 6);
-  assert.ok(b.pue < a.pue);
-  assert.equal(a.energyKWhPerUnit, 12);
-  assert.equal(b.energyKWhPerUnit, 14);
-  assert.ok(b.energyKWhPerUnit > a.energyKWhPerUnit);
-  // One hour's facility energy equals the useful-work count times its energy cost.
-  assert.equal(a.energyKWhPerUnit * 100, a.facilityKW);
-  assert.equal(b.energyKWhPerUnit * 100, b.facilityKW);
+  close(b.pue, 1.1);
+  assert.equal(a.facilityKW - 300, b.facilityKW - 150);
+  assert.equal(a.facilityKW - b.facilityKW, 150);
+  assert.equal(a.energyKWhPerUnit, 18);
+  assert.equal(b.energyKWhPerUnit, 16.5);
+});
+
+test("batch rescheduling keeps fixed load, batch energy and the deadline", () => {
+  const fixed = profileSummary([{ hours: 24, powerMW: 4 }]);
+  for (const segments of Object.values(ORIENTATION_PROFILES)) {
+    const total = profileSummary(segments);
+    assert.equal(total.hours, 24);
+    assert.equal(total.energyMWh - fixed.energyMWh, 48);
+    for (const segment of segments) assert.ok(segment.powerMW >= 4);
+  }
+  assert.ok(profileSummary(ORIENTATION_PROFILES.variable).peakMW > 6.5);
+  assert.ok(profileSummary(ORIENTATION_PROFILES.flat).peakMW < 6.5);
 });
 
 test("productive efficiency needs positive measured work and compatible power rates", () => {

@@ -181,6 +181,7 @@ Separate physical principles, design specifications, observed deployments, annou
 - [SA33 — Stop Saying Half of 2026 US Datacenter Capacity Is Canceled](https://newsletter.semianalysis.com/p/stop-saying-half-of-2026-us-datacenter) · `public_excerpt_reviewed` · [local note](../research/sources/SA33.md)
 - [SA37 — xAI's Colossus 2 - First Gigawatt Datacenter In The World, Unique RL Methodology, Capital Raise](https://newsletter.semianalysis.com/p/xais-colossus-2-first-gigawatt-datacenter) · `public_excerpt_reviewed` · [local note](../research/sources/SA37.md)
 - [SA39 — OpenAI Stargate Joint Venture Demystified | Microsoft Sore Loser, Does Softbank Have The Capital?, Texas GigaCampus, Winners & Losers](https://newsletter.semianalysis.com/p/openai-stargate-joint-venture-demystified) · `public_excerpt_reviewed` · [local note](../research/sources/SA39.md)
+- [P17 — NVIDIA NVL72 AI Factory — System Hardware & Components](https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/components.html) · `page_reviewed` · [local note](../research/sources/P17.md)
 - [E22133B3DE1 — EIA — Laws of energy](https://www.eia.gov/energyexplained/what-is-energy/laws-of-energy.php) · `page_reviewed` · [local note](../research/sources/E22133B3DE1.md)
 - [E3F4CB1B7FF — DOE — Best Practices Guide for Energy-Efficient Data Center Design](https://www.energy.gov/sites/default/files/2024-07/best-practice-guide-data-center-design_0.pdf) · `page_reviewed` · [local note](../research/sources/E3F4CB1B7FF.md)
 - [ED20FD8CBCF — EIA — Measuring electricity](https://www.eia.gov/energyexplained/electricity/measuring-electricity.php) · `page_reviewed` · [local note](../research/sources/ED20FD8CBCF.md)
@@ -191,6 +192,8 @@ Separate physical principles, design specifications, observed deployments, annou
 - [EFE70308E0A — Vertiv — Deploying Liquid Cooling in the Data Center](https://prod.vertiv.cn/4a9616/globalassets/documents/white-papers/liquid-cooling/vertiv-liquidcooling-wp-en-na-sl-71113-web.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/EFE70308E0A.md)
 - [P18 — OpenStax — 20.5 Alternating Current versus Direct Current (College Physics 2e)](https://openstax.org/books/college-physics-2e/pages/20-5-alternating-current-versus-direct-current) · `page_reviewed` · [local note](../research/sources/P18.md)
 - [P61 — The Green Grid — PUE: A Comprehensive Examination of the Metric](https://datacenters.lbl.gov/sites/default/files/WP49-PUE%20A%20Comprehensive%20Examination%20of%20the%20Metric_v6.pdf) · `page_reviewed` · [local note](../research/sources/P61.md)
+- [P63 — Google Cloud — Best practices for batch inference on GKE](https://docs.cloud.google.com/kubernetes-engine/docs/best-practices/machine-learning/inference/batch-inference) · `page_reviewed` · [local note](../research/sources/P63.md)
+- [P64 — NVIDIA DGX GB200/GB300 hardware guide — Power shelves](https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html#power-shelves) · `page_reviewed` · [local note](../research/sources/P64.md)
 
 <a id="d02"></a>
 
@@ -280,6 +283,7 @@ State an infrastructure design envelope and identify which assumptions a benchma
 - [E23909D618E — NVIDIA — DGX SuperPOD Key Components](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/dgx-superpod-components.html) · `page_reviewed` · [local note](../research/sources/E23909D618E.md)
 - [E2C35A11B05 — NVIDIA Triton — Batchers](https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/user_guide/batcher.html) · `page_reviewed` · [local note](../research/sources/E2C35A11B05.md)
 - [E0814EDF226 — Vertiv — BESS and UPS roles in large data center power architecture](https://www.vertiv.com/en-us/insights/articles/white-papers/bess-and-ups-roles-in-large-data-center-power-architecture/) · `page_reviewed` · [local note](../research/sources/E0814EDF226.md)
+- [P63 — Google Cloud — Best practices for batch inference on GKE](https://docs.cloud.google.com/kubernetes-engine/docs/best-practices/machine-learning/inference/batch-inference) · `page_reviewed` · [local note](../research/sources/P63.md)
 
 <a id="d03"></a>
 
@@ -681,6 +685,7 @@ Explain how retrofit constraints can reverse a seemingly attractive greenfield a
 - [P44 — Schneider Electric — AA and AA/FA transformer cooling](https://www.se.com/ca/en/faqs/FA102583/) · `page_reviewed` · [local note](../research/sources/P44.md)
 - [P45 — Eaton — Medium-voltage solid-state transformer](https://www.eaton.com/us/en-us/catalog/medium-voltage-power-distribution-control-systems/medium-voltage-solid-state-transformer.html) · `page_reviewed` · [local note](../research/sources/P45.md)
 - [P54 — OCP — Data Center Facility: Low Voltage Direct Current Power Distribution, v1.0](https://www.opencompute.org/documents/dcf-power-distribution-lvdc-white-paper-version-1-0-final-pdf-1) · `public_excerpt_reviewed` · [local note](../research/sources/P54.md)
+- [P64 — NVIDIA DGX GB200/GB300 hardware guide — Power shelves](https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html#power-shelves) · `page_reviewed` · [local note](../research/sources/P64.md)
 
 <a id="d07"></a>
 
@@ -790,6 +795,7 @@ Teach communication cost and topology as constraints on useful compute and physi
 - Collectives, routing and workload placement
 - Ethernet and InfiniBand as architectures with implementation-specific behavior
 - Copper, pluggable optics and co-packaged optics; reach, power, cabling and serviceability
+- Campus fiber entrances, meet-me rooms, demarcation and carrier connections; physical route diversity
 
 **Prerequisites:** [D01 — System boundaries and quantities](#d01), [D02 — Workloads and the infrastructure brief](#d02), [D07 — Compute, memory and the rack](#d07)
 
@@ -799,7 +805,7 @@ Teach communication cost and topology as constraints on useful compute and physi
 
 Distinguish scale-up, scale-out and wide-area communication requirements.
 
-**Assessment:** Place three communication patterns on a rack, cluster and regional map and identify the relevant bottleneck.
+**Assessment:** Place communication patterns on a rack, cluster and inter-site map; trace the campus fiber handoff and identify the relevant bottleneck.
 
 **Historical introduction coverage:** missing. No existing lesson mapped.
 
@@ -831,7 +837,7 @@ Compare interconnect media and packaging choices using reach, bandwidth, power, 
 
 Trace a network failure or degraded link into workload, cabling and operational consequences.
 
-**Assessment:** Explain why a powered and cooled cluster can miss its useful-throughput acceptance target after a partial fabric failure.
+**Assessment:** Trace a partial fabric failure or shared external fiber route into lost service; distinguish two carriers from two physically independent paths.
 
 **Historical introduction coverage:** missing. No existing lesson mapped.
 
@@ -871,6 +877,9 @@ Trace a network failure or degraded link into workload, cabling and operational 
 - [EB0CA366091 — NCCL Collective Operations](https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/usage/collectives.html) · `page_reviewed` · [local note](../research/sources/EB0CA366091.md)
 - [E80C73CE756 — Scaling AI Factories with Co-Packaged Optics for Better Power Efficiency](https://developer.nvidia.com/blog/scaling-ai-factories-with-co-packaged-optics-for-better-power-efficiency/) · `page_reviewed` · [local note](../research/sources/E80C73CE756.md)
 - [E9ACF1B58FE — NVIDIA Optical Transceivers and Cables](https://www.nvidia.com/en-us/networking/interconnect/) · `page_reviewed` · [local note](../research/sources/E9ACF1B58FE.md)
+- [P62 — Corning — Meet-Me-Room to Outside Plant Data Center Solutions](https://www.corning.com/data-center/worldwide/en/home/applications/multi-tenant-data-center/meet-me-room.html) · `page_reviewed` · [local note](../research/sources/P62.md)
+- [EA3CEEB6630 — Equinix — Customer-Managed Pre-Cabling and Demarcations](https://docs.equinix.com/cross-connect/installation/xc-customer-managed-precabling/) · `page_reviewed` · [local note](../research/sources/EA3CEEB6630.md)
+- [E0F361052D1 — FCC 25-21 — Physical Diversity, paragraph 63](https://docs.fcc.gov/public/attachments/FCC-25-21A1.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/E0F361052D1.md)
 
 <a id="d09"></a>
 
@@ -965,6 +974,7 @@ Specify a service acceptance exercise that tests end-to-end data access, job lau
 - [E2E0C218DA7 — Asynchronous Saving with Distributed Checkpoint](https://docs.pytorch.org/tutorials/recipes/distributed_async_checkpoint_recipe.html) · `page_reviewed` · [local note](../research/sources/E2E0C218DA7.md)
 - [EE0FC346C72 — Control Group in Slurm](https://slurm.schedmd.com/cgroups.html) · `page_reviewed` · [local note](../research/sources/EE0FC346C72.md)
 - [E0CDE775C43 — NVIDIA DGX SuperPOD — Software](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/dgx-software.html) · `page_reviewed` · [local note](../research/sources/E0CDE775C43.md)
+- [P63 — Google Cloud — Best practices for batch inference on GKE](https://docs.cloud.google.com/kubernetes-engine/docs/best-practices/machine-learning/inference/batch-inference) · `page_reviewed` · [local note](../research/sources/P63.md)
 
 <a id="d10"></a>
 
@@ -1249,6 +1259,8 @@ Trace physical and control-system access boundaries and explain why availability
 - [P39 — Energy Transfer — Q2 2026 investor presentation](https://ir.energytransfer.com/static-files/c29697db-5336-4262-8bf3-3c6e409ccb19) · `public_excerpt_reviewed` · [local note](../research/sources/P39.md)
 - [P40 — DOE — CHP Technologies: Gas Turbines](https://betterbuildingssolutioncenter.energy.gov/sites/default/files/attachments/CHP_Gas_Turbines.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P40.md)
 - [P42 — Cornell Legal Information Institute — Option](https://www.law.cornell.edu/wex/option) · `page_reviewed` · [local note](../research/sources/P42.md)
+- [P62 — Corning — Meet-Me-Room to Outside Plant Data Center Solutions](https://www.corning.com/data-center/worldwide/en/home/applications/multi-tenant-data-center/meet-me-room.html) · `page_reviewed` · [local note](../research/sources/P62.md)
+- [E0F361052D1 — FCC 25-21 — Physical Diversity, paragraph 63](https://docs.fcc.gov/public/attachments/FCC-25-21A1.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/E0F361052D1.md)
 
 <a id="d13"></a>
 

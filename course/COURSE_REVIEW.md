@@ -1,6 +1,6 @@
 # GIGAWATT — filled-in course review template
 
-Updated **2026-09-10**. **Start here for the course design.** This is the course's
+Updated **2026-09-12**. **Start here for the course design.** This is the course's
 instance of the [freeCodeCamp course review template](https://github.com/kiankyars/youtube/blob/main/freecodecamp/course-review-template.md),
 using its [evidence-based improvement system](https://github.com/kiankyars/youtube/blob/main/freecodecamp/improvement-system.md).
 The shared template remains in the YouTube repository; this filled-in copy owns
@@ -19,8 +19,8 @@ read it end to end.
 800 V DC sample and seventeen-scene UPS sequence are implemented teaching prototypes.
 A fourteen-scene cooling presentation extends that approach to capture methods,
 CDU ratings and approach, weather and outdoor heat rejection.
-An eight-scene opening section now teaches selected D01 foundations: facility paths,
-measurement boundaries, power and energy, and metrics versus useful work.
+A six-scene opening section now teaches selected D01 foundations: facility paths,
+GB300 rack requirements, rating versus operating load, LLM batch scheduling and PUE.
 These cover selected parts of the curriculum; they do not establish finished domains.
 Technical review, learner review, adaptation of the remaining material, recording
 and delivery remain pending. Prepare and rehearse one section at a time.
@@ -206,9 +206,9 @@ mechanisms and controlled comparisons to each new section. Their visual format
 is a reference, not a requirement to use electrical-style diagrams everywhere.
 
 The current review is **[D01 — Inside the facility](prototypes/orientation-format.html?teach=1#three-paths)**.
-Its eight scenes apply the approach reviewed in UPS, 800 V and cooling: a shared
-facility map, white/grey space, rack and facility accounts, heat, energy versus
-peak demand, hidden peaks and a PUE/useful-work counterexample. These concepts
+Its six scenes apply the approach reviewed in UPS, 800 V and cooling: a shared
+facility map, white/gray space, a GB300 rack, rating versus load, LLM batch
+evaluation scheduling and a PUE comparison with fixed IT energy. These concepts
 are directly taught in the presentation. Source-claim evaluation remains in the
 D01 reference; D02's workload brief is the next teaching section to author.
 

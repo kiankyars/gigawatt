@@ -18,11 +18,11 @@ Now add service. Assume the same system completes 96,000 successful jobs under a
 
 ## Compare outcomes without changing the test
 
+The opening presentation first isolates facility overhead. Hold the installed IT, completed workload and one-hour IT energy at 1,500 kWh. Reduce supporting-system energy from 300 to 150 kWh: facility energy falls from 1,800 to 1,650 kWh and the interval PUE falls from 1.20 to 1.10. IT capacity and actual IT energy both remain unchanged, but those are distinct quantities. This is an assumed overhead reduction, not a claim about a named cooling product or a measured annual PUE. The following counterexamples extend the reference beyond this introductory comparison.
+
 Consider two hypothetical days with the same accepted workload and completion count. Day A uses 240 MWh facility energy and 192 MWh IT energy. Day B uses 228 MWh facility energy and 180 MWh IT energy. Day B has a slightly larger facility-to-IT ratio: 228/180 is about 1.267. Yet it uses less total energy for the same useful work. Its overhead remains 48 MWh while IT energy falls. Judging only by the overhead ratio would punish the better total-energy result.
 
 Reverse the experiment. Add an unnecessary 20 MWh of IT consumption without changing useful output or facility overhead. The ratio falls because the denominator grows, even though total electricity use increases. This is not a reason to abandon overhead metrics. It is a reason to pair each metric with the outcome it cannot measure. Facility overhead, workload efficiency, resource use, and availability are separate questions. A dashboard should keep them separate rather than compressing them into one score.
-
-The opening presentation uses a separate one-hour version of this counterexample: 100 identical jobs meet the same quality requirements in both cases. With 1,000 kWh of IT energy and 200 kWh overhead, facility energy is 1,200 kWh, PUE for the illustrative interval is 1.20, and energy per job is 12 kWh. Increase IT energy to 1,200 kWh while keeping overhead and completed work fixed: the facility uses 1,400 kWh, PUE falls to about 1.17, and energy per job rises to 14 kWh. The unchanged overhead is an assumption, and this one-hour calculation is not an annual PUE report.
 
 Fair comparisons require matching conditions. A faster or lower-energy run at a different model quality, precision, input length, batch size, or failure policy is not automatically an improvement for the original service. Record the changed condition and decide whether it is acceptable. The same discipline applies to a site case: a source-side connection rating and a rack count collected months apart cannot be combined as though they were simultaneous measurements of one commissioned configuration.
 

@@ -1,11 +1,10 @@
-/** Original teaching examples; these are not measured facility or product data. */
+/** Original demand example: 4 MW fixed load plus 48 MWh of deadline-flexible batch work. */
 export const ORIENTATION_PROFILES = Object.freeze({
   variable: Object.freeze([
-    Object.freeze({ hours: 8, powerMW: 6 }),
-    Object.freeze({ hours: 12, powerMW: 10 }),
-    Object.freeze({ hours: 4, powerMW: 4 }),
+    Object.freeze({ hours: 12, powerMW: 4 }),
+    Object.freeze({ hours: 12, powerMW: 8 }),
   ]),
-  flat: Object.freeze([Object.freeze({ hours: 24, powerMW: 184 / 24 })]),
+  flat: Object.freeze([Object.freeze({ hours: 24, powerMW: 6 })]),
 });
 
 function finiteNonnegative(value, name) {
@@ -21,19 +20,21 @@ function finitePositive(value, name) {
 }
 
 /**
- * A single, simultaneous power ledger. Each rack's inlet measurement already
+ * A single, simultaneous power ledger. The default assumes each rack draws the
+ * published 142 kW upper requirement; this is not a measured operating profile. Each rack's inlet measurement already
  * includes its internal power-supply losses and fans. Network power is separate
  * IT equipment outside these racks; facility overhead is outside the IT boundary.
  * The power ratio represents PUE only under matching, steady measurement periods.
  */
 export function facilityLedger({
   racks = 10,
-  rackKW = 100,
-  networkKW = 100,
+  rackKW = 142,
+  networkKW = 80,
   electricalLossKW = 40,
-  coolingKW = 160,
+  coolingKW = 240,
   otherKW = 20,
-  rackInternalLossKW = 8,
+  // No internal GB300 loss allocation is specified; zero means unallocated here.
+  rackInternalLossKW = 0,
 } = {}) {
   if (!Number.isSafeInteger(racks) || racks < 1)
     throw new RangeError("Rack count must be a positive safe integer.");

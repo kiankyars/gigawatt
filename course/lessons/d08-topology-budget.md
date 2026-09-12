@@ -2,15 +2,15 @@
 
 Generated reading view. Edit [`course/expansion/racks-compute-heat.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/racks-compute-heat.json), lesson `d08-topology-budget`, then run `uv run gigawatt-expand`.
 
-**D08 · Authored draft · Objectives:** D08.1, D08.2
+**D08 · Authored draft · Objectives:** D08.1, D08.2, D08.5
 
-Build a small fabric, account for every port and cable, and calculate lower bounds with explicit traffic assumptions.
+Account for a cluster's ports and cables, then trace its connection through the campus boundary to external networks.
 
-**Driving question:** How do endpoint bandwidth, oversubscription and physical distance constrain a communication plan?
+**Driving question:** How do topology, physical distance and the campus fiber handoff constrain a communication plan?
 
 ## Separate three communication scales
 
-Scale-up communication joins devices within a tightly integrated execution domain. Scale-out joins nodes or such domains across a cluster. Wide-area communication crosses a larger geographic and operational boundary. These terms describe relationships rather than fixed distances or universal protocols. Identify the participants, synchronization pattern and actual route before assigning a label. A geographically distributed job may use all three kinds of communication during one step, each with different bandwidth, latency and failure implications.
+Scale-up communication joins devices within a tightly integrated execution domain, such as the GPUs in a scale-up rack. Scale-out joins nodes or such domains across a cluster. Data-center interconnect (DCI) connects facilities, including buildings on one campus; a wide-area network (WAN) extends communication across more distant sites or provider networks. DCI therefore need not mean long-haul, and scale-up need not end at every rack boundary. These terms describe relationships rather than fixed distances or universal protocols. Identify the participants, synchronization pattern and actual route before assigning a label.
 
 Physical distance establishes a propagation floor that faster serialization cannot remove. Using an illustrative fiber propagation speed of 200,000 kilometers per second, a 100-kilometer route takes at least 0.5 milliseconds one way before switching, queueing or protocol work. A request-response dependency crosses that distance twice. Long bulk transfers may tolerate that delay; many sequential dependent exchanges may not. Route length also differs from straight-line map distance. A WAN proposal needs the actual route and service behavior, not just the names of two cities.
 
@@ -29,6 +29,18 @@ A balanced fabric does not guarantee balanced traffic. Many senders targeting on
 ## Connect the graph to the installation
 
 After the logical calculation, count cables, endpoint ports and switch ports separately. Then add reach, routing space, patching and replacement access. A feasible graph on paper can be difficult to cable if all high-density connections must cross one congested tray. Labels should preserve the relationship between physical port, logical link and scheduled device. That mapping is essential when a technician needs to locate a degraded link without disconnecting a neighboring healthy path.
+
+## Follow the campus connection to a carrier
+
+Trace an external path from the cluster network through border equipment and patch panels to the outside fiber route. The entrance facility brings outside-plant cabling into the building. A meet-me room (MMR) provides an interconnection area for tenant, operator and carrier cabling; a private campus may use a different room arrangement. These are functions to locate, not a universal sequence of separate rooms. Corning's multitenant example connects outside plant, the MMR and customer rack cabling.
+
+At the agreed demarcation point, mark where one party's service responsibility ends and the next begins. In Equinix's example, customers patch their equipment to the operator's demarcation. An intra-facility cable reaches the MMR and a cross-connect completes the physical connection there. That cable alone does not supply Internet transit: identify the actual carrier or private service, endpoint, capacity and acceptance boundary. D12 checks whether the route and construction rights can be delivered; D08 checks what the resulting connection carries.
+
+## Test routes, not carrier names
+
+Two carrier contracts do not prove two independent physical paths. Map each circuit through its entrance, duct, splice points, bridge crossings and upstream facilities; two fibers in one cable or conduit share that exposure. The FCC's physical-diversity discussion identifies shared cables, conduits and structures as common failure points. Provider diversity and route diversity answer different questions. Verify the route evidence and the surviving service, including border equipment and routing behavior; separate entrances alone do not prove end-to-end independence.
+
+In an original campus example, two 100 Gb/s services share the same bridge. Cutting both bridge cables removes both services, even though the invoices name different carriers. Moving one service to a verified independent crossing removes that particular shared failure. It does not establish automatic failover, enough remaining payload capacity, or independence from every other hazard. This is the external-network counterpart of the shared-bus failure in the UPS lesson.
 
 ## Worked example: A four-leaf synthetic fabric
 
@@ -63,14 +75,14 @@ Response: Compare the observed traffic matrix and placement with the design assu
 
 ## Apply the idea
 
-One uplink on the sending leaf fails and traffic is perfectly balanced over the remaining three. What is the new lower bound for the same 64 GB transfer?
+One sending-leaf uplink fails and traffic balances perfectly over the remaining three. What is the new lower bound for the same 64 GB transfer? Separately, do two campus carriers survive a cable cut if both routes use the same bridge and both cables are cut?
 
 <details>
 <summary>Reveal the worked answer</summary>
 
-300 Gb/s equals 37.5 GB/s, so the bound is 64 / 37.5 ≈ 1.707 seconds.
+300 Gb/s equals 37.5 GB/s, so the transfer bound is 64 / 37.5 ≈ 1.707 seconds. Neither carrier survives the specified bridge cut; two service contracts did not create physical diversity.
 
-The sending cut is now narrower than the receiving cut. Powered endpoints and healthy receiving links cannot overcome the missing capacity on the required path.
+Internal link counts and external service counts both need a physical path. Verify independent routing and remaining capacity before assuming that a second connection preserves the required service.
 
 </details>
 
@@ -80,3 +92,6 @@ The sending cut is now narrower than the receiving cut. Powered endpoints and he
 
 - [NVIDIA DGX SuperPOD — Network Fabrics](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/network-fabrics.html) — A concrete reference distinguishes network roles and accounts for leaf/spine cables and ports. Read 2026-09-06. Use the topology concepts only; this lesson’s counts are independently constructed.
 - [Slurm Workload Manager — Topology Guide](https://slurm.schedmd.com/topology.html) — Topology-aware allocation can seek to keep jobs within suitable switch groupings. Read 2026-09-06. Current documentation is version-sensitive; no example configuration is offered as production-ready.
+- [Corning — Meet-Me-Room to Outside Plant Data Center Solutions](https://www.corning.com/data-center/worldwide/en/home/applications/multi-tenant-data-center/meet-me-room.html) — Connect outside-plant fiber, a meet-me room and customer cabling; DCI can join campus buildings. Read 2026-09-12. Opening MMR/OSP sections reviewed. Multitenant example, not a universal campus layout or security guarantee.
+- [Equinix — Customer-Managed Pre-Cabling and Demarcations](https://docs.equinix.com/cross-connect/installation/xc-customer-managed-precabling/) — Separate customer cabling, MMR cross-connects and the demarcation responsibility boundary. Read 2026-09-12. Pre-cabling page and linked Demarcations page reviewed. Product-specific implementation; no fees, availability or universal room arrangement adopted.
+- [FCC 25-21 — Physical Diversity, paragraph 63](https://docs.fcc.gov/public/attachments/FCC-25-21A1.pdf) — Shared cables, conduits and structures can defeat physical path diversity. Read 2026-09-12. Paragraphs 62–63 on printed page 26 reviewed. NG911 proposed rulemaking used only for the engineering distinction, not data-center legal requirements.

@@ -23,7 +23,7 @@ prototype, while the matching reader lessons retain the longer explanations.
 The opening D01 sequence is `prototypes/orientation-format.html`, with spatial
 diagrams in `orientation-spatial.js`, quantity diagrams in
 `orientation-quantities.js` and shared calculations in `orientation-model.js`.
-Its eight scenes are the next dry-run section; D02 remains to be authored for
+Its six scenes are the next dry-run section; D02 remains to be authored for
 presentation.
 The manifest reports generated counts and image hashes; the template records
 what has actually been reviewed. Source notes and generated lessons each serve

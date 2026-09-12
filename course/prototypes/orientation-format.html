@@ -103,8 +103,12 @@
         height: 100svh;
         max-width: 1920px;
         margin: auto;
+        background: var(--paper);
         display: grid;
         grid-template-rows: 52px minmax(0, 1fr) 62px;
+      }
+      #viewer::backdrop {
+        background: var(--paper);
       }
       .toolbar {
         display: flex;
@@ -394,64 +398,48 @@
         <button id="close-reading" aria-label="Close explanation">×</button>
       </header>
       <p class="scope">
-        First teaching section · selected D01 foundations. Eight scenes
-        introduce paths, space, meter boundaries, heat, power versus energy,
-        measurement resolution and useful work. The following workload section
-        is still to be authored. All quantities here are hypothetical; diagrams
-        show functional relationships, not installation drawings.
+        Six scenes introduce facility rooms, a GB300 NVL72 rack, rating versus
+        load, scheduling LLM evaluations and PUE. Product requirements and
+        original operating assumptions are labeled separately.
       </p>
       <h3 id="explanation-title"></h3>
       <div id="explanation"></div>
       <details>
-        <summary>Model assumptions and equations</summary>
+        <summary>Definitions and model boundaries</summary>
         <p>
-          <strong>One facility ledger:</strong> ten racks at 100 kW each plus
-          100 kW of separately metered network and storage equipment make 1,100
-          kW of IT input. Upstream electrical losses (40 kW), cooling machinery
-          (160 kW) and other facility loads (20 kW) add 220 kW. Facility input
-          is 1,320 kW. The 8 kW of internal supply loss in each rack is already
-          part of its 100 kW input. The rack boundary is an equipment-input
-          account; moving a separately powered CDU into a rack does not
-          automatically classify its power as IT energy.
+          <strong>Rating, capacity and load:</strong> a nameplate states a
+          component's rated capability under conditions. IT capacity concerns
+          supportable IT service at a defined boundary. IT load and facility
+          load are actual demand. Facility load includes IT and its supporting
+          systems. These labels are not interchangeable.
         </p>
         <p>
-          <strong>Heat:</strong> over a steady interval, approximately all this
-          electrical input ultimately leaves as heat. This assumes negligible
-          net stored-energy change and small other energy streams. Information
-          describes the service; it is not a large energy output to subtract
-          from the heat balance. The heat arrows do not imply all 1,320 kW
-          passes through one coolant loop.
+          <strong>GB300:</strong> NVIDIA quotes a full-rack requirement up to
+          142 kW, without specifying an exact metering plane in that bullet. Our
+          ten-rack ledger separately assumes 142 kW at each AC inlet, 80 kW of
+          additional IT, and 300 kW of facility overhead. No PSU-loss allocation
+          or observed workload consumption is inferred. The 2,000 kW supply
+          nameplate is hypothetical.
         </p>
         <p>
-          <strong>Power and energy:</strong> 1 W = 1 J/s; 1 MW = 1,000 kW.
-          Energy = power × duration for a constant segment. Add segment energies
-          for a stepped profile. Average power = total energy ÷ elapsed time.
-          The 24-hour traces both use 184 MWh; shifting flexible work is assumed
-          to preserve that energy and its completion requirements. The
-          illustrative 8 MW supply limit concerns the plotted demand only; real
-          equipment has additional constraints.
+          <strong>Demand:</strong> energy = average power × duration. The
+          evaluation batch queue contributes 48 MWh and the fixed
+          live-inference/support load contributes 96 MWh. Both schedules use 144
+          MWh. The batch queue is ready at the start and has a 24-hour deadline.
+          Independent batches can be staggered; spare capacity and unchanged
+          batch energy are assumptions, not a server benchmark. Minute-scale
+          measurement effects remain in the written reference.
         </p>
         <p>
-          <strong>Measurement resolution:</strong> 8 MW for five minutes and 12
-          MW for one minute followed by 7 MW for four minutes each use 666.7
-          kWh. Both average 8 MW, but their plotted peaks differ. These assumed
-          piecewise-constant traces cannot establish a real device's millisecond
-          response or protective-trip behavior.
-        </p>
-        <p>
-          <strong>Useful work:</strong> a separate one-hour comparison holds 100
-          identical completed jobs and their quality requirements fixed. Case A
-          uses 1,000 kWh IT + 200 kWh overhead. Case B uses 1,200 kWh IT + 200
-          kWh overhead. PUE = facility energy ÷ IT energy. The ratio falls from
-          1.20 to about 1.17, while facility energy per job rises from 12 to 14
-          kWh. Fixed overhead is an assumption, not a general response to a
-          changing IT load. This is not an annual measured PUE or a hardware
-          benchmark.
+          <strong>PUE:</strong> total facility energy ÷ IT energy over matching
+          intervals. Same 1,500 kWh IT energy; facility energy falls 1,800→1,650
+          kWh; PUE falls 1.20→1.10. The same useful workload is assumed. No
+          annual rating or reduction from a named product is claimed.
         </p>
       </details>
       <details>
         <summary>
-          Primary sources and reading limits · checked 11 September 2026
+          Primary sources and reading limits · checked 12 September 2026
         </summary>
         <ul>
           <li>
@@ -483,8 +471,8 @@
               href="https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/components.html"
               >NVIDIA — NVL72 system hardware and components</a
             >: component hierarchy and electrical, thermal and network
-            interfaces. This diagram is generic and does not reproduce an NVL72
-            installation or use its product ratings.
+            interfaces and published full-rack requirement up to 142 kW. The
+            rack image is NVIDIA’s; the operating ledger is hypothetical.
           </li>
           <li>
             <a
@@ -494,6 +482,21 @@
             >: printed pages 8–9, 14–22 and 34 distinguish infrastructure
             efficiency, IT energy and productivity. Used as metric explanation,
             not a claim of compliance with a current standard.
+          </li>
+          <li>
+            <a
+              href="https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html#power-shelves"
+              >NVIDIA hardware guide — Power shelves</a
+            >: AC-to-DC power shelves, nominal 50–51 V busbar. The
+            combined-guide consumption example is not used as a GB300 rating.
+          </li>
+          <li>
+            <a
+              href="https://docs.cloud.google.com/kubernetes-engine/docs/best-practices/machine-learning/inference/batch-inference"
+              >Google Cloud — Best practices for batch inference</a
+            >: scheduled jobs, latency tolerance and job concurrency. The LLM
+            evaluation queue and MW schedule are original assumptions, not
+            Google telemetry.
           </li>
         </ul>
       </details>
@@ -515,11 +518,8 @@
       const $ = (id) => document.getElementById(id);
       const state = {
         path: "power",
-        cduLocation: "hall",
-        rackDetail: false,
         boundary: "it",
         schedule: "stepped",
-        trace: "steady",
         efficiency: "baseline",
       };
       const scenes = [
@@ -537,120 +537,79 @@
             ["data", "Information"],
           ],
           description:
-            "The same facility is shown with distinct power, heat and information connections. Select a path to trace its role.",
+            "The same facility is shown with power, heat and information connections. Select a path to trace its role.",
           explanation:
-            "Start with the rack in the IT hall. Electrical power reaches it through the electrical room. Its heat travels through cooling systems toward the environment. Information moves between servers, storage and networks. The electrical and thermal arrows track energy; the information arrows track communication. This is a functional map: the full electrical circuit and individual coolant loops are taught in later sections.",
+            "Start with the racks in the IT hall. Power reaches them through the electrical room. Heat travels through cooling equipment toward the environment. Information moves between servers, storage and networks. The arrows show functional relationships, not a complete electrical circuit or continuous coolant pipe.",
         },
         {
           id: "white-grey",
-          label: "White / grey space",
+          label: "White / gray space",
           title:
-            "A cooling cabinet can serve the racks from the hall or a mechanical gallery.",
+            "White space houses the IT; gray space supports its operation.",
           reference: "d01-boundaries",
-          key: "cduLocation",
-          group: "Coolant distribution unit",
-          options: [
-            ["hall", "In the hall"],
-            ["gallery", "In the gallery"],
-          ],
           description:
-            "The IT hall is white space. Supporting rooms and galleries are grey space. Moving a cooling distribution unit changes its location, not its job.",
+            "A floor plan labels the IT hall as white space and supporting electrical and mechanical rooms as gray space.",
           explanation:
-            "White space and grey space describe areas of a layout. White space houses IT equipment; grey space houses supporting electrical and mechanical systems. A CDU is a coolant distribution unit: it connects the rack cooling system to facility cooling while controlling the rack-side conditions. This scene only locates its job; the cooling section teaches its internals. Moving the same cabinet does not by itself remove its power consumption or establish a smaller building.",
+            "White space is the area housing IT equipment and immediate supporting infrastructure. Gray space describes back-of-house electrical, mechanical and service areas. The names classify areas, not equipment types: some power and cooling equipment can sit alongside racks. This introduction only establishes the room vocabulary. Detailed CDU placement belongs with the cooling system, so the relocation exercise is omitted.",
         },
         {
           id: "rack-boundary",
-          label: "Rack input",
-          title:
-            "The rack inlet already counts its internal power-supply losses.",
+          label: "A GB300 rack",
+          title: "Power enters a GB300 rack through its power shelves.",
           reference: "d01-boundaries",
-          key: "rackDetail",
-          group: "Account",
-          options: [
-            ["false", "Rack inlet"],
-            ["true", "Inside the rack"],
-          ],
           description:
-            "A hypothetical rack receives 100 kW. Eight kilowatts becomes internal power-supply heat and 92 kW feeds downstream electronics and fans. The total remains 100 kW.",
+            "NVIDIA manufacturer image of GB300 NVL72. Published full-rack power requirement up to 142 kilowatts. AC supply feeds power shelves, then a DC busbar supplying rack components.",
           explanation:
-            "The meter is upstream of the rack power supplies. In this original example, 8 kW of the measured 100 kW is dissipated in those supplies; 92 kW feeds the remaining rack equipment, including fans. The loss is a subset of the inlet reading. Adding it again would count the same energy twice. A rack is a physical cabinet; a server is equipment inside it. These numbers do not represent a specific product efficiency.",
+            "NVIDIA’s enterprise reference architecture identifies a GB300 NVL72 full-rack requirement of up to 142 kW. That means kilowatts, not watts. It is not a constant measured draw and is not a universal OEM range: configurations, workloads and peak requirements differ. The hardware guide explains AC power shelves supplying a nominal 50–51 V DC busbar. The 142 kW bullet does not specify an exact AC/DC measurement plane or a PSU loss breakdown, so we do not invent one. At an actual AC inlet meter, internal power-supply losses are already included. The product image is supplied by NVIDIA; the three blocks show its functional supply path, not a new installation drawing.",
         },
         {
           id: "facility-meter",
-          label: "Facility input",
+          label: "Rating versus load",
           title:
-            "A facility meter includes the IT load and the systems that support it.",
+            "Nameplate capacity states a rating; the meter records the load.",
           reference: "d01-boundaries",
           key: "boundary",
-          group: "Meter boundary",
+          group: "Count the load",
           options: [
             ["it", "IT equipment"],
-            ["facility", "Whole facility"],
+            ["facility", "IT + facility support"],
           ],
           description:
-            "Ten 100 kW racks plus 100 kW of networking and storage total 1,100 kW IT. Another 220 kW of facility loads makes the facility input 1,320 kW.",
+            "Hypothetical operating point: ten GB300 racks assumed at 142 kW each plus 80 kW of networking/storage yield 1,500 kW of IT load. Facility support adds 300 kW, making demand 1,800 kW. A separate supply has a 2,000 kW nameplate rating.",
           explanation:
-            "Keep the equipment unchanged and widen the measurement boundary. The IT account includes the ten rack inlets and separate network/storage loads. The whole-facility account also includes upstream electrical losses, cooling machinery and other facility loads. These are nonoverlapping categories at the same operating point. White/grey space is a location convention; it does not decide an energy category.",
-        },
-        {
-          id: "heat-account",
-          label: "Heat account",
-          title:
-            "Useful computation does not remove the facility’s heat-rejection duty.",
-          reference: "d01-boundaries",
-          description:
-            "Approximately 1,100 kW from IT and 220 kW from supporting systems ultimately become 1,320 kW of heat across all facility heat paths in steady operation.",
-          explanation:
-            "A computed result is valuable, but it does not carry away a substantial fraction of the supplied electrical energy. In this steady example, the IT input becomes approximately the same rate of heat, while supporting systems add heat elsewhere. The facility therefore releases approximately 1,320 kW in total. These arrows describe heat transfer, not one continuous water pipe. During a transient, some energy can accumulate in warming equipment or storage; that is outside this settled balance.",
+            "Assume ten GB300 racks each draw 142 kW at their AC inputs. Add 80 kW of separately metered networking and storage: IT load is 1,500 kW. Upstream electrical losses (40 kW), cooling (240 kW) and other loads (20 kW) bring facility demand to 1,800 kW. The separate 2,000 kW supply nameplate is a hypothetical rating, not a meter reading or 2,000 kW of usable IT capacity. The 200 kW difference is only arithmetic margin at this supply; redundancy, cooling and downstream limits can bind first. All operating values are illustrative assumptions. NVIDIA supplies the rack-requirement reference, not these AC-input measurements.",
         },
         {
           id: "power-energy",
-          label: "Energy and peak",
-          title: "Equal daily energy can require different peak power.",
+          label: "Schedule LLM batches",
+          title: "Staggering LLM evaluation batches can lower peak demand.",
           reference: "d01-power-over-time",
           key: "schedule",
-          group: "Demand",
+          group: "Batch evaluations",
           options: [
-            ["stepped", "Original demand"],
-            ["flat", "Shift flexible work"],
+            ["stepped", "Run together"],
+            ["flat", "Stagger batches"],
           ],
           description:
-            "A stepped daily profile uses 184 MWh and peaks at 10 MW. A hypothetical flat schedule uses the same 184 MWh and peaks at 7.67 MW, below an illustrative 8 MW supply limit.",
+            "LLM evaluation batches are ready at midnight and due within 24 hours. Live inference plus fixed support draws 4 MW. Adding 4 MW of batch work for 12 hours or 2 MW for 24 hours uses the same 144 MWh, with peaks of 8 MW and 6 MW.",
           explanation:
-            "Power is the height of the graph; energy is its area. The three original blocks contribute 48 + 120 + 16 = 184 MWh. If flexible work can be rescheduled to spread that energy evenly across the same 24 hours, average and peak become 184 ÷ 24 = 7.67 MW. This ideal comparison holds total energy and completion requirements fixed. The original trace exceeds the 8 MW line; its daily energy total alone cannot tell you whether that supply is sufficient.",
-        },
-        {
-          id: "meter-average",
-          label: "Hidden peaks",
-          title: "An average can hide the peak a power path must carry.",
-          reference: "d01-power-over-time",
-          key: "trace",
-          group: "Five-minute trace",
-          options: [
-            ["steady", "Steady"],
-            ["spike", "Brief peak"],
-          ],
-          description:
-            "Both traces average 8 MW over five minutes. One stays at 8 MW; the other reaches 12 MW for one minute, then 7 MW for four minutes, exceeding the illustrative 10 MW line.",
-          explanation:
-            "The average display cannot distinguish these two traces. Both use about 666.7 kWh in five minutes. Yet the second asks for 12 MW during its first minute. The supply line here is a comparison threshold, not a prediction of a breaker trip. Choose measurement resolution for the event you want to understand; neither a billing total nor a five-minute average reveals every fast excursion.",
+            "An offline evaluation queue runs a fixed set of prompts against a model checkpoint; results are due by midnight. The independent batches can start throughout the day. Live user inference remains unchanged; its load plus fixed support is 4 MW in this example. Running evaluation batches together adds 4 MW for 12 hours. Staggering starts and limiting job concurrency spreads their 48 MWh over 24 hours at 2 MW. Both finish the same evaluation queue by the deadline. Peak facility demand falls from 8 to 6 MW, below the illustrative 6.5 MW supply limit. The queue must be available at the start, spare compute must exist, and the example assumes unchanged evaluation energy and results. Actual GPU efficiency, idle power and cooling can differ. This is not a proposal to delay interactive responses or freely interrupt a tightly coupled training job.",
         },
         {
           id: "useful-work",
-          label: "Useful work",
-          title:
-            "A lower PUE can accompany more energy for the same completed work.",
+          label: "PUE and overhead",
+          title: "Reducing facility overhead lowers PUE at the same IT energy.",
           reference: "d01-metrics-and-evidence",
           key: "efficiency",
-          group: "One-hour case",
+          group: "Facility overhead",
           options: [
             ["baseline", "Baseline"],
-            ["extra", "Extra IT draw"],
+            ["lower", "Lower overhead"],
           ],
           description:
-            "With 100 identical jobs completed, PUE falls from 1.20 to 1.17 when IT energy rises from 1,000 to 1,200 kWh and overhead stays at 200 kWh. Facility energy per job rises from 12 to 14 kWh.",
+            "For the same one-hour workload, IT energy stays at 1,500 kWh. Reducing overhead from 300 to 150 kWh lowers total facility energy from 1,800 to 1,650 kWh, and PUE from 1.20 to 1.10.",
           explanation:
-            "Power usage effectiveness compares total facility energy with IT energy over the same interval. It does not count completed work. Here the same 100 jobs meet the same quality requirements in both cases. Extra IT consumption enlarges the denominator, so the ratio improves even while energy per job gets worse. This is a counterexample, not a claim that lower PUE is generally bad. It sets up the next question: what job must the facility actually deliver, at what speed and quality?",
+            "Power usage effectiveness (PUE) is total facility energy divided by IT equipment energy over the same interval. Keep installed IT, completed work and IT energy fixed: 1,500 kWh in one hour. Reducing supporting-system energy from 300 to 150 kWh brings facility energy from 1,800 to 1,650 kWh, so PUE falls from 1.20 to 1.10. Cooling and electrical distribution are overhead sources. The reduction is assumed here, not a result promised by a particular product. Both IT capacity and actual IT energy stay fixed; they remain distinct concepts. This one-hour calculation is not an annual PUE report. PUE does not measure model quality or useful computation; those are taught separately in the workload section.",
         },
       ];
       let index = 0;
@@ -696,7 +655,12 @@
         render();
       }
       function fromHash() {
-        const found = scenes.findIndex((s) => s.id === location.hash.slice(1));
+        const aliases = {
+          "heat-account": "facility-meter",
+          "meter-average": "power-energy",
+        };
+        const id = location.hash.slice(1);
+        const found = scenes.findIndex((s) => s.id === (aliases[id] || id));
         index = found < 0 ? 0 : found;
         render();
       }
@@ -704,7 +668,7 @@
         const b = e.target.closest("[data-setting]");
         if (!b) return;
         const { setting, value } = b.dataset;
-        state[setting] = setting === "rackDetail" ? value === "true" : value;
+        state[setting] = value;
         render();
         document
           .querySelector(`[data-setting="${setting}"][data-value="${value}"]`)

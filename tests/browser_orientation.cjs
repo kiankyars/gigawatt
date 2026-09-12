@@ -8,13 +8,11 @@ const base =
 const output = process.argv[3] || "/tmp/gigawatt-orientation-qa";
 const scenes = [
   { id: "three-paths", setting: "path", values: ["power", "heat", "data"] },
-  { id: "white-grey", setting: "cduLocation", values: ["hall", "gallery"] },
-  { id: "rack-boundary", setting: "rackDetail", values: ["false", "true"] },
+  { id: "white-grey", values: [null] },
+  { id: "rack-boundary", values: [null] },
   { id: "facility-meter", setting: "boundary", values: ["it", "facility"] },
-  { id: "heat-account", values: [null] },
   { id: "power-energy", setting: "schedule", values: ["stepped", "flat"] },
-  { id: "meter-average", setting: "trace", values: ["steady", "spike"] },
-  { id: "useful-work", setting: "efficiency", values: ["baseline", "extra"] },
+  { id: "useful-work", setting: "efficiency", values: ["baseline", "lower"] },
 ];
 const close = (actual, expected, label) =>
   assert.ok(
@@ -166,67 +164,92 @@ async function checkQuantities(page, id, value) {
     );
   }
   if (id === "white-grey") {
-    assert.equal(
-      await page
-        .locator("[data-cdu-location]")
-        .getAttribute("data-cdu-location"),
-      value,
-    );
     assert.match(content, /WHITE SPACE/);
-    assert.match(content, /GREY SPACE/);
+    assert.match(content, /GRAY SPACE|GREY SPACE/);
+    assert.equal(await page.locator("#actions button").count(), 0);
   }
   if (id === "rack-boundary") {
-    assert.equal(await attributeNumber("data-rack-inlet"), 100);
-    assert.equal(
-      await page.locator("[data-rack-detail]").getAttribute("data-rack-detail"),
-      value,
-    );
-    if (value === "true") {
-      assert.match(content, /8 kW/);
-      assert.match(content, /92 kW/);
-      assert.match(content, /8 \+ 92 = 100 kW/);
-    }
+    assert.equal(await attributeNumber("data-rack-requirement"), 142);
+    assert.match(content, /Up to 142 kW/);
+    assert.match(content, /GB300 NVL72/);
+    assert.equal(await page.locator("[data-rack-detail]").count(), 0);
+    await checkProductImage(page);
   }
   if (id === "facility-meter") {
-    assert.equal(await attributeNumber("data-facility-kw"), 1320);
+    assert.equal(await attributeNumber("data-facility-kw"), 1800);
+    assert.equal(await attributeNumber("data-it-kw"), 1500);
+    assert.equal(await attributeNumber("data-overhead-kw"), 300);
+    assert.equal(await attributeNumber("data-supply-rating-kw"), 2000);
     assert.equal(
       await attributeNumber("data-meter-kw"),
-      value === "it" ? 1100 : 1320,
+      value === "it" ? 1500 : 1800,
     );
   }
-  if (id === "heat-account")
-    assert.equal(await attributeNumber("data-heat-kw"), 1320);
   if (id === "power-energy") {
-    close(await attributeNumber("data-energy-mwh"), 184, "Daily energy");
-    close(await attributeNumber("data-average-mw"), 184 / 24, "Daily average");
+    close(await attributeNumber("data-energy-mwh"), 144, "Daily energy");
+    close(await attributeNumber("data-average-mw"), 6, "Daily average");
     close(
       await attributeNumber("data-peak-mw"),
-      value === "flat" ? 184 / 24 : 10,
+      value === "flat" ? 6 : 8,
       "Daily peak",
-    );
-  }
-  if (id === "meter-average") {
-    close(
-      await attributeNumber("data-energy-mwh"),
-      2 / 3,
-      "Five-minute energy",
-    );
-    close(await attributeNumber("data-average-mw"), 8, "Five-minute average");
-    close(
-      await attributeNumber("data-peak-mw"),
-      value === "spike" ? 12 : 8,
-      "Five-minute peak",
     );
   }
   if (id === "useful-work") {
     close(
       await attributeNumber("data-pue"),
-      value === "extra" ? 7 / 6 : 1.2,
+      value === "lower" ? 1.1 : 1.2,
       "PUE",
     );
+    assert.equal(await attributeNumber("data-it-energy-kwh"), 1500);
     assert.equal(
-      await attributeNumber("data-energy-per-job"),
-      value === "extra" ? 14 : 12,
+      await attributeNumber("data-facility-energy-kwh"),
+      value === "lower" ? 1650 : 1800,
+    );
+    assert.equal(
+      await attributeNumber("data-overhead-energy-kwh"),
+      value === "lower" ? 150 : 300,
+    );
+  }
+}
+
+async function checkProductImage(page) {
+  const image = page.locator('svg image[data-product-image="gb300"]');
+  assert.equal(
+    await image.count(),
+    1,
+    "The product example must display its photograph",
+  );
+  const source = await image.getAttribute("href");
+  assert.equal(new URL(source).hostname, "docs.nvidia.com");
+  assert.match(new URL(source).pathname, /nvl72-ai-factory/);
+  const size = await image.evaluate(async (element) => {
+    const photo = new Image();
+    photo.src = element.getAttribute("href");
+    await photo.decode();
+    return { width: photo.naturalWidth, height: photo.naturalHeight };
+  });
+  assert.ok(
+    size.width > 100 && size.height > 100,
+    "The NVIDIA product image must decode successfully",
+  );
+}
+
+async function checkAliases(page) {
+  for (const [previous, replacement] of [
+    ["heat-account", "facility-meter"],
+    ["meter-average", "power-energy"],
+  ]) {
+    await page.goto(url(previous));
+    await page.waitForSelector("#diagram text");
+    assert.equal(
+      await page.locator("#scenes").inputValue(),
+      String(scenes.findIndex((s) => s.id === replacement)),
+      "Legacy scene links must display their replacement",
+    );
+    await checkQuantities(
+      page,
+      replacement,
+      replacement === "facility-meter" ? "it" : "stepped",
     );
   }
 }
@@ -265,11 +288,11 @@ async function checkNavigation(page) {
     "Scene navigation must not consume select's keys",
   );
   assert.equal(new URL(page.url()).hash, "#three-paths");
-  await page.locator("#scenes").selectOption("7");
+  await page.locator("#scenes").selectOption(String(scenes.length - 1));
   assert.equal(new URL(page.url()).hash, "#useful-work");
   assert.equal(await page.locator("#next").isDisabled(), true);
   await page.locator("#previous").click();
-  assert.equal(new URL(page.url()).hash, "#meter-average");
+  assert.equal(new URL(page.url()).hash, "#power-energy");
   await page.locator("#explain").click();
   assert.equal(
     await page.locator("#reading").evaluate((dialog) => dialog.open),
@@ -278,7 +301,7 @@ async function checkNavigation(page) {
   await page.keyboard.press("ArrowRight");
   assert.equal(
     new URL(page.url()).hash,
-    "#meter-average",
+    "#power-energy",
     "Dialog reading must not navigate slides",
   );
   await page.keyboard.press("Escape");
@@ -338,7 +361,10 @@ async function checkNavigation(page) {
           await page.goto(url(scene.id));
           await page.waitForSelector("#diagram text");
           assert.equal(await page.locator("h1:visible").count(), 1);
-          assert.equal(await page.locator("#scenes option").count(), 8);
+          assert.equal(
+            await page.locator("#scenes option").count(),
+            scenes.length,
+          );
           assert.equal(await page.locator("#fullscreen").isVisible(), false);
           for (const value of scene.values) {
             const name = `${scene.id}-${value ?? "default"}-${viewport.width}-${colorScheme}`;
@@ -364,6 +390,7 @@ async function checkNavigation(page) {
                 else await page.keyboard.press("Space");
                 await checkSelection(page, scene, value);
               }
+              await checkSelection(page, scene, value);
               await checkQuantities(page, scene.id, value);
               await checkGeometry(page, viewport);
               if (
@@ -390,7 +417,9 @@ async function checkNavigation(page) {
             const index = scenes.indexOf(scene);
             await page
               .locator("#scenes")
-              .selectOption(String(index === 7 ? 0 : 7));
+              .selectOption(
+                String(index === scenes.length - 1 ? 0 : scenes.length - 1),
+              );
             await page.locator("#scenes").selectOption(String(index));
             await checkSelection(page, scene, value);
             await checkQuantities(page, scene.id, value);
@@ -398,6 +427,7 @@ async function checkNavigation(page) {
         }
         try {
           await checkNavigation(page);
+          await checkAliases(page);
         } catch (error) {
           failures.push(
             `Navigation ${viewport.width}-${colorScheme}: ${error.message}`,

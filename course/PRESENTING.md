@@ -6,9 +6,9 @@
 ## The next pass
 
 The next dry run is **[D01 — Inside the facility](prototypes/orientation-format.html?teach=1#three-paths)**.
-Its eight scenes cover the three paths, white/grey space, rack and facility meter
-boundaries, the heat account, energy versus peak demand, hidden peaks and PUE
-versus useful work. It applies the approach reviewed in UPS, 800 V and cooling.
+Its six scenes cover the three paths, white/gray space, a GB300 NVL72 product
+example, nameplate versus operating load, scheduling LLM evaluation batches and
+reducing PUE with fixed IT energy. It applies the approach reviewed in UPS, 800 V and cooling.
 The [student route](prototypes/orientation-format.html) has the same diagrams and
 experiments; each scene's explanation and sources open on demand.
 
@@ -23,6 +23,10 @@ This is the opening teaching section, not all of D01/D02. Source-claim evaluatio
 remains in the D01 reference; D02's workload brief and service requirements are
 the next teaching section to build. No need to reread the three reviewed sequences
 or the entire manuscript before this pass.
+
+D08's written networking section covers copper, fiber, pluggable and co-packaged
+optics, scale-up/scale-out, plus campus entrances, meet-me rooms, carrier handoff,
+DCI/WAN and shared-route risks. Its teaching sequence remains to be authored.
 
 ## Cooling reference sequence
 

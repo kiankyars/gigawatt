@@ -1058,7 +1058,7 @@
       "publisher": "NVIDIA",
       "kind": "primary_reference_architecture",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-06",
+      "reviewed_on": "2026-09-12",
       "updated_on": "2026-05-18",
       "domains": [
         "D06",
@@ -1066,10 +1066,11 @@
         "D08",
         "D09",
         "D10",
-        "D14"
+        "D14",
+        "D01"
       ],
-      "use": "An identified GB300 rack example for distinguishing compute trays, switched in-rack connectivity, external compute and storage networks, management, power shelves and cooling interfaces. Use the component hierarchy rather than treating the rack as a collection of identical GPU power ratings.",
-      "caution": "The /latest/ URL is mutable. Page inspected as updated May 18, 2026. Marketing performance ratios are workload-dependent and are not adopted. Its bandwidth recommendation block has an unclear per-GPU versus aggregate scope, and scale-out wording for in-rack NVLink needs interpretation against the switched topology. Do not reproduce those as universal specifications; verify exact OEM configuration before any sizing exercise."
+      "use": "An identified GB300 rack example for distinguishing compute trays, switched in-rack connectivity, external compute and storage networks, management, power shelves and cooling interfaces. Use the component hierarchy rather than treating the rack as a collection of identical GPU power ratings. Opening product example: full GB300 NVL72 rack requiring up to 142 kW; annotated manufacturer image.",
+      "caution": "The /latest/ URL is mutable. Page inspected as updated May 18, 2026. Marketing performance ratios are workload-dependent and are not adopted. Its bandwidth recommendation block has an unclear per-GPU versus aggregate scope, and scale-out wording for in-rack NVLink needs interpretation against the switched topology. Do not reproduce those as universal specifications; verify exact OEM configuration before any sizing exercise. The 142 kW bullet does not explicitly name its AC/DC measurement plane or workload. The course ledger labels 142 kW at an AC inlet as a hypothetical operating assumption, not a measured NVIDIA result."
     },
     {
       "id": "E22133B3DE1",
@@ -2638,6 +2639,82 @@
       ],
       "use": "Define facility/IT energy accounting, distinguish PUE from useful-work productivity, and classify equipment by function rather than room location.",
       "caution": "Reviewed selected material on printed pages 8–9, 14–20, 21–22 and 34, not the entire paper. Historical 2012 guidance, not verification of current ISO compliance. One-hour teaching examples are hypothetical intervals, not annual reported PUE."
+    },
+    {
+      "id": "P62",
+      "title": "Corning — Meet-Me-Room to Outside Plant Data Center Solutions",
+      "url": "https://www.corning.com/data-center/worldwide/en/home/applications/multi-tenant-data-center/meet-me-room.html",
+      "publisher": "Corning",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D08",
+        "D12"
+      ],
+      "use": "Locate the campus fiber entrance and carrier interconnection; distinguish campus DCI from a rack link.",
+      "caution": "Opening MMR/OSP sections reviewed. Multitenant example; no universal room arrangement, product rating or security guarantee adopted."
+    },
+    {
+      "id": "EA3CEEB6630",
+      "title": "Equinix — Customer-Managed Pre-Cabling and Demarcations",
+      "url": "https://docs.equinix.com/cross-connect/installation/xc-customer-managed-precabling/",
+      "publisher": "Equinix",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D08"
+      ],
+      "use": "Explain MMR cross-connects and customer/operator demarcation responsibilities.",
+      "caution": "Pre-cabling page and linked Demarcations page reviewed. Product-specific arrangement; fees, availability and installation dimensions not generalized."
+    },
+    {
+      "id": "E0F361052D1",
+      "title": "FCC 25-21 — Physical Diversity, paragraph 63",
+      "url": "https://docs.fcc.gov/public/attachments/FCC-25-21A1.pdf",
+      "publisher": "Federal Communications Commission",
+      "kind": "primary_reference",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-12",
+      "published_on": "2025-03-28",
+      "domains": [
+        "D08",
+        "D12"
+      ],
+      "use": "Identify shared cables, conduits and structures as common network-path failure points.",
+      "caution": "Paragraphs 62–63, printed page 26, reviewed. Proposed NG911 rulemaking supplies an engineering distinction, not applicable data-center legal requirements or a completed route audit."
+    },
+    {
+      "id": "P63",
+      "title": "Google Cloud — Best practices for batch inference on GKE",
+      "url": "https://docs.cloud.google.com/kubernetes-engine/docs/best-practices/machine-learning/inference/batch-inference",
+      "publisher": "Google Cloud",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D01",
+        "D02",
+        "D09"
+      ],
+      "use": "Distinguish scheduled, latency-tolerant batch inference from real-time serving and request batching; motivate a queue of independent LLM evaluation batches.",
+      "caution": "Reviewed the overview, architectural-pattern and batch-size sections. The 48 MWh evaluation queue, 4 MW base load, 24-hour deadline and preserved-energy assumption are original examples, not Google measurements or performance promises."
+    },
+    {
+      "id": "P64",
+      "title": "NVIDIA DGX GB200/GB300 hardware guide — Power shelves",
+      "url": "https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html#power-shelves",
+      "publisher": "NVIDIA",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D01",
+        "D06"
+      ],
+      "use": "Explain AC supply into power shelves and nominal 50–51 V DC busbar feeding rack components.",
+      "caution": "Read power-shelf and busbar descriptions. Do not use the combined-guide approximate 120 kW sentence as a named GB300 rack requirement or infer losses from installed redundant shelf output ratings."
     }
   ]
 }

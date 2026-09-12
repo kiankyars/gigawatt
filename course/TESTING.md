@@ -570,7 +570,8 @@ substantive air/water volume-flow comparison; their historical links still work.
 
 The presentation is implemented for a new dry run. Full-domain completeness,
 spoken delivery and learner comprehension are not established by these checks.
-# Opening teaching section — 2026-09-11
+
+## Opening teaching section — 2026-09-11
 
 `course/prototypes/orientation-format.html` directly teaches eight selected D01
 scenes: three facility paths, white/grey space, rack and facility boundaries,
@@ -587,3 +588,22 @@ were inspected, including narrow heat paths and both demand profiles. Fifty-two
 Python tests and 74 JavaScript tests passed; generated reader, map and research
 checks are current. The sequence is ready for a dry run; broader D01 evidence
 evaluation stays in the reference and D02 presentation remains to be authored.
+
+## Opening revision — 2026-09-12
+
+The opening now has six scenes. White/gray space remains on slide 2; the CDU
+relocation exercise, heat-accounting scene and separate averaging scene were
+removed. The GB300 example uses NVIDIA's published full-rack requirement and
+product image; its hypothetical operating ledger is labeled separately. The
+remaining comparisons distinguish supply nameplate from demand, stagger a
+deadline-bound LLM evaluation queue and reduce facility overhead at fixed IT
+energy and workload.
+
+All 88 orientation scene/state layouts passed at four viewport sizes in both
+themes, including image decoding, label containment, control selection,
+restoration, input methods and old-link redirects. Eight actual-fullscreen cases
+passed across orientation, UPS, cooling and 800 V DC, including device-theme
+changes while full screen. Representative desktop and phone views were inspected.
+All 52 Python and 75 JavaScript tests passed. Generated reader, map and research
+checks are current. D08's written lesson now explains the campus-to-carrier
+handoff; its teaching presentation remains unbuilt.

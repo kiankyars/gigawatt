@@ -34,7 +34,7 @@ Generated from the lesson records in `course/expansion/` with `uv run gigawatt-e
 - **D07** [A rack is a path through several memories](lessons/d07-data-path.md) — What must happen between a stored dataset and a completed accelerator operation?
 - **D07** [Find the limit before buying more arithmetic](lessons/d07-bottleneck-model.md) — Is a workload constrained by memory capacity, memory bandwidth, compute or communication?
 - **D07** [The rack becomes a service boundary](lessons/d07-rack-as-system.md) — How does tighter hardware integration change deployment, maintenance and usable job capacity?
-- **D08** [Count the paths, not just the advertised ports](lessons/d08-topology-budget.md) — How do endpoint bandwidth, oversubscription and physical distance constrain a communication plan?
+- **D08** [Count the paths, not just the advertised ports](lessons/d08-topology-budget.md) — How do topology, physical distance and the campus fiber handoff constrain a communication plan?
 - **D08** [A collective makes waiting contagious](lessons/d08-collective-progress.md) — How can one constrained participant delay a job running on many healthy accelerators?
 - **D08** [Choose where electricity becomes light](lessons/d08-copper-light-service.md) — How should reach, power and replacement boundaries shape the choice between copper, pluggable optics and CPO?
 - **D09** [Storage is a traffic and state system](lessons/d09-storage-paths.md) — Why can a large, fast storage array still leave accelerators waiting?
@@ -104,7 +104,7 @@ Every entry below is authored and has practice; this is not evidence of learner 
 | D08.2 | [Count the paths, not just the advertised ports](lessons/d08-topology-budget.md), [A collective makes waiting contagious](lessons/d08-collective-progress.md), [The powered cluster that keeps waiting](lessons/c04-stalled-job.md) |
 | D08.3 | [A collective makes waiting contagious](lessons/d08-collective-progress.md), [The powered cluster that keeps waiting](lessons/c04-stalled-job.md) |
 | D08.4 | [Choose where electricity becomes light](lessons/d08-copper-light-service.md) |
-| D08.5 | [A collective makes waiting contagious](lessons/d08-collective-progress.md), [Choose where electricity becomes light](lessons/d08-copper-light-service.md) |
+| D08.5 | [Count the paths, not just the advertised ports](lessons/d08-topology-budget.md), [A collective makes waiting contagious](lessons/d08-collective-progress.md), [Choose where electricity becomes light](lessons/d08-copper-light-service.md) |
 | D09.1 | [Storage is a traffic and state system](lessons/d09-storage-paths.md), [Count preserved progress, lost progress and recovery](lessons/d09-checkpoint-timeline.md), [The powered cluster that keeps waiting](lessons/c04-stalled-job.md) |
 | D09.2 | [Count preserved progress, lost progress and recovery](lessons/d09-checkpoint-timeline.md), [Turn installed hardware into an accepted service](lessons/d09-service-acceptance.md), [The powered cluster that keeps waiting](lessons/c04-stalled-job.md) |
 | D09.3 | [Storage is a traffic and state system](lessons/d09-storage-paths.md), [Turn installed hardware into an accepted service](lessons/d09-service-acceptance.md) |
@@ -152,6 +152,8 @@ Two floor-plan terms help locate those systems. White space is the area housing 
 Now draw three paths through the same picture. Electrical energy arrives through conductors and conversion equipment. Heat leaves through air, liquid, and heat-transfer equipment. Information arrives, moves between machines, and leaves through communication links. Their arrows mean different things. Coolant circulates around a loop; heat crosses an exchanger between separate loops. Data may travel both ways along a link while electrical energy continues to enter the associated equipment. Giving each arrow a clear meaning prevents an attractive drawing from teaching a false connection.
 
 A boundary is the imaginary line around the equipment you are accounting for. Draw it tightly around a processor and its regulators may lie outside. Draw it around a rack and those regulators, fans, and power supplies may all be inside. Draw it around the facility and cooling pumps and outdoor rejection equipment enter the account. Widening a boundary changes which loads must be counted; it does not physically change their consumption. Always ask where the meter sits relative to that line.
+
+The opening presentation uses NVIDIA’s GB300 NVL72 as a real product anchor. The enterprise reference architecture lists a full-rack requirement of up to 142 kW. That is kilowatts, not watts, and does not specify constant observed consumption or an exact metering plane. A separate teaching case assumes ten racks each draw 142 kW at their AC inputs, adds 80 kW of separate networking/storage and 300 kW of facility support, and obtains 1,800 kW total demand. A hypothetical 2,000 kW supply nameplate is a rating distinct from that demand and from 1,500 kW of IT load. Neither the nameplate nor a subtraction alone establishes usable IT capacity after redundancy, thermal and downstream constraints.
 
 ## Close the ledger without throwing computation away
 
@@ -223,6 +225,7 @@ The 80 kW is part of the 1,000 kW rack inlet total. Add it separately only when 
 - [DOE — Best Practices Guide for Energy-Efficient Data Center Design](https://www.energy.gov/sites/default/files/2024-07/best-practice-guide-data-center-design_0.pdf) — Data-center accounting separates IT, electrical, and cooling systems. Read 2026-09-06. Read the guide overview and relevant system/metrics material; no named facility configuration or operating measurement is inferred.
 - [Leviton — Data center white space and gray space](https://leviton.com/support/literature/newsletters/insider/insideroctober2025/focusedproductoctober2025) — White space houses IT; gray space describes supporting back-of-house infrastructure. Read 2026-09-10. Reviewed the White Space and Gray Space definitions under Leviton Solutions for Data Centers. These are area conventions, not a rule assigning every power or cooling device to one room type.
 - [Vertiv — Deploying Liquid Cooling in the Data Center](https://prod.vertiv.cn/4a9616/globalassets/documents/white-papers/liquid-cooling/vertiv-liquidcooling-wp-en-na-sl-71113-web.pdf) — Cooling equipment may occupy white space or a grey-space mechanical gallery; service and replacement need room in either location. Read 2026-09-10. Reviewed Designing Mechanical Space, printed pages 14–15, and the space-use discussion on page 13. No equipment clearance, floor rating, or universal footprint saving is taken from this example.
+- [NVIDIA NVL72 AI Factory — System Hardware & Components](https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/components.html) — An identified GB300 rack example for distinguishing compute trays, switched in-rack connectivity, external compute and storage networks, management, power shelves and cooling interfaces. Use the component hierarchy rather than treating the rack as a collection of identical GPU power ratings. Opening product example: full GB300 NVL72 rack requiring up to 142 kW; annotated manufacturer image. Read 2026-09-12. The /latest/ URL is mutable. Page inspected as updated May 18, 2026. Marketing performance ratios are workload-dependent and are not adopted. Its bandwidth recommendation block has an unclear per-GPU versus aggregate scope, and scale-out wording for in-rack NVLink needs interpretation against the switched topology. Do not reproduce those as universal specifications; verify exact OEM configuration before any sizing exercise. The 142 kW bullet does not explicitly name its AC/DC measurement plane or workload. The course ledger labels 142 kW at an AC inlet as a hypothetical operating assumption, not a measured NVIDIA result.
 
 ## A megawatt is not a megawatt-hour
 
@@ -247,6 +250,8 @@ Consider a synthetic 24-hour facility trace: 6 MW for eight hours, 10 MW for twe
 Now imagine moving flexible work so the facility consumes exactly 7.67 MW all day. The total energy remains 184 MWh in this ideal thought experiment, while peak demand falls. That illustrates why scheduling can affect infrastructure capacity even when work and energy remain unchanged. A real rescheduling change might alter cooling efficiency, queue delay, job completion time, and total energy. We held those effects fixed to isolate the shape of demand; the calculation does not promise they are absent.
 
 Look at the headroom under a 12 MW service rating. During the 10 MW segment, the arithmetic difference is 2 MW. During the 4 MW segment it is 8 MW. Neither number is a complete admission policy for a new workload. Other equipment, redundancy requirements, and fast excursions may bind first. An arithmetic margin at a meter is useful evidence, but it is not transferable capacity everywhere downstream of that meter.
+
+The revised opening gives this scheduling concept an LLM workload: evaluation batches are ready at 00:00 and due at 24:00. Live inference plus fixed facility support remains at 4 MW. Running the evaluations together adds 4 MW for 12 hours; staggering independent batch starts uses 2 MW for 24 hours. Both add 48 MWh to the base 96 MWh, so total energy remains 144 MWh while peak facility demand falls from 8 to 6 MW. The queue availability, spare compute, fixed support energy, equal evaluation energy and identical results are declared assumptions. This does not require postponing interactive responses or pausing a single tightly coupled training job.
 
 ## Measurement resolution changes the question
 
@@ -307,6 +312,7 @@ Ninety seconds is 90/3,600 = 0.025 hours. Multiplying by 2 MW gives 0.05 MWh. En
 
 - [EIA — Measuring electricity](https://www.eia.gov/energyexplained/electricity/measuring-electricity.php) — kW and MW measure power; kWh and MWh include elapsed time. Read 2026-09-06. Read the public unit definitions. All traces, durations, averages, and practice values are original.
 - [OpenStax — Electrical Energy and Power](https://openstax.org/books/university-physics-volume-2/pages/9-5-electrical-energy-and-power) — Electrical power is a rate of energy transfer. Read 2026-09-06. Read the power definition and equations; the source is not a data-center telemetry or transient specification.
+- [Google Cloud — Best practices for batch inference on GKE](https://docs.cloud.google.com/kubernetes-engine/docs/best-practices/machine-learning/inference/batch-inference) — Distinguish scheduled, latency-tolerant batch inference from real-time serving and request batching; motivate a queue of independent LLM evaluation batches. Read 2026-09-12. Reviewed the overview, architectural-pattern and batch-size sections. The 48 MWh evaluation queue, 4 MW base load, 24-hour deadline and preserved-energy assumption are original examples, not Google measurements or performance promises.
 
 ## Attach a denominator and a date
 
@@ -326,11 +332,11 @@ Now add service. Assume the same system completes 96,000 successful jobs under a
 
 ## Compare outcomes without changing the test
 
+The opening presentation first isolates facility overhead. Hold the installed IT, completed workload and one-hour IT energy at 1,500 kWh. Reduce supporting-system energy from 300 to 150 kWh: facility energy falls from 1,800 to 1,650 kWh and the interval PUE falls from 1.20 to 1.10. IT capacity and actual IT energy both remain unchanged, but those are distinct quantities. This is an assumed overhead reduction, not a claim about a named cooling product or a measured annual PUE. The following counterexamples extend the reference beyond this introductory comparison.
+
 Consider two hypothetical days with the same accepted workload and completion count. Day A uses 240 MWh facility energy and 192 MWh IT energy. Day B uses 228 MWh facility energy and 180 MWh IT energy. Day B has a slightly larger facility-to-IT ratio: 228/180 is about 1.267. Yet it uses less total energy for the same useful work. Its overhead remains 48 MWh while IT energy falls. Judging only by the overhead ratio would punish the better total-energy result.
 
 Reverse the experiment. Add an unnecessary 20 MWh of IT consumption without changing useful output or facility overhead. The ratio falls because the denominator grows, even though total electricity use increases. This is not a reason to abandon overhead metrics. It is a reason to pair each metric with the outcome it cannot measure. Facility overhead, workload efficiency, resource use, and availability are separate questions. A dashboard should keep them separate rather than compressing them into one score.
-
-The opening presentation uses a separate one-hour version of this counterexample: 100 identical jobs meet the same quality requirements in both cases. With 1,000 kWh of IT energy and 200 kWh overhead, facility energy is 1,200 kWh, PUE for the illustrative interval is 1.20, and energy per job is 12 kWh. Increase IT energy to 1,200 kWh while keeping overhead and completed work fixed: the facility uses 1,400 kWh, PUE falls to about 1.17, and energy per job rises to 14 kWh. The unchanged overhead is an assumption, and this one-hour calculation is not an annual PUE report.
 
 Fair comparisons require matching conditions. A faster or lower-energy run at a different model quality, precision, input length, batch size, or failure policy is not automatically an improvement for the original service. Record the changed condition and decide whether it is acceptable. The same discipline applies to a site case: a source-side connection rating and a rack count collected months apart cannot be combined as though they were simultaneous measurements of one commissioned configuration.
 
@@ -2340,15 +2346,15 @@ The new mode recovers an allocation, but it does not make the fractured topology
 
 ## Count the paths, not just the advertised ports
 
-**D08 · Authored draft · Objectives:** D08.1, D08.2
+**D08 · Authored draft · Objectives:** D08.1, D08.2, D08.5
 
-Build a small fabric, account for every port and cable, and calculate lower bounds with explicit traffic assumptions.
+Account for a cluster's ports and cables, then trace its connection through the campus boundary to external networks.
 
-**Driving question:** How do endpoint bandwidth, oversubscription and physical distance constrain a communication plan?
+**Driving question:** How do topology, physical distance and the campus fiber handoff constrain a communication plan?
 
 ## Separate three communication scales
 
-Scale-up communication joins devices within a tightly integrated execution domain. Scale-out joins nodes or such domains across a cluster. Wide-area communication crosses a larger geographic and operational boundary. These terms describe relationships rather than fixed distances or universal protocols. Identify the participants, synchronization pattern and actual route before assigning a label. A geographically distributed job may use all three kinds of communication during one step, each with different bandwidth, latency and failure implications.
+Scale-up communication joins devices within a tightly integrated execution domain, such as the GPUs in a scale-up rack. Scale-out joins nodes or such domains across a cluster. Data-center interconnect (DCI) connects facilities, including buildings on one campus; a wide-area network (WAN) extends communication across more distant sites or provider networks. DCI therefore need not mean long-haul, and scale-up need not end at every rack boundary. These terms describe relationships rather than fixed distances or universal protocols. Identify the participants, synchronization pattern and actual route before assigning a label.
 
 Physical distance establishes a propagation floor that faster serialization cannot remove. Using an illustrative fiber propagation speed of 200,000 kilometers per second, a 100-kilometer route takes at least 0.5 milliseconds one way before switching, queueing or protocol work. A request-response dependency crosses that distance twice. Long bulk transfers may tolerate that delay; many sequential dependent exchanges may not. Route length also differs from straight-line map distance. A WAN proposal needs the actual route and service behavior, not just the names of two cities.
 
@@ -2367,6 +2373,18 @@ A balanced fabric does not guarantee balanced traffic. Many senders targeting on
 ## Connect the graph to the installation
 
 After the logical calculation, count cables, endpoint ports and switch ports separately. Then add reach, routing space, patching and replacement access. A feasible graph on paper can be difficult to cable if all high-density connections must cross one congested tray. Labels should preserve the relationship between physical port, logical link and scheduled device. That mapping is essential when a technician needs to locate a degraded link without disconnecting a neighboring healthy path.
+
+## Follow the campus connection to a carrier
+
+Trace an external path from the cluster network through border equipment and patch panels to the outside fiber route. The entrance facility brings outside-plant cabling into the building. A meet-me room (MMR) provides an interconnection area for tenant, operator and carrier cabling; a private campus may use a different room arrangement. These are functions to locate, not a universal sequence of separate rooms. Corning's multitenant example connects outside plant, the MMR and customer rack cabling.
+
+At the agreed demarcation point, mark where one party's service responsibility ends and the next begins. In Equinix's example, customers patch their equipment to the operator's demarcation. An intra-facility cable reaches the MMR and a cross-connect completes the physical connection there. That cable alone does not supply Internet transit: identify the actual carrier or private service, endpoint, capacity and acceptance boundary. D12 checks whether the route and construction rights can be delivered; D08 checks what the resulting connection carries.
+
+## Test routes, not carrier names
+
+Two carrier contracts do not prove two independent physical paths. Map each circuit through its entrance, duct, splice points, bridge crossings and upstream facilities; two fibers in one cable or conduit share that exposure. The FCC's physical-diversity discussion identifies shared cables, conduits and structures as common failure points. Provider diversity and route diversity answer different questions. Verify the route evidence and the surviving service, including border equipment and routing behavior; separate entrances alone do not prove end-to-end independence.
+
+In an original campus example, two 100 Gb/s services share the same bridge. Cutting both bridge cables removes both services, even though the invoices name different carriers. Moving one service to a verified independent crossing removes that particular shared failure. It does not establish automatic failover, enough remaining payload capacity, or independence from every other hazard. This is the external-network counterpart of the shared-bus failure in the UPS lesson.
 
 ## Worked example: A four-leaf synthetic fabric
 
@@ -2401,14 +2419,14 @@ Response: Compare the observed traffic matrix and placement with the design assu
 
 ## Apply the idea
 
-One uplink on the sending leaf fails and traffic is perfectly balanced over the remaining three. What is the new lower bound for the same 64 GB transfer?
+One sending-leaf uplink fails and traffic balances perfectly over the remaining three. What is the new lower bound for the same 64 GB transfer? Separately, do two campus carriers survive a cable cut if both routes use the same bridge and both cables are cut?
 
 <details>
 <summary>Reveal the worked answer</summary>
 
-300 Gb/s equals 37.5 GB/s, so the bound is 64 / 37.5 ≈ 1.707 seconds.
+300 Gb/s equals 37.5 GB/s, so the transfer bound is 64 / 37.5 ≈ 1.707 seconds. Neither carrier survives the specified bridge cut; two service contracts did not create physical diversity.
 
-The sending cut is now narrower than the receiving cut. Powered endpoints and healthy receiving links cannot overcome the missing capacity on the required path.
+Internal link counts and external service counts both need a physical path. Verify independent routing and remaining capacity before assuming that a second connection preserves the required service.
 
 </details>
 
@@ -2418,6 +2436,9 @@ The sending cut is now narrower than the receiving cut. Powered endpoints and he
 
 - [NVIDIA DGX SuperPOD — Network Fabrics](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/network-fabrics.html) — A concrete reference distinguishes network roles and accounts for leaf/spine cables and ports. Read 2026-09-06. Use the topology concepts only; this lesson’s counts are independently constructed.
 - [Slurm Workload Manager — Topology Guide](https://slurm.schedmd.com/topology.html) — Topology-aware allocation can seek to keep jobs within suitable switch groupings. Read 2026-09-06. Current documentation is version-sensitive; no example configuration is offered as production-ready.
+- [Corning — Meet-Me-Room to Outside Plant Data Center Solutions](https://www.corning.com/data-center/worldwide/en/home/applications/multi-tenant-data-center/meet-me-room.html) — Connect outside-plant fiber, a meet-me room and customer cabling; DCI can join campus buildings. Read 2026-09-12. Opening MMR/OSP sections reviewed. Multitenant example, not a universal campus layout or security guarantee.
+- [Equinix — Customer-Managed Pre-Cabling and Demarcations](https://docs.equinix.com/cross-connect/installation/xc-customer-managed-precabling/) — Separate customer cabling, MMR cross-connects and the demarcation responsibility boundary. Read 2026-09-12. Pre-cabling page and linked Demarcations page reviewed. Product-specific implementation; no fees, availability or universal room arrangement adopted.
+- [FCC 25-21 — Physical Diversity, paragraph 63](https://docs.fcc.gov/public/attachments/FCC-25-21A1.pdf) — Shared cables, conduits and structures can defeat physical path diversity. Read 2026-09-12. Paragraphs 62–63 on printed page 26 reviewed. NG911 proposed rulemaking used only for the engineering distinction, not data-center legal requirements.
 
 ## A collective makes waiting contagious
 
