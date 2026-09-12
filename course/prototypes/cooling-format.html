@@ -164,6 +164,7 @@
         align-items: center;
         justify-content: center;
         gap: 9px;
+        flex-wrap: wrap;
         padding: 0 0 8px;
       }
       #actions:empty {
@@ -472,27 +473,89 @@
         <button id="close-reading" aria-label="Close sources">×</button>
       </header>
       <p>
-        This original schematic follows one liquid-cooled heat path: chip → cold
-        plate → technology coolant → liquid-to-liquid CDU → facility water →
-        outdoor dry cooler. Equipment position and geometry are illustrative.
-        CDUs can be in a rack or beside a row; this drawing places one beside
-        the racks.
+        This presentation covers heat capture, CDU interfaces and outdoor heat
+        rejection. Schematics describe functional paths, not installation
+        drawings. D10 and D11 hold the expanded reference. The CoolIT views use
+        real manufacturer photographs of a row-scale CHx2000.
       </p>
       <details open>
-        <summary>What the numerical example means</summary>
+        <summary>Heat balance, temperature rise and approach</summary>
         <p>
-          The selected liquid path receives a hypothetical 100 kW of heat at
-          steady state. Water is modeled with constant specific heat of 4.18
-          kJ/(kg·K). At 5 kg/s, its temperature rise is 4.78 K; at 2.5 kg/s, it
-          is 9.57 K. These are temperature differences, not coolant inlet
-          temperatures or chip temperatures.
+          The steady-flow sensible-heat balance is Q̇ = ṁ cₚ ΔT. Q̇ is heat
+          transfer rate, ṁ is mass flow, cₚ is specific heat and ΔT is the
+          temperature change of that fluid. For volume flow V̇, mass flow is ρ V̇,
+          where ρ is density. The model assumes steady sensible heating with
+          constant properties and excludes pump/fan work.
         </p>
         <p>
-          We omit pump heat and heat exchanged with room air. The 100 kW is heat
-          already captured by this liquid path; it does not imply a 100 kW rack
-          has no residual air-cooling load. The arithmetic alone does not
-          establish pump performance, exchanger capacity or acceptable device
-          temperatures.
+          The transport comparison fixes 100 kW and a 10 K rise. Air is modeled
+          at 1.2 kg/m³ and 1.005 kJ/(kg·K); water at 1,000 kg/m³ and 4.18
+          kJ/(kg·K). It yields 8.29 m³/s of air versus 2.39 L/s of water. These
+          are illustrative bulk-flow requirements, not fan or pump ratings,
+          cold-plate performance or proof all rack heat enters the liquid path.
+        </p>
+        <p>
+          The separate CDU example uses an 84 kW load, 2 kg/s in each water loop
+          and rounded cₚ = 4.2 kJ/(kg·K). Technology supply/return is 35/45°C
+          and facility supply/return is 30/40°C. Loop rise is 10 K; CDU approach
+          is the 5 K difference between the two supply streams. Approach varies
+          with duty, flow, exchanger design and condition.
+        </p>
+        <p>
+          The outdoor comparison retains that CDU example. Dry bulb is 35°C; wet
+          bulb is 22°C or 28°C. Assumed dry-cooler approach is 5 K; tower
+          approach is 3 K. The chosen wet route includes a separate
+          tower/facility exchanger with 5 K approach, plus the CDU's 5 K. These
+          stipulated points give technology supply of 45°C (dry), 35°C (wet,
+          drier air) and 41°C (wet, more humid air), against a chosen 35°C
+          limit. They are not product curves, weather observations or universal
+          minimum approaches.
+        </p>
+      </details>
+      <details>
+        <summary>CoolIT CHx2000: what the listed ratings establish</summary>
+        <p>
+          CoolIT's product page, checked September 11, 2026, lists 2,000 kW at
+          5°C approach, and separately lists 2,125 L/min at 35 psi. The latter
+          describes flow against hydraulic resistance; pressure is not a thermal
+          capacity. The page does not establish that these are simultaneous
+          operating conditions. Its separate 12.24 kW electrical figure is not
+          used to calculate efficiency because matching test conditions are
+          absent.
+        </p>
+        <p>
+          A CDU's exchanger transfers heat into the facility loop; its pumps
+          circulate rack coolant, while sensors, controls and filtration
+          maintain the required supply conditions. The CDU still needs an
+          external heat sink. This is a commercial example, not a claim of
+          universal market standardization or a promise that any 2 MW rack group
+          can use it.
+        </p>
+        <p>
+          Front and internal photographs are embedded from CoolIT. Their
+          configuration is not replaced by an AI-generated illustration. Numeric
+          brochure values from older revisions are not combined with current
+          ratings.
+        </p>
+      </details>
+      <details>
+        <summary>Dry, wet, hybrid and refrigerated rejection</summary>
+        <p>
+          A dry cooler transfers heat through a coil into air without
+          intentional evaporation. A wet tower evaporates part of its
+          circulating water; makeup replaces evaporation and blowdown. Site
+          water availability, permits, local weather and operating strategy
+          determine feasibility. No blanket claim that wet cooling is infeasible
+          across most of the U.S. is assumed here.
+        </p>
+        <p>
+          Adiabatic precooling evaporates water into the entering air ahead of a
+          dry coil. Air-cooled and water-cooled chillers classify the condenser
+          sink, not the fluid cooling the load. The chiller diagrams use a
+          separate hypothetical 100 kW evaporator load plus 20 kW compressor
+          work, giving 120 kW condenser rejection. Other auxiliaries are
+          excluded. Economizer operation can bypass refrigeration when the
+          outside sink is cool enough; circulation still needs fans or pumps.
         </p>
       </details>
       <details>
@@ -521,6 +584,55 @@
       <details>
         <summary>Primary references</summary>
         <ul>
+          <li>
+            <a
+              href="https://www.coolitsystems.com/cdu-product/chx2000/"
+              target="_blank"
+              rel="noopener"
+              >CoolIT CHx2000: current product specifications and photographs</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.coolitsystems.com/products-services/data-center-products/cooling-distribution-units/"
+              target="_blank"
+              rel="noopener"
+              >CoolIT: CDU pumping, heat-exchange and control functions</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.weather.gov/source/zhu/ZHU_Training_Page/definitions/dry_wet_bulb_definition/dry_wet_bulb.html"
+              target="_blank"
+              rel="noopener"
+              >NWS: dry-bulb and wet-bulb measurement</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://handbook.ashrae.org/Handbooks/S24/IP/s24_ch40/s24_ch40_ip.aspx"
+              target="_blank"
+              rel="noopener"
+              >ASHRAE: towers, evaporation, approach and range</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.vertiv.com/495988/globalassets/shared/vertiv-chilled-water-solution-white-paper-sl-18066.pdf"
+              target="_blank"
+              rel="noopener"
+              >Vertiv: adiabatic air precooling and chilled-water systems</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.trane.com/commercial/north-america/us/en/about-us/newsroom/blogs/air-vs-water-cooled-chillers.html"
+              target="_blank"
+              rel="noopener"
+              >Trane: air- and water-cooled condenser arrangements</a
+            >
+          </li>
+
           <li>
             <a
               href="https://www.opencompute.org/documents/ocp-wp-l-lcdu-test-methodology-performance-rating-r1-pdf"
@@ -557,85 +669,130 @@
       </details>
     </dialog>
     <script type="module">
-      import {
-        COOLING_EXAMPLE,
-        liquidHeatBalance,
-        facilityFlowState,
-      } from "./cooling-model.js";
+      import { facilityFlowState } from "./cooling-model.js";
+      import { renderFoundation } from "./cooling-foundations.js";
+      import { renderRejection } from "./cooling-rejection.js";
+      import { renderCDU } from "./cooling-cdu.js";
       const scenes = [
         {
+          id: "why-liquid",
+          label: "Why liquid",
+          title:
+            "Water carries the same heat with far less volume flow than air.",
+          kind: "why-liquid",
+          description:
+            "Compare approximate water and air volumetric heat capacity at a declared teaching point. This motivates compact heat transport without claiming that liquid alone establishes chip temperatures.",
+        },
+        {
           id: "heat-path",
-          label: "Heat path",
-          title: "Cooling carries heat from the chip to the outdoors.",
+          label: "Complete heat path",
+          title: "The CDU separates rack coolant from facility water.",
           kind: "route",
           description:
-            "A rack and a CDU are inside the data hall. A separate outdoor dry cooler rejects heat into the air. The technology and facility liquid loops are closed and separated.",
+            "A liquid-to-liquid coolant distribution unit transfers heat from the rack loop into a separate facility loop. Facility water carries heat to outdoor rejection. The fluids do not mix.",
+        },
+        {
+          id: "capture-options",
+          label: "Air and liquid paths",
+          title:
+            "The cooling method determines which path carries heat out of the rack.",
+          kind: "capture-options",
+          description:
+            "Compare CRAH air cooling, cold plates with residual air cooling, rear-door heat exchangers and immersion. A CRAH transfers room-air heat into chilled water.",
         },
         {
           id: "cold-plate",
-          label: "Cold plate",
-          title: "A cold plate transfers chip heat into moving coolant.",
+          label: "Inside a cold plate",
+          title:
+            "A cold plate conducts heat through metal before coolant carries it away.",
           kind: "plate",
           description:
-            "Cross-section: the processor package is below a thermal interface and metal cold plate. Heat crosses these layers into coolant channels; coolant does not touch the silicon junction.",
+            "Processor heat crosses the package, thermal interface and plate metal into coolant channels. The coolant does not contact the silicon junction.",
         },
         {
-          id: "two-loops",
-          label: "Two loops",
+          id: "approach",
+          label: "CDU approach",
           title:
-            "The coolant distribution unit (CDU) transfers heat between separate loops.",
-          kind: "loops",
+            "CDU approach is the temperature gap between the two supply streams.",
+          kind: "approach",
           description:
-            "The technology coolant returns warm from the rack, passes one side of the CDU heat exchanger, and returns to the rack. Facility water circulates through the other side and the outdoor cooler. Heat crosses the wall; the liquids do not mix.",
+            "Name the separate technology and facility supply temperatures at the CDU. Their difference is CDU approach; return minus supply in one loop is loop temperature rise.",
         },
         {
-          id: "outdoors",
-          label: "Outdoor rejection",
-          title: "The facility loop carries that heat to an outdoor cooler.",
-          kind: "outdoors",
-          description:
-            "The facility water passes through a dry-cooler coil. Heat crosses the coil into outdoor air; the circulating water returns to the CDU. The fan moves air across the coil.",
-        },
-        {
-          id: "water-balance",
-          label: "Water balance",
-          title: "Water leaving the load is warmer than water entering.",
-          kind: "balance",
-          description:
-            "An ideal selected liquid path captures 100 kilowatts. With water specific heat modeled at 4.18 kilojoules per kilogram-kelvin and mass flow 5 kilograms per second, its temperature rise is 4.78 kelvin.",
-        },
-        {
-          id: "less-flow",
-          label: "Less flow",
+          id: "coolit-cdu",
+          label: "CoolIT CHx2000",
           title:
-            "Less flow requires a larger temperature rise for the same heat.",
-          kind: "flow",
+            "CoolIT’s CHx2000 packages heat exchange, pumping and control beside the racks.",
+          kind: "cdu",
           description:
-            "Compare 5 and 2.5 kilograms per second while holding captured heat at 100 kilowatts. The ideal steady temperature rise doubles from 4.78 to 9.57 kelvin.",
+            "Official product photographs show a row-scale liquid-to-liquid CDU. Manufacturer-listed 2 MW at 5°C approach and 2125 L/min at 35 psi are separately stated thermal and hydraulic points.",
+        },
+        {
+          id: "rejection",
+          label: "Dry versus wet",
+          title:
+            "A dry cooler heats outdoor air; a wet tower also evaporates water.",
+          kind: "rejection",
+          description:
+            "Compare a dry fluid-to-air coil with an open cooling tower. Tower water recirculates; some evaporates and makeup water replaces losses.",
+        },
+        {
+          id: "weather",
+          label: "Dry bulb and wet bulb",
+          title:
+            "Humidity changes evaporative cooling potential even at the same air temperature.",
+          kind: "weather",
+          description:
+            "Compare ordinary dry-bulb air temperature with the reading of a ventilated wetted sensor. At the same 35°C dry bulb, compare 22 and 28°C wet bulb.",
+        },
+        {
+          id: "approach-outdoors",
+          label: "Outdoor temperature limits",
+          title:
+            "Every exchanger’s approach uses part of the available temperature margin.",
+          kind: "approach-outdoors",
+          description:
+            "A synthetic 84 kW example traces outdoor conditions through dry or wet rejection and the CDU to a 35°C technology supply limit. The chosen wet route includes a tower-to-facility separating exchanger.",
+        },
+        {
+          id: "plant-options",
+          label: "Hybrid, chillers, economizers",
+          title:
+            "Plant modes change how heat reaches the outdoors and what resources it uses.",
+          kind: "plant-options",
+          description:
+            "Distinguish adiabatic air precooling, air- and water-cooled chiller condensers and economizer operation. Refrigeration adds compressor work to the condenser heat load.",
         },
         {
           id: "lost-flow",
-          label: "Lost facility flow",
-          title: "Loss of facility flow breaks the steady heat-removal path.",
+          label: "Loss of facility flow",
+          title:
+            "A working rack loop cannot sustain cooling after its facility heat path fails.",
           kind: "failure",
           description:
-            "The technology loop still circulates. Stopping facility flow removes its normal steady heat-removal path; fluid and metal can store heat temporarily. Restoring circulation reconnects the route but does not predict temperature recovery.",
-        },
-        {
-          id: "trace",
-          label: "Trace the heat",
-          title:
-            "Follow heat across each boundary until it reaches outdoor air.",
-          kind: "trace",
-          description:
-            "Trace the complete heat path from chip, through cold plate and technology coolant, across the isolated CDU heat exchanger, through facility water, and into outdoor air.",
+            "The technology loop still circulates. Stopping facility flow removes the normal steady heat-removal path. Fluid and metal store heat temporarily; no failure time is predicted.",
         },
       ];
       const $ = (id) => document.getElementById(id);
       const compactQuery = matchMedia("(max-width:600px)");
-      const state = { index: 0, flow: 2.5, facility: false, trace: false };
+      const state = {
+        index: 0,
+        facility: false,
+        capture: "air",
+        humidity: "dry",
+        plant: "adiabatic",
+        interior: true,
+      };
+      const aliases = {
+        "water-balance": "why-liquid",
+        "less-flow": "why-liquid",
+        "two-loops": "heat-path",
+        outdoors: "rejection",
+        trace: "heat-path",
+      };
+      const resolveId = (id) => aliases[id] || id;
       const selected = scenes.findIndex(
-        (scene) => scene.id === location.hash.slice(1),
+        (scene) => scene.id === resolveId(location.hash.slice(1)),
       );
       if (selected >= 0) state.index = selected;
       $("scenes").innerHTML = scenes
@@ -873,90 +1030,36 @@
         }
         return out;
       }
-      function balance(compact, kind) {
-        const selectedFlow = kind === "balance" ? 5 : state.flow;
-        const m = liquidHeatBalance({
-          heatKw: COOLING_EXAMPLE.heatKw,
-          flowKgS: selectedFlow,
-        });
-        const base = liquidHeatBalance({ heatKw: 100, flowKgS: 5 });
-        const reduced = liquidHeatBalance({ heatKw: 100, flowKgS: 2.5 });
-        if (compact) {
-          return `${text(25, 29, "SELECTED WATER PATH · STEADY STATE", "svg-tiny")}${text(184, 75, "100 kW", "svg-number heat-text", 'text-anchor="middle"')}${text(184, 99, "heat captured by this liquid path", "svg-small", 'text-anchor="middle"')}
-      <rect x="105" y="152" width="162" height="94" rx="9" class="panel"/>${text(186, 191, "Cold plates", "svg-label", 'text-anchor="middle"')}
-      ${line("M36 218 H334", "tech")}${line("M74 218 H104", "tech", true)}${line("M268 218 H298", "tech", true)}${line("M186 112 V150", "heat", true)}${text(37, 255, "Inlet", "svg-small")}${text(294, 255, "Outlet", "svg-small")}
-      ${text(184, 320, `${m.flowKgS} kg/s`, "svg-number tech-text", 'text-anchor="middle"')}${text(184, 367, `ΔT = ${m.deltaTK.toFixed(2)} K`, "svg-number heat-text", 'text-anchor="middle"')}
-      ${text(184, 393, "Same temperature rise in °C", "svg-small", 'text-anchor="middle"')}${text(184, 440, "Q̇ = ṁ cₚ ΔT", "svg-equation", 'text-anchor="middle"')}${text(184, 478, `100 ÷ (${m.flowKgS} × 4.18) = ${m.deltaTK.toFixed(2)} K`, "svg-label", 'text-anchor="middle"')}
-      ${text(184, 527, "Specific heat, cₚ = 4.18 kJ/(kg·K)", "svg-small", 'text-anchor="middle"')}`;
-        }
-        let out = text(
-          60,
-          32,
-          "SELECTED WATER PATH · STEADY STATE",
-          "svg-tiny",
-        );
-        out += `<rect x="110" y="130" width="240" height="156" rx="12" class="panel"/>${text(230, 200, "Cold plates", "svg-label", 'text-anchor="middle"')}${text(230, 91, "100 kW", "svg-number heat-text", 'text-anchor="middle"')}${line("M230 101 V128", "heat", true)}`;
-        out +=
-          line("M55 250 H410", "tech") +
-          line("M75 250 H105", "tech", true) +
-          line("M350 250 H384", "tech", true) +
-          text(58, 288, "Inlet", "svg-small") +
-          text(352, 288, "Outlet", "svg-small");
-        out += text(
-          230,
-          333,
-          `${m.flowKgS} kg/s water`,
-          "svg-label tech-text",
-          'text-anchor="middle"',
-        );
-        out +=
-          text(530, 89, "Q̇ = ṁ cₚ ΔT", "svg-equation") +
-          text(
-            530,
-            141,
-            `100 ÷ (${m.flowKgS} × 4.18) = ${m.deltaTK.toFixed(2)} K`,
-            "svg-equation",
-          );
-        if (kind === "flow") {
-          out += text(632, 181, "Temperature rise", "svg-small");
-          out +=
-            text(530, 218, "5 kg/s", "svg-label") +
-            `<rect x="632" y="196" width="172" height="28" rx="4" fill="var(--tech)" opacity="${selectedFlow === 5 ? 1 : 0.3}"/>` +
-            text(820, 217, `${base.deltaTK.toFixed(2)} K`, "svg-label");
-          out +=
-            text(530, 280, "2.5 kg/s", "svg-label") +
-            `<rect x="632" y="258" width="344" height="28" rx="4" fill="var(--heat)" opacity="${selectedFlow === 2.5 ? 1 : 0.3}"/>` +
-            text(992, 279, `${reduced.deltaTK.toFixed(2)} K`, "svg-label");
-        } else {
-          out +=
-            text(
-              530,
-              235,
-              `${m.deltaTK.toFixed(2)} K`,
-              "svg-number heat-text",
-            ) +
-            text(
-              530,
-              266,
-              "inlet-to-outlet rise · same difference in °C",
-              "svg-label",
-            );
-        }
-        out += text(
-          530,
-          346,
-          "Water specific heat, cₚ = 4.18 kJ/(kg·K)",
-          "svg-small",
-        );
-        return out;
-      }
       function render() {
         const scene = scenes[state.index],
           compact = compactQuery.matches;
+        const captureTitles = {
+          air: "A CRAH transfers room-air heat into a chilled-water loop.",
+          coldplate:
+            "Cold plates remove chip heat while the remaining components still need air.",
+          "rear-door":
+            "A rear-door exchanger captures rack exhaust heat before it returns to the room.",
+          immersion:
+            "Immersion transfers hardware heat into a dielectric liquid bath.",
+        };
+        const plantTitles = {
+          adiabatic:
+            "Evaporating water ahead of a dry coil lowers the entering air temperature.",
+          "air-chiller":
+            "An air-cooled chiller rejects load heat and compressor work to air.",
+          "water-chiller":
+            "A water-cooled chiller sends condenser heat to a separate water loop.",
+          economizer:
+            "A cold enough outdoor sink lets an economizer bypass the compressor.",
+        };
         $("title").textContent =
-          scene.kind === "failure" && state.facility
-            ? "Restoring facility flow reconnects the route to outdoor heat rejection."
-            : scene.title;
+          scene.kind === "capture-options"
+            ? captureTitles[state.capture]
+            : scene.kind === "plant-options"
+              ? plantTitles[state.plant]
+              : scene.kind === "failure" && state.facility
+                ? "Restoring facility flow reconnects the route to outdoor heat rejection."
+                : scene.title;
         $("scenes").value = state.index;
         $("progress").textContent = `${state.index + 1} / ${scenes.length}`;
         $("previous").disabled = state.index === 0;
@@ -970,38 +1073,75 @@
           "diagram-title diagram-description",
         );
         $("diagram").dataset.scene = scene.id;
-        const content =
-          scene.kind === "plate"
-            ? plate(compact)
-            : ["balance", "flow"].includes(scene.kind)
-              ? balance(compact, scene.kind)
-              : route(scene, compact);
+        const foundationKinds = ["why-liquid", "capture-options", "approach"];
+        const rejectionKinds = [
+          "rejection",
+          "weather",
+          "approach-outdoors",
+          "plant-options",
+        ];
+        const content = foundationKinds.includes(scene.kind)
+          ? renderFoundation(scene.kind, compact, state)
+          : rejectionKinds.includes(scene.kind)
+            ? renderRejection(scene.kind, compact, state)
+            : scene.kind === "cdu"
+              ? renderCDU(compact, state.interior)
+              : scene.kind === "plate"
+                ? plate(compact)
+                : route(scene, compact);
         $("diagram").innerHTML =
-          `<title id="diagram-title">${$("title").textContent}</title><desc id="diagram-description">${scene.description}${scene.kind === "flow" ? ` Selected flow is ${state.flow} kilograms per second.` : ""}${scene.kind === "failure" ? ` Facility flow is ${state.facility ? "restored" : "stopped"}.` : ""}</desc>${defs}${content}`;
+          `<title id="diagram-title">${$("title").textContent}</title><desc id="diagram-description">${scene.description}${scene.kind === "failure" ? ` Facility flow is ${state.facility ? "restored" : "stopped"}.` : ""}</desc>${defs}${content}`;
+        const choices = (key, options) =>
+          options
+            .map(
+              ([value, label]) =>
+                `<button data-setting="${key}" data-value="${value}" aria-pressed="${String(state[key]) === value}">${label}</button>`,
+            )
+            .join("");
         $("actions").innerHTML =
-          scene.kind === "flow"
-            ? `<button data-flow="5" aria-pressed="${state.flow === 5}">5 kg/s</button><button data-flow="2.5" aria-pressed="${state.flow === 2.5}">2.5 kg/s</button>`
-            : scene.kind === "failure"
-              ? `<button id="toggle-facility">${state.facility ? "Stop" : "Restore"} facility flow</button>`
-              : scene.kind === "trace"
-                ? `<button id="toggle-trace" aria-pressed="${state.trace}">${state.trace ? "Hide" : "Trace"} heat transfers</button>`
-                : "";
-        document.querySelectorAll("[data-flow]").forEach((button) =>
+          scene.kind === "failure"
+            ? `<button id="toggle-facility">${state.facility ? "Stop" : "Restore"} facility flow</button>`
+            : scene.kind === "capture-options"
+              ? choices("capture", [
+                  ["air", "Air / CRAH"],
+                  ["coldplate", "Cold plates"],
+                  ["rear-door", "Rear door"],
+                  ["immersion", "Immersion"],
+                ])
+              : ["weather", "approach-outdoors"].includes(scene.kind)
+                ? choices("humidity", [
+                    ["dry", "Drier air: 22°C wet bulb"],
+                    ["humid", "More humid: 28°C wet bulb"],
+                  ])
+                : scene.kind === "plant-options"
+                  ? choices("plant", [
+                      ["adiabatic", "Adiabatic"],
+                      ["air-chiller", "Air-cooled chiller"],
+                      ["water-chiller", "Water-cooled chiller"],
+                      ["economizer", "Economizer"],
+                    ])
+                  : scene.kind === "cdu"
+                    ? choices("interior", [
+                        ["false", "Cabinet"],
+                        ["true", "Inside the CDU"],
+                      ])
+                    : "";
+        document.querySelectorAll("[data-setting]").forEach((button) =>
           button.addEventListener("click", () => {
-            state.flow = Number(button.dataset.flow);
+            const { setting, value } = button.dataset;
+            state[setting] = setting === "interior" ? value === "true" : value;
             render();
-            document.querySelector(`[data-flow="${state.flow}"]`).focus();
+            document
+              .querySelector(
+                `[data-setting="${setting}"][data-value="${value}"]`,
+              )
+              .focus();
           }),
         );
         $("toggle-facility")?.addEventListener("click", () => {
           state.facility = !state.facility;
           render();
           $("toggle-facility").focus();
-        });
-        $("toggle-trace")?.addEventListener("click", () => {
-          state.trace = !state.trace;
-          render();
-          $("toggle-trace").focus();
         });
         document.title = `${scene.label} · GIGAWATT cooling`;
       }
@@ -1018,7 +1158,7 @@
       );
       addEventListener("hashchange", () => {
         const index = scenes.findIndex(
-          (scene) => scene.id === location.hash.slice(1),
+          (scene) => scene.id === resolveId(location.hash.slice(1)),
         );
         if (index >= 0) {
           state.index = index;

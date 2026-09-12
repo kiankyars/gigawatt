@@ -4,6 +4,7 @@ import {
   COOLING_EXAMPLE,
   liquidHeatBalance,
   facilityFlowState,
+  heatTransportComparison,
 } from "../course/prototypes/cooling-model.js";
 
 const close = (actual, expected) =>
@@ -53,4 +54,15 @@ test("flow interruption identifies the broken path without inventing thermal rid
   assert.equal(restored.steadyHeatPathAvailable, true);
   assert.equal(restored.transientTemperature, null);
   assert.throws(() => facilityFlowState(0), TypeError);
+});
+
+test("air and water volume flows carry the same sensible heat at the same rise", () => {
+  const m = heatTransportComparison();
+  close(m.airLitresPerSecond, 8291.873963515755);
+  close(m.waterLitresPerSecond, 2.3923444976076555);
+  for (const [flow, density, cp] of [
+    [m.airLitresPerSecond, m.airDensityKgM3, m.airSpecificHeatKjKgK],
+    [m.waterLitresPerSecond, m.waterDensityKgM3, m.waterSpecificHeatKjKgK],
+  ])
+    close((flow / 1000) * density * cp * m.deltaTK, m.heatKw);
 });

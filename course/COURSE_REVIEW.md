@@ -17,7 +17,8 @@ read it end to end.
 
 **Current state:** 50 authored draft lessons cover 65 objective IDs. The twelve-scene
 800 V DC sample and seventeen-scene UPS sequence are implemented teaching prototypes.
-An eight-scene cooling draft is the first adaptation of their reviewed approach.
+An eleven-scene cooling presentation extends that approach to capture methods,
+CDU ratings and approach, weather and outdoor heat rejection.
 These cover selected parts of the curriculum; they do not establish finished domains.
 Technical review, learner review, adaptation of the remaining material, recording
 and delivery remain pending. Prepare and rehearse one section at a time.
@@ -202,10 +203,11 @@ remaining course. Apply their minimal text, explicit boundaries, visible
 mechanisms and controlled comparisons to each new section. Their visual format
 is a reference, not a requirement to use electrical-style diagrams everywhere.
 
-The next implementation is [cooling from chip to outdoor air](prototypes/cooling-format.html),
-a teaching draft spanning selected D10/D11 concepts. Follow the heat through a
-cold plate, isolated liquid loops and outdoor rejection, then change flow and
-trace what stops working. This is not yet a complete treatment of either domain.
+The current review is [the cooling presentation](prototypes/cooling-format.html),
+spanning selected D10/D11 concepts. It now directly teaches air/liquid capture,
+CRAH and CDU roles, the CoolIT CHx2000, heat balance versus approach, dry/wet
+rejection and weather, chillers, hybrid and economizer modes. D10/D11 remain the
+expanded reference. The presentation is the teaching surface for these topics.
 
 **Teach the new sequence aloud without recording.** Send the scene and the point
 that confused you or needed a different visual. The agent fixes that mechanism

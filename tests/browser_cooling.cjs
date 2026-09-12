@@ -5,16 +5,19 @@ const base =
   process.argv[2] ||
   "http://127.0.0.1:8765/course/prototypes/cooling-format.html";
 const output = process.argv[3] || "/tmp/gigawatt-cooling-qa";
-const ids = [
-  "heat-path",
-  "cold-plate",
-  "two-loops",
-  "outdoors",
-  "water-balance",
-  "less-flow",
-  "lost-flow",
-  "trace",
-];
+const variants = {
+  "why-liquid": [null],
+  "heat-path": [null],
+  "capture-options": ["air", "coldplate", "rear-door", "immersion"],
+  "cold-plate": [null],
+  approach: [null],
+  "coolit-cdu": ["true", "false"],
+  rejection: [null],
+  weather: ["dry", "humid"],
+  "approach-outdoors": ["dry", "humid"],
+  "plant-options": ["adiabatic", "air-chiller", "water-chiller", "economizer"],
+  "lost-flow": [null, "restored"],
+};
 async function checkDiagramGeometry(page, state) {
   const issues = await page.locator("#diagram").evaluate((svg) => {
     const issues = [];
@@ -86,117 +89,129 @@ async function checkDiagramGeometry(page, state) {
           await page.goto(`${base}?qa=${colorScheme}-${viewport.width}#${id}`);
           await page.waitForSelector("#diagram text");
         };
-        for (const id of ids) {
+        for (const [id, states] of Object.entries(variants)) {
           await go(id);
           assert.equal(await page.locator("h1:visible").count(), 1);
           assert.equal(await page.locator("#fullscreen").isVisible(), false);
-          assert.equal(await page.locator("#scenes option").count(), 8);
-          const layout = await page.evaluate(() => {
-            const svg = document
-              .querySelector("#diagram")
-              .getBoundingClientRect();
-            return {
-              width: document.documentElement.scrollWidth,
-              height: document.documentElement.scrollHeight,
-              title: document.querySelector("h1").getBoundingClientRect()
-                .bottom,
-              svgTop: svg.top,
-              svgBottom: svg.bottom,
-              footer: document.querySelector("footer").getBoundingClientRect()
-                .top,
-              clipped: [...document.querySelectorAll("#diagram text")]
-                .filter((t) => {
-                  const r = t.getBoundingClientRect();
-                  return (
-                    r.left < svg.left - 1 ||
-                    r.right > svg.right + 1 ||
-                    r.top < svg.top - 1 ||
-                    r.bottom > svg.bottom + 1
-                  );
-                })
-                .map((t) => t.textContent),
-            };
-          });
-          assert.ok(
-            layout.width <= viewport.width + 1,
-            `${id}: horizontal overflow`,
-          );
-          assert.ok(
-            layout.title <= layout.svgTop + 1,
-            `${id}: title overlaps diagram`,
-          );
-          assert.ok(
-            layout.svgBottom <= layout.footer + 1,
-            `${id}: navigation overlaps diagram`,
-          );
-          if (viewport.width >= 1024)
+          assert.equal(await page.locator("#scenes option").count(), 11);
+          for (const selected of states) {
+            if (selected === "restored")
+              await page.locator("#toggle-facility").click();
+            else if (selected !== null) {
+              const button = page.locator(`[data-value="${selected}"]`);
+              await button.focus();
+              await page.keyboard.press("Enter");
+              assert.equal(await button.getAttribute("aria-pressed"), "true");
+            }
+            const name = `${id}-${selected || "default"}`;
+            const layout = await page.evaluate(() => {
+              const svg = document
+                .querySelector("#diagram")
+                .getBoundingClientRect();
+              return {
+                width: document.documentElement.scrollWidth,
+                height: document.documentElement.scrollHeight,
+                title: document.querySelector("h1").getBoundingClientRect()
+                  .bottom,
+                svgTop: svg.top,
+                svgBottom: svg.bottom,
+                footer: document.querySelector("footer").getBoundingClientRect()
+                  .top,
+                clipped: [...document.querySelectorAll("#diagram text")]
+                  .filter((t) => {
+                    const r = t.getBoundingClientRect();
+                    return (
+                      r.left < svg.left - 1 ||
+                      r.right > svg.right + 1 ||
+                      r.top < svg.top - 1 ||
+                      r.bottom > svg.bottom + 1
+                    );
+                  })
+                  .map((t) => t.textContent),
+              };
+            });
             assert.ok(
-              layout.height <= viewport.height + 1,
-              `${id}: desktop requires scrolling`,
+              layout.width <= viewport.width + 1,
+              `${name}: horizontal overflow`,
             );
-          assert.deepEqual(layout.clipped, [], `${id}: clipped SVG labels`);
-          await checkDiagramGeometry(page, id);
-          if (["heat-path", "two-loops", "outdoors", "lost-flow"].includes(id))
-            assert.equal(
-              await page.locator('[data-label-for="rack-heat-source"]').count(),
-              1,
+            assert.ok(
+              layout.title <= layout.svgTop + 1,
+              `${name}: title overlaps SVG`,
             );
-          await page.screenshot({
-            path: `${output}/${id}-${viewport.width}-${colorScheme}.png`,
-            fullPage: true,
-          });
-          layouts++;
+            assert.ok(
+              layout.svgBottom <= layout.footer + 1,
+              `${name}: footer overlaps SVG`,
+            );
+            if (viewport.width >= 1024)
+              assert.ok(
+                layout.height <= viewport.height + 1,
+                `${name}: desktop scroll`,
+              );
+            assert.deepEqual(layout.clipped, [], `${name}: clipped SVG text`);
+            await checkDiagramGeometry(page, name);
+            const content = await page.locator("#diagram").textContent();
+            if (id === "why-liquid") {
+              for (const word of [
+                "Steady-flow sensible-heat balance",
+                "heat rate",
+                "mass flow",
+                "specific heat",
+                "density",
+                "volume flow",
+                "ΔT",
+                "8,292",
+                "2.39",
+              ])
+                assert.ok(content.includes(word), `${name}: missing ${word}`);
+            }
+            if (id === "approach") assert.match(content, /35 − 30 = 5 K/);
+            if (id === "capture-options" && selected === "air")
+              assert.match(content, /CRAH/);
+            if (id === "weather") {
+              assert.match(content, /35°C/);
+              assert.ok(content.includes(selected === "dry" ? "22°C" : "28°C"));
+            }
+            if (id === "approach-outdoors")
+              assert.ok(content.includes(selected === "dry" ? "35°C" : "41°C"));
+            if (id === "coolit-cdu") {
+              assert.match(content, /2 MW/);
+              assert.match(content, /2,125 L\/min/);
+              const loaded = await page
+                .locator("[data-product-photo]")
+                .evaluate(async (el) => {
+                  const img = new Image();
+                  img.src = el.getAttribute("href");
+                  await img.decode();
+                  return img.naturalWidth;
+                });
+              assert.ok(loaded > 100);
+            }
+            if (id === "lost-flow")
+              assert.equal(
+                (await page.locator(".stopped").count()) > 0,
+                selected !== "restored",
+              );
+            await page.screenshot({
+              path: `${output}/${name}-${viewport.width}-${colorScheme}.png`,
+              fullPage: true,
+            });
+            layouts++;
+          }
         }
-        await go("less-flow");
-        await page.locator('[data-flow="2.5"]').click();
-        assert.equal(
-          await page.locator('[data-flow="2.5"]').getAttribute("aria-pressed"),
-          "true",
-        );
-        assert.match(await page.locator("#diagram").textContent(), /9\.57/);
-        await page.locator('[data-flow="5"]').focus();
-        await page.keyboard.press("Enter");
-        assert.equal(
-          await page.locator('[data-flow="5"]').getAttribute("aria-pressed"),
-          "true",
-        );
-        assert.match(await page.locator("#diagram").textContent(), /4\.78/);
-        await page.screenshot({
-          path: `${output}/less-flow-restored-${viewport.width}-${colorScheme}.png`,
-          fullPage: true,
-        });
-        await go("lost-flow");
-        assert.ok((await page.locator("#diagram .stopped").count()) > 0);
-        assert.match(
-          await page.locator("#diagram").textContent(),
-          /accumulate/,
-        );
-        await page.locator("#toggle-facility").click();
-        assert.equal(await page.locator("#diagram .stopped").count(), 0);
-        await checkDiagramGeometry(page, "facility-restored");
-        await page.screenshot({
-          path: `${output}/facility-restored-${viewport.width}-${colorScheme}.png`,
-          fullPage: true,
-        });
-        assert.match(
-          await page.locator("h1").innerText(),
-          /Restoring facility flow/,
-        );
-        await page.locator("#toggle-facility").click();
-        assert.ok((await page.locator("#diagram .stopped").count()) > 0);
-        await go("trace");
-        const before = await page.locator("#diagram path.heat").count();
-        await page.locator("#toggle-trace").click();
-        assert.ok((await page.locator("#diagram path.heat").count()) > before);
-        await checkDiagramGeometry(page, "trace-revealed");
-        assert.equal(
-          await page.locator('[data-label-for="rack-heat-source"]').count(),
-          1,
-        );
-        await page.screenshot({
-          path: `${output}/trace-revealed-${viewport.width}-${colorScheme}.png`,
-          fullPage: true,
-        });
+        for (const [oldId, newId] of Object.entries({
+          "water-balance": "why-liquid",
+          "less-flow": "why-liquid",
+          "two-loops": "heat-path",
+          outdoors: "rejection",
+          trace: "heat-path",
+        })) {
+          await go(oldId);
+          assert.equal(
+            await page.locator("#diagram").getAttribute("data-scene"),
+            newId,
+          );
+        }
+        await go("why-liquid");
         await page.locator("#evidence").click();
         assert.equal(
           await page.locator("#reading").evaluate((e) => e.open),
@@ -207,19 +222,18 @@ async function checkDiagramGeometry(page, state) {
           await page.locator("#reading").evaluate((e) => e.open),
           false,
         );
-        await go("heat-path");
         await page.locator("body").click({ position: { x: 2, y: 100 } });
         await page.keyboard.press("ArrowRight");
-        await page.waitForURL(/#cold-plate$/);
-        await page.keyboard.press("ArrowLeft");
         await page.waitForURL(/#heat-path$/);
-        await page.goto(`${base}?teach=1#heat-path`);
+        await page.keyboard.press("ArrowLeft");
+        await page.waitForURL(/#why-liquid$/);
+        await page.goto(`${base}?teach=1#coolit-cdu`);
         assert.equal(await page.locator("#fullscreen").isVisible(), true);
         await page.close();
       }
     assert.deepEqual(errors, []);
     console.log(
-      `Passed ${layouts} cooling layouts, object/label containment, heat-arrow origins, flow and failure controls, heat trace, source dialog, keyboard and teaching-mode separation.`,
+      `Passed ${layouts} cooling scene/state layouts, labels, controls, real product images, legacy links, keyboard and audience modes.`,
     );
   } finally {
     await browser.close();

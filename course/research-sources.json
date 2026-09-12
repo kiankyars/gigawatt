@@ -2468,6 +2468,48 @@
       ],
       "use": "An air-cooled chiller can make chilled water while its condenser rejects heat to air, resolving the ambiguity between load coolant and condenser cooling medium.",
       "caution": "Opening definition reviewed. No software performance curve is reused or extrapolated."
+    },
+    {
+      "id": "P51",
+      "title": "CoolIT Systems — CHx2000 Row-Based CDU for AI",
+      "url": "https://www.coolitsystems.com/cdu-product/chx2000/",
+      "publisher": "CoolIT Systems",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-11",
+      "domains": [
+        "D10"
+      ],
+      "use": "Official product type, current thermal and hydraulic claims, listed electrical consumption, and manufacturer photographs.",
+      "caution": "The separately listed thermal, hydraulic and electrical figures do not establish one simultaneous operating point. Vendor superiority, rack-count, availability and factory-test claims are not adopted. The mutable page differs from older product collateral."
+    },
+    {
+      "id": "P52",
+      "title": "CoolIT Systems — Cooling Distribution Units",
+      "url": "https://www.coolitsystems.com/products-services/data-center-products/cooling-distribution-units/",
+      "publisher": "CoolIT Systems",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-11",
+      "domains": [
+        "D10"
+      ],
+      "use": "CDU pumping, temperature-control and heat-transfer functions; distinction between liquid-to-liquid and liquid-to-air equipment.",
+      "caution": "Portfolio mechanism descriptions only; product capacity does not establish suitability for a particular facility."
+    },
+    {
+      "id": "P53",
+      "title": "CoolIT Systems — CHx2000 launch announcement, April 15, 2025",
+      "url": "https://www.coolitsystems.com/resources/news/coolit-systems-announces-further-breakthroughs-in-row-based-coolant-distribution-unit-performance/",
+      "publisher": "CoolIT Systems",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-11",
+      "domains": [
+        "D10"
+      ],
+      "use": "Dated identification of integrated filtration and service access for pumps, filters and sensors.",
+      "caution": "2025 product description. Comparative performance, availability and footprint-density claims are not reused as current specifications. Current procurement needs current selection data."
     }
   ]
 }

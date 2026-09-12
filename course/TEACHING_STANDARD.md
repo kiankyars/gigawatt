@@ -32,6 +32,9 @@ Use these rules when adapting each sequence:
    their objects. Remove competing bottom summaries and repeated titles. Put
    exceptions, source discussion and longer derivations in the reference or an
    optional view. An essential reasoning step must remain visible without notes.
+   Remove standalone slides that merely repeat an obvious observation or an
+   arithmetic identity. Put useful equations where they explain a design choice;
+   name the model and define its terms there.
 4. **Control the comparison.** Keep the load, boundary, operating state and
    measurement convention fixed until a change is explicitly introduced. Change
    one condition and show its effect on a path, quantity or constraint. Use a

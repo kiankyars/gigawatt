@@ -544,3 +544,29 @@ dry/wet/hybrid rejection, air-/water-cooled chillers, dry bulb, wet bulb and nam
 approach temperatures. The synthetic 84 kW comparison has independently checked
 45°C, 35°C and 41°C technology-supply outcomes, including the chosen separating
 exchanger. These expanded reader lessons are not completed presenter sequences.
+
+## Cooling presenter expansion and CoolIT example — 2026-09-11
+
+The presenter now contains eleven scenes with selectable capture, plant and
+weather states. It directly teaches CRAH and CDU roles, air/liquid capture,
+sensible-heat balance, loop rise versus approach, real CHx2000 hardware, dry/wet
+rejection, dry/wet bulb, hybrid/chiller/economizer modes and loss of facility flow.
+The former water-warms and flow-doubling scenes are consolidated into the
+substantive air/water volume-flow comparison; their historical links still work.
+
+- 168 browser scene/state layouts passed across four viewports and both themes,
+  with object-label containment, SVG bounds, keyboard controls, restored-flow
+  states, photo loading and student/teaching separation. Representative desktop
+  and phone diagrams were inspected. Mode-specific headlines replace generic
+  statements; repeated bottom summaries were trimmed.
+- All 52 Python and 60 JavaScript tests passed, alongside generated-course,
+  source/map, Ruff, staging and whitespace checks. The added transport test
+  independently closes 100 kW at a 10 K rise for 8,291.87 L/s modeled air and
+  2.39234 L/s water. Separate 84 kW CDU and outdoor examples retain their inputs.
+- CoolIT product photographs and current primary specifications were checked.
+  2 MW at 5 K approach and 2,125 L/min at 35 psi remain separately listed points;
+  no combined efficiency or universal rack compatibility is inferred. Photographs
+  load from the manufacturer, with attribution and a cabinet/internal toggle.
+
+The presentation is implemented for a new dry run. Full-domain completeness,
+spoken delivery and learner comprehension are not established by these checks.

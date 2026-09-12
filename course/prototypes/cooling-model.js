@@ -40,3 +40,24 @@ export function facilityFlowState(available) {
     rideThroughSeconds: null,
   });
 }
+
+export function heatTransportComparison() {
+  const heatKw = 100,
+    deltaTK = 10;
+  const airDensityKgM3 = 1.2,
+    waterDensityKgM3 = 1000;
+  const airSpecificHeatKjKgK = 1.005;
+  const waterSpecificHeatKjKgK = COOLING_EXAMPLE.specificHeatKjKgK;
+  return Object.freeze({
+    heatKw,
+    deltaTK,
+    airDensityKgM3,
+    waterDensityKgM3,
+    airSpecificHeatKjKgK,
+    waterSpecificHeatKjKgK,
+    airLitresPerSecond:
+      (heatKw / (airDensityKgM3 * airSpecificHeatKjKgK * deltaTK)) * 1000,
+    waterLitresPerSecond:
+      (heatKw / (waterDensityKgM3 * waterSpecificHeatKjKgK * deltaTK)) * 1000,
+  });
+}

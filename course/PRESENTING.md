@@ -8,11 +8,11 @@ The reviewed **UPS** and **800 V** sequences now establish the direction for the
 rest of the course. Keep reporting specific confusing scenes, but there is no
 need to reread both sequences before work advances.
 
-Next is **[cooling: from chip to outdoor air](prototypes/cooling-format.html)**,
-a new teaching draft spanning selected D10/D11 concepts. It follows heat through
-the cold plate, two isolated liquid loops and outdoor rejection, then changes
-flow to show the consequence. This tests the approach on a different physical
-mechanism rather than copying the electrical diagrams.
+The **[cooling presentation](prototypes/cooling-format.html)** is what you teach
+from. Its eleven scenes now cover why liquid cooling is useful, CRAH and rack
+capture methods, the named sensible-heat balance, CDU approach, a real CoolIT
+CHx2000, dry/wet rejection, weather, chillers, hybrid and economizer modes, and
+loss of facility flow. Use the controls to compare methods or operating states.
 
 1. Teach the new sequence aloud without recording. Let the visual carry the
    explanation; notes are optional.
@@ -21,16 +21,13 @@ mechanism rather than copying the electrical diagrams.
 3. We revise that section, then continue through the domain map's dependencies.
    The domains track coverage; they do not impose fifteen identical slide decks.
 
-The expanded reader is reference material, not a script to narrate or a reading
-assignment before each review. If cooling needs more background, use
-[the CDU explanation](index.html#d10-cdu-interfaces) and
-[heat rejection](index.html#d11-heat-rejection). The cooling sequence does not yet
-cover all of D10 or D11. The reference separates [rack capture methods](index.html#d10-local-thermal-paths)
-(air, rear-door exchangers, cold plates and immersion) from [outdoor rejection](index.html#d11-heat-rejection)
-(dry, wet, hybrid, chillers and economizers). [Weather and approach temperature](index.html#d11-weather-and-operating-envelope)
-introduces dry bulb, wet bulb and the temperature differences at each exchanger.
-Those broader topics have reader lessons; their presenter sequences remain to be
-authored. A sequence can be ready for feedback while its broader domain remains unfinished.
+**D10 and D11 in the expanded reader are the reference chapters.** They provide
+derivations, source discussion and additional detail; the presentation should
+teach its selected topics without requiring the audience to open those chapters.
+The old “water gets warmer” and separate flow-doubling scenes are merged into the
+substantive air-versus-water transport comparison. Further domain detail remains
+in [D10](index.html#d10-local-thermal-paths) and [D11](index.html#d11-heat-rejection).
+This expanded presentation is ready for a dry run, not a completed course release.
 
 ## What carries into every chapter
 

@@ -1050,6 +1050,9 @@ Compare air, cold-plate, rear-door and immersion approaches against a declared d
 - [P47 — ASHRAE Handbook 2024 — Cooling Towers](https://handbook.ashrae.org/Handbooks/S24/IP/s24_ch40/s24_ch40_ip.aspx) · `page_reviewed` · [local note](../research/sources/P47.md)
 - [P49 — Trane — Air vs. Water Cooled Chillers](https://www.trane.com/commercial/north-america/us/en/about-us/newsroom/blogs/air-vs-water-cooled-chillers.html) · `page_reviewed` · [local note](../research/sources/P49.md)
 - [P50 — Trane TRACE 3D Plus — Air Cooled Chillers](https://trace3dplus.help.trane.com/air_cooled_chillers.html) · `page_reviewed` · [local note](../research/sources/P50.md)
+- [P51 — CoolIT Systems — CHx2000 Row-Based CDU for AI](https://www.coolitsystems.com/cdu-product/chx2000/) · `page_reviewed` · [local note](../research/sources/P51.md)
+- [P52 — CoolIT Systems — Cooling Distribution Units](https://www.coolitsystems.com/products-services/data-center-products/cooling-distribution-units/) · `page_reviewed` · [local note](../research/sources/P52.md)
+- [P53 — CoolIT Systems — CHx2000 launch announcement, April 15, 2025](https://www.coolitsystems.com/resources/news/coolit-systems-announces-further-breakthroughs-in-row-based-coolant-distribution-unit-performance/) · `page_reviewed` · [local note](../research/sources/P53.md)
 
 <a id="d11"></a>
 
