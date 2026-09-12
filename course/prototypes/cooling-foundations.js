@@ -1,4 +1,4 @@
-import { heatTransportComparison } from "./cooling-model.js";
+import { heatTransportComparison } from "./cooling-model.js?v=20260911-cooling2";
 const text = (x, y, value, cls = "svg-label", owner = "", anchor = "start") =>
   `<text x="${x}" y="${y}" class="${cls}" text-anchor="${anchor}"${owner ? ` data-label-for="foundation-${owner}"` : ""}>${value}</text>`;
 const box = (id, x, y, w, h, cls = "panel") =>
