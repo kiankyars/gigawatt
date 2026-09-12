@@ -1197,7 +1197,7 @@
     "domain": "D13",
     "title": "The longest lead time is not the completion date",
     "question": "Which delay actually changes the date when a phase can deliver service?",
-    "summary": "Build a dependency graph, calculate the earliest finish, and identify which acceleration would change the result.",
+    "summary": "Build a dependency graph, compare site-built and prefabricated delivery of the same 20 MW phase, and decide which work a late rack change actually delays.",
     "takeaway": "A delivery date belongs to a complete dependency path. Shortening an activity without changing that path may create no earlier service.",
     "objectives": [
       "D13.1"
@@ -1225,6 +1225,31 @@
           "An expedited electrical package that arrives four weeks earlier moves its installation finish to week nineteen and acceptance to week twenty-three. That four-week benefit assumes the installation team, room and test resources are also available earlier. If their calendars remain fixed, the purchased acceleration may become waiting time. A commercial promise to shorten one delivery therefore needs to be evaluated against the rest of the route to usable service.",
           "A change can also create a different critical path. If utility readiness slips to week thirty, even the original electrical installation at week twenty-three is no longer controlling the final join. Acceptance now ends at week thirty-four. Expediting the electrical package cannot recover those seven weeks of utility delay. The next useful action would address the actual predecessor or alter the scope of the accepted phase, with any changes reviewed explicitly.",
           "Keep forecasts and evidence separate when updating the network. A reported shipment date is not installation complete; installation complete is not a passed test. Record the status date, remaining work and basis for durations. Compare the current forecast with the approved baseline to understand the change, while resisting the temptation to move dates merely to make a dashboard appear healthy. The purpose of scheduling is to expose consequences early enough to make a meaningful decision."
+        ]
+      },
+      {
+        "heading": "EPC responsibility and manufacturing strategy answer different questions",
+        "paragraphs": [
+          "Consider one illustrative 20 MW IT phase divided into ten 2 MW service zones. Initially each zone serves twenty 100 kW racks. Compare assembling its distribution and cooling services in the building with delivering factory-built service modules. Keep the IT duty, required operating conditions and acceptance endpoint fixed. This is an original comparison, not an Abilene construction account or a supplier delivery claim.",
+          "EPC means engineering, procurement and construction: it describes the responsibilities assigned in a delivery scope. In this example, the owner contracts one EPC team to coordinate the design, purchase the packages, deliver the site works and integrate the completed systems against the owner’s requirements. Site-built versus prefabricated describes where and how assemblies are made. That same EPC scope can use either strategy or a mixture; a module vendor does not acquire responsibility for the whole facility merely by delivering a tested product. The actual contract must assign the boundaries and acceptance duties.",
+          "In the site-built route, factories still manufacture switchgear, cooling equipment and other components. Site trades install supports, assemble distribution and pipework, connect controls and integrate those products in the building. In our prefabricated route, the module factory fits a transportable service frame with electrical distribution, manifolds, internal wiring and controls, and checks the specified internal assemblies before shipment. Site teams still deliver access and foundations, utility and plant connections, unloading and placement, connections between modules and the building, IT rack installation and integrated acceptance. A factory test cannot demonstrate a site connection that did not exist during that test."
+        ]
+      },
+      {
+        "heading": "Put the factory and the site on parallel schedule branches",
+        "paragraphs": [
+          "Use a separate controlled schedule for these two routes. Week zero means approved interfaces and available components; upstream equipment lead times have already elapsed equally for both options. All durations are stipulated. Site enabling takes eight weeks. In the site-built route, service assembly then takes six weeks, followed by two weeks of integrated acceptance: 8 + 6 + 2 = week 16. This comparison does not replace the earlier week-27 procurement example.",
+          "For the prefabricated route, factory assembly and its internal checks take six weeks while the eight-week site branch runs in parallel. Transport takes one week after the factory release. Setting and site connections take two weeks after both the module arrival and site readiness, then the same two-week integrated acceptance follows: max(6 + 1, 8) + 2 + 2 = week 12. The four-week advance comes from overlapping assembly with site work under these assumptions. It is not a universal percentage saving from modular construction.",
+          "A manufacturing release freezes the dimensions, ratings, connection locations, control definitions and drawings that fabrication will consume. It does not freeze every future software or operating choice. Both routes need design control before irreversible work, but cutting a module frame or manufacturing a manifold can commit an interface while the site is still being prepared. An unresolved dimension can stop the factory branch long before it would have stopped site assembly. Release separate packages only where their approved boundaries establish that later decisions cannot invalidate them.",
+          "Transport is a real predecessor. Before releasing the module envelope, agree the shipping configuration, dimensions, mass and center of gravity, route clearances and permitted loads, lifting points, access and placement sequence. A module that works electrically and thermally can still require redesign or a different shipment plan. Confirm these inputs for the actual route; the stipulated one-week transport duration is not evidence of access. Protection during shipment and receipt checks belong between the factory record and the site connection record."
+        ]
+      },
+      {
+        "heading": "A late rack change consumes interface float",
+        "paragraphs": [
+          "Just before fabrication, the owner changes the phase from 200 × 100 kW to 100 × 200 kW racks. Each 2 MW zone now serves ten racks. The 20 MW IT total remains fixed, but the local electrical, hydraulic and physical interfaces may change. Continue the revised design and supplier reviews, and continue site work whose approved boundaries are demonstrably unaffected. Hold the affected fabrication packages, rack connections and dependent structural or placement work. The next lesson identifies the evidence that releases each hold.",
+          "Suppose those required interface approvals arrive together at week 3. Assume no affected factory assembly can start earlier, the factory still has a six-week slot available then, transport remains one week, and independent site work still finishes in week 8. Arrival moves from week 7 to week 10; setting and connections finish in week 12 and integrated acceptance finishes in week 14: max(3 + 6 + 1, 8) + 2 + 2 = 14. The three-week approval delay causes a two-week completion delay because the original delivery branch had one week of float before the site join.",
+          "Under the same assumptions, the site-built route can retain week 16 because the revised service interfaces are approved before site assembly starts in week 8. That does not make late changes free: altered purchasing, foundations, equipment lead times or site scope would change the result. Releasing a revised drawing also does not reserve factory labor, test equipment, a truck or a crane. The scheduler must obtain the available manufacturing slot and logistics dates, connect them to the signed release milestones and calculate the current finish. Different packages can have different release dates; do not hide their dependencies behind one unchanged MW figure."
         ]
       }
     ],
@@ -1256,20 +1281,20 @@
       "boundary": "This is neither a supplier lead-time forecast nor a construction commitment. Resource, permit, interface and risk constraints are omitted deliberately."
     },
     "tradeoff": {
-      "choice": "Order equipment before all downstream choices are fixed.",
-      "benefit": "It may begin a long procurement interval earlier.",
-      "cost": "Later interface changes can create rework, incompatible deliveries or commercial exposure; the schedule benefit must be compared with that risk."
+      "choice": "Freeze module interfaces early enough to assemble services in parallel with site enabling.",
+      "benefit": "In the stipulated comparison, overlap moves integrated acceptance from week 16 to week 12.",
+      "cost": "The design commits before site assembly would begin; later rack changes can invalidate factory work, consume delivery float or lose a manufacturing slot. Transport and site integration remain necessary."
     },
     "failure": {
-      "trigger": "The project reports readiness when the largest shipment arrives.",
-      "mechanism": "Installation, controls and integrated acceptance are missing from the claimed service milestone.",
-      "response": "Restore the omitted predecessors and report the endpoint actually supported by the evidence."
+      "trigger": "A project keeps its factory release and completion dates because the revised rack population still totals 20 MW.",
+      "mechanism": "The unchanged aggregate duty hides unapproved branch ratings, manifold connections and support geometry; the factory may build the wrong interfaces or wait for replacements.",
+      "response": "Place holds on the affected packages, continue evidenced independent work, assign release owners and recalculate from actual approval, manufacturing, transport and site milestones."
     },
     "practice": {
-      "question": "Cooling installation now takes 12 rather than 4 weeks. The other durations remain unchanged. When can final acceptance finish, and which path is critical?",
-      "hint": "Recalculate cooling’s finish before taking the maximum.",
-      "answer": "Cooling finishes at 2 + 10 + 12 = week 24. Final acceptance finishes at week 28, with the cooling path now critical.",
-      "reasoning": "The eight-week increase consumes the former seven-week margin and moves the shared join one week later. The longest individual activity remains electrical procurement at eighteen weeks, demonstrating why that individual duration does not identify the controlling completion path by itself."
+      "question": "For the 20 MW comparison, required rack-change approvals now arrive at week 5. Factory assembly still takes 6 weeks, transport 1, site setting/connections 2 and integrated acceptance 2; independent site work still finishes in week 8. What can continue, when does the modular route finish, and can the site-built route still finish at week 16?",
+      "hint": "Separate the approval-dependent factory branch from the independently released site branch. Check resource availability as well as duration.",
+      "answer": "Independent approved site work can continue. The modular route finishes at max(5 + 6 + 1, 8) + 2 + 2 = week 16. The site-built route can also retain week 16 if all revised inputs and resources are ready before its week-8 assembly start.",
+      "reasoning": "Hold only the work whose inputs are unresolved, including any affected supports or embedded connections on the site branch. Electrical, hydraulic and spatial sign-offs release their packages; the scheduler then confirms factory, transport, site and test resources. A five-week approval delay consumes one week of original arrival float and delays modular completion by four weeks. If the rack change alters the supposedly independent site work or component availability, neither finish follows from these assumptions."
     },
     "sources": [
       {
@@ -1277,7 +1302,14 @@
         "url": "https://www.gao.gov/products/gao-16-89g",
         "claim": "The guide overview supports integrated schedules, explicit dependencies and the connection between schedule slippage and cost.",
         "reviewed_on": "2026-09-06",
-        "limits": "Overview and guide structure inspected. The network, durations, slack and interventions are original teaching scenarios, not GAO project examples."
+        "limits": "Overview and guide structure inspected. The network, durations, slack and interventions are original teaching scenarios, not GAO project examples. The site-built/prefabricated comparison and rack-change release dates are also synthetic; no modular supplier performance is attributed to this guide."
+      },
+      {
+        "title": "WBDG: Commissioning Documents",
+        "url": "https://legacy.wbdg.org/building-commissioning/commissioning-documents",
+        "claim": "The existing OPR, basis-of-design and review discussion supports connecting project requirements to traceable design and acceptance records.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Selected document-role and design-review passages inspected in the existing source review. The EPC allocation, module scope and release workflow are stipulated teaching choices, not a prescribed contract model or a quotation from WBDG."
       }
     ],
     "terms": [
@@ -1292,6 +1324,18 @@
       {
         "term": "Slack",
         "definition": "Conditional timing margin before a delay affects the relevant downstream milestone."
+      },
+      {
+        "term": "EPC",
+        "definition": "Engineering, procurement and construction: responsibilities assigned within a project’s delivery scope. The contract defines their extent; EPC does not specify where equipment must be assembled."
+      },
+      {
+        "term": "Prefabrication",
+        "definition": "Making an assembly before its installation at the site; a project can combine prefabricated assemblies with substantial site work."
+      },
+      {
+        "term": "Manufacturing release",
+        "definition": "Authorization to fabricate a defined package using identified, approved interface requirements and drawing revisions."
       }
     ],
     "visual": {
@@ -1322,9 +1366,9 @@
     "id": "d13-interface-contracts",
     "domain": "D13",
     "title": "Two adequate products can form an inadequate system",
-    "question": "What must be agreed at the boundary between a rack, a cooling unit and the facility?",
-    "summary": "Translate requirements into measurable interfaces and use a simple flow calculation to expose an incompatibility before equipment arrives.",
-    "takeaway": "A product rating is useful only at the interface conditions the project actually needs. Assign ownership and acceptance evidence to the connection.",
+    "question": "What can proceed when 200 × 100 kW racks become 100 × 200 kW just before fabrication?",
+    "summary": "Keep a 20 MW IT duty fixed, test the changed electrical, hydraulic and spatial interfaces, and assign the evidence needed to release fabrication and schedule holds.",
+    "takeaway": "The same MW total can require different branches, manifolds and supports. Release each affected package against a checked interface and an accountable owner.",
     "objectives": [
       "D13.2"
     ],
@@ -1338,11 +1382,28 @@
         ]
       },
       {
-        "heading": "A simple energy balance can reject a nominally matching pair",
+        "heading": "The same 20 MW puts twice the demand through each rack connection",
         "paragraphs": [
-          "Our synthetic rack requires removal of 1 MW through a single-phase water loop. At the stated load, its permitted temperature rise is at most 10 K. Use a supplied specific heat of 4.18 kJ/(kg·K), treated as constant for this exercise. The required mass flow is Q/(cp ΔT) = 1,000/(4.18 × 10) ≈ 23.9 kg/s. This calculation follows conservation of energy. It does not establish the pressure needed to move that flow through an actual rack.",
-          "Now suppose the proposed CDU has a headline rating above 1 MW, but the project’s documented connection limits flow through this rack path to 20 kg/s. At the allowed 10 K rise, that path carries only 836 kW in our simplified balance. A large thermal rating at some other test point does not remove the flow constraint. The pair cannot support the declared 1 MW brief without changing a requirement, component or arrangement and validating the revised conditions.",
-          "Raising the temperature difference is not a free arithmetic fix. The 10 K maximum was part of the rack operating brief. Permitting a larger rise would require evidence that device temperatures, materials, controls and supply/return requirements remain acceptable. Similarly, selecting a larger pump from one flow number would ignore pressure drop, fluid behavior and the actual connection limits. The energy calculation finds an incompatibility; it is not a complete selection tool."
+          "Continue the delivery comparison: ten service zones each carry 2 MW, changing from twenty 100 kW racks to ten 200 kW racks per zone just before fabrication. Hold the IT load, voltage, power factor and cooling temperatures fixed. These are synthetic equipment and operating assumptions, not product ratings or an Abilene design. The 20 MW is IT power, so it does not establish unchanged total facility demand if cooling pumps, conversion losses or other support loads change.",
+          "For the electrical check, use balanced 480 V three-phase AC and power factor 1 at the rack input. Model one supply path carrying the entire rack load: I = P/(√3 × V × PF). A 100 kW rack draws about 120.3 A; a 200 kW rack draws about 240.6 A. The existing complete branch has a stipulated allowable continuous operating current of 160 A under these conditions. It passes the original calculation and fails the revised one. Halving the branch count does not give each remaining conductor, tap, connector or protective device twice its rating. With redundant feeds, the revised design must also establish the current and protection of each surviving path after a specified failure; normal sharing cannot be presumed to solve it.",
+          "For the thermal check, assign all IT heat to a single-phase water circuit and ignore auxiliary heat in this illustrative balance. At a maximum 10 K rise and cp = 4.18 kJ/(kg·K), each rack needs 100/(4.18 × 10) = 2.39 kg/s before the change and 200/(4.18 × 10) = 4.78 kg/s after it. The phase total stays about 478.5 kg/s and each 2 MW zone stays about 47.8 kg/s. Yet the old rack branch has a stipulated 3.0 kg/s flow limit, so it fails the new requirement. At 10 K it can carry only 125.4 kW. A CDU or header’s aggregate thermal rating cannot release this branch.",
+          "Flow also needs pressure. For a separate check of the reused branch hardware, stipulate a 20 kPa drop at the original flow, an approximately quadratic pressure-flow relationship over this range, and only 60 kPa available across that same hardware. Doubling flow would require about 4 × 20 = 80 kPa, beyond the available pressure. This approximation tests the old hardware; it is not a prediction for a redesigned rack or all parts of the loop. The hydraulic review needs the actual pump and system curves, remaining rack/exchanger losses, balancing behavior and pressure limits. Do not turn a constant total flow into an assumption of constant required pump head."
+        ]
+      },
+      {
+        "heading": "Fewer racks do not establish smaller or lighter infrastructure",
+        "paragraphs": [
+          "A rack count is not a floor plan. Obtain the revised cabinet dimensions, service and removal clearances, connector locations, hose routes, cable bends, access to isolation devices and network connection schedule. Ten new racks may require a different arrangement within a zone; the former twenty takeoffs do not automatically line up with ten higher-duty connections. Deleting half the floor area or cutting off alternate manifold branches before this review would commit unverified geometry.",
+          "To make the structural consequence concrete, stipulate that the revised vendor drawing specifies twice the installed mass on the same four support feet, with equal static sharing for this comparison. That mass change is an exercise input, not something inferred from doubling kW. Total rack mass per 2 MW zone remains constant because there are half as many racks, but each occupied rack position and each foot carries twice the original load. The structural designer must check the local floor or module frame, anchorage, installation and replacement route; a whole-zone weight total cannot establish those conditions.",
+          "The logistics lead and module supplier also need the actual shipping configuration. Our service modules receive IT racks on-site, so the doubled installed rack mass is not automatically a doubled shipping payload. Changed buswork, manifolds or frame design can still alter module mass, lifting loads, center of gravity or dimensions. Release the revised module envelope only when the agreed transport route, clearances, load limits, handling and placement sequence fit that configuration. Module joints need tolerances and accessible connections as well as nominal dimensions."
+        ]
+      },
+      {
+        "heading": "Give every module boundary one accountable integration owner",
+        "paragraphs": [
+          "For this exercise, the EPC interface manager owns closure of every connection between the module and the facility. The owner’s requirements representative approves changes to required service; the electrical, mechanical and structural design leads approve their technical interfaces. The module supplier owns its internal assemblies and terminal/flange drawings, and the site contractor owns the external connections and installation records. The commissioning lead defines and witnesses the agreed evidence across the joined systems. Write these duties into the interface register, with one accountable integration owner, drawing revisions and release status for each boundary. Supplier approval of its own end is not closure of the joint.",
+          "At the module’s incoming electrical terminals, name the upstream and internal design owners, voltage, load and failure envelope, current and fault-duty limits, protection assumptions and termination geometry. At the coolant flanges, name the facility-loop and module-loop owners, temperatures, flow and pressure envelope, fluid specification, connection locations and isolation duties. At the base and module joints, name the structure and installation owners, datum coordinates, tolerances, support reactions and access. At the controls gateway, name the alarm and command owners, units, timestamps, rack/branch addresses, loss-of-communication behavior and authority to request or enforce load reduction.",
+          "The rack change requires new identifiers as well as new hardware: old cooling alarms, power circuits and shutdown groups must map to the intended new racks. The EPC interface manager resolves a cross-boundary conflict and records acceptance by both technical sides; the commissioning lead later verifies that the physical installation and configured behavior match that record. A vendor factory test can release shipment for its specified scope. It cannot release integrated service acceptance for the completed site."
         ]
       },
       {
@@ -1353,50 +1414,68 @@
           "A cooling-fault response is also an interface to demonstrate: identify the sensor, affected rack or branch, action authority, power-cap scope, and confirmation that the action occurred. Distinguish a warning, requested reduction, enforced reduction and shutdown. Dell documents failed Emergency Power Reduction actions when a target is unreachable or rejects shutdown. NVIDIA's rack leak integration requires explicit BMS connectivity and configuration. A cooling alarm on a dashboard alone therefore does not establish an operating protection path.",
           "When a revision arrives, compare it with the recorded interface before accepting the substitution. A lighter rack may alter center of gravity; a new CDU may change connection pressure; a software release may rename a signal or change its range. Record the affected requirements, retests and downstream documents. A disciplined change record saves time because it tells the project exactly what to re-examine instead of reopening every design question or assuming nothing consequential changed."
         ]
+      },
+      {
+        "heading": "Release work with evidence, package by package",
+        "paragraphs": [
+          "Proceed with impact analysis, revised drawings, supplier data requests and schedule updates. Site access, earthworks or upstream orders can continue only for packages whose responsible designer has recorded that the changed racks do not alter their approved inputs. For an upstream electrical or cooling package, that record must check operating and failure loads, auxiliary demand, temperatures and interfaces; “still 20 MW” is insufficient. Hold affected embedded services, foundations or common supports too if their geometry or loads remain unresolved.",
+          "Electrical hold — Stop fabrication or installation of the affected rack distribution, taps, cables and terminations. The electrical design lead releases it with the revised rack input specification, one-line and branch schedule; verified allowable operating current, equipment/connector ratings and derating; fault-duty and protection review, including required failure states; and coordinated terminal drawings accepted by the module supplier and site electrical contractor. The old 160 A branch cannot receive a 240.6 A duty through a paperwork-only release.",
+          "Hydraulic hold — Stop affected manifold takeoffs, rack hoses, connections and any changed CDU/pump selection. The mechanical design lead releases it with the approved rack thermal and coolant envelope, selected components that support 4.78 kg/s at the allowed temperatures, a pressure/flow calculation using actual component and pump curves, balancing and control provisions, and a coordinated piping diagram. A claimed 20 MW plant rating does not discharge the 3.0 kg/s branch limit or the 80 kPa versus 60 kPa pressure mismatch.",
+          "Spatial and logistics hold — Stop cutting affected frames and penetrations, fixing supports or foundations, and releasing the revised module for shipment or placement. The structural and layout leads release fabrication using vendor dimensional and mass drawings, coordinated clearances and routes, checked local support loads, anchorage and connection tolerances. The logistics lead separately releases movement against the confirmed as-shipped dimensions, mass, center of gravity, lifting and route/placement plan. A layout approval is not evidence that a truck or crane can deliver that configuration.",
+          "Controls and acceptance hold — Hold the changed alarm, circuit and rack-address mappings and any claim that the original test evidence covers the revision. Controls owners provide an approved signal and cause/action matrix for the new rack groups; the commissioning lead updates factory and site test scopes, instrumentation and criteria. Release fabrication or configuration on those approved inputs, release shipment on the specified factory records, and release service only after the required site and integrated tests close the affected issues. Tests at the former rack duty do not demonstrate the new duty.",
+          "Schedule hold — Hold an unconditional factory-start or service-date commitment until the EPC scheduler has the signed package releases, revised component availability, a confirmed factory slot, transport and placement resources, site readiness and test resources in one dependency network. For the prior example with all required approvals at week 3, those confirmations support week 14. If the frame can safely begin earlier under its own approved interfaces, model that split explicitly; if a manufacturing slot is lost, use the replacement slot rather than pretending the six-week clock started at drawing approval."
+        ]
       }
     ],
     "example": {
-      "title": "The missing 3.9 kg/s",
+      "title": "Release a revised 20 MW phase, one interface at a time",
       "assumptions": [
-        "Synthetic rack heat duty 1,000 kW and maximum loop rise 10 K.",
-        "Water specific heat is stipulated as 4.18 kJ/(kg·K).",
-        "Documented path flow ceiling is 20 kg/s; steady, single-phase operation is assumed."
+        "Ten 2 MW zones: 200 × 100 kW racks become 100 × 200 kW. IT duty stays 20 MW; facility auxiliary loads require separate review.",
+        "Balanced 480 V three-phase rack input, PF = 1, one supply path carrying the full rack duty. Old branch allowable continuous current: 160 A.",
+        "All IT heat enters water; cp = 4.18 kJ/(kg·K), maximum rise 10 K, old branch flow limit 3.0 kg/s. For the reused branch hardware alone, Δp ∝ flow², with 20 kPa at old flow and 60 kPa available.",
+        "The new rack has twice the stipulated installed mass on the same four support feet; equal static sharing is assumed. IT racks are installed after module shipment.",
+        "Required approvals arrive at week 3. Confirmed factory work takes 6 weeks, transport 1, independent site work finishes at week 8, site connections take 2 and integrated acceptance takes 2."
       ],
       "steps": [
         {
-          "label": "Required flow",
-          "expression": "1,000 kJ/s / (4.18 kJ/(kg·K) × 10 K) = 23.9 kg/s",
-          "explanation": "Units cancel to mass per time."
+          "label": "Electrical branch",
+          "expression": "100,000/(√3 × 480) = 120.3 A; 200,000/(√3 × 480) = 240.6 A > 160 A",
+          "explanation": "Hold the affected distribution until a revised rated and protected path is approved."
         },
         {
-          "label": "Duty at the stated flow ceiling",
-          "expression": "20 × 4.18 × 10 = 836 kW",
-          "explanation": "The allowed temperature rise and flow together bound this simple heat-transport model."
+          "label": "Hydraulic branch",
+          "expression": "100/(4.18 × 10) = 2.39 kg/s; 200/(4.18 × 10) = 4.78 kg/s > 3.0 kg/s; 20 × 2² = 80 kPa > 60 kPa",
+          "explanation": "Hold the branch/manifold design; unchanged total heat and flow do not establish local transport capacity or sufficient pressure."
         },
         {
-          "label": "Unserved requirement",
-          "expression": "1,000 − 836 = 164 kW",
-          "explanation": "The proposed interface is short by 16.4 percent of the requested heat duty."
+          "label": "Local support",
+          "expression": "Half as many racks × twice the mass = same zone mass; mass per occupied rack and load per foot both double",
+          "explanation": "Hold affected supports until the local structural and layout review passes. Check the shipping configuration separately."
+        },
+        {
+          "label": "Dependency join",
+          "expression": "max(3 + 6 + 1, 8) + 2 + 2 = week 14",
+          "explanation": "Independent site work continues; the factory waits for the required releases. Confirmed resources make the assumed durations usable."
         }
       ],
-      "result": "The documented pairing does not meet the 1 MW requirement under these conditions, regardless of a larger rating at another test point.",
-      "boundary": "No pump sizing, pressure-drop model, coolant specification or product capability is inferred beyond the supplied conditions."
+      "result": "Neither unchanged MW nor unchanged total coolant flow releases the affected interfaces. Continue demonstrably independent work; release changed packages only on their named evidence. The modeled acceptance moves from week 12 to week 14.",
+      "boundary": "This is an original design-review exercise, not an equipment selection, structural calculation or construction commitment. Real product curves, support details, failure states, factory slots and integrated test records must replace the assumptions."
     },
     "tradeoff": {
-      "choice": "Standardize interfaces before ordering several vendors’ equipment.",
-      "benefit": "It can make compatibility, substitutions and acceptance easier to evaluate.",
-      "cost": "It can constrain later product choices; poorly chosen common requirements can also exclude useful alternatives without improving the service."
+      "choice": "Release independent module packages while the revised rack interfaces are being resolved.",
+      "benefit": "Unaffected site and factory work can preserve useful overlap.",
+      "cost": "A supposedly independent frame, penetration or manifold can embed an unresolved interface. The design owner must establish that independence before fabrication, and the schedule must retain the remaining joins."
     },
     "failure": {
-      "trigger": "A component substitution preserves its headline MW rating but changes the accepted flow or control interface.",
-      "mechanism": "The system inherits an incompatibility not visible in the summary rating.",
-      "response": "Trace the changed interface to its requirements and evidence, then review the necessary redesign or retest before claiming equivalence."
+      "trigger": "The factory deletes alternate 100 kW rack connections and labels the remaining ten positions in each zone 200 kW.",
+      "mechanism": "The surviving 160 A and 3.0 kg/s branches cannot support the new duty; local support loads, connector positions and control mappings are also unverified.",
+      "response": "Hold the affected fabrication, record the interface owners and obtain revised electrical, hydraulic, spatial and control evidence before release. Recompute manufacturing, transport and integrated acceptance dates."
     },
     "practice": {
-      "question": "A revised brief reduces heat duty to 800 kW with the same 10 K rise and 20 kg/s flow ceiling. Does it pass this energy-transport check?",
-      "hint": "Required mass flow falls with duty if specific heat and permitted rise stay fixed.",
-      "answer": "Yes: 800/(4.18 × 10) ≈ 19.1 kg/s, below 20 kg/s.",
-      "reasoning": "The revised brief fits this particular flow-and-temperature calculation. It still requires evidence for exchanger performance, pressure, control behavior and the remaining interfaces. Passing one necessary condition is not the same as accepting the complete system."
+      "question": "The rack change remains 200 × 100 kW → 100 × 200 kW. The electrical lead has approved replacement branches for the revised normal and failure duties; the mechanical lead has approved the new hydraulic operating points. The revised mass/layout drawing and transport plan are still missing, and no replacement factory slot is confirmed. Which work can proceed, what stays held, and what evidence is still needed?",
+      "hint": "Distinguish a technical package approval from permission to cut common supports, ship a module or promise service. Name the input each action consumes.",
+      "answer": "Release the approved electrical and hydraulic packages only to the extent that their fabrication does not consume unresolved geometry or common supports. Continue independently released site work and design coordination. Hold affected frames, support locations, penetrations, shipment/placement and an unconditional completion-date commitment.",
+      "reasoning": "Electrical and hydraulic adequacy cannot locate connectors or establish floor reactions, access or transport fit. The structural/layout leads must approve the vendor dimensions, twice-per-position loads, routes, tolerances and connection locations; logistics must approve the actual shipping and placement configuration. The EPC interface manager closes the joints with both suppliers, controls owners remap the new rack groups, and the commissioning lead defines revised tests. The scheduler then needs a confirmed factory slot, component readiness, transport/site resources and the resulting dependency dates. Factory records release only their specified scope; site and integrated evidence remain necessary for service acceptance."
     },
     "sources": [
       {
@@ -1404,14 +1483,14 @@
         "url": "https://legacy.wbdg.org/building-commissioning/commissioning-documents",
         "claim": "The OPR, basis-of-design and review discussion supports requirements ownership and traceable acceptance documentation.",
         "reviewed_on": "2026-09-06",
-        "limits": "Selected document-role and design-review passages inspected; no standard text or complete acceptance procedure is reproduced."
+        "limits": "Selected document-role and design-review passages inspected; no standard text or complete acceptance procedure is reproduced. The module responsibility register and hold/release decisions are original teaching allocations."
       },
       {
         "title": "ASHRAE AI data-center commissioning framework",
         "url": "https://www.ashrae.org/technical-resources/ai-data-center-framework/commissioning-performance-validation",
         "claim": "Design-phase feedback and early monitoring/control coordination are relevant to interface validation.",
         "reviewed_on": "2026-09-06",
-        "limits": "Selected highlights reviewed. All rack/CDU numbers and failure scenarios here are synthetic, not ASHRAE product ratings."
+        "limits": "Selected highlights reviewed. All rack, module, current, flow, pressure, mass and schedule values here are synthetic, not ASHRAE ratings. Existing source review is reused; no new external review is implied."
       },
       {
         "title": "Dell PowerEdge event guide — liquid-cooling and temperature-triggered Emergency Power Reduction",
@@ -1440,30 +1519,38 @@
       {
         "term": "Acceptance criterion",
         "definition": "A defined, observable condition used to judge a required behavior."
+      },
+      {
+        "term": "Interface register",
+        "definition": "A revision-controlled record of each connection, the requirements on both sides, accountable owners and the evidence needed to close it."
+      },
+      {
+        "term": "Hold point",
+        "definition": "A defined boundary beyond which a package or activity cannot proceed until its stated release evidence is approved."
       }
     ],
     "visual": {
       "kind": "comparison",
-      "title": "Headline rating versus actual interface",
+      "title": "20 MW stays; each rack interface changes",
       "nodes": [
         {
-          "label": "Rack requirement",
-          "detail": "1,000 kW; maximum rise 10 K"
+          "label": "Rack population",
+          "detail": "200 × 100 → 100 × 200 kW"
         },
         {
-          "label": "Required flow",
-          "detail": "23.9 kg/s"
+          "label": "Electrical path",
+          "detail": "120.3 → 240.6 A; limit 160 A"
         },
         {
-          "label": "Proposed path",
-          "detail": "20 kg/s limit"
+          "label": "Water branch",
+          "detail": "2.39 → 4.78 kg/s; limit 3.0"
         },
         {
-          "label": "Supported duty",
-          "detail": "836 kW in this model"
+          "label": "Release evidence",
+          "detail": "Ratings, pressure, supports, dates"
         }
       ],
-      "caption": "An original necessary-condition check. It can reject the pairing but cannot certify a revised design."
+      "caption": "Synthetic 480 V balanced three-phase input at PF 1; all IT heat to water with a 10 K rise. The revised duty requires electrical, hydraulic, spatial and scheduling evidence."
     }
   },
   {

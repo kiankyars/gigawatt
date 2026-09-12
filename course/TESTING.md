@@ -674,3 +674,19 @@ precise hand-rounded expected-current value in the ad hoc check was corrected;
 the implementation formula was unchanged. Final new case layouts and the small
 D00 opening/PUE changes still need a built-in-browser visual walkthrough; earlier
 standalone browser checks do not cover these changes.
+
+## D13 modular-delivery exercise — 2026-09-12
+
+Two reader lessons and the D13 check-in now use the same synthetic 20 MW phase.
+Reviewed the electrical and coolant calculations, local support-load assumption,
+parallel schedule and release ownership. At 480 V balanced three phase/PF 1,
+100/200 kW require 120.3/240.6 A. At cp 4.18 and 10 K, water flow is 2.39/4.78 kg/s.
+The stipulated quadratic branch model raises 20 kPa to 80 kPa, above 60 kPa
+available. These are explicit teaching assumptions, not equipment selections.
+
+Independent site work finishes week 8; factory assembly 6 weeks plus transport 1
+joins it before 2 weeks of connections and 2 of acceptance. Approval at weeks
+0/3/5 gives completion at weeks 12/14/16. The site-built comparison is week 16.
+Source review dates are preserved; no new external review is claimed. The reader
+now displays the authored visual captions so numerical assumptions remain visible
+next to its summary diagrams.

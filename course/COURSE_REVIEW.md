@@ -268,3 +268,12 @@ whole presentation must be finished before the next dry run.
 
 - [ ] Watch the edited video and fix mistakes or missing steps.
 - [ ] Check chapter timestamps and public resources; ensure they match the video.
+
+### D13 delivery comparison — 12 September 2026
+
+The scheduling and interface lessons now share one synthetic 20 MW comparison:
+site-built services versus factory-built service modules under the same EPC
+scope. The late change from 200 × 100 kW to 100 × 200 kW racks drives electrical,
+hydraulic, spatial, controls, transport and schedule holds. Each hold identifies
+its owner and release evidence. The D13 boundary check revisits the same choice;
+factory release remains distinct from integrated site acceptance.

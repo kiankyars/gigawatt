@@ -82,23 +82,31 @@ The added cooling evidence closes the missing condition for A01–A20. Positions
 - [Commissioning & Performance Validation | AI Data Center Energy Performance Framework](https://www.ashrae.org/technical-resources/ai-data-center-framework/commissioning-performance-validation) — The staged commissioning and integrated-systems discussion distinguishes component checks from coupled validation. Read 2026-09-06. Selected commissioning-stage and handover discussion inspected; project procedures, pass criteria and synthetic rack sets are original.
 - [WBDG: Commissioning Documents](https://legacy.wbdg.org/building-commissioning/commissioning-documents) — Commissioning records and systems documentation support continued operation and maintenance. Read 2026-09-06. Selected documentation purpose reviewed; this is not a claim to have applied a complete ASHRAE standard or GSA acceptance process.
 
-## D13 domain check-in: Count the same accepted paths
+## D13 domain check-in: 20 MW stays; what can the factory release?
 
 Optional: pause and make a prediction, then compare your reasoning. You can continue whenever you are ready.
 
-A hypothetical phase contains rack positions A, B, C and D. Power acceptance covers A, B and C; cooling acceptance covers B, C and D; network acceptance covers A, B, C and D. No end-to-end workload or recovery test has run.
+Just before fabrication, the illustrative phase changes from 200 × 100 kW to 100 × 200 kW racks. Each old rack branch permits 160 A and 3.0 kg/s. Use balanced 480 V AC at PF 1; assign all IT heat to water with cp = 4.18 kJ/(kg·K) and a maximum 10 K rise. The new vendor drawing also doubles rack mass on the same four feet. Independent site work remains approved.
 
-**Pause and predict:** How many positions share the three accepted subsystem paths? How many have demonstrated service acceptance?
+**Pause and predict:** What can proceed, what must be held, and what evidence releases each hold? Address electrical, hydraulic, spatial and scheduling constraints. Does a successful factory test establish site service acceptance?
 
 <details>
 <summary>Compare your reasoning</summary>
 
-Two positions, B and C, share all three subsystem acceptances. None has yet demonstrated end-to-end service acceptance.
+Continue the approved independent site work and redesign. Hold the affected branches, manifold and supports, shipment/placement and any unsupported completion-date promise. The revised rack needs about 240.6 A and 4.78 kg/s, beyond the old limits; the stipulated load per foot doubles. Factory approval alone cannot establish service acceptance.
 
-Separate totals of three, three and four do not identify a common set of three. Take the intersection first, then test the agreed workload, failure behavior and recovery on complete paths. A subsystem pass is evidence for its own scope.
+Electrical: the design lead must approve the revised rack inputs, branch/connector ratings, one-line and protection/failure review. Halving the number of branches does not double each remaining branch’s allowable current.
+
+Hydraulic: the mechanical lead must demonstrate the revised flow at allowed temperatures and pressures with actual pump/component curves, piping and balancing provisions. The phase still needs about 478.5 kg/s in this model, but each rack needs twice its former flow. Constant total flow does not establish adequate branch pressure.
+
+Spatial: the structural/layout leads need coordinated dimensions, local support loads, access and connection locations. Fewer racks with twice the stipulated mass leave total zone mass unchanged while doubling each occupied position’s load. Logistics separately needs the actual shipping envelope, mass, lifting and route/placement plan.
+
+Scheduling: the EPC interface manager records each approved boundary and the scheduler confirms components, factory slot, transport, site and test resources. With all required approvals at week 3, factory work 6 weeks, transport 1, site ready in week 8, connections 2 and acceptance 2, the finish is max(3 + 6 + 1, 8) + 2 + 2 = week 14. Approval dates alone do not reserve those resources.
+
+Acceptance: controls owners must remap alarms and actions to the new racks, and the commissioning lead must revise the tests. Factory evidence covers its tested scope; completed site connections and integrated workload/failure/recovery evidence are still required. No service path has been demonstrated merely because a module can ship.
 
 </details>
 
-**The next problem:** After acceptance, how will operators notice when those same paths change, degrade or become unavailable for maintenance?
+**The next problem:** After those revised paths pass acceptance, which measurements, configuration records and maintenance responsibilities will keep their operating limits visible?
 
 Continue in **D14**: A believable number can describe the wrong thing.

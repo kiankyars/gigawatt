@@ -4,7 +4,7 @@ Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](
 
 **D13 · Authored draft · Objectives:** D13.1
 
-Build a dependency graph, calculate the earliest finish, and identify which acceleration would change the result.
+Build a dependency graph, compare site-built and prefabricated delivery of the same 20 MW phase, and decide which work a late rack change actually delays.
 
 **Driving question:** Which delay actually changes the date when a phase can deliver service?
 
@@ -32,6 +32,32 @@ A change can also create a different critical path. If utility readiness slips t
 
 Keep forecasts and evidence separate when updating the network. A reported shipment date is not installation complete; installation complete is not a passed test. Record the status date, remaining work and basis for durations. Compare the current forecast with the approved baseline to understand the change, while resisting the temptation to move dates merely to make a dashboard appear healthy. The purpose of scheduling is to expose consequences early enough to make a meaningful decision.
 
+## EPC responsibility and manufacturing strategy answer different questions
+
+Consider one illustrative 20 MW IT phase divided into ten 2 MW service zones. Initially each zone serves twenty 100 kW racks. Compare assembling its distribution and cooling services in the building with delivering factory-built service modules. Keep the IT duty, required operating conditions and acceptance endpoint fixed. This is an original comparison, not an Abilene construction account or a supplier delivery claim.
+
+EPC means engineering, procurement and construction: it describes the responsibilities assigned in a delivery scope. In this example, the owner contracts one EPC team to coordinate the design, purchase the packages, deliver the site works and integrate the completed systems against the owner’s requirements. Site-built versus prefabricated describes where and how assemblies are made. That same EPC scope can use either strategy or a mixture; a module vendor does not acquire responsibility for the whole facility merely by delivering a tested product. The actual contract must assign the boundaries and acceptance duties.
+
+In the site-built route, factories still manufacture switchgear, cooling equipment and other components. Site trades install supports, assemble distribution and pipework, connect controls and integrate those products in the building. In our prefabricated route, the module factory fits a transportable service frame with electrical distribution, manifolds, internal wiring and controls, and checks the specified internal assemblies before shipment. Site teams still deliver access and foundations, utility and plant connections, unloading and placement, connections between modules and the building, IT rack installation and integrated acceptance. A factory test cannot demonstrate a site connection that did not exist during that test.
+
+## Put the factory and the site on parallel schedule branches
+
+Use a separate controlled schedule for these two routes. Week zero means approved interfaces and available components; upstream equipment lead times have already elapsed equally for both options. All durations are stipulated. Site enabling takes eight weeks. In the site-built route, service assembly then takes six weeks, followed by two weeks of integrated acceptance: 8 + 6 + 2 = week 16. This comparison does not replace the earlier week-27 procurement example.
+
+For the prefabricated route, factory assembly and its internal checks take six weeks while the eight-week site branch runs in parallel. Transport takes one week after the factory release. Setting and site connections take two weeks after both the module arrival and site readiness, then the same two-week integrated acceptance follows: max(6 + 1, 8) + 2 + 2 = week 12. The four-week advance comes from overlapping assembly with site work under these assumptions. It is not a universal percentage saving from modular construction.
+
+A manufacturing release freezes the dimensions, ratings, connection locations, control definitions and drawings that fabrication will consume. It does not freeze every future software or operating choice. Both routes need design control before irreversible work, but cutting a module frame or manufacturing a manifold can commit an interface while the site is still being prepared. An unresolved dimension can stop the factory branch long before it would have stopped site assembly. Release separate packages only where their approved boundaries establish that later decisions cannot invalidate them.
+
+Transport is a real predecessor. Before releasing the module envelope, agree the shipping configuration, dimensions, mass and center of gravity, route clearances and permitted loads, lifting points, access and placement sequence. A module that works electrically and thermally can still require redesign or a different shipment plan. Confirm these inputs for the actual route; the stipulated one-week transport duration is not evidence of access. Protection during shipment and receipt checks belong between the factory record and the site connection record.
+
+## A late rack change consumes interface float
+
+Just before fabrication, the owner changes the phase from 200 × 100 kW to 100 × 200 kW racks. Each 2 MW zone now serves ten racks. The 20 MW IT total remains fixed, but the local electrical, hydraulic and physical interfaces may change. Continue the revised design and supplier reviews, and continue site work whose approved boundaries are demonstrably unaffected. Hold the affected fabrication packages, rack connections and dependent structural or placement work. The next lesson identifies the evidence that releases each hold.
+
+Suppose those required interface approvals arrive together at week 3. Assume no affected factory assembly can start earlier, the factory still has a six-week slot available then, transport remains one week, and independent site work still finishes in week 8. Arrival moves from week 7 to week 10; setting and connections finish in week 12 and integrated acceptance finishes in week 14: max(3 + 6 + 1, 8) + 2 + 2 = 14. The three-week approval delay causes a two-week completion delay because the original delivery branch had one week of float before the site join.
+
+Under the same assumptions, the site-built route can retain week 16 because the revised service interfaces are approved before site assembly starts in week 8. That does not make late changes free: altered purchasing, foundations, equipment lead times or site scope would change the result. Releasing a revised drawing also does not reserve factory labor, test equipment, a truck or a crane. The scheduler must obtain the available manufacturing slot and logistics dates, connect them to the signed release milestones and calculate the current finish. Different packages can have different release dates; do not hide their dependencies behind one unchanged MW figure.
+
 ## Worked example: Three paths join before acceptance
 
 - Synthetic durations in continuous weeks, with unconstrained resources and no calendar effects.
@@ -48,30 +74,30 @@ Keep forecasts and evidence separate when updating the network. A reported shipm
 
 ## The tradeoff
 
-Choice: Order equipment before all downstream choices are fixed.
+Choice: Freeze module interfaces early enough to assemble services in parallel with site enabling.
 
-Benefit: It may begin a long procurement interval earlier.
+Benefit: In the stipulated comparison, overlap moves integrated acceptance from week 16 to week 12.
 
-Cost: Later interface changes can create rework, incompatible deliveries or commercial exposure; the schedule benefit must be compared with that risk.
+Cost: The design commits before site assembly would begin; later rack changes can invalidate factory work, consume delivery float or lose a manufacturing slot. Transport and site integration remain necessary.
 
 ## When the situation changes
 
-Trigger: The project reports readiness when the largest shipment arrives.
+Trigger: A project keeps its factory release and completion dates because the revised rack population still totals 20 MW.
 
-Mechanism: Installation, controls and integrated acceptance are missing from the claimed service milestone.
+Mechanism: The unchanged aggregate duty hides unapproved branch ratings, manifold connections and support geometry; the factory may build the wrong interfaces or wait for replacements.
 
-Response: Restore the omitted predecessors and report the endpoint actually supported by the evidence.
+Response: Place holds on the affected packages, continue evidenced independent work, assign release owners and recalculate from actual approval, manufacturing, transport and site milestones.
 
 ## Apply the idea
 
-Cooling installation now takes 12 rather than 4 weeks. The other durations remain unchanged. When can final acceptance finish, and which path is critical?
+For the 20 MW comparison, required rack-change approvals now arrive at week 5. Factory assembly still takes 6 weeks, transport 1, site setting/connections 2 and integrated acceptance 2; independent site work still finishes in week 8. What can continue, when does the modular route finish, and can the site-built route still finish at week 16?
 
 <details>
 <summary>Reveal the worked answer</summary>
 
-Cooling finishes at 2 + 10 + 12 = week 24. Final acceptance finishes at week 28, with the cooling path now critical.
+Independent approved site work can continue. The modular route finishes at max(5 + 6 + 1, 8) + 2 + 2 = week 16. The site-built route can also retain week 16 if all revised inputs and resources are ready before its week-8 assembly start.
 
-The eight-week increase consumes the former seven-week margin and moves the shared join one week later. The longest individual activity remains electrical procurement at eighteen weeks, demonstrating why that individual duration does not identify the controlling completion path by itself.
+Hold only the work whose inputs are unresolved, including any affected supports or embedded connections on the site branch. Electrical, hydraulic and spatial sign-offs release their packages; the scheduler then confirms factory, transport, site and test resources. A five-week approval delay consumes one week of original arrival float and delays modular completion by four weeks. If the rack change alters the supposedly independent site work or component availability, neither finish follows from these assumptions.
 
 </details>
 
@@ -79,4 +105,5 @@ The eight-week increase consumes the former seven-week margin and moves the shar
 
 ## Sources and reading boundaries
 
-- [GAO Schedule Assessment Guide](https://www.gao.gov/products/gao-16-89g) — The guide overview supports integrated schedules, explicit dependencies and the connection between schedule slippage and cost. Read 2026-09-06. Overview and guide structure inspected. The network, durations, slack and interventions are original teaching scenarios, not GAO project examples.
+- [GAO Schedule Assessment Guide](https://www.gao.gov/products/gao-16-89g) — The guide overview supports integrated schedules, explicit dependencies and the connection between schedule slippage and cost. Read 2026-09-06. Overview and guide structure inspected. The network, durations, slack and interventions are original teaching scenarios, not GAO project examples. The site-built/prefabricated comparison and rack-change release dates are also synthetic; no modular supplier performance is attributed to this guide.
+- [WBDG: Commissioning Documents](https://legacy.wbdg.org/building-commissioning/commissioning-documents) — The existing OPR, basis-of-design and review discussion supports connecting project requirements to traceable design and acceptance records. Read 2026-09-06. Selected document-role and design-review passages inspected in the existing source review. The EPC allocation, module scope and release workflow are stipulated teaching choices, not a prescribed contract model or a quotation from WBDG.

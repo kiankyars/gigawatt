@@ -2069,7 +2069,7 @@ function renderLesson() {
   }
   if (visual && visual.kind !== "parcel") {
     $("concept").innerHTML =
-      `<div class="eyebrow">THE MECHANISM AT A GLANCE</div><h2 id="concept-title">${esc(visual.title)}</h2><div class="concept-grid">${visual.nodes.map((n, i) => `<div class="concept-node"><span>${String(i + 1).padStart(2, "0")}</span><h3>${esc(n.label)}</h3><p>${esc(n.detail)}</p></div>`).join("")}</div><p class="boundary">Read these roles with the explanation above. The cards summarize relationships; their order and spacing do not specify a physical circuit or a quantitative flow scale.</p>`;
+      `<div class="eyebrow">THE MECHANISM AT A GLANCE</div><h2 id="concept-title">${esc(visual.title)}</h2><div class="concept-grid">${visual.nodes.map((n, i) => `<div class="concept-node"><span>${String(i + 1).padStart(2, "0")}</span><h3>${esc(n.label)}</h3><p>${esc(n.detail)}</p></div>`).join("")}</div>${visual.caption ? `<p class="boundary">${esc(visual.caption)}</p>` : ""}<p class="boundary">Read these roles with the explanation above. The cards summarize relationships; their order and spacing do not specify a physical circuit or a quantitative flow scale.</p>`;
   }
   const w = l.worked_example;
   $("worked").innerHTML =
