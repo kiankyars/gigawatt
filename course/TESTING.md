@@ -708,3 +708,5 @@ Verification on the reviewed source:
 - Descriptive topic names replace visible domain codes in current course interfaces and guidance. Stable internal IDs and historical verification entries remain.
 
 No standalone browser or browser installer was launched for this review. The planned timing still needs an aloud dry run and learner feedback. FEEDBACK_AUDIT.md tracks every user request and publication status.
+
+Publication verification: commit `8aa6549a1a72db6f693c4a71c9dccacdfc63ed69` deployed successfully in Pages run `34720114864`. Sixteen live files matched local bytes, including both revised presentation shells and changed modules, reader, domain map, course data, case module, land/delivery lessons and author records. The course map also rendered descriptive topic names without visible domain-code labels or horizontal overflow at desktop size.
