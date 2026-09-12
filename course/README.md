@@ -38,7 +38,7 @@ The [Primer](prototypes/terminology-format.html) has teaching mode at `prototype
 Edit `prototypes/terminology-format.html` (embedded presentation shell and styles),
 `prototypes/terminology-scenes.js` (headlines and accessible descriptions) and
 `prototypes/terminology-visuals.js` and `prototypes/terminology-electricity.js`
-(diagrams) directly. Its 19 slides target roughly twenty minutes, without per-slide timing cues.
+(diagrams) directly. Its 21 slides target roughly twenty minutes, without per-slide timing cues.
 They attach vocabulary to examples so a beginner can follow part of an expert
 conversation. [Background notes](PRIMER_NOTES.md) and
 [evidence and assumptions](PRIMER_EVIDENCE.md) are kept outside the slides.

@@ -17,7 +17,7 @@ export const scenes = [
     options: [['12', '12 V'], ['24', '24 V']], key: 'resistanceVoltage', group: 'Source voltage',
   },
   {
-    id: 'power', label: 'Watts', title: 'Watts tell us how fast energy moves',
+    id: 'power', label: 'Watts', title: 'Power is energy transferred per second',
     description: 'In a steady DC example, 12 volts times 2 amperes transfers 24 watts, or 24 joules each second, into the load.',
   },
   {
@@ -27,16 +27,26 @@ export const scenes = [
   },
   {
     id: 'ac-dc', label: 'AC, DC and frequency', title: 'AC voltage changes polarity',
-    description: 'The voltage between points A and B changes polarity in AC. For a resistor, current reverses too. A rippled DC voltage varies but stays on one side of zero.',
-    options: [['90', 'First half-cycle'], ['180', 'Zero crossing'], ['270', 'Second half-cycle']], key: 'angle', group: 'AC moment',
+    description: 'A flat DC voltage keeps the left terminal positive relative to the right and drives current to the right through a resistor. The AC voltage reverses polarity: the positive peak makes the left terminal positive and current flows right; the negative peak makes the right terminal positive and current flows left. At the zero crossing, the terminals have equal voltage and this resistor carries no current.',
+    options: [['90', 'Positive peak'], ['180', 'Zero crossing'], ['270', 'Negative peak']], key: 'angle', group: 'AC moment',
   },
   {
     id: 'ac-shapes', label: 'AC waveform shapes', title: 'AC does not have to be a sine wave',
     description: 'Sine, square, sawtooth and triangle voltage waveforms each alternate above and below zero. Utility AC is normally approximately sinusoidal; the other shapes illustrate bipolar AC signals.',
   },
   {
+    id: 'voltage-variation', label: 'Voltage variation', title: 'AC and DC supplies can vary in voltage',
+    description: 'Two illustrative supplies have nominal levels of 12 volts DC and 12 volts AC peak. Select a level ten percent lower, nominal, or ten percent higher. The DC level changes while staying positive; the AC peak height changes while polarity keeps alternating. Dashed traces mark the nominal levels. Actual supply voltage depends on the source, load and wiring. These example levels are not equipment operating limits.',
+    options: [['0.9', '10% lower'], ['1', 'Nominal'], ['1.1', '10% higher']], key: 'supplyLevel', group: 'Supply voltage',
+  },
+  {
     id: 'three-phase', label: 'Three-phase AC', title: 'Data centers mostly distribute AC in three phases',
     description: 'Three sinusoidal phase voltages are staggered by one-third of a cycle. Three-phase AC is the predominant form of AC power distribution in data centers. RMS describes effective voltage magnitude.',
+  },
+  {
+    id: 'three-phase-power', label: 'Three-phase power', title: 'The three phases add up to steady power',
+    description: 'For a balanced sinusoidal supply feeding equal resistive loads, each phase delivers an average of 10 kilowatts and its instantaneous power ranges from zero to 20 kilowatts. The three instantaneous powers add to 30 kilowatts at every moment. The colored traces are each phase’s power, voltage times current; the straight line is their total power, not voltage. Selecting different moments shows the three contributions changing while their sum stays 30 kilowatts.',
+    options: [['0', '0°'], ['30', '30°'], ['60', '60°']], key: 'phasePowerAngle', group: 'Moment in cycle',
   },
   {
     id: 'power-factor', label: 'Power factor', title: 'Low power factor means more current for the same power',

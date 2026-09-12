@@ -11,6 +11,7 @@ Confirmed decisions:
 - Keep the primer self-contained. Remove promises about later chapters; citation controls are discretionary.
 - Keep rehearsal cues, exact slide timings and the Explanation panel out of the primer. Keep supporting detail in author notes and provide a visible **Back to course** exit.
 - Motivate power factor with voltage/current timing at fixed supply voltage. Follow one compute server through model loading, networking, heat and cooling; identify PUE as a separate facility account.
+- Define watts as energy per second, start with flat DC, teach voltage variation separately, and show three-phase power as the sum of all three contributions. Use visible terminals to explain AC polarity.
 - Keep the **N+1 definition and spare-module example**. Remove the sentence about testing surviving service in a later chapter.
 - Put available presentations in the chapter navigation, with a **Slides available** filter. Mark decks covering selected topics clearly.
 - Retire the historical 22-lesson introduction from the published course. Its source is retained for curriculum history; published legacy links redirect to the current course.

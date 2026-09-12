@@ -323,7 +323,7 @@ document.querySelector('main > header > .eyebrow').textContent = presentationLab
 import {scenes,sceneAliases} from './terminology-scenes.js';
 import {renderTerminology} from './terminology-visuals.js';
 const $=id=>document.getElementById(id);
-const state={circuit:'closed',resistanceVoltage:'12',hours:'1',angle:'90',upsSupply:'normal',bandwidth:'10000'};
+const state={circuit:'closed',resistanceVoltage:'12',hours:'1',angle:'90',supplyLevel:'1',phasePowerAngle:'0',upsSupply:'normal',bandwidth:'10000'};
 const teaching=new URLSearchParams(location.search).get('teach')==='1';
 $('fullscreen').hidden=!teaching;
 $('scenes').innerHTML=scenes.map((s,i)=>`<option value="${i}">${i+1}. ${s.label}</option>`).join('');

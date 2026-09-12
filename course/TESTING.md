@@ -762,3 +762,31 @@ overview and reading links removed.
 
 These checks do not establish spoken runtime, learner comprehension or a new
 exhaustive review of every theme and pre-existing slide state.
+
+## Primer watts, polarity and three-phase power — 2026-09-12
+
+Applied the primer revisions in sequence: clarified power as energy transferred
+per second, moved the resistor heat label below all four heat arrows, replaced
+the initial DC trace with a constant level, and tied AC polarity to labeled
+resistor terminals and conventional-current direction. Removed the ripple
+caption. New voltage-variation and three-phase-total-power scenes bring the
+primer to 21 slides. Author notes and current slide-count guidance are updated.
+
+- All 66 Python and 94 JavaScript tests pass, along with generated-artifact,
+  research, staging and whitespace checks.
+- Primer static checks cover 21 scenes and every control state. They verify the
+  DC baseline, voltage scaling, three power contributions and their sum. All
+  361 samples of the actual rendered phase-power curves sum to the flat 30 kW
+  trace within SVG rounding tolerance, in desktop and compact layouts.
+- The built-in browser checked all 26 changed scene/control/viewport cases at
+  1280 × 720 and 390 × 844. A compact AC/DC time/terminal-label overlap was fixed
+  and all three AC states were rechecked. The watts, resistor heating, polarity,
+  voltage variation and three-phase-power diagrams were visually inspected.
+- The new power example explicitly assumes balanced sinusoidal voltage with
+  equal resistive loads. Its straight trace is total instantaneous power, not
+  voltage or the largest individual phase. Voltage-variation values are
+  illustrative levels, not equipment operating limits; transformer tap/rating
+  qualifications are retained in the author notes and evidence.
+
+Browser checks used the active light theme and the built-in browser. Spoken
+runtime and beginner comprehension remain for the planned teaching review.

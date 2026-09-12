@@ -20,7 +20,7 @@ read it end to end.
 A fourteen-scene cooling presentation extends that approach to capture methods,
 CDU ratings and approach, weather and outdoor heat rejection.
 A separate [Primer](prototypes/terminology-format.html) introduces
-electricity basics and recurring terminology before the core course. Its 19 slides
+electricity basics and recurring terminology before the core course. Its 21 slides
 have a 20-minute target that remains provisional until rehearsal.
 The thirteen-scene Data center overview remains intact: it tours generation, transmission, campus power, backup,
 GB300 hardware, compute, networks and cooling before introducing load, energy and PUE.
@@ -243,7 +243,7 @@ links when integration is complete.
   use of the original Crusoe-built Stargate campus in **Abilene, Texas**. Keep
   dated site facts, illustrative examples, the adjacent Microsoft project and
   other case-study sites distinct; record the checked sections before closing.
-- [ ] **Primer rehearsal:** teach all nineteen slides aloud with a beginner,
+- [ ] **Primer rehearsal:** teach all twenty-one slides aloud with a beginner,
   record the actual runtime against the approximately 20-minute target, and test
   whether they can follow part of an expert conversation. Revise the specific
   unfamiliar terms or missing reasoning; browser checks do not establish this.

@@ -28,10 +28,10 @@ async function geometry(page, size, context) {
   const {renderTerminology}=await import(pathToFileURL(path.resolve(__dirname,'../course/prototypes/terminology-visuals.js')));
   const html=readFileSync(path.resolve(__dirname,'../course/prototypes/terminology-format.html'),'utf8');
   const forwardPointer=/\bD\d{2}\b|later (?:lesson|section|chapter|sequence|comparison|calculation)|(?:next|other) (?:chapter|section)|(?:explain|introduce|meet|revisit).*again|returns in context|first exposure|optional primer|prelude|Skip to|Read the later|Continue to/i;
-  assert.equal(scenes.length,19,'Primer goes straight into its nineteen substantive scenes');
+  assert.equal(scenes.length,21,'Primer goes straight into its twenty-one substantive scenes');
   assert.ok(scenes.every(scene => !('seconds' in scene)), 'Primer does not prescribe slide timings');
   assert.doesNotMatch(html, /teaching-cues|Planned cue:|Rehearsal cue|id="timing"/, 'No rehearsal cues in the presentation');
-  for(const [before,after] of [['ac-dc','ac-shapes'],['three-phase','power-factor'],['backup','ups-types']]) {
+  for(const [before,after] of [['ac-dc','ac-shapes'],['ac-shapes','voltage-variation'],['three-phase','three-phase-power'],['three-phase-power','power-factor'],['backup','ups-types']]) {
     assert.equal(scenes.findIndex(s=>s.id===after),scenes.findIndex(s=>s.id===before)+1,`${after} immediately follows the concept it develops`);
   }
   assert.doesNotMatch(html, /<dialog|id="explain"|id="explanation"/, "Primer has no Explanation panel");
@@ -44,7 +44,7 @@ async function geometry(page, size, context) {
     assert.doesNotMatch(JSON.stringify(scene),forwardPointer,`${scene.id}: course-forward pointer`);
     assert.doesNotMatch(scene.title,/;/,`${scene.id}: title uses simple English without a semicolon`);
     for(const compact of [false,true])for(const [value]of scene.options||[[null]]){
-      const state={circuit:'closed',resistanceVoltage:'12',hours:'1',angle:'90',upsSupply:'normal',bandwidth:'10000',...(scene.key?{[scene.key]:value}:{})};
+      const state={circuit:'closed',resistanceVoltage:'12',hours:'1',angle:'90',supplyLevel:'1',phasePowerAngle:'0',upsSupply:'normal',bandwidth:'10000',...(scene.key?{[scene.key]:value}:{})};
       const svg=renderTerminology(scene.id,state,compact);
       assert.match(svg,/<text\b/,`${scene.id}: visible teaching content`);
       assert.doesNotMatch(svg,/NaN|undefined/,`${scene.id}: invalid diagram value`);
@@ -53,6 +53,29 @@ async function geometry(page, size, context) {
       if(scene.id==='energy')assert.match(svg,new RegExp(`data-energy-kwh="${value}"`));
       if(scene.id==='ac-dc')assert.match(svg,new RegExp(`data-ac-current-sign="${value==='90'?1:value==='180'?0:-1}"`));
       if(scene.id==='circuit'&&value==='open')assert.doesNotMatch(svg,/marker-end=/,'Open circuit has no current arrows');
+      if(scene.id==='ac-dc') {
+        assert.match(svg, /data-dc-trace="constant"/, 'First DC example is a constant level');
+        assert.doesNotMatch(svg, /A [−+] \/ B/, 'Polarity uses visible terminals instead of unexplained A/B labels');
+      }
+      if(scene.id==='voltage-variation') {
+        const level=Number(value)*12;
+        const shown=Number(svg.match(/data-dc-volts="([^"]+)"/)[1]);
+        assert.ok(Math.abs(shown-level)<1e-10, 'DC level tracks the selected source variation');
+        assert.match(svg, new RegExp(`data-ac-peak-volts="${shown}"`), 'AC peak amplitude varies by the same illustrative proportion');
+      }
+      if(scene.id==='three-phase-power') {
+        const powers=svg.match(/data-phase-powers-kw="([^"]+)"/)[1].split(',').map(Number);
+        assert.ok(Math.abs(powers.reduce((sum,p)=>sum+p,0)-30)<1e-10, 'All three instantaneous powers sum to 30 kW');
+        assert.ok(Math.max(...powers)<30, 'Total power is not the maximum of the phase powers');
+        const traces=[...svg.matchAll(/<path d="([^"]+)"[^>]*data-phase-power="\d"/g)].map(match=>
+          [...match[1].matchAll(/[ML][\d.]+ ([\d.]+)/g)].map(point=>Number(point[1])));
+        assert.equal(traces.length,3,'Three phase-power curves are drawn');
+        const baseline=compact?375:382,scale=compact?7:7.4;
+        for(let sample=0;sample<=360;sample++) {
+          const sum=traces.reduce((total,trace)=>total+(baseline-trace[sample])/scale,0);
+          assert.ok(Math.abs(sum-30)<0.003, 'Rendered curves sum to the flat 30 kW line throughout the full cycle');
+        }
+      }
       if(scene.id==='power-factor') {
         const rows=[...svg.matchAll(/data-power-factor="([^"]+)" data-real-kw="([^"]+)" data-apparent-kva="([^"]+)"/g)];
         assert.equal(rows.length,2,'Power factor compares two loads');
@@ -76,7 +99,7 @@ async function geometry(page, size, context) {
       }
     }
   }
-  console.log('Passed Primer static checks: nineteen scenes, all diagram/control states, circuit and new example arithmetic, UPS supply paths, follow-up sequence, legacy aliases, and zero course-forward or reference pointers.');
+  console.log('Passed Primer static checks: twenty-one scenes, all diagram/control states, circuit and new example arithmetic, UPS supply paths, follow-up sequence, legacy aliases, and zero course-forward or reference pointers.');
   if(staticOnly)return;
   const { chromium } = require('playwright');
   mkdirSync(output,{recursive:true});
