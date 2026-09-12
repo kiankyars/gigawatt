@@ -15,6 +15,51 @@ const ids = [
   "lost-flow",
   "trace",
 ];
+async function checkDiagramGeometry(page, state) {
+  const issues = await page.locator("#diagram").evaluate((svg) => {
+    const issues = [];
+    const fits = (inner, outer, padding) =>
+      inner.x >= outer.x + padding &&
+      inner.y >= outer.y + padding &&
+      inner.x + inner.width <= outer.x + outer.width - padding &&
+      inner.y + inner.height <= outer.y + outer.height - padding;
+    for (const label of svg.querySelectorAll("[data-label-for]")) {
+      const owner = svg.querySelector(`#${label.dataset.labelFor}`);
+      if (!owner || !fits(label.getBBox(), owner.getBBox(), 3))
+        issues.push(`Label outside its object: ${label.textContent}`);
+    }
+    for (const shape of svg.querySelectorAll("[data-inside]")) {
+      const owner = svg.querySelector(`#${shape.dataset.inside}`);
+      if (!owner || !fits(shape.getBBox(), owner.getBBox(), 3))
+        issues.push(`Object crosses its container: ${shape.id}`);
+    }
+    for (const arrow of svg.querySelectorAll("[data-heat-from]")) {
+      const source = svg.querySelector(`#${arrow.dataset.heatFrom}`);
+      const box = source?.getBBox();
+      const start = arrow.getPointAtLength(0);
+      if (
+        !box ||
+        Math.abs(start.x - (box.x + box.width)) > 4.1 ||
+        start.y < box.y ||
+        start.y > box.y + box.height
+      )
+        issues.push(`Heat arrow misses its source: ${arrow.dataset.heatFrom}`);
+      const pathBox = arrow.getBBox();
+      for (const label of svg.querySelectorAll("[data-label-for]")) {
+        const b = label.getBBox();
+        if (
+          pathBox.x < b.x + b.width &&
+          pathBox.x + pathBox.width > b.x &&
+          pathBox.y - 3 < b.y + b.height &&
+          pathBox.y + pathBox.height + 3 > b.y
+        )
+          issues.push(`Heat arrow crosses a label: ${label.textContent}`);
+      }
+    }
+    return issues;
+  });
+  assert.deepEqual(issues, [], `${state}: diagram geometry`);
+}
 (async () => {
   mkdirSync(output, { recursive: true });
   const browser = await chromium.launch();
@@ -90,6 +135,12 @@ const ids = [
               `${id}: desktop requires scrolling`,
             );
           assert.deepEqual(layout.clipped, [], `${id}: clipped SVG labels`);
+          await checkDiagramGeometry(page, id);
+          if (["heat-path", "two-loops", "outdoors", "lost-flow"].includes(id))
+            assert.equal(
+              await page.locator('[data-label-for="rack-heat-source"]').count(),
+              1,
+            );
           await page.screenshot({
             path: `${output}/${id}-${viewport.width}-${colorScheme}.png`,
             fullPage: true,
@@ -110,6 +161,10 @@ const ids = [
           "true",
         );
         assert.match(await page.locator("#diagram").textContent(), /4\.78/);
+        await page.screenshot({
+          path: `${output}/less-flow-restored-${viewport.width}-${colorScheme}.png`,
+          fullPage: true,
+        });
         await go("lost-flow");
         assert.ok((await page.locator("#diagram .stopped").count()) > 0);
         assert.match(
@@ -118,6 +173,11 @@ const ids = [
         );
         await page.locator("#toggle-facility").click();
         assert.equal(await page.locator("#diagram .stopped").count(), 0);
+        await checkDiagramGeometry(page, "facility-restored");
+        await page.screenshot({
+          path: `${output}/facility-restored-${viewport.width}-${colorScheme}.png`,
+          fullPage: true,
+        });
         assert.match(
           await page.locator("h1").innerText(),
           /Restoring facility flow/,
@@ -128,6 +188,15 @@ const ids = [
         const before = await page.locator("#diagram path.heat").count();
         await page.locator("#toggle-trace").click();
         assert.ok((await page.locator("#diagram path.heat").count()) > before);
+        await checkDiagramGeometry(page, "trace-revealed");
+        assert.equal(
+          await page.locator('[data-label-for="rack-heat-source"]').count(),
+          1,
+        );
+        await page.screenshot({
+          path: `${output}/trace-revealed-${viewport.width}-${colorScheme}.png`,
+          fullPage: true,
+        });
         await page.locator("#evidence").click();
         assert.equal(
           await page.locator("#reading").evaluate((e) => e.open),
@@ -150,7 +219,7 @@ const ids = [
       }
     assert.deepEqual(errors, []);
     console.log(
-      `Passed ${layouts} cooling layouts, flow and failure controls, heat trace, source dialog, keyboard and teaching-mode separation.`,
+      `Passed ${layouts} cooling layouts, object/label containment, heat-arrow origins, flow and failure controls, heat trace, source dialog, keyboard and teaching-mode separation.`,
     );
   } finally {
     await browser.close();

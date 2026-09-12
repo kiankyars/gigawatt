@@ -1,20 +1,42 @@
-# The weather changes two constraints at once
+# The same air temperature can create different cooling limits
 
 Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/heat-delivery-operations.json), lesson `d11-weather-and-operating-envelope`, then run `uv run gigawatt-expand`.
 
 **D11 · Authored draft · Objectives:** D11.1, D11.3, D11.5
 
-Use an explicitly synthetic operating table to connect ambient conditions, cooling input and a fixed site power ceiling.
+Compare dry and wet heat rejection at explicitly labeled temperatures, then check cooling electricity against the site power ceiling.
 
-**Driving question:** How can hotter weather reduce usable IT capacity even before the cooler reaches its thermal limit?
+**Driving question:** How do dry bulb, wet bulb and exchanger approach determine whether the rack receives cool enough liquid?
 
-## A rating is a point, not a universal capacity
+## Dry bulb measures the air; wet bulb reveals evaporative opportunity
 
-A cooler cannot be described adequately by one large number on its label. The heat transfer depends on the fluid temperatures and flows, the outside air, and the operating configuration. A dry heat exchanger approaches the temperature of the air that receives its heat. An evaporative process also depends on the air’s moisture condition. Dry-bulb temperature measures ordinary air temperature; wet-bulb conditions help characterize the opportunity for evaporative cooling. Neither variable alone describes every plant.
+Dry-bulb temperature is ordinary air temperature, measured with the sensor shaded from radiation and kept dry. A ventilated wet-bulb sensor has a wetted covering. Evaporation cools it below the dry bulb when the air is unsaturated; the two readings meet at saturation. Wetter air offers less evaporative cooling at the same dry-bulb temperature. Wet bulb is an air condition, not the temperature of the water pipe and not a separate outdoor thermometer measuring colder air.
 
-A required coolant supply temperature establishes another part of the task. An architecture that can supply a warmer loop may have an opportunity unavailable to equipment demanding colder water. Heat exchangers add approach temperatures, and loads change return temperatures. Before claiming that a location has free cooling below a particular outdoor temperature, identify which loop, mode, exchanger and IT inlet limit are being discussed. The threshold belongs to that arrangement and operating envelope.
+A conventional dry cooler transferring heat from water to outdoor air needs the cooled water to remain warmer than the entering air at finite duty. Evaporative rejection can cool water below that air’s dry-bulb temperature because evaporation carries energy into water vapor. A conventional cooling tower approaches the entering wet-bulb temperature instead. This is why a hot, dry day can support a wet-cooling mode that a similarly hot, humid day cannot.
 
-Performance tables make these dependencies explicit. A real table needs a source, revision, equipment configuration, load fraction, entering conditions and definition of included auxiliaries. A table without those labels can make two machines look comparable when they are answering different questions. The numbers below are deliberately invented teaching inputs. They illustrate the reasoning to apply to a validated table; they are not measurements, weather statistics or a proposed product curve.
+Neither temperature is a complete equipment rating. Duty also depends on flow, liquid properties, exchanger capability, fouling and the operating mode. The temperatures below are original teaching inputs. A real selection uses the relevant equipment performance data and local design conditions, not these numerical differences as rules of thumb.
+
+## Approach belongs to two named temperature points
+
+For a cooling tower, approach is leaving-water temperature minus entering-air wet bulb. For the dry cooler in our example, we explicitly use leaving-fluid temperature minus entering-air dry bulb. At the liquid-to-liquid CDU, D10 uses technology supply minus facility supply. State the equipment and the two sensor locations every time: approach is not one universal gap that can be copied between all three.
+
+Loop temperature rise compares warm return with cool supply in one circuit. The same circuit can rise by 10 K across its load while its cooler operates at a 3 K or 5 K approach to another temperature. At the tower the inlet-to-outlet drop is called range. Approach can change with load, flow and equipment configuration; a smaller value at one operating point is not a guaranteed value across the operating envelope.
+
+## Trace one 84 kW load through the two outdoor options
+
+Reuse D10’s synthetic 84 kW load and 2 kg/s water loops with heat capacity 4.2 kJ/(kg·K), giving a 10 K temperature rise. Require technology supply at or below 35°C, and stipulate a 5 K CDU approach. For this comparison only, specify outdoor air at 35°C dry bulb and 22°C wet bulb. In the wet route chosen here, open-tower water is kept separate from the facility loop, so this design includes another heat exchanger. Count that interface when comparing the complete routes.
+
+Dry route: stipulate a 5 K dry-cooler approach at this load. Its 35°C entering air permits a modeled 40°C facility supply. The CDU’s additional 5 K makes technology supply 45°C, above the 35°C requirement. The full steady temperature pairs would be facility 40°C supply / 50°C return and technology 45°C supply / 55°C return. This is a failed temperature screen, not permission to operate the rack at that point.
+
+Wet route: stipulate a 3 K tower approach, so 22°C wet bulb gives 25°C tower outlet water. A separate counterflow exchanger with a stipulated 5 K approach gives 30°C facility supply. The CDU adds its 5 K to give 35°C technology supply. Label every loop: tower 25°C supply / 35°C return; facility 30°C / 40°C; technology 35°C / 45°C. Both ends of each counterflow exchanger retain a 5 K difference. The additional separating exchanger has been counted rather than hidden.
+
+For this temperature comparison, all circulating-water rates are approximated as 2 kg/s; pump heat and the small flow change caused by evaporation are excluded. Every exchanger is stipulated to transfer 84 kW at its stated point. The tower’s water makeup and blowdown need their own ledger. These 3 K and 5 K approaches are invented inputs, not standard equipment performance. Meeting the temperature screen alone does not establish capacity reserve, control behavior or a complete plant design.
+
+## Change humidity without changing the dry bulb
+
+Now hold dry bulb at 35°C and raise wet bulb from 22°C to 28°C. In the same stipulated fixed-approach screen, the wet route gives 28 + 3 + 5 + 5 = 41°C technology supply. It now fails the 35°C requirement. The dry route is still screened against 35°C dry bulb. The outdoor air thermometer did not change, but the evaporative option lost its useful temperature advantage.
+
+A different exchanger selection, colder weather, a qualified warmer IT inlet, a reduced heat load or mechanical refrigeration could change the answer. An adiabatic dry cooler must count the wet-pad outlet temperature and the coil approach rather than simply substitute wet bulb for dry bulb. No finite pad automatically reaches the inlet wet bulb. A chiller can maintain a colder load circuit by doing work; its condenser must then reject the load heat plus that work.
 
 ## Two ceilings must survive the same hot hour
 
@@ -75,9 +97,12 @@ Better COP frees electrical headroom, but it does not repair the separate heat-r
 
 </details>
 
-**The idea to keep:** Cooling availability and cooling electricity are separate functions of operating conditions. Check both at the same load and time.
+**The idea to keep:** Follow the temperature difference at every interface. Dry bulb, wet bulb, loop rise and approach answer different questions.
 
 ## Sources and reading boundaries
 
 - [ASHRAE Handbook, Chapter 20: Data Centers and Telecommunication Facilities](https://handbook.ashrae.org/Handbooks/A23/SI/A23_Ch20/a23_ch20_si.aspx) — Selected discussion supports the dependence of cooling choices on environmental and system conditions. Read 2026-09-06. No equipment curve or universal economizer threshold is taken from this chapter; all operating-bin numbers are original hypothetical inputs.
 - [Best Practices Guide for Energy-Efficient Data Center Design](https://www.energy.gov/cmei/femp/articles/best-practices-guide-energy-efficient-data-center-design) — The overview identifies environmental conditions, cooling and heat recovery as connected design subjects. Read 2026-09-06. Landing-page scope reviewed; no claim to have audited every linked design recommendation. Synthetic energy calculations are independent.
+- [National Weather Service — Dry Bulb, Wet Bulb, and Dew Point Temperatures](https://www.weather.gov/source/zhu/ZHU_Training_Page/definitions/dry_wet_bulb_definition/dry_wet_bulb.html) — Dry-bulb and ventilated wet-bulb measurement definitions; evaporation lowers wet-bulb temperature in unsaturated air, with equality at saturation. Read 2026-09-11. Definitions reviewed. The lesson supplies its own paired weather values; they are not a weather observation, equipment rating or heat-stress threshold.
+- [ASHRAE Handbook 2024 — Cooling Towers](https://handbook.ashrae.org/Handbooks/S24/IP/s24_ch40/s24_ch40_ip.aspx) — Tower range compares entering and leaving water; tower approach compares leaving water with entering-air wet bulb. Performance depends on the stated heat load, flow and air conditions; closed-circuit towers separate process liquid from spray water. Read 2026-09-11. Selected mechanism, terminology, closed-circuit and performance-curve sections reviewed. No handbook example approach, capacity or water-saving percentage is adopted as a universal design value.
+- [Vertiv — Optimizing Chilled Water Systems, July 2024](https://www.vertiv.com/495988/globalassets/shared/vertiv-chilled-water-solution-white-paper-sl-18066.pdf) — The Adiabatic System section explains evaporative air precooling through wet pads ahead of coils and control-dependent water use. Read 2026-09-11. Selected text on printed pages 6–7 reviewed. The claim of no additional energy cost and the simulated energy/WUE savings are not adopted; fans, pumps and controls retain their declared electricity boundary.

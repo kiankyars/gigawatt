@@ -25,8 +25,12 @@ The expanded reader is reference material, not a script to narrate or a reading
 assignment before each review. If cooling needs more background, use
 [the CDU explanation](index.html#d10-cdu-interfaces) and
 [heat rejection](index.html#d11-heat-rejection). The cooling sequence does not yet
-cover all of D10 or D11. A sequence can be ready for feedback while its broader
-domain remains unfinished.
+cover all of D10 or D11. The reference separates [rack capture methods](index.html#d10-local-thermal-paths)
+(air, rear-door exchangers, cold plates and immersion) from [outdoor rejection](index.html#d11-heat-rejection)
+(dry, wet, hybrid, chillers and economizers). [Weather and approach temperature](index.html#d11-weather-and-operating-envelope)
+introduces dry bulb, wet bulb and the temperature differences at each exchanger.
+Those broader topics have reader lessons; their presenter sequences remain to be
+authored. A sequence can be ready for feedback while its broader domain remains unfinished.
 
 ## What carries into every chapter
 

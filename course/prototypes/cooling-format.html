@@ -546,7 +546,11 @@
             <a href="../index.html#d10-flow-and-pressure">Flow and pressure</a>
             ·
             <a href="../index.html#d11-heat-rejection"
-              >Outdoor heat rejection</a
+              >Dry, wet and hybrid rejection</a
+            >
+            ·
+            <a href="../index.html#d11-weather-and-operating-envelope"
+              >Dry bulb, wet bulb and approach temperature</a
             >
           </li>
         </ul>
@@ -642,13 +646,33 @@
         .join("");
       const text = (x, y, value, cls = "svg-label", extra = "") =>
         `<text x="${x}" y="${y}" class="${cls}" ${extra}>${value}</text>`;
-      const line = (d, cls, arrow = false) =>
-        `<path d="${d}" class="${cls}"${arrow ? ` marker-end="url(#${cls.includes("heat") ? "heat" : cls.includes("facility") ? "facility" : "tech"}-arrow)"` : ""}/>`;
+      const line = (d, cls, arrow = false, extra = "") =>
+        `<path d="${d}" class="${cls}" ${extra}${arrow ? ` marker-end="url(#${cls.includes("heat") ? "heat" : cls.includes("facility") ? "facility" : "tech"}-arrow)"` : ""}/>`;
       const defs = `<defs>${["tech", "facility", "heat"].map((name) => `<marker id="${name}-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M0 1 L9 5 L0 9 Z" fill="var(--${name})"/></marker>`).join("")}</defs>`;
       const pump = (x, y, color = "tech", stopped = false) =>
         `<g><circle cx="${x}" cy="${y}" r="17" fill="var(--paper)" stroke="var(--${stopped ? "muted" : color})" stroke-width="3"/><path d="M${x + 6} ${y - 8} L${x - 8} ${y} L${x + 6} ${y + 8} Z" fill="var(--${stopped ? "muted" : color})"/></g>`;
-      function rack(x, y, w, h) {
-        return `<g><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="7" class="panel"/>${[0, 1, 2, 3].map((i) => `<rect x="${x + 12}" y="${y + 22 + (i * (h - 35)) / 4}" width="${w - 24}" height="${(h - 55) / 4}" rx="3" class="face"/>`).join("")}<rect x="${x + w * 0.31}" y="${y + h * 0.43}" width="${w * 0.24}" height="${h * 0.21}" rx="3" fill="var(--heatfill)" stroke="var(--heat)" stroke-width="1.7"/></g>`;
+      function rack(x, y, w, h, visibleHeat) {
+        const source = {
+          x: x + w * 0.2,
+          y: y + h * 0.41,
+          w: w * 0.42,
+          h: h * 0.19,
+        };
+        const cx = source.x + source.w / 2;
+        const cy = source.y + source.h / 2;
+        return `<g><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="7" class="panel"/>
+          ${[
+            [0.1, 0.18],
+            [0.35, 0.3],
+            [0.72, 0.18],
+          ]
+            .map(
+              ([top, height], i) =>
+                `<rect ${i === 1 ? 'id="heat-server"' : ""} x="${x + 12}" y="${y + h * top}" width="${w - 24}" height="${h * height}" rx="3" class="face"/>`,
+            )
+            .join("")}
+          <rect id="rack-heat-source" data-inside="heat-server" x="${source.x}" y="${source.y}" width="${source.w}" height="${source.h}" rx="3" fill="var(--heatfill)" stroke="var(--heat)" stroke-width="1.7"/>
+          ${visibleHeat ? text(cx, cy, "Heat", "svg-small heat-text", 'text-anchor="middle" dominant-baseline="central" data-label-for="rack-heat-source"') + line(`M${source.x + source.w + 4} ${cy} H${x + w - 25}`, "heat", true, 'data-heat-from="rack-heat-source"') : ""}</g>`;
       }
       function fan(x, y, r = 28) {
         return `<g><circle cx="${x}" cy="${y}" r="${r}" class="outline"/>${[0, 120, 240].map((a) => `<path d="M${x} ${y} q${r * 0.9} ${-r * 0.85} ${r * 0.4} ${-r * 0.1} Q${x + 4} ${y + 8} ${x} ${y}" fill="var(--muted)" transform="rotate(${a} ${x} ${y})"/>`).join("")}<circle cx="${x}" cy="${y}" r="4" fill="var(--ink)"/></g>`;
@@ -661,7 +685,7 @@
         if (compact) return compactRoute(scene, available, visibleHeat);
         const dimTech = scene.kind === "outdoors";
         let out = `<rect x="25" y="52" width="718" height="315" rx="15" class="boundary"/>${text(43, 76, "DATA HALL", "svg-tiny")}${text(875, 76, "OUTDOORS", "svg-tiny")}`;
-        out += `<g class="${dimTech ? "muted-object" : ""}">${rack(65, 118, 176, 205)}${text(83, 104, "Compute rack")}${text(93, 351, "Cold plate → coolant", "svg-small")}</g>`;
+        out += `<g class="${dimTech ? "muted-object" : ""}">${rack(65, 118, 176, 205, visibleHeat)}${text(83, 104, "Compute rack")}${text(93, 351, "Cold plate → coolant", "svg-small")}</g>`;
         out += `<rect x="472" y="119" width="174" height="205" rx="9" class="panel"/>${scene.kind === "route" ? text(488, 90, "Coolant distribution", "svg-label") + text(488, 111, "unit (CDU)", "svg-label") : text(488, 104, "CDU")}${text(487, 350, "Liquid-to-liquid", "svg-small")}<rect x="517" y="160" width="37" height="133" rx="7" class="face"/><rect x="568" y="160" width="37" height="133" rx="7" class="face"/>`;
         out += `<g class="${dimTech ? "muted-object" : ""}">${line("M218 282 V181 H535 V282 H218", "tech")}${line("M310 181 H373", "tech", true)}${line("M445 282 H410", "tech", true)}${pump(351, 282)}${text(291, 158, "Warm return", "svg-small tech-text")}${text(272, 316, "Technology coolant", "svg-label tech-text")}</g>`;
         const fcls = available ? "facility" : "facility stopped";
@@ -681,22 +705,31 @@
           available ? "svg-small facility-text" : "svg-small fault-text",
         );
         out +=
+          `<rect id="outdoor-coil" x="948" y="171" width="38" height="111" fill="none"/>` +
           Array.from(
             { length: 7 },
             (_, i) =>
               `<path d="M948 ${173 + i * 15} h38" stroke="var(--muted)" stroke-width="1.5"/>`,
-          ).join("") + fan(1040, 225, 27);
+          ).join("") +
+          fan(1040, 225, 27);
         if (visibleHeat) {
-          out +=
-            line("M152 226 H208", "heat", true) +
-            text(108, 209, "Heat", "svg-small heat-text");
           out +=
             line("M546 213 H574", "heat", true) +
             line("M546 255 H574", "heat", true);
           if (available)
             out +=
-              line("M984 192 H1124", "heat", true) +
-              line("M984 258 H1124", "heat", true) +
+              line(
+                "M984 192 H1124",
+                "heat",
+                true,
+                'data-heat-from="outdoor-coil"',
+              ) +
+              line(
+                "M984 258 H1124",
+                "heat",
+                true,
+                'data-heat-from="outdoor-coil"',
+              ) +
               text(998, 337, "Heat to air", "svg-small heat-text");
         }
         if (scene.kind === "loops")
@@ -729,18 +762,16 @@
       function compactRoute(scene, available, visibleHeat) {
         const failure = scene.kind === "failure";
         let out = `<rect x="9" y="5" width="354" height="366" rx="12" class="boundary"/>${text(22, 27, "DATA HALL", "svg-tiny")}${text(22, 405, "OUTDOORS", "svg-tiny")}`;
-        out += rack(33, 60, 110, 128) + text(33, 49, "Rack");
+        const dimTech = scene.kind === "outdoors";
+        out += `<g class="${dimTech ? "muted-object" : ""}">${rack(33, 60, 110, 128, visibleHeat)}${text(33, 49, "Rack")}</g>`;
         out += `<rect x="184" y="59" width="146" height="133" rx="7" class="panel"/>${scene.kind === "route" ? text(195, 29, "Coolant distribution", "svg-small") + text(195, 48, "unit (CDU)", "svg-small") : text(206, 48, "CDU")}<rect x="216" y="83" width="26" height="85" rx="4" class="face"/><rect x="256" y="83" width="26" height="85" rx="4" class="face"/>`;
-        out +=
-          line("M128 156 V97 H230 V156 H128", "tech") +
-          line("M154 97 H194", "tech", true) +
-          pump(179, 156, "tech");
+        out += `<g class="${dimTech ? "muted-object" : ""}">${line("M128 156 V97 H230 V156 H128", "tech")}${line("M154 97 H194", "tech", true)}${pump(179, 156, "tech")}</g>`;
         out +=
           text(32, 220, "Technology coolant", "svg-label tech-text") +
           text(32, 241, "Rack ⇄ CDU", "svg-small");
         out += `<rect x="185" y="431" width="149" height="120" rx="7" class="panel"/>${text(34, 458, "Dry cooler")}`;
         const fcls = available ? "facility" : "facility stopped";
-        out += line("M269 97 H307 V463 H236 V330 H269 V97", fcls);
+        out += line("M269 97 H307 V524 H236 V330 H269 V97", fcls);
         if (available)
           out +=
             line("M307 255 V296", "facility", true) +
@@ -754,20 +785,31 @@
             available ? "svg-small" : "svg-small fault-text",
           );
         out +=
+          `<rect id="outdoor-coil" x="293" y="439" width="28" height="87" fill="none"/>` +
           Array.from(
             { length: 5 },
             (_, i) =>
               `<path d="M293 ${439 + i * 18} h28" stroke="var(--muted)" stroke-width="1.4"/>`,
-          ).join("") + fan(260, 514, 23);
+          ).join("") +
+          fan(268, 480, 23);
         if (visibleHeat) {
           out +=
-            line("M82 127 H120", "heat", true) +
             line("M238 112 H260", "heat", true) +
             line("M238 143 H260", "heat", true);
           if (available)
             out +=
-              line("M321 473 H353", "heat", true) +
-              line("M285 527 H353", "heat", true);
+              line(
+                "M321 462 H353",
+                "heat",
+                true,
+                'data-heat-from="outdoor-coil"',
+              ) +
+              line(
+                "M321 501 H353",
+                "heat",
+                true,
+                'data-heat-from="outdoor-coil"',
+              );
         }
         if (failure && !available)
           out += `<path d="M293 268 l28 28 m0 -28 l-28 28" stroke="var(--fault)" stroke-width="4"/>${text(28, 354, "Heat can accumulate.", "svg-small heat-text")}`;
@@ -807,7 +849,7 @@
           line(`M${x + w - 45} ${y + 92} H${x + w + 9}`, "tech", true);
         out += text(x + 18, y + 45, "Coolant channels", "svg-small tech-text");
         out += `<rect x="${x + 30}" y="${y + h}" width="${w - 60}" height="10" fill="var(--heatfill)" stroke="var(--heat)"/>`;
-        out += `<rect x="${x + 48}" y="${y + h + 10}" width="${w - 96}" height="65" rx="3" class="face"/><rect x="${x + 48}" y="${y + h + 85}" width="${w - 96}" height="12" rx="2" class="panel"/>`;
+        out += `<rect x="${x + 48}" y="${y + h + 10}" width="${w - 96}" height="65" rx="3" class="face"/>`;
         for (const frac of [0.25, 0.5, 0.75])
           out += line(
             `M${x + w * frac} ${y + h + 58} V${y + h - 13}`,
@@ -822,7 +864,6 @@
             text(180, 430, "Processor package", "svg-label") +
             `<path d="M295 415 V284 H285" class="outline"/>`;
         } else {
-          out += text(853, y + 55, "Liquid in channels", "svg-label tech-text");
           out +=
             text(853, y + h + 10, "Thermal interface", "svg-small") +
             `<path d="M${x + w - 20} ${y + h + 5} H839" class="outline"/>`;
@@ -877,6 +918,7 @@
             "svg-equation",
           );
         if (kind === "flow") {
+          out += text(632, 181, "Temperature rise", "svg-small");
           out +=
             text(530, 218, "5 kg/s", "svg-label") +
             `<rect x="632" y="196" width="172" height="28" rx="4" fill="var(--tech)" opacity="${selectedFlow === 5 ? 1 : 0.3}"/>` +

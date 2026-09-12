@@ -2395,6 +2395,79 @@
       ],
       "use": "Eaton lists a 2 MW MVSST with 12.47 kV nominal input and 800 V DC output, demonstrating a direct-MV product offering.",
       "caution": "Manufacturer product listing reviewed on 2026-09-11. Offered specifications do not establish installed capacity, deployment prevalence, lead time or a measured efficiency advantage."
+    },
+    {
+      "id": "P46",
+      "title": "National Weather Service — Dry Bulb, Wet Bulb, and Dew Point Temperatures",
+      "url": "https://www.weather.gov/source/zhu/ZHU_Training_Page/definitions/dry_wet_bulb_definition/dry_wet_bulb.html",
+      "publisher": "National Weather Service",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-11",
+      "domains": [
+        "D11"
+      ],
+      "use": "Dry-bulb and ventilated wet-bulb measurement definitions; evaporation lowers wet-bulb temperature in unsaturated air, with equality at saturation.",
+      "caution": "Definitions reviewed. The lesson supplies its own paired weather values; they are not a weather observation, equipment rating or heat-stress threshold."
+    },
+    {
+      "id": "P47",
+      "title": "ASHRAE Handbook 2024 — Cooling Towers",
+      "url": "https://handbook.ashrae.org/Handbooks/S24/IP/s24_ch40/s24_ch40_ip.aspx",
+      "publisher": "ASHRAE",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-11",
+      "domains": [
+        "D10",
+        "D11"
+      ],
+      "use": "Tower range compares entering and leaving water; tower approach compares leaving water with entering-air wet bulb. Performance depends on the stated heat load, flow and air conditions; closed-circuit towers separate process liquid from spray water.",
+      "caution": "Selected mechanism, terminology, closed-circuit and performance-curve sections reviewed. No handbook example approach, capacity or water-saving percentage is adopted as a universal design value."
+    },
+    {
+      "id": "P48",
+      "title": "Vertiv — Optimizing Chilled Water Systems, July 2024",
+      "url": "https://www.vertiv.com/495988/globalassets/shared/vertiv-chilled-water-solution-white-paper-sl-18066.pdf",
+      "publisher": "Vertiv",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-11",
+      "domains": [
+        "D11"
+      ],
+      "use": "The Adiabatic System section explains evaporative air precooling through wet pads ahead of coils and control-dependent water use.",
+      "caution": "Selected text on printed pages 6–7 reviewed. The claim of no additional energy cost and the simulated energy/WUE savings are not adopted; fans, pumps and controls retain their declared electricity boundary."
+    },
+    {
+      "id": "P49",
+      "title": "Trane — Air vs. Water Cooled Chillers",
+      "url": "https://www.trane.com/commercial/north-america/us/en/about-us/newsroom/blogs/air-vs-water-cooled-chillers.html",
+      "publisher": "Trane",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-11",
+      "domains": [
+        "D10",
+        "D11"
+      ],
+      "use": "Air-cooled and water-cooled classify the condenser heat-rejection arrangement. The discussed water-cooled configuration uses condenser water and a cooling tower; compressor work depends on operating conditions.",
+      "caution": "Mechanism and comparison sections reviewed. The tower-based configuration is one arrangement, not proof every water-cooled chiller must use an evaporative tower; no generic lifespan or efficiency advantage is adopted."
+    },
+    {
+      "id": "P50",
+      "title": "Trane TRACE 3D Plus — Air Cooled Chillers",
+      "url": "https://trace3dplus.help.trane.com/air_cooled_chillers.html",
+      "publisher": "Trane",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-11",
+      "domains": [
+        "D10",
+        "D11"
+      ],
+      "use": "An air-cooled chiller can make chilled water while its condenser rejects heat to air, resolving the ambiguity between load coolant and condenser cooling medium.",
+      "caution": "Opening definition reviewed. No software performance curve is reused or extrapolated."
     }
   ]
 }

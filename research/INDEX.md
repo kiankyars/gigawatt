@@ -166,6 +166,11 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P43 — Hitachi Energy — Core-type transformers](sources/P43.md) | Hitachi Energy | D04, D06 | page_reviewed |
 | [P44 — Schneider Electric — AA and AA/FA transformer cooling](sources/P44.md) | Schneider Electric | D04, D06 | page_reviewed |
 | [P45 — Eaton — Medium-voltage solid-state transformer](sources/P45.md) | Eaton | D04, D06 | page_reviewed |
+| [P46 — National Weather Service — Dry Bulb, Wet Bulb, and Dew Point Temperatures](sources/P46.md) | National Weather Service | D11 | page_reviewed |
+| [P47 — ASHRAE Handbook 2024 — Cooling Towers](sources/P47.md) | ASHRAE | D10, D11 | page_reviewed |
+| [P48 — Vertiv — Optimizing Chilled Water Systems, July 2024](sources/P48.md) | Vertiv | D11 | page_reviewed |
+| [P49 — Trane — Air vs. Water Cooled Chillers](sources/P49.md) | Trane | D10, D11 | page_reviewed |
+| [P50 — Trane TRACE 3D Plus — Air Cooled Chillers](sources/P50.md) | Trane | D10, D11 | page_reviewed |
 | [SA01 — Datacenter Anatomy Part 1: Electrical Systems](sources/SA01.md) | SemiAnalysis | D04, D05, D06, D13, D15 | public_excerpt_reviewed |
 | [SA02 — Datacenter Anatomy Part 2 – Cooling Systems](sources/SA02.md) | SemiAnalysis | D10, D11, D15 | public_excerpt_reviewed |
 | [SA03 — 100,000 H100 Clusters: Power, Network Topology, Ethernet vs InfiniBand, Reliability, Failures, Checkpointing](sources/SA03.md) | SemiAnalysis | D02, D07, D08, D09, D14 | public_excerpt_reviewed |

@@ -119,6 +119,9 @@ presentation and a rehearsed explanation are distinct states.
 
 Verify quantitative examples and invalid inputs. Inspect the actual teaching
 viewport in light and dark mode, at narrow widths and with keyboard navigation.
+Check labels against their own objects, not just the canvas edge: text must fit
+inside its box or have an unambiguous leader. Inspect arrow origins and endpoints
+for the physical meaning they imply, including every revealed or fault state.
 Keep visible focus, text alternatives, sufficient contrast, paused/reduced-motion
 states and an understandable reading route when interaction is unavailable. Color
 alone cannot convey the answer. Browser checks do not establish comprehension.

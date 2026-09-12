@@ -524,3 +524,23 @@ screenshots were visually inspected. The calculation diagram is an open selected
 cold-plate path, not a closed loop with an omitted heat sink. Small-screen navigation
 follows the content so it cannot cover the diagram. The reader and optional model
 notes retain source limits; the new sequence remains a draft for a dry run.
+
+## Cooling diagram repair and terminology coverage — 2026-09-11
+
+The rack heat label is now centered inside a source block that fits within one
+server tray. Heat arrows begin outside that label and at the outdoor coil rather
+than beside the fan. Duplicate cold-plate labeling and an unexplained layer were
+removed; the reduced-flow comparison explicitly labels temperature rise.
+
+Cooling browser checks pass 64 layouts in two themes and four viewport sizes,
+including object/label containment and heat-arrow origins. Flow-restored and
+trace-revealed states are also checked and captured. Desktop and phone views were
+visually inspected. Twelve targeted D10/D11 reader layouts passed terminology,
+worked-temperature and overflow checks. All 52 Python and 59 JavaScript tests,
+generated-artifact checks, source checks, Ruff and whitespace checks passed.
+
+D10 distinguishes rack capture and room-air equipment; D11 now directly teaches
+dry/wet/hybrid rejection, air-/water-cooled chillers, dry bulb, wet bulb and named
+approach temperatures. The synthetic 84 kW comparison has independently checked
+45°C, 35°C and 41°C technology-supply outcomes, including the chosen separating
+exchanger. These expanded reader lessons are not completed presenter sequences.

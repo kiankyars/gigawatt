@@ -1047,6 +1047,9 @@ Compare air, cold-plate, rear-door and immersion approaches against a declared d
 - [E709C9E5196 — ASHRAE — Emergence and Expansion of Liquid Cooling in Mainstream Data Centers](https://www.ashrae.org/file%20library/technical%20resources/bookstore/emergence-and-expansion-of-liquid-cooling-in-mainstream-data-centers_wp.pdf) · `page_reviewed` · [local note](../research/sources/E709C9E5196.md)
 - [EE136EB8E02 — Open Compute Project — Cold Plate workstream](https://www.opencompute.org/wiki/Cooling_Environments/Cold_Plate) · `public_excerpt_reviewed` · [local note](../research/sources/EE136EB8E02.md)
 - [EFE70308E0A — Vertiv — Deploying Liquid Cooling in the Data Center](https://prod.vertiv.cn/4a9616/globalassets/documents/white-papers/liquid-cooling/vertiv-liquidcooling-wp-en-na-sl-71113-web.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/EFE70308E0A.md)
+- [P47 — ASHRAE Handbook 2024 — Cooling Towers](https://handbook.ashrae.org/Handbooks/S24/IP/s24_ch40/s24_ch40_ip.aspx) · `page_reviewed` · [local note](../research/sources/P47.md)
+- [P49 — Trane — Air vs. Water Cooled Chillers](https://www.trane.com/commercial/north-america/us/en/about-us/newsroom/blogs/air-vs-water-cooled-chillers.html) · `page_reviewed` · [local note](../research/sources/P49.md)
+- [P50 — Trane TRACE 3D Plus — Air Cooled Chillers](https://trace3dplus.help.trane.com/air_cooled_chillers.html) · `page_reviewed` · [local note](../research/sources/P50.md)
 
 <a id="d11"></a>
 
@@ -1132,6 +1135,11 @@ Evaluate cooling architecture or heat reuse against climate, water, electrical c
 - [E89E077D5C1 — DOE FEMP: Cooling Tower Management](https://www.energy.gov/cmei/femp/best-management-practice-10-cooling-tower-management) · `page_reviewed` · [local note](../research/sources/E89E077D5C1.md)
 - [E6DF2655A78 — USGS National Water Availability Assessment Data Companion](https://waterdata.usgs.gov/blog/nwdc-overview/) · `page_reviewed` · [local note](../research/sources/E6DF2655A78.md)
 - [P34 — DOE — Beyond Land Leases: Harnessing Data Centers for Tribal Economic Development](https://www.energy.gov/indianenergy/beyond-land-leases-harnessing-data-centers-tribal-economic-development-webinar) · `page_reviewed` · [local note](../research/sources/P34.md)
+- [P46 — National Weather Service — Dry Bulb, Wet Bulb, and Dew Point Temperatures](https://www.weather.gov/source/zhu/ZHU_Training_Page/definitions/dry_wet_bulb_definition/dry_wet_bulb.html) · `page_reviewed` · [local note](../research/sources/P46.md)
+- [P47 — ASHRAE Handbook 2024 — Cooling Towers](https://handbook.ashrae.org/Handbooks/S24/IP/s24_ch40/s24_ch40_ip.aspx) · `page_reviewed` · [local note](../research/sources/P47.md)
+- [P48 — Vertiv — Optimizing Chilled Water Systems, July 2024](https://www.vertiv.com/495988/globalassets/shared/vertiv-chilled-water-solution-white-paper-sl-18066.pdf) · `page_reviewed` · [local note](../research/sources/P48.md)
+- [P49 — Trane — Air vs. Water Cooled Chillers](https://www.trane.com/commercial/north-america/us/en/about-us/newsroom/blogs/air-vs-water-cooled-chillers.html) · `page_reviewed` · [local note](../research/sources/P49.md)
+- [P50 — Trane TRACE 3D Plus — Air Cooled Chillers](https://trace3dplus.help.trane.com/air_cooled_chillers.html) · `page_reviewed` · [local note](../research/sources/P50.md)
 
 <a id="d12"></a>
 
