@@ -115,6 +115,7 @@
     {
       "heading": "What determines converter losses?",
       "paragraphs": [
+        "The supply drawing and the heat calculation have different boundaries. The drawing shows a conventional transformer followed by an electronic AC/DC converter; the heat calculation counts only the electronic converter. A conventional transformer uses windings and a magnetic core, and can cool naturally. Controls and any cooling auxiliaries inside an electronic supply are not a description of a bare transformer.",
         "The first view of slide 9 now traces medium-voltage AC through a conventional transformer into lower-voltage conversion electronics. The heat calculation is a separate view of that converter. Stepping down reduces semiconductor voltage stress. A direct medium-voltage design instead needs higher-rated devices or cascaded voltage-sharing cells and their supporting insulation, protection and controls. The cited SemiAnalysis discussion explicitly acknowledges the stacked-device route; the commercial constraint is not an absolute 10 kV rectification ceiling.",
         "This example isolates one AC/DC power supply: 480 V three-phase AC at its input and 800 V DC at its output. It represents the conversion function moved into a power rack or power room in the following architecture drawings. The supply may contain multiple internal conversion stages. It is not a UPS AC-to-DC-to-AC path or a model of the whole data center.",
         "Before this example’s 480 V AC input, a conventional transformer steps medium-voltage AC down and provides galvanic isolation. Lower AC voltage reduces the voltage stress handled by the following power electronics. The transformer’s own losses are outside the one-power-supply calculation shown here.",
@@ -243,6 +244,27 @@
       "claim": "Compare transformer-plus-rectifier and SST architectures for 800 V DC; separate system voltage from per-device voltage.",
       "reviewed_on": "2026-09-10",
       "limits": "Reviewed Figure 1 and Sections II–IV. The study includes a 13.2 kV cascaded design using 1,200 V devices. Efficiency and density results belong to its 2022 models and are not current universal rankings."
+    },
+    {
+      "title": "Hitachi Energy — Core-type transformers",
+      "url": "https://www.hitachienergy.com/products-and-solutions/transformers/power-transformers/generator-step-up-transformers-gsu/core-type-transformers",
+      "claim": "Transformer anatomy uses conductive windings and a laminated magnetic steel core.",
+      "reviewed_on": "2026-09-11",
+      "limits": "Product-family anatomy description reviewed. No rating or physical layout is adopted as a universal distribution-transformer specification."
+    },
+    {
+      "title": "Schneider Electric — AA and AA/FA transformer cooling",
+      "url": "https://www.se.com/ca/en/faqs/FA102583/",
+      "claim": "Natural air convection and added fan cooling are distinct transformer cooling arrangements; fans are not inherent to the transformer function.",
+      "reviewed_on": "2026-09-11",
+      "limits": "FAQ cooling distinctions reviewed. No fan rating, installation requirement or universal capacity threshold is inferred."
+    },
+    {
+      "title": "Eaton — Medium-voltage solid-state transformer",
+      "url": "https://www.eaton.com/us/en-us/catalog/medium-voltage-power-distribution-control-systems/medium-voltage-solid-state-transformer.html",
+      "claim": "Eaton lists a 2 MW MVSST with 12.47 kV nominal input and 800 V DC output, demonstrating a direct-MV product offering.",
+      "reviewed_on": "2026-09-11",
+      "limits": "Manufacturer product listing reviewed on 2026-09-11. Offered specifications do not establish installed capacity, deployment prevalence, lead time or a measured efficiency advantage."
     }
   ],
   "terms": [

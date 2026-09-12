@@ -466,6 +466,9 @@ Reconcile IT and auxiliary loads with a downstream electrical capacity budget ac
 - [P30 — Schneider Electric — Presence of an Uninterruptible Power Supply (UPS)](https://www.electrical-installation.org/enwiki/Presence_of_an_Uninterruptible_Power_Supply_%28UPS%29) · `page_reviewed` · [local note](../research/sources/P30.md)
 - [P33 — Texas Instruments — Basic Calculation of a Buck Converter’s Power Stage](https://www.ti.com/lit/an/slva477b/slva477b.pdf) · `page_reviewed` · [local note](../research/sources/P33.md)
 - [P41 — Texas Instruments — TIDA-00349 isolated DC/DC converter](https://www.ti.com/tool/TIDA-00349) · `page_reviewed` · [local note](../research/sources/P41.md)
+- [P43 — Hitachi Energy — Core-type transformers](https://www.hitachienergy.com/products-and-solutions/transformers/power-transformers/generator-step-up-transformers-gsu/core-type-transformers) · `page_reviewed` · [local note](../research/sources/P43.md)
+- [P44 — Schneider Electric — AA and AA/FA transformer cooling](https://www.se.com/ca/en/faqs/FA102583/) · `page_reviewed` · [local note](../research/sources/P44.md)
+- [P45 — Eaton — Medium-voltage solid-state transformer](https://www.eaton.com/us/en-us/catalog/medium-voltage-power-distribution-control-systems/medium-voltage-solid-state-transformer.html) · `page_reviewed` · [local note](../research/sources/P45.md)
 
 <a id="d05"></a>
 
@@ -672,6 +675,9 @@ Explain how retrofit constraints can reverse a seemingly attractive greenfield a
 - [P28 — Open Compute Project — Open Rack V3 BBU Module Specification 1.4](https://www.opencompute.org/documents/open-rack-v3-bbu-module-spec-1-4-pdf) · `page_reviewed` · [local note](../research/sources/P28.md)
 - [P31 — Eaton — DC-link capacitor modules](https://www.eaton.com/gb/en-gb/products/electronic-components/topics/dc-link-modules.html) · `page_reviewed` · [local note](../research/sources/P31.md)
 - [P33 — Texas Instruments — Basic Calculation of a Buck Converter’s Power Stage](https://www.ti.com/lit/an/slva477b/slva477b.pdf) · `page_reviewed` · [local note](../research/sources/P33.md)
+- [P43 — Hitachi Energy — Core-type transformers](https://www.hitachienergy.com/products-and-solutions/transformers/power-transformers/generator-step-up-transformers-gsu/core-type-transformers) · `page_reviewed` · [local note](../research/sources/P43.md)
+- [P44 — Schneider Electric — AA and AA/FA transformer cooling](https://www.se.com/ca/en/faqs/FA102583/) · `page_reviewed` · [local note](../research/sources/P44.md)
+- [P45 — Eaton — Medium-voltage solid-state transformer](https://www.eaton.com/us/en-us/catalog/medium-voltage-power-distribution-control-systems/medium-voltage-solid-state-transformer.html) · `page_reviewed` · [local note](../research/sources/P45.md)
 
 <a id="d07"></a>
 

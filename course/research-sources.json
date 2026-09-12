@@ -2350,6 +2350,51 @@
       ],
       "use": "An option reserves a contractual right to transact during an agreed period without obliging its holder to exercise it; real-estate options depend on specified terms.",
       "caution": "Read the definition and real-estate discussion. General terminology only; no particular land agreement or jurisdictional enforceability is assessed."
+    },
+    {
+      "id": "P43",
+      "title": "Hitachi Energy — Core-type transformers",
+      "url": "https://www.hitachienergy.com/products-and-solutions/transformers/power-transformers/generator-step-up-transformers-gsu/core-type-transformers",
+      "publisher": "Hitachi Energy",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-11",
+      "domains": [
+        "D04",
+        "D06"
+      ],
+      "use": "Transformer anatomy uses conductive windings and a laminated magnetic steel core.",
+      "caution": "Product-family anatomy description reviewed. No rating or physical layout is adopted as a universal distribution-transformer specification."
+    },
+    {
+      "id": "P44",
+      "title": "Schneider Electric — AA and AA/FA transformer cooling",
+      "url": "https://www.se.com/ca/en/faqs/FA102583/",
+      "publisher": "Schneider Electric",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-11",
+      "domains": [
+        "D04",
+        "D06"
+      ],
+      "use": "Natural air convection and added fan cooling are distinct transformer cooling arrangements; fans are not inherent to the transformer function.",
+      "caution": "FAQ cooling distinctions reviewed. No fan rating, installation requirement or universal capacity threshold is inferred."
+    },
+    {
+      "id": "P45",
+      "title": "Eaton — Medium-voltage solid-state transformer",
+      "url": "https://www.eaton.com/us/en-us/catalog/medium-voltage-power-distribution-control-systems/medium-voltage-solid-state-transformer.html",
+      "publisher": "Eaton",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-11",
+      "domains": [
+        "D04",
+        "D06"
+      ],
+      "use": "Eaton lists a 2 MW MVSST with 12.47 kV nominal input and 800 V DC output, demonstrating a direct-MV product offering.",
+      "caution": "Manufacturer product listing reviewed on 2026-09-11. Offered specifications do not establish installed capacity, deployment prevalence, lead time or a measured efficiency advantage."
     }
   ]
 }

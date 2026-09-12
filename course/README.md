@@ -15,6 +15,10 @@ contract; [PRESENTING.md](PRESENTING.md) explains the dry-run controls.
 | `research-sources.json`, `../research/discovery.json`                                                            | Source-note metadata and `../research/INDEX.md`; original note bodies are preserved                   | `uv run gigawatt-research build --include-candidates` |
 
 Edit the inputs and regenerate. Add `--check` to verify freshness without writing.
+The authored sequences in `prototypes/` are served directly: `ups-format.html`
+and its mechanism modules, and `cooling-format.html` with `cooling-model.js`.
+Edit those files directly; their numerical tests and browser checks verify the
+prototype, while the matching reader lessons retain the longer explanations.
 The manifest reports generated counts and image hashes; the template records
 what has actually been reviewed. Source notes and generated lessons each serve
 a different reading purpose and do not own course design.

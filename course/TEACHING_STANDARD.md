@@ -1,170 +1,130 @@
 # Lesson and visual authoring standard
 
-Updated **2026-09-11**. This document owns **how to author and check teaching
-material**. The [filled-in course template](COURSE_REVIEW.md) owns audience,
-scope, companion commitments and production priorities. The [domain map](domain-map.json)
-owns objective IDs, prerequisites and sequence. Rehearsal controls belong in
-[PRESENTING.md](PRESENTING.md). Do not create another design brief for a new lesson.
+Updated **2026-09-11**. The [course template](COURSE_REVIEW.md) owns audience,
+scope and production priorities. The [domain map](domain-map.json) owns objectives,
+prerequisites and sequence. This file owns teaching rules; [PRESENTING.md](PRESENTING.md)
+owns the rehearsal playbook and controls. Do not create another design brief for
+an individual lesson.
 
-## Author the reasoning task
+## Carry the reasoning across the course
 
-State the engineering purpose before introducing its equation. Teach and assess
-every retained objective. Split or merge lessons around the reasoning task;
-there is no three-lessons-per-domain quota, fixed scene count or runtime to fill.
-A substantial treatment needs a mechanism, independently calculable example,
-consequential tradeoff, failure or limiting case, and changed-scenario practice.
-The practice must require applying the reasoning rather than copying a result.
+The UPS and 800 V sequences establish an approach, not a slide template to fill:
+**pose a concrete problem → show the mechanism → change one condition → explain
+the consequence**. Select the visual and example that make the particular topic
+understandable. There is no fixed slide count, three-lessons-per-domain quota or
+runtime to fill. A chapter can span parts of several domains.
 
-Use original explanatory prose. Explain algebra and specialist terms before using
-them. Before comparing electrical architectures, teach the closed DC loop, AC reversal,
-RMS values and balanced three-phase return paths. Keep received average power and
-measurement conventions explicit as waveforms change. Locate equipment, distinguish its form factor and show its job at first use; a glossary or opening
-orientation supplements that introduction. Do not paraphrase articles in sequence
-or reproduce third-party prose/figures wholesale.
+Retain material that helps the learner explain, calculate, compare or diagnose
+the facility. Cut article-by-article narration, equipment inventories without a
+purpose and arithmetic that does not affect the engineering decision. A longer
+reference is useful; narrating it does not produce a better lesson.
 
-## Edit authored sources, then generate the reading views
+Use these rules when adapting each sequence:
 
-The four lesson inputs in `course/expansion/` are
-`foundations-power.json`, `racks-compute-heat.json`,
-`heat-delivery-operations.json` and `capstones.json`. Each contains a lesson array
-or an object with a `lessons` array. Start from an existing lesson in the relevant
-file; preserve useful content when adapting the structure.
+1. **Begin with the learner's question.** Give the equipment a job before naming
+   its technology. Introduce specialist terms at the object where they matter;
+   the glossary is a lookup aid, not a prerequisite lecture.
+2. **Locate the mechanism.** Show campus → building → rack → component context,
+   physical form and the relevant connections. Embed a real product photograph
+   when using a product example. Preserve names and interfaces as the view changes.
+3. **Make the diagram teach.** Use one explanatory sentence as the headline,
+   one dominant visual, and essential labels, quantities and assumptions beside
+   their objects. Remove competing bottom summaries and repeated titles. Put
+   exceptions, source discussion and longer derivations in the reference or an
+   optional view. An essential reasoning step must remain visible without notes.
+4. **Control the comparison.** Keep the load, boundary, operating state and
+   measurement convention fixed until a change is explicitly introduced. Change
+   one condition and show its effect on a path, quantity or constraint. Use a
+   prediction/reveal only when there is something worth predicting.
+5. **End with the consequence.** Return to the opening problem and explain what
+   the comparison establishes. Use a changed case when it tests understanding;
+   do not append an unrelated calculation to satisfy a format.
 
-Each lesson records:
+The course remains one linear watts-to-racks journey with the heat path back out.
+Use the domain map as a coverage check behind that journey. Author one coherent
+section at a time, rehearse it, revise the confusing mechanism, then apply those
+improvements to subsequent sections. Do not mechanically convert paragraphs into
+slides or call a whole domain finished because one sequence is implemented.
 
-- Stable `id`, `domain`, `title`, `question`, `summary`, `takeaway` and existing
-  domain-map `objectives`. Capstone lessons also declare the map's `capstone_id`;
-  coverage follows those IDs rather than a hardcoded number of lessons.
-- Ordered `sections` with headings and paragraphs, a worked `example` (or
-  `worked_example`) with givens, intermediate steps, result and boundary,
-  `tradeoff`, `failure`, and `practice` with a question, answer and reasoning.
-- `sources` identifying the checked URL, specific supported claim, `reviewed_on`
-  date and reading `limits`. Add the reference to `research-sources.json` before
-  citing it; the builder resolves its catalog ID.
-- `terms` where useful, with a plain definition that disambiguates the physical
-  location or accounting boundary. A `visual` declares the authored treatment.
+## Keep the physical model honest
 
-`uv run gigawatt-expand` generates `expanded-course.json`, the HTML reader,
-Markdown lessons and manuscript. Edit the JSON inputs rather than those outputs.
-The builder validates structure and objective coverage; it does not establish
-technical correctness or learner comprehension. Commands and check details live
-in [TESTING.md](TESTING.md).
+A correct equation can answer the wrong question. Current does not establish
+facility efficiency; energy capacity does not establish discharge power; total
+coolant flow does not establish adequate flow through every branch. Name the
+account being calculated and show assumptions at the result.
 
-## Declare the presentation's learning contract
+- Separate physical flows from control and commercial relationships. Distinguish
+  coolant circulation from heat crossing an exchanger. A shared diagram color
+  must not suggest that isolated fluid loops mix.
+- Distinguish a component from its containing system: a transformer may be part
+  of a converter; a battery is not the entire UPS. Attribute losses and functions
+  to the actual component shown.
+- Distinguish physics, teaching assumptions, product ratings, proposed designs
+  and observed operation. Commercial maturity is not a physical impossibility;
+  one semiconductor's voltage rating is not a complete converter's rating.
+- Explain electrical measurement conventions before using them: closed DC loop,
+  AC reversal, RMS and balanced three-phase paths. Keep received average power
+  explicit when waveforms change. Introduce new thermal and computing quantities
+  with the same care.
+- Check relevant conservation accounts, limits and failure states independently.
+  A capacitor reaching a shutdown voltage is not empty; a schematic state is not
+  an operating procedure; a nameplate rating is not surviving service capacity.
 
-A reading lesson is not a presentation sequence. Each authored presentation
-declares six fields in a `learning_contract`:
+Use code-rendered diagrams for connections, quantities and failure states.
+Generated images can orient the learner, but visual inspection cannot validate
+wiring, piping or anatomy. Follow the existing [image role limits](assets/README.md)
+and replace misleading details. Source photographs need the correct product,
+configuration and provenance. Motion must explain a defined change and remain
+intelligible when paused.
 
-| Field               | What the author must settle                                                     |
-| ------------------- | ------------------------------------------------------------------------------- |
-| `driving_question`  | The concrete problem the learner will solve                                     |
-| `fixed_boundary`    | System, operating state and quantities held constant; any later boundary change |
-| `changed_variable`  | What the controlled comparison changes                                          |
-| `primary_payoff`    | Why the mechanism matters to the engineering decision                           |
-| `misconception`     | The plausible wrong inference the visual must expose                            |
-| `closing_question` | How the ending resolves the engineering question                    |
+## Author in the existing sources
 
-Assign each scene a `pedagogical_role`: `problem`, `comparison`, `mechanism`,
-`architecture`, `balance`, `counterexample` or `transfer`. Begin with the problem,
-teach its mechanism and return to that problem at the end. Use an application
-exercise when it advances the reasoning; do not append arbitrary arithmetic
-to satisfy a fixed lesson format. Intermediate scenes depend on the topic.
+The four lesson inputs in `course/expansion/` are `foundations-power.json`,
+`racks-compute-heat.json`, `heat-delivery-operations.json` and `capstones.json`.
+Edit the relevant lesson there, preserving its stable ID and domain-map objective
+IDs. Each lesson records its question, explanation, worked example, tradeoff,
+limiting case, practice, terms where needed and authored visual. Capstones retain
+the map's `capstone_id`.
 
-Let the diagram and its changing state carry the explanation. Keep only the
-headline, essential labels, quantities and decisive assumptions on the slide.
-Write one complete, explanatory headline. Do not repeat its message in a bottom
-subtitle, a second title inside the diagram, or a slogan. Essential component labels
-and model assumptions belong beside the relevant object or calculation.
-The speaker explains the connections in their own words; notes must not contain
-an essential step that the visual fails to establish. Rehearsal notes are optional:
-when useful, use a few brief cues, not a script. Keep complete prose and derivations
-in the student reference. Preserve stable scene
-IDs and replacement aliases. The builder checks these fields, text budgets and
-timing totals. The current renderer is specific to the 800 V sample; another
-domain needs an authored visual and appropriate model, not only a new JSON title.
+Add checked sources to `research-sources.json` and record the specific supported
+claim, `reviewed_on` date and reading limits in the lesson. Describe what was
+actually accessible and read; retain disagreements rather than hiding them in an
+average. Use original explanatory prose. Follow the [research workflow](../research/README.md).
 
-The sample's sources are `course/expansion/sample.json` for full teaching prose
-and `course/expansion/sample-presentation.json` for the visual sequence.
-`course/web/presentation.*` implements the surfaces; `electrical-visuals.js`
-draws the AC/DC foundation scenes; `reader-models.js` supplies
-shared numerical functions. Keep assumptions and calculations consistent across
-student exploration, teaching mode, presenter notes and the written reference.
+`uv run gigawatt-expand` generates the reader, Markdown lessons and manuscript.
+Do not edit those outputs. The builder establishes structural coverage, not
+technical correctness or comprehension. [TESTING.md](TESTING.md) holds commands
+and verification results.
 
-## Make the mechanism visible
+A presentation needs its own authored mechanism and model. For JSON-backed
+presentations, retain the six `learning_contract` fields: `driving_question`,
+`fixed_boundary`, `changed_variable`, `primary_payoff`, `misconception` and
+`closing_question`. Scenes retain a `pedagogical_role`: `problem`, `comparison`,
+`mechanism`, `architecture`, `balance`, `counterexample` or `transfer`. These fields
+make the reasoning inspectable; they do not require a scene for every role.
 
-1. Locate the component in the campus → building → rack → board → chip model.
-   Preserve names, symbols and interfaces as the view changes.
-2. Show the physical comparison. Count conductors, modules, pipes or paths; make
-   occupied and released space visible. Show the mechanism behind a percentage.
-3. Freeze the baseline and change one stated condition. Keep units, denominator,
-   operating/failure state and decisive assumptions beside the visual.
-4. Ask for a prediction before revealing a calculation or path trace. Distinguish
-   model inputs, calculated outputs and externally measured claims.
-5. Close the relevant power, energy, mass-flow, capacity, time or cost account.
-   Reconcile interfaces before summing; announce changes in accounting boundary.
-6. Apply the reasoning to a changed case. Update the facility artifact and state
-   which conclusions still require an equipment rating or additional evidence.
+The 800 V sample uses `sample.json` for the reading explanation and
+`sample-presentation.json` for scenes, with `course/web/presentation.*` and
+`electrical-visuals.js` rendering the visuals. `reader-models.js` holds shared
+calculations. The UPS prototype uses `course/prototypes/ups-format.html` and its
+separate mechanism modules. Preserve stable scene IDs and replacement aliases;
+keep student, teaching and reference calculations consistent.
 
-Use code-rendered diagrams for quantities, connections and failure states, and
-check their connections and paths against the stated model and sources. Rendering
-correctly does not establish technical correctness. Generated imagery can provide
-orientation; visual inspection alone does not validate anatomy, piping or wiring.
-Follow the existing images' [role limits](assets/README.md), and replace misleading
-details instead of relying on a disclaimer. Embed the actual product photograph when teaching a real example; a link alone
-does not show the learner what the equipment looks like. Sourced images also need provenance
-and checks of the product, configuration and claim they illustrate. Distinguish
-physical flows from commercial and control relationships, and coolant circulation
-from heat transfer. Motion must explain a defined change and remain intelligible
-when paused.
+## Rehearse and check the section
 
-Keep one active visual prominent. Put optional speaking prompts in a separate
-rehearsal view, and keep derivations and source limits in the reference. Prediction
-controls and the changed condition must remain understandable without notes.
-Do not auto-convert paragraphs
-into slides. The student view is the default; a deliberate teaching endpoint adds
-instructor controls. Those modes are presentation choices, not access control.
+Teach without recording and without requiring speaker notes. Optional notes are
+a few cues, never a script. Capture the exact scene and point of confusion; revise
+that diagram, term or reasoning step and try again. A reader lesson, an implemented
+presentation and a rehearsed explanation are distinct states.
 
-## Make assumptions and evidence inspectable
+Verify quantitative examples and invalid inputs. Inspect the actual teaching
+viewport in light and dark mode, at narrow widths and with keyboard navigation.
+Keep visible focus, text alternatives, sufficient contrast, paused/reduced-motion
+states and an understandable reading route when interaction is unavailable. Color
+alone cannot convey the answer. Browser checks do not establish comprehension.
 
-A correct equation can still be an incomplete model. Current arithmetic does
-not establish total architecture efficiency; a heat balance does not size a pump;
-a capacity ceiling does not predict completed workload. Show omitted mechanisms
-near the result. State whether each control is a physical design input, simplifying
-assumption or schematic comparison, with units, meaningful ranges and justified
-precision. Identify essential missing inputs instead of inventing an answer.
-
-Label synthetic values. Keep product specifications, proposed architectures and
-observed operation distinct from stable principles and teaching scenarios.
-Source records must state what was actually accessible and read, the claim it
-supports and its limits. Record disagreements rather than hiding them in an
-average. Follow the course's [evidence policy](COURSE_REVIEW.md#evidence-policy)
-and the [research workflow](../research/README.md).
-
-For quantitative changes, verify an independently worked example, relevant limits
-and invalid inputs. Check diagrams at teaching size, including narrow layouts,
-keyboard operation, text alternatives and paused/reduced-motion states. A color
-change alone cannot convey an answer. Preserve an understandable reading route
-when interaction is unavailable.
-
-## Update the shared facility artifact
-
-Each addition to the functional bill of materials and service-path map records
-component/function, location, quantity and unit, operating load, installed and
-surviving capacity where relevant, upstream/downstream interfaces, evidence
-status and the lesson responsible for the change. Restate configuration and
-assumptions when an exercise changes them. A material comparison keeps design
-assumptions beside the quantity; the artifact is not a procurement specification.
-
-For example, the 800 V sample's three equal conductor lengths → two is a local
-material comparison. Moving rack conversion to a sidecar or power room changes
-placement; complete-path energy gets its own account. None of these steps alone
-establishes a facility-wide copper, floor-area or energy reduction.
-
-## Revise from the dry run
-
-Teach without recording first. At a hesitation, capture the scene, exact question,
-missing term/mechanism/boundary or unsupported claim, and the proposed revision.
-After revising, ask the learner to explain the mechanism and solve the changed
-case. Record technical review and learner evidence by their actual scope; browser
-checks alone do not prove comprehension. The course template maintains production
-status and the adaptation backlog so this standard does not become a second plan.
+Extend the shared facility drawing, functional bill of materials and service-path
+model as each section develops: component, job, location, interfaces and relevant installed,
+operating and surviving capacity. State the configuration when it changes.
+A local material saving does not become a facility-wide saving by implication,
+and the educational inventory is not a procurement specification.

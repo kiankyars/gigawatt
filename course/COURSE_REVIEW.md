@@ -16,10 +16,11 @@ Use the domain map to look up the section being prepared; there is no need to
 read it end to end.
 
 **Current state:** 50 authored draft lessons cover 65 objective IDs. The twelve-scene
-800 V DC sample and sixteen-scene UPS sequence are implemented teaching prototypes.
-They cover selected parts of the curriculum, not two finished domains. Technical review,
-learner review, adaptation of the remaining material, recording and delivery
-remain pending. Prepare and rehearse one section at a time.
+800 V DC sample and seventeen-scene UPS sequence are implemented teaching prototypes.
+An eight-scene cooling draft is the first adaptation of their reviewed approach.
+These cover selected parts of the curriculum; they do not establish finished domains.
+Technical review, learner review, adaptation of the remaining material, recording
+and delivery remain pending. Prepare and rehearse one section at a time.
 
 ## Learner contract
 
@@ -196,19 +197,21 @@ sequences still need authorship and dry runs.
 
 ### Next teaching step
 
-Review the [UPS sequence](prototypes/ups-format.html) first: normal and battery
-operation, bypass, then module capacity versus independent paths. This is a
-bounded part of D05, with the latest minimal-text format. Then revisit the
-[800 V sample](teach.html), including its AC/DC and three-phase foundations.
-That sample belongs to D06 and draws on D01/D04 concepts.
+The reviewed UPS and 800 V sequences establish the teaching approach for the
+remaining course. Apply their minimal text, explicit boundaries, visible
+mechanisms and controlled comparisons to each new section. Their visual format
+is a reference, not a requirement to use electrical-style diagrams everywhere.
 
-**Teach each sequence aloud without recording.** Use the reading explanations
-when a mechanism is unclear; reviewing all fifty draft lessons or the full source
-library is not a prerequisite. Send the scene and what confused you, seemed wrong,
-or needed a different visual. Notes are optional. The agent revises these two
-sequences from that feedback before carrying the settled format into the next
-section. The concise review playbook and optional references are in
-[PRESENTING.md](PRESENTING.md).
+The next implementation is [cooling from chip to outdoor air](prototypes/cooling-format.html),
+a teaching draft spanning selected D10/D11 concepts. Follow the heat through a
+cold plate, isolated liquid loops and outdoor rejection, then change flow and
+trace what stops working. This is not yet a complete treatment of either domain.
+
+**Teach the new sequence aloud without recording.** Send the scene and the point
+that confused you or needed a different visual. The agent fixes that mechanism
+and carries the lesson forward. There is no need to review the two earlier
+sequences again before work advances, or read all fifty drafts first. The concise
+review playbook and optional references are in [PRESENTING.md](PRESENTING.md).
 
 Repeat this process through the domain map's dependency order. Author each
 mechanism and example for its topic; converting the existing prose into slides

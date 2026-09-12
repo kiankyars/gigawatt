@@ -205,31 +205,32 @@
     },
     {
       "id": "ac-dc-ledger",
-      "title": "Stepping down first keeps medium voltage off the converter’s semiconductor switches.",
+      "title": "Stepping down AC first lets established equipment supply the 800 V DC bus.",
       "kind": "conversion-loss",
-      "headline": "Stepping down first keeps medium voltage off the converter’s semiconductor switches.",
+      "headline": "Stepping down AC first lets established equipment supply the 800 V DC bus.",
       "duration_seconds": 90,
-      "cue": "Trace voltage reduction and rectification as separate functions. Explain the device-rating constraint, then open Conversion heat for the loss account.",
+      "cue": "Trace the supply through the transformer and electronic converter. Use Converter losses to account for heat in the electronic stage.",
       "notes": [
-        "A conventional transformer handles the medium-voltage input and provides step-down and isolation; the downstream converter handles lower-voltage AC.",
-        "Semiconductor ratings constrain converter topology. Direct MV conversion needs much higher-rated devices or more devices/cells sharing the voltage, plus insulation, protection and control.",
-        "The SemiAnalysis passage describes scarce commercial high-voltage devices, then explicitly acknowledges MV rectification with series-stacked silicon devices. Preserve the practical complexity point; do not teach an absolute 10 kV ceiling.",
-        "An SST combines power electronics and high-frequency isolation. It is one alternative to a conventional transformer and LV converter.",
-        "The numerical heat view isolates one 480 V three-phase AC-to-800 V DC supply at an assumed 98% efficiency. Its transformer and any UPS AC/DC/AC stages are outside that boundary."
+        "Transformer: AC voltage reduction and isolation, using windings and a magnetic core.",
+        "Electronic converter: lower-voltage AC input, controlled 800 V DC output.",
+        "This route uses established component types; direct MV products exist but are a developing data-center alternative.",
+        "In Converter losses, count only the electronic supply: 98% efficiency is assumed; the upstream transformer is outside this calculation."
       ],
       "explanation": [
+        "This supply path combines established transformer and low-voltage power-electronic technologies. Direct medium-voltage conversion for an 800 V data-center supply is a developing alternative, not an unavailable one: Eaton currently lists a medium-voltage solid-state transformer with an 800 V DC output. A product listing does not establish widespread deployment or a universal economic advantage.",
+        "A conventional transformer has conductive windings around a magnetic core, commonly laminated steel. Alternating current in a winding creates changing magnetic flux that induces voltage in another winding. It does not need a permanent magnet or electronic switching to perform this function. Natural convection can remove its heat; some larger transformer designs use fans. The heat view here instead isolates the electronic AC/DC converter downstream of the transformer.",
         "The reason for conventional step-down is practical: medium-voltage insulation and voltage transformation are handled by the transformer, leaving lower-voltage power electronics to rectify and regulate the output. Direct medium-voltage conversion is possible, but changes the semiconductor, voltage-sharing, insulation, protection and control problem. Scarcity of high-voltage switching devices can make that solution more complex; it is not a rule that rectification stops working above 10 kV.",
         "The earlier SemiAnalysis quotation appears in “Medium Voltage Rectifiers: Is There Room for Everyone?”. Its following discussion expressly acknowledges medium-voltage rectifiers using series-stacked silicon devices. Read the passage as a commercialization and topology tradeoff, rather than a universal ban on medium-voltage rectification. The paper indexed as P22 demonstrates this distinction with a 13.2 kV design using nine cascaded cells per phase and 1.2 kV SiC devices.",
         "This example isolates one AC/DC power supply: 480 V three-phase AC at its input and 800 V DC at its output. It represents the conversion function moved into a power rack or power room in the following architecture drawings. The supply may contain multiple internal conversion stages. It is not a UPS AC-to-DC-to-AC path or a model of the whole data center.",
         "Before this example’s 480 V AC input, a conventional transformer steps medium-voltage AC down and provides galvanic isolation. Lower AC voltage reduces the voltage stress handled by the following power electronics. The transformer’s own losses are outside the one-power-supply calculation shown here.",
         "The controlled AC/DC supply establishes the 800 V DC output; a simple rectifier is not a voltage-independent route to 800 V. SemiAnalysis’s Phase 3 example uses 415 V AC after conventional step-down. This numerical example retains 480 V AC; neither is a universal required input voltage.",
         "A conventional transformer changes AC voltage; it does not rectify. There is no universal 10 kV ceiling on rectification. Cascaded converter cells can share medium-voltage stress among lower-voltage semiconductors. An SST is an alternative architecture that combines electronic stages with high-frequency isolation, not a prerequisite for an 800 V DC bus. See D04, “Why step down before rectifying?”, for the device-rating distinction.",
-        "Conversion changes voltage or electrical form with real components. Current through semiconductor on-resistance, winding resistance and diode drops dissipates power. Switching transitions dissipate energy as current and voltage overlap; repeating those transitions adds average loss. Magnetic cores, controllers, gate drivers and fans also consume power. The balance depends on converter topology, device choices, voltage, load, switching frequency, temperature and operating mode.",
+        "Conversion changes voltage or electrical form with real components. Current through semiconductor on-resistance, winding resistance and diode drops dissipates power. Switching transitions dissipate energy as current and voltage overlap; repeating those transitions adds average loss. Magnetic components also dissipate power. The electronic converter’s controllers and gate drivers draw power; fans or pumps add auxiliary load where fitted. The balance depends on converter topology, device choices, voltage, load, switching frequency, temperature and operating mode.",
         "Efficiency η is useful output power divided by input power. At a fixed output, P_loss = P_out × (1/η − 1). The slide assumes 98% efficiency solely to demonstrate the calculation: 100/0.98 = 102.0408 kW input, so loss is 2.0408 kW. It is not the efficiency of the pictured UPS or a measured advantage of AC or DC distribution.",
         "To compare architectures, read the actual equipment efficiency curves at the required loading and mode, then sum losses along the complete path. Fewer conversion boxes or lower conductor heat alone does not establish lower total facility input."
       ],
       "pedagogical_role": "mechanism",
-      "heat_headline": "Converting AC to DC produces heat, wherever the power supply sits."
+      "heat_headline": "The electronic AC/DC converter loses some input power as heat."
     },
     {
       "id": "conversion-in-rack",

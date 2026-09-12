@@ -506,3 +506,21 @@ was checked in light/dark at 1440 and 390 pixels, including keyboard selection,
 area/date arithmetic and navigation back to ordinary lessons. Representative
 screenshots were inspected. The parcel lesson is a reader draft, not a completed
 presenter sequence or an assessed real site.
+
+## Generalizing the reviewed sequences — 2026-09-11
+
+Slide 9 now has one supply-path headline and three component blocks. Its optional
+loss view explicitly names the electronic AC/DC converter; the upstream transformer
+is outside that calculation. The teaching standard and playbook carry the reviewed
+approach into new sections. The first adaptation is eight cooling scenes spanning
+selected D10/D11 concepts, with separate fluid loops and visible heat transfers.
+
+Validation passed: 52 Python tests, 59 JavaScript numerical tests, generated-file
+and research checks, Ruff and whitespace checks. The 800 V browser harness passed
+150 states. Cooling passed 64 layouts (four viewport sizes in light/dark), flow
+selection, facility-flow stop/restore, heat tracing, keyboard navigation, source
+dialog and student/teaching-mode separation. Representative desktop and phone
+screenshots were visually inspected. The calculation diagram is an open selected
+cold-plate path, not a closed loop with an omitted heat sink. Small-screen navigation
+follows the content so it cannot cover the diagram. The reader and optional model
+notes retain source limits; the new sequence remains a draft for a dry run.

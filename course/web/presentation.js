@@ -170,8 +170,8 @@ function architecture(kind) {
 }
 function conversionViews() {
   const tabs = `<div class="conversion-views">${[
-    ["supply", "Why step down?"],
-    ["heat", "Conversion heat"],
+    ["supply", "Supply path"],
+    ["heat", "Converter losses"],
   ]
     .map(
       ([view, label]) =>
@@ -181,7 +181,7 @@ function conversionViews() {
   if (state.converterView === "heat") return tabs + conversionLoss();
   return (
     tabs +
-    `<div class="stepdown-example"><div class="stepdown-path"><section><p class="metric-label">Incoming supply</p><strong>Medium-voltage AC</strong><span>13.8 kV example</span></section><b aria-hidden="true">→</b><section><p class="metric-label">Transformer</p><strong>13.8 kV → 480 V AC</strong><span>Step-down + isolation</span></section><b aria-hidden="true">→</b><section class="stepdown-electronics"><p class="metric-label">Controlled converter</p><strong>480 V AC → 800 V DC</strong><span>Rectification + regulation</span></section></div><div class="device-comparison"><section><h2>After step-down</h2><p>Lower-voltage semiconductors handle the AC/DC conversion.</p></section><section><h2>For a direct MV input</h2><p>Use higher-rated devices or cascaded cells that share voltage, with added insulation and control demands.</p></section></div><p class="stepdown-rating">A device’s voltage rating is not the voltage ceiling of a complete converter.</p></div>`
+    `<div class="stepdown-example"><div class="stepdown-path"><section><p class="metric-label">Incoming supply</p><strong>Medium-voltage AC</strong><span>13.8 kV example</span></section><b aria-hidden="true">→</b><section><p class="metric-label">Transformer</p><strong>13.8 kV → 480 V AC</strong><span>Step-down + isolation</span></section><b aria-hidden="true">→</b><section class="stepdown-electronics"><p class="metric-label">Controlled converter</p><strong>480 V AC → 800 V DC</strong><span>Rectification + regulation</span></section></div></div>`
   );
 }
 function conversionLoss() {
@@ -190,7 +190,7 @@ function conversionLoss() {
   const input = output / efficiency,
     loss = input - output,
     shown = isRevealed();
-  return `<div class="converter-example"><div class="model-top"><span class="chip">One AC/DC power supply · 98% efficiency assumed</span></div><div class="converter-flow"><div class="power-port"><span>480 V three-phase AC input</span><strong>${shown ? fmt(input, 2) : "?"}<small> kW</small></strong></div><span class="conversion-arrow" aria-hidden="true">→</span><div class="converter-box"><strong>AC → DC</strong><span>Useful output ÷ input = 98%</span></div><span class="conversion-arrow" aria-hidden="true">→</span><div class="power-port"><span>800 V DC output</span><strong>100<small> kW</small></strong></div><div class="converter-heat"><span aria-hidden="true">↓</span><strong>${shown ? fmt(loss, 2) : "?"} kW <small>converter heat</small></strong></div></div><div class="loss-causes"><span>Resistance heats conductors</span><span>Switching dissipates energy</span><span>Magnetic cores heat up</span><span>Controls &amp; fans draw power</span></div>${shown ? '<div class="equation-block">100 ÷ 0.98 − 100 = <strong>2.04 kW</strong></div>' : '<div class="control-line"><button class="reveal" id="reveal">Calculate the lost power</button></div>'}</div>`;
+  return `<div class="converter-example"><div class="model-top"><span class="chip">One AC/DC power supply · 98% efficiency assumed</span></div><div class="converter-flow"><div class="power-port"><span>480 V three-phase AC input</span><strong>${shown ? fmt(input, 2) : "?"}<small> kW</small></strong></div><span class="conversion-arrow" aria-hidden="true">→</span><div class="converter-box"><strong>Electronic AC/DC converter</strong><span>Useful output ÷ input = 98%</span></div><span class="conversion-arrow" aria-hidden="true">→</span><div class="power-port"><span>800 V DC output</span><strong>100<small> kW</small></strong></div><div class="converter-heat"><span aria-hidden="true">↓</span><strong>${shown ? fmt(loss, 2) : "?"} kW <small>converter heat</small></strong></div></div><div class="loss-causes"><span>Current heats components</span><span>Switching dissipates energy</span><span>Magnetic cores heat up</span></div>${shown ? '<div class="equation-block">100 ÷ 0.98 − 100 = <strong>2.04 kW</strong></div>' : '<div class="control-line"><button class="reveal" id="reveal">Calculate the lost power</button></div>'}</div>`;
 }
 function renderNotes() {
   const step = STEPS[state.index];

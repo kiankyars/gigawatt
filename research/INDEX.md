@@ -163,6 +163,9 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P40 — DOE — CHP Technologies: Gas Turbines](sources/P40.md) | US Department of Energy | D03, D12 | public_excerpt_reviewed |
 | [P41 — Texas Instruments — TIDA-00349 isolated DC/DC converter](sources/P41.md) | Texas Instruments | D04, D05 | page_reviewed |
 | [P42 — Cornell Legal Information Institute — Option](sources/P42.md) | Cornell Legal Information Institute | D12 | page_reviewed |
+| [P43 — Hitachi Energy — Core-type transformers](sources/P43.md) | Hitachi Energy | D04, D06 | page_reviewed |
+| [P44 — Schneider Electric — AA and AA/FA transformer cooling](sources/P44.md) | Schneider Electric | D04, D06 | page_reviewed |
+| [P45 — Eaton — Medium-voltage solid-state transformer](sources/P45.md) | Eaton | D04, D06 | page_reviewed |
 | [SA01 — Datacenter Anatomy Part 1: Electrical Systems](sources/SA01.md) | SemiAnalysis | D04, D05, D06, D13, D15 | public_excerpt_reviewed |
 | [SA02 — Datacenter Anatomy Part 2 – Cooling Systems](sources/SA02.md) | SemiAnalysis | D10, D11, D15 | public_excerpt_reviewed |
 | [SA03 — 100,000 H100 Clusters: Power, Network Topology, Ethernet vs InfiniBand, Reliability, Failures, Checkpointing](sources/SA03.md) | SemiAnalysis | D02, D07, D08, D09, D14 | public_excerpt_reviewed |

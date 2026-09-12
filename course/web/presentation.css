@@ -2015,31 +2015,6 @@ body[data-view="student"] #visual {
   border-color: var(--teal);
   background: var(--surface-soft);
 }
-.device-comparison {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 35px;
-  margin: 32px 0 16px;
-}
-.device-comparison section {
-  border-top: 2px solid var(--teal);
-  padding-top: 12px;
-}
-.device-comparison h2 {
-  font-size: 19px;
-  margin: 0 0 8px;
-}
-.device-comparison p {
-  font-size: 18px;
-  margin: 0;
-  line-height: 1.4;
-  color: var(--muted);
-}
-.stepdown-rating {
-  font-size: 17px;
-  text-align: center;
-  margin: 24px 0 0;
-}
 @media (max-width: 700px) {
   .stepdown-path {
     grid-template-columns: 1fr;
@@ -2051,10 +2026,6 @@ body[data-view="student"] #visual {
   }
   .stepdown-path section {
     padding: 18px;
-  }
-  .device-comparison {
-    grid-template-columns: 1fr;
-    gap: 20px;
   }
   .conversion-views {
     flex-wrap: wrap;
