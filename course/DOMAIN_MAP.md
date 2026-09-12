@@ -194,6 +194,8 @@ Separate physical principles, design specifications, observed deployments, annou
 - [P61 — The Green Grid — PUE: A Comprehensive Examination of the Metric](https://datacenters.lbl.gov/sites/default/files/WP49-PUE%20A%20Comprehensive%20Examination%20of%20the%20Metric_v6.pdf) · `page_reviewed` · [local note](../research/sources/P61.md)
 - [P63 — Google Cloud — Best practices for batch inference on GKE](https://docs.cloud.google.com/kubernetes-engine/docs/best-practices/machine-learning/inference/batch-inference) · `page_reviewed` · [local note](../research/sources/P63.md)
 - [P64 — NVIDIA DGX GB200/GB300 hardware guide — Power shelves](https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html#power-shelves) · `page_reviewed` · [local note](../research/sources/P64.md)
+- [P65 — EIA — How electricity is generated](https://www.eia.gov/energyexplained/electricity/how-electricity-is-generated.php) · `public_excerpt_reviewed` · [local note](../research/sources/P65.md)
+- [P66 — EIA — Delivery of electricity to consumers](https://www.eia.gov/energyexplained/electricity/delivery-to-consumers.php) · `public_excerpt_reviewed` · [local note](../research/sources/P66.md)
 
 <a id="d02"></a>
 
@@ -378,6 +380,8 @@ Compare utility-only and behind-the-meter supply against energy, capacity, fuel 
 - [P38 — MLGW — 2025 xAI Update](https://www.mlgw.com/images/content/files/pdf/new/xAI%202025%20Update.pdf) · `page_reviewed` · [local note](../research/sources/P38.md)
 - [P39 — Energy Transfer — Q2 2026 investor presentation](https://ir.energytransfer.com/static-files/c29697db-5336-4262-8bf3-3c6e409ccb19) · `public_excerpt_reviewed` · [local note](../research/sources/P39.md)
 - [P40 — DOE — CHP Technologies: Gas Turbines](https://betterbuildingssolutioncenter.energy.gov/sites/default/files/attachments/CHP_Gas_Turbines.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P40.md)
+- [P65 — EIA — How electricity is generated](https://www.eia.gov/energyexplained/electricity/how-electricity-is-generated.php) · `public_excerpt_reviewed` · [local note](../research/sources/P65.md)
+- [P66 — EIA — Delivery of electricity to consumers](https://www.eia.gov/energyexplained/electricity/delivery-to-consumers.php) · `public_excerpt_reviewed` · [local note](../research/sources/P66.md)
 
 <a id="d04"></a>
 
@@ -475,6 +479,7 @@ Reconcile IT and auxiliary loads with a downstream electrical capacity budget ac
 - [P44 — Schneider Electric — AA and AA/FA transformer cooling](https://www.se.com/ca/en/faqs/FA102583/) · `page_reviewed` · [local note](../research/sources/P44.md)
 - [P45 — Eaton — Medium-voltage solid-state transformer](https://www.eaton.com/us/en-us/catalog/medium-voltage-power-distribution-control-systems/medium-voltage-solid-state-transformer.html) · `page_reviewed` · [local note](../research/sources/P45.md)
 - [P54 — OCP — Data Center Facility: Low Voltage Direct Current Power Distribution, v1.0](https://www.opencompute.org/documents/dcf-power-distribution-lvdc-white-paper-version-1-0-final-pdf-1) · `public_excerpt_reviewed` · [local note](../research/sources/P54.md)
+- [P66 — EIA — Delivery of electricity to consumers](https://www.eia.gov/energyexplained/electricity/delivery-to-consumers.php) · `public_excerpt_reviewed` · [local note](../research/sources/P66.md)
 
 <a id="d05"></a>
 

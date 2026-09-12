@@ -19,8 +19,8 @@ read it end to end.
 800 V DC sample and seventeen-scene UPS sequence are implemented teaching prototypes.
 A fourteen-scene cooling presentation extends that approach to capture methods,
 CDU ratings and approach, weather and outdoor heat rejection.
-A six-scene opening section now teaches selected D01 foundations: facility paths,
-GB300 rack requirements, rating versus operating load, LLM batch scheduling and PUE.
+A thirteen-scene opening tours generation, transmission, campus power, backup,
+GB300 hardware, compute, networks and cooling before introducing load, energy and PUE.
 These cover selected parts of the curriculum; they do not establish finished domains.
 Technical review, learner review, adaptation of the remaining material, recording
 and delivery remain pending. Prepare and rehearse one section at a time.
@@ -35,7 +35,7 @@ and delivery remain pending. Prepare and rehearse one section at a time.
 - **What they will be able to do by the end:** Trace electrical, thermal, and information paths; calculate illustrative power, current, energy, heat-flow, and capacity limits; compare architecture choices under stated constraints; diagnose a coupled failure or bottleneck; and separate a supported deployment claim from a scenario or forecast. The final assessment must require these capabilities on an unfamiliar scenario.
 - **Scope and explicit exclusions:** Modern AI data centers from grid access through useful compute and operation, with the narrative spine of watts to racks and heat back out. Include siting, delivery, economics, and sustainability where they change infrastructure choices. Explain networking and storage far enough to reason about cluster service. Exclude detailed chip fabrication, exhaustive generator technology surveys, investment recommendations, country-by-country permitting instructions, and professional installation, switching, or certification procedures.
 - **Supported platforms or architectural scope, source cut-off, and recording date:** Compare generic architectures and explicitly dated product/site cases; do not promise one universal data-center design. The historical domain baseline began on 2026-09-06. An expanded-course source cut-off and recording date have not been set. Record publication/update and verification dates for each material source before scripting is frozen. Confirm the companion’s supported browser scope before delivery.
-- **Provisional runtime and why the outcomes need that time:** Potentially up to roughly ten hours, subject to the validated curriculum and rehearsal. No duration quota: time is earned by explanation, worked examples, comparisons, and learner practice. Avoid the encyclopedic survey: runtime, topics, articles, and named equipment are not success measures. Merge or cut sections that only add facts without improving the learner's reasoning.
+- **Provisional runtime and why the outcomes need that time:** Aim for at least 300 substantive teaching slides across the 15 domains, with roughly ten hours as a provisional course length. At 300 slides, ten hours averages two minutes per slide, including spoken explanation and demonstrations. This is an authoring target, not a finished storyboard; actual runtime follows dry runs. Keep slides concise and earn length through mechanisms, worked examples and learner practice. Avoid the encyclopedic survey: runtime, topics, articles, and named equipment are not success measures. Merge or cut sections that only add facts without improving the learner's reasoning.
 - **Public code, notes, or slides:** The [reader](index.html), [manuscript](EXPANDED_COURSE.md), [domain map](DOMAIN_MAP.md), [teaching sample](teach.html) and [research library](../research/README.md) are the current draft resources. The [source index](README.md) identifies what to edit. The [22-lesson introduction](../diagram/index.html) is retained as a historical baseline. Final chapter timestamps, recorded edition and errata links remain pending.
 
 **Explicit anti-pattern: an encyclopedic survey of articles or components.**
@@ -205,10 +205,10 @@ remaining course. Apply their minimal text, explicit boundaries, visible
 mechanisms and controlled comparisons to each new section. Their visual format
 is a reference, not a requirement to use electrical-style diagrams everywhere.
 
-The current review is **[D01 — Inside the facility](prototypes/orientation-format.html?teach=1#three-paths)**.
-Its six scenes apply the approach reviewed in UPS, 800 V and cooling: a shared
-facility map, white/gray space, a GB300 rack, rating versus load, LLM batch
-evaluation scheduling and a PUE comparison with fixed IT energy. These concepts
+The current review is **[D01 — Data center overview](prototypes/orientation-format.html?teach=1#three-paths)**.
+Its thirteen scenes give a broad first tour: facility rooms, generation and
+transmission, campus distribution and backup, a GB300 rack, chip-to-cluster scale,
+network and cooling paths, then rating, demand and fixed-IT PUE comparisons. These concepts
 are directly taught in the presentation. Source-claim evaluation remains in the
 D01 reference; D02's workload brief is the next teaching section to author.
 

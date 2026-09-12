@@ -187,6 +187,8 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P62 — Corning — Meet-Me-Room to Outside Plant Data Center Solutions](sources/P62.md) | Corning | D08, D12 | page_reviewed |
 | [P63 — Google Cloud — Best practices for batch inference on GKE](sources/P63.md) | Google Cloud | D01, D02, D09 | page_reviewed |
 | [P64 — NVIDIA DGX GB200/GB300 hardware guide — Power shelves](sources/P64.md) | NVIDIA | D01, D06 | page_reviewed |
+| [P65 — EIA — How electricity is generated](sources/P65.md) | U.S. Energy Information Administration | D01, D03 | public_excerpt_reviewed |
+| [P66 — EIA — Delivery of electricity to consumers](sources/P66.md) | U.S. Energy Information Administration | D01, D03, D04 | public_excerpt_reviewed |
 | [SA01 — Datacenter Anatomy Part 1: Electrical Systems](sources/SA01.md) | SemiAnalysis | D04, D05, D06, D13, D15 | public_excerpt_reviewed |
 | [SA02 — Datacenter Anatomy Part 2 – Cooling Systems](sources/SA02.md) | SemiAnalysis | D10, D11, D15 | public_excerpt_reviewed |
 | [SA03 — 100,000 H100 Clusters: Power, Network Topology, Ethernet vs InfiniBand, Reliability, Failures, Checkpointing](sources/SA03.md) | SemiAnalysis | D02, D07, D08, D09, D14 | public_excerpt_reviewed |

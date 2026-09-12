@@ -607,3 +607,20 @@ changes while full screen. Representative desktop and phone views were inspected
 All 52 Python and 75 JavaScript tests passed. Generated reader, map and research
 checks are current. D08's written lesson now explains the campus-to-carrier
 handoff; its teaching presentation remains unbuilt.
+
+## Broader opening tour — 2026-09-12
+
+The opening now contains thirteen slides. Seven new diagrams preview generation,
+transmission, campus power, backup, chip-to-cluster scale, network roles and the
+liquid heat path. Each links to its existing deeper lesson. White/gray space
+remains on slide 2. The liquid-path preview keeps its coolant circuits separate;
+its optional explanation identifies the remaining room-air cooling requirement.
+
+All 144 scene/state layouts passed at four viewport sizes in both themes, with
+label containment, overlap, navigation, legacy links and existing numerical
+comparisons checked. Desktop and phone diagrams were visually inspected,
+including coolant connections, network close-up lines and first-use terms.
+Eight full-screen checks across the four teaching sets passed. All 52 Python
+and 75 JavaScript tests passed; generated artifacts, source metadata, the thirteen
+lesson links and site staging checks passed. No additional recorded runtime or
+whole-domain completion is claimed.

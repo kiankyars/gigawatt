@@ -2715,6 +2715,37 @@
       ],
       "use": "Explain AC supply into power shelves and nominal 50–51 V DC busbar feeding rack components.",
       "caution": "Read power-shelf and busbar descriptions. Do not use the combined-guide approximate 120 kW sentence as a named GB300 rack requirement or infer losses from installed redundant shelf output ratings."
+    },
+    {
+      "id": "P65",
+      "title": "EIA — How electricity is generated",
+      "url": "https://www.eia.gov/energyexplained/electricity/how-electricity-is-generated.php",
+      "publisher": "U.S. Energy Information Administration",
+      "kind": "primary_reference",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D01",
+        "D03"
+      ],
+      "use": "Introduce mechanical generators and the separate photovoltaic route into the electricity system.",
+      "caution": "Reviewed generator, turbine and other-generator sections. No 2022 generation shares, cost ranking or dedicated plant-to-campus delivery is inferred."
+    },
+    {
+      "id": "P66",
+      "title": "EIA — Delivery of electricity to consumers",
+      "url": "https://www.eia.gov/energyexplained/electricity/delivery-to-consumers.php",
+      "publisher": "U.S. Energy Information Administration",
+      "kind": "primary_reference",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D01",
+        "D03",
+        "D04"
+      ],
+      "use": "Orient transmission, distribution and transformer step-up/step-down in an interconnected grid.",
+      "caution": "Reviewed The electric power grid and Delivering electricity. Do not generalize a residential voltage ladder to a large data-center campus or infer connection capacity from line proximity."
     }
   ]
 }

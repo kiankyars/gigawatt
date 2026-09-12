@@ -5,10 +5,11 @@
 
 ## The next pass
 
-The next dry run is **[D01 — Inside the facility](prototypes/orientation-format.html?teach=1#three-paths)**.
-Its six scenes cover the three paths, white/gray space, a GB300 NVL72 product
-example, nameplate versus operating load, scheduling LLM evaluation batches and
-reducing PUE with fixed IT energy. It applies the approach reviewed in UPS, 800 V and cooling.
+The next dry run is **[D01 — Data center overview](prototypes/orientation-format.html?teach=1#three-paths)**.
+Its thirteen scenes tour the three paths, white/gray space, generation,
+transmission, campus distribution, backup power, GB300 hardware, chip-to-cluster
+scale, network and cooling paths, then rating, LLM batch scheduling and PUE.
+It applies the approach reviewed in UPS, 800 V and cooling.
 The [student route](prototypes/orientation-format.html) has the same diagrams and
 experiments; each scene's explanation and sources open on demand.
 
@@ -82,7 +83,7 @@ synchronized cue window. No notes are required for the main teaching route.
 
 ## AC/DC foundations and 800 V
 
-Open [the twelve-scene teaching sequence](teach.html). It covers selected D06
+Open [the thirteen-scene teaching sequence](teach.html). It covers selected D06
 ideas with D01/D04 foundations: closed DC loop, AC power dips, three balanced
 phases, line-to-line voltage, copper and current, then conversion placement.
 

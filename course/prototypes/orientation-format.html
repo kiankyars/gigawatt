@@ -6,9 +6,9 @@
     <meta name="color-scheme" content="light dark" />
     <meta
       name="description"
-      content="Trace a data center's power, heat and information paths, choose measurement boundaries, and compare energy, peak demand and useful work."
+      content="Tour generation, transmission, campus power, compute, networks and cooling before comparing capacity, demand and efficiency."
     />
-    <title>Inside the facility · GIGAWATT</title>
+    <title>Data center overview · GIGAWATT</title>
     <style>
       :root {
         color-scheme: light;
@@ -370,7 +370,7 @@
       </header>
       <main>
         <header>
-          <p class="eyebrow">D01 · INSIDE THE FACILITY</p>
+          <p class="eyebrow">D01 · DATA CENTER OVERVIEW</p>
           <h1 id="title"></h1>
         </header>
         <section id="stage" aria-label="Facility systems and measurement">
@@ -394,13 +394,14 @@
     </div>
     <dialog id="reading" aria-labelledby="reading-title">
       <header>
-        <h2 id="reading-title">Inside the facility</h2>
+        <h2 id="reading-title">Data center overview</h2>
         <button id="close-reading" aria-label="Close explanation">×</button>
       </header>
       <p class="scope">
-        Six scenes introduce facility rooms, a GB300 NVL72 rack, rating versus
-        load, scheduling LLM evaluations and PUE. Product requirements and
-        original operating assumptions are labeled separately.
+        Thirteen scenes tour generation, transmission, campus power, backup,
+        racks, networks and cooling before comparing rating, demand and PUE.
+        Product requirements and original operating assumptions are labeled
+        separately.
       </p>
       <h3 id="explanation-title"></h3>
       <div id="explanation"></div>
@@ -498,6 +499,43 @@
             evaluation queue and MW schedule are original assumptions, not
             Google telemetry.
           </li>
+          <li>
+            <a
+              href="https://www.eia.gov/energyexplained/electricity/how-electricity-is-generated.php"
+              >EIA — How electricity is generated</a
+            >: generator, turbine and photovoltaic mechanisms; historical
+            generation shares are not used.
+          </li>
+          <li>
+            <a
+              href="https://www.eia.gov/energyexplained/electricity/delivery-to-consumers.php"
+              >EIA — Delivery to consumers</a
+            >: interconnected grid, transmission, distribution and transformer
+            roles. Campus voltages remain unspecified.
+          </li>
+          <li>
+            <a
+              href="https://prod.vertiv.cn/4a9616/globalassets/documents/white-papers/liquid-cooling/vertiv-liquidcooling-wp-en-na-sl-71113-web.pdf#page=14"
+              >Vertiv — Deploying Liquid Cooling, pages 14–15</a
+            >: explicitly discusses white-space versus gray-space
+            mechanical-gallery placement and service access. Pages 9–10 explain
+            separate liquid circuits and remaining air cooling. No universal
+            location or heat split is assumed.
+          </li>
+          <li>
+            <a
+              href="https://www.electrical-installation.org/enwiki/Presence_of_an_Uninterruptible_Power_Supply_%28UPS%29"
+              >Schneider Electric — Presence of a UPS</a
+            >: UPS support across the generator-start interval. The opening
+            depicts one online-UPS architecture, not a switching procedure.
+          </li>
+          <li>
+            <a
+              href="https://www.corning.com/data-center/worldwide/en/home/applications/multi-tenant-data-center/meet-me-room.html"
+              >Corning — Meet-me room and outside plant</a
+            >: physical entry and carrier interconnection. The generic network
+            preview is not a specified cable design.
+          </li>
         </ul>
       </details>
       <p>
@@ -515,6 +553,8 @@
     <script type="module">
       import { renderSpatial } from "./orientation-spatial.js";
       import { renderQuantities } from "./orientation-quantities.js";
+      import { renderPowerTour } from "./orientation-power-tour.js";
+      import { renderComputeTour } from "./orientation-compute-tour.js";
       const $ = (id) => document.getElementById(id);
       const state = {
         path: "power",
@@ -550,7 +590,55 @@
           description:
             "A floor plan labels the IT hall as white space and supporting electrical and mechanical rooms as gray space.",
           explanation:
-            "White space is the area housing IT equipment and immediate supporting infrastructure. Gray space describes back-of-house electrical, mechanical and service areas. The names classify areas, not equipment types: some power and cooling equipment can sit alongside racks. This introduction only establishes the room vocabulary. Detailed CDU placement belongs with the cooling system, so the relocation exercise is omitted.",
+            "White space is the area housing IT equipment and immediate supporting infrastructure. Gray space describes back-of-house electrical, mechanical and service areas. The names classify areas, not equipment types: some power and cooling equipment can sit alongside racks. This introduction only establishes the room vocabulary. The choice of CDU location affects service access, occupied space and piping; D10 and D12 develop those design tradeoffs. Vertiv discusses white-space and mechanical-gallery placement explicitly on printed pages 14–15.",
+        },
+        {
+          id: "generation",
+          label: "Generation",
+          title:
+            "Thermal, wind, solar and hydro plants supply the shared grid.",
+          reference: "d03-service-and-siting",
+          visual: "power-tour",
+          description:
+            "Four recognizable generation sources connect to a shared grid: a thermal power plant, wind turbine, solar panels and hydroelectric dam.",
+          explanation:
+            "This is a tour of energy-conversion routes, not a ranking of generation technologies. Fuel or nuclear heat can drive a turbine; moving air or water can also turn a generator. Photovoltaic solar cells instead produce DC electricity without a rotating generator, with inverters providing the grid interface. A battery stores energy supplied earlier. Grid-connected facilities draw from an interconnected network, not a traceable dedicated path from one named power plant. Source contracts and behind-the-meter generation are developed in D03.",
+        },
+        {
+          id: "transmission",
+          label: "Transmission",
+          title:
+            "High-voltage transmission carries power between regions and load centers.",
+          reference: "d04-read-the-power-train",
+          visual: "power-tour",
+          description:
+            "A generator feeds a step-up transformer, high-voltage transmission lines and a receiving substation with step-down transformation.",
+          explanation:
+            "Step-up transformers raise AC voltage for transmission. At a given transferred power, higher voltage allows lower current, reducing resistive losses for the same conductor resistance. Receiving substations transform voltage for downstream networks and customers. The electrical grid contains many interconnected paths; this is one functional route. A large campus can connect at transmission or distribution voltage. There is no universal voltage ladder and transformation does not create additional power. Detailed AC, three-phase and protection mechanisms come later.",
+        },
+        {
+          id: "campus-power",
+          label: "Campus distribution",
+          title:
+            "The campus substation connects the site to its building power systems.",
+          reference: "d04-read-the-power-train",
+          visual: "power-tour",
+          description:
+            "An example campus boundary encloses the substation, building distribution and rack supplies. Optional on-site generation joins the distribution path; its protection and controls are not detailed.",
+          explanation:
+            "Follow the grid connection into the campus receiving substation, then the distribution network serving individual buildings. Transformers and switchboards adapt and route supply to building equipment. Switchgear provides switching and protection functions; exact devices, grounding and voltage levels depend on the design. On-site generation can connect within the customer system, but simply owning a generator does not establish island operation, sufficient fuel supply or permission to parallel with the grid. D03 and D04 examine those choices.",
+        },
+        {
+          id: "continuity-preview",
+          label: "Backup power",
+          title:
+            "Stored energy bridges a supply interruption while a generator starts.",
+          reference: "d05-paths-and-transitions",
+          visual: "power-tour",
+          description:
+            "Utility and generator inputs meet at a source selector upstream of an online UPS. Inside the UPS, a rectifier supplies a DC link and inverter; a battery connects to the DC link through its interface.",
+          explanation:
+            "This is one online-UPS example. In normal operation the rectifier feeds the DC link and the inverter supplies the protected load. During loss of the upstream source, the battery supports that DC link through its battery interface while controls start and qualify the generator. Generator supply can then feed the UPS input through source selection. The inverter is already supplying the load; storage supports the interval rather than waiting for the generator. Runtime, source qualification, redundancy, bypass and the power required by cooling auxiliaries must be designed together. The diagram makes no transfer-time or unlimited-runtime promise; D05 provides the operating states.",
         },
         {
           id: "rack-boundary",
@@ -561,6 +649,41 @@
             "NVIDIA manufacturer image of GB300 NVL72. Published full-rack power requirement up to 142 kilowatts. AC supply feeds power shelves, then a DC busbar supplying rack components.",
           explanation:
             "NVIDIA’s enterprise reference architecture identifies a GB300 NVL72 full-rack requirement of up to 142 kW. That means kilowatts, not watts. It is not a constant measured draw and is not a universal OEM range: configurations, workloads and peak requirements differ. The hardware guide explains AC power shelves supplying a nominal 50–51 V DC busbar. The 142 kW bullet does not specify an exact AC/DC measurement plane or a PSU loss breakdown, so we do not invent one. At an actual AC inlet meter, internal power-supply losses are already included. The product image is supplied by NVIDIA; the three blocks show its functional supply path, not a new installation drawing.",
+        },
+        {
+          id: "compute-scale",
+          label: "Chip to cluster",
+          title: "Chips sit in compute trays; connected racks form a cluster.",
+          reference: "d07-rack-as-system",
+          visual: "compute-tour",
+          description:
+            "Physical nesting from chip to compute tray to rack, followed by several interconnected racks forming a logical compute cluster.",
+          explanation:
+            "The chip is one component. A compute tray or server brings processors, memory and their connections into an assembled system. Trays mount in a rack alongside support and communication hardware. A cluster is a coordinated collection of connected machines; its logical boundary need not match a room or building boundary. The hierarchy is generic and does not prescribe a universal number of processors, trays or racks. D07 develops compute and memory; D08 and D09 explain communication and coordination.",
+        },
+        {
+          id: "network-preview",
+          label: "Network connections",
+          title:
+            "Rack links, cluster networks and carrier connections serve different distances.",
+          reference: "d08-topology-budget",
+          visual: "compute-tour",
+          description:
+            "A rack-internal interconnect, a cluster network linking racks, a separate shared-storage connection and a campus-to-carrier handoff are shown as bidirectional communication paths.",
+          explanation:
+            "In the GB300 example, switched NVLink connects the processors within the rack-scale system. A separate cluster network connects systems for distributed work. Storage networking connects data and checkpoints to computing equipment; external connections link the campus to users, other sites and carrier networks. Those external fibers enter through planned entrances and handoffs such as a meet-me room. Copper and optics are selected for reach, bandwidth, power and serviceability; network function does not imply one universal cable medium. The diagram separates roles without specifying a protocol or production topology for every link.",
+        },
+        {
+          id: "cooling-preview",
+          label: "Heat to outdoors",
+          title:
+            "Two coolant loops carry cold-plate heat to the outdoor plant.",
+          reference: "d10-cdu-interfaces",
+          visual: "compute-tour",
+          description:
+            "The selected cold-plate heat path uses a technology coolant loop, a CDU heat exchanger and a separate facility loop leading to outdoor heat rejection. The room-air cooling path is outside this diagram.",
+          explanation:
+            "Cold plates capture selected component heat into a technology coolant loop. A liquid-to-liquid cooling distribution unit (CDU) transfers that heat across an exchanger to a separate facility loop; the fluids do not mix. Components outside the cold-plate path still need cooling, often through room air and an air handler. The outdoor system ultimately rejects the heat. This preview does not choose dry, evaporative or chilled-water operation; liquid cooling at the rack does not by itself imply that outdoor water is evaporated. D10 and D11 develop flow, approach temperatures, equipment choices and weather limits.",
         },
         {
           id: "facility-meter",
@@ -627,9 +750,13 @@
           compact ? "0 0 390 720" : "0 0 1160 600",
         );
         const visual =
-          index < 3
-            ? renderSpatial(s.id, state, compact)
-            : renderQuantities(s.id, state, compact);
+          s.visual === "power-tour"
+            ? renderPowerTour(s.id, state, compact)
+            : s.visual === "compute-tour"
+              ? renderComputeTour(s.id, state, compact)
+              : ["three-paths", "white-grey", "rack-boundary"].includes(s.id)
+                ? renderSpatial(s.id, state, compact)
+                : renderQuantities(s.id, state, compact);
         $("diagram").innerHTML =
           `<title id="diagram-title">${s.title}</title><desc id="diagram-description">${s.description}</desc>${visual}`;
       }

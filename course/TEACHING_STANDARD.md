@@ -1,6 +1,6 @@
 # Lesson and visual authoring standard
 
-Updated **2026-09-11**. The [course template](COURSE_REVIEW.md) owns audience,
+Updated **2026-09-12**. The [course template](COURSE_REVIEW.md) owns audience,
 scope and production priorities. The [domain map](domain-map.json) owns objectives,
 prerequisites and sequence. This file owns teaching rules; [PRESENTING.md](PRESENTING.md)
 owns the rehearsal playbook and controls. Do not create another design brief for
@@ -11,13 +11,20 @@ an individual lesson.
 The reviewed UPS, 800 V and D10/D11 cooling sequences establish an approach:
 **pose a concrete problem → show the mechanism → change one condition → explain
 the consequence**. Select the visual and example that make the particular topic
-understandable. There is no fixed slide count, three-lessons-per-domain quota or
-runtime to fill. A chapter can span parts of several domains.
+understandable. The course template records the working goal of at least 300
+substantive slides. Individual chapters have no fixed slide count or
+three-lessons-per-domain quota; a chapter can span parts of several domains.
 
 Retain material that helps the learner explain, calculate, compare or diagnose
 the facility. Cut article-by-article narration, equipment inventories without a
 purpose and arithmetic that does not affect the engineering decision. A longer
 reference is useful; narrating it does not produce a better lesson.
+
+The opening is a broad orientation: preview the equipment, locations and paths
+that later sections explain in depth. Briefly naming generation, transmission,
+backup, compute, networking and cooling is useful here; each preview needs a
+visible role in the same facility journey. Save detailed comparisons for the
+section where the learner has the prerequisites.
 
 Use these rules when adapting each sequence:
 
