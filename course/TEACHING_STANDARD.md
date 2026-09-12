@@ -20,11 +20,58 @@ the facility. Cut article-by-article narration, equipment inventories without a
 purpose and arithmetic that does not affect the engineering decision. A longer
 reference is useful; narrating it does not produce a better lesson.
 
-The opening is a broad orientation: preview the equipment, locations and paths
+The optional [D00 primer](prototypes/terminology-format.html) precedes D01 and aims
+for about 20 minutes, subject to rehearsal. Introduce electricity basics and
+recurring electrical, thermal and computing terms through a few visible
+relationships. The promise is: “You are hearing these terms once now. Don't worry;
+we will explain them again when we get to the system that uses them.” Seek
+recognition, not memorization or mastery. D00 adds no prerequisite, required
+domain or assessed objective. Reintroduce every term at its first useful
+application even if it appeared in the primer.
+
+D01 remains a broad orientation: preview the equipment, locations and paths
 that later sections explain in depth. Briefly naming generation, transmission,
 backup, compute, networking and cooling is useful here; each preview needs a
 visible role in the same facility journey. Save detailed comparisons for the
 section where the learner has the prerequisites.
+
+### Abilene and the recurring case studies
+
+Use the original Crusoe-built Stargate campus in **Abilene, Texas** as the recurring
+real facility, just as a named hardware platform anchored the earlier course.
+Keep that campus distinct from the adjacent Microsoft development and from
+Crusoe/Redwood's solar-and-battery deployment in Sparks, Nevada. Introduce the
+reference in the companion and return to it as each physical system is taught.
+
+Carry the same facility through these questions:
+
+| Domains | Return to the campus to ask |
+| --- | --- |
+| D01–D02 | Which boundary and useful service are we describing? Preserve the existing D01 slides. |
+| D03–D06 | Which supply is available, which equipment can be delivered, and where are storage and conversion? |
+| D07–D09 | What compute, memory, network and storage inputs would establish accepted work? |
+| D10–D11 | How is heat captured, moved and rejected; which water circuit is being counted? |
+| D12–D14 | What must be built, accepted, maintained and recovered for that service to run? |
+| D15 | Which dated capacity, output and cost claims can actually enter the ledger? |
+
+Use published Abilene facts only where the source supports the exact building,
+date and condition. Otherwise label the mechanism or calculation **illustrative**;
+retain stable names and interfaces, and leave unknown as-built quantities unknown.
+A reference campus does not require inventing its full one-line or GPU inventory.
+
+Teach contrasting cases within their relevant systems: original Colossus for
+brownfield reuse; SemiAnalysis's Southaven/MiniHard procurement account for
+speed versus electrical efficiency; Sparks for solar, battery energy and backup;
+Abilene for non-evaporative rejection; Google for scheduling flexible demand.
+Each case needs a concrete choice, a mechanism, a changed condition and a short
+prediction with a revealed explanation. Keep source interpretation out of the
+main visual unless it changes the engineering conclusion. D00 remains first
+exposure to terms; detailed cases belong in the domains.
+
+The reader implements one optional active check-in at each domain boundary.
+Use those authored scenarios when adapting the remaining presentation sequences,
+with a spoken pause before the answer and a bridge to the next domain in the
+actual teaching order. Check-ins do not require a score or block progression.
 
 Use these rules when adapting each sequence:
 

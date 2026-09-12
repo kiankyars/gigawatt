@@ -78,6 +78,100 @@ class ExpansionTests(unittest.TestCase):
         ):
             b.load_course()
 
+    def test_domain_checkins_only_follow_each_domains_final_lesson(self):
+        lessons = self.course["lessons"]
+        checkins = [l for l in lessons if "domain_checkin" in l]
+        self.assertEqual(
+            {l["domain"] for l in checkins},
+            {d["id"] for d in self.course["domains"]},
+        )
+        self.assertEqual(len(checkins), len(self.course["domains"]))
+        for index, lesson in enumerate(lessons):
+            with self.subTest(lesson=lesson["id"]):
+                final_in_domain = (
+                    lesson["domain"] != "capstone"
+                    and lessons[index + 1]["domain"] != lesson["domain"]
+                )
+                self.assertEqual("domain_checkin" in lesson, final_in_domain)
+                if final_in_domain:
+                    checkin = lesson["domain_checkin"]
+                    self.assertEqual(checkin["domain"], lesson["domain"])
+                    self.assertEqual(checkin["next_lesson"], lessons[index + 1]["id"])
+                    self.assertEqual(checkin["next_domain"], lessons[index + 1]["domain"])
+                    self.assertEqual(checkin["next_title"], lessons[index + 1]["title"])
+
+    def test_checkins_follow_teaching_order_and_survive_lesson_merges(self):
+        raw = b.read(b.ROOT / "course/domain-checkins.json")
+        original = deepcopy(raw)
+        lessons = deepcopy(self.course["lessons"])
+        first_d01 = next(l for l in lessons if l["domain"] == "D01")
+        lessons = [l for l in lessons if l["domain"] != "D01" or l is first_d01]
+        for lesson in lessons:
+            lesson.pop("domain_checkin", None)
+        sequence = [d["id"] for d in self.course["domains"]]
+        b.attach_domain_checkins(raw, lessons, sequence)
+        self.assertEqual(raw, original)
+        self.assertEqual(first_d01["domain_checkin"]["next_domain"], "D02")
+        bridges = {
+            l["domain"]: l["domain_checkin"]["next_domain"]
+            for l in lessons if "domain_checkin" in l
+        }
+        self.assertEqual(bridges["D03"], "D12")
+        self.assertEqual(bridges["D12"], "D04")
+        self.assertEqual(bridges["D11"], "D13")
+        self.assertEqual(bridges["D15"], "capstone")
+
+    def test_incomplete_duplicate_or_misrouted_checkins_fail(self):
+        raw = b.read(b.ROOT / "course/domain-checkins.json")
+        sequence = [d["id"] for d in self.course["domains"]]
+        missing = deepcopy(raw)
+        missing["checkins"].pop()
+        duplicate = deepcopy(raw)
+        duplicate["checkins"].append(deepcopy(duplicate["checkins"][0]))
+        unknown = deepcopy(raw)
+        unknown["checkins"][0]["domain"] = "D99"
+        misrouted = deepcopy(raw)
+        next(c for c in misrouted["checkins"] if c["domain"] == "D03")["next_domain"] = "D04"
+        for record, message in [
+            (missing, "cover every domain"),
+            (duplicate, "Duplicate domain check-in"),
+            (unknown, "cover every domain"),
+            (misrouted, "follow course sequence"),
+        ]:
+            with self.subTest(message=message), self.assertRaisesRegex(b.ExpansionError, message):
+                b.attach_domain_checkins(record, deepcopy(self.course["lessons"]), sequence)
+
+    def test_checkins_require_a_scenario_prediction_reasoning_and_bridge(self):
+        raw = b.read(b.ROOT / "course/domain-checkins.json")
+        sequence = [d["id"] for d in self.course["domains"]]
+        for field in ("title", "scenario", "prompt", "answer", "explanation", "bridge"):
+            changed = deepcopy(raw)
+            changed["checkins"][0][field] = [] if field == "explanation" else ""
+            with self.subTest(field=field), self.assertRaises(b.ExpansionError):
+                b.attach_domain_checkins(changed, deepcopy(self.course["lessons"]), sequence)
+        changed = deepcopy(raw)
+        changed["checkins"][0]["promtp"] = changed["checkins"][0].pop("prompt")
+        with self.assertRaisesRegex(b.ExpansionError, "missing or unexpected fields"):
+            b.attach_domain_checkins(changed, deepcopy(self.course["lessons"]), sequence)
+
+    def test_markdown_includes_optional_domain_checkin_with_hidden_reasoning(self):
+        sources = {s["id"]: s for s in self.course["sources"]}
+        for lesson in self.course["lessons"]:
+            markdown = b.lesson_markdown(lesson, sources)
+            if checkin := lesson.get("domain_checkin"):
+                with self.subTest(domain=lesson["domain"]):
+                    boundary_text = markdown.split(" domain check-in: ", 1)[1]
+                    self.assertIn("Optional: pause and make a prediction", boundary_text)
+                    self.assertIn(checkin["scenario"], boundary_text)
+                    self.assertIn(checkin["prompt"], boundary_text)
+                    reveal = boundary_text.split("<details>", 1)[1].split("</details>", 1)[0]
+                    self.assertIn(checkin["answer"], reveal)
+                    for explanation in checkin["explanation"]:
+                        self.assertIn(explanation, reveal)
+                    self.assertIn(checkin["bridge"], boundary_text.split("</details>", 1)[1])
+            else:
+                self.assertNotIn(" domain check-in: ", markdown)
+
     def test_normalization_preserves_worked_steps_and_specific_source_limits(self):
         l = b.normalize(self.raw, self.catalog, self.objectives)
         for original, rendered in zip(
@@ -206,6 +300,7 @@ class ExpansionTests(unittest.TestCase):
         )
         cited = set(payload["lessons"][0]["source_ids"])
         self.assertEqual(cited, {s["id"] for s in payload["sources"]})
+        self.assertNotIn("domain_checkin", payload["lessons"][0])
 
 
 if __name__ == "__main__":

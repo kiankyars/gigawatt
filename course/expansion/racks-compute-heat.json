@@ -1724,6 +1724,13 @@
           "Within an isolated, approved acceptance environment, introduce an agreed non-destructive fault such as terminating one test worker after a completed checkpoint. Observe detection, cleanup, replacement allocation, state restoration and the first correct new output. Compare the result with an uninterrupted control using the declared correctness criteria. Then verify that temporary resources and stale processes are removed. This tests recovery as a service path rather than assuming that a restart command proves progress survived.",
           "The final report should say which service configuration passed, which degraded modes were exercised and which conditions remain untested. Keep raw logs, configuration identifiers, timestamps and output checksums with the report. Power-on counts and electrical capacity remain valuable infrastructure facts, but they are inputs to this acceptance exercise. The accepted output is an executable service commitment tied to workload, environment and recovery behavior."
         ]
+      },
+      {
+        "heading": "Case study: Google shifts flexible work through time",
+        "paragraphs": [
+          "Google’s October 2023 account describes pilots that shifted eligible non-urgent tasks across time and location to reduce demand during grid stress. This complements the Sparks battery case: storage shifts available energy through time; scheduling shifts work and its demand. Neither changes every workload into a flexible job.",
+          "Consider an original teaching brief: a video-processing job must finish tomorrow, while an interactive request must respond in 200 ms. A two-hour grid event may allow the video job to move if enough later capacity remains. The same delay would fail the interactive service. Check deadlines, progress retention, placement and the later peak before promising a demand reduction. Moving execution does not automatically reduce its total energy."
+        ]
       }
     ],
     "example": {
@@ -1790,6 +1797,13 @@
         "claim": "A reference cluster includes orchestration, system management, libraries and operating-system components.",
         "reviewed_on": "2026-09-06",
         "limits": "Vendor reference stack, updated November 19, 2025; it does not certify an arbitrary tenant environment."
+      },
+      {
+        "title": "Google — Supporting power grids with demand response",
+        "url": "https://cloud.google.com/blog/products/infrastructure/using-demand-response-to-reduce-data-center-power-consumption",
+        "claim": "Compare storing energy with rescheduling eligible non-urgent work during grid stress.",
+        "reviewed_on": "2026-09-12",
+        "limits": "Publisher-indexed introduction reviewed after direct fetch timed out. Historical pilot description; no claim that every workload can move or that reduced demand necessarily reduces total energy."
       }
     ],
     "terms": [

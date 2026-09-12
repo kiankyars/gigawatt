@@ -1,5 +1,12 @@
 # Course verification
 
+## Desktop browser preference — 2026-09-12
+
+Use the built-in Codex browser for interactive and visual checks on this Mac.
+Do not download or launch standalone Chrome for Testing or Playwright browser
+binaries here. Existing browser test harnesses remain available for a separately
+configured test environment; run local model and build checks without a browser.
+
 ## Automated checks
 
 ```sh
@@ -624,3 +631,46 @@ Eight full-screen checks across the four teaching sets passed. All 52 Python
 and 75 JavaScript tests passed; generated artifacts, source metadata, the thirteen
 lesson links and site staging checks passed. No additional recorded runtime or
 whole-domain completion is claimed.
+
+## D00 primer and D02 workload presentation — 2026-09-12
+
+D00 adds 18 optional first-exposure scenes with a planned 1,200-second pacing
+outline. D02 adds 19 scenes across the three workload lessons. D01 remains
+unchanged. Runtime and learner comprehension require an aloud dry run.
+
+- All 52 Python and 94 JavaScript tests passed, including 19 new workload tests
+  for memory partitions, complete energy/output accounts, FIFO batching,
+  independent job phases and acceptance boundaries.
+- Before the desktop browser preference below, D00 passed both themes, four
+  viewports, its interactive states, keyboard/dialog behavior and D01 handoff.
+  D02 passed 320 scene/state layout checks, numerical comparisons, control
+  restoration, keyboard/touch navigation, reveals, dialogs and fullscreen.
+- Generated course, domain map and research metadata freshness checks passed.
+  Screenshots were inspected for desktop/mobile legibility and diagram meaning.
+  Final D02 navigation and arrow changes passed static checks; their last
+  interactive inspection remains pending in the built-in browser.
+
+## Domain checks and cases — 2026-09-12
+
+D00 now has 16 substantive scenes and 1,110 seconds of provisional cues; this
+supersedes the earlier 18-scene/1,200-second version. Opening and closing roadmap
+slides were removed. Historical hashes still resolve to circuit and PUE.
+
+The reader includes 15 domain-end scenarios and answer reveals. Case treatments
+cover original Colossus reuse, the attributed SemiAnalysis equipment lead-time
+workaround, Crusoe/Redwood solar and batteries, Abilene cooling, and Google's
+flexible demand. The original Abilene campus is the recurring reference; the
+adjacent Microsoft project stays distinct. D02 hands off to the first D03 lesson.
+
+57 Python tests and 94 existing JavaScript model tests passed, as did exact
+freshness checks for the reader, domain map, source library and historical course.
+The case models and new visual walkthrough are checked separately below.
+
+Case-study checks passed for the 200 MW three-phase current values (3.347 kA at
+34.5 kV; 0.717 kA at 161 kV), ideal battery durations (21 and 10.5 hours), invalid
+denominators, nine unique scene IDs, source keys and reader destinations. All
+three new presentation shells pass JavaScript syntax checks. A first overly
+precise hand-rounded expected-current value in the ad hoc check was corrected;
+the implementation formula was unchanged. Final new case layouts and the small
+D00 opening/PUE changes still need a built-in-browser visual walkthrough; earlier
+standalone browser checks do not cover these changes.

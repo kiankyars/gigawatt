@@ -2,7 +2,7 @@
 
 **From watts to racks, useful compute, and operation.**
 
-[Read the course](course/index.html) · [Explore the 800 V sample](course/sample.html)
+[D00 optional primer](course/prototypes/terminology-format.html) · [Read the course](course/index.html) · [Explore the 800 V sample](course/sample.html)
 · [Teach](course/teach.html) · [Domain atlas](course/domain-map.html)
 · [Research library](research/INDEX.md)
 
@@ -33,13 +33,24 @@ evidence; they do not add curriculum requirements. Technical checks live in
 
 ## Current state
 
+Begin with [D00 — Electricity basics and recurring terminology](course/prototypes/terminology-format.html)
+for an optional first exposure, then continue to the existing
+[D01 — Data center overview](course/prototypes/orientation-format.html).
+D00 aims for about 20 minutes, pending rehearsal. It gives familiar names to
+ideas that will be explained again when each system needs them; it adds no
+required domain or objective to the curriculum.
+
 The expanded reader contains 50 authored lessons across 15 domains, including
 five integrated cases, with teaching and practice mapped to all 65 objectives.
 It includes searchable text, a glossary, eight numerical model types and five
 original GPT ImageGen equipment illustrations. Exact calculations use code;
 illustrative geometry does not establish equipment ratings.
 
-The ten-step 480 V AC / 800 V DC sample has separate student, teaching and
+The new [D02 teaching sequence](course/prototypes/workload-format.html?teach=1) adds
+19 scenes on workload requirements, memory budgets, useful output, batching and
+demand timing. Both new sections await an aloud dry run.
+
+The thirteen-scene 480 V AC / 800 V DC sample has separate student, teaching and
 presenter-note views. It makes copper and conversion placement visible, then
 compares current, losses and a changed load. The full-course presentation
 adaptation, external engineering review and learner dry runs remain pending.

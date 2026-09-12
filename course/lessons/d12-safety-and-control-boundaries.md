@@ -81,3 +81,24 @@ Adding 100 W increases support demand by 25 percent, so the constant-energy dura
 
 - [NIST SP 800-82 Revision 3: OT Security](https://csrc.nist.gov/pubs/sp/800/82/r3/final) — The abstract includes building automation and physical access within OT and identifies reliability and safety requirements. Read 2026-09-06. Publication abstract and revision context inspected; this lesson does not claim full implementation review of the 2023 guide or any draft successor.
 - [OSHA 1910.333: Electrical work practices](https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.333) — Indexed regulatory excerpts address stored energy and qualified work. Read 2026-09-06. Relevant public indexed excerpts reviewed; no field procedure or jurisdiction-wide compliance claim is supplied.
+
+## D12 domain check-in: It fits until replacement day
+
+Optional: pause and make a prediction, then compare your reasoning. You can continue whenever you are ready.
+
+A hypothetical equipment room has enough floor area and verified structural capacity. A required cabinet will enter before the final wall is built, but its assembled replacement cannot pass through the finished access route.
+
+**Pause and predict:** Is the layout ready to accept? Identify the missing condition.
+
+<details>
+<summary>Compare your reasoning</summary>
+
+No. The layout has not demonstrated a workable replacement route.
+
+Installation, operation and replacement are different physical configurations. A cabinet footprint and acceptable floor loading do not establish how the equipment can later leave or return. The design needs a verified route or an agreed, feasible replacement method before the layout is accepted.
+
+</details>
+
+**The next problem:** With the physical routes established, follow the electrical route: what must each device between the campus connection and the load do?
+
+Continue in **D04**: Read a power train as a set of jobs.

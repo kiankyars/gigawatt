@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="color-scheme" content="light dark" />
+<meta name="description" content="D00: an optional twenty-minute first encounter with electricity basics and the words used throughout GIGAWATT. Every term returns in context." />
+<title>D00 · Electricity basics and recurring terminology · GIGAWATT</title>
+<style>
+      :root {
+        color-scheme: light;
+        --paper: #f4f3ee;
+        --text: #193139;
+        --muted: #5b6c70;
+        --line: #c8d4d4;
+        --panel: #e8eeea;
+        --surface: #fbfcf8;
+        --power: #086e83;
+        --heat: #ac4e2f;
+        --data: #6951a5;
+        font-family:
+          Inter,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        color: var(--text);
+        background: var(--paper);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          color-scheme: dark;
+          --paper: #101b1f;
+          --text: #e8f1ef;
+          --muted: #a8bfbd;
+          --line: #35504f;
+          --panel: #1b2d31;
+          --surface: #142428;
+          --power: #74d9e6;
+          --heat: #f2a387;
+          --data: #c3b2ff;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+      }
+      button,
+      select,
+      a {
+        font: inherit;
+      }
+      a {
+        color: var(--power);
+      }
+      button,
+      select {
+        color: inherit;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        min-height: 40px;
+        padding: 8px 13px;
+        cursor: pointer;
+      }
+      button:hover,
+      select:hover {
+        border-color: var(--muted);
+      }
+      button:disabled {
+        opacity: 0.35;
+        cursor: default;
+      }
+      button[aria-pressed="true"] {
+        color: var(--paper);
+        background: var(--text);
+        border-color: var(--text);
+      }
+      :is(button, select, a, summary):focus-visible {
+        outline: 3px solid var(--heat);
+        outline-offset: 3px;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+      #viewer {
+        height: 100svh;
+        max-width: 1920px;
+        margin: auto;
+        background: var(--paper);
+        display: grid;
+        grid-template-rows: 52px minmax(0, 1fr) 62px;
+      }
+      #viewer::backdrop {
+        background: var(--paper);
+      }
+      .toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        padding: 0 28px;
+        border-bottom: 1px solid var(--line);
+      }
+      .brand {
+        color: inherit;
+        text-decoration: none;
+        letter-spacing: 1.5px;
+        font-size: 12px;
+        font-weight: 800;
+      }
+      .toolbar nav {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .toolbar button,
+      .toolbar nav a {
+        font-size: 12px;
+      }
+      main {
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        padding: 20px 4vw 0;
+        gap: 8px;
+      }
+      .eyebrow {
+        color: var(--power);
+        font-size: 10px;
+        font-weight: 750;
+        letter-spacing: 2px;
+        margin: 0 0 10px;
+      }
+      h1 {
+        font:
+          400 clamp(29px, 3.3vw, 51px)/1.09 Georgia,
+          serif;
+        letter-spacing: -0.7px;
+        text-wrap: balance;
+        margin: 0;
+        max-width: 1450px;
+      }
+      #stage {
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+      }
+      #diagram {
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+        flex: 1;
+        overflow: visible;
+        font-family: inherit;
+      }
+      #actions {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        flex-wrap: wrap;
+        padding: 0 0 10px;
+      }
+      #actions:empty {
+        display: none;
+      }
+      #actions button {
+        font-size: 13px;
+      }
+      .choices {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        flex-wrap: wrap;
+      }
+      .choices-label {
+        font-size: 12px;
+        color: var(--muted);
+        margin-right: 5px;
+      }
+      footer {
+        border-top: 1px solid var(--line);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        padding: 0 28px;
+      }
+      .navigation {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      #progress {
+        font-size: 12px;
+        font-variant-numeric: tabular-nums;
+        color: var(--muted);
+        min-width: 45px;
+        text-align: center;
+      }
+      #scenes {
+        max-width: 250px;
+        width: min(250px, 35vw);
+        font-size: 13px;
+      }
+      dialog {
+        color: var(--text);
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        width: min(760px, 94vw);
+        max-height: 86svh;
+        padding: 25px 30px;
+        line-height: 1.65;
+      }
+      dialog::backdrop {
+        background: #08131ab3;
+      }
+      dialog header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      dialog h2 {
+        font:
+          normal 29px Georgia,
+          serif;
+        margin: 0;
+      }
+      dialog h3 {
+        font-size: 17px;
+      }
+      dialog summary {
+        cursor: pointer;
+        font-weight: 650;
+      }
+      dialog p {
+        font-size: 15px;
+      }
+      dialog details {
+        border-top: 1px solid var(--line);
+        padding-top: 14px;
+        margin-top: 18px;
+      }
+      dialog li {
+        margin: 9px 0;
+      }
+      dialog .scope {
+        color: var(--muted);
+      }
+      @media (max-width: 600px) {
+        #viewer {
+          height: auto;
+          min-height: 100svh;
+          grid-template-rows: 52px minmax(0, 1fr) 62px;
+        }
+        .toolbar {
+          padding: 0 15px;
+        }
+        .toolbar nav {
+          gap: 6px;
+        }
+        .toolbar .reading-link {
+          display: none;
+        }
+        .toolbar button {
+          padding: 6px 9px;
+        }
+        main {
+          padding: 20px 8px 5px;
+          gap: 12px;
+        }
+        main > header {
+          padding: 0 7px;
+        }
+        h1 {
+          font-size: 31px;
+        }
+        #diagram {
+          min-height: 650px;
+          height: 650px;
+          flex: none;
+        }
+        #actions {
+          padding: 5px 7px 12px;
+        }
+        #actions button {
+          font-size: 12px;
+          padding: 8px 11px;
+        }
+        footer {
+          padding: 0 15px;
+          gap: 8px;
+        }
+        #scenes {
+          width: 44vw;
+        }
+        .navigation {
+          gap: 5px;
+        }
+        footer button {
+          padding: 7px 10px;
+        }
+        dialog {
+          padding: 20px;
+        }
+      }
+      @media (max-height: 500px) and (min-width: 601px) {
+        #viewer {
+          height: auto;
+          min-height: 100svh;
+        }
+        #diagram {
+          min-height: 510px;
+        }
+        footer {
+          height: 62px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          scroll-behavior: auto !important;
+        }
+      }
+      @media print {
+        #viewer {
+          height: auto;
+        }
+        .toolbar,
+        footer,
+        #actions {
+          display: none;
+        }
+        #diagram {
+          min-height: 600px;
+        }
+      }
+
+#next-section {font-size: 15px; padding: 10px 16px; border: 1px solid var(--power); border-radius: 8px; text-decoration: none;}
+#next-section:hover {background: var(--panel);}
+#reading a {overflow-wrap: anywhere;}
+#primer-note {margin: 10px 0 0; color: var(--muted); font-size: 14px; line-height: 1.4;}
+@media(max-width:600px) { .toolbar .brand {font-size:10px;letter-spacing:1px;} .toolbar nav a {font-size:11px;} .toolbar button {font-size:11px;padding:6px;} .toolbar {padding:0 10px;gap:5px;} }
+</style>
+</head>
+<body>
+<div id="viewer">
+<header class="toolbar"><a class="brand" href="../index.html">GIGAWATT</a><nav aria-label="Lesson resources"><a id="skip-primer" href="orientation-format.html">Skip to D01</a><button id="explain">Explanation</button><button id="fullscreen" hidden>Full screen</button></nav></header>
+<main><header><p class="eyebrow">D00 · OPTIONAL PRIMER</p><h1 id="title">A simple circuit has a source, a load and a return path</h1><p id="primer-note" hidden>No memorization required. We will explain these terms again in their systems.</p></header>
+<section id="stage" aria-label="Electricity basics and recurring terminology"><svg id="diagram" role="img" aria-labelledby="diagram-title diagram-description"></svg><div id="actions"></div></section>
+</main>
+<footer><label class="sr-only" for="scenes">Choose scene</label><select id="scenes"></select><div class="navigation"><button id="previous" aria-label="Previous scene">←</button><span id="progress" aria-live="polite"></span><button id="next" aria-label="Next scene">→</button></div></footer>
+</div>
+<dialog id="reading" aria-labelledby="reading-title"><header><h2 id="reading-title">D00 · First exposure</h2><button id="close-reading" aria-label="Close explanation">×</button></header><h3 id="explanation-title"></h3><p id="explanation"></p><p id="returns"></p><p><a id="lesson-reference" href="../index.html#d01-boundaries">Read the later lesson</a></p><details><summary>Sources and reading limits</summary><ul id="source-list"></ul></details><details id="teaching-cues" hidden><summary>Rehearsal cue</summary><p id="timing"></p><p>Introduce the name and point at what it describes. Reassure learners that it returns in context. Allow about twenty minutes, pending an aloud rehearsal.</p></details></dialog>
+<noscript><p>This optional primer introduces the names once. Don't worry: we explain them again when they matter. <a href="../EXPANDED_COURSE.md">Read the course explanations</a> or <a href="orientation-format.html">continue to D01</a>.</p></noscript>
+<script type="module">
+import {scenes,sources,sceneAliases} from './terminology-scenes.js';
+import {renderTerminology} from './terminology-visuals.js';
+const $=id=>document.getElementById(id);
+const state={circuit:'closed',resistanceVoltage:'12',hours:'1',angle:'90'};
+const teaching=new URLSearchParams(location.search).get('teach')==='1';
+const d01=`orientation-format.html${teaching?'?teach=1':''}#three-paths`;
+$('skip-primer').href=d01;
+$('fullscreen').hidden=!teaching;
+$('teaching-cues').hidden=!teaching;
+$('scenes').innerHTML=scenes.map((s,i)=>`<option value="${i}">${i+1}. ${s.label}</option>`).join('');
+let index=0;
+function draw(){
+ const s=scenes[index],compact=matchMedia('(max-width:600px)').matches;
+ $('diagram').setAttribute('viewBox',compact?'0 0 390 720':'0 0 1160 600');
+ $('diagram').innerHTML=`<title id="diagram-title">${s.title}</title><desc id="diagram-description">${s.description}</desc>${renderTerminology(s.id,state,compact)}`;
+}
+function render(){
+ const s=scenes[index];
+ $('title').textContent=s.title;document.title=`D00 · ${s.label} · GIGAWATT`;
+ $('primer-note').hidden=s.id!=='circuit';
+ $('scenes').value=String(index);$('progress').textContent=`${index+1} / ${scenes.length}`;
+ $('previous').disabled=index===0;$('next').disabled=index===scenes.length-1;
+ $('actions').innerHTML=s.options?`<div class="choices" role="group" aria-label="${s.group}"><span class="choices-label" aria-hidden="true">${s.group}</span>${s.options.map(([value,label])=>`<button data-setting="${s.key}" data-value="${value}" aria-pressed="${state[s.key]===value}">${label}</button>`).join('')}</div>`:index===scenes.length-1?`<a id="next-section" href="${d01}">Continue to D01</a>`:'';
+ $('explanation-title').textContent=s.title;$('explanation').textContent=s.explanation;$('returns').textContent=s.returns;
+ $('lesson-reference').href=`../index.html#${s.reference}`;
+ $('source-list').replaceChildren();
+ for(const key of s.sources){const source=sources[key],li=document.createElement('li'),a=document.createElement('a');a.href=source.url;a.textContent=source.title;li.append(a,document.createTextNode(` — Reviewed ${source.reviewed_on}. ${source.limits}`));$('source-list').append(li);}
+ if(!s.sources.length){const li=document.createElement('li');li.textContent='Course navigation and original teaching guidance.';$('source-list').append(li);}
+ const elapsed=scenes.slice(0,index).reduce((total,s)=>total+s.seconds,0),time=n=>`${Math.floor(n/60)}:${String(n%60).padStart(2,'0')}`;
+ $('timing').textContent=`Planned cue: ${time(elapsed)}–${time(elapsed+s.seconds)}. About ${s.seconds} seconds for this slide.`;
+ draw();
+}
+function go(i){index=Math.max(0,Math.min(scenes.length-1,i));history.replaceState(null,'',`#${scenes[index].id}`);render();}
+function fromHash(){const requested=location.hash.slice(1),id=sceneAliases[requested]||requested,found=scenes.findIndex(s=>s.id===id);index=found<0?0:found;if(sceneAliases[requested])history.replaceState(null,'',`#${id}`);render();}
+$('actions').addEventListener('click',e=>{const b=e.target.closest('[data-setting]');if(!b)return;state[b.dataset.setting]=b.dataset.value;render();document.querySelector(`[data-setting="${b.dataset.setting}"][data-value="${b.dataset.value}"]`)?.focus();});
+$('previous').addEventListener('click',()=>go(index-1));$('next').addEventListener('click',()=>go(index+1));$('scenes').addEventListener('change',e=>go(Number(e.target.value)));
+$('explain').addEventListener('click',()=>$('reading').showModal());$('close-reading').addEventListener('click',()=>$('reading').close());
+$('fullscreen').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await $('viewer').requestFullscreen();}catch{$('fullscreen').textContent='Use browser full screen';}});
+window.addEventListener('keydown',e=>{if($('reading').open||e.altKey||e.ctrlKey||e.metaKey||e.target.closest('button,select,input,textarea,a,[contenteditable]'))return;if(e.key==='ArrowRight'){e.preventDefault();go(index+1);}if(e.key==='ArrowLeft'){e.preventDefault();go(index-1);}if(e.key.toLowerCase()==='f'&&teaching)$('fullscreen').click();});
+window.addEventListener('hashchange',fromHash);matchMedia('(max-width:600px)').addEventListener('change',draw);fromHash();
+</script>
+</body>
+</html>

@@ -32,6 +32,14 @@ Consider a separate synthetic receiving load that can accept 2 MW for six hours,
 
 Whether reuse is preferable depends on the counterfactual and the constraints. Does it replace a receiving building’s fuel use, add electricity for a heat pump, or displace another low-emission source? Is the benefit delivered during the same hours that the data center needs rejection? Keep energy, water and emissions ledgers separate. The decisive comparison is a specified service arrangement against an alternative, with the assumptions that could reverse the answer visible.
 
+## Case study: Abilene closes the coolant loop, then rejects heat to air
+
+Crusoe’s August 2025 Abilene description specifies closed-loop facility water and air-cooled chillers for non-evaporative heat rejection. It separately accounts for initial fill and maintenance water. This dated design description is our recurring campus example, not an audited annual water balance.
+
+Follow the mechanism: fluid circulates inside the system, heat crosses the chiller interfaces, and outdoor air receives the rejected heat. Closed-loop describes the fluid path. Non-evaporative describes the rejection process. Neither term means zero compressor work, zero maintenance water or unlimited capacity on a hot day.
+
+Pause: would replacing the air-cooled rejection arrangement with an evaporative tower leave the water ledger unchanged merely because the equipment coolant loop stays closed? No. The equipment loop may still recirculate, while a separate tower circuit needs makeup water. Identify each circuit before applying a water-use claim to the whole campus.
+
 ## Worked example: A synthetic tower water ledger
 
 - One day; E = 100 m³/day, concentration ratio C = 5.
@@ -82,3 +90,25 @@ Lower concentration requires more blowdown in this model. It increases intake by
 
 - [DOE FEMP: Cooling Tower Management](https://www.energy.gov/cmei/femp/best-management-practice-10-cooling-tower-management) — Evaporation, blowdown, makeup and concentration mechanisms support the simplified conservation example. Read 2026-09-06. Overview and water-balance discussion inspected; no chemical dosing, operating limit or treatment procedure is reproduced.
 - [USGS National Water Availability Assessment Data Companion](https://waterdata.usgs.gov/blog/nwdc-overview/) — The water-use discussion distinguishes withdrawals from consumptive use. Read 2026-09-06. Selected definitions inspected; the lesson’s hypothetical return-flow assumption is not an observation about a real basin.
+- [Crusoe — Abilene cooling design](https://www.crusoe.ai/resources/blog/an-inside-look-at-the-abilene-ai-data-center) — Abilene provides a recurring example of grid supply, backup and closed-loop cooling with air-cooled heat rejection. Read 2026-09-12. Energy and water sections reviewed. Historical company design description, not audited operating water use. Initial fill and maintenance remain separate from non-evaporative heat rejection.
+
+## D11 domain check-in: What reaches the condenser?
+
+Optional: pause and make a prediction, then compare your reasoning. You can continue whenever you are ready.
+
+A hypothetical chiller removes 1.0 MW from its evaporator loop while its compressor consumes 0.2 MW. Ignore other heat transfers and exclude pumps and fans from this stated balance.
+
+**Pause and predict:** How much heat must its condenser reject, and what is the cooling COP at this boundary?
+
+<details>
+<summary>Compare your reasoning</summary>
+
+The condenser rejects 1.2 MW, and cooling COP is 1.0 / 0.2 = 5.
+
+The condenser receives the cooling duty plus compressor work: 1.0 + 0.2 MW. Cooling COP uses the evaporator duty as its numerator. This balance does not establish outdoor equipment capacity under a given climate, or account for the excluded pumps and fans.
+
+</details>
+
+**The next problem:** We have traced the power, work and heat paths. What evidence proves that the delivered equipment can operate as one complete service?
+
+Continue in **D13**: The longest lead time is not the completion date.

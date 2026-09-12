@@ -83,3 +83,24 @@ Power availability is a different indicator. The service failed its stated laten
 - [Management and Operations Guideline](https://uptimeinstitute.com/professional-services/management-operations/mando-criteria) — Maintenance tracking, staffing and incident learning are operational concerns beyond equipment topology. Read 2026-09-06. Selected category descriptions reviewed; no proprietary assessment or complete procedure is reproduced.
 - [Google SRE: Service Level Objectives](https://sre.google/sre-book/service-level-objectives/) — Service indicators and objectives need explicitly defined measurements. Read 2026-09-06. Selected metric-boundary discussion reviewed; the availability example is original.
 - [Google SRE: Postmortem Culture](https://sre.google/sre-book/postmortem-culture/) — Incident review is intended to support learning and improvement rather than blame. Read 2026-09-06. Selected postmortem principles inspected; timeline and proposed evidence questions are original.
+
+## D14 domain check-in: One reassuring number
+
+Optional: pause and make a prediction, then compare your reasoning. You can continue whenever you are ready.
+
+A hypothetical rack reports high device temperatures while the plant's displayed supply temperature looks normal. The plant reading is ten minutes old, and there is no current measurement of flow through the affected rack branch.
+
+**Pause and predict:** Does the normal plant reading establish that rack cooling is adequate? Identify the next evidence you need.
+
+<details>
+<summary>Compare your reasoning</summary>
+
+No. Obtain time-aligned measurements at the affected rack's thermal and flow boundaries before choosing a cause.
+
+A stale upstream temperature cannot establish current local flow or heat transfer. Current branch flow, supply and return temperatures, device temperatures and load history can help distinguish restricted flow, a changed load and faulty telemetry. The alarm alone does not select among them.
+
+</details>
+
+**The next problem:** Measurements reveal the constraint. Which intervention changes usable service enough to justify its cost and delivery time?
+
+Continue in **D15**: Find the constraint after reconciling the boundaries.

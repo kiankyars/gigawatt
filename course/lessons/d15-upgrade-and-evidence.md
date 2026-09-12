@@ -82,3 +82,24 @@ The first statement supports a publisher-reported instance of operation at a nam
 
 - [GAO Schedule Assessment Guide](https://www.gao.gov/products/gao-16-89g) — The guide overview connects schedule credibility and slippage with program cost assessment. Read 2026-09-06. Overview reviewed. The intervention prices, rates, horizon and screening ratios are original and are not project forecasts.
 - [OpenAI: Five new Stargate sites](https://openai.com/index/five-new-stargate-sites/) — The article distinguishes a multi-site planned capacity total from its statement about early workloads at Abilene. Read 2026-09-06. Main article and visible October 22, 2025 update inspected on September 6, 2026. This lesson audits the dated statements; it does not establish current operating MW, complete topology or site economics.
+
+## D15 domain check-in: Which upgrade changes the ceiling?
+
+Optional: pause and make a prediction, then compare your reasoning. You can continue whenever you are ready.
+
+For the same hypothetical rack population and operating condition, electrical capacity supports 12 racks, cooling 8, networking 10 and accepted service 9. Option A raises electrical capacity to 16; option B raises cooling capacity to 11. Assume the other limits stay fixed.
+
+**Pause and predict:** What ceiling follows from each option, and is that enough to choose an investment?
+
+<details>
+<summary>Compare your reasoning</summary>
+
+Option A leaves the ceiling at 8 racks. Option B raises it to 9, where accepted service becomes the limit. This alone does not settle the investment decision.
+
+Take the minimum across limits with matching boundaries: min(16, 8, 10, 9) = 8 and min(12, 11, 10, 9) = 9. Then compare delivery dates, costs and useful output from the added service. A capacity ceiling is neither measured demand nor a guaranteed business result.
+
+</details>
+
+**The next problem:** Take the whole chain into an integrated case: can you defend a decision while keeping its assumptions, evidence and unresolved constraints visible?
+
+Continue in **the integrated cases**: The servers stay powered. The service does not..

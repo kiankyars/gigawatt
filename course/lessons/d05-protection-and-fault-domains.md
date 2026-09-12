@@ -90,3 +90,24 @@ Doubling current multiplies I² by four; halving time divides by two. Net heatin
 - [ABB — Protection Devices for Direct Current Applications](https://library.e.abb.com/public/5cd83dcb95a74dcdb571be5f256e1af8/9AKK108470A9606_en_B_Protection%20Devices%20for%20Direct%20Current%20Applications%20-%20Technical%20Application%20Paper.pdf) — DC interruption and converter-fed fault behavior depend on circuit dynamics and device capabilities. Read 2026-09-06. Read the publicly indexed excerpt of section 6; the PDF URL responded successfully, but the complete document was not reviewed. No product selection is claimed.
 - [Schneider Electric — Definition of standardised earthing schemes](https://www.electrical-installation.org/enwiki/Definition_of_standardised_earthing_schemes) — Earthing schemes distinguish the source-earth relationship from exposed-part protective connections. Read 2026-09-06. Read publicly indexed definitions of the standardized schemes, not a site-specific grounding study.
 - [OpenStax — Electrical Energy and Power](https://openstax.org/books/university-physics-volume-2/pages/9-5-electrical-energy-and-power) — The fixed-current resistive energy example follows I²R multiplied by time. Read 2026-09-06. Read the public resistor-power equations; all fault currents and durations are hypothetical teaching inputs.
+
+## D05 domain check-in: Maintenance, then another loss
+
+Optional: pause and make a prediction, then compare your reasoning. You can continue whenever you are ready.
+
+Three hypothetical UPS modules can each deliver 1 MW to a common output serving 1.8 MW, including all protected auxiliaries. One module is isolated for maintenance; another then fails. Assume the surviving output path remains connected and has enough stored energy for the required bridge interval.
+
+**Pause and predict:** Can the full load remain supported? Explain which limit matters now.
+
+<details>
+<summary>Compare your reasoning</summary>
+
+No. Only 1 MW remains available for a 1.8 MW load, leaving a 0.8 MW power shortfall.
+
+With one module unavailable, the two remaining modules supplied 2 MW. Losing another removes that margin and more. Enough stored energy cannot overcome an output-power limit; preserving a smaller service would require a pre-established way to reduce the supported load.
+
+</details>
+
+**The next problem:** Carry those power, energy and failure boundaries into the rack. Which conversions and interfaces remain when its inlet voltage changes?
+
+Continue in **D06**: Follow the watts through the rack.

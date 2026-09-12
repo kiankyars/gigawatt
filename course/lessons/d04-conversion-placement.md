@@ -130,3 +130,24 @@ The altered assumption reverses the ranking. Path B now needs about 11.65 kW mor
 - [Hitachi Energy — Core-type transformers](https://www.hitachienergy.com/products-and-solutions/transformers/power-transformers/generator-step-up-transformers-gsu/core-type-transformers) — Transformer anatomy uses conductive windings and a laminated magnetic steel core. Read 2026-09-11. Product-family anatomy description reviewed. No rating or physical layout is adopted as a universal distribution-transformer specification.
 - [Schneider Electric — AA and AA/FA transformer cooling](https://www.se.com/ca/en/faqs/FA102583/) — Natural air convection and added fan cooling are distinct transformer cooling arrangements; fans are not inherent to the transformer function. Read 2026-09-11. FAQ cooling distinctions reviewed. No fan rating, installation requirement or universal capacity threshold is inferred.
 - [Eaton — Medium-voltage solid-state transformer](https://www.eaton.com/us/en-us/catalog/medium-voltage-power-distribution-control-systems/medium-voltage-solid-state-transformer.html) — Eaton lists a 2 MW MVSST with 12.47 kV nominal input and 800 V DC output, demonstrating a direct-MV product offering. Read 2026-09-11. Manufacturer product listing reviewed on 2026-09-11. Offered specifications do not establish installed capacity, deployment prevalence, lead time or a measured efficiency advantage.
+
+## D04 domain check-in: Which rating stops the load?
+
+Optional: pause and make a prediction, then compare your reasoning. You can continue whenever you are ready.
+
+At a hypothetical AC interface, a load needs 900 kW at power factor 0.9. The upstream transformer is rated 1,000 kVA, while a downstream device at the same voltage is limited to 950 kVA. Ignore losses and other constraints for this screen.
+
+**Pause and predict:** Does this path pass the stated capacity screen? Show the comparison.
+
+<details>
+<summary>Compare your reasoning</summary>
+
+No. The load requires 900 / 0.9 = 1,000 kVA, exceeding the downstream 950 kVA limit.
+
+The transformer reaches its stated rating, but every element of the path must carry the load. Comparing 900 kW directly with a kVA rating would hide the constraint. Passing this arithmetic screen would still leave installation and operating conditions to verify.
+
+</details>
+
+**The next problem:** A path that carries normal demand is only the start. What happens when supply is interrupted or equipment is unavailable?
+
+Continue in **D05**: A battery has two limits before it has a runtime.

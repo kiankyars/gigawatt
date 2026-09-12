@@ -22,6 +22,7 @@ const sourcesById = new Map(DATA.sources.map((s) => [s.id, s]));
 let current = 0,
   lookupMode = false;
 const drafts = new Map();
+const checkinDrafts = new Map();
 const ART = {
   campus: {
     file: "campus-cutaway.png",
@@ -134,7 +135,11 @@ function renderContents() {
   const q = $("search").value.trim().toLowerCase(),
     terms = q.split(/\s+/).filter(Boolean);
   const filtered = LESSONS.filter((l) =>
-    terms.every((t) => JSON.stringify(l).toLowerCase().includes(t)),
+    terms.every((t) =>
+      `${l.domain_checkin ? "domain check-in checkin " : ""}${JSON.stringify(l)}`
+        .toLowerCase()
+        .includes(t),
+    ),
   );
   $("lesson-count").textContent = `${LESSONS.length} lessons`;
   $("search-status").textContent = q
@@ -146,7 +151,7 @@ function renderContents() {
       .map((d) => {
         const ls = filtered.filter((l) => l.domain === d.id);
         if (!ls.length) return "";
-        return `<section class="domain-group"><h3><span>${esc(d.id === "capstone" ? "CASE" : d.id)}</span>${esc(d.title)}</h3>${ls.map((l) => `<button class="lesson-link${LESSONS[current]?.id === l.id && !lookupMode ? " active" : ""}" data-lesson="${esc(l.id)}" ${LESSONS[current]?.id === l.id && !lookupMode ? 'aria-current="page"' : ""}>${esc(l.title)}</button>`).join("")}</section>`;
+        return `<section class="domain-group"><h3><span>${esc(d.id === "capstone" ? "CASE" : d.id)}</span>${esc(d.title)}</h3>${ls.map((l) => `<button class="lesson-link${LESSONS[current]?.id === l.id && !lookupMode ? " active" : ""}" data-lesson="${esc(l.id)}" ${LESSONS[current]?.id === l.id && !lookupMode ? 'aria-current="page"' : ""}>${esc(l.title)}${l.domain_checkin ? '<small class="lesson-checkin-note">Ends with a domain check-in</small>' : ""}</button>`).join("")}</section>`;
       })
       .join("") ||
     '<p class="muted">No matching lessons. Try a shorter term.</p>';
@@ -185,6 +190,8 @@ function go(id, historyMode = "push") {
   if (!byLesson.has(id)) id = LESSONS[0].id;
   const previous = LESSONS[current];
   if (previous && $("response")) drafts.set(previous.id, $("response").value);
+  if (previous && $("checkin-response"))
+    checkinDrafts.set(previous.domain, $("checkin-response").value);
   current = byLesson.get(id);
   lookupMode = false;
   $("lookup").hidden = true;
@@ -279,11 +286,35 @@ function renderLesson() {
           : "";
       })
       .join("")}</details>`;
+  renderDomainCheckin(l.domain_checkin);
   $("position").textContent = `${current + 1} / ${LESSONS.length}`;
   $("previous").disabled = current === 0;
   $("next").textContent =
-    current === LESSONS.length - 1 ? "Back to start ↻" : "Next lesson →";
+    current === LESSONS.length - 1
+      ? "Back to start ↻"
+      : l.domain_checkin
+        ? l.domain_checkin.next_domain === "capstone"
+          ? "Continue to the cases →"
+          : `Continue to ${l.domain_checkin.next_domain} →`
+        : "Next lesson →";
   renderLab(l);
+}
+function renderDomainCheckin(checkin) {
+  const section = $("domain-checkin");
+  section.hidden = !checkin;
+  section.replaceChildren();
+  if (!checkin) return;
+  const nextLabel =
+    checkin.next_domain === "capstone"
+      ? "the integrated cases"
+      : checkin.next_domain;
+  section.innerHTML =
+    `<div class="eyebrow">PAUSE · PREDICT · CONNECT</div><h2 id="domain-checkin-title">${esc(checkin.domain)} domain check-in</h2><h3>${esc(checkin.title)}</h3><p class="boundary">Optional: pause and make a prediction, then compare your reasoning. Continue whenever you are ready.</p>${prose(checkin.scenario)}<p class="checkin-prompt">${esc(checkin.prompt)}</p><label for="checkin-response">Your reasoning — private to this page; clears on reload</label><textarea id="checkin-response" autocomplete="off" placeholder="Make your prediction and explain why."></textarea><details><summary>Compare your reasoning</summary><div><p class="answer">${esc(checkin.answer)}</p>${prose(checkin.explanation)}</div></details><div class="checkin-bridge"><h3>The next problem</h3>${prose(checkin.bridge)}<a href="#${esc(checkin.next_lesson)}" id="checkin-continue">Continue to ${esc(nextLabel)}: ${esc(checkin.next_title)} →</a></div>`;
+  $("checkin-response").value = checkinDrafts.get(checkin.domain) || "";
+  $("checkin-continue").addEventListener("click", (event) => {
+    event.preventDefault();
+    go(checkin.next_lesson);
+  });
 }
 function renderParcelComparison(visual) {
   const brief = visual.brief;

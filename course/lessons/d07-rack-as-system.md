@@ -80,3 +80,24 @@ The new mode recovers an allocation, but it does not make the fractured topology
 
 - [NVIDIA DGX SuperPOD — Network Fabrics](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/network-fabrics.html) — A named reference system distinguishes compute, storage and management fabrics and explicit topology groupings. Read 2026-09-06. H100 reference architecture updated November 19, 2025; no component counts or ratios are generalized.
 - [Open Rack/SpecsAndDesigns](https://www.opencompute.org/wiki/Open_Rack/SpecsAndDesigns) — Physical rack, power and liquid interfaces have separate versioned documents. Read 2026-09-06. An index is a starting point; actual installation and maintenance requirements must come from the supplied equipment.
+
+## D07 domain check-in: Twice the arithmetic, same progress?
+
+Optional: pause and make a prediction, then compare your reasoning. You can continue whenever you are ready.
+
+In a hypothetical model, computation and memory transfer overlap completely. A step needs 2 ms of arithmetic and 8 ms to fetch its inputs. An upgrade halves arithmetic time while leaving the memory path and all other conditions unchanged.
+
+**Pause and predict:** What happens to the modeled step time, and why?
+
+<details>
+<summary>Compare your reasoning</summary>
+
+It remains 8 ms: max(2, 8) and max(1, 8) are both 8.
+
+The memory path sets the limit in this supplied model, so extra arithmetic capacity does not shorten the step. The conclusion depends on complete overlap and unchanged data movement; a real job needs evidence about its dependencies and measured bottleneck.
+
+</details>
+
+**The next problem:** Inputs and results also move between devices. What happens when a shared network path becomes the slowest dependency?
+
+Continue in **D08**: Count the paths, not just the advertised ports.

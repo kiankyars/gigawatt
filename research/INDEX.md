@@ -189,6 +189,18 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P64 — NVIDIA DGX GB200/GB300 hardware guide — Power shelves](sources/P64.md) | NVIDIA | D01, D06 | page_reviewed |
 | [P65 — EIA — How electricity is generated](sources/P65.md) | U.S. Energy Information Administration | D01, D03 | public_excerpt_reviewed |
 | [P66 — EIA — Delivery of electricity to consumers](sources/P66.md) | U.S. Energy Information Administration | D01, D03, D04 | public_excerpt_reviewed |
+| [P67 — OpenStax · Resistance and simple circuits](sources/P67.md) | OpenStax, Rice University | D01, D04, D06 | page_reviewed |
+| [P68 — Schneider · Definition of power factor](sources/P68.md) | Schneider Electric | D04 | public_excerpt_reviewed |
+| [P69 — Eaton · UPS fundamentals handbook](sources/P69.md) | Eaton | D04, D05, D06 | page_reviewed |
+| [P70 — Intel · CPU versus GPU](sources/P70.md) | Intel | D07 | page_reviewed |
+| [P71 — Intel · Memory performance in a nutshell](sources/P71.md) | Intel | D07, D08, D09 | page_reviewed |
+| [P72 — OpenStax · Heat](sources/P72.md) | OpenStax, Rice University | D10, D11 | page_reviewed |
+| [P73 — Crusoe — Abilene campus development update](sources/P73.md) | Crusoe | D03, D12, D15 | page_reviewed |
+| [P74 — Crusoe — Abilene cooling design](sources/P74.md) | Crusoe | D03, D05, D10, D11 | page_reviewed |
+| [P75 — Crusoe and Redwood — Sparks microgrid update](sources/P75.md) | Crusoe | D03, D05, D14, D15 | page_reviewed |
+| [P76 — Crusoe — 2025 impact report web summary](sources/P76.md) | Crusoe | D03, D05, D12 | page_reviewed |
+| [P77 — Google — Supporting power grids with demand response](sources/P77.md) | Google | D02, D03, D09 | public_excerpt_reviewed |
+| [P78 — MLGW — xAI project quick facts](sources/P78.md) | Memphis Light, Gas and Water | D03, D04, D12 | page_reviewed |
 | [SA01 — Datacenter Anatomy Part 1: Electrical Systems](sources/SA01.md) | SemiAnalysis | D04, D05, D06, D13, D15 | public_excerpt_reviewed |
 | [SA02 — Datacenter Anatomy Part 2 – Cooling Systems](sources/SA02.md) | SemiAnalysis | D10, D11, D15 | public_excerpt_reviewed |
 | [SA03 — 100,000 H100 Clusters: Power, Network Topology, Ethernet vs InfiniBand, Reliability, Failures, Checkpointing](sources/SA03.md) | SemiAnalysis | D02, D07, D08, D09, D14 | public_excerpt_reviewed |
@@ -230,6 +242,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [SA39 — OpenAI Stargate Joint Venture Demystified \| Microsoft Sore Loser, Does Softbank Have The Capital?, Texas GigaCampus, Winners & Losers](sources/SA39.md) | SemiAnalysis | D01, D03, D13, D15 | public_excerpt_reviewed |
 | [SA40 — Google AI Infrastructure Supremacy: Systems Matter More Than Microarchitecture](sources/SA40.md) | SemiAnalysis | D02, D07, D08, D09, D15 | public_excerpt_reviewed |
 | [SA41 — What is So Hard About Behind-The-Meter Power For Datacenters? Part 1](sources/SA41.md) | SemiAnalysis | D03, D05, D12, D13, D15 | public_excerpt_reviewed |
+| [SA42 — SpaceX 10GW in 2027 — construction pace and equipment procurement](sources/SA42.md) | SemiAnalysis | D03, D04, D12, D13 | public_excerpt_reviewed |
 <!-- gigawatt-research:managed:end -->
 
 ## Research notes

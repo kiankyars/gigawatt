@@ -32,6 +32,12 @@ Within an isolated, approved acceptance environment, introduce an agreed non-des
 
 The final report should say which service configuration passed, which degraded modes were exercised and which conditions remain untested. Keep raw logs, configuration identifiers, timestamps and output checksums with the report. Power-on counts and electrical capacity remain valuable infrastructure facts, but they are inputs to this acceptance exercise. The accepted output is an executable service commitment tied to workload, environment and recovery behavior.
 
+## Case study: Google shifts flexible work through time
+
+Google’s October 2023 account describes pilots that shifted eligible non-urgent tasks across time and location to reduce demand during grid stress. This complements the Sparks battery case: storage shifts available energy through time; scheduling shifts work and its demand. Neither changes every workload into a flexible job.
+
+Consider an original teaching brief: a video-processing job must finish tomorrow, while an interactive request must respond in 200 ms. A two-hour grid event may allow the video job to move if enough later capacity remains. The same delay would fail the interactive service. Check deadlines, progress retention, placement and the later peak before promising a demand reduction. Moving execution does not automatically reduce its total energy.
+
 ## Worked example: Thirty-two free GPUs, no eligible allocation
 
 - A fictional cluster has two topology groups, each containing four nodes with eight GPUs per node.
@@ -82,3 +88,25 @@ Relaxing a constraint creates a new configuration. It may be worthwhile even wit
 - [Slurm Workload Manager — Topology Guide](https://slurm.schedmd.com/topology.html) — Topology-aware placement considers network groupings when selecting resources. Read 2026-09-06. Plugin, configuration and release determine behavior; synthetic allocation rules are explicit.
 - [Control Group in Slurm](https://slurm.schedmd.com/cgroups.html) — Process tracking, accounting and resource confinement have distinct roles. Read 2026-09-06. Current documentation includes version-specific behavior; no live configuration changes are prescribed.
 - [NVIDIA DGX SuperPOD — Software](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/dgx-software.html) — A reference cluster includes orchestration, system management, libraries and operating-system components. Read 2026-09-06. Vendor reference stack, updated November 19, 2025; it does not certify an arbitrary tenant environment.
+- [Google — Supporting power grids with demand response](https://cloud.google.com/blog/products/infrastructure/using-demand-response-to-reduce-data-center-power-consumption) — Compare storing energy with rescheduling eligible non-urgent work during grid stress. Read 2026-09-12. Publisher-indexed introduction reviewed after direct fetch timed out. Historical pilot description; no claim that every workload can move or that reduced demand necessarily reduces total energy.
+
+## D09 domain check-in: Which progress comes back?
+
+Optional: pause and make a prediction, then compare your reasoning. You can continue whenever you are ready.
+
+In a hypothetical run, the latest validated, durable checkpoint represents progress through minute 20. A failure occurs at minute 28; no newer checkpoint survives. Restoration takes 3 minutes, and the same work runs at the same rate afterward.
+
+**Pause and predict:** How much completed work must be repeated, and when can the run regain its pre-failure progress?
+
+<details>
+<summary>Compare your reasoning</summary>
+
+It repeats 8 minutes of work and regains its minute-28 progress at wall-clock minute 39.
+
+Restoration ends at minute 31. Replaying the 8 minutes after the durable checkpoint then takes until minute 39. The surviving checkpoint preserves earlier progress, but it does not remove restore time or the work completed after its saved state.
+
+</details>
+
+**The next problem:** While the recovered job runs, its hardware keeps producing heat. Can every device transfer that heat into a supported cooling path?
+
+Continue in **D10**: A cool room can contain an overheating chip.

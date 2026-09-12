@@ -1,11 +1,22 @@
 # Rehearse the teaching sequences
 
-[Opening section](prototypes/orientation-format.html?teach=1) · [800 V](teach.html)
+[D00 optional primer](prototypes/terminology-format.html?teach=1)
+· [D01 overview](prototypes/orientation-format.html?teach=1)
+· [D02 workloads](prototypes/workload-format.html?teach=1) · [800 V](teach.html)
 · [UPS](prototypes/ups-format.html) · [Cooling](prototypes/cooling-format.html?teach=1)
 
 ## The next pass
 
-The next dry run is **[D01 — Data center overview](prototypes/orientation-format.html?teach=1#three-paths)**.
+The next dry run is **[D00 — Electricity basics and recurring terminology](prototypes/terminology-format.html?teach=1)**.
+This optional prelude aims for approximately 20 minutes; time it aloud before
+treating that as an established runtime. Its [student route](prototypes/terminology-format.html)
+provides the same first exposure. Open with the reassurance: “I'm going to tell
+you these terms now. Don't worry; I'm going to explain them again once we get
+there.” Use the diagrams to make the words familiar, without requiring recall
+or mastery before the course begins. Check which terms still feel disconnected,
+and reintroduce them in their system sections regardless of primer attendance.
+
+The following **[D01 — Data center overview](prototypes/orientation-format.html?teach=1#three-paths)** remains intact.
 Its thirteen scenes tour the three paths, white/gray space, generation,
 transmission, campus distribution, backup power, GB300 hardware, chip-to-cluster
 scale, network and cooling paths, then rating, LLM batch scheduling and PUE.
@@ -20,10 +31,19 @@ experiments; each scene's explanation and sources open on demand.
 3. We revise that section, then continue through the domain map's dependencies.
    The domains track coverage; they do not impose fifteen identical slide decks.
 
-This is the opening teaching section, not all of D01/D02. Source-claim evaluation
-remains in the D01 reference; D02's workload brief and service requirements are
-the next teaching section to build. No need to reread the three reviewed sequences
-or the entire manuscript before this pass.
+D00 precedes the existing 15 curriculum domains and adds no required objectives.
+D01's overview covers selected material, not all of D01/D02. Source-claim evaluation
+remains in the D01 reference. The new **[D02 teaching sequence](prototypes/workload-format.html?teach=1)**
+has 19 scenes across the workload brief, productive utilization and job timing.
+Teach those three parts in order: define accepted work and memory needs; account
+for waiting energy and useful output; then compare batching, latency and aggregate
+demand. Try the changed cases and final acceptance exercise before opening the
+explanation. Both D00 and D02 still need an aloud learner dry run.
+
+The implemented presentations currently cover D00, selected D01 material, D02,
+parts of D05 (UPS) and D06 (800 V), and D10/D11 (cooling). D08 and D15 have authored
+reader lessons, but their own teaching presentations remain to be built. D03 is
+the next core section to author after reviewing D02.
 
 D08's written networking section covers copper, fiber, pluggable and co-packaged
 optics, scale-up/scale-out, plus campus entrances, meet-me rooms, carrier handoff,
@@ -127,3 +147,16 @@ follows the device's light/dark setting, including changes while it is open.
 
 [TESTING.md](TESTING.md) records browser and numerical checks. Those checks support
 a working visual; the dry run reveals whether it teaches clearly.
+
+### D00 opening and case-study use
+
+D00 begins with the circuit. Speak the brief reassurance while pointing at the
+source and load; there is no separate welcome or outro scene. Sixteen substantive
+scenes have 18:30 of planned cues, leaving room within about twenty minutes for
+transitions. Finish PUE and use Continue to D01. Rehearsal establishes actual pace.
+
+Open `prototypes/case-studies.html?teach=1` for the short case treatments. Use each
+case in its named domain, invite a prediction before revealing the explanation,
+and return to its linked reader lesson for the derivation and source limits.
+The accompanying Abilene reference is a dated campus case, not a claim that all
+hypothetical equipment values represent the site.

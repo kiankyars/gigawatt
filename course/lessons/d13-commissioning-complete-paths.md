@@ -81,3 +81,24 @@ The added cooling evidence closes the missing condition for A01–A20. Positions
 
 - [Commissioning & Performance Validation | AI Data Center Energy Performance Framework](https://www.ashrae.org/technical-resources/ai-data-center-framework/commissioning-performance-validation) — The staged commissioning and integrated-systems discussion distinguishes component checks from coupled validation. Read 2026-09-06. Selected commissioning-stage and handover discussion inspected; project procedures, pass criteria and synthetic rack sets are original.
 - [WBDG: Commissioning Documents](https://legacy.wbdg.org/building-commissioning/commissioning-documents) — Commissioning records and systems documentation support continued operation and maintenance. Read 2026-09-06. Selected documentation purpose reviewed; this is not a claim to have applied a complete ASHRAE standard or GSA acceptance process.
+
+## D13 domain check-in: Count the same accepted paths
+
+Optional: pause and make a prediction, then compare your reasoning. You can continue whenever you are ready.
+
+A hypothetical phase contains rack positions A, B, C and D. Power acceptance covers A, B and C; cooling acceptance covers B, C and D; network acceptance covers A, B, C and D. No end-to-end workload or recovery test has run.
+
+**Pause and predict:** How many positions share the three accepted subsystem paths? How many have demonstrated service acceptance?
+
+<details>
+<summary>Compare your reasoning</summary>
+
+Two positions, B and C, share all three subsystem acceptances. None has yet demonstrated end-to-end service acceptance.
+
+Separate totals of three, three and four do not identify a common set of three. Take the intersection first, then test the agreed workload, failure behavior and recovery on complete paths. A subsystem pass is evidence for its own scope.
+
+</details>
+
+**The next problem:** After acceptance, how will operators notice when those same paths change, degrade or become unavailable for maintenance?
+
+Continue in **D14**: A believable number can describe the wrong thing.

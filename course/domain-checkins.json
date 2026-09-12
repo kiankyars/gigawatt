@@ -1,0 +1,185 @@
+{
+  "version": 1,
+  "checkins": [
+    {
+      "domain": "D01",
+      "title": "What does the meter establish?",
+      "scenario": "A hypothetical campus records 12 MWh at the facility meter and 10 MWh at its IT meters during the same hour. An analyst adds them and reports 22 MW of useful compute.",
+      "prompt": "Correct the total and explain what these readings leave unknown.",
+      "answer": "The facility averaged 12 MW, including the IT load. These readings do not measure useful compute output.",
+      "explanation": [
+        "The IT boundary sits inside the facility boundary, so adding the two readings counts the IT energy twice. Over this hour, the facility used 2 MWh beyond the IT load and its energy ratio was 12 / 10 = 1.2. Neither that ratio nor the electrical demand tells us how much accepted work the campus completed."
+      ],
+      "next_domain": "D02",
+      "bridge": "We can now account for the watts. What job must those watts support, and what counts as a successful result?"
+    },
+    {
+      "domain": "D02",
+      "title": "Same hardware, different service",
+      "scenario": "Two hypothetical inference services have the same accelerator count and average IT demand. One meets its response-time target; the other builds a queue whenever requests arrive in bursts.",
+      "prompt": "Would you give them the same usable-service rating? Name the missing evidence.",
+      "answer": "No. Equal hardware and average demand do not establish equal output within the response-time target.",
+      "explanation": [
+        "Compare accepted responses under the same arrival pattern, quality requirement and latency target, including the slow end of the response-time distribution. Then measure the load phases and simultaneous peaks needed to deliver that service. A mean demand alone does not define its infrastructure envelope."
+      ],
+      "next_domain": "D03",
+      "bridge": "Once the workload has an explicit demand envelope, where can the required power actually be delivered?"
+    },
+    {
+      "domain": "D03",
+      "title": "Can this phase open?",
+      "scenario": "A hypothetical project has an energy contract covering its planned annual consumption. Its first phase needs 10 MW at the facility connection, but the available connection is limited to 8 MW. No local generation or storage is included.",
+      "prompt": "Does the energy contract make the full first phase deliverable? Explain the constraint.",
+      "answer": "No. The stated connection leaves a 2 MW shortfall at the required boundary.",
+      "explanation": [
+        "Commercial energy coverage does not increase the physical connection limit. The project needs an evidenced route to more deliverable power or a smaller operating phase. Matching annual energy also says nothing by itself about supply during each operating hour."
+      ],
+      "next_domain": "D12",
+      "bridge": "Power is one site condition. Can the parcel, building, access routes and other services support the same phase?"
+    },
+    {
+      "domain": "D12",
+      "title": "It fits until replacement day",
+      "scenario": "A hypothetical equipment room has enough floor area and verified structural capacity. A required cabinet will enter before the final wall is built, but its assembled replacement cannot pass through the finished access route.",
+      "prompt": "Is the layout ready to accept? Identify the missing condition.",
+      "answer": "No. The layout has not demonstrated a workable replacement route.",
+      "explanation": [
+        "Installation, operation and replacement are different physical configurations. A cabinet footprint and acceptable floor loading do not establish how the equipment can later leave or return. The design needs a verified route or an agreed, feasible replacement method before the layout is accepted."
+      ],
+      "next_domain": "D04",
+      "bridge": "With the physical routes established, follow the electrical route: what must each device between the campus connection and the load do?"
+    },
+    {
+      "domain": "D04",
+      "title": "Which rating stops the load?",
+      "scenario": "At a hypothetical AC interface, a load needs 900 kW at power factor 0.9. The upstream transformer is rated 1,000 kVA, while a downstream device at the same voltage is limited to 950 kVA. Ignore losses and other constraints for this screen.",
+      "prompt": "Does this path pass the stated capacity screen? Show the comparison.",
+      "answer": "No. The load requires 900 / 0.9 = 1,000 kVA, exceeding the downstream 950 kVA limit.",
+      "explanation": [
+        "The transformer reaches its stated rating, but every element of the path must carry the load. Comparing 900 kW directly with a kVA rating would hide the constraint. Passing this arithmetic screen would still leave installation and operating conditions to verify."
+      ],
+      "next_domain": "D05",
+      "bridge": "A path that carries normal demand is only the start. What happens when supply is interrupted or equipment is unavailable?"
+    },
+    {
+      "domain": "D05",
+      "title": "Maintenance, then another loss",
+      "scenario": "Three hypothetical UPS modules can each deliver 1 MW to a common output serving 1.8 MW, including all protected auxiliaries. One module is isolated for maintenance; another then fails. Assume the surviving output path remains connected and has enough stored energy for the required bridge interval.",
+      "prompt": "Can the full load remain supported? Explain which limit matters now.",
+      "answer": "No. Only 1 MW remains available for a 1.8 MW load, leaving a 0.8 MW power shortfall.",
+      "explanation": [
+        "With one module unavailable, the two remaining modules supplied 2 MW. Losing another removes that margin and more. Enough stored energy cannot overcome an output-power limit; preserving a smaller service would require a pre-established way to reduce the supported load."
+      ],
+      "next_domain": "D06",
+      "bridge": "Carry those power, energy and failure boundaries into the rack. Which conversions and interfaces remain when its inlet voltage changes?"
+    },
+    {
+      "domain": "D06",
+      "title": "Did moving the converter save energy?",
+      "scenario": "A hypothetical redesign moves a converter from each rack to a nearby cabinet. Useful device output, converter efficiency, cable losses and auxiliary demand all remain unchanged.",
+      "prompt": "Did the redesign reduce facility electricity use? Name something it did change.",
+      "answer": "No energy saving follows from these assumptions. The converter's location and the rack's physical and electrical interfaces changed.",
+      "explanation": [
+        "The same output still requires the same total input across the complete path. Conversion heat now occurs outside the rack, and rack space may be released. Shared failure exposure, protection, service access and expansion arrangements need checking at the new location."
+      ],
+      "next_domain": "D07",
+      "bridge": "Now that power reaches the devices, what determines whether those devices spend their time doing useful work?"
+    },
+    {
+      "domain": "D07",
+      "title": "Twice the arithmetic, same progress?",
+      "scenario": "In a hypothetical model, computation and memory transfer overlap completely. A step needs 2 ms of arithmetic and 8 ms to fetch its inputs. An upgrade halves arithmetic time while leaving the memory path and all other conditions unchanged.",
+      "prompt": "What happens to the modeled step time, and why?",
+      "answer": "It remains 8 ms: max(2, 8) and max(1, 8) are both 8.",
+      "explanation": [
+        "The memory path sets the limit in this supplied model, so extra arithmetic capacity does not shorten the step. The conclusion depends on complete overlap and unchanged data movement; a real job needs evidence about its dependencies and measured bottleneck."
+      ],
+      "next_domain": "D08",
+      "bridge": "Inputs and results also move between devices. What happens when a shared network path becomes the slowest dependency?"
+    },
+    {
+      "domain": "D08",
+      "title": "Healthy devices, waiting job",
+      "scenario": "A hypothetical synchronized training step cannot finish until every participant completes its required exchange. One shared fabric link becomes congested, although every accelerator remains healthy.",
+      "prompt": "Can the job slow down without losing any accelerators? Trace the dependency.",
+      "answer": "Yes. Delayed communication can hold up the exchange that the entire step needs before it can advance.",
+      "explanation": [
+        "Healthy endpoints do not establish a healthy end-to-end communication path. Follow the affected traffic through shared links and the collective's dependencies. Placement or path changes might help, but only if they relieve the actual constrained route."
+      ],
+      "next_domain": "D09",
+      "bridge": "The cluster also needs durable data and recoverable progress. What survives when an interruption stops the job?"
+    },
+    {
+      "domain": "D09",
+      "title": "Which progress comes back?",
+      "scenario": "In a hypothetical run, the latest validated, durable checkpoint represents progress through minute 20. A failure occurs at minute 28; no newer checkpoint survives. Restoration takes 3 minutes, and the same work runs at the same rate afterward.",
+      "prompt": "How much completed work must be repeated, and when can the run regain its pre-failure progress?",
+      "answer": "It repeats 8 minutes of work and regains its minute-28 progress at wall-clock minute 39.",
+      "explanation": [
+        "Restoration ends at minute 31. Replaying the 8 minutes after the durable checkpoint then takes until minute 39. The surviving checkpoint preserves earlier progress, but it does not remove restore time or the work completed after its saved state."
+      ],
+      "next_domain": "D10",
+      "bridge": "While the recovered job runs, its hardware keeps producing heat. Can every device transfer that heat into a supported cooling path?"
+    },
+    {
+      "domain": "D10",
+      "title": "The liquid loop is not the whole rack",
+      "scenario": "A hypothetical 100 kW rack transfers 80 kW into its liquid loop and 20 kW into room air. Its liquid loop remains available, but the room's air-cooling path becomes unavailable.",
+      "prompt": "Can you claim the rack can keep running at 100 kW? Explain the remaining heat obligation.",
+      "answer": "No. The 20 kW released to air still needs a working heat-removal path.",
+      "explanation": [
+        "Adequate liquid capacity does not establish cooling for components whose heat enters the air. Without another demonstrated path, the supplied facts do not support continued full-load operation. Thermal limits and any allowable ride-through require additional evidence."
+      ],
+      "next_domain": "D11",
+      "bridge": "Heat captured from the rack has only started its journey. How does it finally reach the outdoor environment?"
+    },
+    {
+      "domain": "D11",
+      "title": "What reaches the condenser?",
+      "scenario": "A hypothetical chiller removes 1.0 MW from its evaporator loop while its compressor consumes 0.2 MW. Ignore other heat transfers and exclude pumps and fans from this stated balance.",
+      "prompt": "How much heat must its condenser reject, and what is the cooling COP at this boundary?",
+      "answer": "The condenser rejects 1.2 MW, and cooling COP is 1.0 / 0.2 = 5.",
+      "explanation": [
+        "The condenser receives the cooling duty plus compressor work: 1.0 + 0.2 MW. Cooling COP uses the evaporator duty as its numerator. This balance does not establish outdoor equipment capacity under a given climate, or account for the excluded pumps and fans."
+      ],
+      "next_domain": "D13",
+      "bridge": "We have traced the power, work and heat paths. What evidence proves that the delivered equipment can operate as one complete service?"
+    },
+    {
+      "domain": "D13",
+      "title": "Count the same accepted paths",
+      "scenario": "A hypothetical phase contains rack positions A, B, C and D. Power acceptance covers A, B and C; cooling acceptance covers B, C and D; network acceptance covers A, B, C and D. No end-to-end workload or recovery test has run.",
+      "prompt": "How many positions share the three accepted subsystem paths? How many have demonstrated service acceptance?",
+      "answer": "Two positions, B and C, share all three subsystem acceptances. None has yet demonstrated end-to-end service acceptance.",
+      "explanation": [
+        "Separate totals of three, three and four do not identify a common set of three. Take the intersection first, then test the agreed workload, failure behavior and recovery on complete paths. A subsystem pass is evidence for its own scope."
+      ],
+      "next_domain": "D14",
+      "bridge": "After acceptance, how will operators notice when those same paths change, degrade or become unavailable for maintenance?"
+    },
+    {
+      "domain": "D14",
+      "title": "One reassuring number",
+      "scenario": "A hypothetical rack reports high device temperatures while the plant's displayed supply temperature looks normal. The plant reading is ten minutes old, and there is no current measurement of flow through the affected rack branch.",
+      "prompt": "Does the normal plant reading establish that rack cooling is adequate? Identify the next evidence you need.",
+      "answer": "No. Obtain time-aligned measurements at the affected rack's thermal and flow boundaries before choosing a cause.",
+      "explanation": [
+        "A stale upstream temperature cannot establish current local flow or heat transfer. Current branch flow, supply and return temperatures, device temperatures and load history can help distinguish restricted flow, a changed load and faulty telemetry. The alarm alone does not select among them."
+      ],
+      "next_domain": "D15",
+      "bridge": "Measurements reveal the constraint. Which intervention changes usable service enough to justify its cost and delivery time?"
+    },
+    {
+      "domain": "D15",
+      "title": "Which upgrade changes the ceiling?",
+      "scenario": "For the same hypothetical rack population and operating condition, electrical capacity supports 12 racks, cooling 8, networking 10 and accepted service 9. Option A raises electrical capacity to 16; option B raises cooling capacity to 11. Assume the other limits stay fixed.",
+      "prompt": "What ceiling follows from each option, and is that enough to choose an investment?",
+      "answer": "Option A leaves the ceiling at 8 racks. Option B raises it to 9, where accepted service becomes the limit. This alone does not settle the investment decision.",
+      "explanation": [
+        "Take the minimum across limits with matching boundaries: min(16, 8, 10, 9) = 8 and min(12, 11, 10, 9) = 9. Then compare delivery dates, costs and useful output from the added service. A capacity ceiling is neither measured demand nor a guaranteed business result."
+      ],
+      "next_domain": "capstone",
+      "bridge": "Take the whole chain into an integrated case: can you defend a decision while keeping its assumptions, evidence and unresolved constraints visible?"
+    }
+  ]
+}

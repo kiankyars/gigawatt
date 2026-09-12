@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-09-11",
+  "as_of": "2026-09-12",
   "inventory_status": "seed_not_exhaustive",
   "method": "A bounded curated discovery pass over 40 SemiAnalysis articles and 15 independent primary-source starting points. Sources are mapped many-to-many to domain IDs for curriculum research, not certified as complete coverage or sources of truth. The additional SA11–SA40 sample used 16 search queries and selected entries from the publisher's 2023–2026 annual sitemaps; research/discovery-searches.md records the method and limits. page_reviewed means the stated web page was inspected, with partial-reading and linked-document limits recorded in caution; public_excerpt_reviewed includes accessible previews, abstracts or selected public sections and never implies review of a complete paid work. candidate_not_reviewed means substantive content has not been reviewed. A domain mapping identifies intended research use, not verified support for every objective or claim. reviewed_on is the review date; published_on, where present, is the source's displayed publication date and is null when not established.",
   "sources": [
@@ -2746,6 +2746,225 @@
       ],
       "use": "Orient transmission, distribution and transformer step-up/step-down in an interconnected grid.",
       "caution": "Reviewed The electric power grid and Delivering electricity. Do not generalize a residential voltage ladder to a large data-center campus or infer connection capacity from line proximity."
+    },
+    {
+      "id": "P67",
+      "title": "OpenStax · Resistance and simple circuits",
+      "url": "https://openstax.org/books/college-physics-2e/pages/20-2-ohms-law-resistance-and-simple-circuits",
+      "publisher": "OpenStax, Rice University",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D01",
+        "D04",
+        "D06"
+      ],
+      "use": "Define voltage, current, resistance and the complete circuit before their first system application.",
+      "caution": "Explanatory section through conservation of energy reviewed. Simple source, resistor and closed circuit only.",
+      "discovered_via": "Optional D00 electricity and recurring-terminology primer, 2026-09-12."
+    },
+    {
+      "id": "P68",
+      "title": "Schneider · Definition of power factor",
+      "url": "https://www.electrical-installation.org/enwiki/Definition_of_Power_Factor",
+      "publisher": "Schneider Electric",
+      "kind": "primary_reference",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D04"
+      ],
+      "use": "Introduce power factor as active power divided by apparent power; distinguish it from conversion efficiency.",
+      "caution": "Publisher-indexed active/apparent-power definition reviewed. Direct page opening failed. No installation guidance used.",
+      "discovered_via": "Optional D00 electricity and recurring-terminology primer, 2026-09-12."
+    },
+    {
+      "id": "P69",
+      "title": "Eaton · UPS fundamentals handbook",
+      "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-ups-fundamentals-handbook-anz.pdf",
+      "publisher": "Eaton",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D04",
+        "D05",
+        "D06"
+      ],
+      "use": "Introduce rectifier, inverter, UPS and battery functions in the optional D00 primer.",
+      "caution": "Introduction, topology material on printed page 28 and rectifier glossary on page 46 reviewed. General functions only, without sizing or product claims.",
+      "discovered_via": "Optional D00 electricity and recurring-terminology primer, 2026-09-12."
+    },
+    {
+      "id": "P70",
+      "title": "Intel · CPU versus GPU",
+      "url": "https://www.intel.com/content/www/us/en/products/docs/processors/cpu-vs-gpu.html",
+      "publisher": "Intel",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D07"
+      ],
+      "use": "Introduce CPU and GPU as processors with different workload strengths.",
+      "caution": "CPU/GPU definitions and comparison sections reviewed. No performance or superiority claim adopted.",
+      "discovered_via": "Optional D00 electricity and recurring-terminology primer, 2026-09-12."
+    },
+    {
+      "id": "P71",
+      "title": "Intel · Memory performance in a nutshell",
+      "url": "https://www.intel.com/content/www/us/en/developer/articles/technical/memory-performance-in-a-nutshell.html",
+      "publisher": "Intel",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D07",
+        "D08",
+        "D09"
+      ],
+      "use": "Distinguish working memory, saved state, capacity, bandwidth and latency.",
+      "caution": "Persistence, latency and bandwidth explanations reviewed. Historical component numbers excluded.",
+      "discovered_via": "Optional D00 electricity and recurring-terminology primer, 2026-09-12."
+    },
+    {
+      "id": "P72",
+      "title": "OpenStax · Heat",
+      "url": "https://openstax.org/books/college-physics-2e/pages/14-1-heat",
+      "publisher": "OpenStax, Rice University",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D10",
+        "D11"
+      ],
+      "use": "Distinguish temperature from heat and heat-transfer rate before the cooling sequence.",
+      "caution": "Introductory definition of heat as energy transfer due to a temperature difference reviewed.",
+      "discovered_via": "Optional D00 electricity and recurring-terminology primer, 2026-09-12."
+    },
+    {
+      "id": "P73",
+      "title": "Crusoe — Abilene campus development update",
+      "url": "https://www.crusoe.ai/resources/newsroom/crusoe-announces-new-900-mw-ai-factory-campus-in-abilene-texas-to-support-microsoft-ai-infrastructure",
+      "publisher": "Crusoe",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "published_on": "2026-03-27",
+      "domains": [
+        "D03",
+        "D12",
+        "D15"
+      ],
+      "use": "Separate the original Abilene campus from the adjacent Microsoft development; distinguish energized buildings from future capacity.",
+      "caution": "Main announcement reviewed. Dated company account: two original 100 MW buildings energized; six more expected by end-2026; adjacent 900 MW project targets first energization in mid-2027. These are not September 2026 metered loads."
+    },
+    {
+      "id": "P74",
+      "title": "Crusoe — Abilene cooling design",
+      "url": "https://www.crusoe.ai/resources/blog/an-inside-look-at-the-abilene-ai-data-center",
+      "publisher": "Crusoe",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "published_on": "2025-08-05",
+      "domains": [
+        "D03",
+        "D05",
+        "D10",
+        "D11"
+      ],
+      "use": "Abilene provides a recurring example of grid supply, backup and closed-loop cooling with air-cooled heat rejection.",
+      "caution": "Energy and water sections reviewed. Historical company design description, not audited operating water use. Initial fill and maintenance remain separate from non-evaporative heat rejection."
+    },
+    {
+      "id": "P75",
+      "title": "Crusoe and Redwood — Sparks microgrid update",
+      "url": "https://www.crusoe.ai/resources/newsroom/crusoe-and-redwood-materials-expand-strategic-partnership-scaling-to-7x-the-original-ai-infrastructure-density",
+      "publisher": "Crusoe",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "published_on": "2026-03-24",
+      "domains": [
+        "D03",
+        "D05",
+        "D14",
+        "D15"
+      ],
+      "use": "Teach solar, storage and grid backup at Sparks, Nevada; distinguish microgrid availability from Cloud availability and energy share.",
+      "caution": "Main release reviewed. Company reports 99.2% microgrid availability over seven months and 99.9% Cloud availability using grid backup. Expansion to 24 modular data centers is announced, not confirmed complete. Do not carry forward the initial off-grid description as present status."
+    },
+    {
+      "id": "P76",
+      "title": "Crusoe — 2025 impact report web summary",
+      "url": "https://www.crusoe.ai/resources/blog/crusoes-2025-impact-report",
+      "publisher": "Crusoe",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "published_on": "2026-05-28",
+      "domains": [
+        "D03",
+        "D05",
+        "D12"
+      ],
+      "use": "Names 12 MW of solar and 63 MWh of repurposed EV battery capacity for the Redwood project; describes original Abilene phase as greenfield.",
+      "caution": "Selected web sections reviewed, not the linked full report. Equipment ratings are not measured continuous output or usable battery energy. Company-wide renewable procurement claims cannot establish hourly matching at every campus."
+    },
+    {
+      "id": "P77",
+      "title": "Google — Supporting power grids with demand response",
+      "url": "https://cloud.google.com/blog/products/infrastructure/using-demand-response-to-reduce-data-center-power-consumption",
+      "publisher": "Google",
+      "kind": "primary_reference",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-12",
+      "published_on": "2023-10-03",
+      "domains": [
+        "D02",
+        "D03",
+        "D09"
+      ],
+      "use": "Compare storing energy with rescheduling eligible non-urgent work during grid stress.",
+      "caution": "Publisher-indexed introduction reviewed after direct fetch timed out. Historical pilot description; no claim that every workload can move or that reduced demand necessarily reduces total energy."
+    },
+    {
+      "id": "P78",
+      "title": "MLGW — xAI project quick facts",
+      "url": "https://www.mlgw.com/images/content/files/pdf/2024xAI%20and%20MLGW%20Quick%20Facts%201.pdf",
+      "publisher": "Memphis Light, Gas and Water",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "published_on": null,
+      "domains": [
+        "D03",
+        "D04",
+        "D12"
+      ],
+      "use": "Original Colossus industrial reuse still required a new substation and 161 kV transmission-line work for expanded service.",
+      "caution": "Complete one-page PDF reviewed. Filename identifies 2024; no exact date printed. Historical service proposal, not current operating status or a complete site one-line diagram."
+    },
+    {
+      "id": "SA42",
+      "title": "SpaceX 10GW in 2027 — construction pace and equipment procurement",
+      "url": "https://newsletter.semianalysis.com/p/spacex-10gw-in-2027-why-its-real",
+      "publisher": "SemiAnalysis",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-12",
+      "published_on": "2026-08-07",
+      "domains": [
+        "D03",
+        "D04",
+        "D12",
+        "D13"
+      ],
+      "use": "Reported speed-versus-efficiency tradeoff: power modules and medium-voltage generation-to-distribution path bypass long-lead switchgear and large power transformers.",
+      "caution": "Public construction-pace section reviewed, especially the paragraph immediately following MiniHard. Attribution is SemiAnalysis research in the Southaven/MiniHard buildout context; not an as-built one-line for every Colossus site. No market, revenue or 2027 capacity forecast adopted. Do not rewrite this as all site equipment operating at MV."
     }
   ]
 }

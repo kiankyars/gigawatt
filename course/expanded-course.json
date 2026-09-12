@@ -1418,7 +1418,21 @@
           "limits": "Reviewed printed pages 8–9, 14–22 and 34. Original one-hour counterexample; no current standards compliance or measured annual PUE is claimed."
         }
       ],
-      "word_count": 1178
+      "word_count": 1178,
+      "domain_checkin": {
+        "domain": "D01",
+        "title": "What does the meter establish?",
+        "scenario": "A hypothetical campus records 12 MWh at the facility meter and 10 MWh at its IT meters during the same hour. An analyst adds them and reports 22 MW of useful compute.",
+        "prompt": "Correct the total and explain what these readings leave unknown.",
+        "answer": "The facility averaged 12 MW, including the IT load. These readings do not measure useful compute output.",
+        "explanation": [
+          "The IT boundary sits inside the facility boundary, so adding the two readings counts the IT energy twice. Over this hour, the facility used 2 MWh beyond the IT load and its energy ratio was 12 / 10 = 1.2. Neither that ratio nor the electrical demand tells us how much accepted work the campus completed."
+        ],
+        "next_domain": "D02",
+        "bridge": "We can now account for the watts. What job must those watts support, and what counts as a successful result?",
+        "next_lesson": "d02-workload-brief",
+        "next_title": "Design for a job, not a rack count"
+      }
     },
     {
       "id": "d02-workload-brief",
@@ -1802,7 +1816,21 @@
           "limits": "Read the public white-paper landing page only, not the downloadable full white paper; no universal measured waveform is asserted."
         }
       ],
-      "word_count": 1221
+      "word_count": 1221,
+      "domain_checkin": {
+        "domain": "D02",
+        "title": "Same hardware, different service",
+        "scenario": "Two hypothetical inference services have the same accelerator count and average IT demand. One meets its response-time target; the other builds a queue whenever requests arrive in bursts.",
+        "prompt": "Would you give them the same usable-service rating? Name the missing evidence.",
+        "answer": "No. Equal hardware and average demand do not establish equal output within the response-time target.",
+        "explanation": [
+          "Compare accepted responses under the same arrival pattern, quality requirement and latency target, including the slow end of the response-time distribution. Then measure the load phases and simultaneous peaks needed to deliver that service. A mean demand alone does not define its infrastructure envelope."
+        ],
+        "next_domain": "D03",
+        "bridge": "Once the workload has an explicit demand envelope, where can the required power actually be delivered?",
+        "next_lesson": "d03-power-and-procurement",
+        "next_title": "A contract is not a cable"
+      }
     },
     {
       "id": "d03-power-and-procurement",
@@ -1985,6 +2013,14 @@
             "Higher transport voltage brings a real tradeoff. It can reduce current and conductor burden for a given transfer, but requires appropriate equipment and insulation interfaces and may change conversion placement. If a higher-voltage route needs an additional conversion stage, its losses belong in a whole-path comparison. The correct choice depends on the complete architecture, not only the elegant inverse-square relationship.",
             "A useful failure test is to ask what happens if the required load doubles while the transport voltage and conductor remain unchanged. Current doubles and conductor heating becomes four times as large in the simplified model. Temperature-dependent resistance and equipment operating limits can make the actual response more complicated. The model gives an early warning about scaling, while the engineering design still requires the missing thermal, protection, and installation information."
           ]
+        },
+        {
+          "heading": "Case study: equipment delivery changes the electrical path",
+          "paragraphs": [
+            "In its August 7, 2026 construction analysis, SemiAnalysis describes a procurement workaround in the Southaven/MiniHard buildout discussion: imported power modules and medium-voltage delivery from generation to transformers supplying low voltage, avoiding long-lead switchgear and large power transformers. This is the reported procurement rationale, rather than a claim that every circuit at Colossus uses medium voltage.",
+            "Compare two conceptual paths. One raises generation voltage for transmission and later steps it down again. The other distributes locally at medium voltage before stepping down for the load. Removing the large-transformer stages can remove a delivery dependency, but current, conductor quantity, protection, distance and losses still constrain the alternative. The actual circuit count, ratings and procurement dates require project records.",
+            "Pause: for the same balanced three-phase 200 MW transfer at power factor 1, compare 34.5 kV with 161 kV. These are hypothetical voltages, not xAI site specifications. Using I = P/(√3 V), aggregate line current is about 3.35 kA versus 0.717 kA, a 4.67-fold change. At the same equivalent resistance, I²R loss changes about 21.8-fold. A real design can add parallel circuits or conductor area, so this does not estimate xAI losses. The decision is whether a deliverable alternative earns enough earlier useful work to justify its other costs."
+          ]
         }
       ],
       "tradeoff": [
@@ -2070,7 +2106,8 @@
         "E45AB7B1BC1",
         "EB34D92F523",
         "P18",
-        "P19"
+        "P19",
+        "SA42"
       ],
       "source_notes": [
         {
@@ -2096,9 +2133,15 @@
           "claim": "Sections 1.2–1.3 develop balanced three-phase circuits, phase-to-line voltage relationships, constant total instantaneous power and zero neutral current under balanced conditions.",
           "reviewed_on": "2026-09-10",
           "limits": "April 7, 2025 draft; used for the balanced sinusoidal circuit derivation. No real installation, neutral sizing or protection design follows from the simplified teaching model."
+        },
+        {
+          "id": "SA42",
+          "claim": "Reported speed-versus-efficiency tradeoff: power modules and medium-voltage generation-to-distribution path bypass long-lead switchgear and large power transformers.",
+          "reviewed_on": "2026-09-12",
+          "limits": "Public construction-pace section reviewed, especially the paragraph immediately following MiniHard. Attribution is SemiAnalysis research in the Southaven/MiniHard buildout context; not an as-built one-line for every Colossus site. No market, revenue or 2027 capacity forecast adopted. Do not rewrite this as all site equipment operating at MV."
         }
       ],
-      "word_count": 1506
+      "word_count": 1719
     },
     {
       "id": "d03-service-and-siting",
@@ -2146,6 +2189,13 @@
             "Separate requirements into conditions that must pass and tradeoffs among feasible options. If an application needs a maximum network round-trip time, a location outside that envelope may be unsuitable regardless of its lower cost. If a cooling design depends on a water allocation that has not been established, that is unresolved evidence rather than zero cost. List the missing fact and the party or document that could establish it.",
             "On-site supply can reduce grid import for a fixed site load and may help an earlier phase become feasible. In the 8 MW example, a proposed interim 2 MW import limit would cover the normal remainder only while the local 6 MW is available. If that generator stops and storage remains idle, the requested import becomes 8 MW. The proposal must address that changed state through an established supply or load-management plan; the generator nameplate alone has not solved the grid-capacity problem. Fuel, maintenance, controls, emissions, connection requirements, and the generator’s net output under actual conditions remain dependencies.",
             "The final choice should state a complete service envelope: how much load, beginning when, under which normal and degraded conditions, and with which remaining uncertainties. This converts a location comparison into an infrastructure decision. It also identifies where further work has the greatest value: the dependency controlling the delivery date, the capacity limiting accepted load, or the operating condition that breaks the proposed service promise."
+          ]
+        },
+        {
+          "heading": "Our recurring campus: Abilene",
+          "paragraphs": [
+            "Abilene, Texas is the recurring real campus reference in this course. We follow the original Crusoe-built Stargate campus across service, construction, cooling and operating evidence. Each real claim retains a source date. Calculators use clearly stated teaching assumptions whenever the public record does not supply matching inputs; their results are not Abilene measurements.",
+            "Crusoe’s March 27, 2026 update separates the original campus from a new adjacent Microsoft development. Two original 100 MW buildings were energized; six further buildings were expected by year-end. The adjacent 900 MW development targeted initial energization in mid-2027. Ask which building and which milestone a number describes before combining capacities."
           ]
         }
       ],
@@ -2237,7 +2287,8 @@
         "E61807424F1",
         "E38B3BEAAC1",
         "E0410763323",
-        "ED8255C2875"
+        "ED8255C2875",
+        "P73"
       ],
       "source_notes": [
         {
@@ -2275,9 +2326,29 @@
           "claim": "A physical PPA is a purchase arrangement that may involve on-site or off-site generation; an off-site project can deliver through the grid.",
           "reviewed_on": "2026-09-10",
           "limits": "Reviewed What is a Physical Power Purchase Agreement? and How Do Physical PPAs Work? Contract structure does not establish a dedicated electrical path or island supply for the example."
+        },
+        {
+          "id": "P73",
+          "claim": "Separate the original Abilene campus from the adjacent Microsoft development; distinguish energized buildings from future capacity.",
+          "reviewed_on": "2026-09-12",
+          "limits": "Main announcement reviewed. Dated company account: two original 100 MW buildings energized; six more expected by end-2026; adjacent 900 MW project targets first energization in mid-2027. These are not September 2026 metered loads."
         }
       ],
-      "word_count": 1816
+      "word_count": 1924,
+      "domain_checkin": {
+        "domain": "D03",
+        "title": "Can this phase open?",
+        "scenario": "A hypothetical project has an energy contract covering its planned annual consumption. Its first phase needs 10 MW at the facility connection, but the available connection is limited to 8 MW. No local generation or storage is included.",
+        "prompt": "Does the energy contract make the full first phase deliverable? Explain the constraint.",
+        "answer": "No. The stated connection leaves a 2 MW shortfall at the required boundary.",
+        "explanation": [
+          "Commercial energy coverage does not increase the physical connection limit. The project needs an evidenced route to more deliverable power or a smaller operating phase. Matching annual energy also says nothing by itself about supply during each operating hour."
+        ],
+        "next_domain": "D12",
+        "bridge": "Power is one site condition. Can the parcel, building, access routes and other services support the same phase?",
+        "next_lesson": "d12-room-and-replacement-route",
+        "next_title": "A rack must fit on its worst day"
+      }
     },
     {
       "id": "d12-room-and-replacement-route",
@@ -2468,7 +2539,7 @@
           "heading": "Check permitted uses, neighbors and what the old site leaves behind",
           "paragraphs": [
             "Identify the approvals and conditions for this layout: land use, air emissions, noise, water, drainage, construction and fire access. Equipment intended for continuous generation can raise different questions from standby equipment. Nearby homes, schools and other sensitive uses affect the actual siting conversation. A permit for one phase does not establish approval for the later campus.",
-            "A greenfield project starts on previously undeveloped land; industrial reuse begins with an existing site and its history. Industrial reuse may offer roads, utility connections and a building, while also carrying obsolete equipment or contamination. EPA distinguishes historical and site-condition review from sampling and cleanup planning. Establish what can remain, what must be removed, and any restrictions on the intended use. An apparently empty contamination folder is not equivalent to completed investigation."
+            "A greenfield project starts on previously undeveloped land; brownfield redevelopment, in the ordinary site-reuse sense, begins with an existing site and its history. Industrial reuse may offer roads, utility connections and a building, while also carrying obsolete equipment or contamination. EPA distinguishes historical and site-condition review from sampling and cleanup planning. Establish what can remain, what must be removed, and any restrictions on the intended use. An apparently empty contamination folder is not equivalent to completed investigation. This use of brownfield does not establish a statutory designation or contamination at a named site."
           ]
         },
         {
@@ -2476,6 +2547,14 @@
           "paragraphs": [
             "MLGW’s 2025 xAI update describes the Paul Lowery Road campus in the former Electrolux facility: an existing 16-inch gas main served the site, and xAI paid for an 8-inch tap. The same dated update describes additional gas capacity at the separate Tulane Road site as still under study. Infrastructure reuse, a funded connection and a pending service study are three different states. This historical record does not establish either site’s September 2026 capacity.",
             "Energy Transfer’s Q2 2026 presentation reports an agreement to construct gas-delivery facilities for Crusoe’s Abilene expansion. It verifies an infrastructure agreement, not completed service. A separate slide bullet about a completed Abilene lateral does not identify that lateral as the Crusoe project. Neither case supports casually saying that an AI company built a regional pipeline."
+          ]
+        },
+        {
+          "heading": "Case study: original Colossus reuses an industrial site",
+          "paragraphs": [
+            "The original Colossus at Paul Lowery Road in Memphis, Tennessee occupies the former Electrolux factory. This is our brownfield redevelopment example; Abilene’s original phase supplies the greenfield comparison. Reuse can retain a shell, roads and utility access, while a new site offers more freedom to arrange structures and routes. Neither label decides cost or opening date.",
+            "MLGW’s historical 2025 account assigns 8 MW of grid service to the existing substation and 142 MW to a new one. Of that 150 MW total, 142/150 ≈ 94.7% came through the new substation. A reused factory still needed substantial new electrical work. These are historical service quantities, not a present IT-load measurement or evidence of a specific cost saving.",
+            "Pause: an owner offers an industrial building with existing utility connections at a lower purchase price. What would justify calling it the cheaper data-center option? Compare the same useful-work target and opening date, including conversion of the shell, new service, cooling, fiber, equipment access, investigations and ongoing operation. Without that common scope, cheaper land or a retained wall cannot establish cheaper delivered compute."
           ]
         }
       ],
@@ -2660,7 +2739,8 @@
         "P38",
         "P39",
         "P40",
-        "P42"
+        "P42",
+        "P76"
       ],
       "source_notes": [
         {
@@ -2722,9 +2802,15 @@
           "claim": "An option reserves a contractual right to transact during an agreed period without obliging its holder to exercise it; real-estate options depend on specified terms.",
           "reviewed_on": "2026-09-11",
           "limits": "Read the definition and real-estate discussion. General terminology only; no particular land agreement or jurisdictional enforceability is assessed."
+        },
+        {
+          "id": "P76",
+          "claim": "Names 12 MW of solar and 63 MWh of repurposed EV battery capacity for the Redwood project; describes original Abilene phase as greenfield.",
+          "reviewed_on": "2026-09-12",
+          "limits": "Selected web sections reviewed, not the linked full report. Equipment ratings are not measured continuous output or usable battery energy. Company-wide renewable procurement claims cannot establish hourly matching at every campus."
         }
       ],
-      "word_count": 1661
+      "word_count": 1869
     },
     {
       "id": "d12-safety-and-control-boundaries",
@@ -2851,7 +2937,21 @@
           "limits": "Relevant public indexed excerpts reviewed; no field procedure or jurisdiction-wide compliance claim is supplied."
         }
       ],
-      "word_count": 1024
+      "word_count": 1024,
+      "domain_checkin": {
+        "domain": "D12",
+        "title": "It fits until replacement day",
+        "scenario": "A hypothetical equipment room has enough floor area and verified structural capacity. A required cabinet will enter before the final wall is built, but its assembled replacement cannot pass through the finished access route.",
+        "prompt": "Is the layout ready to accept? Identify the missing condition.",
+        "answer": "No. The layout has not demonstrated a workable replacement route.",
+        "explanation": [
+          "Installation, operation and replacement are different physical configurations. A cabinet footprint and acceptable floor loading do not establish how the equipment can later leave or return. The design needs a verified route or an agreed, feasible replacement method before the layout is accepted."
+        ],
+        "next_domain": "D04",
+        "bridge": "With the physical routes established, follow the electrical route: what must each device between the campus connection and the load do?",
+        "next_lesson": "d04-read-the-power-train",
+        "next_title": "Read a power train as a set of jobs"
+      }
     },
     {
       "id": "d04-read-the-power-train",
@@ -3357,7 +3457,21 @@
           "limits": "Manufacturer product listing reviewed on 2026-09-11. Offered specifications do not establish installed capacity, deployment prevalence, lead time or a measured efficiency advantage."
         }
       ],
-      "word_count": 1823
+      "word_count": 1823,
+      "domain_checkin": {
+        "domain": "D04",
+        "title": "Which rating stops the load?",
+        "scenario": "At a hypothetical AC interface, a load needs 900 kW at power factor 0.9. The upstream transformer is rated 1,000 kVA, while a downstream device at the same voltage is limited to 950 kVA. Ignore losses and other constraints for this screen.",
+        "prompt": "Does this path pass the stated capacity screen? Show the comparison.",
+        "answer": "No. The load requires 900 / 0.9 = 1,000 kVA, exceeding the downstream 950 kVA limit.",
+        "explanation": [
+          "The transformer reaches its stated rating, but every element of the path must carry the load. Comparing 900 kW directly with a kVA rating would hide the constraint. Passing this arithmetic screen would still leave installation and operating conditions to verify."
+        ],
+        "next_domain": "D05",
+        "bridge": "A path that carries normal demand is only the start. What happens when supply is interrupted or equipment is unavailable?",
+        "next_lesson": "d05-storage-power-and-time",
+        "next_title": "A battery has two limits before it has a runtime"
+      }
     },
     {
       "id": "d05-storage-power-and-time",
@@ -3406,6 +3520,14 @@
             "Load shape also matters. For a changing protected demand, calculate energy interval by interval and check the power limit at every relevant interval. A short higher-power phase can fail the power screen while barely changing total energy. A lower sustained phase can fit the converter but exhaust the inventory. Neither the maximum MW nor the total MWh alone describes both problems.",
             "A successful transfer to another supply ends the battery's bridging interval only if the other supply has actually become acceptable to the protected system. Generator start, stabilization, load acceptance, transfer behavior, and auxiliary restoration are system events with their own evidence. No generic runtime formula supplies those timings. Use an explicit timeline and compare the required output energy through that interval with the available energy.",
             "Finally, do not claim complete recovery when the load merely returns to its normal source. The store may be depleted and require recharge before it can support a second event. Recharging competes for electrical capacity and may have its own rate limit. A continuity promise therefore needs the starting state, the supported event, and the restored readiness condition. The next lesson follows that event across electricity and cooling rather than stopping at the battery icon."
+          ]
+        },
+        {
+          "heading": "Case study: solar and second-life batteries in Sparks",
+          "paragraphs": [
+            "The solar example is Crusoe and Redwood Materials at Sparks, Nevada. Crusoe’s May 2026 summary specifies 12 MW of solar and 63 MWh of repurposed EV battery capacity. These quantities answer different questions: generation capability and stored energy.",
+            "For an original ideal example, assume a full usable 63 MWh store, a constant 3 MW total load, no solar input, no reserve and no conversion loss. Energy alone would last 21 hours. At 6 MW it would last 10.5 hours, only if the delivery path could supply 6 MW. Actual runtime needs usable energy, discharge limits, state of charge, auxiliaries and the weather/load time series. Neither quotient is a measured Sparks runtime.",
+            "Crusoe’s March 2026 update reports 99.2% microgrid availability over seven months and 99.9% Cloud availability using grid backup. Pause: does that mean 99.2% of electricity came from solar? No. Availability measures time meeting a service definition; solar share measures energy from a source. An hourly supply ledger is needed to answer the latter. The grid-backup disclosure also prevents describing this operating account as entirely off-grid."
           ]
         }
       ],
@@ -3489,7 +3611,9 @@
         "ED20FD8CBCF",
         "E0814EDF226",
         "P31",
-        "P32"
+        "P32",
+        "P75",
+        "P76"
       ],
       "source_notes": [
         {
@@ -3515,9 +3639,21 @@
           "claim": "Distinguish zero output transfer time in online double-conversion operation from standby and line-interactive transfers.",
           "reviewed_on": "2026-09-11",
           "limits": "Reviewed topology and Online UPS sections. Zero transfer time is not a guarantee of zero internal transient or an equipment-specific battery-interface response time."
+        },
+        {
+          "id": "P75",
+          "claim": "Teach solar, storage and grid backup at Sparks, Nevada; distinguish microgrid availability from Cloud availability and energy share.",
+          "reviewed_on": "2026-09-12",
+          "limits": "Main release reviewed. Company reports 99.2% microgrid availability over seven months and 99.9% Cloud availability using grid backup. Expansion to 24 modular data centers is announced, not confirmed complete. Do not carry forward the initial off-grid description as present status."
+        },
+        {
+          "id": "P76",
+          "claim": "Names 12 MW of solar and 63 MWh of repurposed EV battery capacity for the Redwood project; describes original Abilene phase as greenfield.",
+          "reviewed_on": "2026-09-12",
+          "limits": "Selected web sections reviewed, not the linked full report. Equipment ratings are not measured continuous output or usable battery energy. Company-wide renewable procurement claims cannot establish hourly matching at every campus."
         }
       ],
-      "word_count": 1635
+      "word_count": 1819
     },
     {
       "id": "d05-paths-and-transitions",
@@ -3793,7 +3929,21 @@
           "limits": "Read the public resistor-power equations; all fault currents and durations are hypothetical teaching inputs."
         }
       ],
-      "word_count": 1234
+      "word_count": 1234,
+      "domain_checkin": {
+        "domain": "D05",
+        "title": "Maintenance, then another loss",
+        "scenario": "Three hypothetical UPS modules can each deliver 1 MW to a common output serving 1.8 MW, including all protected auxiliaries. One module is isolated for maintenance; another then fails. Assume the surviving output path remains connected and has enough stored energy for the required bridge interval.",
+        "prompt": "Can the full load remain supported? Explain which limit matters now.",
+        "answer": "No. Only 1 MW remains available for a 1.8 MW load, leaving a 0.8 MW power shortfall.",
+        "explanation": [
+          "With one module unavailable, the two remaining modules supplied 2 MW. Losing another removes that margin and more. Enough stored energy cannot overcome an output-power limit; preserving a smaller service would require a pre-established way to reduce the supported load."
+        ],
+        "next_domain": "D06",
+        "bridge": "Carry those power, energy and failure boundaries into the rack. Which conversions and interfaces remain when its inlet voltage changes?",
+        "next_lesson": "d06-conversion-ledger",
+        "next_title": "Follow the watts through the rack"
+      }
     },
     {
       "id": "d06-conversion-ledger",
@@ -4240,7 +4390,21 @@
           "limits": "Reviewed the public PDF mechanical sections on printed pages 7, 9 and 11, plus revision table on page 6. Revision 1.0 is the identified reference, not a claim to the latest revision. Electrical, connector and qualification requirements were not audited; the lesson does not infer interchangeability from height alone."
         }
       ],
-      "word_count": 1225
+      "word_count": 1225,
+      "domain_checkin": {
+        "domain": "D06",
+        "title": "Did moving the converter save energy?",
+        "scenario": "A hypothetical redesign moves a converter from each rack to a nearby cabinet. Useful device output, converter efficiency, cable losses and auxiliary demand all remain unchanged.",
+        "prompt": "Did the redesign reduce facility electricity use? Name something it did change.",
+        "answer": "No energy saving follows from these assumptions. The converter's location and the rack's physical and electrical interfaces changed.",
+        "explanation": [
+          "The same output still requires the same total input across the complete path. Conversion heat now occurs outside the rack, and rack space may be released. Shared failure exposure, protection, service access and expansion arrangements need checking at the new location."
+        ],
+        "next_domain": "D07",
+        "bridge": "Now that power reaches the devices, what determines whether those devices spend their time doing useful work?",
+        "next_lesson": "d07-data-path",
+        "next_title": "A rack is a path through several memories"
+      }
     },
     {
       "id": "d07-data-path",
@@ -4634,7 +4798,21 @@
           "limits": "An index is a starting point; actual installation and maintenance requirements must come from the supplied equipment."
         }
       ],
-      "word_count": 974
+      "word_count": 974,
+      "domain_checkin": {
+        "domain": "D07",
+        "title": "Twice the arithmetic, same progress?",
+        "scenario": "In a hypothetical model, computation and memory transfer overlap completely. A step needs 2 ms of arithmetic and 8 ms to fetch its inputs. An upgrade halves arithmetic time while leaving the memory path and all other conditions unchanged.",
+        "prompt": "What happens to the modeled step time, and why?",
+        "answer": "It remains 8 ms: max(2, 8) and max(1, 8) are both 8.",
+        "explanation": [
+          "The memory path sets the limit in this supplied model, so extra arithmetic capacity does not shorten the step. The conclusion depends on complete overlap and unchanged data movement; a real job needs evidence about its dependencies and measured bottleneck."
+        ],
+        "next_domain": "D08",
+        "bridge": "Inputs and results also move between devices. What happens when a shared network path becomes the slowest dependency?",
+        "next_lesson": "d08-topology-budget",
+        "next_title": "Count the paths, not just the advertised ports"
+      }
     },
     {
       "id": "d08-topology-budget",
@@ -5093,7 +5271,21 @@
           "limits": "Product catalog and marketing page; no power, reach or reliability rating is adopted without its specific datasheet."
         }
       ],
-      "word_count": 1034
+      "word_count": 1034,
+      "domain_checkin": {
+        "domain": "D08",
+        "title": "Healthy devices, waiting job",
+        "scenario": "A hypothetical synchronized training step cannot finish until every participant completes its required exchange. One shared fabric link becomes congested, although every accelerator remains healthy.",
+        "prompt": "Can the job slow down without losing any accelerators? Trace the dependency.",
+        "answer": "Yes. Delayed communication can hold up the exchange that the entire step needs before it can advance.",
+        "explanation": [
+          "Healthy endpoints do not establish a healthy end-to-end communication path. Follow the affected traffic through shared links and the collective's dependencies. Placement or path changes might help, but only if they relieve the actual constrained route."
+        ],
+        "next_domain": "D09",
+        "bridge": "The cluster also needs durable data and recoverable progress. What survives when an interruption stops the job?",
+        "next_lesson": "d09-storage-paths",
+        "next_title": "Storage is a traffic and state system"
+      }
     },
     {
       "id": "d09-storage-paths",
@@ -5399,6 +5591,13 @@
             "Within an isolated, approved acceptance environment, introduce an agreed non-destructive fault such as terminating one test worker after a completed checkpoint. Observe detection, cleanup, replacement allocation, state restoration and the first correct new output. Compare the result with an uninterrupted control using the declared correctness criteria. Then verify that temporary resources and stale processes are removed. This tests recovery as a service path rather than assuming that a restart command proves progress survived.",
             "The final report should say which service configuration passed, which degraded modes were exercised and which conditions remain untested. Keep raw logs, configuration identifiers, timestamps and output checksums with the report. Power-on counts and electrical capacity remain valuable infrastructure facts, but they are inputs to this acceptance exercise. The accepted output is an executable service commitment tied to workload, environment and recovery behavior."
           ]
+        },
+        {
+          "heading": "Case study: Google shifts flexible work through time",
+          "paragraphs": [
+            "Google’s October 2023 account describes pilots that shifted eligible non-urgent tasks across time and location to reduce demand during grid stress. This complements the Sparks battery case: storage shifts available energy through time; scheduling shifts work and its demand. Neither changes every workload into a flexible job.",
+            "Consider an original teaching brief: a video-processing job must finish tomorrow, while an interactive request must respond in 200 ms. A two-hour grid event may allow the video job to move if enough later capacity remains. The same delay would fail the interactive service. Check deadlines, progress retention, placement and the later peak before promising a demand reduction. Moving execution does not automatically reduce its total energy."
+          ]
         }
       ],
       "tradeoff": [
@@ -5474,7 +5673,8 @@
       "source_ids": [
         "P13",
         "EE0FC346C72",
-        "E0CDE775C43"
+        "E0CDE775C43",
+        "P77"
       ],
       "source_notes": [
         {
@@ -5494,9 +5694,29 @@
           "claim": "A reference cluster includes orchestration, system management, libraries and operating-system components.",
           "reviewed_on": "2026-09-06",
           "limits": "Vendor reference stack, updated November 19, 2025; it does not certify an arbitrary tenant environment."
+        },
+        {
+          "id": "P77",
+          "claim": "Compare storing energy with rescheduling eligible non-urgent work during grid stress.",
+          "reviewed_on": "2026-09-12",
+          "limits": "Publisher-indexed introduction reviewed after direct fetch timed out. Historical pilot description; no claim that every workload can move or that reduced demand necessarily reduces total energy."
         }
       ],
-      "word_count": 1002
+      "word_count": 1124,
+      "domain_checkin": {
+        "domain": "D09",
+        "title": "Which progress comes back?",
+        "scenario": "In a hypothetical run, the latest validated, durable checkpoint represents progress through minute 20. A failure occurs at minute 28; no newer checkpoint survives. Restoration takes 3 minutes, and the same work runs at the same rate afterward.",
+        "prompt": "How much completed work must be repeated, and when can the run regain its pre-failure progress?",
+        "answer": "It repeats 8 minutes of work and regains its minute-28 progress at wall-clock minute 39.",
+        "explanation": [
+          "Restoration ends at minute 31. Replaying the 8 minutes after the durable checkpoint then takes until minute 39. The surviving checkpoint preserves earlier progress, but it does not remove restore time or the work completed after its saved state."
+        ],
+        "next_domain": "D10",
+        "bridge": "While the recovered job runs, its hardware keeps producing heat. Can every device transfer that heat into a supported cooling path?",
+        "next_lesson": "d10-local-thermal-paths",
+        "next_title": "A cool room can contain an overheating chip"
+      }
     },
     {
       "id": "d10-local-thermal-paths",
@@ -5987,7 +6207,21 @@
           "limits": "Selected CDU and gallery sections reviewed in mutable HTML. One reference design does not prove site deployment, independent facility-water paths or the ratings and response time of the synthetic course example."
         }
       ],
-      "word_count": 1796
+      "word_count": 1796,
+      "domain_checkin": {
+        "domain": "D10",
+        "title": "The liquid loop is not the whole rack",
+        "scenario": "A hypothetical 100 kW rack transfers 80 kW into its liquid loop and 20 kW into room air. Its liquid loop remains available, but the room's air-cooling path becomes unavailable.",
+        "prompt": "Can you claim the rack can keep running at 100 kW? Explain the remaining heat obligation.",
+        "answer": "No. The 20 kW released to air still needs a working heat-removal path.",
+        "explanation": [
+          "Adequate liquid capacity does not establish cooling for components whose heat enters the air. Without another demonstrated path, the supplied facts do not support continued full-load operation. Thermal limits and any allowable ride-through require additional evidence."
+        ],
+        "next_domain": "D11",
+        "bridge": "Heat captured from the rack has only started its journey. How does it finally reach the outdoor environment?",
+        "next_lesson": "d11-heat-rejection",
+        "next_title": "The heat does not disappear at the chiller"
+      }
     },
     {
       "id": "d11-heat-rejection",
@@ -6431,6 +6665,14 @@
             "Consider a separate synthetic receiving load that can accept 2 MW for six hours, while the data center has 4 MW available continuously. The maximum directly accepted heat over those six hours is 12 MWh, assuming suitable temperatures and no distribution losses. The data center produces 96 MWh over the day, so this arrangement accounts for 12.5 percent of that heat. It leaves 84 MWh requiring another destination. A pipe connection is not evidence of year-round demand.",
             "Whether reuse is preferable depends on the counterfactual and the constraints. Does it replace a receiving building’s fuel use, add electricity for a heat pump, or displace another low-emission source? Is the benefit delivered during the same hours that the data center needs rejection? Keep energy, water and emissions ledgers separate. The decisive comparison is a specified service arrangement against an alternative, with the assumptions that could reverse the answer visible."
           ]
+        },
+        {
+          "heading": "Case study: Abilene closes the coolant loop, then rejects heat to air",
+          "paragraphs": [
+            "Crusoe’s August 2025 Abilene description specifies closed-loop facility water and air-cooled chillers for non-evaporative heat rejection. It separately accounts for initial fill and maintenance water. This dated design description is our recurring campus example, not an audited annual water balance.",
+            "Follow the mechanism: fluid circulates inside the system, heat crosses the chiller interfaces, and outdoor air receives the rejected heat. Closed-loop describes the fluid path. Non-evaporative describes the rejection process. Neither term means zero compressor work, zero maintenance water or unlimited capacity on a hot day.",
+            "Pause: would replacing the air-cooled rejection arrangement with an evaporative tower leave the water ledger unchanged merely because the equipment coolant loop stays closed? No. The equipment loop may still recirculate, while a separate tower circuit needs makeup water. Identify each circuit before applying a water-use claim to the whole campus."
+          ]
         }
       ],
       "tradeoff": [
@@ -6506,7 +6748,8 @@
       },
       "source_ids": [
         "E89E077D5C1",
-        "E6DF2655A78"
+        "E6DF2655A78",
+        "P74"
       ],
       "source_notes": [
         {
@@ -6520,9 +6763,29 @@
           "claim": "The water-use discussion distinguishes withdrawals from consumptive use.",
           "reviewed_on": "2026-09-06",
           "limits": "Selected definitions inspected; the lesson’s hypothetical return-flow assumption is not an observation about a real basin."
+        },
+        {
+          "id": "P74",
+          "claim": "Abilene provides a recurring example of grid supply, backup and closed-loop cooling with air-cooled heat rejection.",
+          "reviewed_on": "2026-09-12",
+          "limits": "Energy and water sections reviewed. Historical company design description, not audited operating water use. Initial fill and maintenance remain separate from non-evaporative heat rejection."
         }
       ],
-      "word_count": 1092
+      "word_count": 1241,
+      "domain_checkin": {
+        "domain": "D11",
+        "title": "What reaches the condenser?",
+        "scenario": "A hypothetical chiller removes 1.0 MW from its evaporator loop while its compressor consumes 0.2 MW. Ignore other heat transfers and exclude pumps and fans from this stated balance.",
+        "prompt": "How much heat must its condenser reject, and what is the cooling COP at this boundary?",
+        "answer": "The condenser rejects 1.2 MW, and cooling COP is 1.0 / 0.2 = 5.",
+        "explanation": [
+          "The condenser receives the cooling duty plus compressor work: 1.0 + 0.2 MW. Cooling COP uses the evaporator duty as its numerator. This balance does not establish outdoor equipment capacity under a given climate, or account for the excluded pumps and fans."
+        ],
+        "next_domain": "D13",
+        "bridge": "We have traced the power, work and heat paths. What evidence proves that the delivered equipment can operate as one complete service?",
+        "next_lesson": "d13-delivery-dependencies",
+        "next_title": "The longest lead time is not the completion date"
+      }
     },
     {
       "id": "d13-delivery-dependencies",
@@ -6909,7 +7172,21 @@
           "limits": "Selected documentation purpose reviewed; this is not a claim to have applied a complete ASHRAE standard or GSA acceptance process."
         }
       ],
-      "word_count": 947
+      "word_count": 947,
+      "domain_checkin": {
+        "domain": "D13",
+        "title": "Count the same accepted paths",
+        "scenario": "A hypothetical phase contains rack positions A, B, C and D. Power acceptance covers A, B and C; cooling acceptance covers B, C and D; network acceptance covers A, B, C and D. No end-to-end workload or recovery test has run.",
+        "prompt": "How many positions share the three accepted subsystem paths? How many have demonstrated service acceptance?",
+        "answer": "Two positions, B and C, share all three subsystem acceptances. None has yet demonstrated end-to-end service acceptance.",
+        "explanation": [
+          "Separate totals of three, three and four do not identify a common set of three. Take the intersection first, then test the agreed workload, failure behavior and recovery on complete paths. A subsystem pass is evidence for its own scope."
+        ],
+        "next_domain": "D14",
+        "bridge": "After acceptance, how will operators notice when those same paths change, degrade or become unavailable for maintenance?",
+        "next_lesson": "d14-telemetry-and-observability",
+        "next_title": "A believable number can describe the wrong thing"
+      }
     },
     {
       "id": "d14-telemetry-and-observability",
@@ -7292,7 +7569,21 @@
           "limits": "Selected postmortem principles inspected; timeline and proposed evidence questions are original."
         }
       ],
-      "word_count": 956
+      "word_count": 956,
+      "domain_checkin": {
+        "domain": "D14",
+        "title": "One reassuring number",
+        "scenario": "A hypothetical rack reports high device temperatures while the plant's displayed supply temperature looks normal. The plant reading is ten minutes old, and there is no current measurement of flow through the affected rack branch.",
+        "prompt": "Does the normal plant reading establish that rack cooling is adequate? Identify the next evidence you need.",
+        "answer": "No. Obtain time-aligned measurements at the affected rack's thermal and flow boundaries before choosing a cause.",
+        "explanation": [
+          "A stale upstream temperature cannot establish current local flow or heat transfer. Current branch flow, supply and return temperatures, device temperatures and load history can help distinguish restricted flow, a changed load and faulty telemetry. The alarm alone does not select among them."
+        ],
+        "next_domain": "D15",
+        "bridge": "Measurements reveal the constraint. Which intervention changes usable service enough to justify its cost and delivery time?",
+        "next_lesson": "d15-capacity-ledger",
+        "next_title": "Find the constraint after reconciling the boundaries"
+      }
     },
     {
       "id": "d15-capacity-ledger",
@@ -7659,7 +7950,21 @@
           "limits": "Main article and visible October 22, 2025 update inspected on September 6, 2026. This lesson audits the dated statements; it does not establish current operating MW, complete topology or site economics."
         }
       ],
-      "word_count": 1080
+      "word_count": 1080,
+      "domain_checkin": {
+        "domain": "D15",
+        "title": "Which upgrade changes the ceiling?",
+        "scenario": "For the same hypothetical rack population and operating condition, electrical capacity supports 12 racks, cooling 8, networking 10 and accepted service 9. Option A raises electrical capacity to 16; option B raises cooling capacity to 11. Assume the other limits stay fixed.",
+        "prompt": "What ceiling follows from each option, and is that enough to choose an investment?",
+        "answer": "Option A leaves the ceiling at 8 racks. Option B raises it to 9, where accepted service becomes the limit. This alone does not settle the investment decision.",
+        "explanation": [
+          "Take the minimum across limits with matching boundaries: min(16, 8, 10, 9) = 8 and min(12, 11, 10, 9) = 9. Then compare delivery dates, costs and useful output from the added service. A capacity ceiling is neither measured demand nor a guaranteed business result."
+        ],
+        "next_domain": "capstone",
+        "bridge": "Take the whole chain into an integrated case: can you defend a decision while keeping its assumptions, evidence and unresolved constraints visible?",
+        "next_lesson": "c01-coupled-outage",
+        "next_title": "The servers stay powered. The service does not."
+      }
     },
     {
       "id": "c01-coupled-outage",
@@ -9762,6 +10067,111 @@
       ],
       "use": "Distinguish scheduled, latency-tolerant batch inference from real-time serving and request batching; motivate a queue of independent LLM evaluation batches.",
       "caution": "Reviewed the overview, architectural-pattern and batch-size sections. The 48 MWh evaluation queue, 4 MW base load, 24-hour deadline and preserved-energy assumption are original examples, not Google measurements or performance promises."
+    },
+    {
+      "id": "P73",
+      "title": "Crusoe — Abilene campus development update",
+      "url": "https://www.crusoe.ai/resources/newsroom/crusoe-announces-new-900-mw-ai-factory-campus-in-abilene-texas-to-support-microsoft-ai-infrastructure",
+      "publisher": "Crusoe",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "published_on": "2026-03-27",
+      "domains": [
+        "D03",
+        "D12",
+        "D15"
+      ],
+      "use": "Separate the original Abilene campus from the adjacent Microsoft development; distinguish energized buildings from future capacity.",
+      "caution": "Main announcement reviewed. Dated company account: two original 100 MW buildings energized; six more expected by end-2026; adjacent 900 MW project targets first energization in mid-2027. These are not September 2026 metered loads."
+    },
+    {
+      "id": "P74",
+      "title": "Crusoe — Abilene cooling design",
+      "url": "https://www.crusoe.ai/resources/blog/an-inside-look-at-the-abilene-ai-data-center",
+      "publisher": "Crusoe",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "published_on": "2025-08-05",
+      "domains": [
+        "D03",
+        "D05",
+        "D10",
+        "D11"
+      ],
+      "use": "Abilene provides a recurring example of grid supply, backup and closed-loop cooling with air-cooled heat rejection.",
+      "caution": "Energy and water sections reviewed. Historical company design description, not audited operating water use. Initial fill and maintenance remain separate from non-evaporative heat rejection."
+    },
+    {
+      "id": "P75",
+      "title": "Crusoe and Redwood — Sparks microgrid update",
+      "url": "https://www.crusoe.ai/resources/newsroom/crusoe-and-redwood-materials-expand-strategic-partnership-scaling-to-7x-the-original-ai-infrastructure-density",
+      "publisher": "Crusoe",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "published_on": "2026-03-24",
+      "domains": [
+        "D03",
+        "D05",
+        "D14",
+        "D15"
+      ],
+      "use": "Teach solar, storage and grid backup at Sparks, Nevada; distinguish microgrid availability from Cloud availability and energy share.",
+      "caution": "Main release reviewed. Company reports 99.2% microgrid availability over seven months and 99.9% Cloud availability using grid backup. Expansion to 24 modular data centers is announced, not confirmed complete. Do not carry forward the initial off-grid description as present status."
+    },
+    {
+      "id": "P76",
+      "title": "Crusoe — 2025 impact report web summary",
+      "url": "https://www.crusoe.ai/resources/blog/crusoes-2025-impact-report",
+      "publisher": "Crusoe",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "published_on": "2026-05-28",
+      "domains": [
+        "D03",
+        "D05",
+        "D12"
+      ],
+      "use": "Names 12 MW of solar and 63 MWh of repurposed EV battery capacity for the Redwood project; describes original Abilene phase as greenfield.",
+      "caution": "Selected web sections reviewed, not the linked full report. Equipment ratings are not measured continuous output or usable battery energy. Company-wide renewable procurement claims cannot establish hourly matching at every campus."
+    },
+    {
+      "id": "P77",
+      "title": "Google — Supporting power grids with demand response",
+      "url": "https://cloud.google.com/blog/products/infrastructure/using-demand-response-to-reduce-data-center-power-consumption",
+      "publisher": "Google",
+      "kind": "primary_reference",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-12",
+      "published_on": "2023-10-03",
+      "domains": [
+        "D02",
+        "D03",
+        "D09"
+      ],
+      "use": "Compare storing energy with rescheduling eligible non-urgent work during grid stress.",
+      "caution": "Publisher-indexed introduction reviewed after direct fetch timed out. Historical pilot description; no claim that every workload can move or that reduced demand necessarily reduces total energy."
+    },
+    {
+      "id": "SA42",
+      "title": "SpaceX 10GW in 2027 — construction pace and equipment procurement",
+      "url": "https://newsletter.semianalysis.com/p/spacex-10gw-in-2027-why-its-real",
+      "publisher": "SemiAnalysis",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-12",
+      "published_on": "2026-08-07",
+      "domains": [
+        "D03",
+        "D04",
+        "D12",
+        "D13"
+      ],
+      "use": "Reported speed-versus-efficiency tradeoff: power modules and medium-voltage generation-to-distribution path bypass long-lead switchgear and large power transformers.",
+      "caution": "Public construction-pace section reviewed, especially the paragraph immediately following MiniHard. Attribution is SemiAnalysis research in the Southaven/MiniHard buildout context; not an as-built one-line for every Colossus site. No market, revenue or 2027 capacity forecast adopted. Do not rewrite this as all site equipment operating at MV."
     }
   ],
   "glossary": [

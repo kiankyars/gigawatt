@@ -88,3 +88,24 @@ Average response time is 29 ms, yet an average below 30 ms does not mean every r
 
 - [NVIDIA Triton — Batchers](https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/user_guide/batcher.html) — Dynamic batching can combine requests and introduce a configurable waiting interval. Read 2026-09-06. Read the public dynamic-batcher and delayed-batching sections. All timings and throughput numbers in this lesson are hypothetical.
 - [Vertiv — BESS and UPS roles in large data center power architecture](https://www.vertiv.com/en-us/insights/articles/white-papers/bess-and-ups-roles-in-large-data-center-power-architecture/) — Synchronized AI load changes motivate coordination across power-system levels. Read 2026-09-06. Read the public white-paper landing page only, not the downloadable full white paper; no universal measured waveform is asserted.
+
+## D02 domain check-in: Same hardware, different service
+
+Optional: pause and make a prediction, then compare your reasoning. You can continue whenever you are ready.
+
+Two hypothetical inference services have the same accelerator count and average IT demand. One meets its response-time target; the other builds a queue whenever requests arrive in bursts.
+
+**Pause and predict:** Would you give them the same usable-service rating? Name the missing evidence.
+
+<details>
+<summary>Compare your reasoning</summary>
+
+No. Equal hardware and average demand do not establish equal output within the response-time target.
+
+Compare accepted responses under the same arrival pattern, quality requirement and latency target, including the slow end of the response-time distribution. Then measure the load phases and simultaneous peaks needed to deliver that service. A mean demand alone does not define its infrastructure envelope.
+
+</details>
+
+**The next problem:** Once the workload has an explicit demand envelope, where can the required power actually be delivered?
+
+Continue in **D03**: A contract is not a cable.

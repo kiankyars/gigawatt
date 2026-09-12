@@ -87,6 +87,7 @@ a {
 button:focus-visible,
 a:focus-visible,
 input:focus-visible,
+textarea:focus-visible,
 summary:focus-visible {
   outline: 3px solid #cd8427;
   outline-offset: 4px;
@@ -559,6 +560,33 @@ h1 {
 }
 .practice .answer {
   font-weight: 700;
+}
+.domain-checkin {
+  border-top: 4px solid var(--teal);
+}
+.domain-checkin h3 {
+  font-size: 18px;
+  line-height: 1.4;
+  margin: 0 0 16px;
+}
+.checkin-prompt {
+  font-weight: 650;
+}
+.checkin-bridge {
+  border-top: 1px solid var(--rule);
+  margin-top: 24px;
+  padding-top: 22px;
+}
+.checkin-bridge a {
+  display: inline-block;
+  line-height: 1.6;
+}
+.lesson-checkin-note {
+  display: block;
+  margin-top: 5px;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--muted);
 }
 .evidence {
   margin: 42px 0;

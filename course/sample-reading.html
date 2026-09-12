@@ -109,6 +109,7 @@ a {
 button:focus-visible,
 a:focus-visible,
 input:focus-visible,
+textarea:focus-visible,
 summary:focus-visible {
   outline: 3px solid #cd8427;
   outline-offset: 4px;
@@ -581,6 +582,33 @@ h1 {
 }
 .practice .answer {
   font-weight: 700;
+}
+.domain-checkin {
+  border-top: 4px solid var(--teal);
+}
+.domain-checkin h3 {
+  font-size: 18px;
+  line-height: 1.4;
+  margin: 0 0 16px;
+}
+.checkin-prompt {
+  font-weight: 650;
+}
+.checkin-bridge {
+  border-top: 1px solid var(--rule);
+  margin-top: 24px;
+  padding-top: 22px;
+}
+.checkin-bridge a {
+  display: inline-block;
+  line-height: 1.6;
+}
+.lesson-checkin-note {
+  display: block;
+  margin-top: 5px;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--muted);
 }
 .evidence {
   margin: 42px 0;
@@ -1352,15 +1380,23 @@ h1 {
           autocomplete="off"
         />
         <p id="search-status" class="muted" aria-live="polite"></p>
+        <nav aria-label="Optional course prelude" class="domain-group">
+          <h3><span>D00</span>Optional primer · about 20 minutes</h3>
+          <a class="lesson-link" href="prototypes/terminology-format.html"
+            >Electricity basics and recurring terminology ↗</a
+          >
+        </nav>
         <nav id="contents" aria-label="Lessons"></nav>
         <div class="rail-foot">
           <a href="domain-map.html">Domain map ↗</a
           ><a href="index.html">Full course ↗</a
-          ><a href="prototypes/orientation-format.html">Opening visual section ↗</a
+          ><a href="prototypes/orientation-format.html">D01 · Data center overview ↗</a
+          ><a href="prototypes/workload-format.html">D02 · Workloads and requirements ↗</a
+          ><a href="prototypes/case-studies.html">Real campus case studies ↗</a
           ><a href="sample.html">800 V visual sample ↗</a
           ><a href="prototypes/ups-format.html">UPS visual sequence ↗</a
           ><a href="prototypes/cooling-format.html">Cooling visual draft ↗</a
-          ><a href="../diagram/index.html">Interactive introduction ↗</a
+          ><a href="../diagram/index.html">Historical 22-lesson introduction ↗</a
           ><a href="../research/INDEX.md">Research library ↗</a
           ><a href="PRESENTING.md">Review this draft ↗</a>
           <p>Authored draft · September 2026</p>
@@ -1427,6 +1463,12 @@ h1 {
             id="evidence"
             class="evidence"
             aria-labelledby="evidence-title"
+          ></section>
+          <section
+            id="domain-checkin"
+            class="practice domain-checkin"
+            aria-labelledby="domain-checkin-title"
+            hidden
           ></section>
           <footer class="lesson-footer">
             <button id="previous">← Previous</button><span id="position"></span
@@ -1783,6 +1825,7 @@ const sourcesById = new Map(DATA.sources.map((s) => [s.id, s]));
 let current = 0,
   lookupMode = false;
 const drafts = new Map();
+const checkinDrafts = new Map();
 const ART = {
   campus: {
     file: "campus-cutaway.png",
@@ -1895,7 +1938,11 @@ function renderContents() {
   const q = $("search").value.trim().toLowerCase(),
     terms = q.split(/\s+/).filter(Boolean);
   const filtered = LESSONS.filter((l) =>
-    terms.every((t) => JSON.stringify(l).toLowerCase().includes(t)),
+    terms.every((t) =>
+      `${l.domain_checkin ? "domain check-in checkin " : ""}${JSON.stringify(l)}`
+        .toLowerCase()
+        .includes(t),
+    ),
   );
   $("lesson-count").textContent = `${LESSONS.length} lessons`;
   $("search-status").textContent = q
@@ -1907,7 +1954,7 @@ function renderContents() {
       .map((d) => {
         const ls = filtered.filter((l) => l.domain === d.id);
         if (!ls.length) return "";
-        return `<section class="domain-group"><h3><span>${esc(d.id === "capstone" ? "CASE" : d.id)}</span>${esc(d.title)}</h3>${ls.map((l) => `<button class="lesson-link${LESSONS[current]?.id === l.id && !lookupMode ? " active" : ""}" data-lesson="${esc(l.id)}" ${LESSONS[current]?.id === l.id && !lookupMode ? 'aria-current="page"' : ""}>${esc(l.title)}</button>`).join("")}</section>`;
+        return `<section class="domain-group"><h3><span>${esc(d.id === "capstone" ? "CASE" : d.id)}</span>${esc(d.title)}</h3>${ls.map((l) => `<button class="lesson-link${LESSONS[current]?.id === l.id && !lookupMode ? " active" : ""}" data-lesson="${esc(l.id)}" ${LESSONS[current]?.id === l.id && !lookupMode ? 'aria-current="page"' : ""}>${esc(l.title)}${l.domain_checkin ? '<small class="lesson-checkin-note">Ends with a domain check-in</small>' : ""}</button>`).join("")}</section>`;
       })
       .join("") ||
     '<p class="muted">No matching lessons. Try a shorter term.</p>';
@@ -1946,6 +1993,8 @@ function go(id, historyMode = "push") {
   if (!byLesson.has(id)) id = LESSONS[0].id;
   const previous = LESSONS[current];
   if (previous && $("response")) drafts.set(previous.id, $("response").value);
+  if (previous && $("checkin-response"))
+    checkinDrafts.set(previous.domain, $("checkin-response").value);
   current = byLesson.get(id);
   lookupMode = false;
   $("lookup").hidden = true;
@@ -2040,11 +2089,35 @@ function renderLesson() {
           : "";
       })
       .join("")}</details>`;
+  renderDomainCheckin(l.domain_checkin);
   $("position").textContent = `${current + 1} / ${LESSONS.length}`;
   $("previous").disabled = current === 0;
   $("next").textContent =
-    current === LESSONS.length - 1 ? "Back to start ↻" : "Next lesson →";
+    current === LESSONS.length - 1
+      ? "Back to start ↻"
+      : l.domain_checkin
+        ? l.domain_checkin.next_domain === "capstone"
+          ? "Continue to the cases →"
+          : `Continue to ${l.domain_checkin.next_domain} →`
+        : "Next lesson →";
   renderLab(l);
+}
+function renderDomainCheckin(checkin) {
+  const section = $("domain-checkin");
+  section.hidden = !checkin;
+  section.replaceChildren();
+  if (!checkin) return;
+  const nextLabel =
+    checkin.next_domain === "capstone"
+      ? "the integrated cases"
+      : checkin.next_domain;
+  section.innerHTML =
+    `<div class="eyebrow">PAUSE · PREDICT · CONNECT</div><h2 id="domain-checkin-title">${esc(checkin.domain)} domain check-in</h2><h3>${esc(checkin.title)}</h3><p class="boundary">Optional: pause and make a prediction, then compare your reasoning. Continue whenever you are ready.</p>${prose(checkin.scenario)}<p class="checkin-prompt">${esc(checkin.prompt)}</p><label for="checkin-response">Your reasoning — private to this page; clears on reload</label><textarea id="checkin-response" autocomplete="off" placeholder="Make your prediction and explain why."></textarea><details><summary>Compare your reasoning</summary><div><p class="answer">${esc(checkin.answer)}</p>${prose(checkin.explanation)}</div></details><div class="checkin-bridge"><h3>The next problem</h3>${prose(checkin.bridge)}<a href="#${esc(checkin.next_lesson)}" id="checkin-continue">Continue to ${esc(nextLabel)}: ${esc(checkin.next_title)} →</a></div>`;
+  $("checkin-response").value = checkinDrafts.get(checkin.domain) || "";
+  $("checkin-continue").addEventListener("click", (event) => {
+    event.preventDefault();
+    go(checkin.next_lesson);
+  });
 }
 function renderParcelComparison(visual) {
   const brief = visual.brief;

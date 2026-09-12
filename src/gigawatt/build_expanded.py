@@ -176,6 +176,55 @@ def normalize(raw, catalog_by_url, known_objectives):
     return lesson
 
 
+def attach_domain_checkins(raw, lessons, sequence):
+    """Validate one optional boundary exercise per domain and resolve its links."""
+    if not isinstance(raw, dict) or raw.get("version") != 1:
+        raise ExpansionError("Domain check-ins: expected version 1")
+    records = raw.get("checkins")
+    if not isinstance(records, list):
+        raise ExpansionError("Domain check-ins: expected a list of checkins")
+    fields = {
+        "domain",
+        "title",
+        "scenario",
+        "prompt",
+        "answer",
+        "explanation",
+        "next_domain",
+        "bridge",
+    }
+    by_domain = {}
+    for record in records:
+        if not isinstance(record, dict) or set(record) != fields:
+            raise ExpansionError("Domain check-in: missing or unexpected fields")
+        checkin = deepcopy(record)
+        for key in fields - {"explanation"}:
+            text(checkin[key], f"domain check-in.{key}")
+        if not isinstance(checkin["explanation"], list) or not checkin["explanation"]:
+            raise ExpansionError("Domain check-in: expected explanatory paragraphs")
+        checkin["explanation"] = paragraphs(
+            checkin["explanation"], "domain check-in.explanation"
+        )
+        domain = checkin["domain"]
+        if domain in by_domain:
+            raise ExpansionError(f"Duplicate domain check-in: {domain}")
+        by_domain[domain] = checkin
+    if set(by_domain) != set(sequence):
+        raise ExpansionError("Domain check-ins must cover every domain exactly once")
+    first = {
+        domain: next(l for l in lessons if l["domain"] == domain)
+        for domain in sequence + ["capstone"]
+    }
+    last = {l["domain"]: l for l in lessons}
+    for domain, next_domain in zip(sequence, sequence[1:] + ["capstone"], strict=True):
+        checkin = by_domain[domain]
+        if checkin["next_domain"] != next_domain:
+            raise ExpansionError(f"{domain}: check-in bridge must follow course sequence")
+        checkin["next_lesson"] = first[next_domain]["id"]
+        checkin["next_title"] = first[next_domain]["title"]
+        last[domain]["domain_checkin"] = checkin
+
+
 def load_course(root=ROOT):
     domain_map = read(root / "course/domain-map.json")
     catalog = read(root / "course/research-sources.json")["sources"]
@@ -209,6 +258,7 @@ def load_course(root=ROOT):
         raise ExpansionError(
             "Authored capstones must cover the domain map's capstone IDs"
         )
+    attach_domain_checkins(read(root / "course/domain-checkins.json"), lessons, sequence)
     glossary, seen_terms = [], set()
     for l in lessons:
         for term in l.get("terms", []):
@@ -310,6 +360,35 @@ def lesson_markdown(l, sources, *, include_source=True, asset_prefix="assets/"):
                 f"- [{s['title']}]({s['url']}) — {note['claim']} Read {note['reviewed_on']}. {note['limits']}"
             ]
         )
+    if checkin := l.get("domain_checkin"):
+        next_domain = (
+            "the integrated cases"
+            if checkin["next_domain"] == "capstone"
+            else checkin["next_domain"]
+        )
+        lines.extend([
+            "",
+            f"## {checkin['domain']} domain check-in: {checkin['title']}",
+            "",
+            "Optional: pause and make a prediction, then compare your reasoning. You can continue whenever you are ready.",
+            "",
+            checkin["scenario"],
+            "",
+            f"**Pause and predict:** {checkin['prompt']}",
+            "",
+            "<details>",
+            "<summary>Compare your reasoning</summary>",
+            "",
+            checkin["answer"],
+            "",
+            *[p + "\n" for p in checkin["explanation"]],
+            "</details>",
+            "",
+            f"**The next problem:** {checkin['bridge']}",
+            "",
+            f"Continue in **{next_domain}**: {checkin['next_title']}.",
+            "",
+        ])
     return "\n".join(lines).rstrip() + "\n"
 
 
@@ -394,7 +473,9 @@ def build(root=ROOT, check=False):
         "",
         "The course is organized around mechanisms, solved examples, tradeoffs and changed-scenario practice. Runtime follows teaching and rehearsal; no ten-hour duration is asserted.",
         "",
-        "Generated from the lesson records in `course/expansion/` with `uv run gigawatt-expand`. This is a reading view; the [filled-in course template](COURSE_REVIEW.md) owns course design and production decisions.",
+        "Generated from the lesson records in `course/expansion/` and boundary exercises in `course/domain-checkins.json` with `uv run gigawatt-expand`. This is a reading view; the [filled-in course template](COURSE_REVIEW.md) owns course design and production decisions.",
+        "",
+        "Each domain ends with one optional scenario: pause, make a prediction, compare the reasoning, and connect it to the next problem. These check-ins carry no score and do not block progression.",
         "",
         "[Open the visual reader](index.html) · [Domain map](DOMAIN_MAP.md) · [Dry-run guide](PRESENTING.md)",
         "",
@@ -447,6 +528,7 @@ def build(root=ROOT, check=False):
         "words": sum(l["word_count"] for l in data["lessons"]),
         "objectives": sum(len(d["objectives"]) for d in data["domains"]),
         "capstones": sum(l["domain"] == "capstone" for l in data["lessons"]),
+        "domain_checkins": sum("domain_checkin" in l for l in data["lessons"]),
         "glossary_terms": len(data["glossary"]),
         "source_records": len(data["sources"]),
         "image_sha256": {
