@@ -175,6 +175,12 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P52 — CoolIT Systems — Cooling Distribution Units](sources/P52.md) | CoolIT Systems | D10 | page_reviewed |
 | [P53 — CoolIT Systems — CHx2000 launch announcement, April 15, 2025](sources/P53.md) | CoolIT Systems | D10 | page_reviewed |
 | [P54 — OCP — Data Center Facility: Low Voltage Direct Current Power Distribution, v1.0](sources/P54.md) | Open Compute Project | D04, D06 | public_excerpt_reviewed |
+| [P55 — NVIDIA System Management Interface — thermal slowdown, shutdown and power limits](sources/P55.md) | NVIDIA | D10, D11, D13 | page_reviewed |
+| [P56 — Dell PowerEdge event guide — liquid-cooling and temperature-triggered Emergency Power Reduction](sources/P56.md) | Dell Technologies | D10, D11, D13 | page_reviewed |
+| [P57 — NVIDIA Infra Controller — Leak Detection and Handling](sources/P57.md) | NVIDIA | D10, D11, D13 | page_reviewed |
+| [P58 — OCP — Modular Technology Cooling Systems, Revision 1](sources/P58.md) | Open Compute Project | D10, D11, D13 | page_reviewed |
+| [P59 — Vertiv — How N+1 redundancy supports continuous data center cooling](sources/P59.md) | Vertiv | D10, D11, D13 | public_excerpt_reviewed |
+| [P60 — NVIDIA — DSX Facilities Infrastructure Reference Design Overview](sources/P60.md) | NVIDIA | D10, D11 | public_excerpt_reviewed |
 | [SA01 — Datacenter Anatomy Part 1: Electrical Systems](sources/SA01.md) | SemiAnalysis | D04, D05, D06, D13, D15 | public_excerpt_reviewed |
 | [SA02 — Datacenter Anatomy Part 2 – Cooling Systems](sources/SA02.md) | SemiAnalysis | D10, D11, D15 | public_excerpt_reviewed |
 | [SA03 — 100,000 H100 Clusters: Power, Network Topology, Ethernet vs InfiniBand, Reliability, Failures, Checkpointing](sources/SA03.md) | SemiAnalysis | D02, D07, D08, D09, D14 | public_excerpt_reviewed |

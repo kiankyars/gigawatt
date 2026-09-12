@@ -17,7 +17,7 @@ contract; [PRESENTING.md](PRESENTING.md) explains the dry-run controls.
 Edit the inputs and regenerate. Add `--check` to verify freshness without writing.
 The authored sequences in `prototypes/` are served directly: `ups-format.html`
 and its mechanism modules, and `cooling-format.html` with `cooling-model.js`, `cooling-foundations.js`,
-`cooling-rejection.js` and `cooling-cdu.js`.
+`cooling-rejection.js`, `cooling-cdu.js` and `cooling-continuity.js`.
 Edit those files directly; their numerical tests and browser checks verify the
 prototype, while the matching reader lessons retain the longer explanations.
 The manifest reports generated counts and image hashes; the template records

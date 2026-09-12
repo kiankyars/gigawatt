@@ -17,7 +17,15 @@ const variants = {
   weather: ["dry", "humid"],
   "approach-outdoors": ["dry", "humid"],
   "plant-options": ["adiabatic", "air-chiller", "water-chiller", "economizer"],
-  "lost-flow": [null, "restored"],
+  "lost-flow": ["none", "module", "shared-path"],
+  "independent-cooling-paths": ["none", "shared-path"],
+  "cooling-derating": [
+    "full",
+    "reduced",
+    "full-lost",
+    "reduced-lost",
+    "reduced-restored",
+  ],
 };
 async function checkDiagramGeometry(page, state) {
   const issues = await page.locator("#diagram").evaluate((svg) => {
@@ -60,6 +68,44 @@ async function checkDiagramGeometry(page, state) {
           issues.push(`Heat arrow crosses a label: ${label.textContent}`);
       }
     }
+    const continuity = svg.querySelector("[data-cooling-capacity]");
+    if (continuity) {
+      const labels = [...continuity.querySelectorAll("text")];
+      for (let i = 0; i < labels.length; i++)
+        for (let j = i + 1; j < labels.length; j++) {
+          const a = labels[i].getBBox(),
+            b = labels[j].getBBox();
+          if (
+            a.x < b.x + b.width &&
+            a.x + a.width > b.x &&
+            a.y < b.y + b.height &&
+            a.y + a.height > b.y
+          )
+            issues.push(
+              `Continuity labels overlap: ${labels[i].textContent} / ${labels[j].textContent}`,
+            );
+        }
+      for (const arrow of continuity.querySelectorAll("path[marker-end]")) {
+        const length = arrow.getTotalLength();
+        for (const label of labels) {
+          const b = label.getBBox();
+          for (let distance = 0; distance <= length; distance += 2) {
+            const point = arrow.getPointAtLength(distance);
+            if (
+              point.x >= b.x - 3 &&
+              point.x <= b.x + b.width + 3 &&
+              point.y >= b.y - 3 &&
+              point.y <= b.y + b.height + 3
+            ) {
+              issues.push(
+                `Continuity route overlaps text: ${label.textContent}`,
+              );
+              break;
+            }
+          }
+        }
+      }
+    }
     return issues;
   });
   assert.deepEqual(issues, [], `${state}: diagram geometry`);
@@ -94,11 +140,48 @@ async function checkDiagramGeometry(page, state) {
           await go(id);
           assert.equal(await page.locator("h1:visible").count(), 1);
           assert.equal(await page.locator("#fullscreen").isVisible(), false);
-          assert.equal(await page.locator("#scenes option").count(), 12);
+          assert.equal(await page.locator("#scenes option").count(), 14);
+          if (id === "lost-flow") {
+            assert.equal(
+              await page
+                .locator("[data-cooling-fault]")
+                .getAttribute("data-cooling-fault"),
+              "module",
+            );
+            assert.equal(
+              await page
+                .locator('[data-setting="cduFault"][data-value="module"]')
+                .getAttribute("aria-pressed"),
+              "true",
+            );
+          }
+          if (id === "independent-cooling-paths")
+            assert.equal(
+              await page
+                .locator("[data-cooling-fault]")
+                .getAttribute("data-cooling-fault"),
+              "shared-path",
+            );
           for (const selected of states) {
-            if (selected === "restored")
-              await page.locator("#toggle-facility").click();
-            else if (selected !== null) {
+            if (id === "cooling-derating") {
+              const mode = selected.split("-")[0];
+              const button = page.locator(
+                `[data-setting="loadMode"][data-value="${mode}"]`,
+              );
+              await button.focus();
+              await page.keyboard.press("Enter");
+              assert.equal(await button.getAttribute("aria-pressed"), "true");
+              const lost = selected.endsWith("-lost");
+              const toggle = page.locator("#toggle-remaining-path");
+              if ((await toggle.textContent()).startsWith("Restore") !== lost) {
+                await toggle.focus();
+                await page.keyboard.press("Enter");
+              }
+              assert.equal(
+                (await toggle.textContent()).startsWith("Restore"),
+                lost,
+              );
+            } else if (selected !== null) {
               const button = page.locator(`[data-value="${selected}"]`);
               await button.focus();
               await page.keyboard.press("Enter");
@@ -130,6 +213,10 @@ async function checkDiagramGeometry(page, state) {
                   })
                   .map((t) => t.textContent),
               };
+            });
+            await page.screenshot({
+              path: `${output}/${name}-${viewport.width}-${colorScheme}.png`,
+              fullPage: true,
             });
             assert.ok(
               layout.width <= viewport.width + 1,
@@ -210,15 +297,66 @@ async function checkDiagramGeometry(page, state) {
                 });
               assert.ok(loaded > 100);
             }
-            if (id === "lost-flow")
+            if (
+              [
+                "lost-flow",
+                "independent-cooling-paths",
+                "cooling-derating",
+              ].includes(id)
+            ) {
+              const m = await page
+                .locator("[data-cooling-capacity]")
+                .evaluate((el) => ({
+                  capacity: Number(el.dataset.coolingCapacity),
+                  load: Number(el.dataset.coolingLoad),
+                  margin: Number(el.dataset.coolingMargin),
+                  topology: el.dataset.coolingTopology,
+                  fault: el.dataset.coolingFault,
+                  supported: el.dataset.supported === "true",
+                }));
+              const isDerating = id === "cooling-derating";
+              const expectedCapacity = isDerating
+                ? selected.endsWith("-lost")
+                  ? 0
+                  : 600
+                : id === "independent-cooling-paths"
+                  ? 1200
+                  : { none: 1800, module: 1200, "shared-path": 0 }[selected];
               assert.equal(
-                (await page.locator(".stopped").count()) > 0,
-                selected !== "restored",
+                m.capacity,
+                expectedCapacity,
+                `${name}: available heat-removal capacity`,
               );
-            await page.screenshot({
-              path: `${output}/${name}-${viewport.width}-${colorScheme}.png`,
-              fullPage: true,
-            });
+              assert.equal(
+                m.load,
+                isDerating && selected.startsWith("reduced") ? 500 : 1000,
+              );
+              assert.equal(m.margin, m.capacity - m.load);
+              assert.equal(m.supported, m.capacity >= m.load);
+              assert.equal(
+                m.topology,
+                id === "independent-cooling-paths" ? "2n" : "n+1",
+              );
+              assert.equal(m.fault, isDerating ? "double-module" : selected);
+              if (id === "independent-cooling-paths") {
+                assert.equal((content.match(/Serving load/g) || []).length, 1);
+                assert.equal(
+                  (content.match(/Ready/g) || []).length,
+                  selected === "none" ? 1 : 0,
+                );
+                assert.ok(
+                  !content.includes("2,400 kW"),
+                  "2N must not sum train ratings",
+                );
+              }
+              if (isDerating) {
+                if (selected.endsWith("-lost"))
+                  assert.match(content, /No sustained heat-removal path/);
+                else if (selected.startsWith("full"))
+                  assert.match(content, /Heat accumulates at 400 kW/);
+                else assert.match(content, /100 kW cooling margin/);
+              }
+            }
             layouts++;
           }
         }

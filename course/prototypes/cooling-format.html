@@ -567,14 +567,57 @@
         </p>
       </details>
       <details>
-        <summary>What a flow interruption tells us</summary>
+        <summary>Cooling redundancy and reduced-power operation</summary>
         <p>
-          Stopping facility circulation removes the normal steady transport path
-          from the CDU to outdoor rejection. Flow and stored energy inside the
-          technology loop can persist. Fluid, equipment and exchanger metal can
-          temporarily store heat; no time-to-overheat or immediate zero heat
-          transfer follows from this drawing. Restoring flow reconnects the
-          route, without predicting a recovery time.
+          Redundancy can exist within a CDU (pumps and power supplies), across
+          CDU groups, and through facility pumps, chillers, outdoor rejection,
+          pipe routes, electrical supplies and controls. N counts the units
+          required at the design duty; N+1 adds one. A spare component does not
+          duplicate its shared water, power or control dependencies. NVIDIA's
+          DSX reference architecture explicitly describes N+1 CDU groups with
+          shared piping. These hypothetical units are not CoolIT product
+          ratings.
+        </p>
+        <p>
+          The capacity examples stipulate a 1,000 kW selected liquid heat load
+          and 600 kW usable capacity per CDU at qualified fluid conditions. The
+          parallel branches are independently isolatable; the surviving pipework
+          and plant can support the needed flow. The N+1 group has three units.
+          One isolated unit loss leaves 1,200 kW; two leave 600 kW. A shared
+          facility-path failure removes usable capacity even with healthy CDUs.
+        </p>
+        <p>
+          The separate 2N example duplicates the upstream train: two CDU
+          modules, sufficient facility water and outdoor rejection, power and
+          controls per train. It assumes a compatible transfer of the selected
+          load to one surviving train. The displayed capacity is max(A, B), not
+          A+B. The shared load-side interface remains: cold plates, common
+          manifolds or isolation faults can still defeat that load. The drawing
+          shows heat-removal dependencies; paired supply/return pipes are
+          condensed.
+        </p>
+        <p>
+          When 600 kW remains, reducing the selected liquid heat load to 500 kW
+          leaves 100 kW of margin. At the modeled temperature/flow conditions,
+          heat removed is min(heat load, available capacity). Any excess heats
+          the fluid and equipment; this model does not calculate temperature or
+          elapsed time. The reduced load is an assumed achieved operating point
+          after coordinated IT action, not a guaranteed automatic reaction. It
+          is not a 500 kW GPU cap or a prediction of half the application speed.
+          CPUs, GPUs, memory, other electronics and residual air heat have to be
+          accounted for to connect a real electrical limit to liquid heat.
+        </p>
+        <p>
+          A configured power cap limits power; local thermal protection reacts
+          to measured chip temperature and may reduce clocks or shut hardware
+          down. Dell's CPWR0139 event explicitly documents power throttling or
+          shutdown triggered by a liquid-cooling alert. Such coordination needs
+          supported equipment, sensors, control authority and a working response
+          path. Losing the final facility path leaves no sustained cooling in
+          this model even at the lower load; leaks may instead require isolation
+          or shutdown. Thermal storage and other heat paths, where present, need
+          separate analysis. No transfer time, recovery time or safe delay is
+          claimed here.
         </p>
       </details>
       <details>
@@ -662,6 +705,39 @@
             arrangements. Selected public sections checked September 11, 2026.
           </li>
           <li>
+            <a
+              href="https://docs.nvidia.com/dsx/facilities-infra/reference-design-overview"
+              target="_blank"
+              rel="noopener"
+              >NVIDIA DSX: N+1 CDU groups with shared piping</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.vertiv.com/en-ca/about/news-and-events/articles/educational-articles/how-n1-redundancy-supports-continuous-data-center-cooling/"
+              target="_blank"
+              rel="noopener"
+              >Vertiv: N+1, 2N and shared dependencies</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://docs.nvidia.com/deploy/nvidia-smi/index.html"
+              target="_blank"
+              rel="noopener"
+              >NVIDIA: power limits and thermal protection</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.dell.com/support/manuals/en-us/poweredge-xe9780/error_event_message_guide_c/cpwrpower-configuration-event-messages?guid=guid-3683ef35-10cc-4072-b1bb-e0f44ffcc67f&amp;lang=en-us"
+              target="_blank"
+              rel="noopener"
+              >Dell PowerEdge: CPWR0139 liquid-cooling-triggered power
+              reduction</a
+            >
+          </li>
+          <li>
             <a href="../index.html#d10-cdu-interfaces">Read the CDU lesson</a> ·
             <a href="../index.html#d10-flow-and-pressure">Flow and pressure</a>
             ·
@@ -677,10 +753,10 @@
       </details>
     </dialog>
     <script type="module">
-      import { facilityFlowState } from "./cooling-model.js?v=20260911-cooling2";
       import { renderFoundation } from "./cooling-foundations.js?v=20260911-flow3";
       import { renderRejection } from "./cooling-rejection.js";
       import { renderCDU } from "./cooling-cdu.js";
+      import { renderContinuity } from "./cooling-continuity.js";
       const scenes = [
         {
           id: "why-liquid",
@@ -782,19 +858,40 @@
         },
         {
           id: "lost-flow",
-          label: "Loss of facility flow",
+          label: "Spare CDUs",
           title:
-            "A working rack loop cannot sustain cooling after its facility heat path fails.",
-          kind: "failure",
+            "A spare CDU covers a unit failure, but cannot replace its shared facility path.",
+          kind: "redundancy",
           description:
-            "The technology loop still circulates. Stopping facility flow removes the normal steady heat-removal path. Fluid and metal store heat temporarily; no failure time is predicted.",
+            "A hypothetical 1,000 kW selected liquid heat load needs two 600 kW CDUs. Three installed units give N+1 at that duty. One isolated CDU failure leaves 1,200 kW, while loss of the shared facility path defeats all three. Qualified capacities, compatible isolation, sufficient flow and the remaining plant are assumed; no transfer or survival time is calculated.",
+        },
+        {
+          id: "independent-cooling-paths",
+          label: "A/B cooling",
+          title:
+            "An independent cooling train can carry the load after the other facility path fails.",
+          kind: "independent-paths",
+          description:
+            "Two independent upstream trains each contain two 600 kW CDU modules and a sufficient facility loop, outdoor plant, power and controls. A compatible transfer serves the selected 1,000 kW demand through one train. The displayed capacity is that of one surviving train, not their sum. The shared load-side interface remains outside the duplicated scope; this is not a claim that a whole site is fault tolerant.",
+        },
+        {
+          id: "cooling-derating",
+          label: "Reduce power",
+          title:
+            "Reducing compute power can match the cooling capacity that remains.",
+          kind: "derating",
+          description:
+            "After two CDU failures, one qualified 600 kW unit remains. A coordinated operating response is assumed to reduce the selected liquid heat load from 1,000 to 500 kW. At the modeled conditions, 400 kW of excess heat becomes 100 kW of cooling margin. Configured power reduction differs from local temperature-triggered throttling. No electrical cap value, application-throughput ratio or safe response time is inferred. Losing the remaining facility path removes this sustained operating option.",
         },
       ];
       const $ = (id) => document.getElementById(id);
       const compactQuery = matchMedia("(max-width:600px)");
       const state = {
         index: 0,
-        facility: false,
+        cduFault: "module",
+        pathFault: "shared-path",
+        loadMode: "full",
+        deratingPathLost: false,
         flow: 2.5,
         capture: "air",
         humidity: "dry",
@@ -852,9 +949,7 @@
         return `<g><circle cx="${x}" cy="${y}" r="${r}" class="outline"/>${[0, 120, 240].map((a) => `<path d="M${x} ${y} q${r * 0.9} ${-r * 0.85} ${r * 0.4} ${-r * 0.1} Q${x + 4} ${y + 8} ${x} ${y}" fill="var(--muted)" transform="rotate(${a} ${x} ${y})"/>`).join("")}<circle cx="${x}" cy="${y}" r="4" fill="var(--ink)"/></g>`;
       }
       function route(scene, compact) {
-        const failure = scene.kind === "failure";
-        const available =
-          !failure || facilityFlowState(state.facility).facilityFlowAvailable;
+        const available = true;
         const visibleHeat = scene.kind !== "trace" || state.trace;
         if (compact) return compactRoute(scene, available, visibleHeat);
         const dimTech = scene.kind === "outdoors";
@@ -914,8 +1009,6 @@
             "svg-small",
             'text-anchor="middle"',
           );
-        if (failure && !available)
-          out += `<path d="M822 165 l30 31 m0 -31 l-30 31" stroke="var(--fault)" stroke-width="5"/>${text(560, 309, "Heat can accumulate.", "svg-small heat-text", 'text-anchor="middle"')}`;
 
         if (scene.kind === "route" || scene.kind === "trace")
           out +=
@@ -934,7 +1027,6 @@
         return out;
       }
       function compactRoute(scene, available, visibleHeat) {
-        const failure = scene.kind === "failure";
         let out = `<rect x="9" y="5" width="354" height="366" rx="12" class="boundary"/>${text(22, 27, "DATA HALL", "svg-tiny")}${text(22, 405, "OUTDOORS", "svg-tiny")}`;
         const dimTech = scene.kind === "outdoors";
         out += `<g class="${dimTech ? "muted-object" : ""}">${rack(33, 60, 110, 128, visibleHeat)}${text(33, 49, "Rack")}</g>`;
@@ -985,8 +1077,6 @@
                 'data-heat-from="outdoor-coil"',
               );
         }
-        if (failure && !available)
-          out += `<path d="M293 268 l28 28 m0 -28 l-28 28" stroke="var(--fault)" stroke-width="4"/>${text(28, 354, "Heat can accumulate.", "svg-small heat-text")}`;
         if (scene.kind === "loops")
           out += text(
             29,
@@ -1074,9 +1164,7 @@
             ? captureTitles[state.capture]
             : scene.kind === "plant-options"
               ? plantTitles[state.plant]
-              : scene.kind === "failure" && state.facility
-                ? "Restoring facility flow reconnects the route to outdoor heat rejection."
-                : scene.title;
+              : scene.title;
         $("scenes").value = state.index;
         $("progress").textContent = `${state.index + 1} / ${scenes.length}`;
         $("previous").disabled = state.index === 0;
@@ -1102,17 +1190,28 @@
           "approach-outdoors",
           "plant-options",
         ];
-        const content = foundationKinds.includes(scene.kind)
-          ? renderFoundation(scene.kind, compact, state)
-          : rejectionKinds.includes(scene.kind)
-            ? renderRejection(scene.kind, compact, state)
-            : scene.kind === "cdu"
-              ? renderCDU(compact, state.interior)
-              : scene.kind === "plate"
-                ? plate(compact)
-                : route(scene, compact);
+        const continuityKinds = ["redundancy", "independent-paths", "derating"];
+        const content = continuityKinds.includes(scene.kind)
+          ? renderContinuity(scene.kind, compact, state)
+          : foundationKinds.includes(scene.kind)
+            ? renderFoundation(scene.kind, compact, state)
+            : rejectionKinds.includes(scene.kind)
+              ? renderRejection(scene.kind, compact, state)
+              : scene.kind === "cdu"
+                ? renderCDU(compact, state.interior)
+                : scene.kind === "plate"
+                  ? plate(compact)
+                  : route(scene, compact);
         $("diagram").innerHTML =
-          `<title id="diagram-title">${$("title").textContent}</title><desc id="diagram-description">${scene.description}${scene.kind === "water-balance" ? ` Selected mass flow is ${state.flow} kilograms per second.` : ""}${scene.kind === "failure" ? ` Facility flow is ${state.facility ? "restored" : "stopped"}.` : ""}</desc>${defs}${content}`;
+          `<title id="diagram-title">${$("title").textContent}</title><desc id="diagram-description">${scene.description}${scene.kind === "water-balance" ? ` Selected mass flow is ${state.flow} kilograms per second.` : ""}</desc>${defs}${content}`;
+        const continuity = $("diagram").querySelector(
+          "[data-cooling-capacity]",
+        );
+        if (continuity) {
+          const current = continuity.dataset;
+          $("diagram-description").textContent +=
+            ` Current selection: ${current.coolingCapacity} kilowatts of usable cooling for ${current.coolingLoad} kilowatts of heat. Capacity ${current.supported === "true" ? "meets" : "does not meet"} this load.`;
+        }
         const choices = (key, options) =>
           options
             .map(
@@ -1121,38 +1220,53 @@
             )
             .join("");
         $("actions").innerHTML =
-          scene.kind === "failure"
-            ? `<button id="toggle-facility">${state.facility ? "Stop" : "Restore"} facility flow</button>`
-            : scene.kind === "water-balance"
-              ? choices("flow", [
-                  ["2.5", "2.5 kg/s"],
-                  ["5", "Double flow: 5 kg/s"],
+          scene.kind === "redundancy"
+            ? choices("cduFault", [
+                ["none", "All CDUs healthy"],
+                ["module", "One CDU fails"],
+                ["shared-path", "Lose shared path"],
+              ])
+            : scene.kind === "independent-paths"
+              ? choices("pathFault", [
+                  ["none", "Both paths available"],
+                  ["shared-path", "Lose path A"],
                 ])
-              : scene.kind === "capture-options"
-                ? choices("capture", [
-                    ["air", "Air / CRAH"],
-                    ["coldplate", "Cold plates"],
-                    ["rear-door", "Rear door"],
-                    ["immersion", "Immersion"],
-                  ])
-                : ["weather", "approach-outdoors"].includes(scene.kind)
-                  ? choices("humidity", [
-                      ["dry", "Drier air: 22°C wet bulb"],
-                      ["humid", "More humid: 28°C wet bulb"],
+              : scene.kind === "derating"
+                ? choices("loadMode", [
+                    ["full", "Full compute load"],
+                    ["reduced", "Reduce compute power"],
+                  ]) +
+                  `<button id="toggle-remaining-path">${state.deratingPathLost ? "Restore" : "Lose"} remaining path</button>`
+                : scene.kind === "water-balance"
+                  ? choices("flow", [
+                      ["2.5", "2.5 kg/s"],
+                      ["5", "Double flow: 5 kg/s"],
                     ])
-                  : scene.kind === "plant-options"
-                    ? choices("plant", [
-                        ["adiabatic", "Adiabatic"],
-                        ["air-chiller", "Air-cooled chiller"],
-                        ["water-chiller", "Water-cooled chiller"],
-                        ["economizer", "Economizer"],
+                  : scene.kind === "capture-options"
+                    ? choices("capture", [
+                        ["air", "Air / CRAH"],
+                        ["coldplate", "Cold plates"],
+                        ["rear-door", "Rear door"],
+                        ["immersion", "Immersion"],
                       ])
-                    : scene.kind === "cdu"
-                      ? choices("interior", [
-                          ["false", "Cabinet"],
-                          ["true", "Inside the CDU"],
+                    : ["weather", "approach-outdoors"].includes(scene.kind)
+                      ? choices("humidity", [
+                          ["dry", "Drier air: 22°C wet bulb"],
+                          ["humid", "More humid: 28°C wet bulb"],
                         ])
-                      : "";
+                      : scene.kind === "plant-options"
+                        ? choices("plant", [
+                            ["adiabatic", "Adiabatic"],
+                            ["air-chiller", "Air-cooled chiller"],
+                            ["water-chiller", "Water-cooled chiller"],
+                            ["economizer", "Economizer"],
+                          ])
+                        : scene.kind === "cdu"
+                          ? choices("interior", [
+                              ["false", "Cabinet"],
+                              ["true", "Inside the CDU"],
+                            ])
+                          : "";
         document.querySelectorAll("[data-setting]").forEach((button) =>
           button.addEventListener("click", () => {
             const { setting, value } = button.dataset;
@@ -1170,10 +1284,10 @@
               .focus();
           }),
         );
-        $("toggle-facility")?.addEventListener("click", () => {
-          state.facility = !state.facility;
+        $("toggle-remaining-path")?.addEventListener("click", () => {
+          state.deratingPathLost = !state.deratingPathLost;
           render();
-          $("toggle-facility").focus();
+          $("toggle-remaining-path").focus();
         });
         document.title = `${scene.label} · GIGAWATT cooling`;
       }

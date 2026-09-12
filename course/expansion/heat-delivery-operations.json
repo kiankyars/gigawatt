@@ -193,7 +193,7 @@
     "domain": "D11",
     "title": "The same air temperature can create different cooling limits",
     "question": "How do dry bulb, wet bulb and exchanger approach determine whether the rack receives cool enough liquid?",
-    "summary": "Compare dry and wet heat rejection at explicitly labeled temperatures, then check cooling electricity against the site power ceiling.",
+    "summary": "Compare dry and wet heat rejection at explicitly labeled temperatures, check cooling electricity against the site ceiling, and distinguish redundant cooling from reduced-power operation after a fault.",
     "takeaway": "Follow the temperature difference at every interface. Dry bulb, wet bulb, loop rise and approach answer different questions.",
     "objectives": [
       "D11.1",
@@ -238,6 +238,15 @@
           "Consider a site with 10 MW of available electrical input. Its non-cooling overhead is 0.4 MW. In our synthetic model, cooling input equals IT heat divided by a stated plant COP; that ratio includes every cooling electrical load used in this exercise. We assume IT heat equals IT power at the modeled evaporator boundary. The site inequality is therefore PIT + PIT/COP + 0.4 ≤ 10 MW. This accounting avoids applying a yearly efficiency average to a particular hour.",
           "In the cool condition the plant COP is eight and available thermal duty is 9 MW. In the hot condition the plant COP is four and thermal duty is 8.5 MW. At a proposed 8 MW IT load, the hot plant can remove the heat, but it consumes 2 MW doing so. The complete site then requires 10.4 MW. Thermal capacity alone says yes; the electrical balance says no. Reducing the IT load to 7.68 MW satisfies the hot electrical limit before the thermal ceiling is reached.",
           "The result is a coupled constraint, not a penalty that can be assigned twice. First calculate feasible IT power from the electrical balance, then compare that result with available thermal duty and every other relevant ceiling. If a real performance curve changes COP with load, this simple division is no longer exact. Solve the electrical and thermal conditions together using the supplied load-dependent values rather than holding a favorable COP constant while changing its operating point."
+        ]
+      },
+      {
+        "heading": "A cooling fault changes the available operating envelope",
+        "paragraphs": [
+          "Cooling redundancy asks which complete heat-removal path survives a specified failure. An extra CDU pump can preserve circulation after that pump fails; it does not duplicate the shared heat exchanger, electrical feed, header or outdoor plant. Apply the N+1 and 2N reasoning from the UPS lesson to the actual cooling boundary, at the required flow and temperatures. OCP's modular cooling guidance connects loop boundaries with electrical failure scope and treats additional CDU capacity as useful when it serves a defined redundancy or maintenance requirement.",
+          "Power reduction is another response, with a different outcome: less heat is generated and less computing work may be delivered. NVIDIA distinguishes GPU temperature-triggered clock reduction from a configured power ceiling. A GPU cap is not automatically a cap on the complete rack. Coordinated controls can act on facility signals before waiting for chip protection: Dell's event guide explicitly describes liquid-cooling alerts triggering Emergency Power Reduction by throttling or shutdown. Such integration must be configured and its response demonstrated.",
+          "For the same synthetic comparison used in the cooling presentation, suppose this liquid path captures 1,000 kW but its surviving route is stipulated to support only 600 kW at the permitted temperatures. If 1,000 kW continues entering while only 600 kW leaves, stored thermal energy rises at 400 kJ/s. Reducing captured heat to 500 kW brings demand below that stated capability. This is a candidate reduced-service state; the capacity screen alone does not establish chip temperatures, branch flow, control response or the performance delivered to users.",
+          "Complete loss of useful circulation needs a different analysis. The steady-flow heat equation cannot give a safe operating power or time-to-overheat when flow is zero. Liquid and metal may buffer energy temporarily, but thermal protection does not guarantee continued service. A leak can also require isolation and shutdown even while some cooling remains. NVIDIA's detailed rack-management documentation separates BMS isolation actions from supervisory handling. Restore a validated heat path or follow the specified protective response; an arbitrary power cap does not repair the fault."
         ]
       },
       {
@@ -327,6 +336,34 @@
         "claim": "The Adiabatic System section explains evaporative air precooling through wet pads ahead of coils and control-dependent water use.",
         "reviewed_on": "2026-09-11",
         "limits": "Selected text on printed pages 6–7 reviewed. The claim of no additional energy cost and the simulated energy/WUE savings are not adopted; fans, pumps and controls retain their declared electricity boundary."
+      },
+      {
+        "title": "NVIDIA System Management Interface — thermal slowdown, shutdown and power limits",
+        "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+        "claim": "The Clock Event Reasons, Temperature, GPU Power Readings and Module Power Readings sections distinguish temperature-triggered clock reduction, shutdown thresholds and configured power ceilings.",
+        "reviewed_on": "2026-09-11",
+        "limits": "Selected definitions reviewed. Support and limits vary by device. This does not specify liquid-cooling fault response time, safe operation without flow, or a universal cap-to-performance relationship."
+      },
+      {
+        "title": "Dell PowerEdge event guide — liquid-cooling and temperature-triggered Emergency Power Reduction",
+        "url": "https://www.dell.com/support/manuals/en-us/poweredge-xe9780/error_event_message_guide_c/cpwrpower-configuration-event-messages?guid=guid-3683ef35-10cc-4072-b1bb-e0f44ffcc67f&lang=en-us",
+        "claim": "CPWR0139 identifies liquid-cooling-alert-triggered power throttling or shutdown; CPWR0050 and CPWR0131 describe temperature-triggered group EPR. CPWR0026 and CPWR0177 document failed action paths.",
+        "reviewed_on": "2026-09-11",
+        "limits": "Selected event definitions reviewed, not a tested installation or universal implementation. Feature support, licensing, communications and target response matter; no reaction time or achieved cooling protection is inferred."
+      },
+      {
+        "title": "NVIDIA Infra Controller — Leak Detection and Handling",
+        "url": "https://docs.nvidia.com/infra-controller/documentation/operations-day-2/leak-detection-handling",
+        "claim": "The current capability and critical/severe/general leak sections distinguish BMS electrical/liquid isolation from infrastructure-management handling and identify integration prerequisites.",
+        "reviewed_on": "2026-09-11",
+        "limits": "Current capability sections reviewed. Future API-customizable policies and broader lifecycle coverage are not treated as delivered features. This is a specific rack-management implementation, not a universal leak procedure."
+      },
+      {
+        "title": "OCP — Modular Technology Cooling Systems, Revision 1",
+        "url": "https://www.opencompute.org/documents/ocp-modular-tcs-rev-1-final-2025-pdf",
+        "claim": "Sections 3.7–3.8 connect electrical and cooling boundaries, redundancy/maintainability, and branch flow; Appendix A and the service-level framework discuss failure scope and response expectations.",
+        "reviewed_on": "2026-09-11",
+        "limits": "Selected sections reviewed. The course does not adopt universal flow rules, numerical reliability estimates, or the document's inconsistently written energy/flow units. Synthetic examples are original."
       }
     ],
     "terms": [
@@ -353,6 +390,18 @@
       {
         "term": "Range",
         "definition": "The cooling-tower water temperature drop from inlet to outlet; distinct from approach to entering wet bulb."
+      },
+      {
+        "term": "Thermal throttling",
+        "definition": "Temperature-driven reduction of a component's performance state to reduce heat generation; distinct from a deliberately requested power ceiling."
+      },
+      {
+        "term": "Power cap",
+        "definition": "A configured electrical power ceiling for a specified device or group. Its scope, enforcement and performance effect must be identified."
+      },
+      {
+        "term": "Cooling derating",
+        "definition": "Reducing the supported heat load or permitted IT operating level because the available cooling conditions or equipment have changed."
       }
     ],
     "visual": {
@@ -1271,6 +1320,7 @@
         "paragraphs": [
           "A requirement such as sufficient cooling is too vague to test. A stronger record identifies a declared heat load, inlet conditions, measurement locations, allowable behavior, duration and response to specified changes. Each acceptance condition should connect to recorded evidence. If temperature sensors are placed on different sides of a heat exchanger, their difference may not mean the quantity assumed in the flow calculation. The metering plan is therefore part of the interface agreement.",
           "Control semantics deserve the same precision. State whether a reported flow is commanded, measured or inferred; whether an alarm denotes a warning or a protective action; and whether a value is instantaneous or averaged. Specify how stale or unavailable data is represented. A display that silently reuses its last good value can make a stopped communication path look like an unusually stable process. That is an interface failure even though the physical equipment has not changed.",
+          "A cooling-fault response is also an interface to demonstrate: identify the sensor, affected rack or branch, action authority, power-cap scope, and confirmation that the action occurred. Distinguish a warning, requested reduction, enforced reduction and shutdown. Dell documents failed Emergency Power Reduction actions when a target is unreachable or rejects shutdown. NVIDIA's rack leak integration requires explicit BMS connectivity and configuration. A cooling alarm on a dashboard alone therefore does not establish an operating protection path.",
           "When a revision arrives, compare it with the recorded interface before accepting the substitution. A lighter rack may alter center of gravity; a new CDU may change connection pressure; a software release may rename a signal or change its range. Record the affected requirements, retests and downstream documents. A disciplined change record saves time because it tells the project exactly what to re-examine instead of reopening every design question or assuming nothing consequential changed."
         ]
       }
@@ -1332,6 +1382,20 @@
         "claim": "Design-phase feedback and early monitoring/control coordination are relevant to interface validation.",
         "reviewed_on": "2026-09-06",
         "limits": "Selected highlights reviewed. All rack/CDU numbers and failure scenarios here are synthetic, not ASHRAE product ratings."
+      },
+      {
+        "title": "Dell PowerEdge event guide — liquid-cooling and temperature-triggered Emergency Power Reduction",
+        "url": "https://www.dell.com/support/manuals/en-us/poweredge-xe9780/error_event_message_guide_c/cpwrpower-configuration-event-messages?guid=guid-3683ef35-10cc-4072-b1bb-e0f44ffcc67f&lang=en-us",
+        "claim": "CPWR0139 identifies liquid-cooling-alert-triggered power throttling or shutdown; CPWR0050 and CPWR0131 describe temperature-triggered group EPR. CPWR0026 and CPWR0177 document failed action paths.",
+        "reviewed_on": "2026-09-11",
+        "limits": "Selected event definitions reviewed, not a tested installation or universal implementation. Feature support, licensing, communications and target response matter; no reaction time or achieved cooling protection is inferred."
+      },
+      {
+        "title": "NVIDIA Infra Controller — Leak Detection and Handling",
+        "url": "https://docs.nvidia.com/infra-controller/documentation/operations-day-2/leak-detection-handling",
+        "claim": "The current capability and critical/severe/general leak sections distinguish BMS electrical/liquid isolation from infrastructure-management handling and identify integration prerequisites.",
+        "reviewed_on": "2026-09-11",
+        "limits": "Current capability sections reviewed. Future API-customizable policies and broader lifecycle coverage are not treated as delivered features. This is a specific rack-management implementation, not a universal leak procedure."
       }
     ],
     "terms": [

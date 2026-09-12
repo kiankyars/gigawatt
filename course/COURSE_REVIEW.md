@@ -17,7 +17,7 @@ read it end to end.
 
 **Current state:** 50 authored draft lessons cover 65 objective IDs. The thirteen-scene
 800 V DC sample and seventeen-scene UPS sequence are implemented teaching prototypes.
-A twelve-scene cooling presentation extends that approach to capture methods,
+A fourteen-scene cooling presentation extends that approach to capture methods,
 CDU ratings and approach, weather and outdoor heat rejection.
 These cover selected parts of the curriculum; they do not establish finished domains.
 Technical review, learner review, adaptation of the remaining material, recording

@@ -1055,6 +1055,12 @@ Compare air, cold-plate, rear-door and immersion approaches against a declared d
 - [P51 — CoolIT Systems — CHx2000 Row-Based CDU for AI](https://www.coolitsystems.com/cdu-product/chx2000/) · `page_reviewed` · [local note](../research/sources/P51.md)
 - [P52 — CoolIT Systems — Cooling Distribution Units](https://www.coolitsystems.com/products-services/data-center-products/cooling-distribution-units/) · `page_reviewed` · [local note](../research/sources/P52.md)
 - [P53 — CoolIT Systems — CHx2000 launch announcement, April 15, 2025](https://www.coolitsystems.com/resources/news/coolit-systems-announces-further-breakthroughs-in-row-based-coolant-distribution-unit-performance/) · `page_reviewed` · [local note](../research/sources/P53.md)
+- [P55 — NVIDIA System Management Interface — thermal slowdown, shutdown and power limits](https://docs.nvidia.com/deploy/nvidia-smi/index.html) · `page_reviewed` · [local note](../research/sources/P55.md)
+- [P56 — Dell PowerEdge event guide — liquid-cooling and temperature-triggered Emergency Power Reduction](https://www.dell.com/support/manuals/en-us/poweredge-xe9780/error_event_message_guide_c/cpwrpower-configuration-event-messages?guid=guid-3683ef35-10cc-4072-b1bb-e0f44ffcc67f&lang=en-us) · `page_reviewed` · [local note](../research/sources/P56.md)
+- [P57 — NVIDIA Infra Controller — Leak Detection and Handling](https://docs.nvidia.com/infra-controller/documentation/operations-day-2/leak-detection-handling) · `page_reviewed` · [local note](../research/sources/P57.md)
+- [P58 — OCP — Modular Technology Cooling Systems, Revision 1](https://www.opencompute.org/documents/ocp-modular-tcs-rev-1-final-2025-pdf) · `page_reviewed` · [local note](../research/sources/P58.md)
+- [P59 — Vertiv — How N+1 redundancy supports continuous data center cooling](https://www.vertiv.com/en-ca/about/news-and-events/articles/educational-articles/how-n1-redundancy-supports-continuous-data-center-cooling/) · `public_excerpt_reviewed` · [local note](../research/sources/P59.md)
+- [P60 — NVIDIA — DSX Facilities Infrastructure Reference Design Overview](https://docs.nvidia.com/dsx/facilities-infra/reference-design-overview) · `public_excerpt_reviewed` · [local note](../research/sources/P60.md)
 
 <a id="d11"></a>
 
@@ -1145,6 +1151,12 @@ Evaluate cooling architecture or heat reuse against climate, water, electrical c
 - [P48 — Vertiv — Optimizing Chilled Water Systems, July 2024](https://www.vertiv.com/495988/globalassets/shared/vertiv-chilled-water-solution-white-paper-sl-18066.pdf) · `page_reviewed` · [local note](../research/sources/P48.md)
 - [P49 — Trane — Air vs. Water Cooled Chillers](https://www.trane.com/commercial/north-america/us/en/about-us/newsroom/blogs/air-vs-water-cooled-chillers.html) · `page_reviewed` · [local note](../research/sources/P49.md)
 - [P50 — Trane TRACE 3D Plus — Air Cooled Chillers](https://trace3dplus.help.trane.com/air_cooled_chillers.html) · `page_reviewed` · [local note](../research/sources/P50.md)
+- [P55 — NVIDIA System Management Interface — thermal slowdown, shutdown and power limits](https://docs.nvidia.com/deploy/nvidia-smi/index.html) · `page_reviewed` · [local note](../research/sources/P55.md)
+- [P56 — Dell PowerEdge event guide — liquid-cooling and temperature-triggered Emergency Power Reduction](https://www.dell.com/support/manuals/en-us/poweredge-xe9780/error_event_message_guide_c/cpwrpower-configuration-event-messages?guid=guid-3683ef35-10cc-4072-b1bb-e0f44ffcc67f&lang=en-us) · `page_reviewed` · [local note](../research/sources/P56.md)
+- [P57 — NVIDIA Infra Controller — Leak Detection and Handling](https://docs.nvidia.com/infra-controller/documentation/operations-day-2/leak-detection-handling) · `page_reviewed` · [local note](../research/sources/P57.md)
+- [P58 — OCP — Modular Technology Cooling Systems, Revision 1](https://www.opencompute.org/documents/ocp-modular-tcs-rev-1-final-2025-pdf) · `page_reviewed` · [local note](../research/sources/P58.md)
+- [P59 — Vertiv — How N+1 redundancy supports continuous data center cooling](https://www.vertiv.com/en-ca/about/news-and-events/articles/educational-articles/how-n1-redundancy-supports-continuous-data-center-cooling/) · `public_excerpt_reviewed` · [local note](../research/sources/P59.md)
+- [P60 — NVIDIA — DSX Facilities Infrastructure Reference Design Overview](https://docs.nvidia.com/dsx/facilities-infra/reference-design-overview) · `public_excerpt_reviewed` · [local note](../research/sources/P60.md)
 
 <a id="d12"></a>
 
@@ -1334,6 +1346,11 @@ Specify an integrated acceptance and handover plan for a phased deployment.
 - [P37 — EPA — Eligible Brownfields Planning Activities](https://www.epa.gov/brownfields/eligible-planning-activities) · `page_reviewed` · [local note](../research/sources/P37.md)
 - [P38 — MLGW — 2025 xAI Update](https://www.mlgw.com/images/content/files/pdf/new/xAI%202025%20Update.pdf) · `page_reviewed` · [local note](../research/sources/P38.md)
 - [P39 — Energy Transfer — Q2 2026 investor presentation](https://ir.energytransfer.com/static-files/c29697db-5336-4262-8bf3-3c6e409ccb19) · `public_excerpt_reviewed` · [local note](../research/sources/P39.md)
+- [P55 — NVIDIA System Management Interface — thermal slowdown, shutdown and power limits](https://docs.nvidia.com/deploy/nvidia-smi/index.html) · `page_reviewed` · [local note](../research/sources/P55.md)
+- [P56 — Dell PowerEdge event guide — liquid-cooling and temperature-triggered Emergency Power Reduction](https://www.dell.com/support/manuals/en-us/poweredge-xe9780/error_event_message_guide_c/cpwrpower-configuration-event-messages?guid=guid-3683ef35-10cc-4072-b1bb-e0f44ffcc67f&lang=en-us) · `page_reviewed` · [local note](../research/sources/P56.md)
+- [P57 — NVIDIA Infra Controller — Leak Detection and Handling](https://docs.nvidia.com/infra-controller/documentation/operations-day-2/leak-detection-handling) · `page_reviewed` · [local note](../research/sources/P57.md)
+- [P58 — OCP — Modular Technology Cooling Systems, Revision 1](https://www.opencompute.org/documents/ocp-modular-tcs-rev-1-final-2025-pdf) · `page_reviewed` · [local note](../research/sources/P58.md)
+- [P59 — Vertiv — How N+1 redundancy supports continuous data center cooling](https://www.vertiv.com/en-ca/about/news-and-events/articles/educational-articles/how-n1-redundancy-supports-continuous-data-center-cooling/) · `public_excerpt_reviewed` · [local note](../research/sources/P59.md)
 
 <a id="d14"></a>
 

@@ -9,10 +9,11 @@ rest of the course. Keep reporting specific confusing scenes, but there is no
 need to reread both sequences before work advances.
 
 The **[cooling presentation](prototypes/cooling-format.html)** is what you teach
-from. Its twelve scenes now cover why liquid cooling is useful, CRAH and rack
+from. Its fourteen scenes now cover why liquid cooling is useful, CRAH and rack
 capture methods, the named sensible-heat balance, CDU approach, a real CoolIT
 CHx2000, dry/wet rejection, weather, chillers, hybrid and economizer modes, and
-loss of facility flow. Use the controls to compare methods or operating states.
+CDU redundancy, independent facility paths and reduced-power operation after a
+cooling failure. Use the controls to compare methods or operating states.
 
 1. Teach the new sequence aloud without recording. Let the visual carry the
    explanation; notes are optional.
@@ -28,6 +29,10 @@ The flow experiment keeps heat load fixed: double coolant flow and watch the
 temperature rise halve. The air-versus-water comparison separately explains why
 liquid cooling is useful. Further domain detail remains
 in [D10](index.html#d10-local-thermal-paths) and [D11](index.html#d11-heat-rejection).
+[The revised ending](prototypes/cooling-format.html?teach=1#lost-flow) starts with
+spare CDUs, then independent facility paths, then the load reduction that can fit
+remaining cooling capacity. Its kW values are hypothetical qualified operating
+points, not manufacturer ratings or a prediction of safe response time.
 This expanded presentation is ready for a dry run, not a completed course release.
 
 ## What carries into every chapter

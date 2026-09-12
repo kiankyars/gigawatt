@@ -2526,6 +2526,102 @@
       ],
       "use": "Compare representative LVDC distribution architectures and their conversion boundaries. Related context for the supplied three-column traditional AC, sidecar and direct-MV-DC image.",
       "caution": "Introduction and document metadata inspected. The exact origin of the user-supplied image remains unverified. Do not assign a figure number, mandate this topology, or treat these alternatives as a dated deployment sequence."
+    },
+    {
+      "id": "P55",
+      "title": "NVIDIA System Management Interface — thermal slowdown, shutdown and power limits",
+      "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+      "publisher": "NVIDIA",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-11",
+      "domains": [
+        "D10",
+        "D11",
+        "D13"
+      ],
+      "use": "The Clock Event Reasons, Temperature, GPU Power Readings and Module Power Readings sections distinguish temperature-triggered clock reduction, shutdown thresholds and configured power ceilings.",
+      "caution": "Selected definitions reviewed. Support and limits vary by device. This does not specify liquid-cooling fault response time, safe operation without flow, or a universal cap-to-performance relationship."
+    },
+    {
+      "id": "P56",
+      "title": "Dell PowerEdge event guide — liquid-cooling and temperature-triggered Emergency Power Reduction",
+      "url": "https://www.dell.com/support/manuals/en-us/poweredge-xe9780/error_event_message_guide_c/cpwrpower-configuration-event-messages?guid=guid-3683ef35-10cc-4072-b1bb-e0f44ffcc67f&lang=en-us",
+      "publisher": "Dell Technologies",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-11",
+      "domains": [
+        "D10",
+        "D11",
+        "D13"
+      ],
+      "use": "CPWR0139 identifies liquid-cooling-alert-triggered power throttling or shutdown; CPWR0050 and CPWR0131 describe temperature-triggered group EPR. CPWR0026 and CPWR0177 document failed action paths.",
+      "caution": "Selected event definitions reviewed, not a tested installation or universal implementation. Feature support, licensing, communications and target response matter; no reaction time or achieved cooling protection is inferred."
+    },
+    {
+      "id": "P57",
+      "title": "NVIDIA Infra Controller — Leak Detection and Handling",
+      "url": "https://docs.nvidia.com/infra-controller/documentation/operations-day-2/leak-detection-handling",
+      "publisher": "NVIDIA",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-11",
+      "domains": [
+        "D10",
+        "D11",
+        "D13"
+      ],
+      "use": "The current capability and critical/severe/general leak sections distinguish BMS electrical/liquid isolation from infrastructure-management handling and identify integration prerequisites.",
+      "caution": "Current capability sections reviewed. Future API-customizable policies and broader lifecycle coverage are not treated as delivered features. This is a specific rack-management implementation, not a universal leak procedure."
+    },
+    {
+      "id": "P58",
+      "title": "OCP — Modular Technology Cooling Systems, Revision 1",
+      "url": "https://www.opencompute.org/documents/ocp-modular-tcs-rev-1-final-2025-pdf",
+      "publisher": "Open Compute Project",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-11",
+      "domains": [
+        "D10",
+        "D11",
+        "D13"
+      ],
+      "use": "Sections 3.7–3.8 connect electrical and cooling boundaries, redundancy/maintainability, and branch flow; Appendix A and the service-level framework discuss failure scope and response expectations.",
+      "caution": "Selected sections reviewed. The course does not adopt universal flow rules, numerical reliability estimates, or the document's inconsistently written energy/flow units. Synthetic examples are original."
+    },
+    {
+      "id": "P59",
+      "title": "Vertiv — How N+1 redundancy supports continuous data center cooling",
+      "url": "https://www.vertiv.com/en-ca/about/news-and-events/articles/educational-articles/how-n1-redundancy-supports-continuous-data-center-cooling/",
+      "publisher": "Vertiv",
+      "kind": "primary_reference",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-11",
+      "published_on": "2025-08-12",
+      "domains": [
+        "D10",
+        "D11",
+        "D13"
+      ],
+      "use": "Define cooling N, N+1 and 2N and distinguish redundant units from shared power, water and control dependencies.",
+      "caution": "Definitions and shared-dependency discussion reviewed. No prevalence, Tier mapping or blanket continuity guarantee adopted; capacity and connectivity require a particular design and operating conditions."
+    },
+    {
+      "id": "P60",
+      "title": "NVIDIA — DSX Facilities Infrastructure Reference Design Overview",
+      "url": "https://docs.nvidia.com/dsx/facilities-infra/reference-design-overview",
+      "publisher": "NVIDIA",
+      "kind": "primary_reference",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-11",
+      "domains": [
+        "D10",
+        "D11"
+      ],
+      "use": "The mechanical-gallery CDU section specifies N+1 CDU groups with shared piping and separates the technical and facility-water loops.",
+      "caution": "Selected CDU and gallery sections reviewed in mutable HTML. One reference design does not prove site deployment, independent facility-water paths or the ratings and response time of the synthetic course example."
     }
   ]
 }

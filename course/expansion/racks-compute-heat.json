@@ -2116,6 +2116,15 @@
         ]
       },
       {
+        "heading": "Count surviving cooling paths, not just spare cabinets",
+        "paragraphs": [
+          "Redundancy can be built into pumps and power supplies inside a CDU, across a group of CDUs, or through facility pumps, chillers, heat rejection, piping, power and controls. These are different failure boundaries. NVIDIA’s DSX reference describes N+1 CDU groups with shared piping in mechanical galleries. That is a concrete example of group redundancy; it does not establish two independent facility-water paths. The current CoolIT CHx2000 page is not used to assign an N+1 pump arrangement.",
+          "In the original teaching example, a selected liquid heat load is 1,000 kW and each CDU is qualified for 600 kW at the stated fluid conditions. N is therefore two CDUs at the design duty, and three installed units give N+1. An independently isolated unit failure leaves 1,200 kW. The sum is usable only if the surviving branches, headers, pumps and outdoor plant can deliver the required conditions. Loss of their shared facility path defeats the heat-removal route despite healthy CDU cabinets. Spare units do not repair a failed common control panel or a leak in a shared manifold.",
+          "A separate 2N example has two upstream trains, each with two 600 kW CDU modules and independent facility-water, outdoor rejection, power and control paths. The model transfers the selected 1,000 kW demand to one compatible surviving train, so its displayed capacity is the larger surviving train capacity rather than A+B. The downstream load interface remains shared. A fault in that shared interface is outside the failure survived by this example; a 2N label at one boundary does not establish whole-campus fault tolerance.",
+          "If two of the three CDUs in the first example fail, 600 kW remains. A coordinated IT response is assumed to reduce heat entering that liquid path from 1,000 to 500 kW, leaving 100 kW of thermal capacity margin. This is a comparison of operating points, not a prediction that a controller can react before a temperature limit is reached. A real policy has to account for the hardware’s power scope, heat capture fraction, local flow and temperature limits, and confirmed achieved power. D11 develops the distinction between that planned reduction, local thermal protection, and shutdown or isolation when no compatible cooling path remains."
+        ]
+      },
+      {
         "heading": "Choose a capture method against the complete brief",
         "paragraphs": [
           "Consider a retrofit with an existing air system, limited floor space, a usable facility water loop and a requirement for routine component replacement. Retained air cooling might require lower density or more air-handling capacity. A rear-door exchanger can move exhaust heat into water while retaining server air paths. Cold plates can remove a declared fraction near the devices but leave residual air loads. Immersion changes the hardware qualification and service workflow more substantially. Evaluate each against actual temperature, fluid, pressure, access, compatibility and maintenance requirements.",
@@ -2206,6 +2215,41 @@
         "claim": "Dated identification of integrated filtration and service access for pumps, filters and sensors.",
         "reviewed_on": "2026-09-11",
         "limits": "2025 product description. Comparative performance, availability and footprint-density claims are not reused as current specifications. Current procurement needs current selection data."
+      },
+      {
+        "title": "NVIDIA System Management Interface — thermal slowdown, shutdown and power limits",
+        "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+        "claim": "The Clock Event Reasons, Temperature, GPU Power Readings and Module Power Readings sections distinguish temperature-triggered clock reduction, shutdown thresholds and configured power ceilings.",
+        "reviewed_on": "2026-09-11",
+        "limits": "Selected definitions reviewed. Support and limits vary by device. This does not specify liquid-cooling fault response time, safe operation without flow, or a universal cap-to-performance relationship."
+      },
+      {
+        "title": "Dell PowerEdge event guide — liquid-cooling and temperature-triggered Emergency Power Reduction",
+        "url": "https://www.dell.com/support/manuals/en-us/poweredge-xe9780/error_event_message_guide_c/cpwrpower-configuration-event-messages?guid=guid-3683ef35-10cc-4072-b1bb-e0f44ffcc67f&lang=en-us",
+        "claim": "CPWR0139 identifies liquid-cooling-alert-triggered power throttling or shutdown; CPWR0050 and CPWR0131 describe temperature-triggered group EPR. CPWR0026 and CPWR0177 document failed action paths.",
+        "reviewed_on": "2026-09-11",
+        "limits": "Selected event definitions reviewed, not a tested installation or universal implementation. Feature support, licensing, communications and target response matter; no reaction time or achieved cooling protection is inferred."
+      },
+      {
+        "title": "OCP — Modular Technology Cooling Systems, Revision 1",
+        "url": "https://www.opencompute.org/documents/ocp-modular-tcs-rev-1-final-2025-pdf",
+        "claim": "Sections 3.7–3.8 connect electrical and cooling boundaries, redundancy/maintainability, and branch flow; Appendix A and the service-level framework discuss failure scope and response expectations.",
+        "reviewed_on": "2026-09-11",
+        "limits": "Selected sections reviewed. The course does not adopt universal flow rules, numerical reliability estimates, or the document's inconsistently written energy/flow units. Synthetic examples are original."
+      },
+      {
+        "title": "Vertiv — How N+1 redundancy supports continuous data center cooling",
+        "url": "https://www.vertiv.com/en-ca/about/news-and-events/articles/educational-articles/how-n1-redundancy-supports-continuous-data-center-cooling/",
+        "claim": "Define cooling N, N+1 and 2N and distinguish redundant units from shared power, water and control dependencies.",
+        "reviewed_on": "2026-09-11",
+        "limits": "Definitions and shared-dependency discussion reviewed. No prevalence, Tier mapping or blanket continuity guarantee adopted; capacity and connectivity require a particular design and operating conditions."
+      },
+      {
+        "title": "NVIDIA — DSX Facilities Infrastructure Reference Design Overview",
+        "url": "https://docs.nvidia.com/dsx/facilities-infra/reference-design-overview",
+        "claim": "The mechanical-gallery CDU section specifies N+1 CDU groups with shared piping and separates the technical and facility-water loops.",
+        "reviewed_on": "2026-09-11",
+        "limits": "Selected CDU and gallery sections reviewed in mutable HTML. One reference design does not prove site deployment, independent facility-water paths or the ratings and response time of the synthetic course example."
       }
     ],
     "terms": [

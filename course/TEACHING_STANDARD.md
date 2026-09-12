@@ -42,6 +42,9 @@ Use these rules when adapting each sequence:
 5. **End with the consequence.** Return to the opening problem and explain what
    the comparison establishes. Use a changed case when it tests understanding;
    do not append an unrelated calculation to satisfy a format.
+   For a failure, trace the surviving path and capacity, then show the response:
+   continued service, reduced service or shutdown. Distinguish a configured
+   operating response from automatic component protection and unmodeled timing.
 
 The course remains one linear watts-to-racks journey with the heat path back out.
 Use the domain map as a coverage check behind that journey. Author one coherent
