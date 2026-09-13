@@ -57,6 +57,17 @@
       ]
     },
     {
+      "id": "distribution",
+      "title": "Campus and building power distribution",
+      "chapters": [
+        {
+          "id": "D04",
+          "href": "prototypes/distribution-format.html?teach=1",
+          "coverage": "chapter"
+        }
+      ]
+    },
+    {
       "id": "ups",
       "title": "UPS, bypass and redundancy",
       "chapters": [

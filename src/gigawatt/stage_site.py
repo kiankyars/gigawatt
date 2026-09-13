@@ -46,6 +46,7 @@ SLIDE_NAMES = {
     "workload-format": "workloads",
     "siting-format": "siting",
     "site-format": "site-design",
+    "distribution-format": "distribution",
     "ups-format": "ups",
     "rack-power-format": "rack-power",
     "cooling-format": "cooling",

@@ -34,7 +34,7 @@ For communications, verify capacity, route length, delivery dates, site entrance
 
 Two AI campuses make heat rejection concrete. TDEC identifies Colossus 1 as a user of evaporative cooling; the FAS imagery study also identifies air-cooled chillers there. Crusoe describes Abilene’s air-cooled chillers as non-evaporative. Both facilities can circulate coolant inside the building. The outdoor heat-rejection method determines whether that heat-removal path consumes water through evaporation; a closed indoor loop alone does not answer it.
 
-Physical route diversity is practiced, not invented for the exercise. QTS describes diverse fiber entrances and redundant campus conduits at its existing Suwanee campus. Zayo’s March 2026 Cambois announcement provides an AI-specific construction example: four diverse fiber routes. A carrier contract and a separate site entrance do not prove every mile avoids a shared trench, bridge or upstream node.
+Physical route diversity is practiced, not invented for the exercise. QTS’s January 2023 account describes diverse fiber entrances and campus conduits at Suwanee; its current campus page describes redundant conduits as in progress. The dated account does not certify current end-to-end completion. Zayo’s March 2026 Cambois announcement provides an AI-specific construction example: four diverse fiber routes. A carrier contract and a separate site entrance do not prove every mile avoids a shared trench, bridge or upstream node.
 
 ## Secure the parcel and the rights across it
 
@@ -43,6 +43,8 @@ A land-purchase option gives the developer a time-limited right to buy on agreed
 Purchase, lease and option arrangements give different rights for different periods. Check the actual terms for investigations, access, assignment, closing conditions and extensions, then compare their dates with the utility and permit work. Review title exceptions, recorded easements and the additional routes needed to bring power, gas, fiber and water to the campus. A line crossing another owner’s property needs its own established right; control of the main parcel does not supply it.
 
 Texas provides a concrete title issue: surface and mineral estates may have separate owners. Mineral rights can include reasonably necessary access to the surface for development, so a campus owner may still face drilling, roads or pipeline rights held by someone else. The Railroad Commission explains that deeds, leases, ordinances and the accommodation doctrine can limit these rights. Establish the recorded interests and surface-use arrangements before fixing the building footprint. This example is Texas law, not a claim of a mineral dispute at Abilene.
+
+The required outcome is enforceable rights compatible with the campus, not necessarily ownership of every mineral interest. Relevant mineral owners and existing lessees may agree to surface restrictions or waivers, or agreed drilling and access areas can shape the layout. Purchasing minerals does not automatically rewrite an existing lease. Title investigation must identify the parties whose rights actually affect the site.
 
 ## Check permitted uses and neighbors
 
@@ -69,6 +71,42 @@ Pause: an owner offers an industrial building with existing utility connections 
 ## Case study: a first phase opens while the next is finished
 
 Applied Digital delivered the first 50 MW of Polaris Forge 1’s first building to the ready-for-service milestone on October 27, 2025; the next 50 MW followed on November 24. The tenant was CoreWeave. This is the same phased-delivery case introduced in the power-and-siting chapter. Here it motivates a physical campus plan that keeps construction, delivery traffic and future connections from disrupting the live phase. The two releases document delivery milestones, not the actual routes, operating procedures or power drawn by installed accelerators.
+
+## Case study: TCDC: land secured, waiver pending
+
+New Era’s August 14, 2026 issuer update said all 493 acres for Texas Critical Data Centers near Odessa had been secured, with one final surface waiver pending from a leasehold operator. It also reported removal of 22 abandoned pipelines across 12 rights-of-way. These are distinct site-development milestones.
+
+The release establishes an outstanding agreement, not a quantified mineral-caused delay. Another actual contract, Fermi’s May 2025 Project Matador ground lease, made a surface waiver a commencement condition unless the tenant waived it. Its later filing reports commencement in September 2025 after conditions were satisfied or waived. Agreements can resolve surface use without buying every mineral interest.
+
+## Case study: Getty v. Jones: conflicting surface uses
+
+In Getty Oil v. Jones (Texas Supreme Court, 1971), an established irrigation system needed seven feet of clearance while Getty’s pumpjacks reached 17 and 34 feet. Other operators showed lower-profile or recessed alternatives. The court held that reasonable mineral use can require accommodating an existing surface use where reasonable mineral-development alternatives are available and the surface owner has no reasonable alternative for continuing that existing use.
+
+The court affirmed a remand; this was not a universal order to bury equipment. It is a farming judgment, not a data-center lawsuit. Its lesson for a proposed campus is that dominance of the mineral estate has limits, but a fact-dependent doctrine does not pre-approve a new building layout. Resolve express deeds, leases and surface agreements before relying on litigation.
+
+## Case study: ADA Docklands: building on fill
+
+Menard’s account of ADA Infrastructure’s London Docklands campus identifies up to six metres of fill above soft alluvium, plus buried foundations, tanks and timber piles. Continuous-flight-auger (CFA) piles support the buildings. About 7,000 Bi-Modulus ground-improvement columns treated 40,000 square metres of external areas and utility infrastructure.
+
+The upper stone sections of those columns could clash with utilities, so utility invert levels had to be coordinated with the treatment. Remediation also affected the work sequence. The actual site photograph shows drilling rigs. The case links ground evidence to the buildings, external utility routes and construction sequence; the 7,000 columns are not the building piles.
+
+## Case study: Equinix HO1 during Harvey
+
+On August 28, 2017, Equinix told Data Center Knowledge that HO1 in Houston remained staffed and operating without interruption, while flooding had closed surrounding streets and made the site inaccessible to customers. That is a documented offsite-access consequence, without inventing a bridge failure.
+
+Equinix’s subsequent employee account describes water entering its Houston data center and staff staying for days, pumping it out while maintaining power. Continued IT service therefore depended on people already on site as well as equipment. This is not a dry-campus story, and no unrelated Houston flood photograph is presented as the HO1 access route.
+
+## Case study: Meet QTS Suwanee
+
+QTS operates a 53-acre colocation campus in Suwanee, Georgia. Its two data-center buildings are at 300 and 120 Satellite Boulevard NW. The visual uses the operator’s actual campus plan. Customers place IT equipment in such facilities and connect it to their networks through physical fiber routes.
+
+QTS’s January 2023 article described diverse campus fiber entrances and separately proposed four entrances for DC2. Its current campus page describes redundant campus conduits as in progress. These are dated statements with different scopes, so the following teaching sketches do not certify completion of the whole campus conduit system.
+
+## Case study: Rogers Toronto: screen the chillers
+
+Parklane’s account of the Rogers headquarters data-center retrofit in Toronto describes rooftop chillers opposite residences and a 15-foot acoustic screen. Sixteen factory-built wall sections were installed in one ten-hour day. With little staging space, the sections were lifted from delivery trucks onto precisely positioned columns.
+
+The photograph shows the actual screen. A barrier interrupts direct sound propagation, while sound can still diffract around its edges; height, placement and construction matter. The open top must also support the chillers’ airflow. Parklane reports meeting the noise requirements, but no measured decibel reduction is supplied here.
 
 ## Worked example: The smaller parcel meets the opening brief
 
@@ -140,3 +178,12 @@ A replacement route or changed service requirement would need explicit acceptanc
 - [Federation of American Scientists — Tracking Hyperscale AI Data Center Growth with Satellite Imagery](https://fas.org/publication/tracking-hyperscale/) — Original imagery analysis identifies both cooling towers and air-cooled chillers at Colossus 1 in Figures 26 and 27. Read 2026-09-12. Reviewed the Colossus cooling analysis and image captions dated October 19, 2025. Equipment identification is image-based research, not an operator one-line, water balance or metered load. No inferred power-capacity estimate is adopted.
 - [QTS — Suwanee campus fiber diversity](https://q.com/resources/meeting-atlanta-data-demands-with-an-expansion-in-suwanee-georgia/) — The existing Suwanee campus is described with diverse fiber entrances and a redundant campus conduit system. Read 2026-09-12. Historical January 2023 operator account; four entrances belong to the announced DC2 refresh. Campus route diversity does not establish end-to-end independence for every carrier circuit.
 - [Zayo Europe — Four diverse fiber routes for QTS Cambois](https://zayoeurope.com/newsroom/zayo-europe-to-provide-critical-connectivity-infrastructure-for-uks-largest-ai-cloud-data-centre/) — Carrier describes constructing four diverse fiber routes for the QTS AI and cloud campus at Cambois. Read 2026-09-12. March 2026 construction announcement, not completed-service evidence. Four routes are not four independent carriers; upstream shared risks require circuit-level review.
+- [New Era — TCDC construction permits and surface waiver, August 14, 2026](https://www.nasdaq.com/press-release/new-era-energy-digital-files-q2-2026-form-10-q-and-announces-tcdc-construction) — Land secured for the 493-acre campus; one leasehold operator’s surface waiver remained pending. Read 2026-09-13. Dated issuer statement; no quantified mineral-caused delay established.
+- [Getty Oil v. Jones, Texas Supreme Court, 1971](https://law.justia.com/cases/texas/supreme-court/1971/b-2391-0.html) — Existing irrigation clearance and pumpjack heights explain the accommodation doctrine. Read 2026-09-13. Opinion affirms a remand; farming case, not a data-center judgment or universal equipment order.
+- [Fermi Project Matador — executed ground lease, May 14, 2025](https://www.sec.gov/Archives/edgar/data/2071778/000121390025085175/ea025233301ex10-9_fermi.htm) — Surface waiver is a commencement condition unless tenant waives it; section 2.08 covers mineral surface waivers. Read 2026-09-13. Contract evidence, not proof of a mineral-caused delay or a requirement to purchase all minerals.
+- [Fermi — Q3 2025 Form 10-Q, Note 8](https://www.sec.gov/Archives/edgar/data/2071778/000121390025109371/ea0263311-10q_fermiinc.htm) — Lease commenced in September 2025 after conditions were satisfied or waived. Read 2026-09-13. Do not describe the original commencement condition as currently unresolved.
+- [Menard — London Silvertown Project Olympus data centre](https://menard.co.uk/soil-expert-portfolio/london-silvertown-project-olympus-data-centre/) — Actual ADA Docklands groundworks: fill/alluvium, CFA building piles, about 7,000 external-area columns and utility-depth coordination. Read 2026-09-13. Contractor account; columns treat external areas and utilities, not the building foundations. Photograph capture date unspecified.
+- [Equinix statement — HO1 online but customer access flooded, August 28, 2017](https://www.datacenterknowledge.com/uptime/four-providers-houston-data-centers-online-but-access-roads-flooded) — Contemporaneous operator statement: HO1 operational and staffed, surrounding roads closed, customer access unavailable. Read 2026-09-13. Use the attributed original statement. The article’s flood photo is a different identified street and is not used as HO1 imagery.
+- [Equinix — Houston staff during Hurricane Harvey](https://blog.equinix.com/blog/2017/11/10/transition-to-tech-veterans-seek-meaningful-civilian-careers/) — Employee profile describes staff staying for days and pumping water from the Houston facility while keeping power on. Read 2026-09-13. Supports flood response; prevents calling the campus dry. No failure of a bridge is reported.
+- [QTS — Suwanee campus](https://q.com/data-centers/suwanee-1/) — 53-acre Suwanee, Georgia campus with two buildings; official campus-plan image. Read 2026-09-13. Current page calls redundant campus conduits in progress. Do not infer completed end-to-end diversity from the January 2023 article.
+- [Parklane — Rogers headquarters data-center acoustic screen](https://parklanemechanical.com/noise-control-case-studies/rogers-head-office) — Rogers Toronto rooftop chiller barrier: 15 feet high, 16 factory-built sections installed in one ten-hour day; actual installed photograph. Read 2026-09-13. Vendor project account; no measured decibel reduction or photo capture date provided.

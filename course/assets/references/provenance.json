@@ -141,5 +141,82 @@
     "width": 756,
     "height": 504,
     "note": "Unchanged manufacturer product image. The slide viewport trims surrounding white space; it does not alter hardware. Identifies the named product, not an NVL72 installation."
+  },
+  {
+    "file": "qts-suwanee-campus.png",
+    "source_url": "https://q.com/wp-content/uploads/2024/08/SW-1024x620.png",
+    "publisher": "QTS",
+    "retrieved_on": "2026-09-13",
+    "sha256": "448fcca0fb446d02315fb540eda16914bd7e16b98fcc49d4500ac979f151ba68",
+    "note": "Official campus plan, not a satellite photograph; capture date unspecified."
+  },
+  {
+    "file": "lenovo-gb300-power-shelf.png",
+    "source_url": "https://lenovopress.lenovo.com/assets/images/LP2357/Power%20Shelf%20left%20angled_v1.png",
+    "publisher": "Lenovo Press",
+    "retrieved_on": "2026-09-13",
+    "sha256": "2716af95d5a4a318cd570bebab3a48d2a9c9f0cba20879e6b7d9fe62d424e5d6",
+    "note": "Unchanged manufacturer figure showing six hot-swap PSU modules."
+  },
+  {
+    "file": "menard-ada-docklands-groundworks.webp",
+    "source_url": "https://menard.co.uk/wp-content/uploads/sites/15/2026/06/Image-5.jpg.webp",
+    "publisher": "Menard",
+    "retrieved_on": "2026-09-13",
+    "sha256": "6c1e8a25fd8639a86c6b8f6dacd322792d345b6e0ff9d7bc22679c8755e54c6c",
+    "note": "Actual ADA Docklands groundworks photograph. Capture date unspecified."
+  },
+  {
+    "file": "parklane-rogers-rooftop-acoustic-barrier.jpg",
+    "source_url": "https://parklanemechanical.com/wp-content/uploads/2020/03/rogers-solution-02.jpg",
+    "publisher": "Parklane",
+    "retrieved_on": "2026-09-13",
+    "sha256": "010e4cc70db5c90597bcef135023f3166cfb95d88a90576c332a00b3d9ee669d",
+    "note": "Actual rooftop chiller screen at Rogers Toronto. Capture date unspecified."
+  },
+  {
+    "file": "distribution-compass-switchgear.jpg",
+    "source_url": "https://images.sw.cdn.siemens.com/siemens-disw-assets/public/37Mcuf7HpBclEOMzMRtZID/en-US/compass-datacenters-product-Card%20Container-640x480.jpg",
+    "article_url": "https://www.siemens.com/en-us/company/insights/compass-datacenters-case-study/",
+    "publisher": "Siemens",
+    "retrieved_on": "2026-09-13",
+    "sha256": "58457d5947a76a73660660a44de3047a39064739210cc9644631298f277a3f6d",
+    "note": "Original 640 × 480 factory photo downloaded unchanged. Shows switchgear portion and cable terminals, not the whole integrated skid. Visually inspected."
+  },
+  {
+    "file": "distribution-fujitsu-tapoffs.jpg",
+    "source_url": "https://starlinepower.com/sites/default/files/files/starline_busway_fujitsu-case-study_US.pdf",
+    "article_url": "https://starlinepower.com/sites/default/files/files/starline_busway_fujitsu-case-study_US.pdf",
+    "publisher": "Starline / Legrand",
+    "retrieved_on": "2026-09-13",
+    "sha256": "5652c0819330ca0048c3a78ca7cf1bb855ee4621b4fc1e99e7e42c34d0662580",
+    "note": "Unmodified embedded JPEG extracted from PDF page 1, image object 59. 334 × 316. Photograph of tap-off boxes; no capture date provided. Visually inspected."
+  },
+  {
+    "file": "distribution-fujitsu-outlets.jpg",
+    "source_url": "https://starlinepower.com/sites/default/files/files/starline_busway_fujitsu-case-study_US.pdf",
+    "article_url": "https://starlinepower.com/sites/default/files/files/starline_busway_fujitsu-case-study_US.pdf",
+    "publisher": "Starline / Legrand",
+    "retrieved_on": "2026-09-13",
+    "sha256": "b48d9fdfb3d1bf83aa3590fc895d1aac13ae2e3a42f142ebd2619824e7beb6b6",
+    "note": "Unmodified embedded JPEG extracted from PDF page 1, image object 61. 315 × 334. Photograph of outlet/cable connections; PDF layout rotates it, asset retains original orientation. Visually inspected."
+  },
+  {
+    "file": "distribution-green-zurich-west.jpg",
+    "source_url": "https://library.e.abb.com/public/1afa6036874fd0bb85257d5000710a17/DC%20for%20efficiency.pdf",
+    "article_url": "https://library.e.abb.com/public/1afa6036874fd0bb85257d5000710a17/DC%20for%20efficiency.pdf",
+    "publisher": "ABB",
+    "retrieved_on": "2026-09-13",
+    "sha256": "8ea12911176c6bd4e34d5bcb59acd671ba251f63d174b850aa9895e536d1a026",
+    "note": "Unmodified embedded JPEG extracted from PDF page 2, image object 23. 538 × 647. Exterior of Green Zurich-West. Adjacent ABB title-photo caption identifies the facility; no interior hardware inferred. Visually inspected."
+  },
+  {
+    "file": "distribution-abilene-data-halls.jpg",
+    "source_url": "https://www.oracle.com/cmsng/img/0cb07dd3d128f06e666f776839f78314.jpg",
+    "article_url": "https://www.oracle.com/data-centers/",
+    "publisher": "Oracle",
+    "retrieved_on": "2026-09-13",
+    "sha256": "4701c3488feee72d54e9918c644a2a86a1252e8988a29d6a436d6518421ec29a",
+    "note": "Publisher original downloaded unchanged; Oracle captions this Abilene data-hall aerial 15 July 2026. 2500 × 1873. Visually inspected."
   }
 ]

@@ -11,6 +11,7 @@
     />
     <title>5. Physical site, buildings and safety · From Watts to Tokens</title>
     <link rel="stylesheet" href="../assets/slide-chrome.css" />
+    <link rel="stylesheet" href="./site-cases.css" />
     <link
       rel="preload"
       as="image"
@@ -368,12 +369,7 @@
           }
           $("actions").append(field);
         }
-        if (index === scenes.length - 1) {
-          const a = document.createElement("a");
-          a.href = "../index.html#d04-read-the-power-train";
-          a.textContent = "Next: campus electrical distribution →";
-          $("actions").append(a);
-        }
+
       }
       function render() {
         const s = scenes[index];

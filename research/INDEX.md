@@ -137,7 +137,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P10 — Incorporate Minimum Efficiency Requirements for Heating and Cooling Products into Federal Acquisition Documents](sources/P10.md) | U.S. Department of Energy, Federal Energy Management Program | D01, D10, D11, D15 | page_reviewed |
 | [P100 — Applied Digital Achieves Ready for Service for Phase 1 at Polaris Forge 1](sources/P100.md) | Applied Digital | D03, D12 | page_reviewed |
 | [P101 — Applied Digital Completes Phase II Ready for Service at Polaris Forge 1](sources/P101.md) | Applied Digital | D03, D12 | page_reviewed |
-| [P102 — Oracle Data Centers: Abilene, Texas](sources/P102.md) | Oracle | D03, D12 | page_reviewed |
+| [P102 — Oracle Data Centers: Abilene, Texas](sources/P102.md) | Oracle | D03, D12, D04 | page_reviewed |
 | [P103 — Energy Transfer August 2026 Investor Presentation](sources/P103.md) | Energy Transfer | D03 | page_reviewed |
 | [P104 — Energy Transfer Reports Fourth Quarter 2025 Results](sources/P104.md) | Energy Transfer | D03 | page_reviewed |
 | [P105 — Crusoe 2025 Impact Report](sources/P105.md) | Crusoe | D03, D05 | page_reviewed |
@@ -179,7 +179,23 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P138 — SpaceXAI — Greater Memphis site update, July 30, 2026](sources/P138.md) | SpaceXAI | D03 | page_reviewed |
 | [P139 — MDEQ — Determination letter on portable gas combustion turbines, July 29, 2025](sources/P139.md) | Mississippi Department of Environmental Quality | D03 | public_excerpt_reviewed |
 | [P14 — NVIDIA DGX SuperPOD: Next Generation Scalable Infrastructure for AI Leadership Reference Architecture Featuring NVIDIA DGX H100](sources/P14.md) | NVIDIA | D07, D08, D09, D13, D14 | page_reviewed |
+| [P140 — New Era — TCDC construction permits and surface waiver, August 14, 2026](sources/P140.md) | New Era Energy & Digital | D12 | page_reviewed |
+| [P141 — Getty Oil v. Jones, Texas Supreme Court, 1971](sources/P141.md) | Supreme Court of Texas | D12 | page_reviewed |
+| [P142 — Fermi Project Matador — executed ground lease, May 14, 2025](sources/P142.md) | Fermi / SEC filing | D12 | page_reviewed |
+| [P143 — Fermi — Q3 2025 Form 10-Q, Note 8](sources/P143.md) | Fermi / SEC filing | D12 | page_reviewed |
+| [P144 — Menard — London Silvertown Project Olympus data centre](sources/P144.md) | Menard | D12 | page_reviewed |
+| [P145 — Equinix statement — HO1 online but customer access flooded, August 28, 2017](sources/P145.md) | Equinix, statement reproduced by Data Center Knowledge | D12 | page_reviewed |
+| [P146 — Equinix — Houston staff during Hurricane Harvey](sources/P146.md) | Equinix | D12 | page_reviewed |
+| [P147 — QTS — Suwanee campus](sources/P147.md) | QTS | D12 | page_reviewed |
+| [P148 — Parklane — Rogers headquarters data-center acoustic screen](sources/P148.md) | Parklane | D12 | page_reviewed |
+| [P149 — Lenovo — Remove a GB300 compute tray from the rack](sources/P149.md) | Lenovo | D12 | page_reviewed |
 | [P15 — Liquid to Liquid CDU Test Methodology and Performance Rating — Revision 1.0](sources/P15.md) | Open Compute Project | D10, D11, D13, D14 | public_excerpt_reviewed |
+| [P150 — Siemens — Compass Datacenters integrated MV skid](sources/P150.md) | Siemens | D04 | page_reviewed |
+| [P151 — Siemens and Compass sign modular electrical solution agreement](sources/P151.md) | Siemens | D04 | page_reviewed |
+| [P152 — Fujitsu selects Starline Track Busway for data centre expansion](sources/P152.md) | Starline / Legrand | D04 | page_reviewed |
+| [P153 — ABB Review 4/2013 — DC for efficiency](sources/P153.md) | ABB | D04 | page_reviewed |
+| [P154 — ABB and Green open Zurich-West DC data-center expansion](sources/P154.md) | ABB | D04 | page_reviewed |
+| [P156 — Schneider Electric — Effects of harmonics: increased losses](sources/P156.md) | Schneider Electric | D04 | public_excerpt_reviewed |
 | [P16 — Why Scaling AI Compute Performance Requires a New Power Architecture](sources/P16.md) | NVIDIA | D04, D05, D06, D12, D13, D15 | page_reviewed |
 | [P17 — NVIDIA NVL72 AI Factory — System Hardware & Components](sources/P17.md) | NVIDIA | D06, D07, D08, D09, D10, D14, D01 | page_reviewed |
 | [P18 — OpenStax — 20.5 Alternating Current versus Direct Current (College Physics 2e)](sources/P18.md) | OpenStax, Rice University | D01, D04, D06 | page_reviewed |

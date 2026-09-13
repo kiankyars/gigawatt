@@ -3331,9 +3331,10 @@
       "reviewed_on": "2026-09-13",
       "domains": [
         "D03",
-        "D12"
+        "D12",
+        "D04"
       ],
-      "use": "Abilene section explicitly reports 75% of total capacity delivered as of September 2026. Includes genuine aerial photographs captioned July 15, 2026.",
+      "use": "Abilene section explicitly reports 75% of total capacity delivered as of September 2026. Includes genuine aerial photographs captioned July 15, 2026. Return to the recurring Abilene campus as physical context for the distribution question.",
       "caution": "Oracle does not define its delivered-capacity basis. 75% × the separately reported 1,200 MW campus plan gives 900 MW only if those bases match; it is not a reported operating MW value. Photographs are dated July 15, 2026."
     },
     {
@@ -3462,11 +3463,11 @@
       "publisher": "Lenovo Press",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-12",
+      "reviewed_on": "2026-09-13",
       "domains": [
         "D12"
       ],
-      "use": "The named service example uses a 600 mm-wide MGX rack, 29 kg compute tray and 799 mm tray depth including water connections; Lenovo identifies suitable lift support for servicing.",
+      "use": "The named service example uses a 600 mm-wide MGX rack, 29 kg compute tray and 799 mm tray depth including water connections; Lenovo identifies suitable lift support for servicing. Power-shelf section and figure show six 5.5 kW hot-swappable PSU modules; remaining qualified capacity and configuration govern continuity.",
       "caution": "Read physical and electrical specifications and Genie Material Lift sections, with rack and rear compute-tray figures. Width and tray mass are product dimensions, not full operating rack mass or service clearance. No universal aisle size, lift configuration, performance or complete design specification is inferred.",
       "published_on": "2026-08-30"
     },
@@ -3733,7 +3734,7 @@
         "D12"
       ],
       "use": "The existing Suwanee campus is described with diverse fiber entrances and a redundant campus conduit system.",
-      "caution": "Historical January 2023 operator account; four entrances belong to the announced DC2 refresh. Campus route diversity does not establish end-to-end independence for every carrier circuit.",
+      "caution": "Historical January 2023 operator account; four entrances belong to the announced DC2 refresh. Campus route diversity does not establish end-to-end independence for every carrier circuit. P147’s current campus page describes redundant conduits as in progress; completion is not inferred.",
       "published_on": "2023-01-23"
     },
     {
@@ -3928,6 +3929,232 @@
       ],
       "use": "Manufacturer photographs identify the removable BBU and six-module shelf. Product ratings: 3 kW module, 15 kW system, 48 V DC output.",
       "caution": "Product Introduction and Specifications reviewed. Four-minute runtime is specified at rated load after four years of service, with 0–40°C operating range. The 15 kW system rating must not be replaced by the sum of six 3 kW module ratings. Product photos do not identify equipment installed in an NVL72 rack."
+    },
+    {
+      "id": "P140",
+      "title": "New Era — TCDC construction permits and surface waiver, August 14, 2026",
+      "url": "https://www.nasdaq.com/press-release/new-era-energy-digital-files-q2-2026-form-10-q-and-announces-tcdc-construction",
+      "publisher": "New Era Energy & Digital",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D12"
+      ],
+      "use": "Land secured for the 493-acre campus; one leasehold operator’s surface waiver remained pending.",
+      "caution": "Dated issuer statement; no quantified mineral-caused delay established."
+    },
+    {
+      "id": "P141",
+      "title": "Getty Oil v. Jones, Texas Supreme Court, 1971",
+      "url": "https://law.justia.com/cases/texas/supreme-court/1971/b-2391-0.html",
+      "publisher": "Supreme Court of Texas",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D12"
+      ],
+      "use": "Existing irrigation clearance and pumpjack heights explain the accommodation doctrine.",
+      "caution": "Opinion affirms a remand; farming case, not a data-center judgment or universal equipment order."
+    },
+    {
+      "id": "P142",
+      "title": "Fermi Project Matador — executed ground lease, May 14, 2025",
+      "url": "https://www.sec.gov/Archives/edgar/data/2071778/000121390025085175/ea025233301ex10-9_fermi.htm",
+      "publisher": "Fermi / SEC filing",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D12"
+      ],
+      "use": "Surface waiver is a commencement condition unless tenant waives it; section 2.08 covers mineral surface waivers.",
+      "caution": "Contract evidence, not proof of a mineral-caused delay or a requirement to purchase all minerals."
+    },
+    {
+      "id": "P143",
+      "title": "Fermi — Q3 2025 Form 10-Q, Note 8",
+      "url": "https://www.sec.gov/Archives/edgar/data/2071778/000121390025109371/ea0263311-10q_fermiinc.htm",
+      "publisher": "Fermi / SEC filing",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D12"
+      ],
+      "use": "Lease commenced in September 2025 after conditions were satisfied or waived.",
+      "caution": "Do not describe the original commencement condition as currently unresolved."
+    },
+    {
+      "id": "P144",
+      "title": "Menard — London Silvertown Project Olympus data centre",
+      "url": "https://menard.co.uk/soil-expert-portfolio/london-silvertown-project-olympus-data-centre/",
+      "publisher": "Menard",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D12"
+      ],
+      "use": "Actual ADA Docklands groundworks: fill/alluvium, CFA building piles, about 7,000 external-area columns and utility-depth coordination.",
+      "caution": "Contractor account; columns treat external areas and utilities, not the building foundations. Photograph capture date unspecified."
+    },
+    {
+      "id": "P145",
+      "title": "Equinix statement — HO1 online but customer access flooded, August 28, 2017",
+      "url": "https://www.datacenterknowledge.com/uptime/four-providers-houston-data-centers-online-but-access-roads-flooded",
+      "publisher": "Equinix, statement reproduced by Data Center Knowledge",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D12"
+      ],
+      "use": "Contemporaneous operator statement: HO1 operational and staffed, surrounding roads closed, customer access unavailable.",
+      "caution": "Use the attributed original statement. The article’s flood photo is a different identified street and is not used as HO1 imagery."
+    },
+    {
+      "id": "P146",
+      "title": "Equinix — Houston staff during Hurricane Harvey",
+      "url": "https://blog.equinix.com/blog/2017/11/10/transition-to-tech-veterans-seek-meaningful-civilian-careers/",
+      "publisher": "Equinix",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D12"
+      ],
+      "use": "Employee profile describes staff staying for days and pumping water from the Houston facility while keeping power on.",
+      "caution": "Supports flood response; prevents calling the campus dry. No failure of a bridge is reported."
+    },
+    {
+      "id": "P147",
+      "title": "QTS — Suwanee campus",
+      "url": "https://q.com/data-centers/suwanee-1/",
+      "publisher": "QTS",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D12"
+      ],
+      "use": "53-acre Suwanee, Georgia campus with two buildings; official campus-plan image.",
+      "caution": "Current page calls redundant campus conduits in progress. Do not infer completed end-to-end diversity from the January 2023 article."
+    },
+    {
+      "id": "P148",
+      "title": "Parklane — Rogers headquarters data-center acoustic screen",
+      "url": "https://parklanemechanical.com/noise-control-case-studies/rogers-head-office",
+      "publisher": "Parklane",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D12"
+      ],
+      "use": "Rogers Toronto rooftop chiller barrier: 15 feet high, 16 factory-built sections installed in one ten-hour day; actual installed photograph.",
+      "caution": "Vendor project account; no measured decibel reduction or photo capture date provided."
+    },
+    {
+      "id": "P149",
+      "title": "Lenovo — Remove a GB300 compute tray from the rack",
+      "url": "https://pubs.lenovo.com/gb300-nvl72/remove_compute_tray",
+      "publisher": "Lenovo",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D12"
+      ],
+      "use": "Requires compute-tray power-off and disconnection before removal; distinguishes tray service from hot-swappable PSU modules.",
+      "caution": "Manufacturer procedure boundary, not a claim that the entire rack must shut down or an instruction to perform energized maintenance."
+    },
+    {
+      "id": "P150",
+      "title": "Siemens — Compass Datacenters integrated MV skid",
+      "url": "https://www.siemens.com/en-us/company/insights/compass-datacenters-case-study/",
+      "publisher": "Siemens",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D04"
+      ],
+      "use": "Locate MV switchgear and transformation as distinct jobs in a shared skid; identify the case photograph.",
+      "caution": "Public project-page text and original product photograph reviewed. The photo shows switchgear in the factory; transformer is not visible. Product name 8DJH 36 is not an asserted operating voltage. No deployment count or quantified saving adopted."
+    },
+    {
+      "id": "P151",
+      "title": "Siemens and Compass sign modular electrical solution agreement",
+      "url": "https://press.siemens.com/global/en/pressrelease/siemens-and-compass-datacenters-sign-multi-year-custom-electrical-solution-agreement",
+      "publisher": "Siemens",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D04"
+      ],
+      "use": "Establish the partnership and the integrated switchgear/transformer package.",
+      "caution": "December 2024 announcement reviewed. Its planned first deployment and up-to-1,500-unit agreement are not used as installed capacity or completed deliveries.",
+      "published_on": "2024-12-04"
+    },
+    {
+      "id": "P152",
+      "title": "Fujitsu selects Starline Track Busway for data centre expansion",
+      "url": "https://starlinepower.com/sites/default/files/files/starline_busway_fujitsu-case-study_US.pdf",
+      "publisher": "Starline / Legrand",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D04"
+      ],
+      "use": "Explain the switch from underfloor circuits to overhead 250 A track busway with tap-off metering and a clear cooling floor.",
+      "caution": "Both PDF pages read and photographs inspected. Published December 2018; file revised January 2020. Site is described only as north of London. 3.2 MW describes the existing managed facility; no added MW is stated. Case photographs have no capture metadata. Row currents in slides are separate original 415 V examples."
+    },
+    {
+      "id": "P153",
+      "title": "ABB Review 4/2013 — DC for efficiency",
+      "url": "https://library.e.abb.com/public/1afa6036874fd0bb85257d5000710a17/DC%20for%20efficiency.pdf",
+      "publisher": "ABB",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D04"
+      ],
+      "use": "Explain the actual transformer-plus-rectifier functions in the historical Zurich-West centralized DC system.",
+      "caution": "Reviewed PDF pages 1–4 visually, especially printed pages 18–19 and Figure 2. PDF text encoding was garbled, so pages were rendered and read. Figure labels 380 V DC, while text specifies 400 V open-circuit. 16 kV input and 1,100 kVA transformer are case-specific. No promotional efficiency percentage is adopted. Exterior photograph extracted unchanged from PDF page 2 (image object 23)."
+    },
+    {
+      "id": "P154",
+      "title": "ABB and Green open Zurich-West DC data-center expansion",
+      "url": "https://new.abb.com/news/detail/12816/worlds-most-powerful-dc-data-center-online",
+      "publisher": "ABB",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D04"
+      ],
+      "use": "Date the opening of a 1 MW DC system and identify compatible HP IT.",
+      "caution": "May 2012 primary announcement read. Historical 1 MW installation for a 1,100 square metre expansion; no claim of current operating capacity or general 800 V deployment. Marketing savings and superlatives are excluded.",
+      "published_on": "2012-05-30"
+    },
+    {
+      "id": "P156",
+      "title": "Schneider Electric — Effects of harmonics: increased losses",
+      "url": "https://www.electrical-installation.org/enwiki/Effects_of_harmonics_-_Increased_losses",
+      "publisher": "Schneider Electric",
+      "kind": "primary_reference",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D04"
+      ],
+      "use": "Support the warning that harmonic currents increase RMS/heating burden and transformer losses.",
+      "caution": "Public indexed excerpt reviewed; direct page returned 503. No harmonic derating factor or real equipment rating is inferred. The 3 I²R comparison uses original fixed-resistance teaching inputs."
     }
   ]
 }
