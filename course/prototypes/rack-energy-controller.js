@@ -30,6 +30,7 @@ function draw(){
   }else markup=supplementalVisual(scene,state);
   $('visual').innerHTML=markup;
   $('scene').dataset.kind=scene.kind;
+  $('scene').dataset.scene=scene.id;
   $('status').textContent=description;
   bindVisual();
 }

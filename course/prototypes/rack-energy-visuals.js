@@ -6,7 +6,8 @@ const card=(label,value,detail='',extra='')=>`<section class="energy-card ${extr
 
 export function rackVisual(scene,state,compact) {
   const result=renderRackPower(scene.id,state,compact);
-  const svg=`<svg class="rack-diagram" viewBox="${compact?'0 0 390 680':'0 0 1200 560'}" role="img" aria-labelledby="rack-title rack-description"><title id="rack-title">${escapeHTML(scene.title)}</title><desc id="rack-description">${escapeHTML(result.description)}</desc>${result.markup}</svg>`;
+  const rackMarkup=result.markup.replace('https://docs.nvidia.com/dgx/dgxgb200-user-guide/_images/hardware-rack-rear-gb300.png','../assets/references/nvidia-dgx-gb300-rear.png');
+  const svg=`<svg class="rack-diagram" viewBox="${compact?'0 0 390 680':'0 0 1200 560'}" role="img" aria-labelledby="rack-title rack-description"><title id="rack-title">${escapeHTML(scene.title)}</title><desc id="rack-description">${escapeHTML(result.description)}</desc>${rackMarkup}</svg>`;
   return {markup:svg,description:result.description};
 }
 
