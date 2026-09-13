@@ -1,3 +1,5 @@
+import { renderTpuPreview } from "./orientation-tpu.js";
+
 const esc = (value) =>
   String(value)
     .replaceAll("&", "&amp;")
@@ -282,7 +284,7 @@ function coolingPreview(compact) {
     out += text(195, 218, "Technology", null, { size: 20 });
     out += text(195, 245, "coolant", null, { size: 20 });
     out += box("cooling-cdu", 70, 288, 250, 159);
-    out += text(195, 309, "Cooling distribution unit", "cooling-cdu", {
+    out += text(195, 309, "Coolant distribution unit", "cooling-cdu", {
       size: 17,
       weight: 650,
     });
@@ -330,7 +332,7 @@ function coolingPreview(compact) {
   out += path("M256 263H492", "heat", { width: 6, arrow: true });
   out += path("M492 392H263", "power", { width: 6, arrow: true });
   out += box("cooling-cdu", 490, 170, 215, 307);
-  out += text(597.5, 205, "Cooling distribution unit", "cooling-cdu", {
+  out += text(597.5, 205, "Coolant distribution unit", "cooling-cdu", {
     size: 16,
     weight: 650,
   });
@@ -368,6 +370,8 @@ function coolingPreview(compact) {
 }
 
 export function renderComputeTour(id, state = {}, compact = false) {
+  if (id === "network-preview" && state.networkView === "tpu")
+    return `<g data-tour-scene="${id}" data-network-view="tpu">${renderTpuPreview(compact)}</g>`;
   const renderers = {
     "compute-scale": computeScale,
     "network-preview": networkPreview,

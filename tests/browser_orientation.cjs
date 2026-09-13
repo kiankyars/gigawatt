@@ -15,7 +15,7 @@ const scenes = [
   { id: "continuity-preview", values: [null] },
   { id: "rack-boundary", setting: "rackView", values: ["front", "rear"] },
   { id: "compute-scale", values: [null] },
-  { id: "network-preview", values: [null] },
+  { id: "network-preview", setting: "networkView", values: ["campus", "tpu"] },
   { id: "cooling-preview", values: [null] },
   { id: "facility-meter", setting: "boundary", values: ["it", "facility"] },
   { id: "power-energy", setting: "schedule", values: ["stepped", "flat"] },

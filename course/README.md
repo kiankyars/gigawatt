@@ -50,9 +50,14 @@ The broad power and compute tours are in `orientation-power-tour.js` and
 `orientation-compute-tour.js`.
 Its thirteen scenes remain intact. The workload sequence follows in `prototypes/workload-format.html`,
 with authored scenes in `workload-scenes.js`, diagrams in `workload-visuals.js`,
-and shared calculations in `workload-model.js`. Its 19 scenes teach the workload
-brief, memory budgets, useful output, request timing and job-demand envelopes.
-The primer and workload sequence are ready for an aloud dry run.
+and shared calculations in `workload-model.js`. Its 18 scenes connect a named
+GB300 NVL72 and Llama 3.1 70B to training/inference memory, KV-cache capacity,
+prefill/decode, continuous batching, complete-run energy and time-resolved power.
+A published H100 training trace is distinct from the original timing model.
+Conditional staggering remains beside its dependency limitation; the closing
+workload brief replaces the old threshold quizzes. The
+[chapter review tracker](COURSE_REVIEW.md#chapter-review-tracker) records validation
+and author-review status; the unchanged Primer is not assigned another general pass.
 The manifest reports generated counts and image hashes; the template records
 what has actually been reviewed. Source notes and generated lessons each serve
 a different reading purpose and do not own course design.

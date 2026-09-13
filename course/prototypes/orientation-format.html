@@ -556,6 +556,40 @@
             >: physical entry and carrier interconnection. The generic network
             preview is not a specified cable design.
           </li>
+          <li>
+            <a href="https://cloud.google.com/blog/topics/systems/tpu-v4-enables-performance-energy-and-co2e-efficiency-gains"
+              >Google — TPU v4 architecture (2023)</a
+            >: the slide embeds Google's photograph of eight racks, one eighth
+            of a 4,096-chip TPU v4 pod. The accompanying optical-path drawing
+            illustrates the connection function, not the complete optical assembly.
+          </li>
+          <li>
+            <a href="https://www.usenix.org/system/files/nsdi24-zu.pdf"
+              >Google researchers — Resiliency at Scale (NSDI 2024), sections 1–2</a
+            >: 64-chip blocks, ICI and reconfigurable optical cross-connections.
+            MEMS mirrors select physical links; this is not a packet switch
+            deciding where to send each arriving packet.
+          </li>
+          <li>
+            <a href="https://docs.cloud.google.com/tpu/docs/multislice-introduction"
+              >Google Cloud — Multislice overview</a
+            >: ICI within a slice and a separate data-center network (DCN)
+            between slices. A multi-pod job does not establish that one ICI
+            fabric directly spans separate data centers.
+          </li>
+          <li>
+            <a href="https://www.coolitsystems.com/resources/news/coolit-systems-launches-three-high-density-coolant-distribution-units/"
+              >CoolIT — Coolant Distribution Units</a
+            >: the overview uses “coolant distribution unit.” Both “coolant”
+            and “cooling” appear in manufacturers' CDU terminology.
+          </li>
+          <li>
+            <a href="https://deepmind.google/gemini/gemini_1_report.pdf#page=5"
+              >Google DeepMind — Gemini 1.0 report, section 3</a
+            >: Gemini Ultra joins TPU v4 pods in multiple data centers through
+            intra- and inter-cluster networks, with model parallelism within
+            pods and data parallelism across them.
+          </li>
         </ul>
       </details>
       <p>
@@ -583,6 +617,7 @@
         path: "power",
         spaceView: "photo",
         rackView: "front",
+        networkView: "campus",
         boundary: "it",
         schedule: "stepped",
         efficiency: "baseline",
@@ -702,13 +737,19 @@
           id: "network-preview",
           label: "Network connections",
           title:
-            "Rack links, cluster networks and carrier connections serve different distances.",
+            "Cluster interconnects and campus links serve different communication jobs.",
           reference: "d08-topology-budget",
           visual: "compute-tour",
+          key: "networkView",
+          group: "Example",
+          options: [
+            ["campus", "Campus networks"],
+            ["tpu", "Google TPU v4"],
+          ],
           description:
-            "A rack-internal interconnect, a cluster network linking racks, a separate shared-storage connection and a campus-to-carrier handoff are shown as bidirectional communication paths.",
+            "The campus view separates rack links, the cluster network, storage and carrier connections. The Google TPU v4 view shows a real eight-rack photograph and how optical circuit switches connect ICI links between 64-chip blocks in a 4,096-chip pod. One selected optical link is illustrated; it is not the complete topology.",
           explanation:
-            "In the GB300 example, switched NVLink connects the processors within the rack-scale system. A separate cluster network connects systems for distributed work. Storage networking connects data and checkpoints to computing equipment; external connections link the campus to users, other sites and carrier networks. Those external fibers enter through planned entrances and handoffs such as a meet-me room. Copper and optics are selected for reach, bandwidth, power and serviceability; network function does not imply one universal cable medium. The diagram separates roles without specifying a protocol or production topology for every link.",
+            "In the GB300 example, NVLink connects processors within the rack-scale system, while a cluster network connects systems. Storage and carrier connections serve other communication roles. Google TPU v4 provides a different concrete example: a pod has 64 blocks of 64 chips, totaling 4,096. Inter-chip interconnect (ICI) carries direct TPU-to-TPU communication. Optical circuit switches (OCSes) use MEMS mirrors to cross-connect optical ICI links between blocks, allowing the topology to be configured for a job and resources to be reallocated around failures. The simplified light path shows one link between two blocks; it omits most ports, mirrors, optics and the rest of the three-dimensional topology. Optical signals remain optical through the OCS; electrical conversion still occurs at the link endpoints. The photograph shows one eighth of the pod. This is the documented TPU v4 architecture, not a claim that all TPU generations use the same block or pod size. Multislice uses ICI within a slice and a separate data-center network (DCN) between slices. Google DeepMind’s Gemini 1.0 report provides an actual multi-data-center example: Gemini Ultra connects TPU v4 pods using intra- and inter-cluster networks, with model parallelism inside pods and data parallelism across them. This is a different network layer from the optical ICI links pictured here. These networks have different communication budgets, which the networking section examines.",
         },
         {
           id: "cooling-preview",
@@ -720,13 +761,13 @@
           description:
             "The selected cold-plate heat path uses a technology coolant loop, a CDU heat exchanger and a separate facility loop leading to outdoor heat rejection. The room-air cooling path is outside this diagram.",
           explanation:
-            "Cold plates capture selected component heat into a technology coolant loop. A liquid-to-liquid cooling distribution unit (CDU) transfers that heat across an exchanger to a separate facility loop; the fluids do not mix. Components outside the cold-plate path still need cooling, often through room air and an air handler. The outdoor system ultimately rejects the heat. This preview does not choose dry, evaporative or chilled-water operation; liquid cooling at the rack does not by itself imply that outdoor water is evaporated. The heat-capture and heat-rejection lessons develop flow, approach temperatures, equipment choices and weather limits.",
+            "Cold plates capture selected component heat into a technology coolant loop. A liquid-to-liquid coolant distribution unit (CDU) transfers that heat across an exchanger to a separate facility loop; the fluids do not mix. Manufacturers use both 'coolant distribution unit' and 'cooling distribution unit'; this overview uses 'coolant' consistently. Components outside the cold-plate path still need cooling, often through room air and an air handler. The outdoor system ultimately rejects the heat. This preview does not choose dry, evaporative or chilled-water operation; liquid cooling at the rack does not by itself imply that outdoor water is evaporated. The heat-capture and heat-rejection lessons develop flow, approach temperatures, equipment choices and weather limits.",
         },
         {
           id: "facility-meter",
           label: "Rating versus load",
           title:
-            "Nameplate capacity states a rating; the meter records the load.",
+            "A 2 MW supply must power the racks and the equipment that supports them.",
           reference: "d01-boundaries",
           key: "boundary",
           group: "Count the load",
@@ -773,6 +814,10 @@
         },
       ];
       let index = 0;
+      const sceneTitle = (scene) =>
+        scene.id === "network-preview" && state.networkView === "tpu"
+          ? "Optical switches connect 4,096 TPU v4 chips into a reconfigurable pod."
+          : scene.title;
       const teaching =
         new URLSearchParams(location.search).get("teach") === "1";
       $("fullscreen").hidden = !teaching;
@@ -801,11 +846,11 @@
                 ? renderSpatial(s.id, state, compact)
                 : renderQuantities(s.id, state, compact);
         $("diagram").innerHTML =
-          `<title id="diagram-title">${s.title}</title><desc id="diagram-description">${s.description}</desc>${visual}`;
+          `<title id="diagram-title">${sceneTitle(s)}</title><desc id="diagram-description">${s.description}</desc>${visual}`;
       }
       function render() {
         const s = scenes[index];
-        $("title").textContent = s.title;
+        $("title").textContent = sceneTitle(s);
         document.title = `${presentationLabels.overview} · ${s.label} · GIGAWATT`;
         $("scenes").value = String(index);
         $("progress").textContent = `${index + 1} / ${scenes.length}`;
@@ -820,7 +865,7 @@
           checkin.textContent = "Check your understanding →";
           $("actions").append(checkin);
         }
-        $("explanation-title").textContent = s.title;
+        $("explanation-title").textContent = sceneTitle(s);
         $("explanation").textContent = s.explanation;
         $("lesson-reference").href = `../index.html#${s.reference}`;
         draw();

@@ -283,3 +283,31 @@ export function evaluateInferenceAcceptance({
     ]),
   });
 }
+
+/** Llama 3.1 70B BF16 cache geometry; the pool is an explicit allocation. */
+export function llamaMemory({ contextTokens=8192, kvPoolGiB=64 }={}) {
+  count(contextTokens,'Cached tokens per request'); positive(kvPoolGiB,'KV pool GiB');
+  const weightsGB=70*2, trainingStateGB=70*16;
+  const kvBytesPerToken=2*80*8*128*2;
+  const requestGiB=kvBytesPerToken*contextTokens/2**30;
+  const concurrentRequests=Math.floor(kvPoolGiB/requestGiB);
+  return {weightsGB,trainingStateGB,kvBytesPerToken,requestGiB,kvPoolGiB,contextTokens,concurrentRequests};
+}
+
+/** Relative complete-run energy for identical accepted output. */
+export function sameWorkEnergy({ powerRatio=.8, durationRatio=1.5 }={}) {
+  positive(powerRatio,'Mean power ratio');positive(durationRatio,'Duration ratio');
+  return {powerRatio,durationRatio,energyRatio:powerRatio*durationRatio,breakEvenDurationRatio:1/powerRatio};
+}
+
+/** Decode-slot illustration. Iterations have no asserted wall-clock durations. */
+export function decodeSlots(continuous=true) {
+  if(typeof continuous!=='boolean')throw new TypeError('Continuous policy must be boolean');
+  const jobs=[{id:'A',tokens:2},{id:'B',tokens:5},{id:'C',tokens:3}];
+  const rows=[Array(8).fill(null),Array(8).fill(null)];
+  for(let step=0;step<2;step++)rows[0][step]='A';
+  for(let step=0;step<5;step++)rows[1][step]='B';
+  const start=continuous?2:5;
+  for(let step=start;step<start+3;step++)rows[0][step]='C';
+  return {rows,jobs,stepsToComplete:continuous?5:8,totalTokens:10};
+}

@@ -7,11 +7,10 @@ const { resolve } = require("node:path");
 const base = process.argv[2] || "http://127.0.0.1:8765/course/prototypes/workload-format.html";
 const output = process.argv[3] || "/tmp/gigawatt-workload-qa";
 const expectedScenes = [
-  "success-brief", "model-work", "resource-paths", "inference-memory",
-  "training-memory", "partition-fit", "measured-progress", "occupied-waiting",
-  "energy-per-result", "batching-throughput", "gathering-latency", "arrival-capacity",
-  "job-phases", "synchronized-jobs", "staggering-jobs", "independence",
-  "demand-transition", "acceptance-envelope", "next-brief",
+ "workload-purpose", "success-brief", "model-work", "memory-comparison", "kv-cache",
+ "context-capacity", "prefill-decode", "continuous-batching", "energy-per-result",
+ "resource-paths", "training-power-evidence", "job-phases", "synchronized-jobs",
+ "staggering-jobs", "independence", "demand-transition", "power-response", "next-brief",
 ];
 
 const close = (actual, expected, label) => assert.ok(
@@ -38,53 +37,17 @@ const flag = async (page, attribute, expected) => {
 };
 
 async function checkQuantities(page, id, state) {
-  const content = await page.locator("#diagram").textContent();
-  assert.doesNotMatch(content, /\bNaN\b|\bInfinity\b/, "Invalid arithmetic cannot reach the visual");
-  if (id === "inference-memory") {
-    await number(page, "data-total-gb", 32 + state.workspace);
-    await number(page, "data-aggregate-capacity-gb", 80);
-    await flag(page, "data-aggregate-fits", true);
-  }
-  if (id === "training-memory") {
-    await number(page, "data-total-gb", 256);
-    await number(page, "data-aggregate-capacity-gb", 80 * state.devices);
-    await flag(page, "data-aggregate-fits", state.devices === 4);
-  }
-  if (id === "partition-fit") {
-    await number(page, "data-total-gb", 256);
-    await number(page, "data-aggregate-capacity-gb", 320);
-    await flag(page, "data-partition-fits", state.partition === "balanced");
-  }
-  if (id === "occupied-waiting") {
-    const expected = { A: [51.25, 3075 / 3600, 45000, 1], B: [42.5, 2550 / 3600, 30000, 1], idle: [12, 0.2, 0, 0] }[state.observation];
-    for (const [index, attribute] of ["data-average-kw", "data-energy-kwh", "data-accepted-samples", "data-allocation-fraction"].entries())
-      await number(page, attribute, expected[index]);
-  }
-  if (id === "energy-per-result") {
-    const expected = { B: [2550 / 3600, 85], C: [3250 / 3600, 65], idle: [0.2, null] }[state.energyCase];
-    await number(page, "data-energy-kwh", expected[0]);
-    if (expected[1] === null) await flag(page, "data-joules-per-sample", "undefined");
-    else await number(page, "data-joules-per-sample", expected[1]);
-  }
-  if (["batching-throughput", "arrival-capacity"].includes(id))
-    await number(page, "data-capacity-rps", state.batch === 1 ? 125 : 200);
-  if (id === "arrival-capacity") await flag(page, "data-overloaded", state.batch === 1);
-  if (id === "gathering-latency") {
-    await number(page, "data-max-latency-ms", state.arrivals === 6 ? 38 : 56);
-    await number(page, "data-mean-latency-ms", state.arrivals === 6 ? 29 : 38);
-  }
-  if (["job-phases", "synchronized-jobs", "staggering-jobs"].includes(id)) {
-    const one = id === "job-phases";
-    await number(page, "data-average-kw", one ? 85 : 340);
-    await number(page, "data-peak-kw", one ? 120 : id === "staggering-jobs" && state.schedule === "staggered" ? 340 : 480);
-    await number(page, "data-energy-kwh", one ? 17 / 12 : 17 / 3);
-  }
-  if (id === "acceptance-envelope" && state.acceptanceReveal) {
-    await flag(page, "data-meets-latency", state.latency === 40);
-    await flag(page, "data-numerical-pass", state.latency === 40);
-  }
-  if (id === "demand-transition")
-    await number(page, "data-transition-rate-kw-per-second", -160);
+ const content=await page.locator("#diagram").textContent();
+ assert.doesNotMatch(content,/\bNaN\b|\bInfinity\b/);
+ if(id==="context-capacity"){assert.match(content,/25 resident requests/);assert.match(content,/6 resident requests/);}
+ if(id==="energy-per-result"){assert.match(content,/120%/);assert.match(content,/125%/);}
+ if(["job-phases","synchronized-jobs","staggering-jobs"].includes(id)){
+  const one=id==="job-phases";
+  await number(page,"data-average-kw",one?85:340);
+  await number(page,"data-peak-kw",one?120:id==="staggering-jobs"&&state.schedule==="staggered"?340:480);
+  await number(page,"data-energy-kwh",one?17/12:17/3);
+ }
+ if(id==="demand-transition")assert.match(content,state.transitionSeconds===2?/160 kW\/s/:/1,600 kW\/s/);
 }
 
 async function checkSelection(page, scene, state) {
@@ -147,51 +110,23 @@ async function checkGeometry(page, viewport) {
 }
 
 async function checkNavigation(page) {
-  await page.goto(url("success-brief"));
-  await page.waitForSelector("#diagram text");
-  await page.locator("body").click({ position: { x: 2, y: 100 } });
-  await page.keyboard.press("ArrowLeft");
-  assert.equal(new URL(page.url()).hash, "#success-brief");
-  await page.keyboard.press("ArrowRight");
-  assert.equal(new URL(page.url()).hash, "#model-work");
-  await button(page, "service", "inference").focus();
-  await page.keyboard.press("ArrowRight");
-  assert.equal(new URL(page.url()).hash, "#model-work", "A focused control keeps its arrow keys");
-  const selectConsumed = await page.locator("#scenes").evaluate((select) => {
-    select.focus();
-    const event = new KeyboardEvent("keydown", { key: "ArrowRight", bubbles: true, cancelable: true });
-    select.dispatchEvent(event);
-    return event.defaultPrevented;
-  });
-  assert.equal(selectConsumed, false);
-  await page.locator("#scenes").selectOption("next-brief");
-  assert.equal(await page.locator("#next").isDisabled(), true);
-  await page.locator("#previous").click();
-  assert.equal(new URL(page.url()).hash, "#acceptance-envelope");
-  const initial = await page.locator("#reveal").getAttribute("aria-expanded");
-  await page.locator("body").click({ position: { x: 2, y: 100 } });
-  await page.keyboard.press("r");
-  assert.notEqual(await page.locator("#reveal").getAttribute("aria-expanded"), initial);
-  await page.locator("#explain").click();
-  assert.equal(await page.locator("#reading").evaluate((dialog) => dialog.open), true);
-  await page.keyboard.press("ArrowRight");
-  assert.equal(new URL(page.url()).hash, "#acceptance-envelope");
-  await page.keyboard.press("Escape");
-  assert.equal(await page.locator("#reading").evaluate((dialog) => dialog.open), false);
-  await page.locator("#explain").click();
-  await page.locator("#close-reading").click();
-  assert.equal(await page.locator("#reading").evaluate((dialog) => dialog.open), false);
-  assert.equal(await page.locator("#fullscreen").isVisible(), false);
-  await page.locator("body").click({ position: { x: 2, y: 100 } });
-  await page.keyboard.press("f");
-  assert.equal(await page.evaluate(() => !!document.fullscreenElement), false);
-  await page.goto(url("success-brief", true));
-  await page.waitForSelector("#diagram text");
-  assert.equal(await page.locator("#fullscreen").isVisible(), true);
-  await page.locator("#fullscreen").click();
-  await page.waitForFunction(() => !!document.fullscreenElement);
-  await page.locator("#fullscreen").click();
-  await page.waitForFunction(() => !document.fullscreenElement);
+ await page.goto(url("workload-purpose"));await page.waitForSelector("#diagram text");
+ await page.locator("body").click({position:{x:2,y:100}});await page.keyboard.press("ArrowLeft");
+ assert.equal(new URL(page.url()).hash,"#workload-purpose");await page.keyboard.press("ArrowRight");
+ assert.equal(new URL(page.url()).hash,"#success-brief");
+ await page.locator("#scenes").selectOption("next-brief");assert.equal(await page.locator("#next").isDisabled(),true);
+ assert.equal(await page.locator("#actions a").getAttribute("href"),"siting-format.html?teach=1");
+ assert.equal(await page.locator("#reveal").count(),0);
+ await page.locator("#previous").click();assert.equal(new URL(page.url()).hash,"#power-response");
+ await page.locator("#explain").click();assert.equal(await page.locator("#reading").evaluate(d=>d.open),true);
+ await page.keyboard.press("Escape");assert.equal(await page.locator("#reading").evaluate(d=>d.open),false);
+ for(const [old,current] of Object.entries({"inference-memory":"memory-comparison","occupied-waiting":"resource-paths","acceptance-envelope":"next-brief"})){
+  await page.goto(url(old));await page.waitForSelector("#diagram text");assert.equal(await page.locator("#scenes").inputValue(),current);
+ }
+ await page.goto(url("workload-purpose",true));await page.waitForSelector("#diagram text");
+ assert.equal(await page.locator("#fullscreen").isVisible(),true);
+ await page.locator("#fullscreen").click();await page.waitForFunction(()=>!!document.fullscreenElement);
+ await page.locator("#fullscreen").click();await page.waitForFunction(()=>!document.fullscreenElement);
 }
 
 (async () => {
@@ -215,7 +150,7 @@ async function checkNavigation(page) {
       const state = { ...initialState };
       await page.goto(url(scenes[0].id));
       await page.waitForSelector("#diagram text");
-      assert.equal(await page.locator("#scenes option").count(), 19);
+      assert.equal(await page.locator("#scenes option").count(), 18);
       for (const scene of scenes) {
         await page.locator("#scenes").selectOption(scene.id);
         const configurations = (scene.controls || []).flatMap((group) => group.options.map(([value]) => ({ key: group.key, value })));

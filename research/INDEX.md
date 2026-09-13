@@ -213,6 +213,15 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P88 — Analog Devices — Smart Battery Backup for Uninterrupted Energy, Part 4: BBU Shelf Operation](sources/P88.md) | Analog Devices | D05, D06 | page_reviewed |
 | [P89 — Texas Instruments — TIDA-050095 48V–12V 2kW four-phase bus converter](sources/P89.md) | Texas Instruments | D06 | page_reviewed |
 | [P90 — Texas Instruments — The decoupling capacitor: is it really necessary?](sources/P90.md) | Texas Instruments | D05, D06 | page_reviewed |
+| [P91 — Google’s Cloud TPU v4 provides exaFLOPS-scale ML with industry-leading efficiency](sources/P91.md) | Google Cloud | D01, D08 | page_reviewed |
+| [P92 — Resiliency at Scale: Managing Google’s TPUv4 Machine Learning Supercomputer](sources/P92.md) | Google researchers / USENIX NSDI 2024 | D01, D08, D14 | page_reviewed |
+| [P93 — Cloud TPU Multislice Overview](sources/P93.md) | Google Cloud | D01, D08 | page_reviewed |
+| [P94 — CoolIT Systems Launches Three High-Density Coolant Distribution Units](sources/P94.md) | CoolIT Systems | D01, D10 | page_reviewed |
+| [P95 — Meta — Llama model SKU architecture definitions](sources/P95.md) | Meta | D02, D06, D07 | page_reviewed |
+| [P96 — vLLM — Inside vLLM: Anatomy of a High-Throughput LLM Inference System](sources/P96.md) | vLLM | D02, D07, D08 | page_reviewed |
+| [P97 — Microsoft, OpenAI and NVIDIA — Power Stabilization for AI Training Datacenters](sources/P97.md) | Microsoft, OpenAI and NVIDIA authors / arXiv | D02, D05, D06, D15 | page_reviewed |
+| [P98 — ZeRO: Memory Optimizations Toward Training Trillion Parameter Models](sources/P98.md) | Microsoft Research authors / arXiv | D02, D07 | page_reviewed |
+| [P99 — Gemini: A Family of Highly Capable Multimodal Models](sources/P99.md) | Google DeepMind | D01, D02, D08 | page_reviewed |
 | [SA01 — Datacenter Anatomy Part 1: Electrical Systems](sources/SA01.md) | SemiAnalysis | D04, D05, D06, D13, D15 | public_excerpt_reviewed |
 | [SA02 — Datacenter Anatomy Part 2 – Cooling Systems](sources/SA02.md) | SemiAnalysis | D10, D11, D15 | public_excerpt_reviewed |
 | [SA03 — 100,000 H100 Clusters: Power, Network Topology, Ethernet vs InfiniBand, Reliability, Failures, Checkpointing](sources/SA03.md) | SemiAnalysis | D02, D07, D08, D09, D14 | public_excerpt_reviewed |

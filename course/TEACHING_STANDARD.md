@@ -77,15 +77,15 @@ Teach contrasting cases within their relevant systems: original Colossus for
 brownfield reuse; SemiAnalysis's Southaven/MiniHard procurement account for
 speed versus electrical efficiency; Sparks for solar, battery energy and backup;
 Abilene for non-evaporative rejection; Google for scheduling flexible demand.
-Each case needs a concrete choice, a mechanism, a changed condition and a short
-prediction with a revealed explanation. Keep source interpretation out of the
+Each case needs a concrete choice, a mechanism and an engineering consequence.
+Use a prediction and reveal when the changed condition tests useful reasoning. Keep source interpretation out of the
 main visual unless it changes the engineering conclusion. Primer remains first
 exposure to terms; detailed cases belong in the domains.
 
-The reader implements one active check-in at each domain boundary.
-Use those authored scenarios when adapting the remaining presentation sequences,
-with a spoken pause before the answer and a bridge to the next domain in the
-actual teaching order. Check-ins do not require a score or block progression.
+The reader implements one optional check-in at each domain boundary.
+Use those scenarios in presentations when they test a meaningful mechanism;
+a concrete design brief can provide the bridge to the next chapter instead.
+Do not force a quiz or answer reveal into every ending.
 
 ### Required section handoffs
 
@@ -112,8 +112,8 @@ just before fabrication. Require the learner to decide what proceeds, what is he
 and which electrical, hydraulic, spatial and schedule evidence releases each hold.
 Retain the existing boundary check as the closing transfer exercise.
 
-At every section handoff, verify its check-in is reachable from the actual teaching
-sequence, check any Abilene claim against its dated source and update the chapter's
+At every section handoff, verify the next chapter is reachable, check any Abilene
+claim against its dated source and update the chapter's
 presentation status. A reader draft, standalone case and integrated deck are
 different completion states.
 Register each deck in [the teaching catalog](teaching-sequences.json) so it appears
@@ -126,12 +126,14 @@ Chapter numbers are generated from the curriculum teaching order; do not maintai
 Use these rules when adapting each sequence:
 
 1. **Begin with the learner's question.** Give the equipment a job before naming
-   its technology. Introduce specialist terms at the object where they matter;
-   the glossary is a lookup aid, not a prerequisite lecture.
+   its technology. Open a substantive chapter with its purpose and the decision
+   its mechanisms will support. Introduce specialist terms at the object where
+   they matter; the glossary is a lookup aid, not a prerequisite lecture.
 2. **Locate the mechanism.** Show campus → building → rack → component context,
    physical form and the relevant connections. Embed a real product photograph
    when using a product example. Preserve names and interfaces as the view changes.
-   Explain what its components do and attach operating conditions to quoted
+   Anchor hardware examples in a named platform and a stated quantity. Explain
+   what its components do and attach operating conditions to quoted
    specifications; separately listed maxima need not be achievable together.
 3. **Make the diagram teach.** Use one explanatory sentence as the headline,
    one dominant visual, and essential labels, quantities and assumptions beside
@@ -145,7 +147,10 @@ Use these rules when adapting each sequence:
    explanation. A formula can stand alone on the teaching visual while the
    instructor explains it. Keep assumptions visible when they change the answer.
 4. **Control the comparison.** Keep the load, boundary, operating state and
-   measurement convention fixed until a change is explicitly introduced. Change
+   measurement convention fixed until a change is explicitly introduced. Show
+   direct comparisons simultaneously when both fit: training beside inference,
+   or complete runs beside their energy account. Use a toggle when it reveals a
+   mechanism or a controlled change, not merely to hide the other case. Change
    one condition and show its effect on a path, quantity or constraint. Use a
    prediction/reveal only when there is something worth predicting.
    Judge an experiment by what it explains, not by the complexity of its algebra:
@@ -154,7 +159,9 @@ Use these rules when adapting each sequence:
    little to the 800 V architecture comparison.
 5. **End with the consequence.** Return to the opening problem and explain what
    the comparison establishes. Use a changed case when it tests understanding;
-   do not append an unrelated calculation to satisfy a format.
+   do not append an unrelated calculation to satisfy a format. Remove quizzes
+   that only ask whether a number crosses a displayed threshold; a concrete
+   design brief or meaningful prediction can close the chapter instead.
    For a failure, trace the surviving path and capacity, then show the response:
    continued service, reduced service or shutdown. Distinguish a configured
    operating response from automatic component protection and unmodeled timing.
@@ -166,6 +173,14 @@ improvements to subsequent sections. Do not mechanically convert paragraphs into
 slides or call a whole domain finished because one sequence is implemented.
 
 ## Keep the physical model honest
+
+State whether each number is a sourced specification, an operating measurement,
+a chosen service requirement or an original teaching assumption. Derive the
+result from visible inputs. A chosen token target is not a hardware benchmark;
+a useful conditional scheduling example is not evidence of routine deployment.
+Retain its dependency limitation beside it. When equipment must respond to a
+changing load, show power against time; the average cannot stand in for the peak
+or transition speed.
 
 A correct equation can answer the wrong question. Current does not establish
 facility efficiency; energy capacity does not establish discharge power; total

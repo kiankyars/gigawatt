@@ -859,3 +859,46 @@ primer to 21 slides. Author notes and current slide-count guidance are updated.
 
 Browser checks used the active light theme and the built-in browser. Spoken
 runtime and beginner comprehension remain for the planned teaching review.
+
+
+## Overview and workload review — 2026-09-12
+
+Chapter 2 retains 13 slides and adds a Google TPU v4 photo/OCS/ICI example,
+qualified multi-data-center training context, coolant terminology and a revised
+capacity headline. Chapter 3 is rebuilt as 18 slides: named GB300 NVL72 service,
+Llama 3.1 70B state and KV accounting, visible training/inference comparisons,
+continuous batching, same-work energy, production H100 telemetry, conditional
+scheduling and a workload-to-supply brief. The old threshold quizzes are removed;
+retired hashes resolve to the corresponding taught content. Three D02 reader
+lessons and nine source records were updated alongside the presentation.
+
+Verification:
+
+- 67 Python tests and 121 JavaScript tests pass. New checks cover the named
+  KV geometry, binary capacity, complete-request allocation, same-work energy,
+  continuous slot membership and rendering all retained slide/control states.
+- Generated introduction, expanded reader, domain map and research checks pass.
+  Site staging and whitespace checks pass. Browser harnesses were updated for
+  the new scenes; they were not run in a standalone browser.
+- The built-in Codex browser checked all 18 workload default scenes at
+  1280 × 720, 390 × 844 and 844 × 390 for SVG text bounds, text collisions
+  and horizontal page overflow. One narrow ending-label overflow was corrected
+  and rechecked. The training-state labels were clarified after independent
+  technical review and rechecked at all three sizes.
+- Exercised all six workload button choices at desktop and phone width: selection
+  state follows the selected option; scheduling changes peak 480 → 340 kW at
+  unchanged cycle energy, dependency changes the waiting paths, and transition
+  duration changes the rate 160 → 1,600 kW/s.
+- Inspected representative intro, memory, batching, production-trace and TPU
+  screenshots. The actual publisher-hosted H100 figure and TPU photograph loaded.
+  Checked Explanation open/close, the retired acceptance-envelope hash and the
+  final link into Section 4. No browser warnings or errors were observed.
+- The overview's changed views were checked in twelve scene/state/viewport cases
+  across the same three sizes, including the TPU toggle, selected state and image.
+  Independent source review keeps pod ICI distinct from inter-cluster networking,
+  rounded model quantities distinct from throughput, and simulation distinct
+  from production telemetry.
+
+These browser checks used the active light theme; they do not establish a new
+exhaustive theme/zoom/accessibility review, spoken runtime or author acceptance.
+The chapter tracker records the revised material as ready for author review.

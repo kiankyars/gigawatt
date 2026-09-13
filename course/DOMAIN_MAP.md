@@ -197,6 +197,11 @@ Separate physical principles, design specifications, observed deployments, annou
 - [P65 — EIA — How electricity is generated](https://www.eia.gov/energyexplained/electricity/how-electricity-is-generated.php) · `public_excerpt_reviewed` · [local note](../research/sources/P65.md)
 - [P66 — EIA — Delivery of electricity to consumers](https://www.eia.gov/energyexplained/electricity/delivery-to-consumers.php) · `public_excerpt_reviewed` · [local note](../research/sources/P66.md)
 - [P67 — OpenStax · Resistance and simple circuits](https://openstax.org/books/college-physics-2e/pages/20-2-ohms-law-resistance-and-simple-circuits) · `page_reviewed` · [local note](../research/sources/P67.md)
+- [P91 — Google’s Cloud TPU v4 provides exaFLOPS-scale ML with industry-leading efficiency](https://cloud.google.com/blog/topics/systems/tpu-v4-enables-performance-energy-and-co2e-efficiency-gains) · `page_reviewed` · [local note](../research/sources/P91.md)
+- [P92 — Resiliency at Scale: Managing Google’s TPUv4 Machine Learning Supercomputer](https://www.usenix.org/system/files/nsdi24-zu.pdf) · `page_reviewed` · [local note](../research/sources/P92.md)
+- [P93 — Cloud TPU Multislice Overview](https://docs.cloud.google.com/tpu/docs/multislice-introduction) · `page_reviewed` · [local note](../research/sources/P93.md)
+- [P94 — CoolIT Systems Launches Three High-Density Coolant Distribution Units](https://www.coolitsystems.com/resources/news/coolit-systems-launches-three-high-density-coolant-distribution-units/) · `page_reviewed` · [local note](../research/sources/P94.md)
+- [P99 — Gemini: A Family of Highly Capable Multimodal Models](https://deepmind.google/gemini/gemini_1_report.pdf) · `page_reviewed` · [local note](../research/sources/P99.md)
 
 <a id="d02"></a>
 
@@ -288,6 +293,11 @@ State an infrastructure design envelope and identify which assumptions a benchma
 - [E0814EDF226 — Vertiv — BESS and UPS roles in large data center power architecture](https://www.vertiv.com/en-us/insights/articles/white-papers/bess-and-ups-roles-in-large-data-center-power-architecture/) · `page_reviewed` · [local note](../research/sources/E0814EDF226.md)
 - [P63 — Google Cloud — Best practices for batch inference on GKE](https://docs.cloud.google.com/kubernetes-engine/docs/best-practices/machine-learning/inference/batch-inference) · `page_reviewed` · [local note](../research/sources/P63.md)
 - [P77 — Google — Supporting power grids with demand response](https://cloud.google.com/blog/products/infrastructure/using-demand-response-to-reduce-data-center-power-consumption) · `public_excerpt_reviewed` · [local note](../research/sources/P77.md)
+- [P99 — Gemini: A Family of Highly Capable Multimodal Models](https://deepmind.google/gemini/gemini_1_report.pdf) · `page_reviewed` · [local note](../research/sources/P99.md)
+- [P95 — Meta — Llama model SKU architecture definitions](https://github.com/meta-llama/llama-models/blob/main/models/sku_list.py) · `page_reviewed` · [local note](../research/sources/P95.md)
+- [P96 — vLLM — Inside vLLM: Anatomy of a High-Throughput LLM Inference System](https://vllm.ai/blog/2025-09-05-anatomy-of-vllm) · `page_reviewed` · [local note](../research/sources/P96.md)
+- [P97 — Microsoft, OpenAI and NVIDIA — Power Stabilization for AI Training Datacenters](https://arxiv.org/html/2508.14318v1) · `page_reviewed` · [local note](../research/sources/P97.md)
+- [P98 — ZeRO: Memory Optimizations Toward Training Trillion Parameter Models](https://arxiv.org/html/1910.02054) · `page_reviewed` · [local note](../research/sources/P98.md)
 
 <a id="d03"></a>
 
@@ -616,6 +626,7 @@ Explain why fault clearing and grounding require topology-specific AC/DC protect
 - [P81 — Tier Certification for Modular and Phased Construction](https://journal.uptimeinstitute.com/modular-and-phased-construction/) · `public_excerpt_reviewed` · [local note](../research/sources/P81.md)
 - [P88 — Analog Devices — Smart Battery Backup for Uninterrupted Energy, Part 4: BBU Shelf Operation](https://www.analog.com/en/resources/analog-dialogue/articles/smart-battery-backup-for-uninterrupted-energy-part4.html) · `page_reviewed` · [local note](../research/sources/P88.md)
 - [P90 — Texas Instruments — The decoupling capacitor: is it really necessary?](https://e2e.ti.com/blogs_/archives/b/precisionhub/posts/the-decoupling-capacitor-is-it-really-necessary) · `page_reviewed` · [local note](../research/sources/P90.md)
+- [P97 — Microsoft, OpenAI and NVIDIA — Power Stabilization for AI Training Datacenters](https://arxiv.org/html/2508.14318v1) · `page_reviewed` · [local note](../research/sources/P97.md)
 
 <a id="d06"></a>
 
@@ -730,6 +741,8 @@ Explain how retrofit constraints can reverse a seemingly attractive greenfield a
 - [P88 — Analog Devices — Smart Battery Backup for Uninterrupted Energy, Part 4: BBU Shelf Operation](https://www.analog.com/en/resources/analog-dialogue/articles/smart-battery-backup-for-uninterrupted-energy-part4.html) · `page_reviewed` · [local note](../research/sources/P88.md)
 - [P89 — Texas Instruments — TIDA-050095 48V–12V 2kW four-phase bus converter](https://www.ti.com/tool/TIDA-050095) · `page_reviewed` · [local note](../research/sources/P89.md)
 - [P90 — Texas Instruments — The decoupling capacitor: is it really necessary?](https://e2e.ti.com/blogs_/archives/b/precisionhub/posts/the-decoupling-capacitor-is-it-really-necessary) · `page_reviewed` · [local note](../research/sources/P90.md)
+- [P95 — Meta — Llama model SKU architecture definitions](https://github.com/meta-llama/llama-models/blob/main/models/sku_list.py) · `page_reviewed` · [local note](../research/sources/P95.md)
+- [P97 — Microsoft, OpenAI and NVIDIA — Power Stabilization for AI Training Datacenters](https://arxiv.org/html/2508.14318v1) · `page_reviewed` · [local note](../research/sources/P97.md)
 
 <a id="d07"></a>
 
@@ -826,6 +839,9 @@ Connect server and rack organization to power, cooling, weight and maintenance i
 - [P64 — NVIDIA DGX GB Rack Scale Systems — Hardware](https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html#power-shelves) · `page_reviewed` · [local note](../research/sources/P64.md)
 - [P70 — Intel · CPU versus GPU](https://www.intel.com/content/www/us/en/products/docs/processors/cpu-vs-gpu.html) · `page_reviewed` · [local note](../research/sources/P70.md)
 - [P71 — Intel · Memory performance in a nutshell](https://www.intel.com/content/www/us/en/developer/articles/technical/memory-performance-in-a-nutshell.html) · `page_reviewed` · [local note](../research/sources/P71.md)
+- [P95 — Meta — Llama model SKU architecture definitions](https://github.com/meta-llama/llama-models/blob/main/models/sku_list.py) · `page_reviewed` · [local note](../research/sources/P95.md)
+- [P96 — vLLM — Inside vLLM: Anatomy of a High-Throughput LLM Inference System](https://vllm.ai/blog/2025-09-05-anatomy-of-vllm) · `page_reviewed` · [local note](../research/sources/P96.md)
+- [P98 — ZeRO: Memory Optimizations Toward Training Trillion Parameter Models](https://arxiv.org/html/1910.02054) · `page_reviewed` · [local note](../research/sources/P98.md)
 
 <a id="d08"></a>
 
@@ -928,6 +944,11 @@ Trace a network failure or degraded link into workload, cabling and operational 
 - [EA3CEEB6630 — Equinix — Customer-Managed Pre-Cabling and Demarcations](https://docs.equinix.com/cross-connect/installation/xc-customer-managed-precabling/) · `page_reviewed` · [local note](../research/sources/EA3CEEB6630.md)
 - [E0F361052D1 — FCC 25-21 — Physical Diversity, paragraph 63](https://docs.fcc.gov/public/attachments/FCC-25-21A1.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/E0F361052D1.md)
 - [P71 — Intel · Memory performance in a nutshell](https://www.intel.com/content/www/us/en/developer/articles/technical/memory-performance-in-a-nutshell.html) · `page_reviewed` · [local note](../research/sources/P71.md)
+- [P91 — Google’s Cloud TPU v4 provides exaFLOPS-scale ML with industry-leading efficiency](https://cloud.google.com/blog/topics/systems/tpu-v4-enables-performance-energy-and-co2e-efficiency-gains) · `page_reviewed` · [local note](../research/sources/P91.md)
+- [P92 — Resiliency at Scale: Managing Google’s TPUv4 Machine Learning Supercomputer](https://www.usenix.org/system/files/nsdi24-zu.pdf) · `page_reviewed` · [local note](../research/sources/P92.md)
+- [P93 — Cloud TPU Multislice Overview](https://docs.cloud.google.com/tpu/docs/multislice-introduction) · `page_reviewed` · [local note](../research/sources/P93.md)
+- [P99 — Gemini: A Family of Highly Capable Multimodal Models](https://deepmind.google/gemini/gemini_1_report.pdf) · `page_reviewed` · [local note](../research/sources/P99.md)
+- [P96 — vLLM — Inside vLLM: Anatomy of a High-Throughput LLM Inference System](https://vllm.ai/blog/2025-09-05-anatomy-of-vllm) · `page_reviewed` · [local note](../research/sources/P96.md)
 
 <a id="d09"></a>
 
@@ -1124,6 +1145,7 @@ Compare air, cold-plate, rear-door and immersion approaches against a declared d
 - [P60 — NVIDIA — DSX Facilities Infrastructure Reference Design Overview](https://docs.nvidia.com/dsx/facilities-infra/reference-design-overview) · `public_excerpt_reviewed` · [local note](../research/sources/P60.md)
 - [P72 — OpenStax · Heat](https://openstax.org/books/college-physics-2e/pages/14-1-heat) · `page_reviewed` · [local note](../research/sources/P72.md)
 - [P74 — Crusoe — Abilene cooling design](https://www.crusoe.ai/resources/blog/an-inside-look-at-the-abilene-ai-data-center) · `page_reviewed` · [local note](../research/sources/P74.md)
+- [P94 — CoolIT Systems Launches Three High-Density Coolant Distribution Units](https://www.coolitsystems.com/resources/news/coolit-systems-launches-three-high-density-coolant-distribution-units/) · `page_reviewed` · [local note](../research/sources/P94.md)
 
 <a id="d11"></a>
 
@@ -1533,6 +1555,7 @@ Convert a failure or capacity incident into an evidence-based recovery and preve
 - [P79 — Explaining the Uptime Institute’s Tier Classification System (April 2021 Update)](https://journal.uptimeinstitute.com/explaining-uptime-institutes-tier-classification-system/) · `public_excerpt_reviewed` · [local note](../research/sources/P79.md)
 - [P80 — Tier Classification Myths and Misconceptions](https://uptimeinstitute.com/myths) · `public_excerpt_reviewed` · [local note](../research/sources/P80.md)
 - [P81 — Tier Certification for Modular and Phased Construction](https://journal.uptimeinstitute.com/modular-and-phased-construction/) · `public_excerpt_reviewed` · [local note](../research/sources/P81.md)
+- [P92 — Resiliency at Scale: Managing Google’s TPUv4 Machine Learning Supercomputer](https://www.usenix.org/system/files/nsdi24-zu.pdf) · `page_reviewed` · [local note](../research/sources/P92.md)
 
 <a id="d15"></a>
 
@@ -1657,6 +1680,7 @@ Audit a named project's public evidence without filling unknown capacity, topolo
 - [P61 — The Green Grid — PUE: A Comprehensive Examination of the Metric](https://datacenters.lbl.gov/sites/default/files/WP49-PUE%20A%20Comprehensive%20Examination%20of%20the%20Metric_v6.pdf) · `page_reviewed` · [local note](../research/sources/P61.md)
 - [P73 — Crusoe — Abilene campus development update](https://www.crusoe.ai/resources/newsroom/crusoe-announces-new-900-mw-ai-factory-campus-in-abilene-texas-to-support-microsoft-ai-infrastructure) · `page_reviewed` · [local note](../research/sources/P73.md)
 - [P75 — Crusoe and Redwood — Sparks microgrid update](https://www.crusoe.ai/resources/newsroom/crusoe-and-redwood-materials-expand-strategic-partnership-scaling-to-7x-the-original-ai-infrastructure-density) · `page_reviewed` · [local note](../research/sources/P75.md)
+- [P97 — Microsoft, OpenAI and NVIDIA — Power Stabilization for AI Training Datacenters](https://arxiv.org/html/2508.14318v1) · `page_reviewed` · [local note](../research/sources/P97.md)
 
 ## Paths through the system
 

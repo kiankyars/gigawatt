@@ -78,3 +78,16 @@ in the 800 V teaching sequence and D06 reference. Its attribution to OCP is from
 the user; the exact publication is still unverified. The linked OCP LVDC paper
 is related context. The PNG is unchanged; these alternatives carry no adoption
 dates and do not specify complete protection or storage arrangements.
+
+The overview's TPU view embeds Google's photograph of **eight Cloud TPU v4
+racks**, one eighth of a 4,096-chip pod. Source: [Google Cloud — TPU v4](https://cloud.google.com/blog/topics/systems/tpu-v4-enables-performance-energy-and-co2e-efficiency-gains),
+reviewed 2026-09-12. The publisher-hosted photograph is unchanged. Its adjacent
+64 × 64-chip block diagram explains logical grouping and optical connections;
+it does not reproduce cable routing or imply that pod ICI is a wide-area fabric.
+
+The workload sequence embeds **Figure 1 from Choukse et al., Power Stabilization
+for AI Training Datacenters (2025)**, [paper and source figure](https://arxiv.org/html/2508.14318v1),
+reviewed 2026-09-12. This is normalized production DGX-H100 training telemetry,
+embedded unchanged from arXiv with authors and figure number on the slide. The
+article is licensed CC BY-NC-SA 4.0. Later traces are separate original teaching
+models; they are not reconstructed measurements or GB300 performance claims.

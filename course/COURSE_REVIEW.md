@@ -27,12 +27,49 @@ electricity basics and recurring terminology before the core course. Its 21 slid
 have a 20-minute target that remains provisional until rehearsal.
 The thirteen-scene Data center overview remains intact: it tours generation, transmission, campus power, backup,
 GB300 hardware, compute, networks and cooling before introducing load, energy and PUE.
-The new [Workloads and requirements presentation](prototypes/workload-format.html) has 19 scenes covering
-workload requirements, memory, useful output, batching, latency and job-demand
-envelopes. Its examples and controls are implemented, pending an aloud dry run.
+The rebuilt [Workloads and requirements presentation](prototypes/workload-format.html)
+has 18 scenes anchored on GB300 NVL72 and a named 70B model: memory, token service,
+measured training-power evidence and the resulting supply brief. The current
+requested edits and technical checks are complete; the revised slides are ready for
+the next author pass. Kian’s feedback is tracked below.
 These cover selected parts of the curriculum; they do not establish finished domains.
 Technical review, learner review, adaptation of the remaining material, recording
 and delivery remain pending. Prepare and rehearse one section at a time.
+
+## Chapter review tracker
+
+This is the single running review status. **Authored** means the material exists;
+**checked** refers to recorded technical/build/browser checks;
+**feedback addressed** means the requested revisions are implemented;
+**accepted** means Kian explicitly finished that chapter’s review. These are separate
+facts, not extra approval steps. No whole chapter has explicit final acceptance
+recorded yet. Revisit only changed slides or a specific unresolved issue; a new
+release does not restart an unchanged chapter’s review.
+
+| Chapter | Authored presentation | Technical checks | Author review / next action |
+| --- | --- | --- | --- |
+| 1. [Primer](prototypes/terminology-format.html?teach=1) | 21 slides | Latest requested revisions checked; [record](TESTING.md#primer-watts-polarity-and-three-phase-power--2026-09-12) | **Previous feedback addressed; final acceptance unrecorded.** No repeat review assigned. |
+| 2. [Data center overview](prototypes/orientation-format.html?teach=1) | 13-slide draft; current edits implemented | Model/build/browser checks passed; [scope](TESTING.md#overview-and-workload-review--2026-09-12) | **Active review.** Changed networking, CDU and capacity-title slides are the next author pass . |
+| 3. [Workloads and requirements](prototypes/workload-format.html?teach=1) | Rebuilt 18-slide draft | Model/build/browser checks passed; [scope](TESTING.md#overview-and-workload-review--2026-09-12) | **Active review.** Revised sequence is the next author pass ; no author acceptance recorded. |
+| 4. [Siting, grid connection and supply](prototypes/siting-format.html?teach=1) | 26-slide draft | Recorded in [testing](TESTING.md) | **New draft; author review pending.** Continue here after Chapters 2–3. |
+| 5. Physical site, buildings and safety | Reader draft; own deck unbuilt | Reader/build checks only | Presentation not yet assigned for review. |
+| 6. Campus and building power distribution | Reader draft; own deck unbuilt | Reader/build checks only | Presentation not yet assigned for review. |
+| 7. [Continuity, storage and protection](prototypes/ups-format.html) | Selected UPS topics, 21 slides | Model/browser checks recorded | Earlier UPS sequence iterated; new Tier comparison awaiting review. **Whole chapter incomplete.** |
+| 8. Rack power and the 800 V DC transition | Selected [800 V](teach.html) and [rack-to-chip](prototypes/rack-power-format.html?teach=1) decks | Model/browser checks recorded | 800 V sequence iterated; rack-to-chip addition awaiting review. **Whole chapter incomplete.** |
+| 9. Compute, memory and the rack | Reader draft; own deck unbuilt | Reader/build checks only | Presentation not yet assigned for review. |
+| 10. Networking and interconnects | Reader draft; own deck unbuilt | Reader/build checks only | Presentation not yet assigned for review. |
+| 11. Storage, orchestration and recovery | Reader draft; own deck unbuilt | Reader/build checks only | Presentation not yet assigned for review. |
+| 12. [Chip and rack heat capture](prototypes/cooling-format.html?teach=1) | Selected topics in shared cooling deck | Model/browser checks recorded | Cooling sequence iterated; no whole-chapter completion claimed. |
+| 13. [Heat rejection, climate and water](prototypes/cooling-format.html?teach=1#rejection) | Selected topics in shared cooling deck | Model/browser checks recorded | Cooling sequence iterated; no whole-chapter completion claimed. |
+| 14. Design, procurement and commissioning | Reader draft; own deck unbuilt | Reader/build checks only | Presentation not yet assigned for review. |
+| 15. Controls, operations and reliability | Reader draft; own deck unbuilt | Reader/build checks only | Presentation not yet assigned for review. |
+| 16. Capacity, cost and system decisions | Reader draft; own deck unbuilt | Reader/build checks only | Presentation not yet assigned for review. |
+| 17. Integrated cases | Five reader capstones; final deck unbuilt | Reader/build checks only | Capstone presentation and author review pending. |
+
+Primer completion evidence is the implemented feedback in commits `f3b06f2` and
+`e3c5228`, summarized in [the confirmed decisions](FEEDBACK_AUDIT.md) and the
+linked test record. This supports “feedback addressed,” not a claim that its
+spoken runtime, beginner comprehension or final author acceptance has been observed.
 
 ## Learner contract
 
@@ -90,7 +127,7 @@ relationships. Current authored lesson-to-objective mappings are generated in
 | [Primer](prototypes/terminology-format.html) | Primer before the data center overview; approximately 20-minute target, pending rehearsal | Rehearse pacing and check that first exposure reduces unfamiliarity without implying mastery |
 | [Reader and lesson notes](index.html)                     | Drafted explanations, worked examples, tradeoffs, failure cases and changed-scenario answers                           | Complete claim review, learner comprehension checks and final narration              |
 | [Five capstones](DOMAIN_MAP.md#proposed-capstones)        | Drafted synthetic briefs and worked solutions; scope belongs to the domain map                                         | Check assumptions and demonstrate transfer across domains                            |
-| [Workloads and requirements](prototypes/workload-format.html) | 19 authored scenes covering its three reader lessons, with numerical comparisons and changed cases | Rehearse explanations, timing and transfer; complete technical and learner review |
+| [Workloads and requirements](prototypes/workload-format.html) | Rebuilt 18-scene sequence; current requested edits implemented | Review the revised sequence |
 | [800 V DC presentation](teach.html)                       | Thirteen authored visual scenes, separate notes, student explanations and shared calculations                               | Rehearse the revised copper/space premise and conversion-placement ending                |
 | [UPS, bypass and redundancy](prototypes/ups-format.html) | 21 visual scenes with power-path changes, surviving-capacity exercises and a separate Tier/availability comparison | Dry-run the minimal-text format and report unclear mechanisms or terminology |
 | [Rack inlet to chip](prototypes/rack-power-format.html) | Eleven scenes covering PSU modules, the rear busbar, board regulation, BBUs and storage locality | Dry-run the new mechanisms and repeated-burst prediction |
@@ -207,11 +244,39 @@ sequences still need authorship and dry runs.
 
 ### Next teaching step
 
-#### Current review requests — 12 September 2026
+#### Current review — Chapters 2 and 3, 12 September 2026
 
-This table records the complete new request set. Implementation and evidence links
-are filled in as each item is completed; a written lesson and a presentation are
-reported separately.
+Each request below has one resolution. The [chapter tracker](#chapter-review-tracker)
+records whether the chapter itself is finished; this table tracks the current edits.
+
+| Request | Resolution / status |
+| --- | --- |
+| Add a Google TPU/OCS/ICI mini-example to overview slide 9 | [Google TPU v4 view](prototypes/orientation-format.html?teach=1#network-preview): actual pod photograph and an original optical-path diagram; 4,096 chips, with multi-data-center networking explicitly distinguished from ICI. |
+| Check “cooling” versus “coolant distribution unit” on overview slide 10 | [Cooling preview](prototypes/orientation-format.html?teach=1#cooling-preview) consistently uses **coolant distribution unit**. Sources use both expansions; this is a terminology choice, not a universal correction of manufacturers. |
+| Replace the capacity/nameplate/meter title | [Capacity scene](prototypes/orientation-format.html?teach=1#facility-meter): **A 2 MW supply must power the racks and the equipment that supports them.** |
+| Replace “64 accelerators” with a named, quantified system | [One GB300 NVL72](prototypes/workload-format.html?teach=1#success-brief): 72 GPUs, Llama 3.1 70B, and a separately chosen token-service target. |
+| Add a Chapter 3 introduction explaining the section’s purpose | [New opening](prototypes/workload-format.html?teach=1#workload-purpose): model state → token service → power over time → supply brief. |
+| Compare training and inference simultaneously | [Training beside inference](prototypes/workload-format.html?teach=1#model-work); unnecessary mode toggle removed. |
+| Improve crude diagrams, including use of generated images when useful | Diagrams rebuilt around simultaneous comparisons and visible dependencies. Actual TPU photography and a published production power trace provide the real examples. |
+| Give “Follow the data through the job” an explicit learning outcome | [Stalled training step](prototypes/workload-format.html?teach=1#resource-paths): identify the exchange dependency and the evidence needed to diagnose it. |
+| Motivate inference memory and training memory as a comparison | [Same 70B model, two budgets](prototypes/workload-format.html?teach=1#memory-comparison), followed by sourced KV geometry and its context/concurrency consequence. |
+| Remove the obvious “each device has its own memory” slide | Removed. [Context capacity](prototypes/workload-format.html?teach=1#context-capacity) now asks how many resident requests fit the stated cache pool. |
+| Replace the arbitrary 400 samples/s example | Removed. The opening derives **100 active sessions × 40 output tokens/s = 4,000 output tokens/s**, explicitly a chosen requirement, not measured NVL72 throughput. |
+| Fix the obscured waiting-power text and motivate the slide | Replaced by the [training dependency diagram](prototypes/workload-format.html?teach=1#resource-paths) and a separate measured production-power example. |
+| Compare energy per result directly instead of toggling cases | [Two complete runs shown together](prototypes/workload-format.html?teach=1#energy-per-result): 80% power × 150% duration = 120% energy for the same accepted token work. |
+| Explain whether slide 10 introduces batching, or remove it | The generic batching and queue-threshold sequence is removed; named prefill/decode and continuous-batching mechanisms replace it. |
+| Keep continuous batching only with a clear course purpose | [Continuous batching](prototypes/workload-format.html?teach=1#continuous-batching) shows request replacement during decode and connects it to active memory and compute. |
+| Connect the job-phase power swings to electrical infrastructure | [Published H100 training trace](prototypes/workload-format.html?teach=1#training-power-evidence) precedes the explicitly hypothetical phase model. Memory traffic is not equated with maximum power. |
+| Explain why synchronized load changes matter to power delivery | [Shared supply trace](prototypes/workload-format.html?teach=1#synchronized-jobs) sums coincident loads; [response choices](prototypes/workload-format.html?teach=1#power-response) distinguish scheduling, device control and storage. |
+| Retain staggering and the following dependency case, without claiming routine deployment | [Conditional staggering](prototypes/workload-format.html?teach=1#staggering-jobs) retained per the later review; the [next scene](prototypes/workload-format.html?teach=1#independence) shows when coupled workers invalidate the assumption. |
+| Prefer the power graph over a mean-only view | [Power over time](prototypes/workload-format.html?teach=1#demand-transition) shows peak and transition speed directly; the mean is supporting context. |
+| Remove the old slides 18–19 threshold quizzes | Removed; [the new ending](prototypes/workload-format.html?teach=1#next-brief) carries the defined service and measured power requirements into supply design. |
+| Clarify the naming recommendation | Recommended **GIGAWATT: From Watts to Tokens**: project identity plus a descriptive AI-course subtitle. No rename has been made. |
+| Confirm Chapter 1 feedback and keep a chapter-level review tracker | Implemented [above](#chapter-review-tracker). Previous Primer feedback addressed; final acceptance unrecorded. Chapters 2–3 remain under active review. |
+
+<details>
+<summary>Previous implementation ledger — navigation, reliability, rack power and generation</summary>
+
 
 | Request | Owning section / work | Status |
 | --- | --- | --- |
@@ -230,15 +295,17 @@ reported separately.
 | Distinguish the platform-specific input voltages, intermediate rails, redundancy and ripple behavior | Rack power | Real single-phase ORv3 PSU example, staged DC/DC conversion and finite multiphase ripple; no universal direct-480-V or direct-54-V-to-die claim |
 | Split the work into subagents and retain every request | Reliability, rack power and gas-generation agents; root owns navigation and integration | Three independent authoring/source-review assignments completed; requests tracked here |
 
+</details>
+
 Keep these follow-ups open as each section is authored. The
 [section handoff checklist](TEACHING_STANDARD.md#required-section-handoffs) identifies
 the case scenes to bring into each presentation; update it with the deck and scene
 links when integration is complete.
 
-- [ ] **Domain check-ins:** connect every applicable teaching sequence to its
-  authored check-in, with a prediction pause, answer reveal and next-section
-  transition. All fifteen exist in the reader; the overview, workloads and siting
-  presentations currently link directly to theirs.
+- [ ] **Section endings:** connect every teaching sequence to the next chapter
+  through a meaningful consequence, design brief or transfer problem. The fifteen
+  reader check-ins remain optional. Workloads now ends with its supply brief and
+  a direct Section 4 link; a threshold quiz is not required.
 - [ ] **Delivery exercise and case integration:** turn the site-built versus
   prefabricated/modular comparison and the fixed-20 MW rack-density change into
   a teaching sequence. Preserve electrical, hydraulic, spatial and scheduling
@@ -249,44 +316,28 @@ links when integration is complete.
   use of the original Crusoe-built Stargate campus in **Abilene, Texas**. Keep
   dated site facts, illustrative examples, the adjacent Microsoft project and
   other case-study sites distinct; record the checked sections before closing.
-- [ ] **Primer rehearsal:** teach all twenty-one slides aloud with a beginner,
-  record the actual runtime against the approximately 20-minute target, and test
-  whether they can follow part of an expert conversation. Revise the specific
-  unfamiliar terms or missing reasoning; browser checks do not establish this.
+- [ ] **Spoken pacing:** establish the Primer’s actual runtime when preparing
+  recording. Its previous requested edits are addressed; this reminder does not
+  reopen its slide review or block authoring the next chapter.
 
 The reviewed UPS and 800 V sequences establish the teaching approach for the
 remaining course. Apply their minimal text, explicit boundaries, visible
 mechanisms and controlled comparisons to each new section. Their visual format
 is a reference, not a requirement to use electrical-style diagrams everywhere.
 
-The next dry run is **[Primer](prototypes/terminology-format.html?teach=1)**.
-Check its approximately 20-minute target, whether the diagrams give each term a
-meaningful first exposure, and whether beginners can follow part of a technical conversation. Do not test recall as an entry requirement.
-
-**[Data center overview](prototypes/orientation-format.html?teach=1#three-paths)** and
-**[Workloads and requirements](prototypes/workload-format.html?teach=1)** are under
-Kian’s review. Overview slide 2 now opens on a credited real Google data-hall
-photograph, with the white/gray-space floor plan available in the same scene.
-The overview retains thirteen scenes across the facility tour and its boundaries.
-Workloads retains nineteen scenes across its three written lessons. Continue
-reviewing these two sections while the new supply presentation is developed.
+The requested changes to **Chapters 2 and 3** are implemented and checked. Review
+only the changed overview slides and the revised workloads sequence.
+Do not restart the unchanged Primer or the earlier UPS, 800 V and cooling passes.
+Use the [chapter tracker](#chapter-review-tracker) to retain their status.
 
 **[Section 4: Siting, grid connection and supply](prototypes/siting-format.html?teach=1)**
-has an eighteen-slide first draft. It covers readiness dependencies, connection
-routes, dated Abilene phases, procurement versus physical supply, hourly matching,
-BTM operation, an import contingency, supported-island limits and the integrated
-Southaven procurement case. Its closing prediction/reveal links to the canonical
-D03 check-in and bridges to Section 5. Abilene and Southaven statements were checked
-against their dated sources on 12 September 2026; calculation inputs remain
-explicit teaching assumptions. This is authored coverage, pending human dry-run
-feedback, not a claim that the chapter has been reviewed or is ready to record.
+is the next new draft. Its 26 slides include site readiness, connection routes,
+behind-the-meter supply, gas generation and combined cycle, dispatch and operating
+duty, and the Southaven procurement case. It remains pending author review.
 
-
-**Teach the new sequence aloud without recording.** Send the scene and the point
-that confused you or needed a different visual. The agent fixes that mechanism
-and carries the lesson forward. There is no need to review the two earlier
-sequences again before work advances, or read all fifty drafts first. The concise
-review playbook and optional references are in [PRESENTING.md](PRESENTING.md).
+Teach the changed material aloud without recording. Send the slide number or URL
+and the precise confusion; close that item after the fix, then continue. The
+[short playbook](PRESENTING.md#the-next-pass) keeps the next review bounded.
 
 Repeat this process through the domain map's dependency order. Author each
 mechanism and example for its topic; converting the existing prose into slides

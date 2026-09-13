@@ -9,67 +9,40 @@
 
 ## The next pass
 
-Continue your current review of **Parts 2 and 3**, the overview and workloads.
-Overview slide 5 now says **rack power shelves (PSUs)**. On slide 7, select
-**Rear busbar** to see NVIDIA's actual GB300 rear view and the nominal 50–51 V
-in-rack bus. Every presentation has a **Back to course** header exit.
+The current edits and technical checks are complete;
+these are the next author-review targets.
 
-Next, review **Section 4**. Its new gas-generation sequence starts at
-[What turns the generator?](prototypes/siting-format.html?teach=1#gas-shaft),
-then covers combined cycle, dispatch and the cost of different operating duties.
+1. Finish **Chapter 2** by reviewing only its changed slides: the
+   [TPU cluster-network example](prototypes/orientation-format.html?teach=1#network-preview),
+   the CDU terminology and the capacity title. Its earlier rack-power and rear-busbar
+   revisions remain in place.
+2. Review the revised **[Chapter 3: Workloads and requirements](prototypes/workload-format.html?teach=1)**
+   from its new introduction. Its 18 slides connect one GB300 NVL72 to model
+   memory, token service and the power trace that supply design needs.
+3. Then continue to **[Chapter 4: Siting, grid connection and supply](prototypes/siting-format.html?teach=1)**,
+   the 26-slide draft with gas generation, combined cycle, dispatch and operating-duty economics.
+
+Chapter 3 keeps the conditional staggering example immediately beside its
+dependency limitation. Its ending now builds the workload brief; the old two
+threshold quizzes are removed. Training/inference, memory and energy comparisons
+are shown together, with power over time carrying the electrical explanation.
+
+For each change, send the slide number or URL and the specific confusion. Teach
+aloud without recording; notes are optional. The [chapter review tracker](COURSE_REVIEW.md#chapter-review-tracker)
+keeps implementation, technical checks, addressed feedback and final acceptance
+separate. Mark a chapter accepted only when Kian says its review is finished.
+**Do not restart the unchanged Primer.** Its earlier requested revisions are
+implemented; a completed final author pass has not been recorded.
+
 The later [Tier comparison](prototypes/ups-format.html#tier-topology) and
-[rack inlet to chip](prototypes/rack-power-format.html?teach=1) are implemented
-additions to the relevant sections; review them when you reach those topics.
+[rack inlet to chip](prototypes/rack-power-format.html?teach=1) are new additions
+inside previously iterated topics. Review those additions when reaching those
+chapters; the earlier UPS and 800 V slides do not need another general pass.
 
-The [Primer](prototypes/terminology-format.html?teach=1) aims for approximately
-20 minutes; time it aloud before treating that
-as an established runtime. Its [student route](prototypes/terminology-format.html)
-uses the same diagrams. The goal is enough vocabulary to follow part of an expert
-conversation. Introduce each word through a concrete object or example. Keep the
-slides self-contained: no optional label, chapter pointers, skip link or promises
-about future lessons. The presenter can decide how to introduce the audience to it.
-Keep the N+1 definition and spare-module example. Source citations may remain;
-they were not the chapter references the feedback asked to remove.
-
-The following **[Data center overview](prototypes/orientation-format.html?teach=1#three-paths)** remains intact.
-Its thirteen scenes tour the three paths, white/gray space, generation,
-transmission, campus distribution, backup power, GB300 hardware, chip-to-cluster
-scale, network and cooling paths, then rating, LLM batch scheduling and PUE.
-It applies the approach reviewed in UPS, 800 V and cooling.
-The [student route](prototypes/orientation-format.html) has the same diagrams and
-experiments; each scene's explanation and sources open on demand.
-
-1. Teach the new sequence aloud without recording. Let the visual carry the
-   explanation; notes are optional.
-2. Send the slide number or URL and the exact point that confused you, seemed
-   wrong or needed a clearer picture.
-3. We revise that section, then continue through the domain map's dependencies.
-   The domains track coverage; they do not impose fifteen identical slide decks.
-
-The primer comes before the fifteen course topics and adds no assessed objectives.
-The overview covers selected material; detailed evidence evaluation remains in its
-reading companion. **[Workloads and requirements](prototypes/workload-format.html?teach=1)**
-has 19 scenes: define accepted work and memory needs, account for useful output and
-waiting energy, then compare batching, latency and demand timing. Both presentations
-end with a link to their check-in. Pause for a prediction before revealing the answer.
-The primer and workloads still need an aloud learner dry run.
-
-Continue reviewing **Parts 2 and 3**: the overview and workloads. Overview slide 2
-now opens on a real data-hall photograph; use **Floor plan** for the white/gray-space
-schematic.
-
-**[Section 4: Siting, grid connection and supply](prototypes/siting-format.html?teach=1)**
-has a 26-slide draft, including behind-the-meter supply, eight generation and
-dispatch scenes, and the Southaven procurement case. It ends with a prediction/reveal and the section
-check-in. Review it after the current two sections.
-
-Presentations also exist for the primer and selected UPS, rack power, 800 V and cooling
-material. Networking and capacity decisions have authored reader lessons; their
-own presentations remain to be built.
-
-The networking reading covers copper, fiber, pluggable and co-packaged optics,
-scale-up and scale-out, campus entrances, meet-me rooms, carrier handoff, DCI/WAN
-and shared-route risks.
+Available decks cover the Primer, overview, workloads, siting, and selected UPS,
+rack-power, 800 V and cooling topics. The remaining chapters have reader drafts;
+their own presentations still need to be authored. The [catalog](teaching-sequences.json)
+owns presentation availability and the tracker owns review status.
 
 ## Cooling reference sequence
 
@@ -197,5 +170,5 @@ hypothetical equipment values represent the site.
 Standalone cases are authored, but their integration into the relevant chapter
 presentations is still pending. Before rehearsing a new chapter, use the
 [required section handoffs](TEACHING_STANDARD.md#required-section-handoffs) to
-check its case, domain check-in and recurring-campus treatment. Record remaining
+check its case, chapter handoff and recurring-campus treatment. Record remaining
 work in the [existing production follow-ups](COURSE_REVIEW.md#next-teaching-step).

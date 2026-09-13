@@ -108,4 +108,4 @@ The IT boundary sits inside the facility boundary, so adding the two readings co
 
 **The next problem:** We can now account for the watts. What job must those watts support, and what counts as a successful result?
 
-Continue in **Workloads and the infrastructure brief**: Design for a job, not a rack count.
+Continue in **Workloads and the infrastructure brief**: Define the token service before sizing its infrastructure.

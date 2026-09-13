@@ -3141,6 +3141,151 @@
       ],
       "use": "Short local current paths and trace inductance explain why device decoupling is separate from distant stored energy.",
       "caution": "Authored article and figure descriptions 1–3 inspected. The example is an amplifier circuit, not a GPU benchmark. No suggested component value or layout instructions are imported; rack-level power transients are original stated models."
+    },
+    {
+      "id": "P91",
+      "title": "Google’s Cloud TPU v4 provides exaFLOPS-scale ML with industry-leading efficiency",
+      "url": "https://cloud.google.com/blog/topics/systems/tpu-v4-enables-performance-energy-and-co2e-efficiency-gains",
+      "publisher": "Google Cloud",
+      "kind": "technical_article",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "published_on": "2023-04-05",
+      "domains": [
+        "D01",
+        "D08"
+      ],
+      "use": "Concrete TPU v4 pod example and embedded photograph of eight racks, one eighth of the pod. OCS keeps the selected optical signal optical through its switching path.",
+      "caution": "Historical TPU v4 architecture; no universal TPU generation, availability, power or efficiency comparison is inferred. Photograph visually inspected; diagram simplified."
+    },
+    {
+      "id": "P92",
+      "title": "Resiliency at Scale: Managing Google’s TPUv4 Machine Learning Supercomputer",
+      "url": "https://www.usenix.org/system/files/nsdi24-zu.pdf",
+      "publisher": "Google researchers / USENIX NSDI 2024",
+      "kind": "research_paper",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D01",
+        "D08",
+        "D14"
+      ],
+      "use": "Sections 1–2 explain 64-chip blocks, a 4,096-chip pod and optical cross-connections in the ICI fabric.",
+      "caution": "Selected architecture sections reviewed, not all evaluation results. The overview drawing is one functional optical link, not the complete switch or torus topology."
+    },
+    {
+      "id": "P93",
+      "title": "Cloud TPU Multislice Overview",
+      "url": "https://docs.cloud.google.com/tpu/docs/multislice-introduction",
+      "publisher": "Google Cloud",
+      "kind": "documentation",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D01",
+        "D08"
+      ],
+      "use": "Distinguish ICI communication within a slice from DCN communication between slices in distributed training.",
+      "caution": "Architecture introduction and sharding discussion reviewed. Multi-pod does not itself establish a single ICI fabric between separate data centers; no wide-area performance promise."
+    },
+    {
+      "id": "P94",
+      "title": "CoolIT Systems Launches Three High-Density Coolant Distribution Units",
+      "url": "https://www.coolitsystems.com/resources/news/coolit-systems-launches-three-high-density-coolant-distribution-units/",
+      "publisher": "CoolIT Systems",
+      "kind": "manufacturer_documentation",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "published_on": "2024-07-09",
+      "domains": [
+        "D01",
+        "D10"
+      ],
+      "use": "Supports the term coolant distribution unit (CDU), adopted consistently in the overview.",
+      "caution": "Terminology check only; the vendor also uses cooling distribution unit elsewhere. No numerical product rating is adopted from this announcement."
+    },
+    {
+      "id": "P99",
+      "title": "Gemini: A Family of Highly Capable Multimodal Models",
+      "url": "https://deepmind.google/gemini/gemini_1_report.pdf",
+      "publisher": "Google DeepMind",
+      "kind": "research_paper",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D01",
+        "D02",
+        "D08"
+      ],
+      "use": "Section 3, printed pages 4–5: Gemini Ultra trains across TPU v4 pods in multiple data centers, using intra- and inter-cluster networks and different parallelism within versus across pods.",
+      "caution": "Training-infrastructure section reviewed via local PDF text extraction after web extraction exceeded its file-size limit. This does not establish that the pod-level ICI/OCS fabric is itself one direct wide-area network. No unpublished site distances or GPU-equivalent throughput inferred."
+    },
+    {
+      "id": "P95",
+      "title": "Meta — Llama model SKU architecture definitions",
+      "url": "https://github.com/meta-llama/llama-models/blob/main/models/sku_list.py",
+      "publisher": "Meta",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D02",
+        "D06",
+        "D07"
+      ],
+      "use": "Named Llama 3.1 70B architecture for original parameter-storage and KV-cache calculations: hidden width 8,192, 80 layers, 64 query heads and 8 key/value heads.",
+      "caution": "The llama3_1_base_models definition was inspected in the public GitHub source and its raw file. Head dimension 128 is derived from 8,192/64. The 70B parameter count is rounded model-class notation, not an exact counted checkpoint size. The gated Hugging Face config returned 401 and was not read. This source establishes architecture, not GB300 throughput or deployment performance."
+    },
+    {
+      "id": "P96",
+      "title": "vLLM — Inside vLLM: Anatomy of a High-Throughput LLM Inference System",
+      "url": "https://vllm.ai/blog/2025-09-05-anatomy-of-vllm",
+      "publisher": "vLLM",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "published_on": "2025-09-05",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D02",
+        "D07",
+        "D08"
+      ],
+      "use": "Prefill and decode, key/value-cache allocation, continuous scheduling of new and running requests, serving load balancing, and latency/throughput measurement.",
+      "caution": "Read the engine initialization, scheduler and forward-pass sections, disaggregated prefill/decode overview, serving/load-balancer description and metric definitions. The article describes V1 at commit 42172ad from August 2025; it is not a claim about every inference engine. Prefill often has high arithmetic intensity and decode often has a bandwidth constraint, with workload/batch/hardware-dependent exceptions. No published speedup is generalized to the course case."
+    },
+    {
+      "id": "P97",
+      "title": "Microsoft, OpenAI and NVIDIA — Power Stabilization for AI Training Datacenters",
+      "url": "https://arxiv.org/html/2508.14318v1",
+      "publisher": "Microsoft, OpenAI and NVIDIA authors / arXiv",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "published_on": "2025-08-20",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D02",
+        "D05",
+        "D06",
+        "D15"
+      ],
+      "use": "Production training power variation motivates the connection from synchronized compute and communication to facility power delivery; compares software smoothing, GPU controls and rack storage.",
+      "caution": "Read abstract and sections I–II plus IV mitigation descriptions, with figure captions 1 and 5–7. Figure 1 is production DGX-H100 telemetry; figure 5 is a GB200 microbenchmark; figures 6–7 are simulated smoothing/storage results. These are not interchangeable measured deployment claims. Staggered scheduling is a proposed direction rather than evidence that generic independent-job staggering is normal deployed practice. Storage has conversion losses and finite power/energy; do not reuse the paper’s unqualified no-wasted-energy wording."
+    },
+    {
+      "id": "P98",
+      "title": "ZeRO: Memory Optimizations Toward Training Trillion Parameter Models",
+      "url": "https://arxiv.org/html/1910.02054",
+      "publisher": "Microsoft Research authors / arXiv",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D02",
+        "D07"
+      ],
+      "use": "Derive a declared mixed-precision Adam example: two bytes each for weights and gradients, four for a master weight, eight for the two optimizer moments, giving 16 bytes per parameter before activations and buffers.",
+      "caution": "Read sections 2.1, 3.1–3.2 and model-state partitioning formulas. This is a classic FP16/FP32 Adam accounting example, not a universal 2026 training-memory requirement. BF16 arrangements, gradient accumulation precision, optimizer choices, quantization, offload and sharding alter the budget. Using rounded 70 billion parameters gives about 1.12 TB across model states, not an asserted minimum GPU count or throughput."
     }
   ]
 }

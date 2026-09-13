@@ -1,55 +1,44 @@
-# Busy, powered, and productive are different
+# Measure complete useful work and diagnose exposed waits
 
 Generated reading view. Edit [`course/expansion/foundations-power.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/foundations-power.json), lesson `d02-productive-utilization`, then run `uv run gigawatt-expand`.
 
 **3. Workloads and requirements · Authored draft**
 
-Read allocation, execution, waiting, power, and accepted output as separate traces instead of treating one utilization percentage as the answer.
+Compare energy at fixed accepted output and align training dependencies with power rather than treating activity or mean kW as a service result.
 
-**Driving question:** Why can lower average power accompany worse energy per useful result?
+**Driving question:** Does the power reduction improve energy for the same completed work, and what dependency is consuming the time?
 
-## Choose what your utilization number measures
+## Keep the completed token workload fixed
 
-A scheduler can allocate every accelerator to a job while that job waits for storage. From the scheduler's perspective, the devices are occupied. From the user's perspective, useful progress may have stopped. Meanwhile the equipment still consumes electricity. These are not contradictory observations; they describe different quantities. Allocation tells us who has reserved the resource. A hardware activity counter describes some measured device behavior. Productive utilization asks how much useful service the available system delivers.
+Compare two runs that produce the same accepted outputs at the same quality within a common system boundary. Normalize run A’s whole-run mean power, duration and energy to one. If B uses 80 percent of the power for 150 percent of the duration, E_B/E_A = 0.8 × 1.5 = 1.2. It consumes 20 percent more energy for the same useful workload. This relative example teaches the tradeoff without inventing a hardware token-throughput result.
 
-Be careful with the word occupancy. In this lesson, allocation occupancy means the fraction of accelerators assigned to a workload. Some programming tools use occupancy for a much narrower hardware scheduling concept. A shared word does not make those metrics interchangeable. Always attach the numerator, denominator, and interval: allocated device-seconds divided by available device-seconds, active execution time divided by observation time, or accepted output divided by a stated reference capability.
+At 80 percent power, the break-even runtime is 1/0.8 = 1.25 times as long. A real power cap or serving policy might lie on either side; measure it. Include waiting, supporting equipment and the complete interval at the same meter. Do not compare a GPU compute-phase sample with rack AC energy over an entire job.
 
-Even useful execution needs an outcome definition. Repeating a failed job can keep devices active and consume energy without increasing accepted completed work. Communication can be essential to progress, so time outside arithmetic kernels is not automatically waste. The diagnostic question is whether that time is necessary for this workload, avoidable under another configuration, or evidence of a fault. A timeline with phase labels is more informative than a single percentage stripped of context.
+## Locate the dependency that exposed the wait
 
-## Compare two complete one-minute observations
+A synchronous training step may require collective gradient exchange before its next update can complete. If the required exchange is late, workers remain allocated and powered while dependent computation waits. Allocation is a reservation; useful training progress is an outcome. Communications may overlap arithmetic, so the presence of network traffic does not itself identify a stalled step.
 
-Take a hypothetical system observed for sixty seconds. During compute phases it draws 60 kW and produces 1,000 accepted samples per second. During waiting phases it draws 25 kW and produces no accepted samples. Case A spends 45 seconds computing and 15 seconds waiting. The accepted output is 45,000 samples. Energy is power multiplied by time in each state: (60 × 45 + 25 × 15) divided by 3,600 equals approximately 0.854 kWh.
+Align collective timings, GPU activity and power, network counters and storage events. Then test a specific hypothesis: an exposed collective, input starvation, checkpoint traffic or another dependency. Merely observing lower GPU utilization cannot identify the root cause, nor can high memory activity be treated as universally maximum power.
 
-Case B spends 30 seconds computing and 30 seconds waiting. It produces 30,000 samples and uses (60 × 30 + 25 × 30)/3,600, or approximately 0.708 kWh. Its average power is lower: 42.5 kW instead of 51.25 kW. That does not make it more efficient for the accepted service. Convert each energy total to joules by multiplying kWh by 3.6 million, then divide by output. Case A uses about 68.3 joules per sample; Case B uses 85 joules per sample.
+## Connect the diagnosis to the facility
 
-Why does the less active system use more energy per accepted result? Each minute includes time spent drawing power while producing no new accepted samples. Case B spreads that waiting energy across fewer results. This is a property of the declared scenario, not a universal claim that every system should run at maximum power. A different operating point might reduce compute power enough to improve energy per sample. The measurements must settle that comparison under the same service conditions.
+Synchronized dependency changes can align the power transitions of many workers. The production H100 example in the next lesson establishes that such variation is observed; the controlled traces explain how it adds at a shared meter. Removing a bottleneck may raise average useful compute and change power demand, so record token or training progress and the electrical trace together.
 
-Now consider a third minute in which no job is assigned and the system draws 12 kW while producing zero output. The energy is 0.2 kWh. Energy per accepted sample is undefined because the denominator is zero. Reporting zero would suggest perfect efficiency, while reporting an arbitrary giant number would hide the mathematical issue. Report idle energy and the absence of accepted output directly.
+An inference load balancer places eligible requests on serving replicas. It does not perform the same function as an electrical buffer, and it cannot arbitrarily shift one worker inside a coupled training collective. Software and power remedies must match the actual dependency.
 
-## Use the traces to select the next experiment
+## Worked example: Less mean power, more energy for identical output
 
-If allocation remains high while compute phases shrink and storage waits grow, adding more accelerators may simply create more waiting clients. A useful next experiment changes the suspected constraint: pre-stage the same inputs, vary checkpoint timing, or compare runs with measured storage service. The goal is to distinguish competing explanations while preserving the workload definition. Changing several knobs at once may improve performance but make the cause impossible to identify.
+- Runs finish the same accepted token workload at the same quality.
+- Power is the mean over each entire run at the same meter.
+- Ratios are original teaching inputs, not a product benchmark.
 
-A utilization target can also conflict with responsiveness. An inference service may intentionally keep spare capacity so arriving requests do not join a long queue. Filling every available execution slot can raise throughput while harming tail latency. The unoccupied interval is then part of the service design rather than an obvious inefficiency. Decide which tradeoff is acceptable using the response-time and traffic requirements in the workload brief.
+1. Reference A — E_A = P_A × t_A — Count the whole run.
+2. Changed run B — E_B = 0.8 P_A × 1.5 t_A = 1.2 E_A — The duration increase outweighs the reduction in mean power.
+3. Break-even runtime — t_B / t_A = 1 / 0.8 = 1.25 — At this power ratio, duration must grow by less than 25 percent for energy to fall.
 
-For training, distinguish a fast step from a fast completed job. A configuration might execute arithmetic more quickly but save larger checkpoints, recover more slowly, or repeat more work after failures. Productive utilization over the whole job includes those consequences. The same lesson applies to availability: equipment that is powered and responds to a health check can still fail to deliver the intended user service.
+**Result:** B consumes 20 percent more energy for the same accepted output.
 
-Collect synchronized traces of allocation, relevant device activity, workload phases, system power, and accepted output. Compare changes on a common clock before assigning causality. Correlation between a power drop and lower progress narrows the question, but does not identify the failing subsystem by itself. The most useful conclusion states both what the evidence supports and the controlled measurement that would resolve the remaining uncertainty.
-
-## Worked example: Lower power, higher energy per accepted sample
-
-- All power is measured at the same system AC boundary.
-- Compute produces 1,000 accepted samples/s at 60 kW.
-- Waiting produces no accepted samples at 25 kW.
-
-1. Case A energy — (60 × 45 + 25 × 15) / 3,600 = 0.8542 kWh — Power in kW times seconds is converted to kWh by dividing by seconds per hour.
-2. Case A output — 45 × 1,000 = 45,000 samples — Only the declared compute interval contributes output.
-3. Case B energy — (60 × 30 + 25 × 30) / 3,600 = 0.7083 kWh — Less compute reduces total minute energy.
-4. Normalize by service — A: 3,075,000 / 45,000 = 68.3 J/sample; B: 2,550,000 / 30,000 = 85 J/sample — Energy per result includes waiting energy.
-
-**Result:** Case B draws less average power but uses about 24.4 percent more energy per accepted sample.
-
-**Model boundary:** No GPU product, quality change, or facility-overhead behavior is represented.
+**Model boundary:** A real power-performance curve and quality-controlled benchmark are needed to choose a configuration.
 
 ## The tradeoff
 
@@ -69,14 +58,14 @@ Response: Inspect synchronized phase and accepted-output traces, then test the s
 
 ## Apply the idea
 
-Case C computes for 50 seconds and waits for 10 seconds under the same power/output assumptions. What is its energy per sample?
+A power-capped run draws less mean power but shows longer collective waits. Which measurements would distinguish an energy improvement from a slower, less efficient job?
 
 <details>
 <summary>Reveal the worked answer</summary>
 
-65 J per accepted sample.
+Measure whole-run duration and integrated energy, accepted output/quality, and aligned collective and GPU activity traces under both settings.
 
-Energy is 60,000 × 50 + 25,000 × 10 = 3,250,000 J. Output is 50,000 samples. Dividing gives 65 J/sample.
+Mean power alone lacks duration and output. Correlated traces locate an exposed dependency; a controlled comparison tests whether the cap changed it.
 
 </details>
 
@@ -86,3 +75,4 @@ Energy is 60,000 × 50 + 25,000 × 10 = 3,250,000 J. Output is 50,000 samples. D
 
 - [MLCommons — MLPerf Inference: Datacenter](https://mlcommons.org/benchmarks/inference-datacenter/) — The public MLPerf power description measures the system AC boundary during the performance measurement. Read 2026-09-06. Read the power-measurement description; this lesson uses its own synthetic traces and does not reproduce benchmark results.
 - [NVIDIA — DGX SuperPOD Key Components](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/dgx-superpod-components.html) — Compute, storage, and communication are distinct cooperating parts of a cluster. Read 2026-09-06. Read the public architecture component page; the lesson makes no claim about a measured H100 utilization profile.
+- [Microsoft, OpenAI and NVIDIA — Power Stabilization for AI Training Datacenters](https://arxiv.org/html/2508.14318v1) — Production training power variation motivates the connection from synchronized compute and communication to facility power delivery; compares software smoothing, GPU controls and rack storage. Read 2026-09-12. Read abstract and sections I–II plus IV mitigation descriptions, with figure captions 1 and 5–7. Figure 1 is production DGX-H100 telemetry; figure 5 is a GB200 microbenchmark; figures 6–7 are simulated smoothing/storage results. These are not interchangeable measured deployment claims. Staggered scheduling is a proposed direction rather than evidence that generic independent-job staggering is normal deployed practice. Storage has conversion losses and finite power/energy; do not reuse the paper’s unqualified no-wasted-energy wording.
