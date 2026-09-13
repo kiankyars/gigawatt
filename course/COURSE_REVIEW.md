@@ -45,7 +45,7 @@ It does not restart the earlier UPS mechanisms or other chapter reviews.
 | Explain “not established” and “required outcome”; reduce Tier-slide text | Replace abstract verdicts with named capabilities and a direct maintenance-versus-fault comparison. Tier IV remains the highest of the four infrastructure classes. |
 | Clarify why generation appears at Tier I | Show on-site backup generation as a common baseline for Tiers I–IV; higher tiers add resilience requirements. Normal operation of a behind-the-meter plant is a separate choice. |
 | Give real three-, four- and five-nines examples | Add publisher examples with their actual service/site/fleet scope and distinguish reported availability from design claims. Do not assign an unverified four-nines rating to Abilene. |
-| Find Microsoft's four-nines-at-three-nines-cost example | Microsoft's November 2025 Fairwater Atlanta account identifies the site and its resilient-grid strategy. The capability and cost comparison are Microsoft's claims, not an audited operating record or disclosed cost model. |
+| Find Microsoft's four-nines-at-three-nines-cost example | Dedicated [Fairwater Atlanta slide](prototypes/ups-format.html?teach=1#tier-investment), with Microsoft aerial, visible four-nines/three-nines comparison and GPU backup-equipment choice. Implemented in `79a5ec6`; original source rechecked 13 September. The capability and cost comparison are Microsoft's claims, not an audited operating record or disclosed cost model. |
 | Make the resilience decision concrete | Use the named Fairwater power design to connect a resilience objective to the equipment and cost choice; retain the older phased cloud-facility case in [its source note](../research/sources/P81.md). |
 | Remove “Slides available,” “Selected slides,” “Reading” and other interim directory labels | Remove the badges and repeated grouping labels; retain chapter names, destinations and the presenter’s Reading link. |
 
@@ -61,12 +61,12 @@ release does not restart an unchanged chapter’s review.
 
 | Chapter | Authored presentation | Technical checks | Author review / next action |
 | --- | --- | --- | --- |
-| 1. [Primer](prototypes/terminology-format.html?teach=1) | 22 slides; transformer tap comparison added | Transformer comparison checked; [record](TESTING.md#interactivity-transformer-taps-and-instruction-audit--2026-09-13) | **Previous feedback addressed; final acceptance unrecorded.** No repeat review assigned. |
+| 1. [Primer](prototypes/terminology-format.html?teach=1) | 22 slides; transformer tap mechanism added | Transformer comparison checked; [record](TESTING.md#interactivity-transformer-taps-and-instruction-audit--2026-09-13) | **One partial request reopened:** real transformer input rating and permissible range. Tap mechanism alone did not complete that request. No general restart of the Primer review; final acceptance unrecorded. |
 | 2. [Data center overview](prototypes/orientation-format.html?teach=1) | 13-slide draft | Prior content pass [checked](TESTING.md#overview-and-workload-review--2026-09-12); shared navigation checked in the current release | **Active review.** Networking, CDU and capacity-title feedback implemented; no general restart. |
 | 3. [Workloads and requirements](prototypes/workload-format.html?teach=1) | 18 slides; explicit interactivity, sourced curve and service check-in | Current revision checks in TESTING.md | **Active review.** Prior interactivity completion claim withdrawn; exact supported-session selection remains open. |
 | 4. [Siting, grid connection and supply](prototypes/siting-format.html?teach=1) | 26 slides; dated aerials, capacity scope, turbine labels and state-line case revised | [Current checks](TESTING.md#chapter-4-sites-capacity-and-generation--2026-09-13) | **Active review.** Six latest comments implemented; photograph capture days and current Abilene operating MW remain unverified. |
 | 5. [Physical site, buildings and safety](prototypes/site-format.html?teach=1) | Rebuilt as 20 slides after author feedback; five new GPT figures and verified cases | Current checks in [TESTING.md](TESTING.md#chapter-5-rebuild--2026-09-12) | **Feedback implemented; acceptance pending.** Review the rebuilt slides 14–20, then changed earlier cases. |
-| 6. Campus and building power distribution | Reader draft; own deck unbuilt | Reader/build checks only | Presentation not yet assigned for review. |
+| 6. Campus and building power distribution | Combined Chapters 6–7 deck in progress on `codex/chapter6-7-power` | Reader/build checks only; new deck validation pending | Assigned to the separate GPT-6 Astra / Ultra agent. Not yet released or assigned for review. |
 | 7. [Continuity, storage and protection](prototypes/ups-format.html) | Selected UPS topics, 22 slides | Model/browser checks recorded | **Feedback addressed.** Revised Tier hierarchy, generation baseline, three named availability examples and Fairwater decision; earlier storage/recovery changes remain. **Whole chapter incomplete.** |
 | 8. Rack power and the 800 V DC transition | Selected [800 V](teach.html) and [rack-to-chip](prototypes/rack-power-format.html?teach=1) decks | Model/browser checks recorded | 800 V sequence iterated; rack-to-chip addition awaiting review. **Whole chapter incomplete.** |
 | 9. Compute, memory and the rack | Reader draft; own deck unbuilt | Reader/build checks only | Presentation not yet assigned for review. |
@@ -79,10 +79,11 @@ release does not restart an unchanged chapter’s review.
 | 16. Capacity, cost and system decisions | Reader draft; own deck unbuilt | Reader/build checks only | Presentation not yet assigned for review. |
 | 17. Integrated cases | Five reader capstones; final deck unbuilt | Reader/build checks only | Capstone presentation and author review pending. |
 
-Primer completion evidence is the implemented feedback in commits `f3b06f2` and
-`e3c5228`, summarized in [the confirmed decisions](FEEDBACK_AUDIT.md) and the
-linked test record. This supports “feedback addressed,” not a claim that its
-spoken runtime, beginner comprehension or final author acceptance has been observed.
+Earlier Primer feedback was implemented in commits `f3b06f2` and `e3c5228`,
+summarized in [the confirmed decisions](FEEDBACK_AUDIT.md) and the linked test
+record. The later equipment input-range request remains partial. Neither these
+commits nor technical checks establish spoken runtime, beginner comprehension
+or final author acceptance.
 
 ## Current revision: generation, speed and UPS recovery
 
@@ -371,25 +372,25 @@ records whether the chapter itself is finished; this table preserves the edits f
 | Add a Google TPU/OCS/ICI mini-example to overview slide 9 | [Google TPU v4 view](prototypes/orientation-format.html?teach=1#network-preview): actual pod photograph and an original optical-path diagram; 4,096 chips, with multi-data-center networking explicitly distinguished from ICI. |
 | Check “cooling” versus “coolant distribution unit” on overview slide 10 | [Cooling preview](prototypes/orientation-format.html?teach=1#cooling-preview) consistently uses **coolant distribution unit**. Sources use both expansions; this is a terminology choice, not a universal correction of manufacturers. |
 | Replace the capacity/nameplate/meter title | [Capacity scene](prototypes/orientation-format.html?teach=1#facility-meter): **A 2 MW supply must power the racks and the equipment that supports them.** |
-| Replace “64 accelerators” with a named, quantified system | [One GB300 NVL72](prototypes/workload-format.html?teach=1#success-brief): 72 GPUs, Llama 3.1 70B, and a separately chosen token-service target. |
+| Replace “64 accelerators” with a named, quantified system | The hardware anchor is GB300 NVL72. The current [serving curve](prototypes/workload-format.html?teach=1#serving-frontier) names NVIDIA's model and benchmark conditions; the [70B memory comparison](prototypes/workload-format.html?teach=1#memory-comparison) is a separate calculation. The old `success-brief` now redirects to interactivity. |
 | Add a Chapter 3 introduction explaining the section’s purpose | [New opening](prototypes/workload-format.html?teach=1#workload-purpose): model state → token service → power over time → supply brief. |
 | Compare training and inference simultaneously | [Training beside inference](prototypes/workload-format.html?teach=1#model-work); unnecessary mode toggle removed. |
 | Improve crude diagrams, including use of generated images when useful | Diagrams rebuilt around simultaneous comparisons and visible dependencies. Actual TPU photography and a published production power trace provide the real examples. |
 | Give “Follow the data through the job” an explicit learning outcome | [Stalled training step](prototypes/workload-format.html?teach=1#resource-paths): identify the exchange dependency and the evidence needed to diagnose it. |
 | Motivate inference memory and training memory as a comparison | [Same 70B model, two budgets](prototypes/workload-format.html?teach=1#memory-comparison), followed by sourced KV geometry and its context/concurrency consequence. |
 | Remove the obvious “each device has its own memory” slide | Removed. [Context capacity](prototypes/workload-format.html?teach=1#context-capacity) now asks how many resident requests fit the stated cache pool. |
-| Replace the arbitrary 400 samples/s example | Removed. The opening derives **100 active sessions × 40 output tokens/s = 4,000 output tokens/s**, explicitly a chosen requirement, not measured NVL72 throughput. |
+| Replace the arbitrary 400 samples/s example | Removed. The later 100 × 40 = 4,000-token/s replacement was also rejected and removed. Current [interactivity](prototypes/workload-format.html?teach=1#interactivity) teaches the metric; [serving frontier](prototypes/workload-format.html?teach=1#serving-frontier) uses NVIDIA's measured curve. Exact supported-session selection remains open. |
 | Fix the obscured waiting-power text and motivate the slide | Replaced by the [training dependency diagram](prototypes/workload-format.html?teach=1#resource-paths) and a separate measured production-power example. |
 | Compare energy per result directly instead of toggling cases | [Two complete runs shown together](prototypes/workload-format.html?teach=1#energy-per-result): 80% power × 150% duration = 120% energy for the same accepted token work. |
 | Explain whether slide 10 introduces batching, or remove it | The generic batching and queue-threshold sequence is removed; named prefill/decode and continuous-batching mechanisms replace it. |
 | Keep continuous batching only with a clear course purpose | [Continuous batching](prototypes/workload-format.html?teach=1#continuous-batching) shows request replacement during decode and connects it to active memory and compute. |
 | Connect the job-phase power swings to electrical infrastructure | [Published H100 training trace](prototypes/workload-format.html?teach=1#training-power-evidence) precedes the explicitly hypothetical phase model. Memory traffic is not equated with maximum power. |
-| Explain why synchronized load changes matter to power delivery | [Shared supply trace](prototypes/workload-format.html?teach=1#synchronized-jobs) sums coincident loads; [response choices](prototypes/workload-format.html?teach=1#power-response) distinguish scheduling, device control and storage. |
-| Retain staggering and the following dependency case, without claiming routine deployment | [Conditional staggering](prototypes/workload-format.html?teach=1#staggering-jobs) retained per the later review; the [next scene](prototypes/workload-format.html?teach=1#independence) shows when coupled workers invalidate the assumption. |
-| Prefer the power graph over a mean-only view | [Power over time](prototypes/workload-format.html?teach=1#demand-transition) shows peak and transition speed directly; the mean is supporting context. |
+| Explain why synchronized load changes matter to power delivery | [Shared supply trace](prototypes/workload-format.html?teach=1#synchronized-jobs) sums coincident loads; [the handoff](prototypes/workload-format.html?teach=1#next-brief) carries the measured trace into supply design. The separate response-choice scene was retired; its supporting detail remains in the reading. |
+| Retain staggering and the following dependency case, without claiming routine deployment | [Conditional staggering](prototypes/workload-format.html?teach=1#staggering-jobs) remains, explicitly limited to independent jobs. The separate dependency slide was later retired; coupled-worker constraints remain in its explanation and the reader. |
+| Prefer the power graph over a mean-only view | [Training rhythm](prototypes/workload-format.html?teach=1#job-phases), the shared supply trace and final handoff retain the power-over-time view. The old `demand-transition` fragment redirects to the training-rhythm scene. |
 | Remove the old slides 18–19 threshold quizzes | Removed; [the new ending](prototypes/workload-format.html?teach=1#next-brief) carries the defined service and measured power requirements into supply design. |
 | Clarify the naming recommendation | Historical recommendation superseded: Kian has now selected **From Watts to Tokens**. |
-| Confirm Chapter 1 feedback and keep a chapter-level review tracker | Implemented [above](#chapter-review-tracker). Previous Primer feedback addressed; final acceptance unrecorded. Chapters 2–3 remain under active review. |
+| Confirm Chapter 1 feedback and keep a chapter-level review tracker | Implemented [above](#chapter-review-tracker). The later transformer operating-range request is partial; earlier accepted edits are not reopened. Final chapter acceptance is unrecorded. Chapters 2–3 remain under active review. |
 
 </details>
 
@@ -421,6 +422,13 @@ Keep these follow-ups open as each section is authored. The
 the case scenes to bring into each presentation; update it with the deck and scene
 links when integration is complete.
 
+- [ ] **Companion inventory:** build the evolving functional bill of materials
+  and service-path interface promised above; it is not implemented yet.
+- [ ] **Transformer operating range:** add a real equipment example with
+  manufacturer input rating, taps and operating limits; the current tap mechanism
+  does not establish that range.
+- [ ] **Rack product imagery:** embed a verified product/specification image for
+  the ORv3 PSU and BBU examples alongside their functional diagrams.
 - [ ] **Domain check-ins:** ensure every domain has a meaningful active check in
   its teaching sequence. Chapter 3 now has a service check-in. Existing optional
   reader checks can be adapted. Use a strong closing example only if no useful

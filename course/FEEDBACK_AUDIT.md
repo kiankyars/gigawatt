@@ -6,10 +6,35 @@ repository records; those records do not substitute for the original message.
 The prior “everything addressed” claim was too strong. This page foregrounds
 exceptions; the coverage list below makes the rest inspectable.
 
+## Fairwater slide and independent request check
+
+The requested **four-nines availability at three-nines cost** case already has
+its own [Fairwater Atlanta slide](prototypes/ups-format.html?teach=1#tier-investment).
+It shows Microsoft's campus photograph, the availability/cost claim and the
+traditional GPU backup equipment Microsoft says it can omit. The slide was added
+in `79a5ec6`; it is not merely a source note. Microsoft's original
+[November 2025 article](https://blogs.microsoft.com/blog/2025/11/12/infinite-scale-the-architecture-behind-the-azure-ai-superfactory/)
+was rechecked on 13 September. This is Microsoft's design-capability claim;
+the article supplies no measured annual outage record or quantified cost model.
+The live `/slides/ups.html?teach=1#tier-investment` page was also checked in the
+built-in browser: Fairwater is slide **21 of 22**, with the comparison visible
+without opening notes or following a source link.
+
+An independent source audit checked earlier requests against active scene
+definitions, renderers, source notes and the tables in COURSE_REVIEW.md. It found
+the missing transformer operating-range treatment, unbuilt companion inventory
+and product-photo gap listed below. Historical Chapter 3 rows have been reconciled
+with their replacements. This source audit does not establish fresh visual QA,
+whole-course completeness or author acceptance. Chapters 4–5 remain with their
+current authoring agent; the combined Chapters 6–7 deck is in progress and retains
+the `tier-investment` scene.
+
 ## Missing, partial or uncertain
 
 | Feedback | Current finding and next action |
 | --- | --- |
+| Evolving functional bill of materials and service-path companion | **Unbuilt.** The commitment existed only in COURSE_REVIEW.md prose. Build the persistent component inventory and connect it to the facility map and lesson changes; isolated diagrams do not fulfill this request. |
+| Named rack hardware shown as real equipment | **Teaching-standard gap.** The Advanced Energy ORv3 PSU and six-module BBU shelf have functional drawings, but no product photograph in those scenes. Add a verified product/specification image appropriate to each example; retain the drawings for the mechanism. This follows the general product-example rule, rather than a separately recorded photo request for those two products. |
 | Teach **interactivity** as the central inference metric | **Missed in the previous release.** The fixed 4,000-token/s budget was arbitrary and slide 3 did not teach interactivity. Revised slide 3 defines tokens/s/user; the next slide reads NVIDIA’s actual GB300 throughput/interactivity curve. Exact supported-session selection remains **open** because this source has no concurrency table; a fixed total divided by user speed is not an adequate substitute. |
 | Active check-in in every domain | **Not complete in the teaching material.** Fifteen reader checks exist. Latest clarification: make an active check-in the default in each domain; use a strong example only if no worthwhile check can be made. Chapter 3 now includes a more-throughput/slower-answers check; audit the remaining decks and record any specific exception. |
 | Teach D13 site-built versus prefab/modular; fixed 20 MW late rack change | **Reader complete; deck unbuilt.** The reader covers EPC duties, factory/site work, parallel schedules, design freezes, transport and interface owners; the exercise covers electrical, hydraulic, spatial and schedule holds and release evidence. Chapter 14 in the numbered course still needs its own teaching sequence. |
@@ -18,7 +43,7 @@ exceptions; the coverage list below makes the rest inspectable.
 | Abilene as the recurring campus throughout | Policy and several cases are implemented. A whole-course consistency pass is still open; no complete as-built campus model is claimed. |
 | Approximately 20-minute primer | Slides exist; actual spoken runtime and beginner comprehension have not been established. No precise rehearsal cues are being restored. |
 | Remove repeated disclaimer/subtitle clutter everywhere | The latest sweep removed many visible footers. **Not certified exhaustive:** UPS still uses “Ideal DC-bus example”; other notes use similar boilerplate. Further cleanup must distinguish generic disclaimers from inputs, figure credits and named-project status. |
-| Transformer input-range explanation | Previously only voltage variation was taught; taps/specifications were in notes. Clarified on 13 September: add a short equipment example covering rated voltage, allowable variation, taps and output change at a fixed ratio. This revision adds that comparison. |
+| Transformer input-range explanation | **Partial; previous completion claim corrected.** `transformer-taps` explains output change at a fixed ratio and a matched tap. It does not yet identify a real unit and its permissible input-voltage range. Add the manufacturer's rating, tap options and operating limits without treating tap range as guaranteed regulation or tolerance. |
 | Simplify access to available presentations | Directory and duplicate footer were consolidated. The two rack-power decks still had identical visible “Open slides” labels; corrected to their distinct titles. The old audit’s “Slides available filter” claim was stale: a later recorded request deliberately removed that filter. |
 | Requested Astro 6 Ultra agents and Chrome-for-Testing removal | Earlier audit records both as completed. Current code/Git alone cannot freshly establish the historical agent configuration or the notification state on the original Mac. Built-in-browser-only testing remains the rule; this audit is not a new malware scan of that other computer. |
 
@@ -57,8 +82,8 @@ on the same capacity basis. The 10 GW commitment is for the wider Stargate build
 - **Power factor:** hold supply voltage fixed; misaligned voltage/current can
   require more current for equal real power. Three-phase power is the simultaneous
   sum, not a selector that follows the highest voltage wave.
-- **Transformer range:** clarified as the equipment example above. A fixed ratio
-  does not automatically regulate the output.
+- **Transformer range:** fixed-ratio and tap mechanisms are implemented. The
+  equipment's permissible operating range remains open as recorded above.
 - **Check-ins:** latest instruction supersedes the earlier broad permission to
   substitute closing examples. Default to one meaningful active check per domain.
 
