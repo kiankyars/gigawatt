@@ -4,7 +4,7 @@ const { mkdirSync } = require("node:fs");
 
 const base =
   process.argv[2] ||
-  "http://127.0.0.1:8765/course/prototypes/orientation-format.html";
+  "http://127.0.0.1:8765/prototypes/orientation-format.html";
 const output = process.argv[3] || "/tmp/gigawatt-orientation-qa";
 const scenes = [
   { id: "three-paths", setting: "path", values: ["power", "heat", "data"] },
@@ -334,28 +334,18 @@ async function checkNavigation(page) {
   assert.equal(await page.locator("#next").isDisabled(), true);
   await page.locator("#previous").click();
   assert.equal(new URL(page.url()).hash, "#power-energy");
-  await page.locator("#explain").click();
-  assert.equal(
-    await page.locator("#reading").evaluate((dialog) => dialog.open),
-    true,
-  );
-  await page.keyboard.press("ArrowRight");
-  assert.equal(
-    new URL(page.url()).hash,
-    "#power-energy",
-    "Dialog reading must not navigate slides",
-  );
-  await page.keyboard.press("Escape");
-  assert.equal(
-    await page.locator("#reading").evaluate((dialog) => dialog.open),
-    false,
-  );
-  await page.locator("#explain").click();
-  await page.locator("#close-reading").click();
-  assert.equal(
-    await page.locator("#reading").evaluate((dialog) => dialog.open),
-    false,
-  );
+  const reading = page.locator(".toolbar a[data-course-reading]");
+  await reading.waitFor({ state: "visible" });
+  assert.equal((await reading.textContent()).trim(), "Reading");
+  const readingUrl = new URL(await reading.getAttribute("href"), page.url());
+  assert.equal(readingUrl.pathname, new URL("../index.html", base).pathname);
+  assert.equal(readingUrl.hash, "#d01-power-over-time");
+  assert.equal(await page.locator("#explain").count(), 0);
+  assert.equal(await page.getByRole("button", { name: /Explanation|sources/i }).count(), 0);
+  assert.equal(await page.locator("dialog:visible").count(), 0);
+  await page.locator("#scenes").selectOption("0");
+  await page.waitForFunction(() => document.querySelector("[data-course-reading]").hash === "#d01-boundaries");
+  assert.equal(new URL(await reading.getAttribute("href"), page.url()).hash, "#d01-boundaries", "Reading follows the active scene");
   assert.equal(await page.locator("#fullscreen").isVisible(), false);
   await page.locator("body").click({ position: { x: 2, y: 100 } });
   await page.keyboard.press("f");
@@ -486,7 +476,7 @@ async function checkNavigation(page) {
     assert.deepEqual(errors, [], "Page errors and unsuccessful requests");
     assert.deepEqual(failures, [], "Orientation regression failures");
     console.log(
-      `Passed ${layouts} orientation scene/state layouts across four viewports and both themes, numerical boundaries, visible selections, mouse/touch/keyboard controls, dialog and teaching mode.`,
+      `Passed ${layouts} orientation scene/state layouts across four viewports and both themes, numerical boundaries, visible selections, mouse/touch/keyboard controls, Reading links and teaching mode.`,
     );
   } finally {
     await browser.close();

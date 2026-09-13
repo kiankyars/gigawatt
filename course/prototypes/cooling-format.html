@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light dark" />
-    <title>From the chip to the outdoors · GIGAWATT</title>
+    <title>From the chip to the outdoors · From Watts to Tokens</title>
     <style>
       :root {
         color-scheme: light;
@@ -450,7 +450,7 @@
         }
       }
     </style>
-  </head>
+  <link rel="stylesheet" href="../assets/slide-chrome.css"></head>
   <body>
     <div id="viewer">
       <header class="toolbar">
@@ -1330,7 +1330,7 @@
               .focus();
           }),
         );
-        document.title = `${presentationLabels.cooling} · ${scene.label} · GIGAWATT`;
+        document.title = `${presentationLabels.cooling} · ${scene.label} · From Watts to Tokens`;
       }
       function go(index) {
         if (index < 0 || index >= scenes.length) return;
@@ -1385,5 +1385,5 @@
       }
       render();
     </script>
-  </body>
+  <script type="module" src="slide-chrome.js"></script></body>
 </html>

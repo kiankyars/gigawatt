@@ -25,8 +25,7 @@ const topicTitle = (id) => chapterById.has(id)
   ? chapterName(chapterById.get(id)) : "Integrated cases";
 const sourcesById = new Map(DATA.sources.map((s) => [s.id, s]));
 let current = 0,
-  lookupMode = false,
-  slidesOnly = new URLSearchParams(location.search).get("view") === "slides";
+  lookupMode = false;
 const drafts = new Map();
 const checkinDrafts = new Map();
 const CASE_STUDY_LINKS = {
@@ -153,17 +152,10 @@ function renderContents() {
     const chapterMatch = matches(`${chapterName(chapter)} ${chapter.presentations.map((p) => `${p.id} ${p.title}`).join(" ")}`);
     const lessons = chapter.lesson_ids.map((id) => LESSONS[byLesson.get(id)])
       .filter((lesson) => lesson && (chapterMatch || matches(JSON.stringify(lesson))));
-    return { chapter, lessons, show: slidesOnly
-      ? chapter.presentations.length > 0 && chapterMatch
-      : chapterMatch || lessons.length > 0 };
+    return { chapter, lessons, show: chapterMatch || lessons.length > 0 };
   }).filter((item) => item.show);
   $("lesson-count").textContent = `${CHAPTERS.length} ${CHAPTERS.length === 1 ? "chapter" : "chapters"}`;
-  $("all-chapters").setAttribute("aria-pressed", String(!slidesOnly));
-  $("slides-only").setAttribute("aria-pressed", String(slidesOnly));
-  $("search-label").textContent = slidesOnly ? "Find a chapter or deck" : "Find a lesson or concept";
-  $("search").placeholder = slidesOnly ? "Try primer, UPS, cooling…" : "Try 800 V, cooling, checkpoint…";
   $("search-status").textContent = q ? `${visible.length} matching ${visible.length === 1 ? "chapter" : "chapters"}`
-    : slidesOnly ? "Open a deck below. Selected topics are marked."
     : "Open a chapter for its reading and slides.";
   $("contents").innerHTML = visible.map(({ chapter, lessons }) => {
     const decks = chapter.presentations;
@@ -172,14 +164,13 @@ function renderContents() {
     const status = decks.length ? decks.every((deck) => deck.coverage === "selected")
       ? "Selected slides" : "Slides available" : "Reading";
     const heading = `<span class="chapter-name">${esc(chapterName(chapter))}</span><small class="chapter-status${decks.length ? " has-slides" : ""}">${status}</small>`;
-    if (slidesOnly) return `<section class="chapter-card"><h3>${esc(chapterName(chapter))}</h3>${slideLinks}</section>`;
     const reading = lessons.map((lesson) => {
       const selected = LESSONS[current]?.id === lesson.id && !lookupMode;
       const number = `${chapter.number}.${chapter.lesson_ids.indexOf(lesson.id) + 1}`;
       return `<button class="lesson-link${selected ? " active" : ""}" data-lesson="${esc(lesson.id)}" ${selected ? 'aria-current="page"' : ""}><span class="lesson-number">${number}</span> ${esc(lesson.title)}${lesson.domain_checkin ? '<small class="lesson-checkin-note">Ends with a check-in</small>' : ""}</button>`;
     }).join("");
     return `<details class="chapter-group" data-chapter="${esc(chapter.id)}" ${q || activeChapter || chapter.id === "primer" ? "open" : ""}><summary>${heading}</summary><div class="chapter-content">${slideLinks}${reading ? '<p class="reading-label">Reading</p>' + reading : ""}</div></details>`;
-  }).join("") || '<p class="muted">No matching chapters. Try another term or show all chapters.</p>';
+  }).join("") || '<p class="muted">No matching chapters. Try another term.</p>';
   $("contents")
     .querySelectorAll("[data-lesson]")
     .forEach((b) => b.addEventListener("click", () => go(b.dataset.lesson)));
@@ -189,14 +180,6 @@ function presentationLinks(chapter) {
   return chapter.presentations.map((deck) =>
     `<div class="deck-entry"><a class="slides-link" href="${esc(deck.href)}" aria-label="Open slides for ${esc(chapterName(chapter))}: ${esc(deck.title)}"><span aria-hidden="true">▷</span> Open slides</a>${deck.coverage === "selected" ? `<p class="coverage-note">Selected topics: ${esc(deck.title)}</p>` : ""}</div>`,
   ).join("");
-}
-function setContentsFilter(value) {
-  slidesOnly = value;
-  const url = new URL(location.href);
-  if (slidesOnly) url.searchParams.set("view", "slides");
-  else url.searchParams.delete("view");
-  history.replaceState(null, "", url);
-  renderContents();
 }
 function renderGlossary(query = "") {
   const items = DATA.glossary.filter((g) =>
@@ -262,7 +245,7 @@ function renderLesson() {
     art = artFor(l);
   const chapter = chapterById.get(l.domain);
   const lessonNumber = chapter.lesson_ids.indexOf(l.id) + 1;
-  document.title = `${l.title} — GIGAWATT`;
+  document.title = `${l.title} — From Watts to Tokens`;
   $("eyebrow").textContent =
     `${chapter.number}.${lessonNumber} · ${chapter.title}`;
   $("title").textContent = l.title;
@@ -819,8 +802,6 @@ function renderLab(l) {
   update();
 }
 $("search").addEventListener("input", renderContents);
-$("all-chapters").addEventListener("click", () => setContentsFilter(false));
-$("slides-only").addEventListener("click", () => setContentsFilter(true));
 $("contents-toggle").addEventListener("click", () => {
   const open = $("sidebar").classList.toggle("open");
   $("contents-toggle").setAttribute("aria-expanded", String(open));
@@ -834,7 +815,6 @@ $("next").addEventListener("click", () =>
   go(LESSONS[(current + 1) % LESSONS.length].id),
 );
 window.addEventListener("popstate", () => {
-  slidesOnly = new URLSearchParams(location.search).get("view") === "slides";
   let id;
   try {
     id = decodeURIComponent(location.hash.slice(1));

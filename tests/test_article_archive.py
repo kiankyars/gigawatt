@@ -223,9 +223,11 @@ class ArticleArchiveTests(unittest.TestCase):
         self.assertTrue((destination / "research/README.md").exists())
         self.assertFalse((destination / a.ARCHIVE).exists())
         for name, content in teaching_files.items():
+            published_name = "ups.html" if name == "ups-format.html" else name
             self.assertEqual(
-                (destination / "course/prototypes" / name).read_text(), content
+                (destination / "slides" / published_name).read_text(), content
             )
+        self.assertIn("../../slides/ups.html", (destination / "course/prototypes/ups-format.html").read_text())
 
     def test_email_tracking_does_not_create_a_second_article_identity(self):
         tracked = (

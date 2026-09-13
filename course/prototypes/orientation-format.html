@@ -8,7 +8,7 @@
       name="description"
       content="Tour generation, transmission, campus power, compute, networks and cooling before comparing capacity, demand and efficiency."
     />
-    <title>Data center overview · GIGAWATT</title>
+    <title>Data center overview · From Watts to Tokens</title>
     <style>
       :root {
         color-scheme: light;
@@ -367,7 +367,7 @@
         }
       }
     </style>
-  </head>
+  <link rel="stylesheet" href="../assets/slide-chrome.css"></head>
   <body>
     <div id="viewer">
       <header class="toolbar">
@@ -851,7 +851,7 @@
       function render() {
         const s = scenes[index];
         $("title").textContent = sceneTitle(s);
-        document.title = `${presentationLabels.overview} · ${s.label} · GIGAWATT`;
+        document.title = `${presentationLabels.overview} · ${s.label} · From Watts to Tokens`;
         $("scenes").value = String(index);
         $("progress").textContent = `${index + 1} / ${scenes.length}`;
         $("previous").disabled = index === 0;
@@ -943,5 +943,5 @@
       matchMedia("(max-width:600px)").addEventListener("change", draw);
       fromHash();
     </script>
-  </body>
+  <script type="module" src="slide-chrome.js"></script></body>
 </html>

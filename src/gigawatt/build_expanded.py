@@ -403,7 +403,7 @@ def load_course(root=ROOT):
     glossary.sort(key=lambda g: g["term"].lower())
     used = {s for l in lessons for s in l["source_ids"]}
     return {
-        "title": "GIGAWATT",
+        "title": "From Watts to Tokens",
         "status": "Authored draft — external expert and learner reviews pending",
         "as_of": domain_map["as_of"],
         "domains": sorted(domain_map["domains"], key=lambda d: order[d["id"]]),
@@ -623,7 +623,7 @@ def build(root=ROOT, check=False):
     )
     outputs.update(presentation_outputs(root, sample["id"]))
     index = [
-        "# GIGAWATT — From watts to useful compute",
+        "# From Watts to Tokens — A visual course on AI data centers",
         "",
         data["status"] + ". Updated " + data["as_of"] + ".",
         "",

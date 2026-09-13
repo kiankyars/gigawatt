@@ -16,9 +16,9 @@ EPA distinguishes a physical power purchase agreement, involving delivery or tit
 
 Environmental attributes require their own account. An attribute associated with a quantity of generation addresses the characteristic being claimed for that generation. It does not increase a cable's current limit or make a generator produce during an interval when it is unavailable. Keep the physical service, commercial energy, and attribute ledgers connected by explicit references, while preserving the different questions each can answer. That is more informative than coloring one grid wire green.
 
-## Equal daily totals can hide a half-day gap
+## Optional example: matching a solar profile across a day
 
-Consider a hypothetical facility drawing 10 MW for 24 hours. Its energy demand is 240 MWh. A separately described generation profile produces 20 MW for twelve hours and zero for twelve hours, also totaling 240 MWh. The matching annual or daily totals are equal. The profiles are not. During the generating interval, production exceeds this load by 10 MW. During the zero-production interval, the load exceeds production by 10 MW.
+This is a deliberately idealized solar-like supply profile, not Crusoe’s Abilene generation plan or a measured solar plant. A hypothetical facility draws 10 MW for 24 hours, requiring 240 MWh. Separately specified generation produces 20 MW for twelve hours and zero for twelve hours, also totaling 240 MWh. Equal daily totals leave a 10 MW surplus during production and a 10 MW deficit during the zero-production interval. The exercise asks what additional physical system would be needed to move that energy in time.
 
 The time-matching surplus and deficit are each 10 MW × 12 h = 120 MWh. These are differences between two stated profiles, not a claim about the site's metered import and export. If the generator is elsewhere under a PPA, the campus may still physically import from the shared grid throughout the day. A physical meter reading depends on the actual electrical arrangement, not simply on subtracting contractual generation from campus demand.
 
@@ -44,7 +44,7 @@ When evaluating a supply claim, produce three small drawings or ledgers: the phy
 
 1. Load energy — 10 × 24 = 240 MWh — This is the demand profile area.
 2. Generation energy — 20 × 12 = 240 MWh — Equal area does not imply equal height at every time.
-3. Night deficit — 10 × 12 = 120 MWh — This energy must come from another source or stored energy.
+3. Zero-generation interval — 10 × 12 = 120 MWh — This energy must come from another source or stored energy.
 4. Storage losses — 120 × 0.90 = 108 MWh returned — The original surplus falls 12 MWh short after the assumed round-trip loss.
 
 **Result:** Perfect time shifting needs 120 MWh usable output and 10 MW output capability; 90 percent round-trip efficiency requires extra charging energy.

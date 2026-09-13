@@ -1,14 +1,17 @@
-# GIGAWATT
+# From Watts to Tokens
 
-**From watts to racks, useful compute, and operation.**
+**A visual course on AI data centers, from electricity to useful computation.**
 
-[Open the course](course/index.html) · [Slides available](course/index.html?view=slides)
+[Open the course](https://kiankyars.github.io/gigawatt/)
 
 The sidebar is the course directory. Chapters use numbered descriptive names,
 starting with **1. Primer**, **2. Data center overview** and **3. Workloads and
-requirements**. Each chapter shows its reading and available slides. Choose
-**Slides available** to see only chapters with teaching material; selected-topic
+requirements**. Each chapter shows its reading and available slides; selected-topic
 sequences are labelled so they do not imply a complete chapter deck.
+
+The published course lives at the site root. Presentations have short addresses
+such as `/slides/primer.html`, `/slides/workloads.html` and `/slides/siting.html`.
+Existing links preserve their slide and teaching-mode selections when they redirect.
 
 ## Start with the filled-in template
 
@@ -19,7 +22,7 @@ course should become.
 
 The reusable original remains in the YouTube repository:
 [course-review-template.md](https://github.com/kiankyars/youtube/blob/main/freecodecamp/course-review-template.md).
-The original is a blank format; the filled-in file here holds GIGAWATT's decisions.
+The original is a blank format; the filled-in file here holds this course's decisions.
 
 | When changing…                                                  | Edit this owner                                                                                |
 | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
@@ -65,11 +68,15 @@ course's scope and the teaching standard defines the depth each lesson needs.
 uv run gigawatt-expand
 uv run gigawatt-research build --include-candidates
 uv run gigawatt-map
-uv run python -m http.server 8765
+uv run python -m gigawatt.stage_site
+uv run python -m http.server 8765 --directory _site
 ```
 
-Open [the local reader](http://localhost:8765/course/index.html). Editable inputs
-and their outputs are listed in the [source index](course/README.md).
+Open [the local reader](http://localhost:8765/). Editable inputs remain grouped in
+`course/`; `src/gigawatt/stage_site.py` publishes the reader at the root and the
+presentation sources under `slides/`. This keeps source ownership separate from
+public URLs without maintaining duplicate editable decks. The [source index](course/README.md)
+lists each input and its generated outputs.
 
 ```sh
 uv run gigawatt-build --check
@@ -82,7 +89,7 @@ git diff --check
 ```
 
 GitHub Pages validates and publishes changes to `main` at
-[GIGAWATT](https://kiankyars.github.io/gigawatt/).
+[From Watts to Tokens](https://kiankyars.github.io/gigawatt/).
 The historical 22-lesson introduction is retired from the published course.
 Its source remains in the repository; its old page and lesson links redirect to
 relevant lessons in the current reader. The map's `baseline_coverage` and

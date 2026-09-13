@@ -1,11 +1,11 @@
-# Course source index
+# From Watts to Tokens — source index
 
 Start with the [filled-in freeCodeCamp template](COURSE_REVIEW.md) for course
 design and production status. This page only identifies editable inputs and
 build outputs. [TEACHING_STANDARD.md](TEACHING_STANDARD.md) defines the authoring
 contract; [PRESENTING.md](PRESENTING.md) explains the dry-run controls.
 
-[Open the course](index.html) or its [Slides available view](index.html?view=slides).
+[Open the course](index.html).
 The sidebar combines reading and teaching material under numbered descriptive
 chapters, beginning with **1. Primer**. It identifies chapters with no slides and
 marks decks that teach selected topics rather than the whole chapter.
@@ -29,12 +29,13 @@ completion tracker. Follow-ups belong in
 exercise handoffs belong in
 [TEACHING_STANDARD.md](TEACHING_STANDARD.md#required-section-handoffs).
 
-The authored sequences in `prototypes/` are served directly: `ups-format.html`
+The authored sequences in `prototypes/` are source files, published at clean
+`/slides/…` routes by `src/gigawatt/stage_site.py`: `ups-format.html`
 and its mechanism modules, and `cooling-format.html` with `cooling-model.js`, `cooling-foundations.js`,
 `cooling-rejection.js`, `cooling-cdu.js` and `cooling-continuity.js`.
 Edit those files directly; their numerical tests and browser checks verify the
-prototype, while the matching reader lessons retain the longer explanations.
-The [Primer](prototypes/terminology-format.html) has teaching mode at `prototypes/terminology-format.html?teach=1`.
+presentation, while the matching reader lessons retain the longer explanations.
+The [Primer](prototypes/terminology-format.html) publishes at `/slides/primer.html?teach=1`.
 Edit `prototypes/terminology-format.html` (embedded presentation shell and styles),
 `prototypes/terminology-scenes.js` (headlines and accessible descriptions) and
 `prototypes/terminology-visuals.js` and `prototypes/terminology-electricity.js`
@@ -58,6 +59,16 @@ Conditional staggering remains beside its dependency limitation; the closing
 workload brief replaces the old threshold quizzes. The
 [chapter review tracker](COURSE_REVIEW.md#chapter-review-tracker) records validation
 and author-review status; the unchanged Primer is not assigned another general pass.
+Chapter 4 uses `siting-format.html`, `siting-scenes.js`, `siting-visuals.js` and
+`siting-generation.js`; Chapter 5 uses `site-format.html`, `site-scenes.js`,
+`site-visuals.js` and `site-model.js`. The current revised decks have 23 and 22
+slides respectively, pending current validation. Shared presentation chrome is in
+`prototypes/slide-chrome.js` and `assets/slide-chrome.css`.
+
+The new GPT visuals are in `assets/generated/`, with prompt JSON alongside them.
+The [image-request ledger](COURSE_REVIEW.md#image-request-accounting) records what
+was generated and why a few precise comparisons deliberately remain code-rendered.
+
 The manifest reports generated counts and image hashes; the template records
 what has actually been reviewed. Source notes and generated lessons each serve
 a different reading purpose and do not own course design.
@@ -86,12 +97,12 @@ as assumptions and do not become Abilene operating measurements.
 [Case-study slides](prototypes/case-studies.html?teach=1) teach the land comparison,
 original Colossus reuse, the SemiAnalysis equipment-procurement workaround,
 Crusoe/Redwood solar and batteries in Sparks, Abilene cooling, and Google's
-flexible scheduling. Each includes a prediction and worked explanation. Their
+flexible scheduling. Each retains a case question and worked explanation in its reference. Their
 longer treatments live in the relevant reader lessons. Standalone case scenes do
 not count as integration into a chapter's teaching material: use the
 [required section handoffs](TEACHING_STANDARD.md#required-section-handoffs) when
 building each deck, and record its integrated scene there.
 
-`domain-checkins.json` owns one short check-in for each of the fifteen domains.
+`domain-checkins.json` owns one optional reader check-in for each of the fifteen domains.
 The expanded-course builder attaches it to that domain's final lesson and
 preserves the scenario, answer and transition in the reader and Markdown.

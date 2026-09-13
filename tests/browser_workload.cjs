@@ -4,7 +4,7 @@ const { mkdirSync } = require("node:fs");
 const { pathToFileURL } = require("node:url");
 const { resolve } = require("node:path");
 
-const base = process.argv[2] || "http://127.0.0.1:8765/course/prototypes/workload-format.html";
+const base = process.argv[2] || "http://127.0.0.1:8765/prototypes/workload-format.html";
 const output = process.argv[3] || "/tmp/gigawatt-workload-qa";
 const expectedScenes = [
  "workload-purpose", "success-brief", "model-work", "memory-comparison", "kv-cache",
@@ -118,8 +118,18 @@ async function checkNavigation(page) {
  assert.equal(await page.locator("#actions a").getAttribute("href"),"siting-format.html?teach=1");
  assert.equal(await page.locator("#reveal").count(),0);
  await page.locator("#previous").click();assert.equal(new URL(page.url()).hash,"#power-response");
- await page.locator("#explain").click();assert.equal(await page.locator("#reading").evaluate(d=>d.open),true);
- await page.keyboard.press("Escape");assert.equal(await page.locator("#reading").evaluate(d=>d.open),false);
+ const reading = page.locator(".toolbar a[data-course-reading]");
+ await reading.waitFor({state:"visible"});
+ assert.equal((await reading.textContent()).trim(),"Reading");
+ const readingUrl = new URL(await reading.getAttribute("href"),page.url());
+ assert.equal(readingUrl.pathname,new URL("../index.html",base).pathname);
+ assert.equal(readingUrl.hash,"#d02-phases-and-envelopes");
+ assert.equal(await page.locator("#explain").count(),0);
+ assert.equal(await page.getByRole("button",{name:/Explanation|sources/i}).count(),0);
+ assert.equal(await page.locator("dialog:visible").count(),0);
+ await page.locator("#scenes").selectOption("workload-purpose");
+ await page.waitForFunction(()=>document.querySelector("[data-course-reading]").hash==="#d02-workload-brief");
+ assert.equal(new URL(await reading.getAttribute("href"),page.url()).hash,"#d02-workload-brief","Reading follows the active scene");
  for(const [old,current] of Object.entries({"inference-memory":"memory-comparison","occupied-waiting":"resource-paths","acceptance-envelope":"next-brief"})){
   await page.goto(url(old));await page.waitForSelector("#diagram text");assert.equal(await page.locator("#scenes").inputValue(),current);
  }
@@ -204,6 +214,6 @@ async function checkNavigation(page) {
     }
     assert.deepEqual(errors, [], "No browser errors or failed resources");
     assert.deepEqual(failures, [], "Workload regression failures");
-    console.log(`Passed ${layouts} workload scene/state layouts across four viewports and both themes, quantitative states, control restoration, touch, keyboard, reveals, dialogs and teaching fullscreen.`);
+    console.log(`Passed ${layouts} workload scene/state layouts across four viewports and both themes, quantitative states, control restoration, touch, keyboard, reveals, Reading links and teaching fullscreen.`);
   } finally { await browser.close(); }
 })().catch((error) => { console.error(error); process.exit(1); });

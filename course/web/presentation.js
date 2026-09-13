@@ -274,7 +274,7 @@ function sourceFigure() {
 }
 function render() {
   const step = STEPS[state.index];
-  document.title = `${notesMode ? "Presenter notes · " : ""}${presentationLabels['rack-800v']} · ${step.title} · GIGAWATT`;
+  document.title = `${notesMode ? "Presenter notes · " : ""}${presentationLabels['rack-800v']} · ${step.title} · From Watts to Tokens`;
   renderSteps();
   if (notesMode) {
     renderNotes();
@@ -368,8 +368,6 @@ document.addEventListener("keydown", (event) => {
     move(-1);
   }
   if (event.key.toLowerCase() === "r") reveal();
-  if (event.key.toLowerCase() === "p" && teachingMode)
-    byId("open-notes").click();
   if (event.key.toLowerCase() === "f" && teachingMode)
     byId("fullscreen").click();
 });

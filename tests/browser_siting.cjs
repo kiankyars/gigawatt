@@ -3,7 +3,7 @@ const assert = require("node:assert/strict");
 const { mkdirSync } = require("node:fs");
 const base =
   process.argv[2] ||
-  "http://127.0.0.1:8841/course/prototypes/siting-format.html";
+  "http://127.0.0.1:8841/prototypes/siting-format.html";
 const output = process.argv[3] || "/tmp/gigawatt-siting-qa";
 const url = (id, teach = false) => {
   const u = new URL(base);
@@ -64,43 +64,22 @@ async function checkValues(page, scene, values, revealed) {
     ),
     "No unresolved numbers or objects",
   );
-  if (scene.id === "site-ready")
-    assert.equal(await attr("data-ready-month"), values.site === "A" ? 22 : 21);
-  if (scene.id === "storage-match") {
-    assert.equal(
-      await attr("data-returned-mwh"),
-      values.storage === "losses" ? 108 : 120,
-    );
-    assert.equal(
-      await attr("data-output-mw"),
-      values.storage === "power" ? 2 : 10,
-    );
+  if (scene.id === "site-ready") {
+    const text = await page.locator("#diagram").textContent();
+    assert.match(text, /27 OCT 2025/);
+    assert.match(text, /24 NOV 2025/);
+    assert.match(text, /50 MW/);
+    assert.equal(await page.locator("[data-ready-month]").count(), 0);
   }
-  if (
-    ["btm-import", "import-contingency", "island-boundary"].includes(scene.id)
-  ) {
-    const generation =
-      scene.id === "btm-import"
-        ? Number(values.generation)
-        : scene.id === "import-contingency" && values.generator === "stopped"
-          ? 0
-          : 6;
-    const storage =
-      scene.id === "island-boundary" && values.island === "supported" ? 2 : 0;
-    assert.equal(await attr("data-generation-mw"), generation);
-    assert.equal(await attr("data-storage-mw"), storage);
-    assert.equal(
-      await attr("data-grid-mw"),
-      scene.id === "island-boundary" ? 0 : 8 - generation,
-    );
+  if (scene.id === "abilene-phase") {
+    const text = await page.locator("#diagram").textContent();
+    assert.match(text, /75%/);
+    assert.match(text, /September 2026/);
   }
-  if (scene.id === "island-duration") {
-    const deficit = Number(values.protectedLoad) - 6;
-    assert.equal(await attr("data-deficit-mw"), deficit);
-    assert.equal(
-      await attr("data-duration-hours"),
-      deficit ? Math.min(4 / deficit, 4) : 4,
-    );
+  if (scene.id === "generation-utilization") {
+    const hours = Number(values.genHours);
+    close(await attr("data-simple-cost"), 8e6 + 100 * hours * 20 / 0.4, "Simple-cycle annual cost");
+    close(await attr("data-combined-cost"), 16e6 + 100 * hours * 20 / 0.6, "Combined-cycle annual cost");
   }
   if (scene.id === "procurement-route")
     assert.equal(
@@ -242,31 +221,40 @@ async function checkNavigation(page, scenes, colorScheme) {
   await page.goto(url(first.id));
   await page.reload();
   await page.waitForSelector("#diagram text");
+  assert.equal(await page.locator("#actions [data-key]").count(), 0, "The chapter introduction needs no controls");
+  assert.equal(await page.locator("#reveal").count(), 0);
   await page.locator("body").click({ position: { x: 2, y: 100 } });
   await page.keyboard.press("ArrowLeft");
   assert.equal(new URL(page.url()).hash, `#${first.id}`);
   await page.keyboard.press("ArrowRight");
   assert.equal(new URL(page.url()).hash, `#${scenes[1].id}`);
+  assert.equal(await page.locator("#actions [data-key]").count(), 0);
+  assert.equal(await page.locator("#reveal").count(), 0);
+  const controlled = scenes.find((scene) => scene.controls?.length);
+  await page.locator("#scenes").selectOption(controlled.id);
   const control = page.locator("[data-key]").first();
   await control.focus();
   await page.keyboard.press("ArrowRight");
   assert.equal(
     new URL(page.url()).hash,
-    `#${scenes[1].id}`,
+    `#${controlled.id}`,
     "Focused controls retain arrow keys",
   );
-  await page.locator("#scenes").selectOption(first.id);
+  const revealScene = scenes.find((scene) => scene.reveal);
+  await page.locator("#scenes").selectOption(revealScene.id);
+  const wasRevealed = await page.locator("#reveal").getAttribute("aria-expanded");
   await page.locator("body").click({ position: { x: 2, y: 100 } });
   await page.keyboard.press("r");
   assert.equal(
     await page.locator("#reveal").getAttribute("aria-expanded"),
-    "true",
+    String(wasRevealed !== "true"),
   );
   await page.keyboard.press("r");
   assert.equal(
     await page.locator("#reveal").getAttribute("aria-expanded"),
-    "false",
+    wasRevealed,
   );
+  await page.locator("#scenes").selectOption(first.id);
   const consumed = await page.locator("#scenes").evaluate((e) => {
     e.focus();
     const k = new KeyboardEvent("keydown", {
@@ -278,21 +266,28 @@ async function checkNavigation(page, scenes, colorScheme) {
     return k.defaultPrevented;
   });
   assert.equal(consumed, false);
-  await page.locator("#explain").click();
-  assert.equal(await page.locator("#reading").evaluate((e) => e.open), true);
-  await page.keyboard.press("ArrowRight");
-  assert.equal(new URL(page.url()).hash, `#${first.id}`);
-  await page.keyboard.press("Escape");
-  assert.equal(await page.locator("#reading").evaluate((e) => e.open), false);
-  await page.locator("#explain").click();
-  await page.locator("#close-reading").click();
-  assert.equal(await page.locator("#reading").evaluate((e) => e.open), false);
+  const reading = page.locator(".toolbar a[data-course-reading]");
+  await reading.waitFor({ state: "visible" });
+  assert.equal((await reading.textContent()).trim(), "Reading");
+  let readingUrl = new URL(await reading.getAttribute("href"), page.url());
+  assert.equal(readingUrl.hash, "#d03-service-and-siting");
+  assert.equal(readingUrl.pathname, new URL("../index.html", base).pathname);
+  assert.equal(await page.locator("#explain").count(), 0);
+  assert.equal(await page.getByRole("button", { name: /Explanation|sources/i }).count(), 0);
+  assert.equal(await page.locator("dialog:visible").count(), 0);
+  await page.locator("#scenes").selectOption("transport-current");
+  await page.waitForFunction(() => document.querySelector("[data-course-reading]").hash === "#d03-voltage-and-distance");
+  readingUrl = new URL(await reading.getAttribute("href"), page.url());
+  assert.equal(readingUrl.hash, "#d03-voltage-and-distance", "Reading follows the active scene");
   await page.locator("#scenes").selectOption(last.id);
   assert.equal(await page.locator("#next").isDisabled(), true);
-  const checkin = page.locator("#actions a");
-  const href = new URL(await checkin.getAttribute("href"), page.url());
-  assert.equal(href.searchParams.get("checkin"), "1");
-  assert.equal(href.hash, "#d03-service-and-siting");
+  assert.equal(await page.locator("#reveal").count(), 0);
+  const nextChapter = page.locator("#actions a");
+  assert.equal((await nextChapter.textContent()).trim(), "Next: physical site design →");
+  const href = new URL(await nextChapter.getAttribute("href"), page.url());
+  assert.equal(href.pathname, new URL("site-format.html", base).pathname);
+  assert.equal(href.searchParams.get("teach"), "1");
+  assert.equal(href.searchParams.has("checkin"), false);
   assert.equal((await page.request.get(href.href)).status(), 200);
   assert.equal(await page.locator("#fullscreen").isVisible(), false);
   await page.locator("body").click({ position: { x: 2, y: 100 } });
@@ -332,22 +327,38 @@ async function checkNavigation(page, scenes, colorScheme) {
   await page.goto(url("unknown-scene"));
   await page.waitForSelector("#diagram text");
   assert.equal(await page.locator("#scenes").inputValue(), first.id);
+  for (const [retired, replacement] of Object.entries({
+    "purchased-energy": "config-grid-supplied",
+    "hourly-match": "config-off-grid",
+    "storage-match": "config-off-grid",
+    "btm-import": "config-grid-parallel",
+    "import-contingency": "config-grid-parallel",
+    "island-boundary": "config-off-grid",
+    "island-duration": "config-off-grid",
+    "fuel-delivery": "parcel-connections",
+    "generation-fuel": "combined-cycle",
+    "generation-choice": "generation-utilization",
+    "phase-check": "supply-brief",
+  })) {
+    await page.goto(url(retired));
+    await page.waitForSelector("#diagram text");
+    assert.equal(await page.locator("#scenes").inputValue(), replacement, `${retired} opens its replacement`);
+  }
   await page.goto(url(last.id));
   await page.locator("#actions a").click();
-  await page.waitForSelector("#checkin-response", { state: "visible" });
-  assert.equal(new URL(page.url()).hash, "#d03-service-and-siting");
-  assert.equal(await page.locator("#domain-checkin").isVisible(), true);
-  assert.ok(
-    (await page.locator("#domain-checkin h3").first().textContent()).length >
-      10,
-  );
-  assert.ok(await page.locator("#checkin-continue").getAttribute("href"));
+  await page.waitForSelector("#diagram text");
+  assert.equal(new URL(page.url()).pathname, new URL("site-format.html", base).pathname);
+  assert.equal(new URL(page.url()).searchParams.get("teach"), "1");
+  assert.equal(await page.locator("#fullscreen").isVisible(), true);
+
 }
 
 (async () => {
   const { scenes, initialState } =
     await import("../course/prototypes/siting-scenes.js");
-  assert.equal(scenes.length, 26);
+  assert.equal(scenes.length, 23);
+  assert.equal(scenes[0].id, "siting-purpose");
+  assert.equal(scenes.at(-1).id, "supply-brief");
   assert.equal(new Set(scenes.map((s) => s.id)).size, scenes.length);
   mkdirSync(output, { recursive: true });
   const browser = await chromium.launch();
@@ -466,7 +477,7 @@ async function checkNavigation(page, scenes, colorScheme) {
     assert.deepEqual(errors, [], "No JavaScript or HTTP errors");
     assert.deepEqual(failures, [], "Siting browser regressions");
     console.log(
-      `Passed ${layouts} siting scene/state layouts across 26 scenes, four viewports and both themes; controls, reveals, numerical results, keyboard, dialog, fullscreen and reader check-in.`,
+      `Passed ${layouts} siting scene/state layouts across ${scenes.length} scenes, four viewports and both themes; controls, reveals, numerical results, keyboard, Reading links, retired hashes, fullscreen and next-chapter navigation.`,
     );
   } finally {
     await browser.close();

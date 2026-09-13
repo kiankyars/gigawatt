@@ -147,7 +147,7 @@ class TeachingCatalogTests(unittest.TestCase):
         self.assertEqual(chapters["D13"]["number"], 14)
         self.assertEqual(chapters["capstone"]["number"], 17)
         self.assertEqual(
-            len({p["id"] for c in chapters.values() for p in c["presentations"]}), 8
+            len({p["id"] for c in chapters.values() for p in c["presentations"]}), 9
         )
         for did in ("D05", "D06", "D10", "D11"):
             with self.subTest(chapter=did):

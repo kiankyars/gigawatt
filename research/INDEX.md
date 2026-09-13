@@ -135,7 +135,19 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P08 — Building Meta’s GenAI Infrastructure](sources/P08.md) | Meta Engineering | D02, D07, D08, D09, D14 | page_reviewed |
 | [P09 — The Datacenter as a Computer: designing warehouse-scale machines](sources/P09.md) | Google Research; book published by Morgan & Claypool | D01, D02, D07, D08, D09, D14, D15 | public_excerpt_reviewed |
 | [P10 — Incorporate Minimum Efficiency Requirements for Heating and Cooling Products into Federal Acquisition Documents](sources/P10.md) | U.S. Department of Energy, Federal Energy Management Program | D01, D10, D11, D15 | page_reviewed |
+| [P100 — Applied Digital Achieves Ready for Service for Phase 1 at Polaris Forge 1](sources/P100.md) | Applied Digital | D03 | page_reviewed |
+| [P101 — Applied Digital Completes Phase II Ready for Service at Polaris Forge 1](sources/P101.md) | Applied Digital | D03 | page_reviewed |
+| [P102 — Oracle Data Centers: Abilene, Texas](sources/P102.md) | Oracle | D03, D12 | page_reviewed |
+| [P103 — Energy Transfer August 2026 Investor Presentation](sources/P103.md) | Energy Transfer | D03 | page_reviewed |
+| [P104 — Energy Transfer Reports Fourth Quarter 2025 Results](sources/P104.md) | Energy Transfer | D03 | page_reviewed |
+| [P105 — Crusoe 2025 Impact Report](sources/P105.md) | Crusoe | D03, D05 | page_reviewed |
+| [P106 — Combined Cycle Power Plants](sources/P106.md) | Siemens Energy | D02, D03 | page_reviewed |
+| [P107 — Peaker Plants](sources/P107.md) | Siemens Energy | D02, D03 | page_reviewed |
+| [P108 — What Is a Gas Turbine?](sources/P108.md) | GE Vernova | D02, D03 | page_reviewed |
+| [P109 — Crusoe’s Contracted AI Infrastructure Capacity Approaches 5 Gigawatts Across Data Centers and Cloud](sources/P109.md) | Crusoe | D03 | page_reviewed |
 | [P11 — NFPA 75: Standard for the Fire Protection of Information Technology Equipment](sources/P11.md) | National Fire Protection Association | D05, D12, D13 | candidate_not_reviewed |
+| [P110 — Abilene Data Center Development](sources/P110.md) | Mortenson | D03 | page_reviewed |
+| [P111 — Lenovo NVIDIA GB300 NVL72 Rack Scale AI Product Guide](sources/P111.md) | Lenovo Press | D12 | page_reviewed |
 | [P12 — Large Loads Action Plan](sources/P12.md) | North American Electric Reliability Corporation | D03, D05, D13, D14 | public_excerpt_reviewed |
 | [P13 — Slurm Workload Manager — Topology Guide](sources/P13.md) | SchedMD | D02, D07, D08, D09, D14 | page_reviewed |
 | [P14 — NVIDIA DGX SuperPOD: Next Generation Scalable Infrastructure for AI Leadership Reference Architecture Featuring NVIDIA DGX H100](sources/P14.md) | NVIDIA | D07, D08, D09, D13, D14 | page_reviewed |

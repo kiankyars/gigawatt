@@ -1,0 +1,4 @@
+const positive=(v,name)=>{if(!Number.isFinite(v)||v<=0)throw new RangeError(`${name} must be positive and finite`);return v;};
+export function movingLoad({massKg=2200,contacts=4,gravity=9.81}={}){positive(massKg,'mass');positive(contacts,'contacts');positive(gravity,'gravity');if(!Number.isInteger(contacts))throw new RangeError('contacts must be an integer');const totalKN=massKg*gravity/1000;return{totalKN,perContactKN:totalKN/contacts};}
+export function survivingFiber({arrangement='shared',crossingFailed=true}={}){if(!['shared','separate'].includes(arrangement))throw new RangeError('Unknown arrangement');return crossingFailed?(arrangement==='shared'?[]:['B']):['A','B'];}
+export function controlResponse(command='normal'){if(!['normal','stop'].includes(command))throw new RangeError('Unknown command');return{trainA:command==='normal',trainB:command==='normal',commonDependency:'Shared controller'};}

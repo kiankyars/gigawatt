@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="description" content="Build a workload brief through memory, productive output, batching, phase timing and acceptance experiments."><title>Workloads and the infrastructure brief · GIGAWATT</title><style>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="description" content="Build a workload brief through memory, productive output, batching, phase timing and acceptance experiments."><title>Workloads and the infrastructure brief · From Watts to Tokens</title><style>
       :root {
         color-scheme: light;
         --paper: #f4f3ee;
@@ -341,7 +341,7 @@
       .choices legend {float:left;padding:10px 5px 10px 0;font-size:12px;color:var(--muted)}
       #status {position:absolute}
       @media(max-width:600px){#diagram{height:680px;min-height:680px}.toolbar nav{gap:4px}.toolbar button{font-size:11px}#scenes{max-width:44vw}}
-</style></head><body>
+</style><link rel="stylesheet" href="../assets/slide-chrome.css"></head><body>
 <div id="viewer"><header class="toolbar"><a class="back-to-course" href="../index.html?view=slides">← Back to course</a><nav aria-label="Lesson controls"><button id="explain">Explanation</button><button id="fullscreen" hidden>Full screen</button></nav></header>
 <main><header><h1 id="title"></h1></header><section id="stage" aria-label="Workload mechanisms and experiments"><svg id="diagram" role="img" aria-labelledby="diagram-title diagram-description"></svg><div id="actions"></div><p class="sr-only" id="status" role="status"></p></section></main>
 <footer><label class="sr-only" for="scenes">Choose scene</label><select id="scenes"></select><div class="navigation"><button id="previous" aria-label="Previous scene">←</button><span id="progress" aria-live="polite"></span><button id="next" aria-label="Next scene">→</button></div></footer></div>
@@ -363,7 +363,7 @@
 <noscript><p>This interactive presentation needs JavaScript. Read the same reasoning in <a href="../lessons/d02-workload-brief.md">the workload brief</a>, <a href="../lessons/d02-productive-utilization.md">productive utilization</a> and <a href="../lessons/d02-phases-and-envelopes.md">phases and envelopes</a>.</p></noscript>
 <script type="module">
 import { presentationLabels } from './teaching-navigation.js';
-document.title = `${presentationLabels.workloads} · GIGAWATT`;
+document.title = `${presentationLabels.workloads} · From Watts to Tokens`;
 import { scenes, initialState, legacySceneAliases } from './workload-scenes.js';
 import { renderWorkload } from './workload-visuals.js';
 const $=id=>document.getElementById(id), state={...initialState};
@@ -402,4 +402,4 @@ $('fullscreen').onclick=async()=>{try{if(document.fullscreenElement)await docume
 document.addEventListener('fullscreenchange',()=>{$('fullscreen').textContent=document.fullscreenElement?'Exit full screen':'Full screen';});
 window.addEventListener('keydown',e=>{if($('reading').open||e.altKey||e.ctrlKey||e.metaKey||e.target.closest('button,select,input,textarea,a,[contenteditable]'))return;if(e.key==='ArrowRight'){e.preventDefault();go(index+1);}if(e.key==='ArrowLeft'){e.preventDefault();go(index-1);}if(e.key.toLowerCase()==='r'&&$('reveal')){$('reveal').click();e.preventDefault();}if(e.key.toLowerCase()==='f'&&teaching)$('fullscreen').click();});
 window.addEventListener('hashchange',fromHash);matchMedia('(max-width:600px)').addEventListener('change',draw);fromHash();
-</script></body></html>
+</script><script type="module" src="slide-chrome.js"></script></body></html>

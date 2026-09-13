@@ -2860,7 +2860,7 @@
         "D15"
       ],
       "use": "Separate the original Abilene campus from the adjacent Microsoft development; distinguish energized buildings from future capacity.",
-      "caution": "Main announcement reviewed. Dated company account: two original 100 MW buildings energized; six more expected by end-2026; adjacent 900 MW project targets first energization in mid-2027. These are not September 2026 metered loads."
+      "caution": "Main announcement reviewed. Dated company account: two original 100 MW buildings energized; six more expected by end-2026; adjacent 900 MW project targets first energization in mid-2027. These are not September 2026 metered loads. The current presentation uses Oracle’s September 2026 delivery status (P102); this March release remains a historical milestone."
     },
     {
       "id": "P74",
@@ -2896,7 +2896,7 @@
         "D15"
       ],
       "use": "Teach solar, storage and grid backup at Sparks, Nevada; distinguish microgrid availability from Cloud availability and energy share.",
-      "caution": "Main release reviewed. Company reports 99.2% microgrid availability over seven months and 99.9% Cloud availability using grid backup. Expansion to 24 modular data centers is announced, not confirmed complete. Do not carry forward the initial off-grid description as present status."
+      "caution": "Main release reviewed. Company reports 99.2% microgrid availability over seven months and 99.9% Cloud availability using grid backup. Expansion to 24 modular data centers is announced, not confirmed complete. Do not carry forward the initial off-grid description as present status. These are historical operating-period figures, repeated in the May impact report, not a September 2026 measurement interval."
     },
     {
       "id": "P76",
@@ -3286,6 +3286,185 @@
       ],
       "use": "Derive a declared mixed-precision Adam example: two bytes each for weights and gradients, four for a master weight, eight for the two optimizer moments, giving 16 bytes per parameter before activations and buffers.",
       "caution": "Read sections 2.1, 3.1–3.2 and model-state partitioning formulas. This is a classic FP16/FP32 Adam accounting example, not a universal 2026 training-memory requirement. BF16 arrangements, gradient accumulation precision, optimizer choices, quantization, offload and sharding alter the budget. Using rounded 70 billion parameters gives about 1.12 TB across model states, not an asserted minimum GPU count or throughput."
+    },
+    {
+      "id": "P100",
+      "title": "Applied Digital Achieves Ready for Service for Phase 1 at Polaris Forge 1",
+      "url": "https://ir.applieddigital.com/news-events/press-releases/detail/133/applied-digital-achieves-ready-for-service-for-phase-1-at",
+      "publisher": "Applied Digital",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D03"
+      ],
+      "use": "First 50 MW of the first 100 MW building at Polaris Forge 1 in Ellendale, North Dakota reached ready-for-service on October 27, 2025. Use as an actual phased handover example.",
+      "caution": "Operator announcement of ready-for-service capacity, not measured draw or all hardware installed. The campus was 400 MW fully contracted to CoreWeave, with an indicated future expansion path to 1 GW; it was not an operating multi-gigawatt campus.",
+      "published_on": "2025-10-27"
+    },
+    {
+      "id": "P101",
+      "title": "Applied Digital Completes Phase II Ready for Service at Polaris Forge 1",
+      "url": "https://ir.applieddigital.com/news-events/press-releases/detail/137/applied-digital-completes-phase-ii-ready-for-service-at",
+      "publisher": "Applied Digital",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D03"
+      ],
+      "use": "Second 50 MW of the first building reached ready-for-service November 24, 2025, bringing that building to 100 MW. Compare the two documented milestones.",
+      "caution": "The 28 days between milestones can illustrate earlier availability of capacity, but no resulting compute, utilization or energy delivery is measured by this release.",
+      "published_on": "2025-11-24"
+    },
+    {
+      "id": "P102",
+      "title": "Oracle Data Centers: Abilene, Texas",
+      "url": "https://www.oracle.com/data-centers/",
+      "publisher": "Oracle",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D03",
+        "D12"
+      ],
+      "use": "Abilene section explicitly reports 75% of total capacity delivered as of September 2026. Includes genuine aerial photographs captioned July 15, 2026.",
+      "caution": "Capacity denominator and delivered boundary are not defined; do not infer MW, utilization or completed building count. The generic January 2026 footer is stale relative to the section-specific September claim. Aerial images are July 15 captures, not September satellite images."
+    },
+    {
+      "id": "P103",
+      "title": "Energy Transfer August 2026 Investor Presentation",
+      "url": "https://ir.energytransfer.com/static-files/1cb70dca-abed-4005-95aa-793e3345626c",
+      "publisher": "Energy Transfer",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D03"
+      ],
+      "use": "Records completion of a second 14-mile Abilene lateral and a separate gas-facilities agreement with Crusoe to support approximately 900 MW of generation. Shows the real corridor and fuel-delivery work behind a campus.",
+      "caution": "August presentation; some statements are forecasts. Do not equate the 14-mile lateral with the exact Crusoe 900 MW agreement without explicit support. A 12-inch pipe diameter was not verified. Forecast September 1 pipeline completion is not proof of completion."
+    },
+    {
+      "id": "P104",
+      "title": "Energy Transfer Reports Fourth Quarter 2025 Results",
+      "url": "https://ir.energytransfer.com/node/52241/pdf",
+      "publisher": "Energy Transfer",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D03"
+      ],
+      "use": "Reports that natural-gas delivery to the Oracle data center near Abilene began in January 2026. Distinguishes operating delivery from later expansion agreements.",
+      "caution": "The approximately 900 MMcf/day figure refers to three Oracle projects in aggregate, not the Abilene campus alone.",
+      "published_on": "2026-02-17"
+    },
+    {
+      "id": "P105",
+      "title": "Crusoe 2025 Impact Report",
+      "url": "https://media.ffycdn.net/us/crusoe/PL5TuZz5apXB9pVsd3H1.pdf",
+      "publisher": "Crusoe",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D03",
+        "D05"
+      ],
+      "use": "Pages 16 and 19 describe a 350 MW natural-gas plant and temporary bridge power with a long-term backup role at Abilene. Page 33 documents the Sparks solar-and-battery case.",
+      "caution": "Report launched May 28, 2026 at https://www.crusoe.ai/resources/blog/crusoes-2025-impact-report . Operator-reported case, not independent commissioning evidence. Do not imply 350 MW backs up the full 1.2 GW campus. Repeated Sparks availability figures are not a newly measured September interval.",
+      "published_on": "2026-05-28"
+    },
+    {
+      "id": "P106",
+      "title": "Combined Cycle Power Plants",
+      "url": "https://www.siemens-energy.com/global/en/home/products-services/product/combined-cycle-power-plants.html",
+      "publisher": "Siemens Energy",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D02",
+        "D03"
+      ],
+      "use": "Explains the gas-turbine and steam-cycle combination and supplies a clear original full-system diagram, plus single-shaft and multi-shaft layouts. Appropriate for a diagram-dominant CCGT lesson.",
+      "caution": "Manufacturer illustrations simplify auxiliaries. The displayed up-to-64% figure is a vendor maximum in this illustration, not a universal operating efficiency. Keep the original diagram and a compact attribution."
+    },
+    {
+      "id": "P107",
+      "title": "Peaker Plants",
+      "url": "https://www.siemens-energy.com/global/en/home/products-services/product/peaker-plants.html",
+      "publisher": "Siemens Energy",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D02",
+        "D03"
+      ],
+      "use": "Supplies a strong diagram comparing conventional generation roles with renewable-driven load following, and explains why fast flexible gas generation is useful.",
+      "caution": "Load profile is conceptual, not measured grid data. Operating hours and performance claims depend on plant and dispatch conditions. A peaker role does not mean every peaker uses exactly one technology."
+    },
+    {
+      "id": "P108",
+      "title": "What Is a Gas Turbine?",
+      "url": "https://www.gevernova.com/gas-power/resources/education/what-is-a-gas-turbine",
+      "publisher": "GE Vernova",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D02",
+        "D03"
+      ],
+      "use": "Explains compressor, combustion, turbine and generator; embedded original cutaway provides a real manufacturer visual for the simple-cycle mechanism.",
+      "caution": "Cutaway is an explanatory rendering, not a photograph of a particular data-center installation. The image is unlabelled; add restrained overlay labels or explain orally."
+    },
+    {
+      "id": "P109",
+      "title": "Crusoe’s Contracted AI Infrastructure Capacity Approaches 5 Gigawatts Across Data Centers and Cloud",
+      "url": "https://www.crusoe.ai/resources/newsroom/crusoes-contracted-ai-infrastructure-capacity-approaches-5-gigawatts-across-data-centers-and-cloud",
+      "publisher": "Crusoe",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D03"
+      ],
+      "use": "Separates the original 1.2 GW Oracle Abilene campus from a distinct 900 MW Microsoft campus; useful for avoiding scope conflation in later status updates.",
+      "caution": "June 9 status is historical. September Oracle delivery update is newer for the original campus. Company-wide contracted capacity and development pipeline are not operating Abilene capacity.",
+      "published_on": "2026-06-09"
+    },
+    {
+      "id": "P110",
+      "title": "Abilene Data Center Development",
+      "url": "https://www.mortenson.com/projects/abilene-data-center-development",
+      "publisher": "Mortenson",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D03"
+      ],
+      "use": "Revalidates the March 10, 2026 five-transformer energization milestone and distinguishes the initial substation from the later expansion.",
+      "caution": "Rechecked September 12: the public project page still gives the historical March milestone and a planned October 2026 temporary-transformer replacement. Preserve event dates and forecast status; no later completion was established."
+    },
+    {
+      "id": "P111",
+      "title": "Lenovo NVIDIA GB300 NVL72 Rack Scale AI Product Guide",
+      "url": "https://lenovopress.lenovo.com/lp2357-lenovo-nvidia-gb300-nvl72-rack-scale-ai",
+      "publisher": "Lenovo Press",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D12"
+      ],
+      "use": "The named service example uses a 600 mm-wide MGX rack, 29 kg compute tray and 799 mm tray depth including water connections; Lenovo identifies suitable lift support for servicing.",
+      "caution": "Read physical and electrical specifications and Genie Material Lift sections, with rack and rear compute-tray figures. Width and tray mass are product dimensions, not full operating rack mass or service clearance. No universal aisle size, lift configuration, performance or complete design specification is inferred.",
+      "published_on": "2026-08-30"
     }
   ]
 }

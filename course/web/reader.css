@@ -126,8 +126,8 @@ button[hidden],
   text-decoration: none;
   color: var(--ink);
   font-weight: 850;
-  font-size: 17px;
-  letter-spacing: 2px;
+  font-size: clamp(13px, 1.5vw, 17px);
+  letter-spacing: -0.2px;
 }
 .brand > span {
   font-size: 39px;
@@ -189,29 +189,6 @@ button[hidden],
   letter-spacing: 0;
   white-space: nowrap;
   color: var(--muted);
-}
-.contents-filter {
-  display: flex;
-  padding: 3px;
-  gap: 3px;
-  background: var(--soft);
-  border: 1px solid var(--rule);
-  border-radius: 8px;
-  margin-bottom: 20px;
-}
-.contents-filter button {
-  flex: 1;
-  border: 0;
-  border-radius: 5px;
-  background: transparent;
-  padding: 9px 4px;
-  font-size: 11px;
-  line-height: 1.4;
-  color: var(--muted);
-}
-.contents-filter button[aria-pressed="true"] {
-  background: var(--ink);
-  color: var(--on-ink);
 }
 .chapter-group, .chapter-card {
   border-top: 1px solid var(--rule);
@@ -923,8 +900,8 @@ h1 {
     display: none;
   }
   .brand {
-    font-size: 15px;
-    letter-spacing: 1.4px;
+    font-size: 13px;
+    letter-spacing: -0.3px;
   }
   .book-layout {
     display: block;

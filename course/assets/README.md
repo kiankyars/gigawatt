@@ -91,3 +91,43 @@ reviewed 2026-09-12. This is normalized production DGX-H100 training telemetry,
 embedded unchanged from arXiv with authors and figure number on the slide. The
 article is licensed CC BY-NC-SA 4.0. Later traces are separate original teaching
 models; they are not reconstructed measurements or GB300 performance claims.
+
+
+## September review: requested GPT figures
+
+Three additional figures were generated with the built-in **GPT ImageGen** tool
+on 2026-09-12. The unmodified PNG outputs are in `generated/`; exact prompts are
+in `generated/september-review-prompts.json` and `generated/shared-grid-prompt.json`.
+The request-by-request accounting is in `COURSE_REVIEW.md`.
+
+| Asset | Teaching use | Accuracy boundary |
+| --- | --- | --- |
+| `generated/workload-handoff.png` | Chapter 3 closes on a rack, power measurement, and supply equipment | Generic exteriors, not GB300 anatomy. The code-overlay trace is schematic, not measured telemetry. |
+| `generated/power-configurations.png` | Chapter 4 introduces four normal-supply arrangements, then enlarges each quadrant | Arrows were visually checked for grid imports, local supply and export direction. Backup, protection, switching and grounding are omitted. Not an installation drawing. |
+| `generated/shared-grid.png` | Chapter 4 shows two campus feeds meeting at one upstream substation | Original invented geography; no real-site route, capacity, equipment count or electrical topology is asserted. |
+
+The supplied SemiAnalysis configuration image was not used as a generation
+reference or embedded. The original figure uses the four conventional supply
+categories. Electrical explanations are cross-checked against the primary
+references in the research catalog.
+
+Chapter 4 uses publisher-hosted **GE Vernova gas-turbine/generator anatomy** and
+**Siemens Energy combined-cycle and dispatch diagrams**, inspected 2026-09-12:
+
+- [GE Vernova: What is a gas turbine?](https://www.gevernova.com/gas-power/resources/education/what-is-a-gas-turbine)
+- [Siemens Energy: Combined-cycle power plants](https://www.siemens-energy.com/global/en/home/products-services/product/combined-cycle-power-plants.html)
+- [Siemens Energy: Peaker plants](https://www.siemens-energy.com/global/en/home/products-services/product/peaker-plants.html)
+
+These are actual manufacturer figures, not generated equipment internals.
+The added GE component labels identify the visible stages. The Siemens 64%
+efficiency annotation is a vendor example, not a universal combined-cycle rating;
+its dispatch chart is qualitative, not measured or forecast data.
+
+Oracle's Abilene media comes from its [data-centers page](https://www.oracle.com/data-centers/).
+The aerial and turbine-plant photographs are captioned **15 July 2026**;
+Oracle's **September 2026** capacity status is a separate claim. The course does
+not relabel the photographs as September satellite captures or infer a new MW
+total from Oracle's percentage. Chapter 5 additionally embeds actual Lenovo
+rack and compute-tray views from the [GB300 NVL72 product guide](https://lenovopress.lenovo.com/lp2357-lenovo-nvidia-gb300-nvl72-rack-scale-ai),
+updated 2026-08-30. They show this product's service geometry, not a universal
+rack configuration or full rack operating mass.

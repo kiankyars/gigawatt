@@ -46,6 +46,17 @@
       ]
     },
     {
+      "id": "physical-site",
+      "title": "Physical site, buildings and safety",
+      "chapters": [
+        {
+          "id": "D12",
+          "href": "prototypes/site-format.html?teach=1",
+          "coverage": "chapter"
+        }
+      ]
+    },
+    {
       "id": "ups",
       "title": "UPS, bypass and redundancy",
       "chapters": [

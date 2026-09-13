@@ -7,6 +7,59 @@ Do not download or launch standalone Chrome for Testing or Playwright browser
 binaries here. Existing browser test harnesses remain available for a separately
 configured test environment; run local model and build checks without a browser.
 
+## Chapters 3–5 and root publication — 2026-09-12
+
+The current revision adds three built-in GPT ImageGen figures, rebuilds Chapter 4
+as 23 slides, adds Chapter 5 as 22 slides, and replaces Chapter 3's final visual.
+The course is named From Watts to Tokens. The reader publishes at the root and
+slide decks at `/slides/`, with old query/hash links preserved.
+
+- **72 Python tests and 125 Node tests passed.** New staging checks cover dynamic
+  Reading links, root paths, preserved deep links, recursive image assets and
+  exclusion of local article archives. Four new Chapter 5 model checks cover
+  physical loads, fiber failure and shared controls.
+- Native Codex browser: Chapter 4's 23 slides checked at 1280×720, 390×844 and
+  844×390 (**69 layouts**); **39 control/reveal states**, with repeated selection,
+  were checked across those sizes. No final measured SVG-label collisions,
+  out-of-bounds text or document-width overflow in these checks.
+- Independent Chapter 5 native pass checked all 22 slides at the same three sizes
+  and seven control groups, including repeated selection/restoration. Corrected
+  the narrow captions, borehole label and route geometry found in that pass.
+- Inspected actual GPT configuration/handoff figures and GE/Siemens diagrams;
+  inspected the actual Lenovo rack and tray and Oracle aerial in rendered slides.
+  Oracle embeds require the page's `no-referrer` policy. Its photographs remain
+  publisher-hosted; no image was rehosted to solve the browser problem.
+- Chapter 3's final visual checked at desktop, phone portrait and landscape;
+  phone crops isolate each object and keep the trace labels inside its monitor.
+  Diagram overlays are schematic, not fabricated telemetry.
+- Shared navigation checked across eight existing deck routes plus Chapter 5;
+  Reading follows the selected lesson, Chapter 4 reaches Chapter 5, and legacy
+  URLs retain teaching mode and the selected slide. The reader's filter toggle
+  is removed. Styled chapter links remain keyboard-accessible anchors.
+- Native visual checks used the device's light appearance. Fullscreen preserves
+  that appearance. Dark-mode styles were retained; this pass does not claim a
+  new visual check of every dark-mode state.
+
+The three standalone browser harnesses were updated for current navigation and
+syntax-checked; they were **not executed** or used to launch another browser.
+Native measurements and selected screenshots are the actual browser evidence.
+Passing checks does not claim final author acceptance or beginner comprehension.
+
+### Source-date reconciliation
+
+Abilene's active slide, D03 reading and standalone case ledger use Oracle's
+September 2026 status. The aerial remains dated 15 July 2026. The August Energy
+Transfer update and the May Crusoe impact report provide separate fuel-route and
+bridge-to-backup evidence. No September satellite capture was established.
+
+Keep actual historical dates: Applied Digital's October/November 2025 releases;
+March 10 substation energization; Wolfspeed's March 5 device announcement; OCP's
+March 30 v1.0 paper; and Sparks' March operating-period report. Targeted September
+searches did not establish a replacement OCP revision or a new Sparks measurement
+period. SA32's March analysis remains dated research, not a current tariff quote.
+No blanket publication-date substitution or complete new source-corpus audit is
+claimed.
+
 ## Navigation, generation, reliability and rack power — 2026-09-12
 
 The review adds eight generation/dispatch scenes to Section 4 (26 total), four

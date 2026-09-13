@@ -31,16 +31,22 @@ in its author notes. Provide a visible Back to course exit throughout the deck.
 The primer adds no assessed objective;
 teach each concept in context when it becomes useful in the main course.
 Keep the N+1 definition and spare-module example; omit the sentence promising a
-later surviving-service test. Citation controls are discretionary: the restriction
-is on chapter pointers and future-teaching promises, not source citations.
+later surviving-service test. Keep source discussion in the reader. Essential figure attribution may sit beside
+a sourced image; it is not an explanation/source popup.
 
 Use numbered descriptive chapter names in the website and presentations, beginning
 with **1. Primer**. Stable internal IDs remain for source mapping and existing
 links, but are not audience-facing labels.
 
+The public title is **From Watts to Tokens**. The reader is at the site root and
+presentations use `/slides/…` addresses. Every slide header has **Back to course**
+and **Reading**; no explanation/source dialog or note launcher. Deeper text and
+source discussion belong in the reader. Chapter actions use the shared button
+style; the directory has no All chapters / Slides available filter.
+
 Every teaching presentation and student exploration view has a visible
 **← Back to course** link at the left of its header. It returns to the main
-course's slides view. A logo or a lesson-specific reading link does not replace
+course directory at the site root. A logo or a lesson-specific reading link does not replace
 that exit. Keep it available in fullscreen and at narrow widths.
 
 Data center overview remains a broad orientation: preview the equipment, locations and paths
@@ -89,19 +95,19 @@ Do not force a quiz or answer reveal into every ending.
 
 ### Required section handoffs
 
-Before marking a section's teaching material complete, check its required case
-below, place the case in the teaching order and record its deck/scene link in the
-last column. These cases already have reader treatments and standalone teaching
+Use the cases below when they teach the section’s engineering question, and
+record their integrated location in the last column. A new case can replace one
+whose consequence is already taught; do not add a detour solely to satisfy the table. These cases already have reader treatments and standalone teaching
 scenes; **none of those establishes integration into the relevant chapter deck**.
 The open production tasks remain in [the course review](COURSE_REVIEW.md#next-teaching-step).
 
-| Section | Required teaching case | Existing standalone scenes | Chapter integration |
+| Section | Case and teaching consequence | Existing standalone scenes | Chapter integration |
 | --- | --- | --- | --- |
 | Siting, grid connection and supply (`d03`) | SemiAnalysis's Southaven/MiniHard procurement workaround: equipment lead time versus the consequences of MV distribution | [Procurement](prototypes/case-studies.html?teach=1#procurement), [current comparison](prototypes/case-studies.html?teach=1#current) | Integrated in Section 4: [route](prototypes/siting-format.html?teach=1#procurement-route), [current](prototypes/siting-format.html?teach=1#transport-current), [circuits](prototypes/siting-format.html?teach=1#parallel-circuits), [decision](prototypes/siting-format.html?teach=1#procurement-decision); authored draft |
 | Continuity, storage and protection (`d05`) | Crusoe/Redwood in Sparks: solar power, battery energy, discharge power and grid backup | [Solar and battery](prototypes/case-studies.html?teach=1#sparks), [availability](prototypes/case-studies.html?teach=1#availability) | Pending |
 | Storage, orchestration and recovery (`d09`) | Google flexible scheduling: which work can move without missing its service requirement? | [Demand response](prototypes/case-studies.html?teach=1#demand-response) | Pending |
 | Heat rejection, climate and water (`d11`) | Abilene cooling: closed coolant loops, outdoor heat rejection and the boundary of water-use claims | [Abilene cooling](prototypes/case-studies.html?teach=1#abilene-cooling) | Pending; existing cooling deck does not yet integrate this case |
-| Physical site, buildings and safety (`d12`) | Greenfield versus brownfield, using Abilene and original Colossus; factory reuse still required new power infrastructure | [Land comparison](prototypes/case-studies.html?teach=1#land), [original Colossus](prototypes/case-studies.html?teach=1#colossus) | Pending |
+| Physical site, buildings and safety (`d12`) | Greenfield versus brownfield, using Abilene and original Colossus; factory reuse still required new power infrastructure | [Land comparison](prototypes/case-studies.html?teach=1#land), [original Colossus](prototypes/case-studies.html?teach=1#colossus) | Integrated in Chapter 5: [greenfield/brownfield](prototypes/site-format.html?teach=1#greenfield-brownfield) and [Colossus](prototypes/site-format.html?teach=1#colossus-service); current checks recorded in [TESTING.md](TESTING.md) |
 | Capacity, cost and system decisions (`d15`) | Abilene's dated capacity milestones: distinguish the original campus, adjacent project, energized capacity and useful output | [Capacity ledger](prototypes/case-studies.html?teach=1#abilene-ledger) | Pending |
 
 For **Design, procurement and commissioning (`d13`)**, adapt the existing reader
@@ -110,14 +116,15 @@ and site work; parallel schedules; design freezes; transport; and ownership of
 module interfaces. Hold 20 MW constant while 200 × 100 kW racks become 100 × 200 kW
 just before fabrication. Require the learner to decide what proceeds, what is held
 and which electrical, hydraulic, spatial and schedule evidence releases each hold.
-Retain the existing boundary check as the closing transfer exercise.
+Close with the interface consequences or a meaningful changed-design problem;
+the reader’s boundary check is available without forcing it into the slides.
 
 At every section handoff, verify the next chapter is reachable, check any Abilene
 claim against its dated source and update the chapter's
 presentation status. A reader draft, standalone case and integrated deck are
 different completion states.
 Register each deck in [the teaching catalog](teaching-sequences.json) so it appears
-in the sidebar's **Slides available** view. Classify whether it teaches the chapter
+in the single chapter directory. Classify whether it teaches the chapter
 or selected topics; a partial sequence must not imply a complete chapter deck.
 Chapter numbers are generated from the curriculum teaching order; do not maintain a separate numbering list.
 
@@ -139,12 +146,11 @@ Use these rules when adapting each sequence:
    one dominant visual, and essential labels, quantities and assumptions beside
    their objects. Remove competing bottom summaries and repeated titles. Put
    exceptions, source discussion and longer derivations in the reference or an
-   optional view. An essential reasoning step must remain visible without notes.
+   written reference. An essential reasoning step must remain visible without notes.
    Remove standalone slides that merely repeat an obvious observation or an
    arithmetic identity. Put useful equations where they explain a design choice.
    Introduce their meaning in the teaching sequence; keep the formal model name,
-   full term definitions and derivation available in the reference or optional
-   explanation. A formula can stand alone on the teaching visual while the
+   full term definitions and derivation available in the written reference. A formula can stand alone on the teaching visual while the
    instructor explains it. Keep assumptions visible when they change the answer.
 4. **Control the comparison.** Keep the load, boundary, operating state and
    measurement convention fixed until a change is explicitly introduced. Show
@@ -204,12 +210,19 @@ account being calculated and show assumptions at the result.
   A capacitor reaching a shutdown voltage is not empty; a schematic state is not
   an operating procedure; a nameplate rating is not surviving service capacity.
 
-Use code-rendered diagrams for connections, quantities and failure states.
-Generated images can orient the learner, but visual inspection cannot validate
-wiring, piping or anatomy. Follow the existing [image role limits](assets/README.md)
-and replace misleading details. Source photographs need the correct product,
-configuration and provenance. Motion must explain a defined change and remain
-intelligible when paused.
+Choose the visual that teaches the mechanism: a GPT-generated illustration,
+manufacturer diagram, real photograph, code-rendered comparison or a combination.
+When the user asks for image generation, produce the asset or record a specific,
+local reason for another visual in the existing review tracker. Do not silently
+skip it or invoke a general ban on generated mathematical/technical diagrams.
+A useful combination is generated physical context with inspectable labels,
+curves or states overlaid in code. Verify each arrow, label, unit, connection and
+operating state against the intended model; appearance alone proves none of them.
+Existing [asset-specific limits](assets/README.md) describe those particular images,
+not a prohibition on future generated teaching visuals. Prefer the actual named
+product/site photograph or manufacturer diagram when identity and anatomy are
+part of the lesson. Motion must explain a defined change and remain intelligible
+when paused.
 
 ## Author in the existing sources
 
@@ -248,8 +261,7 @@ student, teaching and reference calculations consistent.
 
 ## Rehearse and check the section
 
-Teach without recording and without requiring speaker notes. Optional notes are
-a few cues, never a script. Capture the exact scene and point of confusion; revise
+Teach without recording and without requiring speaker notes. Any private notes remain outside the slide view and contain a few cues, never a script. Capture the exact scene and point of confusion; revise
 that diagram, term or reasoning step and try again. A reader lesson, an implemented
 presentation and a rehearsed explanation are distinct states.
 When handing over a section, identify what is actually taught in its slides and

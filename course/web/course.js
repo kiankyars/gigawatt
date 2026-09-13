@@ -61,7 +61,7 @@ function setLesson(index, focus = false) {
   lessonIndex = Math.max(0, Math.min(lessons.length - 1, index));
   const l = lessons[lessonIndex];
   if (location.hash !== `#${l.id}`) history.pushState(null, "", `#${l.id}`);
-  document.title = `${l.title} — GIGAWATT`;
+  document.title = `${l.title} — From Watts to Tokens`;
   el("eyebrow").textContent = l.eyebrow;
   el("lesson-title").textContent = l.title;
   el("lesson-body").textContent = l.body;

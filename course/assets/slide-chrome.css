@@ -1,0 +1,57 @@
+/* Shared presentation chrome: the slide teaches visually; the reader holds prose. */
+#explain,
+#evidence,
+#open-notes,
+#student-context,
+dialog#reading {
+  display: none !important;
+}
+.toolbar a.reading-link,
+.toolbar a[data-course-reading] {
+  display: inline-flex;
+  align-items: center;
+  color: inherit;
+  font: inherit;
+  font-size: 13px;
+  text-decoration: none;
+  padding: 7px 11px;
+  border: 1px solid var(--rule, #73817c);
+  border-radius: 7px;
+  white-space: nowrap;
+}
+#actions > a,
+.chapter-action,
+.checkin-bridge > a {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 40px;
+  max-width: 100%;
+  padding: 9px 15px;
+  border: 1px solid var(--rule, #73817c);
+  border-radius: 9px;
+  background: var(--paper, Canvas);
+  color: var(--ink, CanvasText);
+  text-decoration: none;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1.4;
+  text-align: center;
+  cursor: pointer;
+}
+#actions > a:hover,
+.chapter-action:hover,
+.toolbar a[data-course-reading]:hover {
+  background: var(--soft, color-mix(in srgb, CanvasText 8%, Canvas));
+}
+#actions > a:focus-visible,
+.chapter-action:focus-visible,
+.toolbar a[data-course-reading]:focus-visible {
+  outline: 3px solid var(--teal, #16897a);
+  outline-offset: 3px;
+}
+@media (max-width: 600px) {
+  .toolbar a.reading-link,
+  .toolbar a[data-course-reading] {font-size: 11px; padding: 6px 8px;}
+}

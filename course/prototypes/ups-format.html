@@ -973,7 +973,7 @@
         }
       }
     </style>
-  </head>
+  <link rel="stylesheet" href="../assets/slide-chrome.css"></head>
   <body>
     <div id="viewer">
       <header class="toolbar">
@@ -1882,7 +1882,7 @@
       function render() {
         const s = scenes[state.index];
         const title = s.reliability ? reliabilityTitle(s, state) : s.title;
-        document.title = `${presentationLabels.ups} · ${title} · GIGAWATT`;
+        document.title = `${presentationLabels.ups} · ${title} · From Watts to Tokens`;
         history.replaceState(null, "", "#" + s.id);
         if (notesMode) {
           $("note-position").textContent =
@@ -2015,5 +2015,5 @@
         .forEach((img) => img.addEventListener("load", placeImageLabels));
       render();
     </script>
-  </body>
+  <script type="module" src="slide-chrome.js"></script></body>
 </html>

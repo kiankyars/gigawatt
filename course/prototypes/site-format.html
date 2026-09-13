@@ -1,0 +1,317 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><meta name="color-scheme" content="light dark"><meta name="description" content="From parcel and connection rights to building layouts, rack service and recovery boundaries."><title>5. Physical site, buildings and safety · From Watts to Tokens</title><link rel="stylesheet" href="../assets/slide-chrome.css"><link rel="preload" as="image" href="https://lenovopress.lenovo.com/assets/images/LP2357/Lenovo_GB300_NVL72_Rack_left_front_v3.jpg"><link rel="preload" as="image" href="https://lenovopress.lenovo.com/assets/images/LP2357/Lenovo%20NVIDIA%20GB300%20Compute%20rear%20view.png"><style>
+      :root {
+        color-scheme: light;
+        --paper: #f4f3ee;
+        --text: #193139;
+        --muted: #5b6c70;
+        --line: #c8d4d4;
+        --panel: #e8eeea;
+        --surface: #fbfcf8;
+        --power: #086e83;
+        --heat: #ac4e2f;
+        --data: #6951a5;
+        font-family:
+          Inter,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        color: var(--text);
+        background: var(--paper);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          color-scheme: dark;
+          --paper: #101b1f;
+          --text: #e8f1ef;
+          --muted: #a8bfbd;
+          --line: #35504f;
+          --panel: #1b2d31;
+          --surface: #142428;
+          --power: #74d9e6;
+          --heat: #f2a387;
+          --data: #c3b2ff;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+      }
+      button,
+      select,
+      a {
+        font: inherit;
+      }
+      a {
+        color: var(--power);
+      }
+      button,
+      select {
+        color: inherit;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        min-height: 40px;
+        padding: 8px 13px;
+        cursor: pointer;
+      }
+      button:hover,
+      select:hover {
+        border-color: var(--muted);
+      }
+      button:disabled {
+        opacity: 0.35;
+        cursor: default;
+      }
+      button[aria-pressed="true"] {
+        color: var(--paper);
+        background: var(--text);
+        border-color: var(--text);
+      }
+      :is(button, select, a, summary):focus-visible {
+        outline: 3px solid var(--heat);
+        outline-offset: 3px;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+      #viewer {
+        height: 100svh;
+        max-width: 1920px;
+        margin: auto;
+        background: var(--paper);
+        display: grid;
+        grid-template-rows: 52px minmax(0, 1fr) 62px;
+      }
+      #viewer::backdrop {
+        background: var(--paper);
+      }
+      .toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        padding: 0 28px;
+        border-bottom: 1px solid var(--line);
+      }
+      .back-to-course {
+        color: inherit;
+        text-decoration: none;
+        letter-spacing: normal;
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .toolbar nav {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .toolbar button,
+      .toolbar nav a {
+        font-size: 12px;
+      }
+      main {
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        padding: 20px 4vw 0;
+        gap: 8px;
+      }
+      h1 {
+        font:
+          400 clamp(29px, 3.3vw, 51px)/1.09 Georgia,
+          serif;
+        letter-spacing: -0.7px;
+        text-wrap: balance;
+        margin: 0;
+        max-width: 1450px;
+      }
+      #stage {
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+      }
+      #diagram {
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+        flex: 1;
+        overflow: visible;
+        font-family: inherit;
+      }
+      #actions {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        flex-wrap: wrap;
+        padding: 0 0 10px;
+      }
+      #actions:empty {
+        display: none;
+      }
+      #actions button {
+        font-size: 13px;
+      }
+      .choices {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        flex-wrap: wrap;
+      }
+      .choices-label {
+        font-size: 12px;
+        color: var(--muted);
+        margin-right: 5px;
+      }
+      footer {
+        border-top: 1px solid var(--line);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        padding: 0 28px;
+      }
+      .navigation {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      #progress {
+        font-size: 12px;
+        font-variant-numeric: tabular-nums;
+        color: var(--muted);
+        min-width: 45px;
+        text-align: center;
+      }
+      #scenes {
+        max-width: 250px;
+        width: min(250px, 35vw);
+        font-size: 13px;
+      }
+      @media (max-width: 600px) {
+        #viewer {
+          height: auto;
+          min-height: 100svh;
+          grid-template-rows: 52px minmax(0, 1fr) 62px;
+        }
+        .toolbar {
+          padding: 0 15px;
+        }
+        .toolbar nav {
+          gap: 6px;
+        }
+        .toolbar button {
+          padding: 6px 9px;
+        }
+        main {
+          padding: 20px 8px 5px;
+          gap: 12px;
+        }
+        main > header {
+          padding: 0 7px;
+        }
+        h1 {
+          font-size: 31px;
+        }
+        #diagram {
+          min-height: 650px;
+          height: 650px;
+          flex: none;
+        }
+        #actions {
+          padding: 5px 7px 12px;
+        }
+        #actions button {
+          font-size: 12px;
+          padding: 8px 11px;
+        }
+        footer {
+          padding: 0 15px;
+          gap: 8px;
+        }
+        #scenes {
+          width: 44vw;
+        }
+        .navigation {
+          gap: 5px;
+        }
+        footer button {
+          padding: 7px 10px;
+        }
+      }
+      @media (max-height: 500px) and (min-width: 601px) {
+        #viewer {
+          height: auto;
+          min-height: 100svh;
+        }
+        #diagram {
+          min-height: 510px;
+        }
+        footer {
+          height: 62px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          scroll-behavior: auto !important;
+        }
+      }
+      @media print {
+        #viewer {
+          height: auto;
+        }
+        .toolbar,
+        footer,
+        #actions {
+          display: none;
+        }
+        #diagram {
+          min-height: 600px;
+        }
+      }
+
+      .choices {border:0;margin:0;padding:0}
+      .choices legend {float:left;padding:10px 5px 10px 0;font-size:12px;color:var(--muted)}
+      #status {position:absolute}
+      @media(max-width:600px){#diagram{height:680px;min-height:680px}.toolbar nav{gap:4px}.toolbar button{font-size:11px}#scenes{max-width:44vw}}
+ .toolbar nav a{text-decoration:none;color:inherit} #actions>a{display:inline-flex;padding:10px 16px;border:1px solid var(--line);border-radius:8px;text-decoration:none;background:var(--surface);font-size:14px} </style></head><body>
+<div id="viewer"><header class="toolbar"><a class="back-to-course" href="../index.html?view=slides">← Back to course</a><nav aria-label="Lesson controls"><a data-course-reading id="lesson-reference" href="../index.html#d12-hazards-and-site-evidence">Reading</a><button id="fullscreen" hidden>Full screen</button></nav></header>
+<main><header><h1 id="title"></h1></header><section id="stage" aria-label="Site, buildings and operating boundaries"><svg id="diagram" role="img" aria-labelledby="diagram-title diagram-description"></svg><div id="actions"></div><p class="sr-only" id="status" role="status"></p></section></main>
+<footer><label class="sr-only" for="scenes">Choose scene</label><select id="scenes"></select><div class="navigation"><button id="previous" aria-label="Previous scene">←</button><span id="progress" aria-live="polite"></span><button id="next" aria-label="Next scene">→</button></div></footer></div>
+<noscript><p>Read the chapter in <a href="../index.html#d12-room-and-replacement-route">the site and building reference</a>.</p></noscript>
+<script type="module">
+import {scenes,initialState} from './site-scenes.js';
+import {renderSite} from './site-visuals.js';
+const $=id=>document.getElementById(id),state={...initialState};
+const teaching=new URLSearchParams(location.search).get('teach')==='1';
+$('fullscreen').hidden=!teaching;
+let index=0;
+for(const[i,s]of scenes.entries())$('scenes').add(new Option(`${i+1} · ${s.label}`,s.id));
+function draw(){const scene=scenes[index],compact=matchMedia('(max-width:600px)').matches,{markup,description}=renderSite(scene.id,state,compact);$('diagram').setAttribute('viewBox',compact?'0 0 390 680':'0 0 1200 560');$('diagram').innerHTML=`<title id="diagram-title">${scene.title}</title><desc id="diagram-description">${description}</desc>${markup}`;$('status').textContent=description;}
+function controls(){$('actions').replaceChildren();for(const group of scenes[index].controls||[]){const field=document.createElement('fieldset');field.className='choices';const legend=document.createElement('legend');legend.textContent=group.label;field.append(legend);for(const[value,label]of group.options){const b=document.createElement('button');b.textContent=label;b.dataset.key=group.key;b.dataset.value=String(value);b.setAttribute('aria-pressed',String(state[group.key]===value));b.onclick=()=>{state[group.key]=value;field.querySelectorAll('button').forEach(button=>button.setAttribute('aria-pressed',String(button===b)));draw();};field.append(b);}$('actions').append(field);}if(index===scenes.length-1){const a=document.createElement('a');a.href='../index.html#d04-read-the-power-train';a.textContent='Next: campus electrical distribution →';$('actions').append(a);}}
+function render(){const s=scenes[index];$('title').textContent=s.title;$('scenes').value=s.id;$('progress').textContent=`${index+1} / ${scenes.length}`;$('previous').disabled=index===0;$('next').disabled=index===scenes.length-1;$('lesson-reference').href='../index.html#'+s.reference;controls();draw();}
+function go(i){index=Math.max(0,Math.min(scenes.length-1,i));history.replaceState(null,'',`#${scenes[index].id}`);render();}
+function fromHash(){const i=scenes.findIndex(s=>s.id===location.hash.slice(1));index=i<0?0:i;render();}
+$('scenes').onchange=e=>go(scenes.findIndex(s=>s.id===e.target.value));$('previous').onclick=()=>go(index-1);$('next').onclick=()=>go(index+1);
+$('fullscreen').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await $('viewer').requestFullscreen();}catch{$('fullscreen').textContent='Use browser full screen';}};
+document.addEventListener('fullscreenchange',()=>{$('fullscreen').textContent=document.fullscreenElement?'Exit full screen':'Full screen';});
+window.addEventListener('keydown',e=>{if(e.altKey||e.ctrlKey||e.metaKey||e.target.closest('button,select,input,textarea,a,[contenteditable]'))return;if(e.key==='ArrowRight'){e.preventDefault();go(index+1);}if(e.key==='ArrowLeft'){e.preventDefault();go(index-1);}if(e.key.toLowerCase()==='f'&&teaching)$('fullscreen').click();});
+window.addEventListener('hashchange',fromHash);matchMedia('(max-width:600px)').addEventListener('change',draw);fromHash();
+</script><script type="module" src="slide-chrome.js"></script></body></html>

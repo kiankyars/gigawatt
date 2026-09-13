@@ -1,7 +1,7 @@
 [project]
 name = "gigawatt"
 version = "0.1.0"
-description = "GIGAWATT: an interactive data center course from watts to racks"
+description = "From Watts to Tokens: an interactive course on AI data centers"
 requires-python = ">=3.12"
 dependencies = [
     "pyyaml>=6.0.3",

@@ -1,4 +1,4 @@
-# GIGAWATT — the domain map
+# From Watts to Tokens — the domain map
 
 <!-- Generated from domain-map.json, research-sources.json and lessons.json. Edit those sources; run uv run gigawatt-map. -->
 
@@ -298,6 +298,9 @@ State an infrastructure design envelope and identify which assumptions a benchma
 - [P96 — vLLM — Inside vLLM: Anatomy of a High-Throughput LLM Inference System](https://vllm.ai/blog/2025-09-05-anatomy-of-vllm) · `page_reviewed` · [local note](../research/sources/P96.md)
 - [P97 — Microsoft, OpenAI and NVIDIA — Power Stabilization for AI Training Datacenters](https://arxiv.org/html/2508.14318v1) · `page_reviewed` · [local note](../research/sources/P97.md)
 - [P98 — ZeRO: Memory Optimizations Toward Training Trillion Parameter Models](https://arxiv.org/html/1910.02054) · `page_reviewed` · [local note](../research/sources/P98.md)
+- [P106 — Combined Cycle Power Plants](https://www.siemens-energy.com/global/en/home/products-services/product/combined-cycle-power-plants.html) · `page_reviewed` · [local note](../research/sources/P106.md)
+- [P107 — Peaker Plants](https://www.siemens-energy.com/global/en/home/products-services/product/peaker-plants.html) · `page_reviewed` · [local note](../research/sources/P107.md)
+- [P108 — What Is a Gas Turbine?](https://www.gevernova.com/gas-power/resources/education/what-is-a-gas-turbine) · `page_reviewed` · [local note](../research/sources/P108.md)
 
 <a id="d03"></a>
 
@@ -408,6 +411,17 @@ Compare utility-only and behind-the-meter supply against energy, capacity, fuel 
 - [P84 — GE Vernova — 7HA gas-turbine and combined-cycle fact sheet](https://www.gevernova.com/content/dam/gepower-new/global/en_US/downloads/gas-new-site/products/gas-turbines/7ha-fact-sheet-product-specifications.pdf) · `page_reviewed` · [local note](../research/sources/P84.md)
 - [EA6791A38DA — GE Vernova — First 7HA.03 commercial operation at FPL Dania Beach](https://www.gevernova.com/gas-power/resources/case-studies/first-7ha-florida-power-light) · `page_reviewed` · [local note](../research/sources/EA6791A38DA.md)
 - [EF3A791E451 — GE Vernova — 2025 Gas Power Catalog, plant configuration comparison](https://www.gevernova.com/content/dam/gepower-new/global/en_US/downloads/noindexpdf/GEA35241-GE-Vernova-Gas-Power-Catalog.pdf) · `page_reviewed` · [local note](../research/sources/EF3A791E451.md)
+- [P100 — Applied Digital Achieves Ready for Service for Phase 1 at Polaris Forge 1](https://ir.applieddigital.com/news-events/press-releases/detail/133/applied-digital-achieves-ready-for-service-for-phase-1-at) · `page_reviewed` · [local note](../research/sources/P100.md)
+- [P101 — Applied Digital Completes Phase II Ready for Service at Polaris Forge 1](https://ir.applieddigital.com/news-events/press-releases/detail/137/applied-digital-completes-phase-ii-ready-for-service-at) · `page_reviewed` · [local note](../research/sources/P101.md)
+- [P102 — Oracle Data Centers: Abilene, Texas](https://www.oracle.com/data-centers/) · `page_reviewed` · [local note](../research/sources/P102.md)
+- [P103 — Energy Transfer August 2026 Investor Presentation](https://ir.energytransfer.com/static-files/1cb70dca-abed-4005-95aa-793e3345626c) · `page_reviewed` · [local note](../research/sources/P103.md)
+- [P104 — Energy Transfer Reports Fourth Quarter 2025 Results](https://ir.energytransfer.com/node/52241/pdf) · `page_reviewed` · [local note](../research/sources/P104.md)
+- [P105 — Crusoe 2025 Impact Report](https://media.ffycdn.net/us/crusoe/PL5TuZz5apXB9pVsd3H1.pdf) · `page_reviewed` · [local note](../research/sources/P105.md)
+- [P106 — Combined Cycle Power Plants](https://www.siemens-energy.com/global/en/home/products-services/product/combined-cycle-power-plants.html) · `page_reviewed` · [local note](../research/sources/P106.md)
+- [P107 — Peaker Plants](https://www.siemens-energy.com/global/en/home/products-services/product/peaker-plants.html) · `page_reviewed` · [local note](../research/sources/P107.md)
+- [P108 — What Is a Gas Turbine?](https://www.gevernova.com/gas-power/resources/education/what-is-a-gas-turbine) · `page_reviewed` · [local note](../research/sources/P108.md)
+- [P109 — Crusoe’s Contracted AI Infrastructure Capacity Approaches 5 Gigawatts Across Data Centers and Cloud](https://www.crusoe.ai/resources/newsroom/crusoes-contracted-ai-infrastructure-capacity-approaches-5-gigawatts-across-data-centers-and-cloud) · `page_reviewed` · [local note](../research/sources/P109.md)
+- [P110 — Abilene Data Center Development](https://www.mortenson.com/projects/abilene-data-center-development) · `page_reviewed` · [local note](../research/sources/P110.md)
 
 <a id="d04"></a>
 
@@ -627,6 +641,7 @@ Explain why fault clearing and grounding require topology-specific AC/DC protect
 - [P88 — Analog Devices — Smart Battery Backup for Uninterrupted Energy, Part 4: BBU Shelf Operation](https://www.analog.com/en/resources/analog-dialogue/articles/smart-battery-backup-for-uninterrupted-energy-part4.html) · `page_reviewed` · [local note](../research/sources/P88.md)
 - [P90 — Texas Instruments — The decoupling capacitor: is it really necessary?](https://e2e.ti.com/blogs_/archives/b/precisionhub/posts/the-decoupling-capacitor-is-it-really-necessary) · `page_reviewed` · [local note](../research/sources/P90.md)
 - [P97 — Microsoft, OpenAI and NVIDIA — Power Stabilization for AI Training Datacenters](https://arxiv.org/html/2508.14318v1) · `page_reviewed` · [local note](../research/sources/P97.md)
+- [P105 — Crusoe 2025 Impact Report](https://media.ffycdn.net/us/crusoe/PL5TuZz5apXB9pVsd3H1.pdf) · `page_reviewed` · [local note](../research/sources/P105.md)
 
 <a id="d06"></a>
 
@@ -1341,6 +1356,8 @@ Trace physical and control-system access boundaries and explain why availability
 - [P76 — Crusoe — 2025 impact report web summary](https://www.crusoe.ai/resources/blog/crusoes-2025-impact-report) · `page_reviewed` · [local note](../research/sources/P76.md)
 - [P78 — MLGW — xAI project quick facts](https://www.mlgw.com/images/content/files/pdf/2024xAI%20and%20MLGW%20Quick%20Facts%201.pdf) · `page_reviewed` · [local note](../research/sources/P78.md)
 - [SA42 — SpaceX 10GW in 2027 — construction pace and equipment procurement](https://newsletter.semianalysis.com/p/spacex-10gw-in-2027-why-its-real) · `public_excerpt_reviewed` · [local note](../research/sources/SA42.md)
+- [P102 — Oracle Data Centers: Abilene, Texas](https://www.oracle.com/data-centers/) · `page_reviewed` · [local note](../research/sources/P102.md)
+- [P111 — Lenovo NVIDIA GB300 NVL72 Rack Scale AI Product Guide](https://lenovopress.lenovo.com/lp2357-lenovo-nvidia-gb300-nvl72-rack-scale-ai) · `page_reviewed` · [local note](../research/sources/P111.md)
 
 <a id="d13"></a>
 

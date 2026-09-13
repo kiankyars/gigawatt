@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="color-scheme" content="light dark" />
 <meta name="description" content="Primer: electricity, computing and cooling concepts through diagrams and examples." />
-<title>Primer · GIGAWATT</title>
+<title>Primer · From Watts to Tokens</title>
 <style>
       :root {
         color-scheme: light;
@@ -307,7 +307,7 @@
 
 @media(max-width:600px) { .toolbar .course-link {font-size:11px;} .toolbar button {font-size:11px;padding:6px;} .toolbar {padding:0 10px;gap:5px;} }
 </style>
-</head>
+<link rel="stylesheet" href="../assets/slide-chrome.css"></head>
 <body>
 <div id="viewer">
 <header class="toolbar"><a class="course-link" href="../index.html?view=slides">← Back to course</a><nav aria-label="Presentation controls"><button id="fullscreen" hidden>Full screen</button></nav></header>
@@ -335,7 +335,7 @@ function draw(){
 }
 function render(){
  const s=scenes[index];
- $('title').textContent=s.title;document.title=`${presentationLabels.primer} · ${s.label} · GIGAWATT`;
+ $('title').textContent=s.title;document.title=`${presentationLabels.primer} · ${s.label} · From Watts to Tokens`;
  $('scenes').value=String(index);$('progress').textContent=`${index+1} / ${scenes.length}`;
  $('previous').disabled=index===0;$('next').disabled=index===scenes.length-1;
  $('actions').innerHTML=s.options?`<div class="choices" role="group" aria-label="${s.group}"><span class="choices-label" aria-hidden="true">${s.group}</span>${s.options.map(([value,label])=>`<button data-setting="${s.key}" data-value="${value}" aria-pressed="${state[s.key]===value}">${label}</button>`).join('')}</div>`:'';
@@ -350,5 +350,5 @@ document.addEventListener('fullscreenchange',()=>{$('fullscreen').textContent=do
 window.addEventListener('keydown',e=>{if(e.altKey||e.ctrlKey||e.metaKey||e.target.closest('button,select,input,textarea,a,[contenteditable]'))return;if(e.key==='ArrowRight'){e.preventDefault();go(index+1);}if(e.key==='ArrowLeft'){e.preventDefault();go(index-1);}if(e.key.toLowerCase()==='f'&&teaching)$('fullscreen').click();});
 window.addEventListener('hashchange',fromHash);matchMedia('(max-width:600px)').addEventListener('change',draw);fromHash();
 </script>
-</body>
+<script type="module" src="slide-chrome.js"></script></body>
 </html>

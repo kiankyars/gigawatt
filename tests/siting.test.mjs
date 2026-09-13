@@ -4,7 +4,7 @@ import { scenes, initialState } from '../course/prototypes/siting-scenes.js';
 import { renderSiting } from '../course/prototypes/siting-visuals.js';
 
 test('every authored state renders with an accessible account at both layout sizes',()=>{
- assert.equal(scenes.length,26);
+ assert.equal(scenes.length,23);
  assert.equal(new Set(scenes.map(s=>s.id)).size,scenes.length);
  for(const scene of scenes){
   const states=[initialState];

@@ -1,10 +1,10 @@
-# GIGAWATT — filled-in course review template
+# From Watts to Tokens — filled-in course review template
 
 Updated **2026-09-12**. **Start here for the course design.** This is the course's
 instance of the [freeCodeCamp course review template](https://github.com/kiankyars/youtube/blob/main/freecodecamp/course-review-template.md),
 using its [evidence-based improvement system](https://github.com/kiankyars/youtube/blob/main/freecodecamp/improvement-system.md).
 The shared template remains in the YouTube repository; this filled-in copy owns
-GIGAWATT's learner contract, scope, companion commitments, production priorities
+From Watts to Tokens's learner contract, scope, companion commitments, production priorities
 and release decisions.
 
 The [domain map](DOMAIN_MAP.md) owns detailed objectives, prerequisites, sequence
@@ -15,26 +15,12 @@ Those documents implement this design rather than establishing separate course s
 Use the domain map to look up the section being prepared; there is no need to
 read it end to end.
 
-**Current state:** 50 authored draft lessons cover 65 objective IDs. The thirteen-scene
-800 V DC sample and 21-scene UPS sequence are implemented teaching prototypes.
-The eleven-scene rack-power sequence traces PSU-to-die conversion and local
-energy storage. Section 4 has 26 scenes, including eight on gas generation,
-combined cycle, grid dispatch and operating-duty economics.
-A fourteen-scene cooling presentation extends that approach to capture methods,
-CDU ratings and approach, weather and outdoor heat rejection.
-A separate [Primer](prototypes/terminology-format.html) introduces
-electricity basics and recurring terminology before the core course. Its 21 slides
-have a 20-minute target that remains provisional until rehearsal.
-The thirteen-scene Data center overview remains intact: it tours generation, transmission, campus power, backup,
-GB300 hardware, compute, networks and cooling before introducing load, energy and PUE.
-The rebuilt [Workloads and requirements presentation](prototypes/workload-format.html)
-has 18 scenes anchored on GB300 NVL72 and a named 70B model: memory, token service,
-measured training-power evidence and the resulting supply brief. The current
-requested edits and technical checks are complete; the revised slides are ready for
-the next author pass. Kian’s feedback is tracked below.
-These cover selected parts of the curriculum; they do not establish finished domains.
-Technical review, learner review, adaptation of the remaining material, recording
-and delivery remain pending. Prepare and rehearse one section at a time.
+**Current state:** 50 reader lessons map to 65 objective IDs. The course advances
+section by section. The Primer, overview, workloads, supply and physical-site
+decks are authored; UPS, rack power, 800 V and cooling cover selected later topics.
+The table below owns their exact scope and review state. The current revision rebuilds
+Chapter 4, adds Chapter 5, repairs Chapter 3’s final visual and simplifies shared
+navigation. Current checks are recorded in [TESTING.md](TESTING.md#chapters-35-and-root-publication--2026-09-12). Kian’s review remains separate.
 
 ## Chapter review tracker
 
@@ -49,10 +35,10 @@ release does not restart an unchanged chapter’s review.
 | Chapter | Authored presentation | Technical checks | Author review / next action |
 | --- | --- | --- | --- |
 | 1. [Primer](prototypes/terminology-format.html?teach=1) | 21 slides | Latest requested revisions checked; [record](TESTING.md#primer-watts-polarity-and-three-phase-power--2026-09-12) | **Previous feedback addressed; final acceptance unrecorded.** No repeat review assigned. |
-| 2. [Data center overview](prototypes/orientation-format.html?teach=1) | 13-slide draft; current edits implemented | Model/build/browser checks passed; [scope](TESTING.md#overview-and-workload-review--2026-09-12) | **Active review.** Changed networking, CDU and capacity-title slides are the next author pass . |
-| 3. [Workloads and requirements](prototypes/workload-format.html?teach=1) | Rebuilt 18-slide draft | Model/build/browser checks passed; [scope](TESTING.md#overview-and-workload-review--2026-09-12) | **Active review.** Revised sequence is the next author pass ; no author acceptance recorded. |
-| 4. [Siting, grid connection and supply](prototypes/siting-format.html?teach=1) | 26-slide draft | Recorded in [testing](TESTING.md) | **New draft; author review pending.** Continue here after Chapters 2–3. |
-| 5. Physical site, buildings and safety | Reader draft; own deck unbuilt | Reader/build checks only | Presentation not yet assigned for review. |
+| 2. [Data center overview](prototypes/orientation-format.html?teach=1) | 13-slide draft | Prior content pass [checked](TESTING.md#overview-and-workload-review--2026-09-12); shared navigation checked in the current release | **Active review.** Networking, CDU and capacity-title feedback implemented; no general restart. |
+| 3. [Workloads and requirements](prototypes/workload-format.html?teach=1) | 18 slides; final visual rebuilt with GPT ImageGen | Previous pass checked; new ending and shared navigation checked in the current release | **Active review.** Revisit the changed final visual, not every resolved slide. |
+| 4. [Siting, grid connection and supply](prototypes/siting-format.html?teach=1) | Rebuilt 23-slide draft | Current model, source and native-browser checks recorded in [TESTING.md](TESTING.md#chapters-35-and-root-publication--2026-09-12) | **Active revision.** Cases, configuration overview and turbine sequence implement the review below. |
+| 5. [Physical site, buildings and safety](prototypes/site-format.html?teach=1) | Independent agent authored 22-slide draft | Current model, source and native-browser checks recorded in [TESTING.md](TESTING.md#chapters-35-and-root-publication--2026-09-12) | **First author pass pending.** Built from the accumulated teaching rules; no claim of one-shot acceptance. |
 | 6. Campus and building power distribution | Reader draft; own deck unbuilt | Reader/build checks only | Presentation not yet assigned for review. |
 | 7. [Continuity, storage and protection](prototypes/ups-format.html) | Selected UPS topics, 21 slides | Model/browser checks recorded | Earlier UPS sequence iterated; new Tier comparison awaiting review. **Whole chapter incomplete.** |
 | 8. Rack power and the 800 V DC transition | Selected [800 V](teach.html) and [rack-to-chip](prototypes/rack-power-format.html?teach=1) decks | Model/browser checks recorded | 800 V sequence iterated; rack-to-chip addition awaiting review. **Whole chapter incomplete.** |
@@ -73,7 +59,7 @@ spoken runtime, beginner comprehension or final author acceptance has been obser
 
 ## Learner contract
 
-- **Working title:** GIGAWATT — Modern AI Data Centers: From Watts to Racks and Useful Compute.
+- **Title:** From Watts to Tokens — A visual course on AI data centers. The Python package, command names and GitHub repository slug remain `gigawatt`.
 - **Intended learner:** A technically curious viewer, software or ML practitioner, or infrastructure analyst who wants to reason about how an AI data center works and evaluate architecture claims. The course does not assume prior facilities engineering experience.
 - **What they already know:** Arithmetic, percentages, unit conversion, and how to read a simple graph. Explain any additional algebra and introduce electrical, thermal, and computing vocabulary before relying on it.
 - **What they do not yet know:** How grid service becomes usable rack power; how heat reaches the environment; how compute, memory, networking, and storage interact; and how commissioning, failures, maintenance, and delivery constraints determine usable service.
@@ -128,13 +114,13 @@ relationships. Current authored lesson-to-objective mappings are generated in
 | [Reader and lesson notes](index.html)                     | Drafted explanations, worked examples, tradeoffs, failure cases and changed-scenario answers                           | Complete claim review, learner comprehension checks and final narration              |
 | [Five capstones](DOMAIN_MAP.md#proposed-capstones)        | Drafted synthetic briefs and worked solutions; scope belongs to the domain map                                         | Check assumptions and demonstrate transfer across domains                            |
 | [Workloads and requirements](prototypes/workload-format.html) | Rebuilt 18-scene sequence; current requested edits implemented | Review the revised sequence |
-| [800 V DC presentation](teach.html)                       | Thirteen authored visual scenes, separate notes, student explanations and shared calculations                               | Rehearse the revised copper/space premise and conversion-placement ending                |
+| [800 V DC presentation](teach.html)                       | Thirteen visual scenes with shared calculations; longer explanations and sources stay in the reader                               | Rehearse the revised copper/space premise and conversion-placement ending                |
 | [UPS, bypass and redundancy](prototypes/ups-format.html) | 21 visual scenes with power-path changes, surviving-capacity exercises and a separate Tier/availability comparison | Dry-run the minimal-text format and report unclear mechanisms or terminology |
 | [Rack inlet to chip](prototypes/rack-power-format.html) | Eleven scenes covering PSU modules, the rear busbar, board regulation, BBUs and storage locality | Dry-run the new mechanisms and repeated-burst prediction |
-| [Siting, grid connection and supply](prototypes/siting-format.html) | 26 scenes, including gas-turbine/combined-cycle mechanisms and controlled dispatch and utilization comparisons | Review after the overview and workloads |
+| [Siting, grid connection and supply](prototypes/siting-format.html) | 23 revised scenes, with phased delivery, four supply configurations and manufacturer turbine/dispatch diagrams | Review after the overview and workloads |
 | Search, glossary and practice                             | Implemented in the reader                                                                                              | Check findability, first-use vocabulary and learner reasoning                        |
 | Numerical models                                          | Eight bounded model types with arithmetic checks                                                                       | Specialist review of physical boundaries and any real-case inputs                    |
-| [Illustrations](assets/README.md)                         | Five ImageGen orientation images with preserved prompts; exact engineering labels and calculations rendered separately | Verify final-size legibility and narration                                           |
+| [Illustrations](assets/README.md)                         | Five existing equipment illustrations plus three new GPT images for the current review; prompts preserved and asset-specific limits recorded | Verify final-size legibility and narration                                           |
 | [Research library](../research/INDEX.md)                  | Persistent source notes and lesson-specific claims with access/read limits                                             | Resolve unsupported, inaccessible, disputed and date-sensitive claims                |
 | Persistent facility artifact, recorded edition and errata | Planned; individual lesson artifacts and source manifests exist                                                        | Connect the course-wide artifact, freeze the video edition and establish corrections |
 
@@ -165,11 +151,13 @@ through the same content:
   find a concise answer, relevant boundary, visual and worked treatment without
   repeating the entire course.
 
-Student exploration is the default public visual experience. A deliberate
-teaching endpoint adds instructor controls and separate presenter notes. The
-written reference holds derivations, terminology, source claims and limitations.
-All three use the same explanations and numerical models. The sample implements
-these surfaces; the full course does not yet have authored presentation sequences.
+The reader is published at the site root; presentations use concise `/slides/`
+addresses. A teaching route adds fullscreen controls. Every slide header has
+**Back to course** and a **Reading** link; explanation/source dialogs and speaker-note
+launch buttons are removed from slide views. The reader holds derivations,
+terminology, source claims and limitations. Existing links redirect while preserving
+their query and slide selection. Editable sources remain grouped by concern in
+`course/`; publication paths do not create another editable copy.
 
 The original Crusoe-built Stargate campus in **Abilene, Texas** is the recurring
 real campus reference. Keep the adjacent Microsoft project separate, retain dates
@@ -227,10 +215,10 @@ and a purpose. The companion lets students revisit, explore and practise indepen
 
 Within each section: **pose a problem → show the mechanism → work an example →
 change one condition → explain the result**. Ask brief prediction questions during
-the explanation. At a domain boundary, use one short scenario that tests the main
-idea, invite viewers to pause, then show the reasoning and connect it to the next
-problem. For continuity, that might mean removing a UPS for maintenance and then
-losing another unit: what can still run, and why?
+the explanation. Close with the engineering consequence and a direct connection to the next
+chapter. Use a changed scenario only when it advances the reasoning. For continuity,
+removing a UPS for maintenance and then losing another unit can reveal a surviving
+path; asking whether a displayed number is below a threshold does not earn a slide.
 
 The reading companion now includes fifteen domain check-ins with answer
 reveals and transitions. The case-study companion provides short authored teaching
@@ -244,7 +232,58 @@ sequences still need authorship and dry runs.
 
 ### Next teaching step
 
-#### Current review — Chapters 2 and 3, 12 September 2026
+#### Current revision — course navigation and Chapters 3–5
+
+Each row records the requested change and its local resolution. **Implemented**
+means authored in the working revision; current release validation and final author
+acceptance are recorded separately in the chapter tracker.
+
+| Request | Resolution / status |
+| --- | --- |
+| Rename the course | **From Watts to Tokens** is the public course name. Package, CLI and repository identifiers remain stable. |
+| Independent agent starts and finishes Chapter 5 using all accumulated feedback | [Physical site deck](prototypes/site-format.html?teach=1): authored independently around real cases, explicit purpose, minimal text, physical routes and meaningful failures. Current integration checks passed. |
+| Remove All chapters / Slides available toggle | Removed. One chapter directory shows reading and available slides. Mobile **Chapters** remains the control that opens that directory. |
+| Remove explanation and source UI from all slide views | Shared slide chrome removes those controls and note launchers; **Reading** remains. Current cross-deck integration checks passed. |
+| Publish at the root with concise slide URLs | Staging publishes the reader at `/` and decks at `/slides/…`; old `course/prototypes` links redirect with query and hash preserved. Original source ownership remains grouped in `course/`. |
+| Replace default-blue underlined chapter check-in links | Chapter actions share designed button styling. Practice stays optional; a useful handoff can replace a quiz. |
+| Give Chapter 4 a clear opening purpose | [Opening](prototypes/siting-format.html?teach=1#siting-purpose) establishes delivery date, connections, operating arrangement and generation duty before the cases. |
+| Replace trivial readiness arithmetic with CoreWeave phased delivery | [Polaris Forge 1](prototypes/siting-format.html?teach=1#site-ready): Applied Digital reported 50 MW Ready for Service on 27 October 2025, then another 50 MW on 24 November. The contracted campus was 400 MW; the first building was 100 MW. |
+| Show a real gas-pipeline connection and locate the Colossus case | [Abilene gas lateral](prototypes/siting-format.html?teach=1#parcel-connections) uses Energy Transfer’s August 2026 update. Original Colossus belongs in [Chapter 5](prototypes/site-format.html?teach=1#colossus-service). No unverified pipe diameter is asserted. |
+| Teach BTM generation becoming backup after grid connection | [Bridge to backup](prototypes/siting-format.html?teach=1#bridge-to-backup) uses Crusoe’s stated strategy. Controls, fuel, permitting and supported modes must suit both roles; conversion is not assumed automatic. |
+| Replace the four-box grid diagram with a generated spatial visual | [Shared network](prototypes/siting-format.html?teach=1#grid-connection) uses `shared-grid.png`; hypothetical geography explains a common upstream constraint. |
+| Motivate the Abilene example and update current status | [Phased campus](prototypes/siting-format.html?teach=1#abilene-phase) follows the release/connection cases. Oracle’s September 2026 statement is separate from the adjacent Microsoft project. |
+| Add an Abilene satellite view from September | A publisher aerial dated **15 July 2026** is used with its date visible. No September satellite capture was established; the course does not present this image as one. |
+| Refresh March 2026 claims across the repository | Abilene’s active slides, D03 reading and case ledger now use the September Oracle update. Historical events, OCP document revisions and Sparks measurement periods retain their actual dates. The bounded reconciliation and unchanged historical sources are recorded in [TESTING.md](TESTING.md#source-date-reconciliation). |
+| Replace the supplied wordy four-configuration image | Original GPT-generated [four-part overview](prototypes/siting-format.html?teach=1#power-configurations) uses grid-supplied, grid-parallel, export-only and off-grid. The supplied image is not reused; source-derived definitions retain their evidence in the reader. |
+| Put the configuration overview before four deep dives | The next four slides follow that exact order, with explicit import/local-supply/export/island boundaries. |
+| Resolve the unexplained slide 6 and nighttime-battery detour | Old purchase/matching/island fragments are replaced by the configuration sequence. Storage belongs inside the clearly named off-grid discussion, with no invented Crusoe solar scenario. Old slide URLs have aliases. |
+| Remove the old trivial slide 12 | The generic fuel-available/fuel-lost toggle is replaced by the actual pipeline-connection case. Generation separately opens with a simple-cycle versus combined-cycle overview and manufacturer diagrams. |
+| Clearly introduce simple cycle and CCGT; use manufacturer visuals on the turbine slides | [Generation overview](prototypes/siting-format.html?teach=1#generation-options), [gas turbine](prototypes/siting-format.html?teach=1#gas-shaft) and [CCGT](prototypes/siting-format.html?teach=1#combined-cycle) give the technology a name and purpose. Siemens and GE figures are cited and dominate the relevant slides. |
+| Apply the same source-figure approach to dispatch | [Dispatch](prototypes/siting-format.html?teach=1#grid-dispatch) uses Siemens’ illustrative supply profiles; no measured daily forecast is implied. |
+| Repair Chapter 3’s final visual and act explicitly on image-generation requests | [Workload handoff](prototypes/workload-format.html?teach=1#next-brief) now uses `workload-handoff.png` with an inspectable schematic power trace. Image requests and the two deliberate code-rendered choices are accounted for below. |
+
+#### Image-request accounting
+
+An image request receives a generated/sourced asset **or a specific recorded
+reason for a different visual**. A generic preference against generated diagrams
+is not a reason to silently skip a request.
+
+| Request in the course reviews | Action and reason |
+| --- | --- |
+| Initial request to use GPT ImageGen for teaching visuals across the course | Five existing assets: [campus](assets/campus-cutaway.png), [rack](assets/rack-anatomy.png), [cooling](assets/cooling-cutaway.png), [power](assets/power-equipment.png), [network](assets/network-equipment.png). Their original prompts and asset-specific limits are in [assets](assets/README.md); this does not claim that every remaining chapter is illustrated. |
+| Improve AI equipment accuracy and weak flow diagrams | UPS, rack power, 800 V and cooling use checked functional diagrams and named manufacturer views where connections or anatomy matter. Each original generated equipment asset retains its specific allowed role rather than being treated as validated machinery. |
+| Optional GPT images for the Chapter 3 training/inference comparison | Kept the two code-rendered panels: the operations and state changes must remain simultaneously legible and inspectable, including the exact distinction between prefill, decode and training updates. This is a local design choice, not a prohibition on generated teaching diagrams. |
+| Optional GPT image for same-work energy | Kept the code-scaled comparison table: 80% power × 150% duration = 120% energy must compare directly against the same accepted work. A decorative scene would obscure the scale relationship. |
+| GPT image for Chapter 4’s shared-grid slide | Generated [shared-grid.png](assets/generated/shared-grid.png); both campuses visibly depend on the same upstream network. [Prompt](assets/generated/shared-grid-prompt.json). |
+| GPT image simplifying the four power configurations | Generated [power-configurations.png](assets/generated/power-configurations.png), with four headings and minimal directional content; the supplied wordy image is not reused. [Prompt record](assets/generated/september-review-prompts.json). |
+| Latest request for Chapter 3’s ending and for multiple image requests to be acted on | Generated [workload-handoff.png](assets/generated/workload-handoff.png), plus the two Chapter 4 images above. The power trace and labels remain inspectable overlays. [Prompt record](assets/generated/september-review-prompts.json). |
+| Siemens/manufacturer diagrams for simple cycle, CCGT and dispatch | Use actual Siemens/GE diagrams with attribution, as requested; generated reconstructions would lose the named source’s precise mechanism. |
+| Real data-hall, GB300 rear busbar, UPS and CoolIT CDU examples | Use manufacturer/operator photographs of the named equipment or site. A generated reconstruction cannot establish its identity or anatomy. |
+| User-supplied 800 V architecture, OCP and SST-market figures | Retained as sourced reference figures in their relevant lessons, with provenance and forecast/design limits in [asset records](assets/README.md). |
+| Current Abilene satellite/aerial request | Use the dated publisher aerial described above; no AI-generated image is presented as current satellite evidence. |
+
+<details>
+<summary>Previous review — Chapters 2 and 3, 12 September 2026</summary>
 
 Each request below has one resolution. The [chapter tracker](#chapter-review-tracker)
 records whether the chapter itself is finished; this table tracks the current edits.
@@ -271,8 +310,10 @@ records whether the chapter itself is finished; this table tracks the current ed
 | Retain staggering and the following dependency case, without claiming routine deployment | [Conditional staggering](prototypes/workload-format.html?teach=1#staggering-jobs) retained per the later review; the [next scene](prototypes/workload-format.html?teach=1#independence) shows when coupled workers invalidate the assumption. |
 | Prefer the power graph over a mean-only view | [Power over time](prototypes/workload-format.html?teach=1#demand-transition) shows peak and transition speed directly; the mean is supporting context. |
 | Remove the old slides 18–19 threshold quizzes | Removed; [the new ending](prototypes/workload-format.html?teach=1#next-brief) carries the defined service and measured power requirements into supply design. |
-| Clarify the naming recommendation | Recommended **GIGAWATT: From Watts to Tokens**: project identity plus a descriptive AI-course subtitle. No rename has been made. |
+| Clarify the naming recommendation | Historical recommendation superseded: Kian has now selected **From Watts to Tokens**. |
 | Confirm Chapter 1 feedback and keep a chapter-level review tracker | Implemented [above](#chapter-review-tracker). Previous Primer feedback addressed; final acceptance unrecorded. Chapters 2–3 remain under active review. |
+
+</details>
 
 <details>
 <summary>Previous implementation ledger — navigation, reliability, rack power and generation</summary>
@@ -287,7 +328,7 @@ records whether the chapter itself is finished; this table tracks the current ed
 | Identify the rack’s DC busbar voltage and physical location on slide 7 | Overview GB300 anchor | Rear-view control shows NVIDIA's actual annotated figure; nominal **50–51 V DC**, separate from the 800 V hall proposal |
 | Teach BBU location, function and sizing; test the one-BBU-per-NVL72 hypothesis | Rack power / continuity cross-reference | [Specific six-module ORv3 BBU shelf](prototypes/rack-power-format.html?teach=1#bbu-shelf) plus D06 reference; no universal one-BBU-per-NVL72 ratio is claimed |
 | Teach energy-storage proximity to compute, including fast load changes | Rack power: capacitors, rack batteries and facility storage at explicit boundaries | [Locality](prototypes/rack-power-format.html?teach=1#energy-locality), overlapping source response and repeated-burst/recharge scenes; D06 reference expanded |
-| Recommend **GIGAWATT** versus **Watts to Tokens** | Course title; recommendation without silently renaming the project | Recommend **GIGAWATT: From Watts to Tokens**. Retain GIGAWATT as the project/companion identity; the subtitle states the AI-focused journey. Name change awaits Kian’s choice. |
+| Earlier course-title recommendation | Course title; recommendation without silently renaming the project | Historical naming recommendation superseded by the explicit choice **From Watts to Tokens**. |
 | Explain a gas turbine and combined cycle from first principles | Section 4 generation treatment | [Brayton shaft](prototypes/siting-format.html?teach=1#gas-shaft), separate Rankine loop, fuel balance and real Dania Beach plant; D03 reference expanded |
 | Explain baseload, intermediate and peak demand, and generator dispatch | Section 4: roles, startup, ramping and the grid supply decision | [Hourly supply stack](prototypes/siting-format.html?teach=1#grid-dispatch) plus the distinction between hot start, running ramp and construction schedule |
 | Compare simple cycle and combined cycle economically and operationally | Section 4: efficiency, capital, utilization, construction and delivery constraints | [Fixed-cost/fuel-cost comparison](prototypes/siting-format.html?teach=1#generation-utilization) and changed-duty prediction; numerical costs and crossover explicitly hypothetical |
@@ -325,15 +366,11 @@ remaining course. Apply their minimal text, explicit boundaries, visible
 mechanisms and controlled comparisons to each new section. Their visual format
 is a reference, not a requirement to use electrical-style diagrams everywhere.
 
-The requested changes to **Chapters 2 and 3** are implemented and checked. Review
-only the changed overview slides and the revised workloads sequence.
-Do not restart the unchanged Primer or the earlier UPS, 800 V and cooling passes.
-Use the [chapter tracker](#chapter-review-tracker) to retain their status.
-
-**[Section 4: Siting, grid connection and supply](prototypes/siting-format.html?teach=1)**
-is the next new draft. Its 26 slides include site readiness, connection routes,
-behind-the-meter supply, gas generation and combined cycle, dispatch and operating
-duty, and the Southaven procurement case. It remains pending author review.
+The next review is bounded: Chapter 3’s changed ending, the rebuilt
+[Chapter 4](prototypes/siting-format.html?teach=1) and the independently authored
+[Chapter 5](prototypes/site-format.html?teach=1). Current technical and visual
+checks are recorded in TESTING.md; these changed sections are ready for the next author pass. Do not restart the unchanged Primer or
+the earlier UPS, 800 V and cooling passes; keep their status in the chapter tracker.
 
 Teach the changed material aloud without recording. Send the slide number or URL
 and the precise confusion; close that item after the fix, then continue. The
