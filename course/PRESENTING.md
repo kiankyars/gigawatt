@@ -3,12 +3,26 @@
 [Primer](prototypes/terminology-format.html?teach=1)
 · [Data center overview](prototypes/orientation-format.html?teach=1)
 · [Workloads and requirements](prototypes/workload-format.html?teach=1) · [800 V](teach.html)
+· [Siting and generation](prototypes/siting-format.html?teach=1)
+· [Rack inlet to chip](prototypes/rack-power-format.html?teach=1)
 · [UPS](prototypes/ups-format.html) · [Cooling](prototypes/cooling-format.html?teach=1)
 
 ## The next pass
 
-The next dry run is **[Primer](prototypes/terminology-format.html?teach=1)**.
-The primer aims for approximately 20 minutes; time it aloud before treating that
+Continue your current review of **Parts 2 and 3**, the overview and workloads.
+Overview slide 5 now says **rack power shelves (PSUs)**. On slide 7, select
+**Rear busbar** to see NVIDIA's actual GB300 rear view and the nominal 50–51 V
+in-rack bus. Every presentation has a **Back to course** header exit.
+
+Next, review **Section 4**. Its new gas-generation sequence starts at
+[What turns the generator?](prototypes/siting-format.html?teach=1#gas-shaft),
+then covers combined cycle, dispatch and the cost of different operating duties.
+The later [Tier comparison](prototypes/ups-format.html#tier-topology) and
+[rack inlet to chip](prototypes/rack-power-format.html?teach=1) are implemented
+additions to the relevant sections; review them when you reach those topics.
+
+The [Primer](prototypes/terminology-format.html?teach=1) aims for approximately
+20 minutes; time it aloud before treating that
 as an established runtime. Its [student route](prototypes/terminology-format.html)
 uses the same diagrams. The goal is enough vocabulary to follow part of an expert
 conversation. Introduce each word through a concrete object or example. Keep the
@@ -45,11 +59,11 @@ now opens on a real data-hall photograph; use **Floor plan** for the white/gray-
 schematic.
 
 **[Section 4: Siting, grid connection and supply](prototypes/siting-format.html?teach=1)**
-has an eighteen-slide first draft, including behind-the-meter supply and the
-Southaven procurement case. It ends with a prediction/reveal and the section
+has a 26-slide draft, including behind-the-meter supply, eight generation and
+dispatch scenes, and the Southaven procurement case. It ends with a prediction/reveal and the section
 check-in. Review it after the current two sections.
 
-Presentations also exist for the primer and selected UPS, 800 V and cooling
+Presentations also exist for the primer and selected UPS, rack power, 800 V and cooling
 material. Networking and capacity decisions have authored reader lessons; their
 own presentations remain to be built.
 
@@ -89,10 +103,13 @@ conversion is not the production method.
 
 ## UPS, bypass and redundancy
 
-Open [the UPS sequence](prototypes/ups-format.html). Its seventeen scenes cover
+Open [the UPS sequence](prototypes/ups-format.html). Its 21 scenes cover
 selected parts of Continuity, storage and protection: location and form, normal and battery operation, capacitor
 buffering, generator handoff, static and maintenance bypass, then N, N+1, N+2,
-2N and 2(N+1).
+2N and 2(N+1), then Tier topology, backup-generation requirements, availability
+budgets and a dated commercial investment case. Tier is not an uptime percentage:
+four nines allows 52.56 minutes in a 365-day year, and Tier I already includes an
+engine generator. Generation capacity does not mean continuous on-site generation.
 
 Use the diagram controls to remove modules, isolate paths or lose a shared bus.
 The path and capacity comparisons use a 100 kW load and hypothetical 50 kW
@@ -110,6 +127,14 @@ The optional [rehearsal endpoint](prototypes/ups-format.html?rehearse=1) opens a
 synchronized cue window. No notes are required for the main teaching route.
 
 ## AC/DC foundations and 800 V
+
+The eleven-scene [rack inlet to chip sequence](prototypes/rack-power-format.html?teach=1)
+establishes the local power path first: PSU modules, the rear rack busbar,
+intermediate conversion, point-of-load regulation, current and finite ripple.
+It then connects storage location to the supported load, overlapping buffer/source
+response, a specific ORv3 BBU shelf and repeated-burst recharge. The 15 kW BBU
+example is a six-module 5+1 configuration, not a battery prescription for NVL72.
+Manufacturer cases and original board/buffer models are labeled separately.
 
 Open [the thirteen-scene teaching sequence](teach.html). It covers selected Rack power and the 800 V DC transition
 ideas with Data center overview/Campus and building power distribution foundations: closed DC loop, AC power dips, three balanced

@@ -7,6 +7,47 @@ Do not download or launch standalone Chrome for Testing or Playwright browser
 binaries here. Existing browser test harnesses remain available for a separately
 configured test environment; run local model and build checks without a browser.
 
+## Navigation, generation, reliability and rack power — 2026-09-12
+
+The review adds eight generation/dispatch scenes to Section 4 (26 total), four
+Tier/availability scenes to the UPS sequence (21 total), and an eleven-scene
+selected rack-power presentation. The overview gains clearer PSU terminology
+and a selectable NVIDIA GB300 rear figure showing its local DC busbar.
+
+All build, expanded-artifact, domain-map and research freshness checks passed,
+as did **67 Python tests and 117 Node tests**. The new tests independently check
+availability allowances, equal-output fuel balances, every hourly dispatch
+balance, the annual-cost crossover, local rail current/drop/loss, source-ramp
+energy, BBU surviving capacity, recharge and finite multiphase ripple. A new
+catalog-wide test requires an explicit Back to course header exit.
+
+Built-in-browser checks covered:
+
+- All existing deck header exits plus the student 800 V route; the new rack
+  sequence also returned successfully to the reader's Slides available catalog.
+- All eight generation scenes and controls: **60 scene/control states** across
+  the actual 927 × 745 desktop viewport, 390 × 844 and 844 × 390. No measured SVG
+  text collisions, out-of-bounds labels or page-width overflow. The hide/reveal
+  control was checked in both states; its changed label required an adaptive
+  test locator, not an application fix.
+- All four reliability scenes at 1280 × 720, 390 × 844 and 844 × 390, including
+  maintenance/fault, three availability targets and the customer-requirement
+  toggle. An initial clipped card border was corrected and rechecked.
+- All eleven rack-power scenes and controls at desktop and phone size
+  (26 states each). The phone pass found overlapping BBU footnotes; after their
+  correction, all three BBU states were rechecked at 390 × 844 and 844 × 390
+  with no collisions or overflow.
+- Visual inspection of the real GB300 rear figure and Dania Beach photograph,
+  the gas shaft and separate steam/water loop, and the rack-to-die and Tier
+  diagrams. Manufacturer images loaded from their credited publishers.
+
+Temporary viewport overrides were reset. These checks used the current light
+device setting; no new dark-mode browser sweep or standalone browser run is
+claimed. New layouts inherit the existing device-theme variables. The source
+notes distinguish full/subsection review from Uptime's indexed public passages
+(direct requests returned 403). Numerical teaching scenarios are not product
+ratings, commissioned behavior or a demonstration of learner comprehension.
+
 ## Overview photograph and Section 4 draft — 2026-09-12
 
 Overview slide 2 opens on Google's credited New Albany server-aisle photograph.

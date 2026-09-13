@@ -347,7 +347,7 @@ async function checkNavigation(page, scenes, colorScheme) {
 (async () => {
   const { scenes, initialState } =
     await import("../course/prototypes/siting-scenes.js");
-  assert.equal(scenes.length, 18);
+  assert.equal(scenes.length, 26);
   assert.equal(new Set(scenes.map((s) => s.id)).size, scenes.length);
   mkdirSync(output, { recursive: true });
   const browser = await chromium.launch();
@@ -466,7 +466,7 @@ async function checkNavigation(page, scenes, colorScheme) {
     assert.deepEqual(errors, [], "No JavaScript or HTTP errors");
     assert.deepEqual(failures, [], "Siting browser regressions");
     console.log(
-      `Passed ${layouts} siting scene/state layouts across 18 scenes, four viewports and both themes; controls, reveals, numerical results, keyboard, dialog, fullscreen and reader check-in.`,
+      `Passed ${layouts} siting scene/state layouts across 26 scenes, four viewports and both themes; controls, reveals, numerical results, keyboard, dialog, fullscreen and reader check-in.`,
     );
   } finally {
     await browser.close();

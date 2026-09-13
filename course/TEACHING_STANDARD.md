@@ -38,6 +38,11 @@ Use numbered descriptive chapter names in the website and presentations, beginni
 with **1. Primer**. Stable internal IDs remain for source mapping and existing
 links, but are not audience-facing labels.
 
+Every teaching presentation and student exploration view has a visible
+**← Back to course** link at the left of its header. It returns to the main
+course's slides view. A logo or a lesson-specific reading link does not replace
+that exit. Keep it available in fullscreen and at narrow widths.
+
 Data center overview remains a broad orientation: preview the equipment, locations and paths
 that later sections explain in depth. Briefly naming generation, transmission,
 backup, compute, networking and cooling is useful here; each preview needs a

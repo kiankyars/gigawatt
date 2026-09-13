@@ -168,6 +168,8 @@
         "Load connection, utility studies, substations, transmission and distribution interfaces",
         "Behind-the-meter supply: the customer-side meter boundary, grid import/export, and separately established island capability",
         "Capacity, energy, fuel, emissions, curtailment and time matching",
+        "Simple-cycle gas turbines and combined cycle: compressor, combustor, shaft, HRSG and steam bottoming cycle",
+        "Grid dispatch and generation economics: baseload, intermediate and peak demand; startup, ramping, utilization, fuel and capital cost",
         "Land, fiber, water, climate and local constraints as joint siting inputs"
       ],
       "prerequisites": [
@@ -295,6 +297,7 @@
         "UPS, batteries, generators, transfer sequences and load shedding",
         "Stored energy versus discharge power; transient response versus outage duration",
         "N, N+1, 2N, common-mode failures and maintainability",
+        "Uptime Tier I–IV infrastructure requirements versus measured availability nines; engine generation and lifecycle tradeoffs",
         "Grounding, fault detection, selective isolation and AC/DC protection concepts",
         "Electrical and thermal ride-through together"
       ],
@@ -361,7 +364,9 @@
         "Conventional AC-to-rack conversion, sidecars and broader facility DC options",
         "800 V DC and other specified voltage arrangements; product/version boundaries",
         "Copper, connectors, busbars, stored energy, service access and space",
-        "Load transients, protection interfaces, brownfield and greenfield choices"
+        "Load transients, protection interfaces, brownfield and greenfield choices",
+        "Rack-to-die power path: platform-specific PSU input, vertical DC busbar, intermediate conversion, multiphase regulation and finite ripple",
+        "Energy-to-compute locality: decoupling capacitors, rack BBU modules and facility storage; response time, power, usable energy and path isolation"
       ],
       "prerequisites": [
         "D01",

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import unittest
 from copy import deepcopy
+from html.parser import HTMLParser
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
@@ -146,7 +147,7 @@ class TeachingCatalogTests(unittest.TestCase):
         self.assertEqual(chapters["D13"]["number"], 14)
         self.assertEqual(chapters["capstone"]["number"], 17)
         self.assertEqual(
-            len({p["id"] for c in chapters.values() for p in c["presentations"]}), 7
+            len({p["id"] for c in chapters.values() for p in c["presentations"]}), 8
         )
         for did in ("D05", "D06", "D10", "D11"):
             with self.subTest(chapter=did):
@@ -172,6 +173,47 @@ class TeachingCatalogTests(unittest.TestCase):
             lesson, {s["id"]: s for s in course["sources"]}, chapters=course["chapters"]
         )
         self.assertIn("**3. Workloads and requirements · Authored draft**", markdown)
+
+    def test_every_presentation_has_a_named_course_exit_in_its_header(self):
+        class HeaderLinks(HTMLParser):
+            def __init__(self):
+                super().__init__()
+                self.header = False
+                self.current = None
+                self.links = []
+
+            def handle_starttag(self, tag, attrs):
+                if tag == "header":
+                    self.header = True
+                if tag == "a" and self.header:
+                    self.current = [dict(attrs).get("href", ""), ""]
+
+            def handle_data(self, data):
+                if self.current is not None:
+                    self.current[1] += data
+
+            def handle_endtag(self, tag):
+                if tag == "a" and self.current is not None:
+                    self.links.append(self.current)
+                    self.current = None
+                if tag == "header":
+                    self.header = False
+
+        root = Path(__file__).resolve().parents[1]
+        course = b.load_course()
+        paths = {
+            p["href"].split("?")[0].split("#")[0]
+            for c in course["chapters"] for p in c["presentations"]
+        } | {"sample.html", "prototypes/case-studies.html"}
+        for path in paths:
+            with self.subTest(presentation=path):
+                parser = HeaderLinks()
+                parser.feed((root / "course" / path).read_text())
+                self.assertTrue(any(
+                    label.strip() == "← Back to course"
+                    and href in {"index.html?view=slides", "../index.html?view=slides"}
+                    for href, label in parser.links
+                ), f"Missing explicit course exit in {path}")
 
 
 if __name__ == "__main__":

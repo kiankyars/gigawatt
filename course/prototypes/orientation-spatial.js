@@ -321,6 +321,7 @@ function dataHallPhoto(compact) {
 }
 
 function rackBoundary(state, compact) {
+  if (state.rackView === "rear") return rackRear(compact);
   const source =
     "https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/_images/nvl72-ai-factory-01.png";
   let out = defs();
@@ -359,13 +360,13 @@ function rackBoundary(state, compact) {
   const blocks = compact
     ? [
         [20, 529, 100, 99, ["AC", "supply"]],
-        [145, 529, 100, 99, ["Power", "shelves"]],
-        [270, 529, 100, 99, ["DC", "busbar"]],
+        [145, 529, 100, 99, ["PSUs in", "shelves"]],
+        [270, 529, 100, 99, ["50–51 V", "DC busbar"]],
       ]
     : [
         [495, 325, 170, 115, ["AC supply"]],
-        [715, 325, 170, 115, ["Power shelves"]],
-        [935, 325, 170, 115, ["DC busbar"]],
+        [715, 325, 170, 115, ["PSUs in", "power shelves"]],
+        [935, 325, 170, 115, ["50–51 V DC", "rack busbar"]],
       ];
   blocks.forEach(([bx, by, bw, bh, names], i) => {
     out += rect(`rack-stage-${i}`, bx, by, bw, bh, { fill: "var(--panel)" });
@@ -373,10 +374,10 @@ function rackBoundary(state, compact) {
       (name, j) =>
         (out += label(
           bx + bw / 2,
-          by + (compact ? 40 : 65) + j * 23,
+          by + (compact ? 40 : names.length > 1 ? 49 : 65) + j * 23,
           name,
           `rack-stage-${i}`,
-          { size: compact ? 18 : 22 },
+          { size: compact ? 17 : 22 },
         )),
     );
     if (i < 2)
@@ -390,11 +391,36 @@ function rackBoundary(state, compact) {
   out += label(
     compact ? 195 : 800,
     compact ? 675 : 495,
-    "Busbar feeds compute + switch trays",
+    "Inside the rack → compute + switch trays",
     "",
-    { size: compact ? 18 : 25 },
+    { size: compact ? 17 : 25 },
   );
   return `<g data-spatial-scene="rack-boundary">${out}</g>`;
+}
+
+function rackRear(compact) {
+  const source =
+    "https://docs.nvidia.com/dgx/dgxgb200-user-guide/_images/hardware-rack-rear-gb300.png";
+  let out = defs();
+  if (compact) {
+    // Enlarge the rear cabinet from NVIDIA's annotated exploded view. The
+    // callout terminates at the same power-busbar point as the source arrow.
+    out += `<svg x="95" y="12" width="200" height="351" viewBox="975 80 370 650" role="presentation">
+      <image data-product-image="gb300" data-rack-view="rear" href="${source}" x="0" y="0" width="1426" height="813"/>
+    </svg>`;
+    out += line("M195 399V367H105L152 234", "power", true, 3);
+    out += label(195, 435, "Rear power busbar", "", { size: 26, weight: 650 });
+    out += label(195, 480, "50–51 V DC", "", { size: 34, color: "var(--power)" });
+    out += label(195, 515, "Inside this rack", "", { size: 22 });
+    out += label(195, 582, "DGX GB300 NVL72", "", { size: 21 });
+    out += label(195, 616, "Rear detail · Figure: NVIDIA", "", { size: 16, color: "var(--muted)" });
+  } else {
+    out += `<rect x="115" y="4" width="930" height="530" rx="8" fill="white"/>
+      <image data-product-image="gb300" data-rack-view="rear" href="${source}" x="115" y="4" width="930" height="530" preserveAspectRatio="xMidYMid meet"/>`;
+    out += label(28, 580, "50–51 V DC · inside this rack", "", { anchor: "start", size: 25, weight: 600, color: "var(--power)" });
+    out += label(1132, 580, "DGX GB300 NVL72 · Figure: NVIDIA", "", { anchor: "end", size: 19, color: "var(--muted)" });
+  }
+  return `<g data-spatial-scene="rack-boundary" data-rack-detail="rear">${out}</g>`;
 }
 
 export function renderSpatial(kind, state = {}, compact = false) {

@@ -57,6 +57,17 @@
       ]
     },
     {
+      "id": "rack-local-power",
+      "title": "From the rack inlet to the chip",
+      "chapters": [
+        {
+          "id": "D06",
+          "href": "prototypes/rack-power-format.html?teach=1",
+          "coverage": "selected"
+        }
+      ]
+    },
+    {
       "id": "rack-800v",
       "title": "800 V DC",
       "chapters": [

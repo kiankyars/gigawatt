@@ -314,9 +314,6 @@ function render() {
   bindVisual();
   if (focus === "reveal") byId("scene").focus({ preventScroll: true });
 }
-byId("view-label").textContent = studentMode
-  ? "800 V DC · EXPLORE"
-  : "800 V DC · TEACH";
 byId("open-notes").hidden = !teachingMode;
 byId("fullscreen").hidden = !teachingMode;
 byId("student-context").hidden = !studentMode;

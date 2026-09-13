@@ -16,7 +16,10 @@ Use the domain map to look up the section being prepared; there is no need to
 read it end to end.
 
 **Current state:** 50 authored draft lessons cover 65 objective IDs. The thirteen-scene
-800 V DC sample and seventeen-scene UPS sequence are implemented teaching prototypes.
+800 V DC sample and 21-scene UPS sequence are implemented teaching prototypes.
+The eleven-scene rack-power sequence traces PSU-to-die conversion and local
+energy storage. Section 4 has 26 scenes, including eight on gas generation,
+combined cycle, grid dispatch and operating-duty economics.
 A fourteen-scene cooling presentation extends that approach to capture methods,
 CDU ratings and approach, weather and outdoor heat rejection.
 A separate [Primer](prototypes/terminology-format.html) introduces
@@ -89,7 +92,9 @@ relationships. Current authored lesson-to-objective mappings are generated in
 | [Five capstones](DOMAIN_MAP.md#proposed-capstones)        | Drafted synthetic briefs and worked solutions; scope belongs to the domain map                                         | Check assumptions and demonstrate transfer across domains                            |
 | [Workloads and requirements](prototypes/workload-format.html) | 19 authored scenes covering its three reader lessons, with numerical comparisons and changed cases | Rehearse explanations, timing and transfer; complete technical and learner review |
 | [800 V DC presentation](teach.html)                       | Thirteen authored visual scenes, separate notes, student explanations and shared calculations                               | Rehearse the revised copper/space premise and conversion-placement ending                |
-| [UPS, bypass and redundancy](prototypes/ups-format.html) | Seventeen visual scenes with optional notes, power-path changes and surviving-capacity exercises; part of Continuity, storage and protection | Dry-run the minimal-text format and report unclear mechanisms or terminology |
+| [UPS, bypass and redundancy](prototypes/ups-format.html) | 21 visual scenes with power-path changes, surviving-capacity exercises and a separate Tier/availability comparison | Dry-run the minimal-text format and report unclear mechanisms or terminology |
+| [Rack inlet to chip](prototypes/rack-power-format.html) | Eleven scenes covering PSU modules, the rear busbar, board regulation, BBUs and storage locality | Dry-run the new mechanisms and repeated-burst prediction |
+| [Siting, grid connection and supply](prototypes/siting-format.html) | 26 scenes, including gas-turbine/combined-cycle mechanisms and controlled dispatch and utilization comparisons | Review after the overview and workloads |
 | Search, glossary and practice                             | Implemented in the reader                                                                                              | Check findability, first-use vocabulary and learner reasoning                        |
 | Numerical models                                          | Eight bounded model types with arithmetic checks                                                                       | Specialist review of physical boundaries and any real-case inputs                    |
 | [Illustrations](assets/README.md)                         | Five ImageGen orientation images with preserved prompts; exact engineering labels and calculations rendered separately | Verify final-size legibility and narration                                           |
@@ -201,6 +206,29 @@ approach; the 800 V and UPS prototypes are implemented, while the remaining pres
 sequences still need authorship and dry runs.
 
 ### Next teaching step
+
+#### Current review requests — 12 September 2026
+
+This table records the complete new request set. Implementation and evidence links
+are filled in as each item is completed; a written lesson and a presentation are
+reported separately.
+
+| Request | Owning section / work | Status |
+| --- | --- | --- |
+| Make **Back to course** the common header exit in every presentation | Shared presentation template and every standalone deck | Implemented in the shared template and existing decks; a catalog-wide regression check protects the convention |
+| Teach the reliability hierarchy and the downtime implied by three/four/five nines | Continuity/reliability; compare Uptime Tiers separately from measured availability | [Four new UPS scenes](prototypes/ups-format.html#tier-topology) and D05 reference; Tier topology is explicitly separate from the downtime calculation |
+| Clarify which Tiers require generation, the cost tradeoff and who chooses them | Continuity/reliability | [Generation requirements](prototypes/ups-format.html#tier-generation) and [investment case](prototypes/ups-format.html#tier-investment); Tier I already includes an engine generator; Tier IV is not government-only |
+| Clarify **rack supplies** on overview slide 5 | Overview campus power preview | Replaced with **rack power shelves (PSUs)** |
+| Identify the rack’s DC busbar voltage and physical location on slide 7 | Overview GB300 anchor | Rear-view control shows NVIDIA's actual annotated figure; nominal **50–51 V DC**, separate from the 800 V hall proposal |
+| Teach BBU location, function and sizing; test the one-BBU-per-NVL72 hypothesis | Rack power / continuity cross-reference | [Specific six-module ORv3 BBU shelf](prototypes/rack-power-format.html?teach=1#bbu-shelf) plus D06 reference; no universal one-BBU-per-NVL72 ratio is claimed |
+| Teach energy-storage proximity to compute, including fast load changes | Rack power: capacitors, rack batteries and facility storage at explicit boundaries | [Locality](prototypes/rack-power-format.html?teach=1#energy-locality), overlapping source response and repeated-burst/recharge scenes; D06 reference expanded |
+| Recommend **GIGAWATT** versus **Watts to Tokens** | Course title; recommendation without silently renaming the project | Recommend **GIGAWATT: From Watts to Tokens**. Retain GIGAWATT as the project/companion identity; the subtitle states the AI-focused journey. Name change awaits Kian’s choice. |
+| Explain a gas turbine and combined cycle from first principles | Section 4 generation treatment | [Brayton shaft](prototypes/siting-format.html?teach=1#gas-shaft), separate Rankine loop, fuel balance and real Dania Beach plant; D03 reference expanded |
+| Explain baseload, intermediate and peak demand, and generator dispatch | Section 4: roles, startup, ramping and the grid supply decision | [Hourly supply stack](prototypes/siting-format.html?teach=1#grid-dispatch) plus the distinction between hot start, running ramp and construction schedule |
+| Compare simple cycle and combined cycle economically and operationally | Section 4: efficiency, capital, utilization, construction and delivery constraints | [Fixed-cost/fuel-cost comparison](prototypes/siting-format.html?teach=1#generation-utilization) and changed-duty prediction; numerical costs and crossover explicitly hypothetical |
+| Cover and fact-check the complete PSU-to-chip path supplied in the review | Rack power: AC feed, shelf, busbar, board conversion, regulators and die | [Eleven-scene selected D06 sequence](prototypes/rack-power-format.html?teach=1) and expanded D06 reference |
+| Distinguish the platform-specific input voltages, intermediate rails, redundancy and ripple behavior | Rack power | Real single-phase ORv3 PSU example, staged DC/DC conversion and finite multiphase ripple; no universal direct-480-V or direct-54-V-to-die claim |
+| Split the work into subagents and retain every request | Reliability, rack power and gas-generation agents; root owns navigation and integration | Three independent authoring/source-review assignments completed; requests tracked here |
 
 Keep these follow-ups open as each section is authored. The
 [section handoff checklist](TEACHING_STANDARD.md#required-section-handoffs) identifies

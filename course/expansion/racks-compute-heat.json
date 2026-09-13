@@ -19,6 +19,35 @@
         ]
       },
       {
+        "heading": "Follow one rack from its AC feed to the rear DC busbar",
+        "paragraphs": [
+          "A busway tap or remote power panel supplies the rack through its qualified power cables, often called whips. A power shelf is an assembly holding multiple power supply units (PSUs), a connection to the rack bus and monitoring/control hardware. A PSU converts AC input into regulated DC output. The rack’s vertical busbar carries that output along the cabinet so trays can connect to a shared DC distribution system. The busbar is a conductor assembly, not a converter. Redundancy belongs to the actual sources, modules and paths, not to the name “power shelf.”",
+          "Use the named NVIDIA hardware accurately: the DGX GB rack guide describes a nominal 50–51 V DC rack bus and supplies an annotated DGX GB300 rear view identifying the power busbar. The enterprise GB300 NVL72 reference lists eight 33 kW shelves, each with six 5.5 kW PSUs, and an up-to-142-kW full-rack requirement. These are different quantities and documentation boundaries; adding module labels does not establish continuously usable redundant rack capacity. The local 50–51 V bus is distinct from the proposed 800 V hall-distribution interface. OCP ORv3, a particular OEM NVL72 rack and NVIDIA’s DGX implementation must not be treated as identical specifications."
+        ]
+      },
+      {
+        "heading": "A three-phase shelf does not make every PSU a three-phase converter",
+        "paragraphs": [
+          "Specify the electrical plane before labeling a voltage. In a balanced 480/277 V wye supply, 480 V is the RMS voltage between live phases and 480/√3 ≈ 277 V is the RMS voltage from a phase to neutral. Neither live phase is protective earth. A shelf can distribute the phases across single-phase PSU modules; its three-phase inlet does not imply that each module rectifies all three phases at 480 V.",
+          "Advanced Energy’s original ORv3 example makes the distinction concrete: its 3 kW PSU has a nominal 200–277 V single-phase AC input and a 50 V DC output, and multiple modules share a shelf. That product is an example of the interface distinction, not a claim about the precise wiring inside every GB300 shelf. A qualified 480/277 V path may omit an intermediate 480-to-208-V transformer used in another architecture, but the saved conversion stage does not establish a universal efficiency gain. Compare actual equipment loss at the same load and redundancy state."
+        ]
+      },
+      {
+        "heading": "The board creates several rails before power reaches the die",
+        "paragraphs": [
+          "After the rack bus, the tray’s qualified connector, protection and distribution carry power to its boards. An intermediate bus converter (IBC) can lower the rack voltage before point-of-load regulators create the rails required by the GPU, CPU, memory and other circuits. Texas Instruments’ TIDA-050095 is a concrete 48-to-12-V, 2 kW bus-converter reference design. Its transformer-less buck topology also demonstrates that a DC/DC converter need not contain a transformer. Other architectures use other intermediate voltages or conversion arrangements; do not infer that a GPU always receives 54 V directly at a final buck stage.",
+          "A voltage regulator module (VRM) controls a local rail near its load. “VRM” names the regulating function and associated power stages; it need not be one removable module. Input and output voltage, current capability, transients and sequencing are specific to the platform. There is no universal 12 V, 5 V or 3.3 V branch inventory for every AI tray. The teaching path 50 V rack bus → intermediate conversion → point-of-load VRM → die describes the functional order; an illustrative 48 V → 12 V → 1 V chain is labeled separately from the unpublished GB300 board schematic.",
+          "At an idealized 1 kW core rail and 1 V, I = P/V = 1,000 A. At 50 V the same ideal power is 20 A before conversion losses. This is why the final high-current route is short: even a hypothetical 100 microohm loop drops 0.1 V and dissipates 100 W at 1,000 A. Reducing that loop to 10 microohms reduces those numbers to 0.01 V and 10 W. These values illustrate the physical constraint, not a proposed rail tolerance or PCB design. A vertical rack busbar is also distinct from vertical power delivery beneath or through a chip package; “vertical” alone does not identify the scale."
+        ]
+      },
+      {
+        "heading": "Multiphase regulation shares current and controls ripple",
+        "paragraphs": [
+          "A multiphase buck regulator uses several switched power paths whose inductor currents join at the output. Interleaving their switching times reduces the combined ripple under the stated duty ratio and phase arrangement while sharing current and heat across stages. Feedback adjusts switching to regulate the output; capacitors support the remaining time-varying difference between inductor current and load current. These converter switching phases are not the three phases of the facility AC supply.",
+          "The output is not perfectly ripple-free. Ripple, transient droop, overshoot, parasitic resistance/inductance and control response remain finite. Phase count alone does not establish ripple or efficiency: the inductors, switching frequency, duty ratio, control method and operating load matter. The presentation’s one- and four-phase traces keep average total current fixed and state their normalized waveforms. They show cancellation of staggered ripple, not a measured GB300 VRM or a component-selection method."
+        ]
+      },
+      {
         "heading": "Conversion moves the loss as well as the voltage",
         "paragraphs": [
           "For a converter with efficiency eta, useful output equals eta times electrical input. Therefore input equals output divided by eta, and loss equals input minus output. Work backward from the loads when the question is how much upstream capacity is required. If two converters operate in series, their efficiencies multiply. If two loads operate on parallel branches, their input powers add. Adding efficiencies, or applying a series product to parallel loads, gives an incorrect answer even when every component rating is accurate.",
@@ -88,6 +117,34 @@
         "claim": "The named rack includes compute, switching, management and power-shelf components; a rack is not only a GPU count.",
         "reviewed_on": "2026-09-06",
         "limits": "Mutable reference architecture, inspected as updated May 18, 2026. No advertised performance ratios or ambiguous aggregate-bandwidth recommendations are used."
+      },
+      {
+        "title": "NVIDIA DGX GB Rack Scale Systems — Hardware",
+        "url": "https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html",
+        "claim": "Locate the DGX GB300 rear power busbar and distinguish PSUs, shelves and the nominal 50–51 V rack bus.",
+        "reviewed_on": "2026-09-12",
+        "limits": "Rack configuration and Power Shelves sections reviewed; manufacturer rear figure visually inspected. Shared GB200/GB300 guide has an approximately 120 kW consumption example that is not substituted for the enterprise GB300 up-to-142-kW requirement. This is not evidence of a one-BBU-per-NVL72 design or the unpublished board regulator implementation."
+      },
+      {
+        "title": "Advanced Energy — ORv3 Power Supply Unit",
+        "url": "https://www.advancedenergy.com/en-us/products/ac-dc-power-supply-units/power-shelves/ocp-compliant/orv3-psu/",
+        "claim": "A real 3 kW single-phase PSU with nominal 200–277 V AC input in a multi-module shelf; shelf input configuration differs from each PSU input.",
+        "reviewed_on": "2026-09-12",
+        "limits": "Product overview and Features inspected. This ORv3 product is not identified as the DGX GB300 power supply. No claimed peak efficiency is generalized to whole-rack conversion or an omitted 480-to-208-V transformer."
+      },
+      {
+        "title": "Texas Instruments — TIDA-050095 48V–12V 2kW four-phase bus converter",
+        "url": "https://www.ti.com/tool/TIDA-050095",
+        "claim": "Concrete intermediate-bus conversion example; DC/DC conversion can be transformer-less and can precede point-of-load regulation.",
+        "reviewed_on": "2026-09-12",
+        "limits": "Overview, Features and design-guide description reviewed; indexed System Description and specification table also inspected. No lab replication or claim that this reference design is installed in GB300. Manufacturer efficiency claims and separate maxima are not used as the course model. Multiphase waveforms are explicitly original normalized illustrations."
+      },
+      {
+        "title": "Texas Instruments — The decoupling capacitor: is it really necessary?",
+        "url": "https://e2e.ti.com/blogs_/archives/b/precisionhub/posts/the-decoupling-capacitor-is-it-really-necessary",
+        "claim": "Short local current paths and trace inductance explain why device decoupling is separate from distant stored energy.",
+        "reviewed_on": "2026-09-12",
+        "limits": "Authored article and figure descriptions 1–3 inspected. The example is an amplifier circuit, not a GPU benchmark. No suggested component value or layout instructions are imported; rack-level power transients are original stated models."
       }
     ],
     "terms": [
@@ -102,6 +159,26 @@
       {
         "term": "Parallel branch",
         "definition": "A separate path whose demand adds to other loads at their common upstream boundary."
+      },
+      {
+        "term": "Power shelf",
+        "definition": "An assembly housing power supply modules and their rack distribution, monitoring and control interfaces."
+      },
+      {
+        "term": "Power supply unit (PSU)",
+        "definition": "A converter supplying the declared output rail; in this lesson the rack modules convert AC input to DC."
+      },
+      {
+        "term": "Rack busbar",
+        "definition": "A conductive distribution assembly carrying power along a rack; it does not itself change voltage."
+      },
+      {
+        "term": "Intermediate bus converter (IBC)",
+        "definition": "A DC/DC conversion stage creating an intermediate rail before downstream regulators; the voltage and placement depend on the architecture."
+      },
+      {
+        "term": "Voltage regulator module (VRM)",
+        "definition": "The regulating circuitry and power stages that maintain a specified rail near a load, often using interleaved converter phases."
       }
     ],
     "visual": {
@@ -345,6 +422,29 @@
         ]
       },
       {
+        "heading": "Stored energy must be electrically close enough to serve the event",
+        "paragraphs": [
+          "Separate three physical scales. Package and board capacitors provide local transient current at device rails. Rack-bus capacitors and qualified battery backup units (BBUs) support their DC distribution bus. Facility UPS batteries or a battery energy storage system (BESS) act through a larger conversion and distribution path and may serve a broader set of loads. “Closer to compute” is meaningful because impedance, conversion stages and control response sit between stored energy and the load; merely owning more kWh farther away does not remove a fast voltage disturbance at the chip.",
+          "Trace the complete forward-and-return path. A changing current creates an inductive voltage term L × di/dt, while resistance produces I × R. Local decoupling shortens the loop that initially supplies a transient. The next regulated stage and its source then take up more load as their controls and power stages respond. These contributions overlap; capacitors do not wait until a fixed timer expires and then hand all power to a battery. An online UPS avoids an output transfer to an inverter that is already running, but its DC-link, battery interface and downstream regulators still have finite dynamics.",
+          "For an explicit bus-level model, let demand rise by 40 kW while the upstream converter’s additional contribution rises linearly from zero to 40 kW over 0.2 s. The local buffer supplies the declining difference. Its delivered energy is the triangle ½ × 40 kW × 0.2 s = 4 kJ; a wholly unsupported 40 kW for that interval would instead require 8 kJ. Doubling the stipulated response interval to 0.4 s doubles required energy to 8 kJ while the initial buffer power remains 40 kW. The model excludes resistance, inductance, voltage droop and losses. It separates the energy deficit from the device’s peak power and timing requirements.",
+          "A capacitor’s usable energy is ½C(Vinitial² − Vminimum²). It must satisfy both the energy account and the permitted voltage/time response. A BBU needs an adequate discharger, charged cells, protection, coordination and a qualified bus interface. A BESS at the facility can help a grid-side power schedule or longer interruption but does not substitute for local chip decoupling. A rack-only BBU also does not by itself keep facility pumps, cooling or remote switches alive."
+        ]
+      },
+      {
+        "heading": "A BBU is not one universal battery per NVL72 rack",
+        "paragraphs": [
+          "BBU can mean an individual module or a whole shelf in informal discussion; identify which. The reviewed ORv3 example has six BBU modules in a shelf with 5+1 redundancy. The OCP module specification calls for 3 kW per module and at least 240 s of discharge under its declared cell-state, temperature and aging conditions. For a 15 kW protected load, five surviving 3 kW modules pass the power screen after one module fails; four supply only 12 kW after two failures. The example establishes an interface-specific capacity calculation, not a BBU count for a 142 kW rack.",
+          "The same specification includes a nonzero activation/ramp interval and commanded peak-shaving capability. Whether a deployment uses those functions depends on its configuration and qualification. NVL72 names a compute/NVLink domain; it does not prescribe one BBU module or shelf. Choose the storage architecture using the protected load, discharge power, required duration, voltage compatibility, failure condition and recharge policy. The reviewed NVIDIA rack documentation does not establish a universal BBU-to-NVL72 ratio."
+        ]
+      },
+      {
+        "heading": "Repeated bursts must leave time and capacity to recharge",
+        "paragraphs": [
+          "Take an original DC-bus example with a source capped at 120 kW. The rack normally draws 110 kW, then 160 kW for 0.2 s. A qualified buffer supplies the 40 kW gap, delivering 8 kJ. During the 110 kW interval only 10 kW of source headroom remains, so ideal recharge requires 8/10 = 0.8 s. At 10 s between bursts there is time to refill. At only 0.2 s between bursts, the source can replace just 2 kJ and each cycle loses 6 kJ from the buffer.",
+          "The rapid pattern also averages (160 × 0.2 + 110 × 0.2)/0.4 = 135 kW, exceeding the 120 kW source indefinitely. Adding storage delays depletion; it cannot fix that sustained energy shortfall. Reduce or reschedule demand, supply more average power, or accept shorter operating duration. Real losses, discharge limits, battery cycling and a reserved backup state of charge narrow the feasible envelope further. Peak shaving and outage reserve therefore compete for the same usable stored energy unless the design explicitly allocates both."
+        ]
+      },
+      {
         "heading": "Brownfield and greenfield optimize different things",
         "paragraphs": [
           "On an empty site, the designer can coordinate power rooms, pipe routes, service access and equipment zones before construction. In an occupied building, the same change may require planned outages, temporary capacity and work beside operating systems. Retained assets have both value and constraints. A hybrid power rack may preserve part of the AC system while consuming scarce floor positions. Facility-level DC might offer a cleaner future layout but require a much larger conversion project. The comparison must value time and disruption alongside equipment losses.",
@@ -423,6 +523,27 @@
         "claim": "Sections 6, 6.1.2 and 6.1.3 distinguish 48 mm OpenU spacing from optional 44.45 mm EIA rack-unit support and allow exterior frame dimensions to vary.",
         "reviewed_on": "2026-09-08",
         "limits": "Reviewed the public PDF mechanical sections on printed pages 7, 9 and 11, plus revision table on page 6. Revision 1.0 is the identified reference, not a claim to the latest revision. Electrical, connector and qualification requirements were not audited; the lesson does not infer interchangeability from height alone."
+      },
+      {
+        "title": "OCP — Open Rack V3 48V BBU Module Specification revision 1.4",
+        "url": "https://www.opencompute.org/documents/open-rack-v3-bbu-module-spec-1-4-pdf",
+        "claim": "A specific modular BBU: 3 kW discharge, at least 240 s under specified conditions, nonzero activation/ramp interval and optional commanded peak-power shaving.",
+        "reviewed_on": "2026-09-12",
+        "limits": "Sections 4.2, 4.3/Table 2, 4.3.3, and parallel-operation references reviewed. Source conditions include at least 3.9 V/cell at the declared threshold and aging/temperature limits. Not a generic modern rack rating, battery chemistry comparison, or NVL72 configuration. The specification includes timing and state conditions; no instant universal handoff is claimed."
+      },
+      {
+        "title": "Analog Devices — Smart Battery Backup for Uninterrupted Energy, Part 4: BBU Shelf Operation",
+        "url": "https://www.analog.com/en/resources/analog-dialogue/articles/smart-battery-backup-for-uninterrupted-energy-part4.html",
+        "claim": "ORv3 BBU shelf shared-bus architecture, six modules in 5+1 redundancy, monitoring and controlled discharge.",
+        "reviewed_on": "2026-09-12",
+        "limits": "Introduction, BBU Shelf Overview and Shelf System Control read. The 15 kW surviving-capacity calculation combines the six-module arrangement with the separately reviewed OCP 3 kW module requirement. Not a claim that a 15 kW shelf supports a 142 kW NVL72 rack."
+      },
+      {
+        "title": "Texas Instruments — The decoupling capacitor: is it really necessary?",
+        "url": "https://e2e.ti.com/blogs_/archives/b/precisionhub/posts/the-decoupling-capacitor-is-it-really-necessary",
+        "claim": "Short local current paths and trace inductance explain why device decoupling is separate from distant stored energy.",
+        "reviewed_on": "2026-09-12",
+        "limits": "Authored article and figure descriptions 1–3 inspected. The example is an amplifier circuit, not a GPU benchmark. No suggested component value or layout instructions are imported; rack-level power transients are original stated models."
       }
     ],
     "terms": [
@@ -449,6 +570,18 @@
       {
         "term": "OpenU (OU)",
         "definition": "A 48 mm vertical spacing used in the reviewed OCP Open Rack V3 specification, distinct from the 44.45 mm EIA rack unit."
+      },
+      {
+        "term": "Battery backup unit (BBU)",
+        "definition": "A battery module or assembly with its power-conversion, protection and control interface; identify whether the term means one module or the complete shelf."
+      },
+      {
+        "term": "Decoupling capacitor",
+        "definition": "Local stored charge connected through a short electrical loop to support a device during fast current changes."
+      },
+      {
+        "term": "Battery energy storage system (BESS)",
+        "definition": "A battery installation with its conversion, controls and protection; its electrical connection determines which facility loads and grid services it can support."
       }
     ],
     "visual": {

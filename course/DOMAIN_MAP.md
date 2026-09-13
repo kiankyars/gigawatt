@@ -193,7 +193,7 @@ Separate physical principles, design specifications, observed deployments, annou
 - [P18 — OpenStax — 20.5 Alternating Current versus Direct Current (College Physics 2e)](https://openstax.org/books/college-physics-2e/pages/20-5-alternating-current-versus-direct-current) · `page_reviewed` · [local note](../research/sources/P18.md)
 - [P61 — The Green Grid — PUE: A Comprehensive Examination of the Metric](https://datacenters.lbl.gov/sites/default/files/WP49-PUE%20A%20Comprehensive%20Examination%20of%20the%20Metric_v6.pdf) · `page_reviewed` · [local note](../research/sources/P61.md)
 - [P63 — Google Cloud — Best practices for batch inference on GKE](https://docs.cloud.google.com/kubernetes-engine/docs/best-practices/machine-learning/inference/batch-inference) · `page_reviewed` · [local note](../research/sources/P63.md)
-- [P64 — NVIDIA DGX GB200/GB300 hardware guide — Power shelves](https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html#power-shelves) · `page_reviewed` · [local note](../research/sources/P64.md)
+- [P64 — NVIDIA DGX GB Rack Scale Systems — Hardware](https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html#power-shelves) · `page_reviewed` · [local note](../research/sources/P64.md)
 - [P65 — EIA — How electricity is generated](https://www.eia.gov/energyexplained/electricity/how-electricity-is-generated.php) · `public_excerpt_reviewed` · [local note](../research/sources/P65.md)
 - [P66 — EIA — Delivery of electricity to consumers](https://www.eia.gov/energyexplained/electricity/delivery-to-consumers.php) · `public_excerpt_reviewed` · [local note](../research/sources/P66.md)
 - [P67 — OpenStax · Resistance and simple circuits](https://openstax.org/books/college-physics-2e/pages/20-2-ohms-law-resistance-and-simple-circuits) · `page_reviewed` · [local note](../research/sources/P67.md)
@@ -302,6 +302,8 @@ Connect the physical site decision to grid constraints, available infrastructure
 - Load connection, utility studies, substations, transmission and distribution interfaces
 - Behind-the-meter supply: the customer-side meter boundary, grid import/export, and separately established island capability
 - Capacity, energy, fuel, emissions, curtailment and time matching
+- Simple-cycle gas turbines and combined cycle: compressor, combustor, shaft, HRSG and steam bottoming cycle
+- Grid dispatch and generation economics: baseload, intermediate and peak demand; startup, ramping, utilization, fuel and capital cost
 - Land, fiber, water, climate and local constraints as joint siting inputs
 
 **Prerequisites:** [System boundaries and quantities](#d01), [Workloads and the infrastructure brief](#d02)
@@ -391,6 +393,11 @@ Compare utility-only and behind-the-meter supply against energy, capacity, fuel 
 - [P77 — Google — Supporting power grids with demand response](https://cloud.google.com/blog/products/infrastructure/using-demand-response-to-reduce-data-center-power-consumption) · `public_excerpt_reviewed` · [local note](../research/sources/P77.md)
 - [P78 — MLGW — xAI project quick facts](https://www.mlgw.com/images/content/files/pdf/2024xAI%20and%20MLGW%20Quick%20Facts%201.pdf) · `page_reviewed` · [local note](../research/sources/P78.md)
 - [SA42 — SpaceX 10GW in 2027 — construction pace and equipment procurement](https://newsletter.semianalysis.com/p/spacex-10gw-in-2027-why-its-real) · `public_excerpt_reviewed` · [local note](../research/sources/SA42.md)
+- [P82 — GE Vernova — How a combined-cycle plant produces electricity](https://www.gevernova.com/gas-power/resources/education/combined-cycle-power-plants) · `page_reviewed` · [local note](../research/sources/P82.md)
+- [P83 — EIA — Natural gas generation by technology and region](https://www.eia.gov/todayinenergy/detail.php?id=61444) · `page_reviewed` · [local note](../research/sources/P83.md)
+- [P84 — GE Vernova — 7HA gas-turbine and combined-cycle fact sheet](https://www.gevernova.com/content/dam/gepower-new/global/en_US/downloads/gas-new-site/products/gas-turbines/7ha-fact-sheet-product-specifications.pdf) · `page_reviewed` · [local note](../research/sources/P84.md)
+- [EA6791A38DA — GE Vernova — First 7HA.03 commercial operation at FPL Dania Beach](https://www.gevernova.com/gas-power/resources/case-studies/first-7ha-florida-power-light) · `page_reviewed` · [local note](../research/sources/EA6791A38DA.md)
+- [EF3A791E451 — GE Vernova — 2025 Gas Power Catalog, plant configuration comparison](https://www.gevernova.com/content/dam/gepower-new/global/en_US/downloads/noindexpdf/GEA35241-GE-Vernova-Gas-Power-Catalog.pdf) · `page_reviewed` · [local note](../research/sources/EF3A791E451.md)
 
 <a id="d04"></a>
 
@@ -508,6 +515,7 @@ Connect backup supply, fault isolation and maintenance to complete operating pat
 - UPS, batteries, generators, transfer sequences and load shedding
 - Stored energy versus discharge power; transient response versus outage duration
 - N, N+1, 2N, common-mode failures and maintainability
+- Uptime Tier I–IV infrastructure requirements versus measured availability nines; engine generation and lifecycle tradeoffs
 - Grounding, fault detection, selective isolation and AC/DC protection concepts
 - Electrical and thermal ride-through together
 
@@ -592,7 +600,7 @@ Explain why fault clearing and grounding require topology-specific AC/DC protect
 - [P25 — Texas Instruments — Power Loss in Switching Power Supplies](https://www.ti.com/document-viewer/lit/html/SLUAAL9) · `page_reviewed` · [local note](../research/sources/P25.md)
 - [P26 — Schneider Electric — Easy UPS 3-Phase Modular physical specifications](https://productinfo.se.com/easyups3pmodular/990-91580-technical-specifications-easy-ups-3-phase-modular/English/990-91580%20Technical%20Specifications%20Easy%20UPS%203-Phase%20Modular50-250%20kW%20UPS_0001011916.xml/%24/PhysicalREF_0000019941) · `page_reviewed` · [local note](../research/sources/P26.md)
 - [P27 — Schneider Electric — Easy UPS 3-Phase Modular hardware options](https://productinfo.se.com/easyups3pmodular/990-91580-technical-specifications-easy-ups-3-phase-modular/English/990-91580%20Technical%20Specifications%20Easy%20UPS%203-Phase%20Modular50-250%20kW%20UPS_0001011916.xml/%24/GalaxyPX_HardwareOptions_0000862721) · `page_reviewed` · [local note](../research/sources/P27.md)
-- [P28 — Open Compute Project — Open Rack V3 BBU Module Specification 1.4](https://www.opencompute.org/documents/open-rack-v3-bbu-module-spec-1-4-pdf) · `page_reviewed` · [local note](../research/sources/P28.md)
+- [P28 — OCP — Open Rack V3 48V BBU Module Specification revision 1.4](https://www.opencompute.org/documents/open-rack-v3-bbu-module-spec-1-4-pdf) · `page_reviewed` · [local note](../research/sources/P28.md)
 - [P29 — Eaton — Automatic transfer switch fundamentals](https://www.eaton.com/us/en-us/products/low-voltage-power-distribution-control-systems/automatic-transfer-switches/automatic-transfer-switch-fundamentals.html) · `page_reviewed` · [local note](../research/sources/P29.md)
 - [P30 — Schneider Electric — Presence of an Uninterruptible Power Supply (UPS)](https://www.electrical-installation.org/enwiki/Presence_of_an_Uninterruptible_Power_Supply_%28UPS%29) · `page_reviewed` · [local note](../research/sources/P30.md)
 - [P31 — Eaton — DC-link capacitor modules](https://www.eaton.com/gb/en-gb/products/electronic-components/topics/dc-link-modules.html) · `page_reviewed` · [local note](../research/sources/P31.md)
@@ -603,6 +611,11 @@ Explain why fault clearing and grounding require topology-specific AC/DC protect
 - [P74 — Crusoe — Abilene cooling design](https://www.crusoe.ai/resources/blog/an-inside-look-at-the-abilene-ai-data-center) · `page_reviewed` · [local note](../research/sources/P74.md)
 - [P75 — Crusoe and Redwood — Sparks microgrid update](https://www.crusoe.ai/resources/newsroom/crusoe-and-redwood-materials-expand-strategic-partnership-scaling-to-7x-the-original-ai-infrastructure-density) · `page_reviewed` · [local note](../research/sources/P75.md)
 - [P76 — Crusoe — 2025 impact report web summary](https://www.crusoe.ai/resources/blog/crusoes-2025-impact-report) · `page_reviewed` · [local note](../research/sources/P76.md)
+- [P79 — Explaining the Uptime Institute’s Tier Classification System (April 2021 Update)](https://journal.uptimeinstitute.com/explaining-uptime-institutes-tier-classification-system/) · `public_excerpt_reviewed` · [local note](../research/sources/P79.md)
+- [P80 — Tier Classification Myths and Misconceptions](https://uptimeinstitute.com/myths) · `public_excerpt_reviewed` · [local note](../research/sources/P80.md)
+- [P81 — Tier Certification for Modular and Phased Construction](https://journal.uptimeinstitute.com/modular-and-phased-construction/) · `public_excerpt_reviewed` · [local note](../research/sources/P81.md)
+- [P88 — Analog Devices — Smart Battery Backup for Uninterrupted Energy, Part 4: BBU Shelf Operation](https://www.analog.com/en/resources/analog-dialogue/articles/smart-battery-backup-for-uninterrupted-energy-part4.html) · `page_reviewed` · [local note](../research/sources/P88.md)
+- [P90 — Texas Instruments — The decoupling capacitor: is it really necessary?](https://e2e.ti.com/blogs_/archives/b/precisionhub/posts/the-decoupling-capacitor-is-it-really-necessary) · `page_reviewed` · [local note](../research/sources/P90.md)
 
 <a id="d06"></a>
 
@@ -619,6 +632,8 @@ Use 800 V DC as an architecture comparison grounded in current, interfaces and d
 - 800 V DC and other specified voltage arrangements; product/version boundaries
 - Copper, connectors, busbars, stored energy, service access and space
 - Load transients, protection interfaces, brownfield and greenfield choices
+- Rack-to-die power path: platform-specific PSU input, vertical DC busbar, intermediate conversion, multiphase regulation and finite ripple
+- Energy-to-compute locality: decoupling capacitors, rack BBU modules and facility storage; response time, power, usable energy and path isolation
 
 **Prerequisites:** [System boundaries and quantities](#d01), [Campus and building power distribution](#d04), [Continuity, storage and protection](#d05)
 
@@ -701,16 +716,20 @@ Explain how retrofit constraints can reverse a seemingly attractive greenfield a
 - [P23 — Wolfspeed — Introduction of a commercially available 10 kV SiC power MOSFET](https://www.wolfspeed.com/company/news-events/news/wolfspeed-introduces-industrys-first-commercially-available-10000v-silicon-carbide-power-mosfet/) · `page_reviewed` · [local note](../research/sources/P23.md)
 - [P24 — Schneider Electric — What is UPS efficiency and how is it calculated?](https://www.se.com/us/en/faqs/FAQ000244215/) · `page_reviewed` · [local note](../research/sources/P24.md)
 - [P25 — Texas Instruments — Power Loss in Switching Power Supplies](https://www.ti.com/document-viewer/lit/html/SLUAAL9) · `page_reviewed` · [local note](../research/sources/P25.md)
-- [P28 — Open Compute Project — Open Rack V3 BBU Module Specification 1.4](https://www.opencompute.org/documents/open-rack-v3-bbu-module-spec-1-4-pdf) · `page_reviewed` · [local note](../research/sources/P28.md)
+- [P28 — OCP — Open Rack V3 48V BBU Module Specification revision 1.4](https://www.opencompute.org/documents/open-rack-v3-bbu-module-spec-1-4-pdf) · `page_reviewed` · [local note](../research/sources/P28.md)
 - [P31 — Eaton — DC-link capacitor modules](https://www.eaton.com/gb/en-gb/products/electronic-components/topics/dc-link-modules.html) · `page_reviewed` · [local note](../research/sources/P31.md)
 - [P33 — Texas Instruments — Basic Calculation of a Buck Converter’s Power Stage](https://www.ti.com/lit/an/slva477b/slva477b.pdf) · `page_reviewed` · [local note](../research/sources/P33.md)
 - [P43 — Hitachi Energy — Core-type transformers](https://www.hitachienergy.com/products-and-solutions/transformers/power-transformers/generator-step-up-transformers-gsu/core-type-transformers) · `page_reviewed` · [local note](../research/sources/P43.md)
 - [P44 — Schneider Electric — AA and AA/FA transformer cooling](https://www.se.com/ca/en/faqs/FA102583/) · `page_reviewed` · [local note](../research/sources/P44.md)
 - [P45 — Eaton — Medium-voltage solid-state transformer](https://www.eaton.com/us/en-us/catalog/medium-voltage-power-distribution-control-systems/medium-voltage-solid-state-transformer.html) · `page_reviewed` · [local note](../research/sources/P45.md)
 - [P54 — OCP — Data Center Facility: Low Voltage Direct Current Power Distribution, v1.0](https://www.opencompute.org/documents/dcf-power-distribution-lvdc-white-paper-version-1-0-final-pdf-1) · `public_excerpt_reviewed` · [local note](../research/sources/P54.md)
-- [P64 — NVIDIA DGX GB200/GB300 hardware guide — Power shelves](https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html#power-shelves) · `page_reviewed` · [local note](../research/sources/P64.md)
+- [P64 — NVIDIA DGX GB Rack Scale Systems — Hardware](https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html#power-shelves) · `page_reviewed` · [local note](../research/sources/P64.md)
 - [P67 — OpenStax · Resistance and simple circuits](https://openstax.org/books/college-physics-2e/pages/20-2-ohms-law-resistance-and-simple-circuits) · `page_reviewed` · [local note](../research/sources/P67.md)
 - [P69 — Eaton · UPS fundamentals handbook](https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-ups-fundamentals-handbook-anz.pdf) · `page_reviewed` · [local note](../research/sources/P69.md)
+- [P86 — Advanced Energy — ORv3 Power Supply Unit](https://www.advancedenergy.com/en-us/products/ac-dc-power-supply-units/power-shelves/ocp-compliant/orv3-psu/) · `page_reviewed` · [local note](../research/sources/P86.md)
+- [P88 — Analog Devices — Smart Battery Backup for Uninterrupted Energy, Part 4: BBU Shelf Operation](https://www.analog.com/en/resources/analog-dialogue/articles/smart-battery-backup-for-uninterrupted-energy-part4.html) · `page_reviewed` · [local note](../research/sources/P88.md)
+- [P89 — Texas Instruments — TIDA-050095 48V–12V 2kW four-phase bus converter](https://www.ti.com/tool/TIDA-050095) · `page_reviewed` · [local note](../research/sources/P89.md)
+- [P90 — Texas Instruments — The decoupling capacitor: is it really necessary?](https://e2e.ti.com/blogs_/archives/b/precisionhub/posts/the-decoupling-capacitor-is-it-really-necessary) · `page_reviewed` · [local note](../research/sources/P90.md)
 
 <a id="d07"></a>
 
@@ -804,6 +823,7 @@ Connect server and rack organization to power, cooling, weight and maintenance i
 - [EB973B565B7 — GPU Performance Background User’s Guide](https://docs.nvidia.com/deeplearning/performance/dl-performance-gpu-background/index.html) · `page_reviewed` · [local note](../research/sources/EB973B565B7.md)
 - [E134D3535CB — Matrix Multiplication Background User’s Guide](https://docs.nvidia.com/deeplearning/performance/dl-performance-matrix-multiplication/index.html) · `page_reviewed` · [local note](../research/sources/E134D3535CB.md)
 - [E4ABDC02D45 — NVIDIA DGX SuperPOD — Network Fabrics](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/network-fabrics.html) · `page_reviewed` · [local note](../research/sources/E4ABDC02D45.md)
+- [P64 — NVIDIA DGX GB Rack Scale Systems — Hardware](https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html#power-shelves) · `page_reviewed` · [local note](../research/sources/P64.md)
 - [P70 — Intel · CPU versus GPU](https://www.intel.com/content/www/us/en/products/docs/processors/cpu-vs-gpu.html) · `page_reviewed` · [local note](../research/sources/P70.md)
 - [P71 — Intel · Memory performance in a nutshell](https://www.intel.com/content/www/us/en/developer/articles/technical/memory-performance-in-a-nutshell.html) · `page_reviewed` · [local note](../research/sources/P71.md)
 
@@ -1403,6 +1423,7 @@ Specify an integrated acceptance and handover plan for a phased deployment.
 - [P58 — OCP — Modular Technology Cooling Systems, Revision 1](https://www.opencompute.org/documents/ocp-modular-tcs-rev-1-final-2025-pdf) · `page_reviewed` · [local note](../research/sources/P58.md)
 - [P59 — Vertiv — How N+1 redundancy supports continuous data center cooling](https://www.vertiv.com/en-ca/about/news-and-events/articles/educational-articles/how-n1-redundancy-supports-continuous-data-center-cooling/) · `public_excerpt_reviewed` · [local note](../research/sources/P59.md)
 - [SA42 — SpaceX 10GW in 2027 — construction pace and equipment procurement](https://newsletter.semianalysis.com/p/spacex-10gw-in-2027-why-its-real) · `public_excerpt_reviewed` · [local note](../research/sources/SA42.md)
+- [P81 — Tier Certification for Modular and Phased Construction](https://journal.uptimeinstitute.com/modular-and-phased-construction/) · `public_excerpt_reviewed` · [local note](../research/sources/P81.md)
 
 <a id="d14"></a>
 
@@ -1509,6 +1530,9 @@ Convert a failure or capacity incident into an evidence-based recovery and preve
 - [E571B75F6E0 — Google SRE: Postmortem Culture](https://sre.google/sre-book/postmortem-culture/) · `page_reviewed` · [local note](../research/sources/E571B75F6E0.md)
 - [EE53DCAF5E1 — Uptime Institute — Myths and Misconceptions Regarding the Tier Certification System](https://journal.uptimeinstitute.com/myths-and-misconceptions-regarding-the-uptime-institutes-tier-certification-system/) · `public_excerpt_reviewed` · [local note](../research/sources/EE53DCAF5E1.md)
 - [P75 — Crusoe and Redwood — Sparks microgrid update](https://www.crusoe.ai/resources/newsroom/crusoe-and-redwood-materials-expand-strategic-partnership-scaling-to-7x-the-original-ai-infrastructure-density) · `page_reviewed` · [local note](../research/sources/P75.md)
+- [P79 — Explaining the Uptime Institute’s Tier Classification System (April 2021 Update)](https://journal.uptimeinstitute.com/explaining-uptime-institutes-tier-classification-system/) · `public_excerpt_reviewed` · [local note](../research/sources/P79.md)
+- [P80 — Tier Classification Myths and Misconceptions](https://uptimeinstitute.com/myths) · `public_excerpt_reviewed` · [local note](../research/sources/P80.md)
+- [P81 — Tier Certification for Modular and Phased Construction](https://journal.uptimeinstitute.com/modular-and-phased-construction/) · `public_excerpt_reviewed` · [local note](../research/sources/P81.md)
 
 <a id="d15"></a>
 

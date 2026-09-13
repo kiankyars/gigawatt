@@ -132,9 +132,9 @@ input:focus-visible {
   border-bottom: 1px solid var(--line);
 }
 .brand {
-  font-size: 16px;
-  font-weight: 800;
-  letter-spacing: 1px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: normal;
   text-decoration: none;
   color: var(--ink);
   white-space: nowrap;
@@ -2157,9 +2157,7 @@ body[data-view="student"] #visual {
     <a class="skip" href="#scene">Skip to visual</a>
     <div id="audience">
       <header class="toolbar">
-        <a class="brand" href="index.html"
-          >ϟ GIGAWATT <span id="view-label">800 V DC</span></a
-        >
+        <a class="brand" href="index.html?view=slides">← Back to course</a>
         <nav aria-label="Lesson navigation">
           <a href="sample-reading.html">Read the lesson</a>
           <button id="open-notes">Presenter notes ↗</button>
@@ -3074,9 +3072,6 @@ function render() {
   bindVisual();
   if (focus === "reveal") byId("scene").focus({ preventScroll: true });
 }
-byId("view-label").textContent = studentMode
-  ? "800 V DC · EXPLORE"
-  : "800 V DC · TEACH";
 byId("open-notes").hidden = !teachingMode;
 byId("fullscreen").hidden = !teachingMode;
 byId("student-context").hidden = !studentMode;

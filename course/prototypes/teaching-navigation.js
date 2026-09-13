@@ -6,6 +6,7 @@ export const presentationLabels = Object.freeze({
   "workloads": "3. Workloads and requirements",
   "siting": "4. Siting, grid connection and supply",
   "ups": "7. UPS, bypass and redundancy",
+  "rack-local-power": "8. From the rack inlet to the chip",
   "rack-800v": "8. 800 V DC",
   "cooling": "12–13. From the chip to the outdoors"
 });

@@ -114,9 +114,9 @@ input:focus-visible {
   border-bottom: 1px solid var(--line);
 }
 .brand {
-  font-size: 16px;
-  font-weight: 800;
-  letter-spacing: 1px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: normal;
   text-decoration: none;
   color: var(--ink);
   white-space: nowrap;

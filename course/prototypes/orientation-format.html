@@ -121,9 +121,9 @@
       .brand {
         color: inherit;
         text-decoration: none;
-        letter-spacing: 1.5px;
-        font-size: 12px;
-        font-weight: 800;
+        letter-spacing: normal;
+        font-size: 13px;
+        font-weight: 650;
       }
       .toolbar nav {
         display: flex;
@@ -371,7 +371,7 @@
   <body>
     <div id="viewer">
       <header class="toolbar">
-        <a class="brand" href="../index.html">GIGAWATT</a>
+        <a class="brand" href="../index.html?view=slides">← Back to course</a>
         <nav aria-label="Lesson resources">
           <a class="reading-link" href="../index.html#d01-boundaries">Reading</a
           ><button id="explain">Explanation &amp; sources</button
@@ -507,7 +507,8 @@
             <a
               href="https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html#power-shelves"
               >NVIDIA hardware guide — Power shelves</a
-            >: AC-to-DC power shelves, nominal 50–51 V busbar. The
+            >: AC-to-DC power shelves, nominal 50–51 V in-rack busbar and the
+            manufacturer’s annotated DGX GB300 rear-view figure. The
             combined-guide consumption example is not used as a GB300 rating.
           </li>
           <li>
@@ -581,6 +582,7 @@
       const state = {
         path: "power",
         spaceView: "photo",
+        rackView: "front",
         boundary: "it",
         schedule: "stepped",
         efficiency: "baseline",
@@ -653,9 +655,9 @@
           reference: "d04-read-the-power-train",
           visual: "power-tour",
           description:
-            "An example campus boundary encloses the substation, building distribution and rack supplies. Optional on-site generation joins the distribution path; its protection and controls are not detailed.",
+            "An example campus boundary encloses the substation, building distribution and rack power shelves containing power supply units (PSUs). Optional on-site generation joins the distribution path; its protection and controls are not detailed.",
           explanation:
-            "Follow the grid connection into the campus receiving substation, then the distribution network serving individual buildings. Transformers and switchboards adapt and route supply to building equipment. Switchgear provides switching and protection functions; exact devices, grounding and voltage levels depend on the design. On-site generation can connect within the customer system, but simply owning a generator does not establish island operation, sufficient fuel supply or permission to parallel with the grid. The supply and power-distribution lessons examine those choices.",
+            "Follow the grid connection into the campus receiving substation, then the distribution network serving individual buildings. Transformers and switchboards adapt and route supply to building equipment. Rack power shelves are assemblies containing the PSUs that convert incoming AC for the rack’s DC bus; the label does not include the upstream facility. Switchgear provides switching and protection functions; exact devices, grounding and voltage levels depend on the design. On-site generation can connect within the customer system, but simply owning a generator does not establish island operation, sufficient fuel supply or permission to parallel with the grid. The supply and power-distribution lessons examine those choices.",
         },
         {
           id: "continuity-preview",
@@ -674,10 +676,16 @@
           label: "A GB300 rack",
           title: "Power enters a GB300 rack through its power shelves.",
           reference: "d01-boundaries",
+          key: "rackView",
+          group: "View",
+          options: [
+            ["front", "Front and power path"],
+            ["rear", "Rear busbar"],
+          ],
           description:
-            "NVIDIA manufacturer image of GB300 NVL72. Published full-rack power requirement up to 142 kilowatts. AC supply feeds power shelves, then a DC busbar supplying rack components.",
+            "NVIDIA manufacturer images of GB300 NVL72. AC supply feeds PSUs in power shelves, then the nominal 50–51 V DC busbar inside the rack. Select Rear busbar to see NVIDIA’s annotated rear hardware view; compact screens enlarge the rear cabinet.",
           explanation:
-            "NVIDIA’s enterprise reference architecture identifies a GB300 NVL72 full-rack requirement of up to 142 kW. That means kilowatts, not watts. It is not a constant measured draw and is not a universal OEM range: configurations, workloads and peak requirements differ. The hardware guide explains AC power shelves supplying a nominal 50–51 V DC busbar. The 142 kW bullet does not specify an exact AC/DC measurement plane or a PSU loss breakdown, so we do not invent one. At an actual AC inlet meter, internal power-supply losses are already included. The product image is supplied by NVIDIA; the three blocks show its functional supply path, not a new installation drawing.",
+            "NVIDIA’s enterprise reference architecture identifies a GB300 NVL72 full-rack requirement of up to 142 kW. This is a published requirement, not constant measured demand. The hardware guide describes nominal 50–51 V DC from the power shelves to the vertical power busbar inside the rack; this is not an 800 V hall-distribution bus. A shelf contains multiple power supply units (PSUs). The rack busbar distributes their output to compute and switch trays. Select Rear busbar to see the manufacturer’s rear hardware figure and its power-busbar label. The desktop view retains the annotated figure; the narrow view enlarges its rear cabinet. The 142 kW bullet does not specify an exact AC/DC measurement plane or a PSU loss breakdown, so we do not invent one. At an actual AC inlet meter, internal power-supply losses are already included. Board-level converters and point-of-load regulators make the lower rails required by the devices; their exact stages are architecture-specific.",
         },
         {
           id: "compute-scale",

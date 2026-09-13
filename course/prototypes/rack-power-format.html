@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="description" content="Trace site readiness, grid connection, energy procurement and behind-the-meter supply through controlled examples."><title>Siting, grid connection and supply · GIGAWATT</title><style>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="description" content="Follow power shelves and the rack bus to board regulators, then test local stored energy and BBU limits."><title>Rack power and local storage · GIGAWATT</title><style>
       :root {
         color-scheme: light;
         --paper: #f4f3ee;
@@ -341,32 +341,16 @@
       .choices legend {float:left;padding:10px 5px 10px 0;font-size:12px;color:var(--muted)}
       #status {position:absolute}
       @media(max-width:600px){#diagram{height:680px;min-height:680px}.toolbar nav{gap:4px}.toolbar button{font-size:11px}#scenes{max-width:44vw}}
-</style></head><body>
-<div id="viewer"><header class="toolbar"><a class="back-to-course" href="../index.html?view=slides">← Back to course</a><nav aria-label="Lesson controls"><button id="explain">Explanation</button><button id="fullscreen" hidden>Full screen</button></nav></header>
-<main><header><h1 id="title"></h1></header><section id="stage" aria-label="Siting and supply mechanisms"><svg id="diagram" role="img" aria-labelledby="diagram-title diagram-description"></svg><div id="actions"></div><p class="sr-only" id="status" role="status"></p></section></main>
+</style></head><body><div id="viewer"><header class="toolbar"><a class="back-to-course" href="../index.html?view=slides">← Back to course</a><nav aria-label="Lesson controls"><button id="explain">Explanation</button><button id="fullscreen" hidden>Full screen</button></nav></header>
+<main><header><h1 id="title"></h1></header><section id="stage" aria-label="Rack power conversion and local storage"><svg id="diagram" role="img" aria-labelledby="diagram-title diagram-description"></svg><div id="actions"></div><p class="sr-only" id="status" role="status"></p></section></main>
 <footer><label class="sr-only" for="scenes">Choose scene</label><select id="scenes"></select><div class="navigation"><button id="previous" aria-label="Previous scene">←</button><span id="progress" aria-live="polite"></span><button id="next" aria-label="Next scene">→</button></div></footer></div>
-<dialog id="reading" aria-labelledby="reading-title"><header><h2 id="reading-title">Siting and supply</h2><button id="close-reading" aria-label="Close explanation">×</button></header><h3 id="explanation-title"></h3><div id="explanation"></div><p class="scope" id="model-scope"></p>
-<p><a id="lesson-reference" href="../index.html#d03-service-and-siting">Read the full lesson →</a></p>
-<details><summary>Sources and reading boundaries · checked 12 September 2026</summary><ul>
-<li><a href="https://www.epa.gov/green-power-markets/physical-ppa">EPA — Physical PPA</a>: physical and financial arrangements differ; neither alone establishes an independent campus feeder.</li>
-<li><a href="https://pubs.naruc.org/pub/6233DBE2-B58B-52FF-925E-250DD26DECF9">NARUC — Connecting the Dots</a>: printed pages 2–3, behind-the-meter and front-of-meter boundaries.</li>
-<li><a href="https://www.energy.gov/cmei/femp/articles/islanding-microgrid">DOE — Islanding a Microgrid</a>: coordinated island operation; no seamless transfer time is inferred.</li>
-<li><a href="https://www.ercot.com/news/release/06182026-puct-approves-ercots">ERCOT — Batch Zero announcement, 18 June 2026</a>: dated regional illustration of shared-network large-load studies.</li>
-<li><a href="https://www.ashrae.org/technical-resources/ai-data-center-framework/commissioning-performance-validation">ASHRAE — Commissioning and Performance Validation</a>: phased handovers and integrated testing. All scenario readiness dates are invented teaching inputs.</li>
-<li><a href="https://www.crusoe.ai/resources/newsroom/crusoe-announces-new-900-mw-ai-factory-campus-in-abilene-texas-to-support-microsoft-ai-infrastructure">Crusoe — Abilene update, 27 March 2026</a>: original and adjacent campuses are distinct. Energized, expected and targeted milestones retain the report date.</li>
-<li><a href="https://newsletter.semianalysis.com/p/spacex-10gw-in-2027-why-its-real">SemiAnalysis — construction and procurement analysis, 7 August 2026</a>: public passage after MiniHard; reported procurement rationale, not an as-built electrical drawing. No forecast of future xAI capacity is adopted.</li>
-<li><a href="https://www.electrical-installation.org/enwiki/Installed_apparent_power_(kVA)">Schneider Electric — Installed apparent power</a>: three-phase line-to-line voltage and current relationship. The 200 MW comparison and circuit counts are hypothetical.</li>
-<li><a href="https://www.gevernova.com/gas-power/resources/education/combined-cycle-power-plants">GE Vernova — Combined-cycle power plants</a>: exhaust-heat recovery and the separate steam cycle. The 100 MW fuel balance uses assumed efficiencies, not a measured plant.</li>
-<li><a href="https://www.gevernova.com/gas-power/resources/case-studies/first-7ha-florida-power-light">GE Vernova — Dania Beach</a>: publisher photograph, two 7HA.03 gas turbines and reported plant output up to 1,260 MW; no campus supply relationship is asserted.</li>
-<li><a href="https://www.gevernova.com/content/dam/gepower-new/global/en_US/downloads/gas-new-site/products/gas-turbines/7ha-fact-sheet-product-specifications.pdf">GE Vernova — May 2025 7HA fact sheet</a>: 1×1 combined-cycle hot-start, running ramp and minimum-load ratings have separate meanings and stated conditions.</li>
-<li><a href="https://www.eia.gov/todayinenergy/detail.php?id=61444">EIA — Gas-turbine and combined-cycle utilization</a> and <a href="https://www.gevernova.com/content/dam/gepower-new/global/en_US/downloads/noindexpdf/GEA35241-GE-Vernova-Gas-Power-Catalog.pdf">GE Vernova — 2025 catalog, printed page 28</a>: different duty profiles, simpler installation and lower capital for simple cycle. Dispatch, fuel prices, fixed costs and the 4,800-hour crossover are original teaching assumptions.</li>
-</ul><p>The calculations isolate the stated mechanisms. No site-specific operating instructions, equipment sizing or authorization follow from them.</p></details></dialog>
-<noscript><p>This interactive presentation needs JavaScript. Read <a href="../lessons/d03-power-and-procurement.md">power procurement</a>, <a href="../lessons/d03-voltage-and-distance.md">voltage and distance</a>, and <a href="../lessons/d03-service-and-siting.md">service and siting</a>.</p></noscript>
-<script type="module">
+<dialog id="reading" aria-labelledby="reading-title"><header><h2 id="reading-title">Rack power and local storage</h2><button id="close-reading" aria-label="Close explanation">×</button></header><h3 id="explanation-title"></h3><div id="explanation"></div><p class="scope" id="model-scope"></p><p><a href="../index.html#d06-conversion-ledger">Read the rack-to-die power path</a> · <a href="../index.html#d06-rack-migration">Read local storage and BBU sizing</a></p>
+<details><summary>Primary sources and reading limits · checked 12 September 2026</summary><ul><li><a href="https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html">NVIDIA DGX GB Rack Scale Systems — Hardware</a>: Rack configuration and Power Shelves sections reviewed; manufacturer rear figure visually inspected. Shared GB200/GB300 guide has an approximately 120 kW consumption example that is not substituted for the enterprise GB300 up-to-142-kW requirement. This is not evidence of a one-BBU-per-NVL72 design or the unpublished board regulator implementation.</li><li><a href="https://www.advancedenergy.com/en-us/products/ac-dc-power-supply-units/power-shelves/ocp-compliant/orv3-psu/">Advanced Energy — ORv3 Power Supply Unit</a>: Product overview and Features inspected. This ORv3 product is not identified as the DGX GB300 power supply. No claimed peak efficiency is generalized to whole-rack conversion or an omitted 480-to-208-V transformer.</li><li><a href="https://www.opencompute.org/documents/open-rack-v3-bbu-module-spec-1-4-pdf">OCP — Open Rack V3 48V BBU Module Specification revision 1.4</a>: Sections 4.2, 4.3/Table 2, 4.3.3, and parallel-operation references reviewed. Source conditions include at least 3.9 V/cell at the declared threshold and aging/temperature limits. Not a generic modern rack rating, battery chemistry comparison, or NVL72 configuration. The specification includes timing and state conditions; no instant universal handoff is claimed.</li><li><a href="https://www.analog.com/en/resources/analog-dialogue/articles/smart-battery-backup-for-uninterrupted-energy-part4.html">Analog Devices — Smart Battery Backup for Uninterrupted Energy, Part 4: BBU Shelf Operation</a>: Introduction, BBU Shelf Overview and Shelf System Control read. The 15 kW surviving-capacity calculation combines the six-module arrangement with the separately reviewed OCP 3 kW module requirement. Not a claim that a 15 kW shelf supports a 142 kW NVL72 rack.</li><li><a href="https://www.ti.com/tool/TIDA-050095">Texas Instruments — TIDA-050095 48V–12V 2kW four-phase bus converter</a>: Overview, Features and design-guide description reviewed; indexed System Description and specification table also inspected. No lab replication or claim that this reference design is installed in GB300. Manufacturer efficiency claims and separate maxima are not used as the course model. Multiphase waveforms are explicitly original normalized illustrations.</li><li><a href="https://e2e.ti.com/blogs_/archives/b/precisionhub/posts/the-decoupling-capacitor-is-it-really-necessary">Texas Instruments — The decoupling capacitor: is it really necessary?</a>: Authored article and figure descriptions 1–3 inspected. The example is an amplifier circuit, not a GPU benchmark. No suggested component value or layout instructions are imported; rack-level power transients are original stated models.</li></ul></details></dialog>
+<noscript><p>Read <a href="../index.html#d06-conversion-ledger">rack power conversion</a> and <a href="../index.html#d06-rack-migration">local energy storage</a>.</p></noscript><script type="module">
 import { presentationLabels } from './teaching-navigation.js';
-document.title = `${presentationLabels.siting} · GIGAWATT`;
-import { scenes, initialState } from './siting-scenes.js';
-import { renderSiting } from './siting-visuals.js';
+document.title = `${(presentationLabels['rack-local-power'] || 'Rack power and local storage')} · GIGAWATT`;
+import { scenes, initialState } from './rack-power-scenes.js';
+import { renderRackPower } from './rack-power-visuals.js';
 const $=id=>document.getElementById(id), state={...initialState};
 const teaching=new URLSearchParams(location.search).get('teach')==='1';
 $('fullscreen').hidden=!teaching;
@@ -374,8 +358,8 @@ let index=0;
 for(const [i,scene] of scenes.entries()) $('scenes').add(new Option(`${i+1} · ${scene.label}`,scene.id));
 function draw(){
  const scene=scenes[index], compact=matchMedia('(max-width:600px)').matches;
- const {markup,description}=renderSiting(scene.id,state,compact);
- $('diagram').setAttribute('viewBox',compact?'0 0 390 680':'0 0 1120 540');
+ const {markup,description}=renderRackPower(scene.id,state,compact);
+ $('diagram').setAttribute('viewBox',compact?'0 0 390 680':'0 0 1200 560');
  $('diagram').innerHTML=`<title id="diagram-title">${scene.title}</title><desc id="diagram-description">${description}</desc>${markup}`;
  $('status').textContent=description;
 }
@@ -390,10 +374,10 @@ function controls(){
    b.addEventListener('click',()=>{state[group.key]=value;field.querySelectorAll('button').forEach(button=>button.setAttribute('aria-pressed',String(button===b)));draw();});field.append(b);
   }$('actions').append(field);
  }
- if(index===scenes.length-1){const a=document.createElement('a');a.href='../index.html?checkin=1#d03-service-and-siting';a.textContent='Check your understanding →';$('actions').append(a);}
+ if(index===scenes.length-1){const a=document.createElement('a');a.href='../teach.html';a.textContent='Continue to 800 V DC →';$('actions').append(a);const check=document.createElement('a');check.href='../index.html?checkin=1#d06-rack-migration';check.textContent='Chapter check-in';$('actions').append(check);}
  if(scene.reveal){const b=document.createElement('button');b.id='reveal';b.textContent=state[scene.reveal]?'Hide reasoning':'Reveal reasoning';b.setAttribute('aria-expanded',String(state[scene.reveal]));b.onclick=()=>{state[scene.reveal]=!state[scene.reveal];b.textContent=state[scene.reveal]?'Hide reasoning':'Reveal reasoning';b.setAttribute('aria-expanded',String(state[scene.reveal]));draw();};$('actions').append(b);}
 }
-function render(){const s=scenes[index];$('title').textContent=s.title;$('scenes').value=s.id;$('progress').textContent=`${index+1} / ${scenes.length}`;$('previous').disabled=index===0;$('next').disabled=index===scenes.length-1;$('explanation-title').textContent=s.title;$('explanation').innerHTML=s.explanation.map(p=>`<p>${p}</p>`).join('');$('model-scope').textContent=s.boundary;$('lesson-reference').href=s.reference;controls();draw();}
+function render(){const s=scenes[index];$('title').textContent=s.title;$('scenes').value=s.id;$('progress').textContent=`${index+1} / ${scenes.length}`;$('previous').disabled=index===0;$('next').disabled=index===scenes.length-1;$('explanation-title').textContent=s.title;$('explanation').innerHTML=s.explanation.map(p=>`<p>${p}</p>`).join('');$('model-scope').textContent=s.boundary;controls();draw();}
 function go(i){index=Math.max(0,Math.min(scenes.length-1,i));history.replaceState(null,'',`#${scenes[index].id}`);render();}
 function fromHash(){const id=location.hash.slice(1),i=scenes.findIndex(s=>s.id===id);index=i<0?0:i;render();}
 $('scenes').onchange=e=>go(scenes.findIndex(s=>s.id===e.target.value));$('previous').onclick=()=>go(index-1);$('next').onclick=()=>go(index+1);

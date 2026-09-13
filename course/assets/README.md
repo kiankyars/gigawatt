@@ -31,6 +31,26 @@ current authored edition.
 
 ## Sourced reference images
 
+The overview and rack-power sequence embed NVIDIA's annotated **DGX GB300 rear
+hardware figure**, inspected 2026-09-12, from the
+[GB rack hardware guide](https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html#power-shelves).
+The [publisher-hosted image](https://docs.nvidia.com/dgx/dgxgb200-user-guide/_images/hardware-rack-rear-gb300.png)
+identifies the power busbar, cooling manifolds and NVLink cable cartridges.
+The narrow composition enlarges the cabinet and points to the same busbar
+location; it does not invent hidden components. The guide's **nominal 50–51 V DC**
+bus description is kept separate from its approximate combined-guide power
+example and from the enterprise GB300 up-to-142-kW requirement. This figure
+does not establish an OEM-independent BBU configuration or board regulator design.
+
+Section 4 embeds GE Vernova's photograph of **Dania Beach Clean Energy Center**,
+inspected 2026-09-12, from its
+[FPL case study](https://www.gevernova.com/gas-power/resources/case-studies/first-7ha-florida-power-light).
+The publisher-hosted image shows a real combined-cycle plant; the adjacent
+two-7HA.03 and up-to-1,260-MW labels are manufacturer-reported plant claims.
+No claim is made that the plant supplies the course's campus or operated at that
+output when photographed. The diagram and cost/fuel models remain separate
+original teaching examples. Neither publisher image is AI-generated.
+
 The overview's second slide opens on Google's photograph of server aisles at
 its **New Albany, Ohio** campus, credited on the slide. Source:
 [Google Data Centers photo gallery — Central Ohio](https://www.datacenters.google/discover-more/photo-gallery/),

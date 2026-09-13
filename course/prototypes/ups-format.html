@@ -759,6 +759,154 @@
       #note-actions:empty {
         display: none;
       }
+      #reliability {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        padding: 12px 2px 4px;
+      }
+      .reliability-main {
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 16px;
+      }
+      .reliability-actions {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .reliability-actions:empty { display: none; }
+      [data-reliability-key][aria-pressed="true"] {
+        background: var(--ink);
+        color: var(--on-strong, white);
+      }
+      .reliability-source,
+      .reliability-scope {
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.5;
+        text-align: center;
+        margin: 0;
+      }
+      .tier-hierarchy { display: grid; gap: 10px; }
+      .tier-row {
+        display: grid;
+        grid-template-columns: 74px 1fr 170px;
+        gap: 18px;
+        align-items: center;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 10px 22px;
+      }
+      .tier-row[data-meets-event="true"] {
+        border-color: var(--green);
+        background: var(--note-surface, #e8f0e5);
+      }
+      .tier-number {
+        font: 400 42px Georgia, serif;
+        color: var(--green);
+      }
+      .tier-row > div { display: grid; gap: 6px; }
+      .tier-row > div > strong { font-size: 21px; }
+      .tier-row > div > span { font-size: 15px; color: var(--muted); }
+      .tier-verdict { font-size: 14px; text-align: right; color: var(--muted); }
+      [data-meets-event="true"] .tier-verdict { color: var(--green); font-weight: 700; }
+      .generation-requirements {
+        display: grid;
+        grid-template-columns: 1.15fr 1fr;
+        align-items: stretch;
+        gap: 24px;
+      }
+      .generation-base,
+      .generation-rating {
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: 22px;
+      }
+      .generation-base svg { width: 100%; max-height: 190px; }
+      .generation-base > strong,
+      .generation-rating > strong { font-size: 24px; line-height: 1.3; }
+      .generation-rating > span { color: var(--muted); font-size: 15px; }
+      .tier-range { color: var(--green); font: 32px Georgia, serif; }
+      .capability-not-schedule {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding-top: 12px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: .6px;
+      }
+      .capability-not-schedule b { font-size: 38px; color: var(--gold); }
+      .availability-example {
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 36px;
+      }
+      .availability-account {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        padding-bottom: 32px;
+      }
+      .availability-account > div { display: grid; gap: 12px; }
+      .availability-account span { color: var(--muted); font-size: 16px; }
+      .availability-account strong { font-size: clamp(26px, 3.7vw, 54px); font-weight: 550; }
+      .availability-account small { font-size: 20px; font-weight: 400; }
+      .availability-result { color: var(--green); }
+      [data-within-budget="false"] .availability-result { color: var(--gold); }
+      .budget-ruler { background: var(--line); height: 20px; border-radius: 8px; overflow: hidden; }
+      .budget-ruler span { display: block; height: 100%; background: var(--green); }
+      [data-within-budget="false"] .budget-ruler span { background: var(--gold); }
+      .budget-percent { text-align: center; padding-top: 14px; font-size: 20px; }
+      .availability-equation { text-align: center; font-size: 18px; margin: 30px 0 0; }
+      .tier-investment { display: grid; grid-template-columns: 1fr 55px 1fr; align-items: center; gap: 20px; }
+      .investment-panel { padding: 30px; border: 1px solid var(--line); border-radius: 14px; text-align: center; }
+      .investment-panel > span { font-size: 11px; letter-spacing: 1px; color: var(--muted); }
+      .investment-panel > strong { display: block; font: 36px Georgia, serif; margin-top: 28px; }
+      .investment-panel p { font-size: 20px; }
+      .investment-panel small { font-size: 14px; color: var(--muted); }
+      .investment-arrow { font-size: 50px; color: var(--muted); text-align: center; }
+      [data-upgrade="true"] .upgrade-panel { border-color: var(--green); background: var(--note-surface, #e8f0e5); }
+      [data-upgrade="true"] .investment-arrow { color: var(--green); }
+      @media (max-width: 799px), (max-height: 650px) {
+        #stage:has(#reliability:not([hidden])) { height: auto; overflow: visible; }
+        #reliability { height: auto; gap: 20px; }
+        .reliability-main { flex: none; }
+      }
+      @media (max-width: 799px) {
+        .tier-row { grid-template-columns: 38px 1fr; gap: 10px; padding: 14px; }
+        .tier-row > div > strong { font-size: 18px; }
+        .tier-row > div > span { font-size: 13px; line-height: 1.4; }
+        .tier-number { font-size: 30px; }
+        .tier-verdict { grid-column: 2; text-align: left; font-size: 13px; }
+        .generation-requirements { grid-template-columns: 1fr; gap: 14px; }
+        .generation-base, .generation-rating { padding: 22px 16px; gap: 16px; }
+        .generation-base > strong, .generation-rating > strong { font-size: 21px; }
+        .availability-example { padding: 22px 16px; }
+        .availability-account { grid-template-columns: 1fr; gap: 22px; }
+        .availability-account > div { grid-template-columns: 1fr auto; align-items: center; gap: 10px; }
+        .availability-account strong { font-size: 30px; }
+        .availability-account span { font-size: 14px; }
+        .availability-account small { font-size: 14px; }
+        .availability-equation { font-size: 16px; line-height: 1.5; }
+        .budget-percent { font-size: 16px; }
+        .tier-investment { grid-template-columns: 1fr; gap: 14px; }
+        .investment-panel { padding: 24px; }
+        .investment-panel > strong { font-size: 30px; margin-top: 18px; }
+        .investment-arrow { transform: rotate(90deg); line-height: 1; }
+      }
       [data-action] {
         font-size: 13px;
       }
@@ -863,6 +1011,7 @@
               </div>
             </div>
           </div>
+          <section id="reliability" aria-label="Site reliability comparison" hidden></section>
           <div id="equipment" hidden>
             <div class="equipment-pair">
               <figure class="product-photo">
@@ -1106,6 +1255,7 @@
       import { renderGeneratorDiagram } from "./ups-generator.js";
       import { renderBypassDiagram } from "./ups-bypass.js";
       import { redundancyModel, renderRedundancy } from "./ups-redundancy.js";
+      import { reliabilityScenes, reliabilityControls, reliabilityTitle, renderReliability } from "./ups-reliability.js";
       const scenes = [
         {
           id: "campus",
@@ -1311,6 +1461,7 @@
           ],
           cue: "Predict the new N label and capacity margin before raising demand.",
         },
+        ...reliabilityScenes,
         {
           id: "return",
           label: "Recap",
@@ -1344,6 +1495,9 @@
           fault: false,
           busFault: false,
           loadKW: 100,
+          tierEvent: "maintenance",
+          nines: 4,
+          tierUpgrade: false,
           ...scenes[index].initial,
         };
       }
@@ -1539,6 +1693,7 @@
         }
       }
       function actionButtons(s) {
+        if (s.reliability) return reliabilityControls(s.id, state);
         if (s.id === "capacitors")
           return [
             ["alone", "Capacitor only"],
@@ -1601,6 +1756,15 @@
         );
       }
       function bindActions(container) {
+        container.querySelectorAll("button[data-reliability-key]").forEach((button) => {
+          button.onclick = () => {
+            const key = button.dataset.reliabilityKey;
+            const value = button.dataset.reliabilityValue;
+            state[key] = key === "nines" ? Number(value) : key === "tierUpgrade" ? value === "true" : value;
+            render();
+            publish();
+          };
+        });
         container
           .querySelectorAll("button[data-capacitor-mode]")
           .forEach((button) => {
@@ -1717,12 +1881,13 @@
       }
       function render() {
         const s = scenes[state.index];
-        document.title = `${presentationLabels.ups} · ${s.title} · GIGAWATT`;
+        const title = s.reliability ? reliabilityTitle(s, state) : s.title;
+        document.title = `${presentationLabels.ups} · ${title} · GIGAWATT`;
         history.replaceState(null, "", "#" + s.id);
         if (notesMode) {
           $("note-position").textContent =
             `SCENE ${state.index + 1} / ${scenes.length}`;
-          $("note-title").textContent = s.title;
+          $("note-title").textContent = title;
           $("note-cue").textContent = s.cue;
           $("note-points").innerHTML = s.notes
             .map((n) => `<li>${esc(n)}</li>`)
@@ -1736,11 +1901,16 @@
         }
         $("position").textContent =
           `UPS / ${String(state.index + 1).padStart(2, "0")} OF ${scenes.length}`;
-        $("title").textContent = s.title;
+        $("title").textContent = title;
         const spatial = ["campus", "electrical-room", "return"].includes(s.id);
         $("spatial").hidden = !spatial;
         $("equipment").hidden = s.id !== "equipment";
-        $("mechanism").hidden = spatial || s.id === "equipment";
+        $("mechanism").hidden = spatial || s.id === "equipment" || Boolean(s.reliability);
+        $("reliability").hidden = !s.reliability;
+        if (s.reliability) {
+          $("reliability").innerHTML = renderReliability(s.id, state);
+          bindActions($("reliability"));
+        }
         $("campus").classList.toggle("close", s.id === "electrical-room");
         $("room-pin").classList.toggle("focus", s.id === "electrical-room");
         $("rack-pin").hidden = s.id === "electrical-room";
@@ -1825,7 +1995,10 @@
           ["maintenance", "fault", "busFault"].every(
             (k) => typeof data.state[k] === "boolean",
           ) &&
-          [100, 150].includes(data.state.loadKW)
+          [100, 150].includes(data.state.loadKW) &&
+          [3, 4, 5].includes(data.state.nines) &&
+          ["maintenance", "fault"].includes(data.state.tierEvent) &&
+          typeof data.state.tierUpgrade === "boolean"
         ) {
           state = data.state;
           render();

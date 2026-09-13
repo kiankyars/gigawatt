@@ -13,7 +13,7 @@ const scenes = [
   { id: "transmission", values: [null] },
   { id: "campus-power", values: [null] },
   { id: "continuity-preview", values: [null] },
-  { id: "rack-boundary", values: [null] },
+  { id: "rack-boundary", setting: "rackView", values: ["front", "rear"] },
   { id: "compute-scale", values: [null] },
   { id: "network-preview", values: [null] },
   { id: "cooling-preview", values: [null] },
@@ -182,11 +182,15 @@ async function checkQuantities(page, id, value) {
     }
   }
   if (id === "rack-boundary") {
-    assert.equal(await attributeNumber("data-rack-requirement"), 142);
-    assert.match(content, /Up to 142 kW/);
+    if (value === "front") {
+      assert.equal(await attributeNumber("data-rack-requirement"), 142);
+      assert.match(content, /Up to 142 kW/);
+    } else {
+      assert.equal(await page.locator('[data-rack-detail="rear"]').count(), 1);
+    }
     assert.match(content, /GB300 NVL72/);
-    assert.equal(await page.locator("[data-rack-detail]").count(), 0);
-    await checkProductImage(page);
+    assert.match(content, /50–51 V/);
+    await checkProductImage(page, value);
   }
   if (id === "facility-meter") {
     assert.equal(await attributeNumber("data-facility-kw"), 1800);
@@ -249,16 +253,16 @@ async function checkHallImage(page) {
   );
 }
 
-async function checkProductImage(page) {
+async function checkProductImage(page, view) {
   const image = page.locator('svg image[data-product-image="gb300"]');
   assert.equal(
     await image.count(),
     1,
-    "The product example must display its photograph",
+    "The product example must display its manufacturer image",
   );
   const source = await image.getAttribute("href");
   assert.equal(new URL(source).hostname, "docs.nvidia.com");
-  assert.match(new URL(source).pathname, /nvl72-ai-factory/);
+  assert.match(new URL(source).pathname, view === "rear" ? /hardware-rack-rear-gb300/ : /nvl72-ai-factory/);
   const size = await image.evaluate(async (element) => {
     const photo = new Image();
     photo.src = element.getAttribute("href");

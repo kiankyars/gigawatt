@@ -1250,6 +1250,43 @@
         ]
       },
       {
+        "heading": "Gas turbines turn combustion heat into shaft work",
+        "paragraphs": [
+          "In a simple-cycle gas turbine, air is compressed, fuel burns in that compressed air, and the resulting hot gas expands through turbine blades. Shaft work drives both the compressor and an electric generator. A starter can initially turn the machine; an electric motor is not the continuing source of its output. This gas-turbine process is represented by the Brayton cycle. Open cycle describes intake from the atmosphere and discharge of exhaust; it is not a synonym for peak-only operation.",
+          "A combined-cycle plant directs exhaust through a heat recovery steam generator (HRSG). Heat crosses into a separate water/steam circuit; the exhaust gas does not turn into steam. Steam expands through a steam turbine to produce additional shaft work. A condenser rejects heat and returns the steam to liquid, and a pump returns that water to the HRSG. This steam loop is represented by the Rankine cycle. No supplementary firing is assumed in our diagram."
+        ]
+      },
+      {
+        "heading": "Compare fuel at equal net output",
+        "paragraphs": [
+          "Take two hypothetical plant options, each delivering 100 MW net electric output. At 40% net efficiency, simple cycle requires 100/0.40 = 250 MW of thermal fuel input. At 60%, combined cycle requires 166.7 MW. The respective remainders are 150 MW and 66.7 MW of unrecovered energy on this simplified lower-heating-value (LHV) balance. Neither percentage is a product rating or a Dania Beach measurement. Keep fuel heating-value convention and net-versus-gross output consistent.",
+          "This comparison holds delivered output fixed across two plant options. It does not say that adding a steam cycle to an unchanged gas turbine leaves its total output fixed. Recovering exhaust heat can increase total output from that installation. The added HRSG, steam turbine, condenser, water and cooling systems also add construction, capital, maintenance and operating dependencies. GE Vernova’s 2025 catalog identifies the simpler capital and construction profile of simple cycle alongside its lower efficiency. The real schedule still depends on equipment delivery, fuel, permits and site works."
+        ]
+      },
+      {
+        "heading": "A real combined-cycle plant: Dania Beach",
+        "paragraphs": [
+          "GE Vernova’s public case describes two 7HA.03 gas turbines at FPL’s Dania Beach Clean Energy Center near Fort Lauderdale and reports plant output up to 1,260 MW. Its photograph is embedded in the presentation so that the learner can see the physical installation. The reported plant output is not two standalone gas-turbine nameplates added together. This is a grid plant example; no supply relationship to our reference AI campus is asserted.",
+          "A separate May 2025 GE Vernova fact sheet lists its 7HA.03 1×1 combined-cycle design at 640 MW net and 63.9% LHV efficiency. It separately lists less than 30 minutes for a rapid-response hot start, a 75 MW/min ramp rate and a 26% minimum load. Conditions are net plant, ISO reference conditions and natural gas fuel. These catalog values are not Dania Beach operating measurements. A cold-start duration cannot be inferred from the hot-start entry."
+        ]
+      },
+      {
+        "heading": "Baseload, intermediate duty and peaking are service roles",
+        "paragraphs": [
+          "Baseload is the demand floor present through the stated interval. Intermediate or mid-merit duty covers longer periods above that floor, while peaking duty covers shorter intervals of high demand. EIA describes combined cycle serving base and intermediate loads and simple-cycle turbines commonly supplying peaks. These are typical uses, not exclusive identities. Combined cycle can follow load. Engines, storage and other resources can also provide peaking service.",
+          "In the presentation’s hypothetical shared grid, an assumed 100 MW contribution runs throughout the day. Combined cycle serves the next 120 MW and simple-cycle peaking up to 80 MW. Baseline demand peaks at 260 MW. Add a constant 50 MW campus without adding capacity: the peak becomes 310 MW, exceeding the assumed fully available 300 MW by 10 MW. A steady AI load uses headroom during the grid’s hardest hour as well as its quietest hour.",
+          "The plot deliberately omits startup and ramp limits, minimum operating output, reserves, outages, network limits and renewable variability. It isolates the hourly capacity account. Starting a machine from its stated thermal condition, increasing the output of a running machine and constructing a new plant are three different timescales. A feasible operational or procurement plan must establish each relevant one, not substitute a single fast-start claim for all three."
+        ]
+      },
+      {
+        "heading": "Why simple cycle can win despite burning more fuel",
+        "paragraphs": [
+          "Use a deliberately bounded annual-cost comparison, not a current equipment quote. Both options have 100 MW net capacity and the earlier assumed efficiencies of 40% and 60%. Assign simple cycle $8 million per year in annualized fixed costs and combined cycle $16 million; these supplied totals stand for annualized capital and fixed operating costs. At $20 per MWh of fuel energy on an LHV basis, fuel costs are $50 and $33.33 per MWh of electricity.",
+          "Annual cost in this model is fixed cost plus 100 MW × equivalent full-load hours × fuel cost per MWh electric. At 500 hours, the simple-cycle option costs $10.50 million versus $17.67 million. At 7,000 hours, the combined-cycle option costs $39.33 million versus $43.00 million. The crossover is 4,800 equivalent full-load hours: the additional $8 million of fixed cost is then exactly offset by fuel savings. Equivalent full-load hours mean annual MWh divided by the 100 MW rating, not necessarily literal hours spent at maximum output.",
+          "The lesson is the change in decision with utilization. Start costs, variable maintenance, emissions prices, part-load performance, downtime and project-specific financing are excluded. Construction speed, delivered fuel, water/cooling and service requirements can reject either option before this cost comparison becomes relevant. Predict the lower-cost option at 500 versus 7,000 hours, then identify what additional evidence would establish that it can actually supply the campus. A generator’s efficiency does not establish islanding, redundancy or customer-service availability."
+        ]
+      },
+      {
         "heading": "Find the last required dependency, then the usable limit",
         "paragraphs": [
           "Compare two hypothetical sites for a service that requires power, a finished building, cooling, and fiber. At Site A, the supplied readiness dates are months 18, 22, 21, and 20 respectively. At Site B, they are months 20, 19, 20, and 21. Under the explicit assumption that these dates represent accepted readiness and all other requirements are satisfied, Site A cannot supply the complete service before month 22; Site B cannot before month 21.",
@@ -1379,6 +1416,41 @@
         "claim": "Separate the original Abilene campus from the adjacent Microsoft development; distinguish energized buildings from future capacity.",
         "reviewed_on": "2026-09-12",
         "limits": "Main announcement reviewed. Dated company account: two original 100 MW buildings energized; six more expected by end-2026; adjacent 900 MW project targets first energization in mid-2027. These are not September 2026 metered loads."
+      },
+      {
+        "title": "GE Vernova — How a combined-cycle plant produces electricity",
+        "url": "https://www.gevernova.com/gas-power/resources/education/combined-cycle-power-plants",
+        "claim": "Gas turbine shaft work, exhaust heat recovery in an HRSG, and steam-turbine electricity production.",
+        "reviewed_on": "2026-09-12",
+        "limits": "Read the three mechanism steps. Course paths are conceptual and omit supplementary firing; no site output, net efficiency or startup guarantee follows."
+      },
+      {
+        "title": "EIA — Natural gas generation by technology and region",
+        "url": "https://www.eia.gov/todayinenergy/detail.php?id=61444",
+        "claim": "Combined-cycle generation serves base and intermediate duty; simple-cycle gas turbines commonly cover shorter peak periods.",
+        "reviewed_on": "2026-09-12",
+        "limits": "Read technology, operating-role and heat-rate sections, published 22 February 2024. Fleet statistics are historical and no universal dispatch order or capacity guarantee is adopted."
+      },
+      {
+        "title": "GE Vernova — 7HA gas-turbine and combined-cycle fact sheet",
+        "url": "https://www.gevernova.com/content/dam/gepower-new/global/en_US/downloads/gas-new-site/products/gas-turbines/7ha-fact-sheet-product-specifications.pdf",
+        "claim": "7HA.03 1×1 combined-cycle catalog: 640 MW net, 63.9% LHV efficiency, <30 min rapid-response hot start, 75 MW/min ramp and 26% minimum load.",
+        "reviewed_on": "2026-09-12",
+        "limits": "Complete one-page May 2025 fact sheet reviewed, including net-plant ISO/natural-gas conditions and hot-start footnote. Separate maxima/limits are not assumed simultaneous. No cold-start time or actual campus performance inferred."
+      },
+      {
+        "title": "GE Vernova — First 7HA.03 commercial operation at FPL Dania Beach",
+        "url": "https://www.gevernova.com/gas-power/resources/case-studies/first-7ha-florida-power-light",
+        "claim": "Reported real plant example: two 7HA.03 gas turbines and up to 1,260 MW at Dania Beach; original manufacturer plant photograph.",
+        "reviewed_on": "2026-09-12",
+        "limits": "Public case text and hero photograph reviewed. No published date shown. Manufacturer-reported plant capacity is not current measured output, and no relationship to a data-center campus is claimed. Marketing emissions and savings claims are not adopted."
+      },
+      {
+        "title": "GE Vernova — 2025 Gas Power Catalog, plant configuration comparison",
+        "url": "https://www.gevernova.com/content/dam/gepower-new/global/en_US/downloads/noindexpdf/GEA35241-GE-Vernova-Gas-Power-Catalog.pdf",
+        "claim": "Simple-cycle construction and capital simplicity versus combined-cycle efficiency and additional steam-cycle equipment.",
+        "reviewed_on": "2026-09-12",
+        "limits": "Downloaded official PDF and read the plant-configuration comparison on printed page 28. Qualitative manufacturer comparison, not site-specific pricing or guaranteed lead times; numerical annual-cost examples are original assumptions."
       }
     ],
     "terms": [
@@ -1405,6 +1477,30 @@
       {
         "term": "On-site supply",
         "definition": "Generation or storage physically at the site; its metering relationship and ability to support an island require separate evidence."
+      },
+      {
+        "term": "Simple-cycle gas turbine",
+        "definition": "A gas turbine whose exhaust is not used in a second steam power cycle; often used for peaking, but the technology name does not specify its duty."
+      },
+      {
+        "term": "Combined-cycle gas turbine (CCGT)",
+        "definition": "A plant combining gas-turbine power production with a steam power cycle heated by gas-turbine exhaust."
+      },
+      {
+        "term": "Heat recovery steam generator (HRSG)",
+        "definition": "An exchanger that uses exhaust heat to produce steam in a separate pressurized water/steam circuit."
+      },
+      {
+        "term": "Baseload and peaking",
+        "definition": "Baseload is the demand present throughout the stated interval; peaking service covers shorter high-demand periods. These are load or operating roles, not exclusive machine types."
+      },
+      {
+        "term": "Equivalent full-load hours",
+        "definition": "Annual electrical energy divided by the stated net capacity; a utilization measure rather than necessarily literal hours at full output."
+      },
+      {
+        "term": "Heat rate",
+        "definition": "Fuel energy consumed per unit of electrical energy produced; specify the fuel heating-value convention and net or gross electrical boundary."
       }
     ],
     "visual": {
@@ -2205,6 +2301,15 @@
           "There is an economic and operating tradeoff in greater path separation. Additional independent equipment can reduce exposure to a common failure and improve maintenance options, but adds cost, footprint, interfaces, and maintenance obligations. If both nominally independent paths share a neglected dependency, that extra investment may not buy the intended behavior. Spend analytical effort on the complete dependency graph before counting the spare modules.",
           "Return to the 45-second electrical bridge and 90-second thermal interval. Passing the UPS energy screen answers one question. Passing the surviving-module capacity screen answers another. Neither proves that cooling is continuously adequate or that a second event is supported before recharge. A strong continuity explanation keeps these answers separate and then combines only the conclusions that the evidence actually supports."
         ]
+      },
+      {
+        "heading": "Separate Tier topology, availability and the investment decision",
+        "paragraphs": [
+          "Uptime Institute tiers describe outcomes of the site infrastructure, including power and cooling. Tier I establishes basic capacity. Tier II adds redundant capacity components. Tier III requires concurrent maintainability: planned equipment or path maintenance can occur with IT operating. Tier IV adds tolerance of a single infrastructure fault and continuous cooling. A count such as N+1 or 2N alone does not determine the tier. The full design, its separation and its response to events matter.",
+          "Tier I already includes an engine generator for utility outages. Higher tiers inherit that baseline. For Tier III and IV, the generator plant must support critical load without runtime limits in its applicable capacity rating, but it need not run continuously. Fuel supply, refueling and operating permissions remain real constraints. This backup-generation requirement differs from choosing a continuously operated behind-the-meter gas plant.",
+          "Availability targets answer a different question. In a 365-day example that counts every minute at one service boundary, 99.9% allows 525.6 minutes of downtime (8 h 45 min 36 s), 99.99% allows 52.56 minutes (52 min 33.6 s), and 99.999% allows 5.256 minutes (5 min 15.36 s). A 45-minute outage consumes 85.6% of the four-nines annual allowance and already exceeds the five-nines allowance. Uptime removed expected-downtime assignments in 2009. An actual SLA may use another window, request-based accounting or exclusions; it cannot be inferred from a tier label.",
+          "The investment decision follows the service requirement. Uptime's 14 December 2015 case describes a U.S. cloud facility certified at Tier III with other Tier IV capabilities already in place. The owner planned to add the mechanical UPS needed for continuous cooling once a client required Tier IV and justified the expense. The case describes a commercial use, not a government-only category; it does not establish completion of the later phase or the share of the market at any tier."
+        ]
       }
     ],
     "example": {
@@ -2269,6 +2374,27 @@
         "claim": "Critical-load continuity depends on UPS architecture and the surrounding supply system.",
         "reviewed_on": "2026-09-06",
         "limits": "Read the public white-paper landing page; all event timings and module capacities are synthetic."
+      },
+      {
+        "title": "Explaining the Uptime Institute’s Tier Classification System (April 2021 Update)",
+        "url": "https://journal.uptimeinstitute.com/explaining-uptime-institutes-tier-classification-system/",
+        "claim": "Separates the Tier I–IV infrastructure outcomes from measured service availability; explicitly states that expected-downtime assignments were removed in 2009. Supports an original 365-day downtime-allowance example without mapping nines to tiers.",
+        "limits": "Substantive publisher-indexed text reviewed, including Tier descriptions and the 2009 availability clarification; direct page requests returned 403. The full topology standard was not reviewed. Example outage durations are hypothetical, not reported performance.",
+        "reviewed_on": "2026-09-12"
+      },
+      {
+        "title": "Tier Classification Myths and Misconceptions",
+        "url": "https://uptimeinstitute.com/myths",
+        "claim": "Explains that generator plants for Tier III/IV must support the critical load without runtime limitations in their applicable capacity rating, but need not run continuously. Clarifies that utility-feed and component counts do not determine Tier.",
+        "limits": "Substantive publisher-indexed text reviewed, including the 24 March 2010 generator clarification and 27 August 2009 utility/component-count clarification; direct page requests returned 403. Equipment capability is distinct from fuel endurance, operation permissions and continuous on-site generation.",
+        "reviewed_on": "2026-09-12"
+      },
+      {
+        "title": "Tier Certification for Modular and Phased Construction",
+        "url": "https://journal.uptimeinstitute.com/modular-and-phased-construction/",
+        "claim": "Commercial U.S. cloud case: Tier III constructed-facility phase with other Tier IV capabilities already in place; mechanical UPS investment for continuous cooling deferred until a client required the planned Tier IV phase.",
+        "limits": "Substantive publisher-indexed Tier III-to-Tier IV case text reviewed; direct page requests returned 403. Historical 2015 case, not a current facility status report. Does not establish that the later phase completed, that cooling alone upgrades every Tier III site, or market prevalence of a Tier.",
+        "reviewed_on": "2026-09-12"
       }
     ],
     "terms": [

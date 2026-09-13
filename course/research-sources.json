@@ -2128,18 +2128,18 @@
     },
     {
       "id": "P28",
-      "title": "Open Compute Project — Open Rack V3 BBU Module Specification 1.4",
+      "title": "OCP — Open Rack V3 48V BBU Module Specification revision 1.4",
       "url": "https://www.opencompute.org/documents/open-rack-v3-bbu-module-spec-1-4-pdf",
-      "publisher": "Open Compute Project",
+      "publisher": "Open Compute Project / Meta",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-11",
+      "reviewed_on": "2026-09-12",
       "domains": [
         "D05",
         "D06"
       ],
-      "use": "Rack battery backup modules provide a concrete contrast with the facility AC UPS and its external battery cabinet.",
-      "caution": "Used for module/shelf form factor and rack DC backup role; not a universal definition of all BBUs or a specification of the facility battery drawn in the UPS sequence."
+      "use": "A specific modular BBU: 3 kW discharge, at least 240 s under specified conditions, nonzero activation/ramp interval and optional commanded peak-power shaving.",
+      "caution": "Sections 4.2, 4.3/Table 2, 4.3.3, and parallel-operation references reviewed. Source conditions include at least 3.9 V/cell at the declared threshold and aging/temperature limits. Not a generic modern rack rating, battery chemistry comparison, or NVL72 configuration. The specification includes timing and state conditions; no instant universal handoff is claimed."
     },
     {
       "id": "P29",
@@ -2703,7 +2703,7 @@
     },
     {
       "id": "P64",
-      "title": "NVIDIA DGX GB200/GB300 hardware guide — Power shelves",
+      "title": "NVIDIA DGX GB Rack Scale Systems — Hardware",
       "url": "https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html#power-shelves",
       "publisher": "NVIDIA",
       "kind": "primary_reference",
@@ -2711,10 +2711,11 @@
       "reviewed_on": "2026-09-12",
       "domains": [
         "D01",
-        "D06"
+        "D06",
+        "D07"
       ],
-      "use": "Explain AC supply into power shelves and nominal 50–51 V DC busbar feeding rack components.",
-      "caution": "Read power-shelf and busbar descriptions. Do not use the combined-guide approximate 120 kW sentence as a named GB300 rack requirement or infer losses from installed redundant shelf output ratings."
+      "use": "Locate the DGX GB300 rear power busbar and distinguish PSUs, shelves and the nominal 50–51 V rack bus.",
+      "caution": "Rack configuration and Power Shelves sections reviewed; manufacturer rear figure visually inspected. Shared GB200/GB300 guide has an approximately 120 kW consumption example that is not substituted for the enterprise GB300 up-to-142-kW requirement. This is not evidence of a one-BBU-per-NVL72 design or the unpublished board regulator implementation."
     },
     {
       "id": "P65",
@@ -2965,6 +2966,181 @@
       ],
       "use": "Reported speed-versus-efficiency tradeoff: power modules and medium-voltage generation-to-distribution path bypass long-lead switchgear and large power transformers.",
       "caution": "Public construction-pace section reviewed, especially the paragraph immediately following MiniHard. Attribution is SemiAnalysis research in the Southaven/MiniHard buildout context; not an as-built one-line for every Colossus site. No market, revenue or 2027 capacity forecast adopted. Do not rewrite this as all site equipment operating at MV."
+    },
+    {
+      "id": "P82",
+      "title": "GE Vernova — How a combined-cycle plant produces electricity",
+      "url": "https://www.gevernova.com/gas-power/resources/education/combined-cycle-power-plants",
+      "publisher": "GE Vernova",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D03"
+      ],
+      "use": "Gas turbine shaft work, exhaust heat recovery in an HRSG, and steam-turbine electricity production.",
+      "caution": "Read the three mechanism steps. Course paths are conceptual and omit supplementary firing; no site output, net efficiency or startup guarantee follows."
+    },
+    {
+      "id": "P83",
+      "title": "EIA — Natural gas generation by technology and region",
+      "url": "https://www.eia.gov/todayinenergy/detail.php?id=61444",
+      "publisher": "U.S. Energy Information Administration",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D03"
+      ],
+      "use": "Combined-cycle generation serves base and intermediate duty; simple-cycle gas turbines commonly cover shorter peak periods.",
+      "caution": "Read technology, operating-role and heat-rate sections, published 22 February 2024. Fleet statistics are historical and no universal dispatch order or capacity guarantee is adopted."
+    },
+    {
+      "id": "P84",
+      "title": "GE Vernova — 7HA gas-turbine and combined-cycle fact sheet",
+      "url": "https://www.gevernova.com/content/dam/gepower-new/global/en_US/downloads/gas-new-site/products/gas-turbines/7ha-fact-sheet-product-specifications.pdf",
+      "publisher": "GE Vernova",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D03"
+      ],
+      "use": "7HA.03 1×1 combined-cycle catalog: 640 MW net, 63.9% LHV efficiency, <30 min rapid-response hot start, 75 MW/min ramp and 26% minimum load.",
+      "caution": "Complete one-page May 2025 fact sheet reviewed, including net-plant ISO/natural-gas conditions and hot-start footnote. Separate maxima/limits are not assumed simultaneous. No cold-start time or actual campus performance inferred."
+    },
+    {
+      "id": "P79",
+      "title": "Explaining the Uptime Institute’s Tier Classification System (April 2021 Update)",
+      "url": "https://journal.uptimeinstitute.com/explaining-uptime-institutes-tier-classification-system/",
+      "publisher": "Uptime Institute",
+      "kind": "technical_article",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D05",
+        "D14"
+      ],
+      "use": "Separates the Tier I–IV infrastructure outcomes from measured service availability; explicitly states that expected-downtime assignments were removed in 2009. Supports an original 365-day downtime-allowance example without mapping nines to tiers.",
+      "caution": "Substantive publisher-indexed text reviewed, including Tier descriptions and the 2009 availability clarification; direct page requests returned 403. The full topology standard was not reviewed. Example outage durations are hypothetical, not reported performance."
+    },
+    {
+      "id": "P80",
+      "title": "Tier Classification Myths and Misconceptions",
+      "url": "https://uptimeinstitute.com/myths",
+      "publisher": "Uptime Institute",
+      "kind": "guidance",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D05",
+        "D14"
+      ],
+      "use": "Explains that generator plants for Tier III/IV must support the critical load without runtime limitations in their applicable capacity rating, but need not run continuously. Clarifies that utility-feed and component counts do not determine Tier.",
+      "caution": "Substantive publisher-indexed text reviewed, including the 24 March 2010 generator clarification and 27 August 2009 utility/component-count clarification; direct page requests returned 403. Equipment capability is distinct from fuel endurance, operation permissions and continuous on-site generation."
+    },
+    {
+      "id": "P81",
+      "title": "Tier Certification for Modular and Phased Construction",
+      "url": "https://journal.uptimeinstitute.com/modular-and-phased-construction/",
+      "publisher": "Uptime Institute",
+      "kind": "technical_article",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D05",
+        "D13",
+        "D14"
+      ],
+      "use": "Commercial U.S. cloud case: Tier III constructed-facility phase with other Tier IV capabilities already in place; mechanical UPS investment for continuous cooling deferred until a client required the planned Tier IV phase.",
+      "caution": "Substantive publisher-indexed Tier III-to-Tier IV case text reviewed; direct page requests returned 403. Historical 2015 case, not a current facility status report. Does not establish that the later phase completed, that cooling alone upgrades every Tier III site, or market prevalence of a Tier.",
+      "published_on": "2015-12-14"
+    },
+    {
+      "id": "EA6791A38DA",
+      "title": "GE Vernova — First 7HA.03 commercial operation at FPL Dania Beach",
+      "url": "https://www.gevernova.com/gas-power/resources/case-studies/first-7ha-florida-power-light",
+      "publisher": "GE Vernova",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D03"
+      ],
+      "use": "Reported real plant example: two 7HA.03 gas turbines and up to 1,260 MW at Dania Beach; original manufacturer plant photograph.",
+      "caution": "Public case text and hero photograph reviewed. No published date shown. Manufacturer-reported plant capacity is not current measured output, and no relationship to a data-center campus is claimed. Marketing emissions and savings claims are not adopted."
+    },
+    {
+      "id": "EF3A791E451",
+      "title": "GE Vernova — 2025 Gas Power Catalog, plant configuration comparison",
+      "url": "https://www.gevernova.com/content/dam/gepower-new/global/en_US/downloads/noindexpdf/GEA35241-GE-Vernova-Gas-Power-Catalog.pdf",
+      "publisher": "GE Vernova",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D03"
+      ],
+      "use": "Simple-cycle construction and capital simplicity versus combined-cycle efficiency and additional steam-cycle equipment.",
+      "caution": "Downloaded official PDF and read the plant-configuration comparison on printed page 28. Qualitative manufacturer comparison, not site-specific pricing or guaranteed lead times; numerical annual-cost examples are original assumptions."
+    },
+    {
+      "id": "P86",
+      "title": "Advanced Energy — ORv3 Power Supply Unit",
+      "url": "https://www.advancedenergy.com/en-us/products/ac-dc-power-supply-units/power-shelves/ocp-compliant/orv3-psu/",
+      "publisher": "Advanced Energy",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D06"
+      ],
+      "use": "A real 3 kW single-phase PSU with nominal 200–277 V AC input in a multi-module shelf; shelf input configuration differs from each PSU input.",
+      "caution": "Product overview and Features inspected. This ORv3 product is not identified as the DGX GB300 power supply. No claimed peak efficiency is generalized to whole-rack conversion or an omitted 480-to-208-V transformer."
+    },
+    {
+      "id": "P88",
+      "title": "Analog Devices — Smart Battery Backup for Uninterrupted Energy, Part 4: BBU Shelf Operation",
+      "url": "https://www.analog.com/en/resources/analog-dialogue/articles/smart-battery-backup-for-uninterrupted-energy-part4.html",
+      "publisher": "Analog Devices",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D05",
+        "D06"
+      ],
+      "use": "ORv3 BBU shelf shared-bus architecture, six modules in 5+1 redundancy, monitoring and controlled discharge.",
+      "caution": "Introduction, BBU Shelf Overview and Shelf System Control read. The 15 kW surviving-capacity calculation combines the six-module arrangement with the separately reviewed OCP 3 kW module requirement. Not a claim that a 15 kW shelf supports a 142 kW NVL72 rack."
+    },
+    {
+      "id": "P89",
+      "title": "Texas Instruments — TIDA-050095 48V–12V 2kW four-phase bus converter",
+      "url": "https://www.ti.com/tool/TIDA-050095",
+      "publisher": "Texas Instruments",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D06"
+      ],
+      "use": "Concrete intermediate-bus conversion example; DC/DC conversion can be transformer-less and can precede point-of-load regulation.",
+      "caution": "Overview, Features and design-guide description reviewed; indexed System Description and specification table also inspected. No lab replication or claim that this reference design is installed in GB300. Manufacturer efficiency claims and separate maxima are not used as the course model. Multiphase waveforms are explicitly original normalized illustrations."
+    },
+    {
+      "id": "P90",
+      "title": "Texas Instruments — The decoupling capacitor: is it really necessary?",
+      "url": "https://e2e.ti.com/blogs_/archives/b/precisionhub/posts/the-decoupling-capacitor-is-it-really-necessary",
+      "publisher": "Texas Instruments",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D05",
+        "D06"
+      ],
+      "use": "Short local current paths and trace inductance explain why device decoupling is separate from distant stored energy.",
+      "caution": "Authored article and figure descriptions 1–3 inspected. The example is an amplifier circuit, not a GPU benchmark. No suggested component value or layout instructions are imported; rack-level power transients are original stated models."
     }
   ]
 }

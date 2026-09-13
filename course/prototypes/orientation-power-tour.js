@@ -219,7 +219,8 @@ function campus(compact) {
     content +=
       wire("M76 501V547") +
       rack(23, 554, 107) +
-      text(244, 613, "Rack supplies", { size: 22 });
+      text(244, 606, "Rack power shelves", { size: 19 }) +
+      text(244, 634, "Contain the PSUs", { size: 17, color: "muted" });
     return content;
   }
   let content = box("campus", 226, 77, 907, 486, { fill: "panel", dash: true });
@@ -243,7 +244,8 @@ function campus(compact) {
     text(350, 380, "Campus", { size: 24 }) +
     text(350, 410, "substation", { size: 24 });
   content += text(673, 380, "Building distribution", { size: 24 });
-  content += text(1012, 380, "Rack supplies", { size: 24 });
+  content += text(1012, 380, "Rack power shelves", { size: 23 });
+  content += text(1012, 410, "Contain the PSUs", { size: 19, color: "muted" });
   content +=
     generator(435, 426, 103) +
     wire("M486 442V281", { dash: true }) +

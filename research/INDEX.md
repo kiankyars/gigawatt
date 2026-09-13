@@ -106,6 +106,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [E9FFEE6828F — Schneider Electric — Coordination between circuit-breakers](sources/E9FFEE6828F.md) | www.electrical-installation.org | D05 | page_reviewed |
 | [EA0B6C5ED33 — Schneider Electric — Comparing UPS System Design Configurations, White Paper 75 Revision 4](sources/EA0B6C5ED33.md) | Schneider Electric | D05, D06 | page_reviewed |
 | [EA3CEEB6630 — Equinix — Customer-Managed Pre-Cabling and Demarcations](sources/EA3CEEB6630.md) | Equinix | D08 | page_reviewed |
+| [EA6791A38DA — GE Vernova — First 7HA.03 commercial operation at FPL Dania Beach](sources/EA6791A38DA.md) | GE Vernova | D03 | page_reviewed |
 | [EA7B686AF9E — NVIDIA, Partners Drive Next-Gen Efficient Gigawatt AI Factories in Buildup for Vera Rubin](sources/EA7B686AF9E.md) | NVIDIA | D04, D06 | page_reviewed |
 | [EB0CA366091 — NCCL Collective Operations](sources/EB0CA366091.md) | docs.nvidia.com | D08 | page_reviewed |
 | [EB34D92F523 — OpenStax — Electrical Energy and Power](sources/EB34D92F523.md) | openstax.org | D01, D03, D05 | page_reviewed |
@@ -121,6 +122,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [EE136EB8E02 — Open Compute Project — Cold Plate workstream](sources/EE136EB8E02.md) | www.opencompute.org | D10 | public_excerpt_reviewed |
 | [EE53DCAF5E1 — Uptime Institute — Myths and Misconceptions Regarding the Tier Certification System](sources/EE53DCAF5E1.md) | Uptime Institute | D05, D14 | public_excerpt_reviewed |
 | [EEFB073374C — NIST Handbook 135, 2025: Life Cycle Costing Manual](sources/EEFB073374C.md) | nvlpubs.nist.gov | D15 | page_reviewed |
+| [EF3A791E451 — GE Vernova — 2025 Gas Power Catalog, plant configuration comparison](sources/EF3A791E451.md) | GE Vernova | D03 | page_reviewed |
 | [EFB703CFC3D — Schneider Electric — PM2200 total power calculation for accuracy verification](sources/EFB703CFC3D.md) | Schneider Electric | D01, D04, D06 | page_reviewed |
 | [EFE70308E0A — Vertiv — Deploying Liquid Cooling in the Data Center](sources/EFE70308E0A.md) | prod.vertiv.cn | D01, D10, D12 | public_excerpt_reviewed |
 | [P01 — Best Practices Guide for Energy-Efficient Data Center Design](sources/P01.md) | U.S. Department of Energy, Federal Energy Management Program | D01, D04, D10, D11, D15 | page_reviewed |
@@ -150,7 +152,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P25 — Texas Instruments — Power Loss in Switching Power Supplies](sources/P25.md) | Texas Instruments | D04, D05, D06 | page_reviewed |
 | [P26 — Schneider Electric — Easy UPS 3-Phase Modular physical specifications](sources/P26.md) | Schneider Electric | D05 | page_reviewed |
 | [P27 — Schneider Electric — Easy UPS 3-Phase Modular hardware options](sources/P27.md) | Schneider Electric | D05 | page_reviewed |
-| [P28 — Open Compute Project — Open Rack V3 BBU Module Specification 1.4](sources/P28.md) | Open Compute Project | D05, D06 | page_reviewed |
+| [P28 — OCP — Open Rack V3 48V BBU Module Specification revision 1.4](sources/P28.md) | Open Compute Project / Meta | D05, D06 | page_reviewed |
 | [P29 — Eaton — Automatic transfer switch fundamentals](sources/P29.md) | Eaton | D04, D05 | page_reviewed |
 | [P30 — Schneider Electric — Presence of an Uninterruptible Power Supply (UPS)](sources/P30.md) | Schneider Electric | D04, D05 | page_reviewed |
 | [P31 — Eaton — DC-link capacitor modules](sources/P31.md) | Eaton | D05, D06 | page_reviewed |
@@ -186,7 +188,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P61 — The Green Grid — PUE: A Comprehensive Examination of the Metric](sources/P61.md) | The Green Grid | D01, D15 | page_reviewed |
 | [P62 — Corning — Meet-Me-Room to Outside Plant Data Center Solutions](sources/P62.md) | Corning | D08, D12 | page_reviewed |
 | [P63 — Google Cloud — Best practices for batch inference on GKE](sources/P63.md) | Google Cloud | D01, D02, D09 | page_reviewed |
-| [P64 — NVIDIA DGX GB200/GB300 hardware guide — Power shelves](sources/P64.md) | NVIDIA | D01, D06 | page_reviewed |
+| [P64 — NVIDIA DGX GB Rack Scale Systems — Hardware](sources/P64.md) | NVIDIA | D01, D06, D07 | page_reviewed |
 | [P65 — EIA — How electricity is generated](sources/P65.md) | U.S. Energy Information Administration | D01, D03 | public_excerpt_reviewed |
 | [P66 — EIA — Delivery of electricity to consumers](sources/P66.md) | U.S. Energy Information Administration | D01, D03, D04 | public_excerpt_reviewed |
 | [P67 — OpenStax · Resistance and simple circuits](sources/P67.md) | OpenStax, Rice University | D01, D04, D06 | page_reviewed |
@@ -201,6 +203,16 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P76 — Crusoe — 2025 impact report web summary](sources/P76.md) | Crusoe | D03, D05, D12 | page_reviewed |
 | [P77 — Google — Supporting power grids with demand response](sources/P77.md) | Google | D02, D03, D09 | public_excerpt_reviewed |
 | [P78 — MLGW — xAI project quick facts](sources/P78.md) | Memphis Light, Gas and Water | D03, D04, D12 | page_reviewed |
+| [P79 — Explaining the Uptime Institute’s Tier Classification System (April 2021 Update)](sources/P79.md) | Uptime Institute | D05, D14 | public_excerpt_reviewed |
+| [P80 — Tier Classification Myths and Misconceptions](sources/P80.md) | Uptime Institute | D05, D14 | public_excerpt_reviewed |
+| [P81 — Tier Certification for Modular and Phased Construction](sources/P81.md) | Uptime Institute | D05, D13, D14 | public_excerpt_reviewed |
+| [P82 — GE Vernova — How a combined-cycle plant produces electricity](sources/P82.md) | GE Vernova | D03 | page_reviewed |
+| [P83 — EIA — Natural gas generation by technology and region](sources/P83.md) | U.S. Energy Information Administration | D03 | page_reviewed |
+| [P84 — GE Vernova — 7HA gas-turbine and combined-cycle fact sheet](sources/P84.md) | GE Vernova | D03 | page_reviewed |
+| [P86 — Advanced Energy — ORv3 Power Supply Unit](sources/P86.md) | Advanced Energy | D06 | page_reviewed |
+| [P88 — Analog Devices — Smart Battery Backup for Uninterrupted Energy, Part 4: BBU Shelf Operation](sources/P88.md) | Analog Devices | D05, D06 | page_reviewed |
+| [P89 — Texas Instruments — TIDA-050095 48V–12V 2kW four-phase bus converter](sources/P89.md) | Texas Instruments | D06 | page_reviewed |
+| [P90 — Texas Instruments — The decoupling capacitor: is it really necessary?](sources/P90.md) | Texas Instruments | D05, D06 | page_reviewed |
 | [SA01 — Datacenter Anatomy Part 1: Electrical Systems](sources/SA01.md) | SemiAnalysis | D04, D05, D06, D13, D15 | public_excerpt_reviewed |
 | [SA02 — Datacenter Anatomy Part 2 – Cooling Systems](sources/SA02.md) | SemiAnalysis | D10, D11, D15 | public_excerpt_reviewed |
 | [SA03 — 100,000 H100 Clusters: Power, Network Topology, Ethernet vs InfiniBand, Reliability, Failures, Checkpointing](sources/SA03.md) | SemiAnalysis | D02, D07, D08, D09, D14 | public_excerpt_reviewed |

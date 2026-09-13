@@ -1,3 +1,4 @@
+import { renderGeneration, generationScenes } from './siting-generation.js';
 import { readiness, matching, busBalance, islandBudget } from './siting-model.js';
 import { renderProcurement } from './siting-procurement.js';
 const C={ink:'var(--text)',muted:'var(--muted)',line:'var(--line)',face:'var(--surface)',panel:'var(--panel)',power:'var(--power)',heat:'var(--heat)',data:'var(--data)',paper:'var(--paper)'};
@@ -87,6 +88,7 @@ function phaseCheck(s,m){let o=chain(m,[['Energy contract','Annual total covered
 }
 export function renderSiting(id,state,compact=false){
  const m=compact;
+ if(generationScenes.some(scene=>scene.id===id))return renderGeneration(id,state,m);
  if(['procurement-route','transport-current','parallel-circuits','procurement-decision'].includes(id))return renderProcurement(id,state,m);
  const renders={'site-ready':()=>siteReady(state,m),'parcel-connections':()=>parcel(state,m),'grid-connection':()=>connection(m),'abilene-phase':()=>abilene(m),'purchased-energy':()=>contractPath(state,m),'hourly-match':()=>hourly(m),'storage-match':()=>storage(state,m),'btm-import':()=>bus(state,m,id),'import-contingency':()=>bus(state,m,id),'island-boundary':()=>bus(state,m,id),'island-duration':()=>duration(state,m),'fuel-delivery':()=>fuel(state,m),'supply-brief':()=>brief(m),'phase-check':()=>phaseCheck(state,m)};
  if(!renders[id])throw new Error(`Unknown siting scene: ${id}`);
