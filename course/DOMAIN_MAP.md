@@ -429,6 +429,7 @@ Compare utility-only and behind-the-meter supply against energy, capacity, fuel 
 - [SA43 — SemiAnalysis — Meta Compute: Everyone Wants To Be A Neocloud](https://newsletter.semianalysis.com/p/meta-compute-everyone-wants-to-be) · `public_excerpt_reviewed` · [local note](../research/sources/SA43.md)
 - [P116 — GE Vernova — 7HA gas turbines, model family and specifications](https://www.gevernova.com/gas-power/products/gas-turbines/7ha) · `page_reviewed` · [local note](../research/sources/P116.md)
 - [P117 — U.S. Department of Energy — heating-value glossary](https://www.energy.gov/cmei/fuels/glossary) · `public_excerpt_reviewed` · [local note](../research/sources/P117.md)
+- [P120 — Microsoft — Fairwater Atlanta availability and power design](https://blogs.microsoft.com/blog/2025/11/12/infinite-scale-the-architecture-behind-the-azure-ai-superfactory/) · `page_reviewed` · [local note](../research/sources/P120.md)
 
 <a id="d04"></a>
 
@@ -652,6 +653,8 @@ Explain why fault clearing and grounding require topology-specific AC/DC protect
 - [P105 — Crusoe 2025 Impact Report](https://media.ffycdn.net/us/crusoe/PL5TuZz5apXB9pVsd3H1.pdf) · `page_reviewed` · [local note](../research/sources/P105.md)
 - [P118 — Schneider Electric — Easy UPS 3-Phase Modular: Configure the Input Contacts](https://productinfo.se.com/easyups3pmodular/990-6537-easy-ups-3-phase-modular-50-250-kw-operation/English/990-6537%20Operation%20Easy%20UPS%203-Phase%20Modular%2050-250%20kW_0001015104.xml/%24/GalaxyPX_ConfiguretheInputContacts_0000761997) · `public_excerpt_reviewed` · [local note](../research/sources/P118.md)
 - [P119 — Eaton — 93E UPS Generation 3 installation and operation manual, 164000301 Rev. 04](https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-93e-ups/eaton-93e-ups-20kva-30kva-generation-3-manual-p-164000301.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P119.md)
+- [P120 — Microsoft — Fairwater Atlanta availability and power design](https://blogs.microsoft.com/blog/2025/11/12/infinite-scale-the-architecture-behind-the-azure-ai-superfactory/) · `page_reviewed` · [local note](../research/sources/P120.md)
+- [P121 — NTT DATA — Vienna 1 facility and power SLA](https://services.global.ntt/-/media/ntt/global/insights-and-resources/data-sheets/vienna-1-data-sheet.pdf?rev=9057842951194cb1b9d1cf884282f421) · `page_reviewed` · [local note](../research/sources/P121.md)
 
 <a id="d06"></a>
 
@@ -1588,6 +1591,8 @@ Convert a failure or capacity incident into an evidence-based recovery and preve
 - [P80 — Tier Classification Myths and Misconceptions](https://uptimeinstitute.com/myths) · `public_excerpt_reviewed` · [local note](../research/sources/P80.md)
 - [P81 — Tier Certification for Modular and Phased Construction](https://journal.uptimeinstitute.com/modular-and-phased-construction/) · `public_excerpt_reviewed` · [local note](../research/sources/P81.md)
 - [P92 — Resiliency at Scale: Managing Google’s TPUv4 Machine Learning Supercomputer](https://www.usenix.org/system/files/nsdi24-zu.pdf) · `page_reviewed` · [local note](../research/sources/P92.md)
+- [P120 — Microsoft — Fairwater Atlanta availability and power design](https://blogs.microsoft.com/blog/2025/11/12/infinite-scale-the-architecture-behind-the-azure-ai-superfactory/) · `page_reviewed` · [local note](../research/sources/P120.md)
+- [P121 — NTT DATA — Vienna 1 facility and power SLA](https://services.global.ntt/-/media/ntt/global/insights-and-resources/data-sheets/vienna-1-data-sheet.pdf?rev=9057842951194cb1b9d1cf884282f421) · `page_reviewed` · [local note](../research/sources/P121.md)
 
 <a id="d15"></a>
 
@@ -1713,6 +1718,7 @@ Audit a named project's public evidence without filling unknown capacity, topolo
 - [P73 — Crusoe — Abilene campus development update](https://www.crusoe.ai/resources/newsroom/crusoe-announces-new-900-mw-ai-factory-campus-in-abilene-texas-to-support-microsoft-ai-infrastructure) · `page_reviewed` · [local note](../research/sources/P73.md)
 - [P75 — Crusoe and Redwood — Sparks microgrid update](https://www.crusoe.ai/resources/newsroom/crusoe-and-redwood-materials-expand-strategic-partnership-scaling-to-7x-the-original-ai-infrastructure-density) · `page_reviewed` · [local note](../research/sources/P75.md)
 - [P97 — Microsoft, OpenAI and NVIDIA — Power Stabilization for AI Training Datacenters](https://arxiv.org/html/2508.14318v1) · `page_reviewed` · [local note](../research/sources/P97.md)
+- [P120 — Microsoft — Fairwater Atlanta availability and power design](https://blogs.microsoft.com/blog/2025/11/12/infinite-scale-the-architecture-behind-the-azure-ai-superfactory/) · `page_reviewed` · [local note](../research/sources/P120.md)
 
 ## Paths through the system
 

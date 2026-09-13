@@ -157,6 +157,8 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P118 — Schneider Electric — Easy UPS 3-Phase Modular: Configure the Input Contacts](sources/P118.md) | Schneider Electric | D05 | public_excerpt_reviewed |
 | [P119 — Eaton — 93E UPS Generation 3 installation and operation manual, 164000301 Rev. 04](sources/P119.md) | Eaton | D05 | public_excerpt_reviewed |
 | [P12 — Large Loads Action Plan](sources/P12.md) | North American Electric Reliability Corporation | D03, D05, D13, D14 | public_excerpt_reviewed |
+| [P120 — Microsoft — Fairwater Atlanta availability and power design](sources/P120.md) | Microsoft | D03, D05, D14, D15 | page_reviewed |
+| [P121 — NTT DATA — Vienna 1 facility and power SLA](sources/P121.md) | NTT DATA | D05, D14 | page_reviewed |
 | [P13 — Slurm Workload Manager — Topology Guide](sources/P13.md) | SchedMD | D02, D07, D08, D09, D14 | page_reviewed |
 | [P14 — NVIDIA DGX SuperPOD: Next Generation Scalable Infrastructure for AI Leadership Reference Architecture Featuring NVIDIA DGX H100](sources/P14.md) | NVIDIA | D07, D08, D09, D13, D14 | page_reviewed |
 | [P15 — Liquid to Liquid CDU Test Methodology and Performance Rating — Revision 1.0](sources/P15.md) | Open Compute Project | D10, D11, D13, D14 | public_excerpt_reviewed |

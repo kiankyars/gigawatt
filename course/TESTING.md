@@ -7,6 +7,31 @@ Do not download or launch standalone Chrome for Testing or Playwright browser
 binaries here. Existing browser test harnesses remain available for a separately
 configured test environment; run local model and build checks without a browser.
 
+## Tiers, availability examples and directory — 2026-09-12
+
+The four reliability scenes remain in the 22-slide selected UPS deck. Their
+stable fragments are `tier-topology`, `tier-generation`, `availability-budget`
+and `tier-investment`; the last two now show named examples and Fairwater Atlanta.
+
+- **72 Python and 139 Node tests passed.** Checks cover the annual downtime math,
+  claim boundaries, simultaneous comparisons and retained directory destinations.
+- All four changed slides inspected in the native Codex browser at **1280×720,
+  390×844 and 844×390**. No horizontal overflow; the actual Microsoft photograph
+  loaded. Narrow screens scroll to the remaining content with the shared footer
+  available. Desktop screenshots checked titles, diagrams, claim labels and sources.
+- The device was in dark mode during this pass. A fullscreen attempt did not
+  establish active DOM fullscreen; no new fullscreen or light-mode certification
+  is claimed. Temporary viewport overrides were reset. No browser console errors
+  were reported in the inspected sequence.
+- The reader directory has chapter names and working destinations without interim
+  status badges. Reliability Reading links now open the corresponding D05 reference.
+- P120 and P121 record the Microsoft design claim and NTT DATA power SLA; P75
+  distinguishes Crusoe Cloud from microgrid availability and their reporting windows.
+  Reader, research and domain-map generated files are current. The standalone UPS
+  browser harness was updated and syntax-checked, not run on this Mac.
+
+This is a technical and visual pass; it does not close Kian's author review.
+
 ## Chapter 4 generation and Chapter 7 UPS — 2026-09-12
 
 Current revision: Chapter 4 has 25 slides; the selected UPS sequence has 22.

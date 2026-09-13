@@ -18,7 +18,22 @@ read it end to end.
 **Current state:** 50 reader lessons map to 65 objective IDs. The course advances
 section by section. The Primer, overview, workloads, supply and physical-site
 decks are authored; UPS, rack power, 800 V and cooling cover selected later topics.
-The table below owns their exact scope and review state. The current revision refines Chapter 4’s generation and delivery decision and Chapter 7’s UPS recovery. Every deck now uses one shared navigation component. Current checks are recorded in [TESTING.md](TESTING.md#chapter-4-generation-and-chapter-7-ups--2026-09-12). Kian’s review remains separate.
+The table below owns their exact scope and review state. The current revision simplifies Chapter 7’s Tier comparison, adds named availability examples and Fairwater Atlanta, and removes interim labels from the chapter directory. Every deck uses one shared navigation component. Current checks are recorded in [TESTING.md](TESTING.md#tiers-availability-examples-and-directory--2026-09-12). Kian’s review remains separate.
+
+## Latest reliability and directory review — 12 September 2026
+
+This pass covers the four reliability scenes beginning at
+[Tier outcomes](prototypes/ups-format.html#tier-topology), plus the shared reader directory.
+It does not restart the earlier UPS mechanisms or other chapter reviews.
+
+| Request | Revision |
+| --- | --- |
+| Explain “not established” and “required outcome”; reduce Tier-slide text | Replace abstract verdicts with named capabilities and a direct maintenance-versus-fault comparison. Tier IV remains the highest of the four infrastructure classes. |
+| Clarify why generation appears at Tier I | Show on-site backup generation as a common baseline for Tiers I–IV; higher tiers add resilience requirements. Normal operation of a behind-the-meter plant is a separate choice. |
+| Give real three-, four- and five-nines examples | Add publisher examples with their actual service/site/fleet scope and distinguish reported availability from design claims. Do not assign an unverified four-nines rating to Abilene. |
+| Find Microsoft's four-nines-at-three-nines-cost example | Microsoft's November 2025 Fairwater Atlanta account identifies the site and its resilient-grid strategy. The capability and cost comparison are Microsoft's claims, not an audited operating record or disclosed cost model. |
+| Make the resilience decision concrete | Use the named Fairwater power design to connect a resilience objective to the equipment and cost choice; retain the older phased cloud-facility case in [its source note](../research/sources/P81.md). |
+| Remove “Slides available,” “Selected slides,” “Reading” and other interim directory labels | Remove the badges and repeated grouping labels; retain chapter names, destinations and the presenter’s Reading link. |
 
 ## Chapter review tracker
 
@@ -38,7 +53,7 @@ release does not restart an unchanged chapter’s review.
 | 4. [Siting, grid connection and supply](prototypes/siting-format.html?teach=1) | Revised 25-slide draft | Current model, source and native-browser checks recorded in [TESTING.md](TESTING.md#chapters-35-and-root-publication--2026-09-12) | **Feedback addressed.** Review changed generation-to-Southaven ending; preceding cases remain unchanged. |
 | 5. [Physical site, buildings and safety](prototypes/site-format.html?teach=1) | Independent agent authored 22-slide draft | Current model, source and native-browser checks recorded in [TESTING.md](TESTING.md#chapters-35-and-root-publication--2026-09-12) | **First author pass pending.** Built from the accumulated teaching rules; no claim of one-shot acceptance. |
 | 6. Campus and building power distribution | Reader draft; own deck unbuilt | Reader/build checks only | Presentation not yet assigned for review. |
-| 7. [Continuity, storage and protection](prototypes/ups-format.html) | Selected UPS topics, 22 slides | Model/browser checks recorded | **Feedback addressed.** Revised storage/recovery and generator charging; Tier comparison remains available. **Whole chapter incomplete.** |
+| 7. [Continuity, storage and protection](prototypes/ups-format.html) | Selected UPS topics, 22 slides | Model/browser checks recorded | **Feedback addressed.** Revised Tier hierarchy, generation baseline, three named availability examples and Fairwater decision; earlier storage/recovery changes remain. **Whole chapter incomplete.** |
 | 8. Rack power and the 800 V DC transition | Selected [800 V](teach.html) and [rack-to-chip](prototypes/rack-power-format.html?teach=1) decks | Model/browser checks recorded | 800 V sequence iterated; rack-to-chip addition awaiting review. **Whole chapter incomplete.** |
 | 9. Compute, memory and the rack | Reader draft; own deck unbuilt | Reader/build checks only | Presentation not yet assigned for review. |
 | 10. Networking and interconnects | Reader draft; own deck unbuilt | Reader/build checks only | Presentation not yet assigned for review. |

@@ -216,14 +216,8 @@ button[hidden],
   font-weight: 650;
   margin: 0;
 }
-.chapter-status {
-  display: block;
-  font-size: 10px;
-  color: var(--muted);
-  margin-top: 5px;
-}
-.chapter-status.has-slides { color: var(--teal); }
 .chapter-content { padding-top: 12px; }
+.chapter-content .deck-entry { margin-bottom: 12px; }
 .chapter-card .deck-entry { margin-top: 11px; }
 .slides-link {
   display: inline-flex;
@@ -238,17 +232,6 @@ button[hidden],
   background: var(--white);
 }
 .slides-link:hover { background: var(--soft); }
-.coverage-note {
-  color: var(--muted);
-  font-size: 11px;
-  line-height: 1.5;
-  margin: 6px 0 0;
-}
-.reading-label {
-  color: var(--muted);
-  font-size: 10px;
-  margin: 14px 0 5px;
-}
 .lesson-number { color: var(--muted); font-size: 10px; }
 #chapter-slides {
   display: flex;
@@ -364,20 +347,6 @@ h1 {
   line-height: 1.65;
   color: var(--lede);
   max-width: 860px;
-}
-.lesson-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 23px 0 32px;
-  font-size: 10px;
-  color: var(--muted);
-  letter-spacing: 0.3px;
-}
-.lesson-meta span {
-  border: 1px solid var(--rule);
-  padding: 6px 9px;
-  border-radius: 20px;
 }
 .illustration {
   margin: 0 0 38px;
@@ -933,9 +902,6 @@ h1 {
   }
   .lede {
     font-size: 16px;
-  }
-  .lesson-meta {
-    margin-bottom: 25px;
   }
   .illustration {
     border-radius: 9px;

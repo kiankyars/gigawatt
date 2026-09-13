@@ -158,18 +158,15 @@ function renderContents() {
   $("search-status").textContent = q ? `${visible.length} matching ${visible.length === 1 ? "chapter" : "chapters"}`
     : "Open a chapter for its reading and slides.";
   $("contents").innerHTML = visible.map(({ chapter, lessons }) => {
-    const decks = chapter.presentations;
     const slideLinks = presentationLinks(chapter);
     const activeChapter = chapter.id === LESSONS[current]?.domain && !lookupMode;
-    const status = decks.length ? decks.every((deck) => deck.coverage === "selected")
-      ? "Selected slides" : "Slides available" : "Reading";
-    const heading = `<span class="chapter-name">${esc(chapterName(chapter))}</span><small class="chapter-status${decks.length ? " has-slides" : ""}">${status}</small>`;
+    const heading = `<span class="chapter-name">${esc(chapterName(chapter))}</span>`;
     const reading = lessons.map((lesson) => {
       const selected = LESSONS[current]?.id === lesson.id && !lookupMode;
       const number = `${chapter.number}.${chapter.lesson_ids.indexOf(lesson.id) + 1}`;
       return `<button class="lesson-link${selected ? " active" : ""}" data-lesson="${esc(lesson.id)}" ${selected ? 'aria-current="page"' : ""}><span class="lesson-number">${number}</span> ${esc(lesson.title)}${lesson.domain_checkin ? '<small class="lesson-checkin-note">Ends with a check-in</small>' : ""}</button>`;
     }).join("");
-    return `<details class="chapter-group" data-chapter="${esc(chapter.id)}" ${q || activeChapter || chapter.id === "primer" ? "open" : ""}><summary>${heading}</summary><div class="chapter-content">${slideLinks}${reading ? '<p class="reading-label">Reading</p>' + reading : ""}</div></details>`;
+    return `<details class="chapter-group" data-chapter="${esc(chapter.id)}" ${q || activeChapter || chapter.id === "primer" ? "open" : ""}><summary>${heading}</summary><div class="chapter-content">${slideLinks}${reading}</div></details>`;
   }).join("") || '<p class="muted">No matching chapters. Try another term.</p>';
   $("contents")
     .querySelectorAll("[data-lesson]")
@@ -178,7 +175,7 @@ function renderContents() {
 }
 function presentationLinks(chapter) {
   return chapter.presentations.map((deck) =>
-    `<div class="deck-entry"><a class="slides-link" href="${esc(deck.href)}" aria-label="Open slides for ${esc(chapterName(chapter))}: ${esc(deck.title)}"><span aria-hidden="true">▷</span> Open slides</a>${deck.coverage === "selected" ? `<p class="coverage-note">Selected topics: ${esc(deck.title)}</p>` : ""}</div>`,
+    `<div class="deck-entry"><a class="slides-link" href="${esc(deck.href)}" aria-label="Open slides for ${esc(chapterName(chapter))}: ${esc(deck.title)}"><span aria-hidden="true">▷</span> Open slides</a></div>`,
   ).join("");
 }
 function renderGlossary(query = "") {
@@ -256,8 +253,6 @@ function renderLesson() {
     ? `<p>Case-study slides</p><ul>${caseLinks.map(([id, label]) => `<li><a href="prototypes/case-studies.html#${esc(id)}">${esc(label)} →</a></li>`).join("")}</ul>`
     : "";
   $("question").textContent = l.question;
-  $("lesson-meta").innerHTML =
-    `<span>Reading lesson</span>${chapter.presentations.length ? "" : "<span>Chapter slides not yet available</span>"}`;
   $("chapter-slides").hidden = chapter.presentations.length === 0;
   $("chapter-slides").innerHTML = presentationLinks(chapter);
   $("teaching-image").closest("figure").hidden = !art;

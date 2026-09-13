@@ -793,119 +793,92 @@
         text-align: center;
         margin: 0;
       }
-      .tier-hierarchy { display: grid; gap: 10px; }
-      .tier-row {
-        display: grid;
-        grid-template-columns: 74px 1fr 170px;
-        gap: 18px;
-        align-items: center;
-        border: 1px solid var(--line);
-        border-radius: 12px;
-        padding: 10px 22px;
-      }
-      .tier-row[data-meets-event="true"] {
-        border-color: var(--green);
-        background: var(--note-surface, #e8f0e5);
-      }
-      .tier-number {
-        font: 400 42px Georgia, serif;
-        color: var(--green);
-      }
-      .tier-row > div { display: grid; gap: 6px; }
-      .tier-row > div > strong { font-size: 21px; }
-      .tier-row > div > span { font-size: 15px; color: var(--muted); }
-      .tier-verdict { font-size: 14px; text-align: right; color: var(--muted); }
-      [data-meets-event="true"] .tier-verdict { color: var(--green); font-weight: 700; }
-      .generation-requirements {
-        display: grid;
-        grid-template-columns: 1.15fr 1fr;
-        align-items: stretch;
-        gap: 24px;
-      }
-      .generation-base,
-      .generation-rating {
-        border: 1px solid var(--line);
-        border-radius: 14px;
-        padding: 25px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        gap: 22px;
-      }
-      .generation-base svg { width: 100%; max-height: 190px; }
-      .generation-base > strong,
-      .generation-rating > strong { font-size: 24px; line-height: 1.3; }
-      .generation-rating > span { color: var(--muted); font-size: 15px; }
-      .tier-range { color: var(--green); font: 32px Georgia, serif; }
-      .capability-not-schedule {
+      .tier-hierarchy { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+      .tier-step {
         display: flex;
         align-items: center;
         gap: 14px;
-        padding-top: 12px;
-        font-size: 12px;
-        font-weight: 700;
-        letter-spacing: .6px;
+        padding: 16px;
+        border-bottom: 3px solid var(--line);
       }
-      .capability-not-schedule b { font-size: 38px; color: var(--gold); }
-      .availability-example {
-        border: 1px solid var(--line);
-        border-radius: 14px;
-        padding: 36px;
-      }
-      .availability-account {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-        padding-bottom: 32px;
-      }
-      .availability-account > div { display: grid; gap: 12px; }
-      .availability-account span { color: var(--muted); font-size: 16px; }
-      .availability-account strong { font-size: clamp(26px, 3.7vw, 54px); font-weight: 550; }
-      .availability-account small { font-size: 20px; font-weight: 400; }
-      .availability-result { color: var(--green); }
-      [data-within-budget="false"] .availability-result { color: var(--gold); }
-      .budget-ruler { background: var(--line); height: 20px; border-radius: 8px; overflow: hidden; }
-      .budget-ruler span { display: block; height: 100%; background: var(--green); }
-      [data-within-budget="false"] .budget-ruler span { background: var(--gold); }
-      .budget-percent { text-align: center; padding-top: 14px; font-size: 20px; }
-      .availability-equation { text-align: center; font-size: 18px; margin: 30px 0 0; }
-      .tier-investment { display: grid; grid-template-columns: 1fr 55px 1fr; align-items: center; gap: 20px; }
-      .investment-panel { padding: 30px; border: 1px solid var(--line); border-radius: 14px; text-align: center; }
+      .tier-step[data-tier="III"], .tier-step[data-tier="IV"] { border-color: var(--green); }
+      .tier-step[data-tier="IV"] { background: var(--note-surface, #e8f0e5); border-radius: 10px 10px 0 0; }
+      .tier-number { font: 400 36px Georgia, serif; color: var(--green); flex: none; }
+      .tier-step > span { font-size: 17px; line-height: 1.4; }
+      .tier-outcomes { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 12px; }
+      .tier-outcome { border: 1px solid var(--line); border-radius: 14px; padding: 20px 20px 6px; }
+      .tier-outcome-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+      .tier-outcome-heading > strong { font-size: 20px; font-weight: 550; }
+      .tier-outcome-heading > span { color: var(--green); font-size: 15px; white-space: nowrap; }
+      .tier-outcome svg { display: block; width: 100%; }
+      .generation-requirements { width: 100%; max-width: 850px; margin: auto; display: grid; gap: 24px; }
+      .generation-base { text-align: center; }
+      .generation-base svg { display: block; width: 100%; max-height: 265px; }
+      .tier-range { color: var(--green); font: 30px Georgia, serif; margin-bottom: 14px; }
+      .generation-progression { padding-top: 20px; border-top: 1px solid var(--line); text-align: center; }
+      .generation-progression > span { display: block; color: var(--muted); font-size: 15px; margin-bottom: 14px; }
+      .generation-progression > strong { font-size: 21px; font-weight: 550; line-height: 1.5; }
+      .generation-progression strong > span { color: var(--green); margin: 0 12px; }
+      .availability-cases { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+      .availability-case { padding: 20px 24px; border: 1px solid var(--line); border-radius: 12px; }
+      .availability-nines { display: block; font-size: clamp(32px, 4.4vw, 56px); font-weight: 550; color: var(--green); letter-spacing: -.04em; }
+      .availability-nines small { font-size: .5em; margin-left: 3px; }
+      .availability-case h2 { font-size: 21px; font-weight: 600; margin: 20px 0 6px; }
+      .availability-case > p { font-size: 15px; color: var(--muted); margin: 0; }
+      .availability-claim { display: grid; gap: 7px; margin-top: 23px; border-top: 1px solid var(--line); padding-top: 15px; }
+      .availability-claim strong { font-size: 18px; font-weight: 500; }
+      .availability-claim span { font-size: 14px; color: var(--muted); }
+      .availability-year { text-align: center; margin-top: 4px; }
+      .availability-year p { font-size: 15px; color: var(--muted); margin: 0 0 14px; }
+      .availability-year > div { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+      .availability-year strong { font-size: 26px; font-weight: 500; }
+      .availability-year small { display: block; font-size: 12px; color: var(--muted); margin-top: 14px; }
+      .tier-investment { display: grid; grid-template-columns: 1.3fr 1fr; align-items: stretch; gap: 28px; }
+      .investment-photo { margin: 0; min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+      .investment-photo img { width: 100%; max-height: 345px; aspect-ratio: 16 / 10; object-fit: cover; border-radius: 12px; }
+      .investment-photo figcaption { color: var(--muted); font-size: 12px; }
+      .investment-panel { display: flex; flex-direction: column; justify-content: center; padding: 12px 0; }
       .investment-panel > span { font-size: 11px; letter-spacing: 1px; color: var(--muted); }
-      .investment-panel > strong { display: block; font: 36px Georgia, serif; margin-top: 28px; }
-      .investment-panel p { font-size: 20px; }
-      .investment-panel small { font-size: 14px; color: var(--muted); }
-      .investment-arrow { font-size: 50px; color: var(--muted); text-align: center; }
-      [data-upgrade="true"] .upgrade-panel { border-color: var(--green); background: var(--note-surface, #e8f0e5); }
-      [data-upgrade="true"] .investment-arrow { color: var(--green); }
+      .investment-panel > strong { display: block; font-size: clamp(26px, 2.5vw, 36px); font-weight: 550; margin-top: 15px; color: var(--green); }
+      .investment-cost { margin: 10px 0 25px; font-size: 22px; }
+      .investment-omissions { border-top: 1px solid var(--line); padding-top: 20px; }
+      .investment-omissions > span { color: var(--muted); font-size: 14px; }
+      .investment-omissions > strong { display: block; margin-top: 10px; font-size: 19px; font-weight: 500; line-height: 1.7; }
       @media (max-width: 799px), (max-height: 650px) {
         #stage:has(#reliability:not([hidden])) { height: auto; overflow: visible; }
         #reliability { height: auto; gap: 20px; }
         .reliability-main { flex: none; }
       }
       @media (max-width: 799px) {
-        .tier-row { grid-template-columns: 38px 1fr; gap: 10px; padding: 14px; }
-        .tier-row > div > strong { font-size: 18px; }
-        .tier-row > div > span { font-size: 13px; line-height: 1.4; }
-        .tier-number { font-size: 30px; }
-        .tier-verdict { grid-column: 2; text-align: left; font-size: 13px; }
-        .generation-requirements { grid-template-columns: 1fr; gap: 14px; }
-        .generation-base, .generation-rating { padding: 22px 16px; gap: 16px; }
-        .generation-base > strong, .generation-rating > strong { font-size: 21px; }
-        .availability-example { padding: 22px 16px; }
-        .availability-account { grid-template-columns: 1fr; gap: 22px; }
-        .availability-account > div { grid-template-columns: 1fr auto; align-items: center; gap: 10px; }
-        .availability-account strong { font-size: 30px; }
-        .availability-account span { font-size: 14px; }
-        .availability-account small { font-size: 14px; }
-        .availability-equation { font-size: 16px; line-height: 1.5; }
-        .budget-percent { font-size: 16px; }
-        .tier-investment { grid-template-columns: 1fr; gap: 14px; }
-        .investment-panel { padding: 24px; }
-        .investment-panel > strong { font-size: 30px; margin-top: 18px; }
-        .investment-arrow { transform: rotate(90deg); line-height: 1; }
+        .tier-hierarchy { grid-template-columns: 1fr 1fr; gap: 8px; }
+        .tier-step { padding: 10px; gap: 10px; }
+        .tier-number { font-size: 28px; }
+        .tier-step > span { font-size: 14px; }
+        .tier-outcomes { grid-template-columns: 1fr; gap: 14px; margin-top: 0; }
+        .tier-outcome { padding: 16px 12px 0; }
+        .tier-outcome-heading > strong { font-size: 17px; }
+        .tier-outcome-heading > span { font-size: 13px; }
+        .generation-requirements { gap: 16px; }
+        .tier-range { font-size: 26px; margin-bottom: 8px; }
+        .generation-progression > strong { display: block; font-size: 18px; }
+        .generation-progression strong > span { margin: 0 4px; }
+        .availability-cases { grid-template-columns: 1fr; gap: 12px; }
+        .availability-case { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 12px; align-items: center; padding: 17px; }
+        .availability-nines { grid-column: 1; grid-row: 1 / 3; font-size: 35px; }
+        .availability-case h2 { font-size: 17px; margin: 0; }
+        .availability-case > p { font-size: 13px; }
+        .availability-claim { grid-column: 1 / -1; display: flex; justify-content: space-between; gap: 10px; margin-top: 10px; padding-top: 10px; }
+        .availability-claim strong, .availability-claim span { font-size: 13px; }
+        .availability-year > div { gap: 8px; }
+        .availability-year strong { font-size: 18px; }
+        .availability-year p { font-size: 13px; }
+        .tier-investment { grid-template-columns: 1fr; gap: 18px; }
+        .investment-photo img { max-height: 240px; aspect-ratio: 16 / 9; }
+        .investment-panel { padding: 0; }
+        .investment-panel > strong { font-size: 30px; margin-top: 12px; }
+        .investment-cost { font-size: 21px; margin: 8px 0 20px; }
+        .investment-omissions { padding-top: 16px; }
+        .investment-omissions > strong { font-size: 17px; }
       }
       [data-action] {
         font-size: 13px;
@@ -983,6 +956,7 @@
           <small>UPS · BYPASS · REDUNDANCY</small>
         </div>
         <nav>
+          <a id="lesson-reference" class="reading-link" href="../index.html#d05-storage-power-and-time">Reading</a>
           <button id="open-notes">Speaker notes ↗</button
           ><button id="fullscreen">Fullscreen</button>
         </nav>
@@ -1911,6 +1885,7 @@
       }
       function render() {
         const s = scenes[state.index];
+        $("lesson-reference").href = `../index.html#${s.reliability || s.mode || s.redundancy ? "d05-paths-and-transitions" : "d05-storage-power-and-time"}`;
         const title = s.reliability ? reliabilityTitle(s, state) : s.title;
         document.title = `${presentationLabels.ups} · ${title} · From Watts to Tokens`;
         history.replaceState(null, "", "#" + s.id);

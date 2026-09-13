@@ -2896,7 +2896,7 @@
         "D15"
       ],
       "use": "Teach solar, storage and grid backup at Sparks, Nevada; distinguish microgrid availability from Cloud availability and energy share.",
-      "caution": "Main release reviewed. Company reports 99.2% microgrid availability over seven months and 99.9% Cloud availability using grid backup. Expansion to 24 modular data centers is announced, not confirmed complete. Do not carry forward the initial off-grid description as present status. These are historical operating-period figures, repeated in the May impact report, not a September 2026 measurement interval."
+      "caution": "Main release reviewed. Company reports 99.2% microgrid availability over seven months and 99.9% Cloud availability using grid backup, without separately specifying the Cloud measurement window. Expansion to 24 modular data centers is announced, not confirmed complete. These are historical operating claims, repeated in the May impact report, not a September measurement or a site power SLA."
     },
     {
       "id": "P76",
@@ -3606,6 +3606,40 @@
       "use": "Printed pages 56–59 describe regulated rectifier output and a buck/boost battery converter. When acceptable AC returns, the rectifier resumes supplying the inverter and the battery can recharge.",
       "caution": "Operating-mode sections on PDF pages 67–70 reviewed. This is an Eaton topology example, not a specification for the illustrated Schneider UPS or the ideal 800 V, 0.20 F teaching bus and its assumed response times.",
       "id": "P119"
+    },
+    {
+      "id": "P120",
+      "title": "Microsoft — Fairwater Atlanta availability and power design",
+      "url": "https://blogs.microsoft.com/blog/2025/11/12/infinite-scale-the-architecture-behind-the-azure-ai-superfactory/",
+      "publisher": "Microsoft",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "published_on": "2025-11-12",
+      "domains": [
+        "D03",
+        "D05",
+        "D14",
+        "D15"
+      ],
+      "use": "Named Fairwater Atlanta case for four-nines availability at three-nines cost; relate grid reliability and GPU power architecture to backup investment and time to market.",
+      "caution": "Operator design/capability claim, not an audited annual availability result, SLA, Tier certification or quantified cost comparison. Omits traditional on-site generation, UPS and dual-corded distribution for the GPU fleet; separate on-site energy storage still smooths power fluctuations."
+    },
+    {
+      "id": "P121",
+      "title": "NTT DATA — Vienna 1 facility and power SLA",
+      "url": "https://services.global.ntt/-/media/ntt/global/insights-and-resources/data-sheets/vienna-1-data-sheet.pdf?rev=9057842951194cb1b9d1cf884282f421",
+      "publisher": "NTT DATA",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "published_on": null,
+      "domains": [
+        "D05",
+        "D14"
+      ],
+      "use": "Named five-nines power SLA example at Vienna 1. Compare the contractual power boundary with Fairwater design availability and Crusoe Cloud service availability.",
+      "caution": "PDF copyright 2024; exact publication date and contractual measurement window/exclusions not stated. Page 2 advertises 99.999% power uptime availability; this does not establish observed annual uptime or hosted application availability. Page 1 lists 2N UPS A/B and N+1 diesel generation."
     }
   ]
 }

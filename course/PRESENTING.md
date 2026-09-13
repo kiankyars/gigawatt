@@ -2,7 +2,9 @@
 
 ## The next pass
 
-Review the changes from your latest feedback:
+The latest pass is [Chapter 7: Tiers, nines and Fairwater Atlanta](prototypes/ups-format.html#tier-topology). Review only those four revised slides.
+
+The preceding changes remain available at:
 
 1. [Chapter 4: generation through the delivery decision](prototypes/siting-format.html?teach=1#dania-cycle): clarified plant example, new GPT figure, cost curves, Southaven plans and supported compute economics.
 2. [Chapter 7: UPS equipment and recovery](prototypes/ups-format.html#equipment): simpler labels, capacitor support, generator charging and restoration of DC-link voltage.

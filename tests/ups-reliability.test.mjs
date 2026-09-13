@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { availabilityBudget, renderReliability } from "../course/prototypes/ups-reliability.js";
+import { availabilityBudget, availabilityExamples, reliabilityControls, renderReliability } from "../course/prototypes/ups-reliability.js";
 
 test("annual availability allowance closes a 365-day service account", () => {
   for (const [nines, minutes] of [[3, 525.6], [4, 52.56], [5, 5.256]]) {
@@ -22,11 +22,39 @@ test("allowance changes with the observation window and exact boundary", () => {
     assert.throws(() => availabilityBudget(...args), RangeError);
 });
 
-test("selected Tier outcomes distinguish planned maintenance from a fault", () => {
+test("named nines examples preserve their different evidence boundaries", () => {
+  assert.deepEqual(availabilityExamples.map(({ nines, boundary, kind }) => [nines, boundary, kind]), [
+    [3, "Cloud service", "Operator report"],
+    [4, "Site availability", "Design claim"],
+    [5, "Power uptime", "Advertised SLA"],
+  ]);
+  const html = renderReliability("availability-budget", {});
+  for (const example of availabilityExamples) {
+    assert.match(html, new RegExp(`data-nines="${example.nines}"`));
+    assert.ok(html.includes(example.source));
+  }
+  assert.match(html, /Mathematical reference; actual reporting and contract terms differ/);
+  assert.doesNotMatch(html, /One outage|Allowance remaining|Abilene/);
+  assert.equal(reliabilityControls("availability-budget", {}), "");
+});
+
+test("Tier outcomes stay visible together regardless of legacy selector state", () => {
   const maintenance = renderReliability("tier-topology", { tierEvent: "maintenance" });
   const fault = renderReliability("tier-topology", { tierEvent: "fault" });
-  assert.equal((maintenance.match(/data-meets-event="true"/g) || []).length, 2);
-  assert.equal((fault.match(/data-meets-event="true"/g) || []).length, 1);
-  assert.match(maintenance, /data-reliability-value="maintenance" aria-pressed="true"/);
-  assert.match(fault, /data-reliability-value="fault" aria-pressed="true"/);
+  assert.equal(maintenance, fault);
+  assert.match(maintenance, /data-tier-outcome="maintenance"/);
+  assert.match(maintenance, /data-tier-outcome="fault"/);
+  assert.doesNotMatch(maintenance, /Not established|Required outcome/);
+  assert.equal(reliabilityControls("tier-topology", {}), "");
+});
+
+test("Fairwater evidence remains a GPU-fleet design claim and has no reveal state", () => {
+  const before = renderReliability("tier-investment", { tierUpgrade: false });
+  const after = renderReliability("tier-investment", { tierUpgrade: true });
+  assert.equal(before, after);
+  assert.match(before, /data-evidence="design-claim"/);
+  assert.match(before, /GPU fleet omits/);
+  assert.match(before, /Availability claim ≠ Tier certification/);
+  assert.match(before, /microsoft-fairwater-atlanta.jpg/);
+  assert.equal(reliabilityControls("tier-investment", {}), "");
 });

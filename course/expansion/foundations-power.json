@@ -2575,12 +2575,29 @@
         ]
       },
       {
-        "heading": "Separate Tier topology, availability and the investment decision",
+        "heading": "What each Uptime Tier adds",
         "paragraphs": [
-          "Uptime Institute tiers describe outcomes of the site infrastructure, including power and cooling. Tier I establishes basic capacity. Tier II adds redundant capacity components. Tier III requires concurrent maintainability: planned equipment or path maintenance can occur with IT operating. Tier IV adds tolerance of a single infrastructure fault and continuous cooling. A count such as N+1 or 2N alone does not determine the tier. The full design, its separation and its response to events matter.",
-          "Tier I already includes an engine generator for utility outages. Higher tiers inherit that baseline. For Tier III and IV, the generator plant must support critical load without runtime limits in its applicable capacity rating, but it need not run continuously. Fuel supply, refueling and operating permissions remain real constraints. This backup-generation requirement differs from choosing a continuously operated behind-the-meter gas plant.",
-          "Availability targets answer a different question. In a 365-day example that counts every minute at one service boundary, 99.9% allows 525.6 minutes of downtime (8 h 45 min 36 s), 99.99% allows 52.56 minutes (52 min 33.6 s), and 99.999% allows 5.256 minutes (5 min 15.36 s). A 45-minute outage consumes 85.6% of the four-nines annual allowance and already exceeds the five-nines allowance. Uptime removed expected-downtime assignments in 2009. An actual SLA may use another window, request-based accounting or exclusions; it cannot be inferred from a tier label.",
-          "The investment decision follows the service requirement. Uptime's 14 December 2015 case describes a U.S. cloud facility certified at Tier III with other Tier IV capabilities already in place. The owner planned to add the mechanical UPS needed for continuous cooling once a client required Tier IV and justified the expense. The case describes a commercial use, not a government-only category; it does not establish completion of the later phase or the share of the market at any tier."
+          "Uptime Institute tiers describe what the site infrastructure can withstand. Tier I supplies basic power and cooling. Tier II adds spare capacity components. Tier III permits planned maintenance of equipment and distribution paths while IT remains operating. Tier IV adds tolerance of an unplanned infrastructure fault, including continuous cooling. Tier IV has the most demanding infrastructure requirements in this four-level system; the appropriate investment depends on the service the facility must support.",
+          "All four Uptime Tiers include an engine generator for extended utility outages. Tier I already includes this backup source, and higher tiers retain it while adding redundancy and fault protection. For Tier III and IV, the generator plant must support critical load without runtime limits in its applicable capacity rating. Fuel supply and operating permissions still limit endurance; the rating does not require the generator to run continuously. This is a requirement of the Uptime classification, not a claim that every data center follows that classification.",
+          "Component counts such as N+1 or 2N do not establish a Tier. The complete design and its response to events matter. Tier III proves planned maintenance can occur without shutting down IT; it does not make Tier IV's additional promise about unplanned faults. Neither certification assigns an annual downtime percentage. Uptime removed expected-downtime assignments in 2009."
+        ]
+      },
+      {
+        "heading": "Three, four and five nines in published examples",
+        "paragraphs": [
+          "A number of nines needs a named boundary and evidence type. An operator may report a service result, publish a design capability, or promise an SLA. These are useful examples to compare, but they are not a league table of measured site reliability.",
+          "**Three nines — Crusoe Spark, Sparks, Nevada.** Crusoe's March 2026 update says its Cloud maintains 99.9% availability using the grid as backup at the Redwood Materials deployment. The microgrid itself reported 99.2% over seven months. Grid backup helps separate the power source's availability from the Cloud service's availability. The release does not give a separate observation window for the 99.9% Cloud figure.",
+          "**Four nines — Microsoft Fairwater Atlanta.** In November 2025, Microsoft described this GPU power design as capable of 99.99% availability at the cost of a three-nines design. This is a design claim tied to highly available utility power; Microsoft did not publish a year of measured outages or a site SLA with the announcement.",
+          "**Five nines — NTT DATA Vienna 1.** The facility fact sheet advertises 99.999% power uptime in its service level agreement. It also specifies separate A/B UPS systems with 2N redundancy and N+1 diesel generation. The percentage describes the power SLA, not the availability of every application hosted there. The fact sheet does not give the contract's measurement window or exclusions.",
+          "For a common mathematical reference, counting every minute of a 365-day year gives 8 h 45 min 36 s of downtime at 99.9%, 52 min 33.6 s at 99.99%, and 5 min 15.36 s at 99.999%. Those durations are annual equivalents, not the stated contract periods or measured performance of these three examples. No verified four-nines primary claim for Abilene was established in this review."
+        ]
+      },
+      {
+        "heading": "Fairwater Atlanta: choose backup around the power supply and service",
+        "paragraphs": [
+          "Microsoft chose the Atlanta site for resilient utility power. Its November 2025 description says the GPU fleet can forgo traditional on-site generation, UPS systems and dual-corded distribution, reducing cost and time to market. Microsoft separately describes on-site energy storage for smoothing power fluctuations, so this is not a claim that the campus contains no batteries.",
+          "The decision is concrete: how much additional local backup does this GPU service need beyond the reliability available from its utility connection? A different utility supply or a service with a different interruption tolerance can justify a different investment. This Fairwater design is not presented as an Uptime Tier certification. It therefore does not contradict the generator requirement within the four Uptime Tiers.",
+          "Microsoft does not supply a quantified capital-cost comparison or a measured annual availability record in that announcement. The case establishes the chosen architecture and the operator's rationale. It does not prove that omitting backup achieves the same result at another site."
         ]
       }
     ],
@@ -2662,10 +2679,24 @@
         "reviewed_on": "2026-09-12"
       },
       {
-        "title": "Tier Certification for Modular and Phased Construction",
-        "url": "https://journal.uptimeinstitute.com/modular-and-phased-construction/",
-        "claim": "Commercial U.S. cloud case: Tier III constructed-facility phase with other Tier IV capabilities already in place; mechanical UPS investment for continuous cooling deferred until a client required the planned Tier IV phase.",
-        "limits": "Substantive publisher-indexed Tier III-to-Tier IV case text reviewed; direct page requests returned 403. Historical 2015 case, not a current facility status report. Does not establish that the later phase completed, that cooling alone upgrades every Tier III site, or market prevalence of a Tier.",
+        "title": "Crusoe and Redwood — Sparks microgrid update",
+        "url": "https://www.crusoe.ai/resources/newsroom/crusoe-and-redwood-materials-expand-strategic-partnership-scaling-to-7x-the-original-ai-infrastructure-density",
+        "claim": "Teach solar, storage and grid backup at Sparks, Nevada; distinguish microgrid availability from Cloud availability and energy share.",
+        "limits": "Main release reviewed. Company reports 99.2% microgrid availability over seven months and 99.9% Cloud availability using grid backup, without separately specifying the Cloud measurement window. Expansion to 24 modular data centers is announced, not confirmed complete. These are historical operating claims, repeated in the May impact report, not a September measurement or a site power SLA.",
+        "reviewed_on": "2026-09-12"
+      },
+      {
+        "title": "Microsoft — Fairwater Atlanta availability and power design",
+        "url": "https://blogs.microsoft.com/blog/2025/11/12/infinite-scale-the-architecture-behind-the-azure-ai-superfactory/",
+        "claim": "Named Fairwater Atlanta case for four-nines availability at three-nines cost; relate grid reliability and GPU power architecture to backup investment and time to market.",
+        "limits": "Operator design/capability claim, not an audited annual availability result, SLA, Tier certification or quantified cost comparison. Omits traditional on-site generation, UPS and dual-corded distribution for the GPU fleet; separate on-site energy storage still smooths power fluctuations.",
+        "reviewed_on": "2026-09-12"
+      },
+      {
+        "title": "NTT DATA — Vienna 1 facility and power SLA",
+        "url": "https://services.global.ntt/-/media/ntt/global/insights-and-resources/data-sheets/vienna-1-data-sheet.pdf?rev=9057842951194cb1b9d1cf884282f421",
+        "claim": "Named five-nines power SLA example at Vienna 1. Compare the contractual power boundary with Fairwater design availability and Crusoe Cloud service availability.",
+        "limits": "PDF copyright 2024; exact publication date and contractual measurement window/exclusions not stated. Page 2 advertises 99.999% power uptime availability; this does not establish observed annual uptime or hosted application availability. Page 1 lists 2N UPS A/B and N+1 diesel generation.",
         "reviewed_on": "2026-09-12"
       }
     ],
@@ -2681,6 +2712,18 @@
       {
         "term": "Maintainability",
         "definition": "The ability to perform the specified planned equipment removal while preserving the promised service."
+      },
+      {
+        "term": "Availability",
+        "definition": "The share of a stated observation period or set of service opportunities that meets the declared operating criterion."
+      },
+      {
+        "term": "Service level agreement (SLA)",
+        "definition": "A contractual service commitment with a defined measurement method, exclusions and remedies."
+      },
+      {
+        "term": "Uptime Tier",
+        "definition": "A classification of site infrastructure capability; it does not assign a fixed annual availability percentage."
       }
     ],
     "visual": {
