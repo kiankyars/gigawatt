@@ -7,6 +7,27 @@ Do not download or launch standalone Chrome for Testing or Playwright browser
 binaries here. Existing browser test harnesses remain available for a separately
 configured test environment; run local model and build checks without a browser.
 
+## Chapter 4 sites, capacity and generation — 2026-09-13
+
+- Chapter 4 now has **26 scenes**. Added two genuine Polaris Forge 1 aerials
+  from Applied Digital’s October 2025 presentation, retaining the original asset
+  and showing photo areas through SVG viewports. Both photos are labeled as from
+  that presentation; October 27 and November 24 remain separate service milestones.
+- Corrected gas supplier/customer wording, Campus A/B label positions and Abilene
+  capacity scope. 900 MW is a conditional calculation on the 1,200 MW plan;
+  Oracle’s reported 75% does not establish current operating MW.
+- Dania Beach explicitly teaches combined cycle and the 7HA.03 designation.
+  Added the Tennessee/Mississippi siting relationship and attributed the
+  historical permitting account; the reader records the subsequent removal plan.
+- **72 Python and 142 Node tests passed.** Course, expanded reader, domain map,
+  research metadata and staged-site checks passed. The existing browser harness
+  was updated and syntax-checked without launching a standalone browser.
+- Built-in Codex browser checked all six changed scenes at **1280×720,
+  390×844 and 844×390**. A date/megawatt overlap was corrected and all eighteen
+  resulting layouts passed text-collision, diagram-bound and horizontal-overflow
+  checks. Representative desktop and phone screenshots were inspected. No console
+  warnings or errors were observed. This pass used light appearance.
+
 ## Interactivity, transformer taps and instruction audit — 2026-09-13
 
 The earlier 4,000-token/s exercise below passed arithmetic checks but missed the

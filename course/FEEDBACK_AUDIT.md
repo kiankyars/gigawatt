@@ -25,6 +25,17 @@ exceptions; the coverage list below makes the rest inspectable.
 These open production tasks are also owned by [Course review](COURSE_REVIEW.md#next-teaching-step)
 and the [case handoffs](TEACHING_STANDARD.md#required-section-handoffs).
 
+## Latest Chapter 4 review
+
+All six comments are implemented: October-published CoreWeave aerials, explicit
+Energy Transfer-to-Oracle gas delivery, Campus A/B layout, Abilene capacity scope,
+Dania Beach cycle/model labels and Southaven’s state-line explanation.
+
+Two evidence limits remain: the aerials’ exact capture days are unknown, and
+Oracle’s September percentage does not define current operating MW. The slide
+shows 900 MW only as 75% of the separately reported 1,200 MW plan, conditional
+on the same capacity basis. The 10 GW commitment is for the wider Stargate buildout.
+
 ## Wording and identity questions consolidated
 
 - **Interactivity:** now explicitly tokens per second per user during generation.

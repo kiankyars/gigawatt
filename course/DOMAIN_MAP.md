@@ -395,6 +395,7 @@ Compare utility-only and behind-the-meter supply against energy, capacity, fuel 
 - [E61807424F1 — DOE — Islanding a Microgrid](https://www.energy.gov/cmei/femp/articles/islanding-microgrid) · `page_reviewed` · [local note](../research/sources/E61807424F1.md)
 - [E45AB7B1BC1 — Schneider Electric — Installed apparent power](https://www.electrical-installation.org/enwiki/Installed_apparent_power_(kVA)) · `page_reviewed` · [local note](../research/sources/E45AB7B1BC1.md)
 - [E21653C0173 — ERCOT — Batch Zero large-load connection announcement, June 18, 2026](https://www.ercot.com/news/release/06182026-puct-approves-ercots) · `page_reviewed` · [local note](../research/sources/E21653C0173.md)
+- [E775A7D4E10 — OpenAI: Five new Stargate sites](https://openai.com/index/five-new-stargate-sites/) · `page_reviewed` · [local note](../research/sources/E775A7D4E10.md)
 - [E38B3BEAAC1 — NARUC — Regulators’ Financial Toolbox: Behind-the-Meter Energy Storage](https://pubs.naruc.org/pub/6233DBE2-B58B-52FF-925E-250DD26DECF9) · `public_excerpt_reviewed` · [local note](../research/sources/E38B3BEAAC1.md)
 - [E0410763323 — DOE — Solar Integration: Distributed Energy Resources and Microgrids Basics](https://www.energy.gov/cmei/systems/solar-integration-distributed-energy-resources-and-microgrids-basics) · `page_reviewed` · [local note](../research/sources/E0410763323.md)
 - [SA41 — What is So Hard About Behind-The-Meter Power For Datacenters? Part 1](https://newsletter.semianalysis.com/p/what-is-so-hard-about-behind-the) · `public_excerpt_reviewed` · [local note](../research/sources/SA41.md)
@@ -435,6 +436,11 @@ Compare utility-only and behind-the-meter supply against energy, capacity, fuel 
 - [P116 — GE Vernova — 7HA gas turbines, model family and specifications](https://www.gevernova.com/gas-power/products/gas-turbines/7ha) · `page_reviewed` · [local note](../research/sources/P116.md)
 - [P117 — U.S. Department of Energy — heating-value glossary](https://www.energy.gov/cmei/fuels/glossary) · `public_excerpt_reviewed` · [local note](../research/sources/P117.md)
 - [P120 — Microsoft — Fairwater Atlanta availability and power design](https://blogs.microsoft.com/blog/2025/11/12/infinite-scale-the-architecture-behind-the-azure-ai-superfactory/) · `page_reviewed` · [local note](../research/sources/P120.md)
+- [P135 — Applied Digital — October 2025 investor presentation](https://ir.applieddigital.com/sec-filings/all-sec-filings/content/0001144879-25-000076/apld_invxfinalpresentati.htm) · `page_reviewed` · [local note](../research/sources/P135.md)
+- [P136 — GE — How its latest gas turbine could save Florida customers money](https://www.ge.com/news/reports/in-the-money-how-ges-latest-gas-turbine-could-help-save-florida-customers-300-million) · `page_reviewed` · [local note](../research/sources/P136.md)
+- [P137 — GE Vernova — Supporting Vietnam’s energy needs](https://www.gevernova.com/gas-power/resources/articles/2021/supporting-vietnams-energy-needs) · `page_reviewed` · [local note](../research/sources/P137.md)
+- [P138 — SpaceXAI — Greater Memphis site update, July 30, 2026](https://x.ai/memphis/updates) · `page_reviewed` · [local note](../research/sources/P138.md)
+- [P139 — MDEQ — Determination letter on portable gas combustion turbines, July 29, 2025](https://cdn.mississippitoday.org/wp-content/uploads/2025/11/20104011/2025.07.29-MDEQ-Determination-Letter-on-Portable-Gas-Combustion-Turbines-signed.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P139.md)
 
 <a id="d04"></a>
 

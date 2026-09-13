@@ -64,7 +64,7 @@ release does not restart an unchanged chapter’s review.
 | 1. [Primer](prototypes/terminology-format.html?teach=1) | 22 slides; transformer tap comparison added | Transformer comparison checked; [record](TESTING.md#interactivity-transformer-taps-and-instruction-audit--2026-09-13) | **Previous feedback addressed; final acceptance unrecorded.** No repeat review assigned. |
 | 2. [Data center overview](prototypes/orientation-format.html?teach=1) | 13-slide draft | Prior content pass [checked](TESTING.md#overview-and-workload-review--2026-09-12); shared navigation checked in the current release | **Active review.** Networking, CDU and capacity-title feedback implemented; no general restart. |
 | 3. [Workloads and requirements](prototypes/workload-format.html?teach=1) | 18 slides; explicit interactivity, sourced curve and service check-in | Current revision checks in TESTING.md | **Active review.** Prior interactivity completion claim withdrawn; exact supported-session selection remains open. |
-| 4. [Siting, grid connection and supply](prototypes/siting-format.html?teach=1) | Revised 25-slide draft | Current model, source and native-browser checks recorded in [TESTING.md](TESTING.md#chapters-35-and-root-publication--2026-09-12) | **Feedback addressed.** Review changed generation-to-Southaven ending; preceding cases remain unchanged. |
+| 4. [Siting, grid connection and supply](prototypes/siting-format.html?teach=1) | 26 slides; dated aerials, capacity scope, turbine labels and state-line case revised | [Current checks](TESTING.md#chapter-4-sites-capacity-and-generation--2026-09-13) | **Active review.** Six latest comments implemented; photograph capture days and current Abilene operating MW remain unverified. |
 | 5. [Physical site, buildings and safety](prototypes/site-format.html?teach=1) | Rebuilt as 20 slides after author feedback; five new GPT figures and verified cases | Current checks in [TESTING.md](TESTING.md#chapter-5-rebuild--2026-09-12) | **Feedback implemented; acceptance pending.** Review the rebuilt slides 14–20, then changed earlier cases. |
 | 6. Campus and building power distribution | Reader draft; own deck unbuilt | Reader/build checks only | Presentation not yet assigned for review. |
 | 7. [Continuity, storage and protection](prototypes/ups-format.html) | Selected UPS topics, 22 slides | Model/browser checks recorded | **Feedback addressed.** Revised Tier hierarchy, generation baseline, three named availability examples and Fairwater decision; earlier storage/recovery changes remain. **Whole chapter incomplete.** |
@@ -290,6 +290,25 @@ approach; the 800 V and UPS prototypes are implemented, while the remaining pres
 sequences still need authorship and dry runs.
 
 ### Next teaching step
+
+#### Chapter 4 review — 13 September 2026
+
+- CoreWeave: two genuine aerials from Applied Digital’s October 2025 investor
+  presentation accompany the October 27 and November 24 Ready for Service
+  milestones. Both photo sources are October; exact capture days are unstated.
+- Gas delivery: Energy Transfer supplies natural gas to Oracle’s data center;
+  “Oracle delivery” is replaced with explicit supplier/customer wording.
+- Campus A/B: shorter title, backed labels and leaders attached to each object;
+  removed the competing footer sentence.
+- Abilene: 1,200 MW original campus plan; Oracle’s 75% September handover report;
+  900 MW is conditional on a matching basis, not reported operating load. The
+  10 GW Stargate US commitment is shown separately. Current operating MW is open.
+- Dania Beach: combined cycle and whole-plant output are explicit; 7HA.03 is
+  decoded as 60 Hz family / high efficiency / air-cooled / model version.
+- Southaven: new state-line case locates Colossus 2 in Tennessee and MZX power
+  in Mississippi; reported permitting rationale is attributed to SemiAnalysis.
+  The reader records temporary conditions and the July 2026 removal commitment.
+
 
 #### Current revision — course navigation and Chapters 3–5
 

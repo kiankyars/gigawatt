@@ -74,7 +74,7 @@ async function checkValues(page, scene, values, revealed) {
   if (scene.id === "abilene-phase") {
     const text = await page.locator("#diagram").textContent();
     assert.match(text, /75%/);
-    assert.match(text, /September 2026/);
+    assert.match(text, /Sep(?:tember)? 2026/);
   }
   if (scene.id === "transport-current") {
     close(await attr("data-mv-current-a"),200000/(Math.sqrt(3)*34.5),"MV current");

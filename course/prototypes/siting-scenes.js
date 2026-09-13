@@ -36,7 +36,7 @@ export const scenes=[
   {
     "id": "grid-connection",
     "label": "Why loads need joint study",
-    "title": "Two campuses can compete for capacity in the same upstream network.",
+    "title": "Both campuses depend on the same substation.",
     "reference": "../index.html#d03-service-and-siting",
     "boundary": "Generated conceptual geography · ERCOT Batch Zero is a dated process example.",
     "explanation": [
@@ -47,12 +47,12 @@ export const scenes=[
   {
     "id": "abilene-phase",
     "label": "Abilene: current delivery",
-    "title": "Abilene shows how a campus opens while later phases are still being built.",
+    "title": "Abilene’s campus plan is 1.2 GW.",
     "reference": "../index.html#d03-service-and-siting",
     "boundary": "Oracle · status September 2026 · publisher aerial 15 July 2026.",
     "explanation": [
       "Our recurring example is the original Crusoe-built Oracle/OpenAI campus in Abilene. Oracle’s location page reports 75 percent of total capacity delivered as of September 2026, with the remainder in subsequent quarters. Its displayed aerial photograph is dated July 15, 2026.",
-      "Use the current delivery statement for current status. The page does not give a denominator that licenses turning 75 percent into a new megawatt count, nor does delivered capacity establish metered IT power or useful output. The adjacent Microsoft campus is a separate project. No September satellite capture was established."
+      "Crusoe identifies the original eight-building Oracle campus as a 1,200 MW plan. Applying 75% to that plan yields 900 MW only if Oracle and Crusoe mean the same capacity basis; this is a conditional calculation, not a reported operating MW figure. The 10 GW commitment refers to Stargate’s wider US buildout. The adjacent 900 MW Microsoft campus is another separate project."
     ]
   },
   {
@@ -157,11 +157,11 @@ export const scenes=[
   {
     "id": "dania-cycle",
     "label": "Dania Beach power station",
-    "title": "Dania Beach is a utility power station with two GE gas turbines.",
+    "title": "Dania Beach combines gas turbines with a steam cycle.",
     "reference": "../index.html#d03-service-and-siting",
     "boundary": "GE Vernova’s Dania Beach case · reported plant output up to 1,260 MW · source reviewed 12 September 2026.",
     "explanation": [
-      "The manufacturer’s photograph places this mechanism in a real utility plant: FPL’s Dania Beach Clean Energy Center near Fort Lauderdale. GE Vernova reports two 7HA.03 gas turbines and plant output up to 1,260 MW. That number describes the reported plant, not two standalone turbine nameplates added together.",
+      "The manufacturer’s photograph places this mechanism in a real utility plant: FPL’s Dania Beach Clean Energy Center near Fort Lauderdale. GE Vernova reports two 7HA.03 gas turbines and plant output up to 1,260 MW. The combined-cycle plant recovers gas-turbine exhaust heat in a steam cycle. Its 1,260 MW figure includes that steam-cycle output. In 7HA.03, 7 identifies the 60 Hz family, H means high efficiency, A means air-cooled and .03 is the model version; it does not encode a megawatt rating.",
       "This is a grid-generation example, not an asserted supply contract or electrical connection to our course campus. Do not infer this site’s instantaneous output, operating efficiency or allocation to data centers from its published capacity."
     ]
   },
@@ -196,6 +196,17 @@ export const scenes=[
     "explanation": [
       "This separate hypothetical comparison assumes efficiencies of 40% for simple cycle and 60% for combined cycle, with annualized fixed costs of $8 million and $16 million respectively. At a fuel price of $20 per MWh thermal on the same lower-heating-value basis (excluding recovery by condensing combustion water vapor), variable fuel costs are $50 and $33.33 per MWh electric. Equal output capability does not imply equal annual cost.",
       "At 500 equivalent full-load hours, simple cycle costs $10.5 million against $17.67 million. At 7,000 hours, combined cycle costs $39.33 million against $43 million. The crossover is 4,800 hours in this model. These are original assumptions, not market quotations or an investment recommendation. Start costs, variable maintenance, emissions costs, part-load efficiency, downtime and project-specific financing are excluded."
+    ]
+  },
+  {
+    "id": "southaven-border",
+    "label": "Southaven: across the state line",
+    "title": "The data center and its power plant sit across a state line.",
+    "reference": "../index.html#d03-service-and-siting",
+    "boundary": "Colossus 2 / Memphis, Tennessee; MZX generation / Southaven, Mississippi. Historical 2025 siting account.",
+    "explanation": [
+      "Colossus 2 on Tulane Road is in Memphis, Tennessee. MZX’s generating site is on Stanton Road in Southaven, Mississippi. SemiAnalysis’s September 2025 report explicitly links the cross-border siting choice to pushback in Tennessee and Mississippi’s temporary-turbine approval, and reports medium-voltage lines connecting the sites. Nearby parcels can fall under different permitting authorities, while electricity still needs a physical connection.",
+      "The July 2025 Mississippi determination applied conditions to mobile turbines remaining less than twelve months. It was not indefinite permission. On July 30, 2026, SpaceXAI reported an agreed removal timeline for 69 temporary turbines, with a July 2027 deadline, while a permitted permanent plant was being built. These are dated permissions and operator statements, not proof of completed removal. TVA’s Southaven combined-cycle station is a separate plant."
     ]
   },
   {

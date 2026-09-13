@@ -22,28 +22,48 @@ function purpose(m){
  return result(o,'Follow delivery phases, connection arrangements and generation duty. The drawing shows a conceptual campus and its connections.');
 }
 function release(m){
- let o=t(m?195:560,m?38:35,'POLARIS FORGE 1 · ELLENDALE, NORTH DAKOTA',m?12:19,C.muted,'middle');
+ const image='../assets/references/applied-digital-polaris-forge-1-building1-october-2025.jpg';
+ const crop=(x,y,w,h,box)=>`<svg x="${x}" y="${y}" width="${w}" height="${h}" viewBox="${box}" overflow="hidden">${img(image,0,0,1368,829)}</svg>`;
+ let o=t(m?195:375,m?32:29,'Polaris Forge 1 · Ellendale',m?16:22,C.ink,'middle');
+ o+=t(m?195:375,m?54:49,'Both photos: October 2025 presentation',m?13:16,C.muted,'middle');
+ o+=crop(m?12:16,m?75:68,m?366:710,m?83:162,'50 170 1252 285');
+ o+=crop(m?12:16,m?180:250,m?366:710,m?131:255,'49 472 724 260');
  const phases=[['27 OCT 2025','50 MW','Phase I ready for service'],['24 NOV 2025','+50 MW','First 100 MW building complete']];
- phases.forEach(([a,b,c],i)=>{const x=m?27:70+i*560,y=m?90+i*240:122;o+=t(x,y,a,m?20:28)+t(x,y+80,b,m?61:78,C.power)+t(x,y+127,c,m?18:25);if(i===0)o+=m?line(27,294,363,294):line(560,105,560,386);});
- o+=note(m,'Applied Digital · Ready for Service announcements', 'https://ir.applieddigital.com/news-events/press-releases/detail/137/applied-digital-completes-phase-ii-ready-for-service-at');
- return result(o,'Applied Digital reported the first 50 MW ready for service for CoreWeave on October 27, 2025, and the second 50 MW on November 24. This completed the first 100 MW building at the 400 MW contracted Polaris Forge 1 campus. It is a released-service milestone, not measured IT demand.');
+ phases.forEach(([a,b,c],i)=>{const x=m?27:774,y=m?352+i*137:102+i*234;o+=t(x,y,a,m?20:25)+t(x,y+(m?53:78),b,m?44:64,C.power)+t(x,y+(m?89:119),c,m?18:21);});
+ o+=note(m,'Applied Digital · October 2025 investor presentation, p. 22', 'https://ir.applieddigital.com/sec-filings/all-sec-filings/content/0001144879-25-000076/apld_invxfinalpresentati.htm');
+ return result(o,'Two genuine aerial photographs of Polaris Forge 1 Building 1 from Applied Digital’s October 2025 investor presentation. Exact photograph capture dates are not given. The company separately reported 50 MW ready for service for CoreWeave on October 27 and another 50 MW on November 24, completing the first 100 MW building at the 400 MW contracted campus.');
 }
 function fuel(m){
  let o=img(sitingImages.gas,m?12:20,m?20:10,m?366:750,m?280:425);
- const x=m?25:810,y=m?360:101;
- o+=t(x,y,'14-mile lateral',m?36:35,C.power)+t(x,y+46,'Additional route · August',m?20:20)+t(x,y+80,'Oracle delivery · Jan 2026',m?18:19)+t(x,y+145,'Capacity · pressure · rights',m?19:20,C.muted);
- o+=note(m,'Energy Transfer · August 2026 | Oracle photo · 15 July 2026','https://ir.energytransfer.com/static-files/1cb70dca-abed-4005-95aa-793e3345626c');
- return result(o,'Oracle’s July 15, 2026 photograph shows the Abilene turbine plant. Energy Transfer reports a completed second 14-mile gas lateral in its August update. Separately, it reports deliveries to the Oracle data center beginning in January 2026. No pipe diameter or as-built route is asserted.');
+ const x=m?25:800,y=m?355:92;
+ o+=t(x,y,'14-mile gas lateral',m?31:29,C.power)+t(x,y+43,'Second route · Aug 2026',m?20:20);
+ o+=t(x,y+119,'Energy Transfer',m?25:28)+t(x,y+156,'supplies gas to Oracle',m?23:25)+t(x,y+193,'Deliveries began Jan 2026',m?19:20,C.muted);
+ o+=note(m,'Energy Transfer · 2026 updates | Oracle photo · 15 July 2026','https://ir.energytransfer.com/static-files/1cb70dca-abed-4005-95aa-793e3345626c');
+ return result(o,'Energy Transfer supplies natural gas to Oracle’s Abilene data center. Deliveries began in January 2026; its August update reports a completed second 14-mile lateral in the Abilene area. Oracle is the customer receiving gas. Oracle’s plant photograph is dated July 15, 2026.');
 }
 function shared(m){
- const o=img(sitingImages.shared,m?8:12,m?83:0,m?374:1096,m?421:484)+t(m?195:560,m?41:36,'SHARED SUBSTATION',m?18:21,C.ink,'middle')+t(m?95:280,m?543:499,'Campus A',m?21:24,C.ink,'middle')+t(m?294:850,m?543:499,'Campus B',m?21:24,C.ink,'middle')+t(m?195:560,m?601:530,'Study coincident demand and upstream constraints.',m?14:18,C.muted,'middle');
- return result(o,'The two campus feeds meet at a shared upstream substation. Capacity studies account for coincident demand, existing customers and supported contingencies.');
+ const badge=(x,y,label,w,z)=>`<rect x="${x-w/2}" y="${y-29}" width="${w}" height="42" rx="7" fill="var(--paper)" stroke="var(--line)"/>${t(x,y,label,z,C.ink,'middle')}`;
+ let o=img(sitingImages.shared,m?0:115,m?151:20,m?390:890,m?219.5:501);
+ if(m){
+  o+=line(195,108,195,204,C.ink,2)+badge(195,91,'Shared substation',218,22);
+  o+=line(88,356,88,300,C.ink,2)+badge(88,388,'Campus A',135,22);
+  o+=line(302,356,302,300,C.ink,2)+badge(302,388,'Campus B',135,22);
+ }else{
+  o+=line(560,76,560,151,C.ink,2)+badge(560,58,'Shared substation',266,27);
+  o+=line(315,477,315,411,C.ink,2)+badge(315,506,'Campus A',174,27);
+  o+=line(805,477,805,411,C.ink,2)+badge(805,506,'Campus B',174,27);
+ }
+ return result(o,'Campus A and Campus B each have a feed back to the same shared upstream substation. Labels point to the substation and the two campuses. Capacity studies account for their simultaneous demand and the other loads on that network.');
 }
 function abilene(m){
- let o=img(sitingImages.aerial,m?9:15,m?22:12,m?372:805,m?315:440);
- const x=m?26:844,y=m?402:155;
- o+=t(x,y,'75%',m?68:75,C.power)+t(x,y+43,'capacity delivered',m?24:24)+t(x,y+84,'September 2026',m?22:23)+note(m,'Oracle · September status | Aerial · 15 July 2026',oracle);
- return result(o,'Oracle reports 75 percent of total Abilene capacity delivered as of September 2026. Its publisher aerial is dated July 15, 2026. The status page does not establish a denominator for a new MW total or measured IT output. The adjacent Microsoft project remains separate.');
+ let o=img(sitingImages.aerial,m?9:10,m?13:10,m?372:660,m?236:371);
+ const x=m?26:717;
+ const entries=[['1,200 MW','Original Abilene campus plan'],['75%','Oracle: capacity delivered · Sep 2026'],['900 MW','Implied only on that 1,200 MW basis']];
+ entries.forEach(([value,label],i)=>{const y=m?290+i*91:75+i*144;o+=t(x,y,value,m?35:49,C.power)+t(x,y+(m?31:38),label,m?17:21);});
+ o+=t(m?26:717,m?571:443,'Current operating MW not reported',m?17:20,C.muted);
+ o+=t(m?195:345,m?620:449,'10 GW = Stargate’s wider US target',m?18:25,C.ink,'middle');
+ o+=note(m,'Crusoe + Oracle | Aerial · 15 July 2026',oracle);
+ return result(o,'The original Oracle/OpenAI Abilene campus has a published 1,200 MW plan across eight buildings. Oracle reports 75% of capacity delivered in September 2026. Multiplying that percentage by the 1,200 MW plan gives 900 MW only if both sources use the same capacity basis; Oracle does not specify that basis or report current operating MW. The 10 GW commitment concerns Stargate sites across the United States, not Abilene alone. The adjacent Microsoft project is separate.');
 }
 function quadrant(m){return result(img(sitingImages.configurations,m?5:100,m?78:0,m?380:920,m?500:510)+t(m?195:560,m?615:529,'Normal supply directions · backup omitted',m?15:17,C.muted,'middle'),'Four original configurations: grid supplies normal load; grid-parallel local generation and imports; local supply with export-only grid tie; off-grid local supply without an operating grid connection. The four following slides develop each arrangement.');}
 function config(id,m){
@@ -91,6 +111,20 @@ function handoff(m){
  [['Released phase',m?24:100],['Connection routes',m?24:441],['Operating states',m?24:818]].forEach(([a,x],i)=>o+=t(x,m?491+i*58:502,a,m?24:26));
  return result(o,'Carry the released supply phase, connection routes and supported operating states into physical site design: usable land, equipment space, access, replacement paths and failure boundaries.');
 }
+function border(m){
+ const box=(x,y,w,title,place)=>`<rect x="${x}" y="${y}" width="${w}" height="100" rx="9" fill="var(--panel)" stroke="var(--line)"/>${t(x+w/2,y+39,title,m?26:30,C.ink,'middle')}${t(x+w/2,y+76,place,m?20:24,C.muted,'middle')}`;
+ const cx=m?195:560,top=m?77:45,bottom=m?395:351;
+ let o=t(m?25:65,m?40:47,'TENNESSEE',m?21:25)+t(m?25:65,m?370:350,'MISSISSIPPI',m?21:25);
+ o+=box(m?48:385,top,m?294:350,'Colossus 2','Memphis · compute');
+ o+=box(m?48:385,bottom,m?294:350,'MZX generation','Southaven · gas turbines');
+ o+=`<path d="M${cx} ${bottom}V${top+100}" fill="none" stroke="var(--power)" stroke-width="5"/><path d="M${cx-8} ${top+114}L${cx} ${top+100}L${cx+8} ${top+114}" fill="none" stroke="var(--power)" stroke-width="4"/>`;
+ o+=`<path d="M20 ${m?323:278}H${m?370:1100}" fill="none" stroke="var(--muted)" stroke-width="2" stroke-dasharray="9 7"/>`;
+ o+=t(m?25:65,m?310:263,'State line',m?18:22,C.muted)+t(cx+23,m?225:199,'MV power',m?19:25,C.power)+t(cx+23,m?253:233,'connection',m?19:25,C.power);
+ o+=t(m?195:560,m?552:491,'Different permitting authorities',m?24:28,C.ink,'middle');
+ if(m)o+=t(195,607,'SemiAnalysis: Mississippi’s temporary',17,C.muted,'middle')+t(195,634,'approval helped accelerate delivery.',17,C.muted,'middle');
+ else o+=t(560,528,'SemiAnalysis · September 2025: Mississippi’s temporary approval helped accelerate delivery.',18,C.muted,'middle');
+ return result(o,'Colossus 2 is in Memphis, Tennessee; the MZX generation site is across the state line in Southaven, Mississippi. SemiAnalysis reported in September 2025 that the different temporary-turbine permitting route helped accelerate delivery and that medium-voltage lines linked the sites. The diagram shows their geographic relationship, not an exact cable route. The temporary permission is historical; in July 2026 the operator reported a removal agreement and a transition to permitted permanent generation.');
+}
 const southavenPermit='https://upload.wikimedia.org/wikipedia/commons/e/e2/MZX_Tech_LLC_Draft_Air_PSD_Construction_Permit.pdf';
 function southaven(id,m){
  const site=id==='southaven-plan';
@@ -103,7 +137,7 @@ function southaven(id,m){
  return result(o,site?'Original Southaven MZX site map from its January 2026 air-permit application, retaining Airbus 2025 imagery credit. The proposed facility included 41 simple-cycle turbines and approximately 1.2 GW nameplate. Historical proposal, not a current as-built survey.':'Original Trinity Consultants process flow diagram dated July 2025, reproduced in the January 2026 MZX application. Natural gas conditioning feeds turbines, which supply the data center and battery packs. Emissions branches are shown for the permit. This is not an electrical one-line or completion evidence.');
 }
 export function renderSitingCase(id,state,m=false){
- const renderers={'southaven-plan':()=>southaven(id,m),'southaven-process':()=>southaven(id,m),'siting-purpose':()=>purpose(m),'site-ready':()=>release(m),'parcel-connections':()=>fuel(m),'grid-connection':()=>shared(m),'abilene-phase':()=>abilene(m),'power-configurations':()=>quadrant(m),'bridge-to-backup':()=>bridge(m),'generation-options':()=>options(m),'gas-shaft':()=>manufacturer(id,m),'combined-cycle':()=>manufacturer(id,m),'grid-dispatch':()=>manufacturer(id,m),'supply-brief':()=>handoff(m)};
+ const renderers={'southaven-border':()=>border(m),'southaven-plan':()=>southaven(id,m),'southaven-process':()=>southaven(id,m),'siting-purpose':()=>purpose(m),'site-ready':()=>release(m),'parcel-connections':()=>fuel(m),'grid-connection':()=>shared(m),'abilene-phase':()=>abilene(m),'power-configurations':()=>quadrant(m),'bridge-to-backup':()=>bridge(m),'generation-options':()=>options(m),'gas-shaft':()=>manufacturer(id,m),'combined-cycle':()=>manufacturer(id,m),'grid-dispatch':()=>manufacturer(id,m),'supply-brief':()=>handoff(m)};
  if(id.startsWith('config-'))return config(id,m);
  return renderers[id]?.()??null;
 }

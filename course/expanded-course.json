@@ -2514,7 +2514,7 @@
           "heading": "Begin with a released phase: CoreWeave at Polaris Forge 1",
           "paragraphs": [
             "This chapter turns the workload brief into a supply decision: what usable capacity can arrive, on which date, through which connections, and in which operating states? Power, cooling, network access and completed space must meet at the same released scope. The following case shows how a project can deliver that scope in stages.",
-            "Applied Digital reported the first 50 MW at Polaris Forge 1 in Ellendale, North Dakota ready for service on October 27, 2025. On November 24, the next 50 MW reached the same milestone, completing the first 100 MW building leased to CoreWeave. The campus was 400 MW fully contracted. The October release separately described a possible expansion path to 1 GW; this was not an operating multi-gigawatt campus.",
+            "Applied Digital reported the first 50 MW at Polaris Forge 1 in Ellendale, North Dakota ready for service on October 27, 2025. On November 24, the next 50 MW reached the same milestone, completing the first 100 MW building leased to CoreWeave. The campus was 400 MW fully contracted. The October release separately described a possible expansion path to 1 GW; this was not an operating multi-gigawatt campus. Two genuine Building 1 aerials from Applied Digital’s October 2025 investor presentation appear beside the handover milestones. Their exact capture days are not stated.",
             "The first block was released 28 days before the second. The releases establish service milestones, not measured IT draw, installed accelerator counts or resulting token throughput. The design lesson is to make the first block independently serviceable while later work continues. A shared unfinished cooling connection or network route can prevent that independence even when its electrical feeder is ready."
           ]
         },
@@ -2538,7 +2538,7 @@
           "heading": "Abilene: current delivery and separate campus scopes",
           "paragraphs": [
             "Abilene, Texas is the recurring real campus reference. We follow the original Crusoe-built Oracle/OpenAI campus across service, construction and cooling. Each claim keeps its source date and boundary; hypothetical calculators do not fill gaps in the site’s measurements.",
-            "Oracle’s data-center location page reports 75% of total Abilene capacity delivered as of September 2026, with the remainder in subsequent quarters. It does not define a denominator that permits converting that percentage into a new megawatt count, and delivered capacity does not establish metered IT demand or useful output. The original campus and the adjacent Microsoft development remain separate projects.",
+            "Crusoe identifies the original eight-building Oracle/OpenAI campus as a 1,200 MW plan. Oracle reports 75% of total Abilene capacity delivered as of September 2026. Applying that percentage to the 1,200 MW plan gives 900 MW only if both sources use the same capacity basis. Oracle does not define that basis or provide current operating MW, so 900 MW is a conditional calculation rather than a reported energized or IT-load figure. The 10 GW commitment belongs to Stargate’s wider US buildout; it is not the Abilene campus denominator.",
             "Oracle’s photograph shown in the presentation is an aerial dated July 15, 2026. Its image date is distinct from the September status statement. Crusoe’s March 27 account of two original buildings and six further planned buildings remains a historical milestone, not the current delivery summary. Crusoe’s June 9 release identifies the original 1.2 GW Oracle campus separately from the new 900 MW Microsoft campus."
           ]
         },
@@ -2586,7 +2586,7 @@
         {
           "heading": "A real combined-cycle plant: Dania Beach",
           "paragraphs": [
-            "FPL’s Dania Beach Clean Energy Center near Fort Lauderdale is a utility power station, not a data center. GE Vernova reports two 7HA.03 gas turbines and combined plant output up to 1,260 MW. 7HA.03 is the manufacturer’s gas-turbine model designation, in its air-cooled H-class family for 60 Hz grids. The combined plant output includes the steam cycle; it is not the standalone rating of each gas turbine.",
+            "FPL’s Dania Beach Clean Energy Center is a combined-cycle utility power station near Fort Lauderdale. Its two GE 7HA.03 gas turbines work with a steam cycle that recovers exhaust heat; GE reports up to 1,260 MW for the whole plant. In the model designation, 7 identifies the 60 Hz family, H means high efficiency, A means air-cooled and .03 identifies the model version. The name does not encode the turbine’s megawatt output. The plant figure includes the steam cycle.",
             "A separate May 2025 GE Vernova fact sheet lists its 7HA.03 1×1 combined-cycle design at 640 MW net and 63.9% LHV efficiency. It separately lists less than 30 minutes for a rapid-response hot start, a 75 MW/min ramp rate and a 26% minimum load. Conditions are net plant, ISO reference conditions and natural gas fuel. These catalog values are not Dania Beach operating measurements. A cold-start duration cannot be inferred from the hot-start entry."
           ]
         },
@@ -2610,8 +2610,10 @@
         {
           "heading": "Southaven: read the original proposed site and process",
           "paragraphs": [
+            "Colossus 2 is on Tulane Road in Memphis, Tennessee; MZX’s generation site is on Stanton Road in Southaven, Mississippi. SemiAnalysis’s September 2025 account attributes the cross-border siting to Tennessee pushback and Mississippi’s temporary-turbine permitting route, and reports medium-voltage connections between the sites. Nearby parcels can have different permitting authorities while power delivery still requires a physical connection.",
             "MZX Tech’s January 2026 Southaven application proposed 41 simple-cycle turbines with approximately 1.2 GW of generating nameplate for own-use electricity. The site map and process drawing below are actual excerpts from that application. They establish the historical proposal, not September completion or current operating output.",
-            "The process drawing connects conditioned gas to the turbines, then electricity to the data center and battery packs. It is an air-permit process figure, not a switching one-line. It does not specify the 34.5 kV or 161 kV voltages used in the separate course comparison. SemiAnalysis’s later procurement account describes using imported modules and MV delivery to avoid large-transformer lead times; that account and these plan figures are separate evidence."
+            "The process drawing connects conditioned gas to the turbines, then electricity to the data center and battery packs. It is an air-permit process figure, not a switching one-line. It does not specify the 34.5 kV or 161 kV voltages used in the separate course comparison. SemiAnalysis’s later procurement account describes using imported modules and MV delivery to avoid large-transformer lead times; that account and these plan figures are separate evidence.",
+            "The July 2025 Mississippi determination included mobility and less-than-twelve-month conditions. The temporary treatment was not indefinite permission. On July 30, 2026, SpaceXAI reported an agreed timeline to remove 69 temporary turbines by July 2027 while constructing permitted permanent generation. This describes a historical permission and a later transition commitment, not completed removal. TVA’s Southaven combined-cycle station is a separate plant."
           ],
           "figures": [
             {
@@ -2816,7 +2818,15 @@
         "P115",
         "SA43",
         "P116",
-        "P117"
+        "P117",
+        "P135",
+        "P136",
+        "P137",
+        "P138",
+        "P139",
+        "P38",
+        "SA37",
+        "E775A7D4E10"
       ],
       "source_notes": [
         {
@@ -2906,8 +2916,8 @@
         {
           "id": "P102",
           "claim": "Abilene section explicitly reports 75% of total capacity delivered as of September 2026. Includes genuine aerial photographs captioned July 15, 2026.",
-          "reviewed_on": "2026-09-12",
-          "limits": "Capacity denominator and delivered boundary are not defined; do not infer MW, utilization or completed building count. The generic January 2026 footer is stale relative to the section-specific September claim. Aerial images are July 15 captures, not September satellite images."
+          "reviewed_on": "2026-09-13",
+          "limits": "Oracle does not define its delivered-capacity basis. 75% × the separately reported 1,200 MW campus plan gives 900 MW only if those bases match; it is not a reported operating MW value. Photographs are dated July 15, 2026."
         },
         {
           "id": "P103",
@@ -2998,9 +3008,57 @@
           "claim": "Defines lower and higher heating value and the role of condensing combustion water vapor.",
           "reviewed_on": "2026-09-12",
           "limits": "Reviewed indexed heating-value definitions; no fuel price or project efficiency inferred."
+        },
+        {
+          "id": "P135",
+          "claim": "Original slide 22 provides two aerial photographs of Polaris Forge 1 Building 1.",
+          "reviewed_on": "2026-09-13",
+          "limits": "October presentation date; exact photograph capture days unknown. Photos must not be labeled as Oct 27 or Nov 24 captures."
+        },
+        {
+          "id": "P136",
+          "claim": "GE naming explanation: H means high efficiency, A means air-cooled. Dania Beach uses a combined-cycle design.",
+          "reviewed_on": "2026-09-13",
+          "limits": "Model designation is not an output rating; article forecasts and savings claims are not used."
+        },
+        {
+          "id": "P137",
+          "claim": "Distinguishes 7HA for 60 Hz grids from 9HA for 50 Hz grids.",
+          "reviewed_on": "2026-09-13",
+          "limits": "Family identification only; no Vietnam project performance transferred to Dania Beach."
+        },
+        {
+          "id": "P138",
+          "claim": "Reports agreement to remove 69 temporary Southaven turbines by July 2027 while building permitted permanent generation.",
+          "reviewed_on": "2026-09-13",
+          "limits": "Operator statement and future removal deadline, not verification of completed removal or environmental performance."
+        },
+        {
+          "id": "P139",
+          "claim": "Historical determination includes mobility and less-than-twelve-month conditions for the temporary-turbine treatment.",
+          "reviewed_on": "2026-09-13",
+          "limits": "Indexed primary text reviewed; full PDF fetch returned HTTP 403. Does not establish indefinite or current permission."
+        },
+        {
+          "id": "P38",
+          "claim": "Locates the Tulane Road Colossus 2 facility near the Tennessee–Mississippi state line.",
+          "reviewed_on": "2026-09-13",
+          "limits": "MLGW’s nearby TVA Southaven combined-cycle plant is separate from MZX’s generating site."
+        },
+        {
+          "id": "SA37",
+          "claim": "Cross-border Colossus 2 / Southaven siting and reported MV connection; SemiAnalysis attributes the siting to different temporary-turbine permitting routes.",
+          "reviewed_on": "2026-09-13",
+          "limits": "Public section Colossus 2: in Tennessee, Mississippi…or both? reviewed. Historical September 2025 analyst account; does not establish current permissions, exact cable routes or operating MW. July 2026 operator update separately records a temporary-turbine removal agreement."
+        },
+        {
+          "id": "E775A7D4E10",
+          "claim": "The 10 GW commitment concerns Stargate’s wider US buildout, distinct from the Abilene campus plan and current operating load.",
+          "reviewed_on": "2026-09-13",
+          "limits": "Main article and visible October 22, 2025 update inspected on September 6, 2026. This lesson audits the dated statements; it does not establish current operating MW, complete topology or site economics."
         }
       ],
-      "word_count": 3933,
+      "word_count": 4113,
       "domain_checkin": {
         "domain": "D03",
         "title": "Can this phase open?",
@@ -9684,6 +9742,27 @@
       "caution": "Used for the explicit metric definition, including the COP footnote, rather than to prescribe current procurement thresholds or a whole-facility COP. Keep equipment and facility accounting boundaries separate."
     },
     {
+      "id": "SA37",
+      "title": "xAI's Colossus 2 - First Gigawatt Datacenter In The World, Unique RL Methodology, Capital Raise",
+      "url": "https://newsletter.semianalysis.com/p/xais-colossus-2-first-gigawatt-datacenter",
+      "publisher": "SemiAnalysis",
+      "published_on": "2025-09-16",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D01",
+        "D03",
+        "D05",
+        "D10",
+        "D13",
+        "D15"
+      ],
+      "use": "Cross-border Colossus 2 / Southaven siting and reported MV connection; SemiAnalysis attributes the siting to different temporary-turbine permitting routes.",
+      "caution": "Public section Colossus 2: in Tennessee, Mississippi…or both? reviewed. Historical September 2025 analyst account; does not establish current permissions, exact cable routes or operating MW. July 2026 operator update separately records a temporary-turbine removal agreement.",
+      "discovered_via": "https://newsletter.semianalysis.com/sitemap/2025"
+    },
+    {
       "id": "P13",
       "title": "Slurm Workload Manager — Topology Guide",
       "url": "https://slurm.schedmd.com/topology.html",
@@ -10229,11 +10308,12 @@
       "publisher": "openai.com",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-06",
+      "reviewed_on": "2026-09-13",
       "domains": [
+        "D03",
         "D15"
       ],
-      "use": "The article distinguishes a multi-site planned capacity total from its statement about early workloads at Abilene.",
+      "use": "The 10 GW commitment concerns Stargate’s wider US buildout, distinct from the Abilene campus plan and current operating load.",
       "caution": "Main article and visible October 22, 2025 update inspected on September 6, 2026. This lesson audits the dated statements; it does not establish current operating MW, complete topology or site economics.",
       "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
     },
@@ -10770,14 +10850,14 @@
       "publisher": "Memphis Light, Gas and Water",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-11",
+      "reviewed_on": "2026-09-13",
       "domains": [
         "D03",
         "D12",
         "D13"
       ],
-      "use": "The Paul Lowery Road site reused the Electrolux facility and an existing 16-inch gas main; xAI paid for an 8-inch tap. The update separately describes a pending gas-capacity study at Tulane Road.",
-      "caution": "Historical 2025 utility update, not September 2026 operating status. The tap is not evidence that xAI built a regional gas pipeline; the two sites and their service states must remain distinct."
+      "use": "The Paul Lowery Road site reused the Electrolux facility and an existing 16-inch gas main; xAI paid for an 8-inch tap. The update separately describes a pending gas-capacity study at Tulane Road. Also identifies the Tulane Road facility near the Tennessee–Mississippi line.",
+      "caution": "Historical 2025 utility update, not September 2026 operating status. The tap is not evidence that xAI built a regional gas pipeline; the two sites and their service states must remain distinct. TVA Southaven combined-cycle station is separate from MZX generation."
     },
     {
       "id": "P39",
@@ -11558,13 +11638,13 @@
       "publisher": "Oracle",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-12",
+      "reviewed_on": "2026-09-13",
       "domains": [
         "D03",
         "D12"
       ],
       "use": "Abilene section explicitly reports 75% of total capacity delivered as of September 2026. Includes genuine aerial photographs captioned July 15, 2026.",
-      "caution": "Capacity denominator and delivered boundary are not defined; do not infer MW, utilization or completed building count. The generic January 2026 footer is stale relative to the section-specific September claim. Aerial images are July 15 captures, not September satellite images."
+      "caution": "Oracle does not define its delivered-capacity basis. 75% × the separately reported 1,200 MW campus plan gives 900 MW only if those bases match; it is not a reported operating MW value. Photographs are dated July 15, 2026."
     },
     {
       "id": "P103",
@@ -12058,6 +12138,76 @@
       ],
       "use": "Teach the observed interactivity/throughput curve in original Figure 2.",
       "caution": "Original figure specifies Qwen3.8-2.4T-A95B, GB300 NVL72, 8k/1k, TensorRT-LLM, FP8 and MTP. No exact concurrency table is provided. Separate from Llama memory example."
+    },
+    {
+      "id": "P135",
+      "title": "Applied Digital — October 2025 investor presentation",
+      "url": "https://ir.applieddigital.com/sec-filings/all-sec-filings/content/0001144879-25-000076/apld_invxfinalpresentati.htm",
+      "publisher": "Applied Digital",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D03"
+      ],
+      "use": "Original slide 22 provides two aerial photographs of Polaris Forge 1 Building 1.",
+      "caution": "October presentation date; exact photograph capture days unknown. Photos must not be labeled as Oct 27 or Nov 24 captures."
+    },
+    {
+      "id": "P136",
+      "title": "GE — How its latest gas turbine could save Florida customers money",
+      "url": "https://www.ge.com/news/reports/in-the-money-how-ges-latest-gas-turbine-could-help-save-florida-customers-300-million",
+      "publisher": "GE",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D03"
+      ],
+      "use": "GE naming explanation: H means high efficiency, A means air-cooled. Dania Beach uses a combined-cycle design.",
+      "caution": "Model designation is not an output rating; article forecasts and savings claims are not used."
+    },
+    {
+      "id": "P137",
+      "title": "GE Vernova — Supporting Vietnam’s energy needs",
+      "url": "https://www.gevernova.com/gas-power/resources/articles/2021/supporting-vietnams-energy-needs",
+      "publisher": "GE Vernova",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D03"
+      ],
+      "use": "Distinguishes 7HA for 60 Hz grids from 9HA for 50 Hz grids.",
+      "caution": "Family identification only; no Vietnam project performance transferred to Dania Beach."
+    },
+    {
+      "id": "P138",
+      "title": "SpaceXAI — Greater Memphis site update, July 30, 2026",
+      "url": "https://x.ai/memphis/updates",
+      "publisher": "SpaceXAI",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D03"
+      ],
+      "use": "Reports agreement to remove 69 temporary Southaven turbines by July 2027 while building permitted permanent generation.",
+      "caution": "Operator statement and future removal deadline, not verification of completed removal or environmental performance."
+    },
+    {
+      "id": "P139",
+      "title": "MDEQ — Determination letter on portable gas combustion turbines, July 29, 2025",
+      "url": "https://cdn.mississippitoday.org/wp-content/uploads/2025/11/20104011/2025.07.29-MDEQ-Determination-Letter-on-Portable-Gas-Combustion-Turbines-signed.pdf",
+      "publisher": "Mississippi Department of Environmental Quality",
+      "kind": "primary_reference",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D03"
+      ],
+      "use": "Historical determination includes mobility and less-than-twelve-month conditions for the temporary-turbine treatment.",
+      "caution": "Indexed primary text reviewed; full PDF fetch returned HTTP 403. Does not establish indefinite or current permission."
     }
   ],
   "glossary": [

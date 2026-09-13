@@ -900,7 +900,7 @@
       "published_on": "2025-09-16",
       "kind": "analysis",
       "review_status": "public_excerpt_reviewed",
-      "reviewed_on": "2026-09-06",
+      "reviewed_on": "2026-09-13",
       "domains": [
         "D01",
         "D03",
@@ -909,8 +909,8 @@
         "D13",
         "D15"
       ],
-      "use": "Use rapid campus development to distinguish on-site power, building readiness, GPU installation and capital availability.",
-      "caution": "Public heading and introduction or selected preview sections reviewed; complete paid article not reviewed. The headline is not proof of one gigawatt of operational IT load. Preserve the article's distinction between facility readiness and GPUs operating, and verify phases and capacity boundaries.",
+      "use": "Cross-border Colossus 2 / Southaven siting and reported MV connection; SemiAnalysis attributes the siting to different temporary-turbine permitting routes.",
+      "caution": "Public section Colossus 2: in Tennessee, Mississippi…or both? reviewed. Historical September 2025 analyst account; does not establish current permissions, exact cable routes or operating MW. July 2026 operator update separately records a temporary-turbine removal agreement.",
       "discovered_via": "https://newsletter.semianalysis.com/sitemap/2025"
     },
     {
@@ -1538,11 +1538,12 @@
       "publisher": "openai.com",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-06",
+      "reviewed_on": "2026-09-13",
       "domains": [
+        "D03",
         "D15"
       ],
-      "use": "The article distinguishes a multi-site planned capacity total from its statement about early workloads at Abilene.",
+      "use": "The 10 GW commitment concerns Stargate’s wider US buildout, distinct from the Abilene campus plan and current operating load.",
       "caution": "Main article and visible October 22, 2025 update inspected on September 6, 2026. This lesson audits the dated statements; it does not establish current operating MW, complete topology or site economics.",
       "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
     },
@@ -2298,14 +2299,14 @@
       "publisher": "Memphis Light, Gas and Water",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-11",
+      "reviewed_on": "2026-09-13",
       "domains": [
         "D03",
         "D12",
         "D13"
       ],
-      "use": "The Paul Lowery Road site reused the Electrolux facility and an existing 16-inch gas main; xAI paid for an 8-inch tap. The update separately describes a pending gas-capacity study at Tulane Road.",
-      "caution": "Historical 2025 utility update, not September 2026 operating status. The tap is not evidence that xAI built a regional gas pipeline; the two sites and their service states must remain distinct."
+      "use": "The Paul Lowery Road site reused the Electrolux facility and an existing 16-inch gas main; xAI paid for an 8-inch tap. The update separately describes a pending gas-capacity study at Tulane Road. Also identifies the Tulane Road facility near the Tennessee–Mississippi line.",
+      "caution": "Historical 2025 utility update, not September 2026 operating status. The tap is not evidence that xAI built a regional gas pipeline; the two sites and their service states must remain distinct. TVA Southaven combined-cycle station is separate from MZX generation."
     },
     {
       "id": "P39",
@@ -3327,13 +3328,13 @@
       "publisher": "Oracle",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-12",
+      "reviewed_on": "2026-09-13",
       "domains": [
         "D03",
         "D12"
       ],
       "use": "Abilene section explicitly reports 75% of total capacity delivered as of September 2026. Includes genuine aerial photographs captioned July 15, 2026.",
-      "caution": "Capacity denominator and delivered boundary are not defined; do not infer MW, utilization or completed building count. The generic January 2026 footer is stale relative to the section-specific September claim. Aerial images are July 15 captures, not September satellite images."
+      "caution": "Oracle does not define its delivered-capacity basis. 75% × the separately reported 1,200 MW campus plan gives 900 MW only if those bases match; it is not a reported operating MW value. Photographs are dated July 15, 2026."
     },
     {
       "id": "P103",
@@ -3842,6 +3843,76 @@
       ],
       "use": "480:120 V transformer example with 80:20 connected turns and 456–504 V primary taps; input variation carries through a fixed ratio.",
       "caution": "Instructional turns-ratio example, not a claim of automatic regulation or universal voltage tolerance. Equipment limits depend on the nameplate and selected tap."
+    },
+    {
+      "id": "P135",
+      "title": "Applied Digital — October 2025 investor presentation",
+      "url": "https://ir.applieddigital.com/sec-filings/all-sec-filings/content/0001144879-25-000076/apld_invxfinalpresentati.htm",
+      "publisher": "Applied Digital",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D03"
+      ],
+      "use": "Original slide 22 provides two aerial photographs of Polaris Forge 1 Building 1.",
+      "caution": "October presentation date; exact photograph capture days unknown. Photos must not be labeled as Oct 27 or Nov 24 captures."
+    },
+    {
+      "id": "P136",
+      "title": "GE — How its latest gas turbine could save Florida customers money",
+      "url": "https://www.ge.com/news/reports/in-the-money-how-ges-latest-gas-turbine-could-help-save-florida-customers-300-million",
+      "publisher": "GE",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D03"
+      ],
+      "use": "GE naming explanation: H means high efficiency, A means air-cooled. Dania Beach uses a combined-cycle design.",
+      "caution": "Model designation is not an output rating; article forecasts and savings claims are not used."
+    },
+    {
+      "id": "P137",
+      "title": "GE Vernova — Supporting Vietnam’s energy needs",
+      "url": "https://www.gevernova.com/gas-power/resources/articles/2021/supporting-vietnams-energy-needs",
+      "publisher": "GE Vernova",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D03"
+      ],
+      "use": "Distinguishes 7HA for 60 Hz grids from 9HA for 50 Hz grids.",
+      "caution": "Family identification only; no Vietnam project performance transferred to Dania Beach."
+    },
+    {
+      "id": "P138",
+      "title": "SpaceXAI — Greater Memphis site update, July 30, 2026",
+      "url": "https://x.ai/memphis/updates",
+      "publisher": "SpaceXAI",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D03"
+      ],
+      "use": "Reports agreement to remove 69 temporary Southaven turbines by July 2027 while building permitted permanent generation.",
+      "caution": "Operator statement and future removal deadline, not verification of completed removal or environmental performance."
+    },
+    {
+      "id": "P139",
+      "title": "MDEQ — Determination letter on portable gas combustion turbines, July 29, 2025",
+      "url": "https://cdn.mississippitoday.org/wp-content/uploads/2025/11/20104011/2025.07.29-MDEQ-Determination-Letter-on-Portable-Gas-Combustion-Turbines-signed.pdf",
+      "publisher": "Mississippi Department of Environmental Quality",
+      "kind": "primary_reference",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D03"
+      ],
+      "use": "Historical determination includes mobility and less-than-twelve-month conditions for the temporary-turbine treatment.",
+      "caution": "Indexed primary text reviewed; full PDF fetch returned HTTP 403. Does not establish indefinite or current permission."
     }
   ]
 }

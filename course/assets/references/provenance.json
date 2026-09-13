@@ -88,5 +88,14 @@
     "retrieved_on": "2026-09-13",
     "sha256": "e1b78454226e6e362099410078e12238d925a800d95de255c8c0ae5387f1f242",
     "note": "Original Figure 2 copied unchanged. Visual inspected: 1536x1024; 8k/1k, TensorRT-LLM, FP8, MTP. Interactive dashed threshold is a separate SVG overlay; no fabricated points or concurrency values."
+  },
+  {
+    "file": "applied-digital-polaris-forge-1-building1-october-2025.jpg",
+    "source_url": "https://ir.applieddigital.com/sec-filings/all-sec-filings/content/0001144879-25-000076/apld_invxfinalpresentati022.jpg",
+    "article_url": "https://ir.applieddigital.com/sec-filings/all-sec-filings/content/0001144879-25-000076/apld_invxfinalpresentati.htm",
+    "publisher": "Applied Digital",
+    "retrieved_on": "2026-09-13",
+    "sha256": "fe7d57b5e82601035fae9535f4be1a5116b8badb5ac4f160db0d03f21a405188",
+    "note": "Original October 2025 investor slide 22 copied unchanged, 1368x829. Slide UI shows the two photographic areas using SVG viewports. Exact image capture dates unknown; October and November Ready for Service milestones are separate source claims."
   }
 ]

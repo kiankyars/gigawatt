@@ -93,7 +93,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [E6DF2655A78 — USGS National Water Availability Assessment Data Companion](sources/E6DF2655A78.md) | waterdata.usgs.gov | D11 | page_reviewed |
 | [E709C9E5196 — ASHRAE — Emergence and Expansion of Liquid Cooling in Mainstream Data Centers](sources/E709C9E5196.md) | www.ashrae.org | D10 | page_reviewed |
 | [E71B82C307F — Google SRE: Monitoring Distributed Systems](sources/E71B82C307F.md) | sre.google | D14 | page_reviewed |
-| [E775A7D4E10 — OpenAI: Five new Stargate sites](sources/E775A7D4E10.md) | openai.com | D15 | page_reviewed |
+| [E775A7D4E10 — OpenAI: Five new Stargate sites](sources/E775A7D4E10.md) | openai.com | D03, D15 | page_reviewed |
 | [E7A716A810E — Leviton — Data center white space and gray space](sources/E7A716A810E.md) | leviton.com | D01, D12 | page_reviewed |
 | [E7B9A3E66DB — Google SRE: Service Level Objectives](sources/E7B9A3E66DB.md) | sre.google | D14 | page_reviewed |
 | [E80C73CE756 — Scaling AI Factories with Co-Packaged Optics for Better Power Efficiency](sources/E80C73CE756.md) | developer.nvidia.com | D08 | page_reviewed |
@@ -173,6 +173,11 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P132 — NVIDIA AIPerf — Metrics Reference](sources/P132.md) | NVIDIA | D02 | page_reviewed |
 | [P133 — NVIDIA — Qwen3.8 throughput and interactivity on GB300 NVL72](sources/P133.md) | NVIDIA | D02, D07 | page_reviewed |
 | [P134 — Hammond Power Solutions — How Taps Work](sources/P134.md) | Hammond Power Solutions | D04 | page_reviewed |
+| [P135 — Applied Digital — October 2025 investor presentation](sources/P135.md) | Applied Digital | D03 | page_reviewed |
+| [P136 — GE — How its latest gas turbine could save Florida customers money](sources/P136.md) | GE | D03 | page_reviewed |
+| [P137 — GE Vernova — Supporting Vietnam’s energy needs](sources/P137.md) | GE Vernova | D03 | page_reviewed |
+| [P138 — SpaceXAI — Greater Memphis site update, July 30, 2026](sources/P138.md) | SpaceXAI | D03 | page_reviewed |
+| [P139 — MDEQ — Determination letter on portable gas combustion turbines, July 29, 2025](sources/P139.md) | Mississippi Department of Environmental Quality | D03 | public_excerpt_reviewed |
 | [P14 — NVIDIA DGX SuperPOD: Next Generation Scalable Infrastructure for AI Leadership Reference Architecture Featuring NVIDIA DGX H100](sources/P14.md) | NVIDIA | D07, D08, D09, D13, D14 | page_reviewed |
 | [P15 — Liquid to Liquid CDU Test Methodology and Performance Rating — Revision 1.0](sources/P15.md) | Open Compute Project | D10, D11, D13, D14 | public_excerpt_reviewed |
 | [P16 — Why Scaling AI Compute Performance Requires a New Power Architecture](sources/P16.md) | NVIDIA | D04, D05, D06, D12, D13, D15 | page_reviewed |

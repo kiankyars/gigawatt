@@ -26,15 +26,21 @@ const img=(src,x,y,w,h)=>`<image href="${src}" x="${x}" y="${y}" width="${w}" he
 const result=(markup,description)=>({markup,description});
 const daniaPhoto='https://www.gevernova.com/content/dam/gepower-new/global/en_US/images/gas-new-site/resources/case-studies/first-7ha-florida-power-light/first-7ha-florida-power-light-hero.png';
 function dania(m){
- const x=m?24:764, y=m?357:104;
- const o=img(daniaPhoto,m?8:12,8,m?374:715,m?310:447)
-  +t(x,y,'FPL utility power station',m?25:26)
-  +t(x,y+57,'2 × GE 7HA.03',m?32:33,C.power)
-  +t(x,y+93,'Gas-turbine model',m?21:22,C.muted)
-  +t(x,y+163,'Up to 1,260 MW',m?31:31,C.power)
-  +t(x,y+199,'Combined plant output',m?21:22,C.muted)
-  +`<a href="https://www.gevernova.com/gas-power/resources/case-studies/first-7ha-florida-power-light" target="_blank" rel="noopener">${t(m?195:560,m?655:523,'GE Vernova · Dania Beach, Florida',m?15:18,C.muted,'middle')}</a>`;
- return result(o,'FPL’s Dania Beach Clean Energy Center is a utility power station in Florida, not a data center. GE 7HA.03 identifies the gas-turbine model. GE reports two such turbines and combined plant output up to 1,260 MW. The image is the manufacturer’s real plant photograph.');
+ const x=m?24:754;
+ let o=img(daniaPhoto,m?8:12,8,m?374:715,m?232:447)
+  +t(x,m?274:58,'Combined-cycle plant',m?26:27)
+  +t(x,m?316:109,'2 × GE 7HA.03',m?30:33,C.power)
+  +t(x,m?350:148,'Gas turbines + steam cycle',m?21:22)
+  +t(x,m?397:226,'Up to 1,260 MW',m?30:32,C.power)
+  +t(x,m?429:263,'Whole-plant output',m?20:22,C.muted);
+ const designation=[['7','60 Hz family'],['H','High efficiency'],['A','Air-cooled'],['.03','Model version']];
+ designation.forEach(([part,meaning],i)=>{
+  const y=(m?477:324)+i*(m?35:37);
+  o+=t(x,y,part,m?23:25,C.power)+t(x+(m?69:76),y,meaning,m?21:23);
+ });
+ o+=t(x,m?622:478,'The model name is not a MW rating.',m?18:19,C.muted)
+  +`<a href="https://www.gevernova.com/gas-power/resources/case-studies/first-7ha-florida-power-light" target="_blank" rel="noopener">${t(m?195:560,m?660:523,'GE Vernova · Dania Beach, Florida',m?15:18,C.muted,'middle')}</a>`;
+ return result(o,'FPL’s Dania Beach Clean Energy Center uses combined-cycle generation: two GE 7HA.03 gas turbines plus a steam power cycle recovering exhaust heat. GE reports whole-plant output up to 1,260 MW. In the designation, 7 identifies GE’s 60 Hz family, H means high efficiency, A means air-cooled, and .03 identifies the model version. The designation is not a megawatt rating. The photograph shows the actual Florida utility plant.');
 }
 function flexibility(m){
  const src='../assets/generated/generation-timescales.png';
