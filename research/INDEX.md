@@ -166,7 +166,10 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P126 — Federation of American Scientists — Tracking Hyperscale AI Data Center Growth with Satellite Imagery](sources/P126.md) | Federation of American Scientists | D11, D12 | page_reviewed |
 | [P127 — QTS — Suwanee campus fiber diversity](sources/P127.md) | QTS | D09, D12 | page_reviewed |
 | [P128 — Zayo Europe — Four diverse fiber routes for QTS Cambois](sources/P128.md) | Zayo Europe | D09, D12 | page_reviewed |
+| [P129 — NVIDIA — Inside NVIDIA Groq 3 LPX](sources/P129.md) | NVIDIA | D02, D07 | page_reviewed |
 | [P13 — Slurm Workload Manager — Topology Guide](sources/P13.md) | SchedMD | D02, D07, D08, D09, D14 | page_reviewed |
+| [P130 — NVIDIA — How Groq 3 LPX Unlocks Ultrafast Interactivity at Long Context](sources/P130.md) | NVIDIA | D02, D07 | page_reviewed |
+| [P131 — NVIDIA — What Is Disaggregated Serving?](sources/P131.md) | NVIDIA | D02, D07 | page_reviewed |
 | [P14 — NVIDIA DGX SuperPOD: Next Generation Scalable Infrastructure for AI Leadership Reference Architecture Featuring NVIDIA DGX H100](sources/P14.md) | NVIDIA | D07, D08, D09, D13, D14 | page_reviewed |
 | [P15 — Liquid to Liquid CDU Test Methodology and Performance Rating — Revision 1.0](sources/P15.md) | Open Compute Project | D10, D11, D13, D14 | public_excerpt_reviewed |
 | [P16 — Why Scaling AI Compute Performance Requires a New Power Architecture](sources/P16.md) | NVIDIA | D04, D05, D06, D12, D13, D15 | page_reviewed |

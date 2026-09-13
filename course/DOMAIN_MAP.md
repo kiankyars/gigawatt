@@ -301,6 +301,9 @@ State an infrastructure design envelope and identify which assumptions a benchma
 - [P106 — Combined Cycle Power Plants](https://www.siemens-energy.com/global/en/home/products-services/product/combined-cycle-power-plants.html) · `page_reviewed` · [local note](../research/sources/P106.md)
 - [P107 — Peaker Plants](https://www.siemens-energy.com/global/en/home/products-services/product/peaker-plants.html) · `page_reviewed` · [local note](../research/sources/P107.md)
 - [P108 — What Is a Gas Turbine?](https://www.gevernova.com/gas-power/resources/education/what-is-a-gas-turbine) · `page_reviewed` · [local note](../research/sources/P108.md)
+- [P129 — NVIDIA — Inside NVIDIA Groq 3 LPX](https://developer.nvidia.com/blog/inside-nvidia-groq-3-lpx-the-low-latency-inference-accelerator-for-the-nvidia-vera-rubin-platform/) · `page_reviewed` · [local note](../research/sources/P129.md)
+- [P130 — NVIDIA — How Groq 3 LPX Unlocks Ultrafast Interactivity at Long Context](https://developer.nvidia.com/blog/how-nvidia-groq-3-lpx-unlocks-ultrafast-interactivity-at-long-context-on-nvidia-vera-rubin/) · `page_reviewed` · [local note](../research/sources/P130.md)
+- [P131 — NVIDIA — What Is Disaggregated Serving?](https://www.nvidia.com/en-gb/glossary/disaggregated-serving/) · `page_reviewed` · [local note](../research/sources/P131.md)
 
 <a id="d03"></a>
 
@@ -870,6 +873,9 @@ Connect server and rack organization to power, cooling, weight and maintenance i
 - [P95 — Meta — Llama model SKU architecture definitions](https://github.com/meta-llama/llama-models/blob/main/models/sku_list.py) · `page_reviewed` · [local note](../research/sources/P95.md)
 - [P96 — vLLM — Inside vLLM: Anatomy of a High-Throughput LLM Inference System](https://vllm.ai/blog/2025-09-05-anatomy-of-vllm) · `page_reviewed` · [local note](../research/sources/P96.md)
 - [P98 — ZeRO: Memory Optimizations Toward Training Trillion Parameter Models](https://arxiv.org/html/1910.02054) · `page_reviewed` · [local note](../research/sources/P98.md)
+- [P129 — NVIDIA — Inside NVIDIA Groq 3 LPX](https://developer.nvidia.com/blog/inside-nvidia-groq-3-lpx-the-low-latency-inference-accelerator-for-the-nvidia-vera-rubin-platform/) · `page_reviewed` · [local note](../research/sources/P129.md)
+- [P130 — NVIDIA — How Groq 3 LPX Unlocks Ultrafast Interactivity at Long Context](https://developer.nvidia.com/blog/how-nvidia-groq-3-lpx-unlocks-ultrafast-interactivity-at-long-context-on-nvidia-vera-rubin/) · `page_reviewed` · [local note](../research/sources/P130.md)
+- [P131 — NVIDIA — What Is Disaggregated Serving?](https://www.nvidia.com/en-gb/glossary/disaggregated-serving/) · `page_reviewed` · [local note](../research/sources/P131.md)
 
 <a id="d08"></a>
 

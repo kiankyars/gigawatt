@@ -77,8 +77,9 @@ Carry the same facility through these questions:
 | Capacity, cost and system decisions | Which dated capacity, output and cost claims can actually enter the ledger? |
 
 Use published Abilene facts only where the source supports the exact building,
-date and condition. Otherwise label the mechanism or calculation **illustrative**;
-retain stable names and interfaces, and leave unknown as-built quantities unknown.
+date and condition. For an original teaching calculation, give its inputs and scope beside the
+mechanism; record its provenance in the reader. Retain stable names and interfaces,
+and leave unknown as-built quantities unknown.
 A reference campus does not require inventing its full one-line or GPU inventory.
 
 Teach contrasting cases within their relevant systems: Colossus 1 for
@@ -144,11 +145,14 @@ Use these rules when adapting each sequence:
    Anchor hardware examples in a named platform and a stated quantity. Explain
    what its components do and attach operating conditions to quoted
    specifications; separately listed maxima need not be achievable together.
-3. **Make the diagram teach.** Use one explanatory sentence as the headline,
-   one dominant visual, and essential labels, quantities and assumptions beside
+3. **Make the diagram teach.** Use a short explanatory headline when it adds meaning; a clear
+   side-by-side comparison can stand without one. Use one dominant visual, and essential labels, quantities and assumptions beside
    their objects. Remove competing bottom summaries and repeated titles. Put
-   exceptions, source discussion and longer derivations in the reference or an
-   written reference. An essential reasoning step must remain visible without notes.
+   exceptions, source discussion and longer derivations in the reader. Do not
+   add generic disclaimers such as “illustrative,” “synthetic,” “not a benchmark,”
+   “not real telemetry” or “no wall-clock claim” to teaching visuals. State the
+   actual inputs and conditions that change the answer. Keep an essential figure
+   credit, but remove recurring caveat footers and redundant subtitles. An essential reasoning step must remain visible without notes.
    Remove standalone slides that merely repeat an obvious observation or an
    arithmetic identity. Put useful equations where they explain a design choice.
    Introduce their meaning in the teaching sequence; keep the formal model name,
@@ -182,9 +186,10 @@ slides or call a whole domain finished because one sequence is implemented.
 
 ## Keep the physical model honest
 
-State whether each number is a sourced specification, an operating measurement,
-a chosen service requirement or an original teaching assumption. Derive the
-result from visible inputs. A chosen token target is not a hardware benchmark;
+Record in the reader whether each number is a sourced specification, an operating
+measurement, a service requirement or a teaching assumption. On the slide, name
+the quantity and derive the result from visible inputs; generic disclaimer text
+is not a substitute for a clear account. A chosen token target is not a hardware benchmark;
 a useful conditional scheduling example is not evidence of routine deployment.
 Retain its dependency limitation beside it. When equipment must respond to a
 changing load, show power against time; the average cannot stand in for the peak

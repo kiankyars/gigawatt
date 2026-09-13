@@ -47,13 +47,6 @@ function ledger(state, compact) {
     "10 racks × 142 kW + 80 kW network/storage",
     compact ? 16 : 27,
   );
-  out += text(
-    x,
-    compact ? 73 : 86,
-    "Illustrative operating point",
-    compact ? 15 : 18,
-    "var(--muted)",
-  );
   out += text(x, top - 22, "POWER DRAWN", compact ? 15 : 18, "var(--muted)");
   out += rect(
     "load-it",

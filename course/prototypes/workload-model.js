@@ -295,9 +295,28 @@ export function llamaMemory({ contextTokens=8192, kvPoolGiB=64 }={}) {
 }
 
 /** Relative complete-run energy for identical accepted output. */
-export function sameWorkEnergy({ powerRatio=.8, durationRatio=1.5 }={}) {
+export function sameWorkEnergy({ powerRatio=.8, durationRatio=1.5, basePowerKW=100, baseMinutes=10 }={}) {
   positive(powerRatio,'Mean power ratio');positive(durationRatio,'Duration ratio');
-  return {powerRatio,durationRatio,energyRatio:powerRatio*durationRatio,breakEvenDurationRatio:1/powerRatio};
+  positive(basePowerKW,'Baseline mean power');positive(baseMinutes,'Baseline runtime');
+  return {powerRatio,durationRatio,energyRatio:powerRatio*durationRatio,breakEvenDurationRatio:1/powerRatio,
+    runA:{powerKW:basePowerKW,minutes:baseMinutes,energyKWh:basePowerKW*baseMinutes/60},
+    runB:{powerKW:basePowerKW*powerRatio,minutes:baseMinutes*durationRatio,energyKWh:basePowerKW*powerRatio*baseMinutes*durationRatio/60}};
+}
+
+/** Divide a fixed serving budget equally among active output streams. */
+export function servingBudget({ outputTokensPerSecond=4000, target='rate', tokensPerSecond=40, sessions=100 }={}) {
+  positive(outputTokensPerSecond,'Aggregate output budget');
+  if(!['rate','sessions'].includes(target))throw new RangeError('Choose a token rate or session target');
+  if(target==='rate') {
+    positive(tokensPerSecond,'Output rate per session');
+    sessions=Math.floor(outputTokensPerSecond/tokensPerSecond);
+  } else {
+    count(sessions,'Active sessions');
+    tokensPerSecond=outputTokensPerSecond/sessions;
+  }
+  return {outputTokensPerSecond,target,tokensPerSecond,sessions,
+    millisecondsPerToken:1000/tokensPerSecond,
+    unusedTokensPerSecond:outputTokensPerSecond-sessions*tokensPerSecond};
 }
 
 /** Decode-slot illustration. Iterations have no asserted wall-clock durations. */

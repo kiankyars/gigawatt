@@ -64,5 +64,19 @@
     "retrieved_on": "2026-09-12",
     "sha256": "f64c9703e6e8471d93bd89457bd1e6d9cca46fd302866d1e3638732421521493",
     "note": "Official aerial of Colossus 1 on Paul Lowery Road, Memphis, downloaded unchanged. Capture date unspecified. Photo establishes visible exterior context, not power or cooling capacity."
+  },
+  {
+    "file": "nvidia-groq-3-lpx.webp",
+    "source_url": "https://developer-blogs.nvidia.com/wp-content/uploads/2026/03/LPX-Rack.webp",
+    "article_url": "https://developer.nvidia.com/blog/inside-nvidia-groq-3-lpx-the-low-latency-inference-accelerator-for-the-nvidia-vera-rubin-platform/",
+    "publisher": "NVIDIA",
+    "published_on": "2026-03-16",
+    "retrieved_on": "2026-09-13",
+    "sha256": "eaea1b2d688cff01bd1336822c4c8bd6433bb413d61ed953f357003a03812dd0",
+    "note": "Official 1920 × 1080 LPX product render downloaded unchanged and visually inspected. Credit as NVIDIA product render. The LPX is shown as its own rack; P130 supports the companion Vera Rubin prefill / LPX decode configuration.",
+    "specification_sources": [
+      "P129",
+      "P130"
+    ]
   }
 ]

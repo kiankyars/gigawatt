@@ -118,7 +118,7 @@ function speed(compact) {
   ];
   if (compact) {
     out += text(195, 29, '100 MW delivered · 24/7', 21, C.text, 'middle');
-    out += text(195, 55, '$20/MWh of fuel · original assumptions', 15, C.muted, 'middle');
+    out += text(195, 55, '$20/MWh of fuel', 15, C.muted, 'middle');
     fuelRows.forEach(([label, cost, color], i) => {
       const y = 95 + 104 * i;
       out += text(24, y, label, 20);
@@ -134,10 +134,8 @@ function speed(compact) {
     out += text(195, 529, '>', 37, C.text, 'middle');
     out += text(195, 569, '$14.6M + faster-build costs', 23, C.heat, 'middle');
     out += text(195, 616, 'One year of extra fuel; add capital costs.', 15, C.muted, 'middle');
-    out += text(195, 640, 'No contract revenue assigned to this site.', 15, C.muted, 'middle');
   } else {
     out += text(48, 34, '100 MW delivered · 24/7 · $20/MWh of fuel', 22);
-    out += text(1072, 34, 'Original assumptions', 18, C.muted, 'end');
     fuelRows.forEach(([label, cost, color], i) => {
       const y = 89 + 116 * i;
       out += text(48, y, label, 25);
@@ -155,7 +153,6 @@ function speed(compact) {
     out += text(568, 431, '>', 44, C.text, 'middle');
     out += text(848, 425, '$14.6M + faster-build costs', 29, C.heat, 'middle');
     out += text(848, 459, 'One year of extra fuel, plus capital costs', 18, C.muted, 'middle');
-    out += text(560, 517, 'A sensitivity example: no disclosed contract revenue is assigned to this 100 MW site.', 17, C.muted, 'middle');
   }
   return {
     markup: `<g data-economics-scene="speed-premium" data-extra-annual-fuel="${model.annualFuelPenalty}" data-revenue-assumed="false">${out}</g>`,

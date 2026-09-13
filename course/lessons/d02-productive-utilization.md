@@ -10,9 +10,9 @@ Compare energy at fixed accepted output and align training dependencies with pow
 
 ## Keep the completed token workload fixed
 
-Compare two runs that produce the same accepted outputs at the same quality within a common system boundary. Normalize run A’s whole-run mean power, duration and energy to one. If B uses 80 percent of the power for 150 percent of the duration, E_B/E_A = 0.8 × 1.5 = 1.2. It consumes 20 percent more energy for the same useful workload. This relative example teaches the tradeoff without inventing a hardware token-throughput result.
+Compare two runs that produce the same accepted outputs at the same quality within a common system boundary. Run A averages 100 kW for 10 minutes: 100 × 10/60 = 16.7 kWh. Run B averages 80 kW for 15 minutes: 80 × 15/60 = 20 kWh. B draws less power but takes five minutes longer, so it consumes 20 percent more energy for the same work.
 
-At 80 percent power, the break-even runtime is 1/0.8 = 1.25 times as long. A real power cap or serving policy might lie on either side; measure it. Include waiting, supporting equipment and the complete interval at the same meter. Do not compare a GPU compute-phase sample with rack AC energy over an entire job.
+Count waiting, supporting equipment and the complete run at the same meter. Compare these energy totals alongside accepted output and response time. A short GPU compute-phase power sample and rack AC energy over an entire job describe different boundaries.
 
 ## Locate the dependency that exposed the wait
 
@@ -30,13 +30,12 @@ An inference load balancer places eligible requests on serving replicas. It does
 
 - Runs finish the same accepted token workload at the same quality.
 - Power is the mean over each entire run at the same meter.
-- Ratios are original teaching inputs, not a product benchmark.
+- Run A averages 100 kW for 10 minutes; run B averages 80 kW for 15 minutes.
 
-1. Reference A — E_A = P_A × t_A — Count the whole run.
-2. Changed run B — E_B = 0.8 P_A × 1.5 t_A = 1.2 E_A — The duration increase outweighs the reduction in mean power.
-3. Break-even runtime — t_B / t_A = 1 / 0.8 = 1.25 — At this power ratio, duration must grow by less than 25 percent for energy to fall.
+1. Run A — 100 kW × (10 / 60) h = 16.7 kWh — Ten minutes is one-sixth of an hour.
+2. Run B — 80 kW × (15 / 60) h = 20 kWh — The extra five minutes outweighs the reduction in mean power.
 
-**Result:** B consumes 20 percent more energy for the same accepted output.
+**Result:** Run B consumes 20 kWh instead of 16.7 kWh for the same accepted output: 20 percent more energy.
 
 **Model boundary:** A real power-performance curve and quality-controlled benchmark are needed to choose a configuration.
 

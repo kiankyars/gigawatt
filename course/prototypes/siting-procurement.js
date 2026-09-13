@@ -27,7 +27,7 @@ function route(s,m){
   out+=transformer(95,190,C.heat)+text(130,197,'Step up',16,C.heat)
    +text(130,292,'HV',17,C.muted)+transformer(95,352,C.heat)+lines(130,346,['Step','down'],16,C.heat);
   for(const x of [95,292])out+=transformer(x,474)+rect(x-58,507,116,24,'var(--paper)','none',0)+text(x,525,'Local LV supply',15,C.power,'middle');
-  out+=rect(241,292,102,27,'var(--paper)','none',0)+text(292,312,'MV feeder',18,C.power,'middle')+text(195,655,'Conceptual AC routes · not an as-built one-line',13,C.muted,'middle');
+  out+=rect(241,292,102,27,'var(--paper)','none',0)+text(292,312,'MV feeder',18,C.power,'middle')+text(195,655,'SemiAnalysis · Southaven · August 2026',13,C.muted,'middle');
  }else{
   const row=(y,hv)=>{
    let a=text(40,y-84,hv?'HIGH-VOLTAGE TRANSPORT':'LOCAL MEDIUM-VOLTAGE DELIVERY',19,hv?C.heat:C.power)
@@ -47,7 +47,7 @@ function route(s,m){
 function current(s,m){
  const mv=transportBudget(),hv=transportBudget({voltageKV:161});
  let out=text(m?195:40,m?42:42,'200 MW from plant to campus',m?24:29,C.power,m?'middle':'start');
- out+=text(m?195:1080,m?76:42,'Illustrative · three-phase AC · PF = 1',m?15:19,C.muted,m?'middle':'end');
+ out+=text(m?195:1080,m?76:42,'Three-phase AC · PF = 1',m?15:19,C.muted,m?'middle':'end');
  [mv,hv].forEach((a,i)=>{
   const y=(m?153:148)+i*(m?185:140),x=m?32:278,w=m?317:570,bar=w*a.lineCurrentA/mv.lineCurrentA;
   out+=text(m?32:45,y+(m?0:34),`${a.voltageKV} kV`,m?27:34,C.text)

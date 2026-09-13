@@ -375,24 +375,25 @@ function draw(){
  const scene=scenes[index], compact=matchMedia('(max-width:600px)').matches;
  const {markup,description}=renderWorkload(scene.id,state,compact);
  $('diagram').setAttribute('viewBox',compact?'0 0 390 680':'0 0 1200 560');
- $('diagram').innerHTML=`<title id="diagram-title">${scene.title}</title><desc id="diagram-description">${description}</desc>${markup}`;
+ $('diagram').innerHTML=`<title id="diagram-title">${scene.title||scene.label}</title><desc id="diagram-description">${description}</desc>${markup}`;
  $('status').textContent=description;
 }
 function controls(){
  $('actions').replaceChildren();
  const scene=scenes[index];
  for(const group of scene.controls||[]){
+  if(group.when && !Object.entries(group.when).every(([key,value])=>state[key]===value))continue;
   const field=document.createElement('fieldset');field.className='choices';
   const legend=document.createElement('legend');legend.textContent=group.label;field.append(legend);
   for(const [value,label] of group.options){
    const b=document.createElement('button');b.textContent=label;b.dataset.key=group.key;b.dataset.value=String(value);b.setAttribute('aria-pressed',String(state[group.key]===value));
-   b.addEventListener('click',()=>{state[group.key]=value;field.querySelectorAll('button').forEach(button=>button.setAttribute('aria-pressed',String(button===b)));draw();});field.append(b);
+   b.addEventListener('click',()=>{state[group.key]=value;controls();draw();$('actions').querySelector(`button[data-key="${group.key}"][data-value="${value}"]`)?.focus();});field.append(b);
   }$('actions').append(field);
  }
  if(index===scenes.length-1){const a=document.createElement('a');a.href='siting-format.html?teach=1';a.textContent='Next: siting and supply →';$('actions').append(a);}
  if(scene.reveal){const b=document.createElement('button');b.id='reveal';b.textContent=state[scene.reveal]?'Hide reasoning':'Reveal reasoning';b.setAttribute('aria-expanded',String(state[scene.reveal]));b.onclick=()=>{state[scene.reveal]=!state[scene.reveal];b.textContent=state[scene.reveal]?'Hide reasoning':'Reveal reasoning';b.setAttribute('aria-expanded',String(state[scene.reveal]));draw();};$('actions').append(b);}
 }
-function render(){const s=scenes[index];$('title').textContent=s.title;$('scenes').value=s.id;$('progress').textContent=`${index+1} / ${scenes.length}`;$('previous').disabled=index===0;$('next').disabled=index===scenes.length-1;$('explanation-title').textContent=s.title;$('lesson-reference').href='../index.html#'+s.reference;$('explanation').innerHTML=s.explanation.map(p=>`<p>${p}</p>`).join('');$('model-scope').textContent=s.boundary;controls();draw();}
+function render(){const s=scenes[index];$('title').textContent=s.title;$('title').parentElement.hidden=!s.title;$('scenes').value=s.id;$('progress').textContent=`${index+1} / ${scenes.length}`;$('previous').disabled=index===0;$('next').disabled=index===scenes.length-1;$('explanation-title').textContent=s.title;$('lesson-reference').href='../index.html#'+s.reference;$('explanation').innerHTML=s.explanation.map(p=>`<p>${p}</p>`).join('');$('model-scope').textContent=s.boundary;controls();draw();}
 function go(i){index=Math.max(0,Math.min(scenes.length-1,i));history.replaceState(null,'',`#${scenes[index].id}`);render();}
 function fromHash(){const requested=location.hash.slice(1),id=legacySceneAliases[requested]||requested,i=scenes.findIndex(s=>s.id===id);index=i<0?0:i;render();}
 $('scenes').onchange=e=>go(scenes.findIndex(s=>s.id===e.target.value));$('previous').onclick=()=>go(index-1);$('next').onclick=()=>go(index+1);

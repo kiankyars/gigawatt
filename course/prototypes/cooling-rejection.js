@@ -566,7 +566,7 @@ function chiller(compact, water) {
       centered(
         186,
         551,
-        "Synthetic steady heat balance; auxiliaries omitted",
+        "Steady heat balance · auxiliaries excluded",
         11,
         "muted",
       )
@@ -614,7 +614,7 @@ function chiller(compact, water) {
     centered(
       580,
       388,
-      "Hypothetical steady state · other auxiliaries excluded",
+      "Steady heat balance · auxiliaries excluded",
       13,
       "muted",
     )

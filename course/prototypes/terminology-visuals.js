@@ -127,7 +127,7 @@ function network(compact,state) {
     box(805,90,255,95,'power')+text(932,146,'Compute server',27,'power')+
     line('M363 139H795','data',true)+text(580,116,'Data-center network',24,'data')+
     text(580,175,`${rate/1000} Gb/s payload rate`,24,'data');
-  out+=text(compact?195:580,compact?291:242,'Illustrative transfer · no queues or overhead',compact?16:21,'muted');
+  out+=text(compact?195:580,compact?291:242,'No queues or protocol overhead',compact?16:21,'muted');
   out+=`<rect x="${x}" y="${y}" width="${delayWidth}" height="56" fill="var(--heat)"/><rect x="${x+delayWidth}" y="${y}" width="${sendWidth}" height="56" fill="var(--data)"/>`;
   out+=line(`M${x} ${y+67}H${x+w}`,'muted');
   [0,3.2,6.4].forEach(n=>{out+=text(x+n*scale,y+97,`${n} ms`,compact?16:21,'muted',n===0?'start':n===6.4?'end':'middle')});
@@ -148,7 +148,7 @@ function heat(compact) {
     block(65,365,260,'Cold plate','45 °C','heat',105)+
     line('M25 563V423H56','power',true)+line('M332 423H365V563','data',true)+
     text(91,595,'30 °C in',22,'power')+text(299,595,'35 °C out',22,'data')+
-    text(195,662,'Illustrative steady operation',19,'muted')+'</g>';
+    text(195,662,'Steady operation',19,'muted')+'</g>';
   return `<g data-heat-watts="500" data-chip-celsius="70" data-plate-celsius="45" data-inlet-celsius="30" data-outlet-celsius="35">`+
     box(325,30,510,475,'power')+text(350,71,'Compute server',26,'power','start')+
     box(415,100,330,145,'power')+text(440,140,'GPU',28,'power','start')+
@@ -158,7 +158,7 @@ function heat(compact) {
     block(380,365,400,'Cold plate','45 °C','heat',110)+
     line('M145 458V420H368','power',true)+line('M792 420H1015V458','data',true)+
     text(145,507,'Coolant in: 30 °C',23,'power')+text(1015,507,'Coolant out: 35 °C',23,'data')+
-    text(580,561,'Illustrative steady operation',23,'muted')+'</g>';
+    text(580,561,'Steady operation',23,'muted')+'</g>';
 }
 function cooling(compact) {
   if(compact) return text(195,31,'Equipment coolant loop',23,'power')+

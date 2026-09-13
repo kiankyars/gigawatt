@@ -19,7 +19,7 @@ const siemens='https://www.siemens-energy.com/global/en/home/products-services/p
 function purpose(m){
  let o=img(sitingImages.shared,m?12:390,m?84:8,m?366:720,m?320:455);
  [['WHEN','Release a usable phase'],['HOW','Connect grid and local supply'],['WHAT','Choose the generation duty']].forEach(([a,b],i)=>{const y=m?445+i*62:94+i*145;o+=t(m?23:25,y,a,m?13:18,C.muted)+t(m?98:25,m?y:y+47,b,m?18:27);});
- return result(o,'Follow delivery phases, connection arrangements and generation duty. The generated geography is a conceptual teaching world, not a real campus.');
+ return result(o,'Follow delivery phases, connection arrangements and generation duty. The drawing shows a conceptual campus and its connections.');
 }
 function release(m){
  let o=t(m?195:560,m?38:35,'POLARIS FORGE 1 · ELLENDALE, NORTH DAKOTA',m?12:19,C.muted,'middle');
@@ -37,7 +37,7 @@ function fuel(m){
 }
 function shared(m){
  const o=img(sitingImages.shared,m?8:12,m?83:0,m?374:1096,m?421:484)+t(m?195:560,m?41:36,'SHARED SUBSTATION',m?18:21,C.ink,'middle')+t(m?95:280,m?543:499,'Campus A',m?21:24,C.ink,'middle')+t(m?294:850,m?543:499,'Campus B',m?21:24,C.ink,'middle')+t(m?195:560,m?601:530,'Study coincident demand and upstream constraints.',m?14:18,C.muted,'middle');
- return result(o,'The two illustrative campus feeds meet at a shared upstream substation. Capacity studies account for coincident demand, existing customers and supported contingencies. Generated geography, not a real site or installation drawing.');
+ return result(o,'The two campus feeds meet at a shared upstream substation. Capacity studies account for coincident demand, existing customers and supported contingencies.');
 }
 function abilene(m){
  let o=img(sitingImages.aerial,m?9:15,m?22:12,m?372:805,m?315:440);
@@ -72,7 +72,7 @@ function options(m){
  return result(o,'Simple cycle uses the gas turbine. Combined cycle adds exhaust heat recovery and a separate steam power cycle. Original GE Vernova cutaway and Siemens Energy principle diagram establish the mechanisms, examined next.');
 }
 function manufacturer(id,m){
- const data=id==='gas-shaft'?{image:sitingImages.turbine,credit:'GE Vernova · gas turbine and generator cutaway',url:'https://www.gevernova.com/gas-power/resources/education/what-is-a-gas-turbine',desc:'Original GE Vernova gas-turbine and generator cutaway. Air compression, combustion and hot-gas expansion produce shaft work for the compressor and generator; the exhaust can then feed heat recovery in a combined-cycle plant.'}:id==='combined-cycle'?{image:sitingImages.combined,credit:'Siemens Energy · combined-cycle principle',url:siemens,desc:'Original Siemens Energy combined-cycle diagram: gas-turbine exhaust enters a heat recovery steam generator; a separate water and steam loop drives the steam turbine and condenser. Both generators supply electricity. The diagram’s 64 percent label is a manufacturer example, not a universal plant efficiency.'}:{image:sitingImages.dispatch,credit:'Siemens Energy · illustrative generation dispatch',url:'https://www.siemens-energy.com/global/en/home/products-services/product/peaker-plants.html',desc:'Original Siemens Energy diagram compares conventional dispatch with higher renewable penetration. Flexible peaking resources supply residual demand left by the other contributions. Qualitative illustration, not recorded or forecast operating values.'};
+ const data=id==='gas-shaft'?{image:sitingImages.turbine,credit:'GE Vernova · gas turbine and generator cutaway',url:'https://www.gevernova.com/gas-power/resources/education/what-is-a-gas-turbine',desc:'Original GE Vernova gas-turbine and generator cutaway. Air compression, combustion and hot-gas expansion produce shaft work for the compressor and generator; the exhaust can then feed heat recovery in a combined-cycle plant.'}:id==='combined-cycle'?{image:sitingImages.combined,credit:'Siemens Energy · combined-cycle principle',url:siemens,desc:'Original Siemens Energy combined-cycle diagram: gas-turbine exhaust enters a heat recovery steam generator; a separate water and steam loop drives the steam turbine and condenser. Both generators supply electricity. The diagram’s 64 percent label is a manufacturer example, not a universal plant efficiency.'}:{image:sitingImages.dispatch,credit:'Siemens Energy · generation dispatch',url:'https://www.siemens-energy.com/global/en/home/products-services/product/peaker-plants.html',desc:'Original Siemens Energy diagram compares conventional dispatch with higher renewable penetration. Flexible peaking resources supply residual demand left by the other contributions.'};
  let visual=img(data.image,m?4:8,m?70:4,m?382:1104,m?535:503);
  if(id==='gas-shaft'){
   const labels=[['Compressor',140,98,155,144],['Combustor',347,85,357,150],['Turbine',510,103,492,166],['Generator',907,448,907,382]];

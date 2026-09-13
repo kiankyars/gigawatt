@@ -36,7 +36,7 @@ export const scenes = [
   },
   {
     id: 'voltage-variation', label: 'Voltage variation', title: 'AC and DC supplies can vary in voltage',
-    description: 'Two illustrative supplies have nominal levels of 12 volts DC and 12 volts AC peak. Select a level ten percent lower, nominal, or ten percent higher. The DC level changes while staying positive; the AC peak height changes while polarity keeps alternating. Dashed traces mark the nominal levels. Actual supply voltage depends on the source, load and wiring. These example levels are not equipment operating limits.',
+    description: 'Two supplies have nominal levels of 12 volts DC and 12 volts AC peak. Select a level ten percent lower, nominal, or ten percent higher. The DC level changes while staying positive; the AC peak height changes while polarity keeps alternating. Dashed traces mark the nominal levels. Actual supply voltage depends on the source, load and wiring. These example levels are not equipment operating limits.',
     options: [['0.9', '10% lower'], ['1', 'Nominal'], ['1.1', '10% higher']], key: 'supplyLevel', group: 'Supply voltage',
   },
   {
@@ -67,7 +67,7 @@ export const scenes = [
   },
   {
     id: 'capacity', label: 'Load, rating and redundancy', title: 'A 100 kW load needs two 50 kW modules',
-    description: 'An illustrative 100 kilowatt load needs two qualified 50 kilowatt modules. N means the required two; N plus one provides a third module.',
+    description: 'A 100 kilowatt load needs two qualified 50 kilowatt modules. N means the required two; N plus one provides a third module.',
   },
   {
     id: 'hardware', label: 'Rack, server, CPU and GPU', title: 'A rack holds computers and their connections',
@@ -84,7 +84,7 @@ export const scenes = [
   },
   {
     id: 'heat-temperature', label: 'Heat and temperature', title: 'The running GPU produces heat',
-    description: 'The GPU in our compute server now runs the loaded model. In this illustrative steady state, it receives 500 watts of electrical power and transfers 500 watts of heat to a cold plate. The GPU is at 70 degrees Celsius, the cold plate at 45, and coolant warms from 30 to 35.',
+    description: 'The GPU in our compute server now runs the loaded model. In this steady state, it receives 500 watts of electrical power and transfers 500 watts of heat to a cold plate. The GPU is at 70 degrees Celsius, the cold plate at 45, and coolant warms from 30 to 35.',
   },
   {
     id: 'cooling', label: 'Cold plate, coolant and CDU', title: 'Coolant carries chip heat away',
@@ -92,6 +92,6 @@ export const scenes = [
   },
   {
     id: 'pue', label: 'Facility energy and PUE', title: 'Cooling and power equipment use electricity too',
-    description: 'Zoom out from our server to the whole facility. During the same illustrative hour, all IT equipment uses 100 kilowatt-hours and supporting equipment and losses account for another 20. Support includes cooling pumps and fans and power-system losses. PUE equals total facility energy of 120 divided by IT energy of 100, or 1.20.',
+    description: 'Zoom out from our server to the whole facility. During the same hour, all IT equipment uses 100 kilowatt-hours and supporting equipment and losses account for another 20. Support includes cooling pumps and fans and power-system losses. PUE equals total facility energy of 120 divided by IT energy of 100, or 1.20.',
   },
 ];

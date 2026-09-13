@@ -380,7 +380,7 @@ function immersionCapture(compact) {
 function approach(compact) {
   if (compact) {
     let out =
-      text(186, 25, "HYPOTHETICAL 84 kW CDU", "svg-tiny", "", "middle") +
+      text(186, 25, "84 kW CDU", "svg-tiny", "", "middle") +
       box("hx", 122, 109, 128, 221) +
       text(186, 140, "CDU", "svg-label", "hx", "middle");
     out +=
@@ -425,7 +425,7 @@ function approach(compact) {
     text(
       580,
       28,
-      "HYPOTHETICAL 84 kW CDU · COUNTERFLOW",
+      "84 kW CDU · COUNTERFLOW",
       "svg-tiny",
       "",
       "middle",

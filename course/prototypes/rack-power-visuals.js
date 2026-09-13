@@ -57,7 +57,7 @@ function psuInput(s,m) {
   o+=box(25,387,340,94,['Shared rack bus','50 V DC'],true);
   o+=t(195,538,'480 / √3 ≈ 277 V',29,C.power);
   o+=t(195,577,'Phase to neutral at each PSU',18);
-  o+=note('Advanced Energy ORv3 example · not wiring guidance',m);
+  o+=note('Advanced Energy · ORv3 power supply',m);
  }else{
   o+=box(30,145,257,160,['Three-phase shelf input','480 V line-to-line'],false);
   o+=box(935,145,235,230,['Shared rack bus','50 V DC'],false);
@@ -73,7 +73,6 @@ function boardRails(s,m) {
  a.forEach((labels,i)=>{const x=m?48:28+i*298,y=m?30+i*141:178,w=m?294:250,h=m?97:138;
   o+=box(x,y,w,h,labels,m);if(i<3)o+=m?arrow(195,y+h+6,195,y+134):arrow(x+w+4,y+69,x+292,y+69);
  });
- o+=note('Illustrative chain · exact rails depend on the board',m);
  if(!m)o+=t(447,372,'Other loads branch to their own rails',24,C.muted);
  return o;
 }
@@ -86,7 +85,6 @@ function localCurrent(s,m) {
   o+=t(600,292,`${s.resistance} µΩ core-path loop → ${format(a.dropVolts)} V drop`,30,C.heat);
  }
  o+=result(`${format(a.lossWatts)} W`,'I²R in the final current path',m,m?467:405,C.heat);
- o+=note('Resistance values are assumptions, not a board design',m);
  return o;
 }
 function multiphase(s,m) {
@@ -167,7 +165,7 @@ export function renderRackPower(id,state,compact=false){
   'rack-power-path':'PSUs in a rack power shelf convert AC into nominal 50–51 V DC. The vertical rack busbar carries power to trays; board conversion and point-of-load regulation then supply devices.',
   'rear-busbar':'NVIDIA DGX GB300 rear hardware illustration identifies the power busbar behind the trays. It carries nominal 50–51 V DC inside the rack.',
   'psu-input':'The source example uses a 480/277 V wye supply. Each selected single-phase PSU receives phase-to-neutral voltage around 277 V; shared outputs supply a 50 V rack bus. Neutral and protective earth are distinct.',
-  'board-rails':'An illustrative 48 V bus feeds a 12 V intermediate converter, then a 1 V point-of-load regulator and compute die. The exact rails and branches vary by board.',
+  'board-rails':'A 48 V bus feeds a 12 V intermediate converter, then a 1 V point-of-load regulator and compute die. The exact rails and branches vary by board.',
   'local-current':`A 1 kW core receives 1000 A at 1 V. With ${state.resistance} microohms in the final loop, resistive heat is ${format(localPower({loopMicroOhms:state.resistance}).lossWatts)} W.`,
   multiphase:`${state.phases} interleaved converter phases supply a constant 1000 A average. The summed current has ${format(phaseWaveforms(state.phases).peakToPeakAmps)} A peak-to-peak normalized ripple.`,
   'energy-locality':`Selected ${state.location} energy storage. Board capacitors, rack BBU and facility storage connect at different electrical boundaries; path impedance and conversion response matter.`,

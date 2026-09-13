@@ -26,7 +26,7 @@ Each topic ends with a check-in: pause, make a prediction, compare the reasoning
 ### 3. Workloads and requirements
 
 - Slides: [Workloads and requirements](prototypes/workload-format.html?teach=1)
-- [Define the token service before sizing its infrastructure](lessons/d02-workload-brief.md) — What must the infrastructure deliver for this workload to count as successful?
+- [Choose how responsive each session should be](lessons/d02-workload-brief.md) — What must the infrastructure deliver for this workload to count as successful?
 - [Measure complete useful work and diagnose exposed waits](lessons/d02-productive-utilization.md) — Does the power reduction improve energy for the same completed work, and what dependency is consuming the time?
 - [The workload has a rhythm](lessons/d02-phases-and-envelopes.md) — How do batching and synchronized phases change demand without changing installed equipment?
 
@@ -134,10 +134,10 @@ Every entry below is authored and has practice; this is not evidence of learner 
 | Convert power and energy across units and time; distinguish a measured load from a capacity rating. | [A megawatt is not a megawatt-hour](lessons/d01-power-over-time.md) |
 | Define denominators for facility, IT and compute-only metrics and label the time window. | [One rack, three paths](lessons/d01-boundaries.md), [A megawatt is not a megawatt-hour](lessons/d01-power-over-time.md), [Attach a denominator and a date](lessons/d01-metrics-and-evidence.md), [A hot day changes two limits at once](lessons/c02-weather-capacity.md) |
 | Separate physical principles, design specifications, observed deployments, announcements, forecasts and teaching assumptions. | [Attach a denominator and a date](lessons/d01-metrics-and-evidence.md) |
-| Translate a workload brief into compute, memory, network, storage, power and service requirements. | [Define the token service before sizing its infrastructure](lessons/d02-workload-brief.md), [The workload has a rhythm](lessons/d02-phases-and-envelopes.md) |
+| Translate a workload brief into compute, memory, network, storage, power and service requirements. | [Choose how responsive each session should be](lessons/d02-workload-brief.md), [The workload has a rhythm](lessons/d02-phases-and-envelopes.md) |
 | Distinguish hardware occupancy, power draw and productive utilization. | [Measure complete useful work and diagnose exposed waits](lessons/d02-productive-utilization.md), [The powered cluster that keeps waiting](lessons/c04-stalled-job.md) |
 | Explain how batching, parallel execution and synchronized job phases change the infrastructure demand profile. | [The workload has a rhythm](lessons/d02-phases-and-envelopes.md) |
-| State an infrastructure design envelope and identify which assumptions a benchmark can and cannot validate. | [Define the token service before sizing its infrastructure](lessons/d02-workload-brief.md), [Measure complete useful work and diagnose exposed waits](lessons/d02-productive-utilization.md), [The workload has a rhythm](lessons/d02-phases-and-envelopes.md) |
+| State an infrastructure design envelope and identify which assumptions a benchmark can and cannot validate. | [Choose how responsive each session should be](lessons/d02-workload-brief.md), [Measure complete useful work and diagnose exposed waits](lessons/d02-productive-utilization.md), [The workload has a rhythm](lessons/d02-phases-and-envelopes.md) |
 | Trace a physical supply path and distinguish it from a power purchase agreement or energy attribute claim. | [A contract is not a cable](lessons/d03-power-and-procurement.md) |
 | Explain voltage, current and conductor loss in a bounded AC or DC comparison. | [Move power with fewer amperes](lessons/d03-voltage-and-distance.md) |
 | Explain the milestones and constraints between a proposed large load and service available to that load. | [Deliver the campus one usable phase at a time](lessons/d03-service-and-siting.md), [Open one phase, with evidence](lessons/c05-open-a-phase.md) |
@@ -485,9 +485,9 @@ The IT boundary sits inside the facility boundary, so adding the two readings co
 
 **The next problem:** We can now account for the watts. What job must those watts support, and what counts as a successful result?
 
-Continue in **Workloads and the infrastructure brief**: Define the token service before sizing its infrastructure.
+Continue in **Workloads and the infrastructure brief**: Choose how responsive each session should be.
 
-## Define the token service before sizing its infrastructure
+## Choose how responsive each session should be
 
 **3. Workloads and requirements · Authored draft**
 
@@ -495,9 +495,11 @@ Use a GB300 NVL72 and Llama 3.1 70B to connect model state, context and service 
 
 **Driving question:** What must the infrastructure deliver for this workload to count as successful?
 
-## Give the rack a specific job
+## Trade response speed against active sessions
 
-The hardware anchor is one NVIDIA GB300 NVL72 with 72 B300 GPUs. The model anchor is Llama 3.1 70B. These names establish what is being discussed; they do not establish a particular deployed configuration, allocation or achieved throughput. Our chosen serving requirement is 100 simultaneous active sessions, each sustaining 40 output tokens per second after its first token. Multiplication gives 4,000 output tokens per second required. This is a demand target, not a benchmark or a claim that all 72 GPUs are needed.
+The hardware reference is NVIDIA GB300 NVL72 and the model is Llama 3.1 70B. To explore interactivity, allocate a budget of 4,000 output tokens per second across active sessions. If each session needs 40 tokens per second, the budget supports 4,000 / 40 = 100 sessions. If 200 sessions share it, each receives 4,000 / 200 = 20 tokens per second: one token every 50 milliseconds instead of every 25 milliseconds. Hold the total budget fixed, then choose either the desired response speed or the number of sessions and derive the other.
+
+This calculation assumes equal sharing during steady output generation. It separates total throughput from interactivity: how quickly one user sees a response unfold. First-token delay is a separate part of that experience. The 4,000-token/s allocation is a course input, not a measured GB300 capacity; a deployment’s achievable throughput and response speed depend on its model, context lengths, batching and software. Those relationships require a serving benchmark rather than a GPU count.
 
 Describe the model and software version, weight and cache precision, prompt and output lengths, traffic, concurrency, acceptable quality, time to first token and inter-token latency. A training brief instead identifies an experiment, data and quality target, progress criterion and deadline. Training passes data through the model, calculates gradients and updates parameters; inference uses configured parameters to produce tokens. These uses create different state, communication and timing requirements.
 
@@ -572,7 +574,7 @@ The fixed pool admits fewer full contexts. Adding capacity or distributing the m
 - [MLCommons — MLPerf Inference: Datacenter](https://mlcommons.org/benchmarks/inference-datacenter/) — Benchmark results depend on a declared workload scenario and measurement conditions. Read 2026-09-06. Read the public scenario and power-measurement descriptions; no named system performance is asserted.
 - [Meta — Llama model SKU architecture definitions](https://github.com/meta-llama/llama-models/blob/main/models/sku_list.py) — Named Llama 3.1 70B architecture for original parameter-storage and KV-cache calculations: hidden width 8,192, 80 layers, 64 query heads and 8 key/value heads. Read 2026-09-12. The llama3_1_base_models definition was inspected in the public GitHub source and its raw file. Head dimension 128 is derived from 8,192/64. The 70B parameter count is rounded model-class notation, not an exact counted checkpoint size. The gated Hugging Face config returned 401 and was not read. This source establishes architecture, not GB300 throughput or deployment performance.
 - [ZeRO: Memory Optimizations Toward Training Trillion Parameter Models](https://arxiv.org/html/1910.02054) — Derive a declared mixed-precision Adam example: two bytes each for weights and gradients, four for a master weight, eight for the two optimizer moments, giving 16 bytes per parameter before activations and buffers. Read 2026-09-12. Read sections 2.1, 3.1–3.2 and model-state partitioning formulas. This is a classic FP16/FP32 Adam accounting example, not a universal 2026 training-memory requirement. BF16 arrangements, gradient accumulation precision, optimizer choices, quantization, offload and sharding alter the budget. Using rounded 70 billion parameters gives about 1.12 TB across model states, not an asserted minimum GPU count or throughput.
-- [NVIDIA NVL72 AI Factory — System Hardware & Components](https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/components.html) — The GB300 NVL72 rack contains 72 Blackwell Ultra GPUs. Read 2026-09-12. Read the GB300 compute rack and tray descriptions. The 100-session, 40-output-token/s service is a chosen requirement, not a manufacturer throughput result.
+- [NVIDIA NVL72 AI Factory — System Hardware & Components](https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/components.html) — The GB300 NVL72 rack contains 72 Blackwell Ultra GPUs. Read 2026-09-12. Read the GB300 compute rack and tray descriptions. The 4,000-output-token/s allocation is a chosen teaching budget for an equal-share steady-state tradeoff, not a manufacturer throughput result.
 
 ## Measure complete useful work and diagnose exposed waits
 
@@ -584,9 +586,9 @@ Compare energy at fixed accepted output and align training dependencies with pow
 
 ## Keep the completed token workload fixed
 
-Compare two runs that produce the same accepted outputs at the same quality within a common system boundary. Normalize run A’s whole-run mean power, duration and energy to one. If B uses 80 percent of the power for 150 percent of the duration, E_B/E_A = 0.8 × 1.5 = 1.2. It consumes 20 percent more energy for the same useful workload. This relative example teaches the tradeoff without inventing a hardware token-throughput result.
+Compare two runs that produce the same accepted outputs at the same quality within a common system boundary. Run A averages 100 kW for 10 minutes: 100 × 10/60 = 16.7 kWh. Run B averages 80 kW for 15 minutes: 80 × 15/60 = 20 kWh. B draws less power but takes five minutes longer, so it consumes 20 percent more energy for the same work.
 
-At 80 percent power, the break-even runtime is 1/0.8 = 1.25 times as long. A real power cap or serving policy might lie on either side; measure it. Include waiting, supporting equipment and the complete interval at the same meter. Do not compare a GPU compute-phase sample with rack AC energy over an entire job.
+Count waiting, supporting equipment and the complete run at the same meter. Compare these energy totals alongside accepted output and response time. A short GPU compute-phase power sample and rack AC energy over an entire job describe different boundaries.
 
 ## Locate the dependency that exposed the wait
 
@@ -604,13 +606,12 @@ An inference load balancer places eligible requests on serving replicas. It does
 
 - Runs finish the same accepted token workload at the same quality.
 - Power is the mean over each entire run at the same meter.
-- Ratios are original teaching inputs, not a product benchmark.
+- Run A averages 100 kW for 10 minutes; run B averages 80 kW for 15 minutes.
 
-1. Reference A — E_A = P_A × t_A — Count the whole run.
-2. Changed run B — E_B = 0.8 P_A × 1.5 t_A = 1.2 E_A — The duration increase outweighs the reduction in mean power.
-3. Break-even runtime — t_B / t_A = 1 / 0.8 = 1.25 — At this power ratio, duration must grow by less than 25 percent for energy to fall.
+1. Run A — 100 kW × (10 / 60) h = 16.7 kWh — Ten minutes is one-sixth of an hour.
+2. Run B — 80 kW × (15 / 60) h = 20 kWh — The extra five minutes outweighs the reduction in mean power.
 
-**Result:** B consumes 20 percent more energy for the same accepted output.
+**Result:** Run B consumes 20 kWh instead of 16.7 kWh for the same accepted output: 20 percent more energy.
 
 **Model boundary:** A real power-performance curve and quality-controlled benchmark are needed to choose a configuration.
 
@@ -659,13 +660,19 @@ Connect request queues and job phases to latency, aggregate power, and the limit
 
 **Driving question:** How do batching and synchronized phases change demand without changing installed equipment?
 
-## Teach prefill, decode and continuous batching directly
+## Prefill and decode use hardware differently
 
-LLM prefill processes the prompt and creates initial request state. Decode extends the sequence over successive iterations. Time to first token includes queueing and prompt processing; time between output tokens concerns the stream after that. Prefill often offers more parallel matrix work, while low-batch decode can be memory-bandwidth constrained. This varies with model, hardware and batch; the phase name does not specify a fixed power draw.
+LLM prefill processes the prompt and creates the request’s initial KV cache. Many prompt tokens can be processed together, giving the GPU substantial parallel matrix work: prefill is usually compute-bound. Decode generates tokens successively. At low batch sizes, fetching model weights and cached context can take more time than the arithmetic itself: decode is often memory-bandwidth-bound. Larger batches, long contexts, model design and the hardware can change which resource limits performance. Time to first token includes queueing and prompt processing; time between output tokens concerns the stream after that.
 
 vLLM describes continuous scheduling of running and waiting requests. When one sequence finishes, the scheduler can admit new work while others continue. Our two-slot illustration has A needing two decode steps, B five, and C three. C is already queued. The fixed batch waits for B; the continuous case admits C after A finishes. The cells represent iterations, not equal wall-clock durations or a measured speedup. Real admission also depends on prefill work, token budgets and KV capacity.
 
 This matters to facility reasoning because active request membership changes compute and memory demand. Continuous batching is a documented serving mechanism, not a guarantee that rack power stays constant.
+
+## NVIDIA uses separate racks for prefill and decode
+
+NVIDIA Groq 3 LPX is a rack of 256 Groq LPU accelerators deployed alongside Vera Rubin NVL72 GPU racks. In NVIDIA’s standard prefill–decode configuration, Rubin processes the prompt and transfers its KV cache once per turn. Groq LPX then uses that cache and model weights held in SRAM to generate the response. The two phases can therefore use hardware suited to different demands, connected by a cache handoff.
+
+This example pairs Groq with Rubin GPUs. NVIDIA also describes an attention–FFN configuration that divides work within decode, plus speculative decoding with a separate draft model. The presentation uses the standard prefill–decode split to make the hardware division clear. The LPX picture is NVIDIA’s official product render.
 
 ## Start with production evidence, then use a controlled trace
 
@@ -677,7 +684,7 @@ The following 60-second teaching cycle is original and deliberately simplified: 
 
 If four independent periodic jobs can shift by 0, 15, 30 and 45 seconds without extra waiting, contention or missed deadlines, two compute while one exchanges and one saves: 340 kW throughout the ideal cycle. Their energy remains 5.667 kWh. This is a conditional scheduling thought experiment, not an assertion that production AI clusters routinely use these offsets.
 
-Workers inside one synchronous job are a different case. Delaying a participant may force the others to wait at a collective, violating the unchanged-duration assumption. Keep the staggering and dependency slides together. The lesson is to identify which scheduling freedom actually exists before proposing it as a power remedy.
+Workers inside one synchronous job are a different case. Delaying a participant may force the others to wait at a collective, violating the unchanged-duration assumption. The lesson is to identify which scheduling freedom actually exists before proposing it as a power remedy.
 
 ## Read the trace to choose a response
 
@@ -741,6 +748,9 @@ A flatter hypothetical sum does not prove jobs can be shifted. A mean does not r
 - [Vertiv — BESS and UPS roles in large data center power architecture](https://www.vertiv.com/en-us/insights/articles/white-papers/bess-and-ups-roles-in-large-data-center-power-architecture/) — Synchronized AI load changes motivate coordination across power-system levels. Read 2026-09-06. Read the public white-paper landing page only, not the downloadable full white paper; no universal measured waveform is asserted.
 - [vLLM — Inside vLLM: Anatomy of a High-Throughput LLM Inference System](https://vllm.ai/blog/2025-09-05-anatomy-of-vllm) — Prefill and decode, key/value-cache allocation, continuous scheduling of new and running requests, serving load balancing, and latency/throughput measurement. Read 2026-09-12. Read the engine initialization, scheduler and forward-pass sections, disaggregated prefill/decode overview, serving/load-balancer description and metric definitions. The article describes V1 at commit 42172ad from August 2025; it is not a claim about every inference engine. Prefill often has high arithmetic intensity and decode often has a bandwidth constraint, with workload/batch/hardware-dependent exceptions. No published speedup is generalized to the course case.
 - [Microsoft, OpenAI and NVIDIA — Power Stabilization for AI Training Datacenters](https://arxiv.org/html/2508.14318v1) — Production training power variation motivates the connection from synchronized compute and communication to facility power delivery; compares software smoothing, GPU controls and rack storage. Read 2026-09-12. Read abstract and sections I–II plus IV mitigation descriptions, with figure captions 1 and 5–7. Figure 1 is production DGX-H100 telemetry; figure 5 is a GB200 microbenchmark; figures 6–7 are simulated smoothing/storage results. These are not interchangeable measured deployment claims. Staggered scheduling is a proposed direction rather than evidence that generic independent-job staggering is normal deployed practice. Storage has conversion losses and finite power/energy; do not reuse the paper’s unqualified no-wasted-energy wording.
+- [NVIDIA — Inside NVIDIA Groq 3 LPX](https://developer.nvidia.com/blog/inside-nvidia-groq-3-lpx-the-low-latency-inference-accelerator-for-the-nvidia-vera-rubin-platform/) — LPX is a separate rack-scale system with 256 Groq LPU accelerators, deployed alongside Vera Rubin NVL72. Provides the official rack product render. Read 2026-09-13. Reviewed the introduction and rack architecture. The March article emphasizes attention–FFN disaggregation; P130 documents the later standard prefill–decode configuration used in the course. No vendor performance multiplier is adopted.
+- [NVIDIA — How Groq 3 LPX Unlocks Ultrafast Interactivity at Long Context](https://developer.nvidia.com/blog/how-nvidia-groq-3-lpx-unlocks-ultrafast-interactivity-at-long-context-on-nvidia-vera-rubin/) — Standard prefill–decode disaggregation: Vera Rubin NVL72 runs prefill and hands off the KV cache once per turn; Groq 3 LPX runs the entire decode step using that cache and SRAM-resident weights. Read 2026-09-13. Reviewed the serving-configurations section. This is one supported split; the article also describes attention–FFN disaggregation and external-drafter speculative decoding. No benchmark token rates are transferred to the course’s GB300 example.
+- [NVIDIA — What Is Disaggregated Serving?](https://www.nvidia.com/en-gb/glossary/disaggregated-serving/) — Explains compute-heavy prompt processing and memory-bandwidth-heavy token generation, dedicated hardware for each phase, and the required KV-cache transfer. Read 2026-09-13. Reviewed phase characteristics and the aggregated/disaggregated comparison. The course says usually/often because batch size, context, model and hardware can change the bottleneck. Vendor ROI and performance multipliers are not used.
 
 ## Check your understanding: Same hardware, different service
 

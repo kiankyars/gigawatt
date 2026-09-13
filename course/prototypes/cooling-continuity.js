@@ -261,16 +261,10 @@ function reducedPower(compact, m) {
     out +=
       route("M186 321 V351", removed > 0, true) +
       label(186, 405, `${fmt(removed)} kW`, "svg-number facility-text") +
-      label(186, 433, "Heat removed in this model", "svg-small");
+      label(186, 433, "Heat removed", "svg-small");
     out +=
       label(186, 481, result, `svg-label ${color}`) +
-      label(
-        186,
-        520,
-        "Heat rates only; no time-to-overheat model.",
-        "svg-small",
-      ) +
-      label(186, 546, "Reduced heat is assumed, not automatic.", "svg-small");
+      label(186, 520, "Coordinated IT action reduces heat.", "svg-small");
   } else {
     out +=
       label(167, 134, "Heat into liquid path", "svg-small") +
@@ -297,14 +291,14 @@ function reducedPower(compact, m) {
       );
     out +=
       route("M749 220 H1090", removed > 0, true) +
-      label(950, 134, "Heat removed in this model", "svg-small") +
+      label(950, 134, "Heat removed", "svg-small") +
       label(950, 182, `${fmt(removed)} kW`, "svg-number facility-text");
     out +=
       label(580, 332, result, `svg-number ${color}`) +
       label(
         580,
         392,
-        "Reduced heat is an assumed coordinated action; transition time and safe temperatures are not predicted.",
+        "Coordinated IT action reduces the heat entering the liquid loop.",
         "svg-small",
       );
   }

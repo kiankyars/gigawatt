@@ -8,9 +8,9 @@ const base = process.argv[2] || "http://127.0.0.1:8765/slides/workloads.html";
 const output = process.argv[3] || "/tmp/gigawatt-workload-qa";
 const expectedScenes = [
  "workload-purpose", "success-brief", "model-work", "memory-comparison", "kv-cache",
- "context-capacity", "prefill-decode", "continuous-batching", "energy-per-result",
+ "context-capacity", "prefill-decode", "disaggregated-serving", "continuous-batching", "energy-per-result",
  "resource-paths", "training-power-evidence", "job-phases", "synchronized-jobs",
- "staggering-jobs", "independence", "demand-transition", "power-response", "next-brief",
+ "staggering-jobs", "next-brief",
 ];
 
 const close = (actual, expected, label) => assert.ok(
@@ -37,23 +37,64 @@ const flag = async (page, attribute, expected) => {
 };
 
 async function checkQuantities(page, id, state) {
- const content=await page.locator("#diagram").textContent();
- assert.doesNotMatch(content,/\bNaN\b|\bInfinity\b/);
- if(id==="context-capacity"){assert.match(content,/25 resident requests/);assert.match(content,/6 resident requests/);}
- if(id==="energy-per-result"){assert.match(content,/120%/);assert.match(content,/125%/);}
- if(["job-phases","synchronized-jobs","staggering-jobs"].includes(id)){
-  const one=id==="job-phases";
-  await number(page,"data-average-kw",one?85:340);
-  await number(page,"data-peak-kw",one?120:id==="staggering-jobs"&&state.schedule==="staggered"?340:480);
-  await number(page,"data-energy-kwh",one?17/12:17/3);
+ const content = await page.locator("#diagram").textContent();
+ assert.doesNotMatch(content, /\bNaN\b|\bInfinity\b/);
+ const visibleLabels = (await page.locator("#diagram text").allTextContents()).join(" ");
+ assert.doesNotMatch(visibleLabels, /not (?:a|the) (?:rack )?(?:benchmark|measurement)|illustrative|synthetic|no wall.clock|break.even|requirement\s*[≠=]/i,
+   "Teaching labels omit generic measurement disclaimers");
+ if (id === "success-brief") {
+  const sessions = state.target === "rate" ? 4000 / state.tokensPerSecond : state.sessions;
+  const rate = state.target === "rate" ? state.tokensPerSecond : 4000 / state.sessions;
+  assert.match(content, /4,000 output tokens\/s/);
+  assert.ok(content.includes(`${sessions} active sessions`), "Sessions follow the chosen constraint");
+  assert.ok(content.includes(`${rate} tokens/s`), "Per-session streaming speed follows the chosen constraint");
+  assert.ok(content.includes(`One output token every ${1000 / rate} ms`), "Token interval motivates interactivity");
+  assert.match(content, /share the budget equally/);
+  assert.doesNotMatch(visibleLabels, /72 B300 GPUs|service still needs|requirement.*measured/i);
  }
- if(id==="demand-transition")assert.match(content,state.transitionSeconds===2?/160 kW\/s/:/1,600 kW\/s/);
+ if (id === "memory-comparison") {
+  assert.match(content, /≈140 GB/); assert.match(content, /≈1,120 GB/);
+  assert.match(content, /FP16\/FP32 ADAM STATE/);
+ }
+ if (id === "kv-cache") assert.match(content, /327,680 bytes = 320 KiB \/ token/);
+ if (id === "context-capacity") {
+  assert.match(content, /25 resident requests/); assert.match(content, /6 resident requests/);
+  assert.match(content, /2\.5 GiB \/ request/); assert.match(content, /10 GiB \/ request/);
+ }
+ if (id === "prefill-decode") {
+  assert.match(content, /compute-bound/); assert.match(content, /memory-bandwidth-bound/);
+ }
+ if (id === "disaggregated-serving") {
+  assert.match(content, /Vera Rubin NVL72/); assert.match(content, /Groq 3 LPX/);
+  assert.match(content, /Transfer the KV cache/);
+  assert.equal(await page.locator('#diagram image[href$="nvidia-groq-3-lpx.webp"]').count(), 1);
+  assert.doesNotMatch(visibleLabels, /Blackwell|Rock chips/i);
+ }
+ if (id === "energy-per-result") {
+  for (const value of ["100 kW", "80 kW", "10 min", "15 min", "16.7 kWh", "20 kWh"])
+   assert.ok(content.includes(value), `Complete-run account includes ${value}`);
+  assert.match(content, /Five extra minutes → 20% more energy/);
+  assert.doesNotMatch(visibleLabels, /120%|125%|150%|duration ratio|break.even/i);
+ }
+ if (["job-phases", "synchronized-jobs", "staggering-jobs"].includes(id)) {
+  const one = id === "job-phases", staggered = id === "staggering-jobs";
+  await number(page, "data-average-kw", one ? 85 : 340);
+  await number(page, "data-peak-kw", one ? 120 : staggered ? 340 : 480);
+  await number(page, "data-energy-kwh", one ? 17 / 12 : 17 / 3);
+  await flag(page, "data-schedule", staggered ? "staggered" : "sync");
+  if (staggered) {
+   assert.match(await page.locator("#diagram-description").textContent(), /offset by fifteen seconds/);
+   assert.equal(await page.locator("#actions button").count(), 0, "Fifteen-second staggering has no offset controls");
+  }
+ }
 }
 
 async function checkSelection(page, scene, state) {
   for (const group of scene.controls || []) {
     const controls = page.locator(`#actions [data-key="${group.key}"]`);
-    assert.equal(await controls.count(), group.options.length);
+    const active = !group.when || Object.entries(group.when).every(([key, value]) => state[key] === value);
+    assert.equal(await controls.count(), active ? group.options.length : 0);
+    if (!active) continue;
     assert.equal(await page.locator(`#actions [data-key="${group.key}"][aria-pressed="true"]`).count(), 1);
     assert.equal(await button(page, group.key, state[group.key]).getAttribute("aria-pressed"), "true");
     const styles = await controls.evaluateAll((elements) => elements.map((element) => ({
@@ -70,21 +111,21 @@ async function checkSelection(page, scene, state) {
 async function checkGeometry(page, viewport) {
   const result = await page.evaluate(() => {
     const svg = document.querySelector("#diagram");
-    const viewBox = svg.viewBox.baseVal;
+    const viewBox = svg.getBoundingClientRect();
     const failures = [];
     const fits = (a, b, margin = 0) => a.x >= b.x + margin && a.y >= b.y + margin
       && a.x + a.width <= b.x + b.width - margin && a.y + a.height <= b.y + b.height - margin;
     const texts = [...svg.querySelectorAll("text")];
     for (const label of texts) {
-      if (!fits(label.getBBox(), viewBox, -1)) failures.push(`Text outside SVG: ${label.textContent}`);
+      if (!fits(label.getBoundingClientRect(), viewBox, -1)) failures.push(`Text outside SVG: ${label.textContent}`);
       if (label.dataset.labelFor) {
         const owner = svg.querySelector(`#${CSS.escape(label.dataset.labelFor)}`);
-        if (!owner || !fits(label.getBBox(), owner.getBBox(), 2))
+        if (!owner || !fits(label.getBoundingClientRect(), owner.getBoundingClientRect(), 2))
           failures.push(`Text outside its object: ${label.textContent}`);
       }
     }
     for (let i = 0; i < texts.length; i++) for (let j = i + 1; j < texts.length; j++) {
-      const a = texts[i].getBBox(), b = texts[j].getBBox();
+      const a = texts[i].getBoundingClientRect(), b = texts[j].getBoundingClientRect();
       if (Math.min(a.x + a.width, b.x + b.width) - Math.max(a.x, b.x) > 1
         && Math.min(a.y + a.height, b.y + b.height) - Math.max(a.y, b.y) > 1)
         failures.push(`Overlapping labels: ${texts[i].textContent} / ${texts[j].textContent}`);
@@ -117,7 +158,7 @@ async function checkNavigation(page) {
  await page.locator("#scenes").selectOption("next-brief");assert.equal(await page.locator("#next").isDisabled(),true);
  assert.match(await page.locator("#actions a").getAttribute("href"),/^siting(?:-format)?\.html\?teach=1$/);
  assert.equal(await page.locator("#reveal").count(),0);
- await page.locator("#previous").click();assert.equal(new URL(page.url()).hash,"#power-response");
+ await page.locator("#previous").click();assert.equal(new URL(page.url()).hash,"#staggering-jobs");
  const reading = page.locator(".toolbar a[data-course-reading]");
  await reading.waitFor({state:"visible"});
  assert.equal((await reading.textContent()).trim(),"Reading");
@@ -130,7 +171,7 @@ async function checkNavigation(page) {
  await page.locator("#scenes").selectOption("workload-purpose");
  await page.waitForFunction(()=>document.querySelector("[data-course-reading]").hash==="#d02-workload-brief");
  assert.equal(new URL(await reading.getAttribute("href"),page.url()).hash,"#d02-workload-brief","Reading follows the active scene");
- for(const [old,current] of Object.entries({"inference-memory":"memory-comparison","occupied-waiting":"resource-paths","acceptance-envelope":"next-brief"})){
+ for(const [old,current] of Object.entries({"inference-memory":"memory-comparison","occupied-waiting":"resource-paths","acceptance-envelope":"next-brief","independence":"staggering-jobs","demand-transition":"job-phases","power-response":"next-brief"})){
   await page.goto(url(old));await page.waitForSelector("#diagram text");assert.equal(await page.locator("#scenes").inputValue(),current);
  }
  await page.goto(url("workload-purpose",true));await page.waitForSelector("#diagram text");
@@ -160,10 +201,10 @@ async function checkNavigation(page) {
       const state = { ...initialState };
       await page.goto(url(scenes[0].id));
       await page.waitForSelector("#diagram text");
-      assert.equal(await page.locator("#scenes option").count(), 18);
+      assert.equal(await page.locator("#scenes option").count(), 16);
       for (const scene of scenes) {
         await page.locator("#scenes").selectOption(scene.id);
-        const configurations = (scene.controls || []).flatMap((group) => group.options.map(([value]) => ({ key: group.key, value })));
+        const configurations = (scene.controls || []).flatMap((group) => group.options.map(([value]) => ({ key: group.key, value, when: group.when })));
         if (!configurations.length) configurations.push({});
         if (scene.reveal) {
           configurations.push({ reveal: true });
@@ -175,6 +216,12 @@ async function checkNavigation(page) {
         for (const configuration of configurations) {
           const name = `${scene.id}-${configuration.value ?? (configuration.reveal ? "revealed" : "default")}${configuration.afterReveal ? "-revealed" : ""}-${viewport.width}-${colorScheme}`;
           try {
+            for (const [key, value] of Object.entries(configuration.when || {})) {
+              if (state[key] !== value) {
+                await button(page, key, value).click();
+                state[key] = value;
+              }
+            }
             if (configuration.key) {
               const control = button(page, configuration.key, configuration.value);
               if (touch) await control.tap();
@@ -187,7 +234,7 @@ async function checkNavigation(page) {
               await page.locator("#reveal").click();
               state[scene.reveal] = !state[scene.reveal];
             }
-            assert.equal(await page.locator("h1:visible").count(), 1);
+            assert.equal(await page.locator("h1:visible").count(), scene.title ? 1 : 0, "Untitled comparison keeps only its diagram headings");
             assert.ok((await page.locator("#diagram-description").textContent()).length > 30, "The visual has a useful text alternative");
             await checkSelection(page, scene, state);
             await checkQuantities(page, scene.id, state);
@@ -214,6 +261,6 @@ async function checkNavigation(page) {
     }
     assert.deepEqual(errors, [], "No browser errors or failed resources");
     assert.deepEqual(failures, [], "Workload regression failures");
-    console.log(`Passed ${layouts} workload scene/state layouts across four viewports and both themes, quantitative states, control restoration, touch, keyboard, reveals, Reading links and teaching fullscreen.`);
+    console.log(`Passed ${layouts} workload scene/state layouts across four viewports and both themes, fixed-budget tradeoffs, quantitative states, conditional controls, control restoration, retired links, touch, keyboard, Reading links and teaching fullscreen.`);
   } finally { await browser.close(); }
 })().catch((error) => { console.error(error); process.exit(1); });

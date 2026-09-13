@@ -8,13 +8,19 @@ Connect request queues and job phases to latency, aggregate power, and the limit
 
 **Driving question:** How do batching and synchronized phases change demand without changing installed equipment?
 
-## Teach prefill, decode and continuous batching directly
+## Prefill and decode use hardware differently
 
-LLM prefill processes the prompt and creates initial request state. Decode extends the sequence over successive iterations. Time to first token includes queueing and prompt processing; time between output tokens concerns the stream after that. Prefill often offers more parallel matrix work, while low-batch decode can be memory-bandwidth constrained. This varies with model, hardware and batch; the phase name does not specify a fixed power draw.
+LLM prefill processes the prompt and creates the request’s initial KV cache. Many prompt tokens can be processed together, giving the GPU substantial parallel matrix work: prefill is usually compute-bound. Decode generates tokens successively. At low batch sizes, fetching model weights and cached context can take more time than the arithmetic itself: decode is often memory-bandwidth-bound. Larger batches, long contexts, model design and the hardware can change which resource limits performance. Time to first token includes queueing and prompt processing; time between output tokens concerns the stream after that.
 
 vLLM describes continuous scheduling of running and waiting requests. When one sequence finishes, the scheduler can admit new work while others continue. Our two-slot illustration has A needing two decode steps, B five, and C three. C is already queued. The fixed batch waits for B; the continuous case admits C after A finishes. The cells represent iterations, not equal wall-clock durations or a measured speedup. Real admission also depends on prefill work, token budgets and KV capacity.
 
 This matters to facility reasoning because active request membership changes compute and memory demand. Continuous batching is a documented serving mechanism, not a guarantee that rack power stays constant.
+
+## NVIDIA uses separate racks for prefill and decode
+
+NVIDIA Groq 3 LPX is a rack of 256 Groq LPU accelerators deployed alongside Vera Rubin NVL72 GPU racks. In NVIDIA’s standard prefill–decode configuration, Rubin processes the prompt and transfers its KV cache once per turn. Groq LPX then uses that cache and model weights held in SRAM to generate the response. The two phases can therefore use hardware suited to different demands, connected by a cache handoff.
+
+This example pairs Groq with Rubin GPUs. NVIDIA also describes an attention–FFN configuration that divides work within decode, plus speculative decoding with a separate draft model. The presentation uses the standard prefill–decode split to make the hardware division clear. The LPX picture is NVIDIA’s official product render.
 
 ## Start with production evidence, then use a controlled trace
 
@@ -26,7 +32,7 @@ The following 60-second teaching cycle is original and deliberately simplified: 
 
 If four independent periodic jobs can shift by 0, 15, 30 and 45 seconds without extra waiting, contention or missed deadlines, two compute while one exchanges and one saves: 340 kW throughout the ideal cycle. Their energy remains 5.667 kWh. This is a conditional scheduling thought experiment, not an assertion that production AI clusters routinely use these offsets.
 
-Workers inside one synchronous job are a different case. Delaying a participant may force the others to wait at a collective, violating the unchanged-duration assumption. Keep the staggering and dependency slides together. The lesson is to identify which scheduling freedom actually exists before proposing it as a power remedy.
+Workers inside one synchronous job are a different case. Delaying a participant may force the others to wait at a collective, violating the unchanged-duration assumption. The lesson is to identify which scheduling freedom actually exists before proposing it as a power remedy.
 
 ## Read the trace to choose a response
 
@@ -90,6 +96,9 @@ A flatter hypothetical sum does not prove jobs can be shifted. A mean does not r
 - [Vertiv — BESS and UPS roles in large data center power architecture](https://www.vertiv.com/en-us/insights/articles/white-papers/bess-and-ups-roles-in-large-data-center-power-architecture/) — Synchronized AI load changes motivate coordination across power-system levels. Read 2026-09-06. Read the public white-paper landing page only, not the downloadable full white paper; no universal measured waveform is asserted.
 - [vLLM — Inside vLLM: Anatomy of a High-Throughput LLM Inference System](https://vllm.ai/blog/2025-09-05-anatomy-of-vllm) — Prefill and decode, key/value-cache allocation, continuous scheduling of new and running requests, serving load balancing, and latency/throughput measurement. Read 2026-09-12. Read the engine initialization, scheduler and forward-pass sections, disaggregated prefill/decode overview, serving/load-balancer description and metric definitions. The article describes V1 at commit 42172ad from August 2025; it is not a claim about every inference engine. Prefill often has high arithmetic intensity and decode often has a bandwidth constraint, with workload/batch/hardware-dependent exceptions. No published speedup is generalized to the course case.
 - [Microsoft, OpenAI and NVIDIA — Power Stabilization for AI Training Datacenters](https://arxiv.org/html/2508.14318v1) — Production training power variation motivates the connection from synchronized compute and communication to facility power delivery; compares software smoothing, GPU controls and rack storage. Read 2026-09-12. Read abstract and sections I–II plus IV mitigation descriptions, with figure captions 1 and 5–7. Figure 1 is production DGX-H100 telemetry; figure 5 is a GB200 microbenchmark; figures 6–7 are simulated smoothing/storage results. These are not interchangeable measured deployment claims. Staggered scheduling is a proposed direction rather than evidence that generic independent-job staggering is normal deployed practice. Storage has conversion losses and finite power/energy; do not reuse the paper’s unqualified no-wasted-energy wording.
+- [NVIDIA — Inside NVIDIA Groq 3 LPX](https://developer.nvidia.com/blog/inside-nvidia-groq-3-lpx-the-low-latency-inference-accelerator-for-the-nvidia-vera-rubin-platform/) — LPX is a separate rack-scale system with 256 Groq LPU accelerators, deployed alongside Vera Rubin NVL72. Provides the official rack product render. Read 2026-09-13. Reviewed the introduction and rack architecture. The March article emphasizes attention–FFN disaggregation; P130 documents the later standard prefill–decode configuration used in the course. No vendor performance multiplier is adopted.
+- [NVIDIA — How Groq 3 LPX Unlocks Ultrafast Interactivity at Long Context](https://developer.nvidia.com/blog/how-nvidia-groq-3-lpx-unlocks-ultrafast-interactivity-at-long-context-on-nvidia-vera-rubin/) — Standard prefill–decode disaggregation: Vera Rubin NVL72 runs prefill and hands off the KV cache once per turn; Groq 3 LPX runs the entire decode step using that cache and SRAM-resident weights. Read 2026-09-13. Reviewed the serving-configurations section. This is one supported split; the article also describes attention–FFN disaggregation and external-drafter speculative decoding. No benchmark token rates are transferred to the course’s GB300 example.
+- [NVIDIA — What Is Disaggregated Serving?](https://www.nvidia.com/en-gb/glossary/disaggregated-serving/) — Explains compute-heavy prompt processing and memory-bandwidth-heavy token generation, dedicated hardware for each phase, and the required KV-cache transfer. Read 2026-09-13. Reviewed phase characteristics and the aggregated/disaggregated comparison. The course says usually/often because batch size, context, model and hardware can change the bottleneck. Vendor ROI and performance multipliers are not used.
 
 ## Check your understanding: Same hardware, different service
 

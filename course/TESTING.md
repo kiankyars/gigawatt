@@ -7,6 +7,28 @@ Do not download or launch standalone Chrome for Testing or Playwright browser
 binaries here. Existing browser test harnesses remain available for a separately
 configured test environment; run local model and build checks without a browser.
 
+## Chapter 3 feedback revision — 2026-09-13
+
+- Chapter 3 now has **16 slides**. The 4,000-output-token/s budget derives active
+  sessions from streaming speed or streaming speed from active sessions, including
+  milliseconds per token. All six control states agree with the arithmetic.
+- Meta's model geometry and the ZeRO Adam ledger confirm the retained memory
+  numbers. P129–P131 support the new Rubin-prefill → KV-cache handoff → Groq-LPX
+  decode slide; the unchanged NVIDIA product render is stored with provenance.
+- Runs now use 100 kW for 10 minutes versus 80 kW for 15 minutes. Staggering is
+  fixed at 15-second intervals; the three retired ending scenes retain aliases.
+- **72 Python tests and 142 Node tests passed.** Reader, domain-map and research
+  generated files are current. The standalone workload browser harness was
+  updated and syntax-checked; it was not launched.
+- All 16 slides checked in the built-in Codex browser at **1280×720, 390×844 and
+  844×390**. A desktop label overlap was corrected; all six service-control states
+  then passed geometry checks. New LPX image, prefill comparison, energy table and
+  fixed-offset trace were visually inspected. No console warnings/errors appeared.
+- Repeated generic caveat footers were removed from the overview, primer, siting,
+  generation, rack-power and cooling visuals. Their calculation inputs, source
+  credits and named-project status remain. The teaching standard now records this
+  rule for subsequent authoring. This pass used light appearance.
+
 ## Tiers, availability examples and directory — 2026-09-12
 
 The four reliability scenes remain in the 22-slide selected UPS deck. Their

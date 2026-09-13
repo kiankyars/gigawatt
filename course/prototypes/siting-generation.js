@@ -62,9 +62,9 @@ function costs(m){
  if(!m)o+=t(802,yy(generationCosts(8000).simpleTotal)+6,'Simple cycle · 40%',24,C.heat)
   +t(802,yy(generationCosts(8000).combinedTotal)+6,'Combined cycle · 60%',24,C.power);
  o+=t(x+w/2,y+59,'Full-load hours per year',m?19:23,C.muted,'middle');
- if(m)o+=t(24,541,'Illustrative 100 MW plants',21)+t(24,580,'Fuel: $20 / MWh of fuel energy',17,C.muted)+t(24,614,'Annual fixed cost: $8M / $16M',17,C.muted);
- else o+=t(560,529,'Illustrative 100 MW · fuel $20/MWh · annual fixed cost $8M / $16M',18,C.muted,'middle');
- return result(o,'Compare both complete annual-cost curves at once. Hypothetical 100 MW simple cycle uses 40 percent efficiency and $8 million annualized fixed cost; combined cycle uses 60 percent and $16 million. At $20 per MWh of fuel energy, variable fuel cost is $50 versus $33.33 per MWh electric. Both cost $32 million at 4,800 full-load hours. Fewer hours favor lower fixed cost; more favor fuel savings. Fuel and efficiency use the same lower-heating-value basis, defined in the reader.');
+ if(m)o+=t(24,541,'100 MW plants',21)+t(24,580,'Fuel: $20 / MWh of fuel energy',17,C.muted)+t(24,614,'Annual fixed cost: $8M / $16M',17,C.muted);
+ else o+=t(560,529,'100 MW · fuel $20/MWh · annual fixed cost $8M / $16M',18,C.muted,'middle');
+ return result(o,'Compare both complete annual-cost curves at once. The 100 MW simple-cycle plant uses 40 percent efficiency and $8 million annualized fixed cost; combined cycle uses 60 percent and $16 million. At $20 per MWh of fuel energy, variable fuel cost is $50 versus $33.33 per MWh electric. Both cost $32 million at 4,800 full-load hours. Fewer hours favor lower fixed cost; more favor fuel savings. Fuel and efficiency use the same lower-heating-value basis, defined in the reader.');
 }
 export function renderGeneration(id,state,compact=false){
  const renders={'dania-cycle':dania,'generation-flexibility':flexibility,'generation-utilization':costs};

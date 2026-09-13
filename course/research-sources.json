@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-09-12",
+  "as_of": "2026-09-13",
   "inventory_status": "seed_not_exhaustive",
   "method": "A bounded curated discovery pass over 40 SemiAnalysis articles and 15 independent primary-source starting points. Sources are mapped many-to-many to domain IDs for curriculum research, not certified as complete coverage or sources of truth. The additional SA11–SA40 sample used 16 search queries and selected entries from the publisher's 2023–2026 annual sitemaps; research/discovery-searches.md records the method and limits. page_reviewed means the stated web page was inspected, with partial-reading and linked-document limits recorded in caution; public_excerpt_reviewed includes accessible previews, abstracts or selected public sections and never implies review of a complete paid work. candidate_not_reviewed means substantive content has not been reviewed. A domain mapping identifies intended research use, not verified support for every objective or claim. reviewed_on is the review date; published_on, where present, is the source's displayed publication date and is null when not established.",
   "sources": [
@@ -3750,6 +3750,53 @@
       "use": "Carrier describes constructing four diverse fiber routes for the QTS AI and cloud campus at Cambois.",
       "caution": "March 2026 construction announcement, not completed-service evidence. Four routes are not four independent carriers; upstream shared risks require circuit-level review.",
       "published_on": "2026-03-23"
+    },
+    {
+      "id": "P129",
+      "title": "NVIDIA — Inside NVIDIA Groq 3 LPX",
+      "url": "https://developer.nvidia.com/blog/inside-nvidia-groq-3-lpx-the-low-latency-inference-accelerator-for-the-nvidia-vera-rubin-platform/",
+      "publisher": "NVIDIA",
+      "kind": "manufacturer_documentation",
+      "review_status": "page_reviewed",
+      "published_on": "2026-03-16",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D02",
+        "D07"
+      ],
+      "use": "LPX is a separate rack-scale system with 256 Groq LPU accelerators, deployed alongside Vera Rubin NVL72. Provides the official rack product render.",
+      "caution": "Reviewed the introduction and rack architecture. The March article emphasizes attention–FFN disaggregation; P130 documents the later standard prefill–decode configuration used in the course. No vendor performance multiplier is adopted."
+    },
+    {
+      "id": "P130",
+      "title": "NVIDIA — How Groq 3 LPX Unlocks Ultrafast Interactivity at Long Context",
+      "url": "https://developer.nvidia.com/blog/how-nvidia-groq-3-lpx-unlocks-ultrafast-interactivity-at-long-context-on-nvidia-vera-rubin/",
+      "publisher": "NVIDIA",
+      "kind": "manufacturer_documentation",
+      "review_status": "page_reviewed",
+      "published_on": "2026-08-24",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D02",
+        "D07"
+      ],
+      "use": "Standard prefill–decode disaggregation: Vera Rubin NVL72 runs prefill and hands off the KV cache once per turn; Groq 3 LPX runs the entire decode step using that cache and SRAM-resident weights.",
+      "caution": "Reviewed the serving-configurations section. This is one supported split; the article also describes attention–FFN disaggregation and external-drafter speculative decoding. No benchmark token rates are transferred to the course’s GB300 example."
+    },
+    {
+      "id": "P131",
+      "title": "NVIDIA — What Is Disaggregated Serving?",
+      "url": "https://www.nvidia.com/en-gb/glossary/disaggregated-serving/",
+      "publisher": "NVIDIA",
+      "kind": "manufacturer_documentation",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D02",
+        "D07"
+      ],
+      "use": "Explains compute-heavy prompt processing and memory-bandwidth-heavy token generation, dedicated hardware for each phase, and the required KV-cache transfer.",
+      "caution": "Reviewed phase characteristics and the aggregated/disaggregated comparison. The course says usually/often because batch size, context, model and hardware can change the bottleneck. Vendor ROI and performance multipliers are not used."
     }
   ]
 }

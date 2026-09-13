@@ -195,7 +195,7 @@ function campus(compact) {
       fill: "panel",
       dash: true,
     });
-    content += text(195, 204, "ILLUSTRATIVE CAMPUS", {
+    content += text(195, 204, "CAMPUS", {
       size: 14,
       color: "muted",
       owner: "campus",
@@ -224,7 +224,7 @@ function campus(compact) {
     return content;
   }
   let content = box("campus", 226, 77, 907, 486, { fill: "panel", dash: true });
-  content += text(261, 111, "ILLUSTRATIVE CAMPUS", {
+  content += text(261, 111, "CAMPUS", {
     size: 16,
     anchor: "start",
     color: "muted",
