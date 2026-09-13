@@ -4,7 +4,7 @@ const { mkdirSync } = require("node:fs");
 const { pathToFileURL } = require("node:url");
 const { resolve } = require("node:path");
 
-const base = process.argv[2] || "http://127.0.0.1:8765/prototypes/workload-format.html";
+const base = process.argv[2] || "http://127.0.0.1:8765/slides/workloads.html";
 const output = process.argv[3] || "/tmp/gigawatt-workload-qa";
 const expectedScenes = [
  "workload-purpose", "success-brief", "model-work", "memory-comparison", "kv-cache",
@@ -115,7 +115,7 @@ async function checkNavigation(page) {
  assert.equal(new URL(page.url()).hash,"#workload-purpose");await page.keyboard.press("ArrowRight");
  assert.equal(new URL(page.url()).hash,"#success-brief");
  await page.locator("#scenes").selectOption("next-brief");assert.equal(await page.locator("#next").isDisabled(),true);
- assert.equal(await page.locator("#actions a").getAttribute("href"),"siting-format.html?teach=1");
+ assert.match(await page.locator("#actions a").getAttribute("href"),/^siting(?:-format)?\.html\?teach=1$/);
  assert.equal(await page.locator("#reveal").count(),0);
  await page.locator("#previous").click();assert.equal(new URL(page.url()).hash,"#power-response");
  const reading = page.locator(".toolbar a[data-course-reading]");

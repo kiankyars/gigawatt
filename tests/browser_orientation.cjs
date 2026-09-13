@@ -4,7 +4,7 @@ const { mkdirSync } = require("node:fs");
 
 const base =
   process.argv[2] ||
-  "http://127.0.0.1:8765/prototypes/orientation-format.html";
+  "http://127.0.0.1:8765/slides/overview.html";
 const output = process.argv[3] || "/tmp/gigawatt-orientation-qa";
 const scenes = [
   { id: "three-paths", setting: "path", values: ["power", "heat", "data"] },

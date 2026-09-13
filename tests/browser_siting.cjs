@@ -3,7 +3,7 @@ const assert = require("node:assert/strict");
 const { mkdirSync } = require("node:fs");
 const base =
   process.argv[2] ||
-  "http://127.0.0.1:8841/prototypes/siting-format.html";
+  "http://127.0.0.1:8765/slides/siting.html";
 const output = process.argv[3] || "/tmp/gigawatt-siting-qa";
 const url = (id, teach = false) => {
   const u = new URL(base);
@@ -285,7 +285,7 @@ async function checkNavigation(page, scenes, colorScheme) {
   const nextChapter = page.locator("#actions a");
   assert.equal((await nextChapter.textContent()).trim(), "Next: physical site design →");
   const href = new URL(await nextChapter.getAttribute("href"), page.url());
-  assert.equal(href.pathname, new URL("site-format.html", base).pathname);
+  assert.match(href.pathname, /\/(?:site-format|site-design)\.html$/);
   assert.equal(href.searchParams.get("teach"), "1");
   assert.equal(href.searchParams.has("checkin"), false);
   assert.equal((await page.request.get(href.href)).status(), 200);
@@ -347,7 +347,7 @@ async function checkNavigation(page, scenes, colorScheme) {
   await page.goto(url(last.id));
   await page.locator("#actions a").click();
   await page.waitForSelector("#diagram text");
-  assert.equal(new URL(page.url()).pathname, new URL("site-format.html", base).pathname);
+  assert.match(new URL(page.url()).pathname, /\/(?:site-format|site-design)\.html$/);
   assert.equal(new URL(page.url()).searchParams.get("teach"), "1");
   assert.equal(await page.locator("#fullscreen").isVisible(), true);
 
