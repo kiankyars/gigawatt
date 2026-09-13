@@ -7,7 +7,38 @@ Do not download or launch standalone Chrome for Testing or Playwright browser
 binaries here. Existing browser test harnesses remain available for a separately
 configured test environment; run local model and build checks without a browser.
 
-## Chapter 3 feedback revision — 2026-09-13
+## Interactivity, transformer taps and instruction audit — 2026-09-13
+
+The earlier 4,000-token/s exercise below passed arithmetic checks but missed the
+requested teaching concept. That completion claim is withdrawn.
+
+- Chapter 3 has **18 scenes**. Slide 3 teaches tokens/s/user and 50, 25 and
+  12.5 ms token intervals. Slide 4 uses the original NVIDIA GB300/Qwen3.8 curve;
+  threshold controls leave its per-GPU axis and printed benchmark conditions intact.
+  The new service check-in asks what to change and remeasure when interactivity
+  falls below the requirement. No exact supported-session count is inferred.
+- Primer has **22 scenes**. The new transformer comparison shows 480 → 120 V,
+  504 → 126 V at the same tap, and 504 → 120 V at the matched tap. P134 records
+  Hammond Power Solutions' turns-ratio example; this is not automatic regulation.
+- **72 Python and 142 Node tests passed.** Course, expanded reader, domain map,
+  research metadata and site staging checks passed. Updated browser harnesses
+  were syntax-checked without launching their standalone browser dependencies.
+- Built-in Codex browser: all 18 workload scenes checked at **1280×720,
+  390×844 and 844×390**, with no SVG text collisions, labels outside the diagram,
+  or horizontal page overflow. All interactivity/threshold controls and both
+  check-in states passed at those sizes. All three transformer states passed
+  the same checks and displayed the expected input, tap, turns and output values.
+- Representative desktop and phone visuals were inspected, including the original
+  benchmark image. The chapter directory shows distinct rack-power deck names.
+  No console warnings/errors were observed. Checks used light appearance.
+- The feedback audit records incomplete teaching coverage and resolved dictation
+  questions. An active check-in is now the default in every domain; a closing
+  example requires a specific reason why no worthwhile active check can be made.
+
+These checks do not establish spoken runtime, beginner comprehension or author
+acceptance. Existing decks' complete check-in coverage remains a production task.
+
+## Previous Chapter 3 revision — 2026-09-13
 
 - Chapter 3 now has **16 slides**. The 4,000-output-token/s budget derives active
   sessions from streaming speed or streaming speed from active sessions, including

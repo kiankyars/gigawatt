@@ -1,19 +1,84 @@
-# Feedback status
+# Feedback audit — 13 September 2026
 
-The ongoing work is tracked in [Course review → Next teaching step](COURSE_REVIEW.md#next-teaching-step). It covers check-ins, delivery and case integration, consistent use of Abilene, and primer rehearsal.
+This audit checks the requests visible in this task against current source and
+Git history. Requests made on the other computer are checked against their
+repository records; those records do not substitute for the original message.
+The prior “everything addressed” claim was too strong. This page foregrounds
+exceptions; the coverage list below makes the rest inspectable.
 
-The [required case handoffs](TEACHING_STANDARD.md#required-section-handoffs) specify which chapter must teach each case when its slides are authored. Standalone case slides do not count as integration into a chapter deck.
+## Missing, partial or uncertain
 
-Confirmed decisions:
+| Feedback | Current finding and next action |
+| --- | --- |
+| Teach **interactivity** as the central inference metric | **Missed in the previous release.** The fixed 4,000-token/s budget was arbitrary and slide 3 did not teach interactivity. Revised slide 3 defines tokens/s/user; the next slide reads NVIDIA’s actual GB300 throughput/interactivity curve. Exact supported-session selection remains **open** because this source has no concurrency table; a fixed total divided by user speed is not an adequate substitute. |
+| Active check-in in every domain | **Not complete in the teaching material.** Fifteen reader checks exist. Latest clarification: make an active check-in the default in each domain; use a strong example only if no worthwhile check can be made. Chapter 3 now includes a more-throughput/slower-answers check; audit the remaining decks and record any specific exception. |
+| Teach D13 site-built versus prefab/modular; fixed 20 MW late rack change | **Reader complete; deck unbuilt.** The reader covers EPC duties, factory/site work, parallel schedules, design freezes, transport and interface owners; the exercise covers electrical, hydraulic, spatial and schedule holds and release evidence. Chapter 14 in the numbered course still needs its own teaching sequence. |
+| Teach Crusoe’s solar/battery case in context | **Partial.** Sparks has standalone solar/battery teaching and appears in the UPS availability examples. The actual 12 MW solar / 63 MWh battery mechanism is not yet integrated into the continuity/storage deck. |
+| Other requested cases in their relevant chapters | Google flexible scheduling and Abilene’s capacity ledger remain pending integration. Abilene cooling appears in the physical-site deck, but not yet in the cooling deck. These are separate from already integrated Colossus brownfield and Southaven procurement cases. |
+| Abilene as the recurring campus throughout | Policy and several cases are implemented. A whole-course consistency pass is still open; no complete as-built campus model is claimed. |
+| Approximately 20-minute primer | Slides exist; actual spoken runtime and beginner comprehension have not been established. No precise rehearsal cues are being restored. |
+| Remove repeated disclaimer/subtitle clutter everywhere | The latest sweep removed many visible footers. **Not certified exhaustive:** UPS still uses “Ideal DC-bus example”; other notes use similar boilerplate. Further cleanup must distinguish generic disclaimers from inputs, figure credits and named-project status. |
+| Transformer input-range explanation | Previously only voltage variation was taught; taps/specifications were in notes. Clarified on 13 September: add a short equipment example covering rated voltage, allowable variation, taps and output change at a fixed ratio. This revision adds that comparison. |
+| Simplify access to available presentations | Directory and duplicate footer were consolidated. The two rack-power decks still had identical visible “Open slides” labels; corrected to their distinct titles. The old audit’s “Slides available filter” claim was stale: a later recorded request deliberately removed that filter. |
+| Requested Astro 6 Ultra agents and Chrome-for-Testing removal | Earlier audit records both as completed. Current code/Git alone cannot freshly establish the historical agent configuration or the notification state on the original Mac. Built-in-browser-only testing remains the rule; this audit is not a new malware scan of that other computer. |
 
-- Number descriptive chapter names, starting with **1. Primer**. Keep technical IDs and old links stable.
-- Keep **Abilene, Texas**, as the recurring campus; use Colossus 1 for industrial reuse, Southaven/MiniHard for the xAI procurement case, and Crusoe/Redwood in Sparks for solar and batteries.
-- Keep the primer self-contained. Remove promises about later chapters; citation controls are discretionary.
-- Keep rehearsal cues, exact slide timings and the Explanation panel out of the primer. Keep supporting detail in author notes and provide a visible **Back to course** exit.
-- Motivate power factor with voltage/current timing at fixed supply voltage. Follow one compute server through model loading, networking, heat and cooling; identify PUE as a separate facility account.
-- Define watts as energy per second, start with flat DC, teach voltage variation separately, and show three-phase power as the sum of all three contributions. Use visible terminals to explain AC polarity.
-- Keep the **N+1 definition and spare-module example**. Remove the sentence about testing surviving service in a later chapter.
-- Put available presentations in the chapter navigation, with a **Slides available** filter. Mark decks covering selected topics clearly.
-- Retire the historical 22-lesson introduction from the published course. Its source is retained for curriculum history; published legacy links redirect to the current course.
+These open production tasks are also owned by [Course review](COURSE_REVIEW.md#next-teaching-step)
+and the [case handoffs](TEACHING_STANDARD.md#required-section-handoffs).
 
-[Teaching catalog](teaching-sequences.json) records presentation availability. [Verification notes](TESTING.md) record the checks actually performed. The previous request-by-request audit remains in Git history.
+## Wording and identity questions consolidated
+
+- **Interactivity:** now explicitly tokens per second per user during generation.
+  Initial waiting time is TTFT, a separate metric. The earlier arithmetic edit
+  failed to teach the intended concept; this was our miss, not poor dictation.
+- **Chapter/slide numbers:** Chapter 3 originally had 18 slides; later edits shifted
+  positions. Requests are matched by quoted content and stable scene IDs, not by
+  carrying old numbers forward. Interactivity is now deliberately slide 3.
+- **Abbeleen → Abilene, Texas**; original **Colossus** means the former Electrolux
+  factory in Memphis, Tennessee. Southaven/MiniHard, Mississippi, owns the
+  SemiAnalysis high-voltage-procurement account. These identities were clarified.
+- **Crusoe solar:** Crusoe/Redwood in Sparks, Nevada, distinct from Abilene.
+- **“Rock chips” → Groq LPUs**. NVIDIA’s LPX partner is Vera Rubin, not Blackwell;
+  they are separate racks. The selected prefill/decode split is sourced.
+- **“S+1” → N+1:** retain the definition and spare-module example; remove only the
+  sentence promising a surviving-service test in a later chapter.
+- **Primer “references”:** remove promises about later chapters; this did not mean
+  banning citations. Explanation duplicates and precise rehearsal cues are removed.
+- **Power factor:** hold supply voltage fixed; misaligned voltage/current can
+  require more current for equal real power. Three-phase power is the simultaneous
+  sum, not a selector that follows the highest voltage wave.
+- **Transformer range:** clarified as the equipment example above. A fixed ratio
+  does not automatically regulate the output.
+- **Check-ins:** latest instruction supersedes the earlier broad permission to
+  substitute closing examples. Default to one meaningful active check per domain.
+
+## Other requests checked
+
+- **Primer purpose and naming:** separate from historical introduction; substantive
+  first circuit slide; no optional label, “Skip to D01,” future-chapter promises,
+  closing reassurance quotation or empty final slide. Numbered descriptive titles
+  start at 1. Primer; technical IDs and old URLs remain stable.
+- **Primer electricity:** watts means energy per second; heat label moved below
+  arrows; initially flat DC; polarity and visible terminals; square/sawtooth/triangle
+  follow-up; voltage variation separate; predominant three-phase stated; total
+  three-phase power summed; dedicated waveform-motivated PF slide.
+- **Primer equipment and flow:** transformer/rectifier/inverter/PSU and UPS retained;
+  online/offline follow-up includes familiar applications; N+1 retained. The same
+  server/model connects hardware, memory, intra-data-center networking, running
+  GPU heat, cold plate and CDU. PUE’s unwanted “useful work” footer is gone.
+  One stale watts sentence in author notes was found and corrected during this audit.
+- **Course/navigation:** greenfield/brownfield and Colossus are in Chapter 5;
+  SemiAnalysis’s procurement rationale is in Chapter 4. Historical introduction
+  redirects; duplicate footer retired; chapter directory exposes available decks;
+  Back to course is visible; workload-to-overview detour removed; slides have no
+  Explanation/source-dialog launchers. Reader and teaching material are distinct.
+- **Latest workload pass:** obvious GPU-count sentence and redundant training title
+  removed; slides 4–6 memory arithmetic verified; prefill/decode bottlenecks taught;
+  LPX image and handoff added; continuous-batching transition improved and wall-clock
+  caveat removed; energy uses 10/15 minutes without break-even caption; power-trace
+  caveats removed; staggering fixed 15 seconds; three flagged ending scenes retired;
+  preferred final visual retained. Interactivity was the significant missed item
+  and is separately accounted for above.
+- **Publication:** the previous revision was pushed and its live files verified.
+  This revision’s local validation is recorded in [Testing](TESTING.md). Push and
+  live verification are reported with the release; technical checks do not mean
+  the creator accepted the teaching quality.

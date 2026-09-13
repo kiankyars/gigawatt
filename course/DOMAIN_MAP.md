@@ -304,6 +304,8 @@ State an infrastructure design envelope and identify which assumptions a benchma
 - [P129 — NVIDIA — Inside NVIDIA Groq 3 LPX](https://developer.nvidia.com/blog/inside-nvidia-groq-3-lpx-the-low-latency-inference-accelerator-for-the-nvidia-vera-rubin-platform/) · `page_reviewed` · [local note](../research/sources/P129.md)
 - [P130 — NVIDIA — How Groq 3 LPX Unlocks Ultrafast Interactivity at Long Context](https://developer.nvidia.com/blog/how-nvidia-groq-3-lpx-unlocks-ultrafast-interactivity-at-long-context-on-nvidia-vera-rubin/) · `page_reviewed` · [local note](../research/sources/P130.md)
 - [P131 — NVIDIA — What Is Disaggregated Serving?](https://www.nvidia.com/en-gb/glossary/disaggregated-serving/) · `page_reviewed` · [local note](../research/sources/P131.md)
+- [P132 — NVIDIA AIPerf — Metrics Reference](https://docs.nvidia.com/aiperf/reference/ai-perf-metrics-reference) · `page_reviewed` · [local note](../research/sources/P132.md)
+- [P133 — NVIDIA — Qwen3.8 throughput and interactivity on GB300 NVL72](https://developer.nvidia.com/blog/serve-qwen3-8-2-4t-a95b-a-2-4t-parameter-model-with-configurable-reasoning-on-nvidia-gb300-nvl72/) · `page_reviewed` · [local note](../research/sources/P133.md)
 
 <a id="d03"></a>
 
@@ -537,6 +539,7 @@ Reconcile IT and auxiliary loads with a downstream electrical capacity budget ac
 - [P78 — MLGW — xAI project quick facts](https://www.mlgw.com/images/content/files/pdf/2024xAI%20and%20MLGW%20Quick%20Facts%201.pdf) · `page_reviewed` · [local note](../research/sources/P78.md)
 - [SA42 — SpaceX 10GW in 2027 — construction pace and equipment procurement](https://newsletter.semianalysis.com/p/spacex-10gw-in-2027-why-its-real) · `public_excerpt_reviewed` · [local note](../research/sources/SA42.md)
 - [P112 — MZX Tech LLC — Southaven PSD permit application, January 2026 revision](https://upload.wikimedia.org/wikipedia/commons/e/e2/MZX_Tech_LLC_Draft_Air_PSD_Construction_Permit.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P112.md)
+- [P134 — Hammond Power Solutions — How Taps Work](https://americas.hammondpowersolutions.com/news/2014/april/how-taps-work) · `page_reviewed` · [local note](../research/sources/P134.md)
 
 <a id="d05"></a>
 
@@ -876,6 +879,7 @@ Connect server and rack organization to power, cooling, weight and maintenance i
 - [P129 — NVIDIA — Inside NVIDIA Groq 3 LPX](https://developer.nvidia.com/blog/inside-nvidia-groq-3-lpx-the-low-latency-inference-accelerator-for-the-nvidia-vera-rubin-platform/) · `page_reviewed` · [local note](../research/sources/P129.md)
 - [P130 — NVIDIA — How Groq 3 LPX Unlocks Ultrafast Interactivity at Long Context](https://developer.nvidia.com/blog/how-nvidia-groq-3-lpx-unlocks-ultrafast-interactivity-at-long-context-on-nvidia-vera-rubin/) · `page_reviewed` · [local note](../research/sources/P130.md)
 - [P131 — NVIDIA — What Is Disaggregated Serving?](https://www.nvidia.com/en-gb/glossary/disaggregated-serving/) · `page_reviewed` · [local note](../research/sources/P131.md)
+- [P133 — NVIDIA — Qwen3.8 throughput and interactivity on GB300 NVL72](https://developer.nvidia.com/blog/serve-qwen3-8-2-4t-a95b-a-2-4t-parameter-model-with-configurable-reasoning-on-nvidia-gb300-nvl72/) · `page_reviewed` · [local note](../research/sources/P133.md)
 
 <a id="d08"></a>
 

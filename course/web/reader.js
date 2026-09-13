@@ -175,7 +175,7 @@ function renderContents() {
 }
 function presentationLinks(chapter) {
   return chapter.presentations.map((deck) =>
-    `<div class="deck-entry"><a class="slides-link" href="${esc(deck.href)}" aria-label="Open slides for ${esc(chapterName(chapter))}: ${esc(deck.title)}"><span aria-hidden="true">▷</span> Open slides</a></div>`,
+    `<div class="deck-entry"><a class="slides-link" href="${esc(deck.href)}" aria-label="Open slides for ${esc(chapterName(chapter))}: ${esc(deck.title)}"><span aria-hidden="true">▷</span> ${chapter.presentations.length > 1 ? esc(deck.title) : "Open slides"}</a></div>`,
   ).join("");
 }
 function renderGlossary(query = "") {

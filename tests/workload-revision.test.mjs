@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { llamaMemory, sameWorkEnergy, servingBudget, decodeSlots } from '../course/prototypes/workload-model.js';
+import { llamaMemory, sameWorkEnergy, interactivityMetrics, decodeSlots } from '../course/prototypes/workload-model.js';
 import { scenes, initialState, legacySceneAliases } from '../course/prototypes/workload-scenes.js';
 import { renderWorkload } from '../course/prototypes/workload-visuals.js';
 
@@ -25,7 +25,7 @@ test('continuous membership preserves each request token count and admits C only
  }
 });
 test('each retained state renders and retired deep links lead to taught replacement content',()=>{
- const ids=new Set(scenes.map(s=>s.id));assert.equal(ids.size,16);assert.equal(scenes[0].id,'workload-purpose');
+ const ids=new Set(scenes.map(s=>s.id));assert.equal(ids.size,18);assert.equal(scenes[0].id,'workload-purpose');
  for(const target of Object.values(legacySceneAliases))assert.ok(ids.has(target));
  assert.equal(legacySceneAliases['acceptance-envelope'],'next-brief');
  for(const scene of scenes)for(const compact of[false,true]){
@@ -34,15 +34,14 @@ test('each retained state renders and retired deep links lead to taught replacem
  }
 });
 
-test('response targets divide a fixed budget and retain whole sessions',()=>{
+test('interactivity is per-user generation speed, separate from capacity',()=>{
  for(const rate of [20,40,80]){
-  const x=servingBudget({tokensPerSecond:rate});assert.equal(x.sessions*rate,4000);
-  const reverse=servingBudget({target:'sessions',sessions:x.sessions});assert.equal(reverse.tokensPerSecond,rate);
-  assert.equal(x.millisecondsPerToken,1000/rate);
+  const x=interactivityMetrics({tokensPerSecond:rate});assert.equal(x.millisecondsPerToken,1000/rate);
+  assert.equal(x.tokensPerSecond,rate);
  }
- const partial=servingBudget({tokensPerSecond:60});assert.equal(partial.sessions,66);assert.equal(partial.unusedTokensPerSecond,40);
- for(const sessions of [0,-1,1.5,NaN,Infinity])assert.throws(()=>servingBudget({target:'sessions',sessions}));
- assert.throws(()=>servingBudget({target:'unknown'}));
+ for(const rate of [0,-1,NaN,Infinity])assert.throws(()=>interactivityMetrics({tokensPerSecond:rate}));
+ assert.equal(scenes[2].id,'interactivity');
+ assert.equal(legacySceneAliases['success-brief'],'interactivity');
 });
 test('staggered teaching state preserves cycle energy and lowers the coincident peak',()=>{
  for(const compact of [false,true]){

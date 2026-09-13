@@ -3797,6 +3797,51 @@
       ],
       "use": "Explains compute-heavy prompt processing and memory-bandwidth-heavy token generation, dedicated hardware for each phase, and the required KV-cache transfer.",
       "caution": "Reviewed phase characteristics and the aggregated/disaggregated comparison. The course says usually/often because batch size, context, model and hardware can change the bottleneck. Vendor ROI and performance multipliers are not used."
+    },
+    {
+      "id": "P132",
+      "title": "NVIDIA AIPerf — Metrics Reference",
+      "url": "https://docs.nvidia.com/aiperf/reference/ai-perf-metrics-reference",
+      "publisher": "NVIDIA",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D02"
+      ],
+      "use": "Define per-user generation rate, inter-token latency and TTFT.",
+      "caution": "Definitions only; no device throughput is inferred."
+    },
+    {
+      "id": "P133",
+      "title": "NVIDIA — Qwen3.8 throughput and interactivity on GB300 NVL72",
+      "url": "https://developer.nvidia.com/blog/serve-qwen3-8-2-4t-a95b-a-2-4t-parameter-model-with-configurable-reasoning-on-nvidia-gb300-nvl72/",
+      "publisher": "NVIDIA",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-13",
+      "published_on": "2026-08-12",
+      "domains": [
+        "D02",
+        "D07"
+      ],
+      "use": "Teach the observed interactivity/throughput curve in original Figure 2.",
+      "caution": "Original figure specifies Qwen3.8-2.4T-A95B, GB300 NVL72, 8k/1k, TensorRT-LLM, FP8 and MTP. No exact concurrency table is provided. Separate from Llama memory example."
+    },
+    {
+      "id": "P134",
+      "title": "Hammond Power Solutions — How Taps Work",
+      "url": "https://americas.hammondpowersolutions.com/news/2014/april/how-taps-work",
+      "publisher": "Hammond Power Solutions",
+      "kind": "manufacturer_documentation",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-13",
+      "published_on": "2014-04-02",
+      "domains": [
+        "D04"
+      ],
+      "use": "480:120 V transformer example with 80:20 connected turns and 456–504 V primary taps; input variation carries through a fixed ratio.",
+      "caution": "Instructional turns-ratio example, not a claim of automatic regulation or universal voltage tolerance. Equipment limits depend on the nameplate and selected tap."
     }
   ]
 }

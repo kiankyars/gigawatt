@@ -26,7 +26,7 @@ Each topic ends with a check-in: pause, make a prediction, compare the reasoning
 ### 3. Workloads and requirements
 
 - Slides: [Workloads and requirements](prototypes/workload-format.html?teach=1)
-- [Choose how responsive each session should be](lessons/d02-workload-brief.md) — What must the infrastructure deliver for this workload to count as successful?
+- [Interactivity and total throughput](lessons/d02-workload-brief.md) — What must the infrastructure deliver for this workload to count as successful?
 - [Measure complete useful work and diagnose exposed waits](lessons/d02-productive-utilization.md) — Does the power reduction improve energy for the same completed work, and what dependency is consuming the time?
 - [The workload has a rhythm](lessons/d02-phases-and-envelopes.md) — How do batching and synchronized phases change demand without changing installed equipment?
 
@@ -134,10 +134,10 @@ Every entry below is authored and has practice; this is not evidence of learner 
 | Convert power and energy across units and time; distinguish a measured load from a capacity rating. | [A megawatt is not a megawatt-hour](lessons/d01-power-over-time.md) |
 | Define denominators for facility, IT and compute-only metrics and label the time window. | [One rack, three paths](lessons/d01-boundaries.md), [A megawatt is not a megawatt-hour](lessons/d01-power-over-time.md), [Attach a denominator and a date](lessons/d01-metrics-and-evidence.md), [A hot day changes two limits at once](lessons/c02-weather-capacity.md) |
 | Separate physical principles, design specifications, observed deployments, announcements, forecasts and teaching assumptions. | [Attach a denominator and a date](lessons/d01-metrics-and-evidence.md) |
-| Translate a workload brief into compute, memory, network, storage, power and service requirements. | [Choose how responsive each session should be](lessons/d02-workload-brief.md), [The workload has a rhythm](lessons/d02-phases-and-envelopes.md) |
+| Translate a workload brief into compute, memory, network, storage, power and service requirements. | [Interactivity and total throughput](lessons/d02-workload-brief.md), [The workload has a rhythm](lessons/d02-phases-and-envelopes.md) |
 | Distinguish hardware occupancy, power draw and productive utilization. | [Measure complete useful work and diagnose exposed waits](lessons/d02-productive-utilization.md), [The powered cluster that keeps waiting](lessons/c04-stalled-job.md) |
 | Explain how batching, parallel execution and synchronized job phases change the infrastructure demand profile. | [The workload has a rhythm](lessons/d02-phases-and-envelopes.md) |
-| State an infrastructure design envelope and identify which assumptions a benchmark can and cannot validate. | [Choose how responsive each session should be](lessons/d02-workload-brief.md), [Measure complete useful work and diagnose exposed waits](lessons/d02-productive-utilization.md), [The workload has a rhythm](lessons/d02-phases-and-envelopes.md) |
+| State an infrastructure design envelope and identify which assumptions a benchmark can and cannot validate. | [Interactivity and total throughput](lessons/d02-workload-brief.md), [Measure complete useful work and diagnose exposed waits](lessons/d02-productive-utilization.md), [The workload has a rhythm](lessons/d02-phases-and-envelopes.md) |
 | Trace a physical supply path and distinguish it from a power purchase agreement or energy attribute claim. | [A contract is not a cable](lessons/d03-power-and-procurement.md) |
 | Explain voltage, current and conductor loss in a bounded AC or DC comparison. | [Move power with fewer amperes](lessons/d03-voltage-and-distance.md) |
 | Explain the milestones and constraints between a proposed large load and service available to that load. | [Deliver the campus one usable phase at a time](lessons/d03-service-and-siting.md), [Open one phase, with evidence](lessons/c05-open-a-phase.md) |
@@ -485,9 +485,9 @@ The IT boundary sits inside the facility boundary, so adding the two readings co
 
 **The next problem:** We can now account for the watts. What job must those watts support, and what counts as a successful result?
 
-Continue in **Workloads and the infrastructure brief**: Choose how responsive each session should be.
+Continue in **Workloads and the infrastructure brief**: Interactivity and total throughput.
 
-## Choose how responsive each session should be
+## Interactivity and total throughput
 
 **3. Workloads and requirements · Authored draft**
 
@@ -495,13 +495,15 @@ Use a GB300 NVL72 and Llama 3.1 70B to connect model state, context and service 
 
 **Driving question:** What must the infrastructure deliver for this workload to count as successful?
 
-## Trade response speed against active sessions
+## Interactivity is output tokens per second per user
 
-The hardware reference is NVIDIA GB300 NVL72 and the model is Llama 3.1 70B. To explore interactivity, allocate a budget of 4,000 output tokens per second across active sessions. If each session needs 40 tokens per second, the budget supports 4,000 / 40 = 100 sessions. If 200 sessions share it, each receives 4,000 / 200 = 20 tokens per second: one token every 50 milliseconds instead of every 25 milliseconds. Hold the total budget fixed, then choose either the desired response speed or the number of sessions and derive the other.
+Interactivity is the output token rate experienced by one user after generation starts. At 40 tokens per second per user, the average gap between tokens is 25 milliseconds; at 80 it is 12.5 milliseconds. Time to first token measures the separate initial wait. A token may be a whole word or part of a word. Total throughput counts output tokens across the system, so it answers a different question from the rate of an individual answer.
 
-This calculation assumes equal sharing during steady output generation. It separates total throughput from interactivity: how quickly one user sees a response unfold. First-token delay is a separate part of that experience. The 4,000-token/s allocation is a course input, not a measured GB300 capacity; a deployment’s achievable throughput and response speed depend on its model, context lengths, batching and software. Those relationships require a serving benchmark rather than a GPU count.
+Serving more requests together can increase aggregate throughput while reducing interactivity. Choose the minimum acceptable per-user output rate, then benchmark how much throughput the system delivers while meeting that requirement.
 
-Describe the model and software version, weight and cache precision, prompt and output lengths, traffic, concurrency, acceptable quality, time to first token and inter-token latency. A training brief instead identifies an experiment, data and quality target, progress criterion and deadline. Training passes data through the model, calculates gradients and updates parameters; inference uses configured parameters to produce tokens. These uses create different state, communication and timing requirements.
+NVIDIA’s August 2026 Qwen3.8-2.4T-A95B curve on GB300 NVL72 shows throughput per GPU against interactivity. The original image identifies 8k input / 1k output, TensorRT-LLM, FP8 and multi-token prediction. Select a minimum of 100, 200 or 300 tokens per second per user and inspect only the part of the curve to its right. Raising this threshold reduces available throughput on that curve. It is a separate benchmark case from the Llama 3.1 70B memory ledger.
+
+The plot does not tabulate concurrent users. Do not invent an exact session count or combine peak throughput with peak interactivity from different points. A supported-session answer requires the matching concurrency sweep, with its model, lengths, quality, precision and software fixed.
 
 ## Compare training and inference memory together
 
@@ -574,7 +576,9 @@ The fixed pool admits fewer full contexts. Adding capacity or distributing the m
 - [MLCommons — MLPerf Inference: Datacenter](https://mlcommons.org/benchmarks/inference-datacenter/) — Benchmark results depend on a declared workload scenario and measurement conditions. Read 2026-09-06. Read the public scenario and power-measurement descriptions; no named system performance is asserted.
 - [Meta — Llama model SKU architecture definitions](https://github.com/meta-llama/llama-models/blob/main/models/sku_list.py) — Named Llama 3.1 70B architecture for original parameter-storage and KV-cache calculations: hidden width 8,192, 80 layers, 64 query heads and 8 key/value heads. Read 2026-09-12. The llama3_1_base_models definition was inspected in the public GitHub source and its raw file. Head dimension 128 is derived from 8,192/64. The 70B parameter count is rounded model-class notation, not an exact counted checkpoint size. The gated Hugging Face config returned 401 and was not read. This source establishes architecture, not GB300 throughput or deployment performance.
 - [ZeRO: Memory Optimizations Toward Training Trillion Parameter Models](https://arxiv.org/html/1910.02054) — Derive a declared mixed-precision Adam example: two bytes each for weights and gradients, four for a master weight, eight for the two optimizer moments, giving 16 bytes per parameter before activations and buffers. Read 2026-09-12. Read sections 2.1, 3.1–3.2 and model-state partitioning formulas. This is a classic FP16/FP32 Adam accounting example, not a universal 2026 training-memory requirement. BF16 arrangements, gradient accumulation precision, optimizer choices, quantization, offload and sharding alter the budget. Using rounded 70 billion parameters gives about 1.12 TB across model states, not an asserted minimum GPU count or throughput.
-- [NVIDIA NVL72 AI Factory — System Hardware & Components](https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/components.html) — The GB300 NVL72 rack contains 72 Blackwell Ultra GPUs. Read 2026-09-12. Read the GB300 compute rack and tray descriptions. The 4,000-output-token/s allocation is a chosen teaching budget for an equal-share steady-state tradeoff, not a manufacturer throughput result.
+- [NVIDIA NVL72 AI Factory — System Hardware & Components](https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/components.html) — The GB300 NVL72 rack contains 72 Blackwell Ultra GPUs. Read 2026-09-12. Hardware identity and count only; actual inference throughput depends on the serving workload and configuration.
+- [NVIDIA AIPerf — Metrics Reference](https://docs.nvidia.com/aiperf/reference/ai-perf-metrics-reference) — Per-user generation throughput and the reciprocal inter-token interval; distinguish total throughput and TTFT. Read 2026-09-13. Reviewed output-token-throughput-per-user and streaming metric definitions. Does not establish a capacity for a named GPU.
+- [NVIDIA — Qwen3.8 throughput and interactivity on GB300 NVL72](https://developer.nvidia.com/blog/serve-qwen3-8-2-4t-a95b-a-2-4t-parameter-model-with-configurable-reasoning-on-nvidia-gb300-nvl72/) — Original Figure 2 shows the throughput/interactivity tradeoff with the hardware, model and workload conditions printed in the figure. Read 2026-09-13. Publisher benchmark curve, not our measurement. 8k/1k, TensorRT-LLM, FP8 and MTP read from the original figure. No tabulated concurrency or exact curve samples provided; do not infer supported sessions.
 
 ## Measure complete useful work and diagnose exposed waits
 

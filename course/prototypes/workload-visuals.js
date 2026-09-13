@@ -1,4 +1,4 @@
-import { phaseSchedule, llamaMemory, sameWorkEnergy, servingBudget, decodeSlots } from './workload-model.js';
+import { phaseSchedule, llamaMemory, sameWorkEnergy, interactivityMetrics, decodeSlots } from './workload-model.js';
 const C={ink:'var(--text)',muted:'var(--muted)',line:'var(--line)',panel:'var(--panel)',paper:'var(--paper)',face:'var(--surface)',compute:'var(--power)',communication:'var(--data)',checkpoint:'var(--heat)',wait:'var(--heat)',idle:'var(--muted)'};
 const esc=v=>String(v).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');
 const n=(v,d=0)=>v.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
@@ -8,27 +8,35 @@ const r=(x,y,w,h,fill=C.panel,stroke=C.line,rx=9)=>`<rect x="${x}" y="${y}" widt
 const line=(x,y,xx,yy,color=C.line,width=2,dash='')=>`<path d="M${x} ${y}L${xx} ${yy}" fill="none" stroke="${color}" stroke-width="${width}" ${dash?'stroke-dasharray="'+dash+'"':''}/>`;
 const arrow=(x,y,xx,yy,color=C.compute)=>`${line(x,y,xx,yy,color,3)}<path d="M${xx-9} ${yy-6}L${xx} ${yy}L${xx-9} ${yy+6}" transform="rotate(${Math.atan2(yy-y,xx-x)*180/Math.PI} ${xx} ${yy})" fill="none" stroke="${color}" stroke-width="3"/>`;
 const result=(markup,description)=>({markup,description});
-const photo='https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/_images/nvl72-ai-factory-01.png';
 const split=(m)=>m?line(25,334,365,334):line(600,55,600,505);
 const panel=(i,m)=>({x:m?28:60+i*600,y:m?40+i*335:70,w:m?334:480});
 function purpose(s,m){let o='';
  const concepts=[['01','MODEL STATE','Weights, context and training updates'],['02','SERVING USERS','Requests, batching and response time'],['03','ELECTRICAL DEMAND','Energy, peaks and fast transitions']];
  concepts.forEach(([num,a,b],i)=>{const x=m?28:70,y=m?72+i*178:82+i*142;o+=t(x,y,num,m?25:37,C.compute)+t(x+(m?52:80),y,a,m?18:27,C.ink)+t(x+(m?52:80),y+39,b,m?14:24,C.muted)+line(x,y+70,m?362:1110,y+70);});
  return result(o,'First account for model state, then define token service, then measure its electrical demand. These dependencies become the workload brief used to design supply and cooling.');}
-function brief(s,m){const a=servingBudget(s),byRate=a.target==='rate';let o='';
- o+=`<image href="${photo}" x="${m?18:30}" y="20" width="${m?112:315}" height="${m?205:440}" preserveAspectRatio="xMidYMid meet"><title>NVIDIA GB300 NVL72</title></image>`;
- o+=t(m?153:49,m?74:485,'GB300 NVL72',m?23:26)+t(m?153:49,m?111:521,'Llama 3.1 70B',m?19:23,C.muted);
- const x=m?27:405,y=m?261:58;
- o+=t(x,y,'Serving budget',m?17:22,C.muted)+t(x,y+42,`${n(a.outputTokensPerSecond)} output tokens/s`,m?28:39);
- o+=line(x,y+70,m?363:1140,y+70);
- o+=t(x,y+112,byRate?'I want each answer to stream at':'I want to serve',m?19:25,C.muted);
- o+=t(x,y+(m?155:165),byRate?`${n(a.tokensPerSecond)} tokens/s`:`${n(a.sessions)} active sessions`,m?34:49,C.communication);
- o+=t(x,y+(m?205:220),byRate?'The budget supports':'Each session receives',m?19:25,C.muted);
- o+=t(x,y+(m?255:270),byRate?`${n(a.sessions)} active sessions`:`${n(a.tokensPerSecond)} tokens/s`,m?34:49,C.compute);
- o+=t(x,y+(m?308:326),`One output token every ${n(a.millisecondsPerToken,1).replace('.0','')} ms`,m?19:28);
- o+=t(m?195:778,m?632:524,'Active streams share the budget equally.',m?15:21,C.muted,'middle');
- o+=t(m?76:197,m?221:555,'Image: NVIDIA',m?11:14,C.muted,'middle');
- return result(o,`With 4,000 output tokens per second allocated to active streams, ${byRate?'setting '+a.tokensPerSecond+' tokens per second supports '+a.sessions+' active sessions':'setting '+a.sessions+' active sessions gives '+a.tokensPerSecond+' tokens per second each'}. Each stream receives one output token every ${a.millisecondsPerToken} milliseconds after its first token. Equal sharing connects response speed to simultaneous users.`);}
+function interactivity(s,m){const a=interactivityMetrics({tokensPerSecond:s.tokensPerSecond});let o='';
+ const x=m?28:72,y=m?48:49;
+ o+=t(x,y,'ONE USER',m?19:23,C.communication)+t(x,y+60,`${a.tokensPerSecond} tokens/s/user`,m?32:48,C.communication);
+ const gx=m?28:72,gy=m?159:162,cols=m?20:40,cw=m?16:21,ch=m?14:26;
+ for(let i=0;i<a.tokensPerSecond;i++)o+=r(gx+(i%cols)*cw,gy+Math.floor(i/cols)*(ch+5),cw-4,ch,C.communication,C.communication,2);
+ o+=t(x,m?274:259,'Output tokens generated in one second',m?17:24,C.muted)+t(x,m?325:313,`${a.millisecondsPerToken} ms between tokens`,m?26:36);
+ o+=line(m?28:72,m?365:354,m?361:1130,m?365:354);
+ o+=t(x,m?412:405,'THROUGHPUT',m?19:23,C.compute)+t(x,m?455:449,'Tokens/s across all users',m?25:32,C.compute);
+ o+=lines(x,m?519:497,m?['Larger batches can serve more users,','while each answer streams more slowly.']:['Larger batches can raise throughput while reducing interactivity.'],m?17:23,C.ink);
+ o+=t(x,m?620:548,'First-token wait is a separate delay.',m?17:21,C.muted);
+ return result(`<g data-tokens-per-user="${a.tokensPerSecond}" data-token-interval-ms="${a.millisecondsPerToken}">${o}</g>`,`Interactivity is output tokens per second per user. At ${a.tokensPerSecond} tokens per second, the average gap between tokens is ${a.millisecondsPerToken} milliseconds. Each block is an output token generated in one second. Throughput counts output tokens across all users. Batching can increase total throughput while slowing each answer. Time to first token is the separate initial wait.`);}
+function frontier(s,m){const target=s.minInteractivity??100;let o='';
+ const x=m?8:49,y=m?75:0,w=m?374:830,h=w*2/3;
+ o+=`<image href="../assets/references/nvidia-gb300-interactivity.webp" x="${x}" y="${y}" width="${w}" height="${h}" preserveAspectRatio="xMidYMid meet"><title>NVIDIA GB300 NVL72 Qwen3.8 performance, Figure 2, August 2026</title></image>`;
+ // The original image is 1536 by 1024; its plot spans x=375..1394 for 0..350 TPS/user.
+ const scale=w/1536,xx=x+(375+target/350*(1394-375))*scale,yt=y+244*scale,yb=y+817*scale;
+ o+=line(xx,yt,xx,yb,C.communication,m?2:3,'7 5');
+ const tx=m?28:905,ty=m?393:147;
+ o+=t(tx,ty,'I WANT AT LEAST',m?17:19,C.muted)+t(tx,ty+45,`${target} tokens/s/user`,m?29:28,C.communication);
+ o+=lines(tx,ty+96,m?['Read the curve to the right','of the dashed line.']:['Read the curve','to the right of','the dashed line.'],m?22:25);
+ o+=lines(tx,ty+(m?188:232),m?['The vertical axis gives throughput','per GPU at that interactivity.']:['Vertical axis:','throughput per GPU'],m?17:21,C.compute);
+ o+=t(m?195:450,m?42:551,'NVIDIA · GB300 NVL72 · Qwen3.8 FP8 · Aug 2026',m?11:16,C.muted,'middle');
+ return result(`<g data-min-interactivity="${target}">${o}</g>`,`NVIDIA’s original Qwen3.8-2.4T-A95B FP8 curve on GB300 NVL72, with 8k input and 1k output, TensorRT-LLM and multi-token prediction. Horizontal axis: tokens per second per user, or interactivity. Vertical axis: throughput in tokens per second per GPU. A dashed line marks the ${target} tokens per second per user requirement. Only the curve to its right meets the minimum. Higher interactivity corresponds to lower available throughput on this curve.`);}
 function modelWork(s,m){let o=split(m);
  [['TRAINING','Learn parameters',['Forward pass → loss','Backward pass → gradients','Optimizer → updated weights'],'Useful model progress by a deadline'],['INFERENCE','Produce tokens',['Prompt → prefill + KV cache','Decode → next output token','Scheduler → active requests'],'Throughput + first/inter-token latency']].forEach(([name,sub,steps,payoff],i)=>{const {x,y}=panel(i,m);o+=t(x,y,name,m?21:30,i?C.communication:C.compute)+t(x,y+42,sub,m?24:34);steps.forEach((v,j)=>o+=t(x,y+99+j*(m?38:54),v,m?18:25));o+=t(x,y+(m?244:300),payoff,m?15:22,C.muted);});
  return result(o,'Training learns parameters through forward, backward and optimizer work. Inference uses configured parameters to prefill prompts and decode output tokens. Training needs a progress target and deadline; inference needs token throughput and response-time targets.');}
@@ -85,6 +93,13 @@ function phaseVisual(id,s,m){
  if(id==='staggering-jobs')o+=t(m?62:157,m?38:25,'Independent jobs · phase durations unchanged',m?14:20,C.muted);
  return {markup:`<g data-peak-kw="${a.peakKW}" data-average-kw="${a.averageKW}" data-energy-kwh="${a.energyKWh}" data-schedule="${staggered?'staggered':'sync'}">${o}</g>`,description:`${single?'One job':'Four '+(staggered?'independent jobs offset by fifteen seconds':'synchronized jobs')} has power plateaus ${a.segments.map(seg=>seg.powerKW).join(', ')} kW; peak ${a.peakKW} kW and mean ${n(a.averageKW)} kW. Energy is ${n(a.energyKWh,3)} kWh per sixty-second cycle. ${staggered?'At every instant two compute, one exchanges and one checkpoints. This requires independence, no contention and periodic steady operation.':''}`};
 }
+function serviceCheck(s,m){let o='';
+ const x=m?28:90;
+ o+=t(x,m?42:39,'Same model · same hardware · same average power',m?14:23,C.muted);
+ [['Total output','Rises',C.compute],['Tokens/s/user','Falls below target',C.checkpoint]].forEach(([a,b,c],i)=>{const y=(m?119:130)+i*(m?124:125);o+=t(x,y,a,m?23:30)+t(x,y+51,b,m?30:43,c);});
+ if(s.showServiceCheck)o+=lines(x,m?408:379,m?['Reduce concurrency or change','the serving configuration.','','Recheck interactivity and first-token wait;','then measure the new power trace.']:['Reduce concurrency or change the serving configuration.','Recheck interactivity and first-token wait, then measure the power trace.'],m?17:25,C.communication);
+ else o+=lines(x,m?456:414,m?['What would you change?','What would you measure again?']:['What would you change, and what would you measure again?'],m?23:30);
+ return result(o,`Check-in: higher concurrency raises total output but drops output tokens per second per user below the required target, with unchanged average power. ${s.showServiceCheck?'Reduce concurrency or change the serving configuration, recheck interactivity and first-token waiting, then measure the new power trace.':'Decide whether to accept it, what to change and what evidence to collect.'}`);}
 function nextBrief(s,m){
  const image='../assets/generated/workload-handoff.png';
  const trace='<path d="M566 582H973M566 582V373" fill="none" stroke="#667e81" stroke-width="3"/><path d="M566 474H608V405H716V550H768V511H820V405H925V550H973" fill="none" stroke="#086e83" stroke-width="7"/><text x="576" y="367" fill="#193139" font-size="24">P(t)</text><text x="973" y="611" text-anchor="end" fill="#193139" font-size="24">Time</text>';
@@ -101,7 +116,7 @@ function nextBrief(s,m){
 }
 
 export function renderWorkload(id,state,compact=false){
- const f={'workload-purpose':purpose,'success-brief':brief,'model-work':modelWork,'memory-comparison':memoryCompare,'kv-cache':kv,'context-capacity':context,'prefill-decode':prefill,'disaggregated-serving':disaggregated,'continuous-batching':continuous,'energy-per-result':energy,'resource-paths':resource,'training-power-evidence':evidence,'next-brief':nextBrief}[id];
+ const f={'workload-purpose':purpose,'interactivity':interactivity,'serving-frontier':frontier,'model-work':modelWork,'memory-comparison':memoryCompare,'kv-cache':kv,'context-capacity':context,'prefill-decode':prefill,'disaggregated-serving':disaggregated,'continuous-batching':continuous,'energy-per-result':energy,'resource-paths':resource,'training-power-evidence':evidence,'service-checkin':serviceCheck,'next-brief':nextBrief}[id];
  const rendered=f?f(state,compact):['job-phases','synchronized-jobs','staggering-jobs'].includes(id)?phaseVisual(id,state,compact):null;
  if(!rendered)throw new RangeError(`Unknown workload scene: ${id}`);return rendered;
 }

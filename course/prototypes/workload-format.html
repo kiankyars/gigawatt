@@ -348,7 +348,7 @@
 <dialog id="reading" aria-labelledby="reading-title"><header><h2 id="reading-title">Workloads and the brief</h2><button id="close-reading" aria-label="Close explanation">×</button></header><h3 id="explanation-title"></h3><div id="explanation"></div><p class="scope" id="model-scope"></p>
 <p><a id="lesson-reference" href="../index.html#d02-workload-brief">Read the full lesson →</a></p>
 <details><summary>Definitions and model boundaries</summary>
-<p>The named case is one GB300 NVL72 with 72 B300 GPUs and Llama 3.1 70B. The 100-session, 40-output-token/s target is a chosen requirement, not measured rack performance. Model memory uses rounded 70 billion parameters; decimal GB and binary GiB are distinguished.</p>
+<p>The named case is one GB300 NVL72 with 72 B300 GPUs and Llama 3.1 70B. Interactivity is output tokens per second per user; the Qwen3.8 GB300 source curve shows its tradeoff with throughput. Model memory uses rounded 70 billion parameters; decimal GB and binary GiB are distinguished.</p>
 <p>The classic Adam state account is one precision/optimizer choice. The 64 GiB KV pool is a chosen allocation. Capacity estimates omit cache sharing and block overhead; they do not establish throughput. Continuous-batching cells are decode iterations, not measured equal-duration time slots.</p>
 <p>The H100 production power figure is source evidence. Subsequent 60-second kW traces, relative energy comparison and phase offsets are original controlled examples. Staggering explicitly requires independent jobs with unchanged service; it is not presented as deployed industry practice.</p>
 </details>

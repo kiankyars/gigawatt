@@ -201,6 +201,60 @@ function voltageVariation(compact, state) {
   return `<g data-supply-factor="${factor}" data-dc-volts="${volts}" data-ac-peak-volts="${volts}">${out}</g>`;
 }
 
+function transformerTaps(compact, state) {
+  const selected = ['nominal', 'supply-rise', 'matched-tap'].includes(state.transformerCase) ? state.transformerCase : 'nominal';
+  const inputVolts = selected === 'nominal' ? 480 : 504;
+  const primaryTurns = selected === 'matched-tap' ? 84 : 80, secondaryTurns = 20;
+  const tapVolts = primaryTurns * 6, outputVolts = inputVolts * secondaryTurns / primaryTurns;
+  const cx = compact ? 195 : 580, primaryX = compact ? 144 : 485, secondaryX = compact ? 246 : 675;
+  const coilTop = compact ? 207 : 178, coilStep = compact ? 22 : 28;
+  const coil = (x, direction, color) => path(`M${x} ${coilTop}${Array.from({length: 4}, () => `c${direction*27} 0 ${direction*27} ${coilStep} 0 ${coilStep}`).join('')}`, color, 3);
+  let out = '';
+  if (compact) {
+    out += text(100, 40, 'AC input', 22, 'power') + text(290, 40, 'AC output', 22, 'data');
+    out += text(100, 84, `${inputVolts} V`, 32, 'power') + text(290, 84, `${outputVolts} V`, 32, 'data');
+    out += rect(72, 148, 246, 235) + text(cx, 183, 'Transformer', 23);
+    out += arrow(`M100 100V${coilTop}H${primaryX-6}`, 'power', 3);
+    out += arrow(`M${secondaryX} ${coilTop}H290V104`, 'data', 3);
+    out += path(`M${primaryX} ${coilTop+4*coilStep}H105V317`, 'power', 3);
+    out += path(`M${secondaryX} ${coilTop+4*coilStep}H285V317`, 'data', 3);
+    out += path('M190 201V302M200 201V302', 'muted', 3);
+    out += coil(primaryX, 1, 'power') + coil(secondaryX, -1, 'data');
+    out += text(119, 343, `${primaryTurns} turns`, 21, 'power') + text(272, 343, '20 turns', 21, 'data');
+    out += text(cx, 414, `${tapVolts} V primary tap`, 25, 'power');
+    out += text(cx, 455, selected === 'matched-tap' ? 'More primary turns change the ratio.' : 'Output follows input at a fixed tap.', 18);
+    out += text(cx, 505, `${inputVolts} V × 20 / ${primaryTurns} = ${outputVolts} V`, 25);
+  } else {
+    out += text(190, 174, 'AC input', 26, 'power') + text(970, 174, 'AC output', 26, 'data');
+    out += text(190, 229, `${inputVolts} V`, 40, 'power') + text(970, 229, `${outputVolts} V`, 40, 'data');
+    out += rect(380, 90, 400, 258) + text(cx, 129, 'Transformer', 28);
+    out += arrow(`M285 224H${primaryX-65}V${coilTop}H${primaryX-6}`, 'power', 3);
+    out += arrow(`M${secondaryX} ${coilTop}H740V224H864`, 'data', 3);
+    out += path(`M${primaryX} ${coilTop+4*coilStep}H430V310`, 'power', 3);
+    out += path(`M${secondaryX} ${coilTop+4*coilStep}H730V310`, 'data', 3);
+    out += path('M575 169V298M585 169V298', 'muted', 3);
+    out += coil(primaryX, 1, 'power') + coil(secondaryX, -1, 'data');
+    out += text(480, 329, `${primaryTurns} turns`, 23, 'power') + text(680, 329, '20 turns', 23, 'data');
+    out += text(cx, 390, `${tapVolts} V primary tap`, 28, 'power');
+    out += text(cx, 432, selected === 'matched-tap' ? 'More primary turns change the ratio.' : 'Output follows input at a fixed tap.', 23);
+    out += text(cx, 480, `${inputVolts} V × 20 / ${primaryTurns} = ${outputVolts} V`, 32);
+  }
+  const tapY = compact ? 579 : 528, tapSpacing = compact ? 67 : 83;
+  if (compact) out += text(cx, 547, 'Available primary taps', 18, 'muted');
+  else out += text(278, tapY+6, 'Available primary taps', 20, 'muted', 'end');
+  [456, 468, 480, 492, 504].forEach((volts, i) => {
+    const x = (compact ? 61 : 373) + i*tapSpacing, active = volts === tapVolts;
+    if (active) out += rect(x-29, tapY-22, 58, 34, 'power', 'panel', 6);
+    out += text(x, tapY+2, String(volts), compact ? 18 : 21, active ? 'power' : 'muted');
+  });
+  out += text(compact ? 352 : 753, tapY+2, 'V', compact ? 18 : 21, 'muted');
+  if (compact) {
+    out += text(cx, 632, 'Permitted input voltage depends', 19, 'muted');
+    out += text(cx, 663, 'on the rating and tap.', 19, 'muted');
+  } else out += text(cx, 581, 'Permitted input voltage depends on the rating and tap.', 23, 'muted');
+  return `<g data-transformer-case="${selected}" data-input-volts="${inputVolts}" data-tap-volts="${tapVolts}" data-primary-turns="${primaryTurns}" data-secondary-turns="${secondaryTurns}" data-output-volts="${outputVolts}">${out}</g>`;
+}
+
 function threePhase(compact) {
   const x = compact ? 46 : 120, width = compact ? 300 : 930;
   let out = "";
@@ -344,6 +398,7 @@ export function renderElectricity(id, state = {}, compact = false) {
     "ac-dc": () => acdc(compact, state),
     "ac-shapes": () => acShapes(compact),
     "voltage-variation": () => voltageVariation(compact, state),
+    "transformer-taps": () => transformerTaps(compact, state),
     "three-phase": () => threePhase(compact),
     "three-phase-power": () => threePhasePower(compact, state),
     "power-factor": () => powerFactor(compact),

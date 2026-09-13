@@ -108,4 +108,4 @@ The IT boundary sits inside the facility boundary, so adding the two readings co
 
 **The next problem:** We can now account for the watts. What job must those watts support, and what counts as a successful result?
 
-Continue in **Workloads and the infrastructure brief**: Choose how responsive each session should be.
+Continue in **Workloads and the infrastructure brief**: Interactivity and total throughput.

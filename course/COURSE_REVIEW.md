@@ -1,6 +1,6 @@
 # From Watts to Tokens — filled-in course review template
 
-Updated **2026-09-12**. **Start here for the course design.** This is the course's
+Updated **2026-09-13**. **Start here for the course design.** This is the course's
 instance of the [freeCodeCamp course review template](https://github.com/kiankyars/youtube/blob/main/freecodecamp/course-review-template.md),
 using its [evidence-based improvement system](https://github.com/kiankyars/youtube/blob/main/freecodecamp/improvement-system.md).
 The shared template remains in the YouTube repository; this filled-in copy owns
@@ -19,6 +19,20 @@ read it end to end.
 section by section. The Primer, overview, workloads, supply and physical-site
 decks are authored; UPS, rack power, 800 V and cooling cover selected later topics.
 The table below owns their exact scope and review state. The current revision simplifies Chapter 7’s Tier comparison, adds named availability examples and Fairwater Atlanta, and removes interim labels from the chapter directory. Every deck uses one shared navigation component. Current checks are recorded in [TESTING.md](TESTING.md#tiers-availability-examples-and-directory--2026-09-12). Kian’s review remains separate.
+
+## Current instruction audit — 13 September 2026
+
+[Feedback audit](FEEDBACK_AUDIT.md) lists every currently uncertain or partial
+request and reconciles changed instructions. Chapter 3's arbitrary 4,000-token/s
+budget did not teach the requested interactivity; that completion claim is
+withdrawn. Interactivity means tokens per second per user. The revision teaches
+that definition on slide 3 and reads the actual GB300 source curve next. Exact
+supported-session counts still need corresponding concurrency data.
+
+The latest rule is **one meaningful active check-in per domain**, with a closing
+example only when no worthwhile check-in can be constructed. Existing reader
+checks do not establish that teaching slides contain them. Chapter 3 now adds its
+service check-in; the remaining deck pass stays open.
 
 ## Latest reliability and directory review — 12 September 2026
 
@@ -47,9 +61,9 @@ release does not restart an unchanged chapter’s review.
 
 | Chapter | Authored presentation | Technical checks | Author review / next action |
 | --- | --- | --- | --- |
-| 1. [Primer](prototypes/terminology-format.html?teach=1) | 21 slides | Latest requested revisions checked; [record](TESTING.md#primer-watts-polarity-and-three-phase-power--2026-09-12) | **Previous feedback addressed; final acceptance unrecorded.** No repeat review assigned. |
+| 1. [Primer](prototypes/terminology-format.html?teach=1) | 22 slides; transformer tap comparison added | Transformer comparison checked; [record](TESTING.md#interactivity-transformer-taps-and-instruction-audit--2026-09-13) | **Previous feedback addressed; final acceptance unrecorded.** No repeat review assigned. |
 | 2. [Data center overview](prototypes/orientation-format.html?teach=1) | 13-slide draft | Prior content pass [checked](TESTING.md#overview-and-workload-review--2026-09-12); shared navigation checked in the current release | **Active review.** Networking, CDU and capacity-title feedback implemented; no general restart. |
-| 3. [Workloads and requirements](prototypes/workload-format.html?teach=1) | 18 slides; final visual rebuilt with GPT ImageGen | Previous pass checked; new ending and shared navigation checked in the current release | **Active review.** Revisit the changed final visual, not every resolved slide. |
+| 3. [Workloads and requirements](prototypes/workload-format.html?teach=1) | 18 slides; explicit interactivity, sourced curve and service check-in | Current revision checks in TESTING.md | **Active review.** Prior interactivity completion claim withdrawn; exact supported-session selection remains open. |
 | 4. [Siting, grid connection and supply](prototypes/siting-format.html?teach=1) | Revised 25-slide draft | Current model, source and native-browser checks recorded in [TESTING.md](TESTING.md#chapters-35-and-root-publication--2026-09-12) | **Feedback addressed.** Review changed generation-to-Southaven ending; preceding cases remain unchanged. |
 | 5. [Physical site, buildings and safety](prototypes/site-format.html?teach=1) | Rebuilt as 20 slides after author feedback; five new GPT figures and verified cases | Current checks in [TESTING.md](TESTING.md#chapter-5-rebuild--2026-09-12) | **Feedback implemented; acceptance pending.** Review the rebuilt slides 14–20, then changed earlier cases. |
 | 6. Campus and building power distribution | Reader draft; own deck unbuilt | Reader/build checks only | Presentation not yet assigned for review. |
@@ -271,7 +285,7 @@ sequences; later domain slide adaptations should integrate those cases in contex
 
 Use the existing integrated capstones where several systems meet; longer exercises
 can be optional companion practice. The video needs no scoring, mandatory quiz
-screen or separate examination after every chapter. This rhythm is the production
+screen or separate examination after every chapter. Include a meaningful active check-in within each domain, using a closing example only if no worthwhile check can be made. This rhythm is the production
 approach; the 800 V and UPS prototypes are implemented, while the remaining presenter
 sequences still need authorship and dry runs.
 
@@ -290,7 +304,7 @@ acceptance are recorded separately in the chapter tracker.
 | Remove All chapters / Slides available toggle | Removed. One chapter directory shows reading and available slides. Mobile **Chapters** remains the control that opens that directory. |
 | Remove explanation and source UI from all slide views | Shared slide chrome removes those controls and note launchers; **Reading** remains. Current cross-deck integration checks passed. |
 | Publish at the root with concise slide URLs | Staging publishes the reader at `/` and decks at `/slides/…`; old `course/prototypes` links redirect with query and hash preserved. Original source ownership remains grouped in `course/`. |
-| Replace default-blue underlined chapter check-in links | Chapter actions share designed button styling. Practice stays optional; a useful handoff can replace a quiz. |
+| Replace default-blue underlined chapter check-in links | Chapter actions share designed button styling. Reader practice stays optional. Teaching sequences follow the latest active-check-in default above. |
 | Give Chapter 4 a clear opening purpose | [Opening](prototypes/siting-format.html?teach=1#siting-purpose) establishes delivery date, connections, operating arrangement and generation duty before the cases. |
 | Replace trivial readiness arithmetic with CoreWeave phased delivery | [Polaris Forge 1](prototypes/siting-format.html?teach=1#site-ready): Applied Digital reported 50 MW Ready for Service on 27 October 2025, then another 50 MW on 24 November. The contracted campus was 400 MW; the first building was 100 MW. |
 | Show a real gas-pipeline connection and locate the Colossus case | [Abilene gas lateral](prototypes/siting-format.html?teach=1#parcel-connections) uses Energy Transfer’s August 2026 update. Original Colossus belongs in [Chapter 5](prototypes/site-format.html?teach=1#colossus-service). No unverified pipe diameter is asserted. |
@@ -331,7 +345,7 @@ is not a reason to silently skip a request.
 <summary>Previous review — Chapters 2 and 3, 12 September 2026</summary>
 
 Each request below has one resolution. The [chapter tracker](#chapter-review-tracker)
-records whether the chapter itself is finished; this table tracks the current edits.
+records whether the chapter itself is finished; this table preserves the edits from that earlier review.
 
 | Request | Resolution / status |
 | --- | --- |
@@ -388,10 +402,16 @@ Keep these follow-ups open as each section is authored. The
 the case scenes to bring into each presentation; update it with the deck and scene
 links when integration is complete.
 
-- [ ] **Section endings:** connect every teaching sequence to the next chapter
-  through a meaningful consequence, design brief or transfer problem. The fifteen
-  reader check-ins remain optional. Workloads now ends with its supply brief and
-  a direct Section 4 link; a threshold quiz is not required.
+- [ ] **Domain check-ins:** ensure every domain has a meaningful active check in
+  its teaching sequence. Chapter 3 now has a service check-in. Existing optional
+  reader checks can be adapted. Use a strong closing example only if no useful
+  active check can be made, and record the reason for that domain.
+- [ ] **Inference capacity:** obtain a matching concurrency/interactivity dataset
+  for exact supported-session selection; the GB300 source curve alone does not
+  supply a concurrency table.
+- [ ] **Remaining copy cleanup:** remove generic teaching disclaimers still found
+  in other decks, including the UPS “Ideal DC-bus example” caption; preserve
+  calculation inputs and source-figure attribution.
 - [ ] **Delivery exercise and case integration:** turn the site-built versus
   prefabricated/modular comparison and the fixed-20 MW rack-density change into
   a teaching sequence. Preserve electrical, hydraulic, spatial and scheduling

@@ -170,6 +170,9 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P13 — Slurm Workload Manager — Topology Guide](sources/P13.md) | SchedMD | D02, D07, D08, D09, D14 | page_reviewed |
 | [P130 — NVIDIA — How Groq 3 LPX Unlocks Ultrafast Interactivity at Long Context](sources/P130.md) | NVIDIA | D02, D07 | page_reviewed |
 | [P131 — NVIDIA — What Is Disaggregated Serving?](sources/P131.md) | NVIDIA | D02, D07 | page_reviewed |
+| [P132 — NVIDIA AIPerf — Metrics Reference](sources/P132.md) | NVIDIA | D02 | page_reviewed |
+| [P133 — NVIDIA — Qwen3.8 throughput and interactivity on GB300 NVL72](sources/P133.md) | NVIDIA | D02, D07 | page_reviewed |
+| [P134 — Hammond Power Solutions — How Taps Work](sources/P134.md) | Hammond Power Solutions | D04 | page_reviewed |
 | [P14 — NVIDIA DGX SuperPOD: Next Generation Scalable Infrastructure for AI Leadership Reference Architecture Featuring NVIDIA DGX H100](sources/P14.md) | NVIDIA | D07, D08, D09, D13, D14 | page_reviewed |
 | [P15 — Liquid to Liquid CDU Test Methodology and Performance Rating — Revision 1.0](sources/P15.md) | Open Compute Project | D10, D11, D13, D14 | public_excerpt_reviewed |
 | [P16 — Why Scaling AI Compute Performance Requires a New Power Architecture](sources/P16.md) | NVIDIA | D04, D05, D06, D12, D13, D15 | page_reviewed |

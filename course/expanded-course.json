@@ -1692,13 +1692,13 @@
         "next_domain": "D02",
         "bridge": "We can now account for the watts. What job must those watts support, and what counts as a successful result?",
         "next_lesson": "d02-workload-brief",
-        "next_title": "Choose how responsive each session should be"
+        "next_title": "Interactivity and total throughput"
       }
     },
     {
       "id": "d02-workload-brief",
       "domain": "D02",
-      "title": "Choose how responsive each session should be",
+      "title": "Interactivity and total throughput",
       "question": "What must the infrastructure deliver for this workload to count as successful?",
       "summary": "Use a GB300 NVL72 and Llama 3.1 70B to connect model state, context and service requirements to infrastructure demand.",
       "takeaway": "Start with accepted work and its constraints; hardware quantities follow from a measured workload model.",
@@ -1708,11 +1708,12 @@
       ],
       "sections": [
         {
-          "heading": "Trade response speed against active sessions",
+          "heading": "Interactivity is output tokens per second per user",
           "paragraphs": [
-            "The hardware reference is NVIDIA GB300 NVL72 and the model is Llama 3.1 70B. To explore interactivity, allocate a budget of 4,000 output tokens per second across active sessions. If each session needs 40 tokens per second, the budget supports 4,000 / 40 = 100 sessions. If 200 sessions share it, each receives 4,000 / 200 = 20 tokens per second: one token every 50 milliseconds instead of every 25 milliseconds. Hold the total budget fixed, then choose either the desired response speed or the number of sessions and derive the other.",
-            "This calculation assumes equal sharing during steady output generation. It separates total throughput from interactivity: how quickly one user sees a response unfold. First-token delay is a separate part of that experience. The 4,000-token/s allocation is a course input, not a measured GB300 capacity; a deployment’s achievable throughput and response speed depend on its model, context lengths, batching and software. Those relationships require a serving benchmark rather than a GPU count.",
-            "Describe the model and software version, weight and cache precision, prompt and output lengths, traffic, concurrency, acceptable quality, time to first token and inter-token latency. A training brief instead identifies an experiment, data and quality target, progress criterion and deadline. Training passes data through the model, calculates gradients and updates parameters; inference uses configured parameters to produce tokens. These uses create different state, communication and timing requirements."
+            "Interactivity is the output token rate experienced by one user after generation starts. At 40 tokens per second per user, the average gap between tokens is 25 milliseconds; at 80 it is 12.5 milliseconds. Time to first token measures the separate initial wait. A token may be a whole word or part of a word. Total throughput counts output tokens across the system, so it answers a different question from the rate of an individual answer.",
+            "Serving more requests together can increase aggregate throughput while reducing interactivity. Choose the minimum acceptable per-user output rate, then benchmark how much throughput the system delivers while meeting that requirement.",
+            "NVIDIA’s August 2026 Qwen3.8-2.4T-A95B curve on GB300 NVL72 shows throughput per GPU against interactivity. The original image identifies 8k input / 1k output, TensorRT-LLM, FP8 and multi-token prediction. Select a minimum of 100, 200 or 300 tokens per second per user and inspect only the part of the curve to its right. Raising this threshold reduces available throughput on that curve. It is a separate benchmark case from the Llama 3.1 70B memory ledger.",
+            "The plot does not tabulate concurrent users. Do not invent an exact session count or combine peak throughput with peak interactivity from different points. A supported-session answer requires the matching concurrency sweep, with its model, lengths, quality, precision and software fixed."
           ]
         },
         {
@@ -1767,6 +1768,10 @@
         {
           "term": "Workspace",
           "definition": "Temporary or supporting memory required by an implementation in addition to its persistent model state."
+        },
+        {
+          "term": "Interactivity",
+          "definition": "Output tokens per second per user during generation; higher interactivity means a faster individual answer stream."
         }
       ],
       "visual": {
@@ -1809,7 +1814,9 @@
         "EE02276C332",
         "P95",
         "P98",
-        "P17"
+        "P17",
+        "P132",
+        "P133"
       ],
       "source_notes": [
         {
@@ -1840,10 +1847,22 @@
           "id": "P17",
           "claim": "The GB300 NVL72 rack contains 72 Blackwell Ultra GPUs.",
           "reviewed_on": "2026-09-12",
-          "limits": "Read the GB300 compute rack and tray descriptions. The 4,000-output-token/s allocation is a chosen teaching budget for an equal-share steady-state tradeoff, not a manufacturer throughput result."
+          "limits": "Hardware identity and count only; actual inference throughput depends on the serving workload and configuration."
+        },
+        {
+          "id": "P132",
+          "claim": "Per-user generation throughput and the reciprocal inter-token interval; distinguish total throughput and TTFT.",
+          "reviewed_on": "2026-09-13",
+          "limits": "Reviewed output-token-throughput-per-user and streaming metric definitions. Does not establish a capacity for a named GPU."
+        },
+        {
+          "id": "P133",
+          "claim": "Original Figure 2 shows the throughput/interactivity tradeoff with the hardware, model and workload conditions printed in the figure.",
+          "reviewed_on": "2026-09-13",
+          "limits": "Publisher benchmark curve, not our measurement. 8k/1k, TensorRT-LLM, FP8 and MTP read from the original figure. No tabulated concurrency or exact curve samples provided; do not infer supported sessions."
         }
       ],
-      "word_count": 1011
+      "word_count": 1001
     },
     {
       "id": "d02-productive-utilization",
@@ -12009,6 +12028,36 @@
       ],
       "use": "Explains compute-heavy prompt processing and memory-bandwidth-heavy token generation, dedicated hardware for each phase, and the required KV-cache transfer.",
       "caution": "Reviewed phase characteristics and the aggregated/disaggregated comparison. The course says usually/often because batch size, context, model and hardware can change the bottleneck. Vendor ROI and performance multipliers are not used."
+    },
+    {
+      "id": "P132",
+      "title": "NVIDIA AIPerf — Metrics Reference",
+      "url": "https://docs.nvidia.com/aiperf/reference/ai-perf-metrics-reference",
+      "publisher": "NVIDIA",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D02"
+      ],
+      "use": "Define per-user generation rate, inter-token latency and TTFT.",
+      "caution": "Definitions only; no device throughput is inferred."
+    },
+    {
+      "id": "P133",
+      "title": "NVIDIA — Qwen3.8 throughput and interactivity on GB300 NVL72",
+      "url": "https://developer.nvidia.com/blog/serve-qwen3-8-2-4t-a95b-a-2-4t-parameter-model-with-configurable-reasoning-on-nvidia-gb300-nvl72/",
+      "publisher": "NVIDIA",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-13",
+      "published_on": "2026-08-12",
+      "domains": [
+        "D02",
+        "D07"
+      ],
+      "use": "Teach the observed interactivity/throughput curve in original Figure 2.",
+      "caution": "Original figure specifies Qwen3.8-2.4T-A95B, GB300 NVL72, 8k/1k, TensorRT-LLM, FP8 and MTP. No exact concurrency table is provided. Separate from Llama memory example."
     }
   ],
   "glossary": [
@@ -12471,6 +12520,11 @@
       "term": "Integrated test",
       "definition": "A specified exercise of behavior spanning connected subsystems.",
       "lesson": "d13-commissioning-complete-paths"
+    },
+    {
+      "term": "Interactivity",
+      "definition": "Output tokens per second per user during generation; higher interactivity means a faster individual answer stream.",
+      "lesson": "d02-workload-brief"
     },
     {
       "term": "Interface register",

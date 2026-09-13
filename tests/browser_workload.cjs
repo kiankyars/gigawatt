@@ -7,10 +7,10 @@ const { resolve } = require("node:path");
 const base = process.argv[2] || "http://127.0.0.1:8765/slides/workloads.html";
 const output = process.argv[3] || "/tmp/gigawatt-workload-qa";
 const expectedScenes = [
- "workload-purpose", "success-brief", "model-work", "memory-comparison", "kv-cache",
+ "workload-purpose", "model-work", "interactivity", "serving-frontier", "memory-comparison", "kv-cache",
  "context-capacity", "prefill-decode", "disaggregated-serving", "continuous-batching", "energy-per-result",
  "resource-paths", "training-power-evidence", "job-phases", "synchronized-jobs",
- "staggering-jobs", "next-brief",
+ "staggering-jobs", "service-checkin", "next-brief",
 ];
 
 const close = (actual, expected, label) => assert.ok(
@@ -42,15 +42,15 @@ async function checkQuantities(page, id, state) {
  const visibleLabels = (await page.locator("#diagram text").allTextContents()).join(" ");
  assert.doesNotMatch(visibleLabels, /not (?:a|the) (?:rack )?(?:benchmark|measurement)|illustrative|synthetic|no wall.clock|break.even|requirement\s*[≠=]/i,
    "Teaching labels omit generic measurement disclaimers");
- if (id === "success-brief") {
-  const sessions = state.target === "rate" ? 4000 / state.tokensPerSecond : state.sessions;
-  const rate = state.target === "rate" ? state.tokensPerSecond : 4000 / state.sessions;
-  assert.match(content, /4,000 output tokens\/s/);
-  assert.ok(content.includes(`${sessions} active sessions`), "Sessions follow the chosen constraint");
-  assert.ok(content.includes(`${rate} tokens/s`), "Per-session streaming speed follows the chosen constraint");
-  assert.ok(content.includes(`One output token every ${1000 / rate} ms`), "Token interval motivates interactivity");
-  assert.match(content, /share the budget equally/);
-  assert.doesNotMatch(visibleLabels, /72 B300 GPUs|service still needs|requirement.*measured/i);
+ if (id === "interactivity") {
+  assert.match(content, /tokens per second per user/i);
+  assert.ok(content.includes(`${state.tokensPerSecond} tokens/s/user`));
+  assert.ok(content.includes(`${1000/state.tokensPerSecond} ms between tokens`));
+  assert.doesNotMatch(content,/4,000|Serving budget/);
+ }
+ if (id === "serving-frontier") {
+  await number(page,'data-min-interactivity',state.minInteractivity);
+  assert.equal(await page.locator('#diagram image[href$="nvidia-gb300-interactivity.webp"]').count(),1);
  }
  if (id === "memory-comparison") {
   assert.match(content, /≈140 GB/); assert.match(content, /≈1,120 GB/);
@@ -154,11 +154,11 @@ async function checkNavigation(page) {
  await page.goto(url("workload-purpose"));await page.waitForSelector("#diagram text");
  await page.locator("body").click({position:{x:2,y:100}});await page.keyboard.press("ArrowLeft");
  assert.equal(new URL(page.url()).hash,"#workload-purpose");await page.keyboard.press("ArrowRight");
- assert.equal(new URL(page.url()).hash,"#success-brief");
+ assert.equal(new URL(page.url()).hash,"#model-work");
  await page.locator("#scenes").selectOption("next-brief");assert.equal(await page.locator("#next").isDisabled(),true);
  assert.match(await page.locator("#actions a").getAttribute("href"),/^siting(?:-format)?\.html\?teach=1$/);
  assert.equal(await page.locator("#reveal").count(),0);
- await page.locator("#previous").click();assert.equal(new URL(page.url()).hash,"#staggering-jobs");
+ await page.locator("#previous").click();assert.equal(new URL(page.url()).hash,"#service-checkin");
  const reading = page.locator(".toolbar a[data-course-reading]");
  await reading.waitFor({state:"visible"});
  assert.equal((await reading.textContent()).trim(),"Reading");
@@ -201,7 +201,7 @@ async function checkNavigation(page) {
       const state = { ...initialState };
       await page.goto(url(scenes[0].id));
       await page.waitForSelector("#diagram text");
-      assert.equal(await page.locator("#scenes option").count(), 16);
+      assert.equal(await page.locator("#scenes option").count(), 18);
       for (const scene of scenes) {
         await page.locator("#scenes").selectOption(scene.id);
         const configurations = (scene.controls || []).flatMap((group) => group.options.map(([value]) => ({ key: group.key, value, when: group.when })));

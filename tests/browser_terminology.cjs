@@ -28,10 +28,10 @@ async function geometry(page, size, context) {
   const {renderTerminology}=await import(pathToFileURL(path.resolve(__dirname,'../course/prototypes/terminology-visuals.js')));
   const html=readFileSync(path.resolve(__dirname,'../course/prototypes/terminology-format.html'),'utf8');
   const forwardPointer=/\bD\d{2}\b|later (?:lesson|section|chapter|sequence|comparison|calculation)|(?:next|other) (?:chapter|section)|(?:explain|introduce|meet|revisit).*again|returns in context|first exposure|optional primer|prelude|Skip to|Read the later|Continue to/i;
-  assert.equal(scenes.length,21,'Primer goes straight into its twenty-one substantive scenes');
+  assert.equal(scenes.length,22,'Primer goes straight into its twenty-two substantive scenes');
   assert.ok(scenes.every(scene => !('seconds' in scene)), 'Primer does not prescribe slide timings');
   assert.doesNotMatch(html, /teaching-cues|Planned cue:|Rehearsal cue|id="timing"/, 'No rehearsal cues in the presentation');
-  for(const [before,after] of [['ac-dc','ac-shapes'],['ac-shapes','voltage-variation'],['three-phase','three-phase-power'],['three-phase-power','power-factor'],['backup','ups-types']]) {
+  for(const [before,after] of [['ac-dc','ac-shapes'],['ac-shapes','voltage-variation'],['voltage-variation','transformer-taps'],['three-phase','three-phase-power'],['three-phase-power','power-factor'],['backup','ups-types']]) {
     assert.equal(scenes.findIndex(s=>s.id===after),scenes.findIndex(s=>s.id===before)+1,`${after} immediately follows the concept it develops`);
   }
   assert.doesNotMatch(html, /<dialog|id="explain"|id="explanation"/, "Primer has no Explanation panel");
@@ -44,7 +44,7 @@ async function geometry(page, size, context) {
     assert.doesNotMatch(JSON.stringify(scene),forwardPointer,`${scene.id}: course-forward pointer`);
     assert.doesNotMatch(scene.title,/;/,`${scene.id}: title uses simple English without a semicolon`);
     for(const compact of [false,true])for(const [value]of scene.options||[[null]]){
-      const state={circuit:'closed',resistanceVoltage:'12',hours:'1',angle:'90',supplyLevel:'1',phasePowerAngle:'0',upsSupply:'normal',bandwidth:'10000',...(scene.key?{[scene.key]:value}:{})};
+      const state={circuit:'closed',resistanceVoltage:'12',hours:'1',angle:'90',supplyLevel:'1',transformerCase:'nominal',phasePowerAngle:'0',upsSupply:'normal',bandwidth:'10000',...(scene.key?{[scene.key]:value}:{})};
       const svg=renderTerminology(scene.id,state,compact);
       assert.match(svg,/<text\b/,`${scene.id}: visible teaching content`);
       assert.doesNotMatch(svg,/NaN|undefined/,`${scene.id}: invalid diagram value`);
@@ -62,6 +62,14 @@ async function geometry(page, size, context) {
         const shown=Number(svg.match(/data-dc-volts="([^"]+)"/)[1]);
         assert.ok(Math.abs(shown-level)<1e-10, 'DC level tracks the selected source variation');
         assert.match(svg, new RegExp(`data-ac-peak-volts="${shown}"`), 'AC peak amplitude varies by the same illustrative proportion');
+      }
+      if(scene.id==='transformer-taps') {
+        const attr=name=>Number(svg.match(new RegExp(`data-${name}="([^\"]+)"`))[1]);
+        const expected={nominal:[480,480,80,120],'supply-rise':[504,480,80,126],'matched-tap':[504,504,84,120]}[value];
+        assert.deepEqual(['input-volts','tap-volts','primary-turns','output-volts'].map(attr),expected,'Each source/tap comparison matches the manufacturer turns example');
+        assert.equal(attr('output-volts')/attr('input-volts'),attr('secondary-turns')/attr('primary-turns'),'Output follows the connected turns ratio');
+        assert.equal(attr('tap-volts')*attr('secondary-turns')/attr('primary-turns'),120,'Each rated tap corresponds to the same nominal secondary voltage');
+        if(value==='supply-rise')assert.ok(attr('output-volts')>120,'A higher source voltage raises the output when the tap stays fixed');
       }
       if(scene.id==='three-phase-power') {
         const powers=svg.match(/data-phase-powers-kw="([^"]+)"/)[1].split(',').map(Number);
@@ -99,7 +107,7 @@ async function geometry(page, size, context) {
       }
     }
   }
-  console.log('Passed Primer static checks: twenty-one scenes, all diagram/control states, circuit and new example arithmetic, UPS supply paths, follow-up sequence, legacy aliases, and zero course-forward or reference pointers.');
+  console.log('Passed Primer static checks: twenty-two scenes, all diagram/control states, circuit and transformer arithmetic, UPS supply paths, follow-up sequence, legacy aliases, and zero course-forward or reference pointers.');
   if(staticOnly)return;
   const { chromium } = require('playwright');
   mkdirSync(output,{recursive:true});

@@ -78,5 +78,15 @@
       "P129",
       "P130"
     ]
+  },
+  {
+    "file": "nvidia-gb300-interactivity.webp",
+    "source_url": "https://developer-blogs.nvidia.com/wp-content/uploads/2026/08/Qwen3.8-NVL72-Performance.webp",
+    "article_url": "https://developer.nvidia.com/blog/serve-qwen3-8-2-4t-a95b-a-2-4t-parameter-model-with-configurable-reasoning-on-nvidia-gb300-nvl72/",
+    "publisher": "NVIDIA",
+    "published_on": "2026-08-12",
+    "retrieved_on": "2026-09-13",
+    "sha256": "e1b78454226e6e362099410078e12238d925a800d95de255c8c0ae5387f1f242",
+    "note": "Original Figure 2 copied unchanged. Visual inspected: 1536x1024; 8k/1k, TensorRT-LLM, FP8, MTP. Interactive dashed threshold is a separate SVG overlay; no fabricated points or concurrency values."
   }
 ]

@@ -91,10 +91,13 @@ Use a prediction and reveal when the changed condition tests useful reasoning. K
 main visual unless it changes the engineering conclusion. Primer remains first
 exposure to terms; detailed cases belong in the domains.
 
-The reader implements one optional check-in at each domain boundary.
-Use those scenarios in presentations when they test a meaningful mechanism;
-a concrete design brief can provide the bridge to the next chapter instead.
-Do not force a quiz or answer reveal into every ending.
+Plan one active check-in in every domain. Make it test the mechanism or a real
+engineering decision: predict a change, choose an operating point, diagnose a
+failure, or identify the evidence needed to proceed. A strong closing example is
+allowed only when no worthwhile active check-in can be made; record that specific
+reason in the course review. The reader's fifteen existing check-ins are starting
+points, not proof that each teaching deck already includes one. This is Kian's
+latest clarification on 13 September 2026.
 
 ### Required section handoffs
 
@@ -173,7 +176,9 @@ Use these rules when adapting each sequence:
    the comparison establishes. Use a changed case when it tests understanding;
    do not append an unrelated calculation to satisfy a format. Remove quizzes
    that only ask whether a number crosses a displayed threshold; a concrete
-   design brief or meaningful prediction can close the chapter instead.
+   decision exercise or meaningful prediction can close the chapter instead.
+   Include an active check-in in every domain unless no worthwhile one can be
+   made; document that exception and teach a strong closing example.
    For a failure, trace the surviving path and capacity, then show the response:
    continued service, reduced service or shutdown. Distinguish a configured
    operating response from automatic component protection and unmodeled timing.

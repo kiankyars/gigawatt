@@ -40,6 +40,11 @@ export const scenes = [
     options: [['0.9', '10% lower'], ['1', 'Nominal'], ['1.1', '10% higher']], key: 'supplyLevel', group: 'Supply voltage',
   },
   {
+    id: 'transformer-taps', label: 'Transformer voltage and taps', title: 'A transformer tap sets the voltage ratio',
+    description: 'A 480-to-120 volt AC transformer has 80 connected primary turns and 20 secondary turns at its nominal tap. If the source rises to 504 volts with that tap unchanged, the output rises to 126 volts. A 504 volt primary tap connects 84 primary turns, giving 120 volts from the same 504 volt source. The tap changes connected turns; this transformer does not automatically regulate voltage. Permitted input voltage depends on the rating and tap.',
+    options: [['nominal', '480 V supply'], ['supply-rise', '504 V, same tap'], ['matched-tap', '504 V, matched tap']], key: 'transformerCase', group: 'Compare connections',
+  },
+  {
     id: 'three-phase', label: 'Three-phase AC', title: 'Data centers mostly distribute AC in three phases',
     description: 'Three sinusoidal phase voltages are staggered by one-third of a cycle. Three-phase AC is the predominant form of AC power distribution in data centers. RMS describes effective voltage magnitude.',
   },
