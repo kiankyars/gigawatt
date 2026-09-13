@@ -262,6 +262,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P97 — Microsoft, OpenAI and NVIDIA — Power Stabilization for AI Training Datacenters](sources/P97.md) | Microsoft, OpenAI and NVIDIA authors / arXiv | D02, D05, D06, D15 | page_reviewed |
 | [P98 — ZeRO: Memory Optimizations Toward Training Trillion Parameter Models](sources/P98.md) | Microsoft Research authors / arXiv | D02, D07 | page_reviewed |
 | [P99 — Gemini: A Family of Highly Capable Multimodal Models](sources/P99.md) | Google DeepMind | D01, D02, D08 | page_reviewed |
+| [P_DELTA_BBU — Delta Electronics — 3 kW BBU and 15 kW Battery Backup System](sources/P_DELTA_BBU.md) | Delta Electronics | D05, D06 | page_reviewed |
 | [SA01 — Datacenter Anatomy Part 1: Electrical Systems](sources/SA01.md) | SemiAnalysis | D04, D05, D06, D13, D15 | public_excerpt_reviewed |
 | [SA02 — Datacenter Anatomy Part 2 – Cooling Systems](sources/SA02.md) | SemiAnalysis | D10, D11, D15 | public_excerpt_reviewed |
 | [SA03 — 100,000 H100 Clusters: Power, Network Topology, Ethernet vs InfiniBand, Reliability, Failures, Checkpointing](sources/SA03.md) | SemiAnalysis | D02, D07, D08, D09, D14 | public_excerpt_reviewed |

@@ -1101,3 +1101,18 @@ Temporary screenshots and sweep results are in `/tmp/chapter5-final/`. These
 checks establish rendering and the explicitly described teaching relationships,
 not construction accuracy or author acceptance. The next author pass starts at
 [slide 14](prototypes/site-format.html?teach=1#service-envelope).
+
+## PSU and BBU product photographs — 2026-09-13
+
+- Added `psu-hardware` and `bbu-hardware` before the existing mechanism scenes;
+  the rack-to-chip deck now contains 13 slides. Existing model inputs and controls
+  are unchanged.
+- Four manufacturer images inspected directly; original bytes retained with
+  source URLs, dimensions and SHA-256 records. The viewport crops whitespace only.
+- In-app browser: both photo slides inspected at 1280 × 720 and 390 × 844.
+  Two images per slide, readable labels, no horizontal overflow; mobile content
+  remains vertically scrollable. Browser error/warning log was empty.
+- All 5 rack-power model tests and 46 expanded-course, research, staging and
+  teaching-catalog tests passed. Research/reader generation and site staging passed.
+  `git diff --check` passed. This is a scoped photo integration check, not a new
+  whole-course visual or author-acceptance claim.

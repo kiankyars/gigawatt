@@ -427,8 +427,11 @@ links when integration is complete.
 - [ ] **Transformer operating range:** add a real equipment example with
   manufacturer input rating, taps and operating limits; the current tap mechanism
   does not establish that range.
-- [ ] **Rack product imagery:** embed a verified product/specification image for
-  the ORv3 PSU and BBU examples alongside their functional diagrams.
+- [x] **Rack product imagery:** [PSU and power shelf](prototypes/rack-power-format.html?teach=1#psu-hardware)
+  and [BBU and battery shelf](prototypes/rack-power-format.html?teach=1#bbu-hardware)
+  now have manufacturer photographs. Two photo slides precede the existing
+  mechanisms; the rack-to-chip sequence now has 13 slides. These additions carry
+  into Chapter 8 when its two sequences are appended.
 - [ ] **Domain check-ins:** ensure every domain has a meaningful active check in
   its teaching sequence. Chapter 3 now has a service check-in. Existing optional
   reader checks can be adapted. Use a strong closing example only if no useful
