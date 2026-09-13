@@ -195,6 +195,13 @@ function render() {
                 ? Number(value)
                 : value;
           render();
+          const controls = [...$("actions").querySelectorAll("button")];
+          const replacement =
+            controls.find(
+              (control) =>
+                control.dataset.key === key && control.dataset.value === value,
+            ) || controls.find((control) => control.dataset.key === key);
+          replacement?.focus({ preventScroll: true });
         }),
     );
   $("scene-jump").innerHTML = scenes
