@@ -1112,7 +1112,8 @@ not construction accuracy or author acceptance. The next author pass starts at
 - In-app browser: both photo slides inspected at 1280 × 720 and 390 × 844.
   Two images per slide, readable labels, no horizontal overflow; mobile content
   remains vertically scrollable. Browser error/warning log was empty.
-- All 5 rack-power model tests and 46 expanded-course, research, staging and
-  teaching-catalog tests passed. Research/reader generation and site staging passed.
+- All 72 Python and 142 Node tests passed, including the rack-power models.
+  Research/reader generation and site staging passed. Publication identified a
+  stale domain-map source listing; it was regenerated and all workflow checks passed locally.
   `git diff --check` passed. This is a scoped photo integration check, not a new
   whole-course visual or author-acceptance claim.

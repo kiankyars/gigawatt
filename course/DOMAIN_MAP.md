@@ -667,6 +667,7 @@ Explain why fault clearing and grounding require topology-specific AC/DC protect
 - [P119 — Eaton — 93E UPS Generation 3 installation and operation manual, 164000301 Rev. 04](https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-93e-ups/eaton-93e-ups-20kva-30kva-generation-3-manual-p-164000301.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P119.md)
 - [P120 — Microsoft — Fairwater Atlanta availability and power design](https://blogs.microsoft.com/blog/2025/11/12/infinite-scale-the-architecture-behind-the-azure-ai-superfactory/) · `page_reviewed` · [local note](../research/sources/P120.md)
 - [P121 — NTT DATA — Vienna 1 facility and power SLA](https://services.global.ntt/-/media/ntt/global/insights-and-resources/data-sheets/vienna-1-data-sheet.pdf?rev=9057842951194cb1b9d1cf884282f421) · `page_reviewed` · [local note](../research/sources/P121.md)
+- [P_DELTA_BBU — Delta Electronics — 3 kW BBU and 15 kW Battery Backup System](https://www.delta-americas.com/en-US/products/Power-Management/12018) · `page_reviewed` · [local note](../research/sources/P_DELTA_BBU.md)
 
 <a id="d06"></a>
 
@@ -783,6 +784,7 @@ Explain how retrofit constraints can reverse a seemingly attractive greenfield a
 - [P90 — Texas Instruments — The decoupling capacitor: is it really necessary?](https://e2e.ti.com/blogs_/archives/b/precisionhub/posts/the-decoupling-capacitor-is-it-really-necessary) · `page_reviewed` · [local note](../research/sources/P90.md)
 - [P95 — Meta — Llama model SKU architecture definitions](https://github.com/meta-llama/llama-models/blob/main/models/sku_list.py) · `page_reviewed` · [local note](../research/sources/P95.md)
 - [P97 — Microsoft, OpenAI and NVIDIA — Power Stabilization for AI Training Datacenters](https://arxiv.org/html/2508.14318v1) · `page_reviewed` · [local note](../research/sources/P97.md)
+- [P_DELTA_BBU — Delta Electronics — 3 kW BBU and 15 kW Battery Backup System](https://www.delta-americas.com/en-US/products/Power-Management/12018) · `page_reviewed` · [local note](../research/sources/P_DELTA_BBU.md)
 
 <a id="d07"></a>
 
