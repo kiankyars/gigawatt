@@ -1,0 +1,17 @@
+{
+  "purpose": "Root integration proposal; source IDs deliberately unallocated.",
+  "sources": [],
+  "generated_assets": [
+    {
+      "asset": "course/assets/generated/rack-energy-scales.png",
+      "method": "Built-in GPT ImageGen",
+      "created_on": "2026-09-13",
+      "original": "/Users/kian/.codex/generated_images/01a09cdf-b972-75b0-9113-37ef37feb7c4/exec-6969a6fc-c3ce-4a06-873c-8a8ec6acb38c.png",
+      "purpose": "Generic physical context at rack, board and package scales, with accessible HTML labels for bus distribution, board conversion and local capacitor support.",
+      "limits": "The image establishes physical scale and object roles only. It is not a DGX or ORv3 product view, board schematic, geometry/rating evidence, or validated copper connection design. No generated numbers or current arrows are used. Subsequent functional diagrams carry the electrical paths.",
+      "prompt": "Clean wide editorial technical illustration: generic open-frame rear rack with copper busbars, generic compute board with package and inductor blocks, close-up package and small ceramic capacitors. Separate objects on off-white; restrained graphite/green/copper; no labels, text, numbers, logos or arrows. Webpage overlays accessible labels.",
+      "sha256": "54331372612d0cc154d2a95c8e3f7d4ee8bf7ccc5a7fb51c95c59ed7bbe6a32f"
+    }
+  ],
+  "integration_note": "Root authored named PSU and BBU hardware scenes independently; preserve those rather than duplicate their photos. This Chapter 8 supplement uses existing reader assumptions and introduces no new sourced factual claims."
+}

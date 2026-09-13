@@ -96,6 +96,10 @@ def presentation_outputs(root: Path, sample_id: str) -> dict[Path, str]:
     script = re.sub(
         r"^export ", "", (web / "reader-models.js").read_text(), flags=re.MULTILINE
     )
+    for renderer in ("electrical-renderer.js", "presentation-renderers.js"):
+        script += "\n" + re.sub(
+            r"^export ", "", (web / renderer).read_text(), flags=re.MULTILINE
+        )
     script += "\n" + (web / "electrical-visuals.js").read_text()
     script += "\n" + (web / "presentation.js").read_text()
     replacements = {
@@ -118,6 +122,12 @@ def presentation_outputs(root: Path, sample_id: str) -> dict[Path, str]:
     if html.count("__PRESENTATION_MODE__") != 1:
         raise ValueError("Expected exactly one view placeholder")
     return {
+        Path("course/prototypes/rack-energy-800v-data.js"): (
+            "// Generated from expansion/sample-presentation.json by gigawatt-expand.\n"
+            "export const samplePresentation = "
+            + json.dumps(data, ensure_ascii=False, indent=2)
+            + ";\n"
+        ),
         Path("course/sample.html"): html.replace("__PRESENTATION_MODE__", "student"),
         Path("course/teach.html"): html.replace("__PRESENTATION_MODE__", "teach"),
         Path("course/sample-notes.html"): html.replace(
