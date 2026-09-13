@@ -32,6 +32,7 @@ Each topic ends with a check-in: pause, make a prediction, compare the reasoning
 
 ### 4. Siting, grid connection and supply
 
+- Slides: [Siting, grid connection and supply](prototypes/siting-format.html?teach=1)
 - [A contract is not a cable](lessons/d03-power-and-procurement.md) — How do energy purchases relate to the physical supply that keeps a rack running?
 - [Move power with fewer amperes](lessons/d03-voltage-and-distance.md) — Why does a higher transport voltage reduce one important class of losses?
 - [Behind the meter and the first usable megawatt](lessons/d03-service-and-siting.md) — Can behind-the-meter supply bring a site online sooner and keep its protected load running during an outage?

@@ -209,7 +209,7 @@ links when integration is complete.
 
 - [ ] **Domain check-ins:** connect every applicable teaching sequence to its
   authored check-in, with a prediction pause, answer reveal and next-section
-  transition. All fifteen exist in the reader; only the overview and workloads
+  transition. All fifteen exist in the reader; the overview, workloads and siting
   presentations currently link directly to theirs.
 - [ ] **Delivery exercise and case integration:** turn the site-built versus
   prefabricated/modular comparison and the fixed-20 MW rack-density change into
@@ -235,13 +235,24 @@ The next dry run is **[Primer](prototypes/terminology-format.html?teach=1)**.
 Check its approximately 20-minute target, whether the diagrams give each term a
 meaningful first exposure, and whether beginners can follow part of a technical conversation. Do not test recall as an entry requirement.
 
-**[Data center overview](prototypes/orientation-format.html?teach=1#three-paths)** remains as authored.
-Its thirteen scenes give a broad first tour: facility rooms, generation and
-transmission, campus distribution and backup, a GB300 rack, chip-to-cluster scale,
-network and cooling paths, then rating, demand and fixed-IT PUE comparisons. These concepts
-are directly taught in the presentation. Source-claim evaluation remains in the
-Data center overview reference. Workloads and requirements now has a 19-scene teaching sequence across its three written
-lessons; Siting, grid connection and supply is the next core teaching section to author after the Workloads and requirements dry run.
+**[Data center overview](prototypes/orientation-format.html?teach=1#three-paths)** and
+**[Workloads and requirements](prototypes/workload-format.html?teach=1)** are under
+Kian’s review. Overview slide 2 now opens on a credited real Google data-hall
+photograph, with the white/gray-space floor plan available in the same scene.
+The overview retains thirteen scenes across the facility tour and its boundaries.
+Workloads retains nineteen scenes across its three written lessons. Continue
+reviewing these two sections while the new supply presentation is developed.
+
+**[Section 4: Siting, grid connection and supply](prototypes/siting-format.html?teach=1)**
+has an eighteen-slide first draft. It covers readiness dependencies, connection
+routes, dated Abilene phases, procurement versus physical supply, hourly matching,
+BTM operation, an import contingency, supported-island limits and the integrated
+Southaven procurement case. Its closing prediction/reveal links to the canonical
+D03 check-in and bridges to Section 5. Abilene and Southaven statements were checked
+against their dated sources on 12 September 2026; calculation inputs remain
+explicit teaching assumptions. This is authored coverage, pending human dry-run
+feedback, not a claim that the chapter has been reviewed or is ready to record.
+
 
 **Teach the new sequence aloud without recording.** Send the scene and the point
 that confused you or needed a different visual. The agent fixes that mechanism

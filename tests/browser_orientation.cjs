@@ -8,7 +8,7 @@ const base =
 const output = process.argv[3] || "/tmp/gigawatt-orientation-qa";
 const scenes = [
   { id: "three-paths", setting: "path", values: ["power", "heat", "data"] },
-  { id: "white-grey", values: [null] },
+  { id: "white-grey", setting: "spaceView", values: ["photo", "plan"] },
   { id: "generation", values: [null] },
   { id: "transmission", values: [null] },
   { id: "campus-power", values: [null] },
@@ -171,9 +171,15 @@ async function checkQuantities(page, id, value) {
     );
   }
   if (id === "white-grey") {
-    assert.match(content, /WHITE SPACE/);
-    assert.match(content, /GRAY SPACE|GREY SPACE/);
-    assert.equal(await page.locator("#actions button").count(), 0);
+    if (value === "photo") {
+      assert.match(content, /White space · New Albany, Ohio/);
+      assert.match(content, /Photograph: Google/);
+      await checkHallImage(page);
+    } else {
+      assert.match(content, /WHITE SPACE/);
+      assert.match(content, /GRAY SPACE|GREY SPACE/);
+      assert.equal(await page.locator("[data-data-hall-image]").count(), 0);
+    }
   }
   if (id === "rack-boundary") {
     assert.equal(await attributeNumber("data-rack-requirement"), 142);
@@ -217,6 +223,30 @@ async function checkQuantities(page, id, value) {
       value === "lower" ? 150 : 300,
     );
   }
+}
+
+async function checkHallImage(page) {
+  const image = page.locator(
+    'svg image[data-data-hall-image="google-new-albany"]',
+  );
+  assert.equal(
+    await image.count(),
+    1,
+    "The overview must display its real data-hall photograph",
+  );
+  const source = await image.getAttribute("href");
+  assert.equal(new URL(source).hostname, "www.gstatic.com");
+  assert.match(new URL(source).pathname, /server-aisles-in-our-new-albany/);
+  const size = await image.evaluate(async (element) => {
+    const photo = new Image();
+    photo.src = element.getAttribute("href");
+    await photo.decode();
+    return { width: photo.naturalWidth, height: photo.naturalHeight };
+  });
+  assert.ok(
+    size.width >= 1000 && size.height >= 500,
+    "The real hall image must decode at a useful resolution",
+  );
 }
 
 async function checkProductImage(page) {
@@ -373,6 +403,10 @@ async function checkNavigation(page) {
             scenes.length,
           );
           assert.equal(await page.locator("#fullscreen").isVisible(), false);
+          if (scene.id === "white-grey") {
+            await checkSelection(page, scene, "photo");
+            await checkHallImage(page);
+          }
           for (const value of scene.values) {
             const name = `${scene.id}-${value ?? "default"}-${viewport.width}-${colorScheme}`;
             try {
@@ -402,9 +436,12 @@ async function checkNavigation(page) {
               await checkGeometry(page, viewport);
               if (
                 value === scene.values[0] ||
-                ["power-energy", "useful-work", "rack-boundary"].includes(
-                  scene.id,
-                )
+                [
+                  "power-energy",
+                  "useful-work",
+                  "rack-boundary",
+                  "white-grey",
+                ].includes(scene.id)
               )
                 await page.screenshot({
                   path: `${output}/${name}.png`,

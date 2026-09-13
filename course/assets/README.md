@@ -31,6 +31,18 @@ current authored edition.
 
 ## Sourced reference images
 
+The overview's second slide opens on Google's photograph of server aisles at
+its **New Albany, Ohio** campus, credited on the slide. Source:
+[Google Data Centers photo gallery — Central Ohio](https://www.datacenters.google/discover-more/photo-gallery/),
+inspected 2026-09-12. The image is embedded from the
+[publisher's image CDN](https://www.gstatic.com/marketing-cms/assets/images/19/43/b476c0984f2da3b2faa1a7f588ce/server-aisles-in-our-new-albany-data-center-building-in-central-ohio.jpg=n-w1086-h814-fcrop64=1,0000202fffffdfea-rw),
+not copied into this repository. Desktop presentation crops it to the available
+wide frame; phone presentation contains the full publisher-served image. It is
+a visual reference for equipment racks, aisles and overhead infrastructure—not
+a universal data-hall layout, a GB300 installation, or evidence of an identified
+cooling component. The selectable white/gray-space floor plan is a separate
+teaching schematic, not a plan of Google's building.
+
 `references/provenance.json` records publisher URLs, retrieval dates and file
 hashes. The two supplied 800 V DC diagrams are embedded, with source-specific
 limits, in D04's conversion-placement lesson. They are architecture proposals,

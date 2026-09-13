@@ -285,6 +285,41 @@ function floorPlan(state, compact, spaces) {
   return `<g data-spatial-scene="${spaces ? "white-grey" : "three-paths"}">${out}</g>`;
 }
 
+function dataHallPhoto(compact) {
+  const source =
+    "https://www.gstatic.com/marketing-cms/assets/images/19/43/b476c0984f2da3b2faa1a7f588ce/server-aisles-in-our-new-albany-data-center-building-in-central-ohio.jpg=n-w1086-h814-fcrop64=1,0000202fffffdfea-rw";
+  const photo = compact
+    ? { x: 14, y: 15, w: 362, h: 204 }
+    : { x: 20, y: 12, w: 1120, h: 530 };
+  return `<g data-spatial-scene="white-grey" data-space-view="photo">
+    <image data-data-hall-image="google-new-albany" href="${source}"
+      x="${photo.x}" y="${photo.y}" width="${photo.w}" height="${photo.h}"
+      preserveAspectRatio="xMidYMid ${compact ? "meet" : "slice"}"/>
+    ${label(
+      compact ? 195 : 28,
+      compact ? 250 : 576,
+      "White space · New Albany, Ohio",
+      "",
+      {
+        anchor: compact ? "middle" : "start",
+        size: compact ? 17 : 21,
+        weight: 600,
+      },
+    )}
+    ${label(
+      compact ? 195 : 1132,
+      compact ? 278 : 576,
+      "Photograph: Google",
+      "",
+      {
+        anchor: compact ? "middle" : "end",
+        size: compact ? 14 : 18,
+        color: "var(--muted)",
+      },
+    )}
+  </g>`;
+}
+
 function rackBoundary(state, compact) {
   const source =
     "https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/_images/nvl72-ai-factory-01.png";
@@ -364,7 +399,10 @@ function rackBoundary(state, compact) {
 
 export function renderSpatial(kind, state = {}, compact = false) {
   if (kind === "three-paths") return floorPlan(state, compact, false);
-  if (kind === "white-grey") return floorPlan(state, compact, true);
+  if (kind === "white-grey")
+    return state.spaceView === "plan"
+      ? floorPlan(state, compact, true)
+      : dataHallPhoto(compact);
   if (kind === "rack-boundary") return rackBoundary(state, compact);
   throw new Error(`Unknown orientation spatial scene: ${kind}`);
 }

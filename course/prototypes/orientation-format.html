@@ -308,6 +308,10 @@
           height: 650px;
           flex: none;
         }
+        #diagram[data-photo-view="true"] {
+          min-height: 300px;
+          height: 300px;
+        }
         #actions {
           padding: 5px 7px 12px;
         }
@@ -451,6 +455,15 @@
         <ul>
           <li>
             <a
+              href="https://www.datacenters.google/discover-more/photo-gallery/"
+              >Google Data Centers — Photo gallery, Central Ohio</a
+            >: the New Albany server-aisle photograph provides a real view of
+            racks, aisles and overhead infrastructure. This is one facility, not
+            a universal layout or a GB300 installation. The selectable floor plan
+            is a separate teaching schematic, not a plan of this building.
+          </li>
+          <li>
+            <a
               href="https://www.energy.gov/sites/default/files/2024-07/best-practice-guide-data-center-design_0.pdf"
               >DOE / NREL — Best Practices Guide for Energy-Efficient Data
               Center Design</a
@@ -557,8 +570,9 @@
       </p></noscript
     >
     <script type="module">
-      import { presentationLabels } from './teaching-navigation.js';
-      document.querySelector('main .eyebrow').textContent = presentationLabels.overview;
+      import { presentationLabels } from "./teaching-navigation.js";
+      document.querySelector("main .eyebrow").textContent =
+        presentationLabels.overview;
       import { renderSpatial } from "./orientation-spatial.js";
       import { renderQuantities } from "./orientation-quantities.js";
       import { renderPowerTour } from "./orientation-power-tour.js";
@@ -566,6 +580,7 @@
       const $ = (id) => document.getElementById(id);
       const state = {
         path: "power",
+        spaceView: "photo",
         boundary: "it",
         schedule: "stepped",
         efficiency: "baseline",
@@ -595,10 +610,16 @@
           title:
             "White space houses the IT; gray space supports its operation.",
           reference: "d01-boundaries",
+          key: "spaceView",
+          group: "View",
+          options: [
+            ["photo", "Photograph"],
+            ["plan", "Floor plan"],
+          ],
           description:
-            "A floor plan labels the IT hall as white space and supporting electrical and mechanical rooms as gray space.",
+            "Google’s New Albany, Ohio data hall shows rows of equipment racks, access aisles and overhead infrastructure. Select Floor plan to locate white space and gray space in a separate teaching schematic.",
           explanation:
-            "White space is the area housing IT equipment and immediate supporting infrastructure. Gray space describes back-of-house electrical, mechanical and service areas. The names classify areas, not equipment types: some power and cooling equipment can sit alongside racks. This introduction only establishes the room vocabulary. The choice of CDU location affects service access, occupied space and piping; The heat-capture and physical-site lessons develop those design tradeoffs. Vertiv discusses white-space and mechanical-gallery placement explicitly on printed pages 14–15.",
+            "The photograph is a real server aisle at Google’s New Albany campus in Central Ohio. Notice the repeated equipment racks, the space for access and the overhead infrastructure. It supplies a visual reference, not a universal equipment arrangement or evidence of a particular AI rack model. Select Floor plan to locate the IT hall and its supporting rooms; that schematic is not a plan of the photographed building. White space is the area housing IT equipment and immediate supporting infrastructure. Gray space describes back-of-house electrical, mechanical and service areas. The names classify areas, not equipment types: some power and cooling equipment can sit alongside racks. The choice of CDU location affects service access, occupied space and piping; the heat-capture and physical-site lessons develop those design tradeoffs. Vertiv discusses white-space and mechanical-gallery placement explicitly on printed pages 14–15.",
         },
         {
           id: "generation",
@@ -753,9 +774,15 @@
       function draw() {
         const s = scenes[index],
           compact = matchMedia("(max-width:600px)").matches;
+        const photoView = s.id === "white-grey" && state.spaceView === "photo";
+        $("diagram").dataset.photoView = String(photoView);
         $("diagram").setAttribute(
           "viewBox",
-          compact ? "0 0 390 720" : "0 0 1160 600",
+          compact
+            ? photoView
+              ? "0 0 390 300"
+              : "0 0 390 720"
+            : "0 0 1160 600",
         );
         const visual =
           s.visual === "power-tour"

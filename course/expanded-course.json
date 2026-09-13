@@ -1042,7 +1042,14 @@
         "d03-voltage-and-distance",
         "d03-service-and-siting"
       ],
-      "presentations": []
+      "presentations": [
+        {
+          "id": "siting",
+          "title": "Siting, grid connection and supply",
+          "href": "prototypes/siting-format.html?teach=1",
+          "coverage": "chapter"
+        }
+      ]
     },
     {
       "id": "D12",

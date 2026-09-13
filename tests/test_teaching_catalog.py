@@ -146,7 +146,7 @@ class TeachingCatalogTests(unittest.TestCase):
         self.assertEqual(chapters["D13"]["number"], 14)
         self.assertEqual(chapters["capstone"]["number"], 17)
         self.assertEqual(
-            len({p["id"] for c in chapters.values() for p in c["presentations"]}), 6
+            len({p["id"] for c in chapters.values() for p in c["presentations"]}), 7
         )
         for did in ("D05", "D06", "D10", "D11"):
             with self.subTest(chapter=did):
@@ -162,6 +162,8 @@ class TeachingCatalogTests(unittest.TestCase):
             "prototypes/cooling-format.html?teach=1#rejection",
         )
         self.assertEqual(chapters["D13"]["presentations"], [])
+        self.assertEqual(chapters["D03"]["presentations"][0]["coverage"], "chapter")
+        self.assertEqual(chapters["D03"]["presentations"][0]["href"], "prototypes/siting-format.html?teach=1")
 
     def test_numbered_markdown_uses_the_same_chapter_identity(self):
         course = b.load_course()

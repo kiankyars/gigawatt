@@ -40,10 +40,18 @@ waiting energy, then compare batching, latency and demand timing. Both presentat
 end with a link to their check-in. Pause for a prediction before revealing the answer.
 The primer and workloads still need an aloud learner dry run.
 
-Presentations exist for the primer, the overview, workloads, and selected UPS,
-800 V and cooling material. Networking and capacity decisions have authored reader
-lessons; their own presentations remain to be built. Grid connection and supply is
-the next core presentation to author after reviewing workloads.
+Continue reviewing **Parts 2 and 3**: the overview and workloads. Overview slide 2
+now opens on a real data-hall photograph; use **Floor plan** for the white/gray-space
+schematic.
+
+**[Section 4: Siting, grid connection and supply](prototypes/siting-format.html?teach=1)**
+has an eighteen-slide first draft, including behind-the-meter supply and the
+Southaven procurement case. It ends with a prediction/reveal and the section
+check-in. Review it after the current two sections.
+
+Presentations also exist for the primer and selected UPS, 800 V and cooling
+material. Networking and capacity decisions have authored reader lessons; their
+own presentations remain to be built.
 
 The networking reading covers copper, fiber, pluggable and co-packaged optics,
 scale-up and scale-out, campus entrances, meet-me rooms, carrier handoff, DCI/WAN

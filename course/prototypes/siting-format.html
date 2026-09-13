@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="description" content="Trace site readiness, grid connection, energy procurement and behind-the-meter supply through controlled examples."><title>Siting, grid connection and supply · GIGAWATT</title><style>
+      :root {
+        color-scheme: light;
+        --paper: #f4f3ee;
+        --text: #193139;
+        --muted: #5b6c70;
+        --line: #c8d4d4;
+        --panel: #e8eeea;
+        --surface: #fbfcf8;
+        --power: #086e83;
+        --heat: #ac4e2f;
+        --data: #6951a5;
+        font-family:
+          Inter,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        color: var(--text);
+        background: var(--paper);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          color-scheme: dark;
+          --paper: #101b1f;
+          --text: #e8f1ef;
+          --muted: #a8bfbd;
+          --line: #35504f;
+          --panel: #1b2d31;
+          --surface: #142428;
+          --power: #74d9e6;
+          --heat: #f2a387;
+          --data: #c3b2ff;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+      }
+      button,
+      select,
+      a {
+        font: inherit;
+      }
+      a {
+        color: var(--power);
+      }
+      button,
+      select {
+        color: inherit;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        min-height: 40px;
+        padding: 8px 13px;
+        cursor: pointer;
+      }
+      button:hover,
+      select:hover {
+        border-color: var(--muted);
+      }
+      button:disabled {
+        opacity: 0.35;
+        cursor: default;
+      }
+      button[aria-pressed="true"] {
+        color: var(--paper);
+        background: var(--text);
+        border-color: var(--text);
+      }
+      :is(button, select, a, summary):focus-visible {
+        outline: 3px solid var(--heat);
+        outline-offset: 3px;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+      #viewer {
+        height: 100svh;
+        max-width: 1920px;
+        margin: auto;
+        background: var(--paper);
+        display: grid;
+        grid-template-rows: 52px minmax(0, 1fr) 62px;
+      }
+      #viewer::backdrop {
+        background: var(--paper);
+      }
+      .toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        padding: 0 28px;
+        border-bottom: 1px solid var(--line);
+      }
+      .back-to-course {
+        color: inherit;
+        text-decoration: none;
+        letter-spacing: normal;
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .toolbar nav {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .toolbar button,
+      .toolbar nav a {
+        font-size: 12px;
+      }
+      main {
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        padding: 20px 4vw 0;
+        gap: 8px;
+      }
+      h1 {
+        font:
+          400 clamp(29px, 3.3vw, 51px)/1.09 Georgia,
+          serif;
+        letter-spacing: -0.7px;
+        text-wrap: balance;
+        margin: 0;
+        max-width: 1450px;
+      }
+      #stage {
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+      }
+      #diagram {
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+        flex: 1;
+        overflow: visible;
+        font-family: inherit;
+      }
+      #actions {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        flex-wrap: wrap;
+        padding: 0 0 10px;
+      }
+      #actions:empty {
+        display: none;
+      }
+      #actions button {
+        font-size: 13px;
+      }
+      .choices {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        flex-wrap: wrap;
+      }
+      .choices-label {
+        font-size: 12px;
+        color: var(--muted);
+        margin-right: 5px;
+      }
+      footer {
+        border-top: 1px solid var(--line);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        padding: 0 28px;
+      }
+      .navigation {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      #progress {
+        font-size: 12px;
+        font-variant-numeric: tabular-nums;
+        color: var(--muted);
+        min-width: 45px;
+        text-align: center;
+      }
+      #scenes {
+        max-width: 250px;
+        width: min(250px, 35vw);
+        font-size: 13px;
+      }
+      dialog {
+        color: var(--text);
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        width: min(760px, 94vw);
+        max-height: 86svh;
+        padding: 25px 30px;
+        line-height: 1.65;
+      }
+      dialog::backdrop {
+        background: #08131ab3;
+      }
+      dialog header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      dialog h2 {
+        font:
+          normal 29px Georgia,
+          serif;
+        margin: 0;
+      }
+      dialog h3 {
+        font-size: 17px;
+      }
+      dialog summary {
+        cursor: pointer;
+        font-weight: 650;
+      }
+      dialog p {
+        font-size: 15px;
+      }
+      dialog details {
+        border-top: 1px solid var(--line);
+        padding-top: 14px;
+        margin-top: 18px;
+      }
+      dialog li {
+        margin: 9px 0;
+      }
+      dialog .scope {
+        color: var(--muted);
+      }
+      @media (max-width: 600px) {
+        #viewer {
+          height: auto;
+          min-height: 100svh;
+          grid-template-rows: 52px minmax(0, 1fr) 62px;
+        }
+        .toolbar {
+          padding: 0 15px;
+        }
+        .toolbar nav {
+          gap: 6px;
+        }
+        .toolbar button {
+          padding: 6px 9px;
+        }
+        main {
+          padding: 20px 8px 5px;
+          gap: 12px;
+        }
+        main > header {
+          padding: 0 7px;
+        }
+        h1 {
+          font-size: 31px;
+        }
+        #diagram {
+          min-height: 650px;
+          height: 650px;
+          flex: none;
+        }
+        #actions {
+          padding: 5px 7px 12px;
+        }
+        #actions button {
+          font-size: 12px;
+          padding: 8px 11px;
+        }
+        footer {
+          padding: 0 15px;
+          gap: 8px;
+        }
+        #scenes {
+          width: 44vw;
+        }
+        .navigation {
+          gap: 5px;
+        }
+        footer button {
+          padding: 7px 10px;
+        }
+        dialog {
+          padding: 20px;
+        }
+      }
+      @media (max-height: 500px) and (min-width: 601px) {
+        #viewer {
+          height: auto;
+          min-height: 100svh;
+        }
+        #diagram {
+          min-height: 510px;
+        }
+        footer {
+          height: 62px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          scroll-behavior: auto !important;
+        }
+      }
+      @media print {
+        #viewer {
+          height: auto;
+        }
+        .toolbar,
+        footer,
+        #actions {
+          display: none;
+        }
+        #diagram {
+          min-height: 600px;
+        }
+      }
+
+      .choices {border:0;margin:0;padding:0}
+      .choices legend {float:left;padding:10px 5px 10px 0;font-size:12px;color:var(--muted)}
+      #status {position:absolute}
+      @media(max-width:600px){#diagram{height:680px;min-height:680px}.toolbar nav{gap:4px}.toolbar button{font-size:11px}#scenes{max-width:44vw}}
+</style></head><body>
+<div id="viewer"><header class="toolbar"><a class="back-to-course" href="../index.html?view=slides">← Back to course</a><nav aria-label="Lesson controls"><button id="explain">Explanation</button><button id="fullscreen" hidden>Full screen</button></nav></header>
+<main><header><h1 id="title"></h1></header><section id="stage" aria-label="Siting and supply mechanisms"><svg id="diagram" role="img" aria-labelledby="diagram-title diagram-description"></svg><div id="actions"></div><p class="sr-only" id="status" role="status"></p></section></main>
+<footer><label class="sr-only" for="scenes">Choose scene</label><select id="scenes"></select><div class="navigation"><button id="previous" aria-label="Previous scene">←</button><span id="progress" aria-live="polite"></span><button id="next" aria-label="Next scene">→</button></div></footer></div>
+<dialog id="reading" aria-labelledby="reading-title"><header><h2 id="reading-title">Siting and supply</h2><button id="close-reading" aria-label="Close explanation">×</button></header><h3 id="explanation-title"></h3><div id="explanation"></div><p class="scope" id="model-scope"></p>
+<p><a id="lesson-reference" href="../index.html#d03-service-and-siting">Read the full lesson →</a></p>
+<details><summary>Sources and reading boundaries · checked 12 September 2026</summary><ul>
+<li><a href="https://www.epa.gov/green-power-markets/physical-ppa">EPA — Physical PPA</a>: physical and financial arrangements differ; neither alone establishes an independent campus feeder.</li>
+<li><a href="https://pubs.naruc.org/pub/6233DBE2-B58B-52FF-925E-250DD26DECF9">NARUC — Connecting the Dots</a>: printed pages 2–3, behind-the-meter and front-of-meter boundaries.</li>
+<li><a href="https://www.energy.gov/cmei/femp/articles/islanding-microgrid">DOE — Islanding a Microgrid</a>: coordinated island operation; no seamless transfer time is inferred.</li>
+<li><a href="https://www.ercot.com/news/release/06182026-puct-approves-ercots">ERCOT — Batch Zero announcement, 18 June 2026</a>: dated regional illustration of shared-network large-load studies.</li>
+<li><a href="https://www.ashrae.org/technical-resources/ai-data-center-framework/commissioning-performance-validation">ASHRAE — Commissioning and Performance Validation</a>: phased handovers and integrated testing. All scenario readiness dates are invented teaching inputs.</li>
+<li><a href="https://www.crusoe.ai/resources/newsroom/crusoe-announces-new-900-mw-ai-factory-campus-in-abilene-texas-to-support-microsoft-ai-infrastructure">Crusoe — Abilene update, 27 March 2026</a>: original and adjacent campuses are distinct. Energized, expected and targeted milestones retain the report date.</li>
+<li><a href="https://newsletter.semianalysis.com/p/spacex-10gw-in-2027-why-its-real">SemiAnalysis — construction and procurement analysis, 7 August 2026</a>: public passage after MiniHard; reported procurement rationale, not an as-built electrical drawing. No forecast of future xAI capacity is adopted.</li>
+<li><a href="https://www.electrical-installation.org/enwiki/Installed_apparent_power_(kVA)">Schneider Electric — Installed apparent power</a>: three-phase line-to-line voltage and current relationship. The 200 MW comparison and circuit counts are hypothetical.</li>
+</ul><p>The calculations isolate the stated mechanisms. No site-specific operating instructions, equipment sizing or authorization follow from them.</p></details></dialog>
+<noscript><p>This interactive presentation needs JavaScript. Read <a href="../lessons/d03-power-and-procurement.md">power procurement</a>, <a href="../lessons/d03-voltage-and-distance.md">voltage and distance</a>, and <a href="../lessons/d03-service-and-siting.md">service and siting</a>.</p></noscript>
+<script type="module">
+import { presentationLabels } from './teaching-navigation.js';
+document.title = `${presentationLabels.siting} · GIGAWATT`;
+import { scenes, initialState } from './siting-scenes.js';
+import { renderSiting } from './siting-visuals.js';
+const $=id=>document.getElementById(id), state={...initialState};
+const teaching=new URLSearchParams(location.search).get('teach')==='1';
+$('fullscreen').hidden=!teaching;
+let index=0;
+for(const [i,scene] of scenes.entries()) $('scenes').add(new Option(`${i+1} · ${scene.label}`,scene.id));
+function draw(){
+ const scene=scenes[index], compact=matchMedia('(max-width:600px)').matches;
+ const {markup,description}=renderSiting(scene.id,state,compact);
+ $('diagram').setAttribute('viewBox',compact?'0 0 390 680':'0 0 1120 540');
+ $('diagram').innerHTML=`<title id="diagram-title">${scene.title}</title><desc id="diagram-description">${description}</desc>${markup}`;
+ $('status').textContent=description;
+}
+function controls(){
+ $('actions').replaceChildren();
+ const scene=scenes[index];
+ for(const group of scene.controls||[]){
+  const field=document.createElement('fieldset');field.className='choices';
+  const legend=document.createElement('legend');legend.textContent=group.label;field.append(legend);
+  for(const [value,label] of group.options){
+   const b=document.createElement('button');b.textContent=label;b.dataset.key=group.key;b.dataset.value=String(value);b.setAttribute('aria-pressed',String(state[group.key]===value));
+   b.addEventListener('click',()=>{state[group.key]=value;field.querySelectorAll('button').forEach(button=>button.setAttribute('aria-pressed',String(button===b)));draw();});field.append(b);
+  }$('actions').append(field);
+ }
+ if(index===scenes.length-1){const a=document.createElement('a');a.href='../index.html?checkin=1#d03-service-and-siting';a.textContent='Check your understanding →';$('actions').append(a);}
+ if(scene.reveal){const b=document.createElement('button');b.id='reveal';b.textContent=state[scene.reveal]?'Hide reasoning':'Reveal reasoning';b.setAttribute('aria-expanded',String(state[scene.reveal]));b.onclick=()=>{state[scene.reveal]=!state[scene.reveal];b.textContent=state[scene.reveal]?'Hide reasoning':'Reveal reasoning';b.setAttribute('aria-expanded',String(state[scene.reveal]));draw();};$('actions').append(b);}
+}
+function render(){const s=scenes[index];$('title').textContent=s.title;$('scenes').value=s.id;$('progress').textContent=`${index+1} / ${scenes.length}`;$('previous').disabled=index===0;$('next').disabled=index===scenes.length-1;$('explanation-title').textContent=s.title;$('explanation').innerHTML=s.explanation.map(p=>`<p>${p}</p>`).join('');$('model-scope').textContent=s.boundary;$('lesson-reference').href=s.reference;controls();draw();}
+function go(i){index=Math.max(0,Math.min(scenes.length-1,i));history.replaceState(null,'',`#${scenes[index].id}`);render();}
+function fromHash(){const id=location.hash.slice(1),i=scenes.findIndex(s=>s.id===id);index=i<0?0:i;render();}
+$('scenes').onchange=e=>go(scenes.findIndex(s=>s.id===e.target.value));$('previous').onclick=()=>go(index-1);$('next').onclick=()=>go(index+1);
+$('explain').onclick=()=>$('reading').showModal();$('close-reading').onclick=()=>$('reading').close();
+$('reading').addEventListener('click',e=>{if(e.target===$('reading')){const r=e.target.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)e.target.close();}});
+$('fullscreen').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await $('viewer').requestFullscreen();}catch{$('fullscreen').textContent='Use browser full screen';}};
+document.addEventListener('fullscreenchange',()=>{$('fullscreen').textContent=document.fullscreenElement?'Exit full screen':'Full screen';});
+window.addEventListener('keydown',e=>{if($('reading').open||e.altKey||e.ctrlKey||e.metaKey||e.target.closest('button,select,input,textarea,a,[contenteditable]'))return;if(e.key==='ArrowRight'){e.preventDefault();go(index+1);}if(e.key==='ArrowLeft'){e.preventDefault();go(index-1);}if(e.key.toLowerCase()==='r'&&$('reveal')){$('reveal').click();e.preventDefault();}if(e.key.toLowerCase()==='f'&&teaching)$('fullscreen').click();});
+window.addEventListener('hashchange',fromHash);matchMedia('(max-width:600px)').addEventListener('change',draw);fromHash();
+</script></body></html>

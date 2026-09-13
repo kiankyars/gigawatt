@@ -7,6 +7,34 @@ Do not download or launch standalone Chrome for Testing or Playwright browser
 binaries here. Existing browser test harnesses remain available for a separately
 configured test environment; run local model and build checks without a browser.
 
+## Overview photograph and Section 4 draft — 2026-09-12
+
+Overview slide 2 opens on Google's credited New Albany server-aisle photograph.
+The alternate floor plan preserves the white/gray-space explanation and all
+thirteen overview scenes. The remote image loaded successfully; its content was
+visually inspected in the built-in browser.
+
+The new siting presentation has eighteen scenes and is registered under Section 4.
+The final built-in-browser pass covered 150 scene/control/reveal states at
+390 × 844, 1440 × 900 and 844 × 390, with no measured label collisions or labels
+outside the displayed SVG. It included the three corrected spacing issues found
+in the initial browser sweep. The final reader link opened the actual D03
+prediction exercise and its Section 5 transition. Temporary viewport overrides
+were reset. Native final checks used the device's light setting; preliminary
+standalone checks covered both themes before the browser preference above was
+noticed. No further standalone browser launches were used afterward.
+
+All generated-artifact and research checks passed, as did 66 Python tests and
+105 Node tests. The new model tests independently check readiness, signed power
+balance, storage energy/power limits, fuel-limited duration and three-phase power
+conservation. `tests/browser_siting.cjs` is retained for a separately configured
+browser test environment; its full final revision was not rerun on this Mac.
+
+Abilene claims retain Crusoe's 27 March 2026 reporting date. The Southaven/MiniHard
+case retains SemiAnalysis's 7 August 2026 attribution; the 200 MW / 34.5 kV / 161 kV
+calculations are hypothetical. These checks establish neither learner pacing
+nor a real site's commissioned behavior. Section 4 remains an authored draft.
+
 ## Automated checks
 
 ```sh
