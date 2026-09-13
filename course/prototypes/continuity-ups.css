@@ -1,0 +1,526 @@
+/* Presentation styles for the retained UPS module renderers. */
+.cb-label,
+.cb-tick {
+  fill: var(--ink);
+  font-size: 20px;
+}
+.cb-detail {
+  fill: var(--muted);
+  font-size: 17px;
+}
+.cb-value {
+  fill: var(--ink);
+  font-size: 26px;
+  font-weight: 750;
+}
+.cb-big {
+  fill: var(--green);
+  font-size: 46px;
+  font-weight: 750;
+}
+@media (max-width: 799px) {
+  #mechanism[data-capacitors="true"] #circuit {
+    min-height: 500px;
+    max-height: none;
+  }
+  #stage:has(#mechanism[data-capacitors="true"]:not([hidden])) {
+    overflow: visible;
+  }
+}
+.ups-enclosure {
+  fill: var(--enclosure, #e8ede6);
+  stroke: var(--enclosure-border, #bdcdbf);
+  stroke-width: 1.5;
+}
+.diagram-label {
+  fill: var(--ink);
+  font-size: 24px;
+  font-weight: 700;
+}
+.diagram-detail {
+  fill: var(--muted);
+  font-size: 17px;
+}
+.diagram-kicker {
+  fill: var(--muted);
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: 1.7px;
+}
+.diagram-value {
+  fill: var(--ink);
+  font-size: 34px;
+  font-weight: 750;
+  letter-spacing: -1px;
+}
+.equipment-face {
+  fill: var(--diagram-face, #f9faf6);
+  stroke: var(--diagram-border, #6c897e);
+  stroke-width: 2;
+}
+.equipment-face.inactive {
+  fill: var(--inactive-face, #ecede8);
+  stroke: var(--inactive-border, #adb8ad);
+}
+.symbol {
+  fill: none;
+  stroke: var(--symbol, #214c41);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.inactive .symbol {
+  stroke: var(--inactive-symbol, #9aa79d);
+}
+.wire {
+  fill: none;
+  stroke: var(--inactive-wire, #a7b6a9);
+  stroke-width: 3;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.wire.active {
+  stroke: var(--green);
+  stroke-width: 6;
+}
+.direction {
+  fill: var(--green);
+}
+.connection {
+  fill: var(--green);
+  stroke: var(--paper);
+  stroke-width: 2;
+}
+.ready-label {
+  fill: var(--green);
+  font-size: 15px;
+  font-weight: 700;
+}
+.unavailable-label {
+  fill: var(--unavailable, #7f8980);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.generator-label {
+  fill: var(--ink);
+  font-size: 21px;
+  font-weight: 650;
+}
+.generator-small {
+  fill: var(--muted);
+  font-size: 15px;
+}
+#redundancy-view {
+  flex: 1;
+  min-height: 200px;
+  max-height: 490px;
+}
+#exercise-controls,
+#note-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+#exercise-controls:empty,
+#note-actions:empty {
+  display: none;
+}
+#reliability {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 12px 2px 4px;
+}
+.reliability-main {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+}
+.reliability-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.reliability-actions:empty {
+  display: none;
+}
+[data-reliability-key][aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--on-strong, white);
+}
+.reliability-source,
+.reliability-scope {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: center;
+  margin: 0;
+}
+.tier-hierarchy {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+.tier-step {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+  border-bottom: 3px solid var(--line);
+}
+.tier-step[data-tier="III"],
+.tier-step[data-tier="IV"] {
+  border-color: var(--green);
+}
+.tier-step[data-tier="IV"] {
+  background: var(--note-surface, #e8f0e5);
+  border-radius: 10px 10px 0 0;
+}
+.tier-number {
+  font:
+    400 36px Georgia,
+    serif;
+  color: var(--green);
+  flex: none;
+}
+.tier-step > span {
+  font-size: 17px;
+  line-height: 1.4;
+}
+.tier-outcomes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  margin-top: 12px;
+}
+.tier-outcome {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 20px 20px 6px;
+}
+.tier-outcome-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+}
+.tier-outcome-heading > strong {
+  font-size: 20px;
+  font-weight: 550;
+}
+.tier-outcome-heading > span {
+  color: var(--green);
+  font-size: 15px;
+  white-space: nowrap;
+}
+.tier-outcome svg {
+  display: block;
+  width: 100%;
+}
+.generation-requirements {
+  width: 100%;
+  max-width: 850px;
+  margin: auto;
+  display: grid;
+  gap: 24px;
+}
+.generation-base {
+  text-align: center;
+}
+.generation-base svg {
+  display: block;
+  width: 100%;
+  max-height: 265px;
+}
+.tier-range {
+  color: var(--green);
+  font:
+    30px Georgia,
+    serif;
+  margin-bottom: 14px;
+}
+.generation-progression {
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  text-align: center;
+}
+.generation-progression > span {
+  display: block;
+  color: var(--muted);
+  font-size: 15px;
+  margin-bottom: 14px;
+}
+.generation-progression > strong {
+  font-size: 21px;
+  font-weight: 550;
+  line-height: 1.5;
+}
+.generation-progression strong > span {
+  color: var(--green);
+  margin: 0 12px;
+}
+.availability-cases {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+.availability-case {
+  padding: 20px 24px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.availability-nines {
+  display: block;
+  font-size: clamp(32px, 4.4vw, 56px);
+  font-weight: 550;
+  color: var(--green);
+  letter-spacing: -0.04em;
+}
+.availability-nines small {
+  font-size: 0.5em;
+  margin-left: 3px;
+}
+.availability-case h2 {
+  font-size: 21px;
+  font-weight: 600;
+  margin: 20px 0 6px;
+}
+.availability-case > p {
+  font-size: 15px;
+  color: var(--muted);
+  margin: 0;
+}
+.availability-claim {
+  display: grid;
+  gap: 7px;
+  margin-top: 23px;
+  border-top: 1px solid var(--line);
+  padding-top: 15px;
+}
+.availability-claim strong {
+  font-size: 18px;
+  font-weight: 500;
+}
+.availability-claim span {
+  font-size: 14px;
+  color: var(--muted);
+}
+.availability-year {
+  text-align: center;
+  margin-top: 4px;
+}
+.availability-year p {
+  font-size: 15px;
+  color: var(--muted);
+  margin: 0 0 14px;
+}
+.availability-year > div {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+.availability-year strong {
+  font-size: 26px;
+  font-weight: 500;
+}
+.availability-year small {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 14px;
+}
+.tier-investment {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  align-items: stretch;
+  gap: 28px;
+}
+.investment-photo {
+  margin: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+.investment-photo img {
+  width: 100%;
+  max-height: 345px;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: 12px;
+}
+.investment-photo figcaption {
+  color: var(--muted);
+  font-size: 12px;
+}
+.investment-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 12px 0;
+}
+.investment-panel > span {
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--muted);
+}
+.investment-panel > strong {
+  display: block;
+  font-size: clamp(26px, 2.5vw, 36px);
+  font-weight: 550;
+  margin-top: 15px;
+  color: var(--green);
+}
+.investment-cost {
+  margin: 10px 0 25px;
+  font-size: 22px;
+}
+.investment-omissions {
+  border-top: 1px solid var(--line);
+  padding-top: 20px;
+}
+.investment-omissions > span {
+  color: var(--muted);
+  font-size: 14px;
+}
+.investment-omissions > strong {
+  display: block;
+  margin-top: 10px;
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.7;
+}
+@media (max-width: 799px), (max-height: 650px) {
+  #stage:has(#reliability:not([hidden])) {
+    height: auto;
+    overflow: visible;
+  }
+  #reliability {
+    height: auto;
+    gap: 20px;
+  }
+  .reliability-main {
+    flex: none;
+  }
+}
+@media (max-width: 799px) {
+  .tier-hierarchy {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .tier-step {
+    padding: 10px;
+    gap: 10px;
+  }
+  .tier-number {
+    font-size: 28px;
+  }
+  .tier-step > span {
+    font-size: 14px;
+  }
+  .tier-outcomes {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: 0;
+  }
+  .tier-outcome {
+    padding: 16px 12px 0;
+  }
+  .tier-outcome-heading > strong {
+    font-size: 17px;
+  }
+  .tier-outcome-heading > span {
+    font-size: 13px;
+  }
+  .generation-requirements {
+    gap: 16px;
+  }
+  .tier-range {
+    font-size: 26px;
+    margin-bottom: 8px;
+  }
+  .generation-progression > strong {
+    display: block;
+    font-size: 18px;
+  }
+  .generation-progression strong > span {
+    margin: 0 4px;
+  }
+  .availability-cases {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .availability-case {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 12px;
+    align-items: center;
+    padding: 17px;
+  }
+  .availability-nines {
+    grid-column: 1;
+    grid-row: 1 / 3;
+    font-size: 35px;
+  }
+  .availability-case h2 {
+    font-size: 17px;
+    margin: 0;
+  }
+  .availability-case > p {
+    font-size: 13px;
+  }
+  .availability-claim {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 10px;
+    padding-top: 10px;
+  }
+  .availability-claim strong,
+  .availability-claim span {
+    font-size: 13px;
+  }
+  .availability-year > div {
+    gap: 8px;
+  }
+  .availability-year strong {
+    font-size: 18px;
+  }
+  .availability-year p {
+    font-size: 13px;
+  }
+  .tier-investment {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .investment-photo img {
+    max-height: 240px;
+    aspect-ratio: 16 / 9;
+  }
+  .investment-panel {
+    padding: 0;
+  }
+  .investment-panel > strong {
+    font-size: 30px;
+    margin-top: 12px;
+  }
+  .investment-cost {
+    font-size: 21px;
+    margin: 8px 0 20px;
+  }
+  .investment-omissions {
+    padding-top: 16px;
+  }
+  .investment-omissions > strong {
+    font-size: 17px;
+  }
+}

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="description"
+      content="Trace UPS power paths, storage limits and fault protection, then test complete service continuity."
+    />
+    <title>7. Continuity, storage and protection · From Watts to Tokens</title>
+    <link rel="stylesheet" href="continuity.css" />
+    <link rel="stylesheet" href="continuity-ups.css" />
+    <link rel="stylesheet" href="../assets/slide-chrome.css" />
+  </head>
+  <body>
+    <div id="viewer">
+      <header class="toolbar">
+        <a class="back-to-course" href="../index.html">← Back to course</a>
+        <nav>
+          <a
+            id="lesson-reference"
+            class="reading-link"
+            href="../index.html#d05-storage-power-and-time"
+            >Reading</a
+          ><button id="fullscreen">Fullscreen</button>
+        </nav>
+      </header>
+      <main>
+        <h1 id="title"></h1>
+        <div id="stage"></div>
+        <div id="actions" aria-label="Change the operating condition"></div>
+      </main>
+      <footer>
+        <button id="previous">←</button
+        ><select id="scene-jump" aria-label="Choose slide"></select
+        ><span id="progress"></span><button id="next">→</button>
+      </footer>
+    </div>
+    <script type="module" src="continuity-main.js"></script>
+    <script type="module" src="slide-chrome.js"></script>
+  </body>
+</html>

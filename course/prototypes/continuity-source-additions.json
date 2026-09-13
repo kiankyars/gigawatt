@@ -1,0 +1,22 @@
+[
+  {
+    "title": "Redwood Materials — Redwood and Crusoe expand compute to 7x scale",
+    "url": "https://www.redwoodmaterials.com/news/redwood-and-crusoe-expand-compute-to-7x-scale/",
+    "publisher": "Redwood Materials",
+    "domains": ["D05"],
+    "reviewed_on": "2026-09-13",
+    "claim": "Identify the site photograph used for the Sparks storage teaching scene.",
+    "limits": "Article and aerial image inspected. Expansion is announced; image is not evidence of completed expansion, discharge rating or usable energy. 12 MW solar label is supported separately by existing P76/P105.",
+    "discovered_via": "Primary web search while replacing an unhelpful publisher logo image with the actual site photograph."
+  },
+  {
+    "title": "Schneider Electric — TN system: Principle",
+    "url": "https://www.electrical-installation.org/enwiki/TN_system_-_Principle",
+    "publisher": "Schneider Electric",
+    "domains": ["D05"],
+    "reviewed_on": "2026-09-13",
+    "claim": "A TN fault loop connects exposed conductive parts through protective conductors to the earthed source point.",
+    "limits": "Primary public search-indexed text reviewed. No wiring instructions, site selection or device settings adopted.",
+    "discovered_via": "Primary-source verification of the new conceptual grounding diagram."
+  }
+]

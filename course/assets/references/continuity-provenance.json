@@ -1,0 +1,17 @@
+{
+  "reviewed_on": "2026-09-13",
+  "assets": [
+    {
+      "file": "continuity-sparks-site.png",
+      "publisher": "Redwood Materials",
+      "page": "https://www.redwoodmaterials.com/news/redwood-and-crusoe-expand-compute-to-7x-scale/",
+      "image": "https://a.storyblok.com/f/170040/1700x956/ed2f089572/crusoe_expansion.png/m/2048x0/filters%3Aquality%2875%29",
+      "use": "Named site photograph on the integrated Sparks storage scene. Original primary-source image retained without alteration.",
+      "review": "Visually inspected: aerial shows repurposed battery arrays, distribution and Crusoe-branded modular units. No equipment count, expansion completion, solar energy share or storage discharge power inferred from the image."
+    }
+  ],
+  "retained_assets": [
+    "schneider-easy-ups-3phase-modular.jpg — existing named UPS photograph and provenance unchanged",
+    "microsoft-fairwater-atlanta.jpg — existing Microsoft site photograph and provenance unchanged"
+  ]
+}

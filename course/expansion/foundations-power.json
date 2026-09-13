@@ -2595,6 +2595,13 @@
         "claim": "Printed pages 56–59 describe regulated rectifier output and a buck/boost battery converter. When acceptable AC returns, the rectifier resumes supplying the inverter and the battery can recharge.",
         "reviewed_on": "2026-09-12",
         "limits": "Operating-mode sections on PDF pages 67–70 reviewed. This is an Eaton topology example, not a specification for the illustrated Schneider UPS or the ideal 800 V, 0.20 F teaching bus and its assumed response times."
+      },
+      {
+        "title": "Redwood Materials — Redwood and Crusoe expand compute to 7x scale",
+        "url": "https://www.redwoodmaterials.com/news/redwood-and-crusoe-expand-compute-to-7x-scale/",
+        "claim": "Identify the publisher-provided aerial photograph of the Sparks battery and modular data-center deployment.",
+        "reviewed_on": "2026-09-13",
+        "limits": "Article and linked aerial inspected. Expansion is announced. The photo does not establish completed expanded capacity or the battery discharge rating; retain the Crusoe impact report for the specific solar-power label."
       }
     ],
     "terms": [
@@ -2703,6 +2710,13 @@
           "Microsoft chose the Atlanta site for resilient utility power. Its November 2025 description says the GPU fleet can forgo traditional on-site generation, UPS systems and dual-corded distribution, reducing cost and time to market. Microsoft separately describes on-site energy storage for smoothing power fluctuations, so this is not a claim that the campus contains no batteries.",
           "The decision is concrete: how much additional local backup does this GPU service need beyond the reliability available from its utility connection? A different utility supply or a service with a different interruption tolerance can justify a different investment. This Fairwater design is not presented as an Uptime Tier certification. It therefore does not contradict the generator requirement within the four Uptime Tiers.",
           "Microsoft does not supply a quantified capital-cost comparison or a measured annual availability record in that announcement. The case establishes the chosen architecture and the operator's rationale. It does not prove that omitting backup achieves the same result at another site."
+        ]
+      },
+      {
+        "heading": "Trace a powered rack with a failed service dependency",
+        "paragraphs": [
+          "The Chapter 7 closing check uses a separate qualitative operating sequence. IT remains on its UPS; pumps wait for generator transfer; heat rejection restarts later. Cooling controls initially have a utility-only feed. In this supplied operating policy, loss of control power trips an interlock and stops the workload even though rack AC remains present. This is a declared scenario response, not a universal automatic behavior of data centers.",
+          "Moving the control supply to a UPS repairs that particular dependency. It does not establish temperature margin while pumps transfer or heat rejection restarts. A continuity claim still needs the actual control sequence, supply dependencies, restart behavior, thermal capacity and allowable temperatures over the full disturbance. The check supplies no thermal ride-through duration and does not certify that the corrected path can sustain the service."
         ]
       }
     ],
@@ -2971,6 +2985,13 @@
         "claim": "The fixed-current resistive energy example follows I²R multiplied by time.",
         "reviewed_on": "2026-09-06",
         "limits": "Read the public resistor-power equations; all fault currents and durations are hypothetical teaching inputs."
+      },
+      {
+        "title": "Schneider Electric — TN system: Principle",
+        "url": "https://www.electrical-installation.org/enwiki/TN_system_-_Principle",
+        "claim": "In the TN arrangement, exposed conductive parts connect by protective conductors to the earthed source point; fault current returns through that loop.",
+        "reviewed_on": "2026-09-13",
+        "limits": "Public search-indexed primary text reviewed. The slide shows only a conceptual line-to-case fault loop, not a complete wiring design or a protective-device setting."
       }
     ],
     "terms": [
