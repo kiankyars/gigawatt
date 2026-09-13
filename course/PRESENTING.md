@@ -2,15 +2,12 @@
 
 ## The next pass
 
-The current Chapter 3–5 changes have passed the recorded technical and browser checks.
-Review only:
+Review the changes from your latest feedback:
 
-1. [Chapter 3’s changed ending](prototypes/workload-format.html?teach=1#next-brief): workload → measured power trace → supply design.
-2. [Chapter 4](prototypes/siting-format.html?teach=1): phased delivery, physical connections, four operating arrangements, then gas generation and combined cycle.
-3. [Chapter 5](prototypes/site-format.html?teach=1): land, buildings, service/replacement routes, hazards and operating boundaries.
+1. [Chapter 4: generation through the delivery decision](prototypes/siting-format.html?teach=1#dania-cycle): clarified plant example, new GPT figure, cost curves, Southaven plans and supported compute economics.
+2. [Chapter 7: UPS equipment and recovery](prototypes/ups-format.html#equipment): simpler labels, capacitor support, generator charging and restoration of DC-link voltage.
 
-Continue any unresolved Chapter 2 items at their specific slides. Do not restart
-the unchanged Primer or repeat completed UPS, 800 V and cooling feedback.
+Chapter 5 is still ready for its first pass. Continue any unresolved Chapter 2 or 3 items at their specific slides; do not restart the unchanged Primer, 800 V or cooling sequence.
 The [chapter tracker](COURSE_REVIEW.md#chapter-review-tracker) separates implemented
 changes, technical checks and your final acceptance.
 

@@ -58,6 +58,8 @@ Compare two conceptual paths. One raises generation voltage for transmission and
 
 Pause: for the same balanced three-phase 200 MW transfer at power factor 1, compare 34.5 kV with 161 kV. These are hypothetical voltages, not xAI site specifications. Using I = P/(√3 V), aggregate line current is about 3.35 kA versus 0.717 kA, a 4.67-fold change. At the same equivalent resistance, I²R loss changes about 21.8-fold. A real design can add parallel circuits or conductor area, so this does not estimate xAI losses. The decision is whether a deliverable alternative earns enough earlier useful work to justify its other costs.
 
+In the Chapter 4 presentation, both 200 MW campus AC paths are visible together. This is a transport-voltage comparison motivated by the reported large-transformer procurement dependency, not the separate 800 V DC rack/hall lesson. Extra current may require more parallel feeders, conductor area and switchgear. The historical Southaven permit figures do not certify these teaching voltages, circuit counts or losses.
+
 ## Worked example: Ten megawatts at two AC voltages
 
 - Balanced sinusoidal three-phase load with PF = 1.

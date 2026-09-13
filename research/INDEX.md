@@ -148,6 +148,14 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P11 — NFPA 75: Standard for the Fire Protection of Information Technology Equipment](sources/P11.md) | National Fire Protection Association | D05, D12, D13 | candidate_not_reviewed |
 | [P110 — Abilene Data Center Development](sources/P110.md) | Mortenson | D03 | page_reviewed |
 | [P111 — Lenovo NVIDIA GB300 NVL72 Rack Scale AI Product Guide](sources/P111.md) | Lenovo Press | D12 | page_reviewed |
+| [P112 — MZX Tech LLC — Southaven PSD permit application, January 2026 revision](sources/P112.md) | MZX Tech LLC / Trinity Consultants; public record released by MDEQ, Wikimedia mirror | D03, D04, D12 | public_excerpt_reviewed |
+| [P113 — SpaceX — EU prospectus, compute services agreements with Anthropic](sources/P113.md) | Space Exploration Technologies Corp. | D03, D13 | public_excerpt_reviewed |
+| [P114 — SpaceX — Google Cloud Service Agreement, free writing prospectus](sources/P114.md) | Space Exploration Technologies Corp. / SEC | D03, D13 | page_reviewed |
+| [P115 — SpaceX — second-quarter 2026 Form 10-Q, AI segment results](sources/P115.md) | Space Exploration Technologies Corp. / SEC | D03, D13 | public_excerpt_reviewed |
+| [P116 — GE Vernova — 7HA gas turbines, model family and specifications](sources/P116.md) | GE Vernova | D03 | page_reviewed |
+| [P117 — U.S. Department of Energy — heating-value glossary](sources/P117.md) | U.S. Department of Energy | D03 | public_excerpt_reviewed |
+| [P118 — Schneider Electric — Easy UPS 3-Phase Modular: Configure the Input Contacts](sources/P118.md) | Schneider Electric | D05 | public_excerpt_reviewed |
+| [P119 — Eaton — 93E UPS Generation 3 installation and operation manual, 164000301 Rev. 04](sources/P119.md) | Eaton | D05 | public_excerpt_reviewed |
 | [P12 — Large Loads Action Plan](sources/P12.md) | North American Electric Reliability Corporation | D03, D05, D13, D14 | public_excerpt_reviewed |
 | [P13 — Slurm Workload Manager — Topology Guide](sources/P13.md) | SchedMD | D02, D07, D08, D09, D14 | page_reviewed |
 | [P14 — NVIDIA DGX SuperPOD: Next Generation Scalable Infrastructure for AI Leadership Reference Architecture Featuring NVIDIA DGX H100](sources/P14.md) | NVIDIA | D07, D08, D09, D13, D14 | page_reviewed |
@@ -276,6 +284,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [SA40 — Google AI Infrastructure Supremacy: Systems Matter More Than Microarchitecture](sources/SA40.md) | SemiAnalysis | D02, D07, D08, D09, D15 | public_excerpt_reviewed |
 | [SA41 — What is So Hard About Behind-The-Meter Power For Datacenters? Part 1](sources/SA41.md) | SemiAnalysis | D03, D05, D12, D13, D15 | public_excerpt_reviewed |
 | [SA42 — SpaceX 10GW in 2027 — construction pace and equipment procurement](sources/SA42.md) | SemiAnalysis | D03, D04, D12, D13 | public_excerpt_reviewed |
+| [SA43 — SemiAnalysis — Meta Compute: Everyone Wants To Be A Neocloud](sources/SA43.md) | SemiAnalysis | D03, D13 | public_excerpt_reviewed |
 <!-- gigawatt-research:managed:end -->
 
 ## Research notes

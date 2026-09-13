@@ -91,8 +91,19 @@ function handoff(m){
  [['Released phase',m?24:100],['Connection routes',m?24:441],['Operating states',m?24:818]].forEach(([a,x],i)=>o+=t(x,m?491+i*58:502,a,m?24:26));
  return result(o,'Carry the released supply phase, connection routes and supported operating states into physical site design: usable land, equipment space, access, replacement paths and failure boundaries.');
 }
+const southavenPermit='https://upload.wikimedia.org/wikipedia/commons/e/e2/MZX_Tech_LLC_Draft_Air_PSD_Construction_Permit.pdf';
+function southaven(id,m){
+ const site=id==='southaven-plan';
+ const image=site?'../assets/references/southaven-site-plan.png':'../assets/references/southaven-process-plan.png';
+ let o=img(image,m?6:12,m?15:0,m?378:site?760:1096,m?480:site?500:500);
+ if(site){const x=m?22:820,y=m?535:146;
+  o+=t(x,y,'41 simple-cycle turbines',m?23:22)+t(x,y+47,'≈1.2 GW nameplate',m?27:27,C.power)+t(x,y+88,'Proposed · January 2026',m?19:20,C.muted);
+ }
+ o+=note(m,site?'MZX application · site map · PDF p. 80 ↗':'Trinity Consultants · process figure · PDF p. 13 ↗',southavenPermit+(site?'#page=80':'#page=13'));
+ return result(o,site?'Original Southaven MZX site map from its January 2026 air-permit application, retaining Airbus 2025 imagery credit. The proposed facility included 41 simple-cycle turbines and approximately 1.2 GW nameplate. Historical proposal, not a current as-built survey.':'Original Trinity Consultants process flow diagram dated July 2025, reproduced in the January 2026 MZX application. Natural gas conditioning feeds turbines, which supply the data center and battery packs. Emissions branches are shown for the permit. This is not an electrical one-line or completion evidence.');
+}
 export function renderSitingCase(id,state,m=false){
- const renderers={'siting-purpose':()=>purpose(m),'site-ready':()=>release(m),'parcel-connections':()=>fuel(m),'grid-connection':()=>shared(m),'abilene-phase':()=>abilene(m),'power-configurations':()=>quadrant(m),'bridge-to-backup':()=>bridge(m),'generation-options':()=>options(m),'gas-shaft':()=>manufacturer(id,m),'combined-cycle':()=>manufacturer(id,m),'grid-dispatch':()=>manufacturer(id,m),'supply-brief':()=>handoff(m)};
+ const renderers={'southaven-plan':()=>southaven(id,m),'southaven-process':()=>southaven(id,m),'siting-purpose':()=>purpose(m),'site-ready':()=>release(m),'parcel-connections':()=>fuel(m),'grid-connection':()=>shared(m),'abilene-phase':()=>abilene(m),'power-configurations':()=>quadrant(m),'bridge-to-backup':()=>bridge(m),'generation-options':()=>options(m),'gas-shaft':()=>manufacturer(id,m),'combined-cycle':()=>manufacturer(id,m),'grid-dispatch':()=>manufacturer(id,m),'supply-brief':()=>handoff(m)};
  if(id.startsWith('config-'))return config(id,m);
  return renderers[id]?.()??null;
 }

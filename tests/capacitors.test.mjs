@@ -55,3 +55,32 @@ test("unsupported mode and time inputs fail explicitly", () => {
   ])
     assert.throws(() => capacitorModel(mode, ms), RangeError);
 });
+
+test("recovery returns the missing capacitor energy and then stops charging", async () => {
+  const { recoveryModel } = await import("../course/prototypes/ups-capacitors.js");
+  const initial = capacitorModel("ramp", 10);
+  for (let ms = 0; ms <= 100; ms += 0.25) {
+    const m = recoveryModel(ms);
+    near(m.sourceW, m.loadW + m.capacitorChargeW);
+    near(m.recoveredJ, 0.5 * 0.2 * (m.voltageV ** 2 - initial.voltageV ** 2));
+    near(m.recoveredJ, Math.min(5000, 100 * ms));
+    assert.ok(m.voltageV <= 800 + 1e-8);
+  }
+  near(recoveryModel(50).voltageV, 800);
+  near(recoveryModel(50).sourceW, 1000000);
+  near(recoveryModel(50).capacitorChargeW, 0);
+  near(recoveryModel(25).capacitorChargeW, 100000);
+  near(recoveryModel(25).voltageV, Math.sqrt(615000));
+});
+test("matching the load cannot recover voltage; less headroom takes longer", async () => {
+  const { recoveryModel } = await import("../course/prototypes/ups-capacitors.js");
+  const noSurplus = recoveryModel(10000, 0);
+  near(noSurplus.voltageV, capacitorModel("ramp", 10).voltageV);
+  near(noSurplus.recoveredJ, 0);
+  assert.equal(noSurplus.settled, false);
+  near(recoveryModel(50, 50000).recoveredJ, 2500);
+  near(recoveryModel(100, 50000).voltageV, 800);
+  near(recoveryModel(50, 50000).recoveryMs, 100);
+  for (const args of [[-1], [NaN], [0, -1], [0, Infinity]])
+    assert.throws(() => recoveryModel(...args), RangeError);
+});

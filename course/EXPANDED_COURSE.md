@@ -908,6 +908,8 @@ Compare two conceptual paths. One raises generation voltage for transmission and
 
 Pause: for the same balanced three-phase 200 MW transfer at power factor 1, compare 34.5 kV with 161 kV. These are hypothetical voltages, not xAI site specifications. Using I = P/(√3 V), aggregate line current is about 3.35 kA versus 0.717 kA, a 4.67-fold change. At the same equivalent resistance, I²R loss changes about 21.8-fold. A real design can add parallel circuits or conductor area, so this does not estimate xAI losses. The decision is whether a deliverable alternative earns enough earlier useful work to justify its other costs.
 
+In the Chapter 4 presentation, both 200 MW campus AC paths are visible together. This is a transport-voltage comparison motivated by the reported large-transformer procurement dependency, not the separate 800 V DC rack/hall lesson. Extra current may require more parallel feeders, conductor area and switchgear. The historical Southaven permit figures do not certify these teaching voltages, circuit counts or losses.
+
 ## Worked example: Ten megawatts at two AC voltages
 
 - Balanced sinusoidal three-phase load with PF = 1.
@@ -1042,9 +1044,11 @@ Take two hypothetical plant options, each delivering 100 MW net electric output.
 
 This comparison holds delivered output fixed across two plant options. It does not say that adding a steam cycle to an unchanged gas turbine leaves its total output fixed. Recovering exhaust heat can increase total output from that installation. The added HRSG, steam turbine, condenser, water and cooling systems also add construction, capital, maintenance and operating dependencies. GE Vernova’s 2025 catalog identifies the simpler capital and construction profile of simple cycle alongside its lower efficiency. The real schedule still depends on equipment delivery, fuel, permits and site works.
 
+Lower heating value (LHV) measures fuel heat content without recovering heat by condensing the water vapor formed in combustion. Higher heating value includes that recovery. The convention changes the efficiency denominator: compare fuel price and efficiency on the same basis. It is not an extra loss in addition to the stated efficiency.
+
 ## A real combined-cycle plant: Dania Beach
 
-GE Vernova’s public case describes two 7HA.03 gas turbines at FPL’s Dania Beach Clean Energy Center near Fort Lauderdale and reports plant output up to 1,260 MW. Its photograph is embedded in the presentation so that the learner can see the physical installation. The reported plant output is not two standalone gas-turbine nameplates added together. This is a grid plant example; no supply relationship to our reference AI campus is asserted.
+FPL’s Dania Beach Clean Energy Center near Fort Lauderdale is a utility power station, not a data center. GE Vernova reports two 7HA.03 gas turbines and combined plant output up to 1,260 MW. 7HA.03 is the manufacturer’s gas-turbine model designation, in its air-cooled H-class family for 60 Hz grids. The combined plant output includes the steam cycle; it is not the standalone rating of each gas turbine.
 
 A separate May 2025 GE Vernova fact sheet lists its 7HA.03 1×1 combined-cycle design at 640 MW net and 63.9% LHV efficiency. It separately lists less than 30 minutes for a rapid-response hot start, a 75 MW/min ramp rate and a 26% minimum load. Conditions are net plant, ISO reference conditions and natural gas fuel. These catalog values are not Dania Beach operating measurements. A cold-start duration cannot be inferred from the hot-start entry.
 
@@ -1056,6 +1060,8 @@ Siemens Energy’s conceptual dispatch diagram contrasts a conventional supply s
 
 The manufacturer graphic illustrates operating roles rather than measured grid data. Actual dispatch also depends on startup and ramp limits, minimum output, reserves, outages, network constraints and fuel availability. Starting a machine from a stated thermal condition, changing the output of a running machine and constructing a new plant are three different timescales. A fast ramp specification cannot stand in for all three.
 
+The generated three-stage illustration distinguishes delivery, startup and ramping. Equipment and construction determine when a plant is available; its thermal state influences startup; controls and operating limits determine how output changes once running. GE’s catalog hot-start and ramp figures describe different operations and do not establish construction time or cold-start performance.
+
 ## Why simple cycle can win despite burning more fuel
 
 Use a deliberately bounded annual-cost comparison, not a current equipment quote. Both options have 100 MW net capacity and the earlier assumed efficiencies of 40% and 60%. Assign simple cycle $8 million per year in annualized fixed costs and combined cycle $16 million; these supplied totals stand for annualized capital and fixed operating costs. At $20 per MWh of fuel energy on an LHV basis, fuel costs are $50 and $33.33 per MWh of electricity.
@@ -1063,6 +1069,36 @@ Use a deliberately bounded annual-cost comparison, not a current equipment quote
 Annual cost in this model is fixed cost plus 100 MW × equivalent full-load hours × fuel cost per MWh electric. At 500 hours, the simple-cycle option costs $10.50 million versus $17.67 million. At 7,000 hours, the combined-cycle option costs $39.33 million versus $43.00 million. The crossover is 4,800 equivalent full-load hours: the additional $8 million of fixed cost is then exactly offset by fuel savings. Equivalent full-load hours mean annual MWh divided by the 100 MW rating, not necessarily literal hours spent at maximum output.
 
 The lesson is the change in decision with utilization. Start costs, variable maintenance, emissions prices, part-load performance, downtime and project-specific financing are excluded. Construction speed, delivered fuel, water/cooling and service requirements can reject either option before this cost comparison becomes relevant. Predict the lower-cost option at 500 versus 7,000 hours, then identify what additional evidence would establish that it can actually supply the campus. A generator’s efficiency does not establish islanding, redundancy or customer-service availability.
+
+## Southaven: read the original proposed site and process
+
+MZX Tech’s January 2026 Southaven application proposed 41 simple-cycle turbines with approximately 1.2 GW of generating nameplate for own-use electricity. The site map and process drawing below are actual excerpts from that application. They establish the historical proposal, not September completion or current operating output.
+
+The process drawing connects conditioned gas to the turbines, then electricity to the data center and battery packs. It is an air-permit process figure, not a switching one-line. It does not specify the 34.5 kV or 161 kV voltages used in the separate course comparison. SemiAnalysis’s later procurement account describes using imported modules and MV delivery to avoid large-transformer lead times; that account and these plan figures are separate evidence.
+
+![Original MZX Southaven proposed site map with yellow facility boundary and Airbus 2025 imagery credit.](assets/references/southaven-site-plan.png)
+
+MZX application, January 2026 revision, site map (PDF page 80). Original image retained, including its Airbus imagery credit. Historical proposed facility area. [MZX Tech / Trinity Consultants — site map](https://upload.wikimedia.org/wikipedia/commons/e/e2/MZX_Tech_LLC_Draft_Air_PSD_Construction_Permit.pdf#page=80)
+
+![Original Trinity Consultants process diagram connecting natural gas, turbine generation, data center and battery packs.](assets/references/southaven-process-plan.png)
+
+Figure 2-1, July 2025, in the January 2026 application (PDF page 13). Air-permit process diagram; emissions branches are retained. [MZX Tech / Trinity Consultants — process figure](https://upload.wikimedia.org/wikipedia/commons/e/e2/MZX_Tech_LLC_Draft_Air_PSD_Construction_Permit.pdf#page=13)
+
+## Earlier compute service has a price; contract fees are not profit
+
+SpaceX’s June 2026 prospectus discloses Anthropic fees of $1.25 billion per month after its May–June ramp, for compute across Colossus and Colossus II. A separate SEC disclosure puts Google’s fees at $920 million monthly from October 2026, following reduced ramp fees. The conditional full-service sum is $2.17 billion per month before costs; October is still future as of this September 12 review. Both agreements contain delivery or termination conditions, so annualizing the fees does not establish irrevocable backlog.
+
+Those disclosures do not provide contract-level profit or a shared MW denominator for attributing the fees to Southaven. SpaceX’s Q2 AI segment reported $2.561 billion revenue and $1.257 billion operating loss, across a broader scope including X, Grok, R&D and infrastructure; that result does not establish either individual contract’s margin.
+
+SemiAnalysis separately forecasts capex recovery in less than a year. Its 3–5 months describes delivery lead time. Neither statement proves these two contracts already repaid all project capex in a few months. The course uses this forecast as motivation for the speed decision, then computes a bounded threshold from explicit assumptions.
+
+## Price the operating penalty against the time gained
+
+Continue the original 100 MW comparison at 8,760 full-load hours and $20 per MWh of fuel energy. At 40% efficiency annual fuel costs $43.8 million; at 60%, $29.2 million. The less efficient plant spends $14.6 million more over that year. These efficiencies are illustrative and do not describe Southaven or either compute contract.
+
+One month of earlier service can cover that year’s fuel penalty if its contribution after baseline service costs exceeds $14.6 million plus added faster-build costs. Baseline service costs include the fuel that either design would require; subtract the additional fuel penalty only once. No disclosed fee is allocated to this 100 MW example, and its actual margin remains unknown.
+
+This one-year comparison makes the decision legible without declaring that speed always wins. A lasting efficiency gap requires comparing fuel across the full operating period along with capital, financing, maintenance and availability. The campus AC transport penalty on the preceding slide is a different mechanism from gas-turbine thermal efficiency. Both can influence a real delivery choice; neither is an 800 V DC or rack-density comparison.
 
 ## An island needs both an energy balance and a functioning supply
 
@@ -1152,6 +1188,13 @@ An energized feeder is one completed dependency. A released phase needs all the 
 - [What Is a Gas Turbine?](https://www.gevernova.com/gas-power/resources/education/what-is-a-gas-turbine) — Explains compressor, combustion, turbine and generator; embedded original cutaway provides a real manufacturer visual for the simple-cycle mechanism. Read 2026-09-12. Cutaway is an explanatory rendering, not a photograph of a particular data-center installation. The image is unlabelled; add restrained overlay labels or explain orally.
 - [Crusoe’s Contracted AI Infrastructure Capacity Approaches 5 Gigawatts Across Data Centers and Cloud](https://www.crusoe.ai/resources/newsroom/crusoes-contracted-ai-infrastructure-capacity-approaches-5-gigawatts-across-data-centers-and-cloud) — Separates the original 1.2 GW Oracle Abilene campus from a distinct 900 MW Microsoft campus; useful for avoiding scope conflation in later status updates. Read 2026-09-12. June 9 status is historical. September Oracle delivery update is newer for the original campus. Company-wide contracted capacity and development pipeline are not operating Abilene capacity.
 - [Abilene Data Center Development](https://www.mortenson.com/projects/abilene-data-center-development) — Revalidates the March 10, 2026 five-transformer energization milestone and distinguishes the initial substation from the later expansion. Read 2026-09-12. Rechecked September 12: the public project page still gives the historical March milestone and a planned October 2026 temporary-transformer replacement. Preserve event dates and forecast status; no later completion was established.
+- [MZX Tech LLC — Southaven PSD permit application, January 2026 revision](https://upload.wikimedia.org/wikipedia/commons/e/e2/MZX_Tech_LLC_Draft_Air_PSD_Construction_Permit.pdf) — Original Southaven site and area maps and generating-plant process figure; historical proposed 41 simple-cycle turbines and approximately 1.2 GW. Read 2026-09-12. Reviewed PDF pages 9, 12–13, 78 and 80, not full 170-page application. Maps are historical proposed site information, not current as-built drawings. No 34.5 kV or 161 kV electrical topology established. Site image retains Airbus 2025 credit. The July 2025 date on the process figure is retained.
+- [SpaceX — EU prospectus, compute services agreements with Anthropic](https://content.spacex.com/cms-assets/FINAL_Documents%20and%20Updates/SpaceX%20-%20EU%20Prospectus%20%28Approved%20by%20Bafin%29%20-%20June%205%2C%202026.pdf) — Section 4.3.4.5: approximately 325,000 GPUs across Colossus and Colossus II; $1.25B monthly fees through May 2029, with reduced ramp fees and termination provisions. Read 2026-09-12. Official PDF page 77 (printed page 64) reviewed; remainder not reviewed. Fees are contracted service revenue, not profit or cash collected. The May 6 announcement has a different capacity scope and cannot supply this later contract’s MW denominator. Either party may terminate on 90 days’ notice after the initial three-month period.
+- [SpaceX — Google Cloud Service Agreement, free writing prospectus](https://www.sec.gov/Archives/edgar/data/1181412/000162828026041150/spacexagreementfwp.htm) — Approximately 110,000 GPUs and $920M monthly service fees from October 2026, with reduced ramp fees, delivery conditions and 90-day termination rights. Read 2026-09-12. Complete short filing reviewed. October steady-state revenue is future as of September12; no MW allocation, project profit or capex payback is established. Fees can reduce with accepted partial capacity; termination provisions apply.
+- [SpaceX — second-quarter 2026 Form 10-Q, AI segment results](https://www.sec.gov/Archives/edgar/data/1181412/000162828026052535/spcx-20260630.htm) — Separates service-fee run rates from reported results: Q2 AI segment $2.561B revenue and $1.257B operating loss; cloud-service revenue timing and customer cancellation exposure. Read 2026-09-12. Reviewed cloud-service accounting, AI segment results and corresponding risk sections, not the full filing. The AI segment includes X, Grok, R&D and infrastructure; its loss does not establish a named contract’s margin.
+- [SemiAnalysis — Meta Compute: Everyone Wants To Be A Neocloud](https://newsletter.semianalysis.com/p/meta-compute-everyone-wants-to-be) — Analyst account of premium pricing for near-term large-scale SpaceX compute and why short cancellation rights differentiate these deals. Read 2026-09-12. Public SpaceX-deal section reviewed, not subscriber-only sections or underlying TCO model. No audited contract profit or more precise months-to-payback claim is established in reviewed text.
+- [GE Vernova — 7HA gas turbines, model family and specifications](https://www.gevernova.com/gas-power/products/gas-turbines/7ha) — Identifies 7HA.03 as a 60 Hz air-cooled H-class gas-turbine model; distinguishes simple-cycle turbine output from complete combined-cycle plant output. Read 2026-09-12. Reviewed the model family and public simple-cycle table with ISO and natural-gas conditions. Do not mix its 430 MW simple-cycle output or 21-minute hot start with the separate 640 MW 1×1 combined-cycle catalog. No cold-start time or actual site output inferred.
+- [U.S. Department of Energy — heating-value glossary](https://www.energy.gov/cmei/fuels/glossary) — Defines lower and higher heating value and the role of condensing combustion water vapor. Read 2026-09-12. Reviewed indexed heating-value definitions; no fuel price or project efficiency inferred.
 
 ## Check your understanding: Can this phase open?
 
@@ -1854,7 +1897,15 @@ This 15 ms is capacitor-only hold-up, not a UPS transfer time. The load is defin
 
 Now allow the battery contribution at that same bus to rise linearly from zero to 1 MW during the first 10 ms. This assumed ramp starts at time zero; it does not wait for the 15 ms capacitor-only limit. The battery supplies 5 kJ and the capacitor supplies the other 5 kJ during those 10 ms. The capacitor deficit is the area of a triangle: ½ × 1 MW × 0.010 s = 5 kJ. Bus voltage reaches √(800² − 2 × 5,000/0.20) = 768.1 V, above the 700 V cutoff.
 
-From 10 ms onward the battery supplies the full 1 MW, so the capacitor no longer loses energy in this ideal model. Its voltage does not automatically return to 800 V: recharge requires power above the ongoing load. The UPS presenter sequence teaches both cases directly in the “Capacitor buffer” scene. Its 10 ms ramp is an assumed comparison, not a measurement of the photographed UPS.
+From 10 ms onward the battery supplies the full 1 MW, so capacitor energy stops falling in this ideal model. The DC link remains at 768.1 V until a source returns the missing 5 kJ. The capacitor scene teaches this initial response; the following recovery scene closes the energy account.
+
+## Restore the DC link, then recharge the battery
+
+Matching the load arrests the DC-link voltage decline. Restoring its setpoint requires replacing the capacitor energy already released. A regulated battery DC/DC interface can increase delivered current before the generator is ready. Once acceptable AC is available, the rectifier can regulate the link instead. Battery terminal voltage and link voltage need not be equal; directly connected battery architectures behave differently.
+
+Continue the ideal 0.20 F example from 768.1 V. Available source power of 1.10 MW at the DC bus against 1.00 MW load returns 100 kW × 50 ms = 5 kJ, restoring 800 V. The controller then reduces source power to match the load. This 50 ms clock starts when recovery power is available, not when utility power fails; it is not a generator start time or a UPS timing specification.
+
+Recharging the UPS battery is a separate energy account from restoring the DC-link capacitors. Generator and rectifier capacity must cover the load, allowed battery charging and losses. Schneider’s illustrated Easy UPS family can configure detected genset supply with charging disabled or enabled. The presentation therefore shows both generator-only supply and generator supply plus battery recharge.
 
 ## Solve one reserve-aware runtime
 
@@ -1940,6 +1991,8 @@ About 5.43 minutes.
 - [Crusoe and Redwood — Sparks microgrid update](https://www.crusoe.ai/resources/newsroom/crusoe-and-redwood-materials-expand-strategic-partnership-scaling-to-7x-the-original-ai-infrastructure-density) — Teach solar, storage and grid backup at Sparks, Nevada; distinguish microgrid availability from Cloud availability and energy share. Read 2026-09-12. Main release reviewed. Company reports 99.2% microgrid availability over seven months and 99.9% Cloud availability using grid backup. Expansion to 24 modular data centers is announced, not confirmed complete. Do not carry forward the initial off-grid description as present status.
 - [Crusoe — 2025 impact report web summary](https://www.crusoe.ai/resources/blog/crusoes-2025-impact-report) — Names 12 MW of solar and 63 MWh of repurposed EV battery capacity for the Redwood project; describes original Abilene phase as greenfield. Read 2026-09-12. Selected web sections reviewed, not the linked full report. Equipment ratings are not measured continuous output or usable battery energy. Company-wide renewable procurement claims cannot establish hourly matching at every campus.
 - [Crusoe 2025 Impact Report](https://media.ffycdn.net/us/crusoe/PL5TuZz5apXB9pVsd3H1.pdf) — Page 33 repeats the Sparks solar, storage and availability case. Read 2026-09-12. Report launched May 28, 2026 at https://www.crusoe.ai/resources/blog/crusoes-2025-impact-report . Operator-reported case, not independent commissioning evidence. Do not imply 350 MW backs up the full 1.2 GW campus. Repeated Sparks availability figures are not a newly measured September interval.
+- [Schneider Electric — Easy UPS 3-Phase Modular: Configure the Input Contacts](https://productinfo.se.com/easyups3pmodular/990-6537-easy-ups-3-phase-modular-50-250-kw-operation/English/990-6537%20Operation%20Easy%20UPS%203-Phase%20Modular%2050-250%20kW_0001015104.xml/%24/GalaxyPX_ConfiguretheInputContacts_0000761997) — The detected-genset function can set battery charge power to 0% or 100%. Generator-supplied battery charging is configurable; it is not necessarily enabled in every installation. Read 2026-09-12. Public manufacturer's input-contact configuration page read. No claim about generator capacity, start time or charging rate for an actual installation.
+- [Eaton — 93E UPS Generation 3 installation and operation manual, 164000301 Rev. 04](https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-93e-ups/eaton-93e-ups-20kva-30kva-generation-3-manual-p-164000301.pdf) — Printed pages 56–59 describe regulated rectifier output and a buck/boost battery converter. When acceptable AC returns, the rectifier resumes supplying the inverter and the battery can recharge. Read 2026-09-12. Operating-mode sections on PDF pages 67–70 reviewed. This is an Eaton topology example, not a specification for the illustrated Schneider UPS or the ideal 800 V, 0.20 F teaching bus and its assumed response times.
 
 ## Continuity belongs to the complete service
 
@@ -1968,6 +2021,8 @@ Take one module out for planned maintenance. The three remaining modules still p
 Compare two separate 6 MW routes, either of which can support the entire 6 MW load. This is a 2N capacity concept at the declared boundary. It can provide a full-capacity alternative route, but independence remains a separate question. If both routes require the same upstream bus, fuel support, control system, or sole cooling interface, that shared dependency may defeat the intended service. Two colors and two power cords cannot prove two independent complete systems.
 
 The load interface matters too. A dual-input device must be able to maintain the required output under the specified surviving-feed condition and transition. Some arrangements share demand across inputs; capacity in normal operation is not automatically the capacity available after one input is lost. The system must demonstrate compatible behavior at the actual required load, not merely show that two connectors exist.
+
+A/B PSU groups each rated to support a 100 kW load do not force 200 kW into that load. They may share the 100 kW in normal operation; either surviving group must have enough capacity to carry it after the other path is lost. The redundancy comparison counts available capacity, while actual consumption follows the load and conversion losses.
 
 ## Capacity, maintainability, and fault response answer different questions
 

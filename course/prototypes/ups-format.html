@@ -912,7 +912,8 @@
       }
       [data-action][aria-pressed="true"],
       button[data-capacitor-mode][aria-pressed="true"],
-      button[data-generator-stage][aria-pressed="true"] {
+      button[data-generator-stage][aria-pressed="true"],
+      button[data-recovery-source][aria-pressed="true"] {
         background: var(--ink);
         color: var(--on-strong, white);
       }
@@ -1017,18 +1018,17 @@
               <figure class="product-photo">
                 <img
                   src="../assets/references/schneider-easy-ups-3phase-modular.jpg"
-                  alt="Official Schneider Electric photograph showing black and grey Easy UPS 3-Phase Modular cabinets; both pictured cabinets are UPS units."
+                  alt="Schneider Electric product-family photograph of black and grey Easy UPS 3-Phase Modular cabinets."
                   width="369"
                   height="369"
                 />
                 <figcaption>
                   <strong>Schneider Easy UPS 3-Phase Modular</strong>
                   <span
-                    >50–250 kW family · both pictured cabinets are UPS
-                    units</span
+                    >50–250 kW</span
                   >
                   <span
-                    >Freestanding cabinet · 1.99 m H × 0.60 m W × 0.85 m D</span
+                    >1.991 m H × 0.60 m W × 0.85 m D</span
                   >
                   <a
                     href="https://download.schneider-electric.com/files?p_Doc_Ref=EasyUPS3PHMod_RNG_V&amp;p_File_Type=rendition_369_jpg&amp;default_image=DefaultProductImage.png"
@@ -1050,7 +1050,7 @@
                     link.
                   </title>
                   <desc id="equipment-desc">
-                    A schematic freestanding battery cabinet represents external
+                    A generic freestanding battery cabinet represents external
                     DC storage for the UPS. This is not a product photograph or
                     a drawing of its internal construction, dimensions or
                     arrangement.
@@ -1127,7 +1127,7 @@
                   </text>
                 </svg>
                 <figcaption class="equipment-scope">
-                  Schematic cabinet · internal construction, size and
+                  Generic UPS battery cabinet · size and
                   arrangement are not specified.
                 </figcaption>
               </figure>
@@ -1230,9 +1230,12 @@
           target="_blank"
           rel="noopener"
           >Online UPS continuity</a
-        >. Original conceptual examples; 50 kW modules are hypothetical
-        usable-output units. Separate A/B PSU groups can each accept the full
-        load. Isolated failures, compatible paths and adequate battery support
+        >
+        · <a href="https://productinfo.se.com/easyups3pmodular/990-6537-easy-ups-3-phase-modular-50-250-kw-operation/English/990-6537%20Operation%20Easy%20UPS%203-Phase%20Modular%2050-250%20kW_0001015104.xml/%24/GalaxyPX_ConfiguretheInputContacts_0000761997" target="_blank" rel="noopener">Generator charging configuration</a>
+        · <a href="https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-93e-ups/eaton-93e-ups-20kva-30kva-generation-3-manual-p-164000301.pdf" target="_blank" rel="noopener">Rectifier and battery-converter operation</a>
+        . Original conceptual examples; 50 kW modules are hypothetical
+        usable-output units. Separate A/B PSU groups are each rated to support the full
+        load; their combined draw follows actual demand. Isolated failures, compatible paths and adequate battery support
         are assumed. These diagrams do not specify protection, switching
         procedures or a sitewide availability rating.
         <a
@@ -1251,7 +1254,7 @@
     <script type="module">
       import { presentationLabels } from './teaching-navigation.js';
       document.querySelector('.brand small').textContent = presentationLabels.ups;
-      import { renderCapacitorDiagram } from "./ups-capacitors.js";
+      import { renderCapacitorDiagram, renderRecoveryDiagram } from "./ups-capacitors.js";
       import { renderGeneratorDiagram } from "./ups-generator.js";
       import { renderBypassDiagram } from "./ups-bypass.js";
       import { redundancyModel, renderRedundancy } from "./ups-redundancy.js";
@@ -1342,9 +1345,24 @@
             "Source transfer switchgear selects utility or generator upstream of the UPS; it does not route around the UPS.",
             "During generator startup and source transfer, the battery feeds the DC link and inverter.",
             "Once generator voltage and frequency are accepted and transfer completes, its AC supplies the rectifier; the inverter still supplies the racks.",
-            "Utility remains unavailable in the generator state. Battery charging is omitted, and sufficient battery runtime is assumed; no universal startup duration is claimed.",
+            "Utility remains unavailable in both generator states. The recharge state adds a controlled path from the DC link through the battery converter to the battery, while the inverter continues serving the load.",
+            "Generator and rectifier capacity must cover load, recharge and losses. Schneider permits genset charging to be enabled or disabled; the scene is a configured state, not a universal automatic sequence. No universal startup duration is claimed.",
           ],
-          cue: "Choose utility, generator starting, then generator supplying. Trace the source and the unchanged inverter-to-load path.",
+          cue: "Follow utility, battery bridge, generator supply and generator plus recharge. Trace where the extra generator power goes.",
+        },
+        {
+          id: "dc-link-recovery",
+          label: "DC-link recovery",
+          title: "Surplus source power restores the DC link to 800 V.",
+          notes: [
+            "Continue the separate 0.20 F bus example after its 10 ms battery ramp: 5 kJ has left the capacitor and the bus is at 768.1 V.",
+            "A regulated battery converter can increase delivered current to restore its DC-link voltage target. Once an AC source is accepted, the rectifier can regulate the link instead. Battery terminal voltage does not alone fix a converter-regulated DC link.",
+            "Choose either available source: 1.10 MW delivered at the bus minus the 1.00 MW load leaves 100 kW for the capacitor. Fifty milliseconds returns the missing 5 kJ, reaching 800 V.",
+            "At the target the source backs down to match the load. Otherwise voltage would keep rising. This is an ideal energy-account example, not a claim about a product controller or generator start time.",
+            "The clock starts when recovery power is available. Battery recovery can precede generator startup. Actual setpoints, limits and timing depend on the UPS topology; directly connected battery arrangements differ.",
+            "Restoring the DC-link capacitor and recharging the bulk battery are different energy accounts. The preceding generator scene shows the latter path.",
+          ],
+          cue: "Matching load stops the drop; surplus power raises voltage. Compare who controls the DC link before and after AC supply becomes available.",
         },
         {
           id: "static-bypass",
@@ -1490,6 +1508,7 @@
           outage: scenes[index].id === "outage",
           generatorStage: "waiting",
           capacitorMode: "alone",
+          recoverySource: "battery",
           supplyAvailable: true,
           maintenance: false,
           fault: false,
@@ -1567,7 +1586,6 @@
           drawing = `
             <rect x="240" y="36" width="654" height="400" rx="18" class="ups-enclosure"/>
             ${label(270, 67, "UPS · DOUBLE CONVERSION", "diagram-kicker", "start")}
-            ${label(864, 67, "Bypass omitted", "diagram-detail", "end")}
             ${wire("M131 188H314", !out, "utility")}
             ${wire("M426 188H568", !out, "rectifier-output")}
             ${wire("M568 188H710", true, "dc-link")}
@@ -1580,29 +1598,22 @@
             <circle cx="91" cy="188" r="40" class="equipment-face ${out ? "inactive" : ""}"/>
             <g class="${out ? "inactive" : ""}">${acSymbol(91, 188, 1.2)}</g>
             ${label(91, 120, "Utility AC")}
-            ${label(91, 252, out ? "Unavailable" : "Supplying power", out ? "unavailable-label" : "ready-label")}
+            ${out ? label(91, 252, "Unavailable", "unavailable-label") : ""}
             ${converter(314, 132, "rectifier", !out)}
             ${label(370, 111, "Rectifier")}${label(370, 272, "AC → DC", "diagram-detail")}
             <circle cx="568" cy="188" r="7" class="connection"/>
             ${label(568, 130, "DC link")}
-            ${label(568, 156, "Capacitors buffer transients", "diagram-detail")}
 
             ${converter(710, 132, "inverter")}
             ${label(766, 111, "Inverter")}${label(766, 272, "DC → AC", "diagram-detail")}
-            ${label(946, 160, "AC", "diagram-detail")}
             ${rack(1026, 132)}
             ${label(1065, 111, "Protected load")}
             ${label(1065, 288, "100 kW", "diagram-value")}
-            ${label(1065, 312, "Output continues", "ready-label")}
             ${battery(61, 306)}
             ${label(101, 433, "UPS battery")}
             ${label(221, 333, out ? "Discharging" : "Ready", "ready-label", "start")}
-            ${!out ? label(221, 380, "Charging not shown", "diagram-detail", "start") : label(221, 380, "Stored energy", "diagram-detail", "start")}
             <rect x="383" y="327" width="170" height="54" rx="7" class="equipment-face"/>
-            ${label(468, 350, "Battery interface", "diagram-detail")}
-            ${label(468, 371, "DC connection", "diagram-kicker")}
-            ${label(703, 367, out ? "Same inverter." : "Battery joins here.", "diagram-label")}
-            ${label(703, 391, out ? "Same supported load." : "On the DC side.", "diagram-detail")}
+            ${label(468, 360, "Battery interface", "diagram-detail")}
           `;
         } else {
           drawing = `
@@ -1635,12 +1646,9 @@
             ${label(268, 326, "Battery", "diagram-detail")}
             ${label(268, 347, "interface", "diagram-detail")}
             ${label(294, 169, out ? "Active" : "Ready", "ready-label", "start")}
-            ${label(182, 474, "DC-link capacitors", "diagram-kicker", "start")}
-            ${label(182, 497, "Fast bus buffering", "diagram-kicker", "start")}
             ${rack(78, 588, true)}
             ${label(166, 605, "Protected load", "diagram-detail", "start")}
             ${label(164, 644, "100 kW", "diagram-value", "start")}
-            ${label(166, 669, "Output continues", "ready-label", "start")}
           `;
         }
         $("circuit").setAttribute(
@@ -1704,11 +1712,15 @@
                 `<button data-capacitor-mode="${mode}" aria-pressed="${state.capacitorMode === mode}">${label}</button>`,
             )
             .join("");
+        if (s.id === "dc-link-recovery")
+          return [["battery", "Battery converter"], ["rectifier", "Generator + rectifier"]]
+            .map(([source, label]) => `<button data-recovery-source="${source}" aria-pressed="${state.recoverySource === source}">${label}</button>`).join("");
         if (s.id === "generator")
           return [
             ["utility", "Utility supplying"],
             ["waiting", "Generator starting"],
             ["generator", "Generator supplying"],
+            ["recharge", "Generator + recharge"],
           ]
             .map(
               ([stage, label]) =>
@@ -1783,6 +1795,13 @@
               publish();
             };
           });
+        container.querySelectorAll("button[data-recovery-source]").forEach((button) => {
+          button.onclick = () => {
+            state.recoverySource = button.dataset.recoverySource;
+            render();
+            publish();
+          };
+        });
         container.querySelectorAll("[data-action]").forEach(
           (button) =>
             (button.onclick = () => {
@@ -1801,7 +1820,7 @@
       function renderMechanism(s) {
         const compact = matchMedia("(max-width: 799px)").matches;
         $("mechanism").dataset.generator = String(s.id === "generator");
-        $("mechanism").dataset.capacitors = String(s.id === "capacitors");
+        $("mechanism").dataset.capacitors = String(["capacitors", "dc-link-recovery"].includes(s.id));
         $("circuit").toggleAttribute("hidden", Boolean(s.redundancy));
         $("redundancy-view").hidden = !s.redundancy;
         $("exercise-controls").innerHTML = actionButtons(s);
@@ -1815,13 +1834,24 @@
           $("circuit").innerHTML = result.svg;
           $("mechanism").dataset.outage = "false";
           $("supply-state").textContent =
-            "Separate DC bus · 0.20 F · 800 → 700 V";
+            "Capacitance C: 0.20 F";
           document.querySelector(".state-strip strong").textContent =
             "1 MW load";
           document.querySelector(".diagram-key").textContent =
             "Shaded area = energy supplied";
           $("model-scope").textContent =
-            "Ideal example · no losses or parasitics · not a UPS timing specification";
+            "Ideal DC-bus example";
+          return;
+        }
+        if (s.id === "dc-link-recovery") {
+          const result = renderRecoveryDiagram(state.recoverySource, { compact });
+          $("circuit").setAttribute("viewBox", result.viewBox);
+          $("circuit").innerHTML = result.svg;
+          $("mechanism").dataset.outage = "false";
+          $("supply-state").textContent = "Capacitance C: 0.20 F";
+          document.querySelector(".state-strip strong").textContent = "1 MW bus load";
+          document.querySelector(".diagram-key").textContent = "Surplus power recharges the capacitor";
+          $("model-scope").textContent = "Ideal DC-bus example";
           return;
         }
         if (s.redundancy) {
@@ -1833,9 +1863,7 @@
           $("mechanism").dataset.outage = String(!model.canSupportLoad);
           document.querySelector(".diagram-key").textContent =
             "Green = available capacity and route";
-          $("model-scope").textContent = model.dual
-            ? "Each PSU group accepts the full load · capacity comparison"
-            : "Capacity comparison · overload and transfer behavior excluded";
+          $("model-scope").textContent = "Available capacity · not actual power draw";
           return;
         }
         document.querySelector(".state-strip strong").textContent =
@@ -1845,6 +1873,7 @@
         $("model-scope").textContent =
           "Functional paths · one line does not mean one conductor";
         if (s.id === "generator") {
+          document.querySelector(".diagram-key").textContent = "Green = active power flow";
           const result = renderGeneratorDiagram({
             stage: state.generatorStage,
             compact,
@@ -1856,10 +1885,11 @@
           $("supply-state").textContent = {
             utility: "UTILITY SUPPLYING",
             waiting: "GENERATOR STARTING · BATTERY BRIDGE",
-            generator: "GENERATOR ACCEPTED · UTILITY UNAVAILABLE",
+            generator: "GENERATOR SUPPLYING",
+            recharge: "GENERATOR SUPPLYING + BATTERY CHARGING",
           }[state.generatorStage];
           $("model-scope").textContent =
-            "Source transfer is upstream of the UPS · battery charging omitted";
+            "Source capacity covers the load, recharge and UPS losses";
         } else if (s.mode) {
           const result = renderBypassDiagram({
             mode: s.mode,

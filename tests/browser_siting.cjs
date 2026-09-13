@@ -76,46 +76,14 @@ async function checkValues(page, scene, values, revealed) {
     assert.match(text, /75%/);
     assert.match(text, /September 2026/);
   }
-  if (scene.id === "generation-utilization") {
-    const hours = Number(values.genHours);
-    close(await attr("data-simple-cost"), 8e6 + 100 * hours * 20 / 0.4, "Simple-cycle annual cost");
-    close(await attr("data-combined-cost"), 16e6 + 100 * hours * 20 / 0.6, "Combined-cycle annual cost");
-  }
-  if (scene.id === "procurement-route")
-    assert.equal(
-      await page.locator("[data-route]").getAttribute("data-route"),
-      values.route,
-    );
   if (scene.id === "transport-current") {
-    close(
-      await attr("data-line-current-a"),
-      200000 / (Math.sqrt(3) * Number(values.voltage)),
-      "Transport current",
-    );
-    assert.equal(await attr("data-voltage-kv"), Number(values.voltage));
-    assert.equal(await attr("data-power-mw"), 200);
+    close(await attr("data-mv-current-a"),200000/(Math.sqrt(3)*34.5),"MV current");
+    close(await attr("data-hv-current-a"),200000/(Math.sqrt(3)*161),"HV current");
+    assert.equal(await attr("data-power-mw"),200);
   }
-  if (scene.id === "parallel-circuits") {
-    const n = Number(values.circuits);
-    assert.equal(await attr("data-circuits"), n);
-    close(
-      await attr("data-power-per-circuit-mw"),
-      200 / n,
-      "Power per circuit",
-    );
-    close(
-      await attr("data-line-current-a"),
-      200000 / (n * Math.sqrt(3) * 34.5),
-      "Current per line",
-    );
+  if (scene.id === "speed-premium") {
+    close(await attr("data-extra-annual-fuel"),14.6e6,"Annual incremental fuel");
   }
-  if (scene.id === "procurement-decision")
-    assert.equal(
-      await page
-        .locator("[data-decision-revealed]")
-        .getAttribute("data-decision-revealed"),
-      String(revealed),
-    );
   if (scene.reveal)
     assert.equal(
       await page.locator("#reveal").getAttribute("aria-expanded"),

@@ -1,4 +1,4 @@
-export const initialState=Object.freeze({"genCycle": "simple", "genCampus": 0, "genStart": "hot", "genHours": 500, "genChoiceHours": 7000, "genChoiceReveal": false, "site": "A", "readinessReveal": false, "corridor": "power", "grid": "connected", "storage": "ideal", "generation": 6, "generator": "running", "island": "unsupported", "protectedLoad": 8, "fuel": "available", "route": "mv", "voltage": 34.5, "circuits": 1, "decisionReveal": false, "checkReveal": false});
+export const initialState=Object.freeze({});
 export const scenes=[
   {
     "id": "siting-purpose",
@@ -156,8 +156,8 @@ export const scenes=[
   },
   {
     "id": "dania-cycle",
-    "label": "See the actual plant",
-    "title": "Dania Beach’s combined cycle includes two gas turbines.",
+    "label": "Dania Beach power station",
+    "title": "Dania Beach is a utility power station with two GE gas turbines.",
     "reference": "../index.html#d03-service-and-siting",
     "boundary": "GE Vernova’s Dania Beach case · reported plant output up to 1,260 MW · source reviewed 12 September 2026.",
     "explanation": [
@@ -178,26 +178,10 @@ export const scenes=[
   },
   {
     "id": "generation-flexibility",
-    "label": "Combined cycle can follow load",
-    "title": "A hot-start rating does not tell you the cold-start time.",
+    "label": "Three meanings of fast",
+    "title": "Fast delivery, fast startup and fast ramping solve different problems.",
     "reference": "../index.html#d03-service-and-siting",
-    "boundary": "GE 7HA.03, 1×1 combined-cycle catalog · May 2025 · net plant, ISO conditions, natural gas.",
-    "controls": [
-      {
-        "key": "genStart",
-        "label": "Initial condition",
-        "options": [
-          [
-            "hot",
-            "Hot plant"
-          ],
-          [
-            "cold",
-            "Cold plant"
-          ]
-        ]
-      }
-    ],
+    "boundary": "Generated conceptual illustration · delivery versus operating response; GE catalog example in the reading.",
     "explanation": [
       "The May 2025 GE Vernova fact sheet lists a 7HA.03 1×1 combined-cycle plant at 640 MW net, with a rapid-response hot start below 30 minutes, a 75 MW/minute ramp rate and a 26% minimum-load entry. These are separate catalog characteristics; the hot-start number cannot be reused for a cold plant, and the ramp rate is not a promise of instantaneous service from zero.",
       "Combined cycle can follow load and serve intermediate duty. Simple cycle often has a simpler installation and can suit short-notice operation, but startup depends on the actual machine and thermal state. Building a plant, starting an available plant and changing its running output are three different clocks. Equipment procurement, permits, fuel supply and civil work can dominate either construction schedule."
@@ -206,56 +190,42 @@ export const scenes=[
   {
     "id": "generation-utilization",
     "label": "When does efficiency repay?",
-    "title": "More running hours can repay the extra steam-cycle equipment.",
+    "title": "More operating hours give fuel savings time to repay the steam system.",
     "reference": "../index.html#d03-service-and-siting",
-    "boundary": "Hypothetical 100 MW options · annualized fixed cost $8M / $16M · fuel $20/MWh thermal, LHV.",
-    "controls": [
-      {
-        "key": "genHours",
-        "label": "Equivalent full-load hours per year",
-        "options": [
-          [
-            500,
-            "500 h"
-          ],
-          [
-            4800,
-            "4,800 h"
-          ],
-          [
-            7000,
-            "7,000 h"
-          ]
-        ]
-      }
-    ],
+    "boundary": "Original 100 MW cost comparison · fuel and efficiency on one consistent heating-value basis.",
     "explanation": [
-      "This separate hypothetical comparison assumes efficiencies of 40% for simple cycle and 60% for combined cycle, with annualized fixed costs of $8 million and $16 million respectively. At a fuel price of $20 per MWh thermal on the same LHV basis, variable fuel costs are $50 and $33.33 per MWh electric. Equal output capability does not imply equal annual cost.",
+      "This separate hypothetical comparison assumes efficiencies of 40% for simple cycle and 60% for combined cycle, with annualized fixed costs of $8 million and $16 million respectively. At a fuel price of $20 per MWh thermal on the same lower-heating-value basis (excluding recovery by condensing combustion water vapor), variable fuel costs are $50 and $33.33 per MWh electric. Equal output capability does not imply equal annual cost.",
       "At 500 equivalent full-load hours, simple cycle costs $10.5 million against $17.67 million. At 7,000 hours, combined cycle costs $39.33 million against $43 million. The crossover is 4,800 hours in this model. These are original assumptions, not market quotations or an investment recommendation. Start costs, variable maintenance, emissions costs, part-load efficiency, downtime and project-specific financing are excluded."
     ]
   },
   {
+    "id": "southaven-plan",
+    "label": "Southaven: actual site plan",
+    "title": "Southaven’s permit application puts generation beside the compute campus.",
+    "reference": "../index.html#d03-service-and-siting",
+    "boundary": "MZX Tech LLC · January 2026 application · historical proposed site, not current as-built status.",
+    "explanation": [
+      "The original application site map locates MZX Tech’s proposed generating facility in Southaven, Mississippi. The January 2026 application described 41 simple-cycle gas turbines and approximately 1.2 GW of generating nameplate. Its map retains the original Airbus 2025 imagery credit.",
+      "This is a historical plan, not a September operating-capacity claim. On the following process drawing, follow the proposed generation-to-data-center relationship. The later procurement account is a separate analyst source; this permit does not specify the 34.5 kV or 161 kV comparison inputs."
+    ]
+  },
+  {
+    "id": "southaven-process",
+    "label": "Southaven: original process drawing",
+    "title": "Southaven planned local generation for compute and battery charging.",
+    "reference": "../index.html#d03-service-and-siting",
+    "boundary": "Trinity Consultants · Figure 2-1, July 2025, in January 2026 application · process drawing, not electrical one-line.",
+    "explanation": [
+      "The applicant’s original process figure connects conditioned natural gas to turbines, electricity to the data center, and electricity to battery packs. Emissions branches belong to the air-permit purpose of this drawing.",
+      "Read it as the proposed functional relationship. It does not specify the complete switching, protection or bus-voltage design and does not establish actual operating completion. The next comparison examines SemiAnalysis’s reported choice to avoid long-lead large-transformer stages."
+    ]
+  },
+  {
     "id": "procurement-route",
-    "label": "Southaven procurement",
-    "title": "Equipment lead times can change the power route.",
+    "label": "The transformer dependency",
+    "title": "Local medium-voltage delivery can bypass large-transformer lead times.",
     "reference": "../index.html#d03-voltage-and-distance",
     "boundary": "SemiAnalysis · 7 August 2026 · reported Southaven/MiniHard context, conceptual paths.",
-    "controls": [
-      {
-        "key": "route",
-        "label": "Conceptual delivery route",
-        "options": [
-          [
-            "hv",
-            "Step up, then down"
-          ],
-          [
-            "mv",
-            "Local medium voltage"
-          ]
-        ]
-      }
-    ],
     "explanation": [
       "SemiAnalysis’s construction analysis describes imported power modules and medium-voltage delivery from generation to low-voltage transformers as a way to bypass long-lead switchgear and large power transformers in the Southaven/MiniHard buildout discussion. This is the reported procurement rationale.",
       "The drawing compares conceptual paths. It is not an as-built one-line, an assertion about every circuit at Colossus, or evidence that all transformers and switchgear disappear. Next, isolate the current cost of choosing a lower transport voltage at the same power."
@@ -263,72 +233,35 @@ export const scenes=[
   },
   {
     "id": "transport-current",
-    "label": "Voltage and current",
-    "title": "Lower transport voltage requires more current for the same power.",
+    "label": "What the faster route trades away",
+    "title": "The campus AC route trades fewer transformer stages for more current.",
     "reference": "../index.html#d03-voltage-and-distance",
     "boundary": "Hypothetical 200 MW receiving boundary · balanced three-phase · line-to-line RMS voltage · PF = 1.",
-    "controls": [
-      {
-        "key": "voltage",
-        "label": "Transport voltage",
-        "options": [
-          [
-            34.5,
-            "34.5 kV"
-          ],
-          [
-            161,
-            "161 kV"
-          ]
-        ]
-      }
-    ],
     "explanation": [
       "Using I = P / (√3 × VLL × PF), 200 MW corresponds to about 3.35 kA at 34.5 kV and 717 A at 161 kV. The current ratio is about 4.67. Power at the receiving boundary remains fixed.",
       "These numerical voltages and load are original comparison inputs, not Southaven site specifications. Current is per line, or an equivalent aggregate before circuit splitting, not the sum of three conductor magnitudes. Equipment ratings, circuit count and losses remain separate design questions."
     ]
   },
   {
-    "id": "parallel-circuits",
-    "label": "Divide the transfer",
-    "title": "Parallel circuits spread the current across more conductors.",
-    "reference": "../index.html#d03-voltage-and-distance",
-    "boundary": "Hypothetical 200 MW at 34.5 kV · equal sharing · each circuit has three phase conductors.",
-    "controls": [
-      {
-        "key": "circuits",
-        "label": "Complete three-phase circuits",
-        "options": [
-          [
-            1,
-            "One"
-          ],
-          [
-            2,
-            "Two"
-          ],
-          [
-            4,
-            "Four"
-          ]
-        ]
-      }
-    ],
+    "id": "contract-economics",
+    "label": "Why early compute earns a premium",
+    "title": "SpaceX’s disclosed compute fees show the stakes of delivering capacity sooner.",
+    "reference": "../index.html#d03-service-and-siting",
+    "boundary": "Primary agreement disclosures · Google full fees begin October 2026; analyst payback forecast shown separately.",
     "explanation": [
-      "Dividing the same transfer equally across more complete circuits lowers current per circuit, while increasing the number of phase conductor paths. Four equal circuits each carry about 837 A per line in this model. Actual sharing depends on the engineered arrangement.",
-      "At unchanged resistance per conductor, total conductor heating follows 3 × n × (Iaggregate/n)² × R. This isolated result excludes reactive, thermal, protection and conversion behavior; it neither specifies conductor sizing nor estimates real site losses."
+      "SpaceX’s June 2026 disclosures put Anthropic’s full monthly service fees at $1.25 billion across Colossus and Colossus II and Google’s at $920 million from October. Their conditional $2.17 billion monthly sum is before costs, subject to service and termination terms. It is not current collected cash or demonstrated profit. The disclosures do not identify a shared MW denominator for allocating those fees to Southaven.",
+      "SemiAnalysis separately forecasts capex recovery in less than a year. Its 3–5 months means delivery lead time, not capex payback. The comparison that follows asks how much earlier-service contribution would cover a stated fuel penalty, rather than inventing contract margins."
     ]
   },
   {
-    "id": "procurement-decision",
-    "label": "Choose the tradeoff",
-    "title": "Earlier equipment must still meet the electrical requirement.",
-    "reference": "../index.html#d03-voltage-and-distance",
-    "boundary": "Reported procurement rationale paired with bounded teaching models.",
-    "reveal": "decisionReveal",
+    "id": "speed-premium",
+    "label": "Price the time gained",
+    "title": "One month of earlier service can outweigh a year of extra fuel.",
+    "reference": "../index.html#d03-service-and-siting",
+    "boundary": "Original 100 MW sensitivity · 40% versus 60% efficiency · one-year fuel penalty; contract margin unknown.",
     "explanation": [
-      "Before revealing, name one delivery dependency the alternative can avoid and one electrical consequence that still has to be resolved. Lower voltage increases required current at fixed transfer; more circuits or conductor area can change the outcome.",
-      "A proposal earns earlier useful work only if the equipment, protection, physical routes and commissioned service actually meet the load requirement. The 4.67 current ratio is not a site efficiency prediction, and supplier availability alone is not a finished campus."
+      "Return to the same hypothetical 100 MW delivered output and $20 per MWh of fuel energy. At continuous annual operation, fuel costs $43.8 million at 40% efficiency and $29.2 million at 60%. The difference is $14.6 million for the stated year. This thermal-efficiency example is separate from the campus AC conductor comparison and is not a Southaven performance estimate.",
+      "If opening one month earlier earns more than $14.6 million of contribution after other service costs, plus any added cost of the faster design, it covers this one-year fuel penalty. The earlier month must also pay its baseline service costs; do not compare gross contract fees directly with a different-sized plant’s incremental fuel cost. For a multi-year choice, include the full period of extra fuel, capital, financing and operating differences. Actual contract margins are not disclosed."
     ]
   },
   {
@@ -352,7 +285,9 @@ export const legacySceneAliases=Object.freeze({
   "island-boundary": "config-off-grid",
   "island-duration": "config-off-grid",
   "fuel-delivery": "parcel-connections",
-  "generation-fuel": "combined-cycle",
+  "generation-fuel": "generation-utilization",
   "generation-choice": "generation-utilization",
-  "phase-check": "supply-brief"
+  "phase-check": "supply-brief",
+  "parallel-circuits": "transport-current",
+  "procurement-decision": "speed-premium"
 });

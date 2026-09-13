@@ -1,4 +1,103 @@
 /* Shared presentation chrome: the slide teaches visually; the reader holds prose. */
+/* All decks use the same transport component, including the 800 V and UPS
+   renderers. Specificity intentionally supersedes their former local footers. */
+:is(#viewer, #audience) footer.course-slide-navigation {
+  position: sticky;
+  bottom: 0;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) 64px 44px;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  min-height: 62px;
+  padding: 8px 28px;
+  border-top: 1px solid var(--line, var(--rule, #73817c));
+  border-bottom: 0;
+  color: var(--ink, var(--text, CanvasText));
+  background: var(--paper, Canvas);
+}
+:is(#viewer, #audience) footer.course-slide-navigation .course-slide-choice,
+:is(#viewer, #audience) footer.course-slide-navigation .course-slide-choice > nav {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+}
+:is(#viewer, #audience) footer.course-slide-navigation .course-slide-choice > [hidden] {
+  display: none !important;
+}
+:is(#viewer, #audience) footer.course-slide-navigation .course-slide-choice select {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  height: 44px;
+  margin: 0;
+  padding: 8px 30px 8px 12px;
+  border: 1px solid var(--line, var(--rule, #73817c));
+  border-radius: 8px;
+  color: inherit;
+  background-color: var(--surface, var(--paper, Canvas));
+  font: inherit;
+  font-size: 13px;
+  line-height: normal;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+:is(#viewer, #audience) footer.course-slide-navigation button.course-slide-previous,
+:is(#viewer, #audience) footer.course-slide-navigation button.course-slide-next {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+  min-height: 44px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--line, var(--rule, #73817c));
+  border-radius: 8px;
+  color: inherit;
+  background: var(--surface, var(--paper, Canvas));
+  font: inherit;
+  font-size: 19px;
+  line-height: 1;
+}
+:is(#viewer, #audience) footer.course-slide-navigation button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+:is(#viewer, #audience) footer.course-slide-navigation .course-slide-progress {
+  min-width: 0;
+  color: var(--muted, currentColor);
+  font: inherit;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+}
+:is(#viewer, #audience) footer.course-slide-navigation :is(button, select):focus-visible {
+  outline: 3px solid var(--focus, var(--power, var(--green, #16897a)));
+  outline-offset: 2px;
+}
+:is(#viewer, #audience) footer.course-slide-navigation button:not(:disabled):hover {
+  background: var(--panel, var(--soft, color-mix(in srgb, CanvasText 8%, Canvas)));
+}
+@media (max-width: 600px) {
+  :is(#viewer, #audience) footer.course-slide-navigation {
+    grid-template-columns: 44px minmax(0, 1fr) 52px 44px;
+    gap: 8px;
+    padding: 8px 14px;
+  }
+  :is(#viewer, #audience) footer.course-slide-navigation .course-slide-choice select {font-size: 12px;}
+}
+@media print {
+  :is(#viewer, #audience) footer.course-slide-navigation {display: none;}
+}
+
 #explain,
 #evidence,
 #open-notes,

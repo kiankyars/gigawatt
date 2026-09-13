@@ -11,13 +11,14 @@ const source = (x, y, title, active, radius) =>
   `<circle cx="${x}" cy="${y}" r="${radius}" class="equipment-face ${active ? "" : "inactive"}"/><path d="M${x - 17} ${y}c6 -22 11 -22 17 0s11 22 17 0" class="symbol"/>${text(x, y - radius - 14, title, "generator-label")}`;
 
 export function generatorModel(stage = "waiting") {
-  if (!["utility", "waiting", "generator"].includes(stage))
+  if (!["utility", "waiting", "generator", "recharge"].includes(stage))
     throw new Error("Unknown generator stage");
   return {
     stage,
     utilityConnected: stage === "utility",
-    generatorConnected: stage === "generator",
+    generatorConnected: stage === "generator" || stage === "recharge",
     batterySupplying: stage === "waiting",
+    batteryCharging: stage === "recharge",
     rectifierPowered: stage !== "waiting",
     loadKW: 100,
   };
@@ -30,7 +31,8 @@ export function renderGeneratorDiagram({
   const m = generatorModel(stage);
   const u = m.utilityConnected,
     g = m.generatorConnected,
-    b = m.batterySupplying;
+    b = m.batterySupplying,
+    c = m.batteryCharging;
   const generatorStatus = g
     ? "Accepted AC source"
     : stage === "waiting"
@@ -40,7 +42,9 @@ export function renderGeneratorDiagram({
     ? "Utility power feeds the source transfer switchgear, rectifier, DC link, inverter and 100 kW load. Generator is disconnected."
     : b
       ? "Utility has failed and the generator is starting, disconnected. Both source contacts are open. The UPS battery feeds the DC link and inverter to maintain 100 kW."
-      : "Utility remains unavailable. Accepted generator power feeds the source transfer switchgear, rectifier, DC link, inverter and 100 kW load. Battery is no longer discharging; charging is not shown.";
+      : c
+        ? "Utility remains unavailable. Generator power feeds the rectifier, DC link and inverter for the 100 kW load, and the battery converter recharges the battery. Source demand includes load, recharge and UPS losses. Charging is enabled in this configuration."
+        : "Utility remains unavailable. Accepted generator power feeds the source transfer switchgear, rectifier, DC link, inverter and 100 kW load. Battery charging is disabled in this configuration.";
   let svg;
   if (!compact) {
     svg = `<rect x="400" y="90" width="510" height="260" rx="18" class="ups-enclosure"/>${text(655, 118, "UPS · DOUBLE CONVERSION", "diagram-kicker")}`;
@@ -58,7 +62,9 @@ export function renderGeneratorDiagram({
       wire("M555 232H630", !b, "rectifier-output") +
       wire("M630 232H745", true, "dc-link") +
       wire("M855 232H1015", true, "inverter-output");
-    svg += wire("M520 397H630V232", b, "battery-to-dc-link") + dot(630, 232);
+    svg += wire("M520 397H630V232", b || c, c ? "dc-link-to-battery" : "battery-to-dc-link") + dot(630, 232);
+    svg += box(568, 265, 124, 72, b || c) + text(630, 294, "Battery", "generator-small") + text(630, 320, "DC/DC", "generator-label");
+    if (b || c) svg += `<path d="${c ? "M624 350l6 10 6 -10" : "M624 360l6 -10 6 10"}" class="symbol"/><path d="${c ? "M543 391l-10 6 10 6" : "M533 391l10 6 -10 6"}" class="symbol"/>`;
     svg +=
       source(90, 116, "Utility", u, 36) +
       text(90, 171, u ? "Supplying" : "Unavailable", "generator-small");
@@ -75,16 +81,16 @@ export function renderGeneratorDiagram({
       text(800, 158, "Inverter", "generator-label") +
       text(800, 239, "DC → AC", "generator-label");
     svg +=
-      box(420, 365, 100, 65, b) +
+      box(420, 365, 100, 65, b || c) +
       text(470, 405, "+  −", "diagram-label") +
       text(470, 454, "UPS battery", "generator-label") +
-      text(630, 430, b ? "Discharging" : "Not discharging", "generator-small");
+      text(800, 391, b ? "Discharging" : c ? "Charging" : "Ready", "generator-small");
     svg +=
       box(1015, 177, 110, 110) +
       text(1070, 217, "Racks", "generator-label") +
       text(1070, 251, "100 kW", "diagram-label");
   } else {
-    svg = `<rect x="140" y="263" width="196" height="259" rx="14" class="ups-enclosure"/>${text(290, 286, "UPS", "diagram-kicker")}`;
+    svg = `<rect x="88" y="263" width="248" height="259" rx="14" class="ups-enclosure"/>${text(290, 286, "UPS", "diagram-kicker")}`;
     svg +=
       box(125, 146, 140, 88) +
       text(195, 132, "Source transfer", "generator-label");
@@ -99,7 +105,9 @@ export function renderGeneratorDiagram({
       wire("M195 355V394", !b, "rectifier-output") +
       wire("M195 394V435", true, "dc-link") +
       wire("M195 495V558", true, "inverter-output");
-    svg += wire("M77 371H112V394H195", b, "battery-to-dc-link") + dot(195, 394);
+    svg += wire("M77 371H112V394H195", b || c, c ? "dc-link-to-battery" : "battery-to-dc-link") + dot(195, 394);
+    svg += box(93, 353, 65, 62, b || c) + text(125, 390, "DC/DC", "generator-small");
+    if (b || c) svg += `<path d="${c ? "M177 388l-8 6 8 6" : "M169 388l8 6 -8 6"}" class="symbol"/>`;
     svg += source(72, 60, "Utility", u, 26);
     svg += source(303, 60, "Generator", g, 26);
     svg +=
@@ -112,9 +120,10 @@ export function renderGeneratorDiagram({
       text(195, 458, "Inverter", "generator-small") +
       text(195, 483, "DC → AC", "generator-label");
     svg +=
-      box(7, 341, 70, 60, b) +
+      box(7, 341, 70, 60, b || c) +
       text(42, 378, "+  −", "generator-label") +
-      text(47, 422, "UPS battery", "generator-small");
+      text(47, 440, "UPS battery", "generator-small") +
+      text(47, 463, b ? "Discharging" : c ? "Charging" : "Ready", "generator-small");
     svg +=
       box(150, 558, 90, 62) +
       text(195, 582, "Racks", "generator-label") +

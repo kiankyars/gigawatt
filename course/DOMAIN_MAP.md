@@ -422,6 +422,13 @@ Compare utility-only and behind-the-meter supply against energy, capacity, fuel 
 - [P108 — What Is a Gas Turbine?](https://www.gevernova.com/gas-power/resources/education/what-is-a-gas-turbine) · `page_reviewed` · [local note](../research/sources/P108.md)
 - [P109 — Crusoe’s Contracted AI Infrastructure Capacity Approaches 5 Gigawatts Across Data Centers and Cloud](https://www.crusoe.ai/resources/newsroom/crusoes-contracted-ai-infrastructure-capacity-approaches-5-gigawatts-across-data-centers-and-cloud) · `page_reviewed` · [local note](../research/sources/P109.md)
 - [P110 — Abilene Data Center Development](https://www.mortenson.com/projects/abilene-data-center-development) · `page_reviewed` · [local note](../research/sources/P110.md)
+- [P112 — MZX Tech LLC — Southaven PSD permit application, January 2026 revision](https://upload.wikimedia.org/wikipedia/commons/e/e2/MZX_Tech_LLC_Draft_Air_PSD_Construction_Permit.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P112.md)
+- [P113 — SpaceX — EU prospectus, compute services agreements with Anthropic](https://content.spacex.com/cms-assets/FINAL_Documents%20and%20Updates/SpaceX%20-%20EU%20Prospectus%20%28Approved%20by%20Bafin%29%20-%20June%205%2C%202026.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P113.md)
+- [P114 — SpaceX — Google Cloud Service Agreement, free writing prospectus](https://www.sec.gov/Archives/edgar/data/1181412/000162828026041150/spacexagreementfwp.htm) · `page_reviewed` · [local note](../research/sources/P114.md)
+- [P115 — SpaceX — second-quarter 2026 Form 10-Q, AI segment results](https://www.sec.gov/Archives/edgar/data/1181412/000162828026052535/spcx-20260630.htm) · `public_excerpt_reviewed` · [local note](../research/sources/P115.md)
+- [SA43 — SemiAnalysis — Meta Compute: Everyone Wants To Be A Neocloud](https://newsletter.semianalysis.com/p/meta-compute-everyone-wants-to-be) · `public_excerpt_reviewed` · [local note](../research/sources/SA43.md)
+- [P116 — GE Vernova — 7HA gas turbines, model family and specifications](https://www.gevernova.com/gas-power/products/gas-turbines/7ha) · `page_reviewed` · [local note](../research/sources/P116.md)
+- [P117 — U.S. Department of Energy — heating-value glossary](https://www.energy.gov/cmei/fuels/glossary) · `public_excerpt_reviewed` · [local note](../research/sources/P117.md)
 
 <a id="d04"></a>
 
@@ -525,6 +532,7 @@ Reconcile IT and auxiliary loads with a downstream electrical capacity budget ac
 - [P69 — Eaton · UPS fundamentals handbook](https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-ups-fundamentals-handbook-anz.pdf) · `page_reviewed` · [local note](../research/sources/P69.md)
 - [P78 — MLGW — xAI project quick facts](https://www.mlgw.com/images/content/files/pdf/2024xAI%20and%20MLGW%20Quick%20Facts%201.pdf) · `page_reviewed` · [local note](../research/sources/P78.md)
 - [SA42 — SpaceX 10GW in 2027 — construction pace and equipment procurement](https://newsletter.semianalysis.com/p/spacex-10gw-in-2027-why-its-real) · `public_excerpt_reviewed` · [local note](../research/sources/SA42.md)
+- [P112 — MZX Tech LLC — Southaven PSD permit application, January 2026 revision](https://upload.wikimedia.org/wikipedia/commons/e/e2/MZX_Tech_LLC_Draft_Air_PSD_Construction_Permit.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P112.md)
 
 <a id="d05"></a>
 
@@ -642,6 +650,8 @@ Explain why fault clearing and grounding require topology-specific AC/DC protect
 - [P90 — Texas Instruments — The decoupling capacitor: is it really necessary?](https://e2e.ti.com/blogs_/archives/b/precisionhub/posts/the-decoupling-capacitor-is-it-really-necessary) · `page_reviewed` · [local note](../research/sources/P90.md)
 - [P97 — Microsoft, OpenAI and NVIDIA — Power Stabilization for AI Training Datacenters](https://arxiv.org/html/2508.14318v1) · `page_reviewed` · [local note](../research/sources/P97.md)
 - [P105 — Crusoe 2025 Impact Report](https://media.ffycdn.net/us/crusoe/PL5TuZz5apXB9pVsd3H1.pdf) · `page_reviewed` · [local note](../research/sources/P105.md)
+- [P118 — Schneider Electric — Easy UPS 3-Phase Modular: Configure the Input Contacts](https://productinfo.se.com/easyups3pmodular/990-6537-easy-ups-3-phase-modular-50-250-kw-operation/English/990-6537%20Operation%20Easy%20UPS%203-Phase%20Modular%2050-250%20kW_0001015104.xml/%24/GalaxyPX_ConfiguretheInputContacts_0000761997) · `public_excerpt_reviewed` · [local note](../research/sources/P118.md)
+- [P119 — Eaton — 93E UPS Generation 3 installation and operation manual, 164000301 Rev. 04](https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-93e-ups/eaton-93e-ups-20kva-30kva-generation-3-manual-p-164000301.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P119.md)
 
 <a id="d06"></a>
 
@@ -1358,6 +1368,7 @@ Trace physical and control-system access boundaries and explain why availability
 - [SA42 — SpaceX 10GW in 2027 — construction pace and equipment procurement](https://newsletter.semianalysis.com/p/spacex-10gw-in-2027-why-its-real) · `public_excerpt_reviewed` · [local note](../research/sources/SA42.md)
 - [P102 — Oracle Data Centers: Abilene, Texas](https://www.oracle.com/data-centers/) · `page_reviewed` · [local note](../research/sources/P102.md)
 - [P111 — Lenovo NVIDIA GB300 NVL72 Rack Scale AI Product Guide](https://lenovopress.lenovo.com/lp2357-lenovo-nvidia-gb300-nvl72-rack-scale-ai) · `page_reviewed` · [local note](../research/sources/P111.md)
+- [P112 — MZX Tech LLC — Southaven PSD permit application, January 2026 revision](https://upload.wikimedia.org/wikipedia/commons/e/e2/MZX_Tech_LLC_Draft_Air_PSD_Construction_Permit.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P112.md)
 
 <a id="d13"></a>
 
@@ -1463,6 +1474,10 @@ Specify an integrated acceptance and handover plan for a phased deployment.
 - [P59 — Vertiv — How N+1 redundancy supports continuous data center cooling](https://www.vertiv.com/en-ca/about/news-and-events/articles/educational-articles/how-n1-redundancy-supports-continuous-data-center-cooling/) · `public_excerpt_reviewed` · [local note](../research/sources/P59.md)
 - [SA42 — SpaceX 10GW in 2027 — construction pace and equipment procurement](https://newsletter.semianalysis.com/p/spacex-10gw-in-2027-why-its-real) · `public_excerpt_reviewed` · [local note](../research/sources/SA42.md)
 - [P81 — Tier Certification for Modular and Phased Construction](https://journal.uptimeinstitute.com/modular-and-phased-construction/) · `public_excerpt_reviewed` · [local note](../research/sources/P81.md)
+- [P113 — SpaceX — EU prospectus, compute services agreements with Anthropic](https://content.spacex.com/cms-assets/FINAL_Documents%20and%20Updates/SpaceX%20-%20EU%20Prospectus%20%28Approved%20by%20Bafin%29%20-%20June%205%2C%202026.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P113.md)
+- [P114 — SpaceX — Google Cloud Service Agreement, free writing prospectus](https://www.sec.gov/Archives/edgar/data/1181412/000162828026041150/spacexagreementfwp.htm) · `page_reviewed` · [local note](../research/sources/P114.md)
+- [P115 — SpaceX — second-quarter 2026 Form 10-Q, AI segment results](https://www.sec.gov/Archives/edgar/data/1181412/000162828026052535/spcx-20260630.htm) · `public_excerpt_reviewed` · [local note](../research/sources/P115.md)
+- [SA43 — SemiAnalysis — Meta Compute: Everyone Wants To Be A Neocloud](https://newsletter.semianalysis.com/p/meta-compute-everyone-wants-to-be) · `public_excerpt_reviewed` · [local note](../research/sources/SA43.md)
 
 <a id="d14"></a>
 

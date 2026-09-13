@@ -1,5 +1,8 @@
 // Presentation controls shared by every chapter. Source notes remain in the reader.
+import { installSlideNavigation } from './slide-navigation.js';
+
 function installSlideChrome() {
+  installSlideNavigation();
   const toolbar = document.querySelector('.toolbar');
   if (!toolbar) return;
   const nav = toolbar.querySelector('nav');
@@ -20,7 +23,10 @@ function installSlideChrome() {
     reading.href = sourceLink?.href || fallback.href;
     nav.prepend(reading);
   }
-  if (reading) reading.dataset.courseReading = '';
+  if (reading) {
+    reading.dataset.courseReading = '';
+    reading.textContent = 'Reading';
+  }
   if (reading && sourceLink && reading !== sourceLink) {
     const sync = () => { reading.href = sourceLink.href; };
     sync();

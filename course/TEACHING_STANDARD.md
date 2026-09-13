@@ -44,6 +44,8 @@ and **Reading**; no explanation/source dialog or note launcher. Deeper text and
 source discussion belong in the reader. Chapter actions use the shared button
 style; the directory has no All chapters / Slides available filter.
 
+All decks use `prototypes/slide-navigation.js` through `slide-chrome.js`. Keep chapter behavior in its renderer; use the shared component for previous/next, selector, progress and responsive footer. Do not build another chapter-specific navigation bar.
+
 Every teaching presentation and student exploration view has a visible
 **← Back to course** link at the left of its header. It returns to the main
 course directory at the site root. A logo or a lesson-specific reading link does not replace
@@ -103,7 +105,7 @@ The open production tasks remain in [the course review](COURSE_REVIEW.md#next-te
 
 | Section | Case and teaching consequence | Existing standalone scenes | Chapter integration |
 | --- | --- | --- | --- |
-| Siting, grid connection and supply (`d03`) | SemiAnalysis's Southaven/MiniHard procurement workaround: equipment lead time versus the consequences of MV distribution | [Procurement](prototypes/case-studies.html?teach=1#procurement), [current comparison](prototypes/case-studies.html?teach=1#current) | Integrated in Section 4: [route](prototypes/siting-format.html?teach=1#procurement-route), [current](prototypes/siting-format.html?teach=1#transport-current), [circuits](prototypes/siting-format.html?teach=1#parallel-circuits), [decision](prototypes/siting-format.html?teach=1#procurement-decision); authored draft |
+| Siting, grid connection and supply (`d03`) | SemiAnalysis's Southaven/MiniHard procurement workaround: equipment lead time versus the consequences of MV distribution | [Procurement](prototypes/case-studies.html?teach=1#procurement), [current comparison](prototypes/case-studies.html?teach=1#current) | Integrated in Section 4: [route](prototypes/siting-format.html?teach=1#procurement-route), [current](prototypes/siting-format.html?teach=1#transport-current), [original plans](prototypes/siting-format.html?teach=1#southaven-plan), [economics](prototypes/siting-format.html?teach=1#speed-premium); authored draft |
 | Continuity, storage and protection (`d05`) | Crusoe/Redwood in Sparks: solar power, battery energy, discharge power and grid backup | [Solar and battery](prototypes/case-studies.html?teach=1#sparks), [availability](prototypes/case-studies.html?teach=1#availability) | Pending |
 | Storage, orchestration and recovery (`d09`) | Google flexible scheduling: which work can move without missing its service requirement? | [Demand response](prototypes/case-studies.html?teach=1#demand-response) | Pending |
 | Heat rejection, climate and water (`d11`) | Abilene cooling: closed coolant loops, outdoor heat rejection and the boundary of water-use claims | [Abilene cooling](prototypes/case-studies.html?teach=1#abilene-cooling) | Pending; existing cooling deck does not yet integrate this case |

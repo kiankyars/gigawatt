@@ -7,9 +7,22 @@ Do not download or launch standalone Chrome for Testing or Playwright browser
 binaries here. Existing browser test harnesses remain available for a separately
 configured test environment; run local model and build checks without a browser.
 
+## Chapter 4 generation and Chapter 7 UPS — 2026-09-12
+
+Current revision: Chapter 4 has 25 slides; the selected UPS sequence has 22.
+One shared navigation component now adapts every presentation's original handlers.
+
+- **72 Python tests and 136 Node tests passed.** New checks cover DC-link recharge energy and voltage, generator load-plus-charge state, conditional delivery economics, and the shared navigation contract. Existing three-phase transport and generation-cost conservation checks pass.
+- Chapter 4's changed slides 15–25 checked in the native Codex browser at **1280×720, 390×844 and 844×390**. No final horizontal overflow, clipped SVG labels or measured text collisions. Fixed the portrait generated-image crop and labels crossing the procurement diagram's conductors.
+- Visually inspected the actual Dania photograph, new GPT-generated delivery/startup/ramping figure, simultaneous cost curves, original Southaven application site/process figures, contract-fee comparison and delivery-premium calculation. The original source figures retain their credits and page links. Generated plant geometry is conceptual; the quantitative cost/current plots are computed in code.
+- Independent UPS native pass checked revised slides 3–8 at the same three sizes, plus the 2N caption. Repeated all four generator states and both recovery-source selections; selection and diagram state agree. Fixed capacitor axes/metric overlaps and recovery diagram placement. No browser console errors in the checked UPS sequence.
+- Shared navigation independently checked on workload, 800 V and UPS decks, including first/last disabled states, selector changes and UPS selector replacement after rendering. Sticky footer and 44px controls checked on narrow screens.
+- Reader and source metadata synchronized; archived article content remains excluded from public staging. Chapter 4 has no reveal quiz; retired fragments resolve to the corresponding new scene. The standalone browser harness was updated and syntax-checked, **not executed**.
+- Visual checks used the device's light appearance. No new dark-mode or native fullscreen certification is claimed for this pass. Viewport overrides were reset afterward.
+
 ## Chapters 3–5 and root publication — 2026-09-12
 
-The current revision adds three built-in GPT ImageGen figures, rebuilds Chapter 4
+The preceding revision added three built-in GPT ImageGen figures, rebuilds Chapter 4
 as 23 slides, adds Chapter 5 as 22 slides, and replaces Chapter 3's final visual.
 The course is named From Watts to Tokens. The reader publishes at the root and
 slide decks at `/slides/`, with old query/hash links preserved.

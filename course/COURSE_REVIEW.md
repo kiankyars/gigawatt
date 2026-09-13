@@ -18,9 +18,7 @@ read it end to end.
 **Current state:** 50 reader lessons map to 65 objective IDs. The course advances
 section by section. The Primer, overview, workloads, supply and physical-site
 decks are authored; UPS, rack power, 800 V and cooling cover selected later topics.
-The table below owns their exact scope and review state. The current revision rebuilds
-Chapter 4, adds Chapter 5, repairs Chapter 3’s final visual and simplifies shared
-navigation. Current checks are recorded in [TESTING.md](TESTING.md#chapters-35-and-root-publication--2026-09-12). Kian’s review remains separate.
+The table below owns their exact scope and review state. The current revision refines Chapter 4’s generation and delivery decision and Chapter 7’s UPS recovery. Every deck now uses one shared navigation component. Current checks are recorded in [TESTING.md](TESTING.md#chapter-4-generation-and-chapter-7-ups--2026-09-12). Kian’s review remains separate.
 
 ## Chapter review tracker
 
@@ -37,10 +35,10 @@ release does not restart an unchanged chapter’s review.
 | 1. [Primer](prototypes/terminology-format.html?teach=1) | 21 slides | Latest requested revisions checked; [record](TESTING.md#primer-watts-polarity-and-three-phase-power--2026-09-12) | **Previous feedback addressed; final acceptance unrecorded.** No repeat review assigned. |
 | 2. [Data center overview](prototypes/orientation-format.html?teach=1) | 13-slide draft | Prior content pass [checked](TESTING.md#overview-and-workload-review--2026-09-12); shared navigation checked in the current release | **Active review.** Networking, CDU and capacity-title feedback implemented; no general restart. |
 | 3. [Workloads and requirements](prototypes/workload-format.html?teach=1) | 18 slides; final visual rebuilt with GPT ImageGen | Previous pass checked; new ending and shared navigation checked in the current release | **Active review.** Revisit the changed final visual, not every resolved slide. |
-| 4. [Siting, grid connection and supply](prototypes/siting-format.html?teach=1) | Rebuilt 23-slide draft | Current model, source and native-browser checks recorded in [TESTING.md](TESTING.md#chapters-35-and-root-publication--2026-09-12) | **Active revision.** Cases, configuration overview and turbine sequence implement the review below. |
+| 4. [Siting, grid connection and supply](prototypes/siting-format.html?teach=1) | Revised 25-slide draft | Current model, source and native-browser checks recorded in [TESTING.md](TESTING.md#chapters-35-and-root-publication--2026-09-12) | **Feedback addressed.** Review changed generation-to-Southaven ending; preceding cases remain unchanged. |
 | 5. [Physical site, buildings and safety](prototypes/site-format.html?teach=1) | Independent agent authored 22-slide draft | Current model, source and native-browser checks recorded in [TESTING.md](TESTING.md#chapters-35-and-root-publication--2026-09-12) | **First author pass pending.** Built from the accumulated teaching rules; no claim of one-shot acceptance. |
 | 6. Campus and building power distribution | Reader draft; own deck unbuilt | Reader/build checks only | Presentation not yet assigned for review. |
-| 7. [Continuity, storage and protection](prototypes/ups-format.html) | Selected UPS topics, 21 slides | Model/browser checks recorded | Earlier UPS sequence iterated; new Tier comparison awaiting review. **Whole chapter incomplete.** |
+| 7. [Continuity, storage and protection](prototypes/ups-format.html) | Selected UPS topics, 22 slides | Model/browser checks recorded | **Feedback addressed.** Revised storage/recovery and generator charging; Tier comparison remains available. **Whole chapter incomplete.** |
 | 8. Rack power and the 800 V DC transition | Selected [800 V](teach.html) and [rack-to-chip](prototypes/rack-power-format.html?teach=1) decks | Model/browser checks recorded | 800 V sequence iterated; rack-to-chip addition awaiting review. **Whole chapter incomplete.** |
 | 9. Compute, memory and the rack | Reader draft; own deck unbuilt | Reader/build checks only | Presentation not yet assigned for review. |
 | 10. Networking and interconnects | Reader draft; own deck unbuilt | Reader/build checks only | Presentation not yet assigned for review. |
@@ -56,6 +54,38 @@ Primer completion evidence is the implemented feedback in commits `f3b06f2` and
 `e3c5228`, summarized in [the confirmed decisions](FEEDBACK_AUDIT.md) and the
 linked test record. This supports “feedback addressed,” not a claim that its
 spoken runtime, beginner comprehension or final author acceptance has been observed.
+
+## Current revision: generation, speed and UPS recovery
+
+Review only the changed [Chapter 4 ending](prototypes/siting-format.html?teach=1#dania-cycle) and [Chapter 7 storage/recovery sequence](prototypes/ups-format.html#equipment). Chapter 5 remains ready for its first author pass. Earlier resolved reviews remain closed unless a new issue is identified.
+
+<details>
+<summary>Every request from this review and its implemented outcome</summary>
+
+| Request | Implementation |
+| --- | --- |
+| Identify Dania Beach and 7HA.03 | [Dania Beach](prototypes/siting-format.html?teach=1#dania-cycle) explicitly identifies an FPL utility power station and GE gas-turbine model; actual manufacturer photograph retained. |
+| Remove or explain “Other” | Removed the obsolete dispatch renderer containing “Other.” The active Siemens figure names its generation contributions. |
+| Give slide 18 a coherent purpose and use GPT ImageGen | [Three meanings of fast](prototypes/siting-format.html?teach=1#generation-flexibility) follows delivery → startup → running output. Actual new GPT ImageGen asset: `assets/generated/generation-timescales.png`; exact prompt and limits saved beside it. |
+| Simplify slide 19; define LHV | [Annual cost](prototypes/siting-format.html?teach=1#generation-utilization) shows both curves together. Lower heating value is defined in the reader; unexplained shorthand removed from the visual. |
+| Remove awkward comparison/reasoning toggles | Both cost curves and both procurement paths remain visible. No hide/reveal questions in this Chapter 4 revision. |
+| Show Southaven plans with direct references | [Original site map](prototypes/siting-format.html?teach=1#southaven-plan) and [process drawing](prototypes/siting-format.html?teach=1#southaven-process), with direct PDF pages 80 and 13. Historical proposed conditions distinguished from September operating status. |
+| Show the Google/Anthropic economics and SemiAnalysis payback claim | [Contract fees](prototypes/siting-format.html?teach=1#contract-economics) uses primary filings. $2.17B/month is conditional full-service fees, not profit. Google’s full fees start October 2026. SemiAnalysis’s exact sub-year payback quote is an analyst forecast; 3–5 months is delivery lead time. Actual contract profit and achieved payback are not disclosed. |
+| Compare speed with the cost of lower efficiency | [Price the time gained](prototypes/siting-format.html?teach=1#speed-premium) derives $14.6M extra annual fuel for the same illustrative 100 MW. Earlier service must cover that penalty and added build costs. No whole-company contract fees are assigned to this hypothetical plant. |
+| Explain the abrupt slide 23 transport comparison | [Campus AC current](prototypes/siting-format.html?teach=1#transport-current) directly follows the transformer procurement choice. Fixed 200 MW transport; no 800 V DC or rack-density change. Separate parallel-circuit arithmetic slide removed. |
+| Replace the contrived ending and 8+2 arithmetic | Removed obsolete quiz renderers and reveal states. The ending now compares the delivery decision and carries it into physical site design. Old fragments resolve to relevant replacements. |
+| Simplify UPS cabinet description | [Equipment](prototypes/ups-format.html#equipment) shows the verified family rating and dimensions. Family photography does not establish identical internal configurations merely in two colors. |
+| Decide whether the generic storage picture earns space | Retained to show the separate external-battery footprint. It is labeled generic and does not imply a product, rating or internal arrangement. |
+| Trim normal/outage path labels | Kept equipment functions, path and source state; removed repeated explanatory labels from both diagrams. |
+| Motivate capacitance and remove the second ideal-example disclaimer | [Capacitor buffer](prototypes/ups-format.html#capacitors) names capacitance, voltage and cutoff and connects them to the stored-energy equation. Keeps “Ideal DC-bus example.” |
+| Demonstrate return to 800 V with battery or generator | New [DC-link recovery](prototypes/ups-format.html#dc-link-recovery) restores the missing 5 kJ using a regulated source’s 100 kW surplus. Recovery time starts when that surplus is available; it is not generator startup time. |
+| Add generator supply plus battery charging | [Generator handoff](prototypes/ups-format.html#generator) has four states including generator + recharge. Charging is a configurable supported mode; the “charging omitted” note is removed. |
+| Use one reusable navigation component | `slide-navigation.js`, installed by shared `slide-chrome.js`, owns the footer across all decks. Existing chapter state and handlers remain; selector, arrows, count and responsive layout are shared. |
+| Remove the misleading full-load PSU caption | Removed it. The reader distinguishes each path’s available rating from actual total draw. Kian’s criticism concerned ambiguous wording, not misunderstanding redundancy. |
+
+The request’s slide numbers were matched by content: the prior published sequence had 23 slides; this revision has 25. No whole-chapter acceptance is inferred from implementation or technical checks.
+
+</details>
 
 ## Learner contract
 
@@ -366,11 +396,8 @@ remaining course. Apply their minimal text, explicit boundaries, visible
 mechanisms and controlled comparisons to each new section. Their visual format
 is a reference, not a requirement to use electrical-style diagrams everywhere.
 
-The next review is bounded: Chapter 3’s changed ending, the rebuilt
-[Chapter 4](prototypes/siting-format.html?teach=1) and the independently authored
-[Chapter 5](prototypes/site-format.html?teach=1). Current technical and visual
-checks are recorded in TESTING.md; these changed sections are ready for the next author pass. Do not restart the unchanged Primer or
-the earlier UPS, 800 V and cooling passes; keep their status in the chapter tracker.
+The next review is bounded: the changed Chapter 4 ending and Chapter 7 recovery sequence above. Chapter 3’s changed ending and the independently authored [Chapter 5](prototypes/site-format.html?teach=1) remain available for their pending passes. Current technical and visual
+checks are recorded in TESTING.md; these changed sections are ready for the next author pass. Do not restart the unchanged Primer, 800 V or cooling passes. For UPS, revisit only the changed storage, generator and recovery scenes; keep their status in the chapter tracker.
 
 Teach the changed material aloud without recording. Send the slide number or URL
 and the precise confusion; close that item after the fix, then continue. The
