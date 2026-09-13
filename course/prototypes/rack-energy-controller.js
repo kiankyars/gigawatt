@@ -8,6 +8,8 @@ import { presentationLabels } from './teaching-navigation.js';
 const $=id=>document.getElementById(id), state={...initialState, revealed:[]};
 const fmt=(v,d=0)=>v.toLocaleString('en-US',{maximumFractionDigits:d});
 const teaching=new URLSearchParams(location.search).get('teach')==='1';
+const inheritedNumber=presentationLabels['rack-800v']?.match(/^\d+\./)?.[0]||'';
+const chapterLabel=presentationLabels['rack-energy']||`${inheritedNumber} Rack power and the 800 V DC transition`.trim();
 let index=0;
 const current=()=>scenes[index];
 const isRevealed=()=>state.revealed.includes(current().id);
@@ -72,7 +74,7 @@ function controls(){
 function render(){
   const scene=current();
   $('scene-title').textContent=scene.sourceKind==='conversion-loss'&&state.converterView==='heat'?scene.heat_headline:scene.title;
-  document.title=`${presentationLabels['rack-energy']||presentationLabels['rack-800v']||'Rack power and the 800 V DC transition'} · ${scene.title} · From Watts to Tokens`;
+  document.title=`${chapterLabel} · ${scene.title} · From Watts to Tokens`;
   $('lesson-reference').href=`../index.html#${scene.reference}`;
   $('scenes').value=scene.id;$('progress').textContent=`${index+1} / ${scenes.length}`;
   $('previous').disabled=index===0;$('next').disabled=index===scenes.length-1;controls();draw();
