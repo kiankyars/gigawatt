@@ -81,7 +81,7 @@ date and condition. Otherwise label the mechanism or calculation **illustrative*
 retain stable names and interfaces, and leave unknown as-built quantities unknown.
 A reference campus does not require inventing its full one-line or GPU inventory.
 
-Teach contrasting cases within their relevant systems: original Colossus for
+Teach contrasting cases within their relevant systems: Colossus 1 for
 brownfield reuse; SemiAnalysis's Southaven/MiniHard procurement account for
 speed versus electrical efficiency; Sparks for solar, battery energy and backup;
 Abilene for non-evaporative rejection; Google for scheduling flexible demand.
@@ -109,7 +109,7 @@ The open production tasks remain in [the course review](COURSE_REVIEW.md#next-te
 | Continuity, storage and protection (`d05`) | Crusoe/Redwood in Sparks: solar power, battery energy, discharge power and grid backup | [Solar and battery](prototypes/case-studies.html?teach=1#sparks), [availability](prototypes/case-studies.html?teach=1#availability) | Pending |
 | Storage, orchestration and recovery (`d09`) | Google flexible scheduling: which work can move without missing its service requirement? | [Demand response](prototypes/case-studies.html?teach=1#demand-response) | Pending |
 | Heat rejection, climate and water (`d11`) | Abilene cooling: closed coolant loops, outdoor heat rejection and the boundary of water-use claims | [Abilene cooling](prototypes/case-studies.html?teach=1#abilene-cooling) | Pending; existing cooling deck does not yet integrate this case |
-| Physical site, buildings and safety (`d12`) | Greenfield versus brownfield, using Abilene and original Colossus; factory reuse still required new power infrastructure | [Land comparison](prototypes/case-studies.html?teach=1#land), [original Colossus](prototypes/case-studies.html?teach=1#colossus) | Integrated in Chapter 5: [greenfield/brownfield](prototypes/site-format.html?teach=1#greenfield-brownfield) and [Colossus](prototypes/site-format.html?teach=1#colossus-service); current checks recorded in [TESTING.md](TESTING.md) |
+| Physical site, buildings and safety (`d12`) | Greenfield versus brownfield, using Abilene and Colossus 1; factory reuse still required new power infrastructure | [Land comparison](prototypes/case-studies.html?teach=1#land), [Colossus 1](prototypes/case-studies.html?teach=1#colossus) | Integrated in Chapter 5: [greenfield/brownfield](prototypes/site-format.html?teach=1#greenfield-brownfield) and [Colossus](prototypes/site-format.html?teach=1#colossus-service); current checks recorded in [TESTING.md](TESTING.md) |
 | Capacity, cost and system decisions (`d15`) | Abilene's dated capacity milestones: distinguish the original campus, adjacent project, energized capacity and useful output | [Capacity ledger](prototypes/case-studies.html?teach=1#abilene-ledger) | Pending |
 
 For **Design, procurement and commissioning (`d13`)**, adapt the existing reader

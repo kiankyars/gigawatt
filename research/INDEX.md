@@ -135,8 +135,8 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P08 — Building Meta’s GenAI Infrastructure](sources/P08.md) | Meta Engineering | D02, D07, D08, D09, D14 | page_reviewed |
 | [P09 — The Datacenter as a Computer: designing warehouse-scale machines](sources/P09.md) | Google Research; book published by Morgan & Claypool | D01, D02, D07, D08, D09, D14, D15 | public_excerpt_reviewed |
 | [P10 — Incorporate Minimum Efficiency Requirements for Heating and Cooling Products into Federal Acquisition Documents](sources/P10.md) | U.S. Department of Energy, Federal Energy Management Program | D01, D10, D11, D15 | page_reviewed |
-| [P100 — Applied Digital Achieves Ready for Service for Phase 1 at Polaris Forge 1](sources/P100.md) | Applied Digital | D03 | page_reviewed |
-| [P101 — Applied Digital Completes Phase II Ready for Service at Polaris Forge 1](sources/P101.md) | Applied Digital | D03 | page_reviewed |
+| [P100 — Applied Digital Achieves Ready for Service for Phase 1 at Polaris Forge 1](sources/P100.md) | Applied Digital | D03, D12 | page_reviewed |
+| [P101 — Applied Digital Completes Phase II Ready for Service at Polaris Forge 1](sources/P101.md) | Applied Digital | D03, D12 | page_reviewed |
 | [P102 — Oracle Data Centers: Abilene, Texas](sources/P102.md) | Oracle | D03, D12 | page_reviewed |
 | [P103 — Energy Transfer August 2026 Investor Presentation](sources/P103.md) | Energy Transfer | D03 | page_reviewed |
 | [P104 — Energy Transfer Reports Fourth Quarter 2025 Results](sources/P104.md) | Energy Transfer | D03 | page_reviewed |
@@ -159,6 +159,13 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P12 — Large Loads Action Plan](sources/P12.md) | North American Electric Reliability Corporation | D03, D05, D13, D14 | public_excerpt_reviewed |
 | [P120 — Microsoft — Fairwater Atlanta availability and power design](sources/P120.md) | Microsoft | D03, D05, D14, D15 | page_reviewed |
 | [P121 — NTT DATA — Vienna 1 facility and power SLA](sources/P121.md) | NTT DATA | D05, D14 | page_reviewed |
+| [P122 — SpaceXAI — New Compute Partnership with Anthropic](sources/P122.md) | SpaceXAI | D12 | page_reviewed |
+| [P123 — SpaceXAI — Colossus site aerial](sources/P123.md) | SpaceXAI | D12 | page_reviewed |
+| [P124 — Lenovo — GB300 NVL72 mechanical specifications](sources/P124.md) | Lenovo | D12 | page_reviewed |
+| [P125 — TDEC — Colossus water-reuse public hearing, SOP-24025](sources/P125.md) | Tennessee Department of Environment and Conservation | D10, D11, D12 | page_reviewed |
+| [P126 — Federation of American Scientists — Tracking Hyperscale AI Data Center Growth with Satellite Imagery](sources/P126.md) | Federation of American Scientists | D11, D12 | page_reviewed |
+| [P127 — QTS — Suwanee campus fiber diversity](sources/P127.md) | QTS | D09, D12 | page_reviewed |
+| [P128 — Zayo Europe — Four diverse fiber routes for QTS Cambois](sources/P128.md) | Zayo Europe | D09, D12 | page_reviewed |
 | [P13 — Slurm Workload Manager — Topology Guide](sources/P13.md) | SchedMD | D02, D07, D08, D09, D14 | page_reviewed |
 | [P14 — NVIDIA DGX SuperPOD: Next Generation Scalable Infrastructure for AI Leadership Reference Architecture Featuring NVIDIA DGX H100](sources/P14.md) | NVIDIA | D07, D08, D09, D13, D14 | page_reviewed |
 | [P15 — Liquid to Liquid CDU Test Methodology and Performance Rating — Revision 1.0](sources/P15.md) | Open Compute Project | D10, D11, D13, D14 | public_excerpt_reviewed |
@@ -220,7 +227,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P71 — Intel · Memory performance in a nutshell](sources/P71.md) | Intel | D07, D08, D09 | page_reviewed |
 | [P72 — OpenStax · Heat](sources/P72.md) | OpenStax, Rice University | D10, D11 | page_reviewed |
 | [P73 — Crusoe — Abilene campus development update](sources/P73.md) | Crusoe | D03, D12, D15 | page_reviewed |
-| [P74 — Crusoe — Abilene cooling design](sources/P74.md) | Crusoe | D03, D05, D10, D11 | page_reviewed |
+| [P74 — Crusoe — Abilene cooling design](sources/P74.md) | Crusoe | D03, D05, D10, D11, D12 | page_reviewed |
 | [P75 — Crusoe and Redwood — Sparks microgrid update](sources/P75.md) | Crusoe | D03, D05, D14, D15 | page_reviewed |
 | [P76 — Crusoe — 2025 impact report web summary](sources/P76.md) | Crusoe | D03, D05, D12 | page_reviewed |
 | [P77 — Google — Supporting power grids with demand response](sources/P77.md) | Google | D02, D03, D09 | public_excerpt_reviewed |

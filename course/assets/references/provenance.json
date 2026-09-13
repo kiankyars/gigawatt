@@ -55,5 +55,14 @@
     "retrieved_on": "2026-09-12",
     "sha256": "c5756b039ed8bb9a66418d78e020a52e0ea6f00c10483d50ad43bd2ab8be0252",
     "note": "Original article hero photograph of Fairwater Atlanta downloaded unchanged. Illustrates the named site; photograph does not itself establish power topology, availability or costs. Associated availability statement is an operator design claim, not a measured annual result."
+  },
+  {
+    "file": "colossus-1-aerial.jpg",
+    "source_url": "https://media.x.ai/v1/website/colossussite2-aac5dac3.jpg",
+    "article_url": "https://x.ai/colossus",
+    "publisher": "SpaceXAI",
+    "retrieved_on": "2026-09-12",
+    "sha256": "f64c9703e6e8471d93bd89457bd1e6d9cca46fd302866d1e3638732421521493",
+    "note": "Official aerial of Colossus 1 on Paul Lowery Road, Memphis, downloaded unchanged. Capture date unspecified. Photo establishes visible exterior context, not power or cooling capacity."
   }
 ]

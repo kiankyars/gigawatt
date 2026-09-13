@@ -131,3 +131,28 @@ total from Oracle's percentage. Chapter 5 additionally embeds actual Lenovo
 rack and compute-tray views from the [GB300 NVL72 product guide](https://lenovopress.lenovo.com/lp2357-lenovo-nvidia-gb300-nvl72-rack-scale-ai),
 updated 2026-08-30. They show this product's service geometry, not a universal
 rack configuration or full rack operating mass.
+
+## Chapter 5: parcel, building and service visuals
+
+Five GPT ImageGen illustrations were generated and inspected on 2026-09-12.
+[Exact prompts, edits and inspection notes](generated/chapter5-visual-prompts.json)
+are retained alongside the PNGs. Each requested generation opportunity is
+accounted for in the Chapter 5 entry of [the review tracker](../COURSE_REVIEW.md).
+
+- `site-usable-parcel.png`: connected building pads between a utility easement and drainage.
+- `site-flood-access.png`: a campus stays dry while its offsite bridge is flooded.
+- `site-neighbor-boundary.png`: plant, acoustic barrier and neighboring homes.
+- `site-building-cutaway.png`: data hall, electrical and mechanical rooms, receiving and a service corridor.
+- `site-tray-service.png`: a generic tray fully supported at rack height by a material lift.
+
+These illustrate physical relationships. They are not photographs of the named
+sites or manufacturer equipment, construction plans, service instructions, or
+performance specifications. Code labels were checked against the depicted
+objects. The flood truck is on the external bank, facing away from the blocked
+crossing. No arriving-vehicle claim is made. The open cutaway is a viewing device,
+not an assertion that plant rooms require no partitions.
+
+The separate `references/colossus-1-aerial.jpg` is an actual SpaceXAI photograph
+of Colossus 1. Its original URL and hash are in `references/provenance.json`.
+Lenovo's actual rack and annotated rear-tray photographs remain publisher-hosted;
+P111 and P124 support the 29 kg tray and approximately 1,580 kg rack respectively.

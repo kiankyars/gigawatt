@@ -2,14 +2,14 @@
 
 ## The next pass
 
-The latest pass is [Chapter 7: Tiers, nines and Fairwater Atlanta](prototypes/ups-format.html#tier-topology). Review only those four revised slides.
+The current pass is [Chapter 5, slides 14–20](prototypes/site-format.html?teach=1#service-envelope). This section was rebuilt around handling, replacement access, floor loads and failure boundaries. Then revisit the changed earlier cases as needed; the [review tracker](COURSE_REVIEW.md#chapter-5-physical-design-rebuild--2026-09-12) accounts for each request.
 
 The preceding changes remain available at:
 
 1. [Chapter 4: generation through the delivery decision](prototypes/siting-format.html?teach=1#dania-cycle): clarified plant example, new GPT figure, cost curves, Southaven plans and supported compute economics.
 2. [Chapter 7: UPS equipment and recovery](prototypes/ups-format.html#equipment): simpler labels, capacitor support, generator charging and restoration of DC-link voltage.
 
-Chapter 5 is still ready for its first pass. Continue any unresolved Chapter 2 or 3 items at their specific slides; do not restart the unchanged Primer, 800 V or cooling sequence.
+Chapter 5’s first-pass feedback is implemented; your acceptance is still pending. Continue any unresolved Chapter 2 or 3 items at their specific slides; do not restart the unchanged Primer, 800 V or cooling sequence.
 The [chapter tracker](COURSE_REVIEW.md#chapter-review-tracker) separates implemented
 changes, technical checks and your final acceptance.
 

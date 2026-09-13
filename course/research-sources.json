@@ -2269,7 +2269,7 @@
       "publisher": "Railroad Commission of Texas",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-11",
+      "reviewed_on": "2026-09-12",
       "domains": [
         "D12"
       ],
@@ -2875,7 +2875,8 @@
         "D03",
         "D05",
         "D10",
-        "D11"
+        "D11",
+        "D12"
       ],
       "use": "Abilene provides a recurring example of grid supply, backup and closed-loop cooling with air-cooled heat rejection.",
       "caution": "Energy and water sections reviewed. Historical company design description, not audited operating water use. Initial fill and maintenance remain separate from non-evaporative heat rejection."
@@ -2946,7 +2947,7 @@
         "D04",
         "D12"
       ],
-      "use": "Original Colossus industrial reuse still required a new substation and 161 kV transmission-line work for expanded service.",
+      "use": "Colossus 1 industrial reuse still required a new substation and 161 kV transmission-line work for expanded service.",
       "caution": "Complete one-page PDF reviewed. Filename identifies 2024; no exact date printed. Historical service proposal, not current operating status or a complete site one-line diagram."
     },
     {
@@ -3296,7 +3297,8 @@
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-12",
       "domains": [
-        "D03"
+        "D03",
+        "D12"
       ],
       "use": "First 50 MW of the first 100 MW building at Polaris Forge 1 in Ellendale, North Dakota reached ready-for-service on October 27, 2025. Use as an actual phased handover example.",
       "caution": "Operator announcement of ready-for-service capacity, not measured draw or all hardware installed. The campus was 400 MW fully contracted to CoreWeave, with an indicated future expansion path to 1 GW; it was not an operating multi-gigawatt campus.",
@@ -3311,7 +3313,8 @@
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-12",
       "domains": [
-        "D03"
+        "D03",
+        "D12"
       ],
       "use": "Second 50 MW of the first building reached ready-for-service November 24, 2025, bringing that building to 100 MW. Compare the two documented milestones.",
       "caution": "The 28 days between milestones can illustrate earlier availability of capacity, but no resulting compute, utilization or energy delivery is measured by this release.",
@@ -3640,6 +3643,113 @@
       ],
       "use": "Named five-nines power SLA example at Vienna 1. Compare the contractual power boundary with Fairwater design availability and Crusoe Cloud service availability.",
       "caution": "PDF copyright 2024; exact publication date and contractual measurement window/exclusions not stated. Page 2 advertises 99.999% power uptime availability; this does not establish observed annual uptime or hosted application availability. Page 1 lists 2N UPS A/B and N+1 diesel generation."
+    },
+    {
+      "id": "P122",
+      "title": "SpaceXAI — New Compute Partnership with Anthropic",
+      "url": "https://x.ai/news/anthropic-compute-partnership",
+      "publisher": "SpaceXAI",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D12"
+      ],
+      "use": "The operator explicitly names Colossus 1; use that name for the Paul Lowery Road industrial-reuse case.",
+      "caution": "May 2026 operator announcement. The naming reference is not a site commissioning record or independent verification of every capacity claim.",
+      "published_on": "2026-05-06"
+    },
+    {
+      "id": "P123",
+      "title": "SpaceXAI — Colossus site aerial",
+      "url": "https://x.ai/colossus",
+      "publisher": "SpaceXAI",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D12"
+      ],
+      "use": "Official aerial photograph of the Colossus 1 industrial shell and surrounding infrastructure.",
+      "caution": "Capture date is unspecified. Image inspected; do not infer operating capacity, equipment state or present construction progress from a photograph."
+    },
+    {
+      "id": "P124",
+      "title": "Lenovo — GB300 NVL72 mechanical specifications",
+      "url": "https://pubs.lenovo.com/gb300-nvl72/server_specifications_mechanical",
+      "publisher": "Lenovo",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D12"
+      ],
+      "use": "Rack solution mass is approximately 1,580 kg, depending on configuration.",
+      "caution": "Full rack solution is distinct from the 185 kg empty MGX rack and 29 kg compute tray in Lenovo Press. Mass is not a floor-pressure, caster-load or handling-assembly specification."
+    },
+    {
+      "id": "P125",
+      "title": "TDEC — Colossus water-reuse public hearing, SOP-24025",
+      "url": "https://www.tn.gov/environment/calendar-of-events/2025/6/25/wr-public-hearing-sop-24025.html",
+      "publisher": "Tennessee Department of Environment and Conservation",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D10",
+        "D11",
+        "D12"
+      ],
+      "use": "Names the xAI Colossus data center as a proposed reclaimed-water customer for evaporative cooling.",
+      "caution": "June 2025 hearing record establishes the stated cooling use; it does not establish that the proposed reuse plant is operating. Shared project water quantities are not Colossus-only consumption.",
+      "published_on": "2025-06-25"
+    },
+    {
+      "id": "P126",
+      "title": "Federation of American Scientists — Tracking Hyperscale AI Data Center Growth with Satellite Imagery",
+      "url": "https://fas.org/publication/tracking-hyperscale/",
+      "publisher": "Federation of American Scientists",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D11",
+        "D12"
+      ],
+      "use": "Original imagery analysis identifies both cooling towers and air-cooled chillers at Colossus 1 in Figures 26 and 27.",
+      "caution": "Reviewed the Colossus cooling analysis and image captions dated October 19, 2025. Equipment identification is image-based research, not an operator one-line, water balance or metered load. No inferred power-capacity estimate is adopted."
+    },
+    {
+      "id": "P127",
+      "title": "QTS — Suwanee campus fiber diversity",
+      "url": "https://q.com/resources/meeting-atlanta-data-demands-with-an-expansion-in-suwanee-georgia/",
+      "publisher": "QTS",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D09",
+        "D12"
+      ],
+      "use": "The existing Suwanee campus is described with diverse fiber entrances and a redundant campus conduit system.",
+      "caution": "Historical January 2023 operator account; four entrances belong to the announced DC2 refresh. Campus route diversity does not establish end-to-end independence for every carrier circuit.",
+      "published_on": "2023-01-23"
+    },
+    {
+      "id": "P128",
+      "title": "Zayo Europe — Four diverse fiber routes for QTS Cambois",
+      "url": "https://zayoeurope.com/newsroom/zayo-europe-to-provide-critical-connectivity-infrastructure-for-uks-largest-ai-cloud-data-centre/",
+      "publisher": "Zayo Europe",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-12",
+      "domains": [
+        "D09",
+        "D12"
+      ],
+      "use": "Carrier describes constructing four diverse fiber routes for the QTS AI and cloud campus at Cambois.",
+      "caution": "March 2026 construction announcement, not completed-service evidence. Four routes are not four independent carriers; upstream shared risks require circuit-level review.",
+      "published_on": "2026-03-23"
     }
   ]
 }

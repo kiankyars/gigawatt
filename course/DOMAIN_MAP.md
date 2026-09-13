@@ -1074,6 +1074,8 @@ Specify a service acceptance exercise that tests end-to-end data access, job lau
 - [P63 — Google Cloud — Best practices for batch inference on GKE](https://docs.cloud.google.com/kubernetes-engine/docs/best-practices/machine-learning/inference/batch-inference) · `page_reviewed` · [local note](../research/sources/P63.md)
 - [P71 — Intel · Memory performance in a nutshell](https://www.intel.com/content/www/us/en/developer/articles/technical/memory-performance-in-a-nutshell.html) · `page_reviewed` · [local note](../research/sources/P71.md)
 - [P77 — Google — Supporting power grids with demand response](https://cloud.google.com/blog/products/infrastructure/using-demand-response-to-reduce-data-center-power-consumption) · `public_excerpt_reviewed` · [local note](../research/sources/P77.md)
+- [P127 — QTS — Suwanee campus fiber diversity](https://q.com/resources/meeting-atlanta-data-demands-with-an-expansion-in-suwanee-georgia/) · `page_reviewed` · [local note](../research/sources/P127.md)
+- [P128 — Zayo Europe — Four diverse fiber routes for QTS Cambois](https://zayoeurope.com/newsroom/zayo-europe-to-provide-critical-connectivity-infrastructure-for-uks-largest-ai-cloud-data-centre/) · `page_reviewed` · [local note](../research/sources/P128.md)
 
 <a id="d10"></a>
 
@@ -1174,6 +1176,7 @@ Compare air, cold-plate, rear-door and immersion approaches against a declared d
 - [P72 — OpenStax · Heat](https://openstax.org/books/college-physics-2e/pages/14-1-heat) · `page_reviewed` · [local note](../research/sources/P72.md)
 - [P74 — Crusoe — Abilene cooling design](https://www.crusoe.ai/resources/blog/an-inside-look-at-the-abilene-ai-data-center) · `page_reviewed` · [local note](../research/sources/P74.md)
 - [P94 — CoolIT Systems Launches Three High-Density Coolant Distribution Units](https://www.coolitsystems.com/resources/news/coolit-systems-launches-three-high-density-coolant-distribution-units/) · `page_reviewed` · [local note](../research/sources/P94.md)
+- [P125 — TDEC — Colossus water-reuse public hearing, SOP-24025](https://www.tn.gov/environment/calendar-of-events/2025/6/25/wr-public-hearing-sop-24025.html) · `page_reviewed` · [local note](../research/sources/P125.md)
 
 <a id="d11"></a>
 
@@ -1272,6 +1275,8 @@ Evaluate cooling architecture or heat reuse against climate, water, electrical c
 - [P60 — NVIDIA — DSX Facilities Infrastructure Reference Design Overview](https://docs.nvidia.com/dsx/facilities-infra/reference-design-overview) · `public_excerpt_reviewed` · [local note](../research/sources/P60.md)
 - [P72 — OpenStax · Heat](https://openstax.org/books/college-physics-2e/pages/14-1-heat) · `page_reviewed` · [local note](../research/sources/P72.md)
 - [P74 — Crusoe — Abilene cooling design](https://www.crusoe.ai/resources/blog/an-inside-look-at-the-abilene-ai-data-center) · `page_reviewed` · [local note](../research/sources/P74.md)
+- [P125 — TDEC — Colossus water-reuse public hearing, SOP-24025](https://www.tn.gov/environment/calendar-of-events/2025/6/25/wr-public-hearing-sop-24025.html) · `page_reviewed` · [local note](../research/sources/P125.md)
+- [P126 — Federation of American Scientists — Tracking Hyperscale AI Data Center Growth with Satellite Imagery](https://fas.org/publication/tracking-hyperscale/) · `page_reviewed` · [local note](../research/sources/P126.md)
 
 <a id="d12"></a>
 
@@ -1366,12 +1371,22 @@ Trace physical and control-system access boundaries and explain why availability
 - [P62 — Corning — Meet-Me-Room to Outside Plant Data Center Solutions](https://www.corning.com/data-center/worldwide/en/home/applications/multi-tenant-data-center/meet-me-room.html) · `page_reviewed` · [local note](../research/sources/P62.md)
 - [E0F361052D1 — FCC 25-21 — Physical Diversity, paragraph 63](https://docs.fcc.gov/public/attachments/FCC-25-21A1.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/E0F361052D1.md)
 - [P73 — Crusoe — Abilene campus development update](https://www.crusoe.ai/resources/newsroom/crusoe-announces-new-900-mw-ai-factory-campus-in-abilene-texas-to-support-microsoft-ai-infrastructure) · `page_reviewed` · [local note](../research/sources/P73.md)
+- [P74 — Crusoe — Abilene cooling design](https://www.crusoe.ai/resources/blog/an-inside-look-at-the-abilene-ai-data-center) · `page_reviewed` · [local note](../research/sources/P74.md)
 - [P76 — Crusoe — 2025 impact report web summary](https://www.crusoe.ai/resources/blog/crusoes-2025-impact-report) · `page_reviewed` · [local note](../research/sources/P76.md)
 - [P78 — MLGW — xAI project quick facts](https://www.mlgw.com/images/content/files/pdf/2024xAI%20and%20MLGW%20Quick%20Facts%201.pdf) · `page_reviewed` · [local note](../research/sources/P78.md)
 - [SA42 — SpaceX 10GW in 2027 — construction pace and equipment procurement](https://newsletter.semianalysis.com/p/spacex-10gw-in-2027-why-its-real) · `public_excerpt_reviewed` · [local note](../research/sources/SA42.md)
+- [P100 — Applied Digital Achieves Ready for Service for Phase 1 at Polaris Forge 1](https://ir.applieddigital.com/news-events/press-releases/detail/133/applied-digital-achieves-ready-for-service-for-phase-1-at) · `page_reviewed` · [local note](../research/sources/P100.md)
+- [P101 — Applied Digital Completes Phase II Ready for Service at Polaris Forge 1](https://ir.applieddigital.com/news-events/press-releases/detail/137/applied-digital-completes-phase-ii-ready-for-service-at) · `page_reviewed` · [local note](../research/sources/P101.md)
 - [P102 — Oracle Data Centers: Abilene, Texas](https://www.oracle.com/data-centers/) · `page_reviewed` · [local note](../research/sources/P102.md)
 - [P111 — Lenovo NVIDIA GB300 NVL72 Rack Scale AI Product Guide](https://lenovopress.lenovo.com/lp2357-lenovo-nvidia-gb300-nvl72-rack-scale-ai) · `page_reviewed` · [local note](../research/sources/P111.md)
 - [P112 — MZX Tech LLC — Southaven PSD permit application, January 2026 revision](https://upload.wikimedia.org/wikipedia/commons/e/e2/MZX_Tech_LLC_Draft_Air_PSD_Construction_Permit.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P112.md)
+- [P122 — SpaceXAI — New Compute Partnership with Anthropic](https://x.ai/news/anthropic-compute-partnership) · `page_reviewed` · [local note](../research/sources/P122.md)
+- [P123 — SpaceXAI — Colossus site aerial](https://x.ai/colossus) · `page_reviewed` · [local note](../research/sources/P123.md)
+- [P124 — Lenovo — GB300 NVL72 mechanical specifications](https://pubs.lenovo.com/gb300-nvl72/server_specifications_mechanical) · `page_reviewed` · [local note](../research/sources/P124.md)
+- [P125 — TDEC — Colossus water-reuse public hearing, SOP-24025](https://www.tn.gov/environment/calendar-of-events/2025/6/25/wr-public-hearing-sop-24025.html) · `page_reviewed` · [local note](../research/sources/P125.md)
+- [P126 — Federation of American Scientists — Tracking Hyperscale AI Data Center Growth with Satellite Imagery](https://fas.org/publication/tracking-hyperscale/) · `page_reviewed` · [local note](../research/sources/P126.md)
+- [P127 — QTS — Suwanee campus fiber diversity](https://q.com/resources/meeting-atlanta-data-demands-with-an-expansion-in-suwanee-georgia/) · `page_reviewed` · [local note](../research/sources/P127.md)
+- [P128 — Zayo Europe — Four diverse fiber routes for QTS Cambois](https://zayoeurope.com/newsroom/zayo-europe-to-provide-critical-connectivity-infrastructure-for-uks-largest-ai-cloud-data-centre/) · `page_reviewed` · [local note](../research/sources/P128.md)
 
 <a id="d13"></a>
 

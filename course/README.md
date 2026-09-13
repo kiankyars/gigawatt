@@ -95,7 +95,7 @@ Public facts retain their source dates; illustrative calculations are labelled
 as assumptions and do not become Abilene operating measurements.
 
 [Case-study slides](prototypes/case-studies.html?teach=1) teach the land comparison,
-original Colossus reuse, the SemiAnalysis equipment-procurement workaround,
+Colossus 1 reuse, the SemiAnalysis equipment-procurement workaround,
 Crusoe/Redwood solar and batteries in Sparks, Abilene cooling, and Google's
 flexible scheduling. Each retains a case question and worked explanation in its reference. Their
 longer treatments live in the relevant reader lessons. Standalone case scenes do

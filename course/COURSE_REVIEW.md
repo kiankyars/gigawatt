@@ -51,7 +51,7 @@ release does not restart an unchanged chapter’s review.
 | 2. [Data center overview](prototypes/orientation-format.html?teach=1) | 13-slide draft | Prior content pass [checked](TESTING.md#overview-and-workload-review--2026-09-12); shared navigation checked in the current release | **Active review.** Networking, CDU and capacity-title feedback implemented; no general restart. |
 | 3. [Workloads and requirements](prototypes/workload-format.html?teach=1) | 18 slides; final visual rebuilt with GPT ImageGen | Previous pass checked; new ending and shared navigation checked in the current release | **Active review.** Revisit the changed final visual, not every resolved slide. |
 | 4. [Siting, grid connection and supply](prototypes/siting-format.html?teach=1) | Revised 25-slide draft | Current model, source and native-browser checks recorded in [TESTING.md](TESTING.md#chapters-35-and-root-publication--2026-09-12) | **Feedback addressed.** Review changed generation-to-Southaven ending; preceding cases remain unchanged. |
-| 5. [Physical site, buildings and safety](prototypes/site-format.html?teach=1) | Independent agent authored 22-slide draft | Current model, source and native-browser checks recorded in [TESTING.md](TESTING.md#chapters-35-and-root-publication--2026-09-12) | **First author pass pending.** Built from the accumulated teaching rules; no claim of one-shot acceptance. |
+| 5. [Physical site, buildings and safety](prototypes/site-format.html?teach=1) | Rebuilt as 20 slides after author feedback; five new GPT figures and verified cases | Current checks in [TESTING.md](TESTING.md#chapter-5-rebuild--2026-09-12) | **Feedback implemented; acceptance pending.** Review the rebuilt slides 14–20, then changed earlier cases. |
 | 6. Campus and building power distribution | Reader draft; own deck unbuilt | Reader/build checks only | Presentation not yet assigned for review. |
 | 7. [Continuity, storage and protection](prototypes/ups-format.html) | Selected UPS topics, 22 slides | Model/browser checks recorded | **Feedback addressed.** Revised Tier hierarchy, generation baseline, three named availability examples and Fairwater decision; earlier storage/recovery changes remain. **Whole chapter incomplete.** |
 | 8. Rack power and the 800 V DC transition | Selected [800 V](teach.html) and [rack-to-chip](prototypes/rack-power-format.html?teach=1) decks | Model/browser checks recorded | 800 V sequence iterated; rack-to-chip addition awaiting review. **Whole chapter incomplete.** |
@@ -72,7 +72,7 @@ spoken runtime, beginner comprehension or final author acceptance has been obser
 
 ## Current revision: generation, speed and UPS recovery
 
-Review only the changed [Chapter 4 ending](prototypes/siting-format.html?teach=1#dania-cycle) and [Chapter 7 storage/recovery sequence](prototypes/ups-format.html#equipment). Chapter 5 remains ready for its first author pass. Earlier resolved reviews remain closed unless a new issue is identified.
+Review only the changed [Chapter 4 ending](prototypes/siting-format.html?teach=1#dania-cycle) and [Chapter 7 storage/recovery sequence](prototypes/ups-format.html#equipment). Chapter 5 has been rebuilt after the first author pass; review its changed slides 14–20. Earlier resolved reviews remain closed unless a new issue is identified.
 
 <details>
 <summary>Every request from this review and its implemented outcome</summary>
@@ -446,3 +446,33 @@ scope. The late change from 200 × 100 kW to 100 × 200 kW racks drives electric
 hydraulic, spatial, controls, transport and schedule holds. Each hold identifies
 its owner and release evidence. The Design, procurement and commissioning boundary check revisits the same choice;
 factory release remains distinct from integrated site acceptance.
+
+## Chapter 5 physical design rebuild — 2026-09-12
+
+**Feedback implemented; author acceptance remains pending.** The revision is
+20 slides. Review [slides 14–20](prototypes/site-format.html?teach=1#service-envelope)
+first, then revisit the changed earlier cases only where useful.
+
+| Request | Result |
+| --- | --- |
+| Real Colossus aerial; use Colossus 1 | Slide 2 pairs the official Colossus 1 aerial with Abilene. Naming corrected in the linked case study and reader. P122–P123. |
+| Slide 4 visual; remove meaningless lower caveats | Generated campus fitted between a utility easement and drainage. Three labels identify the actual areas; qualifications stay in the reading. |
+| Texas mineral-rights case | Slide 5 shows separately owned surface and mineral estates. RRC supports the mechanism and its deed/lease/accommodation limits; no Abilene dispute is inferred. P36. |
+| Slide 6 unclear title | Direct shallow/deep foundation comparison: weak ground can require carrying loads below the upper layers. |
+| Slide 7 physical flood visual | Generated high-ground campus with flooded offsite bridge; external service vehicle is blocked. |
+| Is fiber approach diversity real? | Slide 8 names QTS Suwanee’s established diverse entrances and campus conduits. The reading also distinguishes Zayo’s four-route Cambois construction announcement from completed service. P127–P128. |
+| Real AI examples of dry and evaporative rejection | Slide 9 compares Abilene’s non-evaporative air-cooled chillers with Colossus 1’s cooling towers plus air-cooled chillers. No Norway or Texas geography inference. P74, P125–P126. |
+| Slide 10 title and generated picture | Outdoor plant, acoustic barrier and neighbors occupy one physical scene. No sound-reduction number is invented. |
+| Identify the phased-opening story | Slide 11 uses Applied Digital’s Polaris Forge 1 for CoreWeave: 50 MW ready October 27 and another 50 MW November 24, 2025. The route sketch teaches construction beside live operations; it is not an as-built Polaris plan. P100–P101. |
+| Replace slide 12 | Generated building cutaway locates the hall, support rooms and service route. |
+| Full rack mass; remove service-clearance aside | Slide 13 shows Lenovo’s actual rack and rear tray: approximately 1,580 kg configured rack, 29 kg tray. P111, P124. |
+| Rebuild slide 14 and everything after it | Slides 14–20: supported tray handling, turns along the replacement route, concentrated floor loads, escape routes, residual electrical energy, physical/control permissions, and common controller failure. |
+| Apply accumulated design feedback | One headline, essential labels, simultaneous comparisons, physical paths, no closing arithmetic quiz or competing lower summary. Removed the repeated sidecar scene and recap. Legacy hashes resolve to taught replacements. |
+
+GPT generation requests for slides **4, 7 and 10** were all fulfilled. Slides
+**12 and 14** also received generated images. Five final assets and their exact
+prompts are in [the manifest](assets/generated/chapter5-visual-prompts.json).
+The manufactured rack remains a real product image; the generated service scene
+is generic and carries no Lenovo product label.
+
+Validation and remaining review scope are recorded in [TESTING.md](TESTING.md#chapter-5-rebuild--2026-09-12).

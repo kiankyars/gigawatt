@@ -993,3 +993,37 @@ Verification:
 These browser checks used the active light theme; they do not establish a new
 exhaustive theme/zoom/accessibility review, spoken runtime or author acceptance.
 The chapter tracker records the revised material as ready for author review.
+
+## Chapter 5 rebuild — 2026-09-12
+
+Chapter 5 now has 20 scenes. Five requested/spatial figures were generated with
+GPT ImageGen and visually inspected. Colossus 1 uses its actual official aerial;
+Lenovo specifications distinguish the approximately 1,580 kg rack and 29 kg tray.
+Source notes P122–P128 and the D12 reader record the cooling, fiber and case-study
+boundaries. The mineral-rights case retains the Texas RRC qualifications in the
+reading. It is not a finding about Abilene title.
+
+Validation completed for this revision:
+
+- **72 Python tests** and **140 JavaScript tests** passed. The site tests exercise
+  rendering across declared states and resolve retired hashes to retained scenes.
+- Course, expanded reader, domain map and research metadata checks all passed;
+  generated outputs are current and `git diff --check` is clean.
+- A local staged-site **headless Chromium** sweep checked 20 scenes at
+  1440×900, 1280×720 and 390×844 in light and dark appearance: **120 states**,
+  with no script errors, broken images, horizontal overflow, desktop footer
+  intrusion or overlapping visible SVG text. Screenshots were captured for
+  every scene at 1440 and 390 pixels; the changed physical mechanisms and
+  representative narrow/dark versions were inspected visually.
+- Run/stop selection and the state of both cooling trains were checked in all
+  six viewport/theme combinations. Fullscreen retained the selected device
+  theme in both appearances. The retired sidecar hash reaches tray service;
+  the former recap hash maps to the final control-dependency scene.
+- Visual review corrected a route crossing a wall, overlapping room labels,
+  incomplete DC-link connections, tiny mobile diagram labels and dark-theme
+  soil-label contrast. The generated tray image has no manufacturer label.
+
+Temporary screenshots and sweep results are in `/tmp/chapter5-final/`. These
+checks establish rendering and the explicitly described teaching relationships,
+not construction accuracy or author acceptance. The next author pass starts at
+[slide 14](prototypes/site-format.html?teach=1#service-envelope).

@@ -7,7 +7,7 @@ The [required case handoffs](TEACHING_STANDARD.md#required-section-handoffs) spe
 Confirmed decisions:
 
 - Number descriptive chapter names, starting with **1. Primer**. Keep technical IDs and old links stable.
-- Keep **Abilene, Texas**, as the recurring campus; use original Colossus for industrial reuse, Southaven/MiniHard for the xAI procurement case, and Crusoe/Redwood in Sparks for solar and batteries.
+- Keep **Abilene, Texas**, as the recurring campus; use Colossus 1 for industrial reuse, Southaven/MiniHard for the xAI procurement case, and Crusoe/Redwood in Sparks for solar and batteries.
 - Keep the primer self-contained. Remove promises about later chapters; citation controls are discretionary.
 - Keep rehearsal cues, exact slide timings and the Explanation panel out of the primer. Keep supporting detail in author notes and provide a visible **Back to course** exit.
 - Motivate power factor with voltage/current timing at fixed supply voltage. Follow one compute server through model loading, networking, heat and cooling; identify PUE as a separate facility account.

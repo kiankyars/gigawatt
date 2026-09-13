@@ -1,0 +1,542 @@
+/* Chapter 5 physical operation diagrams; shared slide chrome is owned centrally. */
+.op-view {
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+}
+.op-view figure {
+  margin: 0;
+  min-width: 0;
+  min-height: 0;
+}
+.op-illustration {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  border-radius: 10px;
+}
+.op-diagram {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  overflow: visible;
+  font-family: inherit;
+}
+.op-diagram text {
+  fill: var(--text);
+  font-family: inherit;
+  paint-order: stroke;
+  stroke: none;
+}
+.op-label {
+  font-size: 24px;
+  font-weight: 550;
+}
+.op-small {
+  font-size: 20px;
+  font-weight: 500;
+}
+.op-panel-title {
+  font-size: 29px;
+  font-weight: 550;
+}
+.op-command {
+  font-size: 28px;
+  font-weight: 750;
+  letter-spacing: 3px;
+}
+.op-service {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 220px;
+  gap: 28px;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+}
+.op-service figure {
+  height: 100%;
+}
+.op-service-facts {
+  display: flex;
+  flex-direction: column;
+  gap: 27px;
+}
+.op-note {
+  display: grid;
+  gap: 8px;
+}
+.op-note span {
+  font-size: 16px;
+  line-height: 1.3;
+}
+.op-note strong {
+  font-size: 56px;
+  line-height: 1;
+  font-weight: 550;
+  letter-spacing: -2px;
+}
+.op-service-label {
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  font-size: 22px;
+  line-height: 1.2;
+}
+.op-floor-comparison {
+  width: 100%;
+  height: 100%;
+}
+.op-floor {
+  fill: var(--surface);
+  stroke: var(--line);
+  stroke-width: 2;
+}
+.op-wall {
+  fill: none;
+  stroke: var(--text);
+  stroke-width: 8;
+  stroke-linejoin: round;
+}
+.op-partition {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 7;
+}
+.op-shadow {
+  fill: var(--line);
+  opacity: 0.6;
+}
+.op-rack {
+  fill: var(--text);
+  stroke: var(--text);
+  stroke-width: 1;
+}
+.op-rack-slot {
+  fill: none;
+  stroke: var(--paper);
+  stroke-width: 2;
+  opacity: 0.55;
+}
+.op-led {
+  fill: var(--power);
+}
+.op-route {
+  fill: none;
+  stroke: var(--power);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.op-route-halo {
+  fill: none;
+  stroke: var(--power);
+  stroke-width: 29;
+  opacity: 0.14;
+  stroke-linejoin: round;
+}
+.op-sweep {
+  fill: var(--heat);
+  fill-opacity: 0.14;
+  stroke: var(--heat);
+  stroke-width: 2;
+  stroke-dasharray: 6 5;
+}
+.op-cart {
+  fill: var(--surface);
+  stroke: var(--heat);
+  stroke-width: 3;
+}
+.op-cart-detail {
+  fill: none;
+  stroke: var(--heat);
+  stroke-width: 4;
+}
+.op-leader {
+  fill: none;
+  stroke: var(--heat);
+  stroke-width: 2;
+}
+.op-divider {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 2;
+}
+.op-slab-top {
+  fill: var(--panel);
+  stroke: var(--line);
+  stroke-width: 2;
+}
+.op-slab-front {
+  fill: var(--line);
+  stroke: var(--muted);
+  stroke-width: 1;
+}
+.op-slab-side {
+  fill: var(--muted);
+  stroke: var(--muted);
+  stroke-width: 1;
+}
+.op-cabinet {
+  fill: var(--surface);
+  stroke: var(--text);
+  stroke-width: 3;
+}
+.op-slot {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 4;
+}
+.op-support {
+  fill: none;
+  stroke: var(--text);
+  stroke-width: 5;
+}
+.op-wheel {
+  fill: var(--text);
+  stroke: var(--text);
+  stroke-width: 2;
+}
+.op-wheel-hub {
+  fill: var(--surface);
+}
+.op-force {
+  fill: none;
+  stroke: var(--heat);
+  stroke-width: 8;
+  stroke-linecap: round;
+}
+.op-hazard-zone {
+  fill: var(--heat);
+  fill-opacity: 0.12;
+}
+.op-panel-fill {
+  fill: var(--panel);
+}
+.op-fire-boundary {
+  fill: none;
+  stroke: var(--heat);
+  stroke-width: 8;
+}
+.op-battery-shelf {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 3;
+}
+.op-battery {
+  fill: var(--surface);
+  stroke: var(--heat);
+  stroke-width: 2;
+}
+.op-battery-terminal {
+  fill: none;
+  stroke: var(--heat);
+  stroke-width: 4;
+}
+.op-wire {
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 4;
+  stroke-linejoin: round;
+  opacity: 0.65;
+}
+.op-live-wire {
+  fill: none;
+  stroke: var(--heat);
+  stroke-width: 5;
+  stroke-linejoin: round;
+}
+.op-switch-contact {
+  fill: var(--surface);
+  stroke: var(--muted);
+  stroke-width: 3;
+}
+.op-open-switch {
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 5;
+}
+.op-inactive-device {
+  fill: var(--panel);
+  stroke: var(--line);
+  stroke-width: 2;
+}
+.op-storage {
+  fill: var(--surface);
+  stroke: var(--heat);
+  stroke-width: 3;
+}
+.op-battery-symbol,
+.op-capacitor-symbol {
+  fill: none;
+  stroke: var(--heat);
+  stroke-width: 5;
+}
+.op-live-dot {
+  fill: var(--heat);
+}
+.op-live-label {
+  fill: var(--heat) !important;
+  font-size: 27px;
+  font-weight: 600;
+}
+.op-control-zone {
+  fill: var(--data);
+  fill-opacity: 0.08;
+  stroke: var(--data);
+  stroke-width: 2;
+  stroke-dasharray: 7 5;
+}
+.op-controller {
+  fill: var(--surface);
+  stroke: var(--data);
+  stroke-width: 3;
+}
+.op-controller-detail {
+  fill: none;
+  stroke: var(--data);
+  stroke-width: 3;
+}
+.op-access-dot {
+  fill: var(--data);
+}
+.op-lock-mark {
+  fill: none;
+  stroke: var(--surface);
+  stroke-width: 3;
+}
+.op-command-line {
+  fill: none;
+  stroke: var(--data);
+  stroke-width: 3;
+  stroke-dasharray: 7 5;
+  stroke-linejoin: round;
+}
+.op-command-dot {
+  fill: var(--data);
+}
+.op-plant-cabinet {
+  fill: var(--panel);
+  stroke: var(--line);
+  stroke-width: 2;
+}
+.op-pump {
+  fill: var(--surface);
+  stroke: var(--muted);
+  stroke-width: 3;
+}
+.op-pump-active {
+  fill: var(--power);
+}
+.op-pump-idle {
+  fill: var(--muted);
+}
+.op-water-flow {
+  fill: none;
+  stroke: var(--power);
+  stroke-width: 7;
+  stroke-linejoin: round;
+}
+.op-water-idle {
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 5;
+  stroke-dasharray: 5 7;
+  stroke-linejoin: round;
+  opacity: 0.5;
+}
+.op-run-label {
+  fill: var(--power) !important;
+  font-size: 22px;
+  font-weight: 600;
+}
+.op-stop-label {
+  fill: var(--heat) !important;
+  font-size: 22px;
+  font-weight: 600;
+}
+.op-handoff {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 30px;
+  align-items: center;
+}
+.op-handoff figure {
+  height: 100%;
+}
+.op-handoff-labels {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.op-handoff-labels div {
+  display: grid;
+  gap: 9px;
+  border-left: 3px solid var(--power);
+  padding-left: 18px;
+}
+.op-handoff-labels b {
+  font-size: 20px;
+  font-weight: 600;
+}
+.op-handoff-labels span {
+  font-size: 21px;
+  line-height: 1.25;
+}
+@media (max-width: 900px) and (min-width: 601px) {
+  .op-service {
+    grid-template-columns: minmax(0, 1fr) 190px;
+    gap: 18px;
+  }
+  .op-handoff {
+    grid-template-columns: minmax(0, 1fr) 250px;
+    gap: 15px;
+  }
+  .op-handoff-labels {
+    gap: 21px;
+  }
+  .op-handoff-labels b,
+  .op-handoff-labels span {
+    font-size: 17px;
+  }
+}
+@media (max-width: 600px) {
+  .op-view {
+    height: auto;
+    min-height: 0;
+    display: block;
+    overflow: visible;
+    padding: 8px 0 20px;
+  }
+  .op-diagram {
+    height: auto;
+    min-height: 240px;
+    max-height: none;
+    width: 100%;
+    overflow: visible;
+  }
+  .op-diagram .op-label {
+    font-size: 28px;
+  }
+  .op-diagram .op-small {
+    font-size: 25px;
+  }
+  .op-service {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: auto;
+  }
+  .op-service figure {
+    width: 100%;
+    aspect-ratio: 16/9;
+  }
+  .op-service-facts {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    padding: 0 12px;
+  }
+  .op-note {
+    grid-column: 1/-1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+  }
+  .op-note span {
+    font-size: 16px;
+    max-width: 180px;
+  }
+  .op-note strong {
+    font-size: 40px;
+  }
+  .op-service-label {
+    font-size: 17px;
+    padding-top: 12px;
+  }
+  .op-handoff {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    height: auto;
+  }
+  .op-handoff figure {
+    width: 100%;
+    aspect-ratio: 16/9;
+  }
+  .op-handoff-labels {
+    width: 100%;
+    gap: 18px;
+    padding: 0 12px;
+  }
+  .op-handoff-labels div {
+    grid-template-columns: 125px 1fr;
+    gap: 12px;
+    padding-left: 12px;
+  }
+  .op-handoff-labels b,
+  .op-handoff-labels span {
+    font-size: 16px;
+  }
+}
+.op-mobile-marker circle {
+  fill: var(--text);
+  stroke: var(--surface);
+  stroke-width: 4;
+}
+.op-mobile-marker .op-marker-number {
+  fill: var(--surface);
+  font-size: 34px;
+  font-weight: 700;
+}
+.op-compact-figure {
+  width: 100%;
+}
+.op-mobile-key {
+  display: grid;
+  gap: 14px;
+  padding: 12px;
+}
+.op-mobile-key div {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  font-size: 17px;
+  line-height: 1.25;
+}
+.op-mobile-key b {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  color: var(--paper);
+  background: var(--text);
+  font-size: 15px;
+}
+@media (max-width: 600px) {
+  .op-compact-figure .op-diagram text:not(.op-marker-number) {
+    display: none;
+  }
+  .op-compact-figure .op-diagram {
+    min-height: 190px;
+  }
+}
+
+.op-service-full {
+  display: flex;
+  justify-content: center;
+}
+.op-service-full figure {
+  height: 100%;
+  width: 100%;
+}
