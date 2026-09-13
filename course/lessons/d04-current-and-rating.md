@@ -38,6 +38,14 @@ There is a tradeoff between a larger equipment rating and tighter control of the
 
 Finally, keep the quantities visible on the diagram. Write 900 kW DC at the output, 937.5 kW real and 1,041.7 kVA at the input, and 1,253 A next to the specified 480 V circuit. The labels show why each number exists. If a subsequent lesson changes the converter, voltage, or power factor, you can update the affected terms without rebuilding the entire explanation from vague notions of electrical capacity.
 
+## Place the high-current route deliberately
+
+The chapter keeps a balanced 2 MW load at power factor one and compares a 450 m campus route followed by a 20 m hall route. At 13.8 kV, line current is about 84 A; at 480 V it is about 2,406 A, excluding losses for this current comparison. Moving the transformer beside the hall keeps the long route at medium voltage. This changes cable and equipment requirements; actual loss requires the resistance and operating conditions of the selected conductors.
+
+## Check phases and heat before treating a rating as usable
+
+A 380 A average can mean three 380 A phases or a 460/350/330 A allocation. With a supplied 400 A per-conductor usable limit, the unequal case exceeds the phase-A limit. The simple average hides that constraint. For a separate balanced conductor example with resistance fixed at 0.020 ohm per phase, loss is 3 I²R: 2.4 kW at 200 A and 9.6 kW at 400 A. Actual temperature also depends on ambient conditions and enclosure. Harmonic current can increase RMS burden and transformer losses, so the waveform belongs in the thermal assessment.
+
 ## Worked example: A 900 kW output behind a 1 MVA limit
 
 - DC output is 900 kW.
@@ -89,3 +97,4 @@ Input real power remains 937.5 kW. Dividing by 0.99 gives 946.97 kVA; this passe
 
 - [Schneider Electric — Installed apparent power](https://www.electrical-installation.org/enwiki/Installed_apparent_power_(kVA)) — The public guide relates output power, efficiency, power factor, apparent power, and balanced three-phase current. Read 2026-09-06. Read the formula and variable definitions. Nonlinear-load and installation behavior require additional evidence; the example values are hypothetical.
 - [Schneider Electric — Choice of transformer rating](https://www.electrical-installation.org/enwiki/Choice_of_transformer_rating) — Transformer rating selection considers apparent-power loading and installation constraints. Read 2026-09-06. Read the public rating discussion, not a site-specific selection study; no listed product rating is used.
+- [Schneider Electric — Effects of harmonics: increased losses](https://www.electrical-installation.org/enwiki/Effects_of_harmonics_-_Increased_losses) — Harmonic heating and transformer-loss mechanism; excerpt scope recorded. Read 2026-09-13. Public indexed excerpt reviewed; direct page returned 503. No harmonic derating factor or real equipment rating is inferred. The 3 I²R comparison uses original fixed-resistance teaching inputs.

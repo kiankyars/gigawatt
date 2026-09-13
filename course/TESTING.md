@@ -1101,3 +1101,70 @@ Temporary screenshots and sweep results are in `/tmp/chapter5-final/`. These
 checks establish rendering and the explicitly described teaching relationships,
 not construction accuracy or author acceptance. The next author pass starts at
 [slide 14](prototypes/site-format.html?teach=1#service-envelope).
+
+## PSU and BBU product photographs — 2026-09-13
+
+- Added `psu-hardware` and `bbu-hardware` before the existing mechanism scenes;
+  the rack-to-chip deck now contains 13 slides. Existing model inputs and controls
+  are unchanged.
+- Four manufacturer images inspected directly; original bytes retained with
+  source URLs, dimensions and SHA-256 records. The viewport crops whitespace only.
+- In-app browser: both photo slides inspected at 1280 × 720 and 390 × 844.
+  Two images per slide, readable labels, no horizontal overflow; mobile content
+  remains vertically scrollable. Browser error/warning log was empty.
+- All 72 Python and 142 Node tests passed, including the rack-power models.
+  Research/reader generation and site staging passed. Publication identified a
+  stale domain-map source listing; it was regenerated and all workflow checks passed locally.
+  `git diff --check` passed. This is a scoped photo integration check, not a new
+  whole-course visual or author-acceptance claim.
+
+## Chapter 5 cases and service boundaries — 2026-09-13
+
+- Twenty scenes. The original opening three scenes, rack/tray comparison and
+  service-envelope scene retain their content. Retired scene hashes resolve to
+  relevant retained scenes, including the new replacement check-in.
+- Added TCDC/Getty legal context, ADA Docklands groundworks, Equinix HO1 Harvey
+  access, QTS Suwanee introduction, Rogers Toronto acoustics and Lenovo PSU
+  hot-swap. Four new source images/figures have recorded SHA-256 provenance.
+- The six site tests pass: every scene and declared control state renders in
+  both layouts; the check-in separates qualified remaining supply capacity,
+  compute-tray power-off and the complete handling/floor-load route.
+- Built-in Codex browser inspected ten changed scenes at 1280×720, 390×844 and
+  844×390. All four new images loaded; no horizontal overflow or SVG text beyond
+  its viewport. The revealed check-in worked. A landscape check-in heading
+  collision found by screenshot inspection was corrected with natural page
+  height; its title and content now occupy separate vertical areas. Browser
+  error log was empty. No external testing browser was installed or launched.
+- Case photography and the desktop foundation, Getty and check-in layouts were
+  visually inspected. Evidence review added Getty's feasible low-pump alternative
+  and the surface owner's own-alternatives condition to the legal notes.
+- This is implementation and layout verification, not measured learner outcomes
+  or author acceptance. The exact mineral-caused-delay and flooded-bridge examples
+  remain unverified as recorded in FEEDBACK_AUDIT.md.
+
+## Chapter 6 distribution — 2026-09-13
+
+- Separate GPT-6 Astra / Ultra agent authored 30 scenes covering D04.1–D04.4,
+  three primary-source equipment/site cases, five actual photographs and an
+  extension decision that checks service and IT-branch capacity separately.
+- Twelve dedicated Node tests pass, covering kW/kVA/current and heat balances,
+  reserve, phase limits, branch-current sums, open paths, invalid inputs, all
+  scenes/control states, source assets and each check-in outcome.
+- Agent used only the built-in Codex browser. All 30 scenes were checked at
+  1280×720, 390×844 and 844×390: no horizontal overflow, stage clipping or SVG
+  text outside its bounds; every image loaded. All 30 control selections,
+  check-in reveal, scrolling, Back to course, Reading, keyboard navigation and
+  full-screen enter/exit were exercised. Dark palette spot checks used a local
+  wrapper with the production CSS variables. Viewport reset afterwards.
+- Review fixes: losses leave equipment as a heat branch; the fifth rack crosses
+  the busway limit; building branches visibly join their bus; labels avoid wires;
+  repeated meta-commentary and extra chapter links are removed.
+- Case assets were inspected by both author and integrator. Source records
+  distinguish the Compass factory image, Fujitsu's unspecified north-London site,
+  the 2012 Green installation and the dated Abilene aerial. Oracle was deduplicated
+  to P102. Generated images were optional; actual photos and code diagrams were
+  used for this chapter.
+- Integration adds the Chapter 6 directory entry, public `/slides/distribution.html`
+  route, reader case sections and source/provenance records. Full checks: 72 Python
+  tests and 155 Node tests pass; course, expanded-reader, domain-map and research
+  freshness checks pass.

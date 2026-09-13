@@ -544,8 +544,15 @@ Reconcile IT and auxiliary loads with a downstream electrical capacity budget ac
 - [P69 — Eaton · UPS fundamentals handbook](https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-ups-fundamentals-handbook-anz.pdf) · `page_reviewed` · [local note](../research/sources/P69.md)
 - [P78 — MLGW — xAI project quick facts](https://www.mlgw.com/images/content/files/pdf/2024xAI%20and%20MLGW%20Quick%20Facts%201.pdf) · `page_reviewed` · [local note](../research/sources/P78.md)
 - [SA42 — SpaceX 10GW in 2027 — construction pace and equipment procurement](https://newsletter.semianalysis.com/p/spacex-10gw-in-2027-why-its-real) · `public_excerpt_reviewed` · [local note](../research/sources/SA42.md)
+- [P102 — Oracle Data Centers: Abilene, Texas](https://www.oracle.com/data-centers/) · `page_reviewed` · [local note](../research/sources/P102.md)
 - [P112 — MZX Tech LLC — Southaven PSD permit application, January 2026 revision](https://upload.wikimedia.org/wikipedia/commons/e/e2/MZX_Tech_LLC_Draft_Air_PSD_Construction_Permit.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P112.md)
 - [P134 — Hammond Power Solutions — How Taps Work](https://americas.hammondpowersolutions.com/news/2014/april/how-taps-work) · `page_reviewed` · [local note](../research/sources/P134.md)
+- [P150 — Siemens — Compass Datacenters integrated MV skid](https://www.siemens.com/en-us/company/insights/compass-datacenters-case-study/) · `page_reviewed` · [local note](../research/sources/P150.md)
+- [P151 — Siemens and Compass sign modular electrical solution agreement](https://press.siemens.com/global/en/pressrelease/siemens-and-compass-datacenters-sign-multi-year-custom-electrical-solution-agreement) · `page_reviewed` · [local note](../research/sources/P151.md)
+- [P152 — Fujitsu selects Starline Track Busway for data centre expansion](https://starlinepower.com/sites/default/files/files/starline_busway_fujitsu-case-study_US.pdf) · `page_reviewed` · [local note](../research/sources/P152.md)
+- [P153 — ABB Review 4/2013 — DC for efficiency](https://library.e.abb.com/public/1afa6036874fd0bb85257d5000710a17/DC%20for%20efficiency.pdf) · `page_reviewed` · [local note](../research/sources/P153.md)
+- [P154 — ABB and Green open Zurich-West DC data-center expansion](https://new.abb.com/news/detail/12816/worlds-most-powerful-dc-data-center-online) · `page_reviewed` · [local note](../research/sources/P154.md)
+- [P156 — Schneider Electric — Effects of harmonics: increased losses](https://www.electrical-installation.org/enwiki/Effects_of_harmonics_-_Increased_losses) · `public_excerpt_reviewed` · [local note](../research/sources/P156.md)
 
 <a id="d05"></a>
 
@@ -667,6 +674,7 @@ Explain why fault clearing and grounding require topology-specific AC/DC protect
 - [P119 — Eaton — 93E UPS Generation 3 installation and operation manual, 164000301 Rev. 04](https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-93e-ups/eaton-93e-ups-20kva-30kva-generation-3-manual-p-164000301.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P119.md)
 - [P120 — Microsoft — Fairwater Atlanta availability and power design](https://blogs.microsoft.com/blog/2025/11/12/infinite-scale-the-architecture-behind-the-azure-ai-superfactory/) · `page_reviewed` · [local note](../research/sources/P120.md)
 - [P121 — NTT DATA — Vienna 1 facility and power SLA](https://services.global.ntt/-/media/ntt/global/insights-and-resources/data-sheets/vienna-1-data-sheet.pdf?rev=9057842951194cb1b9d1cf884282f421) · `page_reviewed` · [local note](../research/sources/P121.md)
+- [P_DELTA_BBU — Delta Electronics — 3 kW BBU and 15 kW Battery Backup System](https://www.delta-americas.com/en-US/products/Power-Management/12018) · `page_reviewed` · [local note](../research/sources/P_DELTA_BBU.md)
 
 <a id="d06"></a>
 
@@ -783,6 +791,7 @@ Explain how retrofit constraints can reverse a seemingly attractive greenfield a
 - [P90 — Texas Instruments — The decoupling capacitor: is it really necessary?](https://e2e.ti.com/blogs_/archives/b/precisionhub/posts/the-decoupling-capacitor-is-it-really-necessary) · `page_reviewed` · [local note](../research/sources/P90.md)
 - [P95 — Meta — Llama model SKU architecture definitions](https://github.com/meta-llama/llama-models/blob/main/models/sku_list.py) · `page_reviewed` · [local note](../research/sources/P95.md)
 - [P97 — Microsoft, OpenAI and NVIDIA — Power Stabilization for AI Training Datacenters](https://arxiv.org/html/2508.14318v1) · `page_reviewed` · [local note](../research/sources/P97.md)
+- [P_DELTA_BBU — Delta Electronics — 3 kW BBU and 15 kW Battery Backup System](https://www.delta-americas.com/en-US/products/Power-Management/12018) · `page_reviewed` · [local note](../research/sources/P_DELTA_BBU.md)
 
 <a id="d07"></a>
 
@@ -1403,6 +1412,16 @@ Trace physical and control-system access boundaries and explain why availability
 - [P126 — Federation of American Scientists — Tracking Hyperscale AI Data Center Growth with Satellite Imagery](https://fas.org/publication/tracking-hyperscale/) · `page_reviewed` · [local note](../research/sources/P126.md)
 - [P127 — QTS — Suwanee campus fiber diversity](https://q.com/resources/meeting-atlanta-data-demands-with-an-expansion-in-suwanee-georgia/) · `page_reviewed` · [local note](../research/sources/P127.md)
 - [P128 — Zayo Europe — Four diverse fiber routes for QTS Cambois](https://zayoeurope.com/newsroom/zayo-europe-to-provide-critical-connectivity-infrastructure-for-uks-largest-ai-cloud-data-centre/) · `page_reviewed` · [local note](../research/sources/P128.md)
+- [P140 — New Era — TCDC construction permits and surface waiver, August 14, 2026](https://www.nasdaq.com/press-release/new-era-energy-digital-files-q2-2026-form-10-q-and-announces-tcdc-construction) · `page_reviewed` · [local note](../research/sources/P140.md)
+- [P141 — Getty Oil v. Jones, Texas Supreme Court, 1971](https://law.justia.com/cases/texas/supreme-court/1971/b-2391-0.html) · `page_reviewed` · [local note](../research/sources/P141.md)
+- [P142 — Fermi Project Matador — executed ground lease, May 14, 2025](https://www.sec.gov/Archives/edgar/data/2071778/000121390025085175/ea025233301ex10-9_fermi.htm) · `page_reviewed` · [local note](../research/sources/P142.md)
+- [P143 — Fermi — Q3 2025 Form 10-Q, Note 8](https://www.sec.gov/Archives/edgar/data/2071778/000121390025109371/ea0263311-10q_fermiinc.htm) · `page_reviewed` · [local note](../research/sources/P143.md)
+- [P144 — Menard — London Silvertown Project Olympus data centre](https://menard.co.uk/soil-expert-portfolio/london-silvertown-project-olympus-data-centre/) · `page_reviewed` · [local note](../research/sources/P144.md)
+- [P145 — Equinix statement — HO1 online but customer access flooded, August 28, 2017](https://www.datacenterknowledge.com/uptime/four-providers-houston-data-centers-online-but-access-roads-flooded) · `page_reviewed` · [local note](../research/sources/P145.md)
+- [P146 — Equinix — Houston staff during Hurricane Harvey](https://blog.equinix.com/blog/2017/11/10/transition-to-tech-veterans-seek-meaningful-civilian-careers/) · `page_reviewed` · [local note](../research/sources/P146.md)
+- [P147 — QTS — Suwanee campus](https://q.com/data-centers/suwanee-1/) · `page_reviewed` · [local note](../research/sources/P147.md)
+- [P148 — Parklane — Rogers headquarters data-center acoustic screen](https://parklanemechanical.com/noise-control-case-studies/rogers-head-office) · `page_reviewed` · [local note](../research/sources/P148.md)
+- [P149 — Lenovo — Remove a GB300 compute tray from the rack](https://pubs.lenovo.com/gb300-nvl72/remove_compute_tray) · `page_reviewed` · [local note](../research/sources/P149.md)
 
 <a id="d13"></a>
 

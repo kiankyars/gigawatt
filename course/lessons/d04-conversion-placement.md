@@ -70,6 +70,12 @@ A brownfield migration adds another constraint: equipment already installed has 
 
 Finish the comparison with a table of interfaces and a balanced loss ledger. Each path should identify its input and output type, voltage boundaries, losses, shared dependencies, and supported maintenance/failure states. Mark uncertain efficiency values as uncertain. That combination lets you ask whether a proposed change is worthwhile under the actual service brief, instead of being persuaded by a shorter line of boxes or a striking rack photograph.
 
+## Zurich-West: centralized DC required compatible loads
+
+ABB and Green opened the Zurich-West DC expansion in May 2012. A 1 MW DC system served the 1,100 square metre extension, using DC-capable HP servers and storage. It is a historical built case of changing the downstream supply interface.
+
+ABB Review’s technical account identifies 16 kV AC at the input and a 1,100 kVA dry transformer inside the central rectifier package. Rectifier modules perform AC/DC conversion after the transformer changes voltage. Figure 2 labels the downstream supply 380 V DC; the text specifies 400 V open-circuit. Preserve that operating-condition distinction. The example establishes actual conversion placement, without adopting ABB’s promotional percentage savings as a general comparison.
+
 ## Worked example: Two routes to the same 1 MW DC output
 
 - All efficiencies are hypothetical values at the compared operating point.
@@ -130,6 +136,8 @@ The altered assumption reverses the ranking. Path B now needs about 11.65 kW mor
 - [Hitachi Energy — Core-type transformers](https://www.hitachienergy.com/products-and-solutions/transformers/power-transformers/generator-step-up-transformers-gsu/core-type-transformers) — Transformer anatomy uses conductive windings and a laminated magnetic steel core. Read 2026-09-11. Product-family anatomy description reviewed. No rating or physical layout is adopted as a universal distribution-transformer specification.
 - [Schneider Electric — AA and AA/FA transformer cooling](https://www.se.com/ca/en/faqs/FA102583/) — Natural air convection and added fan cooling are distinct transformer cooling arrangements; fans are not inherent to the transformer function. Read 2026-09-11. FAQ cooling distinctions reviewed. No fan rating, installation requirement or universal capacity threshold is inferred.
 - [Eaton — Medium-voltage solid-state transformer](https://www.eaton.com/us/en-us/catalog/medium-voltage-power-distribution-control-systems/medium-voltage-solid-state-transformer.html) — Eaton lists a 2 MW MVSST with 12.47 kV nominal input and 800 V DC output, demonstrating a direct-MV product offering. Read 2026-09-11. Manufacturer product listing reviewed on 2026-09-11. Offered specifications do not establish installed capacity, deployment prevalence, lead time or a measured efficiency advantage.
+- [ABB Review 4/2013 — DC for efficiency](https://library.e.abb.com/public/1afa6036874fd0bb85257d5000710a17/DC%20for%20efficiency.pdf) — Case transformer, rectifier and DC distribution interfaces. Read 2026-09-13. Reviewed PDF pages 1–4 visually, especially printed pages 18–19 and Figure 2. PDF text encoding was garbled, so pages were rendered and read. Figure labels 380 V DC, while text specifies 400 V open-circuit. 16 kV input and 1,100 kVA transformer are case-specific. No promotional efficiency percentage is adopted. Exterior photograph extracted unchanged from PDF page 2 (image object 23).
+- [ABB and Green open Zurich-West DC data-center expansion](https://new.abb.com/news/detail/12816/worlds-most-powerful-dc-data-center-online) — Opening date, installation scale and compatible HP IT. Read 2026-09-13. May 2012 primary announcement read. Historical 1 MW installation for a 1,100 square metre expansion; no claim of current operating capacity or general 800 V deployment. Marketing savings and superlatives are excluded.
 
 ## Check your understanding: Which rating stops the load?
 

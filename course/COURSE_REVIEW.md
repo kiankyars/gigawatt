@@ -16,7 +16,7 @@ Use the domain map to look up the section being prepared; there is no need to
 read it end to end.
 
 **Current state:** 50 reader lessons map to 65 objective IDs. The course advances
-section by section. The Primer, overview, workloads, supply and physical-site
+section by section. The Primer, overview, workloads, supply, physical-site and campus-distribution
 decks are authored; UPS, rack power, 800 V and cooling cover selected later topics.
 The table below owns their exact scope and review state. The current revision simplifies Chapter 7’s Tier comparison, adds named availability examples and Fairwater Atlanta, and removes interim labels from the chapter directory. Every deck uses one shared navigation component. Current checks are recorded in [TESTING.md](TESTING.md#tiers-availability-examples-and-directory--2026-09-12). Kian’s review remains separate.
 
@@ -65,8 +65,8 @@ release does not restart an unchanged chapter’s review.
 | 2. [Data center overview](prototypes/orientation-format.html?teach=1) | 13-slide draft | Prior content pass [checked](TESTING.md#overview-and-workload-review--2026-09-12); shared navigation checked in the current release | **Active review.** Networking, CDU and capacity-title feedback implemented; no general restart. |
 | 3. [Workloads and requirements](prototypes/workload-format.html?teach=1) | 18 slides; explicit interactivity, sourced curve and service check-in | Current revision checks in TESTING.md | **Active review.** Prior interactivity completion claim withdrawn; exact supported-session selection remains open. |
 | 4. [Siting, grid connection and supply](prototypes/siting-format.html?teach=1) | 26 slides; dated aerials, capacity scope, turbine labels and state-line case revised | [Current checks](TESTING.md#chapter-4-sites-capacity-and-generation--2026-09-13) | **Active review.** Six latest comments implemented; photograph capture days and current Abilene operating MW remain unverified. |
-| 5. [Physical site, buildings and safety](prototypes/site-format.html?teach=1) | Rebuilt as 20 slides after author feedback; five new GPT figures and verified cases | Current checks in [TESTING.md](TESTING.md#chapter-5-rebuild--2026-09-12) | **Feedback implemented; acceptance pending.** Review the rebuilt slides 14–20, then changed earlier cases. |
-| 6. Campus and building power distribution | Separate Chapter 6 deck assigned to another agent | Reader/build checks only; new deck validation pending | Kian reassigned ownership. The Astra / Ultra agent in this task must stop Chapter 6 work and leave it out of its release. |
+| 5. [Physical site, buildings and safety](prototypes/site-format.html?teach=1) | 20 scenes; named groundworks, mineral-rights, flood, QTS and acoustic cases; hot-swap and replacement check-in | [Current checks](TESTING.md#chapter-5-cases-and-service-boundaries--2026-09-13) | **Latest feedback addressed; acceptance pending.** Opening three scenes and liked rack/tray examples preserved. |
+| 6. [Campus and building power distribution](prototypes/distribution-format.html?teach=1) | 30 scenes; three primary-source cases, five real photos and a capacity check-in | [Current checks](TESTING.md#chapter-6-distribution--2026-09-13) | **Authored by a separate GPT-6 Astra Ultra agent; author review pending.** Covers D04.1–D04.4. |
 | 7. [Continuity, storage and protection](prototypes/ups-format.html) | Selected UPS topics, 22 slides; completion assigned to the Astra / Ultra agent | Existing model/browser checks recorded; new deck validation pending | Preserve the reviewed UPS mechanisms and dedicated Fairwater slide while finishing Chapter 7 as its own deck. **Whole chapter incomplete.** |
 | 8. Rack power and the 800 V DC transition | Selected [rack-to-chip](prototypes/rack-power-format.html?teach=1) and [800 V](teach.html) sequences; append operation assigned to the same Astra / Ultra agent | Existing model/browser checks recorded; combined navigation validation pending | Append rack-to-chip then 800 V into one Chapter 8 deck. These are distinct sequences, not duplicates: preserve both sets of slides and unify navigation. Chapters 6, 7 and 8 remain separate. **Whole chapter incomplete.** |
 | 9. Compute, memory and the rack | Reader draft; own deck unbuilt | Reader/build checks only | Presentation not yet assigned for review. |
@@ -87,7 +87,7 @@ or final author acceptance.
 
 ## Current revision: generation, speed and UPS recovery
 
-Review only the changed [Chapter 4 ending](prototypes/siting-format.html?teach=1#dania-cycle) and [Chapter 7 storage/recovery sequence](prototypes/ups-format.html#equipment). Chapter 5 has been rebuilt after the first author pass; review its changed slides 14–20. Earlier resolved reviews remain closed unless a new issue is identified.
+Review only the changed [Chapter 4 ending](prototypes/siting-format.html?teach=1#dania-cycle) and [Chapter 7 storage/recovery sequence](prototypes/ups-format.html#equipment). Chapter 5 now incorporates the second author pass; review only its new cases and hot-swap/check-in sequence. Earlier resolved reviews remain closed unless a new issue is identified.
 
 <details>
 <summary>Every request from this review and its implemented outcome</summary>
@@ -427,8 +427,11 @@ links when integration is complete.
 - [ ] **Transformer operating range:** add a real equipment example with
   manufacturer input rating, taps and operating limits; the current tap mechanism
   does not establish that range.
-- [ ] **Rack product imagery:** embed a verified product/specification image for
-  the ORv3 PSU and BBU examples alongside their functional diagrams.
+- [x] **Rack product imagery:** [PSU and power shelf](prototypes/rack-power-format.html?teach=1#psu-hardware)
+  and [BBU and battery shelf](prototypes/rack-power-format.html?teach=1#bbu-hardware)
+  now have manufacturer photographs. Two photo slides precede the existing
+  mechanisms; the rack-to-chip sequence now has 13 slides. These additions carry
+  into Chapter 8 when its two sequences are appended.
 - [ ] **Domain check-ins:** ensure every domain has a meaningful active check in
   its teaching sequence. Chapter 3 now has a service check-in. Existing optional
   reader checks can be adapted. Use a strong closing example only if no useful
@@ -523,3 +526,56 @@ The manufactured rack remains a real product image; the generated service scene
 is generic and carries no Lenovo product label.
 
 Validation and remaining review scope are recorded in [TESTING.md](TESTING.md#chapter-5-rebuild--2026-09-12).
+
+## Chapter 5 cases and service boundaries — 2026-09-13
+
+The latest author pass preserves the opening three scenes, rack/tray comparison
+and service-envelope illustration. The presentation remains 20 scenes; stable
+scene IDs identify the revised material after numbering changed.
+
+- Mineral rights: retain split estates; add TCDC's 493-acre land/waiver milestone
+  and Getty v. Jones's irrigation/pump conflict. Buying all minerals is not the
+  universal requirement; existing lessees and binding surface agreements matter.
+- Foundations: replace generic footings with ADA Docklands groundworks and its
+  real photograph. Building piles and external-area improvement are distinguished.
+- Flood: replace the invented bridge with Equinix HO1's documented Harvey access
+  interruption and staff response. Do not portray the campus as dry.
+- Introduce QTS Suwanee with its actual campus plan before the entrance-diversity
+  mechanism. Keep dated entrance claims separate from conduit work in progress.
+- Acoustic barrier: actual Rogers Toronto rooftop screen and factory-built panels.
+- Remove repeated Polaris Forge phasing and building-cutaway scenes. Their reader
+  material remains available; neither is counted twice as a teaching example.
+- Add Lenovo hot-swappable PSU modules immediately after tray-service space;
+  contrast with the compute tray's required power-off. Close with a replacement
+  plan check-in that asks for capacity, service-boundary and physical-route evidence.
+- Remove the stored-energy cartoon and the rack-access/shared-controller ending.
+  The reader retains these topics. **Teaching handoff:** Chapter 7 should use an
+  actual manufacturer's complete isolation boundaries when teaching stored energy;
+  Chapter 15 should introduce OT access and common-control failures through named
+  equipment and a concrete failure scenario, without conflating rack access with
+  authority over a cooling plant. These future teaching integrations remain open.
+
+Evidence limits: no verified mineral-caused data-center redesign or quantified
+delay; no verified flooded-bridge data-center case or dated HO1 flood photograph.
+TCDC and HO1 teach the established consequences instead. Sources P140–P149 and
+P111/P127 updates record the specific claims and photo provenance.
+
+## Chapter 6 distribution — 2026-09-13
+
+A separate **GPT-6 Astra / Ultra** agent authored a 30-scene distribution chapter,
+registered as Chapter 6 with its own course-directory destination. It follows the
+campus connection through switching, transformation, building branches, busway,
+meters, converter losses, kVA/current limits and conversion placement. The closing
+check-in requires resolving both the service and IT-branch limits for an extension.
+
+The three case studies use actual publisher photographs: Siemens/Compass's
+integrated MV skid; Fujitsu's north-London overhead busway expansion; and Green's
+2012 Zurich-West DC installation. Oracle's dated Abilene aerial returns to the
+recurring campus without assigning it the model's electrical ratings or topology.
+Sources P150–P154/P156 and existing P102 record those boundaries. Generated images
+were welcome rather than required; electrical mechanisms use inspectable diagrams.
+
+Independent review corrected the meter diagram so losses leave as heat, added the
+fifth rack that overloads the busway, and removed visible meta-commentary and the
+extra chapter link. Chapter 7 and Chapter 8 remain separate presentations and are
+outside this release's teaching scope.

@@ -66,56 +66,15 @@ export function renderSiteContext(id) {
         `<div class="site-section-wrap">${svg("Texas split estate: the surface and minerals can have separate owners", `<defs><pattern id="mineral-hatch" width="24" height="14" patternUnits="userSpaceOnUse"><path d="M0 12h12m5-7h6" stroke="#b8935b" opacity=".6"/></pattern></defs><path d="M45 200H955V382H45Z" fill="#c7b28c"/><path d="M45 235Q300 208 485 248T955 242V382H45Z" fill="#b4915f"/><path d="M45 300Q350 266 560 316T955 305V382H45Z" fill="url(#mineral-hatch)"/><path d="M45 200H955" stroke="var(--power)" stroke-width="8"/>${building(145, 196, 325)}<path d="M760 196L786 95H794L820 196M773 145H807M766 172H813M766 172L807 145M773 145L813 172M790 200v132h-145" fill="none" stroke="var(--heat)" stroke-width="6" stroke-linecap="round"/>${txt(65, 55, "TEXAS · SPLIT ESTATE", "site-svg-label")}${txt(490, 162, "Surface owner", "site-svg-title")}${txt(858, 137, "Well", "site-svg-small")}${txt(90, 294, "Mineral owner", "site-svg-title site-soil-text")}${txt(90, 329, "May retain rights to use the surface", "site-svg-small site-soil-text")}`)}<div class="site-single-callout">Deeds · mineral leases · surface-use agreements</div></div>`,
         "Texas surface and mineral estates can belong to separate owners. The mineral estate generally carries rights to reasonably necessary surface use; deeds, leases, ordinances and the accommodation doctrine can limit those rights. This is a conceptual Texas case, not a mineral dispute at Abilene.",
       );
-    case "ground-and-foundations":
-      return result(
-        `<div class="site-comparison"><article><h2>Firm bearing layer near the surface</h2>${svg("A shallow foundation transfers the building load into firm near-surface ground", `<path d="M30 205H455V390H30Z" fill="#b5a17c"/><path d="M30 250H455M30 275H455M30 300H455M30 325H455M30 350H455" stroke="#92815f" opacity=".5"/>${building(75, 190, 320)}<path d="M96 190v24h-29v25h115v-25h-29v-24m165 0v24h-29v25h115v-25h-29v-24" fill="var(--power)"/>${txt(245, 374, "Shallow footings", "site-svg-label site-soil-text")}`, "0 0 490 410")}</article><article><h2>Weak or compressible upper layers</h2>${svg("Piles carry the building load past weak layers to deeper support", `<path d="M30 205H455V302H30Z" fill="#e0cfac"/><path d="M30 225Q125 200 215 234T455 220M30 259Q125 234 215 268T455 254" fill="none" stroke="#bda882"/><path d="M30 302H455V390H30Z" fill="#b5a17c"/>${building(75, 190, 320)}<path d="M60 195H190v19H60zm235 0H425v19H295zM85 214h16v125H85zm63 0h16v125h-16zm165 0h16v125h-16zm63 0h16v125h-16z" fill="var(--power)"/>${txt(245, 374, "Deep foundations", "site-svg-label site-soil-text")}`, "0 0 490 410")}</article></div>`,
-        "A conceptual section contrasts shallow footings on competent near-surface material with deep foundations that transfer load past weaker layers. Geotechnical investigation selects the actual solution; piles are not the only possible response.",
-      );
-    case "outside-flood":
-      return result(
-        sceneImage(
-          "site-flood-access",
-          "Concept campus on dry high ground, with its only approach interrupted at a flooded bridge.",
-        ),
-        "The data hall remains on dry higher ground, but a flooded bridge prevents deliveries and service access. The vulnerability lies along an offsite dependency, not inside the building.",
-      );
     case "fiber-diversity":
       return result(
-        `<div class="site-fiber"><div class="site-case-band"><b>QTS Suwanee</b><span>Diverse entrances + redundant campus conduits</span></div><div class="site-comparison"><article><h2>Shared entrance</h2>${fiberPlan(true)}</article><article><h2>Separate approaches</h2>${fiberPlan(false)}</article></div></div>`,
+        `<div class="site-fiber"><div class="site-case-band"><b>QTS Suwanee</b><span>Fiber entrance diversity · January 2023 account</span></div><div class="site-comparison"><article><h2>Shared entrance</h2>${fiberPlan(true)}</article><article><h2>Separate approaches</h2>${fiberPlan(false)}</article></div></div>`,
         "QTS documents physical entrance diversity at Suwanee. These conceptual diagrams compare a shared entry point with separate approaches. The second removes the illustrated common exposure without asserting end-to-end independence.",
       );
     case "climate-and-water":
       return result(
         `<div class="site-site-pair site-cooling"><article><h2>Abilene</h2>${photo(abilene, "The Abilene AI campus.", "Oracle")}<div class="site-cooling-note"><b>Air-cooled chillers</b><span>No evaporative heat rejection</span></div></article><article><h2>Colossus 1</h2>${photo(aerial, "The Colossus 1 AI factory in Memphis.", "SpaceXAI")}<div class="site-cooling-note"><b>Cooling towers + air-cooled chillers</b><span>Towers consume makeup water</span></div></article></div>`,
         "Abilene uses non-evaporative air-cooled chillers. Colossus 1 has both evaporative cooling towers and air-cooled chillers, according to the TDEC cooling-use record and FAS original imagery analysis. A closed indoor liquid loop does not determine outdoor heat rejection.",
-      );
-    case "neighbors-and-permits":
-      return result(
-        sceneImage(
-          "site-neighbor-boundary",
-          "Concept illustration: outdoor plant, acoustic barrier, and neighboring homes; sound paths are reduced beyond the barrier.",
-          tag("Outdoor plant", 40, 39) +
-            tag("Acoustic barrier", 66, 53) +
-            tag("Neighbors", 89, 66),
-        ),
-        "The concept locates an acoustic barrier between outdoor plant and neighboring homes. Placement, source sound and propagation inform the design; the illustration specifies no decibel reduction or compliant dimensions.",
-      );
-    case "phased-campus":
-      return result(
-        `<div class="site-phasing"><div class="site-phase-dates"><span><b>27 Oct 2025</b>First 50 MW ready for service</span><span><b>24 Nov 2025</b>Next 50 MW ready for service</span></div><div class="site-phase-plan"><div class="site-live-wing"><strong>Operating phase</strong><div class="site-rack-rows">${"<i></i>".repeat(18)}</div><span>Service entrance</span></div><div class="site-build-wing"><strong>Next phase</strong><div class="site-build-grid"></div><span>Construction entrance</span></div><div class="site-path-service">Operations access</div><div class="site-path-build">Construction access</div></div><small>Applied Digital · Polaris Forge 1 · CoreWeave tenant</small></div>`,
-        "Applied Digital’s Polaris Forge 1 reached its first 50 MW ready-for-service milestone October 27, 2025, and the next 50 MW November 24. The generic site plan explains why live operations need routes protected from adjacent construction; it does not depict the actual campus plan.",
-      );
-    case "room-layout":
-      return result(
-        sceneImage(
-          "site-building-cutaway",
-          "Conceptual roof-off building with a rack hall, electrical room, mechanical gallery and receiving corridor.",
-          tag("Electrical room", 47, 13) +
-            tag("Data hall", 34, 43) +
-            tag("Mechanical gallery", 82, 36) +
-            tag("Receiving & service route", 73, 78),
-        ),
-        "A concept cutaway places the data hall next to its electrical and mechanical support rooms. Receiving and the internal service corridor connect equipment delivery to the rooms where maintenance occurs.",
       );
     case "gb300-physical":
       return result(

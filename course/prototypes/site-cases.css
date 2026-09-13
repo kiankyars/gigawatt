@@ -1,0 +1,67 @@
+.case-split { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr); gap:32px; align-items:stretch; }
+.case-photo { margin:0; min-width:0; min-height:0; position:relative; display:flex; align-items:center; }
+.case-photo img { width:100%; height:100%; min-height:0; object-fit:cover; border-radius:8px; }
+.case-contain img { object-fit:contain; }
+.case-photo figcaption { position:absolute; right:8px; bottom:8px; padding:4px 8px; border-radius:4px; background:#102027e6; color:white; font-size:11px; }
+.case-details { display:flex; flex-direction:column; justify-content:center; gap:14px; }
+#scene-content .case-details h2 { font-size:clamp(21px,2vw,30px); margin:0; }
+#scene-content .case-details p { font-size:clamp(16px,1.5vw,21px); line-height:1.4; }
+.case-details dl { margin:0; display:grid; gap:20px; }
+.case-details dt { font-size:clamp(22px,2.3vw,34px); font-weight:650; color:var(--power); }
+.case-details dd { margin:4px 0 0; font-size:18px; line-height:1.4; }
+.case-soil { display:grid; }
+.case-soil span { padding:10px 14px; background:#d3bf9b; color:#193139; font-size:18px; }
+.case-soil span+span { background:#af946f; }
+.case-status,.case-law,.case-check { display:flex; flex-direction:column; justify-content:center; gap:24px; }
+.case-heading { text-align:center; }
+#scene-content .case-heading h2 { font-size:clamp(23px,2.6vw,34px); }
+#scene-content .case-heading p { color:var(--muted); font-size:18px; }
+.case-status-pair { display:grid; grid-template-columns:1fr 1fr; gap:30px; }
+.case-status-pair article { border-left:4px solid var(--power); padding:20px 24px; background:var(--panel); }
+.case-status-pair article+article { border-color:var(--heat); }
+.case-status-pair b { font-size:clamp(30px,4.2vw,58px); font-weight:650; }
+.case-status-pair h3 { font-size:22px; font-weight:600; margin:12px 0; }
+.case-status-pair p { line-height:1.5; }
+.case-takeaway { padding:16px; text-align:center; font-size:clamp(17px,1.8vw,24px); line-height:1.4; }
+.case-diagram { flex:1; min-height:0; width:100%; max-height:350px; }
+.case-diagram text { font:20px system-ui,sans-serif; fill:var(--text); }
+.case-hotswap { display:grid; grid-template-rows:minmax(0,1fr) auto; gap:22px; }
+.case-hotswap .case-photo { max-height:310px; }
+.case-hotswap-pair { display:grid; grid-template-columns:1fr 1fr; gap:35px; }
+.case-hotswap-pair article { border-top:3px solid var(--power); padding-top:14px; }
+.case-hotswap-pair article+article { border-color:var(--heat); }
+.case-hotswap-pair p { line-height:1.4; }
+.case-hotswap-pair strong { font-size:19px; }
+.case-check-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+.case-check-grid article { padding:20px; background:var(--panel); border-top:3px solid var(--power); }
+.case-check-grid b { font-size:22px; }
+.case-check-grid p { line-height:1.5; }
+.case-answers { display:grid; gap:6px; border-top:1px solid var(--line); padding-top:12px; }
+#scene-content .case-answers p { font-size:18px; line-height:1.4; }
+.case-prompt { text-align:center; padding:18px 0; font-size:20px; color:var(--muted); }
+@media(max-width:600px) {
+  .case-split { grid-template-columns:1fr; gap:22px; }
+  .case-photo { min-height:220px; }
+  .case-photo img { height:240px; }
+  .case-details { gap:10px; }
+  .case-details dl { gap:14px; }
+  .case-status,.case-law,.case-check { gap:18px; }
+  .case-status-pair,.case-hotswap-pair,.case-check-grid { grid-template-columns:1fr; gap:18px; }
+  .case-status-pair article { padding:15px 18px; }
+  .case-status-pair h3 { font-size:20px; }
+  .case-heading p { line-height:1.5; }
+  .case-diagram { min-height:210px; }
+  .case-hotswap { grid-template-rows:auto auto; }
+  .case-hotswap .case-photo { min-height:170px; }
+  .case-hotswap .case-photo img { height:190px; }
+  .case-check-grid article { padding:15px; }
+}
+@media(max-height:580px) and (min-width:601px) {
+  #viewer { height:auto; min-height:100svh; }
+  #stage { flex:none; }
+  #scene-content { flex:none; }
+  #scene-content > .case-check, #scene-content > .case-status, #scene-content > .case-law { min-height:400px; height:auto; justify-content:flex-start; padding-top:18px; }
+  .case-split,.case-hotswap { min-height:400px; }
+  .case-status,.case-law,.case-check { min-height:400px; }
+  .case-hotswap .case-photo { min-height:220px; }
+}

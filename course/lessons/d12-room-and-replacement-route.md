@@ -42,6 +42,12 @@ For a replacement plan, record the object, mass, orientation, handling assembly,
 
 You do not need a complete professional design to discover an incompatibility. If the supplied wheel criterion is 3 kN and the computed static force per wheel is already 5.4 kN, the proposed route fails that stated criterion. Passing it would still not prove adequacy, because unequal load sharing, dynamic effects and structural details remain. This asymmetry is useful: limited evidence can decisively reject a configuration without being sufficient to approve it.
 
+## Case study: Replace a module while the rack runs
+
+Lenovo’s GB300 NVL72 power shelf contains six 5.5 kW hot-swappable power-supply modules. Hot-swappable means a designated component can be replaced while the containing system remains energized and operating, subject to the supported configuration and service procedure. The remaining qualified power supplies must be able to carry the load during replacement.
+
+A field-replaceable unit is not automatically hot-swappable. Lenovo’s compute-tray removal instructions require that tray to be powered off and disconnected before removal. Its workload must stop or move; that does not itself require shutting down every rack component. Both jobs still need physical access and an appropriate service envelope.
+
 ## Worked example: The moving assembly fails where the installed rack passes
 
 - Synthetic installed rack mass 2,000 kg; movement assembly including trolley is 2,200 kg.
@@ -95,3 +101,4 @@ A floor-area average does not establish the load at a wheel or panel edge. Equip
 - [Vertiv — Deploying Liquid Cooling in the Data Center](https://prod.vertiv.cn/4a9616/globalassets/documents/white-papers/liquid-cooling/vertiv-liquidcooling-wp-en-na-sl-71113-web.pdf) — Cooling equipment may occupy white space or a grey-space mechanical gallery; service and replacement need room in either location. Read 2026-09-10. Reviewed Designing Mechanical Space, printed pages 14–15, and the space-use discussion on page 13. No equipment clearance, floor rating, or universal footprint saving is taken from this example.
 - [Lenovo NVIDIA GB300 NVL72 Rack Scale AI Product Guide](https://lenovopress.lenovo.com/lp2357-lenovo-nvidia-gb300-nvl72-rack-scale-ai) — The named service example uses a 600 mm-wide MGX rack, 29 kg compute tray and 799 mm tray depth including water connections; Lenovo identifies suitable lift support for servicing. Read 2026-09-12. Read physical and electrical specifications and Genie Material Lift sections, with rack and rear compute-tray figures. Width and tray mass are product dimensions, not full operating rack mass or service clearance. No universal aisle size, lift configuration, performance or complete design specification is inferred.
 - [Lenovo — GB300 NVL72 mechanical specifications](https://pubs.lenovo.com/gb300-nvl72/server_specifications_mechanical) — Rack solution mass is approximately 1,580 kg, depending on configuration. Read 2026-09-12. Full rack solution is distinct from the 185 kg empty MGX rack and 29 kg compute tray in Lenovo Press. Mass is not a floor-pressure, caster-load or handling-assembly specification.
+- [Lenovo — Remove a GB300 compute tray from the rack](https://pubs.lenovo.com/gb300-nvl72/remove_compute_tray) — Requires compute-tray power-off and disconnection before removal; distinguishes tray service from hot-swappable PSU modules. Read 2026-09-13. Manufacturer procedure boundary, not a claim that the entire rack must shut down or an instruction to perform energized maintenance.

@@ -46,6 +46,7 @@ Each topic ends with a check-in: pause, make a prediction, compare the reasoning
 
 ### 6. Campus and building power distribution
 
+- Slides: [Campus and building power distribution](prototypes/distribution-format.html?teach=1)
 - [Read a power train as a set of jobs](lessons/d04-read-the-power-train.md) — What changes, branches, and limits between the campus connection and the rack?
 - [Kilowatts do not fill a kilovolt-ampere nameplate](lessons/d04-current-and-rating.md) — How do efficiency and power factor change upstream equipment loading?
 - [Moving a converter moves an interface](lessons/d04-conversion-placement.md) — How should centralized and distributed conversion be compared fairly?
@@ -1285,6 +1286,12 @@ For a replacement plan, record the object, mass, orientation, handling assembly,
 
 You do not need a complete professional design to discover an incompatibility. If the supplied wheel criterion is 3 kN and the computed static force per wheel is already 5.4 kN, the proposed route fails that stated criterion. Passing it would still not prove adequacy, because unequal load sharing, dynamic effects and structural details remain. This asymmetry is useful: limited evidence can decisively reject a configuration without being sufficient to approve it.
 
+## Case study: Replace a module while the rack runs
+
+Lenovo’s GB300 NVL72 power shelf contains six 5.5 kW hot-swappable power-supply modules. Hot-swappable means a designated component can be replaced while the containing system remains energized and operating, subject to the supported configuration and service procedure. The remaining qualified power supplies must be able to carry the load during replacement.
+
+A field-replaceable unit is not automatically hot-swappable. Lenovo’s compute-tray removal instructions require that tray to be powered off and disconnected before removal. Its workload must stop or move; that does not itself require shutting down every rack component. Both jobs still need physical access and an appropriate service envelope.
+
 ## Worked example: The moving assembly fails where the installed rack passes
 
 - Synthetic installed rack mass 2,000 kg; movement assembly including trolley is 2,200 kg.
@@ -1338,6 +1345,7 @@ A floor-area average does not establish the load at a wheel or panel edge. Equip
 - [Vertiv — Deploying Liquid Cooling in the Data Center](https://prod.vertiv.cn/4a9616/globalassets/documents/white-papers/liquid-cooling/vertiv-liquidcooling-wp-en-na-sl-71113-web.pdf) — Cooling equipment may occupy white space or a grey-space mechanical gallery; service and replacement need room in either location. Read 2026-09-10. Reviewed Designing Mechanical Space, printed pages 14–15, and the space-use discussion on page 13. No equipment clearance, floor rating, or universal footprint saving is taken from this example.
 - [Lenovo NVIDIA GB300 NVL72 Rack Scale AI Product Guide](https://lenovopress.lenovo.com/lp2357-lenovo-nvidia-gb300-nvl72-rack-scale-ai) — The named service example uses a 600 mm-wide MGX rack, 29 kg compute tray and 799 mm tray depth including water connections; Lenovo identifies suitable lift support for servicing. Read 2026-09-12. Read physical and electrical specifications and Genie Material Lift sections, with rack and rear compute-tray figures. Width and tray mass are product dimensions, not full operating rack mass or service clearance. No universal aisle size, lift configuration, performance or complete design specification is inferred.
 - [Lenovo — GB300 NVL72 mechanical specifications](https://pubs.lenovo.com/gb300-nvl72/server_specifications_mechanical) — Rack solution mass is approximately 1,580 kg, depending on configuration. Read 2026-09-12. Full rack solution is distinct from the 185 kg empty MGX rack and 29 kg compute tray in Lenovo Press. Mass is not a floor-pressure, caster-load or handling-assembly specification.
+- [Lenovo — Remove a GB300 compute tray from the rack](https://pubs.lenovo.com/gb300-nvl72/remove_compute_tray) — Requires compute-tray power-off and disconnection before removal; distinguishes tray service from hot-swappable PSU modules. Read 2026-09-13. Manufacturer procedure boundary, not a claim that the entire rack must shut down or an instruction to perform energized maintenance.
 
 ## Choose a site that can deliver the first phase
 
@@ -1373,7 +1381,7 @@ For communications, verify capacity, route length, delivery dates, site entrance
 
 Two AI campuses make heat rejection concrete. TDEC identifies Colossus 1 as a user of evaporative cooling; the FAS imagery study also identifies air-cooled chillers there. Crusoe describes Abilene’s air-cooled chillers as non-evaporative. Both facilities can circulate coolant inside the building. The outdoor heat-rejection method determines whether that heat-removal path consumes water through evaporation; a closed indoor loop alone does not answer it.
 
-Physical route diversity is practiced, not invented for the exercise. QTS describes diverse fiber entrances and redundant campus conduits at its existing Suwanee campus. Zayo’s March 2026 Cambois announcement provides an AI-specific construction example: four diverse fiber routes. A carrier contract and a separate site entrance do not prove every mile avoids a shared trench, bridge or upstream node.
+Physical route diversity is practiced, not invented for the exercise. QTS’s January 2023 account describes diverse fiber entrances and campus conduits at Suwanee; its current campus page describes redundant conduits as in progress. The dated account does not certify current end-to-end completion. Zayo’s March 2026 Cambois announcement provides an AI-specific construction example: four diverse fiber routes. A carrier contract and a separate site entrance do not prove every mile avoids a shared trench, bridge or upstream node.
 
 ## Secure the parcel and the rights across it
 
@@ -1382,6 +1390,8 @@ A land-purchase option gives the developer a time-limited right to buy on agreed
 Purchase, lease and option arrangements give different rights for different periods. Check the actual terms for investigations, access, assignment, closing conditions and extensions, then compare their dates with the utility and permit work. Review title exceptions, recorded easements and the additional routes needed to bring power, gas, fiber and water to the campus. A line crossing another owner’s property needs its own established right; control of the main parcel does not supply it.
 
 Texas provides a concrete title issue: surface and mineral estates may have separate owners. Mineral rights can include reasonably necessary access to the surface for development, so a campus owner may still face drilling, roads or pipeline rights held by someone else. The Railroad Commission explains that deeds, leases, ordinances and the accommodation doctrine can limit these rights. Establish the recorded interests and surface-use arrangements before fixing the building footprint. This example is Texas law, not a claim of a mineral dispute at Abilene.
+
+The required outcome is enforceable rights compatible with the campus, not necessarily ownership of every mineral interest. Relevant mineral owners and existing lessees may agree to surface restrictions or waivers, or agreed drilling and access areas can shape the layout. Purchasing minerals does not automatically rewrite an existing lease. Title investigation must identify the parties whose rights actually affect the site.
 
 ## Check permitted uses and neighbors
 
@@ -1408,6 +1418,42 @@ Pause: an owner offers an industrial building with existing utility connections 
 ## Case study: a first phase opens while the next is finished
 
 Applied Digital delivered the first 50 MW of Polaris Forge 1’s first building to the ready-for-service milestone on October 27, 2025; the next 50 MW followed on November 24. The tenant was CoreWeave. This is the same phased-delivery case introduced in the power-and-siting chapter. Here it motivates a physical campus plan that keeps construction, delivery traffic and future connections from disrupting the live phase. The two releases document delivery milestones, not the actual routes, operating procedures or power drawn by installed accelerators.
+
+## Case study: TCDC: land secured, waiver pending
+
+New Era’s August 14, 2026 issuer update said all 493 acres for Texas Critical Data Centers near Odessa had been secured, with one final surface waiver pending from a leasehold operator. It also reported removal of 22 abandoned pipelines across 12 rights-of-way. These are distinct site-development milestones.
+
+The release establishes an outstanding agreement, not a quantified mineral-caused delay. Another actual contract, Fermi’s May 2025 Project Matador ground lease, made a surface waiver a commencement condition unless the tenant waived it. Its later filing reports commencement in September 2025 after conditions were satisfied or waived. Agreements can resolve surface use without buying every mineral interest.
+
+## Case study: Getty v. Jones: conflicting surface uses
+
+In Getty Oil v. Jones (Texas Supreme Court, 1971), an established irrigation system needed seven feet of clearance while Getty’s pumpjacks reached 17 and 34 feet. Other operators showed lower-profile or recessed alternatives. The court held that reasonable mineral use can require accommodating an existing surface use where reasonable mineral-development alternatives are available and the surface owner has no reasonable alternative for continuing that existing use.
+
+The court affirmed a remand; this was not a universal order to bury equipment. It is a farming judgment, not a data-center lawsuit. Its lesson for a proposed campus is that dominance of the mineral estate has limits, but a fact-dependent doctrine does not pre-approve a new building layout. Resolve express deeds, leases and surface agreements before relying on litigation.
+
+## Case study: ADA Docklands: building on fill
+
+Menard’s account of ADA Infrastructure’s London Docklands campus identifies up to six metres of fill above soft alluvium, plus buried foundations, tanks and timber piles. Continuous-flight-auger (CFA) piles support the buildings. About 7,000 Bi-Modulus ground-improvement columns treated 40,000 square metres of external areas and utility infrastructure.
+
+The upper stone sections of those columns could clash with utilities, so utility invert levels had to be coordinated with the treatment. Remediation also affected the work sequence. The actual site photograph shows drilling rigs. The case links ground evidence to the buildings, external utility routes and construction sequence; the 7,000 columns are not the building piles.
+
+## Case study: Equinix HO1 during Harvey
+
+On August 28, 2017, Equinix told Data Center Knowledge that HO1 in Houston remained staffed and operating without interruption, while flooding had closed surrounding streets and made the site inaccessible to customers. That is a documented offsite-access consequence, without inventing a bridge failure.
+
+Equinix’s subsequent employee account describes water entering its Houston data center and staff staying for days, pumping it out while maintaining power. Continued IT service therefore depended on people already on site as well as equipment. This is not a dry-campus story, and no unrelated Houston flood photograph is presented as the HO1 access route.
+
+## Case study: Meet QTS Suwanee
+
+QTS operates a 53-acre colocation campus in Suwanee, Georgia. Its two data-center buildings are at 300 and 120 Satellite Boulevard NW. The visual uses the operator’s actual campus plan. Customers place IT equipment in such facilities and connect it to their networks through physical fiber routes.
+
+QTS’s January 2023 article described diverse campus fiber entrances and separately proposed four entrances for DC2. Its current campus page describes redundant campus conduits as in progress. These are dated statements with different scopes, so the following teaching sketches do not certify completion of the whole campus conduit system.
+
+## Case study: Rogers Toronto: screen the chillers
+
+Parklane’s account of the Rogers headquarters data-center retrofit in Toronto describes rooftop chillers opposite residences and a 15-foot acoustic screen. Sixteen factory-built wall sections were installed in one ten-hour day. With little staging space, the sections were lifted from delivery trucks onto precisely positioned columns.
+
+The photograph shows the actual screen. A barrier interrupts direct sound propagation, while sound can still diffract around its edges; height, placement and construction matter. The open top must also support the chillers’ airflow. Parklane reports meeting the noise requirements, but no measured decibel reduction is supplied here.
 
 ## Worked example: The smaller parcel meets the opening brief
 
@@ -1479,6 +1525,15 @@ A replacement route or changed service requirement would need explicit acceptanc
 - [Federation of American Scientists — Tracking Hyperscale AI Data Center Growth with Satellite Imagery](https://fas.org/publication/tracking-hyperscale/) — Original imagery analysis identifies both cooling towers and air-cooled chillers at Colossus 1 in Figures 26 and 27. Read 2026-09-12. Reviewed the Colossus cooling analysis and image captions dated October 19, 2025. Equipment identification is image-based research, not an operator one-line, water balance or metered load. No inferred power-capacity estimate is adopted.
 - [QTS — Suwanee campus fiber diversity](https://q.com/resources/meeting-atlanta-data-demands-with-an-expansion-in-suwanee-georgia/) — The existing Suwanee campus is described with diverse fiber entrances and a redundant campus conduit system. Read 2026-09-12. Historical January 2023 operator account; four entrances belong to the announced DC2 refresh. Campus route diversity does not establish end-to-end independence for every carrier circuit.
 - [Zayo Europe — Four diverse fiber routes for QTS Cambois](https://zayoeurope.com/newsroom/zayo-europe-to-provide-critical-connectivity-infrastructure-for-uks-largest-ai-cloud-data-centre/) — Carrier describes constructing four diverse fiber routes for the QTS AI and cloud campus at Cambois. Read 2026-09-12. March 2026 construction announcement, not completed-service evidence. Four routes are not four independent carriers; upstream shared risks require circuit-level review.
+- [New Era — TCDC construction permits and surface waiver, August 14, 2026](https://www.nasdaq.com/press-release/new-era-energy-digital-files-q2-2026-form-10-q-and-announces-tcdc-construction) — Land secured for the 493-acre campus; one leasehold operator’s surface waiver remained pending. Read 2026-09-13. Dated issuer statement; no quantified mineral-caused delay established.
+- [Getty Oil v. Jones, Texas Supreme Court, 1971](https://law.justia.com/cases/texas/supreme-court/1971/b-2391-0.html) — Existing irrigation clearance and pumpjack heights explain the accommodation doctrine. Read 2026-09-13. Opinion affirms a remand; farming case, not a data-center judgment or universal equipment order.
+- [Fermi Project Matador — executed ground lease, May 14, 2025](https://www.sec.gov/Archives/edgar/data/2071778/000121390025085175/ea025233301ex10-9_fermi.htm) — Surface waiver is a commencement condition unless tenant waives it; section 2.08 covers mineral surface waivers. Read 2026-09-13. Contract evidence, not proof of a mineral-caused delay or a requirement to purchase all minerals.
+- [Fermi — Q3 2025 Form 10-Q, Note 8](https://www.sec.gov/Archives/edgar/data/2071778/000121390025109371/ea0263311-10q_fermiinc.htm) — Lease commenced in September 2025 after conditions were satisfied or waived. Read 2026-09-13. Do not describe the original commencement condition as currently unresolved.
+- [Menard — London Silvertown Project Olympus data centre](https://menard.co.uk/soil-expert-portfolio/london-silvertown-project-olympus-data-centre/) — Actual ADA Docklands groundworks: fill/alluvium, CFA building piles, about 7,000 external-area columns and utility-depth coordination. Read 2026-09-13. Contractor account; columns treat external areas and utilities, not the building foundations. Photograph capture date unspecified.
+- [Equinix statement — HO1 online but customer access flooded, August 28, 2017](https://www.datacenterknowledge.com/uptime/four-providers-houston-data-centers-online-but-access-roads-flooded) — Contemporaneous operator statement: HO1 operational and staffed, surrounding roads closed, customer access unavailable. Read 2026-09-13. Use the attributed original statement. The article’s flood photo is a different identified street and is not used as HO1 imagery.
+- [Equinix — Houston staff during Hurricane Harvey](https://blog.equinix.com/blog/2017/11/10/transition-to-tech-veterans-seek-meaningful-civilian-careers/) — Employee profile describes staff staying for days and pumping water from the Houston facility while keeping power on. Read 2026-09-13. Supports flood response; prevents calling the campus dry. No failure of a bridge is reported.
+- [QTS — Suwanee campus](https://q.com/data-centers/suwanee-1/) — 53-acre Suwanee, Georgia campus with two buildings; official campus-plan image. Read 2026-09-13. Current page calls redundant campus conduits in progress. Do not infer completed end-to-end diversity from the January 2023 article.
+- [Parklane — Rogers headquarters data-center acoustic screen](https://parklanemechanical.com/noise-control-case-studies/rogers-head-office) — Rogers Toronto rooftop chiller barrier: 15 feet high, 16 factory-built sections installed in one ten-hour day; actual installed photograph. Read 2026-09-13. Vendor project account; no measured decibel reduction or photo capture date provided.
 
 ## A shared boundary can defeat two independent systems
 
@@ -1621,6 +1676,22 @@ Centralized infrastructure can simplify shared equipment and measurement, but it
 
 A good reading exercise ends with questions, not just labels. Which load does this meter include? Which component changes voltage? Which device can interrupt this circuit under the specified conditions? Where does the cooling pump obtain power? Which upstream limit still binds after a downstream upgrade? Answering those questions makes unfamiliar diagrams readable without pretending that a simplified course drawing is a complete engineered installation.
 
+## Compass: package two electrical jobs together
+
+Siemens and Compass co-developed a medium-voltage skid containing switchgear and a transformer. The factory package makes a repeatable interface, while its electrical functions remain distinct: switchgear connects and isolates circuits; the transformer changes AC voltage. The project photograph shows the switchgear portion. Neither the 8DJH 36 family name nor the skid exterior supplies the operating voltage and usable rating of an installed campus path.
+
+## Fujitsu: put flexible circuits beside the load
+
+A Starline case study, first published in December 2018, describes an extension to a Fujitsu-managed 3.2 MW data center north of London. Existing racks used cables under a raised floor. The extension adopted 250 A Track Busway overhead so the floor remained available for cooling, with wired or wireless metering options at tap-offs. The electrical consequence is a shared bus with local branch connections. A new branch can be easier to place without creating additional current capacity in the end feed.
+
+## Count current toward the end feed
+
+The slides use a separate row example with balanced 415 V line-to-line AC, power factor one, and a supplied 250 A usable current budget. Three 40 kW racks demand about 167 A at the end feed; four demand 223 A. Each branch remains about 56 A. After each tap, a downstream bus segment carries only the loads beyond it. The interactive fifth-rack state demands about 278 A at the end feed and exceeds the supplied budget. These are teaching inputs, not Fujitsu operating measurements or a conductor-sizing result.
+
+## Return to Abilene with the right evidence
+
+Oracle’s July 15, 2026 data-hall aerial locates the recurring original Abilene campus. Use a building in that image to pose the distribution question: which feeder, transformer, bus and branch supplies its IT and supporting equipment? The image cannot answer its one-line topology, voltage or ratings. The following campus model therefore supplies explicit 13.8 kV and 480 V interfaces to practice tracing a complete load path.
+
 ## Worked example: Opening a phase with two electrical constraints
 
 - Service and IT-branch limits are usable real-power limits supplied for this scenario.
@@ -1670,6 +1741,10 @@ The IT branch remains below 4.8 MW. The increased support load matters at the wi
 
 - [DOE — Best Practices Guide for Energy-Efficient Data Center Design](https://www.energy.gov/sites/default/files/2024-07/best-practice-guide-data-center-design_0.pdf) — A data-center distribution path contains several electrical functions and auxiliary loads. Read 2026-09-06. Read electrical-system sections 6.1–6.3. No historical voltage example or universal efficiency claim from the guide is applied to this synthetic path.
 - [Commissioning & Performance Validation | AI Data Center Energy Performance Framework](https://www.ashrae.org/technical-resources/ai-data-center-framework/commissioning-performance-validation) — Phased infrastructure acceptance must preserve the scope of what was tested and handed over. Read 2026-09-06. Read the public ASHRAE framework discussion; the numerical opening plan is original.
+- [Siemens — Compass Datacenters integrated MV skid](https://www.siemens.com/en-us/company/insights/compass-datacenters-case-study/) — Integrated MV switchgear and transformer skid; case photograph. Read 2026-09-13. Public project-page text and original product photograph reviewed. The photo shows switchgear in the factory; transformer is not visible. Product name 8DJH 36 is not an asserted operating voltage. No deployment count or quantified saving adopted.
+- [Siemens and Compass sign modular electrical solution agreement](https://press.siemens.com/global/en/pressrelease/siemens-and-compass-datacenters-sign-multi-year-custom-electrical-solution-agreement) — Partnership and integrated electrical functions. Read 2026-09-13. December 2024 announcement reviewed. Its planned first deployment and up-to-1,500-unit agreement are not used as installed capacity or completed deliveries.
+- [Fujitsu selects Starline Track Busway for data centre expansion](https://starlinepower.com/sites/default/files/files/starline_busway_fujitsu-case-study_US.pdf) — Fujitsu expansion problem and chosen overhead busway. Read 2026-09-13. Both PDF pages read and photographs inspected. Published December 2018; file revised January 2020. Site is described only as north of London. 3.2 MW describes the existing managed facility; no added MW is stated. Case photographs have no capture metadata. Row currents in slides are separate original 415 V examples.
+- [Oracle Data Centers: Abilene, Texas](https://www.oracle.com/data-centers/) — Dated recurring-campus photograph only. Read 2026-09-13. Read Abilene location section and matched original July 15, 2026 data-hall aerial. Photograph does not establish one-line topology, voltage, branch ratings or operating demand. Chapter6 does not repeat the delivered-capacity percentage.
 
 ## Kilowatts do not fill a kilovolt-ampere nameplate
 
@@ -1708,6 +1783,14 @@ A reserve policy is not automatically a physical derating, and a physical derati
 There is a tradeoff between a larger equipment rating and tighter control of the workload envelope. More rated capacity can create room for growth and operating variation, but may increase cost, footprint, and low-load losses. Tighter limits can use existing equipment efficiently but constrain the accepted workload or require enforceable power management. Neither choice can be assessed from an average utilization percentage alone.
 
 Finally, keep the quantities visible on the diagram. Write 900 kW DC at the output, 937.5 kW real and 1,041.7 kVA at the input, and 1,253 A next to the specified 480 V circuit. The labels show why each number exists. If a subsequent lesson changes the converter, voltage, or power factor, you can update the affected terms without rebuilding the entire explanation from vague notions of electrical capacity.
+
+## Place the high-current route deliberately
+
+The chapter keeps a balanced 2 MW load at power factor one and compares a 450 m campus route followed by a 20 m hall route. At 13.8 kV, line current is about 84 A; at 480 V it is about 2,406 A, excluding losses for this current comparison. Moving the transformer beside the hall keeps the long route at medium voltage. This changes cable and equipment requirements; actual loss requires the resistance and operating conditions of the selected conductors.
+
+## Check phases and heat before treating a rating as usable
+
+A 380 A average can mean three 380 A phases or a 460/350/330 A allocation. With a supplied 400 A per-conductor usable limit, the unequal case exceeds the phase-A limit. The simple average hides that constraint. For a separate balanced conductor example with resistance fixed at 0.020 ohm per phase, loss is 3 I²R: 2.4 kW at 200 A and 9.6 kW at 400 A. Actual temperature also depends on ambient conditions and enclosure. Harmonic current can increase RMS burden and transformer losses, so the waveform belongs in the thermal assessment.
 
 ## Worked example: A 900 kW output behind a 1 MVA limit
 
@@ -1760,6 +1843,7 @@ Input real power remains 937.5 kW. Dividing by 0.99 gives 946.97 kVA; this passe
 
 - [Schneider Electric — Installed apparent power](https://www.electrical-installation.org/enwiki/Installed_apparent_power_(kVA)) — The public guide relates output power, efficiency, power factor, apparent power, and balanced three-phase current. Read 2026-09-06. Read the formula and variable definitions. Nonlinear-load and installation behavior require additional evidence; the example values are hypothetical.
 - [Schneider Electric — Choice of transformer rating](https://www.electrical-installation.org/enwiki/Choice_of_transformer_rating) — Transformer rating selection considers apparent-power loading and installation constraints. Read 2026-09-06. Read the public rating discussion, not a site-specific selection study; no listed product rating is used.
+- [Schneider Electric — Effects of harmonics: increased losses](https://www.electrical-installation.org/enwiki/Effects_of_harmonics_-_Increased_losses) — Harmonic heating and transformer-loss mechanism; excerpt scope recorded. Read 2026-09-13. Public indexed excerpt reviewed; direct page returned 503. No harmonic derating factor or real equipment rating is inferred. The 3 I²R comparison uses original fixed-resistance teaching inputs.
 
 ## Moving a converter moves an interface
 
@@ -1831,6 +1915,12 @@ A brownfield migration adds another constraint: equipment already installed has 
 
 Finish the comparison with a table of interfaces and a balanced loss ledger. Each path should identify its input and output type, voltage boundaries, losses, shared dependencies, and supported maintenance/failure states. Mark uncertain efficiency values as uncertain. That combination lets you ask whether a proposed change is worthwhile under the actual service brief, instead of being persuaded by a shorter line of boxes or a striking rack photograph.
 
+## Zurich-West: centralized DC required compatible loads
+
+ABB and Green opened the Zurich-West DC expansion in May 2012. A 1 MW DC system served the 1,100 square metre extension, using DC-capable HP servers and storage. It is a historical built case of changing the downstream supply interface.
+
+ABB Review’s technical account identifies 16 kV AC at the input and a 1,100 kVA dry transformer inside the central rectifier package. Rectifier modules perform AC/DC conversion after the transformer changes voltage. Figure 2 labels the downstream supply 380 V DC; the text specifies 400 V open-circuit. Preserve that operating-condition distinction. The example establishes actual conversion placement, without adopting ABB’s promotional percentage savings as a general comparison.
+
 ## Worked example: Two routes to the same 1 MW DC output
 
 - All efficiencies are hypothetical values at the compared operating point.
@@ -1891,6 +1981,8 @@ The altered assumption reverses the ranking. Path B now needs about 11.65 kW mor
 - [Hitachi Energy — Core-type transformers](https://www.hitachienergy.com/products-and-solutions/transformers/power-transformers/generator-step-up-transformers-gsu/core-type-transformers) — Transformer anatomy uses conductive windings and a laminated magnetic steel core. Read 2026-09-11. Product-family anatomy description reviewed. No rating or physical layout is adopted as a universal distribution-transformer specification.
 - [Schneider Electric — AA and AA/FA transformer cooling](https://www.se.com/ca/en/faqs/FA102583/) — Natural air convection and added fan cooling are distinct transformer cooling arrangements; fans are not inherent to the transformer function. Read 2026-09-11. FAQ cooling distinctions reviewed. No fan rating, installation requirement or universal capacity threshold is inferred.
 - [Eaton — Medium-voltage solid-state transformer](https://www.eaton.com/us/en-us/catalog/medium-voltage-power-distribution-control-systems/medium-voltage-solid-state-transformer.html) — Eaton lists a 2 MW MVSST with 12.47 kV nominal input and 800 V DC output, demonstrating a direct-MV product offering. Read 2026-09-11. Manufacturer product listing reviewed on 2026-09-11. Offered specifications do not establish installed capacity, deployment prevalence, lead time or a measured efficiency advantage.
+- [ABB Review 4/2013 — DC for efficiency](https://library.e.abb.com/public/1afa6036874fd0bb85257d5000710a17/DC%20for%20efficiency.pdf) — Case transformer, rectifier and DC distribution interfaces. Read 2026-09-13. Reviewed PDF pages 1–4 visually, especially printed pages 18–19 and Figure 2. PDF text encoding was garbled, so pages were rendered and read. Figure labels 380 V DC, while text specifies 400 V open-circuit. 16 kV input and 1,100 kVA transformer are case-specific. No promotional efficiency percentage is adopted. Exterior photograph extracted unchanged from PDF page 2 (image object 23).
+- [ABB and Green open Zurich-West DC data-center expansion](https://new.abb.com/news/detail/12816/worlds-most-powerful-dc-data-center-online) — Opening date, installation scale and compatible HP IT. Read 2026-09-13. May 2012 primary announcement read. Historical 1 MW installation for a 1,100 square metre expansion; no claim of current operating capacity or general 800 V deployment. Marketing savings and superlatives are excluded.
 
 ## Check your understanding: Which rating stops the load?
 
@@ -2525,6 +2617,8 @@ BBU can mean an individual module or a whole shelf in informal discussion; ident
 
 The same specification includes a nonzero activation/ramp interval and commanded peak-shaving capability. Whether a deployment uses those functions depends on its configuration and qualification. NVL72 names a compute/NVLink domain; it does not prescribe one BBU module or shelf. Choose the storage architecture using the protected load, discharge power, required duration, voltage compatibility, failure condition and recharge policy. The reviewed NVIDIA rack documentation does not establish a universal BBU-to-NVL72 ratio.
 
+The product photographs in the presentation show Delta’s removable 3 kW BBU and its six-module, 15 kW Battery Backup System. Delta specifies 48 V DC output and four minutes at rated load after four years of service, with an operating-temperature range of 0–40°C. The published system rating is 15 kW; the separate ORv3 module-capacity exercise does not turn this specific product into an 18 kW system. The manufacturer photographs establish the form factor, not a BBU count or configuration for NVL72.
+
 ## Repeated bursts must leave time and capacity to recharge
 
 Take an original DC-bus example with a source capped at 120 kW. The rack normally draws 110 kW, then 160 kW for 0.2 s. A qualified buffer supplies the 40 kW gap, delivering 8 kJ. During the 110 kW interval only 10 kW of source headroom remains, so ideal recharge requires 8/10 = 0.8 s. At 10 s between bursts there is time to refill. At only 0.2 s between bursts, the source can replace just 2 kJ and each cycle loses 6 kJ from the buffer.
@@ -2591,6 +2685,7 @@ The full setting would then fit the expanded 260 kW allocation, with only 7 kW o
 - [OCP — Open Rack V3 48V BBU Module Specification revision 1.4](https://www.opencompute.org/documents/open-rack-v3-bbu-module-spec-1-4-pdf) — A specific modular BBU: 3 kW discharge, at least 240 s under specified conditions, nonzero activation/ramp interval and optional commanded peak-power shaving. Read 2026-09-12. Sections 4.2, 4.3/Table 2, 4.3.3, and parallel-operation references reviewed. Source conditions include at least 3.9 V/cell at the declared threshold and aging/temperature limits. Not a generic modern rack rating, battery chemistry comparison, or NVL72 configuration. The specification includes timing and state conditions; no instant universal handoff is claimed.
 - [Analog Devices — Smart Battery Backup for Uninterrupted Energy, Part 4: BBU Shelf Operation](https://www.analog.com/en/resources/analog-dialogue/articles/smart-battery-backup-for-uninterrupted-energy-part4.html) — ORv3 BBU shelf shared-bus architecture, six modules in 5+1 redundancy, monitoring and controlled discharge. Read 2026-09-12. Introduction, BBU Shelf Overview and Shelf System Control read. The 15 kW surviving-capacity calculation combines the six-module arrangement with the separately reviewed OCP 3 kW module requirement. Not a claim that a 15 kW shelf supports a 142 kW NVL72 rack.
 - [Texas Instruments — The decoupling capacitor: is it really necessary?](https://e2e.ti.com/blogs_/archives/b/precisionhub/posts/the-decoupling-capacitor-is-it-really-necessary) — Short local current paths and trace inductance explain why device decoupling is separate from distant stored energy. Read 2026-09-12. Authored article and figure descriptions 1–3 inspected. The example is an amplifier circuit, not a GPU benchmark. No suggested component value or layout instructions are imported; rack-level power transients are original stated models.
+- [Delta Electronics — 3 kW BBU and 15 kW Battery Backup System](https://www.delta-americas.com/en-US/products/Power-Management/12018) — Manufacturer photographs identify the removable BBU and six-module shelf. Product ratings: 3 kW module, 15 kW system, 48 V DC output. Read 2026-09-13. Product Introduction and Specifications reviewed. Four-minute runtime is specified at rated load after four years of service, with 0–40°C operating range. The 15 kW system rating must not be replaced by the sum of six 3 kW module ratings. Product photos do not identify equipment installed in an NVL72 rack.
 
 ## Check your understanding: Did moving the converter save energy?
 

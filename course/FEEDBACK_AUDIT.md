@@ -23,12 +23,12 @@ without opening notes or following a source link.
 An independent source audit checked earlier requests against active scene
 definitions, renderers, source notes and the tables in COURSE_REVIEW.md. It found
 the missing transformer operating-range treatment, unbuilt companion inventory
-and product-photo gap listed below. Historical Chapter 3 rows have been reconciled
+and a product-photo gap, now closed by the additions recorded below. Historical Chapter 3 rows have been reconciled
 with their replacements. This source audit does not establish fresh visual QA,
 whole-course completeness or author acceptance. Chapters 4–5 remain with their
 current authoring agent. Kian clarified that Chapters 6, 7 and 8 must remain
-separate. **Chapter 6 belongs to another agent:** the Astra / Ultra agent in this
-task must stop work on it and focus on Chapters 7 and 8. Chapter 7 retains
+separate. **Ownership is split:** the Chapter 5 task owns the separate Chapter 6
+deck; the other Astra / Ultra assignment focuses on Chapters 7 and 8. Chapter 7 retains
 `tier-investment`. For Chapter 8, append **rack-to-chip then 800 V DC** into one
 presentation. They are distinct sequences, not duplicated content; preserve both
 sets of slides and unify navigation rather than deleting or rewriting them.
@@ -38,9 +38,8 @@ sets of slides and unify navigation rather than deleting or rewriting them.
 | Feedback | Current finding and next action |
 | --- | --- |
 | Evolving functional bill of materials and service-path companion | **Unbuilt.** The commitment existed only in COURSE_REVIEW.md prose. Build the persistent component inventory and connect it to the facility map and lesson changes; isolated diagrams do not fulfill this request. |
-| Named rack hardware shown as real equipment | **Teaching-standard gap.** The Advanced Energy ORv3 PSU and six-module BBU shelf have functional drawings, but no product photograph in those scenes. Add a verified product/specification image appropriate to each example; retain the drawings for the mechanism. This follows the general product-example rule, rather than a separately recorded photo request for those two products. |
 | Teach **interactivity** as the central inference metric | **Missed in the previous release.** The fixed 4,000-token/s budget was arbitrary and slide 3 did not teach interactivity. Revised slide 3 defines tokens/s/user; the next slide reads NVIDIA’s actual GB300 throughput/interactivity curve. Exact supported-session selection remains **open** because this source has no concurrency table; a fixed total divided by user speed is not an adequate substitute. |
-| Active check-in in every domain | **Not complete in the teaching material.** Fifteen reader checks exist. Latest clarification: make an active check-in the default in each domain; use a strong example only if no worthwhile check can be made. Chapter 3 now includes a more-throughput/slower-answers check; audit the remaining decks and record any specific exception. |
+| Active check-in in every domain | **Not complete in the teaching material.** Fifteen reader checks exist. Latest clarification: make an active check-in the default in each domain; use a strong example only if no worthwhile check can be made. Chapters 3, 5 and 6 now include service, replacement-plan and distribution-capacity checks; audit the remaining decks and record any specific exception. |
 | Teach D13 site-built versus prefab/modular; fixed 20 MW late rack change | **Reader complete; deck unbuilt.** The reader covers EPC duties, factory/site work, parallel schedules, design freezes, transport and interface owners; the exercise covers electrical, hydraulic, spatial and schedule holds and release evidence. Chapter 14 in the numbered course still needs its own teaching sequence. |
 | Teach Crusoe’s solar/battery case in context | **Partial.** Sparks has standalone solar/battery teaching and appears in the UPS availability examples. The actual 12 MW solar / 63 MWh battery mechanism is not yet integrated into the continuity/storage deck. |
 | Other requested cases in their relevant chapters | Google flexible scheduling and Abilene’s capacity ledger remain pending integration. Abilene cooling appears in the physical-site deck, but not yet in the cooling deck. These are separate from already integrated Colossus brownfield and Southaven procurement cases. |
@@ -53,6 +52,25 @@ sets of slides and unify navigation rather than deleting or rewriting them.
 
 These open production tasks are also owned by [Course review](COURSE_REVIEW.md#next-teaching-step)
 and the [case handoffs](TEACHING_STANDARD.md#required-section-handoffs).
+
+## Chapter 6 assignment
+
+A separate GPT-6 Astra / Ultra agent authored Chapter 6 with three source-backed
+case studies, real photographs and an active capacity check-in. It has its own
+numbered course-directory entry. Chapter 7 and Chapter 8 remain separate.
+
+## Latest Chapter 5 review
+
+Implemented the requested replacements and removals in the 20-scene deck,
+including QTS **Suwanee**, Georgia, and the hot-swap follow-up. The liked opening
+three scenes and rack/tray handling examples remain unchanged.
+
+Only two research limits remain: no verified data-center redesign or quantified
+delay specifically caused by severed mineral rights, and no verified flooded-bridge
+case or HO1 flood photograph. TCDC's dated surface-waiver milestone and Equinix's
+actual Harvey access interruption supply the concrete examples instead. Getty's
+judgment is explicitly an agricultural case. No clarification is needed for
+“Sawani”: the existing campus was QTS Suwanee.
 
 ## Latest Chapter 4 review
 
@@ -93,6 +111,12 @@ on the same capacity basis. The 10 GW commitment is for the wider Stargate build
 
 ## Other requests checked
 
+- **PSU and BBU product photographs:** added dedicated `psu-hardware` and
+  `bbu-hardware` scenes before their mechanism slides. Four unchanged manufacturer
+  images show the Advanced Energy ORv3 PSU/power shelf and Delta BBU/battery shelf.
+  Source notes and image hashes are recorded. Delta's 15 kW system rating remains
+  distinct from the following ORv3 sum-of-module-capacity model. This closes the
+  photo gap found in the audit; it does not certify the whole rack-power chapter.
 - **Primer purpose and naming:** separate from historical introduction; substantive
   first circuit slide; no optional label, “Skip to D01,” future-chapter promises,
   closing reassurance quotation or empty final slide. Numbered descriptive titles

@@ -1,4 +1,5 @@
 import { renderSpatial } from './orientation-spatial.js';
+import { rackProducts, renderRackProduct } from './rack-power-products.js';
 import { localPower, supplyHandoff, bbuShelf, burstRecharge, phaseWaveforms } from './rack-power-model.js';
 const C = { ink:'var(--text)', muted:'var(--muted)', line:'var(--line)', panel:'var(--panel)', face:'var(--surface)', power:'var(--power)', heat:'var(--heat)', data:'var(--data)', paper:'var(--paper)' };
 const esc = v => String(v).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');
@@ -158,6 +159,7 @@ function transfer(s,m){
  return o;
 }
 export function renderRackPower(id,state,compact=false){
+ if(rackProducts[id])return {markup:renderRackProduct(id,compact),description:rackProducts[id].description};
  const renderers={'rack-power-path':rackPath,'psu-input':psuInput,'board-rails':boardRails,'local-current':localCurrent,multiphase,'energy-locality':locality,'source-handoff':handoff,'bbu-shelf':bbu,'buffer-recharge':recharge,'rack-transfer':transfer};
  const markup=id==='rear-busbar'?`<g transform="${compact?'translate(11 0) scale(.944)':'translate(55 0) scale(.92)'}">${renderSpatial('rack-boundary',{rackView:'rear'},compact)}</g>`:renderers[id]?.(state,compact);
  if(!markup)throw new Error(`Unknown rack power scene: ${id}`);
