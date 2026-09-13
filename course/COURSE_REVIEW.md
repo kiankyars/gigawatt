@@ -110,28 +110,6 @@ time-to-power constraints. Its original 8 MW load / 6 MW generator case compares
 These are authored additions within existing objectives, pending learner and
 technical review; they do not add domains or standalone lessons.
 
-### Evidence policy
-
-SemiAnalysis is an important discovery and analytical resource, with attribution
-at the claim or case it informs. It does not define the scope of the curriculum
-or serve as its sole source of truth. Use appropriate primary documentation,
-open specifications and standards, operator disclosures, government and academic
-work, measurements and independent analysis. Separate stable principles,
-synthetic teaching inputs, product specifications, proposals, forecasts and
-observed deployments. A vendor roadmap supports what was proposed at that date;
-it does not establish a campus's installed configuration or performance.
-
-Record the relevant material actually read, supported claim, version/date,
-verification date and limits in the research library and lesson source records.
-State disagreements and unknowns. A listed URL or generated note is not evidence
-that its full text was read. The public library preserves original research notes
-and citations. A separate local Markdown archive retains article text under the
-publisher permission reported by Kian on 2026-09-10. It labels public previews and
-accepts authorized full exports without promoting capture to technical review.
-Use original explanations and diagrams in the course; the article archive is
-excluded from the public site. The [research workflow](../research/README.md) owns
-ingestion commands and capture-state definitions.
-
 ### Companion experience
 
 The companion must help a first-time learner inspect the explanation and a
