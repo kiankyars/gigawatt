@@ -26,12 +26,12 @@ the missing transformer operating-range treatment, unbuilt companion inventory
 and product-photo gap listed below. Historical Chapter 3 rows have been reconciled
 with their replacements. This source audit does not establish fresh visual QA,
 whole-course completeness or author acceptance. Chapters 4–5 remain with their
-current authoring agent. Kian clarified that Chapters 6 and 7 must remain separate.
-The Astra / Ultra agent is building a Chapter 6 deck and a separate Chapter 7 deck;
-the latter retains `tier-investment`. Kian confirmed that the two existing decks to
-consolidate belong to **Chapter 8: rack-to-chip and 800 V DC**. Combine those into
-one Chapter 8 presentation while preserving the reviewed mechanisms. Chapter 8
-must not be merged into Chapters 6 or 7.
+current authoring agent. Kian clarified that Chapters 6, 7 and 8 must remain
+separate. **Chapter 6 belongs to another agent:** the Astra / Ultra agent in this
+task must stop work on it and focus on Chapters 7 and 8. Chapter 7 retains
+`tier-investment`. For Chapter 8, append **rack-to-chip then 800 V DC** into one
+presentation. They are distinct sequences, not duplicated content; preserve both
+sets of slides and unify navigation rather than deleting or rewriting them.
 
 ## Missing, partial or uncertain
 
