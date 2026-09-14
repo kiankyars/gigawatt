@@ -81,6 +81,7 @@ Each topic ends with a check-in: pause, make a prediction, compare the reasoning
 
 ### 11. Storage, orchestration and recovery
 
+- Slides: [Storage, orchestration and recovery](prototypes/storage-format.html?teach=1)
 - [Storage is a traffic and state system](lessons/d09-storage-paths.md) — Why can a large, fast storage array still leave accelerators waiting?
 - [Count preserved progress, lost progress and recovery](lessons/d09-checkpoint-timeline.md) — When do more frequent checkpoints improve completed work, and when do they only add overhead?
 - [Turn installed hardware into an accepted service](lessons/d09-service-acceptance.md) — What must a tenant demonstrate before the cluster can be called usable?
@@ -3451,6 +3452,14 @@ Capacity asks whether the stored data, retained versions, temporary space and re
 
 Compression, sharding and caching change these demands. Combining small records into larger containers can reduce metadata operations but makes random access, updates and parallel ownership different. Compression reduces transported bytes but adds work to encoding or decoding and may change the stage that limits throughput. Caching can make a repeated test look fast while hiding the cold-start path. A storage test must therefore declare dataset size relative to cache, operation sizes, concurrency, read/write mix and whether data was already resident.
 
+## Case study: Meta Research SuperCluster stores and prepares data in tiers
+
+Meta’s January 2022 RSC description separates 175 PB of bulk storage, 46 PB of cache and 10 PB of NFS storage. These quantities describe different service roles and can contain overlapping data; adding them does not establish a unique dataset size. Meta’s AIRStore preprocessing prepares reusable training data and reduces repeated transfers across regional networks. This is the reason for the tiers: the GPUs need a sustained supply of ready-to-use inputs, not simply enough installed storage to hold the files. The article’s 16 TB/s figure was a phase-two target, so the slides do not treat it as a demonstrated rate.
+
+![Rows of black equipment cabinets in Meta’s AI Research SuperCluster data hall, with overhead cable trays and fiber cabling.](assets/references/storage-meta-rsc.jpg)
+
+Meta’s AI Research SuperCluster data hall, published January 2022. [Meta](https://ai.meta.com/blog/ai-rsc/)
+
 ## A checkpoint needs a completion definition
 
 A distributed checkpoint can contain shards from many workers plus metadata that identifies one coherent state. Writing some shards is not the same as completing that checkpoint. The application needs a way to know that all required data belongs to the same saved version and has reached the promised persistence boundary. A partial new checkpoint should not silently replace the last usable one. The precise commit mechanism depends on the storage system and framework, so teach the invariant before presenting an implementation.
@@ -3460,6 +3469,16 @@ A successful write call can mean different things at different interfaces. Data 
 ## Use an end-to-end bottleneck model
 
 For a bulk transfer, compare the source’s ability to produce bytes, the host path, network, destination ingestion and backend persistence. The lowest effective rate is an optimistic sustained bound if all stages overlap. Add serialized setup and commit work when the stated implementation requires it. Do not divide a checkpoint by the sum of drive datasheet bandwidths and call that the recovery time. Restart also includes scheduling, environment setup, reading state, reconstructing distributed ownership and reaching the first valid new output.
+
+## Teaching model: follow bytes through the whole path
+
+The slide exercise fixes one prepared-byte boundary and a GPU demand of 12 GB/s. Source storage can deliver 16 GB/s, the network 24 GB/s and host preparation initially 8 GB/s. With overlapped stages and enough buffering, the host limits supply to 8 GB/s, so the GPU can receive only two-thirds of its demanded input rate. Raising host preparation to 20 GB/s moves the upstream limit to the 16 GB/s source, which can now meet the 12 GB/s demand. This is an input-supply account, not a measurement of a particular accelerator. If decoding changes byte size, convert each stage to the same batch or prepared-byte boundary before comparing rates.
+
+The checkpoint exercise keeps 512 GB fixed while changing 4,096 shards into 65,536. At 1,024 serialized setup operations per second, setup grows from 4 to 64 seconds. A 16 GB/s payload path still transfers the data in 32 seconds, followed by a two-second commit: the total grows from 38 to 98 seconds. With the original shard count, raising source staging to 32 GB/s instead moves the payload bottleneck to the 20 GB/s backend, giving 4 + 25.6 + 2 = 31.6 seconds. These phases and ordering are the exercise inputs; other storage implementations can overlap or batch their metadata work.
+
+## Case study: online replicas did not replace Gmail’s recovery copies
+
+In February 2011, Google reported a storage-software bug that affected multiple online copies of some Gmail users’ data. Google stopped and rolled back the update; offline tape copies survived outside the failure’s reach and supported restoration. Replication had protected against losing individual storage components, but the software fault crossed that protection boundary. Retained recovery copies and a working restore path addressed the different loss. The example concerns that historical incident, not today’s Gmail architecture.
 
 ## Worked example: A synthetic checkpoint has more than payload time
 
@@ -3511,6 +3530,8 @@ The network can sustain 24 GB/s, but the backend cannot. Fixed metadata and comm
 
 - [NVIDIA DGX SuperPOD — Storage Architecture](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/storage-architecture.html) — Storage requirements vary with data format, cache behavior, workload and checkpoint traffic. Read 2026-09-06. H100 reference guidance updated November 19, 2025; its numerical sizing recommendations are not imported.
 - [PyTorch Distributed Checkpoint](https://docs.pytorch.org/docs/stable/distributed.checkpoint.html) — A distributed checkpoint coordinates application state across participants and storage writers. Read 2026-09-06. Public indexed API excerpts reviewed; the directly opened stable URL returned a redirect shell. Pin and review the selected framework release and storage writer before implementation; no complete API audit is claimed.
+- [Introducing the AI Research SuperCluster — Meta’s cutting-edge AI supercomputer for AI research](https://ai.meta.com/blog/ai-rsc/) — Historical RSC bulk/cache/NFS storage roles and reusable preprocessing, plus the real data-hall photograph. Read 2026-09-14. January 2022 phase-one case. Read Under the hood, AIRStore, and Phase two sections and inspected original infographic and photograph. 16 TB/s and exabyte-scale capacity were phase-two targets, not demonstrated sustained performance.
+- [Gmail back soon for everyone](https://gmail.googleblog.com/2011/02/gmail-back-soon-for-everyone.html) — Historical software fault across online replicas and recovery from offline copies. Read 2026-09-14. Historical February 2011 incident and March 1–2 updates. Not evidence of the current Gmail storage architecture or a generic tape restore time.
 
 ## Count preserved progress, lost progress and recovery
 
@@ -3538,9 +3559,19 @@ Asynchronous checkpointing can allow computation to continue while saved state i
 
 Bound the number of outstanding saves. If a new checkpoint arrives faster than the backend can persist the previous one, queued state can accumulate and exhaust memory or storage. The newest attempted checkpoint is not necessarily the newest completed recovery point. Monitoring should expose both timestamps. Evaluate the whole job duration and recoverable progress under load, rather than quoting only the time until an asynchronous function returns. A fast return is an API behavior, not a durability measurement.
 
+The current PyTorch tutorial makes the two completion events concrete. Its asynchronous-staging example waits for the device-to-host copy before the optimizer modifies model parameters, and tracks upload completion separately. A host-memory snapshot can therefore free the training loop to proceed while remaining vulnerable to losing that host. The teaching comparison stops the application during staging, then overlaps a background write with later steps; it does not assume that an immediate function return makes the checkpoint recoverable.
+
 ## Choose a policy with a failure model and a service goal
 
 More frequent checkpoints generally reduce the maximum unsaved interval while increasing normal saving work. Their benefit depends on when failures occur, what scope is lost and how long restoration takes. A rare node fault that affects one small task differs from a shared storage outage that blocks an entire cluster. Use measured incidents where available and explicit scenarios where they are not. Compare policies across several failure positions and include a no-failure case so the cost of protection remains visible.
+
+## Case study: Llama 3 needed routine recovery
+
+The Llama 3 report describes 466 interruptions during a 54-day training snapshot: 47 planned and 419 unexpected. It reports more than 90% effective training time and only three incidents requiring significant manual intervention. Automated diagnosis, reduced startup time and shorter checkpoint operations helped preserve useful progress despite interruptions. Its flight recorder captures collective-operation information for diagnosing a stuck distributed job. These are measurements and operational observations from that run; neither interruption count nor effective training time is a hardware-availability guarantee. The detailed category table has inconsistent counts and percentages, so this lesson uses the internally consistent prose totals.
+
+## Account for the energy spent recovering
+
+The slides reuse the explicit failure-at-minute-35 timeline and assign the job 1 MW during computation, 0.8 MW during checkpoint pauses and 0.4 MW during restoration. Power is held constant within each stage, so its energy is power multiplied by duration. The 20-minute policy spends 1 MWh on the final 60 useful minutes, 13/60 MWh on computation that the failure discards, 0.8 × 4/60 MWh on saving and 0.4 × 5/60 MWh on restoration: about 1.303 MWh in total. The 40-minute policy spends about 1.643 MWh, including 35 minutes of discarded computation and two minutes saving. This account covers the stated job power; it is not a facility PUE or campus demand measurement.
 
 ## Worked example: Two policies face one failure at minute 35
 
@@ -3591,8 +3622,9 @@ A loses 11 unsaved minutes while B loses 13, but A spent two additional minutes 
 
 ## Sources and reading boundaries
 
-- [Asynchronous Saving with Distributed Checkpoint](https://docs.pytorch.org/tutorials/recipes/distributed_async_checkpoint_recipe.html) — Asynchronous saving requires staged state, host-memory capacity and management of concurrent save requests. Read 2026-09-06. Tutorial updated February 3, 2026; APIs are version-sensitive. No tutorial benchmark is generalized.
+- [Asynchronous Saving with Distributed Checkpoint](https://docs.pytorch.org/tutorials/recipes/distributed_async_checkpoint_recipe.html) — A coherent staging copy, background persistence and completion tracking are distinct; outstanding saves consume host memory. Read 2026-09-14. The current tutorial exposes separate staging and upload completion signals for asynchronous staging. API details depend on the framework version; teaching diagrams describe the state transitions, not a deployment recipe.
 - [PyTorch Distributed Checkpoint](https://docs.pytorch.org/docs/stable/distributed.checkpoint.html) — Distributed state saving and loading require coordinated state and backend-specific handling. Read 2026-09-06. Public indexed API excerpts reviewed; the directly opened stable URL returned a redirect shell. Pin and review the selected framework release and storage writer before implementation; no complete API audit is claimed.
+- [The Llama 3 Herd of Models — infrastructure and operational reliability](https://arxiv.org/html/2407.21783v3) — Dated 54-day interruption snapshot, effective training time, and automated diagnosis/recovery. Read 2026-09-14. Read sections 3.3.1 and 3.3.4; cross-checked PDF printed page 13. A 54-day snapshot, not a universal failure rate. Table 5 prints 148 faulty-GPU interruptions with 30.1%; rows total 441 although prose says 419 unexpected. Use coherent prose totals and do not recreate the category table.
 
 ## Turn installed hardware into an accepted service
 
@@ -3614,6 +3646,10 @@ Provisioning turns selected hardware into a reproducible execution environment. 
 
 Isolation controls what an allocation may consume and access. Resource accounting reports use; enforcement limits it. Slurm’s cgroup documentation distinguishes mechanisms that track processes, collect usage and constrain resources, so enabling telemetry alone should not be mistaken for enforcement. Storage authorization, network separation and management-plane access are additional concerns. An acceptance plan should test the authorized tenant’s intended operations and verify that its agreed resource boundaries are enforced, using a controlled test environment and explicit service expectations.
 
+## A faster read can lose to a longer allocation wait
+
+For the slide comparison, both candidate placements can read the same committed 512 GB checkpoint and use the same validated software. A data-local allocation reads at 32 GB/s; an immediately available remote allocation reads at 8 GB/s. Each then has the same 12 seconds of setup in the modeled recovery path. The local read saves 48 seconds, but a 30-second allocation wait consumes some of that advantage: local readiness is 30 + 12 + 16 = 58 seconds, versus 12 + 64 = 76 seconds remotely. When the local allocation wait grows to 90 seconds, its total becomes 118 seconds, and remote recovery wins. Neither option is accepted until the restored job produces the required correct output.
+
 ## Test a chain that ends in correct output
 
 Create a small representative workload with a pinned code revision, environment identifier, input checksum, random-seed policy and expected output condition. Specify the allocation topology, startup deadline, sustained-throughput window and allowable variance before running it. Trace the path from authenticated dataset access through job submission, provisioning, collective communication and durable output. Record stage timing as well as total time. A failure should leave enough evidence to identify which dependency broke, rather than only a final nonzero exit code.
@@ -3626,11 +3662,17 @@ Within an isolated, approved acceptance environment, introduce an agreed non-des
 
 The final report should say which service configuration passed, which degraded modes were exercised and which conditions remain untested. Keep raw logs, configuration identifiers, timestamps and output checksums with the report. Power-on counts and electrical capacity remain valuable infrastructure facts, but they are inputs to this acceptance exercise. The accepted output is an executable service commitment tied to workload, environment and recovery behavior.
 
+![A Google technician uses a screwdriver on an open server chassis in front of rows of servers.](assets/references/storage-google-dalles-repair.jpg)
+
+Google identifies Mike replacing a motherboard at its data center in The Dalles, Oregon. [Google](https://www.datacenters.google/discover-more/photo-gallery/)
+
 ## Case study: Google shifts flexible work through time
 
-Google’s October 2023 account describes pilots that shifted eligible non-urgent tasks across time and location to reduce demand during grid stress. This complements the Sparks battery case: storage shifts available energy through time; scheduling shifts work and its demand. Neither changes every workload into a flexible job.
+Google’s October 2023 account describes a grid partner notifying its planning system of a forecast demand-response event. The system produces hour-by-hour limits on eligible non-urgent work, runs deferred work later and can move work to another grid when feasible. Northern Wasco County PUD identifies a day-ahead pilot with Google’s facilities in The Dalles, Oregon. The article also describes evening demand reductions at European sites during winter 2022–23. Google does not provide a measured megawatt saving for the slide exercise.
 
-Consider an original teaching brief: a video-processing job must finish tomorrow, while an interactive request must respond in 200 ms. A two-hour grid event may allow the video job to move if enough later capacity remains. The same delay would fail the interactive service. Check deadlines, progress retention, placement and the later peak before promising a demand reduction. Moving execution does not automatically reduce its total energy.
+The teaching exercise gives an interruptible batch job three hours of work at 4 MW, starting at 13:00. Other load stays at 20 MW. The grid event runs from 14:00 to 16:00. Running straight through finishes at 16:00 and reaches 24 MW during the event. Preserving progress and pausing over the event leaves two hours to run from 16:00 to 18:00. That schedule holds event demand to 20 MW and meets a 20:00 deadline, but misses a 17:00 deadline. Its 12 MWh of job energy remains unchanged and the 24 MW demand returns after the event. The model fixes transition overhead at zero to isolate timing; an actual commitment must include checkpoint/restart overhead, later capacity and placement.
+
+An interactive request with a 200 ms response requirement cannot absorb that two-hour pause. A batch job can move only while meeting its own completion requirement, retaining the needed state and obtaining a feasible later allocation. The demand-response case therefore joins storage and orchestration: the schedule depends on both surviving progress and resources being available when promised.
 
 ## Worked example: Thirty-two free GPUs, no eligible allocation
 
@@ -3682,7 +3724,8 @@ Relaxing a constraint creates a new configuration. It may be worthwhile even wit
 - [Slurm Workload Manager — Topology Guide](https://slurm.schedmd.com/topology.html) — Topology-aware placement considers network groupings when selecting resources. Read 2026-09-06. Plugin, configuration and release determine behavior; synthetic allocation rules are explicit.
 - [Control Group in Slurm](https://slurm.schedmd.com/cgroups.html) — Process tracking, accounting and resource confinement have distinct roles. Read 2026-09-06. Current documentation includes version-specific behavior; no live configuration changes are prescribed.
 - [NVIDIA DGX SuperPOD — Software](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/dgx-software.html) — A reference cluster includes orchestration, system management, libraries and operating-system components. Read 2026-09-06. Vendor reference stack, updated November 19, 2025; it does not certify an arbitrary tenant environment.
-- [Google — Supporting power grids with demand response](https://cloud.google.com/blog/products/infrastructure/using-demand-response-to-reduce-data-center-power-consumption) — Compare storing energy with rescheduling eligible non-urgent work during grid stress. Read 2026-09-12. Publisher-indexed introduction reviewed after direct fetch timed out. Historical pilot description; no claim that every workload can move or that reduced demand necessarily reduces total energy.
+- [Google — Supporting power grids with demand response](https://cloud.google.com/blog/products/infrastructure/using-demand-response-to-reduce-data-center-power-consumption) — Historical grid notification and scheduling workflow; The Dalles day-ahead pilot. Read 2026-09-14. Full article reviewed. Historical 2022–23 pilots and operator-reported service protection. No MW reduction or total-energy saving quantified; does not establish that arbitrary synchronized training jobs can migrate.
+- [Google Data Centers — Photo gallery](https://www.datacenters.google/discover-more/photo-gallery/) — Google identifies a technician replacing a motherboard at The Dalles; hardware repair and application-state recovery are separate operations. Read 2026-09-14. Inspected full-size publisher originals and source captions. Photo capture dates unspecified; these photographs do not document a training recovery or the 2011 Gmail incident.
 
 ## Check your understanding: Which progress comes back?
 

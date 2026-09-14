@@ -1,0 +1,39 @@
+{
+  "retrieved_on": "2026-09-14",
+  "assets": [
+    {
+      "bytes": 2117783,
+      "sha256": "ee17550f2b51b04a7b2dacca8ce2b72db4550de6371894d2743a7ea2be3846a5",
+      "file": "storage-google-dalles-repair.jpg",
+      "url": "https://www.gstatic.com/marketing-cms/assets/images/67/ea/8bdab62548d387462fb68076b1a6/mike-at-the-dalles.jpg",
+      "retrieved_on": "2026-09-14",
+      "visually_reviewed_on": "2026-09-14",
+      "modifications": "None; publisher original bytes retained.",
+      "publisher": "Google",
+      "source_page": "https://www.datacenters.google/discover-more/photo-gallery/",
+      "width": 3000,
+      "height": 2000,
+      "rights_basis": "Unmodified original supplied by Google gallery Download link; attribute Google and link source. No separate Creative Commons license asserted.",
+      "caption": "Google identifies Mike replacing a motherboard at its data center in The Dalles, Oregon.",
+      "alt": "A Google technician uses a screwdriver on an open server chassis in front of rows of servers.",
+      "description": "Real repair photo. Hardware replacement is a distinct operation from restoring coherent application state. The gallery does not identify this as a checkpoint recovery or demand-response event."
+    },
+    {
+      "bytes": 416470,
+      "sha256": "fb4994452717c3ffe56ebf5c768405f860b6fff6fac668052c1865b1e31f657a",
+      "file": "storage-meta-rsc.jpg",
+      "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.2365-6/272129674_454504216213565_903503002058288683_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=e280be&_nc_ohc=r98um7MJmc0Q7kNvwE0nBD4&_nc_oc=AdoiuQBnoOYtpW0g8XHsUGge9IltI-ONRoIY5U2xOiqb-1vzdk2QJnFPmpeo33OaX48&_nc_zt=14&_nc_ht=scontent-sjc6-1.xx&_nc_gid=izI0C0ZYQG0iRDVwv5AHkg&_nc_ss=7920f&oh=00_AQLkvFqoom_q5NDWzpzffaEeNdKR_ahxEhL61MXVwu1QKw&oe=6AC2CA44",
+      "retrieved_on": "2026-09-14",
+      "visually_reviewed_on": "2026-09-14",
+      "modifications": "None; publisher original bytes retained.",
+      "publisher": "Meta",
+      "source_page": "https://ai.meta.com/blog/ai-rsc/",
+      "width": 1920,
+      "height": 800,
+      "caption": "Meta’s AI Research SuperCluster data hall, published January 2022.",
+      "alt": "Rows of black equipment cabinets in Meta’s AI Research SuperCluster data hall, with overhead cable trays and fiber cabling.",
+      "description": "Real data-hall photograph in the RSC article. Useful to anchor the physical system whose separately documented storage service prepares and feeds training data. The photo does not identify individual storage tiers or prove throughput.",
+      "rights_basis": "Public operator article image; no independent image license established. Attribute Meta and link source. CDN URL can expire."
+    }
+  ]
+}

@@ -11,6 +11,7 @@ export const presentationLabels = Object.freeze({
   "rack-energy": "8. Rack power and the 800 V DC transition",
   "compute": "9. Compute, memory and the rack",
   "networking": "10. Networking and interconnects",
+  "storage": "11. Storage, orchestration and recovery",
   "cooling": "12–13. From the chip to the outdoors"
 });
 export const presentationRoutes = Object.freeze([
@@ -100,8 +101,17 @@ export const presentationRoutes = Object.freeze([
     "next": {
       "number": 11,
       "title": "Storage, orchestration and recovery",
-      "href": "../index.html#d09-storage-paths",
-      "kind": "reading"
+      "href": "storage-format.html?teach=1",
+      "kind": "slides"
+    }
+  },
+  {
+    "path": "storage-format.html",
+    "next": {
+      "number": 12,
+      "title": "Chip and rack heat capture",
+      "href": "cooling-format.html?teach=1",
+      "kind": "slides"
     }
   },
   {

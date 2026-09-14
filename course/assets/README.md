@@ -210,3 +210,19 @@ and the Compass skid. Source URL, extraction method and hashes are recorded in
 The topology, ring states, packet paths and timing comparisons are authored
 HTML/SVG because their exact connections, quantities and interactive states
 carry the explanation.
+
+## Chapter 11 storage and recovery — 14 September 2026
+
+- `references/storage-meta-rsc.jpg`: original Meta Research SuperCluster data-hall
+  photograph published in January 2022. Its equipment is not identified as the
+  later Llama 3 training cluster. Storage-tier quantities come from the RSC
+  description, not from counting equipment in the photograph.
+- `references/storage-google-dalles-repair.jpg`: Google's photograph of a
+  technician replacing a motherboard at The Dalles, Oregon. Hardware repair
+  provides context for the separate application recovery path.
+
+Both retain their original bytes. Source URLs, captions, dimensions and
+SHA-256 hashes are in `references/storage-primary-provenance.json`. Capture dates
+are not established. Publisher credits remain beside the figures. The pipeline,
+checkpoint versions, recovery timelines and scheduling comparisons are rendered
+in HTML/SVG because their exact state and quantities carry the explanation.

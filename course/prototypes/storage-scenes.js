@@ -1,0 +1,38 @@
+export const learningContract=Object.freeze({
+ driving_question:'What must work around the GPUs so that training advances, survives a fault and finishes on time?',
+ fixed_boundary:'One distributed training job, its dataset and saved state, and the resources needed for correct progress.',
+ changed_variable:'Input preparation, checkpoint completion, save interval, available placement and permitted delay.',
+ primary_payoff:'Trace waiting or lost work to a missing data, state or orchestration dependency.',
+ misconception:'Powered GPUs, a fast storage array and a successful save call establish usable computing service.',
+ closing_question:'Which saved version and resource allocation will restore the next correct training step?',
+});
+const paths='d09-storage-paths',timeline='d09-checkpoint-timeline',service='d09-service-acceptance';
+const c=(key,label,options)=>({key,label,options});
+export const initialState={hostRate:8,shards:4096,cache:'cold',commit:'partial',sourceRate:16,durability:'local',replicaFault:'device',asyncPhase:8,saveInterval:30,placement:'fragmented',localWait:30,failure:35,environment:'mismatch',shift:true,deadline:20,diagnosis:'',showDiagnosis:false};
+export const scenes=[
+ {id:'storage-purpose',label:'Storage, orchestration and recovery',title:'Storage, orchestration and recovery',reference:paths,pedagogical_role:'problem'},
+ {id:'input-pipeline',label:'Why GPUs wait for data',title:'Input preparation can leave a fast GPU waiting.',reference:paths,pedagogical_role:'mechanism',controls:[c('hostRate','Host preparation rate',[[8,'8 GB/s'],[20,'20 GB/s']])]},
+ {id:'storage-roles',label:'Dataset, cache and saved state',title:'A dataset, a cache and a checkpoint have different jobs.',reference:paths,pedagogical_role:'architecture'},
+ {id:'metadata-pressure',label:'Capacity, bytes and metadata',title:'The same payload can require very different amounts of metadata work.',reference:paths,pedagogical_role:'comparison',controls:[c('shards','512 GB arranged as',[[4096,'4,096 shards'],[65536,'65,536 shards']])]},
+ {id:'meta-rsc',label:'Meta Research SuperCluster',title:'Meta built RSC storage in tiers to keep training supplied.',reference:paths,pedagogical_role:'architecture'},
+ {id:'cache-hit',label:'What a cache removes',title:'A cache hit removes an upstream read from the training path.',reference:paths,pedagogical_role:'mechanism',controls:[c('cache','Requested data',[['cold','Missing from cache'],['warm','Already cached']])]},
+ {id:'checkpoint-state',label:'What training must save',title:'A checkpoint preserves the state needed to continue the same run.',reference:timeline,pedagogical_role:'mechanism'},
+ {id:'checkpoint-commit',label:'One coherent checkpoint',title:'All shards must belong to one saved version before it becomes a recovery point.',reference:paths,pedagogical_role:'counterexample',controls:[c('commit','Checkpoint 42',[['partial','Missing shard'],['mixed','Mixed versions'],['complete','Complete and committed']])]},
+ {id:'checkpoint-time',label:'The full checkpoint path',title:'The slowest payload stage and the serialized work both set save time.',reference:paths,pedagogical_role:'balance',controls:[c('sourceRate','Source staging rate',[[16,'16 GB/s'],[32,'32 GB/s']])]},
+ {id:'durability-boundary',label:'What survives a node failure',title:'A save is only as durable as the boundary it has reached.',reference:paths,pedagogical_role:'counterexample',controls:[c('durability','Checkpoint 42 acknowledged by',[['local','Node-local device'],['remote','Independent shared store']])]},
+ {id:'replication-and-backup',label:'Replication and retained recovery copies',title:'A live replica and a retained recovery copy protect against different failures.',reference:timeline,pedagogical_role:'counterexample',controls:[c('replicaFault','What failed',[['device','One storage device'],['write','A bad application write']])]},
+ {id:'async-checkpoint',label:'Overlap saving with training',title:'Training can resume after a coherent snapshot is staged.',reference:timeline,pedagogical_role:'comparison',controls:[c('asyncPhase','Observe the save at',[[8,'8 seconds'],[40,'40 seconds']])]},
+ {id:'save-backlog',label:'When background saves queue',title:'A backend that drains too slowly eventually makes the job wait.',reference:timeline,pedagogical_role:'mechanism',controls:[c('saveInterval','New save requested every',[[30,'30 seconds'],[90,'90 seconds']])]},
+ {id:'recovery-path',label:'From a fault to new progress',title:'Recovery ends at the first correct new output.',reference:service,pedagogical_role:'mechanism'},
+ {id:'recovery-placement',label:'Free GPUs and usable allocations',title:'Thirty-two free GPUs may still leave a four-node job waiting.',reference:service,pedagogical_role:'counterexample',controls:[c('placement','Free nodes',[['fragmented','Two in each group'],['together','Four in Group A']])]},
+ {id:'recovery-locality',label:'Wait for local data or read remotely',title:'Local data can save transfer time while the job waits for resources.',reference:service,pedagogical_role:'comparison',controls:[c('localWait','Wait for the local allocation',[[30,'30 seconds'],[90,'90 seconds']])]},
+ {id:'llama-recovery',label:'Llama 3 training recovery',title:'Llama 3 training made recovery part of normal operation.',reference:timeline,pedagogical_role:'architecture'},
+ {id:'checkpoint-policy',label:'Checkpoint frequency and lost work',title:'More frequent saving protects progress at a cost.',reference:timeline,pedagogical_role:'comparison',controls:[c('failure','One failure at wall-clock minute',[[35,'35'],[55,'55'],[null,'No failure']])]},
+ {id:'recovery-energy',label:'The energy cost of repeating work',title:'Repeated computation consumes energy without adding new progress.',reference:timeline,pedagogical_role:'balance'},
+ {id:'provision-and-isolate',label:'Make the allocation runnable',title:'Allocated hardware still needs a compatible environment and enforced access.',reference:service,pedagogical_role:'mechanism',controls:[c('environment','Replacement worker',[['mismatch','Different runtime'],['validated','Validated runtime']])]},
+ {id:'flexible-jobs',label:'Which work can move',title:'A job is flexible only within its service requirement.',reference:service,pedagogical_role:'comparison'},
+ {id:'google-demand-response',label:'Google demand response',title:'Google deferred eligible work during grid stress.',reference:service,pedagogical_role:'architecture'},
+ {id:'deadline-scheduling',label:'Move the work and meet the deadline',title:'A power reduction is useful only if the deferred work still finishes.',reference:service,pedagogical_role:'balance',controls:[c('shift','Execution plan',[[false,'Continue through event'],[true,'Pause for grid event']]),c('deadline','Completion deadline',[[20,'20:00'],[17,'17:00']])]},
+ {id:'service-acceptance',label:'Accept the computing service',title:'At Abilene, the computing service must be demonstrated after power is available.',reference:service,pedagogical_role:'transfer'},
+ {id:'recovery-diagnosis',label:'Chapter 11 knowledge check',title:'Chapter 11 · Restore the next correct training step',reference:service,pedagogical_role:'transfer'},
+];

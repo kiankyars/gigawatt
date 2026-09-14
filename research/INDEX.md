@@ -230,7 +230,11 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P185 — NVIDIA silicon photonics networking](sources/P185.md) | NVIDIA | D08 | page_reviewed |
 | [P186 — TPU v4: An Optically Reconfigurable Supercomputer for Machine Learning](sources/P186.md) | Google Research | D08 | page_reviewed |
 | [P187 — Equinix Cross Connect demarcations](sources/P187.md) | Equinix | D08 | page_reviewed |
+| [P188 — Introducing the AI Research SuperCluster — Meta’s cutting-edge AI supercomputer for AI research](sources/P188.md) | Meta AI | D09 | page_reviewed |
+| [P189 — The Llama 3 Herd of Models — infrastructure and operational reliability](sources/P189.md) | Llama Team, AI @ Meta | D09 | page_reviewed |
 | [P19 — Steven H. Low — Power System Analysis: Analytical tools and structural properties (April 7, 2025 draft)](sources/P19.md) | Steven H. Low, California Institute of Technology | D04, D06 | page_reviewed |
+| [P190 — Google Data Centers — Photo gallery](sources/P190.md) | Google | D09 | page_reviewed |
+| [P191 — Gmail back soon for everyone](sources/P191.md) | Google Gmail Blog | D09 | page_reviewed |
 | [P20 — Wolfspeed — Powering AI with reliable SiC-based solid-state transformers](sources/P20.md) | Wolfspeed | D04, D06 | page_reviewed |
 | [P21 — Texas Instruments — TIDA-011012 modular solid-state transformer reference design](sources/P21.md) | Texas Instruments | D04, D06 | page_reviewed |
 | [P22 — Huber et al. — Comparative Evaluation of MVAC–LVDC SST and Hybrid Transformer Concepts for Future Datacenters (IPEC 2022)](sources/P22.md) | ETH Zurich, Delta Electronics and Paderborn University | D04, D06 | page_reviewed |
@@ -288,7 +292,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P74 — Crusoe — Abilene cooling design](sources/P74.md) | Crusoe | D03, D05, D10, D11, D12 | page_reviewed |
 | [P75 — Crusoe and Redwood — Sparks microgrid update](sources/P75.md) | Crusoe | D03, D05, D14, D15 | page_reviewed |
 | [P76 — Crusoe — 2025 impact report web summary](sources/P76.md) | Crusoe | D03, D05, D12 | page_reviewed |
-| [P77 — Google — Supporting power grids with demand response](sources/P77.md) | Google | D02, D03, D09 | public_excerpt_reviewed |
+| [P77 — Google — Supporting power grids with demand response](sources/P77.md) | Google | D02, D03, D09 | page_reviewed |
 | [P78 — MLGW — xAI project quick facts](sources/P78.md) | Memphis Light, Gas and Water | D03, D04, D12 | page_reviewed |
 | [P79 — Explaining the Uptime Institute’s Tier Classification System (April 2021 Update)](sources/P79.md) | Uptime Institute | D05, D14 | public_excerpt_reviewed |
 | [P80 — Tier Classification Myths and Misconceptions](sources/P80.md) | Uptime Institute | D05, D14 | public_excerpt_reviewed |

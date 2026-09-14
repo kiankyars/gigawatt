@@ -112,6 +112,17 @@
       ]
     },
     {
+      "id": "storage",
+      "title": "Storage, orchestration and recovery",
+      "chapters": [
+        {
+          "id": "D09",
+          "href": "prototypes/storage-format.html?teach=1",
+          "coverage": "chapter"
+        }
+      ]
+    },
+    {
       "id": "cooling",
       "title": "From the chip to the outdoors",
       "chapters": [

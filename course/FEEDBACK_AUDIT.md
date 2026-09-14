@@ -63,7 +63,7 @@ sets of slides and unify navigation rather than deleting or rewriting them.
 | Active check-in in every domain | **Not complete in the teaching material.** Fifteen reader checks exist. Latest clarification: make an active check-in the default in each domain; use a strong example only if no worthwhile check can be made. Chapters 3, 5 and 6 now include service, replacement-plan and distribution-capacity checks; audit the remaining decks and record any specific exception. |
 | Teach D13 site-built versus prefab/modular; fixed 20 MW late rack change | **Reader complete; deck unbuilt.** The reader covers EPC duties, factory/site work, parallel schedules, design freezes, transport and interface owners; the exercise covers electrical, hydraulic, spatial and schedule holds and release evidence. Chapter 14 in the numbered course still needs its own teaching sequence. |
 | Teach Crusoe’s solar/battery case in context | **Integrated.** `continuity-format.html#sparks-storage` includes the site photograph, 12 MW solar / 63 MWh battery account and 5.25-hour conditional calculation; the nines scene retains the separate availability claim. |
-| Other requested cases in their relevant chapters | Google flexible scheduling and Abilene’s capacity ledger remain pending integration. Abilene cooling appears in the physical-site deck, but not yet in the cooling deck. These are separate from already integrated Colossus brownfield and Southaven procurement cases. |
+| Other requested cases in their relevant chapters | Google flexible scheduling is integrated in Chapter 11 at `google-demand-response` and `deadline-scheduling`. Abilene’s capacity ledger remains pending integration. Abilene cooling appears in the physical-site deck, but not yet in the cooling deck. These are separate from already integrated Colossus brownfield and Southaven procurement cases. |
 | Abilene as the recurring campus throughout | Policy and several cases are implemented. A whole-course consistency pass is still open; no complete as-built campus model is claimed. |
 | Approximately 20-minute primer | Slides exist; actual spoken runtime and beginner comprehension have not been established. No precise rehearsal cues are being restored. |
 | Remove repeated disclaimer/subtitle clutter everywhere | The latest sweep removed many visible footers. **Not certified exhaustive:** UPS still uses “Ideal DC-bus example”; other notes use similar boilerplate. Further cleanup must distinguish generic disclaimers from inputs, figure credits and named-project status. |
@@ -316,3 +316,25 @@ presentation. Chapter 9 already existed; it was not rebuilt.
   Chapter 11 handoff are registered through the existing teaching catalog.
 - Review state stays in COURSE_REVIEW.md. Authored and checked is not author
   acceptance, and the older reviewed material does not need a general restart.
+
+## Chapter 11 authoring — 14 September 2026
+
+- Inspected upstream through `7377eef` before choosing the next missing chapter.
+  Chapters 1–10 remain available for Kian's review; their slide content was not
+  revised as part of this chapter.
+- Authored a complete storage, orchestration and recovery sequence with explicit
+  dataset/cache/checkpoint roles, metadata and payload constraints, coherent
+  commits, asynchronous saves, recovery placement and tenant acceptance.
+- Integrated the previously pending Google flexible-scheduling case, including
+  the deadline and later-capacity consequences of a two-hour grid event.
+- Named cases use original operator evidence: Meta RSC storage, Llama 3 recovery,
+  Google's 2011 Gmail backup incident and its 2023 demand-response account.
+  Real RSC and Google facility photographs have source records.
+- The active diagnosis combines saved-state validity and feasible placement;
+  correct output and full recovery time remain the acceptance criteria.
+- The course directory and shared next-chapter navigation now reach Chapter 11.
+  It leads to the existing Chapter 12 cooling material. Chapter 12 remains the
+  next incomplete full-chapter deck.
+
+Implementation checks are recorded in TESTING.md. First author review is pending;
+this release does not establish spoken runtime or beginner comprehension.

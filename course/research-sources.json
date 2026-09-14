@@ -326,7 +326,8 @@
         "D14"
       ],
       "use": "Use a first-party training-cluster case to connect hardware, network topology, checkpoint storage, scheduling and debugging to delivered workload performance.",
-      "caution": "Self-reported March 2024 implementation with operator-specific software and workload choices. Treat future fleet targets separately from the described clusters; do not generalize its reported results to every workload."
+      "caution": "Self-reported March 2024 implementation with operator-specific software and workload choices. Treat future fleet targets separately from the described clusters; do not generalize its reported results to every workload. September 14 storage review: Read Storage and Performance sections. Self-reported March 2024 architecture. The hundreds-of-milliseconds checkpoint statement does not specify a complete persistence boundary; do not teach it as durable end-to-end completion.",
+      "published_on": "2024-03-12"
     },
     {
       "id": "P09",
@@ -1675,12 +1676,12 @@
       "publisher": "docs.pytorch.org",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-06",
+      "reviewed_on": "2026-09-14",
       "domains": [
         "D09"
       ],
-      "use": "Asynchronous saving requires staged state, host-memory capacity and management of concurrent save requests.",
-      "caution": "Tutorial updated February 3, 2026; APIs are version-sensitive. No tutorial benchmark is generalized.",
+      "use": "Teach coherent host-memory staging, overlapping persistence with execution, and the memory cost of outstanding asynchronous checkpoints.",
+      "caution": "Current tutorial inspected, including its separate staging_completion and upload_completion example. The saved state must be staged before the optimizer mutates it; background upload completion is distinct. API details are version-sensitive. No tutorial performance result is generalized.",
       "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
     },
     {
@@ -2923,16 +2924,16 @@
       "url": "https://cloud.google.com/blog/products/infrastructure/using-demand-response-to-reduce-data-center-power-consumption",
       "publisher": "Google",
       "kind": "primary_reference",
-      "review_status": "public_excerpt_reviewed",
-      "reviewed_on": "2026-09-12",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-14",
       "published_on": "2023-10-03",
       "domains": [
         "D02",
         "D03",
         "D09"
       ],
-      "use": "Compare storing energy with rescheduling eligible non-urgent work during grid stress.",
-      "caution": "Publisher-indexed introduction reviewed after direct fetch timed out. Historical pilot description; no claim that every workload can move or that reduced demand necessarily reduces total energy."
+      "use": "Teach external grid notification, hour-by-hour restrictions on eligible work, deferred execution, and feasible relocation to another grid.",
+      "caution": "Full article reviewed. Historical 2022–23 pilots and operator-reported service protection. No MW reduction or total-energy saving quantified; does not establish that arbitrary synchronized training jobs can migrate."
     },
     {
       "id": "P78",
@@ -4597,6 +4598,66 @@
       ],
       "use": "Physical demarcation points define responsibility for patching between customer equipment and a cross connect.",
       "caution": "One colocation arrangement; private campuses can organize rooms differently."
+    },
+    {
+      "id": "P188",
+      "title": "Introducing the AI Research SuperCluster — Meta’s cutting-edge AI supercomputer for AI research",
+      "url": "https://ai.meta.com/blog/ai-rsc/",
+      "publisher": "Meta AI",
+      "kind": "deployment",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-14",
+      "published_on": "2022-01-24",
+      "domains": [
+        "D09"
+      ],
+      "use": "A named system separates bulk storage, cache and NFS storage and prepares reusable training data. Source of the actual RSC data-hall photograph.",
+      "caution": "January 2022 phase-one case. Read Under the hood, AIRStore, and Phase two sections and inspected original infographic and photograph. 16 TB/s and exabyte-scale capacity were phase-two targets, not demonstrated sustained performance."
+    },
+    {
+      "id": "P189",
+      "title": "The Llama 3 Herd of Models — infrastructure and operational reliability",
+      "url": "https://arxiv.org/html/2407.21783v3",
+      "publisher": "Llama Team, AI @ Meta",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-14",
+      "published_on": "2024-11-23",
+      "domains": [
+        "D09"
+      ],
+      "use": "Connect distributed checkpoint traffic, automated diagnosis and restart to useful training progress.",
+      "caution": "Read sections 3.3.1 and 3.3.4; cross-checked PDF printed page 13. A 54-day snapshot, not a universal failure rate. Table 5 prints 148 faulty-GPU interruptions with 30.1%; rows total 441 although prose says 419 unexpected. Use coherent prose totals and do not recreate the category table."
+    },
+    {
+      "id": "P190",
+      "title": "Google Data Centers — Photo gallery",
+      "url": "https://www.datacenters.google/discover-more/photo-gallery/",
+      "publisher": "Google",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-14",
+      "published_on": null,
+      "domains": [
+        "D09"
+      ],
+      "use": "Identify actual motherboard repair at The Dalles and destroyed failed drives at St. Ghislain.",
+      "caution": "Inspected full-size publisher originals and source captions. Photo capture dates unspecified; these photographs do not document a training recovery or the 2011 Gmail incident."
+    },
+    {
+      "id": "P191",
+      "title": "Gmail back soon for everyone",
+      "url": "https://gmail.googleblog.com/2011/02/gmail-back-soon-for-everyone.html",
+      "publisher": "Google Gmail Blog",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-14",
+      "published_on": "2011-02-28",
+      "domains": [
+        "D09"
+      ],
+      "use": "A software bug crossed online replicas; offline backup enabled slower restoration.",
+      "caution": "Historical February 2011 incident and March 1–2 updates. Not evidence of the current Gmail storage architecture or a generic tape restore time."
     }
   ]
 }

@@ -49,11 +49,23 @@ test('student exploration stays outside teaching mode and transient parameters d
 
 test('the next chapter uses its reading when no deck exists instead of skipping chapters', () => {
   const module = 'http://localhost/course/prototypes/slide-navigation.js';
-  const link = nextChapterLink('http://localhost/course/prototypes/networking-format.html?teach=1#storage-handoff', presentationRoutes, module);
-  assert.equal(link.number, 11);
+  const link = nextChapterLink('http://localhost/course/prototypes/cooling-format.html?teach=1#rejection', presentationRoutes, module);
+  assert.equal(link.number, 14);
   assert.equal(link.kind, 'reading');
   assert.equal(new URL(link.href).pathname, '/course/index.html');
-  assert.ok(new URL(link.href).hash.startsWith('#d09-'));
+  assert.ok(new URL(link.href).hash.startsWith('#d13-'));
+});
+
+test('networking advances to storage and storage advances to cooling', () => {
+  const module = 'http://localhost/course/prototypes/slide-navigation.js';
+  const storage = nextChapterLink('http://localhost/course/prototypes/networking-format.html?teach=1#storage-handoff', presentationRoutes, module);
+  assert.equal(storage.number, 11);
+  assert.equal(storage.kind, 'slides');
+  assert.equal(storage.href, 'http://localhost/course/prototypes/storage-format.html?teach=1');
+  const cooling = nextChapterLink(storage.href, presentationRoutes, module);
+  assert.equal(cooling.number, 12);
+  assert.equal(cooling.kind, 'slides');
+  assert.equal(cooling.href, 'http://localhost/course/prototypes/cooling-format.html?teach=1');
 });
 
 test('compute advances to the networking presentation', () => {

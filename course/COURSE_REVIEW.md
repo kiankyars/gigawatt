@@ -16,9 +16,9 @@ Use the domain map to look up the section being prepared; there is no need to
 read it end to end.
 
 **Current state:** 50 reader lessons map to 65 objective IDs. The course advances
-section by section. The Primer, overview, workloads, supply, physical-site and campus-distribution
-decks are authored; UPS, rack power, 800 V and cooling cover selected later topics.
-The table below owns their exact scope and review state. Chapter 7’s current revision introduces charge and capacitance before deriving stored energy without calculus. Chapters 9 and 10 are ready for their first author reviews. Every deck uses one shared navigation component. Current checks are recorded in [TESTING.md](TESTING.md). Kian’s review remains separate.
+section by section. Chapters 1–11 now have authored
+teaching decks; the existing cooling presentation covers selected topics in Chapters 12–13.
+The table below owns their exact scope and review state. Chapter 7’s current revision introduces charge and capacitance before deriving stored energy without calculus. Kian is reviewing Chapters 1–10; Chapter 11 is the next authored draft for review. Every deck uses one shared navigation component. Current checks are recorded in [TESTING.md](TESTING.md). Kian’s review remains separate.
 
 ## Current instruction audit — 13 September 2026
 
@@ -71,7 +71,7 @@ release does not restart an unchanged chapter’s review.
 | 8. [Rack power and the 800 V DC transition](prototypes/rack-energy-format.html?teach=1) | 32 scenes; one rack-to-chip then 800 V sequence, real PSU/BBU photographs, historical Zurich-West case and retrofit check-in | [Implementation and integration checks](TESTING.md#chapters-7-and-8-integration--2026-09-13) | **Authored; acceptance pending.** Existing scene hashes survive. New historical case and staged routes await native browser verification. Chapters 6, 7 and 8 remain separate. |
 | 9. [Compute, memory and the rack](prototypes/compute-format.html?teach=1) | 21 slides: GB300 anatomy, memory locality and bandwidth, operand reuse, roofline, switched rack, repair and job placement | [Current checks](TESTING.md#chapter-9-compute-memory-and-the-rack--2026-09-14) | **Authored and checked; ready for first author review.** Three reader lessons updated. No author acceptance inferred. |
 | 10. [Networking and interconnects](prototypes/networking-format.html?teach=1) | 22 slides; real adapter/switch, copper/optics/CPO, fabric capacity, collectives, TPU optical circuits and carrier handoff | [Current checks](TESTING.md#chapter-10-networking-and-interconnects--2026-09-14) | **Authored and checked; ready for first author review.** Three D08 reader lessons updated. No author acceptance inferred. |
-| 11. Storage, orchestration and recovery | Reader draft; own deck unbuilt | Reader/build checks only | Presentation not yet assigned for review. |
+| 11. [Storage, orchestration and recovery](prototypes/storage-format.html?teach=1) | 25 slides; input bottlenecks, coherent checkpoints, recovery, Meta/Google cases and deadline scheduling | [Current checks](TESTING.md#chapter-11-storage-orchestration-and-recovery--2026-09-14) | **Authored and checked; ready for first author review.** Three D09 reader lessons updated. |
 | 12. [Chip and rack heat capture](prototypes/cooling-format.html?teach=1) | Selected topics in shared cooling deck | Model/browser checks recorded | Cooling sequence iterated; no whole-chapter completion claimed. |
 | 13. [Heat rejection, climate and water](prototypes/cooling-format.html?teach=1#rejection) | Selected topics in shared cooling deck | Model/browser checks recorded | Cooling sequence iterated; no whole-chapter completion claimed. |
 | 14. Design, procurement and commissioning | Reader draft; own deck unbuilt | Reader/build checks only | Presentation not yet assigned for review. |
@@ -293,7 +293,9 @@ sequences still need authorship and dry runs.
 
 ### Next teaching step
 
-Review [Chapter 9](prototypes/compute-format.html?teach=1) in sequence. It follows one rack into its GPU/memory paths, derives the performance account, then connects faults to useful job capacity. The interactive roofline and fault-placement comparison are the principal mechanisms to rehearse; the closing upgrade diagnosis checks the memory-versus-compute distinction. Chapter 10 remains unbuilt. Earlier chapter reviews remain at their recorded status.
+Kian is reviewing the completed slides through Chapter 10. [Chapter 11](prototypes/storage-format.html?teach=1) adds storage, orchestration and recovery while that review proceeds. Its central interactions change the input bottleneck, checkpoint completion, failure timing, recovery placement and batch-job deadline. The final diagnosis requires a surviving checkpoint, a feasible allocation, a validated environment and correct new output. Google flexible scheduling is now integrated into its own chapter.
+
+After this draft, the next incomplete chapter is **12. Chip and rack heat capture**. The current combined cooling presentation provides selected material for Chapters 12–13; it still needs to become a complete chapter sequence. Abilene’s cooling case remains a required Chapter 13 handoff. Preserve the recorded author-review state of earlier chapters and apply incoming feedback before treating their slides as accepted.
 
 #### Chapter 4 review — 13 September 2026
 

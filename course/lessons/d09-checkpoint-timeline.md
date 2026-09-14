@@ -26,9 +26,19 @@ Asynchronous checkpointing can allow computation to continue while saved state i
 
 Bound the number of outstanding saves. If a new checkpoint arrives faster than the backend can persist the previous one, queued state can accumulate and exhaust memory or storage. The newest attempted checkpoint is not necessarily the newest completed recovery point. Monitoring should expose both timestamps. Evaluate the whole job duration and recoverable progress under load, rather than quoting only the time until an asynchronous function returns. A fast return is an API behavior, not a durability measurement.
 
+The current PyTorch tutorial makes the two completion events concrete. Its asynchronous-staging example waits for the device-to-host copy before the optimizer modifies model parameters, and tracks upload completion separately. A host-memory snapshot can therefore free the training loop to proceed while remaining vulnerable to losing that host. The teaching comparison stops the application during staging, then overlaps a background write with later steps; it does not assume that an immediate function return makes the checkpoint recoverable.
+
 ## Choose a policy with a failure model and a service goal
 
 More frequent checkpoints generally reduce the maximum unsaved interval while increasing normal saving work. Their benefit depends on when failures occur, what scope is lost and how long restoration takes. A rare node fault that affects one small task differs from a shared storage outage that blocks an entire cluster. Use measured incidents where available and explicit scenarios where they are not. Compare policies across several failure positions and include a no-failure case so the cost of protection remains visible.
+
+## Case study: Llama 3 needed routine recovery
+
+The Llama 3 report describes 466 interruptions during a 54-day training snapshot: 47 planned and 419 unexpected. It reports more than 90% effective training time and only three incidents requiring significant manual intervention. Automated diagnosis, reduced startup time and shorter checkpoint operations helped preserve useful progress despite interruptions. Its flight recorder captures collective-operation information for diagnosing a stuck distributed job. These are measurements and operational observations from that run; neither interruption count nor effective training time is a hardware-availability guarantee. The detailed category table has inconsistent counts and percentages, so this lesson uses the internally consistent prose totals.
+
+## Account for the energy spent recovering
+
+The slides reuse the explicit failure-at-minute-35 timeline and assign the job 1 MW during computation, 0.8 MW during checkpoint pauses and 0.4 MW during restoration. Power is held constant within each stage, so its energy is power multiplied by duration. The 20-minute policy spends 1 MWh on the final 60 useful minutes, 13/60 MWh on computation that the failure discards, 0.8 × 4/60 MWh on saving and 0.4 × 5/60 MWh on restoration: about 1.303 MWh in total. The 40-minute policy spends about 1.643 MWh, including 35 minutes of discarded computation and two minutes saving. This account covers the stated job power; it is not a facility PUE or campus demand measurement.
 
 ## Worked example: Two policies face one failure at minute 35
 
@@ -79,5 +89,6 @@ A loses 11 unsaved minutes while B loses 13, but A spent two additional minutes 
 
 ## Sources and reading boundaries
 
-- [Asynchronous Saving with Distributed Checkpoint](https://docs.pytorch.org/tutorials/recipes/distributed_async_checkpoint_recipe.html) — Asynchronous saving requires staged state, host-memory capacity and management of concurrent save requests. Read 2026-09-06. Tutorial updated February 3, 2026; APIs are version-sensitive. No tutorial benchmark is generalized.
+- [Asynchronous Saving with Distributed Checkpoint](https://docs.pytorch.org/tutorials/recipes/distributed_async_checkpoint_recipe.html) — A coherent staging copy, background persistence and completion tracking are distinct; outstanding saves consume host memory. Read 2026-09-14. The current tutorial exposes separate staging and upload completion signals for asynchronous staging. API details depend on the framework version; teaching diagrams describe the state transitions, not a deployment recipe.
 - [PyTorch Distributed Checkpoint](https://docs.pytorch.org/docs/stable/distributed.checkpoint.html) — Distributed state saving and loading require coordinated state and backend-specific handling. Read 2026-09-06. Public indexed API excerpts reviewed; the directly opened stable URL returned a redirect shell. Pin and review the selected framework release and storage writer before implementation; no complete API audit is claimed.
+- [The Llama 3 Herd of Models — infrastructure and operational reliability](https://arxiv.org/html/2407.21783v3) — Dated 54-day interruption snapshot, effective training time, and automated diagnosis/recovery. Read 2026-09-14. Read sections 3.3.1 and 3.3.4; cross-checked PDF printed page 13. A 54-day snapshot, not a universal failure rate. Table 5 prints 148 faulty-GPU interruptions with 30.1%; rows total 441 although prose says 419 unexpected. Use coherent prose totals and do not recreate the category table.

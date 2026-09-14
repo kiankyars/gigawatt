@@ -53,6 +53,7 @@ SLIDE_NAMES = {
     "rack-energy-format": "rack-energy",
     "compute-format": "compute",
     "networking-format": "networking",
+    "storage-format": "storage",
     "cooling-format": "cooling",
 }
 ROOT_PRESENTATIONS = {

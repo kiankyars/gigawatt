@@ -7,6 +7,16 @@ Do not download or launch standalone Chrome for Testing or Playwright browser
 binaries here. Existing browser test harnesses remain available for a separately
 configured test environment; run local model and build checks without a browser.
 
+## Chapter 11 storage, orchestration and recovery — 2026-09-14
+
+- **25 scenes**, registered in the chapter directory and shared sequence. Chapter 10 leads to 11, then to the existing selected Chapter 12 cooling material. Three D09 reader lessons and the Google scheduling case handoff are updated. Chapters 1–10 slide content is unchanged.
+- Cases use original Meta RSC and Google facility photographs, Meta’s Llama 3 paper, Google’s 2011 Gmail backup incident and its 2023 demand-response account. Publisher images were inspected and their saved bytes verified against provenance hashes. RSC phase-two targets are not presented as measured results; Llama 3 uses the internally consistent prose totals rather than its conflicting category table.
+- **215 Node and 76 Python tests passed.** Course, expanded reader, domain map, research metadata, site staging and whitespace checks passed. Fourteen new model/deck tests cover checkpoint coherence, transfer constraints, asynchronous save queues, recovery placement, lost work, energy and scheduling deadlines. An independent review found no remaining substantive model or D09 coverage issue.
+- Built-in browser checked all 25 scenes at **1280×720 and 390×844**, plus **64 control combinations and all eight answer/reveal combinations** across those sizes. No final horizontal overflow, SVG text collisions, out-of-bounds labels or failed loaded images; no desktop stage scrolling. Every desktop scene received screenshot inspection, with additional phone chart and exercise checks. The timeline labels and narrow chart typography were corrected during this pass.
+- Clicked Chapter 10 → 11 → 12, Reading and Back to course. Fullscreen controls switched to “Exit full screen” and back; the browser’s read-only DOM proxy did not independently establish native fullscreen state. No console warnings/errors were returned. Checks used light appearance and the built-in browser only.
+
+This records technical and visual verification. First author review remains pending.
+
 ## Chapter 6 follow-up — 2026-09-14
 
 - **19 scenes**, including separate system-context isolation/surge views and a new busway introduction. Abilene's retired photograph hash redirects to the high-voltage campus path.

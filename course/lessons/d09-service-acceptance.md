@@ -20,6 +20,10 @@ Provisioning turns selected hardware into a reproducible execution environment. 
 
 Isolation controls what an allocation may consume and access. Resource accounting reports use; enforcement limits it. Slurm’s cgroup documentation distinguishes mechanisms that track processes, collect usage and constrain resources, so enabling telemetry alone should not be mistaken for enforcement. Storage authorization, network separation and management-plane access are additional concerns. An acceptance plan should test the authorized tenant’s intended operations and verify that its agreed resource boundaries are enforced, using a controlled test environment and explicit service expectations.
 
+## A faster read can lose to a longer allocation wait
+
+For the slide comparison, both candidate placements can read the same committed 512 GB checkpoint and use the same validated software. A data-local allocation reads at 32 GB/s; an immediately available remote allocation reads at 8 GB/s. Each then has the same 12 seconds of setup in the modeled recovery path. The local read saves 48 seconds, but a 30-second allocation wait consumes some of that advantage: local readiness is 30 + 12 + 16 = 58 seconds, versus 12 + 64 = 76 seconds remotely. When the local allocation wait grows to 90 seconds, its total becomes 118 seconds, and remote recovery wins. Neither option is accepted until the restored job produces the required correct output.
+
 ## Test a chain that ends in correct output
 
 Create a small representative workload with a pinned code revision, environment identifier, input checksum, random-seed policy and expected output condition. Specify the allocation topology, startup deadline, sustained-throughput window and allowable variance before running it. Trace the path from authenticated dataset access through job submission, provisioning, collective communication and durable output. Record stage timing as well as total time. A failure should leave enough evidence to identify which dependency broke, rather than only a final nonzero exit code.
@@ -32,11 +36,17 @@ Within an isolated, approved acceptance environment, introduce an agreed non-des
 
 The final report should say which service configuration passed, which degraded modes were exercised and which conditions remain untested. Keep raw logs, configuration identifiers, timestamps and output checksums with the report. Power-on counts and electrical capacity remain valuable infrastructure facts, but they are inputs to this acceptance exercise. The accepted output is an executable service commitment tied to workload, environment and recovery behavior.
 
+![A Google technician uses a screwdriver on an open server chassis in front of rows of servers.](../assets/references/storage-google-dalles-repair.jpg)
+
+Google identifies Mike replacing a motherboard at its data center in The Dalles, Oregon. [Google](https://www.datacenters.google/discover-more/photo-gallery/)
+
 ## Case study: Google shifts flexible work through time
 
-Google’s October 2023 account describes pilots that shifted eligible non-urgent tasks across time and location to reduce demand during grid stress. This complements the Sparks battery case: storage shifts available energy through time; scheduling shifts work and its demand. Neither changes every workload into a flexible job.
+Google’s October 2023 account describes a grid partner notifying its planning system of a forecast demand-response event. The system produces hour-by-hour limits on eligible non-urgent work, runs deferred work later and can move work to another grid when feasible. Northern Wasco County PUD identifies a day-ahead pilot with Google’s facilities in The Dalles, Oregon. The article also describes evening demand reductions at European sites during winter 2022–23. Google does not provide a measured megawatt saving for the slide exercise.
 
-Consider an original teaching brief: a video-processing job must finish tomorrow, while an interactive request must respond in 200 ms. A two-hour grid event may allow the video job to move if enough later capacity remains. The same delay would fail the interactive service. Check deadlines, progress retention, placement and the later peak before promising a demand reduction. Moving execution does not automatically reduce its total energy.
+The teaching exercise gives an interruptible batch job three hours of work at 4 MW, starting at 13:00. Other load stays at 20 MW. The grid event runs from 14:00 to 16:00. Running straight through finishes at 16:00 and reaches 24 MW during the event. Preserving progress and pausing over the event leaves two hours to run from 16:00 to 18:00. That schedule holds event demand to 20 MW and meets a 20:00 deadline, but misses a 17:00 deadline. Its 12 MWh of job energy remains unchanged and the 24 MW demand returns after the event. The model fixes transition overhead at zero to isolate timing; an actual commitment must include checkpoint/restart overhead, later capacity and placement.
+
+An interactive request with a 200 ms response requirement cannot absorb that two-hour pause. A batch job can move only while meeting its own completion requirement, retaining the needed state and obtaining a feasible later allocation. The demand-response case therefore joins storage and orchestration: the schedule depends on both surviving progress and resources being available when promised.
 
 ## Worked example: Thirty-two free GPUs, no eligible allocation
 
@@ -88,7 +98,8 @@ Relaxing a constraint creates a new configuration. It may be worthwhile even wit
 - [Slurm Workload Manager — Topology Guide](https://slurm.schedmd.com/topology.html) — Topology-aware placement considers network groupings when selecting resources. Read 2026-09-06. Plugin, configuration and release determine behavior; synthetic allocation rules are explicit.
 - [Control Group in Slurm](https://slurm.schedmd.com/cgroups.html) — Process tracking, accounting and resource confinement have distinct roles. Read 2026-09-06. Current documentation includes version-specific behavior; no live configuration changes are prescribed.
 - [NVIDIA DGX SuperPOD — Software](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/dgx-software.html) — A reference cluster includes orchestration, system management, libraries and operating-system components. Read 2026-09-06. Vendor reference stack, updated November 19, 2025; it does not certify an arbitrary tenant environment.
-- [Google — Supporting power grids with demand response](https://cloud.google.com/blog/products/infrastructure/using-demand-response-to-reduce-data-center-power-consumption) — Compare storing energy with rescheduling eligible non-urgent work during grid stress. Read 2026-09-12. Publisher-indexed introduction reviewed after direct fetch timed out. Historical pilot description; no claim that every workload can move or that reduced demand necessarily reduces total energy.
+- [Google — Supporting power grids with demand response](https://cloud.google.com/blog/products/infrastructure/using-demand-response-to-reduce-data-center-power-consumption) — Historical grid notification and scheduling workflow; The Dalles day-ahead pilot. Read 2026-09-14. Full article reviewed. Historical 2022–23 pilots and operator-reported service protection. No MW reduction or total-energy saving quantified; does not establish that arbitrary synchronized training jobs can migrate.
+- [Google Data Centers — Photo gallery](https://www.datacenters.google/discover-more/photo-gallery/) — Google identifies a technician replacing a motherboard at The Dalles; hardware repair and application-state recovery are separate operations. Read 2026-09-14. Inspected full-size publisher originals and source captions. Photo capture dates unspecified; these photographs do not document a training recovery or the 2011 Gmail incident.
 
 ## Check your understanding: Which progress comes back?
 

@@ -292,7 +292,7 @@ State an infrastructure design envelope and identify which assumptions a benchma
 - [E2C35A11B05 — NVIDIA Triton — Batchers](https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/user_guide/batcher.html) · `page_reviewed` · [local note](../research/sources/E2C35A11B05.md)
 - [E0814EDF226 — Vertiv — BESS and UPS roles in large data center power architecture](https://www.vertiv.com/en-us/insights/articles/white-papers/bess-and-ups-roles-in-large-data-center-power-architecture/) · `page_reviewed` · [local note](../research/sources/E0814EDF226.md)
 - [P63 — Google Cloud — Best practices for batch inference on GKE](https://docs.cloud.google.com/kubernetes-engine/docs/best-practices/machine-learning/inference/batch-inference) · `page_reviewed` · [local note](../research/sources/P63.md)
-- [P77 — Google — Supporting power grids with demand response](https://cloud.google.com/blog/products/infrastructure/using-demand-response-to-reduce-data-center-power-consumption) · `public_excerpt_reviewed` · [local note](../research/sources/P77.md)
+- [P77 — Google — Supporting power grids with demand response](https://cloud.google.com/blog/products/infrastructure/using-demand-response-to-reduce-data-center-power-consumption) · `page_reviewed` · [local note](../research/sources/P77.md)
 - [P99 — Gemini: A Family of Highly Capable Multimodal Models](https://deepmind.google/gemini/gemini_1_report.pdf) · `page_reviewed` · [local note](../research/sources/P99.md)
 - [P95 — Meta — Llama model SKU architecture definitions](https://github.com/meta-llama/llama-models/blob/main/models/sku_list.py) · `page_reviewed` · [local note](../research/sources/P95.md)
 - [P96 — vLLM — Inside vLLM: Anatomy of a High-Throughput LLM Inference System](https://vllm.ai/blog/2025-09-05-anatomy-of-vllm) · `page_reviewed` · [local note](../research/sources/P96.md)
@@ -409,7 +409,7 @@ Compare utility-only and behind-the-meter supply against energy, capacity, fuel 
 - [P74 — Crusoe — Abilene cooling design](https://www.crusoe.ai/resources/blog/an-inside-look-at-the-abilene-ai-data-center) · `page_reviewed` · [local note](../research/sources/P74.md)
 - [P75 — Crusoe and Redwood — Sparks microgrid update](https://www.crusoe.ai/resources/newsroom/crusoe-and-redwood-materials-expand-strategic-partnership-scaling-to-7x-the-original-ai-infrastructure-density) · `page_reviewed` · [local note](../research/sources/P75.md)
 - [P76 — Crusoe — 2025 impact report web summary](https://www.crusoe.ai/resources/blog/crusoes-2025-impact-report) · `page_reviewed` · [local note](../research/sources/P76.md)
-- [P77 — Google — Supporting power grids with demand response](https://cloud.google.com/blog/products/infrastructure/using-demand-response-to-reduce-data-center-power-consumption) · `public_excerpt_reviewed` · [local note](../research/sources/P77.md)
+- [P77 — Google — Supporting power grids with demand response](https://cloud.google.com/blog/products/infrastructure/using-demand-response-to-reduce-data-center-power-consumption) · `page_reviewed` · [local note](../research/sources/P77.md)
 - [P78 — MLGW — xAI project quick facts](https://www.mlgw.com/images/content/files/pdf/2024xAI%20and%20MLGW%20Quick%20Facts%201.pdf) · `page_reviewed` · [local note](../research/sources/P78.md)
 - [SA42 — SpaceX 10GW in 2027 — construction pace and equipment procurement](https://newsletter.semianalysis.com/p/spacex-10gw-in-2027-why-its-real) · `public_excerpt_reviewed` · [local note](../research/sources/SA42.md)
 - [P82 — GE Vernova — How a combined-cycle plant produces electricity](https://www.gevernova.com/gas-power/resources/education/combined-cycle-power-plants) · `page_reviewed` · [local note](../research/sources/P82.md)
@@ -1130,9 +1130,13 @@ Specify a service acceptance exercise that tests end-to-end data access, job lau
 - [E0CDE775C43 — NVIDIA DGX SuperPOD — Software](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/dgx-software.html) · `page_reviewed` · [local note](../research/sources/E0CDE775C43.md)
 - [P63 — Google Cloud — Best practices for batch inference on GKE](https://docs.cloud.google.com/kubernetes-engine/docs/best-practices/machine-learning/inference/batch-inference) · `page_reviewed` · [local note](../research/sources/P63.md)
 - [P71 — Intel · Memory performance in a nutshell](https://www.intel.com/content/www/us/en/developer/articles/technical/memory-performance-in-a-nutshell.html) · `page_reviewed` · [local note](../research/sources/P71.md)
-- [P77 — Google — Supporting power grids with demand response](https://cloud.google.com/blog/products/infrastructure/using-demand-response-to-reduce-data-center-power-consumption) · `public_excerpt_reviewed` · [local note](../research/sources/P77.md)
+- [P77 — Google — Supporting power grids with demand response](https://cloud.google.com/blog/products/infrastructure/using-demand-response-to-reduce-data-center-power-consumption) · `page_reviewed` · [local note](../research/sources/P77.md)
 - [P127 — QTS — Suwanee campus fiber diversity](https://q.com/resources/meeting-atlanta-data-demands-with-an-expansion-in-suwanee-georgia/) · `page_reviewed` · [local note](../research/sources/P127.md)
 - [P128 — Zayo Europe — Four diverse fiber routes for QTS Cambois](https://zayoeurope.com/newsroom/zayo-europe-to-provide-critical-connectivity-infrastructure-for-uks-largest-ai-cloud-data-centre/) · `page_reviewed` · [local note](../research/sources/P128.md)
+- [P188 — Introducing the AI Research SuperCluster — Meta’s cutting-edge AI supercomputer for AI research](https://ai.meta.com/blog/ai-rsc/) · `page_reviewed` · [local note](../research/sources/P188.md)
+- [P189 — The Llama 3 Herd of Models — infrastructure and operational reliability](https://arxiv.org/html/2407.21783v3) · `page_reviewed` · [local note](../research/sources/P189.md)
+- [P190 — Google Data Centers — Photo gallery](https://www.datacenters.google/discover-more/photo-gallery/) · `page_reviewed` · [local note](../research/sources/P190.md)
+- [P191 — Gmail back soon for everyone](https://gmail.googleblog.com/2011/02/gmail-back-soon-for-everyone.html) · `page_reviewed` · [local note](../research/sources/P191.md)
 
 <a id="d10"></a>
 
