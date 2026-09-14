@@ -218,5 +218,34 @@
     "retrieved_on": "2026-09-13",
     "sha256": "4701c3488feee72d54e9918c644a2a86a1252e8988a29d6a436d6518421ec29a",
     "note": "Publisher original downloaded unchanged; Oracle captions this Abilene data-hall aerial 15 July 2026. 2500 × 1873. Visually inspected."
+  },
+  {
+    "file": "nvidia-dgx-gb300-rear.png",
+    "source_id": "P64",
+    "source_url": "https://docs.nvidia.com/dgx/dgxgb200-user-guide/_images/hardware-rack-rear-gb300.png",
+    "article_url": "https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html",
+    "publisher": "NVIDIA",
+    "retrieved_on": "2026-09-13",
+    "sha256": "6e9af9bdf050bd7ebe42bfa0840056b97937f71c2b2a32eba8d4e6049585a881",
+    "note": "Byte-preserved manufacturer rear rack exploded view. Busbar, cable cartridges and cooling manifolds are identified in the original; it is not board-regulator or BBU placement evidence."
+  },
+  {
+    "file": "continuity-sparks-site.png",
+    "source_id": "P157",
+    "source_url": "https://a.storyblok.com/f/170040/1700x956/ed2f089572/crusoe_expansion.png/m/2048x0/filters%3Aquality%2875%29",
+    "article_url": "https://www.redwoodmaterials.com/news/redwood-and-crusoe-expand-compute-to-7x-scale/",
+    "publisher": "Redwood Materials",
+    "retrieved_on": "2026-09-13",
+    "sha256": "3754f7152687dc847427474b7bbe692f677febe58923a5f05f259046cdfdab05",
+    "note": "Unchanged site aerial, visually inspected. It identifies the Sparks storage setting but does not establish announced expansion completion, battery discharge rating or solar energy share. P76/P105 support the separate 12 MW solar and 63 MWh battery labels."
+  },
+  {
+    "file": "transformer-operating-abl6ts25b.png",
+    "source_id": "P159",
+    "source_url": "https://iportal.se.com/Contents/docs/SQD-ABL6TS25B_DATASHEET.PDF",
+    "publisher": "Schneider Electric",
+    "retrieved_on": "2026-09-13",
+    "sha256": "453a9f0bcf47861ebecf551d7c6ea62cfba1a0aa4f29314f3a3b3ac489e6c83a",
+    "note": "Original 288 by 288 manufacturer product photograph extracted unchanged from PDF page 1 image Im1.png; visually inspected. Product is a 250 VA controls transformer; the photograph is not presented as a campus transformer."
   }
 ]

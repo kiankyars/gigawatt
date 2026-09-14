@@ -6,7 +6,8 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 
 from gigawatt.stage_site import (
-    INTRODUCTION_REDIRECTS, ROOT, public_path, published_text, published_url, stage,
+    INTRODUCTION_REDIRECTS, PRESENTATION_REDIRECTS, ROOT, SHARED_PRESENTATION_MODULES,
+    public_path, published_text, published_url, stage,
 )
 
 
@@ -87,6 +88,35 @@ class SiteStagingTests(unittest.TestCase):
     def test_source_index_and_project_readme_do_not_collide(self):
         self.assertEqual(str(public_path("README.md")), "README.md")
         self.assertEqual(str(public_path("course/README.md")), "SOURCE_INDEX.md")
+
+    def test_consolidated_decks_keep_old_urls_and_shared_module_imports(self):
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "README.md").write_text("Course")
+            (root / "course/prototypes").mkdir(parents=True)
+            (root / "course/web").mkdir()
+            for deck in ("continuity", "rack-energy", "ups", "rack-power"):
+                (root / f"course/prototypes/{deck}-format.html").write_text(f"<title>{deck}</title>")
+            (root / "course/teach.html").write_text("<title>Legacy 800 V</title>")
+            for name in SHARED_PRESENTATION_MODULES:
+                (root / "course/web" / name).write_text("/* shared module */")
+            (root / "course/prototypes/rack-energy-controller.js").write_text(
+                "import {createElectricalVisuals} from '../web/electrical-renderer.js';"
+            )
+            destination = stage(root)
+            for old, current in PRESENTATION_REDIRECTS.items():
+                with self.subTest(old=old):
+                    redirect = (destination / "slides" / old).read_text()
+                    self.assertIn(f'href="{current}"', redirect)
+                    self.assertIn("location.search+hash", redirect)
+                    self.assertIn("const lessons={};", redirect)
+            self.assertIn("<title>continuity</title>", (destination / "slides/continuity.html").read_text())
+            self.assertIn("<title>rack-energy</title>", (destination / "slides/rack-energy.html").read_text())
+            for name in SHARED_PRESENTATION_MODULES:
+                self.assertTrue((destination / "web" / name).is_file())
+                self.assertTrue((destination / "course/web" / name).is_file())
+            self.assertIn("'../web/electrical-renderer.js'", (destination / "slides/rack-energy-controller.js").read_text())
+            self.assertIn('href="../../slides/ups.html"', (destination / "course/prototypes/ups-format.html").read_text())
 
     def test_all_published_decks_have_clean_paths(self):
         self.assertEqual(str(public_path("course/index.html")), "index.html")

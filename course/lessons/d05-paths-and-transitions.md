@@ -68,6 +68,12 @@ The decision is concrete: how much additional local backup does this GPU service
 
 Microsoft does not supply a quantified capital-cost comparison or a measured annual availability record in that announcement. The case establishes the chosen architecture and the operator's rationale. It does not prove that omitting backup achieves the same result at another site.
 
+## Trace a powered rack with a failed service dependency
+
+The Chapter 7 closing check uses a separate qualitative operating sequence. IT remains on its UPS; pumps wait for generator transfer; heat rejection restarts later. Cooling controls initially have a utility-only feed. In this supplied operating policy, loss of control power trips an interlock and stops the workload even though rack AC remains present. This is a declared scenario response, not a universal automatic behavior of data centers.
+
+Moving the control supply to a UPS repairs that particular dependency. It does not establish temperature margin while pumps transfer or heat rejection restarts. A continuity claim still needs the actual control sequence, supply dependencies, restart behavior, thermal capacity and allowable temperatures over the full disturbance. The check supplies no thermal ride-through duration and does not certify that the corrected path can sustain the service.
+
 ## Worked example: An electrical bridge with an unresolved thermal interval
 
 - Protected UPS output is 5.0 + 0.4 + 0.1 = 5.5 MW.

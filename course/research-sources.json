@@ -4122,7 +4122,8 @@
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-13",
       "domains": [
-        "D04"
+        "D04",
+        "D06"
       ],
       "use": "Explain the actual transformer-plus-rectifier functions in the historical Zurich-West centralized DC system.",
       "caution": "Reviewed PDF pages 1–4 visually, especially printed pages 18–19 and Figure 2. PDF text encoding was garbled, so pages were rendered and read. Figure labels 380 V DC, while text specifies 400 V open-circuit. 16 kV input and 1,100 kVA transformer are case-specific. No promotional efficiency percentage is adopted. Exterior photograph extracted unchanged from PDF page 2 (image object 23)."
@@ -4136,7 +4137,8 @@
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-13",
       "domains": [
-        "D04"
+        "D04",
+        "D06"
       ],
       "use": "Date the opening of a 1 MW DC system and identify compatible HP IT.",
       "caution": "May 2012 primary announcement read. Historical 1 MW installation for a 1,100 square metre expansion; no claim of current operating capacity or general 800 V deployment. Marketing savings and superlatives are excluded.",
@@ -4155,6 +4157,49 @@
       ],
       "use": "Support the warning that harmonic currents increase RMS/heating burden and transformer losses.",
       "caution": "Public indexed excerpt reviewed; direct page returned 503. No harmonic derating factor or real equipment rating is inferred. The 3 I²R comparison uses original fixed-resistance teaching inputs."
+    },
+    {
+      "id": "P157",
+      "title": "Redwood Materials — Redwood and Crusoe expand compute to 7x scale",
+      "url": "https://www.redwoodmaterials.com/news/redwood-and-crusoe-expand-compute-to-7x-scale/",
+      "publisher": "Redwood Materials",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D05"
+      ],
+      "use": "Identify the site photograph used for the Sparks storage teaching scene.",
+      "caution": "Article and aerial image inspected. Expansion is announced; image is not evidence of completed expansion, discharge rating or usable energy. 12 MW solar label is supported separately by existing P76/P105."
+    },
+    {
+      "id": "P158",
+      "title": "Schneider Electric — TN system: Principle",
+      "url": "https://www.electrical-installation.org/enwiki/TN_system_-_Principle",
+      "publisher": "Schneider Electric",
+      "kind": "primary_reference",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D05"
+      ],
+      "use": "A TN fault loop connects exposed conductive parts through protective conductors to the earthed source point.",
+      "caution": "Primary public search-indexed text reviewed. No wiring instructions, site selection or device settings adopted."
+    },
+    {
+      "id": "P159",
+      "title": "Schneider Electric — Phaseo ABL6TS25B product datasheet",
+      "url": "https://iportal.se.com/Contents/docs/SQD-ABL6TS25B_DATASHEET.PDF",
+      "publisher": "Schneider Electric",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-13",
+      "published_on": "2020-02-26",
+      "domains": [
+        "D04"
+      ],
+      "use": "A named 250 VA controls transformer specifies 360–440 V input limits for its nominal 400 V connection, 207–253 V for its 230 V connection, and 47–63 Hz network frequency limits. The secondary rating is 24 V AC.",
+      "caution": "PDF page 1 ratings and input limits inspected; page 5 wiring visually inspected and shows separate ±15 V compensation taps. Not a hall or campus MV transformer, not a guarantee of regulated secondary voltage across the input range, and not an insulation withstand rating. Product datasheet dated February 26, 2020; no claim of current delivery or installed campus use."
     }
   ]
 }

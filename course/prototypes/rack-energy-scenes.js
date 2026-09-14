@@ -4,7 +4,7 @@ import { samplePresentation } from './rack-energy-800v-data.js';
 const ledger = 'd06-conversion-ledger', migration = 'd06-rack-migration';
 const control = (key, label, options) => ({key, label, options});
 export const defaults = samplePresentation.defaults;
-export const aliases = Object.freeze({...samplePresentation.aliases});
+export const aliases = Object.freeze({...samplePresentation.aliases,'green-dc':'green-zurich-west','green-path':'green-zurich-west'});
 export const initialState = Object.freeze({...rackState, auxiliaryKW:12, volts:800, cycleDegrees:30,
   voltageView:'meter', converterView:'supply', revealed:[], rackKW:120, allocationKW:240,
   deadlineWeeks:3, decision:'', migrationReveal:false});
@@ -31,9 +31,18 @@ const supplement = [
     controls:[control('deadlineWeeks','Service deadline',[[3,'Three weeks'],[8,'Eight weeks']])],
     explanation:['Choose a route before revealing its consequences. Existing allocation is 240 kW and a staged retrofit is ready in two weeks. A 20 kW increase takes six weeks. The customer accepts a measured lower-throughput mode temporarily. These are original classroom inputs, not an Abilene construction schedule.','For a three-week deadline, reduced demand can fit the power account and date, conditional on actual accepted service and interfaces. The full setting with the existing feeder fails power. More allocation fits full demand but misses the early date. At eight weeks the larger allocation becomes a feasible candidate.','The release evidence is a qualified 800 V converter-to-rack interface and DC protection; startup, load-step and recharge tests within the input envelope; protected cooling and network dependencies; service access and measured workload acceptance. A greenfield layout can reserve converter zones and DC paths before construction. An occupied building has retained equipment and a live service deadline.'],boundary:'Two racks · 96% sidecar · 3 kW auxiliaries · 240/260 kW allocation · 2/6-week readiness · temporary reduced service accepted.'}
 ];
+const greenCase = {
+  id:'green-zurich-west',label:'Zurich-West: DC in 2012',title:'Zurich-West moved rectification upstream in 2012.',
+  reference:'d06-eight-hundred-volt-architectures',kind:'green-case',pedagogical_role:'architecture',
+  boundary:'Historical Green Zurich-West expansion · 1 MW DC system · 380 V DC distribution; 400 V open-circuit in ABB’s technical text.',
+  explanation:['ABB and Green opened this 1 MW DC installation in May 2012, with compatible HP servers and storage. The existing exterior photograph identifies the site; it does not depict the electrical equipment. This case is a historical 380 V deployment, separate from the later 800 V architectures.',
+    'Inside the central rectifier package, a 1,100 kVA dry transformer steps down the 16 kV AC supply before rectifier modules convert AC to DC. Local DC/DC conversion still supplies the devices. The system diagram labels the distribution 380 V DC; ABB specifies 400 V open-circuit in the text. Moving rectification upstream did not remove the transformer function or the need for compatible IT inputs.'],
+  source_ids:['P153','P154']
+};
 const rack = rackScenes.map(scene=>({...scene,kind:'rack'}));
 const ledgerIndex = rack.findIndex(scene => scene.id === 'board-rails');
 const local = [supplement[0],...rack.slice(0,ledgerIndex), supplement[1],...rack.slice(ledgerIndex)];
 const electrical = samplePresentation.steps.map(step=>({...step,label:step.title,title:step.headline,reference:'d06-eight-hundred-volt-architectures',sourceKind:step.kind,kind:'800v'}));
 // Preserve both reviewed sequences and every old scene ID in the shared selector.
-export const scenes = Object.freeze([...local,supplement[2],...electrical,...supplement.slice(3)]);
+const transition = electrical.flatMap(scene=>scene.id==='ocp-power-architectures'?[greenCase,scene]:[scene]);
+export const scenes = Object.freeze([...local,supplement[2],...transition,...supplement.slice(3)]);

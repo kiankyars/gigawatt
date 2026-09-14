@@ -226,6 +226,23 @@
         ]
       },
       {
+        "heading": "Zurich-West: centralized DC in 2012",
+        "paragraphs": [
+          "ABB and Green opened a 1 MW DC system for the Zurich-West expansion in May 2012. Compatible HP servers and storage accepted its 380 V DC supply. This is a built historical example of upstream rectification; its interface is separate from the later 800 V designs.",
+          "ABB’s technical account places a 1,100 kVA dry transformer inside the central rectifier unit. It steps down the 16 kV AC input before rectifier modules perform AC/DC conversion. Downstream DC/DC conversion still supplies device rails. Figure 2 labels the distribution 380 V DC, while the text specifies 400 V open-circuit. The package name “rectifier” does not remove the transformer function. Neither its conversion placement nor this historical installation establishes a universal efficiency gain."
+        ],
+        "figures": [
+          {
+            "asset": "references/distribution-green-zurich-west.jpg",
+            "alt": "Exterior of Green’s Zurich-West data center in the ABB Review case photograph.",
+            "caption": "Green Zurich-West · ABB Review 4/2013. The exterior identifies the facility; the electrical path comes from the technical account.",
+            "source_url": "https://library.e.abb.com/public/1afa6036874fd0bb85257d5000710a17/DC%20for%20efficiency.pdf",
+            "source_title": "ABB Review — DC for efficiency",
+            "credit": "ABB"
+          }
+        ]
+      },
+      {
         "heading": "Compare the three distribution paths side by side",
         "paragraphs": [
           "Trace each column from medium-voltage input to the rack. Traditional AC keeps lower-voltage AC distribution through the hall. The DC sidecar retains those upstream stages, then creates an 800 V DC interface near the rack. The third path makes 800 V DC upstream of the hall distribution and busway through a medium-voltage conversion system.",
@@ -349,6 +366,20 @@
         "claim": "Context for representative LVDC power-distribution architectures; not a confirmed source for the supplied three-column figure.",
         "reviewed_on": "2026-09-11",
         "limits": "Introduction and document metadata inspected. The exact origin of the user-supplied image remains unverified. Do not assign a figure number, mandate this topology, or treat these alternatives as a dated deployment sequence."
+      },
+      {
+        "title": "ABB Review 4/2013 — DC for efficiency",
+        "url": "https://library.e.abb.com/public/1afa6036874fd0bb85257d5000710a17/DC%20for%20efficiency.pdf",
+        "claim": "Case transformer, rectifier and DC distribution interfaces.",
+        "reviewed_on": "2026-09-13",
+        "limits": "Reviewed PDF pages 1–4 visually, especially printed pages 18–19 and Figure 2. PDF text encoding was garbled, so pages were rendered and read. Figure labels 380 V DC, while text specifies 400 V open-circuit. 16 kV input and 1,100 kVA transformer are case-specific. No promotional efficiency percentage is adopted. Exterior photograph extracted unchanged from PDF page 2 (image object 23)."
+      },
+      {
+        "title": "ABB and Green open Zurich-West DC data-center expansion",
+        "url": "https://new.abb.com/news/detail/12816/worlds-most-powerful-dc-data-center-online",
+        "claim": "Opening date, installation scale and compatible HP IT.",
+        "reviewed_on": "2026-09-13",
+        "limits": "May 2012 primary announcement read. Historical 1 MW installation for a 1,100 square metre expansion; no claim of current operating capacity or general 800 V deployment. Marketing savings and superlatives are excluded."
       }
     ],
     "terms": [

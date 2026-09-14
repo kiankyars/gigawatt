@@ -48,7 +48,9 @@ SLIDE_NAMES = {
     "site-format": "site-design",
     "distribution-format": "distribution",
     "ups-format": "ups",
+    "continuity-format": "continuity",
     "rack-power-format": "rack-power",
+    "rack-energy-format": "rack-energy",
     "cooling-format": "cooling",
 }
 ROOT_PRESENTATIONS = {
@@ -56,6 +58,17 @@ ROOT_PRESENTATIONS = {
     "sample.html": "800v-explore.html",
     "sample-notes.html": "800v-notes.html",
 }
+PRESENTATION_REDIRECTS = {
+    "ups.html": "continuity.html",
+    "rack-power.html": "rack-energy.html",
+    "800v.html": "rack-energy.html",
+    "800v-explore.html": "rack-energy.html",
+    "800v-notes.html": "rack-energy.html",
+}
+SHARED_PRESENTATION_MODULES = (
+    "electrical-renderer.js", "presentation-renderers.js",
+    "reader-models.js", "presentation.css",
+)
 TEXT_SUFFIXES = {".html", ".js", ".css", ".json", ".md"}
 QUOTED_URL = re.compile(
     r"([\"'`])((?:\.\.?/|course/|prototypes/|assets/|lessons/|research/|web/|"
@@ -145,6 +158,7 @@ def stage(root=ROOT, destination=None):
         p.relative_to(root) for p in (root / "course/prototypes").glob("*")
         if p.is_file() and p.suffix in {".html", ".js", ".css"}
     )
+    paths.update(Path("course/web") / name for name in SHARED_PRESENTATION_MODULES)
     for directory in ("course/lessons", "research/sources"):
         paths.update(p.relative_to(root) for p in (root / directory).glob("*") if p.is_file())
     paths.update(
@@ -169,6 +183,11 @@ def stage(root=ROOT, destination=None):
             else:
                 # Old research links and imported assets remain durable too.
                 shutil.copyfile(root / path, legacy)
+    for old_name, current_name in PRESENTATION_REDIRECTS.items():
+        if (destination / "slides" / current_name).is_file():
+            (destination / "slides" / old_name).write_text(
+                reader_redirect(current_name, introduction=False), encoding="utf-8"
+            )
     aliases = (
         "course.html", "course_v2.html", "v1.html", "hybrid.html",
         "phase1_generation.html", "phase2_transmission.html", "phase3_campus.html",

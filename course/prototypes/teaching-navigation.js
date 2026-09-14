@@ -7,8 +7,7 @@ export const presentationLabels = Object.freeze({
   "siting": "4. Siting, grid connection and supply",
   "physical-site": "5. Physical site, buildings and safety",
   "distribution": "6. Campus and building power distribution",
-  "ups": "7. UPS, bypass and redundancy",
-  "rack-local-power": "8. From the rack inlet to the chip",
-  "rack-800v": "8. 800 V DC",
+  "continuity": "7. Continuity, storage and protection",
+  "rack-energy": "8. Rack power and the 800 V DC transition",
   "cooling": "12–13. From the chip to the outdoors"
 });

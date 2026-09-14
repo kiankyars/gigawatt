@@ -1,8 +1,8 @@
 {
-  "purpose": "Root integration proposal; source IDs deliberately unallocated.",
+  "purpose": "Implementation provenance; the manufacturer source is registered as P64 in the course source catalog.",
   "sources": [
     {
-      "title": "NVIDIA DGX GB200 and GB300 Systems User Guide \u2014 Hardware Overview",
+      "title": "NVIDIA DGX GB200 and GB300 Systems User Guide — Hardware Overview",
       "publisher": "NVIDIA",
       "url": "https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html",
       "supports": "DGX GB300 rear rack exploded view showing power bus bar, cable cartridges, and liquid cooling manifolds. Existing source; no new rating claim.",
@@ -10,7 +10,8 @@
       "asset_url": "https://docs.nvidia.com/dgx/dgxgb200-user-guide/_images/hardware-rack-rear-gb300.png",
       "downloaded_on": "2026-09-13",
       "treatment": "Byte-preserved manufacturer figure; visible NVIDIA attribution retained. Local copy removes remote SVG image loading dependency.",
-      "sha256": "6e9af9bdf050bd7ebe42bfa0840056b97937f71c2b2a32eba8d4e6049585a881"
+      "sha256": "6e9af9bdf050bd7ebe42bfa0840056b97937f71c2b2a32eba8d4e6049585a881",
+      "registered_source_id": "P64"
     }
   ],
   "generated_assets": [

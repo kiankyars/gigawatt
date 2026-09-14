@@ -553,6 +553,7 @@ Reconcile IT and auxiliary loads with a downstream electrical capacity budget ac
 - [P153 — ABB Review 4/2013 — DC for efficiency](https://library.e.abb.com/public/1afa6036874fd0bb85257d5000710a17/DC%20for%20efficiency.pdf) · `page_reviewed` · [local note](../research/sources/P153.md)
 - [P154 — ABB and Green open Zurich-West DC data-center expansion](https://new.abb.com/news/detail/12816/worlds-most-powerful-dc-data-center-online) · `page_reviewed` · [local note](../research/sources/P154.md)
 - [P156 — Schneider Electric — Effects of harmonics: increased losses](https://www.electrical-installation.org/enwiki/Effects_of_harmonics_-_Increased_losses) · `public_excerpt_reviewed` · [local note](../research/sources/P156.md)
+- [P159 — Schneider Electric — Phaseo ABL6TS25B product datasheet](https://iportal.se.com/Contents/docs/SQD-ABL6TS25B_DATASHEET.PDF) · `page_reviewed` · [local note](../research/sources/P159.md)
 
 <a id="d05"></a>
 
@@ -675,6 +676,8 @@ Explain why fault clearing and grounding require topology-specific AC/DC protect
 - [P120 — Microsoft — Fairwater Atlanta availability and power design](https://blogs.microsoft.com/blog/2025/11/12/infinite-scale-the-architecture-behind-the-azure-ai-superfactory/) · `page_reviewed` · [local note](../research/sources/P120.md)
 - [P121 — NTT DATA — Vienna 1 facility and power SLA](https://services.global.ntt/-/media/ntt/global/insights-and-resources/data-sheets/vienna-1-data-sheet.pdf?rev=9057842951194cb1b9d1cf884282f421) · `page_reviewed` · [local note](../research/sources/P121.md)
 - [P_DELTA_BBU — Delta Electronics — 3 kW BBU and 15 kW Battery Backup System](https://www.delta-americas.com/en-US/products/Power-Management/12018) · `page_reviewed` · [local note](../research/sources/P_DELTA_BBU.md)
+- [P157 — Redwood Materials — Redwood and Crusoe expand compute to 7x scale](https://www.redwoodmaterials.com/news/redwood-and-crusoe-expand-compute-to-7x-scale/) · `page_reviewed` · [local note](../research/sources/P157.md)
+- [P158 — Schneider Electric — TN system: Principle](https://www.electrical-installation.org/enwiki/TN_system_-_Principle) · `public_excerpt_reviewed` · [local note](../research/sources/P158.md)
 
 <a id="d06"></a>
 
@@ -792,6 +795,8 @@ Explain how retrofit constraints can reverse a seemingly attractive greenfield a
 - [P95 — Meta — Llama model SKU architecture definitions](https://github.com/meta-llama/llama-models/blob/main/models/sku_list.py) · `page_reviewed` · [local note](../research/sources/P95.md)
 - [P97 — Microsoft, OpenAI and NVIDIA — Power Stabilization for AI Training Datacenters](https://arxiv.org/html/2508.14318v1) · `page_reviewed` · [local note](../research/sources/P97.md)
 - [P_DELTA_BBU — Delta Electronics — 3 kW BBU and 15 kW Battery Backup System](https://www.delta-americas.com/en-US/products/Power-Management/12018) · `page_reviewed` · [local note](../research/sources/P_DELTA_BBU.md)
+- [P153 — ABB Review 4/2013 — DC for efficiency](https://library.e.abb.com/public/1afa6036874fd0bb85257d5000710a17/DC%20for%20efficiency.pdf) · `page_reviewed` · [local note](../research/sources/P153.md)
+- [P154 — ABB and Green open Zurich-West DC data-center expansion](https://new.abb.com/news/detail/12816/worlds-most-powerful-dc-data-center-online) · `page_reviewed` · [local note](../research/sources/P154.md)
 
 <a id="d07"></a>
 

@@ -68,35 +68,24 @@
       ]
     },
     {
-      "id": "ups",
-      "title": "UPS, bypass and redundancy",
+      "id": "continuity",
+      "title": "Continuity, storage and protection",
       "chapters": [
         {
           "id": "D05",
-          "href": "prototypes/ups-format.html",
-          "coverage": "selected"
+          "href": "prototypes/continuity-format.html?teach=1",
+          "coverage": "chapter"
         }
       ]
     },
     {
-      "id": "rack-local-power",
-      "title": "From the rack inlet to the chip",
+      "id": "rack-energy",
+      "title": "Rack power and the 800 V DC transition",
       "chapters": [
         {
           "id": "D06",
-          "href": "prototypes/rack-power-format.html?teach=1",
-          "coverage": "selected"
-        }
-      ]
-    },
-    {
-      "id": "rack-800v",
-      "title": "800 V DC",
-      "chapters": [
-        {
-          "id": "D06",
-          "href": "teach.html",
-          "coverage": "selected"
+          "href": "prototypes/rack-energy-format.html?teach=1",
+          "coverage": "chapter"
         }
       ]
     },

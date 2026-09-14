@@ -1103,10 +1103,10 @@
       ],
       "presentations": [
         {
-          "id": "ups",
-          "title": "UPS, bypass and redundancy",
-          "href": "prototypes/ups-format.html",
-          "coverage": "selected"
+          "id": "continuity",
+          "title": "Continuity, storage and protection",
+          "href": "prototypes/continuity-format.html?teach=1",
+          "coverage": "chapter"
         }
       ]
     },
@@ -1121,16 +1121,10 @@
       ],
       "presentations": [
         {
-          "id": "rack-local-power",
-          "title": "From the rack inlet to the chip",
-          "href": "prototypes/rack-power-format.html?teach=1",
-          "coverage": "selected"
-        },
-        {
-          "id": "rack-800v",
-          "title": "800 V DC",
-          "href": "teach.html",
-          "coverage": "selected"
+          "id": "rack-energy",
+          "title": "Rack power and the 800 V DC transition",
+          "href": "prototypes/rack-energy-format.html?teach=1",
+          "coverage": "chapter"
         }
       ]
     },
@@ -4668,7 +4662,8 @@
         "P76",
         "P105",
         "P118",
-        "P119"
+        "P119",
+        "P157"
       ],
       "source_notes": [
         {
@@ -4724,6 +4719,12 @@
           "claim": "Printed pages 56–59 describe regulated rectifier output and a buck/boost battery converter. When acceptable AC returns, the rectifier resumes supplying the inverter and the battery can recharge.",
           "reviewed_on": "2026-09-12",
           "limits": "Operating-mode sections on PDF pages 67–70 reviewed. This is an Eaton topology example, not a specification for the illustrated Schneider UPS or the ideal 800 V, 0.20 F teaching bus and its assumed response times."
+        },
+        {
+          "id": "P157",
+          "claim": "Identify the publisher-provided aerial photograph of the Sparks battery and modular data-center deployment.",
+          "reviewed_on": "2026-09-13",
+          "limits": "Article and linked aerial inspected. Expansion is announced. The photo does not establish completed expanded capacity or the battery discharge rating; retain the Crusoe impact report for the specific solar-power label."
         }
       ],
       "word_count": 2029
@@ -4792,6 +4793,13 @@
             "Microsoft chose the Atlanta site for resilient utility power. Its November 2025 description says the GPU fleet can forgo traditional on-site generation, UPS systems and dual-corded distribution, reducing cost and time to market. Microsoft separately describes on-site energy storage for smoothing power fluctuations, so this is not a claim that the campus contains no batteries.",
             "The decision is concrete: how much additional local backup does this GPU service need beyond the reliability available from its utility connection? A different utility supply or a service with a different interruption tolerance can justify a different investment. This Fairwater design is not presented as an Uptime Tier certification. It therefore does not contradict the generator requirement within the four Uptime Tiers.",
             "Microsoft does not supply a quantified capital-cost comparison or a measured annual availability record in that announcement. The case establishes the chosen architecture and the operator's rationale. It does not prove that omitting backup achieves the same result at another site."
+          ]
+        },
+        {
+          "heading": "Trace a powered rack with a failed service dependency",
+          "paragraphs": [
+            "The Chapter 7 closing check uses a separate qualitative operating sequence. IT remains on its UPS; pumps wait for generator transfer; heat rejection restarts later. Cooling controls initially have a utility-only feed. In this supplied operating policy, loss of control power trips an interlock and stops the workload even though rack AC remains present. This is a declared scenario response, not a universal automatic behavior of data centers.",
+            "Moving the control supply to a UPS repairs that particular dependency. It does not establish temperature margin while pumps transfer or heat rejection restarts. A continuity claim still needs the actual control sequence, supply dependencies, restart behavior, thermal capacity and allowable temperatures over the full disturbance. The check supplies no thermal ride-through duration and does not certify that the corrected path can sustain the service."
           ]
         }
       ],
@@ -4931,7 +4939,7 @@
           "limits": "PDF copyright 2024; exact publication date and contractual measurement window/exclusions not stated. Page 2 advertises 99.999% power uptime availability; this does not establish observed annual uptime or hosted application availability. Page 1 lists 2N UPS A/B and N+1 diesel generation."
         }
       ],
-      "word_count": 1925
+      "word_count": 2067
     },
     {
       "id": "d05-protection-and-fault-domains",
@@ -5048,7 +5056,8 @@
         "E9FFEE6828F",
         "E1423005C7C",
         "E2A3F76B3F9",
-        "EB34D92F523"
+        "EB34D92F523",
+        "P158"
       ],
       "source_notes": [
         {
@@ -5074,6 +5083,12 @@
           "claim": "The fixed-current resistive energy example follows I²R multiplied by time.",
           "reviewed_on": "2026-09-06",
           "limits": "Read the public resistor-power equations; all fault currents and durations are hypothetical teaching inputs."
+        },
+        {
+          "id": "P158",
+          "claim": "In the TN arrangement, exposed conductive parts connect by protective conductors to the earthed source point; fault current returns through that loop.",
+          "reviewed_on": "2026-09-13",
+          "limits": "Public search-indexed primary text reviewed. The slide shows only a conceptual line-to-case fault loop, not a complete wiring design or a protective-device setting."
         }
       ],
       "word_count": 1234,
@@ -5308,6 +5323,23 @@
           ]
         },
         {
+          "heading": "Zurich-West: centralized DC in 2012",
+          "paragraphs": [
+            "ABB and Green opened a 1 MW DC system for the Zurich-West expansion in May 2012. Compatible HP servers and storage accepted its 380 V DC supply. This is a built historical example of upstream rectification; its interface is separate from the later 800 V designs.",
+            "ABB’s technical account places a 1,100 kVA dry transformer inside the central rectifier unit. It steps down the 16 kV AC input before rectifier modules perform AC/DC conversion. Downstream DC/DC conversion still supplies device rails. Figure 2 labels the distribution 380 V DC, while the text specifies 400 V open-circuit. The package name “rectifier” does not remove the transformer function. Neither its conversion placement nor this historical installation establishes a universal efficiency gain."
+          ],
+          "figures": [
+            {
+              "asset": "references/distribution-green-zurich-west.jpg",
+              "alt": "Exterior of Green’s Zurich-West data center in the ABB Review case photograph.",
+              "caption": "Green Zurich-West · ABB Review 4/2013. The exterior identifies the facility; the electrical path comes from the technical account.",
+              "source_url": "https://library.e.abb.com/public/1afa6036874fd0bb85257d5000710a17/DC%20for%20efficiency.pdf",
+              "source_title": "ABB Review — DC for efficiency",
+              "credit": "ABB"
+            }
+          ]
+        },
+        {
           "heading": "Compare the three distribution paths side by side",
           "paragraphs": [
             "Trace each column from medium-voltage input to the rack. Traditional AC keeps lower-voltage AC distribution through the hall. The DC sidecar retains those upstream stages, then creates an 800 V DC interface near the rack. The third path makes 800 V DC upstream of the hall distribution and busway through a medium-voltage conversion system.",
@@ -5426,7 +5458,9 @@
         "P05",
         "P16",
         "SA10",
-        "P54"
+        "P54",
+        "P153",
+        "P154"
       ],
       "source_notes": [
         {
@@ -5452,9 +5486,21 @@
           "claim": "Context for representative LVDC power-distribution architectures; not a confirmed source for the supplied three-column figure.",
           "reviewed_on": "2026-09-11",
           "limits": "Introduction and document metadata inspected. The exact origin of the user-supplied image remains unverified. Do not assign a figure number, mandate this topology, or treat these alternatives as a dated deployment sequence."
+        },
+        {
+          "id": "P153",
+          "claim": "Case transformer, rectifier and DC distribution interfaces.",
+          "reviewed_on": "2026-09-13",
+          "limits": "Reviewed PDF pages 1–4 visually, especially printed pages 18–19 and Figure 2. PDF text encoding was garbled, so pages were rendered and read. Figure labels 380 V DC, while text specifies 400 V open-circuit. 16 kV input and 1,100 kVA transformer are case-specific. No promotional efficiency percentage is adopted. Exterior photograph extracted unchanged from PDF page 2 (image object 23)."
+        },
+        {
+          "id": "P154",
+          "claim": "Opening date, installation scale and compatible HP IT.",
+          "reviewed_on": "2026-09-13",
+          "limits": "May 2012 primary announcement read. Historical 1 MW installation for a 1,100 square metre expansion; no claim of current operating capacity or general 800 V deployment. Marketing savings and superlatives are excluded."
         }
       ],
-      "word_count": 1301
+      "word_count": 1465
     },
     {
       "id": "d06-rack-migration",
@@ -12644,7 +12690,8 @@
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-13",
       "domains": [
-        "D04"
+        "D04",
+        "D06"
       ],
       "use": "Explain the actual transformer-plus-rectifier functions in the historical Zurich-West centralized DC system.",
       "caution": "Reviewed PDF pages 1–4 visually, especially printed pages 18–19 and Figure 2. PDF text encoding was garbled, so pages were rendered and read. Figure labels 380 V DC, while text specifies 400 V open-circuit. 16 kV input and 1,100 kVA transformer are case-specific. No promotional efficiency percentage is adopted. Exterior photograph extracted unchanged from PDF page 2 (image object 23)."
@@ -12658,7 +12705,8 @@
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-13",
       "domains": [
-        "D04"
+        "D04",
+        "D06"
       ],
       "use": "Date the opening of a 1 MW DC system and identify compatible HP IT.",
       "caution": "May 2012 primary announcement read. Historical 1 MW installation for a 1,100 square metre expansion; no claim of current operating capacity or general 800 V deployment. Marketing savings and superlatives are excluded.",
@@ -12677,6 +12725,34 @@
       ],
       "use": "Support the warning that harmonic currents increase RMS/heating burden and transformer losses.",
       "caution": "Public indexed excerpt reviewed; direct page returned 503. No harmonic derating factor or real equipment rating is inferred. The 3 I²R comparison uses original fixed-resistance teaching inputs."
+    },
+    {
+      "id": "P157",
+      "title": "Redwood Materials — Redwood and Crusoe expand compute to 7x scale",
+      "url": "https://www.redwoodmaterials.com/news/redwood-and-crusoe-expand-compute-to-7x-scale/",
+      "publisher": "Redwood Materials",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D05"
+      ],
+      "use": "Identify the site photograph used for the Sparks storage teaching scene.",
+      "caution": "Article and aerial image inspected. Expansion is announced; image is not evidence of completed expansion, discharge rating or usable energy. 12 MW solar label is supported separately by existing P76/P105."
+    },
+    {
+      "id": "P158",
+      "title": "Schneider Electric — TN system: Principle",
+      "url": "https://www.electrical-installation.org/enwiki/TN_system_-_Principle",
+      "publisher": "Schneider Electric",
+      "kind": "primary_reference",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D05"
+      ],
+      "use": "A TN fault loop connects exposed conductive parts through protective conductors to the earthed source point.",
+      "caution": "Primary public search-indexed text reviewed. No wiring instructions, site selection or device settings adopted."
     }
   ],
   "glossary": [

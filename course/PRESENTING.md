@@ -7,7 +7,7 @@ The current pass is [Chapter 5, slides 14–20](prototypes/site-format.html?teac
 The preceding changes remain available at:
 
 1. [Chapter 4: generation through the delivery decision](prototypes/siting-format.html?teach=1#dania-cycle): clarified plant example, new GPT figure, cost curves, Southaven plans and supported compute economics.
-2. [Chapter 7: UPS equipment and recovery](prototypes/ups-format.html#equipment): simpler labels, capacitor support, generator charging and restoration of DC-link voltage.
+2. [Chapter 7: continuity, storage and protection](prototypes/continuity-format.html?teach=1#equipment): simpler labels, capacitor support, generator charging and restoration of DC-link voltage.
 
 Chapter 5’s first-pass feedback is implemented; your acceptance is still pending. Continue any unresolved Chapter 2 or 3 items at their specific slides; do not restart the unchanged Primer, 800 V or cooling sequence.
 The [chapter tracker](COURSE_REVIEW.md#chapter-review-tracker) separates implemented
@@ -32,7 +32,9 @@ slider uses arrow keys to change its value. The site follows the device’s ligh
 or dark appearance. Press Escape to leave fullscreen.
 
 Clean public routes include `/slides/primer.html`, `/slides/workloads.html`,
-`/slides/siting.html`, `/slides/site-design.html` and `/slides/800v.html`.
+`/slides/siting.html`, `/slides/site-design.html`, `/slides/continuity.html` and
+`/slides/rack-energy.html`. The old UPS, rack-power and 800 V routes redirect to
+the corresponding chapter and retain their query and scene fragment.
 Existing `course/prototypes` links redirect while preserving the selected slide
 and teaching mode. Editable sources remain grouped in the repository; public
 URLs are mapped during staging.

@@ -2549,6 +2549,8 @@ function acdcDeliveryModel(
   };
 }
 
+/* Shared inspected circuit and waveform renderer for the sample and Chapter 8. */
+function createElectricalVisuals({ acdcWaveModel, getState, escapeHTML, fmt }) {
 const phaseColors = [
   "var(--phase-one)",
   "var(--phase-two)",
@@ -2582,7 +2584,7 @@ function electricalPlot(
   low,
   high,
   unit,
-  angle = state.cycleDegrees,
+  angle = getState().cycleDegrees,
 ) {
   const left = 56,
     right = 594,
@@ -2603,7 +2605,7 @@ function electricalPlot(
       return `<path d="${d}" fill="none" stroke="${s.color}" stroke-width="${s.width || 2.5}" ${s.dash ? 'stroke-dasharray="6 4"' : ""}/><circle cx="${x(angle)}" cy="${y(s.value(angle))}" r="4.5" fill="${s.color}" stroke="var(--paper)" stroke-width="1.5"/>`;
     })
     .join("");
-  return `<section class="electrical-plot"><h3>${title} <small>${unit}</small></h3><svg viewBox="0 0 620 90" role="img" aria-label="${escapeHTML(title)} over one cycle; dashed vertical marker shows ${angle} degrees within the 60 Hz reference interval.">${ticks.map((v) => `<line x1="${left}" x2="${right}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="${left - 8}" y="${y(v) + 4}" text-anchor="end">${fmt(v)}</text>`).join("")}<line x1="${x(angle)}" x2="${x(angle)}" y1="${top}" y2="${bottom}" stroke="var(--muted)" stroke-dasharray="3 5"/>${paths}${[0, 90, 180, 270, 360].map((d) => `<text x="${x(d)}" y="82" text-anchor="middle">${fmt((d / 360 / 60) * 1000, 1)} ms</text>`).join("")}</svg><div class="wave-key">${series.map((s) => `<span style="--wave-color:${s.color}">${s.label}</span>`).join("")}</div></section>`;
+  return `<section class="electrical-plot"><h3>${title} <small>${unit}</small></h3><svg viewBox="0 0 620 90" role="img" aria-label="${escapeHTML(title)} over one cycle; dashed vertical marker shows ${angle} degrees within the 60 Hz reference interval.">${ticks.map((v) => `<line x1="${left}" x2="${right}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="${left - 8}" y="${y(v) + 4}" text-anchor="end">${fmt(v)}</text>`).join("")}<line x1="${x(angle)}" x2="${x(angle)}" y1="${top}" y2="${bottom}" stroke="var(--muted)" stroke-dasharray="3 5"/>${paths}${[0, 90, 180, 270, 360].map((d) => `<text x="${x(d)}" y="82" text-anchor="${d === 360 ? "end" : d === 0 ? "start" : "middle"}">${fmt((d / 360 / 60) * 1000, 1)} ms</text>`).join("")}</svg><div class="wave-key">${series.map((s) => `<span style="--wave-color:${s.color}">${s.label}</span>`).join("")}</div></section>`;
 }
 
 function directionArrow(x, y, current, color = "var(--phase-one)") {
@@ -2646,7 +2648,7 @@ function pairVoltages(angle) {
 }
 function pairVoltageComparison() {
   const names = ["L1 − L2", "L2 − L3", "L3 − L1"],
-    values = pairVoltages(state.cycleDegrees),
+    values = pairVoltages(getState().cycleDegrees),
     x = (angle) => 65 + (angle / 360) * 660,
     y = (voltage) => 140 - (voltage / 700) * 110;
   const curves = names
@@ -2656,17 +2658,17 @@ function pairVoltageComparison() {
         (_, n) =>
           `${n ? "L" : "M"}${x(n * 3).toFixed(2)} ${y(pairVoltages(n * 3)[i]).toFixed(2)}`,
       ).join(" ");
-      return `<path d="${path}" fill="none" stroke="${phaseColors[i]}" stroke-width="4" ${i === 1 ? 'stroke-dasharray="9 7"' : ""}/><circle cx="${x(state.cycleDegrees)}" cy="${y(values[i])}" r="6" fill="${phaseColors[i]}" stroke="var(--paper)" stroke-width="2"/>`;
+      return `<path d="${path}" fill="none" stroke="${phaseColors[i]}" stroke-width="4" ${i === 1 ? 'stroke-dasharray="9 7"' : ""}/><circle cx="${x(getState().cycleDegrees)}" cy="${y(values[i])}" r="6" fill="${phaseColors[i]}" stroke="var(--paper)" stroke-width="2"/>`;
     })
     .join("");
   const signed = (value) =>
     Math.abs(value) < 0.05
       ? "0"
       : `${value > 0 ? "+" : "−"}${fmt(Math.abs(value), 1)}`;
-  return `<div class="pair-comparison"><div class="pair-readings">${names.map((name, i) => `<div style="--pair-color:${phaseColors[i]}"><span>${name}</span><strong>480 <small>V RMS</small></strong><span data-pair-voltage="${i}">${signed(values[i])} V now</span></div>`).join("")}</div><svg class="pair-waveform" viewBox="0 0 780 285" role="img" aria-label="Three pair-voltage waveforms have the same RMS magnitude and different timing. Their signed instantaneous values sum to zero.">${[-680, 0, 680].map((v) => `<line x1="65" y1="${y(v)}" x2="725" y2="${y(v)}" stroke="var(--line)"/><text x="55" y="${y(v) + 6}" text-anchor="end">${v}</text>`).join("")}<line x1="${x(state.cycleDegrees)}" x2="${x(state.cycleDegrees)}" y1="25" y2="253" stroke="var(--muted)" stroke-dasharray="4 6"/>${curves}<text x="65" y="280">0</text><text x="725" y="280" text-anchor="end">One cycle</text></svg><p class="pair-identity">${values.map(signed).join(" + ").replaceAll("+ −", "− ").replaceAll("+ +", "+ ")} ≈ 0 V <span>Signed voltages now</span></p><p class="pair-principle">480 V is an RMS magnitude, not a fixed +480 V step.</p></div>`;
+  return `<div class="pair-comparison"><div class="pair-readings">${names.map((name, i) => `<div style="--pair-color:${phaseColors[i]}"><span>${name}</span><strong>480 <small>V RMS</small></strong><span data-pair-voltage="${i}">${signed(values[i])} V now</span></div>`).join("")}</div><svg class="pair-waveform" viewBox="0 0 780 285" role="img" aria-label="Three pair-voltage waveforms have the same RMS magnitude and different timing. Their signed instantaneous values sum to zero.">${[-680, 0, 680].map((v) => `<line x1="65" y1="${y(v)}" x2="725" y2="${y(v)}" stroke="var(--line)"/><text x="55" y="${y(v) + 6}" text-anchor="end">${v}</text>`).join("")}<line x1="${x(getState().cycleDegrees)}" x2="${x(getState().cycleDegrees)}" y1="25" y2="253" stroke="var(--muted)" stroke-dasharray="4 6"/>${curves}<text x="65" y="280">0</text><text x="725" y="280" text-anchor="end">One cycle</text></svg><p class="pair-identity">${values.map(signed).join(" + ").replaceAll("+ −", "− ").replaceAll("+ +", "+ ")} ≈ 0 V <span>Signed voltages now</span></p><p class="pair-principle">480 V is an RMS magnitude, not a fixed +480 V step.</p></div>`;
 }
 function electricalContent(kind) {
-  const now = waveView(state.cycleDegrees);
+  const now = waveView(getState().cycleDegrees);
   const make = (label, color, key, dash = false, width = 2.5) => ({
     label,
     color,
@@ -2675,7 +2677,7 @@ function electricalContent(kind) {
     width,
   });
   if (kind === "voltage-basis")
-    return state.voltageView === "pairs"
+    return getState().voltageView === "pairs"
       ? pairVoltageComparison()
       : voltageMeasurement();
   if (kind === "dc-basics") {
@@ -2745,7 +2747,7 @@ function electricalContent(kind) {
 function electricalVisual(kind) {
   const scrub =
     ["ac-basics", "three-phase"].includes(kind) ||
-    (kind === "voltage-basis" && state.voltageView === "pairs");
+    (kind === "voltage-basis" && getState().voltageView === "pairs");
   const condition =
     kind === "dc-basics"
       ? "800 V DC · ideal wires"
@@ -2754,8 +2756,115 @@ function electricalVisual(kind) {
         : kind === "three-phase"
           ? "480 V three-phase · balanced resistive load · PF = 1"
           : "Balanced 480 V three-phase system";
-  return `<div class="electrical-model"><div class="energy-band"><strong>${kind === "voltage-basis" ? condition : "100 kW average at the load"}</strong>${kind === "voltage-basis" ? "" : `<span>${condition}</span>`}</div>${kind === "voltage-basis" ? `<div class="voltage-view-controls"><button data-voltage-view="meter" aria-pressed="${state.voltageView === "meter"}">Meter connections</button><button data-voltage-view="pairs" aria-pressed="${state.voltageView === "pairs"}">Why not 960 V?</button></div>` : ""}<div id="wave-content">${electricalContent(kind)}</div>${scrub ? `<div class="cycle-control"><label for="cycle-angle">One AC cycle · 60 Hz</label><input type="range" id="cycle-angle" min="0" max="360" step="1" value="${state.cycleDegrees}"/><output id="cycle-value" for="cycle-angle">${state.cycleDegrees}°</output></div>` : ""}</div>`;
+  return `<div class="electrical-model"><div class="energy-band"><strong>${kind === "voltage-basis" ? condition : "100 kW average at the load"}</strong>${kind === "voltage-basis" ? "" : `<span>${condition}</span>`}</div>${kind === "voltage-basis" ? `<div class="voltage-view-controls"><button data-voltage-view="meter" aria-pressed="${getState().voltageView === "meter"}">Meter connections</button><button data-voltage-view="pairs" aria-pressed="${getState().voltageView === "pairs"}">Why not 960 V?</button></div>` : ""}<div id="wave-content">${electricalContent(kind)}</div>${scrub ? `<div class="cycle-control"><label for="cycle-angle">One AC cycle · 60 Hz</label><input type="range" id="cycle-angle" min="0" max="360" step="1" value="${getState().cycleDegrees}"/><output id="cycle-value" for="cycle-angle">${getState().cycleDegrees}°</output></div>` : ""}</div>`;
 }
+
+return { electricalVisual, electricalContent };
+}
+
+/* Pure visual factory shared by the original sample and consolidated Chapter 8. */
+function createPresentationRenderers({ defaults: DEFAULTS, getState, getStep, isRevealed, acdcConductorModel, escapeHTML, fmt, assets = "assets/" }) {
+function metric(value, unit) { return `<div class="metric">${value} <small>${unit}</small></div>`; }
+function intro() {
+  return `<div class="hero"><div class="hero-copy"><span class="chip">480 V three-phase AC ↔ 800 V DC</span><div class="hero-number">100<small> kW</small></div><span class="hero-goal">Same power delivered to the load</span></div><img src="${assets}power-equipment.png" width="1672" height="941" alt="Concept illustration of conversion equipment beside a compute rack." /></div>`;
+}
+function conductorNumbers(volts = DEFAULTS.comparison_voltage_v) {
+  return acdcConductorModel(
+    DEFAULTS.power_kw,
+    DEFAULTS.reference_voltage_v,
+    volts,
+    DEFAULTS.power_factor,
+    DEFAULTS.conductor_ohms,
+    DEFAULTS.hours,
+  );
+}
+function conductors(labels) {
+  return `<div class="conductor-lines" aria-label="${labels.length} current-carrying conductors">${labels.map((label) => `<div><span>${label}</span><i></i></div>`).join("")}</div>`;
+}
+function copper() {
+  function bundle(supply, labels) {
+    return `<div class="copper-bundle" data-supply="${supply}" aria-label="${labels.length} copper conductors of equal length and cross-section">${labels.map((label) => `<div class="copper-row"><span>${label}</span><i class="copper-bar" aria-hidden="true"></i></div>`).join("")}${supply === "dc" ? '<div class="copper-row copper-removed" aria-label="One fewer conductor"><span>−1</span><i aria-hidden="true"></i></div>' : ""}</div>`;
+  }
+  return `<div class="model copper-model"><div class="model-top"><span class="chip">SAME 100 kW DELIVERED</span><span class="ledger-formula">Equal length, cross-section and material</span></div><div class="comparison"><section class="metric-card"><p class="metric-label">480 V three-phase AC</p>${bundle("ac", ["L1", "L2", "L3"])}<p class="copper-quantity"><strong>3</strong> equal copper lengths</p></section><section class="metric-card changed"><p class="metric-label">800 V DC</p>${bundle("dc", ["+", "−"])}<p class="copper-quantity"><strong>2</strong> equal copper lengths</p></section></div></div>`;
+}
+function current() {
+  const { ac, dc } = conductorNumbers(getState().volts);
+  const shown = isRevealed();
+  return `<div class="model"><div class="model-top"><span class="chip">${DEFAULTS.power_kw} kW REAL POWER · AC PF = ${DEFAULTS.power_factor}</span><span class="ledger-formula">Current in each conductor</span></div><div class="comparison"><div class="metric-card"><p class="metric-label">${DEFAULTS.reference_voltage_v} V three-phase AC</p>${metric(shown ? fmt(ac.amps, 1) : "?", "A")}<p class="metric-sub">RMS · I = P / (√3 × V<sub>LL</sub> × PF)</p>${conductors(["L1", "L2", "L3"])}</div><div class="metric-card changed"><p class="metric-label"><span id="variable-voltage">${getState().volts}</span> V DC</p><div id="variable-current">${metric(shown ? fmt(dc.amps, 1) : "?", "A")}</div><p class="metric-sub" id="variable-derivation">${shown ? `${fmt(DEFAULTS.power_kw * 1000)} W ÷ ${getState().volts} V` : "I = P / V"}</p>${conductors(["+", "−"])}</div></div>${shown ? `<div class="control-line"><label for="voltage">Try another DC voltage</label><input id="voltage" type="range" min="400" max="1000" step="1" value="${getState().volts}" /><output id="voltage-value" for="voltage">${getState().volts} V</output><button id="reset-voltage">800 V</button></div>` : `<div class="control-line"><button class="reveal" id="reveal">Reveal the currents</button></div>`}</div>`;
+}
+function loss() {
+  const shown = isRevealed(),
+    { ac, dc, lossRatio } = conductorNumbers();
+  return `<div class="model"><div class="model-top"><span class="chip">100 kW delivered · PF = 1</span><span class="ledger-formula">10 mΩ per conductor</span></div><div class="comparison"><section class="metric-card"><p class="metric-label">480 V three-phase AC</p>${metric(fmt(ac.lossKW * 1000), "W heat")}<p class="metric-sub">P<sub>heat</sub> = 3 I<sub>RMS</sub>²R<br>3 × 120.3² × 0.01</p><div class="loss-track"><div class="loss-bar" style="width:100%"></div></div></section><section class="metric-card changed"><p class="metric-label">800 V DC</p>${metric(shown ? fmt(dc.lossKW * 1000, 1) : "?", "W heat")}<p class="metric-sub">P<sub>heat</sub> = 2 I²R<br>2 × 125² × 0.01</p><div class="loss-track">${shown ? `<div class="loss-bar" style="width:${lossRatio * 100}%"></div>` : ""}</div></section></div>${shown ? `<p class="comparison-result"><strong>${fmt((ac.lossKW - dc.lossKW) * 1000)} W less heat</strong><span>About 0.12% of the 100 kW delivered · conductors only</span></p>` : `<div class="control-line"><button class="reveal" id="reveal">Calculate DC conductor heat</button></div>`}</div>`;
+}
+function unit(label, style = "", detail = "") {
+  return `<div class="unit ${style}">${label}${detail ? `<small>${detail}</small>` : ""}</div>`;
+}
+function architecture(kind) {
+  const converter = unit("AC → DC", "converter", "conversion");
+  const regulator = unit("DC → DC", "converter", "device regulation");
+  const chip = unit("Compute", "chip-unit", "low device voltage");
+  const arrow = '<span class="wire" aria-hidden="true">→</span>';
+  let facility, adjacent, rack;
+  if (kind === "ac") {
+    facility = unit("Facility AC");
+    adjacent = unit("AC path");
+    rack = converter + arrow + regulator + arrow + chip;
+  }
+  if (kind === "sidecar") {
+    facility = unit("Facility AC");
+    adjacent = converter + arrow + unit("800 V DC");
+    rack = regulator + arrow + chip;
+  }
+  if (kind === "facility") {
+    facility = converter;
+    adjacent = unit("800 V DC", "", "hall distribution");
+    rack = regulator + arrow + chip;
+  }
+  const space = `<div class="rack-space ${kind === "ac" ? "occupied" : "released"}"><span>AC/DC equipment space</span><strong>${kind === "ac" ? "Occupied" : "Freed"}</strong></div>`;
+  const step = getStep();
+  const roadmap = `<div class="roadmap-context"><span class="chip">${escapeHTML(step.roadmap_label)}</span>${kind === "ac" ? "" : '<a href="https://newsletter.semianalysis.com/p/inside-the-800vdc-revolution-part" target="_blank" rel="noopener">SemiAnalysis forecast · May 2026</a>'}</div>`;
+  return `<div class="architecture">${roadmap}<div class="path"><section class="zone ${kind === "facility" ? "active" : ""}"><h2 class="zone-title">Upstream power room</h2><div class="zone-body">${facility}</div></section><section class="zone ${kind === "sidecar" ? "active" : ""}"><h2 class="zone-title">${kind === "sidecar" ? "Power rack in the hall" : "Hall distribution"}</h2><div class="zone-body">${adjacent}</div></section><section class="zone rack ${kind === "ac" ? "active" : ""}"><h2 class="zone-title">Compute rack</h2><div class="zone-body">${rack}</div>${space}</section></div></div>`;
+}
+function conversionViews() {
+  const tabs = `<div class="conversion-views">${[
+    ["supply", "Supply path"],
+    ["heat", "Converter losses"],
+  ]
+    .map(
+      ([view, label]) =>
+        `<button data-converter-view="${view}" aria-pressed="${getState().converterView === view}">${label}</button>`,
+    )
+    .join("")}</div>`;
+  if (getState().converterView === "heat") return tabs + conversionLoss();
+  return (
+    tabs +
+    `<div class="stepdown-example"><div class="stepdown-path"><section><p class="metric-label">Incoming supply</p><strong>Medium-voltage AC</strong><span>13.8 kV example</span></section><b aria-hidden="true">→</b><section><p class="metric-label">Transformer</p><strong>13.8 kV → 480 V AC</strong><span>Step-down + isolation</span></section><b aria-hidden="true">→</b><section class="stepdown-electronics"><p class="metric-label">Controlled converter</p><strong>480 V AC → 800 V DC</strong><span>Rectification + regulation</span></section></div></div>`
+  );
+}
+function conversionLoss() {
+  const output = DEFAULTS.power_kw,
+    efficiency = DEFAULTS.converter_efficiency;
+  const input = output / efficiency,
+    loss = input - output,
+    shown = isRevealed();
+  return `<div class="converter-example"><div class="model-top"><span class="chip">One AC/DC power supply · 98% efficiency assumed</span></div><div class="converter-flow"><div class="power-port"><span>480 V three-phase AC input</span><strong>${shown ? fmt(input, 2) : "?"}<small> kW</small></strong></div><span class="conversion-arrow" aria-hidden="true">→</span><div class="converter-box"><strong>Electronic AC/DC converter</strong><span>Useful output ÷ input = 98%</span></div><span class="conversion-arrow" aria-hidden="true">→</span><div class="power-port"><span>800 V DC output</span><strong>100<small> kW</small></strong></div><div class="converter-heat"><span aria-hidden="true">↓</span><strong>${shown ? fmt(loss, 2) : "?"} kW <small>converter heat</small></strong></div></div><div class="loss-causes"><span>Current heats components</span><span>Switching dissipates energy</span><span>Magnetic cores heat up</span></div>${shown ? '<div class="equation-block">100 ÷ 0.98 − 100 = <strong>2.04 kW</strong></div>' : '<div class="control-line"><button class="reveal" id="reveal">Calculate the lost power</button></div>'}</div>`;
+}
+function sourceFigure() {
+  const figure = getStep().figure;
+  const asset = `${assets}${figure.asset}`;
+  return `<figure class="source-figure"><a class="source-image" href="${escapeHTML(asset)}" target="_blank" rel="noopener" aria-label="Open diagram at full size"><img src="${escapeHTML(asset)}" alt="${escapeHTML(figure.alt)}"></a><figcaption><span>${escapeHTML(figure.credit)}</span><a href="${escapeHTML(figure.source_url)}" target="_blank" rel="noopener">${escapeHTML(figure.source_title)}</a><a href="${escapeHTML(asset)}" target="_blank" rel="noopener">Open full size ↗</a></figcaption></figure>`;
+}
+
+return { intro, copper, current, loss, architecture, conversionViews, sourceFigure, conductorNumbers };
+}
+
+/* Legacy sample bridge; the same renderer is imported by Chapter 8. */
+function electricalRenderers() {
+  return createElectricalVisuals({ acdcWaveModel, getState: () => state, escapeHTML, fmt });
+}
+function electricalVisual(kind) { return electricalRenderers().electricalVisual(kind); }
+function electricalContent(kind) { return electricalRenderers().electricalContent(kind); }
 
 const PRESENTATION = JSON.parse(
   document.getElementById("presentation-data").textContent,
@@ -2802,6 +2911,7 @@ const channel =
 const role = notesMode ? "notes" : "audience";
 const revealKinds = new Set(["current", "loss", "conversion-loss"]);
 const isRevealed = () => state.revealed.includes(STEPS[state.index].id);
+const { intro, copper, current, loss, architecture, conversionViews, sourceFigure, conductorNumbers } = createPresentationRenderers({ defaults: DEFAULTS, getState: () => state, getStep: () => STEPS[state.index], isRevealed, acdcConductorModel, escapeHTML, fmt });
 
 function validState(value) {
   return (
@@ -2865,91 +2975,6 @@ function renderSteps() {
 }
 function metric(value, unit) {
   return `<div class="metric">${value} <small>${unit}</small></div>`;
-}
-function intro() {
-  return `<div class="hero"><div class="hero-copy"><span class="chip">480 V three-phase AC ↔ 800 V DC</span><div class="hero-number">100<small> kW</small></div><span class="hero-goal">Same power delivered to the load</span></div><img src="assets/power-equipment.png" width="1672" height="941" alt="Concept illustration of conversion equipment beside a compute rack." /></div>`;
-}
-function conductorNumbers(volts = DEFAULTS.comparison_voltage_v) {
-  return acdcConductorModel(
-    DEFAULTS.power_kw,
-    DEFAULTS.reference_voltage_v,
-    volts,
-    DEFAULTS.power_factor,
-    DEFAULTS.conductor_ohms,
-    DEFAULTS.hours,
-  );
-}
-function conductors(labels) {
-  return `<div class="conductor-lines" aria-label="${labels.length} current-carrying conductors">${labels.map((label) => `<div><span>${label}</span><i></i></div>`).join("")}</div>`;
-}
-function copper() {
-  function bundle(supply, labels) {
-    return `<div class="copper-bundle" data-supply="${supply}" aria-label="${labels.length} copper conductors of equal length and cross-section">${labels.map((label) => `<div class="copper-row"><span>${label}</span><i class="copper-bar" aria-hidden="true"></i></div>`).join("")}${supply === "dc" ? '<div class="copper-row copper-removed" aria-label="One fewer conductor"><span>−1</span><i aria-hidden="true"></i></div>' : ""}</div>`;
-  }
-  return `<div class="model copper-model"><div class="model-top"><span class="chip">SAME 100 kW DELIVERED</span><span class="ledger-formula">Equal length, cross-section and material</span></div><div class="comparison"><section class="metric-card"><p class="metric-label">480 V three-phase AC</p>${bundle("ac", ["L1", "L2", "L3"])}<p class="copper-quantity"><strong>3</strong> equal copper lengths</p></section><section class="metric-card changed"><p class="metric-label">800 V DC</p>${bundle("dc", ["+", "−"])}<p class="copper-quantity"><strong>2</strong> equal copper lengths</p></section></div></div>`;
-}
-function current() {
-  const { ac, dc } = conductorNumbers(state.volts);
-  const shown = isRevealed();
-  return `<div class="model"><div class="model-top"><span class="chip">${DEFAULTS.power_kw} kW REAL POWER · AC PF = ${DEFAULTS.power_factor}</span><span class="ledger-formula">Current in each conductor</span></div><div class="comparison"><div class="metric-card"><p class="metric-label">${DEFAULTS.reference_voltage_v} V three-phase AC</p>${metric(shown ? fmt(ac.amps, 1) : "?", "A")}<p class="metric-sub">RMS · I = P / (√3 × V<sub>LL</sub> × PF)</p>${conductors(["L1", "L2", "L3"])}</div><div class="metric-card changed"><p class="metric-label"><span id="variable-voltage">${state.volts}</span> V DC</p><div id="variable-current">${metric(shown ? fmt(dc.amps, 1) : "?", "A")}</div><p class="metric-sub" id="variable-derivation">${shown ? `${fmt(DEFAULTS.power_kw * 1000)} W ÷ ${state.volts} V` : "I = P / V"}</p>${conductors(["+", "−"])}</div></div>${shown ? `<div class="control-line"><label for="voltage">Try another DC voltage</label><input id="voltage" type="range" min="400" max="1000" step="1" value="${state.volts}" /><output id="voltage-value" for="voltage">${state.volts} V</output><button id="reset-voltage">800 V</button></div>` : `<div class="control-line"><button class="reveal" id="reveal">Reveal the currents</button></div>`}</div>`;
-}
-function loss() {
-  const shown = isRevealed(),
-    { ac, dc, lossRatio } = conductorNumbers();
-  return `<div class="model"><div class="model-top"><span class="chip">100 kW delivered · PF = 1</span><span class="ledger-formula">10 mΩ per conductor</span></div><div class="comparison"><section class="metric-card"><p class="metric-label">480 V three-phase AC</p>${metric(fmt(ac.lossKW * 1000), "W heat")}<p class="metric-sub">P<sub>heat</sub> = 3 I<sub>RMS</sub>²R<br>3 × 120.3² × 0.01</p><div class="loss-track"><div class="loss-bar" style="width:100%"></div></div></section><section class="metric-card changed"><p class="metric-label">800 V DC</p>${metric(shown ? fmt(dc.lossKW * 1000, 1) : "?", "W heat")}<p class="metric-sub">P<sub>heat</sub> = 2 I²R<br>2 × 125² × 0.01</p><div class="loss-track">${shown ? `<div class="loss-bar" style="width:${lossRatio * 100}%"></div>` : ""}</div></section></div>${shown ? `<p class="comparison-result"><strong>${fmt((ac.lossKW - dc.lossKW) * 1000)} W less heat</strong><span>About 0.12% of the 100 kW delivered · conductors only</span></p>` : `<div class="control-line"><button class="reveal" id="reveal">Calculate DC conductor heat</button></div>`}</div>`;
-}
-function unit(label, style = "", detail = "") {
-  return `<div class="unit ${style}">${label}${detail ? `<small>${detail}</small>` : ""}</div>`;
-}
-function architecture(kind) {
-  const converter = unit("AC → DC", "converter", "conversion");
-  const regulator = unit("DC → DC", "converter", "device regulation");
-  const chip = unit("Compute", "chip-unit", "low device voltage");
-  const arrow = '<span class="wire" aria-hidden="true">→</span>';
-  let facility, adjacent, rack;
-  if (kind === "ac") {
-    facility = unit("Facility AC");
-    adjacent = unit("AC path");
-    rack = converter + arrow + regulator + arrow + chip;
-  }
-  if (kind === "sidecar") {
-    facility = unit("Facility AC");
-    adjacent = converter + arrow + unit("800 V DC");
-    rack = regulator + arrow + chip;
-  }
-  if (kind === "facility") {
-    facility = converter;
-    adjacent = unit("800 V DC", "", "hall distribution");
-    rack = regulator + arrow + chip;
-  }
-  const space = `<div class="rack-space ${kind === "ac" ? "occupied" : "released"}"><span>AC/DC equipment space</span><strong>${kind === "ac" ? "Occupied" : "Freed"}</strong></div>`;
-  const step = STEPS[state.index];
-  const roadmap = `<div class="roadmap-context"><span class="chip">${escapeHTML(step.roadmap_label)}</span>${kind === "ac" ? "" : '<a href="https://newsletter.semianalysis.com/p/inside-the-800vdc-revolution-part" target="_blank" rel="noopener">SemiAnalysis forecast · May 2026</a>'}</div>`;
-  return `<div class="architecture">${roadmap}<div class="path"><section class="zone ${kind === "facility" ? "active" : ""}"><h2 class="zone-title">Upstream power room</h2><div class="zone-body">${facility}</div></section><section class="zone ${kind === "sidecar" ? "active" : ""}"><h2 class="zone-title">${kind === "sidecar" ? "Power rack in the hall" : "Hall distribution"}</h2><div class="zone-body">${adjacent}</div></section><section class="zone rack ${kind === "ac" ? "active" : ""}"><h2 class="zone-title">Compute rack</h2><div class="zone-body">${rack}</div>${space}</section></div></div>`;
-}
-function conversionViews() {
-  const tabs = `<div class="conversion-views">${[
-    ["supply", "Supply path"],
-    ["heat", "Converter losses"],
-  ]
-    .map(
-      ([view, label]) =>
-        `<button data-converter-view="${view}" aria-pressed="${state.converterView === view}">${label}</button>`,
-    )
-    .join("")}</div>`;
-  if (state.converterView === "heat") return tabs + conversionLoss();
-  return (
-    tabs +
-    `<div class="stepdown-example"><div class="stepdown-path"><section><p class="metric-label">Incoming supply</p><strong>Medium-voltage AC</strong><span>13.8 kV example</span></section><b aria-hidden="true">→</b><section><p class="metric-label">Transformer</p><strong>13.8 kV → 480 V AC</strong><span>Step-down + isolation</span></section><b aria-hidden="true">→</b><section class="stepdown-electronics"><p class="metric-label">Controlled converter</p><strong>480 V AC → 800 V DC</strong><span>Rectification + regulation</span></section></div></div>`
-  );
-}
-function conversionLoss() {
-  const output = DEFAULTS.power_kw,
-    efficiency = DEFAULTS.converter_efficiency;
-  const input = output / efficiency,
-    loss = input - output,
-    shown = isRevealed();
-  return `<div class="converter-example"><div class="model-top"><span class="chip">One AC/DC power supply · 98% efficiency assumed</span></div><div class="converter-flow"><div class="power-port"><span>480 V three-phase AC input</span><strong>${shown ? fmt(input, 2) : "?"}<small> kW</small></strong></div><span class="conversion-arrow" aria-hidden="true">→</span><div class="converter-box"><strong>Electronic AC/DC converter</strong><span>Useful output ÷ input = 98%</span></div><span class="conversion-arrow" aria-hidden="true">→</span><div class="power-port"><span>800 V DC output</span><strong>100<small> kW</small></strong></div><div class="converter-heat"><span aria-hidden="true">↓</span><strong>${shown ? fmt(loss, 2) : "?"} kW <small>converter heat</small></strong></div></div><div class="loss-causes"><span>Current heats components</span><span>Switching dissipates energy</span><span>Magnetic cores heat up</span></div>${shown ? '<div class="equation-block">100 ÷ 0.98 − 100 = <strong>2.04 kW</strong></div>' : '<div class="control-line"><button class="reveal" id="reveal">Calculate the lost power</button></div>'}</div>`;
 }
 function renderNotes() {
   const step = STEPS[state.index];
@@ -3025,11 +3050,6 @@ function bindVisual() {
   byId("reset-voltage")?.addEventListener("click", () =>
     change({ volts: DEFAULTS.comparison_voltage_v }),
   );
-}
-function sourceFigure() {
-  const figure = STEPS[state.index].figure;
-  const asset = `assets/${figure.asset}`;
-  return `<figure class="source-figure"><a class="source-image" href="${escapeHTML(asset)}" target="_blank" rel="noopener" aria-label="Open diagram at full size"><img src="${escapeHTML(asset)}" alt="${escapeHTML(figure.alt)}"></a><figcaption><span>${escapeHTML(figure.credit)}</span><a href="${escapeHTML(figure.source_url)}" target="_blank" rel="noopener">${escapeHTML(figure.source_title)}</a><a href="${escapeHTML(asset)}" target="_blank" rel="noopener">Open full size ↗</a></figcaption></figure>`;
 }
 function render() {
   const step = STEPS[state.index];

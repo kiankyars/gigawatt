@@ -1168,3 +1168,51 @@ not construction accuracy or author acceptance. The next author pass starts at
   route, reader case sections and source/provenance records. Full checks: 72 Python
   tests and 155 Node tests pass; course, expanded-reader, domain-map and research
   freshness checks pass.
+
+## Chapters 7 and 8 integration — 2026-09-13
+
+- Chapter 7 is a separate 26-scene D05 deck at `continuity-format.html`.
+  It reuses the reviewed UPS, bypass, capacitor, generator, redundancy and
+  reliability renderers. Added storage power/energy comparison, the real Sparks
+  storage site, fault isolation, grounding, AC/DC interruption and the
+  whole-service check-in. Fairwater retains its own `tier-investment` scene.
+- Chapter 8 is one 32-scene D06 deck at `rack-energy-format.html`: the retained
+  rack-to-chip and 800 V sequences share navigation and rendering functions.
+  Both named PSU/BBU photo scenes remain. Added inlet-power accounting, physical
+  scale context and a retrofit decision with a power/date reversal.
+- One historical Zurich-West scene moves the unique 2012 case into Chapter 8:
+  1 MW DC, 380 V distribution, transformer plus rectifier in the central unit.
+  ABB's 400 V open-circuit specification is distinguished from its diagram label.
+  P153/P154 and the existing photo are reused; no generic loss/heat slide is
+  duplicated. `green-dc` and `green-path` are aliases in Chapter 8.
+- Actual built-in GPT ImageGen produced the Chapter 7 electrical-room context and
+  Chapter 8 rack/board/package illustration. Exact prompts and provenance are
+  retained beside the assets and in `rack-energy-source-additions.proposed.json`.
+  These images provide physical context, not product or circuit evidence.
+- P157 registers Redwood's Sparks aerial/context; P158 registers Schneider's
+  conceptual TN return path (indexed public text reviewed; direct page unavailable).
+  The local NVIDIA rack figure uses existing P64. P159 registers the independently
+  researched controls-transformer operating limits and unchanged product photo for
+  the concurrent Chapter 6 revision; its teaching integration is reviewed separately.
+- 69 scoped Node tests pass, including shared navigation, retained UPS mechanisms,
+  capacitor energy balance, storage/service models, every legacy scene/alias,
+  rack power, retrofit constraints and shared renderers. All 73 Python tests pass.
+  Course, expanded-reader, domain-map and research checks pass; research generation
+  includes discovery candidates as required by the publication workflow.
+- The catalog has one Chapter 7 and one Chapter 8 entry. Site staging includes the
+  four shared web modules. Nine old URL redirect chains were executed in Node:
+  query strings, fragments and scene destinations remain intact. Seven canonical
+  and legacy routes return HTTP 200; a static import/link/asset traversal finds no
+  missing dependencies from the two staged entrypoints.
+- Prior native Codex browser inspection covered all 26 Chapter 7 scenes at
+  1280×720 and 390×844, and all 31 pre-Zurich Chapter 8 scenes at desktop size,
+  with narrow follow-ups and both manufacturer photo scenes. Controls, reveals,
+  keyboard focus and scroll reachability were exercised. Dark checks used a
+  temporary local fixture activating the production dark palette, not an OS
+  appearance change. Source still follows device appearance and reduced motion.
+- **Remaining visual check:** native browser access was unavailable during final
+  integration (the child reported a locked Mac; the integrator found no browser).
+  The new Zurich slide and final public redirect/navigation paths therefore have
+  no new browser pass. Native fullscreen state is also unconfirmed. No external
+  or headless browser was used as a substitute. This is implementation evidence,
+  not author acceptance or a whole-course visual pass.

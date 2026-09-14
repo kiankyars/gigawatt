@@ -139,7 +139,7 @@ class TeachingCatalogTests(unittest.TestCase):
             ):
                 self.resolve(catalog=catalog)
 
-    def test_real_catalog_places_selected_topics_without_claiming_whole_chapters(self):
+    def test_real_catalog_separates_chapters_and_labels_selected_topics(self):
         course = b.load_course()
         chapters = {c["id"]: c for c in course["chapters"]}
         self.assertEqual(len(chapters), 17)
@@ -147,9 +147,9 @@ class TeachingCatalogTests(unittest.TestCase):
         self.assertEqual(chapters["D13"]["number"], 14)
         self.assertEqual(chapters["capstone"]["number"], 17)
         self.assertEqual(
-            len({p["id"] for c in chapters.values() for p in c["presentations"]}), 10
+            len({p["id"] for c in chapters.values() for p in c["presentations"]}), 9
         )
-        for did in ("D05", "D06", "D10", "D11"):
+        for did in ("D10", "D11"):
             with self.subTest(chapter=did):
                 self.assertTrue(chapters[did]["presentations"])
                 self.assertTrue(
@@ -167,6 +167,13 @@ class TeachingCatalogTests(unittest.TestCase):
         self.assertEqual(chapters["D04"]["presentations"][0]["coverage"], "chapter")
         self.assertEqual(chapters["D03"]["presentations"][0]["coverage"], "chapter")
         self.assertEqual(chapters["D03"]["presentations"][0]["href"], "prototypes/siting-format.html?teach=1")
+        for did, deck in (("D05", "continuity"), ("D06", "rack-energy")):
+            with self.subTest(chapter=did):
+                self.assertEqual(len(chapters[did]["presentations"]), 1)
+                presentation = chapters[did]["presentations"][0]
+                self.assertEqual(presentation["id"], deck)
+                self.assertEqual(presentation["coverage"], "chapter")
+                self.assertEqual(presentation["href"], f"prototypes/{deck}-format.html?teach=1")
 
     def test_numbered_markdown_uses_the_same_chapter_identity(self):
         course = b.load_course()

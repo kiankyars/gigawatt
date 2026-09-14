@@ -180,7 +180,7 @@ function render() {
   if (scene.id === "service-check")
     $("actions").insertAdjacentHTML(
       "beforeend",
-      '<a class="chapter-next" href="rack-energy-format.html">8. Rack power →</a>',
+      '<a class="chapter-next" href="rack-energy-format.html?teach=1">8. Rack power →</a>',
     );
   $("actions")
     .querySelectorAll("button")
@@ -204,7 +204,7 @@ function render() {
           replacement?.focus({ preventScroll: true });
         }),
     );
-  $("scene-jump").innerHTML = scenes
+  $("scenes").innerHTML = scenes
     .map(
       (s, i) =>
         `<option value="${i}" ${i === index ? "selected" : ""}>${i + 1}. ${esc(s.label)}</option>`,
@@ -221,7 +221,7 @@ function go(i) {
   render();
   window.scrollTo(0, 0);
 }
-$("scene-jump").onchange = (e) => go(Number(e.target.value));
+$("scenes").onchange = (e) => go(Number(e.target.value));
 $("previous").onclick = () => go(index - 1);
 $("next").onclick = () => go(index + 1);
 $("fullscreen").onclick = () =>

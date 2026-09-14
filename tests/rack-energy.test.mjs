@@ -42,11 +42,12 @@ test('retrofit choice changes with deadline while the electrical account remains
 });
 test('consolidation preserves every reviewed scene and alias in order',()=>{
   const sample=JSON.parse(readFileSync(new URL('../course/expansion/sample-presentation.json',import.meta.url)));
-  assert.equal(new Set(scenes.map(s=>s.id)).size,oldRackScenes.length+sample.steps.length+5);
+  assert.equal(new Set(scenes.map(s=>s.id)).size,oldRackScenes.length+sample.steps.length+6);
   for(const sequence of [oldRackScenes,sample.steps]){
     let previous=-1;for(const s of sequence){const index=scenes.findIndex(c=>c.id===s.id);assert.ok(index>previous,s.id);previous=index;}
   }
-  assert.deepEqual(aliases,sample.aliases);
+  for(const [alias,target] of Object.entries(sample.aliases))assert.equal(aliases[alias],target);
+  assert.equal(aliases['green-dc'],'green-zurich-west');assert.equal(aliases['green-path'],'green-zurich-west');
   for(const target of Object.values(aliases))assert.ok(scenes.some(s=>s.id===target));
 });
 test('shared renderers cover all scenes and changed states without missing quantities',()=>{

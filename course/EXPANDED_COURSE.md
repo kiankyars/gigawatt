@@ -53,15 +53,14 @@ Each topic ends with a check-in: pause, make a prediction, compare the reasoning
 
 ### 7. Continuity, storage and protection
 
-- Selected-topic slides: [UPS, bypass and redundancy](prototypes/ups-format.html)
+- Slides: [Continuity, storage and protection](prototypes/continuity-format.html?teach=1)
 - [A battery has two limits before it has a runtime](lessons/d05-storage-power-and-time.md) — Can the stored energy reach the load at the required rate?
 - [Continuity belongs to the complete service](lessons/d05-paths-and-transitions.md) — Which loads remain usable during an interruption, transfer, and maintenance event?
 - [A fault needs a boundary and an exit](lessons/d05-protection-and-fault-domains.md) — Why can the same breaker arrangement behave differently under another source or grounding scheme?
 
 ### 8. Rack power and the 800 V DC transition
 
-- Selected-topic slides: [From the rack inlet to the chip](prototypes/rack-power-format.html?teach=1)
-- Selected-topic slides: [800 V DC](teach.html)
+- Slides: [Rack power and the 800 V DC transition](prototypes/rack-energy-format.html?teach=1)
 - [Follow the watts through the rack](lessons/d06-conversion-ledger.md) — Why is the sum of processor power ratings not the power entering the rack?
 - [800 V is an interface, not an entire architecture](lessons/d06-eight-hundred-volt-architectures.md) — What changes when conversion sits in the rack, beside the rack, or at the facility boundary?
 - [A rack upgrade is an interface negotiation](lessons/d06-rack-migration.md) — Why can a retrofit reject the architecture that looks best on an empty site?
@@ -2129,6 +2128,7 @@ About 5.43 minutes.
 - [Crusoe 2025 Impact Report](https://media.ffycdn.net/us/crusoe/PL5TuZz5apXB9pVsd3H1.pdf) — Page 33 repeats the Sparks solar, storage and availability case. Read 2026-09-12. Report launched May 28, 2026 at https://www.crusoe.ai/resources/blog/crusoes-2025-impact-report . Operator-reported case, not independent commissioning evidence. Do not imply 350 MW backs up the full 1.2 GW campus. Repeated Sparks availability figures are not a newly measured September interval.
 - [Schneider Electric — Easy UPS 3-Phase Modular: Configure the Input Contacts](https://productinfo.se.com/easyups3pmodular/990-6537-easy-ups-3-phase-modular-50-250-kw-operation/English/990-6537%20Operation%20Easy%20UPS%203-Phase%20Modular%2050-250%20kW_0001015104.xml/%24/GalaxyPX_ConfiguretheInputContacts_0000761997) — The detected-genset function can set battery charge power to 0% or 100%. Generator-supplied battery charging is configurable; it is not necessarily enabled in every installation. Read 2026-09-12. Public manufacturer's input-contact configuration page read. No claim about generator capacity, start time or charging rate for an actual installation.
 - [Eaton — 93E UPS Generation 3 installation and operation manual, 164000301 Rev. 04](https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-93e-ups/eaton-93e-ups-20kva-30kva-generation-3-manual-p-164000301.pdf) — Printed pages 56–59 describe regulated rectifier output and a buck/boost battery converter. When acceptable AC returns, the rectifier resumes supplying the inverter and the battery can recharge. Read 2026-09-12. Operating-mode sections on PDF pages 67–70 reviewed. This is an Eaton topology example, not a specification for the illustrated Schneider UPS or the ideal 800 V, 0.20 F teaching bus and its assumed response times.
+- [Redwood Materials — Redwood and Crusoe expand compute to 7x scale](https://www.redwoodmaterials.com/news/redwood-and-crusoe-expand-compute-to-7x-scale/) — Identify the publisher-provided aerial photograph of the Sparks battery and modular data-center deployment. Read 2026-09-13. Article and linked aerial inspected. Expansion is announced. The photo does not establish completed expanded capacity or the battery discharge rating; retain the Crusoe impact report for the specific solar-power label.
 
 ## Continuity belongs to the complete service
 
@@ -2197,6 +2197,12 @@ Microsoft chose the Atlanta site for resilient utility power. Its November 2025 
 The decision is concrete: how much additional local backup does this GPU service need beyond the reliability available from its utility connection? A different utility supply or a service with a different interruption tolerance can justify a different investment. This Fairwater design is not presented as an Uptime Tier certification. It therefore does not contradict the generator requirement within the four Uptime Tiers.
 
 Microsoft does not supply a quantified capital-cost comparison or a measured annual availability record in that announcement. The case establishes the chosen architecture and the operator's rationale. It does not prove that omitting backup achieves the same result at another site.
+
+## Trace a powered rack with a failed service dependency
+
+The Chapter 7 closing check uses a separate qualitative operating sequence. IT remains on its UPS; pumps wait for generator transfer; heat rejection restarts later. Cooling controls initially have a utility-only feed. In this supplied operating policy, loss of control power trips an interlock and stops the workload even though rack AC remains present. This is a declared scenario response, not a universal automatic behavior of data centers.
+
+Moving the control supply to a UPS repairs that particular dependency. It does not establish temperature margin while pumps transfer or heat rejection restarts. A continuity claim still needs the actual control sequence, supply dependencies, restart behavior, thermal capacity and allowable temperatures over the full disturbance. The check supplies no thermal ride-through duration and does not certify that the corrected path can sustain the service.
 
 ## Worked example: An electrical bridge with an unresolved thermal interval
 
@@ -2344,6 +2350,7 @@ Doubling current multiplies I² by four; halving time divides by two. Net heatin
 - [ABB — Protection Devices for Direct Current Applications](https://library.e.abb.com/public/5cd83dcb95a74dcdb571be5f256e1af8/9AKK108470A9606_en_B_Protection%20Devices%20for%20Direct%20Current%20Applications%20-%20Technical%20Application%20Paper.pdf) — DC interruption and converter-fed fault behavior depend on circuit dynamics and device capabilities. Read 2026-09-06. Read the publicly indexed excerpt of section 6; the PDF URL responded successfully, but the complete document was not reviewed. No product selection is claimed.
 - [Schneider Electric — Definition of standardised earthing schemes](https://www.electrical-installation.org/enwiki/Definition_of_standardised_earthing_schemes) — Earthing schemes distinguish the source-earth relationship from exposed-part protective connections. Read 2026-09-06. Read publicly indexed definitions of the standardized schemes, not a site-specific grounding study.
 - [OpenStax — Electrical Energy and Power](https://openstax.org/books/university-physics-volume-2/pages/9-5-electrical-energy-and-power) — The fixed-current resistive energy example follows I²R multiplied by time. Read 2026-09-06. Read the public resistor-power equations; all fault currents and durations are hypothetical teaching inputs.
+- [Schneider Electric — TN system: Principle](https://www.electrical-installation.org/enwiki/TN_system_-_Principle) — In the TN arrangement, exposed conductive parts connect by protective conductors to the earthed source point; fault current returns through that loop. Read 2026-09-13. Public search-indexed primary text reviewed. The slide shows only a conceptual line-to-case fault loop, not a complete wiring design or a protective-device setting.
 
 ## Check your understanding: Maintenance, then another loss
 
@@ -2486,6 +2493,16 @@ Architecture A brings AC distribution to a compute rack, converts it to a lower-
 
 The comparison becomes useful when unchanged equipment stays visible. In B, the upstream AC feeder still carries the aggregate load delivered to the row, plus conversion losses. In C, a longer portion of the facility becomes a DC distribution system and must be designed accordingly. Neither sketch determines how many storage modules, isolation stages or protective devices are required. Draw those as explicit blocks with interfaces rather than assuming that central rectification automatically replaces every UPS function.
 
+## Zurich-West: centralized DC in 2012
+
+ABB and Green opened a 1 MW DC system for the Zurich-West expansion in May 2012. Compatible HP servers and storage accepted its 380 V DC supply. This is a built historical example of upstream rectification; its interface is separate from the later 800 V designs.
+
+ABB’s technical account places a 1,100 kVA dry transformer inside the central rectifier unit. It steps down the 16 kV AC input before rectifier modules perform AC/DC conversion. Downstream DC/DC conversion still supplies device rails. Figure 2 labels the distribution 380 V DC, while the text specifies 400 V open-circuit. The package name “rectifier” does not remove the transformer function. Neither its conversion placement nor this historical installation establishes a universal efficiency gain.
+
+![Exterior of Green’s Zurich-West data center in the ABB Review case photograph.](assets/references/distribution-green-zurich-west.jpg)
+
+Green Zurich-West · ABB Review 4/2013. The exterior identifies the facility; the electrical path comes from the technical account. [ABB Review — DC for efficiency](https://library.e.abb.com/public/1afa6036874fd0bb85257d5000710a17/DC%20for%20efficiency.pdf)
+
 ## Compare the three distribution paths side by side
 
 Trace each column from medium-voltage input to the rack. Traditional AC keeps lower-voltage AC distribution through the hall. The DC sidecar retains those upstream stages, then creates an 800 V DC interface near the rack. The third path makes 800 V DC upstream of the hall distribution and busway through a medium-voltage conversion system.
@@ -2570,6 +2587,8 @@ The unmodeled auxiliary reverses the arithmetic result. This does not show that 
 - [Why Scaling AI Compute Performance Requires a New Power Architecture](https://blogs.nvidia.com/blog/800-vdc-power-architecture-ai-factory/) — August 2026 distinction between hybrid power rack, row power center and facility DC power block. Read 2026-09-06. Published availability expectations are not proof of installation, acceptance or site compatibility.
 - [Inside the 800VDC Revolution – Part 1](https://newsletter.semianalysis.com/p/inside-the-800vdc-revolution-part) — User-supplied SST market forecast and its equipment-content assumption in the 26 May 2026 article. Read 2026-09-10. Analyst forecast, not observed revenue, commissioned capacity, an independently reproduced market model or a requirement to use SSTs. Unlabelled 2026/2027 revenue bars and exact GW values are not inferred from chart pixels.
 - [OCP — Data Center Facility: Low Voltage Direct Current Power Distribution, v1.0](https://www.opencompute.org/documents/dcf-power-distribution-lvdc-white-paper-version-1-0-final-pdf-1) — Context for representative LVDC power-distribution architectures; not a confirmed source for the supplied three-column figure. Read 2026-09-11. Introduction and document metadata inspected. The exact origin of the user-supplied image remains unverified. Do not assign a figure number, mandate this topology, or treat these alternatives as a dated deployment sequence.
+- [ABB Review 4/2013 — DC for efficiency](https://library.e.abb.com/public/1afa6036874fd0bb85257d5000710a17/DC%20for%20efficiency.pdf) — Case transformer, rectifier and DC distribution interfaces. Read 2026-09-13. Reviewed PDF pages 1–4 visually, especially printed pages 18–19 and Figure 2. PDF text encoding was garbled, so pages were rendered and read. Figure labels 380 V DC, while text specifies 400 V open-circuit. 16 kV input and 1,100 kVA transformer are case-specific. No promotional efficiency percentage is adopted. Exterior photograph extracted unchanged from PDF page 2 (image object 23).
+- [ABB and Green open Zurich-West DC data-center expansion](https://new.abb.com/news/detail/12816/worlds-most-powerful-dc-data-center-online) — Opening date, installation scale and compatible HP IT. Read 2026-09-13. May 2012 primary announcement read. Historical 1 MW installation for a 1,100 square metre expansion; no claim of current operating capacity or general 800 V deployment. Marketing savings and superlatives are excluded.
 
 ## A rack upgrade is an interface negotiation
 
