@@ -156,3 +156,19 @@ The separate `references/colossus-1-aerial.jpg` is an actual SpaceXAI photograph
 of Colossus 1. Its original URL and hash are in `references/provenance.json`.
 Lenovo's actual rack and annotated rear-tray photographs remain publisher-hosted;
 P111 and P124 support the 29 kg tray and approximately 1,580 kg rack respectively.
+
+## Chapter 9 compute and memory — 2026-09-14
+
+Two new illustrations were generated with the built-in GPT image tool. Exact
+prompts and asset names: [compute-prompts.json](generated/compute-prompts.json).
+
+- [compute-scales.png](generated/compute-scales.png) introduces rack → tray → package. It is a conceptual scale view, not GB300 component placement or tray population.
+- [compute-hbm-package.png](generated/compute-hbm-package.png) explains vertical memory stacking and lateral connections on a shared interposer. The cross-section exaggerates layer thickness and connection size; it does not specify a product's die count, HBM stack count, material thickness or pinout. Code leaders identify the memory, logic and interposer; the mobile layout uses full-size HTML labels.
+
+The chapter then uses actual Lenovo/NVIDIA images for the named hardware. Local
+originals, publisher URLs, retrieval dates and hashes are in
+[reference provenance](references/provenance.json). The single-rack photograph,
+enclosed tray, annotated tray and superchip are embedded in the slides. Numerical
+and fault diagrams are code-rendered because selections must change the correct
+quantities and keep every connection inspectable. No technical timing or product
+rating is taken from either generated illustration.

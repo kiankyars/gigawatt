@@ -90,6 +90,17 @@
       ]
     },
     {
+      "id": "compute",
+      "title": "Compute, memory and the rack",
+      "chapters": [
+        {
+          "id": "D07",
+          "href": "prototypes/compute-format.html?teach=1",
+          "coverage": "chapter"
+        }
+      ]
+    },
+    {
       "id": "cooling",
       "title": "From the chip to the outdoors",
       "chapters": [

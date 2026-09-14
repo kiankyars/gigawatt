@@ -147,7 +147,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P109 — Crusoe’s Contracted AI Infrastructure Capacity Approaches 5 Gigawatts Across Data Centers and Cloud](sources/P109.md) | Crusoe | D03 | page_reviewed |
 | [P11 — NFPA 75: Standard for the Fire Protection of Information Technology Equipment](sources/P11.md) | National Fire Protection Association | D05, D12, D13 | candidate_not_reviewed |
 | [P110 — Abilene Data Center Development](sources/P110.md) | Mortenson | D03 | page_reviewed |
-| [P111 — Lenovo NVIDIA GB300 NVL72 Rack Scale AI Product Guide](sources/P111.md) | Lenovo Press | D12 | page_reviewed |
+| [P111 — Lenovo NVIDIA GB300 NVL72 Rack Scale AI Product Guide](sources/P111.md) | Lenovo Press | D12, D07 | page_reviewed |
 | [P112 — MZX Tech LLC — Southaven PSD permit application, January 2026 revision](sources/P112.md) | MZX Tech LLC / Trinity Consultants; public record released by MDEQ, Wikimedia mirror | D03, D04, D12 | public_excerpt_reviewed |
 | [P113 — SpaceX — EU prospectus, compute services agreements with Anthropic](sources/P113.md) | Space Exploration Technologies Corp. | D03, D13 | public_excerpt_reviewed |
 | [P114 — SpaceX — Google Cloud Service Agreement, free writing prospectus](sources/P114.md) | Space Exploration Technologies Corp. / SEC | D03, D13 | page_reviewed |
@@ -188,7 +188,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P146 — Equinix — Houston staff during Hurricane Harvey](sources/P146.md) | Equinix | D12 | page_reviewed |
 | [P147 — QTS — Suwanee campus](sources/P147.md) | QTS | D12 | page_reviewed |
 | [P148 — Parklane — Rogers headquarters data-center acoustic screen](sources/P148.md) | Parklane | D12 | page_reviewed |
-| [P149 — Lenovo — Remove a GB300 compute tray from the rack](sources/P149.md) | Lenovo | D12 | page_reviewed |
+| [P149 — Lenovo — Remove a GB300 compute tray from the rack](sources/P149.md) | Lenovo | D12, D07 | page_reviewed |
 | [P15 — Liquid to Liquid CDU Test Methodology and Performance Rating — Revision 1.0](sources/P15.md) | Open Compute Project | D10, D11, D13, D14 | public_excerpt_reviewed |
 | [P150 — Siemens — Compass Datacenters integrated MV skid](sources/P150.md) | Siemens | D04 | page_reviewed |
 | [P151 — Siemens and Compass sign modular electrical solution agreement](sources/P151.md) | Siemens | D04 | page_reviewed |
@@ -213,6 +213,11 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P17 — NVIDIA NVL72 AI Factory — System Hardware & Components](sources/P17.md) | NVIDIA | D06, D07, D08, D09, D10, D14, D01 | page_reviewed |
 | [P170 — ABB — Protection Devices for Direct Current Applications, 2025 technical paper](sources/P170.md) | ABB | D05 | public_excerpt_reviewed |
 | [P171 — OpenStax — Energy Stored in a Capacitor](sources/P171.md) | OpenStax, Rice University | D05 | page_reviewed |
+| [P172 — NVIDIA GB300 NVL72 — Specifications](sources/P172.md) | NVIDIA | D07 | page_reviewed |
+| [P173 — NVIDIA — Inside Blackwell Ultra](sources/P173.md) | NVIDIA | D07 | page_reviewed |
+| [P174 — NVIDIA — Memory management on hardware-coherent platforms](sources/P174.md) | NVIDIA | D07 | page_reviewed |
+| [P175 — NVIDIA DGX GB Rack Scale Systems — System Health Check](sources/P175.md) | NVIDIA | D07 | page_reviewed |
+| [P176 — NVIDIA — Nonuniform Tensor Parallelism and training goodput](sources/P176.md) | NVIDIA | D07 | page_reviewed |
 | [P18 — OpenStax — 20.5 Alternating Current versus Direct Current (College Physics 2e)](sources/P18.md) | OpenStax, Rice University | D01, D04, D06 | page_reviewed |
 | [P19 — Steven H. Low — Power System Analysis: Analytical tools and structural properties (April 7, 2025 draft)](sources/P19.md) | Steven H. Low, California Institute of Technology | D04, D06 | page_reviewed |
 | [P20 — Wolfspeed — Powering AI with reliable SiC-based solid-state transformers](sources/P20.md) | Wolfspeed | D04, D06 | page_reviewed |

@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-09-13",
+  "as_of": "2026-09-14",
   "inventory_status": "seed_not_exhaustive",
   "method": "A bounded curated discovery pass over 40 SemiAnalysis articles and 15 independent primary-source starting points. Sources are mapped many-to-many to domain IDs for curriculum research, not certified as complete coverage or sources of truth. The additional SA11–SA40 sample used 16 search queries and selected entries from the publisher's 2023–2026 annual sitemaps; research/discovery-searches.md records the method and limits. page_reviewed means the stated web page was inspected, with partial-reading and linked-document limits recorded in caution; public_excerpt_reviewed includes accessible previews, abstracts or selected public sections and never implies review of a complete paid work. candidate_not_reviewed means substantive content has not been reviewed. A domain mapping identifies intended research use, not verified support for every objective or claim. reviewed_on is the review date; published_on, where present, is the source's displayed publication date and is null when not established.",
   "sources": [
@@ -1554,12 +1554,12 @@
       "publisher": "docs.nvidia.com",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-06",
+      "reviewed_on": "2026-09-14",
       "domains": [
         "D07"
       ],
-      "use": "A GPU combines execution resources and a memory hierarchy; achieved performance depends on workload behavior.",
-      "caution": "Use conceptual structure only; dated product examples and throughput tables are not applied.",
+      "use": "A GPU combines execution resources and a memory hierarchy; achieved performance depends on workload behavior. Chapter 9: Compute and memory time bounds, arithmetic intensity and the role of sufficient parallelism; multiply-add counts as two floating-point operations.",
+      "caution": "Use conceptual structure only; dated product examples and throughput tables are not applied. September 14 reread: GPU structure and performance sections reread. Guide dated February 2023; historical GPU specifications are not used. The 200 TFLOP/s and workload accounts below are original teaching inputs.",
       "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
     },
     {
@@ -1569,12 +1569,12 @@
       "publisher": "docs.nvidia.com",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-06",
+      "reviewed_on": "2026-09-14",
       "domains": [
         "D07"
       ],
-      "use": "Matrix shape and reuse can alter arithmetic intensity and the active performance limit.",
-      "caution": "A guide to particular operations, not a universal model of end-to-end AI job performance.",
+      "use": "Matrix shape and reuse can alter arithmetic intensity and the active performance limit. Chapter 9: Matrix dimensions, tiling and operand reuse explain changes in arithmetic intensity.",
+      "caution": "A guide to particular operations, not a universal model of end-to-end AI job performance. September 14 reread: Public guide reviewed for matrix-operation structure and reuse. Numerical examples below are independently derived; no older hardware throughput is transferred to GB300.",
       "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
     },
     {
@@ -2709,14 +2709,14 @@
       "publisher": "NVIDIA",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-12",
+      "reviewed_on": "2026-09-14",
       "domains": [
         "D01",
         "D06",
         "D07"
       ],
-      "use": "Locate the DGX GB300 rear power busbar and distinguish PSUs, shelves and the nominal 50–51 V rack bus.",
-      "caution": "Rack configuration and Power Shelves sections reviewed; manufacturer rear figure visually inspected. Shared GB200/GB300 guide has an approximately 120 kW consumption example that is not substituted for the enterprise GB300 up-to-142-kW requirement. This is not evidence of a one-BBU-per-NVL72 design or the unpublished board regulator implementation."
+      "use": "Locate the DGX GB300 rear power busbar and distinguish PSUs, shelves and the nominal 50–51 V rack bus. Chapter 9: DGX GB300 rack, compute-tray, rear-interface and switch-tray organization.",
+      "caution": "Rack configuration and Power Shelves sections reviewed; manufacturer rear figure visually inspected. Shared GB200/GB300 guide has an approximately 120 kW consumption example that is not substituted for the enterprise GB300 up-to-142-kW requirement. This is not evidence of a one-BBU-per-NVL72 design or the unpublished board regulator implementation. September 14 reread: Identified GB300 figures and hardware sections inspected. The shared guide also contains GB200-specific NIC and approximate power text; those quantities are not carried into this lesson."
     },
     {
       "id": "P65",
@@ -3463,12 +3463,13 @@
       "publisher": "Lenovo Press",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-13",
+      "reviewed_on": "2026-09-14",
       "domains": [
-        "D12"
+        "D12",
+        "D07"
       ],
-      "use": "The named service example uses a 600 mm-wide MGX rack, 29 kg compute tray and 799 mm tray depth including water connections; Lenovo identifies suitable lift support for servicing. Power-shelf section and figure show six 5.5 kW hot-swappable PSU modules; remaining qualified capacity and configuration govern continuity.",
-      "caution": "Read physical and electrical specifications and Genie Material Lift sections, with rack and rear compute-tray figures. Width and tray mass are product dimensions, not full operating rack mass or service clearance. No universal aisle size, lift configuration, performance or complete design specification is inferred.",
+      "use": "The named service example uses a 600 mm-wide MGX rack, 29 kg compute tray and 799 mm tray depth including water connections; Lenovo identifies suitable lift support for servicing. Power-shelf section and figure show six 5.5 kW hot-swappable PSU modules; remaining qualified capacity and configuration govern continuity. Chapter 9: Named rack and compute-tray components, hybrid cooling, 29 kg tray, service spares and CPU memory configuration.",
+      "caution": "Read physical and electrical specifications and Genie Material Lift sections, with rack and rear compute-tray figures. Width and tray mass are product dimensions, not full operating rack mass or service clearance. No universal aisle size, lift configuration, performance or complete design specification is inferred. September 14 reread: August 30, 2026 guide inspected. Lenovo lists 7.7 TB/s GPU memory bandwidth for its configuration, separate from NVIDIA’s up-to-8-TB/s platform figure. This lesson does not combine those into a measured hardware claim.",
       "published_on": "2026-08-30"
     },
     {
@@ -4063,12 +4064,13 @@
       "publisher": "Lenovo",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-13",
+      "reviewed_on": "2026-09-14",
       "domains": [
-        "D12"
+        "D12",
+        "D07"
       ],
-      "use": "Requires compute-tray power-off and disconnection before removal; distinguishes tray service from hot-swappable PSU modules.",
-      "caution": "Manufacturer procedure boundary, not a claim that the entire rack must shut down or an instruction to perform energized maintenance."
+      "use": "Requires compute-tray power-off and disconnection before removal; distinguishes tray service from hot-swappable PSU modules. Chapter 9: Compute-tray removal requires power-off and disconnection, with appropriate lifting and coolant-service provisions.",
+      "caution": "Manufacturer procedure boundary, not a claim that the entire rack must shut down or an instruction to perform energized maintenance. September 14 reread: Manufacturer removal procedure inspected. Used to explain the service boundary, not to assert that every tray fault shuts down the rack or to reproduce a maintenance procedure."
     },
     {
       "id": "P150",
@@ -4369,6 +4371,76 @@
       ],
       "use": "Derive stored capacitor energy from charge, voltage and incremental work; triangular voltage-charge area.",
       "caution": "Public derivation and equations8.9–8.10 reviewed. Course capacitance, voltage thresholds and source ramps are chosen model inputs."
+    },
+    {
+      "id": "P172",
+      "title": "NVIDIA GB300 NVL72 — Specifications",
+      "url": "https://www.nvidia.com/en-us/data-center/gb300-nvl72/",
+      "publisher": "NVIDIA",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-14",
+      "domains": [
+        "D07"
+      ],
+      "use": "The named platform contains 72 GPUs and 36 CPUs; advertised rack GPU memory bandwidth is up to 576 TB/s in aggregate.",
+      "caution": "Product specification table inspected. Aggregate capacities and bandwidths are not one GPU-local pool or an application benchmark. Advertised performance ratios are not adopted."
+    },
+    {
+      "id": "P173",
+      "title": "NVIDIA — Inside Blackwell Ultra",
+      "url": "https://developer.nvidia.com/blog/inside-nvidia-blackwell-ultra-the-chip-powering-the-ai-factory-era/",
+      "publisher": "NVIDIA",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-14",
+      "domains": [
+        "D07"
+      ],
+      "use": "Two dies form one CUDA accelerator; up to 288 GB HBM3e and 8 TB/s per GPU; NVLink 5 bandwidth is 1.8 TB/s bidirectional per GPU.",
+      "caution": "Authored body and figures inspected, including the actual superchip board. Architecture maxima vary by SKU. The body and endnote conflict on HBM stack wording, so stack count is not taught. No per-GPU C2C bandwidth or performance ratio is inferred for a rack configuration."
+    },
+    {
+      "id": "P174",
+      "title": "NVIDIA — Memory management on hardware-coherent platforms",
+      "url": "https://developer.nvidia.com/blog/understanding-memory-management-on-hardware-coherent-platforms/",
+      "publisher": "NVIDIA",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-14",
+      "domains": [
+        "D07"
+      ],
+      "use": "GB300 CPU and GPU memory can be directly addressed across NVLink-C2C while retaining different physical locations and management behavior.",
+      "caution": "Authored body reviewed. The lesson uses the locality distinction, not a universal allocation policy or instructions for configuring driver memory modes."
+    },
+    {
+      "id": "P175",
+      "title": "NVIDIA DGX GB Rack Scale Systems — System Health Check",
+      "url": "https://docs.nvidia.com/dgx/dgxgb200-user-guide/health-check.html",
+      "publisher": "NVIDIA",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-14",
+      "domains": [
+        "D07"
+      ],
+      "use": "NVSM checks component health and can stress the system under load.",
+      "caution": "Public page reviewed. Application qualification after a repair is the course’s operational reasoning, not a complete vendor acceptance procedure."
+    },
+    {
+      "id": "P176",
+      "title": "NVIDIA — Nonuniform Tensor Parallelism and training goodput",
+      "url": "https://developer.nvidia.com/blog/enhancing-goodput-in-large-scale-llm-training-with-nonuniform-tensor-parallelism/",
+      "publisher": "NVIDIA",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-14",
+      "domains": [
+        "D07"
+      ],
+      "use": "A device interruption can affect a tightly coupled job; recovery depends on checkpointing, spare substitution or supported adaptation.",
+      "caution": "July 6, 2026 authored article reviewed. Nonuniform Tensor Parallelism and associated power boosting are described as experimental. The four-group allocation exercise is original and is not NVL72 fault behavior."
     }
   ]
 }

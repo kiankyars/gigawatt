@@ -247,5 +247,37 @@
     "retrieved_on": "2026-09-13",
     "sha256": "453a9f0bcf47861ebecf551d7c6ea62cfba1a0aa4f29314f3a3b3ac489e6c83a",
     "note": "Original 288 by 288 manufacturer product photograph extracted unchanged from PDF page 1 image Im1.png; visually inspected. Product is a 250 VA controls transformer; the photograph is not presented as a campus transformer."
+  },
+  {
+    "file": "lenovo-gb300-rack-front.jpg",
+    "source_url": "https://lenovopress.lenovo.com/assets/images/LP2357/Lenovo_GB300_NVL72_Rack_left_front_v3.jpg",
+    "publisher": "Lenovo",
+    "retrieved_on": "2026-09-14",
+    "sha256": "25c36e0ba5550429e0d50b5888dbde7042874638474b1c3fb47b738569415d50",
+    "note": "One complete Lenovo NVIDIA GB300 NVL72 front view; product guide P111. Original bytes preserved."
+  },
+  {
+    "file": "nvidia-gb300-tray.png",
+    "source_url": "https://docs.nvidia.com/dgx/dgxgb200-user-guide/_images/hardware-compute-tray-gb300.png",
+    "publisher": "NVIDIA",
+    "retrieved_on": "2026-09-14",
+    "sha256": "f520e485668048db83819502895cfc038c48cf0e68a7d3dcb0acf8b6b2ba70d6",
+    "note": "DGX GB300 enclosed compute tray, P64. Original bytes preserved."
+  },
+  {
+    "file": "nvidia-gb300-tray-top.png",
+    "source_url": "https://docs.nvidia.com/dgx/dgxgb200-user-guide/_images/hardware-compute-tray-top-gb300.png",
+    "publisher": "NVIDIA",
+    "retrieved_on": "2026-09-14",
+    "sha256": "bbbfdbb034b7cb30b9dc88ec905c247b3ca5051a0a66b4eedb35eddfe76bf2be",
+    "note": "Manufacturer annotated top view. The small board battery is not a rack BBU; no battery-backup claim is made. Original bytes preserved."
+  },
+  {
+    "file": "nvidia-gb300-superchip.webp",
+    "source_url": "https://developer-blogs.nvidia.com/wp-content/uploads/2025/08/ConnectX-8-SuperNICs-png.webp",
+    "publisher": "NVIDIA",
+    "retrieved_on": "2026-09-14",
+    "sha256": "bf36099861ce6b0404de00be41eb7a89aadcf6f1a3c89ac494f88a18730fd127",
+    "note": "P173 Figure 7: actual board with one Grace CPU, two Blackwell Ultra GPUs and two ConnectX-8 chips. Original bytes preserved."
   }
 ]

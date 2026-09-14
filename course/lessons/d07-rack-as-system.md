@@ -1,85 +1,94 @@
-# The rack becomes a service boundary
+# A rack’s repair boundary changes its usable job capacity
 
 Generated reading view. Edit [`course/expansion/racks-compute-heat.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/racks-compute-heat.json), lesson `d07-rack-as-system`, then run `uv run gigawatt-expand`.
 
 **9. Compute, memory and the rack · Authored draft**
 
-Connect tray and rack organization to physical interfaces and failure scope, then distinguish nominal from schedulable capacity.
+Connect the GB300 physical interfaces to service work, then use a controlled failure-placement example to distinguish healthy devices from feasible jobs.
 
-**Driving question:** How does tighter hardware integration change deployment, maintenance and usable job capacity?
+**Driving question:** What happens to useful work when a tray or shared rack interface becomes unavailable?
 
-## Distinguish the containers from the communication domain
+## Separate the physical assembly from the job allocation
 
-A server, tray and rack are physical assemblies. A communication domain is the set of devices that can participate under a specified connectivity and software model. The two boundaries may coincide, but they need not. Several independent servers can share one cabinet, while a tightly connected system can span multiple trays. A statement that devices are connected does not imply that each pair has its own dedicated physical wire. Switched connectivity and direct point-to-point wiring are different graphs.
+In the GB300 NVL72, four GPUs share a compute tray with CPUs and other components. Each GPU connects through the NVLink switch fabric to peers in the rack. A compute tray, a 72-GPU communication domain and an application’s tensor-parallel group are therefore different boundaries. A job may use a subset of the rack or span multiple racks, depending on its software and communication needs.
 
-When reading a rack diagram, identify the replaceable assemblies and the dependencies that cross them. A tray may contain processors, memory, network interfaces and local storage. A switch tray may be shared by many compute trays. Power shelves may supply a common bus, and coolant manifolds may serve parallel branches. This creates opportunities to share infrastructure, but also requires a precise account of what happens when a shared component is removed. The smallest replaceable unit, fault domain and scheduled job allocation can all differ.
+This distinction matters during service. Removing a tray removes its local components from availability. The jobs affected depend on which of those components they use, what shared dependencies were disturbed and whether the software can remap or restart. It does not follow that every GPU in the rack physically fails when one tray is unavailable, or that every job can continue unchanged.
 
-## Dense hardware changes more than kilowatts per cabinet
+## The rack must meet several facility interfaces at once
 
-A replacement rack can change static weight, rolling installation loads, delivery dimensions, floor anchoring, cable bend space and the clearance needed to remove an assembly. It can also shift heat from room air into a coolant loop while leaving power supplies, networking or other components dependent on air. The electrical inlet, liquid connections, drain or service provisions and management connections must all meet the supplied installation requirements. One acceptable aggregate rack power value cannot answer these separate questions.
+Rack integration concentrates power, heat and service work. The electrical inlet must supply the intended load; coolant connections must serve the cold plates; airflow must still remove heat from air-cooled parts; and the network and management interfaces must be accessible. A power allocation alone establishes none of the hydraulic, spatial or software conditions. For the recurring Abilene campus, published capacity milestones do not establish a specific GB300 rack inventory or those as-built interfaces.
 
-The operating team must be able to reach and replace parts without unintentionally disturbing adjacent systems. Ask whether a repair requires draining a branch, isolating a power zone, moving cables or temporarily reducing the communication domain. Consider the recovery path: a replacement component needs compatible firmware, configuration and health validation before it becomes useful. Procurement of a spare is not equivalent to restoration of service. The service plan should name the tools, staff, spares and verification required for the intended repair boundary.
+Lenovo’s named compute tray weighs 29 kg and combines liquid-cooled high-power components with air-cooled supporting parts. Its removal procedure calls for tray power-off, disconnection and appropriate lifting and coolant-service equipment. The teaching consequence is a larger service operation than replacing a single hot-swappable PSU. Detailed clearances, floor loads and handling belong to the physical-site lesson; here the question is which job resources disappear during the repair.
 
-## Convert device inventory into feasible job allocations
+## Failure placement can matter more than the device total
 
-Count healthy devices, but also describe how they are connected and which resources a job needs simultaneously. A job may require eight devices in one compatible group, sufficient memory per device, network access and an available software image. A rack with twenty-eight healthy devices might support only three such groups if a failure fragments its topology. The unused devices have not vanished electrically; they are unavailable to that particular allocation. Smaller jobs may still use them.
+Use an independent teaching system with four groups of eight GPUs. A large job needs eight healthy GPUs in one group, and the configured scheduler cannot combine fragments from different groups. Hold four GPU failures constant. If all four occur in one group, three groups remain intact. If one occurs in each group, none remains intact. Both states contain 28 healthy GPUs, yet they support different numbers of the specified large job.
 
-This creates a scheduling and reliability tradeoff. Large tightly integrated groups may reduce communication cost for some workloads. They can also make partial faults more disruptive when a job cannot shrink or remap around the failure. Flexible partitioning can preserve service for smaller jobs, but it may reduce the maximum group size or change performance. Evaluate the actual customer job mix and software capabilities. The appropriate capacity measure is the number of feasible allocations and their accepted throughput, not a single count of powered processors.
+The healthy fragments remain useful for compatible smaller jobs. With one failure in each group, each group has seven healthy GPUs; a four-GPU job fits once per group, leaving three devices in each for other compatible work. “Unavailable capacity” is therefore always relative to a workload and allocation policy. This controlled grouping is not an assertion that an NVL72 has four eight-GPU fault domains.
 
-## Accept the system under more than one condition
+## Recovery depends on software as well as the spare
 
-An acceptance exercise should include normal operation, an agreed degraded condition and restoration. Record which job sizes remain supported, what throughput changes and whether the management plane accurately reports the loss. Repeating a small benchmark on every device individually may miss failures that appear only during collective communication or simultaneous load. Conversely, a whole-rack test can hide one marginal branch if it reports only an average. Combine component checks with a workload exercise that traverses the shared dependencies.
+A tightly coupled job may need checkpoint recovery, spare substitution or reconfiguration after a device interruption. NVIDIA’s July 2026 discussion of nonuniform tensor parallelism separates those existing recovery approaches from an experimental scheme that reshards work around missing GPUs. Automatic shrinkage is a software capability to establish, not a property implied by the presence of NVLink.
 
-## Worked example: Thirty-two devices, three usable groups
+After physical repair, compatible firmware and configuration must restore the expected topology. Component health checks can pass while a job still encounters a wrong partition or impaired communication path. Returning the group to useful service requires exercising the dependencies used by that workload. Record both whether a placement can run and whether its output meets the expected service condition.
 
-- A synthetic rack contains four independently schedulable groups of eight accelerators.
-- An important job requires exactly eight healthy accelerators within one group; this software version cannot combine fragments from different groups.
-- Four devices fail in one group; all other devices, power and cooling remain available.
+## Diagnose the required service rather than an average
 
-1. Count the healthy devices — 32 − 4 = 28 — This is the physical inventory after the fault.
-2. Count feasible large jobs — 3 intact groups × 1 job/group = 3 jobs — The partial fourth group cannot satisfy the stated topology requirement.
-3. Compare utilization measures — 28 / 32 = 87.5%; 3 / 4 = 75% — Healthy-device share and large-job-slot availability differ.
-4. Identify residual opportunity — 4 healthy devices remain in the affected group — They may support a compatible smaller job if the scheduler and service policy allow it.
+Consider a rack with power, coolant and individual GPU checks all ready, but its required NVLink fabric unavailable. The specified multi-GPU job remains blocked. If a tested reduced mode can use a smaller working group, it may provide a limited service; merely observing that some GPUs respond does not establish that mode. The decision is whether to repair the missing path, use a qualified alternative placement, or wait. The next chapter follows those communication paths beyond this rack.
 
-**Result:** The rack retains 87.5% of its devices but only 75% of its specified large-job slots.
+## Worked example: Four failures, two placement outcomes
 
-**Model boundary:** The grouping and failure response are invented to teach allocation constraints; no real product is asserted to behave this way.
+- The teaching system has four independent groups of eight GPUs.
+- The large job needs eight healthy GPUs in one group; this configuration cannot combine fragments across groups.
+- Four GPUs are unavailable. All other required inputs remain ready. Only failure placement changes.
+
+1. Concentrate the failures — Healthy GPUs per group: 4, 8, 8, 8 — Three groups can each host one large job; the partial group can serve compatible smaller work.
+2. Disperse the failures — Healthy GPUs per group: 7, 7, 7, 7 — No group meets the eight-GPU placement requirement.
+3. Compare the service result — 28 healthy GPUs in either case; 3 versus 0 large-job slots — The device total hides the location of the missing resources.
+4. Change the job requirement — Four-GPU jobs in the dispersed case: 1 per group = 4 jobs — Four smaller jobs occupy 16 GPUs; 12 healthy GPUs remain for other compatible allocations.
+
+**Result:** The workload and placement rule determine usable job capacity. Failure location is part of that account.
+
+**Model boundary:** This four-group scheduling example is original. It does not specify GB300 partition sizes or imply that one unavailable GPU always stops a real rack-wide job.
 
 ## The tradeoff
 
-Choice: Build larger tightly connected job domains.
+Choice: Use a larger tightly coupled GPU group for one application.
 
-Benefit: Potentially reduce the communication and coordination burden for workloads that use the full domain.
+Benefit: Keep more of its communication within a fast scale-up fabric.
 
-Cost: Qualification, maintenance and some failure states can affect a larger set of jobs; flexible partitioning must be demonstrated.
+Cost: Its useful operation depends on a larger set of participating devices; recovery and repartitioning support affect the outcome of partial faults.
 
 ## When the situation changes
 
-Trigger: A replaced switch assembly has an incompatible configuration.
+Trigger: A replacement tray passes local checks but has not joined the intended NVLink partition.
 
-Mechanism: Devices pass local health checks, yet the expected communication graph is incomplete or degraded.
+Mechanism: The hardware inventory is restored while the application’s required communication path remains incomplete.
 
-Response: Validate the topology, collective behavior and required job sizes after replacement before returning the group to service.
+Response: Verify configuration and the intended multi-GPU workload before counting the group as restored service.
 
 ## Apply the idea
 
-The scheduler gains a tested mode that combines the two healthy four-device fragments of two affected groups, at 80% of an intact group’s throughput. How should the capacity report change?
+The dispersed-failure system must run an eight-GPU job. Would adding one spare GPU anywhere recover a slot, or does placement matter? What else would you verify before promising throughput?
 
 <details>
 <summary>Reveal the worked answer</summary>
 
-Report one additional feasible eight-device job slot with a measured degraded-throughput factor of 0.8, plus the unchanged intact-group slots.
+A spare must be connected and qualified within one affected group so that group again provides eight healthy GPUs. An unrelated ninth group or an unqualified attachment does not satisfy the stated rule.
 
-The new mode recovers an allocation, but it does not make the fractured topology equivalent to an intact group. The service report should preserve that distinction and state which workloads were tested.
+Restoring one valid group recovers allocation feasibility. Compatible firmware, topology and application behavior still determine whether that slot delivers the required throughput; the spare’s presence alone is not a completed recovery.
 
 </details>
 
-**The idea to keep:** A system’s useful size is defined by the topology and service it can sustain, including maintenance and failures.
+**The idea to keep:** A capacity report needs the job’s placement requirements and recovery behavior, as well as a healthy-device count.
 
 ## Sources and reading boundaries
 
-- [NVIDIA DGX SuperPOD — Network Fabrics](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/network-fabrics.html) — A named reference system distinguishes compute, storage and management fabrics and explicit topology groupings. Read 2026-09-06. H100 reference architecture updated November 19, 2025; no component counts or ratios are generalized.
-- [Open Rack/SpecsAndDesigns](https://www.opencompute.org/wiki/Open_Rack/SpecsAndDesigns) — Physical rack, power and liquid interfaces have separate versioned documents. Read 2026-09-06. An index is a starting point; actual installation and maintenance requirements must come from the supplied equipment.
+- [NVIDIA DGX GB Rack Scale Systems — Hardware](https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html#power-shelves) — DGX GB300 rack, compute-tray, rear-interface and switch-tray organization. Read 2026-09-14. Identified GB300 figures and hardware sections inspected. The shared guide also contains GB200-specific NIC and approximate power text; those quantities are not carried into this lesson.
+- [Lenovo NVIDIA GB300 NVL72 Rack Scale AI Product Guide](https://lenovopress.lenovo.com/lp2357-lenovo-nvidia-gb300-nvl72-rack-scale-ai) — Named rack and compute-tray components, hybrid cooling, 29 kg tray, service spares and CPU memory configuration. Read 2026-09-14. August 30, 2026 guide inspected. Lenovo lists 7.7 TB/s GPU memory bandwidth for its configuration, separate from NVIDIA’s up-to-8-TB/s platform figure. This lesson does not combine those into a measured hardware claim.
+- [Lenovo — Remove a GB300 compute tray from the rack](https://pubs.lenovo.com/gb300-nvl72/remove_compute_tray) — Compute-tray removal requires power-off and disconnection, with appropriate lifting and coolant-service provisions. Read 2026-09-14. Manufacturer removal procedure inspected. Used to explain the service boundary, not to assert that every tray fault shuts down the rack or to reproduce a maintenance procedure.
+- [NVIDIA DGX GB Rack Scale Systems — System Health Check](https://docs.nvidia.com/dgx/dgxgb200-user-guide/health-check.html) — NVSM checks component health and can stress the system under load. Read 2026-09-14. Public page reviewed. Application qualification after a repair is the course’s operational reasoning, not a complete vendor acceptance procedure.
+- [NVIDIA — Nonuniform Tensor Parallelism and training goodput](https://developer.nvidia.com/blog/enhancing-goodput-in-large-scale-llm-training-with-nonuniform-tensor-parallelism/) — A device interruption can affect a tightly coupled job; recovery depends on checkpointing, spare substitution or supported adaptation. Read 2026-09-14. July 6, 2026 authored article reviewed. Nonuniform Tensor Parallelism and associated power boosting are described as experimental. The four-group allocation exercise is original and is not NVL72 fault behavior.
 
 ## Check your understanding: Twice the arithmetic, same progress?
 

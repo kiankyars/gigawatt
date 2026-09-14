@@ -69,7 +69,7 @@ release does not restart an unchanged chapter’s review.
 | 6. [Campus and building power distribution](prototypes/distribution-format.html?teach=1) | 18 slides; equipment anatomy replaces repeated accounting; four generated teaching figures | [Current checks](TESTING.md#chapter-6-review-revision--2026-09-13) | September 13 review incorporated; [every request tracked](FEEDBACK_AUDIT.md#chapter-6-review--13-september-2026). Awaiting author review of this revision. |
 | 7. [Continuity, storage and protection](prototypes/continuity-format.html?teach=1) | 30 scenes; first-principles capacitor/ramp/recovery sequence, equipment specs, fault examples, Tier introduction and concise check | [Current checks](TESTING.md#chapter-7-review-revision--2026-09-14) | **Latest feedback addressed; acceptance pending.** [Each request tracked](FEEDBACK_AUDIT.md#chapter-7-review--14-september-2026). Review changed energy/protection/availability sections; unchanged bypass and redundancy mechanisms retained. |
 | 8. [Rack power and the 800 V DC transition](prototypes/rack-energy-format.html?teach=1) | 32 scenes; one rack-to-chip then 800 V sequence, real PSU/BBU photographs, historical Zurich-West case and retrofit check-in | [Implementation and integration checks](TESTING.md#chapters-7-and-8-integration--2026-09-13) | **Authored; acceptance pending.** Existing scene hashes survive. New historical case and staged routes await native browser verification. Chapters 6, 7 and 8 remain separate. |
-| 9. Compute, memory and the rack | Reader draft; own deck unbuilt | Reader/build checks only | Presentation not yet assigned for review. |
+| 9. [Compute, memory and the rack](prototypes/compute-format.html?teach=1) | 21 slides: GB300 anatomy, memory locality and bandwidth, operand reuse, roofline, switched rack, repair and job placement | [Current checks](TESTING.md#chapter-9-compute-memory-and-the-rack--2026-09-14) | **Authored and checked; ready for first author review.** Three reader lessons updated. No author acceptance inferred. |
 | 10. Networking and interconnects | Reader draft; own deck unbuilt | Reader/build checks only | Presentation not yet assigned for review. |
 | 11. Storage, orchestration and recovery | Reader draft; own deck unbuilt | Reader/build checks only | Presentation not yet assigned for review. |
 | 12. [Chip and rack heat capture](prototypes/cooling-format.html?teach=1) | Selected topics in shared cooling deck | Model/browser checks recorded | Cooling sequence iterated; no whole-chapter completion claimed. |
@@ -291,6 +291,8 @@ approach; the 800 V and UPS prototypes are implemented, while the remaining pres
 sequences still need authorship and dry runs.
 
 ### Next teaching step
+
+Review [Chapter 9](prototypes/compute-format.html?teach=1) in sequence. It follows one rack into its GPU/memory paths, derives the performance account, then connects faults to useful job capacity. The interactive roofline and fault-placement comparison are the principal mechanisms to rehearse; the closing upgrade diagnosis checks the memory-versus-compute distinction. Chapter 10 remains unbuilt. Earlier chapter reviews remain at their recorded status.
 
 #### Chapter 4 review — 13 September 2026
 

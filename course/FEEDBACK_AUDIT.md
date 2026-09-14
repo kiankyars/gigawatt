@@ -220,3 +220,27 @@ where a scene was revised. Thirty scenes now include four new teaching steps.
 
 Validation and publication evidence are recorded in TESTING.md. This is feedback
 implemented, not a claim of final author acceptance.
+
+## Chapter 9 creation — 14 September 2026
+
+Request: create the highest-quality Chapter 9 presentation while applying the accumulated course feedback.
+
+| Inherited requirement | Implemented location |
+| --- | --- |
+| One coherent section with a literal chapter opening | `compute-purpose`; rack → tray → GPU/memory → performance → job recovery |
+| Real equipment on the slide | `rack`, `tray`, `superchip`, `rack-interfaces`, `tray-repair`; byte-preserved manufacturer assets |
+| Actually use GPT ImageGen and inspect the result | Two new workspace assets with saved prompts; scale illustration and HBM cutaway. Product identity uses manufacturer pictures. |
+| First principles before the numbers | `capacity-bandwidth`, `weight-read`, `operand-reuse`, `peak-flops`, `operation-bounds`; FLOP definition precedes rate calculations |
+| Sparse labels, no speaker scripts or source popup | One header; essential diagram labels; supporting prose/citations in the three D07 reader lessons |
+| A controlled comparison and useful interaction | `roofline`; simultaneous concentrated/dispersed fault layouts with 8-GPU and 4-GPU allocation modes |
+| Avoid invented performance and failure guarantees | Product maxima are separate from stated operation rates; 18 ms is a memory-read bound; allocation groups have explicit job rules |
+| Meaningful active check-in | `diagnose-upgrade` chooses between compute throughput, HBM rate and HBM capacity for the same supplied kernel |
+| Shared controls, device theme, mobile layout | Existing `slide-chrome.js` / `slide-navigation.js`; first/last/selector controls and automatic device colors; narrower diagrams reflow |
+| One owner for review state | Chapter 9 row in COURSE_REVIEW.md; technical checks do not mark Kian's review accepted |
+
+The source review found different NVIDIA/Lenovo memory-bandwidth values and a
+conflicting HBM-stack endnote. The deck uses NVIDIA's up-to-8-TB/s platform figure,
+omits a fixed stack count and does not treat aggregate coherent memory as one
+uniform-bandwidth pool. The visual pass corrected the initial roofline axis/path
+mismatch, the NVSwitch enclosure boundary, the weight-vector dimensions and the
+interposer callout before publication.

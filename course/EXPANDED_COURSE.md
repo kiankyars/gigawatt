@@ -67,9 +67,10 @@ Each topic ends with a check-in: pause, make a prediction, compare the reasoning
 
 ### 9. Compute, memory and the rack
 
-- [A rack is a path through several memories](lessons/d07-data-path.md) — What must happen between a stored dataset and a completed accelerator operation?
-- [Find the limit before buying more arithmetic](lessons/d07-bottleneck-model.md) — Is a workload constrained by memory capacity, memory bandwidth, compute or communication?
-- [The rack becomes a service boundary](lessons/d07-rack-as-system.md) — How does tighter hardware integration change deployment, maintenance and usable job capacity?
+- Slides: [Compute, memory and the rack](prototypes/compute-format.html?teach=1)
+- [Inside a GB300 compute tray](lessons/d07-data-path.md) — Which hardware and data transfers let a powered rack produce tokens?
+- [Choose the upgrade that removes the active limit](lessons/d07-bottleneck-model.md) — Would this operation benefit from more arithmetic, more memory bandwidth, or less data movement?
+- [A rack’s repair boundary changes its usable job capacity](lessons/d07-rack-as-system.md) — What happens to useful work when a tray or shared rack interface becomes unavailable?
 
 ### 10. Networking and interconnects
 
@@ -159,10 +160,10 @@ Every entry below is authored and has practice; this is not evidence of learner 
 | Compare near-rack sidecars, rack-level conversion and facility DC as distinct architectures. | [800 V is an interface, not an entire architecture](lessons/d06-eight-hundred-volt-architectures.md), [A rack upgrade is an interface negotiation](lessons/d06-rack-migration.md), [The rack upgrade that does not fit the building](lessons/c03-density-retrofit.md) |
 | Evaluate a rack power upgrade against connector, bus, protection, auxiliary and transient interfaces. | [800 V is an interface, not an entire architecture](lessons/d06-eight-hundred-volt-architectures.md), [A rack upgrade is an interface negotiation](lessons/d06-rack-migration.md), [The rack upgrade that does not fit the building](lessons/c03-density-retrofit.md) |
 | Explain how retrofit constraints can reverse a seemingly attractive greenfield architecture choice. | [A rack upgrade is an interface negotiation](lessons/d06-rack-migration.md), [The rack upgrade that does not fit the building](lessons/c03-density-retrofit.md) |
-| Locate compute, memory and communication components within a server and rack and explain their roles. | [A rack is a path through several memories](lessons/d07-data-path.md), [The rack becomes a service boundary](lessons/d07-rack-as-system.md) |
-| Distinguish memory-capacity, memory-bandwidth, compute and communication limits. | [A rack is a path through several memories](lessons/d07-data-path.md), [Find the limit before buying more arithmetic](lessons/d07-bottleneck-model.md) |
-| Explain why chip count, advertised FLOPS and installed MW cannot independently establish job throughput. | [Find the limit before buying more arithmetic](lessons/d07-bottleneck-model.md), [The rack becomes a service boundary](lessons/d07-rack-as-system.md), [The powered cluster that keeps waiting](lessons/c04-stalled-job.md) |
-| Connect server and rack organization to power, cooling, weight and maintenance interfaces. | [The rack becomes a service boundary](lessons/d07-rack-as-system.md) |
+| Locate compute, memory and communication components within a server and rack and explain their roles. | [Inside a GB300 compute tray](lessons/d07-data-path.md), [A rack’s repair boundary changes its usable job capacity](lessons/d07-rack-as-system.md) |
+| Distinguish memory-capacity, memory-bandwidth, compute and communication limits. | [Inside a GB300 compute tray](lessons/d07-data-path.md), [Choose the upgrade that removes the active limit](lessons/d07-bottleneck-model.md) |
+| Explain why chip count, advertised FLOPS and installed MW cannot independently establish job throughput. | [Choose the upgrade that removes the active limit](lessons/d07-bottleneck-model.md), [A rack’s repair boundary changes its usable job capacity](lessons/d07-rack-as-system.md), [The powered cluster that keeps waiting](lessons/c04-stalled-job.md) |
+| Connect server and rack organization to power, cooling, weight and maintenance interfaces. | [A rack’s repair boundary changes its usable job capacity](lessons/d07-rack-as-system.md) |
 | Distinguish scale-up, scale-out and wide-area communication requirements. | [Count the paths, not just the advertised ports](lessons/d08-topology-budget.md), [A collective makes waiting contagious](lessons/d08-collective-progress.md) |
 | Calculate an illustrative topology's endpoint ports, oversubscription and transfer-time lower bounds. | [Count the paths, not just the advertised ports](lessons/d08-topology-budget.md), [A collective makes waiting contagious](lessons/d08-collective-progress.md), [The powered cluster that keeps waiting](lessons/c04-stalled-job.md) |
 | Explain how congestion, collectives and topology-aware placement affect job progress. | [A collective makes waiting contagious](lessons/d08-collective-progress.md), [The powered cluster that keeps waiting](lessons/c04-stalled-job.md) |
@@ -2795,250 +2796,278 @@ The same output still requires the same total input across the complete path. Co
 
 **The next problem:** Now that power reaches the devices, what determines whether those devices spend their time doing useful work?
 
-Continue in **Compute, memory and the rack**: A rack is a path through several memories.
+Continue in **Compute, memory and the rack**: Inside a GB300 compute tray.
 
-## A rack is a path through several memories
+## Inside a GB300 compute tray
 
 **9. Compute, memory and the rack · Authored draft**
 
-Follow bytes through storage, host processing, accelerator memory, execution and communication, and distinguish movement from ownership.
+Locate the CPU, GPU, HBM and rack interconnect in a GB300 NVL72, then distinguish memory capacity from the paths that supply computation.
 
-**Driving question:** What must happen between a stored dataset and a completed accelerator operation?
+**Driving question:** Which hardware and data transfers let a powered rack produce tokens?
 
-## Trace one batch before drawing a whole cluster
+## Begin with a rack, then open one compute tray
 
-Start with a dataset record in durable storage. A process identifies the record, obtains permission to read it, retrieves its bytes and interprets its format. The host CPU may decode, tokenize, transform or assemble those bytes into a batch. Host memory holds intermediate state. A transfer places the required tensors in accelerator-accessible memory, kernels operate on them, and results feed another kernel, a communication operation or a stored output. This deliberately simple path is a reasoning tool. Some implementations bypass intermediate copies, but their control and correctness responsibilities still exist.
+The electrical journey has reached the rack. This chapter follows the hardware that uses that power: processors perform operations, memories hold the operands and execution state, and links carry data between them. The recurring example is NVIDIA’s GB300 NVL72. Its 18 compute trays contain four Blackwell Ultra GPUs and two Grace CPUs each: 72 GPUs and 36 CPUs in one rack. Nine NVLink switch trays connect the GPUs. A compute tray runs its own operating-system image; the shared rack fabric connects multiple such systems.
 
-The CPU is not merely a smaller accelerator. It may run the operating system, launch work, prepare data, coordinate communications and execute parts of the application that do not map efficiently to parallel kernels. The accelerator combines execution units with a hierarchy of memories and caches. A NIC connects the node to an external fabric; an accelerator interconnect connects participating devices within a specified system. A storage device holds data across power cycles according to its guarantees. Each component solves a different part of the journey.
+Keep the physical hierarchy visible as the view changes. One Grace Blackwell Ultra superchip combines one Grace CPU with two GPUs; two of those groups occupy a compute tray. A Blackwell Ultra GPU itself contains two compute dies that appear to CUDA as one accelerator. Thus a die, a GPU, a superchip, a compute tray and a rack describe different assemblies. Counting the two dies as two schedulable GPUs would double the inventory incorrectly.
 
-## Capacity, locality and copies are different questions
+## The CPU prepares and coordinates work; the GPU executes parallel kernels
 
-Memory capacity asks whether the required live state fits. Bandwidth asks how quickly bytes cross an interface. Latency asks how long an individual request waits for completion. A workload may fit comfortably while spending most of its time moving data. It may also have ample nominal bandwidth but issue too little concurrent work to use it. Write the working set as weights, temporary state, input/output buffers and any cached history needed by the algorithm. Do not compare model-file size alone with memory capacity and conclude that execution will fit.
+A CPU can run the serving process, prepare inputs, launch GPU kernels and coordinate the application. For an LLM request, tokenization turns text into token IDs; software arranges the tensors and chooses the execution plan. Many large arithmetic operations then run on GPU Tensor Cores, which accelerate matrix multiply-accumulate. Other GPU execution units handle work that does not map to those matrix operations. A NIC connects the tray to an external network, and local NVMe storage can cache data or hold the operating system.
 
-Locality changes which link is used. A value already in a nearby cache may avoid a trip to device memory; a local dataset cache may avoid a remote storage transfer. Caching helps only when data is reused and remains valid. A first pass can still be slow, and a new workload can evict useful state. Distinguish a copy from a view or reference: the software may expose a convenient address while the physical bytes remain across a limited interconnect. Apparent memory unification does not erase bandwidth or ownership rules.
+This is a division of responsibilities, not a requirement that every byte be copied through the CPU. The actual software and I/O path determine which preparations run on the host and which transfers can bypass intermediate copies. To diagnose a slow rack, identify the operation waiting and the resource supplying it: host preparation, device memory, a peer GPU, or a remote service.
 
-## Turn the data path into a pipeline model
+## HBM is attached to the GPU package, close to its compute dies
 
-If preparation, transfer and execution run strictly one after another, their times add. If separate batches can use those stages concurrently, steady-state batch spacing is bounded by the slowest stage, after the pipeline fills. That improvement requires enough buffers and independent resources. A CPU preparing the next batch may contend with checkpoint staging; a transfer may share a link with communication. Therefore perfect overlap is an optimistic model, not a default property of an architecture.
+HBM means high-bandwidth memory. In this GPU family, stacked DRAM sits beside the compute dies within the package, with many short parallel connections. The package arrangement provides the wide interface needed to feed the arithmetic units. HBM still stores data outside the compute dies; cache and other on-chip storage can keep reused operands closer. Moving an operand from HBM and reusing it locally are different amounts of traffic at the HBM boundary.
 
-The distinction between throughput and latency becomes visible here. A pipeline can complete a batch every 40 milliseconds even though each individual batch takes longer from entry to exit. The first result still waits for every required stage. For an interactive request with a tight response deadline, that end-to-end delay may matter more than steady-state batch throughput. For a long offline job, the spacing between completed batches may dominate. The correct infrastructure brief names both the output being counted and the timing condition under which it must arrive.
+NVIDIA specifies up to 288 GB HBM3e and up to 8 TB/s of HBM bandwidth per Blackwell Ultra GPU. Capacity is a quantity of data; bandwidth is a transfer rate. These are platform specifications. The presentation uses 8 TB/s as the ceiling of a controlled transfer account, not as an observed sustained rate. A product implementation can differ: Lenovo’s current GB300 guide lists 7.7 TB/s.
 
-## Read a real rack without importing its marketing
+## Follow three distinct paths to the arithmetic
 
-The NVL72 reference page provides a concrete example of compute trays, switched interconnects, separate networking roles, local storage and management. Use that hierarchy to ask where the bytes travel. The numerical exercise below is entirely fictional. It does not inherit the page’s performance ratios or its ambiguous bandwidth aggregation. A reference architecture is most useful when it reveals interfaces that a simplified sketch accidentally omitted.
+For data resident in local HBM, the path is HBM → GPU memory system → execution units. For data resident in CPU memory, the path includes the coherent NVLink-C2C connection between CPU and GPU. For data on a peer GPU, the path includes that peer’s memory and the rack’s NVLink switching fabric. Coherency permits direct addressing across the CPU/GPU boundary; it does not make all physical memory equally fast.
 
-## Worked example: Three stages, two execution policies
+The NVLink 5 figure of 1.8 TB/s per GPU adds the two transfer directions across all of that GPU’s links. It is neither a separate 1.8 TB/s pipe to every peer nor directly comparable with a one-direction transfer measurement. The 72-GPU rack has an advertised aggregate memory bandwidth of up to 576 TB/s because many local HBM interfaces operate in parallel. A single tensor operation does not automatically receive that aggregate rate. Its partitioning and placement determine which interfaces participate.
 
-- Each synthetic batch takes 30 ms of host preparation, 20 ms of transfer and 40 ms of accelerator execution.
-- Ten batches are processed; startup overhead outside these stages is zero.
-- For the pipelined case, stages have independent resources, sufficient buffers and no interference.
+## Use a transfer account to connect bytes with time
 
-1. Process batches serially — 10 × (30 + 20 + 40) = 900 ms — Each batch waits until the preceding batch completes every stage.
-2. Fill the pipeline — 30 + 20 + 40 = 90 ms — The first batch still crosses all three stages.
-3. Complete the remaining batches — 9 × max(30, 20, 40) = 360 ms — After filling, the bottleneck stage determines batch spacing.
-4. Compare total duration — 90 + 360 = 450 ms — Ideal overlap halves this ten-batch duration.
+Suppose an operation must read 144 GB across one GPU’s HBM interface. At an 8 TB/s transfer ceiling, the read alone requires at least 144 × 10⁹ / (8 × 10¹²) = 0.018 seconds, or 18 ms. GB and TB here use SI powers of ten. Increasing memory capacity while leaving the traffic and bandwidth unchanged does not lower that bound. Reducing the traffic through reuse, or increasing bandwidth, can.
 
-**Result:** The same components deliver different throughput because the schedule changes. The first-batch latency remains 90 ms in this model.
+The 144 GB account is chosen to isolate one mechanism; it is not a model checkpoint or one token’s measured traffic. A generated token requires an execution graph, including arithmetic, cache activity and often communication. Converting the 18 ms into a token rate would require establishing how often this transfer occurs and which other dependencies remain. Capacity comes first when a placement cannot fit; transfer time becomes the next question once that placement is feasible.
 
-**Model boundary:** Real overlap depends on implementation, buffer capacity, shared links and contention; this is not a benchmark of a named platform.
+## Worked example: What can an 8 TB/s HBM interface tell us?
+
+- One operation reads 144 GB from local HBM; all numbers use SI bytes.
+- The transfer-rate ceiling is 8 TB/s; the read is not already served by cache.
+- We isolate HBM traffic before adding arithmetic and communication.
+
+1. Count bytes at the chosen interface — 144 GB = 144 × 10⁹ bytes — Count actual HBM reads, not every logical reuse of the data.
+2. Divide traffic by bandwidth — 144 × 10⁹ / (8 × 10¹²) = 0.018 s = 18 ms — This is the minimum read duration under the stated ceiling.
+3. Test a capacity-only upgrade — 144 GB / 8 TB/s = 18 ms — Additional capacity can enable a larger resident working set but does not change this fixed read.
+4. Test eliminating half the HBM traffic — 72 GB / 8 TB/s = 9 ms — The improvement requires actual reuse or removal of transfers at this boundary.
+
+**Result:** The useful performance question is how many bytes cross which interface, not merely how many bytes the rack can store.
+
+**Model boundary:** NVIDIA supplies the up-to-8-TB/s platform figure. The 144 GB traffic account is an original teaching input; these are transfer bounds, not token rates.
 
 ## The tradeoff
 
-Choice: Allocate more buffering to overlap host work, transfer and accelerator execution.
+Choice: Keep more application state in CPU memory when local HBM is scarce.
 
-Benefit: Reduce idle gaps and approach the slowest-stage throughput bound.
+Benefit: Support a placement that requires more memory than the chosen local HBM budget.
 
-Cost: Consume memory, complicate lifetime management and potentially increase queued work and response latency.
+Cost: CPU-resident accesses cross a different interface; placement and traffic must be evaluated together.
 
 ## When the situation changes
 
-Trigger: A new dataset takes 70 ms per batch to decode on the host.
+Trigger: A deployment fits its state by moving frequently read tensors from HBM to CPU memory.
 
-Mechanism: Host preparation becomes the bottleneck; faster accelerator arithmetic cannot fill the resulting input gaps.
+Mechanism: The address remains accessible, but repeated accesses now traverse the CPU/GPU path.
 
-Response: Measure stage timing, then investigate preparation parallelism, data representation or caching while preserving equivalent input semantics.
+Response: Identify the tensors and measured traffic crossing that path, then compare placement, reuse and partitioning options.
 
 ## Apply the idea
 
-With the 70 ms preparation stage, 20 ms transfer and 40 ms execution, what is the ideal duration for ten pipelined batches? Would halving accelerator execution time restore the original 450 ms result?
+A workload fits in HBM but spends most of its time repeatedly reading the same weights from it. Which evidence would make local reuse a better candidate than buying a larger memory capacity?
 
 <details>
 <summary>Reveal the worked answer</summary>
 
-Duration is 130 + 9 × 70 = 760 ms. Halving execution to 20 ms gives 110 + 630 = 740 ms, still far from 450 ms.
+Show that the working set already fits and that the implementation rereads weights across the HBM interface when it could reuse them in faster local storage.
 
-The dominant repeated interval is now host preparation. Faster execution shortens only the fill/drain contribution because it was already shorter than the bottleneck stage.
+A larger capacity removes no transfer by itself. A changed kernel or execution grouping must reduce measured HBM traffic without changing the required output or exceeding available local storage.
 
 </details>
 
-**The idea to keep:** A powerful arithmetic engine contributes only when the data, software and synchronization it needs arrive in time.
+**The idea to keep:** Where a tensor resides determines which memory or interconnect must supply it to the GPU.
 
 ## Sources and reading boundaries
 
-- [GPU Performance Background User’s Guide](https://docs.nvidia.com/deeplearning/performance/dl-performance-gpu-background/index.html) — A GPU combines execution resources and a memory hierarchy; achieved performance depends on workload behavior. Read 2026-09-06. Use conceptual structure only; dated product examples and throughput tables are not applied.
-- [NVIDIA NVL72 AI Factory — System Hardware & Components](https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/components.html) — The component hierarchy distinguishes compute, switching, networking, local storage and management. Read 2026-09-06. Inspected May 18, 2026 page revision; no universal power or bandwidth numbers inferred.
+- [NVIDIA DGX GB Rack Scale Systems — Hardware](https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html#power-shelves) — DGX GB300 rack, compute-tray, rear-interface and switch-tray organization. Read 2026-09-14. Identified GB300 figures and hardware sections inspected. The shared guide also contains GB200-specific NIC and approximate power text; those quantities are not carried into this lesson.
+- [NVIDIA GB300 NVL72 — Specifications](https://www.nvidia.com/en-us/data-center/gb300-nvl72/) — The named platform contains 72 GPUs and 36 CPUs; advertised rack GPU memory bandwidth is up to 576 TB/s in aggregate. Read 2026-09-14. Product specification table inspected. Aggregate capacities and bandwidths are not one GPU-local pool or an application benchmark. Advertised performance ratios are not adopted.
+- [NVIDIA — Inside Blackwell Ultra](https://developer.nvidia.com/blog/inside-nvidia-blackwell-ultra-the-chip-powering-the-ai-factory-era/) — Two dies form one CUDA accelerator; up to 288 GB HBM3e and 8 TB/s per GPU; NVLink 5 bandwidth is 1.8 TB/s bidirectional per GPU. Read 2026-09-14. Authored body and figures inspected, including the actual superchip board. Architecture maxima vary by SKU. The body and endnote conflict on HBM stack wording, so stack count is not taught. No per-GPU C2C bandwidth or performance ratio is inferred for a rack configuration.
+- [NVIDIA — Memory management on hardware-coherent platforms](https://developer.nvidia.com/blog/understanding-memory-management-on-hardware-coherent-platforms/) — GB300 CPU and GPU memory can be directly addressed across NVLink-C2C while retaining different physical locations and management behavior. Read 2026-09-14. Authored body reviewed. The lesson uses the locality distinction, not a universal allocation policy or instructions for configuring driver memory modes.
 
-## Find the limit before buying more arithmetic
+## Choose the upgrade that removes the active limit
 
 **9. Compute, memory and the rack · Authored draft**
 
-Apply a small performance model, then test its assumptions against capacity and the job’s critical path.
+Derive arithmetic intensity and a roofline bound, then diagnose which resource upgrade changes the operation’s completion time.
 
-**Driving question:** Is a workload constrained by memory capacity, memory bandwidth, compute or communication?
+**Driving question:** Would this operation benefit from more arithmetic, more memory bandwidth, or less data movement?
 
-## Use four different tests
+## A matrix multiplication explains why reuse matters
 
-Begin with feasibility: does the required live state fit in the memory accessible under the chosen execution plan? This is a capacity test, not a speed test. If it fails, the plan must change by partitioning state, recomputing intermediates, offloading data or changing the workload. Each option changes traffic and possibly numerical behavior. Once the plan fits, count the operations it performs and bytes it moves across a specified memory interface. Then count communication on the critical path between participating devices.
+For C = A × B, with A shaped M × K and B shaped K × N, there are M × N output elements. Each output combines K products. With the conventional multiply-add accounting, the operation count is approximately 2MKN FLOP: one multiplication plus one addition is two floating-point operations. FLOP counts work; FLOP/s measures its execution rate. This convention lets us connect a named operation to a rate rather than treating an advertised FLOPS number as tokens per second.
 
-FLOPS is an execution rate for specified operations and numerical formats. Bytes per second is a movement rate across a specified interface. Neither is a generic unit of job progress. A comparison must hold the algorithm, precision, correctness target, batch policy and output definition constant enough to be meaningful. Installed megawatts only constrain an electrical envelope. They do not reveal how much of that envelope feeds arithmetic that advances the requested result, or how much time the equipment spends waiting.
+One weight tile can contribute to several output elements after being fetched into local storage. If the implementation rereads that tile from HBM for every output, traffic rises. If it reuses the tile locally, more arithmetic occurs per byte crossing HBM. Input shape, tile size, available storage and parallelism determine what reuse is possible. Reuse is the mechanism; a larger batch is only one way an application might expose it.
 
-## Derive a useful lower bound
+## Define the two time accounts
 
-Let W be the required floating-point operations, F the available execution rate, M the bytes transferred from the chosen memory boundary and B its bandwidth. Execution takes at least W/F; memory transfer takes at least M/B. If those activities can overlap ideally, elapsed time is at least their maximum. If they must occur serially, the sum is a more appropriate model. Arithmetic intensity W/M expresses how much calculation occurs per byte moved. Comparing it with F/B suggests which resource limits the idealized case.
+Let W be the operation count in FLOP, F the available arithmetic rate in FLOP/s, M the transferred bytes at the selected HBM boundary, and B its bandwidth in bytes/s. The arithmetic time is bounded below by W/F; the memory time by M/B. With ideal overlap, completion cannot be faster than max(W/F, M/B). A fully serial model uses their sum. A real dependency schedule can fall between these accounts or take longer because of additional work.
 
-The model is valuable because its assumptions are visible. It does not include all kernel launch delays, instruction dependencies, irregular access, insufficient parallelism or inter-device synchronization. It also requires the correct traffic count. Counting each mathematical input once can underestimate bytes if the implementation rereads it repeatedly; counting all logical accesses as device-memory transfers can overestimate bytes if cache reuse is effective. Use the model to formulate a measurement question, then use profiling to check the actual boundary and traffic.
+The model below assigns 200 TFLOP/s to dense BF16 matrix arithmetic with FP32 accumulation and 8 TB/s to HBM traffic. The compute rate is a teaching assumption for this instruction mix, not the peak rating of a GB300. Both rates are held constant to isolate the comparison. If effective rates are measured instead, the workload shape, numerical format, clocks and measurement boundary must remain part of that record.
 
-## Equal power can hide very different useful capacity
+## Derive the roofline from the time bound
 
-Imagine two synthetic rack configurations with equal electrical input limits. Rack A provides twice as much nominal arithmetic as B, but B provides twice the effective memory bandwidth for the chosen workload. A bandwidth-heavy job can favor B even though A has the more impressive FLOPS total. A compute-heavy job can favor A. Neither result ranks the racks universally. It establishes a workload-dependent comparison that can be revisited when model size, batch size or parallelization changes.
+Arithmetic intensity I = W/M is the number of FLOP performed per byte moved across HBM. Dividing work by the idealized elapsed time gives a throughput ceiling of min(F, B × I). On a graph of FLOP/s against FLOP/byte, the bandwidth-limited line rises with I until it meets the horizontal compute ceiling. Their intersection is I = F/B. This graph is called the roofline model.
 
-Communication introduces another limit. If a step needs 50 milliseconds of unavoidable synchronization after 100 milliseconds of computation, doubling compute speed gives a 100-millisecond step, not a 75-millisecond step. The unchanged portion becomes a larger share of elapsed time. Overlap can reduce that penalty only where dependencies permit it. This is why faster devices can increase the value of a better network or storage path: they shorten one phase until an older waiting phase becomes exposed. A balanced system is balanced for a particular workload, not for every imaginable application.
+With 200 × 10¹² FLOP/s and 8 × 10¹² bytes/s, the intersection is 25 FLOP/byte. At 10 FLOP/byte, the bandwidth ceiling is 8 × 10¹² × 10 = 80 TFLOP/s. Above the intersection, adding memory bandwidth does not raise this model’s 200 TFLOP/s compute ceiling. Moving right through better reuse can help a bandwidth-limited operation; raising the wrong ceiling cannot.
 
-## Measure the output that matters
+## Read numerical formats before comparing compute ratings
 
-For training, count progress under a fixed convergence or validation objective rather than treating every arithmetic operation as equally useful. For inference, specify request mix, output length, quality and latency constraints before comparing completed tokens. A change that increases batch throughput while violating response deadlines may reduce accepted service. Keep energy per accepted output separate from peak power. An experiment should report both the electrical boundary and the conditions under which the output was counted.
+A peak rate must name both the operation and numerical format. Dense BF16, FP8 and FP4 matrix arithmetic are different claims; sparse throughput assumes a supported sparsity pattern and an implementation that can exploit it. Multiplying the advertised sparse peak by runtime does not establish that many useful dense operations. Likewise, shrinking tensor precision changes more than capacity: it can change traffic, available instructions and the numerical behavior of the model.
 
-## Worked example: A fictional kernel and two resource upgrades
+For a purchase comparison, keep the required output quality and workload configuration explicit, then measure the achieved operation or service rate. The roofline is useful for predicting which resource to examine, but insufficient parallelism, irregular access, launch overhead and dependencies can leave execution well below either ceiling. A high arithmetic intensity alone does not guarantee that the GPU is busy.
 
-- A kernel performs 120 trillion operations and moves 3 trillion bytes across the specified device-memory boundary.
-- The synthetic device provides 300 trillion operations per second and 2 trillion bytes per second.
-- The 100 GB live working set fits in 128 GB of usable memory; computation and memory traffic overlap ideally.
+## Communication can become the exposed dependency
 
-1. Check arithmetic time — 120 / 300 = 0.4 s — Operation units cancel consistently.
-2. Check memory time — 3 / 2 = 1.5 s — Memory traffic sets the larger idealized time.
-3. Compare resource ratios — 120 / 3 = 40 operations/byte; 300 / 2 = 150 operations/byte — The workload provides too little arithmetic per transferred byte to reach this device’s compute ceiling.
-4. Test upgrades — Double compute: max(0.2, 1.5) = 1.5 s; double bandwidth: max(0.4, 0.75) = 0.75 s — Only the bandwidth upgrade changes the active bound in this model.
+The local HBM model stops at the GPU boundary. If results must be exchanged with peers before the next layer can begin, that exchange enters the critical path. For example, 100 ms of computation followed by 50 ms of unavoidable exchange takes 150 ms. Halving computation reduces the total to 100 ms. The exchange now occupies half the step, so another arithmetic upgrade has a smaller effect unless the communication or dependency schedule also changes.
 
-**Result:** The predicted limit is memory bandwidth, after capacity feasibility has been established.
+Return to the course’s outcome: a rack earns useful throughput by completing the required execution graph. Neither installed megawatts nor a sum of chip peaks supplies the missing operation counts, traffic or synchronization schedule. Those measurements establish whether another GPU, more HBM bandwidth, a different kernel, or a better network path is the relevant next change.
 
-**Model boundary:** All numbers are synthetic. This optimistic bound excludes software, caching details, communication and contention.
+## Worked example: A memory-bound operation and two upgrades
+
+- The operation performs 2 × 10¹² FLOP of dense BF16 matrix arithmetic with FP32 accumulation and transfers 160 GB across HBM.
+- Its live state fits. Assigned rates are 200 TFLOP/s and 8 TB/s; compute and HBM traffic overlap ideally.
+- Upgrades change only one assigned rate; operation count and traffic remain fixed.
+
+1. Account for computation — 2 × 10¹² / (200 × 10¹²) = 0.010 s = 10 ms — The arithmetic account is shorter than the HBM account.
+2. Account for HBM traffic — 160 × 10⁹ / (8 × 10¹²) = 0.020 s = 20 ms — With ideal overlap, 20 ms is the active bound.
+3. Double the compute rate — max(5 ms, 20 ms) = 20 ms — Faster arithmetic does not shorten the unchanged memory transfer.
+4. Double the HBM bandwidth — max(10 ms, 10 ms) = 10 ms — The changed resource removes the active limit until the two accounts meet.
+
+**Result:** For this operation, the bandwidth upgrade changes the bound; the compute upgrade does not. Reducing actual HBM traffic could address the same limit.
+
+**Model boundary:** The assigned compute rate and workload account are original examples. Full overlap gives an optimistic bound; network time, software overhead and contention are outside this account.
 
 ## The tradeoff
 
-Choice: Increase batch size to reuse data across more arithmetic.
+Choice: Reuse a matrix tile for more arithmetic before replacing it.
 
-Benefit: Potentially increase arithmetic intensity and reduce movement per output.
+Benefit: Increase FLOP per byte transferred from HBM, potentially moving the operation out of the bandwidth-limited regime.
 
-Cost: Increase live memory demand and possibly queueing delay; training or serving semantics must remain acceptable.
+Cost: Consume local storage and possibly alter occupancy or scheduling; validate the whole kernel rather than only its traffic count.
 
 ## When the situation changes
 
-Trigger: An optimization reduces arithmetic time but increases temporary state beyond 128 GB.
+Trigger: An optimized kernel reduces HBM traffic but exposes too little concurrent work.
 
-Mechanism: The previously feasible memory plan fails or begins offloading over a slower interface.
+Mechanism: The arithmetic-intensity calculation improves while execution units remain underused.
 
-Response: Recompute the live-state and traffic ledger together; do not celebrate a faster isolated kernel until the full job remains feasible.
+Response: Compare actual memory traffic, achieved arithmetic rate and dependency timing before attributing the slowdown to hardware capacity.
 
 ## Apply the idea
 
-A second implementation performs the same 120 trillion operations but moves only 0.6 trillion bytes, with the original device. What is its bound, and which resource is now active?
+A second operation moves the same 160 GB but performs 40 × 10¹² FLOP at the original rates. Which of the two upgrades should you test first, and what would make the prediction fail?
 
 <details>
 <summary>Reveal the worked answer</summary>
 
-Memory time becomes 0.3 s, so the idealized bound is max(0.4, 0.3) = 0.4 s, with computation active.
+The arithmetic account is 200 ms and HBM is 20 ms. Doubling compute reduces the bound to 100 ms; doubling HBM leaves it at 200 ms. Test compute first.
 
-Reducing traffic can be more valuable than buying additional arithmetic. The improvement depends on actually eliminating transfers at the measured boundary, while retaining correct output and sufficient parallelism.
+The recommendation changes with the operation, even on unchanged hardware. It could fail if the assumed arithmetic rate cannot be sustained, another dependency dominates, or the upgrade changes the execution plan and traffic. Measure those quantities rather than treating the bound as a benchmark.
 
 </details>
 
-**The idea to keep:** The useful comparison is work divided by the time needed to obtain its inputs, execute it and exchange its results.
+**The idea to keep:** An upgrade helps when it changes a limit on the operation’s critical path.
 
 ## Sources and reading boundaries
 
-- [GPU Performance Background User’s Guide](https://docs.nvidia.com/deeplearning/performance/dl-performance-gpu-background/index.html) — Arithmetic intensity offers a first-order compute-versus-memory model whose assumptions require profiling. Read 2026-09-06. The lesson derives its own examples; historical NVIDIA device values are not used.
-- [Matrix Multiplication Background User’s Guide](https://docs.nvidia.com/deeplearning/performance/dl-performance-matrix-multiplication/index.html) — Matrix shape and reuse can alter arithmetic intensity and the active performance limit. Read 2026-09-06. A guide to particular operations, not a universal model of end-to-end AI job performance.
+- [GPU Performance Background User’s Guide](https://docs.nvidia.com/deeplearning/performance/dl-performance-gpu-background/index.html) — Compute and memory time bounds, arithmetic intensity and the role of sufficient parallelism; multiply-add counts as two floating-point operations. Read 2026-09-14. GPU structure and performance sections reread. Guide dated February 2023; historical GPU specifications are not used. The 200 TFLOP/s and workload accounts below are original teaching inputs.
+- [Matrix Multiplication Background User’s Guide](https://docs.nvidia.com/deeplearning/performance/dl-performance-matrix-multiplication/index.html) — Matrix dimensions, tiling and operand reuse explain changes in arithmetic intensity. Read 2026-09-14. Public guide reviewed for matrix-operation structure and reuse. Numerical examples below are independently derived; no older hardware throughput is transferred to GB300.
+- [NVIDIA — Inside Blackwell Ultra](https://developer.nvidia.com/blog/inside-nvidia-blackwell-ultra-the-chip-powering-the-ai-factory-era/) — Two dies form one CUDA accelerator; up to 288 GB HBM3e and 8 TB/s per GPU; NVLink 5 bandwidth is 1.8 TB/s bidirectional per GPU. Read 2026-09-14. Authored body and figures inspected, including the actual superchip board. Architecture maxima vary by SKU. The body and endnote conflict on HBM stack wording, so stack count is not taught. No per-GPU C2C bandwidth or performance ratio is inferred for a rack configuration.
 
-## The rack becomes a service boundary
+## A rack’s repair boundary changes its usable job capacity
 
 **9. Compute, memory and the rack · Authored draft**
 
-Connect tray and rack organization to physical interfaces and failure scope, then distinguish nominal from schedulable capacity.
+Connect the GB300 physical interfaces to service work, then use a controlled failure-placement example to distinguish healthy devices from feasible jobs.
 
-**Driving question:** How does tighter hardware integration change deployment, maintenance and usable job capacity?
+**Driving question:** What happens to useful work when a tray or shared rack interface becomes unavailable?
 
-## Distinguish the containers from the communication domain
+## Separate the physical assembly from the job allocation
 
-A server, tray and rack are physical assemblies. A communication domain is the set of devices that can participate under a specified connectivity and software model. The two boundaries may coincide, but they need not. Several independent servers can share one cabinet, while a tightly connected system can span multiple trays. A statement that devices are connected does not imply that each pair has its own dedicated physical wire. Switched connectivity and direct point-to-point wiring are different graphs.
+In the GB300 NVL72, four GPUs share a compute tray with CPUs and other components. Each GPU connects through the NVLink switch fabric to peers in the rack. A compute tray, a 72-GPU communication domain and an application’s tensor-parallel group are therefore different boundaries. A job may use a subset of the rack or span multiple racks, depending on its software and communication needs.
 
-When reading a rack diagram, identify the replaceable assemblies and the dependencies that cross them. A tray may contain processors, memory, network interfaces and local storage. A switch tray may be shared by many compute trays. Power shelves may supply a common bus, and coolant manifolds may serve parallel branches. This creates opportunities to share infrastructure, but also requires a precise account of what happens when a shared component is removed. The smallest replaceable unit, fault domain and scheduled job allocation can all differ.
+This distinction matters during service. Removing a tray removes its local components from availability. The jobs affected depend on which of those components they use, what shared dependencies were disturbed and whether the software can remap or restart. It does not follow that every GPU in the rack physically fails when one tray is unavailable, or that every job can continue unchanged.
 
-## Dense hardware changes more than kilowatts per cabinet
+## The rack must meet several facility interfaces at once
 
-A replacement rack can change static weight, rolling installation loads, delivery dimensions, floor anchoring, cable bend space and the clearance needed to remove an assembly. It can also shift heat from room air into a coolant loop while leaving power supplies, networking or other components dependent on air. The electrical inlet, liquid connections, drain or service provisions and management connections must all meet the supplied installation requirements. One acceptable aggregate rack power value cannot answer these separate questions.
+Rack integration concentrates power, heat and service work. The electrical inlet must supply the intended load; coolant connections must serve the cold plates; airflow must still remove heat from air-cooled parts; and the network and management interfaces must be accessible. A power allocation alone establishes none of the hydraulic, spatial or software conditions. For the recurring Abilene campus, published capacity milestones do not establish a specific GB300 rack inventory or those as-built interfaces.
 
-The operating team must be able to reach and replace parts without unintentionally disturbing adjacent systems. Ask whether a repair requires draining a branch, isolating a power zone, moving cables or temporarily reducing the communication domain. Consider the recovery path: a replacement component needs compatible firmware, configuration and health validation before it becomes useful. Procurement of a spare is not equivalent to restoration of service. The service plan should name the tools, staff, spares and verification required for the intended repair boundary.
+Lenovo’s named compute tray weighs 29 kg and combines liquid-cooled high-power components with air-cooled supporting parts. Its removal procedure calls for tray power-off, disconnection and appropriate lifting and coolant-service equipment. The teaching consequence is a larger service operation than replacing a single hot-swappable PSU. Detailed clearances, floor loads and handling belong to the physical-site lesson; here the question is which job resources disappear during the repair.
 
-## Convert device inventory into feasible job allocations
+## Failure placement can matter more than the device total
 
-Count healthy devices, but also describe how they are connected and which resources a job needs simultaneously. A job may require eight devices in one compatible group, sufficient memory per device, network access and an available software image. A rack with twenty-eight healthy devices might support only three such groups if a failure fragments its topology. The unused devices have not vanished electrically; they are unavailable to that particular allocation. Smaller jobs may still use them.
+Use an independent teaching system with four groups of eight GPUs. A large job needs eight healthy GPUs in one group, and the configured scheduler cannot combine fragments from different groups. Hold four GPU failures constant. If all four occur in one group, three groups remain intact. If one occurs in each group, none remains intact. Both states contain 28 healthy GPUs, yet they support different numbers of the specified large job.
 
-This creates a scheduling and reliability tradeoff. Large tightly integrated groups may reduce communication cost for some workloads. They can also make partial faults more disruptive when a job cannot shrink or remap around the failure. Flexible partitioning can preserve service for smaller jobs, but it may reduce the maximum group size or change performance. Evaluate the actual customer job mix and software capabilities. The appropriate capacity measure is the number of feasible allocations and their accepted throughput, not a single count of powered processors.
+The healthy fragments remain useful for compatible smaller jobs. With one failure in each group, each group has seven healthy GPUs; a four-GPU job fits once per group, leaving three devices in each for other compatible work. “Unavailable capacity” is therefore always relative to a workload and allocation policy. This controlled grouping is not an assertion that an NVL72 has four eight-GPU fault domains.
 
-## Accept the system under more than one condition
+## Recovery depends on software as well as the spare
 
-An acceptance exercise should include normal operation, an agreed degraded condition and restoration. Record which job sizes remain supported, what throughput changes and whether the management plane accurately reports the loss. Repeating a small benchmark on every device individually may miss failures that appear only during collective communication or simultaneous load. Conversely, a whole-rack test can hide one marginal branch if it reports only an average. Combine component checks with a workload exercise that traverses the shared dependencies.
+A tightly coupled job may need checkpoint recovery, spare substitution or reconfiguration after a device interruption. NVIDIA’s July 2026 discussion of nonuniform tensor parallelism separates those existing recovery approaches from an experimental scheme that reshards work around missing GPUs. Automatic shrinkage is a software capability to establish, not a property implied by the presence of NVLink.
 
-## Worked example: Thirty-two devices, three usable groups
+After physical repair, compatible firmware and configuration must restore the expected topology. Component health checks can pass while a job still encounters a wrong partition or impaired communication path. Returning the group to useful service requires exercising the dependencies used by that workload. Record both whether a placement can run and whether its output meets the expected service condition.
 
-- A synthetic rack contains four independently schedulable groups of eight accelerators.
-- An important job requires exactly eight healthy accelerators within one group; this software version cannot combine fragments from different groups.
-- Four devices fail in one group; all other devices, power and cooling remain available.
+## Diagnose the required service rather than an average
 
-1. Count the healthy devices — 32 − 4 = 28 — This is the physical inventory after the fault.
-2. Count feasible large jobs — 3 intact groups × 1 job/group = 3 jobs — The partial fourth group cannot satisfy the stated topology requirement.
-3. Compare utilization measures — 28 / 32 = 87.5%; 3 / 4 = 75% — Healthy-device share and large-job-slot availability differ.
-4. Identify residual opportunity — 4 healthy devices remain in the affected group — They may support a compatible smaller job if the scheduler and service policy allow it.
+Consider a rack with power, coolant and individual GPU checks all ready, but its required NVLink fabric unavailable. The specified multi-GPU job remains blocked. If a tested reduced mode can use a smaller working group, it may provide a limited service; merely observing that some GPUs respond does not establish that mode. The decision is whether to repair the missing path, use a qualified alternative placement, or wait. The next chapter follows those communication paths beyond this rack.
 
-**Result:** The rack retains 87.5% of its devices but only 75% of its specified large-job slots.
+## Worked example: Four failures, two placement outcomes
 
-**Model boundary:** The grouping and failure response are invented to teach allocation constraints; no real product is asserted to behave this way.
+- The teaching system has four independent groups of eight GPUs.
+- The large job needs eight healthy GPUs in one group; this configuration cannot combine fragments across groups.
+- Four GPUs are unavailable. All other required inputs remain ready. Only failure placement changes.
+
+1. Concentrate the failures — Healthy GPUs per group: 4, 8, 8, 8 — Three groups can each host one large job; the partial group can serve compatible smaller work.
+2. Disperse the failures — Healthy GPUs per group: 7, 7, 7, 7 — No group meets the eight-GPU placement requirement.
+3. Compare the service result — 28 healthy GPUs in either case; 3 versus 0 large-job slots — The device total hides the location of the missing resources.
+4. Change the job requirement — Four-GPU jobs in the dispersed case: 1 per group = 4 jobs — Four smaller jobs occupy 16 GPUs; 12 healthy GPUs remain for other compatible allocations.
+
+**Result:** The workload and placement rule determine usable job capacity. Failure location is part of that account.
+
+**Model boundary:** This four-group scheduling example is original. It does not specify GB300 partition sizes or imply that one unavailable GPU always stops a real rack-wide job.
 
 ## The tradeoff
 
-Choice: Build larger tightly connected job domains.
+Choice: Use a larger tightly coupled GPU group for one application.
 
-Benefit: Potentially reduce the communication and coordination burden for workloads that use the full domain.
+Benefit: Keep more of its communication within a fast scale-up fabric.
 
-Cost: Qualification, maintenance and some failure states can affect a larger set of jobs; flexible partitioning must be demonstrated.
+Cost: Its useful operation depends on a larger set of participating devices; recovery and repartitioning support affect the outcome of partial faults.
 
 ## When the situation changes
 
-Trigger: A replaced switch assembly has an incompatible configuration.
+Trigger: A replacement tray passes local checks but has not joined the intended NVLink partition.
 
-Mechanism: Devices pass local health checks, yet the expected communication graph is incomplete or degraded.
+Mechanism: The hardware inventory is restored while the application’s required communication path remains incomplete.
 
-Response: Validate the topology, collective behavior and required job sizes after replacement before returning the group to service.
+Response: Verify configuration and the intended multi-GPU workload before counting the group as restored service.
 
 ## Apply the idea
 
-The scheduler gains a tested mode that combines the two healthy four-device fragments of two affected groups, at 80% of an intact group’s throughput. How should the capacity report change?
+The dispersed-failure system must run an eight-GPU job. Would adding one spare GPU anywhere recover a slot, or does placement matter? What else would you verify before promising throughput?
 
 <details>
 <summary>Reveal the worked answer</summary>
 
-Report one additional feasible eight-device job slot with a measured degraded-throughput factor of 0.8, plus the unchanged intact-group slots.
+A spare must be connected and qualified within one affected group so that group again provides eight healthy GPUs. An unrelated ninth group or an unqualified attachment does not satisfy the stated rule.
 
-The new mode recovers an allocation, but it does not make the fractured topology equivalent to an intact group. The service report should preserve that distinction and state which workloads were tested.
+Restoring one valid group recovers allocation feasibility. Compatible firmware, topology and application behavior still determine whether that slot delivers the required throughput; the spare’s presence alone is not a completed recovery.
 
 </details>
 
-**The idea to keep:** A system’s useful size is defined by the topology and service it can sustain, including maintenance and failures.
+**The idea to keep:** A capacity report needs the job’s placement requirements and recovery behavior, as well as a healthy-device count.
 
 ## Sources and reading boundaries
 
-- [NVIDIA DGX SuperPOD — Network Fabrics](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/network-fabrics.html) — A named reference system distinguishes compute, storage and management fabrics and explicit topology groupings. Read 2026-09-06. H100 reference architecture updated November 19, 2025; no component counts or ratios are generalized.
-- [Open Rack/SpecsAndDesigns](https://www.opencompute.org/wiki/Open_Rack/SpecsAndDesigns) — Physical rack, power and liquid interfaces have separate versioned documents. Read 2026-09-06. An index is a starting point; actual installation and maintenance requirements must come from the supplied equipment.
+- [NVIDIA DGX GB Rack Scale Systems — Hardware](https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html#power-shelves) — DGX GB300 rack, compute-tray, rear-interface and switch-tray organization. Read 2026-09-14. Identified GB300 figures and hardware sections inspected. The shared guide also contains GB200-specific NIC and approximate power text; those quantities are not carried into this lesson.
+- [Lenovo NVIDIA GB300 NVL72 Rack Scale AI Product Guide](https://lenovopress.lenovo.com/lp2357-lenovo-nvidia-gb300-nvl72-rack-scale-ai) — Named rack and compute-tray components, hybrid cooling, 29 kg tray, service spares and CPU memory configuration. Read 2026-09-14. August 30, 2026 guide inspected. Lenovo lists 7.7 TB/s GPU memory bandwidth for its configuration, separate from NVIDIA’s up-to-8-TB/s platform figure. This lesson does not combine those into a measured hardware claim.
+- [Lenovo — Remove a GB300 compute tray from the rack](https://pubs.lenovo.com/gb300-nvl72/remove_compute_tray) — Compute-tray removal requires power-off and disconnection, with appropriate lifting and coolant-service provisions. Read 2026-09-14. Manufacturer removal procedure inspected. Used to explain the service boundary, not to assert that every tray fault shuts down the rack or to reproduce a maintenance procedure.
+- [NVIDIA DGX GB Rack Scale Systems — System Health Check](https://docs.nvidia.com/dgx/dgxgb200-user-guide/health-check.html) — NVSM checks component health and can stress the system under load. Read 2026-09-14. Public page reviewed. Application qualification after a repair is the course’s operational reasoning, not a complete vendor acceptance procedure.
+- [NVIDIA — Nonuniform Tensor Parallelism and training goodput](https://developer.nvidia.com/blog/enhancing-goodput-in-large-scale-llm-training-with-nonuniform-tensor-parallelism/) — A device interruption can affect a tightly coupled job; recovery depends on checkpointing, spare substitution or supported adaptation. Read 2026-09-14. July 6, 2026 authored article reviewed. Nonuniform Tensor Parallelism and associated power boosting are described as experimental. The four-group allocation exercise is original and is not NVL72 fault behavior.
 
 ## Check your understanding: Twice the arithmetic, same progress?
 

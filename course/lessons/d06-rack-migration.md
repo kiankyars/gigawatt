@@ -135,4 +135,4 @@ The same output still requires the same total input across the complete path. Co
 
 **The next problem:** Now that power reaches the devices, what determines whether those devices spend their time doing useful work?
 
-Continue in **Compute, memory and the rack**: A rack is a path through several memories.
+Continue in **Compute, memory and the rack**: Inside a GB300 compute tray.

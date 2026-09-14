@@ -1291,3 +1291,36 @@ not construction accuracy or author acceptance. The next author pass starts at
   checks passed. P168–P171 registered; prior source entries preserved.
 - `/tmp/ch7-full-qa.json` records the complete automated scene/control findings;
   `/tmp/ch7-energy-qa/findings.json` records the independent energy render checks.
+
+## Chapter 9 compute, memory and the rack — 2026-09-14
+
+- Added `compute-format.html` with **21 scenes**, the existing shared navigation,
+  device-based light/dark colors, direct Reading links and no source/notes popup.
+- Source and model work were delegated independently. Three D07 reader lessons
+  now support the exact chapter mechanisms; P172–P176 add current NVIDIA hardware,
+  coherent-memory, failure-recovery and health-check references. Existing relevant
+  entries retain their IDs and receive scoped review updates.
+- **187 JavaScript tests and 73 Python tests passed.** Twelve new numerical tests
+  cover memory-read timing, overlapped compute/HBM bounds, the roofline knee,
+  concentrated versus dispersed failures and reduced-service prerequisites. The
+  catalog test now expects the tenth registered presentation.
+- All **21 scenes at the native desktop viewport and all 21 at 390×844** were
+  inspected through the built-in Codex browser. No page-width overflow or SVG
+  text outside the drawing area; no desktop page-height overflow. Actual screenshots
+  checked the manufacturer figures, HBM leaders, transfer boundaries, roofline,
+  matrix shapes, fault layouts and the closing comparison.
+- Exercised all **11 parameter choices** and all **three diagnosis answers** in
+  the native browser. Selected buttons match state; the four-GPU choice survives
+  leaving and returning; keyboard next works. Enter/exit fullscreen preserves the
+  light device palette. Temporary viewport override restored afterward.
+- Earlier automated light/dark render checks covered 1440×900, 1280×720 and
+  390×844 (210 scene/control states, no page errors, image failures or clipping).
+  Final geometry and interaction verification was performed in the native browser.
+- The visual pass fixed a log-axis/straight-line roofline error, moved NVSwitch
+  outside the accelerator enclosure, made a four-element vector match the
+  four-column weight tile, and attached the interposer leader to its actual layer.
+  Narrow diagrams use separate readable compositions.
+- `gigawatt.build_course --check`, `gigawatt-expand --check`, `gigawatt-map --check`,
+  `gigawatt-research check --include-candidates` and `git diff --check` pass.
+- These are implementation/source/browser checks. Kian's first Chapter 9 dry run
+  and feedback are still pending in the existing course review tracker.

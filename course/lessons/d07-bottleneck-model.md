@@ -1,82 +1,91 @@
-# Find the limit before buying more arithmetic
+# Choose the upgrade that removes the active limit
 
 Generated reading view. Edit [`course/expansion/racks-compute-heat.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/racks-compute-heat.json), lesson `d07-bottleneck-model`, then run `uv run gigawatt-expand`.
 
 **9. Compute, memory and the rack · Authored draft**
 
-Apply a small performance model, then test its assumptions against capacity and the job’s critical path.
+Derive arithmetic intensity and a roofline bound, then diagnose which resource upgrade changes the operation’s completion time.
 
-**Driving question:** Is a workload constrained by memory capacity, memory bandwidth, compute or communication?
+**Driving question:** Would this operation benefit from more arithmetic, more memory bandwidth, or less data movement?
 
-## Use four different tests
+## A matrix multiplication explains why reuse matters
 
-Begin with feasibility: does the required live state fit in the memory accessible under the chosen execution plan? This is a capacity test, not a speed test. If it fails, the plan must change by partitioning state, recomputing intermediates, offloading data or changing the workload. Each option changes traffic and possibly numerical behavior. Once the plan fits, count the operations it performs and bytes it moves across a specified memory interface. Then count communication on the critical path between participating devices.
+For C = A × B, with A shaped M × K and B shaped K × N, there are M × N output elements. Each output combines K products. With the conventional multiply-add accounting, the operation count is approximately 2MKN FLOP: one multiplication plus one addition is two floating-point operations. FLOP counts work; FLOP/s measures its execution rate. This convention lets us connect a named operation to a rate rather than treating an advertised FLOPS number as tokens per second.
 
-FLOPS is an execution rate for specified operations and numerical formats. Bytes per second is a movement rate across a specified interface. Neither is a generic unit of job progress. A comparison must hold the algorithm, precision, correctness target, batch policy and output definition constant enough to be meaningful. Installed megawatts only constrain an electrical envelope. They do not reveal how much of that envelope feeds arithmetic that advances the requested result, or how much time the equipment spends waiting.
+One weight tile can contribute to several output elements after being fetched into local storage. If the implementation rereads that tile from HBM for every output, traffic rises. If it reuses the tile locally, more arithmetic occurs per byte crossing HBM. Input shape, tile size, available storage and parallelism determine what reuse is possible. Reuse is the mechanism; a larger batch is only one way an application might expose it.
 
-## Derive a useful lower bound
+## Define the two time accounts
 
-Let W be the required floating-point operations, F the available execution rate, M the bytes transferred from the chosen memory boundary and B its bandwidth. Execution takes at least W/F; memory transfer takes at least M/B. If those activities can overlap ideally, elapsed time is at least their maximum. If they must occur serially, the sum is a more appropriate model. Arithmetic intensity W/M expresses how much calculation occurs per byte moved. Comparing it with F/B suggests which resource limits the idealized case.
+Let W be the operation count in FLOP, F the available arithmetic rate in FLOP/s, M the transferred bytes at the selected HBM boundary, and B its bandwidth in bytes/s. The arithmetic time is bounded below by W/F; the memory time by M/B. With ideal overlap, completion cannot be faster than max(W/F, M/B). A fully serial model uses their sum. A real dependency schedule can fall between these accounts or take longer because of additional work.
 
-The model is valuable because its assumptions are visible. It does not include all kernel launch delays, instruction dependencies, irregular access, insufficient parallelism or inter-device synchronization. It also requires the correct traffic count. Counting each mathematical input once can underestimate bytes if the implementation rereads it repeatedly; counting all logical accesses as device-memory transfers can overestimate bytes if cache reuse is effective. Use the model to formulate a measurement question, then use profiling to check the actual boundary and traffic.
+The model below assigns 200 TFLOP/s to dense BF16 matrix arithmetic with FP32 accumulation and 8 TB/s to HBM traffic. The compute rate is a teaching assumption for this instruction mix, not the peak rating of a GB300. Both rates are held constant to isolate the comparison. If effective rates are measured instead, the workload shape, numerical format, clocks and measurement boundary must remain part of that record.
 
-## Equal power can hide very different useful capacity
+## Derive the roofline from the time bound
 
-Imagine two synthetic rack configurations with equal electrical input limits. Rack A provides twice as much nominal arithmetic as B, but B provides twice the effective memory bandwidth for the chosen workload. A bandwidth-heavy job can favor B even though A has the more impressive FLOPS total. A compute-heavy job can favor A. Neither result ranks the racks universally. It establishes a workload-dependent comparison that can be revisited when model size, batch size or parallelization changes.
+Arithmetic intensity I = W/M is the number of FLOP performed per byte moved across HBM. Dividing work by the idealized elapsed time gives a throughput ceiling of min(F, B × I). On a graph of FLOP/s against FLOP/byte, the bandwidth-limited line rises with I until it meets the horizontal compute ceiling. Their intersection is I = F/B. This graph is called the roofline model.
 
-Communication introduces another limit. If a step needs 50 milliseconds of unavoidable synchronization after 100 milliseconds of computation, doubling compute speed gives a 100-millisecond step, not a 75-millisecond step. The unchanged portion becomes a larger share of elapsed time. Overlap can reduce that penalty only where dependencies permit it. This is why faster devices can increase the value of a better network or storage path: they shorten one phase until an older waiting phase becomes exposed. A balanced system is balanced for a particular workload, not for every imaginable application.
+With 200 × 10¹² FLOP/s and 8 × 10¹² bytes/s, the intersection is 25 FLOP/byte. At 10 FLOP/byte, the bandwidth ceiling is 8 × 10¹² × 10 = 80 TFLOP/s. Above the intersection, adding memory bandwidth does not raise this model’s 200 TFLOP/s compute ceiling. Moving right through better reuse can help a bandwidth-limited operation; raising the wrong ceiling cannot.
 
-## Measure the output that matters
+## Read numerical formats before comparing compute ratings
 
-For training, count progress under a fixed convergence or validation objective rather than treating every arithmetic operation as equally useful. For inference, specify request mix, output length, quality and latency constraints before comparing completed tokens. A change that increases batch throughput while violating response deadlines may reduce accepted service. Keep energy per accepted output separate from peak power. An experiment should report both the electrical boundary and the conditions under which the output was counted.
+A peak rate must name both the operation and numerical format. Dense BF16, FP8 and FP4 matrix arithmetic are different claims; sparse throughput assumes a supported sparsity pattern and an implementation that can exploit it. Multiplying the advertised sparse peak by runtime does not establish that many useful dense operations. Likewise, shrinking tensor precision changes more than capacity: it can change traffic, available instructions and the numerical behavior of the model.
 
-## Worked example: A fictional kernel and two resource upgrades
+For a purchase comparison, keep the required output quality and workload configuration explicit, then measure the achieved operation or service rate. The roofline is useful for predicting which resource to examine, but insufficient parallelism, irregular access, launch overhead and dependencies can leave execution well below either ceiling. A high arithmetic intensity alone does not guarantee that the GPU is busy.
 
-- A kernel performs 120 trillion operations and moves 3 trillion bytes across the specified device-memory boundary.
-- The synthetic device provides 300 trillion operations per second and 2 trillion bytes per second.
-- The 100 GB live working set fits in 128 GB of usable memory; computation and memory traffic overlap ideally.
+## Communication can become the exposed dependency
 
-1. Check arithmetic time — 120 / 300 = 0.4 s — Operation units cancel consistently.
-2. Check memory time — 3 / 2 = 1.5 s — Memory traffic sets the larger idealized time.
-3. Compare resource ratios — 120 / 3 = 40 operations/byte; 300 / 2 = 150 operations/byte — The workload provides too little arithmetic per transferred byte to reach this device’s compute ceiling.
-4. Test upgrades — Double compute: max(0.2, 1.5) = 1.5 s; double bandwidth: max(0.4, 0.75) = 0.75 s — Only the bandwidth upgrade changes the active bound in this model.
+The local HBM model stops at the GPU boundary. If results must be exchanged with peers before the next layer can begin, that exchange enters the critical path. For example, 100 ms of computation followed by 50 ms of unavoidable exchange takes 150 ms. Halving computation reduces the total to 100 ms. The exchange now occupies half the step, so another arithmetic upgrade has a smaller effect unless the communication or dependency schedule also changes.
 
-**Result:** The predicted limit is memory bandwidth, after capacity feasibility has been established.
+Return to the course’s outcome: a rack earns useful throughput by completing the required execution graph. Neither installed megawatts nor a sum of chip peaks supplies the missing operation counts, traffic or synchronization schedule. Those measurements establish whether another GPU, more HBM bandwidth, a different kernel, or a better network path is the relevant next change.
 
-**Model boundary:** All numbers are synthetic. This optimistic bound excludes software, caching details, communication and contention.
+## Worked example: A memory-bound operation and two upgrades
+
+- The operation performs 2 × 10¹² FLOP of dense BF16 matrix arithmetic with FP32 accumulation and transfers 160 GB across HBM.
+- Its live state fits. Assigned rates are 200 TFLOP/s and 8 TB/s; compute and HBM traffic overlap ideally.
+- Upgrades change only one assigned rate; operation count and traffic remain fixed.
+
+1. Account for computation — 2 × 10¹² / (200 × 10¹²) = 0.010 s = 10 ms — The arithmetic account is shorter than the HBM account.
+2. Account for HBM traffic — 160 × 10⁹ / (8 × 10¹²) = 0.020 s = 20 ms — With ideal overlap, 20 ms is the active bound.
+3. Double the compute rate — max(5 ms, 20 ms) = 20 ms — Faster arithmetic does not shorten the unchanged memory transfer.
+4. Double the HBM bandwidth — max(10 ms, 10 ms) = 10 ms — The changed resource removes the active limit until the two accounts meet.
+
+**Result:** For this operation, the bandwidth upgrade changes the bound; the compute upgrade does not. Reducing actual HBM traffic could address the same limit.
+
+**Model boundary:** The assigned compute rate and workload account are original examples. Full overlap gives an optimistic bound; network time, software overhead and contention are outside this account.
 
 ## The tradeoff
 
-Choice: Increase batch size to reuse data across more arithmetic.
+Choice: Reuse a matrix tile for more arithmetic before replacing it.
 
-Benefit: Potentially increase arithmetic intensity and reduce movement per output.
+Benefit: Increase FLOP per byte transferred from HBM, potentially moving the operation out of the bandwidth-limited regime.
 
-Cost: Increase live memory demand and possibly queueing delay; training or serving semantics must remain acceptable.
+Cost: Consume local storage and possibly alter occupancy or scheduling; validate the whole kernel rather than only its traffic count.
 
 ## When the situation changes
 
-Trigger: An optimization reduces arithmetic time but increases temporary state beyond 128 GB.
+Trigger: An optimized kernel reduces HBM traffic but exposes too little concurrent work.
 
-Mechanism: The previously feasible memory plan fails or begins offloading over a slower interface.
+Mechanism: The arithmetic-intensity calculation improves while execution units remain underused.
 
-Response: Recompute the live-state and traffic ledger together; do not celebrate a faster isolated kernel until the full job remains feasible.
+Response: Compare actual memory traffic, achieved arithmetic rate and dependency timing before attributing the slowdown to hardware capacity.
 
 ## Apply the idea
 
-A second implementation performs the same 120 trillion operations but moves only 0.6 trillion bytes, with the original device. What is its bound, and which resource is now active?
+A second operation moves the same 160 GB but performs 40 × 10¹² FLOP at the original rates. Which of the two upgrades should you test first, and what would make the prediction fail?
 
 <details>
 <summary>Reveal the worked answer</summary>
 
-Memory time becomes 0.3 s, so the idealized bound is max(0.4, 0.3) = 0.4 s, with computation active.
+The arithmetic account is 200 ms and HBM is 20 ms. Doubling compute reduces the bound to 100 ms; doubling HBM leaves it at 200 ms. Test compute first.
 
-Reducing traffic can be more valuable than buying additional arithmetic. The improvement depends on actually eliminating transfers at the measured boundary, while retaining correct output and sufficient parallelism.
+The recommendation changes with the operation, even on unchanged hardware. It could fail if the assumed arithmetic rate cannot be sustained, another dependency dominates, or the upgrade changes the execution plan and traffic. Measure those quantities rather than treating the bound as a benchmark.
 
 </details>
 
-**The idea to keep:** The useful comparison is work divided by the time needed to obtain its inputs, execute it and exchange its results.
+**The idea to keep:** An upgrade helps when it changes a limit on the operation’s critical path.
 
 ## Sources and reading boundaries
 
-- [GPU Performance Background User’s Guide](https://docs.nvidia.com/deeplearning/performance/dl-performance-gpu-background/index.html) — Arithmetic intensity offers a first-order compute-versus-memory model whose assumptions require profiling. Read 2026-09-06. The lesson derives its own examples; historical NVIDIA device values are not used.
-- [Matrix Multiplication Background User’s Guide](https://docs.nvidia.com/deeplearning/performance/dl-performance-matrix-multiplication/index.html) — Matrix shape and reuse can alter arithmetic intensity and the active performance limit. Read 2026-09-06. A guide to particular operations, not a universal model of end-to-end AI job performance.
+- [GPU Performance Background User’s Guide](https://docs.nvidia.com/deeplearning/performance/dl-performance-gpu-background/index.html) — Compute and memory time bounds, arithmetic intensity and the role of sufficient parallelism; multiply-add counts as two floating-point operations. Read 2026-09-14. GPU structure and performance sections reread. Guide dated February 2023; historical GPU specifications are not used. The 200 TFLOP/s and workload accounts below are original teaching inputs.
+- [Matrix Multiplication Background User’s Guide](https://docs.nvidia.com/deeplearning/performance/dl-performance-matrix-multiplication/index.html) — Matrix dimensions, tiling and operand reuse explain changes in arithmetic intensity. Read 2026-09-14. Public guide reviewed for matrix-operation structure and reuse. Numerical examples below are independently derived; no older hardware throughput is transferred to GB300.
+- [NVIDIA — Inside Blackwell Ultra](https://developer.nvidia.com/blog/inside-nvidia-blackwell-ultra-the-chip-powering-the-ai-factory-era/) — Two dies form one CUDA accelerator; up to 288 GB HBM3e and 8 TB/s per GPU; NVLink 5 bandwidth is 1.8 TB/s bidirectional per GPU. Read 2026-09-14. Authored body and figures inspected, including the actual superchip board. Architecture maxima vary by SKU. The body and endnote conflict on HBM stack wording, so stack count is not taught. No per-GPU C2C bandwidth or performance ratio is inferred for a rack configuration.

@@ -51,6 +51,7 @@ SLIDE_NAMES = {
     "continuity-format": "continuity",
     "rack-power-format": "rack-power",
     "rack-energy-format": "rack-energy",
+    "compute-format": "compute",
     "cooling-format": "cooling",
 }
 ROOT_PRESENTATIONS = {
