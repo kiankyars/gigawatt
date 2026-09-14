@@ -200,6 +200,11 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P158 — Schneider Electric — TN system: Principle](sources/P158.md) | Schneider Electric | D05 | public_excerpt_reviewed |
 | [P159 — Schneider Electric — Phaseo ABL6TS25B product datasheet](sources/P159.md) | Schneider Electric | D04 | page_reviewed |
 | [P16 — Why Scaling AI Compute Performance Requires a New Power Architecture](sources/P16.md) | NVIDIA | D04, D05, D06, D12, D13, D15 | page_reviewed |
+| [P160 — Schneider Electric — Elementary switching devices](sources/P160.md) | Schneider Electric | D04 | page_reviewed |
+| [P161 — Siemens — Vacuum Switching Technology and Components](sources/P161.md) | Siemens | D04 | public_excerpt_reviewed |
+| [P162 — Siemens — SIPROTEC 7SD610 circuit breaker failure protection](sources/P162.md) | Siemens | D04 | public_excerpt_reviewed |
+| [P163 — Equinix — Customer Installation Guidelines, phase balancing](sources/P163.md) | Equinix | D04 | public_excerpt_reviewed |
+| [P164 — Schneider Electric — Transformer secondary voltage notation](sources/P164.md) | Schneider Electric | D04 | page_reviewed |
 | [P17 — NVIDIA NVL72 AI Factory — System Hardware & Components](sources/P17.md) | NVIDIA | D06, D07, D08, D09, D10, D14, D01 | page_reviewed |
 | [P18 — OpenStax — 20.5 Alternating Current versus Direct Current (College Physics 2e)](sources/P18.md) | OpenStax, Rice University | D01, D04, D06 | page_reviewed |
 | [P19 — Steven H. Low — Power System Analysis: Analytical tools and structural properties (April 7, 2025 draft)](sources/P19.md) | Steven H. Low, California Institute of Technology | D04, D06 | page_reviewed |

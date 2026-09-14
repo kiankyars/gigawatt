@@ -1932,6 +1932,36 @@
         "paragraphs": [
           "Oracle’s July 15, 2026 data-hall aerial locates the recurring original Abilene campus. Use a building in that image to pose the distribution question: which feeder, transformer, bus and branch supplies its IT and supporting equipment? The image cannot answer its one-line topology, voltage or ratings. The following campus model therefore supplies explicit 13.8 kV and 480 V interfaces to practice tracing a complete load path."
         ]
+      },
+      {
+        "heading": "Inside the switchgear: sensing, decision and interruption",
+        "paragraphs": [
+          "A breaker-based feeder assembly separates the power path from its control path. The bus and breaker conduct feeder current. A current transformer supplies a scaled measurement to a protection relay. If the protection criteria are met, the relay commands the breaker to trip. Contacts and an interrupting chamber must then stop the power current. A recorded trip command therefore does not prove successful interruption: continuing fault current can trigger breaker-failure or other backup protection and enlarge the interrupted area. The course diagram is conceptual; actual switching devices, sensors and protection arrangements vary."
+        ]
+      },
+      {
+        "heading": "Disconnector, breaker and surge arrester are different functions",
+        "paragraphs": [
+          "A plain disconnector provides an isolation gap and is not assigned fault-current interruption. A switch-disconnector or breaker-disconnector combines functions only when its ratings provide them. A metal-oxide surge arrester instead responds to overvoltage: its nonlinear resistance falls, allowing surge current to be diverted and limiting insulation stress. It is commonly connected from phase to earth. A surge arrester is not an alternate power source or an isolating switch. The slides distinguish these jobs before Chapter 7 examines fault zones and alternate supply paths."
+        ]
+      },
+      {
+        "heading": "Read N, PE and 480Y/277 before following a branch",
+        "paragraphs": [
+          "In 480Y/277 V notation, Y identifies a wye-connected system: 480 V RMS is measured between phases, while 277 V RMS is measured from one phase to neutral. N means neutral; PE means protective earth. Neutral can carry return current for phase-to-neutral loads. Protective earth connects exposed conductive parts into the protective arrangement, rather than being another phase. A single-line diagram compresses the multiphase circuit into a readable path; it is not a count of physical wires."
+        ]
+      },
+      {
+        "heading": "A real transformer operating range is separate from taps",
+        "paragraphs": [
+          "The Primer now shows Schneider Electric’s Phaseo ABL6TS25B, a 250 VA controls transformer. Its datasheet specifies 360–440 V input on the nominal 400 V connection, or 207–253 V on the 230 V connection, with a 47–63 Hz frequency range. Its secondary is rated 24 V AC; that is not a promise of regulated output throughout the input range. The separate ±15 V compensation taps and dielectric test voltage are not the input-voltage limits. These published limits apply to this controls-scale product, not automatically to a medium-voltage hall transformer."
+        ]
+      },
+      {
+        "heading": "Where conversion placement is taught",
+        "paragraphs": [
+          "Chapter 6 follows normal AC distribution through switchgear, building branches and row busway. The Primer teaches the transformer ratio, taps and a real input range. Chapter 7 develops continuity and fault response. Chapter 8 owns the rectification-placement, solid-state-transformer and 800 V transition sequence, including the historical Green Zurich-West 380 V DC case. The D04.3 conversion-placement objective is taught there rather than repeated in Chapter 6. Conventional building auxiliaries can still require AC when compatible IT is supplied with DC."
+        ]
       }
     ],
     "example": {
@@ -2023,6 +2053,41 @@
         "claim": "Dated recurring-campus photograph only.",
         "reviewed_on": "2026-09-13",
         "limits": "Read Abilene location section and matched original July 15, 2026 data-hall aerial. Photograph does not establish one-line topology, voltage, branch ratings or operating demand. Chapter6 does not repeat the delivered-capacity percentage."
+      },
+      {
+        "title": "Schneider Electric — Phaseo ABL6TS25B product datasheet",
+        "url": "https://iportal.se.com/Contents/docs/SQD-ABL6TS25B_DATASHEET.PDF",
+        "claim": "A named 250 VA controls transformer specifies 360–440 V input limits for its nominal 400 V connection, 207–253 V for its 230 V connection, and 47–63 Hz network frequency limits. The secondary rating is 24 V AC.",
+        "reviewed_on": "2026-09-13",
+        "limits": "PDF page 1 ratings and input limits inspected; page 5 wiring visually inspected and shows separate ±15 V compensation taps. Not a hall or campus MV transformer, not a guarantee of regulated secondary voltage across the input range, and not an insulation withstand rating. Product datasheet dated February 26, 2020; no claim of current delivery or installed campus use."
+      },
+      {
+        "title": "Schneider Electric — Elementary switching devices",
+        "url": "https://www.electrical-installation.org/enwiki/Elementary_switching_devices",
+        "claim": "Plain disconnector isolation versus switching/interrupting capability; combined devices have separately rated duties.",
+        "reviewed_on": "2026-09-13",
+        "limits": "Full public page reviewed. Conceptual functions only, not operation or installation instructions."
+      },
+      {
+        "title": "Siemens — Vacuum Switching Technology and Components",
+        "url": "https://support.industry.siemens.com/cs/attachments/109745538/HG11.01_EN_20190603.pdf",
+        "claim": "Metal-oxide surge arresters become conductive during overvoltage and divert surge current, commonly phase to earth.",
+        "reviewed_on": "2026-09-13",
+        "limits": "Public indexed catalog passage on page 30 reviewed; direct PDF open failed. No ratings or internal construction are copied into the conceptual diagram."
+      },
+      {
+        "title": "Siemens — SIPROTEC 7SD610 circuit breaker failure protection",
+        "url": "https://support.industry.siemens.com/cs/attachments/109743409/7SD610_Manual_A8_V044100_en.pdf",
+        "claim": "A feeder protection relay issues a trip; persistent fault current after the command can require backup interruption by other breakers.",
+        "reviewed_on": "2026-09-13",
+        "limits": "Public indexed section 2.13 reviewed. Course omits timing values, configuration instructions and a specific installed topology."
+      },
+      {
+        "title": "Schneider Electric — Transformer secondary voltage notation",
+        "url": "https://acespex.se.com/rpt/prodhelp.php?doc=pms_0044&grp=spex_pms&host=CTW&ndx=21283",
+        "claim": "480Y/277 gives the wye phase-to-phase voltage followed by the phase-to-neutral voltage.",
+        "reviewed_on": "2026-09-13",
+        "limits": "Published short technical entry reviewed. Conductor selection and grounding system are not prescribed."
       }
     ],
     "terms": [
@@ -2112,6 +2177,13 @@
         "paragraphs": [
           "A 380 A average can mean three 380 A phases or a 460/350/330 A allocation. With a supplied 400 A per-conductor usable limit, the unequal case exceeds the phase-A limit. The simple average hides that constraint. For a separate balanced conductor example with resistance fixed at 0.020 ohm per phase, loss is 3 I²R: 2.4 kW at 200 A and 9.6 kW at 400 A. Actual temperature also depends on ambient conditions and enclosure. Harmonic current can increase RMS burden and transformer losses, so the waveform belongs in the thermal assessment."
         ]
+      },
+      {
+        "heading": "Equal phase voltages do not enforce equal phase currents",
+        "paragraphs": [
+          "Equinix’s rack installation guidelines explicitly ask for balanced connections across the three phases of a rack PDU. In the teaching example six single-phase PSU groups each draw 20 A at 277 V phase-to-neutral. Two groups on each phase give 40/40/40 A; a four/one/one assignment gives 80/20/20 A. The total load stays fixed but L1 exceeds the stipulated 60 A phase limit. A balanced electromagnetic source does not automatically reassign connected loads. Neutral current depends on the vector sum and waveform content; nonlinear load harmonics require a separate check.",
+          "The reduced power-factor example holds real AC input at 900 kW and voltage at 480 V line-to-line. S = P/PF gives 900 kVA at PF 1, 1,000 kVA at PF 0.9 and 1,125 kVA at PF 0.8. The illustrative transformer is rated 1,000 kVA. This teaches how current uses equipment capacity without reintroducing a converter-loss calculation. Power factor and conversion efficiency are distinct."
+        ]
       }
     ],
     "example": {
@@ -2188,6 +2260,13 @@
         "claim": "Harmonic heating and transformer-loss mechanism; excerpt scope recorded.",
         "reviewed_on": "2026-09-13",
         "limits": "Public indexed excerpt reviewed; direct page returned 503. No harmonic derating factor or real equipment rating is inferred. The 3 I²R comparison uses original fixed-resistance teaching inputs."
+      },
+      {
+        "title": "Equinix — Customer Installation Guidelines, phase balancing",
+        "url": "https://docs.equinix.com/assets/files/Customer-Installation-Guidelines-EN-5d94e7d67671467cab7d7c9877ef5229.pdf",
+        "claim": "Rack PDU load allocation should balance connections across all three phases; figure 14 compares balanced and unbalanced racks.",
+        "reviewed_on": "2026-09-13",
+        "limits": "Public indexed page 19 and figure description reviewed. Six groups at 20 A and a 60 A limit are an original teaching example, not Equinix ratings."
       }
     ],
     "terms": [

@@ -1216,3 +1216,31 @@ not construction accuracy or author acceptance. The next author pass starts at
   no new browser pass. Native fullscreen state is also unconfirmed. No external
   or headless browser was used as a substitute. This is implementation evidence,
   not author acceptance or a whole-course visual pass.
+
+
+## Chapter 6 review revision — 2026-09-13
+
+- Reworked the 30-scene deck into 18 scenes. Added switchgear anatomy, separate
+  relay and breaker actions, isolation versus surge protection, and a failed
+  interruption diagnosis. Consolidated the power-factor, tap-off and growth
+  examples. Chapter 8 receives the unique historical DC case; old links survive.
+- Four built-in GPT images are included with provenance. Actual in-app-browser
+  screenshots checked the opening, transformer-location comparison, PDU/PSU
+  comparison and continuity handoff. They are conceptual illustrations.
+- All 18 scenes received DOM geometry checks at 1280×720 and 390×844. Desktop
+  stages fit without vertical clipping; SVG labels stay in the SVG viewport.
+  Narrow horizontal overflow was corrected by allowing the main grid item to
+  shrink; wide figures scroll within their own region. All image assets loaded.
+- All 17 state buttons and the diagnosis reveal were exercised with the native
+  in-app browser and their pressed/expanded states verified. Visual inspection
+  corrected a sensor-label collision and breaker-terminal connections. Navigation
+  uses short labels and the shared footer. New actual OS-dark/fullscreen checks
+  were not performed in this revision.
+- Primer now includes a 23rd scene: the Schneider Phaseo ABL6TS25B controls
+  transformer, its real photograph and published operating input ranges. The
+  mobile slide was visually inspected; the 23-scene static test passes.
+- 73 Python tests pass. Distribution rendering/model checks and generation,
+  expanded-reader, domain-map, research freshness and diff checks pass. The
+  previous full Node run passed 168 tests; a concurrent Chapter 5 edit temporarily
+  broke its own text assertion, outside this scoped release.
+- This records implementation checks, not author acceptance.

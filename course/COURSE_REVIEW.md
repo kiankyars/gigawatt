@@ -61,12 +61,12 @@ release does not restart an unchanged chapter’s review.
 
 | Chapter | Authored presentation | Technical checks | Author review / next action |
 | --- | --- | --- | --- |
-| 1. [Primer](prototypes/terminology-format.html?teach=1) | 22 slides; transformer tap mechanism added | Transformer comparison checked; [record](TESTING.md#interactivity-transformer-taps-and-instruction-audit--2026-09-13) | **One partial request reopened:** real transformer input rating and permissible range. Tap mechanism alone did not complete that request. No general restart of the Primer review; final acceptance unrecorded. |
+| 1. [Primer](prototypes/terminology-format.html?teach=1) | 23 slides; transformer taps and real input-range example | Transformer comparison checked; [record](TESTING.md#interactivity-transformer-taps-and-instruction-audit--2026-09-13) | Real transformer operating-range request now implemented with the Phaseo controls-transformer photograph and published limits. No general restart of Primer review; final acceptance unrecorded. |
 | 2. [Data center overview](prototypes/orientation-format.html?teach=1) | 13-slide draft | Prior content pass [checked](TESTING.md#overview-and-workload-review--2026-09-12); shared navigation checked in the current release | **Active review.** Networking, CDU and capacity-title feedback implemented; no general restart. |
 | 3. [Workloads and requirements](prototypes/workload-format.html?teach=1) | 18 slides; explicit interactivity, sourced curve and service check-in | Current revision checks in TESTING.md | **Active review.** Prior interactivity completion claim withdrawn; exact supported-session selection remains open. |
 | 4. [Siting, grid connection and supply](prototypes/siting-format.html?teach=1) | 26 slides; dated aerials, capacity scope, turbine labels and state-line case revised | [Current checks](TESTING.md#chapter-4-sites-capacity-and-generation--2026-09-13) | **Active review.** Six latest comments implemented; photograph capture days and current Abilene operating MW remain unverified. |
 | 5. [Physical site, buildings and safety](prototypes/site-format.html?teach=1) | 20 scenes; named groundworks, mineral-rights, flood, QTS and acoustic cases; hot-swap and replacement check-in | [Current checks](TESTING.md#chapter-5-cases-and-service-boundaries--2026-09-13) | **Latest feedback addressed; acceptance pending.** Opening three scenes and liked rack/tray examples preserved. |
-| 6. [Campus and building power distribution](prototypes/distribution-format.html?teach=1) | 30 scenes; three primary-source cases, five real photos and a capacity check-in | [Current checks](TESTING.md#chapter-6-distribution--2026-09-13) | **Authored by a separate GPT-6 Astra Ultra agent; author review pending.** Covers D04.1–D04.4. |
+| 6. [Campus and building power distribution](prototypes/distribution-format.html?teach=1) | 18 slides; equipment anatomy replaces repeated accounting; four generated teaching figures | [Current checks](TESTING.md#chapter-6-review-revision--2026-09-13) | September 13 review incorporated; [every request tracked](FEEDBACK_AUDIT.md#chapter-6-review--13-september-2026). Awaiting author review of this revision. |
 | 7. [Continuity, storage and protection](prototypes/continuity-format.html?teach=1) | 26 scenes; retained UPS mechanisms, Sparks storage, protection and a whole-service check-in | [Implementation and integration checks](TESTING.md#chapters-7-and-8-integration--2026-09-13) | **Authored; acceptance pending.** Fairwater remains a dedicated scene. Final staged-site browser check is pending native browser access; manufacturer isolation-boundary handoff below remains open. |
 | 8. [Rack power and the 800 V DC transition](prototypes/rack-energy-format.html?teach=1) | 32 scenes; one rack-to-chip then 800 V sequence, real PSU/BBU photographs, historical Zurich-West case and retrofit check-in | [Implementation and integration checks](TESTING.md#chapters-7-and-8-integration--2026-09-13) | **Authored; acceptance pending.** Existing scene hashes survive. New historical case and staged routes await native browser verification. Chapters 6, 7 and 8 remain separate. |
 | 9. Compute, memory and the rack | Reader draft; own deck unbuilt | Reader/build checks only | Presentation not yet assigned for review. |
@@ -390,7 +390,7 @@ records whether the chapter itself is finished; this table preserves the edits f
 | Prefer the power graph over a mean-only view | [Training rhythm](prototypes/workload-format.html?teach=1#job-phases), the shared supply trace and final handoff retain the power-over-time view. The old `demand-transition` fragment redirects to the training-rhythm scene. |
 | Remove the old slides 18–19 threshold quizzes | Removed; [the new ending](prototypes/workload-format.html?teach=1#next-brief) carries the defined service and measured power requirements into supply design. |
 | Clarify the naming recommendation | Historical recommendation superseded: Kian has now selected **From Watts to Tokens**. |
-| Confirm Chapter 1 feedback and keep a chapter-level review tracker | Implemented [above](#chapter-review-tracker). The later transformer operating-range request is partial; earlier accepted edits are not reopened. Final chapter acceptance is unrecorded. Chapters 2–3 remain under active review. |
+| Confirm Chapter 1 feedback and keep a chapter-level review tracker | Implemented [above](#chapter-review-tracker). The later transformer operating-range request is now implemented; earlier accepted edits are not reopened. Final chapter acceptance is unrecorded. Chapters 2–3 remain under active review. |
 
 </details>
 
@@ -424,9 +424,7 @@ links when integration is complete.
 
 - [ ] **Companion inventory:** build the evolving functional bill of materials
   and service-path interface promised above; it is not implemented yet.
-- [ ] **Transformer operating range:** add a real equipment example with
-  manufacturer input rating, taps and operating limits; the current tap mechanism
-  does not establish that range.
+- [x] **Transformer operating range:** Primer now follows taps with the Phaseo ABL6TS25B photograph and its published 360–440 V input limits on the nominal 400 V connection; controls-scale role is explicit.
 - [x] **Rack product imagery:** [PSU and power shelf](prototypes/rack-power-format.html?teach=1#psu-hardware)
   and [BBU and battery shelf](prototypes/rack-power-format.html?teach=1#bbu-hardware)
   now have manufacturer photographs. Two photo slides precede the existing

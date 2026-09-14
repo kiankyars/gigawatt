@@ -554,6 +554,11 @@ Reconcile IT and auxiliary loads with a downstream electrical capacity budget ac
 - [P154 — ABB and Green open Zurich-West DC data-center expansion](https://new.abb.com/news/detail/12816/worlds-most-powerful-dc-data-center-online) · `page_reviewed` · [local note](../research/sources/P154.md)
 - [P156 — Schneider Electric — Effects of harmonics: increased losses](https://www.electrical-installation.org/enwiki/Effects_of_harmonics_-_Increased_losses) · `public_excerpt_reviewed` · [local note](../research/sources/P156.md)
 - [P159 — Schneider Electric — Phaseo ABL6TS25B product datasheet](https://iportal.se.com/Contents/docs/SQD-ABL6TS25B_DATASHEET.PDF) · `page_reviewed` · [local note](../research/sources/P159.md)
+- [P160 — Schneider Electric — Elementary switching devices](https://www.electrical-installation.org/enwiki/Elementary_switching_devices) · `page_reviewed` · [local note](../research/sources/P160.md)
+- [P161 — Siemens — Vacuum Switching Technology and Components](https://support.industry.siemens.com/cs/attachments/109745538/HG11.01_EN_20190603.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P161.md)
+- [P162 — Siemens — SIPROTEC 7SD610 circuit breaker failure protection](https://support.industry.siemens.com/cs/attachments/109743409/7SD610_Manual_A8_V044100_en.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P162.md)
+- [P163 — Equinix — Customer Installation Guidelines, phase balancing](https://docs.equinix.com/assets/files/Customer-Installation-Guidelines-EN-5d94e7d67671467cab7d7c9877ef5229.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P163.md)
+- [P164 — Schneider Electric — Transformer secondary voltage notation](https://acespex.se.com/rpt/prodhelp.php?doc=pms_0044&grp=spex_pms&host=CTW&ndx=21283) · `page_reviewed` · [local note](../research/sources/P164.md)
 
 <a id="d05"></a>
 

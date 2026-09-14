@@ -46,6 +46,12 @@ The chapter keeps a balanced 2 MW load at power factor one and compares a 450 m 
 
 A 380 A average can mean three 380 A phases or a 460/350/330 A allocation. With a supplied 400 A per-conductor usable limit, the unequal case exceeds the phase-A limit. The simple average hides that constraint. For a separate balanced conductor example with resistance fixed at 0.020 ohm per phase, loss is 3 I²R: 2.4 kW at 200 A and 9.6 kW at 400 A. Actual temperature also depends on ambient conditions and enclosure. Harmonic current can increase RMS burden and transformer losses, so the waveform belongs in the thermal assessment.
 
+## Equal phase voltages do not enforce equal phase currents
+
+Equinix’s rack installation guidelines explicitly ask for balanced connections across the three phases of a rack PDU. In the teaching example six single-phase PSU groups each draw 20 A at 277 V phase-to-neutral. Two groups on each phase give 40/40/40 A; a four/one/one assignment gives 80/20/20 A. The total load stays fixed but L1 exceeds the stipulated 60 A phase limit. A balanced electromagnetic source does not automatically reassign connected loads. Neutral current depends on the vector sum and waveform content; nonlinear load harmonics require a separate check.
+
+The reduced power-factor example holds real AC input at 900 kW and voltage at 480 V line-to-line. S = P/PF gives 900 kVA at PF 1, 1,000 kVA at PF 0.9 and 1,125 kVA at PF 0.8. The illustrative transformer is rated 1,000 kVA. This teaches how current uses equipment capacity without reintroducing a converter-loss calculation. Power factor and conversion efficiency are distinct.
+
 ## Worked example: A 900 kW output behind a 1 MVA limit
 
 - DC output is 900 kW.
@@ -98,3 +104,4 @@ Input real power remains 937.5 kW. Dividing by 0.99 gives 946.97 kVA; this passe
 - [Schneider Electric — Installed apparent power](https://www.electrical-installation.org/enwiki/Installed_apparent_power_(kVA)) — The public guide relates output power, efficiency, power factor, apparent power, and balanced three-phase current. Read 2026-09-06. Read the formula and variable definitions. Nonlinear-load and installation behavior require additional evidence; the example values are hypothetical.
 - [Schneider Electric — Choice of transformer rating](https://www.electrical-installation.org/enwiki/Choice_of_transformer_rating) — Transformer rating selection considers apparent-power loading and installation constraints. Read 2026-09-06. Read the public rating discussion, not a site-specific selection study; no listed product rating is used.
 - [Schneider Electric — Effects of harmonics: increased losses](https://www.electrical-installation.org/enwiki/Effects_of_harmonics_-_Increased_losses) — Harmonic heating and transformer-loss mechanism; excerpt scope recorded. Read 2026-09-13. Public indexed excerpt reviewed; direct page returned 503. No harmonic derating factor or real equipment rating is inferred. The 3 I²R comparison uses original fixed-resistance teaching inputs.
+- [Equinix — Customer Installation Guidelines, phase balancing](https://docs.equinix.com/assets/files/Customer-Installation-Guidelines-EN-5d94e7d67671467cab7d7c9877ef5229.pdf) — Rack PDU load allocation should balance connections across all three phases; figure 14 compares balanced and unbalanced racks. Read 2026-09-13. Public indexed page 19 and figure description reviewed. Six groups at 20 A and a 60 A limit are an original teaching example, not Equinix ratings.

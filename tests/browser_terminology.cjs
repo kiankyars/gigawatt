@@ -13,7 +13,8 @@ async function geometry(page, size, context) {
     const text=[...svg.querySelectorAll('text')],failures=[];
     for(const t of text) { const b=t.getBBox(); if(b.x < -1 || b.y < -1 || b.x+b.width > vb.width+1 || b.y+b.height > vb.height+1) failures.push(`Outside SVG: ${t.textContent}`); }
     for(let i=0;i<text.length;i++)for(let j=i+1;j<text.length;j++){const a=text[i].getBBox(),b=text[j].getBBox();if(Math.min(a.x+a.width,b.x+b.width)-Math.max(a.x,b.x)>1 && Math.min(a.y+a.height,b.y+b.height)-Math.max(a.y,b.y)>1)failures.push(`Overlap: ${text[i].textContent} / ${text[j].textContent}`);}
-    const diagram=svg.getBoundingClientRect(),head=document.querySelector('main>header').getBoundingClientRect(),footer=document.querySelector('footer').getBoundingClientRect(),actions=document.querySelector('#actions').getBoundingClientRect();
+    const visibleDiagram=document.querySelector('#operating-example:not([hidden])') || svg;
+    const diagram=visibleDiagram.getBoundingClientRect(),head=document.querySelector('main>header').getBoundingClientRect(),footer=document.querySelector('footer').getBoundingClientRect(),actions=document.querySelector('#actions').getBoundingClientRect();
     if(head.bottom>diagram.top+1)failures.push('Title overlaps diagram');
     if(actions.height && diagram.bottom>actions.top+1)failures.push('Diagram overlaps actions');
     if(Math.max(diagram.bottom,actions.bottom)>footer.top+1)failures.push('Content overlaps footer');
@@ -28,7 +29,7 @@ async function geometry(page, size, context) {
   const {renderTerminology}=await import(pathToFileURL(path.resolve(__dirname,'../course/prototypes/terminology-visuals.js')));
   const html=readFileSync(path.resolve(__dirname,'../course/prototypes/terminology-format.html'),'utf8');
   const forwardPointer=/\bD\d{2}\b|later (?:lesson|section|chapter|sequence|comparison|calculation)|(?:next|other) (?:chapter|section)|(?:explain|introduce|meet|revisit).*again|returns in context|first exposure|optional primer|prelude|Skip to|Read the later|Continue to/i;
-  assert.equal(scenes.length,22,'Primer goes straight into its twenty-two substantive scenes');
+  assert.equal(scenes.length,23,'Primer includes the real transformer input-range example');
   assert.ok(scenes.every(scene => !('seconds' in scene)), 'Primer does not prescribe slide timings');
   assert.doesNotMatch(html, /teaching-cues|Planned cue:|Rehearsal cue|id="timing"/, 'No rehearsal cues in the presentation');
   for(const [before,after] of [['ac-dc','ac-shapes'],['ac-shapes','voltage-variation'],['voltage-variation','transformer-taps'],['three-phase','three-phase-power'],['three-phase-power','power-factor'],['backup','ups-types']]) {
@@ -45,8 +46,8 @@ async function geometry(page, size, context) {
     assert.doesNotMatch(scene.title,/;/,`${scene.id}: title uses simple English without a semicolon`);
     for(const compact of [false,true])for(const [value]of scene.options||[[null]]){
       const state={circuit:'closed',resistanceVoltage:'12',hours:'1',angle:'90',supplyLevel:'1',transformerCase:'nominal',phasePowerAngle:'0',upsSupply:'normal',bandwidth:'10000',...(scene.key?{[scene.key]:value}:{})};
-      const svg=renderTerminology(scene.id,state,compact);
-      assert.match(svg,/<text\b/,`${scene.id}: visible teaching content`);
+      const svg=scene.id==='transformer-operating-range'?(await import(pathToFileURL(path.resolve(__dirname,'../course/prototypes/transformer-operating-example.js')))).transformerOperatingExample.markup:renderTerminology(scene.id,state,compact);
+      assert.match(svg,/<(?:text|div)\b/,`${scene.id}: visible teaching content`);
       assert.doesNotMatch(svg,/NaN|undefined/,`${scene.id}: invalid diagram value`);
       assert.doesNotMatch(svg,forwardPointer,`${scene.id}: diagram contains a course-forward pointer`);
       if(scene.id==='resistance')assert.match(svg,new RegExp(`data-heat-watts="${Number(value)**2/6}"`));
@@ -107,7 +108,7 @@ async function geometry(page, size, context) {
       }
     }
   }
-  console.log('Passed Primer static checks: twenty-two scenes, all diagram/control states, circuit and transformer arithmetic, UPS supply paths, follow-up sequence, legacy aliases, and zero course-forward or reference pointers.');
+  console.log('Passed Primer static checks: twenty-three scenes, all diagram/control states, circuit and transformer arithmetic, UPS supply paths, follow-up sequence, legacy aliases, and zero course-forward or reference pointers.');
   if(staticOnly)return;
   const { chromium } = require('playwright');
   mkdirSync(output,{recursive:true});
@@ -117,7 +118,7 @@ async function geometry(page, size, context) {
     for(const colorScheme of ['light','dark'])for(const size of [{width:1280,height:720},{width:1024,height:768},{width:390,height:844},{width:844,height:390}]){
       await page.setViewportSize(size);await page.emulateMedia({colorScheme,reducedMotion:'reduce'});
       for(const scene of scenes){
-        await page.goto(url(scene.id));await page.waitForSelector('#diagram text');
+        await page.goto(url(scene.id));await page.waitForSelector(scene.id==='transformer-operating-range'?'#operating-example .toe-scale':'#diagram text');
         assert.equal(await page.locator('#title').textContent(),scene.title);
         for(const [value]of scene.options||[[null]]){
           if(value!==null){await page.locator(`[data-setting="${scene.key}"][data-value="${value}"]`).click();assert.equal(await page.locator('#actions [aria-pressed="true"]').count(),1);}

@@ -46,7 +46,7 @@ sets of slides and unify navigation rather than deleting or rewriting them.
 | Abilene as the recurring campus throughout | Policy and several cases are implemented. A whole-course consistency pass is still open; no complete as-built campus model is claimed. |
 | Approximately 20-minute primer | Slides exist; actual spoken runtime and beginner comprehension have not been established. No precise rehearsal cues are being restored. |
 | Remove repeated disclaimer/subtitle clutter everywhere | The latest sweep removed many visible footers. **Not certified exhaustive:** UPS still uses “Ideal DC-bus example”; other notes use similar boilerplate. Further cleanup must distinguish generic disclaimers from inputs, figure credits and named-project status. |
-| Transformer input-range explanation | **Partial; previous completion claim corrected.** `transformer-taps` explains output change at a fixed ratio and a matched tap. It does not yet identify a real unit and its permissible input-voltage range. Add the manufacturer's rating, tap options and operating limits without treating tap range as guaranteed regulation or tolerance. |
+| Transformer input-range explanation | **Implemented.** Primer `transformer-operating-range` follows the tap mechanism with Schneider Phaseo ABL6TS25B: 250 VA controls transformer, 360–440 V on its 400 V connection, 47–63 Hz (P159). Published input limits remain distinct from compensation taps, output regulation and dielectric tests. |
 | Simplify access to available presentations | Directory and duplicate footer were consolidated. The two rack-power decks still had identical visible “Open slides” labels; corrected to their distinct titles. The old audit’s “Slides available filter” claim was stale: a later recorded request deliberately removed that filter. |
 | Requested Astro 6 Ultra agents and Chrome-for-Testing removal | Earlier audit records both as completed. Current code/Git alone cannot freshly establish the historical agent configuration or the notification state on the original Mac. Built-in-browser-only testing remains the rule; this audit is not a new malware scan of that other computer. |
 
@@ -105,7 +105,7 @@ on the same capacity basis. The 10 GW commitment is for the wider Stargate build
   require more current for equal real power. Three-phase power is the simultaneous
   sum, not a selector that follows the highest voltage wave.
 - **Transformer range:** fixed-ratio and tap mechanisms are implemented. The
-  equipment's permissible operating range remains open as recorded above.
+  equipment's published operating range now follows the tap mechanism in the Primer.
 - **Check-ins:** latest instruction supersedes the earlier broad permission to
   substitute closing examples. Default to one meaningful active check per domain.
 
@@ -146,3 +146,29 @@ on the same capacity basis. The 10 GW commitment is for the wider Stargate build
   This revision’s local validation is recorded in [Testing](TESTING.md). Push and
   live verification are reported with the release; technical checks do not mean
   the creator accepted the teaching quality.
+
+## Chapter 6 review — 13 September 2026
+
+Every original slide number below refers to the reviewed 30-slide release. Revised Chapter 6 has 18 slides; stable removed-scene links resolve to their replacement or Chapter 8.
+
+| Original slides / request | Disposition |
+| --- | --- |
+| 1: generated opening | New GPT image: campus connection → building transformer → row busway → rack. |
+| 2–3: keep case and explain named equipment | Abilene photograph and branching campus path retained; new switchgear anatomy and relay/breaker sequence provide the missing mechanism. |
+| 4: N, PE, 480Y/277 | Visible definitions: neutral, protective earth, wye, phase-to-phase and phase-to-neutral voltage. Removed the criticized PE sentence. |
+| 5: redundant open/closed switch | Removed; replaced with sensor → relay command → breaker interruption, including a failed-interruption check. |
+| 6: motivate Compass skid | Compare separate equipment/site connections with one transportable package; do not claim two racks become one rack. |
+| 7: transformers and SST | Generic turns-ratio repetition removed. Primer owns ratio/taps and the real controls-transformer input range; Chapter 8 owns SST and rectification architecture. |
+| 8: overflowing transformer-location diagram; four attachments | Replaced with GPT two-route image. First attachment has correct arithmetic; other versions contain contradictory recommendations/current labels and were not used unchanged. |
+| 9: AC auxiliaries | Retained building branch diagram here to establish the AC load paths before Chapter 8 changes the IT supply architecture. |
+| 10: PDU/PSU distinction and generated figure | New GPT comparison: transformer-equipped floor PDU, AC rack PDU, AC/DC server PSU. Generic illustrative equipment, not manufacturer photographs. |
+| 11–12: overhead circuits and tap-off introduction | Tap-off mechanism now precedes Fujitsu case. Circuits means protected rack-supply branches, not PSUs. Benefits: adaptable branches, local metering, unobstructed floor cooling route. |
+| 13 and 21: tap-off/growth consolidation | Retain one interactive shared-bus current example; remove separate reserve-percentage slide. |
+| 14–15: meter and backward loss arithmetic | Remove repeated standalone slides; reference accounting remains in reader and earlier/later appropriate chapters. |
+| 16–18: power factor | One fixed-900-kW example shows kVA and conductor current as PF changes. kVA retained because it is the transformer-rating unit; converter efficiency arithmetic removed. |
+| 19: phase overload | Rebuilt around six visible single-phase PSU groups and their phase-to-neutral connections. Equinix P163 confirms phase balancing is a real rack-installation concern. |
+| 20: repeated current/heat equation | Removed standalone slide. Correction: conductor heat is I²R; voltage drop is IR; real DC power is VI. |
+| 22–26: repeated DC/conversion sequence | Cut duplicates; preserve unique Green Zurich-West case in Chapter 8 (`green-zurich-west`), including historical 380 V / open-circuit 400 V distinction. |
+| 27–29: repeated threshold comparisons | Removed. New check asks why a trip command with continuing fault current indicates failed interruption and what broader outage backup protection can cause. |
+| 30: generated transition | New GPT figure shows common-feeder interruption affecting racks and cooling/controls. |
+| Device deep dives | Chapter 6: switchgear assembly, sensors, relay, breaker, disconnector, surge arrester and distribution. Chapter 7: fault domains, grounding, continuity. Chapter 8: rack conversion, SST and 800 V. Hardware-operating/design calculations beyond those declared examples are not claimed complete. |

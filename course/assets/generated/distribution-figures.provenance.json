@@ -1,0 +1,31 @@
+{
+  "generator": "Built-in GPT image generation",
+  "generated_on": "2026-09-13",
+  "scope": "Original conceptual illustrations; not installation layouts or photographs of named products.",
+  "assets": [
+    {
+      "file": "distribution-campus-to-rack.png",
+      "sha256": "e99c63356d5429f555de919d40fe7aaacccee53fdf0eae7bb8c92bcab7d8b818",
+      "prompt_summary": "Campus connection, building transformer, overhead row busway and rack load connected by one conceptual power path; ivory editorial dimensional equipment illustration; four labels only.",
+      "review": "Paths, labels, voltage/current arithmetic and intended comparison inspected. Transformer placement image uses schematic distances, not physical cable design."
+    },
+    {
+      "file": "distribution-transformer-location.png",
+      "sha256": "668f64697cb516033242abe3ab09df34744a99d7565e84f6c4fb3599a8e093e2",
+      "prompt_summary": "Two horizontal routes at 2 MW, balanced three-phase, PF1, losses neglected. Early step-down:480V/2406A over450m+20m. Late step-down:13.8kV/84A over450m then480V/2406A over20m. No recommendations or contradictory badges.",
+      "review": "Paths, labels, voltage/current arithmetic and intended comparison inspected. Transformer placement image uses schematic distances, not physical cable design."
+    },
+    {
+      "file": "distribution-pdu-psu.png",
+      "sha256": "d18415d47f905068d362d30bb555cd5ed842fd23f39f99f8a5d59bd2274bae32",
+      "prompt_summary": "Three independent comparison columns: transformer-equipped floor PDU480VAC→208VAC; rack PDU208VAC→208VAC; server PSU208VAC→12VDC. Generic dimensional equipment, minimal labels, no mandatory universal series chain.",
+      "review": "Paths, labels, voltage/current arithmetic and intended comparison inspected. Transformer placement image uses schematic distances, not physical cable design."
+    },
+    {
+      "file": "distribution-interruption.png",
+      "sha256": "38ffefe754575d82cfd8743ad64ad57f8a8bdab674b84c7a3b2ab96c0036f4f9",
+      "prompt_summary": "Conceptual campus transformer through an open common feeder to switchboard; gray downstream branches to compute racks and cooling/controls. No backup path yet; five labels only.",
+      "review": "Paths, labels, voltage/current arithmetic and intended comparison inspected. Transformer placement image uses schematic distances, not physical cable design."
+    }
+  ]
+}
