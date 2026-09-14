@@ -161,7 +161,10 @@ Use these rules when adapting each sequence:
    arithmetic identity. Put useful equations where they explain a design choice.
    Introduce their meaning in the teaching sequence; keep the formal model name,
    full term definitions and derivation available in the written reference. A formula can stand alone on the teaching visual while the
-   instructor explains it. Keep assumptions visible when they change the answer.
+   instructor explains it. Introduce each new quantity before substituting it into
+   another equation. Prefer arithmetic, algebra and a visible area to derivatives
+   or integrals; the capacitor sequence uses charge, capacitance and a triangle.
+   Keep assumptions visible when they change the answer.
 4. **Control the comparison.** Keep the load, boundary, operating state and
    measurement convention fixed until a change is explicitly introduced. Show
    direct comparisons simultaneously when both fit: training beside inference,

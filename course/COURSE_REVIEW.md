@@ -1,6 +1,6 @@
 # From Watts to Tokens — filled-in course review template
 
-Updated **2026-09-13**. **Start here for the course design.** This is the course's
+Updated **2026-09-14**. **Start here for the course design.** This is the course's
 instance of the [freeCodeCamp course review template](https://github.com/kiankyars/youtube/blob/main/freecodecamp/course-review-template.md),
 using its [evidence-based improvement system](https://github.com/kiankyars/youtube/blob/main/freecodecamp/improvement-system.md).
 The shared template remains in the YouTube repository; this filled-in copy owns
@@ -18,7 +18,7 @@ read it end to end.
 **Current state:** 50 reader lessons map to 65 objective IDs. The course advances
 section by section. The Primer, overview, workloads, supply, physical-site and campus-distribution
 decks are authored; UPS, rack power, 800 V and cooling cover selected later topics.
-The table below owns their exact scope and review state. The current revision simplifies Chapter 7’s Tier comparison, adds named availability examples and Fairwater Atlanta, and removes interim labels from the chapter directory. Every deck uses one shared navigation component. Current checks are recorded in [TESTING.md](TESTING.md#tiers-availability-examples-and-directory--2026-09-12). Kian’s review remains separate.
+The table below owns their exact scope and review state. Chapter 7’s current revision introduces charge and capacitance before deriving stored energy without calculus. Chapter 9 is ready for its first author review; Chapter 10 is being built. Every deck uses one shared navigation component. Current checks are recorded in [TESTING.md](TESTING.md). Kian’s review remains separate.
 
 ## Current instruction audit — 13 September 2026
 
@@ -67,10 +67,10 @@ release does not restart an unchanged chapter’s review.
 | 4. [Siting, grid connection and supply](prototypes/siting-format.html?teach=1) | 25 slides; Southaven geographic boundary and permit plan consolidated | [Current checks](TESTING.md#chapters-45-review-and-shared-navigation--2026-09-14) | **Active review.** September 14 map consolidation implemented. Photograph capture days and current Abilene operating MW remain unverified. |
 | 5. [Physical site, buildings and safety](prototypes/site-format.html?teach=1) | 19 scenes; Texas chart, merged QTS comparison and live-campus expansion check | [Current checks](TESTING.md#chapters-45-review-and-shared-navigation--2026-09-14) | **Latest feedback addressed; acceptance pending.** Getty case moved to reading; egress slide removed; new expansion check. |
 | 6. [Campus and building power distribution](prototypes/distribution-format.html?teach=1) | 19 slides; high-voltage path, manufacturer switchgear section, contextual protection and busway figures | [Current checks](TESTING.md#chapter-6-follow-up--2026-09-14) | September 14 follow-up incorporated; [requests tracked](FEEDBACK_AUDIT.md#chapter-6-follow-up-review--14-september-2026). Awaiting author review of this revision. |
-| 7. [Continuity, storage and protection](prototypes/continuity-format.html?teach=1) | 30 scenes; first-principles capacitor/ramp/recovery sequence, equipment specs, fault examples, Tier introduction and concise check | [Current checks](TESTING.md#chapter-7-review-revision--2026-09-14) | **Latest feedback addressed; acceptance pending.** [Each request tracked](FEEDBACK_AUDIT.md#chapter-7-review--14-september-2026). Review changed energy/protection/availability sections; unchanged bypass and redundancy mechanisms retained. |
+| 7. [Continuity, storage and protection](prototypes/continuity-format.html?teach=1) | 31 scenes; charge → capacitance → stored energy → hold-up/ramp/recovery, plus equipment, protection and Tiers | [Current checks](TESTING.md#chapter-7-capacitance-without-calculus--2026-09-14) | **Active review.** The Q = CV step now has its own explanation before E = ½CV². [Follow-up tracked](FEEDBACK_AUDIT.md#chapter-7-capacitance-follow-up--14-september-2026). Review these two changed slides; earlier bypass and redundancy mechanisms are unchanged. |
 | 8. [Rack power and the 800 V DC transition](prototypes/rack-energy-format.html?teach=1) | 32 scenes; one rack-to-chip then 800 V sequence, real PSU/BBU photographs, historical Zurich-West case and retrofit check-in | [Implementation and integration checks](TESTING.md#chapters-7-and-8-integration--2026-09-13) | **Authored; acceptance pending.** Existing scene hashes survive. New historical case and staged routes await native browser verification. Chapters 6, 7 and 8 remain separate. |
 | 9. [Compute, memory and the rack](prototypes/compute-format.html?teach=1) | 21 slides: GB300 anatomy, memory locality and bandwidth, operand reuse, roofline, switched rack, repair and job placement | [Current checks](TESTING.md#chapter-9-compute-memory-and-the-rack--2026-09-14) | **Authored and checked; ready for first author review.** Three reader lessons updated. No author acceptance inferred. |
-| 10. Networking and interconnects | Reader draft; own deck unbuilt | Reader/build checks only | Presentation not yet assigned for review. |
+| 10. Networking and interconnects | Presentation in progress; independent authoring agent assigned | Reader/build checks only so far | New deck being built; not yet assigned for author review. |
 | 11. Storage, orchestration and recovery | Reader draft; own deck unbuilt | Reader/build checks only | Presentation not yet assigned for review. |
 | 12. [Chip and rack heat capture](prototypes/cooling-format.html?teach=1) | Selected topics in shared cooling deck | Model/browser checks recorded | Cooling sequence iterated; no whole-chapter completion claimed. |
 | 13. [Heat rejection, climate and water](prototypes/cooling-format.html?teach=1#rejection) | Selected topics in shared cooling deck | Model/browser checks recorded | Cooling sequence iterated; no whole-chapter completion claimed. |
@@ -81,7 +81,8 @@ release does not restart an unchanged chapter’s review.
 
 Earlier Primer feedback was implemented in commits `f3b06f2` and `e3c5228`,
 summarized in [the confirmed decisions](FEEDBACK_AUDIT.md) and the linked test
-record. The later equipment input-range request remains partial. Neither these
+record. The later equipment input-range request is implemented in the current
+Primer and Chapter 6. Neither these
 commits nor technical checks establish spoken runtime, beginner comprehension
 or final author acceptance.
 

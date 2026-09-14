@@ -212,7 +212,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P169 — Redwood Materials — Introduction to Redwood Energy](sources/P169.md) | Redwood Materials | D05 | public_excerpt_reviewed |
 | [P17 — NVIDIA NVL72 AI Factory — System Hardware & Components](sources/P17.md) | NVIDIA | D06, D07, D08, D09, D10, D14, D01 | page_reviewed |
 | [P170 — ABB — Protection Devices for Direct Current Applications, 2025 technical paper](sources/P170.md) | ABB | D05 | public_excerpt_reviewed |
-| [P171 — OpenStax — Energy Stored in a Capacitor](sources/P171.md) | OpenStax, Rice University | D05 | page_reviewed |
+| [P171 — OpenStax — Energy Stored in Capacitors](sources/P171.md) | OpenStax, Rice University | D05 | page_reviewed |
 | [P172 — NVIDIA GB300 NVL72 — Specifications](sources/P172.md) | NVIDIA | D07 | page_reviewed |
 | [P173 — NVIDIA — Inside Blackwell Ultra](sources/P173.md) | NVIDIA | D07 | page_reviewed |
 | [P174 — NVIDIA — Memory management on hardware-coherent platforms](sources/P174.md) | NVIDIA | D07 | page_reviewed |

@@ -4,7 +4,7 @@ import {
 } from "./continuity-scenes.js";
 import { renderContinuityVisual, esc } from "./continuity-visuals.js";
 import { renderOnlineUPS } from "./continuity-online.js";
-import { renderCapacitorEnergyDiagram, renderHoldUpDiagram, renderBatteryRampDiagram, renderRecoveryComparison } from "./continuity-energy.js";
+import { renderCapacitanceDiagram, renderCapacitorEnergyDiagram, renderHoldUpDiagram, renderBatteryRampDiagram, renderRecoveryComparison } from "./continuity-energy.js";
 import { renderGeneratorDiagram } from "./ups-generator.js";
 import { renderBypassDiagram } from "./ups-bypass.js";
 import { redundancyModel, renderRedundancy } from "./ups-redundancy.js";
@@ -126,6 +126,8 @@ function ups(scene, compact) {
       scene.id === "outage"
         ? "The inverter continues supplying the 100 kW load."
         : "100 kW protected AC load";
+  } else if (scene.id === "capacitance") {
+    result = renderCapacitanceDiagram({ compact });
   } else if (scene.id === "capacitor-energy") {
     result = renderCapacitorEnergyDiagram({ compact });
   } else if (scene.id === "capacitors") {

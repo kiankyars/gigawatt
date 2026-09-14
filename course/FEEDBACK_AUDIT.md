@@ -281,3 +281,17 @@ interposer callout before publication.
 | Automatic final-slide chapter jump | Shared footer uses generated teaching-catalog order. Bespoke workload/siting/continuity links removed. No chapter skips when slides are missing: the next chapter’s reading opens. |
 
 Visual and behavior validation is recorded in TESTING.md. These are revisions awaiting author review, not a claim of acceptance.
+
+
+## Chapter 7 capacitance follow-up — 14 September 2026
+
+| Request | Resolution |
+| --- | --- |
+| Clarify Q = CV and its difference from P = IV | New `capacitance` scene introduces C = 0.20 F as 0.20 coulomb per volt, then shows Q = 0.20 × 800 = 160 coulombs. The reader distinguishes stored charge from charge per second and stored energy from power. |
+| Explain substitution into E = QV/2 without calculus | `capacitor-energy` shows voltage rising linearly with charge: average 400 V, 160 coulombs × 400 V = 64 kJ, then E = Q × V/2 = (C × V) × V/2 = ½CV². No derivatives, differentials or integrals. |
+| Start the next unmade chapter | Chapter 10, Networking and interconnects, assigned to an independent agent. Chapter 9 already has its own checked deck. Completion state belongs in the existing tracker. |
+| Recall chapters both improved and reviewed | Refreshed the single chapter tracker in COURSE_REVIEW.md. Feedback/revisions exist for Chapters 1–8 and the selected Chapter 12–13 cooling sequence; Chapter 9 awaits first author review. Final whole-chapter acceptance is not inferred. |
+
+The exact graph is code-rendered because the teaching depends on its slope,
+triangle area and readable algebra. Existing generated spatial illustrations
+are retained. OpenStax College Physics 2e §19.7 supports the algebraic derivation.

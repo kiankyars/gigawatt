@@ -37,7 +37,8 @@ export const continuityScenes = Object.freeze(
       "d05-storage-power-and-time",
       { ups: true },
     ),
-    continuity("capacitor-energy", "Energy stored in a capacitor", "Deriving the energy stored in a capacitor", ["D05.1", "D05.2"], "d05-storage-power-and-time", { ups: true }),
+    continuity("capacitance", "Charge and capacitance", "Capacitance relates stored charge to voltage", ["D05.1", "D05.2"], "d05-storage-power-and-time", { ups: true }),
+    continuity("capacitor-energy", "Energy stored in a capacitor", "Why does capacitor energy include one half?", ["D05.1", "D05.2"], "d05-storage-power-and-time", { ups: true }),
     continuity(
       "capacitors",
       "The first milliseconds",

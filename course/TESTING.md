@@ -1341,3 +1341,26 @@ not construction accuracy or author acceptance. The next author pass starts at
   `gigawatt-research check --include-candidates` and `git diff --check` pass.
 - These are implementation/source/browser checks. Kian's first Chapter 9 dry run
   and feedback are still pending in the existing course review tracker.
+
+
+## Chapter 7 capacitance without calculus — 2026-09-14
+
+- Chapter 7 now has 31 scenes. New `capacitance` introduces charge and the
+  meaning of farads; `capacitor-energy` replaces differentials with a numerical
+  voltage–charge triangle and explicit algebraic substitution. Existing hashes
+  and hold-up, battery-ramp and recovery models remain intact.
+- OpenStax College Physics 2e §19.7 was reviewed directly. The reader and P171
+  source note use its algebraic derivation. The average is over charge, and
+  charge on either plate is distinguished from the capacitor's net charge.
+- Built-in browser: inspected desktop screenshots of both revised diagrams and
+  the following hold-up slide. Geometry checks passed for the four capacitance,
+  energy, hold-up and ramp scenes at 1280×720, with no page overflow or SVG text
+  outside the drawing. Both new compact diagrams passed width and SVG-text
+  bounds at 390×844. No browser warnings/errors. Mobile screenshot capture did
+  not match the browser's reported geometry, so no clean mobile screenshot claim
+  is made. Temporary viewport override was restored.
+- 192 JavaScript tests and 76 Python tests passed. Course, expansion, domain map,
+  research metadata and whitespace checks passed. No new OS-theme or native
+  fullscreen check was performed.
+- The existing chapter tracker was refreshed; author feedback and final
+  acceptance remain separate. Chapter 10 is being authored independently.

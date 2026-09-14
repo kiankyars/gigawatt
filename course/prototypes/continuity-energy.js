@@ -18,34 +18,52 @@ const frame = (title, description, svg, compact, height = 440, compactHeight = 6
   svg: `<title>${title}</title><desc>${description}</desc><g class="continuity-energy">${svg}</g>`,
 });
 
+export function renderCapacitanceDiagram({ compact = false } = {}) {
+  const x = compact ? 190 : 300, top = compact ? 68 : 62;
+  const plateLeft = x - 53, plateRight = x + 53, bottom = top + 222;
+  const plates = `${path(`M${plateLeft} ${top}V${bottom}`, "green", 9)}${path(`M${plateRight} ${top}V${bottom}`, "blue", 9)}
+    ${[0, 1, 2, 3].map(i => `${text(plateLeft - 27, top + 30 + i * 55, "+", 31, "green", "middle")}${text(plateRight + 27, top + 30 + i * 55, "−", 31, "blue", "middle")}`).join("")}
+    ${text(x - 100, top - 24, "+160 coulombs", compact ? 18 : 23, "green", "middle")}
+    ${text(x + 100, top - 24, "−160 coulombs", compact ? 18 : 23, "blue", "middle")}
+    ${path(`M${plateLeft} ${bottom + 27}H${plateRight}`, "ink", 2)}
+    ${path(`M${plateLeft + 8} ${bottom + 22}l-8 5 8 5 M${plateRight - 8} ${bottom + 22}l8 5 -8 5`, "ink", 2)}
+    ${text(x, bottom + 61, "800 V", 29, "ink", "middle")}`;
+  const body = compact
+    ? `${text(190, 420, "C = 0.20 F", 32, "green", "middle", 600)}${text(190, 458, "0.20 coulomb per volt", 22, "ink", "middle")}
+       ${text(190, 525, "Charge = capacitance × voltage", 21, "ink", "middle")}${text(190, 577, "Q = C × V", 35, "ink", "middle")}
+       ${text(190, 628, "= 0.20 × 800 = 160 coulombs", 23, "ink", "middle")}`
+    : `${text(660, 81, "C = 0.20 F", 40, "green", "start", 600)}${text(660, 129, "0.20 coulomb per volt", 28)}
+       ${text(660, 212, "Charge = capacitance × voltage", 26)}${text(660, 274, "Q = C × V", 44)}
+       ${text(660, 337, "= 0.20 × 800 = 160 coulombs", 28)}`;
+  return {...frame("Capacitance relates charge to voltage", "Capacitance C is measured in farads. One farad means one coulomb of plate charge per volt. Our fixed 0.20 farad capacitor at 800 volts has a charge magnitude Q of 160 coulombs on either plate, with opposite signs. Q equals C times V describes a stored state. Current instead measures charge passing per second, and P equals I times V describes the rate of energy transfer.", plates + body, compact, 420, 670), model: capacitorEnergyModel()};
+}
+
 export function renderCapacitorEnergyDiagram({ compact = false } = {}) {
-  const left = compact ? 48 : 82, right = compact ? 332 : 582;
-  const top = compact ? 64 : 62, bottom = compact ? 293 : 349;
-  const dx = right - left, dy = bottom - top;
-  const stripX = left + dx * 0.55, stripW = dx * 0.065;
-  const equations = compact
-    ? `${text(28, 411, "dE = V dq", 27)}${text(28, 452, "E = area under the line", 23)}${text(28, 518, "E = ½ × Q × V", 28)}${text(28, 580, "Q = CV", 25)}${text(205, 580, "E = ½CV²", 29, "green", "middle", 650)}`
-    : `${text(692, 101, "dE = V dq", 31)}${text(692, 150, "Energy = area under the line", 25)}${text(692, 228, "E = ½ × Q × V", 36)}${text(692, 297, "Q = CV", 29)}${text(692, 368, "E = ½CV²", 44, "green", "start", 650)}`;
-  const svg = `
-    <polygon points="${left},${bottom} ${right},${top} ${right},${bottom}" fill="var(--green)" opacity=".15"/>
-    <rect x="${stripX}" y="${bottom - dy * 0.55}" width="${stripW}" height="${dy * 0.55}" fill="var(--gold)" opacity=".65"/>
-    ${path(`M${left} ${top - 10}V${bottom}H${right + 16}`, "muted")}
+  const left = compact ? 55 : 100, right = compact ? 334 : 598;
+  const top = compact ? 64 : 64, bottom = compact ? 295 : 340;
+  const half = (top + bottom) / 2;
+  const graph = `<polygon points="${left},${bottom} ${right},${top} ${right},${bottom}" fill="var(--green)" opacity=".15"/>
+    ${path(`M${left} ${top - 5}V${bottom}H${right + 10}`, "muted")}
     ${path(`M${left} ${bottom}L${right} ${top}`, "green", 4)}
-    ${path(`M${left} ${top}H${right}V${bottom}`, "line", 1.5, 'stroke-dasharray="6 6"')}
-    ${text(left, top - 30, "Voltage", 22)}
-    ${text(left - 12, top + 7, "V", 24, "ink", "end")}
-    ${text(left - 12, bottom + 7, "0", 20, "muted", "end")}
-    ${text(right, bottom + 32, "Q = CV", 24, "green", "middle")}
-    ${text(left, bottom + 65, "Charge q (coulombs)", 21)}
-    ${text(stripX + stripW / 2, bottom + 30, "dq", 20, "gold", "middle")}
-    ${text(left + dx * .76, bottom - dy * .18, "E", 38, "green", "middle", 600)}
-    ${equations}`;
+    ${path(`M${left} ${half}H${right}`, "gold", 2, 'stroke-dasharray="7 6"')}
+    ${text(left, top - 24, "Voltage (V)", 22)}
+    ${[[top, "800"], [half, "400"], [bottom, "0"]].map(([y, v]) => text(left - 11, y + 7, v, 20, "ink", "end")).join("")}
+    ${text(right, bottom + 30, "160", 22, "ink", "middle")}
+    ${text(left, bottom + 62, "Charge added (coulombs)", 21)}
+    ${text(right - 7, half - 17, "Average: 400 V", compact ? 19 : 23, "gold", "end")}`;
+  const equations = compact
+    ? `${text(190, 435, "Energy = charge × average voltage", 20, "ink", "middle")}
+       ${text(190, 486, "E = 160 × 400 = 64,000 J", 27, "green", "middle", 600)}
+       ${text(190, 550, "E = Q × (V / 2)", 28, "ink", "middle")}
+       ${text(190, 603, "= (C × V) × (V / 2)", 27, "ink", "middle")}
+       ${text(190, 656, "= ½CV²", 35, "green", "middle", 600)}`
+    : `${text(700, 92, "Charge × average voltage", 28)}
+       ${text(700, 150, "160 × 400 = 64,000 J", 35, "green", "start", 600)}
+       ${text(700, 229, "E = Q × (V / 2)", 33)}
+       ${text(700, 289, "= (C × V) × (V / 2)", 33)}
+       ${text(700, 355, "= ½CV²", 43, "green", "start", 600)}`;
   return {
-    ...frame(
-      "Deriving the energy stored in a capacitor",
-      "Voltage rises linearly with charge: V equals q divided by capacitance C. Moving a small charge dq through voltage V takes energy V dq, the narrow gold strip. The total stored energy is the triangular area under this line: one half Q times V. Substituting Q equals CV gives one half C V squared.",
-      svg, compact, 440, 640,
-    ),
+    ...frame("Why capacitor energy includes one half", "For a fixed capacitance, voltage rises linearly as charge is added. Charging from zero to 800 volts adds 160 coulombs. Equal portions of charge encounter progressively larger voltages, with an average of 400 volts. One volt is one joule per coulomb, so 160 coulombs times 400 volts stores 64,000 joules. This is the area of the voltage-charge triangle. Substitute Q equals C times V into E equals Q times V over two to obtain E equals one half C V squared. The average is over charge added, not over an arbitrary time interval.", graph + equations, compact, 430, 690),
     model: capacitorEnergyModel(),
   };
 }

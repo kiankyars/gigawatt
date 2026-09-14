@@ -7,6 +7,7 @@ import {
   recoveryPlan,
 } from "../course/prototypes/ups-capacitors.js";
 import {
+  renderCapacitanceDiagram,
   renderCapacitorEnergyDiagram,
   renderHoldUpDiagram,
   renderBatteryRampDiagram,
@@ -59,7 +60,7 @@ test("the chosen recovery duration determines surplus and total source power", (
 
 test("both source interfaces preserve the same capacitor recovery energy account", () => {
   for (const compact of [false, true]) {
-    for (const render of [renderCapacitorEnergyDiagram, renderHoldUpDiagram, renderBatteryRampDiagram]) {
+    for (const render of [renderCapacitanceDiagram, renderCapacitorEnergyDiagram, renderHoldUpDiagram, renderBatteryRampDiagram]) {
       const result = render({ compact });
       assert.match(result.viewBox, compact ? /^0 0 380 / : /^0 0 1180 /);
       assert.doesNotMatch(result.svg, /NaN|undefined/);
