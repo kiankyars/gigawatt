@@ -2587,7 +2587,7 @@
   {
     "id": "d05-storage-power-and-time",
     "domain": "D05",
-    "title": "A battery has two limits before it has a runtime",
+    "title": "Battery power, stored energy and runtime",
     "question": "Can the stored energy reach the load at the required rate?",
     "summary": "Calculate output energy after usable-capacity and reserve assumptions, screen discharge power separately, and distinguish a UPS role from a generic storage inventory.",
     "takeaway": "Check deliverable power first; divide only the appropriately defined usable energy by the complete protected load.",
@@ -2605,10 +2605,17 @@
         ]
       },
       {
+        "heading": "The UPS and its external batteries",
+        "paragraphs": [
+          "Schneider’s Easy UPS 3-Phase Modular family includes 50–250 kW external-battery models in black and white finishes. The common cabinet is 1,991 mm high, 600 mm wide and 850 mm deep. Its power modules, bypass, control electronics and battery interface belong to the UPS; the main battery inventory is in external cabinets. The family photo does not establish the exact module count or switch configuration of either cabinet. DC means direct current. A rack BBU supplies a local DC power plane; it is distinct from facility UPS batteries. The DC/DC interface is a controlled conversion stage, not simply a cable connector."
+        ]
+      },
+      {
         "heading": "Zero transfer time still needs a fast energy buffer",
         "paragraphs": [
           "An online UPS in double-conversion mode already supplies the load through its inverter. Losing the rectifier input does not require switching the load onto a newly started inverter. Zero transfer time describes that output continuity, not instantaneous internal current changes. The battery interface may be a direct DC connection or a controlled DC/DC converter, depending on the equipment; an isolated DC/DC converter may contain a high-frequency transformer.",
           "DC-link capacitors remain useful in online operation. They supply and absorb rapid current differences, smooth switching ripple and support bus voltage while the rectifier or battery path responds. Batteries sustain the longer energy demand. Offline or line-interactive transfer gaps are another reason for load-side hold-up, not the only reason capacitors exist. Capacitors in the UPS DC link and capacitors on a separate rack DC bus occupy different boundaries.",
+          "Derive capacitor energy from charge: capacitance C gives q = CV. Moving a small charge dq through voltage V requires dE = V dq. Because V = q/C rises linearly with charge, stored energy is the triangular area under the voltage-versus-charge line: E = ½QV = ½CV². Discharging from an initial voltage Vi to a cutoff Vf releases ½C(Vi² − Vf²). The presentation derives this before applying the numbers.",
           "For a separate, hypothetical 800 V rack bus, take an effective 0.20 F capacitance directly across the bus, a constant 1 MW bus load and a 700 V converter shutdown threshold. Assume the converters stay regulated down to that threshold and that no other source contributes. Usable energy is ½ × 0.20 × (800² − 700²) = 15,000 J. Hold-up is 15,000 J / 1,000,000 W = 0.015 s, or 15 ms. At 700 V the bank still stores 49,000 J; that energy is below the permitted operating range. These are chosen teaching values, not specifications of the pictured UPS.",
           "This 15 ms is capacitor-only hold-up, not a UPS transfer time. The load is defined at the DC bus, so do not count downstream converter losses twice; if instead 1 MW were useful downstream output, bus power would include those losses. Once a battery or other source contributes, capacitor energy supplies only the remaining power deficit. More generally, the time integral of P_load − P_source equals the energy withdrawn from the capacitor. The ideal calculation ignores capacitance variation, ESR, wiring resistance and inductance; those affect actual voltage excursions and usable hold-up.",
           "Now allow the battery contribution at that same bus to rise linearly from zero to 1 MW during the first 10 ms. This assumed ramp starts at time zero; it does not wait for the 15 ms capacitor-only limit. The battery supplies 5 kJ and the capacitor supplies the other 5 kJ during those 10 ms. The capacitor deficit is the area of a triangle: ½ × 1 MW × 0.010 s = 5 kJ. Bus voltage reaches √(800² − 2 × 5,000/0.20) = 768.1 V, above the 700 V cutoff.",
@@ -2619,7 +2626,7 @@
         "heading": "Restore the DC link, then recharge the battery",
         "paragraphs": [
           "Matching the load arrests the DC-link voltage decline. Restoring its setpoint requires replacing the capacitor energy already released. A regulated battery DC/DC interface can increase delivered current before the generator is ready. Once acceptable AC is available, the rectifier can regulate the link instead. Battery terminal voltage and link voltage need not be equal; directly connected battery architectures behave differently.",
-          "Continue the ideal 0.20 F example from 768.1 V. Available source power of 1.10 MW at the DC bus against 1.00 MW load returns 100 kW × 50 ms = 5 kJ, restoring 800 V. The controller then reduces source power to match the load. This 50 ms clock starts when recovery power is available, not when utility power fails; it is not a generator start time or a UPS timing specification.",
+          "Continue from 768.1 V with 5 kJ missing and a constant 1 MW load. Choose a recovery duration first. Replacing 5 kJ in 100 ms needs 50 kW extra, so source output is 1.05 MW. A 50 ms target needs 100 kW extra, so output is 1.10 MW. Supplying only 1.00 MW leaves no recharge power. The voltage controller reduces output to the load requirement at 800 V. These times describe recovery after surplus power is available, independently of generator startup.",
           "Recharging the UPS battery is a separate energy account from restoring the DC-link capacitors. Generator and rectifier capacity must cover the load, allowed battery charging and losses. Schneider’s illustrated Easy UPS family can configure detected genset supply with charging disabled or enabled. The presentation therefore shows both generator-only supply and generator supply plus battery recharge."
         ]
       },
@@ -2647,6 +2654,12 @@
           "The solar example is Crusoe and Redwood Materials at Sparks, Nevada. Crusoe’s May 2026 summary specifies 12 MW of solar and 63 MWh of repurposed EV battery capacity. These quantities answer different questions: generation capability and stored energy.",
           "For an original ideal example, assume a full usable 63 MWh store, a constant 3 MW total load, no solar input, no reserve and no conversion loss. Energy alone would last 21 hours. At 6 MW it would last 10.5 hours, only if the delivery path could supply 6 MW. Actual runtime needs usable energy, discharge limits, state of charge, auxiliaries and the weather/load time series. Neither quotient is a measured Sparks runtime.",
           "Crusoe’s March 2026 update reports 99.2% microgrid availability over seven months and 99.9% Cloud availability using grid backup. Pause: does that mean 99.2% of electricity came from solar? No. Availability measures time meeting a service definition; solar share measures energy from a source. An hourly supply ledger is needed to answer the latter. The grid-backup disclosure also prevents describing this operating account as entirely off-grid. These are historical company-reported operating figures, not a September 2026 measurement interval or a current service guarantee. The May 2026 impact report repeats the case without establishing a new measurement period."
+        ]
+      },
+      {
+        "heading": "What 63 MWh divided by 12 MW tells us",
+        "paragraphs": [
+          "Redwood describes a 12 MW solar array charging 63 MWh of repurposed batteries at its Nevada campus, which hosts Crusoe Spark compute. Dividing 63 MWh by a constant 12 MW load gives 5.25 hours if that full energy reaches the load. This is a useful energy-to-power calculation. It is not a minimum site runtime: the published 12 MW is a solar rating, not the maximum served load, and actual runtime also depends on usable energy and discharge capability."
         ]
       }
     ],
@@ -2773,6 +2786,34 @@
         "claim": "Identify the publisher-provided aerial photograph of the Sparks battery and modular data-center deployment.",
         "reviewed_on": "2026-09-13",
         "limits": "Article and linked aerial inspected. Expansion is announced. The photo does not establish completed expanded capacity or the battery discharge rating; retain the Crusoe impact report for the specific solar-power label."
+      },
+      {
+        "title": "Schneider Electric — Easy UPS 3-Phase Modular model list",
+        "url": "https://productinfo.se.com/easyups3pmodular/viewer?docidentity=ModelList-1A71D03C&extension=xml&lang=en&manualidentity=TechnicalSpecificationsEasyUPS3-Pha-BC29F805",
+        "claim": "Named 50–250 kW external-battery models and black/white finish options.",
+        "reviewed_on": "2026-09-13",
+        "limits": "Official model list read. One-switch and four-switch versions exist; the family photograph does not identify the exact model or fitted modules."
+      },
+      {
+        "title": "Schneider Electric — Easy UPS 3-Phase Modular physical specifications",
+        "url": "https://productinfo.se.com/easyups3pmodular/990-91580-technical-specifications-easy-ups-3-phase-modular/English/990-91580%20Technical%20Specifications%20Easy%20UPS%203-Phase%20Modular50-250%20kW%20UPS_0001011916.xml/%24/PhysicalREF_0000019941",
+        "claim": "Cabinet dimensions and floor footprint for the product shown in the UPS teaching sequence.",
+        "reviewed_on": "2026-09-11",
+        "limits": "Selected dimensions reviewed: 1,991 mm high, 600 mm wide and 850 mm deep. Does not identify the installed rating or internal arrangement of either cabinet in the product-family photo."
+      },
+      {
+        "title": "Redwood Materials — Introduction to Redwood Energy",
+        "url": "https://www.redwoodmaterials.com/resources/unlocking-affordable-energy-storage-at-scale-an-introduction-to-redwood-energy/",
+        "claim": "12 MW solar array and 63 MWh repurposed battery inventory at the Nevada campus; distinguish solar rating from compute demand.",
+        "reviewed_on": "2026-09-13",
+        "limits": "Public indexed case-study paragraph reviewed. No plant load ceiling, usable output energy or guaranteed runtime inferred from the 12 MW solar rating."
+      },
+      {
+        "title": "OpenStax — Energy Stored in a Capacitor",
+        "url": "https://openstax.org/books/university-physics-volume-2/pages/8-3-energy-stored-in-a-capacitor",
+        "claim": "Derive stored capacitor energy from charge, voltage and incremental work; triangular voltage-charge area.",
+        "limits": "Public derivation and equations8.9–8.10 reviewed. Course capacitance, voltage thresholds and source ramps are chosen model inputs.",
+        "reviewed_on": "2026-09-13"
       }
     ],
     "terms": [
@@ -3043,7 +3084,7 @@
   {
     "id": "d05-protection-and-fault-domains",
     "domain": "D05",
-    "title": "A fault needs a boundary and an exit",
+    "title": "Fault isolation, grounding and DC interruption",
     "question": "Why can the same breaker arrangement behave differently under another source or grounding scheme?",
     "summary": "Explain fault detection and selective isolation, distinguish AC and DC interruption, and use a bounded heating example without pretending to choose real protection settings.",
     "takeaway": "Protection must match the actual sources, fault paths, stored energy, earthing arrangement, and loads that need to remain supported.",
@@ -3077,6 +3118,14 @@
           "Power electronics can further alter fault detection. A converter may limit sustained fault current while stored capacitors supply a brief initial contribution. A protection scheme based only on a large sustained overcurrent might therefore be inappropriate. ABB's indexed technical discussion highlights that converter and circuit dynamics matter to interruption. This lesson does not translate that observation into device settings; it identifies the evidence a design comparison must supply.",
           "Before endorsing an architecture, ask for its supported source states, grounding arrangement, prospective fault-current behavior, interrupting ratings, coordination evidence, stored-energy paths, and load disturbance tolerance. Ask separately what happens when protection itself or a common control dependency fails. These are conceptual review questions, not instructions to work on energized equipment. A complete answer must come from the engineered installation and its validation.",
           "The worked heating example makes one mechanism visible: changing current or clearing duration can sharply change energy deposited in a resistive path. The system diagram supplies a different mechanism: where isolation occurs determines which loads lose service. Combine those perspectives without confusing either with a complete safety or reliability certification. Good teaching shows why the missing studies matter while remaining honest about what a simple model can establish."
+        ]
+      },
+      {
+        "heading": "Bonding and the complete fault loop",
+        "paragraphs": [
+          "Protective bonding connects exposed conductive metal to the protective-conductor system. In the shown TN circuit, a live-to-case fault returns along PE to the source, allowing protection to disconnect the circuit. A surge arrester instead limits a transient overvoltage; it does not replace this permanent bonding connection. Loop impedance Z is the combined opposition of the source, outward live conductor and return protective conductor. Fault current is approximately phase-to-neutral voltage divided by Z; a high impedance can limit current enough to delay an overcurrent trip. Other earthing systems can require different detection arrangements.",
+          "In the shared-bus example the first state shows the fault before the upstream breaker clears. Contacts remain closed, but the faulted bus cannot support its normal loads. Opening the upstream breaker removes the supply to the fault; it does not repair the common bus.",
+          "Opening contacts can leave an arc carrying current. AC current zeros can assist extinction, while DC lacks a recurring natural zero. The 800 V feeder scene shows conventional arc-chamber interruption: the arc is lengthened and cooled, current decays, and stored circuit energy is dissipated. Semiconductor and hybrid devices use different mechanisms. The device’s DC voltage and interrupting ratings must match the circuit."
         ]
       }
     ],
@@ -3163,6 +3212,13 @@
         "claim": "In the TN arrangement, exposed conductive parts connect by protective conductors to the earthed source point; fault current returns through that loop.",
         "reviewed_on": "2026-09-13",
         "limits": "Public search-indexed primary text reviewed. The slide shows only a conceptual line-to-case fault loop, not a complete wiring design or a protective-device setting."
+      },
+      {
+        "title": "ABB — Protection Devices for Direct Current Applications, 2025 technical paper",
+        "url": "https://library.e.abb.com/public/4b22f4bae7e5424d9bf87039c3c1d0ba/9AKK108470A2501_Technical%20Application%20Paper_Protection%20Devices%20for%20Direct%20Current%20Applications.pdf",
+        "claim": "Explain arc formation and conventional direct suppression; distinguish this example from semiconductor, resonant and hybrid interruption methods.",
+        "reviewed_on": "2026-09-13",
+        "limits": "Indexed section 2.3.6, page27, reviewed. Conventional interruption must drive current to zero and manage circuit energy; no product rating or clearing time assigned to teaching animation."
       }
     ],
     "terms": [

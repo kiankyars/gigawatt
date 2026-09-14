@@ -41,7 +41,7 @@ sets of slides and unify navigation rather than deleting or rewriting them.
 | Teach **interactivity** as the central inference metric | **Missed in the previous release.** The fixed 4,000-token/s budget was arbitrary and slide 3 did not teach interactivity. Revised slide 3 defines tokens/s/user; the next slide reads NVIDIA’s actual GB300 throughput/interactivity curve. Exact supported-session selection remains **open** because this source has no concurrency table; a fixed total divided by user speed is not an adequate substitute. |
 | Active check-in in every domain | **Not complete in the teaching material.** Fifteen reader checks exist. Latest clarification: make an active check-in the default in each domain; use a strong example only if no worthwhile check can be made. Chapters 3, 5 and 6 now include service, replacement-plan and distribution-capacity checks; audit the remaining decks and record any specific exception. |
 | Teach D13 site-built versus prefab/modular; fixed 20 MW late rack change | **Reader complete; deck unbuilt.** The reader covers EPC duties, factory/site work, parallel schedules, design freezes, transport and interface owners; the exercise covers electrical, hydraulic, spatial and schedule holds and release evidence. Chapter 14 in the numbered course still needs its own teaching sequence. |
-| Teach Crusoe’s solar/battery case in context | **Partial.** Sparks has standalone solar/battery teaching and appears in the UPS availability examples. The actual 12 MW solar / 63 MWh battery mechanism is not yet integrated into the continuity/storage deck. |
+| Teach Crusoe’s solar/battery case in context | **Integrated.** `continuity-format.html#sparks-storage` includes the site photograph, 12 MW solar / 63 MWh battery account and 5.25-hour conditional calculation; the nines scene retains the separate availability claim. |
 | Other requested cases in their relevant chapters | Google flexible scheduling and Abilene’s capacity ledger remain pending integration. Abilene cooling appears in the physical-site deck, but not yet in the cooling deck. These are separate from already integrated Colossus brownfield and Southaven procurement cases. |
 | Abilene as the recurring campus throughout | Policy and several cases are implemented. A whole-course consistency pass is still open; no complete as-built campus model is claimed. |
 | Approximately 20-minute primer | Slides exist; actual spoken runtime and beginner comprehension have not been established. No precise rehearsal cues are being restored. |
@@ -190,3 +190,33 @@ Every original slide number below refers to the reviewed 30-slide release. Revis
 - Sources P165–P167 are in the existing library and reading. No claim of a
   photographed HO1 access route, completed ADA construction or compliant egress
   design is made. Author acceptance remains pending.
+
+## Chapter 7 review — 14 September 2026
+
+The active deck is `continuity-format.html` (public `/slides/continuity.html`).
+This pass implements the author's latest numbered review; scene hashes remain stable
+where a scene was revised. Thirty scenes now include four new teaching steps.
+
+| Request | Disposition |
+| --- | --- |
+| Literal chapter title; remove opening bottom prose | `campus` has **Continuity, storage and protection** and its establishing image only. |
+| Restore UPS dimensions, rating, identify pictured cabinets | `equipment`: Schneider 50–250 kW; 1.991 m H × 0.600 m W × 0.850 m D. Black/white finishes of the same family; exact photo configurations remain unidentified in research notes. P26 and P168 checked. |
+| Explain local DC; external batteries; UPS contents | `equipment` spells out direct current backup at the rack, separate external batteries, rectifier/link/inverter, battery interface, bypass, controls and cooling. The battery interface is explained as conversion/control, not a simple connector, in the reader. |
+| Derive capacitor formula before substituting; remove garbled expression | New `capacitor-energy` derives E = ½CV² from the voltage–charge area. `capacitors` calculates usable 15 kJ and 15 ms with visible inputs. |
+| Derive the 10 ms ramp | New `battery-ramp`: triangle area = 5 kJ; rearranging the energy equation gives 768.1 V. No postponed battery handoff. |
+| Motivate 1.10 MW versus 1.05 MW | `dc-link-recovery` compares both with 1.00 MW simultaneously. Extra power = missing 5 kJ / recovery time; 50 kW gives 100 ms, 100 kW gives 50 ms. |
+| Clarify storage output limit | `storage-limits` fixes demand at 6 MW and compares 8/4 MW delivery limits with the same usable energy. Shortfall and supported duration remain separate. |
+| Replace solar/battery slogan; calculate 63/12 | `sparks-storage` uses a plain site title and shows **5.25 hours at a constant 12 MW load using 63 MWh**. The diagram labels 12 MW as solar. This ratio is not a minimum site runtime because solar rating is not a verified maximum served load. P169 added. |
+| Remove abstract protection steps | Removed Detect/Identify/Interrupt strip from `fault-isolation`. |
+| Shared bus fails even with upstream contacts closed | `fault-isolation` now shows fault before clearing and after upstream clearing. Both lose all load groups; clearing removes supply to the fault without repairing the bus. |
+| Define bonding/impedance; distinguish arrester; remove TN-S subtitle | `grounding` draws the complete return loop and defines protective bonding, PE and loop impedance at use. Arrester distinction is directly explained in the reader; old subtitle removed. |
+| AC/DC interruption example; 800 V relevance; remove ending prose | `ac-dc-interruption` compares contacts closed, separating with an arc, and current interrupted. New `dc-feeder-protection` applies conventional arc-chamber interruption to an 800 V feeder, cable inductance, capacitor and fault. ABB P170 supports mechanism. |
+| Introduce Tier pyramid first | New `tier-overview` precedes Tier outcomes. Original accessible pyramid from Uptime definitions: no official pyramid found; third-party pyramids tying tiers to fixed percentages were rejected. |
+| Remove mathematical-reference section and repeated disclaimers | Removed availability mathematical-reference footer, old capacitor/recovery contexts and recurring generic caveats from the revised material. Inputs and essential figure credits remain. Source limitations stay in research/reader. |
+| Put Tier/availability distinction only with nines | Nines slide: “These times do not directly correspond to a Tier.” Fairwater certification footer removed. |
+| Confirm Fairwater utility-resilience interpretation | Microsoft primary article confirms four-nines capability at three-nines cost, with GPU-fleet generators/UPS/dual-corded distribution omitted. Does not imply every campus load has no backup. |
+| Mundane closing title; clear scenario/discussion/answer | `service-check`: **Chapter 7 knowledge check**. One high-contrast scenario, an equipment/supply table, and a single question. Answer replaces question; repaired controls lead to the cooling-restart consequence. |
+| Audit other slogans, especially upcoming material | Checked active scene titles and boundary subtitles. Chapter 8 rack-to-chip opening, locality, recharge, rack-input account and sidecar titles made direct; repeated model disclaimers trimmed while relevant quantities remain. This is not acceptance of unbuilt chapters. |
+
+Validation and publication evidence are recorded in TESTING.md. This is feedback
+implemented, not a claim of final author acceptance.

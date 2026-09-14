@@ -6,6 +6,32 @@ export const CAPACITOR_EXAMPLE = Object.freeze({
   rampMs: 10,
 });
 
+export function capacitorEnergyModel({
+  capacitanceF = CAPACITOR_EXAMPLE.capacitanceF,
+  initialV = CAPACITOR_EXAMPLE.initialV,
+  minimumV = CAPACITOR_EXAMPLE.minimumV,
+} = {}) {
+  if (
+    !Number.isFinite(capacitanceF) || capacitanceF <= 0 ||
+    !Number.isFinite(initialV) || initialV < 0 ||
+    !Number.isFinite(minimumV) || minimumV < 0 || minimumV > initialV
+  ) throw new RangeError("Capacitance must be positive and voltages must satisfy 0 ≤ minimum ≤ initial");
+  const initialChargeC = capacitanceF * initialV;
+  const remainingChargeC = capacitanceF * minimumV;
+  const initialJ = 0.5 * initialChargeC * initialV;
+  const remainingJ = 0.5 * remainingChargeC * minimumV;
+  return {
+    capacitanceF,
+    initialV,
+    minimumV,
+    initialChargeC,
+    remainingChargeC,
+    initialJ,
+    remainingJ,
+    usableJ: initialJ - remainingJ,
+  };
+}
+
 export function capacitorModel(mode, timeMs) {
   if (
     !["alone", "ramp"].includes(mode) ||
@@ -17,7 +43,7 @@ export function capacitorModel(mode, timeMs) {
       "Choose a capacitor scenario and a time between 0 and 20 ms",
     );
   const e = CAPACITOR_EXAMPLE;
-  const usableJ = 0.5 * e.capacitanceF * (e.initialV ** 2 - e.minimumV ** 2);
+  const { usableJ } = capacitorEnergyModel();
   const cutoffMs = (usableJ / e.loadW) * 1000;
   const elapsedMs = mode === "alone" ? Math.min(timeMs, cutoffMs) : timeMs;
   const t = elapsedMs / 1000;
@@ -129,6 +155,20 @@ export function recoveryModel(timeMs, surplusW = 100_000) {
     sourceW: e.loadW + capacitorChargeW,
     loadW: e.loadW,
     settled: timeMs >= recoveryMs,
+  };
+}
+
+export function recoveryPlan(recoveryMs) {
+  if (!Number.isFinite(recoveryMs) || recoveryMs <= 0)
+    throw new RangeError("Choose a positive, finite recovery time");
+  const missingJ = capacitorModel("ramp", CAPACITOR_EXAMPLE.rampMs).capacitorJ;
+  const surplusW = missingJ / (recoveryMs / 1000);
+  return {
+    missingJ,
+    recoveryMs,
+    surplusW,
+    loadW: CAPACITOR_EXAMPLE.loadW,
+    sourceW: CAPACITOR_EXAMPLE.loadW + surplusW,
   };
 }
 

@@ -158,4 +158,4 @@ The transformer reaches its stated rating, but every element of the path must ca
 
 **The next problem:** A path that carries normal demand is only the start. What happens when supply is interrupted or equipment is unavailable?
 
-Continue in **Continuity, storage and protection**: A battery has two limits before it has a runtime.
+Continue in **Continuity, storage and protection**: Battery power, stored energy and runtime.

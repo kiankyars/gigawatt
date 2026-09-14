@@ -4313,6 +4313,62 @@
       ],
       "use": "Section 1910.36(b)(1) links practical separation of exit routes to maintaining an alternative when fire or smoke blocks one. Paragraphs (b)(2) and (b)(3) make required route count depend on workplace conditions.",
       "caution": "Official standard text and OSHA final-rule explanation reviewed through public indexed text; direct OSHA page and PDF retrieval returned 403. Supports the separation principle only. The original untimed connectivity model does not calculate fire or smoke spread, required dimensions, fire resistance, occupant capacity, evacuation time or regulatory compliance. Do not infer that exactly two exits always suffice or that a shared segment is categorically prohibited."
+    },
+    {
+      "id": "P168",
+      "title": "Schneider Electric — Easy UPS 3-Phase Modular model list",
+      "url": "https://productinfo.se.com/easyups3pmodular/viewer?docidentity=ModelList-1A71D03C&extension=xml&lang=en&manualidentity=TechnicalSpecificationsEasyUPS3-Pha-BC29F805",
+      "publisher": "Schneider Electric",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D05"
+      ],
+      "use": "Named 50–250 kW external-battery models and black/white finish options.",
+      "caution": "Official model list read. One-switch and four-switch versions exist; the family photograph does not identify the exact model or fitted modules."
+    },
+    {
+      "id": "P169",
+      "title": "Redwood Materials — Introduction to Redwood Energy",
+      "url": "https://www.redwoodmaterials.com/resources/unlocking-affordable-energy-storage-at-scale-an-introduction-to-redwood-energy/",
+      "publisher": "Redwood Materials",
+      "kind": "primary_reference",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D05"
+      ],
+      "use": "12 MW solar array and 63 MWh repurposed battery inventory at the Nevada campus; distinguish solar rating from compute demand.",
+      "caution": "Public indexed case-study paragraph reviewed. No plant load ceiling, usable output energy or guaranteed runtime inferred from the 12 MW solar rating."
+    },
+    {
+      "id": "P170",
+      "title": "ABB — Protection Devices for Direct Current Applications, 2025 technical paper",
+      "url": "https://library.e.abb.com/public/4b22f4bae7e5424d9bf87039c3c1d0ba/9AKK108470A2501_Technical%20Application%20Paper_Protection%20Devices%20for%20Direct%20Current%20Applications.pdf",
+      "publisher": "ABB",
+      "kind": "primary_reference",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D05"
+      ],
+      "use": "Explain arc formation and conventional direct suppression; distinguish this example from semiconductor, resonant and hybrid interruption methods.",
+      "caution": "Indexed section 2.3.6, page27, reviewed. Conventional interruption must drive current to zero and manage circuit energy; no product rating or clearing time assigned to teaching animation."
+    },
+    {
+      "id": "P171",
+      "title": "OpenStax — Energy Stored in a Capacitor",
+      "url": "https://openstax.org/books/university-physics-volume-2/pages/8-3-energy-stored-in-a-capacitor",
+      "publisher": "OpenStax, Rice University",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D05"
+      ],
+      "use": "Derive stored capacitor energy from charge, voltage and incremental work; triangular voltage-charge area.",
+      "caution": "Public derivation and equations8.9–8.10 reviewed. Course capacitance, voltage thresholds and source ramps are chosen model inputs."
     }
   ]
 }

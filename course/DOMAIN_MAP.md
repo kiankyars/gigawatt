@@ -683,6 +683,10 @@ Explain why fault clearing and grounding require topology-specific AC/DC protect
 - [P_DELTA_BBU — Delta Electronics — 3 kW BBU and 15 kW Battery Backup System](https://www.delta-americas.com/en-US/products/Power-Management/12018) · `page_reviewed` · [local note](../research/sources/P_DELTA_BBU.md)
 - [P157 — Redwood Materials — Redwood and Crusoe expand compute to 7x scale](https://www.redwoodmaterials.com/news/redwood-and-crusoe-expand-compute-to-7x-scale/) · `page_reviewed` · [local note](../research/sources/P157.md)
 - [P158 — Schneider Electric — TN system: Principle](https://www.electrical-installation.org/enwiki/TN_system_-_Principle) · `public_excerpt_reviewed` · [local note](../research/sources/P158.md)
+- [P168 — Schneider Electric — Easy UPS 3-Phase Modular model list](https://productinfo.se.com/easyups3pmodular/viewer?docidentity=ModelList-1A71D03C&extension=xml&lang=en&manualidentity=TechnicalSpecificationsEasyUPS3-Pha-BC29F805) · `page_reviewed` · [local note](../research/sources/P168.md)
+- [P169 — Redwood Materials — Introduction to Redwood Energy](https://www.redwoodmaterials.com/resources/unlocking-affordable-energy-storage-at-scale-an-introduction-to-redwood-energy/) · `public_excerpt_reviewed` · [local note](../research/sources/P169.md)
+- [P170 — ABB — Protection Devices for Direct Current Applications, 2025 technical paper](https://library.e.abb.com/public/4b22f4bae7e5424d9bf87039c3c1d0ba/9AKK108470A2501_Technical%20Application%20Paper_Protection%20Devices%20for%20Direct%20Current%20Applications.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P170.md)
+- [P171 — OpenStax — Energy Stored in a Capacitor](https://openstax.org/books/university-physics-volume-2/pages/8-3-energy-stored-in-a-capacitor) · `page_reviewed` · [local note](../research/sources/P171.md)
 
 <a id="d06"></a>
 

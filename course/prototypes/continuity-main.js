@@ -4,10 +4,7 @@ import {
 } from "./continuity-scenes.js";
 import { renderContinuityVisual, esc } from "./continuity-visuals.js";
 import { renderOnlineUPS } from "./continuity-online.js";
-import {
-  renderCapacitorDiagram,
-  renderRecoveryDiagram,
-} from "./ups-capacitors.js";
+import { renderCapacitorEnergyDiagram, renderHoldUpDiagram, renderBatteryRampDiagram, renderRecoveryComparison } from "./continuity-energy.js";
 import { renderGeneratorDiagram } from "./ups-generator.js";
 import { renderBypassDiagram } from "./ups-bypass.js";
 import { redundancyModel, renderRedundancy } from "./ups-redundancy.js";
@@ -18,7 +15,6 @@ let index = resolveContinuityScene(location.hash.slice(1));
 const fresh = () => ({
   outage: true,
   supplyAvailable: true,
-  capacitorMode: "ramp",
   recoverySource: "battery",
   generatorStage: "waiting",
   maintenance: ["capacity-n2", "two-n-plus-one"].includes(scenes[index].id),
@@ -26,6 +22,7 @@ const fresh = () => ({
   busFault: scenes[index].id === "shared-bus",
   loadKW: 100,
   isolation: "branch",
+  arcStage: "arc",
   serviceStage: "bridge",
   protectedControls: false,
   serviceReveal: false,
@@ -41,11 +38,6 @@ function controls(scene) {
       "outage",
       state.outage ? "Restore utility" : "Remove utility",
     );
-  if (scene.id === "capacitors")
-    return choices("capacitorMode", [
-      ["alone", "Capacitor only"],
-      ["ramp", "10 ms battery ramp"],
-    ]);
   if (scene.id === "dc-link-recovery")
     return choices("recoverySource", [
       ["battery", "Battery converter"],
@@ -99,13 +91,14 @@ function controls(scene) {
     return choices("isolation", [
       ["branch", "Branch fault · selective isolation"],
       ["upstream", "Branch fault · upstream trips"],
-      ["bus", "Shared bus fault"],
+      ["bus", "Bus fault · before clearing"],
+      ["bus-cleared", "Bus fault · cleared"],
     ]);
+  if (scene.id === "ac-dc-interruption") return choices("arcStage", [["closed", "Contacts closed"], ["arc", "Contacts separating"], ["cleared", "Current interrupted"]]);
   if (scene.id === "service-check")
     return (
       (state.serviceReveal
         ? choices("serviceStage", [
-            ["normal", "Normal supply"],
             ["bridge", "Battery bridge"],
             ["generator", "Generator accepted"],
             ["recovery", "Cooling restarting"],
@@ -119,7 +112,7 @@ function controls(scene) {
         : "") +
       button(
         "serviceReveal",
-        state.serviceReveal ? "Reset check" : "Trace the surviving service",
+        state.serviceReveal ? "Discuss" : "Show answer",
       )
     );
   return "";
@@ -131,16 +124,16 @@ function ups(scene, compact) {
     result = renderOnlineUPS(scene.id === "outage" && state.outage, compact);
     context =
       scene.id === "outage"
-        ? "Online UPS: no output transfer interruption · internal voltage and control response still take time."
-        : "One protected 100 kW AC block · rectifier AC → DC · inverter DC → AC";
+        ? "The inverter continues supplying the 100 kW load."
+        : "100 kW protected AC load";
+  } else if (scene.id === "capacitor-energy") {
+    result = renderCapacitorEnergyDiagram({ compact });
   } else if (scene.id === "capacitors") {
-    result = renderCapacitorDiagram(state.capacitorMode, { compact });
-    context =
-      "<strong>1 MW DC-link model · C = 0.20 F · 800 V initial · 700 V cutoff</strong><br>At cutoff the capacitor still stores 49 kJ; only 15 kJ was available above it.";
+    result = renderHoldUpDiagram({ compact });
+  } else if (scene.id === "battery-ramp") {
+    result = renderBatteryRampDiagram({ compact });
   } else if (scene.id === "dc-link-recovery") {
-    result = renderRecoveryDiagram(state.recoverySource, { compact });
-    context =
-      "<strong>Same 1 MW bus · 0.20 F · starts at 768.1 V</strong><br>The recovery clock begins when surplus power is available.";
+    result = renderRecoveryComparison(state.recoverySource, { compact });
   } else if (scene.id === "generator") {
     result = renderGeneratorDiagram({ stage: state.generatorStage, compact });
     context =
@@ -155,14 +148,14 @@ function ups(scene, compact) {
     });
     context = state.supplyAvailable
       ? scene.mode === "static"
-        ? "The inverter is bypassed; the battery cannot sustain a missing bypass AC source."
+        ? "Forced bypass: the inverter is unavailable."
         : "External bypass supplies the load while UPS input, output and battery paths are isolated."
       : "Bypass source lost → no surviving route to this load";
   } else if (scene.redundancy) {
     const model = redundancyModel({ kind: scene.redundancy, ...state });
     return `<div class="ups-visual"><div id="redundancy-view">${renderRedundancy(model, { compact })}</div><p class="ups-context"><strong>${model.label} · ${state.loadKW} kW load demand</strong> · 50 kW usable output per module</p></div>`;
   }
-  return `<div class="ups-visual"><svg id="circuit" viewBox="${result.viewBox}" role="img">${result.svg}</svg><p class="ups-context">${context}</p></div>`;
+  return `<div class="ups-visual"><svg id="circuit" viewBox="${result.viewBox}" role="img">${result.svg}</svg>${context ? `<p class="ups-context">${context}</p>` : ""}</div>`;
 }
 function render() {
   const scene = scenes[index],

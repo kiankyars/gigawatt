@@ -1265,3 +1265,29 @@ not construction accuracy or author acceptance. The next author pass starts at
   OS-dark or native-fullscreen claim is made; author acceptance remains pending.
 - Chapter 6 revision 5195f94 was published separately; its Pages deployment
   succeeded and its live scene/equipment/transformer modules matched that commit.
+
+## Chapter 7 review revision — 2026-09-14
+
+- Thirty active scenes retain the former hashes. New: `capacitor-energy`,
+  `battery-ramp`, `dc-feeder-protection`, `tier-overview`.
+- Numerical tests derive 64 kJ initial, 49 kJ remaining, 15 kJ usable; 5 kJ
+  ramp deficit and 768.1146 V; recovery at 50/100 ms and other supplied durations.
+  Shared-bus tests distinguish closed upstream contacts during the fault from
+  clearing, with no supported load group in either state.
+- Built-in Codex browser: all thirty default scenes at 1280×720 and 390×844
+  (60 geometry checks), no horizontal overflow, desktop stage overflow, missing
+  loaded images or rendered SVG text outside its viewport. Actual screenshots
+  reviewed for equipment, capacitor derivation/recovery, grounding, DC feeder,
+  pyramid and the knowledge-check reveal in the active dark device theme.
+- Headless Chromium: 151 scene/control/layout cases across light/dark and
+  1280×720 / 390×844. All action buttons exercised on desktop, plus repaired
+  control supply and generator/recovery states. No page errors, pressed-state
+  failures or clipping. The test measures transformed text in screen coordinates
+  so the existing rotated maintenance-bypass label is assessed correctly.
+- Energy subagent separately checked 20 light/dark compact/desktop render states.
+  No new native fullscreen or OS-theme-switch check is claimed.
+- 175 Node tests and 73 Python tests passed. Course, expanded reader, domain map,
+  research metadata (including discovery candidates), staging and whitespace
+  checks passed. P168–P171 registered; prior source entries preserved.
+- `/tmp/ch7-full-qa.json` records the complete automated scene/control findings;
+  `/tmp/ch7-energy-qa/findings.json` records the independent energy render checks.

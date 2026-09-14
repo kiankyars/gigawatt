@@ -33,7 +33,8 @@ test("named nines examples preserve their different evidence boundaries", () => 
     assert.match(html, new RegExp(`data-nines="${example.nines}"`));
     assert.ok(html.includes(example.source));
   }
-  assert.match(html, /Mathematical reference; actual reporting and contract terms differ/);
+  assert.match(html, /These times do not directly correspond to a Tier/);
+  assert.doesNotMatch(html, /Mathematical reference/);
   assert.doesNotMatch(html, /One outage|Allowance remaining|Abilene/);
   assert.equal(reliabilityControls("availability-budget", {}), "");
 });
@@ -54,7 +55,8 @@ test("Fairwater evidence remains a GPU-fleet design claim and has no reveal stat
   assert.equal(before, after);
   assert.match(before, /data-evidence="design-claim"/);
   assert.match(before, /GPU fleet omits/);
-  assert.match(before, /Availability claim ≠ Tier certification/);
+  assert.match(before, /Resilient utility supply/);
+  assert.doesNotMatch(before, /Availability claim ≠ Tier certification/);
   assert.match(before, /microsoft-fairwater-atlanta.jpg/);
   assert.equal(reliabilityControls("tier-investment", {}), "");
 });

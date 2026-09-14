@@ -136,3 +136,12 @@ test("capacitor cutoff retains energy and recovery requires a surplus", () => {
   assert.ok(Math.abs(restored.voltageV - 800) < 1e-9);
   assert.equal(restored.recoveredJ, 5000);
 });
+
+test("bus failure precedes upstream clearing and cannot be repaired by that trip", () => {
+  const fault = isolationModel("bus");
+  const cleared = isolationModel("bus-cleared");
+  assert.equal(fault.upstream, true);
+  assert.equal(cleared.upstream, false);
+  assert.deepEqual(fault.healthy, [false, false, false]);
+  assert.deepEqual(cleared.healthy, fault.healthy);
+});

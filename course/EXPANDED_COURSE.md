@@ -54,9 +54,9 @@ Each topic ends with a check-in: pause, make a prediction, compare the reasoning
 ### 7. Continuity, storage and protection
 
 - Slides: [Continuity, storage and protection](prototypes/continuity-format.html?teach=1)
-- [A battery has two limits before it has a runtime](lessons/d05-storage-power-and-time.md) — Can the stored energy reach the load at the required rate?
+- [Battery power, stored energy and runtime](lessons/d05-storage-power-and-time.md) — Can the stored energy reach the load at the required rate?
 - [Continuity belongs to the complete service](lessons/d05-paths-and-transitions.md) — Which loads remain usable during an interruption, transfer, and maintenance event?
-- [A fault needs a boundary and an exit](lessons/d05-protection-and-fault-domains.md) — Why can the same breaker arrangement behave differently under another source or grounding scheme?
+- [Fault isolation, grounding and DC interruption](lessons/d05-protection-and-fault-domains.md) — Why can the same breaker arrangement behave differently under another source or grounding scheme?
 
 ### 8. Rack power and the 800 V DC transition
 
@@ -150,10 +150,10 @@ Every entry below is authored and has practice; this is not evidence of learner 
 | Translate load requirements into currents and equipment loading without confusing kW with kVA or nameplate with usable capacity. | [Kilowatts do not fill a kilovolt-ampere nameplate](lessons/d04-current-and-rating.md) |
 | Compare centralized and distributed conversion and identify which conductors, equipment and loss boundaries change. | [Moving a converter moves an interface](lessons/d04-conversion-placement.md) |
 | Reconcile IT and auxiliary loads with a downstream electrical capacity budget across project phases. | [Read a power train as a set of jobs](lessons/d04-read-the-power-train.md), [Moving a converter moves an interface](lessons/d04-conversion-placement.md) |
-| Calculate bounded stored-energy runtime while checking discharge power and reserve assumptions. | [A battery has two limits before it has a runtime](lessons/d05-storage-power-and-time.md), [The servers stay powered. The service does not.](lessons/c01-coupled-outage.md) |
-| Trace an interruption, transfer and restoration sequence including IT, cooling and controls. | [A battery has two limits before it has a runtime](lessons/d05-storage-power-and-time.md), [Continuity belongs to the complete service](lessons/d05-paths-and-transitions.md), [The servers stay powered. The service does not.](lessons/c01-coupled-outage.md) |
-| Evaluate path independence and surviving capacity during both a fault and planned maintenance. | [Continuity belongs to the complete service](lessons/d05-paths-and-transitions.md), [A fault needs a boundary and an exit](lessons/d05-protection-and-fault-domains.md), [The servers stay powered. The service does not.](lessons/c01-coupled-outage.md) |
-| Explain why fault clearing and grounding require topology-specific AC/DC protection design. | [A fault needs a boundary and an exit](lessons/d05-protection-and-fault-domains.md) |
+| Calculate bounded stored-energy runtime while checking discharge power and reserve assumptions. | [Battery power, stored energy and runtime](lessons/d05-storage-power-and-time.md), [The servers stay powered. The service does not.](lessons/c01-coupled-outage.md) |
+| Trace an interruption, transfer and restoration sequence including IT, cooling and controls. | [Battery power, stored energy and runtime](lessons/d05-storage-power-and-time.md), [Continuity belongs to the complete service](lessons/d05-paths-and-transitions.md), [The servers stay powered. The service does not.](lessons/c01-coupled-outage.md) |
+| Evaluate path independence and surviving capacity during both a fault and planned maintenance. | [Continuity belongs to the complete service](lessons/d05-paths-and-transitions.md), [Fault isolation, grounding and DC interruption](lessons/d05-protection-and-fault-domains.md), [The servers stay powered. The service does not.](lessons/c01-coupled-outage.md) |
+| Explain why fault clearing and grounding require topology-specific AC/DC protection design. | [Fault isolation, grounding and DC interruption](lessons/d05-protection-and-fault-domains.md) |
 | Trace conversion from rack input to processor rails and distinguish whole-rack power from chip power. | [Follow the watts through the rack](lessons/d06-conversion-ledger.md), [The rack upgrade that does not fit the building](lessons/c03-density-retrofit.md) |
 | Quantify how distribution voltage changes current at fixed DC power without treating conductor loss as total system efficiency. | [Follow the watts through the rack](lessons/d06-conversion-ledger.md), [800 V is an interface, not an entire architecture](lessons/d06-eight-hundred-volt-architectures.md), [The rack upgrade that does not fit the building](lessons/c03-density-retrofit.md) |
 | Compare near-rack sidecars, rack-level conversion and facility DC as distinct architectures. | [800 V is an interface, not an entire architecture](lessons/d06-eight-hundred-volt-architectures.md), [A rack upgrade is an interface negotiation](lessons/d06-rack-migration.md), [The rack upgrade that does not fit the building](lessons/c03-density-retrofit.md) |
@@ -2049,9 +2049,9 @@ The transformer reaches its stated rating, but every element of the path must ca
 
 **The next problem:** A path that carries normal demand is only the start. What happens when supply is interrupted or equipment is unavailable?
 
-Continue in **Continuity, storage and protection**: A battery has two limits before it has a runtime.
+Continue in **Continuity, storage and protection**: Battery power, stored energy and runtime.
 
-## A battery has two limits before it has a runtime
+## Battery power, stored energy and runtime
 
 **7. Continuity, storage and protection · Authored draft**
 
@@ -2067,11 +2067,17 @@ Runtime begins by defining usable energy at a particular boundary. A nameplate m
 
 A UPS is a continuity architecture, not merely a synonym for a battery. Public vendor descriptions distinguish protected-load UPS behavior from conventional site-level storage used for energy management. The differences include connection, controls, response, and purpose. Storage that can discharge for an hour is not thereby proven to provide no-break support to a sensitive load. Conversely, a short-duration UPS may be excellent at its intended bridging job without solving a multi-hour energy shortage.
 
+## The UPS and its external batteries
+
+Schneider’s Easy UPS 3-Phase Modular family includes 50–250 kW external-battery models in black and white finishes. The common cabinet is 1,991 mm high, 600 mm wide and 850 mm deep. Its power modules, bypass, control electronics and battery interface belong to the UPS; the main battery inventory is in external cabinets. The family photo does not establish the exact module count or switch configuration of either cabinet. DC means direct current. A rack BBU supplies a local DC power plane; it is distinct from facility UPS batteries. The DC/DC interface is a controlled conversion stage, not simply a cable connector.
+
 ## Zero transfer time still needs a fast energy buffer
 
 An online UPS in double-conversion mode already supplies the load through its inverter. Losing the rectifier input does not require switching the load onto a newly started inverter. Zero transfer time describes that output continuity, not instantaneous internal current changes. The battery interface may be a direct DC connection or a controlled DC/DC converter, depending on the equipment; an isolated DC/DC converter may contain a high-frequency transformer.
 
 DC-link capacitors remain useful in online operation. They supply and absorb rapid current differences, smooth switching ripple and support bus voltage while the rectifier or battery path responds. Batteries sustain the longer energy demand. Offline or line-interactive transfer gaps are another reason for load-side hold-up, not the only reason capacitors exist. Capacitors in the UPS DC link and capacitors on a separate rack DC bus occupy different boundaries.
+
+Derive capacitor energy from charge: capacitance C gives q = CV. Moving a small charge dq through voltage V requires dE = V dq. Because V = q/C rises linearly with charge, stored energy is the triangular area under the voltage-versus-charge line: E = ½QV = ½CV². Discharging from an initial voltage Vi to a cutoff Vf releases ½C(Vi² − Vf²). The presentation derives this before applying the numbers.
 
 For a separate, hypothetical 800 V rack bus, take an effective 0.20 F capacitance directly across the bus, a constant 1 MW bus load and a 700 V converter shutdown threshold. Assume the converters stay regulated down to that threshold and that no other source contributes. Usable energy is ½ × 0.20 × (800² − 700²) = 15,000 J. Hold-up is 15,000 J / 1,000,000 W = 0.015 s, or 15 ms. At 700 V the bank still stores 49,000 J; that energy is below the permitted operating range. These are chosen teaching values, not specifications of the pictured UPS.
 
@@ -2085,7 +2091,7 @@ From 10 ms onward the battery supplies the full 1 MW, so capacitor energy stops 
 
 Matching the load arrests the DC-link voltage decline. Restoring its setpoint requires replacing the capacitor energy already released. A regulated battery DC/DC interface can increase delivered current before the generator is ready. Once acceptable AC is available, the rectifier can regulate the link instead. Battery terminal voltage and link voltage need not be equal; directly connected battery architectures behave differently.
 
-Continue the ideal 0.20 F example from 768.1 V. Available source power of 1.10 MW at the DC bus against 1.00 MW load returns 100 kW × 50 ms = 5 kJ, restoring 800 V. The controller then reduces source power to match the load. This 50 ms clock starts when recovery power is available, not when utility power fails; it is not a generator start time or a UPS timing specification.
+Continue from 768.1 V with 5 kJ missing and a constant 1 MW load. Choose a recovery duration first. Replacing 5 kJ in 100 ms needs 50 kW extra, so source output is 1.05 MW. A 50 ms target needs 100 kW extra, so output is 1.10 MW. Supplying only 1.00 MW leaves no recharge power. The voltage controller reduces output to the load requirement at 800 V. These times describe recovery after surplus power is available, independently of generator startup.
 
 Recharging the UPS battery is a separate energy account from restoring the DC-link capacitors. Generator and rectifier capacity must cover the load, allowed battery charging and losses. Schneider’s illustrated Easy UPS family can configure detected genset supply with charging disabled or enabled. The presentation therefore shows both generator-only supply and generator supply plus battery recharge.
 
@@ -2116,6 +2122,10 @@ The solar example is Crusoe and Redwood Materials at Sparks, Nevada. Crusoe’s 
 For an original ideal example, assume a full usable 63 MWh store, a constant 3 MW total load, no solar input, no reserve and no conversion loss. Energy alone would last 21 hours. At 6 MW it would last 10.5 hours, only if the delivery path could supply 6 MW. Actual runtime needs usable energy, discharge limits, state of charge, auxiliaries and the weather/load time series. Neither quotient is a measured Sparks runtime.
 
 Crusoe’s March 2026 update reports 99.2% microgrid availability over seven months and 99.9% Cloud availability using grid backup. Pause: does that mean 99.2% of electricity came from solar? No. Availability measures time meeting a service definition; solar share measures energy from a source. An hourly supply ledger is needed to answer the latter. The grid-backup disclosure also prevents describing this operating account as entirely off-grid. These are historical company-reported operating figures, not a September 2026 measurement interval or a current service guarantee. The May 2026 impact report repeats the case without establishing a new measurement period.
+
+## What 63 MWh divided by 12 MW tells us
+
+Redwood describes a 12 MW solar array charging 63 MWh of repurposed batteries at its Nevada campus, which hosts Crusoe Spark compute. Dividing 63 MWh by a constant 12 MW load gives 5.25 hours if that full energy reaches the load. This is a useful energy-to-power calculation. It is not a minimum site runtime: the published 12 MW is a solar rating, not the maximum served load, and actual runtime also depends on usable energy and discharge capability.
 
 ## Worked example: Same MWh, different deliverable service
 
@@ -2176,6 +2186,10 @@ About 5.43 minutes.
 - [Schneider Electric — Easy UPS 3-Phase Modular: Configure the Input Contacts](https://productinfo.se.com/easyups3pmodular/990-6537-easy-ups-3-phase-modular-50-250-kw-operation/English/990-6537%20Operation%20Easy%20UPS%203-Phase%20Modular%2050-250%20kW_0001015104.xml/%24/GalaxyPX_ConfiguretheInputContacts_0000761997) — The detected-genset function can set battery charge power to 0% or 100%. Generator-supplied battery charging is configurable; it is not necessarily enabled in every installation. Read 2026-09-12. Public manufacturer's input-contact configuration page read. No claim about generator capacity, start time or charging rate for an actual installation.
 - [Eaton — 93E UPS Generation 3 installation and operation manual, 164000301 Rev. 04](https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-93e-ups/eaton-93e-ups-20kva-30kva-generation-3-manual-p-164000301.pdf) — Printed pages 56–59 describe regulated rectifier output and a buck/boost battery converter. When acceptable AC returns, the rectifier resumes supplying the inverter and the battery can recharge. Read 2026-09-12. Operating-mode sections on PDF pages 67–70 reviewed. This is an Eaton topology example, not a specification for the illustrated Schneider UPS or the ideal 800 V, 0.20 F teaching bus and its assumed response times.
 - [Redwood Materials — Redwood and Crusoe expand compute to 7x scale](https://www.redwoodmaterials.com/news/redwood-and-crusoe-expand-compute-to-7x-scale/) — Identify the publisher-provided aerial photograph of the Sparks battery and modular data-center deployment. Read 2026-09-13. Article and linked aerial inspected. Expansion is announced. The photo does not establish completed expanded capacity or the battery discharge rating; retain the Crusoe impact report for the specific solar-power label.
+- [Schneider Electric — Easy UPS 3-Phase Modular model list](https://productinfo.se.com/easyups3pmodular/viewer?docidentity=ModelList-1A71D03C&extension=xml&lang=en&manualidentity=TechnicalSpecificationsEasyUPS3-Pha-BC29F805) — Named 50–250 kW external-battery models and black/white finish options. Read 2026-09-13. Official model list read. One-switch and four-switch versions exist; the family photograph does not identify the exact model or fitted modules.
+- [Schneider Electric — Easy UPS 3-Phase Modular physical specifications](https://productinfo.se.com/easyups3pmodular/990-91580-technical-specifications-easy-ups-3-phase-modular/English/990-91580%20Technical%20Specifications%20Easy%20UPS%203-Phase%20Modular50-250%20kW%20UPS_0001011916.xml/%24/PhysicalREF_0000019941) — Cabinet dimensions and floor footprint for the product shown in the UPS teaching sequence. Read 2026-09-11. Selected dimensions reviewed: 1,991 mm high, 600 mm wide and 850 mm deep. Does not identify the installed rating or internal arrangement of either cabinet in the product-family photo.
+- [Redwood Materials — Introduction to Redwood Energy](https://www.redwoodmaterials.com/resources/unlocking-affordable-energy-storage-at-scale-an-introduction-to-redwood-energy/) — 12 MW solar array and 63 MWh repurposed battery inventory at the Nevada campus; distinguish solar rating from compute demand. Read 2026-09-13. Public indexed case-study paragraph reviewed. No plant load ceiling, usable output energy or guaranteed runtime inferred from the 12 MW solar rating.
+- [OpenStax — Energy Stored in a Capacitor](https://openstax.org/books/university-physics-volume-2/pages/8-3-energy-stored-in-a-capacitor) — Derive stored capacitor energy from charge, voltage and incremental work; triangular voltage-charge area. Read 2026-09-13. Public derivation and equations8.9–8.10 reviewed. Course capacitance, voltage thresholds and source ramps are chosen model inputs.
 
 ## Continuity belongs to the complete service
 
@@ -2307,7 +2321,7 @@ About 152.78 kWh is needed; 120 kWh is short by 32.78 kWh.
 - [Microsoft — Fairwater Atlanta availability and power design](https://blogs.microsoft.com/blog/2025/11/12/infinite-scale-the-architecture-behind-the-azure-ai-superfactory/) — Named Fairwater Atlanta case for four-nines availability at three-nines cost; relate grid reliability and GPU power architecture to backup investment and time to market. Read 2026-09-12. Operator design/capability claim, not an audited annual availability result, SLA, Tier certification or quantified cost comparison. Omits traditional on-site generation, UPS and dual-corded distribution for the GPU fleet; separate on-site energy storage still smooths power fluctuations.
 - [NTT DATA — Vienna 1 facility and power SLA](https://services.global.ntt/-/media/ntt/global/insights-and-resources/data-sheets/vienna-1-data-sheet.pdf?rev=9057842951194cb1b9d1cf884282f421) — Named five-nines power SLA example at Vienna 1. Compare the contractual power boundary with Fairwater design availability and Crusoe Cloud service availability. Read 2026-09-12. PDF copyright 2024; exact publication date and contractual measurement window/exclusions not stated. Page 2 advertises 99.999% power uptime availability; this does not establish observed annual uptime or hosted application availability. Page 1 lists 2N UPS A/B and N+1 diesel generation.
 
-## A fault needs a boundary and an exit
+## Fault isolation, grounding and DC interruption
 
 **7. Continuity, storage and protection · Authored draft**
 
@@ -2344,6 +2358,14 @@ Power electronics can further alter fault detection. A converter may limit susta
 Before endorsing an architecture, ask for its supported source states, grounding arrangement, prospective fault-current behavior, interrupting ratings, coordination evidence, stored-energy paths, and load disturbance tolerance. Ask separately what happens when protection itself or a common control dependency fails. These are conceptual review questions, not instructions to work on energized equipment. A complete answer must come from the engineered installation and its validation.
 
 The worked heating example makes one mechanism visible: changing current or clearing duration can sharply change energy deposited in a resistive path. The system diagram supplies a different mechanism: where isolation occurs determines which loads lose service. Combine those perspectives without confusing either with a complete safety or reliability certification. Good teaching shows why the missing studies matter while remaining honest about what a simple model can establish.
+
+## Bonding and the complete fault loop
+
+Protective bonding connects exposed conductive metal to the protective-conductor system. In the shown TN circuit, a live-to-case fault returns along PE to the source, allowing protection to disconnect the circuit. A surge arrester instead limits a transient overvoltage; it does not replace this permanent bonding connection. Loop impedance Z is the combined opposition of the source, outward live conductor and return protective conductor. Fault current is approximately phase-to-neutral voltage divided by Z; a high impedance can limit current enough to delay an overcurrent trip. Other earthing systems can require different detection arrangements.
+
+In the shared-bus example the first state shows the fault before the upstream breaker clears. Contacts remain closed, but the faulted bus cannot support its normal loads. Opening the upstream breaker removes the supply to the fault; it does not repair the common bus.
+
+Opening contacts can leave an arc carrying current. AC current zeros can assist extinction, while DC lacks a recurring natural zero. The 800 V feeder scene shows conventional arc-chamber interruption: the arc is lengthened and cooled, current decays, and stored circuit energy is dissipated. Semiconductor and hybrid devices use different mechanisms. The device’s DC voltage and interrupting ratings must match the circuit.
 
 ## Worked example: A fixed-current fault heating comparison
 
@@ -2398,6 +2420,7 @@ Doubling current multiplies I² by four; halving time divides by two. Net heatin
 - [Schneider Electric — Definition of standardised earthing schemes](https://www.electrical-installation.org/enwiki/Definition_of_standardised_earthing_schemes) — Earthing schemes distinguish the source-earth relationship from exposed-part protective connections. Read 2026-09-06. Read publicly indexed definitions of the standardized schemes, not a site-specific grounding study.
 - [OpenStax — Electrical Energy and Power](https://openstax.org/books/university-physics-volume-2/pages/9-5-electrical-energy-and-power) — The fixed-current resistive energy example follows I²R multiplied by time. Read 2026-09-06. Read the public resistor-power equations; all fault currents and durations are hypothetical teaching inputs.
 - [Schneider Electric — TN system: Principle](https://www.electrical-installation.org/enwiki/TN_system_-_Principle) — In the TN arrangement, exposed conductive parts connect by protective conductors to the earthed source point; fault current returns through that loop. Read 2026-09-13. Public search-indexed primary text reviewed. The slide shows only a conceptual line-to-case fault loop, not a complete wiring design or a protective-device setting.
+- [ABB — Protection Devices for Direct Current Applications, 2025 technical paper](https://library.e.abb.com/public/4b22f4bae7e5424d9bf87039c3c1d0ba/9AKK108470A2501_Technical%20Application%20Paper_Protection%20Devices%20for%20Direct%20Current%20Applications.pdf) — Explain arc formation and conventional direct suppression; distinguish this example from semiconductor, resonant and hybrid interruption methods. Read 2026-09-13. Indexed section 2.3.6, page27, reviewed. Conventional interruption must drive current to zero and manage circuit energy; no product rating or clearing time assigned to teaching animation.
 
 ## Check your understanding: Maintenance, then another loss
 

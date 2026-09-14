@@ -208,7 +208,11 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P165 — ADA Infrastructure — Docklands campus planning announcement](sources/P165.md) | ADA Infrastructure | D12 | page_reviewed |
 | [P166 — National Weather Service Houston/Galveston — Hurricane Harvey](sources/P166.md) | National Weather Service / NOAA | D12 | page_reviewed |
 | [P167 — OSHA — 29 CFR 1910.36(b), number and separation of exit routes](sources/P167.md) | U.S. Occupational Safety and Health Administration | D12 | public_excerpt_reviewed |
+| [P168 — Schneider Electric — Easy UPS 3-Phase Modular model list](sources/P168.md) | Schneider Electric | D05 | page_reviewed |
+| [P169 — Redwood Materials — Introduction to Redwood Energy](sources/P169.md) | Redwood Materials | D05 | public_excerpt_reviewed |
 | [P17 — NVIDIA NVL72 AI Factory — System Hardware & Components](sources/P17.md) | NVIDIA | D06, D07, D08, D09, D10, D14, D01 | page_reviewed |
+| [P170 — ABB — Protection Devices for Direct Current Applications, 2025 technical paper](sources/P170.md) | ABB | D05 | public_excerpt_reviewed |
+| [P171 — OpenStax — Energy Stored in a Capacitor](sources/P171.md) | OpenStax, Rice University | D05 | page_reviewed |
 | [P18 — OpenStax — 20.5 Alternating Current versus Direct Current (College Physics 2e)](sources/P18.md) | OpenStax, Rice University | D01, D04, D06 | page_reviewed |
 | [P19 — Steven H. Low — Power System Analysis: Analytical tools and structural properties (April 7, 2025 draft)](sources/P19.md) | Steven H. Low, California Institute of Technology | D04, D06 | page_reviewed |
 | [P20 — Wolfspeed — Powering AI with reliable SiC-based solid-state transformers](sources/P20.md) | Wolfspeed | D04, D06 | page_reviewed |

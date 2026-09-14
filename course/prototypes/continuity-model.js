@@ -11,15 +11,15 @@ export function storageModel(powerMW = 8, loadMW = 6) {
   };
 }
 export function isolationModel(zone = "branch") {
-  if (!["branch", "upstream", "bus"].includes(zone))
+  if (!["branch", "upstream", "bus", "bus-cleared"].includes(zone))
     throw new RangeError("Unknown isolation state.");
   return {
     zone,
     healthy: zone === "branch" ? [true, false, true] : [false, false, false],
     branchContactsClosed:
       zone === "branch" ? [true, false, true] : [true, true, true],
-    upstream: zone === "branch",
-    fault: zone === "bus" ? "bus" : "B",
+    upstream: ["branch", "bus"].includes(zone),
+    fault: zone.startsWith("bus") ? "bus" : "B",
   };
 }
 export function serviceModel({

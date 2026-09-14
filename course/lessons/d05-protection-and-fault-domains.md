@@ -1,4 +1,4 @@
-# A fault needs a boundary and an exit
+# Fault isolation, grounding and DC interruption
 
 Generated reading view. Edit [`course/expansion/foundations-power.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/foundations-power.json), lesson `d05-protection-and-fault-domains`, then run `uv run gigawatt-expand`.
 
@@ -37,6 +37,14 @@ Power electronics can further alter fault detection. A converter may limit susta
 Before endorsing an architecture, ask for its supported source states, grounding arrangement, prospective fault-current behavior, interrupting ratings, coordination evidence, stored-energy paths, and load disturbance tolerance. Ask separately what happens when protection itself or a common control dependency fails. These are conceptual review questions, not instructions to work on energized equipment. A complete answer must come from the engineered installation and its validation.
 
 The worked heating example makes one mechanism visible: changing current or clearing duration can sharply change energy deposited in a resistive path. The system diagram supplies a different mechanism: where isolation occurs determines which loads lose service. Combine those perspectives without confusing either with a complete safety or reliability certification. Good teaching shows why the missing studies matter while remaining honest about what a simple model can establish.
+
+## Bonding and the complete fault loop
+
+Protective bonding connects exposed conductive metal to the protective-conductor system. In the shown TN circuit, a live-to-case fault returns along PE to the source, allowing protection to disconnect the circuit. A surge arrester instead limits a transient overvoltage; it does not replace this permanent bonding connection. Loop impedance Z is the combined opposition of the source, outward live conductor and return protective conductor. Fault current is approximately phase-to-neutral voltage divided by Z; a high impedance can limit current enough to delay an overcurrent trip. Other earthing systems can require different detection arrangements.
+
+In the shared-bus example the first state shows the fault before the upstream breaker clears. Contacts remain closed, but the faulted bus cannot support its normal loads. Opening the upstream breaker removes the supply to the fault; it does not repair the common bus.
+
+Opening contacts can leave an arc carrying current. AC current zeros can assist extinction, while DC lacks a recurring natural zero. The 800 V feeder scene shows conventional arc-chamber interruption: the arc is lengthened and cooled, current decays, and stored circuit energy is dissipated. Semiconductor and hybrid devices use different mechanisms. The device’s DC voltage and interrupting ratings must match the circuit.
 
 ## Worked example: A fixed-current fault heating comparison
 
@@ -91,6 +99,7 @@ Doubling current multiplies I² by four; halving time divides by two. Net heatin
 - [Schneider Electric — Definition of standardised earthing schemes](https://www.electrical-installation.org/enwiki/Definition_of_standardised_earthing_schemes) — Earthing schemes distinguish the source-earth relationship from exposed-part protective connections. Read 2026-09-06. Read publicly indexed definitions of the standardized schemes, not a site-specific grounding study.
 - [OpenStax — Electrical Energy and Power](https://openstax.org/books/university-physics-volume-2/pages/9-5-electrical-energy-and-power) — The fixed-current resistive energy example follows I²R multiplied by time. Read 2026-09-06. Read the public resistor-power equations; all fault currents and durations are hypothetical teaching inputs.
 - [Schneider Electric — TN system: Principle](https://www.electrical-installation.org/enwiki/TN_system_-_Principle) — In the TN arrangement, exposed conductive parts connect by protective conductors to the earthed source point; fault current returns through that loop. Read 2026-09-13. Public search-indexed primary text reviewed. The slide shows only a conceptual line-to-case fault loop, not a complete wiring design or a protective-device setting.
+- [ABB — Protection Devices for Direct Current Applications, 2025 technical paper](https://library.e.abb.com/public/4b22f4bae7e5424d9bf87039c3c1d0ba/9AKK108470A2501_Technical%20Application%20Paper_Protection%20Devices%20for%20Direct%20Current%20Applications.pdf) — Explain arc formation and conventional direct suppression; distinguish this example from semiconductor, resonant and hybrid interruption methods. Read 2026-09-13. Indexed section 2.3.6, page27, reviewed. Conventional interruption must drive current to zero and manage circuit energy; no product rating or clearing time assigned to teaching animation.
 
 ## Check your understanding: Maintenance, then another loss
 

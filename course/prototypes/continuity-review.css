@@ -1,0 +1,35 @@
+.equipment-specs { display:grid; grid-template-columns:1fr 1.2fr; gap:40px; align-items:center; min-height:0; flex:1; }
+.equipment-specs .product img { height:min(38vh,360px); }
+.equipment-specs article { display:flex; flex-direction:column; gap:12px; font-size:19px; }
+.equipment-specs h2 { font-size:38px; color:var(--green); }
+.equipment-dimensions { font-size:23px; }
+.equipment-function { border-top:1px solid var(--line); padding-top:13px; line-height:1.55; }
+.equipment-function strong { color:var(--green); }
+.equipment-locations { display:flex; justify-content:center; gap:70px; padding:16px; border-top:1px solid var(--line); font-size:17px; }
+.equipment-locations strong { display:block; color:var(--green); margin-bottom:6px; }
+.sparks-calculation { text-align:center; display:flex; flex-direction:column; gap:9px; font-size:17px; }
+.sparks-calculation strong { font-size:29px; color:var(--green); }
+.service-exercise { display:flex; flex-direction:column; gap:25px; justify-content:center; min-height:0; flex:1; }
+.service-scenario { font-size:22px; line-height:1.45; max-width:900px; }
+.service-matrix { display:flex; flex-direction:column; border-top:1px solid var(--line); }
+.service-matrix-head,.service-matrix-row { display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:24px; padding:17px 12px; border-bottom:1px solid var(--line); }
+.service-matrix:has(.service-result) :is(.service-matrix-row,.service-matrix-head) { grid-template-columns:1fr 1fr 1.5fr; }
+.service-matrix-head { font-size:15px; color:var(--green); }
+.service-matrix-row { font-size:20px; }
+.service-result { font-size:18px; }
+.service-result.ok { color:var(--green); }
+.service-result.lost { color:var(--red); }
+.service-prompt { padding:16px 20px; border-left:3px solid var(--green); background:var(--panel); font-size:22px; line-height:1.4; }
+@media(max-width:799px) {
+ .equipment-specs { grid-template-columns:1fr; gap:20px; }
+ .equipment-specs article { font-size:17px; }
+ .equipment-dimensions { font-size:20px; }
+ .equipment-locations { flex-direction:column; gap:18px; }
+ .sparks-calculation strong { font-size:25px; }
+ .service-matrix-head,.service-matrix-row { padding:13px 3px; gap:10px; }
+ .service-matrix-row { font-size:16px; }
+ .service-matrix:has(.service-result) :is(.service-matrix-row,.service-matrix-head) { grid-template-columns:1fr 1fr; }
+ .service-matrix:has(.service-result) .service-matrix-head span:last-child { display:none; }
+ .service-result { grid-column:1/-1; font-size:16px; }
+ .service-scenario,.service-prompt { font-size:19px; }
+}

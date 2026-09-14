@@ -1,6 +1,5 @@
-// Original teaching comparisons. Uptime's public explanations were reviewed
-// through their indexed text on 2026-09-12; direct page requests returned 403.
-// These diagrams explain selected outcomes, not a certification checklist.
+// Original teaching visuals based on Uptime Institute's public Tier definitions.
+// Indexed Uptime text and the Microsoft source were reviewed on 2026-09-13.
 export const reliabilitySources = Object.freeze({
   tiers: "https://uptimeinstitute.com/tiers",
   availability: "https://journal.uptimeinstitute.com/explaining-uptime-institutes-tier-classification-system/",
@@ -10,8 +9,18 @@ export const reliabilitySources = Object.freeze({
 
 export const reliabilityScenes = Object.freeze([
   {
+    id: "tier-overview", label: "Tiers I–IV", reliability: true,
+    title: "Uptime Institute Tiers I–IV",
+    notes: [
+      "Tier I establishes dedicated power and cooling infrastructure, including UPS and generation. Tier II adds spare capacity equipment. Tier III enables maintenance across capacity equipment and distribution paths without stopping IT. Tier IV adds fault tolerance and continuous cooling.",
+      "Read the pyramid from the base upward. Each higher Tier includes the lower requirements. The next scene contrasts planned maintenance with a sudden failure.",
+      "This is an original visual based on Uptime Institute's definitions. No suitable official pyramid was retrieved; common third-party pyramid graphics attach downtime percentages that are not Tier definitions.",
+    ],
+    cue: "Build the hierarchy from basic capacity to fault tolerance.",
+  },
+  {
     id: "tier-topology", label: "Tier outcomes", reliability: true,
-    title: "Tier III permits maintenance; Tier IV also withstands a single fault.",
+    title: "Maintenance and fault tolerance",
     notes: [
       "Uptime Institute's tiers describe site infrastructure outcomes across power and cooling. Tier I establishes basic capacity; Tier II adds redundant capacity components; Tier III adds concurrent maintainability; Tier IV adds fault tolerance and continuous cooling.",
       "The two illustrations show required operating outcomes. Tier III and IV allow planned maintenance with IT online; Tier IV additionally contains an individual equipment or distribution-path failure. Lower tiers may survive particular events, but the higher tier requires the wider capability across the infrastructure.",
@@ -32,7 +41,7 @@ export const reliabilityScenes = Object.freeze([
   },
   {
     id: "availability-budget", label: "Nines in practice", reliability: true,
-    title: "Compare three, four and five nines using real data centers.",
+    title: "Three, four and five nines",
     notes: [
       "Sparks: Crusoe reports 99.9% Cloud availability using grid backup. Its separate 99.2% microgrid result covers seven months; the Cloud claim does not supply a separate measurement window.",
       "Fairwater Atlanta: Microsoft describes four-nines design capability. Vienna 1: NTT DATA advertises a five-nines power uptime SLA. Neither is an observed annual application-availability result.",
@@ -43,7 +52,7 @@ export const reliabilityScenes = Object.freeze([
   },
   {
     id: "tier-investment", label: "Fairwater Atlanta", reliability: true,
-    title: "Fairwater Atlanta relies on utility resilience to simplify GPU power delivery.",
+    title: "Four-nines availability at three-nines cost",
     notes: [
       "Microsoft's November 2025 Fairwater article names Atlanta and describes selecting its site for resilient utility power. Microsoft claims capability for four-nines availability at three-nines cost; it does not publish a measured availability series or establish an Uptime Tier certification in this article.",
       "The company says this utility resilience permits omitting on-site generation, UPS systems and dual-corded distribution for the GPU fleet. The scope matters: it does not establish the backup arrangement for every other load on the campus.",
@@ -88,14 +97,18 @@ function pathOutcome(kind) {
   return `<div class="tier-outcome" data-tier-outcome="${kind}"><div class="tier-outcome-heading"><strong>${fault ? "One sudden failure" : "Planned maintenance"}</strong><span>${fault ? "Tier IV" : "Tier III + IV"}</span></div><svg viewBox="0 0 460 170" role="img" aria-label="${fault ? "A single fault is isolated" : "One path is isolated for planned maintenance"}; the remaining path keeps IT operating. This illustrates an outcome, not a complete Tier topology."><g fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M30 65H149M204 65H331" stroke="var(--muted)" stroke-width="3" stroke-dasharray="6 7"/><path d="M30 125H278V95H330" stroke="var(--green)" stroke-width="5"/>${fault ? '<path d="M180 40L165 66H183L170 90" stroke="var(--gold)" stroke-width="4"/>' : '<path d="M150 65L196 40" stroke="var(--gold)" stroke-width="4"/>'}<path d="M319 86L332 95L319 104" stroke="var(--green)" stroke-width="4"/></g><g fill="var(--muted)" font-size="15"><text x="30" y="43">Path A</text><text x="30" y="151">Path B</text></g><rect x="337" y="47" width="104" height="81" rx="10" fill="var(--note-surface, #e8f0e5)" stroke="var(--green)" stroke-width="2"/><g fill="var(--green)" text-anchor="middle"><text x="389" y="80" font-size="22" font-weight="600">IT</text><text x="389" y="106" font-size="17">online</text></g></svg></div>`;
 }
 
-function hierarchy() {
-  const tiers = [
-    ["I", "Power + cooling"],
-    ["II", "+ Spare equipment"],
-    ["III", "+ Maintenance with IT online"],
-    ["IV", "+ Single-fault tolerance"],
+function tierOverview() {
+  const bands = [
+    { tier: "IV", points: "300,22 239,130 361,130", y: 91, x: 374, label: "Survive an infrastructure fault", fill: "var(--green)", text: "var(--on-strong, #fff)" },
+    { tier: "III", points: "234,139 180,234 420,234 366,139", y: 190, x: 433, label: "Maintain equipment with IT running", fill: "var(--green)", opacity: .77, text: "var(--on-strong, #fff)" },
+    { tier: "II", points: "175,243 121,338 479,338 425,243", y: 294, x: 492, label: "Add spare power and cooling equipment", fill: "var(--note-surface, #e8f0e5)", text: "var(--ink)" },
+    { tier: "I", points: "116,347 62,442 538,442 484,347", y: 398, x: 551, label: "Provide basic power and cooling", fill: "var(--diagram-face, #e7eddf)", text: "var(--ink)" },
   ];
-  return `<div class="tier-hierarchy" aria-label="Each Uptime Tier includes the preceding tiers; Tier IV is the highest infrastructure-resilience level.">${tiers.map(([tier, capability]) => `<div class="tier-step" data-tier="${tier}"><strong class="tier-number">${tier}</strong><span>${capability}</span></div>`).join("")}</div><div class="tier-outcomes">${pathOutcome("maintenance")}${pathOutcome("fault")}</div>`;
+  return `<figure class="tier-pyramid" style="margin:0;width:100%;min-height:0"><svg viewBox="0 0 1080 485" style="display:block;width:100%;max-height:450px" role="img" aria-label="Uptime Institute Tiers, read upward: Tier I basic capacity, Tier II redundant capacity components, Tier III concurrently maintainable, Tier IV fault tolerant. Each higher Tier includes the lower requirements.">${bands.map(b => `<polygon points="${b.points}" fill="${b.fill}" fill-opacity="${b.opacity ?? 1}" stroke="var(--green)" stroke-width="1.5"/><text x="300" y="${b.y + 11}" text-anchor="middle" fill="${b.text}" font-size="36" font-family="Georgia,serif">${b.tier}</text><path d="M${b.x} ${b.y}H580" fill="none" stroke="var(--green)" stroke-width="1.5"/><circle cx="586" cy="${b.y}" r="3" fill="var(--green)"/><text x="607" y="${b.y + 7}" fill="var(--ink)" font-size="22">${b.label}</text>`).join("")}</svg></figure>`;
+}
+
+function hierarchy() {
+  return `<div class="tier-outcomes">${pathOutcome("maintenance")}${pathOutcome("fault")}</div>`;
 }
 
 function generation() {
@@ -104,15 +117,16 @@ function generation() {
 
 function availability() {
   const yearTimes = ["8 h 46 min", "52.6 min", "5.26 min"];
-  return `<div class="availability-cases">${availabilityExamples.map(example => `<article class="availability-case" data-nines="${example.nines}"><strong class="availability-nines">99.${"9".repeat(example.nines - 2)}<small>%</small></strong><h2>${example.name}</h2><p>${example.place}</p><div class="availability-claim"><strong>${example.boundary}</strong><span>${example.kind}</span></div></article>`).join("")}</div><div class="availability-year"><p>Downtime equivalent in a full 365-day year</p><div>${availabilityExamples.map((example, i) => `<strong data-allowed-minutes="${availabilityBudget(example.nines, 0).allowedMinutes}">${yearTimes[i]}</strong>`).join("")}</div><small>Mathematical reference; actual reporting and contract terms differ.</small></div>`;
+  return `<div class="availability-cases">${availabilityExamples.map(example => `<article class="availability-case" data-nines="${example.nines}"><strong class="availability-nines">99.${"9".repeat(example.nines - 2)}<small>%</small></strong><h2>${example.name}</h2><p>${example.place}</p><div class="availability-claim"><strong>${example.boundary}</strong><span>${example.kind}</span></div></article>`).join("")}</div><div class="availability-year"><p>Downtime equivalent in a full 365-day year</p><div>${availabilityExamples.map((example, i) => `<strong data-allowed-minutes="${availabilityBudget(example.nines, 0).allowedMinutes}">${yearTimes[i]}</strong>`).join("")}</div><small style="color:var(--ink);font-size:16px">These times do not directly correspond to a Tier.</small></div>`;
 }
 
 function investment() {
-  return `<div class="tier-investment" data-evidence="design-claim"><figure class="investment-photo"><img src="../assets/references/microsoft-fairwater-atlanta.jpg" alt="Microsoft's aerial photograph of its Fairwater AI data center near Atlanta, Georgia." decoding="async"/><figcaption>Fairwater, Atlanta · Microsoft</figcaption></figure><div class="investment-panel"><span>MICROSOFT'S DESIGN CLAIM</span><strong>99.99% availability</strong><p class="investment-cost">at “three-nines” cost</p><div class="investment-omissions"><span>GPU fleet omits</span><strong>On-site generators<br>UPS systems<br>Dual-corded distribution</strong></div></div></div><p class="reliability-scope">Availability claim ≠ Tier certification</p>`;
+  return `<div class="tier-investment" data-evidence="design-claim"><figure class="investment-photo"><img src="../assets/references/microsoft-fairwater-atlanta.jpg" alt="Microsoft's aerial photograph of its Fairwater AI data center near Atlanta, Georgia." decoding="async"/><figcaption>Fairwater, Atlanta · Microsoft</figcaption></figure><div class="investment-panel"><span>Resilient utility supply</span><strong>99.99% availability</strong><p class="investment-cost">at “three-nines” cost</p><div class="investment-omissions"><span>GPU fleet omits</span><strong>On-site generators<br>UPS systems<br>Dual-corded distribution</strong></div></div></div>`;
 }
 
 export function renderReliability(id, state) {
   const content = {
+    "tier-overview": tierOverview,
     "tier-topology": () => hierarchy(state),
     "tier-generation": generation,
     "availability-budget": () => availability(state),
@@ -120,6 +134,7 @@ export function renderReliability(id, state) {
   }[id];
   if (!content) throw new RangeError("Unknown reliability scene");
   const source = {
+    "tier-overview": link(reliabilitySources.tiers, "Uptime Institute: Tier definitions"),
     "tier-topology": link(reliabilitySources.tiers, "Uptime: Tier outcomes") + " · " + link(reliabilitySources.generators, "Counts and Tiers"),
     "tier-generation": link(reliabilitySources.tiers, "Tier I requirement") + " · " + link(reliabilitySources.generators, "Generator capability"),
     "availability-budget": availabilityExamples.map(example => link(example.source, example.name)).join(" · "),
