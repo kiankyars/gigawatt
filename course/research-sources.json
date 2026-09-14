@@ -1962,7 +1962,7 @@
         "D15"
       ],
       "use": "Connect grid relationship and operating state to project deliverability, fuel, equipment, commissioning, island operation and economic decisions. Use the report to expose missing questions across existing domains.",
-      "caution": "Reviewed the public opening, connection taxonomy and project-delivery framing; inspected the exposed section structure. The page ends at a paywall and this is not a full paid-article review. Proprietary estimates, named-project claims and regulatory details require separate primary checks.",
+      "caution": "Reviewed the public opening, connection taxonomy and project-delivery framing; inspected the exposed section structure. The page ends at a paywall and this is not a full paid-article review. Proprietary estimates, named-project claims and regulatory details require separate primary checks. The state chart was visually inspected on September 14: BTM Tracker edition August 24, about 17 GW booked onsite generation at named Texas sites and 29 GW without a selected site. Generating nameplate excludes batteries; this is not a data-center-count ranking.",
       "discovered_via": "User-provided article and public sitemap/feed refresh, 2026-09-10."
     },
     {
@@ -3486,7 +3486,7 @@
         "D12"
       ],
       "use": "Original Southaven site and area maps and generating-plant process figure; historical proposed 41 simple-cycle turbines and approximately 1.2 GW.",
-      "caution": "Reviewed PDF pages 9, 12–13, 78 and 80, not full 170-page application. Maps are historical proposed site information, not current as-built drawings. No 34.5 kV or 161 kV electrical topology established. Site image retains Airbus 2025 credit. The July 2025 date on the process figure is retained.",
+      "caution": "Reviewed PDF pages 9, 12–13, 78 and 80, not full 170-page application. Maps are historical proposed site information, not current as-built drawings. No 34.5 kV or 161 kV electrical topology established. Site image retains Airbus 2025 credit. The July 2025 date on the process figure is retained. January 14 cover email explicitly identifies MZX Tech LLC as Trinity Consultants’ client; MZX is the applicant, Trinity is the consultant.",
       "reviewed_on": "2026-09-12"
     },
     {
@@ -4441,6 +4441,50 @@
       ],
       "use": "A device interruption can affect a tightly coupled job; recovery depends on checkpointing, spare substitution or supported adaptation.",
       "caution": "July 6, 2026 authored article reviewed. Nonuniform Tensor Parallelism and associated power boosting are described as experimental. The four-group allocation exercise is original and is not NVL72 fault behavior."
+    },
+    {
+      "id": "P177",
+      "title": "QTS — Suwanee DC1 connectivity facility sheet",
+      "url": "https://qtsdatacenters.com/wp-content/uploads/2024/11/QTS_Facility-Data-Sheet_SUW1DC1.pdf",
+      "publisher": "QTS",
+      "kind": "primary_reference",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-14",
+      "domains": [
+        "D12",
+        "D08"
+      ],
+      "use": "DC1 is documented with three diverse underground fiber entry laterals.",
+      "caution": "Official PDF indexed text reviewed; direct PDF retrieval returned 404. Search index retains the DC1 heading, 300 Satellite Boulevard address and three-lateral statement. The campus image does not disclose surveyed cable routes. DC2 has a separate January 2023 four-entrance proposal."
+    },
+    {
+      "id": "P178",
+      "title": "US Census TIGERweb — Tennessee state boundary and Tulane Road geocode",
+      "url": "https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/0",
+      "publisher": "US Census Bureau",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-14",
+      "domains": [
+        "D03",
+        "D12"
+      ],
+      "use": "Coordinate geometry for the Tennessee/Mississippi line in the Southaven site slide.",
+      "caution": "Tennessee polygon queried in WGS84 and local boundary vertices transformed into the exact raster extent returned by USGS. Census geocoding of 5420 Tulane Road supplies a road-address point, not a building centroid. Source queries and transform metadata preserved in southaven-geography.provenance.json."
+    },
+    {
+      "id": "P179",
+      "title": "USGS National Map — Southaven geographic imagery",
+      "url": "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer",
+      "publisher": "US Geological Survey",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-14",
+      "domains": [
+        "D03"
+      ],
+      "use": "Wider photographic geographic context around the Southaven generating plant and Colossus 2 site.",
+      "caution": "Historic imagery used to locate the two sites across the state boundary, not to depict current construction. Retrieval date does not establish capture date; Colossus marker identifies site address rather than depicted operating hardware. Exact returned extent saved with asset provenance."
     }
   ]
 }

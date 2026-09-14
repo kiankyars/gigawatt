@@ -24,6 +24,33 @@
   min-width: 0;
   max-width: none;
 }
+:is(#viewer, #audience) footer.course-slide-navigation.has-next-chapter {
+  grid-template-columns: 44px minmax(0, 1fr) 64px auto;
+}
+:is(#viewer, #audience) footer.course-slide-navigation .course-slide-forward {
+  display: flex;
+  justify-content: flex-end;
+}
+:is(#viewer, #audience) footer.course-slide-navigation .course-slide-forward [hidden] {
+  display: none !important;
+}
+:is(#viewer, #audience) footer.course-slide-navigation .course-next-chapter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid var(--line, var(--rule, #73817c));
+  border-radius: 8px;
+  color: inherit;
+  background: var(--surface, var(--paper, Canvas));
+  font: inherit;
+  font-size: 13px;
+  font-weight: 650;
+  white-space: nowrap;
+  text-decoration: none;
+}
 :is(#viewer, #audience) footer.course-slide-navigation .course-slide-choice > [hidden] {
   display: none !important;
 }
@@ -79,11 +106,11 @@
   text-align: center;
   white-space: nowrap;
 }
-:is(#viewer, #audience) footer.course-slide-navigation :is(button, select):focus-visible {
+:is(#viewer, #audience) footer.course-slide-navigation :is(button, select, a):focus-visible {
   outline: 3px solid var(--focus, var(--power, var(--green, #16897a)));
   outline-offset: 2px;
 }
-:is(#viewer, #audience) footer.course-slide-navigation button:not(:disabled):hover {
+:is(#viewer, #audience) footer.course-slide-navigation :is(button:not(:disabled), a):hover {
   background: var(--panel, var(--soft, color-mix(in srgb, CanvasText 8%, Canvas)));
 }
 @media (max-width: 600px) {
@@ -93,6 +120,8 @@
     padding: 8px 14px;
   }
   :is(#viewer, #audience) footer.course-slide-navigation .course-slide-choice select {font-size: 12px;}
+  :is(#viewer, #audience) footer.course-slide-navigation.has-next-chapter {grid-template-columns: 44px minmax(0, 1fr) 42px auto;}
+  :is(#viewer, #audience) footer.course-slide-navigation .course-next-chapter {padding: 8px; font-size: 12px;}
 }
 @media print {
   :is(#viewer, #audience) footer.course-slide-navigation {display: none;}

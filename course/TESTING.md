@@ -7,6 +7,15 @@ Do not download or launch standalone Chrome for Testing or Playwright browser
 binaries here. Existing browser test harnesses remain available for a separately
 configured test environment; run local model and build checks without a browser.
 
+## Chapters 4–5 review and shared navigation — 2026-09-14
+
+- Chapter 4 has 25 scenes: the Southaven permit slide now includes a wider historical USGS aerial with coordinate-registered Census state boundary. The old schematic border hash resolves to this slide. MZX is identified as applicant and Trinity as consultant.
+- Chapter 5 has 19 scenes: original SemiAnalysis BTM state chart beside Odessa, one QTS campus/topology comparison, simplified cooling and hot-swap labels, and a new live-campus expansion check. Getty remains reader background; the egress slide is removed. Retired hashes resolve to retained scenes.
+- **192 Node and 76 Python tests passed.** Course, expanded reader, domain map, research metadata, staging and whitespace checks passed. Ruff was unavailable in the current environment; no lint pass is claimed.
+- Built-in Codex browser verified all ten registered presentations’ final-slide links in curriculum order, including reader fallback after Chapter 9 and the combined 12–13 sequence. Chapter 5 → 6 was clicked; returning to the penultimate slide restores the ordinary next arrow.
+- All 19 Chapter 5 scenes checked at 1280×720 and 390×844: no horizontal document/footer overflow or failed loaded image. Texas, QTS, cooling, Southaven and the new exercise received visual inspection. Both exercise states were operated. The geographic comparison was inspected at desktop and phone widths. Checks used light appearance; no separate browser binary was launched.
+- Scope notes: QTS’s three-entry DC1 statement is available in indexed official PDF text; direct PDF requests returned 404. The actual campus plan remains embedded and the route diagram is a topology sketch. The SemiAnalysis chart ranks booked generating capacity, not data-center counts.
+
 ## Chapter 4 sites, capacity and generation — 2026-09-13
 
 - Chapter 4 now has **26 scenes**. Added two genuine Polaris Forge 1 aerials

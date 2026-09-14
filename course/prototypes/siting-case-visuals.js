@@ -111,33 +111,24 @@ function handoff(m){
  [['Released phase',m?24:100],['Connection routes',m?24:441],['Operating states',m?24:818]].forEach(([a,x],i)=>o+=t(x,m?491+i*58:502,a,m?24:26));
  return result(o,'Carry the released supply phase, connection routes and supported operating states into physical site design: usable land, equipment space, access, replacement paths and failure boundaries.');
 }
-function border(m){
- const box=(x,y,w,title,place)=>`<rect x="${x}" y="${y}" width="${w}" height="100" rx="9" fill="var(--panel)" stroke="var(--line)"/>${t(x+w/2,y+39,title,m?26:30,C.ink,'middle')}${t(x+w/2,y+76,place,m?20:24,C.muted,'middle')}`;
- const cx=m?195:560,top=m?77:45,bottom=m?395:351;
- let o=t(m?25:65,m?40:47,'TENNESSEE',m?21:25)+t(m?25:65,m?370:350,'MISSISSIPPI',m?21:25);
- o+=box(m?48:385,top,m?294:350,'Colossus 2','Memphis · compute');
- o+=box(m?48:385,bottom,m?294:350,'MZX generation','Southaven · gas turbines');
- o+=`<path d="M${cx} ${bottom}V${top+100}" fill="none" stroke="var(--power)" stroke-width="5"/><path d="M${cx-8} ${top+114}L${cx} ${top+100}L${cx+8} ${top+114}" fill="none" stroke="var(--power)" stroke-width="4"/>`;
- o+=`<path d="M20 ${m?323:278}H${m?370:1100}" fill="none" stroke="var(--muted)" stroke-width="2" stroke-dasharray="9 7"/>`;
- o+=t(m?25:65,m?310:263,'State line',m?18:22,C.muted)+t(cx+23,m?225:199,'MV power',m?19:25,C.power)+t(cx+23,m?253:233,'connection',m?19:25,C.power);
- o+=t(m?195:560,m?552:491,'Different permitting authorities',m?24:28,C.ink,'middle');
- if(m)o+=t(195,607,'SemiAnalysis: Mississippi’s temporary',17,C.muted,'middle')+t(195,634,'approval helped accelerate delivery.',17,C.muted,'middle');
- else o+=t(560,528,'SemiAnalysis · September 2025: Mississippi’s temporary approval helped accelerate delivery.',18,C.muted,'middle');
- return result(o,'Colossus 2 is in Memphis, Tennessee; the MZX generation site is across the state line in Southaven, Mississippi. SemiAnalysis reported in September 2025 that the different temporary-turbine permitting route helped accelerate delivery and that medium-voltage lines linked the sites. The diagram shows their geographic relationship, not an exact cable route. The temporary permission is historical; in July 2026 the operator reported a removal agreement and a transition to permitted permanent generation.');
-}
 const southavenPermit='https://upload.wikimedia.org/wikipedia/commons/e/e2/MZX_Tech_LLC_Draft_Air_PSD_Construction_Permit.pdf';
+function geography(m){
+ const marker=(x,y,name,labelY)=>`<circle cx="${x}" cy="${y}" r="15" fill="#ffd16f" stroke="#102027" stroke-width="6"/><path d="M${x} ${y}L85 ${labelY}" stroke="#fff" stroke-width="4"/><rect x="24" y="${labelY-30}" width="445" height="57" rx="8" fill="#102027ed"/><text x="43" y="${labelY+9}" fill="#fff" font-size="34">${name}</text>`;
+ const content=`<image href="../assets/references/southaven-geography.jpg" width="1100" height="1400"/><path d="M-98.82,611.72L9.51,611.61L139.74,611.47L530.95,610.9L552.06,610.9L594.07,610.83L944.72,610.47L1054.26,610.33L1165.25,610.55" fill="none" stroke="#102027" stroke-width="14"/><path d="M-98.82,611.72L9.51,611.61L139.74,611.47L530.95,610.9L552.06,610.9L594.07,610.83L944.72,610.47L1054.26,610.33L1165.25,610.55" fill="none" stroke="#ffd16f" stroke-width="7"/>${marker(533.08,452.02,'Colossus 2 · site',330)}${marker(630.63,989.09,'Power plant · Southaven',1250)}<rect x="35" y="505" width="260" height="48" rx="7" fill="#102027ed"/><text x="53" y="540" fill="#fff" font-size="32">TENNESSEE</text><rect x="35" y="655" width="275" height="48" rx="7" fill="#102027ed"/><text x="53" y="690" fill="#fff" font-size="32">MISSISSIPPI</text>`;
+ let o=`<svg x="${m?12:55}" y="${m?0:0}" width="${m?366:470}" height="${m?410:505}" viewBox="0 220 1100 1180" preserveAspectRatio="xMidYMid meet" style="overflow:hidden">${content}</svg>`;
+ o+=t(m?195:275,m?429:502,'Historical aerial · site locations',m?12:15,C.muted,'middle');
+ if(m){o+=img('../assets/references/southaven-site-plan.png',245,446,135,130);o+=t(20,491,'41 turbines',22,C.power)+t(20,525,'≈1.2 GW',26,C.power)+t(195,606,'Proposed · January 2026',18,C.muted,'middle');}
+ else{o+=img('../assets/references/southaven-site-plan.png',550,35,555,370);o+=t(827,445,'41 turbines · ≈1.2 GW',26,C.power,'middle')+t(827,480,'Proposed · January 2026',19,C.muted,'middle');}
+ return o;
+}
 function southaven(id,m){
  const site=id==='southaven-plan';
- const image=site?'../assets/references/southaven-site-plan.png':'../assets/references/southaven-process-plan.png';
- let o=img(image,m?6:12,m?15:0,m?378:site?760:1096,m?480:site?500:500);
- if(site){const x=m?22:820,y=m?535:146;
-  o+=t(x,y,'41 simple-cycle turbines',m?23:22)+t(x,y+47,'≈1.2 GW nameplate',m?27:27,C.power)+t(x,y+88,'Proposed · January 2026',m?19:20,C.muted);
- }
- o+=note(m,site?'MZX application · site map · PDF p. 80 ↗':'Trinity Consultants · process figure · PDF p. 13 ↗',southavenPermit+(site?'#page=80':'#page=13'));
- return result(o,site?'Original Southaven MZX site map from its January 2026 air-permit application, retaining Airbus 2025 imagery credit. The proposed facility included 41 simple-cycle turbines and approximately 1.2 GW nameplate. Historical proposal, not a current as-built survey.':'Original Trinity Consultants process flow diagram dated July 2025, reproduced in the January 2026 MZX application. Natural gas conditioning feeds turbines, which supply the data center and battery packs. Emissions branches are shown for the permit. This is not an electrical one-line or completion evidence.');
+ let o=site?geography(m):img('../assets/references/southaven-process-plan.png',m?6:12,m?15:0,m?378:1096,m?480:500);
+ o+=note(m,site?'USGS · Census boundary · MZX permit plan ↗':'Trinity Consultants · process figure · PDF p. 13 ↗',southavenPermit+(site?'#page=80':'#page=13'));
+ return result(o,site?'Colossus 2 is in Memphis, Tennessee; the Southaven power plant is in Mississippi. The state line comes from Census TIGERweb geometry, registered to the returned USGS imagery extent. Markers use the Census street-address point and the permit coordinates. The original permit plan is shown alongside. MZX Tech LLC is the applicant, Trinity Consultants the consulting firm. The January 2026 plan proposed 41 simple-cycle turbines and about 1.2 GW nameplate.':'Original Trinity Consultants process flow diagram dated July 2025, reproduced in the January 2026 MZX application. Natural gas conditioning feeds turbines, which supply the data center and battery packs. Emissions branches are shown for the permit. This is not an electrical one-line or completion evidence.');
 }
 export function renderSitingCase(id,state,m=false){
- const renderers={'southaven-border':()=>border(m),'southaven-plan':()=>southaven(id,m),'southaven-process':()=>southaven(id,m),'siting-purpose':()=>purpose(m),'site-ready':()=>release(m),'parcel-connections':()=>fuel(m),'grid-connection':()=>shared(m),'abilene-phase':()=>abilene(m),'power-configurations':()=>quadrant(m),'bridge-to-backup':()=>bridge(m),'generation-options':()=>options(m),'gas-shaft':()=>manufacturer(id,m),'combined-cycle':()=>manufacturer(id,m),'grid-dispatch':()=>manufacturer(id,m),'supply-brief':()=>handoff(m)};
+ const renderers={'southaven-plan':()=>southaven(id,m),'southaven-process':()=>southaven(id,m),'siting-purpose':()=>purpose(m),'site-ready':()=>release(m),'parcel-connections':()=>fuel(m),'grid-connection':()=>shared(m),'abilene-phase':()=>abilene(m),'power-configurations':()=>quadrant(m),'bridge-to-backup':()=>bridge(m),'generation-options':()=>options(m),'gas-shaft':()=>manufacturer(id,m),'combined-cycle':()=>manufacturer(id,m),'grid-dispatch':()=>manufacturer(id,m),'supply-brief':()=>handoff(m)};
  if(id.startsWith('config-'))return config(id,m);
  return renderers[id]?.()??null;
 }

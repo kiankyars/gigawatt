@@ -22,17 +22,6 @@ const txt = (x, y, s, cls = "") =>
   `<text x="${x}" y="${y}" class="${cls}">${s}</text>`;
 const building = (x, y, w = 300) =>
   `<path d="M${x},${y}v-70l25,-20h${w - 50}l25,20v70z" fill="var(--surface)" stroke="var(--text)" stroke-width="2"/><path d="M${x + 25},${y - 90}v90M${x + w - 25},${y - 90}v90" stroke="var(--line)"/>${Array.from({ length: 6 }, (_, i) => `<path d="M${x + 45 + (i * (w - 70)) / 6},${y - 64}v52" stroke="var(--power)" stroke-width="10"/>`).join("")}`;
-function fiberPlan(shared) {
-  const c = "var(--data)",
-    d = "var(--power)";
-  return svg(
-    shared
-      ? "Two fiber services share one entrance"
-      : "Two fiber approaches enter separate sides",
-    `<rect x="155" y="120" width="230" height="185" rx="6" fill="var(--panel)" stroke="var(--line)"/><path d="M180 140v140m35-140v140m35-140v140m35-140v140m35-140v140m35-140v140" stroke="var(--text)" stroke-width="12" opacity=".4"/>${shared ? `<path d="M25 32H65V215H155M25 365H85V235H155" fill="none" stroke="${c}" stroke-width="6"/><path d="M25 365H85V235H155" fill="none" stroke="${d}" stroke-width="6"/><rect x="130" y="192" width="48" height="64" rx="6" fill="var(--heat)" opacity=".2"/><path d="M138 200l33 49m0-49l-33 49" stroke="var(--heat)" stroke-width="4"/>${txt(240, 355, "One entrance exposed", "site-svg-small")}` : `<path d="M25 32H80V165H155" fill="none" stroke="${c}" stroke-width="6"/><path d="M425 365H455V260H385" fill="none" stroke="${d}" stroke-width="6"/>${txt(100, 100, "A", "site-svg-label")}${txt(430, 325, "B", "site-svg-label")}`}`,
-    "0 0 480 400",
-  );
-}
 export function renderSiteContext(id) {
   switch (id) {
     case "site-purpose":
@@ -66,15 +55,10 @@ export function renderSiteContext(id) {
         `<div class="site-section-wrap">${svg("Texas split estate: the surface and minerals can have separate owners", `<defs><pattern id="mineral-hatch" width="24" height="14" patternUnits="userSpaceOnUse"><path d="M0 12h12m5-7h6" stroke="#b8935b" opacity=".6"/></pattern></defs><path d="M45 200H955V382H45Z" fill="#c7b28c"/><path d="M45 235Q300 208 485 248T955 242V382H45Z" fill="#b4915f"/><path d="M45 300Q350 266 560 316T955 305V382H45Z" fill="url(#mineral-hatch)"/><path d="M45 200H955" stroke="var(--power)" stroke-width="8"/>${building(145, 196, 325)}<path d="M760 196L786 95H794L820 196M773 145H807M766 172H813M766 172L807 145M773 145L813 172M790 200v132h-145" fill="none" stroke="var(--heat)" stroke-width="6" stroke-linecap="round"/>${txt(65, 55, "TEXAS · SPLIT ESTATE", "site-svg-label")}${txt(490, 162, "Surface owner", "site-svg-title")}${txt(858, 137, "Well", "site-svg-small")}${txt(90, 294, "Mineral owner", "site-svg-title site-soil-text")}${txt(90, 329, "May retain rights to use the surface", "site-svg-small site-soil-text")}`)}<div class="site-single-callout">Deeds · mineral leases · surface-use agreements</div></div>`,
         "Texas surface and mineral estates can belong to separate owners. The mineral estate generally carries rights to reasonably necessary surface use; deeds, leases, ordinances and the accommodation doctrine can limit those rights. This is a conceptual Texas case, not a mineral dispute at Abilene.",
       );
-    case "fiber-diversity":
-      return result(
-        `<div class="site-fiber"><div class="site-case-band"><b>QTS Suwanee</b><span>Fiber entrance diversity · January 2023 account</span></div><div class="site-comparison"><article><h2>Shared entrance</h2>${fiberPlan(true)}</article><article><h2>Separate approaches</h2>${fiberPlan(false)}</article></div></div>`,
-        "QTS documents physical entrance diversity at Suwanee. These conceptual diagrams compare a shared entry point with separate approaches. The second removes the illustrated common exposure without asserting end-to-end independence.",
-      );
     case "climate-and-water":
       return result(
-        `<div class="site-site-pair site-cooling"><article><h2>Abilene</h2>${photo(abilene, "The Abilene AI campus.", "Oracle")}<div class="site-cooling-note"><b>Air-cooled chillers</b><span>No evaporative heat rejection</span></div></article><article><h2>Colossus 1</h2>${photo(aerial, "The Colossus 1 AI factory in Memphis.", "SpaceXAI")}<div class="site-cooling-note"><b>Cooling towers + air-cooled chillers</b><span>Towers consume makeup water</span></div></article></div>`,
-        "Abilene uses non-evaporative air-cooled chillers. Colossus 1 has both evaporative cooling towers and air-cooled chillers, according to the TDEC cooling-use record and FAS original imagery analysis. A closed indoor liquid loop does not determine outdoor heat rejection.",
+        `<div class="site-site-pair site-cooling"><article><h2>Abilene</h2>${photo(abilene, "The Abilene AI campus.", "Oracle")}<div class="site-cooling-note"><b>Air-cooled chillers</b><span>Heat rejected to outdoor air</span></div></article><article><h2>Colossus 1</h2>${photo(aerial, "The Colossus 1 AI factory in Memphis.", "SpaceXAI")}<div class="site-cooling-note"><b>Cooling towers + air-cooled chillers</b><span>Makeup water = water added to replace losses</span></div></article></div>`,
+        "Abilene uses non-evaporative air-cooled chillers. Colossus 1 has both evaporative cooling towers and air-cooled chillers, according to the TDEC cooling-use record and FAS original imagery analysis. Makeup water replaces evaporation, blowdown and other tower losses; the term does not specify potable or reclaimed water. This is a site-selection preview; the cooling chapters explain the mechanisms.",
       );
     case "gb300-physical":
       return result(

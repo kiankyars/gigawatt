@@ -172,3 +172,9 @@ enclosed tray, annotated tray and superchip are embedded in the slides. Numerica
 and fault diagrams are code-rendered because selections must change the correct
 quantities and keep every connection inspectable. No technical timing or product
 rating is taken from either generated illustration.
+
+
+### September 14 site-review assets
+
+- `references/semianalysis-btm-by-state-2026.png` is the unchanged original from the September 10 BTM article. The chart’s August 24 tracker ranks booked onsite generating capacity; it does not count data centers.
+- `references/southaven-geography.jpg` is a USGS historical imagery export. `southaven-geography.provenance.json` preserves its exact extent, Census state-boundary vertices transformed into image coordinates and address/permit point sources. Current construction is not inferred from that aerial. The original applicant site plan stays alongside it.

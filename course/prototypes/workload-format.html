@@ -390,7 +390,6 @@ function controls(){
    b.addEventListener('click',()=>{state[group.key]=value;controls();draw();$('actions').querySelector(`button[data-key="${group.key}"][data-value="${value}"]`)?.focus();});field.append(b);
   }$('actions').append(field);
  }
- if(index===scenes.length-1){const a=document.createElement('a');a.href='siting-format.html?teach=1';a.textContent='Next: siting and supply →';$('actions').append(a);}
  if(scene.reveal){const b=document.createElement('button');b.id='reveal';b.textContent=state[scene.reveal]?'Hide reasoning':'Reveal reasoning';b.setAttribute('aria-expanded',String(state[scene.reveal]));b.onclick=()=>{state[scene.reveal]=!state[scene.reveal];b.textContent=state[scene.reveal]?'Hide reasoning':'Reveal reasoning';b.setAttribute('aria-expanded',String(state[scene.reveal]));draw();};$('actions').append(b);}
 }
 function render(){const s=scenes[index];$('title').textContent=s.title;$('title').parentElement.hidden=!s.title;$('scenes').value=s.id;$('progress').textContent=`${index+1} / ${scenes.length}`;$('previous').disabled=index===0;$('next').disabled=index===scenes.length-1;$('explanation-title').textContent=s.title;$('lesson-reference').href='../index.html#'+s.reference;$('explanation').innerHTML=s.explanation.map(p=>`<p>${p}</p>`).join('');$('model-scope').textContent=s.boundary;controls();draw();}

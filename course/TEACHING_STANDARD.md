@@ -44,7 +44,7 @@ and **Reading**; no explanation/source dialog or note launcher. Deeper text and
 source discussion belong in the reader. Chapter actions use the shared button
 style; the directory has no All chapters / Slides available filter.
 
-All decks use `prototypes/slide-navigation.js` through `slide-chrome.js`. Keep chapter behavior in its renderer; use the shared component for previous/next, selector, progress and responsive footer. Do not build another chapter-specific navigation bar.
+All decks use `prototypes/slide-navigation.js` through `slide-chrome.js`. Keep chapter behavior in its renderer; use the shared component for previous/next, selector, progress and responsive footer. Do not build another chapter-specific navigation bar. On the final slide, the shared footer derives **Next chapter →** from the teaching catalog; it preserves teaching mode and uses that chapter’s reading when its slides are not yet available.
 
 Every teaching presentation and student exploration view has a visible
 **← Back to course** link at the left of its header. It returns to the main

@@ -4,6 +4,9 @@
  */
 import { renderEgress } from "./site-egress.js";
 export const operationsAliases = Object.freeze({
+  "mineral-accommodation": "mineral-project",
+  "qts-suwanee": "fiber-diversity",
+  "fire-and-egress": "service-check",
   "space-migration": "service-envelope",
   "site-handoff": "service-check",
   "phased-campus": "replacement-route",

@@ -279,5 +279,21 @@
     "retrieved_on": "2026-09-14",
     "sha256": "bf36099861ce6b0404de00be41eb7a89aadcf6f1a3c89ac494f88a18730fd127",
     "note": "P173 Figure 7: actual board with one Grace CPU, two Blackwell Ultra GPUs and two ConnectX-8 chips. Original bytes preserved."
+  },
+  {
+    "file": "semianalysis-btm-by-state-2026.png",
+    "source_url": "https://substack-post-media.s3.amazonaws.com/public/images/0451ed1a-b17c-4cc8-a69b-e8e0bc420a49_2430x1296.png",
+    "publisher": "SemiAnalysis",
+    "retrieved_on": "2026-09-14",
+    "sha256": "0b2d51ba39e257fe8516fedfcfa079c62f7032ec337d67b2e3f2ed14b1e8867c",
+    "note": "Original chart unchanged, from September 10 article; BTM Tracker edition August 24, 2026. Booked onsite generating nameplate, not data-center counts. Source credit and unknown-site category retained."
+  },
+  {
+    "file": "southaven-geography.jpg",
+    "source_url": "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer",
+    "publisher": "USGS",
+    "retrieved_on": "2026-09-14",
+    "sha256": "5c440ed339a76e0669e04369f1e4b720be0046a037f18b9bba657ed7c23af2c0",
+    "note": "Original export image unchanged. Geographic context only; current construction not implied. Exact extent, Census boundary path, and source queries recorded in southaven-geography.provenance.json."
   }
 ]

@@ -250,7 +250,7 @@ async function checkNavigation(page, scenes, colorScheme) {
   await page.locator("#scenes").selectOption(last.id);
   assert.equal(await page.locator("#next").isDisabled(), true);
   assert.equal(await page.locator("#reveal").count(), 0);
-  const nextChapter = page.locator("#actions a");
+  const nextChapter = page.locator(".course-next-chapter");
   assert.equal((await nextChapter.textContent()).trim(), "Next: physical site design →");
   const href = new URL(await nextChapter.getAttribute("href"), page.url());
   assert.match(href.pathname, /\/(?:site-format|site-design)\.html$/);
@@ -313,7 +313,7 @@ async function checkNavigation(page, scenes, colorScheme) {
     assert.equal(await page.locator("#scenes").inputValue(), replacement, `${retired} opens its replacement`);
   }
   await page.goto(url(last.id));
-  await page.locator("#actions a").click();
+  await page.locator(".course-next-chapter").click();
   await page.waitForSelector("#diagram text");
   assert.match(new URL(page.url()).pathname, /\/(?:site-format|site-design)\.html$/);
   assert.equal(new URL(page.url()).searchParams.get("teach"), "1");

@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
+import {nextChapterLink} from '../course/prototypes/slide-navigation.js';
+import {presentationRoutes} from '../course/prototypes/teaching-navigation.js';
 
 const course = new URL('../course/', import.meta.url);
 const catalog = JSON.parse(await readFile(new URL('teaching-sequences.json', course), 'utf8'));
@@ -28,4 +30,49 @@ test('the generated 800 V template retains the same shared navigation imports', 
   assert.match(template, /href="assets\/slide-chrome\.css"/);
   const chrome = await readFile(new URL('prototypes/slide-chrome.js', course), 'utf8');
   assert.match(chrome, /import \{ installSlideNavigation \} from '\.\/slide-navigation\.js'/);
+});
+
+test('source decks advance in curriculum order while retaining teaching mode', () => {
+  const module = 'http://localhost:8765/course/prototypes/slide-navigation.js';
+  const link = nextChapterLink('http://localhost:8765/course/prototypes/siting-format.html?teach=1#last', presentationRoutes, module);
+  assert.equal(link.number, 5);
+  assert.equal(link.href, 'http://localhost:8765/course/prototypes/site-format.html?teach=1');
+});
+
+test('student exploration stays outside teaching mode and transient parameters do not leak', () => {
+  const module = 'https://example.test/course/prototypes/slide-navigation.js';
+  const link = nextChapterLink('https://example.test/course/prototypes/continuity-format.html?debug=1#service-check', presentationRoutes, module);
+  assert.equal(link.href, 'https://example.test/course/prototypes/rack-energy-format.html');
+  const off = nextChapterLink('https://example.test/course/prototypes/continuity-format.html?teach=0', presentationRoutes, module);
+  assert.equal(new URL(off.href).search, '?teach=0');
+});
+
+test('the next chapter uses its reading when no deck exists instead of skipping chapters', () => {
+  const module = 'http://localhost/course/prototypes/slide-navigation.js';
+  const link = nextChapterLink('http://localhost/course/prototypes/compute-format.html?teach=1#network-handoff', presentationRoutes, module);
+  assert.equal(link.number, 10);
+  assert.equal(link.kind, 'reading');
+  assert.equal(new URL(link.href).pathname, '/course/index.html');
+  assert.ok(new URL(link.href).hash.startsWith('#d08-'));
+});
+
+test('a presentation spanning two chapters continues after both', () => {
+  const module = 'http://localhost/course/prototypes/slide-navigation.js';
+  const link = nextChapterLink('http://localhost/course/prototypes/cooling-format.html#rejection', presentationRoutes, module);
+  assert.equal(link.number, 14);
+  assert.equal(link.kind, 'reading');
+});
+
+test('published routes resolve under a repository prefix and preserve the next entry fragment', () => {
+  const routes = [{path:'one.html', next:{number:2, title:'Two', href:'two.html?teach=1#start', kind:'slides'}}];
+  const link = nextChapterLink('https://example.test/gigawatt/slides/one.html?teach=1#last', routes, 'https://example.test/gigawatt/slides/slide-navigation.js');
+  assert.equal(link.href, 'https://example.test/gigawatt/slides/two.html?teach=1#start');
+});
+
+test('standalone scenes, another origin and a terminal presentation have no false handoff', () => {
+  const module = 'https://example.test/slides/slide-navigation.js';
+  const routes = [{path:'final.html', next:null}];
+  assert.equal(nextChapterLink('https://example.test/slides/final.html', routes, module), null);
+  assert.equal(nextChapterLink('https://example.test/slides/case-studies.html', routes, module), null);
+  assert.equal(nextChapterLink('https://other.test/slides/final.html', routes, module), null);
 });

@@ -170,11 +170,6 @@ function render() {
       ? `<div id="reliability">${renderReliability(scene.id, state)}</div>`
       : renderContinuityVisual(scene, state, compact);
   $("actions").innerHTML = controls(scene);
-  if (scene.id === "service-check")
-    $("actions").insertAdjacentHTML(
-      "beforeend",
-      '<a class="chapter-next" href="rack-energy-format.html?teach=1">8. Rack power →</a>',
-    );
   $("actions")
     .querySelectorAll("button")
     .forEach(

@@ -6,6 +6,21 @@
  * numbered-button renderer (800 V) is adapted to the same accessible selector.
  * New decks need #previous (or #back), #next, and a select or #steps in a footer.
  */
+import { presentationRoutes } from './teaching-navigation.js';
+
+export function nextChapterLink(locationHref, routes = presentationRoutes, moduleHref = import.meta.url) {
+  const current = new URL(locationHref);
+  const route = routes.find(item => {
+    const candidate = new URL(item.path, moduleHref);
+    return candidate.origin === current.origin && candidate.pathname === current.pathname;
+  });
+  if (!route?.next) return null;
+  const destination = new URL(route.next.href, moduleHref);
+  if (current.searchParams.has('teach')) destination.searchParams.set('teach', current.searchParams.get('teach'));
+  else destination.searchParams.delete('teach');
+  return { ...route.next, href: destination.href };
+}
+
 export function installSlideNavigation(doc = document) {
   const previous = doc.querySelector('#previous, #back');
   const next = doc.getElementById('next');
@@ -52,10 +67,25 @@ export function installSlideNavigation(doc = document) {
   next.setAttribute('aria-label', 'Next slide');
   previous.title = 'Previous slide';
   next.title = 'Next slide';
+  const forward = doc.createElement('div');
+  forward.className = 'course-slide-forward';
+  forward.append(next);
+  const destination = doc.defaultView?.location && nextChapterLink(doc.defaultView.location.href);
+  const chapterLink = destination && doc.createElement('a');
+  if (chapterLink) {
+    chapterLink.className = 'course-next-chapter';
+    chapterLink.href = destination.href;
+    chapterLink.textContent = 'Next chapter →';
+    const description = `${destination.number}. ${destination.title}${destination.kind === 'reading' ? ' (reading)' : ''}`;
+    chapterLink.title = description;
+    chapterLink.setAttribute('aria-label', `Next chapter: ${description}`);
+    chapterLink.hidden = true;
+    forward.append(chapterLink);
+  }
   footer.classList.add('course-slide-navigation');
   footer.setAttribute('aria-label', 'Slide navigation');
   footer.dataset.slideNavigation = 'ready';
-  footer.replaceChildren(previous, choice, counter, next);
+  footer.replaceChildren(previous, choice, counter, forward);
 
   const synchronize = () => {
     select = choice.querySelector('select');
@@ -80,10 +110,15 @@ export function installSlideNavigation(doc = document) {
     const position = `${select.selectedIndex + 1} / ${select.options.length}`;
     if (counter.textContent !== position) counter.textContent = position;
     // Some renderers write "End" or wrap these words in spans on each render.
-    // Disabled state remains the deck's own boundary check; the controls stay
-    // visually identical on first, middle, and final slides.
+    // Decks retain their slide boundary. The shared link owns chapter changes.
     if (previous.textContent !== '←') previous.textContent = '←';
     if (next.textContent !== '→') next.textContent = '→';
+    if (chapterLink) {
+      const lastSlide = select.options.length > 0 && select.selectedIndex === select.options.length - 1;
+      if (chapterLink.hidden === lastSlide) chapterLink.hidden = !lastSlide;
+      if (next.hidden !== lastSlide) next.hidden = lastSlide;
+      footer.classList.toggle('has-next-chapter', lastSlide);
+    }
   };
   synchronize();
   new MutationObserver(synchronize).observe(footer, {

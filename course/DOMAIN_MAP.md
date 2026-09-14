@@ -441,6 +441,8 @@ Compare utility-only and behind-the-meter supply against energy, capacity, fuel 
 - [P137 — GE Vernova — Supporting Vietnam’s energy needs](https://www.gevernova.com/gas-power/resources/articles/2021/supporting-vietnams-energy-needs) · `page_reviewed` · [local note](../research/sources/P137.md)
 - [P138 — SpaceXAI — Greater Memphis site update, July 30, 2026](https://x.ai/memphis/updates) · `page_reviewed` · [local note](../research/sources/P138.md)
 - [P139 — MDEQ — Determination letter on portable gas combustion turbines, July 29, 2025](https://cdn.mississippitoday.org/wp-content/uploads/2025/11/20104011/2025.07.29-MDEQ-Determination-Letter-on-Portable-Gas-Combustion-Turbines-signed.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P139.md)
+- [P178 — US Census TIGERweb — Tennessee state boundary and Tulane Road geocode](https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/0) · `page_reviewed` · [local note](../research/sources/P178.md)
+- [P179 — USGS National Map — Southaven geographic imagery](https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer) · `page_reviewed` · [local note](../research/sources/P179.md)
 
 <a id="d04"></a>
 
@@ -1023,6 +1025,7 @@ Trace a network failure or degraded link into workload, cabling and operational 
 - [P93 — Cloud TPU Multislice Overview](https://docs.cloud.google.com/tpu/docs/multislice-introduction) · `page_reviewed` · [local note](../research/sources/P93.md)
 - [P99 — Gemini: A Family of Highly Capable Multimodal Models](https://deepmind.google/gemini/gemini_1_report.pdf) · `page_reviewed` · [local note](../research/sources/P99.md)
 - [P96 — vLLM — Inside vLLM: Anatomy of a High-Throughput LLM Inference System](https://vllm.ai/blog/2025-09-05-anatomy-of-vllm) · `page_reviewed` · [local note](../research/sources/P96.md)
+- [P177 — QTS — Suwanee DC1 connectivity facility sheet](https://qtsdatacenters.com/wp-content/uploads/2024/11/QTS_Facility-Data-Sheet_SUW1DC1.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P177.md)
 
 <a id="d09"></a>
 
@@ -1446,6 +1449,8 @@ Trace physical and control-system access boundaries and explain why availability
 - [P165 — ADA Infrastructure — Docklands campus planning announcement](https://adainfrastructure.com/en-US/insights/news/ada-infrastructure-approved-to-develop-210-mw-data-center-campus-in-east-londons-royal-docks) · `page_reviewed` · [local note](../research/sources/P165.md)
 - [P166 — National Weather Service Houston/Galveston — Hurricane Harvey](https://www.weather.gov/hgx/hurricaneharvey) · `page_reviewed` · [local note](../research/sources/P166.md)
 - [P167 — OSHA — 29 CFR 1910.36(b), number and separation of exit routes](https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.36) · `public_excerpt_reviewed` · [local note](../research/sources/P167.md)
+- [P177 — QTS — Suwanee DC1 connectivity facility sheet](https://qtsdatacenters.com/wp-content/uploads/2024/11/QTS_Facility-Data-Sheet_SUW1DC1.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P177.md)
+- [P178 — US Census TIGERweb — Tennessee state boundary and Tulane Road geocode](https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/0) · `page_reviewed` · [local note](../research/sources/P178.md)
 
 <a id="d13"></a>
 

@@ -158,6 +158,10 @@ On-site supply can make an earlier phase feasible while creating its own fuel, e
 
 The final choice should state a complete service envelope: how much load, beginning when, under which normal and degraded conditions, and with which remaining uncertainties. This converts a location comparison into an infrastructure decision. It also identifies where further work has the greatest value: the dependency controlling the delivery date, the capacity limiting accepted load, or the operating condition that breaks the proposed service promise.
 
+## Reading the Southaven map
+
+MZX Tech LLC is the generating-project applicant. Trinity Consultants prepared its permit submission, as the January 14, 2026 cover email states. Colossus 2’s Tulane Road site is in Memphis, Tennessee; the generating plant at 2875 Stanton Road South is in Southaven, Mississippi. The slide places Census state-boundary geometry over a wider USGS historical aerial, alongside the original permit plan. This replaces the separate schematic border slide. The address marker locates the site rather than current equipment visible in the historical image.
+
 ## Worked example: What is released at Polaris Forge 1?
 
 - Ready-for-service milestones are taken from Applied Digital’s October 27 and November 24, 2025 releases.
@@ -243,6 +247,8 @@ An energized feeder is one completed dependency. A released phase needs all the 
 - [MLGW — 2025 xAI Update](https://www.mlgw.com/images/content/files/pdf/new/xAI%202025%20Update.pdf) — Locates the Tulane Road Colossus 2 facility near the Tennessee–Mississippi state line. Read 2026-09-13. MLGW’s nearby TVA Southaven combined-cycle plant is separate from MZX’s generating site.
 - [xAI's Colossus 2 - First Gigawatt Datacenter In The World, Unique RL Methodology, Capital Raise](https://newsletter.semianalysis.com/p/xais-colossus-2-first-gigawatt-datacenter) — Cross-border Colossus 2 / Southaven siting and reported MV connection; SemiAnalysis attributes the siting to different temporary-turbine permitting routes. Read 2026-09-13. Public section Colossus 2: in Tennessee, Mississippi…or both? reviewed. Historical September 2025 analyst account; does not establish current permissions, exact cable routes or operating MW. July 2026 operator update separately records a temporary-turbine removal agreement.
 - [OpenAI: Five new Stargate sites](https://openai.com/index/five-new-stargate-sites/) — The 10 GW commitment concerns Stargate’s wider US buildout, distinct from the Abilene campus plan and current operating load. Read 2026-09-13. Main article and visible October 22, 2025 update inspected on September 6, 2026. This lesson audits the dated statements; it does not establish current operating MW, complete topology or site economics.
+- [US Census TIGERweb — Tennessee state boundary and Tulane Road geocode](https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/0) — Coordinate geometry for the Tennessee/Mississippi line in the Southaven site slide. Read 2026-09-14. Tennessee polygon queried in WGS84 and local boundary vertices transformed into the exact raster extent returned by USGS. Census geocoding of 5420 Tulane Road supplies a road-address point, not a building centroid. Source queries and transform metadata preserved in southaven-geography.provenance.json.
+- [USGS National Map — Southaven geographic imagery](https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer) — Wider photographic geographic context around the Southaven generating plant and Colossus 2 site. Read 2026-09-14. Historic imagery used to locate the two sites across the state boundary, not to depict current construction. Retrieval date does not establish capture date; Colossus marker identifies site address rather than depicted operating hardware. Exact returned extent saved with asset provenance.
 
 ## Check your understanding: Can this phase open?
 

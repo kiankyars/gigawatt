@@ -4,9 +4,9 @@ export const learningContract = Object.freeze({
   "changed_variable": "Physical arrangements and the service boundary for a power module versus a compute tray.",
   "primary_payoff": "Turn a supply strategy into a coordinated and maintainable site brief.",
   "misconception": "Gross acres, cabinet footprint or duplicated equipment establish a buildable and recoverable data center.",
-  "closing_question": "What must be verified to replace a component while preserving the rest of the service?"
+  "closing_question": "How can a new hall be built without cutting the live hall’s access and fiber?"
 });
-export const initialState = Object.freeze({ serviceAnswer: "hidden", egressIncident: "clear" });
+export const initialState = Object.freeze({ serviceAnswer: "hidden" });
 export const scenes = [
   {
     "id": "site-purpose",
@@ -66,23 +66,13 @@ export const scenes = [
   {
     "id": "mineral-project",
     "label": "TCDC: land secured, waiver pending",
-    "title": "A land purchase does not settle an operator’s surface rights.",
+    "title": "Texas projects must secure land and the rights to use it.",
     "pedagogical_role": "mechanism",
     "reference": "d12-hazards-and-site-evidence",
     "explanation": [
       "New Era’s August 14, 2026 issuer update said all 493 acres for Texas Critical Data Centers near Odessa had been secured, with one final surface waiver pending from a leasehold operator. It also reported removal of 22 abandoned pipelines across 12 rights-of-way. These are distinct site-development milestones.",
-      "The release establishes an outstanding agreement, not a quantified mineral-caused delay. Another actual contract, Fermi’s May 2025 Project Matador ground lease, made a surface waiver a commencement condition unless the tenant waived it. Its later filing reports commencement in September 2025 after conditions were satisfied or waived. Agreements can resolve surface use without buying every mineral interest."
-    ]
-  },
-  {
-    "id": "mineral-accommodation",
-    "label": "Getty v. Jones: conflicting surface uses",
-    "title": "An oil well and an irrigation system needed the same space.",
-    "pedagogical_role": "case-study",
-    "reference": "d12-hazards-and-site-evidence",
-    "explanation": [
-      "In Getty Oil v. Jones (Texas Supreme Court, 1971), an established irrigation system needed seven feet of clearance while Getty’s pumpjacks reached 17 and 34 feet. Other operators showed lower-profile or recessed alternatives. The court held that reasonable mineral use can require accommodating an existing surface use where reasonable mineral-development alternatives are available and the surface owner has no reasonable alternative for continuing that existing use.",
-      "The court affirmed a remand; this was not a universal order to bury equipment. It is a farming judgment, not a data-center lawsuit. Its lesson for a proposed campus is that dominance of the mineral estate has limits, but a fact-dependent doctrine does not pre-approve a new building layout. Resolve express deeds, leases and surface agreements before relying on litigation."
+      "The release establishes an outstanding agreement, not a quantified mineral-caused delay. Another actual contract, Fermi’s May 2025 Project Matador ground lease, made a surface waiver a commencement condition unless the tenant waived it. Its later filing reports commencement in September 2025 after conditions were satisfied or waived. Agreements can resolve surface use without buying every mineral interest.",
+      "SemiAnalysis’s September 10, 2026 article reproduces its August 24 BTM Tracker chart: about 17 GW of booked onsite generation belongs to named Texas sites, the largest named-state total. Another 29 GW has no site chosen. The chart ranks generating nameplate ordered for data centers, excluding batteries; it does not rank operating data-center count, IT capacity or completed construction. The chart supplies the scale context, while New Era supplies a separate concrete surface-rights example."
     ]
   },
   {
@@ -95,7 +85,10 @@ export const scenes = [
       "ADA Infrastructure’s Docklands campus is in East London’s Royal Docks. Its June 2024 planning announcement described three planned data-center buildings. The image is the developer’s proposed campus visualization, not a photograph of completed construction.",
       "Menard’s project account identifies the site’s previous docklands use and buried foundations, tanks and timber piles. A new aboveground campus therefore inherits old conditions below it. The following engineering slide keeps the actual groundworks photograph and distinguishes the support required by buildings from that required by external utilities."
     ],
-    "sources": ["https://adainfrastructure.com/en-US/insights/news/ada-infrastructure-approved-to-develop-210-mw-data-center-campus-in-east-londons-royal-docks", "https://menard.co.uk/soil-expert-portfolio/london-silvertown-project-olympus-data-centre/"]
+    "sources": [
+      "https://adainfrastructure.com/en-US/insights/news/ada-infrastructure-approved-to-develop-210-mw-data-center-campus-in-east-londons-royal-docks",
+      "https://menard.co.uk/soil-expert-portfolio/london-silvertown-project-olympus-data-centre/"
+    ]
   },
   {
     "id": "ground-and-foundations",
@@ -118,7 +111,9 @@ export const scenes = [
       "Hurricane Harvey made landfall on the Texas coast on August 25, 2017. Slow storm movement kept rain bands over southeastern Texas. The National Weather Service records rapid flash flooding across Harris County during the night of August 26–27, followed by more heavy rain on August 29–30 that worsened the existing floods.",
       "The actual August 28 Houston-area road photograph is credited to TxDOT by NWS Houston/Galveston. It establishes the regional access emergency, not the location or condition of Equinix HO1. The next slide uses a separate contemporaneous operator statement and later staff account to explain that facility’s continuity and access experience."
     ],
-    "sources": ["https://www.weather.gov/hgx/hurricaneharvey"]
+    "sources": [
+      "https://www.weather.gov/hgx/hurricaneharvey"
+    ]
   },
   {
     "id": "outside-flood",
@@ -132,36 +127,26 @@ export const scenes = [
     ]
   },
   {
-    "id": "qts-suwanee",
-    "label": "Meet QTS Suwanee",
-    "title": "QTS Suwanee houses customers’ equipment north of Atlanta.",
-    "pedagogical_role": "case-study",
-    "reference": "d12-hazards-and-site-evidence",
-    "explanation": [
-      "QTS operates a 53-acre colocation campus in Suwanee, Georgia. Its two data-center buildings are at 300 and 120 Satellite Boulevard NW. The visual uses the operator’s actual campus plan. Customers place IT equipment in such facilities and connect it to their networks through physical fiber routes.",
-      "QTS’s January 2023 article described diverse campus fiber entrances and separately proposed four entrances for DC2. Its current campus page describes redundant campus conduits as in progress. These are dated statements with different scopes, so the following teaching sketches do not certify completion of the whole campus conduit system."
-    ]
-  },
-  {
     "id": "fiber-diversity",
-    "label": "Independent fiber approaches",
-    "title": "Separate fiber entrances remove a shared point of failure.",
+    "label": "QTS Suwanee: separate fiber entrances",
+    "title": "QTS Suwanee DC1 uses three separate fiber entrances.",
     "pedagogical_role": "counterexample",
     "reference": "d12-hazards-and-site-evidence",
     "explanation": [
-      "QTS’s January 2023 Suwanee article describes diverse fiber entrances and separately proposes four entrances for DC2. Its current page still describes redundant campus conduits as in progress. Entrance separation is the design mechanism taught here; no undisclosed QTS route plan or completed end-to-end redundancy is asserted.",
-      "The paired route sketches are illustrative, not a map of QTS. One illustrates two cables sharing an entrance, while the other has separate approaches. Separation removes the pictured shared exposure; it does not prove end-to-end independence. Circuits may still meet in an upstream bridge, duct or facility. Zayo’s March 2026 announcement of four diverse routes under construction for QTS Cambois is an additional AI-campus example."
+      "The original QTS campus plan establishes the two-building setting in Suwanee, Georgia. QTS’s DC1 facility sheet identifies three diverse underground fiber entry laterals. The side-by-side sketches compare a shared building entry with three separated entries, matching the documented DC1 topology count without inventing the precise route geometry. The shared-entry layout is a counterexample, not QTS’s layout.",
+      "QTS’s January 2023 expansion account separately proposed four diverse entrances for DC2. Three DC1 entrances and four proposed DC2 entrances describe different buildings. The actual campus plan does not disclose surveyed cable alignments. Physical entrance diversity removes a local shared exposure; it does not certify end-to-end independence of carrier networks."
     ]
   },
   {
     "id": "climate-and-water",
     "label": "Two AI cooling designs",
-    "title": "Abilene rejects heat without evaporation; Colossus 1 also uses cooling towers.",
+    "title": "Local climate and water supply shape the cooling design.",
     "pedagogical_role": "comparison",
     "reference": "d12-hazards-and-site-evidence",
     "explanation": [
       "Crusoe describes Abilene’s outdoor heat rejection as non-evaporative air-cooled chillers. This is a named AI-factory example, not a claim that all Texas facilities must use dry cooling or that Abilene relies only on passive dry coolers. Its liquid loops carry heat inside the system without establishing an evaporative process outdoors.",
-      "Colossus 1 provides the comparison: TDEC identifies xAI Colossus as a user of evaporative cooling in its 2025 reclaimed-water proposal. FAS’s original May 2026 imagery analysis identifies both cooling towers and air-cooled chillers. The proposal does not prove the reclaimed-water plant is operational. Dry rejection depends on outdoor dry-bulb temperature; evaporative rejection uses the wet-bulb boundary and consumes makeup water. Actual equipment capacity remains conditional on its rated operating conditions."
+      "Colossus 1 provides the comparison: TDEC identifies xAI Colossus as a user of evaporative cooling in its 2025 reclaimed-water proposal. FAS’s original May 2026 imagery analysis identifies both cooling towers and air-cooled chillers. The proposal does not prove the reclaimed-water plant is operational. Dry rejection depends on outdoor dry-bulb temperature; evaporative rejection uses the wet-bulb boundary and consumes makeup water. Actual equipment capacity remains conditional on its rated operating conditions.",
+      "This is the site-selection preview. The Chip and rack heat capture / Heat rejection, climate and water sequence teaches chillers, cooling towers, dry-bulb and wet-bulb temperatures and water balance in depth. Makeup water means water added to replace evaporation, blowdown and other losses. It describes the water’s role, not its quality: a suitable source can be potable water, reclaimed wastewater or another treated supply."
     ]
   },
   {
@@ -231,40 +216,27 @@ export const scenes = [
     ]
   },
   {
-    "id": "fire-and-egress",
-    "label": "Test the routes to both exits",
-    "title": "Two exit doors can still share one vulnerable corridor.",
-    "pedagogical_role": "counterexample",
-    "reference": "d12-safety-and-control-boundaries",
-    "explanation": [
-      "Both original plans have a west exit and an east exit. In the left plan, people must traverse the west corridor before the path divides. In the right plan, the routes leave the hall separately. Mark the west corridor unavailable: the shared approach loses both exits, while the separated approach retains the east route. An incident at the east exit instead leaves the west route connected in both plans. Door count alone does not describe route independence.",
-      "The controls mark a declared affected zone; they do not simulate smoke spread, evacuation time or the performance of a fire door. OSHA’s exit-route guidance connects separation to keeping another route available when fire or smoke blocks one. These untimed connectivity drawings do not establish a compliant plan: occupancy, travel distances, widths, exit count, separation, fire protection and local requirements still need the site-specific review. No universal battery-room layout is implied."
-    ],
-    "sources": ["https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.36"],
-    "controls": [{"key":"egressIncident","label":"Affected route","options":[["clear","Clear"],["west","West corridor incident"],["east","East exit incident"]]}]
-  },
-  {
     "id": "service-check",
-    "label": "Check the replacement plan",
-    "title": "What stays running while each part is replaced?",
+    "label": "Knowledge check: expand a live campus",
+    "title": "Plan Hall B without interrupting Hall A.",
     "pedagogical_role": "check-in",
-    "reference": "d12-room-and-replacement-route",
+    "reference": "d12-hazards-and-site-evidence",
     "explanation": [
-      "Ask learners to separate two maintenance jobs on a production GB300 rack: replacing a designated hot-swap power module and replacing a compute tray. Before showing the answer, identify the service boundary, the required evidence and the route the part and handling equipment will take.",
-      "A supported PSU hot-swap with sufficient remaining qualified supply capacity can preserve rack power. A compute tray requires its workload to move or stop and the tray to power down. For physical removal, verify the tray-and-lift envelope at turns and openings, plus concentrated loads along the route. A nominally wide door alone establishes none of the other conditions."
+      "A live Hall A uses the site’s only access road and a duct carrying both fiber services. The proposed excavation for Hall B cuts across both. The northern corridor offers room for temporary access and replacement fiber, but its surface-use agreement is unresolved. Ask learners to propose the order of work before revealing a possible sequence.",
+      "Resolve the corridor rights before relying on that route. Establish alternative access and install and test the new fiber connection while the original path remains available. Transfer the live service and protect the new routes before excavating Hall B. Moving only the road leaves the shared fiber exposure; moving only fiber leaves the staffed operating hall without access. If the corridor cannot be secured, change the layout or schedule. The challenge combines parcel rights, route geometry and continuity during construction."
     ],
     "controls": [
       {
         "key": "serviceAnswer",
-        "label": "Replacement plan",
+        "label": "Expansion plan",
         "options": [
           [
             "hidden",
-            "Discuss"
+            "Discuss the sequence"
           ],
           [
             "shown",
-            "Show reasoning"
+            "Show one sequence"
           ]
         ]
       }

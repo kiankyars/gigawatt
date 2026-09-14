@@ -1137,6 +1137,10 @@ On-site supply can make an earlier phase feasible while creating its own fuel, e
 
 The final choice should state a complete service envelope: how much load, beginning when, under which normal and degraded conditions, and with which remaining uncertainties. This converts a location comparison into an infrastructure decision. It also identifies where further work has the greatest value: the dependency controlling the delivery date, the capacity limiting accepted load, or the operating condition that breaks the proposed service promise.
 
+## Reading the Southaven map
+
+MZX Tech LLC is the generating-project applicant. Trinity Consultants prepared its permit submission, as the January 14, 2026 cover email states. Colossus 2’s Tulane Road site is in Memphis, Tennessee; the generating plant at 2875 Stanton Road South is in Southaven, Mississippi. The slide places Census state-boundary geometry over a wider USGS historical aerial, alongside the original permit plan. This replaces the separate schematic border slide. The address marker locates the site rather than current equipment visible in the historical image.
+
 ## Worked example: What is released at Polaris Forge 1?
 
 - Ready-for-service milestones are taken from Applied Digital’s October 27 and November 24, 2025 releases.
@@ -1222,6 +1226,8 @@ An energized feeder is one completed dependency. A released phase needs all the 
 - [MLGW — 2025 xAI Update](https://www.mlgw.com/images/content/files/pdf/new/xAI%202025%20Update.pdf) — Locates the Tulane Road Colossus 2 facility near the Tennessee–Mississippi state line. Read 2026-09-13. MLGW’s nearby TVA Southaven combined-cycle plant is separate from MZX’s generating site.
 - [xAI's Colossus 2 - First Gigawatt Datacenter In The World, Unique RL Methodology, Capital Raise](https://newsletter.semianalysis.com/p/xais-colossus-2-first-gigawatt-datacenter) — Cross-border Colossus 2 / Southaven siting and reported MV connection; SemiAnalysis attributes the siting to different temporary-turbine permitting routes. Read 2026-09-13. Public section Colossus 2: in Tennessee, Mississippi…or both? reviewed. Historical September 2025 analyst account; does not establish current permissions, exact cable routes or operating MW. July 2026 operator update separately records a temporary-turbine removal agreement.
 - [OpenAI: Five new Stargate sites](https://openai.com/index/five-new-stargate-sites/) — The 10 GW commitment concerns Stargate’s wider US buildout, distinct from the Abilene campus plan and current operating load. Read 2026-09-13. Main article and visible October 22, 2025 update inspected on September 6, 2026. This lesson audits the dated statements; it does not establish current operating MW, complete topology or site economics.
+- [US Census TIGERweb — Tennessee state boundary and Tulane Road geocode](https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/0) — Coordinate geometry for the Tennessee/Mississippi line in the Southaven site slide. Read 2026-09-14. Tennessee polygon queried in WGS84 and local boundary vertices transformed into the exact raster extent returned by USGS. Census geocoding of 5420 Tulane Road supplies a road-address point, not a building centroid. Source queries and transform metadata preserved in southaven-geography.provenance.json.
+- [USGS National Map — Southaven geographic imagery](https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer) — Wider photographic geographic context around the Southaven generating plant and Colossus 2 site. Read 2026-09-14. Historic imagery used to locate the two sites across the state boundary, not to depict current construction. Retrieval date does not establish capture date; Colossus marker identifies site address rather than depicted operating hardware. Exact returned extent saved with asset provenance.
 
 ## Check your understanding: Can this phase open?
 
@@ -1383,6 +1389,8 @@ Two AI campuses make heat rejection concrete. TDEC identifies Colossus 1 as a us
 
 Physical route diversity is practiced, not invented for the exercise. QTS’s January 2023 account describes diverse fiber entrances and campus conduits at Suwanee; its current campus page describes redundant conduits as in progress. The dated account does not certify current end-to-end completion. Zayo’s March 2026 Cambois announcement provides an AI-specific construction example: four diverse fiber routes. A carrier contract and a separate site entrance do not prove every mile avoids a shared trench, bridge or upstream node.
 
+Makeup water is replacement water added to a cooling tower for evaporation, blowdown and other losses. The term describes its function, not whether it is drinking water, reclaimed wastewater or another suitable supply. Climate and water availability constrain site choice; the cooling chapters explain the equipment and temperature and water balances.
+
 ## Secure the parcel and the rights across it
 
 A land-purchase option gives the developer a time-limited right to buy on agreed terms without an obligation to complete the purchase. The option is commonly paid for. It can reserve the purchase decision while the developer investigates the site; testing access, extensions and other permissions still depend on the agreement. If the conditions cannot be resolved before expiry, the developer may need to negotiate an extension or let the option lapse.
@@ -1425,6 +1433,8 @@ New Era’s August 14, 2026 issuer update said all 493 acres for Texas Critical 
 
 The release establishes an outstanding agreement, not a quantified mineral-caused delay. Another actual contract, Fermi’s May 2025 Project Matador ground lease, made a surface waiver a commencement condition unless the tenant waived it. Its later filing reports commencement in September 2025 after conditions were satisfied or waived. Agreements can resolve surface use without buying every mineral interest.
 
+The accompanying SemiAnalysis chart supplies scale context: its August 24, 2026 BTM Tracker assigns about 17 GW of booked onsite generating capacity to named Texas sites, more than any other named state. Another 29 GW has no site selected. These are orders for generator nameplate, excluding batteries, not operating IT capacity or counts of data centers. It does not establish that Texas hosts most existing data centers.
+
 ## Case study: Getty v. Jones: conflicting surface uses
 
 In Getty Oil v. Jones (Texas Supreme Court, 1971), an established irrigation system needed seven feet of clearance while Getty’s pumpjacks reached 17 and 34 feet. Other operators showed lower-profile or recessed alternatives. The court held that reasonable mineral use can require accommodating an existing surface use where reasonable mineral-development alternatives are available and the surface owner has no reasonable alternative for continuing that existing use.
@@ -1449,6 +1459,8 @@ QTS operates a 53-acre colocation campus in Suwanee, Georgia. Its two data-cente
 
 QTS’s January 2023 article described diverse campus fiber entrances and separately proposed four entrances for DC2. Its current campus page describes redundant campus conduits as in progress. These are dated statements with different scopes, so the following teaching sketches do not certify completion of the whole campus conduit system.
 
+The DC1 connectivity sheet identifies three diverse underground fiber entry laterals. That count differs from the four entrances proposed for DC2 in January 2023. The consolidated slide shows the original campus plan beside a shared-entry counterexample and a three-entry topology sketch. Neither sketch claims to reproduce surveyed cable geometry.
+
 ## Case study: Rogers Toronto: screen the chillers
 
 Parklane’s account of the Rogers headquarters data-center retrofit in Toronto describes rooftop chillers opposite residences and a 15-foot acoustic screen. Sixteen factory-built wall sections were installed in one ten-hour day. With little staging space, the sections were lifted from delivery trucks onto precisely positioned columns.
@@ -1462,6 +1474,10 @@ ADA’s June 2024 announcement planned three data-center buildings in East Londo
 ## Context: Hurricane Harvey in Houston
 
 Harvey reached the Texas coast on August 25, 2017. Its slow movement sustained heavy rainfall, with flash flooding across Harris County on August 26–27 and worsening floods on August 29–30. The dated TxDOT image shows Houston-area road flooding; Equinix’s separate accounts establish the HO1 operating and access consequences.
+
+## Knowledge check: expand a live campus
+
+Hall B excavation would cross the access road and shared fiber duct serving live Hall A. An alternative corridor has unresolved surface-use rights. Propose the construction sequence that preserves Hall A. Resolve the corridor rights, establish alternate access and tested replacement fiber, then transfer service before excavation. If the corridor cannot be secured, change the layout or schedule. Preserving only the road or only the fiber is insufficient.
 
 ## Worked example: The smaller parcel meets the opening brief
 
@@ -1544,6 +1560,7 @@ A replacement route or changed service requirement would need explicit acceptanc
 - [Parklane — Rogers headquarters data-center acoustic screen](https://parklanemechanical.com/noise-control-case-studies/rogers-head-office) — Rogers Toronto rooftop chiller barrier: 15 feet high, 16 factory-built sections installed in one ten-hour day; actual installed photograph. Read 2026-09-13. Vendor project account; no measured decibel reduction or photo capture date provided.
 - [ADA Infrastructure — Docklands campus planning announcement](https://adainfrastructure.com/en-US/insights/news/ada-infrastructure-approved-to-develop-210-mw-data-center-campus-in-east-londons-royal-docks) — Introduce the Royal Docks setting and three planned data-center buildings; identify the proposed campus visualization. Read 2026-09-13. Historical planning announcement. Do not treat the image or planned capacity as completed construction or current operating power. Existing P144 supports the ground conditions and engineering response.
 - [National Weather Service Houston/Galveston — Hurricane Harvey](https://www.weather.gov/hgx/hurricaneharvey) — Establish the August 25 coastal landfall, slow storm passage, Harris County flash flooding during August 26–27 and more heavy rain August 29–30; identify the dated TxDOT Houston-area flood photograph. Read 2026-09-13. Regional event context, not an HO1 flood map, its access route or bridge failure. Existing P145/P146 separately support the facility-specific operating and staff response. No rainfall maximum assigned to Houston or HO1.
+- [QTS — Suwanee DC1 connectivity facility sheet](https://qtsdatacenters.com/wp-content/uploads/2024/11/QTS_Facility-Data-Sheet_SUW1DC1.pdf) — DC1 is documented with three diverse underground fiber entry laterals. Read 2026-09-14. Official PDF indexed text reviewed; direct PDF retrieval returned 404. Search index retains the DC1 heading, 300 Satellite Boulevard address and three-lateral statement. The campus image does not disclose surveyed cable routes. DC2 has a separate January 2023 four-entrance proposal.
 
 ## A shared boundary can defeat two independent systems
 

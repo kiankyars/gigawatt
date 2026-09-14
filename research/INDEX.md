@@ -218,6 +218,9 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P174 — NVIDIA — Memory management on hardware-coherent platforms](sources/P174.md) | NVIDIA | D07 | page_reviewed |
 | [P175 — NVIDIA DGX GB Rack Scale Systems — System Health Check](sources/P175.md) | NVIDIA | D07 | page_reviewed |
 | [P176 — NVIDIA — Nonuniform Tensor Parallelism and training goodput](sources/P176.md) | NVIDIA | D07 | page_reviewed |
+| [P177 — QTS — Suwanee DC1 connectivity facility sheet](sources/P177.md) | QTS | D12, D08 | public_excerpt_reviewed |
+| [P178 — US Census TIGERweb — Tennessee state boundary and Tulane Road geocode](sources/P178.md) | US Census Bureau | D03, D12 | page_reviewed |
+| [P179 — USGS National Map — Southaven geographic imagery](sources/P179.md) | US Geological Survey | D03 | page_reviewed |
 | [P18 — OpenStax — 20.5 Alternating Current versus Direct Current (College Physics 2e)](sources/P18.md) | OpenStax, Rice University | D01, D04, D06 | page_reviewed |
 | [P19 — Steven H. Low — Power System Analysis: Analytical tools and structural properties (April 7, 2025 draft)](sources/P19.md) | Steven H. Low, California Institute of Technology | D04, D06 | page_reviewed |
 | [P20 — Wolfspeed — Powering AI with reliable SiC-based solid-state transformers](sources/P20.md) | Wolfspeed | D04, D06 | page_reviewed |

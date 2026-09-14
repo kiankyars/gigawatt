@@ -111,6 +111,39 @@ class TeachingCatalogTests(unittest.TestCase):
         with self.assertRaisesRegex(b.ExpansionError, "missing teaching presentation"):
             self.resolve()
 
+    def test_handoff_uses_next_chapter_reading_and_preserves_presentation_entry(self):
+        chapters = self.resolve()
+        route = b.presentation_routes(chapters)[0]
+        self.assertEqual(route["path"], "deck.html")
+        self.assertEqual(route["next"], {
+            "number": 4,
+            "title": "Put the system together",
+            "href": "../index.html#exercise",
+            "kind": "reading",
+        })
+        chapters[1]["presentations"] = [{"id": "previous", "href": "prototypes/previous.html"}]
+        previous = b.presentation_routes(chapters)[0]
+        self.assertEqual(previous["next"]["href"], "deck.html?teach=1#start")
+        self.assertEqual(previous["next"]["number"], 3)
+
+    def test_shared_deck_handoff_starts_after_last_covered_chapter(self):
+        chapters = self.resolve()
+        chapters[1]["presentations"] = deepcopy(chapters[2]["presentations"])
+        routes = b.presentation_routes(chapters)
+        self.assertEqual(len(routes), 1)
+        self.assertEqual(routes[0]["next"]["number"], 4)
+        chapters[-1]["presentations"] = deepcopy(chapters[2]["presentations"])
+        self.assertIsNone(b.presentation_routes(chapters)[0]["next"])
+
+    def test_handoff_paths_are_rebased_by_site_staging(self):
+        from gigawatt.stage_site import published_text
+
+        generated = b.presentation_identities(b.load_course()["chapters"])
+        staged = published_text(generated, "course/prototypes/teaching-navigation.js")
+        self.assertIn('"path": "siting.html"', staged)
+        self.assertIn('"href": "site-design.html?teach=1"', staged)
+        self.assertNotIn("-format.html", staged)
+
     def test_invalid_catalog_routes_and_duplicate_placements_fail(self):
         cases = []
         duplicate = deepcopy(self.catalog)

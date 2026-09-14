@@ -156,7 +156,8 @@ async function checkNavigation(page) {
  assert.equal(new URL(page.url()).hash,"#workload-purpose");await page.keyboard.press("ArrowRight");
  assert.equal(new URL(page.url()).hash,"#model-work");
  await page.locator("#scenes").selectOption("next-brief");assert.equal(await page.locator("#next").isDisabled(),true);
- assert.match(await page.locator("#actions a").getAttribute("href"),/^siting(?:-format)?\.html\?teach=1$/);
+ assert.match(new URL(await page.locator(".course-next-chapter").getAttribute("href"),page.url()).pathname,/\/siting(?:-format)?\.html$/);
+ assert.equal(await page.locator(".course-next-chapter").textContent(),"Next chapter →");
  assert.equal(await page.locator("#reveal").count(),0);
  await page.locator("#previous").click();assert.equal(new URL(page.url()).hash,"#service-checkin");
  const reading = page.locator(".toolbar a[data-course-reading]");

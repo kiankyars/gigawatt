@@ -244,3 +244,19 @@ omits a fixed stack count and does not treat aggregate coherent memory as one
 uniform-bandwidth pool. The visual pass corrected the initial roofline axis/path
 mismatch, the NVSwitch enclosure boundary, the weight-vector dimensions and the
 interposer callout before publication.
+
+
+## Chapters 4–5 review and shared handoff — 14 September 2026
+
+| Request | Resolution |
+| --- | --- |
+| Clarify MZX and put the state boundary on the actual site slide | `southaven-plan` combines Census-registered geographic context and original permit plan. MZX is the applicant; Trinity Consultants is the consultant. The separate border slide is removed; its hash redirects. |
+| Remove Odessa subtitle; judge Getty relevance | Subtitle removed. Getty remains in the reading as background to surface rights, with no standalone presentation detour. |
+| Add SemiAnalysis’s Texas chart beside Odessa | Original chart embedded unchanged. Its 17 GW is booked onsite generation at named Texas sites, not a count of data centers; 29 GW without a chosen site remains visible. |
+| Merge QTS context and entrance diagrams | One slide contains the original campus plan and shared-entry counterexample beside three-entry DC1 topology. DC2’s four proposed entrances are distinct in the reader. Exact cable geometry is not invented. |
+| Clarify cooling’s role and makeup water | Chapter 5 is the siting preview. Title links design to climate/water; replacement-water meaning is explained in the reader and slide label. The cooling sequence retains the deeper mechanisms. |
+| Remove hot-swap conclusions and exit-corridor slide | Both repeated conclusions removed; egress slide removed and old hash redirects to the new check. |
+| Better knowledge check | Live Hall A, Hall B excavation and an unresolved alternate corridor: sequence rights, alternate access and tested fiber, transfer, then excavation. |
+| Automatic final-slide chapter jump | Shared footer uses generated teaching-catalog order. Bespoke workload/siting/continuity links removed. No chapter skips when slides are missing: the next chapter’s reading opens. |
+
+Visual and behavior validation is recorded in TESTING.md. These are revisions awaiting author review, not a claim of acceptance.

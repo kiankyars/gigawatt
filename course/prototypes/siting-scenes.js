@@ -199,24 +199,13 @@ export const scenes=[
     ]
   },
   {
-    "id": "southaven-border",
-    "label": "Southaven: across the state line",
-    "title": "The data center and its power plant sit across a state line.",
-    "reference": "../index.html#d03-service-and-siting",
-    "boundary": "Colossus 2 / Memphis, Tennessee; MZX generation / Southaven, Mississippi. Historical 2025 siting account.",
-    "explanation": [
-      "Colossus 2 on Tulane Road is in Memphis, Tennessee. MZX’s generating site is on Stanton Road in Southaven, Mississippi. SemiAnalysis’s September 2025 report explicitly links the cross-border siting choice to pushback in Tennessee and Mississippi’s temporary-turbine approval, and reports medium-voltage lines connecting the sites. Nearby parcels can fall under different permitting authorities, while electricity still needs a physical connection.",
-      "The July 2025 Mississippi determination applied conditions to mobile turbines remaining less than twelve months. It was not indefinite permission. On July 30, 2026, SpaceXAI reported an agreed removal timeline for 69 temporary turbines, with a July 2027 deadline, while a permitted permanent plant was being built. These are dated permissions and operator statements, not proof of completed removal. TVA’s Southaven combined-cycle station is a separate plant."
-    ]
-  },
-  {
     "id": "southaven-plan",
     "label": "Southaven: actual site plan",
-    "title": "Southaven’s permit application puts generation beside the compute campus.",
+    "title": "Colossus 2 and its power plant sit on opposite sides of the state line.",
     "reference": "../index.html#d03-service-and-siting",
     "boundary": "MZX Tech LLC · January 2026 application · historical proposed site, not current as-built status.",
     "explanation": [
-      "The original application site map locates MZX Tech’s proposed generating facility in Southaven, Mississippi. The January 2026 application described 41 simple-cycle gas turbines and approximately 1.2 GW of generating nameplate. Its map retains the original Airbus 2025 imagery credit.",
+      "MZX Tech LLC is the applicant for the generating project; Trinity Consultants prepared its permit submission. Colossus 2 is at 5420 Tulane Road in Memphis, Tennessee; the generating plant is at 2875 Stanton Road South in Southaven, Mississippi. A wider USGS context image carries the coordinate-registered Census state boundary and address/permit location markers. The original application site map locates MZX Tech’s proposed generating facility in Southaven, Mississippi. The January 2026 application described 41 simple-cycle gas turbines and approximately 1.2 GW of generating nameplate. Its map retains the original Airbus 2025 imagery credit.",
       "This is a historical plan, not a September operating-capacity claim. On the following process drawing, follow the proposed generation-to-data-center relationship. The later procurement account is a separate analyst source; this permit does not specify the 34.5 kV or 161 kV comparison inputs."
     ]
   },
@@ -288,6 +277,7 @@ export const scenes=[
   }
 ];
 export const legacySceneAliases=Object.freeze({
+  "southaven-border": "southaven-plan",
   "purchased-energy": "config-grid-supplied",
   "hourly-match": "config-off-grid",
   "storage-match": "config-off-grid",

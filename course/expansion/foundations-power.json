@@ -1467,6 +1467,12 @@
           "On-site supply can make an earlier phase feasible while creating its own fuel, emissions, cooling, control and maintenance dependencies. A grid-parallel site that normally imports little power may need much more import capacity when a generator fails. An import agreement sized only for normal operation leaves this changed state unresolved unless the design establishes reserve generation, storage or an acceptable reduction in load. Generation nameplate does not by itself resolve the service requirement.",
           "The final choice should state a complete service envelope: how much load, beginning when, under which normal and degraded conditions, and with which remaining uncertainties. This converts a location comparison into an infrastructure decision. It also identifies where further work has the greatest value: the dependency controlling the delivery date, the capacity limiting accepted load, or the operating condition that breaks the proposed service promise."
         ]
+      },
+      {
+        "heading": "Reading the Southaven map",
+        "paragraphs": [
+          "MZX Tech LLC is the generating-project applicant. Trinity Consultants prepared its permit submission, as the January 14, 2026 cover email states. Colossus 2’s Tulane Road site is in Memphis, Tennessee; the generating plant at 2875 Stanton Road South is in Southaven, Mississippi. The slide places Census state-boundary geometry over a wider USGS historical aerial, alongside the original permit plan. This replaces the separate schematic border slide. The address marker locates the site rather than current equipment visible in the historical image."
+        ]
       }
     ],
     "example": {
@@ -1778,6 +1784,20 @@
         "claim": "The 10 GW commitment concerns Stargate’s wider US buildout, distinct from the Abilene campus plan and current operating load.",
         "reviewed_on": "2026-09-13",
         "limits": "Main article and visible October 22, 2025 update inspected on September 6, 2026. This lesson audits the dated statements; it does not establish current operating MW, complete topology or site economics."
+      },
+      {
+        "title": "US Census TIGERweb — Tennessee state boundary and Tulane Road geocode",
+        "url": "https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/0",
+        "claim": "Coordinate geometry for the Tennessee/Mississippi line in the Southaven site slide.",
+        "reviewed_on": "2026-09-14",
+        "limits": "Tennessee polygon queried in WGS84 and local boundary vertices transformed into the exact raster extent returned by USGS. Census geocoding of 5420 Tulane Road supplies a road-address point, not a building centroid. Source queries and transform metadata preserved in southaven-geography.provenance.json."
+      },
+      {
+        "title": "USGS National Map — Southaven geographic imagery",
+        "url": "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer",
+        "claim": "Wider photographic geographic context around the Southaven generating plant and Colossus 2 site.",
+        "reviewed_on": "2026-09-14",
+        "limits": "Historic imagery used to locate the two sites across the state boundary, not to depict current construction. Retrieval date does not establish capture date; Colossus marker identifies site address rather than depicted operating hardware. Exact returned extent saved with asset provenance."
       }
     ],
     "terms": [

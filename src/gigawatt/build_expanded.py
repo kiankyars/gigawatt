@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import posixpath
 import re
 from copy import deepcopy
 from pathlib import Path
@@ -349,7 +350,45 @@ def presentation_identities(chapters):
         "export const presentationLabels = Object.freeze("
         + json.dumps(labels, ensure_ascii=False, indent=2).replace("<", "\\u003c")
         + ");\n"
+        + "export const presentationRoutes = Object.freeze("
+        + json.dumps(
+            presentation_routes(chapters), ensure_ascii=False, indent=2
+        ).replace("<", "\\u003c")
+        + ");\n"
     )
+
+
+def presentation_routes(chapters):
+    """Derive chapter handoffs, relative to the generated navigation module."""
+    presentations = {}
+    for index, chapter in enumerate(chapters):
+        for presentation in chapter["presentations"]:
+            item = presentations.setdefault(presentation["id"], {"paths": set()})
+            item["paths"].add(urlsplit(presentation["href"]).path)
+            item["last_chapter"] = index
+    routes = []
+    for item in presentations.values():
+        next_index = item["last_chapter"] + 1
+        destination = None
+        if next_index < len(chapters):
+            chapter = chapters[next_index]
+            if chapter["presentations"]:
+                href = chapter["presentations"][0]["href"]
+                kind = "slides"
+            else:
+                href = "index.html"
+                if chapter["lesson_ids"]:
+                    href += "#" + chapter["lesson_ids"][0]
+                kind = "reading"
+            destination = {
+                "number": chapter["number"],
+                "title": chapter["title"],
+                "href": posixpath.relpath(href, "prototypes"),
+                "kind": kind,
+            }
+        for path in sorted(item["paths"]):
+            routes.append({"path": posixpath.relpath(path, "prototypes"), "next": destination})
+    return routes
 
 
 def load_course(root=ROOT):
