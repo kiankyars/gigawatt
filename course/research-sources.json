@@ -4485,6 +4485,34 @@
       ],
       "use": "Wider photographic geographic context around the Southaven generating plant and Colossus 2 site.",
       "caution": "Historic imagery used to locate the two sites across the state boundary, not to depict current construction. Retrieval date does not establish capture date; Colossus marker identifies site address rather than depicted operating hardware. Exact returned extent saved with asset provenance."
+    },
+    {
+      "id": "P180",
+      "title": "Siemens — NXAirS medium-voltage switchgear HA 1702 sectional illustration",
+      "url": "https://cache.industry.siemens.com/dl/files/485/109972485/att_1290488/v1/1702_NXAirS_12kV_Catalogue_EN_final.pdf",
+      "publisher": "Siemens",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-14",
+      "domains": [
+        "D04"
+      ],
+      "use": "Real panel compartments and original manufacturer sectional illustration.",
+      "caution": "2024 A catalog page 12 visually reviewed; original embedded images extracted with transparency. This up-to-12-kV product example is distinct from the 13.8-kV teaching circuit and Compass 8DJH 36 skid."
+    },
+    {
+      "id": "P181",
+      "title": "Schneider Electric — Galaxy PDU 1000 kVA distribution voltages",
+      "url": "https://blog.se.com/datacenter/2026/05/18/solving-densification-power-distribution-metering-high-performance-computing/",
+      "publisher": "Schneider Electric",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-14",
+      "domains": [
+        "D04"
+      ],
+      "use": "Floor-PDU output voltage is product-specific: Galaxy 1000 kVA uses 480 V input and 400 or 415 V output.",
+      "caution": "Official May 18, 2026 product article reviewed. Product configuration example, not universal PDU behavior or an installed-campus voltage claim."
     }
   ]
 }

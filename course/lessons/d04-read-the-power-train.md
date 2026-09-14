@@ -40,7 +40,7 @@ A good reading exercise ends with questions, not just labels. Which load does th
 
 ## Compass: package two electrical jobs together
 
-Siemens and Compass co-developed a medium-voltage skid containing switchgear and a transformer. The factory package makes a repeatable interface, while its electrical functions remain distinct: switchgear connects and isolates circuits; the transformer changes AC voltage. The project photograph shows the switchgear portion. Neither the 8DJH 36 family name nor the skid exterior supplies the operating voltage and usable rating of an installed campus path.
+Siemens and Compass jointly developed the custom modular medium-voltage skid. Siemens supplies the factory-built switchgear-and-transformer package; Compass is the data-center customer, not a Siemens catalog family. Its two functions remain distinct: switchgear makes and protects connections, while the transformer changes AC voltage. The original Siemens photograph shows the switchgear portion. The transformer is not visible in that photograph.
 
 ## Fujitsu: put flexible circuits beside the load
 
@@ -50,11 +50,13 @@ A Starline case study, first published in December 2018, describes an extension 
 
 The slides use a separate row example with balanced 415 V line-to-line AC, power factor one, and a supplied 250 A usable current budget. Three 40 kW racks demand about 167 A at the end feed; four demand 223 A. Each branch remains about 56 A. After each tap, a downstream bus segment carries only the loads beyond it. The interactive fifth-rack state demands about 278 A at the end feed and exceeds the supplied budget. These are teaching inputs, not Fujitsu operating measurements or a conductor-sizing result.
 
-## Return to Abilene with the right evidence
+## Trace the path through both transformer stages
 
-Oracle’s July 15, 2026 data-hall aerial locates the recurring original Abilene campus. Use a building in that image to pose the distribution question: which feeder, transformer, bus and branch supplies its IT and supporting equipment? The image cannot answer its one-line topology, voltage or ratings. The following campus model therefore supplies explicit 13.8 kV and 480 V interfaces to practice tracing a complete load path.
+The interactive teaching network starts at a 138 kV AC grid connection. A campus transformer supplies 13.8 kV medium-voltage switchgear, and a hall transformer supplies the 480 V building bus. IT and cooling branch from that bus; the future hall has a separate open medium-voltage feeder. Selecting a load highlights every upstream stage. These are defined teaching voltages, not an inferred Abilene topology. The standalone Abilene photograph is omitted from the presentation because it did not explain any of these connections.
 
 ## Inside the switchgear: sensing, decision and interruption
+
+The slide uses the original sectional illustration from the Siemens NXAirS catalog, HA 1702, page 12. It locates the shared busbar, withdrawable circuit breaker, outgoing cable connection and low-voltage protection/control compartment inside a real panel. This product family is rated up to 12 kV and is separate from the generic 13.8 kV campus circuit and the Compass 8DJH 36 skid.
 
 A breaker-based feeder assembly separates the power path from its control path. The bus and breaker conduct feeder current. A current transformer supplies a scaled measurement to a protection relay. If the protection criteria are met, the relay commands the breaker to trip. Contacts and an interrupting chamber must then stop the power current. A recorded trip command therefore does not prove successful interruption: continuing fault current can trigger breaker-failure or other backup protection and enlarge the interrupted area. The course diagram is conceptual; actual switching devices, sensors and protection arrangements vary.
 
@@ -66,6 +68,8 @@ A plain disconnector provides an isolation gap and is not assigned fault-current
 
 In 480Y/277 V notation, Y identifies a wye-connected system: 480 V RMS is measured between phases, while 277 V RMS is measured from one phase to neutral. N means neutral; PE means protective earth. Neutral can carry return current for phase-to-neutral loads. Protective earth connects exposed conductive parts into the protective arrangement, rather than being another phase. A single-line diagram compresses the multiphase circuit into a readable path; it is not a count of physical wires.
 
+The paired drawings use the same switchboard-to-rack-PDU circuit: one electrical line on the left, three phase conductors plus neutral and protective earth on the right. Five conductors belong to this chosen example, not every AC circuit. The phase-to-phase voltage is the phase-to-neutral voltage multiplied by √3, so 480Y/277 V is consistent; a 400 V wye system would instead be approximately 400Y/230 V.
+
 ## A real transformer operating range is separate from taps
 
 The Primer now shows Schneider Electric’s Phaseo ABL6TS25B, a 250 VA controls transformer. Its datasheet specifies 360–440 V input on the nominal 400 V connection, or 207–253 V on the 230 V connection, with a 47–63 Hz frequency range. Its secondary is rated 24 V AC; that is not a promise of regulated output throughout the input range. The separate ±15 V compensation taps and dielectric test voltage are not the input-voltage limits. These published limits apply to this controls-scale product, not automatically to a medium-voltage hall transformer.
@@ -73,6 +77,14 @@ The Primer now shows Schneider Electric’s Phaseo ABL6TS25B, a 250 VA controls 
 ## Where conversion placement is taught
 
 Chapter 6 follows normal AC distribution through switchgear, building branches and row busway. The Primer teaches the transformer ratio, taps and a real input range. Chapter 7 develops continuity and fault response. Chapter 8 owns the rectification-placement, solid-state-transformer and 800 V transition sequence, including the historical Green Zurich-West 380 V DC case. The D04.3 conversion-placement objective is taught there rather than repeated in Chapter 6. Conventional building auxiliaries can still require AC when compatible IT is supplied with DC.
+
+## A PDU name does not specify a transformation ratio
+
+A floor PDU distributes branches and may include an isolation/step-down transformer, metering and protection. A rack PDU distributes an existing supply to outlets. A PSU converts AC to the DC needed by its load. The slide compares these jobs without prescribing universal voltages. As a concrete counterexample to a universal 480-to-208 V claim, Schneider’s Galaxy 1000 kVA PDU accepts 480 V three-phase and supplies 400 or 415 V, according to its May 2026 product article.
+
+## When backup protection widens the interruption
+
+Hall A and Hall B share an incoming breaker and bus, with one outgoing feeder breaker per hall. A fault occurs on Hall A’s feeder. The relay issues a trip, but that feeder breaker fails to interrupt. The exercise asks which load connections upstream backup must disconnect: opening the incoming breaker removes the continuing fault current and also disconnects Hall B, despite no local fault there. A separate healthy feeder does not create an independent upstream supply. Chapter 7 continues from this shared dependency to UPS systems, alternate paths and the cooling loads needed to preserve service.
 
 ## Worked example: Opening a phase with two electrical constraints
 
@@ -132,3 +144,5 @@ The IT branch remains below 4.8 MW. The increased support load matters at the wi
 - [Siemens — Vacuum Switching Technology and Components](https://support.industry.siemens.com/cs/attachments/109745538/HG11.01_EN_20190603.pdf) — Metal-oxide surge arresters become conductive during overvoltage and divert surge current, commonly phase to earth. Read 2026-09-13. Public indexed catalog passage on page 30 reviewed; direct PDF open failed. No ratings or internal construction are copied into the conceptual diagram.
 - [Siemens — SIPROTEC 7SD610 circuit breaker failure protection](https://support.industry.siemens.com/cs/attachments/109743409/7SD610_Manual_A8_V044100_en.pdf) — A feeder protection relay issues a trip; persistent fault current after the command can require backup interruption by other breakers. Read 2026-09-13. Public indexed section 2.13 reviewed. Course omits timing values, configuration instructions and a specific installed topology.
 - [Schneider Electric — Transformer secondary voltage notation](https://acespex.se.com/rpt/prodhelp.php?doc=pms_0044&grp=spex_pms&host=CTW&ndx=21283) — 480Y/277 gives the wye phase-to-phase voltage followed by the phase-to-neutral voltage. Read 2026-09-13. Published short technical entry reviewed. Conductor selection and grounding system are not prescribed.
+- [Siemens — NXAirS medium-voltage switchgear HA 1702 sectional illustration](https://cache.industry.siemens.com/dl/files/485/109972485/att_1290488/v1/1702_NXAirS_12kV_Catalogue_EN_final.pdf) — Real panel compartments and original manufacturer sectional illustration. Read 2026-09-14. 2024 A catalog page 12 visually reviewed; original embedded images extracted with transparency. This up-to-12-kV product example is distinct from the 13.8-kV teaching circuit and Compass 8DJH 36 skid.
+- [Schneider Electric — Galaxy PDU 1000 kVA distribution voltages](https://blog.se.com/datacenter/2026/05/18/solving-densification-power-distribution-metering-high-performance-computing/) — Floor-PDU output voltage is product-specific: Galaxy 1000 kVA uses 480 V input and 400 or 415 V output. Read 2026-09-14. Official May 18, 2026 product article reviewed. Product configuration example, not universal PDU behavior or an installed-campus voltage claim.

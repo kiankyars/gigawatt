@@ -34,6 +34,7 @@ test('busway segment current sums downstream branches',()=>{
 test('open future feeder stops supply without erasing the physical route',()=>{
  assert.equal(traceLoad('future').energized,false);assert.equal(traceLoad('future').stopsAt,'future-feeder');
  assert.equal(traceLoad('future',{futureClosed:true}).energized,true);
+ assert.ok(traceLoad('row').path.includes('high-voltage-grid'));assert.ok(traceLoad('row').path.includes('campus-transformer'));
  assert.ok(traceLoad('row').path.includes('transformer'));assert.ok(traceLoad('cooling').path.includes('transformer'));
  assert.ok(!traceLoad('cooling').path.includes('it-feeder'));
 });

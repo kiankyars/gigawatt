@@ -297,3 +297,13 @@ model as each section develops: component, job, location, interfaces and relevan
 operating and surviving capacity. State the configuration when it changes.
 A local material saving does not become a facility-wide saving by implication,
 and the educational inventory is not a procurement specification.
+
+### Chapter 6 follow-up — 2026-09-14
+
+Show the entire upstream path through high-voltage AC when asking the learner to
+trace a load. A component close-up follows its location in that path. Use the
+manufacturer's sectional view for equipment anatomy, then use circuit diagrams
+for its function. Introduce busway before a tap-off; identify a jointly developed
+product's supplier and customer on the slide. Generic PDU illustrations describe
+functions, while named equipment provides specific input/output voltages. The
+closing breaker-failure example changes the outage boundary of two connected halls.

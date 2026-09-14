@@ -1,0 +1,21 @@
+{
+  "source_title": "Siemens Air-Insulated Medium-Voltage Switchgear NXAirS, up to 12 kV, HA 1702, 2024 A",
+  "source_url": "https://cache.industry.siemens.com/dl/files/485/109972485/att_1290488/v1/1702_NXAirS_12kV_Catalogue_EN_final.pdf",
+  "product_page": "https://www.siemens.com/en-gb/products/energy-systems/nxairs/",
+  "retrieved": "2026-09-14",
+  "page": 12,
+  "source_credit": "Siemens, HA 1702 (2024), p. 12",
+  "rights": "Manufacturer-authored copyrighted reference figure. No open license asserted. Attribution retained in the course; used for commentary on the depicted equipment.",
+  "method": "Original embedded image extracted from official PDF with its transparency mask; converted to sRGB PNG. No AI generation, crop, retouching, or invented internal geometry. PDF vector callout numbers are separate and are not present in extracted raster.",
+  "scope": "NXAirS circuit-breaker panel example, rated family up to 12 kV. Not an 8DJH 36 Compass skid, not a 13.8 kV installation or exact campus design.",
+  "files": {
+    "distribution-siemens-nxairs-cutaway.png": {
+      "sha256": "c91dc89d5abbc54052d43f46f27a11708adedcdc1737a2969062c97557f890a2",
+      "pdf_xref": 79
+    },
+    "distribution-siemens-nxairs-front.png": {
+      "sha256": "4a8aed336a29e424602bd00ad9c386e66dd2f9c0a1065c447f7c0211d75c2837",
+      "pdf_xref": 83
+    }
+  }
+}

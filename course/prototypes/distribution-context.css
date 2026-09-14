@@ -1,0 +1,26 @@
+.distribution-context{min-width:0!important;min-height:0!important;overflow:visible}
+.branch-comparison{display:grid;grid-template-columns:1fr 1fr;gap:0;min-height:0;flex:1}
+.branch-comparison article{min-height:0;display:flex;flex-direction:column;padding:0 24px}
+.branch-comparison article+article{border-left:1px solid var(--line);padding-left:24px}
+.branch-comparison h2{margin:0;font-size:23px}
+.branch-comparison svg text{paint-order:stroke;stroke:var(--surface);stroke-width:7px;stroke-linejoin:round}
+.voltage-pair{display:flex;justify-content:center;gap:60px;font-size:19px;padding-bottom:12px}
+.voltage-pair strong{color:var(--power);font-size:25px;font-weight:500;margin-right:6px}
+.manufacturer-figure{margin:0;display:flex;flex-direction:column;flex:1;min-height:0;gap:8px}
+.manufacturer-figure figcaption{font-size:12px;text-align:center}
+.manufacturer-figure figcaption a{color:var(--muted)}
+.pf-rating{display:flex;justify-content:center;align-items:center;gap:16px;font-size:21px}
+.pf-rating strong{font-size:31px;font-weight:500;color:var(--power)}
+@media(max-width:600px){
+ .branch-comparison{grid-template-columns:1fr;gap:28px;flex:none}
+ .branch-comparison article{padding:0}
+ .branch-comparison article+article{border-left:0;border-top:1px solid var(--line);padding:24px 0 0}
+ .branch-comparison .distribution-context{flex:none;width:100%;height:auto}
+ .voltage-pair{flex-direction:column;gap:15px;align-items:center;font-size:17px}
+ .manufacturer-figure{flex:none}
+ .switchgear-mobile{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:12px;align-items:center}
+ .switchgear-mobile svg{background:#f8f8f3;border-radius:8px;min-height:0;flex:none}
+ .switchgear-mobile ol{padding-left:20px;margin:0;font-size:15px;line-height:1.4}
+ .switchgear-mobile li{margin:16px 0;padding-left:4px}
+ .pf-rating{gap:12px;font-size:16px}.pf-rating strong{font-size:25px}
+}

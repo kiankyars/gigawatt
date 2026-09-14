@@ -1,0 +1,6 @@
+/* These figures reflow their circuit geometry below 600px. */
+.equipment-system{height:100%;min-width:0;flex:1;overflow:visible}
+@media(max-width:600px){
+  .equipment-system{height:auto;min-width:0!important;min-height:0;flex:none;max-height:none;overflow:visible}
+  #stage:has(.equipment-system){overflow-x:visible}
+}

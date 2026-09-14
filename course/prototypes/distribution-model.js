@@ -65,9 +65,9 @@ export function rowBudget(loadsKW, { voltageLL = 415, powerFactor = 1, budgetA =
 }
 
 export const topology = Object.freeze({
-  row: ['service','campus-bus','hall-feeder','transformer','building-bus','it-feeder','row-bus','rack'],
-  cooling: ['service','campus-bus','hall-feeder','transformer','building-bus','cooling-feeder','pump'],
-  future: ['service','campus-bus','future-feeder','future-hall'],
+  row: ['high-voltage-grid','campus-transformer','service','campus-bus','hall-feeder','transformer','building-bus','it-feeder','row-bus','rack'],
+  cooling: ['high-voltage-grid','campus-transformer','service','campus-bus','hall-feeder','transformer','building-bus','cooling-feeder','pump'],
+  future: ['high-voltage-grid','campus-transformer','service','campus-bus','future-feeder','future-hall'],
 });
 export function traceLoad(load, { futureClosed = false } = {}) {
   if (!Object.hasOwn(topology,load)) throw new RangeError(`Unknown load: ${load}`);

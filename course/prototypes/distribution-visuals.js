@@ -1,5 +1,6 @@
 import { equipment } from './distribution-equipment.js';
-import { rowBudget, traceLoad } from './distribution-model.js';
+import { rowBudget } from './distribution-model.js';
+import { campusRoute, oneLine, switchgearAnatomy } from './distribution-context.js';
 import { scenes } from './distribution-scenes.js';
 
 const esc = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -21,48 +22,6 @@ const photo = (file,alt,credit,url) => `<figure class="case-photo"><img src="../
 const compassURL='https://www.siemens.com/en-us/company/insights/compass-datacenters-case-study/';
 const fujitsuURL='https://starlinepower.com/sites/default/files/files/starline_busway_fujitsu-case-study_US.pdf';
 const greenURL='https://library.e.abb.com/public/1afa6036874fd0bb85257d5000710a17/DC%20for%20efficiency.pdf';
-
-function campus(s,m) {
-  const active=traceLoad(s.load), on=id=>active.path.includes(id)?power:line;
-  if(m){
-    let o=wire('M120 60V90',on('campus-bus'))+wire('M120 160V195',on('hall-feeder'))+wire('M120 265V300',on('transformer'));
-    o+=box(40,5,220,55,'Campus connection','',on('service'));
-    o+=box(40,90,220,70,'MV switchgear','13.8 kV AC',on('campus-bus'));
-    o+=box(40,195,220,70,'Hall transformer','13.8 kV → 480 V',on('transformer'));
-    o+=box(40,300,220,65,'Building bus','480 V AC',on('building-bus'));
-    o+=wire('M120 365V400H60V445',on('row-bus'))+wire('M120 400H260V445',on('pump'));
-    o+=box(5,445,150,70,'IT path','Row → rack',on('rack'))+box(195,445,160,70,'Cooling','Drive → pump',on('pump'));
-    o+=wire('M260 125H345V205',on('future-feeder'))+wire('M345 205L322 229',on('future-feeder'))+wire('M345 245V262',line)+text(319,290,['Open','future','feeder'],15,muted);
-    return svg(o,'The selected load shares upstream campus equipment; IT and cooling branch after the building bus. The future feeder is open.',390,545);
-  }
-  let o=wire('M180 200H870',on('campus-bus'));
-  o+=box(10,160,170,80,'Connection','13.8 kV AC',on('service'));
-  o+=box(250,150,180,100,'MV switchgear','Shared campus bus',on('campus-bus'));
-  o+=box(500,155,175,90,'Transformer','13.8 kV → 480 V',on('transformer'));
-  o+=box(750,160,175,80,'Building bus','480 V AC',on('building-bus'));
-  o+=wire('M837 160V65H1010',on('row-bus'))+box(965,25,145,80,'IT path','Row → rack',on('rack'));
-  o+=wire('M837 240V330H1010',on('pump'))+box(965,290,145,80,'Cooling','Drive → pump',on('pump'));
-  o+=wire('M340 250V340H435',on('future-feeder'))+wire('M435 340L475 309',on('future-feeder'))+wire('M487 340H555',line)+box(555,305,165,75,'Future hall','Feeder open',line);
-  o+=text(585,124,'Hall feeder',17,muted);
-  return svg(o,'Trace the selected rack, cooling or future-hall path from the 13.8 kV campus supply. Dashed future feeder is open.');
-}
-
-function oneLine(m){
-  const w=m?390:1120;
-  let o=text(w/2,28,'480Y/277 V: Y means wye',23);
-  if(m){
-    o+=box(80,57,230,60,'Single-line view');o+=wire('M195 117V175');o+=box(80,175,230,55,'Rack branch');
-    o+=text(195,272,'Expanded conductors',23);
-    ['L1','L2','L3','N','PE'].forEach((v,i)=>{let x=55+i*68; o+=text(x,318,v,18)+wire(`M${x} 340V515`,i<3?power:muted,i===4);});
-    o+=text(195,558,['480 V: phase to phase','277 V: phase to neutral','N = neutral','PE = protective earth'],20);
-  } else {
-    o+=box(35,78,230,70,'Single-line view');o+=wire('M150 148V320')+box(35,320,230,60,'Rack branch');
-    o+=text(682,88,'The same circuit has several conductors',23);
-    ['L1','L2','L3','N','PE'].forEach((v,i)=>{let x=440+i*130;o+=text(x,132,v,19)+wire(`M${x} 150V300`,i<3?power:muted,i===4);});
-    o+=text(685,346,'480 V: phase to phase     277 V: phase to neutral',22)+text(685,382,'N = neutral     PE = protective earth',18,muted);
-  }
-  return svg(o,'A single-line diagram expands to three phases, neutral and protective earth in the specified 480Y/277 volt system.',w,m?640:420);
-}
 
 function row(s,m){
  const loads=Array(s.rowCount??3).fill(40), r=rowBudget(loads);
@@ -95,18 +54,19 @@ export function renderDistribution(id,state={},compact=false){
  let markup='';
  switch(id){
  case 'distribution-purpose':markup=art('distribution-campus-to-rack','Campus connection → building transformer → overhead row busway → rack load.');break;
- case 'abilene-distribution':markup=photo('distribution-abilene-data-halls.jpg','Oracle aerial of Abilene data halls.','Oracle · Abilene · 15 July 2026','https://www.oracle.com/data-centers/');break;
- case 'campus-route':markup=campus(s,m);break;
+ case 'campus-route':markup=campusRoute(s,m);break;
  case 'one-line':markup=oneLine(m);break;
- case 'switchgear-anatomy':case 'protection-relay':case 'isolation-surge':case 'phase-loading':case 'feeder-diagnosis':markup=equipment(id,s,m);break;
- case 'compass-skid':markup=`<div class="split">${photo('distribution-compass-switchgear.jpg','Factory view of the Siemens switchgear used in the Compass integrated medium-voltage skid case.','Siemens · Compass project',compassURL)}<div class="package-comparison"><div><h2>Separate equipment</h2><p>Switchgear + transformer</p><span>Site connections between assemblies</span></div><div><h2>Integrated skid</h2><p>Same two functions</p><span>Packaged for transport and site installation</span></div></div></div>`;break;
+ case 'switchgear-anatomy':markup=switchgearAnatomy(m);break;
+ case 'protection-relay':case 'isolation-surge':case 'surge-protection':case 'phase-loading':case 'feeder-diagnosis':markup=equipment(id,s,m);break;
+ case 'compass-skid':markup=`<div class="split">${photo('distribution-compass-switchgear.jpg','Original factory view of Siemens switchgear for the jointly developed Compass MV skid.','Siemens × Compass · factory switchgear',compassURL)}<div class="package-comparison"><div><h2>Custom factory-built skid</h2><p>MV switchgear + transformer</p></div><div><h2>Co-developed with Compass</h2><p>Manufactured by Siemens</p></div></div></div>`;break;
  case 'local-stepdown':markup=art('distribution-transformer-location','Two balanced 2 MW, PF 1 routes: early step-down carries 2,406 A over 470 m; step-down beside the hall carries 84 A at 13.8 kV over 450 m and 2,406 A at 480 V over the final 20 m. Losses neglected.');break;
  case 'building-branches':markup=building(m);break;
- case 'distribution-units':markup=art('distribution-pdu-psu','Illustrative equipment: a transformer-equipped floor PDU changes 480 V AC to 208 V AC and distributes branches; a rack PDU distributes 208 V AC to outlets; a server PSU converts 208 V AC to 12 V DC.');break;
+ case 'distribution-units':markup=art('distribution-pdu-psu','Generic equipment functions: floor PDU distributes branches with an optional transformer; rack PDU distributes AC to outlets; server PSU converts AC to DC. Exact voltages depend on the product.');break;
+ case 'busway-introduction':markup=art('distribution-busway','An enclosed overhead busway has one end feed and a shared conductor housing above three racks. Tap-off boxes connect individual rack cables to the busway.');break;
  case 'busway-branches':markup=`<div class="split">${photo('distribution-fujitsu-tapoffs.jpg','A busway tap-off enclosure with branch connectors in the Fujitsu case.','Starline / Legrand · tap-off',fujitsuURL)}<div class="stack">${flow(node('End feed','Power enters busway'),node('Tap-off box','Connects a protected branch'),node('Cable to rack','Rack PDU or power shelf'))}</div></div>`;break;
  case 'fujitsu-busway':markup=`<div class="split">${photo('distribution-fujitsu-outlets.jpg','Overhead busway branch outlets in the Fujitsu case study.','Starline / Legrand · Fujitsu · 2018',fujitsuURL)}<div class="case-points"><strong>250 A Track Busway</strong><p>New branches near changing rack loads</p><p>Metering at each tap-off</p><p>Underfloor cooling path stays clear</p></div></div>`;break;
  case 'row-growth':markup=row(s,m);break;
- case 'power-factor':{const pf=s.powerFactor??1,p=900,kva=p/pf,amps=kva*1000/(Math.sqrt(3)*480);markup=inputs('900 kW real AC input · balanced 480 V line-to-line · illustrative 1,000 kVA transformer')+`<div class="equation">S = P / PF</div>`+strip(fact('900 kW','Real input'),fact(`${n(kva,0)} kVA`,'Transformer loading',kva>1000?'warm':''),fact(`${n(amps,0)} A`,'Line current'))+`<div class="rating-track"><span style="width:${Math.min(kva/1200*100,100)}%"></span><i style="left:83.333%"></i></div><p class="inputs">1,000 kVA rating · I = S / (√3 × V<sub>LL</sub>)</p>`;break;}
+ case 'power-factor':{const pf=s.powerFactor??1,p=900,kva=p/pf,amps=kva*1000/(Math.sqrt(3)*480);markup=`<div class="pf-rating"><strong>1,000 kVA</strong><span>Transformer rating</span></div><div class="equation">S = P / PF</div>`+strip(fact('900 kW','Real input'),fact(`${n(kva,0)} kVA`,'Transformer loading',kva>1000?'warm':''),fact(`${n(amps,0)} A`,'Current at 480 V'))+`<div class="rating-track"><span style="width:${Math.min(kva/1200*100,100)}%"></span><i style="left:83.333%"></i></div>`;break;}
  case 'distribution-handoff':markup=art('distribution-interruption','An open common feeder interrupts the path to a switchboard and both its compute-rack and cooling/control branches.');break;
  default:throw new RangeError(`Unknown distribution scene: ${id}`);
  }

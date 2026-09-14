@@ -561,6 +561,8 @@ Reconcile IT and auxiliary loads with a downstream electrical capacity budget ac
 - [P162 — Siemens — SIPROTEC 7SD610 circuit breaker failure protection](https://support.industry.siemens.com/cs/attachments/109743409/7SD610_Manual_A8_V044100_en.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P162.md)
 - [P163 — Equinix — Customer Installation Guidelines, phase balancing](https://docs.equinix.com/assets/files/Customer-Installation-Guidelines-EN-5d94e7d67671467cab7d7c9877ef5229.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P163.md)
 - [P164 — Schneider Electric — Transformer secondary voltage notation](https://acespex.se.com/rpt/prodhelp.php?doc=pms_0044&grp=spex_pms&host=CTW&ndx=21283) · `page_reviewed` · [local note](../research/sources/P164.md)
+- [P180 — Siemens — NXAirS medium-voltage switchgear HA 1702 sectional illustration](https://cache.industry.siemens.com/dl/files/485/109972485/att_1290488/v1/1702_NXAirS_12kV_Catalogue_EN_final.pdf) · `page_reviewed` · [local note](../research/sources/P180.md)
+- [P181 — Schneider Electric — Galaxy PDU 1000 kVA distribution voltages](https://blog.se.com/datacenter/2026/05/18/solving-densification-power-distribution-metering-high-performance-computing/) · `page_reviewed` · [local note](../research/sources/P181.md)
 
 <a id="d05"></a>
 

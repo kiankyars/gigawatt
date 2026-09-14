@@ -7,6 +7,14 @@ Do not download or launch standalone Chrome for Testing or Playwright browser
 binaries here. Existing browser test harnesses remain available for a separately
 configured test environment; run local model and build checks without a browser.
 
+## Chapter 6 follow-up — 2026-09-14
+
+- **19 scenes**, including separate system-context isolation/surge views and a new busway introduction. Abilene's retired photograph hash redirects to the high-voltage campus path.
+- Replaced the anatomy sketch with Siemens's original NXAirS sectional illustration. Generated a new overhead busway image and edited the PDU image with GPT image generation; both outputs visually inspected.
+- **192 Node and 76 Python tests passed.** Course, expanded reader, domain map, research metadata and whitespace checks passed. Regression checks cover the high-voltage trace and two-hall breaker-failure outcome.
+- Built-in browser checked every scene at **1280×720 and 390×844**: no horizontal document overflow, SVG text-to-text collision or failed loaded image; no desktop stage scrolling. Operated all 16 control choices with correct selected state and values. Circuit, conductor, manufacturer, isolation, phase-allocation and breaker-failure views received screenshot inspection. Light appearance checked.
+- Phone diagrams reflow for the new circuit views. Large generated figures retain their existing contained horizontal-scroll presentation. Full-page browser captures proved unreliable for tall pages; viewport screenshots and live DOM geometry were used for the mobile conclusions.
+
 ## Chapters 4–5 review and shared navigation — 2026-09-14
 
 - Chapter 4 has 25 scenes: the Southaven permit slide now includes a wider historical USGS aerial with coordinate-registered Census state boundary. The old schematic border hash resolves to this slide. MZX is identified as applicant and Trinity as consultant.

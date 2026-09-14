@@ -178,3 +178,12 @@ rating is taken from either generated illustration.
 
 - `references/semianalysis-btm-by-state-2026.png` is the unchanged original from the September 10 BTM article. The chart’s August 24 tracker ranks booked onsite generating capacity; it does not count data centers.
 - `references/southaven-geography.jpg` is a USGS historical imagery export. `southaven-geography.provenance.json` preserves its exact extent, Census state-boundary vertices transformed into image coordinates and address/permit point sources. Current construction is not inferred from that aerial. The original applicant site plan stays alongside it.
+
+## Chapter 6 manufacturer anatomy — 14 September 2026
+
+`distribution-siemens-nxairs-cutaway.png` and `distribution-siemens-nxairs-front.png`
+are original embedded images from Siemens HA 1702 (2024 A), page 12. The cutaway is
+shown in Chapter 6 with four compartment callouts and manufacturer attribution.
+The product family is NXAirS up to 12 kV, separate from the generic campus circuit
+and the Compass skid. Source URL, extraction method and hashes are recorded in
+`distribution-siemens-nxairs.provenance.json`.

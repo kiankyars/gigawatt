@@ -6,6 +6,27 @@ repository records; those records do not substitute for the original message.
 The prior “everything addressed” claim was too strong. This page foregrounds
 exceptions; the coverage list below makes the rest inspectable.
 
+## Chapter 6 follow-up review — 14 September 2026
+
+| Request | Implemented |
+| --- | --- |
+| Abilene photograph adds no teaching value | Removed the standalone slide; its old URL opens the complete campus path. |
+| Trace the load through high-voltage AC | Added 138 kV grid → campus transformer → 13.8 kV switchgear → hall transformer → 480 V building branches. |
+| Explain the single-line convention through an example; trim N/PE prose | The same switchboard-to-rack-PDU circuit appears as one line and five separate conductors. Removed the explanatory legend. Kept the correct **480Y/277 V**, rather than the requested inconsistent 400Y/277 V. |
+| Use real manufacturer switchgear anatomy | Original Siemens NXAirS section with four compartment callouts; up-to-12-kV family identified separately from the campus model. |
+| Teach disconnectors and surge arresters in context | Two full source-to-hall circuit views: series isolation gap, then parallel arrester-to-earth path. |
+| State who supplies the Compass package | Visible title identifies Siemens as supplier and Compass as customer/co-developer. |
+| Stop implying every floor PDU converts 480 V to 208 V | GPT image edit removes fixed voltages; floor transformer is optional. Reader adds Schneider's 480-to-400/415 V counterexample. |
+| Introduce busway before tap-offs | New GPT-generated overhead busway illustration precedes the actual tap-off close-up. |
+| Remove gray power-factor subtitles | Kept the transformer rating, equation and live quantities; removed the gray assumptions paragraphs from the slide. |
+| Motivate single-phase PSU allocations | Shows six labeled PSU groups connected between phases and neutral. Controls say “Spread across phases” and “Crowded onto L1.” |
+| Replace the failed-interruption slide | Two halls share an incoming breaker. Operate upstream backup after a feeder breaker fails and observe the affected load paths. Removed the multiple-choice/reasoning interface. |
+| Clarify the Chapter 7 segue | Final title explicitly introduces continuity for racks and cooling; shared footer advances to Chapter 7. |
+
+The revised deck has **19 slides**. Implementation and technical checks are complete;
+author acceptance remains pending. This record covers the visible follow-up request,
+not unseen feedback from another task or computer.
+
 ## Fairwater slide and independent request check
 
 The requested **four-nines availability at three-nines cost** case already has

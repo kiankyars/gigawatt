@@ -222,6 +222,8 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P178 — US Census TIGERweb — Tennessee state boundary and Tulane Road geocode](sources/P178.md) | US Census Bureau | D03, D12 | page_reviewed |
 | [P179 — USGS National Map — Southaven geographic imagery](sources/P179.md) | US Geological Survey | D03 | page_reviewed |
 | [P18 — OpenStax — 20.5 Alternating Current versus Direct Current (College Physics 2e)](sources/P18.md) | OpenStax, Rice University | D01, D04, D06 | page_reviewed |
+| [P180 — Siemens — NXAirS medium-voltage switchgear HA 1702 sectional illustration](sources/P180.md) | Siemens | D04 | page_reviewed |
+| [P181 — Schneider Electric — Galaxy PDU 1000 kVA distribution voltages](sources/P181.md) | Schneider Electric | D04 | page_reviewed |
 | [P19 — Steven H. Low — Power System Analysis: Analytical tools and structural properties (April 7, 2025 draft)](sources/P19.md) | Steven H. Low, California Institute of Technology | D04, D06 | page_reviewed |
 | [P20 — Wolfspeed — Powering AI with reliable SiC-based solid-state transformers](sources/P20.md) | Wolfspeed | D04, D06 | page_reviewed |
 | [P21 — Texas Instruments — TIDA-011012 modular solid-state transformer reference design](sources/P21.md) | Texas Instruments | D04, D06 | page_reviewed |

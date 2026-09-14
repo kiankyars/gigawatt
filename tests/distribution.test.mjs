@@ -19,17 +19,18 @@ test('distribution objectives remain taught and conversion has explicit Chapter 
  assert.deepEqual([...new Set(scenes.flatMap(s=>s.objectives))].sort(),['D04.1','D04.2','D04.4']);
  for(const c of ['compass','fujitsu'])assert.ok(scenes.some(s=>s.case===c));
  for(const key of ['driving_question','fixed_boundary','changed_variable','primary_payoff','misconception','closing_question'])assert.ok(learning_contract[key]);
- assert.ok(scenes.some(s=>s.pedagogical_role==='transfer'&&s.reveal));
+ assert.ok(scenes.some(s=>s.pedagogical_role==='transfer'&&s.controls?.some(c=>c.key==='diagnosisStage')));
 });
 test('every photograph exists locally and no renderer fabricates case efficiencies',()=>{
  for(const scene of scenes){const r=renderDistribution(scene.id,initialState);for(const match of r.markup.matchAll(/src="\.\.\/assets\/references\/([^"<>]+)"/g))assert.ok(fs.existsSync(new URL(`../course/assets/references/${match[1]}`,import.meta.url)));}
  assert.equal(chapter8Aliases['green-dc'],'green-zurich-west');assert.equal(chapter8Aliases['green-path'],'green-zurich-west');assert.ok(chapter8Aliases['conversion-locations']);
 });
-test('fault diagnosis distinguishes a trip command from actual interruption',()=>{
- const initial=renderDistribution('feeder-diagnosis',{...initialState,reveal:false}).markup;
- assert.match(initial,/TRIP issued/);assert.match(initial,/Fault persists/);assert.doesNotMatch(initial,/has not cleared/);
- assert.match(renderDistribution('feeder-diagnosis',{...initialState,reveal:true,diagnosis:'breaker'}).markup,/has not cleared/);
- assert.match(renderDistribution('feeder-diagnosis',{...initialState,reveal:true,diagnosis:'capacity'}).markup,/capacity cannot clear/);
+test('breaker-failure sequence preserves the failed feeder and enlarges the outage boundary',()=>{
+ const initial=renderDistribution('feeder-diagnosis',{...initialState,diagnosisStage:'fault'}).markup;
+ assert.match(initial,/Trip issued/);assert.match(initial,/Fault persists/);assert.match(initial,/Hall B/);assert.match(initial,/No local fault/);
+ const backup=renderDistribution('feeder-diagnosis',{...initialState,diagnosisStage:'backup'}).markup;
+ assert.match(backup,/Failed to open/);assert.match(backup,/Opened/);assert.match(backup,/Isolated fault/);assert.match(backup,/Supply removed/);
+ assert.doesNotMatch(backup,/Fault persists/);
 });
 test('new deck uses shared chrome and reader route without dialogs or extra chapter links',()=>{
  const html=fs.readFileSync(new URL('../course/prototypes/distribution-format.html',import.meta.url),'utf8');

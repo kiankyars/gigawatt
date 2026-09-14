@@ -17,15 +17,23 @@
     },
     {
       "file": "distribution-pdu-psu.png",
-      "sha256": "d18415d47f905068d362d30bb555cd5ed842fd23f39f99f8a5d59bd2274bae32",
-      "prompt_summary": "Three independent comparison columns: transformer-equipped floor PDU480VAC→208VAC; rack PDU208VAC→208VAC; server PSU208VAC→12VDC. Generic dimensional equipment, minimal labels, no mandatory universal series chain.",
-      "review": "Paths, labels, voltage/current arithmetic and intended comparison inspected. Transformer placement image uses schematic distances, not physical cable design."
+      "sha256": "e6363e8da3b190573c953ab1de9f9c020e23507685d12ff7c3f849bc7fc080a8",
+      "prompt_summary": "GPT image edit: preserve equipment, remove all numeric voltages. Floor PDU distributes branches with optional transformer; rack PDU distributes AC to outlets; PSU converts AC to DC.",
+      "review": "Inspected generated replacement: function labels correct; no universal transformer or voltage claim; equipment remains generic illustration.",
+      "revised_on": "2026-09-14"
     },
     {
       "file": "distribution-interruption.png",
       "sha256": "38ffefe754575d82cfd8743ad64ad57f8a8bdab674b84c7a3b2ab96c0036f4f9",
       "prompt_summary": "Conceptual campus transformer through an open common feeder to switchboard; gray downstream branches to compute racks and cooling/controls. No backup path yet; five labels only.",
       "review": "Paths, labels, voltage/current arithmetic and intended comparison inspected. Transformer placement image uses schematic distances, not physical cable design."
+    },
+    {
+      "file": "distribution-busway.png",
+      "sha256": "6681824e6bed3e6bdab49cf166b0bb786d430966b67af74fdd2f299891072057",
+      "generated_on": "2026-09-14",
+      "prompt_summary": "GPT-generated enclosed overhead busway with end feed, three tap-off boxes and descending rack cables; partial internal conductor cutaway, three labels only.",
+      "review": "Inspected: feed enters common housing, each tap-off joins housing and one rack cable. Partial cutaway is a spatial illustration, not a complete conductor-count drawing or named product."
     }
   ]
 }
