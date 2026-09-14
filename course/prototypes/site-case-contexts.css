@@ -1,0 +1,66 @@
+.context-feature {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 18px;
+}
+.context-image {
+  position: relative;
+  min-height: 0;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 8px;
+}
+.context-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: cover;
+  object-position: center 60%;
+}
+.context-image figcaption {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  max-width: calc(100% - 20px);
+  padding: 6px 10px;
+  border-radius: 4px;
+  background: #102027ed;
+  color: #fff;
+  font-size: 12px;
+  line-height: 1.4;
+}
+.context-landmarks {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+#scene-content .context-landmarks p {
+  margin: 0;
+  padding: 0 0 0 16px;
+  border-left: 2px solid var(--power);
+}
+.context-landmarks strong, .context-landmarks span {
+  display: block;
+}
+.context-landmarks strong {
+  font-size: clamp(19px, 2vw, 26px);
+  font-weight: 600;
+}
+.context-landmarks span {
+  margin-top: 5px;
+  font-size: clamp(14px, 1.45vw, 19px);
+  line-height: 1.35;
+  color: var(--muted);
+}
+@media (max-width: 600px) {
+  .context-feature { grid-template-rows: auto auto; gap: 22px; }
+  .context-image img { height: auto; min-height: 230px; object-fit: cover; }
+  .context-image figcaption { font-size: 11px; }
+  .context-landmarks { grid-template-columns: 1fr; gap: 18px; }
+  .context-landmarks strong { font-size: 22px; }
+  .context-landmarks span { font-size: 16px; }
+}
+@media (max-height: 580px) and (min-width: 601px) {
+  .context-feature { grid-template-rows: 300px auto; padding-bottom: 14px; }
+}

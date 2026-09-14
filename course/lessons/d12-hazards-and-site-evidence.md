@@ -108,6 +108,14 @@ Parklane’s account of the Rogers headquarters data-center retrofit in Toronto 
 
 The photograph shows the actual screen. A barrier interrupts direct sound propagation, while sound can still diffract around its edges; height, placement and construction matter. The open top must also support the chillers’ airflow. Parklane reports meeting the noise requirements, but no measured decibel reduction is supplied here.
 
+## Context: ADA’s Royal Docks campus
+
+ADA’s June 2024 announcement planned three data-center buildings in East London’s Royal Docks. Its proposed-campus rendering introduces the setting before Menard’s groundworks case; the rendering is not a photograph of completed construction.
+
+## Context: Hurricane Harvey in Houston
+
+Harvey reached the Texas coast on August 25, 2017. Its slow movement sustained heavy rainfall, with flash flooding across Harris County on August 26–27 and worsening floods on August 29–30. The dated TxDOT image shows Houston-area road flooding; Equinix’s separate accounts establish the HO1 operating and access consequences.
+
 ## Worked example: The smaller parcel meets the opening brief
 
 - Original hypothetical brief: 60 MW net at the customer bus, including auxiliaries; 40 contiguous usable acres; two physically separate fiber routes; opening by month 24.
@@ -187,3 +195,5 @@ A replacement route or changed service requirement would need explicit acceptanc
 - [Equinix — Houston staff during Hurricane Harvey](https://blog.equinix.com/blog/2017/11/10/transition-to-tech-veterans-seek-meaningful-civilian-careers/) — Employee profile describes staff staying for days and pumping water from the Houston facility while keeping power on. Read 2026-09-13. Supports flood response; prevents calling the campus dry. No failure of a bridge is reported.
 - [QTS — Suwanee campus](https://q.com/data-centers/suwanee-1/) — 53-acre Suwanee, Georgia campus with two buildings; official campus-plan image. Read 2026-09-13. Current page calls redundant campus conduits in progress. Do not infer completed end-to-end diversity from the January 2023 article.
 - [Parklane — Rogers headquarters data-center acoustic screen](https://parklanemechanical.com/noise-control-case-studies/rogers-head-office) — Rogers Toronto rooftop chiller barrier: 15 feet high, 16 factory-built sections installed in one ten-hour day; actual installed photograph. Read 2026-09-13. Vendor project account; no measured decibel reduction or photo capture date provided.
+- [ADA Infrastructure — Docklands campus planning announcement](https://adainfrastructure.com/en-US/insights/news/ada-infrastructure-approved-to-develop-210-mw-data-center-campus-in-east-londons-royal-docks) — Introduce the Royal Docks setting and three planned data-center buildings; identify the proposed campus visualization. Read 2026-09-13. Historical planning announcement. Do not treat the image or planned capacity as completed construction or current operating power. Existing P144 supports the ground conditions and engineering response.
+- [National Weather Service Houston/Galveston — Hurricane Harvey](https://www.weather.gov/hgx/hurricaneharvey) — Establish the August 25 coastal landfall, slow storm passage, Harris County flash flooding during August 26–27 and more heavy rain August 29–30; identify the dated TxDOT Houston-area flood photograph. Read 2026-09-13. Regional event context, not an HO1 flood map, its access route or bridge failure. Existing P145/P146 separately support the facility-specific operating and staff response. No rainfall maximum assigned to Houston or HO1.

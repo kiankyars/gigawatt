@@ -540,3 +540,70 @@
   height: 100%;
   width: 100%;
 }
+
+.egress-comparison {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 32px;
+  height: 100%;
+  min-height: 0;
+}
+.egress-comparison article { min-width: 0; }
+#scene-content .egress-comparison h2 {
+  margin: 0 0 12px;
+  font-size: clamp(20px, 2vw, 28px);
+  font-weight: 550;
+  text-align: center;
+}
+.egress-diagram {
+  display: block;
+  width: 100%;
+  max-height: 47svh;
+  overflow: visible;
+}
+.egress-diagram text { fill: var(--text); font-family: inherit; font-size: 20px; }
+.egress-floor { fill: var(--panel); }
+.egress-hall { fill: var(--surface); }
+.egress-corridor-edge,
+.egress-corridor {
+  fill: none;
+  stroke: var(--surface);
+  stroke-width: 28;
+  stroke-linejoin: round;
+}
+.egress-corridor-edge { stroke: var(--muted); stroke-width: 34; }
+.egress-wall, .egress-partition {
+  fill: none;
+  stroke: var(--text);
+  stroke-width: 5;
+  stroke-linejoin: round;
+}
+.egress-partition { stroke: var(--muted); stroke-width: 3; }
+.egress-path {
+  fill: none;
+  stroke-width: 5;
+  stroke-linejoin: round;
+}
+.egress-connected { stroke: var(--power); }
+.egress-disconnected { stroke: var(--line); }
+.egress-blocked { stroke: var(--heat); stroke-dasharray: 7 6; }
+.egress-arrow { fill: none; stroke: var(--power); stroke-width: 5; }
+.egress-person { fill: var(--text); }
+.egress-person-lines { fill: none; stroke: var(--text); stroke-width: 3; }
+.egress-incident circle { fill: var(--surface); stroke: var(--heat); stroke-width: 3; }
+.egress-incident path { stroke: var(--heat); stroke-width: 4; }
+#scene-content .egress-status {
+  margin: 15px 0 0;
+  color: var(--power);
+  font-size: clamp(18px, 1.8vw, 25px);
+  font-weight: 550;
+  text-align: center;
+}
+#scene-content .egress-lost { color: var(--heat); }
+@media (max-width: 600px) {
+  .egress-comparison { grid-template-columns: 1fr; height: auto; gap: 30px; }
+  .egress-diagram { max-height: none; }
+  #scene-content .egress-comparison h2 { font-size: 23px; }
+  #scene-content .egress-status { margin-top: 10px; font-size: 21px; }
+}

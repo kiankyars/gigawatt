@@ -3372,6 +3372,18 @@
             "Parklane’s account of the Rogers headquarters data-center retrofit in Toronto describes rooftop chillers opposite residences and a 15-foot acoustic screen. Sixteen factory-built wall sections were installed in one ten-hour day. With little staging space, the sections were lifted from delivery trucks onto precisely positioned columns.",
             "The photograph shows the actual screen. A barrier interrupts direct sound propagation, while sound can still diffract around its edges; height, placement and construction matter. The open top must also support the chillers’ airflow. Parklane reports meeting the noise requirements, but no measured decibel reduction is supplied here."
           ]
+        },
+        {
+          "heading": "Context: ADA’s Royal Docks campus",
+          "paragraphs": [
+            "ADA’s June 2024 announcement planned three data-center buildings in East London’s Royal Docks. Its proposed-campus rendering introduces the setting before Menard’s groundworks case; the rendering is not a photograph of completed construction."
+          ]
+        },
+        {
+          "heading": "Context: Hurricane Harvey in Houston",
+          "paragraphs": [
+            "Harvey reached the Texas coast on August 25, 2017. Its slow movement sustained heavy rainfall, with flash flooding across Harris County on August 26–27 and worsening floods on August 29–30. The dated TxDOT image shows Houston-area road flooding; Equinix’s separate accounts establish the HO1 operating and access consequences."
+          ]
         }
       ],
       "tradeoff": [
@@ -3578,7 +3590,9 @@
         "P145",
         "P146",
         "P147",
-        "P148"
+        "P148",
+        "P165",
+        "P166"
       ],
       "source_notes": [
         {
@@ -3754,9 +3768,21 @@
           "claim": "Rogers Toronto rooftop chiller barrier: 15 feet high, 16 factory-built sections installed in one ten-hour day; actual installed photograph.",
           "reviewed_on": "2026-09-13",
           "limits": "Vendor project account; no measured decibel reduction or photo capture date provided."
+        },
+        {
+          "id": "P165",
+          "claim": "Introduce the Royal Docks setting and three planned data-center buildings; identify the proposed campus visualization.",
+          "reviewed_on": "2026-09-13",
+          "limits": "Historical planning announcement. Do not treat the image or planned capacity as completed construction or current operating power. Existing P144 supports the ground conditions and engineering response."
+        },
+        {
+          "id": "P166",
+          "claim": "Establish the August 25 coastal landfall, slow storm passage, Harris County flash flooding during August 26–27 and more heavy rain August 29–30; identify the dated TxDOT Houston-area flood photograph.",
+          "reviewed_on": "2026-09-13",
+          "limits": "Regional event context, not an HO1 flood map, its access route or bridge failure. Existing P145/P146 separately support the facility-specific operating and staff response. No rainfall maximum assigned to Houston or HO1."
         }
       ],
-      "word_count": 2865
+      "word_count": 2955
     },
     {
       "id": "d12-safety-and-control-boundaries",
@@ -3792,6 +3818,12 @@
             "Our synthetic facility has two cooling trains, each rated at 6 MW thermal duty under the stated condition. The IT load is 5 MW and either train can meet it. Their mechanical equipment is separate, but both supervisory controllers rely on one 300 W management switch. The drawing appears redundant if it stops at pumps; it has a shared control dependency when the switch is added. The actual consequence of losing that switch depends on the specified local fallback behavior.",
             "For the example, assume the local controllers remain within their established operating limits for loss of supervision, but coordinated load changes are no longer authorized. Cooling may continue at the current supported state, while the ability to increase load has changed. If instead an untested shared configuration command disabled both trains, the same topology could produce service loss. Equipment duplication does not settle either question; control behavior and change scope are essential evidence.",
             "Boundaries should be revisited after migration. A second network link may use the same upstream device; separate credentials may still allow one global write; physical access may require a shared system during an outage. The useful review asks what one action or failure can influence, which state follows, and how that state was verified. It avoids declaring independence merely because two labels or two icons appear on the drawing."
+          ]
+        },
+        {
+          "heading": "Separate the routes, not only the exit doors",
+          "paragraphs": [
+            "OSHA 29 CFR 1910.36(b)(1) connects practical separation of exit routes to preserving an alternative when fire or smoke blocks one. Its adjacent paragraphs address workplaces needing more routes and circumstances allowing a single route. Here, the two exterior exits are held fixed while their approaches change. Declaring the west corridor unavailable disconnects both illustrated shared routes but leaves the separate east route connected. This is a test of the specified passages, not a fire simulation or an approved egress layout: actual route count, capacity, distances, separation and protective construction require review for the workplace."
           ]
         }
       ],
@@ -3867,7 +3899,8 @@
       },
       "source_ids": [
         "E013A66FA9A",
-        "EDEEDB16DDE"
+        "EDEEDB16DDE",
+        "P167"
       ],
       "source_notes": [
         {
@@ -3881,9 +3914,15 @@
           "claim": "Indexed regulatory excerpts address stored energy and qualified work.",
           "reviewed_on": "2026-09-06",
           "limits": "Relevant public indexed excerpts reviewed; no field procedure or jurisdiction-wide compliance claim is supplied."
+        },
+        {
+          "id": "P167",
+          "claim": "Section 1910.36(b)(1) links practical separation of exit routes to maintaining an alternative when fire or smoke blocks one. Paragraphs (b)(2) and (b)(3) make required route count depend on workplace conditions.",
+          "reviewed_on": "2026-09-13",
+          "limits": "Official standard text and OSHA final-rule explanation reviewed through public indexed text; direct OSHA page and PDF retrieval returned 403. Supports the separation principle only. The original untimed connectivity model does not calculate fire or smoke spread, required dimensions, fire resistance, occupant capacity, evacuation time or regulatory compliance. Do not infer that exactly two exits always suffice or that a shared segment is categorically prohibited."
         }
       ],
-      "word_count": 1024,
+      "word_count": 1126,
       "domain_checkin": {
         "domain": "D12",
         "title": "It fits until replacement day",
@@ -12917,6 +12956,49 @@
       ],
       "use": "480Y/277 gives the wye phase-to-phase voltage followed by the phase-to-neutral voltage.",
       "caution": "Published short technical entry reviewed. Conductor selection and grounding system are not prescribed."
+    },
+    {
+      "id": "P165",
+      "title": "ADA Infrastructure — Docklands campus planning announcement",
+      "url": "https://adainfrastructure.com/en-US/insights/news/ada-infrastructure-approved-to-develop-210-mw-data-center-campus-in-east-londons-royal-docks",
+      "publisher": "ADA Infrastructure",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-13",
+      "published_on": "2024-06-20",
+      "domains": [
+        "D12"
+      ],
+      "use": "Introduce the Royal Docks setting and three planned data-center buildings; identify the proposed campus visualization.",
+      "caution": "Historical planning announcement. Do not treat the image or planned capacity as completed construction or current operating power. Existing P144 supports the ground conditions and engineering response."
+    },
+    {
+      "id": "P166",
+      "title": "National Weather Service Houston/Galveston — Hurricane Harvey",
+      "url": "https://www.weather.gov/hgx/hurricaneharvey",
+      "publisher": "National Weather Service / NOAA",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D12"
+      ],
+      "use": "Establish the August 25 coastal landfall, slow storm passage, Harris County flash flooding during August 26–27 and more heavy rain August 29–30; identify the dated TxDOT Houston-area flood photograph.",
+      "caution": "Regional event context, not an HO1 flood map, its access route or bridge failure. Existing P145/P146 separately support the facility-specific operating and staff response. No rainfall maximum assigned to Houston or HO1."
+    },
+    {
+      "id": "P167",
+      "title": "OSHA — 29 CFR 1910.36(b), number and separation of exit routes",
+      "url": "https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.36",
+      "publisher": "U.S. Occupational Safety and Health Administration",
+      "kind": "primary_reference",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D12"
+      ],
+      "use": "Section 1910.36(b)(1) links practical separation of exit routes to maintaining an alternative when fire or smoke blocks one. Paragraphs (b)(2) and (b)(3) make required route count depend on workplace conditions.",
+      "caution": "Official standard text and OSHA final-rule explanation reviewed through public indexed text; direct OSHA page and PDF retrieval returned 403. Supports the separation principle only. The original untimed connectivity model does not calculate fire or smoke spread, required dimensions, fire resistance, occupant capacity, evacuation time or regulatory compliance. Do not infer that exactly two exits always suffice or that a shared segment is categorically prohibited."
     }
   ],
   "glossary": [

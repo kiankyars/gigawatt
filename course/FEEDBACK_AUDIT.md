@@ -172,3 +172,21 @@ Every original slide number below refers to the reviewed 30-slide release. Revis
 | 27–29: repeated threshold comparisons | Removed. New check asks why a trip command with continuing fault current indicates failed interruption and what broader outage backup protection can cause. |
 | 30: generated transition | New GPT figure shows common-feeder interruption affecting racks and cooling/controls. |
 | Device deep dives | Chapter 6: switchgear assembly, sensors, relay, breaker, disconnector, surge arrester and distribution. Chapter 7: fault domains, grounding, continuity. Chapter 8: rack conversion, SST and 800 V. Hardware-operating/design calculations beyond those declared examples are not claimed complete. |
+
+
+## Chapter 5 context and ending — 13 September 2026
+
+- Original slides 8 and 9 each become context → engineering pairs: Docklands
+  setting/groundworks at 8–9, Harvey context/HO1 response at 10–11. Both liked
+  engineering slides are preserved. New images are credited primary-source assets.
+- Original slide 19 becomes an interactive comparison of two exit-route layouts:
+  one blocked corridor removes both shared routes but leaves the independent
+  alternative connected. New position 21; `fire-and-egress` link retained.
+- Original slide 20 now has two concise cards. Show reasoning replaces the
+  questions with answers; it does not add another wall of text. New position 22;
+  `service-check` link retained.
+- The user's reference to Chapter 15 was interpreted as Chapter 5 because the
+  active deck and the two described slides match its original positions 19–20.
+- Sources P165–P167 are in the existing library and reading. No claim of a
+  photographed HO1 access route, completed ADA construction or compliant egress
+  design is made. Author acceptance remains pending.

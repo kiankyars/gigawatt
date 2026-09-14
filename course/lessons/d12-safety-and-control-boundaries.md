@@ -32,6 +32,10 @@ For the example, assume the local controllers remain within their established op
 
 Boundaries should be revisited after migration. A second network link may use the same upstream device; separate credentials may still allow one global write; physical access may require a shared system during an outage. The useful review asks what one action or failure can influence, which state follows, and how that state was verified. It avoids declaring independence merely because two labels or two icons appear on the drawing.
 
+## Separate the routes, not only the exit doors
+
+OSHA 29 CFR 1910.36(b)(1) connects practical separation of exit routes to preserving an alternative when fire or smoke blocks one. Its adjacent paragraphs address workplaces needing more routes and circumstances allowing a single route. Here, the two exterior exits are held fixed while their approaches change. Declaring the west corridor unavailable disconnects both illustrated shared routes but leaves the separate east route connected. This is a test of the specified passages, not a fire simulation or an approved egress layout: actual route count, capacity, distances, separation and protective construction require review for the workplace.
+
 ## Worked example: Count the control support load separately
 
 - Synthetic control-support load: one 300 W switch plus two 50 W controllers.
@@ -81,6 +85,7 @@ Adding 100 W increases support demand by 25 percent, so the constant-energy dura
 
 - [NIST SP 800-82 Revision 3: OT Security](https://csrc.nist.gov/pubs/sp/800/82/r3/final) — The abstract includes building automation and physical access within OT and identifies reliability and safety requirements. Read 2026-09-06. Publication abstract and revision context inspected; this lesson does not claim full implementation review of the 2023 guide or any draft successor.
 - [OSHA 1910.333: Electrical work practices](https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.333) — Indexed regulatory excerpts address stored energy and qualified work. Read 2026-09-06. Relevant public indexed excerpts reviewed; no field procedure or jurisdiction-wide compliance claim is supplied.
+- [OSHA — 29 CFR 1910.36(b), number and separation of exit routes](https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.36) — Section 1910.36(b)(1) links practical separation of exit routes to maintaining an alternative when fire or smoke blocks one. Paragraphs (b)(2) and (b)(3) make required route count depend on workplace conditions. Read 2026-09-13. Official standard text and OSHA final-rule explanation reviewed through public indexed text; direct OSHA page and PDF retrieval returned 403. Supports the separation principle only. The original untimed connectivity model does not calculate fire or smoke spread, required dimensions, fire resistance, occupant capacity, evacuation time or regulatory compliance. Do not infer that exactly two exits always suffice or that a shared segment is categorically prohibited.
 
 ## Check your understanding: It fits until replacement day
 

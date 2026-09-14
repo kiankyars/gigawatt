@@ -1432,6 +1432,9 @@ Trace physical and control-system access boundaries and explain why availability
 - [P147 — QTS — Suwanee campus](https://q.com/data-centers/suwanee-1/) · `page_reviewed` · [local note](../research/sources/P147.md)
 - [P148 — Parklane — Rogers headquarters data-center acoustic screen](https://parklanemechanical.com/noise-control-case-studies/rogers-head-office) · `page_reviewed` · [local note](../research/sources/P148.md)
 - [P149 — Lenovo — Remove a GB300 compute tray from the rack](https://pubs.lenovo.com/gb300-nvl72/remove_compute_tray) · `page_reviewed` · [local note](../research/sources/P149.md)
+- [P165 — ADA Infrastructure — Docklands campus planning announcement](https://adainfrastructure.com/en-US/insights/news/ada-infrastructure-approved-to-develop-210-mw-data-center-campus-in-east-londons-royal-docks) · `page_reviewed` · [local note](../research/sources/P165.md)
+- [P166 — National Weather Service Houston/Galveston — Hurricane Harvey](https://www.weather.gov/hgx/hurricaneharvey) · `page_reviewed` · [local note](../research/sources/P166.md)
+- [P167 — OSHA — 29 CFR 1910.36(b), number and separation of exit routes](https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.36) · `public_excerpt_reviewed` · [local note](../research/sources/P167.md)
 
 <a id="d13"></a>
 

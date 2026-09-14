@@ -65,3 +65,11 @@
   .case-status,.case-law,.case-check { min-height:400px; }
   .case-hotswap .case-photo { min-height:220px; }
 }
+
+.replacement-cards { display:grid; grid-template-columns:1fr 1fr; gap:32px; align-content:center; }
+.replacement-cards article { display:flex; flex-direction:column; justify-content:center; min-height:285px; padding:34px; border:1px solid var(--line); border-top:4px solid var(--power); border-radius:10px; background:var(--surface); }
+.replacement-cards article+article { border-top-color:var(--heat); }
+#scene-content .replacement-cards h2 { margin:0 0 24px; font-size:24px; color:var(--muted); }
+#scene-content .replacement-question,#scene-content .replacement-outcome { margin:0; font-size:clamp(25px,2.65vw,38px); line-height:1.2; }
+#scene-content .replacement-detail { margin:20px 0 0; font-size:clamp(17px,1.7vw,23px); line-height:1.4; }
+@media(max-width:600px) { .replacement-cards{grid-template-columns:1fr;gap:20px}.replacement-cards article{min-height:230px;padding:24px}#scene-content .replacement-cards h2{font-size:21px;margin-bottom:20px}#scene-content .replacement-question,#scene-content .replacement-outcome{font-size:28px}#scene-content .replacement-detail{font-size:18px} }

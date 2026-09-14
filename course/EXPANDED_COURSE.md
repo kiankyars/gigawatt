@@ -1454,6 +1454,14 @@ Parklane’s account of the Rogers headquarters data-center retrofit in Toronto 
 
 The photograph shows the actual screen. A barrier interrupts direct sound propagation, while sound can still diffract around its edges; height, placement and construction matter. The open top must also support the chillers’ airflow. Parklane reports meeting the noise requirements, but no measured decibel reduction is supplied here.
 
+## Context: ADA’s Royal Docks campus
+
+ADA’s June 2024 announcement planned three data-center buildings in East London’s Royal Docks. Its proposed-campus rendering introduces the setting before Menard’s groundworks case; the rendering is not a photograph of completed construction.
+
+## Context: Hurricane Harvey in Houston
+
+Harvey reached the Texas coast on August 25, 2017. Its slow movement sustained heavy rainfall, with flash flooding across Harris County on August 26–27 and worsening floods on August 29–30. The dated TxDOT image shows Houston-area road flooding; Equinix’s separate accounts establish the HO1 operating and access consequences.
+
 ## Worked example: The smaller parcel meets the opening brief
 
 - Original hypothetical brief: 60 MW net at the customer bus, including auxiliaries; 40 contiguous usable acres; two physically separate fiber routes; opening by month 24.
@@ -1533,6 +1541,8 @@ A replacement route or changed service requirement would need explicit acceptanc
 - [Equinix — Houston staff during Hurricane Harvey](https://blog.equinix.com/blog/2017/11/10/transition-to-tech-veterans-seek-meaningful-civilian-careers/) — Employee profile describes staff staying for days and pumping water from the Houston facility while keeping power on. Read 2026-09-13. Supports flood response; prevents calling the campus dry. No failure of a bridge is reported.
 - [QTS — Suwanee campus](https://q.com/data-centers/suwanee-1/) — 53-acre Suwanee, Georgia campus with two buildings; official campus-plan image. Read 2026-09-13. Current page calls redundant campus conduits in progress. Do not infer completed end-to-end diversity from the January 2023 article.
 - [Parklane — Rogers headquarters data-center acoustic screen](https://parklanemechanical.com/noise-control-case-studies/rogers-head-office) — Rogers Toronto rooftop chiller barrier: 15 feet high, 16 factory-built sections installed in one ten-hour day; actual installed photograph. Read 2026-09-13. Vendor project account; no measured decibel reduction or photo capture date provided.
+- [ADA Infrastructure — Docklands campus planning announcement](https://adainfrastructure.com/en-US/insights/news/ada-infrastructure-approved-to-develop-210-mw-data-center-campus-in-east-londons-royal-docks) — Introduce the Royal Docks setting and three planned data-center buildings; identify the proposed campus visualization. Read 2026-09-13. Historical planning announcement. Do not treat the image or planned capacity as completed construction or current operating power. Existing P144 supports the ground conditions and engineering response.
+- [National Weather Service Houston/Galveston — Hurricane Harvey](https://www.weather.gov/hgx/hurricaneharvey) — Establish the August 25 coastal landfall, slow storm passage, Harris County flash flooding during August 26–27 and more heavy rain August 29–30; identify the dated TxDOT Houston-area flood photograph. Read 2026-09-13. Regional event context, not an HO1 flood map, its access route or bridge failure. Existing P145/P146 separately support the facility-specific operating and staff response. No rainfall maximum assigned to Houston or HO1.
 
 ## A shared boundary can defeat two independent systems
 
@@ -1565,6 +1575,10 @@ Our synthetic facility has two cooling trains, each rated at 6 MW thermal duty u
 For the example, assume the local controllers remain within their established operating limits for loss of supervision, but coordinated load changes are no longer authorized. Cooling may continue at the current supported state, while the ability to increase load has changed. If instead an untested shared configuration command disabled both trains, the same topology could produce service loss. Equipment duplication does not settle either question; control behavior and change scope are essential evidence.
 
 Boundaries should be revisited after migration. A second network link may use the same upstream device; separate credentials may still allow one global write; physical access may require a shared system during an outage. The useful review asks what one action or failure can influence, which state follows, and how that state was verified. It avoids declaring independence merely because two labels or two icons appear on the drawing.
+
+## Separate the routes, not only the exit doors
+
+OSHA 29 CFR 1910.36(b)(1) connects practical separation of exit routes to preserving an alternative when fire or smoke blocks one. Its adjacent paragraphs address workplaces needing more routes and circumstances allowing a single route. Here, the two exterior exits are held fixed while their approaches change. Declaring the west corridor unavailable disconnects both illustrated shared routes but leaves the separate east route connected. This is a test of the specified passages, not a fire simulation or an approved egress layout: actual route count, capacity, distances, separation and protective construction require review for the workplace.
 
 ## Worked example: Count the control support load separately
 
@@ -1615,6 +1629,7 @@ Adding 100 W increases support demand by 25 percent, so the constant-energy dura
 
 - [NIST SP 800-82 Revision 3: OT Security](https://csrc.nist.gov/pubs/sp/800/82/r3/final) — The abstract includes building automation and physical access within OT and identifies reliability and safety requirements. Read 2026-09-06. Publication abstract and revision context inspected; this lesson does not claim full implementation review of the 2023 guide or any draft successor.
 - [OSHA 1910.333: Electrical work practices](https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.333) — Indexed regulatory excerpts address stored energy and qualified work. Read 2026-09-06. Relevant public indexed excerpts reviewed; no field procedure or jurisdiction-wide compliance claim is supplied.
+- [OSHA — 29 CFR 1910.36(b), number and separation of exit routes](https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.36) — Section 1910.36(b)(1) links practical separation of exit routes to maintaining an alternative when fire or smoke blocks one. Paragraphs (b)(2) and (b)(3) make required route count depend on workplace conditions. Read 2026-09-13. Official standard text and OSHA final-rule explanation reviewed through public indexed text; direct OSHA page and PDF retrieval returned 403. Supports the separation principle only. The original untimed connectivity model does not calculate fire or smoke spread, required dimensions, fire resistance, occupant capacity, evacuation time or regulatory compliance. Do not infer that exactly two exits always suffice or that a shared segment is categorically prohibited.
 
 ## Check your understanding: It fits until replacement day
 

@@ -1244,3 +1244,24 @@ not construction accuracy or author acceptance. The next author pass starts at
   previous full Node run passed 168 tests; a concurrent Chapter 5 edit temporarily
   broke its own text assertion, outside this scoped release.
 - This records implementation checks, not author acceptance.
+
+
+## Chapter 5 context and ending revision — 2026-09-13
+
+- Added two context scenes, giving 22 total. Both liked engineering cases are
+  preserved. ADA’s proposed-campus rendering precedes groundworks; the NWS-hosted
+  TxDOT Houston flood photograph and Harvey timeline precede HO1’s operating case.
+- Replaced static fire-room illustration with a causal exit-route comparison.
+  Tested all six layout/incident combinations and checked corridor/door geometry.
+  The final replacement exercise contains two cards; answers replace questions.
+- Corrected three missing media-query braces in the existing page stylesheet.
+  All 22 scenes received native in-app-browser geometry checks at 1280×720 and
+  390×844: no horizontal page overflow or desktop stage overflow. Image loading
+  completed on the repeated pass. New context images, egress incident and concise
+  reasoning were visually inspected; all egress/answer selections were exercised.
+- 170 Node tests and 73 Python tests pass. Three new source records preserve
+  historical dates, image credits and the limited OSHA indexed-text review.
+  Reading, research metadata and site staging were regenerated. No new actual
+  OS-dark or native-fullscreen claim is made; author acceptance remains pending.
+- Chapter 6 revision 5195f94 was published separately; its Pages deployment
+  succeeded and its live scene/equipment/transformer modules matched that commit.

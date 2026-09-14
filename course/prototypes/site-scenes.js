@@ -6,7 +6,7 @@ export const learningContract = Object.freeze({
   "misconception": "Gross acres, cabinet footprint or duplicated equipment establish a buildable and recoverable data center.",
   "closing_question": "What must be verified to replace a component while preserving the rest of the service?"
 });
-export const initialState = Object.freeze({ serviceAnswer: "hidden" });
+export const initialState = Object.freeze({ serviceAnswer: "hidden", egressIncident: "clear" });
 export const scenes = [
   {
     "id": "site-purpose",
@@ -86,6 +86,18 @@ export const scenes = [
     ]
   },
   {
+    "id": "docklands-context",
+    "label": "ADA Docklands: the setting",
+    "title": "ADA’s new London campus starts on old industrial ground.",
+    "pedagogical_role": "context",
+    "reference": "d12-hazards-and-site-evidence",
+    "explanation": [
+      "ADA Infrastructure’s Docklands campus is in East London’s Royal Docks. Its June 2024 planning announcement described three planned data-center buildings. The image is the developer’s proposed campus visualization, not a photograph of completed construction.",
+      "Menard’s project account identifies the site’s previous docklands use and buried foundations, tanks and timber piles. A new aboveground campus therefore inherits old conditions below it. The following engineering slide keeps the actual groundworks photograph and distinguishes the support required by buildings from that required by external utilities."
+    ],
+    "sources": ["https://adainfrastructure.com/en-US/insights/news/ada-infrastructure-approved-to-develop-210-mw-data-center-campus-in-east-londons-royal-docks", "https://menard.co.uk/soil-expert-portfolio/london-silvertown-project-olympus-data-centre/"]
+  },
+  {
     "id": "ground-and-foundations",
     "label": "ADA Docklands: building on fill",
     "title": "At ADA’s London site, the buildings and utilities needed different support.",
@@ -95,6 +107,18 @@ export const scenes = [
       "Menard’s account of ADA Infrastructure’s London Docklands campus identifies up to six metres of fill above soft alluvium, plus buried foundations, tanks and timber piles. Continuous-flight-auger (CFA) piles support the buildings. About 7,000 Bi-Modulus ground-improvement columns treated 40,000 square metres of external areas and utility infrastructure.",
       "The upper stone sections of those columns could clash with utilities, so utility invert levels had to be coordinated with the treatment. Remediation also affected the work sequence. The actual site photograph shows drilling rigs. The case links ground evidence to the buildings, external utility routes and construction sequence; the 7,000 columns are not the building piles."
     ]
+  },
+  {
+    "id": "harvey-context",
+    "label": "Houston: Hurricane Harvey",
+    "title": "Harvey’s slow passage brought days of flooding to Houston.",
+    "pedagogical_role": "context",
+    "reference": "d12-hazards-and-site-evidence",
+    "explanation": [
+      "Hurricane Harvey made landfall on the Texas coast on August 25, 2017. Slow storm movement kept rain bands over southeastern Texas. The National Weather Service records rapid flash flooding across Harris County during the night of August 26–27, followed by more heavy rain on August 29–30 that worsened the existing floods.",
+      "The actual August 28 Houston-area road photograph is credited to TxDOT by NWS Houston/Galveston. It establishes the regional access emergency, not the location or condition of Equinix HO1. The next slide uses a separate contemporaneous operator statement and later staff account to explain that facility’s continuity and access experience."
+    ],
+    "sources": ["https://www.weather.gov/hgx/hurricaneharvey"]
   },
   {
     "id": "outside-flood",
@@ -208,19 +232,21 @@ export const scenes = [
   },
   {
     "id": "fire-and-egress",
-    "label": "Separate hazards from escape routes",
-    "title": "A plant-room incident should not block the data hall’s escape route.",
-    "pedagogical_role": "architecture",
+    "label": "Test the routes to both exits",
+    "title": "Two exit doors can still share one vulnerable corridor.",
+    "pedagogical_role": "counterexample",
     "reference": "d12-safety-and-control-boundaries",
     "explanation": [
-      "Place the service and escape routes in the plan alongside electrical equipment, batteries and the compute hall. The drawing gives the data hall a route to an exterior exit that does not pass through the depicted battery room. It locates the design question physically: a room arrangement can couple a hazardous event to the route people need to leave.",
-      "This is a design objective, not a compliant evacuation plan. Occupancy, travel distances, number of exits, fire ratings, detection, suppression, battery chemistry and the applicable requirements determine the real design. Those details belong to the site’s fire-protection review. The conceptual plan does not establish a universal rule that every battery installation occupies a separate room."
-    ]
+      "Both original plans have a west exit and an east exit. In the left plan, people must traverse the west corridor before the path divides. In the right plan, the routes leave the hall separately. Mark the west corridor unavailable: the shared approach loses both exits, while the separated approach retains the east route. An incident at the east exit instead leaves the west route connected in both plans. Door count alone does not describe route independence.",
+      "The controls mark a declared affected zone; they do not simulate smoke spread, evacuation time or the performance of a fire door. OSHA’s exit-route guidance connects separation to keeping another route available when fire or smoke blocks one. These untimed connectivity drawings do not establish a compliant plan: occupancy, travel distances, widths, exit count, separation, fire protection and local requirements still need the site-specific review. No universal battery-room layout is implied."
+    ],
+    "sources": ["https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.36"],
+    "controls": [{"key":"egressIncident","label":"Affected route","options":[["clear","Clear"],["west","West corridor incident"],["east","East exit incident"]]}]
   },
   {
     "id": "service-check",
     "label": "Check the replacement plan",
-    "title": "Which replacement can happen while the rack keeps running?",
+    "title": "What stays running while each part is replaced?",
     "pedagogical_role": "check-in",
     "reference": "d12-room-and-replacement-route",
     "explanation": [

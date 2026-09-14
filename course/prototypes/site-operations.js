@@ -2,6 +2,7 @@
  * Physical illustrations are conceptual; named quantities are sourced in scene notes.
  * This module returns HTML so photographs retain their proportions at every viewport.
  */
+import { renderEgress } from "./site-egress.js";
 export const operationsAliases = Object.freeze({
   "space-migration": "service-envelope",
   "site-handoff": "service-check",
@@ -39,8 +40,6 @@ const descriptions = {
     "A plan follows the handling assembly out of a rack row, around a corridor turn, and toward receiving. A highlighted swept envelope occupies the turning area beside the door.",
   "load-path":
     "Installed supports and moving wheels concentrate loads at their contacts with the floor. Lenovo specifies approximately 1.58 tonnes for the complete GB300 rack solution.",
-  "fire-and-egress":
-    "A dedicated path leads from the data hall to an exterior exit without going through the conceptual battery room.",
 
 };
 
@@ -53,11 +52,6 @@ const compactKeys = {
   "load-path": [
     [260, 243, "Installed supports"],
     [820, 262, "Moving wheels"],
-  ],
-  "fire-and-egress": [
-    [337, 207, "Data hall"],
-    [817, 94, "Battery room"],
-    [595, 360, "Exit outside the plant rooms"],
   ],
 
 };
@@ -74,6 +68,7 @@ function compactFigure(id, markup, compact) {
 }
 
 export function renderOperations(id, state = {}, compact = false) {
+  if (id === "fire-and-egress") return renderEgress(state);
   const description = descriptions[id];
   if (!description) return null;
   let markup = "";
@@ -90,12 +85,6 @@ export function renderOperations(id, state = {}, compact = false) {
     const floor = (x) =>
       `<g transform="translate(${x} 0)"><path d="M40 273L105 247H435L400 285Z" class="op-slab-top"/><path d="M40 273L400 285V317L40 306Z" class="op-slab-front"/><path d="M400 285L435 247V278L400 317Z" class="op-slab-side"/></g>`;
     markup = `<div class="op-floor-comparison">${svg(id, `${floor(25)}${floor(570)}<path d="M0 0V360" transform="translate(548 20)" class="op-divider"/>${text(268, 43, "Installed supports", "op-panel-title", "middle")}${text(815, 43, "Moving equipment", "op-panel-title", "middle")}<g transform="translate(196 68)"><rect width="133" height="176" rx="3" class="op-cabinet"/>${Array.from({ length: 8 }, (_, i) => `<path d="M12 ${19 + i * 18}H121" class="op-slot"/>`).join("")}<path d="M18 177V193M112 177V193" class="op-support"/><path d="M6 193H30M100 193H124" class="op-support"/></g><path d="M213 271V293M308 271V293" class="op-force"/><g transform="translate(756 88)"><rect x="0" y="0" width="133" height="130" rx="4" class="op-cabinet"/><path d="M-17 139H150M-17 139V162M150 139V162" class="op-support"/><circle cx="2" cy="173" r="16" class="op-wheel"/><circle cx="132" cy="173" r="16" class="op-wheel"/><circle cx="2" cy="173" r="5" class="op-wheel-hub"/><circle cx="132" cy="173" r="5" class="op-wheel-hub"/></g><path d="M758 282V305M888 284V307" class="op-force"/>`)}</div>`;
-  }
-  if (id === "fire-and-egress") {
-    markup = svg(
-      id,
-      `<rect x="90" y="50" width="900" height="285" rx="6" class="op-floor"/><rect x="650" y="50" width="340" height="128" class="op-hazard-zone"/><rect x="650" y="190" width="340" height="145" class="op-panel-fill"/>${[137, 205, 273, 395, 463, 531].map((x) => rack(x, 85, 43, 104)).join("")}<path d="M90 50H810M886 50H990V335H633M557 335H90V50M640 50V223M640 293V335M640 181H990" class="op-wall"/>${text(247, 280, "Data hall", "op-panel-title", "middle")}${text(815, 100, "Battery room", "op-label", "middle")}${text(815, 245, "Electrical room", "op-label", "middle")}<path d="M343 173V272Q343 288 369 288H573Q594 288 594 313V375" class="op-route-halo"/><path d="M343 173V272Q343 288 369 288H573Q594 288 594 313V375" class="op-route"/><path d="M582 358L594 380L606 358" class="op-route"/>${text(635, 386, "Exterior exit", "op-label")}<path d="M654 74V155" class="op-fire-boundary"/><path d="M676 127H953" class="op-battery-shelf"/>${[703, 765, 827, 889].map((x) => `<rect x="${x}" y="119" width="31" height="37" rx="3" class="op-battery"/><path d="M${x + 10} 115H${x + 21}" class="op-battery-terminal"/>`).join("")}`,
-    );
   }
 
   return {

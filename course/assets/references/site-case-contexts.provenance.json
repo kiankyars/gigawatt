@@ -1,0 +1,56 @@
+{
+  "reviewed_on": "2026-09-13",
+  "assets": [
+    {
+      "file": "site-ada-docklands-proposed-campus.webp",
+      "publisher": "ADA Infrastructure",
+      "source_url": "https://mms-delivery.sitecorecloud.io/api/media/v2/delivery/a38699ce-481f-4313-810e-08db30610e88/a5d8e3b5ddff4e0b8a7bab42c0d489ee?format=webp&transform=true&width=3840",
+      "article_url": "https://adainfrastructure.com/en-US/insights/news/ada-infrastructure-approved-to-develop-210-mw-data-center-campus-in-east-londons-royal-docks",
+      "published_or_caption_date": "2024-06-20",
+      "retrieved_on": "2026-09-13",
+      "sha256": "b19d75a07236740d42dd3b29875715c1e1604f9a88bd5d31794cea4be4fe3d54",
+      "treatment": "Unchanged publisher image; responsive CSS presentation only.",
+      "inspection": "Developer visualization published with its June 20, 2024 planning announcement; not a photograph of completed construction. Inspected: a proposed waterfront data-center building; no equipment topology, current capacity or building count is inferred from the pixels."
+    },
+    {
+      "file": "site-harvey-houston-road-2017.png",
+      "publisher": "TxDOT Houston, via National Weather Service Houston/Galveston",
+      "source_url": "https://www.weather.gov/images/hgx/projects/harvey17/txdothou_twitter_aug28_1.PNG",
+      "article_url": "https://www.weather.gov/hgx/hurricaneharvey",
+      "published_or_caption_date": "2017-08-28",
+      "retrieved_on": "2026-09-13",
+      "sha256": "c1fc27887c333a2040de69cedf2de57fb4b5d58238189bb3eae57d772a654103",
+      "treatment": "Unchanged publisher image; responsive CSS presentation only.",
+      "inspection": "NWS identifies Houston-area road flooding on August 28, 2017 and credits TXDOT-HOU. Inspected: submerged roadway and Houston skyline. Exact road, photographer and capture time not supplied; this is not identified as HO1, its access route or a failed bridge. Original published bytes retained. State-agency credit preserved; no image-specific Creative Commons or federal-authorship claim."
+    }
+  ],
+  "source_additions": [
+    {
+      "title": "ADA Infrastructure — Docklands campus planning announcement",
+      "url": "https://adainfrastructure.com/en-US/insights/news/ada-infrastructure-approved-to-develop-210-mw-data-center-campus-in-east-londons-royal-docks",
+      "publisher": "ADA Infrastructure",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-13",
+      "published_on": "2024-06-20",
+      "domains": [
+        "D12"
+      ],
+      "use": "Introduce the Royal Docks setting and three planned data-center buildings; identify the proposed campus visualization.",
+      "caution": "Historical planning announcement. Do not treat the image or planned capacity as completed construction or current operating power. Existing P144 supports the ground conditions and engineering response."
+    },
+    {
+      "title": "National Weather Service Houston/Galveston — Hurricane Harvey",
+      "url": "https://www.weather.gov/hgx/hurricaneharvey",
+      "publisher": "National Weather Service / NOAA",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-13",
+      "domains": [
+        "D12"
+      ],
+      "use": "Establish the August 25 coastal landfall, slow storm passage, Harris County flash flooding during August 26–27 and more heavy rain August 29–30; identify the dated TxDOT Houston-area flood photograph.",
+      "caution": "Regional event context, not an HO1 flood map, its access route or bridge failure. Existing P145/P146 separately support the facility-specific operating and staff response. No rainfall maximum assigned to Houston or HO1."
+    }
+  ]
+}
