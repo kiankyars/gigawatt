@@ -12,7 +12,7 @@ function expansionPlan(shown, compact){
  <rect x="28" y="24" width="944" height="380" rx="10" fill="var(--surface)" stroke="var(--line)" stroke-width="2"/>
  <path d="M48 60H944V117H48Z" fill="var(--panel)"/>${text(500,96,shown?'1 · Secure corridor rights':'Surface-use agreement unresolved','middle')}
  <path d="M892 280H325V220" fill="none" stroke="var(--line)" stroke-width="36"/>${text(825,333,'Site entry')}
- 
+
  <rect x="230" y="140" width="190" height="80" rx="5" fill="var(--power)"/> <text x="325" y="188" fill="var(--paper)" text-anchor="middle" font-family="system-ui" font-size="24">Hall A · live</text>
  <path d="M525 164H785V311H525Z" fill="var(--heat)" fill-opacity=".13" stroke="var(--heat)" stroke-width="3" stroke-dasharray="8 5"/>${text(655,194,'Hall B','middle')}${text(655,221,'Excavation','middle')}
  <path d="M940 239H404V220M940 250H393V220" fill="none" stroke="var(--data)" stroke-width="4"/>
