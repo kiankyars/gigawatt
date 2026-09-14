@@ -187,3 +187,26 @@ shown in Chapter 6 with four compartment callouts and manufacturer attribution.
 The product family is NXAirS up to 12 kV, separate from the generic campus circuit
 and the Compass skid. Source URL, extraction method and hashes are recorded in
 `distribution-siemens-nxairs.provenance.json`.
+
+
+## Chapter 10 networking — 14 September 2026
+
+- `generated/networking-scopes.png`: GPT-generated spatial overview of rack,
+  cluster and external-fiber scales. The exact prompt and inspection record are
+  in `generated/networking-scopes.provenance.json`. Native HTML supplies labels;
+  the generated equipment is not used to establish a port count or wiring plan.
+- `references/networking-connectx7.jpg`: unmodified NVIDIA single-port ConnectX-7
+  family rendering. The separately named MCX75310AAS-NEAT specifications come from
+  the manufacturer manual, not an inferred board marking in the rendering.
+- `references/networking-qm9700-front.png`: original QM9700 front view from its
+  hardware manual, with 32 twin-port cages and 64 logical 400 Gb/s ports.
+- `references/networking-google-ocs.jpg`: original Google diagram of optical
+  paths and MEMS mirrors. Monitor illumination and data light remain separately
+  labeled in the source image.
+- Original URLs and retrieval records for the three manufacturer figures are
+  in `references/networking-primary-provenance.json`. Product/figure credits
+  remain beside the images; detailed source interpretation is in the reader.
+
+The topology, ring states, packet paths and timing comparisons are authored
+HTML/SVG because their exact connections, quantities and interactive states
+carry the explanation.

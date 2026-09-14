@@ -14,6 +14,10 @@ A link has two endpoints, a required payload rate, a physical route and an accep
 
 A pluggable optical transceiver places the electrical-to-optical boundary in a replaceable module attached to a host port. The signal still travels electrically between the switching silicon and that module. Co-packaged optics moves optical engines close to the switching silicon, shortening that electrical portion. External laser arrangements, fiber connections and serviceable subassemblies vary by design. CPO names a packaging approach, not a guarantee that every optical component is inseparable or that every repair requires replacing an entire switch.
 
+## Choose a qualified reach example
+
+The deck compares three supported reaches in NVIDIA’s 400G LinkX product family: a 2 m passive copper cable, 30 m multimode optics and 500 m single-mode DR4 optics. These illustrate how the physical route selects a compatible product. They are not universal limits of copper or optical fiber. At the transmitting end an optical module converts an electrical signal into light; at the receiving end another module converts the light back into an electrical signal. Bidirectional links perform both roles at each end.
+
 ## Compare complete and equal power boundaries
 
 NVIDIA’s August 2025 photonics description uses shorter electrical paths as a motivation for CPO and describes then-proposed switch platforms. That is a useful mechanism to study. Its advertised savings and reliability ratios are not adopted here as universal field measurements. A comparison must state the included elements: host electrical interfaces, retimers or signal processing where present, optical engines, lasers and any additional cooling. If one number includes both ends of a link and another includes only the switch end, the apparent saving is not meaningful.
@@ -80,6 +84,9 @@ The longer compute duration overwhelms the smaller network energy saving. The sc
 
 - [Scaling AI Factories with Co-Packaged Optics for Better Power Efficiency](https://developer.nvidia.com/blog/scaling-ai-factories-with-co-packaged-optics-for-better-power-efficiency/) — Describes moving optical conversion nearer switch silicon and the associated electrical-path mechanism. Read 2026-09-06. August 18, 2025 vendor account; availability and benefit claims are dated proposals, not universal deployment evidence.
 - [NVIDIA Optical Transceivers and Cables](https://www.nvidia.com/en-us/networking/interconnect/) — Provides distinct interconnect product categories whose compatibility must be checked at the actual interface. Read 2026-09-06. Product catalog and marketing page; no power, reach or reliability rating is adopted without its specific datasheet.
+- [NVIDIA LinkX 100G-PAM4 product line overview](https://docs.nvidia.com/networking/display/400g100gpam4ovdev/LinkX-100G-PAM4-Product-Line-Overview) — Qualified 400G LinkX examples: 2 m passive copper, 30 m multimode optics and 500 m single-mode DR4 optics. Read 2026-09-14. 2m copper,30m MM and500m DR4 are supported product examples, not medium-wide maxima. Product protocol/interface compatibility still required.
+- [NVIDIA silicon photonics networking](https://www.nvidia.com/en-us/networking/products/silicon-photonics/) — Co-packaged optical engines shorten the electrical signal path between switch silicon and optical conversion. Read 2026-09-14. No vendor percent savings generalized. Service boundaries vary with product.
+- [Google’s Cloud TPU v4 provides exaFLOPS-scale ML with industry-leading efficiency](https://cloud.google.com/blog/topics/systems/tpu-v4-enables-performance-energy-and-co2e-efficiency-gains) — MEMS mirrors redirect optical signals between fiber endpoints; includes the original Google mechanism figure. Read 2026-09-14. Use authentic sourced diagram; monitor light not same as data wavelength.
 
 ## Check your understanding: Healthy devices, waiting job
 

@@ -1364,3 +1364,34 @@ not construction accuracy or author acceptance. The next author pass starts at
   fullscreen check was performed.
 - The existing chapter tracker was refreshed; author feedback and final
   acceptance remain separate. Chapter 10 is being authored independently.
+
+- Published capacitor revision: `0af3caf19270b0fd8efbd27f817df206fe9d8ff0`.
+  Pages run `34891342550` succeeded; live `continuity-energy.js` and
+  `continuity-scenes.js` bytes match the locally staged revision.
+
+
+## Chapter 10 networking and interconnects — 2026-09-14
+
+- 22 scenes use the shared header, footer, selector and automatic chapter
+  continuation. Chapter 9 now opens Chapter 10; Chapter 10 continues to the
+  Chapter 11 reader until that presentation exists.
+- Independent source review supplied actual NVIDIA adapter/switch figures and
+  Google's OCS figure. New source records P182–P187 and the three D08 reader
+  lessons support the hardware, media, ring and fabric examples. Existing
+  Meta/Google/NCCL IDs were reused. GPT ImageGen created the spatial opening.
+- Built-in browser: all 22 default scenes checked at 1280×720 and 390×844.
+  No horizontal overflow, broken loaded image or SVG text outside its viewBox.
+  Actual desktop screenshots inspected all 22 scenes. Found and corrected
+  overlapping server/tally labels, disconnected endpoint cables in the fabric
+  diagram, and a carrier slide that exceeded the desktop viewport by 10 px.
+  Rechecked the corrected layouts. Compact versions reflow rather than scaling
+  the full desktop composition.
+- All 13 parameter choices exercised; pressed states match the selected
+  condition. Diagnosis selection and reveal exercised. Native fullscreen enter
+  and exit work; no OS-dark change was made during this pass. Temporary
+  responsive viewport override was restored. No browser warnings/errors.
+- 200 JavaScript tests and 76 Python tests passed. New numerical tests cover
+  one-direction fabric capacity, bytes/bits conversion, ring phase endpoints,
+  overlap and propagation; navigation tests cover the newly built handoff.
+- Technical checks establish the authored draft's implementation state. Kian's
+  first Chapter 10 review remains pending in COURSE_REVIEW.md.

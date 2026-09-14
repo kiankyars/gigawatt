@@ -317,7 +317,7 @@
       "publisher": "Meta Engineering",
       "kind": "deployment",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-06",
+      "reviewed_on": "2026-09-14",
       "domains": [
         "D02",
         "D07",
@@ -1600,7 +1600,7 @@
       "publisher": "docs.nvidia.com",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-06",
+      "reviewed_on": "2026-09-14",
       "domains": [
         "D08"
       ],
@@ -3151,7 +3151,7 @@
       "publisher": "Google Cloud",
       "kind": "technical_article",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-12",
+      "reviewed_on": "2026-09-14",
       "published_on": "2023-04-05",
       "domains": [
         "D01",
@@ -3183,7 +3183,7 @@
       "publisher": "Google Cloud",
       "kind": "documentation",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-12",
+      "reviewed_on": "2026-09-14",
       "domains": [
         "D01",
         "D08"
@@ -4513,6 +4513,90 @@
       ],
       "use": "Floor-PDU output voltage is product-specific: Galaxy 1000 kVA uses 480 V input and 400 or 415 V output.",
       "caution": "Official May 18, 2026 product article reviewed. Product configuration example, not universal PDU behavior or an installed-campus voltage claim."
+    },
+    {
+      "id": "P182",
+      "title": "NVIDIA ConnectX-7 adapter card specifications",
+      "url": "https://networking-docs.nvidia.com/connectx7hw/specifications",
+      "publisher": "NVIDIA",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-14",
+      "domains": [
+        "D08"
+      ],
+      "use": "MCX75310AAS-NEAT adapter: one OSFP port up to 400 Gb/s, PCIe Gen 4/5 ×16, and 68.90 × 167.65 mm dimensions.",
+      "caution": "Standalone adapter example; do not imply this is the exact GB300 NVL72 tray configuration. Marketing rendering illustrates family, not legible exact SKU."
+    },
+    {
+      "id": "P183",
+      "title": "NVIDIA QM97xx hardware introduction",
+      "url": "https://networking-docs.nvidia.com/qm97x0hw/introduction",
+      "publisher": "NVIDIA",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-14",
+      "domains": [
+        "D08"
+      ],
+      "use": "QM9700: 64 logical 400 Gb/s ports through 32 twin-port OSFP cages in 1U; 25.6 Tb/s one way versus 51.2 Tb/s summed bidirectional bandwidth.",
+      "caution": "Cages and logical ports differ. One-direction payload calculations cannot use summed bidirectional rate."
+    },
+    {
+      "id": "P184",
+      "title": "NVIDIA LinkX 100G-PAM4 product line overview",
+      "url": "https://docs.nvidia.com/networking/display/400g100gpam4ovdev/LinkX-100G-PAM4-Product-Line-Overview",
+      "publisher": "NVIDIA",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-14",
+      "domains": [
+        "D08"
+      ],
+      "use": "Qualified 400G LinkX examples: 2 m passive copper, 30 m multimode optics and 500 m single-mode DR4 optics.",
+      "caution": "2m copper,30m MM and500m DR4 are supported product examples, not medium-wide maxima. Product protocol/interface compatibility still required."
+    },
+    {
+      "id": "P185",
+      "title": "NVIDIA silicon photonics networking",
+      "url": "https://www.nvidia.com/en-us/networking/products/silicon-photonics/",
+      "publisher": "NVIDIA",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-14",
+      "domains": [
+        "D08"
+      ],
+      "use": "Co-packaged optical engines shorten the electrical signal path between switch silicon and optical conversion.",
+      "caution": "No vendor percent savings generalized. Service boundaries vary with product."
+    },
+    {
+      "id": "P186",
+      "title": "TPU v4: An Optically Reconfigurable Supercomputer for Machine Learning",
+      "url": "https://arxiv.org/abs/2304.01433",
+      "publisher": "Google Research",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-14",
+      "domains": [
+        "D08"
+      ],
+      "use": "TPU v4: 4,096 chips in 64 racks, 64 chips in each electrical 4 × 4 × 4 block, and 48 optical circuit switches connecting the blocks.",
+      "caution": "TPUv4 architecture, not every TPU generation; ICI optical circuits are not automatically long-haul WAN."
+    },
+    {
+      "id": "P187",
+      "title": "Equinix Cross Connect demarcations",
+      "url": "https://docs.equinix.com/cross-connect/installation/xc-demarcations/",
+      "publisher": "Equinix",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-14",
+      "domains": [
+        "D08"
+      ],
+      "use": "Physical demarcation points define responsibility for patching between customer equipment and a cross connect.",
+      "caution": "One colocation arrangement; private campuses can organize rooms differently."
     }
   ]
 }

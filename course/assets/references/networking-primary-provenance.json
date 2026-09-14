@@ -1,0 +1,32 @@
+[
+  {
+    "file": "networking-connectx7.jpg",
+    "url": "https://www.nvidia.com/content/nvidiaGDC/us/en_US/networking/infiniband-adapters/_jcr_content/root/responsivegrid/nv_container_635579413/nv_container/nv_teaser_copy_136363209.coreimg.jpeg/1761646383012/nvidia-connectx-7-supernic.jpeg",
+    "source_page": "https://www.nvidia.com/en-us/networking/infiniband-adapters/",
+    "publisher": "NVIDIA",
+    "retrieved_on": "2026-09-14",
+    "modifications": "None",
+    "visually_reviewed_on": "2026-09-14",
+    "description": "Official NVIDIA product rendering of a single-port ConnectX-7 adapter; exact SKU not readable in image."
+  },
+  {
+    "file": "networking-qm9700-front.png",
+    "url": "https://networking-docs.nvidia.com/qm97x0hw/__attachments/a_a16334df240220c9b0136524113cde4a79fbb2b5654424b5a29922bd776f2458/image2021-11-25_14-4-13.png?cb=0f44054727af31fe0819a7491eea16da",
+    "source_page": "https://networking-docs.nvidia.com/qm97x0hw/introduction",
+    "publisher": "NVIDIA",
+    "retrieved_on": "2026-09-14",
+    "modifications": "None",
+    "visually_reviewed_on": "2026-09-14",
+    "description": "QM9700 front view from exact model manual."
+  },
+  {
+    "file": "networking-google-ocs.jpg",
+    "url": "https://storage.googleapis.com/gweb-cloudblog-publish/images/2_Cloud_TPU_v4.max-1400x1400.jpg",
+    "source_page": "https://cloud.google.com/blog/topics/systems/tpu-v4-enables-performance-energy-and-co2e-efficiency-gains",
+    "publisher": "Google",
+    "retrieved_on": "2026-09-14",
+    "modifications": "None",
+    "visually_reviewed_on": "2026-09-14",
+    "description": "Google OCS diagram: two MEMS arrays route optical signal; 850nm monitor beam is separate."
+  }
+]

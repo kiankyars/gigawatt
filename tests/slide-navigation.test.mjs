@@ -49,11 +49,19 @@ test('student exploration stays outside teaching mode and transient parameters d
 
 test('the next chapter uses its reading when no deck exists instead of skipping chapters', () => {
   const module = 'http://localhost/course/prototypes/slide-navigation.js';
-  const link = nextChapterLink('http://localhost/course/prototypes/compute-format.html?teach=1#network-handoff', presentationRoutes, module);
-  assert.equal(link.number, 10);
+  const link = nextChapterLink('http://localhost/course/prototypes/networking-format.html?teach=1#storage-handoff', presentationRoutes, module);
+  assert.equal(link.number, 11);
   assert.equal(link.kind, 'reading');
   assert.equal(new URL(link.href).pathname, '/course/index.html');
-  assert.ok(new URL(link.href).hash.startsWith('#d08-'));
+  assert.ok(new URL(link.href).hash.startsWith('#d09-'));
+});
+
+test('compute advances to the networking presentation', () => {
+  const module = 'http://localhost/course/prototypes/slide-navigation.js';
+  const link = nextChapterLink('http://localhost/course/prototypes/compute-format.html?teach=1#network-handoff', presentationRoutes, module);
+  assert.equal(link.number, 10);
+  assert.equal(link.kind, 'slides');
+  assert.equal(link.href, 'http://localhost/course/prototypes/networking-format.html?teach=1');
 });
 
 test('a presentation spanning two chapters continues after both', () => {

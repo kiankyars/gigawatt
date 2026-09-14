@@ -10,6 +10,7 @@ export const presentationLabels = Object.freeze({
   "continuity": "7. Continuity, storage and protection",
   "rack-energy": "8. Rack power and the 800 V DC transition",
   "compute": "9. Compute, memory and the rack",
+  "networking": "10. Networking and interconnects",
   "cooling": "12–13. From the chip to the outdoors"
 });
 export const presentationRoutes = Object.freeze([
@@ -90,7 +91,16 @@ export const presentationRoutes = Object.freeze([
     "next": {
       "number": 10,
       "title": "Networking and interconnects",
-      "href": "../index.html#d08-topology-budget",
+      "href": "networking-format.html?teach=1",
+      "kind": "slides"
+    }
+  },
+  {
+    "path": "networking-format.html",
+    "next": {
+      "number": 11,
+      "title": "Storage, orchestration and recovery",
+      "href": "../index.html#d09-storage-paths",
       "kind": "reading"
     }
   },

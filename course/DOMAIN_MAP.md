@@ -1028,6 +1028,12 @@ Trace a network failure or degraded link into workload, cabling and operational 
 - [P99 — Gemini: A Family of Highly Capable Multimodal Models](https://deepmind.google/gemini/gemini_1_report.pdf) · `page_reviewed` · [local note](../research/sources/P99.md)
 - [P96 — vLLM — Inside vLLM: Anatomy of a High-Throughput LLM Inference System](https://vllm.ai/blog/2025-09-05-anatomy-of-vllm) · `page_reviewed` · [local note](../research/sources/P96.md)
 - [P177 — QTS — Suwanee DC1 connectivity facility sheet](https://qtsdatacenters.com/wp-content/uploads/2024/11/QTS_Facility-Data-Sheet_SUW1DC1.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P177.md)
+- [P182 — NVIDIA ConnectX-7 adapter card specifications](https://networking-docs.nvidia.com/connectx7hw/specifications) · `page_reviewed` · [local note](../research/sources/P182.md)
+- [P183 — NVIDIA QM97xx hardware introduction](https://networking-docs.nvidia.com/qm97x0hw/introduction) · `page_reviewed` · [local note](../research/sources/P183.md)
+- [P184 — NVIDIA LinkX 100G-PAM4 product line overview](https://docs.nvidia.com/networking/display/400g100gpam4ovdev/LinkX-100G-PAM4-Product-Line-Overview) · `page_reviewed` · [local note](../research/sources/P184.md)
+- [P185 — NVIDIA silicon photonics networking](https://www.nvidia.com/en-us/networking/products/silicon-photonics/) · `page_reviewed` · [local note](../research/sources/P185.md)
+- [P186 — TPU v4: An Optically Reconfigurable Supercomputer for Machine Learning](https://arxiv.org/abs/2304.01433) · `page_reviewed` · [local note](../research/sources/P186.md)
+- [P187 — Equinix Cross Connect demarcations](https://docs.equinix.com/cross-connect/installation/xc-demarcations/) · `page_reviewed` · [local note](../research/sources/P187.md)
 
 <a id="d09"></a>
 

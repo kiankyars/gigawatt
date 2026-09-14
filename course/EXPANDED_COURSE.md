@@ -74,6 +74,7 @@ Each topic ends with a check-in: pause, make a prediction, compare the reasoning
 
 ### 10. Networking and interconnects
 
+- Slides: [Networking and interconnects](prototypes/networking-format.html?teach=1)
 - [Count the paths, not just the advertised ports](lessons/d08-topology-budget.md) — How do topology, physical distance and the campus fiber handoff constrain a communication plan?
 - [A collective makes waiting contagious](lessons/d08-collective-progress.md) — How can one constrained participant delay a job running on many healthy accelerators?
 - [Choose where electricity becomes light](lessons/d08-copper-light-service.md) — How should reach, power and replacement boundaries shape the choice between copper, pluggable optics and CPO?
@@ -3137,11 +3138,17 @@ Scale-up communication joins devices within a tightly integrated execution domai
 
 Physical distance establishes a propagation floor that faster serialization cannot remove. Using an illustrative fiber propagation speed of 200,000 kilometers per second, a 100-kilometer route takes at least 0.5 milliseconds one way before switching, queueing or protocol work. A request-response dependency crosses that distance twice. Long bulk transfers may tolerate that delay; many sequential dependent exchanges may not. Route length also differs from straight-line map distance. A WAN proposal needs the actual route and service behavior, not just the names of two cities.
 
+## Locate a real adapter and switch
+
+A network adapter connects the server to an external fabric. The standalone product example is NVIDIA’s ConnectX-7 MCX75310AAS-NEAT: a single OSFP port supports up to 400 Gb/s, with a PCIe Gen 4/5 ×16 host interface. Its board is 68.90 × 167.65 mm. This example identifies the adapter’s function and form; it does not identify the adapter fitted to every GB300 configuration. A 400 Gb/s line rate converts to 50 GB/s before protocol overhead and other constraints.
+
+NVIDIA’s 1U QM9700 switch provides 64 logical 400 Gb/s ports through 32 twin-port OSFP cages. A front-panel opening and a logical port are therefore different counts. Its aggregate is 25.6 Tb/s in one direction; the advertised 51.2 Tb/s sums both directions. Match the direction of the bandwidth number to the traffic being calculated.
+
 ## Draw a topology as a graph of constrained resources
 
 Endpoints attach to leaf switches; leaf switches connect through an upper tier such as spines. Each cable consumes a port at each end. A diagram with four uplinks drawn as one thick line still needs four physical links and their associated ports. Specify whether a bandwidth label is per port, per endpoint, the sum of one direction, or a bidirectional aggregate. Dividing an aggregate bidirectional number by a one-way payload is a common way to create an impossibly fast transfer estimate.
 
-Oversubscription compares offered endpoint capacity with capacity available toward the rest of the fabric, under a stated direction and traffic pattern. Eight 100 Gb/s downlinks sharing four 100 Gb/s uplinks give a 2:1 ratio at that leaf. This is not a promise that every job runs at half speed. Traffic staying within the leaf may not use uplinks; sparse or staggered transfers may fit easily. The ratio becomes restrictive when simultaneous traffic demands more capacity across the shared cut than the cut can provide.
+Oversubscription compares offered endpoint capacity with capacity available toward the rest of the fabric, under a stated direction and traffic pattern. Four 400 Gb/s downlinks sharing two 400 Gb/s uplinks give a 2:1 ratio at that leaf. This is not a promise that every job runs at half speed. Traffic staying within the leaf may not use uplinks; sparse or staggered transfers may fit easily. The ratio becomes restrictive when simultaneous traffic demands more capacity across the shared cut than the cut can provide.
 
 ## Derive bounds from the traffic matrix
 
@@ -3165,20 +3172,20 @@ Two carrier contracts do not prove two independent physical paths. Map each circ
 
 In an original campus example, two 100 Gb/s services share the same bridge. Cutting both bridge cables removes both services, even though the invoices name different carriers. Moving one service to a verified independent crossing removes that particular shared failure. It does not establish automatic failover, enough remaining payload capacity, or independence from every other hazard. This is the external-network counterpart of the shared-bus failure in the UPS lesson.
 
-## Worked example: A four-leaf synthetic fabric
+## Worked example: Four leaves with shared uplinks
 
-- Four leaf switches each connect eight endpoints at 100 Gb/s, one port per endpoint.
-- Each leaf has four 100 Gb/s uplinks, one to each of four spine switches. Links are full duplex; all calculations below use one direction.
-- Eight endpoints on one leaf send a total of 64 GB to endpoints on another leaf, evenly balanced. GB and Gb use decimal units; switching and routing are otherwise ideal.
+- Four leaf switches each connect four endpoints at 400 Gb/s.
+- Each leaf has two 400 Gb/s uplinks, one to each of two spine switches. All bandwidth calculations use one direction.
+- Four endpoints under one leaf send 32 GB in total to another leaf, with traffic evenly distributed. GB and Gb use decimal units; this model omits overhead and queueing.
 
-1. Count endpoints and links — 4 × 8 = 32 endpoint links; 4 × 4 = 16 leaf-spine links — There are 48 cables in this logical design, before any management connections.
-2. Count occupied switch ports — Leaves: 32 + 16 = 48; spines: 16 — A fabric cable consumes a port on both tiers, while an endpoint cable consumes one switch port and one NIC port.
-3. Calculate oversubscription — (8 × 100) / (4 × 100) = 2:1 — Each leaf can inject 800 Gb/s from endpoints toward 400 Gb/s of uplinks.
-4. Bound transfer time — 400 Gb/s / 8 = 50 GB/s; 64 / 50 = 1.28 s — The transmitting and receiving leaf uplinks impose the same aggregate bound under balanced routing.
+1. Count links — 4 × 4 = 16 endpoint cables; 4 × 2 = 8 uplink cables — 24 cables connect the endpoints and the two switch tiers.
+2. Count switch ports — Leaves: 16 + 8 = 24; spines: 8 — Each leaf–spine cable consumes a port on both tiers.
+3. Find the shared capacity — (4 × 400) / (2 × 400) = 2:1 — A leaf has 1,600 Gb/s toward endpoints but 800 Gb/s toward the spines.
+4. Bound the transfer — 800 Gb/s ÷ 8 = 100 GB/s; 32 GB ÷ 100 GB/s = 0.32 s — The sender and receiver uplinks impose the same bound under the supplied balanced traffic pattern.
 
-**Result:** The transfer cannot finish in less than 1.28 seconds under the supplied model, despite the endpoints collectively offering twice that uplink rate.
+**Result:** Adding two more uplinks per leaf raises shared capacity to 1,600 Gb/s and reduces this transfer bound to 0.16 s. The endpoint links have not changed.
 
-**Model boundary:** This is a topology exercise, not an Ethernet or InfiniBand benchmark. Effective payload rate and real routing require measurement.
+**Model boundary:** This calculation isolates the shared-link constraint; measured application throughput also includes protocol, routing, queueing and endpoint behavior.
 
 ## The tradeoff
 
@@ -3198,14 +3205,14 @@ Response: Compare the observed traffic matrix and placement with the design assu
 
 ## Apply the idea
 
-One sending-leaf uplink fails and traffic balances perfectly over the remaining three. What is the new lower bound for the same 64 GB transfer? Separately, do two campus carriers survive a cable cut if both routes use the same bridge and both cables are cut?
+The transfer is slow only when its participants occupy separate leaves. Transfers between the same number of endpoints on one leaf remain fast. What should you inspect before replacing their network adapters?
 
 <details>
 <summary>Reveal the worked answer</summary>
 
-300 Gb/s equals 37.5 GB/s, so the transfer bound is 64 / 37.5 ≈ 1.707 seconds. Neither carrier survives the specified bridge cut; two service contracts did not create physical diversity.
+Inspect uplink utilization, queueing, traffic placement and error counters along the cross-leaf route. A fast local transfer makes the shared fabric a stronger suspect than the endpoint port rate alone.
 
-Internal link counts and external service counts both need a physical path. Verify independent routing and remaining capacity before assuming that a second connection preserves the required service.
+Changing participant placement changes the route without changing their adapters. Compare that changed route with the symptoms, then test the suspected shared resource.
 
 </details>
 
@@ -3218,6 +3225,10 @@ Internal link counts and external service counts both need a physical path. Veri
 - [Corning — Meet-Me-Room to Outside Plant Data Center Solutions](https://www.corning.com/data-center/worldwide/en/home/applications/multi-tenant-data-center/meet-me-room.html) — Connect outside-plant fiber, a meet-me room and customer cabling; DCI can join campus buildings. Read 2026-09-12. Opening MMR/OSP sections reviewed. Multitenant example, not a universal campus layout or security guarantee.
 - [Equinix — Customer-Managed Pre-Cabling and Demarcations](https://docs.equinix.com/cross-connect/installation/xc-customer-managed-precabling/) — Separate customer cabling, MMR cross-connects and the demarcation responsibility boundary. Read 2026-09-12. Pre-cabling page and linked Demarcations page reviewed. Product-specific implementation; no fees, availability or universal room arrangement adopted.
 - [FCC 25-21 — Physical Diversity, paragraph 63](https://docs.fcc.gov/public/attachments/FCC-25-21A1.pdf) — Shared cables, conduits and structures can defeat physical path diversity. Read 2026-09-12. Paragraphs 62–63 on printed page 26 reviewed. NG911 proposed rulemaking used only for the engineering distinction, not data-center legal requirements.
+- [NVIDIA ConnectX-7 adapter card specifications](https://networking-docs.nvidia.com/connectx7hw/specifications) — MCX75310AAS-NEAT adapter: one OSFP port up to 400 Gb/s, PCIe Gen 4/5 ×16, and 68.90 × 167.65 mm dimensions. Read 2026-09-14. Standalone adapter example; do not imply this is the exact GB300 NVL72 tray configuration. Marketing rendering illustrates family, not legible exact SKU.
+- [NVIDIA QM97xx hardware introduction](https://networking-docs.nvidia.com/qm97x0hw/introduction) — QM9700: 64 logical 400 Gb/s ports through 32 twin-port OSFP cages in 1U; 25.6 Tb/s one way versus 51.2 Tb/s summed bidirectional bandwidth. Read 2026-09-14. Cages and logical ports differ. One-direction payload calculations cannot use summed bidirectional rate.
+- [Equinix Cross Connect demarcations](https://docs.equinix.com/cross-connect/installation/xc-demarcations/) — Physical demarcation points define responsibility for patching between customer equipment and a cross connect. Read 2026-09-14. One colocation arrangement; private campuses can organize rooms differently.
+- [Cloud TPU Multislice Overview](https://docs.cloud.google.com/tpu/docs/multislice-introduction) — ICI connects chips within a TPU slice; communication across slices uses the data-center network. Read 2026-09-14. May reuse existing P93 rather than duplicate.
 
 ## A collective makes waiting contagious
 
@@ -3249,20 +3260,30 @@ Congestion makes available bandwidth time-dependent. Several flows can share an 
 
 Ethernet and InfiniBand are families of technologies and implementations, not universal performance rankings. Meta’s March 2024 report describes separate large clusters using RoCE and InfiniBand and explains that routing, collective software and topology-aware scheduling required joint tuning. That case supports testing the full system. It does not prove equal performance for every workload or make operational expertise irrelevant. A useful comparison names the hardware, protocol configuration, topology, software version, message distribution and failure conditions being tested.
 
-## Worked example: Eight ranks on a fictional ring
+## Optical circuit switching in Google TPU v4
 
-- Eight ranks each contribute a 1 GB input buffer.
-- Every ring edge sustains 25 GB/s; each of fourteen rounds has 10 microseconds of startup overhead.
-- A training step also has 200 ms of computation; no communication overlaps that computation.
+Google’s TPU v4 paper describes 4,096 TPU chips in 64 racks. Each rack contains a 64-chip electrical 4 × 4 × 4 block. Forty-eight optical circuit switches connect these blocks through reconfigurable light paths. An optical circuit switch establishes a connection between fiber endpoints; it does not inspect and forward each packet like a packet switch. Reconfiguration can connect available blocks for a workload and avoid unavailable portions of the machine.
 
-1. Calculate sent bytes per rank — 2 × (8 − 1) / 8 × 1 GB = 1.75 GB — Seven reduce-scatter and seven all-gather rounds each send a 0.125 GB chunk.
-2. Calculate collective time — 1.75 / 25 s + 14 × 10 microseconds = 70.14 ms — Bandwidth time and stipulated startup time are added.
-3. Calculate step time — 200 + 70.14 = 270.14 ms — The collective is fully exposed after computation.
-4. Halve available ring bandwidth — 1.75 / 12.5 s + 0.14 ms = 140.14 ms; step = 340.14 ms — A constrained effective ring rate adds 70 ms without changing the compute hardware.
+This is the TPU v4 inter-chip network. Google’s Multislice documentation separately distinguishes ICI inside a slice from communication over the data-center network between slices. A wide-area route requires another distance and service budget; the presence of optical switches does not remove propagation delay.
 
-**Result:** The step becomes about 25.9% longer under the stipulated bandwidth degradation, while every accelerator can remain powered and locally healthy.
+## Diagnose a link that stays connected
 
-**Model boundary:** The model uses a single uniform effective ring rate. Real routing, algorithms, overlap and reduction costs must be measured.
+The closing slide changes the evidence: after a cable move, one worker arrives late, its port reports rising retries, and other uplinks retain spare capacity. Trace that worker’s adapter, cable, connectors and switch port before adding general fabric bandwidth. Correlate the link counters with rank timing, localize the affected segment and verify the collective after the repair. A connected link can deliver poor payload service, so link-up status alone does not resolve the diagnosis.
+
+## Worked example: Four workers perform a ring all-reduce
+
+- Four workers each contribute a 1 GB buffer, split into four 0.25 GB chunks.
+- Each ring edge sustains 50 GB/s of payload. The bandwidth model omits per-round startup and reduction work.
+- Compute takes 200 ms; compare exchange entirely afterward with 20 ms of communication overlapping independent compute.
+
+1. Reduce then distribute — 3 reduce-scatter rounds + 3 all-gather rounds = 6 rounds — After reduction, each worker holds one complete chunk; distribution gives every worker all complete chunks.
+2. Count transmitted bytes — 6 × 0.25 GB = 1.5 GB per worker — Each ring edge carries one chunk per round.
+3. Find communication time — 1.5 GB ÷ 50 GB/s = 30 ms — All ring edges operate concurrently at the stipulated payload rate.
+4. Place it on the critical path — Without overlap: 200 + 30 = 230 ms; with overlap: 200 + (30 − 20) = 210 ms — Only the 10 ms remaining after the compute interval extends the overlapped step.
+
+**Result:** At 25 GB/s, communication takes 60 ms. With the same 20 ms overlap, step time becomes 240 ms. Faster networking changes exposed communication, not the fixed 200 ms of compute.
+
+**Model boundary:** The uniform ring is a teaching model; actual collective algorithms and achievable overlap depend on the workload and fabric.
 
 ## The tradeoff
 
@@ -3282,14 +3303,14 @@ Response: Correlate rank logs and collective progress, identify the first diverg
 
 ## Apply the idea
 
-A communication improvement reduces the 70.14 ms collective to 35.07 ms while computation stays at 200 ms. What is the end-to-end speedup?
+GPU compute stays at 200 ms. Collective time rises from 30 to 60 ms, and counters show output queueing on a shared uplink while link errors remain unchanged. Would you start with faster GPUs, fabric traffic placement, or extra model memory?
 
 <details>
 <summary>Reveal the worked answer</summary>
 
-270.14 / 235.07 ≈ 1.149, about a 14.9% throughput increase for repeated identical steps.
+Start with fabric traffic placement and the shared uplink. Inspect which traffic crosses it and whether competing transfers can be separated; verify the result with the same job.
 
-Only part of the step improves. The communication phase is twice as fast, but the whole dependency chain is not. If the job also has input, checkpoint or queueing overhead, the total-service gain is smaller still.
+The observed change is exposed communication. More GPU arithmetic throughput or model memory does not directly remove the measured output queue.
 
 </details>
 
@@ -3297,8 +3318,9 @@ Only part of the step improves. The communication phase is twice as fast, but th
 
 ## Sources and reading boundaries
 
-- [NCCL Collective Operations](https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/usage/collectives.html) — Defines collective transformations and participation requirements. Read 2026-09-06. Inspected NCCL 2.31.2 documentation; the ring timing model is original and is not asserted to be the library’s chosen implementation.
-- [Building Meta’s GenAI Infrastructure](https://engineering.fb.com/2024/03/12/data-center-engineering/building-metas-genai-infrastructure/) — First-party example of RoCE and InfiniBand clusters and joint network/software/placement tuning. Read 2026-09-06. March 2024 operator report; no reported benchmark ratio is generalized.
+- [NCCL Collective Operations](https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/usage/collectives.html) — Defines collective transformations and participation requirements. Read 2026-09-14. Inspected NCCL 2.31.2 documentation; the ring timing model is original and is not asserted to be the library’s chosen implementation.
+- [Building Meta’s GenAI Infrastructure](https://engineering.fb.com/2024/03/12/data-center-engineering/building-metas-genai-infrastructure/) — First-party example of RoCE and InfiniBand clusters and joint network/software/placement tuning. Read 2026-09-14. March 2024 operator report; no reported benchmark ratio is generalized.
+- [TPU v4: An Optically Reconfigurable Supercomputer for Machine Learning](https://arxiv.org/abs/2304.01433) — TPU v4: 4,096 chips in 64 racks, 64 chips in each electrical 4 × 4 × 4 block, and 48 optical circuit switches connecting the blocks. Read 2026-09-14. TPUv4 architecture, not every TPU generation; ICI optical circuits are not automatically long-haul WAN.
 
 ## Choose where electricity becomes light
 
@@ -3313,6 +3335,10 @@ Compare media and optical packaging at the link level, then include their effect
 A link has two endpoints, a required payload rate, a physical route and an acceptable error behavior. Its media choice must satisfy those conditions under the intended environment. Copper carries an electrical signal along the route; optical fiber carries modulated light after electro-optical conversion. Copper can be attractive for sufficiently short qualified connections, while increasing rate and distance can make electrical loss and signal conditioning harder. There is no universal distance at which every copper design stops and every optical design begins: specify the actual interface and approved cable.
 
 A pluggable optical transceiver places the electrical-to-optical boundary in a replaceable module attached to a host port. The signal still travels electrically between the switching silicon and that module. Co-packaged optics moves optical engines close to the switching silicon, shortening that electrical portion. External laser arrangements, fiber connections and serviceable subassemblies vary by design. CPO names a packaging approach, not a guarantee that every optical component is inseparable or that every repair requires replacing an entire switch.
+
+## Choose a qualified reach example
+
+The deck compares three supported reaches in NVIDIA’s 400G LinkX product family: a 2 m passive copper cable, 30 m multimode optics and 500 m single-mode DR4 optics. These illustrate how the physical route selects a compatible product. They are not universal limits of copper or optical fiber. At the transmitting end an optical module converts an electrical signal into light; at the receiving end another module converts the light back into an electrical signal. Bidirectional links perform both roles at each end.
 
 ## Compare complete and equal power boundaries
 
@@ -3380,6 +3406,9 @@ The longer compute duration overwhelms the smaller network energy saving. The sc
 
 - [Scaling AI Factories with Co-Packaged Optics for Better Power Efficiency](https://developer.nvidia.com/blog/scaling-ai-factories-with-co-packaged-optics-for-better-power-efficiency/) — Describes moving optical conversion nearer switch silicon and the associated electrical-path mechanism. Read 2026-09-06. August 18, 2025 vendor account; availability and benefit claims are dated proposals, not universal deployment evidence.
 - [NVIDIA Optical Transceivers and Cables](https://www.nvidia.com/en-us/networking/interconnect/) — Provides distinct interconnect product categories whose compatibility must be checked at the actual interface. Read 2026-09-06. Product catalog and marketing page; no power, reach or reliability rating is adopted without its specific datasheet.
+- [NVIDIA LinkX 100G-PAM4 product line overview](https://docs.nvidia.com/networking/display/400g100gpam4ovdev/LinkX-100G-PAM4-Product-Line-Overview) — Qualified 400G LinkX examples: 2 m passive copper, 30 m multimode optics and 500 m single-mode DR4 optics. Read 2026-09-14. 2m copper,30m MM and500m DR4 are supported product examples, not medium-wide maxima. Product protocol/interface compatibility still required.
+- [NVIDIA silicon photonics networking](https://www.nvidia.com/en-us/networking/products/silicon-photonics/) — Co-packaged optical engines shorten the electrical signal path between switch silicon and optical conversion. Read 2026-09-14. No vendor percent savings generalized. Service boundaries vary with product.
+- [Google’s Cloud TPU v4 provides exaFLOPS-scale ML with industry-leading efficiency](https://cloud.google.com/blog/topics/systems/tpu-v4-enables-performance-energy-and-co2e-efficiency-gains) — MEMS mirrors redirect optical signals between fiber endpoints; includes the original Google mechanism figure. Read 2026-09-14. Use authentic sourced diagram; monitor light not same as data wavelength.
 
 ## Check your understanding: Healthy devices, waiting job
 

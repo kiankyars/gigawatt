@@ -295,3 +295,24 @@ Visual and behavior validation is recorded in TESTING.md. These are revisions aw
 The exact graph is code-rendered because the teaching depends on its slope,
 triangle area and readable algebra. Existing generated spatial illustrations
 are retained. OpenStax College Physics 2e §19.7 supports the algebraic derivation.
+
+
+## Chapter 10 creation — 14 September 2026
+
+The next previously unbuilt chapter is **Networking and interconnects (D08)**.
+An independent authoring agent and source-review agent produced its 22-scene
+presentation. Chapter 9 already existed; it was not rebuilt.
+
+- Scope: network adapter and switch → copper/optical reach and CPO → shared
+  fabric capacity → collectives and exposed communication → Meta fabrics and
+  Google TPU v4 optical circuits → campus carrier handoff → link diagnosis.
+- GPT ImageGen produced the spatial opening. Actual NVIDIA adapter/switch images
+  and Google’s optical diagram provide the product/mechanism examples. Exact
+  graphs, topology paths and state changes use authored HTML/SVG.
+- The three D08 reader lessons now support the specific four-worker ring and
+  sixteen-endpoint fabric examples. Six new primary references P182–P187 join
+  the existing Meta, Google and NCCL sources without duplicate records.
+- Common header/footer, device theme and automatic Chapter 9 → Chapter 10 →
+  Chapter 11 handoff are registered through the existing teaching catalog.
+- Review state stays in COURSE_REVIEW.md. Authored and checked is not author
+  acceptance, and the older reviewed material does not need a general restart.

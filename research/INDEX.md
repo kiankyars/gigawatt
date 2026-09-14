@@ -224,6 +224,12 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P18 — OpenStax — 20.5 Alternating Current versus Direct Current (College Physics 2e)](sources/P18.md) | OpenStax, Rice University | D01, D04, D06 | page_reviewed |
 | [P180 — Siemens — NXAirS medium-voltage switchgear HA 1702 sectional illustration](sources/P180.md) | Siemens | D04 | page_reviewed |
 | [P181 — Schneider Electric — Galaxy PDU 1000 kVA distribution voltages](sources/P181.md) | Schneider Electric | D04 | page_reviewed |
+| [P182 — NVIDIA ConnectX-7 adapter card specifications](sources/P182.md) | NVIDIA | D08 | page_reviewed |
+| [P183 — NVIDIA QM97xx hardware introduction](sources/P183.md) | NVIDIA | D08 | page_reviewed |
+| [P184 — NVIDIA LinkX 100G-PAM4 product line overview](sources/P184.md) | NVIDIA | D08 | page_reviewed |
+| [P185 — NVIDIA silicon photonics networking](sources/P185.md) | NVIDIA | D08 | page_reviewed |
+| [P186 — TPU v4: An Optically Reconfigurable Supercomputer for Machine Learning](sources/P186.md) | Google Research | D08 | page_reviewed |
+| [P187 — Equinix Cross Connect demarcations](sources/P187.md) | Equinix | D08 | page_reviewed |
 | [P19 — Steven H. Low — Power System Analysis: Analytical tools and structural properties (April 7, 2025 draft)](sources/P19.md) | Steven H. Low, California Institute of Technology | D04, D06 | page_reviewed |
 | [P20 — Wolfspeed — Powering AI with reliable SiC-based solid-state transformers](sources/P20.md) | Wolfspeed | D04, D06 | page_reviewed |
 | [P21 — Texas Instruments — TIDA-011012 modular solid-state transformer reference design](sources/P21.md) | Texas Instruments | D04, D06 | page_reviewed |

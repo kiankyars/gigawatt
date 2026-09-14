@@ -101,6 +101,17 @@
       ]
     },
     {
+      "id": "networking",
+      "title": "Networking and interconnects",
+      "chapters": [
+        {
+          "id": "D08",
+          "href": "prototypes/networking-format.html?teach=1",
+          "coverage": "chapter"
+        }
+      ]
+    },
+    {
       "id": "cooling",
       "title": "From the chip to the outdoors",
       "chapters": [
