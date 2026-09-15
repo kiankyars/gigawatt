@@ -544,7 +544,7 @@ Reconcile IT and auxiliary loads with a downstream electrical capacity budget ac
 - [P54 — OCP — Data Center Facility: Low Voltage Direct Current Power Distribution, v1.0](https://www.opencompute.org/documents/dcf-power-distribution-lvdc-white-paper-version-1-0-final-pdf-1) · `public_excerpt_reviewed` · [local note](../research/sources/P54.md)
 - [P66 — EIA — Delivery of electricity to consumers](https://www.eia.gov/energyexplained/electricity/delivery-to-consumers.php) · `public_excerpt_reviewed` · [local note](../research/sources/P66.md)
 - [P67 — OpenStax · Resistance and simple circuits](https://openstax.org/books/college-physics-2e/pages/20-2-ohms-law-resistance-and-simple-circuits) · `page_reviewed` · [local note](../research/sources/P67.md)
-- [P68 — Schneider · Definition of power factor](https://www.electrical-installation.org/enwiki/Definition_of_Power_Factor) · `public_excerpt_reviewed` · [local note](../research/sources/P68.md)
+- [P68 — Schneider · Definition of power factor](https://www.electrical-installation.org/enwiki/Definition_of_Power_Factor) · `page_reviewed` · [local note](../research/sources/P68.md)
 - [P69 — Eaton · UPS fundamentals handbook](https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-ups-fundamentals-handbook-anz.pdf) · `page_reviewed` · [local note](../research/sources/P69.md)
 - [P78 — MLGW — xAI project quick facts](https://www.mlgw.com/images/content/files/pdf/2024xAI%20and%20MLGW%20Quick%20Facts%201.pdf) · `page_reviewed` · [local note](../research/sources/P78.md)
 - [SA42 — SpaceX 10GW in 2027 — construction pace and equipment procurement](https://newsletter.semianalysis.com/p/spacex-10gw-in-2027-why-its-real) · `public_excerpt_reviewed` · [local note](../research/sources/SA42.md)
@@ -569,6 +569,7 @@ Reconcile IT and auxiliary loads with a downstream electrical capacity budget ac
 - [P194 — Longhorn power plant review drawing — Lancium 34.5 kV feed](https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/37589-tc.pdf) · `page_reviewed` · [local note](../research/sources/P194.md)
 - [P195 — Hitachi Energy — CPB capacitor voltage transformer, 72–800 kV](https://www.hitachienergy.com/products-and-solutions/instrument-transformers/voltage-transformers/cpb-72-800-kv) · `page_reviewed` · [local note](../research/sources/P195.md)
 - [P196 — ABB — Protection criteria for medium voltage networks](https://library.e.abb.com/public/76afab5a1dd44f438409aa65c990ed8b/AP_Protection%20criteria%20MV(EN)C-_1VCP000280-01.2017.pdf) · `page_reviewed` · [local note](../research/sources/P196.md)
+- [P197 — Schneider Electric — Definition of reactive power](https://www.electrical-installation.org/enwiki/Definition_of_reactive_power) · `page_reviewed` · [local note](../research/sources/P197.md)
 
 <a id="d05"></a>
 

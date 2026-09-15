@@ -52,6 +52,12 @@ Equinix’s rack installation guidelines explicitly ask for balanced connections
 
 The reduced power-factor example holds real AC input at 900 kW and voltage at 480 V line-to-line. S = P/PF gives 900 kVA at PF 1, 1,000 kVA at PF 0.9 and 1,125 kVA at PF 0.8. The illustrative transformer is rated 1,000 kVA. This teaches how current uses equipment capacity without reintroducing a converter-loss calculation. Power factor and conversion efficiency are distinct.
 
+## Read the power-factor comparison
+
+The comparison before the interactive slide keeps real power at 900 kW and balanced three-phase voltage at 480 V line-to-line. PF 1 gives 900 kVA and 1,083 A; PF 0.8 gives 1,125 kVA and 1,353 A. Those loads use 90% and 112.5% of the 1,000 kVA transformer rating; the image rounds the latter to 113%. Real power is average power delivered to the load, including its losses. Power factor is the ratio of real to apparent power; it is not conversion efficiency.
+
+Reactive power describes cyclic energy exchange with electric and magnetic fields. For sinusoidal voltage and current, S² = P² + Q². At 900 kW and PF 0.8, the magnitude of reactive power is 675 kvar, alongside 1,125 kVA of apparent power. It is not the arithmetic difference between kVA and kW. With distorted waveforms, P and true PF alone do not determine Q.
+
 ## Worked example: A 900 kW output behind a 1 MVA limit
 
 - DC output is 900 kW.
@@ -105,3 +111,5 @@ Input real power remains 937.5 kW. Dividing by 0.99 gives 946.97 kVA; this passe
 - [Schneider Electric — Choice of transformer rating](https://www.electrical-installation.org/enwiki/Choice_of_transformer_rating) — Transformer rating selection considers apparent-power loading and installation constraints. Read 2026-09-06. Read the public rating discussion, not a site-specific selection study; no listed product rating is used.
 - [Schneider Electric — Effects of harmonics: increased losses](https://www.electrical-installation.org/enwiki/Effects_of_harmonics_-_Increased_losses) — Harmonic heating and transformer-loss mechanism; excerpt scope recorded. Read 2026-09-13. Public indexed excerpt reviewed; direct page returned 503. No harmonic derating factor or real equipment rating is inferred. The 3 I²R comparison uses original fixed-resistance teaching inputs.
 - [Equinix — Customer Installation Guidelines, phase balancing](https://docs.equinix.com/assets/files/Customer-Installation-Guidelines-EN-5d94e7d67671467cab7d7c9877ef5229.pdf) — Rack PDU load allocation should balance connections across all three phases; figure 14 compares balanced and unbalanced racks. Read 2026-09-13. Public indexed page 19 and figure description reviewed. Six groups at 20 A and a 60 A limit are an original teaching example, not Equinix ratings.
+- [Schneider · Definition of power factor](https://www.electrical-installation.org/enwiki/Definition_of_Power_Factor) — Define real power, apparent power and PF = P/S independently of conversion efficiency. Read 2026-09-14. Definitions reviewed. The 900 kW, 480 V and 1,000 kVA comparison is a course example, not equipment performance data.
+- [Schneider Electric — Definition of reactive power](https://www.electrical-installation.org/enwiki/Definition_of_reactive_power) — Sinusoidal power triangle and balanced three-phase P, Q and S relationships. Read 2026-09-14. S² = P² + Q² and displacement PF interpretation assume sinusoidal voltage and current. Do not infer Q from true PF alone under harmonic distortion.

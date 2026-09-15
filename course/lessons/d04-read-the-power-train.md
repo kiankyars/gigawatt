@@ -58,7 +58,7 @@ The high-voltage reference follows Abilene’s expansion: Mortenson distinguishe
 
 ## Inside the switchgear: sensing, decision and interruption
 
-The slide uses the original sectional illustration from the Siemens NXAirS catalog, HA 1702, page 12. It locates the shared busbar, withdrawable circuit breaker, outgoing cable connection and low-voltage protection/control compartment inside a real panel. This product family is rated up to 12 kV and is separate from the generic 34.5 kV campus circuit and the Compass 8DJH 36 skid.
+The slide uses the supplied labeled Siemens NXAirS cutaway, with the breaker, earthing-switch and cable-connection leader endpoints corrected against catalog HA 1702, page 12. The vacuum interrupters sit in the right-hand withdrawable circuit-breaker assembly. The lower-left cable terminations and the adjacent earthing-switch mechanism are different components. The upper-left busbars and upper-right low-voltage controls retain their labels. This product family is rated up to 12 kV and is separate from the 34.5 kV campus example and the Compass 8DJH 36 skid.
 
 A breaker-based feeder assembly separates the power path from its control path. The bus and breaker conduct feeder current. A current transformer supplies a scaled measurement to a protection relay. If the protection criteria are met, the relay commands the breaker to trip. Contacts and an interrupting chamber must then stop the power current. A recorded trip command therefore does not prove successful interruption: continuing fault current can trigger breaker-failure or other backup protection and enlarge the interrupted area. The course diagram is conceptual; actual switching devices, sensors and protection arrangements vary.
 

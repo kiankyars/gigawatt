@@ -1975,7 +1975,7 @@
       {
         "heading": "Inside the switchgear: sensing, decision and interruption",
         "paragraphs": [
-          "The slide uses the original sectional illustration from the Siemens NXAirS catalog, HA 1702, page 12. It locates the shared busbar, withdrawable circuit breaker, outgoing cable connection and low-voltage protection/control compartment inside a real panel. This product family is rated up to 12 kV and is separate from the generic 34.5 kV campus circuit and the Compass 8DJH 36 skid.",
+          "The slide uses the supplied labeled Siemens NXAirS cutaway, with the breaker, earthing-switch and cable-connection leader endpoints corrected against catalog HA 1702, page 12. The vacuum interrupters sit in the right-hand withdrawable circuit-breaker assembly. The lower-left cable terminations and the adjacent earthing-switch mechanism are different components. The upper-left busbars and upper-right low-voltage controls retain their labels. This product family is rated up to 12 kV and is separate from the 34.5 kV campus example and the Compass 8DJH 36 skid.",
           "A breaker-based feeder assembly separates the power path from its control path. The bus and breaker conduct feeder current. A current transformer supplies a scaled measurement to a protection relay. If the protection criteria are met, the relay commands the breaker to trip. Contacts and an interrupting chamber must then stop the power current. A recorded trip command therefore does not prove successful interruption: continuing fault current can trigger breaker-failure or other backup protection and enlarge the interrupted area. The course diagram is conceptual; actual switching devices, sensors and protection arrangements vary."
         ]
       },
@@ -2308,6 +2308,13 @@
           "Equinix’s rack installation guidelines explicitly ask for balanced connections across the three phases of a rack PDU. In the teaching example six single-phase PSU groups each draw 20 A at 277 V phase-to-neutral. Two groups on each phase give 40/40/40 A; a four/one/one assignment gives 80/20/20 A. The total load stays fixed but L1 exceeds the stipulated 60 A phase limit. A balanced electromagnetic source does not automatically reassign connected loads. Neutral current depends on the vector sum and waveform content; nonlinear load harmonics require a separate check.",
           "The reduced power-factor example holds real AC input at 900 kW and voltage at 480 V line-to-line. S = P/PF gives 900 kVA at PF 1, 1,000 kVA at PF 0.9 and 1,125 kVA at PF 0.8. The illustrative transformer is rated 1,000 kVA. This teaches how current uses equipment capacity without reintroducing a converter-loss calculation. Power factor and conversion efficiency are distinct."
         ]
+      },
+      {
+        "heading": "Read the power-factor comparison",
+        "paragraphs": [
+          "The comparison before the interactive slide keeps real power at 900 kW and balanced three-phase voltage at 480 V line-to-line. PF 1 gives 900 kVA and 1,083 A; PF 0.8 gives 1,125 kVA and 1,353 A. Those loads use 90% and 112.5% of the 1,000 kVA transformer rating; the image rounds the latter to 113%. Real power is average power delivered to the load, including its losses. Power factor is the ratio of real to apparent power; it is not conversion efficiency.",
+          "Reactive power describes cyclic energy exchange with electric and magnetic fields. For sinusoidal voltage and current, S² = P² + Q². At 900 kW and PF 0.8, the magnitude of reactive power is 675 kvar, alongside 1,125 kVA of apparent power. It is not the arithmetic difference between kVA and kW. With distorted waveforms, P and true PF alone do not determine Q."
+        ]
       }
     ],
     "example": {
@@ -2391,6 +2398,20 @@
         "claim": "Rack PDU load allocation should balance connections across all three phases; figure 14 compares balanced and unbalanced racks.",
         "reviewed_on": "2026-09-13",
         "limits": "Public indexed page 19 and figure description reviewed. Six groups at 20 A and a 60 A limit are an original teaching example, not Equinix ratings."
+      },
+      {
+        "title": "Schneider Electric — Definition of power factor",
+        "url": "https://www.electrical-installation.org/enwiki/Definition_of_Power_Factor",
+        "claim": "Define real power, apparent power and PF = P/S independently of conversion efficiency.",
+        "reviewed_on": "2026-09-14",
+        "limits": "Definitions reviewed. The 900 kW, 480 V and 1,000 kVA comparison is a course example, not equipment performance data."
+      },
+      {
+        "title": "Schneider Electric — Definition of reactive power",
+        "url": "https://www.electrical-installation.org/enwiki/Definition_of_reactive_power",
+        "claim": "Sinusoidal power triangle and balanced three-phase P, Q and S relationships.",
+        "reviewed_on": "2026-09-14",
+        "limits": "S² = P² + Q² and displacement PF interpretation assume sinusoidal voltage and current. Do not infer Q from true PF alone under harmonic distortion."
       }
     ],
     "terms": [
@@ -2405,6 +2426,10 @@
       {
         "term": "Reservation",
         "definition": "Capacity deliberately held back under a declared policy, distinct from a physical equipment limit."
+      },
+      {
+        "term": "Reactive power",
+        "definition": "The AC quantity describing energy exchanged with electric and magnetic fields, measured in var or kvar."
       }
     ],
     "visual": {

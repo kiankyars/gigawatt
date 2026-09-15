@@ -6,6 +6,31 @@ repository records; those records do not substitute for the original message.
 The prior “everything addressed” claim was too strong. This page foregrounds
 exceptions; the coverage list below makes the rest inspectable.
 
+## Chapter 6 final review — 14 September 2026
+
+**Accepted after these edits, as requested.** The deck now has 21 slides;
+existing scene links remain stable.
+
+- Slide 8: title now identifies Siemens's switchgear/transformer skids as being
+  for Compass **data centers**, verified in Siemens's December 2024 announcement.
+- Slide 12: floor PDU caption now says **Distributes to feeders**; removed
+  **Transformer optional**. Rack PDU and server PSU panels retained.
+- Replaced the switchgear figure with the supplied labeled image. Corrected
+  three leader endpoints against Siemens's catalog: breaker, earthing switch
+  and cable connection. Supplied originals and edit provenance are retained.
+- Added the supplied apparent-power/PF image immediately before former slide
+  17. Its arithmetic is correct. Corrected two definitions to distinguish PF
+  from conversion efficiency. **Clarification:** the supplied image does not
+  depict reactive power; the scene and reader explain its sinusoidal 675 kvar
+  relationship without adding another on-slide paragraph.
+- Former slide 19, now 20: **Upstream backup opens when the feeder breaker
+  fails to open.** The failed feeder breaker stays closed; the separate incoming
+  breaker opens and removes both halls' supply.
+
+No unresolved content instruction in this pass. Fresh browser interaction and
+whole-page layout QA remains a technical follow-up; source, arithmetic,
+diagram/image and automated checks are recorded in [TESTING.md](TESTING.md#chapter-6-final-review--2026-09-14).
+
 ## Chapter 6 voltages and instrument transformers — 14 September 2026
 
 - Campus path now uses **345 kV → 34.5 kV → 480 V**. Mortenson identifies
@@ -28,7 +53,7 @@ All requested edits in this pass are implemented. **Verification follow-up:**
 operate the new slide 5 view in the built-in browser when its control tool is
 available again. Desktop/phone SVG renders and automated checks are recorded in
 [TESTING.md](TESTING.md#chapter-6-abilene-voltages-and-instrument-transformers--2026-09-14).
-Whole-chapter acceptance remains pending.
+Chapter acceptance was subsequently recorded in the final review above.
 
 ## Chapter 5 drainage and expansion check — 14 September 2026
 

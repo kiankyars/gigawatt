@@ -1,0 +1,33 @@
+{
+  "reviewed_on": "2026-09-14",
+  "generator": "Built-in GPT image generation",
+  "scope": "Supplied educational figures and an existing generated equipment illustration, edited for the final Chapter 6 review. These are teaching images, not unchanged manufacturer drawings or product photographs.",
+  "assets": [
+    {
+      "file": "distribution-pdu-psu.png",
+      "sha256": "e2c669bdde7df856601081d7b7e512da63a0884930838f83ab12309698bdce79",
+      "input": "Existing generated distribution-pdu-psu.png at e31affa",
+      "prompt": "Use case: text-localization. Edit the supplied three-panel equipment comparison. Change ONLY the caption beneath the Floor PDU: replace the two lines 'Distributes branches' and 'Transformer optional' with the single centered line 'Distributes to feeders'. Preserve the full uncropped image, all three equipment illustrations, the existing headings, typography, background, divider lines, and the Rack PDU and Server PSU captions exactly. Do not add any other text or change any equipment.",
+      "review": "Floor caption is Distributes to feeders. Transformer optional removed. Rack PDU and Server PSU panels and captions preserved."
+    },
+    {
+      "file": "distribution-nxairs-labeled.png",
+      "sha256": "e77562ad04a7811b84defb965e6e26ec3c739d8e87bde1b0d6b8fb0c4bb4f639",
+      "input": "../references/distribution-nxairs-user-original.png",
+      "source_url": "https://cache.industry.siemens.com/dl/files/485/109972485/att_1290488/v1/1702_NXAirS_12kV_Catalogue_EN_final.pdf#page=12",
+      "prompt": "Use case: precise-object-edit. Edit this supplied Siemens NXAirS educational diagram, preserving all equipment geometry, colors, labels, typography, boxes, title and white background. Correct ONLY these three blue leader lines and their circular endpoints. Source image is 1198 by 1313 pixels. 1. 'Vacuum circuit breaker': current endpoint around (446,520) wrongly identifies the left bushing. Move endpoint to approximately (635,575), centered on the brown vertical vacuum interrupter in the RIGHT-HAND withdrawable circuit-breaker compartment, to the right of the central gray vertical metal divider. Route leader from its existing label box at left clearly to that component; no old endpoint remains. 2. 'Earthing switch': move endpoint from (333,807) to (518,829), on the orange conductor/mechanism just LEFT of the central vertical divider in the lower compartment. 3. 'Cable / feeder connection': move endpoint from (412,936), the solitary bottom apparatus, to (359,765), the paired brown cable terminations at LOWER LEFT. Remove all three obsolete leader lines/dots completely. Keep the busbars and low-voltage control leader lines unchanged. Do not fabricate or redraw internal equipment. Keep every word unchanged. Remove only unused blank white margin BELOW the switchgear cabinet so the diagram fits a portrait frame tightly; preserve entire title, labels and cabinet. The final result must make each corrected blue endpoint unambiguous.",
+      "review": "Three leader endpoints corrected and independently inspected against Siemens item 22 vacuum interrupters, item 18 cable connection and item 19 feeder earthing switch. Earthing leader points to the switching assembly rather than the original actuator endpoint. The redundant Main job box was omitted by the edit; the component labels are retained. The original supplied image is preserved separately. No open license asserted for Siemens underlying artwork."
+    },
+    {
+      "file": "distribution-power-factor-explained.png",
+      "sha256": "7706f26dde66b3cf609d656fc7ac8dd78e426cee9aa564c7317b63bf94d49a77",
+      "input": "../references/distribution-power-factor-user.png",
+      "source_urls": [
+        "https://www.electrical-installation.org/enwiki/Definition_of_Power_Factor",
+        "https://www.electrical-installation.org/enwiki/Definition_of_reactive_power"
+      ],
+      "prompt": "Use case: text-localization. Edit the supplied Apparent Power and Power Factor infographic. Preserve its full uncropped landscape frame, every number, equation, transformer, loading bar, colors, title, layout and text except TWO definitions in the left Key Concepts card: replace 'useful power that does work.' under 'Real power (P, kW):' with 'average power delivered to the load.'; replace 'how much of S becomes useful power.' under 'Power factor (PF):' with 'ratio of real power to apparent power.' Fit each replacement neatly in the existing card at its existing font size. Do not change any other content or add new panels.",
+      "review": "Only the real-power and PF definitions corrected. Original numbers preserved and checked: 900 kW, 480 V balanced three-phase, PF 1 gives 900 kVA and 1082.53 A; PF 0.8 gives 1125 kVA and 1353.16 A. 112.5% rounded to 113%. Reactive power is not depicted in the supplied image; scene and reader add the sinusoidal Q=675 kvar connection. Original supplied image preserved separately."
+    }
+  ]
+}

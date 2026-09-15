@@ -240,6 +240,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P194 — Longhorn power plant review drawing — Lancium 34.5 kV feed](sources/P194.md) | Abilene DC 1 / Campos, filed with TCEQ | D04 | page_reviewed |
 | [P195 — Hitachi Energy — CPB capacitor voltage transformer, 72–800 kV](sources/P195.md) | Hitachi Energy | D04 | page_reviewed |
 | [P196 — ABB — Protection criteria for medium voltage networks](sources/P196.md) | ABB | D04 | page_reviewed |
+| [P197 — Schneider Electric — Definition of reactive power](sources/P197.md) | Schneider Electric | D04 | page_reviewed |
 | [P20 — Wolfspeed — Powering AI with reliable SiC-based solid-state transformers](sources/P20.md) | Wolfspeed | D04, D06 | page_reviewed |
 | [P21 — Texas Instruments — TIDA-011012 modular solid-state transformer reference design](sources/P21.md) | Texas Instruments | D04, D06 | page_reviewed |
 | [P22 — Huber et al. — Comparative Evaluation of MVAC–LVDC SST and Hybrid Transformer Concepts for Future Datacenters (IPEC 2022)](sources/P22.md) | ETH Zurich, Delta Electronics and Paderborn University | D04, D06 | page_reviewed |
@@ -288,7 +289,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P65 — EIA — How electricity is generated](sources/P65.md) | U.S. Energy Information Administration | D01, D03 | public_excerpt_reviewed |
 | [P66 — EIA — Delivery of electricity to consumers](sources/P66.md) | U.S. Energy Information Administration | D01, D03, D04 | public_excerpt_reviewed |
 | [P67 — OpenStax · Resistance and simple circuits](sources/P67.md) | OpenStax, Rice University | D01, D04, D06 | page_reviewed |
-| [P68 — Schneider · Definition of power factor](sources/P68.md) | Schneider Electric | D04 | public_excerpt_reviewed |
+| [P68 — Schneider · Definition of power factor](sources/P68.md) | Schneider Electric | D04 | page_reviewed |
 | [P69 — Eaton · UPS fundamentals handbook](sources/P69.md) | Eaton | D04, D05, D06 | page_reviewed |
 | [P70 — Intel · CPU versus GPU](sources/P70.md) | Intel | D07 | page_reviewed |
 | [P71 — Intel · Memory performance in a nutshell](sources/P71.md) | Intel | D07, D08, D09 | page_reviewed |

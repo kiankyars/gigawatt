@@ -48,16 +48,5 @@ export function oneLine(){
 
 const manufacturerURL='https://cache.industry.siemens.com/dl/files/485/109972485/att_1290488/v1/1702_NXAirS_12kV_Catalogue_EN_final.pdf';
 export function switchgearAnatomy(compact){
- const labels=[['Busbar compartment',.30,.34],['Circuit breaker',.72,.58],['Cable connection',.30,.77],['Protection and controls',.80,.19]];
- let body='';
- if(compact){
-  body=`<image href="../assets/references/distribution-siemens-nxairs-cutaway.png" x="0" y="0" width="245" height="355"/>`;
-  labels.forEach(([label,x,y],i)=>{body+=`<circle cx="${x*245}" cy="${y*355}" r="14" fill="#086e83"/>`+`<text x="${x*245}" y="${y*355+5}" text-anchor="middle" font-size="16" fill="white">${i+1}</text>`;});
-  return `<figure class="manufacturer-figure"><div class="switchgear-mobile">${svg(body,'Original Siemens NXAirS section with numbered busbar, breaker, cable and control compartments.',245,355)}<ol>${labels.map(([label])=>`<li>${label}</li>`).join('')}</ol></div><figcaption><a href="${manufacturerURL}">Siemens NXAirS · up to 12 kV · HA 1702, p. 12</a></figcaption></figure>`;
- }
- const x0=365,y0=0,iw=310,ih=450;
- body=`<rect x="${x0-10}" y="0" width="${iw+20}" height="${ih}" rx="8" fill="#f8f8f3"/><image href="../assets/references/distribution-siemens-nxairs-cutaway.png" x="${x0}" y="${y0}" width="${iw}" height="${ih}"/>`;
- const anchors=[[70,137],[805,284],[70,357],[805,85]];
- labels.forEach(([label,x,y],i)=>{const [lx,ly]=anchors[i],px=x0+x*iw,py=y0+y*ih;body+=wire(`M${px} ${py}H${i===0||i===2?325:720}V${ly-7}H${i===0||i===2?lx+245:lx-15}`,power,2)+dot(px,py)+tx(lx,ly,label,23,ink,'start');});
- return `<figure class="manufacturer-figure">${svg(body,'Original Siemens NXAirS sectional illustration: upper-left busbar compartment, right-side withdrawable breaker, lower cable connection and upper-front protection and controls.',1120,460)}<figcaption><a href="${manufacturerURL}">Siemens NXAirS · up to 12 kV · HA 1702, p. 12</a></figcaption></figure>`;
+ return `<figure class="manufacturer-figure supplied-switchgear"><div class="teaching-art"><img src="../assets/generated/distribution-nxairs-labeled.png" alt="Labeled Siemens NXAirS section: busbars at upper left, low-voltage controls at upper right, vacuum circuit breaker in the right-hand withdrawable compartment, and earthing switch and cable connections below."></div><figcaption><a href="${manufacturerURL}#page=12">Siemens NXAirS · up to 12 kV · adapted labels checked against HA 1702, p. 12</a></figcaption></figure>`;
 }

@@ -7,6 +7,31 @@ Do not download or launch standalone Chrome for Testing or Playwright browser
 binaries here. Existing browser test harnesses remain available for a separately
 configured test environment; run local model and build checks without a browser.
 
+## Chapter 6 final review — 2026-09-14
+
+- **21 scenes.** Added `power-factor-explained` immediately before the existing
+  `power-factor` scene. Existing hashes retain their destinations; former slides
+  17–20 become 18–21. Image-led scenes retain accessible headings without a
+  duplicate visible title above the supplied image.
+- Confirmed Compass data-center use in Siemens's original announcement.
+  Corrected the supplied NXAirS image's breaker, cable and earthing callouts
+  against Siemens HA 1702 p. 12; an independent visual/source review found the
+  revised endpoints defensible. Original supplied images are preserved.
+- Built-in image edits also update the floor PDU caption and the supplied PF
+  image's two definitions. Inspected output labels and unchanged comparison
+  numbers; independently checked 1,083 A, 1,353 A and 112.5% rounded to 113%.
+  Exact prompts, final asset paths, hashes and source scope are recorded in
+  `assets/generated/distribution-final-review.provenance.json`.
+- **222 Node and 76 Python tests passed.** Course, expanded reader, domain-map,
+  research metadata, site staging and whitespace checks passed. Verified slide
+  17 placement, all 21 scene IDs and every referenced image asset. The distribution render test
+  exercises every scene, every offered control state and both layout variants.
+- Fresh browser interaction/whole-page layout QA could not be performed. A
+  browser inventory call succeeded, but no callable control surface was available
+  afterward; the independent agent also found no CUA control tool. No standalone
+  browser was installed or launched. This remains a verification follow-up,
+  separate from Kian's conditional acceptance of the completed content edits.
+
 ## Chapter 6 Abilene voltages and instrument transformers — 2026-09-14
 
 - Kept all 20 scenes and existing hashes. Updated the campus voltage reference

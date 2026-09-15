@@ -2773,13 +2773,13 @@
       "url": "https://www.electrical-installation.org/enwiki/Definition_of_Power_Factor",
       "publisher": "Schneider Electric",
       "kind": "primary_reference",
-      "review_status": "public_excerpt_reviewed",
-      "reviewed_on": "2026-09-12",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-14",
       "domains": [
         "D04"
       ],
-      "use": "Introduce power factor as active power divided by apparent power; distinguish it from conversion efficiency.",
-      "caution": "Publisher-indexed active/apparent-power definition reviewed. Direct page opening failed. No installation guidance used.",
+      "use": "Define real power, apparent power and PF = P/S independently of conversion efficiency.",
+      "caution": "Definitions reviewed. The 900 kW, 480 V and 1,000 kVA comparison is a course example, not equipment performance data.",
       "discovered_via": "Optional D00 electricity and recurring-terminology primer, 2026-09-12."
     },
     {
@@ -4095,11 +4095,11 @@
       "publisher": "Siemens",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-13",
+      "reviewed_on": "2026-09-14",
       "domains": [
         "D04"
       ],
-      "use": "Establish the partnership and the integrated switchgear/transformer package.",
+      "use": "Establish that Siemens and Compass co-developed prefabricated switchgear/transformer skids specifically for Compass data centers.",
       "caution": "December 2024 announcement reviewed. Its planned first deployment and up-to-1,500-unit agreement are not used as installed capacity or completed deliveries.",
       "published_on": "2024-12-04"
     },
@@ -4730,6 +4730,20 @@
       ],
       "use": "CT/VT scaling and separation of measurement, relay decision and power-current interruption.",
       "caution": "Chapter 4, printed pages 11–14: instrument transformers. Teaching diagram omits wiring, CT saturation, relay settings and detailed CVT transient behavior."
+    },
+    {
+      "id": "P197",
+      "title": "Schneider Electric — Definition of reactive power",
+      "url": "https://www.electrical-installation.org/enwiki/Definition_of_reactive_power",
+      "publisher": "Schneider Electric",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-14",
+      "domains": [
+        "D04"
+      ],
+      "use": "Sinusoidal power triangle and balanced three-phase P, Q and S relationships.",
+      "caution": "S² = P² + Q² and displacement PF interpretation assume sinusoidal voltage and current. Do not infer Q from true PF alone under harmonic distortion."
     }
   ]
 }
