@@ -26,12 +26,13 @@ export function renderTpuPreview(compact = false) {
       label(195, 313, "OCS", 24, "text", 650) +
       line("M113 364L172 401L219 345L277 364") +
       line("M159 403L185 399M207 348L231 342", "text", 5) +
-      label(195, 480, "Mirrors connect optical ICI links", 20, "data", 600) +
+      label(195, 480, "Mirrors reconfigure optical links", 20, "data", 600) +
       label(195, 512, "ICI = inter-chip interconnect", 17) +
-      label(195, 540, "Two blocks and one link shown", 14, "muted") +
+      label(195, 540, "Routes can bypass failed interconnects", 16, "data") +
       line("M30 575H360", "line", 1.5) +
-      label(195, 615, "Gemini Ultra spans data centers", 19, "text", 600) +
-      label(195, 647, "Pods connect over separate networks", 17, "muted")
+      label(195, 605, "Gemini 1.0 Ultra", 20, "text", 600) +
+      label(195, 635, "Google’s largest model in the 2023 family", 16) +
+      label(195, 665, "Trained across data centers", 17, "muted")
     );
   }
   return (
@@ -49,10 +50,10 @@ export function renderTpuPreview(compact = false) {
     label(1030, 471, "64 TPU chips", 21) +
     panel(378, 282, 404, 224) +
     label(580, 319, "Optical circuit switch (OCS)", 25, "text", 650) +
-    label(580, 353, "Mirrors set the optical connection", 18, "muted") +
+    label(580, 353, "Mirrors reconfigure links to bypass faults", 18, "muted") +
     line("M240 434L503 465L655 394L920 434", "data", 5) +
     line("M482 468.4L524 461.6M634 397L676 391", "text", 7) +
     label(580, 537, "ICI = inter-chip interconnect · two blocks and one link shown", 18, "muted") +
-    label(580, 576, "Gemini Ultra joins pods across data centers over intra- and inter-cluster networks.", 19)
+    label(580, 576, "Gemini 1.0 Ultra, Google’s largest 2023 model, trained across data centers.", 19)
   );
 }

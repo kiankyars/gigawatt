@@ -1,6 +1,6 @@
 import { transformerOperatingExample } from './transformer-operating-example.js';
-// Keep links to the removed roadmap slides useful without adding navigation stops.
-export const sceneAliases = { welcome: 'circuit', ready: 'pue' };
+// Keep links to removed scenes useful without adding navigation stops.
+export const sceneAliases = { welcome: 'circuit', ready: 'pue', 'transformer-taps': 'conversion' };
 
 export const scenes = [
   {
@@ -33,7 +33,7 @@ export const scenes = [
   },
   {
     id: 'ac-shapes', label: 'AC waveform shapes', title: 'AC does not have to be a sine wave',
-    description: 'Sine, square, sawtooth and triangle voltage waveforms each alternate above and below zero. Utility AC is normally approximately sinusoidal; the other shapes illustrate bipolar AC signals.',
+    description: 'Sine, square, sawtooth and triangle voltage waveforms each alternate above and below zero as polarity reverses. Utility AC is normally approximately sinusoidal; the other shapes illustrate bipolar AC signals.',
   },
   {
     id: 'voltage-variation', label: 'Voltage variation', title: 'AC and DC supplies can vary in voltage',
@@ -41,14 +41,8 @@ export const scenes = [
     options: [['0.9', '10% lower'], ['1', 'Nominal'], ['1.1', '10% higher']], key: 'supplyLevel', group: 'Supply voltage',
   },
   {
-    id: 'transformer-taps', label: 'Transformer voltage and taps', title: 'A transformer tap sets the voltage ratio',
-    description: 'A 480-to-120 volt AC transformer has 80 connected primary turns and 20 secondary turns at its nominal tap. If the source rises to 504 volts with that tap unchanged, the output rises to 126 volts. A 504 volt primary tap connects 84 primary turns, giving 120 volts from the same 504 volt source. The tap changes connected turns; this transformer does not automatically regulate voltage. Permitted input voltage depends on the rating and tap.',
-    options: [['nominal', '480 V supply'], ['supply-rise', '504 V, same tap'], ['matched-tap', '504 V, matched tap']], key: 'transformerCase', group: 'Compare connections',
-  },
-  {id:'transformer-operating-range',label:'A real transformer operating range',title:transformerOperatingExample.title,description:transformerOperatingExample.description},
-  {
     id: 'three-phase', label: 'Three-phase AC', title: 'Data centers mostly distribute AC in three phases',
-    description: 'Three sinusoidal phase voltages are staggered by one-third of a cycle. Three-phase AC is the predominant form of AC power distribution in data centers. RMS describes effective voltage magnitude.',
+    description: 'Three sinusoidal phase voltages are staggered by one-third of a cycle. Three-phase AC is the predominant form of AC power distribution in data centers. A rack distributes its single-phase PSU loads across the phases. Each PSU uses two current-carrying conductors: phase and neutral, or two phases, according to its input rating. No individual PSU selects whichever phase is highest. The balanced total power belongs to the combined loads.',
   },
   {
     id: 'three-phase-power', label: 'Three-phase power', title: 'The three phases add up to steady power',
@@ -56,19 +50,20 @@ export const scenes = [
     options: [['0', '0°'], ['30', '30°'], ['60', '60°']], key: 'phasePowerAngle', group: 'Moment in cycle',
   },
   {
-    id: 'power-factor', label: 'Power factor', title: 'Low power factor means more current for the same power',
+    id: 'power-factor', label: 'Power factor', title: 'Low power factor means more current for the same power (AC)',
     description: 'Compare sinusoidal voltage and current over the same cycle. At power factor one they line up. At power factor 0.8 the current lags the voltage and its amplitude is 25 percent larger. Both examples deliver the same average power of 8 kilowatts at the same RMS supply voltage.',
   },
   {
     id: 'conversion', label: 'Conversion equipment', title: 'Different converters do different jobs',
     description: 'A transformer changes AC voltage, a rectifier converts AC to DC, and an inverter converts DC to AC. A power supply can combine several conversion stages.',
   },
+  {id:'transformer-operating-range',label:'Transformer input range',title:transformerOperatingExample.title,description:transformerOperatingExample.description},
   {
     id: 'backup', label: 'UPS, battery and generator', title: 'A UPS keeps the load powered through an interruption',
-    description: 'In one online UPS example, normal AC passes through rectifier and inverter stages. A battery supports the DC link while an upstream generator starts.',
+    description: 'In this online UPS, normal AC passes through rectifier and inverter stages. A battery supports the DC link while an upstream generator starts.',
   },
   {
-    id: 'ups-types', label: 'Offline and online UPS', title: 'Two ways a UPS handles a power cut',
+    id: 'ups-types', label: 'Offline and online UPS', title: 'Online vs. Offline UPS',
     description: 'A common supply interruption changes both UPS diagrams. Offline or standby UPS switches from the utility path to its battery-powered inverter. Online double-conversion UPS keeps its inverter supplying the load as the battery supports the DC link.',
     options: [['normal', 'Normal supply'], ['interrupted', 'Supply interrupted']], key: 'upsSupply', group: 'Input supply',
   },

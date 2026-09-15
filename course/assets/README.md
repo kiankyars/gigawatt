@@ -226,3 +226,7 @@ SHA-256 hashes are in `references/storage-primary-provenance.json`. Capture date
 are not established. Publisher credits remain beside the figures. The pipeline,
 checkpoint versions, recovery timelines and scheduling comparisons are rendered
 in HTML/SVG because their exact state and quantities carry the explanation.
+
+### Chapter 3 opening image — 14 September 2026
+
+`references/jensen-huang-tokens-per-watt.png` is the user-supplied Jensen Huang screenshot. The original bytes, watermark and complete frame are preserved, with no added visible caption. The adjacent provenance JSON records the attachment name, dimensions and hash; its original event/date were not supplied.

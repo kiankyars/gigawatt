@@ -10,10 +10,10 @@ const arrow=(x,y,xx,yy,color=C.compute)=>`${line(x,y,xx,yy,color,3)}<path d="M${
 const result=(markup,description)=>({markup,description});
 const split=(m)=>m?line(25,334,365,334):line(600,55,600,505);
 const panel=(i,m)=>({x:m?28:60+i*600,y:m?40+i*335:70,w:m?334:480});
-function purpose(s,m){let o='';
- const concepts=[['01','MODEL STATE','Weights, context and training updates'],['02','SERVING USERS','Requests, batching and response time'],['03','ELECTRICAL DEMAND','Energy, peaks and fast transitions']];
- concepts.forEach(([num,a,b],i)=>{const x=m?28:70,y=m?72+i*178:82+i*142;o+=t(x,y,num,m?25:37,C.compute)+t(x+(m?52:80),y,a,m?18:27,C.ink)+t(x+(m?52:80),y+39,b,m?14:24,C.muted)+line(x,y+70,m?362:1110,y+70);});
- return result(o,'First account for model state, then define token service, then measure its electrical demand. These dependencies become the workload brief used to design supply and cooling.');}
+function purpose(s,m){
+ const w=m?390:1200,h=m?247:560;
+ const o=`<image href="../assets/references/jensen-huang-tokens-per-watt.png" width="${w}" height="${h}" preserveAspectRatio="xMidYMid meet"/>`;
+ return result(o,'Jensen Huang beside an AI factory revenue graphic showing a tokens-per-watt annotation. The supplied screenshot is shown in full.');}
 function interactivity(s,m){const a=interactivityMetrics({tokensPerSecond:s.tokensPerSecond});let o='';
  const x=m?28:72,y=m?48:49;
  o+=t(x,y,'ONE USER',m?19:23,C.communication)+t(x,y+60,`${a.tokensPerSecond} tokens/s/user`,m?32:48,C.communication);
@@ -22,8 +22,6 @@ function interactivity(s,m){const a=interactivityMetrics({tokensPerSecond:s.toke
  o+=t(x,m?274:259,'Output tokens generated in one second',m?17:24,C.muted)+t(x,m?325:313,`${a.millisecondsPerToken} ms between tokens`,m?26:36);
  o+=line(m?28:72,m?365:354,m?361:1130,m?365:354);
  o+=t(x,m?412:405,'THROUGHPUT',m?19:23,C.compute)+t(x,m?455:449,'Tokens/s across all users',m?25:32,C.compute);
- o+=lines(x,m?519:497,m?['Larger batches can serve more users,','while each answer streams more slowly.']:['Larger batches can raise throughput while reducing interactivity.'],m?17:23,C.ink);
- o+=t(x,m?620:548,'First-token wait is a separate delay.',m?17:21,C.muted);
  return result(`<g data-tokens-per-user="${a.tokensPerSecond}" data-token-interval-ms="${a.millisecondsPerToken}">${o}</g>`,`Interactivity is output tokens per second per user. At ${a.tokensPerSecond} tokens per second, the average gap between tokens is ${a.millisecondsPerToken} milliseconds. Each block is an output token generated in one second. Throughput counts output tokens across all users. Batching can increase total throughput while slowing each answer. Time to first token is the separate initial wait.`);}
 function frontier(s,m){const target=s.minInteractivity??100;let o='';
  const x=m?8:49,y=m?75:0,w=m?374:830,h=w*2/3;
@@ -33,13 +31,11 @@ function frontier(s,m){const target=s.minInteractivity??100;let o='';
  o+=line(xx,yt,xx,yb,C.communication,m?2:3,'7 5');
  const tx=m?28:905,ty=m?393:147;
  o+=t(tx,ty,'I WANT AT LEAST',m?17:19,C.muted)+t(tx,ty+45,`${target} tokens/s/user`,m?29:28,C.communication);
- o+=lines(tx,ty+96,m?['Read the curve to the right','of the dashed line.']:['Read the curve','to the right of','the dashed line.'],m?22:25);
- o+=lines(tx,ty+(m?188:232),m?['The vertical axis gives throughput','per GPU at that interactivity.']:['Vertical axis:','throughput per GPU'],m?17:21,C.compute);
  o+=t(m?195:450,m?42:551,'NVIDIA · GB300 NVL72 · Qwen3.8 FP8 · Aug 2026',m?11:16,C.muted,'middle');
  return result(`<g data-min-interactivity="${target}">${o}</g>`,`NVIDIA’s original Qwen3.8-2.4T-A95B FP8 curve on GB300 NVL72, with 8k input and 1k output, TensorRT-LLM and multi-token prediction. Horizontal axis: tokens per second per user, or interactivity. Vertical axis: throughput in tokens per second per GPU. A dashed line marks the ${target} tokens per second per user requirement. Only the curve to its right meets the minimum. Higher interactivity corresponds to lower available throughput on this curve.`);}
 function modelWork(s,m){let o=split(m);
- [['TRAINING','Learn parameters',['Forward pass → loss','Backward pass → gradients','Optimizer → updated weights'],'Useful model progress by a deadline'],['INFERENCE','Produce tokens',['Prompt → prefill + KV cache','Decode → next output token','Scheduler → active requests'],'Throughput + first/inter-token latency']].forEach(([name,sub,steps,payoff],i)=>{const {x,y}=panel(i,m);o+=t(x,y,name,m?21:30,i?C.communication:C.compute)+t(x,y+42,sub,m?24:34);steps.forEach((v,j)=>o+=t(x,y+99+j*(m?38:54),v,m?18:25));o+=t(x,y+(m?244:300),payoff,m?15:22,C.muted);});
- return result(o,'Training learns parameters through forward, backward and optimizer work. Inference uses configured parameters to prefill prompts and decode output tokens. Training needs a progress target and deadline; inference needs token throughput and response-time targets.');}
+ [['TRAINING','Learn parameters',['Forward pass → loss','Backward pass → gradients','Optimizer → updated weights'],['Training compute: FLOPs']],['INFERENCE','Produce tokens',['Prompt → prefill + KV cache','Decode → next output token','Scheduler → active requests'],['Throughput: tokens/s across all users','Per user: first-token + inter-token latency']]].forEach(([name,sub,steps,payoff],i)=>{const {x,y}=panel(i,m);o+=t(x,y,name,m?21:30,i?C.communication:C.compute)+t(x,y+42,sub,m?24:34);steps.forEach((v,j)=>o+=t(x,y+99+j*(m?38:54),v,m?18:25));o+=lines(x,y+(m?244:300),payoff,m?15:22,C.muted);});
+ return result(o,'Training learns parameters through forward, backward and optimizer work. FLOPs count the floating-point operations in that computation. Inference uses configured parameters to prefill prompts and decode output tokens. Throughput counts tokens across all users; first-token and inter-token latency describe each user’s response.');}
 function memoryCompare(s,m){let o=split(m);
  [['SERVING WEIGHTS','2 bytes / parameter','≈140 GB',['BF16 weights','Add KV cache + runtime workspace']],['FP16/FP32 ADAM STATE','16 bytes / parameter','≈1,120 GB',['FP16/FP32 · 2 weights + 2 gradients','+ 4 master + 8 moments; add activations']]].forEach(([a,b,c,d],i)=>{const {x,y}=panel(i,m);o+=t(x,y,a,m?20:27,i?C.checkpoint:C.compute)+t(x,y+44,'70B × '+b,m?18:27)+t(x,y+(m?115:145),c,m?45:64,i?C.checkpoint:C.compute)+lines(x,y+(m?166:219),d,m?15:22,C.muted,'start',m?30:37);});
  return result(o,'Rounded 70 billion parameters: serving BF16 weights use about 140 GB. A classic mixed-precision Adam account at 16 bytes per parameter uses about 1,120 GB of training state before activations and buffers. Optimizer, precision and partition choices can change it. Decimal GB.');}

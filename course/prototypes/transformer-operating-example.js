@@ -39,21 +39,20 @@ const styles = `<style>
 const e = transformerOperatingEvidence;
 
 export const transformerOperatingExample = Object.freeze({
-  title: 'This 400 V transformer permits a 360–440 V input.',
+  title: 'This 400 V transformer permits a 360–440 V input',
   markup: `${styles}<div class="transformer-operating-example">
     <figure><img src="${e.image}" width="288" height="288" alt="Schneider Electric Phaseo ABL6TS25B controls transformer, from the manufacturer’s datasheet."><figcaption>Phaseo ABL6TS25B<br>Photo: Schneider Electric</figcaption></figure>
     <div class="toe-content">
-      <div><p class="toe-model">250 VA controls transformer</p><div class="toe-rating"><span>24 V AC output rating</span><span>47–63 Hz</span></div></div>
+      <div><p class="toe-model">250 VA controls transformer</p><div class="toe-rating"><span>24 V AC output rating</span></div></div>
       <div role="img" aria-label="The manufacturer specifies input voltage limits of 360 to 440 volts for the nominal 400 volt connection.">
         <p class="toe-check">Published input-voltage limits</p>
         <div class="toe-scale"><span>${e.lowerInputV} V</span><span>${e.nominalInputV} V</span><span>${e.upperInputV} V</span></div>
         <div class="toe-band" aria-hidden="true"></div>
         <div class="toe-labels"><span>−10%</span><span>Nominal</span><span>+10%</span></div>
       </div>
-      <div class="toe-frequency"><span>230 V connection</span><strong>207–253 V input</strong></div>
     </div>
   </div>`,
-  description: 'Schneider Electric’s Phaseo ABL6TS25B is a 250 VA controls-size safety and isolation transformer, not a data-hall supply transformer. Its datasheet specifies input limits of 360–440 V on the nominal 400 V connection, or 207–253 V on the 230 V connection, and network frequencies of 47–63 Hz. The secondary rating is 24 V AC; this does not claim regulated 24 V output across the whole input range. The page-five wiring diagram separately shows ±15 V adjustment taps. Those taps and the page-two dielectric-withstand ratings are not the input operating limits. This example demonstrates how to read a real product’s limits; it does not assign the same tolerance to a medium-voltage campus transformer.',
+  description: 'Schneider Electric’s Phaseo ABL6TS25B is a 250 VA controls transformer with a nominal 400 V AC input and a 24 V AC output rating. Its manufacturer permits 360–440 V on the 400 V input connection. The input can vary within that range; a fixed-ratio transformer’s output also varies with its input. The 24 V output rating is not a promise of constant output across the input range.',
   reference: e.datasheet,
   sources: Object.freeze([e.datasheet]),
 });

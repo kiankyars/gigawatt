@@ -5,6 +5,7 @@ import {scenes,initialState,learning_contract,chapter8Aliases} from '../course/p
 import {renderDistribution} from '../course/prototypes/distribution-visuals.js';
 test('all chapter mechanisms render in each layout and supported control state',()=>{
  assert.equal(new Set(scenes.map(s=>s.id)).size,scenes.length);
+ assert.equal(scenes.findIndex(s=>s.id==='transformer-taps'),scenes.findIndex(s=>s.id==='local-stepdown')+1);
  for(const scene of scenes){
   const states=[{...initialState}];
   for(const group of scene.controls||[])for(const [value] of group.options)states.push({...initialState,[group.key]:value});
@@ -12,6 +13,13 @@ test('all chapter mechanisms render in each layout and supported control state',
   for(const state of states)for(const compact of [false,true]){
    const r=renderDistribution(scene.id,state,compact);assert.ok(r.markup.length>100,scene.id);assert.ok(r.description.length>80,scene.id);
    assert.doesNotMatch(r.markup,/NaN|undefined|Infinity/,scene.id);
+   if(scene.id==='transformer-taps'){
+    const attr=name=>Number(r.markup.match(new RegExp(`data-${name}="([^\"]+)"`))[1]);
+    const expected={nominal:[480,480,80,120],'supply-rise':[504,480,80,126],'matched-tap':[504,504,84,120]}[state.transformerCase];
+    assert.deepEqual(['input-volts','tap-volts','primary-turns','output-volts'].map(attr),expected,'Source and tap cases retain the published turns example');
+    assert.equal(attr('output-volts')/attr('input-volts'),attr('secondary-turns')/attr('primary-turns'),'Output follows connected turns ratio');
+    assert.equal(attr('tap-volts')*attr('secondary-turns')/attr('primary-turns'),120,'Tap rating retains nominal secondary output');
+   }
   }
  }
 });

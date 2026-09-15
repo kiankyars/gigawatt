@@ -20,6 +20,8 @@ The plot does not tabulate concurrent users. Do not invent an exact session coun
 
 ## Compare training and inference memory together
 
+Training compute is counted in floating-point operations (FLOPs); FLOP/s expresses how fast those operations execute. These quantities describe the computational workload and its execution rate. Model quality still requires evaluation against the intended task. Inference throughput instead counts generated tokens across all users; first-token and inter-token latency describe the response experienced by each user.
+
 Using the rounded class size of 70 billion parameters, BF16 inference weights require approximately 70 billion × 2 bytes = 140 decimal GB. A classic mixed-precision Adam training ledger stores 2-byte weights, 2-byte gradients, 4-byte master weights and two 4-byte optimizer moments: 16 bytes per parameter, or approximately 1,120 GB of state. The comparison explains why serving a model and training its parameters can require different distributions of state.
 
 These are partial accounts. Inference also needs request KV cache and runtime workspace. Training adds activations, communication buffers and other workspace. Precision, optimizer, recomputation, offload and sharding alter the numbers. The older isolated 80 GB device example did not identify real hardware or establish this connection clearly; the presentation now compares named model uses directly rather than implying an H100 installation.

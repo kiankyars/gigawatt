@@ -25,6 +25,20 @@ Open a chapter’s slides from the one chapter directory. The header provides
 Explanation/source dialogs and note-launch buttons are removed from slide views;
 the written lesson holds definitions, derivations and sources.
 
+**Presenter** opens a separate window. Share the original course window with the
+audience; keep the presenter window on your own screen. It shows the current
+slide with its live controls, plus one small preview of the next slide. There are
+no notes or timers. The next preview shows that scene's starting state; the large
+current slide mirrors the audience's actual state.
+
+Use either window's arrows, selector or interactive controls: the original
+course window owns the slide and calculations. In the presenter window, arrow
+keys, Page Up / Page Down and Space navigate; Home / End select the first or last
+slide. Focused controls keep their own keyboard behavior. The last slide offers
+the next chapter when available. Closing the presenter leaves the audience
+unchanged; **Presenter** opens it again. If the browser blocks the popup, allow
+popups for this site and click the button again.
+
 Use **Next / →**, **Back / ←**, the short slide selector and diagram controls.
 Where a meaningful prediction has a reveal, use its button; the 800 V sequence
 also supports **R**. **F** enters fullscreen in decks that support it. A focused

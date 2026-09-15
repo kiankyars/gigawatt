@@ -147,6 +147,16 @@ dialog#reading {
   border-radius: 7px;
   white-space: nowrap;
 }
+.toolbar .course-presenter-button {
+  font-size: 12px;
+  white-space: nowrap;
+  padding: 7px 10px;
+  min-height: 34px;
+}
+html[data-presenter-preview] .toolbar,
+html[data-presenter-preview] footer.course-slide-navigation {
+  visibility: hidden !important;
+}
 #actions > a,
 .chapter-action,
 .checkin-bridge > a {
@@ -182,4 +192,5 @@ dialog#reading {
 @media (max-width: 600px) {
   .toolbar a.reading-link,
   .toolbar a[data-course-reading] {font-size: 11px; padding: 6px 8px;}
+  .toolbar .course-presenter-button {font-size: 11px; padding: 6px 8px;}
 }

@@ -151,7 +151,7 @@ async function checkGeometry(page, viewport) {
 }
 
 async function checkNavigation(page) {
- await page.goto(url("workload-purpose"));await page.waitForSelector("#diagram text");
+ await page.goto(url("workload-purpose"));await page.waitForSelector("#diagram image");
  await page.locator("body").click({position:{x:2,y:100}});await page.keyboard.press("ArrowLeft");
  assert.equal(new URL(page.url()).hash,"#workload-purpose");await page.keyboard.press("ArrowRight");
  assert.equal(new URL(page.url()).hash,"#model-work");
@@ -175,7 +175,7 @@ async function checkNavigation(page) {
  for(const [old,current] of Object.entries({"inference-memory":"memory-comparison","occupied-waiting":"resource-paths","acceptance-envelope":"next-brief","independence":"staggering-jobs","demand-transition":"job-phases","power-response":"next-brief"})){
   await page.goto(url(old));await page.waitForSelector("#diagram text");assert.equal(await page.locator("#scenes").inputValue(),current);
  }
- await page.goto(url("workload-purpose",true));await page.waitForSelector("#diagram text");
+ await page.goto(url("workload-purpose",true));await page.waitForSelector("#diagram image");
  assert.equal(await page.locator("#fullscreen").isVisible(),true);
  await page.locator("#fullscreen").click();await page.waitForFunction(()=>!!document.fullscreenElement);
  await page.locator("#fullscreen").click();await page.waitForFunction(()=>!document.fullscreenElement);
@@ -201,7 +201,7 @@ async function checkNavigation(page) {
       page.on("requestfailed", (request) => errors.push(`${request.failure()?.errorText} ${request.url()}`));
       const state = { ...initialState };
       await page.goto(url(scenes[0].id));
-      await page.waitForSelector("#diagram text");
+      await page.waitForSelector("#diagram text, #diagram image");
       assert.equal(await page.locator("#scenes option").count(), 18);
       for (const scene of scenes) {
         await page.locator("#scenes").selectOption(scene.id);

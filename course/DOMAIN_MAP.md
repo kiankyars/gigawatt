@@ -202,6 +202,7 @@ Separate physical principles, design specifications, observed deployments, annou
 - [P93 — Cloud TPU Multislice Overview](https://docs.cloud.google.com/tpu/docs/multislice-introduction) · `page_reviewed` · [local note](../research/sources/P93.md)
 - [P94 — CoolIT Systems Launches Three High-Density Coolant Distribution Units](https://www.coolitsystems.com/resources/news/coolit-systems-launches-three-high-density-coolant-distribution-units/) · `page_reviewed` · [local note](../research/sources/P94.md)
 - [P99 — Gemini: A Family of Highly Capable Multimodal Models](https://deepmind.google/gemini/gemini_1_report.pdf) · `page_reviewed` · [local note](../research/sources/P99.md)
+- [P192 — Introducing Gemini: our largest and most capable AI model](https://blog.google/innovation-and-ai/technology/ai/google-gemini-ai/) · `page_reviewed` · [local note](../research/sources/P192.md)
 
 <a id="d02"></a>
 

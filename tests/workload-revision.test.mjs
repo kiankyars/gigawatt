@@ -30,7 +30,7 @@ test('each retained state renders and retired deep links lead to taught replacem
  assert.equal(legacySceneAliases['acceptance-envelope'],'next-brief');
  for(const scene of scenes)for(const compact of[false,true]){
   const states=[initialState,...(scene.controls||[]).flatMap(c=>c.options.map(([value])=>({...initialState,[c.key]:value})))];
-  for(const state of states){const r=renderWorkload(scene.id,state,compact);assert.ok(r.description.length>30);assert.ok(r.markup.includes('<text'));assert.doesNotMatch(r.markup,/\bNaN\b|\bInfinity\b/);}
+  for(const state of states){const r=renderWorkload(scene.id,state,compact);assert.ok(r.description.length>30);assert.match(r.markup,/<(?:text|image)\b/);assert.doesNotMatch(r.markup,/\bNaN\b|\bInfinity\b/);}
  }
 });
 

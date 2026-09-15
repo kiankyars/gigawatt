@@ -338,3 +338,13 @@ presentation. Chapter 9 already existed; it was not rebuilt.
 
 Implementation checks are recorded in TESTING.md. First author review is pending;
 this release does not establish spoken runtime or beginner comprehension.
+
+## Chapters 1–3 review — 14 September 2026
+
+Chapters 1–2 are accepted after these requested edits. Chapter 3 slides 1–6 are reviewed; review continues from slide 7.
+
+- Primer: removed the entire two-terminal voltage subtitle; three-phase loads and single-phase PSU inputs clarified; tap teaching moved to Chapter 6; simpler voltage-range example follows the converter introduction. Added “(AC)” to power factor, removed the extra UPS example label, shortened the UPS comparison to “Online vs. Offline UPS” and removed duplicate link rates and the overhead disclaimer.
+- Overview: identifies Gemini 1.0 Ultra as the largest model in Google’s original 2023 family; states that OCS mirror reconfiguration can bypass faulty interconnects.
+- Workloads: supplied Jensen Huang image on slide 1 without new visible text; training compute labeled FLOPs; aggregate throughput separated from per-user latency. Removed the two subordinate interactivity statements and the two curve-reading text blocks. Slides 5–6 retained.
+- Dictation resolved by context: “Jensen Wong” is Jensen Huang; “turning the power” identifies the primer’s model-data/network slide by its 10/100 Gb/s controls.
+- The presenter request means a **separate presenter window**, confirmed explicitly; it must keep the next-slide preview off the audience page.

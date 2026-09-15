@@ -8,16 +8,14 @@ function block(x,y,w,title,subtitle,color='power',h=100) {
   return box(x,y,w,h,color)+text(x+w/2,y+40,title,24,color)+text(x+w/2,y+73,subtitle,19);
 }
 function backup(compact) {
-  if(compact) return text(195,45,'One online UPS example',23,'muted')+
-    block(40,80,310,'Utility / generator','Normal / alternate AC supply')+line('M195 182V220H248V283','power',true)+
+  if(compact) return block(40,80,310,'Utility / generator','Normal / alternate AC supply')+line('M195 182V220H248V283','power',true)+
     box(25,240,340,310,'power')+text(80,273,'UPS',25,'power')+
     block(150,295,195,'Rectifier','AC to DC','power',85)+
     line('M248 382V434','power',true)+text(300,424,'DC link',17,'power')+
     box(40,369,100,70,'data')+text(90,398,'Battery',20,'data')+text(90,423,'Energy',17)+
     line('M144 404H237','data',true)+block(150,445,195,'Inverter','DC to AC','power',85)+
     line('M248 534V570H195V582','power',true)+block(70,592,250,'Protected load','Receives AC output');
-  return text(580,65,'One online UPS example',25,'muted')+
-    block(25,250,235,'Utility / generator','Upstream AC supply')+
+  return block(25,250,235,'Utility / generator','Upstream AC supply')+
     box(310,170,540,225,'power')+text(580,210,'Uninterruptible power supply (UPS)',25,'power')+
     block(340,250,210,'Rectifier','AC to DC')+block(610,250,210,'Inverter','DC to AC')+
     line('M263 300H327','power',true)+line('M554 300H598','power',true)+line('M824 300H900','power',true)+
@@ -30,7 +28,7 @@ function upsTypes(compact,state) {
   const unit=(x,y,w,name,active=true,color='power')=>box(x,y,w,56,active?color:'line')+text(x+w/2,y+35,name,compact?18:23,active?color:'muted');
   let out='';
   if(compact) {
-    out+=text(195,33,'Offline / standby UPS',25)+text(195,66,'Common for desktop PCs',19,'muted');
+    out+=text(195,33,'Offline',25)+text(195,66,'Common for desktop PCs',19,'muted');
     out+=unit(22,115,96,'Utility',!interrupted)+unit(280,115,90,'Load');
     out+=flow('M122 143H237',!interrupted)+flow('M258 143H274',true);
     out+=line(interrupted?'M258 143L237 177':'M258 143H237','power');
@@ -39,7 +37,7 @@ function upsTypes(compact,state) {
     out+=flow('M132 241H159',interrupted,'data')+flow('M278 241H325V177H237',interrupted,'data');
     out+=text(195,302,interrupted?'Brief transfer, then battery power':'Utility feeds the load directly',19,interrupted?'data':'power');
     out+=line('M20 340H370','muted');
-    out+=text(195,381,'Online double-conversion UPS',23)+text(195,414,'Data centers / sensitive medical systems',16,'muted');
+    out+=text(195,381,'Online',23)+text(195,414,'Data centers / sensitive medical systems',16,'muted');
     out+=text(71,451,interrupted?'Input lost':'Utility AC',17,interrupted?'muted':'power');
     out+=flow('M71 459V475',!interrupted);
     out+=unit(22,485,102,'Rectifier',!interrupted)+unit(171,485,100,'Inverter')+unit(297,485,74,'Load');
@@ -48,7 +46,7 @@ function upsTypes(compact,state) {
     out+=text(146,472,'DC link',16,'power');
     out+=text(195,690,'Inverter keeps supplying the load',20,'power');
   } else {
-    out+=text(60,40,'Offline / standby UPS',27,'text','start')+text(1100,40,'Common for desktop PCs',23,'muted','end');
+    out+=text(60,40,'Offline',27,'text','start')+text(1100,40,'Common for desktop PCs',23,'muted','end');
     out+=unit(65,95,180,'Utility',!interrupted)+unit(905,95,190,'Load');
     out+=flow('M251 123H741',!interrupted)+flow('M792 123H897',true);
     out+=line(interrupted?'M792 123L748 171':'M792 123H741','power');
@@ -57,7 +55,7 @@ function upsTypes(compact,state) {
     out+=flow('M496 228H562',interrupted,'data')+flow('M766 228H860V171H748',interrupted,'data');
     out+=text(485,166,interrupted?'Brief transfer, then battery power':'Utility feeds the load directly',23,interrupted?'data':'power');
     out+=line('M40 284H1120','muted');
-    out+=text(60,330,'Online double-conversion UPS',27,'text','start')+text(1100,330,'Data centers / sensitive medical systems',21,'muted','end');
+    out+=text(60,330,'Online',27,'text','start')+text(1100,330,'Data centers / sensitive medical systems',21,'muted','end');
     out+=unit(65,379,180,'Utility',!interrupted)+unit(330,379,180,'Rectifier',!interrupted)+unit(650,379,190,'Inverter')+unit(925,379,170,'Load');
     out+=flow('M251 407H321',!interrupted)+flow('M516 407H571',!interrupted)+flow('M579 407H642',true)+flow('M846 407H917',true);
     out+=unit(430,491,190,'Battery',interrupted,'data')+flow('M625 519H637V456H575V412',interrupted,'data');
@@ -121,13 +119,10 @@ function network(compact,state) {
   let out=text(compact?195:580,compact?42:45,'8 MB chunk = 64 megabits',compact?22:29,'data');
   if(compact) out+=box(20,87,151,90,'data')+text(95,124,'Storage',22,'data')+text(95,153,'server',21,'data')+
     box(219,87,151,90,'power')+text(294,124,'Compute',22,'power')+text(294,153,'server',21,'power')+
-    line('M177 132H211','data',true)+text(195,214,'Data-center network',22,'data')+
-    text(195,254,`${rate/1000} Gb/s payload rate`,23,'data');
+    line('M177 132H211','data',true)+text(195,214,'Data-center network',22,'data');
   else out+=box(100,90,255,95,'data')+text(227,146,'Storage server',27,'data')+
     box(805,90,255,95,'power')+text(932,146,'Compute server',27,'power')+
-    line('M363 139H795','data',true)+text(580,116,'Data-center network',24,'data')+
-    text(580,175,`${rate/1000} Gb/s payload rate`,24,'data');
-  out+=text(compact?195:580,compact?291:242,'No queues or protocol overhead',compact?16:21,'muted');
+    line('M363 139H795','data',true)+text(580,116,'Data-center network',24,'data');
   out+=`<rect x="${x}" y="${y}" width="${delayWidth}" height="56" fill="var(--heat)"/><rect x="${x+delayWidth}" y="${y}" width="${sendWidth}" height="56" fill="var(--data)"/>`;
   out+=line(`M${x} ${y+67}H${x+w}`,'muted');
   [0,3.2,6.4].forEach(n=>{out+=text(x+n*scale,y+97,`${n} ms`,compact?16:21,'muted',n===0?'start':n===6.4?'end':'middle')});

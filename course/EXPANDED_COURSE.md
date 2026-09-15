@@ -510,6 +510,8 @@ The plot does not tabulate concurrent users. Do not invent an exact session coun
 
 ## Compare training and inference memory together
 
+Training compute is counted in floating-point operations (FLOPs); FLOP/s expresses how fast those operations execute. These quantities describe the computational workload and its execution rate. Model quality still requires evaluation against the intended task. Inference throughput instead counts generated tokens across all users; first-token and inter-token latency describe the response experienced by each user.
+
 Using the rounded class size of 70 billion parameters, BF16 inference weights require approximately 70 billion × 2 bytes = 140 decimal GB. A classic mixed-precision Adam training ledger stores 2-byte weights, 2-byte gradients, 4-byte master weights and two 4-byte optimizer moments: 16 bytes per parameter, or approximately 1,120 GB of state. The comparison explains why serving a model and training its parameters can require different distributions of state.
 
 These are partial accounts. Inference also needs request KV cache and runtime workspace. Training adds activations, communication buffers and other workspace. Precision, optimizer, recomputation, offload and sharding alter the numbers. The older isolated 80 GB device example did not identify real hardware or establish this connection clearly; the presentation now compares named model uses directly rather than implying an H100 installation.
@@ -1746,6 +1748,10 @@ The paired drawings use the same switchboard-to-rack-PDU circuit: one electrical
 
 The Primer now shows Schneider Electric’s Phaseo ABL6TS25B, a 250 VA controls transformer. Its datasheet specifies 360–440 V input on the nominal 400 V connection, or 207–253 V on the 230 V connection, with a 47–63 Hz frequency range. Its secondary is rated 24 V AC; that is not a promise of regulated output throughout the input range. The separate ±15 V compensation taps and dielectric test voltage are not the input-voltage limits. These published limits apply to this controls-scale product, not automatically to a medium-voltage hall transformer.
 
+## Transformer taps change the connected turns
+
+A fixed-ratio transformer passes a source-voltage change through to its output. Hammond Power Solutions illustrates 480 V across 80 primary turns and 120 V across 20 secondary turns. With those same turns connected, 504 V at the primary gives 126 V at the secondary. A 504 V tap connects 84 primary turns; the same 20 secondary turns then receive 120 V. The tap changes the ratio by choosing how much of the winding is connected. These are configured connections, not an automatic voltage regulator. The selected equipment determines the allowed connections and procedures.
+
 ## Where conversion placement is taught
 
 Chapter 6 follows normal AC distribution through switchgear, building branches and row busway. The Primer teaches the transformer ratio, taps and a real input range. Chapter 7 develops continuity and fault response. Chapter 8 owns the rectification-placement, solid-state-transformer and 800 V transition sequence, including the historical Green Zurich-West 380 V DC case. The D04.3 conversion-placement objective is taught there rather than repeated in Chapter 6. Conventional building auxiliaries can still require AC when compatible IT is supplied with DC.
@@ -1818,6 +1824,7 @@ The IT branch remains below 4.8 MW. The increased support load matters at the wi
 - [Schneider Electric — Transformer secondary voltage notation](https://acespex.se.com/rpt/prodhelp.php?doc=pms_0044&grp=spex_pms&host=CTW&ndx=21283) — 480Y/277 gives the wye phase-to-phase voltage followed by the phase-to-neutral voltage. Read 2026-09-13. Published short technical entry reviewed. Conductor selection and grounding system are not prescribed.
 - [Siemens — NXAirS medium-voltage switchgear HA 1702 sectional illustration](https://cache.industry.siemens.com/dl/files/485/109972485/att_1290488/v1/1702_NXAirS_12kV_Catalogue_EN_final.pdf) — Real panel compartments and original manufacturer sectional illustration. Read 2026-09-14. 2024 A catalog page 12 visually reviewed; original embedded images extracted with transparency. This up-to-12-kV product example is distinct from the 13.8-kV teaching circuit and Compass 8DJH 36 skid.
 - [Schneider Electric — Galaxy PDU 1000 kVA distribution voltages](https://blog.se.com/datacenter/2026/05/18/solving-densification-power-distribution-metering-high-performance-computing/) — Floor-PDU output voltage is product-specific: Galaxy 1000 kVA uses 480 V input and 400 or 415 V output. Read 2026-09-14. Official May 18, 2026 product article reviewed. Product configuration example, not universal PDU behavior or an installed-campus voltage claim.
+- [Hammond Power Solutions — How Taps Work](https://americas.hammondpowersolutions.com/news/2014/april/how-taps-work) — 480:120 V turns example and 504 V primary tap using 84 primary turns rather than 80. Read 2026-09-14. Instructional turns-ratio example. No claim of automatic regulation or universal transformer operating limits.
 
 ## Kilowatts do not fill a kilovolt-ampere nameplate
 

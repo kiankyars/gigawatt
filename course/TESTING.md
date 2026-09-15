@@ -7,6 +7,14 @@ Do not download or launch standalone Chrome for Testing or Playwright browser
 binaries here. Existing browser test harnesses remain available for a separately
 configured test environment; run local model and build checks without a browser.
 
+## Chapters 1–3 review and presenter window — 2026-09-14
+
+- Primer has **22 slides**. Removed the entire two-terminal voltage subtitle, moved tap selection into Chapter 6, retained a simpler input-range example after converter introduction, and applied the phase/PSU, AC title, UPS and network wording requests. Chapter 2 clarifies Gemini 1.0 Ultra and OCS fault rerouting. Chapter 3 uses the supplied, uncropped Jensen Huang image and the requested metric/interactivity label edits through slide 6. Chapter 6 now has **20 slides**.
+- **221 Node tests and 76 Python tests passed.** Course, expanded reader, domain map, source metadata, staging and whitespace checks passed. Presenter tests cover preview indices, message identity, live selectors, SVG link activation and scroll positions.
+- Built-in browser checked all 22 primer scenes, Chapter 3 slides 1–6, the Chapter 2 TPU view and all three relocated tap states at **1280×720 and 390×844** during this review pass. No horizontal document overflow, SVG text collision, out-of-bounds text or failed loaded image was found. Updated content received screenshot inspection; the final subtitle removal was checked again on the rendered slide.
+- The Presenter button opens a separate window; the original audience page contains no preview. The popup established its connection, but the built-in browser did not expose that native popup as an automatable tab. A local, unpublished iframe fixture supplied the opener relationship and exercised the production presenter modules: current/next rendering, navigation in both directions, interactive choices, answer reveal, end-of-chapter state, Workloads → Siting reconnection, disconnect/reconnect, and the Primer and Continuity selectors. Presenter layout received screenshot inspection in that fixture. Native popup window placement and recording capture were not independently tested.
+- Two unlocated MutationObserver errors appeared during fixture navigation and teardown; the browser returned no source location, so their origin is unconfirmed. These are recorded rather than treated as a clean browser-console pass. The separate presenter follows the audience viewport and its current state; the next-slide preview starts at that slide's default state.
+
 ## Chapter 11 storage, orchestration and recovery — 2026-09-14
 
 - **25 scenes**, registered in the chapter directory and shared sequence. Chapter 10 leads to 11, then to the existing selected Chapter 12 cooling material. Three D09 reader lessons and the Google scheduling case handoff are updated. Chapters 1–10 slide content is unchanged.

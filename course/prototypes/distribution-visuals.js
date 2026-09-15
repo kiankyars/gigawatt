@@ -1,5 +1,5 @@
 import { equipment } from './distribution-equipment.js';
-import { rowBudget } from './distribution-model.js';
+import { rowBudget, transformerVoltage } from './distribution-model.js';
 import { campusRoute, oneLine, switchgearAnatomy } from './distribution-context.js';
 import { scenes } from './distribution-scenes.js';
 
@@ -48,6 +48,35 @@ function building(m){
  return svg(o,'The transformer supplies a switchboard bus with three connected outgoing paths: IT through continuity equipment to row busway, cooling through its drive to a pump, and a house panel to controls and lighting.',w,m?655:420);
 }
 
+function transformerTaps(state, compact) {
+ const {inputVolts,primaryTurns,secondaryTurns,tapVolts,outputVolts}=transformerVoltage(state.transformerCase);
+ const cx=compact?195:560, px=compact?144:465, sx=compact?246:655;
+ const top=compact?207:115, step=compact?22:25;
+ const coil=(x,direction,color)=>wire(`M${x} ${top}${Array.from({length:4},()=>`c${direction*27} 0 ${direction*27} ${step} 0 ${step}`).join('')}`,color);
+ let o='';
+ if(compact){
+  o+=text(100,40,'AC input',22,power)+text(290,40,'AC output',22,'var(--data)');
+  o+=text(100,84,`${inputVolts} V`,32,power)+text(290,84,`${outputVolts} V`,32,'var(--data)');
+  o+=rect(72,148,246,235)+text(cx,183,'Transformer',23);
+  o+=wire(`M100 100V${top}H${px}`,power)+wire(`M${sx} ${top}H290V104`,'var(--data)');
+  o+=wire(`M${px} ${top+4*step}H105V317`,power)+wire(`M${sx} ${top+4*step}H285V317`,'var(--data)');
+  o+=wire('M190 201V302M200 201V302',muted);
+  o+=text(119,343,`${primaryTurns} turns`,21,power)+text(272,343,'20 turns',21,'var(--data)');
+ }else{
+  o+=text(180,145,'AC input',26,power)+text(940,145,'AC output',26,'var(--data)');
+  o+=text(180,197,`${inputVolts} V`,40,power)+text(940,197,`${outputVolts} V`,40,'var(--data)');
+  o+=rect(360,35,400,240)+text(cx,75,'Transformer',28);
+  o+=wire(`M275 183H405V${top}H${px}`,power)+wire(`M${sx} ${top}H715V183H845`,'var(--data)');
+  o+=wire(`M${px} ${top+4*step}H410V237`,power)+wire(`M${sx} ${top+4*step}H710V237`,'var(--data)');
+  o+=wire('M555 105V218M565 105V218',muted);
+  o+=text(460,256,`${primaryTurns} turns`,23,power)+text(660,256,'20 turns',23,'var(--data)');
+ }
+ o+=coil(px,1,power)+coil(sx,-1,'var(--data)');
+ o+=text(cx,compact?441:332,`${inputVolts} V × ${secondaryTurns} / ${primaryTurns} = ${outputVolts} V`,compact?25:32);
+ o+=text(cx,compact?502:391,state.transformerCase==='matched-tap'?'More primary turns restore 120 V.':'Same turns: output follows input.',compact?19:24,muted);
+ return svg(`<g data-input-volts="${inputVolts}" data-primary-turns="${primaryTurns}" data-secondary-turns="${secondaryTurns}" data-tap-volts="${tapVolts}" data-output-volts="${outputVolts}">${o}</g>`,'A transformer tap changes connected primary turns. With 20 secondary turns, 80 primary turns give 120 volts from 480 volts and 126 volts from 504 volts. Connecting 84 primary turns gives 120 volts from 504 volts.',compact?390:1120,compact?550:420);
+}
+
 export function renderDistribution(id,state={},compact=false){
  const m=compact,s=state;
  const art=(file,alt)=>`<figure class="teaching-art"><img src="../assets/generated/${file}.png" alt="${esc(alt)}"></figure>`;
@@ -60,6 +89,7 @@ export function renderDistribution(id,state={},compact=false){
  case 'protection-relay':case 'isolation-surge':case 'surge-protection':case 'phase-loading':case 'feeder-diagnosis':markup=equipment(id,s,m);break;
  case 'compass-skid':markup=`<div class="split">${photo('distribution-compass-switchgear.jpg','Original factory view of Siemens switchgear for the jointly developed Compass MV skid.','Siemens × Compass · factory switchgear',compassURL)}<div class="package-comparison"><div><h2>Custom factory-built skid</h2><p>MV switchgear + transformer</p></div><div><h2>Co-developed with Compass</h2><p>Manufactured by Siemens</p></div></div></div>`;break;
  case 'local-stepdown':markup=art('distribution-transformer-location','Two balanced 2 MW, PF 1 routes: early step-down carries 2,406 A over 470 m; step-down beside the hall carries 84 A at 13.8 kV over 450 m and 2,406 A at 480 V over the final 20 m. Losses neglected.');break;
+ case 'transformer-taps':markup=transformerTaps(s,m);break;
  case 'building-branches':markup=building(m);break;
  case 'distribution-units':markup=art('distribution-pdu-psu','Generic equipment functions: floor PDU distributes branches with an optional transformer; rack PDU distributes AC to outlets; server PSU converts AC to DC. Exact voltages depend on the product.');break;
  case 'busway-introduction':markup=art('distribution-busway','An enclosed overhead busway has one end feed and a shared conductor housing above three racks. Tap-off boxes connect individual rack cables to the busway.');break;

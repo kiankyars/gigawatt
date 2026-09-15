@@ -235,6 +235,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P19 — Steven H. Low — Power System Analysis: Analytical tools and structural properties (April 7, 2025 draft)](sources/P19.md) | Steven H. Low, California Institute of Technology | D04, D06 | page_reviewed |
 | [P190 — Google Data Centers — Photo gallery](sources/P190.md) | Google | D09 | page_reviewed |
 | [P191 — Gmail back soon for everyone](sources/P191.md) | Google Gmail Blog | D09 | page_reviewed |
+| [P192 — Introducing Gemini: our largest and most capable AI model](sources/P192.md) | Google | D01 | page_reviewed |
 | [P20 — Wolfspeed — Powering AI with reliable SiC-based solid-state transformers](sources/P20.md) | Wolfspeed | D04, D06 | page_reviewed |
 | [P21 — Texas Instruments — TIDA-011012 modular solid-state transformer reference design](sources/P21.md) | Texas Instruments | D04, D06 | page_reviewed |
 | [P22 — Huber et al. — Comparative Evaluation of MVAC–LVDC SST and Hybrid Transformer Concepts for Future Datacenters (IPEC 2022)](sources/P22.md) | ETH Zurich, Delta Electronics and Paderborn University | D04, D06 | page_reviewed |

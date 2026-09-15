@@ -1,5 +1,6 @@
 // Presentation controls shared by every chapter. Source notes remain in the reader.
 import { installSlideNavigation } from './slide-navigation.js';
+import { installPresenter } from './presenter-bridge.js';
 
 function installSlideChrome() {
   installSlideNavigation();
@@ -40,6 +41,7 @@ function installSlideChrome() {
     node.inert = true;
     node.setAttribute('aria-hidden', 'true');
   }
+  installPresenter();
 }
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', installSlideChrome, {once: true});

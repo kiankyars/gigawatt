@@ -74,3 +74,13 @@ export function traceLoad(load, { futureClosed = false } = {}) {
   return { path: [...topology[load]], energized: load !== 'future' || futureClosed,
     stopsAt: load === 'future' && !futureClosed ? 'future-feeder' : null };
 }
+
+// Hammond Power Solutions' 480:120 V turns example; fixed frequency and ideal ratio.
+export function transformerVoltage(selected = 'nominal') {
+  if (!['nominal','supply-rise','matched-tap'].includes(selected)) throw new RangeError(`Unknown transformer comparison: ${selected}`);
+  const inputVolts = selected === 'nominal' ? 480 : 504;
+  const primaryTurns = selected === 'matched-tap' ? 84 : 80;
+  const secondaryTurns = 20;
+  return {inputVolts, primaryTurns, secondaryTurns, tapVolts: primaryTurns * 6,
+    outputVolts: inputVolts * secondaryTurns / primaryTurns};
+}

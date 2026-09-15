@@ -3168,14 +3168,14 @@
       "publisher": "Google researchers / USENIX NSDI 2024",
       "kind": "research_paper",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-12",
+      "reviewed_on": "2026-09-14",
       "domains": [
         "D01",
         "D08",
         "D14"
       ],
-      "use": "Sections 1–2 explain 64-chip blocks, a 4,096-chip pod and optical cross-connections in the ICI fabric.",
-      "caution": "Selected architecture sections reviewed, not all evaluation results. The overview drawing is one functional optical link, not the complete switch or torus topology."
+      "use": "TPU v4 architecture and fault resiliency: 64-chip blocks, 4,096-chip pod, MEMS mirror cross-connections and software reconfiguration around machine, chip and link failures.",
+      "caution": "Abstract and sections 1–2 reviewed for the overview clarification. Reconfiguration requires healthy available paths and coordinated control. The overview drawing shows one functional optical link, not the complete topology; no uninterrupted failover guarantee is inferred."
     },
     {
       "id": "P93",
@@ -4658,6 +4658,21 @@
       ],
       "use": "A software bug crossed online replicas; offline backup enabled slower restoration.",
       "caution": "Historical February 2011 incident and March 1–2 updates. Not evidence of the current Gmail storage architecture or a generic tape restore time."
+    },
+    {
+      "id": "P192",
+      "title": "Introducing Gemini: our largest and most capable AI model",
+      "url": "https://blog.google/innovation-and-ai/technology/ai/google-gemini-ai/",
+      "publisher": "Google",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-14",
+      "published_on": "2023-12-06",
+      "domains": [
+        "D01"
+      ],
+      "use": "Identify Gemini 1.0 Ultra as the largest named model in the original Ultra/Pro/Nano family.",
+      "caution": "Historical model identity only. Ultra here does not mean a hardware type, a general model class, or a current subscription tier."
     }
   ]
 }
