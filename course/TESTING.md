@@ -7,6 +7,26 @@ Do not download or launch standalone Chrome for Testing or Playwright browser
 binaries here. Existing browser test harnesses remain available for a separately
 configured test environment; run local model and build checks without a browser.
 
+## Chapter 4 final review and Chapter 3 opener — 2026-09-14
+
+- Restored Chapter 3's original three-part opening text alongside the supplied
+  image; the deck remains 17 slides. Chapter 4 remains 25 slides, with Abilene's
+  delivery example immediately after CoreWeave, revised WHEN/WHAT wording,
+  larger configuration diagrams, requested caption removals, GW units and
+  generation/procurement headings. Chapter 4 is accepted per Kian's review.
+- **222 Node and 76 Python tests passed.** Course, expanded reader, domain map,
+  source metadata, staging and whitespace checks passed. Updated the legacy
+  browser harness's stale slide count; did not launch its standalone browser.
+- Built-in browser checked 15 changed/adjacent Siting scenes at **1280×720 and
+  390×844**, plus the restored Workloads opener. No horizontal page overflow,
+  out-of-bounds SVG text or text collisions. Verified reordered selector entries
+  and header hiding on slides 7–10 followed by header restoration. Opening,
+  configuration and procurement layouts received screenshot inspection.
+- Independent source/diff review matched every item to its rendered scene.
+  The fuel-efficiency question was withdrawn and its model remains unchanged.
+  The xAI heading refers to the Colossus buildout; the existing Southaven source
+  attribution remains visible. No new evidence about Colossus 1 is claimed.
+
 ## Chapter 3 final review and upcoming-slide window — 2026-09-14
 
 - Chapter 3 now has **17 slides** and is accepted after Kian's requested edits.

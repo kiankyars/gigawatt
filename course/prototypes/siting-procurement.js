@@ -56,7 +56,6 @@ function current(s,m){
  });
  out+=text(m?195:560,m?553:435,'I = P / (√3 × VLL × PF)',m?24:35,C.text,'middle');
  out+=text(m?195:560,m?601:492,'4.67× current at the lower voltage',m?20:26,C.heat,'middle');
- out+=text(m?195:560,m?651:531,'Extra current can require more parallel feeders.',m?15:19,C.muted,'middle');
  return meta('transport-current','The electrical consequence of avoiding the high-voltage transport stage','The previous procurement choice concerns campus AC transport, not 800 V DC or rack power density. Hold a hypothetical receiving boundary at 200 MW. At 34.5 kV line-to-line, current is 3,347 amperes per line; at 161 kV it is 717 amperes. The 4.67-fold current ratio can require more parallel feeders or conductor area. These are comparison inputs, not Southaven specifications or measured losses.',out,`data-power-mw="200" data-mv-current-a="${mv.lineCurrentA}" data-hv-current-a="${hv.lineCurrentA}"`);
 }
 export function renderProcurement(id,state={},compact=false){

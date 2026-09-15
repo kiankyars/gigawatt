@@ -31,15 +31,14 @@ function dania(m){
   +t(x,m?274:58,'Combined-cycle plant',m?26:27)
   +t(x,m?316:109,'2 × GE 7HA.03',m?30:33,C.power)
   +t(x,m?350:148,'Gas turbines + steam cycle',m?21:22)
-  +t(x,m?397:226,'Up to 1,260 MW',m?30:32,C.power)
+  +t(x,m?397:226,'Up to 1.26 GW',m?30:32,C.power)
   +t(x,m?429:263,'Whole-plant output',m?20:22,C.muted);
  const designation=[['7','60 Hz family'],['H','High efficiency'],['A','Air-cooled'],['.03','Model version']];
  designation.forEach(([part,meaning],i)=>{
   const y=(m?477:324)+i*(m?35:37);
   o+=t(x,y,part,m?23:25,C.power)+t(x+(m?69:76),y,meaning,m?21:23);
  });
- o+=t(x,m?622:478,'The model name is not a MW rating.',m?18:19,C.muted)
-  +`<a href="https://www.gevernova.com/gas-power/resources/case-studies/first-7ha-florida-power-light" target="_blank" rel="noopener">${t(m?195:560,m?660:523,'GE Vernova · Dania Beach, Florida',m?15:18,C.muted,'middle')}</a>`;
+ o+=`<a href="https://www.gevernova.com/gas-power/resources/case-studies/first-7ha-florida-power-light" target="_blank" rel="noopener">${t(m?195:560,m?660:523,'GE Vernova · Dania Beach, Florida',m?15:18,C.muted,'middle')}</a>`;
  return result(o,'FPL’s Dania Beach Clean Energy Center uses combined-cycle generation: two GE 7HA.03 gas turbines plus a steam power cycle recovering exhaust heat. GE reports whole-plant output up to 1,260 MW. In the designation, 7 identifies GE’s 60 Hz family, H means high efficiency, A means air-cooled, and .03 identifies the model version. The designation is not a megawatt rating. The photograph shows the actual Florida utility plant.');
 }
 function flexibility(m){

@@ -6,6 +6,29 @@ repository records; those records do not substitute for the original message.
 The prior “everything addressed” claim was too strong. This page foregrounds
 exceptions; the coverage list below makes the rest inspectable.
 
+## Chapter 4 final review and Chapter 3 opener — 14 September 2026
+
+Chapter 3's original MODEL STATE / SERVING USERS / ELECTRICAL DEMAND text is
+restored on slide 1 alongside the supplied Jensen Huang image; 17 slides remain.
+Chapter 4 is **accepted after the requested changes**:
+
+- Simplified WHEN and WHAT; preserved HOW. “Generation duty” means everyday
+  supply, peaks or backup. Energy Transfer is the company, now labeled as the
+  gas supplier to Oracle.
+- Moved Abilene's delivery slide immediately after CoreWeave's delivery slide.
+  The later slide numbers and all existing hashes remain stable.
+- Removed slide 6's subtitle and slides 7–10's extra headings and captions;
+  enlarged the four configuration images and retained their two key lines.
+- Dania Beach displays **up to 1.26 GW**; removed the model-rating sentence.
+  Retitled the single-cycle, three meanings of fast and xAI procurement slides.
+  Removed the parallel-feeder sentence from the current comparison.
+
+The 40% / 60% question was withdrawn once Kian identified fuel efficiency;
+that calculation remains unchanged. “Grid type” was dictation for **grid tie**.
+The xAI procurement account remains sourced to Southaven/MiniHard; it is not
+new evidence about the original Electrolux conversion. No implementation ambiguity
+remains from this pass. Existing research follow-ups remain in the tracker.
+
 ## Chapter 6 follow-up review — 14 September 2026
 
 | Request | Implemented |

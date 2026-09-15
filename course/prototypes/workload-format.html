@@ -282,11 +282,6 @@
           height: 650px;
           flex: none;
         }
-        #diagram[data-scene="workload-purpose"] {
-          min-height: 0;
-          height: auto;
-          aspect-ratio: 390 / 247;
-        }
         #actions {
           padding: 5px 7px 12px;
         }
@@ -380,7 +375,7 @@ function draw(){
  const scene=scenes[index], compact=matchMedia('(max-width:600px)').matches;
  const {markup,description}=renderWorkload(scene.id,state,compact);
  $('diagram').dataset.scene=scene.id;
- $('diagram').setAttribute('viewBox',compact?(scene.id==='workload-purpose'?'0 0 390 247':'0 0 390 680'):'0 0 1200 560');
+ $('diagram').setAttribute('viewBox',compact?'0 0 390 680':'0 0 1200 560');
  $('diagram').innerHTML=`<title id="diagram-title">${scene.title||scene.label}</title><desc id="diagram-description">${description}</desc>${markup}`;
  $('status').textContent=description;
 }

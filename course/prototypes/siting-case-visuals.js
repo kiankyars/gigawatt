@@ -18,8 +18,8 @@ const oracle='https://www.oracle.com/data-centers/';
 const siemens='https://www.siemens-energy.com/global/en/home/products-services/product/combined-cycle-power-plants.html';
 function purpose(m){
  let o=img(sitingImages.shared,m?12:390,m?84:8,m?366:720,m?320:455);
- [['WHEN','Release a usable phase'],['HOW','Connect grid and local supply'],['WHAT','Choose the generation duty']].forEach(([a,b],i)=>{const y=m?445+i*62:94+i*145;o+=t(m?23:25,y,a,m?13:18,C.muted)+t(m?98:25,m?y:y+47,b,m?18:27);});
- return result(o,'Follow delivery phases, connection arrangements and generation duty. The drawing shows a conceptual campus and its connections.');
+ [['WHEN','Get power online on time'],['HOW','Connect grid and local supply'],['WHAT','Everyday power,','peaks or backup']].forEach(([a,b,c],i)=>{const y=m?430+i*72:75+i*145;o+=t(m?23:25,y,a,m?13:18,C.muted)+t(m?98:25,m?y:y+47,b,m?18:27);if(c)o+=t(m?98:25,m?y+26:y+83,c,m?18:27);});
+ return result(o,'Follow when power can come online, how grid and local supply connect, and whether generation serves everyday demand, peaks or backup. The drawing shows a conceptual campus and its connections.');
 }
 function release(m){
  const image='../assets/references/applied-digital-polaris-forge-1-building1-october-2025.jpg';
@@ -37,7 +37,7 @@ function fuel(m){
  let o=img(sitingImages.gas,m?12:20,m?20:10,m?366:750,m?280:425);
  const x=m?25:800,y=m?355:92;
  o+=t(x,y,'14-mile gas lateral',m?31:29,C.power)+t(x,y+43,'Second route · Aug 2026',m?20:20);
- o+=t(x,y+119,'Energy Transfer',m?25:28)+t(x,y+156,'supplies gas to Oracle',m?23:25)+t(x,y+193,'Deliveries began Jan 2026',m?19:20,C.muted);
+ o+=t(x,y+119,'Energy Transfer',m?25:28)+t(x,y+156,'Gas supplier to Oracle',m?23:25)+t(x,y+193,'Deliveries began Jan 2026',m?19:20,C.muted);
  o+=note(m,'Energy Transfer · 2026 updates | Oracle photo · 15 July 2026','https://ir.energytransfer.com/static-files/1cb70dca-abed-4005-95aa-793e3345626c');
  return result(o,'Energy Transfer supplies natural gas to Oracle’s Abilene data center. Deliveries began in January 2026; its August update reports a completed second 14-mile lateral in the Abilene area. Oracle is the customer receiving gas. Oracle’s plant photograph is dated July 15, 2026.');
 }
@@ -65,19 +65,19 @@ function abilene(m){
  o+=note(m,'Crusoe + Oracle | Aerial · 15 July 2026',oracle);
  return result(o,'The original Oracle/OpenAI Abilene campus has a published 1,200 MW plan across eight buildings. Oracle reports 75% of capacity delivered in September 2026. Multiplying that percentage by the 1,200 MW plan gives 900 MW only if both sources use the same capacity basis; Oracle does not specify that basis or report current operating MW. The 10 GW commitment concerns Stargate sites across the United States, not Abilene alone. The adjacent Microsoft project is separate.');
 }
-function quadrant(m){return result(img(sitingImages.configurations,m?5:100,m?78:0,m?380:920,m?500:510)+t(m?195:560,m?615:529,'Normal supply directions · backup omitted',m?15:17,C.muted,'middle'),'Four original configurations: grid supplies normal load; grid-parallel local generation and imports; local supply with export-only grid tie; off-grid local supply without an operating grid connection. The four following slides develop each arrangement.');}
+function quadrant(m){return result(img(sitingImages.configurations,m?5:100,m?78:0,m?380:920,m?500:510),'Four original configurations: grid supplies normal load; grid-parallel local generation and imports; local supply with export-only grid tie; off-grid local supply without an operating grid connection. The four following slides develop each arrangement.');}
 function config(id,m){
  const cases={
-  'config-grid-supplied':{q:0,a:'Utility supplies normal demand',b:'Backup is a separate design',detail:'An energy contract does not add a feeder.'},
-  'config-grid-parallel':{q:1,a:'Local output + permitted imports',b:'Reserve import capacity matters',detail:'A generator outage can increase required imports.'},
-  'config-export-only':{q:2,a:'Local supply + surplus exports',b:'No imports to serve the load',detail:'Grid-connected does not mean grid-backed.'},
-  'config-off-grid':{q:3,a:'No operating grid tie',b:'Local energy + fast balancing',detail:'Generation and buffering serve different timescales.'},
+  'config-grid-supplied':{q:0,a:'Utility supplies normal demand',b:'Backup is a separate design'},
+  'config-grid-parallel':{q:1,a:'Local output + permitted imports',b:'Reserve import capacity matters'},
+  'config-export-only':{q:2,a:'Local supply + surplus exports',b:'No imports to serve the load'},
+  'config-off-grid':{q:3,a:'No operating grid tie',b:'Local energy + fast balancing'},
  };
  const c=cases[id],qx=c.q%2*836,qy=Math.floor(c.q/2)*470;
- let o=`<svg x="${m?10:0}" y="${m?100:35}" width="${m?370:665}" height="${(m?370:665)*470/836}" viewBox="${qx} ${qy} 836 470" overflow="hidden">${img(sitingImages.configurations,0,0,1672,941)}</svg>`;
- const x=m?26:713,y=m?426:171;
- o+=t(x,y,c.a,m?21:25,C.power)+t(x,y+61,c.b,m?20:25)+t(m?195:560,m?604:498,c.detail,m?13:21,C.muted,'middle');
- return result(o,`${c.a}. ${c.b}. ${c.detail} Original conceptual supply directions; not complete switching, grounding, storage or protection diagrams.`);
+ let o=`<svg x="${m?6:150}" y="${m?95:0}" width="${m?378:820}" height="${(m?378:820)*470/836}" viewBox="${qx} ${qy} 836 470" overflow="hidden">${img(sitingImages.configurations,0,0,1672,941)}</svg>`;
+ const x=m?195:560,y=m?402:491;
+ o+=t(x,y,c.a,m?21:25,C.power,'middle')+t(x,y+(m?45:38),c.b,m?20:25,C.ink,'middle');
+ return result(o,`${c.a}. ${c.b}. Original conceptual supply directions; not complete switching, grounding, storage or protection diagrams.`);
 }
 function bridge(m){
  let o=img(sitingImages.gas,m?12:20,m?30:0,m?366:1080,m?295:355);

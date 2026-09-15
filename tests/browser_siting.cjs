@@ -324,7 +324,7 @@ async function checkNavigation(page, scenes, colorScheme) {
 (async () => {
   const { scenes, initialState } =
     await import("../course/prototypes/siting-scenes.js");
-  assert.equal(scenes.length, 23);
+  assert.equal(scenes.length, 25);
   assert.equal(scenes[0].id, "siting-purpose");
   assert.equal(scenes.at(-1).id, "supply-brief");
   assert.equal(new Set(scenes.map((s) => s.id)).size, scenes.length);

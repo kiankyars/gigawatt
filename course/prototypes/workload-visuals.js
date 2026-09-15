@@ -11,9 +11,10 @@ const result=(markup,description)=>({markup,description});
 const split=(m)=>m?line(25,334,365,334):line(600,55,600,505);
 const panel=(i,m)=>({x:m?28:60+i*600,y:m?40+i*335:70,w:m?334:480});
 function purpose(s,m){
- const w=m?390:1200,h=m?247:560;
- const o=`<image href="../assets/references/jensen-huang-tokens-per-watt.png" width="${w}" height="${h}" preserveAspectRatio="xMidYMid meet"/>`;
- return result(o,'Jensen Huang beside an AI factory revenue graphic showing a tokens-per-watt annotation. The supplied screenshot is shown in full.');}
+ let o=`<image href="../assets/references/jensen-huang-tokens-per-watt.png" x="0" y="${m?0:50}" width="${m?390:720}" height="${m?247:456}" preserveAspectRatio="xMidYMid meet"/>`;
+ const concepts=[['01','MODEL STATE','Weights, context and training updates'],['02','SERVING USERS','Requests, batching and response time'],['03','ELECTRICAL DEMAND','Energy, peaks and fast transitions']];
+ concepts.forEach(([num,a,b],i)=>{const x=m?28:750,y=m?310+i*125:145+i*150;o+=t(x,y,num,m?25:28,C.compute)+t(x+52,y,a,m?18:24,C.ink)+t(x+52,y+39,b,m?14:19,C.muted)+line(x,y+70,m?362:1180,y+70);});
+ return result(o,'Jensen Huang beside an AI factory revenue graphic showing a tokens-per-watt annotation. The supplied screenshot is shown in full. Model state: weights, context and training updates. Serving users: requests, batching and response time. Electrical demand: energy, peaks and fast transitions.');}
 function interactivity(s,m){const a=interactivityMetrics({tokensPerSecond:s.tokensPerSecond});let o='';
  const x=m?28:72,y=m?48:49;
  o+=t(x,y,'ONE USER',m?19:23,C.communication)+t(x,y+60,`${a.tokensPerSecond} tokens/s/user`,m?32:48,C.communication);

@@ -23,6 +23,17 @@ export const scenes=[
     ]
   },
   {
+    "id": "abilene-phase",
+    "label": "Abilene: current delivery",
+    "title": "Abilene’s campus plan is 1.2 GW.",
+    "reference": "../index.html#d03-service-and-siting",
+    "boundary": "Oracle · status September 2026 · publisher aerial 15 July 2026.",
+    "explanation": [
+      "Our recurring example is the original Crusoe-built Oracle/OpenAI campus in Abilene. Oracle’s location page reports 75 percent of total capacity delivered as of September 2026, with the remainder in subsequent quarters. Its displayed aerial photograph is dated July 15, 2026.",
+      "Crusoe identifies the original eight-building Oracle campus as a 1,200 MW plan. Applying 75% to that plan yields 900 MW only if Oracle and Crusoe mean the same capacity basis; this is a conditional calculation, not a reported operating MW figure. The 10 GW commitment refers to Stargate’s wider US buildout. The adjacent 900 MW Microsoft campus is another separate project."
+    ]
+  },
+  {
     "id": "parcel-connections",
     "label": "Abilene: gas has a route",
     "title": "Abilene’s on-site generation required a new gas connection.",
@@ -45,17 +56,6 @@ export const scenes=[
     ]
   },
   {
-    "id": "abilene-phase",
-    "label": "Abilene: current delivery",
-    "title": "Abilene’s campus plan is 1.2 GW.",
-    "reference": "../index.html#d03-service-and-siting",
-    "boundary": "Oracle · status September 2026 · publisher aerial 15 July 2026.",
-    "explanation": [
-      "Our recurring example is the original Crusoe-built Oracle/OpenAI campus in Abilene. Oracle’s location page reports 75 percent of total capacity delivered as of September 2026, with the remainder in subsequent quarters. Its displayed aerial photograph is dated July 15, 2026.",
-      "Crusoe identifies the original eight-building Oracle campus as a 1,200 MW plan. Applying 75% to that plan yields 900 MW only if Oracle and Crusoe mean the same capacity basis; this is a conditional calculation, not a reported operating MW figure. The 10 GW commitment refers to Stargate’s wider US buildout. The adjacent 900 MW Microsoft campus is another separate project."
-    ]
-  },
-  {
     "id": "power-configurations",
     "label": "Four operating arrangements",
     "title": "Distinguish grid imports, local supply and an electrical island.",
@@ -75,7 +75,8 @@ export const scenes=[
     "explanation": [
       "Normal electrical demand comes through the utility connection. An off-site energy contract can address price or sourcing, but it does not add an independent feeder. Start with the actual point of delivery and the service it can support.",
       "Backup generation and UPS arrangements are separate parts of the continuity design. A purchase agreement or a claim of annual clean-energy matching does not establish outage support. This configuration does not mean that backup equipment is absent."
-    ]
+    ],
+    "hideTitle": true
   },
   {
     "id": "config-grid-parallel",
@@ -86,7 +87,8 @@ export const scenes=[
     "explanation": [
       "The grid and local plant share the task of supplying the customer load. The meter records net exchange; zero imports at one moment need not mean the breaker is open. If local generation stops, the required import can rise sharply.",
       "The reserved import capacity and supported fallback matter as much as the normal energy balance. Export requires the relevant agreement and equipment capability. A behind-the-meter location alone does not establish permission to export or ability to island."
-    ]
+    ],
+    "hideTitle": true
   },
   {
     "id": "config-export-only",
@@ -97,7 +99,8 @@ export const scenes=[
     "explanation": [
       "Local generation serves the data center and may export the surplus through the allowed grid connection. The no-import constraint concerns supply rights or configuration, not the absence of an electrical tie.",
       "Grid disturbance behavior still needs a protection and operating design. The plant may need to disconnect; surviving as an island requires established controls and capacity. Neither export permission nor netting of flows creates backup import rights."
-    ]
+    ],
+    "hideTitle": true
   },
   {
     "id": "config-off-grid",
@@ -108,7 +111,8 @@ export const scenes=[
     "explanation": [
       "There is no operating grid tie to absorb a deficit or surplus. The local system must establish voltage and frequency, support the full continuing load and remain within its fuel, storage, thermal and equipment limits.",
       "Generation can provide sustained energy while a suitably connected buffer responds to a fast mismatch. Battery discharge power and usable energy are separate limits. We are not assuming a solar plant, night-time operation, or a particular transfer time. The detailed storage lesson develops that response."
-    ]
+    ],
+    "hideTitle": true
   },
   {
     "id": "bridge-to-backup",
@@ -168,7 +172,7 @@ export const scenes=[
   {
     "id": "grid-dispatch",
     "label": "Supply each hour",
-    "title": "Peaking plants cover the residual load left by the rest of the grid.",
+    "title": "Why would you want to use a single-cycle gas turbine?",
     "reference": "../index.html#d03-service-and-siting",
     "boundary": "Siemens Energy illustrative dispatch profiles · no measured hourly forecast.",
     "explanation": [
@@ -179,7 +183,7 @@ export const scenes=[
   {
     "id": "generation-flexibility",
     "label": "Three meanings of fast",
-    "title": "Fast delivery, fast startup and fast ramping solve different problems.",
+    "title": "There are three meanings of “fast”.",
     "reference": "../index.html#d03-service-and-siting",
     "boundary": "Generated conceptual illustration · delivery versus operating response; GE catalog example in the reading.",
     "explanation": [
@@ -223,7 +227,7 @@ export const scenes=[
   {
     "id": "procurement-route",
     "label": "The transformer dependency",
-    "title": "Local medium-voltage delivery can bypass large-transformer lead times.",
+    "title": "How xAI overcame supply chain constraints in the Colossus buildout",
     "reference": "../index.html#d03-voltage-and-distance",
     "boundary": "SemiAnalysis · 7 August 2026 · reported Southaven/MiniHard context, conceptual paths.",
     "explanation": [
