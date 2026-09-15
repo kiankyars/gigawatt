@@ -51,6 +51,8 @@ that window. Put it on your second monitor and record the original course
 window, which shows the current slide. There is no duplicate current slide,
 thumbnail overlay, timer or notes panel. The upcoming slide shows its starting
 state; interact with the current slide in the original window.
+The original window's header controls hide while the presenter is connected
+and return when it closes, without moving the slide content.
 
 The presenter's small footer controls the original window: its selector names
 the current audience slide, while “Up next” gives the number of the slide shown

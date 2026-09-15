@@ -51,7 +51,7 @@ test('selection reads the live shared selector, including a replaced UPS selecto
 });
 
 function audienceFixture({ preview = null, populated = true } = {}) {
-  const handlers = new Map(), pending = new Map(), observers = [], messages = [];
+  const handlers = new Map(), pending = new Map(), intervals = new Map(), observers = [], messages = [];
   let timer = 0, button, currentSelect = { selectedIndex: 0, options: [{ textContent: '1 · Opening' }, { textContent: '2 · Mechanism' }], dispatchEvent() {} };
   if (!populated) currentSelect.options = [];
   const root = { addEventListener() {}, cloneNode() { throw new Error('The upcoming-slide window must not copy audience DOM'); } };
@@ -80,7 +80,9 @@ function audienceFixture({ preview = null, populated = true } = {}) {
     },
     addEventListener: (type, handler) => handlers.set(type, handler),
     setTimeout: callback => { pending.set(++timer, callback); return timer; },
-    clearTimeout: id => pending.delete(id), setInterval: () => ++timer, clearInterval() {},
+    clearTimeout: id => pending.delete(id),
+    setInterval: callback => { intervals.set(++timer, callback); return timer; },
+    clearInterval: id => intervals.delete(id),
   };
   win.parent = preview === null ? win : {};
   const peer = { opener: win, closed: false, focus() {}, postMessage: data => messages.push(data) };
@@ -88,7 +90,7 @@ function audienceFixture({ preview = null, populated = true } = {}) {
   const send = data => handlers.get('message')?.({ origin: win.location.origin, source: peer,
     data: { protocol: PRESENTER_PROTOCOL, session: 'test-session', ...data } });
   const flush = () => { const callbacks = [...pending.values()]; pending.clear(); callbacks.forEach(callback => callback()); };
-  return { doc, win, peer, messages, handlers, observers, send, flush,
+  return { doc, win, peer, messages, handlers, observers, intervals, send, flush,
     get button() { return button; }, get select() { return currentSelect; },
     set select(value) { currentSelect = value; },
   };
@@ -119,6 +121,35 @@ test('audience bridge sends navigation metadata, forwards navigation and reconne
   snapshot = fixture.messages.at(-1);
   assert.equal(snapshot.index, 0);
   assert.deepEqual(snapshot.slides, ['1 · Replacement selector']);
+});
+
+test('presenter hides audience chrome only while connected and restores it on either close path', () => {
+  const fixture = audienceFixture();
+  const data = fixture.doc.documentElement.dataset;
+  installPresenter(fixture.doc, fixture.win);
+  assert.equal(data.presenterActive, undefined);
+  fixture.button.click();
+  assert.equal(data.presenterActive, undefined, 'opening alone is not a successful connection');
+  fixture.send({ type: 'hello' });
+  assert.equal(data.presenterActive, '');
+  fixture.send({ type: 'close' });
+  assert.equal(data.presenterActive, undefined);
+  assert.equal(fixture.intervals.size, 0);
+  fixture.send({ type: 'hello' });
+  assert.equal(data.presenterActive, '', 'reconnection hides chrome again');
+  fixture.peer.closed = true;
+  for (const tick of fixture.intervals.values()) tick();
+  assert.equal(data.presenterActive, undefined, 'window.closed restores chrome even without a close message');
+  assert.equal(fixture.intervals.size, 0);
+});
+
+test('blocked presenter popup leaves audience controls available', () => {
+  const fixture = audienceFixture();
+  fixture.win.open = () => null;
+  installPresenter(fixture.doc, fixture.win);
+  fixture.button.click();
+  assert.equal(fixture.doc.documentElement.dataset.presenterActive, undefined);
+  assert.equal(fixture.button.textContent, 'Allow presenter popup');
 });
 
 test('preview initialization waits for module decks to populate the live selector', () => {

@@ -50,6 +50,7 @@ export function installPresenter(doc = document, win = window) {
   };
   const disconnect = () => {
     ready = false;
+    delete doc.documentElement.dataset.presenterActive;
     observer?.disconnect(); observer = null;
     if (frame) win.clearTimeout(frame);
     frame = 0; lastSnapshot = '';
@@ -76,6 +77,7 @@ export function installPresenter(doc = document, win = window) {
   }
   function connect() {
     ready = true; lastSnapshot = '';
+    doc.documentElement.dataset.presenterActive = '';
     button.setAttribute('aria-expanded', 'true');
     if (!observer) {
       observer = new win.MutationObserver(schedule);

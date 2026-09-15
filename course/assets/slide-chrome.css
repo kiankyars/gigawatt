@@ -153,6 +153,8 @@ dialog#reading {
   padding: 7px 10px;
   min-height: 34px;
 }
+/* Keep the canvas in place when the presenter opens or closes. */
+html[data-presenter-active] .toolbar,
 html[data-presenter-preview] .toolbar,
 html[data-presenter-preview] footer.course-slide-navigation {
   visibility: hidden !important;
