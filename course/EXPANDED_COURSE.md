@@ -524,6 +524,10 @@ Choose a 64 GiB allocation for KV cache, distinct from weights and workspace. At
 
 This is the facility connection: longer context can change replica requirements, memory traffic, communication and measured power for the same token service. Capacity alone does not predict token speed. A fitting allocation still needs an execution benchmark on the chosen hardware and software.
 
+Prefix caching reuses stored keys and values for initial tokens that requests have in common, such as a shared system prompt. It does not mean that unrelated contexts can share arbitrary KV state. The calculation above counts each request independently; sharing an identical prefix can reduce that allocation.
+
+The DeepSeek V4 technical-report chart on the slide shows another way to change the budget: compressed attention. It compares V4-Pro and V4-Flash with V3.2 as sequence length grows. Its architecture and KV storage formats differ from Llama 3.1 70B, so the preceding 320 KiB-per-token factor does not describe those curves.
+
 ## Carry a workload brief into design
 
 Do not derive actual tokens per second by dividing a GPU peak-FLOPS number by one approximate operation count. Precision, sustained utilization, attention work, memory bandwidth, interconnects, batching and software all matter. State a service requirement first, then benchmark the intended workload and measure power at its actual electrical boundary.
@@ -584,6 +588,8 @@ The fixed pool admits fewer full contexts. Adding capacity or distributing the m
 - [NVIDIA NVL72 AI Factory — System Hardware & Components](https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/components.html) — The GB300 NVL72 rack contains 72 Blackwell Ultra GPUs. Read 2026-09-12. Hardware identity and count only; actual inference throughput depends on the serving workload and configuration.
 - [NVIDIA AIPerf — Metrics Reference](https://docs.nvidia.com/aiperf/reference/ai-perf-metrics-reference) — Per-user generation throughput and the reciprocal inter-token interval; distinguish total throughput and TTFT. Read 2026-09-13. Reviewed output-token-throughput-per-user and streaming metric definitions. Does not establish a capacity for a named GPU.
 - [NVIDIA — Qwen3.8 throughput and interactivity on GB300 NVL72](https://developer.nvidia.com/blog/serve-qwen3-8-2-4t-a95b-a-2-4t-parameter-model-with-configurable-reasoning-on-nvidia-gb300-nvl72/) — Original Figure 2 shows the throughput/interactivity tradeoff with the hardware, model and workload conditions printed in the figure. Read 2026-09-13. Publisher benchmark curve, not our measurement. 8k/1k, TensorRT-LLM, FP8 and MTP read from the original figure. No tabulated concurrency or exact curve samples provided; do not infer supported sessions.
+- [DeepSeek-V4: Towards Highly Efficient Million-Token Context Intelligence](https://arxiv.org/html/2606.19348v1) — Figure 1 and section 2.3.4 compare accumulated KV-cache state for V3.2, V4-Pro and V4-Flash. Read 2026-09-14. User-provided KV-panel crop checked against the report. Compressed attention and mixed KV precision differ from the Llama example; these curves do not establish serving throughput.
+- [vLLM — Inside vLLM: Anatomy of a High-Throughput LLM Inference System](https://vllm.ai/blog/2025-09-05-anatomy-of-vllm) — KV blocks for identical token prefixes can be reused across requests. Read 2026-09-14. Prefix caching section; distinct from sharing arbitrary unrelated request state.
 
 ## Measure complete useful work and diagnose exposed waits
 
@@ -676,6 +682,8 @@ LLM prefill processes the prompt and creates the request’s initial KV cache. M
 vLLM describes continuous scheduling of running and waiting requests. When one sequence finishes, the scheduler can admit new work while others continue. Our two-slot illustration has A needing two decode steps, B five, and C three. C is already queued. The fixed batch waits for B; the continuous case admits C after A finishes. The cells represent iterations, not equal wall-clock durations or a measured speedup. Real admission also depends on prefill work, token budgets and KV capacity.
 
 This matters to facility reasoning because active request membership changes compute and memory demand. Continuous batching is a documented serving mechanism, not a guarantee that rack power stays constant.
+
+These bottlenecks are tendencies. A short prompt may offer too little parallel matrix work to saturate compute. A large decode batch can reuse each loaded weight across enough tokens that matrix multiplication becomes compute-bound, while attention or interconnect traffic may still be limiting. Model, context length, batch size, parallelism and hardware determine the actual bottleneck.
 
 ## NVIDIA uses separate racks for prefill and decode
 

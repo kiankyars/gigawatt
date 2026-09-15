@@ -31,8 +31,9 @@ supported-session counts still need corresponding concurrency data.
 
 The latest rule is **one meaningful active check-in per domain**, with a closing
 example only when no worthwhile check-in can be constructed. Existing reader
-checks do not establish that teaching slides contain them. Chapter 3 now adds its
-service check-in; the remaining deck pass stays open.
+checks do not establish that teaching slides contain them. In the September 14 review,
+Kian removed Chapter 3's repetitive service check-in and accepted its existing
+closing power-trace brief. The remaining deck pass stays open.
 
 ## Latest reliability and directory review — 12 September 2026
 
@@ -55,14 +56,14 @@ This is the single running review status. **Authored** means the material exists
 **checked** refers to recorded technical/build/browser checks;
 **feedback addressed** means the requested revisions are implemented;
 **accepted** means Kian explicitly finished that chapter’s review. These are separate
-facts, not extra approval steps. Kian accepted Chapters 1 and 2 on 14 September after the requested revisions, and Chapter 3 through slide 6; the rest of Chapter 3 remains under review. Revisit only changed slides or a specific unresolved issue; a new
+facts, not extra approval steps. Kian accepted Chapters 1, 2 and 3 on 14 September after the requested revisions. Revisit only changed slides or a specific unresolved issue; a new
 release does not restart an unchanged chapter’s review.
 
 | Chapter | Authored presentation | Technical checks | Author review / next action |
 | --- | --- | --- | --- |
 | 1. [Primer](prototypes/terminology-format.html?teach=1) | 22 slides; simpler input range follows transformer introduction; taps moved to Chapter 6 | [September 14 review checks](TESTING.md#chapters-13-review-and-presenter-window--2026-09-14) | **Accepted after requested edits — 14 September 2026.** Voltage, phase/PSU, AC title and UPS/network wording addressed. |
 | 2. [Data center overview](prototypes/orientation-format.html?teach=1) | 13 slides; Gemini 1.0 Ultra identified and OCS fault rerouting stated | [September 14 review checks](TESTING.md#chapters-13-review-and-presenter-window--2026-09-14) | **Accepted — 14 September 2026.** User approved the chapter; final Gemini/OCS clarifications incorporated. |
-| 3. [Workloads and requirements](prototypes/workload-format.html?teach=1) | 18 slides; supplied Jensen Huang opener and simpler metric/interactivity labels | [September 14 review checks](TESTING.md#chapters-13-review-and-presenter-window--2026-09-14) | **Slides 1–6 accepted after requested edits — 14 September 2026.** Review continues from slide 7. Exact supported-session selection remains a separate open content item. |
+| 3. [Workloads and requirements](prototypes/workload-format.html?teach=1) | 17 slides; Jensen Huang opener, DeepSeek KV chart, bus batching cue and power traces | [Final review checks](TESTING.md#chapter-3-final-review-and-upcoming-slide-window--2026-09-14) | **Accepted after requested edits — 14 September 2026.** Full review complete; repetitive check removed and closing brief retained. Exact supported-session selection remains a separate enhancement. |
 | 4. [Siting, grid connection and supply](prototypes/siting-format.html?teach=1) | 25 slides; Southaven geographic boundary and permit plan consolidated | [Current checks](TESTING.md#chapters-45-review-and-shared-navigation--2026-09-14) | **Active review.** September 14 map consolidation implemented. Photograph capture days and current Abilene operating MW remain unverified. |
 | 5. [Physical site, buildings and safety](prototypes/site-format.html?teach=1) | 19 scenes; Texas chart, merged QTS comparison and live-campus expansion check | [Current checks](TESTING.md#chapters-45-review-and-shared-navigation--2026-09-14) | **Latest feedback addressed; acceptance pending.** Getty case moved to reading; egress slide removed; new expansion check. |
 | 6. [Campus and building power distribution](prototypes/distribution-format.html?teach=1) | 20 slides; high-voltage path, manufacturer switchgear section, contextual protection and busway figures | [Current checks](TESTING.md#chapter-6-follow-up--2026-09-14) | Transformer-tap comparison relocated from the Primer after transformer location; September 14 follow-up incorporated; [requests tracked](FEEDBACK_AUDIT.md#chapter-6-follow-up-review--14-september-2026). Awaiting author review of this revision. |
@@ -428,16 +429,23 @@ links when integration is complete.
 
 - [ ] **Companion inventory:** build the evolving functional bill of materials
   and service-path interface promised above; it is not implemented yet.
-- [x] **Transformer operating range:** Primer now follows taps with the Phaseo ABL6TS25B photograph and its published 360–440 V input limits on the nominal 400 V connection; controls-scale role is explicit.
+- [x] **Transformer operating range:** Primer follows conversion equipment with the Phaseo ABL6TS25B photograph and its published 360–440 V input limits on the nominal 400 V connection. Tap selection is in Chapter 6.
 - [x] **Rack product imagery:** [PSU and power shelf](prototypes/rack-power-format.html?teach=1#psu-hardware)
   and [BBU and battery shelf](prototypes/rack-power-format.html?teach=1#bbu-hardware)
   now have manufacturer photographs. Two photo slides precede the existing
   mechanisms; the rack-to-chip sequence now has 13 slides. These additions carry
   into Chapter 8 when its two sequences are appended.
 - [ ] **Domain check-ins:** ensure every domain has a meaningful active check in
-  its teaching sequence. Chapter 3 now has a service check-in. Existing optional
+  its teaching sequence. Kian removed Chapter 3's repetitive check and approved its
+  closing power-trace brief in the September 14 review. Existing optional
   reader checks can be adapted. Use a strong closing example only if no useful
   active check can be made, and record the reason for that domain.
+- [ ] **Downward power steps:** Chapter 8 already teaches local capacitors/rack
+  batteries, rising-load support and recharge between bursts at `energy-locality`,
+  `source-handoff` and `buffer-recharge`. Add an explicit sudden load-drop example:
+  the source still delivers excess power while ramping down, and a bidirectional
+  buffer must absorb it within charge-power, energy/headroom and voltage limits.
+  Ordinary recharge between bursts does not yet teach that transient.
 - [ ] **Inference capacity:** obtain a matching concurrency/interactivity dataset
   for exact supported-session selection; the GB300 source curve alone does not
   supply a concurrency table.

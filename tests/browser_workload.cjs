@@ -10,7 +10,7 @@ const expectedScenes = [
  "workload-purpose", "model-work", "interactivity", "serving-frontier", "memory-comparison", "kv-cache",
  "context-capacity", "prefill-decode", "disaggregated-serving", "continuous-batching", "energy-per-result",
  "resource-paths", "training-power-evidence", "job-phases", "synchronized-jobs",
- "staggering-jobs", "service-checkin", "next-brief",
+ "staggering-jobs", "next-brief",
 ];
 
 const close = (actual, expected, label) => assert.ok(
@@ -159,7 +159,7 @@ async function checkNavigation(page) {
  assert.match(new URL(await page.locator(".course-next-chapter").getAttribute("href"),page.url()).pathname,/\/siting(?:-format)?\.html$/);
  assert.equal(await page.locator(".course-next-chapter").textContent(),"Next chapter →");
  assert.equal(await page.locator("#reveal").count(),0);
- await page.locator("#previous").click();assert.equal(new URL(page.url()).hash,"#service-checkin");
+ await page.locator("#previous").click();assert.equal(new URL(page.url()).hash,"#staggering-jobs");
  const reading = page.locator(".toolbar a[data-course-reading]");
  await reading.waitFor({state:"visible"});
  assert.equal((await reading.textContent()).trim(),"Reading");
@@ -202,7 +202,7 @@ async function checkNavigation(page) {
       const state = { ...initialState };
       await page.goto(url(scenes[0].id));
       await page.waitForSelector("#diagram text, #diagram image");
-      assert.equal(await page.locator("#scenes option").count(), 18);
+      assert.equal(await page.locator("#scenes option").count(), 17);
       for (const scene of scenes) {
         await page.locator("#scenes").selectOption(scene.id);
         const configurations = (scene.controls || []).flatMap((group) => group.options.map(([value]) => ({ key: group.key, value, when: group.when })));

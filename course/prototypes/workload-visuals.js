@@ -43,9 +43,17 @@ function kv(s,m){let o='';
  o+=t(m?195:600,m?53:53,'One cached token in Llama 3.1 70B',m?22:31,C.ink,'middle');
  const cols=m?2:5,items=[['2','K + V'],['80','layers'],['8','KV heads'],['128','head width'],['2 B','BF16 element']];
  items.forEach(([a,b],i)=>{const x=m?35+(i%2)*174:74+i*219,y=m?99+Math.floor(i/2)*121:130;o+=t(x,y,a,m?39:56,C.compute)+t(x,y+36,b,m?17:22,C.muted);if(!m&&i<4)o+=t(x+151,y,'×',30,C.muted);});
- o+=t(m?195:600,m?494:314,'327,680 bytes = 320 KiB / token',m?22:40,C.compute,'middle')+t(m?195:600,m?563:399,'KV memory = cached tokens × 320 KiB',m?18:28,C.ink,'middle')+t(m?195:600,m?623:482,'BF16 · no cache sharing, quantization or block overhead',m?12:20,C.muted,'middle');
+ o+=t(m?195:600,m?494:314,'327,680 bytes = 320 KiB / token',m?22:40,C.compute,'middle')+t(m?195:600,m?563:399,'KV memory = cached tokens × 320 KiB',m?18:28,C.ink,'middle')+t(m?195:600,m?623:482,'Excludes block overhead',m?16:20,C.muted,'middle');
  return result(o,'Two K and V vectors times 80 layers times eight KV heads times 128 elements times two bytes equals 327,680 bytes, or 320 KiB, per cached token. Multiply by all cached context tokens in every active request.');}
-function context(s,m){let o=split(m);[8192,32768].forEach((tokens,i)=>{const a=llamaMemory({contextTokens:tokens}),{x,y,w}=panel(i,m);o+=t(x,y,n(tokens)+' cached tokens',m?22:32)+t(x,y+54,`${a.requestGiB} GiB / request`,m?27:39,C.communication);const ww=m?10:14,gap=m?2:4;for(let j=0;j<a.concurrentRequests;j++)o+=r(x+j*(ww+gap),y+95,ww,43,C.communication,C.communication,2);o+=t(x,y+190,`${a.concurrentRequests} resident requests`,m?28:41,C.compute)+t(x,y+230,'64 GiB allocated to KV cache',m?17:23,C.muted);});return result(o,'A chosen 64 GiB KV pool holds at most 25 requests with 8,192 cached tokens each, or six with 32,768. Each request uses 2.5 GiB or 10 GiB respectively. This is cache capacity, not token throughput or a GPU count.');}
+function context(s,m){let o='';
+ o+=t(m?195:55,m?33:51,'Llama 3.1 70B',m?24:29,C.ink,m?'middle':'start')+t(m?195:55,m?66:86,'64 GiB allocated to KV cache',m?18:22,C.muted,m?'middle':'start');
+ [8192,32768].forEach((tokens,i)=>{const a=llamaMemory({contextTokens:tokens}),x=m?22+i*190:55,y=m?121:163+i*193;
+  o+=t(x,y,n(tokens)+' tokens',m?21:29)+t(x,y+(m?38:43),`${a.requestGiB} GiB / request`,m?17:25,C.communication)+t(x,y+(m?82:97),`${a.concurrentRequests} requests`,m?24:35,C.compute);
+ });
+ if(m)o+=line(22,244,368,244);else o+=line(484,30,484,515);
+ o+=`<image href="../assets/references/deepseek-kv-cache.png" x="${m?12:525}" y="${m?302:26}" width="${m?366:636}" height="${m?285:495}" preserveAspectRatio="xMidYMid meet"><title>DeepSeek V4 report: accumulated KV cache versus sequence length for V3.2, V4-Pro and V4-Flash</title></image>`;
+ o+=t(m?195:843,m?280:549,'DeepSeek V4 · compressed attention',m?17:21,C.muted,'middle');
+ return result(o,'For Llama 3.1 70B at BF16, a 64 GiB KV pool holds 25 requests with 8,192 cached tokens each or six with 32,768, using 2.5 or 10 GiB per request. The supplied DeepSeek report chart separately compares V4-Pro and V4-Flash compressed-attention KV state with V3.2 as sequence length grows. Its model architectures and KV storage differ from the Llama calculation.');}
 function prefill(s,m){let o=split(m);
  [['PREFILL','Process the prompt',['Many prompt tokens in parallel','Large matrix operations'],'Usually compute-bound','Time to first token'],['DECODE','Stream the answer',['Read weights + cached context','Generate the next token'],'Often memory-bandwidth-bound','Time between output tokens']].forEach(([a,b,c,bound,d],i)=>{const {x,y}=panel(i,m);o+=t(x,y,a,m?23:31,i?C.communication:C.compute)+t(x,y+49,b,m?26:38)+lines(x,y+108,c,m?18:25,C.ink,'start',m?35:49)+t(x,y+(m?193:234),bound,m?19:27,i?C.communication:C.compute)+t(x,y+(m?240:300),d,m?17:25,C.muted);});return result(o,'Prefill processes many prompt tokens together, forming large matrix operations that are usually compute-bound. Decode repeatedly reads weights and cached context to extend the answer and is often memory-bandwidth-bound, especially at low batch sizes. The first phase affects the wait for an answer; the second affects how quickly it streams.');}
 function disaggregated(s,m){let o='';
@@ -57,7 +65,16 @@ function disaggregated(s,m){let o='';
  o+=arrow(x+20,y+103,x+20,y+160,C.communication)+t(x+43,y+138,'Transfer the KV cache',m?18:23,C.communication);
  o+=t(x,y+204,'DECODE',m?17:20,C.communication)+t(x,y+242,'Groq 3 LPX',m?28:35)+t(x,y+279,'LPUs stream the answer',m?19:25)+t(x,y+315,'Fast SRAM feeds token generation',m?16:23,C.muted);
  return result(o,'NVIDIA Groq 3 LPX product render. In NVIDIA’s standard prefill–decode configuration, Vera Rubin NVL72 GPUs process the prompt and transfer the KV cache to the separate Groq 3 LPX rack. SRAM-based Groq LPUs generate the answer tokens. These are two rack platforms connected by the state handoff.');}
-function continuous(s,m){let o=split(m);[false,true].forEach((policy,i)=>{const a=decodeSlots(policy),{x,y}=panel(i,m),gx=x+(m?52:58),cell=m?33:47; o+=t(x,y,policy?'CONTINUOUS BATCH':'FIXED BATCH',m?21:28,policy?C.communication:C.compute)+t(x,y+37,policy?'C fills A’s released slot':'C waits for the batch',m?18:24,C.muted);a.rows.forEach((row,j)=>{o+=t(x,y+101+j*55,`Slot ${j+1}`,m?13:17,C.muted);row.forEach((job,k)=>{const xx=gx+k*cell,yy=y+74+j*55,col=job==='A'?C.compute:job==='B'?C.communication:job==='C'?C.checkpoint:C.panel;o+=r(xx,yy,cell-4,42,col,col,4);if(job)o+=t(xx+(cell-4)/2,yy+28,job,m?18:23,C.paper,'middle');});});for(let k=0;k<8;k++)o+=t(gx+k*cell+(cell-4)/2,y+208,k+1,m?12:16,C.muted,'middle');o+=t(x,y+255,'Decode iterations',m?15:22,C.muted);});return result(o,'Two decode slots. A needs two steps, B five and queued C three. The fixed batch starts C only after B finishes. Continuous batching starts C in the released slot while B continues. The numbered columns show decode iterations.');}
+function continuous(s,m){
+ let o=`<image href="../assets/generated/batching-bus.png" x="${m?20:380}" y="0" width="${m?350:440}" height="${m?175:220}" preserveAspectRatio="xMidYMid meet"><title>A city bus, used as a visual cue for the batching analogy</title></image>`;
+ o+=m?line(24,409,366,409):line(600,264,600,535);
+ [false,true].forEach((policy,i)=>{const a=decodeSlots(policy),x=m?28:60+i*600,y=m?208+i*224:275,gx=x+(m?52:58),cell=m?33:47,rowStep=m?42:50;
+  o+=t(x,y,policy?'CONTINUOUS BATCH':'FIXED BATCH',m?20:27,policy?C.communication:C.compute)+t(x,y+(m?28:36),policy?'C fills A’s released slot':'C waits for the batch',m?17:23,C.muted);
+  a.rows.forEach((row,j)=>{const yy=y+(m?47:60)+j*rowStep;o+=t(x,yy+25,`Slot ${j+1}`,m?13:17,C.muted);row.forEach((job,k)=>{const xx=gx+k*cell,col=job==='A'?C.compute:job==='B'?C.communication:job==='C'?C.checkpoint:C.panel;o+=r(xx,yy,cell-4,m?34:39,col,col,4);if(job)o+=t(xx+(cell-4)/2,yy+25,job,m?18:23,C.paper,'middle');});});
+  for(let k=0;k<8;k++)o+=t(gx+k*cell+(cell-4)/2,y+(m?151:180),k+1,m?12:16,C.muted,'middle');
+  o+=t(x,y+(m?183:223),'Decode iterations',m?15:21,C.muted);
+ });
+ return result(o,'A bus accompanies the batching analogy. Two decode slots: A needs two steps, B five and queued C three. The fixed batch starts C only after B finishes. Continuous batching starts C in the released slot while B continues. The numbered columns show decode iterations.');}
 function energy(s,m){const a=sameWorkEnergy();let o='';const x=m?25:92,w=m?340:1016,col1=x+(m?177:556),col2=x+(m?267:826);
  o+=t(x,m?43:53,'Same completed tokens and quality',m?22:32)+t(col1,m?115:135,'Run A',m?22:29,C.compute,'middle')+t(col2,m?115:135,'Run B',m?22:29,C.communication,'middle');
  [['Mean power',`${a.runA.powerKW} kW`,`${a.runB.powerKW} kW`],['Time to finish',`${a.runA.minutes} min`,`${a.runB.minutes} min`],['Total energy',`${n(a.runA.energyKWh,1)} kWh`,`${a.runB.energyKWh} kWh`]].forEach(([name,av,bv],i)=>{const y=(m?181:211)+i*91;o+=line(x,y+30,x+w,y+30)+t(x,y,name,m?18:28)+t(col1,y,av,m?23:39,C.compute,'middle')+t(col2,y,bv,m?23:39,i===2?C.checkpoint:C.communication,'middle');});
@@ -76,7 +93,7 @@ function phaseVisual(id,s,m){
  for(const seg of a.segments){const ph=seg.jobPhases[j],xx=x+seg.startSeconds*sc,ww=(seg.endSeconds-seg.startSeconds)*sc;o+=r(xx,y,ww,row-8,C[ph.kind],C[ph.kind],0);if(ww>(m?65:100))o+=t(xx+ww/2,y+(row-8)/2+6,m?(ph.kind==='compute'?'C':ph.kind==='communication'?'↔':'S'):names[ph.kind],m?16:21,C.paper,'middle');}
  }
  const gy=single?(m?272:233):(m?370:322),gh=single?(m?196:184):(m?130:143),max=single?140:520,py=power=>gy+gh-power/max*gh;
- o+=t(m?20:x,m?gy-20:gy-36,m?'kW':single?'Training power (kW)':'Power at the shared meter (kW)',m?16:21,C.muted)+line(x,gy+gh,x+w,gy+gh);
+ o+=line(x,gy+gh,x+w,gy+gh);
  let d='';for(const seg of a.segments){const xx=x+seg.startSeconds*sc,xe=x+seg.endSeconds*sc,yy=py(seg.powerKW);d+=(d?'L':'M')+xx+' '+yy+'H'+xe;}
  o+=`<path d="${d}" fill="none" stroke="${C.compute}" stroke-width="5"/>`;
  const avgY=py(a.averageKW);o+=line(x,avgY,x+w,avgY,C.muted,2,'6 5');
@@ -86,16 +103,8 @@ function phaseVisual(id,s,m){
  if(!staggered)o+=line(x+w,avgY-18,x+w,avgY,C.muted,1);
  if(m)o+=t(195,single?232:317,'C compute · ↔ exchange · S checkpoint',16,C.muted,'middle');
  if(!single)o+=t(x+w,m?574:530,`${n(a.energyKWh,3)} kWh / 60 s cycle`,m?19:25,C.ink,'end');
- if(id==='staggering-jobs')o+=t(m?62:157,m?38:25,'Independent jobs · phase durations unchanged',m?14:20,C.muted);
  return {markup:`<g data-peak-kw="${a.peakKW}" data-average-kw="${a.averageKW}" data-energy-kwh="${a.energyKWh}" data-schedule="${staggered?'staggered':'sync'}">${o}</g>`,description:`${single?'One job':'Four '+(staggered?'independent jobs offset by fifteen seconds':'synchronized jobs')} has power plateaus ${a.segments.map(seg=>seg.powerKW).join(', ')} kW; peak ${a.peakKW} kW and mean ${n(a.averageKW)} kW. Energy is ${n(a.energyKWh,3)} kWh per sixty-second cycle. ${staggered?'At every instant two compute, one exchanges and one checkpoints. This requires independence, no contention and periodic steady operation.':''}`};
 }
-function serviceCheck(s,m){let o='';
- const x=m?28:90;
- o+=t(x,m?42:39,'Same model · same hardware · same average power',m?14:23,C.muted);
- [['Total output','Rises',C.compute],['Tokens/s/user','Falls below target',C.checkpoint]].forEach(([a,b,c],i)=>{const y=(m?119:130)+i*(m?124:125);o+=t(x,y,a,m?23:30)+t(x,y+51,b,m?30:43,c);});
- if(s.showServiceCheck)o+=lines(x,m?408:379,m?['Reduce concurrency or change','the serving configuration.','','Recheck interactivity and first-token wait;','then measure the new power trace.']:['Reduce concurrency or change the serving configuration.','Recheck interactivity and first-token wait, then measure the power trace.'],m?17:25,C.communication);
- else o+=lines(x,m?456:414,m?['What would you change?','What would you measure again?']:['What would you change, and what would you measure again?'],m?23:30);
- return result(o,`Check-in: higher concurrency raises total output but drops output tokens per second per user below the required target, with unchanged average power. ${s.showServiceCheck?'Reduce concurrency or change the serving configuration, recheck interactivity and first-token waiting, then measure the new power trace.':'Decide whether to accept it, what to change and what evidence to collect.'}`);}
 function nextBrief(s,m){
  const image='../assets/generated/workload-handoff.png';
  const trace='<path d="M566 582H973M566 582V373" fill="none" stroke="#667e81" stroke-width="3"/><path d="M566 474H608V405H716V550H768V511H820V405H925V550H973" fill="none" stroke="#086e83" stroke-width="7"/><text x="576" y="367" fill="#193139" font-size="24">P(t)</text><text x="973" y="611" text-anchor="end" fill="#193139" font-size="24">Time</text>';
@@ -112,7 +121,7 @@ function nextBrief(s,m){
 }
 
 export function renderWorkload(id,state,compact=false){
- const f={'workload-purpose':purpose,'interactivity':interactivity,'serving-frontier':frontier,'model-work':modelWork,'memory-comparison':memoryCompare,'kv-cache':kv,'context-capacity':context,'prefill-decode':prefill,'disaggregated-serving':disaggregated,'continuous-batching':continuous,'energy-per-result':energy,'resource-paths':resource,'training-power-evidence':evidence,'service-checkin':serviceCheck,'next-brief':nextBrief}[id];
+ const f={'workload-purpose':purpose,'interactivity':interactivity,'serving-frontier':frontier,'model-work':modelWork,'memory-comparison':memoryCompare,'kv-cache':kv,'context-capacity':context,'prefill-decode':prefill,'disaggregated-serving':disaggregated,'continuous-batching':continuous,'energy-per-result':energy,'resource-paths':resource,'training-power-evidence':evidence,'next-brief':nextBrief}[id];
  const rendered=f?f(state,compact):['job-phases','synchronized-jobs','staggering-jobs'].includes(id)?phaseVisual(id,state,compact):null;
  if(!rendered)throw new RangeError(`Unknown workload scene: ${id}`);return rendered;
 }

@@ -25,7 +25,7 @@ test('continuous membership preserves each request token count and admits C only
  }
 });
 test('each retained state renders and retired deep links lead to taught replacement content',()=>{
- const ids=new Set(scenes.map(s=>s.id));assert.equal(ids.size,18);assert.equal(scenes[0].id,'workload-purpose');
+ const ids=new Set(scenes.map(s=>s.id));assert.equal(ids.size,17);assert.equal(scenes[0].id,'workload-purpose');
  for(const target of Object.values(legacySceneAliases))assert.ok(ids.has(target));
  assert.equal(legacySceneAliases['acceptance-envelope'],'next-brief');
  for(const scene of scenes)for(const compact of[false,true]){

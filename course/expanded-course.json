@@ -1751,7 +1751,9 @@
           "paragraphs": [
             "Meta’s Llama 3.1 70B definition specifies 80 layers, hidden width 8,192, 64 query heads and eight KV heads. Head dimension is 8,192/64 = 128. With BF16 keys and values, each cached token occupies 2 × 80 × 8 × 128 × 2 = 327,680 bytes, or 320 KiB. This is model-specific full-context cache accounting; it excludes prefix sharing, block rounding, quantization and other implementation effects.",
             "Choose a 64 GiB allocation for KV cache, distinct from weights and workspace. At 8,192 cached tokens per request, each uses 2.5 GiB and the pool admits at most 25 requests. At 32,768 tokens, each uses 10 GiB and the pool admits six. The fourfold context increase changes resident concurrency on unchanged hardware. Maintaining 100 such sessions therefore needs at least four versus seventeen equivalent independent pools under this limited model. Those are not GPU counts: parallelism and replication determine which devices own each pool.",
-            "This is the facility connection: longer context can change replica requirements, memory traffic, communication and measured power for the same token service. Capacity alone does not predict token speed. A fitting allocation still needs an execution benchmark on the chosen hardware and software."
+            "This is the facility connection: longer context can change replica requirements, memory traffic, communication and measured power for the same token service. Capacity alone does not predict token speed. A fitting allocation still needs an execution benchmark on the chosen hardware and software.",
+            "Prefix caching reuses stored keys and values for initial tokens that requests have in common, such as a shared system prompt. It does not mean that unrelated contexts can share arbitrary KV state. The calculation above counts each request independently; sharing an identical prefix can reduce that allocation.",
+            "The DeepSeek V4 technical-report chart on the slide shows another way to change the budget: compressed attention. It compares V4-Pro and V4-Flash with V3.2 as sequence length grows. Its architecture and KV storage formats differ from Llama 3.1 70B, so the preceding 320 KiB-per-token factor does not describe those curves."
           ]
         },
         {
@@ -1839,7 +1841,9 @@
         "P98",
         "P17",
         "P132",
-        "P133"
+        "P133",
+        "P193",
+        "P96"
       ],
       "source_notes": [
         {
@@ -1883,9 +1887,21 @@
           "claim": "Original Figure 2 shows the throughput/interactivity tradeoff with the hardware, model and workload conditions printed in the figure.",
           "reviewed_on": "2026-09-13",
           "limits": "Publisher benchmark curve, not our measurement. 8k/1k, TensorRT-LLM, FP8 and MTP read from the original figure. No tabulated concurrency or exact curve samples provided; do not infer supported sessions."
+        },
+        {
+          "id": "P193",
+          "claim": "Figure 1 and section 2.3.4 compare accumulated KV-cache state for V3.2, V4-Pro and V4-Flash.",
+          "reviewed_on": "2026-09-14",
+          "limits": "User-provided KV-panel crop checked against the report. Compressed attention and mixed KV precision differ from the Llama example; these curves do not establish serving throughput."
+        },
+        {
+          "id": "P96",
+          "claim": "KV blocks for identical token prefixes can be reused across requests.",
+          "reviewed_on": "2026-09-14",
+          "limits": "Prefix caching section; distinct from sharing arbitrary unrelated request state."
         }
       ],
-      "word_count": 1055
+      "word_count": 1153
     },
     {
       "id": "d02-productive-utilization",
@@ -2031,7 +2047,8 @@
           "paragraphs": [
             "LLM prefill processes the prompt and creates the request’s initial KV cache. Many prompt tokens can be processed together, giving the GPU substantial parallel matrix work: prefill is usually compute-bound. Decode generates tokens successively. At low batch sizes, fetching model weights and cached context can take more time than the arithmetic itself: decode is often memory-bandwidth-bound. Larger batches, long contexts, model design and the hardware can change which resource limits performance. Time to first token includes queueing and prompt processing; time between output tokens concerns the stream after that.",
             "vLLM describes continuous scheduling of running and waiting requests. When one sequence finishes, the scheduler can admit new work while others continue. Our two-slot illustration has A needing two decode steps, B five, and C three. C is already queued. The fixed batch waits for B; the continuous case admits C after A finishes. The cells represent iterations, not equal wall-clock durations or a measured speedup. Real admission also depends on prefill work, token budgets and KV capacity.",
-            "This matters to facility reasoning because active request membership changes compute and memory demand. Continuous batching is a documented serving mechanism, not a guarantee that rack power stays constant."
+            "This matters to facility reasoning because active request membership changes compute and memory demand. Continuous batching is a documented serving mechanism, not a guarantee that rack power stays constant.",
+            "These bottlenecks are tendencies. A short prompt may offer too little parallel matrix work to saturate compute. A large decode batch can reuse each loaded weight across enough tokens that matrix multiplication becomes compute-bound, while attention or interconnect traffic may still be limiting. Model, context length, batch size, parallelism and hardware determine the actual bottleneck."
           ]
         },
         {
@@ -2193,7 +2210,7 @@
           "limits": "Reviewed phase characteristics and the aggregated/disaggregated comparison. The course says usually/often because batch size, context, model and hardware can change the bottleneck. Vendor ROI and performance multipliers are not used."
         }
       ],
-      "word_count": 1136,
+      "word_count": 1191,
       "domain_checkin": {
         "domain": "D02",
         "title": "Same hardware, different service",
@@ -13824,6 +13841,20 @@
       ],
       "use": "A software bug crossed online replicas; offline backup enabled slower restoration.",
       "caution": "Historical February 2011 incident and March 1–2 updates. Not evidence of the current Gmail storage architecture or a generic tape restore time."
+    },
+    {
+      "id": "P193",
+      "title": "DeepSeek-V4: Towards Highly Efficient Million-Token Context Intelligence",
+      "url": "https://arxiv.org/html/2606.19348v1",
+      "publisher": "DeepSeek-AI",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-14",
+      "domains": [
+        "D02"
+      ],
+      "use": "Figure 1 and section 2.3.4 compare accumulated KV-cache state across DeepSeek V3.2, V4-Pro and V4-Flash.",
+      "caution": "Compressed attention and mixed KV precision differ from the Llama 3.1 70B BF16 example. The supplied chart does not establish resident-session throughput or include every runtime allocation."
     }
   ],
   "glossary": [

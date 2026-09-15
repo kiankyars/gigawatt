@@ -4673,6 +4673,20 @@
       ],
       "use": "Identify Gemini 1.0 Ultra as the largest named model in the original Ultra/Pro/Nano family.",
       "caution": "Historical model identity only. Ultra here does not mean a hardware type, a general model class, or a current subscription tier."
+    },
+    {
+      "id": "P193",
+      "title": "DeepSeek-V4: Towards Highly Efficient Million-Token Context Intelligence",
+      "url": "https://arxiv.org/html/2606.19348v1",
+      "publisher": "DeepSeek-AI",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-14",
+      "domains": [
+        "D02"
+      ],
+      "use": "Figure 1 and section 2.3.4 compare accumulated KV-cache state across DeepSeek V3.2, V4-Pro and V4-Flash.",
+      "caution": "Compressed attention and mixed KV precision differ from the Llama 3.1 70B BF16 example. The supplied chart does not establish resident-session throughput or include every runtime allocation."
     }
   ]
 }

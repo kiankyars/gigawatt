@@ -7,6 +7,31 @@ Do not download or launch standalone Chrome for Testing or Playwright browser
 binaries here. Existing browser test harnesses remain available for a separately
 configured test environment; run local model and build checks without a browser.
 
+## Chapter 3 final review and upcoming-slide window — 2026-09-14
+
+- Chapter 3 now has **17 slides** and is accepted after Kian's requested edits.
+  The old knowledge-check hash resolves to the retained closing slide. Added the
+  supplied DeepSeek KV chart and the generated bus; simplified the specified
+  labels, headings and subtitles. Prefix caching and conditional prefill/decode
+  bottlenecks are explained in the reader. The Chapter 8 downward-step buffering
+  gap is recorded in COURSE_REVIEW.md.
+- **222 Node and 76 Python tests passed.** Course, expanded reader, domain map,
+  research metadata, staging and whitespace checks passed. The seven presenter
+  tests exercise initialization, message identity, live selectors, navigation,
+  reconnect and the upcoming/end display through the actual modules.
+- Built-in browser checked the eight changed/adjacent workload scenes at
+  **1280×720 and 390×844**: no horizontal page overflow, out-of-bounds SVG text or
+  text collisions. DeepSeek chart and bus layout received screenshot inspection
+  at both widths. Closing navigation retains 17 selectable scenes.
+- Presenter now contains **one full-area upcoming slide**, with no current-slide
+  mirror. The unpublished local iframe fixture verified main slide 9 alongside
+  upcoming slide 10, next/previous, selector navigation, the last-slide state,
+  transition into Siting and disconnect/reconnect. The second-window layout was
+  visually inspected. Native popup placement/recording capture remains outside
+  what the built-in browser exposed for automation. One unlocated MutationObserver
+  error appeared during fixture navigation/teardown, as in the preceding pass;
+  no clean browser-console claim is made.
+
 ## Chapters 1–3 review and presenter window — 2026-09-14
 
 - Primer has **22 slides**. Removed the entire two-terminal voltage subtitle, moved tap selection into Chapter 6, retained a simpler input-range example after converter introduction, and applied the phase/PSU, AC title, UPS and network wording requests. Chapter 2 clarifies Gemini 1.0 Ultra and OCS fault rerouting. Chapter 3 uses the supplied, uncropped Jensen Huang image and the requested metric/interactivity label edits through slide 6. Chapter 6 now has **20 slides**.

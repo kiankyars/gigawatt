@@ -1,4 +1,4 @@
-// Pure helpers for the shared presenter window and its one-slide preview.
+// Navigation helpers for the separate upcoming-slide window.
 export const PRESENTER_PROTOCOL = 'gigawatt-presenter-v1';
 export const PREVIEW_PARAMETER = 'presenter-preview';
 

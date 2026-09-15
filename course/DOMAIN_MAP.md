@@ -307,6 +307,7 @@ State an infrastructure design envelope and identify which assumptions a benchma
 - [P131 — NVIDIA — What Is Disaggregated Serving?](https://www.nvidia.com/en-gb/glossary/disaggregated-serving/) · `page_reviewed` · [local note](../research/sources/P131.md)
 - [P132 — NVIDIA AIPerf — Metrics Reference](https://docs.nvidia.com/aiperf/reference/ai-perf-metrics-reference) · `page_reviewed` · [local note](../research/sources/P132.md)
 - [P133 — NVIDIA — Qwen3.8 throughput and interactivity on GB300 NVL72](https://developer.nvidia.com/blog/serve-qwen3-8-2-4t-a95b-a-2-4t-parameter-model-with-configurable-reasoning-on-nvidia-gb300-nvl72/) · `page_reviewed` · [local note](../research/sources/P133.md)
+- [P193 — DeepSeek-V4: Towards Highly Efficient Million-Token Context Intelligence](https://arxiv.org/html/2606.19348v1) · `page_reviewed` · [local note](../research/sources/P193.md)
 
 <a id="d03"></a>
 

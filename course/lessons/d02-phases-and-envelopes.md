@@ -16,6 +16,8 @@ vLLM describes continuous scheduling of running and waiting requests. When one s
 
 This matters to facility reasoning because active request membership changes compute and memory demand. Continuous batching is a documented serving mechanism, not a guarantee that rack power stays constant.
 
+These bottlenecks are tendencies. A short prompt may offer too little parallel matrix work to saturate compute. A large decode batch can reuse each loaded weight across enough tokens that matrix multiplication becomes compute-bound, while attention or interconnect traffic may still be limiting. Model, context length, batch size, parallelism and hardware determine the actual bottleneck.
+
 ## NVIDIA uses separate racks for prefill and decode
 
 NVIDIA Groq 3 LPX is a rack of 256 Groq LPU accelerators deployed alongside Vera Rubin NVL72 GPU racks. In NVIDIA’s standard prefill–decode configuration, Rubin processes the prompt and transfers its KV cache once per turn. Groq LPX then uses that cache and model weights held in SRAM to generate the response. The two phases can therefore use hardware suited to different demands, connected by a cache handoff.

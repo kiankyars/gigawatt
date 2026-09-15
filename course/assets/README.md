@@ -230,3 +230,15 @@ in HTML/SVG because their exact state and quantities carry the explanation.
 ### Chapter 3 opening image — 14 September 2026
 
 `references/jensen-huang-tokens-per-watt.png` is the user-supplied Jensen Huang screenshot. The original bytes, watermark and complete frame are preserved, with no added visible caption. The adjacent provenance JSON records the attachment name, dimensions and hash; its original event/date were not supplied.
+
+### Chapter 3 KV-cache and batching images — 14 September 2026
+
+`references/deepseek-kv-cache.png` is the user's supplied KV-cache chart, converted
+from TIFF to PNG for browser display. It matches the KV panel of Figure 1 in the
+DeepSeek V4 technical report ([P193](../../research/sources/P193.md)). Its comparison
+is separate from the Llama BF16 calculation beside it.
+
+`generated/batching-bus.png` is a simple city-bus visual cue, made with the built-in
+image-generation tool and inspected before integration above the batching diagrams.
+Both adjacent provenance JSON files record hashes; the bus record includes the
+complete generation prompt.

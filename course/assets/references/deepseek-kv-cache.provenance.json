@@ -1,0 +1,11 @@
+{
+  "origin": "User-supplied clipboard TIFF, converted losslessly to PNG for browser display",
+  "original_filename": "file-deebc737ff169bd5964beb2a1926b903.tiff",
+  "source_url": "https://arxiv.org/html/2606.19348v1#S2.SS3.SSS4",
+  "publisher": "DeepSeek",
+  "figure": "Figure 1, KV-cache panel",
+  "width": 656,
+  "height": 511,
+  "note": "User supplied crop; report checked. DeepSeek V4 compressed attention comparison, separate from Llama BF16 example.",
+  "sha256": "1c58bc4500ccbb75a40c9777ab392392a608103d925ab870ae089f94eaaa9e5c"
+}

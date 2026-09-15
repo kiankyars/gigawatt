@@ -348,3 +348,27 @@ Chapters 1–2 are accepted after these requested edits. Chapter 3 slides 1–6 
 - Workloads: supplied Jensen Huang image on slide 1 without new visible text; training compute labeled FLOPs; aggregate throughput separated from per-user latency. Removed the two subordinate interactivity statements and the two curve-reading text blocks. Slides 5–6 retained.
 - Dictation resolved by context: “Jensen Wong” is Jensen Huang; “turning the power” identifies the primer’s model-data/network slide by its 10/100 Gb/s controls.
 - The presenter request means a **separate presenter window**, confirmed explicitly; it must keep the next-slide preview off the audience page.
+
+## Chapter 3 final review — 14 September 2026
+
+Chapter 3 is accepted after the requested revisions; it now has 17 slides.
+The former slide 18 remains the closing slide, now numbered 17.
+
+- Presenter now shows only the upcoming slide across the separate window, for
+  the second monitor. The original window shows the current slide.
+- Slide 6 keeps only “Excludes block overhead” beneath its calculation.
+  “Cache sharing” meant prefix caching; the reader now defines it explicitly.
+- Slide 7 includes the supplied DeepSeek chart, checked against the original
+  report and identified separately from the Llama calculation.
+- Slide 8 retains “usually/often”: short prompts and large decode batches can
+  change the limiting resource. The reader explains why.
+- Slide 10 is titled “Batching,” with the generated bus above the diagrams.
+  Slide 11 is titled “Interactivity isn’t the only important metric.”
+- Slides 14–16 lose the redundant vertical-axis labels; slide 16 also loses
+  “Independent jobs · phase durations unchanged.”
+- The repetitive knowledge check is removed. Its old link resolves to the
+  retained closing slide. The wording “remove it, then keep it” was understood
+  as “remove it rather than keep it,” consistent with the stated objection.
+- Chapter 8 already covers local capacitors/rack batteries, burst discharge and
+  recharge. A sudden downward-step/source-surplus example is still missing and
+  is recorded explicitly in COURSE_REVIEW.md's follow-up list.

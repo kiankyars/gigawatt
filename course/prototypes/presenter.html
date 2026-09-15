@@ -1,10 +1,9 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><title>Presenter · From Watts to Tokens</title><link rel="stylesheet" href="./presenter.css"></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><title>Up next · From Watts to Tokens</title><link rel="stylesheet" href="./presenter.css"></head>
 <body>
 <div id="workspace">
-  <main id="current-shell" aria-label="Current audience slide"><iframe id="current" title="Current audience slide" sandbox="allow-same-origin"></iframe></main>
-  <aside><p class="eyebrow">Up next</p><div id="next-shell"><iframe id="preview" title="Next slide preview" tabindex="-1" sandbox="allow-scripts allow-same-origin"></iframe><p id="end" hidden>End of chapter</p></div><p id="next-title"></p></aside>
-  <footer><button id="previous" aria-label="Previous slide" disabled>←</button><label class="sr-only" for="slides">Choose slide</label><select id="slides" disabled></select><span id="progress"></span><button id="next" aria-label="Next slide" disabled>→</button></footer>
+  <main id="next-shell" aria-label="Upcoming slide"><iframe id="preview" title="Upcoming slide" tabindex="-1" sandbox="allow-scripts allow-same-origin"></iframe><p id="end" hidden>End of chapter</p></main>
+  <footer><button id="previous" aria-label="Previous slide" disabled>←</button><label class="sr-only" for="slides">Current audience slide</label><select id="slides" disabled></select><span id="progress"></span><button id="next" aria-label="Next slide" disabled>→</button></footer>
 </div>
 <div id="connection" role="status">Connecting to the course window…</div>
 <script type="module" src="./presenter-window.js"></script>

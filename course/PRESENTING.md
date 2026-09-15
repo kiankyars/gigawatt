@@ -25,19 +25,21 @@ Open a chapter’s slides from the one chapter directory. The header provides
 Explanation/source dialogs and note-launch buttons are removed from slide views;
 the written lesson holds definitions, derivations and sources.
 
-**Presenter** opens a separate window. Share the original course window with the
-audience; keep the presenter window on your own screen. It shows the current
-slide with its live controls, plus one small preview of the next slide. There are
-no notes or timers. The next preview shows that scene's starting state; the large
-current slide mirrors the audience's actual state.
+**Presenter** opens a separate window showing only the upcoming slide, filling
+that window. Put it on your second monitor and record the original course
+window, which shows the current slide. There is no duplicate current slide,
+thumbnail overlay, timer or notes panel. The upcoming slide shows its starting
+state; interact with the current slide in the original window.
 
-Use either window's arrows, selector or interactive controls: the original
-course window owns the slide and calculations. In the presenter window, arrow
-keys, Page Up / Page Down and Space navigate; Home / End select the first or last
-slide. Focused controls keep their own keyboard behavior. The last slide offers
-the next chapter when available. Closing the presenter leaves the audience
-unchanged; **Presenter** opens it again. If the browser blocks the popup, allow
-popups for this site and click the button again.
+The presenter's small footer controls the original window: its selector names
+the current audience slide, while “Up next” gives the number of the slide shown
+on the second monitor. Either window's navigation advances both views. In the
+presenter window, arrow keys, Page Up / Page Down and Space navigate; Home / End
+select the first or last audience slide. Focused controls keep their own keyboard
+behavior. At the last slide, the presenter shows “End of chapter” and offers the
+next chapter when available. Closing the presenter leaves the audience unchanged;
+**Presenter** opens it again. If the browser blocks the popup, allow popups for
+this site and click the button again.
 
 Use **Next / →**, **Back / ←**, the short slide selector and diagram controls.
 Where a meaningful prediction has a reveal, use its button; the 800 V sequence
