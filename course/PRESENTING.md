@@ -2,10 +2,11 @@
 
 ## Recording in batches
 
-Kian confirmed Chapters 1–8 verified on **15 September 2026**. Record ready
-sections while the later chapters are refined. Start with the Primer and Data
-center overview, then proceed through the electrical chapters. Their acceptance
-is recorded in the [chapter tracker](COURSE_REVIEW.md#chapter-review-tracker).
+Kian confirmed Chapters 1–8 verified on **15 September 2026**. The recording plan
+is two parts: begin directly with the Primer and continue through Chapter 8,
+after resolving the buffering follow-up below. Then resume the chapter-by-chapter
+refinement loop for the remaining course before recording the second part.
+Their acceptance is recorded in the [chapter tracker](COURSE_REVIEW.md#chapter-review-tracker).
 
 Before the first take, make a short capture using the actual microphone and
 recording layout: check a dense diagram, one interactive control and the separate
@@ -13,7 +14,8 @@ presenter window. Review the result at normal size and a small playback size.
 Record only the current-slide window; keep the upcoming-slide window off the
 captured display. Rehearse the section aloud to catch any missing spoken steps.
 
-Keep the spoken course introduction separate from the Primer. State the audience,
+Record the spoken course introduction last, once the actual length and full
+course content are known. Keep it separate from the Primer. State the audience,
 what the learner will be able to explain, the broad journey and the companion
 link. Introduce the Primer as first exposure to vocabulary, then begin its circuit
 example. The site’s **Glossary** button and search lead back to full explanations;
