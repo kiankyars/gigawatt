@@ -4,7 +4,13 @@ import { samplePresentation } from './rack-energy-800v-data.js';
 const ledger = 'd06-conversion-ledger', migration = 'd06-rack-migration';
 const control = (key, label, options) => ({key, label, options});
 export const defaults = samplePresentation.defaults;
-export const aliases = Object.freeze({...samplePresentation.aliases,'green-dc':'green-zurich-west','green-path':'green-zurich-west','bbu-shelf':'bbu-hardware'});
+export const aliases = Object.freeze({...samplePresentation.aliases,'green-dc':'green-zurich-west','green-path':'green-zurich-west','bbu-shelf':'bbu-hardware','migration-decision':'power-stack-overview'});
+export const sceneRedirects = Object.freeze({
+  'dc-circuit': {file:'terminology-format.html',scene:'circuit'},
+  'ac-cycle': {file:'terminology-format.html',scene:'ac-dc'},
+  'three-phase': {file:'distribution-format.html',scene:'three-phase'},
+  'voltage-basis': {file:'distribution-format.html',scene:'voltage-basis'}
+});
 export const initialState = Object.freeze({...rackState, auxiliaryKW:0, volts:800, cycleDegrees:30,
   voltageView:'meter', converterView:'supply', revealed:[], rackKW:120, allocationKW:240,
   deadlineWeeks:3, decision:'', migrationReveal:false});
@@ -14,7 +20,7 @@ export const learningContract = Object.freeze({
   changed_variable:'Local impedance, source response, recharge interval, distribution voltage, conversion location or retrofit constraint.',
   primary_payoff:'Trace the rack-to-chip path, account for all inlet watts, and choose an architecture whose power and service interfaces can be qualified.',
   misconception:'An 800 V distribution bus powers a chip directly, fewer conductors establish total efficiency, or a sidecar increases feeder capacity.',
-  closing_question:'Which retrofit can meet the service date, and what evidence must release its remaining interface holds?'
+  closing_question:'Where does AC become DC, and what upstream power and downstream regulation does each arrangement still need?'
 });
 const supplement = [
   {id:'rack-energy-scales', label:'Where conversion belongs', title:'How do we feed the rack while keeping chip voltage steady?', reference:ledger, kind:'scales', pedagogical_role:'problem',
@@ -27,9 +33,7 @@ const supplement = [
   {id:'retrofit-power',label:'The sidecar needs upstream power',title:'Can the existing feeder supply the new DC sidecar?',reference:migration,kind:'retrofit',pedagogical_role:'counterexample',
     controls:[control('rackKW','Each of two racks',[[120,'120 kW DC'],[110,'110 kW DC']])],
     explanation:['An existing row has 240 kW allocated under the required operating state. Two 120 kW DC racks require 253 kW upstream when their shared sidecar is 96% efficient and its upstream-fed auxiliaries draw 3 kW.','At 110 kW each, the modeled input becomes 232.17 kW. That passes the supplied steady allocation, but delivered workload service, DC interfaces, protection and startup/recharge remain separate qualifications.'],boundary:'Two equal racks · 96% sidecar efficiency · 3 kW upstream auxiliaries · 240 kW existing allocation.'},
-  {id:'migration-decision',label:'Choose and qualify the retrofit',title:'Choose a migration that meets both the power allocation and the service date.',reference:migration,kind:'decision',pedagogical_role:'transfer',
-    controls:[control('deadlineWeeks','Service deadline',[[3,'Three weeks'],[8,'Eight weeks']])],
-    explanation:['Choose a route before revealing its consequences. Existing allocation is 240 kW and a staged retrofit is ready in two weeks. A 20 kW increase takes six weeks. The customer accepts a measured lower-throughput mode temporarily. These are original classroom inputs, not an Abilene construction schedule.','For a three-week deadline, reduced demand can fit the power account and date, conditional on actual accepted service and interfaces. The full setting with the existing feeder fails power. More allocation fits full demand but misses the early date. At eight weeks the larger allocation becomes a feasible candidate.','The release evidence is a qualified 800 V converter-to-rack interface and DC protection; startup, load-step and recharge tests within the input envelope; protected cooling and network dependencies; service access and measured workload acceptance. A greenfield layout can reserve converter zones and DC paths before construction. An occupied building has retained equipment and a live service deadline.'],boundary:'Two racks · 96% sidecar · 3 kW auxiliaries · 240/260 kW allocation · 2/6-week readiness · temporary reduced service accepted.'}
+
 ];
 const greenCase = {
   id:'green-zurich-west',label:'Zurich-West: DC in 2012',title:'Zurich-West moved rectification upstream in 2012.',
@@ -52,15 +56,16 @@ const reviewFigures = [
     boundary:'User-supplied industry map, labeled Data Gravity / Wing · May 2026.'}
 ];
 const dcProtection = {
-  id:'dc-feeder-protection',label:'Protect an 800 V DC feeder',title:'Interrupting a fault on an 800 V DC rack feeder',
+  id:'dc-feeder-protection',label:'Protect an 800 V DC feeder',title:'An 800 V DC feeder needs DC-rated protection',
   reference:'d06-eight-hundred-volt-architectures',kind:'dc-protection',pedagogical_role:'mechanism',
-  explanation:['Once the distribution bus is 800 V DC, its feeders need protection qualified for the DC voltage and available fault current. The rectifier and charged bus capacitor can both feed a downstream short circuit; the cable also stores magnetic energy.','This diagram uses a mechanical DC breaker with an arc chamber. It must interrupt the current, withstand recovery voltage and handle energy released during clearing. Other architectures can use fuses or solid-state protection. Removing the AC supply alone does not establish that the DC circuit is de-energized.'],
+  explanation:['AC and DC circuits both need fault protection. In AC, natural current-zero crossings help a breaker extinguish the arc after its contacts open; current crossing zero does not itself disconnect the fault. DC has no periodic natural current zero, so its protection must force current to zero and prevent the arc from restriking.','Once the distribution bus is 800 V DC, its feeders need protection qualified for the DC voltage and available fault current. The rectifier and charged bus capacitor can both feed a downstream short circuit; the cable also stores magnetic energy.','This diagram uses a mechanical DC breaker with an arc chamber. It must interrupt the current, withstand recovery voltage and handle energy released during clearing. Other architectures can use fuses or solid-state protection. Removing the AC supply alone does not establish that the DC circuit is de-energized.'],
   boundary:'Conceptual 800 V DC feeder: rectifier, bus capacitor, cable inductance and mechanical DC breaker.',source_ids:['E1423005C7C','P05']
 };
 const rack = rackScenes.map(scene=>({...scene,kind:'rack'}));
 const ledgerIndex = rack.findIndex(scene => scene.id === 'local-current');
 const local = [supplement[0],reviewFigures[0],...rack.slice(0,ledgerIndex), supplement[1],...rack.slice(ledgerIndex)];
-const electrical = samplePresentation.steps.map(step=>({...step,label:step.title,title:step.headline,reference:'d06-eight-hundred-volt-architectures',sourceKind:step.kind,kind:'800v'}));
-// Preserve both reviewed sequences and every old scene ID in the shared selector.
-const transition = electrical.flatMap(scene=>scene.id==='ocp-power-architectures'?[greenCase,scene]:[scene]);
+const electrical = samplePresentation.steps.filter(step=>!Object.hasOwn(sceneRedirects,step.id)).map(step=>({...step,label:step.title,title:step.headline,reference:'d06-eight-hundred-volt-architectures',sourceKind:step.kind,kind:'800v'}));
+const dcPreview = {id:'dc-architecture-preview',label:'Three DC architecture views',title:'The three phases of the DC data center revolution',reference:'d06-eight-hundred-volt-architectures',kind:'dc-preview',pedagogical_role:'overview',explanation:['Preview the next three drawings from top to bottom: AC-to-DC conversion inside the compute rack, in a nearby power rack, and farther upstream. Keep the placement of conversion in view as each drawing is enlarged.','Here phases names the three architecture views in this lesson, not the three electrical phases of AC or a required deployment sequence. The conventional AC baseline is not SemiAnalysis Phase 1; the sidecar view groups that forecast’s first two adoption phases.']};
+// Old electrical-foundation links open their earlier chapter; the architecture order stays intact.
+const transition = electrical.flatMap(scene=>scene.id==='conversion-in-rack'?[dcPreview,scene]:scene.id==='ocp-power-architectures'?[greenCase,scene]:[scene]);
 export const scenes = Object.freeze([...local,supplement[2],...transition,dcProtection,...supplement.slice(3),reviewFigures[1]]);

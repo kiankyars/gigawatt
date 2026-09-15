@@ -1625,3 +1625,26 @@ domain-map, research metadata, site-staging and whitespace checks pass.
 Manufacturer evidence is registered as P202/P203 and reflected in the reader.
 These checks complete implementation of the current feedback; Chapter 8 remains
 under author review.
+
+
+## Chapter 8 sequence and DC architecture review — 2026-09-15
+
+Chapter 8 has 30 slides. Its duplicate DC/AC foundations now route to the primer;
+three-phase current/power and line-to-line voltage moved immediately after the
+Chapter 6 single-line diagram (29 slides). The three stacked architecture views
+precede their full-size drawings. Zurich-West's two requested captions and the
+migration exercise are removed; the power-stack image remains the closing slide.
+
+Built-in-browser inspection covered desktop 1280 × 720 and compact 390 × 844
+layouts. Exercised the moved cycle slider, meter/pair switching and pair slider;
+verified the four cross-chapter links preserve teaching mode and the retired
+migration link selects the closing image. The preview's three rows fit both
+viewports. Compact waveform slides use vertical scrolling with no horizontal
+overflow. Inspected the simpler Zurich-West case and unchanged architecture
+transition. Temporary viewport overrides were restored. No OS-theme or native
+fullscreen check was performed in this pass.
+
+All 225 Node tests and 78 Python tests pass, including updated sequence/link and
+waveform-state coverage. Course, expansion, domain-map and research freshness,
+site staging and whitespace checks pass. The tracker records the latest feedback
+through Chapter 8's closing slide without inferring final author acceptance.

@@ -2,9 +2,13 @@ import { equipment } from './distribution-equipment.js';
 import { rowBudget, transformerVoltage } from './distribution-model.js';
 import { campusRoute, oneLine, switchgearAnatomy } from './distribution-context.js';
 import { scenes } from './distribution-scenes.js';
+import { createElectricalVisuals } from '../web/electrical-renderer.js';
+import { acdcWaveModel } from '../web/reader-models.js';
 
 const esc = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const n = (value, digits=1) => value.toLocaleString('en-US',{maximumFractionDigits:digits,minimumFractionDigits:digits});
+const electrical = state => createElectricalVisuals({acdcWaveModel,getState:()=>({cycleDegrees:30,voltageView:'meter',...state}),escapeHTML:esc,fmt:(value,digits=0)=>value.toLocaleString('en-US',{maximumFractionDigits:digits})});
+export const renderDistributionWaveContent = (id,state) => electrical(state).electricalContent(id);
 const ink='var(--text)', power='var(--power)', heat='var(--heat)', muted='var(--muted)', line='var(--line)';
 const text = (x,y,lines,size=22,color=ink,anchor='middle') => `<text x="${x}" y="${y}" fill="${color}" font-size="${size}" text-anchor="${anchor}">${(Array.isArray(lines)?lines:[lines]).map((t,i)=>`<tspan x="${x}" dy="${i?size*1.3:0}">${esc(t)}</tspan>`).join('')}</text>`;
 const rect = (x,y,w,h,color='var(--surface)',stroke=line) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10" fill="${color}" stroke="${stroke}" stroke-width="2"/>`;
@@ -105,6 +109,7 @@ export function renderDistribution(id,state={},compact=false){
  case 'campus-switchgear-focus':markup=campusRoute(s,m,'switchgear');break;
  case 'campus-three-phase-focus':markup=campusRoute(s,m,'three-phase');break;
  case 'one-line':markup=oneLine(m);break;
+ case 'three-phase':case 'voltage-basis':markup=`<div class="distribution-electrical">${electrical(s).electricalVisual(id)}</div>`;break;
  case 'switchgear-anatomy':markup=switchgearAnatomy(m);break;
  case 'protection-relay':case 'isolation-surge':case 'surge-protection':case 'phase-loading':case 'feeder-diagnosis':markup=equipment(id,s,m);break;
  case 'compass-co-design':markup=coDesign(m);break;

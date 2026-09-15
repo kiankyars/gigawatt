@@ -38,3 +38,21 @@ Technical basis: [Infineon direct and two-stage converter comparison](https://ww
 
 This records implementation of the current review through old slide 17; it does
 not declare the remaining Chapter 8 slides accepted.
+
+
+## Follow-up review: electrical foundations and DC architectures
+
+These numbers refer to the 34-slide version reviewed after the first revision.
+
+| Feedback | Resolution |
+| --- | --- |
+| Slides 18–19 belong in the primer | Removed those Chapter 8 stops. The primer already teaches the complete DC loop, AC polarity and power, so no duplicate primer slides were added. Old links open the corresponding primer scene. |
+| Put slide 20 near the first three-phase/single-line explanation | Moved the current-return and summed-power view directly after Chapter 6’s single-line diagram. The primer retains its simpler introduction. |
+| Consider the same move for slide 21 | Moved the 480 V line-to-line measurement immediately after the three-phase view in Chapter 6. Both interactive controls remain. |
+| Slide 22 onward is good | Preserved the copper, current, losses and conversion sequence after removing the preceding recap. |
+| Is slide 26 AC until the rack? | Yes: the conventional AC baseline converts AC to DC inside the compute rack. The next two diagrams move that conversion into a sidecar, then farther upstream. |
+| Add a stacked three-view preview before slide 26 | Added “The three phases of the DC data center revolution,” with the same three architecture drawings stacked top/middle/bottom. The labels identify conversion placement; they do not relabel the conventional baseline as a SemiAnalysis forecast phase. |
+| Remove the two Zurich-West explanatory lines on slide 29 | Removed the 400 V open-circuit line and historical-interface footer. Their source explanation remains in the underlying notes. “Open-circuit” means voltage with no load drawing current. |
+| Does slide 31 mean AC does not need breakers? | No. Both AC and DC need fault protection. The slide now says DC-rated protection; its notes explain that AC current-zero crossings help an opened breaker extinguish an arc, while DC protection must force interruption without that periodic crossing. |
+| Remove slide 33 and its broken/trivial migration question | Removed the exercise from navigation. Its old link opens the closing power-stack slide. The preceding feeder-capacity example remains. |
+| Slide 34 is great | Kept the supplied power-stack image as the closing slide. |

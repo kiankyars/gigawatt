@@ -1,5 +1,5 @@
 import { scenes, initialState, aliases, chapter8Aliases } from './distribution-scenes.js';
-import { renderDistribution } from './distribution-visuals.js';
+import { renderDistribution, renderDistributionWaveContent } from './distribution-visuals.js';
 import { presentationLabels } from './teaching-navigation.js';
 document.title = `${presentationLabels.distribution || 'Campus and building power distribution'} · From Watts to Tokens`;
 const $ = id => document.getElementById(id), state={...initialState};
@@ -8,6 +8,18 @@ let index=0;
 $('fullscreen').hidden=!teaching;
 for(const [i,s] of scenes.entries()) $('scenes').add(new Option(`${i+1} · ${s.label}`,s.id));
 function draw(){const result=renderDistribution(scenes[index].id,state,matchMedia('(max-width:600px)').matches);$('stage').innerHTML=result.markup;$('status').textContent=result.description;}
+$('stage').addEventListener('click',event=>{
+ const button=event.target.closest('[data-voltage-view]');
+ if(!button)return;
+ state.voltageView=button.dataset.voltageView;draw();
+ $('stage').querySelector(`[data-voltage-view="${state.voltageView}"]`)?.focus({preventScroll:true});
+});
+$('stage').addEventListener('input',event=>{
+ if(event.target.id!=='cycle-angle')return;
+ state.cycleDegrees=Number(event.target.value);
+ $('wave-content').innerHTML=renderDistributionWaveContent(scenes[index].id,state);
+ $('cycle-value').textContent=`${state.cycleDegrees}° · ${(state.cycleDegrees/360/60*1000).toFixed(2)} ms`;
+});
 function controls(){
  $('actions').replaceChildren();
  const scene=scenes[index];

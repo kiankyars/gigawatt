@@ -1,0 +1,97 @@
+/* Keep the following architecture drawings intact, at overview scale. */
+.dc-architecture-preview {
+  display: grid;
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  gap: 13px;
+  width: 100%;
+  max-width: 1360px;
+  max-height: 480px;
+  min-height: 0;
+  margin: auto;
+}
+.dc-architecture-preview-row { margin: 0; min-width: 0; min-height: 0; }
+.dc-architecture-preview-row > figcaption {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0 0 6px;
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 550;
+}
+.dc-architecture-preview-row > figcaption > span {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--teal);
+  color: var(--paper);
+  font-size: 12px;
+}
+.dc-architecture-preview .architecture { gap: 0; }
+.dc-architecture-preview .roadmap-context { display: none; }
+.dc-architecture-preview .path {
+  display: grid;
+  grid-template-columns: 1.15fr 2fr 2fr;
+  gap: 14px;
+}
+.dc-architecture-preview .zone {
+  min-width: 0;
+  min-height: 0;
+  padding: 8px 10px;
+  gap: 5px;
+  border-radius: 8px;
+}
+.dc-architecture-preview .zone-title {
+  font-size: 8px;
+  letter-spacing: .7px;
+  line-height: 1.3;
+}
+.dc-architecture-preview .zone-body,
+.dc-architecture-preview .zone.rack .zone-body {
+  min-height: 0;
+  gap: 6px;
+  flex-direction: row;
+}
+.dc-architecture-preview .unit,
+.dc-architecture-preview .zone.rack .unit {
+  min-width: 0;
+  min-height: 43px;
+  padding: 7px 5px;
+  gap: 3px;
+  font-size: 13px;
+  border-radius: 5px;
+}
+.dc-architecture-preview .unit small { font-size: 8px; line-height: 1.25; }
+.dc-architecture-preview .wire,
+.dc-architecture-preview .zone.rack .wire { font-size: 17px; transform: none; }
+.dc-architecture-preview .zone:not(:last-child)::after {
+  content: '→';
+  top: 50%;
+  right: -14px;
+  bottom: auto;
+  font-size: 16px;
+}
+.dc-architecture-preview .rack-space {
+  padding: 3px 6px;
+  gap: 6px;
+  font-size: 8px;
+  line-height: 1.2;
+}
+@media (max-width: 600px) {
+  .dc-architecture-preview { gap: 26px; max-height: none; }
+  .dc-architecture-preview-row > figcaption { font-size: 15px; margin-bottom: 10px; }
+  .dc-architecture-preview .path { grid-template-columns: 1fr 1.35fr 1.9fr; gap: 7px; }
+  .dc-architecture-preview .zone { padding: 6px 4px; gap: 7px; }
+  .dc-architecture-preview .zone-title { min-height: 20px; font-size: 6px; letter-spacing: .3px; }
+  .dc-architecture-preview .zone-body,
+  .dc-architecture-preview .zone.rack .zone-body { gap: 2px; }
+  .dc-architecture-preview .unit,
+  .dc-architecture-preview .zone.rack .unit { min-height: 43px; padding: 4px 2px; font-size: 7px; }
+  .dc-architecture-preview .unit small { font-size: 5px; }
+  .dc-architecture-preview .wire,
+  .dc-architecture-preview .zone.rack .wire { font-size: 10px; }
+  .dc-architecture-preview .zone:not(:last-child)::after { right: -8px; font-size: 10px; }
+  .dc-architecture-preview .rack-space { padding: 3px 2px; gap: 3px; font-size: 5px; }
+}

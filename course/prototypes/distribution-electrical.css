@@ -1,0 +1,57 @@
+/* Shared waveform figures, scoped to the two electrical scenes. */
+.distribution-electrical{--ink:var(--text);--teal:var(--power);--strong-line:var(--muted);--circuit-source:var(--panel);--circuit-load:var(--surface);--phase-one:var(--power);--phase-two:var(--heat);--phase-three:var(--data);width:100%;min-width:0}
+.distribution-electrical .electrical-model{width:100%}
+.distribution-electrical .energy-band{display:flex;justify-content:space-between;gap:12px;align-items:center;background:var(--panel);border-radius:8px;padding:10px 16px;font-size:16px}
+.distribution-electrical .energy-band span{color:var(--muted);font-size:14px}
+.distribution-electrical .electrical-grid{display:grid;grid-template-columns:.95fr 1.25fr;gap:28px;align-items:center;padding:12px 0}
+.distribution-electrical .electrical-charts{min-width:0;display:grid;gap:12px}
+.distribution-electrical .electrical-plot h3{font-size:14px;margin:0;font-weight:600}
+.distribution-electrical .electrical-plot h3 small{color:var(--muted);margin-left:8px}
+.distribution-electrical .electrical-plot svg{display:block;width:100%;height:auto}
+.distribution-electrical .electrical-plot svg text{font-family:inherit;font-size:12px;fill:var(--muted)}
+.distribution-electrical .wave-key{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:11px}
+.distribution-electrical .wave-key span::before{content:"";display:inline-block;width:16px;border-top:3px solid var(--wave-color);margin-right:5px;vertical-align:middle}
+.distribution-electrical .current-circuit{width:100%;max-height:290px;display:block}
+.distribution-electrical .current-circuit text{font-family:inherit;font-size:19px;fill:var(--text)}
+.distribution-electrical .current-circuit .svg-small{font-size:15px}
+.distribution-electrical .current-circuit .svg-value{font-size:17px;font-weight:700}
+.distribution-electrical .circuit-box{fill:var(--panel);stroke:var(--line);stroke-width:2}
+.distribution-electrical .circuit-box.load{fill:var(--surface)}
+.distribution-electrical .wave-result{font-size:clamp(16px,1.5vw,22px);font-weight:600;color:var(--power);margin:10px 0}
+.distribution-electrical .cycle-control{display:flex;gap:16px;align-items:center;margin-top:12px;font-size:13px}
+.distribution-electrical .cycle-control input{min-width:100px;flex:1;accent-color:var(--power)}
+.distribution-electrical .cycle-control output{min-width:130px;font-variant-numeric:tabular-nums}
+.distribution-electrical .voltage-view-controls{display:flex;justify-content:center;gap:10px;margin:12px 0}
+.distribution-electrical .voltage-measurement{max-width:1100px;width:100%;margin:auto}
+.distribution-electrical .voltage-measurement svg{width:100%;max-height:clamp(190px,41vh,300px);display:block}
+.distribution-electrical .voltage-measurement text{fill:var(--text);font:22px Inter,system-ui,sans-serif}
+.distribution-electrical .voltage-measurement .meter-line-label{font-size:26px;font-weight:600}
+.distribution-electrical .voltage-measurement .meter-number{font-size:42px;font-weight:700}
+.distribution-electrical .voltage-measurement .meter-note{fill:var(--muted)}
+.distribution-electrical .phase-measurement-note{text-align:center;font-size:18px;margin:10px 0}
+.distribution-electrical .pair-comparison{max-width:1100px;margin:auto}
+.distribution-electrical .pair-readings{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.distribution-electrical .pair-readings>div{display:grid;gap:4px;text-align:center;border-top:3px solid var(--pair-color);padding-top:8px}
+.distribution-electrical .pair-readings strong{font-size:clamp(22px,2.2vw,32px)}
+.distribution-electrical .pair-readings small{font-size:.6em}
+.distribution-electrical .pair-readings span{color:var(--muted);font-size:16px}
+.distribution-electrical .pair-waveform{display:block;width:100%;max-height:200px}
+.distribution-electrical .pair-waveform text{fill:var(--muted);font-size:20px}
+.distribution-electrical .pair-identity{text-align:center;font-size:22px;margin:8px 0}
+.distribution-electrical .pair-identity span{color:var(--muted);font-size:15px;margin-left:12px}
+.distribution-electrical .pair-principle{text-align:center;font-size:18px;margin:8px 0 0}
+@media(max-width:799px){
+ .distribution-electrical .energy-band{flex-direction:column;align-items:flex-start;gap:5px;font-size:15px}
+ .distribution-electrical .electrical-grid{grid-template-columns:1fr;gap:16px}
+ .distribution-electrical .cycle-control{flex-wrap:wrap}
+ .distribution-electrical .cycle-control label{width:100%}
+ .distribution-electrical .cycle-control output{min-width:115px}
+ .distribution-electrical .pair-readings{gap:10px}
+ .distribution-electrical .pair-readings span{font-size:13px}
+ .distribution-electrical .pair-readings strong{font-size:22px}
+ .distribution-electrical .pair-readings small{display:block}
+ .distribution-electrical .pair-waveform text{font-size:28px}
+ .distribution-electrical .pair-identity{font-size:19px}
+ .distribution-electrical .pair-identity span{display:block;margin:8px 0 0}
+ .distribution-electrical .pair-principle{font-size:16px}
+}

@@ -1,4 +1,4 @@
-import { scenes, initialState, aliases, defaults } from './rack-energy-scenes.js';
+import { scenes, initialState, aliases, sceneRedirects, defaults } from './rack-energy-scenes.js';
 import { rackVisual, supplementalVisual, escapeHTML } from './rack-energy-visuals.js';
 import { createElectricalVisuals } from '../web/electrical-renderer.js';
 import { createPresentationRenderers } from '../web/presentation-renderers.js';
@@ -82,7 +82,7 @@ function render(){
   $('previous').disabled=index===0;$('next').disabled=index===scenes.length-1;controls();draw();
 }
 function go(i){index=Math.max(0,Math.min(scenes.length-1,i));history.replaceState(null,'',`#${current().id}`);render();window.scrollTo({top:0,left:0,behavior:'auto'});}
-function fromHash(){const id=aliases[location.hash.slice(1)]||location.hash.slice(1);const found=scenes.findIndex(scene=>scene.id===id);index=found<0?0:found;render();window.scrollTo({top:0,left:0,behavior:'auto'});}
+function fromHash(){const requested=location.hash.slice(1),target=sceneRedirects[requested];if(target){location.replace(target.file+location.search+'#'+target.scene);return;}const id=aliases[requested]||requested;const found=scenes.findIndex(scene=>scene.id===id);index=found<0?0:found;render();window.scrollTo({top:0,left:0,behavior:'auto'});}
 $('scenes').onchange=e=>go(scenes.findIndex(scene=>scene.id===e.target.value));$('previous').onclick=()=>go(index-1);$('next').onclick=()=>go(index+1);
 $('fullscreen').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await $('viewer').requestFullscreen();}catch{$('status').textContent='Full screen is unavailable in this browser view.';}};
 document.addEventListener('fullscreenchange',()=>{$('fullscreen').textContent=document.fullscreenElement?'Exit full screen':'Full screen';});

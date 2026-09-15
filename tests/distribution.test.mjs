@@ -6,8 +6,10 @@ import {renderDistribution} from '../course/prototypes/distribution-visuals.js';
 test('all chapter mechanisms render in each layout and supported control state',()=>{
  assert.equal(new Set(scenes.map(s=>s.id)).size,scenes.length);
  assert.equal(scenes.findIndex(s=>s.id==='transformer-taps'),scenes.findIndex(s=>s.id==='local-stepdown')+1);
+ assert.deepEqual(scenes.slice(scenes.findIndex(s=>s.id==='one-line'),scenes.findIndex(s=>s.id==='one-line')+3).map(s=>s.id),['one-line','three-phase','voltage-basis']);
  for(const scene of scenes){
   const states=[{...initialState}];
+  if(['three-phase','voltage-basis'].includes(scene.id))for(const cycleDegrees of [0,90,180,270,360])for(const voltageView of ['meter','pairs'])states.push({...initialState,cycleDegrees,voltageView});
   for(const group of scene.controls||[])for(const [value] of group.options)states.push({...initialState,[group.key]:value});
   if(scene.reveal)for(const diagnosis of ['capacity','breaker','surge'])states.push({...initialState,diagnosis,reveal:true});
   for(const state of states)for(const compact of [false,true]){
