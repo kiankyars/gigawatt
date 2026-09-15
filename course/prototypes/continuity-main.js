@@ -13,7 +13,7 @@ import { renderReliability } from "./ups-reliability.js";
 const $ = (id) => document.getElementById(id);
 function relocated() {
   if (location.hash === "#dc-feeder-protection") {
-    location.replace(`rack-energy-format.html${location.search}#dc-feeder-protection`);
+    location.replace("rack-energy-format.html" + location.search + "#dc-feeder-protection");
     return true;
   }
   return false;
@@ -98,9 +98,9 @@ function controls(scene) {
     return choices("isolation", [
       ["branch", "Branch fault · selective isolation"],
       ["upstream", "Branch fault · upstream trips"],
-      ["bus-cleared", "Shared bus fault"],
+      ["bus", "Shared bus fault"],
     ]);
-  if (scene.id === "ac-dc-interruption") return choices("arcStage", [["closed", "Contacts closed"], ["arc", "Contacts separating"], ["cleared", "Current interrupted"]]);
+  if (scene.id === "ac-dc-interruption") return choices("arcStage", [["closed", "Contacts touching"], ["arc", "Gap + arc"], ["cleared", "Gap, no arc"]]);
   if (scene.id === "service-check") return button("serviceReveal", state.serviceReveal ? "Hide answer" : "Show answer");
   if (scene.id === "bypass-check") return choices("bypassAnswer", [["yes", "Yes"], ["no", "No"]]);
   return "";
@@ -152,7 +152,7 @@ function render() {
     compact = matchMedia("(max-width:799px)").matches;
   document.title = `7. Continuity, storage and protection · ${scene.label} · From Watts to Tokens`;
   $("title").textContent = scene.title;
-  $("title").classList.toggle("sr-only", Boolean(scene.quote));
+  $("title").classList.toggle("sr-only", Boolean(scene.quote || scene.imageTitle));
   $("lesson-reference").href = `../index.html#${scene.reading}`;
   $("stage").dataset.scene = scene.id;
   $("stage").innerHTML = scene.ups

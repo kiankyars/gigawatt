@@ -1,5 +1,15 @@
 import { rapidBuildScenes } from "./rapid-build-cases.js";
 
+// Keep shared Chapter 5 case links useful after moving modular construction.
+export function siteSceneRedirect(locationHref, moduleHref = import.meta.url) {
+  const current = new URL(locationHref);
+  if (current.hash !== "#aws-houdini-prefab") return null;
+  const destination = new URL("./procurement-cases-format.html", moduleHref);
+  destination.search = current.search;
+  destination.hash = current.hash;
+  return destination.href;
+}
+
 export const learningContract = Object.freeze({
   "driving_question": "What physical place can install, operate and recover the required compute service?",
   "fixed_boundary": "Abilene and Colossus 1 are distinct dated cases; generic plans are explicitly original teaching diagrams. Lenovo GB300 is the named hardware service example.",
@@ -43,7 +53,7 @@ export const scenes = [
       "Those are dated utility-service quantities, not a present-day IT meter reading or all sources of site power. The original Paul Lowery Road facility is distinct from the later Tulane Road / Southaven development. The case demonstrates that reuse preserves selected assets; it does not remove the remaining infrastructure work."
     ]
   },
-  ...rapidBuildScenes,
+  ...rapidBuildScenes.filter(scene => scene.id === "meta-prometheus-tents"),
   {
     "id": "usable-land",
     "label": "Fit the whole campus",

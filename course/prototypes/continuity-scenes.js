@@ -95,7 +95,14 @@ export const continuityScenes = Object.freeze(
       "d05-paths-and-transitions",
       { ups: true, mode: "maintenance" },
     ),
-    continuity("stored-energy-isolation", "Stored energy after isolation", "Opening the AC supply can leave stored energy connected", ["D05.4"], "d05-protection-and-fault-domains"),
+    continuity("stored-energy-isolation", "Stored energy after isolation", "AC input open. DC still live.", ["D05.4"], "d05-protection-and-fault-domains", { imageTitle: true }),
+    continuity(
+      "ac-dc-interruption",
+      "How contacts interrupt current",
+      "An open gap can carry current until the arc goes out",
+      ["D05.4"],
+      "d05-protection-and-fault-domains",
+    ),
     continuity(
       "capacity-n",
       "N · required capacity",
@@ -155,7 +162,7 @@ export const continuityScenes = Object.freeze(
     continuity(
       "fault-isolation",
       "Detect and isolate the fault zone",
-      "Which device opens determines which healthy loads survive.",
+      "A fault can stop loads before a breaker opens",
       ["D05.3", "D05.4"],
       "d05-protection-and-fault-domains",
     ),
@@ -166,13 +173,7 @@ export const continuityScenes = Object.freeze(
       ["D05.4"],
       "d05-protection-and-fault-domains",
     ),
-    continuity(
-      "ac-dc-interruption",
-      "How contacts interrupt current",
-      "Why opening the contacts may not stop the current",
-      ["D05.4"],
-      "d05-protection-and-fault-domains",
-    ),
+
     continuity("tier-overview", "Tiers I–IV", "Uptime Institute Tiers I–IV", ["D05.3"], "d05-paths-and-transitions", { reliability: true }),
     continuity(
       "tier-topology",

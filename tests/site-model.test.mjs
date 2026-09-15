@@ -10,7 +10,10 @@ import {
   scenes,
   initialState,
   learningContract,
+  siteSceneRedirect,
 } from "../course/prototypes/site-scenes.js";
+import { scenes as procurementCases } from "../course/prototypes/procurement-cases-scenes.js";
+import { renderRapidBuildCase } from "../course/prototypes/rapid-build-cases.js";
 import { operationsAliases } from "../course/prototypes/site-operations.js";
 import { renderSite } from "../course/prototypes/site-visuals.js";
 import { existsSync } from "node:fs";
@@ -45,7 +48,7 @@ test("Shared controller affects both trains despite separate equipment", () => {
   });
 });
 test("Chapter has a motivated opening, every state renders in both layouts, with a live-campus expansion check-in", () => {
-  assert.equal(scenes.length, 21);
+  assert.equal(scenes.length, 20);
   assert.equal(new Set(scenes.map((s) => s.id)).size, scenes.length);
   assert.equal(scenes[0].id, "site-purpose");
   assert.equal(scenes.at(-1).id, "service-check");
@@ -66,6 +69,29 @@ test("Chapter has a motivated opening, every state renders in both layouts, with
         assert.doesNotMatch(v.markup, /NaN|undefined|Infinity/);
       }
     }
+  }
+});
+
+test("Houdini belongs to modular construction while Meta's tents remain in the physical-site chapter", () => {
+  assert.ok(scenes.some(scene => scene.id === "meta-prometheus-tents"));
+  assert.ok(!scenes.some(scene => scene.id === "aws-houdini-prefab"));
+  assert.deepEqual(procurementCases.map(scene => scene.id), ["aws-houdini-prefab"]);
+  assert.equal(procurementCases[0].reference, "d13-delivery-dependencies");
+  const visual = renderRapidBuildCase(procurementCases[0].id);
+  assert.match(visual.markup, /src="\.\.\/assets\/references\/cei-modular-factory-edgerton\.jpg"/);
+  assert.match(visual.markup, /In the factory/);
+  assert.match(visual.markup, /In parallel, on site/);
+  assert.match(visual.markup, /At installation/);
+});
+
+test("Old Houdini links redirect to the specific case and preserve their teaching mode", () => {
+  const moduleHref = "https://example.test/course/prototypes/site-scenes.js";
+  for (const query of ["", "?teach=1", "?teach=0&presenter-preview=0"]) {
+    const redirect = siteSceneRedirect(`https://example.test/course/prototypes/site-format.html${query}#aws-houdini-prefab`, moduleHref);
+    assert.equal(redirect, `https://example.test/course/prototypes/procurement-cases-format.html${query}#aws-houdini-prefab`);
+  }
+  for (const hash of ["", "#meta-prometheus-tents", "#site-purpose", "#unknown"]) {
+    assert.equal(siteSceneRedirect(`https://example.test/course/prototypes/site-format.html${hash}`, moduleHref), null);
   }
 });
 

@@ -1504,6 +1504,14 @@
         ]
       },
       {
+        "heading": "Amazon’s Project Houdini moves assembly into factories",
+        "paragraphs": [
+          "SemiAnalysis’s July 29, 2026 report describes Project Houdini as AWS’s prefabricated data-hall skid program and identifies Cupertino Electric as a partner. This is a manufacturing strategy: assemble sections away from the site while site preparation proceeds. It is distinct from Meta’s use of weatherproof tents at Prometheus.",
+          "Cupertino Electric describes modular assembly and testing in its factory, followed by delivery, installation and field verification. Its photograph of the Edgerton, Wisconsin factory illustrates that production environment; it does not identify the photographed equipment as a Houdini unit. The scheduling benefit comes from overlapping factory work with site work, then joining the two at installation and integrated testing. Agreed interfaces make that overlap possible.",
+          "The following 20 MW comparison uses original exercise durations to make those dependencies visible. Those durations are not reported Project Houdini delivery times."
+        ]
+      },
+      {
         "heading": "EPC responsibility and manufacturing strategy answer different questions",
         "paragraphs": [
           "Consider one illustrative 20 MW IT phase divided into ten 2 MW service zones. Initially each zone serves twenty 100 kW racks. Compare assembling its distribution and cooling services in the building with delivering factory-built service modules. Keep the IT duty, required operating conditions and acceptance endpoint fixed. This is an original comparison, not an Abilene construction account or a supplier delivery claim.",
@@ -1586,6 +1594,20 @@
         "claim": "The existing OPR, basis-of-design and review discussion supports connecting project requirements to traceable design and acceptance records.",
         "reviewed_on": "2026-09-06",
         "limits": "Selected document-role and design-review passages inspected in the existing source review. The EPC allocation, module scope and release workflow are stipulated teaching choices, not a prescribed contract model or a quotation from WBDG."
+      },
+      {
+        "title": "SemiAnalysis — The Wild Wild West of LEGO Datacenters",
+        "url": "https://newsletter.semianalysis.com/p/the-wild-wild-west-of-lego-datacenters",
+        "claim": "Selected accessible AWS section reports Project Houdini prefabricated data-hall skids and the Cupertino Electric partnership.",
+        "reviewed_on": "2026-09-15",
+        "limits": "Analyst reporting, not a primary AWS construction disclosure. Does not establish Amazon tents, the identity of equipment in the CEI photograph, or an overall schedule saving."
+      },
+      {
+        "title": "Cupertino Electric — Modular data centers",
+        "url": "https://www.cei.com/core-markets/modular",
+        "claim": "Factory assembly and testing, delivery and installation followed by field verification; factory photograph identified as Edgerton, Wisconsin.",
+        "reviewed_on": "2026-09-15",
+        "limits": "The photographed equipment is not identified as AWS Houdini. The AWS partner attribution comes from SemiAnalysis; factory work does not replace site work or complete-system testing."
       }
     ],
     "terms": [

@@ -50,7 +50,7 @@ function sparks(compact) {
       box(145, 295, 275, 100, ["Crusoe Spark", "1 MW pilot"]) +
       path("M280 475V395") +
       text(280, 513, "Grid backup", "s-label");
-  return `<div class="sparks"><figure><img src="../assets/references/continuity-sparks-site.png" alt="Redwood Materials aerial photograph of its battery arrays and Crusoe Spark units at the Sparks deployment."><figcaption class="source-credit">Sparks, Nevada · photograph: Redwood Materials</figcaption></figure><svg class="visual" viewBox="0 0 ${compact ? "380 430" : "590 550"}" role="img" aria-label="The historical Sparks pilot was reported at 1 MW, with 12 MW solar, 63 MWh battery inventory and grid backup. The pilot figure does not establish the current expanded site load.">${drawing}</svg></div><div class="sparks-calculation"><span>Reported 1 MW pilot · 2025</span><strong>63 MWh ÷ 1 MW = 63 hours</strong><span>Gross energy-to-load ratio; usable energy and auxiliaries change runtime.</span></div>`;
+  return `<div class="sparks"><figure><img src="../assets/references/continuity-sparks-site.png" alt="Redwood Materials aerial photograph of its battery arrays and Crusoe Spark units at the Sparks deployment."><figcaption class="source-credit">Sparks, Nevada · photograph: Redwood Materials</figcaption></figure><svg class="visual" viewBox="0 0 ${compact ? "380 430" : "590 550"}" role="img" aria-label="The historical Sparks pilot was reported at 1 MW, with 12 MW solar, 63 MWh battery inventory and grid backup. The pilot figure does not establish the current expanded site load.">${drawing}</svg></div><div class="sparks-calculation"><span>Reported 1 MW pilot · 2025</span><strong>63 MWh ÷ 1 MW = 63 hours</strong><span>Gross energy-to-load ratio · no solar recharge</span></div>`;
 }
 function faultIsolation(state, compact) {
   const m = isolationModel(state.isolation || "branch"),
@@ -63,7 +63,7 @@ function faultIsolation(state, compact) {
     box(W / 2 - 90, 10, 180, 68, ["Upstream supply"]) +
     path(`M${W / 2} 78V108`, m.upstream) +
     `<path d="M${W / 2} 108l${m.upstream ? 0 : 24} 30" stroke="${m.upstream ? "var(--green)" : "var(--red)"}" stroke-width="4"/>` +
-    path(`M${W / 2} 138V${busY} M${xs[0]} ${busY}H${xs[2]}`, m.upstream);
+    (m.zone === "bus" ? `<path d="M${W / 2} 138V${busY} M${xs[0]} ${busY}H${xs[2]}" fill="none" stroke="var(--red)" stroke-width="5"/>` : path(`M${W / 2} 138V${busY} M${xs[0]} ${busY}H${xs[2]}`, m.upstream));
   xs.forEach((x, i) => {
     body +=
       dot(x, busY) +
@@ -85,7 +85,7 @@ function faultIsolation(state, compact) {
     "⚡ Fault",
     "s-gold",
   );
-  return `${wrap(body, `Fault on ${m.fault === "bus" ? "shared bus" : "branch B"}; isolation state ${m.zone}; ${m.healthy.filter(Boolean).length} healthy load groups remain supplied.`, compact, compact ? 460 : 450)}<div class="boundary">${m.zone === "bus" ? "Fault present · upstream contacts still closed" : m.zone === "bus-cleared" ? "Upstream breaker clears the fault; the shared bus remains unavailable." : ""}</div>`;
+  return `${wrap(body, `Fault on ${m.fault === "bus" ? "shared bus" : "branch B"}; isolation state ${m.zone}; ${m.healthy.filter(Boolean).length} healthy load groups remain supplied.`, compact, compact ? 460 : 450)}<div class="boundary">${m.zone === "bus" ? "Bus voltage collapses · breaker still closed" : m.zone === "bus-cleared" ? "Upstream breaker clears the fault; the shared bus remains unavailable." : ""}</div>`;
 }
 function service(state) {
   return `<div class="service-exercise"><p class="service-scenario">Utility fails. The generator starts and supplies the cooling plant.</p><div class="service-matrix"><div class="service-matrix-row"><strong>Compute racks</strong><span>UPS + generator</span></div><div class="service-matrix-row"><strong>Cooling controls</strong><span>Utility only</span></div><div class="service-matrix-row"><strong>Pumps and heat rejection</strong><span>Generator</span></div></div><div class="service-prompt">${state.serviceReveal ? 'No. Cooling controls lost power. Put them on a protected supply; also check cooling restart and thermal margin.' : 'What still stops the workload?'}</div></div>`;

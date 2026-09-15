@@ -32,6 +32,14 @@ A change can also create a different critical path. If utility readiness slips t
 
 Keep forecasts and evidence separate when updating the network. A reported shipment date is not installation complete; installation complete is not a passed test. Record the status date, remaining work and basis for durations. Compare the current forecast with the approved baseline to understand the change, while resisting the temptation to move dates merely to make a dashboard appear healthy. The purpose of scheduling is to expose consequences early enough to make a meaningful decision.
 
+## Amazon’s Project Houdini moves assembly into factories
+
+SemiAnalysis’s July 29, 2026 report describes Project Houdini as AWS’s prefabricated data-hall skid program and identifies Cupertino Electric as a partner. This is a manufacturing strategy: assemble sections away from the site while site preparation proceeds. It is distinct from Meta’s use of weatherproof tents at Prometheus.
+
+Cupertino Electric describes modular assembly and testing in its factory, followed by delivery, installation and field verification. Its photograph of the Edgerton, Wisconsin factory illustrates that production environment; it does not identify the photographed equipment as a Houdini unit. The scheduling benefit comes from overlapping factory work with site work, then joining the two at installation and integrated testing. Agreed interfaces make that overlap possible.
+
+The following 20 MW comparison uses original exercise durations to make those dependencies visible. Those durations are not reported Project Houdini delivery times.
+
 ## EPC responsibility and manufacturing strategy answer different questions
 
 Consider one illustrative 20 MW IT phase divided into ten 2 MW service zones. Initially each zone serves twenty 100 kW racks. Compare assembling its distribution and cooling services in the building with delivering factory-built service modules. Keep the IT duty, required operating conditions and acceptance endpoint fixed. This is an original comparison, not an Abilene construction account or a supplier delivery claim.
@@ -107,3 +115,5 @@ Hold only the work whose inputs are unresolved, including any affected supports 
 
 - [GAO Schedule Assessment Guide](https://www.gao.gov/products/gao-16-89g) — The guide overview supports integrated schedules, explicit dependencies and the connection between schedule slippage and cost. Read 2026-09-06. Overview and guide structure inspected. The network, durations, slack and interventions are original teaching scenarios, not GAO project examples. The site-built/prefabricated comparison and rack-change release dates are also synthetic; no modular supplier performance is attributed to this guide.
 - [WBDG: Commissioning Documents](https://legacy.wbdg.org/building-commissioning/commissioning-documents) — The existing OPR, basis-of-design and review discussion supports connecting project requirements to traceable design and acceptance records. Read 2026-09-06. Selected document-role and design-review passages inspected in the existing source review. The EPC allocation, module scope and release workflow are stipulated teaching choices, not a prescribed contract model or a quotation from WBDG.
+- [The Wild Wild West Of LEGO Datacenters](https://newsletter.semianalysis.com/p/the-wild-wild-west-of-lego-datacenters) — Selected accessible AWS section reports Project Houdini prefabricated data-hall skids and the Cupertino Electric partnership. Read 2026-09-15. Analyst reporting, not a primary AWS construction disclosure. Does not establish Amazon tents, the identity of equipment in the CEI photograph, or an overall schedule saving.
+- [Cupertino Electric — Modular data centers](https://www.cei.com/core-markets/modular) — Factory assembly and testing, delivery and installation followed by field verification; factory photograph identified as Edgerton, Wisconsin. Read 2026-09-15. The photographed equipment is not identified as AWS Houdini. The AWS partner attribution comes from SemiAnalysis; factory work does not replace site work or complete-system testing.

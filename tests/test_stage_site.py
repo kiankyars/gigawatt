@@ -122,11 +122,29 @@ class SiteStagingTests(unittest.TestCase):
         self.assertEqual(str(public_path("course/index.html")), "index.html")
         self.assertEqual(str(public_path("course/teach.html")), "slides/800v.html")
         self.assertEqual(str(public_path("course/prototypes/site-format.html")), "slides/site-design.html")
+        self.assertEqual(str(public_path("course/prototypes/procurement-cases-format.html")), "slides/procurement-cases.html")
         for source in (ROOT / "course/prototypes").glob("*.html"):
             target = str(public_path(source.relative_to(ROOT)))
             self.assertTrue(target.startswith("slides/"))
             self.assertNotIn("prototypes", target)
             self.assertNotIn("-format", target)
+
+    def test_houdini_case_redirect_is_rebased_for_the_published_slide_location(self):
+        source = "course/prototypes/site-scenes.js"
+        code = (ROOT / source).read_text()
+        published = published_text(code, source)
+        self.assertIn('new URL("./procurement-cases.html", moduleHref)', published)
+        self.assertIn('destination.search = current.search;', published)
+        self.assertIn('destination.hash = current.hash;', published)
+
+    def test_moved_chapter_eight_fragments_target_a_published_deck(self):
+        for filename in ("continuity-main.js", "distribution-player.js"):
+            with self.subTest(filename=filename):
+                source = f"course/prototypes/{filename}"
+                published = published_text((ROOT / source).read_text(), source)
+                self.assertIn('location.replace("rack-energy.html" + location.search', published)
+                self.assertNotIn('rack-energy-format.html', published)
+        self.assertEqual(public_path("course/prototypes/rack-energy-format.html").name, "rack-energy.html")
 
 
 if __name__ == "__main__":

@@ -46,11 +46,19 @@ The worked heating example makes one mechanism visible: changing current or clea
 
 ## Bonding and the complete fault loop
 
+This belongs in the continuity and protection chapter because a conductive equipment case can become part of the fault circuit. Protective bonding provides a designed return path that lets protection detect and disconnect the fault. The same event has both a shock-protection consequence and an outage boundary; a case may rise in voltage before disconnection, so bonding is not a promise that every fault leaves its voltage at zero.
+
 Protective bonding connects exposed conductive metal to the protective-conductor system. In the shown TN circuit, a live-to-case fault returns along PE to the source, allowing protection to disconnect the circuit. A surge arrester instead limits a transient overvoltage; it does not replace this permanent bonding connection. Loop impedance Z is the combined opposition of the source, outward live conductor and return protective conductor. Fault current is approximately phase-to-neutral voltage divided by Z; a high impedance can limit current enough to delay an overcurrent trip. Other earthing systems can require different detection arrangements.
 
-In the shared-bus example the first state shows the fault before the upstream breaker clears. Contacts remain closed, but the faulted bus cannot support its normal loads. Opening the upstream breaker removes the supply to the fault; it does not repair the common bus.
+The third shared-bus option shows a severe short circuit before upstream clearing. The breaker contacts remain closed and fault current can still flow, but bus voltage has collapsed below what the groups need to operate. This differs from the second option, where the upstream breaker opens for a branch fault. Removing the fault supply later would not itself repair the common bus. “No supply” describes loss of usable service here, not proof of absent voltage or a safe circuit.
 
 Opening contacts can leave an arc carrying current. Chapter 8 applies this principle to an illustrative 800 V DC feeder: a conventional arc chamber lengthens and cools the arc until current is extinguished, while circuit energy must be managed. Semiconductor and hybrid devices use different mechanisms. The device’s DC voltage and interrupting ratings must match the circuit; the animation supplies no product rating or clearing-time claim.
+
+## A gap is not yet an interrupted current
+
+The contact sequence now follows the stored-energy image. First, touching contacts complete a conducting circuit. Next, the contacts separate, but hot ionized gas can bridge the gap and carry current. Finally, the arc is extinguished and the gap no longer conducts. The circuit current is then zero while the source remains energized and voltage can appear across the open contacts.
+
+The last two views deliberately keep the contact positions the same. The changed condition is whether the gap contains a conducting arc. AC current zero crossings can help extinguish an arc; DC interruption must achieve current extinction without that recurring natural zero. Neither an interrupted load current nor this simple drawing proves that every part of real equipment is de-energized.
 
 ## Worked example: A fixed-current fault heating comparison
 

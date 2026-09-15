@@ -117,8 +117,8 @@ The open production tasks remain in [the course review](COURSE_REVIEW.md#next-te
 | Physical site, buildings and safety (`d12`) | Greenfield versus brownfield, using Abilene and Colossus 1; factory reuse still required new power infrastructure | [Land comparison](prototypes/case-studies.html?teach=1#land), [Colossus 1](prototypes/case-studies.html?teach=1#colossus) | Integrated in Chapter 5: [greenfield/brownfield](prototypes/site-format.html?teach=1#greenfield-brownfield) and [Colossus](prototypes/site-format.html?teach=1#colossus-service); current checks recorded in [TESTING.md](TESTING.md) |
 | Capacity, cost and system decisions (`d15`) | Abilene's dated capacity milestones: distinguish the original campus, adjacent project, energized capacity and useful output | [Capacity ledger](prototypes/case-studies.html?teach=1#abilene-ledger) | Pending |
 
-For **Design, procurement and commissioning (`d13`)**, adapt the existing reader
-comparison into slides: EPC responsibilities versus manufacturing strategy; factory
+For **Design, procurement and commissioning (`d13`)**, the [Project Houdini case](prototypes/procurement-cases-format.html?teach=1#aws-houdini-prefab) is available as a selected teaching scene. Its factory/site parallelism belongs here; Meta’s tent enclosure remains in Chapter 5. The full chapter still needs the existing reader
+comparison adapted into slides: EPC responsibilities versus manufacturing strategy; factory
 and site work; parallel schedules; design freezes; transport; and ownership of
 module interfaces. Hold 20 MW constant while 200 × 100 kW racks become 100 × 200 kW
 just before fabrication. Require the learner to decide what proceeds, what is held

@@ -20,7 +20,7 @@ export const rapidBuildScenes = [
     label: "Amazon: factory-built data-hall sections",
     title: "Amazon’s Project Houdini moves data-hall assembly into factories.",
     pedagogical_role: "case-study",
-    reference: "d12-hazards-and-site-evidence",
+    reference: "d13-delivery-dependencies",
     sources: [SEMIANALYSIS, CEI],
     explanation: [
       "SemiAnalysis’s July 29, 2026 report describes Project Houdini as AWS’s prefabricated data-hall skid program and names Cupertino Electric as a partner. This is a factory-assembly case; the report does not establish that Amazon uses Meta’s fabric tent design.",

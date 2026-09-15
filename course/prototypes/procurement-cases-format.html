@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="description" content="Selected modular-construction case from Design, procurement and commissioning: Amazon’s Project Houdini." />
+    <title>14. Modular construction · From Watts to Tokens</title>
+    <link rel="stylesheet" href="../web/presentation.css" />
+    <link rel="stylesheet" href="./rapid-build-cases.css" />
+    <link rel="stylesheet" href="../assets/slide-chrome.css" />
+    <style>
+      :root { --power: var(--teal); }
+      #viewer {
+        height: 100svh;
+        min-height: 100svh;
+        max-width: 1920px;
+        margin: auto;
+        display: grid;
+        grid-template-rows: 54px minmax(0, 1fr) 64px;
+        background: var(--paper);
+      }
+      #viewer::backdrop { background: var(--paper); }
+      .toolbar { padding: 0 28px; align-items: center; }
+      .toolbar a, .toolbar button { font-size: 12px; }
+      .back-to-course { color: var(--ink); font-weight: 600; }
+      #scene { padding: 20px 4vw 18px; gap: 20px; }
+      #scene-title {
+        font: 400 clamp(29px, 3.3vw, 51px)/1.09 Georgia, serif;
+        letter-spacing: -.7px;
+        text-wrap: balance;
+        max-width: 1450px;
+      }
+      #scene-content { display: flex; flex: 1; align-items: center; min-height: 0; }
+      .rapid-build-case { height: 100%; min-height: 0; }
+      .rapid-build-photo { flex: 1; min-height: 0; }
+      .rapid-build-photo img { flex: 1; min-height: 0; height: 0; }
+      footer { border-top: 1px solid var(--line); }
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+      }
+      @media (max-width: 680px) {
+        .toolbar { padding: 0 13px; }
+        .toolbar nav { gap: 10px; }
+        .toolbar a, .toolbar button { font-size: 11px; }
+        .toolbar button { padding: 7px; }
+        #scene { padding: 20px 16px; gap: 24px; }
+        #scene-title { font-size: 29px; line-height: 1.14; }
+      }
+      @media (max-width: 680px), (max-height: 559px) {
+        #viewer { height: auto; }
+        .rapid-build-case { height: auto; }
+        .rapid-build-photo, .rapid-build-photo img { flex: none; }
+        .rapid-build-photo img { height: auto; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="viewer">
+      <header class="toolbar">
+        <a class="back-to-course" href="../index.html?view=slides">← Back to course</a>
+        <nav aria-label="Lesson controls">
+          <a id="lesson-reference" data-course-reading href="../index.html#d13-delivery-dependencies">Reading</a>
+          <button id="fullscreen" hidden>Full screen</button>
+        </nav>
+      </header>
+      <main id="scene" tabindex="-1">
+        <header><h1 id="scene-title"></h1></header>
+        <section id="scene-content" aria-label="Modular construction case"></section>
+        <p class="sr-only" id="status" role="status"></p>
+      </main>
+      <footer>
+        <button id="previous" aria-label="Previous slide">←</button>
+        <label class="sr-only" for="scenes">Choose slide</label>
+        <select id="scenes"></select>
+        <span id="progress" aria-live="polite"></span>
+        <button id="next" aria-label="Next slide">→</button>
+      </footer>
+    </div>
+    <noscript><p><a href="../index.html#d13-delivery-dependencies">Read about modular construction and delivery dependencies</a>.</p></noscript>
+    <script type="module" src="procurement-cases-player.js"></script>
+    <script type="module" src="slide-chrome.js"></script>
+  </body>
+</html>

@@ -5,8 +5,20 @@ export function renderGrounding(compact=false) {
  return `<div class="bonding-view"><svg viewBox="${compact?'0 0 380 420':'0 0 1000 470'}" role="img" aria-label="A live conductor touches a metal cabinet. Its protective earth conductor returns fault current to the source so the breaker can disconnect the faulty circuit.">${compact?small:body}</svg><div class="bonding-definitions"><p><strong>Bond the metal case</strong>A protective conductor connects it back to the source.</p><p><strong>Complete the fault loop</strong>Fault current makes the protection disconnect the circuit.</p></div></div>`;
 }
 function contact(stage) {
- const opened=stage!=='closed',arc=stage==='arc',extinguished=stage==='cleared';
- return `<article class="arc-case"><svg viewBox="0 0 520 330" role="img" aria-label="Contacts ${opened?'open':'closed'}${arc?', current still flows through an arc':extinguished?', current has been interrupted':''}."><rect x="12" y="108" width="120" height="96" rx="8" fill="var(--panel)"/><rect x="390" y="108" width="118" height="96" rx="8" fill="var(--panel)"/>${label(72,163,'Source')}${label(449,163,'Load')}<path d="M132 155h85M303 155h87M449 204v70H72v-70" fill="none" stroke="${extinguished?'var(--line)':'var(--green)'}" stroke-width="4"/><circle cx="217" cy="155" r="7" fill="var(--ink)"/><circle cx="303" cy="155" r="7" fill="var(--ink)"/><path d="M217 155L${opened?'273 95':'303 155'}" fill="none" stroke="var(--ink)" stroke-width="7" stroke-linecap="round"/>${arc?'<path d="M277 100l-5 20 15-6-2 20 13 9" fill="none" stroke="var(--gold)" stroke-width="6"/>':''}${label(260,50,opened?'Contacts separated':'Contacts touching',true)}${arc?label(260,222,'Arc carries current',true):extinguished?label(260,222,'Current = 0',true):''}</svg><p>${stage==='closed'?'Current flows through the contacts.':stage==='arc'?'Separated contacts can still conduct through an arc.':'The arc is extinguished; the open gap withstands the voltage.'}</p></article>`;
+ const opened=stage!=='closed',arc=stage==='arc',stopped=stage==='cleared';
+ const active=stopped?'var(--line)':'var(--green)';
+ const desc=stage==='closed'?'The touching contacts complete the circuit.':arc?'Hot ionized gas bridges the gap, so current still flows.':'The arc is gone. Current stops; voltage remains across the gap.';
+ const voltage=stopped?`<path d="M278 99V62H339V158H312" fill="none" stroke="var(--gold)" stroke-width="2" stroke-dasharray="4 4"/>${label(367,44,'Voltage',true)}${label(379,65,'across gap',true)}`:'';
+ const arrow=stopped?'':`<path d="M354 152l12 7-12 7z M175 293l-12-7 12-7z" fill="var(--green)"/>`;
+ return `<article class="arc-case"><svg viewBox="0 0 560 350" role="img" aria-label="${stage==='closed'?'Source energized; contacts touching; current flows.':arc?'Source energized; contacts physically separated, but a conducting arc bridges the gap.':'Source remains energized; the gap is open and contains no conducting arc. Current is zero while voltage remains across the contacts.'}">
+ <rect x="12" y="110" width="135" height="100" rx="8" fill="var(--panel)" stroke="var(--green)" stroke-width="2"/><rect x="414" y="110" width="134" height="100" rx="8" fill="var(--panel)" stroke="${active}" stroke-width="2"/>
+ ${label(80,147,'Source')}${label(80,179,'Energized',true)}${label(481,159,'Load')}
+ <path d="M147 159H218" fill="none" stroke="var(--green)" stroke-width="4"/><path d="M308 159H414M481 210V286H80V210" fill="none" stroke="${active}" stroke-width="4"/>
+ <circle cx="218" cy="159" r="6" fill="var(--ink)"/><circle cx="308" cy="159" r="6" fill="var(--ink)"/>
+ <path d="M218 159L${opened?'273 99':'308 159'}" fill="none" stroke="var(--ink)" stroke-width="7" stroke-linecap="round"/>
+ ${arc?'<path d="M273 99l-3 20 17-6-3 23 15-2 9 25" fill="none" stroke="var(--gold)" stroke-width="7"/>':''}
+ ${voltage}${arrow}${label(280,236,stopped?'Current = 0':arc?'Current flows through the arc':'Current flows',true)}
+ </svg><p>${desc}</p></article>`;
 }
 export function renderInterruption(stage='arc') {
  return `<div class="arc-sequence">${contact(stage)}</div>`;

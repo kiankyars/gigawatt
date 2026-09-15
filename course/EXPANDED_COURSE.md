@@ -102,6 +102,7 @@ Each topic ends with a check-in: pause, make a prediction, compare the reasoning
 
 ### 14. Design, procurement and commissioning
 
+- Selected-topic slides: [Modular construction](prototypes/procurement-cases-format.html?teach=1#aws-houdini-prefab)
 - [The longest lead time is not the completion date](lessons/d13-delivery-dependencies.md) — Which delay actually changes the date when a phase can deliver service?
 - [Two adequate products can form an inadequate system](lessons/d13-interface-contracts.md) — What can proceed when 200 × 100 kW racks become 100 × 200 kW just before fabrication?
 - [Commission the intersection, not the inventory](lessons/d13-commissioning-complete-paths.md) — When do installed components become a tested service path?
@@ -2470,11 +2471,19 @@ The worked heating example makes one mechanism visible: changing current or clea
 
 ## Bonding and the complete fault loop
 
+This belongs in the continuity and protection chapter because a conductive equipment case can become part of the fault circuit. Protective bonding provides a designed return path that lets protection detect and disconnect the fault. The same event has both a shock-protection consequence and an outage boundary; a case may rise in voltage before disconnection, so bonding is not a promise that every fault leaves its voltage at zero.
+
 Protective bonding connects exposed conductive metal to the protective-conductor system. In the shown TN circuit, a live-to-case fault returns along PE to the source, allowing protection to disconnect the circuit. A surge arrester instead limits a transient overvoltage; it does not replace this permanent bonding connection. Loop impedance Z is the combined opposition of the source, outward live conductor and return protective conductor. Fault current is approximately phase-to-neutral voltage divided by Z; a high impedance can limit current enough to delay an overcurrent trip. Other earthing systems can require different detection arrangements.
 
-In the shared-bus example the first state shows the fault before the upstream breaker clears. Contacts remain closed, but the faulted bus cannot support its normal loads. Opening the upstream breaker removes the supply to the fault; it does not repair the common bus.
+The third shared-bus option shows a severe short circuit before upstream clearing. The breaker contacts remain closed and fault current can still flow, but bus voltage has collapsed below what the groups need to operate. This differs from the second option, where the upstream breaker opens for a branch fault. Removing the fault supply later would not itself repair the common bus. “No supply” describes loss of usable service here, not proof of absent voltage or a safe circuit.
 
 Opening contacts can leave an arc carrying current. Chapter 8 applies this principle to an illustrative 800 V DC feeder: a conventional arc chamber lengthens and cools the arc until current is extinguished, while circuit energy must be managed. Semiconductor and hybrid devices use different mechanisms. The device’s DC voltage and interrupting ratings must match the circuit; the animation supplies no product rating or clearing-time claim.
+
+## A gap is not yet an interrupted current
+
+The contact sequence now follows the stored-energy image. First, touching contacts complete a conducting circuit. Next, the contacts separate, but hot ionized gas can bridge the gap and carry current. Finally, the arc is extinguished and the gap no longer conducts. The circuit current is then zero while the source remains energized and voltage can appear across the open contacts.
+
+The last two views deliberately keep the contact positions the same. The changed condition is whether the gap contains a conducting arc. AC current zero crossings can help extinguish an arc; DC interruption must achieve current extinction without that recurring natural zero. Neither an interrupted load current nor this simple drawing proves that every part of real equipment is de-energized.
 
 ## Worked example: A fixed-current fault heating comparison
 
@@ -4498,6 +4507,14 @@ A change can also create a different critical path. If utility readiness slips t
 
 Keep forecasts and evidence separate when updating the network. A reported shipment date is not installation complete; installation complete is not a passed test. Record the status date, remaining work and basis for durations. Compare the current forecast with the approved baseline to understand the change, while resisting the temptation to move dates merely to make a dashboard appear healthy. The purpose of scheduling is to expose consequences early enough to make a meaningful decision.
 
+## Amazon’s Project Houdini moves assembly into factories
+
+SemiAnalysis’s July 29, 2026 report describes Project Houdini as AWS’s prefabricated data-hall skid program and identifies Cupertino Electric as a partner. This is a manufacturing strategy: assemble sections away from the site while site preparation proceeds. It is distinct from Meta’s use of weatherproof tents at Prometheus.
+
+Cupertino Electric describes modular assembly and testing in its factory, followed by delivery, installation and field verification. Its photograph of the Edgerton, Wisconsin factory illustrates that production environment; it does not identify the photographed equipment as a Houdini unit. The scheduling benefit comes from overlapping factory work with site work, then joining the two at installation and integrated testing. Agreed interfaces make that overlap possible.
+
+The following 20 MW comparison uses original exercise durations to make those dependencies visible. Those durations are not reported Project Houdini delivery times.
+
 ## EPC responsibility and manufacturing strategy answer different questions
 
 Consider one illustrative 20 MW IT phase divided into ten 2 MW service zones. Initially each zone serves twenty 100 kW racks. Compare assembling its distribution and cooling services in the building with delivering factory-built service modules. Keep the IT duty, required operating conditions and acceptance endpoint fixed. This is an original comparison, not an Abilene construction account or a supplier delivery claim.
@@ -4573,6 +4590,8 @@ Hold only the work whose inputs are unresolved, including any affected supports 
 
 - [GAO Schedule Assessment Guide](https://www.gao.gov/products/gao-16-89g) — The guide overview supports integrated schedules, explicit dependencies and the connection between schedule slippage and cost. Read 2026-09-06. Overview and guide structure inspected. The network, durations, slack and interventions are original teaching scenarios, not GAO project examples. The site-built/prefabricated comparison and rack-change release dates are also synthetic; no modular supplier performance is attributed to this guide.
 - [WBDG: Commissioning Documents](https://legacy.wbdg.org/building-commissioning/commissioning-documents) — The existing OPR, basis-of-design and review discussion supports connecting project requirements to traceable design and acceptance records. Read 2026-09-06. Selected document-role and design-review passages inspected in the existing source review. The EPC allocation, module scope and release workflow are stipulated teaching choices, not a prescribed contract model or a quotation from WBDG.
+- [The Wild Wild West Of LEGO Datacenters](https://newsletter.semianalysis.com/p/the-wild-wild-west-of-lego-datacenters) — Selected accessible AWS section reports Project Houdini prefabricated data-hall skids and the Cupertino Electric partnership. Read 2026-09-15. Analyst reporting, not a primary AWS construction disclosure. Does not establish Amazon tents, the identity of equipment in the CEI photograph, or an overall schedule saving.
+- [Cupertino Electric — Modular data centers](https://www.cei.com/core-markets/modular) — Factory assembly and testing, delivery and installation followed by field verification; factory photograph identified as Edgerton, Wisconsin. Read 2026-09-15. The photographed equipment is not identified as AWS Houdini. The AWS partner attribution comes from SemiAnalysis; factory work does not replace site work or complete-system testing.
 
 ## Two adequate products can form an inadequate system
 

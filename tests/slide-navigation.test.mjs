@@ -47,13 +47,21 @@ test('student exploration stays outside teaching mode and transient parameters d
   assert.equal(new URL(off.href).search, '?teach=0');
 });
 
-test('the next chapter uses its reading when no deck exists instead of skipping chapters', () => {
+test('cooling continues to the selected modular-construction case in Chapter 14', () => {
   const module = 'http://localhost/course/prototypes/slide-navigation.js';
   const link = nextChapterLink('http://localhost/course/prototypes/cooling-format.html?teach=1#rejection', presentationRoutes, module);
   assert.equal(link.number, 14);
+  assert.equal(link.kind, 'slides');
+  assert.equal(link.href, 'http://localhost/course/prototypes/procurement-cases-format.html?teach=1#aws-houdini-prefab');
+});
+
+test('the selected case continues to the next chapter reading when its deck is unbuilt', () => {
+  const module = 'http://localhost/course/prototypes/slide-navigation.js';
+  const link = nextChapterLink('http://localhost/course/prototypes/procurement-cases-format.html?teach=1#aws-houdini-prefab', presentationRoutes, module);
+  assert.equal(link.number, 15);
   assert.equal(link.kind, 'reading');
   assert.equal(new URL(link.href).pathname, '/course/index.html');
-  assert.ok(new URL(link.href).hash.startsWith('#d13-'));
+  assert.ok(new URL(link.href).hash.startsWith('#d14-'));
 });
 
 test('networking advances to storage and storage advances to cooling', () => {
@@ -80,7 +88,7 @@ test('a presentation spanning two chapters continues after both', () => {
   const module = 'http://localhost/course/prototypes/slide-navigation.js';
   const link = nextChapterLink('http://localhost/course/prototypes/cooling-format.html#rejection', presentationRoutes, module);
   assert.equal(link.number, 14);
-  assert.equal(link.kind, 'reading');
+  assert.equal(link.kind, 'slides');
 });
 
 test('published routes resolve under a repository prefix and preserve the next entry fragment', () => {

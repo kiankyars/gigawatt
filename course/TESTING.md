@@ -1573,3 +1573,16 @@ not construction accuracy or author acceptance. The next author pass starts at
   overlap and propagation; navigation tests cover the newly built handoff.
 - Technical checks establish the authored draft's implementation state. Kian's
   first Chapter 10 review remains pending in COURSE_REVIEW.md.
+
+
+## Chapter 7 isolation clarity and case placement — 2026-09-15
+
+The selected supplied isolation image is followed immediately by the contact/arc
+sequence. Verified all three contact states and all three fault-isolation choices
+in the built-in browser: a shared-bus fault leaves contacts closed while usable
+supply is lost. Image and contact layouts fit 1280 × 720 and 390 × 844.
+Houdini now appears as one selected Chapter 14 case; Chapter 5 retains Meta.
+Verified the staged old Houdini and 800 V feeder links redirect to their new
+chapters, including the query and fragment, and the Chapter 14 reading/handoff.
+Validation passed: 225 Node tests, 78 Python tests, course/expanded/domain-map
+freshness, research metadata, site staging and whitespace checks.

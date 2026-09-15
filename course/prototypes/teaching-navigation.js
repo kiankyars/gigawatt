@@ -12,7 +12,8 @@ export const presentationLabels = Object.freeze({
   "compute": "9. Compute, memory and the rack",
   "networking": "10. Networking and interconnects",
   "storage": "11. Storage, orchestration and recovery",
-  "cooling": "12–13. From the chip to the outdoors"
+  "cooling": "12–13. From the chip to the outdoors",
+  "procurement-cases": "14. Modular construction"
 });
 export const presentationRoutes = Object.freeze([
   {
@@ -119,7 +120,16 @@ export const presentationRoutes = Object.freeze([
     "next": {
       "number": 14,
       "title": "Design, procurement and commissioning",
-      "href": "../index.html#d13-delivery-dependencies",
+      "href": "procurement-cases-format.html?teach=1#aws-houdini-prefab",
+      "kind": "slides"
+    }
+  },
+  {
+    "path": "procurement-cases-format.html",
+    "next": {
+      "number": 15,
+      "title": "Controls, operations and reliability",
+      "href": "../index.html#d14-telemetry-and-observability",
       "kind": "reading"
     }
   }
