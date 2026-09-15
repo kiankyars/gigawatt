@@ -4817,6 +4817,36 @@
       ],
       "use": "Factory assembly, integration and testing followed by field installation and verification; source identifies the Edgerton, Wisconsin modular factory photograph.",
       "caution": "Public page and source image labels reviewed. The page does not identify the photographed equipment as AWS Houdini. The AWS partnership attribution comes from SemiAnalysis SA29. Factory work does not remove site civil works, power connections or complete-system testing; no overall schedule saving or claimed aggregate capacity is adopted."
+    },
+    {
+      "id": "P202",
+      "title": "Infineon — 200 W dual output 48V-to-PoL single step converter",
+      "url": "https://www.infineon.com/assets/row/public/documents/24/42/infineon-dc-dc-converters-200w-dual-output-48v-pol-single-step-converter-xdpp1100-digital-controller-applicationnotes-en.pdf",
+      "publisher": "Infineon",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-15",
+      "published_on": null,
+      "domains": [
+        "D06"
+      ],
+      "use": "Pages 5–8 compare intermediate-bus and direct-to-load DC conversion.",
+      "caution": "Architecture reference only; does not establish current GPU-rack market share or GB300 board implementation. Teaching rail voltages and efficiency example are not measurements from this note."
+    },
+    {
+      "id": "P203",
+      "title": "TI — Benefits of a multiphase buck converter",
+      "url": "https://www.ti.com/lit/an/slyt449/slyt449.pdf",
+      "publisher": "Texas Instruments",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-15",
+      "published_on": null,
+      "domains": [
+        "D06"
+      ],
+      "use": "Interleaved switched inductor paths share current and reduce summed ripple; output capacitors support remaining current differences.",
+      "caution": "2012 application article; illustrative 1,000 A teaching traces are not device measurements, and multiple phases do not independently establish redundancy."
     }
   ],
   "local_attributions": [

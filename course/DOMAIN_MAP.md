@@ -827,6 +827,8 @@ Explain how retrofit constraints can reverse a seemingly attractive greenfield a
 - [P153 — ABB Review 4/2013 — DC for efficiency](https://library.e.abb.com/public/1afa6036874fd0bb85257d5000710a17/DC%20for%20efficiency.pdf) · `page_reviewed` · [local note](../research/sources/P153.md)
 - [P154 — ABB and Green open Zurich-West DC data-center expansion](https://new.abb.com/news/detail/12816/worlds-most-powerful-dc-data-center-online) · `page_reviewed` · [local note](../research/sources/P154.md)
 - [P170 — ABB — Protection Devices for Direct Current Applications, 2025 technical paper](https://library.e.abb.com/public/4b22f4bae7e5424d9bf87039c3c1d0ba/9AKK108470A2501_Technical%20Application%20Paper_Protection%20Devices%20for%20Direct%20Current%20Applications.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P170.md)
+- [P202 — Infineon — 200 W dual output 48V-to-PoL single step converter](https://www.infineon.com/assets/row/public/documents/24/42/infineon-dc-dc-converters-200w-dual-output-48v-pol-single-step-converter-xdpp1100-digital-controller-applicationnotes-en.pdf) · `page_reviewed` · [local note](../research/sources/P202.md)
+- [P203 — TI — Benefits of a multiphase buck converter](https://www.ti.com/lit/an/slyt449/slyt449.pdf) · `page_reviewed` · [local note](../research/sources/P203.md)
 
 <a id="d07"></a>
 

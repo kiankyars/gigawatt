@@ -30,6 +30,8 @@ A feeder can have sufficient average capacity while a load transient still viola
 
 For a capacitor model, usable energy between two allowed voltages is one half of capacitance times the difference of their squares. The usable range matters more than total nameplate energy when the load cannot tolerate deep voltage reduction. For a repeated burst, the source must also replenish the buffer between events. A buffer solves a temporary mismatch only while its power and energy limits permit it. It cannot make a permanently overloaded feeder adequate, and recharge can create a new upstream peak.
 
+The Chapter 8 ramp example identifies the buffer as a rack BBU with its converter. Its 40 kW initial contribution is separate from the following photographed 15 kW Delta product. A linear PSU-supply increase over 0.2 or 0.4 seconds leaves a triangular 4 or 8 kJ deficit supplied by the BBU. These are illustrative controlled supply ramps, not universal PSU response times.
+
 ## Stored energy must be electrically close enough to serve the event
 
 Separate three physical scales. Package and board capacitors provide local transient current at device rails. Rack-bus capacitors and qualified battery backup units (BBUs) support their DC distribution bus. Facility UPS batteries or a battery energy storage system (BESS) act through a larger conversion and distribution path and may serve a broader set of loads. “Closer to compute” is meaningful because impedance, conversion stages and control response sit between stored energy and the load; merely owning more kWh farther away does not remove a fast voltage disturbance at the chip.
@@ -40,6 +42,8 @@ For an explicit bus-level model, let demand rise by 40 kW while the upstream con
 
 A capacitor’s usable energy is ½C(Vinitial² − Vminimum²). It must satisfy both the energy account and the permitted voltage/time response. A BBU needs an adequate discharger, charged cells, protection, coordination and a qualified bus interface. A BESS at the facility can help a grid-side power schedule or longer interruption but does not substitute for local chip decoupling. A rack-only BBU also does not by itself keep facility pumps, cooling or remote switches alive.
 
+The support map groups sources by their electrical connection, not a universal timed sequence. A generator after startup and connection, or a site BESS through its inverter, can support the facility bus. Rack BBUs support their qualified rack DC bus. Local capacitors support device rails. Which loads continue operating depends on those connections and controls, and source contributions can overlap.
+
 ## A BBU is not one universal battery per NVL72 rack
 
 BBU can mean an individual module or a whole shelf in informal discussion; identify which. The reviewed ORv3 example has six BBU modules in a shelf with 5+1 redundancy. The OCP module specification calls for 3 kW per module and at least 240 s of discharge under its declared cell-state, temperature and aging conditions. For a 15 kW protected load, five surviving 3 kW modules pass the power screen after one module fails; four supply only 12 kW after two failures. The example establishes an interface-specific capacity calculation, not a BBU count for a 142 kW rack.
@@ -48,11 +52,15 @@ The same specification includes a nonzero activation/ramp interval and commanded
 
 The product photographs in the presentation show Delta’s removable 3 kW BBU and its six-module, 15 kW Battery Backup System. Delta specifies 48 V DC output and four minutes at rated load after four years of service, with an operating-temperature range of 0–40°C. The published system rating is 15 kW; the separate ORv3 module-capacity exercise does not turn this specific product into an 18 kW system. The manufacturer photographs establish the form factor, not a BBU count or configuration for NVL72.
 
+Delta’s reviewed product page gives six 3 kW battery modules and a 15 kW shelf rating without explicitly stating that this product rating is caused by N+1 operation. Analog Devices separately identifies the ORv3 six-module example as 5+1. The arithmetic is consistent, but one product’s design intent should not be inferred solely from its module count.
+
 ## Repeated bursts must leave time and capacity to recharge
 
 Take an original DC-bus example with a source capped at 120 kW. The rack normally draws 110 kW, then 160 kW for 0.2 s. A qualified buffer supplies the 40 kW gap, delivering 8 kJ. During the 110 kW interval only 10 kW of source headroom remains, so ideal recharge requires 8/10 = 0.8 s. At 10 s between bursts there is time to refill. At only 0.2 s between bursts, the source can replace just 2 kJ and each cycle loses 6 kJ from the buffer.
 
 The rapid pattern also averages (160 × 0.2 + 110 × 0.2)/0.4 = 135 kW, exceeding the 120 kW source indefinitely. Adding storage delays depletion; it cannot fix that sustained energy shortfall. Reduce or reschedule demand, supply more average power, or accept shorter operating duration. Real losses, discharge limits, battery cycling and a reserved backup state of charge narrow the feasible envelope further. Peak shaving and outage reserve therefore compete for the same usable stored energy unless the design explicitly allocates both.
+
+The supplied recharge slide uses an 8 kJ burst followed by 10 kW of available recharge power. One second offers 10 kJ, enough to restore the buffer; half a second offers only 5 kJ. Charging stops once the missing energy has been replaced. The short interval leaves a repeated deficit, so a larger battery postpones depletion rather than fixing the average-power imbalance.
 
 ## Brownfield and greenfield optimize different things
 

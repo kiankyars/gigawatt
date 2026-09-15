@@ -75,6 +75,7 @@ function controls(){
 function render(){
   const scene=current();
   $('scene-title').textContent=scene.sourceKind==='conversion-loss'&&state.converterView==='heat'?scene.heat_headline:scene.title;
+  $('scene-title').parentElement.classList.toggle('sr-only',Boolean(scene.imageTitle));
   document.title=`${chapterLabel} · ${scene.title} · From Watts to Tokens`;
   $('lesson-reference').href=`../index.html#${scene.reference}`;
   $('scenes').value=scene.id;$('progress').textContent=`${index+1} / ${scenes.length}`;

@@ -1600,3 +1600,28 @@ uncropped presentation, phone bounds and normal slide headings after the memes.
 All 225 Node tests and 78 Python tests pass; generated-course, domain-map,
 research, staging and whitespace checks pass. Chapters 6 and 7 are accepted by
 the author following these revisions; the other chapter review states are unchanged.
+
+
+## Chapter 8 converters and buffering — 2026-09-15
+
+Chapter 8 now has 34 scenes. The current author feedback is recorded individually
+in CHAPTER_8_REVIEW.md. The PSU/VRM/core-rail path, conductor losses before the
+direct-versus-staged comparison, explicit VRM switching paths, simplified power
+account, named rack BBU and storage connection map are in the presentation.
+The supplied recharge image replaces the interaction; the redundant BBU capacity
+scene is removed and its old link resolves to the hardware scene. Chapter 6 has
+27 scenes with the supplied PF paragraph preserved verbatim as a quote slide.
+
+Built-in-browser checks at 1280 × 720 and 390 × 844 covered the changed diagrams,
+images and quote. Desktop screenshots were inspected; compact views have no
+horizontal overflow and use vertical scrolling where necessary. Exercised the
+one/four-path VRM control, both BBU ramp times, image-to-normal-heading transition
+and retired BBU link. The opening has no gray descriptions or bright image frame;
+the changed static views have no obsolete selection buttons. Temporary viewport
+overrides were restored. No new native-fullscreen or OS-theme check was made.
+
+All 225 Node tests and 78 Python tests pass. Generated-course, expansion,
+domain-map, research metadata, site-staging and whitespace checks pass.
+Manufacturer evidence is registered as P202/P203 and reflected in the reader.
+These checks complete implementation of the current feedback; Chapter 8 remains
+under author review.

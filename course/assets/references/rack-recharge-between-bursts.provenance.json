@@ -1,0 +1,8 @@
+{
+  "reviewed_on": "2026-09-15",
+  "selected_input": "/var/folders/w8/dtz0q9y971s_s74xc_w0q8wr0000gn/T/codex-clipboard-f370abb8-f648-4fad-8828-024248d515c8.png",
+  "file": "rack-recharge-between-bursts.png",
+  "sha256": "3c07c90a09d4c1794d4d0c334d9cefd44c77b8370e1d88f295d0cfdce41200e2",
+  "conversion": "User-supplied PNG copied byte-for-byte; no image changes.",
+  "meaning": "The green area is available recharge energy during quiet time, not a claim that an already-full buffer stores extra energy. The 8 kJ burst can recover during a 1.0 s interval at 10 kW; a 0.5 s interval only provides 5 kJ."
+}

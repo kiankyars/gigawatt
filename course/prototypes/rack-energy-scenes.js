@@ -4,8 +4,8 @@ import { samplePresentation } from './rack-energy-800v-data.js';
 const ledger = 'd06-conversion-ledger', migration = 'd06-rack-migration';
 const control = (key, label, options) => ({key, label, options});
 export const defaults = samplePresentation.defaults;
-export const aliases = Object.freeze({...samplePresentation.aliases,'green-dc':'green-zurich-west','green-path':'green-zurich-west'});
-export const initialState = Object.freeze({...rackState, auxiliaryKW:12, volts:800, cycleDegrees:30,
+export const aliases = Object.freeze({...samplePresentation.aliases,'green-dc':'green-zurich-west','green-path':'green-zurich-west','bbu-shelf':'bbu-hardware'});
+export const initialState = Object.freeze({...rackState, auxiliaryKW:0, volts:800, cycleDegrees:30,
   voltageView:'meter', converterView:'supply', revealed:[], rackKW:120, allocationKW:240,
   deadlineWeeks:3, decision:'', migrationReveal:false});
 export const learningContract = Object.freeze({
@@ -19,9 +19,9 @@ export const learningContract = Object.freeze({
 const supplement = [
   {id:'rack-energy-scales', label:'Where conversion belongs', title:'How do we feed the rack while keeping chip voltage steady?', reference:ledger, kind:'scales', pedagogical_role:'problem',
     explanation:['Follow three physical scales: the rack bus distributes power; board converters create the required rails; local regulators and capacitors support the devices. The generated physical context is generic, while the next manufacturer view identifies the actual DGX rack bus.','The chapter first traces the local requirements, then moves conversion outward to compare 800 V architectures and an occupied-building retrofit.'], boundary:'Rack → board → package · physical context; functional paths are drawn separately.'},
-  {id:'rack-inlet-ledger',label:'Account for every inlet watt',title:'From processor power to rack input power',reference:ledger,kind:'ledger',pedagogical_role:'balance',
-    controls:[control('auxiliaryKW','Other DC-bus loads',[[12,'12 kW'],[18,'18 kW']])],
-    explanation:['The original reader example fixes processor rails at 72 kW, regulator efficiency at 92%, and shelf efficiency at 97%. Other loads branch directly from the shelf bus. Work backward through series converters and add parallel branches.','Increasing the other branch by 6 kW adds 6 / 0.97 = 6.186 kW at the inlet. It never passes through the processor regulators. The inlet is not the sum of processor ratings.'],boundary:'72 kW processor rails · 92% local regulation · 97% shelf efficiency · other loads at DC bus.'},
+  {id:'rack-inlet-ledger',label:'Account for processor power',title:'Follow power to the processor rails',reference:ledger,kind:'ledger',pedagogical_role:'balance',
+
+    explanation:['Account for processor power across the rack: 72 kW reaches its processor rails, local regulation is 92 percent efficient and the PSU stage is 97 percent efficient. Work backward through the two converters. Parallel rack loads are left out of this slide so that only this path is accounted for.','The path needs 80.68 kW at its AC input: 72 kW delivered, 6.26 kW lost in local regulation and 2.42 kW in the PSU stage. A complete rack account also adds its other branches; this is not a whole-rack total.'],boundary:'Processor supply across the rack · 72 kW output · 92% VRM efficiency · 97% PSU efficiency.'},
   {id:'dc-voltage-planes',label:'Separate the voltage planes',title:'Higher distribution voltage lowers current; the chip still needs local conversion.',reference:ledger,kind:'dc-planes',pedagogical_role:'comparison',
     explanation:['At 100 kW DC, a 50 V plane carries 2,000 A while an 800 V plane carries 125 A. These are two receiving-end voltage choices at equal power, not the current at each stage of a lossy real rack.','The coming AC/DC comparison asks a different question: three 480 V AC line conductors versus two 800 V DC conductors. Keep those conductor and measurement conventions explicit.'],boundary:'Same 100 kW at each declared DC plane · I = P / V · converter loss excluded from this current comparison.'},
   {id:'retrofit-power',label:'The sidecar needs upstream power',title:'Can the existing feeder supply the new DC sidecar?',reference:migration,kind:'retrofit',pedagogical_role:'counterexample',
@@ -58,7 +58,7 @@ const dcProtection = {
   boundary:'Conceptual 800 V DC feeder: rectifier, bus capacitor, cable inductance and mechanical DC breaker.',source_ids:['E1423005C7C','P05']
 };
 const rack = rackScenes.map(scene=>({...scene,kind:'rack'}));
-const ledgerIndex = rack.findIndex(scene => scene.id === 'board-rails');
+const ledgerIndex = rack.findIndex(scene => scene.id === 'local-current');
 const local = [supplement[0],reviewFigures[0],...rack.slice(0,ledgerIndex), supplement[1],...rack.slice(ledgerIndex)];
 const electrical = samplePresentation.steps.map(step=>({...step,label:step.title,title:step.headline,reference:'d06-eight-hundred-volt-architectures',sourceKind:step.kind,kind:'800v'}));
 // Preserve both reviewed sequences and every old scene ID in the shared selector.

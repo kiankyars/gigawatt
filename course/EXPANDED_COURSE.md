@@ -2589,19 +2589,23 @@ Specify the electrical plane before labeling a voltage. In a balanced 480/277 V 
 
 Advanced Energy’s original ORv3 example makes the distinction concrete: its 3 kW PSU has a nominal 200–277 V single-phase AC input and a 50 V DC output, and multiple modules share a shelf. That product is an example of the interface distinction, not a claim about the precise wiring inside every GB300 shelf. A qualified 480/277 V path may omit an intermediate 480-to-208-V transformer used in another architecture, but the saved conversion stage does not establish a universal efficiency gain. Compare actual equipment loss at the same load and redundancy state.
 
-## The board creates several rails before power reaches the die
+## Distinguish the converter from its output rail
 
-After the rack bus, the tray’s qualified connector, protection and distribution carry power to its boards. An intermediate bus converter (IBC) can lower the rack voltage before point-of-load regulators create the rails required by the GPU, CPU, memory and other circuits. Texas Instruments’ TIDA-050095 is a concrete 48-to-12-V, 2 kW bus-converter reference design. Its transformer-less buck topology also demonstrates that a DC/DC converter need not contain a transformer. Other architectures use other intermediate voltages or conversion arrangements; do not infer that a GPU always receives 54 V directly at a final buck stage.
+The PSU supplies the rack DC bus. A board voltage regulator module (VRM) creates and controls the low voltage required by the compute circuits. Vcore names the conductive core-supply rail between that regulator output and the CPU cores; it is not an additional conversion stage. Local capacitors connect to this rail, supplying or absorbing brief current differences while regulation responds. A GPU has the same functional distinction.
 
-A voltage regulator module (VRM) controls a local rail near its load. “VRM” names the regulating function and associated power stages; it need not be one removable module. Input and output voltage, current capability, transients and sequencing are specific to the platform. There is no universal 12 V, 5 V or 3.3 V branch inventory for every AI tray. The teaching path 50 V rack bus → intermediate conversion → point-of-load VRM → die describes the functional order; an illustrative 48 V → 12 V → 1 V chain is labeled separately from the unpublished GB300 board schematic.
+A direct converter can bring the rack voltage down to the core voltage near the processor. Alternatively, an intermediate bus converter first creates a lower distribution rail, such as 12 V, before a local VRM makes the core voltage. Both can keep the high-current 1 V path short. An intermediate stage can suit the selected downstream regulators and board arrangement; stage count alone does not determine the length of the final core-current path.
 
-At an idealized 1 kW core rail and 1 V, I = P/V = 1,000 A. At 50 V the same ideal power is 20 A before conversion losses. This is why the final high-current route is short: even a hypothetical 100 microohm loop drops 0.1 V and dissipates 100 W at 1,000 A. Reducing that loop to 10 microohms reduces those numbers to 0.01 V and 10 W. These values illustrate the physical constraint, not a proposed rail tolerance or PCB design. A vertical rack busbar is also distinct from vertical power delivery beneath or through a chip package; “vertical” alone does not identify the scale.
+TI’s TIDA-050095 is a contemporary 48-to-12 V, 2 kW reference design. Infineon documents both intermediate-bus and direct-to-point-of-load architectures. These examples establish available approaches, not their share of current GPU-rack shipments or the undisclosed layout of a particular GB300 board.
 
-## Multiphase regulation shares current and controls ripple
+Two conversion efficiencies multiply: 98% followed by 95% gives 93.1% overall. A direct converter may do better or worse at the relevant input voltage, output voltage and load. A fair comparison includes both converter losses and conductor losses, plus space, cooling and transient response. Neither equal total voltage reduction nor smaller individual voltage steps guarantees equal or better efficiency.
 
-A multiphase buck regulator uses several switched power paths whose inductor currents join at the output. Interleaving their switching times reduces the combined ripple under the stated duty ratio and phase arrangement while sharing current and heat across stages. Feedback adjusts switching to regulate the output; capacitors support the remaining time-varying difference between inductor current and load current. These converter switching phases are not the three phases of the facility AC supply.
+## Several switching paths can share one VRM output
 
-The output is not perfectly ripple-free. Ripple, transient droop, overshoot, parasitic resistance/inductance and control response remain finite. Phase count alone does not establish ripple or efficiency: the inductors, switching frequency, duty ratio, control method and operating load matter. The presentation’s one- and four-phase traces keep average total current fixed and state their normalized waveforms. They show cancellation of staggered ripple, not a measured GB300 VRM or a component-selection method.
+A multiphase regulator has several switched paths, each with switching devices and an inductor. Their output currents join at the same rail. Offsetting the switching times makes some rising currents overlap falling currents, reducing variation in their sum while sharing the average load.
+
+The teaching graph holds the average combined current at 1,000 A and compares one path with four paths. It shows amperes directly. Output capacitors support the remaining difference between regulator and load current, while feedback maintains rail voltage. These high-frequency converter phases are not the facility’s three-phase AC.
+
+Four phases are not four independent VRMs and do not alone establish redundancy. Fault tolerance requires the relevant detection, isolation and surviving-capacity design. Current sharing and smaller current fluctuations are the mechanisms demonstrated here.
 
 ## Conversion moves the loss as well as the voltage
 
@@ -2672,6 +2676,8 @@ Only the conversion stages upstream of a changed branch affect its incremental d
 - [Advanced Energy — ORv3 Power Supply Unit](https://www.advancedenergy.com/en-us/products/ac-dc-power-supply-units/power-shelves/ocp-compliant/orv3-psu/) — A real 3 kW single-phase PSU with nominal 200–277 V AC input in a multi-module shelf; shelf input configuration differs from each PSU input. Read 2026-09-12. Product overview and Features inspected. This ORv3 product is not identified as the DGX GB300 power supply. No claimed peak efficiency is generalized to whole-rack conversion or an omitted 480-to-208-V transformer.
 - [Texas Instruments — TIDA-050095 48V–12V 2kW four-phase bus converter](https://www.ti.com/tool/TIDA-050095) — Concrete intermediate-bus conversion example; DC/DC conversion can be transformer-less and can precede point-of-load regulation. Read 2026-09-12. Overview, Features and design-guide description reviewed; indexed System Description and specification table also inspected. No lab replication or claim that this reference design is installed in GB300. Manufacturer efficiency claims and separate maxima are not used as the course model. Multiphase waveforms are explicitly original normalized illustrations.
 - [Texas Instruments — The decoupling capacitor: is it really necessary?](https://e2e.ti.com/blogs_/archives/b/precisionhub/posts/the-decoupling-capacitor-is-it-really-necessary) — Short local current paths and trace inductance explain why device decoupling is separate from distant stored energy. Read 2026-09-12. Authored article and figure descriptions 1–3 inspected. The example is an amplifier circuit, not a GPU benchmark. No suggested component value or layout instructions are imported; rack-level power transients are original stated models.
+- [Infineon — 200 W dual output 48V-to-PoL single step converter](https://www.infineon.com/assets/row/public/documents/24/42/infineon-dc-dc-converters-200w-dual-output-48v-pol-single-step-converter-xdpp1100-digital-controller-applicationnotes-en.pdf) — Pages 5–8 compare intermediate-bus and direct-to-load conversion architectures. Read 2026-09-15. Does not establish current GPU-rack market shares or GB300 board internals. The 51-to-12-to-1 V illustration and efficiency example are teaching values.
+- [TI — Benefits of a multiphase buck converter](https://www.ti.com/lit/an/slyt449/slyt449.pdf) — Interleaved converter paths share output current and reduce combined ripple. Read 2026-09-15. The displayed 1,000 A current traces are illustrative, not a captured device waveform or a guarantee of fault tolerance.
 
 ## 800 V is an interface, not an entire architecture
 
@@ -2826,6 +2832,8 @@ A feeder can have sufficient average capacity while a load transient still viola
 
 For a capacitor model, usable energy between two allowed voltages is one half of capacitance times the difference of their squares. The usable range matters more than total nameplate energy when the load cannot tolerate deep voltage reduction. For a repeated burst, the source must also replenish the buffer between events. A buffer solves a temporary mismatch only while its power and energy limits permit it. It cannot make a permanently overloaded feeder adequate, and recharge can create a new upstream peak.
 
+The Chapter 8 ramp example identifies the buffer as a rack BBU with its converter. Its 40 kW initial contribution is separate from the following photographed 15 kW Delta product. A linear PSU-supply increase over 0.2 or 0.4 seconds leaves a triangular 4 or 8 kJ deficit supplied by the BBU. These are illustrative controlled supply ramps, not universal PSU response times.
+
 ## Stored energy must be electrically close enough to serve the event
 
 Separate three physical scales. Package and board capacitors provide local transient current at device rails. Rack-bus capacitors and qualified battery backup units (BBUs) support their DC distribution bus. Facility UPS batteries or a battery energy storage system (BESS) act through a larger conversion and distribution path and may serve a broader set of loads. “Closer to compute” is meaningful because impedance, conversion stages and control response sit between stored energy and the load; merely owning more kWh farther away does not remove a fast voltage disturbance at the chip.
@@ -2836,6 +2844,8 @@ For an explicit bus-level model, let demand rise by 40 kW while the upstream con
 
 A capacitor’s usable energy is ½C(Vinitial² − Vminimum²). It must satisfy both the energy account and the permitted voltage/time response. A BBU needs an adequate discharger, charged cells, protection, coordination and a qualified bus interface. A BESS at the facility can help a grid-side power schedule or longer interruption but does not substitute for local chip decoupling. A rack-only BBU also does not by itself keep facility pumps, cooling or remote switches alive.
 
+The support map groups sources by their electrical connection, not a universal timed sequence. A generator after startup and connection, or a site BESS through its inverter, can support the facility bus. Rack BBUs support their qualified rack DC bus. Local capacitors support device rails. Which loads continue operating depends on those connections and controls, and source contributions can overlap.
+
 ## A BBU is not one universal battery per NVL72 rack
 
 BBU can mean an individual module or a whole shelf in informal discussion; identify which. The reviewed ORv3 example has six BBU modules in a shelf with 5+1 redundancy. The OCP module specification calls for 3 kW per module and at least 240 s of discharge under its declared cell-state, temperature and aging conditions. For a 15 kW protected load, five surviving 3 kW modules pass the power screen after one module fails; four supply only 12 kW after two failures. The example establishes an interface-specific capacity calculation, not a BBU count for a 142 kW rack.
@@ -2844,11 +2854,15 @@ The same specification includes a nonzero activation/ramp interval and commanded
 
 The product photographs in the presentation show Delta’s removable 3 kW BBU and its six-module, 15 kW Battery Backup System. Delta specifies 48 V DC output and four minutes at rated load after four years of service, with an operating-temperature range of 0–40°C. The published system rating is 15 kW; the separate ORv3 module-capacity exercise does not turn this specific product into an 18 kW system. The manufacturer photographs establish the form factor, not a BBU count or configuration for NVL72.
 
+Delta’s reviewed product page gives six 3 kW battery modules and a 15 kW shelf rating without explicitly stating that this product rating is caused by N+1 operation. Analog Devices separately identifies the ORv3 six-module example as 5+1. The arithmetic is consistent, but one product’s design intent should not be inferred solely from its module count.
+
 ## Repeated bursts must leave time and capacity to recharge
 
 Take an original DC-bus example with a source capped at 120 kW. The rack normally draws 110 kW, then 160 kW for 0.2 s. A qualified buffer supplies the 40 kW gap, delivering 8 kJ. During the 110 kW interval only 10 kW of source headroom remains, so ideal recharge requires 8/10 = 0.8 s. At 10 s between bursts there is time to refill. At only 0.2 s between bursts, the source can replace just 2 kJ and each cycle loses 6 kJ from the buffer.
 
 The rapid pattern also averages (160 × 0.2 + 110 × 0.2)/0.4 = 135 kW, exceeding the 120 kW source indefinitely. Adding storage delays depletion; it cannot fix that sustained energy shortfall. Reduce or reschedule demand, supply more average power, or accept shorter operating duration. Real losses, discharge limits, battery cycling and a reserved backup state of charge narrow the feasible envelope further. Peak shaving and outage reserve therefore compete for the same usable stored energy unless the design explicitly allocates both.
+
+The supplied recharge slide uses an 8 kJ burst followed by 10 kW of available recharge power. One second offers 10 kJ, enough to restore the buffer; half a second offers only 5 kJ. Charging stops once the missing energy has been replaced. The short interval leaves a repeated deficit, so a larger battery postpones depletion rather than fixing the average-power imbalance.
 
 ## Brownfield and greenfield optimize different things
 

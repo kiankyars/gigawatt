@@ -34,7 +34,7 @@ export const rackProducts = Object.freeze({
     source: BBU,
     credit: "Delta · Battery Backup System",
     description:
-      "Delta product photographs show a removable 3 kW battery backup module and its six-module battery shelf. Delta rates the system at 15 kW and 48 V DC. The following ORv3 arithmetic model sums module capacity; it does not increase this product’s published system rating.",
+      "Delta product photographs show a removable 3 kW battery backup module and its six-module battery shelf. Delta rates the system at 15 kW and 48 V DC. The published system rating is 15 kW; the module sum does not increase that rating.",
     items: [
       {
         file: "delta-bbu-module.jpg",
