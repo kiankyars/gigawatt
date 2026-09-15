@@ -8,9 +8,23 @@ const svg=(body,alt,w,h)=>`<svg class="mechanism distribution-context" viewBox="
 const transformer=(x,y,color)=>`<circle cx="${x-17}" cy="${y}" r="30" fill="var(--paper)" stroke="${color}" stroke-width="3"/><circle cx="${x+17}" cy="${y}" r="30" fill="var(--paper)" stroke="${color}" stroke-width="3"/>`;
 const cabinet=(x,y,w,h,label,color=power)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="8" fill="var(--surface)" stroke="${color}" stroke-width="2"/>${tx(x+w/2,y+h/2+8,label,21)}`;
 
-export function campusRoute(s,compact){
+function campusFocus(focus,compact){
+ let shape;
+ if(focus==='switchgear'){
+  const [x,y,width,height]=compact?[5,260,188,80]:[450,69,198,121];
+  shape=`rect x="${x}" y="${y}" width="${width}" height="${height}" rx="14"`;
+ }else if(focus==='three-phase'){
+  // Follow the transformer output conductor without enclosing its voltage-ratio label.
+  const d=compact?'M80 523H118V550H357V640H5V550H80Z':'M948 69H1122V190H948V167H839V123H948Z';
+  shape=`path d="${d}"`;
+ }else return '';
+ return `<${shape} class="campus-focus" data-focus="${focus}" fill="none" stroke="var(--heat)" stroke-width="5" stroke-linejoin="round" vector-effect="non-scaling-stroke" aria-hidden="true"/>`;
+}
+
+export function campusRoute(s,compact,focus=''){
  const active=traceLoad(s.load),on=id=>active.path.includes(id)?power:line;
- const alt='A 345 kV grid supply feeds a campus transformer, then 34.5 kV switchgear. A hall transformer steps down again to 480 V, feeding rack and cooling branches. A separate future-hall feeder branches from the medium-voltage bus and is open.';
+ const focusDescription=focus==='switchgear'?' The medium-voltage switchgear is outlined.':focus==='three-phase'?' The 480 V AC conductor and building bus are outlined.':'';
+ const alt='A 345 kV grid supply feeds a campus transformer, then 34.5 kV switchgear. A hall transformer steps down again to 480 V, feeding rack and cooling branches. A separate future-hall feeder branches from the medium-voltage bus and is open.'+focusDescription;
  if(compact){
   const x=99;let o=tx(x,28,'HV grid',23)+tx(275,28,'345 kV AC',22,power)+wire(`M${x} 46V112`,on('service'));
   o+=`<g transform="translate(${x} 160) rotate(90)">${transformer(0,0,on('campus-transformer'))}</g>`+tx(272,147,'Campus transformer',18)+tx(272,180,'345 → 34.5 kV',20);
@@ -20,7 +34,7 @@ export function campusRoute(s,compact){
   o+=wire(`M${x} 517V565`,on('building-bus'))+cabinet(15,565,168,60,'Building bus',on('building-bus'))+tx(271,603,'480 V AC',23);
   o+=wire(`M${x} 625V664H62V704`,on('rack'))+wire(`M${x} 664H284V704`,on('pump'));
   o+=cabinet(4,704,154,57,'Row → rack',on('rack'))+cabinet(203,704,180,57,'Cooling pump',on('pump'));
-  return svg(o,alt,390,783);
+  return svg(o+campusFocus(focus,compact),alt,390,783);
  }
  let o=tx(67,58,'HV grid',23)+tx(67,90,'345 kV AC',19,power)+wire('M25 145H241',on('service'));
  o+=transformer(288,145,on('campus-transformer'))+tx(288,58,'Campus transformer',21)+tx(288,90,'345 → 34.5 kV',19)+wire('M335 145H462',on('campus-bus'));
@@ -30,7 +44,7 @@ export function campusRoute(s,compact){
  o+=wire('M549 178V265H453',on('future-feeder'))+dot(453,265,on('future-feeder'))+wire('M453 265L412 237',on('future-feeder'))+dot(402,265,line)+wire('M402 265H288V318',line)+cabinet(203,318,170,67,'Future hall',line)+tx(426,308,'Feeder open',19,muted);
  o+=wire('M1038 178V251H772V318',on('rack'))+cabinet(683,318,178,67,'Row → rack',on('rack'));
  o+=wire('M1038 251V318',on('pump'))+cabinet(948,318,172,67,'Cooling pump',on('pump'));
- return svg(o,alt,1140,425);
+ return svg(o+campusFocus(focus,compact),alt,1140,425);
 }
 
 function branchDrawing(expanded){

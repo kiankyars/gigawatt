@@ -190,8 +190,8 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P148 — Parklane — Rogers headquarters data-center acoustic screen](sources/P148.md) | Parklane | D12 | page_reviewed |
 | [P149 — Lenovo — Remove a GB300 compute tray from the rack](sources/P149.md) | Lenovo | D12, D07 | page_reviewed |
 | [P15 — Liquid to Liquid CDU Test Methodology and Performance Rating — Revision 1.0](sources/P15.md) | Open Compute Project | D10, D11, D13, D14 | public_excerpt_reviewed |
-| [P150 — Siemens — Compass Datacenters integrated MV skid](sources/P150.md) | Siemens | D04 | page_reviewed |
-| [P151 — Siemens and Compass sign modular electrical solution agreement](sources/P151.md) | Siemens | D04 | page_reviewed |
+| [P150 — Siemens — Compass Datacenters integrated MV skid](sources/P150.md) | Siemens | D04, D13 | page_reviewed |
+| [P151 — Siemens and Compass sign modular electrical solution agreement](sources/P151.md) | Siemens | D04, D13 | page_reviewed |
 | [P152 — Fujitsu selects Starline Track Busway for data centre expansion](sources/P152.md) | Starline / Legrand | D04 | page_reviewed |
 | [P153 — ABB Review 4/2013 — DC for efficiency](sources/P153.md) | ABB | D04, D06 | page_reviewed |
 | [P154 — ABB and Green open Zurich-West DC data-center expansion](sources/P154.md) | ABB | D04, D06 | page_reviewed |

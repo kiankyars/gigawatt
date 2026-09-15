@@ -6,6 +6,26 @@ repository records; those records do not substitute for the original message.
 The prior “everything addressed” claim was too strong. This page foregrounds
 exceptions; the coverage list below makes the rest inspectable.
 
+## Chapter 6 overview sequence and image review — 15 September 2026
+
+All requests from this pass are implemented:
+
+- Original slide 2 is preserved. New slide 3 outlines its MV switchgear; slide 4
+  opens the switchgear. Slide 5 returns to the overview and outlines the 480 V
+  conductor and building bus; slide 6 expands the physical conductors.
+- Compass remains in Chapter 6, with a new co-design lead-in immediately before
+  the factory case. Manufacturing, logistics and ownership are explicitly
+  handed to the procurement/commissioning chapter in TEACHING_STANDARD.md.
+- The supplied tap photograph has its own slide after the unchanged interactive
+  turns-ratio example.
+- Evaluated all four PF images; selected the clean two-column supplied image.
+  The other two new figures incorrectly label reactive power as 225 or 450 kvar
+  and visually imply scalar addition of P and Q. The sinusoidal value here is
+  675 kvar. The previous image is correct but denser; it remains in the repository.
+
+No unresolved instruction from this pass. New slide numbers reflect four added
+slides; existing scene hashes are stable. Image provenance records the comparison.
+
 ## Chapter 7 review and Chapter 8 figures — 15 September 2026
 
 The requested recovery derivation, storage arithmetic correction, stored-energy

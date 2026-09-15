@@ -4083,11 +4083,12 @@
       "publisher": "Siemens",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-13",
+      "reviewed_on": "2026-09-15",
       "domains": [
-        "D04"
+        "D04",
+        "D13"
       ],
-      "use": "Locate MV switchgear and transformation as distinct jobs in a shared skid; identify the case photograph.",
+      "use": "Introduce the co-designed switchgear/transformer package, then show the Compass factory case in Chapter 6; retain procurement and interface-ownership follow-up for D13.",
       "caution": "Public project-page text and original product photograph reviewed. The photo shows switchgear in the factory; transformer is not visible. Product name 8DJH 36 is not an asserted operating voltage. No deployment count or quantified saving adopted."
     },
     {
@@ -4097,11 +4098,12 @@
       "publisher": "Siemens",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-14",
+      "reviewed_on": "2026-09-15",
       "domains": [
-        "D04"
+        "D04",
+        "D13"
       ],
-      "use": "Establish that Siemens and Compass co-developed prefabricated switchgear/transformer skids specifically for Compass data centers.",
+      "use": "Introduce the co-designed switchgear/transformer package, then show the Compass factory case in Chapter 6; retain procurement and interface-ownership follow-up for D13.",
       "caution": "December 2024 announcement reviewed. Its planned first deployment and up-to-1,500-unit agreement are not used as installed capacity or completed deliveries.",
       "published_on": "2024-12-04"
     },

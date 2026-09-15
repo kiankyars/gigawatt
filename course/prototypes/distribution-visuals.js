@@ -77,6 +77,28 @@ function transformerTaps(state, compact) {
  return svg(`<g data-input-volts="${inputVolts}" data-primary-turns="${primaryTurns}" data-secondary-turns="${secondaryTurns}" data-tap-volts="${tapVolts}" data-output-volts="${outputVolts}">${o}</g>`,'A transformer tap changes connected primary turns. With 20 secondary turns, 80 primary turns give 120 volts from 480 volts and 126 volts from 504 volts. Connecting 84 primary turns gives 120 volts from 504 volts.',compact?390:1120,compact?550:420);
 }
 
+function coDesign(compact) {
+ const w=compact?390:1120;
+ let o='';
+ if(compact){
+  o+=box(8,10,168,92,'Compass','Site requirements')+box(214,10,168,92,'Siemens','Equipment design');
+  o+=wire('M176 56H214',muted)+wire('M92 102V133H296V102',muted)+wire('M195 133V174',muted);
+  o+=rect(20,174,350,297,'var(--panel)',power)+text(195,213,'One factory-built skid',25,power);
+  o+=box(64,239,262,81,'MV switchgear','Switch + protect')+wire('M195 320V348');
+  o+=box(64,348,262,81,'Transformer','Change voltage');
+  o+=text(195,525,'Agree the interfaces',22);
+  o+=text(195,565,'Voltage + current',20,muted)+text(195,602,'Protection',20,muted)+text(195,639,'Cable connections',20,muted);
+ }else{
+  o+=box(190,5,260,85,'Compass','Site requirements')+box(670,5,260,85,'Siemens','Equipment design');
+  o+=wire('M450 47H670',muted)+text(560,28,'Co-design',20,muted)+wire('M560 47V129',muted);
+  o+=rect(175,129,770,233,'var(--panel)',power)+text(560,169,'One factory-built skid',28,power);
+  o+=box(235,207,285,95,'MV switchgear','Switch + protect')+wire('M520 254H600')+arrow(587,254)+box(600,207,285,95,'Transformer','Change voltage');
+  o+=text(560,406,'Agree the interfaces',23);
+  o+=text(270,446,'Voltage + current',23,muted)+text(560,446,'Protection',23,muted)+text(850,446,'Cable connections',23,muted);
+ }
+ return svg(o,'Compass site requirements and Siemens equipment design meet in one factory-built skid. Switchgear switches and protects; the transformer changes voltage. Voltage, current, protection and cable connections are coordinated at the interfaces.',w,compact?680:480);
+}
+
 export function renderDistribution(id,state={},compact=false){
  const m=compact,s=state;
  const art=(file,alt)=>`<figure class="teaching-art"><img src="../assets/generated/${file}.png" alt="${esc(alt)}"></figure>`;
@@ -84,19 +106,23 @@ export function renderDistribution(id,state={},compact=false){
  switch(id){
  case 'distribution-purpose':markup=art('distribution-campus-to-rack','Campus connection → building transformer → overhead row busway → rack load.');break;
  case 'campus-route':markup=campusRoute(s,m);break;
+ case 'campus-switchgear-focus':markup=campusRoute(s,m,'switchgear');break;
+ case 'campus-three-phase-focus':markup=campusRoute(s,m,'three-phase');break;
  case 'one-line':markup=oneLine(m);break;
  case 'switchgear-anatomy':markup=switchgearAnatomy(m);break;
  case 'protection-relay':case 'isolation-surge':case 'surge-protection':case 'phase-loading':case 'feeder-diagnosis':markup=equipment(id,s,m);break;
+ case 'compass-co-design':markup=coDesign(m);break;
  case 'compass-skid':markup=`<div class="split">${photo('distribution-compass-switchgear.jpg','Original factory view of Siemens switchgear for the jointly developed Compass MV skid.','Siemens × Compass · factory switchgear',compassURL)}<div class="package-comparison"><div><h2>Custom factory-built skid</h2><p>MV switchgear + transformer</p></div><div><h2>Co-developed with Compass</h2><p>Manufactured by Siemens</p></div></div></div>`;break;
  case 'local-stepdown':markup=art('distribution-transformer-location','Two balanced 2 MW, PF 1 routes: early step-down carries 2,406 A over 470 m; step-down beside the hall carries 33.5 A at 34.5 kV over 450 m and 2,406 A at 480 V over the final 20 m. Losses neglected.');break;
  case 'transformer-taps':markup=transformerTaps(s,m);break;
+ case 'transformer-taps-photo':markup=`<figure class="teaching-art transformer-tap-photo"><img src="../assets/references/distribution-transformer-taps-photo.png" alt="Three transformer windings with multiple bolted tap terminals. The supplied red circle and arrow mark one attached winding lead."></figure>`;break;
  case 'building-branches':markup=building(m);break;
  case 'distribution-units':markup=art('distribution-pdu-psu','Floor PDU distributes to feeders; rack PDU distributes AC to outlets; server PSU converts AC to DC.');break;
  case 'busway-introduction':markup=art('distribution-busway','An enclosed overhead busway has one end feed and a shared conductor housing above three racks. Tap-off boxes connect individual rack cables to the busway.');break;
  case 'busway-branches':markup=`<div class="split">${photo('distribution-fujitsu-tapoffs.jpg','A busway tap-off enclosure with branch connectors in the Fujitsu case.','Starline / Legrand · tap-off',fujitsuURL)}<div class="stack">${flow(node('End feed','Power enters busway'),node('Tap-off box','Connects a protected branch'),node('Cable to rack','Rack PDU or power shelf'))}</div></div>`;break;
  case 'fujitsu-busway':markup=`<div class="split">${photo('distribution-fujitsu-outlets.jpg','Overhead busway branch outlets in the Fujitsu case study.','Starline / Legrand · Fujitsu · 2018',fujitsuURL)}<div class="case-points"><strong>250 A Track Busway</strong><p>New branches near changing rack loads</p><p>Metering at each tap-off</p><p>Underfloor cooling path stays clear</p></div></div>`;break;
  case 'row-growth':markup=row(s,m);break;
- case 'power-factor-explained':markup=art('distribution-power-factor-explained','At 900 kW real power and 480 V balanced three-phase, PF 1 needs 900 kVA and 1,083 A; PF 0.8 needs 1,125 kVA and 1,353 A, exceeding the 1,000 kVA transformer rating.');break;
+ case 'power-factor-explained':markup=`<figure class="teaching-art"><img src="../assets/references/distribution-power-factor-comparison.png" alt="At 900 kW real power and 480 V balanced three-phase, PF 1 needs 900 kVA and 1,083 A, loading a 1,000 kVA transformer to 90 percent. PF 0.8 needs 1,125 kVA and 1,353 A, loading the same transformer to 112.5 percent."></figure>`;break;
  case 'power-factor':{const pf=s.powerFactor??1,p=900,kva=p/pf,amps=kva*1000/(Math.sqrt(3)*480);markup=`<div class="pf-rating"><strong>1,000 kVA</strong><span>Transformer rating</span></div><div class="equation">S = P / PF</div>`+strip(fact('900 kW','Real input'),fact(`${n(kva,0)} kVA`,'Transformer loading',kva>1000?'warm':''),fact(`${n(amps,0)} A`,'Current at 480 V'))+`<div class="rating-track"><span style="width:${Math.min(kva/1200*100,100)}%"></span><i style="left:83.333%"></i></div>`;break;}
  case 'distribution-handoff':markup=art('distribution-interruption','An open common feeder interrupts the path to a switchboard and both its compute-rack and cooling/control branches.');break;
  default:throw new RangeError(`Unknown distribution scene: ${id}`);

@@ -42,6 +42,12 @@ A good reading exercise ends with questions, not just labels. Which load does th
 
 Siemens and Compass jointly developed the custom modular medium-voltage skid. Siemens supplies the factory-built switchgear-and-transformer package; Compass is the data-center customer, not a Siemens catalog family. Its two functions remain distinct: switchgear makes and protects connections, while the transformer changes AC voltage. The original Siemens photograph shows the switchgear portion. The transformer is not visible in that photograph.
 
+## Compass: co-design the electrical package
+
+Siemens and Compass jointly developed a prefabricated medium-voltage skid that combines switchgear and a transformer. The Chapter 6 lead-in identifies the two electrical jobs and the interfaces agreed when they share a package: voltage and current, protection and physical connections. The following case photograph shows the switchgear portion in the factory; the transformer is not visible.
+
+This case stays with distribution because packaging does not remove the separate switching, protection and voltage-conversion functions. The design, procurement and commissioning chapter can return to the same package for manufacturing strategy, site work, transport, ownership and release evidence. No new schedule-saving or deployment-count claim follows from the drawing.
+
 ## Fujitsu: put flexible circuits beside the load
 
 A Starline case study, first published in December 2018, describes an extension to a Fujitsu-managed 3.2 MW data center north of London. Existing racks used cables under a raised floor. The extension adopted 250 A Track Busway overhead so the floor remained available for cooling, with wired or wireless metering options at tap-offs. The electrical consequence is a shared bus with local branch connections. A new branch can be easier to place without creating additional current capacity in the end feed.
@@ -53,6 +59,8 @@ The slides use a separate row example with balanced 415 V line-to-line AC, power
 ## Trace the path through both transformer stages
 
 The interactive teaching network uses 345 kV at the campus grid connection, 34.5 kV across campus distribution and a 480 V building bus. IT and cooling branch from that bus; the future hall has a separate open medium-voltage feeder. Selecting a load highlights every upstream stage.
+
+The teaching sequence preserves this network while moving into detail: the first repeated overview outlines the medium-voltage switchgear, followed by the switchgear cutaway. The second outlines the 480 V AC connection from the hall transformer into the building bus, followed by the expanded physical-conductor drawing. Returning to the same arrangement keeps each component located in the whole path.
 
 The high-voltage reference follows Abilene’s expansion: Mortenson distinguishes the initial 200 MW / 138 kV connection from the later 1 GW / 345 kV expansion and reports all five expansion transformers energized by March 10, 2026. The Longhorn review drawing filed with TCEQ separately labels an underground Lancium 34.5 kV feed. That December 4, 2024 drawing is marked not for construction. Together these sources support the course’s reference voltages, not a complete as-built 345/34.5 kV ratio for every campus transformer. The hall-level 480 V arrangement remains a teaching example. 34.5 kV is one nominal medium-voltage level, not the definition of the entire MV range.
 
@@ -88,9 +96,11 @@ The Primer now shows Schneider Electric’s Phaseo ABL6TS25B, a 250 VA controls 
 
 A fixed-ratio transformer passes a source-voltage change through to its output. Hammond Power Solutions illustrates 480 V across 80 primary turns and 120 V across 20 secondary turns. With those same turns connected, 504 V at the primary gives 126 V at the secondary. A 504 V tap connects 84 primary turns; the same 20 secondary turns then receive 120 V. The tap changes the ratio by choosing how much of the winding is connected. These are configured connections, not an automatic voltage regulator. The selected equipment determines the allowed connections and procedures.
 
+A separate supplied photograph then shows real winding connections: several bolted terminals are visible on each of three windings, and the supplied red marking identifies one attached lead. The photographed transformer has no provided model or connection schedule; its numerical ratios are not inferred from the earlier Hammond example.
+
 ## Where conversion placement is taught
 
-Chapter 6 follows normal AC distribution through switchgear, building branches and row busway. The Primer teaches the transformer ratio, taps and a real input range. Chapter 7 develops continuity and fault response. Chapter 8 owns the rectification-placement, solid-state-transformer and 800 V transition sequence, including the historical Green Zurich-West 380 V DC case. The D04.3 conversion-placement objective is taught there rather than repeated in Chapter 6. Conventional building auxiliaries can still require AC when compatible IT is supplied with DC.
+Chapter 6 follows normal AC distribution through switchgear, building branches and row busway. The Primer introduces transformers and a real input range; Chapter 6 teaches taps. Chapter 7 develops continuity and fault response. Chapter 8 owns the rectification-placement, solid-state-transformer and 800 V transition sequence, including the historical Green Zurich-West 380 V DC case. The D04.3 conversion-placement objective is taught there rather than repeated in Chapter 6. Conventional building auxiliaries can still require AC when compatible IT is supplied with DC.
 
 ## A PDU name does not specify a transformation ratio
 

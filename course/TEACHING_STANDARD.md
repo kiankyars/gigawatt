@@ -125,6 +125,10 @@ just before fabrication. Require the learner to decide what proceeds, what is he
 and which electrical, hydraulic, spatial and schedule evidence releases each hold.
 Close with the interface consequences or a meaningful changed-design problem;
 the reader’s boundary check is available without forcing it into the slides.
+Use the Siemens/Compass package introduced in Chapter 6 at `compass-co-design`
+and `compass-skid` as a concrete handoff: revisit factory/site responsibility,
+transport and the owner of each electrical/mechanical interface. Keep the
+Chapter 6 treatment focused on the two electrical functions in one package.
 
 At every section handoff, verify the next chapter is reachable, check any Abilene
 claim against its dated source and update the chapter's

@@ -54,7 +54,7 @@ The reduced power-factor example holds real AC input at 900 kW and voltage at 48
 
 ## Read the power-factor comparison
 
-The comparison before the interactive slide keeps real power at 900 kW and balanced three-phase voltage at 480 V line-to-line. PF 1 gives 900 kVA and 1,083 A; PF 0.8 gives 1,125 kVA and 1,353 A. Those loads use 90% and 112.5% of the 1,000 kVA transformer rating; the image rounds the latter to 113%. Real power is average power delivered to the load, including its losses. Power factor is the ratio of real to apparent power; it is not conversion efficiency.
+The comparison before the interactive slide keeps real power at 900 kW and balanced three-phase voltage at 480 V line-to-line. PF 1 gives 900 kVA and 1,083 A; PF 0.8 gives 1,125 kVA and 1,353 A. Those loads use 90% and 112.5% of the 1,000 kVA transformer rating; the selected two-column image displays 112.5% directly. Real power is average power delivered to the load, including its losses. Power factor is the ratio of real to apparent power; it is not conversion efficiency.
 
 Reactive power describes cyclic energy exchange with electric and magnetic fields. For sinusoidal voltage and current, S² = P² + Q². At 900 kW and PF 0.8, the magnitude of reactive power is 675 kvar, alongside 1,125 kVA of apparent power. It is not the arithmetic difference between kVA and kW. With distorted waveforms, P and true PF alone do not determine Q.
 

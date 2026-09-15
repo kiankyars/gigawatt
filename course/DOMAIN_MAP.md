@@ -1591,6 +1591,8 @@ Specify an integrated acceptance and handover plan for a phased deployment.
 - [P114 — SpaceX — Google Cloud Service Agreement, free writing prospectus](https://www.sec.gov/Archives/edgar/data/1181412/000162828026041150/spacexagreementfwp.htm) · `page_reviewed` · [local note](../research/sources/P114.md)
 - [P115 — SpaceX — second-quarter 2026 Form 10-Q, AI segment results](https://www.sec.gov/Archives/edgar/data/1181412/000162828026052535/spcx-20260630.htm) · `public_excerpt_reviewed` · [local note](../research/sources/P115.md)
 - [SA43 — SemiAnalysis — Meta Compute: Everyone Wants To Be A Neocloud](https://newsletter.semianalysis.com/p/meta-compute-everyone-wants-to-be) · `public_excerpt_reviewed` · [local note](../research/sources/SA43.md)
+- [P150 — Siemens — Compass Datacenters integrated MV skid](https://www.siemens.com/en-us/company/insights/compass-datacenters-case-study/) · `page_reviewed` · [local note](../research/sources/P150.md)
+- [P151 — Siemens and Compass sign modular electrical solution agreement](https://press.siemens.com/global/en/pressrelease/siemens-and-compass-datacenters-sign-multi-year-custom-electrical-solution-agreement) · `page_reviewed` · [local note](../research/sources/P151.md)
 - [P200 — Meta’s Infrastructure Evolution and the Advent of AI](https://engineering.fb.com/2025/09/29/data-infrastructure/metas-infrastructure-evolution-and-the-advent-of-ai/) · `page_reviewed` · [local note](../research/sources/P200.md)
 - [P201 — Cupertino Electric — Modular data centers](https://www.cei.com/core-markets/modular) · `page_reviewed` · [local note](../research/sources/P201.md)
 

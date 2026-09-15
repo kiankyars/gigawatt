@@ -7,6 +7,27 @@ Do not download or launch standalone Chrome for Testing or Playwright browser
 binaries here. Existing browser test harnesses remain available for a separately
 configured test environment; run local model and build checks without a browser.
 
+## Chapter 6 overview sequence and image review — 2026-09-15
+
+- **25 scenes.** Original overview is unchanged; focused repeats call the same
+  renderer with an outline overlay. Across all three load choices and both
+  layouts, removing that overlay and its accessible description recovers the
+  original SVG exactly. Switchgear detail precedes the 480 V focus and expanded
+  conductor drawing. Stable existing hashes retained.
+- Native browser checks at **1280 × 720** and **390 × 844** covered the focus
+  outlines, overview-to-detail navigation, Compass co-design layout, separate
+  tap photograph and selected PF image. Images preserve their supplied bytes;
+  no new image generation or standalone browser installation was needed.
+- Also exercised and inspected the existing CT + CVT measurement view on desktop
+  and phone, completing that specific previously blocked interaction check.
+- Compared all four PF figures. Selected the two-column supplied comparison;
+  independently verified 900/1125 kVA, 1083/1353 A and 90/112.5 percent at 480 V
+  line-to-line. Rejected alternatives contain incorrect Q values and imply
+  scalar addition of P and Q. Provenance records the selection and sources.
+- **222 Node and 76 Python tests passed**, including rendering every scene in
+  every offered control state and both layouts. Course, expanded-reader,
+  domain-map, research, staging and whitespace checks passed.
+
 ## Chapter 7 review and Chapter 8 figures — 2026-09-15
 
 - Chapter 5 now has **21** scenes, Chapter 7 **34**, and Chapter 8 **35**.
