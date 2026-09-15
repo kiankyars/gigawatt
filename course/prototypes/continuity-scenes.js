@@ -48,10 +48,11 @@ export const continuityScenes = Object.freeze(
       { ups: true },
     ),
     continuity("battery-ramp", "The battery ramps up", "The capacitor supplies the deficit during the battery ramp", ["D05.1", "D05.2"], "d05-storage-power-and-time", { ups: true }),
+    continuity("recovery-time", "Derive recovery time", "How long does it take to restore the bus voltage?", ["D05.1", "D05.2"], "d05-storage-power-and-time"),
     continuity(
       "dc-link-recovery",
       "Restore the bus voltage",
-      "How much extra power restores the bus to 800 V?",
+      "More surplus power restores the bus sooner",
       ["D05.1", "D05.2"],
       "d05-storage-power-and-time",
       { ups: true },
@@ -94,6 +95,7 @@ export const continuityScenes = Object.freeze(
       "d05-paths-and-transitions",
       { ups: true, mode: "maintenance" },
     ),
+    continuity("stored-energy-isolation", "Stored energy after isolation", "Opening the AC supply can leave stored energy connected", ["D05.4"], "d05-protection-and-fault-domains"),
     continuity(
       "capacity-n",
       "N · required capacity",
@@ -160,18 +162,17 @@ export const continuityScenes = Object.freeze(
     continuity(
       "grounding",
       "Complete the fault-current loop",
-      "Protective bonding and the fault-current loop",
+      "A fault to the metal case needs a return path",
       ["D05.4"],
       "d05-protection-and-fault-domains",
     ),
     continuity(
       "ac-dc-interruption",
-      "AC and DC interruption",
+      "How contacts interrupt current",
       "Why opening the contacts may not stop the current",
       ["D05.4"],
       "d05-protection-and-fault-domains",
     ),
-    continuity("dc-feeder-protection", "Protect an 800 V DC feeder", "Interrupting a fault on an 800 V DC rack feeder", ["D05.4"], "d05-protection-and-fault-domains"),
     continuity("tier-overview", "Tiers I–IV", "Uptime Institute Tiers I–IV", ["D05.3"], "d05-paths-and-transitions", { reliability: true }),
     continuity(
       "tier-topology",
@@ -205,14 +206,16 @@ export const continuityScenes = Object.freeze(
       "d05-paths-and-transitions",
       { reliability: true },
     ),
+    continuity("fairwater-power-management", "Fairwater power oscillations", "How Microsoft manages power oscillations", ["D05.1", "D05.2"], "d05-paths-and-transitions", { quote: true }),
     continuity(
       "service-check",
       "Knowledge check",
-      "Chapter 7 knowledge check",
+      "The racks have power. Can the workload keep running?",
       ["D05.1", "D05.2", "D05.3"],
       "d05-paths-and-transitions",
       { check: true },
     ),
+    continuity("bypass-check", "Inverter failed, then utility fails", "The UPS is on bypass. Will the load ride through?", ["D05.2", "D05.3"], "d05-paths-and-transitions", { check: true }),
   ].map(Object.freeze),
 );
 

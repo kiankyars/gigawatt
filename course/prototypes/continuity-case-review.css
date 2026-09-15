@@ -1,0 +1,57 @@
+.continuity-case-quote {
+  width: min(100%, 1160px);
+  margin: 0 auto;
+  padding: clamp(16px, 2.4vw, 38px) 0;
+}
+
+.continuity-case-quote blockquote {
+  margin: 0;
+  padding: 0 0 0 clamp(18px, 2.6vw, 38px);
+  border-left: 4px solid var(--green);
+}
+
+.continuity-case-quote blockquote p {
+  margin: 0;
+  color: var(--ink);
+  font: 400 clamp(24px, 2.45vw, 37px) / 1.36 Georgia, serif;
+  text-wrap: pretty;
+}
+
+.continuity-case-quote figcaption {
+  display: grid;
+  gap: 7px;
+  margin-top: clamp(20px, 2.5vw, 36px);
+  padding-left: clamp(22px, 2.9vw, 42px);
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.continuity-case-quote__attribution {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.continuity-case-quote figcaption a {
+  width: fit-content;
+  text-underline-offset: 3px;
+}
+
+.continuity-case-quote--compact {
+  padding: 14px 0;
+}
+
+.continuity-case-quote--compact blockquote p {
+  font-size: 23px;
+}
+
+@media (max-width: 700px), (max-height: 650px) {
+  .continuity-case-quote blockquote p {
+    font-size: clamp(22px, 2.4vw, 29px);
+  }
+
+  .continuity-case-quote figcaption {
+    font-size: 12px;
+    margin-top: 18px;
+  }
+}

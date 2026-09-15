@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-09-14",
+  "as_of": "2026-09-15",
   "inventory_status": "seed_not_exhaustive",
   "method": "A bounded curated discovery pass over 40 SemiAnalysis articles and 15 independent primary-source starting points. Sources are mapped many-to-many to domain IDs for curriculum research, not certified as complete coverage or sources of truth. The additional SA11–SA40 sample used 16 search queries and selected entries from the publisher's 2023–2026 annual sitemaps; research/discovery-searches.md records the method and limits. page_reviewed means the stated web page was inspected, with partial-reading and linked-document limits recorded in caution; public_excerpt_reviewed includes accessible previews, abstracts or selected public sections and never implies review of a complete paid work. candidate_not_reviewed means substantive content has not been reviewed. A domain mapping identifies intended research use, not verified support for every objective or claim. reviewed_on is the review date; published_on, where present, is the source's displayed publication date and is null when not established.",
   "sources": [
@@ -270,7 +270,7 @@
         "D15"
       ],
       "use": "Provide a primary vendor description of conversion placement, row-level DC distribution and the motivation for higher rack power.",
-      "caution": "May 2025 vendor roadmap with projected 2027 deployment and claimed benefits, not field validation. Recheck later NVIDIA and OCP publications before presenting specific voltages, timelines or savings as current."
+      "caution": "May 2025 vendor roadmap with projected 2027 deployment and claimed benefits, not field validation. Recheck later NVIDIA and OCP publications before presenting specific voltages, timelines or savings as current. The supplied BofA rack-density image has separate, incomplete publication provenance; this NVIDIA source supports the direction toward MW-scale racks, not each analyst forecast bar."
     },
     {
       "id": "P06",
@@ -753,16 +753,17 @@
       "published_on": "2026-07-29",
       "kind": "analysis",
       "review_status": "public_excerpt_reviewed",
-      "reviewed_on": "2026-09-06",
+      "reviewed_on": "2026-09-15",
       "domains": [
+        "D03",
         "D04",
         "D10",
         "D12",
         "D13",
         "D15"
       ],
-      "use": "Compare prefabricated components, packaged plant and modular halls against site labor, interfaces, transport and commissioning constraints.",
-      "caution": "Public heading and introduction or selected preview sections reviewed; complete paid article not reviewed. Modular is not a uniform product category. Separate announced/tracked projects from delivered capacity and verify supplier speed claims against the full site-delivery schedule.",
+      "use": "Compare Meta’s rapid-deployment fabric enclosures with AWS Houdini factory-built data-hall skids and the reported Cupertino Electric partnership; distinguish enclosure work, equipment assembly and complete site delivery.",
+      "caution": "Selected accessible sections Purpose-Built Rapid-Deployment Shells and What Operators and Developers Are Modularizing Today / AWS reviewed; no claim of full paid-article review. AWS Houdini and partner attribution are analyst reporting, not a primary AWS construction disclosure. The case does not establish Amazon tents, an AWS identity for the CEI factory photograph, or an overall schedule saving.",
       "discovered_via": "https://newsletter.semianalysis.com/sitemap/2026"
     },
     {
@@ -1299,7 +1300,8 @@
       "review_status": "public_excerpt_reviewed",
       "reviewed_on": "2026-09-06",
       "domains": [
-        "D05"
+        "D05",
+        "D06"
       ],
       "use": "DC interruption and converter-fed fault behavior depend on circuit dynamics and device capabilities.",
       "caution": "Read the publicly indexed excerpt of section 6; the PDF URL responded successfully, but the complete document was not reviewed. No product selection is claimed.",
@@ -3622,7 +3624,7 @@
       "publisher": "Microsoft",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-12",
+      "reviewed_on": "2026-09-15",
       "published_on": "2025-11-12",
       "domains": [
         "D03",
@@ -3630,8 +3632,8 @@
         "D14",
         "D15"
       ],
-      "use": "Named Fairwater Atlanta case for four-nines availability at three-nines cost; relate grid reliability and GPU power architecture to backup investment and time to market.",
-      "caution": "Operator design/capability claim, not an audited annual availability result, SLA, Tier certification or quantified cost comparison. Omits traditional on-site generation, UPS and dual-corded distribution for the GPU fleet; separate on-site energy storage still smooths power fluctuations."
+      "use": "Fairwater Atlanta availability and backup-design rationale, followed by Microsoft’s exact supplied quotation on supplementary workloads, GPU power thresholds and on-site storage for power oscillations.",
+      "caution": "High-availability, low-cost power section reviewed. Atlanta’s GPU-fleet description omits traditional on-site generation, UPS and dual-corded distribution. Availability is an operator design claim, not a measured annual record, SLA, Tier or quantified cost comparison. The adjacent power-management passage does not prove all three measures were commissioned at Atlanta or deployed throughout Azure; its final phrase is not evidence of lossless storage."
     },
     {
       "id": "P121",
@@ -4214,7 +4216,8 @@
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-13",
       "domains": [
-        "D04"
+        "D04",
+        "D05"
       ],
       "use": "Plain disconnector isolation versus switching/interrupting capability; combined devices have separately rated duties.",
       "caution": "Full public page reviewed. Conceptual functions only, not operation or installation instructions."
@@ -4338,13 +4341,14 @@
       "url": "https://www.redwoodmaterials.com/resources/unlocking-affordable-energy-storage-at-scale-an-introduction-to-redwood-energy/",
       "publisher": "Redwood Materials",
       "kind": "primary_reference",
-      "review_status": "public_excerpt_reviewed",
-      "reviewed_on": "2026-09-13",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-15",
       "domains": [
         "D05"
       ],
-      "use": "12 MW solar array and 63 MWh repurposed battery inventory at the Nevada campus; distinguish solar rating from compute demand.",
-      "caution": "Public indexed case-study paragraph reviewed. No plant load ceiling, usable output energy or guaranteed runtime inferred from the 12 MW solar rating."
+      "use": "Proven at Scale case identifies a 12 MW solar array and 63 MWh repurposed-battery inventory at the Nevada campus; distinguish these from IT load and battery discharge power.",
+      "caution": "Full page reviewed, especially Proven at Scale: The Crusoe Project. Four modular data centers and expansion to 24 do not establish current commissioned electrical load. No exact IT/full-site nameplate, qualified battery output MW, usable delivered energy or guaranteed autonomy is given.",
+      "published_on": "2026-04-02"
     },
     {
       "id": "P170",
@@ -4355,9 +4359,10 @@
       "review_status": "public_excerpt_reviewed",
       "reviewed_on": "2026-09-13",
       "domains": [
-        "D05"
+        "D05",
+        "D06"
       ],
-      "use": "Explain arc formation and conventional direct suppression; distinguish this example from semiconductor, resonant and hybrid interruption methods.",
+      "use": "Explain arc formation and conventional direct suppression in the Chapter 8 illustrative 800 V DC feeder; distinguish it from semiconductor, resonant and hybrid interruption methods.",
       "caution": "Indexed section 2.3.6, page27, reviewed. Conventional interruption must drive current to zero and manage circuit energy; no product rating or clearing time assigned to teaching animation."
     },
     {
@@ -4744,6 +4749,103 @@
       ],
       "use": "Sinusoidal power triangle and balanced three-phase P, Q and S relationships.",
       "caution": "S² = P² + Q² and displacement PF interpretation assume sinusoidal voltage and current. Do not infer Q from true PF alone under harmonic distortion."
+    },
+    {
+      "id": "P198",
+      "title": "Luca Pedretti — From Electrons to Intelligence: How Crusoe Powers AI with Modular, 24/7 Energy",
+      "url": "https://lucapedretti850786.substack.com/p/c0b",
+      "publisher": "Luca Pedretti / The Pexapark Podcast",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-15",
+      "published_on": "2025-07-27",
+      "domains": [
+        "D03",
+        "D05"
+      ],
+      "use": "Host-published interview attributes a 1 MW initial Sparks deployment to Crusoe participant Forrest Carroll; supports a clearly dated pilot-scale energy comparison.",
+      "caution": "Written interview reviewed; audio not checked. The 1 MW statement is participant testimony, not an equipment nameplate, and does not specify IT versus total facility power. It does not describe the current expanded load or battery output rating. Dividing 63 MWh by this reported pilot scale gives an ideal 63-hour ratio, not measured or guaranteed runtime."
+    },
+    {
+      "id": "P199",
+      "title": "Pexapark — Podcast catalogue, Episode 19 with Forrest Carroll of Crusoe",
+      "url": "https://pexapark.com/podcast/",
+      "publisher": "Pexapark",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-15",
+      "published_on": null,
+      "domains": [
+        "D03",
+        "D05"
+      ],
+      "use": "Corroborate the Crusoe interview’s host, guest, topic and Episode 19 date of 24 July 2025.",
+      "caution": "Episode 19 catalogue entry reviewed. The catalogue date differs from the host’s 27 July written-post date. The catalogue establishes identity, not the 1 MW statement; source P198 supplies the written participant account. Audio not checked."
+    },
+    {
+      "id": "P200",
+      "title": "Meta’s Infrastructure Evolution and the Advent of AI",
+      "url": "https://engineering.fb.com/2025/09/29/data-infrastructure/metas-infrastructure-evolution-and-the-advent-of-ai/",
+      "publisher": "Engineering at Meta",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-15",
+      "published_on": "2025-09-29",
+      "domains": [
+        "D03",
+        "D12",
+        "D13"
+      ],
+      "use": "Direct operator confirmation that Prometheus spans traditional data-center buildings, weatherproof tents and adjacent colocation; source of the unchanged Prometheus construction photograph.",
+      "caution": "The Next Stage section reviewed. The September 2025 article describes construction underway, not completed or currently energized capacity. Photograph capture date is unstated. No exact tent count or numerical whole-project schedule saving is adopted."
+    },
+    {
+      "id": "P201",
+      "title": "Cupertino Electric — Modular data centers",
+      "url": "https://www.cei.com/core-markets/modular",
+      "publisher": "Cupertino Electric",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-15",
+      "published_on": null,
+      "domains": [
+        "D03",
+        "D12",
+        "D13"
+      ],
+      "use": "Factory assembly, integration and testing followed by field installation and verification; source identifies the Edgerton, Wisconsin modular factory photograph.",
+      "caution": "Public page and source image labels reviewed. The page does not identify the photographed equipment as AWS Houdini. The AWS partnership attribution comes from SemiAnalysis SA29. Factory work does not remove site civil works, power connections or complete-system testing; no overall schedule saving or claimed aggregate capacity is adopted."
+    }
+  ],
+  "local_attributions": [
+    {
+      "id": "LOCAL_RACK_REVIEW_1",
+      "asset": "course/assets/references/rack-density-roadmap.png",
+      "provenance": "course/assets/references/rack-energy-review-figures.provenance.json",
+      "publisher_as_labeled": "BofA Global Research",
+      "visible_credit": "BofA Global Research estimates, Nvidia, company reports",
+      "source_url": null,
+      "reviewed_on": "2026-09-15",
+      "domains": [
+        "D06"
+      ],
+      "sha256": "6bb7aed3da2a632e459358f561f1e476fff7ff160e3310d8a7179b1643ea03c5",
+      "use_and_limits": "Rack-density forecast supplied by the user. The figure retains its estimate language, roadmap product labels and dates. It is used to motivate distribution architecture, not as measured Abilene power or a current product specification. The original BofA report URL and publication date were not supplied and have not been independently located. NVIDIA’s May 2025 technical article independently supports the direction toward MW-scale racks; it does not validate each bar in this analyst forecast.",
+      "supporting_source_id": "P05"
+    },
+    {
+      "id": "LOCAL_RACK_REVIEW_2",
+      "asset": "course/assets/references/power-stack-overview.png",
+      "provenance": "course/assets/references/rack-energy-review-figures.provenance.json",
+      "publisher_as_labeled": "Data Gravity / Wing",
+      "visible_credit": "Data Gravity / Wing · May 2026",
+      "source_url": null,
+      "reviewed_on": "2026-09-15",
+      "domains": [
+        "D06"
+      ],
+      "sha256": "288d453ff8304f97da167e7b1d7617d9a45b384c309398c669fa6aec1447e388",
+      "use_and_limits": "User-supplied dated industry map, retained unchanged. Used to recap grid/substation, building distribution and UPS, rack supply, power semiconductors, and point-of-load regulation. Power semiconductors are technologies used within converters, not necessarily a separate physical conversion stage. Company highlighting and market metrics belong to the supplied source and are not independently validated course design inputs. No primary publication URL was supplied or located."
     }
   ]
 }

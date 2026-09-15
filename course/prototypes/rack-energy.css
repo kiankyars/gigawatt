@@ -41,3 +41,16 @@ footer{border-top:1px solid var(--line);padding:0 28px}select{font:inherit;color
 @media(max-height:740px) and (min-width:601px){.green-case{row-gap:12px}.green-site img{max-height:365px}.green-system{gap:5px}.green-conversion{padding:12px}.green-conversion h2{margin-bottom:10px}.green-stages>div{padding:13px 8px}.green-stages strong,.green-load strong{font-size:21px}.green-dc-bus strong{font-size:25px}}
 @media(max-width:600px){.green-case{grid-template-columns:1fr;gap:22px;margin:0}.green-site img{max-height:235px}.green-date{gap:18px;font-size:17px}.green-date strong{font-size:25px}.green-conversion{padding:12px 9px}.green-stages{gap:6px;grid-template-columns:1fr 19px 1fr}.green-stages>div{padding:14px 8px}.green-stages strong{font-size:18px}.green-stages span{font-size:13px;line-height:1.4}.green-stages b{font-size:22px}.green-load strong{font-size:20px}.green-case-takeaway{font-size:14px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+/* Supplied figures already contain their own titles and source labels. */
+#scene[data-kind="review-figure"]>header{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+.review-figure{height:100%;min-height:0;display:flex;align-items:center;justify-content:center;margin:0;flex:1}
+.review-figure img{display:block;width:100%;height:100%;min-height:0;object-fit:contain}
+.dc-protection{display:flex;flex-direction:column;min-height:0;flex:1;justify-content:center;gap:22px}
+.dc-protection svg{width:100%;min-height:0;max-height:400px;font-family:inherit}
+.dc-protection-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:25px;font-size:18px;line-height:1.4}
+.dc-protection-facts strong{display:block;color:var(--teal);font-size:21px;margin-bottom:8px}
+@media(max-width:600px){
+ .review-figure{height:auto;flex:none}.review-figure img{height:auto;max-height:none}
+ .dc-protection{flex:none}.dc-protection svg{max-height:none;aspect-ratio:380/620}
+ .dc-protection-facts{grid-template-columns:1fr;gap:16px;font-size:16px}.dc-protection-facts strong{font-size:19px}
+}

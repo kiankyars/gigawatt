@@ -1,7 +1,7 @@
 export function storageModel(powerMW = 8, loadMW = 6) {
   if (![powerMW, loadMW].every((x) => Number.isFinite(x) && x > 0))
     throw new RangeError("Positive power required.");
-  const deliveredMWh = (1 * 0.8 - 0.2) * 0.95;
+  const deliveredMWh = 1 * 0.8 * 0.95;
   return {
     powerMW,
     loadMW,

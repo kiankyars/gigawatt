@@ -383,6 +383,7 @@ Compare utility-only and behind-the-meter supply against energy, capacity, fuel 
 - [SA11 — AI Training Load Fluctuations at Gigawatt-scale - Risk of Power Grid Blackout?](https://newsletter.semianalysis.com/p/ai-training-load-fluctuations-at-gigawatt-scale-risk-of-power-grid-blackout) · `public_excerpt_reviewed` · [local note](../research/sources/SA11.md)
 - [SA12 — How AI Labs Are Solving the Power Crisis: The Onsite Gas Deep Dive](https://newsletter.semianalysis.com/p/how-ai-labs-are-solving-the-power) · `public_excerpt_reviewed` · [local note](../research/sources/SA12.md)
 - [SA14 — AI Datacenter Energy Dilemma - Race for AI Datacenter Space](https://newsletter.semianalysis.com/p/ai-datacenter-energy-dilemma-race) · `public_excerpt_reviewed` · [local note](../research/sources/SA14.md)
+- [SA29 — The Wild Wild West Of LEGO Datacenters](https://newsletter.semianalysis.com/p/the-wild-wild-west-of-lego-datacenters) · `public_excerpt_reviewed` · [local note](../research/sources/SA29.md)
 - [SA31 — From Tokens to Burgers: A Water Footprint Face-Off](https://newsletter.semianalysis.com/p/from-tokens-to-burgers-a-water-footprint) · `public_excerpt_reviewed` · [local note](../research/sources/SA31.md)
 - [SA32 — Are AI Datacenters Increasing Electric Bills for American Households?](https://newsletter.semianalysis.com/p/are-ai-datacenters-increasing-electric) · `public_excerpt_reviewed` · [local note](../research/sources/SA32.md)
 - [SA33 — Stop Saying Half of 2026 US Datacenter Capacity Is Canceled](https://newsletter.semianalysis.com/p/stop-saying-half-of-2026-us-datacenter) · `public_excerpt_reviewed` · [local note](../research/sources/SA33.md)
@@ -445,6 +446,10 @@ Compare utility-only and behind-the-meter supply against energy, capacity, fuel 
 - [P139 — MDEQ — Determination letter on portable gas combustion turbines, July 29, 2025](https://cdn.mississippitoday.org/wp-content/uploads/2025/11/20104011/2025.07.29-MDEQ-Determination-Letter-on-Portable-Gas-Combustion-Turbines-signed.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P139.md)
 - [P178 — US Census TIGERweb — Tennessee state boundary and Tulane Road geocode](https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/0) · `page_reviewed` · [local note](../research/sources/P178.md)
 - [P179 — USGS National Map — Southaven geographic imagery](https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer) · `page_reviewed` · [local note](../research/sources/P179.md)
+- [P198 — Luca Pedretti — From Electrons to Intelligence: How Crusoe Powers AI with Modular, 24/7 Energy](https://lucapedretti850786.substack.com/p/c0b) · `page_reviewed` · [local note](../research/sources/P198.md)
+- [P199 — Pexapark — Podcast catalogue, Episode 19 with Forrest Carroll of Crusoe](https://pexapark.com/podcast/) · `page_reviewed` · [local note](../research/sources/P199.md)
+- [P200 — Meta’s Infrastructure Evolution and the Advent of AI](https://engineering.fb.com/2025/09/29/data-infrastructure/metas-infrastructure-evolution-and-the-advent-of-ai/) · `page_reviewed` · [local note](../research/sources/P200.md)
+- [P201 — Cupertino Electric — Modular data centers](https://www.cei.com/core-markets/modular) · `page_reviewed` · [local note](../research/sources/P201.md)
 
 <a id="d04"></a>
 
@@ -694,10 +699,13 @@ Explain why fault clearing and grounding require topology-specific AC/DC protect
 - [P_DELTA_BBU — Delta Electronics — 3 kW BBU and 15 kW Battery Backup System](https://www.delta-americas.com/en-US/products/Power-Management/12018) · `page_reviewed` · [local note](../research/sources/P_DELTA_BBU.md)
 - [P157 — Redwood Materials — Redwood and Crusoe expand compute to 7x scale](https://www.redwoodmaterials.com/news/redwood-and-crusoe-expand-compute-to-7x-scale/) · `page_reviewed` · [local note](../research/sources/P157.md)
 - [P158 — Schneider Electric — TN system: Principle](https://www.electrical-installation.org/enwiki/TN_system_-_Principle) · `public_excerpt_reviewed` · [local note](../research/sources/P158.md)
+- [P160 — Schneider Electric — Elementary switching devices](https://www.electrical-installation.org/enwiki/Elementary_switching_devices) · `page_reviewed` · [local note](../research/sources/P160.md)
 - [P168 — Schneider Electric — Easy UPS 3-Phase Modular model list](https://productinfo.se.com/easyups3pmodular/viewer?docidentity=ModelList-1A71D03C&extension=xml&lang=en&manualidentity=TechnicalSpecificationsEasyUPS3-Pha-BC29F805) · `page_reviewed` · [local note](../research/sources/P168.md)
-- [P169 — Redwood Materials — Introduction to Redwood Energy](https://www.redwoodmaterials.com/resources/unlocking-affordable-energy-storage-at-scale-an-introduction-to-redwood-energy/) · `public_excerpt_reviewed` · [local note](../research/sources/P169.md)
+- [P169 — Redwood Materials — Introduction to Redwood Energy](https://www.redwoodmaterials.com/resources/unlocking-affordable-energy-storage-at-scale-an-introduction-to-redwood-energy/) · `page_reviewed` · [local note](../research/sources/P169.md)
 - [P170 — ABB — Protection Devices for Direct Current Applications, 2025 technical paper](https://library.e.abb.com/public/4b22f4bae7e5424d9bf87039c3c1d0ba/9AKK108470A2501_Technical%20Application%20Paper_Protection%20Devices%20for%20Direct%20Current%20Applications.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P170.md)
 - [P171 — OpenStax — Energy Stored in Capacitors](https://openstax.org/books/college-physics-2e/pages/19-7-energy-stored-in-capacitors) · `page_reviewed` · [local note](../research/sources/P171.md)
+- [P198 — Luca Pedretti — From Electrons to Intelligence: How Crusoe Powers AI with Modular, 24/7 Energy](https://lucapedretti850786.substack.com/p/c0b) · `page_reviewed` · [local note](../research/sources/P198.md)
+- [P199 — Pexapark — Podcast catalogue, Episode 19 with Forrest Carroll of Crusoe](https://pexapark.com/podcast/) · `page_reviewed` · [local note](../research/sources/P199.md)
 
 <a id="d06"></a>
 
@@ -784,6 +792,7 @@ Explain how retrofit constraints can reverse a seemingly attractive greenfield a
 - [SA24 — Vera Rubin – Extreme Co-Design: An Evolution from Grace Blackwell Oberon](https://newsletter.semianalysis.com/p/vera-rubin-extreme-co-design-an-evolution) · `public_excerpt_reviewed` · [local note](../research/sources/SA24.md)
 - [P16 — Why Scaling AI Compute Performance Requires a New Power Architecture](https://blogs.nvidia.com/blog/800-vdc-power-architecture-ai-factory/) · `page_reviewed` · [local note](../research/sources/P16.md)
 - [P17 — NVIDIA NVL72 AI Factory — System Hardware & Components](https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/components.html) · `page_reviewed` · [local note](../research/sources/P17.md)
+- [E1423005C7C — ABB — Protection Devices for Direct Current Applications](https://library.e.abb.com/public/5cd83dcb95a74dcdb571be5f256e1af8/9AKK108470A9606_en_B_Protection%20Devices%20for%20Direct%20Current%20Applications%20-%20Technical%20Application%20Paper.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/E1423005C7C.md)
 - [E960EB5ED2E — Eaton — Rack Basics: Selection, Installation and Cooling](https://tripplite.eaton.com/support/rack-cabinet-basics-selection-installation-cooling) · `public_excerpt_reviewed` · [local note](../research/sources/E960EB5ED2E.md)
 - [E8D4F19907B — Open Compute Project — Open Rack V3 Base Specification, revision 1.0](https://www.opencompute.org/documents/open-rack-base-specification-version-3-pdf) · `page_reviewed` · [local note](../research/sources/E8D4F19907B.md)
 - [EFB703CFC3D — Schneider Electric — PM2200 total power calculation for accuracy verification](https://productinfo.se.com/pm2200/5afc2b5546e0fb00011e5e9d/PM2200%20series%20User%20Manual/English/BM_PM2200seriesUserManual_0000074170.ditamap.xml/%24/C_VerifyingAccuracy_PowerTotCalcuation_0000034437) · `page_reviewed` · [local note](../research/sources/EFB703CFC3D.md)
@@ -817,6 +826,7 @@ Explain how retrofit constraints can reverse a seemingly attractive greenfield a
 - [P_DELTA_BBU — Delta Electronics — 3 kW BBU and 15 kW Battery Backup System](https://www.delta-americas.com/en-US/products/Power-Management/12018) · `page_reviewed` · [local note](../research/sources/P_DELTA_BBU.md)
 - [P153 — ABB Review 4/2013 — DC for efficiency](https://library.e.abb.com/public/1afa6036874fd0bb85257d5000710a17/DC%20for%20efficiency.pdf) · `page_reviewed` · [local note](../research/sources/P153.md)
 - [P154 — ABB and Green open Zurich-West DC data-center expansion](https://new.abb.com/news/detail/12816/worlds-most-powerful-dc-data-center-online) · `page_reviewed` · [local note](../research/sources/P154.md)
+- [P170 — ABB — Protection Devices for Direct Current Applications, 2025 technical paper](https://library.e.abb.com/public/4b22f4bae7e5424d9bf87039c3c1d0ba/9AKK108470A2501_Technical%20Application%20Paper_Protection%20Devices%20for%20Direct%20Current%20Applications.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P170.md)
 
 <a id="d07"></a>
 
@@ -1470,6 +1480,8 @@ Trace physical and control-system access boundaries and explain why availability
 - [P167 — OSHA — 29 CFR 1910.36(b), number and separation of exit routes](https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.36) · `public_excerpt_reviewed` · [local note](../research/sources/P167.md)
 - [P177 — QTS — Suwanee DC1 connectivity facility sheet](https://qtsdatacenters.com/wp-content/uploads/2024/11/QTS_Facility-Data-Sheet_SUW1DC1.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P177.md)
 - [P178 — US Census TIGERweb — Tennessee state boundary and Tulane Road geocode](https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/0) · `page_reviewed` · [local note](../research/sources/P178.md)
+- [P200 — Meta’s Infrastructure Evolution and the Advent of AI](https://engineering.fb.com/2025/09/29/data-infrastructure/metas-infrastructure-evolution-and-the-advent-of-ai/) · `page_reviewed` · [local note](../research/sources/P200.md)
+- [P201 — Cupertino Electric — Modular data centers](https://www.cei.com/core-markets/modular) · `page_reviewed` · [local note](../research/sources/P201.md)
 
 <a id="d13"></a>
 
@@ -1579,6 +1591,8 @@ Specify an integrated acceptance and handover plan for a phased deployment.
 - [P114 — SpaceX — Google Cloud Service Agreement, free writing prospectus](https://www.sec.gov/Archives/edgar/data/1181412/000162828026041150/spacexagreementfwp.htm) · `page_reviewed` · [local note](../research/sources/P114.md)
 - [P115 — SpaceX — second-quarter 2026 Form 10-Q, AI segment results](https://www.sec.gov/Archives/edgar/data/1181412/000162828026052535/spcx-20260630.htm) · `public_excerpt_reviewed` · [local note](../research/sources/P115.md)
 - [SA43 — SemiAnalysis — Meta Compute: Everyone Wants To Be A Neocloud](https://newsletter.semianalysis.com/p/meta-compute-everyone-wants-to-be) · `public_excerpt_reviewed` · [local note](../research/sources/SA43.md)
+- [P200 — Meta’s Infrastructure Evolution and the Advent of AI](https://engineering.fb.com/2025/09/29/data-infrastructure/metas-infrastructure-evolution-and-the-advent-of-ai/) · `page_reviewed` · [local note](../research/sources/P200.md)
+- [P201 — Cupertino Electric — Modular data centers](https://www.cei.com/core-markets/modular) · `page_reviewed` · [local note](../research/sources/P201.md)
 
 <a id="d14"></a>
 

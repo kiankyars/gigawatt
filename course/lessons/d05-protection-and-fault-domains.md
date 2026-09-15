@@ -24,7 +24,13 @@ The fivefold duration produces fivefold heating in this fixed-current, fixed-res
 
 Selectivity introduces another dimension. If the upstream device removes the entire bus quickly, the isolated branch's exposure may be limited but every downstream group loses power. If the intended branch device isolates only the affected group, service to others can continue under the specified disturbance tolerance. The correct design must satisfy protection and continuity requirements together. It is not enough to declare that the smallest clearing time or the fewest tripped devices is always best.
 
-Now compare AC and DC conceptually. AC current normally crosses zero periodically, which can assist interruption under suitable conditions. DC has no recurring natural zero crossing of that kind. Its interrupting system must force or achieve current extinction while handling the circuit's stored energy and recovery conditions. This difference is one reason an AC voltage/current rating cannot simply be reused for a DC circuit. The actual device's specified duty and the actual network must agree.
+AC current normally crosses zero periodically, which can assist arc extinction under suitable interrupting conditions. This instantaneous current zero is part of an energized waveform: it is not proof of absent voltage or safe isolation. DC lacks a recurring natural current zero of that kind. Its interrupting system must force or achieve current extinction while managing stored circuit energy and the voltage that appears across the open device. AC and DC ratings therefore cannot be exchanged without checking the specified duty.
+
+## Disconnected AC does not remove every energy source
+
+An open AC input can leave a battery connected to the DC link, and a disconnected capacitor can retain charge. In the earlier ideal example, even the 700 V operating cutoff leaves 49 kJ in the capacitor. A converter stopping its load is therefore a different condition from the circuit being de-energized.
+
+Actual safe isolation must account for every source and stored-energy path and verify the resulting absence of voltage under the applicable equipment procedure. A zero crossing, an open-switch icon or a stopped load does not establish that state. The teaching diagram identifies these distinct conditions; it is not an equipment isolation procedure.
 
 ## Grounding changes the fault path, not the laws of electricity
 
@@ -44,7 +50,7 @@ Protective bonding connects exposed conductive metal to the protective-conductor
 
 In the shared-bus example the first state shows the fault before the upstream breaker clears. Contacts remain closed, but the faulted bus cannot support its normal loads. Opening the upstream breaker removes the supply to the fault; it does not repair the common bus.
 
-Opening contacts can leave an arc carrying current. AC current zeros can assist extinction, while DC lacks a recurring natural zero. The 800 V feeder scene shows conventional arc-chamber interruption: the arc is lengthened and cooled, current decays, and stored circuit energy is dissipated. Semiconductor and hybrid devices use different mechanisms. The device’s DC voltage and interrupting ratings must match the circuit.
+Opening contacts can leave an arc carrying current. Chapter 8 applies this principle to an illustrative 800 V DC feeder: a conventional arc chamber lengthens and cools the arc until current is extinguished, while circuit energy must be managed. Semiconductor and hybrid devices use different mechanisms. The device’s DC voltage and interrupting ratings must match the circuit; the animation supplies no product rating or clearing-time claim.
 
 ## Worked example: A fixed-current fault heating comparison
 
@@ -100,6 +106,8 @@ Doubling current multiplies I² by four; halving time divides by two. Net heatin
 - [OpenStax — Electrical Energy and Power](https://openstax.org/books/university-physics-volume-2/pages/9-5-electrical-energy-and-power) — The fixed-current resistive energy example follows I²R multiplied by time. Read 2026-09-06. Read the public resistor-power equations; all fault currents and durations are hypothetical teaching inputs.
 - [Schneider Electric — TN system: Principle](https://www.electrical-installation.org/enwiki/TN_system_-_Principle) — In the TN arrangement, exposed conductive parts connect by protective conductors to the earthed source point; fault current returns through that loop. Read 2026-09-13. Public search-indexed primary text reviewed. The slide shows only a conceptual line-to-case fault loop, not a complete wiring design or a protective-device setting.
 - [ABB — Protection Devices for Direct Current Applications, 2025 technical paper](https://library.e.abb.com/public/4b22f4bae7e5424d9bf87039c3c1d0ba/9AKK108470A2501_Technical%20Application%20Paper_Protection%20Devices%20for%20Direct%20Current%20Applications.pdf) — Explain arc formation and conventional direct suppression; distinguish this example from semiconductor, resonant and hybrid interruption methods. Read 2026-09-13. Indexed section 2.3.6, page27, reviewed. Conventional interruption must drive current to zero and manage circuit energy; no product rating or clearing time assigned to teaching animation.
+- [Schneider Electric — Elementary switching devices](https://www.electrical-installation.org/enwiki/Elementary_switching_devices) — Distinguish disconnection for isolation from load switching and fault interruption. Read 2026-09-13. Full public page reviewed. Conceptual isolation functions only; the reader does not provide an equipment switching or absence-of-voltage test procedure.
+- [OpenStax — Energy Stored in Capacitors](https://openstax.org/books/college-physics-2e/pages/19-7-energy-stored-in-capacitors) — A charged capacitor retains electrical energy even when the external supply is disconnected. Read 2026-09-14. Algebraic capacitor-energy explanation reviewed. The 49 kJ remaining at the teaching bus cutoff is a course calculation, not an equipment discharge-time specification.
 
 ## Check your understanding: Maintenance, then another loss
 

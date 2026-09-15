@@ -16,11 +16,11 @@ import {
   recoveryModel,
 } from "../course/prototypes/ups-capacitors.js";
 
-test("energy reserve is applied once; inadequate power has no full-load runtime", () => {
+test("usable energy window is applied once; inadequate power has no full-load runtime", () => {
   const a = storageModel(8, 6),
     b = storageModel(4, 6);
-  assert.ok(Math.abs(a.deliveredMWh - 0.57) < 1e-12);
-  assert.ok(Math.abs(a.runtimeMinutes - 5.7) < 1e-12);
+  assert.ok(Math.abs(a.deliveredMWh - 0.76) < 1e-12);
+  assert.ok(Math.abs(a.runtimeMinutes - 7.6) < 1e-12);
   assert.equal(b.canSupport, false);
   assert.equal(b.runtimeMinutes, null);
   assert.throws(() => storageModel(-1, 6));
@@ -101,7 +101,7 @@ test("legacy UPS scene hashes stay reachable in the separate Chapter7 deck", () 
     [...new Set(continuityScenes.flatMap((s) => s.objectives))].sort(),
     ["D05.1", "D05.2", "D05.3", "D05.4"],
   );
-  assert.equal(continuityScenes.filter((s) => s.check).length, 1);
+  assert.equal(continuityScenes.filter((s) => s.check).length, 2);
 });
 test("new visuals retain accessible labels in both geometries", () => {
   for (const compact of [false, true])

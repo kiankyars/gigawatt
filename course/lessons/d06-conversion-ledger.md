@@ -52,6 +52,10 @@ At a declared DC boundary, P = V × I. A synthetic 100 kW load draws 2,000 A at 
 
 For example, use a deliberately fixed 1 milliohm round-trip resistance. The idealized heating is 4 kW at 2,000 A and about 15.6 W at 125 A. This dramatic ratio is a property of the stipulated currents and unchanged resistance, not a predicted saving for a real rack. It excludes converters, connectors, insulation spacing, protection and cooling. A fair system comparison follows all losses from the same upstream point to the same useful loads, at the same operating conditions. The lower-current result is a reason to investigate architecture, not a completed design.
 
+## Read the supplied power-stack map by function
+
+The supplied Data Gravity / Wing image is visibly dated May 2026. Use it to locate grid and substation equipment, building distribution and UPS, rack supply, and point-of-load regulation. Power semiconductors are technologies inside converters and need not form another separate physical stage. Its company highlights and market figures are source context, not independently verified course design inputs; the original publication URL was not supplied.
+
 ## Worked example: A synthetic rack power ledger
 
 - A group of processor rails delivers 72 kW at a steady point.

@@ -27,7 +27,7 @@ function draw(){
     markup=({'intro':sample.intro,'copper':sample.copper,'current':sample.current,'loss':sample.loss,
       'conversion-loss':sample.conversionViews,'source-figure':sample.sourceFigure}[kind]
       || (['dc-basics','ac-basics','three-phase','voltage-basis'].includes(kind)?()=>electrical.electricalVisual(kind):()=>sample.architecture(kind)))();
-  }else markup=supplementalVisual(scene,state);
+  }else markup=supplementalVisual(scene,state,compact);
   $('visual').innerHTML=markup;
   $('scene').dataset.kind=scene.kind;
   $('scene').dataset.scene=scene.id;

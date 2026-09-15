@@ -4,7 +4,7 @@ Generated reading view. Edit [`course/expansion/foundations-power.json`](https:/
 
 **7. Continuity, storage and protection · Authored draft**
 
-Calculate output energy after usable-capacity and reserve assumptions, screen discharge power separately, and distinguish a UPS role from a generic storage inventory.
+Calculate output energy using one declared usable-energy window, screen discharge power separately, and distinguish a UPS role from a generic storage inventory.
 
 **Driving question:** Can the stored energy reach the load at the required rate?
 
@@ -42,23 +42,27 @@ From 10 ms onward the battery supplies the full 1 MW, so capacitor energy stops 
 
 Matching the load arrests the DC-link voltage decline. Restoring its setpoint requires replacing the capacitor energy already released. A regulated battery DC/DC interface can increase delivered current before the generator is ready. Once acceptable AC is available, the rectifier can regulate the link instead. Battery terminal voltage and link voltage need not be equal; directly connected battery architectures behave differently.
 
-Continue from 768.1 V with 5 kJ missing and a constant 1 MW load. Choose a recovery duration first. Replacing 5 kJ in 100 ms needs 50 kW extra, so source output is 1.05 MW. A 50 ms target needs 100 kW extra, so output is 1.10 MW. Supplying only 1.00 MW leaves no recharge power. The voltage controller reduces output to the load requirement at 800 V. These times describe recovery after surplus power is available, independently of generator startup.
+Write the energy account before reading the recovery graph. The missing energy is E_missing = ½C(V_target² − V_initial²). With constant source and load power at the same DC bus, surplus power is P_extra = P_source − P_load, so recovery time t = E_missing / P_extra when P_extra is positive. Joules divided by watts gives seconds. Equivalently, choosing a recovery time requires P_source = P_load + E_missing/t. A source that only matches the load provides no surplus for recovery.
+
+Continue from 768.1 V with 5 kJ missing and a constant 1 MW load. At 1.05 MW source output, the 50 kW surplus replaces 5 kJ in 100 ms. At 1.10 MW, the 100 kW surplus restores the same energy in 50 ms. Supplying only 1.00 MW leaves no recharge power. The voltage controller reduces output to the load requirement at 800 V. These times describe recovery after surplus power is available, independently of generator startup.
+
+The voltage curve follows the same account: V(t) = √(V_initial² + 2P_extra t/C) until it reaches the target. For the unrounded initial state, stored energy rises from 59 kJ to 64 kJ. Constant surplus power therefore raises energy linearly while voltage follows a square-root curve. These curves assume constant capacitance and neglect losses; the displayed 768.1 V is rounded. The graph begins when the stipulated surplus is available, not at generator-start command.
 
 Recharging the UPS battery is a separate energy account from restoring the DC-link capacitors. Generator and rectifier capacity must cover the load, allowed battery charging and losses. Schneider’s illustrated Easy UPS family can configure detected genset supply with charging disabled or enabled. The presentation therefore shows both generator-only supply and generator supply plus battery recharge.
 
-## Solve one reserve-aware runtime
+## Apply one usable-energy window, then conversion loss
 
-Consider two hypothetical storage systems. Each begins with a stated 1.0 MWh energy inventory. The scenario permits an 80 percent usable operating window, leaving 0.8 MWh within that window. A policy then reserves 0.2 MWh at the battery-output accounting boundary. The energy available for this event is 0.8 − 0.2 = 0.6 MWh before the specified output conversion loss. This sequence avoids treating the reserve as both a fraction and another unannounced reduction.
+Consider two hypothetical storage systems. Each begins with a stated 1.0 MWh energy inventory. The scenario permits an 80 percent usable operating window: 1.0 × 0.80 = 0.80 MWh before the specified output conversion loss. This one window already excludes the unavailable 20 percent. Do not subtract that same unavailable slice again as a separate reserve. Any additional reserve would need a distinct purpose and an explicitly stated accounting boundary; none is added here.
 
-Assume the event discharge conversion is 95 percent efficient. Deliverable energy at the protected-load boundary is 0.6 × 0.95 = 0.57 MWh. A constant 6 MW protected load would use that in 0.57/6 = 0.095 hours. Multiply by sixty to obtain 5.7 minutes. The units show why the formula works: MWh divided by MW leaves hours. This is a bounded energy estimate under our assumptions, not a guaranteed product runtime.
+Assume event discharge conversion is 95 percent efficient. Deliverable energy at the protected-load boundary is 1.0 × 0.80 × 0.95 = 0.76 MWh. A constant 6 MW protected load uses that in 0.76/6 hours, or 0.76/6 × 60 = 7.6 minutes. MWh divided by MW leaves hours. This is an energy estimate under the supplied assumptions, not a guaranteed product runtime.
 
-System A can deliver 8 MW at the stated output boundary. It passes the 6 MW power screen, so the energy calculation is relevant. System B can deliver only 4 MW. It cannot support the full 6 MW load even though its energy inventory is identical. Calling System B a 5.7-minute solution would confuse a stored quantity with a deliverable service. Its shortfall begins immediately in the simplified steady power screen.
+System A can deliver 8 MW at the stated output boundary. It passes the 6 MW power screen, so the energy calculation is relevant. System B can deliver only 4 MW. It cannot support the full 6 MW load even though its energy inventory is identical. Calling System B a 7.6-minute solution would confuse stored energy with deliverable service. Its shortfall begins immediately in the simplified steady power screen.
 
-Now add 0.3 MW of cooling and control auxiliaries to the protected scope. Total protected demand becomes 6.3 MW. System A still passes the power screen, but runtime falls to 0.57/6.3 × 60, approximately 5.43 minutes. System B still fails. The arithmetic demonstrates why naming the protected loads matters before sizing storage: preserving servers while omitting the equipment needed to keep them usable can produce a misleading continuity claim.
+Now add 0.3 MW of cooling and control auxiliaries to the protected scope. Total protected demand becomes 6.3 MW. System A still passes the power screen, but runtime falls to 0.76/6.3 × 60 = 7.238 minutes, approximately 7.24 minutes. System B still fails. Preserving servers while omitting the equipment needed to keep them usable can produce a misleading continuity claim.
 
 ## Reserve policy has an opportunity cost
 
-The 0.2 MWh reserve is a deliberate operating choice in this example. Removing it would increase event energy to 0.8 × 0.95 = 0.76 MWh and extend the 6 MW estimate to 7.6 minutes. That does not prove the reserve should be removed. It may exist for another event, uncertainty, battery operating policy, or a service obligation. A tradeoff should make the purpose visible so the same energy is not promised to multiple uses at once.
+A usable-energy window can reflect operating limits and reserved inventory. State what it includes before allocating energy to another purpose. Retaining a separate reserve can support another event, uncertainty or a service obligation, but it reduces the energy available now. The 80 percent window in this example is applied once; neither its excluded 20 percent nor the 5 percent conversion loss is deducted twice.
 
 Load shape also matters. For a changing protected demand, calculate energy interval by interval and check the power limit at every relevant interval. A short higher-power phase can fail the power screen while barely changing total energy. A lower sustained phase can fit the converter but exhaust the inventory. Neither the maximum MW nor the total MWh alone describes both problems.
 
@@ -68,31 +72,32 @@ Finally, do not claim complete recovery when the load merely returns to its norm
 
 ## Case study: solar and second-life batteries in Sparks
 
-The solar example is Crusoe and Redwood Materials at Sparks, Nevada. Crusoe’s May 2026 summary specifies 12 MW of solar and 63 MWh of repurposed EV battery capacity. These quantities answer different questions: generation capability and stored energy.
+The solar example is Crusoe and Redwood Materials at Sparks, Nevada. Redwood’s 2 April 2026 introduction to Redwood Energy and Crusoe’s May 2026 impact-report summary specify 12 MW of solar and 63 MWh of repurposed EV battery capacity. These quantities describe generation capability and stored energy. Neither is a statement of current IT demand, total-site nameplate load or battery discharge power.
 
-For an original ideal example, assume a full usable 63 MWh store, a constant 3 MW total load, no solar input, no reserve and no conversion loss. Energy alone would last 21 hours. At 6 MW it would last 10.5 hours, only if the delivery path could supply 6 MW. Actual runtime needs usable energy, discharge limits, state of charge, auxiliaries and the weather/load time series. Neither quotient is a measured Sparks runtime.
+A host-published interview dated 27 July 2025 attributes a 1 MW initial deployment to Forrest Carroll, who worked in Crusoe Energy & Infrastructure Development. This is a dated participant account of the pilot’s scale. The transcript does not specify whether 1 MW is IT power or total facility load, and it is not an equipment nameplate. Later expansion announcements do not establish a verified current load denominator.
 
 Crusoe’s March 2026 update reports 99.2% microgrid availability over seven months and 99.9% Cloud availability using grid backup. Pause: does that mean 99.2% of electricity came from solar? No. Availability measures time meeting a service definition; solar share measures energy from a source. An hourly supply ledger is needed to answer the latter. The grid-backup disclosure also prevents describing this operating account as entirely off-grid. These are historical company-reported operating figures, not a September 2026 measurement interval or a current service guarantee. The May 2026 impact report repeats the case without establishing a new measurement period.
 
-## What 63 MWh divided by 12 MW tells us
+## Compare stored energy with the reported 1 MW pilot
 
-Redwood describes a 12 MW solar array charging 63 MWh of repurposed batteries at its Nevada campus, which hosts Crusoe Spark compute. Dividing 63 MWh by a constant 12 MW load gives 5.25 hours if that full energy reaches the load. This is a useful energy-to-power calculation. It is not a minimum site runtime: the published 12 MW is a solar rating, not the maximum served load, and actual runtime also depends on usable energy and discharge capability.
+Use the historical reported pilot scale for an explicitly ideal comparison: 63 MWh / 1 MW = 63 hours, or 2.625 days. This is a gross energy-to-reported-load ratio, not measured or guaranteed autonomy. It assumes the whole stated inventory reaches a constant 1 MW load and that the delivery path can supply it. The 12 MW solar nameplate is not the load denominator.
+
+Actual runtime requires usable delivered battery energy divided by the total battery-fed load, with a separate output-power check. Starting state of charge, operating window, reserves, conversion losses, auxiliaries and concurrent generation matter. If the reported 1 MW describes IT alone, cooling and electrical overhead increase the battery-fed demand. As of this 15 September 2026 review, the current expanded installation’s verified IT/nameplate load, full-site load and qualified battery discharge MW remain unknown; the pilot comparison does not fill those gaps.
 
 ## Worked example: Same MWh, different deliverable service
 
 - Starting stated inventory is 1.0 MWh for both systems.
-- Usable window is 80%; reserve is 0.2 MWh before 95% output conversion.
+- One 80% usable-energy window is followed by 95% output conversion; no additional reserve is deducted.
 - Protected real load is constant at 6 MW.
 
-1. Operating-window energy — 1.0 × 0.80 = 0.8 MWh — Apply the declared usable window once.
-2. Event energy before conversion — 0.8 − 0.2 = 0.6 MWh — Subtract the explicitly located reserve.
-3. Usable load energy — 0.6 × 0.95 = 0.57 MWh — Conversion loss reduces energy reaching the protected load.
-4. Power screen — A: 8 MW ≥ 6 MW; B: 4 MW < 6 MW — Only System A can support the stated full load.
-5. Energy-limited duration for A — 0.57 / 6 × 60 = 5.7 minutes — The estimate applies after the power screen passes.
+1. Operating-window energy — 1.0 × 0.80 = 0.80 MWh — Apply the declared usable window once; its excluded slice is already unavailable.
+2. Usable load energy — 0.80 × 0.95 = 0.76 MWh — Apply the specified conversion loss once at the protected-load boundary.
+3. Power screen — A: 8 MW ≥ 6 MW; B: 4 MW < 6 MW — Only System A can support the stated full load.
+4. Energy-limited duration for A — 0.76 / 6 × 60 = 7.6 minutes — The estimate applies after the power screen passes.
 
-**Result:** System A has a 5.7-minute scenario energy budget; System B fails the full-load power requirement.
+**Result:** System A has a 7.6-minute scenario energy budget; System B fails the full-load power requirement.
 
-**Model boundary:** The example supplies usable-window, reserve, and efficiency inputs; it does not infer battery chemistry behavior or no-break transfer performance.
+**Model boundary:** The example supplies the usable window and conversion efficiency. It does not infer battery chemistry behavior, output ratings at other conditions or no-break transfer performance.
 
 ## The tradeoff
 
@@ -112,14 +117,14 @@ Response: Check the output MW limit and the complete protected scope before calc
 
 ## Apply the idea
 
-System A must support 6.3 MW including auxiliaries. How long does 0.57 MWh of usable output last?
+System A must support 6.3 MW including auxiliaries. How long does 0.76 MWh of usable output last?
 
 <details>
 <summary>Reveal the worked answer</summary>
 
-About 5.43 minutes.
+About 7.24 minutes.
 
-0.57/6.3 hours multiplied by 60 gives 5.4286 minutes. Do not multiply by 95 percent again, because that loss was already applied.
+0.76/6.3 hours multiplied by 60 gives 7.2381 minutes. Do not apply the 80 percent window or 95 percent conversion efficiency again.
 
 </details>
 
@@ -139,5 +144,7 @@ About 5.43 minutes.
 - [Redwood Materials — Redwood and Crusoe expand compute to 7x scale](https://www.redwoodmaterials.com/news/redwood-and-crusoe-expand-compute-to-7x-scale/) — Identify the publisher-provided aerial photograph of the Sparks battery and modular data-center deployment. Read 2026-09-13. Article and linked aerial inspected. Expansion is announced. The photo does not establish completed expanded capacity or the battery discharge rating; retain the Crusoe impact report for the specific solar-power label.
 - [Schneider Electric — Easy UPS 3-Phase Modular model list](https://productinfo.se.com/easyups3pmodular/viewer?docidentity=ModelList-1A71D03C&extension=xml&lang=en&manualidentity=TechnicalSpecificationsEasyUPS3-Pha-BC29F805) — Named 50–250 kW external-battery models and black/white finish options. Read 2026-09-13. Official model list read. One-switch and four-switch versions exist; the family photograph does not identify the exact model or fitted modules.
 - [Schneider Electric — Easy UPS 3-Phase Modular physical specifications](https://productinfo.se.com/easyups3pmodular/990-91580-technical-specifications-easy-ups-3-phase-modular/English/990-91580%20Technical%20Specifications%20Easy%20UPS%203-Phase%20Modular50-250%20kW%20UPS_0001011916.xml/%24/PhysicalREF_0000019941) — Cabinet dimensions and floor footprint for the product shown in the UPS teaching sequence. Read 2026-09-11. Selected dimensions reviewed: 1,991 mm high, 600 mm wide and 850 mm deep. Does not identify the installed rating or internal arrangement of either cabinet in the product-family photo.
-- [Redwood Materials — Introduction to Redwood Energy](https://www.redwoodmaterials.com/resources/unlocking-affordable-energy-storage-at-scale-an-introduction-to-redwood-energy/) — 12 MW solar array and 63 MWh repurposed battery inventory at the Nevada campus; distinguish solar rating from compute demand. Read 2026-09-13. Public indexed case-study paragraph reviewed. No plant load ceiling, usable output energy or guaranteed runtime inferred from the 12 MW solar rating.
+- [Redwood Materials — Introduction to Redwood Energy](https://www.redwoodmaterials.com/resources/unlocking-affordable-energy-storage-at-scale-an-introduction-to-redwood-energy/) — Proven at Scale case identifies a 12 MW solar array and 63 MWh repurposed-battery inventory at the Nevada campus; distinguish these from IT load and battery discharge power. Read 2026-09-15. Full page reviewed, especially Proven at Scale: The Crusoe Project. Four modular data centers and expansion to 24 do not establish current commissioned electrical load. No exact IT/full-site nameplate, qualified battery output MW, usable delivered energy or guaranteed autonomy is given.
 - [OpenStax — Energy Stored in Capacitors](https://openstax.org/books/college-physics-2e/pages/19-7-energy-stored-in-capacitors) — Explain stored capacitor energy using average voltage over charge, then substitute Q = CV. Read 2026-09-14. Algebraic derivation and equations 19.74–19.76 reviewed. The course uses its own figures and chosen 0.20 F, 800 V numerical example.
+- [Luca Pedretti — From Electrons to Intelligence: How Crusoe Powers AI with Modular, 24/7 Energy](https://lucapedretti850786.substack.com/p/c0b) — Host-published interview attributes a 1 MW initial Sparks deployment to Crusoe participant Forrest Carroll; supports a clearly dated pilot-scale energy comparison. Read 2026-09-15. Written interview reviewed; audio not checked. The 1 MW statement is participant testimony, not an equipment nameplate, and does not specify IT versus total facility power. It does not describe the current expanded load or battery output rating. Dividing 63 MWh by this reported pilot scale gives an ideal 63-hour ratio, not measured or guaranteed runtime.
+- [Pexapark — Podcast catalogue, Episode 19 with Forrest Carroll of Crusoe](https://pexapark.com/podcast/) — Corroborate the Crusoe interview’s host, guest, topic and Episode 19 date of 24 July 2025. Read 2026-09-15. Episode 19 catalogue entry reviewed. The catalogue date differs from the host’s 27 July written-post date. The catalogue establishes identity, not the 1 MW statement; source P198 supplies the written participant account. Audio not checked.

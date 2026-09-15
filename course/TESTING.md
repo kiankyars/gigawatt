@@ -7,6 +7,30 @@ Do not download or launch standalone Chrome for Testing or Playwright browser
 binaries here. Existing browser test harnesses remain available for a separately
 configured test environment; run local model and build checks without a browser.
 
+## Chapter 7 review and Chapter 8 figures — 2026-09-15
+
+- Chapter 5 now has **21** scenes, Chapter 7 **34**, and Chapter 8 **35**.
+  The user-confirmed Chapter 6 single-line title edit is included.
+- **222 Node tests and 76 Python tests passed.** Course, expanded reader,
+  domain-map and research checks passed. The usable-window example now yields
+  0.76 MWh, 7.6 minutes at 6 MW, and 7.24 minutes at 6.3 MW. Existing recovery
+  models establish the 5 kJ deficit and the 50/100 ms cases.
+- Built-in browser QA at **1280 × 720** and **390 × 844**: inspected the
+  derivation, stored-energy circuit, quotation, both closing exercises, both
+  construction photographs, supplied rack chart and stack recap, and the moved
+  DC feeder. Corrected mathematical subscript wrapping and the new capacitor
+  circuit during visual review. Phone diagrams scroll vertically as needed.
+- Exercised both bypass answers, the cooling-control answer reveal, the three
+  contact states and the merged shared-bus option. Confirmed the old Chapter 7
+  `dc-feeder-protection` URL redirects to the Chapter 8 scene while retaining
+  presentation mode. New images load from local assets. No standalone browser
+  was installed or launched.
+- An independent source-code review found no material arithmetic, circuit,
+  state-wiring or redirect defects. Original supplied TIFF pixels were preserved
+  during PNG conversion; provenance records attribution and source limitations.
+- Sparks' current IT/nameplate and qualified discharge MW remain unknown. The
+  dated reported 1 MW pilot comparison is not a claim of current autonomy.
+
 ## Chapter 6 final review — 2026-09-14
 
 - **21 scenes.** Added `power-factor-explained` immediately before the existing

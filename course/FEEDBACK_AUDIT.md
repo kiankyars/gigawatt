@@ -6,6 +6,29 @@ repository records; those records do not substitute for the original message.
 The prior “everything addressed” claim was too strong. This page foregrounds
 exceptions; the coverage list below makes the rest inspectable.
 
+## Chapter 7 review and Chapter 8 figures — 15 September 2026
+
+The requested recovery derivation, storage arithmetic correction, stored-energy
+isolation explanation, simpler fault/contact controls, two closing checks and
+Microsoft quotation are implemented. The 800 V feeder is now in Chapter 8;
+its old link redirects there. The supplied rack-density chart is Chapter 8 slide
+2, and the power-stack image is its final recap. Chapter 5 now has separate
+Meta Prometheus tents and Amazon Houdini factory-assembly cases, both with real
+photographs. The user confirmed those identities and authorized the Chapter 6
+single-line title change.
+
+**Remaining uncertainty:** no current commissioned Sparks IT nameplate was
+found. The revised example uses the reported **1 MW pilot from 2025**, with its
+date visible; the current-load research item remains in [the tracker](COURSE_REVIEW.md).
+The supplied BofA and Data Gravity/Wing figures retain their original attribution;
+their publication URLs and individual forecast/market annotations were not verified.
+
+**Clarifications incorporated:** the battery's 80% usable window is applied once;
+AC current zero crossings help interrupt an arc but do not establish safe
+isolation; generator startup and transfer can restore a failed-inverter bypass
+supply but cannot bridge the interruption. Grounding remains because the metal
+case needs a fault-current return path for automatic disconnection.
+
 ## Chapter 6 final review — 14 September 2026
 
 **Accepted after these edits, as requested.** The deck now has 21 slides;

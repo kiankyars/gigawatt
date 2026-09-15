@@ -1,5 +1,6 @@
 import { renderRackPower } from './rack-power-visuals.js';
 import { rackLedger, dcPlanes, migrationDecision } from './rack-energy-model.js';
+import { renderDCProtection } from './rack-energy-protection.js';
 const n=(v,d=2)=>v.toLocaleString('en-US',{maximumFractionDigits:d});
 export const escapeHTML=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const card=(label,value,detail='',extra='')=>`<section class="energy-card ${extra}"><p>${label}</p><strong>${value}</strong>${detail?`<span>${detail}</span>`:''}</section>`;
@@ -11,7 +12,9 @@ export function rackVisual(scene,state,compact) {
   return {markup:svg,description:result.description};
 }
 
-export function supplementalVisual(scene,s) {
+export function supplementalVisual(scene,s,compact=false) {
+  if(scene.kind==='review-figure')return `<figure class="review-figure"><img src="../assets/references/${escapeHTML(scene.asset)}" alt="${escapeHTML(scene.alt)}"></figure>`;
+  if(scene.kind==='dc-protection')return renderDCProtection(compact);
   if(scene.kind==='scales')return `<div class="scales-visual"><div class="scale-labels"><span>Rack bus<small>Distributes power</small></span><span>Board converters<small>Create device rails</small></span><span>Local capacitors<small>Support fast changes</small></span></div><img src="../assets/generated/rack-energy-scales.png" alt="Generic physical scale views: rear rack with copper busbars, a compute board, and capacitors beside a chip package."><p class="scale-question">Keep these local functions as the upstream architecture changes.</p></div>`;
   if(scene.kind==='green-case')return `<div class="green-case"><figure class="green-site"><img src="../assets/references/distribution-green-zurich-west.jpg" alt="Exterior of Green’s Zurich-West data center, photographed in the ABB Review case study."><figcaption><a href="https://library.e.abb.com/public/1afa6036874fd0bb85257d5000710a17/DC%20for%20efficiency.pdf" target="_blank" rel="noopener">Green Zurich-West · ABB Review 4/2013</a></figcaption></figure><div class="green-system"><p class="green-date"><strong>May 2012</strong><span>1 MW DC system</span></p><p class="green-inlet">16 kV AC input <span aria-hidden="true">↓</span></p><section class="green-conversion"><h2>Central conversion unit</h2><div class="green-stages"><div><strong>Transformer</strong><span>1,100 kVA · AC step-down</span></div><b aria-hidden="true">→</b><div><strong>Rectifier modules</strong><span>AC → DC</span></div></div></section><div class="green-dc-bus"><span aria-hidden="true">↓</span><strong>380 V DC distribution</strong><small>System diagram · 400 V open-circuit in the text</small></div><div class="green-load"><span aria-hidden="true">↓</span><strong>Compatible HP servers and storage</strong><small>Local DC/DC supplies device rails</small></div></div><p class="green-case-takeaway">Historical 380 V deployment · the later 800 V designs use a different interface.</p></div>`;
   if(scene.kind==='ledger'){

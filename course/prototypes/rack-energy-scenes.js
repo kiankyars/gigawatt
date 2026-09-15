@@ -39,10 +39,28 @@ const greenCase = {
     'Inside the central rectifier package, a 1,100 kVA dry transformer steps down the 16 kV AC supply before rectifier modules convert AC to DC. Local DC/DC conversion still supplies the devices. The system diagram labels the distribution 380 V DC; ABB specifies 400 V open-circuit in the text. Moving rectification upstream did not remove the transformer function or the need for compatible IT inputs.'],
   source_ids:['P153','P154']
 };
+const reviewFigures = [
+  {id:'rack-density-roadmap',label:'Rack power keeps rising',title:'Rack power keeps rising',reference:ledger,kind:'review-figure',pedagogical_role:'motivation',
+    asset:'rack-density-roadmap.png',
+    alt:'BofA Global Research forecast of rack power capacity, from a traditional 10–15 kW server rack toward more than 1.5 MW in the Feynman era. The supplied chart includes NVIDIA platform names, roadmap dates and an estimates attribution.',
+    explanation:['This user-supplied BofA Global Research forecast motivates the physical power-delivery challenge before the chapter opens the rack. It forecasts rack capacity; it does not measure operating draw at Abilene. Keep the chart’s original estimate language and roadmap dates attached to the figure.','NVIDIA’s May 2025 technical article independently describes the transition from 54 V rack distribution toward 800 V DC for MW-scale racks. It supports the architectural motivation, not every product date or bar in this analyst chart.'],
+    boundary:'Supplied BofA roadmap forecast; original report publication date not provided.',source_ids:['P05']},
+  {id:'power-stack-overview',label:'The power stack, from grid to chip',title:'The power stack, from grid to chip',reference:ledger,kind:'review-figure',pedagogical_role:'recap',
+    asset:'power-stack-overview.png',
+    alt:'Data Gravity / Wing, May 2026 industry map: grid and substation infrastructure; data-center power distribution and UPS; rack-level power supplies; SiC and GaN power semiconductors; point-of-load and chip-level voltage regulation; ending at the NVIDIA GPU die.',
+    explanation:['The supplied industry map closes the chapter by joining the grid, building, rack and chip perspectives. Follow the functions from the top to the GPU die after the class has seen the actual conversion choices and retrofit constraints.','Power semiconductors are technologies inside power converters, not necessarily a separate serial conversion stage. The chart’s companies, highlights and market metrics remain the source’s dated industry overview, not measured plant performance or a bill of materials for this course.'],
+    boundary:'User-supplied industry map, labeled Data Gravity / Wing · May 2026.'}
+];
+const dcProtection = {
+  id:'dc-feeder-protection',label:'Protect an 800 V DC feeder',title:'Interrupting a fault on an 800 V DC rack feeder',
+  reference:'d06-eight-hundred-volt-architectures',kind:'dc-protection',pedagogical_role:'mechanism',
+  explanation:['Once the distribution bus is 800 V DC, its feeders need protection qualified for the DC voltage and available fault current. The rectifier and charged bus capacitor can both feed a downstream short circuit; the cable also stores magnetic energy.','This diagram uses a mechanical DC breaker with an arc chamber. It must interrupt the current, withstand recovery voltage and handle energy released during clearing. Other architectures can use fuses or solid-state protection. Removing the AC supply alone does not establish that the DC circuit is de-energized.'],
+  boundary:'Conceptual 800 V DC feeder: rectifier, bus capacitor, cable inductance and mechanical DC breaker.',source_ids:['E1423005C7C','P05']
+};
 const rack = rackScenes.map(scene=>({...scene,kind:'rack'}));
 const ledgerIndex = rack.findIndex(scene => scene.id === 'board-rails');
-const local = [supplement[0],...rack.slice(0,ledgerIndex), supplement[1],...rack.slice(ledgerIndex)];
+const local = [supplement[0],reviewFigures[0],...rack.slice(0,ledgerIndex), supplement[1],...rack.slice(ledgerIndex)];
 const electrical = samplePresentation.steps.map(step=>({...step,label:step.title,title:step.headline,reference:'d06-eight-hundred-volt-architectures',sourceKind:step.kind,kind:'800v'}));
 // Preserve both reviewed sequences and every old scene ID in the shared selector.
 const transition = electrical.flatMap(scene=>scene.id==='ocp-power-architectures'?[greenCase,scene]:[scene]);
-export const scenes = Object.freeze([...local,supplement[2],...transition,...supplement.slice(3)]);
+export const scenes = Object.freeze([...local,supplement[2],...transition,dcProtection,...supplement.slice(3),reviewFigures[1]]);

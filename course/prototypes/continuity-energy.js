@@ -172,8 +172,8 @@ export function renderRecoveryComparison(source = "battery", { compact = false }
       return `${path(`M682 ${yy - 30}H1156`, "line", 1)}${text(695, yy, c.label, 27, c.color, "start", 600)}${text(916, yy, `${c.surplusW / 1000} kW`, 25, c.color, "middle")}${text(1145, yy, c.duration, 25, c.color, "end")}`;
     }).join("")}</g>`;
   const equations = compact
-    ? `${text(26, 740, "Extra power = 5 kJ / recovery time", 22)}${text(26, 791, "At 800 V: reduce source to 1 MW", 22)}`
-    : `${text(695, 389, "Extra power = 5 kJ / recovery time", 24)}${text(695, 443, "At 800 V: reduce source to 1 MW", 24)}`;
+    ? `${text(26, 791, "At 800 V: reduce source to 1 MW", 22)}`
+    : `${text(695, 443, "At 800 V: reduce source to 1 MW", 24)}`;
   const svg = `${text(compact ? 190 : 590, 31, sourceLabel, compact ? 22 : 27, "ink", "middle")}
     ${text(compact ? 190 : 590, 71, "1 MW load   ·   5 kJ to restore", compact ? 23 : 27, "ink", "middle")}
     ${graph}${comparison}${equations}`;

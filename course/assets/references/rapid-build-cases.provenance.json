@@ -1,0 +1,27 @@
+{
+  "rights": "Copyrighted publisher photographs, retained for teaching commentary with source attribution; no open license asserted.",
+  "figures": [
+    {
+      "file": "meta-prometheus-tents-construction.png",
+      "sha256": "21ef4ccff48f0868256e92d90117b0c197e62ebf60575aadf40143ebbabd1271",
+      "source_image_url": "https://engineering.fb.com/wp-content/uploads/2025/09/Meta-Promethesus-tent-construction.png",
+      "source_page": "https://engineering.fb.com/2025/09/29/data-infrastructure/metas-infrastructure-evolution-and-the-advent-of-ai/",
+      "source_credit": "Meta",
+      "published": "2025-09-29",
+      "retrieved": "2026-09-15",
+      "method": "Original publisher-hosted image downloaded unchanged; no crop, retouching, generation, or added labels.",
+      "scope": "Actual Prometheus tent construction photo, published September 2025; capture date not separately stated. No assertion of current completion, installed capacity, or final tent count."
+    },
+    {
+      "file": "cei-modular-factory-edgerton.jpg",
+      "sha256": "7c9bcafaae25ecb400c386c53ca62b7517adbced7325a513db53a804b9e26e7d",
+      "source_image_url": "https://www.cei.com/sites/default/files/images/Edgerton_Wisconsin_Hero%20%282%29_1.jpg",
+      "source_page": "https://www.cei.com/core-markets/modular",
+      "source_credit": "Cupertino Electric",
+      "published": null,
+      "retrieved": "2026-09-15",
+      "method": "Original publisher-hosted image downloaded unchanged; no crop, retouching, generation, or added labels.",
+      "scope": "Actual CEI modular factory in Edgerton, Wisconsin. Illustrates offsite assembly; not identified as a Houdini unit, AWS customer equipment, or a factory location for that program."
+    }
+  ]
+}

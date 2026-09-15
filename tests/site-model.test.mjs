@@ -45,7 +45,7 @@ test("Shared controller affects both trains despite separate equipment", () => {
   });
 });
 test("Chapter has a motivated opening, every state renders in both layouts, with a live-campus expansion check-in", () => {
-  assert.equal(scenes.length, 19);
+  assert.equal(scenes.length, 21);
   assert.equal(new Set(scenes.map((s) => s.id)).size, scenes.length);
   assert.equal(scenes[0].id, "site-purpose");
   assert.equal(scenes.at(-1).id, "service-check");

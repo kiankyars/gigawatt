@@ -11,6 +11,14 @@ import { redundancyModel, renderRedundancy } from "./ups-redundancy.js";
 import { renderReliability } from "./ups-reliability.js";
 
 const $ = (id) => document.getElementById(id);
+function relocated() {
+  if (location.hash === "#dc-feeder-protection") {
+    location.replace(`rack-energy-format.html${location.search}#dc-feeder-protection`);
+    return true;
+  }
+  return false;
+}
+const moved = relocated();
 let index = resolveContinuityScene(location.hash.slice(1));
 const fresh = () => ({
   outage: true,
@@ -23,9 +31,8 @@ const fresh = () => ({
   loadKW: 100,
   isolation: "branch",
   arcStage: "arc",
-  serviceStage: "bridge",
-  protectedControls: false,
   serviceReveal: false,
+  bypassAnswer: "",
 });
 let state = fresh();
 const button = (key, label, value = undefined) =>
@@ -91,30 +98,11 @@ function controls(scene) {
     return choices("isolation", [
       ["branch", "Branch fault · selective isolation"],
       ["upstream", "Branch fault · upstream trips"],
-      ["bus", "Bus fault · before clearing"],
-      ["bus-cleared", "Bus fault · cleared"],
+      ["bus-cleared", "Shared bus fault"],
     ]);
   if (scene.id === "ac-dc-interruption") return choices("arcStage", [["closed", "Contacts closed"], ["arc", "Contacts separating"], ["cleared", "Current interrupted"]]);
-  if (scene.id === "service-check")
-    return (
-      (state.serviceReveal
-        ? choices("serviceStage", [
-            ["bridge", "Battery bridge"],
-            ["generator", "Generator accepted"],
-            ["recovery", "Cooling restarting"],
-          ]) +
-          button(
-            "protectedControls",
-            state.protectedControls
-              ? "Return controls to utility"
-              : "Add UPS feed to controls",
-          )
-        : "") +
-      button(
-        "serviceReveal",
-        state.serviceReveal ? "Discuss" : "Show answer",
-      )
-    );
+  if (scene.id === "service-check") return button("serviceReveal", state.serviceReveal ? "Hide answer" : "Show answer");
+  if (scene.id === "bypass-check") return choices("bypassAnswer", [["yes", "Yes"], ["no", "No"]]);
   return "";
 }
 function ups(scene, compact) {
@@ -141,7 +129,7 @@ function ups(scene, compact) {
     context =
       state.generatorStage === "recharge"
         ? "Source capacity covers <strong>100 kW load + UPS losses + charging</strong>."
-        : "100 kW protected block · source switchgear feeds the UPS input";
+        : "";
   } else if (scene.mode) {
     result = renderBypassDiagram({
       mode: scene.mode,
@@ -164,6 +152,7 @@ function render() {
     compact = matchMedia("(max-width:799px)").matches;
   document.title = `7. Continuity, storage and protection · ${scene.label} · From Watts to Tokens`;
   $("title").textContent = scene.title;
+  $("title").classList.toggle("sr-only", Boolean(scene.quote));
   $("lesson-reference").href = `../index.html#${scene.reading}`;
   $("stage").dataset.scene = scene.id;
   $("stage").innerHTML = scene.ups
@@ -219,7 +208,7 @@ $("fullscreen").onclick = () =>
     ? document.exitFullscreen()
     : document.documentElement.requestFullscreen();
 window.addEventListener("hashchange", () =>
-  go(resolveContinuityScene(location.hash.slice(1))),
+  { if (!relocated()) go(resolveContinuityScene(location.hash.slice(1))); },
 );
 document.addEventListener("keydown", (e) => {
   if (
@@ -243,4 +232,4 @@ document.addEventListener("keydown", (e) => {
   }
 });
 matchMedia("(max-width:799px)").addEventListener("change", render);
-render();
+if (!moved) render();

@@ -71,7 +71,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [E0CDE775C43 — NVIDIA DGX SuperPOD — Software](sources/E0CDE775C43.md) | docs.nvidia.com | D09 | page_reviewed |
 | [E0F361052D1 — FCC 25-21 — Physical Diversity, paragraph 63](sources/E0F361052D1.md) | Federal Communications Commission | D08, D12 | public_excerpt_reviewed |
 | [E134D3535CB — Matrix Multiplication Background User’s Guide](sources/E134D3535CB.md) | docs.nvidia.com | D07 | page_reviewed |
-| [E1423005C7C — ABB — Protection Devices for Direct Current Applications](sources/E1423005C7C.md) | library.e.abb.com | D05 | public_excerpt_reviewed |
+| [E1423005C7C — ABB — Protection Devices for Direct Current Applications](sources/E1423005C7C.md) | library.e.abb.com | D05, D06 | public_excerpt_reviewed |
 | [E21653C0173 — ERCOT — Batch Zero large-load connection announcement, June 18, 2026](sources/E21653C0173.md) | www.ercot.com | D03 | page_reviewed |
 | [E22133B3DE1 — EIA — Laws of energy](sources/E22133B3DE1.md) | www.eia.gov | D01 | page_reviewed |
 | [E23909D618E — NVIDIA — DGX SuperPOD Key Components](sources/E23909D618E.md) | docs.nvidia.com | D02 | page_reviewed |
@@ -200,7 +200,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P158 — Schneider Electric — TN system: Principle](sources/P158.md) | Schneider Electric | D05 | public_excerpt_reviewed |
 | [P159 — Schneider Electric — Phaseo ABL6TS25B product datasheet](sources/P159.md) | Schneider Electric | D04 | page_reviewed |
 | [P16 — Why Scaling AI Compute Performance Requires a New Power Architecture](sources/P16.md) | NVIDIA | D04, D05, D06, D12, D13, D15 | page_reviewed |
-| [P160 — Schneider Electric — Elementary switching devices](sources/P160.md) | Schneider Electric | D04 | page_reviewed |
+| [P160 — Schneider Electric — Elementary switching devices](sources/P160.md) | Schneider Electric | D04, D05 | page_reviewed |
 | [P161 — Siemens — Vacuum Switching Technology and Components](sources/P161.md) | Siemens | D04 | public_excerpt_reviewed |
 | [P162 — Siemens — SIPROTEC 7SD610 circuit breaker failure protection](sources/P162.md) | Siemens | D04 | public_excerpt_reviewed |
 | [P163 — Equinix — Customer Installation Guidelines, phase balancing](sources/P163.md) | Equinix | D04 | public_excerpt_reviewed |
@@ -209,9 +209,9 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P166 — National Weather Service Houston/Galveston — Hurricane Harvey](sources/P166.md) | National Weather Service / NOAA | D12 | page_reviewed |
 | [P167 — OSHA — 29 CFR 1910.36(b), number and separation of exit routes](sources/P167.md) | U.S. Occupational Safety and Health Administration | D12 | public_excerpt_reviewed |
 | [P168 — Schneider Electric — Easy UPS 3-Phase Modular model list](sources/P168.md) | Schneider Electric | D05 | page_reviewed |
-| [P169 — Redwood Materials — Introduction to Redwood Energy](sources/P169.md) | Redwood Materials | D05 | public_excerpt_reviewed |
+| [P169 — Redwood Materials — Introduction to Redwood Energy](sources/P169.md) | Redwood Materials | D05 | page_reviewed |
 | [P17 — NVIDIA NVL72 AI Factory — System Hardware & Components](sources/P17.md) | NVIDIA | D06, D07, D08, D09, D10, D14, D01 | page_reviewed |
-| [P170 — ABB — Protection Devices for Direct Current Applications, 2025 technical paper](sources/P170.md) | ABB | D05 | public_excerpt_reviewed |
+| [P170 — ABB — Protection Devices for Direct Current Applications, 2025 technical paper](sources/P170.md) | ABB | D05, D06 | public_excerpt_reviewed |
 | [P171 — OpenStax — Energy Stored in Capacitors](sources/P171.md) | OpenStax, Rice University | D05 | page_reviewed |
 | [P172 — NVIDIA GB300 NVL72 — Specifications](sources/P172.md) | NVIDIA | D07 | page_reviewed |
 | [P173 — NVIDIA — Inside Blackwell Ultra](sources/P173.md) | NVIDIA | D07 | page_reviewed |
@@ -241,7 +241,11 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P195 — Hitachi Energy — CPB capacitor voltage transformer, 72–800 kV](sources/P195.md) | Hitachi Energy | D04 | page_reviewed |
 | [P196 — ABB — Protection criteria for medium voltage networks](sources/P196.md) | ABB | D04 | page_reviewed |
 | [P197 — Schneider Electric — Definition of reactive power](sources/P197.md) | Schneider Electric | D04 | page_reviewed |
+| [P198 — Luca Pedretti — From Electrons to Intelligence: How Crusoe Powers AI with Modular, 24/7 Energy](sources/P198.md) | Luca Pedretti / The Pexapark Podcast | D03, D05 | page_reviewed |
+| [P199 — Pexapark — Podcast catalogue, Episode 19 with Forrest Carroll of Crusoe](sources/P199.md) | Pexapark | D03, D05 | page_reviewed |
 | [P20 — Wolfspeed — Powering AI with reliable SiC-based solid-state transformers](sources/P20.md) | Wolfspeed | D04, D06 | page_reviewed |
+| [P200 — Meta’s Infrastructure Evolution and the Advent of AI](sources/P200.md) | Engineering at Meta | D03, D12, D13 | page_reviewed |
+| [P201 — Cupertino Electric — Modular data centers](sources/P201.md) | Cupertino Electric | D03, D12, D13 | page_reviewed |
 | [P21 — Texas Instruments — TIDA-011012 modular solid-state transformer reference design](sources/P21.md) | Texas Instruments | D04, D06 | page_reviewed |
 | [P22 — Huber et al. — Comparative Evaluation of MVAC–LVDC SST and Hybrid Transformer Concepts for Future Datacenters (IPEC 2022)](sources/P22.md) | ETH Zurich, Delta Electronics and Paderborn University | D04, D06 | page_reviewed |
 | [P23 — Wolfspeed — Introduction of a commercially available 10 kV SiC power MOSFET](sources/P23.md) | Wolfspeed | D04, D06 | page_reviewed |
@@ -348,7 +352,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [SA26 — AWS Trainium3 Deep Dive \| A Potential Challenger Approaching](sources/SA26.md) | SemiAnalysis | D02, D07, D08, D09, D15 | public_excerpt_reviewed |
 | [SA27 — RL Systems Mind the Gap: Matching Trainer and Generator Throughput](sources/SA27.md) | SemiAnalysis | D02, D07, D09, D14, D15 | public_excerpt_reviewed |
 | [SA28 — Most Neoclouds Suck At Security](sources/SA28.md) | SemiAnalysis | D09, D14 | public_excerpt_reviewed |
-| [SA29 — The Wild Wild West Of LEGO Datacenters](sources/SA29.md) | SemiAnalysis | D04, D10, D12, D13, D15 | public_excerpt_reviewed |
+| [SA29 — The Wild Wild West Of LEGO Datacenters](sources/SA29.md) | SemiAnalysis | D03, D04, D10, D12, D13, D15 | public_excerpt_reviewed |
 | [SA30 — Meta’s Infrastructure Team Needs A Culture Reset](sources/SA30.md) | SemiAnalysis | D02, D13, D14, D15 | public_excerpt_reviewed |
 | [SA31 — From Tokens to Burgers: A Water Footprint Face-Off](sources/SA31.md) | SemiAnalysis | D01, D03, D11, D15 | public_excerpt_reviewed |
 | [SA32 — Are AI Datacenters Increasing Electric Bills for American Households?](sources/SA32.md) | SemiAnalysis | D03, D15 | public_excerpt_reviewed |

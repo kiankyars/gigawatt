@@ -42,7 +42,7 @@ test('retrofit choice changes with deadline while the electrical account remains
 });
 test('consolidation preserves every reviewed scene and alias in order',()=>{
   const sample=JSON.parse(readFileSync(new URL('../course/expansion/sample-presentation.json',import.meta.url)));
-  assert.equal(new Set(scenes.map(s=>s.id)).size,oldRackScenes.length+sample.steps.length+6);
+  assert.equal(new Set(scenes.map(s=>s.id)).size,oldRackScenes.length+sample.steps.length+9);
   for(const sequence of [oldRackScenes,sample.steps]){
     let previous=-1;for(const s of sequence){const index=scenes.findIndex(c=>c.id===s.id);assert.ok(index>previous,s.id);previous=index;}
   }

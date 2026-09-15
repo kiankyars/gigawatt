@@ -33,3 +33,15 @@
  .service-result { grid-column:1/-1; font-size:16px; }
  .service-scenario,.service-prompt { font-size:19px; }
 }
+.recovery-derivation{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px;flex:1;font-family:Georgia,serif;text-align:center;min-height:0}
+.derivation-row{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px;font-size:clamp(21px,2.3vw,32px)}
+.fraction{display:inline-flex;flex-direction:column;align-items:stretch;text-align:center;vertical-align:middle;gap:7px;font-size:.88em}
+.fraction>span:first-child{padding:0 12px 8px;border-bottom:1.5px solid currentColor}.fraction>span:last-child{padding:0 12px}
+.derivation-result{display:flex;align-items:center;gap:16px;font-size:clamp(27px,3vw,44px);color:var(--green)}
+.recovery-derivation p{font:16px/1.4 Inter,sans-serif;color:var(--muted)}
+.stored-energy-lesson{display:flex;flex-direction:column;justify-content:center;flex:1;min-height:0;gap:16px}.stored-energy-panels{display:grid;grid-template-columns:1fr 1fr;min-height:0;gap:50px}.stored-energy-panels svg{width:100%;max-height:400px}.isolation-principle{text-align:center;font-size:22px;color:var(--green)}
+.bypass-exercise{display:flex;flex-direction:column;flex:1;min-height:0;gap:12px}.bypass-exercise .ups-visual{min-height:0}.bypass-exercise svg{width:100%;max-height:380px;min-height:0}.bypass-question{font-size:24px;text-align:center;color:var(--green)}
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+@media(max-width:799px){.recovery-derivation{gap:28px;padding:20px 0}.derivation-row{font-size:22px;gap:12px}.derivation-row:first-child{row-gap:24px}.derivation-result{font-size:28px;flex-wrap:wrap;justify-content:center}.stored-energy-panels{grid-template-columns:1fr;gap:24px}.isolation-principle{font-size:19px}.bypass-exercise svg{max-height:none}.bypass-exercise .service-prompt{font-size:18px}}
+
+.math-term{white-space:nowrap}.recovery-derivation sub{font-size:.65em}

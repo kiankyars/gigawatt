@@ -1,0 +1,29 @@
+{
+  "assets": [
+    {
+      "asset": "rack-density-roadmap.png",
+      "origin": "User-supplied clipboard TIFF converted losslessly to PNG with macOS sips; no cropping, relabeling, retouching or generated pixels.",
+      "original_filename": "file-2f1b151e1fd8723294c092126e767d9f.tiff",
+      "original_sha256": "68e6ee8e1a2ae643fca7a5a8062354facc444742936fc1584522ac8c92e119ed",
+      "sha256": "6bb7aed3da2a632e459358f561f1e476fff7ff160e3310d8a7179b1643ea03c5",
+      "publisher_as_labeled": "BofA Global Research",
+      "visible_credit": "BofA Global Research estimates, Nvidia, company reports",
+      "source_url": null,
+      "reviewed_at": "2026-09-15",
+      "scope": "Rack-density forecast supplied by the user. The figure retains its estimate language, roadmap product labels and dates. It is used to motivate distribution architecture, not as measured Abilene power or a current product specification. The original BofA report URL and publication date were not supplied and have not been independently located. NVIDIA\u2019s May 2025 technical article independently supports the direction toward MW-scale racks; it does not validate each bar in this analyst forecast.",
+      "supporting_primary_source": "https://developer.nvidia.com/blog/nvidia-800-v-hvdc-architecture-will-power-the-next-generation-of-ai-factories/"
+    },
+    {
+      "asset": "power-stack-overview.png",
+      "origin": "User-supplied clipboard TIFF converted losslessly to PNG with macOS sips; no cropping, relabeling, retouching or generated pixels.",
+      "original_filename": "file-e260ade807c051c02c1b946898269b13.tiff",
+      "original_sha256": "08e1efae6f0a13e842eed208aaa698fb734d0c5eac40f101f48133659b859310",
+      "sha256": "288d453ff8304f97da167e7b1d7617d9a45b384c309398c669fa6aec1447e388",
+      "publisher_as_labeled": "Data Gravity / Wing",
+      "visible_credit": "Data Gravity / Wing \u00b7 May 2026",
+      "source_url": null,
+      "reviewed_at": "2026-09-15",
+      "scope": "User-supplied dated industry map, retained unchanged. Used to recap grid/substation, building distribution and UPS, rack supply, power semiconductors, and point-of-load regulation. Power semiconductors are technologies used within converters, not necessarily a separate physical conversion stage. Company highlighting and market metrics belong to the supplied source and are not independently validated course design inputs. No primary publication URL was supplied or located."
+    }
+  ]
+}

@@ -2126,7 +2126,7 @@ Continue in **Continuity, storage and protection**: Battery power, stored energy
 
 **7. Continuity, storage and protection · Authored draft**
 
-Calculate output energy after usable-capacity and reserve assumptions, screen discharge power separately, and distinguish a UPS role from a generic storage inventory.
+Calculate output energy using one declared usable-energy window, screen discharge power separately, and distinguish a UPS role from a generic storage inventory.
 
 **Driving question:** Can the stored energy reach the load at the required rate?
 
@@ -2164,23 +2164,27 @@ From 10 ms onward the battery supplies the full 1 MW, so capacitor energy stops 
 
 Matching the load arrests the DC-link voltage decline. Restoring its setpoint requires replacing the capacitor energy already released. A regulated battery DC/DC interface can increase delivered current before the generator is ready. Once acceptable AC is available, the rectifier can regulate the link instead. Battery terminal voltage and link voltage need not be equal; directly connected battery architectures behave differently.
 
-Continue from 768.1 V with 5 kJ missing and a constant 1 MW load. Choose a recovery duration first. Replacing 5 kJ in 100 ms needs 50 kW extra, so source output is 1.05 MW. A 50 ms target needs 100 kW extra, so output is 1.10 MW. Supplying only 1.00 MW leaves no recharge power. The voltage controller reduces output to the load requirement at 800 V. These times describe recovery after surplus power is available, independently of generator startup.
+Write the energy account before reading the recovery graph. The missing energy is E_missing = ½C(V_target² − V_initial²). With constant source and load power at the same DC bus, surplus power is P_extra = P_source − P_load, so recovery time t = E_missing / P_extra when P_extra is positive. Joules divided by watts gives seconds. Equivalently, choosing a recovery time requires P_source = P_load + E_missing/t. A source that only matches the load provides no surplus for recovery.
+
+Continue from 768.1 V with 5 kJ missing and a constant 1 MW load. At 1.05 MW source output, the 50 kW surplus replaces 5 kJ in 100 ms. At 1.10 MW, the 100 kW surplus restores the same energy in 50 ms. Supplying only 1.00 MW leaves no recharge power. The voltage controller reduces output to the load requirement at 800 V. These times describe recovery after surplus power is available, independently of generator startup.
+
+The voltage curve follows the same account: V(t) = √(V_initial² + 2P_extra t/C) until it reaches the target. For the unrounded initial state, stored energy rises from 59 kJ to 64 kJ. Constant surplus power therefore raises energy linearly while voltage follows a square-root curve. These curves assume constant capacitance and neglect losses; the displayed 768.1 V is rounded. The graph begins when the stipulated surplus is available, not at generator-start command.
 
 Recharging the UPS battery is a separate energy account from restoring the DC-link capacitors. Generator and rectifier capacity must cover the load, allowed battery charging and losses. Schneider’s illustrated Easy UPS family can configure detected genset supply with charging disabled or enabled. The presentation therefore shows both generator-only supply and generator supply plus battery recharge.
 
-## Solve one reserve-aware runtime
+## Apply one usable-energy window, then conversion loss
 
-Consider two hypothetical storage systems. Each begins with a stated 1.0 MWh energy inventory. The scenario permits an 80 percent usable operating window, leaving 0.8 MWh within that window. A policy then reserves 0.2 MWh at the battery-output accounting boundary. The energy available for this event is 0.8 − 0.2 = 0.6 MWh before the specified output conversion loss. This sequence avoids treating the reserve as both a fraction and another unannounced reduction.
+Consider two hypothetical storage systems. Each begins with a stated 1.0 MWh energy inventory. The scenario permits an 80 percent usable operating window: 1.0 × 0.80 = 0.80 MWh before the specified output conversion loss. This one window already excludes the unavailable 20 percent. Do not subtract that same unavailable slice again as a separate reserve. Any additional reserve would need a distinct purpose and an explicitly stated accounting boundary; none is added here.
 
-Assume the event discharge conversion is 95 percent efficient. Deliverable energy at the protected-load boundary is 0.6 × 0.95 = 0.57 MWh. A constant 6 MW protected load would use that in 0.57/6 = 0.095 hours. Multiply by sixty to obtain 5.7 minutes. The units show why the formula works: MWh divided by MW leaves hours. This is a bounded energy estimate under our assumptions, not a guaranteed product runtime.
+Assume event discharge conversion is 95 percent efficient. Deliverable energy at the protected-load boundary is 1.0 × 0.80 × 0.95 = 0.76 MWh. A constant 6 MW protected load uses that in 0.76/6 hours, or 0.76/6 × 60 = 7.6 minutes. MWh divided by MW leaves hours. This is an energy estimate under the supplied assumptions, not a guaranteed product runtime.
 
-System A can deliver 8 MW at the stated output boundary. It passes the 6 MW power screen, so the energy calculation is relevant. System B can deliver only 4 MW. It cannot support the full 6 MW load even though its energy inventory is identical. Calling System B a 5.7-minute solution would confuse a stored quantity with a deliverable service. Its shortfall begins immediately in the simplified steady power screen.
+System A can deliver 8 MW at the stated output boundary. It passes the 6 MW power screen, so the energy calculation is relevant. System B can deliver only 4 MW. It cannot support the full 6 MW load even though its energy inventory is identical. Calling System B a 7.6-minute solution would confuse stored energy with deliverable service. Its shortfall begins immediately in the simplified steady power screen.
 
-Now add 0.3 MW of cooling and control auxiliaries to the protected scope. Total protected demand becomes 6.3 MW. System A still passes the power screen, but runtime falls to 0.57/6.3 × 60, approximately 5.43 minutes. System B still fails. The arithmetic demonstrates why naming the protected loads matters before sizing storage: preserving servers while omitting the equipment needed to keep them usable can produce a misleading continuity claim.
+Now add 0.3 MW of cooling and control auxiliaries to the protected scope. Total protected demand becomes 6.3 MW. System A still passes the power screen, but runtime falls to 0.76/6.3 × 60 = 7.238 minutes, approximately 7.24 minutes. System B still fails. Preserving servers while omitting the equipment needed to keep them usable can produce a misleading continuity claim.
 
 ## Reserve policy has an opportunity cost
 
-The 0.2 MWh reserve is a deliberate operating choice in this example. Removing it would increase event energy to 0.8 × 0.95 = 0.76 MWh and extend the 6 MW estimate to 7.6 minutes. That does not prove the reserve should be removed. It may exist for another event, uncertainty, battery operating policy, or a service obligation. A tradeoff should make the purpose visible so the same energy is not promised to multiple uses at once.
+A usable-energy window can reflect operating limits and reserved inventory. State what it includes before allocating energy to another purpose. Retaining a separate reserve can support another event, uncertainty or a service obligation, but it reduces the energy available now. The 80 percent window in this example is applied once; neither its excluded 20 percent nor the 5 percent conversion loss is deducted twice.
 
 Load shape also matters. For a changing protected demand, calculate energy interval by interval and check the power limit at every relevant interval. A short higher-power phase can fail the power screen while barely changing total energy. A lower sustained phase can fit the converter but exhaust the inventory. Neither the maximum MW nor the total MWh alone describes both problems.
 
@@ -2190,31 +2194,32 @@ Finally, do not claim complete recovery when the load merely returns to its norm
 
 ## Case study: solar and second-life batteries in Sparks
 
-The solar example is Crusoe and Redwood Materials at Sparks, Nevada. Crusoe’s May 2026 summary specifies 12 MW of solar and 63 MWh of repurposed EV battery capacity. These quantities answer different questions: generation capability and stored energy.
+The solar example is Crusoe and Redwood Materials at Sparks, Nevada. Redwood’s 2 April 2026 introduction to Redwood Energy and Crusoe’s May 2026 impact-report summary specify 12 MW of solar and 63 MWh of repurposed EV battery capacity. These quantities describe generation capability and stored energy. Neither is a statement of current IT demand, total-site nameplate load or battery discharge power.
 
-For an original ideal example, assume a full usable 63 MWh store, a constant 3 MW total load, no solar input, no reserve and no conversion loss. Energy alone would last 21 hours. At 6 MW it would last 10.5 hours, only if the delivery path could supply 6 MW. Actual runtime needs usable energy, discharge limits, state of charge, auxiliaries and the weather/load time series. Neither quotient is a measured Sparks runtime.
+A host-published interview dated 27 July 2025 attributes a 1 MW initial deployment to Forrest Carroll, who worked in Crusoe Energy & Infrastructure Development. This is a dated participant account of the pilot’s scale. The transcript does not specify whether 1 MW is IT power or total facility load, and it is not an equipment nameplate. Later expansion announcements do not establish a verified current load denominator.
 
 Crusoe’s March 2026 update reports 99.2% microgrid availability over seven months and 99.9% Cloud availability using grid backup. Pause: does that mean 99.2% of electricity came from solar? No. Availability measures time meeting a service definition; solar share measures energy from a source. An hourly supply ledger is needed to answer the latter. The grid-backup disclosure also prevents describing this operating account as entirely off-grid. These are historical company-reported operating figures, not a September 2026 measurement interval or a current service guarantee. The May 2026 impact report repeats the case without establishing a new measurement period.
 
-## What 63 MWh divided by 12 MW tells us
+## Compare stored energy with the reported 1 MW pilot
 
-Redwood describes a 12 MW solar array charging 63 MWh of repurposed batteries at its Nevada campus, which hosts Crusoe Spark compute. Dividing 63 MWh by a constant 12 MW load gives 5.25 hours if that full energy reaches the load. This is a useful energy-to-power calculation. It is not a minimum site runtime: the published 12 MW is a solar rating, not the maximum served load, and actual runtime also depends on usable energy and discharge capability.
+Use the historical reported pilot scale for an explicitly ideal comparison: 63 MWh / 1 MW = 63 hours, or 2.625 days. This is a gross energy-to-reported-load ratio, not measured or guaranteed autonomy. It assumes the whole stated inventory reaches a constant 1 MW load and that the delivery path can supply it. The 12 MW solar nameplate is not the load denominator.
+
+Actual runtime requires usable delivered battery energy divided by the total battery-fed load, with a separate output-power check. Starting state of charge, operating window, reserves, conversion losses, auxiliaries and concurrent generation matter. If the reported 1 MW describes IT alone, cooling and electrical overhead increase the battery-fed demand. As of this 15 September 2026 review, the current expanded installation’s verified IT/nameplate load, full-site load and qualified battery discharge MW remain unknown; the pilot comparison does not fill those gaps.
 
 ## Worked example: Same MWh, different deliverable service
 
 - Starting stated inventory is 1.0 MWh for both systems.
-- Usable window is 80%; reserve is 0.2 MWh before 95% output conversion.
+- One 80% usable-energy window is followed by 95% output conversion; no additional reserve is deducted.
 - Protected real load is constant at 6 MW.
 
-1. Operating-window energy — 1.0 × 0.80 = 0.8 MWh — Apply the declared usable window once.
-2. Event energy before conversion — 0.8 − 0.2 = 0.6 MWh — Subtract the explicitly located reserve.
-3. Usable load energy — 0.6 × 0.95 = 0.57 MWh — Conversion loss reduces energy reaching the protected load.
-4. Power screen — A: 8 MW ≥ 6 MW; B: 4 MW < 6 MW — Only System A can support the stated full load.
-5. Energy-limited duration for A — 0.57 / 6 × 60 = 5.7 minutes — The estimate applies after the power screen passes.
+1. Operating-window energy — 1.0 × 0.80 = 0.80 MWh — Apply the declared usable window once; its excluded slice is already unavailable.
+2. Usable load energy — 0.80 × 0.95 = 0.76 MWh — Apply the specified conversion loss once at the protected-load boundary.
+3. Power screen — A: 8 MW ≥ 6 MW; B: 4 MW < 6 MW — Only System A can support the stated full load.
+4. Energy-limited duration for A — 0.76 / 6 × 60 = 7.6 minutes — The estimate applies after the power screen passes.
 
-**Result:** System A has a 5.7-minute scenario energy budget; System B fails the full-load power requirement.
+**Result:** System A has a 7.6-minute scenario energy budget; System B fails the full-load power requirement.
 
-**Model boundary:** The example supplies usable-window, reserve, and efficiency inputs; it does not infer battery chemistry behavior or no-break transfer performance.
+**Model boundary:** The example supplies the usable window and conversion efficiency. It does not infer battery chemistry behavior, output ratings at other conditions or no-break transfer performance.
 
 ## The tradeoff
 
@@ -2234,14 +2239,14 @@ Response: Check the output MW limit and the complete protected scope before calc
 
 ## Apply the idea
 
-System A must support 6.3 MW including auxiliaries. How long does 0.57 MWh of usable output last?
+System A must support 6.3 MW including auxiliaries. How long does 0.76 MWh of usable output last?
 
 <details>
 <summary>Reveal the worked answer</summary>
 
-About 5.43 minutes.
+About 7.24 minutes.
 
-0.57/6.3 hours multiplied by 60 gives 5.4286 minutes. Do not multiply by 95 percent again, because that loss was already applied.
+0.76/6.3 hours multiplied by 60 gives 7.2381 minutes. Do not apply the 80 percent window or 95 percent conversion efficiency again.
 
 </details>
 
@@ -2261,8 +2266,10 @@ About 5.43 minutes.
 - [Redwood Materials — Redwood and Crusoe expand compute to 7x scale](https://www.redwoodmaterials.com/news/redwood-and-crusoe-expand-compute-to-7x-scale/) — Identify the publisher-provided aerial photograph of the Sparks battery and modular data-center deployment. Read 2026-09-13. Article and linked aerial inspected. Expansion is announced. The photo does not establish completed expanded capacity or the battery discharge rating; retain the Crusoe impact report for the specific solar-power label.
 - [Schneider Electric — Easy UPS 3-Phase Modular model list](https://productinfo.se.com/easyups3pmodular/viewer?docidentity=ModelList-1A71D03C&extension=xml&lang=en&manualidentity=TechnicalSpecificationsEasyUPS3-Pha-BC29F805) — Named 50–250 kW external-battery models and black/white finish options. Read 2026-09-13. Official model list read. One-switch and four-switch versions exist; the family photograph does not identify the exact model or fitted modules.
 - [Schneider Electric — Easy UPS 3-Phase Modular physical specifications](https://productinfo.se.com/easyups3pmodular/990-91580-technical-specifications-easy-ups-3-phase-modular/English/990-91580%20Technical%20Specifications%20Easy%20UPS%203-Phase%20Modular50-250%20kW%20UPS_0001011916.xml/%24/PhysicalREF_0000019941) — Cabinet dimensions and floor footprint for the product shown in the UPS teaching sequence. Read 2026-09-11. Selected dimensions reviewed: 1,991 mm high, 600 mm wide and 850 mm deep. Does not identify the installed rating or internal arrangement of either cabinet in the product-family photo.
-- [Redwood Materials — Introduction to Redwood Energy](https://www.redwoodmaterials.com/resources/unlocking-affordable-energy-storage-at-scale-an-introduction-to-redwood-energy/) — 12 MW solar array and 63 MWh repurposed battery inventory at the Nevada campus; distinguish solar rating from compute demand. Read 2026-09-13. Public indexed case-study paragraph reviewed. No plant load ceiling, usable output energy or guaranteed runtime inferred from the 12 MW solar rating.
+- [Redwood Materials — Introduction to Redwood Energy](https://www.redwoodmaterials.com/resources/unlocking-affordable-energy-storage-at-scale-an-introduction-to-redwood-energy/) — Proven at Scale case identifies a 12 MW solar array and 63 MWh repurposed-battery inventory at the Nevada campus; distinguish these from IT load and battery discharge power. Read 2026-09-15. Full page reviewed, especially Proven at Scale: The Crusoe Project. Four modular data centers and expansion to 24 do not establish current commissioned electrical load. No exact IT/full-site nameplate, qualified battery output MW, usable delivered energy or guaranteed autonomy is given.
 - [OpenStax — Energy Stored in Capacitors](https://openstax.org/books/college-physics-2e/pages/19-7-energy-stored-in-capacitors) — Explain stored capacitor energy using average voltage over charge, then substitute Q = CV. Read 2026-09-14. Algebraic derivation and equations 19.74–19.76 reviewed. The course uses its own figures and chosen 0.20 F, 800 V numerical example.
+- [Luca Pedretti — From Electrons to Intelligence: How Crusoe Powers AI with Modular, 24/7 Energy](https://lucapedretti850786.substack.com/p/c0b) — Host-published interview attributes a 1 MW initial Sparks deployment to Crusoe participant Forrest Carroll; supports a clearly dated pilot-scale energy comparison. Read 2026-09-15. Written interview reviewed; audio not checked. The 1 MW statement is participant testimony, not an equipment nameplate, and does not specify IT versus total facility power. It does not describe the current expanded load or battery output rating. Dividing 63 MWh by this reported pilot scale gives an ideal 63-hour ratio, not measured or guaranteed runtime.
+- [Pexapark — Podcast catalogue, Episode 19 with Forrest Carroll of Crusoe](https://pexapark.com/podcast/) — Corroborate the Crusoe interview’s host, guest, topic and Episode 19 date of 24 July 2025. Read 2026-09-15. Episode 19 catalogue entry reviewed. The catalogue date differs from the host’s 27 July written-post date. The catalogue establishes identity, not the 1 MW statement; source P198 supplies the written participant account. Audio not checked.
 
 ## Continuity belongs to the complete service
 
@@ -2326,17 +2333,29 @@ For a common mathematical reference, counting every minute of a 365-day year giv
 
 ## Fairwater Atlanta: choose backup around the power supply and service
 
-Microsoft chose the Atlanta site for resilient utility power. Its November 2025 description says the GPU fleet can forgo traditional on-site generation, UPS systems and dual-corded distribution, reducing cost and time to market. Microsoft separately describes on-site energy storage for smoothing power fluctuations, so this is not a claim that the campus contains no batteries.
+Microsoft chose the Atlanta site for resilient utility power. Its November 2025 description says the GPU fleet can forgo traditional on-site generation, UPS systems and dual-corded distribution, reducing cost and time to market. The same article discusses on-site energy storage for smoothing power fluctuations; the passage does not provide a complete installed-equipment inventory.
 
 The decision is concrete: how much additional local backup does this GPU service need beyond the reliability available from its utility connection? A different utility supply or a service with a different interruption tolerance can justify a different investment. This Fairwater design is not presented as an Uptime Tier certification. It therefore does not contradict the generator requirement within the four Uptime Tiers.
 
 Microsoft does not supply a quantified capital-cost comparison or a measured annual availability record in that announcement. The case establishes the chosen architecture and the operator's rationale. It does not prove that omitting backup achieves the same result at another site.
 
+## Microsoft on power oscillations
+
+> We have also worked with our industry partners to codevelop power-management solutions to mitigate power oscillations created by large scale jobs, a growing challenge in maintaining grid stability as AI demand scales. This includes a software-driven solution that introduces supplementary workloads during periods of reduced activity, a hardware-driven solution where the GPUs enforce their own power thresholds and an on-site energy storage solution to further mask power fluctuations without utilizing excess power.
+
+Scott Guthrie, Microsoft, 12 November 2025, in “Infinite scale: The architecture behind the Azure AI superfactory.” This exact supplied passage appears in the Fairwater design discussion immediately after the Atlanta power paragraph. It describes three power-management approaches; it does not establish that all three were commissioned at Atlanta or deployed throughout Azure. The final phrase is Microsoft’s wording, not a course claim that energy storage is lossless.
+
 ## Trace a powered rack with a failed service dependency
 
-The Chapter 7 closing check uses a separate qualitative operating sequence. IT remains on its UPS; pumps wait for generator transfer; heat rejection restarts later. Cooling controls initially have a utility-only feed. In this supplied operating policy, loss of control power trips an interlock and stops the workload even though rack AC remains present. This is a declared scenario response, not a universal automatic behavior of data centers.
+The closing check uses a separate qualitative scenario: utility power fails, and the generator starts and supplies the cooling plant. Compute racks have UPS and generator support; pumps and heat rejection have generator support; cooling controls have only utility power. The remaining dependency is the unpowered cooling controls. In this stipulated case the workload cannot continue merely because its racks still receive electricity.
 
-Moving the control supply to a UPS repairs that particular dependency. It does not establish temperature margin while pumps transfer or heat rejection restarts. A continuity claim still needs the actual control sequence, supply dependencies, restart behavior, thermal capacity and allowable temperatures over the full disturbance. The check supplies no thermal ride-through duration and does not certify that the corrected path can sustain the service.
+A protected supply for the controls addresses that missing path. Cooling restart behavior and thermal margin still need checking. This short check gives no transfer times or thermal ride-through duration; the earlier numerical timeline is a separate, explicitly assumed example.
+
+## Check bypass after an inverter failure
+
+Suppose the inverter has failed and forced static bypass supplies the load from utility AC. The battery is charged, but its route to the AC load still requires the failed inverter. If the utility source now fails, neither the inverter path nor the bypass source can supply the load. The load therefore does not ride through in this scenario.
+
+A generator may restore acceptable bypass power after startup and transfer; it does not bridge the intervening interruption. This check assumes no other operating supply path. It also differs from a requested bypass mode with a healthy inverter: the reviewed Schneider manual distinguishes those operating states, so the word bypass alone does not establish the available battery support.
 
 ## Worked example: An electrical bridge with an unresolved thermal interval
 
@@ -2391,8 +2410,9 @@ About 152.78 kWh is needed; 120 kWh is short by 32.78 kWh.
 - [Explaining the Uptime Institute’s Tier Classification System (April 2021 Update)](https://journal.uptimeinstitute.com/explaining-uptime-institutes-tier-classification-system/) — Separates the Tier I–IV infrastructure outcomes from measured service availability; explicitly states that expected-downtime assignments were removed in 2009. Supports an original 365-day downtime-allowance example without mapping nines to tiers. Read 2026-09-12. Substantive publisher-indexed text reviewed, including Tier descriptions and the 2009 availability clarification; direct page requests returned 403. The full topology standard was not reviewed. Example outage durations are hypothetical, not reported performance.
 - [Tier Classification Myths and Misconceptions](https://uptimeinstitute.com/myths) — Explains that generator plants for Tier III/IV must support the critical load without runtime limitations in their applicable capacity rating, but need not run continuously. Clarifies that utility-feed and component counts do not determine Tier. Read 2026-09-12. Substantive publisher-indexed text reviewed, including the 24 March 2010 generator clarification and 27 August 2009 utility/component-count clarification; direct page requests returned 403. Equipment capability is distinct from fuel endurance, operation permissions and continuous on-site generation.
 - [Crusoe and Redwood — Sparks microgrid update](https://www.crusoe.ai/resources/newsroom/crusoe-and-redwood-materials-expand-strategic-partnership-scaling-to-7x-the-original-ai-infrastructure-density) — Teach solar, storage and grid backup at Sparks, Nevada; distinguish microgrid availability from Cloud availability and energy share. Read 2026-09-12. Main release reviewed. Company reports 99.2% microgrid availability over seven months and 99.9% Cloud availability using grid backup, without separately specifying the Cloud measurement window. Expansion to 24 modular data centers is announced, not confirmed complete. These are historical operating claims, repeated in the May impact report, not a September measurement or a site power SLA.
-- [Microsoft — Fairwater Atlanta availability and power design](https://blogs.microsoft.com/blog/2025/11/12/infinite-scale-the-architecture-behind-the-azure-ai-superfactory/) — Named Fairwater Atlanta case for four-nines availability at three-nines cost; relate grid reliability and GPU power architecture to backup investment and time to market. Read 2026-09-12. Operator design/capability claim, not an audited annual availability result, SLA, Tier certification or quantified cost comparison. Omits traditional on-site generation, UPS and dual-corded distribution for the GPU fleet; separate on-site energy storage still smooths power fluctuations.
+- [Microsoft — Fairwater Atlanta availability and power design](https://blogs.microsoft.com/blog/2025/11/12/infinite-scale-the-architecture-behind-the-azure-ai-superfactory/) — Fairwater Atlanta availability and backup-design rationale, followed by Microsoft’s exact supplied quotation on supplementary workloads, GPU power thresholds and on-site storage for power oscillations. Read 2026-09-15. High-availability, low-cost power section reviewed. Atlanta’s GPU-fleet description omits traditional on-site generation, UPS and dual-corded distribution. Availability is an operator design claim, not a measured annual record, SLA, Tier or quantified cost comparison. The adjacent power-management passage does not prove all three measures were commissioned at Atlanta or deployed throughout Azure; its final phrase is not evidence of lossless storage.
 - [NTT DATA — Vienna 1 facility and power SLA](https://services.global.ntt/-/media/ntt/global/insights-and-resources/data-sheets/vienna-1-data-sheet.pdf?rev=9057842951194cb1b9d1cf884282f421) — Named five-nines power SLA example at Vienna 1. Compare the contractual power boundary with Fairwater design availability and Crusoe Cloud service availability. Read 2026-09-12. PDF copyright 2024; exact publication date and contractual measurement window/exclusions not stated. Page 2 advertises 99.999% power uptime availability; this does not establish observed annual uptime or hosted application availability. Page 1 lists 2N UPS A/B and N+1 diesel generation.
+- [Schneider Electric — Easy UPS 3-Phase Modular 50–250 kW: UPS Modes](https://productinfo.se.com/easyups3pmodular/990-6537-easy-ups-3-phase-modular-50-250-kw-operation/English/990-6537%20Operation%20Easy%20UPS%203-Phase%20Modular%2050-250%20kW_0001015104.xml/%24/GalaxyPX_UPSModes_0000761714) — Distinguish forced static bypass with an unavailable inverter from requested bypass with a healthy inverter; the failed-inverter knowledge check has no battery-to-load conversion path. Read 2026-09-08. Selected UPS mode descriptions reviewed. Product-specific bypass behavior, source acceptance and transfer limits govern. The course check explicitly stipulates a failed inverter and utility-source loss; it does not claim every bypass state has the same support.
 
 ## Fault isolation, grounding and DC interruption
 
@@ -2418,7 +2438,13 @@ The fivefold duration produces fivefold heating in this fixed-current, fixed-res
 
 Selectivity introduces another dimension. If the upstream device removes the entire bus quickly, the isolated branch's exposure may be limited but every downstream group loses power. If the intended branch device isolates only the affected group, service to others can continue under the specified disturbance tolerance. The correct design must satisfy protection and continuity requirements together. It is not enough to declare that the smallest clearing time or the fewest tripped devices is always best.
 
-Now compare AC and DC conceptually. AC current normally crosses zero periodically, which can assist interruption under suitable conditions. DC has no recurring natural zero crossing of that kind. Its interrupting system must force or achieve current extinction while handling the circuit's stored energy and recovery conditions. This difference is one reason an AC voltage/current rating cannot simply be reused for a DC circuit. The actual device's specified duty and the actual network must agree.
+AC current normally crosses zero periodically, which can assist arc extinction under suitable interrupting conditions. This instantaneous current zero is part of an energized waveform: it is not proof of absent voltage or safe isolation. DC lacks a recurring natural current zero of that kind. Its interrupting system must force or achieve current extinction while managing stored circuit energy and the voltage that appears across the open device. AC and DC ratings therefore cannot be exchanged without checking the specified duty.
+
+## Disconnected AC does not remove every energy source
+
+An open AC input can leave a battery connected to the DC link, and a disconnected capacitor can retain charge. In the earlier ideal example, even the 700 V operating cutoff leaves 49 kJ in the capacitor. A converter stopping its load is therefore a different condition from the circuit being de-energized.
+
+Actual safe isolation must account for every source and stored-energy path and verify the resulting absence of voltage under the applicable equipment procedure. A zero crossing, an open-switch icon or a stopped load does not establish that state. The teaching diagram identifies these distinct conditions; it is not an equipment isolation procedure.
 
 ## Grounding changes the fault path, not the laws of electricity
 
@@ -2438,7 +2464,7 @@ Protective bonding connects exposed conductive metal to the protective-conductor
 
 In the shared-bus example the first state shows the fault before the upstream breaker clears. Contacts remain closed, but the faulted bus cannot support its normal loads. Opening the upstream breaker removes the supply to the fault; it does not repair the common bus.
 
-Opening contacts can leave an arc carrying current. AC current zeros can assist extinction, while DC lacks a recurring natural zero. The 800 V feeder scene shows conventional arc-chamber interruption: the arc is lengthened and cooled, current decays, and stored circuit energy is dissipated. Semiconductor and hybrid devices use different mechanisms. The device’s DC voltage and interrupting ratings must match the circuit.
+Opening contacts can leave an arc carrying current. Chapter 8 applies this principle to an illustrative 800 V DC feeder: a conventional arc chamber lengthens and cools the arc until current is extinguished, while circuit energy must be managed. Semiconductor and hybrid devices use different mechanisms. The device’s DC voltage and interrupting ratings must match the circuit; the animation supplies no product rating or clearing-time claim.
 
 ## Worked example: A fixed-current fault heating comparison
 
@@ -2494,6 +2520,8 @@ Doubling current multiplies I² by four; halving time divides by two. Net heatin
 - [OpenStax — Electrical Energy and Power](https://openstax.org/books/university-physics-volume-2/pages/9-5-electrical-energy-and-power) — The fixed-current resistive energy example follows I²R multiplied by time. Read 2026-09-06. Read the public resistor-power equations; all fault currents and durations are hypothetical teaching inputs.
 - [Schneider Electric — TN system: Principle](https://www.electrical-installation.org/enwiki/TN_system_-_Principle) — In the TN arrangement, exposed conductive parts connect by protective conductors to the earthed source point; fault current returns through that loop. Read 2026-09-13. Public search-indexed primary text reviewed. The slide shows only a conceptual line-to-case fault loop, not a complete wiring design or a protective-device setting.
 - [ABB — Protection Devices for Direct Current Applications, 2025 technical paper](https://library.e.abb.com/public/4b22f4bae7e5424d9bf87039c3c1d0ba/9AKK108470A2501_Technical%20Application%20Paper_Protection%20Devices%20for%20Direct%20Current%20Applications.pdf) — Explain arc formation and conventional direct suppression; distinguish this example from semiconductor, resonant and hybrid interruption methods. Read 2026-09-13. Indexed section 2.3.6, page27, reviewed. Conventional interruption must drive current to zero and manage circuit energy; no product rating or clearing time assigned to teaching animation.
+- [Schneider Electric — Elementary switching devices](https://www.electrical-installation.org/enwiki/Elementary_switching_devices) — Distinguish disconnection for isolation from load switching and fault interruption. Read 2026-09-13. Full public page reviewed. Conceptual isolation functions only; the reader does not provide an equipment switching or absence-of-voltage test procedure.
+- [OpenStax — Energy Stored in Capacitors](https://openstax.org/books/college-physics-2e/pages/19-7-energy-stored-in-capacitors) — A charged capacitor retains electrical energy even when the external supply is disconnected. Read 2026-09-14. Algebraic capacitor-energy explanation reviewed. The 49 kJ remaining at the teaching bus cutoff is a course calculation, not an equipment discharge-time specification.
 
 ## Check your understanding: Maintenance, then another loss
 
@@ -2567,6 +2595,10 @@ Conversion loss becomes heat where the conversion takes place. Moving an AC-to-D
 At a declared DC boundary, P = V × I. A synthetic 100 kW load draws 2,000 A at 50 V and 125 A at 800 V. That sixteenfold difference follows from holding delivered power constant. It says nothing by itself about the total efficiency of two complete architectures. To compare conductor heating with I²R, first specify the same conductor resistance, including the return path. To compare conductor designs, resistance changes with geometry, length, temperature and connection details. Those are different comparisons.
 
 For example, use a deliberately fixed 1 milliohm round-trip resistance. The idealized heating is 4 kW at 2,000 A and about 15.6 W at 125 A. This dramatic ratio is a property of the stipulated currents and unchanged resistance, not a predicted saving for a real rack. It excludes converters, connectors, insulation spacing, protection and cooling. A fair system comparison follows all losses from the same upstream point to the same useful loads, at the same operating conditions. The lower-current result is a reason to investigate architecture, not a completed design.
+
+## Read the supplied power-stack map by function
+
+The supplied Data Gravity / Wing image is visibly dated May 2026. Use it to locate grid and substation equipment, building distribution and UPS, rack supply, and point-of-load regulation. Power semiconductors are technologies inside converters and need not form another separate physical stage. Its company highlights and market figures are source context, not independently verified course design inputs; the original publication URL was not supplied.
 
 ## Worked example: A synthetic rack power ledger
 
@@ -2658,11 +2690,21 @@ Use this drawing to compare conversion placement and AC/DC interfaces. It has no
 
 User-supplied figure, attributed to the Open Compute Project; the original publication has not yet been identified. The linked OCP paper provides related LVDC architecture context. The right-hand path depicts direct medium-voltage conversion, not the conventional transformer-plus-low-voltage-rectifier route. These are selected conversion and distribution functions, not complete power or protection designs. [Related OCP LVDC architecture paper](https://www.opencompute.org/documents/dcf-power-distribution-lvdc-white-paper-version-1-0-final-pdf-1)
 
+## Context for the supplied rack-density forecast
+
+The supplied image credits “BofA Global Research estimates, Nvidia, company reports.” It is a forecast with dated roadmap labels, not measured power at Abilene or a current rack specification. Its original report URL and publication date were not supplied. NVIDIA’s May 2025 article independently motivates the direction toward megawatt-scale racks; it does not validate each forecast bar.
+
 ## Read a roadmap as a dated design proposal
 
 NVIDIA’s May 2025 account described a facility-level 800 VDC concept and linked full-scale production to 2027 systems. Its August 11, 2026 update separately described a hybrid power rack expected in the second half of 2026, a row power center expected in 2027, and a broader DC power block. These are vendor descriptions and availability expectations as published. They establish proposed architecture categories, not evidence that a named site has accepted an operating installation or achieved a claimed efficiency.
 
 When a diagram says 800 V, ask between which conductors it is measured. A two-conductor 800 V differential and a bipolar arrangement described relative to a midpoint cannot be substituted silently. Their conductor-to-ground stress, fault cases and service interfaces depend on the actual grounding arrangement. The teaching diagram should show the specified convention without inventing it. Similarly, an AC voltage label needs a declared phase configuration and line-to-line or line-to-neutral meaning. A DC current comparison must not be casually reused as a three-phase AC feeder calculation.
+
+## The 800 V feeder still needs DC fault interruption
+
+The Chapter 8 feeder diagram locates the rectifier, bus capacitor, cable inductance, DC breaker and short circuit. It separates DC voltage rating, fault-current interruption and stored-energy requirements. When a fault develops, opening contacts may draw an arc that continues carrying current. In the illustrated conventional arc-chamber mechanism, the arc is lengthened and cooled to drive current to extinction. DC has no periodic natural current zero; the breaker must manage the actual source, circuit energy and voltage across the open contacts.
+
+This is one interruption mechanism, not a universal description of solid-state or hybrid breakers. Converter current limiting and capacitor discharge can change the fault waveform. Isolation of a feeder also does not prove every downstream store is discharged. The example therefore connects the higher-voltage interface to circuit-specific protection, grounding and stored-energy boundaries without selecting a device or prescribing an operating procedure.
 
 ## Compare a chain, not the number of boxes
 
@@ -2732,6 +2774,8 @@ The unmodeled auxiliary reverses the arithmetic result. This does not show that 
 - [OCP — Data Center Facility: Low Voltage Direct Current Power Distribution, v1.0](https://www.opencompute.org/documents/dcf-power-distribution-lvdc-white-paper-version-1-0-final-pdf-1) — Context for representative LVDC power-distribution architectures; not a confirmed source for the supplied three-column figure. Read 2026-09-11. Introduction and document metadata inspected. The exact origin of the user-supplied image remains unverified. Do not assign a figure number, mandate this topology, or treat these alternatives as a dated deployment sequence.
 - [ABB Review 4/2013 — DC for efficiency](https://library.e.abb.com/public/1afa6036874fd0bb85257d5000710a17/DC%20for%20efficiency.pdf) — Case transformer, rectifier and DC distribution interfaces. Read 2026-09-13. Reviewed PDF pages 1–4 visually, especially printed pages 18–19 and Figure 2. PDF text encoding was garbled, so pages were rendered and read. Figure labels 380 V DC, while text specifies 400 V open-circuit. 16 kV input and 1,100 kVA transformer are case-specific. No promotional efficiency percentage is adopted. Exterior photograph extracted unchanged from PDF page 2 (image object 23).
 - [ABB and Green open Zurich-West DC data-center expansion](https://new.abb.com/news/detail/12816/worlds-most-powerful-dc-data-center-online) — Opening date, installation scale and compatible HP IT. Read 2026-09-13. May 2012 primary announcement read. Historical 1 MW installation for a 1,100 square metre expansion; no claim of current operating capacity or general 800 V deployment. Marketing savings and superlatives are excluded.
+- [ABB — Protection Devices for Direct Current Applications](https://library.e.abb.com/public/5cd83dcb95a74dcdb571be5f256e1af8/9AKK108470A9606_en_B_Protection%20Devices%20for%20Direct%20Current%20Applications%20-%20Technical%20Application%20Paper.pdf) — DC interruption and converter-fed fault behavior depend on circuit dynamics and device capabilities. Read 2026-09-06. Read the publicly indexed excerpt of section 6; the PDF URL responded successfully, but the complete document was not reviewed. No product selection is claimed.
+- [ABB — Protection Devices for Direct Current Applications, 2025 technical paper](https://library.e.abb.com/public/4b22f4bae7e5424d9bf87039c3c1d0ba/9AKK108470A2501_Technical%20Application%20Paper_Protection%20Devices%20for%20Direct%20Current%20Applications.pdf) — Explain arc formation and conventional direct suppression in the Chapter 8 illustrative 800 V DC feeder; distinguish it from semiconductor, resonant and hybrid interruption methods. Read 2026-09-13. Indexed section 2.3.6, page27, reviewed. Conventional interruption must drive current to zero and manage circuit energy; no product rating or clearing time assigned to teaching animation.
 
 ## A rack upgrade is an interface negotiation
 

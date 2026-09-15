@@ -21,3 +21,5 @@
 .dc-protection svg { min-height:250px; }
 .dc-protection-facts { grid-template-columns:1fr; gap:16px; }
 }
+
+.arc-sequence{width:min(900px,100%);margin:auto;min-height:0}.arc-sequence .arc-case svg{max-height:400px}.arc-sequence .arc-case p{text-align:center;min-height:0}.arc-sequence .arc-case{display:flex;flex-direction:column;align-items:center}

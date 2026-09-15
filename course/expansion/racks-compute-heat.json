@@ -60,6 +60,12 @@
           "At a declared DC boundary, P = V × I. A synthetic 100 kW load draws 2,000 A at 50 V and 125 A at 800 V. That sixteenfold difference follows from holding delivered power constant. It says nothing by itself about the total efficiency of two complete architectures. To compare conductor heating with I²R, first specify the same conductor resistance, including the return path. To compare conductor designs, resistance changes with geometry, length, temperature and connection details. Those are different comparisons.",
           "For example, use a deliberately fixed 1 milliohm round-trip resistance. The idealized heating is 4 kW at 2,000 A and about 15.6 W at 125 A. This dramatic ratio is a property of the stipulated currents and unchanged resistance, not a predicted saving for a real rack. It excludes converters, connectors, insulation spacing, protection and cooling. A fair system comparison follows all losses from the same upstream point to the same useful loads, at the same operating conditions. The lower-current result is a reason to investigate architecture, not a completed design."
         ]
+      },
+      {
+        "heading": "Read the supplied power-stack map by function",
+        "paragraphs": [
+          "The supplied Data Gravity / Wing image is visibly dated May 2026. Use it to locate grid and substation equipment, building distribution and UPS, rack supply, and point-of-load regulation. Power semiconductors are technologies inside converters and need not form another separate physical stage. Its company highlights and market figures are source context, not independently verified course design inputs; the original publication URL was not supplied."
+        ]
       }
     ],
     "example": {
@@ -261,10 +267,23 @@
         ]
       },
       {
+        "heading": "Context for the supplied rack-density forecast",
+        "paragraphs": [
+          "The supplied image credits “BofA Global Research estimates, Nvidia, company reports.” It is a forecast with dated roadmap labels, not measured power at Abilene or a current rack specification. Its original report URL and publication date were not supplied. NVIDIA’s May 2025 article independently motivates the direction toward megawatt-scale racks; it does not validate each forecast bar."
+        ]
+      },
+      {
         "heading": "Read a roadmap as a dated design proposal",
         "paragraphs": [
           "NVIDIA’s May 2025 account described a facility-level 800 VDC concept and linked full-scale production to 2027 systems. Its August 11, 2026 update separately described a hybrid power rack expected in the second half of 2026, a row power center expected in 2027, and a broader DC power block. These are vendor descriptions and availability expectations as published. They establish proposed architecture categories, not evidence that a named site has accepted an operating installation or achieved a claimed efficiency.",
           "When a diagram says 800 V, ask between which conductors it is measured. A two-conductor 800 V differential and a bipolar arrangement described relative to a midpoint cannot be substituted silently. Their conductor-to-ground stress, fault cases and service interfaces depend on the actual grounding arrangement. The teaching diagram should show the specified convention without inventing it. Similarly, an AC voltage label needs a declared phase configuration and line-to-line or line-to-neutral meaning. A DC current comparison must not be casually reused as a three-phase AC feeder calculation."
+        ]
+      },
+      {
+        "heading": "The 800 V feeder still needs DC fault interruption",
+        "paragraphs": [
+          "The Chapter 8 feeder diagram locates the rectifier, bus capacitor, cable inductance, DC breaker and short circuit. It separates DC voltage rating, fault-current interruption and stored-energy requirements. When a fault develops, opening contacts may draw an arc that continues carrying current. In the illustrated conventional arc-chamber mechanism, the arc is lengthened and cooled to drive current to extinction. DC has no periodic natural current zero; the breaker must manage the actual source, circuit energy and voltage across the open contacts.",
+          "This is one interruption mechanism, not a universal description of solid-state or hybrid breakers. Converter current limiting and capacitor discharge can change the fault waveform. Isolation of a feeder also does not prove every downstream store is discharged. The example therefore connects the higher-voltage interface to circuit-specific protection, grounding and stored-energy boundaries without selecting a device or prescribing an operating procedure."
         ]
       },
       {
@@ -380,6 +399,20 @@
         "claim": "Opening date, installation scale and compatible HP IT.",
         "reviewed_on": "2026-09-13",
         "limits": "May 2012 primary announcement read. Historical 1 MW installation for a 1,100 square metre expansion; no claim of current operating capacity or general 800 V deployment. Marketing savings and superlatives are excluded."
+      },
+      {
+        "title": "ABB — Protection Devices for Direct Current Applications",
+        "url": "https://library.e.abb.com/public/5cd83dcb95a74dcdb571be5f256e1af8/9AKK108470A9606_en_B_Protection%20Devices%20for%20Direct%20Current%20Applications%20-%20Technical%20Application%20Paper.pdf",
+        "claim": "DC interruption and converter-fed fault behavior depend on circuit dynamics and device capabilities.",
+        "reviewed_on": "2026-09-06",
+        "limits": "Read the publicly indexed excerpt of section 6; the PDF URL responded successfully, but the complete document was not reviewed. No product selection is claimed."
+      },
+      {
+        "title": "ABB — Protection Devices for Direct Current Applications, 2025 technical paper",
+        "url": "https://library.e.abb.com/public/4b22f4bae7e5424d9bf87039c3c1d0ba/9AKK108470A2501_Technical%20Application%20Paper_Protection%20Devices%20for%20Direct%20Current%20Applications.pdf",
+        "claim": "Explain arc formation and conventional direct suppression in the Chapter 8 illustrative 800 V DC feeder; distinguish it from semiconductor, resonant and hybrid interruption methods.",
+        "reviewed_on": "2026-09-13",
+        "limits": "Indexed section 2.3.6, page27, reviewed. Conventional interruption must drive current to zero and manage circuit energy; no product rating or clearing time assigned to teaching animation."
       }
     ],
     "terms": [
