@@ -549,6 +549,7 @@ Reconcile IT and auxiliary loads with a downstream electrical capacity budget ac
 - [P78 — MLGW — xAI project quick facts](https://www.mlgw.com/images/content/files/pdf/2024xAI%20and%20MLGW%20Quick%20Facts%201.pdf) · `page_reviewed` · [local note](../research/sources/P78.md)
 - [SA42 — SpaceX 10GW in 2027 — construction pace and equipment procurement](https://newsletter.semianalysis.com/p/spacex-10gw-in-2027-why-its-real) · `public_excerpt_reviewed` · [local note](../research/sources/SA42.md)
 - [P102 — Oracle Data Centers: Abilene, Texas](https://www.oracle.com/data-centers/) · `page_reviewed` · [local note](../research/sources/P102.md)
+- [P110 — Abilene Data Center Development](https://www.mortenson.com/projects/abilene-data-center-development) · `page_reviewed` · [local note](../research/sources/P110.md)
 - [P112 — MZX Tech LLC — Southaven PSD permit application, January 2026 revision](https://upload.wikimedia.org/wikipedia/commons/e/e2/MZX_Tech_LLC_Draft_Air_PSD_Construction_Permit.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P112.md)
 - [P134 — Hammond Power Solutions — How Taps Work](https://americas.hammondpowersolutions.com/news/2014/april/how-taps-work) · `page_reviewed` · [local note](../research/sources/P134.md)
 - [P150 — Siemens — Compass Datacenters integrated MV skid](https://www.siemens.com/en-us/company/insights/compass-datacenters-case-study/) · `page_reviewed` · [local note](../research/sources/P150.md)
@@ -565,6 +566,9 @@ Reconcile IT and auxiliary loads with a downstream electrical capacity budget ac
 - [P164 — Schneider Electric — Transformer secondary voltage notation](https://acespex.se.com/rpt/prodhelp.php?doc=pms_0044&grp=spex_pms&host=CTW&ndx=21283) · `page_reviewed` · [local note](../research/sources/P164.md)
 - [P180 — Siemens — NXAirS medium-voltage switchgear HA 1702 sectional illustration](https://cache.industry.siemens.com/dl/files/485/109972485/att_1290488/v1/1702_NXAirS_12kV_Catalogue_EN_final.pdf) · `page_reviewed` · [local note](../research/sources/P180.md)
 - [P181 — Schneider Electric — Galaxy PDU 1000 kVA distribution voltages](https://blog.se.com/datacenter/2026/05/18/solving-densification-power-distribution-metering-high-performance-computing/) · `page_reviewed` · [local note](../research/sources/P181.md)
+- [P194 — Longhorn power plant review drawing — Lancium 34.5 kV feed](https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/37589-tc.pdf) · `page_reviewed` · [local note](../research/sources/P194.md)
+- [P195 — Hitachi Energy — CPB capacitor voltage transformer, 72–800 kV](https://www.hitachienergy.com/products-and-solutions/instrument-transformers/voltage-transformers/cpb-72-800-kv) · `page_reviewed` · [local note](../research/sources/P195.md)
+- [P196 — ABB — Protection criteria for medium voltage networks](https://library.e.abb.com/public/76afab5a1dd44f438409aa65c990ed8b/AP_Protection%20criteria%20MV(EN)C-_1VCP000280-01.2017.pdf) · `page_reviewed` · [local note](../research/sources/P196.md)
 
 <a id="d05"></a>
 

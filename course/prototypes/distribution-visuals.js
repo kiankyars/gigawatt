@@ -88,7 +88,7 @@ export function renderDistribution(id,state={},compact=false){
  case 'switchgear-anatomy':markup=switchgearAnatomy(m);break;
  case 'protection-relay':case 'isolation-surge':case 'surge-protection':case 'phase-loading':case 'feeder-diagnosis':markup=equipment(id,s,m);break;
  case 'compass-skid':markup=`<div class="split">${photo('distribution-compass-switchgear.jpg','Original factory view of Siemens switchgear for the jointly developed Compass MV skid.','Siemens × Compass · factory switchgear',compassURL)}<div class="package-comparison"><div><h2>Custom factory-built skid</h2><p>MV switchgear + transformer</p></div><div><h2>Co-developed with Compass</h2><p>Manufactured by Siemens</p></div></div></div>`;break;
- case 'local-stepdown':markup=art('distribution-transformer-location','Two balanced 2 MW, PF 1 routes: early step-down carries 2,406 A over 470 m; step-down beside the hall carries 84 A at 13.8 kV over 450 m and 2,406 A at 480 V over the final 20 m. Losses neglected.');break;
+ case 'local-stepdown':markup=art('distribution-transformer-location','Two balanced 2 MW, PF 1 routes: early step-down carries 2,406 A over 470 m; step-down beside the hall carries 33.5 A at 34.5 kV over 450 m and 2,406 A at 480 V over the final 20 m. Losses neglected.');break;
  case 'transformer-taps':markup=transformerTaps(s,m);break;
  case 'building-branches':markup=building(m);break;
  case 'distribution-units':markup=art('distribution-pdu-psu','Generic equipment functions: floor PDU distributes branches with an optional transformer; rack PDU distributes AC to outlets; server PSU converts AC to DC. Exact voltages depend on the product.');break;

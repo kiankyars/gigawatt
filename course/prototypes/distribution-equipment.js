@@ -1,22 +1,10 @@
+import {relayProtection} from './distribution-instruments.js';
 const ink='var(--text)', teal='var(--power)', orange='var(--heat)', muted='var(--muted)';
 const tx=(x,y,t,size=22,color=ink)=>`<text x="${x}" y="${y}" text-anchor="middle" font-size="${size}" fill="${color}">${t}</text>`;
 const ln=(d,color=teal,w=5,dash=false)=>`<path d="${d}" stroke="${color}" stroke-width="${w}" fill="none" stroke-linecap="round" ${dash?'stroke-dasharray="8 7"':''}/>`;
 const panel=(x,y,w,h,stroke='var(--line)')=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="12" fill="var(--surface)" stroke="${stroke}" stroke-width="2"/>`;
-const svg=(o,alt,h=460)=>`<svg class="mechanism equipment-diagram" viewBox="0 0 1120 ${h}" role="img" aria-label="${alt}">${o}</svg>`;
 export function equipment(id,s,m){
- if(id==='protection-relay'){
-  const fault=s.faultStage!=='normal',clear=s.faultStage==='cleared';
-  let o=tx(560,40,clear?'Fault current interrupted':fault?'Fault current detected':'Feeder supplying its load',28);
-  o+=ln('M65 270H470',fault&&!clear?orange:teal,7)+ln('M650 270H1050',clear?muted:fault?orange:teal,7);
-  o+=panel(435,190,250,128)+tx(560,225,'Circuit breaker',21)+ln('M435 270H470',fault&&!clear?orange:teal,7)+ln('M650 270H685',clear?muted:fault?orange:teal,7);
-  o+=ln(`M470 270L650 ${clear?240:270}`,clear?muted:fault?orange:teal,6)+`<circle cx="470" cy="270" r="5" fill="${teal}"/><circle cx="650" cy="270" r="5" fill="${clear?muted:fault?orange:teal}"/>`;
-  o+=`<circle cx="280" cy="270" r="27" fill="none" stroke="${orange}" stroke-width="5"/>`;
-  o+=panel(420,72,280,75,orange)+tx(560,104,'Protection relay',24)+tx(560,134,fault?'Trip command issued':'Monitoring current',17,muted);
-  o+=ln('M280 243V111H420',orange,3,true)+ln('M560 147V190',orange,3,true);
-  o+=tx(165,315,'Supply',22)+tx(208,197,'Sensor',17)+tx(935,315,fault?'Faulted feeder':'Load',22);
-  o+=tx(560,410,clear?'The supply side remains energized':fault?'The command and physical interruption are separate events':'Measurements and trip signals are separate from the power path',22);
-  return svg(o,'A current sensor informs the relay. The relay sends a trip signal; the breaker then opens its contacts and extinguishes the arc. A trip command alone does not establish that current has stopped.');
- }
+ if(id==='protection-relay')return relayProtection(s,m);
  if(id==='isolation-surge'||id==='surge-protection')return systemProtection(id,m);
  if(id==='phase-loading')return phaseAllocation(s,m);
  if(id==='feeder-diagnosis')return breakerFailure(s,m);
@@ -34,14 +22,14 @@ const rack=(x,y,color=teal)=>panel(x-35,y,70,83,color)+[16,33,50,67].map(d=>ln(`
 
 function systemProtection(id,m){
  const surge=id==='surge-protection',path=surge?teal:muted;
- const alt=surge?'The supply passes through a closed breaker and disconnector to a transformer and data hall. A surge arrester connects from the phase conductor beside the transformer to earth. The orange transient-current path branches to earth; the arrester is not in series with the load.':'The breaker and disconnector are located in series between the medium-voltage supply and the transformer serving the hall. The breaker is open; a separate open disconnector provides the highlighted isolation gap. The transformer and hall remain visible on the disconnected side.';
+ const alt=surge?'The supply passes through a closed breaker and disconnector to a transformer and data hall. A surge arrester connects from the phase conductor beside the transformer to earth. The orange transient-current path branches to earth; the arrester is not in series with the load.':'The breaker and disconnector are located in series between the medium-voltage supply and the transformer serving the hall. The breaker is open; a separate open disconnector provides the highlighted air gap. The transformer and hall remain visible on the disconnected side.';
  if(m){
   const x=104;
   let o=tx(104,24,'MV supply',20)+ln(`M${x} 43V87`,teal,6);
   o+=panel(56,87,96,73)+`<g transform="translate(${x} 124) rotate(90)">${contact(0,0,!surge,surge?teal:muted)}</g>`;
   o+=tx(253,117,'Circuit breaker',19)+tx(253,142,surge?'Closed':'Open',16,surge?teal:muted);
   o+=ln(`M${x} 160V202`,path,6)+`<g transform="translate(${x} 237) rotate(90)">${contact(0,0,!surge,surge?teal:orange)}</g>`;
-  o+=tx(260,231,'Disconnector',19)+tx(260,256,surge?'Closed':'Isolation gap',16,surge?teal:orange);
+  o+=tx(260,231,'Disconnector',19)+tx(260,256,surge?'Closed':'Air gap',16,surge?teal:orange);
   o+=ln(`M${x} 272V395`,path,6)+`<g transform="translate(${x} 424) rotate(90)">${transformer(0,0,path)}</g>`;
   o+=tx(250,426,'Transformer',20)+ln(`M${x} 470V513`,path,6)+rack(x,513,path)+tx(253,558,'Data hall',20);
   if(surge){
@@ -58,7 +46,7 @@ function systemProtection(id,m){
   o+=dot(650,230)+ln('M650 230V301',orange,6)+panel(626,301,48,64,orange)+ln('M631 358L669 308',orange,3)+ground(650,365);
   o+=tx(489,323,'Surge arrester',22,orange)+tx(489,351,'Transient path to earth',17,orange);
  }else{
-  o+=tx(265,315,'Open',20,muted)+tx(490,315,'Isolation gap',22,orange);
+  o+=tx(265,315,'Open',20,muted)+tx(490,315,'Air gap',22,orange);
  }
  return systemSvg(o,alt,1120,440);
 }

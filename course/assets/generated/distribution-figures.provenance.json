@@ -11,9 +11,11 @@
     },
     {
       "file": "distribution-transformer-location.png",
-      "sha256": "668f64697cb516033242abe3ab09df34744a99d7565e84f6c4fb3599a8e093e2",
-      "prompt_summary": "Two horizontal routes at 2 MW, balanced three-phase, PF1, losses neglected. Early step-down:480V/2406A over450m+20m. Late step-down:13.8kV/84A over450m then480V/2406A over20m. No recommendations or contradictory badges.",
-      "review": "Paths, labels, voltage/current arithmetic and intended comparison inspected. Transformer placement image uses schematic distances, not physical cable design."
+      "sha256": "2e73071701c73d557f85edb185ce2f0f226f92d08cd9364869c0b1e2d073918f",
+      "prompt_summary": "Built-in image edit: replace all five 13.8 kV labels with 34.5 kV and the long MV route current 84 A with 33.5 A. Preserve layout, all 480 V / 2,406 A labels, 2 MW load and 450 m / 20 m distances.",
+      "review": "Inspected all five 34.5 kV labels, both transformer ratios and the 33.5 A long-route value. Balanced three-phase 2 MW at PF 1 gives 33.47 A at 34.5 kV and 2405.63 A at 480 V. Conceptual distances and equipment placement retained.",
+      "revised_on": "2026-09-14",
+      "edit_prompt": "Use case: text-localization. Edit this existing two-panel educational slide image. Change ONLY the numerical medium-voltage text and its one dependent current; preserve all composition, buildings, wiring, transformer locations, background, typography, other labels, arrows and colors. Replace every occurrence of 13.8 kV with 34.5 kV (five occurrences). In the lower long-route label replace 84 A with 33.5 A, so it reads exactly 450 m · 34.5 kV · 33.5 A. Keep every 480 V, every 2,406 A, 450 m, 20 m, 2 MW and other text unchanged. Both transformer labels must read 34.5 kV → 480 V. Both Campus labels must read Campus 34.5 kV (three-phase) with original line breaks. Do not add labels or explanatory text. Preserve the entire uncropped landscape image."
     },
     {
       "file": "distribution-pdu-psu.png",

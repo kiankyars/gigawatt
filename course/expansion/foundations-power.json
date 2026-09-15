@@ -1968,20 +1968,29 @@
       {
         "heading": "Trace the path through both transformer stages",
         "paragraphs": [
-          "The interactive teaching network starts at a 138 kV AC grid connection. A campus transformer supplies 13.8 kV medium-voltage switchgear, and a hall transformer supplies the 480 V building bus. IT and cooling branch from that bus; the future hall has a separate open medium-voltage feeder. Selecting a load highlights every upstream stage. These are defined teaching voltages, not an inferred Abilene topology. The standalone Abilene photograph is omitted from the presentation because it did not explain any of these connections."
+          "The interactive teaching network uses 345 kV at the campus grid connection, 34.5 kV across campus distribution and a 480 V building bus. IT and cooling branch from that bus; the future hall has a separate open medium-voltage feeder. Selecting a load highlights every upstream stage.",
+          "The high-voltage reference follows Abilene’s expansion: Mortenson distinguishes the initial 200 MW / 138 kV connection from the later 1 GW / 345 kV expansion and reports all five expansion transformers energized by March 10, 2026. The Longhorn review drawing filed with TCEQ separately labels an underground Lancium 34.5 kV feed. That December 4, 2024 drawing is marked not for construction. Together these sources support the course’s reference voltages, not a complete as-built 345/34.5 kV ratio for every campus transformer. The hall-level 480 V arrangement remains a teaching example. 34.5 kV is one nominal medium-voltage level, not the definition of the entire MV range."
         ]
       },
       {
         "heading": "Inside the switchgear: sensing, decision and interruption",
         "paragraphs": [
-          "The slide uses the original sectional illustration from the Siemens NXAirS catalog, HA 1702, page 12. It locates the shared busbar, withdrawable circuit breaker, outgoing cable connection and low-voltage protection/control compartment inside a real panel. This product family is rated up to 12 kV and is separate from the generic 13.8 kV campus circuit and the Compass 8DJH 36 skid.",
+          "The slide uses the original sectional illustration from the Siemens NXAirS catalog, HA 1702, page 12. It locates the shared busbar, withdrawable circuit breaker, outgoing cable connection and low-voltage protection/control compartment inside a real panel. This product family is rated up to 12 kV and is separate from the generic 34.5 kV campus circuit and the Compass 8DJH 36 skid.",
           "A breaker-based feeder assembly separates the power path from its control path. The bus and breaker conduct feeder current. A current transformer supplies a scaled measurement to a protection relay. If the protection criteria are met, the relay commands the breaker to trip. Contacts and an interrupting chamber must then stop the power current. A recorded trip command therefore does not prove successful interruption: continuing fault current can trigger breaker-failure or other backup protection and enlarge the interrupted area. The course diagram is conceptual; actual switching devices, sensors and protection arrangements vary."
+        ]
+      },
+      {
+        "heading": "CT and CVT: measuring current and voltage",
+        "paragraphs": [
+          "The current transformer (CT) surrounds or forms part of the phase-current path. Its secondary supplies a scaled current signal to the relay. This is measurement, not delivery of the feeder’s load power to the relay. A voltage transformer (VT) supplies a scaled voltage measurement; MV switchgear can use inductive VTs or voltage sensors.",
+          "At a high-voltage connection, a capacitor voltage transformer (CVT) uses a capacitive divider and an electromagnetic unit to obtain the voltage signal. It connects from phase to earth, in parallel with the power circuit. Hitachi’s CPB family covers 72–800 kV and provides a concrete manufacturer reference for the slide’s conceptual 345 kV measurement view; no specific Abilene instrument-transformer model is asserted.",
+          "The slide’s CT provides current, its CVT provides voltage, and the relay can use the measurements needed by its protection function. The first three states demonstrate an overcurrent trip using CT current; such a function does not require a CVT. Other functions use voltage as well. The relay sends a separate trip signal to the breaker, whose interrupter must stop the power current. Chapter 7 develops fault zones, grounding and AC/DC interruption; detailed protection settings, instrument-transformer saturation and transient-response studies are beyond this course’s scope."
         ]
       },
       {
         "heading": "Disconnector, breaker and surge arrester are different functions",
         "paragraphs": [
-          "A plain disconnector provides an isolation gap and is not assigned fault-current interruption. A switch-disconnector or breaker-disconnector combines functions only when its ratings provide them. A metal-oxide surge arrester instead responds to overvoltage: its nonlinear resistance falls, allowing surge current to be diverted and limiting insulation stress. It is commonly connected from phase to earth. A surge arrester is not an alternate power source or an isolating switch. The slides distinguish these jobs before Chapter 7 examines fault zones and alternate supply paths."
+          "The illustrated air-insulated disconnector provides an air gap and is not assigned fault-current interruption. A switch-disconnector or breaker-disconnector combines functions only when its ratings provide them. A metal-oxide surge arrester instead responds to overvoltage: its nonlinear resistance falls, allowing surge current to be diverted and limiting insulation stress. It is commonly connected from phase to earth. A surge arrester is not an alternate power source or an isolating switch. The slides distinguish these jobs before Chapter 7 examines fault zones and alternate supply paths."
         ]
       },
       {
@@ -2152,7 +2161,7 @@
         "url": "https://cache.industry.siemens.com/dl/files/485/109972485/att_1290488/v1/1702_NXAirS_12kV_Catalogue_EN_final.pdf",
         "claim": "Real panel compartments and original manufacturer sectional illustration.",
         "reviewed_on": "2026-09-14",
-        "limits": "2024 A catalog page 12 visually reviewed; original embedded images extracted with transparency. This up-to-12-kV product example is distinct from the 13.8-kV teaching circuit and Compass 8DJH 36 skid."
+        "limits": "2024 A catalog page 12 visually reviewed; original embedded images extracted with transparency. This up-to-12-kV product example is distinct from the 34.5-kV teaching circuit and Compass 8DJH 36 skid."
       },
       {
         "title": "Schneider Electric — Galaxy PDU 1000 kVA distribution voltages",
@@ -2167,6 +2176,34 @@
         "claim": "480:120 V turns example and 504 V primary tap using 84 primary turns rather than 80.",
         "reviewed_on": "2026-09-14",
         "limits": "Instructional turns-ratio example. No claim of automatic regulation or universal transformer operating limits."
+      },
+      {
+        "title": "Abilene Data Center Development",
+        "url": "https://www.mortenson.com/projects/abilene-data-center-development",
+        "claim": "Original 200 MW / 138 kV grid connection and later 1 GW / 345 kV expansion; five expansion transformers energized by March 10, 2026.",
+        "reviewed_on": "2026-09-14",
+        "limits": "September 14 recheck: historical energization milestones, not measured IT demand or a complete 345/34.5 kV as-built one-line. October 2026 temporary-transformer replacement remains a stated plan."
+      },
+      {
+        "title": "Longhorn power plant review drawing — Lancium 34.5 kV feed",
+        "url": "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/37589-tc.pdf",
+        "claim": "Project-specific 34.5 kV campus-feed reference.",
+        "reviewed_on": "2026-09-14",
+        "limits": "PDF page 89, drawing 5MECH-00001-GA rev D, reissued December 4, 2024 and marked not for construction. Labels an underground Lancium 34.5 kV feed by others. Does not establish an entire as-built campus transformer ratio."
+      },
+      {
+        "title": "Hitachi Energy — CPB capacitor voltage transformer, 72–800 kV",
+        "url": "https://www.hitachienergy.com/products-and-solutions/instrument-transformers/voltage-transformers/cpb-72-800-kv",
+        "claim": "HV capacitor voltage transformer, phase-to-ground measurement for protection and metering.",
+        "reviewed_on": "2026-09-14",
+        "limits": "Product family supports the conceptual 345 kV CVT teaching placement; no installed Abilene model is identified."
+      },
+      {
+        "title": "ABB — Protection criteria for medium voltage networks",
+        "url": "https://library.e.abb.com/public/76afab5a1dd44f438409aa65c990ed8b/AP_Protection%20criteria%20MV(EN)C-_1VCP000280-01.2017.pdf",
+        "claim": "CT/VT scaling and separation of measurement, relay decision and power-current interruption.",
+        "reviewed_on": "2026-09-14",
+        "limits": "Chapter 4, printed pages 11–14: instrument transformers. Teaching diagram omits wiring, CT saturation, relay settings and detailed CVT transient behavior."
       }
     ],
     "terms": [
@@ -2181,6 +2218,14 @@
       {
         "term": "Auxiliary load",
         "definition": "Supporting electrical demand outside the stated main IT load."
+      },
+      {
+        "term": "Current transformer (CT)",
+        "definition": "An instrument transformer that provides a scaled current measurement for protection or metering."
+      },
+      {
+        "term": "Capacitor voltage transformer (CVT)",
+        "definition": "An instrument transformer using a capacitive divider and electromagnetic unit to provide a scaled HV voltage measurement, commonly from phase to earth."
       }
     ],
     "visual": {
@@ -2248,7 +2293,7 @@
       {
         "heading": "Place the high-current route deliberately",
         "paragraphs": [
-          "The chapter keeps a balanced 2 MW load at power factor one and compares a 450 m campus route followed by a 20 m hall route. At 13.8 kV, line current is about 84 A; at 480 V it is about 2,406 A, excluding losses for this current comparison. Moving the transformer beside the hall keeps the long route at medium voltage. This changes cable and equipment requirements; actual loss requires the resistance and operating conditions of the selected conductors."
+          "The chapter keeps a balanced 2 MW load at power factor one and compares a 450 m campus route followed by a 20 m hall route. At 34.5 kV, line current is about 33.5 A; at 480 V it is about 2,406 A, excluding losses for this current comparison. Moving the transformer beside the hall keeps the long route at medium voltage. This changes cable and equipment requirements; actual loss requires the resistance and operating conditions of the selected conductors."
         ]
       },
       {

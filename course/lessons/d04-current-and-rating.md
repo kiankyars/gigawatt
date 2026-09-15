@@ -40,7 +40,7 @@ Finally, keep the quantities visible on the diagram. Write 900 kW DC at the outp
 
 ## Place the high-current route deliberately
 
-The chapter keeps a balanced 2 MW load at power factor one and compares a 450 m campus route followed by a 20 m hall route. At 13.8 kV, line current is about 84 A; at 480 V it is about 2,406 A, excluding losses for this current comparison. Moving the transformer beside the hall keeps the long route at medium voltage. This changes cable and equipment requirements; actual loss requires the resistance and operating conditions of the selected conductors.
+The chapter keeps a balanced 2 MW load at power factor one and compares a 450 m campus route followed by a 20 m hall route. At 34.5 kV, line current is about 33.5 A; at 480 V it is about 2,406 A, excluding losses for this current comparison. Moving the transformer beside the hall keeps the long route at medium voltage. This changes cable and equipment requirements; actual loss requires the resistance and operating conditions of the selected conductors.
 
 ## Check phases and heat before treating a rating as usable
 

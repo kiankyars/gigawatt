@@ -6,6 +6,30 @@ repository records; those records do not substitute for the original message.
 The prior “everything addressed” claim was too strong. This page foregrounds
 exceptions; the coverage list below makes the rest inspectable.
 
+## Chapter 6 voltages and instrument transformers — 14 September 2026
+
+- Campus path now uses **345 kV → 34.5 kV → 480 V**. Mortenson identifies
+  Abilene's 345 kV expansion separately from its initial 138 kV phase; the
+  Longhorn review drawing labels a 34.5 kV Lancium feed. These support the
+  voltage references, not a complete as-built transformer schedule. The 480 V
+  building stage is a teaching example. Updated the transformer-location image,
+  current calculation and reader consistently: 2 MW at 34.5 kV gives 33.5 A.
+- Slide 5 now names the **current transformer (CT)** and adds a fourth view,
+  **CT + CVT at 345 kV**, with current and voltage measurements feeding the relay.
+  The CVT branches from phase to earth. It is an HV teaching example, not a claim
+  about installed Abilene equipment or a CVT requirement on each MV feeder.
+- Slide 6 now says **Air gap**. The component introductions belong to Chapter 6
+  slides 4–7, not Chapter 5. Chapter 6's feeder-failure example and Chapter 7's
+  fault isolation, grounding and interruption sequence extend that teaching.
+  CT/CVT roles are now introduced; detailed instrument sizing, saturation and
+  transient response are outside the current teaching scope.
+
+All requested edits in this pass are implemented. **Verification follow-up:**
+operate the new slide 5 view in the built-in browser when its control tool is
+available again. Desktop/phone SVG renders and automated checks are recorded in
+[TESTING.md](TESTING.md#chapter-6-abilene-voltages-and-instrument-transformers--2026-09-14).
+Whole-chapter acceptance remains pending.
+
 ## Chapter 5 drainage and expansion check — 14 September 2026
 
 - Slides 1–4: positive review; preserved the visuals. Slide 4's notes now
@@ -49,7 +73,7 @@ remains from this pass. Existing research follow-ups remain in the tracker.
 | Request | Implemented |
 | --- | --- |
 | Abilene photograph adds no teaching value | Removed the standalone slide; its old URL opens the complete campus path. |
-| Trace the load through high-voltage AC | Added 138 kV grid → campus transformer → 13.8 kV switchgear → hall transformer → 480 V building branches. |
+| Trace the load through high-voltage AC | Added the two-stage campus path. The later Abilene-reference review updates its values to 345 kV grid → campus transformer → 34.5 kV switchgear → hall transformer → 480 V building branches. |
 | Explain the single-line convention through an example; trim N/PE prose | The same switchboard-to-rack-PDU circuit appears as one line and five separate conductors. Removed the explanatory legend. Kept the correct **480Y/277 V**, rather than the requested inconsistent 400Y/277 V. |
 | Use real manufacturer switchgear anatomy | Original Siemens NXAirS section with four compartment callouts; up-to-12-kV family identified separately from the campus model. |
 | Teach disconnectors and surge arresters in context | Two full source-to-hall circuit views: series isolation gap, then parallel arrester-to-earth path. |

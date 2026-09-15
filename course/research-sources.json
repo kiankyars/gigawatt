@@ -3450,12 +3450,13 @@
       "publisher": "Mortenson",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-12",
+      "reviewed_on": "2026-09-14",
       "domains": [
-        "D03"
+        "D03",
+        "D04"
       ],
-      "use": "Revalidates the March 10, 2026 five-transformer energization milestone and distinguishes the initial substation from the later expansion.",
-      "caution": "Rechecked September 12: the public project page still gives the historical March milestone and a planned October 2026 temporary-transformer replacement. Preserve event dates and forecast status; no later completion was established."
+      "use": "Original 200 MW / 138 kV grid connection and later 1 GW / 345 kV expansion; five expansion transformers energized by March 10, 2026.",
+      "caution": "September 14 recheck: historical energization milestones, not measured IT demand or a complete 345/34.5 kV as-built one-line. October 2026 temporary-transformer replacement remains a stated plan."
     },
     {
       "id": "P111",
@@ -4499,7 +4500,7 @@
         "D04"
       ],
       "use": "Real panel compartments and original manufacturer sectional illustration.",
-      "caution": "2024 A catalog page 12 visually reviewed; original embedded images extracted with transparency. This up-to-12-kV product example is distinct from the 13.8-kV teaching circuit and Compass 8DJH 36 skid."
+      "caution": "2024 A catalog page 12 visually reviewed; original embedded images extracted with transparency. This up-to-12-kV product example is distinct from the 34.5-kV teaching circuit and Compass 8DJH 36 skid."
     },
     {
       "id": "P181",
@@ -4687,6 +4688,48 @@
       ],
       "use": "Figure 1 and section 2.3.4 compare accumulated KV-cache state across DeepSeek V3.2, V4-Pro and V4-Flash.",
       "caution": "Compressed attention and mixed KV precision differ from the Llama 3.1 70B BF16 example. The supplied chart does not establish resident-session throughput or include every runtime allocation."
+    },
+    {
+      "id": "P194",
+      "title": "Longhorn power plant review drawing — Lancium 34.5 kV feed",
+      "url": "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/37589-tc.pdf",
+      "publisher": "Abilene DC 1 / Campos, filed with TCEQ",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-14",
+      "domains": [
+        "D04"
+      ],
+      "use": "Project-specific 34.5 kV campus-feed reference.",
+      "caution": "PDF page 89, drawing 5MECH-00001-GA rev D, reissued December 4, 2024 and marked not for construction. Labels an underground Lancium 34.5 kV feed by others. Does not establish an entire as-built campus transformer ratio."
+    },
+    {
+      "id": "P195",
+      "title": "Hitachi Energy — CPB capacitor voltage transformer, 72–800 kV",
+      "url": "https://www.hitachienergy.com/products-and-solutions/instrument-transformers/voltage-transformers/cpb-72-800-kv",
+      "publisher": "Hitachi Energy",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-14",
+      "domains": [
+        "D04"
+      ],
+      "use": "HV capacitor voltage transformer, phase-to-ground measurement for protection and metering.",
+      "caution": "Product family supports the conceptual 345 kV CVT teaching placement; no installed Abilene model is identified."
+    },
+    {
+      "id": "P196",
+      "title": "ABB — Protection criteria for medium voltage networks",
+      "url": "https://library.e.abb.com/public/76afab5a1dd44f438409aa65c990ed8b/AP_Protection%20criteria%20MV(EN)C-_1VCP000280-01.2017.pdf",
+      "publisher": "ABB",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-14",
+      "domains": [
+        "D04"
+      ],
+      "use": "CT/VT scaling and separation of measurement, relay decision and power-current interruption.",
+      "caution": "Chapter 4, printed pages 11–14: instrument transformers. Teaching diagram omits wiring, CT saturation, relay settings and detailed CVT transient behavior."
     }
   ]
 }

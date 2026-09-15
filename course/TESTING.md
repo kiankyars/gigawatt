@@ -7,6 +7,32 @@ Do not download or launch standalone Chrome for Testing or Playwright browser
 binaries here. Existing browser test harnesses remain available for a separately
 configured test environment; run local model and build checks without a browser.
 
+## Chapter 6 Abilene voltages and instrument transformers — 2026-09-14
+
+- Kept all 20 scenes and existing hashes. Updated the campus voltage reference
+  to 345 kV / 34.5 kV, the corresponding 2 MW current to 33.5 A, and the reader.
+  Rechecked Mortenson's expansion account and the Longhorn drawing's 34.5 kV
+  feed label; retained their different evidence scopes. Historical 138 kV and
+  unrelated 13.8 kV examples remain intact.
+- Slide 5 explicitly labels the CT and adds an HV CT/CVT measurement view.
+  Scaled current/voltage signals and the relay's trip command have distinct
+  paths. Slide 6 uses “Air gap.” Sources cover instrument-transformer roles
+  without asserting an installed Abilene model.
+- Used the built-in image-generation tool to edit the transformer-location
+  illustration's voltage/current labels. Visually inspected the result; exact
+  prompt, revised hash and calculation are recorded in
+  `assets/generated/distribution-figures.provenance.json`.
+- Inspected desktop and 390-pixel-wide SVG renders of the campus path,
+  CT/relay/breaker states, HV CT/CVT view and disconnector view. Corrected label
+  overlap in the open-breaker and phone CVT diagrams. These are diagram renders,
+  not browser screenshots or whole-page layout checks.
+- **222 Node and 76 Python tests passed.** Course, expanded reader, domain-map,
+  research metadata, site staging and whitespace checks passed. An independent
+  review found no actionable diagram or instrument-transformer issues.
+  Fresh interaction/layout QA of the new
+  slide 5 view remains pending: the built-in browser-control tool was unavailable
+  this turn. No standalone browser was installed or launched.
+
 ## Chapter 5 drainage, flood response and simpler check — 2026-09-14
 
 - Removed the requested bottom subtitle from slide 5. Slide 19 now isolates

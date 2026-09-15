@@ -146,7 +146,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P108 — What Is a Gas Turbine?](sources/P108.md) | GE Vernova | D02, D03 | page_reviewed |
 | [P109 — Crusoe’s Contracted AI Infrastructure Capacity Approaches 5 Gigawatts Across Data Centers and Cloud](sources/P109.md) | Crusoe | D03 | page_reviewed |
 | [P11 — NFPA 75: Standard for the Fire Protection of Information Technology Equipment](sources/P11.md) | National Fire Protection Association | D05, D12, D13 | candidate_not_reviewed |
-| [P110 — Abilene Data Center Development](sources/P110.md) | Mortenson | D03 | page_reviewed |
+| [P110 — Abilene Data Center Development](sources/P110.md) | Mortenson | D03, D04 | page_reviewed |
 | [P111 — Lenovo NVIDIA GB300 NVL72 Rack Scale AI Product Guide](sources/P111.md) | Lenovo Press | D12, D07 | page_reviewed |
 | [P112 — MZX Tech LLC — Southaven PSD permit application, January 2026 revision](sources/P112.md) | MZX Tech LLC / Trinity Consultants; public record released by MDEQ, Wikimedia mirror | D03, D04, D12 | public_excerpt_reviewed |
 | [P113 — SpaceX — EU prospectus, compute services agreements with Anthropic](sources/P113.md) | Space Exploration Technologies Corp. | D03, D13 | public_excerpt_reviewed |
@@ -237,6 +237,9 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P191 — Gmail back soon for everyone](sources/P191.md) | Google Gmail Blog | D09 | page_reviewed |
 | [P192 — Introducing Gemini: our largest and most capable AI model](sources/P192.md) | Google | D01 | page_reviewed |
 | [P193 — DeepSeek-V4: Towards Highly Efficient Million-Token Context Intelligence](sources/P193.md) | DeepSeek-AI | D02 | page_reviewed |
+| [P194 — Longhorn power plant review drawing — Lancium 34.5 kV feed](sources/P194.md) | Abilene DC 1 / Campos, filed with TCEQ | D04 | page_reviewed |
+| [P195 — Hitachi Energy — CPB capacitor voltage transformer, 72–800 kV](sources/P195.md) | Hitachi Energy | D04 | page_reviewed |
+| [P196 — ABB — Protection criteria for medium voltage networks](sources/P196.md) | ABB | D04 | page_reviewed |
 | [P20 — Wolfspeed — Powering AI with reliable SiC-based solid-state transformers](sources/P20.md) | Wolfspeed | D04, D06 | page_reviewed |
 | [P21 — Texas Instruments — TIDA-011012 modular solid-state transformer reference design](sources/P21.md) | Texas Instruments | D04, D06 | page_reviewed |
 | [P22 — Huber et al. — Comparative Evaluation of MVAC–LVDC SST and Hybrid Transformer Concepts for Future Datacenters (IPEC 2022)](sources/P22.md) | ETH Zurich, Delta Electronics and Paderborn University | D04, D06 | page_reviewed |
