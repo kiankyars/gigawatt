@@ -60,19 +60,19 @@ This is the single running review status. **Authored** means the material exists
 **checked** refers to recorded technical/build/browser checks;
 **feedback addressed** means the requested revisions are implemented;
 **accepted** means Kian explicitly finished that chapter’s review. These are separate
-facts, not extra approval steps. Kian accepted Chapters 1–4 and 6 on 14 September after the requested revisions, then reconfirmed Chapter 6 and accepted Chapter 7 on 15 September following the final image and wording changes. Revisit only changed slides or a specific unresolved issue; a new
+facts, not extra approval steps. On 15 September 2026, Kian confirmed the first eight chapters verified and chose to begin recording them in batches while later chapters are refined. Kian accepted Chapters 1–4 and 6 on 14 September after the requested revisions, then reconfirmed Chapter 6 and accepted Chapter 7 on 15 September following the final image and wording changes. Revisit only changed slides or a specific unresolved issue; a new
 release does not restart an unchanged chapter’s review.
 
 | Chapter | Authored presentation | Technical checks | Author review / next action |
 | --- | --- | --- | --- |
 | 1. [Primer](prototypes/terminology-format.html?teach=1) | 22 slides; simpler input range follows transformer introduction; taps moved to Chapter 6 | [September 14 review checks](TESTING.md#chapters-13-review-and-presenter-window--2026-09-14) | **Accepted after requested edits — 14 September 2026.** Voltage, phase/PSU, AC title and UPS/network wording addressed. |
 | 2. [Data center overview](prototypes/orientation-format.html?teach=1) | 13 slides; Gemini 1.0 Ultra identified and OCS fault rerouting stated | [September 14 review checks](TESTING.md#chapters-13-review-and-presenter-window--2026-09-14) | **Accepted — 14 September 2026.** User approved the chapter; final Gemini/OCS clarifications incorporated. |
-| 3. [Workloads and requirements](prototypes/workload-format.html?teach=1) | 18 slides; weight reuse now follows prefill/decode; original opening text restored beside Jensen Huang image, DeepSeek KV chart, bus batching cue and power traces | [Final review checks](TESTING.md#chapter-3-final-review-and-upcoming-slide-window--2026-09-14) | **Accepted after requested edits — 14 September 2026.** Full review complete; repetitive check removed and closing brief retained. New weight-reuse slide added 15 September; existing acceptance retained, new slide awaits author review. Exact supported-session selection remains a separate enhancement. |
+| 3. [Workloads and requirements](prototypes/workload-format.html?teach=1) | 18 slides; weight reuse now follows prefill/decode; original opening text restored beside Jensen Huang image, DeepSeek KV chart, bus batching cue and power traces | [Final review checks](TESTING.md#chapter-3-final-review-and-upcoming-slide-window--2026-09-14) | **Accepted after requested edits — 14 September 2026.** Full review complete; repetitive check removed and closing brief retained. Kian confirmed Chapters 1–8 verified on 15 September, after the weight-reuse insertion. Exact supported-session selection remains a separate enhancement. |
 | 4. [Siting, grid connection and supply](prototypes/siting-format.html?teach=1) | 25 slides; adjacent phased-delivery examples, larger supply diagrams and revised generation headings | [Final review checks](TESTING.md#chapter-4-final-review-and-chapter-3-opener--2026-09-14) | **Accepted after requested edits — 14 September 2026.** Latest wording, ordering, caption and unit changes implemented. Photograph capture days and current Abilene operating MW remain separate research follow-ups. |
-| 5. [Physical site, buildings and safety](prototypes/site-format.html?teach=1) | 20 scenes; Meta Prometheus tents follows Colossus reuse; Houdini moved to Chapter 13 | [Current checks](TESTING.md#chapter-5-drainage-flood-response-and-simpler-check--2026-09-14) | **Latest feedback addressed; acceptance pending.** Slides 1–4 received positive review. Removed slide 5’s bottom subtitle, clarified stormwater drainage in notes, verified actual water pumping during Harvey, and simplified slide 19 to reroute → test/switch → excavate. |
+| 5. [Physical site, buildings and safety](prototypes/site-format.html?teach=1) | 20 scenes; Meta Prometheus tents follows Colossus reuse; Houdini moved to Chapter 13 | [Current checks](TESTING.md#chapter-5-drainage-flood-response-and-simpler-check--2026-09-14) | **Accepted and verified — 15 September.** Kian confirmed Chapters 1–8 verified. Removed slide 5’s bottom subtitle, clarified stormwater drainage in notes, verified actual water pumping during Harvey, and simplified slide 19 to reroute → test/switch → excavate. |
 | 6. [Campus and building power distribution](prototypes/distribution-format.html?teach=1) | 29 slides; three-phase currents and line-to-line voltage follow the single-line diagram; beer analogy and PF quote retained | [Latest checks](TESTING.md#chapter-8-sequence-and-dc-architecture-review--2026-09-15) | **Accepted and verified — 15 September.** Final requested wording and image changes implemented. Existing scene hashes retained. |
 | 7. [Continuity, storage and protection](prototypes/continuity-format.html?teach=1) | 35 scenes; updated isolation image, contact/arc sequence, two-image redundancy transition, Microsoft quote and two closing checks | [Final review checks](TESTING.md#chapters-6-and-7-final-author-review--2026-09-15) | **Accepted and verified — 15 September.** Final requested image changes implemented. Sparks retains the dated reported 1 MW pilot; current nameplate remains unresolved. |
-| 8. [Rack power and the 800 V DC transition](prototypes/rack-energy-format.html?teach=1) | 31 scenes; rack/tray/CPU–GPU anatomy near the opening; local power path and buffering, concise AC/DC comparison, stacked architecture preview and power-stack closing | [Latest sequence checks](TESTING.md#chapter-8-sequence-and-dc-architecture-review--2026-09-15) | **Reviewed through the closing slide; latest feedback implemented.** [Individual resolutions](CHAPTER_8_REVIEW.md) include the moved electrical foundations, architecture preview and removed migration exercise. Final chapter acceptance remains pending. |
+| 8. [Rack power and the 800 V DC transition](prototypes/rack-energy-format.html?teach=1) | 31 scenes; rack/tray/CPU–GPU anatomy near the opening; local power path and buffering, concise AC/DC comparison, stacked architecture preview and power-stack closing | [Latest sequence checks](TESTING.md#chapter-8-sequence-and-dc-architecture-review--2026-09-15) | **Accepted and verified — 15 September.** Kian confirmed Chapters 1–8 verified. [Individual resolutions](CHAPTER_8_REVIEW.md) include the moved electrical foundations, architecture preview and removed migration exercise. The separate downward-power-step follow-up remains open before recording the buffering segment. |
 | 9. [Networking and interconnects](prototypes/networking-format.html?teach=1) | 24 slides; former compute opening image and meme preserved, local HBM/peer/fabric paths and shared-model exchange; real adapter/switch, copper/optics/CPO, fabric capacity, collectives, TPU optical circuits and carrier handoff | [Current checks](TESTING.md#chapter-10-networking-and-interconnects--2026-09-14) | **Authored and checked; ready for first author review.** Three D08 reader lessons updated. No author acceptance inferred. |
 | 10. [Storage, orchestration and recovery](prototypes/storage-format.html?teach=1) | 27 slides; four-GPU tray repair now introduces recovery; supplied component-price meme after opening; input bottlenecks, coherent checkpoints, recovery, Meta/Google cases and deadline scheduling | [Current checks](TESTING.md#chapter-11-storage-orchestration-and-recovery--2026-09-14) | **Authored and checked; ready for first author review.** Three D09 reader lessons updated. |
 | 11. [Chip and rack heat capture](prototypes/cooling-format.html?teach=1) | Selected topics in shared cooling deck | Model/browser checks recorded | Cooling sequence iterated; no whole-chapter completion claimed. |
@@ -89,7 +89,7 @@ joins Chapter 3; local-memory versus peer traffic and model partitioning join Ch
 consumer-hardware meme are now Networking slides 1–2. Deeper GPU performance lessons
 remain in further reading. All 22 old slide fragments redirect to their new slide or
 reader location. Subsequent chapters are renumbered; existing author acceptance is
-preserved, with new material awaiting review. [Migration checks](TESTING.md#compute-chapter-migration--2026-09-15).
+preserved. Kian subsequently confirmed Chapters 1–8 verified; new Networking and Recovery material awaits review. [Migration checks](TESTING.md#compute-chapter-migration--2026-09-15).
 
 Earlier Primer feedback was implemented in commits `f3b06f2` and `e3c5228`,
 summarized in [the confirmed decisions](FEEDBACK_AUDIT.md) and the linked test
@@ -100,7 +100,7 @@ or final author acceptance.
 
 ## Current revision: generation, speed and UPS recovery
 
-Review only the changed [Chapter 4 ending](prototypes/siting-format.html?teach=1#dania-cycle) and [Chapter 7 storage/recovery sequence](prototypes/ups-format.html#equipment). Chapter 5 now incorporates the second author pass; review only its new cases and hot-swap/check-in sequence. Earlier resolved reviews remain closed unless a new issue is identified.
+The changes below are historical implementation records. Kian has since confirmed Chapters 1–8 verified; the current production step is recording ready sections, as described in [PRESENTING.md](PRESENTING.md). Revisit a resolved section only for a specific issue.
 
 <details>
 <summary>Every request from this review and its implemented outcome</summary>
@@ -139,8 +139,8 @@ The earlier request’s slide numbers were matched by content: that published se
 - **What is most likely to confuse, overwhelm, or worry them:** Acronyms introduced before equipment functions; shifting between campus, building, rack, board, and chip boundaries; mixing power with energy or nameplate capacity with operation; treating one vendor architecture as universal; and mistaking a roadmap for an installed system. Dense diagrams must reveal one relationship at a time.
 - **What they will be able to do by the end:** Trace electrical, thermal, and information paths; calculate illustrative power, current, energy, heat-flow, and capacity limits; compare architecture choices under stated constraints; diagnose a coupled failure or bottleneck; and separate a supported deployment claim from a scenario or forecast. The final assessment must require these capabilities on an unfamiliar scenario.
 - **Scope and explicit exclusions:** Modern AI data centers from grid access through useful compute and operation, with the narrative spine of watts to racks and heat back out. Include siting, delivery, economics, and sustainability where they change infrastructure choices. Explain networking and storage far enough to reason about cluster service. Exclude detailed chip fabrication, exhaustive generator technology surveys, investment recommendations, country-by-country permitting instructions, and professional installation, switching, or certification procedures.
-- **Supported platforms or architectural scope, source cut-off, and recording date:** Compare generic architectures and explicitly dated product/site cases; do not promise one universal data-center design. The historical domain baseline began on 2026-09-06. An expanded-course source cut-off and recording date have not been set. Record publication/update and verification dates for each material source before scripting is frozen. Confirm the companion’s supported browser scope before delivery.
-- **Provisional runtime and why the outcomes need that time:** Aim for at least 300 substantive teaching slides across the 15 domains, with roughly ten hours as a provisional course length. At 300 slides, ten hours averages two minutes per slide, including spoken explanation and demonstrations. This is an authoring target, not a finished storyboard; actual runtime follows dry runs. Keep slides concise and earn length through mechanisms, worked examples and learner practice. Avoid the encyclopedic survey: runtime, topics, articles, and named equipment are not success measures. Merge or cut sections that only add facts without improving the learner's reasoning.
+- **Supported platforms or architectural scope, source cut-off, and recording date:** Compare generic architectures and explicitly dated product/site cases; do not promise one universal data-center design. The historical domain baseline began on 2026-09-06. Use a per-batch source snapshot: record the Git revision and actual capture date when recording begins. The first preparation baseline is `5d9553a`; no recording date is asserted yet. Preserve publication/update and verification dates for material sources in each batch. Confirm the companion’s supported browser scope before delivery.
+- **Provisional runtime and why the outcomes need that time:** Aim for at least 300 substantive teaching slides across the curriculum, with roughly ten hours as a provisional course length. At 300 slides, ten hours averages two minutes per slide, including spoken explanation and demonstrations. This is an authoring target, not a finished storyboard; actual runtime follows dry runs. Keep slides concise and earn length through mechanisms, worked examples and learner practice. Avoid the encyclopedic survey: runtime, topics, articles, and named equipment are not success measures. Merge or cut sections that only add facts without improving the learner's reasoning.
 - **Public code, notes, or slides:** The [reader](index.html), [manuscript](EXPANDED_COURSE.md), [domain map](DOMAIN_MAP.md), [teaching sample](teach.html) and [research library](../research/README.md) are the current draft resources. The [source index](README.md) identifies what to edit. The historical 22-lesson introduction is retired from the published course; its source remains in the repository as a baseline. Final chapter timestamps, recorded edition and errata links remain pending.
 
 **Explicit anti-pattern: an encyclopedic survey of articles or components.**
@@ -280,9 +280,8 @@ Teach one linear journey through the [six acts](DOMAIN_MAP.md#proposed-teaching-
 The **Primer** comes first,
 followed by the existing **Data center overview**. Primer introduces names and
 basic relationships so a later explanation is not the learner's first encounter.
-It is a prelude to the fifteen domains, not a sixteenth required domain, a new
-set of assessed objectives, or the historical 22-lesson introduction. The presenter decides how to introduce it; the slides contain no skip prompt.
-The fifteen domains organize the material behind the main journey. Keep returning to
+It is a prelude to the main topics, with no new assessed objectives; it is separate from the historical 22-lesson introduction. The presenter decides how to introduce it; the slides contain no skip prompt.
+Fourteen teaching domains organize the main journey; compute depth remains an additional reference domain. Keep returning to
 one evolving facility drawing and bill of materials so each addition has a place
 and a purpose. The companion lets students revisit, explore and practise independently.
 
@@ -293,7 +292,7 @@ chapter. Use a changed scenario only when it advances the reasoning. For continu
 removing a UPS for maintenance and then losing another unit can reveal a surviving
 path; asking whether a displayed number is below a threshold does not earn a slide.
 
-The reading companion now includes fifteen domain check-ins with answer
+The reading companion now includes fourteen domain check-ins with answer
 reveals and transitions. The case-study companion provides short authored teaching
 sequences; later domain slide adaptations should integrate those cases in context.
 
@@ -484,12 +483,10 @@ remaining course. Apply their minimal text, explicit boundaries, visible
 mechanisms and controlled comparisons to each new section. Their visual format
 is a reference, not a requirement to use electrical-style diagrams everywhere.
 
-The next review is bounded: the changed Chapter 4 ending and Chapter 7 recovery sequence above. Chapter 3’s changed ending and the independently authored [Chapter 5](prototypes/site-format.html?teach=1) remain available for their pending passes. Current technical and visual
-checks are recorded in TESTING.md; these changed sections are ready for the next author pass. Do not restart the unchanged Primer, 800 V or cooling passes. For UPS, revisit only the changed storage, generator and recovery scenes; keep their status in the chapter tracker.
-
-Teach the changed material aloud without recording. Send the slide number or URL
-and the precise confusion; close that item after the fix, then continue. The
-[short playbook](PRESENTING.md#the-next-pass) keeps the next review bounded.
+Chapters 1–8 are verified by Kian for the recording plan. The current production
+pass is bounded to the section being recorded and any specific open issue, such
+as the Chapter 8 load-drop example. [PRESENTING.md](PRESENTING.md) describes the
+batch workflow and the short recording check; it does not reopen earlier reviews.
 
 Repeat this process through the domain map's dependency order. Author each
 mechanism and example for its topic; converting the existing prose into slides

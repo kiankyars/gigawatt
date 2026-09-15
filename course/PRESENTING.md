@@ -1,21 +1,42 @@
 # Present From Watts to Tokens
 
+## Recording in batches
+
+Kian confirmed Chapters 1–8 verified on **15 September 2026**. Record ready
+sections while the later chapters are refined. Start with the Primer and Data
+center overview, then proceed through the electrical chapters. Their acceptance
+is recorded in the [chapter tracker](COURSE_REVIEW.md#chapter-review-tracker).
+
+Before the first take, make a short capture using the actual microphone and
+recording layout: check a dense diagram, one interactive control and the separate
+presenter window. Review the result at normal size and a small playback size.
+Record only the current-slide window; keep the upcoming-slide window off the
+captured display. Rehearse the section aloud to catch any missing spoken steps.
+
+Keep the spoken course introduction separate from the Primer. State the audience,
+what the learner will be able to explain, the broad journey and the companion
+link. Introduce the Primer as first exposure to vocabulary, then begin its circuit
+example. The site’s **Glossary** button and search lead back to full explanations;
+show one lookup instead of reading the glossary aloud.
+
+For each batch, record the Git revision and actual capture date in the recording
+notes. The first preparation baseline is `5d9553a`; this does not claim a recording
+has occurred. Preserve the batch’s slide version while later material changes.
+Use explicit dates when narrating project milestones and forecasts.
+
+One content follow-up remains before the Chapter 8 buffering segment: show a
+sudden GPU load drop and where excess source power goes while the source ramps
+down. The [production follow-up](COURSE_REVIEW.md#next-teaching-step) remains open.
+It does not block recording Chapters 1–7.
+
 ## The next pass
 
-The current pass is [Chapter 5, slides 14–20](prototypes/site-format.html?teach=1#service-envelope). This section was rebuilt around handling, replacement access, floor loads and failure boundaries. Then revisit the changed earlier cases as needed; the [review tracker](COURSE_REVIEW.md#chapter-5-physical-design-rebuild--2026-09-12) accounts for each request.
-
-The preceding changes remain available at:
-
-1. [Chapter 4: generation through the delivery decision](prototypes/siting-format.html?teach=1#dania-cycle): clarified plant example, new GPT figure, cost curves, Southaven plans and supported compute economics.
-2. [Chapter 7: continuity, storage and protection](prototypes/continuity-format.html?teach=1#equipment): simpler labels, capacitor support, generator charging and restoration of DC-link voltage.
-
-Chapter 5’s first-pass feedback is implemented; your acceptance is still pending. Continue any unresolved Chapter 2 or 3 items at their specific slides; do not restart the unchanged Primer, 800 V or cooling sequence.
-The [chapter tracker](COURSE_REVIEW.md#chapter-review-tracker) separates implemented
-changes, technical checks and your final acceptance.
-
-Teach aloud without recording. When a slide leaves you explaining around an
-unclear picture, send its URL and the precise confusion. Revise that mechanism,
-then continue. There is no mandatory quiz or approval checklist between chapters.
+Prepare only the section being recorded. The template’s short checks are a
+spoken rehearsal, checked claims/examples/workflow, and a readable capture with
+clear audio. Complete later chapters, final timestamps and the recorded-edition
+publication at their own production stage. The full evolving equipment inventory
+is still a planned companion feature; introduce the existing reader, glossary,
+slides and examples in the opening.
 
 ## Open and present
 
