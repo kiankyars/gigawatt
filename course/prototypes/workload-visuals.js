@@ -57,6 +57,25 @@ function context(s,m){let o='';
  return result(o,'For Llama 3.1 70B at BF16, a 64 GiB KV pool holds 25 requests with 8,192 cached tokens each or six with 32,768, using 2.5 or 10 GiB per request. The supplied DeepSeek report chart separately compares V4-Pro and V4-Flash compressed-attention KV state with V3.2 as sequence length grows. Its model architectures and KV storage differ from the Llama calculation.');}
 function prefill(s,m){let o=split(m);
  [['PREFILL','Process the prompt',['Many prompt tokens in parallel','Large matrix operations'],'Usually compute-bound','Time to first token'],['DECODE','Stream the answer',['Read weights + cached context','Generate the next token'],'Often memory-bandwidth-bound','Time between output tokens']].forEach(([a,b,c,bound,d],i)=>{const {x,y}=panel(i,m);o+=t(x,y,a,m?23:31,i?C.communication:C.compute)+t(x,y+49,b,m?26:38)+lines(x,y+108,c,m?18:25,C.ink,'start',m?35:49)+t(x,y+(m?193:234),bound,m?19:27,i?C.communication:C.compute)+t(x,y+(m?240:300),d,m?17:25,C.muted);});return result(o,'Prefill processes many prompt tokens together, forming large matrix operations that are usually compute-bound. Decode repeatedly reads weights and cached context to extend the answer and is often memory-bandwidth-bound, especially at low batch sizes. The first phase affects the wait for an answer; the second affects how quickly it streams.');}
+function operandReuse(s,m){
+ const count=s.reuseTokens===8?8:1;
+ const tile=(x,y,cell)=>`<g data-weight-tile="resident">${Array.from({length:16},(_,i)=>r(x+i%4*cell,y+Math.floor(i/4)*cell,cell-4,cell-4,C.compute,C.compute,2)).join('')}</g>`;
+ let o=r(m?25:55,m?30:145,m?340:260,m?155:245,C.face);
+ o+=t(m?175:185,m?70:189,'GPU memory',m?22:27,C.ink,m?'start':'middle')+t(m?175:185,m?104:223,'HBM',m?18:22,C.muted,m?'start':'middle');
+ o+=tile(m?47:133,m?65:250,m?22:27)+t(m?175:185,m?153:375,'One weight tile',m?17:21,C.compute,m?'start':'middle');
+ o+=m?arrow(195,198,195,252)+t(219,229,'Load once',18,C.compute):arrow(337,282,427,282)+t(383,247,'Load once',21,C.compute,'middle');
+ o+=r(m?25:450,m?272:90,m?340:695,m?300:365,C.panel)+t(m?195:798,m?312:143,'GPU on-chip memory',m?22:31,C.ink,'middle');
+ o+=tile(m?48:494,m?384:240,m?20:29)+t(m?157:664,m?432:310,'×',m?30:43,C.ink,'middle');
+ const cell=m?14:29,step=m?17:39,start=m?201:755,top=m?390:238;
+ const offset=count===1?(8-1)*step/2:0;
+ for(let i=0;i<count;i++){
+  o+=`<g data-token-vector="${i+1}">${Array.from({length:4},(_,j)=>r(start+offset+i*step,top+j*(cell+3),cell,cell,C.communication,C.communication,2)).join('')}</g>`;
+ }
+ o+=t(m?266:905,m?365:201,`${count===1?'One':'Eight'} token ${count===1?'vector':'vectors'}`,m?17:25,C.communication,'middle');
+ o+=t(m?195:798,m?535:416,'Matrix operations',m?22:29,C.ink,'middle');
+ o+=t(m?195:600,m?620:520,count===1?'One vector uses the tile.':'More arithmetic for the same weight read.',m?18:28,C.compute,'middle');
+ return result(`<g data-reuse-tokens="${count}">${o}</g>`,`A weight tile is loaded once from GPU memory, or HBM, into the GPU’s much smaller on-chip memory. ${count===1?'One token vector uses it.':'Eight token vectors reuse the same resident tile, performing more arithmetic for the same weight read.'} Prefill and batched decode can supply several token vectors together.`);
+}
 function disaggregated(s,m){let o='';
  const photo='../assets/references/nvidia-groq-3-lpx.webp';
  o+=`<image href="${photo}" x="${m?18:30}" y="${m?4:82}" width="${m?354:565}" height="${m?199:318}" preserveAspectRatio="xMidYMid meet"><title>NVIDIA Groq 3 LPX official product render</title></image>`;
@@ -122,7 +141,7 @@ function nextBrief(s,m){
 }
 
 export function renderWorkload(id,state,compact=false){
- const f={'workload-purpose':purpose,'interactivity':interactivity,'serving-frontier':frontier,'model-work':modelWork,'memory-comparison':memoryCompare,'kv-cache':kv,'context-capacity':context,'prefill-decode':prefill,'disaggregated-serving':disaggregated,'continuous-batching':continuous,'energy-per-result':energy,'resource-paths':resource,'training-power-evidence':evidence,'next-brief':nextBrief}[id];
+ const f={'workload-purpose':purpose,'interactivity':interactivity,'serving-frontier':frontier,'model-work':modelWork,'memory-comparison':memoryCompare,'kv-cache':kv,'context-capacity':context,'prefill-decode':prefill,'operand-reuse':operandReuse,'disaggregated-serving':disaggregated,'continuous-batching':continuous,'energy-per-result':energy,'resource-paths':resource,'training-power-evidence':evidence,'next-brief':nextBrief}[id];
  const rendered=f?f(state,compact):['job-phases','synchronized-jobs','staggering-jobs'].includes(id)?phaseVisual(id,state,compact):null;
  if(!rendered)throw new RangeError(`Unknown workload scene: ${id}`);return rendered;
 }

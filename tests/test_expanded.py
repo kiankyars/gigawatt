@@ -83,13 +83,13 @@ class ExpansionTests(unittest.TestCase):
         checkins = [l for l in lessons if "domain_checkin" in l]
         self.assertEqual(
             {l["domain"] for l in checkins},
-            {d["id"] for d in self.course["domains"]},
+            {c["id"] for c in self.course["chapters"]} - {"primer", "capstone"},
         )
-        self.assertEqual(len(checkins), len(self.course["domains"]))
+        self.assertEqual(len(checkins), len(self.course["chapters"]) - 2)
         for index, lesson in enumerate(lessons):
             with self.subTest(lesson=lesson["id"]):
                 final_in_domain = (
-                    lesson["domain"] != "capstone"
+                    lesson["domain"] not in {"capstone", *[r["id"] for r in self.course["references"]]}
                     and lessons[index + 1]["domain"] != lesson["domain"]
                 )
                 self.assertEqual("domain_checkin" in lesson, final_in_domain)
@@ -110,7 +110,7 @@ class ExpansionTests(unittest.TestCase):
         lessons = [l for l in lessons if l["domain"] != "D01" or l is first_d01]
         for lesson in lessons:
             lesson.pop("domain_checkin", None)
-        sequence = [d["id"] for d in self.course["domains"]]
+        sequence = [c["id"] for c in self.course["chapters"] if c["id"] not in {"primer", "capstone"}]
         b.attach_domain_checkins(raw, lessons, sequence)
         self.assertEqual(raw, original)
         self.assertEqual(first_d01["domain_checkin"]["next_domain"], "D02")
@@ -126,7 +126,7 @@ class ExpansionTests(unittest.TestCase):
 
     def test_incomplete_duplicate_or_misrouted_checkins_fail(self):
         raw = b.read(b.ROOT / "course/domain-checkins.json")
-        sequence = [d["id"] for d in self.course["domains"]]
+        sequence = [c["id"] for c in self.course["chapters"] if c["id"] not in {"primer", "capstone"}]
         missing = deepcopy(raw)
         missing["checkins"].pop()
         duplicate = deepcopy(raw)
@@ -153,7 +153,7 @@ class ExpansionTests(unittest.TestCase):
 
     def test_checkins_require_a_scenario_prediction_reasoning_and_bridge(self):
         raw = b.read(b.ROOT / "course/domain-checkins.json")
-        sequence = [d["id"] for d in self.course["domains"]]
+        sequence = [c["id"] for c in self.course["chapters"] if c["id"] not in {"primer", "capstone"}]
         for field in ("title", "scenario", "prompt", "answer", "explanation", "bridge"):
             changed = deepcopy(raw)
             changed["checkins"][0][field] = [] if field == "explanation" else ""

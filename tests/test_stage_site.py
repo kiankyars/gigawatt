@@ -146,6 +146,17 @@ class SiteStagingTests(unittest.TestCase):
                 self.assertNotIn('rack-energy-format.html', published)
         self.assertEqual(public_path("course/prototypes/rack-energy-format.html").name, "rack-energy.html")
 
+    def test_compute_redirect_destinations_rebase_to_live_slide_paths(self):
+        source = "course/prototypes/compute-migration.js"
+        published = published_text((ROOT / source).read_text(), source)
+        for destination in (
+            "networking.html#networking-purpose", "networking.html#consumer-hardware-meme",
+            "workloads.html#operand-reuse", "rack-energy.html#rack-hardware-anatomy",
+            "storage.html#tray-repair", "../index.html#d07-bottleneck-model",
+        ):
+            self.assertIn(destination, published)
+        self.assertNotIn("-format.html", published)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -243,9 +243,10 @@ def teaching_chapters(raw, domain_map, lessons, root=ROOT):
         raise ExpansionError("Teaching catalog: expected version 1 and presentations")
     domains = {d["id"]: d for d in domain_map["domains"]}
     sequence = [did for act in domain_map["sequence"] for did in act["domains"]]
-    if len(sequence) != len(set(sequence)) or set(sequence) != set(domains):
+    all_domains = sequence + domain_map.get("reference_domains", [])
+    if len(all_domains) != len(set(all_domains)) or set(all_domains) != set(domains):
         raise ExpansionError(
-            "Teaching chapters: sequence must contain every domain once"
+            "Teaching chapters: sequence and further reading must contain every domain once"
         )
     titles = {
         **{did: domain["title"] for did, domain in domains.items()},
@@ -412,7 +413,8 @@ def load_course(root=ROOT):
     }:
         raise ExpansionError("Some domain objectives have no authored lesson")
     sequence = [did for act in domain_map["sequence"] for did in act["domains"]]
-    order = {did: i for i, did in enumerate(sequence + ["capstone"])}
+    references = domain_map.get("reference_domains", [])
+    order = {did: i for i, did in enumerate(sequence + ["capstone"] + references)}
     if any(l["domain"] not in order for l in lessons):
         raise ExpansionError("Unknown lesson domain")
     lessons.sort(key=lambda l: order[l["domain"]])
@@ -449,6 +451,15 @@ def load_course(root=ROOT):
         "chapters": teaching_chapters(
             read(root / "course/teaching-sequences.json"), domain_map, lessons, root
         ),
+        "references": [
+            {
+                "id": did,
+                "title": next(d["title"] for d in domain_map["domains"] if d["id"] == did),
+                "lesson_ids": [l["id"] for l in lessons if l["domain"] == did],
+                "presentations": [],
+            }
+            for did in references
+        ],
         "lessons": lessons,
         "sources": [s for s in catalog if s["id"] in used],
         "glossary": glossary,
@@ -634,6 +645,7 @@ def build(root=ROOT, check=False):
     )
     sample_data = {
         **data,
+        "references": [],
         "chapters": [
             {**chapter, "lesson_ids": [sample["id"]]}
             for chapter in data["chapters"]
@@ -685,8 +697,9 @@ def build(root=ROOT, check=False):
             domains=data["domains"],
             chapters=data["chapters"],
         )
-    for chapter in data["chapters"]:
-        index.extend([f"### {chapter['number']}. {chapter['title']}", ""])
+    for chapter in [*data["chapters"], *data["references"]]:
+        label = f"{chapter['number']}. {chapter['title']}" if "number" in chapter else chapter["title"]
+        index.extend([f"### {label}", ""])
         for presentation in chapter["presentations"]:
             scope = (
                 "Selected-topic slides"

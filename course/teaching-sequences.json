@@ -90,17 +90,6 @@
       ]
     },
     {
-      "id": "compute",
-      "title": "Compute, memory and the rack",
-      "chapters": [
-        {
-          "id": "D07",
-          "href": "prototypes/compute-format.html?teach=1",
-          "coverage": "chapter"
-        }
-      ]
-    },
-    {
       "id": "networking",
       "title": "Networking and interconnects",
       "chapters": [

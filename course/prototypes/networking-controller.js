@@ -8,8 +8,8 @@ for(const [i,s]of scenes.entries())$('scenes').add(new Option(`${i+1} · ${s.lab
 $('fullscreen').hidden=!teaching;
 function focusAfter(selector){render();document.querySelector(selector)?.focus({preventScroll:true});}
 function render(){
- const s=scenes[index];$('scene-title').textContent=s.title;$('scene').dataset.scene=s.id;
- document.title=`${presentationLabels.networking||'10. Networking and interconnects'} · ${s.label}`;
+ const s=scenes[index];$('scene-title').textContent=s.title;$('scene').dataset.scene=s.id;$('scene-title').closest('header').hidden=!!s.imageOnly;
+ document.title=`${presentationLabels.networking||'9. Networking and interconnects'} · ${s.label}`;
  $('lesson-reference').href=`../index.html#${s.reference}`;
  $('visual').innerHTML=networkingVisual(s.id,state,matchMedia('(max-width:600px)').matches);
  $('status').textContent=s.title;$('scenes').value=s.id;$('progress').textContent=`${index+1} / ${scenes.length}`;

@@ -27,3 +27,46 @@
 
 .complete-routes{display:grid;grid-template-columns:.8fr 1.2fr;gap:50px;align-items:center}.complete-routes>section{display:flex;flex-direction:column;align-items:stretch;padding:0 15px}.complete-routes h2{text-align:center}.complete-routes .path-node{padding:15px;gap:8px}.complete-routes>section:first-child .path-node{max-width:280px;width:100%;align-self:center}.route-stem{text-align:center;font-size:29px;color:var(--teal);height:34px;line-height:34px}.route-tray,.route-fabric{position:relative;display:flex;align-items:center;gap:20px;justify-content:center}.route-tray{border:1px solid var(--line);border-radius:12px;padding:17px 20px 12px;background:var(--surface)}.route-tray>.object-location{top:-10px;font-size:15px}.route-tray .path-node,.route-fabric .path-node{flex:1}.route-fabric{padding:0 20px}.route-tray .path-node{border-color:transparent;padding:13px}.route-fabric .path-node{min-height:63px}.complete-routes .path-node b{font-size:21px}.complete-routes .path-node span{font-size:15px}
 @media(max-width:600px){.complete-routes{grid-template-columns:1fr;gap:35px}.complete-routes>section{padding:0}.complete-routes>section:first-child .path-node{max-width:none}.route-tray{gap:10px;padding:20px 10px 12px}.route-fabric{gap:10px;padding:0 10px}.complete-routes .path-node b{font-size:18px}.complete-routes .path-node span{font-size:14px}.complete-routes>section+section{padding-top:25px;border-top:1px solid var(--line)}}
+
+/* Hardware and communication material retained from the former Compute deck. */
+.network-hero{width:min(100%,calc((100svh - 231px)*1.7778));margin-inline:auto}
+.network-hero .compute-scale-labels{grid-template-columns:repeat(3,1fr)}
+.network-meme{display:flex;align-items:center;justify-content:center;flex:1;min-height:0;margin:0}
+.network-meme img{width:100%;height:100%;min-height:0;object-fit:contain}
+.nvlink-domain{width:100%;max-width:280px;min-height:183px;display:flex;flex-direction:column;justify-content:center}
+.mini-gpus{display:flex;justify-content:space-between;gap:12px}
+.mini-gpus span{border:2px solid var(--teal);border-radius:6px;padding:14px 9px;background:var(--surface);font-size:18px}
+.nvlink-drops{display:flex;justify-content:space-around;height:34px}
+.nvlink-drops i{height:100%;width:3px;background:var(--teal)}
+.nvlink-plane{padding:15px 10px;border:2px solid var(--teal);border-radius:7px;background:var(--surface-soft);font-size:19px}
+.local-and-network-routes{grid-template-columns:1fr 1fr 1.25fr;gap:20px;align-items:stretch}
+.local-and-network-routes>section{padding:20px 14px;border:1px solid var(--line);border-radius:12px;justify-content:center}
+.local-and-network-routes .selected-path{background:var(--positive-surface)}
+.local-and-network-routes h2{font-size:23px!important;margin-bottom:25px!important}
+.local-and-network-routes .path-node{padding:14px 8px;gap:6px}
+.local-and-network-routes .path-node b{font-size:20px}
+.local-and-network-routes .path-node span{font-size:14px}
+.local-and-network-routes .route-tray{padding:14px 8px 8px;gap:7px}
+.local-and-network-routes .route-tray .path-node{padding:10px 2px}
+.local-and-network-routes .route-tray .path-node b{font-size:18px}
+.local-and-network-routes .path-arrow{font-size:23px}
+.local-gpu-boundary{position:relative;border:1px solid var(--line);border-radius:12px;padding:25px 14px 14px;background:var(--surface)}
+.local-gpu-boundary .object-location{font-size:14px;top:-10px;left:12px;padding:0 5px}
+.local-and-network-routes>section:first-child .path-node{max-width:none}
+.shared-model{display:flex;flex-direction:column;gap:24px;max-width:1100px!important;margin:0 auto}
+.model-gpus{display:grid;grid-template-columns:1fr 1fr;gap:70px}
+.model-gpus section{padding:25px;border:1px solid var(--line);border-radius:12px;text-align:center;background:var(--surface)}
+.model-gpus h2{margin-bottom:20px!important}
+.model-weight{padding:19px;border:2px solid var(--teal);border-radius:8px;font-size:23px;background:var(--positive-surface)}
+.model-weight.part-b{border-color:var(--phase-three);background:var(--surface-soft)}
+.local-compute-arrow{display:block;margin:6px 0;font-size:28px;color:var(--teal)}
+.partial-result{font-size:22px}
+.model-exchange{display:grid;grid-template-columns:.5fr 2fr .5fr;align-items:start;text-align:center;gap:20px}
+.model-exchange>span{font-size:55px;line-height:1;color:var(--teal)}
+.model-exchange>div{display:flex;flex-direction:column;gap:12px}
+.model-exchange strong{font-size:26px;font-weight:500}
+.model-exchange div>span{font-size:19px;color:var(--muted)}
+.model-combine{text-align:center;font-size:28px;color:var(--teal)}
+@media(max-height:740px) and (min-width:601px){.local-and-network-routes>section{padding:12px 10px}.local-and-network-routes h2{margin-bottom:20px!important}.local-and-network-routes .path-node{padding:12px 6px}.model-gpus section{padding:18px}.shared-model{gap:20px}.model-gpus h2{margin-bottom:15px!important}.model-weight{padding:14px}.partial-result{font-size:21px}.model-exchange strong{font-size:24px}.model-combine{font-size:25px}}
+@media(max-width:900px) and (min-width:601px){.local-and-network-routes{gap:10px}.local-and-network-routes>section{padding-left:8px;padding-right:8px}.local-and-network-routes h2{font-size:20px!important}.local-and-network-routes .path-node b{font-size:17px}.local-and-network-routes .path-node span{font-size:13px}.local-and-network-routes .route-tray .path-node b{font-size:15px}.local-gpu-boundary{padding:23px 7px 10px}.local-gpu-boundary .object-location{font-size:12px}.local-and-network-routes .route-tray .object-location{font-size:12px;left:8px}.model-gpus{gap:35px}}
+@media(max-width:600px){.network-hero{width:100%}.network-meme{min-height:350px}.network-meme img{height:auto;max-height:70svh}.nvlink-domain{min-height:160px}.local-and-network-routes{grid-template-columns:1fr;gap:20px}.local-and-network-routes>section{padding:24px 20px}.local-and-network-routes>section+section{border:1px solid var(--line);padding-top:24px}.local-and-network-routes .path-node b{font-size:20px}.local-and-network-routes .path-node span{font-size:15px}.local-and-network-routes .route-tray .path-node b{font-size:19px}.shared-model{gap:25px}.model-gpus{gap:14px}.model-gpus section{padding:18px 10px}.model-gpus h2{font-size:22px!important}.model-weight{font-size:18px;padding:17px 8px;line-height:1.4}.partial-result{font-size:18px;line-height:1.4}.model-exchange{grid-template-columns:25px 1fr 25px;gap:8px}.model-exchange>span{font-size:33px}.model-exchange strong{font-size:22px;line-height:1.3}.model-exchange div>span{font-size:17px;line-height:1.4}.model-combine{font-size:24px;line-height:1.4}}

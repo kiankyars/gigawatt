@@ -24,7 +24,10 @@ Edit the inputs and regenerate. Add `--check` to verify freshness without writin
 When adding a presentation, register its title, chapter placements, links and
 coverage (`chapter` or `selected`) in `teaching-sequences.json`, then regenerate.
 The catalog drives slide discovery and shared numbering; it is not a review or
-completion tracker. Follow-ups belong in
+completion tracker. `domain-map.json` also lists `reference_domains`: these retain
+their reading and objective IDs but sit outside numbered chapters. The former
+Compute deck redirects through `prototypes/compute-migration.js`; its useful
+slides live within workloads, rack power, networking and recovery. Follow-ups belong in
 [COURSE_REVIEW.md](COURSE_REVIEW.md#next-teaching-step), and required case and
 exercise handoffs belong in
 [TEACHING_STANDARD.md](TEACHING_STANDARD.md#required-section-handoffs).

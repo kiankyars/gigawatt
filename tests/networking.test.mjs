@@ -34,3 +34,18 @@ test('all scenes and selectable states produce renderable desktop and compact me
  assert.equal(new Set(scenes.map(s=>s.id)).size,scenes.length);
  for(const scene of scenes){const states=[initialState,...(scene.controls||[]).flatMap(g=>g.options.map(([v])=>({...initialState,[g.key]:v})))];for(const state of states)for(const compact of[false,true]){const html=networkingVisual(scene.id,state,compact);assert.ok(html.length>100);assert.doesNotMatch(html,/NaN|undefined/);}}
 });
+test('compute migration preserves both requested opening images and distinguishes local memory from networking',()=>{
+ assert.equal(scenes[0].id,'networking-purpose');assert.equal(scenes[1].id,'consumer-hardware-meme');assert.equal(scenes[1].imageOnly,true);
+ assert.match(networkingVisual('networking-purpose',initialState),/compute-scales\.png/);
+ assert.match(networkingVisual('consumer-hardware-meme',initialState),/compute-consumer-hardware-meme\.png/);
+ const path=scenes.find(s=>s.id==='packet-path');assert.deepEqual(path.controls[0].options.map(([value])=>value),['local','rack','cluster']);
+ const labels={local:'GPU-local memory',rack:'Inside the rack',cluster:'Across racks'};
+ for(const transfer of Object.keys(labels)){
+  const html=networkingVisual('packet-path',{...initialState,transfer});
+  assert.equal((html.match(/class="selected-path"/g)||[]).length,1);
+  assert.ok(html.includes(`aria-label="${labels[transfer]} — selected"`));
+  assert.match(html,/One GPU package/);assert.match(html,/HBM/);assert.match(html,/NVLink switches/);assert.match(html,/Fabric switches/);
+ }
+ assert.match(networkingVisual('shared-model',initialState),/Each GPU receives the other part’s result/);
+ assert.match(networkingVisual('shared-model',initialState),/GPUs combine the results/);
+});

@@ -43,7 +43,7 @@ Connect, distribute, protect and convert electricity.
 
 Coordinate compute, memory, networks, storage and jobs.
 
-- [Compute, memory and the rack](#d07)
+- [Compute and memory — further reading](#d07)
 - [Networking and interconnects](#d08)
 - [Storage, orchestration and recovery](#d09)
 
@@ -87,7 +87,7 @@ Compare continuity and conversion choices, including 800 V DC, against interface
 
 ### A04 — Make the cluster productive
 
-[Compute, memory and the rack](#d07) → [Networking and interconnects](#d08) → [Storage, orchestration and recovery](#d09)
+[Networking and interconnects](#d08) → [Storage, orchestration and recovery](#d09)
 
 Connect compute, memory, communication, storage and scheduling to useful progress.
 
@@ -102,6 +102,10 @@ Follow heat from local device limits to climate-dependent rejection and resource
 [Design, procurement and commissioning](#d13) → [Controls, operations and reliability](#d14) → [Capacity, cost and system decisions](#d15)
 
 Test complete service paths, operate them, and defend a system decision with uncertainty.
+
+### Further reading
+
+- [Compute and memory — further reading](#d07)
 
 ## Domain teaching plans
 
@@ -832,11 +836,11 @@ Explain how retrofit constraints can reverse a seemingly attractive greenfield a
 
 <a id="d07"></a>
 
-### Compute, memory and the rack
+### Compute and memory — further reading
 
 **Central question:** What inside the rack determines useful performance?
 
-Explain hardware organization only as deeply as needed to connect workload progress with infrastructure choices.
+Reference depth on hardware organization and GPU performance. Rack anatomy, weight reuse, peer communication and tray recovery are taught within the relevant infrastructure chapters.
 
 **Included scope:**
 
@@ -957,7 +961,7 @@ Teach communication cost and topology as constraints on useful compute and physi
 - Copper, pluggable optics and co-packaged optics; reach, power, cabling and serviceability
 - Campus fiber entrances, meet-me rooms, demarcation and carrier connections; physical route diversity
 
-**Prerequisites:** [System boundaries and quantities](#d01), [Workloads and the infrastructure brief](#d02), [Compute, memory and the rack](#d07)
+**Prerequisites:** [System boundaries and quantities](#d01), [Workloads and the infrastructure brief](#d02), [Rack power and the 800 V DC transition](#d06)
 
 **Learning objectives and assessments:**
 
@@ -1070,7 +1074,7 @@ Connect storage and cluster software to the delivery of a usable service.
 - Cluster bring-up, provisioning, observability and tenant/service acceptance
 - Recovery objectives, redundancy and backup as different concepts
 
-**Prerequisites:** [System boundaries and quantities](#d01), [Workloads and the infrastructure brief](#d02), [Compute, memory and the rack](#d07), [Networking and interconnects](#d08)
+**Prerequisites:** [System boundaries and quantities](#d01), [Workloads and the infrastructure brief](#d02), [Rack power and the 800 V DC transition](#d06), [Networking and interconnects](#d08)
 
 **Learning objectives and assessments:**
 
@@ -1173,7 +1177,7 @@ Connect local thermal constraints with airflow, coolant and rack interfaces.
 - Technology coolant, manifolds, quick disconnects and CDUs
 - Flow, pressure drop, approach temperature, material compatibility and leak management
 
-**Prerequisites:** [System boundaries and quantities](#d01), [Compute, memory and the rack](#d07)
+**Prerequisites:** [System boundaries and quantities](#d01), [Rack power and the 800 V DC transition](#d06)
 
 **Learning objectives and assessments:**
 
@@ -1840,19 +1844,19 @@ Audit a named project's public evidence without filling unknown capacity, topolo
 
 ### Power → rack
 
-[System boundaries and quantities](#d01) → [Siting, grid connection and supply](#d03) → [Campus and building power distribution](#d04) → [Continuity, storage and protection](#d05) → [Rack power and the 800 V DC transition](#d06) → [Compute, memory and the rack](#d07)
+[System boundaries and quantities](#d01) → [Siting, grid connection and supply](#d03) → [Campus and building power distribution](#d04) → [Continuity, storage and protection](#d05) → [Rack power and the 800 V DC transition](#d06) → [Compute and memory — further reading](#d07)
 
 Physical electrical journey. This is a conceptual path, not a universal installed topology.
 
 ### Chip → environment
 
-[Compute, memory and the rack](#d07) → [Chip and rack heat capture](#d10) → [Heat rejection, climate and water](#d11)
+[Compute and memory — further reading](#d07) → [Chip and rack heat capture](#d10) → [Heat rejection, climate and water](#d11)
 
 Thermal journey, including parallel air/liquid paths and auxiliary heat inputs.
 
 ### Workload → useful service
 
-[Workloads and the infrastructure brief](#d02) → [Compute, memory and the rack](#d07) → [Networking and interconnects](#d08) → [Storage, orchestration and recovery](#d09) → [Controls, operations and reliability](#d14) → [Capacity, cost and system decisions](#d15)
+[Workloads and the infrastructure brief](#d02) → [Compute and memory — further reading](#d07) → [Networking and interconnects](#d08) → [Storage, orchestration and recovery](#d09) → [Controls, operations and reliability](#d14) → [Capacity, cost and system decisions](#d15)
 
 Information and service dependencies, not a literal packet route.
 
@@ -1888,7 +1892,7 @@ Domains: [System boundaries and quantities](#d01), [Chip and rack heat capture](
 
 Compare a higher-density rack migration using the existing AC plant, a sidecar option and a separately specified broader DC alternative.
 
-Domains: [Campus and building power distribution](#d04), [Continuity, storage and protection](#d05), [Rack power and the 800 V DC transition](#d06), [Compute, memory and the rack](#d07), [Chip and rack heat capture](#d10), [Physical site, buildings and safety](#d12), [Design, procurement and commissioning](#d13), [Capacity, cost and system decisions](#d15)
+Domains: [Campus and building power distribution](#d04), [Continuity, storage and protection](#d05), [Rack power and the 800 V DC transition](#d06), [Compute and memory — further reading](#d07), [Chip and rack heat capture](#d10), [Physical site, buildings and safety](#d12), [Design, procurement and commissioning](#d13), [Capacity, cost and system decisions](#d15)
 
 **Deliverable:** Interface matrix, conversion diagrams, current and heat-flow calculations, floor/service-access review, migration sequence and scenario cost comparison.
 
@@ -1898,7 +1902,7 @@ Domains: [Campus and building power distribution](#d04), [Continuity, storage an
 
 The hardware has adequate power and cooling, but a synthetic workload suffers fabric congestion and checkpoint stalls.
 
-Domains: [Workloads and the infrastructure brief](#d02), [Compute, memory and the rack](#d07), [Networking and interconnects](#d08), [Storage, orchestration and recovery](#d09), [Controls, operations and reliability](#d14), [Capacity, cost and system decisions](#d15)
+Domains: [Workloads and the infrastructure brief](#d02), [Compute and memory — further reading](#d07), [Networking and interconnects](#d08), [Storage, orchestration and recovery](#d09), [Controls, operations and reliability](#d14), [Capacity, cost and system decisions](#d15)
 
 **Deliverable:** Work/wait/recovery timeline, a bounded bottleneck calculation, and an experiment that distinguishes competing causes.
 

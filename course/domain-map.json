@@ -427,10 +427,10 @@
     },
     {
       "id": "D07",
-      "title": "Compute, memory and the rack",
+      "title": "Compute and memory — further reading",
       "lane": "work",
       "question": "What inside the rack determines useful performance?",
-      "purpose": "Explain hardware organization only as deeply as needed to connect workload progress with infrastructure choices.",
+      "purpose": "Reference depth on hardware organization and GPU performance. Rack anatomy, weight reuse, peer communication and tray recovery are taught within the relevant infrastructure chapters.",
       "scope": [
         "CPU, accelerator, memory, host and accelerator interconnect roles",
         "Memory capacity and bandwidth, compute throughput and data movement",
@@ -503,7 +503,7 @@
       "prerequisites": [
         "D01",
         "D02",
-        "D07"
+        "D06"
       ],
       "objectives": [
         {
@@ -568,7 +568,7 @@
       "prerequisites": [
         "D01",
         "D02",
-        "D07",
+        "D06",
         "D08"
       ],
       "objectives": [
@@ -626,7 +626,7 @@
       ],
       "prerequisites": [
         "D01",
-        "D07"
+        "D06"
       ],
       "objectives": [
         {
@@ -1101,7 +1101,6 @@
       "id": "A04",
       "title": "Make the cluster productive",
       "domains": [
-        "D07",
         "D08",
         "D09"
       ],
@@ -1210,5 +1209,8 @@
   "baseline_coverage_definition": {
     "partial": "The retained 22-lesson introduction teaches a fragment of this objective. This is a historical reuse label, not the status of the expanded course.",
     "missing": "The retained 22-lesson introduction does not substantively teach this objective. See the generated expanded manuscript for current authored coverage."
-  }
+  },
+  "reference_domains": [
+    "D07"
+  ]
 }

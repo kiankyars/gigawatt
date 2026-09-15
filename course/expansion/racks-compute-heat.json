@@ -1089,7 +1089,7 @@
       {
         "heading": "Diagnose the required service rather than an average",
         "paragraphs": [
-          "Consider a rack with power, coolant and individual GPU checks all ready, but its required NVLink fabric unavailable. The specified multi-GPU job remains blocked. If a tested reduced mode can use a smaller working group, it may provide a limited service; merely observing that some GPUs respond does not establish that mode. The decision is whether to repair the missing path, use a qualified alternative placement, or wait. The next chapter follows those communication paths beyond this rack."
+          "Consider a rack with power, coolant and individual GPU checks all ready, but its required NVLink fabric unavailable. The specified multi-GPU job remains blocked. If a tested reduced mode can use a smaller working group, it may provide a limited service; merely observing that some GPUs respond does not establish that mode. The decision is whether to repair the missing path, use a qualified alternative placement, or wait. The Networking and interconnects chapter follows those communication paths beyond this rack."
         ]
       }
     ],

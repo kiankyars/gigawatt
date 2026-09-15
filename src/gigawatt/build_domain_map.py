@@ -197,9 +197,11 @@ def validate_map(domain_map: object, research: object, lessons: object) -> dict:
                 _text(item.get(key), f"{item['id']}.{key}")
             _refs(item.get("domains"), domains, f"{item['id']}.domains", empty=False)
     ordered = [did for act in result["sequence"] for did in act["domains"]]
-    if len(ordered) != len(set(ordered)) or set(ordered) != set(domains):
-        raise DomainMapError("Teaching sequence must include every domain exactly once")
-    positions = {did: i for i, did in enumerate(ordered)}
+    references = _refs(result.get("reference_domains", []), domains, "reference_domains")
+    all_domains = ordered + references
+    if len(all_domains) != len(set(all_domains)) or set(all_domains) != set(domains):
+        raise DomainMapError("Teaching sequence and further reading must include every domain exactly once")
+    positions = {did: i for i, did in enumerate(all_domains)}
     for did, domain in domains.items():
         for prerequisite in domain["prerequisites"]:
             if positions[prerequisite] >= positions[did]:
@@ -310,6 +312,13 @@ def render_markdown(domain_map: dict, research: dict) -> str:
                 "",
             ]
         )
+    if m.get("reference_domains"):
+        lines.extend(["### Further reading", ""])
+        lines.extend(
+            f"- [{_md(domains[did]['title'])}](#{did.lower()})"
+            for did in m["reference_domains"]
+        )
+        lines.append("")
     lines.extend(["## Domain teaching plans", ""])
     for domain in m["domains"]:
         did = domain["id"]

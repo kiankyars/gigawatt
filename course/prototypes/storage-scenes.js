@@ -24,6 +24,7 @@ export const scenes=[
  {id:'replication-and-backup',label:'Replication and retained recovery copies',title:'A live replica and a retained recovery copy protect against different failures.',reference:timeline,pedagogical_role:'counterexample',controls:[c('replicaFault','What failed',[['device','One storage device'],['write','A bad application write']])]},
  {id:'async-checkpoint',label:'Overlap saving with training',title:'Training can resume after a coherent snapshot is staged.',reference:timeline,pedagogical_role:'comparison',controls:[c('asyncPhase','Observe the save at',[[8,'8 seconds'],[40,'40 seconds']])]},
  {id:'save-backlog',label:'When background saves queue',title:'A backend that drains too slowly eventually makes the job wait.',reference:timeline,pedagogical_role:'mechanism',controls:[c('saveInterval','New save requested every',[[30,'30 seconds'],[90,'90 seconds']])]},
+ {id:'tray-repair',label:'The unit being repaired',title:'Removing a compute tray takes its four GPUs out of service.',reference:service,pedagogical_role:'mechanism'},
  {id:'recovery-path',label:'From a fault to new progress',title:'Recovery ends at the first correct new output.',reference:service,pedagogical_role:'mechanism'},
  {id:'recovery-placement',label:'Free GPUs and usable allocations',title:'Thirty-two free GPUs may still leave a four-node job waiting.',reference:service,pedagogical_role:'counterexample',controls:[c('placement','Free nodes',[['fragmented','Two in each group'],['together','Four in Group A']])]},
  {id:'recovery-locality',label:'Wait for local data or read remotely',title:'Local data can save transfer time while the job waits for resources.',reference:service,pedagogical_role:'comparison',controls:[c('localWait','Wait for the local allocation',[[30,'30 seconds'],[90,'90 seconds']])]},
@@ -35,5 +36,5 @@ export const scenes=[
  {id:'google-demand-response',label:'Google demand response',title:'Google deferred eligible work during grid stress.',reference:service,pedagogical_role:'architecture'},
  {id:'deadline-scheduling',label:'Move the work and meet the deadline',title:'A power reduction is useful only if the deferred work still finishes.',reference:service,pedagogical_role:'balance',controls:[c('shift','Execution plan',[[false,'Continue through event'],[true,'Pause for grid event']]),c('deadline','Completion deadline',[[20,'20:00'],[17,'17:00']])]},
  {id:'service-acceptance',label:'Accept the computing service',title:'At Abilene, the computing service must be demonstrated after power is available.',reference:service,pedagogical_role:'transfer'},
- {id:'recovery-diagnosis',label:'Chapter 11 knowledge check',title:'Chapter 11 · Restore the next correct training step',reference:service,pedagogical_role:'transfer'},
+ {id:'recovery-diagnosis',label:'Chapter 10 knowledge check',title:'Chapter 10 · Restore the next correct training step',reference:service,pedagogical_role:'transfer'},
 ];

@@ -25,12 +25,25 @@ test('continuous membership preserves each request token count and admits C only
  }
 });
 test('each retained state renders and retired deep links lead to taught replacement content',()=>{
- const ids=new Set(scenes.map(s=>s.id));assert.equal(ids.size,17);assert.equal(scenes[0].id,'workload-purpose');
+ const ids=new Set(scenes.map(s=>s.id));assert.equal(ids.size,18);assert.equal(scenes[0].id,'workload-purpose');
  for(const target of Object.values(legacySceneAliases))assert.ok(ids.has(target));
  assert.equal(legacySceneAliases['acceptance-envelope'],'next-brief');
  for(const scene of scenes)for(const compact of[false,true]){
   const states=[initialState,...(scene.controls||[]).flatMap(c=>c.options.map(([value])=>({...initialState,[c.key]:value})))];
   for(const state of states){const r=renderWorkload(scene.id,state,compact);assert.ok(r.description.length>30);assert.match(r.markup,/<(?:text|image)\b/);assert.doesNotMatch(r.markup,/\bNaN\b|\bInfinity\b/);}
+ }
+});
+
+test('weight reuse follows prefill/decode and changes vectors without adding weight loads',()=>{
+ const index=scenes.findIndex(s=>s.id==='operand-reuse');
+ assert.equal(scenes[index-1].id,'prefill-decode');
+ for(const compact of[false,true])for(const reuseTokens of[1,8]){
+  const {markup,description}=renderWorkload('operand-reuse',{...initialState,reuseTokens},compact);
+  assert.equal((markup.match(/data-token-vector=/g)||[]).length,reuseTokens);
+  assert.equal((markup.match(/data-weight-tile=/g)||[]).length,2);
+  assert.equal((markup.match(/Load once/g)||[]).length,1);
+  assert.match(description,/GPU memory, or HBM/);
+  assert.match(description,/on-chip memory/);
  }
 });
 

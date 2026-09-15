@@ -82,20 +82,8 @@
       "explanation": [
         "The same output still requires the same total input across the complete path. Conversion heat now occurs outside the rack, and rack space may be released. Shared failure exposure, protection, service access and expansion arrangements need checking at the new location."
       ],
-      "next_domain": "D07",
-      "bridge": "Now that power reaches the devices, what determines whether those devices spend their time doing useful work?"
-    },
-    {
-      "domain": "D07",
-      "title": "Twice the arithmetic, same progress?",
-      "scenario": "In a hypothetical model, computation and memory transfer overlap completely. A step needs 2 ms of arithmetic and 8 ms to fetch its inputs. An upgrade halves arithmetic time while leaving the memory path and all other conditions unchanged.",
-      "prompt": "What happens to the modeled step time, and why?",
-      "answer": "It remains 8 ms: max(2, 8) and max(1, 8) are both 8.",
-      "explanation": [
-        "The memory path sets the limit in this supplied model, so extra arithmetic capacity does not shorten the step. The conclusion depends on complete overlap and unchanged data movement; a real job needs evidence about its dependencies and measured bottleneck."
-      ],
       "next_domain": "D08",
-      "bridge": "Inputs and results also move between devices. What happens when a shared network path becomes the slowest dependency?"
+      "bridge": "Power now reaches the devices. How do those devices exchange data within a rack and across the cluster?"
     },
     {
       "domain": "D08",

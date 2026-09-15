@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/racks-compute-heat.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/racks-compute-heat.json), lesson `d07-bottleneck-model`, then run `uv run gigawatt-expand`.
 
-**9. Compute, memory and the rack · Authored draft**
+**Compute and memory — further reading · Authored draft**
 
 Derive arithmetic intensity and a roofline bound, then diagnose which resource upgrade changes the operation’s completion time.
 

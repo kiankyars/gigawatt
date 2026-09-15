@@ -1,4 +1,5 @@
 import { renderDCArchitecturePreview } from './rack-dc-preview.js';
+import { renderRackHardwareAnatomy } from './rack-hardware-anatomy.js';
 import { renderCorePath, renderConversionChoices, renderVRMPhases } from './rack-converter-review.js';
 import { renderBufferReview } from './rack-buffer-review.js';
 import { renderRackPower } from './rack-power-visuals.js';
@@ -19,6 +20,7 @@ export function rackVisual(scene,state,compact) {
 }
 
 export function supplementalVisual(scene,s,compact=false) {
+  if(scene.kind==='hardware-anatomy')return renderRackHardwareAnatomy();
   if(scene.kind==='dc-preview')return renderDCArchitecturePreview();
   if(scene.kind==='review-figure')return `<figure class="review-figure"><img src="../assets/references/${escapeHTML(scene.asset)}" alt="${escapeHTML(scene.alt)}"></figure>`;
   if(scene.kind==='dc-protection')return renderDCProtection(compact);

@@ -71,7 +71,7 @@ Carry the same facility through these questions:
 | --- | --- |
 | Data center overview through Workloads and requirements | Which boundary and useful service are we describing? Preserve the existing Data center overview slides. |
 | Siting, grid connection and supply through Rack power and the 800 V DC transition | Which supply is available, which equipment can be delivered, and where are storage and conversion? |
-| Compute, memory and the rack through Storage, orchestration and recovery | What compute, memory, network and storage inputs would establish accepted work? |
+| Networking and interconnects through Storage, orchestration and recovery | What compute, memory, network and storage inputs would establish accepted work? |
 | Chip and rack heat capture through Heat rejection, climate and water | How is heat captured, moved and rejected; which water circuit is being counted? |
 | Physical site, buildings and safety through Controls, operations and reliability | What must be built, accepted, maintained and recovered for that service to run? |
 | Capacity, cost and system decisions | Which dated capacity, output and cost claims can actually enter the ledger? |

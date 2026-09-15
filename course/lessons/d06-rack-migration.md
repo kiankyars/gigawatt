@@ -141,6 +141,6 @@ The same output still requires the same total input across the complete path. Co
 
 </details>
 
-**The next problem:** Now that power reaches the devices, what determines whether those devices spend their time doing useful work?
+**The next problem:** Power now reaches the devices. How do those devices exchange data within a rack and across the cluster?
 
-Continue in **Compute, memory and the rack**: Inside a GB300 compute tray.
+Continue in **Networking and interconnects**: Count the paths, not just the advertised ports.

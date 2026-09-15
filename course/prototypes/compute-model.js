@@ -1,4 +1,4 @@
-// Chapter 9: SI quantities at a single accelerator and configured job boundaries.
+// Compute reference models: SI quantities and configured job boundaries.
 
 function positive(value, name) {
   if (!Number.isFinite(value) || value <= 0) throw new RangeError(`${name} must be finite and positive`);

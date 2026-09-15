@@ -175,12 +175,12 @@ class TeachingCatalogTests(unittest.TestCase):
     def test_real_catalog_separates_chapters_and_labels_selected_topics(self):
         course = b.load_course()
         chapters = {c["id"]: c for c in course["chapters"]}
-        self.assertEqual(len(chapters), 17)
+        self.assertEqual(len(chapters), 16)
         self.assertEqual(chapters["D12"]["number"], 5)
-        self.assertEqual(chapters["D13"]["number"], 14)
-        self.assertEqual(chapters["capstone"]["number"], 17)
+        self.assertEqual(chapters["D13"]["number"], 13)
+        self.assertEqual(chapters["capstone"]["number"], 16)
         self.assertEqual(
-            len({p["id"] for c in chapters.values() for p in c["presentations"]}), 13
+            len({p["id"] for c in chapters.values() for p in c["presentations"]}), 12
         )
         for did in ("D10", "D11", "D13"):
             with self.subTest(chapter=did):
@@ -220,6 +220,23 @@ class TeachingCatalogTests(unittest.TestCase):
             lesson, {s["id"]: s for s in course["sources"]}, chapters=course["chapters"]
         )
         self.assertIn("**3. Workloads and requirements · Authored draft**", markdown)
+
+    def test_compute_is_further_reading_and_chapter_numbers_remain_contiguous(self):
+        course = b.load_course()
+        chapters = course["chapters"]
+        self.assertEqual([c["number"] for c in chapters], list(range(1, 17)))
+        self.assertNotIn("D07", [c["id"] for c in chapters])
+        reference = course["references"][0]
+        self.assertEqual(reference["id"], "D07")
+        self.assertNotIn("number", reference)
+        self.assertEqual(set(reference["lesson_ids"]), {
+            "d07-data-path", "d07-bottleneck-model", "d07-rack-as-system",
+        })
+        self.assertEqual(reference["presentations"], [])
+        self.assertEqual([l["id"] for l in course["lessons"]][-3:], reference["lesson_ids"])
+        rack_check = next(l["domain_checkin"] for l in course["lessons"] if l["id"] == "d06-rack-migration")
+        self.assertEqual(rack_check["next_domain"], "D08")
+        self.assertNotIn("compute-format.html", b.presentation_identities(chapters))
 
     def test_every_presentation_has_a_named_course_exit_in_its_header(self):
         class HeaderLinks(HTMLParser):

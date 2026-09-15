@@ -19,8 +19,10 @@ const LESSONS = DATA.lessons,
   byLesson = new Map(LESSONS.map((l, i) => [l.id, i]));
 const domainById = new Map(DATA.domains.map((d) => [d.id, d]));
 const CHAPTERS = DATA.chapters;
-const chapterById = new Map(CHAPTERS.map((chapter) => [chapter.id, chapter]));
-const chapterName = (chapter) => `${chapter.number}. ${chapter.title}`;
+const REFERENCE_GROUPS = DATA.references || [];
+const READING_GROUPS = [...CHAPTERS, ...REFERENCE_GROUPS];
+const chapterById = new Map(READING_GROUPS.map((chapter) => [chapter.id, chapter]));
+const chapterName = (chapter) => chapter.number ? `${chapter.number}. ${chapter.title}` : chapter.title;
 const topicTitle = (id) => chapterById.has(id)
   ? chapterName(chapterById.get(id)) : "Integrated cases";
 const sourcesById = new Map(DATA.sources.map((s) => [s.id, s]));
@@ -148,14 +150,14 @@ function renderContents() {
   const q = $("search").value.trim().toLowerCase(),
     terms = q.split(/\s+/).filter(Boolean);
   const matches = (value) => terms.every((term) => value.toLowerCase().includes(term));
-  const visible = CHAPTERS.map((chapter) => {
+  const visible = READING_GROUPS.map((chapter) => {
     const chapterMatch = matches(`${chapterName(chapter)} ${chapter.presentations.map((p) => `${p.id} ${p.title}`).join(" ")}`);
     const lessons = chapter.lesson_ids.map((id) => LESSONS[byLesson.get(id)])
       .filter((lesson) => lesson && (chapterMatch || matches(JSON.stringify(lesson))));
     return { chapter, lessons, show: chapterMatch || lessons.length > 0 };
   }).filter((item) => item.show);
   $("lesson-count").textContent = `${CHAPTERS.length} ${CHAPTERS.length === 1 ? "chapter" : "chapters"}`;
-  $("search-status").textContent = q ? `${visible.length} matching ${visible.length === 1 ? "chapter" : "chapters"}`
+  $("search-status").textContent = q ? `${visible.length} matching ${visible.length === 1 ? "section" : "sections"}`
     : "Open a chapter for its reading and slides.";
   $("contents").innerHTML = visible.map(({ chapter, lessons }) => {
     const slideLinks = presentationLinks(chapter);
@@ -163,7 +165,7 @@ function renderContents() {
     const heading = `<span class="chapter-name">${esc(chapterName(chapter))}</span>`;
     const reading = lessons.map((lesson) => {
       const selected = LESSONS[current]?.id === lesson.id && !lookupMode;
-      const number = `${chapter.number}.${chapter.lesson_ids.indexOf(lesson.id) + 1}`;
+      const number = chapter.number ? `${chapter.number}.${chapter.lesson_ids.indexOf(lesson.id) + 1}` : "";
       return `<button class="lesson-link${selected ? " active" : ""}" data-lesson="${esc(lesson.id)}" ${selected ? 'aria-current="page"' : ""}><span class="lesson-number">${number}</span> ${esc(lesson.title)}${lesson.domain_checkin ? '<small class="lesson-checkin-note">Ends with a check-in</small>' : ""}</button>`;
     }).join("");
     return `<details class="chapter-group" data-chapter="${esc(chapter.id)}" ${q || activeChapter || chapter.id === "primer" ? "open" : ""}><summary>${heading}</summary><div class="chapter-content">${slideLinks}${reading}</div></details>`;
@@ -244,7 +246,7 @@ function renderLesson() {
   const lessonNumber = chapter.lesson_ids.indexOf(l.id) + 1;
   document.title = `${l.title} — From Watts to Tokens`;
   $("eyebrow").textContent =
-    `${chapter.number}.${lessonNumber} · ${chapter.title}`;
+    chapter.number ? `${chapter.number}.${lessonNumber} · ${chapter.title}` : chapter.title;
   $("title").textContent = l.title;
   $("summary").textContent = l.summary;
   const caseLinks = CASE_STUDY_LINKS[l.id] || [];
@@ -326,6 +328,8 @@ function renderLesson() {
   $("next").textContent =
     current === LESSONS.length - 1
       ? "Back to start ↻"
+      : LESSONS[current + 1]?.domain !== l.domain && !chapterById.get(LESSONS[current + 1]?.domain)?.number
+        ? "Further reading →"
       : l.domain_checkin
         ? l.domain_checkin.next_domain === "capstone"
           ? "Continue to the cases →"

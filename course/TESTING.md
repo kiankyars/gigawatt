@@ -1648,3 +1648,30 @@ All 225 Node tests and 78 Python tests pass, including updated sequence/link and
 waveform-state coverage. Course, expansion, domain-map and research freshness,
 site staging and whitespace checks pass. The tracker records the latest feedback
 through Chapter 8's closing slide without inferring final author acceptance.
+
+
+## Compute chapter migration — 2026-09-15
+
+The standalone Compute deck is retired. Workloads has 18 slides; Rack power has
+31; Networking is now Chapter 9 with 24; Storage/recovery is Chapter 10 with 27.
+Rack/tray/superchip anatomy is consolidated, weight reuse explains prefill and
+batching, local HBM and peer traffic share the network-path comparison, model
+partitioning introduces exchange, and tray removal introduces recovery. The old
+opening illustration and supplied consumer-hardware meme are Networking slides
+1–2, using the unchanged asset files.
+
+All 22 old Compute fragments have explicit destinations, tested against real
+scene or reader IDs. Published-path rebasing, teaching-mode retention and unknown
+fragment fallback are checked. Main chapter numbers are contiguous from 1 to 16;
+all 50 written lessons and 65 objective IDs remain. Three compute lessons are
+unnumbered further reading after the capstones; the rack-power check-in and slide
+handoff proceed directly to Networking. The obsolete player/rendering files are
+removed; Git history retains the full deck.
+
+All 229 Node tests and 80 Python tests pass. Generated-course, expansion,
+domain-map, research metadata and whitespace checks pass; site staging succeeds.
+A built-in-browser desktop pass at 1280 × 720 checked the Networking opening
+image, meme, communication scales, path controls and shared-model diagram. The
+browser then disconnected, so a new browser pass on the other moved visuals and
+the reader directory could not be completed in this release; their render/route
+checks pass. New slides remain available for author review.

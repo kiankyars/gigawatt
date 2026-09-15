@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/racks-compute-heat.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/racks-compute-heat.json), lesson `d07-data-path`, then run `uv run gigawatt-expand`.
 
-**9. Compute, memory and the rack · Authored draft**
+**Compute and memory — further reading · Authored draft**
 
 Locate the CPU, GPU, HBM and rack interconnect in a GB300 NVL72, then distinguish memory capacity from the paths that supply computation.
 
