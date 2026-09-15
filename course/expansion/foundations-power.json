@@ -288,6 +288,22 @@
       {
         "term": "Load profile",
         "definition": "Power as a function of time at a declared measurement point."
+      },
+      {
+        "term": "Power (watts, W)",
+        "definition": "The rate of energy transfer: one watt is one joule per second."
+      },
+      {
+        "term": "Energy",
+        "definition": "An amount transferred or stored, measured here in joules or watt-hours. For constant power, energy equals power multiplied by duration."
+      },
+      {
+        "term": "Joule (J)",
+        "definition": "A unit of energy. A one-watt load receives one joule each second."
+      },
+      {
+        "term": "Watt-hour (Wh)",
+        "definition": "The energy transferred by one watt over one hour: 3,600 joules. A kilowatt-hour (kWh) is 1,000 watt-hours."
       }
     ],
     "visual": {
@@ -1297,6 +1313,18 @@
       {
         "term": "Power factor",
         "definition": "Real power divided by apparent power at the same AC boundary."
+      },
+      {
+        "term": "Voltage (volts, V)",
+        "definition": "Electric potential difference: energy per unit charge between two points. One volt is one joule per coulomb."
+      },
+      {
+        "term": "Current (amperes or amps, A)",
+        "definition": "The rate of electric charge flow through a path. One ampere is one coulomb per second."
+      },
+      {
+        "term": "Electrical resistance (ohms, Ω)",
+        "definition": "Opposition to current flow. In the simple resistor model, voltage equals current multiplied by resistance: V = I × R."
       }
     ],
     "visual": {
@@ -2235,6 +2263,14 @@
       {
         "term": "Capacitor voltage transformer (CVT)",
         "definition": "An instrument transformer using a capacitive divider and electromagnetic unit to provide a scaled HV voltage measurement, commonly from phase to earth."
+      },
+      {
+        "term": "Transformer",
+        "definition": "Equipment that transfers energy between windings through a changing magnetic field, commonly changing AC voltage."
+      },
+      {
+        "term": "Inverter",
+        "definition": "A power converter that converts DC into AC."
       }
     ],
     "visual": {
@@ -3247,6 +3283,10 @@
       {
         "term": "Uptime Tier",
         "definition": "A classification of site infrastructure capability; it does not assign a fixed annual availability percentage."
+      },
+      {
+        "term": "Uninterruptible power supply (UPS)",
+        "definition": "Equipment that supports its connected load through an input-power interruption, within its output-power and stored-energy limits. The topology determines the normal and backup power paths."
       }
     ],
     "visual": {

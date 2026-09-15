@@ -850,6 +850,22 @@
       {
         "term": "Coherent memory",
         "definition": "Memory accessible across processors with hardware support for maintaining a consistent view; access cost still depends on location."
+      },
+      {
+        "term": "Rack",
+        "definition": "A frame that holds computing, networking, storage and supporting equipment."
+      },
+      {
+        "term": "Server",
+        "definition": "A computer that performs work or provides a service to other computers over a network."
+      },
+      {
+        "term": "Central processing unit (CPU)",
+        "definition": "A processor that executes program instructions and commonly coordinates the host computer’s work."
+      },
+      {
+        "term": "Graphics processing unit (GPU)",
+        "definition": "A processor with many parallel execution units, used here for the numerical operations in AI workloads."
       }
     ],
     "visual": {

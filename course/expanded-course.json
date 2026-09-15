@@ -1492,6 +1492,22 @@
         {
           "term": "Load profile",
           "definition": "Power as a function of time at a declared measurement point."
+        },
+        {
+          "term": "Power (watts, W)",
+          "definition": "The rate of energy transfer: one watt is one joule per second."
+        },
+        {
+          "term": "Energy",
+          "definition": "An amount transferred or stored, measured here in joules or watt-hours. For constant power, energy equals power multiplied by duration."
+        },
+        {
+          "term": "Joule (J)",
+          "definition": "A unit of energy. A one-watt load receives one joule each second."
+        },
+        {
+          "term": "Watt-hour (Wh)",
+          "definition": "The energy transferred by one watt over one hour: 3,600 joules. A kilowatt-hour (kWh) is 1,000 watt-hours."
         }
       ],
       "visual": {
@@ -2460,6 +2476,18 @@
         {
           "term": "Power factor",
           "definition": "Real power divided by apparent power at the same AC boundary."
+        },
+        {
+          "term": "Voltage (volts, V)",
+          "definition": "Electric potential difference: energy per unit charge between two points. One volt is one joule per coulomb."
+        },
+        {
+          "term": "Current (amperes or amps, A)",
+          "definition": "The rate of electric charge flow through a path. One ampere is one coulomb per second."
+        },
+        {
+          "term": "Electrical resistance (ohms, Ω)",
+          "definition": "Opposition to current flow. In the simple resistor model, voltage equals current multiplied by resistance: V = I × R."
         }
       ],
       "visual": {
@@ -4183,6 +4211,14 @@
         {
           "term": "Capacitor voltage transformer (CVT)",
           "definition": "An instrument transformer using a capacitive divider and electromagnetic unit to provide a scaled HV voltage measurement, commonly from phase to earth."
+        },
+        {
+          "term": "Transformer",
+          "definition": "Equipment that transfers energy between windings through a changing magnetic field, commonly changing AC voltage."
+        },
+        {
+          "term": "Inverter",
+          "definition": "A power converter that converts DC into AC."
         }
       ],
       "visual": {
@@ -5230,6 +5266,10 @@
         {
           "term": "Uptime Tier",
           "definition": "A classification of site infrastructure capability; it does not assign a fixed annual availability percentage."
+        },
+        {
+          "term": "Uninterruptible power supply (UPS)",
+          "definition": "Equipment that supports its connected load through an input-power interruption, within its output-power and stored-energy limits. The topology determines the normal and backup power paths."
         }
       ],
       "visual": {
@@ -10187,6 +10227,22 @@
         {
           "term": "Coherent memory",
           "definition": "Memory accessible across processors with hardware support for maintaining a consistent view; access cost still depends on location."
+        },
+        {
+          "term": "Rack",
+          "definition": "A frame that holds computing, networking, storage and supporting equipment."
+        },
+        {
+          "term": "Server",
+          "definition": "A computer that performs work or provides a service to other computers over a network."
+        },
+        {
+          "term": "Central processing unit (CPU)",
+          "definition": "A processor that executes program instructions and commonly coordinates the host computer’s work."
+        },
+        {
+          "term": "Graphics processing unit (GPU)",
+          "definition": "A processor with many parallel execution units, used here for the numerical operations in AI workloads."
         }
       ],
       "visual": {
@@ -14439,6 +14495,11 @@
       "lesson": "d10-cdu-interfaces"
     },
     {
+      "term": "Central processing unit (CPU)",
+      "definition": "A processor that executes program instructions and commonly coordinates the host computer’s work.",
+      "lesson": "d07-data-path"
+    },
+    {
       "term": "Checkpoint shard",
       "definition": "A portion of saved application state associated with a distributed checkpoint.",
       "lesson": "d09-storage-paths"
@@ -14522,6 +14583,11 @@
       "term": "Cross-connect",
       "definition": "A physical connection between specified endpoints, distinct from the service carried over it.",
       "lesson": "d08-topology-budget"
+    },
+    {
+      "term": "Current (amperes or amps, A)",
+      "definition": "The rate of electric charge flow through a path. One ampere is one coulomb per second.",
+      "lesson": "d03-voltage-and-distance"
     },
     {
       "term": "Current transformer (CT)",
@@ -14619,6 +14685,16 @@
       "lesson": "d06-eight-hundred-volt-architectures"
     },
     {
+      "term": "Electrical resistance (ohms, Ω)",
+      "definition": "Opposition to current flow. In the simple resistor model, voltage equals current multiplied by resistance: V = I × R.",
+      "lesson": "d03-voltage-and-distance"
+    },
+    {
+      "term": "Energy",
+      "definition": "An amount transferred or stored, measured here in joules or watt-hours. For constant power, energy equals power multiplied by duration.",
+      "lesson": "d01-power-over-time"
+    },
+    {
       "term": "Energy per result",
       "definition": "Energy within a specified boundary divided by accepted output during the matching interval.",
       "lesson": "d02-productive-utilization"
@@ -14702,6 +14778,11 @@
       "term": "Goodput",
       "definition": "Useful progress delivered by the job after interruptions and recovery overhead, under its output requirements.",
       "lesson": "d07-rack-as-system"
+    },
+    {
+      "term": "Graphics processing unit (GPU)",
+      "definition": "A processor with many parallel execution units, used here for the numerical operations in AI workloads.",
+      "lesson": "d07-data-path"
     },
     {
       "term": "Greenfield",
@@ -14789,6 +14870,11 @@
       "lesson": "d13-commissioning-complete-paths"
     },
     {
+      "term": "Inverter",
+      "definition": "A power converter that converts DC into AC.",
+      "lesson": "d04-read-the-power-train"
+    },
+    {
       "term": "Island mode",
       "definition": "Operation of a defined electrical system while disconnected from the wider grid.",
       "lesson": "d03-service-and-siting"
@@ -14797,6 +14883,11 @@
       "term": "IT load",
       "definition": "Electrical consumption of the computing, networking, and storage equipment within the stated scope.",
       "lesson": "d01-boundaries"
+    },
+    {
+      "term": "Joule (J)",
+      "definition": "A unit of energy. A one-watt load receives one joule each second.",
+      "lesson": "d01-power-over-time"
     },
     {
       "term": "Line-to-line voltage",
@@ -14959,6 +15050,11 @@
       "lesson": "d14-maintenance-and-service-reliability"
     },
     {
+      "term": "Power (watts, W)",
+      "definition": "The rate of energy transfer: one watt is one joule per second.",
+      "lesson": "d01-power-over-time"
+    },
+    {
       "term": "Power cap",
       "definition": "A configured electrical power ceiling for a specified device or group. Its scope, enforcement and performance effect must be identified.",
       "lesson": "d11-weather-and-operating-envelope"
@@ -15017,6 +15113,11 @@
       "term": "Queueing delay",
       "definition": "Time a request waits before its execution starts.",
       "lesson": "d02-phases-and-envelopes"
+    },
+    {
+      "term": "Rack",
+      "definition": "A frame that holds computing, networking, storage and supporting equipment.",
+      "lesson": "d07-data-path"
     },
     {
       "term": "Rack busbar",
@@ -15139,6 +15240,11 @@
       "lesson": "d15-upgrade-and-evidence"
     },
     {
+      "term": "Server",
+      "definition": "A computer that performs work or provides a service to other computers over a network.",
+      "lesson": "d07-data-path"
+    },
+    {
       "term": "Service envelope",
       "definition": "Space required to perform the stated access and maintenance activity.",
       "lesson": "d12-room-and-replacement-route"
@@ -15244,6 +15350,11 @@
       "lesson": "d08-topology-budget"
     },
     {
+      "term": "Transformer",
+      "definition": "Equipment that transfers energy between windings through a changing magnetic field, commonly changing AC voltage.",
+      "lesson": "d04-read-the-power-train"
+    },
+    {
       "term": "Transient",
       "definition": "A time-varying departure from a steady operating point.",
       "lesson": "d06-rack-migration"
@@ -15252,6 +15363,11 @@
       "term": "UA",
       "definition": "An effective heat-exchanger conductance combining overall transfer behavior and area.",
       "lesson": "d10-cdu-interfaces"
+    },
+    {
+      "term": "Uninterruptible power supply (UPS)",
+      "definition": "Equipment that supports its connected load through an input-power interruption, within its output-power and stored-energy limits. The topology determines the normal and backup power paths.",
+      "lesson": "d05-paths-and-transitions"
     },
     {
       "term": "Uptime Tier",
@@ -15274,6 +15390,11 @@
       "lesson": "d15-cost-per-service"
     },
     {
+      "term": "Voltage (volts, V)",
+      "definition": "Electric potential difference: energy per unit charge between two points. One volt is one joule per coulomb.",
+      "lesson": "d03-voltage-and-distance"
+    },
+    {
       "term": "Voltage regulator module (VRM)",
       "definition": "The regulating circuitry and power stages that maintain a specified rail near a load, often using interleaved converter phases.",
       "lesson": "d06-conversion-ledger"
@@ -15282,6 +15403,11 @@
       "term": "Water-cooled chiller",
       "definition": "A refrigeration machine whose condenser rejects heat to a water circuit with its own final heat sink.",
       "lesson": "d11-heat-rejection"
+    },
+    {
+      "term": "Watt-hour (Wh)",
+      "definition": "The energy transferred by one watt over one hour: 3,600 joules. A kilowatt-hour (kWh) is 1,000 watt-hours.",
+      "lesson": "d01-power-over-time"
     },
     {
       "term": "Weather bin",
