@@ -1,13 +1,9 @@
 {
   "reviewed_on": "2026-09-15",
-  "selected_input": "/Users/kian/Library/Application Support/com.raycast.macos/clipboard/file-aa7d8481820fd1cea847f75e7da810a2.tiff",
-  "file": "continuity-ac-input-dc-live.png",
-  "sha256": "933f74b5a66e24c89c8656319b7b63fed20eee3213662ba90138dab745d7d22a",
-  "conversion": "Lossless PNG conversion; original image content preserved.",
-  "reason": "Third image makes disconnected AC input, connected battery/converter and charged DC-link capacitor explicit; common isolation principle applies to AC and DC.",
-  "rejected": {
-    "file-93dac1710393ba3152f30c36f239ece3.tiff": "Falsely generalizes that energy disappears after source removal and AC has very little stored energy.",
-    "file-91ab87f9d0b432499bb4d715d1c5740f.tiff": "Conflates interrupting DC current with removing stored energy; less clear UPS topology."
-  },
-  "limits": "Illustrative circuit, not a product wiring diagram or operating procedure. AC off means the depicted AC input is open, not that all upstream equipment lacks voltage."
+  "selected_input": "/var/folders/w8/dtz0q9y971s_s74xc_w0q8wr0000gn/T/codex-clipboard-d18283da-ddf5-435e-8f6c-90f1ba3ab4f4.png",
+  "file": "continuity-ac-dc-isolation-updated.png",
+  "sha256": "592e2575398c77e55bffdc4ca1f128f8ca1eb03ebe7e521d25ae14cccf3261a7",
+  "conversion": "User-supplied PNG copied byte-for-byte; no image changes.",
+  "reason": "User supplied an updated diagram adding load-side DC disconnection and discharge while the upstream battery and capacitor remain energized.",
+  "limits": "Illustrative circuit, not product wiring or an operating procedure. The load-side label describes the depicted state after disconnecting and discharging it; the connected battery and capacitor remain live."
 }

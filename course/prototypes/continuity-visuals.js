@@ -1,5 +1,5 @@
 import { renderMicrosoftPowerManagementQuote } from "./continuity-case-review.js";
-import { renderRecoveryTime, renderStoredEnergyIsolation, renderBypassCheck } from "./continuity-review-additions.js";
+import { renderRecoveryTime, renderStoredEnergyIsolation, renderRedundancyMemes, renderBypassCheck } from "./continuity-review-additions.js";
 import { renderGrounding, renderInterruption } from "./continuity-protection.js";
 import {
   storageModel,
@@ -104,6 +104,7 @@ export function renderContinuityVisual(scene, state, compact) {
       "ac-dc-interruption": () => renderInterruption(state.arcStage || "arc"),
       "recovery-time": renderRecoveryTime,
       "stored-energy-isolation": () => renderStoredEnergyIsolation(compact),
+      "redundancy-break": renderRedundancyMemes,
       "bypass-check": () => renderBypassCheck(state, compact),
       "service-check": () => service(state),
       "fairwater-power-management": () => renderMicrosoftPowerManagementQuote({ compact }),

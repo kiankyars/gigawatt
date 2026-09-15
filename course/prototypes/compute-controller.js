@@ -9,6 +9,7 @@ $('fullscreen').hidden=!teaching;
 function focusAfter(selector){render();document.querySelector(selector)?.focus({preventScroll:true});}
 function render(){
  const s=scenes[index];$('scene-title').textContent=s.title;$('scene').dataset.scene=s.id;
+ $('scene-title').parentElement.hidden=Boolean(s.imageOnly);
  document.title=`${presentationLabels.compute||'9. Compute, memory and the rack'} · ${s.label}`;
  $('lesson-reference').href=`../index.html#${s.reference}`;
  $('visual').innerHTML=computeVisual(s.id,state,matchMedia('(max-width:600px)').matches);

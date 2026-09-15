@@ -86,17 +86,13 @@ function coDesign(compact) {
   o+=rect(20,174,350,297,'var(--panel)',power)+text(195,213,'One factory-built skid',25,power);
   o+=box(64,239,262,81,'MV switchgear','Switch + protect')+wire('M195 320V348');
   o+=box(64,348,262,81,'Transformer','Change voltage');
-  o+=text(195,525,'Agree the interfaces',22);
-  o+=text(195,565,'Voltage + current',20,muted)+text(195,602,'Protection',20,muted)+text(195,639,'Cable connections',20,muted);
  }else{
   o+=box(190,5,260,85,'Compass','Site requirements')+box(670,5,260,85,'Siemens','Equipment design');
   o+=wire('M450 47H670',muted)+text(560,28,'Co-design',20,muted)+wire('M560 47V129',muted);
   o+=rect(175,129,770,233,'var(--panel)',power)+text(560,169,'One factory-built skid',28,power);
   o+=box(235,207,285,95,'MV switchgear','Switch + protect')+wire('M520 254H600')+arrow(587,254)+box(600,207,285,95,'Transformer','Change voltage');
-  o+=text(560,406,'Agree the interfaces',23);
-  o+=text(270,446,'Voltage + current',23,muted)+text(560,446,'Protection',23,muted)+text(850,446,'Cable connections',23,muted);
  }
- return svg(o,'Compass site requirements and Siemens equipment design meet in one factory-built skid. Switchgear switches and protects; the transformer changes voltage. Voltage, current, protection and cable connections are coordinated at the interfaces.',w,compact?680:480);
+ return svg(o,'Compass site requirements and Siemens equipment design meet in one factory-built skid. Switchgear switches and protects; the transformer changes voltage.',w,compact?485:380);
 }
 
 export function renderDistribution(id,state={},compact=false){
@@ -122,6 +118,7 @@ export function renderDistribution(id,state={},compact=false){
  case 'busway-branches':markup=`<div class="split">${photo('distribution-fujitsu-tapoffs.jpg','A busway tap-off enclosure with branch connectors in the Fujitsu case.','Starline / Legrand · tap-off',fujitsuURL)}<div class="stack">${flow(node('End feed','Power enters busway'),node('Tap-off box','Connects a protected branch'),node('Cable to rack','Rack PDU or power shelf'))}</div></div>`;break;
  case 'fujitsu-busway':markup=`<div class="split">${photo('distribution-fujitsu-outlets.jpg','Overhead busway branch outlets in the Fujitsu case study.','Starline / Legrand · Fujitsu · 2018',fujitsuURL)}<div class="case-points"><strong>250 A Track Busway</strong><p>New branches near changing rack loads</p><p>Metering at each tap-off</p><p>Underfloor cooling path stays clear</p></div></div>`;break;
  case 'row-growth':markup=row(s,m);break;
+ case 'apparent-power-beer':markup=`<figure class="pf-beer-image"><img src="../assets/references/distribution-apparent-power-beer.png" alt="How is apparent power like a pint of beer? The beer is labeled active power in kW, its foam reactive power in kvar, and a bracket around both apparent power in kVA."></figure>`;break;
  case 'power-factor-explained':markup=`<figure class="teaching-art"><img src="../assets/references/distribution-power-factor-comparison.png" alt="At 900 kW real power and 480 V balanced three-phase, PF 1 needs 900 kVA and 1,083 A, loading a 1,000 kVA transformer to 90 percent. PF 0.8 needs 1,125 kVA and 1,353 A, loading the same transformer to 112.5 percent."></figure>`;break;
  case 'power-factor':{const pf=s.powerFactor??1,p=900,kva=p/pf,amps=kva*1000/(Math.sqrt(3)*480);markup=`<div class="pf-rating"><strong>1,000 kVA</strong><span>Transformer rating</span></div><div class="equation">S = P / PF</div>`+strip(fact('900 kW','Real input'),fact(`${n(kva,0)} kVA`,'Transformer loading',kva>1000?'warm':''),fact(`${n(amps,0)} A`,'Current at 480 V'))+`<div class="rating-track"><span style="width:${Math.min(kva/1200*100,100)}%"></span><i style="left:83.333%"></i></div>`;break;}
  case 'distribution-handoff':markup=art('distribution-interruption','An open common feeder interrupts the path to a switchboard and both its compute-rack and cooling/control branches.');break;

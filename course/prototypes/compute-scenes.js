@@ -11,6 +11,7 @@ const c=(key,label,options)=>({key,label,options});
 export const initialState={path:'load',tokens:1,intensity:10,jobSize:8,diagnosis:'',showDiagnosis:false};
 export const scenes=[
  {id:'compute-purpose',label:'Compute, memory and the rack',title:'Compute, memory and the rack',reference:data,pedagogical_role:'problem'},
+ {id:'consumer-hardware-meme',label:'AI data centers and consumer hardware',title:'AI data centers and consumer hardware',reference:data,pedagogical_role:'transition',imageOnly:true},
  {id:'rack',label:'One GB300 NVL72',title:'One GB300 NVL72 connects 72 GPUs in a rack.',reference:rack,pedagogical_role:'architecture'},
  {id:'tray',label:'Inside the compute tray',title:'Each compute tray contains four GPUs and two CPUs.',reference:rack,pedagogical_role:'architecture'},
  {id:'superchip',label:'CPU and GPU roles',title:'A Grace CPU coordinates two Blackwell Ultra GPUs.',reference:data,pedagogical_role:'mechanism'},

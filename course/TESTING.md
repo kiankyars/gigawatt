@@ -1586,3 +1586,17 @@ Verified the staged old Houdini and 800 V feeder links redirect to their new
 chapters, including the query and fragment, and the Chapter 14 reading/handoff.
 Validation passed: 225 Node tests, 78 Python tests, course/expanded/domain-map
 freshness, research metadata, site staging and whitespace checks.
+
+
+## Chapters 6 and 7 final author review — 2026-09-15
+
+Chapter 6 has 26 slides, including the supplied beer analogy; its single-line
+heading and Compass interface commentary are removed from the visible slides.
+Chapter 7 has 35 slides, with the updated isolation image and a two-image
+transition between contact interruption and redundancy. The supplied price memes
+are image-only second slides in Chapters 9 and 11 (22 and 26 slides respectively).
+Built-in-browser checks at 1280 × 720 and 390 × 844 confirmed image loading,
+uncropped presentation, phone bounds and normal slide headings after the memes.
+All 225 Node tests and 78 Python tests pass; generated-course, domain-map,
+research, staging and whitespace checks pass. Chapters 6 and 7 are accepted by
+the author following these revisions; the other chapter review states are unchanged.

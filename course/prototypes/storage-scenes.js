@@ -11,6 +11,7 @@ const c=(key,label,options)=>({key,label,options});
 export const initialState={hostRate:8,shards:4096,cache:'cold',commit:'partial',sourceRate:16,durability:'local',replicaFault:'device',asyncPhase:8,saveInterval:30,placement:'fragmented',localWait:30,failure:35,environment:'mismatch',shift:true,deadline:20,diagnosis:'',showDiagnosis:false};
 export const scenes=[
  {id:'storage-purpose',label:'Storage, orchestration and recovery',title:'Storage, orchestration and recovery',reference:paths,pedagogical_role:'problem'},
+ {id:'hardware-prices-meme',label:'RAM, GPUs, SSDs and CPUs',title:'RAM, GPUs, SSDs and CPUs',reference:paths,pedagogical_role:'transition',imageOnly:true},
  {id:'input-pipeline',label:'Why GPUs wait for data',title:'Input preparation can leave a fast GPU waiting.',reference:paths,pedagogical_role:'mechanism',controls:[c('hostRate','Host preparation rate',[[8,'8 GB/s'],[20,'20 GB/s']])]},
  {id:'storage-roles',label:'Dataset, cache and saved state',title:'A dataset, a cache and a checkpoint have different jobs.',reference:paths,pedagogical_role:'architecture'},
  {id:'metadata-pressure',label:'Capacity, bytes and metadata',title:'The same payload can require very different amounts of metadata work.',reference:paths,pedagogical_role:'comparison',controls:[c('shards','512 GB arranged as',[[4096,'4,096 shards'],[65536,'65,536 shards']])]},

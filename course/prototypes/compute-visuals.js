@@ -61,6 +61,7 @@ function diagnose(state){
 }
 function next(){return `<div class="network-bridge"><div class="mini-rack"><b>NVLink</b><div>${Array.from({length:9},()=>'<i></i>').join('')}</div><span>Within the rack</span></div><div class="network-span"><span>Network interfaces</span><div class="fabric-line">⇄</div><strong>Cluster fabric</strong></div><div class="mini-rack"><b>NVLink</b><div>${Array.from({length:9},()=>'<i></i>').join('')}</div><span>Another rack</span></div></div><p class="single-point">How do the racks exchange data without leaving GPUs waiting?</p>`;}
 export function computeVisual(id,state,compact=false){
+ if(id==='consumer-hardware-meme')return `<figure class="meme-figure"><img src="../assets/references/compute-consumer-hardware-meme.png" alt="Grim Reaper meme: AI Data Centers passes doors labeled Low MSRPs, Mid range Availability and Consumer VRAM, and knocks on PC Gaming as a Hobby."></figure>`;
  const hw=hardwareVisual(id,state,compact);if(hw)return hw;
  const renders={'compute-purpose':title,'hbm-package':()=>hbm(compact),'memory-locality':()=>locality(compact),'capacity-bandwidth':capacity,'weight-read':readTime,'operand-reuse':()=>reuse(state,compact),'operation-bounds':bounds,roofline:()=>roof(state,compact),'peak-flops':precision,'model-placement':()=>placement(compact),'tray-repair':repair,'fault-placement':()=>groups(state),'recover-work':recover,'diagnose-upgrade':()=>diagnose(state),'network-handoff':next};
  if(!renders[id])throw new Error(`Unknown compute scene: ${id}`);return renders[id]();

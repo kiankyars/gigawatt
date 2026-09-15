@@ -103,6 +103,7 @@ export const continuityScenes = Object.freeze(
       ["D05.4"],
       "d05-protection-and-fault-domains",
     ),
+    continuity("redundancy-break", "Redundancy", "Redundancy", ["D05.3"], "d05-paths-and-transitions", { imageTitle: true }),
     continuity(
       "capacity-n",
       "N · required capacity",
