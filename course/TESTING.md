@@ -1690,3 +1690,20 @@ both ramp settings, stable peak charging power and the compact footer after the
 controls. No horizontal overflow; temporary viewport settings were restored.
 All 232 Node tests and 80 Python tests pass, along with course, expansion and
 domain-map freshness checks, staging and whitespace checks.
+
+## Recording readability and audience controls — 2026-09-15
+
+Shared desktop side margins drop from 4vw to a bounded 2vw, with 12 px top padding.
+Numeric SVG labels and the continuity diagram label classes increase by 6%;
+authored sizes remain intact and redraws cannot compound the scaling. Relative
+subscripts and explicitly fitted text are preserved. Titles retain their sizes.
+The current-slide footer hides alongside its header during an active presenter
+connection. The separate presenter uses its own stylesheet and keeps its footer.
+
+Built-in-browser checks covered representative Primer, Overview, Workloads,
+Siting, Site design, Distribution, Continuity and Rack energy scenes at 1280 × 720;
+the dense workload trace also fits 1164 × 655, and the compact primer at 390 × 844
+has no horizontal overflow. A temporary local fixture opened and closed the real
+presenter popup: the audience header/footer hid on connection and returned on
+close. The fixture is not part of the published site. All 233 Node tests and 80
+Python tests pass, including numeric/relative text and repeated-render coverage.

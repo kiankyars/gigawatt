@@ -1,4 +1,26 @@
 /* Shared presentation chrome: the slide teaches visually; the reader holds prose. */
+:root {
+  --course-diagram-text-scale: 1.06;
+}
+/* Give content more of the recording frame, without zooming the whole page. */
+@media (min-width: 601px) {
+  :is(#viewer, #audience) > main {
+    padding: 12px clamp(16px, 2vw, 36px) 0;
+  }
+  :is(#viewer, #audience) :is(#actions, .choices) :is(button, legend) {
+    font-size: 15px;
+  }
+  :is(#viewer, #audience) :is(.inputs, .energy-condition) {
+    font-size: 18px;
+  }
+}
+:is(#viewer, #audience) > main svg [data-course-label-size] {
+  font-size: calc(var(--course-label-size) * var(--course-diagram-text-scale));
+}
+:is(#viewer, #audience) > main svg .s-label {font-size: calc(22px * var(--course-diagram-text-scale));}
+:is(#viewer, #audience) > main svg .s-small {font-size: calc(17px * var(--course-diagram-text-scale));}
+:is(#viewer, #audience) > main svg .s-value {font-size: calc(32px * var(--course-diagram-text-scale));}
+:is(#viewer, #audience) > main svg .s-big {font-size: calc(46px * var(--course-diagram-text-scale));}
 /* All decks use the same transport component, including the 800 V and UPS
    renderers. Specificity intentionally supersedes their former local footers. */
 :is(#viewer, #audience) footer.course-slide-navigation {
@@ -155,6 +177,7 @@ dialog#reading {
 }
 /* Keep the canvas in place when the presenter opens or closes. */
 html[data-presenter-active] .toolbar,
+html[data-presenter-active] footer.course-slide-navigation,
 html[data-presenter-preview] .toolbar,
 html[data-presenter-preview] footer.course-slide-navigation {
   visibility: hidden !important;

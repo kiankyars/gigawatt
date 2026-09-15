@@ -1,9 +1,11 @@
 // Presentation controls shared by every chapter. Source notes remain in the reader.
 import { installSlideNavigation } from './slide-navigation.js';
 import { installPresenter } from './presenter-bridge.js';
+import { installSlideReadability } from './slide-readability.js';
 
 function installSlideChrome() {
   installSlideNavigation();
+  installSlideReadability();
   const toolbar = document.querySelector('.toolbar');
   if (!toolbar) return;
   const nav = toolbar.querySelector('nav');

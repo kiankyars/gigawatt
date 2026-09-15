@@ -56,18 +56,25 @@ that window. Put it on your second monitor and record the original course
 window, which shows the current slide. There is no duplicate current slide,
 thumbnail overlay, timer or notes panel. The upcoming slide shows its starting
 state; interact with the current slide in the original window.
-The original window's header controls hide while the presenter is connected
-and return when it closes, without moving the slide content.
+The original window's header and bottom slide navigation hide while the presenter
+is connected and return when it closes, without moving the slide content.
+The separate upcoming-slide window keeps its bottom navigation controls.
 
 The presenter's small footer controls the original window: its selector names
 the current audience slide, while “Up next” gives the number of the slide shown
-on the second monitor. Either window's navigation advances both views. In the
+on the second monitor. Use the presenter controls or the current slide's keyboard
+shortcuts to advance both views. In the
 presenter window, arrow keys, Page Up / Page Down and Space navigate; Home / End
 select the first or last audience slide. Focused controls keep their own keyboard
 behavior. At the last slide, the presenter shows “End of chapter” and offers the
 next chapter when available. Closing the presenter leaves the audience unchanged;
 **Presenter** opens it again. If the browser blocks the popup, allow popups for
 this site and click the button again.
+
+Desktop slide margins use 2% of the viewport (16–36 px), with 12 px above the
+content. Shared diagram labels are 6% larger; titles retain their authored sizes
+so extra wrapping does not shrink the diagrams. Captions inside photographs or
+supplied figures retain their original proportions.
 
 Use **Next / →**, **Back / ←**, the short slide selector and diagram controls.
 Where a meaningful prediction has a reveal, use its button; the 800 V sequence
