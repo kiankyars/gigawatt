@@ -6,6 +6,21 @@ repository records; those records do not substitute for the original message.
 The prior “everything addressed” claim was too strong. This page foregrounds
 exceptions; the coverage list below makes the rest inspectable.
 
+## Chapter 5 drainage and expansion check — 14 September 2026
+
+- Slides 1–4: positive review; preserved the visuals. Slide 4's notes now
+  distinguish stormwater drainage from the closed cooling loop.
+- Slide 5: removed “Deeds · mineral leases · surface-use agreements” at the bottom.
+- Slide 10: rechecked Equinix's own employee account. Staff did pump water out
+  while keeping power on; the existing claim needs no correction.
+- Slide 19: removed the land-rights condition, shaded corridor strip and outer
+  panel. The problem now shows only the live hall, excavation and existing road
+  and fiber. The reveal adds alternative routes and three steps: build, test and
+  switch, then excavate. “Copyright rights” was a misreading/dictation of
+  “corridor rights”—permission to use the route's land.
+
+No new unresolved instruction from this pass. Whole-chapter acceptance remains pending.
+
 ## Chapter 4 final review and Chapter 3 opener — 14 September 2026
 
 Chapter 3's original MODEL STATE / SERVING USERS / ELECTRICAL DEMAND text is

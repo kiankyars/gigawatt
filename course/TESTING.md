@@ -7,6 +7,25 @@ Do not download or launch standalone Chrome for Testing or Playwright browser
 binaries here. Existing browser test harnesses remain available for a separately
 configured test environment; run local model and build checks without a browser.
 
+## Chapter 5 drainage, flood response and simpler check — 2026-09-14
+
+- Removed the requested bottom subtitle from slide 5. Slide 19 now isolates
+  the road/fiber conflict, removes the surface-rights condition and shaded site
+  panels, and reveals replacement routes with a three-step construction order.
+  The same 19 scene IDs and chapter continuation remain.
+- Rechecked Equinix's November 2017 employee account: the Houston team really
+  pumped water out while keeping power on. Its separate August 28 operating/
+  access statement remains distinct. Clarified stormwater versus cooling-loop
+  water in slide 4's notes without changing its approved visual.
+- Built-in browser checked slides 4, 5, 10 and both states of 19 at **1280×720
+  and 390×844**. No horizontal page overflow, out-of-bounds SVG text or text
+  collisions. Both desktop and phone problem/reveal layouts received screenshot
+  inspection. Corrected a replacement-fiber connection gap and moved the phone
+  excavation labels clear of the existing routes.
+- **222 Node and 76 Python tests passed.** Course, reader, domain-map, source
+  metadata, staging and whitespace checks passed. No standalone browser ran.
+  Latest requested edits are implemented; whole-chapter acceptance is pending.
+
 ## Chapter 4 final review and Chapter 3 opener — 2026-09-14
 
 - Restored Chapter 3's original three-part opening text alongside the supplied

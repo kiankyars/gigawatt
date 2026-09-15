@@ -48,7 +48,7 @@ export const scenes = [
     "pedagogical_role": "mechanism",
     "reference": "d12-hazards-and-site-evidence",
     "explanation": [
-      "A conceptual parcel contains the building pad, outdoor electrical and cooling equipment, access and future construction. Drainage areas, easements and other restrictions reduce the ground available for those uses. Their overlap must be counted only once.",
+      "A conceptual parcel contains the building pad, outdoor electrical and cooling equipment, access and future construction. Drainage here means managing rainwater from roofs, roads and equipment yards; a closed cooling loop does not remove that need. Drainage areas, easements and other restrictions reduce the ground available for those uses. Their overlap must be counted only once.",
       "The planning question is whether the required arrangement fits in connected usable space, with the relevant connections and access. An area total does not establish a workable geometry. This original drawing changes only the presence of documented site constraints; it is not a real parcel or a regulatory setback."
     ]
   },
@@ -222,8 +222,8 @@ export const scenes = [
     "pedagogical_role": "check-in",
     "reference": "d12-hazards-and-site-evidence",
     "explanation": [
-      "A live Hall A uses the site’s only access road and a duct carrying both fiber services. The proposed excavation for Hall B cuts across both. The northern corridor offers room for temporary access and replacement fiber, but its surface-use agreement is unresolved. Ask learners to propose the order of work before revealing a possible sequence.",
-      "Resolve the corridor rights before relying on that route. Establish alternative access and install and test the new fiber connection while the original path remains available. Transfer the live service and protect the new routes before excavating Hall B. Moving only the road leaves the shared fiber exposure; moving only fiber leaves the staffed operating hall without access. If the corridor cannot be secured, change the layout or schedule. The challenge combines parcel rights, route geometry and continuity during construction."
+      "A live Hall A uses an access road and a duct carrying both fiber services. The proposed excavation for Hall B cuts across both. Ask learners what must move before digging begins, then reveal the replacement routes and a short construction sequence.",
+      "Build the alternative access road and replacement fiber while the original routes stay in service. Test the new connection, switch the live service and access onto the replacements, then start excavation. Moving only the road leaves the shared fiber exposure; moving only fiber leaves Hall A without access. This check focuses on route geometry and continuity during construction; land agreements are covered earlier in the chapter."
     ],
     "controls": [
       {
@@ -232,7 +232,7 @@ export const scenes = [
         "options": [
           [
             "hidden",
-            "Discuss the sequence"
+            "Show the problem"
           ],
           [
             "shown",
