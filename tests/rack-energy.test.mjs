@@ -59,6 +59,19 @@ test('chapter sequence preserves architecture order and routes retired foundatio
   const preview=scenes.findIndex(s=>s.id==='dc-architecture-preview');
   assert.equal(scenes[preview+1].id,'conversion-in-rack');
   assert.equal(aliases['migration-decision'],'power-stack-overview');
+  const rise=scenes.findIndex(s=>s.id==='source-handoff');
+  assert.equal(scenes[rise+1].id,'source-ramp-down');
+  assert.equal(scenes[rise+2].id,'bbu-hardware');
+});
+test('a slower downward ramp doubles stored energy without changing peak charging power',()=>{
+  const scene=scenes.find(s=>s.id==='source-ramp-down');
+  for(const compact of [false,true])for(const [response,energy] of [[0.2,4],[0.4,8]]){
+    const html=rackVisual(scene,{...initialState,response},compact).markup;
+    assert.ok(html.includes(`${energy} kJ to absorb`));
+    assert.ok(html.includes(`40 kW peak charging · ${energy} kJ of room`));
+    assert.ok(html.includes('Power above the new GPU load'));
+    assert.ok(html.includes('Full or charge-limited'));
+  }
 });
 test('shared renderers cover all scenes and changed states without missing quantities',()=>{
   let state={...initialState},scene;

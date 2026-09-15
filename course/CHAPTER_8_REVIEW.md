@@ -56,3 +56,12 @@ These numbers refer to the 34-slide version reviewed after the first revision.
 | Does slide 31 mean AC does not need breakers? | No. Both AC and DC need fault protection. The slide now says DC-rated protection; its notes explain that AC current-zero crossings help an opened breaker extinguish an arc, while DC protection must force interruption without that periodic crossing. |
 | Remove slide 33 and its broken/trivial migration question | Removed the exercise from navigation. Its old link opens the closing power-stack slide. The preceding feeder-capacity example remains. |
 | Slide 34 is great | Kept the supplied power-stack image as the closing slide. |
+
+## Recording follow-up: falling GPU demand
+
+The new `source-ramp-down` slide immediately follows the rising-load example.
+It shows a 40 kW surplus decaying linearly over 0.2 or 0.4 seconds: 4 or 8 kJ
+into a bidirectional buffer, with the same 40 kW peak charging requirement.
+The graph measures power above the new GPU load. Available charging power,
+energy headroom and bus-voltage consequences are part of the explanation.
+This closes the downward-power-step follow-up; Chapter 8 now has 32 slides.

@@ -72,7 +72,7 @@ release does not restart an unchanged chapter’s review.
 | 5. [Physical site, buildings and safety](prototypes/site-format.html?teach=1) | 20 scenes; Meta Prometheus tents follows Colossus reuse; Houdini moved to Chapter 13 | [Current checks](TESTING.md#chapter-5-drainage-flood-response-and-simpler-check--2026-09-14) | **Accepted and verified — 15 September.** Kian confirmed Chapters 1–8 verified. Removed slide 5’s bottom subtitle, clarified stormwater drainage in notes, verified actual water pumping during Harvey, and simplified slide 19 to reroute → test/switch → excavate. |
 | 6. [Campus and building power distribution](prototypes/distribution-format.html?teach=1) | 29 slides; three-phase currents and line-to-line voltage follow the single-line diagram; beer analogy and PF quote retained | [Latest checks](TESTING.md#chapter-8-sequence-and-dc-architecture-review--2026-09-15) | **Accepted and verified — 15 September.** Final requested wording and image changes implemented. Existing scene hashes retained. |
 | 7. [Continuity, storage and protection](prototypes/continuity-format.html?teach=1) | 35 scenes; updated isolation image, contact/arc sequence, two-image redundancy transition, Microsoft quote and two closing checks | [Final review checks](TESTING.md#chapters-6-and-7-final-author-review--2026-09-15) | **Accepted and verified — 15 September.** Final requested image changes implemented. Sparks retains the dated reported 1 MW pilot; current nameplate remains unresolved. |
-| 8. [Rack power and the 800 V DC transition](prototypes/rack-energy-format.html?teach=1) | 31 scenes; rack/tray/CPU–GPU anatomy near the opening; local power path and buffering, concise AC/DC comparison, stacked architecture preview and power-stack closing | [Latest sequence checks](TESTING.md#chapter-8-sequence-and-dc-architecture-review--2026-09-15) | **Accepted and verified — 15 September.** Kian confirmed Chapters 1–8 verified. [Individual resolutions](CHAPTER_8_REVIEW.md) include the moved electrical foundations, architecture preview and removed migration exercise. The separate downward-power-step follow-up remains open before recording the buffering segment. |
+| 8. [Rack power and the 800 V DC transition](prototypes/rack-energy-format.html?teach=1) | 32 scenes; rack/tray/CPU–GPU anatomy near the opening; local power path and buffering, concise AC/DC comparison, stacked architecture preview and power-stack closing | [Latest sequence checks](TESTING.md#chapter-8-sequence-and-dc-architecture-review--2026-09-15) | **Accepted and verified — 15 September.** Kian confirmed Chapters 1–8 verified. [Individual resolutions](CHAPTER_8_REVIEW.md) include the moved electrical foundations, architecture preview and removed migration exercise. The downward-power-step follow-up is now slide 14, directly after the rising-load example. |
 | 9. [Networking and interconnects](prototypes/networking-format.html?teach=1) | 24 slides; former compute opening image and meme preserved, local HBM/peer/fabric paths and shared-model exchange; real adapter/switch, copper/optics/CPO, fabric capacity, collectives, TPU optical circuits and carrier handoff | [Current checks](TESTING.md#chapter-10-networking-and-interconnects--2026-09-14) | **Authored and checked; ready for first author review.** Three D08 reader lessons updated. No author acceptance inferred. |
 | 10. [Storage, orchestration and recovery](prototypes/storage-format.html?teach=1) | 27 slides; four-GPU tray repair now introduces recovery; supplied component-price meme after opening; input bottlenecks, coherent checkpoints, recovery, Meta/Google cases and deadline scheduling | [Current checks](TESTING.md#chapter-11-storage-orchestration-and-recovery--2026-09-14) | **Authored and checked; ready for first author review.** Three D09 reader lessons updated. |
 | 11. [Chip and rack heat capture](prototypes/cooling-format.html?teach=1) | Selected topics in shared cooling deck | Model/browser checks recorded | Cooling sequence iterated; no whole-chapter completion claimed. |
@@ -452,12 +452,12 @@ links when integration is complete.
   closing power-trace brief in the September 14 review. Existing optional
   reader checks can be adapted. Use a strong closing example only if no useful
   active check can be made, and record the reason for that domain.
-- [ ] **Downward power steps:** Chapter 8 already teaches local capacitors/rack
-  batteries, rising-load support and recharge between bursts at `energy-locality`,
-  `source-handoff` and `buffer-recharge`. Add an explicit sudden load-drop example:
-  the source still delivers excess power while ramping down, and a bidirectional
-  buffer must absorb it within charge-power, energy/headroom and voltage limits.
-  Ordinary recharge between bursts does not yet teach that transient.
+- [x] **Downward power steps:** Chapter 8 slide 14, `source-ramp-down`, now follows
+  rising-load support with the reverse transient. A 40 kW drop and a linear
+  0.2/0.4-second source ramp require 4/8 kJ of absorption, with 40 kW peak
+  charging in both cases. The diagram names a bidirectional battery converter,
+  distinguishes surplus power from total GPU load, and connects charging limits
+  and storage headroom to rising bus voltage.
 - [ ] **Inference capacity:** obtain a matching concurrency/interactivity dataset
   for exact supported-session selection; the GB300 source curve alone does not
   supply a concurrency table.
@@ -484,8 +484,8 @@ mechanisms and controlled comparisons to each new section. Their visual format
 is a reference, not a requirement to use electrical-style diagrams everywhere.
 
 Chapters 1–8 are verified by Kian for the recording plan. The current production
-pass is bounded to the section being recorded and any specific open issue, such
-as the Chapter 8 load-drop example. [PRESENTING.md](PRESENTING.md) describes the
+pass is bounded to the section being recorded and any specific open issue.
+The Chapter 8 load-drop follow-up is complete. [PRESENTING.md](PRESENTING.md) describes the
 batch workflow and the short recording check; it does not reopen earlier reviews.
 
 Repeat this process through the domain map's dependency order. Author each

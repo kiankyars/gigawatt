@@ -61,6 +61,35 @@ function handoff(state,compact){
  return svg(out,compact,`A rack BBU supplies the difference as PSU power rises to meet an extra 40 kilowatts of load over ${response} seconds. The shaded triangular energy deficit is ${energyKJ} kilojoules.`);
 }
 
+function rampDown(state,compact){
+ const response=state.response===0.4?0.4:0.2;
+ const {energyKJ,peakBufferKW}=supplyHandoff({responseSeconds:response});
+ let out='';
+ if(compact){
+  out+=box(12,20,93,75,'PSUs','',C.power,true)+arrow(109,57,132,57);
+  out+=box(138,20,93,75,'DC bus','',C.ink,true)+arrow(235,57,258,57,C.battery);
+  out+=box(264,20,114,75,'Buffer','Battery + DC/DC',C.battery,true);
+  out+=text(195,130,'Bidirectional converter charges the battery',16,C.battery);
+ }else{
+  out+=box(160,19,210,74,'PSUs')+arrow(376,56,436,56);
+  out+=box(442,19,210,74,'Rack DC bus','',C.ink)+arrow(658,56,718,56,C.battery);
+  out+=box(724,19,330,74,'Bidirectional buffer','Battery + converter',C.battery);
+ }
+ const x=compact?58:140,y=compact?420:370,w=compact?285:945,h=compact?206:204;
+ out+=text(compact?195:600,compact?176:137,'Power above the new GPU load',compact?19:25);
+ out+=line(x,y,x+w,y,C.muted,2)+line(x,y,x,y-h-10,C.muted,2);
+ out+=`<path d="M${x} ${y-h}L${x+w} ${y}H${x}Z" fill="${C.battery}" opacity=".18"/>`;
+ out+=line(x,y-h,x+w,y,C.power,4);
+ out+=text(x-12,y-h+6,'40 kW',compact?15:21,C.power,'end')+text(x-12,y+6,'0',compact?16:21,C.muted,'end');
+ out+=text(x+w*.69,y-h*.8,'PSUs ramp down',compact?17:25,C.power);
+ out+=text(x+w*.25,y-h*.27,'Into the buffer',compact?17:27,C.battery);
+ out+=text(x,y+31,'0 s',compact?17:22,C.muted)+text(x+w,y+31,`${response} s`,compact?17:22,C.muted);
+ out+=text(compact?195:600,compact?505:457,`${energyKJ} kJ to absorb`,compact?32:42,C.battery);
+ out+=text(compact?195:600,compact?545:499,`${peakBufferKW} kW peak charging · ${energyKJ} kJ of room`,compact?20:26);
+ out+=text(compact?195:600,compact?607:547,'Full or charge-limited → bus voltage rises',compact?17:22,C.heat);
+ return svg(out,compact,`GPU demand drops by 40 kilowatts. Source power above the new load ramps from 40 kilowatts to zero over ${response} seconds. The shaded surplus is ${energyKJ} kilojoules absorbed by a battery through a bidirectional converter. Peak charging power is 40 kilowatts. A full or charge-limited buffer lets bus voltage rise unless another path handles the surplus.`);
+}
+
 function hierarchy(compact){
  let out='';
  if(compact){
@@ -92,6 +121,7 @@ function hierarchy(compact){
 export function renderBufferReview(id,state={},compact=false){
  if(id==='energy-locality')return locality(compact);
  if(id==='source-handoff')return handoff(state,compact);
+ if(id==='source-ramp-down')return rampDown(state,compact);
  if(id==='rack-transfer')return hierarchy(compact);
  if(id==='buffer-recharge')return '<figure class="buffer-review-figure"><img src="../assets/references/rack-recharge-between-bursts.png" alt="Recharge between bursts. An eight-kilojoule burst uses 40 kilowatts for 0.2 seconds. With 10 kilowatts of surplus, a one-second quiet interval allows recovery; a half-second interval provides only five kilojoules, leaving the buffer short. Energy equals power times time."></figure>';
  return null;

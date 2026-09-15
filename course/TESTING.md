@@ -1675,3 +1675,18 @@ image, meme, communication scales, path controls and shared-model diagram. The
 browser then disconnected, so a new browser pass on the other moved visuals and
 the reader directory could not be completed in this release; their render/route
 checks pass. New slides remain available for author review.
+
+## Chapter 8 falling-load buffer — 2026-09-15
+
+Chapter 8 has 32 slides. New slide 14, `source-ramp-down`, follows the rising-load
+example. A bidirectional battery converter absorbs the 40 kW initial surplus;
+the linear 0.2/0.4-second ramp requires 4/8 kJ of available storage capacity.
+The plot explicitly measures power above the new GPU load. It identifies the
+consequence of a full or charge-limited buffer without assigning these ratings
+to the adjacent Delta product photograph.
+
+Built-in-browser inspection checked the diagram at 1280 × 720 and 390 × 844,
+both ramp settings, stable peak charging power and the compact footer after the
+controls. No horizontal overflow; temporary viewport settings were restored.
+All 232 Node tests and 80 Python tests pass, along with course, expansion and
+domain-map freshness checks, staging and whitespace checks.

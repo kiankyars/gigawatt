@@ -4,13 +4,15 @@
 
 Kian confirmed Chapters 1–8 verified on **15 September 2026**. The recording plan
 is two parts: begin directly with the Primer and continue through Chapter 8,
-after resolving the buffering follow-up below. Then resume the chapter-by-chapter
+including the completed buffering follow-up below. Then resume the chapter-by-chapter
 refinement loop for the remaining course before recording the second part.
 Their acceptance is recorded in the [chapter tracker](COURSE_REVIEW.md#chapter-review-tracker).
 
 Before the first take, make a short capture using the actual microphone and
 recording layout: check a dense diagram, one interactive control and the separate
 presenter window. Review the result at normal size and a small playback size.
+Play a 20–30-second sample of a dense slide on a phone at normal size: the
+smallest labels and numbers must remain readable in the recorded video.
 Record only the current-slide window; keep the upcoming-slide window off the
 captured display. Rehearse the section aloud to catch any missing spoken steps.
 
@@ -26,10 +28,11 @@ notes. The first preparation baseline is `5d9553a`; this does not claim a record
 has occurred. Preserve the batch’s slide version while later material changes.
 Use explicit dates when narrating project milestones and forecasts.
 
-One content follow-up remains before the Chapter 8 buffering segment: show a
-sudden GPU load drop and where excess source power goes while the source ramps
-down. The [production follow-up](COURSE_REVIEW.md#next-teaching-step) remains open.
-It does not block recording Chapters 1–7.
+The Chapter 8 buffering follow-up is complete: slide 14 shows a sudden GPU load
+drop and the bidirectional buffer absorbing excess source power during ramp-down.
+The rising and falling load examples now sit together before the battery hardware
+and recharge slides. The [production follow-up](COURSE_REVIEW.md#next-teaching-step)
+is closed; this recording content gap is resolved.
 
 ## The next pass
 
