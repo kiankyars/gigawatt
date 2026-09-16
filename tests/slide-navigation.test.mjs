@@ -47,15 +47,15 @@ test('student exploration stays outside teaching mode and transient parameters d
   assert.equal(new URL(off.href).search, '?teach=0');
 });
 
-test('cooling continues to the selected modular-construction case in Chapter 13', () => {
+test('cooling continues to the complete delivery chapter at its opening slide', () => {
   const module = 'http://localhost/course/prototypes/slide-navigation.js';
   const link = nextChapterLink('http://localhost/course/prototypes/cooling-format.html?teach=1#rejection', presentationRoutes, module);
   assert.equal(link.number, 13);
   assert.equal(link.kind, 'slides');
-  assert.equal(link.href, 'http://localhost/course/prototypes/procurement-cases-format.html?teach=1#aws-houdini-prefab');
+  assert.equal(link.href, 'http://localhost/course/prototypes/procurement-cases-format.html?teach=1');
 });
 
-test('the selected case continues to the next chapter reading when its deck is unbuilt', () => {
+test('the delivery chapter continues to the next chapter reading when its deck is unbuilt', () => {
   const module = 'http://localhost/course/prototypes/slide-navigation.js';
   const link = nextChapterLink('http://localhost/course/prototypes/procurement-cases-format.html?teach=1#aws-houdini-prefab', presentationRoutes, module);
   assert.equal(link.number, 14);

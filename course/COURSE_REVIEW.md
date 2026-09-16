@@ -1,6 +1,6 @@
 # From Watts to Tokens — filled-in course review template
 
-Updated **2026-09-15**. **Start here for the course design.** This is the course's
+Updated **2026-09-16**. **Start here for the course design.** This is the course's
 instance of the [freeCodeCamp course review template](https://github.com/kiankyars/youtube/blob/main/freecodecamp/course-review-template.md),
 using its [evidence-based improvement system](https://github.com/kiankyars/youtube/blob/main/freecodecamp/improvement-system.md).
 The shared template remains in the YouTube repository; this filled-in copy owns
@@ -15,7 +15,7 @@ Those documents implement this design rather than establishing separate course s
 Use the domain map to look up the section being prepared; there is no need to
 read it end to end.
 
-**Current state:** 50 reader lessons map to 65 objective IDs. Chapters 1–10 have
+**Current state:** 50 reader lessons map to 65 objective IDs. Chapters 1–10 and 13 have
 authored teaching decks; the combined cooling presentation covers selected topics
 in Chapters 11–12. The former standalone Compute chapter was retired on 15 September:
 its useful mechanisms now sit within workloads, rack power, networking and recovery.
@@ -73,11 +73,11 @@ release does not restart an unchanged chapter’s review.
 | 6. [Campus and building power distribution](prototypes/distribution-format.html?teach=1) | 29 slides; three-phase currents and line-to-line voltage follow the single-line diagram; beer analogy and PF quote retained | [Latest checks](TESTING.md#chapter-8-sequence-and-dc-architecture-review--2026-09-15) | **Accepted and verified — 15 September.** Final requested wording and image changes implemented. Existing scene hashes retained. |
 | 7. [Continuity, storage and protection](prototypes/continuity-format.html?teach=1) | 35 scenes; updated isolation image, contact/arc sequence, two-image redundancy transition, Microsoft quote and two closing checks | [Final review checks](TESTING.md#chapters-6-and-7-final-author-review--2026-09-15) | **Accepted and verified — 15 September.** Final requested image changes implemented. Sparks retains the dated reported 1 MW pilot; current nameplate remains unresolved. |
 | 8. [Rack power and the 800 V DC transition](prototypes/rack-energy-format.html?teach=1) | 32 scenes; rack/tray/CPU–GPU anatomy near the opening; local power path and buffering, concise AC/DC comparison, stacked architecture preview and power-stack closing | [Latest sequence checks](TESTING.md#chapter-8-sequence-and-dc-architecture-review--2026-09-15) | **Accepted and verified — 15 September.** Kian confirmed Chapters 1–8 verified. [Individual resolutions](CHAPTER_8_REVIEW.md) include the moved electrical foundations, architecture preview and removed migration exercise. The downward-power-step follow-up is now slide 14, directly after the rising-load example. |
-| 9. [Networking and interconnects](prototypes/networking-format.html?teach=1) | 24 slides; former compute opening image and meme preserved, local HBM/peer/fabric paths and shared-model exchange; real adapter/switch, copper/optics/CPO, fabric capacity, collectives, TPU optical circuits and carrier handoff | [Current checks](TESTING.md#chapter-10-networking-and-interconnects--2026-09-14) | **Authored and checked; ready for first author review.** Three D08 reader lessons updated. No author acceptance inferred. |
+| 9. [Networking and interconnects](prototypes/networking-format.html?teach=1) | 23 slides; all-reduce reduced to contributions and a shared result, followed by communication overlap; ring mechanics remain in the reader | [Current checks](TESTING.md#chapter-9-scope-and-chapter-13-delivery--2026-09-16) | **Authored; author review in progress.** Requested all-reduce simplification implemented. No whole-chapter acceptance inferred. |
 | 10. [Storage, orchestration and recovery](prototypes/storage-format.html?teach=1) | 27 slides; four-GPU tray repair now introduces recovery; supplied component-price meme after opening; input bottlenecks, coherent checkpoints, recovery, Meta/Google cases and deadline scheduling | [Current checks](TESTING.md#chapter-11-storage-orchestration-and-recovery--2026-09-14) | **Authored and checked; ready for first author review.** Three D09 reader lessons updated. |
 | 11. [Chip and rack heat capture](prototypes/cooling-format.html?teach=1) | Selected topics in shared cooling deck | Model/browser checks recorded | Cooling sequence iterated; no whole-chapter completion claimed. |
 | 12. [Heat rejection, climate and water](prototypes/cooling-format.html?teach=1#rejection) | Selected topics in shared cooling deck | Model/browser checks recorded | Cooling sequence iterated; no whole-chapter completion claimed. |
-| 13. [Design, procurement and commissioning](prototypes/procurement-cases-format.html?teach=1#aws-houdini-prefab) | Selected case: Amazon Houdini factory assembly, relocated from Chapter 5 | [September 15 checks](TESTING.md#chapter-7-isolation-clarity-and-case-placement--2026-09-15) | **One case authored; full chapter still unbuilt.** Expand into the required EPC/manufacturing and fixed-20 MW decision sequence. |
+| 13. [Design, procurement and commissioning](prototypes/procurement-cases-format.html?teach=1) | 27 slides; delivery dependencies, EPC and factory/site scope, Houdini, Compass, fixed-20 MW rack change, release evidence, commissioning and phased handover | [Current checks](TESTING.md#chapter-9-scope-and-chapter-13-delivery--2026-09-16) | **Authored; ready for first author review.** Full chapter replaces the selected Houdini case. No author acceptance inferred. |
 | 14. Controls, operations and reliability | Reader draft; own deck unbuilt | Reader/build checks only | Presentation not yet assigned for review. |
 | 15. Capacity, cost and system decisions | Reader draft; own deck unbuilt | Reader/build checks only | Presentation not yet assigned for review. |
 | 16. Integrated cases | Five reader capstones; final deck unbuilt | Reader/build checks only | Capstone presentation and author review pending. |
@@ -464,12 +464,15 @@ links when integration is complete.
 - [ ] **Remaining copy cleanup:** remove generic teaching disclaimers still found
   in other decks, including the UPS “Ideal DC-bus example” caption; preserve
   calculation inputs and source-figure attribution.
-- [ ] **Delivery exercise and case integration:** turn the site-built versus
-  prefabricated/modular comparison and the fixed-20 MW rack-density change into
-  a teaching sequence. Preserve electrical, hydraulic, spatial and scheduling
-  reasoning, with an owner and release evidence for each hold. Integrate the six
-  required case treatments listed in the section handoff checklist; standalone
-  case slides and reader coverage do not complete this task.
+- [x] **Delivery exercise:** Chapter 13 now compares site-built and prefabricated
+  delivery, then changes 200 × 100 kW racks into 100 × 200 kW at fixed 20 MW.
+  Electrical, hydraulic, spatial and scheduling decisions require named owners
+  and release evidence. Factory testing leads into integrated acceptance and
+  phased handover; the chapter closes with a changed-design decision.
+- [ ] **Remaining case integration:** integrate the still-pending required cases
+  listed in the section handoff checklist, including Abilene cooling and its
+  capacity ledger. Standalone case slides and reader coverage do not complete
+  their destination chapters.
 - [ ] **Recurring campus:** audit every lesson and presentation for consistent
   use of the original Crusoe-built Stargate campus in **Abilene, Texas**. Keep
   dated site facts, illustrative examples, the adjacent Microsoft project and

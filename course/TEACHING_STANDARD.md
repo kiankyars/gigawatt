@@ -117,18 +117,21 @@ The open production tasks remain in [the course review](COURSE_REVIEW.md#next-te
 | Physical site, buildings and safety (`d12`) | Greenfield versus brownfield, using Abilene and Colossus 1; factory reuse still required new power infrastructure | [Land comparison](prototypes/case-studies.html?teach=1#land), [Colossus 1](prototypes/case-studies.html?teach=1#colossus) | Integrated in Chapter 5: [greenfield/brownfield](prototypes/site-format.html?teach=1#greenfield-brownfield) and [Colossus](prototypes/site-format.html?teach=1#colossus-service); current checks recorded in [TESTING.md](TESTING.md) |
 | Capacity, cost and system decisions (`d15`) | Abilene's dated capacity milestones: distinguish the original campus, adjacent project, energized capacity and useful output | [Capacity ledger](prototypes/case-studies.html?teach=1#abilene-ledger) | Pending |
 
-For **Design, procurement and commissioning (`d13`)**, the [Project Houdini case](prototypes/procurement-cases-format.html?teach=1#aws-houdini-prefab) is available as a selected teaching scene. Its factory/site parallelism belongs here; Meta’s tent enclosure remains in Chapter 5. The full chapter still needs the existing reader
-comparison adapted into slides: EPC responsibilities versus manufacturing strategy; factory
-and site work; parallel schedules; design freezes; transport; and ownership of
-module interfaces. Hold 20 MW constant while 200 × 100 kW racks become 100 × 200 kW
-just before fabrication. Require the learner to decide what proceeds, what is held
-and which electrical, hydraulic, spatial and schedule evidence releases each hold.
-Close with the interface consequences or a meaningful changed-design problem;
-the reader’s boundary check is available without forcing it into the slides.
-Use the Siemens/Compass package introduced in Chapter 6 at `compass-co-design`
-and `compass-skid` as a concrete handoff: revisit factory/site responsibility,
-transport and the owner of each electrical/mechanical interface. Keep the
-Chapter 6 treatment focused on the two electrical functions in one package.
+**Design, procurement and commissioning (`d13`)** now has a [full chapter deck](prototypes/procurement-cases-format.html?teach=1).
+`epc-and-prefab`, `factory-and-site`, `parallel-schedules`, `manufacturing-release`
+and `module-transport` distinguish responsibilities from manufacturing strategy.
+The Houdini factory case stays here; Meta’s tent enclosure remains in Chapter 5.
+`compass-package` and `interface-owner` revisit the package introduced in Chapter 6
+to assign the remaining factory/site joints. Chapter 6 continues to teach its
+two electrical functions.
+
+`rack-change` holds 20 MW constant while 200 × 100 kW racks become 100 × 200 kW
+just before fabrication. The following electrical, hydraulic and spatial slides
+feed `release-holds` and `approval-delay`: what proceeds, what is held, and what
+evidence releases each hold. Factory, site and integrated tests lead into
+Polaris phased delivery, complete accepted paths and operator handover. The
+closing `release-decision` tests whether approved electrical and cooling designs
+are enough when geometry, transport and the factory slot remain unresolved.
 
 At every section handoff, verify the next chapter is reachable, check any Abilene
 claim against its dated source and update the chapter's

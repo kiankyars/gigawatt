@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {fabricBudget,messageTime,ringTime,propagation,ringChunkState} from '../course/prototypes/networking-model.js';
-import {scenes,initialState} from '../course/prototypes/networking-scenes.js';
+import {fabricBudget,messageTime,communicationTime,propagation} from '../course/prototypes/networking-model.js';
+import {scenes,initialState,resolveNetworkingScene} from '../course/prototypes/networking-scenes.js';
 import {networkingVisual} from '../course/prototypes/networking-visuals.js';
 test('fabric model counts both switch ends of an uplink and uses one-direction cut capacity',()=>{
  const b=fabricBudget();assert.equal(b.endpointCables,16);assert.equal(b.uplinkCables,8);assert.equal(b.cables,24);assert.equal(b.switchPorts,32);assert.equal(b.oversubscription,2);assert.equal(b.transferSeconds,.32);
@@ -12,23 +12,34 @@ test('message model converts bytes to bits before dividing by gigabits per secon
  assert.deepEqual(messageTime({bytes:1000}),{serializationUs:.02,totalUs:5.02});
  assert.deepEqual(messageTime({bytes:1e9}),{serializationUs:20000,totalUs:20005});
 });
-test('ring sends six quarter-buffers and overlaps only independent compute',()=>{
- const b=ringTime();assert.equal(b.rounds,6);assert.equal(b.sentGB,1.5);assert.equal(b.communicationMs,30);assert.equal(b.overlappedStepMs,210);assert.equal(b.sequentialStepMs,230);
- const slow=ringTime({bandwidthGBps:25});assert.equal(slow.communicationMs,60);assert.equal(slow.overlappedStepMs,240);assert.equal(slow.sequentialStepMs,260);
- assert.equal(ringTime({overlapMs:100}).overlappedStepMs,200);
+test('only exchange time beyond independent computation delays the step',()=>{
+ const b=communicationTime();assert.equal(b.communicationMs,30);assert.equal(b.exposedMs,10);assert.equal(b.communicationStartMs,180);assert.equal(b.overlappedStepMs,210);assert.equal(b.sequentialStepMs,230);
+ const slow=communicationTime({communicationMs:60});assert.equal(slow.exposedMs,40);assert.equal(slow.overlappedStepMs,240);assert.equal(slow.sequentialStepMs,260);
+ assert.equal(communicationTime({overlapMs:100}).overlappedStepMs,200,'hidden communication cannot shorten the compute interval');
+ assert.equal(communicationTime({overlapMs:0}).overlappedStepMs,b.sequentialStepMs);
 });
-test('ring phase endpoints preserve one reduced owner before distribution',()=>{
- assert.equal(ringChunkState(0).flat().filter(c=>c.kind==='partial').length,16);
- assert.equal(ringChunkState(3).flat().filter(c=>c.kind==='complete').length,4);
- for(const rank of ringChunkState(3))assert.equal(rank.filter(c=>c.kind==='complete').length,1);
- assert.equal(ringChunkState(6).flat().filter(c=>c.kind==='complete').length,16);
+test('collective scope keeps the shared result and timing consequence, with old ring links preserved',()=>{
+ assert.equal(scenes[13].id,'all-reduce');assert.equal(scenes[14].id,'collective-time');
+ assert.ok(!scenes.some(s=>s.id==='ring-collective'));
+ assert.equal(scenes[resolveNetworkingScene('ring-collective')].id,'all-reduce');
+ assert.equal(scenes[resolveNetworkingScene('collective-time')].id,'collective-time');
+ assert.equal(resolveNetworkingScene('missing-slide'),0);
+ const allreduce=networkingVisual('all-reduce',initialState);
+ for(const [i,value]of[2,5,7].entries())assert.match(allreduce,new RegExp(`GPU ${i+1}: contribution ${value}`));
+ assert.equal((allreduce.match(/combined result 14/g)||[]).length,3);
+ for(const communicationMs of[30,60]){
+  const html=networkingVisual('collective-time',{...initialState,communicationMs});
+  assert.match(html,/200 ms/);assert.match(html,/20 ms of independent work/);
+  assert.match(html,new RegExp(`${200+communicationMs} ms`));assert.match(html,new RegExp(`${180+communicationMs} ms`));
+  assert.doesNotMatch(html,/ring|1\.5 GB|gradient|reduce.scatter|all.gather/i);
+ }
 });
 test('fiber propagation includes distance in both directions for a reply',()=>{
  assert.deepEqual(propagation(100),{oneWayMs:.5,roundTripMs:1});
  assert.deepEqual(propagation(0),{oneWayMs:0,roundTripMs:0});
 });
 test('models reject impossible intervals and invalid rates',()=>{
- assert.throws(()=>fabricBudget({uplinksPerLeaf:0}),RangeError);assert.throws(()=>ringTime({ranks:1}),RangeError);assert.throws(()=>ringTime({overlapMs:201}),RangeError);assert.throws(()=>messageTime({bytes:1,gbps:0}),RangeError);assert.throws(()=>propagation(-1),RangeError);
+ assert.throws(()=>fabricBudget({uplinksPerLeaf:0}),RangeError);assert.throws(()=>communicationTime({communicationMs:0}),RangeError);assert.throws(()=>communicationTime({overlapMs:201}),RangeError);assert.throws(()=>messageTime({bytes:1,gbps:0}),RangeError);assert.throws(()=>propagation(-1),RangeError);
 });
 test('all scenes and selectable states produce renderable desktop and compact mechanisms',()=>{
  assert.equal(new Set(scenes.map(s=>s.id)).size,scenes.length);

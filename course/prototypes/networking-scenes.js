@@ -8,7 +8,7 @@ export const learningContract = Object.freeze({
 });
 const topology='d08-topology-budget',collective='d08-collective-progress',media='d08-copper-light-service';
 const c=(key,label,options)=>({key,label,options});
-export const initialState={transfer:'local',uplinks:2,placement:'remote',message:'large',ringRound:0,collectiveRate:50,ocsPairing:'straight',diagnosis:'',showDiagnosis:false};
+export const initialState={transfer:'local',uplinks:2,placement:'remote',message:'large',communicationMs:30,ocsPairing:'straight',diagnosis:'',showDiagnosis:false};
 export const scenes=[
  {id:'networking-purpose',label:'Networking and interconnects',title:'Networking and interconnects',reference:topology,pedagogical_role:'problem'},
  {id:'consumer-hardware-meme',label:'AI demand and consumer hardware',title:'AI demand and consumer hardware',reference:topology,pedagogical_role:'hook',imageOnly:true},
@@ -23,9 +23,8 @@ export const scenes=[
  {id:'traffic-placement',label:'When oversubscription matters',title:'Traffic staying within a leaf avoids its shared uplinks.',reference:topology,pedagogical_role:'comparison',controls:[c('placement','Place the communicating servers',[['remote','Across two leaves'],['local','Under one leaf']])]},
  {id:'message-time',label:'Bandwidth and latency',title:'Small messages expose latency; large messages occupy the link.',reference:topology,pedagogical_role:'comparison'},
  {id:'incast',label:'Several senders, one receiver',title:'Traffic queues at the switch port leading to a shared receiver.',reference:topology,pedagogical_role:'mechanism'},
- {id:'all-reduce',label:'What an all-reduce returns',title:'Training workers combine their gradients before the next update.',reference:collective,pedagogical_role:'mechanism'},
- {id:'ring-collective',label:'Watch a ring all-reduce',title:'A ring first combines gradient chunks, then distributes the results.',reference:collective,pedagogical_role:'mechanism',controls:[c('ringRound','Communication phase',[[0,'Input'],[3,'After reduction'],[6,'After distribution']])]},
- {id:'collective-time',label:'Communication on the critical path',title:'Only communication that remains exposed extends the training step.',reference:collective,pedagogical_role:'comparison',controls:[c('collectiveRate','Payload bandwidth on each ring edge',[[50,'50 GB/s'],[25,'25 GB/s']])]},
+ {id:'all-reduce',label:'What an all-reduce returns',title:'Training GPUs combine results before the next update.',reference:collective,pedagogical_role:'mechanism'},
+ {id:'collective-time',label:'Overlap computation and communication',title:'Overlap computation and communication.',reference:collective,pedagogical_role:'comparison',controls:[c('communicationMs','Exchange time',[[30,'30 ms'],[60,'60 ms']])]},
  {id:'ethernet-infiniband',label:'Ethernet and InfiniBand',title:'Meta built large AI clusters with both Ethernet and InfiniBand.',reference:collective,pedagogical_role:'case'},
  {id:'tpu-interconnect',label:'Google TPU v4',title:'TPU v4 connects 4,096 chips through a reconfigurable inter-chip network.',reference:collective,pedagogical_role:'case'},
  {id:'optical-circuits',label:'What an optical circuit switch changes',title:'An optical circuit switch changes which fiber endpoints connect.',reference:media,pedagogical_role:'mechanism',controls:[c('ocsPairing','Circuit configuration',[['straight','A ↔ C · B ↔ D'],['crossed','A ↔ D · B ↔ C']])]},
@@ -35,3 +34,9 @@ export const scenes=[
  {id:'network-diagnosis',label:'Chapter 9 knowledge check',title:'Chapter 9 · Find the source of the collective delay',reference:collective,pedagogical_role:'transfer'},
  {id:'storage-handoff',label:'The network’s other traffic',title:'Dataset reads and checkpoints also use the network.',reference:topology,pedagogical_role:'transfer'},
 ];
+export const legacySceneAliases=Object.freeze({'ring-collective':'all-reduce'});
+export function resolveNetworkingScene(hash){
+ const id=legacySceneAliases[hash]||hash;
+ const index=scenes.findIndex(s=>s.id===id);
+ return index<0?0:index;
+}

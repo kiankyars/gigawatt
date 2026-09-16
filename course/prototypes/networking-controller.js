@@ -1,4 +1,4 @@
-import {scenes,initialState} from './networking-scenes.js';
+import {scenes,initialState,resolveNetworkingScene} from './networking-scenes.js';
 import {networkingVisual} from './networking-visuals.js';
 import {presentationLabels} from './teaching-navigation.js';
 const $=id=>document.getElementById(id),state={...initialState};
@@ -20,7 +20,7 @@ function render(){
  $('diagnosis-reveal')?.addEventListener('click',()=>{state.showDiagnosis=!state.showDiagnosis;focusAfter('#diagnosis-reveal');});
 }
 function go(i){index=Math.max(0,Math.min(scenes.length-1,i));history.replaceState(null,'',`#${scenes[index].id}`);render();window.scrollTo({top:0,left:0,behavior:'auto'});}
-function fromHash(){const found=scenes.findIndex(s=>s.id===location.hash.slice(1));index=found<0?0:found;render();window.scrollTo({top:0,left:0,behavior:'auto'});}
+function fromHash(){index=resolveNetworkingScene(location.hash.slice(1));if(location.hash&&location.hash.slice(1)!==scenes[index].id)history.replaceState(null,'',`#${scenes[index].id}`);render();window.scrollTo({top:0,left:0,behavior:'auto'});}
 $('scenes').onchange=e=>go(scenes.findIndex(s=>s.id===e.target.value));$('previous').onclick=()=>go(index-1);$('next').onclick=()=>go(index+1);
 $('fullscreen').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await $('viewer').requestFullscreen();}catch{$('status').textContent='Full screen is unavailable in this browser view.';}};
 document.addEventListener('fullscreenchange',()=>{$('fullscreen').textContent=document.fullscreenElement?'Exit full screen':'Full screen';});

@@ -1716,3 +1716,32 @@ fixture opened the real popup and invoked its exit button: the popup closed,
 the audience header/footer returned, and the selected slide stayed unchanged.
 All 234 Node tests and 80 Python tests pass. The exit regression also verifies
 that delayed messages cannot reconnect the presenter after exit.
+
+## Chapter 9 scope and Chapter 13 delivery — 2026-09-16
+
+Chapter 9 now has 23 slides. All-reduce shows three contributions becoming the
+same result on each GPU; ring mechanics remain in the reader. The old
+`ring-collective` fragment resolves to `all-reduce`. The next slide compares
+30/60 ms exchanges with 200 ms computation and 20 ms of independent overlap.
+Built-in-browser checks confirmed both exchange settings, the legacy link and
+desktop/390 px layouts with no horizontal overflow or browser errors.
+
+Chapter 13 expands the former Houdini case into 27 slides covering all four D13
+objectives. Models check delivery dependencies, factory/site overlap, the fixed
+20 MW rack-density change, release prerequisites and the intersection of
+accepted rack paths. Independent technical review confirmed electrical current,
+coolant flow, pressure, local load assumptions and schedule arithmetic. CEI,
+Siemens/Compass and Applied Digital sources were checked against the cases;
+photographs retain their actual source scope. The course directory opens the
+full chapter and preserves the original Houdini fragment.
+
+All 241 Node tests and 80 Python tests pass. Course, expanded reader, domain-map
+and research freshness checks pass, as do site staging and whitespace checks.
+Built-in-browser checks visited every Chapter 13 slide at 1280 × 720 and
+390 × 844, inspected the case photographs and dense diagrams, and exercised
+fabrication holds, geometry release, late approval, a missed factory slot and
+the final answer reveal. Phone layouts scroll vertically without horizontal
+overflow; desktop diagrams fit above the footer. Browser console checks found
+no warnings or errors. Temporary viewport settings were restored. The existing
+presenter protocol tests pass; a separate popup was not exposed by the browser
+automation session, so its live connection was not reverified in this pass.

@@ -95,7 +95,7 @@ Each topic ends with a check-in: pause, make a prediction, compare the reasoning
 
 ### 13. Design, procurement and commissioning
 
-- Selected-topic slides: [Modular construction](prototypes/procurement-cases-format.html?teach=1#aws-houdini-prefab)
+- Slides: [Design, procurement and commissioning](prototypes/procurement-cases-format.html?teach=1)
 - [The longest lead time is not the completion date](lessons/d13-delivery-dependencies.md) — Which delay actually changes the date when a phase can deliver service?
 - [Two adequate products can form an inadequate system](lessons/d13-interface-contracts.md) — What can proceed when 200 × 100 kW racks become 100 × 200 kW just before fabrication?
 - [Commission the intersection, not the inventory](lessons/d13-commissioning-complete-paths.md) — When do installed components become a tested service path?

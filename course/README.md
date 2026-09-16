@@ -78,6 +78,13 @@ a different reading purpose and do not own course design.
 
 ## Retired introduction and research
 
+Chapter 13 uses `procurement-cases-format.html`, `procurement-cases-scenes.js`,
+`procurement-visuals.js`, `procurement-model.js` and `procurement-cases-player.js`.
+Its 27 slides connect delivery dependencies and factory/site responsibilities
+to the fixed-20 MW rack change, commissioning and phased handover. Houdini,
+Siemens/Compass and Polaris Forge 1 provide photographed cases. The directory
+opens the complete chapter; the existing Houdini fragment remains available.
+
 `lessons.json` and `web/course.*`, `web/diagrams.js`, `web/math.js` own the
 historical 22-lesson introduction at `../diagram/index.html`, generated with
 `uv run gigawatt-build`. These files are retained as local source and curriculum

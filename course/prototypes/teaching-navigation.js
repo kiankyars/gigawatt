@@ -12,7 +12,7 @@ export const presentationLabels = Object.freeze({
   "networking": "9. Networking and interconnects",
   "storage": "10. Storage, orchestration and recovery",
   "cooling": "11–12. From the chip to the outdoors",
-  "procurement-cases": "13. Modular construction"
+  "procurement-cases": "13. Design, procurement and commissioning"
 });
 export const presentationRoutes = Object.freeze([
   {
@@ -110,7 +110,7 @@ export const presentationRoutes = Object.freeze([
     "next": {
       "number": 13,
       "title": "Design, procurement and commissioning",
-      "href": "procurement-cases-format.html?teach=1#aws-houdini-prefab",
+      "href": "procurement-cases-format.html?teach=1",
       "kind": "slides"
     }
   },

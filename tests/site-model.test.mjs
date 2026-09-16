@@ -75,9 +75,10 @@ test("Chapter has a motivated opening, every state renders in both layouts, with
 test("Houdini belongs to modular construction while Meta's tents remain in the physical-site chapter", () => {
   assert.ok(scenes.some(scene => scene.id === "meta-prometheus-tents"));
   assert.ok(!scenes.some(scene => scene.id === "aws-houdini-prefab"));
-  assert.deepEqual(procurementCases.map(scene => scene.id), ["aws-houdini-prefab"]);
-  assert.equal(procurementCases[0].reference, "d13-delivery-dependencies");
-  const visual = renderRapidBuildCase(procurementCases[0].id);
+  const houdini = procurementCases.find(scene => scene.id === "aws-houdini-prefab");
+  assert.ok(houdini);
+  assert.equal(houdini.reference, "d13-delivery-dependencies");
+  const visual = renderRapidBuildCase(houdini.id);
   assert.match(visual.markup, /src="\.\.\/assets\/references\/cei-modular-factory-edgerton\.jpg"/);
   assert.match(visual.markup, /In the factory/);
   assert.match(visual.markup, /In parallel, on site/);

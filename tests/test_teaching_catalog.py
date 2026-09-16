@@ -182,7 +182,7 @@ class TeachingCatalogTests(unittest.TestCase):
         self.assertEqual(
             len({p["id"] for c in chapters.values() for p in c["presentations"]}), 12
         )
-        for did in ("D10", "D11", "D13"):
+        for did in ("D10", "D11"):
             with self.subTest(chapter=did):
                 self.assertTrue(chapters[did]["presentations"])
                 self.assertTrue(
@@ -197,9 +197,9 @@ class TeachingCatalogTests(unittest.TestCase):
         )
         self.assertEqual(chapters["D13"]["presentations"], [{
             "id": "procurement-cases",
-            "title": "Modular construction",
-            "href": "prototypes/procurement-cases-format.html?teach=1#aws-houdini-prefab",
-            "coverage": "selected",
+            "title": "Design, procurement and commissioning",
+            "href": "prototypes/procurement-cases-format.html?teach=1",
+            "coverage": "chapter",
         }])
         self.assertEqual(chapters["D04"]["presentations"][0]["href"], "prototypes/distribution-format.html?teach=1")
         self.assertEqual(chapters["D04"]["presentations"][0]["coverage"], "chapter")

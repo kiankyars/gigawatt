@@ -129,12 +129,12 @@
     },
     {
       "id": "procurement-cases",
-      "title": "Modular construction",
+      "title": "Design, procurement and commissioning",
       "chapters": [
         {
           "id": "D13",
-          "href": "prototypes/procurement-cases-format.html?teach=1#aws-houdini-prefab",
-          "coverage": "selected"
+          "href": "prototypes/procurement-cases-format.html?teach=1",
+          "coverage": "chapter"
         }
       ]
     }
