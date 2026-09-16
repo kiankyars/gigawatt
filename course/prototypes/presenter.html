@@ -2,7 +2,7 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><title>Up next · From Watts to Tokens</title><link rel="stylesheet" href="./presenter.css"></head>
 <body>
 <div id="workspace">
-  <header><span>Up next</span><button id="exit-presenter" type="button">Exit presenter</button></header>
+  <header><div class="presenter-heading"><span id="chapter" hidden></span><span class="preview-label">Up next</span></div><button id="exit-presenter" type="button">Exit presenter</button></header>
   <main id="next-shell" aria-label="Upcoming slide"><iframe id="preview" title="Upcoming slide" tabindex="-1" sandbox="allow-scripts allow-same-origin"></iframe><p id="end" hidden>End of chapter</p></main>
   <footer><button id="previous" aria-label="Previous slide" disabled>←</button><label class="sr-only" for="slides">Current audience slide</label><select id="slides" disabled></select><span id="progress"></span><button id="next" aria-label="Next slide" disabled>→</button></footer>
 </div>

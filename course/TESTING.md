@@ -1849,3 +1849,12 @@ were also inspected at 1280 × 720 and 390 × 844. The checked mobile views had 
 horizontal overflow; the merged diagram uses a vertical layout. The optics
 asset matches the supplied original byte-for-byte. Viewport overrides restored.
 The eight networking tests passed again after the image replacement.
+
+## Presenter chapter label — 2026-09-16
+
+The separate presenter header shows the numbered current chapter from the
+audience snapshot. Ten presenter tests pass, including label updates across a
+chapter transition and the existing exit behavior. An independent review checked
+title conventions in every active deck. The header layout was inspected in the
+built-in browser using a standalone fixture with the real CSS and slide iframe;
+the browser tool did not expose the actual popup for visual inspection.

@@ -35,6 +35,8 @@ function keydown(event) {
 function update(snapshot) {
   current = snapshot; lastSeen = Date.now();
   document.title = `Up next · ${snapshot.title}`;
+  $('chapter').textContent = snapshot.title.split(' · ')[0].trim();
+  $('chapter').hidden = false;
   const select = $('slides');
   if (select.options.length !== snapshot.slides.length || snapshot.slides.some((label, index) => select.options[index]?.textContent !== label)) {
     select.replaceChildren(...snapshot.slides.map((label, index) => new Option(label, String(index))));

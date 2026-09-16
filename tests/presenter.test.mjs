@@ -169,7 +169,7 @@ test('preview initialization waits for module decks to populate the live selecto
 
 test('separate presenter displays the upcoming slide and its controls advance the audience', () => {
   const messages = [], handlers = new Map();
-  const elements = Object.fromEntries(['preview','connection','slides','previous','next','progress','end','exit-presenter'].map(id => [id, {
+  const elements = Object.fromEntries(['preview','connection','slides','previous','next','progress','end','exit-presenter','chapter'].map(id => [id, {
     hidden: false, options: [], setAttribute(name, value) { this[name] = value; },
     replaceChildren(...options) { this.options = options; },
   }]));
@@ -185,11 +185,13 @@ test('separate presenter displays the upcoming slide and its controls advance th
   vm.runInNewContext(source, context);
   const receive = data => handlers.get('message')({ source: audience, origin: context.location.origin,
     data: { protocol: PRESENTER_PROTOCOL, session: 'test-session', ...data } });
-  const state = { type: 'snapshot', title: 'Chapter', href: 'https://example.test/slides/workloads.html?teach=1#opening',
+  const state = { type: 'snapshot', title: '3. Workloads and requirements · Opening · From Watts to Tokens', href: 'https://example.test/slides/workloads.html?teach=1#opening',
     index: 0, slides: ['1 · Opening', '2 · Mechanism', '3 · Close'], nextChapter: null };
   receive(state);
   assert.equal(new URL(elements.preview.src).searchParams.get('presenter-preview'), '1');
   assert.equal(elements.progress.textContent, 'Up next: 2 / 3');
+  assert.equal(elements.chapter.textContent, '3. Workloads and requirements');
+  assert.equal(elements.chapter.hidden, false);
   assert.equal(elements.slides.selectedIndex, 0, 'the selector identifies the audience slide, not the preview');
   elements.next.onclick();
   assert.equal(messages.at(-1).type, 'navigate'); assert.equal(messages.at(-1).index, 1);
@@ -203,13 +205,15 @@ test('separate presenter displays the upcoming slide and its controls advance th
   assert.equal(elements.next.disabled, true);
   receive({ type: 'disconnect' });
   assert.equal(elements.slides.disabled, true);
+  receive({ ...state, title: '4. Siting, grid connection and supply · From Watts to Tokens', href: 'https://example.test/slides/siting.html?teach=1', index: 0 });
+  assert.equal(elements.chapter.textContent, '4. Siting, grid connection and supply', 'the label follows the audience across chapter navigation');
 });
 
 test('Exit presenter restores audience chrome without changing slides or reconnecting from delayed callbacks', () => {
   const fixture = audienceFixture();
   const handlers = new Map(), intervals = new Map(), commands = [];
   let timer = 0, focusCalls = 0, closeCalls = 0;
-  const elements = Object.fromEntries(['preview','connection','slides','previous','next','progress','end','exit-presenter'].map(id => [id, {
+  const elements = Object.fromEntries(['preview','connection','slides','previous','next','progress','end','exit-presenter','chapter'].map(id => [id, {
     hidden: false, options: [], setAttribute(name, value) { this[name] = value; },
     replaceChildren(...options) { this.options = options; },
   }]));
