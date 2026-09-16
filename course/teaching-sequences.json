@@ -113,7 +113,7 @@
     },
     {
       "id": "storage",
-      "title": "Storage, orchestration and recovery",
+      "title": "Storage and recovery",
       "chapters": [
         {
           "id": "D09",

@@ -11,7 +11,7 @@ export const presentationLabels = Object.freeze({
   "rack-energy": "8. Rack power and buffering",
   "dc-distribution": "9. 800 V DC distribution",
   "networking": "10. Networking and interconnects",
-  "storage": "11. Storage, orchestration and recovery",
+  "storage": "11. Storage and recovery",
   "cooling": "12–13. From the chip to the outdoors",
   "procurement-cases": "14. Design, procurement and commissioning",
   "operations": "15. Controls, operations and reliability"
@@ -102,7 +102,7 @@ export const presentationRoutes = Object.freeze([
     "path": "networking-format.html",
     "next": {
       "number": 11,
-      "title": "Storage, orchestration and recovery",
+      "title": "Storage and recovery",
       "href": "storage-format.html?teach=1",
       "kind": "slides"
     }

@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/racks-compute-heat.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/racks-compute-heat.json), lesson `d09-checkpoint-timeline`, then run `uv run gigawatt-expand`.
 
-**11. Storage, orchestration and recovery · Authored draft**
+**11. Storage and recovery · Authored draft**
 
 Compare explicit failure timelines and explain why asynchronous saving and replicated storage do not eliminate recovery design.
 
@@ -38,7 +38,7 @@ The Llama 3 report describes 466 interruptions during a 54-day training snapshot
 
 ## Account for the energy spent recovering
 
-The slides reuse the explicit failure-at-minute-35 timeline and assign the job 1 MW during computation, 0.8 MW during checkpoint pauses and 0.4 MW during restoration. Power is held constant within each stage, so its energy is power multiplied by duration. The 20-minute policy spends 1 MWh on the final 60 useful minutes, 13/60 MWh on computation that the failure discards, 0.8 × 4/60 MWh on saving and 0.4 × 5/60 MWh on restoration: about 1.303 MWh in total. The 40-minute policy spends about 1.643 MWh, including 35 minutes of discarded computation and two minutes saving. This account covers the stated job power; it is not a facility PUE or campus demand measurement.
+The slides compare the energy spent repeating computation at 1 MW. This fuller reading example uses the failure-at-minute-35 timeline and assigns the job 1 MW during computation, 0.8 MW during checkpoint pauses and 0.4 MW during restoration. Power is held constant within each stage, so its energy is power multiplied by duration. The 20-minute policy spends 1 MWh on the final 60 useful minutes, 13/60 MWh on computation that the failure discards, 0.8 × 4/60 MWh on saving and 0.4 × 5/60 MWh on restoration: about 1.303 MWh in total. The 40-minute policy spends about 1.643 MWh, including 35 minutes of discarded computation and two minutes saving. This account covers the stated job power; it is not a facility PUE or campus demand measurement.
 
 ## Worked example: Two policies face one failure at minute 35
 

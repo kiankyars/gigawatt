@@ -107,4 +107,4 @@ Healthy endpoints do not establish a healthy end-to-end communication path. Foll
 
 **The next problem:** The cluster also needs durable data and recoverable progress. What survives when an interruption stops the job?
 
-Continue in **Storage, orchestration and recovery**: Storage is a traffic and state system.
+Continue in **Storage and recovery**: Storage is a traffic and state system.

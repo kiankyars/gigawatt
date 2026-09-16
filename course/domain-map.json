@@ -554,7 +554,7 @@
     },
     {
       "id": "D09",
-      "title": "Storage, orchestration and recovery",
+      "title": "Storage and recovery",
       "lane": "work",
       "question": "Can data and jobs reach the hardware, and can useful progress survive failures?",
       "purpose": "Connect storage and cluster software to the delivery of a usable service.",

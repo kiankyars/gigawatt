@@ -45,7 +45,7 @@ Coordinate compute, memory, networks, storage and jobs.
 
 - [Compute and memory — further reading](#d07)
 - [Networking and interconnects](#d08)
-- [Storage, orchestration and recovery](#d09)
+- [Storage and recovery](#d09)
 
 ### Return the heat
 
@@ -87,7 +87,7 @@ Compare continuity and conversion choices, including 800 V DC, against interface
 
 ### A04 — Make the cluster productive
 
-[Networking and interconnects](#d08) → [Storage, orchestration and recovery](#d09)
+[Networking and interconnects](#d08) → [Storage and recovery](#d09)
 
 Connect compute, memory, communication, storage and scheduling to useful progress.
 
@@ -1066,7 +1066,7 @@ Trace a network failure or degraded link into workload, cabling and operational 
 
 <a id="d09"></a>
 
-### Storage, orchestration and recovery
+### Storage and recovery
 
 **Central question:** Can data and jobs reach the hardware, and can useful progress survive failures?
 
@@ -1511,7 +1511,7 @@ Teach delivery as a chain of interfaces and evidence, not a chronology of announ
 - Functional and integrated systems testing, failure scenarios and acceptance
 - Phased handover, as-built records, procedures and operator training
 
-**Prerequisites:** [Siting, grid connection and supply](#d03), [Campus and building power distribution](#d04), [Continuity, storage and protection](#d05), [Storage, orchestration and recovery](#d09), [Chip and rack heat capture](#d10), [Heat rejection, climate and water](#d11), [Physical site, buildings and safety](#d12)
+**Prerequisites:** [Siting, grid connection and supply](#d03), [Campus and building power distribution](#d04), [Continuity, storage and protection](#d05), [Storage and recovery](#d09), [Chip and rack heat capture](#d10), [Heat rejection, climate and water](#d11), [Physical site, buildings and safety](#d12)
 
 **Learning objectives and assessments:**
 
@@ -1626,7 +1626,7 @@ Turn the static design into monitored operation, maintenance and incident recove
 - Failure domains, common causes, service availability and incident learning
 - Workload load changes, capacity management, aging and retrofit operations
 
-**Prerequisites:** [Continuity, storage and protection](#d05), [Storage, orchestration and recovery](#d09), [Heat rejection, climate and water](#d11), [Physical site, buildings and safety](#d12), [Design, procurement and commissioning](#d13)
+**Prerequisites:** [Continuity, storage and protection](#d05), [Storage and recovery](#d09), [Heat rejection, climate and water](#d11), [Physical site, buildings and safety](#d12), [Design, procurement and commissioning](#d13)
 
 **Learning objectives and assessments:**
 
@@ -1742,7 +1742,7 @@ Combine engineering, delivery and workload models into a bounded decision with e
 - Cost per useful workload outcome versus cost per MW or GPU-hour
 - Sensitivity, scenarios, uncertainty, retrofit and retirement
 
-**Prerequisites:** [Workloads and the infrastructure brief](#d02), [Campus and building power distribution](#d04), [Rack power and the 800 V DC transition](#d06), [Networking and interconnects](#d08), [Storage, orchestration and recovery](#d09), [Heat rejection, climate and water](#d11), [Design, procurement and commissioning](#d13), [Controls, operations and reliability](#d14)
+**Prerequisites:** [Workloads and the infrastructure brief](#d02), [Campus and building power distribution](#d04), [Rack power and the 800 V DC transition](#d06), [Networking and interconnects](#d08), [Storage and recovery](#d09), [Heat rejection, climate and water](#d11), [Design, procurement and commissioning](#d13), [Controls, operations and reliability](#d14)
 
 **Learning objectives and assessments:**
 
@@ -1868,7 +1868,7 @@ Thermal journey, including parallel air/liquid paths and auxiliary heat inputs.
 
 ### Workload → useful service
 
-[Workloads and the infrastructure brief](#d02) → [Compute and memory — further reading](#d07) → [Networking and interconnects](#d08) → [Storage, orchestration and recovery](#d09) → [Controls, operations and reliability](#d14) → [Capacity, cost and system decisions](#d15)
+[Workloads and the infrastructure brief](#d02) → [Compute and memory — further reading](#d07) → [Networking and interconnects](#d08) → [Storage and recovery](#d09) → [Controls, operations and reliability](#d14) → [Capacity, cost and system decisions](#d15)
 
 Information and service dependencies, not a literal packet route.
 
@@ -1914,7 +1914,7 @@ Domains: [Campus and building power distribution](#d04), [Continuity, storage an
 
 The hardware has adequate power and cooling, but a synthetic workload suffers fabric congestion and checkpoint stalls.
 
-Domains: [Workloads and the infrastructure brief](#d02), [Compute and memory — further reading](#d07), [Networking and interconnects](#d08), [Storage, orchestration and recovery](#d09), [Controls, operations and reliability](#d14), [Capacity, cost and system decisions](#d15)
+Domains: [Workloads and the infrastructure brief](#d02), [Compute and memory — further reading](#d07), [Networking and interconnects](#d08), [Storage and recovery](#d09), [Controls, operations and reliability](#d14), [Capacity, cost and system decisions](#d15)
 
 **Deliverable:** Work/wait/recovery timeline, a bounded bottleneck calculation, and an experiment that distinguishes competing causes.
 
@@ -1924,7 +1924,7 @@ Domains: [Workloads and the infrastructure brief](#d02), [Compute and memory —
 
 An illustrative project has utility service, some installed racks and uneven subsystem completion. A separate named-site exercise uses only dated public evidence.
 
-Domains: [Siting, grid connection and supply](#d03), [Campus and building power distribution](#d04), [Continuity, storage and protection](#d05), [Storage, orchestration and recovery](#d09), [Heat rejection, climate and water](#d11), [Physical site, buildings and safety](#d12), [Design, procurement and commissioning](#d13), [Controls, operations and reliability](#d14), [Capacity, cost and system decisions](#d15)
+Domains: [Siting, grid connection and supply](#d03), [Campus and building power distribution](#d04), [Continuity, storage and protection](#d05), [Storage and recovery](#d09), [Heat rejection, climate and water](#d11), [Physical site, buildings and safety](#d12), [Design, procurement and commissioning](#d13), [Controls, operations and reliability](#d14), [Capacity, cost and system decisions](#d15)
 
 **Deliverable:** Capacity-state ledger, dependency schedule, integrated acceptance plan and unresolved-evidence list.
 

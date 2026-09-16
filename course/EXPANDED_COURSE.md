@@ -76,9 +76,9 @@ Each topic ends with a check-in: pause, make a prediction, compare the reasoning
 - [A collective makes waiting contagious](lessons/d08-collective-progress.md) — How can one constrained participant delay a job running on many healthy accelerators?
 - [Choose where electricity becomes light](lessons/d08-copper-light-service.md) — How should reach, power and replacement boundaries shape the choice between copper, pluggable optics and CPO?
 
-### 11. Storage, orchestration and recovery
+### 11. Storage and recovery
 
-- Slides: [Storage, orchestration and recovery](prototypes/storage-format.html?teach=1)
+- Slides: [Storage and recovery](prototypes/storage-format.html?teach=1)
 - [Storage is a traffic and state system](lessons/d09-storage-paths.md) — Why can a large, fast storage array still leave accelerators waiting?
 - [Count preserved progress, lost progress and recovery](lessons/d09-checkpoint-timeline.md) — When do more frequent checkpoints improve completed work, and when do they only add overhead?
 - [Turn installed hardware into an accepted service](lessons/d09-service-acceptance.md) — What must a tenant demonstrate before the cluster can be called usable?
@@ -3301,11 +3301,11 @@ Healthy endpoints do not establish a healthy end-to-end communication path. Foll
 
 **The next problem:** The cluster also needs durable data and recoverable progress. What survives when an interruption stops the job?
 
-Continue in **Storage, orchestration and recovery**: Storage is a traffic and state system.
+Continue in **Storage and recovery**: Storage is a traffic and state system.
 
 ## Storage is a traffic and state system
 
-**11. Storage, orchestration and recovery · Authored draft**
+**11. Storage and recovery · Authored draft**
 
 Separate dataset, cache and checkpoint paths, then model capacity, metadata and sustained throughput independently.
 
@@ -3343,7 +3343,7 @@ For a bulk transfer, compare the source’s ability to produce bytes, the host p
 
 ## Teaching model: follow bytes through the whole path
 
-The slide exercise fixes one prepared-byte boundary and a GPU demand of 12 GB/s. Source storage can deliver 16 GB/s, the network 24 GB/s and host preparation initially 8 GB/s. With overlapped stages and enough buffering, the host limits supply to 8 GB/s, so the GPU can receive only two-thirds of its demanded input rate. Raising host preparation to 20 GB/s moves the upstream limit to the 16 GB/s source, which can now meet the 12 GB/s demand. This is an input-supply account, not a measurement of a particular accelerator. If decoding changes byte size, convert each stage to the same batch or prepared-byte boundary before comparing rates.
+This reading example fixes one prepared-byte boundary and a GPU demand of 12 GB/s. Source storage can deliver 16 GB/s, the network 24 GB/s and host preparation initially 8 GB/s. With overlapped stages and enough buffering, the host limits supply to 8 GB/s, so the GPU can receive only two-thirds of its demanded input rate. Raising host preparation to 20 GB/s moves the upstream limit to the 16 GB/s source, which can now meet the 12 GB/s demand. This is an input-supply account, not a measurement of a particular accelerator. If decoding changes byte size, convert each stage to the same batch or prepared-byte boundary before comparing rates.
 
 The checkpoint exercise keeps 512 GB fixed while changing 4,096 shards into 65,536. At 1,024 serialized setup operations per second, setup grows from 4 to 64 seconds. A 16 GB/s payload path still transfers the data in 32 seconds, followed by a two-second commit: the total grows from 38 to 98 seconds. With the original shard count, raising source staging to 32 GB/s instead moves the payload bottleneck to the 20 GB/s backend, giving 4 + 25.6 + 2 = 31.6 seconds. These phases and ordering are the exercise inputs; other storage implementations can overlap or batch their metadata work.
 
@@ -3406,7 +3406,7 @@ The network can sustain 24 GB/s, but the backend cannot. Fixed metadata and comm
 
 ## Count preserved progress, lost progress and recovery
 
-**11. Storage, orchestration and recovery · Authored draft**
+**11. Storage and recovery · Authored draft**
 
 Compare explicit failure timelines and explain why asynchronous saving and replicated storage do not eliminate recovery design.
 
@@ -3442,7 +3442,7 @@ The Llama 3 report describes 466 interruptions during a 54-day training snapshot
 
 ## Account for the energy spent recovering
 
-The slides reuse the explicit failure-at-minute-35 timeline and assign the job 1 MW during computation, 0.8 MW during checkpoint pauses and 0.4 MW during restoration. Power is held constant within each stage, so its energy is power multiplied by duration. The 20-minute policy spends 1 MWh on the final 60 useful minutes, 13/60 MWh on computation that the failure discards, 0.8 × 4/60 MWh on saving and 0.4 × 5/60 MWh on restoration: about 1.303 MWh in total. The 40-minute policy spends about 1.643 MWh, including 35 minutes of discarded computation and two minutes saving. This account covers the stated job power; it is not a facility PUE or campus demand measurement.
+The slides compare the energy spent repeating computation at 1 MW. This fuller reading example uses the failure-at-minute-35 timeline and assigns the job 1 MW during computation, 0.8 MW during checkpoint pauses and 0.4 MW during restoration. Power is held constant within each stage, so its energy is power multiplied by duration. The 20-minute policy spends 1 MWh on the final 60 useful minutes, 13/60 MWh on computation that the failure discards, 0.8 × 4/60 MWh on saving and 0.4 × 5/60 MWh on restoration: about 1.303 MWh in total. The 40-minute policy spends about 1.643 MWh, including 35 minutes of discarded computation and two minutes saving. This account covers the stated job power; it is not a facility PUE or campus demand measurement.
 
 ## Worked example: Two policies face one failure at minute 35
 
@@ -3499,7 +3499,7 @@ A loses 11 unsaved minutes while B loses 13, but A spent two additional minutes 
 
 ## Turn installed hardware into an accepted service
 
-**11. Storage, orchestration and recovery · Authored draft**
+**11. Storage and recovery · Authored draft**
 
 Connect scheduling, provisioning, isolation and observability to a reproducible end-to-end acceptance exercise.
 
@@ -3519,7 +3519,7 @@ Isolation controls what an allocation may consume and access. Resource accountin
 
 ## A faster read can lose to a longer allocation wait
 
-For the slide comparison, both candidate placements can read the same committed 512 GB checkpoint and use the same validated software. A data-local allocation reads at 32 GB/s; an immediately available remote allocation reads at 8 GB/s. Each then has the same 12 seconds of setup in the modeled recovery path. The local read saves 48 seconds, but a 30-second allocation wait consumes some of that advantage: local readiness is 30 + 12 + 16 = 58 seconds, versus 12 + 64 = 76 seconds remotely. When the local allocation wait grows to 90 seconds, its total becomes 118 seconds, and remote recovery wins. Neither option is accepted until the restored job produces the required correct output.
+In this reading comparison, both candidate placements can read the same committed 512 GB checkpoint and use the same validated software. A data-local allocation reads at 32 GB/s; an immediately available remote allocation reads at 8 GB/s. Each then has the same 12 seconds of setup in the modeled recovery path. The local read saves 48 seconds, but a 30-second allocation wait consumes some of that advantage: local readiness is 30 + 12 + 16 = 58 seconds, versus 12 + 64 = 76 seconds remotely. When the local allocation wait grows to 90 seconds, its total becomes 118 seconds, and remote recovery wins. Neither option is accepted until the restored job produces the required correct output.
 
 ## Test a chain that ends in correct output
 

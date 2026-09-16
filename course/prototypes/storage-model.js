@@ -61,8 +61,8 @@ export function flexibleSchedule({deadlineHour=20,eventStart=14,eventEnd=16,work
  return {segments,finishHour,meetsDeadline:finishHour<=deadlineHour,eventOverlapHours,eventPeakMW:baseMW+(eventOverlapHours>0?jobMW:0),laterPeakMW:baseMW+(segments.some(s=>s.end>eventEnd)?jobMW:0),jobMWh:workHours*jobMW,slackHours:deadlineHour-finishHour};
 }
 export const recoveryChoices={
- newest:{correct:false,text:'Checkpoint 43 is missing a shard. Faster allocation cannot make that state complete.'},
+ newest:{correct:false,text:'Checkpoint 43 is incomplete. Faster allocation cannot make that state complete.'},
  split:{correct:false,text:'Checkpoint 42 is usable, but two nodes in each group do not meet the four-node placement requirement.'},
- restore:{correct:true,text:'Reserve all four nodes in Group A, load committed checkpoint 42, validate the shared environment, then check the first correct new output.'},
+ restore:{correct:true,text:'Reserve all four nodes in Group A, load complete checkpoint 42, validate the shared environment, then check the first correct new output.'},
  cache:{correct:false,text:'The failed node and its local copy are unavailable. A fast local write did not create an independent, complete recovery point.'},
 };

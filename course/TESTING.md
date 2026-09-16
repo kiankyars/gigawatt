@@ -1930,3 +1930,14 @@ comparison. Chapter 9 now has 15 slides; Chapter 10 remains at 24. The rack-bus
 comparison and both SST supply paths are unchanged. Targeted scene/render tests,
 generated-page checks and staging passed. No fresh in-browser layout check is
 claimed.
+
+
+## Chapter 11 storage and recovery condensed — 2026-09-16
+
+The teaching deck is reduced from 27 to 12 scenes and renamed **Storage and recovery**. It opens with Llama 3 interruptions; keeps Meta RSC, Gmail and Google cases; merges tray repair with the recovery sequence; merges checkpoint timing with the energy spent repeating computation; and closes with one recovery decision. Detailed metadata, staging, checkpoint internals and provisioning remain in the reader.
+
+- All 253 JavaScript tests and 80 Python tests pass. Existing storage model tests remain; new checks cover incomplete/local/independent saves and synchronization of repeated-work energy with failure timing.
+- Course, expanded reader, domain map and research metadata checks pass; staging and `git diff --check` pass.
+- Built-in browser: all 12 scenes checked at 1280 × 720 and 390 × 844, without horizontal overflow. Real case images load. Mobile controls remain reachable by scrolling.
+- Visually inspected opening, checkpoint-survival, merged repair, merged timing/energy, Google case and the revealed closing answer. Browser interaction confirmed failure-at-55 results, selection of the surviving shared checkpoint, and the closing answer/reveal. No browser console warnings or errors observed.
+- This verifies implementation and rendering. Chapter 11 remains awaiting the author's acceptance.
