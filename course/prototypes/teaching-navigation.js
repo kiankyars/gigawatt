@@ -12,7 +12,8 @@ export const presentationLabels = Object.freeze({
   "networking": "9. Networking and interconnects",
   "storage": "10. Storage, orchestration and recovery",
   "cooling": "11–12. From the chip to the outdoors",
-  "procurement-cases": "13. Design, procurement and commissioning"
+  "procurement-cases": "13. Design, procurement and commissioning",
+  "operations": "14. Controls, operations and reliability"
 });
 export const presentationRoutes = Object.freeze([
   {
@@ -119,7 +120,16 @@ export const presentationRoutes = Object.freeze([
     "next": {
       "number": 14,
       "title": "Controls, operations and reliability",
-      "href": "../index.html#d14-telemetry-and-observability",
+      "href": "operations-format.html?teach=1",
+      "kind": "slides"
+    }
+  },
+  {
+    "path": "operations-format.html",
+    "next": {
+      "number": 15,
+      "title": "Capacity, cost and system decisions",
+      "href": "../index.html#d15-capacity-ledger",
       "kind": "reading"
     }
   }

@@ -1763,3 +1763,33 @@ was used to inspect the changed slides at 1280 × 720 and check their layouts at
 heat; the native caption fits the green panel. The compact SVG uses the full
 available width and the affected slides have no horizontal overflow. The
 viewport override was reset. No browser software was installed.
+
+## Chapter 14 operations and approved redundancy cuts — 2026-09-16
+
+Removed the repeated Chapter 8 rear-busbar, Chapter 9 TPU inventory and Chapter 13
+Polaris phase slides. Their old fragments route to the surviving rack anatomy,
+optical circuits and accepted-paths scenes. The retired Compute rack-interface
+link also targets the surviving anatomy directly. Counts are now 32, 22 and 26.
+All three old fragments and both optical circuit states were checked in the
+built-in browser.
+
+Chapter 14 adds 22 slides covering D14.1–D14.5. Eight model/render tests cover
+measurement freshness, physical readiness, the time-aligned heat balance,
+thermal allowance, maintenance dependencies, interval unions and diagnostic
+evidence. All 250 Node and 80 Python tests pass. Course, reader, domain-map and
+research freshness checks, staging and whitespace checks pass.
+
+Built-in-browser checks covered every new slide at 1280 × 720 and 390 × 844.
+Desktop content fits above the footer; phone content scrolls without horizontal
+overflow. Source images load and fit. Checks exercised fresh measurements,
+independent flow, proven readiness, the longer delay, delayed load admission,
+shared-control isolation, corrected mapping, common configuration failure,
+incident evidence and the final evidence selection/answer reveal. The shared
+navigation reaches Chapter 14 from Chapter 13, then Chapter 15's reader.
+Presenter integration uses the existing shared shell and passing protocol tests;
+no separate live popup was reverified in this pass.
+
+Independent primary-source review checked Google cooling authority/cadence,
+Cloudflare's tested HA portion versus whole-facility boundary, and the distinct
+Google London and Cloudflare recovery endpoints. Real Google source imagery is
+credited and hash-recorded; it is not attributed to the London outage site.

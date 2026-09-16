@@ -24,6 +24,8 @@ test('collective scope keeps the shared result and timing consequence, with old 
  assert.equal(scenes[resolveNetworkingScene('ring-collective')].id,'all-reduce');
  assert.equal(scenes[resolveNetworkingScene('collective-time')].id,'collective-time');
  assert.equal(resolveNetworkingScene('missing-slide'),0);
+ assert.ok(!scenes.some(s=>s.id==='tpu-interconnect'));
+ assert.equal(scenes[resolveNetworkingScene('tpu-interconnect')].id,'optical-circuits');
  const allreduce=networkingVisual('all-reduce',initialState);
  for(const [i,value]of[2,5,7].entries())assert.match(allreduce,new RegExp(`GPU ${i+1}: contribution ${value}`));
  assert.equal((allreduce.match(/combined result 14/g)||[]).length,3);

@@ -1,0 +1,43 @@
+{
+  "retrieved_on": "2026-09-16",
+  "assets": [
+    {
+      "file": "operations-google-cooling-facility.jpg",
+      "source_image_url": "https://lh3.googleusercontent.com/30KdrIkAPkt4VxzqGEfw5ugOHg03N7N7NPCVniJ9vS2QLMaa29UtdwOluNYodhd4HzpzGbsWTuaM4Ld4kxsJYtJC6mMnL4ZWznGog2m19q2ZbxC2=w1440-h810-n-nu",
+      "source_page": "https://deepmind.google/blog/safety-first-ai-for-autonomous-data-centre-cooling-and-industrial-control/",
+      "publisher": "Google / Google DeepMind",
+      "published_on": "2018-08-17",
+      "caption": "Google data center, pictured in DeepMind’s August 2018 cooling-control article.",
+      "alt": "Rows of server racks beneath overhead pipes, cable trays and steel roof structure in a Google data center.",
+      "scope": "Genuine publisher facility photograph. Exact site and capture date are not identified by the article; do not call it the London outage site or claim which cooling controller is visible.",
+      "width": 1244,
+      "height": 700,
+      "format": "jpeg",
+      "bytes": 263835,
+      "sha256": "8ef8254d0c8bc8b132a6ba96f154f89334319092b9e2f06b474a8e310a71d97e",
+      "retrieved_on": "2026-09-16",
+      "visually_reviewed_on": "2026-09-16",
+      "modifications": "None; original publisher-served bytes retained.",
+      "rights_basis": "Copyrighted publisher image reused for attributed teaching commentary. No independent open license asserted."
+    },
+    {
+      "file": "operations-google-local-verification.jpg",
+      "source_image_url": "https://lh3.googleusercontent.com/iN32ajXdFb8a4Q-Rj7efUkmLL27f0fgKA0xwzJbEQNfzC7zSzWbO4yzITRvEKdBqw6M8W_pSaoHcfDYRFEaakT0_Ss2fI_PfINNIrax1DrfogN8dyuQ=w1440",
+      "source_page": "https://deepmind.google/blog/safety-first-ai-for-autonomous-data-centre-cooling-and-industrial-control/",
+      "publisher": "Google DeepMind",
+      "published_on": "2018-08-17",
+      "caption": "Google DeepMind’s local verification step, August 2018.",
+      "alt": "DeepMind diagram shows proposed actions returning to the physical data center, checked locally before implementation, with operating data feeding back to the controller.",
+      "scope": "Original published conceptual diagram, step 4 of the control sequence. It is not an as-built wiring diagram or a guarantee that all possible unsafe actions are excluded.",
+      "width": 950,
+      "height": 534,
+      "format": "jpeg",
+      "bytes": 51430,
+      "sha256": "cf16bfe05deb71a3bf957ec5c6163654f9a9946cf817dd7bfa6d1505b40c671f",
+      "retrieved_on": "2026-09-16",
+      "visually_reviewed_on": "2026-09-16",
+      "modifications": "None; original publisher-served bytes retained.",
+      "rights_basis": "Copyrighted publisher image reused for attributed teaching commentary. No independent open license asserted."
+    }
+  ]
+}

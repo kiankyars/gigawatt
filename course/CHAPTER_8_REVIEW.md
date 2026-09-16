@@ -84,3 +84,11 @@ This closes the downward-power-step follow-up; Chapter 8 now has 32 slides.
 There are now 33 slides. The former slide 12 and later slides move forward by one;
 all existing scene links remain stable. Redundancy recommendations are recorded
 in [the course review](COURSE_REVIEW.md#remaining-course-redundancy-review--16-september-2026).
+
+## Approved redundancy cut — 16 September 2026
+
+Removed the separate rear-busbar stop already taught in Chapter 2. Its old link
+opens the rack-anatomy slide, whose notes retain the brief local-bus reminder.
+The following supply path still shows the voltage conversion in context.
+The chapter is back to 32 slides; the new VRM illustration and all September 16
+image/layout changes remain intact.

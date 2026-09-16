@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {deliverySchedule,modularSchedule,rackInterfaces,releaseHolds,acceptedPaths} from '../course/prototypes/procurement-model.js';
-import {scenes,initialState} from '../course/prototypes/procurement-cases-scenes.js';
+import {scenes,initialState,resolveProcurementScene} from '../course/prototypes/procurement-cases-scenes.js';
 import {procurementVisual} from '../course/prototypes/procurement-visuals.js';
 
 const near=(actual,expected,message)=>assert.ok(Math.abs(actual-expected)<1e-9,message||`${actual} ≈ ${expected}`);
@@ -139,4 +139,11 @@ test('every procurement scene and control state renders with existing photograph
  }
  assert.ok(assets.size>=2,'the chapter retains multiple real case-study photographs');
  assert.throws(()=>procurementVisual('missing-scene',initialState),/Unknown procurement scene/);
+});
+
+test('retired Polaris links open the complete-path application',()=>{
+ assert.ok(!scenes.some(scene=>scene.id==='polaris-phases'));
+ assert.equal(scenes[resolveProcurementScene('polaris-phases')].id,'accepted-paths');
+ assert.equal(scenes[resolveProcurementScene('release-decision')].id,'release-decision');
+ assert.equal(resolveProcurementScene('unknown'),0);
 });

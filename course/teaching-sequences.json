@@ -137,6 +137,17 @@
           "coverage": "chapter"
         }
       ]
+    },
+    {
+      "id": "operations",
+      "title": "Controls, operations and reliability",
+      "chapters": [
+        {
+          "id": "D14",
+          "href": "prototypes/operations-format.html?teach=1",
+          "coverage": "chapter"
+        }
+      ]
     }
   ]
 }

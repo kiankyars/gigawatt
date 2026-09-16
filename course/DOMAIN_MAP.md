@@ -1715,6 +1715,10 @@ Convert a failure or capacity incident into an evidence-based recovery and preve
 - [P92 — Resiliency at Scale: Managing Google’s TPUv4 Machine Learning Supercomputer](https://www.usenix.org/system/files/nsdi24-zu.pdf) · `page_reviewed` · [local note](../research/sources/P92.md)
 - [P120 — Microsoft — Fairwater Atlanta availability and power design](https://blogs.microsoft.com/blog/2025/11/12/infinite-scale-the-architecture-behind-the-azure-ai-superfactory/) · `page_reviewed` · [local note](../research/sources/P120.md)
 - [P121 — NTT DATA — Vienna 1 facility and power SLA](https://services.global.ntt/-/media/ntt/global/insights-and-resources/data-sheets/vienna-1-data-sheet.pdf?rev=9057842951194cb1b9d1cf884282f421) · `page_reviewed` · [local note](../research/sources/P121.md)
+- [P204 — Google DeepMind — Safety-first AI for autonomous data centre cooling and industrial control](https://deepmind.google/blog/safety-first-ai-for-autonomous-data-centre-cooling-and-industrial-control/) · `page_reviewed` · [local note](../research/sources/P204.md)
+- [P205 — Cloudflare — Post mortem on the Cloudflare Control Plane and Analytics Outage](https://blog.cloudflare.com/post-mortem-on-cloudflare-control-plane-and-analytics-outage/) · `page_reviewed` · [local note](../research/sources/P205.md)
+- [P206 — Cloudflare — Major data center power failure (again): Cloudflare Code Orange tested](https://blog.cloudflare.com/major-data-center-power-failure-again-cloudflare-code-orange-tested/) · `page_reviewed` · [local note](../research/sources/P206.md)
+- [P207 — Google Cloud — July 2022 europe-west2 cooling incident report](https://status.cloud.google.com/incidents/fmEL9i2fArADKawkZAa2) · `page_reviewed` · [local note](../research/sources/P207.md)
 
 <a id="d15"></a>
 

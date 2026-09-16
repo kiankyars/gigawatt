@@ -102,6 +102,7 @@ Each topic ends with a check-in: pause, make a prediction, compare the reasoning
 
 ### 14. Controls, operations and reliability
 
+- Slides: [Controls, operations and reliability](prototypes/operations-format.html?teach=1)
 - [A believable number can describe the wrong thing](lessons/d14-telemetry-and-observability.md) — How do we distinguish a real cooling constraint from a measurement problem?
 - [The scheduler cannot negotiate with physics after the fact](lessons/d14-coordinating-control-and-work.md) — How should a workload change relate to equipment control and facility operating sequences?
 - [Measure the service, investigate the incident](lessons/d14-maintenance-and-service-reliability.md) — Why do equipment uptime and a redundant topology fail to determine useful-service availability?
@@ -4659,6 +4660,12 @@ Overly aggressive reactions can also create interaction between layers. If a wor
 
 After a change, observe whether the intended state was achieved and whether service stayed within its requirement. Preserve the sequence of commands, measured responses and job behavior. If the expected transition does not occur, the record should make the difference visible. That feedback connects commissioning with operation: a new workload or control revision can create behavior not exercised in the original accepted configuration.
 
+## Case: Google checks the optimizer at the local controller
+
+In its August 2018 account, DeepMind described a cooling optimizer that evaluated sensor snapshots every five minutes. Proposed actions had to satisfy operator-defined constraints and pass another check locally before execution. Operators could return control to the existing on-site rules. That is a concrete separation between optimization, local enforcement and human authority; the five-minute interval is not a protective-response deadline.
+
+For our campus discussion, ask which measurements authorize a change, where an instruction can be rejected, and how the operator verifies the resulting state. The historical Google case supplies a control pattern, not an as-built Abilene implementation.
+
 ## Worked example: A two-minute transition consumes most of the stated buffer
 
 - Synthetic step to 6 MW heat input; active removal is 5 MW.
@@ -4708,6 +4715,7 @@ The smaller half-megawatt mismatch more than compensates for the longer delay in
 
 - [NIST SP 800-82 Revision 3: OT Security](https://csrc.nist.gov/pubs/sp/800/82/r3/final) — OT includes physical-process monitoring and control and must account for reliability and performance needs. Read 2026-09-06. Abstract scope reviewed; no detailed control tuning or security configuration is inferred. All timing and buffer values are original stipulated inputs.
 - [Google SRE: Monitoring Distributed Systems](https://sre.google/sre-book/monitoring-distributed-systems/) — Monitoring should connect system behavior with externally visible service. Read 2026-09-06. Selected conceptual discussion reviewed; the plant/scheduler scenario is an original cross-domain teaching example.
+- [Google DeepMind — Safety-first AI for autonomous data centre cooling and industrial control](https://deepmind.google/blog/safety-first-ai-for-autonomous-data-centre-cooling-and-industrial-control/) — Every five minutes, a supervisory AI evaluates sensor snapshots and proposed cooling actions. Low-confidence actions are excluded. The cloud evaluates operator-defined constraints; the local system independently checks instructions before implementation. Operators can exit to existing on-site rules. Read 2026-09-16. Historical operator account, not a current implementation claim or a formal safety proof. Five minutes is the supervisory evaluation cadence, not actuator latency or protective response time. Any numeric temperature limits in teaching interactions are original examples. Do not imply 30% lower whole-facility energy; the article compares cooling efficiency with a historical baseline.
 
 ## Measure the service, investigate the incident
 
@@ -4740,6 +4748,20 @@ Consider an original timeline: a configuration changes at 10:00, alarms appear a
 Preserve evidence that distinguishes alternatives: the affected configuration and scope, telemetry quality, equipment states, job behavior and the timing of recovery actions. A useful corrective action names a mechanism, an owner and a way to verify the improvement. Rewriting an instruction is different from testing that a common failure path has been removed. Training is different from proving the system now constrains the same erroneous action.
 
 Google’s postmortem guidance emphasizes learning rather than assigning personal blame. In the course, that becomes a practical standard for explanations: describe the conditions that allowed an action or failure to propagate, and specify what evidence would demonstrate prevention or reduced impact. Maintain an honest unresolved section when the cause remains uncertain. A confident but unsupported story can make the next incident harder to diagnose by teaching the organization to look in the wrong place.
+
+## Case: Cloudflare tested less than the failure removed
+
+Cloudflare’s November 2023 account identifies a gap between testing the high-availability portion of PDX-04 and losing the entire PDX-04 facility. Some application dependencies existed only at the failed site. Edge traffic continued, while control-plane and analytics services were disrupted. A useful test record therefore names the removed facility functions and the user-facing service that was observed, rather than merely recording that failover passed.
+
+## Case: A repeated failure tests the corrective work
+
+Cloudflare subsequently added capacity, changed failover behavior and tested a full-facility cut. During the March 26, 2024 power failure, APIs and dashboards were operating normally seven minutes after power loss, without manual intervention. Analytics recovered later. The comparison shows why corrective actions need a defined verification endpoint: API recovery, analytics recovery and a complete facility cold start measure different outcomes.
+
+## Case: Cooling recovery is not service recovery
+
+Google’s final July 2022 europe-west2 incident summary separates a cooling repair at 14:13 PDT on July 19 from initial cloud-service restoration at 04:28 PDT on July 20: another 14 hours 15 minutes. Some residual recovery continued beyond that milestone. The response also briefly widened the disruption through a routing change that avoided three zones rather than the affected one.
+
+When reviewing such an incident, distinguish the physical repair, configuration scope and application restart dependencies. An operating plan must verify the service after the infrastructure returns, and an incident timeline must retain the remaining exceptions.
 
 ## Worked example: A service-time denominator with overlapping incidents
 
@@ -4792,6 +4814,9 @@ Power availability is a different indicator. The service failed its stated laten
 - [Management and Operations Guideline](https://uptimeinstitute.com/professional-services/management-operations/mando-criteria) — Maintenance tracking, staffing and incident learning are operational concerns beyond equipment topology. Read 2026-09-06. Selected category descriptions reviewed; no proprietary assessment or complete procedure is reproduced.
 - [Google SRE: Service Level Objectives](https://sre.google/sre-book/service-level-objectives/) — Service indicators and objectives need explicitly defined measurements. Read 2026-09-06. Selected metric-boundary discussion reviewed; the availability example is original.
 - [Google SRE: Postmortem Culture](https://sre.google/sre-book/postmortem-culture/) — Incident review is intended to support learning and improvement rather than blame. Read 2026-09-06. Selected postmortem principles inspected; timeline and proposed evidence questions are original.
+- [Cloudflare — Post mortem on the Cloudflare Control Plane and Analytics Outage](https://blog.cloudflare.com/post-mortem-on-cloudflare-control-plane-and-analytics-outage/) — A November 2, 2023 facility power failure disrupted control-plane and analytics services. Cloudflare reports undiscovered facility dependencies and a test scope that covered the high-availability portion of PDX-04 rather than the entire PDX-04 facility. Most control-plane service returned at the disaster-recovery facility at 17:57 UTC on November 2. Read 2026-09-16. Use Cloudflare’s own application, monitoring and test-scope observations. Its reconstruction of the utility/generator chain expressly includes unconfirmed hypotheses; do not present the DSG program or grid-maintenance causation as established. The article’s opening has 11:43/11:44 start-time variation, so avoid minute-exact before/after ratios. General network traffic was not equivalent to the affected control-plane service.
+- [Cloudflare — Major data center power failure (again): Cloudflare Code Orange tested](https://blog.cloudflare.com/major-data-center-power-failure-again-cloudflare-code-orange-tested/) — After capacity expansion and failover changes, Cloudflare ran a facility cut test in February 2024. A March 26 power failure began at 14:58 UTC; APIs and dashboards operated normally by 15:05 without human intervention. Analytics required longer recovery. Read 2026-09-16. Compare the defined API/dashboard endpoint; do not say every service recovered in seven minutes. The article reports approximately 72 versus 10 hours for facility cold starts, a different endpoint from API availability. Breaker-setting causation is a reported initial assessment, not an independently verified final RCA. PDX01 is the same facility discussed in the November account using the earlier PDX-04 name.
+- [Google Cloud — July 2022 europe-west2 cooling incident report](https://status.cloud.google.com/incidents/fmEL9i2fArADKawkZAa2) — During extreme heat, simultaneous cooling failures affected part of europe-west2-a on July 19, 2022. The final report’s summary gives shutdown at 10:05 PDT, cooling repair at 14:13, and initial cloud-service restoration at 04:28 PDT July 20. Recovery work therefore continued for 14 hours 15 minutes after cooling returned. An incorrect routing change initially avoided all three zones rather than the affected zone. Read 2026-09-16. Use the final July 29 summary, not the superseded July 21 preliminary timings. These are reported milestone endpoints, not a uniform downtime for every customer; small residual issues required longer recovery. The per-product detail includes additional dates beyond the summary, so do not equate its aggregate endpoint with every final manual cleanup. No public London-site photograph is identified here; the DeepMind photo must not be labeled as this outage site.
 
 ## Check your understanding: One reassuring number
 

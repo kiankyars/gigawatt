@@ -180,7 +180,7 @@ class TeachingCatalogTests(unittest.TestCase):
         self.assertEqual(chapters["D13"]["number"], 13)
         self.assertEqual(chapters["capstone"]["number"], 16)
         self.assertEqual(
-            len({p["id"] for c in chapters.values() for p in c["presentations"]}), 12
+            len({p["id"] for c in chapters.values() for p in c["presentations"]}), 13
         )
         for did in ("D10", "D11"):
             with self.subTest(chapter=did):
@@ -205,7 +205,7 @@ class TeachingCatalogTests(unittest.TestCase):
         self.assertEqual(chapters["D04"]["presentations"][0]["coverage"], "chapter")
         self.assertEqual(chapters["D03"]["presentations"][0]["coverage"], "chapter")
         self.assertEqual(chapters["D03"]["presentations"][0]["href"], "prototypes/siting-format.html?teach=1")
-        for did, deck in (("D05", "continuity"), ("D06", "rack-energy"), ("D09", "storage")):
+        for did, deck in (("D05", "continuity"), ("D06", "rack-energy"), ("D09", "storage"), ("D14", "operations")):
             with self.subTest(chapter=did):
                 self.assertEqual(len(chapters[did]["presentations"]), 1)
                 presentation = chapters[did]["presentations"][0]

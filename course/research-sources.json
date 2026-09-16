@@ -4849,6 +4849,66 @@
       ],
       "use": "Interleaved switched inductor paths share current and reduce summed ripple; output capacitors support remaining current differences.",
       "caution": "2012 application article; illustrative 1,000 A teaching traces are not device measurements, and multiple phases do not independently establish redundancy."
+    },
+    {
+      "id": "P204",
+      "title": "Google DeepMind — Safety-first AI for autonomous data centre cooling and industrial control",
+      "url": "https://deepmind.google/blog/safety-first-ai-for-autonomous-data-centre-cooling-and-industrial-control/",
+      "publisher": "Google DeepMind",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-16",
+      "published_on": "2018-08-17",
+      "domains": [
+        "D14"
+      ],
+      "use": "Every five minutes, a supervisory AI evaluates sensor snapshots and proposed cooling actions. Low-confidence actions are excluded. The cloud evaluates operator-defined constraints; the local system independently checks instructions before implementation. Operators can exit to existing on-site rules.",
+      "caution": "Historical operator account, not a current implementation claim or a formal safety proof. Five minutes is the supervisory evaluation cadence, not actuator latency or protective response time. Any numeric temperature limits in teaching interactions are original examples. Do not imply 30% lower whole-facility energy; the article compares cooling efficiency with a historical baseline."
+    },
+    {
+      "id": "P205",
+      "title": "Cloudflare — Post mortem on the Cloudflare Control Plane and Analytics Outage",
+      "url": "https://blog.cloudflare.com/post-mortem-on-cloudflare-control-plane-and-analytics-outage/",
+      "publisher": "Cloudflare",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-16",
+      "published_on": "2023-11-04",
+      "domains": [
+        "D14"
+      ],
+      "use": "A November 2, 2023 facility power failure disrupted control-plane and analytics services. Cloudflare reports undiscovered facility dependencies and a test scope that covered the high-availability portion of PDX-04 rather than the entire PDX-04 facility. Most control-plane service returned at the disaster-recovery facility at 17:57 UTC on November 2.",
+      "caution": "Use Cloudflare’s own application, monitoring and test-scope observations. Its reconstruction of the utility/generator chain expressly includes unconfirmed hypotheses; do not present the DSG program or grid-maintenance causation as established. The article’s opening has 11:43/11:44 start-time variation, so avoid minute-exact before/after ratios. General network traffic was not equivalent to the affected control-plane service."
+    },
+    {
+      "id": "P206",
+      "title": "Cloudflare — Major data center power failure (again): Cloudflare Code Orange tested",
+      "url": "https://blog.cloudflare.com/major-data-center-power-failure-again-cloudflare-code-orange-tested/",
+      "publisher": "Cloudflare",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-16",
+      "published_on": "2024-04-08",
+      "domains": [
+        "D14"
+      ],
+      "use": "After capacity expansion and failover changes, Cloudflare ran a facility cut test in February 2024. A March 26 power failure began at 14:58 UTC; APIs and dashboards operated normally by 15:05 without human intervention. Analytics required longer recovery.",
+      "caution": "Compare the defined API/dashboard endpoint; do not say every service recovered in seven minutes. The article reports approximately 72 versus 10 hours for facility cold starts, a different endpoint from API availability. Breaker-setting causation is a reported initial assessment, not an independently verified final RCA. PDX01 is the same facility discussed in the November account using the earlier PDX-04 name."
+    },
+    {
+      "id": "P207",
+      "title": "Google Cloud — July 2022 europe-west2 cooling incident report",
+      "url": "https://status.cloud.google.com/incidents/fmEL9i2fArADKawkZAa2",
+      "publisher": "Google Cloud",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-16",
+      "published_on": "2022-07-29",
+      "domains": [
+        "D14"
+      ],
+      "use": "During extreme heat, simultaneous cooling failures affected part of europe-west2-a on July 19, 2022. The final report’s summary gives shutdown at 10:05 PDT, cooling repair at 14:13, and initial cloud-service restoration at 04:28 PDT July 20. Recovery work therefore continued for 14 hours 15 minutes after cooling returned. An incorrect routing change initially avoided all three zones rather than the affected zone.",
+      "caution": "Use the final July 29 summary, not the superseded July 21 preliminary timings. These are reported milestone endpoints, not a uniform downtime for every customer; small residual issues required longer recovery. The per-product detail includes additional dates beyond the summary, so do not equate its aggregate endpoint with every final manual cleanup. No public London-site photograph is identified here; the DeepMind photo must not be labeled as this outage site."
     }
   ],
   "local_attributions": [

@@ -129,7 +129,8 @@ two electrical functions.
 just before fabrication. The following electrical, hydraulic and spatial slides
 feed `release-holds` and `approval-delay`: what proceeds, what is held, and what
 evidence releases each hold. Factory, site and integrated tests lead into
-Polaris phased delivery, complete accepted paths and operator handover. The
+complete accepted paths and operator handover. The Polaris milestone recap was
+removed because Chapter 4 already teaches it. The
 closing `release-decision` tests whether approved electrical and cooling designs
 are enough when geometry, transport and the factory slot remain unresolved.
 
@@ -317,3 +318,19 @@ for its function. Introduce busway before a tap-off; identify a jointly develope
 product's supplier and customer on the slide. Generic PDU illustrations describe
 functions, while named equipment provides specific input/output voltages. The
 closing breaker-failure example changes the outage boundary of two connected halls.
+
+## Controls, operations and reliability teaching sequence
+
+Chapter 14 starts with a hot rack and an apparently normal plant dashboard.
+The learner locates and timestamps measurements, reconciles a branch heat
+balance, and decides when a commanded cooling unit is ready for extra work.
+Maintenance cases then change the shared control supply and asset mapping.
+Google’s autonomous cooling controls, Cloudflare’s facility failures and retest,
+and Google London’s cooling outage connect those mechanisms to reported events.
+The closing exercise requires current local measurements, aligned power and
+configuration evidence before releasing more workload.
+
+All five D14 objectives are covered. Earlier electrical and thermal redundancy
+concepts are used to examine live configuration and service recovery, without
+repeating equipment definitions. Source limits and derivations remain in the
+reader and provenance records; the slides show the observations and decisions.

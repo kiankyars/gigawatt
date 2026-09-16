@@ -17,7 +17,7 @@ export const computeDestinations = Object.freeze({
   roofline: '../index.html#d07-bottleneck-model',
   'switched-rack': 'networking-format.html#three-scales',
   'model-placement': 'networking-format.html#shared-model',
-  'rack-interfaces': 'rack-energy-format.html#rear-busbar',
+  'rack-interfaces': 'rack-energy-format.html#rack-hardware-anatomy',
   'tray-repair': 'storage-format.html#tray-repair',
   'fault-placement': 'storage-format.html#recovery-placement',
   'recover-work': 'storage-format.html#recovery-path',

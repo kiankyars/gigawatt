@@ -32,6 +32,12 @@ Overly aggressive reactions can also create interaction between layers. If a wor
 
 After a change, observe whether the intended state was achieved and whether service stayed within its requirement. Preserve the sequence of commands, measured responses and job behavior. If the expected transition does not occur, the record should make the difference visible. That feedback connects commissioning with operation: a new workload or control revision can create behavior not exercised in the original accepted configuration.
 
+## Case: Google checks the optimizer at the local controller
+
+In its August 2018 account, DeepMind described a cooling optimizer that evaluated sensor snapshots every five minutes. Proposed actions had to satisfy operator-defined constraints and pass another check locally before execution. Operators could return control to the existing on-site rules. That is a concrete separation between optimization, local enforcement and human authority; the five-minute interval is not a protective-response deadline.
+
+For our campus discussion, ask which measurements authorize a change, where an instruction can be rejected, and how the operator verifies the resulting state. The historical Google case supplies a control pattern, not an as-built Abilene implementation.
+
 ## Worked example: A two-minute transition consumes most of the stated buffer
 
 - Synthetic step to 6 MW heat input; active removal is 5 MW.
@@ -81,3 +87,4 @@ The smaller half-megawatt mismatch more than compensates for the longer delay in
 
 - [NIST SP 800-82 Revision 3: OT Security](https://csrc.nist.gov/pubs/sp/800/82/r3/final) — OT includes physical-process monitoring and control and must account for reliability and performance needs. Read 2026-09-06. Abstract scope reviewed; no detailed control tuning or security configuration is inferred. All timing and buffer values are original stipulated inputs.
 - [Google SRE: Monitoring Distributed Systems](https://sre.google/sre-book/monitoring-distributed-systems/) — Monitoring should connect system behavior with externally visible service. Read 2026-09-06. Selected conceptual discussion reviewed; the plant/scheduler scenario is an original cross-domain teaching example.
+- [Google DeepMind — Safety-first AI for autonomous data centre cooling and industrial control](https://deepmind.google/blog/safety-first-ai-for-autonomous-data-centre-cooling-and-industrial-control/) — Every five minutes, a supervisory AI evaluates sensor snapshots and proposed cooling actions. Low-confidence actions are excluded. The cloud evaluates operator-defined constraints; the local system independently checks instructions before implementation. Operators can exit to existing on-site rules. Read 2026-09-16. Historical operator account, not a current implementation claim or a formal safety proof. Five minutes is the supervisory evaluation cadence, not actuator latency or protective response time. Any numeric temperature limits in teaching interactions are original examples. Do not imply 30% lower whole-facility energy; the article compares cooling efficiency with a historical baseline.

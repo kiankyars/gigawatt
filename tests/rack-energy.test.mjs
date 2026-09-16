@@ -44,9 +44,10 @@ test('chapter sequence preserves architecture order and routes retired foundatio
   const sample=JSON.parse(readFileSync(new URL('../course/expansion/sample-presentation.json',import.meta.url)));
   assert.equal(new Set(scenes.map(s=>s.id)).size,scenes.length);
   for(const sequence of [oldRackScenes,sample.steps]){
-    let previous=-1;for(const s of sequence.filter(s=>!sceneRedirects[s.id])){const index=scenes.findIndex(c=>c.id===s.id);assert.ok(index>previous,s.id);previous=index;}
+    let previous=-1;for(const s of sequence.filter(s=>!sceneRedirects[s.id]&&!aliases[s.id])){const index=scenes.findIndex(c=>c.id===s.id);assert.ok(index>previous,s.id);previous=index;}
   }
   for(const [alias,target] of Object.entries(sample.aliases))assert.equal(aliases[alias],target);
+  assert.equal(aliases['rear-busbar'],'rack-hardware-anatomy');assert.ok(!scenes.some(s=>s.id==='rear-busbar'));
   assert.equal(aliases['green-dc'],'green-zurich-west');assert.equal(aliases['green-path'],'green-zurich-west');
   for(const target of Object.values(aliases))assert.ok(scenes.some(s=>s.id===target));
   assert.deepEqual(sceneRedirects, {

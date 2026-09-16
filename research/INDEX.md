@@ -248,6 +248,10 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P201 — Cupertino Electric — Modular data centers](sources/P201.md) | Cupertino Electric | D03, D12, D13 | page_reviewed |
 | [P202 — Infineon — 200 W dual output 48V-to-PoL single step converter](sources/P202.md) | Infineon | D06 | page_reviewed |
 | [P203 — TI — Benefits of a multiphase buck converter](sources/P203.md) | Texas Instruments | D06 | page_reviewed |
+| [P204 — Google DeepMind — Safety-first AI for autonomous data centre cooling and industrial control](sources/P204.md) | Google DeepMind | D14 | page_reviewed |
+| [P205 — Cloudflare — Post mortem on the Cloudflare Control Plane and Analytics Outage](sources/P205.md) | Cloudflare | D14 | page_reviewed |
+| [P206 — Cloudflare — Major data center power failure (again): Cloudflare Code Orange tested](sources/P206.md) | Cloudflare | D14 | page_reviewed |
+| [P207 — Google Cloud — July 2022 europe-west2 cooling incident report](sources/P207.md) | Google Cloud | D14 | page_reviewed |
 | [P21 — Texas Instruments — TIDA-011012 modular solid-state transformer reference design](sources/P21.md) | Texas Instruments | D04, D06 | page_reviewed |
 | [P22 — Huber et al. — Comparative Evaluation of MVAC–LVDC SST and Hybrid Transformer Concepts for Future Datacenters (IPEC 2022)](sources/P22.md) | ETH Zurich, Delta Electronics and Paderborn University | D04, D06 | page_reviewed |
 | [P23 — Wolfspeed — Introduction of a commercially available 10 kV SiC power MOSFET](sources/P23.md) | Wolfspeed | D04, D06 | page_reviewed |

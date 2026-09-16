@@ -55,13 +55,17 @@ test('cooling continues to the complete delivery chapter at its opening slide', 
   assert.equal(link.href, 'http://localhost/course/prototypes/procurement-cases-format.html?teach=1');
 });
 
-test('the delivery chapter continues to the next chapter reading when its deck is unbuilt', () => {
+test('delivery opens operations, which continues to the next unbuilt chapter reading', () => {
   const module = 'http://localhost/course/prototypes/slide-navigation.js';
   const link = nextChapterLink('http://localhost/course/prototypes/procurement-cases-format.html?teach=1#aws-houdini-prefab', presentationRoutes, module);
   assert.equal(link.number, 14);
-  assert.equal(link.kind, 'reading');
-  assert.equal(new URL(link.href).pathname, '/course/index.html');
-  assert.ok(new URL(link.href).hash.startsWith('#d14-'));
+  assert.equal(link.kind, 'slides');
+  assert.equal(link.href, 'http://localhost/course/prototypes/operations-format.html?teach=1');
+  const next = nextChapterLink(link.href, presentationRoutes, module);
+  assert.equal(next.number, 15);
+  assert.equal(next.kind, 'reading');
+  assert.equal(new URL(next.href).pathname, '/course/index.html');
+  assert.ok(new URL(next.href).hash.startsWith('#d15-'));
 });
 
 test('networking advances to storage and storage advances to cooling', () => {

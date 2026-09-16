@@ -26,15 +26,14 @@ export const scenes=[
  {id:'all-reduce',label:'What an all-reduce returns',title:'Training GPUs combine results before the next update.',reference:collective,pedagogical_role:'mechanism'},
  {id:'collective-time',label:'Overlap computation and communication',title:'Overlap computation and communication.',reference:collective,pedagogical_role:'comparison',controls:[c('communicationMs','Exchange time',[[30,'30 ms'],[60,'60 ms']])]},
  {id:'ethernet-infiniband',label:'Ethernet and InfiniBand',title:'Meta built large AI clusters with both Ethernet and InfiniBand.',reference:collective,pedagogical_role:'case'},
- {id:'tpu-interconnect',label:'Google TPU v4',title:'TPU v4 connects 4,096 chips through a reconfigurable inter-chip network.',reference:collective,pedagogical_role:'case'},
- {id:'optical-circuits',label:'What an optical circuit switch changes',title:'An optical circuit switch changes which fiber endpoints connect.',reference:media,pedagogical_role:'mechanism',controls:[c('ocsPairing','Circuit configuration',[['straight','A ↔ C · B ↔ D'],['crossed','A ↔ D · B ↔ C']])]},
+ {id:'optical-circuits',label:'Google TPU v4: optical routing',title:'An optical circuit switch changes which fiber endpoints connect.',reference:media,pedagogical_role:'mechanism',controls:[c('ocsPairing','Circuit configuration',[['straight','A ↔ C · B ↔ D'],['crossed','A ↔ D · B ↔ C']])]},
  {id:'campus-fiber',label:'From the cluster to a carrier',title:'The campus fiber handoff connects the cluster to an external service.',reference:topology,pedagogical_role:'architecture'},
  {id:'distance-latency',label:'Distance remains in the budget',title:'A faster port cannot remove the propagation time between facilities.',reference:topology,pedagogical_role:'balance'},
  {id:'fabric-failure',label:'A degraded link delays the collective',title:'A fabric can remain connected while the training step gets slower.',reference:collective,pedagogical_role:'failure'},
  {id:'network-diagnosis',label:'Chapter 9 knowledge check',title:'Chapter 9 · Find the source of the collective delay',reference:collective,pedagogical_role:'transfer'},
  {id:'storage-handoff',label:'The network’s other traffic',title:'Dataset reads and checkpoints also use the network.',reference:topology,pedagogical_role:'transfer'},
 ];
-export const legacySceneAliases=Object.freeze({'ring-collective':'all-reduce'});
+export const legacySceneAliases=Object.freeze({'ring-collective':'all-reduce','tpu-interconnect':'optical-circuits'});
 export function resolveNetworkingScene(hash){
  const id=legacySceneAliases[hash]||hash;
  const index=scenes.findIndex(s=>s.id===id);

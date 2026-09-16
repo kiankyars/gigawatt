@@ -68,6 +68,12 @@ Chapter 4 uses `siting-format.html`, `siting-scenes.js`, `siting-visuals.js` and
 slides respectively, pending current validation. Shared presentation chrome is in
 `prototypes/slide-chrome.js` and `assets/slide-chrome.css`.
 
+Chapter 14 uses `operations-format.html` with `operations-scenes.js`,
+`operations-model.js`, `operations-visuals.js`, `operations-player.js` and
+`operations.css`. It builds operational decisions from measurement boundaries,
+control readiness, maintenance configuration and service incidents. The longer
+case accounts and source limits live in the D14 reader lessons.
+
 The new GPT visuals are in `assets/generated/`, with prompt JSON alongside them.
 The [image-request ledger](COURSE_REVIEW.md#image-request-accounting) records what
 was generated and why a few precise comparisons deliberately remain code-rendered.
