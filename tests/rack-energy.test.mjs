@@ -96,7 +96,8 @@ test('DC architecture motivates the supply equipment and preserves both rack-bus
   assert.match(supply,/Rectify first/);
   assert.match(supply,/solid-state transformer/);
   assert.match(supply,/high-frequency transformer/);
-  assert.match(supply,/Rectify \+ regulate/);
+  assert.match(supply,/rectify and regulate/);
+  assert.match(supply,/dc-step-down-or-rectify-first\.png/);
   assert.doesNotMatch(supply,/data-converter-view|Calculate the lost power/);
 });
 

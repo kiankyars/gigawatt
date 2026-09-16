@@ -1941,3 +1941,11 @@ The teaching deck is reduced from 27 to 12 scenes and renamed **Storage and reco
 - Built-in browser: all 12 scenes checked at 1280 × 720 and 390 × 844, without horizontal overflow. Real case images load. Mobile controls remain reachable by scrolling.
 - Visually inspected opening, checkpoint-survival, merged repair, merged timing/energy, Google case and the revealed closing answer. Browser interaction confirmed failure-at-55 results, selection of the surviving shared checkpoint, and the closing answer/reveal. No browser console warnings or errors observed.
 - This verifies implementation and rendering. Chapter 11 remains awaiting the author's acceptance.
+
+
+## Chapter 9 approval and Chapter 10 wording — 2026-09-16
+
+- Chapter 9 slide 10 uses the author's supplied transformer-first/SST image unchanged, with descriptive alternative text and the duplicated HTML title hidden. Chapter 9 is accepted on the author's explicit condition, now fulfilled.
+- Chapter 10 slide 6 uses the requested NVLink sentence and a short hardware–software co-design cue. The real DGX H100 fabric example now directly follows the adapter/switch slide (old slide 11 is now slide 8).
+- Built-in browser inspected the image and revised shared-model slide at 1280 × 720; navigation confirms the new order. Existing renderer/model tests cover the image and updated wording.
+- Narration checked against NVIDIA's August 2026 800 V DC roadmap and July 2026 Spectrum-6 announcement: the transformer-first route preserves established AC equipment; SST products exist but deployment prevalence is not established; pluggable and co-packaged optics coexist.

@@ -78,6 +78,15 @@
       "reviewed_at": "2026-09-16",
       "scope": "Conceptual conventional-AC versus upstream-rectified DC hall comparison. Rack DC/DC is condensed into the rack distribution block and explained on the preceding rack-bus slide. Diagram omits protection and backup interfaces; it is not an installation schematic.",
       "usage": "Retired from the teaching deck on 2026-09-16: the author preferred the three-column AC/sidecar/direct-MV diagram. Supplied image preserved."
+    },
+    {
+      "asset": "dc-step-down-or-rectify-first.png",
+      "origin": "User-supplied PNG copied unchanged.",
+      "original_filename": "codex-clipboard-a78aeb12-50ff-4fca-be38-1a5c97166405.png",
+      "original_sha256": "0bc55e6de9d4ceada2b0d31aa5205a7878c1330bf8b91e6682f240b30e29a94e",
+      "sha256": "0bc55e6de9d4ceada2b0d31aa5205a7878c1330bf8b91e6682f240b30e29a94e",
+      "reviewed_at": "2026-09-16",
+      "scope": "Conceptual medium-voltage AC to 800 V DC supply paths: conventional transformer-first conversion and rectifier-first solid-state transformer conversion with high-frequency isolation. No market-share or deployment-timeline claim is made by the diagram."
     }
   ]
 }
