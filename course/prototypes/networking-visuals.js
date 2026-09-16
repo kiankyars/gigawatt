@@ -32,14 +32,19 @@ function fabric(compact,placement=null){
  return svg(b,'Four leaf switches each attach four servers and connect to both spine switches. Each line represents one cable.',w,h);
 }
 function physicalFabric(compact){
- const w=compact?540:1100,h=compact?660:520;
- const left=compact?125:265,right=compact?415:835,mid=w/2;
- const switchW=compact?220:330,switchH=compact?47:70,sy=compact?70:45,ly=compact?275:210,dy=compact?470:370;
+ const w=compact?540:1100,h=compact?460:550;
+ const left=compact?132:270,right=compact?408:830,mid=w/2;
+ const switchW=compact?252:510,switchH=switchW/10;
+ const sy=compact?56:42,ly=190,dy=compact?310:305;
+ const serverW=compact?252:455,serverH=serverW*194/384;
  const picture=(file,x,y,width,height)=>`<image href="../assets/references/${file}" x="${x-width/2}" y="${y}" width="${width}" height="${height}" preserveAspectRatio="xMidYMid meet"/>`;
  let body=L(`M${left} ${ly}L${mid} ${sy+switchH}`,'teal',false,false)+L(`M${right} ${ly}L${mid} ${sy+switchH}`,'teal',false,false);
- body+=L(`M${left} ${dy}V${ly+switchH}`,'teal',false,false)+L(`M${right} ${dy}V${ly+switchH}`,'teal',false,false);
- body+=T(mid,sy-16,'Spine · QM9700',compact?25:26)+picture('networking-qm9700-front.png',mid,sy,switchW,switchH);
- for(const x of[left,right])body+=`<rect x="${x-switchW/2-8}" y="${ly-48}" width="${switchW+16}" height="${switchH+48}" rx="8" fill="var(--paper)"/>`+T(x,ly-16,'Leaf · QM9700',compact?23:25)+picture('networking-qm9700-front.png',x,ly,switchW,switchH)+picture('networking-dgx-h100.png',x,dy,compact?220:245,compact?137:110)+T(x,dy+(compact?165:138),'DGX H100',compact?25:26);
+ body+=L(`M${left} ${dy-43}V${ly+switchH}`,'teal',false,false)+L(`M${right} ${dy-43}V${ly+switchH}`,'teal',false,false);
+ body+=T(mid,sy-15,'Spine · QM9700',compact?28:32)+picture('networking-qm9700-front.png',mid,sy,switchW,switchH);
+ for(const x of[left,right]){
+  body+=`<rect x="${x-switchW/2-5}" y="${ly-45}" width="${switchW+10}" height="${switchH+45}" rx="8" fill="var(--paper)"/>`+T(x,ly-15,'Leaf · QM9700',compact?25:30)+picture('networking-qm9700-front.png',x,ly,switchW,switchH);
+  body+=`<rect x="${x-serverW/2}" y="${dy-43}" width="${serverW}" height="42" fill="var(--paper)"/>`+T(x,dy-12,'DGX H100',compact?28:32)+picture('networking-dgx-h100.png',x,dy,serverW,serverH);
+ }
  return `<figure class="physical-fabric">${svg(body,'One path between DGX H100 systems through leaf and spine QM9700 switches in the NVIDIA DGX H100 SuperPOD reference architecture. Product images identify the physical equipment; the full fabric has multiple paths.',w,h)}${credit('NVIDIA · DGX H100 SuperPOD reference architecture','https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/network-fabrics.html')}</figure>`;
 }
 function cut(state){const b=fabricBudget({uplinksPerLeaf:state.uplinks});return `<div class="cut-layout"><div class="cut-input"><h2>Sending leaf</h2><div class="endpoint-row">${Array.from({length:4},()=>'<span>400</span>').join('')}</div><strong>1,600 Gb/s</strong><span>From four server ports</span></div><div class="cut-neck"><span class="cut-line">Cross-leaf cut</span><div class="cut-links">${Array.from({length:state.uplinks},()=>'<i><span>400 Gb/s</span></i>').join('')}</div><strong>${n(b.upGbps)} Gb/s</strong></div><div class="cut-output"><h2>Receiving leaf</h2><div class="endpoint-row">${Array.from({length:4},()=>'<span>400</span>').join('')}</div><strong>${b.oversubscription}:1</strong><span>Downlink-to-uplink ratio</span></div></div><div class="bound-equation"><span>32 GB crossing the cut</span><strong>32 GB ÷ ${n(b.upGbps/8)} GB/s = ${n(b.transferSeconds,2)} s</strong><span>Lower bound · balanced traffic · one direction</span></div>`;}

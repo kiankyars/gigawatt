@@ -123,11 +123,11 @@ test('each deck resolves only its own current slide hashes',()=>{
   assert.equal(resolveRackEnergyScene('#buffer-recharge','dc-distribution'),0);
 });
 
-test('the DC opening establishes delivered power before the two distinct voltage comparisons',()=>{
+test('the DC opening names the data-hall comparison without changing the sample opening',()=>{
   let scene=dcScenes[0];
   const renderer=createPresentationRenderers({defaults,getState:()=>initialState,getStep:()=>scene,isRevealed:()=>false,acdcConductorModel,escapeHTML,fmt:String});
   assert.match(renderer.intro(),/Power distribution/);
-  assert.match(renderer.intro(),/Same power delivered to the load/);
+  assert.match(renderer.intro(),/Comparing AC to DC in the data hall/);
   assert.doesNotMatch(renderer.intro(),/480 V three-phase AC/);
   scene={};
   assert.match(renderer.intro(),/480 V three-phase AC ↔ 800 V DC/);

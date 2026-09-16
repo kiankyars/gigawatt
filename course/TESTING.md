@@ -1858,3 +1858,17 @@ chapter transition and the existing exit behavior. An independent review checked
 title conventions in every active deck. The header layout was inspected in the
 built-in browser using a standalone fixture with the real CSS and slide iframe;
 the browser tool did not expose the actual popup for visual inspection.
+
+## DC opening and networking hardware size — 2026-09-16
+
+Changed Chapter 9's opening caption to “Comparing AC to DC in the data hall.”
+The larger Chapter 9 sequencing proposal remains under discussion and is not
+implemented in this release. Chapter 10's physical DGX fabric now gives server
+photos 455 px rather than 245 px of SVG width, and switch photos 510 px rather
+than 330 px, with larger labels and less internal whitespace.
+
+The 12 rack-energy and eight networking tests pass. Built-in-browser inspection
+covered the enlarged fabric at 1280 × 720 and 390 × 844, the new opening text,
+and recent data-hierarchy, network-scale, optics and merged backup-power views
+at 1280 × 720. Those other additions did not share the undersized photo layout.
+Viewport restored after checks.
