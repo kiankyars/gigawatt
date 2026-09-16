@@ -76,7 +76,8 @@
       "original_sha256": "78bdbe45c7df95ecd2802547df75d0c49c2a96e5eb2090143e8ce9fa538c7950",
       "sha256": "78bdbe45c7df95ecd2802547df75d0c49c2a96e5eb2090143e8ce9fa538c7950",
       "reviewed_at": "2026-09-16",
-      "scope": "Conceptual conventional-AC versus upstream-rectified DC hall comparison. Rack DC/DC is condensed into the rack distribution block and explained on the preceding rack-bus slide. Diagram omits protection and backup interfaces; it is not an installation schematic."
+      "scope": "Conceptual conventional-AC versus upstream-rectified DC hall comparison. Rack DC/DC is condensed into the rack distribution block and explained on the preceding rack-bus slide. Diagram omits protection and backup interfaces; it is not an installation schematic.",
+      "usage": "Retired from the teaching deck on 2026-09-16: the author preferred the three-column AC/sidecar/direct-MV diagram. Supplied image preserved."
     }
   ]
 }

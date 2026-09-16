@@ -58,5 +58,21 @@
     "sha256": "ce7082fb7c71fe12efd971bc7d7d2afd62e2d32feb8f2c68cd9f7c03dd266671",
     "visually_reviewed_on": "2026-09-16",
     "description": "Full supplied infographic showing Microsoft Fairwater AI WAN, GPU density, power, cooling and network topology; placed immediately after the three communication scales."
+  },
+  {
+    "asset": "networking-leaf-spine-overview.png",
+    "original_asset": "networking-leaf-spine-original.png",
+    "origin": "Built-in image_gen edit of a user-supplied diagram. Original preserved unchanged.",
+    "original_filename": "codex-clipboard-41b967ea-15d8-4394-a282-c28808099702.png",
+    "original_sha256": "3d2126c24d29d0a911aa6eb9f0f90a613828349edd0d6a28d75029970122cba6",
+    "sha256": "db1c3944cd4ecff54043ab55a82ba43e7038e61a7a83582c849f0651bf29b07e",
+    "reviewed_at": "2026-09-16",
+    "scope": "Generic two-spine, three-leaf network with four servers per leaf. Corrected annotation to say traffic between different leaves crosses a spine. Removed fat-tree from the list of different topologies because leaf-spine belongs to that family. The later numerical exercise uses its own four-leaf configuration.",
+    "supporting_primary_source": "https://sandboxapicdc.cisco.com/help/content/c_aci-fabric-overview.html",
+    "image_tool": "Built-in image_gen",
+    "edits": [
+      "Any server reaches another through a leaf and a spine. → Traffic between different leaves crosses a spine.",
+      "Examples: fat-tree, torus, dragonfly, custom fabrics → Examples: torus, dragonfly, custom fabrics"
+    ]
   }
 ]

@@ -1913,3 +1913,20 @@ remains at 16.
 All 251 Node and 80 Python tests passed, including all scenes and their changed
 states. Course, expanded-reader, domain-map, research metadata, staging and
 whitespace checks passed. No new rendered-browser inspection is claimed.
+
+## Leaf–spine overview and preferred DC comparison — 2026-09-16
+
+Replaced Chapter 10’s static topology introduction with the supplied leaf–spine
+image, immediately before the real DGX H100 fabric example. The diagram was
+edited with built-in image_gen to qualify the cross-spine traffic claim and
+remove fat-tree from the alternatives list. Original and corrected files are
+preserved with provenance. The output image was visually inspected: both wording
+changes are present, with two spines, three leaves and twelve servers retained.
+The later interactive four-leaf bandwidth example remains separate.
+
+At the author’s request, retained Chapter 9’s former slide 13 (three-column
+AC/sidecar/direct-MV comparison) and removed former slide 11’s overlapping
+comparison. Chapter 9 now has 15 slides; Chapter 10 remains at 24. The rack-bus
+comparison and both SST supply paths are unchanged. Targeted scene/render tests,
+generated-page checks and staging passed. No fresh in-browser layout check is
+claimed.

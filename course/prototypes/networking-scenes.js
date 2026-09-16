@@ -19,7 +19,7 @@ export const scenes=[
  {id:'network-hardware',label:'The adapter and the switch',title:'Scale-out networking: the adapter and the switch',reference:topology,pedagogical_role:'architecture'},
  {id:'copper-and-light',label:'Copper and optical links',title:'Copper for short links; optical fiber for longer runs.',reference:media,pedagogical_role:'mechanism'},
  {id:'optical-packaging',imageOnly:true,label:'Pluggable and co-packaged optics',title:'Co-packaged optics shortens the electrical path inside the switch.',reference:media,pedagogical_role:'comparison'},
- {id:'leaf-spine',label:'Build a leaf–spine fabric',title:'Leaf switches connect the servers; spine switches connect the leaves.',reference:topology,pedagogical_role:'architecture'},
+ {id:'leaf-spine',label:'Leaf–spine is common, not universal',title:'Leaf–spine is common, not universal',reference:topology,pedagogical_role:'architecture',imageOnly:true},
  {id:'physical-fabric',label:'A real leaf–spine path',title:'One path through a DGX H100 SuperPOD',reference:topology,pedagogical_role:'case'},
  {id:'shared-uplinks',label:'Where the bandwidth narrows',title:'Cross-leaf bandwidth is shared by the servers beneath each leaf.',reference:topology,pedagogical_role:'balance',controls:[c('uplinks','Uplinks available at each leaf',[[2,'Two'],[4,'Four']])]},
  {id:'traffic-placement',label:'When oversubscription matters',title:'Traffic staying within a leaf avoids its shared uplinks.',reference:topology,pedagogical_role:'comparison',controls:[c('placement','Place the communicating servers',[['remote','Across two leaves'],['local','Under one leaf']])]},

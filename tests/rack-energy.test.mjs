@@ -81,15 +81,15 @@ test('DC architecture motivates the supply equipment and preserves both rack-bus
   assert.ok(!ids.includes('ac-dc-converter-loss'));
   const supplyIndex=ids.indexOf('ac-dc-ledger');
   for(const id of ['conversion-in-rack','conversion-in-sidecar','conversion-farther-upstream','rack-bus-choices'])assert.ok(ids.indexOf(id)<supplyIndex,id);
-  assert.equal(ids[supplyIndex+1],'dc-architecture-changes');
+  assert.equal(ids[supplyIndex+1],'green-zurich-west');
+  assert.ok(!ids.includes('dc-architecture-changes'));
+  assert.ok(ids.includes('ocp-power-architectures'));
   const busScene=dcScenes.find(s=>s.id==='rack-bus-choices');
   for(const compact of [false,true]){
     const buses=supplementalVisual(busScene,initialState,compact);
     assert.match(buses,/50 V/);
     assert.match(buses,/800 V/);
     assert.doesNotMatch(buses,/2,000 A|125 A/);
-    const changes=supplementalVisual(dcScenes.find(s=>s.id==='dc-architecture-changes'),initialState,compact);
-    assert.doesNotMatch(changes,/98%|102\.04|Calculate the lost power/);
   }
   const supply=supplementalVisual(dcScenes[supplyIndex],initialState);
   assert.match(supply,/Step down first/);
@@ -103,7 +103,7 @@ test('DC architecture motivates the supply equipment and preserves both rack-bus
 
 test('rack power and DC distribution separate rack behavior from DC distribution',()=>{
   assert.equal(rackScenes.length,16);
-  assert.equal(dcScenes.length,16);
+  assert.equal(dcScenes.length,15);
   assert.equal(rackScenes.at(-1).id,'buffer-recharge');
   assert.deepEqual(dcScenes.slice(0,2).map(scene=>scene.id),['one-load','conductor-copper']);
   assert.equal(dcScenes.at(-1).id,'power-stack-overview');
