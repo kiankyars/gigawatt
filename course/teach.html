@@ -2795,7 +2795,7 @@ function current() {
 function loss() {
   const shown = isRevealed(),
     { ac, dc, lossRatio } = conductorNumbers();
-  return `<div class="model"><div class="model-top"><span class="chip">100 kW delivered · PF = 1</span><span class="ledger-formula">10 mΩ per conductor</span></div><div class="comparison"><section class="metric-card"><p class="metric-label">480 V three-phase AC</p>${metric(fmt(ac.lossKW * 1000), "W heat")}<p class="metric-sub">P<sub>heat</sub> = 3 I<sub>RMS</sub>²R<br>3 × 120.3² × 0.01</p><div class="loss-track"><div class="loss-bar" style="width:100%"></div></div></section><section class="metric-card changed"><p class="metric-label">800 V DC</p>${metric(shown ? fmt(dc.lossKW * 1000, 1) : "?", "W heat")}<p class="metric-sub">P<sub>heat</sub> = 2 I²R<br>2 × 125² × 0.01</p><div class="loss-track">${shown ? `<div class="loss-bar" style="width:${lossRatio * 100}%"></div>` : ""}</div></section></div>${shown ? `<p class="comparison-result"><strong>${fmt((ac.lossKW - dc.lossKW) * 1000)} W less heat</strong><span>About 0.12% of the 100 kW delivered · conductors only</span></p>` : `<div class="control-line"><button class="reveal" id="reveal">Calculate DC conductor heat</button></div>`}</div>`;
+  return `<div class="model"><div class="model-top"><span class="chip">100 kW delivered · PF = 1</span><span class="ledger-formula">10 mΩ per conductor</span></div><div class="comparison"><section class="metric-card"><p class="metric-label">480 V three-phase AC</p>${metric(fmt(ac.lossKW * 1000), "W heat")}<p class="metric-sub">P<sub>heat</sub> = 3 I<sub>RMS</sub>²R<br>3 × 120.3² × 0.01</p><div class="loss-track"><div class="loss-bar" style="width:100%"></div></div></section><section class="metric-card changed"><p class="metric-label">800 V DC</p>${metric(shown ? fmt(dc.lossKW * 1000, 1) : "?", "W heat")}<p class="metric-sub">P<sub>heat</sub> = 2 I²R<br>2 × 125² × 0.01</p><div class="loss-track">${shown ? `<div class="loss-bar" style="width:${lossRatio * 100}%"></div>` : ""}</div></section></div>${shown ? `<p class="comparison-result"><strong>${fmt((ac.lossKW - dc.lossKW) * 1000)} W less heat</strong></p>` : `<div class="control-line"><button class="reveal" id="reveal">Calculate DC conductor heat</button></div>`}</div>`;
 }
 function unit(label, style = "", detail = "") {
   return `<div class="unit ${style}">${label}${detail ? `<small>${detail}</small>` : ""}</div>`;
@@ -2824,7 +2824,7 @@ function architecture(kind) {
   const space = `<div class="rack-space ${kind === "ac" ? "occupied" : "released"}"><span>AC/DC equipment space</span><strong>${kind === "ac" ? "Occupied" : "Freed"}</strong></div>`;
   const step = getStep();
   const roadmap = `<div class="roadmap-context"><span class="chip">${escapeHTML(step.roadmap_label)}</span>${kind === "ac" ? "" : '<a href="https://newsletter.semianalysis.com/p/inside-the-800vdc-revolution-part" target="_blank" rel="noopener">SemiAnalysis forecast · May 2026</a>'}</div>`;
-  return `<div class="architecture">${roadmap}<div class="path"><section class="zone ${kind === "facility" ? "active" : ""}"><h2 class="zone-title">Upstream power room</h2><div class="zone-body">${facility}</div></section><section class="zone ${kind === "sidecar" ? "active" : ""}"><h2 class="zone-title">${kind === "sidecar" ? "Power rack in the hall" : "Hall distribution"}</h2><div class="zone-body">${adjacent}</div></section><section class="zone rack ${kind === "ac" ? "active" : ""}"><h2 class="zone-title">Compute rack</h2><div class="zone-body">${rack}</div>${space}</section></div></div>`;
+  return `<div class="architecture">${roadmap}<div class="path"><section class="zone ${kind === "facility" ? "active" : ""}"><h2 class="zone-title">Upstream power room</h2><div class="zone-body">${facility}</div></section><section class="zone ${kind === "sidecar" ? "active" : ""}"><h2 class="zone-title">${kind === "sidecar" ? "Power rack (sidecar)" : "Hall distribution"}</h2><div class="zone-body">${adjacent}</div></section><section class="zone rack ${kind === "ac" ? "active" : ""}"><h2 class="zone-title">Compute rack</h2><div class="zone-body">${rack}</div>${space}</section></div></div>`;
 }
 function conversionViews() {
   const tabs = `<div class="conversion-views">${[
@@ -2836,12 +2836,12 @@ function conversionViews() {
         `<button data-converter-view="${view}" aria-pressed="${getState().converterView === view}">${label}</button>`,
     )
     .join("")}</div>`;
-  if (getState().converterView === "heat") return tabs + conversionLoss();
-  return (
-    tabs +
-    `<div class="stepdown-example"><div class="stepdown-path"><section><p class="metric-label">Incoming supply</p><strong>Medium-voltage AC</strong><span>13.8 kV example</span></section><b aria-hidden="true">→</b><section><p class="metric-label">Transformer</p><strong>13.8 kV → 480 V AC</strong><span>Step-down + isolation</span></section><b aria-hidden="true">→</b><section class="stepdown-electronics"><p class="metric-label">Controlled converter</p><strong>480 V AC → 800 V DC</strong><span>Rectification + regulation</span></section></div></div>`
-  );
+  return tabs + (getState().converterView === "heat" ? conversionLoss() : conversionSupply());
 }
+function conversionSupply() {
+  return `<div class="stepdown-example"><div class="stepdown-path"><section><p class="metric-label">Incoming supply</p><strong>Medium-voltage AC</strong><span>13.8 kV example</span></section><b aria-hidden="true">→</b><section><p class="metric-label">Transformer</p><strong>13.8 kV → 480 V AC</strong><span>Step-down + isolation</span></section><b aria-hidden="true">→</b><section class="stepdown-electronics"><p class="metric-label">Controlled converter</p><strong>480 V AC → 800 V DC</strong><span>Rectification + regulation</span></section></div></div>`;
+}
+
 function conversionLoss() {
   const output = DEFAULTS.power_kw,
     efficiency = DEFAULTS.converter_efficiency;
@@ -2856,7 +2856,7 @@ function sourceFigure() {
   return `<figure class="source-figure"><a class="source-image" href="${escapeHTML(asset)}" target="_blank" rel="noopener" aria-label="Open diagram at full size"><img src="${escapeHTML(asset)}" alt="${escapeHTML(figure.alt)}"></a><figcaption><span>${escapeHTML(figure.credit)}</span><a href="${escapeHTML(figure.source_url)}" target="_blank" rel="noopener">${escapeHTML(figure.source_title)}</a><a href="${escapeHTML(asset)}" target="_blank" rel="noopener">Open full size ↗</a></figcaption></figure>`;
 }
 
-return { intro, copper, current, loss, architecture, conversionViews, sourceFigure, conductorNumbers };
+return { intro, copper, current, loss, architecture, conversionViews, conversionSupply, conversionLoss, sourceFigure, conductorNumbers };
 }
 
 /* Legacy sample bridge; the same renderer is imported by Chapter 8. */

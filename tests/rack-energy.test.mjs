@@ -44,7 +44,7 @@ test('chapter sequence preserves architecture order and routes retired foundatio
   const sample=JSON.parse(readFileSync(new URL('../course/expansion/sample-presentation.json',import.meta.url)));
   assert.equal(new Set(scenes.map(s=>s.id)).size,scenes.length);
   for(const sequence of [oldRackScenes,sample.steps]){
-    let previous=-1;for(const s of sequence.filter(s=>!sceneRedirects[s.id]&&!aliases[s.id])){const index=scenes.findIndex(c=>c.id===s.id);assert.ok(index>previous,s.id);previous=index;}
+    let previous=-1;for(const s of sequence.filter(s=>!sceneRedirects[s.id]&&!aliases[s.id]&&s.id!=='rack-transfer')){const index=scenes.findIndex(c=>c.id===s.id);assert.ok(index>previous,s.id);previous=index;}
   }
   for(const [alias,target] of Object.entries(sample.aliases))assert.equal(aliases[alias],target);
   assert.equal(aliases['rear-busbar'],'rack-hardware-anatomy');assert.ok(!scenes.some(s=>s.id==='rear-busbar'));
@@ -60,6 +60,8 @@ test('chapter sequence preserves architecture order and routes retired foundatio
   const preview=scenes.findIndex(s=>s.id==='dc-architecture-preview');
   assert.equal(scenes[preview+1].id,'conversion-in-rack');
   assert.equal(aliases['migration-decision'],'power-stack-overview');
+  const locality=scenes.findIndex(s=>s.id==='energy-locality');
+  assert.equal(scenes[locality+1].id,'rack-transfer');
   const rise=scenes.findIndex(s=>s.id==='source-handoff');
   assert.equal(scenes[rise+1].id,'source-ramp-down');
   assert.equal(scenes[rise+2].id,'bbu-hardware');
@@ -84,9 +86,25 @@ test('shared renderers cover all scenes and changed states without missing quant
     for(scene of scenes){
       let html;
       if(scene.kind==='rack')for(const compact of [false,true]){html=rackVisual(scene,state,compact).markup;assert.doesNotMatch(html,/undefined|NaN/,scene.id);}
-      else if(scene.kind==='800v')html=({intro:sample.intro,copper:sample.copper,current:sample.current,loss:sample.loss,'conversion-loss':sample.conversionViews,'source-figure':sample.sourceFigure}[scene.sourceKind]||(['dc-basics','ac-basics','three-phase','voltage-basis'].includes(scene.sourceKind)?()=>electrical.electricalVisual(scene.sourceKind):()=>sample.architecture(scene.sourceKind)))();
+      else if(scene.kind==='800v')html=({intro:sample.intro,copper:sample.copper,current:sample.current,loss:sample.loss,'conversion-supply':sample.conversionSupply,'converter-heat':sample.conversionLoss,'source-figure':sample.sourceFigure}[scene.sourceKind]||(['dc-basics','ac-basics','three-phase','voltage-basis'].includes(scene.sourceKind)?()=>electrical.electricalVisual(scene.sourceKind):()=>sample.architecture(scene.sourceKind)))();
       else html=supplementalVisual(scene,state);
       assert.ok(html.length>100,scene.id);assert.doesNotMatch(html,/undefined|NaN/,scene.id);
     }
   }
+});
+
+test('supply path and converter heat are separate slides with independent reveal behavior',()=>{
+  const index=scenes.findIndex(scene=>scene.id==='ac-dc-ledger');
+  assert.equal(scenes[index].sourceKind,'conversion-supply');
+  assert.equal(scenes[index+1].id,'ac-dc-converter-loss');
+  let revealed=false;
+  const sample=createPresentationRenderers({defaults,getState:()=>({...initialState,converterView:'heat'}),getStep:()=>scenes[index],isRevealed:()=>revealed,acdcConductorModel,escapeHTML,fmt:(v,d=0)=>v.toLocaleString('en-US',{maximumFractionDigits:d})});
+  const supply=sample.conversionSupply();
+  assert.match(supply,/13.8 kV → 480 V AC/);
+  assert.doesNotMatch(supply,/data-converter-view|Calculate the lost power/);
+  assert.match(sample.conversionLoss(),/Calculate the lost power/);
+  revealed=true;
+  assert.match(sample.conversionLoss(),/102.04/);
+  assert.match(sample.conversionLoss(),/2.04 kW/);
+  assert.doesNotMatch(sample.conversionLoss(),/data-converter-view/);
 });

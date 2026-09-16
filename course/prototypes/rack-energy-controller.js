@@ -25,7 +25,7 @@ function draw(){
   else if(scene.kind==='800v'){
     const kind=scene.sourceKind;
     markup=({'intro':sample.intro,'copper':sample.copper,'current':sample.current,'loss':sample.loss,
-      'conversion-loss':sample.conversionViews,'source-figure':sample.sourceFigure}[kind]
+      'conversion-supply':sample.conversionSupply,'converter-heat':sample.conversionLoss,'source-figure':sample.sourceFigure}[kind]
       || (['dc-basics','ac-basics','three-phase','voltage-basis'].includes(kind)?()=>electrical.electricalVisual(kind):()=>sample.architecture(kind)))();
   }else markup=supplementalVisual(scene,state,compact);
   $('visual').innerHTML=markup;
@@ -41,8 +41,7 @@ function redrawAndFocus(selector, full=false){
 function reveal(){
   const scene=current();
   if(scene.kind==='800v'){
-    if(!['current','loss','conversion-loss'].includes(scene.sourceKind))return;
-    if(scene.sourceKind==='conversion-loss')state.converterView='heat';
+    if(!['current','loss','converter-heat'].includes(scene.sourceKind))return;
     state.revealed=isRevealed()?state.revealed.filter(id=>id!==scene.id):[...state.revealed,scene.id];
   }else if(scene.reveal)state[scene.reveal]=!state[scene.reveal];
   else if(scene.kind==='decision'&&state.decision)state.migrationReveal=!state.migrationReveal;
@@ -52,7 +51,6 @@ function reveal(){
 }
 function bindVisual(){
   document.querySelectorAll('[data-voltage-view]').forEach(b=>b.onclick=()=>{state.voltageView=b.dataset.voltageView;redrawAndFocus(`[data-voltage-view="${state.voltageView}"]`);});
-  document.querySelectorAll('[data-converter-view]').forEach(b=>b.onclick=()=>{state.converterView=b.dataset.converterView;redrawAndFocus(`[data-converter-view="${state.converterView}"]`,true);});
   document.querySelectorAll('[data-decision]').forEach(b=>b.onclick=()=>{state.decision=b.dataset.decision;state.migrationReveal=false;redrawAndFocus(`[data-decision="${state.decision}"]`,true);});
   $('cycle-angle')?.addEventListener('input',e=>{state.cycleDegrees=Number(e.target.value);$('wave-content').innerHTML=electrical.electricalContent(current().sourceKind);$('cycle-value').textContent=`${state.cycleDegrees}° · ${fmt(state.cycleDegrees/360/60*1000,2)} ms`;});
   $('voltage')?.addEventListener('input',e=>{state.volts=Number(e.target.value);$('variable-voltage').textContent=state.volts;$('variable-current').innerHTML=`<div class="metric">${fmt(sample.conductorNumbers(state.volts).dc.amps,1)} <small>A</small></div>`;$('voltage-value').textContent=`${state.volts} V`;$('variable-derivation').textContent=`100,000 W ÷ ${state.volts} V`;});
@@ -74,7 +72,7 @@ function controls(){
 }
 function render(){
   const scene=current();
-  $('scene-title').textContent=scene.sourceKind==='conversion-loss'&&state.converterView==='heat'?scene.heat_headline:scene.title;
+  $('scene-title').textContent=scene.title;
   $('scene-title').parentElement.classList.toggle('sr-only',Boolean(scene.imageTitle));
   document.title=`${chapterLabel} · ${scene.title} · From Watts to Tokens`;
   $('lesson-reference').href=`../index.html#${scene.reference}`;

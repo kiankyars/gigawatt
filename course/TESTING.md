@@ -1793,3 +1793,21 @@ Independent primary-source review checked Google cooling authority/cadence,
 Cloudflare's tested HA portion versus whole-facility boundary, and the distinct
 Google London and Cloudflare recovery endpoints. Real Google source imagery is
 credited and hash-recorded; it is not attributed to the London outage site.
+
+## Chapter 8 follow-up edits — 2026-09-16
+
+Made the PSU and BBU titles distinguish their functions, renamed and moved the
+support-path diagram directly after the storage-location diagram, and named the
+sidecar in its architecture view. Removed the requested conductor-loss,
+Zurich-West and retrofit captions. Former slide 23 now has separate supply-path
+and converter-heat scenes; the new scene retains a working, independent reveal.
+The chapter has 33 slides and preserves existing fragments.
+
+All 251 Node tests and 80 Python tests passed; the eight rack-energy tests were
+rerun after the final adjacency change. Course, expanded-reader, domain-map and
+research freshness checks pass. Built-in-browser checks covered the nine affected
+scenes at 1280 × 720 and 390 × 844, the 102.04 kW input / 2.04 kW converter-loss
+reveal, the shortened conductor result, and the final selector order. Desktop
+views fit and phone views have no horizontal overflow. Viewport settings were
+restored. The larger chapter split and support-diagram merge are recommendations,
+not changes claimed in this release.

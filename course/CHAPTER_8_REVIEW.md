@@ -92,3 +92,20 @@ opens the rack-anatomy slide, whose notes retain the brief local-bus reminder.
 The following supply path still shows the voltage conversion in context.
 The chapter is back to 32 slides; the new VRM illustration and all September 16
 image/layout changes remain intact.
+
+## Further review — 16 September 2026
+
+- Slides 5 and 15 show different products: AC/DC supplies versus battery backup.
+  Kept both and made their titles identify the function.
+- Renamed former slide 17 to “Where backup power connects” and placed it
+  immediately after the related slide 12.
+- Removed the requested grey conductor-loss, Zurich-West device-rail and
+  sidecar retrofit captions. The sidecar architecture now names the sidecar.
+- Split former slide 23 into consecutive supply-path and converter-loss slides.
+  The new loss scene has its own URL and working calculation reveal; the supply
+  scene retains its existing URL. The chapter now has 33 slides.
+- Recommended, not yet applied: merge the overlapping slides 12/17 using the
+  connected-path diagram while retaining UPS context; split rack power/buffering
+  from 800 V distribution; put the 50 V/800 V comparison in the latter opening.
+  That comparison concerns distribution current, unlike the earlier local 1 V
+  path. It also uses a different baseline from the following 480 V AC comparison.
