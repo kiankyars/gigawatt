@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/racks-compute-heat.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/racks-compute-heat.json), lesson `d06-eight-hundred-volt-architectures`, then run `uv run gigawatt-expand`.
 
-**8. Rack power and the 800 V DC transition · Authored draft**
+**9. 800 V DC distribution · Authored draft**
 
 Compare three declared architectures while preserving their conversion, storage and protection interfaces.
 
@@ -48,7 +48,7 @@ When a diagram says 800 V, ask between which conductors it is measured. A two-co
 
 ## The 800 V feeder still needs DC fault interruption
 
-The Chapter 8 feeder diagram locates the rectifier, bus capacitor, cable inductance, DC breaker and short circuit. It separates DC voltage rating, fault-current interruption and stored-energy requirements. When a fault develops, opening contacts may draw an arc that continues carrying current. In the illustrated conventional arc-chamber mechanism, the arc is lengthened and cooled to drive current to extinction. DC has no periodic natural current zero; the breaker must manage the actual source, circuit energy and voltage across the open contacts.
+The 800 V DC feeder diagram locates the rectifier, bus capacitor, cable inductance, DC breaker and short circuit. It separates DC voltage rating, fault-current interruption and stored-energy requirements. When a fault develops, opening contacts may draw an arc that continues carrying current. In the illustrated conventional arc-chamber mechanism, the arc is lengthened and cooled to drive current to extinction. DC has no periodic natural current zero; the breaker must manage the actual source, circuit energy and voltage across the open contacts.
 
 This is one interruption mechanism, not a universal description of solid-state or hybrid breakers. Converter current limiting and capacitor discharge can change the fault waveform. Isolation of a feeder also does not prove every downstream store is discharged. The example therefore connects the higher-voltage interface to circuit-specific protection, grounding and stored-energy boundaries without selecting a device or prescribing an operating procedure.
 
@@ -121,4 +121,25 @@ The unmodeled auxiliary reverses the arithmetic result. This does not show that 
 - [ABB Review 4/2013 — DC for efficiency](https://library.e.abb.com/public/1afa6036874fd0bb85257d5000710a17/DC%20for%20efficiency.pdf) — Case transformer, rectifier and DC distribution interfaces. Read 2026-09-13. Reviewed PDF pages 1–4 visually, especially printed pages 18–19 and Figure 2. PDF text encoding was garbled, so pages were rendered and read. Figure labels 380 V DC, while text specifies 400 V open-circuit. 16 kV input and 1,100 kVA transformer are case-specific. No promotional efficiency percentage is adopted. Exterior photograph extracted unchanged from PDF page 2 (image object 23).
 - [ABB and Green open Zurich-West DC data-center expansion](https://new.abb.com/news/detail/12816/worlds-most-powerful-dc-data-center-online) — Opening date, installation scale and compatible HP IT. Read 2026-09-13. May 2012 primary announcement read. Historical 1 MW installation for a 1,100 square metre expansion; no claim of current operating capacity or general 800 V deployment. Marketing savings and superlatives are excluded.
 - [ABB — Protection Devices for Direct Current Applications](https://library.e.abb.com/public/5cd83dcb95a74dcdb571be5f256e1af8/9AKK108470A9606_en_B_Protection%20Devices%20for%20Direct%20Current%20Applications%20-%20Technical%20Application%20Paper.pdf) — DC interruption and converter-fed fault behavior depend on circuit dynamics and device capabilities. Read 2026-09-06. Read the publicly indexed excerpt of section 6; the PDF URL responded successfully, but the complete document was not reviewed. No product selection is claimed.
-- [ABB — Protection Devices for Direct Current Applications, 2025 technical paper](https://library.e.abb.com/public/4b22f4bae7e5424d9bf87039c3c1d0ba/9AKK108470A2501_Technical%20Application%20Paper_Protection%20Devices%20for%20Direct%20Current%20Applications.pdf) — Explain arc formation and conventional direct suppression in the Chapter 8 illustrative 800 V DC feeder; distinguish it from semiconductor, resonant and hybrid interruption methods. Read 2026-09-13. Indexed section 2.3.6, page27, reviewed. Conventional interruption must drive current to zero and manage circuit energy; no product rating or clearing time assigned to teaching animation.
+- [ABB — Protection Devices for Direct Current Applications, 2025 technical paper](https://library.e.abb.com/public/4b22f4bae7e5424d9bf87039c3c1d0ba/9AKK108470A2501_Technical%20Application%20Paper_Protection%20Devices%20for%20Direct%20Current%20Applications.pdf) — Explain arc formation and conventional direct suppression in the illustrative 800 V DC feeder; distinguish it from semiconductor, resonant and hybrid interruption methods. Read 2026-09-13. Indexed section 2.3.6, page27, reviewed. Conventional interruption must drive current to zero and manage circuit energy; no product rating or clearing time assigned to teaching animation.
+
+## Check your understanding: Did moving the converter save energy?
+
+Pause and make a prediction, then compare your reasoning.
+
+A hypothetical redesign moves a converter from each rack to a nearby cabinet. Useful device output, converter efficiency, cable losses and auxiliary demand all remain unchanged.
+
+**Pause and predict:** Did the redesign reduce facility electricity use? Name something it did change.
+
+<details>
+<summary>Compare your reasoning</summary>
+
+No energy saving follows from these assumptions. The converter's location and the rack's physical and electrical interfaces changed.
+
+The same output still requires the same total input across the complete path. Conversion heat now occurs outside the rack, and rack space may be released. Shared failure exposure, protection, service access and expansion arrangements need checking at the new location.
+
+</details>
+
+**The next problem:** Power now reaches the devices. How do those devices exchange data within a rack and across the cluster?
+
+Continue in **Networking and interconnects**: Count the paths, not just the advertised ports.

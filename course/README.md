@@ -122,3 +122,11 @@ building each deck, and record its integrated scene there.
 `domain-checkins.json` owns one optional reader check-in for each of the fifteen domains.
 The expanded-course builder attaches it to that domain's final lesson and
 preserves the scenario, answer and transition in the reader and Markdown.
+
+## Rack-power chapter split
+
+The directory exposes separate [Rack power and buffering](prototypes/rack-energy-format.html?teach=1)
+and [800 V DC distribution](prototypes/dc-distribution-format.html?teach=1) decks.
+`teaching-sequences.json` partitions domain D06's reading into Chapters 8 and 9
+without changing its objective IDs. Later chapter numbers follow automatically.
+Old rack-energy slide hashes redirect to the matching chapter.

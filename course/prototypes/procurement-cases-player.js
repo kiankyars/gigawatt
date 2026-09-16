@@ -9,7 +9,7 @@ $('fullscreen').hidden=!teaching;
 function focusAfter(selector){render();document.querySelector(selector)?.focus({preventScroll:true});}
 function render(){
  const scene=scenes[index];
- document.title=`${presentationLabels['procurement-cases']||'13. Design, procurement and commissioning'} · ${scene.label}`;
+ document.title=`${presentationLabels['procurement-cases']||'14. Design, procurement and commissioning'} · ${scene.label}`;
  $('scene').dataset.scene=scene.id;$('scene-title').textContent=scene.title;
  $('visual').innerHTML=procurementVisual(scene.id,state);
  $('lesson-reference').href=`../index.html#${scene.reference}`;

@@ -10,7 +10,7 @@ function focusAfter(selector){render();document.querySelector(selector)?.focus({
 function render(){
  const s=scenes[index];$('scene-title').textContent=s.title;$('scene').dataset.scene=s.id;
  $('scene-title').parentElement.hidden=Boolean(s.imageOnly);
- document.title=`${presentationLabels.storage||'10. Storage, orchestration and recovery'} · ${s.label}`;
+ document.title=`${presentationLabels.storage||'11. Storage, orchestration and recovery'} · ${s.label}`;
  $('lesson-reference').href=`../index.html#${s.reference}`;
  $('visual').innerHTML=storageVisual(s.id,state,matchMedia('(max-width:600px)').matches);
  $('status').textContent=s.title;$('scenes').value=s.id;$('progress').textContent=`${index+1} / ${scenes.length}`;

@@ -9,7 +9,7 @@ $('fullscreen').hidden=!teaching;
 function focusAfter(selector){render();document.querySelector(selector)?.focus({preventScroll:true});}
 function render(){
  const scene=scenes[index];
- document.title=`${presentationLabels.operations||'14. Controls, operations and reliability'} · ${scene.label}`;
+ document.title=`${presentationLabels.operations||'15. Controls, operations and reliability'} · ${scene.label}`;
  $('scene').dataset.scene=scene.id;$('scene-title').textContent=scene.title;
  $('visual').innerHTML=operationsVisual(scene.id,state);
  $('lesson-reference').href=`../index.html#${scene.reference}`;

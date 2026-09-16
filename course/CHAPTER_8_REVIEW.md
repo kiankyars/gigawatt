@@ -109,3 +109,13 @@ image/layout changes remain intact.
   from 800 V distribution; put the 50 V/800 V comparison in the latter opening.
   That comparison concerns distribution current, unlike the earlier local 1 V
   path. It also uses a different baseline from the following 480 V AC comparison.
+
+## Chapter split — 16 September 2026
+
+Implemented: Chapter 8 is now **Rack power and buffering** (17 slides); Chapter 9
+is **800 V DC distribution** (16 slides). The 50 V/800 V comparison follows the
+new DC opening. Old slide fragments route to the correct deck with teaching and
+presenter state preserved. Reader ownership and later chapter numbers follow
+the same split. The two storage-location/support-path diagrams remain intact;
+the proposed merge is one connected diagram with facility/rack/chip groupings,
+not two vertically stacked diagrams.

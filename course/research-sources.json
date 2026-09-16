@@ -4366,7 +4366,7 @@
         "D05",
         "D06"
       ],
-      "use": "Explain arc formation and conventional direct suppression in the Chapter 8 illustrative 800 V DC feeder; distinguish it from semiconductor, resonant and hybrid interruption methods.",
+      "use": "Explain arc formation and conventional direct suppression in the illustrative 800 V DC feeder; distinguish it from semiconductor, resonant and hybrid interruption methods.",
       "caution": "Indexed section 2.3.6, page27, reviewed. Conventional interruption must drive current to zero and manage circuit energy; no product rating or clearing time assigned to teaching animation."
     },
     {

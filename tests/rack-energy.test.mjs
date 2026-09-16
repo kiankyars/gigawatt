@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import vm from 'node:vm';
 import { rackLedger, dcPlanes, migrationDecision } from '../course/prototypes/rack-energy-model.js';
-import { scenes, initialState, aliases, sceneRedirects, defaults } from '../course/prototypes/rack-energy-scenes.js';
+import { scenes as rackScenes, dcScenes, allScenes as scenes, legacySceneIds, initialState, aliases, sceneRedirects, defaults, decks, resolveRackEnergyRoute, rackEnergyDestination } from '../course/prototypes/rack-energy-scenes.js';
 import { scenes as oldRackScenes } from '../course/prototypes/rack-power-scenes.js';
 import { acdcConductorModel, acdcWaveModel } from '../course/web/reader-models.js';
 import { createElectricalVisuals } from '../course/web/electrical-renderer.js';
@@ -107,4 +107,81 @@ test('supply path and converter heat are separate slides with independent reveal
   assert.match(sample.conversionLoss(),/102.04/);
   assert.match(sample.conversionLoss(),/2.04 kW/);
   assert.doesNotMatch(sample.conversionLoss(),/data-converter-view/);
+});
+
+
+test('rack power and DC distribution partition the former deck without dropping slides or merging diagrams',()=>{
+  assert.equal(rackScenes.length,17);
+  assert.equal(dcScenes.length,16);
+  assert.equal(rackScenes.at(-1).id,'buffer-recharge');
+  assert.deepEqual(dcScenes.slice(0,2).map(scene=>scene.id),['one-load','dc-voltage-planes']);
+  assert.equal(dcScenes.at(-1).id,'power-stack-overview');
+  assert.deepEqual(new Set(scenes.map(scene=>scene.id)),new Set(legacySceneIds));
+  assert.equal(scenes.length,new Set(scenes.map(scene=>scene.id)).size);
+  assert.ok(rackScenes.some(scene=>scene.id==='energy-locality'));
+  assert.ok(rackScenes.some(scene=>scene.id==='rack-transfer'));
+  assert.ok(!rackScenes.some(scene=>scene.id==='dc-feeder-protection'));
+  assert.ok(dcScenes.some(scene=>scene.id==='dc-feeder-protection'));
+  for(const [deckId,deck] of Object.entries(decks)){
+    const html=readFileSync(new URL(`../course/prototypes/${deck.file}`,import.meta.url),'utf8');
+    assert.ok(html.includes(`data-presentation="${deckId}"`));
+    assert.match(html,/src="rack-energy-controller.js"/);
+    assert.ok(html.includes(deck.title));
+  }
+});
+
+test('every old combined-deck scene and alias reaches the owning chapter with query settings intact',()=>{
+  for(const requested of [...legacySceneIds,...Object.keys(aliases)]){
+    const canonical=aliases[requested]||requested;
+    const ownsRack=rackScenes.some(scene=>scene.id===canonical);
+    const destination=rackEnergyDestination(`https://course.test/slides/rack-energy-format.html?teach=1&recording=part2#${requested}`);
+    const url=new URL(destination.href);
+    assert.equal(url.hash,`#${canonical}`,requested);
+    assert.equal(url.search,'?teach=1&recording=part2',requested);
+    assert.equal(destination.route.deckId,ownsRack?'rack-energy':'dc-distribution',requested);
+    assert.equal(url.pathname,`/slides/${ownsRack?'rack-energy':'dc-distribution'}-format.html`,requested);
+  }
+  for(const [requested,target] of Object.entries(sceneRedirects)){
+    const destination=new URL(rackEnergyDestination(`https://course.test/course/prototypes/rack-energy-format.html?teach=1#${requested}`).href);
+    assert.equal(destination.pathname,`/course/prototypes/${target.file}`);
+    assert.equal(destination.hash,`#${target.scene}`);
+    assert.equal(destination.search,'?teach=1');
+  }
+  assert.equal(resolveRackEnergyRoute('#rear%2Dbusbar').scene,'rack-hardware-anatomy');
+  for(const hash of ['','#unknown','#%E0%A4%A','#__proto__']){
+    assert.equal(resolveRackEnergyRoute(hash).scene,rackScenes[0].id);
+    assert.equal(resolveRackEnergyRoute(hash,'dc-distribution').scene,dcScenes[0].id);
+  }
+});
+
+test('presenter previews map old combined-deck indices to the correct local slide in the new chapter',()=>{
+  for(let index=rackScenes.length;index<legacySceneIds.length;index++){
+    const destination=rackEnergyDestination(`https://course.test/slides/rack-energy-format.html?teach=1&presenter-preview=${index}&recording=part2#buffer-recharge`,'rack-energy',true);
+    const url=new URL(destination.href), expected=dcScenes.findIndex(scene=>scene.id===legacySceneIds[index]);
+    assert.equal(destination.route.deckId,'dc-distribution');
+    assert.equal(url.hash,`#${legacySceneIds[index]}`);
+    assert.equal(url.searchParams.get('presenter-preview'),String(expected));
+    assert.equal(url.searchParams.get('teach'),'1');
+    assert.equal(url.searchParams.get('recording'),'part2');
+  }
+  // Fresh previews use the new deck's own indices even while their URL carries the current slide hash.
+  const current='https://course.test/slides/dc-distribution-format.html?teach=1&presenter-preview=2#dc-voltage-planes';
+  assert.equal(rackEnergyDestination(current,'dc-distribution',true).href,current);
+  const rack='https://course.test/slides/rack-energy-format.html?teach=1&presenter-preview=1#rack-energy-scales';
+  assert.equal(rackEnergyDestination(rack,'rack-energy',true).href,rack);
+  // Query parameters in a top-level bookmark remain intact; previews are active only inside frames.
+  const bookmark=new URL(rackEnergyDestination('https://course.test/slides/rack-energy-format.html?teach=1&presenter-preview=21#one-load').href);
+  assert.equal(bookmark.searchParams.get('presenter-preview'),'21');
+  assert.equal(bookmark.hash,'#one-load');
+});
+
+
+test('the DC opening establishes delivered power before the two distinct voltage comparisons',()=>{
+  let scene=dcScenes[0];
+  const renderer=createPresentationRenderers({defaults,getState:()=>initialState,getStep:()=>scene,isRevealed:()=>false,acdcConductorModel,escapeHTML,fmt:String});
+  assert.match(renderer.intro(),/Power distribution/);
+  assert.match(renderer.intro(),/Same power delivered to the load/);
+  assert.doesNotMatch(renderer.intro(),/480 V three-phase AC/);
+  scene={};
+  assert.match(renderer.intro(),/480 V three-phase AC ↔ 800 V DC/);
 });

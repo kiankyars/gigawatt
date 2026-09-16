@@ -64,9 +64,9 @@ ROOT_PRESENTATIONS = {
 PRESENTATION_REDIRECTS = {
     "ups.html": "continuity.html",
     "rack-power.html": "rack-energy.html",
-    "800v.html": "rack-energy.html",
-    "800v-explore.html": "rack-energy.html",
-    "800v-notes.html": "rack-energy.html",
+    "800v.html": "dc-distribution.html",
+    "800v-explore.html": "dc-distribution.html",
+    "800v-notes.html": "dc-distribution.html",
 }
 SHARED_PRESENTATION_MODULES = (
     "electrical-renderer.js", "presentation-renderers.js",

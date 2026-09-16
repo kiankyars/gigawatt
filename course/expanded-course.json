@@ -990,6 +990,7 @@
   "chapters": [
     {
       "id": "primer",
+      "domain": "primer",
       "number": 1,
       "title": "Primer",
       "lesson_ids": [],
@@ -1004,6 +1005,7 @@
     },
     {
       "id": "D01",
+      "domain": "D01",
       "number": 2,
       "title": "Data center overview",
       "lesson_ids": [
@@ -1022,6 +1024,7 @@
     },
     {
       "id": "D02",
+      "domain": "D02",
       "number": 3,
       "title": "Workloads and requirements",
       "lesson_ids": [
@@ -1040,6 +1043,7 @@
     },
     {
       "id": "D03",
+      "domain": "D03",
       "number": 4,
       "title": "Siting, grid connection and supply",
       "lesson_ids": [
@@ -1058,6 +1062,7 @@
     },
     {
       "id": "D12",
+      "domain": "D12",
       "number": 5,
       "title": "Physical site, buildings and safety",
       "lesson_ids": [
@@ -1076,6 +1081,7 @@
     },
     {
       "id": "D04",
+      "domain": "D04",
       "number": 6,
       "title": "Campus and building power distribution",
       "lesson_ids": [
@@ -1094,6 +1100,7 @@
     },
     {
       "id": "D05",
+      "domain": "D05",
       "number": 7,
       "title": "Continuity, storage and protection",
       "lesson_ids": [
@@ -1112,25 +1119,43 @@
     },
     {
       "id": "D06",
+      "domain": "D06",
       "number": 8,
-      "title": "Rack power and the 800 V DC transition",
+      "title": "Rack power and buffering",
       "lesson_ids": [
         "d06-conversion-ledger",
-        "d06-eight-hundred-volt-architectures",
         "d06-rack-migration"
       ],
       "presentations": [
         {
           "id": "rack-energy",
-          "title": "Rack power and the 800 V DC transition",
+          "title": "Rack power and buffering",
           "href": "prototypes/rack-energy-format.html?teach=1",
           "coverage": "chapter"
         }
       ]
     },
     {
-      "id": "D08",
+      "id": "D06-DC",
+      "domain": "D06",
       "number": 9,
+      "title": "800 V DC distribution",
+      "lesson_ids": [
+        "d06-eight-hundred-volt-architectures"
+      ],
+      "presentations": [
+        {
+          "id": "dc-distribution",
+          "title": "800 V DC distribution",
+          "href": "prototypes/dc-distribution-format.html?teach=1",
+          "coverage": "chapter"
+        }
+      ]
+    },
+    {
+      "id": "D08",
+      "domain": "D08",
+      "number": 10,
       "title": "Networking and interconnects",
       "lesson_ids": [
         "d08-topology-budget",
@@ -1148,7 +1173,8 @@
     },
     {
       "id": "D09",
-      "number": 10,
+      "domain": "D09",
+      "number": 11,
       "title": "Storage, orchestration and recovery",
       "lesson_ids": [
         "d09-storage-paths",
@@ -1166,7 +1192,8 @@
     },
     {
       "id": "D10",
-      "number": 11,
+      "domain": "D10",
+      "number": 12,
       "title": "Chip and rack heat capture",
       "lesson_ids": [
         "d10-local-thermal-paths",
@@ -1184,7 +1211,8 @@
     },
     {
       "id": "D11",
-      "number": 12,
+      "domain": "D11",
+      "number": 13,
       "title": "Heat rejection, climate and water",
       "lesson_ids": [
         "d11-heat-rejection",
@@ -1202,7 +1230,8 @@
     },
     {
       "id": "D13",
-      "number": 13,
+      "domain": "D13",
+      "number": 14,
       "title": "Design, procurement and commissioning",
       "lesson_ids": [
         "d13-delivery-dependencies",
@@ -1220,7 +1249,8 @@
     },
     {
       "id": "D14",
-      "number": 14,
+      "domain": "D14",
+      "number": 15,
       "title": "Controls, operations and reliability",
       "lesson_ids": [
         "d14-telemetry-and-observability",
@@ -1238,7 +1268,8 @@
     },
     {
       "id": "D15",
-      "number": 15,
+      "domain": "D15",
+      "number": 16,
       "title": "Capacity, cost and system decisions",
       "lesson_ids": [
         "d15-capacity-ledger",
@@ -1249,7 +1280,8 @@
     },
     {
       "id": "capstone",
-      "number": 16,
+      "domain": "capstone",
+      "number": 17,
       "title": "Put the system together",
       "lesson_ids": [
         "c01-coupled-outage",
@@ -4165,7 +4197,7 @@
         {
           "heading": "Where conversion placement is taught",
           "paragraphs": [
-            "Chapter 6 follows normal AC distribution through switchgear, building branches and row busway. The Primer introduces transformers and a real input range; Chapter 6 teaches taps. Chapter 7 develops continuity and fault response. Chapter 8 owns the rectification-placement, solid-state-transformer and 800 V transition sequence, including the historical Green Zurich-West 380 V DC case. The D04.3 conversion-placement objective is taught there rather than repeated in Chapter 6. Conventional building auxiliaries can still require AC when compatible IT is supplied with DC."
+            "Chapter 6 follows normal AC distribution through switchgear, building branches and row busway. The Primer introduces transformers and a real input range; Chapter 6 teaches taps. Chapter 7 develops continuity and fault response. Chapter 9 owns the rectification-placement, solid-state-transformer and 800 V transition sequence, including the historical Green Zurich-West 380 V DC case. The D04.3 conversion-placement objective is taught there rather than repeated in Chapter 6. Conventional building auxiliaries can still require AC when compatible IT is supplied with DC."
           ]
         },
         {
@@ -5433,7 +5465,7 @@
             "This belongs in the continuity and protection chapter because a conductive equipment case can become part of the fault circuit. Protective bonding provides a designed return path that lets protection detect and disconnect the fault. The same event has both a shock-protection consequence and an outage boundary; a case may rise in voltage before disconnection, so bonding is not a promise that every fault leaves its voltage at zero.",
             "Protective bonding connects exposed conductive metal to the protective-conductor system. In the shown TN circuit, a live-to-case fault returns along PE to the source, allowing protection to disconnect the circuit. A surge arrester instead limits a transient overvoltage; it does not replace this permanent bonding connection. Loop impedance Z is the combined opposition of the source, outward live conductor and return protective conductor. Fault current is approximately phase-to-neutral voltage divided by Z; a high impedance can limit current enough to delay an overcurrent trip. Other earthing systems can require different detection arrangements.",
             "The third shared-bus option shows a severe short circuit before upstream clearing. The breaker contacts remain closed and fault current can still flow, but bus voltage has collapsed below what the groups need to operate. This differs from the second option, where the upstream breaker opens for a branch fault. Removing the fault supply later would not itself repair the common bus. “No supply” describes loss of usable service here, not proof of absent voltage or a safe circuit.",
-            "Opening contacts can leave an arc carrying current. Chapter 8 applies this principle to an illustrative 800 V DC feeder: a conventional arc chamber lengthens and cools the arc until current is extinguished, while circuit energy must be managed. Semiconductor and hybrid devices use different mechanisms. The device’s DC voltage and interrupting ratings must match the circuit; the animation supplies no product rating or clearing-time claim."
+            "Opening contacts can leave an arc carrying current. Chapter 9 applies this principle to an illustrative 800 V DC feeder: a conventional arc chamber lengthens and cools the arc until current is extinguished, while circuit energy must be managed. Semiconductor and hybrid devices use different mechanisms. The device’s DC voltage and interrupting ratings must match the circuit; the animation supplies no product rating or clearing-time claim."
           ]
         },
         {
@@ -5809,233 +5841,6 @@
       "word_count": 1740
     },
     {
-      "id": "d06-eight-hundred-volt-architectures",
-      "domain": "D06",
-      "title": "800 V is an interface, not an entire architecture",
-      "question": "What changes when conversion sits in the rack, beside the rack, or at the facility boundary?",
-      "summary": "Compare three declared architectures while preserving their conversion, storage and protection interfaces.",
-      "takeaway": "Specify where 800 V begins and ends, what remains AC, and which claims are roadmap statements.",
-      "objectives": [
-        "D06.2",
-        "D06.3",
-        "D06.4"
-      ],
-      "sections": [
-        {
-          "heading": "Keep the three drawings separate",
-          "paragraphs": [
-            "Architecture A brings AC distribution to a compute rack, converts it to a lower-voltage DC bus, and regulates power near devices. Architecture B retains AC distribution but moves rectification into an adjacent power rack or row unit. A higher-voltage DC connection then reaches compute racks, which contain the required downstream conversion. Architecture C begins DC distribution farther upstream, potentially near the facility electrical boundary. These drawings can share a nominal DC voltage while differing in conductor lengths, maintenance zones, fault exposure and responsibility for stored energy.",
-            "The comparison becomes useful when unchanged equipment stays visible. In B, the upstream AC feeder still carries the aggregate load delivered to the row, plus conversion losses. In C, a longer portion of the facility becomes a DC distribution system and must be designed accordingly. Neither sketch determines how many storage modules, isolation stages or protective devices are required. Draw those as explicit blocks with interfaces rather than assuming that central rectification automatically replaces every UPS function."
-          ]
-        },
-        {
-          "heading": "Zurich-West: centralized DC in 2012",
-          "paragraphs": [
-            "ABB and Green opened a 1 MW DC system for the Zurich-West expansion in May 2012. Compatible HP servers and storage accepted its 380 V DC supply. This is a built historical example of upstream rectification; its interface is separate from the later 800 V designs.",
-            "ABB’s technical account places a 1,100 kVA dry transformer inside the central rectifier unit. It steps down the 16 kV AC input before rectifier modules perform AC/DC conversion. Downstream DC/DC conversion still supplies device rails. Figure 2 labels the distribution 380 V DC, while the text specifies 400 V open-circuit. The package name “rectifier” does not remove the transformer function. Neither its conversion placement nor this historical installation establishes a universal efficiency gain."
-          ],
-          "figures": [
-            {
-              "asset": "references/distribution-green-zurich-west.jpg",
-              "alt": "Exterior of Green’s Zurich-West data center in the ABB Review case photograph.",
-              "caption": "Green Zurich-West · ABB Review 4/2013. The exterior identifies the facility; the electrical path comes from the technical account.",
-              "source_url": "https://library.e.abb.com/public/1afa6036874fd0bb85257d5000710a17/DC%20for%20efficiency.pdf",
-              "source_title": "ABB Review — DC for efficiency",
-              "credit": "ABB"
-            }
-          ]
-        },
-        {
-          "heading": "Compare the three distribution paths side by side",
-          "paragraphs": [
-            "Trace each column from medium-voltage input to the rack. Traditional AC keeps lower-voltage AC distribution through the hall. The DC sidecar retains those upstream stages, then creates an 800 V DC interface near the rack. The third path makes 800 V DC upstream of the hall distribution and busway through a medium-voltage conversion system.",
-            "The right-hand column is a direct-medium-voltage design. It differs from the preceding transformer-plus-low-voltage-rectifier example: both can feed an 800 V DC hall. A compact system block does not mean that voltage reduction, isolation, storage, protection or downstream rack DC/DC conversion cease to be necessary functions where the design requires them. The diagram leaves several of these functions out.",
-            "Use this drawing to compare conversion placement and AC/DC interfaces. It has no deployment dates and does not prove an efficiency percentage or equipment readiness. Keep the dated SemiAnalysis roadmap separate from these architectural alternatives."
-          ],
-          "figures": [
-            {
-              "asset": "references/ocp-ac-sidecar-direct-mvdc.png",
-              "alt": "Three electrical paths. Traditional AC: medium-voltage AC, step-down transformer, AC switchboards, AC PDUs, AC IT racks. DC sidecar: the same upstream AC stages followed by a rack-level AC-to-800-V-DC rectifier and 800-V-DC IT racks. Direct medium-voltage DC: medium-voltage rectifier or solid-state transformer, 800-V-DC distribution, DC busway and DC IT racks. Yellow denotes 10 to 35 kV, blue 400 to 480 V, and green 800 V DC.",
-              "caption": "User-supplied figure, attributed to the Open Compute Project; the original publication has not yet been identified. The linked OCP paper provides related LVDC architecture context. The right-hand path depicts direct medium-voltage conversion, not the conventional transformer-plus-low-voltage-rectifier route. These are selected conversion and distribution functions, not complete power or protection designs.",
-              "source_url": "https://www.opencompute.org/documents/dcf-power-distribution-lvdc-white-paper-version-1-0-final-pdf-1",
-              "source_title": "Related OCP LVDC architecture paper",
-              "credit": "User-supplied figure · attributed to OCP"
-            }
-          ]
-        },
-        {
-          "heading": "Context for the supplied rack-density forecast",
-          "paragraphs": [
-            "The supplied image credits “BofA Global Research estimates, Nvidia, company reports.” It is a forecast with dated roadmap labels, not measured power at Abilene or a current rack specification. Its original report URL and publication date were not supplied. NVIDIA’s May 2025 article independently motivates the direction toward megawatt-scale racks; it does not validate each forecast bar."
-          ]
-        },
-        {
-          "heading": "Read a roadmap as a dated design proposal",
-          "paragraphs": [
-            "NVIDIA’s May 2025 account described a facility-level 800 VDC concept and linked full-scale production to 2027 systems. Its August 11, 2026 update separately described a hybrid power rack expected in the second half of 2026, a row power center expected in 2027, and a broader DC power block. These are vendor descriptions and availability expectations as published. They establish proposed architecture categories, not evidence that a named site has accepted an operating installation or achieved a claimed efficiency.",
-            "When a diagram says 800 V, ask between which conductors it is measured. A two-conductor 800 V differential and a bipolar arrangement described relative to a midpoint cannot be substituted silently. Their conductor-to-ground stress, fault cases and service interfaces depend on the actual grounding arrangement. The teaching diagram should show the specified convention without inventing it. Similarly, an AC voltage label needs a declared phase configuration and line-to-line or line-to-neutral meaning. A DC current comparison must not be casually reused as a three-phase AC feeder calculation."
-          ]
-        },
-        {
-          "heading": "The 800 V feeder still needs DC fault interruption",
-          "paragraphs": [
-            "The Chapter 8 feeder diagram locates the rectifier, bus capacitor, cable inductance, DC breaker and short circuit. It separates DC voltage rating, fault-current interruption and stored-energy requirements. When a fault develops, opening contacts may draw an arc that continues carrying current. In the illustrated conventional arc-chamber mechanism, the arc is lengthened and cooled to drive current to extinction. DC has no periodic natural current zero; the breaker must manage the actual source, circuit energy and voltage across the open contacts.",
-            "This is one interruption mechanism, not a universal description of solid-state or hybrid breakers. Converter current limiting and capacitor discharge can change the fault waveform. Isolation of a feeder also does not prove every downstream store is discharged. The example therefore connects the higher-voltage interface to circuit-specific protection, grounding and stored-energy boundaries without selecting a device or prescribing an operating procedure."
-          ]
-        },
-        {
-          "heading": "Compare a chain, not the number of boxes",
-          "paragraphs": [
-            "Fewer conversion stages can be attractive, but stage count is not an efficiency measurement. A larger converter at low load may behave differently from several smaller modules loaded near their intended operating range. Redundancy, thermal conditions, auxiliary power and standby behavior can also change the result. Create a table of stage efficiencies for each architecture at the same delivered load. Multiply efficiencies only along one energy path, add branch loads where they join, and allocate auxiliary consumption to its real location.",
-            "The physical interfaces deserve equal attention. A rack input specification must cover steady demand, peak demand, permitted voltage variation and the response to a sudden load change. The downstream equipment and upstream supply must agree on startup sequencing, fault isolation and shutdown behavior. A higher voltage reduces current at fixed power, but stored electrical energy and fault interruption remain separate engineering questions. The course comparison asks which functions moved and which must be revalidated. It does not instruct a learner to select protective equipment from a nominal voltage alone."
-          ]
-        },
-        {
-          "heading": "Optional market context — SST demand forecast",
-          "paragraphs": [
-            "The model connects future facility adoption to equipment spending using an assumed $1.25 million of SST content per MW. Both adoption and equipment pricing can change; medium-voltage rectifiers compete for part of this opportunity. An 800 V DC interface does not require an SST."
-          ],
-          "figures": [
-            {
-              "asset": "references/semianalysis-sst-market-forecast-2026-2030.png",
-              "alt": "SemiAnalysis forecast chart for 2026–2030. Gold SST revenue bars label $2.2 billion in 2028, $20.1 billion in 2029 and $32.4 billion in 2030. A blue line uses a separate axis for incremental facility-level GW.",
-              "caption": "FORECAST · SemiAnalysis, 26 May 2026. Gold: modeled SST revenue ($B). Blue: incremental facility-level GW. These are projections, not observed revenue or deployed capacity.",
-              "source_url": "https://newsletter.semianalysis.com/p/inside-the-800vdc-revolution-part",
-              "source_title": "SemiAnalysis Industrials Model — SST market opportunity"
-            }
-          ]
-        }
-      ],
-      "tradeoff": [
-        "Choice: Extend DC distribution farther toward the facility boundary.",
-        "Benefit: Allow conversion and distribution to be reconsidered together instead of preserving every existing stage.",
-        "Cost: Expand the scope of protection, grounding, maintenance, controls and equipment qualification that must be coordinated."
-      ],
-      "failure": [
-        "Trigger: A team treats a hybrid sidecar as a facility-wide DC conversion.",
-        "Mechanism: The drawing hides retained AC constraints and incorrectly attributes all upstream losses and UPS functions to equipment that has not changed.",
-        "Response: Mark every retained and replaced block, then compare the same electrical endpoints under a documented operating state."
-      ],
-      "practice": {
-        "question": "Path B requires an additional constant 6 kW auxiliary load supplied at the upstream boundary. Does it still use less input than A in this example?",
-        "answer": "No. B becomes 111.753 kW, about 1.020 kW above A.",
-        "explanation": [
-          "The unmodeled auxiliary reverses the arithmetic result. This does not show that a real high-voltage design has such a load. It demonstrates why architecture claims require an inclusive boundary and measured auxiliary behavior."
-        ]
-      },
-      "terms": [
-        {
-          "term": "Rectification",
-          "definition": "Conversion from alternating current to direct current."
-        },
-        {
-          "term": "Bipolar distribution",
-          "definition": "A specified arrangement with two poles referenced to a midpoint; voltage labels require an explicit reference."
-        },
-        {
-          "term": "Electrical boundary",
-          "definition": "The point or enclosure across which input and output are counted."
-        }
-      ],
-      "visual": {
-        "kind": "comparison",
-        "title": "Move the rectifier, preserve the interfaces",
-        "nodes": [
-          {
-            "label": "Rack conversion",
-            "detail": "AC reaches compute; conversion is inside"
-          },
-          {
-            "label": "Near-rack conversion",
-            "detail": "AC reaches power rack; DC crosses to compute"
-          },
-          {
-            "label": "Facility DC",
-            "detail": "Conversion occurs upstream; DC traverses a larger zone"
-          }
-        ],
-        "caption": "Storage, protection and final regulation remain visible in every architecture. Drawings are functional comparisons, not construction designs."
-      },
-      "source_path": "course/expansion/racks-compute-heat.json",
-      "worked_example": {
-        "title": "Two deliberately simplified conversion chains",
-        "givens": [
-          "Both paths deliver exactly 100 kW at the same final DC load boundary.",
-          "Path A has assumed efficiencies of 98%, 97% and 95%; path B has 98.5% and 96%.",
-          "Auxiliary loads, conductors and redundancy effects are excluded equally to isolate the series-conversion calculation."
-        ],
-        "steps": [
-          "Compute path A efficiency — 0.98 × 0.97 × 0.95 = 0.90307 — The three serial stages deliver 90.307% of their input to the declared output.",
-          "Compute path B efficiency — 0.985 × 0.96 = 0.9456 — Two assumed stages deliver 94.56%.",
-          "Compare inputs — 100 / 0.90307 = 110.733 kW; 100 / 0.9456 = 105.753 kW — At equal output, the input difference is about 4.980 kW.",
-          "State the comparison correctly — (110.733 − 105.753) / 110.733 ≈ 4.50% — This is a reduction in modeled input relative to A, not the percentage-point difference between efficiencies."
-        ],
-        "result": "Path B uses about 4.50% less input in this constructed example. That conclusion follows from the assigned efficiencies, not from the label 800 V.",
-        "boundary": "No values represent measured NVIDIA hardware, and omitted parallel loads would change an end-to-end result."
-      },
-      "source_ids": [
-        "P05",
-        "P16",
-        "SA10",
-        "P54",
-        "P153",
-        "P154",
-        "E1423005C7C",
-        "P170"
-      ],
-      "source_notes": [
-        {
-          "id": "P05",
-          "claim": "May 2025 facility DC concept, conversion placement and forward-looking 2027 timing.",
-          "reviewed_on": "2026-09-06",
-          "limits": "Vendor roadmap; projected savings and reliability claims are not adopted as measured results."
-        },
-        {
-          "id": "P16",
-          "claim": "August 2026 distinction between hybrid power rack, row power center and facility DC power block.",
-          "reviewed_on": "2026-09-06",
-          "limits": "Published availability expectations are not proof of installation, acceptance or site compatibility."
-        },
-        {
-          "id": "SA10",
-          "claim": "User-supplied SST market forecast and its equipment-content assumption in the 26 May 2026 article.",
-          "reviewed_on": "2026-09-10",
-          "limits": "Analyst forecast, not observed revenue, commissioned capacity, an independently reproduced market model or a requirement to use SSTs. Unlabelled 2026/2027 revenue bars and exact GW values are not inferred from chart pixels."
-        },
-        {
-          "id": "P54",
-          "claim": "Context for representative LVDC power-distribution architectures; not a confirmed source for the supplied three-column figure.",
-          "reviewed_on": "2026-09-11",
-          "limits": "Introduction and document metadata inspected. The exact origin of the user-supplied image remains unverified. Do not assign a figure number, mandate this topology, or treat these alternatives as a dated deployment sequence."
-        },
-        {
-          "id": "P153",
-          "claim": "Case transformer, rectifier and DC distribution interfaces.",
-          "reviewed_on": "2026-09-13",
-          "limits": "Reviewed PDF pages 1–4 visually, especially printed pages 18–19 and Figure 2. PDF text encoding was garbled, so pages were rendered and read. Figure labels 380 V DC, while text specifies 400 V open-circuit. 16 kV input and 1,100 kVA transformer are case-specific. No promotional efficiency percentage is adopted. Exterior photograph extracted unchanged from PDF page 2 (image object 23)."
-        },
-        {
-          "id": "P154",
-          "claim": "Opening date, installation scale and compatible HP IT.",
-          "reviewed_on": "2026-09-13",
-          "limits": "May 2012 primary announcement read. Historical 1 MW installation for a 1,100 square metre expansion; no claim of current operating capacity or general 800 V deployment. Marketing savings and superlatives are excluded."
-        },
-        {
-          "id": "E1423005C7C",
-          "claim": "DC interruption and converter-fed fault behavior depend on circuit dynamics and device capabilities.",
-          "reviewed_on": "2026-09-06",
-          "limits": "Read the publicly indexed excerpt of section 6; the PDF URL responded successfully, but the complete document was not reviewed. No product selection is claimed."
-        },
-        {
-          "id": "P170",
-          "claim": "Explain arc formation and conventional direct suppression in the Chapter 8 illustrative 800 V DC feeder; distinguish it from semiconductor, resonant and hybrid interruption methods.",
-          "reviewed_on": "2026-09-13",
-          "limits": "Indexed section 2.3.6, page27, reviewed. Conventional interruption must drive current to zero and manage circuit energy; no product rating or clearing time assigned to teaching animation."
-        }
-      ],
-      "word_count": 1678
-    },
-    {
       "id": "d06-rack-migration",
       "domain": "D06",
       "title": "A rack upgrade is an interface negotiation",
@@ -6261,7 +6066,234 @@
           "limits": "Product Introduction and Specifications reviewed. Four-minute runtime is specified at rated load after four years of service, with 0–40°C operating range. The 15 kW system rating must not be replaced by the sum of six 3 kW module ratings. Product photos do not identify equipment installed in an NVL72 rack."
         }
       ],
-      "word_count": 2277,
+      "word_count": 2277
+    },
+    {
+      "id": "d06-eight-hundred-volt-architectures",
+      "domain": "D06",
+      "title": "800 V is an interface, not an entire architecture",
+      "question": "What changes when conversion sits in the rack, beside the rack, or at the facility boundary?",
+      "summary": "Compare three declared architectures while preserving their conversion, storage and protection interfaces.",
+      "takeaway": "Specify where 800 V begins and ends, what remains AC, and which claims are roadmap statements.",
+      "objectives": [
+        "D06.2",
+        "D06.3",
+        "D06.4"
+      ],
+      "sections": [
+        {
+          "heading": "Keep the three drawings separate",
+          "paragraphs": [
+            "Architecture A brings AC distribution to a compute rack, converts it to a lower-voltage DC bus, and regulates power near devices. Architecture B retains AC distribution but moves rectification into an adjacent power rack or row unit. A higher-voltage DC connection then reaches compute racks, which contain the required downstream conversion. Architecture C begins DC distribution farther upstream, potentially near the facility electrical boundary. These drawings can share a nominal DC voltage while differing in conductor lengths, maintenance zones, fault exposure and responsibility for stored energy.",
+            "The comparison becomes useful when unchanged equipment stays visible. In B, the upstream AC feeder still carries the aggregate load delivered to the row, plus conversion losses. In C, a longer portion of the facility becomes a DC distribution system and must be designed accordingly. Neither sketch determines how many storage modules, isolation stages or protective devices are required. Draw those as explicit blocks with interfaces rather than assuming that central rectification automatically replaces every UPS function."
+          ]
+        },
+        {
+          "heading": "Zurich-West: centralized DC in 2012",
+          "paragraphs": [
+            "ABB and Green opened a 1 MW DC system for the Zurich-West expansion in May 2012. Compatible HP servers and storage accepted its 380 V DC supply. This is a built historical example of upstream rectification; its interface is separate from the later 800 V designs.",
+            "ABB’s technical account places a 1,100 kVA dry transformer inside the central rectifier unit. It steps down the 16 kV AC input before rectifier modules perform AC/DC conversion. Downstream DC/DC conversion still supplies device rails. Figure 2 labels the distribution 380 V DC, while the text specifies 400 V open-circuit. The package name “rectifier” does not remove the transformer function. Neither its conversion placement nor this historical installation establishes a universal efficiency gain."
+          ],
+          "figures": [
+            {
+              "asset": "references/distribution-green-zurich-west.jpg",
+              "alt": "Exterior of Green’s Zurich-West data center in the ABB Review case photograph.",
+              "caption": "Green Zurich-West · ABB Review 4/2013. The exterior identifies the facility; the electrical path comes from the technical account.",
+              "source_url": "https://library.e.abb.com/public/1afa6036874fd0bb85257d5000710a17/DC%20for%20efficiency.pdf",
+              "source_title": "ABB Review — DC for efficiency",
+              "credit": "ABB"
+            }
+          ]
+        },
+        {
+          "heading": "Compare the three distribution paths side by side",
+          "paragraphs": [
+            "Trace each column from medium-voltage input to the rack. Traditional AC keeps lower-voltage AC distribution through the hall. The DC sidecar retains those upstream stages, then creates an 800 V DC interface near the rack. The third path makes 800 V DC upstream of the hall distribution and busway through a medium-voltage conversion system.",
+            "The right-hand column is a direct-medium-voltage design. It differs from the preceding transformer-plus-low-voltage-rectifier example: both can feed an 800 V DC hall. A compact system block does not mean that voltage reduction, isolation, storage, protection or downstream rack DC/DC conversion cease to be necessary functions where the design requires them. The diagram leaves several of these functions out.",
+            "Use this drawing to compare conversion placement and AC/DC interfaces. It has no deployment dates and does not prove an efficiency percentage or equipment readiness. Keep the dated SemiAnalysis roadmap separate from these architectural alternatives."
+          ],
+          "figures": [
+            {
+              "asset": "references/ocp-ac-sidecar-direct-mvdc.png",
+              "alt": "Three electrical paths. Traditional AC: medium-voltage AC, step-down transformer, AC switchboards, AC PDUs, AC IT racks. DC sidecar: the same upstream AC stages followed by a rack-level AC-to-800-V-DC rectifier and 800-V-DC IT racks. Direct medium-voltage DC: medium-voltage rectifier or solid-state transformer, 800-V-DC distribution, DC busway and DC IT racks. Yellow denotes 10 to 35 kV, blue 400 to 480 V, and green 800 V DC.",
+              "caption": "User-supplied figure, attributed to the Open Compute Project; the original publication has not yet been identified. The linked OCP paper provides related LVDC architecture context. The right-hand path depicts direct medium-voltage conversion, not the conventional transformer-plus-low-voltage-rectifier route. These are selected conversion and distribution functions, not complete power or protection designs.",
+              "source_url": "https://www.opencompute.org/documents/dcf-power-distribution-lvdc-white-paper-version-1-0-final-pdf-1",
+              "source_title": "Related OCP LVDC architecture paper",
+              "credit": "User-supplied figure · attributed to OCP"
+            }
+          ]
+        },
+        {
+          "heading": "Context for the supplied rack-density forecast",
+          "paragraphs": [
+            "The supplied image credits “BofA Global Research estimates, Nvidia, company reports.” It is a forecast with dated roadmap labels, not measured power at Abilene or a current rack specification. Its original report URL and publication date were not supplied. NVIDIA’s May 2025 article independently motivates the direction toward megawatt-scale racks; it does not validate each forecast bar."
+          ]
+        },
+        {
+          "heading": "Read a roadmap as a dated design proposal",
+          "paragraphs": [
+            "NVIDIA’s May 2025 account described a facility-level 800 VDC concept and linked full-scale production to 2027 systems. Its August 11, 2026 update separately described a hybrid power rack expected in the second half of 2026, a row power center expected in 2027, and a broader DC power block. These are vendor descriptions and availability expectations as published. They establish proposed architecture categories, not evidence that a named site has accepted an operating installation or achieved a claimed efficiency.",
+            "When a diagram says 800 V, ask between which conductors it is measured. A two-conductor 800 V differential and a bipolar arrangement described relative to a midpoint cannot be substituted silently. Their conductor-to-ground stress, fault cases and service interfaces depend on the actual grounding arrangement. The teaching diagram should show the specified convention without inventing it. Similarly, an AC voltage label needs a declared phase configuration and line-to-line or line-to-neutral meaning. A DC current comparison must not be casually reused as a three-phase AC feeder calculation."
+          ]
+        },
+        {
+          "heading": "The 800 V feeder still needs DC fault interruption",
+          "paragraphs": [
+            "The 800 V DC feeder diagram locates the rectifier, bus capacitor, cable inductance, DC breaker and short circuit. It separates DC voltage rating, fault-current interruption and stored-energy requirements. When a fault develops, opening contacts may draw an arc that continues carrying current. In the illustrated conventional arc-chamber mechanism, the arc is lengthened and cooled to drive current to extinction. DC has no periodic natural current zero; the breaker must manage the actual source, circuit energy and voltage across the open contacts.",
+            "This is one interruption mechanism, not a universal description of solid-state or hybrid breakers. Converter current limiting and capacitor discharge can change the fault waveform. Isolation of a feeder also does not prove every downstream store is discharged. The example therefore connects the higher-voltage interface to circuit-specific protection, grounding and stored-energy boundaries without selecting a device or prescribing an operating procedure."
+          ]
+        },
+        {
+          "heading": "Compare a chain, not the number of boxes",
+          "paragraphs": [
+            "Fewer conversion stages can be attractive, but stage count is not an efficiency measurement. A larger converter at low load may behave differently from several smaller modules loaded near their intended operating range. Redundancy, thermal conditions, auxiliary power and standby behavior can also change the result. Create a table of stage efficiencies for each architecture at the same delivered load. Multiply efficiencies only along one energy path, add branch loads where they join, and allocate auxiliary consumption to its real location.",
+            "The physical interfaces deserve equal attention. A rack input specification must cover steady demand, peak demand, permitted voltage variation and the response to a sudden load change. The downstream equipment and upstream supply must agree on startup sequencing, fault isolation and shutdown behavior. A higher voltage reduces current at fixed power, but stored electrical energy and fault interruption remain separate engineering questions. The course comparison asks which functions moved and which must be revalidated. It does not instruct a learner to select protective equipment from a nominal voltage alone."
+          ]
+        },
+        {
+          "heading": "Optional market context — SST demand forecast",
+          "paragraphs": [
+            "The model connects future facility adoption to equipment spending using an assumed $1.25 million of SST content per MW. Both adoption and equipment pricing can change; medium-voltage rectifiers compete for part of this opportunity. An 800 V DC interface does not require an SST."
+          ],
+          "figures": [
+            {
+              "asset": "references/semianalysis-sst-market-forecast-2026-2030.png",
+              "alt": "SemiAnalysis forecast chart for 2026–2030. Gold SST revenue bars label $2.2 billion in 2028, $20.1 billion in 2029 and $32.4 billion in 2030. A blue line uses a separate axis for incremental facility-level GW.",
+              "caption": "FORECAST · SemiAnalysis, 26 May 2026. Gold: modeled SST revenue ($B). Blue: incremental facility-level GW. These are projections, not observed revenue or deployed capacity.",
+              "source_url": "https://newsletter.semianalysis.com/p/inside-the-800vdc-revolution-part",
+              "source_title": "SemiAnalysis Industrials Model — SST market opportunity"
+            }
+          ]
+        }
+      ],
+      "tradeoff": [
+        "Choice: Extend DC distribution farther toward the facility boundary.",
+        "Benefit: Allow conversion and distribution to be reconsidered together instead of preserving every existing stage.",
+        "Cost: Expand the scope of protection, grounding, maintenance, controls and equipment qualification that must be coordinated."
+      ],
+      "failure": [
+        "Trigger: A team treats a hybrid sidecar as a facility-wide DC conversion.",
+        "Mechanism: The drawing hides retained AC constraints and incorrectly attributes all upstream losses and UPS functions to equipment that has not changed.",
+        "Response: Mark every retained and replaced block, then compare the same electrical endpoints under a documented operating state."
+      ],
+      "practice": {
+        "question": "Path B requires an additional constant 6 kW auxiliary load supplied at the upstream boundary. Does it still use less input than A in this example?",
+        "answer": "No. B becomes 111.753 kW, about 1.020 kW above A.",
+        "explanation": [
+          "The unmodeled auxiliary reverses the arithmetic result. This does not show that a real high-voltage design has such a load. It demonstrates why architecture claims require an inclusive boundary and measured auxiliary behavior."
+        ]
+      },
+      "terms": [
+        {
+          "term": "Rectification",
+          "definition": "Conversion from alternating current to direct current."
+        },
+        {
+          "term": "Bipolar distribution",
+          "definition": "A specified arrangement with two poles referenced to a midpoint; voltage labels require an explicit reference."
+        },
+        {
+          "term": "Electrical boundary",
+          "definition": "The point or enclosure across which input and output are counted."
+        }
+      ],
+      "visual": {
+        "kind": "comparison",
+        "title": "Move the rectifier, preserve the interfaces",
+        "nodes": [
+          {
+            "label": "Rack conversion",
+            "detail": "AC reaches compute; conversion is inside"
+          },
+          {
+            "label": "Near-rack conversion",
+            "detail": "AC reaches power rack; DC crosses to compute"
+          },
+          {
+            "label": "Facility DC",
+            "detail": "Conversion occurs upstream; DC traverses a larger zone"
+          }
+        ],
+        "caption": "Storage, protection and final regulation remain visible in every architecture. Drawings are functional comparisons, not construction designs."
+      },
+      "source_path": "course/expansion/racks-compute-heat.json",
+      "worked_example": {
+        "title": "Two deliberately simplified conversion chains",
+        "givens": [
+          "Both paths deliver exactly 100 kW at the same final DC load boundary.",
+          "Path A has assumed efficiencies of 98%, 97% and 95%; path B has 98.5% and 96%.",
+          "Auxiliary loads, conductors and redundancy effects are excluded equally to isolate the series-conversion calculation."
+        ],
+        "steps": [
+          "Compute path A efficiency — 0.98 × 0.97 × 0.95 = 0.90307 — The three serial stages deliver 90.307% of their input to the declared output.",
+          "Compute path B efficiency — 0.985 × 0.96 = 0.9456 — Two assumed stages deliver 94.56%.",
+          "Compare inputs — 100 / 0.90307 = 110.733 kW; 100 / 0.9456 = 105.753 kW — At equal output, the input difference is about 4.980 kW.",
+          "State the comparison correctly — (110.733 − 105.753) / 110.733 ≈ 4.50% — This is a reduction in modeled input relative to A, not the percentage-point difference between efficiencies."
+        ],
+        "result": "Path B uses about 4.50% less input in this constructed example. That conclusion follows from the assigned efficiencies, not from the label 800 V.",
+        "boundary": "No values represent measured NVIDIA hardware, and omitted parallel loads would change an end-to-end result."
+      },
+      "source_ids": [
+        "P05",
+        "P16",
+        "SA10",
+        "P54",
+        "P153",
+        "P154",
+        "E1423005C7C",
+        "P170"
+      ],
+      "source_notes": [
+        {
+          "id": "P05",
+          "claim": "May 2025 facility DC concept, conversion placement and forward-looking 2027 timing.",
+          "reviewed_on": "2026-09-06",
+          "limits": "Vendor roadmap; projected savings and reliability claims are not adopted as measured results."
+        },
+        {
+          "id": "P16",
+          "claim": "August 2026 distinction between hybrid power rack, row power center and facility DC power block.",
+          "reviewed_on": "2026-09-06",
+          "limits": "Published availability expectations are not proof of installation, acceptance or site compatibility."
+        },
+        {
+          "id": "SA10",
+          "claim": "User-supplied SST market forecast and its equipment-content assumption in the 26 May 2026 article.",
+          "reviewed_on": "2026-09-10",
+          "limits": "Analyst forecast, not observed revenue, commissioned capacity, an independently reproduced market model or a requirement to use SSTs. Unlabelled 2026/2027 revenue bars and exact GW values are not inferred from chart pixels."
+        },
+        {
+          "id": "P54",
+          "claim": "Context for representative LVDC power-distribution architectures; not a confirmed source for the supplied three-column figure.",
+          "reviewed_on": "2026-09-11",
+          "limits": "Introduction and document metadata inspected. The exact origin of the user-supplied image remains unverified. Do not assign a figure number, mandate this topology, or treat these alternatives as a dated deployment sequence."
+        },
+        {
+          "id": "P153",
+          "claim": "Case transformer, rectifier and DC distribution interfaces.",
+          "reviewed_on": "2026-09-13",
+          "limits": "Reviewed PDF pages 1–4 visually, especially printed pages 18–19 and Figure 2. PDF text encoding was garbled, so pages were rendered and read. Figure labels 380 V DC, while text specifies 400 V open-circuit. 16 kV input and 1,100 kVA transformer are case-specific. No promotional efficiency percentage is adopted. Exterior photograph extracted unchanged from PDF page 2 (image object 23)."
+        },
+        {
+          "id": "P154",
+          "claim": "Opening date, installation scale and compatible HP IT.",
+          "reviewed_on": "2026-09-13",
+          "limits": "May 2012 primary announcement read. Historical 1 MW installation for a 1,100 square metre expansion; no claim of current operating capacity or general 800 V deployment. Marketing savings and superlatives are excluded."
+        },
+        {
+          "id": "E1423005C7C",
+          "claim": "DC interruption and converter-fed fault behavior depend on circuit dynamics and device capabilities.",
+          "reviewed_on": "2026-09-06",
+          "limits": "Read the publicly indexed excerpt of section 6; the PDF URL responded successfully, but the complete document was not reviewed. No product selection is claimed."
+        },
+        {
+          "id": "P170",
+          "claim": "Explain arc formation and conventional direct suppression in the illustrative 800 V DC feeder; distinguish it from semiconductor, resonant and hybrid interruption methods.",
+          "reviewed_on": "2026-09-13",
+          "limits": "Indexed section 2.3.6, page27, reviewed. Conventional interruption must drive current to zero and manage circuit energy; no product rating or clearing time assigned to teaching animation."
+        }
+      ],
+      "word_count": 1679,
       "domain_checkin": {
         "domain": "D06",
         "title": "Did moving the converter save energy?",
@@ -13923,7 +13955,7 @@
         "D05",
         "D06"
       ],
-      "use": "Explain arc formation and conventional direct suppression in the Chapter 8 illustrative 800 V DC feeder; distinguish it from semiconductor, resonant and hybrid interruption methods.",
+      "use": "Explain arc formation and conventional direct suppression in the illustrative 800 V DC feeder; distinguish it from semiconductor, resonant and hybrid interruption methods.",
       "caution": "Indexed section 2.3.6, page27, reviewed. Conventional interruption must drive current to zero and manage circuit energy; no product rating or clearing time assigned to teaching animation."
     },
     {

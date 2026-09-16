@@ -22,6 +22,7 @@ const CHAPTERS = DATA.chapters;
 const REFERENCE_GROUPS = DATA.references || [];
 const READING_GROUPS = [...CHAPTERS, ...REFERENCE_GROUPS];
 const chapterById = new Map(READING_GROUPS.map((chapter) => [chapter.id, chapter]));
+const chapterByLesson = new Map(READING_GROUPS.flatMap(chapter => chapter.lesson_ids.map(id => [id, chapter])));
 const chapterName = (chapter) => chapter.number ? `${chapter.number}. ${chapter.title}` : chapter.title;
 const topicTitle = (id) => chapterById.has(id)
   ? chapterName(chapterById.get(id)) : "Integrated cases";
@@ -161,7 +162,7 @@ function renderContents() {
     : "Open a chapter for its reading and slides.";
   $("contents").innerHTML = visible.map(({ chapter, lessons }) => {
     const slideLinks = presentationLinks(chapter);
-    const activeChapter = chapter.id === LESSONS[current]?.domain && !lookupMode;
+    const activeChapter = chapter.id === chapterByLesson.get(LESSONS[current]?.id)?.id && !lookupMode;
     const heading = `<span class="chapter-name">${esc(chapterName(chapter))}</span>`;
     const reading = lessons.map((lesson) => {
       const selected = LESSONS[current]?.id === lesson.id && !lookupMode;
@@ -242,7 +243,7 @@ function renderLesson() {
   const l = LESSONS[current],
     d = domainById.get(l.domain),
     art = artFor(l);
-  const chapter = chapterById.get(l.domain);
+  const chapter = chapterByLesson.get(l.id);
   const lessonNumber = chapter.lesson_ids.indexOf(l.id) + 1;
   document.title = `${l.title} — From Watts to Tokens`;
   $("eyebrow").textContent =
@@ -328,7 +329,7 @@ function renderLesson() {
   $("next").textContent =
     current === LESSONS.length - 1
       ? "Back to start ↻"
-      : LESSONS[current + 1]?.domain !== l.domain && !chapterById.get(LESSONS[current + 1]?.domain)?.number
+      : chapterByLesson.get(LESSONS[current + 1]?.id)?.id !== chapter.id && !chapterByLesson.get(LESSONS[current + 1]?.id)?.number
         ? "Further reading →"
       : l.domain_checkin
         ? l.domain_checkin.next_domain === "capstone"

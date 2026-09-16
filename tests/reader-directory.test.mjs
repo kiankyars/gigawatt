@@ -17,7 +17,7 @@ test('chapter directory exposes existing destinations without draft-state classi
   }]));
   const context = {
     CHAPTERS:[
-      {id:'D01', number:1, title:'A chapter with slides', lesson_ids:['one'], presentations:[{id:'deck', title:'A topic', coverage:'selected', href:'prototypes/example.html'}]},
+      {id:'D01-part', number:1, title:'A chapter with slides', lesson_ids:['one'], presentations:[{id:'deck', title:'A topic', coverage:'selected', href:'prototypes/example.html'}]},
       {id:'D02', number:2, title:'A chapter with lessons', lesson_ids:['two'], presentations:[]},
     ],
     LESSONS:lessons, byLesson:new Map(lessons.map((lesson,index) => [lesson.id,index])),
@@ -28,11 +28,13 @@ test('chapter directory exposes existing destinations without draft-state classi
   context.READING_GROUPS = [...context.CHAPTERS, {
     id:'D07', title:'Compute and memory — further reading', lesson_ids:['reference'], presentations:[],
   }];
+  context.chapterByLesson = new Map(context.READING_GROUPS.flatMap(chapter => chapter.lesson_ids.map(id => [id, chapter])));
   vm.runInNewContext(`${directory}\nrenderContents();`, context);
   const html = nodes.contents.innerHTML;
   assert.equal((html.match(/class="slides-link"/g) || []).length,1);
   assert.match(html, /href="prototypes\/example.html"/);
   assert.match(html, /data-lesson="one"/);
+  assert.match(html, /data-chapter="D01-part" open/);
   assert.match(html, /data-lesson="two"/);
   assert.doesNotMatch(html, /Slides available|Selected slides|Selected topics|reading-label|chapter-status|not yet available/);
   assert.match(html, /2\. A chapter with lessons/);

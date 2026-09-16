@@ -100,7 +100,7 @@ A separate supplied photograph then shows real winding connections: several bolt
 
 ## Where conversion placement is taught
 
-Chapter 6 follows normal AC distribution through switchgear, building branches and row busway. The Primer introduces transformers and a real input range; Chapter 6 teaches taps. Chapter 7 develops continuity and fault response. Chapter 8 owns the rectification-placement, solid-state-transformer and 800 V transition sequence, including the historical Green Zurich-West 380 V DC case. The D04.3 conversion-placement objective is taught there rather than repeated in Chapter 6. Conventional building auxiliaries can still require AC when compatible IT is supplied with DC.
+Chapter 6 follows normal AC distribution through switchgear, building branches and row busway. The Primer introduces transformers and a real input range; Chapter 6 teaches taps. Chapter 7 develops continuity and fault response. Chapter 9 owns the rectification-placement, solid-state-transformer and 800 V transition sequence, including the historical Green Zurich-West 380 V DC case. The D04.3 conversion-placement objective is taught there rather than repeated in Chapter 6. Conventional building auxiliaries can still require AC when compatible IT is supplied with DC.
 
 ## A PDU name does not specify a transformation ratio
 

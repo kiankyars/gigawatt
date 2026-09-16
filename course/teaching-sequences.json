@@ -80,11 +80,22 @@
     },
     {
       "id": "rack-energy",
-      "title": "Rack power and the 800 V DC transition",
+      "title": "Rack power and buffering",
       "chapters": [
         {
           "id": "D06",
           "href": "prototypes/rack-energy-format.html?teach=1",
+          "coverage": "chapter"
+        }
+      ]
+    },
+    {
+      "id": "dc-distribution",
+      "title": "800 V DC distribution",
+      "chapters": [
+        {
+          "id": "D06-DC",
+          "href": "prototypes/dc-distribution-format.html?teach=1",
           "coverage": "chapter"
         }
       ]
@@ -149,5 +160,24 @@
         }
       ]
     }
-  ]
+  ],
+  "chapter_splits": {
+    "D06": [
+      {
+        "id": "D06",
+        "title": "Rack power and buffering",
+        "lesson_ids": [
+          "d06-conversion-ledger",
+          "d06-rack-migration"
+        ]
+      },
+      {
+        "id": "D06-DC",
+        "title": "800 V DC distribution",
+        "lesson_ids": [
+          "d06-eight-hundred-volt-architectures"
+        ]
+      }
+    ]
+  }
 }

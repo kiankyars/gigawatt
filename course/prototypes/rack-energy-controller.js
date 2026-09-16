@@ -1,15 +1,16 @@
-import { scenes, initialState, aliases, sceneRedirects, defaults } from './rack-energy-scenes.js';
+import { decks, initialState, defaults, rackEnergyDestination } from './rack-energy-scenes.js';
 import { rackVisual, supplementalVisual, escapeHTML } from './rack-energy-visuals.js';
 import { createElectricalVisuals } from '../web/electrical-renderer.js';
 import { createPresentationRenderers } from '../web/presentation-renderers.js';
 import { acdcConductorModel, acdcWaveModel } from '../web/reader-models.js';
 import { presentationLabels } from './teaching-navigation.js';
 
+const deckId=document.body.dataset.presentation || 'rack-energy';
+const deck=decks[deckId] || decks['rack-energy'], scenes=deck.scenes;
 const $=id=>document.getElementById(id), state={...initialState, revealed:[]};
 const fmt=(v,d=0)=>v.toLocaleString('en-US',{maximumFractionDigits:d});
 const teaching=new URLSearchParams(location.search).get('teach')==='1';
-const inheritedNumber=presentationLabels['rack-800v']?.match(/^\d+\./)?.[0]||'';
-const chapterLabel=presentationLabels['rack-energy']||`${inheritedNumber} Rack power and the 800 V DC transition`.trim();
+const chapterLabel=presentationLabels[deckId]||`${deck.fallbackNumber}. ${deck.title}`;
 let index=0;
 const current=()=>scenes[index];
 const isRevealed=()=>state.revealed.includes(current().id);
@@ -80,7 +81,13 @@ function render(){
   $('previous').disabled=index===0;$('next').disabled=index===scenes.length-1;controls();draw();
 }
 function go(i){index=Math.max(0,Math.min(scenes.length-1,i));history.replaceState(null,'',`#${current().id}`);render();window.scrollTo({top:0,left:0,behavior:'auto'});}
-function fromHash(){const requested=location.hash.slice(1),target=sceneRedirects[requested];if(target){location.replace(target.file+location.search+'#'+target.scene);return;}const id=aliases[requested]||requested;const found=scenes.findIndex(scene=>scene.id===id);index=found<0?0:found;render();window.scrollTo({top:0,left:0,behavior:'auto'});}
+function fromHash(){
+  const destination=rackEnergyDestination(location.href,deckId,window.parent!==window);
+  if(destination.route.file){location.replace(destination.href);return;}
+  index=destination.route.index;
+  if(destination.href!==location.href)history.replaceState(null,'',destination.href);
+  render();window.scrollTo({top:0,left:0,behavior:'auto'});
+}
 $('scenes').onchange=e=>go(scenes.findIndex(scene=>scene.id===e.target.value));$('previous').onclick=()=>go(index-1);$('next').onclick=()=>go(index+1);
 $('fullscreen').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await $('viewer').requestFullscreen();}catch{$('status').textContent='Full screen is unavailable in this browser view.';}};
 document.addEventListener('fullscreenchange',()=>{$('fullscreen').textContent=document.fullscreenElement?'Exit full screen':'Full screen';});

@@ -36,5 +36,5 @@ export const scenes=[
  {id:'google-demand-response',label:'Google demand response',title:'Google deferred eligible work during grid stress.',reference:service,pedagogical_role:'architecture'},
  {id:'deadline-scheduling',label:'Move the work and meet the deadline',title:'A power reduction is useful only if the deferred work still finishes.',reference:service,pedagogical_role:'balance',controls:[c('shift','Execution plan',[[false,'Continue through event'],[true,'Pause for grid event']]),c('deadline','Completion deadline',[[20,'20:00'],[17,'17:00']])]},
  {id:'service-acceptance',label:'Accept the computing service',title:'At Abilene, the computing service must be demonstrated after power is available.',reference:service,pedagogical_role:'transfer'},
- {id:'recovery-diagnosis',label:'Chapter 10 knowledge check',title:'Chapter 10 · Restore the next correct training step',reference:service,pedagogical_role:'transfer'},
+ {id:'recovery-diagnosis',label:'Chapter 11 knowledge check',title:'Chapter 11 · Restore the next correct training step',reference:service,pedagogical_role:'transfer'},
 ];

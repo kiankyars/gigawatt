@@ -2766,7 +2766,8 @@ return { electricalVisual, electricalContent };
 function createPresentationRenderers({ defaults: DEFAULTS, getState, getStep, isRevealed, acdcConductorModel, escapeHTML, fmt, assets = "assets/" }) {
 function metric(value, unit) { return `<div class="metric">${value} <small>${unit}</small></div>`; }
 function intro() {
-  return `<div class="hero"><div class="hero-copy"><span class="chip">480 V three-phase AC ↔ 800 V DC</span><div class="hero-number">100<small> kW</small></div><span class="hero-goal">Same power delivered to the load</span></div><img src="${assets}power-equipment.png" width="1672" height="941" alt="Concept illustration of conversion equipment beside a compute rack." /></div>`;
+  const label=getStep()?.introLabel || '480 V three-phase AC ↔ 800 V DC';
+  return `<div class="hero"><div class="hero-copy"><span class="chip">${escapeHTML(label)}</span><div class="hero-number">100<small> kW</small></div><span class="hero-goal">Same power delivered to the load</span></div><img src="${assets}power-equipment.png" width="1672" height="941" alt="Concept illustration of conversion equipment beside a compute rack." /></div>`;
 }
 function conductorNumbers(volts = DEFAULTS.comparison_voltage_v) {
   return acdcConductorModel(

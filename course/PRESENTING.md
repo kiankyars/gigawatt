@@ -1,5 +1,12 @@
 # Present From Watts to Tokens
 
+## Current chapter boundary
+
+The former Chapter 8 is now **8. Rack power and buffering** and
+**9. 800 V DC distribution**. Existing recordings and dated notes referring to
+the old Chapter 8 cover both. Later chapter numbers increase by one; old slide
+links still open their original content.
+
 ## Recording in batches
 
 Kian confirmed Chapters 1–8 verified on **15 September 2026**. The recording plan

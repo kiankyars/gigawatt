@@ -95,7 +95,7 @@ class SiteStagingTests(unittest.TestCase):
             (root / "README.md").write_text("Course")
             (root / "course/prototypes").mkdir(parents=True)
             (root / "course/web").mkdir()
-            for deck in ("continuity", "rack-energy", "ups", "rack-power"):
+            for deck in ("continuity", "rack-energy", "dc-distribution", "ups", "rack-power"):
                 (root / f"course/prototypes/{deck}-format.html").write_text(f"<title>{deck}</title>")
             (root / "course/teach.html").write_text("<title>Legacy 800 V</title>")
             for name in SHARED_PRESENTATION_MODULES:

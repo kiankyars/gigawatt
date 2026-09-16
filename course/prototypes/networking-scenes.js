@@ -30,7 +30,7 @@ export const scenes=[
  {id:'campus-fiber',label:'From the cluster to a carrier',title:'The campus fiber handoff connects the cluster to an external service.',reference:topology,pedagogical_role:'architecture'},
  {id:'distance-latency',label:'Distance remains in the budget',title:'A faster port cannot remove the propagation time between facilities.',reference:topology,pedagogical_role:'balance'},
  {id:'fabric-failure',label:'A degraded link delays the collective',title:'A fabric can remain connected while the training step gets slower.',reference:collective,pedagogical_role:'failure'},
- {id:'network-diagnosis',label:'Chapter 9 knowledge check',title:'Chapter 9 · Find the source of the collective delay',reference:collective,pedagogical_role:'transfer'},
+ {id:'network-diagnosis',label:'Chapter 10 knowledge check',title:'Chapter 10 · Find the source of the collective delay',reference:collective,pedagogical_role:'transfer'},
  {id:'storage-handoff',label:'The network’s other traffic',title:'Dataset reads and checkpoints also use the network.',reference:topology,pedagogical_role:'transfer'},
 ];
 export const legacySceneAliases=Object.freeze({'ring-collective':'all-reduce','tpu-interconnect':'optical-circuits'});

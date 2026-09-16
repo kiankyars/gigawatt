@@ -52,7 +52,7 @@ Protective bonding connects exposed conductive metal to the protective-conductor
 
 The third shared-bus option shows a severe short circuit before upstream clearing. The breaker contacts remain closed and fault current can still flow, but bus voltage has collapsed below what the groups need to operate. This differs from the second option, where the upstream breaker opens for a branch fault. Removing the fault supply later would not itself repair the common bus. “No supply” describes loss of usable service here, not proof of absent voltage or a safe circuit.
 
-Opening contacts can leave an arc carrying current. Chapter 8 applies this principle to an illustrative 800 V DC feeder: a conventional arc chamber lengthens and cools the arc until current is extinguished, while circuit energy must be managed. Semiconductor and hybrid devices use different mechanisms. The device’s DC voltage and interrupting ratings must match the circuit; the animation supplies no product rating or clearing-time claim.
+Opening contacts can leave an arc carrying current. Chapter 9 applies this principle to an illustrative 800 V DC feeder: a conventional arc chamber lengthens and cools the arc until current is extinguished, while circuit energy must be managed. Semiconductor and hybrid devices use different mechanisms. The device’s DC voltage and interrupting ratings must match the circuit; the animation supplies no product rating or clearing-time claim.
 
 ## A gap is not yet an interrupted current
 

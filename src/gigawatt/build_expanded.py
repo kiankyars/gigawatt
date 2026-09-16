@@ -237,7 +237,8 @@ def teaching_chapters(raw, domain_map, lessons, root=ROOT):
     Coverage describes the scope of a presentation, not its review or rehearsal
     status. A chapter without a presentation still has its authored reading.
     """
-    if not isinstance(raw, dict) or set(raw) != {"version", "presentations"}:
+    if (not isinstance(raw, dict) or not {"version", "presentations"} <= set(raw)
+            or set(raw) - {"version", "presentations", "chapter_splits"}):
         raise ExpansionError("Teaching catalog: missing or unexpected fields")
     if raw["version"] != 1 or not isinstance(raw["presentations"], list):
         raise ExpansionError("Teaching catalog: expected version 1 and presentations")
@@ -255,16 +256,44 @@ def teaching_chapters(raw, domain_map, lessons, root=ROOT):
         "D02": "Workloads and requirements",
         "capstone": "Put the system together",
     }
-    chapters = [
-        {
-            "id": did,
-            "number": number,
-            "title": titles[did],
-            "lesson_ids": [l["id"] for l in lessons if l["domain"] == did],
-            "presentations": [],
-        }
-        for number, did in enumerate(["primer", *sequence, "capstone"], 1)
-    ]
+    splits = raw.get("chapter_splits", {})
+    if not isinstance(splits, dict) or set(splits) - set(sequence):
+        raise ExpansionError("Teaching chapter splits: expected domains from the curriculum")
+    chapters = []
+    chapter_ids = set()
+    for did in ["primer", *sequence, "capstone"]:
+        lesson_ids = [l["id"] for l in lessons if l["domain"] == did]
+        parts = splits.get(did, [{"id": did, "title": titles[did], "lesson_ids": lesson_ids}])
+        if did in splits:
+            if not isinstance(parts, list) or len(parts) < 2:
+                raise ExpansionError(f"{did}: a chapter split needs at least two parts")
+            assigned = []
+            for part in parts:
+                if not isinstance(part, dict) or set(part) != {"id", "title", "lesson_ids"}:
+                    raise ExpansionError(f"{did}: invalid chapter split fields")
+                if (not isinstance(part["lesson_ids"], list) or not part["lesson_ids"]
+                        or any(not isinstance(lid, str) for lid in part["lesson_ids"])):
+                    raise ExpansionError(f"{did}: chapter split needs lesson IDs")
+                assigned.extend(part["lesson_ids"])
+            if len(assigned) != len(set(assigned)) or set(assigned) != set(lesson_ids):
+                raise ExpansionError(f"{did}: split chapters must partition the domain lessons exactly once")
+            if parts[0]["id"] != did:
+                raise ExpansionError(f"{did}: first split chapter must preserve the domain ID")
+        for part in parts:
+            identifier = text(part["id"], "chapter.id")
+            if not re.fullmatch(r"[A-Za-z][A-Za-z0-9-]*", identifier):
+                raise ExpansionError(f"Unsafe chapter ID: {identifier}")
+            if identifier in chapter_ids or (identifier != did and identifier in domains):
+                raise ExpansionError(f"Duplicate or conflicting chapter ID: {identifier}")
+            chapter_ids.add(identifier)
+            chapters.append({
+                "id": identifier,
+                "domain": did,
+                "number": len(chapters) + 1,
+                "title": text(part["title"], "chapter.title"),
+                "lesson_ids": part["lesson_ids"],
+                "presentations": [],
+            })
     by_id = {chapter["id"]: chapter for chapter in chapters}
     seen = set()
     for presentation in raw["presentations"]:
@@ -426,6 +455,13 @@ def load_course(root=ROOT):
         raise ExpansionError(
             "Authored capstones must cover the domain map's capstone IDs"
         )
+    chapters = teaching_chapters(
+        read(root / "course/teaching-sequences.json"), domain_map, lessons, root
+    )
+    reading_ids = [lid for chapter in chapters for lid in chapter["lesson_ids"]]
+    reading_ids.extend(l["id"] for l in lessons if l["domain"] in references)
+    reading_order = {lid: i for i, lid in enumerate(reading_ids)}
+    lessons.sort(key=lambda lesson: reading_order[lesson["id"]])
     attach_domain_checkins(
         read(root / "course/domain-checkins.json"), lessons, sequence
     )
@@ -448,9 +484,7 @@ def load_course(root=ROOT):
         "status": "Authored draft — external expert and learner reviews pending",
         "as_of": domain_map["as_of"],
         "domains": sorted(domain_map["domains"], key=lambda d: order[d["id"]]),
-        "chapters": teaching_chapters(
-            read(root / "course/teaching-sequences.json"), domain_map, lessons, root
-        ),
+        "chapters": chapters,
         "references": [
             {
                 "id": did,
@@ -471,7 +505,7 @@ def lesson_markdown(
 ):
     topics = {d["id"]: d for d in domains}
     topic_title = topics.get(l["domain"], {}).get("title", "Integrated practice")
-    chapter = next((c for c in chapters if c["id"] == l["domain"]), None)
+    chapter = next((c for c in chapters if l["id"] in c["lesson_ids"]), None)
     if chapter:
         topic_title = f"{chapter['number']}. {chapter['title']}"
     lines = [
@@ -649,7 +683,7 @@ def build(root=ROOT, check=False):
         "chapters": [
             {**chapter, "lesson_ids": [sample["id"]]}
             for chapter in data["chapters"]
-            if chapter["id"] == sample["domain"]
+            if "d06-eight-hundred-volt-architectures" in chapter["lesson_ids"]
         ],
         "lessons": [sample],
         "sources": [s for s in catalog if s["id"] in sample["source_ids"]],

@@ -1811,3 +1811,18 @@ reveal, the shortened conductor result, and the final selector order. Desktop
 views fit and phone views have no horizontal overflow. Viewport settings were
 restored. The larger chapter split and support-diagram merge are recommendations,
 not changes claimed in this release.
+
+## Rack power and DC distribution chapter split — 2026-09-16
+
+- Preserved all 33 scenes as 17 rack-power slides and 16 DC-distribution slides.
+  The two support/location diagrams remain separate.
+- **255 Node tests and 82 Python tests passed.** New checks cover scene ownership,
+  old fragments and aliases, presenter-preview index translation, reader lesson
+  ownership, catalog validation and the Chapter 8 → 9 → 10 handoff. Course,
+  expanded reader, domain map, research metadata, staging and whitespace checks passed.
+- Built-in browser verified the 17-chapter directory, separate Chapter 8/9 reading
+  and slide entries, both chapter transitions, and old rack-energy/800v URLs with
+  query and fragment preservation. Inspected the new DC opening at 1280 × 720
+  and the opening/voltage comparison at 390 × 844. No horizontal overflow or
+  failed image on those checked views; no console warnings or errors. Presenter
+  compatibility is covered by automated tests; no new multi-monitor recording test.

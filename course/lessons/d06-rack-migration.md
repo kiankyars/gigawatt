@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/racks-compute-heat.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/racks-compute-heat.json), lesson `d06-rack-migration`, then run `uv run gigawatt-expand`.
 
-**8. Rack power and the 800 V DC transition · Authored draft**
+**8. Rack power and buffering · Authored draft**
 
 Test a higher-density rack against electrical, thermal, mechanical and operational constraints before accepting the upgrade path.
 
@@ -123,24 +123,3 @@ The full setting would then fit the expanded 260 kW allocation, with only 7 kW o
 - [Analog Devices — Smart Battery Backup for Uninterrupted Energy, Part 4: BBU Shelf Operation](https://www.analog.com/en/resources/analog-dialogue/articles/smart-battery-backup-for-uninterrupted-energy-part4.html) — ORv3 BBU shelf shared-bus architecture, six modules in 5+1 redundancy, monitoring and controlled discharge. Read 2026-09-12. Introduction, BBU Shelf Overview and Shelf System Control read. The 15 kW surviving-capacity calculation combines the six-module arrangement with the separately reviewed OCP 3 kW module requirement. Not a claim that a 15 kW shelf supports a 142 kW NVL72 rack.
 - [Texas Instruments — The decoupling capacitor: is it really necessary?](https://e2e.ti.com/blogs_/archives/b/precisionhub/posts/the-decoupling-capacitor-is-it-really-necessary) — Short local current paths and trace inductance explain why device decoupling is separate from distant stored energy. Read 2026-09-12. Authored article and figure descriptions 1–3 inspected. The example is an amplifier circuit, not a GPU benchmark. No suggested component value or layout instructions are imported; rack-level power transients are original stated models.
 - [Delta Electronics — 3 kW BBU and 15 kW Battery Backup System](https://www.delta-americas.com/en-US/products/Power-Management/12018) — Manufacturer photographs identify the removable BBU and six-module shelf. Product ratings: 3 kW module, 15 kW system, 48 V DC output. Read 2026-09-13. Product Introduction and Specifications reviewed. Four-minute runtime is specified at rated load after four years of service, with 0–40°C operating range. The 15 kW system rating must not be replaced by the sum of six 3 kW module ratings. Product photos do not identify equipment installed in an NVL72 rack.
-
-## Check your understanding: Did moving the converter save energy?
-
-Pause and make a prediction, then compare your reasoning.
-
-A hypothetical redesign moves a converter from each rack to a nearby cabinet. Useful device output, converter efficiency, cable losses and auxiliary demand all remain unchanged.
-
-**Pause and predict:** Did the redesign reduce facility electricity use? Name something it did change.
-
-<details>
-<summary>Compare your reasoning</summary>
-
-No energy saving follows from these assumptions. The converter's location and the rack's physical and electrical interfaces changed.
-
-The same output still requires the same total input across the complete path. Conversion heat now occurs outside the rack, and rack space may be released. Shared failure exposure, protection, service access and expansion arrangements need checking at the new location.
-
-</details>
-
-**The next problem:** Power now reaches the devices. How do those devices exchange data within a rack and across the cluster?
-
-Continue in **Networking and interconnects**: Count the paths, not just the advertised ports.

@@ -15,21 +15,21 @@ export const initialState = Object.freeze({...rackState, auxiliaryKW:0, volts:80
   voltageView:'meter', converterView:'supply', revealed:[], rackKW:120, allocationKW:240,
   deadlineWeeks:3, decision:'', migrationReveal:false});
 export const learningContract = Object.freeze({
-  driving_question:'Where should power conversion and stored energy connect as the rack changes?',
-  fixed_boundary:'Keep each declared load and electrical boundary fixed: local rails, 100 kW conductor comparison, then the two-rack retrofit.',
-  changed_variable:'Local impedance, source response, recharge interval, distribution voltage, conversion location or retrofit constraint.',
-  primary_payoff:'Trace the rack-to-chip path, account for all inlet watts, and choose an architecture whose power and service interfaces can be qualified.',
-  misconception:'An 800 V distribution bus powers a chip directly, fewer conductors establish total efficiency, or a sidecar increases feeder capacity.',
-  closing_question:'Where does AC become DC, and what upstream power and downstream regulation does each arrangement still need?'
+  driving_question:'How do rack power supplies, regulators and stored energy keep chip voltage steady?',
+  fixed_boundary:'Track power from the rack inlet to processor rails, then the energy exchanged at the rack DC bus.',
+  changed_variable:'Local impedance, converter placement, source response or the interval between load bursts.',
+  primary_payoff:'Trace the PSU-to-core path, account for inlet watts, and explain how local regulation and buffers handle changing demand.',
+  misconception:'A remote power source can respond instantly, or a buffer can support repeated bursts without time and power to recharge.',
+  closing_question:'Can the buffer recover before the next burst?'
 });
 const supplement = [
   {id:'rack-energy-scales', label:'Where conversion belongs', title:'How do we feed the rack while keeping chip voltage steady?', reference:ledger, kind:'scales', pedagogical_role:'problem',
-    explanation:['Follow three physical scales: the rack bus distributes power; board converters create the required rails; local regulators and capacitors support the devices. The generated physical context is generic, while the next manufacturer view identifies the actual DGX rack bus.','The chapter first traces the local requirements, then moves conversion outward to compare 800 V architectures and an occupied-building retrofit.'], boundary:'Rack → board → package · physical context; functional paths are drawn separately.'},
+    explanation:['Follow three physical scales: the rack bus distributes power; board converters create the required rails; local regulators and capacitors support the devices. The generated physical context is generic, while the next manufacturer view identifies the actual DGX rack bus.','Trace power from the rack supply through board-level conversion to the chip, then follow the energy buffers that respond as device demand rises and falls.'], boundary:'Rack → board → package · physical context; functional paths are drawn separately.'},
   {id:'rack-inlet-ledger',label:'Account for rack input power',title:'From processor power to rack input power',reference:ledger,kind:'review-figure',imageTitle:true,pedagogical_role:'balance',
     asset:'rack-input-power-account.png',alt:'Power flows from a 93.05 kW rack AC inlet through a 97% efficient shelf to a 90.26 kW DC bus. The bus supplies 12 kW of other loads and 78.26 kW to local regulators. At 92% efficiency, the regulators deliver 72 kW to processor rails. Regulator heat is 6.26 kW and shelf heat is 2.79 kW.',
     explanation:['The supplied rack account works backward from 72 kW at the processor rails. At 92 percent regulator efficiency, their branch needs 78.26 kW. Add 12 kW of other DC-bus loads to get 90.26 kW at the shelf output.','At 97 percent shelf efficiency, the rack inlet supplies 93.05 kW. The balance is 72 + 12 + 6.26 + 2.79 kW, with displayed quantities rounded to two decimals. The 12 kW branch is fixed, not another interactive variable.'],boundary:'72 kW processor rails + 12 kW other bus loads · 92% local regulators · 97% shelf.'},
   {id:'dc-voltage-planes',label:'Separate the voltage planes',title:'Higher distribution voltage lowers current; the chip still needs local conversion.',reference:ledger,kind:'dc-planes',pedagogical_role:'comparison',
-    explanation:['At 100 kW DC, a 50 V plane carries 2,000 A while an 800 V plane carries 125 A. These are two receiving-end voltage choices at equal power, not the current at each stage of a lossy real rack.','The coming AC/DC comparison asks a different question: three 480 V AC line conductors versus two 800 V DC conductors. Keep those conductor and measurement conventions explicit.'],boundary:'Same 100 kW at each declared DC plane · I = P / V · converter loss excluded from this current comparison.'},
+    explanation:['At 100 kW DC, a 50 V plane carries 2,000 A while an 800 V plane carries 125 A. These are two receiving-end voltage choices at equal power, not the current at each stage of a lossy real rack.','The following AC/DC comparison asks a different question: three 480 V AC line conductors versus two 800 V DC conductors. The 50 V DC rack bus in this slide is not the 480 V AC feeder used next.'],boundary:'Same 100 kW at each declared DC plane · I = P / V · converter loss excluded from this current comparison.'},
   {id:'retrofit-power',label:'The sidecar needs upstream power',title:'Can the existing feeder supply the new DC sidecar?',reference:migration,kind:'retrofit',pedagogical_role:'counterexample',
     controls:[control('rackKW','Each of two racks',[[120,'120 kW DC'],[110,'110 kW DC']])],
     explanation:['An existing row has 240 kW allocated under the required operating state. Two 120 kW DC racks require 253 kW upstream when their shared sidecar is 96% efficient and its upstream-fed auxiliaries draw 3 kW.','At 110 kW each, the modeled input becomes 232.17 kW. That passes the supplied steady allocation, but delivered workload service, DC interfaces, protection and startup/recharge remain separate qualifications.'],boundary:'Two equal racks · 96% sidecar efficiency · 3 kW upstream auxiliaries · 240 kW existing allocation.'},
@@ -80,6 +80,7 @@ const ledgerIndex = rack.findIndex(scene => scene.id === 'local-current');
 const local = [supplement[0],reviewFigures[0],hardwareAnatomy,...rack.slice(0,ledgerIndex), supplement[1],...rack.slice(ledgerIndex)];
 const electrical = samplePresentation.steps.filter(step=>!Object.hasOwn(sceneRedirects,step.id)).flatMap(step=>{
   const scene={...step,label:step.title,title:step.headline,reference:'d06-eight-hundred-volt-architectures',sourceKind:step.kind,kind:'800v'};
+  if(step.id==='one-load')return [{...scene,introLabel:'Power distribution',explanation:['Keep the load at 100 kW while asking where power conversion belongs and how the distribution voltage changes conductor current.','First compare 50 V DC with 800 V DC at the same power. Then compare a 480 V three-phase AC feeder with an 800 V DC feeder. These use different voltage and conductor conventions.','Follow the resulting conversion choices from the compute rack to a sidecar and farther upstream, then check whether an existing feeder can supply a retrofit.']}];
   if(step.id==='conversion-in-sidecar')return [{...scene,label:'Conversion in a sidecar',title:'A sidecar converts AC to DC beside the compute rack.'}];
   if(step.id!=='ac-dc-ledger')return [scene];
   return [
@@ -90,4 +91,50 @@ const electrical = samplePresentation.steps.filter(step=>!Object.hasOwn(sceneRed
 const dcPreview = {id:'dc-architecture-preview',label:'Three DC architecture views',title:'The three phases of the DC data center revolution',reference:'d06-eight-hundred-volt-architectures',kind:'dc-preview',pedagogical_role:'overview',explanation:['Preview the next three drawings from top to bottom: AC-to-DC conversion inside the compute rack, in a nearby power rack, and farther upstream. Keep the placement of conversion in view as each drawing is enlarged.','Here phases names the three architecture views in this lesson, not the three electrical phases of AC or a required deployment sequence. The conventional AC baseline is not SemiAnalysis Phase 1; the sidecar view groups that forecast’s first two adoption phases.']};
 // Old electrical-foundation links open their earlier chapter; the architecture order stays intact.
 const transition = electrical.flatMap(scene=>scene.id==='conversion-in-rack'?[dcPreview,scene]:scene.id==='ocp-power-architectures'?[greenCase,scene]:[scene]);
-export const scenes = Object.freeze([...local,supplement[2],...transition,dcProtection,...supplement.slice(3),reviewFigures[1]]);
+// Keep the former sequence for bookmarks and presenter previews from the combined deck.
+export const legacySceneIds = Object.freeze([...local,supplement[2],...transition,dcProtection,...supplement.slice(3),reviewFigures[1]].map(scene=>scene.id));
+export const scenes = Object.freeze(local);
+export const dcScenes = Object.freeze([transition[0],supplement[2],...transition.slice(1),dcProtection,...supplement.slice(3),reviewFigures[1]]);
+export const allScenes = Object.freeze([...scenes,...dcScenes]);
+export const dcLearningContract = Object.freeze({
+  driving_question:'How can 800 V DC reduce distribution copper and free compute-rack space?',
+  fixed_boundary:'100 kW received by the load in each conductor comparison; a separate two-rack retrofit has a 240 kW upstream allocation.',
+  changed_variable:'Distribution voltage, conductor arrangement, conversion location or rack power.',
+  primary_payoff:'Distinguish conductor savings from whole-system efficiency, trace each conversion boundary, and check the power needed by a sidecar.',
+  misconception:'Higher DC voltage supplies the chip directly, fewer conductors establish total efficiency, or a sidecar increases feeder capacity.',
+  closing_question:'Where does conversion happen, and what power and protection does that arrangement still need?'
+});
+export const decks = Object.freeze({
+  'rack-energy':Object.freeze({scenes,title:'Rack power and buffering',file:'rack-energy-format.html',fallbackNumber:8}),
+  'dc-distribution':Object.freeze({scenes:dcScenes,title:'800 V DC distribution',file:'dc-distribution-format.html',fallbackNumber:9})
+});
+
+export function resolveRackEnergyRoute(hash, deckId='rack-energy') {
+  let requested=String(hash||'').replace(/^#/, '');
+  try { requested=decodeURIComponent(requested); } catch { requested=''; }
+  if(Object.hasOwn(sceneRedirects,requested))return {...sceneRedirects[requested],external:true};
+  const id=Object.hasOwn(aliases,requested)?aliases[requested]:requested;
+  const owner=Object.keys(decks).find(key=>decks[key].scenes.some(scene=>scene.id===id)) || deckId;
+  const deck=decks[owner] || decks['rack-energy'];
+  const index=Math.max(0,deck.scenes.findIndex(scene=>scene.id===id));
+  return {deckId:owner,scene:deck.scenes[index].id,index,...(owner!==deckId?{file:deck.file}:{})};
+}
+
+export function rackEnergyDestination(href, deckId='rack-energy', inFrame=false) {
+  const url=new URL(href);
+  let route=resolveRackEnergyRoute(url.hash,deckId);
+  const preview=url.searchParams.get('presenter-preview');
+  // An already-open combined deck can request a preview by its old absolute index.
+  // Translate that index before the common presenter selects from either new deck.
+  if(inFrame && deckId==='rack-energy' && /^(0|[1-9]\d*)$/.test(preview || '')
+      && Number(preview)<legacySceneIds.length
+      && (Number(preview)>=scenes.length || route.deckId==='dc-distribution')) {
+    route=resolveRackEnergyRoute(legacySceneIds[Number(preview)],deckId);
+    url.searchParams.set('presenter-preview',String(route.index));
+  } else if(inFrame && route.file && !route.external && /^(0|[1-9]\d*)$/.test(preview || '')) {
+    url.searchParams.set('presenter-preview',String(route.index));
+  }
+  if(route.file)url.pathname=new URL(route.file,url).pathname;
+  url.hash=route.scene;
+  return {route,href:url.href};
+}
