@@ -2829,6 +2829,14 @@ The comparison is about how far the higher voltage travels before step-down. Ret
 
 For a hall that distributes 800 V DC, rectification moves upstream and rack inputs use DC/DC conversion. The AC/DC function already existed inside conventional AC-fed rack supplies. Compute-rack space can be released, while the relocated equipment still occupies space and needs cooling elsewhere. DC protection and backup interfaces must match the new path. Compare efficiency across the complete chain at the required operating load rather than treating one converter as a new penalty.
 
+## Should we step down first or rectify first?
+
+The established transformer-plus-converter path first steps medium-voltage AC down with a conventional transformer, then uses controlled lower-voltage electronics to rectify and regulate an 800 V DC output. That choice draws on established transformer and converter equipment. It is not a physical requirement to lower AC voltage before rectification.
+
+A modular solid-state transformer can reverse that order: rectify the medium-voltage input, then use high-frequency isolated DC/DC conversion to obtain the lower DC output. Semiconductor switching creates the alternating waveform for the internal high-frequency transformer. The transformer itself does not operate on steady DC. Series-connected modules can share input-voltage stress across lower-voltage devices.
+
+SSTs are an available architecture option. Eaton lists a 2 MW medium-voltage SST with a 12.47 kV input and 800 V DC output. TI’s modular reference design illustrates the electronic and isolation functions, with its own different ratings. Choosing between the paths involves available equipment, qualification, serviceability, protection and complete-path efficiency; an SST is not required merely because a hall distributes 800 V DC.
+
 ## Zurich-West: centralized DC in 2012
 
 ABB and Green opened a 1 MW DC system for the Zurich-West expansion in May 2012. Compatible HP servers and storage accepted its 380 V DC supply. This is a built historical example of upstream rectification; its interface is separate from the later 800 V designs.
@@ -2937,6 +2945,8 @@ The unmodeled auxiliary reverses the arithmetic result. This does not show that 
 - [ABB and Green open Zurich-West DC data-center expansion](https://new.abb.com/news/detail/12816/worlds-most-powerful-dc-data-center-online) — Opening date, installation scale and compatible HP IT. Read 2026-09-13. May 2012 primary announcement read. Historical 1 MW installation for a 1,100 square metre expansion; no claim of current operating capacity or general 800 V deployment. Marketing savings and superlatives are excluded.
 - [ABB — Protection Devices for Direct Current Applications](https://library.e.abb.com/public/5cd83dcb95a74dcdb571be5f256e1af8/9AKK108470A9606_en_B_Protection%20Devices%20for%20Direct%20Current%20Applications%20-%20Technical%20Application%20Paper.pdf) — DC interruption and converter-fed fault behavior depend on circuit dynamics and device capabilities. Read 2026-09-06. Read the publicly indexed excerpt of section 6; the PDF URL responded successfully, but the complete document was not reviewed. No product selection is claimed.
 - [ABB — Protection Devices for Direct Current Applications, 2025 technical paper](https://library.e.abb.com/public/4b22f4bae7e5424d9bf87039c3c1d0ba/9AKK108470A2501_Technical%20Application%20Paper_Protection%20Devices%20for%20Direct%20Current%20Applications.pdf) — Explain arc formation and conventional direct suppression in the illustrative 800 V DC feeder; distinguish it from semiconductor, resonant and hybrid interruption methods. Read 2026-09-13. Indexed section 2.3.6, page27, reviewed. Conventional interruption must drive current to zero and manage circuit energy; no product rating or clearing time assigned to teaching animation.
+- [Texas Instruments — TIDA-011012 modular solid-state transformer reference design](https://www.ti.com/tool/TIDA-011012) — Modular rectification and high-frequency isolated DC/DC conversion explain an SST supply path. Read 2026-09-16. Primary reference-design overview and features reviewed. The design has its own stated link voltages and is not an 800 V data-center product specification.
+- [Eaton — Medium-voltage solid-state transformer](https://www.eaton.com/us/en-us/catalog/medium-voltage-power-distribution-control-systems/medium-voltage-solid-state-transformer.html) — A current 2 MW product offering lists a 12.47 kV input and 800 V DC output. Read 2026-09-16. Product availability is distinct from deployment prevalence; no efficiency advantage over a complete alternative system is inferred.
 
 ## Check your understanding: Did moving the converter save energy?
 

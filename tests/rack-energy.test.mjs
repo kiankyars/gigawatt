@@ -91,10 +91,13 @@ test('DC architecture motivates the supply equipment and preserves both rack-bus
     const changes=supplementalVisual(dcScenes.find(s=>s.id==='dc-architecture-changes'),initialState,compact);
     assert.doesNotMatch(changes,/98%|102\.04|Calculate the lost power/);
   }
-  const sample=createPresentationRenderers({defaults,getState:()=>initialState,getStep:()=>dcScenes[supplyIndex],isRevealed:()=>false,acdcConductorModel,escapeHTML,fmt:String});
-  assert.match(sample.conversionSupply(),/13.8 kV → 480 V AC/);
-  assert.match(sample.conversionSupply(),/Rectification \+ regulation/);
-  assert.doesNotMatch(sample.conversionSupply(),/data-converter-view|Calculate the lost power/);
+  const supply=supplementalVisual(dcScenes[supplyIndex],initialState);
+  assert.match(supply,/Step down first/);
+  assert.match(supply,/Rectify first/);
+  assert.match(supply,/solid-state transformer/);
+  assert.match(supply,/high-frequency transformer/);
+  assert.match(supply,/Rectify \+ regulate/);
+  assert.doesNotMatch(supply,/data-converter-view|Calculate the lost power/);
 });
 
 

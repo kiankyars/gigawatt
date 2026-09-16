@@ -1,5 +1,5 @@
 import { renderDCArchitecturePreview } from './rack-dc-preview.js';
-import { renderRackBusChoices, renderDCChanges } from './dc-architecture-review.js';
+import { renderRackBusChoices, renderDCSupplyOptions } from './dc-architecture-review.js';
 import { renderRackHardwareAnatomy } from './rack-hardware-anatomy.js';
 import { renderCorePath, renderConversionChoices, renderVRMPhases } from './rack-converter-review.js';
 import { renderBufferReview } from './rack-buffer-review.js';
@@ -21,8 +21,8 @@ export function rackVisual(scene,state,compact) {
 }
 
 export function supplementalVisual(scene,s,compact=false) {
+  if(scene.kind==='dc-supply-options')return renderDCSupplyOptions();
   if(scene.kind==='dc-rack-buses')return renderRackBusChoices();
-  if(scene.kind==='dc-changes')return renderDCChanges();
   if(scene.kind==='hardware-anatomy')return renderRackHardwareAnatomy();
   if(scene.kind==='dc-preview')return renderDCArchitecturePreview();
   if(scene.kind==='review-figure')return scene.figureCaption

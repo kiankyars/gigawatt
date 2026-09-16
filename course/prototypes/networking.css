@@ -97,4 +97,7 @@
 
 .optical-packaging-image{display:flex;align-items:center;justify-content:center;flex:1;height:100%;min-height:0;margin:0}
 .optical-packaging-image img{display:block;width:100%;height:100%;min-height:0;object-fit:contain}
+.network-reference-image{display:flex;align-items:center;justify-content:center;flex:1;height:100%;min-height:0;margin:0}
+.network-reference-image img{display:block;width:100%;height:100%;min-height:0;object-fit:contain}
+@media(max-width:600px){.network-reference-image{height:auto;flex:none}.network-reference-image img{height:auto}}
 @media(max-width:600px){.optical-packaging-image{height:auto;flex:none}.optical-packaging-image img{height:auto}}

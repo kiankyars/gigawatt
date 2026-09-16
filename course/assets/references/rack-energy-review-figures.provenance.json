@@ -68,6 +68,15 @@
         "Edit this supplied course slide. Preserve its 16:9 composition, elegant dark navy serif type, white background, subtle tinted panels, illustrated motherboards, and three-part green footer. Correct only the unsupported price-tier-to-phase-count claims. Keep title 'Motherboards use different numbers of VRM phases'. Replace subtitle with 'Parallel converter paths share current to the CPU.' Remove the three category headings 'Entry-level / budget', 'Mid-range / gaming', 'High-end / overclocking'. In each panel, put a small heading 'Illustrative layout' and a prominent exact phase count: left '6 phases', middle '12 phases', right '20 phases'. These are generic illustrative independent converter phases, not specifications of real products. Draw exactly six blue phase blocks beside the left CPU (3 above and 3 left), twelve for middle (6 above and 6 left), twenty for right (10 above and 10 left), clearly separated and not double-counting a corner block. Adjust motherboard component positions only as needed. Replace the explanatory lines under the three counts with respectively 'Current shared across six paths', 'Current shared across twelve paths', 'Current shared across twenty paths'. Keep CPU labels and original bottom three messages: 'More phases / share the load', 'Interleaving / reduces ripple', 'Not just count / quality still matters'. No marketing tiers, no brand, no extra disclaimers, no new formulas. Keep all text crisp and highly readable. Output landscape 16:9.",
         "Edit this supplied slide minimally. Preserve all layout and text exactly except in the RIGHT panel replace '20 phases' with '18 phases', and replace 'Current shared across twenty paths' with 'Current shared across eighteen paths'. Leave the blue blocks unchanged: the right illustration has nine above the CPU and nine to its left, eighteen total. Preserve all other panels, images, colors, typography and footer. Do not add anything."
       ]
+    },
+    {
+      "asset": "dc-hall-before-after.png",
+      "origin": "User-supplied PNG copied unchanged.",
+      "original_filename": "codex-clipboard-b5750e34-cc93-44e5-b47e-c40d88d6758d.png",
+      "original_sha256": "78bdbe45c7df95ecd2802547df75d0c49c2a96e5eb2090143e8ce9fa538c7950",
+      "sha256": "78bdbe45c7df95ecd2802547df75d0c49c2a96e5eb2090143e8ce9fa538c7950",
+      "reviewed_at": "2026-09-16",
+      "scope": "Conceptual conventional-AC versus upstream-rectified DC hall comparison. Rack DC/DC is condensed into the rack distribution block and explained on the preceding rack-bus slide. Diagram omits protection and backup interfaces; it is not an installation schematic."
     }
   ]
 }

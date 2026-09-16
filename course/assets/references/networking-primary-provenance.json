@@ -47,5 +47,16 @@
     "sha256": "333ad802ba269ae16a8e964e3121c8d4fce5768b8aa96b3d4a730efef5582fae",
     "visually_reviewed_on": "2026-09-16",
     "description": "User-edited comparison of pluggable optics and co-packaged optics; replaces the networking slide 8 diagram."
+  },
+  {
+    "file": "networking-microsoft-ai-superfactory.png",
+    "source": "User-supplied Microsoft Inside an AI Superfactory image",
+    "received_on": "2026-09-16",
+    "publisher": "Microsoft (credited within the supplied artwork)",
+    "related_source_page": "https://blogs.microsoft.com/blog/2025/11/12/infinite-scale-the-architecture-behind-the-azure-ai-superfactory/",
+    "modifications": "None; copied byte-for-byte",
+    "sha256": "ce7082fb7c71fe12efd971bc7d7d2afd62e2d32feb8f2c68cd9f7c03dd266671",
+    "visually_reviewed_on": "2026-09-16",
+    "description": "Full supplied infographic showing Microsoft Fairwater AI WAN, GPU density, power, cooling and network topology; placed immediately after the three communication scales."
   }
 ]

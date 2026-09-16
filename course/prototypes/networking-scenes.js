@@ -13,6 +13,7 @@ export const scenes=[
  {id:'networking-purpose',label:'Networking and interconnects',title:'Networking and interconnects',reference:topology,pedagogical_role:'problem'},
  {id:'consumer-hardware-meme',label:'AI demand and consumer hardware',title:'AI demand and consumer hardware',reference:topology,pedagogical_role:'hook',imageOnly:true},
  {id:'three-scales',label:'Three communication scales',title:'A distributed model uses different networks at different scales.',reference:topology,pedagogical_role:'architecture'},
+ {id:'microsoft-ai-superfactory',label:'Inside an AI Superfactory',title:'Inside an AI Superfactory',reference:topology,pedagogical_role:'case',imageOnly:true},
  {id:'packet-path',label:'Data hierarchy',title:'Data hierarchy for each networking paradigm',reference:topology,pedagogical_role:'mechanism'},
  {id:'shared-model',label:'A model across several GPUs',title:'Split a model across GPUs, and they must exchange results.',reference:collective,pedagogical_role:'mechanism'},
  {id:'network-hardware',label:'The adapter and the switch',title:'Scale-out networking: the adapter and the switch',reference:topology,pedagogical_role:'architecture'},

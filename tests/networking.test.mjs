@@ -53,7 +53,7 @@ test('compute migration preserves both requested opening images and distinguishe
  const html=networkingVisual('packet-path',initialState);
  assert.doesNotMatch(html,/muted-path|selected-path/);
  for(const label of ['GPU-local memory','Inside the rack','Across racks'])assert.ok(html.includes(`aria-label="${label}"`));
- assert.match(html,/One GPU package/);assert.match(html,/HBM/);assert.match(html,/NVLink switches/);assert.match(html,/Fabric switches/);
+ assert.doesNotMatch(html,/One GPU package|1 GPU package|[Cc]ompute tray/);assert.match(html,/HBM/);assert.match(html,/NVLink switches/);assert.match(html,/Fabric switches/);
  assert.match(networkingVisual('shared-model',initialState),/Each GPU receives the other part’s result/);
  assert.match(networkingVisual('shared-model',initialState),/GPUs combine the results/);
 });

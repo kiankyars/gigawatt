@@ -1893,3 +1893,23 @@ domain-map, research metadata and staging checks passed.
 The built-in browser tool was unavailable to both agents for this release; no
 fresh rendered-browser inspection is claimed. New layout CSS is scoped to the
 two added scenes, with desktop rows and narrow-screen columns.
+
+## Chapter 9 supply paths and Chapter 10 Microsoft image — 2026-09-16
+
+Chapter 9 slide 10 now directly compares conventional AC step-down followed by
+controlled rectification with an SST path that rectifies the medium-voltage
+input and uses high-frequency isolated DC/DC conversion. The reader explains
+why the internal transformer still uses an alternating waveform. TI's reference
+design and Eaton's current product listing were checked. Slide 11 uses the
+supplied AC-versus-800-V-DC image unchanged; its rack block condenses downstream
+DC/DC conversion already shown on slide 9.
+
+Chapter 10 adds the supplied Microsoft Superfactory image immediately after
+three communication scales (new slide 4). The former slide 4's GPU-package and
+compute-tray boundary labels are removed. Both supplied PNGs are copied unchanged
+and have SHA-256 provenance records. Chapter 10 now has 24 slides; Chapter 9
+remains at 16.
+
+All 251 Node and 80 Python tests passed, including all scenes and their changed
+states. Course, expanded-reader, domain-map, research metadata, staging and
+whitespace checks passed. No new rendered-browser inspection is claimed.

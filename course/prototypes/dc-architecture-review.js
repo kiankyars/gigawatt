@@ -1,5 +1,32 @@
 const node = (content, className = '') => `<li class="dc-bus-node ${className}">${content}</li>`;
 
+export function renderDCSupplyOptions() {
+  return `<div class="dc-supply-options">
+    <section class="dc-supply-option" aria-label="Step down AC before rectification">
+      <h2>Step down first</h2>
+      <ol class="dc-bus-path">
+        ${node('<strong>Medium-voltage AC</strong>', 'dc-bus-input')}
+        ${node('<strong>Transformer</strong><span>AC step-down + isolation</span>', 'dc-bus-converter')}
+        ${node('<strong>Low-voltage AC</strong>')}
+        ${node('<strong>AC/DC converter</strong><span>Rectify + regulate</span>', 'dc-bus-converter')}
+        ${node('<strong>800 V DC</strong>', 'dc-bus-bar dc-bus-high')}
+      </ol>
+      <p>Established transformers and lower-voltage power electronics.</p>
+    </section>
+    <section class="dc-supply-option dc-supply-sst" aria-label="Rectify first in a solid-state transformer">
+      <h2>Rectify first — solid-state transformer (SST)</h2>
+      <ol class="dc-bus-path">
+        ${node('<strong>Medium-voltage AC</strong>', 'dc-bus-input')}
+        ${node('<strong>Rectifier</strong><span>Medium-voltage input</span>', 'dc-bus-converter')}
+        ${node('<strong>Internal DC links</strong>')}
+        ${node('<strong>Isolated DC/DC</strong><span>Switching + high-frequency transformer</span>', 'dc-bus-converter')}
+        ${node('<strong>800 V DC</strong>', 'dc-bus-bar dc-bus-high')}
+      </ol>
+      <p>Integrates the functions in a medium-voltage electronic system.</p>
+    </section>
+  </div>`;
+}
+
 export function renderRackBusChoices() {
   return `<div class="dc-bus-choices">
     <section class="dc-bus-choice" aria-label="Step down at the rack entrance">
@@ -22,25 +49,5 @@ export function renderRackBusChoices() {
         ${node('<strong>Device rails</strong><span>Chip voltage</span>', 'dc-bus-chip')}
       </ol>
     </section>
-  </div>`;
-}
-
-export function renderDCChanges() {
-  return `<div class="dc-hall-changes">
-    <div class="dc-hall-comparison">
-      <section class="dc-hall-column" aria-label="AC distribution in the data hall">
-        <h2>AC in the data hall</h2>
-        <div class="dc-hall-change"><h3>Power conversion</h3><p>AC → DC at the rack<br>DC → DC near the load</p></div>
-        <div class="dc-hall-change"><h3>Rack space</h3><p>Power shelves inside the compute rack</p></div>
-        <div class="dc-hall-change"><h3>Protection &amp; backup</h3><p>AC-rated protection<br>UPS and battery interfaces</p></div>
-      </section>
-      <section class="dc-hall-column dc-hall-column-dc" aria-label="800 volt DC distribution in the data hall">
-        <h2>800 V DC in the data hall</h2>
-        <div class="dc-hall-change"><h3>Power conversion</h3><p>AC → DC upstream<br>DC → DC near the load</p></div>
-        <div class="dc-hall-change"><h3>Rack space</h3><p>AC/DC equipment moves to the power room</p></div>
-        <div class="dc-hall-change"><h3>Protection &amp; backup</h3><p>DC-rated protection<br>Adapted backup interfaces</p></div>
-      </section>
-    </div>
-    <p class="dc-path-efficiency">Compare losses across the full path.</p>
   </div>`;
 }

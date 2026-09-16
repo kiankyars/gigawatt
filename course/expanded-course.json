@@ -6097,6 +6097,14 @@
           ]
         },
         {
+          "heading": "Should we step down first or rectify first?",
+          "paragraphs": [
+            "The established transformer-plus-converter path first steps medium-voltage AC down with a conventional transformer, then uses controlled lower-voltage electronics to rectify and regulate an 800 V DC output. That choice draws on established transformer and converter equipment. It is not a physical requirement to lower AC voltage before rectification.",
+            "A modular solid-state transformer can reverse that order: rectify the medium-voltage input, then use high-frequency isolated DC/DC conversion to obtain the lower DC output. Semiconductor switching creates the alternating waveform for the internal high-frequency transformer. The transformer itself does not operate on steady DC. Series-connected modules can share input-voltage stress across lower-voltage devices.",
+            "SSTs are an available architecture option. Eaton lists a 2 MW medium-voltage SST with a 12.47 kV input and 800 V DC output. TI’s modular reference design illustrates the electronic and isolation functions, with its own different ratings. Choosing between the paths involves available equipment, qualification, serviceability, protection and complete-path efficiency; an SST is not required merely because a hall distributes 800 V DC."
+          ]
+        },
+        {
           "heading": "Zurich-West: centralized DC in 2012",
           "paragraphs": [
             "ABB and Green opened a 1 MW DC system for the Zurich-West expansion in May 2012. Compatible HP servers and storage accepted its 380 V DC supply. This is a built historical example of upstream rectification; its interface is separate from the later 800 V designs.",
@@ -6249,7 +6257,9 @@
         "P153",
         "P154",
         "E1423005C7C",
-        "P170"
+        "P170",
+        "P21",
+        "P45"
       ],
       "source_notes": [
         {
@@ -6299,9 +6309,21 @@
           "claim": "Explain arc formation and conventional direct suppression in the illustrative 800 V DC feeder; distinguish it from semiconductor, resonant and hybrid interruption methods.",
           "reviewed_on": "2026-09-13",
           "limits": "Indexed section 2.3.6, page27, reviewed. Conventional interruption must drive current to zero and manage circuit energy; no product rating or clearing time assigned to teaching animation."
+        },
+        {
+          "id": "P21",
+          "claim": "Modular rectification and high-frequency isolated DC/DC conversion explain an SST supply path.",
+          "reviewed_on": "2026-09-16",
+          "limits": "Primary reference-design overview and features reviewed. The design has its own stated link voltages and is not an 800 V data-center product specification."
+        },
+        {
+          "id": "P45",
+          "claim": "A current 2 MW product offering lists a 12.47 kV input and 800 V DC output.",
+          "reviewed_on": "2026-09-16",
+          "limits": "Product availability is distinct from deployment prevalence; no efficiency advantage over a complete alternative system is inferred."
         }
       ],
-      "word_count": 1898,
+      "word_count": 2071,
       "domain_checkin": {
         "domain": "D06",
         "title": "Did moving the converter save energy?",
