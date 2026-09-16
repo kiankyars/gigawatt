@@ -1,9 +1,10 @@
 import { renderDCArchitecturePreview } from './rack-dc-preview.js';
+import { renderRackBusChoices, renderDCChanges } from './dc-architecture-review.js';
 import { renderRackHardwareAnatomy } from './rack-hardware-anatomy.js';
 import { renderCorePath, renderConversionChoices, renderVRMPhases } from './rack-converter-review.js';
 import { renderBufferReview } from './rack-buffer-review.js';
 import { renderRackPower } from './rack-power-visuals.js';
-import { rackLedger, dcPlanes, migrationDecision } from './rack-energy-model.js';
+import { rackLedger, migrationDecision } from './rack-energy-model.js';
 import { renderDCProtection } from './rack-energy-protection.js';
 const n=(v,d=2)=>v.toLocaleString('en-US',{maximumFractionDigits:d});
 export const escapeHTML=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -20,6 +21,8 @@ export function rackVisual(scene,state,compact) {
 }
 
 export function supplementalVisual(scene,s,compact=false) {
+  if(scene.kind==='dc-rack-buses')return renderRackBusChoices();
+  if(scene.kind==='dc-changes')return renderDCChanges();
   if(scene.kind==='hardware-anatomy')return renderRackHardwareAnatomy();
   if(scene.kind==='dc-preview')return renderDCArchitecturePreview();
   if(scene.kind==='review-figure')return scene.figureCaption
@@ -31,10 +34,6 @@ export function supplementalVisual(scene,s,compact=false) {
   if(scene.kind==='ledger'){
     const a=rackLedger({auxiliaryKW:0});
     return `<div class="processor-ledger">${card('AC into this supply path',`${n(a.inputKW)} kW`)}<b>→</b>${card('PSU stage','97%',`${n(a.shelfLossKW)} kW heat`,'heat-card')}<b>→</b>${card('VRM stage','92%',`${n(a.regulatorLossKW)} kW heat`,'heat-card')}<b>→</b>${card('Processor rails','72 kW')}<p>${n(a.inputKW)} kW in = 72 kW to processor rails + ${n(a.regulatorLossKW+a.shelfLossKW)} kW heat</p></div>`;
-  }
-  if(scene.kind==='dc-planes'){
-    const a=dcPlanes();
-    return `<div class="dc-planes"><p class="energy-condition">100 kW at each DC plane · ideal conversion for this current comparison</p><div class="energy-comparison">${card('50 V rack bus',`${n(a.lowAmps)} A`,'100,000 W ÷ 50 V')}${card('800 V distribution',`${a.highAmps} A`,'100,000 W ÷ 800 V')}</div><div class="local-chain"><span>800 V distribution</span><b>→</b><span>Rack / board conversion</span><b>→</b><span>Low-voltage device rails</span></div><p class="energy-condition">Input ranges and conversion stages must match the chosen rack.</p></div>`;
   }
   if(scene.kind==='retrofit'){
     const a=migrationDecision({rackKW:s.rackKW});

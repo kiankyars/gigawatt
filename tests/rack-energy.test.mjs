@@ -75,20 +75,26 @@ test('shared renderers cover all scenes and changed states without missing quant
   }
 });
 
-test('supply path and converter heat are separate slides with independent reveal behavior',()=>{
-  const index=scenes.findIndex(scene=>scene.id==='ac-dc-ledger');
-  assert.equal(scenes[index].sourceKind,'conversion-supply');
-  assert.equal(scenes[index+1].id,'ac-dc-converter-loss');
-  let revealed=false;
-  const sample=createPresentationRenderers({defaults,getState:()=>({...initialState,converterView:'heat'}),getStep:()=>scenes[index],isRevealed:()=>revealed,acdcConductorModel,escapeHTML,fmt:(v,d=0)=>v.toLocaleString('en-US',{maximumFractionDigits:d})});
-  const supply=sample.conversionSupply();
-  assert.match(supply,/13.8 kV → 480 V AC/);
-  assert.doesNotMatch(supply,/data-converter-view|Calculate the lost power/);
-  assert.match(sample.conversionLoss(),/Calculate the lost power/);
-  revealed=true;
-  assert.match(sample.conversionLoss(),/102.04/);
-  assert.match(sample.conversionLoss(),/2.04 kW/);
-  assert.doesNotMatch(sample.conversionLoss(),/data-converter-view/);
+test('DC architecture motivates the supply equipment and preserves both rack-bus choices',()=>{
+  const ids=dcScenes.map(scene=>scene.id);
+  assert.ok(!ids.includes('dc-voltage-planes'));
+  assert.ok(!ids.includes('ac-dc-converter-loss'));
+  const supplyIndex=ids.indexOf('ac-dc-ledger');
+  for(const id of ['conversion-in-rack','conversion-in-sidecar','conversion-farther-upstream','rack-bus-choices'])assert.ok(ids.indexOf(id)<supplyIndex,id);
+  assert.equal(ids[supplyIndex+1],'dc-architecture-changes');
+  const busScene=dcScenes.find(s=>s.id==='rack-bus-choices');
+  for(const compact of [false,true]){
+    const buses=supplementalVisual(busScene,initialState,compact);
+    assert.match(buses,/50 V/);
+    assert.match(buses,/800 V/);
+    assert.doesNotMatch(buses,/2,000 A|125 A/);
+    const changes=supplementalVisual(dcScenes.find(s=>s.id==='dc-architecture-changes'),initialState,compact);
+    assert.doesNotMatch(changes,/98%|102\.04|Calculate the lost power/);
+  }
+  const sample=createPresentationRenderers({defaults,getState:()=>initialState,getStep:()=>dcScenes[supplyIndex],isRevealed:()=>false,acdcConductorModel,escapeHTML,fmt:String});
+  assert.match(sample.conversionSupply(),/13.8 kV → 480 V AC/);
+  assert.match(sample.conversionSupply(),/Rectification \+ regulation/);
+  assert.doesNotMatch(sample.conversionSupply(),/data-converter-view|Calculate the lost power/);
 });
 
 
@@ -96,7 +102,7 @@ test('rack power and DC distribution separate rack behavior from DC distribution
   assert.equal(rackScenes.length,16);
   assert.equal(dcScenes.length,16);
   assert.equal(rackScenes.at(-1).id,'buffer-recharge');
-  assert.deepEqual(dcScenes.slice(0,2).map(scene=>scene.id),['one-load','dc-voltage-planes']);
+  assert.deepEqual(dcScenes.slice(0,2).map(scene=>scene.id),['one-load','conductor-copper']);
   assert.equal(dcScenes.at(-1).id,'power-stack-overview');
   assert.equal(scenes.length,new Set(scenes.map(scene=>scene.id)).size);
   assert.ok(rackScenes.some(scene=>scene.id==='energy-locality'));

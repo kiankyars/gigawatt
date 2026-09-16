@@ -248,6 +248,14 @@
         ]
       },
       {
+        "heading": "Where the rack steps down from 800 V",
+        "paragraphs": [
+          "An 800 V supply at the rack inlet does not require one specific voltage on the vertical rack bus. One design converts 800 V to roughly 50 V at the rack entrance, then distributes that lower voltage vertically to the trays. Another carries 800 V along the vertical bus and steps it down near the trays. Both still need local conversion and regulation to supply processor rails; 800 V does not feed a processor directly.",
+          "The comparison is about how far the higher voltage travels before step-down. Retaining a roughly 50 V vertical bus is one option, not an invariant of DC-input racks. SemiAnalysis’s May 2026 forecast distinguishes rack-shelf conversion from on-blade conversion; NVIDIA’s architecture also shows downstream 54 V/12 V and core conversion. Actual nominal rail voltages and the number of conversion stages depend on the platform.",
+          "For a hall that distributes 800 V DC, rectification moves upstream and rack inputs use DC/DC conversion. The AC/DC function already existed inside conventional AC-fed rack supplies. Compute-rack space can be released, while the relocated equipment still occupies space and needs cooling elsewhere. DC protection and backup interfaces must match the new path. Compare efficiency across the complete chain at the required operating load rather than treating one converter as a new penalty."
+        ]
+      },
+      {
         "heading": "Zurich-West: centralized DC in 2012",
         "paragraphs": [
           "ABB and Green opened a 1 MW DC system for the Zurich-West expansion in May 2012. Compatible HP servers and storage accepted its 380 V DC supply. This is a built historical example of upstream rectification; its interface is separate from the later 800 V designs.",
@@ -391,7 +399,7 @@
       {
         "title": "Inside the 800VDC Revolution – Part 1",
         "url": "https://newsletter.semianalysis.com/p/inside-the-800vdc-revolution-part",
-        "claim": "User-supplied SST market forecast and its equipment-content assumption in the 26 May 2026 article.",
+        "claim": "May 2026 forecast distinguishing rack-shelf and on-blade step-down, plus the supplied SST market forecast and its equipment-content assumption.",
         "reviewed_on": "2026-09-10",
         "limits": "Analyst forecast, not observed revenue, commissioned capacity, an independently reproduced market model or a requirement to use SSTs. Unlabelled 2026/2027 revenue bars and exact GW values are not inferred from chart pixels."
       },

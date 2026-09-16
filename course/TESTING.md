@@ -1872,3 +1872,24 @@ covered the enlarged fabric at 1280 × 720 and 390 × 844, the new opening text,
 and recent data-hierarchy, network-scale, optics and merged backup-power views
 at 1280 × 720. Those other additions did not share the undersized photo layout.
 Viewport restored after checks.
+
+## Chapter 9 architecture sequence — 2026-09-16
+
+Marked the current Chapter 8 accepted and verified following Kian’s explicit
+approval. Chapter 9 remains a 16-slide deck. Its conductor comparison now leads
+into the rack/sidecar/power-room architecture sequence, followed by two explicit
+rack paths: step down at the rack entrance to a roughly 50 V vertical bus, or
+carry 800 V down the rack and step down at the trays. Both retain device rails.
+The supply-equipment slide now asks how the 800 V DC supply is produced. A
+high-level AC/DC comparison replaces the isolated converter-loss calculation,
+keeping conversion, space, protection, backup interfaces and full-path losses
+visible. Reader material includes the same rack-bus distinction.
+
+All 251 Node tests and 80 Python tests passed. Sequence checks confirm both rack
+paths follow the architecture views and precede supply equipment; the retired
+voltage-plane and converter-heat scenes are absent. Course, expanded-reader,
+domain-map, research metadata and staging checks passed.
+
+The built-in browser tool was unavailable to both agents for this release; no
+fresh rendered-browser inspection is claimed. New layout CSS is scoped to the
+two added scenes, with desktop rows and narrow-screen columns.

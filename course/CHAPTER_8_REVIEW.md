@@ -124,3 +124,10 @@ The subsequent September 16 instruction removes bookmark compatibility. The
 location and support-path views are now merged into one connected
 **Where backup power connects** diagram, with facility, rack and chip groupings.
 Chapter 8 now has 16 slides.
+
+## Current Chapter 8 accepted — 16 September 2026
+
+Kian explicitly confirmed satisfaction through Chapter 8. The current 16-slide
+**Rack power and buffering** chapter is accepted and verified. The separate
+Chapter 9 remains under review; its approved revision moves architecture ahead
+of supply equipment and preserves the low-voltage/800 V rack-bus distinction.

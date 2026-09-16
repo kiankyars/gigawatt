@@ -1,3 +1,4 @@
+@import url('./dc-architecture-review.css');
 :root {--text:var(--ink);--panel:var(--surface-soft);--power:var(--teal);--heat:var(--amber);--data:var(--phase-three)}
 #viewer{height:100svh;max-width:1920px;margin:auto;display:grid;grid-template-rows:54px minmax(0,1fr) 64px;background:var(--paper)}
 #viewer::backdrop{background:var(--paper)}
