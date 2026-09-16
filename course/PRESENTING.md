@@ -58,7 +58,10 @@ thumbnail overlay, timer or notes panel. The upcoming slide shows its starting
 state; interact with the current slide in the original window.
 The original window's header and bottom slide navigation hide while the presenter
 is connected and return when it closes, without moving the slide content.
-The separate upcoming-slide window keeps its bottom navigation controls.
+The separate upcoming-slide window keeps its bottom navigation controls and a
+small header with **Exit presenter**. That button closes the presenter window,
+returns focus to the original window and restores its header and navigation
+without changing the current slide.
 
 The presenter's small footer controls the original window: its selector names
 the current audience slide, while “Up next” gives the number of the slide shown

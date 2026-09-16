@@ -1707,3 +1707,12 @@ has no horizontal overflow. A temporary local fixture opened and closed the real
 presenter popup: the audience header/footer hid on connection and returned on
 close. The fixture is not part of the published site. All 233 Node tests and 80
 Python tests pass, including numeric/relative text and repeated-render coverage.
+
+## Presenter exit control — 2026-09-15
+
+The next-slide window has a visible header with **Exit presenter**; the recording
+window remains free of navigation while connected. A temporary local browser
+fixture opened the real popup and invoked its exit button: the popup closed,
+the audience header/footer returned, and the selected slide stayed unchanged.
+All 234 Node tests and 80 Python tests pass. The exit regression also verifies
+that delayed messages cannot reconnect the presenter after exit.

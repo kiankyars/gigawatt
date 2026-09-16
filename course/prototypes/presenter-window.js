@@ -1,7 +1,7 @@
 import { PRESENTER_PROTOCOL, isPresenterMessage, previewURL } from './presenter-model.js';
 const $ = id => document.getElementById(id);
 const audience = window.opener, origin = location.origin, session = location.hash.slice(1);
-let current = null, lastSeen = 0, connected = false, previewKey = '';
+let current = null, lastSeen = 0, connected = false, previewKey = '', exited = false;
 const previewFrame = $('preview');
 const post = data => {
   if (audience && !audience.closed) audience.postMessage({ protocol: PRESENTER_PROTOCOL, session, ...data }, origin);
@@ -55,7 +55,7 @@ function update(snapshot) {
   status('');
 }
 window.addEventListener('message', event => {
-  if (!isPresenterMessage(event, audience, origin, session)) return;
+  if (exited || !isPresenterMessage(event, audience, origin, session)) return;
   if (event.data.type === 'snapshot') update(event.data);
   else if (event.data.type === 'connected') { lastSeen = Date.now(); if (current) status(''); }
   else if (event.data.type === 'disconnect') status('Waiting for the course window…');
@@ -63,11 +63,21 @@ window.addEventListener('message', event => {
 $('previous').onclick = () => navigation(current.index - 1);
 $('next').onclick = forward;
 $('slides').onchange = event => navigation(event.target.selectedIndex);
+$('exit-presenter').onclick = () => {
+  if (exited) return;
+  exited = true;
+  window.clearInterval(heartbeat);
+  post({ type: 'close' });
+  status('Presenter ended. You can close this window.');
+  if (audience && !audience.closed) audience.focus();
+  window.close();
+};
 window.addEventListener('keydown', keydown);
 window.addEventListener('pagehide', () => post({ type: 'close' }));
 const hello = () => {
+  if (exited) return;
   if (!audience || audience.closed) { status('The course window is closed.'); return; }
   post({ type: 'hello' });
   if (lastSeen && Date.now() - lastSeen > 3500) status('Waiting for the course window…');
 };
-hello(); window.setInterval(hello, 1000);
+hello(); const heartbeat = window.setInterval(hello, 1000);

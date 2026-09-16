@@ -169,14 +169,14 @@ test('preview initialization waits for module decks to populate the live selecto
 
 test('separate presenter displays the upcoming slide and its controls advance the audience', () => {
   const messages = [], handlers = new Map();
-  const elements = Object.fromEntries(['preview','connection','slides','previous','next','progress','end'].map(id => [id, {
+  const elements = Object.fromEntries(['preview','connection','slides','previous','next','progress','end','exit-presenter'].map(id => [id, {
     hidden: false, options: [], setAttribute(name, value) { this[name] = value; },
     replaceChildren(...options) { this.options = options; },
   }]));
-  const audience = { closed: false, postMessage: data => messages.push(data) };
+  const audience = { closed: false, focus() {}, postMessage: data => messages.push(data) };
   const context = {
     document: { getElementById: id => elements[id] },
-    window: { opener: audience, addEventListener: (type, handler) => handlers.set(type, handler), setInterval() {} },
+    window: { opener: audience, addEventListener: (type, handler) => handlers.set(type, handler), setInterval() {}, clearInterval() {}, close() {} },
     location: { origin: 'https://example.test', hash: '#test-session' },
     Option: function (text, value) { this.textContent = text; this.value = value; },
     PRESENTER_PROTOCOL, isPresenterMessage, previewURL,
@@ -203,4 +203,65 @@ test('separate presenter displays the upcoming slide and its controls advance th
   assert.equal(elements.next.disabled, true);
   receive({ type: 'disconnect' });
   assert.equal(elements.slides.disabled, true);
+});
+
+test('Exit presenter restores audience chrome without changing slides or reconnecting from delayed callbacks', () => {
+  const fixture = audienceFixture();
+  const handlers = new Map(), intervals = new Map(), commands = [];
+  let timer = 0, focusCalls = 0, closeCalls = 0;
+  const elements = Object.fromEntries(['preview','connection','slides','previous','next','progress','end','exit-presenter'].map(id => [id, {
+    hidden: false, options: [], setAttribute(name, value) { this[name] = value; },
+    replaceChildren(...options) { this.options = options; },
+  }]));
+  fixture.win.focus = () => { focusCalls++; };
+  fixture.win.postMessage = data => { commands.push(data); fixture.send(data); };
+  const receive = data => handlers.get('message')?.({ source: fixture.win, origin: fixture.win.location.origin, data });
+  fixture.peer.postMessage = data => { fixture.messages.push(data); receive(data); };
+  const context = {
+    document: { getElementById: id => elements[id] },
+    window: {
+      opener: fixture.win,
+      addEventListener: (type, handler) => handlers.set(type, handler),
+      setInterval: callback => { intervals.set(++timer, callback); return timer; },
+      clearInterval: id => intervals.delete(id),
+      // Keep the simulated window alive so delayed callbacks can still run after a close request.
+      close: () => { closeCalls++; },
+    },
+    location: { origin: fixture.win.location.origin, hash: '#test-session' },
+    Option: function (text, value) { this.textContent = text; this.value = value; },
+    PRESENTER_PROTOCOL, isPresenterMessage, previewURL,
+  };
+  installPresenter(fixture.doc, fixture.win);
+  fixture.button.click();
+  const source = readFileSync(new URL('../course/prototypes/presenter-window.js', import.meta.url), 'utf8').replace(/^import .*;\n/, '');
+  vm.runInNewContext(source, context);
+  assert.equal(fixture.doc.documentElement.dataset.presenterActive, '');
+  assert.equal(elements.slides.disabled, false);
+  assert.equal(intervals.size, 1);
+  const pendingHeartbeat = [...intervals.values()][0];
+  const pendingSnapshot = fixture.messages.find(message => message.type === 'snapshot');
+  const currentIndex = fixture.select.selectedIndex;
+  const currentURL = fixture.win.location.href;
+
+  elements['exit-presenter'].onclick();
+
+  assert.equal(commands.at(-1).type, 'close');
+  assert.equal(fixture.doc.documentElement.dataset.presenterActive, undefined);
+  assert.equal(fixture.intervals.size, 0);
+  assert.equal(intervals.size, 0, 'the presenter heartbeat must stop');
+  assert.equal(focusCalls, 1);
+  assert.equal(closeCalls, 1);
+  assert.equal(fixture.select.selectedIndex, currentIndex);
+  assert.equal(fixture.win.location.href, currentURL);
+  for (const id of ['slides','previous','next']) assert.equal(elements[id].disabled, true);
+
+  const commandCount = commands.length;
+  pendingHeartbeat();
+  receive(pendingSnapshot);
+  receive({ protocol: PRESENTER_PROTOCOL, session: 'test-session', type: 'connected' });
+  elements.next.onclick();
+  assert.equal(commands.length, commandCount, 'delayed callbacks must not send hello or navigate after exit');
+  assert.equal(fixture.doc.documentElement.dataset.presenterActive, undefined);
+  assert.equal(elements.slides.disabled, true, 'a late snapshot must not re-enable presenter navigation');
+  assert.equal(fixture.select.selectedIndex, currentIndex);
 });
