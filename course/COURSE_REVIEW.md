@@ -72,7 +72,7 @@ release does not restart an unchanged chapter’s review.
 | 5. [Physical site, buildings and safety](prototypes/site-format.html?teach=1) | 20 scenes; Meta Prometheus tents follows Colossus reuse; Houdini moved to Chapter 13 | [Current checks](TESTING.md#chapter-5-drainage-flood-response-and-simpler-check--2026-09-14) | **Accepted and verified — 15 September.** Kian confirmed Chapters 1–8 verified. Removed slide 5’s bottom subtitle, clarified stormwater drainage in notes, verified actual water pumping during Harvey, and simplified slide 19 to reroute → test/switch → excavate. |
 | 6. [Campus and building power distribution](prototypes/distribution-format.html?teach=1) | 29 slides; three-phase currents and line-to-line voltage follow the single-line diagram; beer analogy and PF quote retained | [Latest checks](TESTING.md#chapter-8-sequence-and-dc-architecture-review--2026-09-15) | **Accepted and verified — 15 September.** Final requested wording and image changes implemented. Existing scene hashes retained. |
 | 7. [Continuity, storage and protection](prototypes/continuity-format.html?teach=1) | 35 scenes; updated isolation image, contact/arc sequence, two-image redundancy transition, Microsoft quote and two closing checks | [Final review checks](TESTING.md#chapters-6-and-7-final-author-review--2026-09-15) | **Accepted and verified — 15 September.** Final requested image changes implemented. Sparks retains the dated reported 1 MW pilot; current nameplate remains unresolved. |
-| 8. [Rack power and the 800 V DC transition](prototypes/rack-energy-format.html?teach=1) | 32 scenes; rack/tray/CPU–GPU anatomy near the opening; local power path and buffering, concise AC/DC comparison, stacked architecture preview and power-stack closing | [Latest sequence checks](TESTING.md#chapter-8-sequence-and-dc-architecture-review--2026-09-15) | **Accepted and verified — 15 September.** Kian confirmed Chapters 1–8 verified. [Individual resolutions](CHAPTER_8_REVIEW.md) include the moved electrical foundations, architecture preview and removed migration exercise. The downward-power-step follow-up is now slide 14, directly after the rising-load example. |
+| 8. [Rack power and the 800 V DC transition](prototypes/rack-energy-format.html?teach=1) | 33 scenes; rack/tray/CPU–GPU anatomy near the opening; local power path and buffering, concise AC/DC comparison, stacked architecture preview and power-stack closing | [Latest sequence checks](TESTING.md#chapter-8-sequence-and-dc-architecture-review--2026-09-15) | **Accepted and verified — 15 September.** Kian confirmed Chapters 1–8 verified. [Individual resolutions](CHAPTER_8_REVIEW.md) include the moved electrical foundations, architecture preview and removed migration exercise. The downward-power-step follow-up directly follows the rising-load example. The September 16 visual revision replaces slides 8/10, spaces slide 9 and adds a VRM phase-count illustration. |
 | 9. [Networking and interconnects](prototypes/networking-format.html?teach=1) | 23 slides; all-reduce reduced to contributions and a shared result, followed by communication overlap; ring mechanics remain in the reader | [Current checks](TESTING.md#chapter-9-scope-and-chapter-13-delivery--2026-09-16) | **Authored; author review in progress.** Requested all-reduce simplification implemented. No whole-chapter acceptance inferred. |
 | 10. [Storage, orchestration and recovery](prototypes/storage-format.html?teach=1) | 27 slides; four-GPU tray repair now introduces recovery; supplied component-price meme after opening; input bottlenecks, coherent checkpoints, recovery, Meta/Google cases and deadline scheduling | [Current checks](TESTING.md#chapter-11-storage-orchestration-and-recovery--2026-09-14) | **Authored and checked; ready for first author review.** Three D09 reader lessons updated. |
 | 11. [Chip and rack heat capture](prototypes/cooling-format.html?teach=1) | Selected topics in shared cooling deck | Model/browser checks recorded | Cooling sequence iterated; no whole-chapter completion claimed. |
@@ -499,6 +499,27 @@ consistent with that shared model. The [BTM source note](../research/sources/SA4
 input for deeper supply, island operation, fuel, delivery and grid-transition
 teaching within the existing domains. Neither the entire source library nor the
 whole presentation must be finished before the next dry run.
+
+## Remaining-course redundancy review — 16 September 2026
+
+Compared Chapter 8 onward against earlier teaching, excluding deliberate Primer
+repetition. These are recommendations, not completed removals:
+
+- [ ] **Chapter 8, `rear-busbar` (slide 5):** repeats Chapter 2's `rack-boundary`
+  rear view using the same renderer. Fold the reminder into the rack-anatomy
+  slide and remove the standalone stop.
+- [ ] **Chapter 9, `tpu-interconnect` (slide 17):** repeats the TPU v4 inventory
+  and OCS introduction in Chapter 2's `network-preview`. Fold essential context
+  into the following `optical-circuits` interaction, which adds routing behavior.
+- [ ] **Chapter 13, `polaris-phases` (slide 23):** repeats Chapter 4's
+  `site-ready` case, dates, images and phased-delivery lesson. Reduce it to a
+  brief callback before the accepted-paths exercise, or remove the stop.
+
+Keep later applications that change the reasoning: rack-buffer recharge and
+load drops, DC fault-energy sources, optical routing, recovery deadlines,
+thermal redundancy and commissioning interfaces. Later unbuilt decks were
+reviewed through their written lessons and plans only; avoid reintroducing
+N+1, Tier definitions or power-versus-energy as standalone explanations there.
 
 ## Before recording
 

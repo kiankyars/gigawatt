@@ -78,17 +78,23 @@ function boardRails(s,m) {
  return o;
 }
 function localCurrent(s,m) {
- const a=localPower({loopMicroOhms:s.resistance});let o='';
- if(m){o+=box(20,40,150,130,['50 V bus','20 A'],true)+arrow(176,105,215,105)+box(221,40,150,130,['1 V core','1,000 A'],true);
-  o+=t(195,218,'Same 1 kW · ideal conversion',21);
-  o+=box(30,263,330,120,[`${s.resistance} µΩ core-path loop`,`${format(a.dropVolts)} V drop`],true,C.heat);
- }else{o+=box(50,83,325,152,['50 V rack bus','20 A'],false)+arrow(391,159,771,159)+t(585,132,'Same 1 kW · ideal conversion',24)+box(787,83,355,152,['1 V core rail','1,000 A'],false);
-  o+=t(600,292,`${s.resistance} µΩ core-path loop → ${format(a.dropVolts)} V drop`,30,C.heat);
+ const a=localPower({loopMicroOhms:s.resistance});
+ if(m){
+  return box(15,28,153,130,['50 V bus','20 A'],true)+arrow(177,94,211,94)+box(220,28,155,130,['1 V core','1,000 A'],true)
+   +t(195,203,'Same 1 kW',23)+t(195,251,`${s.resistance} µΩ core-path loop`,22,C.heat)
+   +r(20,281,350,153,C.face)+t(43,318,'Voltage drop',22,C.ink,'start')+t(43,365,'ΔV = I × R',25,C.heat,'start')+t(346,410,`${format(a.dropVolts)} V`,35,C.heat,'end')
+   +r(20,460,350,153,C.face)+t(43,497,'Heat in the path',22,C.ink,'start')+t(43,544,'P = I²R',25,C.heat,'start')+t(346,589,`${format(a.lossWatts)} W`,35,C.heat,'end');
  }
- o+=t(m?195:600,m?420:340,'ΔV = I × R',m?24:28,C.heat);
- o+=result(`${format(a.lossWatts)} W`,'I²R in the final current path',m,m?467:405,C.heat);
- return o;
+ return box(45,40,350,157,['50 V rack bus','20 A'],false)
+  +arrow(416,120,780,120)+t(600,87,'Same 1 kW',27)
+  +box(802,40,350,157,['1 V core rail','1,000 A'],false)
+  +t(600,257,`${s.resistance} µΩ in the core-power loop`,25,C.heat)
+  +r(45,301,530,210,C.face)+t(82,346,'Voltage drop',26,C.ink,'start')
+  +t(82,407,'ΔV = I × R',32,C.heat,'start')+t(536,476,`${format(a.dropVolts)} V`,58,C.heat,'end')
+  +r(625,301,530,210,C.face)+t(662,346,'Heat in the path',26,C.ink,'start')
+  +t(662,407,'P = I²R',32,C.heat,'start')+t(1116,476,`${format(a.lossWatts)} W`,58,C.heat,'end');
 }
+
 function multiphase(s,m) {
  const q=phaseWaveforms(s.phases),x=m?33:90,w=m?324:1020;let o='';
  const color=[C.power,C.data,C.heat,C.muted];

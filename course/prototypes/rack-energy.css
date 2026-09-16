@@ -43,14 +43,14 @@ footer{border-top:1px solid var(--line);padding:0 28px}select{font:inherit;color
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
 /* Supplied figures already contain their own titles and source labels. */
 #scene[data-kind="review-figure"]>header{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
-.review-figure{height:100%;min-height:0;display:flex;align-items:center;justify-content:center;margin:0;flex:1}
-.review-figure img{display:block;width:100%;height:100%;min-height:0;object-fit:contain}
+.review-figure{width:100%;height:100%;min-height:0;display:flex;align-items:center;justify-content:center;margin:0;flex:1}
+.review-figure img,.review-figure svg{display:block;width:100%;height:100%;min-height:0;object-fit:contain}
 .dc-protection{display:flex;flex-direction:column;min-height:0;flex:1;justify-content:center;gap:22px}
 .dc-protection svg{width:100%;min-height:0;max-height:400px;font-family:inherit}
 .dc-protection-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:25px;font-size:18px;line-height:1.4}
 .dc-protection-facts strong{display:block;color:var(--teal);font-size:21px;margin-bottom:8px}
 @media(max-width:600px){
- .review-figure{height:auto;flex:none}.review-figure img{height:auto;max-height:none}
+ .review-figure{height:auto;flex:none}.review-figure img,.review-figure svg{height:auto;max-height:none}
  .dc-protection{flex:none}.dc-protection svg{max-height:none;aspect-ratio:380/620}
  .dc-protection-facts{grid-template-columns:1fr;gap:16px;font-size:16px}.dc-protection-facts strong{font-size:19px}
 }

@@ -10,7 +10,7 @@
       "visible_credit": "BofA Global Research estimates, Nvidia, company reports",
       "source_url": null,
       "reviewed_at": "2026-09-15",
-      "scope": "Rack-density forecast supplied by the user. The figure retains its estimate language, roadmap product labels and dates. It is used to motivate distribution architecture, not as measured Abilene power or a current product specification. The original BofA report URL and publication date were not supplied and have not been independently located. NVIDIA\u2019s May 2025 technical article independently supports the direction toward MW-scale racks; it does not validate each bar in this analyst forecast.",
+      "scope": "Rack-density forecast supplied by the user. The figure retains its estimate language, roadmap product labels and dates. It is used to motivate distribution architecture, not as measured Abilene power or a current product specification. The original BofA report URL and publication date were not supplied and have not been independently located. NVIDIA’s May 2025 technical article independently supports the direction toward MW-scale racks; it does not validate each bar in this analyst forecast.",
       "supporting_primary_source": "https://developer.nvidia.com/blog/nvidia-800-v-hvdc-architecture-will-power-the-next-generation-of-ai-factories/"
     },
     {
@@ -20,10 +20,54 @@
       "original_sha256": "08e1efae6f0a13e842eed208aaa698fb734d0c5eac40f101f48133659b859310",
       "sha256": "288d453ff8304f97da167e7b1d7617d9a45b384c309398c669fa6aec1447e388",
       "publisher_as_labeled": "Data Gravity / Wing",
-      "visible_credit": "Data Gravity / Wing \u00b7 May 2026",
+      "visible_credit": "Data Gravity / Wing · May 2026",
       "source_url": null,
       "reviewed_at": "2026-09-15",
       "scope": "User-supplied dated industry map, retained unchanged. Used to recap grid/substation, building distribution and UPS, rack supply, power semiconductors, and point-of-load regulation. Power semiconductors are technologies used within converters, not necessarily a separate physical conversion stage. Company highlighting and market metrics belong to the supplied source and are not independently validated course design inputs. No primary publication URL was supplied or located."
+    },
+    {
+      "asset": "rack-input-power-account.png",
+      "origin": "User-supplied PNG copied unchanged.",
+      "original_filename": "codex-clipboard-45449454-0079-41e4-9c5f-8f5fbd3497a1.png",
+      "original_sha256": "e2281b5501b0a46511a82ad1b2b596d3b51f94df6e08a5df03fdb191685ef24d",
+      "sha256": "e2281b5501b0a46511a82ad1b2b596d3b51f94df6e08a5df03fdb191685ef24d",
+      "reviewed_at": "2026-09-16",
+      "scope": "Supplied whole-rack power account: 72 kW processor rails, 12 kW parallel loads, 92% local regulation, 97% power shelf. Rounded totals independently checked."
+    },
+    {
+      "asset": "rack-direct-intermediate-conversion.png",
+      "origin": "User-supplied PNG copied unchanged.",
+      "original_filename": "codex-clipboard-ce905a56-68df-4075-88c4-7a8d8596d646.png",
+      "original_sha256": "ca04aede15ac254b96ea9058568be009be34066940c4cfaadb765de633c2aa1d",
+      "sha256": "ca04aede15ac254b96ea9058568be009be34066940c4cfaadb765de633c2aa1d",
+      "reviewed_at": "2026-09-16",
+      "scope": "Supplied direct/intermediate conversion comparison. The empty green panel receives live SVG text; original PNG unchanged."
+    },
+    {
+      "asset": "vrm-phase-counts.png",
+      "origin": "User-supplied PNG copied unchanged.",
+      "original_filename": "codex-clipboard-80a6c8cb-4a4f-45b2-adf6-07e1d48de1b3.png",
+      "original_sha256": "4ebfa99eb3303471ab64554cb90f6c948a7c129f85efc909ddc4cedbefb63301",
+      "sha256": "4ebfa99eb3303471ab64554cb90f6c948a7c129f85efc909ddc4cedbefb63301",
+      "reviewed_at": "2026-09-16",
+      "scope": "Original upload preserved unchanged for provenance. Not used in the deck: price-tier ranges do not establish independent phase counts. See the corrected illustrative derivative."
+    },
+    {
+      "asset": "vrm-phase-counts-illustrative.png",
+      "origin": "Built-in image_gen edit of the user-supplied VRM illustration; original preserved separately.",
+      "original_asset": "vrm-phase-counts.png",
+      "sha256": "f8e6be04eacf383cf190729a490857af16b606c2cf04faa418a104bacdc292c6",
+      "reviewed_at": "2026-09-16",
+      "scope": "Generic 6, 12 and 18 independent converter-path layouts. Not product specifications or motherboard price tiers. Counted visible blue blocks: 3+3, 6+6, 9+9. Advertised power-stage counts are not necessarily independently timed phases.",
+      "supporting_primary_sources": [
+        "https://rog.asus.com/motherboards/rog-maximus/rog-maximus-z790-hero-btf/",
+        "https://www.ti.com/product/TPS40090-Q1"
+      ],
+      "image_tool": "Built-in image_gen",
+      "prompts": [
+        "Edit this supplied course slide. Preserve its 16:9 composition, elegant dark navy serif type, white background, subtle tinted panels, illustrated motherboards, and three-part green footer. Correct only the unsupported price-tier-to-phase-count claims. Keep title 'Motherboards use different numbers of VRM phases'. Replace subtitle with 'Parallel converter paths share current to the CPU.' Remove the three category headings 'Entry-level / budget', 'Mid-range / gaming', 'High-end / overclocking'. In each panel, put a small heading 'Illustrative layout' and a prominent exact phase count: left '6 phases', middle '12 phases', right '20 phases'. These are generic illustrative independent converter phases, not specifications of real products. Draw exactly six blue phase blocks beside the left CPU (3 above and 3 left), twelve for middle (6 above and 6 left), twenty for right (10 above and 10 left), clearly separated and not double-counting a corner block. Adjust motherboard component positions only as needed. Replace the explanatory lines under the three counts with respectively 'Current shared across six paths', 'Current shared across twelve paths', 'Current shared across twenty paths'. Keep CPU labels and original bottom three messages: 'More phases / share the load', 'Interleaving / reduces ripple', 'Not just count / quality still matters'. No marketing tiers, no brand, no extra disclaimers, no new formulas. Keep all text crisp and highly readable. Output landscape 16:9.",
+        "Edit this supplied slide minimally. Preserve all layout and text exactly except in the RIGHT panel replace '20 phases' with '18 phases', and replace 'Current shared across twenty paths' with 'Current shared across eighteen paths'. Leave the blue blocks unchanged: the right illustration has nine above the CPU and nine to its left, eighteen total. Preserve all other panels, images, colors, typography and footer. Do not add anything."
+      ]
     }
   ]
 }

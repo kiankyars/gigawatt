@@ -1745,3 +1745,21 @@ overflow; desktop diagrams fit above the footer. Browser console checks found
 no warnings or errors. Temporary viewport settings were restored. The existing
 presenter protocol tests pass; a separate popup was not exposed by the browser
 automation session, so its live connection was not reverified in this pass.
+
+## Chapter 8 visual review — 2026-09-16
+
+Replaced slides 8 and 10 with supplied power-account and conversion figures;
+the conversion caption is native SVG text in the supplied blank green panel.
+Slide 9 now separates current, loop resistance, voltage drop and conductor heat.
+A corrected motherboard phase-count illustration follows the four-path VRM
+interaction, bringing the chapter to 33 scenes without changing existing IDs.
+Original uploads are retained, and all six image provenance hashes match.
+
+All 241 Node tests and 80 Python tests pass; the 12 rack tests were rerun after
+the final image reference update. Course, expanded-reader, domain-map and
+research checks pass. Staging and whitespace checks pass. The built-in browser
+was used to inspect the changed slides at 1280 × 720 and check their layouts at
+390 × 844. Both 100 and 10 microohm settings show the expected voltage drop and
+heat; the native caption fits the green panel. The compact SVG uses the full
+available width and the affected slides have no horizontal overflow. The
+viewport override was reset. No browser software was installed.

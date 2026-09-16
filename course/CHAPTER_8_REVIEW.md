@@ -65,3 +65,22 @@ into a bidirectional buffer, with the same 40 kW peak charging requirement.
 The graph measures power above the new GPU load. Available charging power,
 energy headroom and bus-voltage consequences are part of the explanation.
 This closes the downward-power-step follow-up; Chapter 8 now has 32 slides.
+
+## Visual follow-up — 16 September 2026
+
+- Slide 8 now uses the supplied whole-rack power account: 72 kW processor rails,
+  a fixed 12 kW parallel branch, and 93.05 kW at the AC inlet. This supersedes
+  the earlier processor-only ledger without reintroducing an other-load control.
+- Slide 9 separates the current comparison, loop resistance, voltage drop and
+  conductor heat into clearly spaced regions. Both resistance settings remain.
+- Slide 10 uses the supplied direct/intermediate conversion image. Its green
+  panel reads: “Either design can be efficient, depending on the project requirements.”
+- A motherboard illustration follows the four-phase VRM interaction. Its
+  6/12/18-path layouts replace unsupported budget/gaming/high-end phase ranges:
+  advertised power-stage counts can differ from independently controlled phases.
+  The original upload is preserved; the displayed derivative was edited with
+  the built-in image tool. [Asset provenance and prompts](assets/references/rack-energy-review-figures.provenance.json).
+
+There are now 33 slides. The former slide 12 and later slides move forward by one;
+all existing scene links remain stable. Redundancy recommendations are recorded
+in [the course review](COURSE_REVIEW.md#remaining-course-redundancy-review--16-september-2026).
