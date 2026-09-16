@@ -85,6 +85,7 @@ function localCurrent(s,m) {
  }else{o+=box(50,83,325,152,['50 V rack bus','20 A'],false)+arrow(391,159,771,159)+t(585,132,'Same 1 kW · ideal conversion',24)+box(787,83,355,152,['1 V core rail','1,000 A'],false);
   o+=t(600,292,`${s.resistance} µΩ core-path loop → ${format(a.dropVolts)} V drop`,30,C.heat);
  }
+ o+=t(m?195:600,m?420:340,'ΔV = I × R',m?24:28,C.heat);
  o+=result(`${format(a.lossWatts)} W`,'I²R in the final current path',m,m?467:405,C.heat);
  return o;
 }
@@ -168,7 +169,7 @@ export function renderRackPower(id,state,compact=false){
   'rear-busbar':'NVIDIA DGX GB300 rear hardware illustration identifies the power busbar behind the trays. It carries nominal 50–51 V DC inside the rack.',
   'psu-input':'The source example uses a 480/277 V wye supply. Each selected single-phase PSU receives phase-to-neutral voltage around 277 V; shared outputs supply a 50 V rack bus. Neutral and protective earth are distinct.',
   'board-rails':'A 48 V bus feeds a 12 V intermediate converter, then a 1 V point-of-load regulator and compute die. The exact rails and branches vary by board.',
-  'local-current':`A 1 kW core receives 1000 A at 1 V. With ${state.resistance} microohms in the final loop, resistive heat is ${format(localPower({loopMicroOhms:state.resistance}).lossWatts)} W.`,
+  'local-current':`A 1 kW core receives 1000 A at 1 V. Voltage drop is ΔV = I × R. With ${state.resistance} microohms in the final loop, the drop is ${format(localPower({loopMicroOhms:state.resistance}).dropVolts)} V and resistive heat is ${format(localPower({loopMicroOhms:state.resistance}).lossWatts)} W.`,
   multiphase:`${state.phases} interleaved converter phases supply a constant 1000 A average. The summed current has ${format(phaseWaveforms(state.phases).peakToPeakAmps)} A peak-to-peak normalized ripple.`,
   'energy-locality':`Selected ${state.location} energy storage. Board capacitors, rack BBU and facility storage connect at different electrical boundaries; path impedance and conversion response matter.`,
   'source-handoff':`The load steps by 40 kW while source power ramps over ${state.response} seconds. The buffer's triangular power deficit requires ${supplyHandoff({responseSeconds:state.response}).energyKJ} kJ.`,
