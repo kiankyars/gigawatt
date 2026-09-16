@@ -1949,3 +1949,5 @@ The teaching deck is reduced from 27 to 12 scenes and renamed **Storage and reco
 - Chapter 10 slide 6 uses the requested NVLink sentence and a short hardware–software co-design cue. The real DGX H100 fabric example now directly follows the adapter/switch slide (old slide 11 is now slide 8).
 - Built-in browser inspected the image and revised shared-model slide at 1280 × 720; navigation confirms the new order. Existing renderer/model tests cover the image and updated wording.
 - Narration checked against NVIDIA's August 2026 800 V DC roadmap and July 2026 Spectrum-6 announcement: the transformer-first route preserves established AC equipment; SST products exist but deployment prevalence is not established; pluggable and co-packaged optics coexist.
+
+- Closing-order follow-up: all 15 Chapter 9 slides remain. The power-stack map is slide 12; DC protection, retrofit, and the three-column comparison are slides 13–15. All 23 rack-energy/navigation tests pass. Built-in browser verified the final image, previous-slide link to retrofit, and onward link to Chapter 10.

@@ -45,7 +45,7 @@ const reviewFigures = [
   {id:'power-stack-overview',label:'The power stack, from grid to chip',title:'The power stack, from grid to chip',reference:ledger,kind:'review-figure',pedagogical_role:'recap',
     asset:'power-stack-overview.png',
     alt:'Data Gravity / Wing, May 2026 industry map: grid and substation infrastructure; data-center power distribution and UPS; rack-level power supplies; SiC and GaN power semiconductors; point-of-load and chip-level voltage regulation; ending at the NVIDIA GPU die.',
-    explanation:['The supplied industry map closes the chapter by joining the grid, building, rack and chip perspectives. Follow the functions from the top to the GPU die after the class has seen the actual conversion choices and retrofit constraints.','Power semiconductors are technologies inside power converters, not necessarily a separate serial conversion stage. The chart’s companies, highlights and market metrics remain the source’s dated industry overview, not measured plant performance or a bill of materials for this course.'],
+    explanation:['The supplied industry map joins the grid, building, rack and chip perspectives before the final protection and retrofit examples. Follow the functions from the top to the GPU die; the chapter closes by comparing the three distribution architectures.','Power semiconductors are technologies inside power converters, not necessarily a separate serial conversion stage. The chart’s companies, highlights and market metrics remain the source’s dated industry overview, not measured plant performance or a bill of materials for this course.'],
     boundary:'User-supplied industry map, labeled Data Gravity / Wing · May 2026.'}
 ];
 const dcProtection = {
@@ -75,6 +75,9 @@ const electrical = samplePresentation.steps.filter(step=>!['dc-circuit','ac-cycl
   const scene={...step,label:step.title,title:step.headline,reference:'d06-eight-hundred-volt-architectures',sourceKind:step.kind,kind:'800v'};
   if(step.id==='one-load')return [{...scene,introLabel:'Power distribution',introGoal:'Comparing AC to DC in the data hall',explanation:['Keep the load at 100 kW while asking where power conversion belongs and how the distribution voltage changes conductor current.','Compare a 480 V three-phase AC feeder with an 800 V DC feeder at the same delivered power. Then follow where conversion moves and where the rack steps down to its device voltages.','Follow the resulting conversion choices from the compute rack to a sidecar and farther upstream, then check whether an existing feeder can supply a retrofit.']}];
   if(step.id==='conversion-in-sidecar')return [{...scene,label:'Conversion in a sidecar',title:'A sidecar converts AC to DC beside the compute rack.'}];
+  if(step.id==='ocp-power-architectures')return [{...scene,pedagogical_role:'recap',
+    notes:scene.notes.map(note=>note.replace('the prior slide','the earlier supply-path comparison')),
+    explanation:scene.explanation.map(text=>text.replace('the preceding transformer-plus-low-voltage-rectifier example','the earlier transformer-plus-low-voltage-rectifier example'))}];
   if(step.id!=='ac-dc-ledger')return [scene];
   return [{...scene,label:'Step down first or rectify first?',title:'Should we step down first or rectify first?',kind:'review-figure',imageTitle:true,asset:'dc-step-down-or-rectify-first.png',source_ids:['P21','P22','P45'],
     alt:'Should we step down first or rectify first? Step down first: medium-voltage AC, conventional transformer for AC step-down and isolation, low-voltage AC, AC/DC converter to rectify and regulate, 800 V DC. Rectify first: a solid-state transformer takes medium-voltage AC into a rectifier and internal DC links, then uses isolated DC/DC conversion with switching and a high-frequency transformer to supply 800 V DC.',
@@ -87,7 +90,7 @@ export const dcScenes = Object.freeze([
   'one-load','conductor-copper','current-prediction','conductor-loss',
   'dc-architecture-preview','conversion-in-rack','conversion-in-sidecar','conversion-farther-upstream',
   'rack-bus-choices','ac-dc-ledger',
-  'green-zurich-west','ocp-power-architectures','dc-feeder-protection','retrofit-power','power-stack-overview'
+  'green-zurich-west','power-stack-overview','dc-feeder-protection','retrofit-power','ocp-power-architectures'
 ].map(id=>dcSteps[id]));
 export const allScenes = Object.freeze([...scenes,...dcScenes]);
 export const dcLearningContract = Object.freeze({
