@@ -11,14 +11,6 @@ import { redundancyModel, renderRedundancy } from "./ups-redundancy.js";
 import { renderReliability } from "./ups-reliability.js";
 
 const $ = (id) => document.getElementById(id);
-function relocated() {
-  if (location.hash === "#dc-feeder-protection") {
-    location.replace("rack-energy-format.html" + location.search + "#dc-feeder-protection");
-    return true;
-  }
-  return false;
-}
-const moved = relocated();
 let index = resolveContinuityScene(location.hash.slice(1));
 const fresh = () => ({
   outage: true,
@@ -208,7 +200,7 @@ $("fullscreen").onclick = () =>
     ? document.exitFullscreen()
     : document.documentElement.requestFullscreen();
 window.addEventListener("hashchange", () =>
-  { if (!relocated()) go(resolveContinuityScene(location.hash.slice(1))); },
+  go(resolveContinuityScene(location.hash.slice(1))),
 );
 document.addEventListener("keydown", (e) => {
   if (
@@ -232,4 +224,4 @@ document.addEventListener("keydown", (e) => {
   }
 });
 matchMedia("(max-width:799px)").addEventListener("change", render);
-if (!moved) render();
+render();

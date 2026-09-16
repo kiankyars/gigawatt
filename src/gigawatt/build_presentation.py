@@ -82,9 +82,6 @@ def validate_presentation(data: dict) -> None:
                     raise ValueError(f"Source figure requires {field}")
     if data["planned_duration_seconds"] != sum(s["duration_seconds"] for s in steps):
         raise ValueError("Planned duration must match the authored scene timings")
-    for target in data.get("aliases", {}).values():
-        if target not in {step["id"] for step in steps}:
-            raise ValueError("Presentation alias points to a missing scene")
 
 
 def presentation_outputs(root: Path, sample_id: str) -> dict[Path, str]:

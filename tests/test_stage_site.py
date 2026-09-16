@@ -6,9 +6,16 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 
 from gigawatt.stage_site import (
-    INTRODUCTION_REDIRECTS, PRESENTATION_REDIRECTS, ROOT, SHARED_PRESENTATION_MODULES,
+    ROOT, SHARED_PRESENTATION_MODULES,
     public_path, published_text, published_url, stage,
 )
+
+
+def catalog(root, *decks):
+    (root / "course").mkdir(parents=True, exist_ok=True)
+    (root / "course/teaching-sequences.json").write_text(json.dumps({
+        "presentations": [{"id": name, "chapters": [{"href": f"prototypes/{name}-format.html?teach=1"}]} for name in decks]
+    }))
 
 
 class SiteStagingTests(unittest.TestCase):
@@ -18,19 +25,17 @@ class SiteStagingTests(unittest.TestCase):
         self.assertEqual(published_text(code, source), code)
         self.assertEqual(published_url("../index.html?#", source), "../index.html?#")
 
-    def test_every_retired_introduction_lesson_has_a_current_destination(self):
-        introduction = json.loads((ROOT / "course/lessons.json").read_text())
-        course = json.loads((ROOT / "course/expanded-course.json").read_text())
-        self.assertEqual(set(INTRODUCTION_REDIRECTS), {lesson["id"] for lesson in introduction["lessons"]})
-        self.assertLessEqual(set(INTRODUCTION_REDIRECTS.values()), {lesson["id"] for lesson in course["lessons"]})
-
-    def test_reader_is_root_and_shared_deep_links_keep_query_and_fragment(self):
+    def test_reader_and_current_presentations_have_one_canonical_path(self):
         with TemporaryDirectory() as tmp:
             root = Path(tmp)
+            catalog(root, "siting")
             (root / "README.md").write_text("Course")
             (root / "course/prototypes").mkdir(parents=True)
             (root / "course/index.html").write_text('<title>Reader</title><a href="prototypes/siting-format.html?teach=1#fuel">Slides</a>')
             (root / "course/prototypes/siting-format.html").write_text('<title>Siting</title><a href="../index.html#d03-service-and-siting">Reading</a>')
+            (root / "course/prototypes/presenter.html").write_text('<title>Presenter</title>')
+            (root / "course/prototypes/case-studies.html").write_text('<title>Case studies</title>')
+            (root / "course/domain-map.html").write_text('<title>Domain map</title>')
             original = root / "diagram/index.html"
             original.parent.mkdir()
             original.write_text("Retired introduction content")
@@ -41,38 +46,27 @@ class SiteStagingTests(unittest.TestCase):
             self.assertIn('<title>Reader</title>', reader)
             self.assertIn('href="slides/siting.html?teach=1#fuel"', reader)
             self.assertIn('href="../index.html#d03-service-and-siting"', (destination / "slides/siting.html").read_text())
-            for path, target in {
-                "course/index.html": "../index.html",
-                "course/prototypes/siting-format.html": "../../slides/siting.html",
-                "diagram/index.html": "../index.html",
-                "course.html": "index.html",
-                "v1.html": "index.html",
-            }.items():
-                with self.subTest(path=path):
-                    redirect = (destination / path).read_text()
-                    self.assertIn(f'href="{target}"', redirect)
-                    self.assertIn("location.search+hash", redirect)
-            self.assertIn('"ride-through": "d05-storage-power-and-time"', (destination / "diagram/index.html").read_text())
-            self.assertIn("const lessons={};", (destination / "course/prototypes/siting-format.html").read_text())
+            self.assertTrue((destination / "slides/presenter.html").exists())
+            self.assertTrue((destination / "slides/case-studies.html").exists())
+            self.assertTrue((destination / "domain-map.html").exists())
+            for path in ("course", "diagram", "course.html", "v1.html", "STRATEGY.md"):
+                self.assertFalse((destination / path).exists(), path)
 
     def test_module_imports_dynamic_assets_and_reader_links_are_rebased(self):
         cases = [
             ("course/index.html", "prototypes/orientation-format.html?teach=1#network-preview", "slides/overview.html?teach=1#network-preview"),
-            ("course/teach.html", "./prototypes/teaching-navigation.js", "./teaching-navigation.js"),
-            ("course/teach.html", "assets/slide-chrome.css", "../assets/slide-chrome.css"),
             ("course/prototypes/workload-format.html", "./workload-scenes.js", "./workload-scenes.js"),
             ("course/prototypes/workload-format.html", "siting-format.html?teach=1", "siting.html?teach=1"),
-            ("course/prototypes/rack-power-format.html", "../teach.html", "800v.html"),
+            ("course/prototypes/dc-distribution-format.html", "../assets/${figure.asset}", "../assets/${figure.asset}"),
             ("course/index.html", "../research/sources/P01.md", "research/sources/P01.md"),
-            ("course/teach.html", "assets/${figure.asset}", "../assets/${figure.asset}"),
             ("course/index.html", "https://example.com/course/index.html", "https://example.com/course/index.html"),
             ("course/index.html", "#d01-boundaries", "#d01-boundaries"),
         ]
         for source, url, expected in cases:
             with self.subTest(source=source, url=url):
                 self.assertEqual(published_url(url, source), expected)
-        content = '<img src="assets/${figure.asset}"><script>import {x} from "./prototypes/teaching-navigation.js";</script>'
-        result = published_text(content, "course/teach.html")
+        content = '<img src="../assets/${figure.asset}"><script>import {x} from "./teaching-navigation.js";</script>'
+        result = published_text(content, "course/prototypes/dc-distribution-format.html")
         self.assertIn('src="../assets/${figure.asset}"', result)
         self.assertIn('from "./teaching-navigation.js"', result)
 
@@ -89,73 +83,72 @@ class SiteStagingTests(unittest.TestCase):
         self.assertEqual(str(public_path("README.md")), "README.md")
         self.assertEqual(str(public_path("course/README.md")), "SOURCE_INDEX.md")
 
-    def test_consolidated_decks_keep_old_urls_and_shared_module_imports(self):
+    def test_only_cataloged_decks_publish_with_their_shared_modules(self):
         with TemporaryDirectory() as tmp:
             root = Path(tmp)
+            catalog(root, "continuity", "rack-energy", "dc-distribution")
             (root / "README.md").write_text("Course")
             (root / "course/prototypes").mkdir(parents=True)
             (root / "course/web").mkdir()
-            for deck in ("continuity", "rack-energy", "dc-distribution", "ups", "rack-power"):
+            for deck in ("continuity", "rack-energy", "dc-distribution", "ups", "rack-power", "compute"):
                 (root / f"course/prototypes/{deck}-format.html").write_text(f"<title>{deck}</title>")
-            (root / "course/teach.html").write_text("<title>Legacy 800 V</title>")
+            for name in ("teach.html", "sample.html", "sample-notes.html"):
+                (root / "course" / name).write_text("<title>Retired presentation</title>")
             for name in SHARED_PRESENTATION_MODULES:
                 (root / "course/web" / name).write_text("/* shared module */")
             (root / "course/prototypes/rack-energy-controller.js").write_text(
                 "import {createElectricalVisuals} from '../web/electrical-renderer.js';"
             )
             destination = stage(root)
-            for old, current in PRESENTATION_REDIRECTS.items():
-                with self.subTest(old=old):
-                    redirect = (destination / "slides" / old).read_text()
-                    self.assertIn(f'href="{current}"', redirect)
-                    self.assertIn("location.search+hash", redirect)
-                    self.assertIn("const lessons={};", redirect)
-            self.assertIn("<title>continuity</title>", (destination / "slides/continuity.html").read_text())
-            self.assertIn("<title>rack-energy</title>", (destination / "slides/rack-energy.html").read_text())
+            for deck in ("continuity", "rack-energy", "dc-distribution"):
+                self.assertIn(f"<title>{deck}</title>", (destination / "slides" / f"{deck}.html").read_text())
+            for name in ("ups.html", "rack-power.html", "compute.html", "800v.html", "800v-explore.html", "800v-notes.html"):
+                self.assertFalse((destination / "slides" / name).exists(), name)
+            for name in ("teach.html", "sample.html", "sample-notes.html"):
+                self.assertFalse((destination / name).exists(), name)
             for name in SHARED_PRESENTATION_MODULES:
                 self.assertTrue((destination / "web" / name).is_file())
-                self.assertTrue((destination / "course/web" / name).is_file())
+            self.assertFalse((destination / "course").exists())
             self.assertIn("'../web/electrical-renderer.js'", (destination / "slides/rack-energy-controller.js").read_text())
-            self.assertIn('href="../../slides/ups.html"', (destination / "course/prototypes/ups-format.html").read_text())
 
-    def test_all_published_decks_have_clean_paths(self):
+    def test_restaging_removes_retired_generated_routes(self):
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            catalog(root, "siting")
+            (root / "README.md").write_text("Course")
+            destination = stage(root)
+            stale = destination / "course/index.html"
+            stale.parent.mkdir()
+            stale.write_text("Old reader redirect")
+            (destination / "v1.html").write_text("Old introduction redirect")
+            self.assertEqual(stage(root), destination)
+            self.assertFalse(stale.exists())
+            self.assertFalse((destination / "v1.html").exists())
+
+    def test_staging_does_not_replace_an_unrelated_directory(self):
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            catalog(root)
+            destination = root / "notes"
+            destination.mkdir()
+            note = destination / "keep.md"
+            note.write_text("Keep this")
+            with self.assertRaisesRegex(ValueError, "non-staged directory"):
+                stage(root, destination)
+            self.assertEqual(note.read_text(), "Keep this")
+
+    def test_all_cataloged_decks_have_clean_paths(self):
         self.assertEqual(str(public_path("course/index.html")), "index.html")
-        self.assertEqual(str(public_path("course/teach.html")), "slides/800v.html")
         self.assertEqual(str(public_path("course/prototypes/site-format.html")), "slides/site-design.html")
         self.assertEqual(str(public_path("course/prototypes/procurement-cases-format.html")), "slides/procurement-cases.html")
-        for source in (ROOT / "course/prototypes").glob("*.html"):
-            target = str(public_path(source.relative_to(ROOT)))
-            self.assertTrue(target.startswith("slides/"))
-            self.assertNotIn("prototypes", target)
-            self.assertNotIn("-format", target)
-
-    def test_houdini_case_redirect_is_rebased_for_the_published_slide_location(self):
-        source = "course/prototypes/site-scenes.js"
-        code = (ROOT / source).read_text()
-        published = published_text(code, source)
-        self.assertIn('new URL("./procurement-cases.html", moduleHref)', published)
-        self.assertIn('destination.search = current.search;', published)
-        self.assertIn('destination.hash = current.hash;', published)
-
-    def test_moved_chapter_eight_fragments_target_a_published_deck(self):
-        for filename in ("continuity-main.js", "distribution-player.js"):
-            with self.subTest(filename=filename):
-                source = f"course/prototypes/{filename}"
-                published = published_text((ROOT / source).read_text(), source)
-                self.assertIn('location.replace("rack-energy.html" + location.search', published)
-                self.assertNotIn('rack-energy-format.html', published)
-        self.assertEqual(public_path("course/prototypes/rack-energy-format.html").name, "rack-energy.html")
-
-    def test_compute_redirect_destinations_rebase_to_live_slide_paths(self):
-        source = "course/prototypes/compute-migration.js"
-        published = published_text((ROOT / source).read_text(), source)
-        for destination in (
-            "networking.html#networking-purpose", "networking.html#consumer-hardware-meme",
-            "workloads.html#operand-reuse", "rack-energy.html#rack-hardware-anatomy",
-            "storage.html#tray-repair", "../index.html#d07-bottleneck-model",
-        ):
-            self.assertIn(destination, published)
-        self.assertNotIn("-format.html", published)
+        presentations = json.loads((ROOT / "course/teaching-sequences.json").read_text())["presentations"]
+        for presentation in presentations:
+            for chapter in presentation["chapters"]:
+                source = "course/" + chapter["href"].split("?", 1)[0].split("#", 1)[0]
+                target = str(public_path(source))
+                self.assertTrue(target.startswith("slides/"))
+                self.assertNotIn("prototypes", target)
+                self.assertNotIn("-format", target)
 
 
 if __name__ == "__main__":

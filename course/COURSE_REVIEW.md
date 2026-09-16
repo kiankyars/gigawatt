@@ -76,9 +76,9 @@ numbers used during those reviews.
 | 5. [Physical site, buildings and safety](prototypes/site-format.html?teach=1) | 20 scenes; Meta Prometheus tents follows Colossus reuse; Houdini moved to Chapter 14 | [Current checks](TESTING.md#chapter-5-drainage-flood-response-and-simpler-check--2026-09-14) | **Accepted and verified — 15 September.** Kian confirmed Chapters 1–8 verified. Removed slide 5’s bottom subtitle, clarified stormwater drainage in notes, verified actual water pumping during Harvey, and simplified slide 19 to reroute → test/switch → excavate. |
 | 6. [Campus and building power distribution](prototypes/distribution-format.html?teach=1) | 29 slides; three-phase currents and line-to-line voltage follow the single-line diagram; beer analogy and PF quote retained | [Latest checks](TESTING.md#chapter-8-sequence-and-dc-architecture-review--2026-09-15) | **Accepted and verified — 15 September.** Final requested wording and image changes implemented. Existing scene hashes retained. |
 | 7. [Continuity, storage and protection](prototypes/continuity-format.html?teach=1) | 35 scenes; updated isolation image, contact/arc sequence, two-image redundancy transition, Microsoft quote and two closing checks | [Final review checks](TESTING.md#chapters-6-and-7-final-author-review--2026-09-15) | **Accepted and verified — 15 September.** Final requested image changes implemented. Sparks retains the dated reported 1 MW pilot; current nameplate remains unresolved. |
-| 8. [Rack power and buffering](prototypes/rack-energy-format.html?teach=1) | 17 slides; rack hardware, conversion near the chip, VRMs, storage connections, load swings and recharge | [Split checks](TESTING.md#rack-power-and-dc-distribution-chapter-split--2026-09-16) | Existing reviewed material from the former Chapter 8; support diagrams remain separate pending the author's decision. |
+| 8. [Rack power and buffering](prototypes/rack-energy-format.html?teach=1) | 16 slides; rack hardware, conversion near the chip, VRMs, one connected storage diagram, load swings and recharge | [Split checks](TESTING.md#rack-power-and-dc-distribution-chapter-split--2026-09-16) | Existing reviewed material from the former Chapter 8; storage-location and support-path diagrams merged at the author’s request on September 16. |
 | 9. [800 V DC distribution](prototypes/dc-distribution-format.html?teach=1) | 16 slides; distribution voltage, copper and heat, conversion placement, sidecars, Zurich-West, DC protection and retrofit | [Split checks](TESTING.md#rack-power-and-dc-distribution-chapter-split--2026-09-16) | Existing reviewed material from the former Chapter 8, now separately accessible. The 50 V/800 V comparison follows the opening. |
-| 10. [Networking and interconnects](prototypes/networking-format.html?teach=1) | 22 slides; all-reduce reduced to contributions and a shared result, followed by communication overlap; ring mechanics remain in the reader | [Current checks](TESTING.md#chapter-9-scope-and-chapter-13-delivery--2026-09-16) | **Authored; author review in progress.** Requested all-reduce simplification implemented. No whole-chapter acceptance inferred. |
+| 10. [Networking and interconnects](prototypes/networking-format.html?teach=1) | 23 slides; named scale-up/scale-out/WAN examples, full data hierarchy, real DGX H100/QM9700 fabric path, collective communication and failure diagnosis | [Current checks](TESTING.md#chapter-9-scope-and-chapter-13-delivery--2026-09-16) | **Authored; author review in progress.** September 16 networking review revisions implemented through the physical fabric example; user-supplied optics image installed. No whole-chapter acceptance inferred. |
 | 11. [Storage, orchestration and recovery](prototypes/storage-format.html?teach=1) | 27 slides; four-GPU tray repair now introduces recovery; supplied component-price meme after opening; input bottlenecks, coherent checkpoints, recovery, Meta/Google cases and deadline scheduling | [Current checks](TESTING.md#chapter-11-storage-orchestration-and-recovery--2026-09-14) | **Authored and checked; ready for first author review.** Three D09 reader lessons updated. |
 | 12. [Chip and rack heat capture](prototypes/cooling-format.html?teach=1) | Selected topics in shared cooling deck | Model/browser checks recorded | Cooling sequence iterated; no whole-chapter completion claimed. |
 | 13. [Heat rejection, climate and water](prototypes/cooling-format.html?teach=1#rejection) | Selected topics in shared cooling deck | Model/browser checks recorded | Cooling sequence iterated; no whole-chapter completion claimed. |
@@ -233,8 +233,8 @@ The reader is published at the site root; presentations use concise `/slides/`
 addresses. A teaching route adds fullscreen controls. Every slide header has
 **Back to course** and a **Reading** link; explanation/source dialogs and speaker-note
 launch buttons are removed from slide views. The reader holds derivations,
-terminology, source claims and limitations. Existing links redirect while preserving
-their query and slide selection. Editable sources remain grouped by concern in
+terminology, source claims and limitations. Use the current chapter and slide
+addresses from the directory. Editable sources remain grouped by concern in
 `course/`; publication paths do not create another editable copy.
 
 The original Crusoe-built Stargate campus in **Abilene, Texas** is the recurring
@@ -270,8 +270,8 @@ inherit all assumptions from the evolving facility.
 At delivery, tag the exact notes, diagrams, models and source snapshot used in the
 video. Preserve that recorded edition beside a dated living reference. Corrections
 identify the affected lesson/objective and recorded chapter, previous and revised
-meaning, evidence and any change in conclusions. Stable links need redirects or
-explicit replacements when material moves. Add real timestamps after editing.
+meaning, evidence and any change in conclusions. Update current internal links
+when material moves; no retired-link compatibility is required. Add real timestamps after editing.
 
 The reference must remain useful on a phone and when an interaction is unavailable.
 Verify keyboard navigation, visible focus, labeled controls, text alternatives,
@@ -627,3 +627,8 @@ Independent review corrected the meter diagram so losses leave as heat, added th
 fifth rack that overloads the busway, and removed visible meta-commentary and the
 extra chapter link. Chapter 7 and Chapter 8 remain separate presentations and are
 outside this release's teaching scope.
+
+**September 16 navigation simplification.** Retired URL and fragment redirects were
+removed at Kian’s request. Use current chapter links from the course directory.
+The networking slide 8 replacement image supplied as `Downloads/download.png` is
+installed as a full-image slide. All received changes from this review are implemented.

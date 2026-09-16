@@ -74,13 +74,13 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [E1423005C7C — ABB — Protection Devices for Direct Current Applications](sources/E1423005C7C.md) | library.e.abb.com | D05, D06 | public_excerpt_reviewed |
 | [E21653C0173 — ERCOT — Batch Zero large-load connection announcement, June 18, 2026](sources/E21653C0173.md) | www.ercot.com | D03 | page_reviewed |
 | [E22133B3DE1 — EIA — Laws of energy](sources/E22133B3DE1.md) | www.eia.gov | D01 | page_reviewed |
-| [E23909D618E — NVIDIA — DGX SuperPOD Key Components](sources/E23909D618E.md) | docs.nvidia.com | D02 | page_reviewed |
+| [E23909D618E — NVIDIA — DGX SuperPOD Key Components](sources/E23909D618E.md) | docs.nvidia.com | D02, D08 | page_reviewed |
 | [E2848C36FE7 — National Weather Service: Flood Related Hazards](sources/E2848C36FE7.md) | www.weather.gov | D12 | page_reviewed |
 | [E284D853C6B — PyTorch Distributed Checkpoint](sources/E284D853C6B.md) | docs.pytorch.org | D09 | public_excerpt_reviewed |
 | [E2A3F76B3F9 — Schneider Electric — Definition of standardised earthing schemes](sources/E2A3F76B3F9.md) | www.electrical-installation.org | D05 | public_excerpt_reviewed |
 | [E2C35A11B05 — NVIDIA Triton — Batchers](sources/E2C35A11B05.md) | docs.nvidia.com | D02 | page_reviewed |
 | [E2E0C218DA7 — Asynchronous Saving with Distributed Checkpoint](sources/E2E0C218DA7.md) | docs.pytorch.org | D09 | page_reviewed |
-| [E320A75F233 — NVIDIA H100 SuperPOD: Planning a Data Center Deployment](sources/E320A75F233.md) | docs.nvidia.com | D12 | page_reviewed |
+| [E320A75F233 — NVIDIA H100 SuperPOD: Planning a Data Center Deployment](sources/E320A75F233.md) | docs.nvidia.com | D12, D08 | page_reviewed |
 | [E37FE7B98A1 — Schneider Electric — Easy UPS 3-Phase Modular 50–250 kW: UPS Modes](sources/E37FE7B98A1.md) | Schneider Electric | D05 | page_reviewed |
 | [E38B3BEAAC1 — NARUC — Regulators’ Financial Toolbox: Behind-the-Meter Energy Storage](sources/E38B3BEAAC1.md) | pubs.naruc.org | D03, D05 | public_excerpt_reviewed |
 | [E3F4CB1B7FF — DOE — Best Practices Guide for Energy-Efficient Data Center Design](sources/E3F4CB1B7FF.md) | www.energy.gov | D01, D04 | page_reviewed |
@@ -157,7 +157,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P118 — Schneider Electric — Easy UPS 3-Phase Modular: Configure the Input Contacts](sources/P118.md) | Schneider Electric | D05 | public_excerpt_reviewed |
 | [P119 — Eaton — 93E UPS Generation 3 installation and operation manual, 164000301 Rev. 04](sources/P119.md) | Eaton | D05 | public_excerpt_reviewed |
 | [P12 — Large Loads Action Plan](sources/P12.md) | North American Electric Reliability Corporation | D03, D05, D13, D14 | public_excerpt_reviewed |
-| [P120 — Microsoft — Fairwater Atlanta availability and power design](sources/P120.md) | Microsoft | D03, D05, D14, D15 | page_reviewed |
+| [P120 — Microsoft — Fairwater Atlanta availability and power design](sources/P120.md) | Microsoft | D03, D05, D14, D15, D08 | page_reviewed |
 | [P121 — NTT DATA — Vienna 1 facility and power SLA](sources/P121.md) | NTT DATA | D05, D14 | page_reviewed |
 | [P122 — SpaceXAI — New Compute Partnership with Anthropic](sources/P122.md) | SpaceXAI | D12 | page_reviewed |
 | [P123 — SpaceXAI — Colossus site aerial](sources/P123.md) | SpaceXAI | D12 | page_reviewed |
@@ -252,7 +252,10 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P205 — Cloudflare — Post mortem on the Cloudflare Control Plane and Analytics Outage](sources/P205.md) | Cloudflare | D14 | page_reviewed |
 | [P206 — Cloudflare — Major data center power failure (again): Cloudflare Code Orange tested](sources/P206.md) | Cloudflare | D14 | page_reviewed |
 | [P207 — Google Cloud — July 2022 europe-west2 cooling incident report](sources/P207.md) | Google Cloud | D14 | page_reviewed |
+| [P208 — SemiAnalysis InferenceX — Kimi K3 on GB200 NVL72](sources/P208.md) | SemiAnalysis InferenceX | D08 | page_reviewed |
+| [P209 — Meta — Open AI hardware vision](sources/P209.md) | Meta | D08 | page_reviewed |
 | [P21 — Texas Instruments — TIDA-011012 modular solid-state transformer reference design](sources/P21.md) | Texas Instruments | D04, D06 | page_reviewed |
+| [P210 — Juniper — Understanding Layer 3 Fabrics](sources/P210.md) | Juniper | D08 | page_reviewed |
 | [P22 — Huber et al. — Comparative Evaluation of MVAC–LVDC SST and Hybrid Transformer Concepts for Future Datacenters (IPEC 2022)](sources/P22.md) | ETH Zurich, Delta Electronics and Paderborn University | D04, D06 | page_reviewed |
 | [P23 — Wolfspeed — Introduction of a commercially available 10 kV SiC power MOSFET](sources/P23.md) | Wolfspeed | D04, D06 | page_reviewed |
 | [P24 — Schneider Electric — What is UPS efficiency and how is it calculated?](sources/P24.md) | Schneider Electric | D04, D05, D06 | page_reviewed |

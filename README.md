@@ -11,7 +11,7 @@ sequences are labelled so they do not imply a complete chapter deck.
 
 The published course lives at the site root. Presentations have short addresses
 such as `/slides/primer.html`, `/slides/workloads.html` and `/slides/siting.html`.
-Existing links preserve their slide and teaching-mode selections when they redirect.
+Use the course directory or current slide URLs; retired routes and slide aliases are not maintained.
 
 ## Start with the filled-in template
 
@@ -91,13 +91,12 @@ git diff --check
 GitHub Pages validates and publishes changes to `main` at
 [From Watts to Tokens](https://kiankyars.github.io/gigawatt/).
 The historical 22-lesson introduction is retired from the published course.
-Its source remains in the repository; its old page and lesson links redirect to
-relevant lessons in the current reader. The map's `baseline_coverage` and
+Its source remains in the repository, without publishing its old page or lesson routes. The map's `baseline_coverage` and
 `baseline_lessons` fields refer only to that historical introduction; the manuscript reports
 [current authored coverage](course/EXPANDED_COURSE.md#objective-to-lesson-coverage).
 Earlier `evidence/` ledgers and `diagram/` engineering maps remain dated research
 references. Retired course-design documents and experimental players are in Git
-history; their published document paths point to the consolidated guidance.
+history; current guidance is linked from the source index.
 
 Saved publisher text is searchable locally in `research/articles/`, with a capture
 index at `research/articles/INDEX.md`. The [research workflow](research/README.md)

@@ -10,11 +10,9 @@ import {
   scenes,
   initialState,
   learningContract,
-  siteSceneRedirect,
 } from "../course/prototypes/site-scenes.js";
 import { scenes as procurementCases } from "../course/prototypes/procurement-cases-scenes.js";
 import { renderRapidBuildCase } from "../course/prototypes/rapid-build-cases.js";
-import { operationsAliases } from "../course/prototypes/site-operations.js";
 import { renderSite } from "../course/prototypes/site-visuals.js";
 import { existsSync } from "node:fs";
 test("Moving assembly uses total mass and specified contacts without claiming structural adequacy", () => {
@@ -85,23 +83,7 @@ test("Houdini belongs to modular construction while Meta's tents remain in the p
   assert.match(visual.markup, /At installation/);
 });
 
-test("Old Houdini links redirect to the specific case and preserve their teaching mode", () => {
-  const moduleHref = "https://example.test/course/prototypes/site-scenes.js";
-  for (const query of ["", "?teach=1", "?teach=0&presenter-preview=0"]) {
-    const redirect = siteSceneRedirect(`https://example.test/course/prototypes/site-format.html${query}#aws-houdini-prefab`, moduleHref);
-    assert.equal(redirect, `https://example.test/course/prototypes/procurement-cases-format.html${query}#aws-houdini-prefab`);
-  }
-  for (const hash of ["", "#meta-prometheus-tents", "#site-purpose", "#unknown"]) {
-    assert.equal(siteSceneRedirect(`https://example.test/course/prototypes/site-format.html${hash}`, moduleHref), null);
-  }
-});
 
-test("Retired scene links resolve to a taught replacement", () => {
-  for (const [retired, target] of Object.entries(operationsAliases)) {
-    assert.ok(!scenes.some((s) => s.id === retired));
-    assert.ok(scenes.some((s) => s.id === target));
-  }
-});
 
 test("Each new case context leads directly into the retained engineering lesson", () => {
   for (const [context, lesson] of [["docklands-context", "ground-and-foundations"], ["harvey-context", "outside-flood"]]) {

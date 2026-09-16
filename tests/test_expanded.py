@@ -276,14 +276,10 @@ class ExpansionTests(unittest.TestCase):
             next(s for s in data["steps"] if s["pedagogical_role"] == "mechanism"),
             data["steps"][-1],
         ]
-        data["aliases"] = {}
         data["planned_duration_seconds"] = sum(
             s["duration_seconds"] for s in data["steps"]
         )
         validate_presentation(data)
-        data["aliases"] = {"old-scene": "missing-scene"}
-        with self.assertRaisesRegex(ValueError, "missing scene"):
-            validate_presentation(data)
 
     def test_generated_reader_is_current_and_data_is_inert(self):
         _, stale = b.build(check=True)

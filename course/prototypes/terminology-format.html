@@ -321,7 +321,7 @@
 <script type="module">
 import { presentationLabels } from './teaching-navigation.js';
 document.querySelector('main > header > .eyebrow').textContent = presentationLabels.primer;
-import {scenes,sceneAliases} from './terminology-scenes.js';
+import {scenes} from './terminology-scenes.js';
 import {transformerOperatingExample} from './transformer-operating-example.js';
 import {renderTerminology} from './terminology-visuals.js';
 const $=id=>document.getElementById(id);
@@ -345,7 +345,7 @@ function render(){
  draw();
 }
 function go(i){index=Math.max(0,Math.min(scenes.length-1,i));history.replaceState(null,'',`#${scenes[index].id}`);render();}
-function fromHash(){const requested=location.hash.slice(1),id=sceneAliases[requested]||requested,found=scenes.findIndex(s=>s.id===id);index=found<0?0:found;if(sceneAliases[requested])history.replaceState(null,'',`#${id}`);render();}
+function fromHash(){const id=location.hash.slice(1),found=scenes.findIndex(s=>s.id===id);index=found<0?0:found;render();}
 $('actions').addEventListener('click',e=>{const b=e.target.closest('[data-setting]');if(!b)return;state[b.dataset.setting]=b.dataset.value;render();document.querySelector(`[data-setting="${b.dataset.setting}"][data-value="${b.dataset.value}"]`)?.focus();});
 $('previous').addEventListener('click',()=>go(index-1));$('next').addEventListener('click',()=>go(index+1));$('scenes').addEventListener('change',e=>go(Number(e.target.value)));
 $('fullscreen').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await $('viewer').requestFullscreen();}catch{$('fullscreen').textContent='Use browser full screen';}});

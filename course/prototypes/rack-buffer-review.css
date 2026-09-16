@@ -8,3 +8,9 @@
  .buffer-review-figure{height:auto;flex:none}
  .buffer-review-figure img{height:auto;max-height:none}
 }
+
+@media(max-width:600px){
+ #viewer:has(#scene[data-scene="energy-locality"]){grid-template-rows:54px auto 64px}
+ #viewer:has(#scene[data-scene="energy-locality"]) footer.course-slide-navigation{position:static}
+ #visual .buffer-review-diagram.energy-connections{aspect-ratio:390/1055}
+}

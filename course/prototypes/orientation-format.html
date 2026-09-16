@@ -876,12 +876,8 @@
         render();
       }
       function fromHash() {
-        const aliases = {
-          "heat-account": "facility-meter",
-          "meter-average": "power-energy",
-        };
         const id = location.hash.slice(1);
-        const found = scenes.findIndex((s) => s.id === (aliases[id] || id));
+        const found = scenes.findIndex((s) => s.id === id);
         index = found < 0 ? 0 : found;
         render();
       }

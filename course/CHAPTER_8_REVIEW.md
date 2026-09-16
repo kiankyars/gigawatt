@@ -119,3 +119,8 @@ presenter state preserved. Reader ownership and later chapter numbers follow
 the same split. The two storage-location/support-path diagrams remain intact;
 the proposed merge is one connected diagram with facility/rack/chip groupings,
 not two vertically stacked diagrams.
+
+The subsequent September 16 instruction removes bookmark compatibility. The
+location and support-path views are now merged into one connected
+**Where backup power connects** diagram, with facility, rack and chip groupings.
+Chapter 8 now has 16 slides.

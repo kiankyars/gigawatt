@@ -54,44 +54,11 @@ test("electrical transfer does not repair utility-only controls or prove thermal
   assert.equal(serviceModel({ stage: "bridge" }).pumps, false);
   assert.equal(serviceModel({ stage: "generator" }).pumps, true);
 });
-test("legacy UPS scene hashes stay reachable in the separate Chapter7 deck", () => {
-  const old = [
-    "campus",
-    "electrical-room",
-    "equipment",
-    "normal",
-    "outage",
-    "capacitors",
-    "generator",
-    "dc-link-recovery",
-    "static-bypass",
-    "maintenance-bypass",
-    "capacity-n",
-    "capacity-n1",
-    "capacity-n2",
-    "shared-bus",
-    "two-n",
-    "two-n-plus-one",
-    "load-growth",
-    "tier-topology",
-    "tier-generation",
-    "availability-budget",
-    "tier-investment",
-    "return",
-  ];
-  for (const id of old)
-    assert.equal(
-      continuityScenes[resolveContinuityScene(id)].id,
-      { "electrical-room": "equipment", return: "service-check" }[id] || id,
-    );
-  assert.equal(
-    continuityScenes[resolveContinuityScene("electrical-room")].id,
-    "equipment",
-  );
-  assert.equal(
-    continuityScenes[resolveContinuityScene("return")].id,
-    "service-check",
-  );
+test("continuity scenes cover every objective and resolve their current hashes", () => {
+  for (const scene of continuityScenes) {
+    assert.equal(continuityScenes[resolveContinuityScene(scene.id)].id, scene.id);
+  }
+  assert.equal(resolveContinuityScene("unknown"), 0);
   assert.equal(
     new Set(continuityScenes.map((s) => s.id)).size,
     continuityScenes.length,

@@ -20,10 +20,7 @@ const fmt = (value, decimals = 0) =>
 let index = Math.max(
   0,
   STEPS.findIndex(
-    (step) =>
-      step.id ===
-      (PRESENTATION.aliases?.[location.hash.slice(1)] ||
-        location.hash.slice(1)),
+    (step) => step.id === location.hash.slice(1),
   ),
 );
 let state = {
@@ -284,10 +281,7 @@ document.addEventListener("keydown", (event) => {
 });
 window.addEventListener("hashchange", () => {
   const selected = STEPS.findIndex(
-    (s) =>
-      s.id ===
-      (PRESENTATION.aliases?.[location.hash.slice(1)] ||
-        location.hash.slice(1)),
+    (s) => s.id === location.hash.slice(1),
   );
   if (selected >= 0) change({ index: selected });
 });

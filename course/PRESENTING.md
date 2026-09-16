@@ -5,7 +5,7 @@
 The former Chapter 8 is now **8. Rack power and buffering** and
 **9. 800 V DC distribution**. Existing recordings and dated notes referring to
 the old Chapter 8 cover both. Later chapter numbers increase by one; old slide
-links still open their original content.
+links should be replaced with current chapter links from the directory.
 
 ## Recording in batches
 
@@ -94,11 +94,10 @@ or dark appearance. Press Escape to leave fullscreen.
 
 Clean public routes include `/slides/primer.html`, `/slides/workloads.html`,
 `/slides/siting.html`, `/slides/site-design.html`, `/slides/continuity.html` and
-`/slides/rack-energy.html`. The old UPS, rack-power and 800 V routes redirect to
-the corresponding chapter and retain their query and scene fragment.
-Existing `course/prototypes` links redirect while preserving the selected slide
-and teaching mode. Editable sources remain grouped in the repository; public
-URLs are mapped during staging.
+`/slides/rack-energy.html` and `/slides/dc-distribution.html`. Use the course
+directory or these current URLs; retired URLs and slide aliases have been removed.
+Editable sources remain grouped in the repository; public URLs are mapped during
+staging.
 
 ## The teaching rhythm
 

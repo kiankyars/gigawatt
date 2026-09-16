@@ -26,14 +26,14 @@ coverage (`chapter` or `selected`) in `teaching-sequences.json`, then regenerate
 The catalog drives slide discovery and shared numbering; it is not a review or
 completion tracker. `domain-map.json` also lists `reference_domains`: these retain
 their reading and objective IDs but sit outside numbered chapters. The former
-Compute deck redirects through `prototypes/compute-migration.js`; its useful
-slides live within workloads, rack power, networking and recovery. Follow-ups belong in
+Compute deck is retired; its useful slides live within workloads, rack power,
+networking and recovery. Follow-ups belong in
 [COURSE_REVIEW.md](COURSE_REVIEW.md#next-teaching-step), and required case and
 exercise handoffs belong in
 [TEACHING_STANDARD.md](TEACHING_STANDARD.md#required-section-handoffs).
 
 The authored sequences in `prototypes/` are source files, published at clean
-`/slides/…` routes by `src/gigawatt/stage_site.py`: `ups-format.html`
+`/slides/…` routes by `src/gigawatt/stage_site.py`: `continuity-format.html`
 and its mechanism modules, and `cooling-format.html` with `cooling-model.js`, `cooling-foundations.js`,
 `cooling-rejection.js`, `cooling-cdu.js` and `cooling-continuity.js`.
 Edit those files directly; their numerical tests and browser checks verify the
@@ -94,8 +94,7 @@ opens the complete chapter; the existing Houdini fragment remains available.
 `lessons.json` and `web/course.*`, `web/diagrams.js`, `web/math.js` own the
 historical 22-lesson introduction at `../diagram/index.html`, generated with
 `uv run gigawatt-build`. These files are retained as local source and curriculum
-history. Site staging replaces the published introduction with a redirect to the
-current reader and maps its old lesson hashes to relevant current lessons.
+history. The historical introduction is excluded from publication.
 It has no active course entry or live deck. Its coverage labels are historical
 reuse information, not current teaching status or Primer coverage.
 
@@ -129,4 +128,5 @@ The directory exposes separate [Rack power and buffering](prototypes/rack-energy
 and [800 V DC distribution](prototypes/dc-distribution-format.html?teach=1) decks.
 `teaching-sequences.json` partitions domain D06's reading into Chapters 8 and 9
 without changing its objective IDs. Later chapter numbers follow automatically.
-Old rack-energy slide hashes redirect to the matching chapter.
+Each chapter has its own slide selector and canonical URL. Retired URLs and
+slide aliases are not published.

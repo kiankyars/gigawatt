@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import {scenes,initialState,learning_contract,chapter8Aliases} from '../course/prototypes/distribution-scenes.js';
+import {scenes,initialState,learning_contract} from '../course/prototypes/distribution-scenes.js';
 import {renderDistribution} from '../course/prototypes/distribution-visuals.js';
 test('all chapter mechanisms render in each layout and supported control state',()=>{
  assert.equal(new Set(scenes.map(s=>s.id)).size,scenes.length);
@@ -25,7 +25,7 @@ test('all chapter mechanisms render in each layout and supported control state',
   }
  }
 });
-test('distribution objectives remain taught and conversion has explicit Chapter 8 routes',()=>{
+test('distribution objectives remain taught with concrete cases',()=>{
  assert.deepEqual([...new Set(scenes.flatMap(s=>s.objectives))].sort(),['D04.1','D04.2','D04.4']);
  for(const c of ['compass','fujitsu'])assert.ok(scenes.some(s=>s.case===c));
  for(const key of ['driving_question','fixed_boundary','changed_variable','primary_payoff','misconception','closing_question'])assert.ok(learning_contract[key]);
@@ -33,7 +33,6 @@ test('distribution objectives remain taught and conversion has explicit Chapter 
 });
 test('every photograph exists locally and no renderer fabricates case efficiencies',()=>{
  for(const scene of scenes){const r=renderDistribution(scene.id,initialState);for(const match of r.markup.matchAll(/src="\.\.\/assets\/references\/([^"<>]+)"/g))assert.ok(fs.existsSync(new URL(`../course/assets/references/${match[1]}`,import.meta.url)));}
- assert.equal(chapter8Aliases['green-dc'],'green-zurich-west');assert.equal(chapter8Aliases['green-path'],'green-zurich-west');assert.ok(chapter8Aliases['conversion-locations']);
 });
 test('breaker-failure sequence preserves the failed feeder and enlarges the outage boundary',()=>{
  const initial=renderDistribution('feeder-diagnosis',{...initialState,diagnosisStage:'fault'}).markup;

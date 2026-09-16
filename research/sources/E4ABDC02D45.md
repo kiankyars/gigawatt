@@ -5,13 +5,13 @@
 - **Publisher:** docs.nvidia.com
 - **Kind:** primary_reference
 - **Review status:** page_reviewed
-- **Reviewed on:** 2026-09-06
+- **Reviewed on:** 2026-09-16
 - **Domains:** [D07](../../course/DOMAIN_MAP.md#d07), [D08](../../course/DOMAIN_MAP.md#d08)
-- **Use:** A named reference system distinguishes compute, storage and management fabrics and explicit topology groupings.
+- **Use:** A named reference system distinguishes compute, storage and management fabrics and explicit topology groupings. A concrete reference distinguishes network roles and accounts for leaf/spine cables and ports.
 - **Caution:** H100 reference architecture updated November 19, 2025; no component counts or ratios are generalized.
 - **Discovered via:** Expanded lesson primary-source review, 2026-09-06.
 
-Catalog metadata fingerprint: 1e7d63851d2562ee068e6681867ddd9b735ebf96f0e2f9b0ce66ecbe817b02ad
+Catalog metadata fingerprint: 9f6f04123abdb2218c62cbefdf67970c32baed56b570e08ebf64889f904fe054
 <!-- gigawatt-research:managed:end -->
 
 ## Claim-level notes

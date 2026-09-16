@@ -1,4 +1,4 @@
-import { decks, initialState, defaults, rackEnergyDestination } from './rack-energy-scenes.js';
+import { decks, initialState, defaults, resolveRackEnergyScene } from './rack-energy-scenes.js';
 import { rackVisual, supplementalVisual, escapeHTML } from './rack-energy-visuals.js';
 import { createElectricalVisuals } from '../web/electrical-renderer.js';
 import { createPresentationRenderers } from '../web/presentation-renderers.js';
@@ -82,10 +82,7 @@ function render(){
 }
 function go(i){index=Math.max(0,Math.min(scenes.length-1,i));history.replaceState(null,'',`#${current().id}`);render();window.scrollTo({top:0,left:0,behavior:'auto'});}
 function fromHash(){
-  const destination=rackEnergyDestination(location.href,deckId,window.parent!==window);
-  if(destination.route.file){location.replace(destination.href);return;}
-  index=destination.route.index;
-  if(destination.href!==location.href)history.replaceState(null,'',destination.href);
+  index=resolveRackEnergyScene(location.hash,deckId);
   render();window.scrollTo({top:0,left:0,behavior:'auto'});
 }
 $('scenes').onchange=e=>go(scenes.findIndex(scene=>scene.id===e.target.value));$('previous').onclick=()=>go(index-1);$('next').onclick=()=>go(index+1);

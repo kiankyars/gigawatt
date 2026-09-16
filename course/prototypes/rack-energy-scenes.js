@@ -4,13 +4,6 @@ import { samplePresentation } from './rack-energy-800v-data.js';
 const ledger = 'd06-conversion-ledger', migration = 'd06-rack-migration';
 const control = (key, label, options) => ({key, label, options});
 export const defaults = samplePresentation.defaults;
-export const aliases = Object.freeze({...samplePresentation.aliases,'green-dc':'green-zurich-west','green-path':'green-zurich-west','bbu-shelf':'bbu-hardware','migration-decision':'power-stack-overview','rear-busbar':'rack-hardware-anatomy'});
-export const sceneRedirects = Object.freeze({
-  'dc-circuit': {file:'terminology-format.html',scene:'circuit'},
-  'ac-cycle': {file:'terminology-format.html',scene:'ac-dc'},
-  'three-phase': {file:'distribution-format.html',scene:'three-phase'},
-  'voltage-basis': {file:'distribution-format.html',scene:'voltage-basis'}
-});
 export const initialState = Object.freeze({...rackState, auxiliaryKW:0, volts:800, cycleDegrees:30,
   voltageView:'meter', converterView:'supply', revealed:[], rackKW:120, allocationKW:240,
   deadlineWeeks:3, decision:'', migrationReveal:false});
@@ -74,11 +67,11 @@ const conversionFigure = {kind:'review-figure',imageTitle:true,asset:'rack-direc
 const vrmPhaseCounts = {id:'vrm-phase-counts',label:'VRM phase counts',title:'Motherboards use different numbers of VRM phases',reference:ledger,kind:'review-figure',imageTitle:true,pedagogical_role:'example',
   asset:'vrm-phase-counts-illustrative.png',alt:'Illustrative motherboard layouts with 6, 12 and 18 independent VRM paths sharing current to the CPU. Interleaving reduces ripple; component and control quality also matter.',
   explanation:['The motherboard illustration extends the preceding four-path VRM example to larger implementations. These are converter paths feeding the processor, not the electrical phases of the facility supply.','The phase counts are illustrative layouts, not product specifications or price tiers. A motherboard’s advertised power-stage count can differ from its independently controlled phase count; controller timing and component ratings determine the actual behavior.']};
-const rack = rackScenes.filter(scene=>!['rear-busbar','rack-transfer'].includes(scene.id)).flatMap(scene=>scene.id==='energy-locality'?[scene,rackScenes.find(item=>item.id==='rack-transfer')]:scene.id==='source-handoff'?[scene,loadDrop]:scene.id==='multiphase'?[scene,vrmPhaseCounts]:[scene]).map(scene=>({...scene,kind:scene.kind||'rack',...(scene.id==='board-rails'?conversionFigure:{})}));
+const rack = rackScenes.filter(scene=>scene.id!=='rear-busbar').flatMap(scene=>scene.id==='source-handoff'?[scene,loadDrop]:scene.id==='multiphase'?[scene,vrmPhaseCounts]:[scene]).map(scene=>({...scene,kind:scene.kind||'rack',...(scene.id==='board-rails'?conversionFigure:{})}));
 const hardwareAnatomy = {id:'rack-hardware-anatomy',label:'Inside the GB300 rack',title:'Inside a GB300 compute rack',reference:ledger,kind:'hardware-anatomy',pedagogical_role:'architecture',source_ids:['P111','P64','P173'],explanation:['A GB300 NVL72 rack holds 18 compute trays. Each tray contains two Grace Blackwell Ultra superchips; each superchip pairs one Grace CPU with two Blackwell Ultra GPUs. Follow the physical nesting before following the rack power path. Recall the rear nominal 50–51 V DC bus shown in the overview; the following supply-path diagram puts that local voltage in context.','The manufacturer photographs show a Lenovo GB300 rack, an NVIDIA DGX GB300 tray and the NVIDIA superchip board. They illustrate the shared platform hierarchy; the tray photograph is not a claim about a particular Lenovo service part.']};
 const ledgerIndex = rack.findIndex(scene => scene.id === 'local-current');
 const local = [supplement[0],reviewFigures[0],hardwareAnatomy,...rack.slice(0,ledgerIndex), supplement[1],...rack.slice(ledgerIndex)];
-const electrical = samplePresentation.steps.filter(step=>!Object.hasOwn(sceneRedirects,step.id)).flatMap(step=>{
+const electrical = samplePresentation.steps.filter(step=>!['dc-circuit','ac-cycle','three-phase','voltage-basis'].includes(step.id)).flatMap(step=>{
   const scene={...step,label:step.title,title:step.headline,reference:'d06-eight-hundred-volt-architectures',sourceKind:step.kind,kind:'800v'};
   if(step.id==='one-load')return [{...scene,introLabel:'Power distribution',explanation:['Keep the load at 100 kW while asking where power conversion belongs and how the distribution voltage changes conductor current.','First compare 50 V DC with 800 V DC at the same power. Then compare a 480 V three-phase AC feeder with an 800 V DC feeder. These use different voltage and conductor conventions.','Follow the resulting conversion choices from the compute rack to a sidecar and farther upstream, then check whether an existing feeder can supply a retrofit.']}];
   if(step.id==='conversion-in-sidecar')return [{...scene,label:'Conversion in a sidecar',title:'A sidecar converts AC to DC beside the compute rack.'}];
@@ -89,10 +82,7 @@ const electrical = samplePresentation.steps.filter(step=>!Object.hasOwn(sceneRed
   ];
 });
 const dcPreview = {id:'dc-architecture-preview',label:'Three DC architecture views',title:'The three phases of the DC data center revolution',reference:'d06-eight-hundred-volt-architectures',kind:'dc-preview',pedagogical_role:'overview',explanation:['Preview the next three drawings from top to bottom: AC-to-DC conversion inside the compute rack, in a nearby power rack, and farther upstream. Keep the placement of conversion in view as each drawing is enlarged.','Here phases names the three architecture views in this lesson, not the three electrical phases of AC or a required deployment sequence. The conventional AC baseline is not SemiAnalysis Phase 1; the sidecar view groups that forecast’s first two adoption phases.']};
-// Old electrical-foundation links open their earlier chapter; the architecture order stays intact.
 const transition = electrical.flatMap(scene=>scene.id==='conversion-in-rack'?[dcPreview,scene]:scene.id==='ocp-power-architectures'?[greenCase,scene]:[scene]);
-// Keep the former sequence for bookmarks and presenter previews from the combined deck.
-export const legacySceneIds = Object.freeze([...local,supplement[2],...transition,dcProtection,...supplement.slice(3),reviewFigures[1]].map(scene=>scene.id));
 export const scenes = Object.freeze(local);
 export const dcScenes = Object.freeze([transition[0],supplement[2],...transition.slice(1),dcProtection,...supplement.slice(3),reviewFigures[1]]);
 export const allScenes = Object.freeze([...scenes,...dcScenes]);
@@ -109,32 +99,8 @@ export const decks = Object.freeze({
   'dc-distribution':Object.freeze({scenes:dcScenes,title:'800 V DC distribution',file:'dc-distribution-format.html',fallbackNumber:9})
 });
 
-export function resolveRackEnergyRoute(hash, deckId='rack-energy') {
-  let requested=String(hash||'').replace(/^#/, '');
-  try { requested=decodeURIComponent(requested); } catch { requested=''; }
-  if(Object.hasOwn(sceneRedirects,requested))return {...sceneRedirects[requested],external:true};
-  const id=Object.hasOwn(aliases,requested)?aliases[requested]:requested;
-  const owner=Object.keys(decks).find(key=>decks[key].scenes.some(scene=>scene.id===id)) || deckId;
-  const deck=decks[owner] || decks['rack-energy'];
-  const index=Math.max(0,deck.scenes.findIndex(scene=>scene.id===id));
-  return {deckId:owner,scene:deck.scenes[index].id,index,...(owner!==deckId?{file:deck.file}:{})};
-}
-
-export function rackEnergyDestination(href, deckId='rack-energy', inFrame=false) {
-  const url=new URL(href);
-  let route=resolveRackEnergyRoute(url.hash,deckId);
-  const preview=url.searchParams.get('presenter-preview');
-  // An already-open combined deck can request a preview by its old absolute index.
-  // Translate that index before the common presenter selects from either new deck.
-  if(inFrame && deckId==='rack-energy' && /^(0|[1-9]\d*)$/.test(preview || '')
-      && Number(preview)<legacySceneIds.length
-      && (Number(preview)>=scenes.length || route.deckId==='dc-distribution')) {
-    route=resolveRackEnergyRoute(legacySceneIds[Number(preview)],deckId);
-    url.searchParams.set('presenter-preview',String(route.index));
-  } else if(inFrame && route.file && !route.external && /^(0|[1-9]\d*)$/.test(preview || '')) {
-    url.searchParams.set('presenter-preview',String(route.index));
-  }
-  if(route.file)url.pathname=new URL(route.file,url).pathname;
-  url.hash=route.scene;
-  return {route,href:url.href};
+export function resolveRackEnergyScene(hash, deckId='rack-energy') {
+  let id=String(hash||'').replace(/^#/, '');
+  try { id=decodeURIComponent(id); } catch { id=''; }
+  return Math.max(0,decks[deckId].scenes.findIndex(scene=>scene.id===id));
 }

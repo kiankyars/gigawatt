@@ -401,11 +401,6 @@
       "limits": "Introduction and document metadata inspected. The exact origin of the user-supplied image remains unverified. Do not assign a figure number, mandate this topology, or treat these alternatives as a dated deployment sequence."
     }
   ],
-  "aliases": {
-    "feeder-transfer": "ac-dc-ledger",
-    "energy-balance": "conductor-loss",
-    "capacity-check": "conversion-farther-upstream"
-  },
   "learning_contract": {
     "driving_question": "How can denser racks use less distribution copper and less space for power conversion?",
     "fixed_boundary": "100 kW average power received throughout the electrical primer and feeder comparison. The converter-loss illustration has a separate 100 kW output boundary.",

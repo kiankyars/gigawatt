@@ -1161,11 +1161,12 @@
       "publisher": "docs.nvidia.com",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-06",
+      "reviewed_on": "2026-09-16",
       "domains": [
-        "D02"
+        "D02",
+        "D08"
       ],
-      "use": "A documented AI cluster architecture includes compute, management, networking, and storage components.",
+      "use": "A documented AI cluster architecture includes compute, management, networking, and storage components. DGX H100 systems and QM9700 InfiniBand switches form the reference compute fabric.",
       "caution": "Read the public component and design-requirement page for the H100 reference architecture; no product count or performance is copied into the hypothetical brief.",
       "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
     },
@@ -1374,11 +1375,12 @@
       "publisher": "docs.nvidia.com",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-06",
+      "reviewed_on": "2026-09-16",
       "domains": [
-        "D12"
+        "D12",
+        "D08"
       ],
-      "use": "Changes in power density and footprint can affect network layout.",
+      "use": "Changes in power density and footprint can affect network layout. Power/cooling density changes rack footprints and network cable lengths.",
       "caution": "Cross-domain planning discussion inspected; no complete product site plan or compliance assessment is reproduced.",
       "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
     },
@@ -1587,12 +1589,12 @@
       "publisher": "docs.nvidia.com",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-06",
+      "reviewed_on": "2026-09-16",
       "domains": [
         "D07",
         "D08"
       ],
-      "use": "A named reference system distinguishes compute, storage and management fabrics and explicit topology groupings.",
+      "use": "A named reference system distinguishes compute, storage and management fabrics and explicit topology groupings. A concrete reference distinguishes network roles and accounts for leaf/spine cables and ports.",
       "caution": "H100 reference architecture updated November 19, 2025; no component counts or ratios are generalized.",
       "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
     },
@@ -3154,13 +3156,13 @@
       "publisher": "Google Cloud",
       "kind": "technical_article",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-14",
+      "reviewed_on": "2026-09-16",
       "published_on": "2023-04-05",
       "domains": [
         "D01",
         "D08"
       ],
-      "use": "Concrete TPU v4 pod example and embedded photograph of eight racks, one eighth of the pod. OCS keeps the selected optical signal optical through its switching path.",
+      "use": "Concrete TPU v4 pod example and embedded photograph of eight racks, one eighth of the pod. OCS keeps the selected optical signal optical through its switching path. TPU v4 uses a 3D torus interconnect and OCS reconfiguration.",
       "caution": "Historical TPU v4 architecture; no universal TPU generation, availability, power or efficiency comparison is inferred. Photograph visually inspected; diagram simplified."
     },
     {
@@ -3626,15 +3628,16 @@
       "publisher": "Microsoft",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-15",
+      "reviewed_on": "2026-09-16",
       "published_on": "2025-11-12",
       "domains": [
         "D03",
         "D05",
         "D14",
-        "D15"
+        "D15",
+        "D08"
       ],
-      "use": "Fairwater Atlanta availability and backup-design rationale, followed by Microsoft’s exact supplied quotation on supplementary workloads, GPU power thresholds and on-site storage for power oscillations.",
+      "use": "Fairwater Atlanta availability and backup-design rationale, followed by Microsoft’s exact supplied quotation on supplementary workloads, GPU power thresholds and on-site storage for power oscillations. Fairwater Atlanta and Wisconsin are connected through a dedicated optical AI WAN.",
       "caution": "High-availability, low-cost power section reviewed. Atlanta’s GPU-fleet description omits traditional on-site generation, UPS and dual-corded distribution. Availability is an operator design claim, not a measured annual record, SLA, Tier or quantified cost comparison. The adjacent power-management passage does not prove all three measures were commissioned at Atlanta or deployed throughout Azure; its final phrase is not evidence of lossless storage."
     },
     {
@@ -4909,6 +4912,48 @@
       ],
       "use": "During extreme heat, simultaneous cooling failures affected part of europe-west2-a on July 19, 2022. The final report’s summary gives shutdown at 10:05 PDT, cooling repair at 14:13, and initial cloud-service restoration at 04:28 PDT July 20. Recovery work therefore continued for 14 hours 15 minutes after cooling returned. An incorrect routing change initially avoided all three zones rather than the affected zone.",
       "caution": "Use the final July 29 summary, not the superseded July 21 preliminary timings. These are reported milestone endpoints, not a uniform downtime for every customer; small residual issues required longer recovery. The per-product detail includes additional dates beyond the summary, so do not equate its aggregate endpoint with every final manual cleanup. No public London-site photograph is identified here; the DeepMind photo must not be labeled as this outage site."
+    },
+    {
+      "id": "P208",
+      "title": "SemiAnalysis InferenceX — Kimi K3 on GB200 NVL72",
+      "url": "https://inferencex.semianalysis.com/run/kimi-k3-on-gb200-nvl72",
+      "publisher": "SemiAnalysis InferenceX",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-16",
+      "domains": [
+        "D08"
+      ],
+      "use": "Kimi K3 inference was benchmarked on GB200 NVL72 hardware on August 21, 2026.",
+      "caution": "This is a benchmark-operator result, not a disclosure of Moonshot production hosting or a claim that one replica uses all 72 GPUs."
+    },
+    {
+      "id": "P209",
+      "title": "Meta — Open AI hardware vision",
+      "url": "https://engineering.fb.com/2024/10/15/data-infrastructure/metas-open-ai-hardware-vision/",
+      "publisher": "Meta",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-16",
+      "domains": [
+        "D08"
+      ],
+      "use": "Meta reports training Llama 3.1 405B across more than 16,000 H100 GPUs.",
+      "caution": "October 15, 2024 retrospective. This identifies a scale-out training example; model sharding is not the only form of parallelism in that cluster."
+    },
+    {
+      "id": "P210",
+      "title": "Juniper — Understanding Layer 3 Fabrics",
+      "url": "https://www.juniper.net/documentation/us/en/software/network-director6.1/network-director/topics/concept/layer3-fabrics-understanding.html",
+      "publisher": "Juniper",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-16",
+      "domains": [
+        "D08"
+      ],
+      "use": "Leaf and spine are network topology roles used in Ethernet Clos fabrics, independently of NVIDIA GPU hardware.",
+      "caution": "Use the topology explanation, not the historical switch rates as current product recommendations."
     }
   ],
   "local_attributions": [

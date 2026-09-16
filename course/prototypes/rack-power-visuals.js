@@ -109,23 +109,7 @@ function multiphase(s,m) {
  o+=note('Normalized currents · 30% duty ratio · residual ripple remains',m);
  return o;
 }
-function locality(s,m) {
- const colors=[s.location==='facility'?C.power:C.line,s.location==='rack'?C.power:C.line,s.location==='board'?C.power:C.line];let o='';
- if(m){
-  o+=r(15,15,360,590,C.panel,colors[0])+t(195,51,'FACILITY',18,C.muted);
-  o+=box(37,77,315,75,['UPS battery / BESS'],true,colors[0]);
-  o+=r(39,191,310,381,C.face,colors[1])+t(195,225,'RACK',18,C.muted)+box(63,249,264,76,['BBU → rack DC bus'],true,colors[1]);
-  o+=r(69,363,250,170,C.panel,colors[2])+t(195,395,'BOARD / PACKAGE',16,C.muted);
-  o+=box(87,419,213,76,['Capacitors ↔ chip'],true,colors[2]);
- }else{
-  o+=r(22,44,1156,423,C.panel,colors[0])+t(56,83,'FACILITY',19,C.muted,'start')+box(53,175,283,112,['UPS battery / BESS','Broader load boundary'],false,colors[0]);
-  o+=r(384,106,758,327,C.face,colors[1])+t(410,141,'RACK',18,C.muted,'start')+box(410,218,280,107,['Rack BBU','Qualified DC bus'],false,colors[1]);
-  o+=r(748,164,355,229,C.panel,colors[2])+t(925,204,'BOARD / PACKAGE',18,C.muted)+box(772,245,309,95,['Capacitors ↔ chip'],false,colors[2]);
- }
- const footer={board:'Short local loop · fast current support',rack:'Rack bus support · facility cooling is outside',facility:'Shared upstream support · converters and paths intervene'}[s.location];
- o+=note(footer,m);
- return o;
-}
+
 function handoff(s,m){
  const a=supplyHandoff({responseSeconds:s.response}),x=m?45:115,y=m?365:344,w=m?302:985,h=m?212:217;let o='';
  o+=t(m?195:600,m?45:44,'Additional load: 40 kW',m?24:32);
@@ -159,15 +143,10 @@ function recharge(s,m){
  o+=note('120 kW source · 110 kW between bursts · 160 kW during burst',m);
  return o;
 }
-function transfer(s,m){
- let o=box(m?29:175,m?78:94,m?332:850,m?153:183,['160 kW for 0.2 s','110 kW for 0.2 s','120 kW source cap'],m);
- if(!s.reveal)o+=result('Larger battery?','Predict: longer runtime or indefinite support?',m,m?426:382);
- else{o+=result('135 kW average load','Storage depletes: 15 kW average shortfall',m,m?411:371,C.heat);o+=note('Reduce / shift demand, add supply, or accept finite runtime',m,m?558:499);}
- return o;
-}
+
 export function renderRackPower(id,state,compact=false){
  if(rackProducts[id])return {markup:renderRackProduct(id,compact),description:rackProducts[id].description};
- const renderers={'rack-power-path':rackPath,'psu-input':psuInput,'board-rails':boardRails,'local-current':localCurrent,multiphase,'energy-locality':locality,'source-handoff':handoff,'bbu-shelf':bbu,'buffer-recharge':recharge,'rack-transfer':transfer};
+ const renderers={'rack-power-path':rackPath,'psu-input':psuInput,'board-rails':boardRails,'local-current':localCurrent,multiphase,'source-handoff':handoff,'bbu-shelf':bbu,'buffer-recharge':recharge};
  const markup=id==='rear-busbar'?`<g transform="${compact?'translate(11 0) scale(.944)':'translate(55 0) scale(.92)'}">${renderSpatial('rack-boundary',{rackView:'rear'},compact)}</g>`:renderers[id]?.(state,compact);
  if(!markup)throw new Error(`Unknown rack power scene: ${id}`);
  const descriptions={
@@ -177,11 +156,9 @@ export function renderRackPower(id,state,compact=false){
   'board-rails':'A 48 V bus feeds a 12 V intermediate converter, then a 1 V point-of-load regulator and compute die. The exact rails and branches vary by board.',
   'local-current':`A 1 kW core receives 1000 A at 1 V. Voltage drop is ΔV = I × R. With ${state.resistance} microohms in the final loop, the drop is ${format(localPower({loopMicroOhms:state.resistance}).dropVolts)} V and resistive heat is ${format(localPower({loopMicroOhms:state.resistance}).lossWatts)} W.`,
   multiphase:`${state.phases} interleaved converter phases supply a constant 1000 A average. The summed current has ${format(phaseWaveforms(state.phases).peakToPeakAmps)} A peak-to-peak normalized ripple.`,
-  'energy-locality':`Selected ${state.location} energy storage. Board capacitors, rack BBU and facility storage connect at different electrical boundaries; path impedance and conversion response matter.`,
   'source-handoff':`The load steps by 40 kW while source power ramps over ${state.response} seconds. The buffer's triangular power deficit requires ${supplyHandoff({responseSeconds:state.response}).energyKJ} kJ.`,
   'bbu-shelf':`${state.failed} BBU modules unavailable: ${bbuShelf({failedModules:state.failed}).availableKW} kW of module capacity remains for a 15 kW load. Runtime and transition conditions must also hold.`,
   'buffer-recharge':`A burst uses 8 kJ. A ${state.rest} second gap replenishes ${burstRecharge({restSeconds:state.rest}).rechargeKJ} kJ with the available 10 kW headroom.`,
-  'rack-transfer':state.reveal?'A larger battery delays depletion, but average load 135 kW exceeds source capacity 120 kW. Change the sustained balance.':'Would a larger battery support the supplied repeated burst pattern indefinitely? Predict before revealing.'
  };
  return {markup,description:descriptions[id]};
 }

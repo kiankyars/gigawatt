@@ -18,14 +18,12 @@ test('only exchange time beyond independent computation delays the step',()=>{
  assert.equal(communicationTime({overlapMs:100}).overlappedStepMs,200,'hidden communication cannot shorten the compute interval');
  assert.equal(communicationTime({overlapMs:0}).overlappedStepMs,b.sequentialStepMs);
 });
-test('collective scope keeps the shared result and timing consequence, with old ring links preserved',()=>{
- assert.equal(scenes[13].id,'all-reduce');assert.equal(scenes[14].id,'collective-time');
+test('collective scope keeps the shared result and timing consequence',()=>{
+ const collective=scenes.findIndex(s=>s.id==='all-reduce');assert.equal(scenes[collective+1].id,'collective-time');
  assert.ok(!scenes.some(s=>s.id==='ring-collective'));
- assert.equal(scenes[resolveNetworkingScene('ring-collective')].id,'all-reduce');
  assert.equal(scenes[resolveNetworkingScene('collective-time')].id,'collective-time');
  assert.equal(resolveNetworkingScene('missing-slide'),0);
  assert.ok(!scenes.some(s=>s.id==='tpu-interconnect'));
- assert.equal(scenes[resolveNetworkingScene('tpu-interconnect')].id,'optical-circuits');
  const allreduce=networkingVisual('all-reduce',initialState);
  for(const [i,value]of[2,5,7].entries())assert.match(allreduce,new RegExp(`GPU ${i+1}: contribution ${value}`));
  assert.equal((allreduce.match(/combined result 14/g)||[]).length,3);
@@ -51,14 +49,11 @@ test('compute migration preserves both requested opening images and distinguishe
  assert.equal(scenes[0].id,'networking-purpose');assert.equal(scenes[1].id,'consumer-hardware-meme');assert.equal(scenes[1].imageOnly,true);
  assert.match(networkingVisual('networking-purpose',initialState),/compute-scales\.png/);
  assert.match(networkingVisual('consumer-hardware-meme',initialState),/compute-consumer-hardware-meme\.png/);
- const path=scenes.find(s=>s.id==='packet-path');assert.deepEqual(path.controls[0].options.map(([value])=>value),['local','rack','cluster']);
- const labels={local:'GPU-local memory',rack:'Inside the rack',cluster:'Across racks'};
- for(const transfer of Object.keys(labels)){
-  const html=networkingVisual('packet-path',{...initialState,transfer});
-  assert.equal((html.match(/class="selected-path"/g)||[]).length,1);
-  assert.ok(html.includes(`aria-label="${labels[transfer]} — selected"`));
-  assert.match(html,/One GPU package/);assert.match(html,/HBM/);assert.match(html,/NVLink switches/);assert.match(html,/Fabric switches/);
- }
+ const path=scenes.find(s=>s.id==='packet-path');assert.equal(path.controls,undefined);
+ const html=networkingVisual('packet-path',initialState);
+ assert.doesNotMatch(html,/muted-path|selected-path/);
+ for(const label of ['GPU-local memory','Inside the rack','Across racks'])assert.ok(html.includes(`aria-label="${label}"`));
+ assert.match(html,/One GPU package/);assert.match(html,/HBM/);assert.match(html,/NVLink switches/);assert.match(html,/Fabric switches/);
  assert.match(networkingVisual('shared-model',initialState),/Each GPU receives the other part’s result/);
  assert.match(networkingVisual('shared-model',initialState),/GPUs combine the results/);
 });

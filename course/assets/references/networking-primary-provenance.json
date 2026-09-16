@@ -28,5 +28,24 @@
     "modifications": "None",
     "visually_reviewed_on": "2026-09-14",
     "description": "Google OCS diagram: two MEMS arrays route optical signal; 850nm monitor beam is separate."
+  },
+  {
+    "file": "networking-dgx-h100.png",
+    "url": "https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/_images/dgx-h100-01.png",
+    "source_page": "https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/dgx-superpod-components.html",
+    "publisher": "NVIDIA",
+    "retrieved_on": "2026-09-16",
+    "modifications": "None; displayed with existing QM9700 product images in an authored single-path topology.",
+    "visually_reviewed_on": "2026-09-16",
+    "description": "DGX H100 system from official reference architecture."
+  },
+  {
+    "file": "networking-pluggable-vs-cpo.png",
+    "source": "User-supplied replacement from Downloads/download.png",
+    "received_on": "2026-09-16",
+    "modifications": "None; copied byte-for-byte",
+    "sha256": "333ad802ba269ae16a8e964e3121c8d4fce5768b8aa96b3d4a730efef5582fae",
+    "visually_reviewed_on": "2026-09-16",
+    "description": "User-edited comparison of pluggable optics and co-packaged optics; replaces the networking slide 8 diagram."
   }
 ]

@@ -280,19 +280,3 @@ export const scenes=[
     ]
   }
 ];
-export const legacySceneAliases=Object.freeze({
-  "southaven-border": "southaven-plan",
-  "purchased-energy": "config-grid-supplied",
-  "hourly-match": "config-off-grid",
-  "storage-match": "config-off-grid",
-  "btm-import": "config-grid-parallel",
-  "import-contingency": "config-grid-parallel",
-  "island-boundary": "config-off-grid",
-  "island-duration": "config-off-grid",
-  "fuel-delivery": "parcel-connections",
-  "generation-fuel": "generation-utilization",
-  "generation-choice": "generation-utilization",
-  "phase-check": "supply-brief",
-  "parallel-circuits": "transport-current",
-  "procurement-decision": "speed-premium"
-});

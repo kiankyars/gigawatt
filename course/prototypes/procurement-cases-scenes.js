@@ -33,9 +33,8 @@ export const scenes=[
  s('release-decision','Chapter 14 knowledge check','The electrical and cooling designs pass. What can proceed?',interfaces,'D13.2','Revised electrical/hydraulic designs pass. Revised geometry, transport plan and replacement factory slot are missing. Continue independent site work; release approved packages only where independent of unresolved geometry. Hold frames, shared joints, shipment and unconditional dates. Request coordinated drawings, transport evidence and confirmed resources.',{pedagogical_role:'transfer'}),
 ];
 
-export const legacySceneAliases=Object.freeze({'polaris-phases':'accepted-paths'});
 export function resolveProcurementScene(hash){
- const id=legacySceneAliases[hash]||hash;
+ const id=hash;
  const index=scenes.findIndex(scene=>scene.id===id);
  return index<0?0:index;
 }

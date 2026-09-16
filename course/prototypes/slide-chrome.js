@@ -21,7 +21,7 @@ function installSlideChrome() {
     const fallback = exit ? new URL(exit.href) : new URL('../index.html', location.href);
     fallback.search = '';
     const deck = location.pathname.split('/').pop().replace(/(?:-format)?\.html$/, '');
-    const references = {ups: 'd05-storage-power-and-time', 'rack-power': 'd06-conversion-ledger', 'case-studies': 'd12-hazards-and-site-evidence'};
+    const references = {'case-studies': 'd12-hazards-and-site-evidence'};
     if (references[deck]) fallback.hash = references[deck];
     reading.href = sourceLink?.href || fallback.href;
     nav.prepend(reading);

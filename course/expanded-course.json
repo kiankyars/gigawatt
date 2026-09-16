@@ -6330,6 +6330,14 @@
           ]
         },
         {
+          "heading": "Three examples from real systems",
+          "paragraphs": [
+            "Scale-up: SemiAnalysis InferenceX reports Kimi K3 inference runs on GB200 NVL72 dated August 21, 2026. The rack provides the tightly coupled NVLink domain used by this kind of model serving. This does not mean every model replica uses every GPU in the rack, or that the benchmark identifies Moonshot’s production deployment.",
+            "Scale-out: Meta’s October 2024 account states that Llama 3.1 405B training operated across more than 16,000 H100 GPUs. The GPUs exchange data across the cluster network while the software combines several forms of parallel work.",
+            "Between facilities: Microsoft’s November 12, 2025 Fairwater account describes Atlanta and Wisconsin sites connected through a dedicated optical AI WAN. It establishes a network joining facilities and allocating AI workloads across sites, without identifying a named completed model-training run stretched synchronously across that entire distance."
+          ]
+        },
+        {
           "heading": "Locate a real adapter and switch",
           "paragraphs": [
             "A network adapter connects the server to an external fabric. The standalone product example is NVIDIA’s ConnectX-7 MCX75310AAS-NEAT: a single OSFP port supports up to 400 Gb/s, with a PCIe Gen 4/5 ×16 host interface. Its board is 68.90 × 167.65 mm. This example identifies the adapter’s function and form; it does not identify the adapter fitted to every GB300 configuration. A 400 Gb/s line rate converts to 50 GB/s before protocol overhead and other constraints.",
@@ -6337,10 +6345,24 @@
           ]
         },
         {
+          "heading": "Why model placement affects the building",
+          "paragraphs": [
+            "A model can be split across GPUs because its state does not fit on one device or because the required service needs more compute. Those GPUs must exchange intermediate results; training also communicates between workers running different data batches. The network therefore influences rack placement, cable routes, switch space, power and cooling. Parameter count alone does not determine how much traffic crosses a link: the parallelization strategy and where workers are placed determine that traffic.",
+            "The slide’s NVLink example shows communication within a scale-up domain. A leaf–spine network connects systems at the scale-out level. Leaf–spine is a general topology used with multiple vendors and workloads, rather than a feature exclusive to NVIDIA GPUs. For comparison, Google TPU v4 uses a 3D torus for its internal ICI network and optical circuit switches to reconfigure connections; TPU slices can also communicate through the broader data-center network."
+          ]
+        },
+        {
           "heading": "Draw a topology as a graph of constrained resources",
           "paragraphs": [
             "Endpoints attach to leaf switches; leaf switches connect through an upper tier such as spines. Each cable consumes a port at each end. A diagram with four uplinks drawn as one thick line still needs four physical links and their associated ports. Specify whether a bandwidth label is per port, per endpoint, the sum of one direction, or a bidirectional aggregate. Dividing an aggregate bidirectional number by a one-way payload is a common way to create an impossibly fast transfer estimate.",
             "Oversubscription compares offered endpoint capacity with capacity available toward the rest of the fabric, under a stated direction and traffic pattern. Four 400 Gb/s downlinks sharing two 400 Gb/s uplinks give a 2:1 ratio at that leaf. This is not a promise that every job runs at half speed. Traffic staying within the leaf may not use uplinks; sparse or staggered transfers may fit easily. The ratio becomes restrictive when simultaneous traffic demands more capacity across the shared cut than the cut can provide."
+          ]
+        },
+        {
+          "heading": "Put hardware into the topology",
+          "paragraphs": [
+            "The photographed path uses NVIDIA’s DGX H100 SuperPOD reference architecture: DGX H100 systems connect through QM9700 leaf and spine switches. Leaf and spine describe each switch’s position and role; they can use the same switch model. The slide shows one path through the network, while the complete reference fabric provides many links and alternative paths.",
+            "This fabric sits outside each server’s internal NVLink domain. Likewise, the NVLink switch trays and cable backplane inside an NVL72 should not be labeled as the scale-out leaf–spine fabric. Networking reaches into facility design: NVIDIA’s H100 deployment guide explicitly explains that changes in power or cooling density alter rack footprints, cable lengths and sometimes latency."
           ]
         },
         {
@@ -6479,14 +6501,21 @@
         "P182",
         "P183",
         "P187",
-        "P93"
+        "P93",
+        "P208",
+        "P209",
+        "P210",
+        "P120",
+        "E23909D618E",
+        "E320A75F233",
+        "P91"
       ],
       "source_notes": [
         {
           "id": "E4ABDC02D45",
           "claim": "A concrete reference distinguishes network roles and accounts for leaf/spine cables and ports.",
-          "reviewed_on": "2026-09-06",
-          "limits": "Use the topology concepts only; this lesson’s counts are independently constructed."
+          "reviewed_on": "2026-09-16",
+          "limits": "Physical component roles come from the reference; the following four-leaf teaching calculation remains independently constructed."
         },
         {
           "id": "P13",
@@ -6535,9 +6564,51 @@
           "claim": "ICI connects chips within a TPU slice; communication across slices uses the data-center network.",
           "reviewed_on": "2026-09-14",
           "limits": "May reuse existing P93 rather than duplicate."
+        },
+        {
+          "id": "P208",
+          "claim": "Kimi K3 inference was benchmarked on GB200 NVL72 hardware on August 21, 2026.",
+          "reviewed_on": "2026-09-16",
+          "limits": "This is a benchmark-operator result, not a disclosure of Moonshot production hosting or a claim that one replica uses all 72 GPUs."
+        },
+        {
+          "id": "P209",
+          "claim": "Meta reports training Llama 3.1 405B across more than 16,000 H100 GPUs.",
+          "reviewed_on": "2026-09-16",
+          "limits": "October 15, 2024 retrospective. This identifies a scale-out training example; model sharding is not the only form of parallelism in that cluster."
+        },
+        {
+          "id": "P210",
+          "claim": "Leaf and spine are network topology roles used in Ethernet Clos fabrics, independently of NVIDIA GPU hardware.",
+          "reviewed_on": "2026-09-16",
+          "limits": "Use the topology explanation, not the historical switch rates as current product recommendations."
+        },
+        {
+          "id": "P120",
+          "claim": "Fairwater Atlanta and Wisconsin are connected through a dedicated optical AI WAN.",
+          "reviewed_on": "2026-09-16",
+          "limits": "November 2025 operator architecture account; no named completed inter-site model run inferred."
+        },
+        {
+          "id": "E23909D618E",
+          "claim": "DGX H100 systems and QM9700 InfiniBand switches form the reference compute fabric.",
+          "reviewed_on": "2026-09-16",
+          "limits": "The slide shows one physical path, not a full port map or an as-built facility."
+        },
+        {
+          "id": "E320A75F233",
+          "claim": "Power/cooling density changes rack footprints and network cable lengths.",
+          "reviewed_on": "2026-09-16",
+          "limits": "Vendor reference design; no new rack count or measured deployment claim added."
+        },
+        {
+          "id": "P91",
+          "claim": "TPU v4 uses a 3D torus interconnect and OCS reconfiguration.",
+          "reviewed_on": "2026-09-16",
+          "limits": "Generation-specific; does not describe all TPU generations or Google’s entire data-center fabric."
         }
       ],
-      "word_count": 1513
+      "word_count": 1914
     },
     {
       "id": "d08-collective-progress",
@@ -6714,7 +6785,7 @@
         {
           "heading": "Choose a qualified reach example",
           "paragraphs": [
-            "The deck compares three supported reaches in NVIDIA’s 400G LinkX product family: a 2 m passive copper cable, 30 m multimode optics and 500 m single-mode DR4 optics. These illustrate how the physical route selects a compatible product. They are not universal limits of copper or optical fiber. At the transmitting end an optical module converts an electrical signal into light; at the receiving end another module converts the light back into an electrical signal. Bidirectional links perform both roles at each end."
+            "The deck compares three supported reaches in NVIDIA’s 400G LinkX product family: a 2 m passive copper cable, 50 m multimode optics and 500 m single-mode DR4 optics. These illustrate how the physical route selects a compatible product. They are not universal limits of copper or optical fiber. At the transmitting end an optical module converts an electrical signal into light; at the receiving end another module converts the light back into an electrical signal. Bidirectional links perform both roles at each end. Copper attenuates and distorts high-frequency electrical signals as length increases. At a fixed high link rate, fiber’s lower loss makes longer runs practical; this is not a claim that a bit inherently travels faster through fiber."
           ]
         },
         {
@@ -6848,7 +6919,7 @@
           "limits": "Use authentic sourced diagram; monitor light not same as data wavelength."
         }
       ],
-      "word_count": 1122,
+      "word_count": 1158,
       "domain_checkin": {
         "domain": "D08",
         "title": "Healthy devices, waiting job",
@@ -11135,11 +11206,12 @@
       "publisher": "docs.nvidia.com",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-06",
+      "reviewed_on": "2026-09-16",
       "domains": [
-        "D02"
+        "D02",
+        "D08"
       ],
-      "use": "A documented AI cluster architecture includes compute, management, networking, and storage components.",
+      "use": "A documented AI cluster architecture includes compute, management, networking, and storage components. DGX H100 systems and QM9700 InfiniBand switches form the reference compute fabric.",
       "caution": "Read the public component and design-requirement page for the H100 reference architecture; no product count or performance is copied into the hypothetical brief.",
       "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
     },
@@ -11348,11 +11420,12 @@
       "publisher": "docs.nvidia.com",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-06",
+      "reviewed_on": "2026-09-16",
       "domains": [
-        "D12"
+        "D12",
+        "D08"
       ],
-      "use": "Changes in power density and footprint can affect network layout.",
+      "use": "Changes in power density and footprint can affect network layout. Power/cooling density changes rack footprints and network cable lengths.",
       "caution": "Cross-domain planning discussion inspected; no complete product site plan or compliance assessment is reproduced.",
       "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
     },
@@ -11561,12 +11634,12 @@
       "publisher": "docs.nvidia.com",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-06",
+      "reviewed_on": "2026-09-16",
       "domains": [
         "D07",
         "D08"
       ],
-      "use": "A named reference system distinguishes compute, storage and management fabrics and explicit topology groupings.",
+      "use": "A named reference system distinguishes compute, storage and management fabrics and explicit topology groupings. A concrete reference distinguishes network roles and accounts for leaf/spine cables and ports.",
       "caution": "H100 reference architecture updated November 19, 2025; no component counts or ratios are generalized.",
       "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
     },
@@ -12791,13 +12864,13 @@
       "publisher": "Google Cloud",
       "kind": "technical_article",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-14",
+      "reviewed_on": "2026-09-16",
       "published_on": "2023-04-05",
       "domains": [
         "D01",
         "D08"
       ],
-      "use": "Concrete TPU v4 pod example and embedded photograph of eight racks, one eighth of the pod. OCS keeps the selected optical signal optical through its switching path.",
+      "use": "Concrete TPU v4 pod example and embedded photograph of eight racks, one eighth of the pod. OCS keeps the selected optical signal optical through its switching path. TPU v4 uses a 3D torus interconnect and OCS reconfiguration.",
       "caution": "Historical TPU v4 architecture; no universal TPU generation, availability, power or efficiency comparison is inferred. Photograph visually inspected; diagram simplified."
     },
     {
@@ -13215,15 +13288,16 @@
       "publisher": "Microsoft",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-15",
+      "reviewed_on": "2026-09-16",
       "published_on": "2025-11-12",
       "domains": [
         "D03",
         "D05",
         "D14",
-        "D15"
+        "D15",
+        "D08"
       ],
-      "use": "Fairwater Atlanta availability and backup-design rationale, followed by Microsoft’s exact supplied quotation on supplementary workloads, GPU power thresholds and on-site storage for power oscillations.",
+      "use": "Fairwater Atlanta availability and backup-design rationale, followed by Microsoft’s exact supplied quotation on supplementary workloads, GPU power thresholds and on-site storage for power oscillations. Fairwater Atlanta and Wisconsin are connected through a dedicated optical AI WAN.",
       "caution": "High-availability, low-cost power section reviewed. Atlanta’s GPU-fleet description omits traditional on-site generation, UPS and dual-corded distribution. Availability is an operator design claim, not a measured annual record, SLA, Tier or quantified cost comparison. The adjacent power-management passage does not prove all three measures were commissioned at Atlanta or deployed throughout Azure; its final phrase is not evidence of lossless storage."
     },
     {
@@ -14466,6 +14540,48 @@
       ],
       "use": "During extreme heat, simultaneous cooling failures affected part of europe-west2-a on July 19, 2022. The final report’s summary gives shutdown at 10:05 PDT, cooling repair at 14:13, and initial cloud-service restoration at 04:28 PDT July 20. Recovery work therefore continued for 14 hours 15 minutes after cooling returned. An incorrect routing change initially avoided all three zones rather than the affected zone.",
       "caution": "Use the final July 29 summary, not the superseded July 21 preliminary timings. These are reported milestone endpoints, not a uniform downtime for every customer; small residual issues required longer recovery. The per-product detail includes additional dates beyond the summary, so do not equate its aggregate endpoint with every final manual cleanup. No public London-site photograph is identified here; the DeepMind photo must not be labeled as this outage site."
+    },
+    {
+      "id": "P208",
+      "title": "SemiAnalysis InferenceX — Kimi K3 on GB200 NVL72",
+      "url": "https://inferencex.semianalysis.com/run/kimi-k3-on-gb200-nvl72",
+      "publisher": "SemiAnalysis InferenceX",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-16",
+      "domains": [
+        "D08"
+      ],
+      "use": "Kimi K3 inference was benchmarked on GB200 NVL72 hardware on August 21, 2026.",
+      "caution": "This is a benchmark-operator result, not a disclosure of Moonshot production hosting or a claim that one replica uses all 72 GPUs."
+    },
+    {
+      "id": "P209",
+      "title": "Meta — Open AI hardware vision",
+      "url": "https://engineering.fb.com/2024/10/15/data-infrastructure/metas-open-ai-hardware-vision/",
+      "publisher": "Meta",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-16",
+      "domains": [
+        "D08"
+      ],
+      "use": "Meta reports training Llama 3.1 405B across more than 16,000 H100 GPUs.",
+      "caution": "October 15, 2024 retrospective. This identifies a scale-out training example; model sharding is not the only form of parallelism in that cluster."
+    },
+    {
+      "id": "P210",
+      "title": "Juniper — Understanding Layer 3 Fabrics",
+      "url": "https://www.juniper.net/documentation/us/en/software/network-director6.1/network-director/topics/concept/layer3-fabrics-understanding.html",
+      "publisher": "Juniper",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-16",
+      "domains": [
+        "D08"
+      ],
+      "use": "Leaf and spine are network topology roles used in Ethernet Clos fabrics, independently of NVIDIA GPU hardware.",
+      "caution": "Use the topology explanation, not the historical switch rates as current product recommendations."
     }
   ],
   "glossary": [

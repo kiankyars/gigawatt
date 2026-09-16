@@ -16,7 +16,7 @@ A pluggable optical transceiver places the electrical-to-optical boundary in a r
 
 ## Choose a qualified reach example
 
-The deck compares three supported reaches in NVIDIA’s 400G LinkX product family: a 2 m passive copper cable, 30 m multimode optics and 500 m single-mode DR4 optics. These illustrate how the physical route selects a compatible product. They are not universal limits of copper or optical fiber. At the transmitting end an optical module converts an electrical signal into light; at the receiving end another module converts the light back into an electrical signal. Bidirectional links perform both roles at each end.
+The deck compares three supported reaches in NVIDIA’s 400G LinkX product family: a 2 m passive copper cable, 50 m multimode optics and 500 m single-mode DR4 optics. These illustrate how the physical route selects a compatible product. They are not universal limits of copper or optical fiber. At the transmitting end an optical module converts an electrical signal into light; at the receiving end another module converts the light back into an electrical signal. Bidirectional links perform both roles at each end. Copper attenuates and distorts high-frequency electrical signals as length increases. At a fixed high link rate, fiber’s lower loss makes longer runs practical; this is not a claim that a bit inherently travels faster through fiber.
 
 ## Compare complete and equal power boundaries
 

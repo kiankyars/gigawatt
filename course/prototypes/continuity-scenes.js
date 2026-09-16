@@ -221,12 +221,7 @@ export const continuityScenes = Object.freeze(
   ].map(Object.freeze),
 );
 
-export const continuityAliases = Object.freeze({
-  "electrical-room": "equipment",
-  return: "service-check",
-});
 export function resolveContinuityScene(hash) {
-  const id = continuityAliases[hash] || hash;
-  const i = continuityScenes.findIndex((s) => s.id === id);
+  const i = continuityScenes.findIndex((s) => s.id === hash);
   return i < 0 ? 0 : i;
 }

@@ -1261,6 +1261,14 @@
         ]
       },
       {
+        "heading": "Three examples from real systems",
+        "paragraphs": [
+          "Scale-up: SemiAnalysis InferenceX reports Kimi K3 inference runs on GB200 NVL72 dated August 21, 2026. The rack provides the tightly coupled NVLink domain used by this kind of model serving. This does not mean every model replica uses every GPU in the rack, or that the benchmark identifies Moonshot’s production deployment.",
+          "Scale-out: Meta’s October 2024 account states that Llama 3.1 405B training operated across more than 16,000 H100 GPUs. The GPUs exchange data across the cluster network while the software combines several forms of parallel work.",
+          "Between facilities: Microsoft’s November 12, 2025 Fairwater account describes Atlanta and Wisconsin sites connected through a dedicated optical AI WAN. It establishes a network joining facilities and allocating AI workloads across sites, without identifying a named completed model-training run stretched synchronously across that entire distance."
+        ]
+      },
+      {
         "heading": "Locate a real adapter and switch",
         "paragraphs": [
           "A network adapter connects the server to an external fabric. The standalone product example is NVIDIA’s ConnectX-7 MCX75310AAS-NEAT: a single OSFP port supports up to 400 Gb/s, with a PCIe Gen 4/5 ×16 host interface. Its board is 68.90 × 167.65 mm. This example identifies the adapter’s function and form; it does not identify the adapter fitted to every GB300 configuration. A 400 Gb/s line rate converts to 50 GB/s before protocol overhead and other constraints.",
@@ -1268,10 +1276,24 @@
         ]
       },
       {
+        "heading": "Why model placement affects the building",
+        "paragraphs": [
+          "A model can be split across GPUs because its state does not fit on one device or because the required service needs more compute. Those GPUs must exchange intermediate results; training also communicates between workers running different data batches. The network therefore influences rack placement, cable routes, switch space, power and cooling. Parameter count alone does not determine how much traffic crosses a link: the parallelization strategy and where workers are placed determine that traffic.",
+          "The slide’s NVLink example shows communication within a scale-up domain. A leaf–spine network connects systems at the scale-out level. Leaf–spine is a general topology used with multiple vendors and workloads, rather than a feature exclusive to NVIDIA GPUs. For comparison, Google TPU v4 uses a 3D torus for its internal ICI network and optical circuit switches to reconfigure connections; TPU slices can also communicate through the broader data-center network."
+        ]
+      },
+      {
         "heading": "Draw a topology as a graph of constrained resources",
         "paragraphs": [
           "Endpoints attach to leaf switches; leaf switches connect through an upper tier such as spines. Each cable consumes a port at each end. A diagram with four uplinks drawn as one thick line still needs four physical links and their associated ports. Specify whether a bandwidth label is per port, per endpoint, the sum of one direction, or a bidirectional aggregate. Dividing an aggregate bidirectional number by a one-way payload is a common way to create an impossibly fast transfer estimate.",
           "Oversubscription compares offered endpoint capacity with capacity available toward the rest of the fabric, under a stated direction and traffic pattern. Four 400 Gb/s downlinks sharing two 400 Gb/s uplinks give a 2:1 ratio at that leaf. This is not a promise that every job runs at half speed. Traffic staying within the leaf may not use uplinks; sparse or staggered transfers may fit easily. The ratio becomes restrictive when simultaneous traffic demands more capacity across the shared cut than the cut can provide."
+        ]
+      },
+      {
+        "heading": "Put hardware into the topology",
+        "paragraphs": [
+          "The photographed path uses NVIDIA’s DGX H100 SuperPOD reference architecture: DGX H100 systems connect through QM9700 leaf and spine switches. Leaf and spine describe each switch’s position and role; they can use the same switch model. The slide shows one path through the network, while the complete reference fabric provides many links and alternative paths.",
+          "This fabric sits outside each server’s internal NVLink domain. Likewise, the NVLink switch trays and cable backplane inside an NVL72 should not be labeled as the scale-out leaf–spine fabric. Networking reaches into facility design: NVIDIA’s H100 deployment guide explicitly explains that changes in power or cooling density alter rack footprints, cable lengths and sometimes latency."
         ]
       },
       {
@@ -1355,8 +1377,8 @@
         "title": "NVIDIA DGX SuperPOD — Network Fabrics",
         "url": "https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/network-fabrics.html",
         "claim": "A concrete reference distinguishes network roles and accounts for leaf/spine cables and ports.",
-        "reviewed_on": "2026-09-06",
-        "limits": "Use the topology concepts only; this lesson’s counts are independently constructed."
+        "reviewed_on": "2026-09-16",
+        "limits": "Physical component roles come from the reference; the following four-leaf teaching calculation remains independently constructed."
       },
       {
         "title": "Slurm Topology Guide",
@@ -1413,6 +1435,55 @@
         "claim": "ICI connects chips within a TPU slice; communication across slices uses the data-center network.",
         "reviewed_on": "2026-09-14",
         "limits": "May reuse existing P93 rather than duplicate."
+      },
+      {
+        "title": "SemiAnalysis InferenceX — Kimi K3 on GB200 NVL72",
+        "url": "https://inferencex.semianalysis.com/run/kimi-k3-on-gb200-nvl72",
+        "claim": "Kimi K3 inference was benchmarked on GB200 NVL72 hardware on August 21, 2026.",
+        "reviewed_on": "2026-09-16",
+        "limits": "This is a benchmark-operator result, not a disclosure of Moonshot production hosting or a claim that one replica uses all 72 GPUs."
+      },
+      {
+        "title": "Meta — Open AI hardware vision",
+        "url": "https://engineering.fb.com/2024/10/15/data-infrastructure/metas-open-ai-hardware-vision/",
+        "claim": "Meta reports training Llama 3.1 405B across more than 16,000 H100 GPUs.",
+        "reviewed_on": "2026-09-16",
+        "limits": "October 15, 2024 retrospective. This identifies a scale-out training example; model sharding is not the only form of parallelism in that cluster."
+      },
+      {
+        "title": "Juniper — Understanding Layer 3 Fabrics",
+        "url": "https://www.juniper.net/documentation/us/en/software/network-director6.1/network-director/topics/concept/layer3-fabrics-understanding.html",
+        "claim": "Leaf and spine are network topology roles used in Ethernet Clos fabrics, independently of NVIDIA GPU hardware.",
+        "reviewed_on": "2026-09-16",
+        "limits": "Use the topology explanation, not the historical switch rates as current product recommendations."
+      },
+      {
+        "title": "Microsoft — Fairwater AI superfactory",
+        "url": "https://blogs.microsoft.com/blog/2025/11/12/infinite-scale-the-architecture-behind-the-azure-ai-superfactory/",
+        "claim": "Fairwater Atlanta and Wisconsin are connected through a dedicated optical AI WAN.",
+        "reviewed_on": "2026-09-16",
+        "limits": "November 2025 operator architecture account; no named completed inter-site model run inferred."
+      },
+      {
+        "title": "NVIDIA — DGX SuperPOD Key Components",
+        "url": "https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/dgx-superpod-components.html",
+        "claim": "DGX H100 systems and QM9700 InfiniBand switches form the reference compute fabric.",
+        "reviewed_on": "2026-09-16",
+        "limits": "The slide shows one physical path, not a full port map or an as-built facility."
+      },
+      {
+        "title": "NVIDIA H100 SuperPOD: Planning a Data Center Deployment",
+        "url": "https://docs.nvidia.com/dgx-superpod/design-guides/dgx-superpod-data-center-design-h100/latest/planning.html",
+        "claim": "Power/cooling density changes rack footprints and network cable lengths.",
+        "reviewed_on": "2026-09-16",
+        "limits": "Vendor reference design; no new rack count or measured deployment claim added."
+      },
+      {
+        "title": "Google — TPU v4 interconnect",
+        "url": "https://cloud.google.com/blog/topics/systems/tpu-v4-enables-performance-energy-and-co2e-efficiency-gains",
+        "claim": "TPU v4 uses a 3D torus interconnect and OCS reconfiguration.",
+        "reviewed_on": "2026-09-16",
+        "limits": "Generation-specific; does not describe all TPU generations or Google’s entire data-center fabric."
       }
     ],
     "terms": [
@@ -1667,7 +1738,7 @@
       {
         "heading": "Choose a qualified reach example",
         "paragraphs": [
-          "The deck compares three supported reaches in NVIDIA’s 400G LinkX product family: a 2 m passive copper cable, 30 m multimode optics and 500 m single-mode DR4 optics. These illustrate how the physical route selects a compatible product. They are not universal limits of copper or optical fiber. At the transmitting end an optical module converts an electrical signal into light; at the receiving end another module converts the light back into an electrical signal. Bidirectional links perform both roles at each end."
+          "The deck compares three supported reaches in NVIDIA’s 400G LinkX product family: a 2 m passive copper cable, 50 m multimode optics and 500 m single-mode DR4 optics. These illustrate how the physical route selects a compatible product. They are not universal limits of copper or optical fiber. At the transmitting end an optical module converts an electrical signal into light; at the receiving end another module converts the light back into an electrical signal. Bidirectional links perform both roles at each end. Copper attenuates and distorts high-frequency electrical signals as length increases. At a fixed high link rate, fiber’s lower loss makes longer runs practical; this is not a claim that a bit inherently travels faster through fiber."
         ]
       },
       {

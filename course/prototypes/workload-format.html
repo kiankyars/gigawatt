@@ -364,7 +364,7 @@
 <script type="module">
 import { presentationLabels } from './teaching-navigation.js';
 document.title = `${presentationLabels.workloads} · From Watts to Tokens`;
-import { scenes, initialState, legacySceneAliases } from './workload-scenes.js';
+import { scenes, initialState } from './workload-scenes.js';
 import { renderWorkload } from './workload-visuals.js';
 const $=id=>document.getElementById(id), state={...initialState};
 const teaching=new URLSearchParams(location.search).get('teach')==='1';
@@ -395,7 +395,7 @@ function controls(){
 }
 function render(){const s=scenes[index];$('title').textContent=s.title;$('title').parentElement.hidden=!s.title;$('scenes').value=s.id;$('progress').textContent=`${index+1} / ${scenes.length}`;$('previous').disabled=index===0;$('next').disabled=index===scenes.length-1;$('explanation-title').textContent=s.title;$('lesson-reference').href='../index.html#'+s.reference;$('explanation').innerHTML=s.explanation.map(p=>`<p>${p}</p>`).join('');$('model-scope').textContent=s.boundary;controls();draw();}
 function go(i){index=Math.max(0,Math.min(scenes.length-1,i));history.replaceState(null,'',`#${scenes[index].id}`);render();}
-function fromHash(){const requested=location.hash.slice(1),id=legacySceneAliases[requested]||requested,i=scenes.findIndex(s=>s.id===id);index=i<0?0:i;render();}
+function fromHash(){const id=location.hash.slice(1),i=scenes.findIndex(s=>s.id===id);index=i<0?0:i;render();}
 $('scenes').onchange=e=>go(scenes.findIndex(s=>s.id===e.target.value));$('previous').onclick=()=>go(index-1);$('next').onclick=()=>go(index+1);
 $('explain').onclick=()=>$('reading').showModal();$('close-reading').onclick=()=>$('reading').close();
 $('reading').addEventListener('click',e=>{if(e.target===$('reading')){const r=e.target.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)e.target.close();}});

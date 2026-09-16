@@ -1,6 +1,5 @@
 import { transformerOperatingExample } from './transformer-operating-example.js';
 // Keep links to removed scenes useful without adding navigation stops.
-export const sceneAliases = { welcome: 'circuit', ready: 'pue', 'transformer-taps': 'conversion' };
 
 export const scenes = [
   {

@@ -213,21 +213,24 @@ class ArticleArchiveTests(unittest.TestCase):
         prototype = self.root / "course/prototypes"
         prototype.mkdir()
         teaching_files = {
-            "ups-format.html": '<script type="module" src="./ups-bypass.js"></script>',
+            "continuity-format.html": '<script type="module" src="./ups-bypass.js"></script>',
             "ups-bypass.js": 'export { renderRedundancy } from "./ups-redundancy.js";',
             "ups-redundancy.js": "export function renderRedundancy() {}",
         }
         for name, content in teaching_files.items():
             (prototype / name).write_text(content)
+        (self.root / "course/teaching-sequences.json").write_text(json.dumps({
+            "presentations": [{"id": "continuity", "chapters": [{"href": "prototypes/continuity-format.html?teach=1"}]}]
+        }))
         destination = stage(self.root)
         self.assertTrue((destination / "research/README.md").exists())
         self.assertFalse((destination / a.ARCHIVE).exists())
         for name, content in teaching_files.items():
-            published_name = "ups.html" if name == "ups-format.html" else name
+            published_name = "continuity.html" if name == "continuity-format.html" else name
             self.assertEqual(
                 (destination / "slides" / published_name).read_text(), content
             )
-        self.assertIn("../../slides/ups.html", (destination / "course/prototypes/ups-format.html").read_text())
+        self.assertFalse((destination / "course").exists())
 
     def test_email_tracking_does_not_create_a_second_article_identity(self):
         tracked = (

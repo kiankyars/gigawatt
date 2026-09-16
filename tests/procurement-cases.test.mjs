@@ -141,9 +141,9 @@ test('every procurement scene and control state renders with existing photograph
  assert.throws(()=>procurementVisual('missing-scene',initialState),/Unknown procurement scene/);
 });
 
-test('retired Polaris links open the complete-path application',()=>{
+test('procurement navigation resolves current scenes',()=>{
  assert.ok(!scenes.some(scene=>scene.id==='polaris-phases'));
- assert.equal(scenes[resolveProcurementScene('polaris-phases')].id,'accepted-paths');
+ assert.equal(resolveProcurementScene('polaris-phases'),0);
  assert.equal(scenes[resolveProcurementScene('release-decision')].id,'release-decision');
  assert.equal(resolveProcurementScene('unknown'),0);
 });

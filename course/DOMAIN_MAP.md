@@ -1037,6 +1037,8 @@ Trace a network failure or degraded link into workload, cabling and operational 
 - [P13 — Slurm Workload Manager — Topology Guide](https://slurm.schedmd.com/topology.html) · `page_reviewed` · [local note](../research/sources/P13.md)
 - [P14 — NVIDIA DGX SuperPOD: Next Generation Scalable Infrastructure for AI Leadership Reference Architecture Featuring NVIDIA DGX H100](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/) · `page_reviewed` · [local note](../research/sources/P14.md)
 - [P17 — NVIDIA NVL72 AI Factory — System Hardware & Components](https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/components.html) · `page_reviewed` · [local note](../research/sources/P17.md)
+- [E23909D618E — NVIDIA — DGX SuperPOD Key Components](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/dgx-superpod-components.html) · `page_reviewed` · [local note](../research/sources/E23909D618E.md)
+- [E320A75F233 — NVIDIA H100 SuperPOD: Planning a Data Center Deployment](https://docs.nvidia.com/dgx-superpod/design-guides/dgx-superpod-data-center-design-h100/latest/planning.html) · `page_reviewed` · [local note](../research/sources/E320A75F233.md)
 - [E4ABDC02D45 — NVIDIA DGX SuperPOD — Network Fabrics](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/network-fabrics.html) · `page_reviewed` · [local note](../research/sources/E4ABDC02D45.md)
 - [EB0CA366091 — NCCL Collective Operations](https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/usage/collectives.html) · `page_reviewed` · [local note](../research/sources/EB0CA366091.md)
 - [E80C73CE756 — Scaling AI Factories with Co-Packaged Optics for Better Power Efficiency](https://developer.nvidia.com/blog/scaling-ai-factories-with-co-packaged-optics-for-better-power-efficiency/) · `page_reviewed` · [local note](../research/sources/E80C73CE756.md)
@@ -1050,6 +1052,7 @@ Trace a network failure or degraded link into workload, cabling and operational 
 - [P93 — Cloud TPU Multislice Overview](https://docs.cloud.google.com/tpu/docs/multislice-introduction) · `page_reviewed` · [local note](../research/sources/P93.md)
 - [P99 — Gemini: A Family of Highly Capable Multimodal Models](https://deepmind.google/gemini/gemini_1_report.pdf) · `page_reviewed` · [local note](../research/sources/P99.md)
 - [P96 — vLLM — Inside vLLM: Anatomy of a High-Throughput LLM Inference System](https://vllm.ai/blog/2025-09-05-anatomy-of-vllm) · `page_reviewed` · [local note](../research/sources/P96.md)
+- [P120 — Microsoft — Fairwater Atlanta availability and power design](https://blogs.microsoft.com/blog/2025/11/12/infinite-scale-the-architecture-behind-the-azure-ai-superfactory/) · `page_reviewed` · [local note](../research/sources/P120.md)
 - [P177 — QTS — Suwanee DC1 connectivity facility sheet](https://qtsdatacenters.com/wp-content/uploads/2024/11/QTS_Facility-Data-Sheet_SUW1DC1.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P177.md)
 - [P182 — NVIDIA ConnectX-7 adapter card specifications](https://networking-docs.nvidia.com/connectx7hw/specifications) · `page_reviewed` · [local note](../research/sources/P182.md)
 - [P183 — NVIDIA QM97xx hardware introduction](https://networking-docs.nvidia.com/qm97x0hw/introduction) · `page_reviewed` · [local note](../research/sources/P183.md)
@@ -1057,6 +1060,9 @@ Trace a network failure or degraded link into workload, cabling and operational 
 - [P185 — NVIDIA silicon photonics networking](https://www.nvidia.com/en-us/networking/products/silicon-photonics/) · `page_reviewed` · [local note](../research/sources/P185.md)
 - [P186 — TPU v4: An Optically Reconfigurable Supercomputer for Machine Learning](https://arxiv.org/abs/2304.01433) · `page_reviewed` · [local note](../research/sources/P186.md)
 - [P187 — Equinix Cross Connect demarcations](https://docs.equinix.com/cross-connect/installation/xc-demarcations/) · `page_reviewed` · [local note](../research/sources/P187.md)
+- [P208 — SemiAnalysis InferenceX — Kimi K3 on GB200 NVL72](https://inferencex.semianalysis.com/run/kimi-k3-on-gb200-nvl72) · `page_reviewed` · [local note](../research/sources/P208.md)
+- [P209 — Meta — Open AI hardware vision](https://engineering.fb.com/2024/10/15/data-infrastructure/metas-open-ai-hardware-vision/) · `page_reviewed` · [local note](../research/sources/P209.md)
+- [P210 — Juniper — Understanding Layer 3 Fabrics](https://www.juniper.net/documentation/us/en/software/network-director6.1/network-director/topics/concept/layer3-fabrics-understanding.html) · `page_reviewed` · [local note](../research/sources/P210.md)
 
 <a id="d09"></a>
 

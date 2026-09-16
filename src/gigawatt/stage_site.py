@@ -1,4 +1,4 @@
-"""Stage the generated reader, assets and durable reference paths for Pages."""
+"""Stage the current reader, presentations and assets for Pages."""
 
 from __future__ import annotations
 
@@ -11,34 +11,6 @@ from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[2]
 
-# Keep shared links useful after retiring the original 22-lesson introduction.
-# Its source remains in the repository for the curriculum's migration history.
-INTRODUCTION_REDIRECTS = {
-    "one-rack": "d01-boundaries",
-    "power-and-energy": "d01-power-over-time",
-    "sources-and-grid": "d03-power-and-procurement",
-    "raise-voltage": "d03-voltage-and-distance",
-    "substation-functions": "d04-read-the-power-train",
-    "capacity-stages": "d03-service-and-siting",
-    "building-power-train": "d04-read-the-power-train",
-    "ride-through": "d05-storage-power-and-time",
-    "redundant-paths": "d05-paths-and-transitions",
-    "fault-domains": "d05-protection-and-fault-domains",
-    "rack-conversion": "d06-conversion-ledger",
-    "low-voltage-current": "d04-current-and-rating",
-    "useful-compute": "d02-productive-utilization",
-    "electrical-to-heat": "d10-local-thermal-paths",
-    "liquid-heat-transport": "d10-flow-and-pressure",
-    "heat-exchanger": "d10-cdu-interfaces",
-    "residual-air": "d10-local-thermal-paths",
-    "outdoor-rejection": "d11-heat-rejection",
-    "facility-overhead": "d01-metrics-and-evidence",
-    "capacity-bottleneck": "d15-capacity-ledger",
-    "abilene-case": "d15-upgrade-and-evidence",
-    "whole-system": "d01-boundaries",
-}
-
-
 # Editable files remain grouped by curriculum concern; publication has one root.
 SLIDE_NAMES = {
     "terminology-format": "primer",
@@ -47,26 +19,11 @@ SLIDE_NAMES = {
     "siting-format": "siting",
     "site-format": "site-design",
     "distribution-format": "distribution",
-    "ups-format": "ups",
     "continuity-format": "continuity",
-    "rack-power-format": "rack-power",
     "rack-energy-format": "rack-energy",
-    "compute-format": "compute",
     "networking-format": "networking",
     "storage-format": "storage",
     "cooling-format": "cooling",
-}
-ROOT_PRESENTATIONS = {
-    "teach.html": "800v.html",
-    "sample.html": "800v-explore.html",
-    "sample-notes.html": "800v-notes.html",
-}
-PRESENTATION_REDIRECTS = {
-    "ups.html": "continuity.html",
-    "rack-power.html": "rack-energy.html",
-    "800v.html": "dc-distribution.html",
-    "800v-explore.html": "dc-distribution.html",
-    "800v-notes.html": "dc-distribution.html",
 }
 SHARED_PRESENTATION_MODULES = (
     "electrical-renderer.js", "presentation-renderers.js",
@@ -92,8 +49,6 @@ def public_path(source):
     if source == PurePosixPath("course/README.md"):
         return PurePosixPath("SOURCE_INDEX.md")
     if parts[:1] == ("course",):
-        if len(parts) == 2 and source.name in ROOT_PRESENTATIONS:
-            return PurePosixPath("slides", ROOT_PRESENTATIONS[source.name])
         return PurePosixPath(*parts[1:])
     return source
 
@@ -136,30 +91,32 @@ def published_text(content, source):
     return content
 
 
-def reader_redirect(reader_path, *, introduction=True):
-    mapping = json.dumps(INTRODUCTION_REDIRECTS if introduction else {}).replace("<", "\\u003c")
-    destination = json.dumps(reader_path).replace("<", "\\u003c")
-    return f"""<!doctype html><html lang="en"><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>From Watts to Tokens — Data center course</title>
-<script>let id;try{{id=decodeURIComponent(location.hash.slice(1));}}catch{{id="";}}
-const lessons={mapping};
-const hash=Object.hasOwn(lessons,id)?"#"+lessons[id]:location.hash;
-location.replace({destination}+location.search+hash);</script>
-<p><a href="{reader_path}">Open From Watts to Tokens.</a></p></html>"""
-
-
 def stage(root=ROOT, destination=None):
     destination = destination or root / "_site"
+    catalog = json.loads((root / "course/teaching-sequences.json").read_text())
+    presentation_html = {
+        Path("course") / urlsplit(chapter["href"]).path
+        for presentation in catalog["presentations"]
+        for chapter in presentation["chapters"]
+    }
+    presentation_html.update({
+        Path("course/prototypes/presenter.html"),
+        Path("course/prototypes/case-studies.html"),
+    })
+    # Rebuild our generated directory so retired routes cannot survive a later stage.
+    if destination.exists() and any(destination.iterdir()):
+        if not (destination / ".nojekyll").is_file():
+            raise ValueError(f"Refusing to replace a non-staged directory: {destination}")
+        shutil.rmtree(destination)
     destination.mkdir(parents=True, exist_ok=True)
     paths = {Path("README.md")}
     for directory in ("course", "research"):
         paths.update(p.relative_to(root) for p in (root / directory).glob("*.md"))
         paths.update(p.relative_to(root) for p in (root / directory).glob("*.json"))
-    paths.update(p.relative_to(root) for p in (root / "course").glob("*.html"))
+    paths.update(Path("course") / name for name in ("index.html", "domain-map.html", "sample-reading.html"))
     paths.update(
         p.relative_to(root) for p in (root / "course/prototypes").glob("*")
-        if p.is_file() and p.suffix in {".html", ".js", ".css"}
+        if p.is_file() and (p.suffix in {".js", ".css"} or p.relative_to(root) in presentation_html)
     )
     paths.update(Path("course/web") / name for name in SHARED_PRESENTATION_MODULES)
     for directory in ("course/lessons", "research/sources"):
@@ -177,43 +134,6 @@ def stage(root=ROOT, destination=None):
             target.write_text(published_text((root / path).read_text(), path), encoding="utf-8")
         else:
             shutil.copyfile(root / path, target)
-        if canonical != path:
-            legacy = destination / path
-            legacy.parent.mkdir(parents=True, exist_ok=True)
-            if path.suffix == ".html":
-                relative = posixpath.relpath(str(canonical), str(path.parent))
-                legacy.write_text(reader_redirect(relative, introduction=False), encoding="utf-8")
-            else:
-                # Old research links and imported assets remain durable too.
-                shutil.copyfile(root / path, legacy)
-    for old_name, current_name in PRESENTATION_REDIRECTS.items():
-        if (destination / "slides" / current_name).is_file():
-            (destination / "slides" / old_name).write_text(
-                reader_redirect(current_name, introduction=False), encoding="utf-8"
-            )
-    aliases = (
-        "course.html", "course_v2.html", "v1.html", "hybrid.html",
-        "phase1_generation.html", "phase2_transmission.html", "phase3_campus.html",
-        "phase4_building.html", "phase5_compute.html", "phase6_heat.html",
-    )
-    for name in aliases:
-        (destination / name).write_text(reader_redirect("index.html"), encoding="utf-8")
-    retired_introduction = destination / "diagram/index.html"
-    retired_introduction.parent.mkdir(parents=True, exist_ok=True)
-    retired_introduction.write_text(reader_redirect("../index.html"), encoding="utf-8")
-    retired_docs = {
-        "STRATEGY.md": "COURSE_REVIEW.md",
-        "course/COMPANION.md": "../COURSE_REVIEW.md#companion-experience",
-        "course/REVIEW_HELP.md": "../PRESENTING.md",
-        "course/expansion/AUTHORING.md": "../../TEACHING_STANDARD.md",
-    }
-    for old_path, replacement in retired_docs.items():
-        target = destination / old_path
-        target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_text(
-            f"# This document has moved\n\nRead the [consolidated guidance]({replacement}).\n",
-            encoding="utf-8",
-        )
     (destination / ".nojekyll").touch()
     return destination
 

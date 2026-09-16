@@ -8,24 +8,81 @@ const arrow=(x,y,xx,yy,color=C.power)=>line(x,y,xx,yy,color)+`<path d="M${xx-8} 
 const box=(x,y,w,h,title,detail='',color=C.power,compact=false)=>rect(x,y,w,h,color)+text(x+w/2,y+h/2+(detail?-5:8),title,compact?19:25,color)+(detail?text(x+w/2,y+h/2+25,detail,compact?15:19):'');
 const svg=(content,compact,label)=>`<svg class="buffer-review-diagram" viewBox="${compact?'0 0 390 680':'0 0 1200 560'}" role="img" aria-label="${label}">${content}</svg>`;
 
-function locality(compact){
+const energyNode=(id,x,y,w,h,rows,color=C.power)=>`<g data-power-node="${id}">${rect(x,y,w,h,color)}${rows.map((row,i)=>text(x+w/2,y+h/2+(i-(rows.length-1)/2)*24+7,row,i?17:22,i?C.muted:color)).join('')}</g>`;
+const connection=(from,to,content)=>`<g data-power-from="${from}" data-power-to="${to}">${content}</g>`;
+const junction=(x,y,color=C.power)=>`<circle cx="${x}" cy="${y}" r="5" fill="${color}"/>`;
+
+export function renderEnergyConnections(compact=false){
  let out='';
  if(compact){
-  out+=rect(13,16,364,619,C.power,C.panel)+text(195,55,'FACILITY',18,C.muted);
-  out+=box(38,82,314,84,'UPS batteries / BESS','Upstream power system',C.power,true);
-  out+=rect(39,208,312,392,C.battery)+text(195,248,'RACK',18,C.muted);
-  out+=box(62,277,266,84,'Rack BBU','Rack DC bus',C.battery,true);
-  out+=rect(66,401,258,165,C.heat,C.panel)+text(195,434,'BOARD / PACKAGE',16,C.muted);
-  out+=box(84,457,222,81,'Capacitors','Beside the chips',C.heat,true);
+  out+=`<g data-power-group="facility">${rect(5,5,380,1040,C.power,C.panel)}${text(25,36,'FACILITY',17,C.muted,'start')}</g>`;
+  out+=`<g data-power-group="rack">${rect(26,518,340,499,C.battery)}${text(45,548,'RACK',17,C.muted,'start')}</g>`;
+  out+=`<g data-power-group="chip">${rect(47,781,300,215,C.heat,C.panel)}${text(64,812,'CHIP / LOCAL SUPPLY',16,C.muted,'start')}</g>`;
+  out+=energyNode('generator',25,62,158,74,['Generator','After connection']);
+  out+=energyNode('bess',209,62,157,74,['Site BESS','Battery + inverter'],C.battery);
+  out+=connection('generator','facility-ac',line(104,137,104,166)+line(104,166,282,166)+arrow(282,166,282,197));
+  out+=connection('bess','facility-ac',arrow(287,137,287,197,C.battery));
+  out+=text(70,235,'Grid',22)+connection('grid','facility-ac',arrow(104,227,203,227));
+  out+=energyNode('facility-ac',209,201,153,65,['Facility AC bus']);
+  out+=connection('facility-ac','ups-rectifier',arrow(282,270,282,297));
+  out+=energyNode('ups-rectifier',214,302,139,65,['UPS rectifier','AC → DC']);
+  out+=connection('ups-rectifier','ups-dc-link',line(282,369,282,409));
+  out+=energyNode('ups-battery',32,374,160,75,['UPS batteries'],C.battery);
+  out+=connection('ups-battery','ups-dc-link',arrow(196,410,277,410,C.battery))+junction(282,410);
+  out+=text(237,393,'DC link',15,C.muted);
+  out+=connection('ups-dc-link','ups-inverter',arrow(282,414,282,441));
+  out+=energyNode('ups-inverter',214,446,139,63,['UPS inverter','DC → AC']);
+  out+=connection('ups-inverter','rack-psu',arrow(282,513,282,580));
+  out+=text(123,571,'Protected AC',17,C.muted);
+  out+=energyNode('rack-psu',215,585,138,65,['Rack PSU','AC → DC']);
+  out+=connection('rack-psu','rack-dc',line(283,654,283,719));
+  out+=energyNode('rack-bbu',43,683,159,76,['Rack BBU','Battery + DC/DC'],C.battery);
+  out+=connection('rack-bbu','rack-dc',arrow(206,721,278,721,C.battery))+junction(283,721);
+  out+=text(190,671,'Rack DC bus',17,C.muted,'end');
+  out+=connection('rack-dc','vrm',arrow(283,725,283,827));
+  out+=energyNode('vrm',235,832,96,61,['VRM']);
+  out+=connection('vrm','chip-rail',line(283,897,283,927));
+  out+=energyNode('capacitors',65,884,143,69,['Capacitors','Near the chip'],C.heat);
+  out+=connection('capacitors','chip-rail',arrow(212,928,278,928,C.heat))+junction(283,928,C.heat);
+  out+=connection('chip-rail','chip',arrow(283,932,283,944));
+  out+=text(341,917,'Core rail',15,C.muted,'end');
+  out+=energyNode('chip',235,949,96,34,['Chip']);
  }else{
-  out+=rect(22,45,1156,437,C.power,C.panel)+text(58,88,'FACILITY',20,C.muted,'start');
-  out+=box(52,203,284,123,'UPS batteries / BESS','Upstream power system');
-  out+=rect(380,120,765,323,C.battery)+text(410,163,'RACK',20,C.muted,'start');
-  out+=box(408,245,286,123,'Rack BBU','Rack DC bus',C.battery);
-  out+=rect(747,193,357,210,C.heat,C.panel)+text(925,236,'BOARD / PACKAGE',19,C.muted);
-  out+=box(774,266,305,103,'Capacitors','Beside the chips',C.heat);
+  out+=`<g data-power-group="facility">${rect(12,18,1256,536,C.power,C.panel)}${text(39,57,'FACILITY',21,C.muted,'start')}</g>`;
+  out+=`<g data-power-group="rack">${rect(710,160,532,365,C.battery)}${text(733,196,'RACK',21,C.muted,'start')}</g>`;
+  out+=`<g data-power-group="chip">${rect(982,265,238,235,C.heat,C.panel)}${text(1101,299,'CHIP / LOCAL SUPPLY',17,C.muted)}</g>`;
+  out+=energyNode('generator',40,93,194,86,['Generator','After connection']);
+  out+=energyNode('bess',260,93,210,86,['Site BESS','Battery + inverter'],C.battery);
+  out+=connection('generator','facility-ac',line(137,184,137,253)+line(137,253,224,253)+arrow(224,253,224,387));
+  out+=connection('bess','facility-ac',line(365,184,365,253,C.battery)+line(365,253,224,253,C.battery));
+  out+=text(73,405,'Grid',22)+connection('grid','facility-ac',arrow(95,430,173,430));
+  out+=energyNode('facility-ac',179,392,100,75,['AC bus']);
+  out+=connection('facility-ac','ups-rectifier',arrow(283,430,316,430));
+  out+=energyNode('ups-rectifier',322,392,125,75,['Rectifier','AC → DC']);
+  out+=text(385,361,'UPS',23,C.muted);
+  out+=connection('ups-rectifier','ups-dc-link',line(451,430,491,430));
+  out+=energyNode('ups-battery',482,192,195,82,['UPS batteries'],C.battery);
+  out+=connection('ups-battery','ups-dc-link',line(580,279,580,320,C.battery)+line(580,320,491,320,C.battery)+arrow(491,320,491,425,C.battery))+junction(491,430);
+  out+=text(491,477,'DC link',17,C.muted);
+  out+=connection('ups-dc-link','ups-inverter',arrow(496,430,526,430));
+  out+=energyNode('ups-inverter',532,392,125,75,['Inverter','DC → AC']);
+  out+=connection('ups-inverter','rack-psu',arrow(661,430,730,430));
+  out+=text(694,373,'Protected',16,C.muted)+text(694,395,'AC',16,C.muted);
+  out+=energyNode('rack-psu',736,392,119,75,['Rack PSU','AC → DC']);
+  out+=connection('rack-psu','rack-dc',line(859,430,914,430));
+  out+=energyNode('rack-bbu',770,229,194,86,['Rack BBU','Battery + DC/DC'],C.battery);
+  out+=connection('rack-bbu','rack-dc',line(867,319,867,348,C.battery)+line(867,348,914,348,C.battery)+arrow(914,348,914,425,C.battery))+junction(914,430);
+  out+=text(914,477,'Rack DC bus',17,C.muted);
+  out+=connection('rack-dc','vrm',arrow(919,430,994,430));
+  out+=energyNode('vrm',1000,392,84,75,['VRM']);
+  out+=connection('vrm','chip-rail',line(1088,430,1111,430));
+  out+=energyNode('capacitors',997,317,207,55,['Local capacitors'],C.heat);
+  out+=connection('capacitors','chip-rail',arrow(1111,376,1111,425,C.heat))+junction(1111,430,C.heat);
+  out+=connection('chip-rail','chip',arrow(1116,430,1131,430));
+  out+=energyNode('chip',1137,392,70,75,['Chip']);
+  out+=text(1111,487,'Core rail',17,C.muted);
  }
- return svg(out,compact,'Facility UPS batteries or BESS connect upstream. A rack BBU connects to the rack DC bus. Capacitors sit close to the chips.');
+ return `<svg class="buffer-review-diagram energy-connections" viewBox="${compact?'0 0 390 1055':'0 0 1280 570'}" role="img" aria-labelledby="energy-connections-title energy-connections-description"><title id="energy-connections-title">Where backup power connects</title><desc id="energy-connections-description">One connected electrical path inside facility, rack and chip groupings. Grid, connected generator and BESS inverter supply facility AC. The UPS rectifier and batteries supply its DC link; the inverter supplies protected AC to the rack PSU. Rack BBU and PSU support the rack DC bus. The VRM supplies the chip rail, where nearby capacitors support brief current changes. Source contributions can overlap.</desc>${out}</svg>`;
 }
 
 function handoff(state,compact){
@@ -90,39 +147,11 @@ function rampDown(state,compact){
  return svg(out,compact,`GPU demand drops by 40 kilowatts. Source power above the new load ramps from 40 kilowatts to zero over ${response} seconds. The shaded surplus is ${energyKJ} kilojoules absorbed by a battery through a bidirectional converter. Peak charging power is 40 kilowatts. A full or charge-limited buffer lets bus voltage rise unless another path handles the surplus.`);
 }
 
-function hierarchy(compact){
- let out='';
- if(compact){
-  out+=box(15,12,168,87,'Generator','After startup',C.power,true);
-  out+=box(207,12,168,87,'Site BESS','Battery + inverter',C.battery,true);
-  out+=line(99,102,99,138)+line(291,102,291,138,C.battery)+line(99,138,291,138)+arrow(195,138,195,164);
-  out+=box(92,169,206,72,'Facility AC bus','',C.power,true)+arrow(195,245,195,268);
-  out+=box(92,274,206,72,'Rack PSUs','',C.power,true)+arrow(195,350,195,378);
-  out+=box(17,388,112,80,'BBU','Rack battery',C.battery,true)+arrow(132,427,158,427,C.battery);
-  out+=box(164,388,210,80,'Rack DC bus','',C.power,true)+arrow(270,472,270,503);
-  out+=box(164,509,210,72,'VRM → chip','',C.power,true);
-  out+=box(17,509,112,95,'Capacitors','Near the chip',C.heat,true)+arrow(132,546,158,546,C.heat);
-  out+=text(195,654,'Connection determines the loads supported.',16,C.muted);
- }else{
-  out+=box(22,73,199,100,'Generator','After startup');
-  out+=box(255,73,223,100,'Site BESS','Battery + inverter',C.battery);
-  out+=line(122,177,122,228)+line(367,177,367,228,C.battery)+line(122,228,367,228)+arrow(210,228,210,306);
-  out+=box(87,313,245,100,'Facility AC bus');
-  out+=arrow(336,364,390,364)+box(397,313,204,100,'Rack PSUs');
-  out+=arrow(605,364,659,364)+box(666,313,219,100,'Rack DC bus');
-  out+=box(666,73,219,100,'BBU','Rack battery',C.battery)+arrow(776,178,776,306,C.battery);
-  out+=arrow(889,364,943,364)+box(950,313,228,100,'VRM → chip');
-  out+=box(950,73,228,100,'Capacitors','Near the chip',C.heat)+arrow(1064,178,1064,306,C.heat);
-  out+=text(600,490,'Connection determines the loads supported.',24,C.muted);
- }
- return svg(out,compact,'An example of support at different electrical boundaries. A generator after startup and a site BESS through its inverter supply a facility AC bus. Rack PSUs convert AC to DC. A rack BBU supports that DC bus. Capacitors support local device rails near the chip. These sources do not form a fixed sequence.');
-}
 
 export function renderBufferReview(id,state={},compact=false){
- if(id==='energy-locality')return locality(compact);
+ if(id==='energy-locality')return renderEnergyConnections(compact);
  if(id==='source-handoff')return handoff(state,compact);
  if(id==='source-ramp-down')return rampDown(state,compact);
- if(id==='rack-transfer')return hierarchy(compact);
  if(id==='buffer-recharge')return '<figure class="buffer-review-figure"><img src="../assets/references/rack-recharge-between-bursts.png" alt="Recharge between bursts. An eight-kilojoule burst uses 40 kilowatts for 0.2 seconds. With 10 kilowatts of surplus, a one-second quiet interval allows recovery; a half-second interval provides only five kilojoules, leaving the buffer short. Energy equals power times time."></figure>';
  return null;
 }

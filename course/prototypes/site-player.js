@@ -1,6 +1,5 @@
-import { scenes, initialState, siteSceneRedirect } from "./site-scenes.js";
+import { scenes, initialState } from "./site-scenes.js";
 import { renderSite } from "./site-visuals.js";
-import { operationsAliases } from "./site-operations.js";
 const $ = (id) => document.getElementById(id),
   state = { ...initialState };
 const teaching =
@@ -62,13 +61,8 @@ function go(i) {
   render();
 }
 function fromHash() {
-  const redirect = siteSceneRedirect(location.href);
-  if (redirect) {
-    location.replace(redirect);
-    return;
-  }
   const target =
-      operationsAliases[location.hash.slice(1)] || location.hash.slice(1),
+      location.hash.slice(1),
     i = scenes.findIndex((s) => s.id === target);
   index = i < 0 ? 0 : i;
   render();

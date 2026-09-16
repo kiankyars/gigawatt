@@ -1826,3 +1826,26 @@ not changes claimed in this release.
   and the opening/voltage comparison at 390 × 844. No horizontal overflow or
   failed image on those checked views; no console warnings or errors. Presenter
   compatibility is covered by automated tests; no new multi-monitor recording test.
+
+## Networking author review and simpler navigation — 2026-09-16
+
+- Replaced generic scale captions with Kimi K3/GB200 NVL72, Meta Llama 3.1
+  training, and Microsoft Fairwater WAN examples. The data hierarchy now shows
+  all paths, the adapter slide names scale-out and drops incidental dimensions,
+  copper loss motivates fiber reach, and a DGX H100/QM9700 photo path follows
+  the abstract leaf–spine diagram. The supplied optics image replaces the original diagram, with no duplicate title.
+- Merged the two Chapter 8 location/support views into one connected diagram.
+  Chapter 8 now has 16 slides; networking has 23.
+- Removed retired URL/fragment redirects and the duplicate publication tree.
+  Existing current-slide navigation and presenter controls remain.
+- **251 Node tests and 80 Python tests passed.** Course, expanded reader, domain
+  map, source metadata, staging and whitespace checks passed. A second technical
+  review confirmed the networking case identities, units and topology example.
+
+Built-in-browser checks covered the changed networking captions, complete data
+hierarchy, adapter specifications and copper/fiber comparison at 1280 × 720.
+The final optics image, DGX H100 fabric path and merged backup-power diagram
+were also inspected at 1280 × 720 and 390 × 844. The checked mobile views had no
+horizontal overflow; the merged diagram uses a vertical layout. The optics
+asset matches the supplied original byte-for-byte. Viewport overrides restored.
+The eight networking tests passed again after the image replacement.
