@@ -820,7 +820,6 @@
         "D03",
         "D04",
         "D05",
-        "D09",
         "D10",
         "D11",
         "D12"
@@ -883,7 +882,6 @@
       ],
       "prerequisites": [
         "D05",
-        "D09",
         "D11",
         "D12",
         "D13"
@@ -956,7 +954,6 @@
         "D04",
         "D06",
         "D08",
-        "D09",
         "D11",
         "D13",
         "D14"
@@ -1101,10 +1098,9 @@
       "id": "A04",
       "title": "Make the cluster productive",
       "domains": [
-        "D08",
-        "D09"
+        "D08"
       ],
-      "outcome": "Connect compute, memory, communication, storage and scheduling to useful progress."
+      "outcome": "Connect communication and storage traffic to useful cluster progress."
     },
     {
       "id": "A05",
@@ -1211,6 +1207,7 @@
     "missing": "The retained 22-lesson introduction does not substantively teach this objective. See the generated expanded manuscript for current authored coverage."
   },
   "reference_domains": [
-    "D07"
+    "D07",
+    "D09"
   ]
 }

@@ -1953,3 +1953,21 @@ The teaching deck is reduced from 27 to 12 scenes and renamed **Storage and reco
 - Closing-order follow-up: all 15 Chapter 9 slides remain. The power-stack map is slide 12; DC protection, retrofit, and the three-column comparison are slides 13–15. All 23 rack-energy/navigation tests pass. Built-in browser verified the final image, previous-slide link to retrofit, and onward link to Chapter 10.
 
 - Subsequent author-requested move: the power-stack map now closes Chapter 8 after recharge (17 slides), and Chapter 9 has 14 slides ending with the architecture comparison. All 23 rack-energy/navigation tests pass. Built-in browser confirmed slide 17/17 and its next-chapter link opens Chapter 9 at slide 1/14.
+
+## Storage cases integrated into Networking and Operations — 2026-09-16
+
+Retired the standalone Storage and recovery deck and moved its three detailed
+lessons to Further reading. Networking retains Meta RSC beside the storage-traffic
+diagram. Operations retains Gmail, Llama 3, Google demand response and the deadline
+exercise. Procurement preserves the supplied hardware-price meme. The chapter
+directory now has 16 numbered chapters; no legacy storage route is published.
+
+Added the exact 22-word Microsoft Fairwater capability statement after the
+Superfactory image, plus source-linked speaker notes for CPO, SSTs, DC protection
+and the single-phase PSU/three-phase shelf example.
+
+Validation: 80 Python and 251 Node tests pass, including revised catalog/navigation
+checks and Operations player/control tests. All build/research checks and
+`git diff --check` pass. Built-in browser visual review covered the quote, Meta,
+Gmail, Llama, demand response and deadline slides at 1280 × 720; replica and
+deadline controls visibly update the result.

@@ -1,7 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import {sampleQuality,heatBalance,readiness,transition,maintenanceState,unavailableUnion,diagnosticEvidence} from '../course/prototypes/operations-model.js';
+import vm from 'node:vm';
+import {sampleQuality,heatBalance,readiness,transition,maintenanceState,unavailableUnion,diagnosticEvidence,flexibleSchedule} from '../course/prototypes/operations-model.js';
 import {scenes,initialState} from '../course/prototypes/operations-scenes.js';
 import {operationsVisual} from '../course/prototypes/operations-visuals.js';
 const near=(actual,expected)=>assert.ok(Math.abs(actual-expected)<1e-10,`${actual} ≈ ${expected}`);
@@ -75,6 +76,21 @@ test('diagnostic evidence separates local process, load and configuration',()=>{
  assert.equal(diagnosticEvidence(['branch','load','mapping','plant','pumps']).sufficient,true);
 });
 
+test('workload shifting meets the selected deadline while conserving execution and energy',()=>{
+ const shifted=flexibleSchedule(),continuous=flexibleSchedule({shift:false});
+ assert.deepEqual(shifted.segments,[{start:13,end:14},{start:16,end:18}]);
+ assert.equal(shifted.finishHour,18);assert.equal(shifted.eventPeakMW,20);assert.equal(shifted.laterPeakMW,24);assert.equal(shifted.eventOverlapHours,0);
+ assert.equal(shifted.meetsDeadline,true);assert.equal(shifted.slackHours,2);
+ assert.equal(continuous.finishHour,16);assert.equal(continuous.eventPeakMW,24);assert.equal(continuous.laterPeakMW,20);assert.equal(continuous.eventOverlapHours,2);
+ assert.equal(flexibleSchedule({deadlineHour:17}).meetsDeadline,false);
+ assert.equal(flexibleSchedule({deadlineHour:17}).slackHours,-1);
+ assert.equal(flexibleSchedule({deadlineHour:18}).meetsDeadline,true,'completion at the deadline is valid');
+ for(const run of [shifted,continuous]){near(run.jobMWh,12);near(run.segments.reduce((sum,segment)=>sum+segment.end-segment.start,0),3);}
+ assert.deepEqual(flexibleSchedule({workHours:1}).segments,[{start:13,end:14}],'a job complete before the event needs no restart');
+ assert.deepEqual(flexibleSchedule({startHour:14}).segments,[{start:16,end:19}],'an event at job start does not leave an empty segment');
+ for(const options of [{eventEnd:14},{eventStart:12},{workHours:NaN},{jobMW:0},{deadlineHour:-1}])assert.throws(()=>flexibleSchedule(options),RangeError);
+});
+
 function statesFor(scene){
  let states=[{...initialState,evidence:[]}];
  for(const group of scene.controls||[])states=states.flatMap(state=>group.options.map(([value])=>({...state,[group.key]:value})));
@@ -95,6 +111,61 @@ test('all operational decisions and evidence selections render, with bundled sou
    assert.ok(fs.existsSync(new URL(src,new URL('../course/prototypes/',import.meta.url))),`${scene.id}: missing ${src}`);assets.add(src);
   }
  }
- assert.equal(assets.size,2,'one real facility photo and the publisher control diagram');
+ assert.equal(assets.size,3,'two real facility photos and the publisher control diagram');
  assert.throws(()=>operationsVisual('missing-scene',initialState),/Unknown operations scene/);
+});
+
+test('the four migrated scenes have operations references, real sources and the intended sequence',()=>{
+ const ids=scenes.map(scene=>scene.id);
+ assert.equal(scenes.length,26);
+ assert.deepEqual(ids.slice(ids.indexOf('admit-work'),ids.indexOf('admit-work')+3),['admit-work','google-demand-response','deadline-scheduling']);
+ assert.deepEqual(ids.slice(ids.indexOf('common-cause'),ids.indexOf('common-cause')+4),['common-cause','replication-and-backup','london-recovery','llama-recovery']);
+ for(const id of ['google-demand-response','deadline-scheduling','replication-and-backup','llama-recovery']){
+  const scene=scenes.find(item=>item.id===id);
+  assert.match(scene.reference,/^d14-/);
+  for(const group of scene.controls||[])assert.ok(group.options.some(([value])=>value===initialState[group.key]),`${id}: ${group.key} has an active initial choice`);
+  if(id!=='deadline-scheduling')for(const source of scene.sources)assert.ok(operationsVisual(id,initialState).includes(source),`${id}: source credit preserved`);
+ }
+ for(const file of ['operations-visuals.js','operations-model.js','operations-player.js','operations-scenes.js']){
+  const source=fs.readFileSync(new URL(`../course/prototypes/${file}`,import.meta.url),'utf8');
+  assert.doesNotMatch(source,/from\s+['"][^'"]*storage[^'"]*['"]/,`${file}: no dependency on the retired deck`);
+ }
+ assert.match(operationsVisual('llama-recovery',initialState),/confirmed or suspected hardware issues/);
+ assert.match(operationsVisual('llama-recovery',initialState),/Automated diagnosis/);
+ assert.match(operationsVisual('replication-and-backup',{...initialState,replicaFault:'write'}),/Bad write copied/);
+});
+
+function operationsPlayerAt(hash){
+ class Element{
+  constructor(){this.children=[];this.dataset={};this.attributes={};}
+  append(...children){this.children.push(...children);}
+  add(child){this.children.push(child);}
+  replaceChildren(...children){this.children=children;}
+  setAttribute(key,value){this.attributes[key]=value;}
+  focus(){}
+ }
+ const elements=new Map(['scenes','fullscreen','scene','scene-title','visual','lesson-reference','status','progress','previous','next','actions','viewer'].map(id=>[id,new Element()]));
+ const listeners={},location={hash,search:''};
+ const buttons=()=>elements.get('actions').children.flatMap(group=>group.children).filter(element=>element.type==='button');
+ const document={getElementById:id=>elements.get(id),createElement:()=>new Element(),querySelector:()=>null,querySelectorAll:()=>[],addEventListener(){}};
+ const window={addEventListener:(name,fn)=>{listeners[name]=fn;},scrollTo(){}};
+ const source=fs.readFileSync(new URL('../course/prototypes/operations-player.js',import.meta.url),'utf8').replace(/^import .*;\n/gm,'');
+ vm.runInNewContext(source,{document,window,location,history:{replaceState(_state,_title,hash){location.hash=hash;}},URLSearchParams,Option:class{constructor(label,value){this.label=label;this.value=value;}},scenes,initialState,operationsVisual,presentationLabels:{operations:'14. Controls, operations and reliability'}});
+ return {elements,buttons,document,go(id){location.hash=`#${id}`;listeners.hashchange();},click(key,value){const button=buttons().find(button=>button.dataset.choice===key&&button.dataset.value===String(value));assert.ok(button,`${key}=${value}`);button.onclick();}};
+}
+
+test('the actual operations player keeps deadline and replica controls synchronized across navigation',()=>{
+ const player=operationsPlayerAt('#deadline-scheduling');
+ const selected=key=>player.buttons().filter(button=>button.dataset.choice===key&&button.attributes['aria-pressed']==='true').map(button=>button.dataset.value);
+ const html=()=>player.elements.get('visual').innerHTML;
+ assert.deepEqual(selected('shift'),['true']);assert.deepEqual(selected('deadline'),['20']);
+ assert.match(html(),/finishes at 18:00, and meets its deadline/);
+ assert.equal(player.elements.get('progress').textContent,'13 / 26');
+ player.click('deadline',17);assert.deepEqual(selected('deadline'),['17']);assert.match(html(),/misses its deadline/);assert.match(html(),/<strong>18:00<\/strong>/);
+ player.click('shift',false);assert.deepEqual(selected('shift'),['false']);assert.match(html(),/finishes at 16:00, and meets its deadline/);assert.match(html(),/<strong>24 MW<\/strong>/);
+ player.go('replication-and-backup');assert.deepEqual(selected('replicaFault'),['device']);assert.match(html(),/Valid data available/);
+ player.click('replicaFault','write');assert.deepEqual(selected('replicaFault'),['write']);assert.match(html(),/Bad write copied/);assert.match(html(),/Earlier valid version/);
+ player.go('deadline-scheduling');assert.deepEqual(selected('shift'),['false']);assert.deepEqual(selected('deadline'),['17']);
+ player.click('deadline',20);player.click('shift',true);assert.match(html(),/finishes at 18:00, and meets its deadline/);assert.match(html(),/<strong>12 MWh<\/strong>/);
+ assert.match(player.document.title,/^14\. Controls, operations and reliability/);
 });

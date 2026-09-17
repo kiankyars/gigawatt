@@ -90,7 +90,7 @@ class SiteStagingTests(unittest.TestCase):
             (root / "README.md").write_text("Course")
             (root / "course/prototypes").mkdir(parents=True)
             (root / "course/web").mkdir()
-            for deck in ("continuity", "rack-energy", "dc-distribution", "ups", "rack-power", "compute"):
+            for deck in ("continuity", "rack-energy", "dc-distribution", "ups", "rack-power", "compute", "storage"):
                 (root / f"course/prototypes/{deck}-format.html").write_text(f"<title>{deck}</title>")
             for name in ("teach.html", "sample.html", "sample-notes.html"):
                 (root / "course" / name).write_text("<title>Retired presentation</title>")

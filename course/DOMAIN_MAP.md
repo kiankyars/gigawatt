@@ -87,9 +87,9 @@ Compare continuity and conversion choices, including 800 V DC, against interface
 
 ### A04 — Make the cluster productive
 
-[Networking and interconnects](#d08) → [Storage and recovery](#d09)
+[Networking and interconnects](#d08)
 
-Connect compute, memory, communication, storage and scheduling to useful progress.
+Connect communication and storage traffic to useful cluster progress.
 
 ### A05 — Close the heat and water balances
 
@@ -106,6 +106,7 @@ Test complete service paths, operate them, and defend a system decision with unc
 ### Further reading
 
 - [Compute and memory — further reading](#d07)
+- [Storage and recovery](#d09)
 
 ## Domain teaching plans
 
@@ -1511,7 +1512,7 @@ Teach delivery as a chain of interfaces and evidence, not a chronology of announ
 - Functional and integrated systems testing, failure scenarios and acceptance
 - Phased handover, as-built records, procedures and operator training
 
-**Prerequisites:** [Siting, grid connection and supply](#d03), [Campus and building power distribution](#d04), [Continuity, storage and protection](#d05), [Storage and recovery](#d09), [Chip and rack heat capture](#d10), [Heat rejection, climate and water](#d11), [Physical site, buildings and safety](#d12)
+**Prerequisites:** [Siting, grid connection and supply](#d03), [Campus and building power distribution](#d04), [Continuity, storage and protection](#d05), [Chip and rack heat capture](#d10), [Heat rejection, climate and water](#d11), [Physical site, buildings and safety](#d12)
 
 **Learning objectives and assessments:**
 
@@ -1626,7 +1627,7 @@ Turn the static design into monitored operation, maintenance and incident recove
 - Failure domains, common causes, service availability and incident learning
 - Workload load changes, capacity management, aging and retrofit operations
 
-**Prerequisites:** [Continuity, storage and protection](#d05), [Storage and recovery](#d09), [Heat rejection, climate and water](#d11), [Physical site, buildings and safety](#d12), [Design, procurement and commissioning](#d13)
+**Prerequisites:** [Continuity, storage and protection](#d05), [Heat rejection, climate and water](#d11), [Physical site, buildings and safety](#d12), [Design, procurement and commissioning](#d13)
 
 **Learning objectives and assessments:**
 
@@ -1742,7 +1743,7 @@ Combine engineering, delivery and workload models into a bounded decision with e
 - Cost per useful workload outcome versus cost per MW or GPU-hour
 - Sensitivity, scenarios, uncertainty, retrofit and retirement
 
-**Prerequisites:** [Workloads and the infrastructure brief](#d02), [Campus and building power distribution](#d04), [Rack power and the 800 V DC transition](#d06), [Networking and interconnects](#d08), [Storage and recovery](#d09), [Heat rejection, climate and water](#d11), [Design, procurement and commissioning](#d13), [Controls, operations and reliability](#d14)
+**Prerequisites:** [Workloads and the infrastructure brief](#d02), [Campus and building power distribution](#d04), [Rack power and the 800 V DC transition](#d06), [Networking and interconnects](#d08), [Heat rejection, climate and water](#d11), [Design, procurement and commissioning](#d13), [Controls, operations and reliability](#d14)
 
 **Learning objectives and assessments:**
 

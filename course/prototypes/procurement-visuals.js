@@ -54,6 +54,7 @@ function diagnosis(state){const responses={all:'The missing geometry can still i
 
 export function procurementVisual(id,state){
  switch(id){
+ case 'hardware-prices-meme':return `<figure class="procurement-meme"><img src="../assets/references/storage-hardware-prices-meme.png" alt="Grim Reaper AI meme: RAM, GPU and SSD prices rise, with CPU prices next."></figure>`;
  case 'delivery-purpose':return `<div class="p-opener"><div class="p-opener-route"><section><div class="p-drawing" aria-hidden="true"><i></i><i></i><i></i></div><h2>Design</h2><p>Define the interfaces</p></section>${arrow}<section><div class="p-module-icon" aria-hidden="true"><i></i><i></i><i></i></div><h2>Delivery</h2><p>Join factory and site work</p></section>${arrow}<section><div class="p-service-icon" aria-hidden="true">✓</div><h2>Acceptance</h2><p>Demonstrate the complete path</p></section></div></div>`;
  case 'service-requirements':return `<div class="p-stack">${strip('<b>20 MW IT phase</b> · ten 2 MW zones · power, cooling and information reach the same racks')}${flow([['Owner requirements','What service must work, and in which conditions?'],['Design basis','Which paths, ratings and controls provide it?'],['Acceptance evidence','Which measured results demonstrate it?']])}<div class="p-requirement-example"><span>“Provide sufficient cooling”</span>${arrow}<strong>Declared rack heat + inlet conditions + allowable temperatures + measured response</strong></div></div>`;
  case 'delivery-paths':return dependency(state);

@@ -14,6 +14,7 @@ export const scenes=[
  {id:'consumer-hardware-meme',label:'AI demand and consumer hardware',title:'AI demand and consumer hardware',reference:topology,pedagogical_role:'hook',imageOnly:true},
  {id:'three-scales',label:'Three communication scales',title:'A distributed model uses different networks at different scales.',reference:topology,pedagogical_role:'architecture'},
  {id:'microsoft-ai-superfactory',label:'Inside an AI Superfactory',title:'Inside an AI Superfactory',reference:topology,pedagogical_role:'case',imageOnly:true},
+ {id:'fairwater-model-scale',label:'Fairwater model scale',title:'Microsoft’s ambition for Fairwater',reference:topology,pedagogical_role:'case',imageOnly:true},
  {id:'packet-path',label:'Data hierarchy',title:'Data hierarchy for each networking paradigm',reference:topology,pedagogical_role:'mechanism'},
  {id:'shared-model',label:'A model across several GPUs',title:'Split a model across GPUs, and they must exchange results.',reference:collective,pedagogical_role:'mechanism'},
  {id:'network-hardware',label:'The adapter and the switch',title:'Scale-out networking: the adapter and the switch',reference:topology,pedagogical_role:'architecture'},
@@ -33,6 +34,7 @@ export const scenes=[
  {id:'distance-latency',label:'Distance remains in the budget',title:'A faster port cannot remove the propagation time between facilities.',reference:topology,pedagogical_role:'balance'},
  {id:'fabric-failure',label:'A degraded link delays the collective',title:'A fabric can remain connected while the training step gets slower.',reference:collective,pedagogical_role:'failure'},
  {id:'network-diagnosis',label:'Chapter 10 knowledge check',title:'Chapter 10 · Find the source of the collective delay',reference:collective,pedagogical_role:'transfer'},
+ {id:'meta-rsc',label:'Meta Research SuperCluster',title:'Meta built storage in tiers to keep GPUs supplied',reference:'d09-storage-paths',pedagogical_role:'case'},
  {id:'storage-handoff',label:'The network’s other traffic',title:'Dataset reads and checkpoints also use the network.',reference:topology,pedagogical_role:'transfer'},
 ];
 export function resolveNetworkingScene(hash){

@@ -50,7 +50,7 @@ test('student exploration stays outside teaching mode and transient parameters d
 test('cooling continues to the complete delivery chapter at its opening slide', () => {
   const module = 'http://localhost/course/prototypes/slide-navigation.js';
   const link = nextChapterLink('http://localhost/course/prototypes/cooling-format.html?teach=1#rejection', presentationRoutes, module);
-  assert.equal(link.number, 14);
+  assert.equal(link.number, 13);
   assert.equal(link.kind, 'slides');
   assert.equal(link.href, 'http://localhost/course/prototypes/procurement-cases-format.html?teach=1');
 });
@@ -58,26 +58,23 @@ test('cooling continues to the complete delivery chapter at its opening slide', 
 test('delivery opens operations, which continues to the next unbuilt chapter reading', () => {
   const module = 'http://localhost/course/prototypes/slide-navigation.js';
   const link = nextChapterLink('http://localhost/course/prototypes/procurement-cases-format.html?teach=1#aws-houdini-prefab', presentationRoutes, module);
-  assert.equal(link.number, 15);
+  assert.equal(link.number, 14);
   assert.equal(link.kind, 'slides');
   assert.equal(link.href, 'http://localhost/course/prototypes/operations-format.html?teach=1');
   const next = nextChapterLink(link.href, presentationRoutes, module);
-  assert.equal(next.number, 16);
+  assert.equal(next.number, 15);
   assert.equal(next.kind, 'reading');
   assert.equal(new URL(next.href).pathname, '/course/index.html');
   assert.ok(new URL(next.href).hash.startsWith('#d15-'));
 });
 
-test('networking advances to storage and storage advances to cooling', () => {
+test('networking advances directly to cooling after storage retirement', () => {
   const module = 'http://localhost/course/prototypes/slide-navigation.js';
-  const storage = nextChapterLink('http://localhost/course/prototypes/networking-format.html?teach=1#storage-handoff', presentationRoutes, module);
-  assert.equal(storage.number, 11);
-  assert.equal(storage.kind, 'slides');
-  assert.equal(storage.href, 'http://localhost/course/prototypes/storage-format.html?teach=1');
-  const cooling = nextChapterLink(storage.href, presentationRoutes, module);
-  assert.equal(cooling.number, 12);
+  const cooling = nextChapterLink('http://localhost/course/prototypes/networking-format.html?teach=1#storage-handoff', presentationRoutes, module);
+  assert.equal(cooling.number, 11);
   assert.equal(cooling.kind, 'slides');
   assert.equal(cooling.href, 'http://localhost/course/prototypes/cooling-format.html?teach=1');
+  assert.ok(!presentationRoutes.some(route=>route.path.includes('storage-format')));
 });
 
 test('rack power advances to DC distribution, then networking', () => {
@@ -94,7 +91,7 @@ test('rack power advances to DC distribution, then networking', () => {
 test('a presentation spanning two chapters continues after both', () => {
   const module = 'http://localhost/course/prototypes/slide-navigation.js';
   const link = nextChapterLink('http://localhost/course/prototypes/cooling-format.html#rejection', presentationRoutes, module);
-  assert.equal(link.number, 14);
+  assert.equal(link.number, 13);
   assert.equal(link.kind, 'slides');
 });
 

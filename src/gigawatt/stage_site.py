@@ -22,7 +22,6 @@ SLIDE_NAMES = {
     "continuity-format": "continuity",
     "rack-energy-format": "rack-energy",
     "networking-format": "networking",
-    "storage-format": "storage",
     "cooling-format": "cooling",
 }
 SHARED_PRESENTATION_MODULES = (

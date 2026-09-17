@@ -101,3 +101,16 @@
 .network-reference-image img{display:block;width:100%;height:100%;min-height:0;object-fit:contain}
 @media(max-width:600px){.network-reference-image{height:auto;flex:none}.network-reference-image img{height:auto}}
 @media(max-width:600px){.optical-packaging-image{height:auto;flex:none}.optical-packaging-image img{height:auto}}
+
+/* Real storage architecture and the source's stated Fairwater ambition. */
+.network-storage-case{display:grid;grid-template-columns:1.5fr 1fr;gap:clamp(25px,4vw,70px);align-items:center;flex:1;min-height:0}
+.network-storage-case figure{margin:0;min-height:0;display:flex;flex-direction:column;align-self:stretch;justify-content:center}
+.network-storage-case img{width:100%;max-height:60svh;object-fit:contain;min-height:0}
+.network-storage-tiers{display:grid;gap:clamp(25px,4vh,55px)}
+.network-storage-tiers section{display:flex;flex-direction:column;gap:8px}
+.network-storage-tiers strong{font-size:clamp(36px,4.5vw,65px);color:var(--teal);line-height:1}
+.network-storage-tiers span{font-size:clamp(22px,2.4vw,32px)}
+.fairwater-quote{display:flex;flex:1;flex-direction:column;justify-content:center;max-width:1150px;margin:auto;gap:32px;padding:3vw}
+.fairwater-quote blockquote{font-size:clamp(30px,3.8vw,58px);line-height:1.35;margin:0}
+.fairwater-quote .figure-credit{text-align:left}
+@media(max-width:600px){.network-storage-case{grid-template-columns:1fr}.network-storage-case img{max-height:35svh}.network-storage-tiers{grid-template-columns:repeat(3,1fr);gap:12px}.network-storage-tiers strong{font-size:30px}.network-storage-tiers span{font-size:18px}.fairwater-quote{padding:15px}.fairwater-quote blockquote{font-size:30px}}

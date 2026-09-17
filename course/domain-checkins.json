@@ -94,20 +94,8 @@
       "explanation": [
         "Healthy endpoints do not establish a healthy end-to-end communication path. Follow the affected traffic through shared links and the collective's dependencies. Placement or path changes might help, but only if they relieve the actual constrained route."
       ],
-      "next_domain": "D09",
-      "bridge": "The cluster also needs durable data and recoverable progress. What survives when an interruption stops the job?"
-    },
-    {
-      "domain": "D09",
-      "title": "Which progress comes back?",
-      "scenario": "In a hypothetical run, the latest validated, durable checkpoint represents progress through minute 20. A failure occurs at minute 28; no newer checkpoint survives. Restoration takes 3 minutes, and the same work runs at the same rate afterward.",
-      "prompt": "How much completed work must be repeated, and when can the run regain its pre-failure progress?",
-      "answer": "It repeats 8 minutes of work and regains its minute-28 progress at wall-clock minute 39.",
-      "explanation": [
-        "Restoration ends at minute 31. Replaying the 8 minutes after the durable checkpoint then takes until minute 39. The surviving checkpoint preserves earlier progress, but it does not remove restore time or the work completed after its saved state."
-      ],
       "next_domain": "D10",
-      "bridge": "While the recovered job runs, its hardware keeps producing heat. Can every device transfer that heat into a supported cooling path?"
+      "bridge": "Data reaches the devices and their progress can be saved. Where does the resulting heat go?"
     },
     {
       "domain": "D10",

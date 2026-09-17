@@ -105,6 +105,6 @@ Healthy endpoints do not establish a healthy end-to-end communication path. Foll
 
 </details>
 
-**The next problem:** The cluster also needs durable data and recoverable progress. What survives when an interruption stops the job?
+**The next problem:** Data reaches the devices and their progress can be saved. Where does the resulting heat go?
 
-Continue in **Storage and recovery**: Storage is a traffic and state system.
+Continue in **Chip and rack heat capture**: A cool room can contain an overheating chip.

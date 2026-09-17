@@ -34,3 +34,12 @@ export function unavailableUnion(intervals,{windowStart=0,windowEnd=43200}={}){
  return {merged,downtime,duration,availability:1-downtime/duration};
 }
 export function diagnosticEvidence(selected=[]){const set=new Set(selected);return {local: set.has('branch'),load:set.has('load'),configuration:set.has('mapping'),sufficient:set.has('branch')&&set.has('load')&&set.has('mapping')};}
+export function flexibleSchedule({deadlineHour=20,eventStart=14,eventEnd=16,workHours=3,startHour=13,shift=true,baseMW=20,jobMW=4}={}){
+ for(const [name,value]of Object.entries({workHours,baseMW,jobMW})){finite(value,name);if(value<=0)throw new RangeError(`${name} must be positive`);}
+ for(const [name,value]of Object.entries({deadlineHour,eventStart,eventEnd,startHour}))nonnegative(value,name);
+ if(eventEnd<=eventStart||eventStart<startHour)throw new RangeError('Grid event must follow the scheduling start.');
+ const first=Math.min(workHours,eventStart-startHour),remaining=workHours-first;
+ const segments=shift&&remaining>0?[{start:startHour,end:startHour+first},{start:eventEnd,end:eventEnd+remaining}].filter(segment=>segment.end>segment.start):[{start:startHour,end:startHour+workHours}];
+ const finishHour=segments.at(-1).end,eventOverlapHours=segments.reduce((total,segment)=>total+Math.max(0,Math.min(segment.end,eventEnd)-Math.max(segment.start,eventStart)),0);
+ return {segments,finishHour,meetsDeadline:finishHour<=deadlineHour,eventOverlapHours,eventPeakMW:baseMW+(eventOverlapHours>0?jobMW:0),laterPeakMW:baseMW+(segments.some(segment=>segment.end>eventEnd)?jobMW:0),jobMWh:workHours*jobMW,slackHours:deadlineHour-finishHour};
+}

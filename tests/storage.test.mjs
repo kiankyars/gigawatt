@@ -1,9 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import fs from 'node:fs';
 import {inputPipeline,checkpointTransfer,checkpointCommit,asyncQueue,checkpointTimeline,recoveryEnergy,eligibleGroups,localityRecovery,flexibleSchedule,recoveryChoices} from '../course/prototypes/storage-model.js';
-import {scenes,initialState,learningContract} from '../course/prototypes/storage-scenes.js';
-import {storageVisual} from '../course/prototypes/storage-visuals.js';
 const close=(a,b)=>assert.ok(Math.abs(a-b)<1e-9,`${a} ≠ ${b}`);
 
 test('the input path uses its slowest stage and caps supply at job demand',()=>{
@@ -68,41 +65,4 @@ test('scheduling honors service deadlines and conserves job energy while moving 
 });
 test('models reject impossible rates, state and scheduling inputs',()=>{
  for(const fn of[()=>inputPipeline({hostGBps:0}),()=>checkpointTransfer({shards:1.5}),()=>checkpointCommit({shards:[]}),()=>checkpointCommit({shards:[0]}),()=>asyncQueue({maxOutstanding:0}),()=>checkpointTimeline({intervalMinutes:0}),()=>checkpointTimeline({failureMinute:-1}),()=>recoveryEnergy(checkpointTimeline(),{recoveryMW:-1}),()=>eligibleGroups({groups:[[1,0]]}),()=>localityRecovery({waitSeconds:-1}),()=>flexibleSchedule({eventEnd:14}),()=>flexibleSchedule({workHours:NaN})])assert.throws(fn,RangeError);
-});
-test('all scenes and independent control combinations render cleanly on both layouts',()=>{
- assert.equal(new Set(scenes.map(s=>s.id)).size,scenes.length);assert.equal(Object.keys(learningContract).length,6);
- for(const scene of scenes){let states=[{...initialState}];for(const group of scene.controls||[]){assert.ok(group.key in initialState);states=states.flatMap(state=>group.options.map(([value])=>({...state,[group.key]:value})));}
-  for(const state of states)for(const compact of[false,true]){const html=storageVisual(scene.id,state,compact);assert.ok(html.length>150,scene.id);assert.doesNotMatch(html,/NaN|undefined|Infinity/,scene.id);}
- }
- assert.throws(()=>storageVisual('missing',initialState));
-});
-test('closing check preserves alternatives and gives causal feedback only after a selection and reveal',()=>{
- const initial=storageVisual('recovery-diagnosis',initialState);assert.match(initial,/id="diagnosis-reveal" disabled/);assert.match(initial,/Node and local cache unavailable/);
- assert.equal(Object.values(recoveryChoices).filter(c=>c.correct).length,1);
- for(const key of Object.keys(recoveryChoices)){const hidden=storageVisual('recovery-diagnosis',{...initialState,diagnosis:key});assert.ok(!hidden.includes(recoveryChoices[key].text));const shown=storageVisual('recovery-diagnosis',{...initialState,diagnosis:key,showDiagnosis:true});assert.ok(shown.includes(recoveryChoices[key].text));assert.ok(shown.includes(`data-diagnosis="${key}" aria-pressed="true"`));}
-});
-test('deck uses the shared navigation and exact reader lesson anchors',()=>{
- const html=fs.readFileSync(new URL('../course/prototypes/storage-format.html',import.meta.url),'utf8');assert.match(html,/src="slide-chrome.js"/);assert.match(html,/Back to course/);assert.match(html,/data-course-reading/);assert.doesNotMatch(html,/<dialog|open-notes|explain/);
- const lessons=new Set(JSON.parse(fs.readFileSync(new URL('../course/expansion/racks-compute-heat.json',import.meta.url),'utf8')).map(x=>x.id));for(const scene of scenes)assert.ok(lessons.has(scene.reference),scene.reference);
-});
-
-test('recovery selects a complete save that survives the worker failure',()=>{
- for(const durability of ['incomplete','local','remote']){
-  const html=storageVisual('durability-boundary',{...initialState,durability});
-  assert.match(html,new RegExp(`Restart from checkpoint <b>${durability==='remote'?42:41}</b>`));
-  assert.match(html,/This store survives the worker failure/);
- }
- assert.match(storageVisual('recovery-diagnosis',initialState),/42 complete; shared store survives/);
-});
-test('merged timeline keeps repeated-work energy synchronized with the selected failure',()=>{
- for(const failure of [35,55,null]){
-  const html=storageVisual('checkpoint-policy',{...initialState,failure});
-  for(const intervalMinutes of [20,40]){
-   const timeline=checkpointTimeline({intervalMinutes,failureMinute:failure});
-   const energy=Number(recoveryEnergy(timeline).lostMWh.toFixed(3)).toString();
-   assert.ok(html.includes(`<strong>${timeline.finishMinute}<small>min</small>`));
-   assert.ok(html.includes(`<strong>${energy}<small>MWh</small>`));
-  }
-  assert.equal(html.includes('class="storage-review-fault"'),failure!==null);
- }
 });

@@ -11,10 +11,9 @@ export const presentationLabels = Object.freeze({
   "rack-energy": "8. Rack power and buffering",
   "dc-distribution": "9. 800 V DC distribution",
   "networking": "10. Networking and interconnects",
-  "storage": "11. Storage and recovery",
-  "cooling": "12–13. From the chip to the outdoors",
-  "procurement-cases": "14. Design, procurement and commissioning",
-  "operations": "15. Controls, operations and reliability"
+  "cooling": "11–12. From the chip to the outdoors",
+  "procurement-cases": "13. Design, procurement and commissioning",
+  "operations": "14. Controls, operations and reliability"
 });
 export const presentationRoutes = Object.freeze([
   {
@@ -102,15 +101,6 @@ export const presentationRoutes = Object.freeze([
     "path": "networking-format.html",
     "next": {
       "number": 11,
-      "title": "Storage and recovery",
-      "href": "storage-format.html?teach=1",
-      "kind": "slides"
-    }
-  },
-  {
-    "path": "storage-format.html",
-    "next": {
-      "number": 12,
       "title": "Chip and rack heat capture",
       "href": "cooling-format.html?teach=1",
       "kind": "slides"
@@ -119,7 +109,7 @@ export const presentationRoutes = Object.freeze([
   {
     "path": "cooling-format.html",
     "next": {
-      "number": 14,
+      "number": 13,
       "title": "Design, procurement and commissioning",
       "href": "procurement-cases-format.html?teach=1",
       "kind": "slides"
@@ -128,7 +118,7 @@ export const presentationRoutes = Object.freeze([
   {
     "path": "procurement-cases-format.html",
     "next": {
-      "number": 15,
+      "number": 14,
       "title": "Controls, operations and reliability",
       "href": "operations-format.html?teach=1",
       "kind": "slides"
@@ -137,7 +127,7 @@ export const presentationRoutes = Object.freeze([
   {
     "path": "operations-format.html",
     "next": {
-      "number": 16,
+      "number": 15,
       "title": "Capacity, cost and system decisions",
       "href": "../index.html#d15-capacity-ledger",
       "kind": "reading"

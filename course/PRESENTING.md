@@ -4,8 +4,11 @@
 
 The former Chapter 8 is now **8. Rack power and buffering** and
 **9. 800 V DC distribution**. Existing recordings and dated notes referring to
-the old Chapter 8 cover both. Later chapter numbers increase by one; old slide
-links should be replaced with current chapter links from the directory.
+the old Chapter 8 cover both. The former standalone Storage and recovery chapter is now folded into Networking
+and Operations. Cooling follows Chapter 10 directly; later chapters are numbered
+11–16. Use current chapter links from the directory.
+
+Selected narration is in [Speaker notes](SPEAKER_NOTES.md).
 
 ## Recording in batches
 

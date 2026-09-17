@@ -12,3 +12,5 @@
 
 .p-polaris-crops{display:flex;flex-direction:column;gap:20px;min-height:0}.p-polaris-crops>svg{width:100%;height:auto;max-height:240px;display:block;overflow:hidden;border-radius:10px}
 @media(max-width:800px){.p-polaris-crops{gap:15px}.p-polaris-crops>svg{max-height:none}}
+
+.procurement-meme{margin:0;display:flex;align-items:center;justify-content:center;flex:1;min-height:0}.procurement-meme img{width:100%;height:100%;max-height:75svh;object-fit:contain}

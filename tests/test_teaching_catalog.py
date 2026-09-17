@@ -195,12 +195,12 @@ class TeachingCatalogTests(unittest.TestCase):
     def test_real_catalog_separates_chapters_and_labels_selected_topics(self):
         course = b.load_course()
         chapters = {c["id"]: c for c in course["chapters"]}
-        self.assertEqual(len(chapters), 17)
+        self.assertEqual(len(chapters), 16)
         self.assertEqual(chapters["D12"]["number"], 5)
-        self.assertEqual(chapters["D13"]["number"], 14)
-        self.assertEqual(chapters["capstone"]["number"], 17)
+        self.assertEqual(chapters["D13"]["number"], 13)
+        self.assertEqual(chapters["capstone"]["number"], 16)
         self.assertEqual(
-            len({p["id"] for c in chapters.values() for p in c["presentations"]}), 14
+            len({p["id"] for c in chapters.values() for p in c["presentations"]}), 13
         )
         for did in ("D10", "D11"):
             with self.subTest(chapter=did):
@@ -225,7 +225,7 @@ class TeachingCatalogTests(unittest.TestCase):
         self.assertEqual(chapters["D04"]["presentations"][0]["coverage"], "chapter")
         self.assertEqual(chapters["D03"]["presentations"][0]["coverage"], "chapter")
         self.assertEqual(chapters["D03"]["presentations"][0]["href"], "prototypes/siting-format.html?teach=1")
-        for did, deck in (("D05", "continuity"), ("D06", "rack-energy"), ("D06-DC", "dc-distribution"), ("D09", "storage"), ("D14", "operations")):
+        for did, deck in (("D05", "continuity"), ("D06", "rack-energy"), ("D06-DC", "dc-distribution"), ("D14", "operations")):
             with self.subTest(chapter=did):
                 self.assertEqual(len(chapters[did]["presentations"]), 1)
                 presentation = chapters[did]["presentations"][0]
@@ -241,10 +241,10 @@ class TeachingCatalogTests(unittest.TestCase):
         )
         self.assertIn("**3. Workloads and requirements · Authored draft**", markdown)
 
-    def test_compute_is_further_reading_and_chapter_numbers_remain_contiguous(self):
+    def test_compute_and_storage_are_further_reading_and_chapter_numbers_remain_contiguous(self):
         course = b.load_course()
         chapters = course["chapters"]
-        self.assertEqual([c["number"] for c in chapters], list(range(1, 18)))
+        self.assertEqual([c["number"] for c in chapters], list(range(1, 17)))
         self.assertNotIn("D07", [c["id"] for c in chapters])
         reference = course["references"][0]
         self.assertEqual(reference["id"], "D07")
@@ -253,7 +253,13 @@ class TeachingCatalogTests(unittest.TestCase):
             "d07-data-path", "d07-bottleneck-model", "d07-rack-as-system",
         })
         self.assertEqual(reference["presentations"], [])
-        self.assertEqual([l["id"] for l in course["lessons"]][-3:], reference["lesson_ids"])
+        self.assertEqual([l["id"] for l in course["lessons"] if l["domain"] == "D07"], reference["lesson_ids"])
+        storage = next(r for r in course["references"] if r["id"] == "D09")
+        self.assertNotIn("number", storage)
+        self.assertEqual(len(storage["lesson_ids"]), 3)
+        self.assertEqual(storage["presentations"], [])
+        self.assertNotIn("D09", [c["id"] for c in chapters])
+        self.assertNotIn("storage-format.html", b.presentation_identities(chapters))
         rack_check = next(l["domain_checkin"] for l in course["lessons"] if l["id"] == "d06-eight-hundred-volt-architectures")
         self.assertEqual(rack_check["next_domain"], "D08")
         self.assertNotIn("compute-format.html", b.presentation_identities(chapters))

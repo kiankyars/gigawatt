@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/racks-compute-heat.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/racks-compute-heat.json), lesson `d09-service-acceptance`, then run `uv run gigawatt-expand`.
 
-**11. Storage and recovery · Authored draft**
+**Storage and recovery · Authored draft**
 
 Connect scheduling, provisioning, isolation and observability to a reproducible end-to-end acceptance exercise.
 
@@ -100,24 +100,3 @@ Relaxing a constraint creates a new configuration. It may be worthwhile even wit
 - [NVIDIA DGX SuperPOD — Software](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/dgx-software.html) — A reference cluster includes orchestration, system management, libraries and operating-system components. Read 2026-09-06. Vendor reference stack, updated November 19, 2025; it does not certify an arbitrary tenant environment.
 - [Google — Supporting power grids with demand response](https://cloud.google.com/blog/products/infrastructure/using-demand-response-to-reduce-data-center-power-consumption) — Historical grid notification and scheduling workflow; The Dalles day-ahead pilot. Read 2026-09-14. Full article reviewed. Historical 2022–23 pilots and operator-reported service protection. No MW reduction or total-energy saving quantified; does not establish that arbitrary synchronized training jobs can migrate.
 - [Google Data Centers — Photo gallery](https://www.datacenters.google/discover-more/photo-gallery/) — Google identifies a technician replacing a motherboard at The Dalles; hardware repair and application-state recovery are separate operations. Read 2026-09-14. Inspected full-size publisher originals and source captions. Photo capture dates unspecified; these photographs do not document a training recovery or the 2011 Gmail incident.
-
-## Check your understanding: Which progress comes back?
-
-Pause and make a prediction, then compare your reasoning.
-
-In a hypothetical run, the latest validated, durable checkpoint represents progress through minute 20. A failure occurs at minute 28; no newer checkpoint survives. Restoration takes 3 minutes, and the same work runs at the same rate afterward.
-
-**Pause and predict:** How much completed work must be repeated, and when can the run regain its pre-failure progress?
-
-<details>
-<summary>Compare your reasoning</summary>
-
-It repeats 8 minutes of work and regains its minute-28 progress at wall-clock minute 39.
-
-Restoration ends at minute 31. Replaying the 8 minutes after the durable checkpoint then takes until minute 39. The surviving checkpoint preserves earlier progress, but it does not remove restore time or the work completed after its saved state.
-
-</details>
-
-**The next problem:** While the recovered job runs, its hardware keeps producing heat. Can every device transfer that heat into a supported cooling path?
-
-Continue in **Chip and rack heat capture**: A cool room can contain an overheating chip.
