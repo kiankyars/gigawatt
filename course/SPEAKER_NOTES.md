@@ -145,6 +145,106 @@ Source: [CoolIT CHx2000](https://www.coolitsystems.com/cdu-product/chx2000/), ch
 
 “The cold plates take 85 kilowatts of this 100-kilowatt rack into liquid. The other 15 kilowatts still goes into room air, which fits the available 20-kilowatt room-air cooling allowance. This gives us a cooling route to develop; we still need to qualify the liquid circuit and access for maintenance.”
 
+## At Abilene, the heat goes to outdoor air — Chapter 12, slide 2
+
+“Follow the heat from the rack through the separate facility-water circuit and the chiller to outdoor air. The water circulates inside the system; the heat leaves it. Crusoe describes this arrangement at Abilene in August 2025. Initial fill and maintenance still need water.”
+
+Keep the dated design account separate from measured operating performance. The later numerical examples are illustrative, not Abilene data.
+
+Source: [Crusoe’s August 5, 2025 Abilene account](https://www.crusoe.ai/resources/blog/an-inside-look-at-the-abilene-ai-data-center).
+
+## Humid air leaves less room for evaporative cooling — Chapter 12, slide 4
+
+“Both days have the same 35-degree air temperature. A wetted, ventilated sensor cools more in dry air because more evaporation is possible. Switch to humid air: the wet-bulb reading rises from 22 to 28 degrees. That leaves less opportunity to cool water by evaporation.”
+
+Wet bulb describes an air condition. It is not the temperature a tower automatically delivers.
+
+## Each heat exchanger needs a temperature gap — Chapter 12, slide 5
+
+Reveal one interface at a time, following the heat path back from outdoors toward the rack. “Each exchanger needs its own temperature difference. In this example, the wet route reaches the rack at 35 degrees. Now change only the humidity: the same route reaches 41 degrees and no longer meets the rack requirement.”
+
+The fixed gaps belong to this illustrative temperature screen. Flow, return temperatures and the separate 84 kW example remain in the [weather reader](index.html#d11-weather-and-operating-envelope); they need not be calculated aloud.
+
+## A chiller moves heat and adds its own — Chapter 12, slide 6
+
+“Refrigeration can keep the load circuit colder while sending heat to a warmer outdoor sink. The compressor needs electricity to do that. Ten megawatts collected plus two megawatts of compressor electricity means twelve megawatts leave the condenser.”
+
+This is a separate chiller example, with pumps and fans outside its boundary. On slide 7, introduce whole-plant COP 4 as four units of heat moved per unit of cooling electricity, including pumps and fans. The [reader](index.html#d11-heat-rejection) retains the comparison between equipment and whole-plant COP.
+
+## Hot weather can leave less power for computing — Chapter 12, slide 10
+
+Start at 8 MW computing in cool weather. Ask which part of the power bar will grow before switching to hot weather. “The cooling plant can still remove the heat, but its electricity now takes us beyond the site’s 10 MW supply. Lower computing power until the whole bar fits. Cooling electricity falls too, because there is less heat to move.”
+
+The fitted hot point is 7.68 MW computing, 1.92 MW cooling and 0.4 MW other demand. The algebra stays in the [reader](index.html#d11-weather-and-operating-envelope). On slide 11, keep the proposed 8 MW load fixed to show why an average can hide infeasible hot hours; this is distinct from the reader’s reduced-load daily energy schedule.
+
+## Evaporation leaves dissolved minerals behind — Chapter 12, slide 13
+
+Use the three controls in order. “Some water evaporates and carries heat away. The dissolved minerals remain, so the water becomes more concentrated. Discharge some of that water, then replace both the evaporated water and the discharge. Replacement water brings some minerals too.”
+
+The preceding closed-loop comparison identifies which circuit needs this replacement. Blowdown is the discharge; makeup is the replacement. Concentration ratios and treatment limits remain in the [water reader](index.html#d11-water-and-heat-reuse).
+
+Source: [DOE cooling-tower management](https://www.energy.gov/cmei/femp/best-management-practice-10-cooling-tower-management).
+
+## Water taken in and water consumed are different totals — Chapter 12, slide 14
+
+“In this separate example, 125 cubic metres enters, 100 evaporates and 25 leaves as discharge. If that discharge returns to the same basin, the counted consumption is 100. Switch to an unknown destination: the intake meter alone cannot establish that return.”
+
+Keep the water paths visible before discussing any per-kWh metric. The reader retains those calculations and their period and accounting boundaries.
+
+## The customer needs heat only part of the day — Chapter 12, slide 15
+
+“The facility produces heat all day. This customer accepts only part of it, during six hours, and only if its temperature is useful. Close the customer for the day: all the heat still needs an outdoor destination.”
+
+Point to the accepted overlap and the remaining heat. A heat pump can raise delivery temperature but uses electricity. The separate example’s daily energy arithmetic stays in the reader.
+
+## Which plan keeps a complete heat path? — Chapter 12, slide 17
+
+Ask learners to name the surviving heat path and limiting resource before choosing a plan and revealing its explanation. “The tower has no replacement water. The qualified air-cooled alternate can remove enough heat, but keeping full computing power exceeds site electricity. Lower computing power and retain that complete outdoor path.”
+
+The reveal supplies the worked operating point. This synthetic brief assumes the alternate path is qualified; a real transition must also demonstrate flow, temperatures and controls.
+
+## The late rack change — Chapter 13, slide 2
+
+The same 20 MW phase now has 100 racks at 200 kW instead of 200 racks at 100 kW. Ask what can stay and what must change before naming current, flow or geometry. “We ordered equipment for the old racks. Can it still connect to the new ones, and can we still keep the delivery date?”
+
+The hardware-price meme remains as the following transition. This example fixes IT demand, not auxiliary power or shipping mass.
+
+## Which earlier delivery helps? — Chapter 13, slides 5 and 9
+
+On slide 5, ask whether receiving the cooling equipment four weeks earlier will move the testing date. Compare that change with receiving the electrical equipment earlier. Trace the last required path before reading the finish week.
+
+Slide 9 starts a separate, narrower factory/site exercise. Week zero here already has approved drawings and available components. Its 12 versus 16 weeks does not replace the whole-project 27-week result and does not describe Houdini. Slide 18 returns to this same factory/site clock after a late drawing approval or an unavailable factory slot.
+
+## The connection drawing — Chapter 13, slides 10 and 13
+
+Point to the two mating flanges. “Both suppliers can finish their own parts and still produce a joint that does not line up. Agree the same location, connection, duty and drawing revision before the affected fabrication starts.”
+
+The teaching contract assigns coordination to the EPC interface manager and technical approval to the appropriate design lead. Real contracts assign those roles. EPC responsibility and factory assembly remain separate choices. Independent work can proceed while an affected package waits.
+
+## One branch carries more — Chapter 13, slides 14–16
+
+The current comparison holds 480 V three-phase and power factor 1 fixed. The old 160 A allowable continuous branch carries about 120 A before the change and would need about 241 A afterward. Fewer branches do not increase the rating of an existing branch.
+
+At the same 10°C water temperature rise, double heat needs double branch flow. The stipulated reused hardware has quadratic resistance, so its pressure drop rises from 20 to 80 kPa, exceeding the available 60 kPa. Actual redesigns need component and pump curves. The total phase flow remains fixed in this example.
+
+The heavier-rack drawing independently stipulates twice the mass, on the same four feet with equal static sharing. Power alone does not establish that mass. Each block marks one original foot load, so two blocks show twice that local load even though the zone's total weight is unchanged.
+
+## One cooling failure through the complete path — Chapter 13, slides 19–21
+
+The alarm identifies A21–A40. The authorized command must target those same revised racks. A command record alone does not show that their power changed. The qualitative power trace has no numerical time or power scale; it illustrates the needed observation, not a validated operating sequence.
+
+Compare measured power, temperatures and response time with limits agreed during design. Stop criteria and authority must be established before the test. The factory test covers its actual assembly and setup. Field wiring, piping and mappings need installation and functional checks before the integrated test. The reader retains the normal-duty, maintenance and recovery cases, which remain part of complete acceptance.
+
+## Which racks can operate now? — Chapter 13, slides 22 and 24
+
+Slide 22 assumes every other acceptance criterion has passed so the learner can isolate the intersection of electrical, cooling and network rack identities. At 200 kW per revised rack, A21–A60 is 40 racks and 8 MW. Extending the cooling coverage to A01 adds 20 eligible racks and gives 12 MW.
+
+The closing exercise changes the evidence: only A21–A40 has a measured failure response that meets the agreed limits and timing. A41–A60 has a command record but no confirmed response. Release the 20 racks in A21–A40, a 4 MW envelope under the stated remaining criteria.
+
+The handover names the released racks, tested topology and configuration revision, including protection settings and control/software versions. Procedures and operating limits must match that evidence. Assign maintenance and isolation responsibilities, and train the operating team. Record excluded racks and each open issue, its operating restriction, decision owner and required evidence or retest. Expanding service requires closing those records.
+
+Detailed derivations and the original separate 100 kW acceptance exercise remain in the [Chapter 13 reader](index.html#d13-commissioning-complete-paths).
+
 ## Check the place, time and heat balance — Chapter 14, slides 1–4
 
 “The plant supply can look normal while one row has a problem. Start with measurements at that row. A message delivered now can still contain a ten-minute-old reading; use the sensor’s observation time.
@@ -194,6 +294,58 @@ Llama’s 466 interruptions include 47 planned events and 419 unexpected events 
 ## What releases the extra work? — Chapter 14, slide 18
 
 Ask the question before revealing the answer. “Correcting the mapping fixes where the command goes. Now show that the right row responds and that its current flow and temperatures meet the new workload’s requirement. Correct configuration alone is not proof of recovered cooling.”
+
+## Spare site power cannot finish an acceptance test — Chapter 15, slide 2
+
+“The site can receive 100 megawatts, but only 520 rack paths are accepted. At the stated rack duty, computing uses 52 megawatts. Shared network and storage add five. Facility overhead adds another 16.4, taking site input to 73.4 megawatts. The unused 26.6 megawatts cannot complete an acceptance test.”
+
+The two five-megawatt terms belong in different places: shared network and storage are IT; fixed facility overhead is outside IT. The reader retains the full power formula and conversions. These are illustrative operating points, not measured demand or Abilene data.
+
+## Removing one limit reveals the next — Chapter 15, slides 3–4
+
+“First finish more accepted paths. Cooling then limits us to 550 racks. Improve cooling and networking becomes the limit at 600. Improve networking and electrical capacity and cooling tie at 650. Improving only the electrical side of that tie leaves the same cooling limit.”
+
+Ask learners to predict the next limiting bar before each change. These populations are assumed to cover the same nested rack positions. If different systems serve different rack identities, use the intersection method from commissioning. Slide 5 then separates feasible racks from useful work: waiting for data can reduce progress without changing the powered-rack count.
+
+## Who pays for each part of the service? — Chapter 15, slides 6–7
+
+“This is a separate comparison of the same facilities service for three years. Owning it means paying up front, paying annual operating and energy costs, and recovering a residual value at the end. The contract bundles that service and energy into its annual fee. We exclude the identical compute hardware from both options.”
+
+The starting energy price is $80 per megawatt-hour: 50,000 megawatt-hours costs $4 million annually. Change the price and follow the ownership energy bill. The stipulated contract fee remains fixed with energy included. The selected price carries into the timeline and cost-per-result comparison; real pass-throughs and escalation would need their own terms.
+
+## Pay now, pay each year, recover value at the end — Chapter 15, slide 8
+
+Point to the payment dates before comparing totals. “The owner pays twenty million now, pays operations each year and recovers five million at the end. The contract has three annual payments. Discounting expresses later money at the same starting date; it does not change when the payment occurs.”
+
+The selected energy price and discount rate continue through the cost example. At the base $80/MWh and 8 percent, present costs are $34.07 million for ownership and $28.35 million for the contract. At zero discount they are $36 million and $33 million. These are base-case reference values, so do not read them aloud after changing the energy price. Keep the discount-factor derivation in the reader.
+
+## Less accepted output makes the same bill more expensive — Chapter 15, slide 9
+
+“Keep the facilities cost fixed and remove two of the ten blocks of accepted work. Each remaining result now carries a larger share of the bill. Twenty percent less output makes cost per result twenty-five percent higher.”
+
+The cost numerator uses the chosen energy price and discount rate. The denominator is accepted physical results over the same three years, with the same quality requirement for both alternatives. The physical results are not discounted. This comparison does not identify the cause of the lost work.
+
+## Which upgrade buys more extra results per dollar? — Chapter 15, slides 10–11
+
+“Both proposed upgrades have a supplied route to additional accepted work. The network improvement is smaller each hour, but arrives immediately. Cooling adds more each hour once it arrives. Which gives us more extra results per dollar within these three years?”
+
+Ask for a prediction before revealing the result. With cooling arriving after one year, network costs about $2.08 per extra result and cooling costs $2.50. Move cooling to immediate delivery, ask again, then reveal: cooling falls to about $1.67 and wins this screen. Changing the date requires a new prediction; the earlier answer does not carry forward. At half demand both unit costs double, while their ranking stays the same.
+
+This separate intervention brief compares initial capital with incremental accepted output. It excludes ongoing costs, residuals and discounting; do not mix it with the preceding ownership calculation. The [reader](index.html#d15-upgrade-and-evidence) retains the full arithmetic and the conditions for reconsidering the decision.
+
+## Keep Abilene’s dates and projects together — Chapter 15, slides 12–14
+
+“Oracle says seventy-five percent of total capacity was delivered as of September 2026. The photograph shows the physical campus, but it does not define that percentage or tell us the operating IT load. Crusoe’s earlier 1.2-gigawatt campus plan, its first-two-buildings energization report and its early-workloads report describe different states of the same development. We cannot add them together.”
+
+The aerial is captioned July 15, 2026. Crusoe’s June 9, 2026 account separately identifies a 900 MW Microsoft campus nearby. Its two-operational and six-under-construction counts refer to the original Oracle campus at that June date; they are not a current inventory. Oracle’s later percentage cannot be transferred to the Microsoft project.
+
+Sources checked September 16, 2026: [Oracle Abilene account and aerial](https://www.oracle.com/data-centers/), [Crusoe’s March 2025 campus plan](https://www.crusoe.ai/resources/newsroom/crusoe-expands-ai-data-center-campus-in-abilene-to-1-2-gigawatts), [September 2025 live-campus account](https://www.crusoe.ai/resources/newsroom/crusoe-announces-flagship-abilene-data-center-is-live), [June 2026 project distinction](https://www.crusoe.ai/resources/newsroom/crusoes-contracted-ai-infrastructure-capacity-approaches-5-gigawatts-across-data-centers-and-cloud).
+
+## Which facts belong, and what must be measured? — Chapter 15, slide 15
+
+First classify the supported claims: planned campus power, reported energized buildings, reported early workloads and a delivered-capacity percentage. Then ask what is missing for the forecast.
+
+“We need the delivery denominator and electrical boundary, the accepted service paths and configuration, measured IT demand and accepted workload results over the same period, and the corresponding costs and obligations. The sources leave those quantities unresolved. Our teaching prices and workload rates cannot fill Abilene’s missing cells.”
 
 ## Racks can stay powered while cooling stops — Chapter 16, slides 2–4
 

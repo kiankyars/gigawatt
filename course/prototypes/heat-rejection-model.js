@@ -35,7 +35,7 @@ export function heatReuse({availableMW=4,receiverMW=2,receiverHours=6,dayHours=2
  return {availableMW,receiverMW,receiverHours,dayHours,generatedMWh,acceptedMWh,remainingMWh:generatedMWh-acceptedMWh,acceptedFraction:generatedMWh?acceptedMWh/generatedMWh:0};
 }
 export function decisionFeedback(choice){
- if(choice==='reduce')return {correct:true,text:'7.68 MW fits both limits: 7.68 + 1.92 + 0.40 = 10 MW, below the 8.5 MW thermal ceiling. Use the qualified air-cooled path; retain fill and maintenance in its water account.'};
+ if(choice==='reduce')return {correct:true,text:'Use the air-cooled path and lower computing power. At 7.68 MW computing, cooling uses 1.92 MW and other loads use 0.4 MW: the site fits its 10 MW limit. The 7.68 MW heat load also fits the 8.5 MW cooling capacity. Electricity sets the limit.'};
  if(choice==='full')return {correct:false,text:'Eight MW fits the 8.5 MW thermal ceiling, but 8 + 2 + 0.4 = 10.4 MW exceeds the electrical limit.'};
  if(choice==='tower')return {correct:false,text:'A closed rack loop does not supply makeup to a separate tower circuit. That heat path is unavailable during the stated restriction.'};
  return {correct:false,text:'Choose an operating plan, then check the complete heat and power paths.'};

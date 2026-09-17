@@ -1,5 +1,6 @@
-import {scenes,initialState} from './heat-rejection-scenes.js';
+import {scenes,initialState,sceneAliases} from './heat-rejection-scenes.js';
 import {heatRejectionVisual} from './heat-rejection-visuals.js';
+import {operatingPoint} from './heat-rejection-model.js';
 import {presentationLabels} from './teaching-navigation.js';
 const $=id=>document.getElementById(id),state={...initialState};
 const teaching=new URLSearchParams(location.search).get('teach')==='1',compact=matchMedia('(max-width:800px)');
@@ -22,11 +23,27 @@ function render(){
   for(const [value,label]of group.options){const button=document.createElement('button');button.type='button';button.textContent=label;button.dataset.choice=group.key;button.dataset.value=String(value);button.setAttribute('aria-pressed',String(state[group.key]===value));button.onclick=()=>{state[group.key]=value;focusAfter(`[data-choice="${group.key}"][data-value="${value}"]`);};fieldset.append(button);}
   $('actions').append(fieldset);
  }
+ if(scene.id==='approach-outdoors'){
+  const next=document.createElement('button');next.id='approach-next';next.type='button';
+  next.textContent=state.interfaceStep<3?'Show the next interface':'Start again';
+  next.onclick=()=>{state.interfaceStep=(state.interfaceStep+1)%4;focusAfter('#approach-next');};
+  $('actions').append(next);
+ }
+ if(scene.id==='hot-hour'){
+  const label=document.createElement('label');label.className='h-load-control';label.htmlFor='computing-power';label.textContent='Computing power';
+  const slider=document.createElement('input');slider.type='range';slider.id='computing-power';slider.min='4';slider.max='8';slider.step='0.01';slider.value=String(state.requestedITMW);
+  const output=document.createElement('output');output.htmlFor='computing-power';output.textContent=`${state.requestedITMW.toFixed(2)} MW`;
+  slider.oninput=()=>{state.requestedITMW=Number(slider.value);output.textContent=`${state.requestedITMW.toFixed(2)} MW`;$('visual').innerHTML=heatRejectionVisual(scene.id,state,compact.matches);};
+  label.append(slider,output);$('actions').append(label);
+  const fit=document.createElement('button');fit.type='button';fit.id='fit-load';fit.textContent='Fit the available power';
+  fit.onclick=()=>{state.requestedITMW=Math.min(8,operatingPoint({condition:state.condition}).feasibleMW);focusAfter('#fit-load');};
+  $('actions').append(fit);
+ }
  document.querySelectorAll('[data-plan]').forEach(button=>button.onclick=()=>{state.choice=button.dataset.plan;state.revealed=false;focusAfter(`[data-plan="${state.choice}"]`);});
  $('decision-reveal')?.addEventListener('click',()=>{state.revealed=!state.revealed;focusAfter('#decision-reveal');});
 }
 function go(i){index=Math.max(0,Math.min(scenes.length-1,i));history.replaceState(null,'',`#${scenes[index].id}`);render();window.scrollTo({top:0,left:0,behavior:'auto'});}
-function fromHash(){let id;try{id=decodeURIComponent(location.hash.slice(1));}catch{id='';}const found=scenes.findIndex(scene=>scene.id===id);index=found<0?0:found;render();window.scrollTo({top:0,left:0,behavior:'auto'});}
+function fromHash(){let id;try{id=decodeURIComponent(location.hash.slice(1));}catch{id='';}id=sceneAliases[id]||id;const found=scenes.findIndex(scene=>scene.id===id);index=found<0?0:found;render();window.scrollTo({top:0,left:0,behavior:'auto'});}
 $('scenes').onchange=event=>go(scenes.findIndex(scene=>scene.id===event.target.value));$('previous').onclick=()=>go(index-1);$('next').onclick=()=>go(index+1);
 $('fullscreen').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await $('viewer').requestFullscreen();}catch{$('status').textContent='Full screen is unavailable in this browser view.';}};
 document.addEventListener('fullscreenchange',()=>{$('fullscreen').textContent=document.fullscreenElement?'Exit full screen':'Full screen';});

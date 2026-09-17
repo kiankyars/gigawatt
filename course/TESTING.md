@@ -1,5 +1,52 @@
 # Course verification
 
+## Chapter 13 intuitive delivery and preserved additions — 2026-09-16
+
+- **24 slides**, reduced from 27. The late rack change is now slide 2.
+  Electrical and hydraulic comparisons show the old and new branches together;
+  load blocks replace the support-load algebra. Schedule timelines retain their
+  causal comparisons without displayed max formulas and identify their distinct
+  starting assumptions. The closing exercise requires complete paths and a
+  passing measured failure response for the same racks.
+- Preserved the supplied hardware-price meme, Houdini and Compass. Their three
+  image files match HEAD byte-for-byte. A review of the September 12 and 15
+  conversation records found explicit requests for EPC responsibilities versus
+  manufacturing strategy, design freezes and interface ownership, so all three
+  remain standalone despite the initial removal proposal. Their examples and
+  wording were simplified. The prior fixed-20 MW comparison and its transport,
+  factory/site and schedule requirements remain.
+- Only `delivery-paths`, `site-checks` and `handover-records` were merged, into
+  `critical-path`, `factory-acceptance` and `release-decision`, respectively.
+  Old fragments resolve to those destinations. The full derivations and wider
+  commissioning checklists remain in the reader; new speaker notes explain the
+  different schedule clocks and changed final evidence.
+- **Chapter 12 preservation check:** only `two-ceilings` and `reuse-interface`
+  disappeared as standalone scene IDs; both were first authored in `3a0a81f`
+  during general chapter completion. No separate user-supplied slide/image
+  request for either was found in the inspected history. Their topics remain in
+  `hot-hour` and `heat-reuse`, with aliases. All other original IDs, including
+  Abilene, remain; `adiabatic-assist` was added. No Chapter 12 source was changed
+  during this preservation check.
+- **297 JavaScript tests passed** at the full-suite checkpoint. After the final
+  acceptance wording/model clarification, **24 targeted procurement/navigation
+  tests passed**, including 13 procurement tests. Numerical regressions cover
+  schedules, current, flow, pressure, local support assumptions and the named-rack
+  intersections. The final model distinguishes passing measured responses from
+  unaccepted command records. All 14 teaching-catalog Python tests pass; reader
+  and domain-map freshness checks pass.
+- Built-in browser reviewed all **24 desktop slides at 1280 × 720** and checked
+  geometry for every slide at **390 × 844** and **844 × 390**. No horizontal
+  overflow, missing images or content/control overlap remains. Fixed mobile
+  navigation to follow long content. Inspected the revised comparisons, all
+  failure-test stages and the complete closing answer in the actual viewport.
+- Exercised critical-path alternatives, geometry-dependent package approvals,
+  control-configuration release, late approval and the missed factory slot,
+  expanded cooling coverage and every closing response. The new outcome is
+  A21–A40, 20 racks at 200 kW, or 4 MW, given the stated passed criteria.
+  Browser console reported no warnings or errors. Checks support implementation
+  correctness and layout, not learner comprehension. Changes remain local and
+  await author review.
+
 ## Presenter audience tab title — 2026-09-16
 
 - During an active presenter connection, the audience browser tab uses the
@@ -73,6 +120,36 @@ configured test environment; run local model and build checks without a browser.
   The heat balance now explicitly assumes stabilized temperatures. A corrected
   command mapping is not presented as the cause of low flow or proof of recovery.
   Author review remains pending; nothing was pushed or published.
+
+## Chapter 12 intuition and operating decisions — 2026-09-16
+
+- Revised the chapter to **17 slides** following the heat path, with Abilene as
+  the early dated reference. Added progressive temperature-interface reveals,
+  a computing-power control for the hot-hour example, and an evaporation,
+  discharge and refill sequence. COP uses equal energy blocks; heat reuse uses
+  a shared time-and-power chart. Exact final operating-point numbers remain
+  behind the decision reveal.
+- Removed the separate algebra solution, COP-boundary comparison, daily energy
+  totals, concentration-ratio formula and per-kWh metric calculations from the
+  teaching slides. Their existing worked examples and practice remain in the
+  D11 reader. Old `two-ceilings` and `reuse-interface` bookmarks map to their
+  retained teaching scenes. Added Chapter 12 speaker notes.
+- **290 JavaScript tests passed**, including 14 Chapter 12 tests. Numerical
+  conservation tests remain; new player checks cover weather/load controls,
+  fitted power, state persistence, aliases and progressive reveals. The
+  14 Python teaching-catalog tests, expanded-reader freshness, domain-map and
+  whitespace checks pass. Publication staging completed locally.
+- Built-in browser reviewed all 17 desktop slides at **1280 × 720**, and checked
+  all 17 layouts for horizontal overflow and content/control overlap at
+  **390 × 844** and **844 × 390**. Inspected key phone diagrams and corrected
+  navigation overlapping long content; navigation now follows the scene on
+  small screens. Enlarged the phone heat-reuse chart labels.
+- Exercised temperature reveals and humidity, hot-weather demand and load fit,
+  keyboard load adjustment, the tower alternate, water discharge/refill,
+  unknown return evidence, customer closure and all three closing responses.
+  Verified the revised answer and chapter links in the staged page. No browser
+  warnings or errors observed. These checks do not establish learner
+  comprehension; author review remains pending. Changes are local.
 
 ## Chapter 10 quiz choices and campus notes — 2026-09-16
 
@@ -2139,3 +2216,33 @@ checks and Operations player/control tests. All build/research checks and
 `git diff --check` pass. Built-in browser visual review covered the quote, Meta,
 Gmail, Llama, demand response and deadline slides at 1280 × 720; replica and
 deadline controls visibly update the result.
+
+## Chapter 15 decision and intuition revision — 2026-09-17
+
+- Reduced the deck from 19 to 15 slides through the approved four merges. Power
+  boundaries now share the site budget; the static capacity ledger is the initial
+  bottleneck state; payment timing and present totals share a slide; the upgrade
+  question is asked before revealing the delivery comparison. The reader retains
+  conversion and discounting calculations.
+- The selected energy price and discount rate carry through ownership, cash flows
+  and cost per accepted result. Changing delivery or demand clears the previous
+  prediction and reveal. The closing task pairs claim classification with an oral
+  explanation of the evidence needed for a selected forecast quantity.
+- The three Abilene case visuals, dates, project distinctions and original Oracle
+  photograph remain unchanged. Four retired hashes resolve to their merged slides.
+- All 305 JavaScript tests and 80 Python tests passed. Course, expanded-reader,
+  domain-map, research metadata (`--include-candidates`) and whitespace checks
+  passed. Fifteen Chapter 15 tests cover arithmetic, shared assumptions, prediction
+  resets, evidence feedback and aliases using the actual player.
+- Built-in browser inspected all 15 desktop slides at 1280×720. All slides passed
+  geometry/image checks at 1280×720 and 390×844, with no horizontal overflow,
+  missing images or desktop stage overflow. Visually checked both revealed
+  exercises and the merged payment timeline on phone; phone content scrolls.
+- Browser interaction verified $160/MWh → $48.0m ownership present cost at 0% →
+  $6.00 per result at eight million results, with the same assumptions throughout.
+  Cooling delivery changed from after one year to now: the old prediction cleared
+  and the preferred option changed from network ($2.08/result) to cooling
+  ($1.67/result). All four legacy hashes opened the intended merged slide.
+
+These checks verify the local revision; learner pacing remains for the author
+walkthrough. No publication was performed.

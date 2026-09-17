@@ -31,11 +31,37 @@ export function rackInterfaces({rackKW = 200, voltage = 480, powerFactor = 1, de
 export function releaseHolds({electrical = false, hydraulic = false, geometry = false, logistics = false, controls = false, resources = false} = {}) {
   return {independentSite: true, electricalFabrication: electrical && geometry, hydraulicFabrication: hydraulic && geometry, frameFabrication: geometry, transportPlan: geometry && logistics, configuration: controls, scheduleCommitment: electrical && hydraulic && geometry && logistics && controls && resources, serviceAcceptance: false};
 }
-export function acceptedPaths({electricalEnd = 80, coolingStart = 21, coolingEnd = 100, networkEnd = 60, rackKW = 100} = {}) {
+export function acceptedPaths({electricalEnd = 80, coolingStart = 21, coolingEnd = 100, networkEnd = 60, rackKW = 200} = {}) {
   const positions = Array.from({length: 100}, (_, i) => {
     const id = i + 1, electrical = id <= electricalEnd, cooling = id >= coolingStart && id <= coolingEnd, network = id <= networkEnd;
     return {id, electrical, cooling, network, accepted: electrical && cooling && network};
   });
   const accepted = positions.filter(position => position.accepted);
   return {positions, accepted, count: accepted.length, envelopeMW: accepted.length * rackKW / 1000};
+}
+
+const rackRange = (start, end) => Array.from({length: end - start + 1}, (_, i) => start + i);
+function rackIdSet(ids, name) {
+  if (!Array.isArray(ids) || ids.some(id => !Number.isInteger(id) || id < 1 || id > 100)) {
+    throw new RangeError(`${name} must contain rack IDs from 1 to 100`);
+  }
+  return new Set(ids);
+}
+/**
+ * Complete paths and passing measured responses must cover the same racks.
+ * responsePassedIds contains only results meeting agreed limits and timing.
+ */
+export function commissionedService({pathAcceptedIds = rackRange(21, 60), responsePassedIds = rackRange(21, 40), responseCommandedIds = rackRange(21, 60), rackKW = 200, otherCriteriaMet = true} = {}) {
+  if (!Number.isFinite(rackKW) || rackKW <= 0) throw new RangeError('rackKW must be positive');
+  if (typeof otherCriteriaMet !== 'boolean') throw new TypeError('otherCriteriaMet must be boolean');
+  const paths = rackIdSet(pathAcceptedIds, 'Accepted paths');
+  const passed = rackIdSet(responsePassedIds, 'Passing measured responses');
+  const commanded = rackIdSet(responseCommandedIds, 'Commanded responses');
+  const positions = rackRange(1, 100).map(id => ({
+    id, pathAccepted: paths.has(id), responsePassed: passed.has(id), responseCommanded: commanded.has(id),
+    eligible: paths.has(id) && passed.has(id) && otherCriteriaMet,
+  }));
+  const eligible = positions.filter(position => position.eligible);
+  return {positions, eligible, count: eligible.length, envelopeMW: eligible.length * rackKW / 1000,
+    awaitingResponseAcceptance: positions.filter(position => position.responseCommanded && !position.responsePassed)};
 }

@@ -22,7 +22,7 @@ The synthetic network brief supports six hundred compute-rack equivalents for th
 
 The reconciled ceilings are therefore 741 from site input, 650 from downstream electrical capacity, 550 from heat removal, 600 from networking, 750 from space and 520 from accepted service. Their minimum is 520. This is an operating envelope under supplied conditions. It is not a measured load, a customer reservation total or a model of useful application output. A workload can demand less power or make poor progress inside the envelope.
 
-Notice that the available electrical service is not the binding constraint. At 520 compute racks, compute power is 52 MW and total IT is 57 MW after adding non-compute IT. The facility model then uses 1.2 × 57 + 5 = 73.4 MW. The unused site capacity cannot be converted directly into more accepted racks. It is headroom at one boundary, while another required condition remains incomplete.
+Notice that the available electrical service is not the binding constraint. At 520 compute racks, compute power is 52 MW and total IT is 57 MW after adding non-compute IT. The site account is 52 MW compute + 5 MW shared network and storage + 11.4 MW load-dependent facility overhead + 5 MW fixed facility overhead = 73.4 MW. This is the same result as 1.2 × 57 + 5. The remaining 26.6 MW cannot complete an acceptance test or provide a missing cooling path. It is headroom at one boundary, while another required condition remains incomplete.
 
 ## Removing one bottleneck reveals the next
 

@@ -4,7 +4,7 @@ Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](
 
 **15. Capacity, cost and system decisions · Authored draft**
 
-Compare original intervention scenarios with different delivery dates, then audit a dated Stargate announcement without converting planned capacity into measured operation.
+Compare original intervention scenarios with different delivery dates, then classify dated Abilene capacity claims and identify the measurements still needed for a service-cost forecast.
 
 **Driving question:** Which improvement delivers useful results within the horizon, and which public statements actually support the project model?
 
@@ -22,15 +22,25 @@ If the cooling option becomes available immediately, its increment rises to 3.60
 
 Actual use is another condition. An added capacity envelope does not guarantee customers, jobs or data that can occupy it productively. If only half of the stipulated incremental results are demanded, dividing by the full capacity output understates realized unit cost. Similarly, an intervention that shifts quality or latency cannot be compared using an unchanged result label without checking the service contract. Scenario comparisons should change one assumption at a time before exploring combinations.
 
+Predict which option has the lower capital per additional result before calculating the ratios. Then change only the cooling delivery date and make a fresh prediction. Do not carry an earlier verdict into a changed brief. With all increments demanded, immediate cooling wins this screen; after a one- or two-year delay, the immediate network option wins. Halving demand halves each realized increment and doubles both ratios without changing that ranking.
+
 The decision record should state the current choice, supporting evidence and condition for reconsideration. Physical necessity may survive every scenario while the preferred delivery option changes with demand. Explain which uncertain inputs govern the decision rather than presenting a large spreadsheet without an argument.
 
-## A named project requires a different evidence ledger
+## Classify the dated Abilene claims before using a number
 
-Now leave the synthetic brief entirely. OpenAI’s article dated September 23, 2025, with a later October update on the page, describes a broader Stargate plan and says early workloads had begun at the Abilene campus. The same article describes nearly 7 GW as planned capacity across multiple projects. Those are different claims with different subjects and statuses. The presence of an operational statement about one campus cannot convert the entire announced program into operating capacity.
+Now leave the synthetic brief entirely. For the original Oracle / OpenAI Abilene campus, Crusoe’s March 18, 2025 announcement describes a planned eight-building campus with 1.2 GW of total power capacity. Its September 30, 2025 account says the first two buildings were energized within a year of the June 2024 construction start, the first phase was live on Oracle Cloud Infrastructure, and early training and inference workloads were running. Record planned capacity, energization and reported workload operation as distinct statements. They overlap; they are not separate capacity increments to add.
 
-A useful ledger records the entity, quantity, unit, status, boundary, source date and exact claim supported. For this article, one row can record the publisher’s statement about early Abilene workloads. Another can record the planned program total. A third can record a potential expansion as potential, not additive operating inventory. The page alone does not establish current metered demand, full commissioned MW, detailed topology, economics or the configuration of every building. Those cells stay unresolved.
+Oracle’s Abilene page, checked September 16, 2026, reports 75 percent of total capacity delivered as of September 2026, with the remainder in subsequent quarters. The Abilene section’s September update is more specific than the page’s generic January footer. Oracle does not define a numeric delivery denominator that can be matched to the separately announced 1.2 GW plan. Multiplying those numbers would assume matching scope and electrical boundaries; it would not establish operating IT MW, completed buildings or metered demand.
 
-Treat this as a dated document audit, not an assertion about September 2026 operating conditions. A present-day claim would require refreshed evidence. Likewise, several partners repeating one joint announcement do not necessarily provide independent confirmation. Trace original records where available, preserve changes and contradictions, and distinguish a publisher statement from independently observed measurements. The course becomes a useful reference when its reasoning remains inspectable even where the public evidence stops.
+The unchanged Oracle aerial identifies the Abilene data halls and is captioned July 15, 2026. A photograph supplies physical context, not an acceptance record. Keep its capture date distinct from the September delivery statement. A useful evidence ledger records entity, quantity, unit, status, boundary, source date and supported claim before a number enters the model. These are dated publisher accounts, not independent measurements of the full campus.
+
+## Keep the adjacent campus separate, then name the missing evidence
+
+Crusoe’s June 9, 2026 account distinguishes the original 1.2 GW Oracle campus from a separate 900 MW Microsoft campus nearby. At that date it reports two original-campus buildings operational and six under construction, while the Microsoft campus had recently broken ground. Those building counts are a June record, not a current inventory. Oracle’s later delivered-capacity percentage belongs to the original campus and cannot be applied to the adjacent Microsoft development.
+
+The broader Stargate program is another population again. OpenAI’s September 23, 2025 article, with a later October update, discusses nearly 7 GW of planned capacity across multiple projects and separately reports early Abilene workloads. An operational statement about one campus does not convert that program total into operating capacity. Several partners repeating one announcement also need not constitute independent confirmation.
+
+First classify what the sources support: a campus plan, reported energized buildings, reported early workloads, a delivered-capacity percentage and a distinct adjacent project. Then identify what a cost-per-result forecast still needs: a defined capacity denominator and electrical boundary, accepted service paths and operating configuration, time-aligned metered IT demand, measured accepted workload output under the required service, and dated costs and obligations over the same period. No full-campus accepted-service MW, useful-output rate or service economics follows from these claims alone. The earlier teaching rack powers, overhead, prices and output rates cannot fill the missing cells.
 
 ## Worked example: Delivery timing changes the screening ranking
 
@@ -65,14 +75,14 @@ Response: Rebuild the ledger by entity and state; leave unverified commissioning
 
 ## Apply the idea
 
-A dated announcement states that early jobs are running at one campus and separately lists a multi-site planned MW total. What operating MW value can you assign to the entire program from those statements alone?
+Classify the original Abilene campus’s 1.2 GW plan, first-two-buildings energization report, early-workloads report and Oracle’s 75 percent delivered statement. Which additional evidence would support an operating IT MW or cost-per-result forecast?
 
 <details>
 <summary>Reveal the worked answer</summary>
 
-No quantitative operating-MW total for the entire program is established by those statements alone.
+The claims support planned campus power, reported energization, reported early workload operation and a reported delivery percentage. They establish neither a quantitative current operating IT MW total nor cost per accepted result.
 
-The first statement supports a publisher-reported instance of operation at a named campus and date. The second supports a plan across a different population. Neither specifies the measured or commissioned aggregate now in service. Record both claims with their boundaries, identify the missing site-level evidence and avoid adding overlapping phases or treating planned capacity as observed demand.
+Keep the original campus separate from the adjacent Microsoft project, and do not add overlapping status claims. Obtain the delivery denominator and electrical boundary, accepted service paths and configuration, time-aligned metered IT demand and accepted workload output, and scoped costs and obligations for the same period. Seventy-five percent of a separately reported campus plan assumes a match that the sources do not establish; borrowing the earlier teaching costs or output rates would invent the missing evidence.
 
 </details>
 
@@ -82,6 +92,10 @@ The first statement supports a publisher-reported instance of operation at a nam
 
 - [GAO Schedule Assessment Guide](https://www.gao.gov/products/gao-16-89g) — The guide overview connects schedule credibility and slippage with program cost assessment. Read 2026-09-06. Overview reviewed. The intervention prices, rates, horizon and screening ratios are original and are not project forecasts.
 - [OpenAI: Five new Stargate sites](https://openai.com/index/five-new-stargate-sites/) — The article distinguishes a multi-site planned capacity total from its statement about early workloads at Abilene. Read 2026-09-06. Main article and visible October 22, 2025 update inspected on September 6, 2026. This lesson audits the dated statements; it does not establish current operating MW, complete topology or site economics.
+- [Crusoe — Expands AI data center campus in Abilene to 1.2 gigawatts](https://www.crusoe.ai/resources/newsroom/crusoe-expands-ai-data-center-campus-in-abilene-to-1-2-gigawatts) — March 18, 2025 planned original-campus total of eight buildings and 1.2 GW power capacity supports the planned-capacity row. Read 2026-09-16. Dated construction announcement. Expected completion and energization are prospective at publication; no operating IT MW, accepted throughput or per-building inventory is inferred.
+- [Crusoe — Flagship Abilene data center is live](https://www.crusoe.ai/resources/newsroom/crusoe-announces-flagship-abilene-data-center-is-live) — September 30, 2025 account reports the first two buildings energized, the first phase live on OCI and early training and inference workloads. Read 2026-09-16. Historical publisher account, not independent metering. It does not quantify full-campus accepted-service MW, current demand or accepted workload output. Its claims overlap the campus plan and later delivery percentage.
+- [Oracle Data Centers: Abilene, Texas](https://www.oracle.com/data-centers/) — Abilene section reports 75 percent of total capacity delivered as of September 2026 and provides a data-hall aerial captioned July 15, 2026. Read 2026-09-16. The section-specific September update was checked despite the generic January footer. The delivery denominator is not defined for conversion to operating IT MW or complete buildings. The photograph supplies no service-acceptance or measured-output evidence.
+- [Crusoe’s Contracted AI Infrastructure Capacity Approaches 5 Gigawatts Across Data Centers and Cloud](https://www.crusoe.ai/resources/newsroom/crusoes-contracted-ai-infrastructure-capacity-approaches-5-gigawatts-across-data-centers-and-cloud) — June 9, 2026 update distinguishes the original 1.2 GW Oracle campus from the separate 900 MW Microsoft development and reports their status at that date. Read 2026-09-16. Original-campus two-operational and six-under-construction building counts are historical June records. The newer Oracle percentage belongs only to the original campus. Project and contracted capacities are not measured operating demand.
 
 ## Check your understanding: Which upgrade changes the ceiling?
 

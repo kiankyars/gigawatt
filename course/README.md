@@ -91,11 +91,14 @@ a different reading purpose and do not own course design.
 ## Retired introduction and research
 
 Chapter 13 uses `procurement-cases-format.html`, `procurement-cases-scenes.js`,
-`procurement-visuals.js`, `procurement-model.js` and `procurement-cases-player.js`.
-Its 27 slides connect delivery dependencies and factory/site responsibilities
-to the fixed-20 MW rack change, commissioning and phased handover. Houdini,
-Siemens/Compass and Polaris Forge 1 provide photographed cases. The directory
-opens the complete chapter; the existing Houdini fragment remains available.
+`procurement-visuals.js`, `procurement-commissioning.js`, `procurement-model.js`
+and `procurement-cases-player.js`. Its 24 slides begin with the fixed-20 MW rack
+change, then follow delivery dependencies and physical connections through
+commissioning. The supplied hardware meme, Houdini and Siemens/Compass remain,
+as do the previously requested EPC, design-freeze and interface-owner slides.
+The final decision counts racks with complete paths and passing failure-response
+evidence. Merged overview, installation-check and handover fragments redirect
+to the corresponding retained scenes.
 
 `lessons.json` and `web/course.*`, `web/diagrams.js`, `web/math.js` own the
 historical 22-lesson introduction at `../diagram/index.html`, generated with

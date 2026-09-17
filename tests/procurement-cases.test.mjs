@@ -1,8 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import {deliverySchedule,modularSchedule,rackInterfaces,releaseHolds,acceptedPaths} from '../course/prototypes/procurement-model.js';
-import {scenes,initialState,resolveProcurementScene} from '../course/prototypes/procurement-cases-scenes.js';
+import vm from 'node:vm';
+import {deliverySchedule,modularSchedule,rackInterfaces,releaseHolds,acceptedPaths,commissionedService} from '../course/prototypes/procurement-model.js';
+import {scenes,sceneAliases,initialState,resolveProcurementScene} from '../course/prototypes/procurement-cases-scenes.js';
 import {procurementVisual} from '../course/prototypes/procurement-visuals.js';
 
 const near=(actual,expected,message)=>assert.ok(Math.abs(actual-expected)<1e-9,message||`${actual} ≈ ${expected}`);
@@ -93,17 +94,34 @@ test('fabrication approvals remain coupled to geometry and never establish servi
 
 test('accepted capacity is the intersection of named racks, not the smallest subsystem count',()=>{
  const baseline=acceptedPaths();
- assert.equal(baseline.count,40);assert.equal(baseline.envelopeMW,4);
+ assert.equal(baseline.count,40);assert.equal(baseline.envelopeMW,8);
  assert.deepEqual(baseline.accepted.map(p=>p.id),Array.from({length:40},(_,i)=>i+21));
  const separateCounts=['electrical','cooling','network'].map(key=>baseline.positions.filter(p=>p[key]).length);
  assert.deepEqual(separateCounts,[80,80,60]);
  assert.notEqual(baseline.count,Math.min(...separateCounts));
  const extended=acceptedPaths({coolingStart:1});
- assert.equal(extended.count,60);assert.equal(extended.envelopeMW,6);
+ assert.equal(extended.count,60);assert.equal(extended.envelopeMW,12);
  assert.deepEqual(extended.accepted.map(p=>p.id),Array.from({length:60},(_,i)=>i+1));
  const disjoint=acceptedPaths({electricalEnd:50,coolingStart:51,networkEnd:50});
  assert.equal(disjoint.count,0,'three separately accepted 50-rack systems can have no complete path');
  assert.equal(disjoint.envelopeMW,0);
+ assert.equal(acceptedPaths({rackKW:100}).envelopeMW,4,'the reader calculation can still select its declared rack duty');
+});
+
+test('service release intersects complete paths with passing measured response and excludes unaccepted evidence',()=>{
+ const baseline=commissionedService();
+ assert.equal(baseline.count,20);assert.equal(baseline.envelopeMW,4);
+ assert.deepEqual(baseline.eligible.map(rack=>rack.id),Array.from({length:20},(_,i)=>i+21));
+ assert.deepEqual(baseline.awaitingResponseAcceptance.map(rack=>rack.id),Array.from({length:20},(_,i)=>i+41));
+ assert.ok(baseline.awaitingResponseAcceptance.every(rack=>rack.pathAccepted&&!rack.eligible),'a complete service path and a command do not demonstrate failure response');
+ assert.equal(commissionedService({responsePassedIds:[]}).count,0);
+ assert.equal(commissionedService({pathAcceptedIds:[21,22],responsePassedIds:[22,23]}).count,1,'records must name the same racks');
+ assert.deepEqual(commissionedService({pathAcceptedIds:[21,21],responsePassedIds:[21,21]}).eligible.map(rack=>rack.id),[21],'duplicate records do not create extra capacity');
+ assert.equal(commissionedService({otherCriteriaMet:false}).count,0,'this partial evidence does not waive remaining acceptance criteria');
+ assert.equal(commissionedService({responseCommandedIds:[]}).count,20,'a passing measured response is not invalidated by omitting a redundant command record');
+ for(const value of[0,-200,NaN,Infinity])assert.throws(()=>commissionedService({rackKW:value}),RangeError);
+ for(const key of['pathAcceptedIds','responsePassedIds','responseCommandedIds'])for(const value of[[0],[101],[21.5],null])assert.throws(()=>commissionedService({[key]:value}),RangeError);
+ assert.throws(()=>commissionedService({otherCriteriaMet:'yes'}),TypeError);
 });
 
 test('schedule and interface calculations reject invalid durations and denominators',()=>{
@@ -118,12 +136,13 @@ function statesFor(scene){
  let states=[{...initialState}];
  for(const group of scene.controls||[])states=states.flatMap(state=>group.options.map(([value])=>({...state,[group.key]:value})));
  if(scene.id==='release-holds')states=Array.from({length:64},(_,mask)=>({...initialState,...Object.fromEntries(evidenceKeys.map((key,index)=>[key,Boolean(mask&(1<<index))]))}));
- if(scene.id==='release-decision')states=[{...initialState},...['all','independent','stop'].flatMap(diagnosis=>[false,true].map(showDiagnosis=>({...initialState,diagnosis,showDiagnosis})))];
+ if(scene.id==='release-decision')states=[{...initialState},...['all','proven','wait'].flatMap(diagnosis=>[false,true].map(showDiagnosis=>({...initialState,diagnosis,showDiagnosis})))];
  return states;
 }
 
 test('every procurement scene and control state renders with existing photographs',()=>{
  assert.equal(new Set(scenes.map(scene=>scene.id)).size,scenes.length);
+ assert.equal(scenes[1].id,'rack-change','start the continuing example before introducing its interfaces');
  assert.deepEqual([...new Set(scenes.map(scene=>scene.objective))].sort(),['D13.1','D13.2','D13.3','D13.4']);
  const assets=new Set();
  for(const scene of scenes)for(const state of statesFor(scene)){
@@ -146,4 +165,81 @@ test('procurement navigation resolves current scenes',()=>{
  assert.equal(resolveProcurementScene('polaris-phases'),0);
  assert.equal(scenes[resolveProcurementScene('release-decision')].id,'release-decision');
  assert.equal(resolveProcurementScene('unknown'),0);
+ for(const [oldId,currentId]of Object.entries(sceneAliases))assert.equal(scenes[resolveProcurementScene(oldId)].id,currentId);
+ for(const id of['hardware-prices-meme','aws-houdini-prefab','compass-package'])assert.equal(scenes[resolveProcurementScene(id)].id,id);
+});
+
+test('electrical and hydraulic comparisons keep both rack duties visible without a rack-duty toggle',()=>{
+ for(const id of['electrical-interface','hydraulic-interface']){
+  const scene=scenes.find(scene=>scene.id===id);
+  assert.ok(!(scene.controls||[]).some(control=>control.key==='rackKW'));
+  const before=procurementVisual(id,{...initialState,rackKW:100});
+  const after=procurementVisual(id,{...initialState,rackKW:200});
+  assert.equal(before,after,'a stale rack-duty state cannot hide half of the comparison');
+  if(id==='electrical-interface'){assert.match(after,/100 kW/);assert.match(after,/200 kW/);}
+  else{for(const rackKW of[100,200]){const m=rackInterfaces({rackKW});assert.ok(after.includes(`${m.flow.toFixed(1)} kg/s`));assert.ok(after.includes(`${m.pressure} kPa`));}}
+ }
+});
+
+test('failure-test visuals distinguish the physical fault, command and measured response',()=>{
+ for(const testPhase of['fault','command','measured']){
+  const html=procurementVisual('integrated-tests',{...initialState,testPhase});
+  assert.match(html,new RegExp(`data-test-phase="${testPhase}"`));
+  if(testPhase==='measured')assert.match(html,/class="pc-trace-after"/);
+  else assert.doesNotMatch(html,/class="pc-trace-after"/,'an issued command cannot draw an observed response');
+ }
+ assert.doesNotMatch(procurementVisual('controls-interface',{...initialState,action:'unconfirmed'}),/class="pc-trace-after"/);
+ assert.match(procurementVisual('controls-interface',{...initialState,action:'confirmed'}),/class="pc-trace-after"/);
+});
+
+test('accepted-path visuals use the revised rack duty and final evidence stays behind reveal',()=>{
+ assert.match(procurementVisual('accepted-paths',{...initialState,coolingStart:21}),/40 racks · 8 MW/);
+ assert.match(procurementVisual('accepted-paths',{...initialState,coolingStart:1}),/60 racks · 12 MW/);
+ for(const diagnosis of['','all','proven','wait']){
+  const hidden=procurementVisual('release-decision',{...initialState,diagnosis,showDiagnosis:false});
+  assert.doesNotMatch(hidden,/data-release-eligible|data-release-mw|4 MW/);
+  if(diagnosis){
+   const revealed=procurementVisual('release-decision',{...initialState,diagnosis,showDiagnosis:true});
+   assert.match(revealed,/data-release-eligible="20" data-release-mw="4"/);
+   assert.equal(revealed.includes('pc-correct'),diagnosis==='proven');
+  }
+ }
+ assert.doesNotMatch(procurementVisual('release-decision',{...initialState,diagnosis:'',showDiagnosis:true}),/data-release-eligible|data-release-mw/,'a reveal flag without a selection does not show an answer');
+});
+
+function playerAt(hash){
+ class Element{
+  constructor(){this.children=[];this.dataset={};this.attributes={};this.listeners={};}
+  append(...children){this.children.push(...children);}add(child){this.children.push(child);}replaceChildren(...children){this.children=children;}
+  setAttribute(key,value){this.attributes[key]=String(value);if(key.startsWith('data-'))this.dataset[key.slice(5).replace(/-([a-z])/g,(_,c)=>c.toUpperCase())]=String(value);}
+  getAttribute(key){return this.attributes[key];}focus(){}addEventListener(name,fn){this.listeners[name]=fn;}closest(){return this.header||(this.header=new Element());}
+ }
+ const elements=new Map(['scenes','fullscreen','scene','scene-title','visual','lesson-reference','status','progress','previous','next','actions','viewer'].map(id=>[id,new Element()]));
+ let inline=[];
+ Object.defineProperty(elements.get('visual'),'innerHTML',{get(){return this.html;},set(html){this.html=html;inline=[];for(const [,attrs]of html.matchAll(/<button\b([^>]*)>/g)){const button=new Element();for(const [,key,value]of attrs.matchAll(/([\w-]+)="([^"]*)"/g))button.setAttribute(key,value);inline.push(button);}}});
+ const descendants=element=>element.children.flatMap(child=>[child,...descendants(child)]);
+ const buttons=()=>descendants(elements.get('actions')).filter(element=>element.type==='button');
+ const listeners={},location={hash,search:'?teach=1'};
+ const document={getElementById:id=>elements.get(id)||inline.find(button=>button.getAttribute('id')===id),createElement:()=>new Element(),querySelector:()=>null,querySelectorAll:selector=>{const attr=selector.slice(1,-1);return inline.filter(element=>element.getAttribute(attr)!==undefined);},addEventListener(){}};
+ const window={addEventListener:(name,fn)=>{listeners[name]=fn;},scrollTo(){}};
+ const source=fs.readFileSync(new URL('../course/prototypes/procurement-cases-player.js',import.meta.url),'utf8').replace(/^import .*;\n/gm,'');
+ vm.runInNewContext(source,{document,window,location,history:{replaceState(_state,_title,hash){location.hash=hash;}},URLSearchParams,Option:class{constructor(label,value){this.label=label;this.value=value;}},scenes,initialState,resolveProcurementScene,procurementVisual,presentationLabels:{'procurement-cases':'13. Design, procurement and commissioning'}});
+ return {elements,document,go(id){location.hash=`#${id}`;listeners.hashchange();},click(key,value){const button=buttons().find(button=>button.dataset.choice===key&&String(button.dataset.value)===String(value));assert.ok(button,`${key}=${value}`);button.onclick();},choose(value){const button=inline.find(button=>button.dataset.diagnosis===value);assert.ok(button,value);button.onclick();},press(id){const button=document.getElementById(id);assert.ok(button,id);(button.onclick||button.listeners.click)();}};
+}
+
+test('actual player retains acceptance controls and hides final feedback when a new answer is selected',()=>{
+ const player=playerAt('#integrated-tests'),html=()=>player.elements.get('visual').innerHTML;
+ assert.match(html(),/data-test-phase="fault"/);
+ player.click('testPhase','command');assert.match(html(),/data-test-phase="command"/);assert.doesNotMatch(html(),/class="pc-trace-after"/);
+ player.click('testPhase','measured');assert.match(html(),/data-test-phase="measured"/);assert.match(html(),/class="pc-trace-after"/);
+ player.go('accepted-paths');player.click('coolingStart',1);assert.match(html(),/60 racks · 12 MW/);
+ player.go('integrated-tests');assert.match(html(),/data-test-phase="measured"/);
+ player.go('controls-interface');player.click('action','confirmed');assert.match(html(),/data-action="confirmed"/);
+ player.go('release-decision');player.choose('all');player.press('diagnosis-reveal');assert.match(html(),/pc-recheck/);
+ player.choose('proven');assert.doesNotMatch(html(),/data-release-eligible/);
+ player.press('diagnosis-reveal');assert.match(html(),/pc-correct/);assert.match(html(),/data-release-eligible="20" data-release-mw="4"/);
+ player.go('accepted-paths');assert.match(html(),/60 racks · 12 MW/);
+ player.go('release-decision');assert.match(html(),/pc-correct/);
+ player.go('site-checks');assert.equal(player.elements.get('scene').dataset.scene,'factory-acceptance');
+ player.go('handover-records');assert.equal(player.elements.get('scene').dataset.scene,'release-decision');
 });

@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
 import {capacityLedger,capacityStage,presentValue,costComparison,usefulCost,upgradeScreen} from '../course/prototypes/capacity-model.js';
-import {scenes,initialState,sources,learningContract} from '../course/prototypes/capacity-scenes.js';
+import {scenes,initialState,sources,learningContract,sceneAliases,resolveSceneId} from '../course/prototypes/capacity-scenes.js';
 import {capacityVisual} from '../course/prototypes/capacity-visuals.js';
 const near=(actual,expected,tolerance=1e-9)=>assert.ok(Math.abs(actual-expected)<tolerance,`${actual} ≈ ${expected}`);
 
@@ -92,13 +92,14 @@ test('delivery time reverses the intervention screen; demand changes realized un
 function statesFor(scene){
  let states=[{...initialState}];
  for(const group of scene.controls||[])states=states.flatMap(state=>group.options.map(([value])=>({...state,[group.key]:value})));
- if(scene.id==='upgrade-decision')states.push(...['network','cooling','power'].flatMap(upgradeChoice=>[false,true].map(showUpgrade=>({...initialState,upgradeChoice,showUpgrade}))));
- if(scene.id==='evidence-decision')states.push(...['multiply','borrow','measure'].flatMap(evidenceChoice=>[false,true].map(showEvidence=>({...initialState,evidenceChoice,showEvidence}))));
+ if(scene.id==='delivery-window')states=states.flatMap(state=>[state,...['network','cooling'].flatMap(upgradeChoice=>[false,true].map(showUpgrade=>({...state,upgradeChoice,showUpgrade})))]);
+ if(['ownership-boundary','cash-flow-timing','cost-per-result'].includes(scene.id))states=states.flatMap(state=>[80,120,160].flatMap(energyPrice=>[0,.08].map(discountRate=>({...state,energyPrice,discountRate}))));
+ if(scene.id==='evidence-decision')states=['','plan','operating'].flatMap(evidenceClaim=>['','power','output','cost'].flatMap(evidenceNeed=>[false,true].map(showEvidence=>({...initialState,evidenceClaim,evidenceNeed,showEvidence}))));
  return states;
 }
 
 test('all scenes, all independent control combinations and all decision feedback states render',()=>{
- assert.equal(scenes.length,19);assert.equal(new Set(scenes.map(scene=>scene.id)).size,19);
+ assert.equal(scenes.length,15);assert.equal(new Set(scenes.map(scene=>scene.id)).size,15);
  assert.deepEqual([...new Set(scenes.map(scene=>scene.objective))].sort(),['D15.1','D15.2','D15.3','D15.4','D15.5']);
  assert.equal(Object.keys(learningContract).length,6);
  for(const scene of scenes){
@@ -113,6 +114,49 @@ test('all scenes, all independent control combinations and all decision feedback
  assert.throws(()=>capacityVisual('missing',initialState),/Unknown capacity scene/);
 });
 
+test('merged scenes retain old navigation links',()=>{
+ assert.deepEqual(sceneAliases,{'power-boundaries':'site-headroom','capacity-ledger':'next-constraint','present-cost':'cash-flow-timing','upgrade-decision':'delivery-window'});
+ for(const [previous,current]of Object.entries(sceneAliases))assert.equal(resolveSceneId(previous),current);
+ for(const scene of scenes)assert.equal(resolveSceneId(scene.id),scene.id);
+ assert.equal(resolveSceneId('#present-cost'),'cash-flow-timing');
+ assert.equal(resolveSceneId('%70resent-cost'),'cash-flow-timing');
+ assert.equal(resolveSceneId('%not-encoded'),scenes[0].id);
+ assert.equal(resolveSceneId('missing'),scenes[0].id);
+});
+
+test('the delivery prediction withholds the comparison and reveals the current proposal calculation',()=>{
+ for(const coolingDelay of[0,1,2])for(const demand of[1,.5])for(const upgradeChoice of['network','cooling']){
+  const state={...initialState,coolingDelay,demand,upgradeChoice};
+  const hidden=capacityVisual('delivery-window',state);
+  assert.doesNotMatch(hidden,/data-upgrade-preferred|class="k-screen-results"|\$\d+\.\d+ \/ result/);
+  const shown=capacityVisual('delivery-window',{...state,showUpgrade:true});
+  const m=upgradeScreen({coolingDelay,demand});
+  assert.match(shown,new RegExp(`data-upgrade-preferred="${m.preferred}"`));
+  for(const option of[m.network,m.cooling]){
+   assert.ok(shown.includes(`${(option.results/1e6).toFixed(2)}m extra results`));
+   assert.ok(shown.includes(`$${option.perResult.toFixed(2)} / result`));
+  }
+ }
+ assert.doesNotMatch(capacityVisual('delivery-window',{...initialState,showUpgrade:true}),/data-upgrade-preferred/,'reveal without a prediction cannot disclose the result');
+});
+
+test('the evidence task gates guidance on both selections and distinguishes plans from measured operation',()=>{
+ const scene=scenes.find(scene=>scene.id==='evidence-decision');
+ for(const state of statesFor(scene)){
+  const html=capacityVisual(scene.id,state);
+  if(!(state.evidenceClaim&&state.evidenceNeed&&state.showEvidence)){
+   assert.doesNotMatch(html,/data-evidence-claim-status|class="k-evidence-feedback"/);
+  }else{
+   const status=state.evidenceClaim==='plan'?'supported':'unsupported';
+   assert.match(html,new RegExp(`data-evidence-claim-status="${status}"`));
+   const feedback=html.match(/<p data-evidence-need="[^"]+">([^<]+)<\/p>/)?.[1];assert.ok(feedback);
+   if(state.evidenceNeed==='power'){assert.match(feedback,/meter/i);assert.match(feedback,/boundary/i);}
+   if(state.evidenceNeed==='output'){assert.match(feedback,/quality/i);assert.match(feedback,/(?:time|deadline)/i);}
+   if(state.evidenceNeed==='cost'){assert.match(feedback,/cost/i);assert.match(feedback,/results/i);assert.match(feedback,/horizon/i);}
+  }
+ }
+});
+
 test('Abilene statements retain dates, distinct projects and the unknown operating boundary',()=>{
  const ledger=capacityVisual('abilene-ledger',initialState),campus=capacityVisual('abilene-campus',initialState),scope=capacityVisual('separate-campuses',initialState);
  for(const text of ['18 Mar 2025','30 Sep 2025','Sep 2026','Planned campus','Energized','Workloads running','Delivered'])assert.ok(ledger.includes(text),text);
@@ -120,7 +164,6 @@ test('Abilene statements retain dates, distinct projects and the unknown operati
  assert.match(campus,/distribution-abilene-data-halls.jpg/);assert.match(campus,/15 July 2026/);
  assert.match(scope,/9 June 2026/);assert.match(scope,/1.2 GW project/);assert.match(scope,/900 MW project/);assert.match(scope,/Oracle/);assert.match(scope,/Microsoft/);
  assert.match(ledger,/Accepted service MW · metered IT demand · accepted results/);
- assert.match(capacityVisual('evidence-decision',{...initialState,evidenceChoice:'multiply',showEvidence:true}),/do not establish that match or measured IT load/);
  const entry=JSON.parse(fs.readFileSync(new URL('../course/assets/references/provenance.json',import.meta.url))).find(item=>item.file==='distribution-abilene-data-halls.jpg');
  assert.ok(entry);assert.equal(entry.publisher,'Oracle');assert.match(entry.sha256,/^[a-f0-9]{64}$/);
  assert.ok(scenes.find(scene=>scene.id==='cash-flow-timing').sources.includes(sources.nist));
@@ -138,24 +181,49 @@ function playerAt(hash){
  Object.defineProperty(elements.get('visual'),'innerHTML',{get(){return this.html;},set(html){this.html=html;inline=[];for(const [,attrs,label]of html.matchAll(/<button\b([^>]*)>([\s\S]*?)<\/button>/g)){const button=new Element();button.label=label;for(const [,key,value]of attrs.matchAll(/([\w-]+)="([^"]*)"/g))button.setAttribute(key,value);inline.push(button);}}});
  const listeners={},location={hash,search:'?teach=1'};
  const buttons=()=>elements.get('actions').children.flatMap(group=>group.children).filter(element=>element.type==='button');
- const document={getElementById:id=>elements.get(id)||inline.find(button=>button.getAttribute('id')===id),createElement:()=>new Element(),querySelector:()=>null,querySelectorAll:selector=>{const attr=selector.slice(1,-1);return inline.filter(button=>button.getAttribute(attr)!==undefined);},addEventListener(){}};
+ const document={getElementById:id=>elements.get(id)||inline.find(button=>button.getAttribute('id')===id),createElement:()=>new Element(),querySelector:()=>null,querySelectorAll:selector=>{const attr=selector.match(/\[([^\]]+)\]/)?.[1];return inline.filter(button=>button.getAttribute(attr)!==undefined);},addEventListener(){}};
  const window={addEventListener:(name,fn)=>{listeners[name]=fn;},scrollTo(){}};
  const source=fs.readFileSync(new URL('../course/prototypes/capacity-player.js',import.meta.url),'utf8').replace(/^import .*;\n/gm,'');
- vm.runInNewContext(source,{document,window,location,history:{replaceState(_state,_title,hash){location.hash=hash;}},URLSearchParams,Option:class{constructor(label,value){this.label=label;this.value=value;}},scenes,initialState,capacityVisual,presentationLabels:{capacity:'15. Capacity, cost and system decisions'}});
+ vm.runInNewContext(source,{document,window,location,history:{replaceState(_state,_title,hash){location.hash=hash;}},URLSearchParams,Option:class{constructor(label,value){this.label=label;this.value=value;}},scenes,initialState,sceneAliases,resolveSceneId,capacityVisual,presentationLabels:{capacity:'15. Capacity, cost and system decisions'}});
  return {elements,buttons,document,go(id){location.hash=`#${id}`;listeners.hashchange();},click(key,value){const button=buttons().find(button=>button.dataset.choice===key&&button.dataset.value===String(value));assert.ok(button,`${key}=${value}`);button.onclick();},choose(attr,value){const button=inline.find(button=>button.getAttribute(`data-${attr}`)===value);assert.ok(button);button.onclick();},reveal(id){document.getElementById(id).listeners.click();}};
 }
 
-test('the actual player preserves independent controls and restores decision state after navigation',()=>{
+test('the player preserves cost assumptions across the cash-flow and accepted-output views',()=>{
+ const player=playerAt('#energy-exposure'),html=()=>player.elements.get('visual').innerHTML;
+ player.click('energyPrice',160);
+ player.go('ownership-boundary');assert.match(html(),/\$8(?:\.00)?m/);
+ player.go('cash-flow-timing');player.click('discountRate',0);assert.match(html(),/\$48\.0m/);assert.match(html(),/\$33\.0m/);
+ player.go('cost-per-result');player.click('outputMillions',8);assert.match(html(),/\$6\.00\/result/);assert.match(html(),/\$4\.13\/result/);
+ player.go('cash-flow-timing');player.click('discountRate',.08);
+ const m=costComparison({energyPrice:160,rate:.08});
+ player.go('cost-per-result');assert.ok(html().includes(`$${(m.ownPV/8).toFixed(2)}/result`));assert.ok(html().includes(`$${(m.contractPV/8).toFixed(2)}/result`));
+ player.go('ownership-boundary');assert.match(html(),/\$8(?:\.00)?m/);
+});
+
+test('the player clears stale predictions when delivery or demand changes and preserves other controls',()=>{
  const player=playerAt('#delivery-window'),html=()=>player.elements.get('visual').innerHTML;
  const selected=key=>player.buttons().filter(button=>button.dataset.choice===key&&button.attributes['aria-pressed']==='true').map(button=>button.dataset.value);
- assert.deepEqual(selected('coolingDelay'),['1']);assert.deepEqual(selected('demand'),['1']);assert.match(html(),/Network has the lower/);
- player.click('coolingDelay',0);assert.match(html(),/Cooling has the lower/);assert.deepEqual(selected('demand'),['1']);
- player.click('demand',.5);assert.match(html(),/\$3.33 \/ result/);assert.deepEqual(selected('coolingDelay'),['0']);
+ const hidden=()=>{assert.doesNotMatch(html(),/data-upgrade-preferred|data-upgrade-choice="[^"]+" aria-pressed="true"/);};
+ hidden();assert.deepEqual(selected('coolingDelay'),['1']);assert.deepEqual(selected('demand'),['1']);
+ player.choose('upgrade-choice','network');player.reveal('upgrade-reveal');assert.match(html(),/data-upgrade-preferred="network"/);
+ player.click('coolingDelay',0);hidden();assert.deepEqual(selected('demand'),['1']);
+ player.choose('upgrade-choice','cooling');player.reveal('upgrade-reveal');assert.match(html(),/data-upgrade-preferred="cooling"/);
+ player.click('demand',.5);hidden();assert.deepEqual(selected('coolingDelay'),['0']);
+ player.choose('upgrade-choice','cooling');player.reveal('upgrade-reveal');assert.match(html(),/\$3\.33 \/ result/);
  player.go('tied-constraints');player.click('tieUpgrade','electrical');assert.match(html(),/650 racks/);player.click('tieUpgrade','both');assert.match(html(),/700 racks/);
- player.go('delivery-window');assert.deepEqual(selected('coolingDelay'),['0']);assert.deepEqual(selected('demand'),['0.5']);
- player.go('upgrade-decision');player.choose('upgrade-choice','cooling');player.reveal('upgrade-reveal');assert.match(html(),/runs for only two years/);
- player.choose('upgrade-choice','network');assert.doesNotMatch(html(),/Network passes this screen/);player.reveal('upgrade-reveal');assert.match(html(),/Network passes this screen/);
- player.go('evidence-decision');player.choose('evidence-choice','measure');player.reveal('evidence-reveal');assert.match(html(),/Retain the dated claims/);
- player.go('upgrade-decision');assert.match(html(),/Network passes this screen/);
+ player.go('upgrade-decision');assert.equal(player.elements.get('scene').dataset.scene,'delivery-window');assert.match(html(),/data-upgrade-preferred="cooling"/);
+ assert.deepEqual(selected('coolingDelay'),['0']);assert.deepEqual(selected('demand'),['0.5']);
+ player.choose('upgrade-choice','network');assert.doesNotMatch(html(),/data-upgrade-preferred/);player.reveal('upgrade-reveal');assert.match(html(),/data-upgrade-preferred="cooling"/);
+ for(const [previous,current]of Object.entries(sceneAliases)){player.go(previous);assert.equal(player.elements.get('scene').dataset.scene,current);}
  assert.match(player.document.title,/^15\. Capacity, cost and system decisions/);
+});
+
+test('the player requires both evidence selections and updates the feedback for each changed selection',()=>{
+ const player=playerAt('#evidence-decision'),html=()=>player.elements.get('visual').innerHTML;
+ player.choose('evidence-claim','plan');assert.match(html(),/id="evidence-reveal"[^>]*disabled/);assert.doesNotMatch(html(),/data-evidence-claim-status/);
+ player.choose('evidence-need','power');player.reveal('evidence-reveal');assert.match(html(),/data-evidence-claim-status="supported"/);
+ player.choose('evidence-claim','operating');assert.doesNotMatch(html(),/data-evidence-claim-status/);player.reveal('evidence-reveal');assert.match(html(),/data-evidence-claim-status="unsupported"/);
+ for(const need of['output','cost']){player.choose('evidence-need',need);assert.doesNotMatch(html(),/data-evidence-claim-status/);player.reveal('evidence-reveal');assert.match(html(),new RegExp(`<p data-evidence-need="${need}">`));}
+ player.choose('evidence-claim','plan');assert.doesNotMatch(html(),/data-evidence-claim-status/);player.reveal('evidence-reveal');
+ player.go('abilene-ledger');player.go('evidence-decision');assert.match(html(),/data-evidence-claim-status="supported"/);assert.match(html(),/<p data-evidence-need="cost">/);
 });
