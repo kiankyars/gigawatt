@@ -4,62 +4,46 @@ const existing=[
   {
     "id": "why-liquid",
     "label": "Why liquid",
-    "title": "Why use liquid cooling?",
+    "title": "Why Is Air Cooling Dead?",
     "kind": "why-liquid",
     "description": "Compare approximate water and air volumetric heat capacity at a declared teaching point. This motivates compact heat transport without claiming that liquid alone establishes chip temperatures.",
     "reference": "d10-local-thermal-paths"
   },
   {
-    "id": "heat-path",
-    "label": "Complete heat path",
-    "title": "Follow the heat out of the rack",
-    "kind": "route",
-    "description": "A liquid-to-liquid coolant distribution unit transfers heat from the rack loop into a separate facility loop. Facility water carries heat to outdoor rejection. The fluids do not mix.",
-    "reference": "d10-cdu-interfaces"
-  },
-  {
     "id": "capture-options",
-    "label": "Air cooling / CRAH",
-    "title": "Air carries rack heat to a CRAH",
-    "kind": "capture-options",
-    "capture": "air",
-    "description": "A computer room air handler (CRAH) uses fans to move warm room air over a chilled-water coil and returns cooled air to the room. Heat passes from air into water; the two do not mix.",
+    "label": "Air and liquid cooling",
+    "title": "Old with the New",
+    "kind": "capture-comparison",
+    "description": "Top: rack heat enters room air, then a computer room air handler (CRAH) transfers it to chilled water. Bottom: cold plates move chip heat through technology coolant to a liquid-to-liquid coolant distribution unit (CDU), which transfers it into separate facility water. The CRAH still handles residual air heat. Current GB300 systems retain both liquid and air heat paths.",
     "reference": "d10-cdu-interfaces"
   },
   {
-    "id": "capture-coldplates", "label": "Cold plates + air",
-    "title": "Cold plates carry chip heat directly into liquid",
-    "kind": "capture-options", "capture": "coldplate",
-    "description": "Cold plates take heat directly from selected chips into a pumped coolant loop. A liquid-to-liquid CDU transfers that heat into separate facility water. Components outside the cold-plate path still release heat to room air and need air cooling.",
-    "reference": "d10-cdu-interfaces"
-  },
-  {
-    "id": "crah-cdu", "label": "CRAH versus CDU",
-    "title": "A CRAH cools air; a CDU serves the rack coolant loop",
-    "kind": "crah-cdu",
-    "description": "CRAH means computer room air handler: fans circulate room air across a chilled-water coil. CDU means coolant distribution unit: pumps circulate rack coolant and controls regulate its supply. In the liquid-to-liquid CDU shown here, a heat exchanger transfers heat to separate facility water without mixing the fluids. A cold-plate installation can use both: CDU for chip heat, CRAH for residual air heat. Liquid-to-air CDUs also exist.",
+    "id": "rack-coolant-entry", "label": "GB300 coolant connections",
+    "title": "How does the coolant enter the rack?",
+    "kind": "rack-entry",
+    "description": "NVIDIA's annotated DGX GB300 rear view identifies the cooling manifolds. In the separate functional diagram, the CDU supplies technology coolant to a supply manifold, tray quick disconnects and cold plates. A return manifold carries warmed coolant back to the CDU. Facility water remains on the other side of the CDU heat exchanger. This is a cold-plate manifold system, not a rear-door air-to-water heat exchanger.",
     "reference": "d10-cdu-interfaces"
   },
   {
     "id": "capture-rear-door", "label": "Rear-door heat exchanger",
-    "title": "A cooled rear door captures heat from rack exhaust",
+    "title": "A rear-door exchanger cools the exhaust air",
     "kind": "capture-options", "capture": "rear-door",
     "description": "Server fans move air through the rack and the rear-door water coil. Heat moves from chips to air, then into water at the door. The depicted arrangement uses compatible facility water; other installations place a CDU between the door and facility loop.",
     "reference": "d10-cdu-interfaces"
   },
   {
     "id": "capture-immersion", "label": "Immersion cooling",
-    "title": "Immersion puts the electronics in dielectric liquid",
-    "kind": "capture-options", "capture": "immersion",
-    "description": "Qualified electronics sit in electrically insulating liquid. Single-phase liquid warms without boiling; two-phase liquid boils and the vapor condenses at a cooled surface. Both methods need a downstream path to reject the captured heat.",
+    "title": "What the heck is immersion cooling and why are there two types?",
+    "kind": "immersion-photo",
+    "description": "The supplied 2CRSi diagram shows single-phase immersion: electrically insulating liquid circulates around the electronics, then through a coolant-to-water heat exchanger. It stays liquid. In two-phase immersion, the fluid boils at the hardware, vapor condenses at a cooled surface, and liquid returns to the bath. The diagram depicts the single-phase path; the two captions distinguish the mechanisms.",
     "reference": "d10-cdu-interfaces"
   },
   {
     "id": "cold-plate",
-    "label": "Inside a cold plate",
-    "title": "Inside a cold plate",
-    "kind": "plate",
-    "description": "Processor heat crosses the package, thermal interface and plate metal into coolant channels. The coolant does not contact the silicon junction.",
+    "label": "Cold-plate hardware",
+    "title": "Cold-plate assemblies",
+    "kind": "coldplate-photo",
+    "description": "The supplied photograph shows copper cold-plate assemblies, connecting tubes, hoses and couplings. It replaces the invented internal-channel diagram. The user supplied this as GB300 cold-plate context; the exact manufacturer and model have not been independently established. No visible surface pattern is identified as an internal coolant channel.",
     "reference": "d10-local-thermal-paths"
   },
   {
@@ -112,6 +96,6 @@ const existing=[
   }
 ];
 const byId=new Map([...existing,...captureScenes].map(s=>[s.id,s]));
-export const scenes=["why-liquid","capture-options","capture-coldplates","crah-cdu","capture-rear-door","capture-immersion","cold-plate","local-heat-flux","device-temperature","water-balance","pump-operating-point","approach","coolit-cdu","lost-flow","independent-cooling-paths","cooling-derating","cooling-retrofit"].map(id=>byId.get(id));
+export const scenes=["why-liquid","capture-options","rack-coolant-entry","capture-rear-door","capture-immersion","cold-plate","local-heat-flux","device-temperature","water-balance","pump-operating-point","approach","coolit-cdu","lost-flow","independent-cooling-paths","cooling-derating","cooling-retrofit"].map(id=>byId.get(id));
 // Preserve useful destinations for bookmarks to the removed standalone slides.
-export const sceneAliases={"heat-path":"crah-cdu","branch-flow":"pump-operating-point","coolant-interfaces":"cooling-retrofit"};
+export const sceneAliases={"heat-path":"capture-options","capture-coldplates":"capture-options","crah-cdu":"capture-options","branch-flow":"pump-operating-point","coolant-interfaces":"cooling-retrofit"};

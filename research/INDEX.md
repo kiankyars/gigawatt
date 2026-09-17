@@ -147,7 +147,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P109 — Crusoe’s Contracted AI Infrastructure Capacity Approaches 5 Gigawatts Across Data Centers and Cloud](sources/P109.md) | Crusoe | D03, D15 | page_reviewed |
 | [P11 — NFPA 75: Standard for the Fire Protection of Information Technology Equipment](sources/P11.md) | National Fire Protection Association | D05, D12, D13 | candidate_not_reviewed |
 | [P110 — Abilene Data Center Development](sources/P110.md) | Mortenson | D03, D04 | page_reviewed |
-| [P111 — Lenovo NVIDIA GB300 NVL72 Rack Scale AI Product Guide](sources/P111.md) | Lenovo Press | D12, D07 | page_reviewed |
+| [P111 — Lenovo NVIDIA GB300 NVL72 Rack Scale AI Product Guide](sources/P111.md) | Lenovo Press | D12, D07, D10 | page_reviewed |
 | [P112 — MZX Tech LLC — Southaven PSD permit application, January 2026 revision](sources/P112.md) | MZX Tech LLC / Trinity Consultants; public record released by MDEQ, Wikimedia mirror | D03, D04, D12 | public_excerpt_reviewed |
 | [P113 — SpaceX — EU prospectus, compute services agreements with Anthropic](sources/P113.md) | Space Exploration Technologies Corp. | D03, D13 | public_excerpt_reviewed |
 | [P114 — SpaceX — Google Cloud Service Agreement, free writing prospectus](sources/P114.md) | Space Exploration Technologies Corp. / SEC | D03, D13 | page_reviewed |
@@ -259,6 +259,10 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P211 — Crusoe — Expands AI data center campus in Abilene to 1.2 gigawatts](sources/P211.md) | Crusoe | D15 | page_reviewed |
 | [P212 — Crusoe — Flagship Abilene data center is live](sources/P212.md) | Crusoe | D15 | page_reviewed |
 | [P213 — Microsoft — From Wisconsin to Atlanta, an AI superfactory](sources/P213.md) | Microsoft | D08 | page_reviewed |
+| [P214 — 2CRSi — Single-phase immersion cooling](sources/P214.md) | 2CRSi | D10 | page_reviewed |
+| [P215 — 2CRSi — Two-phase immersion cooling](sources/P215.md) | 2CRSi | D10 | page_reviewed |
+| [P216 — Motivair — ChilledDoor rear-door heat exchanger](sources/P216.md) | Motivair | D10 | page_reviewed |
+| [P217 — DOE FEMP — Cooling Towers: Understanding Key Components](sources/P217.md) | U.S. Department of Energy | D11 | page_reviewed |
 | [P22 — Huber et al. — Comparative Evaluation of MVAC–LVDC SST and Hybrid Transformer Concepts for Future Datacenters (IPEC 2022)](sources/P22.md) | ETH Zurich, Delta Electronics and Paderborn University | D04, D06 | page_reviewed |
 | [P23 — Wolfspeed — Introduction of a commercially available 10 kV SiC power MOSFET](sources/P23.md) | Wolfspeed | D04, D06 | page_reviewed |
 | [P24 — Schneider Electric — What is UPS efficiency and how is it calculated?](sources/P24.md) | Schneider Electric | D04, D05, D06 | page_reviewed |
@@ -301,7 +305,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P61 — The Green Grid — PUE: A Comprehensive Examination of the Metric](sources/P61.md) | The Green Grid | D01, D15 | page_reviewed |
 | [P62 — Corning — Meet-Me-Room to Outside Plant Data Center Solutions](sources/P62.md) | Corning | D08, D12 | page_reviewed |
 | [P63 — Google Cloud — Best practices for batch inference on GKE](sources/P63.md) | Google Cloud | D01, D02, D09 | page_reviewed |
-| [P64 — NVIDIA DGX GB Rack Scale Systems — Hardware](sources/P64.md) | NVIDIA | D01, D06, D07 | page_reviewed |
+| [P64 — NVIDIA DGX GB Rack Scale Systems — Hardware](sources/P64.md) | NVIDIA | D01, D06, D07, D10 | page_reviewed |
 | [P65 — EIA — How electricity is generated](sources/P65.md) | U.S. Energy Information Administration | D01, D03 | public_excerpt_reviewed |
 | [P66 — EIA — Delivery of electricity to consumers](sources/P66.md) | U.S. Energy Information Administration | D01, D03, D04 | public_excerpt_reviewed |
 | [P67 — OpenStax · Resistance and simple circuits](sources/P67.md) | OpenStax, Rice University | D01, D04, D06 | page_reviewed |

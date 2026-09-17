@@ -422,6 +422,9 @@
         #diagram {
           min-height: 360px;
         }
+        body #viewer footer.course-slide-navigation {
+          position: static;
+        }
         footer {
           height: 62px;
           background: var(--paper);
@@ -484,6 +487,7 @@
     <script type="module">
       import { presentationLabels } from './teaching-navigation.js';
       import { renderFoundation } from "./cooling-foundations.js?v=20260911-formula5";
+      import { renderCoolingOpening } from "./cooling-opening.js";
       import { renderCapture } from "./cooling-capture.js";
       import { scenes, sceneAliases } from "./cooling-scenes.js";
       import { renderCDU } from "./cooling-cdu.js";
@@ -692,52 +696,10 @@
 
         return out;
       }
-      function plate(compact) {
-        const x = compact ? 26 : 160,
-          y = compact ? 128 : 110,
-          w = compact ? 316 : 660,
-          h = compact ? 108 : 125;
-        let out = text(
-          compact ? 28 : 161,
-          compact ? 43 : 47,
-          "INSIDE A SERVER",
-          "svg-tiny",
-        );
-        out += text(x, y - 30, "Cold plate", "svg-label");
-        out += `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10" fill="var(--panel)" stroke="var(--ink)" stroke-width="2"/>`;
-        const path = `M${x - 14} ${y + 25} H${x + w - 28} Q${x + w - 10} ${y + 25} ${x + w - 10} ${y + 42} Q${x + w - 10} ${y + 58} ${x + w - 28} ${y + 58} H${x + 29} Q${x + 12} ${y + 58} ${x + 12} ${y + 75} Q${x + 12} ${y + 92} ${x + 29} ${y + 92} H${x + w + 14}`;
-        out +=
-          line(path, "tech") +
-          line(`M${x + w - 45} ${y + 92} H${x + w + 9}`, "tech", true);
-        out += text(x + 18, y + 45, "Coolant channels", "svg-small tech-text");
-        out += `<rect x="${x + 30}" y="${y + h}" width="${w - 60}" height="10" fill="var(--heatfill)" stroke="var(--heat)"/>`;
-        out += `<rect x="${x + 48}" y="${y + h + 10}" width="${w - 96}" height="65" rx="3" class="face"/>`;
-        for (const frac of [0.25, 0.5, 0.75])
-          out += line(
-            `M${x + w * frac} ${y + h + 58} V${y + h - 13}`,
-            "heat",
-            true,
-          );
-        if (compact) {
-          out +=
-            text(30, 378, "Thermal interface", "svg-label") +
-            `<path d="M25 364 V241 H56" class="outline"/>`;
-          out +=
-            text(180, 430, "Processor package", "svg-label") +
-            `<path d="M295 415 V284 H285" class="outline"/>`;
-        } else {
-          out +=
-            text(853, y + h + 10, "Thermal interface", "svg-small") +
-            `<path d="M${x + w - 20} ${y + h + 5} H839" class="outline"/>`;
-          out +=
-            text(853, y + h + 55, "Processor package", "svg-label") +
-            `<path d="M${x + w - 44} ${y + h + 44} H839" class="outline"/>`;
-        }
-        return out;
-      }
       function render() {
         const scene = scenes[state.index],
           compact = compactQuery.matches;
+        const opening = renderCoolingOpening(scene, compact);
         $("title").textContent = scene.title;
         document.querySelector('.reading-link').href = `../index.html#${scene.reference}`;
         $("scenes").value = state.index;
@@ -746,7 +708,7 @@
         $("next").disabled = state.index === scenes.length - 1;
         $("diagram").setAttribute(
           "viewBox",
-          scene.kind === "capture-detail" ? (compact ? "0 0 420 720" : `0 0 1100 ${scene.id === "cooling-retrofit" ? 650 : 500}`) : (compact ? "0 0 372 580" : "0 0 1160 420"),
+          opening?.viewBox || (scene.kind === "capture-detail" ? (compact ? "0 0 420 720" : `0 0 1100 ${scene.id === "cooling-retrofit" ? 650 : 500}`) : (compact ? "0 0 372 580" : "0 0 1160 420")),
         );
         $("diagram").setAttribute(
           "aria-labelledby",
@@ -761,15 +723,13 @@
           "approach",
         ];
         const continuityKinds = ["redundancy", "independent-paths", "derating"];
-        const content = scene.kind === "capture-detail" ? renderCapture(scene.id, state, compact) : continuityKinds.includes(scene.kind)
+        const content = opening ? opening.svg : scene.kind === "capture-detail" ? renderCapture(scene.id, state, compact) : continuityKinds.includes(scene.kind)
           ? renderContinuity(scene.kind, compact, state)
           : foundationKinds.includes(scene.kind)
             ? renderFoundation(scene.kind, compact, {...state, capture: scene.capture})
             : scene.kind === "cdu"
                 ? renderCDU(compact, state.interior)
-                : scene.kind === "plate"
-                  ? plate(compact)
-                  : route(scene, compact);
+                : route(scene, compact);
         $("diagram").innerHTML =
           `<title id="diagram-title">${$("title").textContent}</title><desc id="diagram-description">${scene.description}${scene.kind === "water-balance" ? ` Selected mass flow is ${state.flow} kilograms per second.` : ""}</desc>${defs}${content}`;
         const continuity = $("diagram").querySelector(

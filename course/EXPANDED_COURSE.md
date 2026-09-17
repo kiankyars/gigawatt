@@ -3318,6 +3318,12 @@ A cooling system has several jobs: capture heat at the hardware, transport it th
 
 Water cooler is too ambiguous to identify a data-center architecture. Name the actual equipment: a water-fed cold plate, a chilled-water air handler, a dry fluid cooler, a cooling tower or a water-cooled chiller. In the last term, water-cooled describes the chiller condenser. An air-cooled chiller can still supply chilled water to the building. Always ask which fluid takes heat from which object, then follow it to the next boundary.
 
+## Why the opening asks whether air cooling is dead
+
+The question concerns the practical limits of moving concentrated rack heat through air. It does not mean that air cooling has disappeared. The opening compares 100 kW carried through a 10°C rise: water requires about 2.39 litres per second, while air requires about 8,292 litres per second at the stated densities and heat capacities. The fundamental heat transfer equation used here is the steady-flow sensible-heat balance: Q̇ = ṁ cₚ ΔT = ρ V̇ cₚ ΔT. It relates heat-transfer rate to mass flow, specific heat and fluid temperature rise when the fluid remains in one phase. It is not the boiling/condensation energy balance.
+
+Lenovo’s GB300 NVL72 guide, updated August 30, 2026, describes approximately 90% liquid and 10% air heat capture at rack level. Cold plates serve the major liquid-cooled components; remaining air-cooled components still need an air path. The stacked comparison therefore retains both CDU and CRAH. The proportions depend on the rack implementation and operating conditions.
+
 ## Follow temperature through the heat path
 
 In a steady operating state, most electrical energy consumed by computing equipment becomes heat within the facility’s accounting boundary. That energy balance says how much heat must ultimately leave. It does not say that every device is at an acceptable temperature. Heat must cross a sequence of interfaces: from active silicon through its package and thermal interface, then into a heat sink, cold plate or immersion fluid, and onward to another cooling boundary. A restrictive local interface can overheat a device while the room-level heat balance still appears adequate.
@@ -3341,6 +3347,12 @@ A cold plate captures heat near selected components and transfers it to a techno
 ## Close parallel heat paths without erasing local limits
 
 Draw liquid-captured heat and residual air heat as separate arrows whose sum matches the defined rack heat load. Include auxiliaries consistently. If a 100 kW rack transfers 85 kW into a cold-plate loop and 15 kW to room air, the air system still needs to manage that 15 kW at the right locations. A failed fan can harm an air-cooled component while the liquid supply remains normal. Likewise, a blocked cold-plate branch can cause local throttling even if the room is comfortable and the CDU’s aggregate load is below its rating.
+
+## Read the supplied hardware and immersion images
+
+The copper cold-plate photograph was supplied as GB300 context. It shows physical assemblies, tubes, hoses and couplings. The precise manufacturer and model have not been independently established, and visible gold surface patterns are not identified as hidden coolant channels. Heat crosses the package/interface and plate metal before entering the contained coolant.
+
+The supplied 2CRSi figure depicts single-phase immersion: dielectric liquid circulates through the bath and an external heat exchanger while remaining liquid. In two-phase immersion, a suitable fluid boils at the electronics, vapor reaches a cooled condenser, and liquid returns to the bath. The words single-phase and two-phase refer to the fluid’s physical state; they do not describe the facility electrical supply.
 
 ## Worked example: Equal heat, unequal device temperature
 
@@ -3392,6 +3404,9 @@ Lower supply temperature may require additional upstream cooling work or condens
 - [ASHRAE — Emergence and Expansion of Liquid Cooling in Mainstream Data Centers](https://www.ashrae.org/file%20library/technical%20resources/bookstore/emergence-and-expansion-of-liquid-cooling-in-mainstream-data-centers_wp.pdf) — Thermal resistance connects device temperature, cooling-medium temperature and device heat; local requirements can drive cooling changes. Read 2026-09-06. Selected thermal-resistance discussion reviewed from the 2021 white paper. No historical trend figure or vendor temperature class is reproduced.
 - [ASHRAE Handbook, Chapter 20: Data Centers and Telecommunication Facilities](https://handbook.ashrae.org/Handbooks/A23/SI/A23_Ch20/a23_ch20_si.aspx) — Provides context for air and liquid heat paths, CRAH chilled-water coils, CRAC compressorized circuits, and equipment-specific environmental requirements. Read 2026-09-11. Selected public 2023 local-cooling and CRAC/CRAH sections reviewed. Equipment names distinguish circuits, not a universal layout; current equipment limits govern actual use.
 - [Trane TRACE 3D Plus — Air Cooled Chillers](https://trace3dplus.help.trane.com/air_cooled_chillers.html) — An air-cooled chiller can make chilled water while its condenser rejects heat to air, resolving the ambiguity between load coolant and condenser cooling medium. Read 2026-09-11. Opening definition reviewed. No software performance curve is reused or extrapolated.
+- [Lenovo NVIDIA GB300 NVL72 Rack Scale AI Product Guide](https://lenovopress.lenovo.com/lp2357-lenovo-nvidia-gb300-nvl72-rack-scale-ai) — Current hybrid liquid/air heat capture and residual air-cooled components. Read 2026-09-17. Named Lenovo implementation, guide updated August 30, 2026; no universal liquid-capture percentage inferred.
+- [2CRSi — Single-phase immersion cooling](https://2crsi.com/single-phase-immersion-cooling) — Supplied diagram identity and single-phase circulation through a separate water heat exchanger. Read 2026-09-17. Mechanism only; no marketing efficiency, fluid-safety or elimination-of-infrastructure claims adopted.
+- [2CRSi — Two-phase immersion cooling](https://2crsi.com/two-phase-immersion-cooling) — Phase-change mechanism compared with single-phase immersion. Read 2026-09-17. The source diagram is not reproduced; no universal fluid composition or safety claim inferred.
 
 ## Flow arithmetic is only the first pump question
 
@@ -3490,6 +3505,12 @@ A liquid-to-liquid coolant distribution unit places a heat exchanger between the
 
 Label technology supply going toward the rack and technology return coming back hot. Separately label facility supply entering the CDU and facility return leaving warmer. A load-side temperature rise is technology return minus technology supply. The approach convention used here is technology supply minus facility supply, matching the OCP CDU paper. These differences connect different points. Calling both of them delta T without a diagram invites a serious reasoning error.
 
+## Follow the rack connections, not just the cabinet
+
+In the GB300 cold-plate example, the CDU supplies technology coolant to rack manifolds. Quick-disconnect connections carry it to the trays and their cold plates; the return manifold takes warmed coolant back to the CDU. Lenovo documents top- and bottom-feed manifold options and in-rack or in-row CDU connections. The existing NVIDIA rear-rack figure identifies the cooling manifolds separately from the power busbar and cable cartridges.
+
+A rear-door heat exchanger is different: its coil takes heat from rack exhaust air. Depending on the installation, the door may use compatible facility water directly or a secondary coolant loop through a CDU. Calling the GB300 cold-plate loop technology coolant is correct for the depicted two-loop architecture; it does not establish that every rear-door water circuit has a CDU.
+
 ## Finite heat transfer requires a temperature difference
 
 A heat exchanger cannot move a finite heat rate with zero driving temperature difference everywhere unless an unphysical infinite conductance is assumed. A simplified exchanger model uses heat rate equal to UA times an appropriate mean temperature difference, where U represents overall transfer behavior and A the effective area. For the special counterflow example below, both end differences are equal, so their common value is also the log-mean difference. General cases require the appropriate exchanger calculation and performance data.
@@ -3584,6 +3605,9 @@ That is 25% more effective conductance at the specified equal-flow operating poi
 - [OCP — Modular Technology Cooling Systems, Revision 1](https://www.opencompute.org/documents/ocp-modular-tcs-rev-1-final-2025-pdf) — Sections 3.7–3.8 connect electrical and cooling boundaries, redundancy/maintainability, and branch flow; Appendix A and the service-level framework discuss failure scope and response expectations. Read 2026-09-11. Selected sections reviewed. The course does not adopt universal flow rules, numerical reliability estimates, or the document's inconsistently written energy/flow units. Synthetic examples are original.
 - [Vertiv — How N+1 redundancy supports continuous data center cooling](https://www.vertiv.com/en-ca/about/news-and-events/articles/educational-articles/how-n1-redundancy-supports-continuous-data-center-cooling/) — Define cooling N, N+1 and 2N and distinguish redundant units from shared power, water and control dependencies. Read 2026-09-11. Definitions and shared-dependency discussion reviewed. No prevalence, Tier mapping or blanket continuity guarantee adopted; capacity and connectivity require a particular design and operating conditions.
 - [NVIDIA — DSX Facilities Infrastructure Reference Design Overview](https://docs.nvidia.com/dsx/facilities-infra/reference-design-overview) — The mechanical-gallery CDU section specifies N+1 CDU groups with shared piping and separates the technical and facility-water loops. Read 2026-09-11. Selected CDU and gallery sections reviewed in mutable HTML. One reference design does not prove site deployment, independent facility-water paths or the ratings and response time of the synthetic course example.
+- [NVIDIA DGX GB Rack Scale Systems — Hardware](https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html#power-shelves) — Annotated GB300 rear hardware figure identifies cooling manifolds and liquid interfaces. Read 2026-09-17. Exploded manufacturer view, not an installation drawing or a rear-door heat exchanger.
+- [Lenovo NVIDIA GB300 NVL72 Rack Scale AI Product Guide](https://lenovopress.lenovo.com/lp2357-lenovo-nvidia-gb300-nvl72-rack-scale-ai) — CDU inlet/return hoses, tray quick connections and top/bottom-feed rack manifolds. Read 2026-09-17. Specific Lenovo implementation; do not combine OEM details into a fabricated universal rack.
+- [Motivair — ChilledDoor rear-door heat exchanger](https://www.motivaircorp.com/products/chilleddoor/) — A rear-door exchanger can circulate compatible facility water through its coil. Read 2026-09-17. Product-specific fluid path; other rear-door implementations use a CDU secondary circuit.
 
 ## Check your understanding: The liquid loop is not the whole rack
 
@@ -3642,6 +3666,14 @@ Time adds another boundary. Immediately after a load increase, heat can accumula
 
 The practical habit is to annotate every arrow with both a physical meaning and an accounting boundary. A fluid arrow represents moving material; a heat arrow represents energy crossing an interface. A wire feeding a fan brings electricity that eventually joins a heat path. Once these are distinct, a changed architecture becomes easier to compare: identify which interfaces moved, which electrical inputs changed, and which outdoor duty remains to be served.
 
+## How an open wet tower exposes water to air
+
+Warm tower water is distributed from spray nozzles or distribution decks over fill. Fill spreads it into films or breaks it into droplets, increasing the wetted area and contact time with air. Some water evaporates into the passing air; the remaining cooled water falls into a basin and recirculates. Evaporation occurs at exposed water surfaces rather than through a closed metal pipe. A closed-circuit evaporative cooler is a different arrangement, with process fluid inside a coil and a separate spray-water circuit outside it.
+
+Dry and wet cooling name equipment mechanisms. Dry-bulb and wet-bulb name two measurements of the same outdoor air. A dry cooler exchanges sensible heat with air, so its temperature comparison uses dry bulb. An open evaporative tower is evaluated against wet bulb. Both weather measurements exist on the same day; selecting a wet tower does not select a different atmosphere.
+
+The CoolIT CHx2000 in Chapter 11 is a liquid-to-liquid CDU. It transfers heat between circuits using a heat exchanger and circulates coolant with pumps; it is not a refrigeration compressor. The chiller introduced here adds a compressor-driven refrigeration cycle when the passive temperature path cannot deliver sufficiently cool water. The tower/dry-cooler temperature comparison therefore comes before the chiller balance in this chapter.
+
 ## Worked example: One load, two COP boundaries
 
 - Synthetic steady operating point; all rates in MW.
@@ -3696,6 +3728,7 @@ More compressor work lowers both ratios while increasing hot-side rejection. The
 - [Vertiv — Optimizing Chilled Water Systems, July 2024](https://www.vertiv.com/495988/globalassets/shared/vertiv-chilled-water-solution-white-paper-sl-18066.pdf) — The Adiabatic System section explains evaporative air precooling through wet pads ahead of coils and control-dependent water use. Read 2026-09-11. Selected text on printed pages 6–7 reviewed. The claim of no additional energy cost and the simulated energy/WUE savings are not adopted; fans, pumps and controls retain their declared electricity boundary.
 - [Trane — Air vs. Water Cooled Chillers](https://www.trane.com/commercial/north-america/us/en/about-us/newsroom/blogs/air-vs-water-cooled-chillers.html) — Air-cooled and water-cooled classify the condenser heat-rejection arrangement. The discussed water-cooled configuration uses condenser water and a cooling tower; compressor work depends on operating conditions. Read 2026-09-11. Mechanism and comparison sections reviewed. The tower-based configuration is one arrangement, not proof every water-cooled chiller must use an evaporative tower; no generic lifespan or efficiency advantage is adopted.
 - [Trane TRACE 3D Plus — Air Cooled Chillers](https://trace3dplus.help.trane.com/air_cooled_chillers.html) — An air-cooled chiller can make chilled water while its condenser rejects heat to air, resolving the ambiguity between load coolant and condenser cooling medium. Read 2026-09-11. Opening definition reviewed. No software performance curve is reused or extrapolated.
+- [DOE FEMP — Cooling Towers: Understanding Key Components](https://www.energy.gov/sites/default/files/2013/10/f3/waterfs_coolingtowers.pdf) — Water distribution decks/nozzles, film and splash fill, evaporation and water collection in open towers. Read 2026-09-17. Physical mechanism only; dated policy requirements and savings estimates are not adopted.
 
 ## The same air temperature can create different cooling limits
 

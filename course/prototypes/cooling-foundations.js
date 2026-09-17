@@ -59,13 +59,15 @@ function whyLiquid(compact) {
       text(186, 25, "SAME 100 kW · SAME 10°C RISE", "svg-tiny", "", "middle") +
       panel(true, 15, 75, 342, 170) +
       panel(false, 15, 271, 342, 170) +
-      text(186, 510, "Q̇ = ṁ cₚ ΔT = ρ V̇ cₚ ΔT", "svg-equation", "", "middle")
+      text(186, 510, "Q̇ = ṁ cₚ ΔT = ρ V̇ cₚ ΔT", "svg-equation", "", "middle") +
+      text(186, 554, "Fundamental heat transfer equation", "svg-label", "", "middle")
     );
   return (
     text(580, 29, "SAME 100 kW · SAME 10°C RISE", "svg-tiny", "", "middle") +
     panel(true, 80, 62, 475, 200) +
     panel(false, 605, 62, 475, 200) +
-    text(580, 332, "Q̇ = ṁ cₚ ΔT = ρ V̇ cₚ ΔT", "svg-number", "", "middle")
+    text(580, 332, "Q̇ = ṁ cₚ ΔT = ρ V̇ cₚ ΔT", "svg-number", "", "middle") +
+    text(580, 379, "Fundamental heat transfer equation", "svg-label", "", "middle")
   );
 }
 

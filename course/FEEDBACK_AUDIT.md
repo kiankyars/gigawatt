@@ -502,3 +502,22 @@ The former slide 18 remains the closing slide, now numbered 17.
 - Chapter 8 already covers local capacitors/rack batteries, burst discharge and
   recharge. A sudden downward-step/source-surplus example is still missing and
   is recorded explicitly in COURSE_REVIEW.md's follow-up list.
+
+## Chapter 11 opening review — 17 September 2026
+
+- Reviewed the updated repository before edits: 49 commits since the previous baseline, 16 current chapters, Chapters 1–9 accepted, and the new shared presenter/notes system preserved.
+- Opening uses “Why Is Air Cooling Dead?” and names the fundamental heat transfer equation. The combined comparison answers the rhetorical title by retaining residual air cooling.
+- Former slides 2–3 become the stacked “Old with the New”; the separate CRAH/CDU explanation is folded into it. Current Lenovo GB300 documentation supports the retained hybrid path.
+- New “How does the coolant enter the rack?” uses the existing NVIDIA rear view and labels technology coolant from the CDU. The distinct rear-door exhaust exchanger remains immediately after it; its facility-water example was not universally incorrect.
+- Supplied 2CRSi single-phase image replaces the immersion illustration; a short phase comparison distinguishes liquid circulation from boiling/condensation.
+- Supplied cold-plate photograph replaces the invented internal view. Exact manufacturer/model remains unverified, recorded in asset provenance rather than cluttering the slide.
+- Downstream Chapter 11 scenes and shared navigation remain. Review and notes numbering now follow 16 scenes. This is not a whole-chapter approval.
+
+## Chapter 12 opening review — 17 September 2026
+
+- Opening titled “The Heat Still Has to Leave the Site”; only Collect → Carry → Release remains beneath it.
+- Wet/dry comparison titled “Do you want your cooling wet or dry, sir?” Requested lower explanatory lines removed. Nozzle distribution, fill and direct air-water contact explain open-tower evaporation.
+- Definition slide inserted before humidity example, using large quotation-style typography and original teaching wording. Wet-bulb is lower in unsaturated air and equal at saturation; it is not the pipe-water temperature.
+- Removed the generic real-coolers temperature-gap line. Temperature comparison now distinguishes equipment names from the two air measurements and identifies each reference temperature.
+- Chiller remains in Chapter 12 after the outdoor-temperature constraint. The Chapter 11 CoolIT CHx2000 is a liquid-to-liquid CDU, not a compressor, so adjoining the two without this distinction would reinforce the confusion.
+- Removed the repeated higher-COP explanation. Updated notes and current tracker for the inserted slide; neither chapter is marked accepted.

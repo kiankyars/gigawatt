@@ -99,19 +99,29 @@ Source: [Equinix Cross Connect documentation](https://docs.equinix.com/cross-con
 
 Source: [Meta’s January 24, 2022 RSC account](https://ai.meta.com/blog/ai-rsc/), storage description and AIRStore sections checked September 16, 2026.
 
-## CRAH versus CDU — Chapter 11, slide 4
+## Old with the New — Chapter 11, slide 2
 
 “A CRAH is a computer room air handler. Its fans move room air across a chilled-water coil. Heat goes from the air into the water, and cooled air goes back to the room.
 
 “A CDU is a coolant distribution unit. It pumps coolant through the liquid-cooled equipment and controls the coolant supply. In the liquid-to-liquid CDU shown here, a heat exchanger passes that heat into a separate facility-water loop. The two liquids do not mix.
 
-“A rack can need both. Cold plates take heat from selected chips into the CDU loop; memory, power supplies and other components outside those plates still release heat into air. A CRAH can handle that remaining air load.”
+“A rack can need both. Cold plates take heat from selected chips into the CDU loop; storage, power-distribution electronics and other components outside those plates still release heat into air. A CRAH can handle that remaining air load.”
 
 Liquid-to-air CDUs also exist: they reject rack-liquid heat into room air instead of facility water. The diagrams in this comparison use liquid-to-liquid CDUs.
 
 Sources: [DOE FEMP cooling systems](https://www.energy.gov/cmei/femp/cooling-water-efficiency-opportunities-federal-data-centers), [CoolIT CDU architectures](https://www.coolitsystems.com/products-services/data-center-products/cooling-distribution-units/), checked September 16, 2026.
 
-## The chip is warmer than the coolant — Chapter 11, slide 9
+## GB300 rack coolant connections — Chapter 11, slide 3
+
+Follow CDU → supply manifold → tray quick disconnects → cold plates → return manifold. This is technology coolant on the rack side of the liquid-to-liquid CDU. Facility water stays across the exchanger. The NVIDIA rear view shows the manifolds, not a rear-door exhaust coil. The following slide deliberately teaches that different mechanism.
+
+[Lenovo’s current GB300 guide](https://lenovopress.lenovo.com/lp2357-lenovo-nvidia-gb300-nvl72-rack-scale-ai#cooling) still specifies hybrid liquid/air heat capture. Air cooling remains part of the system; the opening’s “dead?” question motivates the density limit of relying on air alone.
+
+## Immersion and physical cold plates — Chapter 11, slides 5–6
+
+The supplied 2CRSi diagram is single-phase: the dielectric liquid stays liquid as it circulates through the exchanger. Two-phase immersion boils fluid at the hardware and condenses the vapor so liquid returns. The next photograph shows cold-plate assemblies supplied as GB300 context; the precise manufacturer and model are not verified. Explain the visible hardware without calling gold surface patterns hidden coolant channels.
+
+## The chip is warmer than the coolant — Chapter 11, slide 8
 
 “The coolant is at 35 degrees, but heat must travel from the chip through the package, thermal interface and cold plate before it reaches that coolant. Moving heat through that path requires a temperature difference.
 
@@ -119,7 +129,7 @@ Sources: [DOE FEMP cooling systems](https://www.energy.gov/cmei/femp/cooling-wat
 
 These are stipulated steady-state junction-to-local-fluid resistances, not measured product specifications. A poor thermal interface or insufficient local flow can worsen the effective path. Model: `deviceTemperature` in [cooling-capture-model.js](prototypes/cooling-capture-model.js).
 
-## The pump and plumbing determine actual flow — Chapter 11, slide 11
+## The pump and plumbing determine actual flow — Chapter 11, slide 10
 
 “The pump curve shows the pressure the pump can provide at each flow. The circuit curves show the pressure needed to push that flow through the pipes, hoses and cold plates. The actual flow is where available and required pressure meet.
 
@@ -129,19 +139,19 @@ Model: `hydraulicPoint` in [cooling-capture-model.js](prototypes/cooling-capture
 
 Source for filtration/fouling and coolant-path qualification: [OCP cold-plate requirements](https://www.opencompute.org/documents/ocp-acs-liquid-cooling-cold-plate-requirements-pdf), pp. 7, 11–12.
 
-## CDU approach compares two supply temperatures — Chapter 11, slide 12
+## CDU approach compares two supply temperatures — Chapter 11, slide 11
 
 “Facility water arrives at 30 degrees Celsius. The separate coolant leaving for the chips is at 35 degrees. The difference between those supply temperatures is a five-degree approach. The rack coolant stays warmer so heat can pass into the facility water. This gap is different from how much one fluid warms between its supply and return.”
 
 A temperature **difference** of 5°C equals 5 K; Celsius and kelvin have equal-sized increments. The slide uses °C consistently so the unit does not distract from the two measurement points. This is not a 5 K absolute temperature. Source: [NIST SI temperature units](https://www.nist.gov/pml/special-publication-330/sp-330-section-2).
 
-## CoolIT CHx2000 — Chapter 11, slide 13
+## CoolIT CHx2000 — Chapter 11, slide 12
 
 The manufacturer separately lists 2 MW at 5°C approach and 2,125 L/min at 35 psi. These are thermal and hydraulic rating points; do not imply that both maxima occur together under unspecified conditions. The visible photo credit remains; this qualification has moved here from the slide footer.
 
 Source: [CoolIT CHx2000](https://www.coolitsystems.com/cdu-product/chx2000/), checked September 16, 2026.
 
-## Retrofit: keep enough air cooling — Chapter 11, slide 17
+## Retrofit: keep enough air cooling — Chapter 11, slide 16
 
 “The cold plates take 85 kilowatts of this 100-kilowatt rack into liquid. The other 15 kilowatts still goes into room air, which fits the available 20-kilowatt room-air cooling allowance. This gives us a cooling route to develop; we still need to qualify the liquid circuit and access for maintenance.”
 
@@ -153,31 +163,37 @@ Keep the dated design account separate from measured operating performance. The 
 
 Source: [Crusoe’s August 5, 2025 Abilene account](https://www.crusoe.ai/resources/blog/an-inside-look-at-the-abilene-ai-data-center).
 
-## Humid air leaves less room for evaporative cooling — Chapter 12, slide 4
+## Wet tower and weather definitions — Chapter 12, slides 3–4
+
+In the open wet tower, water is distributed over fill by nozzles or a distribution deck. Air contacts thin water films or droplets; some evaporates, and cooled water collects in the basin. The air arrow indicates that contact. It is not vapor leaking out of a closed pipe. [DOE component guide](https://www.energy.gov/sites/default/files/2013/10/f3/waterfs_coolingtowers.pdf), pages 1–3.
+
+Dry bulb and wet bulb are two readings of the same air. Wet bulb is lower in unsaturated air and equals dry bulb at saturation. The definition slide uses original teaching wording in a large quotation-style layout, not a verbatim quotation attributed to a publisher. [NWS definitions](https://www.weather.gov/source/zhu/ZHU_Training_Page/definitions/dry_wet_bulb_definition/dry_wet_bulb.html).
+
+## Humid air leaves less room for evaporative cooling — Chapter 12, slide 5
 
 “Both days have the same 35-degree air temperature. A wetted, ventilated sensor cools more in dry air because more evaporation is possible. Switch to humid air: the wet-bulb reading rises from 22 to 28 degrees. That leaves less opportunity to cool water by evaporation.”
 
 Wet bulb describes an air condition. It is not the temperature a tower automatically delivers.
 
-## Each heat exchanger needs a temperature gap — Chapter 12, slide 5
+## Dry coolers follow dry bulb; wet towers follow wet bulb — Chapter 12, slide 6
 
 Reveal one interface at a time, following the heat path back from outdoors toward the rack. “Each exchanger needs its own temperature difference. In this example, the wet route reaches the rack at 35 degrees. Now change only the humidity: the same route reaches 41 degrees and no longer meets the rack requirement.”
 
 The fixed gaps belong to this illustrative temperature screen. Flow, return temperatures and the separate 84 kW example remain in the [weather reader](index.html#d11-weather-and-operating-envelope); they need not be calculated aloud.
 
-## A chiller moves heat and adds its own — Chapter 12, slide 6
+## When do we need a chiller? — Chapter 12, slide 7
 
 “Refrigeration can keep the load circuit colder while sending heat to a warmer outdoor sink. The compressor needs electricity to do that. Ten megawatts collected plus two megawatts of compressor electricity means twelve megawatts leave the condenser.”
 
-This is a separate chiller example, with pumps and fans outside its boundary. On slide 7, introduce whole-plant COP 4 as four units of heat moved per unit of cooling electricity, including pumps and fans. The [reader](index.html#d11-heat-rejection) retains the comparison between equipment and whole-plant COP.
+The Chapter 11 CoolIT CHx2000 is a CDU with pumps and a heat exchanger, not a compressor. This slide stays here because it answers the preceding outdoor-temperature problem: refrigeration can deliver colder water when direct heat exchange cannot. This is a separate chiller example, with pumps and fans outside its boundary. On slide 8, introduce whole-plant COP 4 as four units of heat moved per unit of cooling electricity, including pumps and fans. The [reader](index.html#d11-heat-rejection) retains the comparison between equipment and whole-plant COP.
 
-## Hot weather can leave less power for computing — Chapter 12, slide 10
+## Hot weather can leave less power for computing — Chapter 12, slide 11
 
 Start at 8 MW computing in cool weather. Ask which part of the power bar will grow before switching to hot weather. “The cooling plant can still remove the heat, but its electricity now takes us beyond the site’s 10 MW supply. Lower computing power until the whole bar fits. Cooling electricity falls too, because there is less heat to move.”
 
-The fitted hot point is 7.68 MW computing, 1.92 MW cooling and 0.4 MW other demand. The algebra stays in the [reader](index.html#d11-weather-and-operating-envelope). On slide 11, keep the proposed 8 MW load fixed to show why an average can hide infeasible hot hours; this is distinct from the reader’s reduced-load daily energy schedule.
+The fitted hot point is 7.68 MW computing, 1.92 MW cooling and 0.4 MW other demand. The algebra stays in the [reader](index.html#d11-weather-and-operating-envelope). On slide 12, keep the proposed 8 MW load fixed to show why an average can hide infeasible hot hours; this is distinct from the reader’s reduced-load daily energy schedule.
 
-## Evaporation leaves dissolved minerals behind — Chapter 12, slide 13
+## Evaporation leaves dissolved minerals behind — Chapter 12, slide 14
 
 Use the three controls in order. “Some water evaporates and carries heat away. The dissolved minerals remain, so the water becomes more concentrated. Discharge some of that water, then replace both the evaporated water and the discharge. Replacement water brings some minerals too.”
 
@@ -185,19 +201,19 @@ The preceding closed-loop comparison identifies which circuit needs this replace
 
 Source: [DOE cooling-tower management](https://www.energy.gov/cmei/femp/best-management-practice-10-cooling-tower-management).
 
-## Water taken in and water consumed are different totals — Chapter 12, slide 14
+## Water taken in and water consumed are different totals — Chapter 12, slide 15
 
 “In this separate example, 125 cubic metres enters, 100 evaporates and 25 leaves as discharge. If that discharge returns to the same basin, the counted consumption is 100. Switch to an unknown destination: the intake meter alone cannot establish that return.”
 
 Keep the water paths visible before discussing any per-kWh metric. The reader retains those calculations and their period and accounting boundaries.
 
-## The customer needs heat only part of the day — Chapter 12, slide 15
+## The customer needs heat only part of the day — Chapter 12, slide 16
 
 “The facility produces heat all day. This customer accepts only part of it, during six hours, and only if its temperature is useful. Close the customer for the day: all the heat still needs an outdoor destination.”
 
 Point to the accepted overlap and the remaining heat. A heat pump can raise delivery temperature but uses electricity. The separate example’s daily energy arithmetic stays in the reader.
 
-## Which plan keeps a complete heat path? — Chapter 12, slide 17
+## Which plan keeps a complete heat path? — Chapter 12, slide 18
 
 Ask learners to name the surviving heat path and limiting resource before choosing a plan and revealing its explanation. “The tower has no replacement water. The qualified air-cooled alternate can remove enough heat, but keeping full computing power exceeds site electricity. Lower computing power and retain that complete outdoor path.”
 

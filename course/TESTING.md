@@ -1,5 +1,22 @@
 # Course verification
 
+## Chapter 11 opening and supplied hardware — 2026-09-17
+
+- **16 slides.** Reviewed the updated repository before editing. Chapters 1–9 acceptance, shared navigation and the current presenter system are preserved.
+- Stacked air/liquid comparison, GB300 rear coolant entry, supplied single-phase immersion diagram and physical cold-plate photograph replace the previous opening. Rear-door cooling remains a separate mechanism. Old cooling bookmarks resolve to the combined comparison.
+- Independent technical review checked current GB300 hybrid cooling, separate facility/technology loops, coolant connections and the supplied immersion image. The cold-plate photograph is not assigned an unverified manufacturer or exact model.
+- Built-in browser: desktop visual inspection and bounds checks across all 16 scenes at **1280 × 720**. Opening responsive geometry checked at **390 × 844** and **844 × 390**. Corrected two enlarged-label collisions, a clipped pump label and the short-landscape footer overlap; revised scenes pass their repeat checks.
+- Presenter audience mode connected and hid its controls; the separate preview window was not inspected. Dark appearance was not separately exercised in this pass. The standalone browser harness was updated for the new scene order but not run.
+- **305 JavaScript tests and 80 Python tests passed** for the combined Chapters 11–12 revision. Author acceptance remains pending.
+
+## Chapter 12 wet/dry definitions and opening — 2026-09-17
+
+- **18 slides.** Opening reduced to its title and heat-path flowchart. Added the definition slide; separated air measurements from cooling equipment, clarified open-tower nozzles/fill and retained the chiller after the outdoor-temperature constraint.
+- Independent primary-source review found no material errors in tower evaporation, bulb definitions, the stipulated approach-temperature paths or the CDU/chiller distinction.
+- Built-in browser: visually inspected the opening, wet/dry comparison, definition, fully revealed humid temperature path and chiller. The first nine slides passed overflow, figure-label and footer bounds checks at **1280 × 720**, **390 × 844** and **844 × 390**. No browser errors were recorded.
+- All three interface reveals work. High humidity is visibly selected and changes wet-bulb temperature to 28°C and the example rack supply to 41°C. Removed the requested redundant lines; adjusted the nozzle label so the vapor arrow does not cross it.
+- Numerical models are unchanged. **305 JavaScript tests and 80 Python tests passed.** Feedback through the former slide 8 is implemented; later slides and whole-chapter acceptance remain open in COURSE_REVIEW.md.
+
 ## Chapter 13 intuitive delivery and preserved additions — 2026-09-16
 
 - **24 slides**, reduced from 27. The late rack change is now slide 2.

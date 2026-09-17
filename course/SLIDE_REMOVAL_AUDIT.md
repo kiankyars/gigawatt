@@ -27,7 +27,7 @@ Kian personally created a slide.
 
 | Chapter | Standalone scenes removed | What happened to their teaching content |
 | --- | --- | --- |
-| 11 | `heat-path`, `branch-flow`, `coolant-interfaces` | These match Kian’s specific redundancy/unnecessary-content feedback. The CRAH/CDU distinction and four separate capture methods requested in that same review were added. The dictation-error speaker note remains removed. |
+| 11 | `heat-path`, `branch-flow`, `coolant-interfaces` | These match Kian’s specific redundancy/unnecessary-content feedback. The CRAH/CDU distinction and four capture methods remain. On September 17, `capture-coldplates` and `crah-cdu` were combined into `capture-options` at the author’s request. GB300 rack coolant entry was added; rear-door cooling remains a separate mechanism. The dictation-error speaker note remains removed. |
 | 12 | `two-ceilings`, `reuse-interface` | Folded into `hot-hour` and `heat-reuse`; detailed calculations remain in the reader. No separate user request for either retired slide was found. |
 | 13 | `delivery-paths`, `site-checks`, `handover-records` | Folded into the critical-path, factory-acceptance and release-decision slides. The approved revision excluded the previously requested additions listed below. |
 | 14 | `diagnostic-observations`, `google-verification`, `control-delay`, `return-to-service`, `common-cause`, `overlap-outages`, `causal-evidence`, `diagnosis-check` | Combined with retained explanations or moved to reader detail. No separate request for these individual slides was found. The former DeepMind verification diagram is no longer displayed; thermal-budget and outage-overlap calculations remain reader material. |
@@ -38,8 +38,7 @@ The rows above distinguish those outcomes.
 
 ## Explicit additions still present
 
-- **Chapter 11:** CRAH/CDU at slide 4; separate capture methods at slides 2, 3,
-  5 and 6.
+- **Chapter 11:** stacked CRAH/CDU and air/cold-plate comparison at slide 2; GB300 coolant entry at slide 3; rear-door cooling at slide 4 and immersion at slide 5.
 - **Chapter 13:** EPC versus manufacturing strategy at slide 6; design release
   at slide 10; ownership of interfaces at slide 13; the fixed-20 MW rack-change
   exercise starts at slide 2 and continues through its electrical, hydraulic,

@@ -1265,10 +1265,15 @@ Compare air, cold-plate, rear-door and immersion approaches against a declared d
 - [P58 — OCP — Modular Technology Cooling Systems, Revision 1](https://www.opencompute.org/documents/ocp-modular-tcs-rev-1-final-2025-pdf) · `page_reviewed` · [local note](../research/sources/P58.md)
 - [P59 — Vertiv — How N+1 redundancy supports continuous data center cooling](https://www.vertiv.com/en-ca/about/news-and-events/articles/educational-articles/how-n1-redundancy-supports-continuous-data-center-cooling/) · `public_excerpt_reviewed` · [local note](../research/sources/P59.md)
 - [P60 — NVIDIA — DSX Facilities Infrastructure Reference Design Overview](https://docs.nvidia.com/dsx/facilities-infra/reference-design-overview) · `public_excerpt_reviewed` · [local note](../research/sources/P60.md)
+- [P64 — NVIDIA DGX GB Rack Scale Systems — Hardware](https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html#power-shelves) · `page_reviewed` · [local note](../research/sources/P64.md)
 - [P72 — OpenStax · Heat](https://openstax.org/books/college-physics-2e/pages/14-1-heat) · `page_reviewed` · [local note](../research/sources/P72.md)
 - [P74 — Crusoe — Abilene cooling design](https://www.crusoe.ai/resources/blog/an-inside-look-at-the-abilene-ai-data-center) · `page_reviewed` · [local note](../research/sources/P74.md)
 - [P94 — CoolIT Systems Launches Three High-Density Coolant Distribution Units](https://www.coolitsystems.com/resources/news/coolit-systems-launches-three-high-density-coolant-distribution-units/) · `page_reviewed` · [local note](../research/sources/P94.md)
+- [P111 — Lenovo NVIDIA GB300 NVL72 Rack Scale AI Product Guide](https://lenovopress.lenovo.com/lp2357-lenovo-nvidia-gb300-nvl72-rack-scale-ai) · `page_reviewed` · [local note](../research/sources/P111.md)
 - [P125 — TDEC — Colossus water-reuse public hearing, SOP-24025](https://www.tn.gov/environment/calendar-of-events/2025/6/25/wr-public-hearing-sop-24025.html) · `page_reviewed` · [local note](../research/sources/P125.md)
+- [P214 — 2CRSi — Single-phase immersion cooling](https://2crsi.com/single-phase-immersion-cooling) · `page_reviewed` · [local note](../research/sources/P214.md)
+- [P215 — 2CRSi — Two-phase immersion cooling](https://2crsi.com/two-phase-immersion-cooling) · `page_reviewed` · [local note](../research/sources/P215.md)
+- [P216 — Motivair — ChilledDoor rear-door heat exchanger](https://www.motivaircorp.com/products/chilleddoor/) · `page_reviewed` · [local note](../research/sources/P216.md)
 
 <a id="d11"></a>
 
@@ -1369,6 +1374,7 @@ Evaluate cooling architecture or heat reuse against climate, water, electrical c
 - [P74 — Crusoe — Abilene cooling design](https://www.crusoe.ai/resources/blog/an-inside-look-at-the-abilene-ai-data-center) · `page_reviewed` · [local note](../research/sources/P74.md)
 - [P125 — TDEC — Colossus water-reuse public hearing, SOP-24025](https://www.tn.gov/environment/calendar-of-events/2025/6/25/wr-public-hearing-sop-24025.html) · `page_reviewed` · [local note](../research/sources/P125.md)
 - [P126 — Federation of American Scientists — Tracking Hyperscale AI Data Center Growth with Satellite Imagery](https://fas.org/publication/tracking-hyperscale/) · `page_reviewed` · [local note](../research/sources/P126.md)
+- [P217 — DOE FEMP — Cooling Towers: Understanding Key Components](https://www.energy.gov/sites/default/files/2013/10/f3/waterfs_coolingtowers.pdf) · `page_reviewed` · [local note](../research/sources/P217.md)
 
 <a id="d12"></a>
 

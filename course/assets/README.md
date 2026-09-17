@@ -242,3 +242,7 @@ is separate from the Llama BF16 calculation beside it.
 image-generation tool and inspected before integration above the batching diagrams.
 Both adjacent provenance JSON files record hashes; the bus record includes the
 complete generation prompt.
+
+## Chapter 11 supplied cooling figures — 17 September 2026
+
+`references/2crsi-single-phase-immersion-user.png` and `references/cold-plate-assemblies-user.png` preserve the supplied PNG bytes. The first matches [2CRSi’s single-phase schematic](https://2crsi.com/single-phase-immersion-cooling), with its logo retained; two-phase behavior is explained separately. The second was supplied as GB300 context, but its maker and exact model remain unverified. It is captioned “Cold-plate assemblies,” with no invented attribution or hidden-channel annotation. Hashes and usage limits are in `references/provenance.json`. The existing NVIDIA GB300 rear view is reused to locate coolant manifolds.

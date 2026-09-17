@@ -295,5 +295,23 @@
     "retrieved_on": "2026-09-14",
     "sha256": "5c440ed339a76e0669e04369f1e4b720be0046a037f18b9bba657ed7c23af2c0",
     "note": "Original export image unchanged. Geographic context only; current construction not implied. Exact extent, Census boundary path, and source queries recorded in southaven-geography.provenance.json."
+  },
+  {
+    "file": "2crsi-single-phase-immersion-user.png",
+    "source_id": "P214",
+    "source_url": "https://pictures.2cr.si/Images_site_web_Odoo/Landings/Immersion/schema_immersion_phase1.png",
+    "article_url": "https://2crsi.com/single-phase-immersion-cooling",
+    "publisher": "2CRSi",
+    "retrieved_on": "2026-09-17",
+    "sha256": "1e47ca651938844762063870cd5d2367f2c8040d5920f334d1315fb8c6621d84",
+    "note": "User-supplied PNG preserved unchanged, including logo. Matches the manufacturer single-phase immersion diagram. It does not depict two-phase immersion; the course contrasts mechanisms separately."
+  },
+  {
+    "file": "cold-plate-assemblies-user.png",
+    "source_url": null,
+    "publisher": "Unverified; user-supplied image",
+    "retrieved_on": "2026-09-17",
+    "sha256": "aa3d0526a358d3c3dd244d15e363e9fa1611b880da4c865a2ebd994bb43c8942",
+    "note": "User supplied as GB300 cold-plate context. Exact maker/model not independently established. Original image bytes preserved; captioned Cold-plate assemblies. Visible gold patterns are not labeled as internal coolant channels."
   }
 ]

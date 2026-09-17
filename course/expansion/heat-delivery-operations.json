@@ -36,6 +36,14 @@
           "Time adds another boundary. Immediately after a load increase, heat can accumulate in metal, coolant and air. The instantaneous external rejection rate therefore need not equal the instantaneous electrical draw. To predict temperature rise, we would need stored thermal energy, effective heat capacities, mixing, transport delays and control behavior. This lesson deliberately calculates an established steady operating point. It does not turn an omitted thermal model into a guessed ride-through time.",
           "The practical habit is to annotate every arrow with both a physical meaning and an accounting boundary. A fluid arrow represents moving material; a heat arrow represents energy crossing an interface. A wire feeding a fan brings electricity that eventually joins a heat path. Once these are distinct, a changed architecture becomes easier to compare: identify which interfaces moved, which electrical inputs changed, and which outdoor duty remains to be served."
         ]
+      },
+      {
+        "heading": "How an open wet tower exposes water to air",
+        "paragraphs": [
+          "Warm tower water is distributed from spray nozzles or distribution decks over fill. Fill spreads it into films or breaks it into droplets, increasing the wetted area and contact time with air. Some water evaporates into the passing air; the remaining cooled water falls into a basin and recirculates. Evaporation occurs at exposed water surfaces rather than through a closed metal pipe. A closed-circuit evaporative cooler is a different arrangement, with process fluid inside a coil and a separate spray-water circuit outside it.",
+          "Dry and wet cooling name equipment mechanisms. Dry-bulb and wet-bulb name two measurements of the same outdoor air. A dry cooler exchanges sensible heat with air, so its temperature comparison uses dry bulb. An open evaporative tower is evaluated against wet bulb. Both weather measurements exist on the same day; selecting a wet tower does not select a different atmosphere.",
+          "The CoolIT CHx2000 in Chapter 11 is a liquid-to-liquid CDU. It transfers heat between circuits using a heat exchanger and circulates coolant with pumps; it is not a refrigeration compressor. The chiller introduced here adds a compressor-driven refrigeration cycle when the passive temperature path cannot deliver sufficiently cool water. The tower/dry-cooler temperature comparison therefore comes before the chiller balance in this chapter."
+        ]
       }
     ],
     "example": {
@@ -128,6 +136,13 @@
         "claim": "An air-cooled chiller can make chilled water while its condenser rejects heat to air, resolving the ambiguity between load coolant and condenser cooling medium.",
         "reviewed_on": "2026-09-11",
         "limits": "Opening definition reviewed. No software performance curve is reused or extrapolated."
+      },
+      {
+        "title": "DOE FEMP — Cooling Towers: Understanding Key Components",
+        "url": "https://www.energy.gov/sites/default/files/2013/10/f3/waterfs_coolingtowers.pdf",
+        "claim": "Water distribution decks/nozzles, film and splash fill, evaporation and water collection in open towers.",
+        "reviewed_on": "2026-09-17",
+        "limits": "Physical mechanism only; dated policy requirements and savings estimates are not adopted."
       }
     ],
     "terms": [

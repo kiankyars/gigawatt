@@ -8,8 +8,7 @@ const output = process.argv[3] || "/tmp/gigawatt-cooling-qa";
 const variants = {
   "why-liquid": [null],
   "capture-options": [null],
-  "capture-coldplates": [null],
-  "crah-cdu": [null],
+  "rack-coolant-entry": [null],
   "capture-rear-door": [null],
   "capture-immersion": [null],
   "cold-plate": [null],
@@ -136,13 +135,13 @@ async function checkDiagramGeometry(page, state) {
         });
         const go = async (id) => {
           await page.goto(`${base}?qa=${colorScheme}-${viewport.width}#${id}`);
-          await page.waitForSelector("#diagram text");
+          await page.waitForSelector("#diagram > title", { state: "attached" });
         };
         for (const [id, states] of Object.entries(variants)) {
           await go(id);
           assert.equal(await page.locator("h1:visible").count(), 1);
           assert.equal(await page.locator("#fullscreen").isVisible(), false);
-          assert.equal(await page.locator("#scenes option").count(), 17);
+          assert.equal(await page.locator("#scenes option").count(), 16);
           assert.equal(
             await page.locator("#diagram").getAttribute("data-scene"),
             id,
@@ -266,8 +265,8 @@ async function checkDiagramGeometry(page, state) {
               assert.match(content, /fluids stay separate/);
             }
             if (id === "capture-options") assert.match(content, /CRAH/);
-            if (id === "crah-cdu") {
-              for (const phrase of ["Computer room air handler", "Coolant distribution unit", "Room air", "Rack coolant"])
+            if (id === "capture-options") {
+              for (const phrase of ["CRAH", "CDU", "Facility water"])
                 assert.ok(content.includes(phrase), `${name}: missing ${phrase}`);
             }
             if (id === "device-temperature") {
@@ -370,7 +369,9 @@ async function checkDiagramGeometry(page, state) {
           }
         }
         for (const [oldId, newId] of Object.entries({
-          "heat-path": "crah-cdu",
+          "heat-path": "capture-options",
+          "capture-coldplates": "capture-options",
+          "crah-cdu": "capture-options",
           "branch-flow": "pump-operating-point",
           "coolant-interfaces": "cooling-retrofit",
         })) {

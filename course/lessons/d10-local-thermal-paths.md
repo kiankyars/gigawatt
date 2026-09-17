@@ -14,6 +14,12 @@ A cooling system has several jobs: capture heat at the hardware, transport it th
 
 Water cooler is too ambiguous to identify a data-center architecture. Name the actual equipment: a water-fed cold plate, a chilled-water air handler, a dry fluid cooler, a cooling tower or a water-cooled chiller. In the last term, water-cooled describes the chiller condenser. An air-cooled chiller can still supply chilled water to the building. Always ask which fluid takes heat from which object, then follow it to the next boundary.
 
+## Why the opening asks whether air cooling is dead
+
+The question concerns the practical limits of moving concentrated rack heat through air. It does not mean that air cooling has disappeared. The opening compares 100 kW carried through a 10°C rise: water requires about 2.39 litres per second, while air requires about 8,292 litres per second at the stated densities and heat capacities. The fundamental heat transfer equation used here is the steady-flow sensible-heat balance: Q̇ = ṁ cₚ ΔT = ρ V̇ cₚ ΔT. It relates heat-transfer rate to mass flow, specific heat and fluid temperature rise when the fluid remains in one phase. It is not the boiling/condensation energy balance.
+
+Lenovo’s GB300 NVL72 guide, updated August 30, 2026, describes approximately 90% liquid and 10% air heat capture at rack level. Cold plates serve the major liquid-cooled components; remaining air-cooled components still need an air path. The stacked comparison therefore retains both CDU and CRAH. The proportions depend on the rack implementation and operating conditions.
+
 ## Follow temperature through the heat path
 
 In a steady operating state, most electrical energy consumed by computing equipment becomes heat within the facility’s accounting boundary. That energy balance says how much heat must ultimately leave. It does not say that every device is at an acceptable temperature. Heat must cross a sequence of interfaces: from active silicon through its package and thermal interface, then into a heat sink, cold plate or immersion fluid, and onward to another cooling boundary. A restrictive local interface can overheat a device while the room-level heat balance still appears adequate.
@@ -37,6 +43,12 @@ A cold plate captures heat near selected components and transfers it to a techno
 ## Close parallel heat paths without erasing local limits
 
 Draw liquid-captured heat and residual air heat as separate arrows whose sum matches the defined rack heat load. Include auxiliaries consistently. If a 100 kW rack transfers 85 kW into a cold-plate loop and 15 kW to room air, the air system still needs to manage that 15 kW at the right locations. A failed fan can harm an air-cooled component while the liquid supply remains normal. Likewise, a blocked cold-plate branch can cause local throttling even if the room is comfortable and the CDU’s aggregate load is below its rating.
+
+## Read the supplied hardware and immersion images
+
+The copper cold-plate photograph was supplied as GB300 context. It shows physical assemblies, tubes, hoses and couplings. The precise manufacturer and model have not been independently established, and visible gold surface patterns are not identified as hidden coolant channels. Heat crosses the package/interface and plate metal before entering the contained coolant.
+
+The supplied 2CRSi figure depicts single-phase immersion: dielectric liquid circulates through the bath and an external heat exchanger while remaining liquid. In two-phase immersion, a suitable fluid boils at the electronics, vapor reaches a cooled condenser, and liquid returns to the bath. The words single-phase and two-phase refer to the fluid’s physical state; they do not describe the facility electrical supply.
 
 ## Worked example: Equal heat, unequal device temperature
 
@@ -88,3 +100,6 @@ Lower supply temperature may require additional upstream cooling work or condens
 - [ASHRAE — Emergence and Expansion of Liquid Cooling in Mainstream Data Centers](https://www.ashrae.org/file%20library/technical%20resources/bookstore/emergence-and-expansion-of-liquid-cooling-in-mainstream-data-centers_wp.pdf) — Thermal resistance connects device temperature, cooling-medium temperature and device heat; local requirements can drive cooling changes. Read 2026-09-06. Selected thermal-resistance discussion reviewed from the 2021 white paper. No historical trend figure or vendor temperature class is reproduced.
 - [ASHRAE Handbook, Chapter 20: Data Centers and Telecommunication Facilities](https://handbook.ashrae.org/Handbooks/A23/SI/A23_Ch20/a23_ch20_si.aspx) — Provides context for air and liquid heat paths, CRAH chilled-water coils, CRAC compressorized circuits, and equipment-specific environmental requirements. Read 2026-09-11. Selected public 2023 local-cooling and CRAC/CRAH sections reviewed. Equipment names distinguish circuits, not a universal layout; current equipment limits govern actual use.
 - [Trane TRACE 3D Plus — Air Cooled Chillers](https://trace3dplus.help.trane.com/air_cooled_chillers.html) — An air-cooled chiller can make chilled water while its condenser rejects heat to air, resolving the ambiguity between load coolant and condenser cooling medium. Read 2026-09-11. Opening definition reviewed. No software performance curve is reused or extrapolated.
+- [Lenovo NVIDIA GB300 NVL72 Rack Scale AI Product Guide](https://lenovopress.lenovo.com/lp2357-lenovo-nvidia-gb300-nvl72-rack-scale-ai) — Current hybrid liquid/air heat capture and residual air-cooled components. Read 2026-09-17. Named Lenovo implementation, guide updated August 30, 2026; no universal liquid-capture percentage inferred.
+- [2CRSi — Single-phase immersion cooling](https://2crsi.com/single-phase-immersion-cooling) — Supplied diagram identity and single-phase circulation through a separate water heat exchanger. Read 2026-09-17. Mechanism only; no marketing efficiency, fluid-safety or elimination-of-infrastructure claims adopted.
+- [2CRSi — Two-phase immersion cooling](https://2crsi.com/two-phase-immersion-cooling) — Phase-change mechanism compared with single-phase immersion. Read 2026-09-17. The source diagram is not reproduced; no universal fluid composition or safety claim inferred.

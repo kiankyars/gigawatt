@@ -38,7 +38,7 @@ function hydraulics(_state,small){
   const curves=[{label:'Pump: pressure available',color:'tech',f:q=>160-10*q*q},
     {label:'Clean circuit: pressure needed',color:'facility',f:q=>30*q*q},
     {label:'Restricted circuit: pressure needed',color:'fault',f:q=>70*q*q,dash:true}];
-  let b=text(w/2,25,'Same pump speed in both cases',small?22:27);
+  let b=text(w/2,35,'Same pump speed in both cases',small?22:27);
   curves.forEach((curve,i)=>{
     const lx=small?18:28+i*358,ly=small?55+i*28:61;
     b+=`<path d="M${lx} ${ly-6}h30" fill="none" stroke="var(--${curve.color})" stroke-width="4"${curve.dash?' stroke-dasharray="8 5"':''}/>`

@@ -53,8 +53,7 @@ function rejection(compact) {
     path("M220 204 H272", "muted", true, 3) +
     path("M377 204 H525", "heat", true, 4) +
     fan(449, 204, 23) +
-    centered(470, 150, "Air", 16) +
-    centered(294, 378, "Water stays inside the coil.", 17, "ink", "dry-panel");
+    centered(470, 150, "Air", 16);
   const wet =
     rect("wet-panel", 590, 12, 548, 392) +
     centered(864, 47, "Wet cooling tower", 23, "ink", "wet-panel") +
@@ -62,12 +61,17 @@ function rejection(compact) {
     label(619, 102, "Tower-water loop", 15, "facility") +
     path("M670 165 H864 V149 H982", "facility") +
     path("M723 165 H783", "facility", true) +
-    Array.from({ length: 6 }, (_, i) =>
-      path(`M${865 + i * 23} 158 V201`, "facility", true, 1.8),
-    ).join("") +
+    centered(882, 137, "Nozzles", 12, "facility") +
+    Array.from({ length: 6 }, (_, i) => {
+      const x = 865 + i * 23;
+      return `<path d="M${x - 4} 153 L${x} 160 L${x + 4} 153 Z" fill="var(--facility)"/>` +
+        path(`M${x - 3} 170 l-5 22 M${x + 3} 170 l5 22`, "facility", false, 1.5, 'stroke-dasharray="3 6"');
+    }).join("") +
     Array.from({ length: 4 }, (_, i) =>
       path(`M855 ${210 + i * 20} h146`, "line", false, 2),
     ).join("") +
+    label(774, 241, "Fill", 14) +
+    path("M805 237 H849", "muted", false, 1.2) +
     `<path d="M849 289 H1010 V311 H849 Z" fill="var(--facility)" opacity=".2"/>` +
     path("M850 298 H670 V270", "facility") +
     path("M784 298 H724", "facility", true) +
@@ -82,15 +86,7 @@ function rejection(compact) {
     path("M1064 298 H1021", "facility", true, 3) +
     centered(1074, 276, "Makeup", 13, "facility") +
     path("M999 313 V342 H1081", "facility", true, 2.5) +
-    centered(1066, 364, "Blowdown", 12, "facility") +
-    centered(
-      852,
-      378,
-      "Most water returns to the loop.",
-      17,
-      "ink",
-      "wet-panel",
-    );
+    centered(1066, 364, "Blowdown", 12, "facility");
   return dry + wet;
 }
 function compactRejection() {
@@ -111,20 +107,24 @@ function compactRejection() {
     path("M131 148 H176", "muted", true, 2.5) +
     path("M251 148 H338", "heat", true, 3) +
     fan(290, 148, 19) +
-    label(278, 104, "Air", 13) +
-    centered(186, 257, "No intentional evaporation", 15, "ink", "dry-panel");
+    label(278, 104, "Air", 13);
   const wet =
     rect("wet-panel", 12, 289, 348, 285) +
     label(28, 318, "Wet cooling tower", 22) +
     rect("tower-case", 163, 365, 135, 137, "face") +
     path("M66 382 H179 V381 H284", "facility") +
     path("M99 382 H138", "facility", true, 3) +
-    Array.from({ length: 5 }, (_, i) =>
-      path(`M${179 + i * 25} 390 V429`, "facility", true, 1.5),
-    ).join("") +
+    centered(193, 376, "Nozzles", 10, "facility") +
+    Array.from({ length: 5 }, (_, i) => {
+      const x = 179 + i * 25;
+      return `<path d="M${x - 3} 385 L${x} 391 L${x + 3} 385 Z" fill="var(--facility)"/>` +
+        path(`M${x - 2} 397 l-4 28 M${x + 2} 397 l4 28`, "facility", false, 1.4, 'stroke-dasharray="3 5"');
+    }).join("") +
     Array.from({ length: 3 }, (_, i) =>
       path(`M175 ${439 + i * 14} H286`, "line", false, 1.5),
     ).join("") +
+    label(120, 455, "Fill", 12) +
+    path("M142 451 H169", "muted", false, 1) +
     `<path d="M170 481 H291 V495 H170 Z" fill="var(--facility)" opacity=".2"/>` +
     path("M174 490 H65 V478", "facility") +
     path("M132 490 H102", "facility", true, 3) +
@@ -139,8 +139,7 @@ function compactRejection() {
     path("M338 490 H299", "facility", true, 2.5) +
     centered(321, 470, "Makeup", 11, "facility") +
     path("M278 500 V520 H327", "facility", true, 2) +
-    centered(280, 539, "Blowdown", 11, "facility") +
-    label(27, 565, "Most water recirculates.", 15);
+    centered(280, 539, "Blowdown", 11, "facility");
   return dry + wet;
 }
 

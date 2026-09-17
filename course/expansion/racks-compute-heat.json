@@ -2470,6 +2470,13 @@
         ]
       },
       {
+        "heading": "Why the opening asks whether air cooling is dead",
+        "paragraphs": [
+          "The question concerns the practical limits of moving concentrated rack heat through air. It does not mean that air cooling has disappeared. The opening compares 100 kW carried through a 10°C rise: water requires about 2.39 litres per second, while air requires about 8,292 litres per second at the stated densities and heat capacities. The fundamental heat transfer equation used here is the steady-flow sensible-heat balance: Q̇ = ṁ cₚ ΔT = ρ V̇ cₚ ΔT. It relates heat-transfer rate to mass flow, specific heat and fluid temperature rise when the fluid remains in one phase. It is not the boiling/condensation energy balance.",
+          "Lenovo’s GB300 NVL72 guide, updated August 30, 2026, describes approximately 90% liquid and 10% air heat capture at rack level. Cold plates serve the major liquid-cooled components; remaining air-cooled components still need an air path. The stacked comparison therefore retains both CDU and CRAH. The proportions depend on the rack implementation and operating conditions."
+        ]
+      },
+      {
         "heading": "Follow temperature through the heat path",
         "paragraphs": [
           "In a steady operating state, most electrical energy consumed by computing equipment becomes heat within the facility’s accounting boundary. That energy balance says how much heat must ultimately leave. It does not say that every device is at an acceptable temperature. Heat must cross a sequence of interfaces: from active silicon through its package and thermal interface, then into a heat sink, cold plate or immersion fluid, and onward to another cooling boundary. A restrictive local interface can overheat a device while the room-level heat balance still appears adequate.",
@@ -2495,6 +2502,13 @@
         "heading": "Close parallel heat paths without erasing local limits",
         "paragraphs": [
           "Draw liquid-captured heat and residual air heat as separate arrows whose sum matches the defined rack heat load. Include auxiliaries consistently. If a 100 kW rack transfers 85 kW into a cold-plate loop and 15 kW to room air, the air system still needs to manage that 15 kW at the right locations. A failed fan can harm an air-cooled component while the liquid supply remains normal. Likewise, a blocked cold-plate branch can cause local throttling even if the room is comfortable and the CDU’s aggregate load is below its rating."
+        ]
+      },
+      {
+        "heading": "Read the supplied hardware and immersion images",
+        "paragraphs": [
+          "The copper cold-plate photograph was supplied as GB300 context. It shows physical assemblies, tubes, hoses and couplings. The precise manufacturer and model have not been independently established, and visible gold surface patterns are not identified as hidden coolant channels. Heat crosses the package/interface and plate metal before entering the contained coolant.",
+          "The supplied 2CRSi figure depicts single-phase immersion: dielectric liquid circulates through the bath and an external heat exchanger while remaining liquid. In two-phase immersion, a suitable fluid boils at the electronics, vapor reaches a cooled condenser, and liquid returns to the bath. The words single-phase and two-phase refer to the fluid’s physical state; they do not describe the facility electrical supply."
         ]
       }
     ],
@@ -2562,6 +2576,27 @@
         "claim": "An air-cooled chiller can make chilled water while its condenser rejects heat to air, resolving the ambiguity between load coolant and condenser cooling medium.",
         "reviewed_on": "2026-09-11",
         "limits": "Opening definition reviewed. No software performance curve is reused or extrapolated."
+      },
+      {
+        "title": "Lenovo — NVIDIA GB300 NVL72 Rack Scale AI",
+        "url": "https://lenovopress.lenovo.com/lp2357-lenovo-nvidia-gb300-nvl72-rack-scale-ai#cooling",
+        "claim": "Current hybrid liquid/air heat capture and residual air-cooled components.",
+        "reviewed_on": "2026-09-17",
+        "limits": "Named Lenovo implementation, guide updated August 30, 2026; no universal liquid-capture percentage inferred."
+      },
+      {
+        "title": "2CRSi — Single-phase immersion cooling",
+        "url": "https://2crsi.com/single-phase-immersion-cooling",
+        "claim": "Supplied diagram identity and single-phase circulation through a separate water heat exchanger.",
+        "reviewed_on": "2026-09-17",
+        "limits": "Mechanism only; no marketing efficiency, fluid-safety or elimination-of-infrastructure claims adopted."
+      },
+      {
+        "title": "2CRSi — Two-phase immersion cooling",
+        "url": "https://2crsi.com/two-phase-immersion-cooling",
+        "claim": "Phase-change mechanism compared with single-phase immersion.",
+        "reviewed_on": "2026-09-17",
+        "limits": "The source diagram is not reproduced; no universal fluid composition or safety claim inferred."
       }
     ],
     "terms": [
@@ -2774,6 +2809,13 @@
         ]
       },
       {
+        "heading": "Follow the rack connections, not just the cabinet",
+        "paragraphs": [
+          "In the GB300 cold-plate example, the CDU supplies technology coolant to rack manifolds. Quick-disconnect connections carry it to the trays and their cold plates; the return manifold takes warmed coolant back to the CDU. Lenovo documents top- and bottom-feed manifold options and in-rack or in-row CDU connections. The existing NVIDIA rear-rack figure identifies the cooling manifolds separately from the power busbar and cable cartridges.",
+          "A rear-door heat exchanger is different: its coil takes heat from rack exhaust air. Depending on the installation, the door may use compatible facility water directly or a secondary coolant loop through a CDU. Calling the GB300 cold-plate loop technology coolant is correct for the depicted two-loop architecture; it does not establish that every rear-door water circuit has a CDU."
+        ]
+      },
+      {
         "heading": "Finite heat transfer requires a temperature difference",
         "paragraphs": [
           "A heat exchanger cannot move a finite heat rate with zero driving temperature difference everywhere unless an unphysical infinite conductance is assumed. A simplified exchanger model uses heat rate equal to UA times an appropriate mean temperature difference, where U represents overall transfer behavior and A the effective area. For the special counterflow example below, both end differences are equal, so their common value is also the log-mean difference. General cases require the appropriate exchanger calculation and performance data.",
@@ -2930,6 +2972,27 @@
         "claim": "The mechanical-gallery CDU section specifies N+1 CDU groups with shared piping and separates the technical and facility-water loops.",
         "reviewed_on": "2026-09-11",
         "limits": "Selected CDU and gallery sections reviewed in mutable HTML. One reference design does not prove site deployment, independent facility-water paths or the ratings and response time of the synthetic course example."
+      },
+      {
+        "title": "NVIDIA — DGX GB rack hardware",
+        "url": "https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html",
+        "claim": "Annotated GB300 rear hardware figure identifies cooling manifolds and liquid interfaces.",
+        "reviewed_on": "2026-09-17",
+        "limits": "Exploded manufacturer view, not an installation drawing or a rear-door heat exchanger."
+      },
+      {
+        "title": "Lenovo — GB300 water connections",
+        "url": "https://lenovopress.lenovo.com/lp2357-lenovo-nvidia-gb300-nvl72-rack-scale-ai#water-connections",
+        "claim": "CDU inlet/return hoses, tray quick connections and top/bottom-feed rack manifolds.",
+        "reviewed_on": "2026-09-17",
+        "limits": "Specific Lenovo implementation; do not combine OEM details into a fabricated universal rack."
+      },
+      {
+        "title": "Motivair — ChilledDoor",
+        "url": "https://www.motivaircorp.com/products/chilleddoor/",
+        "claim": "A rear-door exchanger can circulate compatible facility water through its coil.",
+        "reviewed_on": "2026-09-17",
+        "limits": "Product-specific fluid path; other rear-door implementations use a CDU secondary circuit."
       }
     ],
     "terms": [
