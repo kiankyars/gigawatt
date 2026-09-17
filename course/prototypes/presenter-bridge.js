@@ -1,6 +1,7 @@
 import { PRESENTER_PROTOCOL, isPresenterMessage, requestedPreview, slideSelection } from './presenter-model.js';
 
 const SESSION_KEY = 'gigawatt-presenter-session';
+const AUDIENCE_TITLE = 'From Watts to Tokens';
 
 /** The original window owns the current slide; the presenter receives only navigation state. */
 export function installPresenter(doc = document, win = window) {
@@ -36,7 +37,8 @@ export function installPresenter(doc = document, win = window) {
   let session;
   try { session = win.sessionStorage.getItem(SESSION_KEY); } catch { /* Storage can be disabled. */ }
   session ||= win.crypto.randomUUID();
-  let peer = null, ready = false, observer = null, frame = 0, interval = 0, lastSnapshot = '';
+  let peer = null, ready = false, observer = null, titleObserver = null, frame = 0, interval = 0, lastSnapshot = '';
+  let slideTitle = doc.title;
   const button = doc.createElement('button');
   button.type = 'button';
   button.className = 'course-presenter-button';
@@ -48,8 +50,16 @@ export function installPresenter(doc = document, win = window) {
     if (!peer || peer.closed) return;
     peer.postMessage({ protocol: PRESENTER_PROTOCOL, session, ...data }, location.origin);
   };
+  const syncTitle = () => {
+    // Deck renderers still own the descriptive title sent to the private presenter.
+    if (doc.title !== AUDIENCE_TITLE) slideTitle = doc.title;
+    if (ready && doc.title !== AUDIENCE_TITLE) doc.title = AUDIENCE_TITLE;
+  };
   const disconnect = () => {
+    syncTitle();
     ready = false;
+    titleObserver?.disconnect(); titleObserver = null;
+    if (doc.title === AUDIENCE_TITLE) doc.title = slideTitle;
     delete doc.documentElement.dataset.presenterActive;
     observer?.disconnect(); observer = null;
     if (frame) win.clearTimeout(frame);
@@ -63,7 +73,8 @@ export function installPresenter(doc = document, win = window) {
     const selection = slideSelection(doc);
     if (!selection) return;
     const chapterLink = doc.querySelector('.course-next-chapter:not([hidden])');
-    const data = { type: 'snapshot', ...selection, title: doc.title, href: win.location.href,
+    syncTitle();
+    const data = { type: 'snapshot', ...selection, title: slideTitle, href: win.location.href,
       nextChapter: chapterLink ? chapterLink.textContent.trim() : null };
     const key = JSON.stringify(data);
     if (key === lastSnapshot) return;
@@ -79,6 +90,12 @@ export function installPresenter(doc = document, win = window) {
     ready = true; lastSnapshot = '';
     doc.documentElement.dataset.presenterActive = '';
     button.setAttribute('aria-expanded', 'true');
+    syncTitle();
+    const head = doc.querySelector('head');
+    if (!titleObserver && head) {
+      titleObserver = new win.MutationObserver(() => { syncTitle(); schedule(); });
+      titleObserver.observe(head, { childList: true, subtree: true, characterData: true });
+    }
     if (!observer) {
       observer = new win.MutationObserver(schedule);
       observer.observe(doc.querySelector('footer.course-slide-navigation'), {

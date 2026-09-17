@@ -1,5 +1,15 @@
 # Course verification
 
+## Presenter audience tab title — 2026-09-16
+
+- During an active presenter connection, the audience browser tab uses the
+  neutral course title. The descriptive chapter/slide title is retained for the
+  private presenter, follows navigation, and returns to the audience tab on exit.
+- Regression checks cover title updates, repeated connections, popup closure,
+  exit before a pending title update, and unchanged metadata in the private view.
+  Built-in browser confirmed the neutral audience title on connection and after
+  advancing a slide; presenter/navigation tests pass.
+
 ## Desktop browser preference — 2026-09-12
 
 Use the built-in Codex browser for interactive and visual checks on this Mac.

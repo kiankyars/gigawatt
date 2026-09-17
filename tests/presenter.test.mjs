@@ -55,14 +55,15 @@ function audienceFixture({ preview = null, populated = true } = {}) {
   let timer = 0, button, currentSelect = { selectedIndex: 0, options: [{ textContent: '1 · Opening' }, { textContent: '2 · Mechanism' }], dispatchEvent() {} };
   if (!populated) currentSelect.options = [];
   const root = { addEventListener() {}, cloneNode() { throw new Error('The upcoming-slide window must not copy audience DOM'); } };
-  const footer = {};
+  const footer = {}, head = {};
   const nav = { querySelector: () => button || null, append: element => { button = element; } };
   const doc = {
     title: 'Example chapter', documentElement: { dataset: {} },
     getElementById: id => id === 'viewer' ? root : null,
     querySelector: selector => selector === '.toolbar nav' ? nav
       : selector === 'footer.course-slide-navigation select' ? currentSelect
-      : selector === 'footer.course-slide-navigation' ? footer : null,
+      : selector === 'footer.course-slide-navigation' ? footer
+      : selector === 'head' ? head : null,
     createElement: () => ({
       addEventListener(type, handler) { this[type] = handler; },
       setAttribute() {}, removeAttribute() {},
@@ -90,7 +91,7 @@ function audienceFixture({ preview = null, populated = true } = {}) {
   const send = data => handlers.get('message')?.({ origin: win.location.origin, source: peer,
     data: { protocol: PRESENTER_PROTOCOL, session: 'test-session', ...data } });
   const flush = () => { const callbacks = [...pending.values()]; pending.clear(); callbacks.forEach(callback => callback()); };
-  return { doc, win, peer, messages, handlers, observers, intervals, send, flush,
+  return { doc, win, peer, messages, handlers, observers, intervals, head, send, flush,
     get button() { return button; }, get select() { return currentSelect; },
     set select(value) { currentSelect = value; },
   };
@@ -141,6 +142,36 @@ test('presenter hides audience chrome only while connected and restores it on ei
   for (const tick of fixture.intervals.values()) tick();
   assert.equal(data.presenterActive, undefined, 'window.closed restores chrome even without a close message');
   assert.equal(fixture.intervals.size, 0);
+});
+
+test('audience tab stays neutral while private presenter metadata follows slides and restores on exit', () => {
+  const fixture = audienceFixture();
+  const opening = '10. Networking · Opening';
+  fixture.doc.title = opening;
+  installPresenter(fixture.doc, fixture.win);
+  fixture.button.click();
+  assert.equal(fixture.doc.title, opening, 'opening alone must not change the tab title');
+  fixture.send({ type: 'hello' });
+  assert.equal(fixture.doc.title, 'From Watts to Tokens');
+  assert.equal(fixture.messages.at(-1).title, opening);
+  const titleObserver = fixture.observers.find(observer => observer.target === fixture.head);
+  assert.ok(titleObserver);
+  fixture.doc.title = '10. Networking · Campus fiber';
+  titleObserver.callback(); fixture.flush();
+  assert.equal(fixture.doc.title, 'From Watts to Tokens');
+  assert.equal(fixture.messages.at(-1).title, '10. Networking · Campus fiber');
+  const messageCount = fixture.messages.length;
+  titleObserver.callback(); fixture.flush();
+  assert.equal(fixture.messages.length, messageCount, 'neutral-title mutations must not produce loops');
+  fixture.send({ type: 'close' });
+  assert.equal(fixture.doc.title, '10. Networking · Campus fiber');
+  assert.equal(titleObserver.disconnected, true);
+  fixture.send({ type: 'hello' });
+  assert.equal(fixture.doc.title, 'From Watts to Tokens');
+  fixture.doc.title = '10. Networking · Distance';
+  fixture.peer.closed = true;
+  for (const tick of fixture.intervals.values()) tick();
+  assert.equal(fixture.doc.title, '10. Networking · Distance', 'closing before a title callback preserves the latest renderer title');
 });
 
 test('blocked presenter popup leaves audience controls available', () => {
