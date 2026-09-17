@@ -1951,3 +1951,5 @@ The teaching deck is reduced from 27 to 12 scenes and renamed **Storage and reco
 - Narration checked against NVIDIA's August 2026 800 V DC roadmap and July 2026 Spectrum-6 announcement: the transformer-first route preserves established AC equipment; SST products exist but deployment prevalence is not established; pluggable and co-packaged optics coexist.
 
 - Closing-order follow-up: all 15 Chapter 9 slides remain. The power-stack map is slide 12; DC protection, retrofit, and the three-column comparison are slides 13–15. All 23 rack-energy/navigation tests pass. Built-in browser verified the final image, previous-slide link to retrofit, and onward link to Chapter 10.
+
+- Subsequent author-requested move: the power-stack map now closes Chapter 8 after recharge (17 slides), and Chapter 9 has 14 slides ending with the architecture comparison. All 23 rack-energy/navigation tests pass. Built-in browser confirmed slide 17/17 and its next-chapter link opens Chapter 9 at slide 1/14.
