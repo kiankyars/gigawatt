@@ -101,6 +101,18 @@ uses the physical network, and feed back into its capacity and topology.”
 
 Sources: [NVIDIA RoCE documentation](https://docs.nvidia.com/networking-ethernet-software/cumulus-linux/Layer-1-and-Switch-Ports/Quality-of-Service/RDMA-over-Converged-Ethernet-RoCE/), [Meta’s 2024 cluster account](https://engineering.fb.com/2024/03/12/data-center-engineering/building-metas-genai-infrastructure/).
 
+## Campus fiber handoff — Chapter 10, slide 18
+
+[Slide](prototypes/networking-format.html?teach=1#campus-fiber)
+
+“Here we follow the connection out of the data center. The border router directs traffic toward outside networks. The patch panel provides an organized place to terminate and connect cables; it does not route the traffic.
+
+“In the meet-me room, the data center’s fiber connects to a carrier’s fiber. A carrier is a company that provides network connectivity. From there, fiber runs through the building entrance and outside ducts into the carrier’s network. The service could be a private connection to another facility or access to the Internet.
+
+“For the facility designer, this means reserving space for the handoff equipment and planning the fiber entrances and routes. Those physical connections must be ready alongside the racks, power and cooling.”
+
+Source: [Equinix Cross Connect documentation](https://docs.equinix.com/cross-connect/), describing physical connections between customers and service providers and building meet-me-room connections.
+
 ## Meta built storage in tiers to keep GPUs supplied — Chapter 10, slide 21
 
 [Slide](prototypes/networking-format.html?teach=1#meta-rsc)
