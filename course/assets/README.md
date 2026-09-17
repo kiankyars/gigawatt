@@ -250,3 +250,7 @@ complete generation prompt.
 ## Supplied economizer illustration — 17 September 2026
 
 `references/economizer-mode-user.png` replaces Chapter 12’s economizer slide unchanged. Its embedded title is the sole visible heading. The diagram summarizes heat transfer; “from racks” and “back to racks” do not assert that facility water and technology coolant share one circuit.
+
+### Chapter 14 maintenance diagram — September 17, 2026
+
+`references/operations-meta-maintenance-train.jpg` is the original Meta maintenance-train illustration from its June 12, 2024 engineering account. Publisher bytes are unchanged; source, scope and SHA-256 are recorded in `references/operations-primary-provenance.json`.

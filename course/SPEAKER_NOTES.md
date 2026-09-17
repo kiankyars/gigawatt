@@ -272,55 +272,63 @@ The handover names the released racks, tested topology and configuration revisio
 
 Detailed derivations and the original separate 100 kW acceptance exercise remain in the [Chapter 13 reader](index.html#d13-commissioning-complete-paths).
 
-## Check the place, time and heat balance — Chapter 14, slides 1–4
+## Diagnose Row B — Chapter 14, slides 1–3
 
-“The plant supply can look normal while one row has a problem. Start with measurements at that row. A message delivered now can still contain a ten-minute-old reading; use the sensor’s observation time.
+- Start with the local chip-temperature alarm and a normal upstream 30°C supply reading.
+- Compare complete, time-aligned measurements at the row: before, 100 kg/s and 30→35°C; afterward, 50 kg/s and 30→40°C. Both stabilized states carry 2.09 MW.
+- 40°C is the **return**, not a replacement reading for the 30°C inlet. Nonzero flow also rules out a completely disconnected water branch.
+- Heat balance: 100 × 4.18 × 5 = 50 × 4.18 × 10 = 2,090 kW. During the intervening temperature rise, heat can accumulate; the displayed balances are stabilized points.
+- Lower flow is measured; its cause is not established. A normal plant temperature alone does not identify a valve, pump or local cooling fault.
 
-“By slide 4, temperatures have stabilized. All 2.09 megawatts enters this measured water branch. With a ten-degree water rise, the current 50-kilogram-per-second flow accounts for the heat. Combining the old 100-kilogram reading with today’s temperatures would imply twice as much heat. This supports the current measurement; it does not tell us why flow fell.”
+## Control layers and Google’s AI cooling — Chapter 14, slides 4–7
 
-The water balance is a stipulated steady-state example. During warming, some energy accumulates in equipment and fluid, so electrical input need not equal instantaneous measured heat removal. Model: [operations-model.js](prototypes/operations-model.js).
+- Local controllers regulate pumps; plant controls stage equipment; the scheduler admits computing work.
+- Google’s **2016** AI advised operators. The **2018** system directly controlled cooling under operator supervision, with an override available.
+- The original Google diagram shows prediction and action selection followed by independent local checks. Five minutes is the supervisory cadence, not protective response time.
+- On slide 7, existing work produces 4 MW; a new job adds 2 MW. Cooling is 5 MW now and 7 MW after a three-minute startup. Point at the shaded 1 MW deficit if the job starts early, then compare delaying the job.
+- The three-minute startup is illustrative. No thermal-buffer allowance is supplied; it does not establish a safe overrun period.
 
-## A command is not cooling readiness — Chapter 14, slides 5–8
+Source: [Google DeepMind, August 2018](https://deepmind.google/blog/safety-first-ai-for-autonomous-data-centre-cooling-and-industrial-control/).
 
-“Local controls maintain equipment conditions. Plant controls bring capacity into service. The scheduler decides when to add computing work. A reply that says ‘command received’ does not establish that the required flow has arrived.
+## Demand response at The Dalles — Chapter 14, slides 8–10
 
-“Here cooling removes five megawatts while existing work produces four. Adding the job immediately raises heat to six before standby cooling is ready. Waiting keeps the existing work running, then admits the job after measured capacity reaches seven.”
+- Establish the grid request first: a 2023 day-ahead pilot with Northern Wasco County PUD.
+- Background video processing and translation updates can wait; live user services still operate. These are the operator’s examples, not a claim about pausing arbitrary LLM inference.
+- Then use the separate numerical example: a checkpointable 4 MW job needs three running hours above a 20 MW base load. It pauses 14:00–16:00 and finishes at 18:00, ahead of a 20:00 deadline.
+- Both job traces use 12 MWh. Demand during the grid event falls from 24 to 20 MW. The diagram assumes no restart penalty and enough later capacity.
 
-For an optional calculation, a 1 MW deficit lasting three minutes accumulates 50 kWh of heat. This slide supplies no permitted thermal buffer or temperature margin. The reader retains the separate transition-allowance exercise.
+Source: [Google Cloud, October 2023](https://cloud.google.com/blog/products/infrastructure/using-demand-response-to-reduce-data-center-power-consumption).
 
-The Google case describes the **2018 autonomous system**: the optimizer selected cooling actions every five minutes, with independent local checks and operator exit. That cadence is distinct from protective-control response time. Source: [Google DeepMind](https://deepmind.google/blog/safety-first-ai-for-autonomous-data-centre-cooling-and-industrial-control/).
+## Shared maintenance dependency — Chapter 14, slide 11
 
-## A pause changes timing, not the job’s energy — Chapter 14, slides 9–10
+- Three 3 MW units serve a 5 MW duty; C is under maintenance. A and B can carry 6 MW.
+- Toggle the isolation boundary: removing a shared 24 V control supply also disables A and B. Their main electrical feeds need not have failed.
+- Keep this here: the commissioning chapter tests the built system; this example shows how maintenance changes the operating topology. More equipment does not eliminate a shared dependency.
 
-“Both plans need three running hours at four megawatts: twelve megawatt-hours. Pausing during the grid event lowers site power from twenty-four to twenty megawatts during those hours. The job finishes two hours later. A deadline of twenty hundred permits that pause; seventeen hundred does not.”
+## Cloudflare’s failure, correction and retest — Chapter 14, slides 12–15
 
-Assume the job retains progress, with no restart overhead, and 24 MW is available after the event. The adjacent real example is Google’s dated 2023 demand-response pilot with Northern Wasco County PUD; the numerical schedule is illustrative. Source: [Google demand response](https://cloud.google.com/blog/products/infrastructure/using-demand-response-to-reduce-data-center-power-consumption).
-
-## Check dependencies and command targets — Chapter 14, slides 11–12
-
-“Removing unit C leaves six megawatts for a five-megawatt load. But removing control power shared by A and B stops those units too. The maintenance boundary matters as much as the spare equipment count.
-
-“After a row changes, the physical branch and the control record must agree. Sending the command to the correct row is only the first check. Observe that row’s actual response.”
-
-The shared-supply diagram is a teaching topology, not a switching procedure. The wrong mapping explains the misdirected command; it does not establish the cause of low flow.
-
-## Test the whole dependency chain — Chapter 14, slides 13–14
-
-Pair Cloudflare’s November 2023 failure with its 2024 follow-up. Earlier testing omitted dependencies outside the facility’s high-availability portion. The later seven-minute result refers to API and dashboard operation after the March failure; analytics recovered later. It is not a seven-minute facility restart or universal service-recovery time.
+- November 2023: Portland facility power loss. Dashboard, API and analytics failed; most distributed edge traffic continued.
+- High-availability services spanned sites but depended on Kafka/ClickHouse located only at PDX-04. Tests had removed its HA portion, not the entire facility.
+- Code Orange expanded capacity and changed failover. The February 2024 whole-facility test exposed another gap that the team subsequently fixed.
+- March 26: power lost at 14:58 UTC; APIs/dashboard normal by 15:05 automatically. Analytics recovered later. Seven minutes is this service endpoint, not cold-start time for the facility.
 
 Sources: [November 2023 report](https://blog.cloudflare.com/post-mortem-on-cloudflare-control-plane-and-analytics-outage/), [April 2024 follow-up](https://blog.cloudflare.com/major-data-center-power-failure-again-cloudflare-code-orange-tested/).
 
-## Recovery has different endpoints — Chapter 14, slides 15–17
+## Gmail, London and Llama 3 — Chapter 14, slides 16–20
 
-“A live copy can survive a device failure, but a software error can affect both copies. An earlier valid state gives us another recovery route.” Gmail’s 2011 incident illustrates recovery from offline tape; it does not prescribe tape for every system. Source: [Gmail incident account](https://gmail.googleblog.com/2011/02/gmail-back-soon-for-everyone.html).
+- **Gmail:** a storage-software bug affected multiple live copies. Offline tape retained an earlier valid state. The story does not involve fixing A and then being reinfected by B.
+- **London:** extreme heat and simultaneous redundant-cooling failures forced shutdown of part of one zone. The first London slide establishes the physical event before the recovery timeline.
+- The final report gives cooling repair at July 19 14:13 PDT and initial service restoration at July 20 04:28: another 14 h 15 min. Restart sequencing and service-state reconciliation take time; residual issues lasted longer.
+- **Llama 3:** 466 interruptions in 54 days, including 47 planned and 419 unexpected. More than 90% effective training time measures useful training against elapsed time, not facility availability.
+- The next slide is Meta’s original fleet-maintenance diagram: the purple group leaves service for upgrades and then returns; the maintenance group rotates. It is not an exact layout of the Llama training run. Group size trades spare-capacity cost against interruption frequency.
 
-For London, the 14 h 15 min interval runs from cooling repair to the initial cloud-service restoration milestone in Google’s final July 29 report. Part of one zone was affected; residual issues lasted longer. Source: [Google Cloud incident](https://status.cloud.google.com/incidents/fmEL9i2fArADKawkZAa2).
+Sources: [Gmail incident](https://gmail.googleblog.com/2011/02/gmail-back-soon-for-everyone.html), [Google Cloud final report](https://status.cloud.google.com/incidents/fmEL9i2fArADKawkZAa2), [Llama 3 §3.3.4](https://arxiv.org/html/2407.21783v3#S3.SS3.SSS4), [Meta maintenance trains](https://engineering.fb.com/2024/06/12/production-engineering/maintaining-large-scale-ai-capacity-meta/).
 
-Llama’s 466 interruptions include 47 planned events and 419 unexpected events over 54 days. Effective training time measures productive training against elapsed time, not facility availability. The lesson is to preserve progress and make recovery routine. Source: [Llama 3, §3.3.4](https://arxiv.org/html/2407.21783v3#S3.SS3.SSS4).
+## Knowledge check — Chapter 14, slide 21
 
-## What releases the extra work? — Chapter 14, slide 18
-
-Ask the question before revealing the answer. “Correcting the mapping fixes where the command goes. Now show that the right row responds and that its current flow and temperatures meet the new workload’s requirement. Correct configuration alone is not proof of recovered cooling.”
+- Return to Row B. All heat enters water: 2.09 MW now, plus a proposed 0.70 MW job. Current flow is 50 kg/s, inlet 30°C, return limit 40°C.
+- Ask for the total flow needed: 2,790 ÷ (4.18 × 10) = 66.746 kg/s, roughly 67 kg/s. Keep the temperature limit by establishing that flow, freeing 0.70 MW of existing duty, or deferring the new job.
+- At unchanged flow, the new duty would require a 43.35°C return. The calculation does not identify why the original flow fell; that diagnosis is still separate.
 
 ## Spare site power cannot finish an acceptance test — Chapter 15, slide 2
 

@@ -7,7 +7,7 @@
     "domains": [
       "D14"
     ],
-    "reviewed_on": "2026-09-16",
+    "reviewed_on": "2026-09-17",
     "claim": "Every five minutes, a supervisory AI evaluates sensor snapshots and proposed cooling actions. Low-confidence actions are excluded. The cloud evaluates operator-defined constraints; the local system independently checks instructions before implementation. Operators can exit to existing on-site rules.",
     "limits": "Historical operator account, not a current implementation claim or a formal safety proof. Five minutes is the supervisory evaluation cadence, not actuator latency or protective response time. Any numeric temperature limits in teaching interactions are original examples. Do not imply 30% lower whole-facility energy; the article compares cooling efficiency with a historical baseline.",
     "assets": [
@@ -24,7 +24,7 @@
     "domains": [
       "D14"
     ],
-    "reviewed_on": "2026-09-16",
+    "reviewed_on": "2026-09-17",
     "claim": "A November 2, 2023 facility power failure disrupted control-plane and analytics services. Cloudflare reports undiscovered dependencies: it had tested loss of the high-availability portion of PDX-04, but not the entire PDX-04 facility. It had separately tested taking either or both of the other two facilities offline. Most control-plane service returned at the disaster-recovery facility at 17:57 UTC on November 2.",
     "limits": "Use Cloudflare’s own application, monitoring and test-scope observations. Its reconstruction of the utility/generator chain expressly includes unconfirmed hypotheses; do not present the DSG program or grid-maintenance causation as established. The article’s opening has 11:43/11:44 start-time variation, so avoid minute-exact before/after ratios. General network traffic was not equivalent to the affected control-plane service.",
     "discovered_via": "Primary operator incident report, reviewed for tested scope and operational assumptions."
@@ -37,7 +37,7 @@
     "domains": [
       "D14"
     ],
-    "reviewed_on": "2026-09-16",
+    "reviewed_on": "2026-09-17",
     "claim": "After capacity expansion and failover changes, Cloudflare ran a facility cut test in February 2024. A March 26 power failure began at 14:58 UTC; APIs and dashboards operated normally by 15:05 without human intervention. Analytics required longer recovery.",
     "limits": "Compare the defined API/dashboard endpoint; do not say every service recovered in seven minutes. The article reports approximately 72 versus 10 hours for facility cold starts, a different endpoint from API availability. Breaker-setting causation is a reported initial assessment, not an independently verified final RCA. PDX01 is the same facility discussed in the November account using the earlier PDX-04 name.",
     "discovered_via": "Follow-up primary incident report showing tested improvements during a repeat facility failure."
@@ -50,9 +50,36 @@
     "domains": [
       "D14"
     ],
-    "reviewed_on": "2026-09-16",
+    "reviewed_on": "2026-09-17",
     "claim": "During extreme heat, simultaneous cooling failures affected part of europe-west2-a on July 19, 2022. The final report’s summary gives shutdown at 10:05 PDT, cooling repair at 14:13, and initial cloud-service restoration at 04:28 PDT July 20. Recovery work therefore continued for 14 hours 15 minutes after cooling returned. An incorrect routing change initially avoided all three zones rather than the affected zone.",
     "limits": "Use the final July 29 summary, not the superseded July 21 preliminary timings. These are reported milestone endpoints, not a uniform downtime for every customer; small residual issues required longer recovery. The per-product detail includes additional dates beyond the summary, so do not equate its aggregate endpoint with every final manual cleanup. No public London-site photograph is identified here; the DeepMind photo must not be labeled as this outage site.",
     "discovered_via": "Primary status report, selected final summary, root-cause and corrective-action sections reviewed."
+  },
+  {
+    "title": "Google — Gmail back soon for everyone",
+    "url": "https://gmail.googleblog.com/2011/02/gmail-back-soon-for-everyone.html",
+    "publisher": "Google",
+    "published_on": "2011-02-28",
+    "reviewed_on": "2026-09-17",
+    "domains": [
+      "D14"
+    ],
+    "claim": "A storage software update affected several live mail copies. Google reverted the update and recovered from offline tape.",
+    "limits": "Does not describe repaired copy A being re-corrupted by copy B. Recovery took hours, with progressive restoration updates."
+  },
+  {
+    "title": "Meta — Maintaining large-scale AI capacity",
+    "url": "https://engineering.fb.com/2024/06/12/production-engineering/maintaining-large-scale-ai-capacity-meta/",
+    "publisher": "Engineering at Meta",
+    "published_on": "2024-06-12",
+    "reviewed_on": "2026-09-17",
+    "domains": [
+      "D14"
+    ],
+    "claim": "Maintenance trains rotate a bounded group through upgrades while other capacity remains available.",
+    "limits": "Fleet mechanism, not a diagram of the 54-day Llama 3 snapshot.",
+    "assets": [
+      "operations-meta-maintenance-train.jpg"
+    ]
   }
 ]

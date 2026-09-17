@@ -111,29 +111,25 @@ test('every revised operations scene and offered state renders with valid source
   }
   for(const source of scene.sources||[])assert.ok(html.includes(source),`${scene.id}: source credit retained`);
  }
- assert.equal(assets.size,2,'the two retained case photos');
+ assert.equal(assets.size,4,'two case photos and two original operator diagrams');
  assert.throws(()=>operationsVisual('missing-scene',initialState),/Unknown operations scene/);
 });
 
-test('the shortened sequence connects controls, cases and decisions without hidden alternatives',()=>{
+test('case stories stay contiguous and the opening uses complete measurement sets',()=>{
  const ids=scenes.map(scene=>scene.id);
- assert.equal(scenes.length,18);
- assert.deepEqual(ids.slice(4,8),['control-layers','google-cooling','prove-readiness','admit-work']);
- assert.equal(ids.indexOf('cloudflare-retest'),ids.indexOf('cloudflare-pdx')+1);
+ assert.equal(scenes.length,21);
+ assert.deepEqual(ids.slice(0,4),['operations-purpose','measurement-boundaries','heat-balance','control-layers']);
+ assert.deepEqual(ids.slice(ids.indexOf('cloudflare-pdx'),ids.indexOf('cloudflare-retest')+1),['cloudflare-pdx','cloudflare-hidden-dependency','cloudflare-facility-test','cloudflare-retest']);
+ assert.equal(ids.indexOf('google-cooling-flow'),ids.indexOf('google-cooling')+1);
+ assert.equal(ids.indexOf('llama-maintenance'),ids.indexOf('llama-recovery')+1);
  assert.equal(ids.at(-1),'operating-decision');
- assert.deepEqual(scenes.filter(scene=>scene.controls?.length).map(scene=>scene.id),['deadline-scheduling','maintenance-scope']);
- for(const id of ['measurement-time','heat-balance','configuration-mapping','deadline-scheduling','replication-and-backup']){
-  const html=operationsVisual(id,initialState);
-  assert.doesNotMatch(html,/<button/);
- }
- const clock=operationsVisual('measurement-time',initialState);
- assert.match(clock,/10 minutes old/);assert.match(clock,/5 seconds old/);
+ assert.deepEqual(scenes.filter(scene=>scene.controls?.length).map(scene=>scene.id),['maintenance-scope']);
+ const measurements=operationsVisual('measurement-boundaries',initialState);
+ for(const value of ['100 kg/s','50 kg/s','35°C','40°C'])assert.ok(measurements.includes(value));
  const heat=operationsVisual('heat-balance',initialState);
- assert.match(heat,/4.18 MW/);assert.match(heat,/2.09 MW/);assert.match(heat,/100 kg\/s/);assert.match(heat,/50 kg\/s/);
- const mapping=operationsVisual('configuration-mapping',initialState);
- assert.match(mapping,/Old control mapping/);assert.match(mapping,/Corrected control mapping/);
- assert.match(operationsVisual('replication-and-backup',initialState),/One device fails/);
- assert.match(operationsVisual('replication-and-backup',initialState),/A bad write reaches both/);
+ assert.equal((heat.match(/2.09 MW/g)||[]).length,2);
+ assert.doesNotMatch(heat,/4.18 MW/);
+ for(const id of ['measurement-boundaries','heat-balance','deadline-scheduling','replication-and-backup'])assert.doesNotMatch(operationsVisual(id,initialState),/<button/);
 });
 
 function operationsPlayerAt(hash){
@@ -157,20 +153,18 @@ function operationsPlayerAt(hash){
  return {elements,buttons,document,go(id){location.hash=`#${id}`;listeners.hashchange();},reveal(){assert.ok(getElementById('decision-reveal'));getElementById('decision-reveal').listeners.click();},click(key,value){const button=buttons().find(button=>button.dataset.choice===key&&button.dataset.value===String(value));assert.ok(button,`${key}=${value}`);button.onclick();}};
 }
 
-test('the actual player changes deadline and maintenance scope while preserving their independent state',()=>{
- const player=operationsPlayerAt('#deadline-scheduling');
- const selected=key=>player.buttons().filter(button=>button.dataset.choice===key&&button.attributes['aria-pressed']==='true').map(button=>button.dataset.value);
+test('maintenance controls select the actual isolation and retain state across navigation',()=>{
+ const player=operationsPlayerAt('#maintenance-scope');
+ const selected=()=>player.buttons().filter(button=>button.attributes['aria-pressed']==='true').map(button=>button.dataset.value);
  const html=()=>player.elements.get('visual').innerHTML;
- assert.deepEqual(selected('deadline'),['20']);assert.equal(player.buttons().length,2);
- assert.match(html(),/Finish 16:00/);assert.match(html(),/Finish 18:00/);
- assert.equal((html().match(/Meets 20:00 deadline/g)||[]).length,2);
- assert.equal(player.elements.get('progress').textContent,'10 / 18');
- player.click('deadline',17);assert.deepEqual(selected('deadline'),['17']);assert.match(html(),/Meets 17:00 deadline/);assert.match(html(),/Misses 17:00 deadline by 1 hour/);
- player.go('maintenance-scope');assert.deepEqual(selected('sharedControl'),['false']);assert.match(html(),/<strong>6 MW<\/strong>/);
- player.click('sharedControl',true);assert.deepEqual(selected('sharedControl'),['true']);assert.match(html(),/<strong>0 MW<\/strong>/);
+ assert.deepEqual(selected(),['false']);assert.equal(player.buttons().length,2);
+ assert.match(html(),/<strong>6 MW<\/strong>/);
+ player.click('sharedControl',true);assert.deepEqual(selected(),['true']);assert.match(html(),/<strong>0 MW<\/strong>/);
  assert.equal((html().match(/Control power lost/g)||[]).length,2);
- player.go('deadline-scheduling');assert.deepEqual(selected('deadline'),['17']);
- player.click('deadline',20);assert.equal((html().match(/Meets 20:00 deadline/g)||[]).length,2);
+ player.go('deadline-scheduling');assert.equal(player.buttons().length,0);
+ assert.match(html(),/Finish 16:00/);assert.match(html(),/Finish 18:00/);
+ player.go('maintenance-scope');assert.deepEqual(selected(),['true']);
+ player.click('sharedControl',false);assert.match(html(),/<strong>6 MW<\/strong>/);
  assert.match(player.document.title,/^14\. Controls, operations and reliability/);
 });
 
@@ -180,10 +174,10 @@ test('the closing reveal and retired bookmarks use the real player',()=>{
  assert.equal(player.buttons().length,0);
  const html=()=>player.elements.get('visual').innerHTML;
  assert.equal((html().match(/<button/g)||[]).length,1);
- assert.doesNotMatch(html(),/Hold the extra work until local cooling is proven/);
- player.reveal();assert.match(html(),/Hold the extra work until local cooling is proven/);
- assert.match(html(),/does not yet explain why flow fell/);
- player.reveal();assert.doesNotMatch(html(),/Hold the extra work until local cooling is proven/);
+ assert.doesNotMatch(html(),/66\.75 kg\/s/);
+ player.reveal();assert.match(html(),/66\.75 kg\/s/);
+ assert.match(html(),/free 0.70 MW/);
+ player.reveal();assert.doesNotMatch(html(),/66\.75 kg\/s/);
  for(const [old,current]of Object.entries(sceneAliases)){
   assert.ok(scenes.some(scene=>scene.id===current));
   player.go(old);assert.equal(player.elements.get('scene').dataset.scene,current);

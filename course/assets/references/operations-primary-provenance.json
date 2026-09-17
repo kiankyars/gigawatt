@@ -38,6 +38,20 @@
       "visually_reviewed_on": "2026-09-16",
       "modifications": "None; original publisher-served bytes retained.",
       "rights_basis": "Copyrighted publisher image reused for attributed teaching commentary. No independent open license asserted."
+    },
+    {
+      "file": "operations-meta-maintenance-train.jpg",
+      "source_image_url": "https://engineering.fb.com/wp-content/uploads/2024/06/Systems%40scale_AI-Maintence_image-2.jpg?w=1024",
+      "source_page": "https://engineering.fb.com/2024/06/12/production-engineering/maintaining-large-scale-ai-capacity-meta/",
+      "publisher": "Engineering at Meta",
+      "published_on": "2024-06-12",
+      "caption": "Meta's maintenance-train illustration: one group is upgraded while the other groups remain available.",
+      "scope": "Fleet-maintenance concept, not an exact diagram of the Llama 3 54-day snapshot or a claim that every distributed job runs uninterrupted.",
+      "retrieved_on": "2026-09-17",
+      "visually_reviewed_on": "2026-09-17",
+      "modifications": "None; publisher bytes retained.",
+      "sha256": "677d182c93596ad0d0ca9f0767ad368acfc0b69741a0d08d21f70abd91cd06c0",
+      "rights_basis": "Attributed publisher illustration reused for teaching commentary; no open license asserted."
     }
   ]
 }

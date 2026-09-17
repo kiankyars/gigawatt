@@ -1736,6 +1736,7 @@ Convert a failure or capacity incident into an evidence-based recovery and preve
 - [P205 — Cloudflare — Post mortem on the Cloudflare Control Plane and Analytics Outage](https://blog.cloudflare.com/post-mortem-on-cloudflare-control-plane-and-analytics-outage/) · `page_reviewed` · [local note](../research/sources/P205.md)
 - [P206 — Cloudflare — Major data center power failure (again): Cloudflare Code Orange tested](https://blog.cloudflare.com/major-data-center-power-failure-again-cloudflare-code-orange-tested/) · `page_reviewed` · [local note](../research/sources/P206.md)
 - [P207 — Google Cloud — July 2022 europe-west2 cooling incident report](https://status.cloud.google.com/incidents/fmEL9i2fArADKawkZAa2) · `page_reviewed` · [local note](../research/sources/P207.md)
+- [P219 — Meta — Maintaining large-scale AI capacity](https://engineering.fb.com/2024/06/12/production-engineering/maintaining-large-scale-ai-capacity-meta/) · `public_excerpt_reviewed` · [local note](../research/sources/P219.md)
 
 <a id="d15"></a>
 

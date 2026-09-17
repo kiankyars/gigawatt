@@ -70,3 +70,7 @@ assistant descriptions of what the user wanted.
   [DC image provenance](assets/references/rack-energy-review-figures.provenance.json),
   and Git changes establish what survives. Current local changes were compared
   with HEAD; uncommitted work in other chapters was preserved.
+
+## Chapter 14 review — September 17, 2026
+
+The standalone same-temperature timestamp, command/acknowledgment and wrong-row mapping slides are removed. Their relevant concepts remain in complete row measurements, startup traces and the Chapter 13 commissioning example. Google cooling and demand response, Cloudflare, Gmail, London and Llama 3 remain; context expands the chapter to 21 slides. Meta's original maintenance diagram is added. Previous scene links redirect to the corresponding current topic.

@@ -4865,7 +4865,7 @@
       "publisher": "Google DeepMind",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-16",
+      "reviewed_on": "2026-09-17",
       "published_on": "2018-08-17",
       "domains": [
         "D14"
@@ -4880,7 +4880,7 @@
       "publisher": "Cloudflare",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-16",
+      "reviewed_on": "2026-09-17",
       "published_on": "2023-11-04",
       "domains": [
         "D14"
@@ -4895,7 +4895,7 @@
       "publisher": "Cloudflare",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-16",
+      "reviewed_on": "2026-09-17",
       "published_on": "2024-04-08",
       "domains": [
         "D14"
@@ -4910,7 +4910,7 @@
       "publisher": "Google Cloud",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-16",
+      "reviewed_on": "2026-09-17",
       "published_on": "2022-07-29",
       "domains": [
         "D14"
@@ -5075,6 +5075,21 @@
       ],
       "use": "Introduce the UQD mating interface and its pressure, temperature, flow and fluid-loss requirements as a concrete example of what OCP standardizes.",
       "caution": "Scope, selection KPIs, dimensions and performance sections on printed pages 4–10 reviewed. Revision 1.0 is the named reference, not asserted latest. Standardized mating does not guarantee sufficient flow or complete-system compatibility."
+    },
+    {
+      "id": "P219",
+      "title": "Meta — Maintaining large-scale AI capacity",
+      "url": "https://engineering.fb.com/2024/06/12/production-engineering/maintaining-large-scale-ai-capacity-meta/",
+      "publisher": "Engineering at Meta",
+      "kind": "engineering_blog",
+      "published_on": "2024-06-12",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-17",
+      "domains": [
+        "D14"
+      ],
+      "use": "Explain planned maintenance groups using the original maintenance-train diagram, following the Llama 3 recovery example.",
+      "caution": "Maintenance-train, gradual-rollout and maintenance-domain sections reviewed. The diagram is a fleet-level mechanism, not the exact allocation of the Llama 3 54-day training snapshot."
     }
   ],
   "local_attributions": [

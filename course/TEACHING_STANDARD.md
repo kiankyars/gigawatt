@@ -112,7 +112,7 @@ The open production tasks remain in [the course review](COURSE_REVIEW.md#next-te
 | Siting, grid connection and supply (`d03`) | SemiAnalysis's Southaven/MiniHard procurement workaround: equipment lead time versus the consequences of MV distribution | [Procurement](prototypes/case-studies.html?teach=1#procurement), [current comparison](prototypes/case-studies.html?teach=1#current) | Integrated in Section 4: [route](prototypes/siting-format.html?teach=1#procurement-route), [current](prototypes/siting-format.html?teach=1#transport-current), [original plans](prototypes/siting-format.html?teach=1#southaven-plan), [economics](prototypes/siting-format.html?teach=1#speed-premium); authored draft |
 | Campus and building distribution (`d04`) | Compass skid separates switching from transformation; Fujitsu busway preserves branch flexibility; Green Zurich-West moves rectification upstream | Primary-source case photos and technical accounts in the reader | Chapter 6: `compass-skid`, `fujitsu-busway`, fault diagnosis at `feeder-diagnosis`. D04.3 conversion placement and Green are taught in [Chapter 9](prototypes/dc-distribution-format.html?teach=1#green-zurich-west). |
 | Continuity, storage and protection (`d05`) | Crusoe/Redwood in Sparks: solar power, battery energy, discharge power and grid backup | [Solar and battery](prototypes/case-studies.html?teach=1#sparks), [availability](prototypes/case-studies.html?teach=1#availability) | Integrated in [Chapter 7](prototypes/continuity-format.html?teach=1#sparks-storage), with conditional duration calculation and separate availability examples. |
-| Storage and recovery (`d09`) | Google flexible scheduling: which work can move without missing its service requirement? | [Demand response](prototypes/case-studies.html?teach=1#demand-response) | Integrated in [Chapter 14](prototypes/operations-format.html?teach=1#google-demand-response), followed by an interactive deadline/power comparison at `deadline-scheduling`. |
+| Storage and recovery (`d09`) | Google flexible scheduling: which work can move without missing its service requirement? | [Demand response](prototypes/case-studies.html?teach=1#demand-response) | Integrated in [Chapter 14](prototypes/operations-format.html?teach=1#google-demand-response), followed by a simultaneous power-over-time comparison at `deadline-scheduling`. |
 | Heat rejection, climate and water (`d11`) | Abilene cooling: closed coolant loops, outdoor heat rejection and the boundary of water-use claims | [Abilene cooling](prototypes/case-studies.html?teach=1#abilene-cooling) | Integrated in [Chapter 12](prototypes/heat-rejection-format.html?teach=1#abilene-cooling), with separate loop and water-use boundaries. |
 | Physical site, buildings and safety (`d12`) | Greenfield versus brownfield, using Abilene and Colossus 1; factory reuse still required new power infrastructure | [Land comparison](prototypes/case-studies.html?teach=1#land), [Colossus 1](prototypes/case-studies.html?teach=1#colossus) | Integrated in Chapter 5: [greenfield/brownfield](prototypes/site-format.html?teach=1#greenfield-brownfield) and [Colossus](prototypes/site-format.html?teach=1#colossus-service); current checks recorded in [TESTING.md](TESTING.md) |
 | Capacity, cost and system decisions (`d15`) | Abilene's dated capacity milestones: distinguish the original campus, adjacent project, energized capacity and useful output | [Capacity ledger](prototypes/case-studies.html?teach=1#abilene-ledger) | Integrated in [Chapter 15](prototypes/capacity-format.html?teach=1#abilene-ledger); dated scope and acceptance evidence remain distinct. |
@@ -321,14 +321,15 @@ closing breaker-failure example changes the outage boundary of two connected hal
 
 ## Controls, operations and reliability teaching sequence
 
-Chapter 14 starts with a hot rack and an apparently normal plant dashboard.
-The learner locates and timestamps measurements, reconciles a branch heat
-balance, and decides when a commanded cooling unit is ready for extra work.
-Maintenance cases then change the shared control supply and asset mapping.
-Google’s autonomous cooling controls, Cloudflare’s facility failures and retest,
-and Google London’s cooling outage connect those mechanisms to reported events.
-The closing exercise requires current local measurements, aligned power and
-configuration evidence before releasing more workload.
+Chapter 14 starts with a hot row and a normal plant dashboard. Complete
+before/after measurement sets explain how reduced row flow raises return
+water temperature at fixed heat input. Google cooling and demand response
+have separate context and mechanism slides. The maintenance example changes
+a shared control-power boundary. Four Cloudflare slides connect an outage,
+hidden service dependencies, corrective testing and a successful repeat failover.
+Gmail, London and Meta distinguish replication, physical repair and productive
+recovery. The closing exercise gives every input needed to calculate the
+coolant flow required for an extra 0.70 MW job.
 
 All five D14 objectives are covered. Earlier electrical and thermal redundancy
 concepts are used to examine live configuration and service recovery, without

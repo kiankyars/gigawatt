@@ -539,3 +539,24 @@ The former slide 18 remains the closing slide, now numbered 17.
 | Replace Chapter 12 economizer slide with supplied image | Original PNG installed unchanged, with only its embedded title visible. |
 
 The revised deck contains 20 slides. Commissioning and acceptance remain after the prefabrication examples. This revision addresses the author’s review through former slide 14; it does not imply acceptance of the remaining material.
+
+## Chapter 14 full review — 17 September 2026
+
+| Request | Implemented result |
+|---|---|
+| Keep the immediate case-study opening; remove repeated slide 2 | Opening retained. Local measurements now show actual new evidence: flow 100→50 kg/s and return 35→40°C, with inlet 30°C and heat 2.09 MW unchanged. |
+| Explain why old and fresh temperature were identical; clarify 40°C | Removed the standalone same-value timestamp exercise. Complete before/after sets identify inlet versus return and feed the following heat balance. |
+| Keep control layers | Retained, now slide 4. |
+| Google cooling needs context then flow | Two slides distinguish 2016 recommendations from 2018 autonomous control, then use Google's original local-verification diagram. Operator override is explicit. |
+| Remove generic command-is-not-proof slide | Removed; the necessary startup constraint is taught by simultaneous heat/cooling time traces. |
+| Make standby cooling admission intuitive | Compare immediate versus delayed job start, showing the three-minute 1 MW deficit visually. |
+| Google demand response needs context; old slide 10 is ugly | Two factual case slides explain The Dalles pilot and eligible background work, followed by two large power traces for the numerical job example. |
+| Keep shared isolation; consider chapter ownership | Kept as an operational maintenance case. Chapter 13 covers commissioning; here shared control power defeats equipment redundancy during maintenance. |
+| Remove generic wrong-command slide | Removed; prior EPC mapping coverage remains. |
+| Cloudflare needs a concise start-to-finish story | Four slides: outage and affected services, single-facility dependencies, corrective changes/full-facility test, repeat outage and defined recovery endpoint. |
+| Verify Gmail interpretation | Corrected: a software update affected multiple live copies; offline tape preserved recoverable mail. Not fixed copy A being reinfected by B. |
+| London needs context | Added physical event/affected-zone context before the dated cooling-versus-service restoration timeline. |
+| Keep Llama and add a real Meta figure | Existing recovery snapshot retained; a second slide uses Meta's original maintenance-train diagram with its separate fleet scope recorded. |
+| Knowledge check lacks numbers and has verbose reveal | Supplied power, added job, flow, inlet, return limit and heat capacity; reveal is the required-flow calculation and one operating alternative. |
+
+21 slides. All five D14 objectives remain represented. This revision records feedback implementation, not author acceptance.

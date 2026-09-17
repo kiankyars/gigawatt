@@ -1,5 +1,13 @@
 # Course verification
 
+## Chapter 14 case context and coherent measurements — 2026-09-17
+
+- **21 slides**; all five D14 objectives represented. Time/location repetition and generic acknowledgment/mapping slides are folded into the actual row and startup cases. Old scene links redirect.
+- Primary operator accounts checked for Google autonomous cooling and demand response, Cloudflare 2023/2024, Gmail 2011, Google Cloud London 2022, Llama 3 reliability and Meta maintenance trains. The added Meta image retains original bytes with provenance.
+- Row balance: 100 × 4.18 × 5 = 50 × 4.18 × 10 = 2,090 kW. Closing load 2.79 MW requires 66.746 kg/s at the stipulated 10°C limit. Demand-response traces preserve three running hours and 12 MWh of job energy.
+- **305 JavaScript tests and 80 Python tests passed.** Player tests cover maintenance selection/persistence, reveal behavior and retired anchors; model tests preserve numerical and failure-boundary checks.
+- Built-in browser: all scenes checked for horizontal overflow and content/footer bounds at 1280×720, 390×844 and 844×390. Cooling-startup and demand-response traces and the original Google control diagram visually inspected. No author acceptance inferred.
+
 ## Chapter 13 EPC case sequence — 2026-09-17
 
 - **20 slides**, reordered around the uninterrupted rack-change case, a separate schedule comparison, four prefabrication slides, OCP and commissioning. EPC is consistent across the active menu, reader and player. All removed scene URLs have deliberate redirects.

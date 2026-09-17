@@ -1,276 +1,179 @@
+import {caseStoryScenes} from './operations-case-stories.js';
 export const learningContract = Object.freeze({
   driving_question: 'The row is hot: what should we measure, change and verify?',
   fixed_boundary: 'Row B for diagnosis; separately declared loads for readiness, scheduling and maintenance.',
-  changed_variable: 'Measurement quality, workload deadline or maintenance isolation.',
+  changed_variable: 'Local flow, workload timing, maintenance scope and recovery path.',
   primary_payoff: 'Use local evidence to act, then prove that the required service has recovered.',
-  misconception: 'A green dashboard or accepted command proves the equipment is doing its job.',
-  closing_question: 'What evidence releases more work onto the hot row?'
+  misconception: 'Normal plant readings and duplicated equipment establish service resilience.',
+  closing_question: 'Can the measured cooling path carry another 0.70 MW?'
 });
 
-export const initialState = {deadline:20,sharedControl:false,showDecision:false};
+export const initialState = {sharedControl:false,showDecision:false};
 
 export const scenes = [
   {
-    "id": "operations-purpose",
-    "label": "Controls, operations and reliability",
-    "title": "The racks are hot. The dashboard is green.",
-    "reference": "d14-telemetry-and-observability",
-    "objective": "D14.1",
-    "pedagogical_role": "problem",
-    "explanation": [
-      "The opening alarm concerns rack row B while the reassuring value is a ten-minute-old plant supply temperature. Location and measurement time decide whether observations describe the same condition. Rack row B contains twenty racks; its current electrical heat input totals 2.09 MW."
-    ]
-  },
+  "id": "operations-purpose",
+  "label": "Controls, operations and reliability",
+  "title": "The racks are hot. The dashboard is green.",
+  "reference": "d14-telemetry-and-observability",
+  "objective": "D14.1",
+  "pedagogical_role": "problem",
+  "explanation": [
+    "The opening contrasts the plant supply dashboard with a local alarm at Row B. Row B has twenty racks drawing 2.09 MW. A normal upstream temperature does not measure local coolant flow. The following before/after measurements identify a reduced-flow condition; they do not establish its cause."
+  ]
+},
   {
-    "id": "measurement-boundaries",
-    "label": "Plant versus row",
-    "title": "Check the row that is hot",
-    "reference": "d14-telemetry-and-observability",
-    "objective": "D14.1",
-    "pedagogical_role": "mechanism",
-    "explanation": [
-      "An upstream plant temperature does not establish flow or chip temperature at Row B. Observe current row-branch flow and supply/return temperatures together with row electrical input and chip temperature. The opening alarm is local; the measurement must cover that same place."
-    ]
-  },
+  "id": "measurement-boundaries",
+  "label": "What changed at Row B?",
+  "title": "Row B still gets 30°C water, but only half the flow.",
+  "reference": "d14-telemetry-and-observability",
+  "objective": "D14.1",
+  "pedagogical_role": "mechanism",
+  "explanation": [
+    "Compare two stabilized operating points at the same 2.09 MW heat input, all transferred to the measured water branch. At 10:00 the row had 100 kg/s, 30°C inlet and 35°C return. At 10:10 it has 50 kg/s, 30°C inlet and 40°C return. The chip-temperature alarm arose during the transition. The timestamps belong to complete sets of row measurements, not two samples of the same temperature. The return is warmer than the supply at each point."
+  ]
+},
   {
-    "id": "measurement-time",
-    "label": "Measurement time",
-    "title": "A fresh delivery can contain an old reading",
-    "reference": "d14-telemetry-and-observability",
-    "objective": "D14.1",
-    "pedagogical_role": "mechanism",
-    "explanation": [
-      "At 10:10:00, the plant value was observed at 10:00:00 but delivered at 10:09:59. For this exercise the freshness requirement is at most sixty seconds. Compare with a new sample observed at 10:09:55."
-    ]
-  },
+  "id": "heat-balance",
+  "label": "Explain the warmer return",
+  "title": "Half the water flow carries the heat with twice the temperature rise.",
+  "reference": "d14-telemetry-and-observability",
+  "objective": "D14.1",
+  "pedagogical_role": "mechanism",
+  "explanation": [
+    "At the same 2.09 MW heat input, Q = mass flow × water heat capacity × water temperature rise. 100 × 4.18 × 5 = 2,090 kW; 50 × 4.18 × 10 = 2,090 kW. These are two stabilized points. Do not pair old flow with new temperatures. Normal supply temperature alone does not rule out inadequate local cooling."
+  ]
+},
   {
-    "id": "heat-balance",
-    "label": "Cross-check the flow",
-    "title": "Which flow reading matches the heat being removed?",
-    "reference": "d14-telemetry-and-observability",
-    "objective": "D14.1",
-    "pedagogical_role": "mechanism",
-    "explanation": [
-      "After temperatures stabilize, Row B has 2.09 MW electrical heat input and all of this heat enters the measured water branch. Current supply and return are 30 and 40°C. The old displayed flow of 100 kg/s implies 4.18 MW; the independent current measurement of 50 kg/s implies 2.09 MW. Water specific heat is 4.18 kJ/(kg·°C). The balance supports the current flow measurement; it does not identify the cause of reduced flow."
-    ]
-  },
+  "id": "control-layers",
+  "label": "Who controls what?",
+  "title": "Pump controls, plant controls and the scheduler have different jobs",
+  "reference": "d14-coordinating-control-and-work",
+  "objective": "D14.2",
+  "pedagogical_role": "mechanism",
+  "explanation": [
+    "Local pump controls adjust pump speed to maintain a measured target. Plant controls start or stop cooling units and confirm their readiness. The workload scheduler decides when computing starts. These functions exchange measurements, available capacity and load requests."
+  ]
+},
+  ...caseStoryScenes.filter(scene=>scene.storyGroup==='google-cooling'),
   {
-    "id": "control-layers",
-    "label": "Who controls what?",
-    "title": "Pump controls, plant controls and the scheduler have different jobs",
-    "reference": "d14-coordinating-control-and-work",
-    "objective": "D14.2",
-    "pedagogical_role": "mechanism",
-    "explanation": [
-      "Local pump controls adjust pump speed to maintain a measured target. Plant controls start or stop cooling units and confirm their readiness. The workload scheduler decides when computing starts. These functions exchange measurements, available capacity and load requests."
-    ]
-  },
+  "id": "admit-work",
+  "label": "A job waits for cooling",
+  "title": "The new job needs cooling that takes three minutes to start.",
+  "reference": "d14-coordinating-control-and-work",
+  "objective": "D14.2",
+  "pedagogical_role": "mechanism",
+  "explanation": [
+    "Existing work produces 4 MW of heat. The new job adds 2 MW. Available heat removal is 5 MW until standby cooling completes its three-minute start, then 7 MW. Compare starting the job immediately with starting at minute three. The early case accumulates 1 MW × 3/60 h = 0.05 MWh of heat above removal; no permitted thermal buffer is specified. The delay is an example, not a vendor startup specification."
+  ]
+},
+  ...caseStoryScenes.filter(scene=>scene.storyGroup==='google-demand-response'),
   {
-    "id": "google-cooling",
-    "label": "Google: AI and local controls",
-    "title": "Google checks AI cooling actions before applying them",
-    "reference": "d14-coordinating-control-and-work",
-    "objective": "D14.2",
-    "pedagogical_role": "case-study",
-    "explanation": [
-      "Google DeepMind reported in August 2018 that its supervisory AI proposed cooling actions every five minutes. It excluded low-confidence actions and applied operator-defined constraints. Local controls checked instructions independently. Operators could leave autonomous mode for existing rules. Five minutes is the optimization cadence, not protective response latency. The real facility photo does not identify an exact campus."
-    ],
-    "sources": [
-      "https://deepmind.google/blog/safety-first-ai-for-autonomous-data-centre-cooling-and-industrial-control/"
-    ]
-  },
+  "id": "deadline-scheduling",
+  "label": "Defer one flexible job",
+  "title": "Pause the flexible job during the grid event; finish it afterward.",
+  "reference": "d14-coordinating-control-and-work",
+  "objective": "D14.2",
+  "pedagogical_role": "balance",
+  "explanation": [
+    "An illustrative checkpointable 4 MW batch job needs three running hours above a fixed 20 MW base load. A grid event lasts 14:00–16:00. Uninterrupted execution runs 13:00–16:00; pausing runs 13:00–14:00 and 16:00–18:00. Both consume 12 MWh of job energy. A 20:00 deadline allows the shift; a 17:00 deadline does not. Assume retained progress, no restart overhead and available later capacity. These numbers do not describe Google’s pilot."
+  ],
+  "controls": []
+},
   {
-    "id": "prove-readiness",
-    "label": "Request, reply, physical proof",
-    "title": "A start command does not prove that cooling is ready",
-    "reference": "d14-coordinating-control-and-work",
-    "objective": "D14.2",
-    "pedagogical_role": "mechanism",
-    "explanation": [
-      "A request tells a standby unit to start. An acknowledgment says its controller received the command. Only fresh physical feedback showing the required flow and temperature establishes cooling readiness in this example. The three stages are visible together; they are not three alternative definitions of readiness."
-    ]
-  },
-  {
-    "id": "admit-work",
-    "label": "Cooling before new work",
-    "title": "Wait for cooling before adding the new workload",
-    "reference": "d14-coordinating-control-and-work",
-    "objective": "D14.2",
-    "pedagogical_role": "mechanism",
-    "explanation": [
-      "The existing load produces 4 MW of heat, and cooling can remove 5 MW. New work would bring heat to 6 MW. A standby unit raises removal to 7 MW after three minutes, once physically proven ready. Starting new work immediately leaves a 1 MW heat-removal deficit during the delay; waiting holds heat at 4 MW until the 7 MW capacity is ready. Immediate admission requires a separately established transition allowance and local limits; this slide does not establish a safe delay."
-    ]
-  },
-  {
-    "id": "google-demand-response",
-    "label": "Google demand response",
-    "title": "Google deferred work to help the grid",
-    "reference": "d14-coordinating-control-and-work",
-    "objective": "D14.2",
-    "pedagogical_role": "case-study",
-    "explanation": [
-      "Google’s October 2023 account describes a day-ahead demand-response pilot with Northern Wasco County PUD at The Dalles, Oregon. A grid event notice prompts hourly limits on non-urgent work, which can be rescheduled after the event or moved to another grid when feasible."
-    ],
-    "sources": [
-      "https://cloud.google.com/blog/products/infrastructure/using-demand-response-to-reduce-data-center-power-consumption"
-    ]
-  },
-  {
-    "id": "deadline-scheduling",
-    "label": "Shift work within its deadline",
-    "title": "Both plans finish the job. Does the deadline allow the pause?",
-    "reference": "d14-coordinating-control-and-work",
-    "objective": "D14.2",
-    "pedagogical_role": "balance",
-    "explanation": [
-      "A 4 MW job needs three hours of execution above a 20 MW base load, starting at 13:00. Retaining its progress across a 14:00–16:00 grid event moves completion from 16:00 to 18:00 without changing its 12 MWh of execution energy. The plan needs sufficient deadline slack and available capacity after the event."
-    ],
-    "controls": [
-      {
-        "key": "deadline",
-        "label": "Deadline",
-        "options": [
-          [
-            20,
-            "20:00"
-          ],
-          [
-            17,
-            "17:00"
-          ]
+  "id": "maintenance-scope",
+  "label": "Maintenance and shared controls",
+  "title": "Isolating one unit can also stop the units you need",
+  "reference": "d14-maintenance-and-service-reliability",
+  "objective": "D14.3",
+  "pedagogical_role": "mechanism",
+  "explanation": [
+    "Original topology: 5 MW duty; two operating 3 MW units plus a third 3 MW unit under maintenance. The chosen isolation either removes only C or also a shared 24 V control supply required by A and B. We evaluate scope, not a switching procedure."
+  ],
+  "controls": [
+    {
+      "key": "sharedControl",
+      "label": "Isolate",
+      "options": [
+        [
+          false,
+          "Unit C only"
+        ],
+        [
+          true,
+          "C + shared control supply"
         ]
-      }
-    ]
-  },
+      ]
+    }
+  ]
+},
+  ...caseStoryScenes.filter(scene=>scene.storyGroup==='cloudflare'),
   {
-    "id": "maintenance-scope",
-    "label": "Maintenance and shared controls",
-    "title": "Isolating one unit can also stop the units you need",
-    "reference": "d14-maintenance-and-service-reliability",
-    "objective": "D14.3",
-    "pedagogical_role": "mechanism",
-    "explanation": [
-      "Original topology: 5 MW duty; two operating 3 MW units plus a third 3 MW unit under maintenance. The chosen isolation either removes only C or also a shared 24 V control supply required by A and B. We evaluate scope, not a switching procedure."
-    ],
-    "controls": [
-      {
-        "key": "sharedControl",
-        "label": "Isolate",
-        "options": [
-          [
-            false,
-            "Unit C only"
-          ],
-          [
-            true,
-            "C + shared control supply"
-          ]
-        ]
-      }
-    ]
-  },
+  "id": "replication-and-backup",
+  "label": "Replicas versus backups",
+  "title": "Gmail recovered from tape after a bug affected its live copies.",
+  "reference": "d14-maintenance-and-service-reliability",
+  "objective": "D14.4",
+  "pedagogical_role": "case-study",
+  "explanation": [
+    "Google’s February 2011 report attributes the incident to a storage software update that affected several live data copies. It does not describe fixing copy A and then being reinfected by copy B. Multiple live copies protect against some hardware failures; an earlier offline backup preserved data through this software fault. Google stopped the rollout and reverted the software, then restored affected mail from tape."
+  ],
+  "sources": [
+    "https://gmail.googleblog.com/2011/02/gmail-back-soon-for-everyone.html"
+  ]
+},
+  ...caseStoryScenes.filter(scene=>scene.storyGroup==='london'),
   {
-    "id": "configuration-mapping",
-    "label": "Check the command target",
-    "title": "A command to the wrong row cannot protect the hot row",
-    "reference": "d14-maintenance-and-service-reliability",
-    "objective": "D14.3",
-    "pedagogical_role": "mechanism",
-    "explanation": [
-      "After a row reconfiguration, row B (B01–B20) is on branch C2; the old configuration maps C2 to row A (A01–A20). Verify as-built IDs, sensor points and action targets before restoring automatic control."
-    ]
-  },
+  "id": "llama-recovery",
+  "label": "Recovery keeps training productive",
+  "title": "Llama 3 kept making progress by recovering from interruptions",
+  "reference": "d14-maintenance-and-service-reliability",
+  "objective": "D14.4",
+  "pedagogical_role": "case-study",
+  "explanation": [
+    "Meta reports 466 interruptions in a 54-day Llama 3 training snapshot: 47 planned and 419 unexpected. About 78% of unexpected interruptions involved confirmed or suspected hardware issues. Automation handled all but three incidents requiring significant manual intervention; reduced startup and checkpoint overhead helped keep effective training time above 90%."
+  ],
+  "sources": [
+    "https://arxiv.org/html/2407.21783v3#S3.SS3.SSS4"
+  ]
+},
   {
-    "id": "cloudflare-pdx",
-    "label": "Cloudflare: the missing test",
-    "title": "Cloudflare had tested only part of the failed facility",
-    "reference": "d14-maintenance-and-service-reliability",
-    "objective": "D14.4",
-    "pedagogical_role": "case-study",
-    "explanation": [
-      "Cloudflare’s November 2023 postmortem describes previously undiscovered facility dependencies: earlier tests at PDX-04 covered its high-availability portion, not the entire facility. The high-availability cluster spanned three sites; the other two facilities had been removed in previous tests. Edge network traffic mostly continued while dashboard, API and analytics were disrupted. This is a test-scope and service-boundary case; uncertain reconstruction of the power-failure cause is omitted."
-    ],
-    "sources": [
-      "https://blog.cloudflare.com/post-mortem-on-cloudflare-control-plane-and-analytics-outage/"
-    ]
-  },
+  "id": "llama-maintenance",
+  "label": "Meta: planned maintenance",
+  "title": "Meta upgrades one maintenance group at a time.",
+  "reference": "d14-maintenance-and-service-reliability",
+  "objective": "D14.4",
+  "pedagogical_role": "case-study",
+  "explanation": [
+    "The preceding Llama 3 snapshot includes 47 planned interruptions. In a separate June 2024 engineering article, Meta describes maintenance trains: a bounded group leaves service for upgrades, then returns while the next group is serviced. This original Meta illustration depicts that rotation. Maintenance-domain sizing trades reserved capacity against training interruptions. It is a fleet-maintenance mechanism, not the measured allocation of the 54-day Llama 3 snapshot."
+  ],
+  "sources": [
+    "https://engineering.fb.com/2024/06/12/production-engineering/maintaining-large-scale-ai-capacity-meta/"
+  ]
+},
   {
-    "id": "cloudflare-retest",
-    "label": "Cloudflare: changes and retest",
-    "title": "Cloudflare fixed the gaps and tested a full facility loss",
-    "reference": "d14-maintenance-and-service-reliability",
-    "objective": "D14.5",
-    "pedagogical_role": "case-study",
-    "explanation": [
-      "After capacity expansion and failover changes, Cloudflare ran a facility cut test in February 2024. On March 26, a repeat facility power failure began at 14:58 UTC; APIs and dashboards operated normally by 15:05 without human intervention. Analytics recovered later that day. The seven-minute endpoint is not all-service or facility cold-start recovery."
-    ],
-    "sources": [
-      "https://blog.cloudflare.com/major-data-center-power-failure-again-cloudflare-code-orange-tested/"
-    ]
-  },
-  {
-    "id": "replication-and-backup",
-    "label": "Replicas versus backups",
-    "title": "A second live copy can repeat the same mistake",
-    "reference": "d14-maintenance-and-service-reliability",
-    "objective": "D14.4",
-    "pedagogical_role": "case-study",
-    "explanation": [
-      "A live replica can remain available if one device fails. A bad write or software fault can affect both live copies, so recovery also needs an earlier valid state. Gmail’s February 2011 storage software bug affected replicated copies; offline tape preserved data, and restoring it took hours. Both failure cases are shown together."
-    ],
-    "sources": [
-      "https://gmail.googleblog.com/2011/02/gmail-back-soon-for-everyone.html"
-    ]
-  },
-  {
-    "id": "london-recovery",
-    "label": "Repair versus service recovery",
-    "title": "Cooling was repaired before cloud service recovered",
-    "reference": "d14-maintenance-and-service-reliability",
-    "objective": "D14.4",
-    "pedagogical_role": "case-study",
-    "explanation": [
-      "Google Cloud final July 29 2022 incident summary for europe-west2: July 19 10:05 PDT servers powered down, cooling repaired at 14:13, initial cloud-service restoration milestone July 20 04:28. That is 14 hours 15 minutes after cooling repair. Residual issues lasted longer. These are reported milestones, not uniform customer downtime. The mitigation routing change initially avoided all three zones rather than only the affected zone."
-    ],
-    "sources": [
-      "https://status.cloud.google.com/incidents/fmEL9i2fArADKawkZAa2"
-    ]
-  },
-  {
-    "id": "llama-recovery",
-    "label": "Recovery keeps training productive",
-    "title": "Llama 3 kept making progress by recovering from interruptions",
-    "reference": "d14-maintenance-and-service-reliability",
-    "objective": "D14.4",
-    "pedagogical_role": "case-study",
-    "explanation": [
-      "Meta reports 466 interruptions in a 54-day Llama 3 training snapshot: 47 planned and 419 unexpected. About 78% of unexpected interruptions involved confirmed or suspected hardware issues. Automation handled all but three incidents requiring significant manual intervention; reduced startup and checkpoint overhead helped keep effective training time above 90%."
-    ],
-    "sources": [
-      "https://arxiv.org/html/2407.21783v3#S3.SS3.SSS4"
-    ]
-  },
-  {
-    "id": "operating-decision",
-    "label": "Make the operating decision",
-    "title": "What must be proven before more work can start?",
-    "reference": "d14-maintenance-and-service-reliability",
-    "objective": "D14.5",
-    "pedagogical_role": "transfer",
-    "explanation": [
-      "The three supplied findings are unchanged row electrical input, half the branch flow and a load-reduction command aimed at the wrong row after maintenance. The cause of low flow remains unproven. Keep extra work restricted under the approved policy while the team verifies the physical cause and corrects the mapping. Release new work only after fresh local flow, temperatures and the actual response of the correct row demonstrate the required service. A configuration change or acknowledgment alone does not prove recovery."
-    ]
-  }
+  "id": "operating-decision",
+  "label": "Knowledge check",
+  "title": "Knowledge Check: Can Row B take another 0.70 MW?",
+  "reference": "d14-maintenance-and-service-reliability",
+  "objective": "D14.5",
+  "pedagogical_role": "transfer",
+  "explanation": [
+    "Return to Row B at 2.09 MW. Supply is 30°C, measured flow is 50 kg/s and the allowed return is at most 40°C. All heat enters water with cp 4.18 kJ/(kg·°C); use a stabilized balance. The current water path can remove 2.09 MW at that temperature limit. A new 0.70 MW job raises duty to 2.79 MW and needs 2,790/(4.18×10) = 66.746 kg/s. At unchanged flow its required return is 43.35°C. Keep the limit by establishing at least 66.75 kg/s at the stipulated conditions, removing 0.70 MW of existing duty, or deferring the new job. This answers the stated thermal balance; the cause of the original flow reduction remains to be diagnosed."
+  ]
+}
 ];
 
-// Keep bookmarks useful when a standalone explanation is folded into another slide.
 export const sceneAliases = {
   "diagnostic-observations": "heat-balance",
-  "google-verification": "google-cooling",
+  "google-verification": "google-cooling-flow",
   "control-delay": "admit-work",
   "return-to-service": "operating-decision",
   "common-cause": "maintenance-scope",
   "overlap-outages": "london-recovery",
   "causal-evidence": "operating-decision",
-  "diagnosis-check": "operating-decision"
+  "diagnosis-check": "operating-decision",
+  "measurement-time": "measurement-boundaries",
+  "prove-readiness": "admit-work",
+  "configuration-mapping": "maintenance-scope"
 };
