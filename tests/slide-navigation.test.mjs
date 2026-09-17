@@ -47,15 +47,15 @@ test('student exploration stays outside teaching mode and transient parameters d
   assert.equal(new URL(off.href).search, '?teach=0');
 });
 
-test('cooling continues to the complete delivery chapter at its opening slide', () => {
+test('outdoor cooling continues to the delivery chapter', () => {
   const module = 'http://localhost/course/prototypes/slide-navigation.js';
-  const link = nextChapterLink('http://localhost/course/prototypes/cooling-format.html?teach=1#rejection', presentationRoutes, module);
+  const link = nextChapterLink('http://localhost/course/prototypes/heat-rejection-format.html?teach=1#rejection', presentationRoutes, module);
   assert.equal(link.number, 13);
   assert.equal(link.kind, 'slides');
   assert.equal(link.href, 'http://localhost/course/prototypes/procurement-cases-format.html?teach=1');
 });
 
-test('delivery opens operations, which continues to the next unbuilt chapter reading', () => {
+test('delivery, operations, capacity and capstone remain a continuous slide sequence', () => {
   const module = 'http://localhost/course/prototypes/slide-navigation.js';
   const link = nextChapterLink('http://localhost/course/prototypes/procurement-cases-format.html?teach=1#aws-houdini-prefab', presentationRoutes, module);
   assert.equal(link.number, 14);
@@ -63,9 +63,12 @@ test('delivery opens operations, which continues to the next unbuilt chapter rea
   assert.equal(link.href, 'http://localhost/course/prototypes/operations-format.html?teach=1');
   const next = nextChapterLink(link.href, presentationRoutes, module);
   assert.equal(next.number, 15);
-  assert.equal(next.kind, 'reading');
-  assert.equal(new URL(next.href).pathname, '/course/index.html');
-  assert.ok(new URL(next.href).hash.startsWith('#d15-'));
+  assert.equal(next.kind, 'slides');
+  assert.equal(next.href, 'http://localhost/course/prototypes/capacity-format.html?teach=1');
+  const last = nextChapterLink(next.href, presentationRoutes, module);
+  assert.equal(last.number, 16);
+  assert.equal(last.href, 'http://localhost/course/prototypes/integrated-cases-format.html?teach=1');
+  assert.equal(nextChapterLink(last.href, presentationRoutes, module), null);
 });
 
 test('networking advances directly to cooling after storage retirement', () => {
@@ -88,10 +91,10 @@ test('rack power advances to DC distribution, then networking', () => {
   assert.equal(next.href, 'http://localhost/course/prototypes/networking-format.html?teach=1');
 });
 
-test('a presentation spanning two chapters continues after both', () => {
+test('chip heat capture continues into outdoor cooling', () => {
   const module = 'http://localhost/course/prototypes/slide-navigation.js';
-  const link = nextChapterLink('http://localhost/course/prototypes/cooling-format.html#rejection', presentationRoutes, module);
-  assert.equal(link.number, 13);
+  const link = nextChapterLink('http://localhost/course/prototypes/cooling-format.html#cooling-retrofit', presentationRoutes, module);
+  assert.equal(link.number, 12);
   assert.equal(link.kind, 'slides');
 });
 

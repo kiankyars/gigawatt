@@ -7,8 +7,8 @@ contract; [PRESENTING.md](PRESENTING.md) explains the dry-run controls.
 
 [Open the course](index.html).
 The sidebar combines reading and teaching material under numbered descriptive
-chapters, beginning with **1. Primer**. It identifies chapters with no slides and
-marks decks that teach selected topics rather than the whole chapter.
+chapters, beginning with **1. Primer**. All 16 numbered chapters have complete
+authored slide decks; the review tracker records which the author has accepted.
 
 | Editable input                                                                                                   | Generated reading or teaching output                                                                  | Build command                                         |
 | ---------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
@@ -35,7 +35,10 @@ exercise handoffs belong in
 The authored sequences in `prototypes/` are source files, published at clean
 `/slides/…` routes by `src/gigawatt/stage_site.py`: `continuity-format.html`
 and its mechanism modules, and `cooling-format.html` with `cooling-model.js`, `cooling-foundations.js`,
-`cooling-rejection.js`, `cooling-cdu.js` and `cooling-continuity.js`.
+`cooling-capture.js`, `cooling-cdu.js` and `cooling-continuity.js`.
+Chapter 12 uses `heat-rejection-format.html` and its scene, player, model and visual
+modules, reusing the outdoor mechanisms in `cooling-rejection.js`. The final two
+decks use the same structure under `capacity-*` and `integrated-cases-*`.
 Edit those files directly; their numerical tests and browser checks verify the
 presentation, while the matching reader lessons retain the longer explanations.
 The [Primer](prototypes/terminology-format.html) publishes at `/slides/primer.html?teach=1`.

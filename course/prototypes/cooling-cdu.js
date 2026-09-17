@@ -1,7 +1,7 @@
 const FRONT =
-  "https://www.coolitsystems.com/wp-content/uploads/2025/05/2000.png";
+  "../assets/references/cooling-chx2000-front.png";
 const INTERNAL =
-  "https://www.coolitsystems.com/wp-content/uploads/2026/09/CHx2000.jpeg";
+  "../assets/references/cooling-chx2000-inside.jpeg";
 const text = (x, y, value, cls = "svg-label", extra = "") =>
   `<text x="${x}" y="${y}" class="${cls}" ${extra}>${value}</text>`;
 

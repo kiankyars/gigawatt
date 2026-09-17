@@ -1452,13 +1452,13 @@
       "publisher": "www.gao.gov",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-06",
+      "reviewed_on": "2026-09-16",
       "domains": [
         "D13",
         "D15"
       ],
-      "use": "The guide overview supports integrated schedules, explicit dependencies and the connection between schedule slippage and cost.",
-      "caution": "Overview and guide structure inspected. The network, durations, slack and interventions are original teaching scenarios, not GAO project examples.",
+      "use": "The guide overview supports integrated schedules, explicit dependencies and the connection between schedule slippage and cost. Chapter 15 connects a delayed intervention to fewer useful operating hours inside a fixed horizon.",
+      "caution": "Overview and guide structure inspected. The network, durations, slack and interventions are original teaching scenarios, not GAO project examples. September 16 recheck covered the public Highlights summary only, not the full 240-page guide.",
       "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
     },
     {
@@ -1528,12 +1528,12 @@
       "publisher": "nvlpubs.nist.gov",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-06",
+      "reviewed_on": "2026-09-16",
       "domains": [
         "D15"
       ],
-      "use": "Chapters 2–4 distinguish study periods, cost categories, cash-flow timing and present-value methods; section 3.2 covers single and recurring payments.",
-      "caution": "Selected scope, timing and discounting passages inspected. Prices, rate, residual and service assumptions are original; no federal compliance or current-market claim is made.",
+      "use": "Chapters 2–4 distinguish study periods, cost categories, cash-flow timing and present-value methods; section 3.2 covers single and recurring payments. Chapter 15 visibly introduces the single-payment relation before the three-year facilities-service comparison.",
+      "caution": "Selected scope, timing and discounting passages inspected. Prices, rate, residual and service assumptions are original; no federal compliance or current-market claim is made. September 16 recheck inspected PDF page 52 and the study-period passages: identical scope and horizon, end-of-year discounting, and terminal residual timing. All numerical teaching inputs remain original.",
       "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
     },
     {
@@ -3335,14 +3335,15 @@
       "publisher": "Oracle",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-13",
+      "reviewed_on": "2026-09-16",
       "domains": [
         "D03",
         "D12",
-        "D04"
+        "D04",
+        "D15"
       ],
-      "use": "Abilene section explicitly reports 75% of total capacity delivered as of September 2026. Includes genuine aerial photographs captioned July 15, 2026. Return to the recurring Abilene campus as physical context for the distribution question.",
-      "caution": "Oracle does not define its delivered-capacity basis. 75% × the separately reported 1,200 MW campus plan gives 900 MW only if those bases match; it is not a reported operating MW value. Photographs are dated July 15, 2026."
+      "use": "Abilene section explicitly reports 75% of total capacity delivered as of September 2026. Includes genuine aerial photographs captioned July 15, 2026. Return to the recurring Abilene campus as physical context for the distribution question. Chapter 15 audits this delivery statement as a dated capacity state.",
+      "caution": "Oracle does not define its delivered-capacity basis. 75% × the separately reported 1,200 MW campus plan gives 900 MW only if those bases match; it is not a reported operating MW value. Photographs are dated July 15, 2026. September 16 recheck confirmed the section-specific September update despite the generic January footer; it supplies neither measured useful output nor a full-service acceptance ledger."
     },
     {
       "id": "P103",
@@ -3441,12 +3442,13 @@
       "publisher": "Crusoe",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-12",
+      "reviewed_on": "2026-09-16",
       "domains": [
-        "D03"
+        "D03",
+        "D15"
       ],
-      "use": "Separates the original 1.2 GW Oracle Abilene campus from a distinct 900 MW Microsoft campus; useful for avoiding scope conflation in later status updates.",
-      "caution": "June 9 status is historical. September Oracle delivery update is newer for the original campus. Company-wide contracted capacity and development pipeline are not operating Abilene capacity.",
+      "use": "Separates the original 1.2 GW Oracle Abilene campus from a distinct 900 MW Microsoft campus; useful for avoiding scope conflation in later status updates. June 9 reports two original-campus buildings operational and six under construction, while the second Microsoft campus had recently broken ground.",
+      "caution": "June 9 status is historical. September Oracle delivery update is newer for the original campus. Company-wide contracted capacity and development pipeline are not operating Abilene capacity. Building counts describe the June 9 record, not the present construction inventory.",
       "published_on": "2026-06-09"
     },
     {
@@ -4954,6 +4956,36 @@
       ],
       "use": "Leaf and spine are network topology roles used in Ethernet Clos fabrics, independently of NVIDIA GPU hardware.",
       "caution": "Use the topology explanation, not the historical switch rates as current product recommendations."
+    },
+    {
+      "id": "P211",
+      "title": "Crusoe — Expands AI data center campus in Abilene to 1.2 gigawatts",
+      "url": "https://www.crusoe.ai/resources/newsroom/crusoe-expands-ai-data-center-campus-in-abilene-to-1-2-gigawatts",
+      "publisher": "Crusoe",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-16",
+      "published_on": "2025-03-18",
+      "domains": [
+        "D15"
+      ],
+      "use": "Dated original-campus plan: six additional buildings bring the stated total to eight buildings and 1.2 GW of power capacity. Teaches the planned-capacity row of the Abilene ledger.",
+      "caution": "March 2025 construction announcement. Expected completion and energization dates are prospective statements at publication, not verified outcomes. Do not convert the campus total to operating IT MW, throughput, or a per-building GPU inventory. The course does not adopt the article’s GPU-count wording."
+    },
+    {
+      "id": "P212",
+      "title": "Crusoe — Flagship Abilene data center is live",
+      "url": "https://www.crusoe.ai/resources/newsroom/crusoe-announces-flagship-abilene-data-center-is-live",
+      "publisher": "Crusoe",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-16",
+      "published_on": "2025-09-30",
+      "domains": [
+        "D15"
+      ],
+      "use": "Publisher reports the first two buildings energized within a year of the June 2024 construction start, the first phase running on Oracle Cloud Infrastructure, and early training/inference workloads. Separates energization from an operational workload statement.",
+      "caution": "Historical publisher account, not independent metering. No quantitative full-campus accepted-service MW, current demand, or accepted workload-output rate is supplied. These statements overlap the earlier campus plan and later delivery percentage; they are not additive capacity increments."
     }
   ],
   "local_attributions": [

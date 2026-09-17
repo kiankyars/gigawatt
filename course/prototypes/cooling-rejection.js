@@ -394,7 +394,7 @@ function approach(compact, state) {
     label(
       24,
       25,
-      "84 kW example · fixed approaches are teaching inputs",
+      "84 kW heat load",
       13,
       "muted",
     ) +

@@ -113,17 +113,23 @@
     },
     {
       "id": "cooling",
-      "title": "From the chip to the outdoors",
+      "title": "Chip and rack heat capture",
       "chapters": [
         {
           "id": "D10",
           "href": "prototypes/cooling-format.html?teach=1",
-          "coverage": "selected"
-        },
+          "coverage": "chapter"
+        }
+      ]
+    },
+    {
+      "id": "heat-rejection",
+      "title": "Heat rejection, climate and water",
+      "chapters": [
         {
           "id": "D11",
-          "href": "prototypes/cooling-format.html?teach=1#rejection",
-          "coverage": "selected"
+          "href": "prototypes/heat-rejection-format.html?teach=1",
+          "coverage": "chapter"
         }
       ]
     },
@@ -145,6 +151,28 @@
         {
           "id": "D14",
           "href": "prototypes/operations-format.html?teach=1",
+          "coverage": "chapter"
+        }
+      ]
+    },
+    {
+      "id": "capacity",
+      "title": "Capacity, cost and system decisions",
+      "chapters": [
+        {
+          "id": "D15",
+          "href": "prototypes/capacity-format.html?teach=1",
+          "coverage": "chapter"
+        }
+      ]
+    },
+    {
+      "id": "integrated-cases",
+      "title": "Integrated cases",
+      "chapters": [
+        {
+          "id": "capstone",
+          "href": "prototypes/integrated-cases-format.html?teach=1",
           "coverage": "chapter"
         }
       ]

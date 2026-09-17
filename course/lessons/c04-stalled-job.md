@@ -4,64 +4,64 @@ Generated reading view. Edit [`course/expansion/capstones.json`](https://github.
 
 **16. Put the system together · Authored draft**
 
-Build a serial job timeline from supplied measurements, compare two proposed improvements, and test recovery rather than relying on GPU occupancy.
+Trace a payload from sender through fabric to receiver, compare two upgrades, and test the predicted gain against end-to-end progress.
 
-**Driving question:** Which measurement would distinguish a fabric limit from a storage or compute limit?
+**Driving question:** Which physical segment limits communication, and would upgrading it shorten the complete job cycle?
 
 ## Name what the job is waiting for
 
-A hypothetical distributed job repeats a cycle containing 60 seconds of useful compute, a 20-second communication phase, and a 10-second blocking checkpoint pause. The supplied trace shows no overlap between these phases. A dashboard reports that the devices remain allocated for the entire cycle, but allocation alone cannot tell you how much useful work completes. Some waiting may also involve active instructions, so a generic hardware busy counter is not a substitute for the application trace. Use the actual job boundary and a declared definition of useful progress.
+A hypothetical distributed job repeats a serial cycle: 60 seconds of useful compute, a communication phase, and 10 seconds of other fixed work. The supplied application trace shows no overlap. The same work completes each cycle. Every device remains allocated throughout, including the waiting time; allocation therefore does not establish useful progress. Keep the compute duration and the other work fixed while testing the communication path.
 
-The communication phase moves a supplied 800 GB payload across one measured bottleneck at an effective 40 GB/s. The checkpoint writes 200 GB at an effective 20 GB/s. These decimal units and achieved rates are scenario measurements, not peak port specifications. The numbers are deliberately consistent with the phase durations. A real collective can have multiple rounds, aggregation and synchronization effects; do not apply one-payload division to an unidentified collective algorithm. This capstone provides the transfer model so its calculation can be checked.
+The communication phase moves one supplied 800 GB payload through a sender, a fabric bottleneck and a receiver. Their achieved payload-rate limits are 80, 40 and 80 GB/s respectively. The path is limited to 40 GB/s, so the transfer takes 20 seconds. These decimal payload units and effective rate limits are original scenario inputs. They are not advertised port speeds or measurements of a named platform. A real collective may add rounds, shared traffic and synchronization; the single-payload model applies only to the declared transfer here.
 
 ## Make a falsifiable improvement prediction
 
-Proposal N doubles the achieved communication rate while leaving computation and storage unchanged. Proposal S doubles the checkpoint write rate with the rest unchanged. Since the supplied trace is serial, calculate each phase separately and add the times. Predict a new cycle duration before running the experiment. If observed completion does not improve as predicted, examine whether the achieved rate changed at the bottleneck, whether another segment expanded, whether synchronization moved the critical path, or whether the original no-overlap assumption was wrong.
+Proposal E doubles the sender rate limit from 80 to 160 GB/s while the 40 GB/s fabric bottleneck and 80 GB/s receiver remain unchanged. Proposal F doubles the fabric bottleneck to 80 GB/s, keeping both endpoints unchanged. Predict the achieved path rate, the communication interval and the complete cycle for each proposal before inspecting the result. Improving the sender leaves a slower segment downstream; improving the fabric releases the binding constraint in this supplied path.
 
-A complete recovery exercise goes beyond write speed. After a checkpoint is committed, the job must find compatible state, read it, restore execution and produce valid progress. A checkpoint that is fast but unrecoverable is not a successful service. Record the application version, checkpoint identifier, storage path, restart duration and output check. Compare ordinary completion time with time lost during failures over an appropriate interval. Power and cooling adequacy remain prerequisites; they do not establish these information and software paths.
+After the change, measure the same payload across the complete path and align that measurement with the application trace. An end-to-end rate of 40 GB/s still predicts a 20-second communication phase and a 90-second cycle. A rate of 80 GB/s predicts 10 seconds and an 80-second cycle. If those intervals do not match, investigate another bottleneck, changed synchronization, a different payload or a broken no-overlap assumption. Verify correct output as well as completion time. A link negotiating its new speed does not by itself establish the payload rate or useful job throughput.
 
-## Worked example: Compare two bottleneck interventions
+## Worked example: Compare an endpoint upgrade with a bottleneck upgrade
 
-- Synthetic serial cycle: 60 s useful compute, 800 GB communication, 200 GB blocking checkpoint.
-- Achieved payload rates: 40 GB/s communication and 20 GB/s checkpoint writing; no overlap or restart in the baseline cycle.
-- Both proposals affect only their named rate.
+- Original serial cycle: 60 s useful compute, one 800 GB communication phase, then 10 s other fixed work; no overlap.
+- Achieved payload-rate limits: sender 80 GB/s, fabric bottleneck 40 GB/s, receiver 80 GB/s.
+- E doubles only the sender limit; F doubles only the fabric bottleneck. Work per cycle stays fixed.
 
-1. Baseline communication is 800/40 = 20 s; checkpoint write is 200/20 = 10 s.
-2. Baseline cycle duration is 60 + 20 + 10 = 90 s. Useful-compute share is 60/90 = 66.7%.
-3. N gives 800/80 = 10 s communication, hence an 80 s cycle and 90/80 = 1.125 times the baseline cycle throughput.
-4. S gives 200/40 = 5 s checkpoint write, hence an 85 s cycle and 90/85 ≈ 1.059 times the baseline cycle throughput.
-5. If both independently hold, the cycle becomes 60 + 10 + 5 = 75 s, or 1.20 times baseline throughput. Neither rate doubling doubles useful throughput.
+1. Baseline path rate is min(80, 40, 80) = 40 GB/s. Communication takes 800/40 = 20 s.
+2. The complete baseline cycle is 60 + 20 + 10 = 90 s. Useful-compute share is 60/90 = 66.7%.
+3. E gives min(160, 40, 80) = 40 GB/s. Communication and the 90 s complete cycle are unchanged.
+4. F gives min(80, 80, 80) = 80 GB/s. Communication takes 10 s, and the complete cycle takes 80 s.
+5. With fixed work per cycle, F produces 90/80 = 1.125 times baseline cycle throughput: a 12.5% gain. Doubling one phase rate does not double useful job throughput.
 
-**Result:** Under this serial trace, the network proposal saves ten seconds per cycle and the storage proposal saves five. Validate the achieved rates and the changed cycle in an experiment.
+**Result:** The fabric intervention saves ten seconds per cycle; the sender intervention saves none on this path. Verify the changed end-to-end rate, phase time and correct output.
 
-**Model boundary:** The model excludes overlap, collective details, startup overhead and failure recovery from ordinary cycle time. No rack power, advertised FLOPS or generic GPU utilization value is converted into job output.
+**Model boundary:** All payloads, achieved rate limits and phase times are original teaching inputs. The model excludes overlap, collective algorithm details, startup and failure recovery. No rack-power rating, advertised FLOPS or generic utilization counter is converted into useful output.
 
 ## The tradeoff
 
-Choice: Invest in the larger measured time reduction first.
+Choice: Upgrade the fabric segment that limits the measured path.
 
-Benefit: The predicted gain is tied to a named bottleneck and can be checked against a trace.
+Benefit: The predicted ten-second cycle reduction is tied to a specific physical bottleneck and an observable transfer.
 
-Cost: Acquisition, disruption, scaling and recovery behavior may differ; the biggest speed improvement is not automatically the best economic choice.
+Cost: Acquisition, installation disruption, topology changes and future sharing still affect value; the larger speed improvement is not automatically the better investment.
 
 ## When the situation changes
 
-Trigger: The communication rate doubles but job duration barely changes.
+Trigger: The new link reports its higher speed, but the complete job cycle remains at 90 seconds.
 
-Mechanism: The assumed bottleneck may not be on the job's critical path, or another shared resource may now dominate.
+Mechanism: The achieved payload rate may still be limited by another segment, shared traffic or synchronization; the negotiated link rate is not the end-to-end rate.
 
-Response: Collect aligned compute, communication, storage and synchronization traces, then compare the observed intervals with the prediction.
+Response: Measure the same payload at the path endpoints, align the compute and communication intervals, and check the changed configuration and correct output against the prediction.
 
 ## Apply the idea
 
-A revised implementation overlaps 8 seconds of the baseline 10-second checkpoint pause with computation. Communication remains serial at 20 seconds. What is the new cycle duration? Would doubling checkpoint write rate still save five seconds?
+After the fabric upgrade, a receiver-side limit of 50 GB/s is discovered. The sender and fabric can each deliver 80 GB/s. With the same payload and serial phases, what are the new communication and cycle times? Which path segment should be investigated next?
 
 <details>
 <summary>Reveal the worked answer</summary>
 
-The cycle is 60 + 20 + (10 − 8) = 82 seconds. A five-second write can fit entirely inside the available eight-second overlap window, reducing the cycle only to 80 seconds.
+The path rate is min(80, 80, 50) = 50 GB/s. Communication takes 800/50 = 16 s, and the complete cycle takes 60 + 16 + 10 = 86 s. The receiver side is now binding.
 
-The visible critical-path checkpoint cost is two seconds. Faster storage saves only exposed time, provided the same overlap window and compute behavior really hold. A phase's total duration and its contribution to end-to-end completion are different quantities.
+The bottleneck moves when one segment improves. The cycle-throughput gain is 90/86, about 1.047 times baseline; further sender or fabric upgrades cannot remove the supplied receiver limit.
 
 </details>
 
@@ -69,4 +69,4 @@ The visible critical-path checkpoint cost is two seconds. Faster storage saves o
 
 ## Sources and reading boundaries
 
-- [Slurm Workload Manager — Topology Guide](https://slurm.schedmd.com/topology.html) — Provides scheduling-topology context; all payloads, phase times and interventions are original synthetic scenarios. Read 2026-09-06. Selected topology documentation, not a pinned-release workload benchmark. Scheduling topology does not by itself specify packet routing or achieved communication rate.
+- [NVIDIA DGX SuperPOD — Network Fabrics](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/network-fabrics.html) — Physical compute-fabric context: endpoint connections, switches and inter-switch paths. All payloads, achieved rates, timings and interventions in the case are original teaching inputs. Read 2026-09-16. The reference architecture motivates tracing a complete physical path. The case does not reproduce its topology, device ratings, measured performance or scheduling behavior.

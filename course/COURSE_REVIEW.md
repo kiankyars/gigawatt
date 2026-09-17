@@ -15,14 +15,14 @@ Those documents implement this design rather than establishing separate course s
 Use the domain map to look up the section being prepared; there is no need to
 read it end to end.
 
-**Current state:** 50 reader lessons map to 65 objective IDs. Chapters 1–11, 14 and 15 have
-authored teaching decks; the combined cooling presentation covers selected topics
-in Chapters 12–13. The former standalone Compute chapter was retired on 15 September:
-its useful mechanisms now sit within workloads, rack power, networking and recovery.
-Three deeper compute lessons remain under **Compute and memory — further reading**.
-Numbered chapters and slide handoffs skip that reference material. Every deck uses
-shared navigation. The table below records author review; [TESTING.md](TESTING.md)
-records technical verification.
+**Current state:** All 16 numbered chapters now have complete authored teaching decks.
+The cooling material is split into Chapter 11 (chip and rack heat capture) and
+Chapter 12 (heat rejection, climate and water); Chapters 15–16 now provide capacity
+and cost decisions followed by five integrated cases. The former Compute and
+Storage chapters remain as Further reading; their useful teaching cases were
+moved beside the concepts they illustrate. Every deck uses shared navigation.
+The table below distinguishes author acceptance from authored material awaiting
+review; [TESTING.md](TESTING.md) records technical verification.
 
 ## Current instruction audit — 13 September 2026
 
@@ -79,12 +79,12 @@ numbers used during those reviews.
 | 8. [Rack power and buffering](prototypes/rack-energy-format.html?teach=1) | 17 slides; rack hardware, conversion near the chip, VRMs, one connected storage diagram, load swings, recharge and the grid-to-chip power-stack recap | [Split checks](TESTING.md#rack-power-and-dc-distribution-chapter-split--2026-09-16) | **Accepted and verified — 16 September 2026.** Kian approved Chapter 8 including the merged storage/support diagram, then requested the existing power-stack image as its final recap after recharge. Chapters 1–8 remain verified. |
 | 9. [800 V DC distribution](prototypes/dc-distribution-format.html?teach=1) | 14 slides; conductor comparison, conversion placement, 50 V/800 V rack-bus paths, transformer-first versus SST supply paths and Zurich-West; closes with DC protection, retrofit and the three-column architecture recap | [Split checks](TESTING.md#rack-power-and-dc-distribution-chapter-split--2026-09-16) | **Accepted after requested edit — 16 September 2026.** Kian approved Chapter 9 upon replacing slide 10 with the supplied transformer-first/SST image. The image is installed unchanged; the 50 V versus 800 V rack-bus distinction remains. The preferred three-column comparison is now the final recap, after protection and the retrofit example. The power-stack map has moved to the end of Chapter 8. |
 | 10. [Networking and interconnects](prototypes/networking-format.html?teach=1) | 26 slides; named scale-up/scale-out/WAN examples, Microsoft Superfactory image and exact capability quote, Meta storage tiers, supplied leaf–spine overview, full data hierarchy, real DGX H100/QM9700 fabric path, collective communication and failure diagnosis | [Current checks](TESTING.md#chapter-9-scope-and-chapter-13-delivery--2026-09-16) | **Authored; author review in progress.** September 16 networking revisions include concise NVLink wording and a hardware–software co-design cue; the real DGX fabric now follows the adapter/switch slide. Supplied optics, Microsoft and leaf–spine images remain. No whole-chapter acceptance inferred. |
-| 11. [Chip and rack heat capture](prototypes/cooling-format.html?teach=1) | Selected topics in shared cooling deck | Model/browser checks recorded | Cooling sequence iterated; no whole-chapter completion claimed. |
-| 12. [Heat rejection, climate and water](prototypes/cooling-format.html?teach=1#rejection) | Selected topics in shared cooling deck | Model/browser checks recorded | Cooling sequence iterated; no whole-chapter completion claimed. |
+| 11. [Chip and rack heat capture](prototypes/cooling-format.html?teach=1) | 16 slides; chip temperature, heat flux, flow and pressure, parallel branches, CDU interfaces and a retrofit decision | [Completion checks](TESTING.md#remaining-chapter-completion--2026-09-16) | **Authored; ready for author review.** |
+| 12. [Heat rejection, climate and water](prototypes/heat-rejection-format.html?teach=1) | 18 slides; refrigeration, weather limits, Abilene, water balance and heat reuse | [Completion checks](TESTING.md#remaining-chapter-completion--2026-09-16) | **Authored; ready for author review.** |
 | 13. [Design, procurement and commissioning](prototypes/procurement-cases-format.html?teach=1) | 27 slides; delivery dependencies, EPC and factory/site scope, Houdini, Compass, fixed-20 MW rack change, release evidence, commissioning and phased handover | [Current checks](TESTING.md#chapter-9-scope-and-chapter-13-delivery--2026-09-16) | **Authored; ready for first author review.** Full chapter replaces the selected Houdini case. No author acceptance inferred. |
 | 14. [Controls, operations and reliability](prototypes/operations-format.html?teach=1) | 26 slides; local measurements, control readiness, maintenance scope, configuration, service recovery, Google cooling, Cloudflare, Google London, Llama, Gmail and demand-response cases | [Current checks](TESTING.md#chapter-14-operations-and-approved-redundancy-cuts--2026-09-16) | **Authored; ready for first author review.** Covers all five D14 objectives and closes with an evidence-selection and load-release decision. No author acceptance inferred. |
-| 15. Capacity, cost and system decisions | Reader draft; own deck unbuilt | Reader/build checks only | Presentation not yet assigned for review. |
-| 16. Integrated cases | Five reader capstones; final deck unbuilt | Reader/build checks only | Capstone presentation and author review pending. |
+| 15. [Capacity, cost and system decisions](prototypes/capacity-format.html?teach=1) | 19 slides; capacity ledger, constraints, cost boundaries, useful-output denominator, timing and dated Abilene evidence | [Completion checks](TESTING.md#remaining-chapter-completion--2026-09-16) | **Authored; ready for first author review.** |
+| 16. [Integrated cases](prototypes/integrated-cases-format.html?teach=1) | 22 slides; five coupled decisions: outage, hot weather, dense racks, useful work and phased delivery | [Completion checks](TESTING.md#remaining-chapter-completion--2026-09-16) | **Authored; ready for first author review.** |
 
 **Compute migration — 15 September 2026.** The former Chapter 9 is retired.
 Rack/tray/superchip anatomy is consolidated into one Chapter 8 slide; operand reuse
@@ -303,14 +303,13 @@ sequences; later domain slide adaptations should integrate those cases in contex
 Use the existing integrated capstones where several systems meet; longer exercises
 can be optional companion practice. The video needs no scoring, mandatory quiz
 screen or separate examination after every chapter. Include a meaningful active check-in within each domain, using a closing example only if no worthwhile check can be made. This rhythm is the production
-approach; the 800 V and UPS prototypes are implemented, while the remaining presenter
-sequences still need authorship and dry runs.
+approach. Every numbered chapter now has a deck; unreviewed chapters still need author review and dry runs.
 
 ### Next teaching step
 
 Storage and recovery is retired as a standalone teaching chapter. Meta’s storage tiers now sit beside the networking storage-traffic diagram; Llama recovery, Gmail recovery copies, and Google demand response with its deadline example sit in Operations. The detailed storage/checkpoint lessons remain in Further reading. The supplied hardware-price meme is preserved in Procurement. No former storage URL aliases are published.
 
-After this draft, the next incomplete chapter is **11. Chip and rack heat capture**. The current combined cooling presentation provides selected material for Chapters 11–12; it still needs to become a complete chapter sequence. Abilene’s cooling case remains a required Chapter 12 handoff. Preserve the recorded author-review state of earlier chapters and apply incoming feedback before treating their slides as accepted.
+No numbered chapter remains without slides. Review Chapters 11–16, starting with the two completed cooling chapters, and refine them before recording. Preserve the recorded acceptance of earlier chapters; publication and passing tests do not constitute author acceptance.
 
 #### Chapter 4 review — 13 September 2026
 

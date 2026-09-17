@@ -11,9 +11,12 @@ export const presentationLabels = Object.freeze({
   "rack-energy": "8. Rack power and buffering",
   "dc-distribution": "9. 800 V DC distribution",
   "networking": "10. Networking and interconnects",
-  "cooling": "11–12. From the chip to the outdoors",
+  "cooling": "11. Chip and rack heat capture",
+  "heat-rejection": "12. Heat rejection, climate and water",
   "procurement-cases": "13. Design, procurement and commissioning",
-  "operations": "14. Controls, operations and reliability"
+  "operations": "14. Controls, operations and reliability",
+  "capacity": "15. Capacity, cost and system decisions",
+  "integrated-cases": "16. Integrated cases"
 });
 export const presentationRoutes = Object.freeze([
   {
@@ -109,6 +112,15 @@ export const presentationRoutes = Object.freeze([
   {
     "path": "cooling-format.html",
     "next": {
+      "number": 12,
+      "title": "Heat rejection, climate and water",
+      "href": "heat-rejection-format.html?teach=1",
+      "kind": "slides"
+    }
+  },
+  {
+    "path": "heat-rejection-format.html",
+    "next": {
       "number": 13,
       "title": "Design, procurement and commissioning",
       "href": "procurement-cases-format.html?teach=1",
@@ -129,8 +141,21 @@ export const presentationRoutes = Object.freeze([
     "next": {
       "number": 15,
       "title": "Capacity, cost and system decisions",
-      "href": "../index.html#d15-capacity-ledger",
-      "kind": "reading"
+      "href": "capacity-format.html?teach=1",
+      "kind": "slides"
     }
+  },
+  {
+    "path": "capacity-format.html",
+    "next": {
+      "number": 16,
+      "title": "Put the system together",
+      "href": "integrated-cases-format.html?teach=1",
+      "kind": "slides"
+    }
+  },
+  {
+    "path": "integrated-cases-format.html",
+    "next": null
   }
 ]);

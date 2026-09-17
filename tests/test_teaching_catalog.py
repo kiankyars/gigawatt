@@ -192,7 +192,7 @@ class TeachingCatalogTests(unittest.TestCase):
             ):
                 self.resolve(catalog=catalog)
 
-    def test_real_catalog_separates_chapters_and_labels_selected_topics(self):
+    def test_real_catalog_has_one_complete_deck_for_every_chapter(self):
         course = b.load_course()
         chapters = {c["id"]: c for c in course["chapters"]}
         self.assertEqual(len(chapters), 16)
@@ -200,20 +200,20 @@ class TeachingCatalogTests(unittest.TestCase):
         self.assertEqual(chapters["D13"]["number"], 13)
         self.assertEqual(chapters["capstone"]["number"], 16)
         self.assertEqual(
-            len({p["id"] for c in chapters.values() for p in c["presentations"]}), 13
+            len({p["id"] for c in chapters.values() for p in c["presentations"]}), 16
         )
-        for did in ("D10", "D11"):
+        for did in chapters:
             with self.subTest(chapter=did):
                 self.assertTrue(chapters[did]["presentations"])
                 self.assertTrue(
                     all(
-                        p["coverage"] == "selected"
+                        p["coverage"] == "chapter"
                         for p in chapters[did]["presentations"]
                     )
                 )
         self.assertEqual(
             chapters["D11"]["presentations"][0]["href"],
-            "prototypes/cooling-format.html?teach=1#rejection",
+            "prototypes/heat-rejection-format.html?teach=1",
         )
         self.assertEqual(chapters["D13"]["presentations"], [{
             "id": "procurement-cases",

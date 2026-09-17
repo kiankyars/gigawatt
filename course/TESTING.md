@@ -7,6 +7,33 @@ Do not download or launch standalone Chrome for Testing or Playwright browser
 binaries here. Existing browser test harnesses remain available for a separately
 configured test environment; run local model and build checks without a browser.
 
+## Remaining chapter completion — 2026-09-16
+
+- All 16 numbered chapters now have full authored slide sequences. The new or
+  completed decks contain **16 capture, 18 heat-rejection, 19 capacity and 22
+  integrated-case slides**. The catalog, reader directory and next-chapter links
+  agree; the integrated deck is the terminal chapter.
+- **80 Python and 283 JavaScript tests passed.** New checks cover chip temperature,
+  pump/circuit intersections, parallel-branch heat balances, cooling retrofit
+  choices, chiller/COP boundaries, weather bins, tower water balances, heat reuse,
+  capacity constraints, present-value comparisons, delivery sensitivity, and all
+  five integrated cases. New modular players have state and reveal coverage.
+- Built-in browser checks traversed all **75 slides** at **1280 × 720** and
+  **390 × 844**: no horizontal overflow or failed images. Desktop content remained
+  above the navigation bar. Inspected pump curves, retrofit feedback, refrigeration,
+  cost comparison, dense-rack service access, Abilene imagery and CoolIT photographs.
+  Exercised changes and reveals in each deck; mobile controls remain reachable by
+  scrolling. New decks retain shared presenter controls. Opening the presenter hid
+  audience chrome and subsequent disconnection restored it; no separate-window
+  visual inspection is claimed for this run.
+- CoolIT product photographs are now local attributed assets; its stated thermal
+  and hydraulic ratings were rechecked against the manufacturer. Abilene cases
+  retain dates, project boundaries and source limits. C04/C05 reader examples now
+  match their network and phased-acceptance slide exercises.
+- Course source, expanded reader, domain map, research metadata, publication staging
+  and whitespace checks passed. These results establish technical readiness;
+  Chapters 11, 12, 15 and 16 still await author review.
+
 ## Chapter 6 overview sequence and image review — 2026-09-15
 
 - **25 scenes.** Original overview is unchanged; focused repeats call the same

@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light dark" />
-    <title>From the chip to the outdoors · From Watts to Tokens</title>
+    <title>Chip and rack heat capture · From Watts to Tokens</title>
     <style>
       :root {
         color-scheme: light;
@@ -459,13 +459,11 @@
           <a class="reading-link" href="../index.html#d10-local-thermal-paths"
             >Reading</a
           >
-          <button id="evidence" type="button">Sources &amp; model</button>
           <button id="fullscreen" type="button" hidden>Full screen</button>
         </nav>
       </header>
       <main>
         <header>
-          <p class="eyebrow">CHIP TO OUTDOORS · THE HEAT PATH</p>
           <h1 id="title"></h1>
         </header>
         <section id="stage" aria-label="Cooling mechanism">
@@ -483,443 +481,13 @@
         </div>
       </footer>
     </div>
-    <dialog id="reading" aria-labelledby="reading-title">
-      <header>
-        <h2 id="reading-title">Sources and model</h2>
-        <button id="close-reading" aria-label="Close sources">×</button>
-      </header>
-      <p>
-        This presentation covers heat capture, CDU interfaces and outdoor heat
-        rejection. Schematics describe functional paths, not installation
-        drawings. The heat-capture and heat-rejection lessons hold the expanded reference. The CoolIT views use
-        real manufacturer photographs of a row-scale CHx2000.
-      </p>
-      <details open>
-        <summary>Heat balance, temperature rise and approach</summary>
-        <p>
-          Heat-transfer rate Q̇ is thermal energy transferred each second: 100 kW
-          means 100 kJ per second. It is thermal power, not the quantity of
-          water flowing and not a temperature-rise rate. Here water warms while
-          remaining liquid. That is sensible heating. Evaporation or boiling
-          also involves latent heat and requires a different energy accounting
-          term.
-        </p>
-        <p>
-          For this steady-flow heat balance, fluid continuously enters and
-          leaves the heat-pickup section. At a settled operating point, the flow
-          and inlet/outlet conditions do not change with time, and energy is not
-          accumulating in that section. The outlet may still be warmer than the
-          inlet: temperature changes along the flow, not continuously with time
-          at one fixed point.
-        </p>
-        <p>
-          Each kilogram gains cₚ ΔT of energy. Multiplying by ṁ kilograms per
-          second gives Q̇ = ṁ cₚ ΔT. Here ṁ is mass flow, cₚ is specific heat and
-          ΔT is outlet minus inlet fluid temperature. Mass flow is density ρ
-          times volume flow V̇, giving Q̇ = ρ V̇ cₚ ΔT. The dots denote rates per
-          second. This approximation uses constant properties, no phase change,
-          negligible kinetic/potential energy changes, and no pump/fan work in
-          the selected heat-pickup boundary.
-        </p>
-        <p>
-          The transport comparison fixes 100 kW and a 10 K rise. Air is modeled
-          at 1.2 kg/m³ and 1.005 kJ/(kg·K); water at 1,000 kg/m³ and 4.18
-          kJ/(kg·K). It yields 8.29 m³/s of air versus 2.39 L/s of water. These
-          are illustrative bulk-flow requirements, not fan or pump ratings,
-          cold-plate performance or proof all rack heat enters the liquid path.
-        </p>
-        <p>
-          The interactive water example holds heat already captured by one
-          liquid path at 100 kW and stipulates a 35°C inlet. With cₚ = 4.18
-          kJ/(kg·K), changing flow from 2.5 to 5 kg/s lowers the calculated
-          coolant rise from 9.57 to 4.78 K and outlet from 44.57 to 39.78°C.
-          This compares two ideal steady operating points; it does not predict
-          the transient response, chip temperature or added pumping power.
-        </p>
-        <p>
-          The separate CDU example uses an 84 kW load, 2 kg/s in each water loop
-          and rounded cₚ = 4.2 kJ/(kg·K). Technology supply/return is 35/45°C
-          and facility supply/return is 30/40°C. Loop rise is 10 K; CDU approach
-          is the 5 K difference between the two supply streams. Approach varies
-          with duty, flow, exchanger design and condition.
-        </p>
-        <p>
-          The outdoor comparison retains that CDU example. Dry bulb is 35°C; wet
-          bulb is 22°C or 28°C. Assumed dry-cooler approach is 5 K; tower
-          approach is 3 K. The chosen wet route includes a separate
-          tower/facility exchanger with 5 K approach, plus the CDU's 5 K. These
-          stipulated points give technology supply of 45°C (dry), 35°C (wet,
-          drier air) and 41°C (wet, more humid air), against a chosen 35°C
-          limit. They are not product curves, weather observations or universal
-          minimum approaches.
-        </p>
-      </details>
-      <details>
-        <summary>CoolIT CHx2000: what the listed ratings establish</summary>
-        <p>
-          CoolIT's product page, checked September 11, 2026, lists 2,000 kW at
-          5°C approach, and separately lists 2,125 L/min at 35 psi. The latter
-          describes flow against hydraulic resistance; pressure is not a thermal
-          capacity. The page does not establish that these are simultaneous
-          operating conditions. Its separate 12.24 kW electrical figure is not
-          used to calculate efficiency because matching test conditions are
-          absent.
-        </p>
-        <p>
-          A CDU's exchanger transfers heat into the facility loop; its pumps
-          circulate rack coolant, while sensors, controls and filtration
-          maintain the required supply conditions. The CDU still needs an
-          external heat sink. This is a commercial example, not a claim of
-          universal market standardization or a promise that any 2 MW rack group
-          can use it.
-        </p>
-        <p>
-          Front and internal photographs are embedded from CoolIT. Their
-          configuration is not replaced by an AI-generated illustration. Numeric
-          brochure values from older revisions are not combined with current
-          ratings.
-        </p>
-      </details>
-      <details>
-        <summary>Dry, wet, hybrid and refrigerated rejection</summary>
-        <p>
-          A dry cooler transfers heat through a coil into air without
-          intentional evaporation. A wet tower evaporates part of its
-          circulating water; makeup replaces evaporation and blowdown. Site
-          water availability, permits, local weather and operating strategy
-          determine feasibility. No blanket claim that wet cooling is infeasible
-          across most of the U.S. is assumed here.
-        </p>
-        <p>
-          Adiabatic precooling evaporates water into the entering air ahead of a
-          dry coil. Air-cooled and water-cooled chillers classify the condenser
-          sink, not the fluid cooling the load. The chiller diagrams use a
-          separate hypothetical 100 kW evaporator load plus 20 kW compressor
-          work, giving 120 kW condenser rejection. Other auxiliaries are
-          excluded. Economizer operation can bypass refrigeration when the
-          outside sink is cool enough; circulation still needs fans or pumps.
-        </p>
-      </details>
-      <details>
-        <summary>Cooling redundancy and reduced-power operation</summary>
-        <p>
-          Redundancy can exist within a CDU (pumps and power supplies), across
-          CDU groups, and through facility pumps, chillers, outdoor rejection,
-          pipe routes, electrical supplies and controls. N counts the units
-          required at the design duty; N+1 adds one. A spare component does not
-          duplicate its shared water, power or control dependencies. NVIDIA's
-          DSX reference architecture explicitly describes N+1 CDU groups with
-          shared piping. These hypothetical units are not CoolIT product
-          ratings.
-        </p>
-        <p>
-          The capacity examples stipulate a 1,000 kW selected liquid heat load
-          and 600 kW usable capacity per CDU at qualified fluid conditions. The
-          parallel branches are independently isolatable; the surviving pipework
-          and plant can support the needed flow. The N+1 group has three units.
-          One isolated unit loss leaves 1,200 kW; two leave 600 kW. A shared
-          facility-path failure removes usable capacity even with healthy CDUs.
-        </p>
-        <p>
-          The separate 2N example duplicates the upstream train: two CDU
-          modules, sufficient facility water and outdoor rejection, power and
-          controls per train. It assumes a compatible transfer of the selected
-          load to one surviving train. The displayed capacity is max(A, B), not
-          A+B. The shared load-side interface remains: cold plates, common
-          manifolds or isolation faults can still defeat that load. The drawing
-          shows heat-removal dependencies; paired supply/return pipes are
-          condensed.
-        </p>
-        <p>
-          When 600 kW remains, reducing the selected liquid heat load to 500 kW
-          leaves 100 kW of margin. At the modeled temperature/flow conditions,
-          heat removed is min(heat load, available capacity). Any excess heats
-          the fluid and equipment; this model does not calculate temperature or
-          elapsed time. The reduced load is an assumed achieved operating point
-          after coordinated IT action, not a guaranteed automatic reaction. It
-          is not a 500 kW GPU cap or a prediction of half the application speed.
-          CPUs, GPUs, memory, other electronics and residual air heat have to be
-          accounted for to connect a real electrical limit to liquid heat.
-        </p>
-        <p>
-          A configured power cap limits power; local thermal protection reacts
-          to measured chip temperature and may reduce clocks or shut hardware
-          down. Dell's CPWR0139 event explicitly documents power throttling or
-          shutdown triggered by a liquid-cooling alert. Such coordination needs
-          supported equipment, sensors, control authority and a working response
-          path. Losing the final facility path leaves no sustained cooling in
-          this model even at the lower load; leaks may instead require isolation
-          or shutdown. Thermal storage and other heat paths, where present, need
-          separate analysis. No transfer time, recovery time or safe delay is
-          claimed here.
-        </p>
-      </details>
-      <details>
-        <summary>Why this particular architecture</summary>
-        <p>
-          The two fluids stay separated by the CDU heat exchanger in normal
-          operation. The cold plate contacts the processor package through a
-          thermal interface; coolant is inside the cold plate, not on the
-          silicon junction. A dry cooler transfers heat from facility fluid
-          through a coil into outdoor air. Its operating envelope depends on
-          ambient and coolant temperatures. Other designs use refrigeration,
-          evaporative rejection or additional loops.
-        </p>
-      </details>
-      <details>
-        <summary>Primary references</summary>
-        <ul>
-          <li>
-            <a
-              href="https://www.coolitsystems.com/cdu-product/chx2000/"
-              target="_blank"
-              rel="noopener"
-              >CoolIT CHx2000: current product specifications and photographs</a
-            >
-          </li>
-          <li>
-            <a
-              href="https://www.coolitsystems.com/products-services/data-center-products/cooling-distribution-units/"
-              target="_blank"
-              rel="noopener"
-              >CoolIT: CDU pumping, heat-exchange and control functions</a
-            >
-          </li>
-          <li>
-            <a
-              href="https://www.weather.gov/source/zhu/ZHU_Training_Page/definitions/dry_wet_bulb_definition/dry_wet_bulb.html"
-              target="_blank"
-              rel="noopener"
-              >NWS: dry-bulb and wet-bulb measurement</a
-            >
-          </li>
-          <li>
-            <a
-              href="https://handbook.ashrae.org/Handbooks/S24/IP/s24_ch40/s24_ch40_ip.aspx"
-              target="_blank"
-              rel="noopener"
-              >ASHRAE: towers, evaporation, approach and range</a
-            >
-          </li>
-          <li>
-            <a
-              href="https://www.vertiv.com/495988/globalassets/shared/vertiv-chilled-water-solution-white-paper-sl-18066.pdf"
-              target="_blank"
-              rel="noopener"
-              >Vertiv: adiabatic air precooling and chilled-water systems</a
-            >
-          </li>
-          <li>
-            <a
-              href="https://www.trane.com/commercial/north-america/us/en/about-us/newsroom/blogs/air-vs-water-cooled-chillers.html"
-              target="_blank"
-              rel="noopener"
-              >Trane: air- and water-cooled condenser arrangements</a
-            >
-          </li>
-
-          <li>
-            <a
-              href="https://www.opencompute.org/documents/ocp-wp-l-lcdu-test-methodology-performance-rating-r1-pdf"
-              target="_blank"
-              rel="noopener"
-              >OCP: Liquid-to-Liquid CDU Test Methodology, Revision 1.0</a
-            >
-            — separated loops, CDU placement, thermal and hydraulic interfaces.
-            Selected sections checked September 11, 2026.
-          </li>
-          <li>
-            <a
-              href="https://handbook.ashrae.org/Handbooks/A23/SI/A23_Ch20/a23_ch20_si.aspx"
-              target="_blank"
-              rel="noopener"
-              >ASHRAE Handbook: Data Centers and Telecommunication Facilities</a
-            >
-            — local cooling, facility connections and heat-rejection
-            arrangements. Selected public sections checked September 11, 2026.
-          </li>
-          <li>
-            <a
-              href="https://docs.nvidia.com/dsx/facilities-infra/reference-design-overview"
-              target="_blank"
-              rel="noopener"
-              >NVIDIA DSX: N+1 CDU groups with shared piping</a
-            >
-          </li>
-          <li>
-            <a
-              href="https://www.vertiv.com/en-ca/about/news-and-events/articles/educational-articles/how-n1-redundancy-supports-continuous-data-center-cooling/"
-              target="_blank"
-              rel="noopener"
-              >Vertiv: N+1, 2N and shared dependencies</a
-            >
-          </li>
-          <li>
-            <a
-              href="https://docs.nvidia.com/deploy/nvidia-smi/index.html"
-              target="_blank"
-              rel="noopener"
-              >NVIDIA: power limits and thermal protection</a
-            >
-          </li>
-          <li>
-            <a
-              href="https://www.dell.com/support/manuals/en-us/poweredge-xe9780/error_event_message_guide_c/cpwrpower-configuration-event-messages?guid=guid-3683ef35-10cc-4072-b1bb-e0f44ffcc67f&amp;lang=en-us"
-              target="_blank"
-              rel="noopener"
-              >Dell PowerEdge: CPWR0139 liquid-cooling-triggered power
-              reduction</a
-            >
-          </li>
-          <li>
-            <a href="../index.html#d10-cdu-interfaces">Read the CDU lesson</a> ·
-            <a href="../index.html#d10-flow-and-pressure">Flow and pressure</a>
-            ·
-            <a href="../index.html#d11-heat-rejection"
-              >Dry, wet and hybrid rejection</a
-            >
-            ·
-            <a href="../index.html#d11-weather-and-operating-envelope"
-              >Dry bulb, wet bulb and approach temperature</a
-            >
-          </li>
-        </ul>
-      </details>
-    </dialog>
     <script type="module">
       import { presentationLabels } from './teaching-navigation.js';
-      document.querySelector('main .eyebrow').textContent = presentationLabels.cooling;
       import { renderFoundation } from "./cooling-foundations.js?v=20260911-formula5";
-      import { renderRejection } from "./cooling-rejection.js";
+      import { renderCapture } from "./cooling-capture.js";
+      import { scenes } from "./cooling-scenes.js";
       import { renderCDU } from "./cooling-cdu.js";
       import { renderContinuity } from "./cooling-continuity.js";
-      const scenes = [
-        {
-          id: "why-liquid",
-          label: "Why liquid",
-          title:
-            "Water carries the same heat with far less volume flow than air.",
-          kind: "why-liquid",
-          description:
-            "Compare approximate water and air volumetric heat capacity at a declared teaching point. This motivates compact heat transport without claiming that liquid alone establishes chip temperatures.",
-        },
-        {
-          id: "heat-path",
-          label: "Complete heat path",
-          title: "The CDU separates rack coolant from facility water.",
-          kind: "route",
-          description:
-            "A liquid-to-liquid coolant distribution unit transfers heat from the rack loop into a separate facility loop. Facility water carries heat to outdoor rejection. The fluids do not mix.",
-        },
-        {
-          id: "capture-options",
-          label: "Air and liquid paths",
-          title:
-            "The cooling method determines which path carries heat out of the rack.",
-          kind: "capture-options",
-          description:
-            "Compare CRAH air cooling, cold plates with residual air cooling, rear-door heat exchangers and immersion. A CRAH transfers room-air heat into chilled water.",
-        },
-        {
-          id: "cold-plate",
-          label: "Inside a cold plate",
-          title:
-            "A cold plate conducts heat through metal before coolant carries it away.",
-          kind: "plate",
-          description:
-            "Processor heat crosses the package, thermal interface and plate metal into coolant channels. The coolant does not contact the silicon junction.",
-        },
-        {
-          id: "water-balance",
-          label: "Flow and temperature rise",
-          title:
-            "Doubling coolant flow halves its temperature rise at the same heat load.",
-          kind: "water-balance",
-          description:
-            "Hold the selected liquid-path heat pickup at 100 kilowatts and water inlet at 35 degrees Celsius. Doubling mass flow from 2.5 to 5 kilograms per second halves its steady temperature rise from 9.57 to 4.78 kelvin. The outlet falls from 44.57 to 39.78 degrees Celsius; these are coolant, not chip, temperatures.",
-        },
-        {
-          id: "approach",
-          label: "CDU approach",
-          title:
-            "CDU approach is the temperature gap between the two supply streams.",
-          kind: "approach",
-          description:
-            "Name the separate technology and facility supply temperatures at the CDU. Their difference is CDU approach; return minus supply in one loop is loop temperature rise.",
-        },
-        {
-          id: "coolit-cdu",
-          label: "CoolIT CHx2000",
-          title:
-            "CoolIT’s CHx2000 packages heat exchange, pumping and control beside the racks.",
-          kind: "cdu",
-          description:
-            "Official product photographs show a row-scale liquid-to-liquid CDU. Manufacturer-listed 2 MW at 5°C approach and 2125 L/min at 35 psi are separately stated thermal and hydraulic points.",
-        },
-        {
-          id: "rejection",
-          label: "Dry versus wet",
-          title:
-            "A dry cooler heats outdoor air; a wet tower also evaporates water.",
-          kind: "rejection",
-          description:
-            "Compare a dry fluid-to-air coil with an open cooling tower. Tower water recirculates; some evaporates and makeup water replaces losses.",
-        },
-        {
-          id: "weather",
-          label: "Dry bulb and wet bulb",
-          title:
-            "Humidity changes evaporative cooling potential even at the same air temperature.",
-          kind: "weather",
-          description:
-            "Compare ordinary dry-bulb air temperature with the reading of a ventilated wetted sensor. At the same 35°C dry bulb, compare 22 and 28°C wet bulb.",
-        },
-        {
-          id: "approach-outdoors",
-          label: "Outdoor temperature limits",
-          title:
-            "Every exchanger’s approach uses part of the available temperature margin.",
-          kind: "approach-outdoors",
-          description:
-            "A synthetic 84 kW example traces outdoor conditions through dry or wet rejection and the CDU to a 35°C technology supply limit. The chosen wet route includes a tower-to-facility separating exchanger.",
-        },
-        {
-          id: "plant-options",
-          label: "Hybrid, chillers, economizers",
-          title:
-            "Plant modes change how heat reaches the outdoors and what resources it uses.",
-          kind: "plant-options",
-          description:
-            "Distinguish adiabatic air precooling, air- and water-cooled chiller condensers and economizer operation. Refrigeration adds compressor work to the condenser heat load.",
-        },
-        {
-          id: "lost-flow",
-          label: "Spare CDUs",
-          title:
-            "A spare CDU covers a unit failure, but cannot replace its shared facility path.",
-          kind: "redundancy",
-          description:
-            "A hypothetical 1,000 kW selected liquid heat load needs two 600 kW CDUs. Three installed units give N+1 at that duty. One isolated CDU failure leaves 1,200 kW, while loss of the shared facility path defeats all three. Qualified capacities, compatible isolation, sufficient flow and the remaining plant are assumed; no transfer or survival time is calculated.",
-        },
-        {
-          id: "independent-cooling-paths",
-          label: "A/B cooling",
-          title:
-            "An independent cooling train can carry the load after the other facility path fails.",
-          kind: "independent-paths",
-          description:
-            "Two independent upstream trains each contain two 600 kW CDU modules and a sufficient facility loop, outdoor plant, power and controls. A compatible transfer serves the selected 1,000 kW demand through one train. The displayed capacity is that of one surviving train, not their sum. The shared load-side interface remains outside the duplicated scope; this is not a claim that a whole site is fault tolerant.",
-        },
-        {
-          id: "cooling-derating",
-          label: "Reduce power",
-          title:
-            "Reducing compute power can match the cooling capacity that remains.",
-          kind: "derating",
-          description:
-            "After two CDU failures, one qualified 600 kW unit remains. A coordinated operating response is assumed to reduce the selected liquid heat load from 1,000 to 500 kW. At the modeled conditions, 400 kW of excess heat becomes 100 kW of cooling margin. Configured power reduction differs from local temperature-triggered throttling. No electrical cap value, application-throughput ratio or safe response time is inferred. Losing the remaining facility path removes this sustained operating option.",
-        },
-      ];
       const $ = (id) => document.getElementById(id);
       const compactQuery = matchMedia("(max-width:600px)");
       const state = {
@@ -933,6 +501,7 @@
         humidity: "dry",
         plant: "adiabatic",
         interior: true,
+        fluidC: "35", restriction: "normal", branch: "balanced", retrofit: "air", reveal: "hidden",
       };
       const selected = scenes.findIndex(
         (scene) => scene.id === location.hash.slice(1),
@@ -1178,29 +747,15 @@
           immersion:
             "Immersion transfers hardware heat into a dielectric liquid bath.",
         };
-        const plantTitles = {
-          adiabatic:
-            "Evaporating water ahead of a dry coil lowers the entering air temperature.",
-          "air-chiller":
-            "An air-cooled chiller rejects load heat and compressor work to air.",
-          "water-chiller":
-            "A water-cooled chiller sends condenser heat to a separate water loop.",
-          economizer:
-            "A cold enough outdoor sink lets an economizer bypass the compressor.",
-        };
-        $("title").textContent =
-          scene.kind === "capture-options"
-            ? captureTitles[state.capture]
-            : scene.kind === "plant-options"
-              ? plantTitles[state.plant]
-              : scene.title;
+        $("title").textContent = scene.kind === "capture-options" ? captureTitles[state.capture] : scene.title;
+        document.querySelector('.reading-link').href = `../index.html#${scene.reference}`;
         $("scenes").value = state.index;
         $("progress").textContent = `${state.index + 1} / ${scenes.length}`;
         $("previous").disabled = state.index === 0;
         $("next").disabled = state.index === scenes.length - 1;
         $("diagram").setAttribute(
           "viewBox",
-          compact ? "0 0 372 580" : "0 0 1160 420",
+          scene.kind === "capture-detail" ? (compact ? "0 0 420 720" : `0 0 1100 ${scene.id === "cooling-retrofit" ? 650 : 500}`) : (compact ? "0 0 372 580" : "0 0 1160 420"),
         );
         $("diagram").setAttribute(
           "aria-labelledby",
@@ -1213,20 +768,12 @@
           "water-balance",
           "approach",
         ];
-        const rejectionKinds = [
-          "rejection",
-          "weather",
-          "approach-outdoors",
-          "plant-options",
-        ];
         const continuityKinds = ["redundancy", "independent-paths", "derating"];
-        const content = continuityKinds.includes(scene.kind)
+        const content = scene.kind === "capture-detail" ? renderCapture(scene.id, state, compact) : continuityKinds.includes(scene.kind)
           ? renderContinuity(scene.kind, compact, state)
           : foundationKinds.includes(scene.kind)
             ? renderFoundation(scene.kind, compact, state)
-            : rejectionKinds.includes(scene.kind)
-              ? renderRejection(scene.kind, compact, state)
-              : scene.kind === "cdu"
+            : scene.kind === "cdu"
                 ? renderCDU(compact, state.interior)
                 : scene.kind === "plate"
                   ? plate(compact)
@@ -1251,7 +798,7 @@
         const controlGroup = (name, buttons) =>
           `<div class="control-group" role="group" aria-label="${name}"><span class="control-group-label" aria-hidden="true">${name}</span><div class="control-group-buttons">${buttons}</div></div>`;
         $("actions").innerHTML =
-          scene.kind === "redundancy"
+          scene.controls ? scene.controls.map(c => controlGroup(c.label, choices(c.key, c.options))).join("") : scene.kind === "redundancy"
             ? choices("cduFault", [
                 ["none", "All CDUs healthy"],
                 ["module", "One CDU fails"],
@@ -1289,18 +836,6 @@
                         ["rear-door", "Rear door"],
                         ["immersion", "Immersion"],
                       ])
-                    : ["weather", "approach-outdoors"].includes(scene.kind)
-                      ? choices("humidity", [
-                          ["dry", "Drier air: 22°C wet bulb"],
-                          ["humid", "More humid: 28°C wet bulb"],
-                        ])
-                      : scene.kind === "plant-options"
-                        ? choices("plant", [
-                            ["adiabatic", "Adiabatic"],
-                            ["air-chiller", "Air-cooled chiller"],
-                            ["water-chiller", "Water-cooled chiller"],
-                            ["economizer", "Economizer"],
-                          ])
                         : scene.kind === "cdu"
                           ? choices("interior", [
                               ["false", "Cabinet"],
@@ -1347,7 +882,6 @@
       });
       addEventListener("keydown", (event) => {
         if (
-          $("reading").open ||
           event.altKey ||
           event.ctrlKey ||
           event.metaKey ||
@@ -1365,8 +899,6 @@
         }
       });
       compactQuery.addEventListener("change", render);
-      $("evidence").addEventListener("click", () => $("reading").showModal());
-      $("close-reading").addEventListener("click", () => $("reading").close());
       if (new URLSearchParams(location.search).get("teach") === "1") {
         $("fullscreen").hidden = false;
         $("fullscreen").addEventListener("click", async () => {
