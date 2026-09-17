@@ -8,7 +8,7 @@ export const learningContract = Object.freeze({
 });
 const topology='d08-topology-budget',collective='d08-collective-progress',media='d08-copper-light-service';
 const c=(key,label,options)=>({key,label,options});
-export const initialState={uplinks:2,placement:'remote',ocsPairing:'straight',diagnosis:'',showDiagnosis:false};
+export const initialState={uplinks:2,placement:'remote',ocsPairing:'straight',diagnosis:''};
 export const scenes=[
  {id:'networking-purpose',label:'Networking and interconnects',title:'Networking and interconnects',reference:topology,pedagogical_role:'problem'},
  {id:'consumer-hardware-meme',label:'AI demand and consumer hardware',title:'AI demand and consumer hardware',reference:topology,pedagogical_role:'hook',imageOnly:true},
@@ -27,9 +27,9 @@ export const scenes=[
  {id:'incast',label:'Several senders, one receiver',title:'Four fast senders can overwhelm one receiver port.',reference:topology,pedagogical_role:'mechanism'},
  {id:'ethernet-infiniband',label:'Ethernet and InfiniBand',title:'Meta built large AI clusters with both Ethernet and InfiniBand.',reference:collective,pedagogical_role:'case'},
  {id:'optical-circuits',label:'Google TPU v4: optical routing',title:'An optical circuit switch changes which fiber endpoints connect.',reference:media,pedagogical_role:'mechanism',controls:[c('ocsPairing','Circuit configuration',[['straight','A ↔ C · B ↔ D'],['crossed','A ↔ D · B ↔ C']])]},
- {id:'campus-fiber',label:'From the cluster to a carrier',title:'The campus fiber handoff connects the cluster to an external service.',reference:topology,pedagogical_role:'architecture'},
+ {id:'campus-fiber',imageOnly:true,label:'From the cluster to a carrier',title:'The campus fiber handoff connects the cluster to an external service.',reference:topology,pedagogical_role:'architecture'},
  {id:'distance-latency',label:'Distance remains in the budget',title:'100 km of fiber adds a 1 ms round trip.',reference:topology,pedagogical_role:'balance'},
- {id:'network-diagnosis',label:'Find the delayed link',title:'After a cable move, one server holds up the job.',reference:collective,pedagogical_role:'transfer'},
+ {id:'network-diagnosis',label:'Find the delayed link',title:'One server is slow. Where would you check first?',reference:collective,pedagogical_role:'transfer'},
  {id:'meta-rsc',label:'Meta Research SuperCluster',title:'Meta built storage in tiers to keep GPUs supplied',reference:'d09-storage-paths',pedagogical_role:'case'},
 ];
 export function resolveNetworkingScene(hash){

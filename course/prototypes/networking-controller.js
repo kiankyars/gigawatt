@@ -16,8 +16,7 @@ function render(){
  $('previous').disabled=index===0;$('next').disabled=index===scenes.length-1;
  $('actions').replaceChildren();
  for(const g of s.controls||[]){const f=document.createElement('fieldset');f.className='choices';const l=document.createElement('legend');l.textContent=g.label;f.append(l);for(const [value,label]of g.options){const b=document.createElement('button');b.textContent=label;b.dataset.choice=g.key;b.dataset.value=value;b.setAttribute('aria-pressed',String(state[g.key]===value));b.onclick=()=>{state[g.key]=value;focusAfter(`[data-choice="${g.key}"][data-value="${value}"]`);};f.append(b);}$('actions').append(f);}
- document.querySelectorAll('[data-diagnosis]').forEach(b=>b.onclick=()=>{state.diagnosis=b.dataset.diagnosis;state.showDiagnosis=false;focusAfter(`[data-diagnosis="${state.diagnosis}"]`);});
- $('diagnosis-reveal')?.addEventListener('click',()=>{state.showDiagnosis=!state.showDiagnosis;focusAfter('#diagnosis-reveal');});
+ document.querySelectorAll('[data-diagnosis]').forEach(b=>b.onclick=()=>{const choice=b.dataset.diagnosis;state.diagnosis=state.diagnosis===choice?'':choice;focusAfter(`[data-diagnosis="${choice}"]`);});
 }
 function go(i){index=Math.max(0,Math.min(scenes.length-1,i));history.replaceState(null,'',`#${scenes[index].id}`);render();window.scrollTo({top:0,left:0,behavior:'auto'});}
 function fromHash(){index=resolveNetworkingScene(location.hash.slice(1));if(location.hash&&location.hash.slice(1)!==scenes[index].id)history.replaceState(null,'',`#${scenes[index].id}`);render();window.scrollTo({top:0,left:0,behavior:'auto'});}

@@ -128,3 +128,25 @@
 .fairwater-quote:has(.fairwater-fiber){gap:28px;padding:1.5vw 3vw}.fairwater-quote:has(.fairwater-fiber)>blockquote{font-size:clamp(28px,3.1vw,44px)}.fairwater-fiber{border-top:1px solid var(--line);padding-top:24px;display:grid;gap:14px}.fairwater-fiber>span{font-size:20px;color:var(--teal)}.fairwater-fiber blockquote{font-size:clamp(26px,2.6vw,36px);line-height:1.35}@media(max-width:600px){.fairwater-quote:has(.fairwater-fiber){padding:10px 0}.fairwater-fiber>span{font-size:18px}.fairwater-fiber blockquote{font-size:26px}}
 
 .diagnosis-result{display:grid;grid-template-columns:180px 1fr;gap:24px;align-items:center;min-height:64px}.diagnosis-case .diagnosis-response{min-height:0;max-width:none;width:100%;text-align:left}.diagnosis-case .diagnosis-options h2{margin-bottom:12px!important}@media(max-height:740px) and (min-width:601px){.diagnosis-evidence h2{margin-bottom:10px!important}.diagnosis-arrival{margin-top:8px}.diagnosis-arrivals>p{padding-top:8px}.diagnosis-case .diagnosis-options button{padding:12px 15px}.diagnosis-result{gap:18px}}@media(max-width:600px){.diagnosis-result{grid-template-columns:1fr;gap:18px}.diagnosis-case .diagnosis-response:empty{display:none}}
+
+/* The quiz exposes two measurements directly on their physical links. */
+.diagnosis-simple{display:flex;flex-direction:column;gap:30px}
+.diagnosis-context{text-align:center;font-size:21px;color:var(--muted)}
+.diagnosis-map{display:grid;grid-template-columns:1fr 1.2fr .9fr 1.1fr;grid-template-rows:1fr 1fr;gap:36px 40px;align-items:center;padding:8px 0}
+.diagnosis-server{display:flex;flex-direction:column;gap:12px;border:1px solid var(--line);border-radius:10px;padding:22px;text-align:center;background:var(--surface)}
+.diagnosis-server b{font-size:22px;font-weight:500}.diagnosis-server strong{font-size:34px;font-weight:500;color:var(--teal)}
+.diagnosis-peers{grid-column:1;grid-row:1}.diagnosis-slow{grid-column:1;grid-row:2}.diagnosis-slow strong{color:var(--amber)}
+.diagnosis-normal-link{grid-column:2;grid-row:1;height:3px;background:var(--teal);margin:0 -40px}
+.diagnosis-switch{grid-column:3;grid-row:1/3;align-self:stretch;display:flex;align-items:center;justify-content:center;border:2px solid var(--teal);border-radius:10px;font-size:24px;background:var(--surface-soft);text-align:center;padding:18px}
+.diagnosis-check{position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px;padding:22px 10px;min-height:108px;font-size:21px;line-height:1.3;border:2px solid var(--teal);border-radius:10px}
+.diagnosis-check b{font-weight:500}.diagnosis-check span{font-size:17px}.diagnosis-local{grid-column:2;grid-row:2}.diagnosis-uplink{grid-column:4;grid-row:1/3}
+.diagnosis-check::before{content:"";position:absolute;top:50%;right:100%;width:42px;height:3px;background:var(--teal)}.diagnosis-local::after{content:"";position:absolute;top:50%;left:100%;width:42px;height:3px;background:var(--teal)}
+.diagnosis-finding{min-height:65px;text-align:center;font-size:24px;display:flex;align-items:center;justify-content:center}
+@media(max-height:740px) and (min-width:601px){.diagnosis-simple{gap:20px}.diagnosis-map{gap:24px 32px}.diagnosis-server{padding:15px}.diagnosis-check{min-height:92px;padding:16px 9px;font-size:20px}.diagnosis-normal-link{margin:0 -32px}.diagnosis-check::before,.diagnosis-local::after{width:34px}.diagnosis-finding{font-size:22px;min-height:58px}}
+@media(max-width:900px) and (min-width:601px){.diagnosis-map{gap:25px 22px}.diagnosis-server{padding:16px 8px}.diagnosis-server b,.diagnosis-switch,.diagnosis-check{font-size:19px}.diagnosis-check span{font-size:15px}.diagnosis-normal-link{margin:0 -22px}.diagnosis-check::before,.diagnosis-local::after{width:24px}}
+@media(max-width:600px){.diagnosis-simple{gap:25px}.diagnosis-map{grid-template-columns:1fr 1fr;grid-template-rows:auto auto auto;gap:30px 28px}.diagnosis-peers{grid-column:1;grid-row:1}.diagnosis-slow{grid-column:2;grid-row:1}.diagnosis-normal-link{display:none}.diagnosis-local{grid-column:2;grid-row:2}.diagnosis-switch{grid-column:1;grid-row:2}.diagnosis-uplink{grid-column:1;grid-row:3}.diagnosis-server{padding:20px 9px}.diagnosis-server b{font-size:20px}.diagnosis-switch,.diagnosis-check{font-size:20px}.diagnosis-check span{font-size:15px}.diagnosis-local::before{width:28px}.diagnosis-local::after{left:50%;top:auto;bottom:100%;width:3px;height:32px}.diagnosis-uplink::before{right:auto;top:auto;bottom:100%;width:3px;height:32px}.diagnosis-switch::before{content:"";position:absolute;left:50%;bottom:100%;height:32px;width:3px;background:var(--teal)}.diagnosis-switch{position:relative}.diagnosis-finding{font-size:22px;text-align:left;min-height:95px}}
+
+/* Frame the edited image around its content, omitting the now-empty bottom margin. */
+.campus-fiber-image{flex:1;height:100%;min-height:0;margin:0;display:flex;align-items:center;justify-content:center}
+.campus-fiber-image svg{display:block;width:100%;height:100%;min-height:0;overflow:hidden}
+@media(max-width:600px){.campus-fiber-image{flex:none;height:auto}.campus-fiber-image svg{height:auto;aspect-ratio:1672/750}}

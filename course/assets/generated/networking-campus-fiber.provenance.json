@@ -1,0 +1,9 @@
+{
+  "generator": "OpenAI built-in image generation tool",
+  "date": "2026-09-16",
+  "original": "../references/networking-campus-fiber-original.png",
+  "original_sha256": "9520e296be2eb047e350a28a1dc0c69ebeabdccd7d8be59c1dfecdf6ff89ff7d",
+  "output_sha256": "647e8ac63a2cc8fcc1d8005c2c0e19fa188dc7f2d776b323fde73ddae8a5ed15",
+  "prompt": "Use case: precise-object-edit. Edit this supplied educational slide with exactly two removals: (1) Remove the entire bottom 'Key takeaway' bar, including its border, lightbulb, dividers, label and sentence, replacing it with the existing clean pale white background. (2) Remove the entire upper-right branding block: its blue dash, INFRASTRUCTURE FUNDAMENTALS, and CONNECT BUILD ENABLE. Preserve the Campus fiber handoff heading, subtitle, all three colored panels, illustrations, arrows, all other wording, fonts and positions exactly as in the original. Do not introduce new text or graphics. Keep original landscape aspect ratio, clean legible text and sharp image.",
+  "verification": "Original and edited image inspected. Requested branding and takeaway removed; heading, subtitle, path, illustrations and remaining labels preserved."
+}

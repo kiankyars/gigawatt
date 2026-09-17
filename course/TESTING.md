@@ -7,6 +7,19 @@ Do not download or launch standalone Chrome for Testing or Playwright browser
 binaries here. Existing browser test harnesses remain available for a separately
 configured test environment; run local model and build checks without a browser.
 
+## Chapter 10 follow-up: receiver, image and quiz — 2026-09-16
+
+- Clarified the unchanged 400 Gb/s receiving link; moved the four fabric-category
+  explanations into notes and ordered all selected scripts by chapter and slide.
+- Installed the supplied campus-fiber image after removing its takeaway and
+  branding with the built-in image tool. Original, edit and prompt are preserved.
+- Reduced the quiz to two clickable physical links with immediate findings.
+  Built-in browser checked all four changed slides at 1280 × 720, then the quiz
+  at 390 × 844. Both findings and clearing the selection work; mobile feedback
+  fits above navigation with no horizontal overflow or browser errors.
+- 80 Python and 285 JavaScript tests pass; source, generated-page, research and
+  whitespace checks pass. Whole-chapter author review remains in progress.
+
 ## Chapter 10 scope and speaker notes — 2026-09-16
 
 - **21 slides**, reduced from 26. Removed the message-size calculation, separate

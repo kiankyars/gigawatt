@@ -25,25 +25,24 @@ test('the chapter retains facility mechanisms and removes repeated software expl
  assert.equal(scenes.at(-1).id,'meta-rsc');
  const incast=scenes.findIndex(scene=>scene.id==='incast');assert.equal(scenes[incast-1].id,'traffic-placement');assert.equal(scenes[incast+1].id,'ethernet-infiniband');
  const placement=scenes.find(scene=>scene.id==='traffic-placement');assert.deepEqual(placement.controls[0].options,[['remote','Across two leaves'],['local','Under one leaf']]);assert.notEqual(placement.controls[0].label,'Place the communicating servers');
- assert.match(networkingVisual('incast',initialState),/1,600 Gb\/s arriving/);assert.match(networkingVisual('incast',initialState),/400 Gb\/s →/);assert.match(networkingVisual('incast',initialState),/receiver port/);
+ assert.match(networkingVisual('incast',initialState),/1,600 Gb\/s arriving/);assert.match(networkingVisual('incast',initialState),/400 Gb\/s →/);assert.match(networkingVisual('incast',initialState),/receiving link stays at 400 Gb\/s/);
 });
 test('the network choice explains the full system and the distance example isolates propagation',()=>{
  const fabrics=networkingVisual('ethernet-infiniband',initialState);
  assert.match(fabrics,/RDMA over Converged Ethernet/);assert.match(fabrics,/remote direct memory access/);
- for(const label of ['Routing','Which links carry the packets?','Congestion control','Slow senders as queues build.','Collective software','Coordinate the GPU exchanges.','Job placement','Choose which servers work together.'])assert.ok(fabrics.includes(label),label);
+ for(const label of ['Routing','Congestion control','Collective software','Job placement'])assert.ok(fabrics.includes(label),label);
  assert.equal((fabrics.match(/24,576 H100 GPUs/g)||[]).length,2);
  const distance=networkingVisual('distance-latency',initialState);
  assert.match(distance,/100 km fiber route/);assert.match(distance,/Request · 0.5 ms/);assert.match(distance,/Reply · 0.5 ms/);assert.match(distance,/>1 ms</);assert.match(distance,/propagation alone/);
  assert.doesNotMatch(distance,/Multislice|Amdahl|Bulk data|Dependent exchanges/);
 });
-test('the diagnosis keeps a connected but degraded physical path and reveals discriminating evidence',()=>{
+test('the diagnosis reveals evidence by selecting one of two physical links',()=>{
  const unrevealed=networkingVisual('network-diagnosis',initialState);
- assert.equal((unrevealed.match(/>20 ms</g)||[]).length,3);assert.equal((unrevealed.match(/>50 ms</g)||[]).length,1);
- assert.match(unrevealed,/Moved cable/);assert.match(unrevealed,/Link still up/);assert.match(unrevealed,/All four results are needed/);
- assert.doesNotMatch(unrevealed,/Port errors rose after the move/);assert.match(unrevealed,/id="diagnosis-reveal" disabled/);
- for(const [diagnosis,finding]of [['replace','Port errors rose after the move'],['uplinks','Shared uplinks have spare capacity'],['gpus','Compute time is unchanged on all four servers']]){
-  const chosen=networkingVisual('network-diagnosis',{...initialState,diagnosis});assert.match(chosen,new RegExp(`data-diagnosis="${diagnosis}" aria-pressed="true"`));assert.doesNotMatch(chosen,/id="diagnosis-reveal" disabled/);
-  const revealed=networkingVisual('network-diagnosis',{...initialState,diagnosis,showDiagnosis:true});assert.ok(revealed.includes(finding));assert.match(revealed,/aria-expanded="true"/);
+ assert.match(unrevealed,/>20 ms</);assert.match(unrevealed,/>50 ms</);
+ assert.match(unrevealed,/Cable just moved/);assert.match(unrevealed,/Same transfer from each server/);
+ assert.doesNotMatch(unrevealed,/Errors rose after the move|diagnosis-reveal/);
+ for(const [diagnosis,finding]of [['link','Errors rose after the move'],['uplink','Capacity is available']]){
+  const chosen=networkingVisual('network-diagnosis',{...initialState,diagnosis});assert.match(chosen,new RegExp(`data-diagnosis="${diagnosis}" aria-pressed="true"`));assert.ok(chosen.includes(finding));
  }
 });
 test('fiber propagation includes distance in both directions for a reply',()=>{
@@ -55,7 +54,7 @@ test('models reject impossible intervals and invalid rates',()=>{
 });
 test('all scenes and selectable states produce renderable desktop and compact mechanisms',()=>{
  assert.equal(new Set(scenes.map(s=>s.id)).size,scenes.length);
- for(const scene of scenes){let states=[initialState];for(const group of scene.controls||[])states=states.flatMap(state=>group.options.map(([value])=>({...state,[group.key]:value})));if(scene.id==='network-diagnosis')states=['','replace','uplinks','gpus'].flatMap(diagnosis=>[false,true].map(showDiagnosis=>({...initialState,diagnosis,showDiagnosis})));for(const state of states)for(const compact of[false,true]){const html=networkingVisual(scene.id,state,compact);assert.ok(html.length>100,scene.id);assert.doesNotMatch(html,/NaN|undefined/,scene.id);}}
+ for(const scene of scenes){let states=[initialState];for(const group of scene.controls||[])states=states.flatMap(state=>group.options.map(([value])=>({...state,[group.key]:value})));if(scene.id==='network-diagnosis')states=['','link','uplink'].map(diagnosis=>({...initialState,diagnosis}));for(const state of states)for(const compact of[false,true]){const html=networkingVisual(scene.id,state,compact);assert.ok(html.length>100,scene.id);assert.doesNotMatch(html,/NaN|undefined/,scene.id);}}
 });
 test('compute migration preserves both requested opening images and distinguishes local memory from networking',()=>{
  assert.equal(scenes[0].id,'networking-purpose');assert.equal(scenes[1].id,'consumer-hardware-meme');assert.equal(scenes[1].imageOnly,true);
