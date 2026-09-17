@@ -16,22 +16,18 @@ export const captureScenes=[
 function flux(small){const w=small?420:1100;let b='';for(const [i,area]of [4,1].entries()){const cx=small?210:280+i*540,cy=small?140+i*290:225,side=area===4?140:70;b+=text(cx,cy-104,'400 W',34,'heat')+`<rect x="${cx-side/2}" y="${cy-side/2}" width="${side}" height="${side}" fill="var(--heatfill)" stroke="var(--heat)" stroke-width="3"/>`+text(cx,cy+110,`${area} cm² → ${400/area} W/cm²`,29);}return b+text(w/2,small?685:468,'Heat flux = heat ÷ area',29);}
 function temperature(_state,small){
   const w=small?420:1100;
-  let b=text(w/2,32,'400 W per chip · local coolant 35°C',small?22:28);
-  const definition=small?['Thermal resistance: how much hotter','the chip must be for each watt of heat.']:['Thermal resistance: how much hotter the chip must be for each watt of heat.'];
-  definition.forEach((line,i)=>b+=text(w/2,(small?70:78)+i*27,line,small?21:25));
+  let b=text(w/2,35,'Tchip = Tcoolant + heat × thermal resistance',small?19:30)
+    +text(w/2,85,'400 W chip · 35°C coolant',small?24:28);
   for(const [i,r] of [.08,.12].entries()){
-    const x=small?20:35+i*550,y=small?120+i*255:112,cw=small?380:500,ch=small?235:290;
-    const m=deviceTemperature({fluidC:35,resistance:r}),rise=m.junctionC-35,color=m.passes?'facility':'fault';
-    b+=box(x,y,cw,ch)+text(x+cw/2,y+35,i===0?'Easier path for heat':'Harder path for heat',small?25:28)
-      +text(x+cw/2,y+75,`${r}°C/W × 400 W = ${rise}°C rise`,small?23:27)
-      +text(x+cw/2,y+(small?115:130),'Coolant + temperature rise = chip',small?20:25)
-      +text(x+cw/2,y+(small?160:190),`35°C + ${rise}°C = ${n(m.junctionC)}°C`,small?31:40,color)
-      +text(x+cw/2,y+(small?205:250),`${n(Math.abs(m.marginK))}°C ${m.passes?'below':'above'} the 80°C limit`,small?23:27,color);
+    const x=small?20:35+i*550,y=small?120+i*270:130,cw=small?380:500;
+    const m=deviceTemperature({fluidC:35,resistance:r}),color=m.passes?'facility':'fault';
+    b+=box(x,y,cw,230)+text(x+cw/2,y+44,`${r}°C/W`,30)
+      +text(x+cw/2,y+98,`35 + 400 × ${r}`,small?26:32)
+      +text(x+cw/2,y+171,`${n(m.junctionC)}°C`,55,color);
   }
-  const conclusion=small?['The same coolant can produce','different chip temperatures.']:['The harder heat-transfer path makes the chip hotter, even with the same coolant.'];
-  conclusion.forEach((line,i)=>b+=text(w/2,(small?657:459)+i*28,line,small?24:27));
-  return b;
+  return b+text(w/2,small?680:425,'Chip limit: 80°C',small?27:30);
 }
+
 function hydraulics(_state,small){
   const w=small?420:1100,left=small?62:80,right=small?390:680,top=small?160:125,bottom=small?398:361;
   const x=q=>left+q/2.6*(right-left),y=p=>bottom-p/200*(bottom-top);

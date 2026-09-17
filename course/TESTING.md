@@ -2280,3 +2280,12 @@ deadline controls visibly update the result.
 
 These checks verify the local revision; learner pacing remains for the author
 walkthrough. No publication was performed.
+
+## Chapter 11 rapid review release — 17 September 2026
+
+- Reordered cold-plate hardware, GB300 coolant entry and rear-door heat exchange into slides 3–5.
+- Residual air path now names CRAH or rear-door cooling rather than prescribing a CRAH for every liquid-cooled hall.
+- Device-temperature comparison reduced to one equation and simultaneous numerical cases.
+- 30 cooling and heat-rejection JavaScript tests passed; broader working-tree suite passed 297 JavaScript and 80 Python tests.
+- Browser inspected the changed comparison and temperature slides at 1280×720 and 390×844. Corrected a diagram arrow overlapping the residual-air label before release.
+- Chapter 12 has no new edits in this release: its latest heat-rejection modules and supplied economizer image were verified byte-for-byte against the public site by an independent subagent.

@@ -14,7 +14,7 @@ const existing=[
     "label": "Air and liquid cooling",
     "title": "Out with the Old, In with the New",
     "kind": "capture-comparison",
-    "description": "Top: rack heat enters room air, then a computer room air handler (CRAH) transfers it to chilled water. Bottom: cold plates move chip heat through technology coolant to a liquid-to-liquid coolant distribution unit (CDU), which transfers it into separate facility water. The CRAH still handles residual air heat. Current GB300 systems retain both liquid and air heat paths.",
+    "description": "Top: rack heat enters room air, then a computer room air handler (CRAH) transfers it to chilled water. Bottom: cold plates move chip heat through technology coolant to a liquid-to-liquid coolant distribution unit (CDU), which transfers it into separate facility water. Residual air heat needs a separate path, which can be a CRAH or rear-door exchanger depending on the design. This is a generic comparison, not an Abilene floor plan.",
     "reference": "d10-cdu-interfaces"
   },
   {
@@ -96,6 +96,6 @@ const existing=[
   }
 ];
 const byId=new Map([...existing,...captureScenes].map(s=>[s.id,s]));
-export const scenes=["why-liquid","capture-options","rack-coolant-entry","capture-rear-door","capture-immersion","cold-plate","local-heat-flux","device-temperature","water-balance","pump-operating-point","approach","coolit-cdu","lost-flow","independent-cooling-paths","cooling-derating","cooling-retrofit"].map(id=>byId.get(id));
+export const scenes=["why-liquid","capture-options","cold-plate","rack-coolant-entry","capture-rear-door","capture-immersion","local-heat-flux","device-temperature","water-balance","pump-operating-point","approach","coolit-cdu","lost-flow","independent-cooling-paths","cooling-derating","cooling-retrofit"].map(id=>byId.get(id));
 // Preserve useful destinations for bookmarks to the removed standalone slides.
 export const sceneAliases={"heat-path":"capture-options","capture-coldplates":"capture-options","crah-cdu":"capture-options","branch-flow":"pump-operating-point","coolant-interfaces":"cooling-retrofit"};

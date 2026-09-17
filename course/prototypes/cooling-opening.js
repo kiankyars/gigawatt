@@ -58,9 +58,9 @@ function comparisonDesktop() {
     if (liquid) {
       svg += label(453, cabY + 81, "Technology coolant", 23, "tech")
         + label(453, cabY + 178, "To the cold plates", 18, "tech")
-        + route(`M239 ${cabY + 21}V${cabY - 14}H478`, "muted", true, true, 3)
+        + route(`M239 ${cabY + 21}V${cabY - 14}H438`, "muted", true, true, 3)
         + label(367, cabY - 28, "Remaining air heat", 18, "muted")
-        + label(516, cabY - 7, "CRAH", 20, "muted", "middle", 700);
+        + label(550, cabY - 7, "CRAH / rear door", 18, "muted", "middle", 700);
     } else {
       svg += label(453, cabY + 80, "Warm air", 23, "heat")
         + label(453, cabY + 178, "Cool air", 23, "tech");
@@ -68,12 +68,11 @@ function comparisonDesktop() {
     return svg;
   };
   return {
-    viewBox: "0 0 1160 600",
+    viewBox: "0 0 1160 580",
     svg: markers
       + equipment(22, false)
       + route("M30 294H1130", "muted", false, false, .7)
-      + equipment(326, true)
-      + label(580, 590, "CDU for chip heat; CRAH for remaining air heat.", 22),
+      + equipment(326, true),
   };
 }
 
@@ -95,9 +94,9 @@ function comparisonCompact() {
     if (liquid) {
       svg += label(173, y + 115, "Technology", 17, "tech")
         + label(173, y + 137, "coolant", 17, "tech")
-        + route(`M77 ${y + 79}V${y + 50}H272`, "muted", true, true, 2.7)
+        + route(`M77 ${y + 79}V${y + 50}H250`, "muted", true, true, 2.7)
         + label(174, y + 74, "Air heat", 15, "muted")
-        + label(324, y + 57, "CRAH", 18, "muted", "middle", 700);
+        + label(324, y + 57, "CRAH / rear door", 15, "muted", "middle", 700);
     } else {
       svg += label(172, y + 145, "Warm air", 17, "heat")
         + label(172, y + 237, "Cool air", 17, "tech");
@@ -105,12 +104,10 @@ function comparisonCompact() {
     return svg;
   };
   return {
-    viewBox: "0 0 420 730",
+    viewBox: "0 0 420 680",
     svg: markers + row(0, false)
       + route("M18 330H402", "muted", false, false, .7)
-      + row(353, true)
-      + label(210, 696, "CDU for chip heat;", 20)
-      + label(210, 723, "CRAH for remaining air heat.", 20),
+      + row(353, true),
   };
 }
 
