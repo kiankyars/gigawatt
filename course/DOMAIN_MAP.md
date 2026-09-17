@@ -59,7 +59,7 @@ Capture heat at the devices and reject it under real site conditions.
 Make the physical system deliverable, testable, maintainable and economically coherent.
 
 - [Physical site, buildings and safety](#d12)
-- [Design, procurement and commissioning](#d13)
+- [EPC](#d13)
 - [Controls, operations and reliability](#d14)
 - [Capacity, cost and system decisions](#d15)
 
@@ -99,7 +99,7 @@ Follow heat from local device limits to climate-dependent rejection and resource
 
 ### A06 — Deliver, operate and make decisions
 
-[Design, procurement and commissioning](#d13) → [Controls, operations and reliability](#d14) → [Capacity, cost and system decisions](#d15)
+[EPC](#d13) → [Controls, operations and reliability](#d14) → [Capacity, cost and system decisions](#d15)
 
 Test complete service paths, operate them, and defend a system decision with uncertainty.
 
@@ -1274,6 +1274,7 @@ Compare air, cold-plate, rear-door and immersion approaches against a declared d
 - [P214 — 2CRSi — Single-phase immersion cooling](https://2crsi.com/single-phase-immersion-cooling) · `page_reviewed` · [local note](../research/sources/P214.md)
 - [P215 — 2CRSi — Two-phase immersion cooling](https://2crsi.com/two-phase-immersion-cooling) · `page_reviewed` · [local note](../research/sources/P215.md)
 - [P216 — Motivair — ChilledDoor rear-door heat exchanger](https://www.motivaircorp.com/products/chilleddoor/) · `page_reviewed` · [local note](../research/sources/P216.md)
+- [P218 — OCP — Universal Quick Disconnect specification, revision 1.0](https://www.opencompute.org/documents/ocp-universal-quick-disconnect-uqd-specification-rev-1-0-2-pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P218.md)
 
 <a id="d11"></a>
 
@@ -1505,7 +1506,7 @@ Trace physical and control-system access boundaries and explain why availability
 
 <a id="d13"></a>
 
-### Design, procurement and commissioning
+### EPC
 
 **Central question:** How does a design become a tested, usable service?
 
@@ -1595,6 +1596,7 @@ Specify an integrated acceptance and handover plan for a phased deployment.
 - [P16 — Why Scaling AI Compute Performance Requires a New Power Architecture](https://blogs.nvidia.com/blog/800-vdc-power-architecture-ai-factory/) · `page_reviewed` · [local note](../research/sources/P16.md)
 - [E50E0F856B0 — GAO Schedule Assessment Guide](https://www.gao.gov/products/gao-16-89g) · `page_reviewed` · [local note](../research/sources/E50E0F856B0.md)
 - [ECB7071035F — WBDG: Commissioning Documents](https://legacy.wbdg.org/building-commissioning/commissioning-documents) · `page_reviewed` · [local note](../research/sources/ECB7071035F.md)
+- [E8D4F19907B — Open Compute Project — Open Rack V3 Base Specification, revision 1.0](https://www.opencompute.org/documents/open-rack-base-specification-version-3-pdf) · `page_reviewed` · [local note](../research/sources/E8D4F19907B.md)
 - [SA41 — What is So Hard About Behind-The-Meter Power For Datacenters? Part 1](https://newsletter.semianalysis.com/p/what-is-so-hard-about-behind-the) · `public_excerpt_reviewed` · [local note](../research/sources/SA41.md)
 - [P34 — DOE — Beyond Land Leases: Harnessing Data Centers for Tribal Economic Development](https://www.energy.gov/indianenergy/beyond-land-leases-harnessing-data-centers-tribal-economic-development-webinar) · `page_reviewed` · [local note](../research/sources/P34.md)
 - [P37 — EPA — Eligible Brownfields Planning Activities](https://www.epa.gov/brownfields/eligible-planning-activities) · `page_reviewed` · [local note](../research/sources/P37.md)
@@ -1617,6 +1619,7 @@ Specify an integrated acceptance and handover plan for a phased deployment.
 - [P151 — Siemens and Compass sign modular electrical solution agreement](https://press.siemens.com/global/en/pressrelease/siemens-and-compass-datacenters-sign-multi-year-custom-electrical-solution-agreement) · `page_reviewed` · [local note](../research/sources/P151.md)
 - [P200 — Meta’s Infrastructure Evolution and the Advent of AI](https://engineering.fb.com/2025/09/29/data-infrastructure/metas-infrastructure-evolution-and-the-advent-of-ai/) · `page_reviewed` · [local note](../research/sources/P200.md)
 - [P201 — Cupertino Electric — Modular data centers](https://www.cei.com/core-markets/modular) · `page_reviewed` · [local note](../research/sources/P201.md)
+- [P218 — OCP — Universal Quick Disconnect specification, revision 1.0](https://www.opencompute.org/documents/ocp-universal-quick-disconnect-uqd-specification-rev-1-0-2-pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P218.md)
 
 <a id="d14"></a>
 
@@ -1634,7 +1637,7 @@ Turn the static design into monitored operation, maintenance and incident recove
 - Failure domains, common causes, service availability and incident learning
 - Workload load changes, capacity management, aging and retrofit operations
 
-**Prerequisites:** [Continuity, storage and protection](#d05), [Heat rejection, climate and water](#d11), [Physical site, buildings and safety](#d12), [Design, procurement and commissioning](#d13)
+**Prerequisites:** [Continuity, storage and protection](#d05), [Heat rejection, climate and water](#d11), [Physical site, buildings and safety](#d12), [EPC](#d13)
 
 **Learning objectives and assessments:**
 
@@ -1750,7 +1753,7 @@ Combine engineering, delivery and workload models into a bounded decision with e
 - Cost per useful workload outcome versus cost per MW or GPU-hour
 - Sensitivity, scenarios, uncertainty, retrofit and retirement
 
-**Prerequisites:** [Workloads and the infrastructure brief](#d02), [Campus and building power distribution](#d04), [Rack power and the 800 V DC transition](#d06), [Networking and interconnects](#d08), [Heat rejection, climate and water](#d11), [Design, procurement and commissioning](#d13), [Controls, operations and reliability](#d14)
+**Prerequisites:** [Workloads and the infrastructure brief](#d02), [Campus and building power distribution](#d04), [Rack power and the 800 V DC transition](#d06), [Networking and interconnects](#d08), [Heat rejection, climate and water](#d11), [EPC](#d13), [Controls, operations and reliability](#d14)
 
 **Learning objectives and assessments:**
 
@@ -1886,7 +1889,7 @@ Information and service dependencies, not a literal packet route.
 
 ### Site → service → upgrade
 
-[Workloads and the infrastructure brief](#d02) → [Siting, grid connection and supply](#d03) → [Physical site, buildings and safety](#d12) → [Campus and building power distribution](#d04) → [Design, procurement and commissioning](#d13) → [Controls, operations and reliability](#d14) → [Capacity, cost and system decisions](#d15)
+[Workloads and the infrastructure brief](#d02) → [Siting, grid connection and supply](#d03) → [Physical site, buildings and safety](#d12) → [Campus and building power distribution](#d04) → [EPC](#d13) → [Controls, operations and reliability](#d14) → [Capacity, cost and system decisions](#d15)
 
 A lifecycle view across domains. Design and procurement iterate; this is not a strict construction schedule.
 
@@ -1916,7 +1919,7 @@ Domains: [System boundaries and quantities](#d01), [Chip and rack heat capture](
 
 Compare a higher-density rack migration using the existing AC plant, a sidecar option and a separately specified broader DC alternative.
 
-Domains: [Campus and building power distribution](#d04), [Continuity, storage and protection](#d05), [Rack power and the 800 V DC transition](#d06), [Compute and memory — further reading](#d07), [Chip and rack heat capture](#d10), [Physical site, buildings and safety](#d12), [Design, procurement and commissioning](#d13), [Capacity, cost and system decisions](#d15)
+Domains: [Campus and building power distribution](#d04), [Continuity, storage and protection](#d05), [Rack power and the 800 V DC transition](#d06), [Compute and memory — further reading](#d07), [Chip and rack heat capture](#d10), [Physical site, buildings and safety](#d12), [EPC](#d13), [Capacity, cost and system decisions](#d15)
 
 **Deliverable:** Interface matrix, conversion diagrams, current and heat-flow calculations, floor/service-access review, migration sequence and scenario cost comparison.
 
@@ -1936,7 +1939,7 @@ Domains: [Workloads and the infrastructure brief](#d02), [Compute and memory —
 
 An illustrative project has utility service, some installed racks and uneven subsystem completion. A separate named-site exercise uses only dated public evidence.
 
-Domains: [Siting, grid connection and supply](#d03), [Campus and building power distribution](#d04), [Continuity, storage and protection](#d05), [Storage and recovery](#d09), [Heat rejection, climate and water](#d11), [Physical site, buildings and safety](#d12), [Design, procurement and commissioning](#d13), [Controls, operations and reliability](#d14), [Capacity, cost and system decisions](#d15)
+Domains: [Siting, grid connection and supply](#d03), [Campus and building power distribution](#d04), [Continuity, storage and protection](#d05), [Storage and recovery](#d09), [Heat rejection, climate and water](#d11), [Physical site, buildings and safety](#d12), [EPC](#d13), [Controls, operations and reliability](#d14), [Capacity, cost and system decisions](#d15)
 
 **Deliverable:** Capacity-state ledger, dependency schedule, integrated acceptance plan and unresolved-evidence list.
 

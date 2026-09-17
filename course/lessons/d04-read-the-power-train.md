@@ -46,7 +46,7 @@ Siemens and Compass jointly developed the custom modular medium-voltage skid. Si
 
 Siemens and Compass jointly developed a prefabricated medium-voltage skid that combines switchgear and a transformer. The Chapter 6 lead-in identifies the two electrical jobs and the interfaces agreed when they share a package: voltage and current, protection and physical connections. The following case photograph shows the switchgear portion in the factory; the transformer is not visible.
 
-This case stays with distribution because packaging does not remove the separate switching, protection and voltage-conversion functions. The design, procurement and commissioning chapter can return to the same package for manufacturing strategy, site work, transport, ownership and release evidence. No new schedule-saving or deployment-count claim follows from the drawing.
+This case stays with distribution because packaging does not remove the separate switching, protection and voltage-conversion functions. The EPC chapter can return to the same package for manufacturing strategy, site work, transport, ownership and release evidence. No new schedule-saving or deployment-count claim follows from the drawing.
 
 ## Fujitsu: put flexible circuits beside the load
 

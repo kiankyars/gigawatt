@@ -39,13 +39,9 @@ The rows above distinguish those outcomes.
 ## Explicit additions still present
 
 - **Chapter 11:** stacked CRAH/CDU and air/cold-plate comparison at slide 2; GB300 coolant entry at slide 3; rear-door cooling at slide 4 and immersion at slide 5.
-- **Chapter 13:** EPC versus manufacturing strategy at slide 6; design release
-  at slide 10; ownership of interfaces at slide 13; the fixed-20 MW rack-change
-  exercise starts at slide 2 and continues through its electrical, hydraulic,
-  spatial and schedule consequences.
-- **Supplied Chapter 13 examples:** hardware-price meme at slide 3, Houdini at
-  slide 8 and Compass at slide 12. The meme and two construction photographs
-  are unchanged from HEAD.
+- **Chapter 13:** the 20 MW case is now slides 3–7, immediately connecting the changed rack layout to electrical, hydraulic and support consequences. A separate schedule case occupies slides 8–9. Prefabrication occupies slides 10–13; OCP interface specifications are slide 14. The commissioning sequence follows.
+- **Supplied Chapter 13 examples:** hardware-price meme is slide 2, Houdini slide 12 and Siemens–Compass slide 13. The original meme and both construction photographs remain unchanged.
+- **Explicit September 17 cuts:** generic manufacturing-release and shipping checklists, interactive package approvals, and both factory-week arithmetic exercises are removed from the active deck. Their engineering detail remains in the reader and old scene links redirect. This follows the latest author request and supersedes the earlier request to retain them as standalone slides.
 - **Protected storage/recovery examples:** Meta RSC in Chapter 10; Chapter 14
   Google demand response slide 9, deadline slide 10, Gmail slide 15 and Llama
   slide 17.

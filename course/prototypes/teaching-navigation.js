@@ -13,7 +13,7 @@ export const presentationLabels = Object.freeze({
   "networking": "10. Networking and interconnects",
   "cooling": "11. Chip and rack heat capture",
   "heat-rejection": "12. Heat rejection, climate and water",
-  "procurement-cases": "13. Design, procurement and commissioning",
+  "procurement-cases": "13. EPC",
   "operations": "14. Controls, operations and reliability",
   "capacity": "15. Capacity, cost and system decisions",
   "integrated-cases": "16. Integrated cases"
@@ -122,7 +122,7 @@ export const presentationRoutes = Object.freeze([
     "path": "heat-rejection-format.html",
     "next": {
       "number": 13,
-      "title": "Design, procurement and commissioning",
+      "title": "EPC",
       "href": "procurement-cases-format.html?teach=1",
       "kind": "slides"
     }

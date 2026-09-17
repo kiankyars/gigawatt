@@ -313,5 +313,13 @@
     "retrieved_on": "2026-09-17",
     "sha256": "aa3d0526a358d3c3dd244d15e363e9fa1611b880da4c865a2ebd994bb43c8942",
     "note": "User supplied as GB300 cold-plate context. Exact maker/model not independently established. Original image bytes preserved; captioned Cold-plate assemblies. Visible gold patterns are not labeled as internal coolant channels."
+  },
+  {
+    "file": "economizer-mode-user.png",
+    "source_url": null,
+    "publisher": "User-supplied illustration",
+    "retrieved_on": "2026-09-17",
+    "sha256": "fcba5d5281c386cb19d15dd179792dd5445bb6ec140eca126c72e2373af58222",
+    "note": "Supplied full-slide illustration preserved byte-for-byte. Replaces the Chapter 12 economizer scene, with no duplicate HTML heading. Functional heat path, not a hydraulic piping drawing; CDU loop separation remains explained in reading and notes."
   }
 ]

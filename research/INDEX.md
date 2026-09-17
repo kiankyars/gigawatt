@@ -99,7 +99,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [E80C73CE756 — Scaling AI Factories with Co-Packaged Optics for Better Power Efficiency](sources/E80C73CE756.md) | developer.nvidia.com | D08 | page_reviewed |
 | [E836C561209 — Schneider Electric — Why Two Cords Do Not Guarantee Power Redundancy to an IT Device](sources/E836C561209.md) | Schneider Electric | D05, D06 | page_reviewed |
 | [E89E077D5C1 — DOE FEMP: Cooling Tower Management](sources/E89E077D5C1.md) | www.energy.gov | D11 | page_reviewed |
-| [E8D4F19907B — Open Compute Project — Open Rack V3 Base Specification, revision 1.0](sources/E8D4F19907B.md) | Open Compute Project | D06 | page_reviewed |
+| [E8D4F19907B — Open Compute Project — Open Rack V3 Base Specification, revision 1.0](sources/E8D4F19907B.md) | Open Compute Project | D06, D13 | page_reviewed |
 | [E95181BB427 — USGS: What is seismic hazard?](sources/E95181BB427.md) | www.usgs.gov | D12 | page_reviewed |
 | [E960EB5ED2E — Eaton — Rack Basics: Selection, Installation and Cooling](sources/E960EB5ED2E.md) | Eaton | D06 | public_excerpt_reviewed |
 | [E9ACF1B58FE — NVIDIA Optical Transceivers and Cables](sources/E9ACF1B58FE.md) | www.nvidia.com | D08 | page_reviewed |
@@ -263,6 +263,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P215 — 2CRSi — Two-phase immersion cooling](sources/P215.md) | 2CRSi | D10 | page_reviewed |
 | [P216 — Motivair — ChilledDoor rear-door heat exchanger](sources/P216.md) | Motivair | D10 | page_reviewed |
 | [P217 — DOE FEMP — Cooling Towers: Understanding Key Components](sources/P217.md) | U.S. Department of Energy | D11 | page_reviewed |
+| [P218 — OCP — Universal Quick Disconnect specification, revision 1.0](sources/P218.md) | Open Compute Project | D10, D13 | public_excerpt_reviewed |
 | [P22 — Huber et al. — Comparative Evaluation of MVAC–LVDC SST and Hybrid Transformer Concepts for Future Datacenters (IPEC 2022)](sources/P22.md) | ETH Zurich, Delta Electronics and Paderborn University | D04, D06 | page_reviewed |
 | [P23 — Wolfspeed — Introduction of a commercially available 10 kV SiC power MOSFET](sources/P23.md) | Wolfspeed | D04, D06 | page_reviewed |
 | [P24 — Schneider Electric — What is UPS efficiency and how is it calculated?](sources/P24.md) | Schneider Electric | D04, D05, D06 | page_reviewed |

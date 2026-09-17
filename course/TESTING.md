@@ -1,5 +1,14 @@
 # Course verification
 
+## Chapter 13 EPC case sequence — 2026-09-17
+
+- **20 slides**, reordered around the uninterrupted rack-change case, a separate schedule comparison, four prefabrication slides, OCP and commissioning. EPC is consistent across the active menu, reader and player. All removed scene URLs have deliberate redirects.
+- Independent primary-source review checked EPC terminology, Siemens–Compass package scope, CEI photograph identity and OCP ORv3/UQD interfaces. Houdini remains attributed to SemiAnalysis reporting. No real delivery-time benchmark is asserted.
+- Built-in browser visual inspection: plain title, rack comparison, simultaneous schedule comparison and OCP connector example. All 20 scenes passed viewport-width and footer bounds checks at **1280 × 720**, **390 × 844** and **844 × 390**. Shared navigation is retained.
+- **305 JavaScript tests and 80 Python tests passed.** Existing scene-order and fake-DOM fixtures were updated for the new structure; numerical model and control-state tests remain.
+- Chapter 11 comparison title corrected. Chapter 12 uses the supplied economizer PNG unchanged with a single visible title; desktop rendering inspected. Asset provenance records the exact source-file hash.
+- These are implementation checks, not author acceptance. COURSE_REVIEW.md tracks the unfinished review separately.
+
 ## Chapter 11 opening and supplied hardware — 2026-09-17
 
 - **16 slides.** Reviewed the updated repository before editing. Chapters 1–9 acceptance, shared navigation and the current presenter system are preserved.

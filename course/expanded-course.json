@@ -656,7 +656,7 @@
     },
     {
       "id": "D13",
-      "title": "Design, procurement and commissioning",
+      "title": "EPC",
       "lane": "delivery",
       "question": "How does a design become a tested, usable service?",
       "purpose": "Teach delivery as a chain of interfaces and evidence, not a chronology of announcements.",
@@ -1210,7 +1210,7 @@
       "id": "D13",
       "domain": "D13",
       "number": 13,
-      "title": "Design, procurement and commissioning",
+      "title": "EPC",
       "lesson_ids": [
         "d13-delivery-dependencies",
         "d13-interface-contracts",
@@ -1219,7 +1219,7 @@
       "presentations": [
         {
           "id": "procurement-cases",
-          "title": "Design, procurement and commissioning",
+          "title": "EPC",
           "href": "prototypes/procurement-cases-format.html?teach=1",
           "coverage": "chapter"
         }
@@ -4132,7 +4132,7 @@
           "heading": "Compass: co-design the electrical package",
           "paragraphs": [
             "Siemens and Compass jointly developed a prefabricated medium-voltage skid that combines switchgear and a transformer. The Chapter 6 lead-in identifies the two electrical jobs and the interfaces agreed when they share a package: voltage and current, protection and physical connections. The following case photograph shows the switchgear portion in the factory; the transformer is not visible.",
-            "This case stays with distribution because packaging does not remove the separate switching, protection and voltage-conversion functions. The design, procurement and commissioning chapter can return to the same package for manufacturing strategy, site work, transport, ownership and release evidence. No new schedule-saving or deployment-count claim follows from the drawing."
+            "This case stays with distribution because packaging does not remove the separate switching, protection and voltage-conversion functions. The EPC chapter can return to the same package for manufacturing strategy, site work, transport, ownership and release evidence. No new schedule-saving or deployment-count claim follows from the drawing."
           ]
         },
         {
@@ -4431,7 +4431,7 @@
           "limits": "Chapter 4, printed pages 11–14: instrument transformers. Teaching diagram omits wiring, CT saturation, relay settings and detailed CVT transient behavior."
         }
       ],
-      "word_count": 2865
+      "word_count": 2862
     },
     {
       "id": "d04-current-and-rating",
@@ -8362,6 +8362,13 @@
             "Controls and acceptance hold — Hold the changed alarm, circuit and rack-address mappings and any claim that the original test evidence covers the revision. Controls owners provide an approved signal and cause/action matrix for the new rack groups; the commissioning lead updates factory and site test scopes, instrumentation and criteria. Release fabrication or configuration on those approved inputs, release shipment on the specified factory records, and release service only after the required site and integrated tests close the affected issues. Tests at the former rack duty do not demonstrate the new duty.",
             "Schedule hold — Hold an unconditional factory-start or service-date commitment until the EPC scheduler has the signed package releases, revised component availability, a confirmed factory slot, transport and placement resources, site readiness and test resources in one dependency network. For the prior example with all required approvals at week 3, those confirmations support week 14. If the frame can safely begin earlier under its own approved interfaces, model that split explicitly; if a manufacturing slot is lost, use the replacement slot rather than pretending the six-week clock started at drawing approval."
           ]
+        },
+        {
+          "heading": "What the Open Compute Project standardizes",
+          "paragraphs": [
+            "The Open Compute Project publishes shared hardware specifications. Open Rack v3 covers such physical interfaces as 48 mm OpenU spacing and the geometry of its 48 V power busbar. The Universal Quick Disconnect specification addresses the mating connector and performance requirements for a liquid-cooling connection. These are concrete agreements between hardware suppliers, rather than a promise that any rack fits any facility.",
+            "A connector can mate correctly and still impose too much pressure drop at the new rack’s required flow. In the continuing 20 MW example, the total plant duty stays fixed while branch flow doubles. Standardized connector geometry can simplify supplier substitution; selecting the size and proving the pressure-flow operating point remain necessary. This is the link between an open specification and the changed rack interface."
+          ]
         }
       ],
       "tradeoff": [
@@ -8449,7 +8456,9 @@
         "ECB7071035F",
         "P02",
         "P56",
-        "P57"
+        "P57",
+        "E8D4F19907B",
+        "P218"
       ],
       "source_notes": [
         {
@@ -8475,9 +8484,21 @@
           "claim": "The current capability and critical/severe/general leak sections distinguish BMS electrical/liquid isolation from infrastructure-management handling and identify integration prerequisites.",
           "reviewed_on": "2026-09-11",
           "limits": "Current capability sections reviewed. Future API-customizable policies and broader lifecycle coverage are not treated as delivered features. This is a specific rack-management implementation, not a universal leak procedure."
+        },
+        {
+          "id": "E8D4F19907B",
+          "claim": "Mechanical spacing and 48 V busbar geometry illustrate standardized rack interfaces.",
+          "reviewed_on": "2026-09-17",
+          "limits": "Sections 6.1.2–6.1.3 and 6.3 reviewed, printed pages 9–17. No complete-system interchangeability claim."
+        },
+        {
+          "id": "P218",
+          "claim": "Mating dimensions and pressure, temperature, flow and fluid-loss requirements define a coolant-connector interface.",
+          "reviewed_on": "2026-09-17",
+          "limits": "Scope and interface/performance sections, printed pages 4–10. Cited revision is not asserted latest; a mating connection must still satisfy its selected operating duty."
         }
       ],
-      "word_count": 2753
+      "word_count": 2886
     },
     {
       "id": "d13-commissioning-complete-paths",
@@ -11957,12 +11978,13 @@
       "publisher": "Open Compute Project",
       "kind": "specification",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-08",
+      "reviewed_on": "2026-09-17",
       "domains": [
-        "D06"
+        "D06",
+        "D13"
       ],
-      "use": "Sections 6, 6.1.2 and 6.1.3 distinguish 48 mm OpenU spacing from optional 44.45 mm EIA rack-unit support and allow exterior frame dimensions to vary.",
-      "caution": "Reviewed the public PDF mechanical sections on printed pages 7, 9 and 11, plus revision table on page 6. Revision 1.0 is the identified reference, not a claim to the latest revision. Electrical, connector and qualification requirements were not audited; the lesson does not infer interchangeability from height alone.",
+      "use": "Open Rack v3 mechanical and electrical interface specifications: 48 mm OpenU spacing, optional EIA rack-unit support and 48 V busbar geometry. Introduce OCP as a shared hardware-interface specification effort.",
+      "caution": "Revision 1.0 mechanical sections 6.1.2–6.1.3 and electrical geometry section 6.3, printed pages 9–17 reviewed. A shared frame or busbar interface does not establish complete-rack interchangeability or adequate duty for a changed load.",
       "discovered_via": "Rack-format gap review, 2026-09-08."
     },
     {
@@ -13909,7 +13931,7 @@
       "publisher": "Siemens",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-15",
+      "reviewed_on": "2026-09-17",
       "domains": [
         "D04",
         "D13"
@@ -14587,7 +14609,7 @@
       "publisher": "Cupertino Electric",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-15",
+      "reviewed_on": "2026-09-17",
       "published_on": null,
       "domains": [
         "D03",
@@ -14814,6 +14836,21 @@
       ],
       "use": "Tower water distribution through nozzles, film/splash fill and direct air-water contact that enables evaporation.",
       "caution": "Mechanisms and component descriptions on pages 1–3 only; dated policy requirements and savings claims are not reused."
+    },
+    {
+      "id": "P218",
+      "title": "OCP — Universal Quick Disconnect specification, revision 1.0",
+      "url": "https://www.opencompute.org/documents/ocp-universal-quick-disconnect-uqd-specification-rev-1-0-2-pdf",
+      "publisher": "Open Compute Project",
+      "kind": "specification",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-17",
+      "domains": [
+        "D10",
+        "D13"
+      ],
+      "use": "Introduce the UQD mating interface and its pressure, temperature, flow and fluid-loss requirements as a concrete example of what OCP standardizes.",
+      "caution": "Scope, selection KPIs, dimensions and performance sections on printed pages 4–10 reviewed. Revision 1.0 is the named reference, not asserted latest. Standardized mating does not guarantee sufficient flow or complete-system compatibility."
     }
   ],
   "glossary": [

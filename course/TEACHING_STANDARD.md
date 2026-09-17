@@ -117,7 +117,7 @@ The open production tasks remain in [the course review](COURSE_REVIEW.md#next-te
 | Physical site, buildings and safety (`d12`) | Greenfield versus brownfield, using Abilene and Colossus 1; factory reuse still required new power infrastructure | [Land comparison](prototypes/case-studies.html?teach=1#land), [Colossus 1](prototypes/case-studies.html?teach=1#colossus) | Integrated in Chapter 5: [greenfield/brownfield](prototypes/site-format.html?teach=1#greenfield-brownfield) and [Colossus](prototypes/site-format.html?teach=1#colossus-service); current checks recorded in [TESTING.md](TESTING.md) |
 | Capacity, cost and system decisions (`d15`) | Abilene's dated capacity milestones: distinguish the original campus, adjacent project, energized capacity and useful output | [Capacity ledger](prototypes/case-studies.html?teach=1#abilene-ledger) | Integrated in [Chapter 15](prototypes/capacity-format.html?teach=1#abilene-ledger); dated scope and acceptance evidence remain distinct. |
 
-**Design, procurement and commissioning (`d13`)** now has a [full chapter deck](prototypes/procurement-cases-format.html?teach=1).
+**EPC (`d13`)** now has a [full chapter deck](prototypes/procurement-cases-format.html?teach=1).
 `epc-and-prefab`, `factory-and-site`, `parallel-schedules`, `manufacturing-release`
 and `module-transport` distinguish responsibilities from manufacturing strategy.
 The Houdini factory case stays here; Meta’s tent enclosure remains in Chapter 5.

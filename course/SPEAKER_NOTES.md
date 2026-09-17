@@ -99,7 +99,7 @@ Source: [Equinix Cross Connect documentation](https://docs.equinix.com/cross-con
 
 Source: [Meta’s January 24, 2022 RSC account](https://ai.meta.com/blog/ai-rsc/), storage description and AIRStore sections checked September 16, 2026.
 
-## Old with the New — Chapter 11, slide 2
+## Out with the Old, In with the New — Chapter 11, slide 2
 
 “A CRAH is a computer room air handler. Its fans move room air across a chilled-water coil. Heat goes from the air into the water, and cooled air goes back to the room.
 
@@ -187,6 +187,11 @@ The fixed gaps belong to this illustrative temperature screen. Flow, return temp
 
 The Chapter 11 CoolIT CHx2000 is a CDU with pumps and a heat exchanger, not a compressor. This slide stays here because it answers the preceding outdoor-temperature problem: refrigeration can deliver colder water when direct heat exchange cannot. This is a separate chiller example, with pumps and fans outside its boundary. On slide 8, introduce whole-plant COP 4 as four units of heat moved per unit of cooling electricity, including pumps and fans. The [reader](index.html#d11-heat-rejection) retains the comparison between equipment and whole-plant COP.
 
+## Economizer mode — Chapter 12, slide 9
+
+- The supplied image shows a functional heat path: when outdoor conditions permit, pumps and fans can carry the cooling duty without the compressor.
+- “From racks” and “back to racks” compress the route; a CDU may separate technology coolant and facility water. Follow the heat without treating every arrow as one shared water circuit.
+
 ## Hot weather can leave less power for computing — Chapter 12, slide 11
 
 Start at 8 MW computing in cool weather. Ask which part of the power bar will grow before switching to hot weather. “The cooling plant can still remove the heat, but its electricity now takes us beyond the site’s 10 MW supply. Lower computing power until the whole bar fits. Cooling electricity falls too, because there is less heat to move.”
@@ -219,41 +224,47 @@ Ask learners to name the surviving heat path and limiting resource before choosi
 
 The reveal supplies the worked operating point. This synthetic brief assumes the alternate path is qualified; a real transition must also demonstrate flow, temperatures and controls.
 
-## The late rack change — Chapter 13, slide 2
+## EPC and the late rack change — Chapter 13, slides 1–7
 
-The same 20 MW phase now has 100 racks at 200 kW instead of 200 racks at 100 kW. Ask what can stay and what must change before naming current, flow or geometry. “We ordered equipment for the old racks. Can it still connect to the new ones, and can we still keep the delivery date?”
+- EPC means engineering, procurement and construction. Commissioning tests the constructed service; it is not the C in the acronym.
+- The meme comes before the case. Then establish the unchanged 20 MW IT requirement: 200 racks at 100 kW become 100 racks at 200 kW.
+- Electrical, hydraulic and support consequences follow immediately. The phase total can stay fixed while each connection becomes inadequate.
+- Electrical example: balanced 480 V three-phase, PF 1. About 120 A becomes 241 A against the original 160 A continuous branch limit.
+- Hydraulic example: water, all rack heat to liquid, 10°C rise. Branch flow doubles; the stipulated unchanged hardware needs 80 rather than 20 kPa, exceeding the available 60 kPa.
+- The support example separately stipulates twice the rack mass on the same four feet. Power alone does not establish mass. IT duty does not include changing auxiliary power.
 
-The hardware-price meme remains as the following transition. This example fixes IT demand, not auxiliary power or shipping mass.
+## Which delivery should be expedited? — Chapter 13, slides 8–9
 
-## Which earlier delivery helps? — Chapter 13, slides 5 and 9
+- Start a separate schedule case. Electrical installation, cooling installation and utility availability must all reach readiness before integrated testing.
+- Compare all four scenarios simultaneously. Earlier cooling does not change the date while switchgear is still last; earlier switchgear can. A late utility connection can become the new controlling path.
+- The dates are a teaching dependency model, not a vendor delivery forecast. The full derivation remains in the reader; no fastest-button quiz is needed.
 
-On slide 5, ask whether receiving the cooling equipment four weeks earlier will move the testing date. Compare that change with receiving the electrical equipment earlier. Trace the last required path before reading the finish week.
+## Prefabrication at different physical scales — Chapter 13, slides 10–13
 
-Slide 9 starts a separate, narrower factory/site exercise. Week zero here already has approved drawings and available components. Its 12 versus 16 weeks does not replace the whole-project 27-week result and does not describe Houdini. Slide 18 returns to this same factory/site clock after a late drawing approval or an unavailable factory slot.
+- Apply E, P and C to the actual electrical plant: coordinated design, ordered package, foundations and placement.
+- Off-site assembly can cover an electrical skid or a broader data-hall service assembly. Both allow factory assembly and site construction to overlap; they leave different field connections.
+- Houdini: SemiAnalysis reports AWS factory-built data-hall skids and Cupertino Electric participation. The photograph is CEI’s Edgerton factory. It does not identify the pictured equipment as a Houdini unit.
+- Siemens–Compass: a jointly developed skid combines 8DJH 36 switchgear with a transformer. The photograph shows the switchgear portion. This case establishes what is assembled, not a universal schedule saving.
+- Design freezes, shipping plans and manufacturing dates remain in the reader. The presentation focuses on data-center interfaces and real prefabrication examples.
 
-## The connection drawing — Chapter 13, slides 10 and 13
+## Open Compute Project — Chapter 13, slide 14
 
-Point to the two mating flanges. “Both suppliers can finish their own parts and still produce a joint that does not line up. Agree the same location, connection, duty and drawing revision before the affected fabrication starts.”
+- OCP publishes shared hardware interface specifications. Open Rack v3 covers rack geometry and 48 V busbar geometry; Universal Quick Disconnect (UQD) specifies coolant-connector mating and performance.
+- Two suppliers’ compliant couplings of the same specified interface can mate. That alone does not prove adequate flow or pressure drop for the new rack.
+- Return to the 200 kW rack: 4.8 kg/s required versus the example’s existing 3.0 kg/s branch limit. Standardization helps interchangeability; the hydraulic operating point still has to work.
+- Sources: [ORv3 revision 1.0](https://www.opencompute.org/documents/open-rack-base-specification-version-3-pdf), mechanical and busbar sections; [UQD revision 1.0](https://www.opencompute.org/documents/ocp-universal-quick-disconnect-uqd-specification-rev-1-0-2-pdf), printed pages 4–10. These are the named reference revisions.
 
-The teaching contract assigns coordination to the EPC interface manager and technical approval to the appropriate design lead. Real contracts assign those roles. EPC responsibility and factory assembly remain separate choices. Independent work can proceed while an affected package waits.
+## Commission the revised racks — Chapter 13, slides 15–17
 
-## One branch carries more — Chapter 13, slides 14–16
+- Return explicitly to the same 20 MW rack-change case after the manufacturing examples.
+- Factory acceptance covers the tested assembly. Site wiring, piping and control mappings require installed checks before the integrated failure test.
+- The alarm identifies A21–A40. The authorized command must reach those same racks; then observe power, temperature and timing against agreed limits.
+- The power trace is qualitative. Normal duty, maintenance and recovery tests remain part of complete acceptance, with detail in the reader.
 
-The current comparison holds 480 V three-phase and power factor 1 fixed. The old 160 A allowable continuous branch carries about 120 A before the change and would need about 241 A afterward. Fewer branches do not increase the rating of an existing branch.
 
-At the same 10°C water temperature rise, double heat needs double branch flow. The stipulated reused hardware has quadratic resistance, so its pressure drop rises from 20 to 80 kPa, exceeding the available 60 kPa. Actual redesigns need component and pump curves. The total phase flow remains fixed in this example.
+## Which racks can operate now? — Chapter 13, slides 18 and 20
 
-The heavier-rack drawing independently stipulates twice the mass, on the same four feet with equal static sharing. Power alone does not establish that mass. Each block marks one original foot load, so two blocks show twice that local load even though the zone's total weight is unchanged.
-
-## One cooling failure through the complete path — Chapter 13, slides 19–21
-
-The alarm identifies A21–A40. The authorized command must target those same revised racks. A command record alone does not show that their power changed. The qualitative power trace has no numerical time or power scale; it illustrates the needed observation, not a validated operating sequence.
-
-Compare measured power, temperatures and response time with limits agreed during design. Stop criteria and authority must be established before the test. The factory test covers its actual assembly and setup. Field wiring, piping and mappings need installation and functional checks before the integrated test. The reader retains the normal-duty, maintenance and recovery cases, which remain part of complete acceptance.
-
-## Which racks can operate now? — Chapter 13, slides 22 and 24
-
-Slide 22 assumes every other acceptance criterion has passed so the learner can isolate the intersection of electrical, cooling and network rack identities. At 200 kW per revised rack, A21–A60 is 40 racks and 8 MW. Extending the cooling coverage to A01 adds 20 eligible racks and gives 12 MW.
+Slide 18 assumes every other acceptance criterion has passed so the learner can isolate the intersection of electrical, cooling and network rack identities. At 200 kW per revised rack, A21–A60 is 40 racks and 8 MW. Extending the cooling coverage to A01 adds 20 eligible racks and gives 12 MW.
 
 The closing exercise changes the evidence: only A21–A40 has a measured failure response that meets the agreed limits and timing. A41–A60 has a command record but no confirmed response. Release the 20 racks in A21–A40, a 4 MW envelope under the stated remaining criteria.
 

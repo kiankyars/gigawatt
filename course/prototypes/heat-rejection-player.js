@@ -11,7 +11,7 @@ function focusAfter(selector){render();document.querySelector(selector)?.focus({
 function render(){
  const scene=scenes[index];
  document.title=`${presentationLabels['heat-rejection']||'12. Heat rejection, climate and water'} · ${scene.label}`;
- $('scene').dataset.scene=scene.id;$('scene-title').textContent=scene.title;
+ $('scene').dataset.scene=scene.id;$('scene-title').closest('header').hidden=!!scene.imageOnly;$('scene-title').textContent=scene.title;
  $('visual').innerHTML=heatRejectionVisual(scene.id,state,compact.matches);
  $('lesson-reference').href=`../index.html#${scene.reference}`;
  $('status').textContent=scene.title;$('scenes').value=scene.id;$('progress').textContent=`${index+1} / ${scenes.length}`;

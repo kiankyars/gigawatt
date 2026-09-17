@@ -142,12 +142,14 @@ function statesFor(scene){
 
 test('every procurement scene and control state renders with existing photographs',()=>{
  assert.equal(new Set(scenes.map(scene=>scene.id)).size,scenes.length);
- assert.equal(scenes[1].id,'rack-change','start the continuing example before introducing its interfaces');
+ assert.equal(scenes[1].id,'hardware-prices-meme','the meme precedes the continuing example');
+ assert.deepEqual(scenes.slice(2,7).map(scene=>scene.id),['rack-case-brief','rack-change','electrical-interface','hydraulic-interface','spatial-interface'],'keep the rack-change case and its consequences together');
  assert.deepEqual([...new Set(scenes.map(scene=>scene.objective))].sort(),['D13.1','D13.2','D13.3','D13.4']);
  const assets=new Set();
  for(const scene of scenes)for(const state of statesFor(scene)){
   const html=procurementVisual(scene.id,state);
-  assert.ok(html.length>100,scene.id);
+  if(scene.id==='delivery-purpose')assert.equal(html,'','the opening contains only the chapter title');
+  else assert.ok(html.length>100,scene.id);
   assert.doesNotMatch(html,/NaN|undefined|Infinity/,scene.id);
   for(const [,src]of html.matchAll(/<img\b[^>]*\bsrc="([^"]+)"/g)){
    assert.ok(src.startsWith('../assets/'),`${scene.id}: photograph must be bundled`);
@@ -223,7 +225,7 @@ function playerAt(hash){
  const document={getElementById:id=>elements.get(id)||inline.find(button=>button.getAttribute('id')===id),createElement:()=>new Element(),querySelector:()=>null,querySelectorAll:selector=>{const attr=selector.slice(1,-1);return inline.filter(element=>element.getAttribute(attr)!==undefined);},addEventListener(){}};
  const window={addEventListener:(name,fn)=>{listeners[name]=fn;},scrollTo(){}};
  const source=fs.readFileSync(new URL('../course/prototypes/procurement-cases-player.js',import.meta.url),'utf8').replace(/^import .*;\n/gm,'');
- vm.runInNewContext(source,{document,window,location,history:{replaceState(_state,_title,hash){location.hash=hash;}},URLSearchParams,Option:class{constructor(label,value){this.label=label;this.value=value;}},scenes,initialState,resolveProcurementScene,procurementVisual,presentationLabels:{'procurement-cases':'13. Design, procurement and commissioning'}});
+ vm.runInNewContext(source,{document,window,location,history:{replaceState(_state,_title,hash){location.hash=hash;}},URLSearchParams,Option:class{constructor(label,value){this.label=label;this.value=value;}},scenes,initialState,resolveProcurementScene,procurementVisual,presentationLabels:{'procurement-cases':'13. EPC'}});
  return {elements,document,go(id){location.hash=`#${id}`;listeners.hashchange();},click(key,value){const button=buttons().find(button=>button.dataset.choice===key&&String(button.dataset.value)===String(value));assert.ok(button,`${key}=${value}`);button.onclick();},choose(value){const button=inline.find(button=>button.dataset.diagnosis===value);assert.ok(button,value);button.onclick();},press(id){const button=document.getElementById(id);assert.ok(button,id);(button.onclick||button.listeners.click)();}};
 }
 

@@ -246,3 +246,7 @@ complete generation prompt.
 ## Chapter 11 supplied cooling figures — 17 September 2026
 
 `references/2crsi-single-phase-immersion-user.png` and `references/cold-plate-assemblies-user.png` preserve the supplied PNG bytes. The first matches [2CRSi’s single-phase schematic](https://2crsi.com/single-phase-immersion-cooling), with its logo retained; two-phase behavior is explained separately. The second was supplied as GB300 context, but its maker and exact model remain unverified. It is captioned “Cold-plate assemblies,” with no invented attribution or hidden-channel annotation. Hashes and usage limits are in `references/provenance.json`. The existing NVIDIA GB300 rear view is reused to locate coolant manifolds.
+
+## Supplied economizer illustration — 17 September 2026
+
+`references/economizer-mode-user.png` replaces Chapter 12’s economizer slide unchanged. Its embedded title is the sole visible heading. The diagram summarizes heat transfer; “from racks” and “back to racks” do not assert that facility water and technology coolant share one circuit.

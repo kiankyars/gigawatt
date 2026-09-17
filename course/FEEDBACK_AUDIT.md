@@ -521,3 +521,21 @@ The former slide 18 remains the closing slide, now numbered 17.
 - Removed the generic real-coolers temperature-gap line. Temperature comparison now distinguishes equipment names from the two air measurements and identifies each reference temperature.
 - Chiller remains in Chapter 12 after the outdoor-temperature constraint. The Chapter 11 CoolIT CHx2000 is a liquid-to-liquid CDU, not a compressor, so adjoining the two without this distinction would reinforce the confusion.
 - Removed the repeated higher-COP explanation. Updated notes and current tracker for the inserted slide; neither chapter is marked accepted.
+
+## Chapter 13 EPC review through former slide 14 — 17 September 2026
+
+| Request | Implemented result |
+|---|---|
+| Consistent chapter name and plain opening | EPC in the menu and reader; opening contains only Engineering, Procurement and Construction (EPC). Commissioning remains content, not the C in EPC. |
+| Meme before the example | Meme moved to slide 2, ahead of the short 20 MW case brief. |
+| Introduce the rack change and keep its consequences together | Slides 3–7: brief, before/after rack layout, electrical branch, hydraulic branch and concentrated support loads. The former slide 14 no longer appears as a disconnected return to the case. |
+| Explain the new schedule case; remove fastest-button quiz | New case brief followed by four simultaneously visible dependency scenarios. The point is which purchase can change the opening date, not finding the lowest displayed number. |
+| Make EPC concrete and give prefabrication proper treatment | Electrical-plant responsibilities, parallel factory/site assembly, analyst-reported AWS Houdini and verified Siemens–Compass physical package. Prefabrication is not confined to a definition slide. |
+| Remove Houdini photograph caveat | Removed the visible caveat; neutral CEI credit and accurate provenance remain. |
+| Remove trivial week arithmetic and generic pre-manufacture/shipping advice | Active factory-week, approval-delay, manufacturing-release, transport and approval-checklist slides removed; detail remains in the reader. |
+| Reconsider the Compass “connect the part” slide | Retained its real photograph and package scope; removed the generic joint/handoff lecture. |
+| Introduce OCP without a four-tab wall of text | One physical UQD interface example: shared mating interface versus the changed rack’s flow requirement. Named ORv3/UQD reference revisions and source notes added. |
+| Correct Chapter 11 comparison title | “Out with the Old, In with the New”. |
+| Replace Chapter 12 economizer slide with supplied image | Original PNG installed unchanged, with only its embedded title visible. |
+
+The revised deck contains 20 slides. Commissioning and acceptance remain after the prefabrication examples. This revision addresses the author’s review through former slide 14; it does not imply acceptance of the remaining material.

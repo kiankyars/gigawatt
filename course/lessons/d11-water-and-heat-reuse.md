@@ -111,4 +111,4 @@ The condenser receives the cooling duty plus compressor work: 1.0 + 0.2 MW. Cool
 
 **The next problem:** We have traced the power, work and heat paths. What evidence proves that the delivered equipment can operate as one complete service?
 
-Continue in **Design, procurement and commissioning**: The longest lead time is not the completion date.
+Continue in **EPC**: The longest lead time is not the completion date.

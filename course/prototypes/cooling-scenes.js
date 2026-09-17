@@ -12,7 +12,7 @@ const existing=[
   {
     "id": "capture-options",
     "label": "Air and liquid cooling",
-    "title": "Old with the New",
+    "title": "Out with the Old, In with the New",
     "kind": "capture-comparison",
     "description": "Top: rack heat enters room air, then a computer room air handler (CRAH) transfers it to chilled water. Bottom: cold plates move chip heat through technology coolant to a liquid-to-liquid coolant distribution unit (CDU), which transfers it into separate facility water. The CRAH still handles residual air heat. Current GB300 systems retain both liquid and air heat paths.",
     "reference": "d10-cdu-interfaces"

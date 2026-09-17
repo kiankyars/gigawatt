@@ -90,9 +90,9 @@ Each topic ends with a check-in: pause, make a prediction, compare the reasoning
 - [The same air temperature can create different cooling limits](lessons/d11-weather-and-operating-envelope.md) — How do dry bulb, wet bulb and exchanger approach determine whether the rack receives cool enough liquid?
 - [Count water at the boundary, then ask who can use the heat](lessons/d11-water-and-heat-reuse.md) — Can a facility improve one resource metric while making another site constraint harder?
 
-### 13. Design, procurement and commissioning
+### 13. EPC
 
-- Slides: [Design, procurement and commissioning](prototypes/procurement-cases-format.html?teach=1)
+- Slides: [EPC](prototypes/procurement-cases-format.html?teach=1)
 - [The longest lead time is not the completion date](lessons/d13-delivery-dependencies.md) — Which delay actually changes the date when a phase can deliver service?
 - [Two adequate products can form an inadequate system](lessons/d13-interface-contracts.md) — What can proceed when 200 × 100 kW racks become 100 × 200 kW just before fabrication?
 - [Commission the intersection, not the inventory](lessons/d13-commissioning-complete-paths.md) — When do installed components become a tested service path?
@@ -1734,7 +1734,7 @@ Siemens and Compass jointly developed the custom modular medium-voltage skid. Si
 
 Siemens and Compass jointly developed a prefabricated medium-voltage skid that combines switchgear and a transformer. The Chapter 6 lead-in identifies the two electrical jobs and the interfaces agreed when they share a package: voltage and current, protection and physical connections. The following case photograph shows the switchgear portion in the factory; the transformer is not visible.
 
-This case stays with distribution because packaging does not remove the separate switching, protection and voltage-conversion functions. The design, procurement and commissioning chapter can return to the same package for manufacturing strategy, site work, transport, ownership and release evidence. No new schedule-saving or deployment-count claim follows from the drawing.
+This case stays with distribution because packaging does not remove the separate switching, protection and voltage-conversion functions. The EPC chapter can return to the same package for manufacturing strategy, site work, transport, ownership and release evidence. No new schedule-saving or deployment-count claim follows from the drawing.
 
 ## Fujitsu: put flexible circuits beside the load
 
@@ -3962,11 +3962,11 @@ The condenser receives the cooling duty plus compressor work: 1.0 + 0.2 MW. Cool
 
 **The next problem:** We have traced the power, work and heat paths. What evidence proves that the delivered equipment can operate as one complete service?
 
-Continue in **Design, procurement and commissioning**: The longest lead time is not the completion date.
+Continue in **EPC**: The longest lead time is not the completion date.
 
 ## The longest lead time is not the completion date
 
-**13. Design, procurement and commissioning · Authored draft**
+**13. EPC · Authored draft**
 
 Build a dependency graph, compare site-built and prefabricated delivery of the same 20 MW phase, and decide which work a late rack change actually delays.
 
@@ -4084,7 +4084,7 @@ Hold only the work whose inputs are unresolved, including any affected supports 
 
 ## Two adequate products can form an inadequate system
 
-**13. Design, procurement and commissioning · Authored draft**
+**13. EPC · Authored draft**
 
 Keep a 20 MW IT duty fixed, test the changed electrical, hydraulic and spatial interfaces, and assign the evidence needed to release fabrication and schedule holds.
 
@@ -4148,6 +4148,12 @@ Controls and acceptance hold — Hold the changed alarm, circuit and rack-addres
 
 Schedule hold — Hold an unconditional factory-start or service-date commitment until the EPC scheduler has the signed package releases, revised component availability, a confirmed factory slot, transport and placement resources, site readiness and test resources in one dependency network. For the prior example with all required approvals at week 3, those confirmations support week 14. If the frame can safely begin earlier under its own approved interfaces, model that split explicitly; if a manufacturing slot is lost, use the replacement slot rather than pretending the six-week clock started at drawing approval.
 
+## What the Open Compute Project standardizes
+
+The Open Compute Project publishes shared hardware specifications. Open Rack v3 covers such physical interfaces as 48 mm OpenU spacing and the geometry of its 48 V power busbar. The Universal Quick Disconnect specification addresses the mating connector and performance requirements for a liquid-cooling connection. These are concrete agreements between hardware suppliers, rather than a promise that any rack fits any facility.
+
+A connector can mate correctly and still impose too much pressure drop at the new rack’s required flow. In the continuing 20 MW example, the total plant duty stays fixed while branch flow doubles. Standardized connector geometry can simplify supplier substitution; selecting the size and proving the pressure-flow operating point remain necessary. This is the link between an open specification and the changed rack interface.
+
 ## Worked example: Release a revised 20 MW phase, one interface at a time
 
 - Ten 2 MW zones: 200 × 100 kW racks become 100 × 200 kW. IT duty stays 20 MW; facility auxiliary loads require separate review.
@@ -4202,10 +4208,12 @@ Electrical and hydraulic adequacy cannot locate connectors or establish floor re
 - [Commissioning & Performance Validation | AI Data Center Energy Performance Framework](https://www.ashrae.org/technical-resources/ai-data-center-framework/commissioning-performance-validation) — Design-phase feedback and early monitoring/control coordination are relevant to interface validation. Read 2026-09-06. Selected highlights reviewed. All rack, module, current, flow, pressure, mass and schedule values here are synthetic, not ASHRAE ratings. Existing source review is reused; no new external review is implied.
 - [Dell PowerEdge event guide — liquid-cooling and temperature-triggered Emergency Power Reduction](https://www.dell.com/support/manuals/en-us/poweredge-xe9780/error_event_message_guide_c/cpwrpower-configuration-event-messages?guid=guid-3683ef35-10cc-4072-b1bb-e0f44ffcc67f&lang=en-us) — CPWR0139 identifies liquid-cooling-alert-triggered power throttling or shutdown; CPWR0050 and CPWR0131 describe temperature-triggered group EPR. CPWR0026 and CPWR0177 document failed action paths. Read 2026-09-11. Selected event definitions reviewed, not a tested installation or universal implementation. Feature support, licensing, communications and target response matter; no reaction time or achieved cooling protection is inferred.
 - [NVIDIA Infra Controller — Leak Detection and Handling](https://docs.nvidia.com/infra-controller/documentation/operations-day-2/leak-detection-handling) — The current capability and critical/severe/general leak sections distinguish BMS electrical/liquid isolation from infrastructure-management handling and identify integration prerequisites. Read 2026-09-11. Current capability sections reviewed. Future API-customizable policies and broader lifecycle coverage are not treated as delivered features. This is a specific rack-management implementation, not a universal leak procedure.
+- [Open Compute Project — Open Rack V3 Base Specification, revision 1.0](https://www.opencompute.org/documents/open-rack-base-specification-version-3-pdf) — Mechanical spacing and 48 V busbar geometry illustrate standardized rack interfaces. Read 2026-09-17. Sections 6.1.2–6.1.3 and 6.3 reviewed, printed pages 9–17. No complete-system interchangeability claim.
+- [OCP — Universal Quick Disconnect specification, revision 1.0](https://www.opencompute.org/documents/ocp-universal-quick-disconnect-uqd-specification-rev-1-0-2-pdf) — Mating dimensions and pressure, temperature, flow and fluid-loss requirements define a coolant-connector interface. Read 2026-09-17. Scope and interface/performance sections, printed pages 4–10. Cited revision is not asserted latest; a mating connection must still satisfy its selected operating duty.
 
 ## Commission the intersection, not the inventory
 
-**13. Design, procurement and commissioning · Authored draft**
+**13. EPC · Authored draft**
 
 Distinguish installation and subsystem tests from integrated acceptance, then count overlapping accepted rack paths rather than adding milestone totals.
 

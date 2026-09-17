@@ -217,7 +217,7 @@ class TeachingCatalogTests(unittest.TestCase):
         )
         self.assertEqual(chapters["D13"]["presentations"], [{
             "id": "procurement-cases",
-            "title": "Design, procurement and commissioning",
+            "title": "EPC",
             "href": "prototypes/procurement-cases-format.html?teach=1",
             "coverage": "chapter",
         }])
