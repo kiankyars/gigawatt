@@ -157,3 +157,17 @@ test('the merged energy diagram traces every buffer to the electrical boundary i
     assert.doesNotMatch(html,/undefined|NaN/);
   }
 });
+
+
+test('the VRM comparison shows both designs without a phase toggle',()=>{
+  const scene=rackScenes.find(s=>s.id==='multiphase');
+  assert.deepEqual(scene.controls,[]);
+  for(const compact of [false,true]){
+    const one=rackVisual(scene,{...initialState,phases:1},compact).markup;
+    const four=rackVisual(scene,{...initialState,phases:4},compact).markup;
+    assert.equal(one,four);
+    assert.match(one,/<h2>One phase<\/h2>/);
+    assert.match(one,/<h2>Four phases<\/h2>/);
+    assert.equal((one.match(/Total into the rail \(A\)/g)||[]).length,2);
+  }
+});
