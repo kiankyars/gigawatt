@@ -7,6 +7,16 @@ Do not download or launch standalone Chrome for Testing or Playwright browser
 binaries here. Existing browser test harnesses remain available for a separately
 configured test environment; run local model and build checks without a browser.
 
+## Chapter 10 quiz choices and campus notes — 2026-09-16
+
+- Added the campus-fiber script at Chapter 10, slide 18 in speaker-note order.
+- Slide 20 now offers four individual server links and the shared uplink. All
+  five controls have the same styling; link-error and cable-move findings appear
+  only after selection. Every choice was exercised in the built-in browser.
+- Desktop 1280 × 720 and phone 390 × 844 layouts checked; the revealed phone
+  finding fits above navigation without horizontal overflow. No browser errors.
+  Networking tests and the complete JavaScript suite pass.
+
 ## Chapter 10 follow-up: receiver, image and quiz — 2026-09-16
 
 - Clarified the unchanged 400 Gb/s receiving link; moved the four fabric-category

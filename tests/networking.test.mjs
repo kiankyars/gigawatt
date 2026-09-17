@@ -36,12 +36,13 @@ test('the network choice explains the full system and the distance example isola
  assert.match(distance,/100 km fiber route/);assert.match(distance,/Request · 0.5 ms/);assert.match(distance,/Reply · 0.5 ms/);assert.match(distance,/>1 ms</);assert.match(distance,/propagation alone/);
  assert.doesNotMatch(distance,/Multislice|Amdahl|Bulk data|Dependent exchanges/);
 });
-test('the diagnosis reveals evidence by selecting one of two physical links',()=>{
+test('the diagnosis offers each server link and the shared uplink without singling out the fault',()=>{
  const unrevealed=networkingVisual('network-diagnosis',initialState);
- assert.match(unrevealed,/>20 ms</);assert.match(unrevealed,/>50 ms</);
- assert.match(unrevealed,/Cable just moved/);assert.match(unrevealed,/Same transfer from each server/);
- assert.doesNotMatch(unrevealed,/Errors rose after the move|diagnosis-reveal/);
- for(const [diagnosis,finding]of [['link','Errors rose after the move'],['uplink','Capacity is available']]){
+ assert.equal((unrevealed.match(/>20 ms</g)||[]).length,3);assert.equal((unrevealed.match(/>50 ms</g)||[]).length,1);
+ assert.equal((unrevealed.match(/data-diagnosis=/g)||[]).length,5);
+ assert.match(unrevealed,/Same transfer from each server/);
+ assert.doesNotMatch(unrevealed,/Servers 1–3|cable was moved|diagnosis-slow|diagnosis-reveal/);
+ for(const [diagnosis,finding]of [...[1,2,3].map(i=>[`server-${i}`,`Server ${i}: no link errors`]),['server-4','Server 4: link errors rose'],['uplink','The shared uplink has spare capacity']]){
   const chosen=networkingVisual('network-diagnosis',{...initialState,diagnosis});assert.match(chosen,new RegExp(`data-diagnosis="${diagnosis}" aria-pressed="true"`));assert.ok(chosen.includes(finding));
  }
 });
@@ -54,7 +55,7 @@ test('models reject impossible intervals and invalid rates',()=>{
 });
 test('all scenes and selectable states produce renderable desktop and compact mechanisms',()=>{
  assert.equal(new Set(scenes.map(s=>s.id)).size,scenes.length);
- for(const scene of scenes){let states=[initialState];for(const group of scene.controls||[])states=states.flatMap(state=>group.options.map(([value])=>({...state,[group.key]:value})));if(scene.id==='network-diagnosis')states=['','link','uplink'].map(diagnosis=>({...initialState,diagnosis}));for(const state of states)for(const compact of[false,true]){const html=networkingVisual(scene.id,state,compact);assert.ok(html.length>100,scene.id);assert.doesNotMatch(html,/NaN|undefined/,scene.id);}}
+ for(const scene of scenes){let states=[initialState];for(const group of scene.controls||[])states=states.flatMap(state=>group.options.map(([value])=>({...state,[group.key]:value})));if(scene.id==='network-diagnosis')states=['','server-1','server-2','server-3','server-4','uplink'].map(diagnosis=>({...initialState,diagnosis}));for(const state of states)for(const compact of[false,true]){const html=networkingVisual(scene.id,state,compact);assert.ok(html.length>100,scene.id);assert.doesNotMatch(html,/NaN|undefined/,scene.id);}}
 });
 test('compute migration preserves both requested opening images and distinguishes local memory from networking',()=>{
  assert.equal(scenes[0].id,'networking-purpose');assert.equal(scenes[1].id,'consumer-hardware-meme');assert.equal(scenes[1].imageOnly,true);
