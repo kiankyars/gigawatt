@@ -7,25 +7,27 @@ const base =
 const output = process.argv[3] || "/tmp/gigawatt-cooling-qa";
 const variants = {
   "why-liquid": [null],
-  "heat-path": [null],
-  "capture-options": ["air", "coldplate", "rear-door", "immersion"],
+  "capture-options": [null],
+  "capture-coldplates": [null],
+  "crah-cdu": [null],
+  "capture-rear-door": [null],
+  "capture-immersion": [null],
   "cold-plate": [null],
+  "local-heat-flux": [null],
+  "device-temperature": [null],
   "water-balance": ["2.5", "5"],
+  "pump-operating-point": [null],
   approach: [null],
   "coolit-cdu": ["true", "false"],
-  rejection: [null],
-  weather: ["dry", "humid"],
-  "approach-outdoors": ["dry", "humid"],
-  "plant-options": ["adiabatic", "air-chiller", "water-chiller", "economizer"],
-  "lost-flow": ["none", "module", "shared-path"],
+  "lost-flow": [null],
   "independent-cooling-paths": ["none", "shared-path"],
-  "cooling-derating": [
-    "full",
-    "reduced",
-    "full-lost",
-    "reduced-lost",
-    "reduced-restored",
-  ],
+  "cooling-derating": [null],
+  "cooling-retrofit": [null],
+};
+const controlSettings = {
+  "water-balance": "flow",
+  "coolit-cdu": "interior",
+  "independent-cooling-paths": "pathFault",
 };
 async function checkDiagramGeometry(page, state) {
   const issues = await page.locator("#diagram").evaluate((svg) => {
@@ -68,7 +70,7 @@ async function checkDiagramGeometry(page, state) {
           issues.push(`Heat arrow crosses a label: ${label.textContent}`);
       }
     }
-    const continuity = svg.querySelector("[data-cooling-capacity]");
+    const continuity = svg.querySelector("[data-continuity-diagram]");
     if (continuity) {
       const labels = [...continuity.querySelectorAll("text")];
       for (let i = 0; i < labels.length; i++)
@@ -140,70 +142,46 @@ async function checkDiagramGeometry(page, state) {
           await go(id);
           assert.equal(await page.locator("h1:visible").count(), 1);
           assert.equal(await page.locator("#fullscreen").isVisible(), false);
-          assert.equal(await page.locator("#scenes option").count(), 14);
-          if (id === "lost-flow") {
-            assert.equal(
-              await page
-                .locator("[data-cooling-fault]")
-                .getAttribute("data-cooling-fault"),
-              "module",
-            );
-            assert.equal(
-              await page
-                .locator('[data-setting="cduFault"][data-value="module"]')
-                .getAttribute("aria-pressed"),
-              "true",
-            );
-          }
+          assert.equal(await page.locator("#scenes option").count(), 17);
+          assert.equal(
+            await page.locator("#diagram").getAttribute("data-scene"),
+            id,
+            `${id}: requested scene renders instead of falling back`,
+          );
+          assert.equal(
+            await page.locator("#scenes").inputValue(),
+            String(Object.keys(variants).indexOf(id)),
+            `${id}: chapter order`,
+          );
+          const setting = controlSettings[id];
+          assert.equal(
+            await page.locator("#actions button").count(),
+            setting ? states.length : 0,
+            `${id}: only the intended action controls remain`,
+          );
           if (id === "independent-cooling-paths")
             assert.equal(
-              await page
-                .locator("[data-cooling-fault]")
-                .getAttribute("data-cooling-fault"),
+              await page.locator("[data-cooling-fault]").getAttribute("data-cooling-fault"),
               "shared-path",
             );
           for (const selected of states) {
-            if (id === "cooling-derating") {
-              const mode = selected.split("-")[0];
+            if (setting) {
               const button = page.locator(
-                `[data-setting="loadMode"][data-value="${mode}"]`,
+                `#actions [data-setting="${setting}"][data-value="${selected}"]`,
               );
               await button.focus();
               await page.keyboard.press("Enter");
               assert.equal(await button.getAttribute("aria-pressed"), "true");
-              const lost = selected.endsWith("-lost");
-              const pathButton = page.locator(
-                `[data-setting="deratingPathLost"][data-value="${lost}"]`,
-              );
-              await pathButton.click();
               assert.equal(
-                await pathButton.getAttribute("aria-pressed"),
-                "true",
+                await page.locator(`#actions [data-setting="${setting}"][aria-pressed="true"]`).count(),
+                1,
               );
-              assert.equal(await button.getAttribute("aria-pressed"), "true");
-              for (const setting of ["loadMode", "deratingPathLost"]) {
-                assert.equal(
-                  await page
-                    .locator(`[data-setting="${setting}"][aria-pressed="true"]`)
-                    .count(),
-                  1,
+              const colors = await page
+                .locator(`#actions [data-setting="${setting}"]`)
+                .evaluateAll((buttons) =>
+                  buttons.map((button) => getComputedStyle(button).backgroundColor),
                 );
-                const colors = await page
-                  .locator(`[data-setting="${setting}"]`)
-                  .evaluateAll((buttons) =>
-                    buttons.map((b) => getComputedStyle(b).backgroundColor),
-                  );
-                assert.notEqual(
-                  colors[0],
-                  colors[1],
-                  "Selected state must look distinct",
-                );
-              }
-            } else if (selected !== null) {
-              const button = page.locator(`[data-value="${selected}"]`);
-              await button.focus();
-              await page.keyboard.press("Enter");
-              assert.equal(await button.getAttribute("aria-pressed"), "true");
+              assert.notEqual(colors[0], colors[1], `${id}: selected state looks distinct`);
             }
             const name = `${id}-${selected || "default"}`;
             const layout = await page.evaluate(() => {
@@ -255,7 +233,7 @@ async function checkDiagramGeometry(page, state) {
               );
             assert.deepEqual(layout.clipped, [], `${name}: clipped SVG text`);
             await checkDiagramGeometry(page, name);
-            const content = await page.locator("#diagram").textContent();
+            const content = (await page.locator("#diagram text").allTextContents()).join(" ");
             if (id === "why-liquid") {
               for (const word of ["Q̇ = ṁ cₚ ΔT = ρ V̇ cₚ ΔT", "8,292", "2.39"])
                 assert.ok(content.includes(word), `${name}: missing ${word}`);
@@ -280,21 +258,41 @@ async function checkDiagramGeometry(page, state) {
                 content.includes(selected === "5" ? "39.78°C" : "44.57°C"),
               );
               assert.ok(
-                content.includes(selected === "5" ? "4.78 K" : "9.57 K"),
+                content.includes(selected === "5" ? "4.78°C" : "9.57°C"),
               );
             }
-            if (id === "approach") assert.match(content, /35 − 30 = 5 K/);
-            if (id === "capture-options" && selected === "air")
-              assert.match(content, /CRAH/);
-            if (id === "weather") {
-              assert.match(content, /35°C/);
-              assert.ok(content.includes(selected === "dry" ? "22°C" : "28°C"));
+            if (id === "approach") {
+              assert.match(content, /35°C − 30°C = 5°C/);
+              assert.match(content, /fluids stay separate/);
             }
-            if (id === "approach-outdoors")
-              assert.ok(content.includes(selected === "dry" ? "35°C" : "41°C"));
+            if (id === "capture-options") assert.match(content, /CRAH/);
+            if (id === "crah-cdu") {
+              for (const phrase of ["Computer room air handler", "Coolant distribution unit", "Room air", "Rack coolant"])
+                assert.ok(content.includes(phrase), `${name}: missing ${phrase}`);
+            }
+            if (id === "device-temperature") {
+              for (const phrase of ["35°C + 32°C = 67°C", "35°C + 48°C = 83°C", "80°C limit"])
+                assert.ok(content.includes(phrase), `${name}: missing ${phrase}`);
+            }
+            if (id === "pump-operating-point") {
+              assert.deepEqual(
+                await page.locator("#diagram [data-curve]").evaluateAll((curves) =>
+                  curves.map((curve) => curve.dataset.curve),
+                ),
+                ["pump", "clean", "restricted"],
+                "Both circuit curves remain visible with the common pump curve",
+              );
+              for (const flow of ["2 L/s", "1.41 L/s"])
+                assert.ok(content.includes(flow), `${name}: missing operating flow ${flow}`);
+            }
             if (id === "coolit-cdu") {
               assert.match(content, /2 MW/);
               assert.match(content, /2,125 L\/min/);
+              assert.match(
+                await page.locator("[data-product-photo]").getAttribute("href"),
+                selected === "true" ? /cooling-chx2000-inside\.jpeg$/ : /cooling-chx2000-front\.png$/,
+                "The photo follows the cabinet/interior selection",
+              );
               const loaded = await page
                 .locator("[data-product-photo]")
                 .evaluate(async (el) => {
@@ -305,74 +303,76 @@ async function checkDiagramGeometry(page, state) {
                 });
               assert.ok(loaded > 100);
             }
-            if (
-              [
-                "lost-flow",
-                "independent-cooling-paths",
-                "cooling-derating",
-              ].includes(id)
-            ) {
-              const m = await page
-                .locator("[data-cooling-capacity]")
-                .evaluate((el) => ({
-                  capacity: Number(el.dataset.coolingCapacity),
-                  load: Number(el.dataset.coolingLoad),
-                  margin: Number(el.dataset.coolingMargin),
-                  topology: el.dataset.coolingTopology,
-                  fault: el.dataset.coolingFault,
-                  supported: el.dataset.supported === "true",
-                }));
-              const isDerating = id === "cooling-derating";
-              const expectedCapacity = isDerating
-                ? selected.endsWith("-lost")
-                  ? 0
-                  : 600
-                : id === "independent-cooling-paths"
-                  ? 1200
-                  : { none: 1800, module: 1200, "shared-path": 0 }[selected];
-              assert.equal(
-                m.capacity,
-                expectedCapacity,
-                `${name}: available heat-removal capacity`,
+            if (id === "lost-flow") {
+              assert.deepEqual(
+                await page.locator("[data-redundancy-case]").evaluateAll((cases) =>
+                  cases.map((el) => ({
+                    name: el.dataset.redundancyCase,
+                    installed: Number(el.dataset.installedCdus),
+                    required: Number(el.dataset.requiredCdus),
+                  })),
+                ),
+                [
+                  { name: "n", installed: 2, required: 2 },
+                  { name: "n-plus-one", installed: 3, required: 2 },
+                  { name: "two-n", installed: 4, required: 2 },
+                ],
               );
-              assert.equal(
-                m.load,
-                isDerating && selected.startsWith("reduced") ? 500 : 1000,
+              assert.match(content, /Facility path is still shared/);
+              assert.match(content, /Either train can carry the load/);
+            }
+            if (id === "independent-cooling-paths") {
+              const m = await page.locator("[data-cooling-capacity]").evaluate((el) => ({
+                capacity: Number(el.dataset.coolingCapacity),
+                load: Number(el.dataset.coolingLoad),
+                margin: Number(el.dataset.coolingMargin),
+                topology: el.dataset.coolingTopology,
+                fault: el.dataset.coolingFault,
+                supported: el.dataset.supported === "true",
+              }));
+              assert.deepEqual(m, {
+                capacity: 1200,
+                load: 1000,
+                margin: 200,
+                topology: "2n",
+                fault: selected,
+                supported: true,
+              });
+              assert.equal((content.match(/Serving load/g) || []).length, 1);
+              assert.equal((content.match(/Ready/g) || []).length, selected === "none" ? 1 : 0);
+              assert.ok(!content.includes("2,400 kW"), "2N must not sum train ratings");
+            }
+            if (id === "cooling-derating") {
+              assert.deepEqual(
+                await page.locator("[data-load-case]").evaluateAll((cases) =>
+                  cases.map((el) => ({
+                    name: el.dataset.loadCase,
+                    heat: Number(el.dataset.caseHeat),
+                    capacity: Number(el.dataset.caseCapacity),
+                    margin: Number(el.dataset.caseMargin),
+                    supported: el.dataset.caseSupported === "true",
+                  })),
+                ),
+                [
+                  { name: "full", heat: 1000, capacity: 600, margin: -400, supported: false },
+                  { name: "reduced", heat: 500, capacity: 600, margin: 100, supported: true },
+                ],
+                "Original and reduced load stay visible together",
               );
-              assert.equal(m.margin, m.capacity - m.load);
-              assert.equal(m.supported, m.capacity >= m.load);
-              assert.equal(
-                m.topology,
-                id === "independent-cooling-paths" ? "2n" : "n+1",
-              );
-              assert.equal(m.fault, isDerating ? "double-module" : selected);
-              if (id === "independent-cooling-paths") {
-                assert.equal((content.match(/Serving load/g) || []).length, 1);
-                assert.equal(
-                  (content.match(/Ready/g) || []).length,
-                  selected === "none" ? 1 : 0,
-                );
-                assert.ok(
-                  !content.includes("2,400 kW"),
-                  "2N must not sum train ratings",
-                );
-              }
-              if (isDerating) {
-                if (selected.endsWith("-lost"))
-                  assert.match(content, /No sustained heat-removal path/);
-                else if (selected.startsWith("full"))
-                  assert.match(content, /Heat accumulates at 400 kW/);
-                else assert.match(content, /100 kW cooling margin/);
-              }
+              assert.match(content, /400 kW excess heat/);
+              assert.match(content, /100 kW cooling margin/);
+            }
+            if (id === "cooling-retrofit") {
+              for (const phrase of ["100 kW", "85 kW", "15 kW", "20 kW capacity", "5 kW"])
+                assert.ok(content.includes(phrase), `${name}: missing heat split or air allowance ${phrase}`);
             }
             layouts++;
           }
         }
         for (const [oldId, newId] of Object.entries({
-          "less-flow": "water-balance",
-          "two-loops": "heat-path",
-          outdoors: "rejection",
-          trace: "heat-path",
+          "heat-path": "crah-cdu",
+          "branch-flow": "pump-operating-point",
+          "coolant-interfaces": "cooling-retrofit",
         })) {
           await go(oldId);
           assert.equal(
@@ -381,21 +381,21 @@ async function checkDiagramGeometry(page, state) {
           );
         }
         await go("why-liquid");
-        await page.locator("#evidence").click();
-        assert.equal(
-          await page.locator("#reading").evaluate((e) => e.open),
-          true,
-        );
-        await page.keyboard.press("Escape");
-        assert.equal(
-          await page.locator("#reading").evaluate((e) => e.open),
-          false,
+        assert.match(
+          await page.locator(".reading-link").getAttribute("href"),
+          /index\.html#d10-local-thermal-paths$/,
         );
         await page.locator("body").click({ position: { x: 2, y: 100 } });
         await page.keyboard.press("ArrowRight");
-        await page.waitForURL(/#heat-path$/);
+        await page.waitForURL(/#capture-options$/);
         await page.keyboard.press("ArrowLeft");
         await page.waitForURL(/#why-liquid$/);
+        await go("cooling-retrofit");
+        assert.equal(await page.locator("#next").isDisabled(), true);
+        assert.match(
+          await page.locator(".reading-link").getAttribute("href"),
+          /index\.html#d10-cdu-interfaces$/,
+        );
         await page.goto(`${base}?teach=1#coolit-cdu`);
         assert.equal(await page.locator("#fullscreen").isVisible(), true);
         await page.close();

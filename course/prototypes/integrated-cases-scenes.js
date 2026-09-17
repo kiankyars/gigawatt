@@ -1,30 +1,260 @@
-const references=['c01-coupled-outage','c02-weather-capacity','c03-density-retrofit','c04-stalled-job','c05-open-a-phase'];
-const s=(id,label,title,caseNumber,explanation,extra={})=>({id,label,title,reference:references[Math.max(0,caseNumber-1)],case_id:caseNumber?`C0${caseNumber}`:null,objective:caseNumber?`C0${caseNumber}`:'integration',pedagogical_role:'mechanism',explanation:[explanation],...extra});
-const c=(key,label,options,resetReveal)=>({key,label,options,...(resetReveal?{resetReveal}:{})});
-const reveal=(key)=>c(key,'Prediction',[[false,'Predict first'],[true,'Show consequence']]);
-export const learningContract=Object.freeze({driving_question:'What can this facility actually deliver after one condition changes?',fixed_boundary:'Five supplied engineering cases, with complete electrical, heat and information paths.',changed_variable:'An outage, weather, rack architecture, a network bottleneck and acceptance evidence.',primary_payoff:'Choose an intervention, predict its consequence and identify the evidence needed to release service.',misconception:'A component rating or installed total establishes useful service.',closing_question:'Can power, heat, information and acceptance reach the same useful work?'});
-export const initialState={outagePlan:'existing',outageReveal:false,weatherRemedy:'none',weatherReveal:false,acceptedRacks:600,demandMW:58,architecture:'b',route:'blocked',densityReveal:false,networkUpgrade:'none',networkReveal:false,measuredRate:40,open:'a',openingReveal:false,day:8,cTest:'fail'};
-export const scenes=[
- s('five-decisions','Five connected decisions','What can this facility actually deliver?',0,'This closing chapter assumes the preceding physical mechanisms. In five original cases, choose what changes, predict the consequence, and require evidence of useful service.',{pedagogical_role:'problem'}),
- s('outage-brief','1 · Coupled outage','The IT bus survives. The pump supply is lost.',1,'2 MW steady IT. Battery has 600 kWh usable DC energy, 90% discharge efficiency and a 2.5 MW inverter. IT transfer meets its interruption limit. Facility-loop pumps lose utility supply; separately supplied controls remain available. Generator at minute ten; full cooling restoration earliest minute twelve. Thermal inventory and limits are unknown.',{pedagogical_role:'problem'}),
- s('outage-choice','1 · Choose the redesign','Which change repairs the failed dependency?',1,'Compare an additional 200 kWh usable DC battery inventory with moving 0.2 MW of required cooling auxiliaries onto the battery. More energy alone leaves the pump supply broken. Supporting auxiliaries uses more power and energy; ideal electrical duration falls to 14.73 minutes. Neither change alone proves thermal survival.',{pedagogical_role:'transfer',controls:[c('outagePlan','Redesign',[['existing','Existing design'],['energy','Add 200 kWh'],['auxiliaries','Support 0.2 MW cooling']],'outageReveal'),reveal('outageReveal')]}),
- s('outage-timeline','1 · Two different clocks','16.2 minutes of electrical energy does not time the heat path.',1,'Existing design: 600 × 0.90 = 540 kWh AC. Twelve minutes at 2 MW consumes 400 kWh, leaving 140 kWh. An ideal 16.2-minute IT electrical budget does not establish safe thermal operation while pumps are off. Generator readiness at ten minutes is followed by two minutes of restoration.'),
- s('outage-evidence','1 · Release with evidence','Prove the disturbance across the whole heat path.',1,'A project-specific integrated disturbance test must establish the auxiliary supply and observed flow, coolant and device temperatures against limits, and correct service through restoration. Define acceptance and stop criteria in advance. Thermal mass, initial conditions and control response are required; this slide is an acceptance brief, not a switching procedure.'),
- s('weather-brief','2 · Hot-weather capacity','One hot day moves two limits.',2,'100 MW service. Mild weather: fixed 15 MW auxiliary demand and 70 MW heat removal at the IT boundary. Hot: fixed 25 MW auxiliaries and 55 MW heat removal. 900 accepted rack paths at 100 kW each. Same required IT inlet conditions; the exercise uses supplied paired operating points.',{pedagogical_role:'problem'}),
- s('weather-choice','2 · Choose an investment','Which proposal creates room for more racks?',2,'Under the hot operating point, saving 10 MW of auxiliaries leaves capacity at 550 racks. Adding 10 MW of heat removal, at the supplied unchanged 25 MW auxiliaries, raises it to 650. The first can save energy; capital and operating costs are needed to compare economic value.',{pedagogical_role:'transfer',controls:[c('weatherRemedy','Proposal',[['none','Hot baseline'],['auxiliaries','Save 10 MW auxiliaries'],['cooling','Add 10 MW cooling']],'weatherReveal'),reveal('weatherReveal')]}),
- s('weather-paths','2 · The limit moves','The cooling upgrade arrives before every rack path passes.',2,'Cooling is now 65 MW and auxiliary demand stays 25 MW. With 600 accepted complete paths, service is capped at 60 MW even though cooling could serve 650 equivalents. With 900 accepted paths, cooling binds at 65 MW. Each path here already means compatible acceptance to the same rack.',{controls:[c('acceptedRacks','Accepted complete paths',[[600,'600 racks'],[900,'900 racks']])]}),
- s('weather-demand','2 · Capacity and demand','An accepted 60 MW envelope can be drawing less.',2,'600 accepted 100 kW paths, 65 MW cooling and 25 MW fixed auxiliaries. At 58 MW IT demand the facility draws 83 MW; at 60 MW it draws 85 MW. This supplied operating-point approximation does not infer an actual site load curve. Capacity and measured workload output remain separate.',{controls:[c('demandMW','IT demand',[[58,'58 MW'],[60,'60 MW']])]}),
- s('density-brief','3 · Density retrofit','The new rack needs the last service bay.',3,'Same 120 kW final DC load for both architectures. Existing AC feeder limit 160 kW; whole-room heat-removal limit 140 kW; no other loads. A converts at 96% inside the rack. B uses a 97% sidecar and 98% near-load stage. The sidecar occupies the only route for removing an existing UPS module.',{pedagogical_role:'problem'}),
- s('density-ledger','3 · Close the same boundary','Lower bus current leaves the conversion ledger open.',3,'A: 120/0.96 = 125 kW AC and room heat. B: 120/0.98 = 122.449 kW on the 800 V conductor-to-return bus, 153.06 A; upstream AC 122.449/0.97 = 126.236 kW. All conversion losses stay inside the room cooling boundary. B adds 1.236 kW in this fixed-efficiency case.'),
- s('density-choice','3 · Choose the layout','Release the rack architecture that can be maintained.',3,'A passes the supplied power, heat and route checks. B passes power and heat but occupies the UPS replacement route. A plan can fit equipment rectangles and still fail maintenance. These tests identify a release candidate; actual protection, grounding, connections and migration acceptance remain required.',{pedagogical_role:'transfer',controls:[c('architecture','Candidate',[['a','A · conversion in rack'],['b','B · sidecar in service bay']],'densityReveal'),reveal('densityReveal')]}),
- s('density-route','3 · Test the revised drawing','Moving the sidecar repairs access, not conversion losses.',3,'A revised drawing keeps the sidecar inside the same room but places it clear of the UPS replacement route. Show the actual swept removal path and preserve working clearance. B retains 126.236 kW input and room heat. Route clearance closes this specific hold; coordinated electrical, thermal and migration acceptance still applies.',{controls:[c('route','Sidecar position',[['blocked','In service bay'],['clear','Clear of removal route']])]}),
- s('job-brief','4 · Stalled job','The job owns every device while the network holds progress.',4,'Original serial trace: 60 seconds useful compute, 800 GB communication at an achieved 40 GB/s bottleneck, then 10 seconds of other fixed work. No overlap. Total 90 seconds, useful-compute share 66.7%. This adaptation keeps the integrated case focused on a physical network path.',{pedagogical_role:'problem'}),
- s('job-choice','4 · Upgrade the path','Spend on the segment that sets the transfer time.',4,'The supplied path supports 80 GB/s at sender and receiver, but 40 GB/s at the fabric bottleneck. Doubling sender capacity to 160 leaves 40 GB/s end to end. Doubling the bottleneck to 80 gives 10 seconds communication and an 80-second cycle. Rates are achieved payload-rate limits for this case, not named product ratings.',{pedagogical_role:'transfer',controls:[c('networkUpgrade','Intervention',[['none','Existing path'],['endpoint','Double sender rate'],['fabric','Double fabric bottleneck']],'networkReveal'),reveal('networkReveal')]}),
- s('job-consequence','4 · Predict useful progress','Twice the communication rate saves ten seconds per cycle.',4,'At fixed work per cycle, baseline 90 seconds versus 80 seconds gives 90/80 = 1.125 times useful cycle throughput, or 12.5% more. Sixty seconds compute and ten seconds other work remain unchanged. Improving one phase cannot double this job’s throughput.'),
- s('job-evidence','4 · Verify the intervention','Measure the payload across the changed path.',4,'After the fabric upgrade, use aligned end-to-end payload and phase traces. A measured 40 GB/s still gives 20 seconds communication and 90 seconds per cycle; 80 GB/s gives 10 and 80. If phase timing disagrees, examine another bottleneck, synchronization or the no-overlap assumption. Link negotiation and device allocation do not establish useful progress.',{controls:[c('measuredRate','Measured end-to-end payload rate',[[40,'40 GB/s'],[80,'80 GB/s']])]}),
- s('phase-brief','5 · Open a campus phase','An opening needs a boundary and an acceptance record.',5,'Return to the original Crusoe-built Abilene campus as the physical setting for the handover question. Oracle captions this bundled aerial July 15 2026. No operating capacity or internal acceptance status is inferred from the image. The following 300/250/250-rack register and durations are original teaching inputs, not Abilene figures.',{pedagogical_role:'problem',sources:['https://www.oracle.com/data-centers/']}),
- s('phase-choice','5 · Choose the opening scope','800 racks are installed. Which group can open today?',5,'Original phase exercise: 1000 locations, 800 installed racks and 100 MW energized service. A: 300 complete accepted paths. B: 250 await network interface work and end-to-end acceptance. C: 250 await integrated cooling acceptance. Other requirements adequate. Only A establishes 30 MW at the chosen 100 kW/rack duty.',{pedagogical_role:'transfer',controls:[c('open','Proposed opening',[['a','A · 300 racks'],['ab','A + B · 550 racks'],['all','All · 800 racks']],'openingReveal'),reveal('openingReveal')]}),
- s('phase-schedule','5 · Trace the next opening','B needs six days. C needs seven—and a passing test.',5,'Independent qualified teams and all resources available. B: network interface work four days then two days end-to-end acceptance. C: delivery three, installation one, integrated cooling acceptance three. Dates are conditional on passing. The selected C failure adds two days correction and three days retest after day seven; successful retest earliest day twelve.',{controls:[c('cTest','C integrated test',[['pass','Pass on day 7'],['fail','Fail; correct and retest']])]}),
- s('phase-handover','5 · Report accepted service','A failed test changes the opening date.',5,'Report only successful complete paths on the selected day. B passes day six. If C fails day seven, it can first pass on day twelve after correction and retest. Preserve the live groups’ isolation, configuration and operating limits while construction continues; shared-system changes require explicit review.',{controls:[c('day','Reporting date',[[0,'Today'],[6,'Day 6'],[8,'Day 8'],[12,'Day 12']]),c('cTest','C test outcome',[['pass','Passed'],['fail','Failed; retest day 12']])]}),
- s('watts-to-work','From watts to useful work','Useful work needs every path to meet.',0,'Electrical input reaches compute; information inputs and interconnects enable useful output; heat returns to the environment. Count useful service only at the declared boundary and accepted operating condition. The five decisions change one dependency while preserving the complete system account.',{pedagogical_role:'transfer',reference:references[4]}),
+export const learningContract = Object.freeze({
+  "driving_question": "What can this facility actually deliver after one condition changes?",
+  "fixed_boundary": "Five supplied engineering cases, with complete electrical, heat and information paths.",
+  "changed_variable": "An outage, weather, rack architecture, a network bottleneck and acceptance evidence.",
+  "primary_payoff": "Compare an intervention, explain its consequence and identify the evidence needed to release service.",
+  "misconception": "A component rating or installed total establishes useful service.",
+  "closing_question": "Can power, heat, information and acceptance reach the same useful work?"
+});
+
+export const initialState = {acceptedRacks:600,route:'blocked',openingReveal:false};
+
+export const scenes = [
+  {
+    "id": "five-decisions",
+    "label": "Five connected decisions",
+    "title": "What can this facility actually deliver?",
+    "reference": "c01-coupled-outage",
+    "case_id": null,
+    "objective": "integration",
+    "pedagogical_role": "problem",
+    "explanation": [
+      "This closing chapter assumes the preceding physical mechanisms. In five original cases, choose what changes, predict the consequence, and require evidence of useful service."
+    ]
+  },
+  {
+    "id": "outage-brief",
+    "label": "1 · Coupled outage",
+    "title": "The racks stay powered, but the cooling pump stops",
+    "reference": "c01-coupled-outage",
+    "case_id": "C01",
+    "objective": "C01",
+    "pedagogical_role": "problem",
+    "explanation": [
+      "2 MW IT survives the electrical transfer. The existing battery provides 16.2 minutes of ideal electrical duration; generator readiness is at minute ten and the planned cooling restoration sequence ends at minute twelve. The pump loses its separate utility supply. Electrical duration cannot establish how long temperatures remain acceptable without flow. The underlying example has 600 kWh usable DC, 90% discharge efficiency and a 2.5 MW inverter; controls stay powered."
+    ]
+  },
+  {
+    "id": "outage-choice",
+    "label": "1 · Choose the redesign",
+    "title": "More battery energy leaves the pump without power",
+    "reference": "c01-coupled-outage",
+    "case_id": "C01",
+    "objective": "C01",
+    "pedagogical_role": "transfer",
+    "explanation": [
+      "The three alternatives are visible together. Existing design: 16.2 minutes electrical duration and an unpowered pump. Adding 200 kWh extends duration to 21.6 minutes but leaves the pump off. Protecting the 0.2 MW cooling supply keeps the pump powered but reduces ideal duration to 14.73 minutes. All fit the 2.5 MW inverter. None establishes thermal survival without flow, temperature and service evidence."
+    ]
+  },
+  {
+    "id": "outage-evidence",
+    "label": "1 · Release with evidence",
+    "title": "The outage test must show that cooling and work continue",
+    "reference": "c01-coupled-outage",
+    "case_id": "C01",
+    "objective": "C01",
+    "pedagogical_role": "mechanism",
+    "explanation": [
+      "A project-specific integrated disturbance test must establish the auxiliary supply and observed flow, coolant and device temperatures against limits, and correct service through restoration. Define acceptance and stop criteria in advance. Thermal mass, initial conditions and control response are required; this slide is an acceptance brief, not a switching procedure."
+    ]
+  },
+  {
+    "id": "weather-brief",
+    "label": "2 · Hot-weather capacity",
+    "title": "Hot weather reduces the number of racks we can support",
+    "reference": "c02-weather-capacity",
+    "case_id": "C02",
+    "objective": "C02",
+    "pedagogical_role": "problem",
+    "explanation": [
+      "100 MW service. Mild weather: fixed 15 MW auxiliary demand and 70 MW heat removal at the IT boundary. Hot: fixed 25 MW auxiliaries and 55 MW heat removal. 900 accepted rack paths at 100 kW each. Same required IT inlet conditions; the exercise uses supplied paired operating points."
+    ]
+  },
+  {
+    "id": "weather-choice",
+    "label": "2 · Choose an investment",
+    "title": "Only the cooling upgrade adds rack capacity here",
+    "reference": "c02-weather-capacity",
+    "case_id": "C02",
+    "objective": "C02",
+    "pedagogical_role": "transfer",
+    "explanation": [
+      "Under the hot operating point, saving 10 MW of auxiliaries leaves capacity at 550 racks. Adding 10 MW of heat removal, at the supplied unchanged 25 MW auxiliaries, raises it to 650. The first can save energy; capital and operating costs are needed to compare economic value."
+    ]
+  },
+  {
+    "id": "weather-paths",
+    "label": "2 · The limit moves",
+    "title": "New cooling can outpace the racks ready to use it",
+    "reference": "c02-weather-capacity",
+    "case_id": "C02",
+    "objective": "C02",
+    "pedagogical_role": "mechanism",
+    "explanation": [
+      "Cooling is 65 MW and fixed auxiliary demand is 25 MW. With 600 complete accepted 100 kW rack paths, capacity is 60 MW. With 900 paths, cooling limits capacity to 65 MW. These paths include the required power, cooling and network services to the same racks. Actual demand is held at 58 MW in both states, so total site demand remains 83 MW. Available capacity and current demand are different quantities."
+    ],
+    "controls": [
+      {
+        "key": "acceptedRacks",
+        "label": "Racks with all required services accepted",
+        "options": [
+          [
+            600,
+            "600 racks"
+          ],
+          [
+            900,
+            "900 racks"
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "id": "density-brief",
+    "label": "3 · Density retrofit",
+    "title": "Both options fit the load. One blocks maintenance",
+    "reference": "c03-density-retrofit",
+    "case_id": "C03",
+    "objective": "C03",
+    "pedagogical_role": "problem",
+    "explanation": [
+      "Both architectures supply the same 120 kW final DC load within a 160 kW feeder limit and 140 kW whole-room cooling limit. A converts inside the rack at 96% efficiency and leaves access clear. B uses a 97% sidecar plus 98% near-load stage, and the proposed sidecar blocks the only UPS module removal route. A passes these supplied checks; B needs a layout change. Full electrical, thermal and migration acceptance is still required."
+    ]
+  },
+  {
+    "id": "density-ledger",
+    "label": "3 · Close the same boundary",
+    "title": "Both supply 120 kW, but their losses differ",
+    "reference": "c03-density-retrofit",
+    "case_id": "C03",
+    "objective": "C03",
+    "pedagogical_role": "mechanism",
+    "explanation": [
+      "A needs 125 kW AC to deliver 120 kW DC: 5 kW is conversion loss. B needs 126.24 kW AC: 6.24 kW is loss. All equipment and losses are inside the same room cooling boundary, so total room heat equals AC input in each case. The reader retains the intermediate 122.45 kW, 800 V and 153.06 A calculations. These are stipulated efficiencies, not a general ranking of architectures."
+    ]
+  },
+  {
+    "id": "density-route",
+    "label": "3 · Test the revised drawing",
+    "title": "Moving the sidecar clears the UPS removal route",
+    "reference": "c03-density-retrofit",
+    "case_id": "C03",
+    "objective": "C03",
+    "pedagogical_role": "transfer",
+    "explanation": [
+      "A revised drawing keeps the sidecar inside the same room but places it clear of the UPS replacement route. Show the actual swept removal path and preserve working clearance. B retains 126.236 kW input and room heat. Route clearance closes this specific hold; coordinated electrical, thermal and migration acceptance still applies."
+    ],
+    "controls": [
+      {
+        "key": "route",
+        "label": "Sidecar position",
+        "options": [
+          [
+            "blocked",
+            "In the removal route"
+          ],
+          [
+            "clear",
+            "Moved clear"
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "id": "job-brief",
+    "label": "4 · Stalled job",
+    "title": "The network adds 20 seconds to each job cycle",
+    "reference": "c04-stalled-job",
+    "case_id": "C04",
+    "objective": "C04",
+    "pedagogical_role": "problem",
+    "explanation": [
+      "One cycle completes fixed work in three serial phases: 60 seconds compute, 800 GB communication at 40 GB/s taking 20 seconds, and 10 seconds other work. Total: 90 seconds. Phases do not overlap. The compute-time fraction is not a measurement of output or device utilization."
+    ]
+  },
+  {
+    "id": "job-choice",
+    "label": "4 · Upgrade the path",
+    "title": "A faster sender leaves the network bottleneck in place",
+    "reference": "c04-stalled-job",
+    "case_id": "C04",
+    "objective": "C04",
+    "pedagogical_role": "transfer",
+    "explanation": [
+      "The supplied path supports 80 GB/s at sender and receiver, but 40 GB/s at the fabric bottleneck. Doubling sender capacity to 160 leaves 40 GB/s end to end. Doubling the bottleneck to 80 gives 10 seconds communication and an 80-second cycle. Rates are achieved payload-rate limits for this case, not named product ratings."
+    ]
+  },
+  {
+    "id": "job-consequence",
+    "label": "4 · Predict useful progress",
+    "title": "Shorter transfers allow 45 cycles per hour instead of 40",
+    "reference": "c04-stalled-job",
+    "case_id": "C04",
+    "objective": "C04",
+    "pedagogical_role": "mechanism",
+    "explanation": [
+      "The same correct work takes 90 seconds before the fabric upgrade and 80 seconds afterward. This is 40 versus 45 completed cycles per hour, a 12.5% throughput increase. Compute remains 60 seconds and other work remains 10; communication falls from 20 to 10. Verify achieved end-to-end payload rate and the complete application trace. A negotiated link rate alone does not establish this result."
+    ]
+  },
+  {
+    "id": "phase-brief",
+    "label": "5 · Open a campus phase",
+    "title": "Which part of this campus could open first?",
+    "reference": "c05-open-a-phase",
+    "case_id": "C05",
+    "objective": "C05",
+    "pedagogical_role": "problem",
+    "explanation": [
+      "Return to the original Crusoe-built Abilene campus as the physical setting for the handover question. Oracle captions this bundled aerial July 15 2026. No operating capacity or internal acceptance status is inferred from the image. The following 300/250/250-rack register and durations are original teaching inputs, not Abilene figures."
+    ],
+    "sources": [
+      "https://www.oracle.com/data-centers/"
+    ]
+  },
+  {
+    "id": "phase-choice",
+    "label": "5 · Choose the opening scope",
+    "title": "800 racks are installed. Which group can open today?",
+    "reference": "c05-open-a-phase",
+    "case_id": "C05",
+    "objective": "C05",
+    "pedagogical_role": "transfer",
+    "explanation": [
+      "All three groups are visible. A has 300 accepted complete rack paths. B has 250 racks awaiting network work and acceptance. C has 250 awaiting integrated cooling acceptance. Reveal confirms A alone can open now: 30 MW at the stipulated 100 kW rack duty. Installed inventory and the 100 MW energized service do not release B or C. These are illustrative inputs, not Abilene operating data."
+    ]
+  },
+  {
+    "id": "phase-schedule",
+    "label": "5 · Trace the next opening",
+    "title": "A failed cooling test delays the final 250 racks",
+    "reference": "c05-open-a-phase",
+    "case_id": "C05",
+    "objective": "C05",
+    "pedagogical_role": "mechanism",
+    "explanation": [
+      "Both test outcomes are visible. A provides 300 racks today. B adds 250 after four days interface work and two days testing, if it passes. C adds 250 after three days delivery, one installation and three testing, if it passes on day seven. If that test fails, two days correction and three days retesting make day twelve the earliest opening, conditional on a successful retest. Preserve the accepted configuration and isolation of operating groups while work continues. All other resources are assumed available."
+    ]
+  },
+  {
+    "id": "watts-to-work",
+    "label": "From watts to useful work",
+    "title": "Completed work depends on the whole facility",
+    "reference": "c05-open-a-phase",
+    "case_id": null,
+    "objective": "integration",
+    "pedagogical_role": "transfer",
+    "explanation": [
+      "Electricity and information must reach the computing equipment, and heat must reach the outdoors. Count capacity at the accepted rack boundary and measure completed correct work at the application. The five cases show how a change in one dependency can affect that complete route."
+    ]
+  }
 ];
+
+export const sceneAliases = {
+  "outage-timeline": "outage-brief",
+  "weather-demand": "weather-paths",
+  "density-choice": "density-brief",
+  "job-evidence": "job-consequence",
+  "phase-handover": "phase-schedule"
+};

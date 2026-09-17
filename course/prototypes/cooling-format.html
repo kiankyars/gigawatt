@@ -485,7 +485,7 @@
       import { presentationLabels } from './teaching-navigation.js';
       import { renderFoundation } from "./cooling-foundations.js?v=20260911-formula5";
       import { renderCapture } from "./cooling-capture.js";
-      import { scenes } from "./cooling-scenes.js";
+      import { scenes, sceneAliases } from "./cooling-scenes.js";
       import { renderCDU } from "./cooling-cdu.js";
       import { renderContinuity } from "./cooling-continuity.js";
       const $ = (id) => document.getElementById(id);
@@ -504,7 +504,7 @@
         fluidC: "35", restriction: "normal", branch: "balanced", retrofit: "air", reveal: "hidden",
       };
       const selected = scenes.findIndex(
-        (scene) => scene.id === location.hash.slice(1),
+        (scene) => scene.id === (sceneAliases[location.hash.slice(1)] || location.hash.slice(1)),
       );
       if (selected >= 0) state.index = selected;
       $("scenes").innerHTML = scenes
@@ -738,16 +738,7 @@
       function render() {
         const scene = scenes[state.index],
           compact = compactQuery.matches;
-        const captureTitles = {
-          air: "A CRAH transfers room-air heat into a chilled-water loop.",
-          coldplate:
-            "Cold plates remove chip heat while the remaining components still need air.",
-          "rear-door":
-            "A rear-door exchanger captures rack exhaust heat before it returns to the room.",
-          immersion:
-            "Immersion transfers hardware heat into a dielectric liquid bath.",
-        };
-        $("title").textContent = scene.kind === "capture-options" ? captureTitles[state.capture] : scene.title;
+        $("title").textContent = scene.title;
         document.querySelector('.reading-link').href = `../index.html#${scene.reference}`;
         $("scenes").value = state.index;
         $("progress").textContent = `${state.index + 1} / ${scenes.length}`;
@@ -765,6 +756,7 @@
         const foundationKinds = [
           "why-liquid",
           "capture-options",
+          "crah-cdu",
           "water-balance",
           "approach",
         ];
@@ -772,7 +764,7 @@
         const content = scene.kind === "capture-detail" ? renderCapture(scene.id, state, compact) : continuityKinds.includes(scene.kind)
           ? renderContinuity(scene.kind, compact, state)
           : foundationKinds.includes(scene.kind)
-            ? renderFoundation(scene.kind, compact, state)
+            ? renderFoundation(scene.kind, compact, {...state, capture: scene.capture})
             : scene.kind === "cdu"
                 ? renderCDU(compact, state.interior)
                 : scene.kind === "plate"
@@ -798,50 +790,14 @@
         const controlGroup = (name, buttons) =>
           `<div class="control-group" role="group" aria-label="${name}"><span class="control-group-label" aria-hidden="true">${name}</span><div class="control-group-buttons">${buttons}</div></div>`;
         $("actions").innerHTML =
-          scene.controls ? scene.controls.map(c => controlGroup(c.label, choices(c.key, c.options))).join("") : scene.kind === "redundancy"
-            ? choices("cduFault", [
-                ["none", "All CDUs healthy"],
-                ["module", "One CDU fails"],
-                ["shared-path", "Lose shared path"],
-              ])
+          scene.controls ? scene.controls.map(c => controlGroup(c.label, choices(c.key, c.options))).join("")
             : scene.kind === "independent-paths"
-              ? choices("pathFault", [
-                  ["none", "Both paths available"],
-                  ["shared-path", "Lose path A"],
-                ])
-              : scene.kind === "derating"
-                ? controlGroup(
-                    "Compute power",
-                    choices("loadMode", [
-                      ["full", "Full"],
-                      ["reduced", "Reduced"],
-                    ]),
-                  ) +
-                  controlGroup(
-                    "Facility path",
-                    choices("deratingPathLost", [
-                      ["false", "Available"],
-                      ["true", "Lost"],
-                    ]),
-                  )
-                : scene.kind === "water-balance"
-                  ? choices("flow", [
-                      ["2.5", "2.5 kg/s"],
-                      ["5", "Double flow: 5 kg/s"],
-                    ])
-                  : scene.kind === "capture-options"
-                    ? choices("capture", [
-                        ["air", "Air / CRAH"],
-                        ["coldplate", "Cold plates"],
-                        ["rear-door", "Rear door"],
-                        ["immersion", "Immersion"],
-                      ])
-                        : scene.kind === "cdu"
-                          ? choices("interior", [
-                              ["false", "Cabinet"],
-                              ["true", "Inside the CDU"],
-                            ])
-                          : "";
+              ? choices("pathFault", [["none", "Both paths available"], ["shared-path", "Lose path A"]])
+              : scene.kind === "water-balance"
+                ? choices("flow", [["2.5", "2.5 kg/s"], ["5", "Double flow: 5 kg/s"]])
+                : scene.kind === "cdu"
+                  ? choices("interior", [["false", "Cabinet"], ["true", "Inside the CDU"]])
+                  : "";
         document.querySelectorAll("[data-setting]").forEach((button) =>
           button.addEventListener("click", () => {
             const { setting, value } = button.dataset;
@@ -873,7 +829,7 @@
       );
       addEventListener("hashchange", () => {
         const index = scenes.findIndex(
-          (scene) => scene.id === location.hash.slice(1),
+          (scene) => scene.id === (sceneAliases[location.hash.slice(1)] || location.hash.slice(1)),
         );
         if (index >= 0) {
           state.index = index;

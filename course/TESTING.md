@@ -17,6 +17,63 @@ Do not download or launch standalone Chrome for Testing or Playwright browser
 binaries here. Existing browser test harnesses remain available for a separately
 configured test environment; run local model and build checks without a browser.
 
+## Chapter 16 simplification and removal audit — 2026-09-16
+
+- Reduced 22 slides to **17**, retaining all five capstones and the original
+  Abilene photograph. Five repeated views are folded into neighboring case
+  explanations; their old fragments have aliases. All alternatives in the
+  outage, weather, network and acceptance comparisons are visible together.
+  Two two-choice scenario selectors and one opening-decision reveal remain,
+  replacing the previous 17 control groups and 40 scenario/reveal buttons.
+- The network example now states 40 versus 45 completed cycles per hour and
+  keeps the fixed work/no-overlap assumptions. Capacity, current demand,
+  electrical duration, thermal survival and successful acceptance remain
+  distinct. Added speaker notes and a [removal audit](SLIDE_REMOVAL_AUDIT.md)
+  based on original user instructions, Git history and current assets.
+- **300 JavaScript tests and 80 Python tests passed**, including 10 integrated
+  case tests. The unchanged numerical models remain covered; revised player
+  checks cover the two controls, independent demand, opening reveal, state
+  persistence, all five aliases and complete case/source coverage. Course,
+  reader, domain-map and research freshness checks pass. Staging is local.
+- Inspected all 22 original slides before editing and all **17 revised slides**
+  in the built-in browser at **1280 × 720**. After browser control recovered,
+  completed **68 layout checks** across 1280 × 720, 390 × 844, 844 × 390 and
+  1000 × 540: no horizontal overflow or title, action or footer overlap.
+  Visually checked the phone comparison cards and the full scrolling schedule.
+  Both selectors, opening-decision reveal/hide and all five old-fragment aliases
+  work in the browser; demand stays fixed as rack capacity changes. No browser
+  errors were logged. Reset the viewport and left the revised opening slide
+  ready for review. Author review is pending; nothing was pushed or published.
+
+## Chapter 14 simpler explanations and comparisons — 2026-09-16
+
+- Reduced **26 slides to 18**, retaining all five D14 objectives. The chapter
+  follows local evidence, proven cooling readiness and service recovery. Folded
+  the separate diagnostic, AI-verification, delay, return-to-service,
+  common-cause, outage-overlap, causal-evidence and diagnosis-check views into
+  the retained sequence or reader. All eight retired slide hashes have aliases.
+- Old/fresh samples, both heat-balance readings, both workload schedules and
+  wrong/correct row mappings are visible together. Only the deadline and shared
+  control-power scenarios retain selectors, with two choices each. The closing
+  question has one answer-reveal button. Cloudflare's failure and follow-up are
+  adjacent; additional explanation and source qualifications are in speaker notes.
+- **297 JavaScript tests and 80 Python tests passed.** The 12 operations tests
+  retain numerical coverage and check the revised player, scenario state,
+  source assets, final reveal and aliases. Course, expanded-reader, domain-map,
+  research-metadata and whitespace checks pass; publication staging is local.
+- Built-in browser inspected all **18 desktop slides at 1280 × 720**, plus the
+  revealed final answer. Checked all 18 layouts at 1280 × 720, 390 × 844,
+  844 × 390 and 1000 × 540: **72 layouts** without horizontal overflow or
+  content/title/control/navigation overlap after fixing the small-screen footer.
+  Checked phone comparisons and maintenance, exercised both selector values,
+  the reveal/hide interaction and all eight retired bookmarks. Both source photographs loaded; no browser
+  warnings or errors observed. No separate live presenter-window test.
+- Rechecked the primary accounts for AI-control authority, demand response,
+  Cloudflare test scope and recovery, Gmail, Google London and Llama training.
+  The heat balance now explicitly assumes stabilized temperatures. A corrected
+  command mapping is not presented as the cause of low flow or proof of recovery.
+  Author review remains pending; nothing was pushed or published.
+
 ## Chapter 10 quiz choices and campus notes — 2026-09-16
 
 - Added the campus-fiber script at Chapter 10, slide 18 in speaker-note order.
@@ -39,6 +96,34 @@ configured test environment; run local model and build checks without a browser.
   fits above navigation with no horizontal overflow or browser errors.
 - 80 Python and 285 JavaScript tests pass; source, generated-page, research and
   whitespace checks pass. Whole-chapter author review remains in progress.
+
+## Chapter 11 clarity and controls — 2026-09-16
+
+- **17 slides.** Removed the third heat-path recap, the standalone branch-flow
+  example and the wetted-material inventory. Earlier heat-path explanations are
+  Primer slide 21 and Overview slide 10; the SVG drawings are different.
+- Split the four capture modes into separate slides; added CRAH versus CDU.
+  Chip temperature now shows both arithmetic paths at the same coolant
+  temperature. The pump chart displays the pump and both circuit curves together.
+  CDU approach uses 35°C − 30°C = 5°C; the separate heat-balance calculation is
+  gone. Removed the flow-slide subtitle and moved the product-rating qualification
+  into speaker notes. The manufacturer photograph credit remains.
+- N / N+1 / 2N and full / reduced heat loads are simultaneous comparisons.
+  The 2N A/B path interaction remains. The retrofit is a fixed 85 kW liquid /
+  15 kW air example. Only water flow, product photograph and A/B paths retain
+  controls. Predicting the effect of doubling flow provides the active check-in.
+  Old removed-slide fragments resolve to the closest retained teaching scene.
+- **285 JavaScript and 80 Python tests passed.** Course, expanded-reader,
+  domain-map, research-metadata, publication-staging and whitespace checks passed.
+  Updated the browser harness for all 17 scenes and the remaining control states;
+  syntax and static scene/alias checks passed.
+- Built-in browser screenshots verified the new CRAH/CDU and approach slides at
+  **1280 × 720**. Browser control became unavailable before the full revised-deck
+  traversal, so no complete browser interaction pass is claimed. Separately
+  rendered and inspected the changed SVG comparisons in desktop and phone
+  layouts, and corrected an operating-point label crossing the restricted curve.
+  Those file renders do not verify full-page responsive navigation or controls.
+- Author review remains in progress. Changes are local; no publication claimed.
 
 ## Chapter 10 scope and speaker notes — 2026-09-16
 

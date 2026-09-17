@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
 import {sampleQuality,heatBalance,readiness,transition,maintenanceState,unavailableUnion,diagnosticEvidence,flexibleSchedule} from '../course/prototypes/operations-model.js';
-import {scenes,initialState} from '../course/prototypes/operations-scenes.js';
+import {scenes,initialState,sceneAliases} from '../course/prototypes/operations-scenes.js';
 import {operationsVisual} from '../course/prototypes/operations-visuals.js';
 const near=(actual,expected)=>assert.ok(Math.abs(actual-expected)<1e-10,`${actual} ≈ ${expected}`);
 
@@ -92,14 +92,13 @@ test('workload shifting meets the selected deadline while conserving execution a
 });
 
 function statesFor(scene){
- let states=[{...initialState,evidence:[]}];
+ let states=[{...initialState}];
  for(const group of scene.controls||[])states=states.flatMap(state=>group.options.map(([value])=>({...state,[group.key]:value})));
- if(scene.id==='diagnosis-check')states=Array.from({length:32},(_,mask)=>({...initialState,evidence:['plant','branch','load','mapping','pumps'].filter((_,index)=>mask&(1<<index))}));
- if(scene.id==='operating-decision')states=[{...initialState},...['restart','hold','plant'].flatMap(diagnosis=>[false,true].map(showDiagnosis=>({...initialState,diagnosis,showDiagnosis})))];
+ if(scene.id==='operating-decision')states=[false,true].map(showDecision=>({...initialState,showDecision}));
  return states;
 }
 
-test('all operational decisions and evidence selections render, with bundled source figures',()=>{
+test('every revised operations scene and offered state renders with valid source assets',()=>{
  assert.equal(new Set(scenes.map(scene=>scene.id)).size,scenes.length);
  assert.deepEqual([...new Set(scenes.map(scene=>scene.objective))].sort(),['D14.1','D14.2','D14.3','D14.4','D14.5']);
  const assets=new Set();
@@ -110,62 +109,84 @@ test('all operational decisions and evidence selections render, with bundled sou
    assert.ok(src.startsWith('../assets/'));
    assert.ok(fs.existsSync(new URL(src,new URL('../course/prototypes/',import.meta.url))),`${scene.id}: missing ${src}`);assets.add(src);
   }
+  for(const source of scene.sources||[])assert.ok(html.includes(source),`${scene.id}: source credit retained`);
  }
- assert.equal(assets.size,3,'two real facility photos and the publisher control diagram');
+ assert.equal(assets.size,2,'the two retained case photos');
  assert.throws(()=>operationsVisual('missing-scene',initialState),/Unknown operations scene/);
 });
 
-test('the four migrated scenes have operations references, real sources and the intended sequence',()=>{
+test('the shortened sequence connects controls, cases and decisions without hidden alternatives',()=>{
  const ids=scenes.map(scene=>scene.id);
- assert.equal(scenes.length,26);
- assert.deepEqual(ids.slice(ids.indexOf('admit-work'),ids.indexOf('admit-work')+3),['admit-work','google-demand-response','deadline-scheduling']);
- assert.deepEqual(ids.slice(ids.indexOf('common-cause'),ids.indexOf('common-cause')+4),['common-cause','replication-and-backup','london-recovery','llama-recovery']);
- for(const id of ['google-demand-response','deadline-scheduling','replication-and-backup','llama-recovery']){
-  const scene=scenes.find(item=>item.id===id);
-  assert.match(scene.reference,/^d14-/);
-  for(const group of scene.controls||[])assert.ok(group.options.some(([value])=>value===initialState[group.key]),`${id}: ${group.key} has an active initial choice`);
-  if(id!=='deadline-scheduling')for(const source of scene.sources)assert.ok(operationsVisual(id,initialState).includes(source),`${id}: source credit preserved`);
+ assert.equal(scenes.length,18);
+ assert.deepEqual(ids.slice(4,8),['control-layers','google-cooling','prove-readiness','admit-work']);
+ assert.equal(ids.indexOf('cloudflare-retest'),ids.indexOf('cloudflare-pdx')+1);
+ assert.equal(ids.at(-1),'operating-decision');
+ assert.deepEqual(scenes.filter(scene=>scene.controls?.length).map(scene=>scene.id),['deadline-scheduling','maintenance-scope']);
+ for(const id of ['measurement-time','heat-balance','configuration-mapping','deadline-scheduling','replication-and-backup']){
+  const html=operationsVisual(id,initialState);
+  assert.doesNotMatch(html,/<button/);
  }
- for(const file of ['operations-visuals.js','operations-model.js','operations-player.js','operations-scenes.js']){
-  const source=fs.readFileSync(new URL(`../course/prototypes/${file}`,import.meta.url),'utf8');
-  assert.doesNotMatch(source,/from\s+['"][^'"]*storage[^'"]*['"]/,`${file}: no dependency on the retired deck`);
- }
- assert.match(operationsVisual('llama-recovery',initialState),/confirmed or suspected hardware issues/);
- assert.match(operationsVisual('llama-recovery',initialState),/Automated diagnosis/);
- assert.match(operationsVisual('replication-and-backup',{...initialState,replicaFault:'write'}),/Bad write copied/);
+ const clock=operationsVisual('measurement-time',initialState);
+ assert.match(clock,/10 minutes old/);assert.match(clock,/5 seconds old/);
+ const heat=operationsVisual('heat-balance',initialState);
+ assert.match(heat,/4.18 MW/);assert.match(heat,/2.09 MW/);assert.match(heat,/100 kg\/s/);assert.match(heat,/50 kg\/s/);
+ const mapping=operationsVisual('configuration-mapping',initialState);
+ assert.match(mapping,/Old control mapping/);assert.match(mapping,/Corrected control mapping/);
+ assert.match(operationsVisual('replication-and-backup',initialState),/One device fails/);
+ assert.match(operationsVisual('replication-and-backup',initialState),/A bad write reaches both/);
 });
 
 function operationsPlayerAt(hash){
  class Element{
-  constructor(){this.children=[];this.dataset={};this.attributes={};}
+  constructor(){this.children=[];this.dataset={};this.attributes={};this.listeners={};}
   append(...children){this.children.push(...children);}
   add(child){this.children.push(child);}
   replaceChildren(...children){this.children=children;}
   setAttribute(key,value){this.attributes[key]=value;}
+  addEventListener(name,fn){this.listeners[name]=fn;}
   focus(){}
  }
- const elements=new Map(['scenes','fullscreen','scene','scene-title','visual','lesson-reference','status','progress','previous','next','actions','viewer'].map(id=>[id,new Element()]));
+ const elements=new Map(['scenes','fullscreen','scene','scene-title','visual','lesson-reference','status','progress','previous','next','actions','viewer','decision-reveal'].map(id=>[id,new Element()]));
  const listeners={},location={hash,search:''};
  const buttons=()=>elements.get('actions').children.flatMap(group=>group.children).filter(element=>element.type==='button');
- const document={getElementById:id=>elements.get(id),createElement:()=>new Element(),querySelector:()=>null,querySelectorAll:()=>[],addEventListener(){}};
+ const getElementById=id=>id==='decision-reveal'&&!elements.get('visual').innerHTML?.includes('id="decision-reveal"')?null:elements.get(id);
+ const document={getElementById,createElement:()=>new Element(),querySelector:selector=>selector.startsWith('#')?getElementById(selector.slice(1)):null,addEventListener(){}};
  const window={addEventListener:(name,fn)=>{listeners[name]=fn;},scrollTo(){}};
  const source=fs.readFileSync(new URL('../course/prototypes/operations-player.js',import.meta.url),'utf8').replace(/^import .*;\n/gm,'');
- vm.runInNewContext(source,{document,window,location,history:{replaceState(_state,_title,hash){location.hash=hash;}},URLSearchParams,Option:class{constructor(label,value){this.label=label;this.value=value;}},scenes,initialState,operationsVisual,presentationLabels:{operations:'14. Controls, operations and reliability'}});
- return {elements,buttons,document,go(id){location.hash=`#${id}`;listeners.hashchange();},click(key,value){const button=buttons().find(button=>button.dataset.choice===key&&button.dataset.value===String(value));assert.ok(button,`${key}=${value}`);button.onclick();}};
+ vm.runInNewContext(source,{document,window,location,history:{replaceState(_state,_title,hash){location.hash=hash;}},URLSearchParams,Option:class{constructor(label,value){this.label=label;this.value=value;}},scenes,initialState,sceneAliases,operationsVisual,presentationLabels:{operations:'14. Controls, operations and reliability'}});
+ return {elements,buttons,document,go(id){location.hash=`#${id}`;listeners.hashchange();},reveal(){assert.ok(getElementById('decision-reveal'));getElementById('decision-reveal').listeners.click();},click(key,value){const button=buttons().find(button=>button.dataset.choice===key&&button.dataset.value===String(value));assert.ok(button,`${key}=${value}`);button.onclick();}};
 }
 
-test('the actual operations player keeps deadline and replica controls synchronized across navigation',()=>{
+test('the actual player changes deadline and maintenance scope while preserving their independent state',()=>{
  const player=operationsPlayerAt('#deadline-scheduling');
  const selected=key=>player.buttons().filter(button=>button.dataset.choice===key&&button.attributes['aria-pressed']==='true').map(button=>button.dataset.value);
  const html=()=>player.elements.get('visual').innerHTML;
- assert.deepEqual(selected('shift'),['true']);assert.deepEqual(selected('deadline'),['20']);
- assert.match(html(),/finishes at 18:00, and meets its deadline/);
- assert.equal(player.elements.get('progress').textContent,'13 / 26');
- player.click('deadline',17);assert.deepEqual(selected('deadline'),['17']);assert.match(html(),/misses its deadline/);assert.match(html(),/<strong>18:00<\/strong>/);
- player.click('shift',false);assert.deepEqual(selected('shift'),['false']);assert.match(html(),/finishes at 16:00, and meets its deadline/);assert.match(html(),/<strong>24 MW<\/strong>/);
- player.go('replication-and-backup');assert.deepEqual(selected('replicaFault'),['device']);assert.match(html(),/Valid data available/);
- player.click('replicaFault','write');assert.deepEqual(selected('replicaFault'),['write']);assert.match(html(),/Bad write copied/);assert.match(html(),/Earlier valid version/);
- player.go('deadline-scheduling');assert.deepEqual(selected('shift'),['false']);assert.deepEqual(selected('deadline'),['17']);
- player.click('deadline',20);player.click('shift',true);assert.match(html(),/finishes at 18:00, and meets its deadline/);assert.match(html(),/<strong>12 MWh<\/strong>/);
+ assert.deepEqual(selected('deadline'),['20']);assert.equal(player.buttons().length,2);
+ assert.match(html(),/Finish 16:00/);assert.match(html(),/Finish 18:00/);
+ assert.equal((html().match(/Meets 20:00 deadline/g)||[]).length,2);
+ assert.equal(player.elements.get('progress').textContent,'10 / 18');
+ player.click('deadline',17);assert.deepEqual(selected('deadline'),['17']);assert.match(html(),/Meets 17:00 deadline/);assert.match(html(),/Misses 17:00 deadline by 1 hour/);
+ player.go('maintenance-scope');assert.deepEqual(selected('sharedControl'),['false']);assert.match(html(),/<strong>6 MW<\/strong>/);
+ player.click('sharedControl',true);assert.deepEqual(selected('sharedControl'),['true']);assert.match(html(),/<strong>0 MW<\/strong>/);
+ assert.equal((html().match(/Control power lost/g)||[]).length,2);
+ player.go('deadline-scheduling');assert.deepEqual(selected('deadline'),['17']);
+ player.click('deadline',20);assert.equal((html().match(/Meets 20:00 deadline/g)||[]).length,2);
  assert.match(player.document.title,/^14\. Controls, operations and reliability/);
+});
+
+test('the closing reveal and retired bookmarks use the real player',()=>{
+ const player=operationsPlayerAt('#diagnosis-check');
+ assert.equal(player.elements.get('scene').dataset.scene,'operating-decision');
+ assert.equal(player.buttons().length,0);
+ const html=()=>player.elements.get('visual').innerHTML;
+ assert.equal((html().match(/<button/g)||[]).length,1);
+ assert.doesNotMatch(html(),/Hold the extra work until local cooling is proven/);
+ player.reveal();assert.match(html(),/Hold the extra work until local cooling is proven/);
+ assert.match(html(),/does not yet explain why flow fell/);
+ player.reveal();assert.doesNotMatch(html(),/Hold the extra work until local cooling is proven/);
+ for(const [old,current]of Object.entries(sceneAliases)){
+  assert.ok(scenes.some(scene=>scene.id===current));
+  player.go(old);assert.equal(player.elements.get('scene').dataset.scene,current);
+ }
+ player.go('unknown-bookmark');assert.equal(player.elements.get('scene').dataset.scene,'operations-purpose');
 });

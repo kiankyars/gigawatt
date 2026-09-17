@@ -24,88 +24,77 @@ function capacity(m, compact) {
     )
   );
 }
-function cdu(id, x, y, w, failed) {
-  return (
-    box(id, x, y, w, 72, failed) +
-    label(x + w / 2, y + 25, id.replace("cdu", "CDU "), "svg-small", id) +
-    label(
-      x + w / 2,
-      y + 51,
-      failed ? "Isolated" : "600 kW",
-      failed ? "svg-label fault-text" : "svg-label",
-      id,
-    )
-  );
-}
-function spareCDUs(compact, m) {
-  const p = m.paths[0];
-  const available = p.facilityPathAvailable;
-  let out = label(
-    compact ? 186 : 580,
-    26,
-    "N = 2 CDUs · 3 INSTALLED = N+1",
-    "svg-tiny",
-  );
-  if (compact) {
-    out +=
-      box("load", 93, 53, 186, 72) +
-      label(186, 80, "Selected heat load", "svg-small", "load") +
-      label(186, 108, "1,000 kW", "svg-label", "load");
-    out += route("M186 125 V157 M66 157 H306 M186 308 V342", available);
-    for (let i = 0; i < 3; i++) {
-      const x = 15 + i * 120,
-        failed = i < p.failedModules;
-      out += route(
-        `M${x + 51} 157 V193 M${x + 51} 265 V308`,
-        available && !failed,
-        true,
-      );
-      out += cdu(`cdu${i + 1}`, x, 193, 102, failed);
+function redundancyComparison(compact) {
+  const base = coolingContinuity({ topology: "n+1", fault: "none" });
+  const moduleKw = base.moduleKw;
+  const n = base.requiredModules;
+  const cards = [
+    { id: "n", name: "N", count: n, title: "The CDUs needed for the load", result: "No spare CDU" },
+    { id: "n-plus-one", name: "N+1", count: n + 1, title: "One extra CDU", result: "Lose one CDU → two remain" },
+    { id: "two-n", name: "2N", count: n * 2, title: "Two complete cooling trains", result: "Either train can carry the load" },
+  ];
+  let out = label(compact ? 186 : 580, 25, `${fmt(base.fullLoadKw)} kW heat · ${moduleKw} kW per CDU`, "svg-small");
+  cards.forEach((card, index) => {
+    const x = compact ? 18 : 20 + index * 380;
+    const y = compact ? 55 + index * 164 : 63;
+    const w = compact ? 336 : 360;
+    const h = compact ? (index === 2 ? 185 : 152) : 316;
+    const cx = x + w / 2;
+    out += `<g data-redundancy-case="${card.id}" data-installed-cdus="${card.count}" data-required-cdus="${n}">`;
+    out += box(card.id, x, y, w, h);
+    if (compact) {
+      out += label(x + 20, y + 39, card.name, "svg-number", card.id, "start");
+      if (index < 2) {
+        out += label(x + 128, y + 33, index ? "One extra CDU" : "Two CDUs needed", "svg-label", card.id, "start");
+        const moduleW = 62, gap = 10;
+        const rowX = cx - (card.count * moduleW + (card.count - 1) * gap) / 2;
+        for (let i = 0; i < card.count; i++) {
+          const mx = rowX + i * (moduleW + gap);
+          const id = `${card.id}-cdu${i}`;
+          out += box(id, mx, y + 59, moduleW, 42);
+          out += label(mx + moduleW / 2, y + 85, `${moduleKw}`, "svg-label", id);
+        }
+        out += label(cx, y + 127, card.result, "svg-small", card.id);
+        if (index === 1)
+          out += label(cx, y + 146, "Facility path is still shared", "svg-small", card.id);
+      } else {
+        out += label(x + 116, y + 33, "Two complete trains", "svg-label", card.id, "start");
+        ["A", "B"].forEach((train, i) => {
+          const id = `${card.id}-train${train}`, ty = y + 53 + i * 50;
+          out += box(id, x + 15, ty, w - 30, 40);
+          out += label(cx, ty + 25, `${train} · 2 CDUs + its own facility path`, "svg-small", id);
+        });
+        out += label(cx, y + 170, card.result, "svg-small", card.id);
+      }
+    } else {
+      out += label(cx, y + 48, card.name, "svg-number", card.id);
+      out += label(cx, y + 87, card.title, "svg-label", card.id);
+      if (index < 2) {
+        const moduleW = 76, gap = 14;
+        const rowX = cx - (card.count * moduleW + (card.count - 1) * gap) / 2;
+        for (let i = 0; i < card.count; i++) {
+          const mx = rowX + i * (moduleW + gap);
+          const id = `${card.id}-cdu${i}`;
+          out += box(id, mx, y + 132, moduleW, 67);
+          out += label(mx + moduleW / 2, y + 159, "CDU", "svg-small", id);
+          out += label(mx + moduleW / 2, y + 184, `${moduleKw} kW`, "svg-label", id);
+        }
+        out += label(cx, y + 249, card.result, "svg-label", card.id);
+        if (index === 1)
+          out += label(cx, y + 282, "Facility path is still shared", "svg-small", card.id);
+      } else {
+        ["A", "B"].forEach((train, i) => {
+          const id = `${card.id}-train${train}`, ty = y + 118 + i * 65;
+          out += box(id, x + 20, ty, w - 40, 53);
+          out += label(cx, ty + 23, `Train ${train} · 2 CDUs`, "svg-label", id);
+          out += label(cx, ty + 43, "Own facility loop, plant, power + controls", "svg-small", id);
+        });
+        out += label(cx, y + 282, card.result, "svg-small", card.id);
+      }
     }
-    out += route("M66 308 H306", available);
-    out +=
-      box("facility", 38, 342, 296, 88, !available) +
-      label(186, 369, "Shared facility path", "svg-label", "facility") +
-      label(
-        186,
-        394,
-        available ? "Pumps + outdoor heat rejection" : "Unavailable",
-        available ? "svg-small" : "svg-label fault-text",
-        "facility",
-      ) +
-      label(186, 416, "Shared power and controls", "svg-small", "facility");
-    out += route("M186 430 V468", available, true);
-  } else {
-    out +=
-      box("load", 30, 146, 170, 116) +
-      label(115, 182, "Selected heat load", "svg-small", "load") +
-      label(115, 224, "1,000 kW", "svg-label", "load");
-    out += route("M200 204 H270 M270 100 V308 M620 100 V308", available);
-    out += route("M620 204 H739", available, true);
-    for (let i = 0; i < 3; i++) {
-      const y = 64 + i * 104,
-        failed = i < p.failedModules;
-      out += route(
-        `M270 ${y + 36} H355 M525 ${y + 36} H620`,
-        available && !failed,
-        true,
-      );
-      out += cdu(`cdu${i + 1}`, 355, y, 170, failed);
-    }
-    out +=
-      box("facility", 739, 144, 300, 120, !available) +
-      label(889, 174, "Shared facility path", "svg-label", "facility") +
-      label(
-        889,
-        203,
-        available ? "Pumps + outdoor heat rejection" : "Unavailable",
-        available ? "svg-small" : "svg-label fault-text",
-        "facility",
-      ) +
-      label(889, 234, "Shared power and controls", "svg-small", "facility");
-    out += route("M1039 204 H1120", available, true);
-  }
-  return out + capacity(m, compact);
+    out += "</g>";
+  });
+  return `<g data-continuity-diagram data-cooling-comparison="redundancy" data-cooling-load="${base.fullLoadKw}" data-cdu-capacity="${moduleKw}">${out}</g>`;
 }
 function independentPaths(compact, m) {
   let out = label(
@@ -211,119 +200,43 @@ function independentPaths(compact, m) {
   }
   return out + capacity(m, compact);
 }
-function reducedPower(compact, m) {
-  const removed = Math.min(m.availableKw, m.loadKw);
-  const accumulating = Math.max(0, m.loadKw - removed);
-  const result =
-    m.availableKw === 0
-      ? "No sustained heat-removal path"
-      : accumulating > 0
-        ? `Heat accumulates at ${fmt(accumulating)} kW`
-        : `${fmt(m.marginKw)} kW cooling margin`;
-  const color = m.supportsLoad ? "facility-text" : "fault-text";
-  let out =
-    label(
-      compact ? 186 : 580,
-      25,
-      "Cooling alert → configured power cap",
-      "svg-small",
-    ) +
-    label(
-      compact ? 186 : 580,
-      49,
-      "Chip temperature → thermal protection",
-      "svg-small",
-    );
-  if (compact) {
-    out +=
-      label(186, 85, "Heat into liquid path", "svg-small") +
-      label(186, 130, `${fmt(m.loadKw)} kW`, "svg-number heat-text") +
-      route("M186 150 V197", true, true);
-    out +=
-      box("balance", 28, 198, 316, 123) +
-      label(186, 228, "Remaining cooling path", "svg-label", "balance") +
-      label(
-        186,
-        267,
-        `${fmt(m.availableKw)} kW available`,
-        `svg-label ${color}`,
-        "balance",
-      ) +
-      label(
-        186,
-        297,
-        m.availableKw
-          ? "One of three CDUs remains"
-          : "Facility flow unavailable",
-        "svg-small",
-        "balance",
-      );
-    out +=
-      route("M186 321 V351", removed > 0, true) +
-      label(186, 405, `${fmt(removed)} kW`, "svg-number facility-text") +
-      label(186, 433, "Heat removed", "svg-small");
-    out +=
-      label(186, 481, result, `svg-label ${color}`) +
-      label(186, 520, "Coordinated IT action reduces heat.", "svg-small");
-  } else {
-    out +=
-      label(167, 134, "Heat into liquid path", "svg-small") +
-      label(167, 182, `${fmt(m.loadKw)} kW`, "svg-number heat-text");
-    out += route("M85 220 H406", true, true);
-    out +=
-      box("balance", 407, 116, 342, 162) +
-      label(578, 152, "Remaining cooling path", "svg-label", "balance") +
-      label(
-        578,
-        199,
-        `${fmt(m.availableKw)} kW available`,
-        `svg-label ${color}`,
-        "balance",
-      ) +
-      label(
-        578,
-        238,
-        m.availableKw
-          ? "One of three CDUs remains"
-          : "Facility flow unavailable",
-        "svg-small",
-        "balance",
-      );
-    out +=
-      route("M749 220 H1090", removed > 0, true) +
-      label(950, 134, "Heat removed", "svg-small") +
-      label(950, 182, `${fmt(removed)} kW`, "svg-number facility-text");
-    out +=
-      label(580, 332, result, `svg-number ${color}`) +
-      label(
-        580,
-        392,
-        "Coordinated IT action reduces the heat entering the liquid loop.",
-        "svg-small",
-      );
-  }
-  return out;
+function reducedPower(compact) {
+  const cases = ["full", "reduced"].map((loadMode) => coolingContinuity({
+    topology: "n+1", fault: "double-module", loadMode,
+  }));
+  let out = label(compact ? 186 : 580, 25, "Two CDUs fail → 600 kW cooling remains", "svg-small");
+  cases.forEach((m, index) => {
+    const id = `power-${m.loadMode}`;
+    const x = compact ? 18 : 30 + index * 570;
+    const y = compact ? 58 + index * 230 : 66;
+    const w = compact ? 336 : 530;
+    const h = compact ? 210 : 278;
+    const cx = x + w / 2;
+    const bx = x + 28, by = y + (compact ? 85 : 113), bw = w - 56;
+    const limitX = bx + bw * m.availableKw / m.fullLoadKw;
+    const excessKw = Math.max(0, m.loadKw - m.availableKw);
+    out += `<g data-load-case="${m.loadMode}" data-case-heat="${m.loadKw}" data-case-capacity="${m.availableKw}" data-case-margin="${m.marginKw}" data-case-supported="${m.supportsLoad}">`;
+    out += box(id, x, y, w, h);
+    out += label(cx, y + 33, index ? "Reduced load" : "Original load", "svg-label", id);
+    out += label(cx, y + (compact ? 65 : 82), `${fmt(m.loadKw)} kW heat`, compact ? "svg-label heat-text" : "svg-number heat-text", id);
+    out += `<rect x="${bx}" y="${by}" width="${bw}" height="27" rx="5" fill="var(--muted)" opacity="0.12"/>`;
+    out += `<rect x="${bx}" y="${by}" width="${bw * m.loadKw / m.fullLoadKw}" height="27" rx="5" fill="var(--heat)"/>`;
+    out += `<path d="M${limitX} ${by - 8} V${by + 40}" stroke="var(--facility)" stroke-width="3" stroke-dasharray="5 3"/>`;
+    out += label(limitX, by + 59, "600 kW capacity", "svg-small facility-text", id);
+    out += label(cx, y + (compact ? 188 : 236), excessKw ? `${fmt(excessKw)} kW excess heat` : `${fmt(m.marginKw)} kW cooling margin`, `svg-label ${excessKw ? "fault-text" : "facility-text"}`, id);
+    out += "</g>";
+  });
+  out += label(compact ? 186 : 580, compact ? 548 : 395, compact ? "An IT power cap reduces heat." : "A configured IT power cap lowers the heat entering the coolant.", "svg-small");
+  return `<g data-continuity-diagram data-cooling-comparison="derating" data-full-load="${cases[0].loadKw}" data-reduced-load="${cases[1].loadKw}" data-remaining-cooling="${cases[0].availableKw}">${out}</g>`;
 }
 
 export function renderContinuity(kind, compact, state = {}) {
-  const topology = kind === "independent-paths" ? "2n" : "n+1";
-  const fault =
-    kind === "derating"
-      ? "double-module"
-      : kind === "independent-paths"
-        ? state.pathFault || "shared-path"
-        : state.cduFault || "module";
+  if (kind === "redundancy") return redundancyComparison(compact);
+  if (kind === "derating") return reducedPower(compact);
   const m = coolingContinuity({
-    topology,
-    fault,
-    loadMode: kind === "derating" ? state.loadMode || "full" : "full",
-    allPathsLost: kind === "derating" && Boolean(state.deratingPathLost),
+    topology: "2n",
+    fault: state.pathFault || "shared-path",
+    loadMode: "full",
   });
-  const content =
-    kind === "derating"
-      ? reducedPower(compact, m)
-      : kind === "independent-paths"
-        ? independentPaths(compact, m)
-        : spareCDUs(compact, m);
-  return `<g data-cooling-capacity="${m.availableKw}" data-cooling-load="${m.loadKw}" data-cooling-margin="${m.marginKw}" data-cooling-topology="${m.topology}" data-cooling-fault="${m.fault}" data-supported="${m.supportsLoad}">${content}</g>`;
+  return `<g data-continuity-diagram data-cooling-capacity="${m.availableKw}" data-cooling-load="${m.loadKw}" data-cooling-margin="${m.marginKw}" data-cooling-topology="${m.topology}" data-cooling-fault="${m.fault}" data-supported="${m.supportsLoad}">${independentPaths(compact, m)}</g>`;
 }

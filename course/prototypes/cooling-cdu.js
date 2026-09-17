@@ -13,7 +13,7 @@ export function renderCDU(compact, interior = false) {
   const rows = [
     [
       "Heat exchanger",
-      "2 MW thermal at 5 K approach",
+      "2 MW thermal at 5°C approach",
       "Moves heat into facility water",
     ],
     [
@@ -43,12 +43,6 @@ export function renderCDU(compact, interior = false) {
         text(22, y + 24, spec) +
         text(22, y + 44, job, "svg-small");
     });
-    out += text(
-      22,
-      559,
-      "Thermal and hydraulic points listed separately.",
-      "svg-small",
-    );
   } else {
     out += text(
       195,
@@ -64,12 +58,6 @@ export function renderCDU(compact, interior = false) {
         text(427, y + 39, spec, "svg-equation") +
         text(427, y + 65, job, "svg-label");
     });
-    out += text(
-      427,
-      398,
-      "Manufacturer-listed thermal and hydraulic points; not one combined operating point.",
-      "svg-small",
-    );
   }
   return out;
 }

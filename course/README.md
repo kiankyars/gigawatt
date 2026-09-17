@@ -39,6 +39,8 @@ and its mechanism modules, and `cooling-format.html` with `cooling-model.js`, `c
 Chapter 12 uses `heat-rejection-format.html` and its scene, player, model and visual
 modules, reusing the outdoor mechanisms in `cooling-rejection.js`. The final two
 decks use the same structure under `capacity-*` and `integrated-cases-*`.
+Chapter 16's simultaneous comparisons use `integrated-comparisons.js` and
+`integrated-comparisons.css`; its 17 slides retain all five cases.
 Edit those files directly; their numerical tests and browser checks verify the
 presentation, while the matching reader lessons retain the longer explanations.
 The [Primer](prototypes/terminology-format.html) publishes at `/slides/primer.html?teach=1`.
@@ -72,8 +74,9 @@ slides respectively, pending current validation. Shared presentation chrome is i
 `prototypes/slide-chrome.js` and `assets/slide-chrome.css`.
 
 Chapter 14 uses `operations-format.html` with `operations-scenes.js`,
-`operations-model.js`, `operations-visuals.js`, `operations-player.js` and
-`operations.css`. It builds operational decisions from measurement boundaries,
+`operations-model.js`, `operations-visuals.js`, `operations-comparisons.js`,
+`operations-player.js`, `operations.css` and `operations-comparisons.css`.
+Its 18 slides build operational decisions from measurement boundaries,
 control readiness, maintenance configuration and service incidents. The longer
 case accounts and source limits live in the D14 reader lessons.
 

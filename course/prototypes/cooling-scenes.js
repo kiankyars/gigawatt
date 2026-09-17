@@ -1,4 +1,4 @@
-export const learningContract = Object.freeze({driving_question:'Can the complete liquid path keep the chips within their temperature limit?',fixed_boundary:'Each local thermal, hydraulic and retrofit example declares its heat load and flow boundary.',changed_variable:'Thermal resistance, flow restriction, branch balance or available cooling path.',primary_payoff:'Trace heat and coolant from chip to CDU and identify the limiting interface.',misconception:'Cool supply, enough total flow or spare equipment alone proves adequate cooling.',closing_question:'Which retrofit can handle both chip heat and the residual air load?'});
+export const learningContract = Object.freeze({driving_question:'Can the complete liquid path keep the chips within their temperature limit?',fixed_boundary:'Each local thermal, hydraulic and retrofit example declares its heat load and flow boundary.',changed_variable:'Thermal resistance, flow restriction or available cooling path.',primary_payoff:'Trace heat and coolant from chip to CDU and identify the limiting interface.',misconception:'Cool supply, enough total flow or spare equipment alone proves adequate cooling.',closing_question:'Which retrofit can handle both chip heat and the residual air load?'});
 import {captureScenes} from './cooling-capture.js';
 const existing=[
   {
@@ -19,10 +19,39 @@ const existing=[
   },
   {
     "id": "capture-options",
-    "label": "Air and liquid paths",
-    "title": "Four ways to capture rack heat",
+    "label": "Air cooling / CRAH",
+    "title": "Air carries rack heat to a CRAH",
     "kind": "capture-options",
-    "description": "Compare CRAH air cooling, cold plates with residual air cooling, rear-door heat exchangers and immersion. A CRAH transfers room-air heat into chilled water.",
+    "capture": "air",
+    "description": "A computer room air handler (CRAH) uses fans to move warm room air over a chilled-water coil and returns cooled air to the room. Heat passes from air into water; the two do not mix.",
+    "reference": "d10-cdu-interfaces"
+  },
+  {
+    "id": "capture-coldplates", "label": "Cold plates + air",
+    "title": "Cold plates carry chip heat directly into liquid",
+    "kind": "capture-options", "capture": "coldplate",
+    "description": "Cold plates take heat directly from selected chips into a pumped coolant loop. A liquid-to-liquid CDU transfers that heat into separate facility water. Components outside the cold-plate path still release heat to room air and need air cooling.",
+    "reference": "d10-cdu-interfaces"
+  },
+  {
+    "id": "crah-cdu", "label": "CRAH versus CDU",
+    "title": "A CRAH cools air; a CDU serves the rack coolant loop",
+    "kind": "crah-cdu",
+    "description": "CRAH means computer room air handler: fans circulate room air across a chilled-water coil. CDU means coolant distribution unit: pumps circulate rack coolant and controls regulate its supply. In the liquid-to-liquid CDU shown here, a heat exchanger transfers heat to separate facility water without mixing the fluids. A cold-plate installation can use both: CDU for chip heat, CRAH for residual air heat. Liquid-to-air CDUs also exist.",
+    "reference": "d10-cdu-interfaces"
+  },
+  {
+    "id": "capture-rear-door", "label": "Rear-door heat exchanger",
+    "title": "A cooled rear door captures heat from rack exhaust",
+    "kind": "capture-options", "capture": "rear-door",
+    "description": "Server fans move air through the rack and the rear-door water coil. Heat moves from chips to air, then into water at the door. The depicted arrangement uses compatible facility water; other installations place a CDU between the door and facility loop.",
+    "reference": "d10-cdu-interfaces"
+  },
+  {
+    "id": "capture-immersion", "label": "Immersion cooling",
+    "title": "Immersion puts the electronics in dielectric liquid",
+    "kind": "capture-options", "capture": "immersion",
+    "description": "Qualified electronics sit in electrically insulating liquid. Single-phase liquid warms without boiling; two-phase liquid boils and the vapor condenses at a cooled surface. Both methods need a downstream path to reject the captured heat.",
     "reference": "d10-cdu-interfaces"
   },
   {
@@ -38,15 +67,15 @@ const existing=[
     "label": "Flow and temperature rise",
     "title": "More flow means less temperature rise",
     "kind": "water-balance",
-    "description": "Hold the selected liquid-path heat pickup at 100 kilowatts and water inlet at 35 degrees Celsius. Doubling mass flow from 2.5 to 5 kilograms per second halves its steady temperature rise from 9.57 to 4.78 kelvin. The outlet falls from 44.57 to 39.78 degrees Celsius; these are coolant, not chip, temperatures.",
+    "description": "Predict the effect of doubling flow, then compare. Hold the selected liquid-path heat pickup at 100 kilowatts and water inlet at 35 degrees Celsius. Doubling mass flow from 2.5 to 5 kilograms per second halves its steady temperature rise from 9.57 to 4.78 degrees Celsius. The outlet falls from 44.57 to 39.78 degrees Celsius; these are coolant, not chip, temperatures.",
     "reference": "d10-local-thermal-paths"
   },
   {
     "id": "approach",
     "label": "CDU approach",
-    "title": "The two loops need a temperature gap",
+    "title": "CDU approach is the gap between the two supply temperatures",
     "kind": "approach",
-    "description": "Name the separate technology and facility supply temperatures at the CDU. Their difference is CDU approach; return minus supply in one loop is loop temperature rise.",
+    "description": "Facility water enters the CDU at 30 degrees Celsius. The separate rack coolant leaves for the chips at 35 degrees Celsius. The supply-temperature difference is a 5 degree Celsius CDU approach. Heat crosses the exchanger from warmer rack coolant to cooler facility water without the fluids mixing. This is a temperature difference, not a chip temperature or a loop return-minus-supply rise. A difference of 5 degrees Celsius equals 5 kelvin.",
     "reference": "d10-cdu-interfaces"
   },
   {
@@ -59,16 +88,16 @@ const existing=[
   },
   {
     "id": "lost-flow",
-    "label": "Spare CDUs",
-    "title": "A spare CDU still needs a working heat path",
+    "label": "N, N+1 and 2N",
+    "title": "N is enough capacity; N+1 adds a spare; 2N duplicates the system",
     "kind": "redundancy",
-    "description": "A hypothetical 1,000 kW selected liquid heat load needs two 600 kW CDUs. Three installed units give N+1 at that duty. One isolated CDU failure leaves 1,200 kW, while loss of the shared facility path defeats all three. Qualified capacities, compatible isolation, sufficient flow and the remaining plant are assumed; no transfer or survival time is calculated.",
+    "description": "For 1,000 kW of liquid heat with each CDU qualified for 600 kW at the operating conditions, N is two CDUs. N+1 installs three: one can fail while two still carry the load. 2N duplicates the complete required cooling train: two CDUs plus facility cooling, power and controls on each side. An extra CDU alone does not duplicate shared upstream dependencies.",
     "reference": "d10-cdu-interfaces"
   },
   {
     "id": "independent-cooling-paths",
     "label": "A/B cooling",
-    "title": "Keep a second cooling path available",
+    "title": "2N: either cooling train can carry the load",
     "kind": "independent-paths",
     "description": "Two independent upstream trains each contain two 600 kW CDU modules and a sufficient facility loop, outdoor plant, power and controls. A compatible transfer serves the selected 1,000 kW demand through one train. The displayed capacity is that of one surviving train, not their sum. The shared load-side interface remains outside the duplicated scope; this is not a claim that a whole site is fault tolerant.",
     "reference": "d10-cdu-interfaces"
@@ -78,9 +107,11 @@ const existing=[
     "label": "Reduce power",
     "title": "Reduce power to fit the cooling that remains",
     "kind": "derating",
-    "description": "After two CDU failures, one qualified 600 kW unit remains. A coordinated operating response is assumed to reduce the selected liquid heat load from 1,000 to 500 kW. At the modeled conditions, 400 kW of excess heat becomes 100 kW of cooling margin. Configured power reduction differs from local temperature-triggered throttling. No electrical cap value, application-throughput ratio or safe response time is inferred. Losing the remaining facility path removes this sustained operating option.",
+    "description": "Two cases share the same remaining 600 kW cooling capacity after two CDU failures, with the facility path available. A 1,000 kW liquid heat load exceeds capacity by 400 kW. A coordinated reduction to 500 kW leaves 100 kW cooling margin. Configured power reduction differs from local temperature-triggered throttling. No electrical cap value, application-throughput ratio or safe response time is inferred.",
     "reference": "d10-cdu-interfaces"
   }
 ];
 const byId=new Map([...existing,...captureScenes].map(s=>[s.id,s]));
-export const scenes=["why-liquid","heat-path","capture-options","cold-plate","local-heat-flux","device-temperature","water-balance","pump-operating-point","branch-flow","approach","coolit-cdu","coolant-interfaces","lost-flow","independent-cooling-paths","cooling-derating","cooling-retrofit"].map(id=>byId.get(id));
+export const scenes=["why-liquid","capture-options","capture-coldplates","crah-cdu","capture-rear-door","capture-immersion","cold-plate","local-heat-flux","device-temperature","water-balance","pump-operating-point","approach","coolit-cdu","lost-flow","independent-cooling-paths","cooling-derating","cooling-retrofit"].map(id=>byId.get(id));
+// Preserve useful destinations for bookmarks to the removed standalone slides.
+export const sceneAliases={"heat-path":"crah-cdu","branch-flow":"pump-operating-point","coolant-interfaces":"cooling-retrofit"};

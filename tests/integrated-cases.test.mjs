@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
 import {coupledOutage,weatherCapacity,densityRetrofit,stalledJob,phaseAcceptance} from '../course/prototypes/integrated-cases-model.js';
-import {scenes,initialState,learningContract} from '../course/prototypes/integrated-cases-scenes.js';
+import {scenes,initialState,learningContract,sceneAliases} from '../course/prototypes/integrated-cases-scenes.js';
 import {integratedCasesVisual} from '../course/prototypes/integrated-cases-visuals.js';
 const near=(actual,expected)=>assert.ok(Math.abs(actual-expected)<1e-9,`${actual} ≈ ${expected}`);
 
@@ -76,46 +76,64 @@ test('models reject impossible efficiencies, invalid boundaries and unknown case
  for(const [fn,options]of [[coupledOutage,{plan:'guess'}],[weatherCapacity,{weather:'guess'}],[densityRetrofit,{route:'guess'}],[stalledJob,{upgrade:'guess'}],[phaseAcceptance,{cTest:'guess'}]])assert.throws(()=>fn(options),RangeError);
 });
 
-function statesFor(scene){let states=[{...initialState}];for(const group of scene.controls||[])states=states.flatMap(state=>group.options.map(([value])=>({...state,[group.key]:value})));return states;}
+function statesFor(scene){
+ let states=[{...initialState}];
+ for(const group of scene.controls||[])states=states.flatMap(state=>group.options.map(([value])=>({...state,[group.key]:value})));
+ if(scene.id==='phase-choice')states=[false,true].map(openingReveal=>({...initialState,openingReveal}));
+ return states;
+}
 
-test('all five cases have a brief, consequential action and every control state renders',()=>{
- assert.equal(scenes.length,22);assert.equal(new Set(scenes.map(s=>s.id)).size,scenes.length);assert.ok(learningContract.primary_payoff);
- for(const id of ['C01','C02','C03','C04','C05']){const group=scenes.filter(s=>s.case_id===id);assert.equal(group.length,4,id);assert.equal(group[0].pedagogical_role,'problem');assert.ok(group.some(s=>s.pedagogical_role==='transfer'&&s.controls.length));}
+test('all five cases keep their problem and decision with valid sources in every offered state',()=>{
+ assert.equal(scenes.length,17);assert.equal(new Set(scenes.map(s=>s.id)).size,17);assert.ok(learningContract.primary_payoff);
+ for(const id of ['C01','C02','C03','C04','C05']){const group=scenes.filter(s=>s.case_id===id);assert.equal(group.length,3,id);assert.equal(group[0].pedagogical_role,'problem');assert.ok(group.some(s=>s.pedagogical_role==='transfer'));}
  const assets=new Set(),references=new Set(JSON.parse(fs.readFileSync(new URL('../course/expansion/capstones.json',import.meta.url),'utf8')).map(item=>item.id));
  for(const scene of scenes){
   assert.ok(references.has(scene.reference),scene.id);
-  for(const group of scene.controls||[])assert.ok(group.options.some(([value])=>value===initialState[group.key]),`${scene.id}: initial ${group.key}`);
+  for(const group of scene.controls||[])assert.ok(group.options.some(([value])=>value===initialState[group.key]));
   for(const state of statesFor(scene)){
    const html=integratedCasesVisual(scene.id,state);assert.ok(html.length>150,scene.id);assert.doesNotMatch(html,/NaN|undefined|Infinity/,scene.id);assert.doesNotMatch(html,/checkpoint/i,scene.id);
    for(const [,src]of html.matchAll(/<img\b[^>]*\bsrc="([^"]+)"/g)){assert.ok(src.startsWith('../assets/'));assert.ok(fs.existsSync(new URL(src,new URL('../course/prototypes/',import.meta.url))));assets.add(src);}
+   for(const source of scene.sources||[])assert.ok(html.includes(source));
   }
  }
- assert.equal(assets.size,1,'one real campus image provides context without repeated filler');
+ assert.deepEqual([...assets],['../assets/references/distribution-abilene-data-halls.jpg']);
  assert.throws(()=>integratedCasesVisual('missing',initialState),/Unknown integrated case scene/);
 });
 
+test('comparisons show alternatives together and retain the limits on their conclusions',()=>{
+ assert.deepEqual(scenes.filter(s=>s.controls?.length).map(s=>s.id),['weather-paths','density-route']);
+ for(const id of ['outage-choice','weather-choice','job-choice','job-consequence','phase-schedule'])assert.doesNotMatch(integratedCasesVisual(id,initialState),/<button/);
+ const outage=integratedCasesVisual('outage-choice',initialState);for(const text of ['16.2','21.6','14.73','Powered','Lost','temperatures'])assert.ok(outage.includes(text),text);
+ const weather=integratedCasesVisual('weather-choice',initialState);assert.equal((weather.match(/550 <span>racks/g)||[]).length,2);assert.match(weather,/650 <span>racks/);assert.match(weather,/auxiliary demand at 25 MW/);
+ const job=integratedCasesVisual('job-consequence',initialState);for(const text of ['40 → 45','+12.5%','60 s','20 s','10 s','correctness'])assert.ok(job.includes(text),text);
+ const schedule=integratedCasesVisual('phase-schedule',initialState);for(const text of ['test passes','test fails','Day 7','Day 12','passing test'])assert.ok(schedule.includes(text),text);
+});
+
 function playerAt(hash){
- class Element{constructor(){this.children=[];this.dataset={};this.attributes={};}append(...children){this.children.push(...children);}add(child){this.children.push(child);}replaceChildren(...children){this.children=children;}setAttribute(key,value){this.attributes[key]=value;}focus(){}}
- const elements=new Map(['scenes','fullscreen','scene','scene-title','visual','lesson-reference','status','progress','previous','next','actions','viewer'].map(id=>[id,new Element()]));
+ class Element{constructor(){this.children=[];this.dataset={};this.attributes={};this.listeners={};}append(...children){this.children.push(...children);}add(child){this.children.push(child);}replaceChildren(...children){this.children=children;}setAttribute(key,value){this.attributes[key]=value;}addEventListener(type,fn){this.listeners[type]=fn;}focus(){}}
+ const elements=new Map(['scenes','fullscreen','scene','scene-title','visual','lesson-reference','status','progress','previous','next','actions','viewer','opening-reveal'].map(id=>[id,new Element()]));
  const listeners={},location={hash,search:'?teach=1'};
  const buttons=()=>elements.get('actions').children.flatMap(group=>group.children).filter(element=>element.type==='button');
- const document={getElementById:id=>elements.get(id),createElement:()=>new Element(),querySelector:()=>null,addEventListener(){}};
+ const document={getElementById:id=>id==='opening-reveal'&&!elements.get('visual').innerHTML?.includes('id="opening-reveal"')?undefined:elements.get(id),createElement:()=>new Element(),querySelector:()=>null,addEventListener(){}};
  const window={addEventListener:(name,fn)=>{listeners[name]=fn;},scrollTo(){}};
  const source=fs.readFileSync(new URL('../course/prototypes/integrated-cases-player.js',import.meta.url),'utf8').replace(/^import .*;\n/gm,'');
- vm.runInNewContext(source,{document,window,location,history:{replaceState(_state,_title,hash){location.hash=hash;}},URLSearchParams,Option:class{constructor(label,value){this.label=label;this.value=value;}},scenes,initialState,integratedCasesVisual,presentationLabels:{'integrated-cases':'16. Integrated cases'}});
- return {elements,buttons,document,go(id){location.hash=`#${id}`;listeners.hashchange();},click(key,value){const b=buttons().find(button=>button.dataset.choice===key&&button.dataset.value===String(value));assert.ok(b,`${key}=${value}`);b.onclick();}};
+ vm.runInNewContext(source,{document,window,location,history:{replaceState(_state,_title,hash){location.hash=hash;}},URLSearchParams,Option:class{constructor(label,value){this.label=label;this.value=value;}},scenes,initialState,sceneAliases,integratedCasesVisual,presentationLabels:{'integrated-cases':'16. Integrated cases'}});
+ return {elements,document,go(id){location.hash=`#${id}`;listeners.hashchange();},click(key,value){const b=buttons().find(button=>button.dataset.choice===key&&button.dataset.value===String(value));assert.ok(b,`${key}=${value}`);b.onclick();},reveal(){elements.get('opening-reveal').listeners.click();}};
 }
 
-test('actual player preserves selections, resets predictions on new proposals, and reports accepted paths',()=>{
- const p=playerAt('#outage-choice'),html=()=>p.elements.get('visual').innerHTML;
- const selected=key=>p.buttons().filter(b=>b.dataset.choice===key&&b.attributes['aria-pressed']==='true').map(b=>b.dataset.value);
- assert.equal(p.elements.get('progress').textContent,'3 / 22');assert.match(html(),/Predict both/);
- p.click('outagePlan','auxiliaries');p.click('outageReveal',true);assert.match(html(),/14.73 min/);assert.match(html(),/Thermal survival still needs evidence/);
- p.click('outagePlan','energy');assert.deepEqual(selected('outageReveal'),['false']);assert.match(html(),/Predict both/);
- p.click('outageReveal',true);assert.match(html(),/21.6 min/);assert.match(html(),/Pump still off/);
- p.go('job-choice');p.click('networkUpgrade','fabric');p.click('networkReveal',true);assert.match(html(),/80 s/);assert.match(html(),/1.125×/);
- p.go('phase-handover');assert.match(html(),/550 racks/);p.click('day',12);assert.match(html(),/800 racks/);p.click('day',0);assert.match(html(),/300 racks/);
- p.go('outage-choice');assert.deepEqual(selected('outagePlan'),['energy']);assert.deepEqual(selected('outageReveal'),['true']);
- p.go('watts-to-work');assert.equal(p.elements.get('next').disabled,true);assert.match(p.document.title,/^16\. Integrated cases/);
- p.go('unknown');assert.equal(p.elements.get('previous').disabled,true);assert.equal(p.elements.get('progress').textContent,'1 / 22');
+test('actual player changes acceptance and access without changing independent loads',()=>{
+ const p=playerAt('#weather-paths'),html=()=>p.elements.get('visual').innerHTML;
+ assert.match(html(),/60 MW/);assert.match(html(),/58 MW/);assert.match(html(),/83 MW/);
+ p.click('acceptedRacks',900);assert.match(html(),/65 MW/);assert.match(html(),/58 MW/);assert.match(html(),/83 MW/);
+ p.go('density-route');assert.match(html(),/Route blocked/);p.click('route','clear');assert.match(html(),/Route clear/);assert.match(html(),/126.24 kW/);
+ p.go('weather-paths');assert.match(html(),/65 MW/);p.click('acceptedRacks',600);assert.match(html(),/60 MW/);
+ p.go('density-route');assert.match(html(),/Route clear/);
+ p.go('phase-choice');assert.doesNotMatch(html(),/Open A: 300 racks/);p.reveal();assert.match(html(),/Open A: 300 racks/);assert.match(html(),/aria-expanded="true"/);p.reveal();assert.doesNotMatch(html(),/Open A: 300 racks/);
+});
+
+test('all retired bookmarks reach their retained explanation and navigation stays complete',()=>{
+ const p=playerAt('#outage-timeline');assert.equal(p.elements.get('scene').dataset.scene,'outage-brief');
+ for(const [old,current]of Object.entries(sceneAliases)){p.go(old);assert.equal(p.elements.get('scene').dataset.scene,current);}
+ p.go('watts-to-work');assert.equal(p.elements.get('next').disabled,true);assert.equal(p.elements.get('progress').textContent,'17 / 17');assert.match(p.document.title,/^16\. Integrated cases/);
+ p.go('unknown');assert.equal(p.elements.get('previous').disabled,true);assert.equal(p.elements.get('progress').textContent,'1 / 17');
 });

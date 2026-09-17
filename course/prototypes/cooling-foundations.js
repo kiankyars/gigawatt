@@ -47,7 +47,7 @@ function whyLiquid(compact) {
       text(
         center,
         y + 130,
-        air ? "cₚ = 1.005 kJ/(kg·K)" : "cₚ = 4.18 kJ/(kg·K)",
+        air ? "cₚ = 1.005 kJ/(kg·°C)" : "cₚ = 4.18 kJ/(kg·°C)",
         "svg-small",
         id,
         "middle",
@@ -56,13 +56,13 @@ function whyLiquid(compact) {
   };
   if (compact)
     return (
-      text(186, 25, "SAME 100 kW · SAME 10 K RISE", "svg-tiny", "", "middle") +
+      text(186, 25, "SAME 100 kW · SAME 10°C RISE", "svg-tiny", "", "middle") +
       panel(true, 15, 75, 342, 170) +
       panel(false, 15, 271, 342, 170) +
       text(186, 510, "Q̇ = ṁ cₚ ΔT = ρ V̇ cₚ ΔT", "svg-equation", "", "middle")
     );
   return (
-    text(580, 29, "SAME 100 kW · SAME 10 K RISE", "svg-tiny", "", "middle") +
+    text(580, 29, "SAME 100 kW · SAME 10°C RISE", "svg-tiny", "", "middle") +
     panel(true, 80, 62, 475, 200) +
     panel(false, 605, 62, 475, 200) +
     text(580, 332, "Q̇ = ṁ cₚ ΔT = ρ V̇ cₚ ΔT", "svg-number", "", "middle")
@@ -106,7 +106,7 @@ function waterBalance(compact, state) {
       text(
         186,
         329,
-        `ΔT = ${m.deltaTK.toFixed(2)} K`,
+        `ΔT = ${m.deltaTK.toFixed(2)}°C`,
         "svg-number heat-text",
         "",
         "middle",
@@ -123,7 +123,7 @@ function waterBalance(compact, state) {
       text(
         186,
         449,
-        `100 ÷ (${flowKgS} × 4.18) ≈ ${m.deltaTK.toFixed(2)} K`,
+        `100 ÷ (${flowKgS} × 4.18) ≈ ${m.deltaTK.toFixed(2)}°C`,
         "svg-label",
         "",
         "middle",
@@ -133,7 +133,7 @@ function waterBalance(compact, state) {
       text(
         186,
         552,
-        "Water cₚ = 4.18 kJ/(kg·K) · inlet fixed at 35°C",
+        "Water cₚ = 4.18 kJ/(kg·°C)",
         "svg-small",
         "",
         "middle",
@@ -166,16 +166,8 @@ function waterBalance(compact, state) {
       text(
         334,
         359,
-        `ΔT = ${m.deltaTK.toFixed(2)} K`,
+        `ΔT = ${m.deltaTK.toFixed(2)}°C`,
         "svg-number heat-text",
-        "",
-        "middle",
-      ) +
-      text(
-        334,
-        397,
-        "Inlet held at 35°C · coolant temperature, not chip temperature",
-        "svg-small",
         "",
         "middle",
       ) +
@@ -191,14 +183,14 @@ function waterBalance(compact, state) {
       text(
         869,
         200,
-        `100 ÷ (${flowKgS} × 4.18) ≈ ${m.deltaTK.toFixed(2)} K`,
+        `100 ÷ (${flowKgS} × 4.18) ≈ ${m.deltaTK.toFixed(2)}°C`,
         "svg-label",
         "",
         "middle",
       ) +
       text(701, 273, "Q̇ heat rate · ṁ mass flow", "svg-label") +
       text(701, 308, "cₚ specific heat · ΔT coolant rise", "svg-label") +
-      text(701, 359, "Water cₚ = 4.18 kJ/(kg·K)", "svg-label");
+      text(701, 359, "Water cₚ = 4.18 kJ/(kg·°C)", "svg-label");
   return `<g data-flow-kg-s="${flowKgS}" data-inlet-c="${inletC}" data-outlet-c="${outletC}" data-rise-k="${m.deltaTK}" data-heat-kw="${m.heatKw}">${output}</g>`;
 }
 
@@ -377,102 +369,83 @@ function immersionCapture(compact) {
   );
 }
 
-function approach(compact) {
+function crahCdu(compact) {
+  const items = [
+    {id:"crah-compare", title:"CRAH", name:"Computer room air handler", medium:"Room air", action:"Fans circulate air across a water coil.", route:"Air heat → chilled water", color:"facility-text"},
+    {id:"cdu-compare", title:"CDU", name:"Coolant distribution unit", medium:"Rack coolant", action:"Pumps circulate liquid through the racks.", route:"Rack-liquid heat → facility water", color:"tech-text"},
+  ];
+  let out = "";
+  items.forEach((item, i) => {
+    const x = compact ? 15 : 35 + i * 575, y = compact ? 12 + i * 231 : 38;
+    const w = compact ? 342 : 535, h = compact ? 214 : 268, cx = x + w / 2;
+    out += box(item.id, x, y, w, h)
+      + text(cx, y + 35, item.title, "svg-equation " + item.color, item.id, "middle")
+      + text(cx, y + 65, item.name, "svg-small", item.id, "middle")
+      + text(cx, y + 111, item.medium, "svg-equation " + item.color, item.id, "middle")
+      + text(cx, y + (compact ? 149 : 163), item.action, "svg-small", item.id, "middle")
+      + text(cx, y + (compact ? 184 : 220), item.route, "svg-label " + item.color, item.id, "middle");
+  });
+  out += text(compact ? 186 : 867, compact ? 485 : 335,
+    "Liquid-to-liquid CDU shown: fluids stay separate.", "svg-small", "", "middle");
   if (compact) {
-    let out =
-      text(186, 25, "84 kW CDU", "svg-tiny", "", "middle") +
-      box("hx", 122, 109, 128, 221) +
-      text(186, 140, "CDU", "svg-label", "hx", "middle");
-    out +=
-      path("M38 173 H151 V290 H38", "tech") +
-      path("M55 173 H112", "tech", true) +
-      path("M111 290 H50", "tech", true) +
-      path("M334 290 H221 V173 H334", "facility") +
-      path("M321 290 H263", "facility", true) +
-      path("M263 173 H320", "facility", true) +
-      path("M164 216 H207", "heat", true) +
-      path("M164 259 H207", "heat", true);
-    out +=
-      text(29, 78, "Technology", "svg-label tech-text") +
-      text(254, 78, "Facility", "svg-label facility-text") +
-      text(33, 155, "45°C", "svg-label tech-text") +
-      text(284, 155, "40°C", "svg-label facility-text") +
-      text(33, 322, "35°C", "svg-label tech-text") +
-      text(284, 322, "30°C", "svg-label facility-text") +
-      text(34, 361, "Loop ΔT: 10 K", "svg-small tech-text") +
-      text(244, 361, "Loop ΔT: 10 K", "svg-small facility-text") +
-      text(186, 414, "CDU approach: 35 − 30 = 5 K", "svg-label", "", "middle") +
-      text(
-        186,
-        451,
-        "Technology supply − facility supply",
-        "svg-small",
-        "",
-        "middle",
-      ) +
-      text(186, 512, "84 kW = 2 kg/s × 4.2 × 10 K", "svg-label", "", "middle") +
-      text(
-        186,
-        545,
-        "Both water paths: 2 kg/s · cₚ = 4.2 kJ/(kg·K)",
-        "svg-small",
-        "",
-        "middle",
-      );
-    return out;
+    out += text(186, 530, "A cold-plate rack can need both:", "svg-label", "", "middle")
+      + text(186, 557, "CDU for chips · CRAH for remaining air heat", "svg-small", "", "middle");
+  } else {
+    out += text(580, 390, "A cold-plate rack can use both: CDU for chips, CRAH for remaining air heat.", "svg-label", "", "middle");
   }
-  let out =
-    text(
-      580,
-      28,
-      "84 kW CDU · COUNTERFLOW",
-      "svg-tiny",
-      "",
-      "middle",
-    ) +
-    box("hx", 469, 70, 223, 219) +
-    text(580, 101, "CDU heat exchanger", "svg-label", "hx", "middle");
-  out +=
-    path("M111 137 H521 V258 H111", "tech") +
-    path("M194 137 H339", "tech", true) +
-    path("M340 258 H195", "tech", true) +
-    path("M1048 258 H640 V137 H1048", "facility") +
-    path("M982 258 H829", "facility", true) +
-    path("M827 137 H981", "facility", true) +
-    path("M538 176 H624", "heat", true) +
-    path("M538 223 H624", "heat", true);
-  out +=
-    text(112, 90, "Technology loop", "svg-label tech-text") +
-    text(851, 90, "Facility loop", "svg-label facility-text") +
-    text(302, 120, "45°C return", "svg-label tech-text") +
-    text(776, 120, "40°C return", "svg-label facility-text") +
-    text(302, 287, "35°C supply", "svg-label tech-text") +
-    text(776, 287, "30°C supply", "svg-label facility-text") +
-    text(112, 205, "Loop ΔT: 10 K", "svg-label tech-text") +
-    text(899, 205, "Loop ΔT: 10 K", "svg-label facility-text") +
-    text(580, 335, "CDU approach: 35 − 30 = 5 K", "svg-label", "", "middle") +
-    text(
-      580,
-      359,
-      "Technology supply − facility supply",
-      "svg-small",
-      "",
-      "middle",
-    ) +
-    text(
-      580,
-      404,
-      "84 kW = 2 kg/s × 4.2 kJ/(kg·K) × 10 K · each water loop carries 2 kg/s",
-      "svg-label",
-      "",
-      "middle",
-    );
   return out;
+}
+
+function approach(compact) {
+  // At the cold end, compare facility water entering with rack coolant leaving.
+  // Warm returns remain visible only to make the heat-transfer direction clear.
+  const cx = compact ? 186 : 580;
+  if (compact) {
+    return box("hx", 121, 96, 130, 219)
+      + text(cx, 131, "CDU", "svg-label", "hx", "middle")
+      + path("M23 169 H153 V282 H23", "tech")
+      + path("M43 169 H112", "tech", true)
+      + path("M111 282 H43", "tech", true)
+      + path("M349 282 H219 V169 H349", "facility")
+      + path("M329 282 H265", "facility", true)
+      + path("M265 169 H329", "facility", true)
+      + path("M161 221 H210", "heat", true)
+      + text(28, 53, "Rack loop", "svg-label tech-text")
+      + text(244, 53, "Facility loop", "svg-label facility-text")
+      + text(23, 147, "45°C return", "svg-small tech-text")
+      + text(262, 147, "40°C return", "svg-small facility-text")
+      + text(23, 333, "35°C", "svg-equation tech-text")
+      + text(267, 333, "30°C", "svg-equation facility-text")
+      + text(23, 359, "To chips", "svg-small tech-text")
+      + text(253, 359, "From facility", "svg-small facility-text")
+      + text(cx, 426, "35°C − 30°C = 5°C", "svg-equation", "", "middle")
+      + text(cx, 460, "CDU approach", "svg-label", "", "middle")
+      + text(cx, 520, "Heat crosses into cooler facility water.", "svg-small", "", "middle")
+      + text(cx, 550, "The two fluids stay separate.", "svg-small", "", "middle");
+  }
+  return box("hx", 455, 65, 250, 225)
+    + text(cx, 99, "CDU heat exchanger", "svg-label", "hx", "middle")
+    + path("M90 146 H520 V258 H90", "tech")
+    + path("M165 146 H350", "tech", true)
+    + path("M350 258 H165", "tech", true)
+    + path("M1070 258 H640 V146 H1070", "facility")
+    + path("M993 258 H810", "facility", true)
+    + path("M810 146 H993", "facility", true)
+    + path("M540 198 H620", "heat", true)
+    + text(90, 66, "Rack coolant loop", "svg-label tech-text")
+    + text(844, 66, "Facility water loop", "svg-label facility-text")
+    + text(230, 127, "45°C return", "svg-small tech-text")
+    + text(823, 127, "40°C return", "svg-small facility-text")
+    + text(248, 211, "35°C to chips", "svg-equation tech-text", "", "middle")
+    + text(914, 211, "30°C from facility", "svg-equation facility-text", "", "middle")
+    + text(cx, 340, "35°C − 30°C = 5°C approach", "svg-equation", "", "middle")
+    + text(cx, 395, "Heat crosses into cooler facility water; the fluids stay separate.", "svg-label", "", "middle");
 }
 
 export function renderFoundation(kind, compact, state = {}) {
   if (kind === "why-liquid") return airMarker + whyLiquid(compact);
   if (kind === "water-balance") return waterBalance(compact, state);
+  if (kind === "crah-cdu") return crahCdu(compact);
   if (kind === "approach") return airMarker + approach(compact);
   if (kind === "capture-options") {
     const renderers = {
