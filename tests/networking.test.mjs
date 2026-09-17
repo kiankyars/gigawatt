@@ -18,20 +18,32 @@ test('only exchange time beyond independent computation delays the step',()=>{
  assert.equal(communicationTime({overlapMs:100}).overlappedStepMs,200,'hidden communication cannot shorten the compute interval');
  assert.equal(communicationTime({overlapMs:0}).overlappedStepMs,b.sequentialStepMs);
 });
-test('collective scope keeps the shared result and timing consequence',()=>{
- const collective=scenes.findIndex(s=>s.id==='all-reduce');assert.equal(scenes[collective+1].id,'collective-time');
- assert.ok(!scenes.some(s=>s.id==='ring-collective'));
- assert.equal(scenes[resolveNetworkingScene('collective-time')].id,'collective-time');
- assert.equal(resolveNetworkingScene('missing-slide'),0);
- assert.ok(!scenes.some(s=>s.id==='tpu-interconnect'));
- const allreduce=networkingVisual('all-reduce',initialState);
- for(const [i,value]of[2,5,7].entries())assert.match(allreduce,new RegExp(`GPU ${i+1}: contribution ${value}`));
- assert.equal((allreduce.match(/combined result 14/g)||[]).length,3);
- for(const communicationMs of[30,60]){
-  const html=networkingVisual('collective-time',{...initialState,communicationMs});
-  assert.match(html,/200 ms/);assert.match(html,/20 ms of independent work/);
-  assert.match(html,new RegExp(`${200+communicationMs} ms`));assert.match(html,new RegExp(`${180+communicationMs} ms`));
-  assert.doesNotMatch(html,/ring|1\.5 GB|gradient|reduce.scatter|all.gather/i);
+test('the chapter retains facility mechanisms and removes repeated software explanations without aliases',()=>{
+ const removed=['message-time','all-reduce','collective-time','fabric-failure','storage-handoff'];
+ assert.equal(scenes.length,21);
+ for(const id of removed){assert.ok(!scenes.some(scene=>scene.id===id));assert.equal(resolveNetworkingScene(id),0);assert.throws(()=>networkingVisual(id,initialState),/No networking visual/);}
+ assert.equal(scenes.at(-1).id,'meta-rsc');
+ const incast=scenes.findIndex(scene=>scene.id==='incast');assert.equal(scenes[incast-1].id,'traffic-placement');assert.equal(scenes[incast+1].id,'ethernet-infiniband');
+ const placement=scenes.find(scene=>scene.id==='traffic-placement');assert.deepEqual(placement.controls[0].options,[['remote','Across two leaves'],['local','Under one leaf']]);assert.notEqual(placement.controls[0].label,'Place the communicating servers');
+ assert.match(networkingVisual('incast',initialState),/1,600 Gb\/s arriving/);assert.match(networkingVisual('incast',initialState),/400 Gb\/s →/);assert.match(networkingVisual('incast',initialState),/receiver port/);
+});
+test('the network choice explains the full system and the distance example isolates propagation',()=>{
+ const fabrics=networkingVisual('ethernet-infiniband',initialState);
+ assert.match(fabrics,/RDMA over Converged Ethernet/);assert.match(fabrics,/remote direct memory access/);
+ for(const label of ['Routing','Which links carry the packets?','Congestion control','Slow senders as queues build.','Collective software','Coordinate the GPU exchanges.','Job placement','Choose which servers work together.'])assert.ok(fabrics.includes(label),label);
+ assert.equal((fabrics.match(/24,576 H100 GPUs/g)||[]).length,2);
+ const distance=networkingVisual('distance-latency',initialState);
+ assert.match(distance,/100 km fiber route/);assert.match(distance,/Request · 0.5 ms/);assert.match(distance,/Reply · 0.5 ms/);assert.match(distance,/>1 ms</);assert.match(distance,/propagation alone/);
+ assert.doesNotMatch(distance,/Multislice|Amdahl|Bulk data|Dependent exchanges/);
+});
+test('the diagnosis keeps a connected but degraded physical path and reveals discriminating evidence',()=>{
+ const unrevealed=networkingVisual('network-diagnosis',initialState);
+ assert.equal((unrevealed.match(/>20 ms</g)||[]).length,3);assert.equal((unrevealed.match(/>50 ms</g)||[]).length,1);
+ assert.match(unrevealed,/Moved cable/);assert.match(unrevealed,/Link still up/);assert.match(unrevealed,/All four results are needed/);
+ assert.doesNotMatch(unrevealed,/Port errors rose after the move/);assert.match(unrevealed,/id="diagnosis-reveal" disabled/);
+ for(const [diagnosis,finding]of [['replace','Port errors rose after the move'],['uplinks','Shared uplinks have spare capacity'],['gpus','Compute time is unchanged on all four servers']]){
+  const chosen=networkingVisual('network-diagnosis',{...initialState,diagnosis});assert.match(chosen,new RegExp(`data-diagnosis="${diagnosis}" aria-pressed="true"`));assert.doesNotMatch(chosen,/id="diagnosis-reveal" disabled/);
+  const revealed=networkingVisual('network-diagnosis',{...initialState,diagnosis,showDiagnosis:true});assert.ok(revealed.includes(finding));assert.match(revealed,/aria-expanded="true"/);
  }
 });
 test('fiber propagation includes distance in both directions for a reply',()=>{
@@ -43,7 +55,7 @@ test('models reject impossible intervals and invalid rates',()=>{
 });
 test('all scenes and selectable states produce renderable desktop and compact mechanisms',()=>{
  assert.equal(new Set(scenes.map(s=>s.id)).size,scenes.length);
- for(const scene of scenes){const states=[initialState,...(scene.controls||[]).flatMap(g=>g.options.map(([v])=>({...initialState,[g.key]:v})))];for(const state of states)for(const compact of[false,true]){const html=networkingVisual(scene.id,state,compact);assert.ok(html.length>100);assert.doesNotMatch(html,/NaN|undefined/);}}
+ for(const scene of scenes){let states=[initialState];for(const group of scene.controls||[])states=states.flatMap(state=>group.options.map(([value])=>({...state,[group.key]:value})));if(scene.id==='network-diagnosis')states=['','replace','uplinks','gpus'].flatMap(diagnosis=>[false,true].map(showDiagnosis=>({...initialState,diagnosis,showDiagnosis})));for(const state of states)for(const compact of[false,true]){const html=networkingVisual(scene.id,state,compact);assert.ok(html.length>100,scene.id);assert.doesNotMatch(html,/NaN|undefined/,scene.id);}}
 });
 test('compute migration preserves both requested opening images and distinguishes local memory from networking',()=>{
  assert.equal(scenes[0].id,'networking-purpose');assert.equal(scenes[1].id,'consumer-hardware-meme');assert.equal(scenes[1].imageOnly,true);

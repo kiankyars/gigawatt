@@ -73,7 +73,7 @@ test('delivery, operations, capacity and capstone remain a continuous slide sequ
 
 test('networking advances directly to cooling after storage retirement', () => {
   const module = 'http://localhost/course/prototypes/slide-navigation.js';
-  const cooling = nextChapterLink('http://localhost/course/prototypes/networking-format.html?teach=1#storage-handoff', presentationRoutes, module);
+  const cooling = nextChapterLink('http://localhost/course/prototypes/networking-format.html?teach=1#meta-rsc', presentationRoutes, module);
   assert.equal(cooling.number, 11);
   assert.equal(cooling.kind, 'slides');
   assert.equal(cooling.href, 'http://localhost/course/prototypes/cooling-format.html?teach=1');

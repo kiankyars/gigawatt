@@ -6934,7 +6934,7 @@
         },
         {
           "id": "P184",
-          "claim": "Qualified 400G LinkX examples: 2 m passive copper, 30 m multimode optics and 500 m single-mode DR4 optics.",
+          "claim": "Qualified 400G LinkX examples: 2 m passive copper, 50 m multimode optics and 500 m single-mode DR4 optics.",
           "reviewed_on": "2026-09-14",
           "limits": "2m copper,30m MM and500m DR4 are supported product examples, not medium-wide maxima. Product protocol/interface compatibility still required."
         },
@@ -14250,11 +14250,11 @@
       "publisher": "NVIDIA",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-14",
+      "reviewed_on": "2026-09-16",
       "domains": [
         "D08"
       ],
-      "use": "Qualified 400G LinkX examples: 2 m passive copper, 30 m multimode optics and 500 m single-mode DR4 optics.",
+      "use": "Qualified 400G LinkX examples: 2 m passive copper, 50 m multimode optics and 500 m single-mode DR4 optics.",
       "caution": "2m copper,30m MM and500m DR4 are supported product examples, not medium-wide maxima. Product protocol/interface compatibility still required."
     },
     {

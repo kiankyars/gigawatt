@@ -1,14 +1,14 @@
 export const learningContract = Object.freeze({
  driving_question: 'What lets several AI racks advance one model together?',
  fixed_boundary: 'GB300 rack scale-up is the starting point. The fabric calculations hold sixteen 400 Gb/s endpoint links fixed.',
- changed_variable: 'Uplink capacity, traffic placement, message size, shared queues and exposed communication time.',
+ changed_variable: 'Uplink capacity, traffic placement, shared queues, fiber distance and the condition of a physical link.',
  primary_payoff: 'Trace a workload delay to the physical link or shared resource that constrains it.',
  misconception: 'A fast endpoint port or a healthy accelerator count establishes fast distributed training.',
- closing_question: 'Which intervention restores progress when a collective is slowed by one congested uplink?',
+ closing_question: 'Which measurement distinguishes a moved-link fault from shared-fabric congestion?',
 });
 const topology='d08-topology-budget',collective='d08-collective-progress',media='d08-copper-light-service';
 const c=(key,label,options)=>({key,label,options});
-export const initialState={uplinks:2,placement:'remote',message:'large',communicationMs:30,ocsPairing:'straight',diagnosis:'',showDiagnosis:false};
+export const initialState={uplinks:2,placement:'remote',ocsPairing:'straight',diagnosis:'',showDiagnosis:false};
 export const scenes=[
  {id:'networking-purpose',label:'Networking and interconnects',title:'Networking and interconnects',reference:topology,pedagogical_role:'problem'},
  {id:'consumer-hardware-meme',label:'AI demand and consumer hardware',title:'AI demand and consumer hardware',reference:topology,pedagogical_role:'hook',imageOnly:true},
@@ -23,19 +23,14 @@ export const scenes=[
  {id:'optical-packaging',imageOnly:true,label:'Pluggable and co-packaged optics',title:'Co-packaged optics shortens the electrical path inside the switch.',reference:media,pedagogical_role:'comparison'},
  {id:'leaf-spine',label:'Leaf–spine is common, not universal',title:'Leaf–spine is common, not universal',reference:topology,pedagogical_role:'architecture',imageOnly:true},
  {id:'shared-uplinks',label:'Where the bandwidth narrows',title:'Cross-leaf bandwidth is shared by the servers beneath each leaf.',reference:topology,pedagogical_role:'balance',controls:[c('uplinks','Uplinks available at each leaf',[[2,'Two'],[4,'Four']])]},
- {id:'traffic-placement',label:'When oversubscription matters',title:'Traffic staying within a leaf avoids its shared uplinks.',reference:topology,pedagogical_role:'comparison',controls:[c('placement','Place the communicating servers',[['remote','Across two leaves'],['local','Under one leaf']])]},
- {id:'message-time',label:'Bandwidth and latency',title:'Small messages expose latency; large messages occupy the link.',reference:topology,pedagogical_role:'comparison'},
- {id:'incast',label:'Several senders, one receiver',title:'Traffic queues at the switch port leading to a shared receiver.',reference:topology,pedagogical_role:'mechanism'},
- {id:'all-reduce',label:'What an all-reduce returns',title:'Training GPUs combine results before the next update.',reference:collective,pedagogical_role:'mechanism'},
- {id:'collective-time',label:'Overlap computation and communication',title:'Overlap computation and communication.',reference:collective,pedagogical_role:'comparison',controls:[c('communicationMs','Exchange time',[[30,'30 ms'],[60,'60 ms']])]},
+ {id:'traffic-placement',label:'When oversubscription matters',title:'Traffic staying within a leaf avoids its shared uplinks.',reference:topology,pedagogical_role:'comparison',controls:[c('placement','Server placement',[['remote','Across two leaves'],['local','Under one leaf']])]},
+ {id:'incast',label:'Several senders, one receiver',title:'Four fast senders can overwhelm one receiver port.',reference:topology,pedagogical_role:'mechanism'},
  {id:'ethernet-infiniband',label:'Ethernet and InfiniBand',title:'Meta built large AI clusters with both Ethernet and InfiniBand.',reference:collective,pedagogical_role:'case'},
  {id:'optical-circuits',label:'Google TPU v4: optical routing',title:'An optical circuit switch changes which fiber endpoints connect.',reference:media,pedagogical_role:'mechanism',controls:[c('ocsPairing','Circuit configuration',[['straight','A ↔ C · B ↔ D'],['crossed','A ↔ D · B ↔ C']])]},
  {id:'campus-fiber',label:'From the cluster to a carrier',title:'The campus fiber handoff connects the cluster to an external service.',reference:topology,pedagogical_role:'architecture'},
- {id:'distance-latency',label:'Distance remains in the budget',title:'A faster port cannot remove the propagation time between facilities.',reference:topology,pedagogical_role:'balance'},
- {id:'fabric-failure',label:'A degraded link delays the collective',title:'A fabric can remain connected while the training step gets slower.',reference:collective,pedagogical_role:'failure'},
- {id:'network-diagnosis',label:'Chapter 10 knowledge check',title:'Chapter 10 · Find the source of the collective delay',reference:collective,pedagogical_role:'transfer'},
+ {id:'distance-latency',label:'Distance remains in the budget',title:'100 km of fiber adds a 1 ms round trip.',reference:topology,pedagogical_role:'balance'},
+ {id:'network-diagnosis',label:'Find the delayed link',title:'After a cable move, one server holds up the job.',reference:collective,pedagogical_role:'transfer'},
  {id:'meta-rsc',label:'Meta Research SuperCluster',title:'Meta built storage in tiers to keep GPUs supplied',reference:'d09-storage-paths',pedagogical_role:'case'},
- {id:'storage-handoff',label:'The network’s other traffic',title:'Dataset reads and checkpoints also use the network.',reference:topology,pedagogical_role:'transfer'},
 ];
 export function resolveNetworkingScene(hash){
  const index=scenes.findIndex(s=>s.id===hash);

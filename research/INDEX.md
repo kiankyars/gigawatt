@@ -258,6 +258,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P210 — Juniper — Understanding Layer 3 Fabrics](sources/P210.md) | Juniper | D08 | page_reviewed |
 | [P211 — Crusoe — Expands AI data center campus in Abilene to 1.2 gigawatts](sources/P211.md) | Crusoe | D15 | page_reviewed |
 | [P212 — Crusoe — Flagship Abilene data center is live](sources/P212.md) | Crusoe | D15 | page_reviewed |
+| [P213 — Microsoft — From Wisconsin to Atlanta, an AI superfactory](sources/P213.md) | Microsoft | D08 | page_reviewed |
 | [P22 — Huber et al. — Comparative Evaluation of MVAC–LVDC SST and Hybrid Transformer Concepts for Future Datacenters (IPEC 2022)](sources/P22.md) | ETH Zurich, Delta Electronics and Paderborn University | D04, D06 | page_reviewed |
 | [P23 — Wolfspeed — Introduction of a commercially available 10 kV SiC power MOSFET](sources/P23.md) | Wolfspeed | D04, D06 | page_reviewed |
 | [P24 — Schneider Electric — What is UPS efficiency and how is it calculated?](sources/P24.md) | Schneider Electric | D04, D05, D06 | page_reviewed |

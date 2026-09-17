@@ -7,6 +7,29 @@ Do not download or launch standalone Chrome for Testing or Playwright browser
 binaries here. Existing browser test harnesses remain available for a separately
 configured test environment; run local model and build checks without a browser.
 
+## Chapter 10 scope and speaker notes — 2026-09-16
+
+- **21 slides**, reduced from 26. Removed the message-size calculation, separate
+  all-reduce and overlap slides, repeated fabric-failure example and storage
+  handoff. Incast remains because the receiver port is a different constraint
+  from shared uplinks. Diagnosis incorporates the delayed-link consequence.
+- Expanded RoCE and explained routing, congestion control, collective software
+  and job placement. Simplified the distance slide to a 100 km request/reply path.
+  The placement instruction is visually hidden while its accessible group name
+  remains. Added Microsoft's verified dedicated-fiber quotation; its capability
+  quotation is abridged on the slide and retained in full in speaker notes.
+- Added speaker notes for copper/optical reach, shared uplinks and Meta storage
+  tiers, plus the fabric-performance explanation. Their slide links survive
+  renumbering; Meta is now slide 21. Corrected stale 30 m source-note wording to
+  the 50 m optical example already in the slide and reader explanation.
+- **80 Python and 285 JavaScript tests passed.** Built-in browser traversed all
+  21 slides at 1280 × 720 and 390 × 844 with the user's existing browser zoom.
+  No horizontal overflow; desktop content and the revealed diagnosis fit above
+  navigation. Inspected the new quotation, RoCE comparison and diagnosis on
+  screen, exercised its finding reveal, and verified the placement buttons remain
+  without their visible instruction. Source/build/research and whitespace checks
+  passed. Author review remains in progress.
+
 ## Remaining chapter completion — 2026-09-16
 
 - All 16 numbered chapters now have full authored slide sequences. The new or

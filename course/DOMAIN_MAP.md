@@ -1064,6 +1064,7 @@ Trace a network failure or degraded link into workload, cabling and operational 
 - [P208 — SemiAnalysis InferenceX — Kimi K3 on GB200 NVL72](https://inferencex.semianalysis.com/run/kimi-k3-on-gb200-nvl72) · `page_reviewed` · [local note](../research/sources/P208.md)
 - [P209 — Meta — Open AI hardware vision](https://engineering.fb.com/2024/10/15/data-infrastructure/metas-open-ai-hardware-vision/) · `page_reviewed` · [local note](../research/sources/P209.md)
 - [P210 — Juniper — Understanding Layer 3 Fabrics](https://www.juniper.net/documentation/us/en/software/network-director6.1/network-director/topics/concept/layer3-fabrics-understanding.html) · `page_reviewed` · [local note](../research/sources/P210.md)
+- [P213 — Microsoft — From Wisconsin to Atlanta, an AI superfactory](https://news.microsoft.com/source/features/ai/from-wisconsin-to-atlanta-microsoft-connects-datacenters-to-build-its-first-ai-superfactory/) · `page_reviewed` · [local note](../research/sources/P213.md)
 
 <a id="d09"></a>
 

@@ -4565,11 +4565,11 @@
       "publisher": "NVIDIA",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-14",
+      "reviewed_on": "2026-09-16",
       "domains": [
         "D08"
       ],
-      "use": "Qualified 400G LinkX examples: 2 m passive copper, 30 m multimode optics and 500 m single-mode DR4 optics.",
+      "use": "Qualified 400G LinkX examples: 2 m passive copper, 50 m multimode optics and 500 m single-mode DR4 optics.",
       "caution": "2m copper,30m MM and500m DR4 are supported product examples, not medium-wide maxima. Product protocol/interface compatibility still required."
     },
     {
@@ -4986,6 +4986,21 @@
       ],
       "use": "Publisher reports the first two buildings energized within a year of the June 2024 construction start, the first phase running on Oracle Cloud Infrastructure, and early training/inference workloads. Separates energization from an operational workload statement.",
       "caution": "Historical publisher account, not independent metering. No quantitative full-campus accepted-service MW, current demand, or accepted workload-output rate is supplied. These statements overlap the earlier campus plan and later delivery percentage; they are not additive capacity increments."
+    },
+    {
+      "id": "P213",
+      "title": "Microsoft — From Wisconsin to Atlanta, an AI superfactory",
+      "url": "https://news.microsoft.com/source/features/ai/from-wisconsin-to-atlanta-microsoft-connects-datacenters-to-build-its-first-ai-superfactory/",
+      "publisher": "Microsoft",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-16",
+      "published_on": "2025-11-12",
+      "domains": [
+        "D08"
+      ],
+      "use": "Exact Fairwater intended-model-scale wording and the statement that dedicated inter-site AI WAN fiber allows data to travel congestion-free.",
+      "caution": "Microsoft describes designed capability, not a completed training run. Dedicated fiber does not eliminate propagation time or demonstrate that every endpoint and switch is free of bottlenecks."
     }
   ],
   "local_attributions": [

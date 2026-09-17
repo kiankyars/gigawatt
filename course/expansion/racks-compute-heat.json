@@ -1858,7 +1858,7 @@
       {
         "title": "NVIDIA LinkX 100G-PAM4 product line overview",
         "url": "https://docs.nvidia.com/networking/display/400g100gpam4ovdev/LinkX-100G-PAM4-Product-Line-Overview",
-        "claim": "Qualified 400G LinkX examples: 2 m passive copper, 30 m multimode optics and 500 m single-mode DR4 optics.",
+        "claim": "Qualified 400G LinkX examples: 2 m passive copper, 50 m multimode optics and 500 m single-mode DR4 optics.",
         "reviewed_on": "2026-09-14",
         "limits": "2m copper,30m MM and500m DR4 are supported product examples, not medium-wide maxima. Product protocol/interface compatibility still required."
       },
