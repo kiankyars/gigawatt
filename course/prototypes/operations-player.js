@@ -10,7 +10,7 @@ function focusAfter(selector){render();document.querySelector(selector)?.focus({
 function render(){
  const scene=scenes[index];
  document.title=`${presentationLabels.operations||'14. Controls, operations and reliability'} · ${scene.label}`;
- $('scene').dataset.scene=scene.id;$('scene-title').textContent=scene.title;
+ $('scene').dataset.scene=scene.id;$('scene-title').textContent=scene.title;$('scene-title').closest('header').hidden=!!scene.imageOnly||scene.id==='control-layers';
  $('visual').innerHTML=operationsVisual(scene.id,state);
  $('lesson-reference').href=`../index.html#${scene.reference}`;
  $('status').textContent=scene.title;$('scenes').value=scene.id;$('progress').textContent=`${index+1} / ${scenes.length}`;

@@ -1,6 +1,7 @@
-import {maintenanceState} from './operations-model.js';
 import {caseStoryVisual} from './operations-case-stories.js';
 import {operationsComparison} from './operations-comparisons.js';
+import {heatBalance} from './operations-model.js';
+import {reserveVisual} from './operations-reserve.js';
 
 const arrow='<span class="o-arrow" aria-hidden="true">→</span>';
 const card=(title,body,cls='')=>`<section class="o-card ${cls}"><h2>${title}</h2><p>${body}</p></section>`;
@@ -14,19 +15,7 @@ function admission(){
  return `<div class="o-stack"><div class="oa-legend"><span class="oa-load-key">Heat: 4 MW existing + 2 MW new job</span><span class="oa-cool-key">Cooling: 5 MW → 7 MW</span></div><div class="o-two">${plot(false)}${plot(true)}</div></div>`;
 }
 
-function maintenance(state){
-  const m=maintenanceState({sharedControl:state.sharedControl});
-  return `<div class="o-stack"><div class="o-control-supply ${state.sharedControl?'off':''}">Shared 24 V control supply <b>${state.sharedControl?'ISOLATED':'AVAILABLE'}</b></div>
-    <div class="o-branch-lines" aria-hidden="true"><span>↓</span><span>↓</span><span>↓</span></div><div class="o-three">
-    ${card('Unit A · 3 MW',state.sharedControl?'Control power lost':'Operating',state.sharedControl?'warning':'positive')}
-    ${card('Unit B · 3 MW',state.sharedControl?'Control power lost':'Operating',state.sharedControl?'warning':'positive')}
-    ${card('Unit C · 3 MW','Under maintenance','warning')}</div>
-    <div class="o-two o-maintenance-result">${result('5 MW','Heat to remove')}${result(`${m.availableMW} MW`,'Cooling that can operate',m.capacityMeetsLoad?'':'warning')}</div></div>`;
-}
 
-function replication(){
- return `<div class="o-stack"><p class="o-case-date">Gmail · February 2011 · storage-software update</p><div class="o-gmail-story"><section class="o-gmail-online"><h2>Live copies</h2><div class="o-copy-row"><span class="warning">Copy A</span><span class="warning">Copy B</span></div><p>The same software bug deletes mail from several copies.</p></section><span class="o-arrow">←</span><section class="o-gmail-tape"><h2>Offline tape</h2><strong>Earlier valid data</strong><p>Restore affected mail<br>over hours</p></section></div>${credit('Google · Gmail incident, February 2011','https://gmail.googleblog.com/2011/02/gmail-back-soon-for-everyone.html')}</div>`;
-}
 
 function llama(){
   return `<div class="o-stack"><p class="o-case-date">Meta · Llama 3 pre-training · 54-day snapshot</p><div class="o-two o-outcomes">${result('466','Job interruptions: 47 planned + 419 unexpected')}${result('&gt;90%','Effective training time')}</div>
@@ -36,22 +25,27 @@ function llama(){
 }
 
 function decision(state){
- return `<div class="o-stack o-decision"><div class="o-decision-givens"><section><h2>Row B</h2><strong>2.09 MW</strong><span>+0.70 MW proposed job</span></section><section><h2>Measured water path</h2><strong>50 kg/s · 30°C in</strong><span>Return limit: 40°C</span></section></div><p class="o-decision-equation">Q̇ = ṁ cₚ ΔT <span>cₚ = 4.18 kJ/(kg·°C)</span></p><p class="o-decision-question">How much flow would the extra job need?</p><button id="decision-reveal" aria-expanded="${Boolean(state.showDecision)}" aria-controls="decision-answer">${state.showDecision?'Hide calculation':'Show calculation'}</button><div id="decision-answer" class="o-decision-answer" role="status">${state.showDecision?'<strong>2,790 ÷ (4.18 × 10) = 66.75 kg/s</strong><p>About 67 kg/s total—or free 0.70 MW by moving existing work.</p>':''}</div></div>`;
+ const current=heatBalance({flow:100,supply:30,returnTemperature:35}).heatMW;
+ const maximum=heatBalance({flow:100,supply:30,returnTemperature:40}).heatMW;
+ const headroom=(maximum-current).toFixed(2);
+ const requiredFlow=Math.ceil((current+2.5)*1000/(4.18*(40-30)));
+ return `<div class="o-stack o-decision"><div class="o-decision-givens"><section><h2>Row C · operating normally</h2><strong>${current.toFixed(2)} MW → water</strong><span>100 kg/s · 30°C in → 35°C out</span><span>Maximum return: 40°C</span></section><section><h2>Proposed workload</h2><strong>+2.50 MW</strong><span>Electrical headroom: 3 MW</span><span>Cooling-plant headroom: 3 MW</span></section></div><p class="o-decision-equation">Q̇ = ṁ cₚ ΔT <span>cₚ = 4.18 kJ/(kg·°C)</span></p><button id="decision-reveal" aria-expanded="${Boolean(state.showDecision)}" aria-controls="decision-answer">${state.showDecision?'Hide answer':'Show answer'}</button><div id="decision-answer" class="o-decision-answer" role="status">${state.showDecision?`<strong class="o-decision-no">Not at the current row flow.</strong><span>Row headroom: 100 × 4.18 × (40 − 35) ÷ 1,000 = <b>${headroom} MW</b></span><p>The added load needs ≈${requiredFlow} kg/s total row flow.</p>`:''}</div></div>`;
 }
 
 export function operationsVisual(id,state={}){
+  const reserve=reserveVisual(id);
+  if(reserve!==null)return reserve;
   const story=caseStoryVisual(id);
   if(story!==null)return story;
   const comparison=operationsComparison(id,state);
   if(comparison!==null)return comparison;
   switch(id){
-    case 'operations-purpose':return `<div class="o-opening"><section><div class="o-screen"><span>PLANT SUPPLY</span><b>30°C</b><small>Last observation 10:00</small><i>● Normal</i></div><h2>The plant dashboard</h2></section><div class="o-question">?</div><section>${rack()}<h2>Row B · 10:10</h2><p class="o-hot">Chip temperatures rising</p></section></div>`;
-    case 'control-layers':return `<div class="o-three o-control-layers">${card('Local pump controls','Adjust pump speed to maintain the pressure or flow target.')}${card('Plant controls','Start another cooling unit and confirm it is ready.')}${card('Workload scheduler','Start, delay or move computing work.')}</div>`;
+    case 'operations-purpose':return `<div class="o-opening"><section><div class="o-screen"><span>PLANT SUPPLY</span><b>30°C</b><i>● Normal</i></div><h2>The plant dashboard</h2></section><div class="o-question">?</div><section>${rack()}<h2>Row B</h2><p class="o-hot">Chip: 85°C · limit: 80°C</p></section></div>`;
+    case 'control-layers':return '<figure class="o-supplied-slide"><img src="../assets/references/three-control-layers-user.png" alt="Three control layers: local pump controls hold flow or pressure; plant controls bring cooling units on; the workload scheduler moves or delays compute."></figure>';
+    case 'plant-controls-focus':return '<figure class="o-supplied-slide o-plant-focus"><a href="../assets/references/three-control-layers-user.png" target="_blank" rel="noopener" aria-label="Open original full-size control-layer diagram"><img src="../assets/references/three-control-layers-user.png" alt="Plant controls highlighted in the three-layer diagram: bring cooling units on. Local pump controls hold flow or pressure; the workload scheduler moves or delays compute."><svg viewBox="0 0 1672 941" aria-hidden="true" focusable="false"><rect x="600" y="314" width="477" height="508" rx="23"/></svg></a></figure>';
     case 'admit-work':return admission();
-    case 'maintenance-scope':return maintenance(state);
-    case 'replication-and-backup':return replication();
     case 'llama-recovery':return llama();
-    case 'llama-maintenance':return `<div class="o-stack o-meta-maintenance">${photo('operations-meta-maintenance-train.jpg','Original Meta diagram: one maintenance group returns to compute service as the maintenance train advances to the next group.','Meta · maintenance trains · June 2024','https://engineering.fb.com/2024/06/12/production-engineering/maintaining-large-scale-ai-capacity-meta/')}<p class="o-key">Purple: under maintenance · teal: available for compute</p></div>`;
+    case 'llama-maintenance':return `<div class="o-meta-maintenance"><div class="o-meta-figures"><figure><a href="../assets/references/operations-meta-maintenance-train.jpg" target="_blank" rel="noopener" aria-label="Open full-size Meta maintenance-train diagram"><img src="../assets/references/operations-meta-maintenance-train.jpg" alt="Original Meta diagram: one maintenance group returns to compute service as the maintenance train advances to the next group."></a></figure><figure><a href="../assets/references/operations-meta-maintenance-cost.webp" target="_blank" rel="noopener" aria-label="Open full-size Meta maintenance-cost graph"><img src="../assets/references/operations-meta-maintenance-cost.webp" alt="Meta’s qualitative maintenance-cost graph: smaller maintenance domains cause more interruptions; larger domains take more compute capacity out of service."></a></figure></div>${credit('Meta · maintenance trains and domain size · June 2024','https://engineering.fb.com/2024/06/12/production-engineering/maintaining-large-scale-ai-capacity-meta/')}</div>`;
     case 'operating-decision':return decision(state);
     default:throw new Error(`Unknown operations scene: ${id}`);
   }

@@ -100,7 +100,7 @@ function statesFor(scene){
 
 test('every revised operations scene and offered state renders with valid source assets',()=>{
  assert.equal(new Set(scenes.map(scene=>scene.id)).size,scenes.length);
- assert.deepEqual([...new Set(scenes.map(scene=>scene.objective))].sort(),['D14.1','D14.2','D14.3','D14.4','D14.5']);
+ assert.deepEqual([...new Set(scenes.map(scene=>scene.objective))].sort(),['D14.1','D14.2','D14.4','D14.5']);
  const assets=new Set();
  for(const scene of scenes)for(const state of statesFor(scene)){
   const html=operationsVisual(scene.id,state);
@@ -111,25 +111,34 @@ test('every revised operations scene and offered state renders with valid source
   }
   for(const source of scene.sources||[])assert.ok(html.includes(source),`${scene.id}: source credit retained`);
  }
- assert.equal(assets.size,4,'two case photos and two original operator diagrams');
+ assert.equal(assets.size,11,'operator figures, case photos, performance animation and the supplied control-layer image');
  assert.throws(()=>operationsVisual('missing-scene',initialState),/Unknown operations scene/);
 });
 
 test('case stories stay contiguous and the opening uses complete measurement sets',()=>{
  const ids=scenes.map(scene=>scene.id);
- assert.equal(scenes.length,21);
- assert.deepEqual(ids.slice(0,4),['operations-purpose','measurement-boundaries','heat-balance','control-layers']);
- assert.deepEqual(ids.slice(ids.indexOf('cloudflare-pdx'),ids.indexOf('cloudflare-retest')+1),['cloudflare-pdx','cloudflare-hidden-dependency','cloudflare-facility-test','cloudflare-retest']);
+ assert.equal(scenes.length,23);
+ assert.deepEqual(ids.slice(0,3),['operations-purpose','measurement-boundaries','heat-balance']);
+ assert.deepEqual(ids.slice(ids.indexOf('google-cooling-flow'),ids.indexOf('admit-work')+1),['google-cooling-flow','google-cooling-performance','control-layers','plant-controls-focus','admit-work']);
+ assert.deepEqual(ids.slice(ids.indexOf('cloudflare-pdx'),ids.indexOf('cloudflare-retest')+1),['cloudflare-pdx','cloudflare-facility-test','cloudflare-retest']);
  assert.equal(ids.indexOf('google-cooling-flow'),ids.indexOf('google-cooling')+1);
+ const controlImages=[...operationsVisual('google-cooling-flow',initialState).matchAll(/<img\b[^>]*\bsrc="([^"]+)"/g)].map(([,src])=>src.split('/').at(-1));
+ assert.deepEqual(controlImages,['operations-google-sensor-snapshot.jpg','operations-google-prediction.jpg','operations-google-action-selection.jpg','operations-google-local-verification.jpg']);
+ assert.match(operationsVisual('google-cooling-performance',initialState),/operations-google-cooling-performance\.gif/);
+ const scheduling=operationsVisual('deadline-scheduling',initialState);
+ for(const label of ['Finish 16:00','Finish 18:00','Illustrative'])assert.ok(scheduling.includes(label));
  assert.equal(ids.indexOf('llama-maintenance'),ids.indexOf('llama-recovery')+1);
  assert.equal(ids.at(-1),'operating-decision');
- assert.deepEqual(scenes.filter(scene=>scene.controls?.length).map(scene=>scene.id),['maintenance-scope']);
+ assert.deepEqual(scenes.filter(scene=>scene.controls?.length).map(scene=>scene.id),[]);
  const measurements=operationsVisual('measurement-boundaries',initialState);
  for(const value of ['100 kg/s','50 kg/s','35°C','40°C'])assert.ok(measurements.includes(value));
  const heat=operationsVisual('heat-balance',initialState);
- assert.equal((heat.match(/2.09 MW/g)||[]).length,2);
+ assert.match(heat,/oc-rate-before">2.09 MW/);
+ assert.match(heat,/oc-rate-after">2.09 MW/);
+ assert.match(heat,/Heat accumulates/);
+ assert.match(heat,/85°C · stable/);
  assert.doesNotMatch(heat,/4.18 MW/);
- for(const id of ['measurement-boundaries','heat-balance','deadline-scheduling','replication-and-backup'])assert.doesNotMatch(operationsVisual(id,initialState),/<button/);
+ for(const id of ['measurement-boundaries','heat-balance','google-demand-response-workloads'])assert.doesNotMatch(operationsVisual(id,initialState),/<button/);
 });
 
 function operationsPlayerAt(hash){
@@ -141,6 +150,7 @@ function operationsPlayerAt(hash){
   setAttribute(key,value){this.attributes[key]=value;}
   addEventListener(name,fn){this.listeners[name]=fn;}
   focus(){}
+  closest(){return this.header||(this.header=new Element());}
  }
  const elements=new Map(['scenes','fullscreen','scene','scene-title','visual','lesson-reference','status','progress','previous','next','actions','viewer','decision-reveal'].map(id=>[id,new Element()]));
  const listeners={},location={hash,search:''};
@@ -153,31 +163,21 @@ function operationsPlayerAt(hash){
  return {elements,buttons,document,go(id){location.hash=`#${id}`;listeners.hashchange();},reveal(){assert.ok(getElementById('decision-reveal'));getElementById('decision-reveal').listeners.click();},click(key,value){const button=buttons().find(button=>button.dataset.choice===key&&button.dataset.value===String(value));assert.ok(button,`${key}=${value}`);button.onclick();}};
 }
 
-test('maintenance controls select the actual isolation and retain state across navigation',()=>{
- const player=operationsPlayerAt('#maintenance-scope');
- const selected=()=>player.buttons().filter(button=>button.attributes['aria-pressed']==='true').map(button=>button.dataset.value);
- const html=()=>player.elements.get('visual').innerHTML;
- assert.deepEqual(selected(),['false']);assert.equal(player.buttons().length,2);
- assert.match(html(),/<strong>6 MW<\/strong>/);
- player.click('sharedControl',true);assert.deepEqual(selected(),['true']);assert.match(html(),/<strong>0 MW<\/strong>/);
- assert.equal((html().match(/Control power lost/g)||[]).length,2);
- player.go('deadline-scheduling');assert.equal(player.buttons().length,0);
- assert.match(html(),/Finish 16:00/);assert.match(html(),/Finish 18:00/);
- player.go('maintenance-scope');assert.deepEqual(selected(),['true']);
- player.click('sharedControl',false);assert.match(html(),/<strong>6 MW<\/strong>/);
- assert.match(player.document.title,/^14\. Controls, operations and reliability/);
-});
-
 test('the closing reveal and retired bookmarks use the real player',()=>{
  const player=operationsPlayerAt('#diagnosis-check');
  assert.equal(player.elements.get('scene').dataset.scene,'operating-decision');
  assert.equal(player.buttons().length,0);
  const html=()=>player.elements.get('visual').innerHTML;
  assert.equal((html().match(/<button/g)||[]).length,1);
- assert.doesNotMatch(html(),/66\.75 kg\/s/);
- player.reveal();assert.match(html(),/66\.75 kg\/s/);
- assert.match(html(),/free 0.70 MW/);
- player.reveal();assert.doesNotMatch(html(),/66\.75 kg\/s/);
+ assert.match(html(),/Row C · operating normally/);
+ assert.match(html(),/Electrical headroom: 3 MW/);
+ assert.match(html(),/Cooling-plant headroom: 3 MW/);
+ assert.doesNotMatch(html(),/85°C|80°C|Row B/);
+ assert.doesNotMatch(html(),/110 kg\/s/);
+ player.reveal();assert.match(html(),/110 kg\/s/);
+ assert.match(html(),/Not at the current row flow/);
+ assert.match(html(),/Row headroom: 100 × 4.18 × \(40 − 35\) ÷ 1,000 = <b>2\.09 MW/);
+ player.reveal();assert.doesNotMatch(html(),/110 kg\/s/);
  for(const [old,current]of Object.entries(sceneAliases)){
   assert.ok(scenes.some(scene=>scene.id===current));
   player.go(old);assert.equal(player.elements.get('scene').dataset.scene,current);
