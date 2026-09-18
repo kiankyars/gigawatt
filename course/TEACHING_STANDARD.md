@@ -20,6 +20,12 @@ the facility. Cut article-by-article narration, equipment inventories without a
 purpose and arithmetic that does not affect the engineering decision. A longer
 reference is useful; narrating it does not produce a better lesson.
 
+The final chapter, **Putting an AI Factory Together**, follows one Abilene case
+across the engineering and commercial decisions already taught. Its purpose is
+to connect those decisions, not repeat five isolated constraint exercises. The
+original C01–C05 reader exercises remain optional practice; their preserved IDs
+do not require five cases in the presentation.
+
 The [Primer](prototypes/terminology-format.html) aims for about 20 minutes,
 subject to rehearsal. It gives a beginner enough vocabulary to follow part of an
 expert conversation: electricity, equipment, computing and cooling, attached to
@@ -74,7 +80,7 @@ Carry the same facility through these questions:
 | Networking and interconnects through Storage and recovery | What compute, memory, network and storage inputs would establish accepted work? |
 | Chip and rack heat capture through Heat rejection, climate and water | How is heat captured, moved and rejected; which water circuit is being counted? |
 | Physical site, buildings and safety through Controls, operations and reliability | What must be built, accepted, maintained and recovered for that service to run? |
-| Capacity, cost and system decisions | Which dated capacity, output and cost claims can actually enter the ledger? |
+| GPU cloud economics (`d15`) | CoreWeave commercial model; Abilene original targets versus reported delivery | Source-backed provider examples and dated project reports | Integrated in [Chapter 15](prototypes/capacity-format.html?teach=1); customer billing, risk allocation and delivery milestones remain distinct. |
 
 Use published Abilene facts only where the source supports the exact building,
 date and condition. For an original teaching calculation, give its inputs and scope beside the
@@ -115,7 +121,7 @@ The open production tasks remain in [the course review](COURSE_REVIEW.md#next-te
 | Storage and recovery (`d09`) | Google flexible scheduling: which work can move without missing its service requirement? | [Demand response](prototypes/case-studies.html?teach=1#demand-response) | Integrated in [Chapter 14](prototypes/operations-format.html?teach=1#google-demand-response), followed by a simultaneous power-over-time comparison at `deadline-scheduling`. |
 | Heat rejection, climate and water (`d11`) | Abilene cooling: closed coolant loops, outdoor heat rejection and the boundary of water-use claims | [Abilene cooling](prototypes/case-studies.html?teach=1#abilene-cooling) | Integrated in [Chapter 12](prototypes/heat-rejection-format.html?teach=1#abilene-cooling), with separate loop and water-use boundaries. |
 | Physical site, buildings and safety (`d12`) | Greenfield versus brownfield, using Abilene and Colossus 1; factory reuse still required new power infrastructure | [Land comparison](prototypes/case-studies.html?teach=1#land), [Colossus 1](prototypes/case-studies.html?teach=1#colossus) | Integrated in Chapter 5: [greenfield/brownfield](prototypes/site-format.html?teach=1#greenfield-brownfield) and [Colossus](prototypes/site-format.html?teach=1#colossus-service); current checks recorded in [TESTING.md](TESTING.md) |
-| Capacity, cost and system decisions (`d15`) | Abilene's dated capacity milestones: distinguish the original campus, adjacent project, energized capacity and useful output | [Capacity ledger](prototypes/case-studies.html?teach=1#abilene-ledger) | Integrated in [Chapter 15](prototypes/capacity-format.html?teach=1#abilene-ledger); dated scope and acceptance evidence remain distinct. |
+| GPU cloud economics (`d15`) | CoreWeave commercial model; Abilene original targets versus reported delivery | Source-backed provider examples and dated project reports | Integrated in [Chapter 15](prototypes/capacity-format.html?teach=1); customer billing, risk allocation and delivery milestones remain distinct. |
 
 **EPC (`d13`)** now has a [full chapter deck](prototypes/procurement-cases-format.html?teach=1).
 `epc-and-prefab`, `factory-and-site`, `parallel-schedules`, `manufacturing-release`

@@ -45,7 +45,10 @@ The course begins with the Primer: about 20 minutes of electricity, equipment,
 computing and cooling vocabulary, pending rehearsal. It adds no assessed objective.
 
 The expanded reader contains 50 authored lessons across 15 domains, including
-five integrated cases, with teaching and practice mapped to all 65 objectives.
+five optional integrated exercises, with teaching and practice mapped to all 65 objectives.
+The final presentation, **Putting an AI Factory Together**, instead follows
+one Abilene case across nine slides to connect the course's engineering and
+commercial decisions.
 It includes searchable text, a glossary, eight numerical model types and five
 original GPT ImageGen equipment illustrations. Exact calculations use code;
 illustrative geometry does not establish equipment ratings.

@@ -2289,3 +2289,85 @@ walkthrough. No publication was performed.
 - 30 cooling and heat-rejection JavaScript tests passed; broader working-tree suite passed 297 JavaScript and 80 Python tests.
 - Browser inspected the changed comparison and temperature slides at 1280×720 and 390×844. Corrected a diagram arrow overlapping the residual-air label before release.
 - Chapter 12 has no new edits in this release: its latest heat-rejection modules and supplied economizer image were verified byte-for-byte against the public site by an independent subagent.
+
+## Chapters 11–13 local review — 2026-09-17
+
+- 43 scoped JavaScript tests passed across cooling, cooling-capture, heat-rejection and procurement. Covers thermal/hydraulic calculations, cooling faults, state persistence, retired scene routing and all active renderers.
+- Playwright checked all 48 current scenes at 1280×720 and 390×844 in both device color schemes: 192 scene/viewport combinations, no JavaScript errors, missing images or horizontal overflow.
+- Exercised both cooling paths, all four dry/wet circuit steps, hot/cool COP controls, and the Chapter 13 → Chapter 11 merged-example redirect on the staged site.
+- Independently inspected the thermal definitions, ΔT comparison, pump chart, approach note, bulb definitions, full-page prefab figure, supplied Open Rack comparison, factory/site table and final Polaris photographs. Corrected the pump label position and mobile table headers after inspection.
+- Local server serves `_site` at `http://127.0.0.1:8877`. This is local review work; these checks do not claim a new GitHub Pages deployment or author acceptance.
+
+### Completion-audit correction — 17 September 2026
+
+The Chapter 12 closed-loop comparison now begins on the wet tower and preserves the preceding exchanger-only example. No chiller is introduced until the following scene. Thirteen heat-rejection tests pass. Browser checks at 1280×720 and 390×844 in light/dark modes verified slide 8 → 9 navigation, the wet default and both outdoor options without errors or horizontal overflow. The broader content audit records remaining editorial work rather than asserting whole-course completion.
+
+The restored pump operating-point slide passed the 17 cooling tests and four desktop/mobile/light/dark browser checks. Visual inspection caught and corrected a desktop legend/axis-title overlap before final staging.
+
+The subsequent higher-resistance curve restoration passed the same 17 cooling tests. Four desktop/mobile/light/dark browser checks confirmed three curves and two operating points, with no JavaScript errors or horizontal overflow. Screenshots at 1280×720 and 390×844 were visually inspected.
+
+### Live review follow-up — 17 September 2026
+
+- Procurement: 13 tests pass. Inspected the final photo layout at desktop/mobile sizes; staged page uses the exact requested title and has no browser errors or horizontal overflow.
+- Operations: 12 tests pass after updating the ordering assertion. Browser verified the removed subtitle and Google cooling → control layers → workload admission sequence at desktop/mobile widths.
+- Heat rejection: 13 tests pass. Four desktop/mobile/light/dark browser checks verified the new supplied image loads at its full 3840×2160 source resolution and dry cooler → adiabatic assist → wet tower navigation, without errors or horizontal overflow. Desktop/mobile screenshots were visually inspected.
+
+### Hardware-price meme relocation — 17 September 2026
+
+Twenty procurement/economics tests pass. Browser checks at desktop/mobile sizes in light/dark modes verified the old EPC bookmark redirects to Chapter 15, the meme sits between financing and GPU-hour cost, and EPC goes directly to its rack-change case. No JavaScript errors or horizontal overflow; both viewport screenshots visually inspected.
+
+### Chapter 14 live case-study review — 17 September 2026
+
+- Eleven operations tests pass after the chapter becomes 19 slides; retired bookmarks resolve to active scenes.
+- Browser checks covered the four original DeepMind panels, supplied animated performance graph, merged demand-response graphs and revised Cloudflare opening/dependency slide at 1280×720 and 390×844 in both color schemes. All source images load, no JavaScript errors or horizontal overflow. Desktop screenshots were inspected for all changed visual types.
+- Row B opening, measurement table, heat balance and final calculation were checked at desktop/mobile sizes. The heat balance carries the same 2.09 MW while the independent chip reading crosses the stated 80°C operating limit. The final calculation is described as the coolant-balance minimum, not permission to admit load.
+- Google’s London incident report was checked: it contains no incident photographs or diagrams. No substitute photograph was attributed to that outage.
+
+The Meta graph and explicit closing verdict passed all 11 operations tests. Eight desktop/mobile/light/dark browser checks confirmed both Meta images load, the subtitle is absent, and Show answer reveals the decision. Screenshots inspected at 1280×720 and 390×844; no JavaScript errors or horizontal overflow.
+
+### Chapter 14 transient and plant-controls focus — 17 September 2026
+
+The two revised/new slides were checked at desktop/mobile widths in light and dark mode: eight combinations, no browser errors or horizontal overflow. Screenshots verified the heat-accumulation area, later stable temperature above the limit, and aligned outline around only the plant-control panel. The original overview image remains unchanged.
+
+
+### Chapter 14 restored case-study layouts — 17 September 2026
+
+- Restored the Google workload panels and separate scheduling graphs; restored Cloudflare’s original Core services card without the unaffected edge-network card.
+- All 11 operations tests passed.
+- Checked the three affected scenes at 1280×720 and 390×844 in light and dark modes: 12 combinations, no browser errors or horizontal overflow. Inspected the desktop Google, Cloudflare and scheduling screenshots and the mobile Google screenshot.
+- Staged locally at port 8877; no commit or public deployment performed.
+
+
+### Chapter 14 healthy-row admission exercise — 17 September 2026
+
+- Rebuilt `operating-decision` with a healthy Row C, 3 MW site headroom and a 2.50 MW proposed workload. Tests check the 2.09 MW local headroom and 110 kg/s rounded total-flow requirement, and reject the old overheating precondition.
+- All 11 operations tests passed after the change.
+- Browser checked the question and revealed answer at 1280×720 and 390×844 in light/dark modes (eight states). No browser errors or horizontal overflow; the revealed answer stays above the desktop footer. Show/Hide answer both work. Desktop and mobile screenshots visually inspected.
+- Chapters 1–13 remain author-accepted; Chapter 14 remains under review.
+
+
+### Chapter 14 combined Cloudflare opening — 17 September 2026
+
+Merged the outage overview and dependency diagram into slide 13; the chapter now has 20 scenes. All 11 operations tests passed. Browser checked the merged slide in light and dark modes at 1280×720 and 390×844, including all retained information, the retired `cloudflare-hidden-dependency` link and navigation directly to the fix-and-test slide. No browser errors or horizontal overflow; desktop and mobile screenshots visually inspected. Staged on the local port 8877 server.
+
+
+### Chapter 14 cooling reserve and London quotation — 18 September 2026
+
+All 11 operations tests pass with 23 scenes and 11 source images. Browser checked the two new reserve scenes and the quotation at 1280×720 and 390×844 in light/dark modes (12 views), with no browser errors, missing images or horizontal overflow. The quotation hides the ordinary title header and Next opens the existing London shutdown scene. Screenshots visually inspected for all three desktop layouts and mobile Intel case. Source figure and its provenance retained.
+
+
+### Chapter 15 terminology review — 18 September 2026
+
+All seven capacity tests passed. Slides 2–4 were browser checked at 1280×720 and 390×844 in both color schemes (12 views). Desktop and mobile screenshots inspected; a mobile shared-footer overlap was found and fixed with a scoped normal-flow rule, then all six mobile views rechecked to confirm the footer follows the content. No browser errors or horizontal overflow. The contract-duration diagram remains because a matched public SemiAnalysis 1-/3-/5-year pricing chart could not be verified.
+
+
+### Chapter 15 backstops, ordering and idle energy — 18 September 2026
+
+All seven capacity tests pass with 15 scenes. The electricity test now covers nonzero idle draw, full occupancy and zero idle draw as well as invalid input. Browser checked seven changed scenes at 1280×720 and 390×844 in light/dark mode (28 views): no JavaScript errors, missing images, horizontal overflow or footer overlap. Desktop and mobile screenshots inspected for the energy example and all three NVIDIA slides. The meme is first; financing leads to NVIDIA slides 10–12; energy is slide 13. Reconfirmed the London quotation at Chapter 14 slide 18 in all four viewport/theme combinations and visually inspected its desktop rendering. Staged at localhost:8877; no public deployment performed.
+
+
+## Abilene finale and publication checks — 2026-09-18
+
+Chapter 16 now contains nine scenes anchored in the original Crusoe-built Oracle/OpenAI campus. Checked each scene at 1280×720 and 390×844 in light and dark modes: no horizontal overflow, missing images, JavaScript errors or footer overlap. Visually reviewed all desktop scenes and the mobile power and synthesis layouts. Browser checks exercised both gas-plant roles, all four synthesis highlights and a retired weather bookmark. An independent source review checked the factual claims and asset provenance.
+
+The complete publication checks passed: 80 Python tests, 296 JavaScript tests, course source validation, expanded-course freshness, domain-map freshness and research metadata validation. Staging completed successfully. These checks establish the release state, not author acceptance of Chapters 14–16.

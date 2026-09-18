@@ -39,8 +39,10 @@ and its mechanism modules, and `cooling-format.html` with `cooling-model.js`, `c
 Chapter 12 uses `heat-rejection-format.html` and its scene, player, model and visual
 modules, reusing the outdoor mechanisms in `cooling-rejection.js`. The final two
 decks use the same structure under `capacity-*` and `integrated-cases-*`.
-Chapter 16's simultaneous comparisons use `integrated-comparisons.js` and
-`integrated-comparisons.css`; its 17 slides retain all five cases.
+Chapter 16, **Putting an AI Factory Together**, uses nine slides to follow one
+Abilene case through the connected facility and commercial decisions. The five
+original engineering exercises remain in `expansion/capstones.json` as optional
+reading and practice; their numerical models are separate from the final deck.
 Edit those files directly; their numerical tests and browser checks verify the
 presentation, while the matching reader lessons retain the longer explanations.
 The [Primer](prototypes/terminology-format.html) publishes at `/slides/primer.html?teach=1`.

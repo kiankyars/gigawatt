@@ -254,3 +254,13 @@ complete generation prompt.
 ### Chapter 14 maintenance diagram — September 17, 2026
 
 `references/operations-meta-maintenance-train.jpg` is the original Meta maintenance-train illustration from its June 12, 2024 engineering account. Publisher bytes are unchanged; source, scope and SHA-256 are recorded in `references/operations-primary-provenance.json`.
+
+## Supplied control and prefab slides — 17 September 2026
+
+`references/three-control-layers-user.png` replaces Chapter 14's control-layers diagram using the supplied PNG unchanged. `references/prefab-factory-site-user.png` replaces Chapter 13's factory-and-site slide, converted from the supplied TIFF for browser display. Each image carries its own title; the HTML heading is hidden to prevent duplication. These are explanatory illustrations, not photographs of identified equipment.
+
+`references/immersion-tank-user.png` is the user-supplied immersion photograph, preserved unchanged and placed immediately after the single-/two-phase explanation. Its operator and fluid were not supplied.
+
+## Supplied Open Rack example — 17 September 2026
+
+`references/ocp-rack-basics-user.png` preserves the image supplied through Downloads as `The-open-Compute-Project-Basics_Figure-3.png`. It follows the OCP coupling example in Chapter 13. The original publisher and rack generation have not been established; the slide does not identify it as a GB300 rack. Original bytes and SHA-256 are recorded in `references/provenance.json`.

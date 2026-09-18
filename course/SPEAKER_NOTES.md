@@ -111,305 +111,226 @@ Liquid-to-air CDUs also exist: they reject rack-liquid heat into room air instea
 
 Sources: [DOE FEMP cooling systems](https://www.energy.gov/cmei/femp/cooling-water-efficiency-opportunities-federal-data-centers), [CoolIT CDU architectures](https://www.coolitsystems.com/products-services/data-center-products/cooling-distribution-units/), checked September 16, 2026.
 
-## GB300 rack coolant connections — Chapter 11, slide 3
+## Cold plates and rear-door heat capture — Chapter 11, slides 3–4
 
-Follow CDU → supply manifold → tray quick disconnects → cold plates → return manifold. This is technology coolant on the rack side of the liquid-to-liquid CDU. Facility water stays across the exchanger. The NVIDIA rear view shows the manifolds, not a rear-door exhaust coil. The following slide deliberately teaches that different mechanism.
+Follow CDU → supply manifold → tray quick disconnects → cold plates → return manifold. This is technology coolant on the rack side of a liquid-to-liquid CDU. Facility water stays across the exchanger. Slide 3 combines the supplied cold-plate assemblies and coolant route. Slide 4 places the NVIDIA rear-manifold view beside the separate RDHX mechanism. The NVIDIA manifold is not itself a rear-door exhaust coil.
 
-[Lenovo’s current GB300 guide](https://lenovopress.lenovo.com/lp2357-lenovo-nvidia-gb300-nvl72-rack-scale-ai#cooling) still specifies hybrid liquid/air heat capture. Air cooling remains part of the system; the opening’s “dead?” question motivates the density limit of relying on air alone.
+A liquid-cooled rack can still put heat into its exhaust air. An RDHX captures that residual air heat into liquid; room-air handlers are another arrangement. [Lenovo’s GB300 guide](https://lenovopress.lenovo.com/lp2357-lenovo-nvidia-gb300-nvl72-rack-scale-ai#cooling) specifies hybrid liquid/air heat capture. The supplied Abilene sources do not establish that every residual heat path at the campus uses the same equipment.
 
-## Immersion and physical cold plates — Chapter 11, slides 5–6
+## Immersion — Chapter 11, slides 5–6
 
-The supplied 2CRSi diagram is single-phase: the dielectric liquid stays liquid as it circulates through the exchanger. Two-phase immersion boils fluid at the hardware and condenses the vapor so liquid returns. The next photograph shows cold-plate assemblies supplied as GB300 context; the precise manufacturer and model are not verified. Explain the visible hardware without calling gold surface patterns hidden coolant channels.
+The supplied 2CRSi diagram is single-phase: the dielectric liquid stays liquid as it circulates through the exchanger. Two-phase immersion boils fluid at the hardware and condenses the vapor so liquid returns. The following supplied photograph shows actual immersion hardware; its operator and fluid were not supplied.
 
-## The chip is warmer than the coolant — Chapter 11, slide 8
+## Heat flux and thermal resistance — Chapter 11, slides 7–8
 
-“The coolant is at 35 degrees, but heat must travel from the chip through the package, thermal interface and cold plate before it reaches that coolant. Moving heat through that path requires a temperature difference.
+Heat flux is heat-transfer rate per unit area. Both devices generate 400 W; spread over 4 cm² that is 100 W/cm², while 1 cm² produces 400 W/cm². This compares the concentration of heat, not the total heat duty.
 
-“Thermal resistance tells us how large that difference is per watt. At 400 watts, the first path adds 32 degrees: the chip is 67 degrees. The more resistant path adds 48 degrees: the chip is 83 degrees, above our chosen 80-degree limit. Both have the same coolant temperature. A cool inlet alone cannot tell us that the chip is cool enough.”
+Thermal resistance is the temperature difference required per watt along a specified heat-transfer path. Here it covers the chip-to-local-coolant path, in °C/W. The chip is warmer than the coolant: ΔT = T_chip − T_coolant = 400 W × thermal resistance. At 0.08°C/W the gap is 32°C and the chip reaches 67°C; at 0.12°C/W it is 48°C and the chip reaches 83°C. Both coolant temperatures are 35°C. This is a spatial temperature difference, not a time-dependent temperature decrease.
 
-These are stipulated steady-state junction-to-local-fluid resistances, not measured product specifications. A poor thermal interface or insufficient local flow can worsen the effective path. Model: `deviceTemperature` in [cooling-capture-model.js](prototypes/cooling-capture-model.js).
+Smaller area can make heat removal harder, but heat flux alone does not establish thermal resistance or chip temperature. The two resistance values are independent stipulated examples. Model: `deviceTemperature` in [cooling-capture-model.js](prototypes/cooling-capture-model.js).
 
-## The pump and plumbing determine actual flow — Chapter 11, slide 10
+## Coolant flow and the pump curve — Chapter 11, slides 9–10
 
-“The pump curve shows the pressure the pump can provide at each flow. The circuit curves show the pressure needed to push that flow through the pipes, hoses and cold plates. The actual flow is where available and required pressure meet.
+The steady-flow sensible heat balance relates carried heat to mass flow, heat capacity and supply-to-return temperature rise. Doubling flow halves that rise at fixed heat duty.
 
-“Adding a restriction makes the circuit demand more pressure at every flow. With the same pump, the intersection moves from 2 litres per second to about 1.41. The same 84 kilowatts is now carried by less water, so the coolant warms by about 14.1 degrees instead of 10.”
+The descending curve shows the pressure difference the pump can add at each flow, at fixed rotational speed. The two ascending curves show the pressure difference needed to circulate water through the normal circuit and through the same circuit with greater resistance. Actual steady flow is where the pump curve meets the applicable circuit curve: 2 L/s and 120 kPa for the normal circuit, or approximately 1.41 L/s and 140 kPa with higher resistance.
 
-Model: `hydraulicPoint` in [cooling-capture-model.js](prototypes/cooling-capture-model.js), using water at 1 kg/L and specific heat 4.2 kJ/(kg·°C). These are teaching curves at one pump speed, not a vendor selection chart. Flow balancing is necessary but can change after commissioning: fouling, a partly closed valve or a new restriction can starve a branch while the total flow looks satisfactory. That point stays in the reading instead of occupying another slide.
+Below an intersection the pump has more pressure available than that circuit requires, so flow increases. Above it the circuit needs more pressure than the pump provides, so flow decreases. The curves are Δp_pump = 160 − 10q², Δp_normal = 30q² and Δp_higher-resistance = 70q², with q in L/s and Δp in kPa. Equating pump and circuit pressure differences gives q = 2 L/s for the normal circuit and q = √2 ≈ 1.41 L/s for the higher-resistance circuit. They illustrate a complete closed circulation path; they are not absolute pressure readings or a named CDU's rating.
 
-Source for filtration/fouling and coolant-path qualification: [OCP cold-plate requirements](https://www.opencompute.org/documents/ocp-acs-liquid-cooling-cold-plate-requirements-pdf), pp. 7, 11–12.
+More restriction reduces flow on the same fixed-speed pump: the operating point moves left and upward along its curve. At a given flow the higher-resistance circuit needs more pressure difference. More flow through either unchanged circuit also requires a larger pressure difference, even though the pump curve slopes downward. Keep the slide's visible labels sparse; use these notes for the equations and explanation. Chapter 13 illustrates the plumbing requirement with the approximate quadratic relation. Source: [KSB characteristic curves](https://www.ksb.com/en-global/centrifugal-pump-lexicon/article/characteristic-curve-1117926).
 
 ## CDU approach compares two supply temperatures — Chapter 11, slide 11
 
-“Facility water arrives at 30 degrees Celsius. The separate coolant leaving for the chips is at 35 degrees. The difference between those supply temperatures is a five-degree approach. The rack coolant stays warmer so heat can pass into the facility water. This gap is different from how much one fluid warms between its supply and return.”
+Facility water arrives at 30°C; separate coolant leaves for the chips at 35°C. Their difference is a 5°C approach. A smaller approach brings the technology coolant closer to the facility-water temperature. This differs from one fluid's supply-to-return rise. Achieving a smaller approach at a given heat duty depends on exchanger size, flow and operating conditions.
 
-A temperature **difference** of 5°C equals 5 K; Celsius and kelvin have equal-sized increments. The slide uses °C consistently so the unit does not distract from the two measurement points. This is not a 5 K absolute temperature. Source: [NIST SI temperature units](https://www.nist.gov/pml/special-publication-330/sp-330-section-2).
+A temperature difference of 5°C equals 5 K. Source: [NIST SI temperature units](https://www.nist.gov/pml/special-publication-330/sp-330-section-2).
 
 ## CoolIT CHx2000 — Chapter 11, slide 12
 
-The manufacturer separately lists 2 MW at 5°C approach and 2,125 L/min at 35 psi. These are thermal and hydraulic rating points; do not imply that both maxima occur together under unspecified conditions. The visible photo credit remains; this qualification has moved here from the slide footer.
+The manufacturer separately lists 2 MW at 5°C approach and 2,125 L/min at 35 psi. These are separately specified thermal and hydraulic points. The CHx2000 is a liquid-to-liquid CDU with pumps and a heat exchanger, not a refrigeration compressor. Source: [CoolIT CHx2000](https://www.coolitsystems.com/cdu-product/chx2000/).
 
-Source: [CoolIT CHx2000](https://www.coolitsystems.com/cdu-product/chx2000/), checked September 16, 2026.
+## Cooling redundancy and response — Chapter 11, slides 13–16
 
-## Retrofit: keep enough air cooling — Chapter 11, slide 16
+Distinguish spare CDU capacity from an independently supplied coolant path. The A/B example initially has both paths available. Losing a path reveals which racks retain cooling.
 
-“The cold plates take 85 kilowatts of this 100-kilowatt rack into liquid. The other 15 kilowatts still goes into room air, which fits the available 20-kilowatt room-air cooling allowance. This gives us a cooling route to develop; we still need to qualify the liquid circuit and access for maintenance.”
+The derating example starts with 1,000 kW entering coolant; two CDU failures leave 600 kW of cooling. Reducing the load to 500 kW leaves 100 kW margin. The following merged commissioning example tests that response: command the affected racks, then measure actual power, flow and temperature. Its trace is qualitative and does not establish a safe response time. Liquid heat is not automatically identical to the commanded electrical power cap.
+
+## Retrofit and residual air heat — Chapter 11, slide 17
+
+The cold plates collect 85 kW of a 100 kW rack's heat; 15 kW remains in air. That heat can use 15 kW of a 20 kW room-air allowance, or be captured by a suitable RDHX and sent into liquid. Only air heat escaping the rear door contributes to the room's remaining duty. The diagram assumes the door captures the illustrated 15 kW.
 
 ## At Abilene, the heat goes to outdoor air — Chapter 12, slide 2
 
-“Follow the heat from the rack through the separate facility-water circuit and the chiller to outdoor air. The water circulates inside the system; the heat leaves it. Crusoe describes this arrangement at Abilene in August 2025. Initial fill and maintenance still need water.”
-
-Keep the dated design account separate from measured operating performance. The later numerical examples are illustrative, not Abilene data.
+Follow the heat from rack coolant through separate facility water and outdoor equipment. Crusoe describes non-evaporative heat rejection; circulating water is not itself consumed to carry away the heat. Initial fill and maintenance still need water. The later numerical examples are separate teaching cases.
 
 Source: [Crusoe’s August 5, 2025 Abilene account](https://www.crusoe.ai/resources/blog/an-inside-look-at-the-abilene-ai-data-center).
 
-## Wet tower and weather definitions — Chapter 12, slides 3–4
+## Wet and dry equipment; tower water balance — Chapter 12, slides 3–4
 
-In the open wet tower, water is distributed over fill by nozzles or a distribution deck. Air contacts thin water films or droplets; some evaporates, and cooled water collects in the basin. The air arrow indicates that contact. It is not vapor leaking out of a closed pipe. [DOE component guide](https://www.energy.gov/sites/default/files/2013/10/f3/waterfs_coolingtowers.pdf), pages 1–3.
+In an open wet tower, nozzles or a distribution deck spread water over fill. Air contacts films or droplets; some water evaporates and cooled water collects in a basin. It is not vapor escaping through holes in a closed pipe. [DOE component guide](https://www.energy.gov/sites/default/files/2013/10/f3/waterfs_coolingtowers.pdf), pages 1–3.
 
-Dry bulb and wet bulb are two readings of the same air. Wet bulb is lower in unsaturated air and equals dry bulb at saturation. The definition slide uses original teaching wording in a large quotation-style layout, not a verbatim quotation attributed to a publisher. [NWS definitions](https://www.weather.gov/source/zhu/ZHU_Training_Page/definitions/dry_wet_bulb_definition/dry_wet_bulb.html).
+Evaporation leaves dissolved minerals behind. Blowdown removes some concentrated water; makeup replaces evaporation and discharge. Makeup describes the water's purpose, not a specific source or treatment quality. [DOE cooling-tower management](https://www.energy.gov/cmei/femp/best-management-practice-10-cooling-tower-management).
 
-## Humid air leaves less room for evaporative cooling — Chapter 12, slide 5
+## Wet bulb and dry bulb — Chapter 12, slides 5–6
 
-“Both days have the same 35-degree air temperature. A wetted, ventilated sensor cools more in dry air because more evaporation is possible. Switch to humid air: the wet-bulb reading rises from 22 to 28 degrees. That leaves less opportunity to cool water by evaporation.”
+These are two measurements of the same air. Dry bulb is the ordinary air temperature. A wetted, ventilated sensor cools by evaporation; wet bulb is lower in unsaturated air and equal at saturation. The definition slide uses original teaching wording. [NWS definitions](https://www.weather.gov/source/zhu/ZHU_Training_Page/definitions/dry_wet_bulb_definition/dry_wet_bulb.html).
 
-Wet bulb describes an air condition. It is not the temperature a tower automatically delivers.
+Humidity changes wet bulb even when dry bulb stays fixed. Equipment names and air measurements are separate: dry coolers follow dry bulb; evaporative towers can approach wet bulb.
 
-## Dry coolers follow dry bulb; wet towers follow wet bulb — Chapter 12, slide 6
+## Follow the outdoor coolant paths — Chapter 12, slides 7 and 9
 
-Reveal one interface at a time, following the heat path back from outdoors toward the rack. “Each exchanger needs its own temperature difference. In this example, the wet route reaches the rack at 35 degrees. Now change only the humidity: the same route reaches 41 degrees and no longer meets the rack requirement.”
+Step through collection, transfer, rejection and return on each physical diagram. The separate CDU loops remain distinct. The dry coil transfers heat through its wall to outdoor air; the wet tower exposes tower water to moving air. Each heat-transfer interface needs a temperature difference. On the dry route, 35°C outdoor air plus a 5°C dry-cooler approach yields 40°C facility water; the 5°C CDU approach yields 45°C rack coolant. The example assumes a maximum rack-coolant inlet of 35°C, not a 35°C chip temperature. These values illustrate the interfaces rather than a particular site's performance.
 
-The fixed gaps belong to this illustrative temperature screen. Flow, return temperatures and the separate 84 kW example remain in the [weather reader](index.html#d11-weather-and-operating-envelope); they need not be calculated aloud.
+## Adiabatic assist — Chapter 12, slide 8
 
-## When do we need a chiller? — Chapter 12, slide 7
+Wetted pads or spray cool incoming air by evaporation before it crosses a sealed process-fluid coil. That distinguishes the illustrated adiabatic cooler from an open tower, where tower water directly contacts air. The assist consumes water even though the process loop is closed.
 
-“Refrigeration can keep the load circuit colder while sending heat to a warmer outdoor sink. The compressor needs electricity to do that. Ten megawatts collected plus two megawatts of compressor electricity means twelve megawatts leave the condenser.”
+## Closed-loop water — Chapter 12, slide 10
 
-The Chapter 11 CoolIT CHx2000 is a CDU with pumps and a heat exchanger, not a compressor. This slide stays here because it answers the preceding outdoor-temperature problem: refrigeration can deliver colder water when direct heat exchange cannot. This is a separate chiller example, with pumps and fans outside its boundary. On slide 8, introduce whole-plant COP 4 as four units of heat moved per unit of cooling electricity, including pumps and fans. The [reader](index.html#d11-heat-rejection) retains the comparison between equipment and whole-plant COP.
+This continues the preceding wet-tower example, with that route initially selected. A separating exchanger keeps facility water closed while tower water contacts outdoor air and evaporates. Switch to the dry cooler to revisit the preceding sealed-coil route. Neither diagram here includes refrigeration; the next slide introduces the chiller. Direct open tower water can serve other qualified heat-exchanger arrangements; water quality and the actual equipment interfaces determine suitability.
 
-## Economizer mode — Chapter 12, slide 9
+## Chiller, economizer and COP — Chapter 12, slides 11–13
 
-- The supplied image shows a functional heat path: when outdoor conditions permit, pumps and fans can carry the cooling duty without the compressor.
-- “From racks” and “back to racks” compress the route; a CDU may separate technology coolant and facility water. Follow the heat without treating every arrow as one shared water circuit.
+The compressor adds energy to the heat being moved. Ten megawatts collected plus two megawatts of compressor electricity becomes twelve megawatts outdoors. Pumps and fans are outside this particular compressor balance. It does not mean that direct outdoor cooling must remove less than 10 MW: when weather and equipment capacity permit, it can remove the entire load without a compressor.
 
-## Hot weather can leave less power for computing — Chapter 12, slide 11
+The supplied economizer image follows immediately. It summarizes a functional heat path; “from racks” and “back to racks” do not mean every water circuit is shared. The COP slide then relates heat moved to cooling electricity. Keep the equipment boundary consistent when comparing COP values.
 
-Start at 8 MW computing in cool weather. Ask which part of the power bar will grow before switching to hot weather. “The cooling plant can still remove the heat, but its electricity now takes us beyond the site’s 10 MW supply. Lower computing power until the whole bar fits. Cooling electricity falls too, because there is less heat to move.”
+## Hot weather needs more cooling electricity — Chapter 12, slide 14
 
-The fitted hot point is 7.68 MW computing, 1.92 MW cooling and 0.4 MW other demand. The algebra stays in the [reader](index.html#d11-weather-and-operating-envelope). On slide 12, keep the proposed 8 MW load fixed to show why an average can hide infeasible hot hours; this is distinct from the reader’s reduced-load daily energy schedule.
+At 8 MW computing, the example's COP 8 in cool weather means 1 MW cooling electricity; COP 4 in hot weather means 2 MW. With 0.4 MW other demand, total draw rises from 9.4 to 10.4 MW against a 10 MW site limit. The controls illustrate that electricity constraint independently of heat-removal capacity. COP values are example operating points, not a universal cold/hot rule.
 
-## Evaporation leaves dissolved minerals behind — Chapter 12, slide 14
+## Heat reuse — Chapter 12, slide 15
 
-Use the three controls in order. “Some water evaporates and carries heat away. The dissolved minerals remain, so the water becomes more concentrated. Discharge some of that water, then replace both the evaporated water and the discharge. Replacement water brings some minerals too.”
+The heat-reuse chart keeps the data center at 4 MW all day. A neighboring factory needs 2 MW for six hours or is closed that day. It is the heat customer's demand that changes, not the data center's operating hours. Remaining heat still needs another rejection path.
 
-The preceding closed-loop comparison identifies which circuit needs this replacement. Blowdown is the discharge; makeup is the replacement. Concentration ratios and treatment limits remain in the [water reader](index.html#d11-water-and-heat-reuse).
+## Operating dependencies — Chapter 12, slide 16
 
-Source: [DOE cooling-tower management](https://www.energy.gov/cmei/femp/best-management-practice-10-cooling-tower-management).
+Dry, non-evaporative rejection needs electricity. A wet cooling tower needs electricity and ongoing water. Initial fill is outside this comparison.
 
-## Water taken in and water consumed are different totals — Chapter 12, slide 15
+## EPC and the late rack change — Chapter 13, slides 1–6
 
-“In this separate example, 125 cubic metres enters, 100 evaporates and 25 leaves as discharge. If that discharge returns to the same basin, the counted consumption is 100. Switch to an unknown destination: the intake meter alone cannot establish that return.”
+EPC means engineering, procurement and construction. The opening connects those responsibilities to electrical plant; commissioning is not the C in EPC. The rack-change case follows the opening directly.
 
-Keep the water paths visible before discussing any per-kWh metric. The reader retains those calculations and their period and accounting boundaries.
+A 20 MW IT phase changes from 200 racks at 100 kW to 100 racks at 200 kW. Electrical, hydraulic and support consequences follow together. At balanced 480 V three-phase, PF 1, a branch rises from about 120 A to 241 A against its existing 160 A continuous limit.
 
-## The customer needs heat only part of the day — Chapter 12, slide 16
+At a 10°C water rise, rack flow doubles from 2.39 to 4.78 kg/s. The unchanged branch's stipulated quadratic pressure-flow relation requires 80 rather than 20 kPa differential. These are inlet-to-outlet differences at two flows, not pressure readings at the CDU and rack. The separate support example stipulates twice the mass on the same four feet; power alone does not determine mass.
 
-“The facility produces heat all day. This customer accepts only part of it, during six hours, and only if its temperature is useful. Close the customer for the day: all the heat still needs an outdoor destination.”
+## Prefabrication at different scales — Chapter 13, slides 7–9
 
-Point to the accepted overlap and the remaining heat. A heat pump can raise delivery temperature but uses electricity. The separate example’s daily energy arithmetic stays in the reader.
+The supplied full-page image shows factory and site work proceeding in parallel. Houdini then introduces analyst-reported AWS data-hall skids and Cupertino Electric participation. The photograph is CEI's Edgerton factory; its pictured equipment is not identified as a Houdini unit.
 
-## Which plan keeps a complete heat path? — Chapter 12, slide 18
+Siemens–Compass uses a jointly developed skid combining 8DJH 36 switchgear and a transformer. The photograph shows the switchgear portion. These examples establish the assembled scope without assigning a universal schedule saving.
 
-Ask learners to name the surviving heat path and limiting resource before choosing a plan and revealing its explanation. “The tower has no replacement water. The qualified air-cooled alternate can remove enough heat, but keeping full computing power exceeds site electricity. Lower computing power and retain that complete outdoor path.”
+## Open Compute Project — Chapter 13, slides 10–11
 
-The reveal supplies the worked operating point. This synthetic brief assumes the alternate path is qualified; a real transition must also demonstrate flow, temperatures and controls.
+OCP publishes shared equipment interfaces. UQD-compliant couplings of the same specified interface can mate; that alone does not establish sufficient flow for the new rack. The example needs 4.8 kg/s against an existing 3.0 kg/s branch limit. The following user-supplied Open Rack image compares server-level PSUs with consolidated rack-level PSUs; it is not identified as a GB300 product.
 
-## EPC and the late rack change — Chapter 13, slides 1–7
+Sources: [ORv3 revision 1.0](https://www.opencompute.org/documents/open-rack-base-specification-version-3-pdf), mechanical and busbar sections; [UQD revision 1.0](https://www.opencompute.org/documents/ocp-universal-quick-disconnect-uqd-specification-rev-1-0-2-pdf), printed pages 4–10.
 
-- EPC means engineering, procurement and construction. Commissioning tests the constructed service; it is not the C in the acronym.
-- The meme comes before the case. Then establish the unchanged 20 MW IT requirement: 200 racks at 100 kW become 100 racks at 200 kW.
-- Electrical, hydraulic and support consequences follow immediately. The phase total can stay fixed while each connection becomes inadequate.
-- Electrical example: balanced 480 V three-phase, PF 1. About 120 A becomes 241 A against the original 160 A continuous branch limit.
-- Hydraulic example: water, all rack heat to liquid, 10°C rise. Branch flow doubles; the stipulated unchanged hardware needs 80 rather than 20 kPa, exceeding the available 60 kPa.
-- The support example separately stipulates twice the rack mass on the same four feet. Power alone does not establish mass. IT duty does not include changing auxiliary power.
+## Factory and site acceptance — Chapter 13, slide 12
 
-## Which delivery should be expedited? — Chapter 13, slides 8–9
+Factory tests cover internal wiring, piping and controller logic before shipment. Site tests cover field connections and real installed equipment response. The three-row table shows how prefabrication shifts troubleshooting earlier while leaving necessary site checks. The merged cooling-failure example now follows Chapter 11's cooling derating.
 
-- Start a separate schedule case. Electrical installation, cooling installation and utility availability must all reach readiness before integrated testing.
-- Compare all four scenarios simultaneously. Earlier cooling does not change the date while switchgear is still last; earlier switchgear can. A late utility connection can become the new controlling path.
-- The dates are a teaching dependency model, not a vendor delivery forecast. The full derivation remains in the reader; no fastest-button quiz is needed.
+## Which racks are ready? — Chapter 13, slide 13
 
-## Prefabrication at different physical scales — Chapter 13, slides 10–13
+Electrical readiness covers A01–A80, cooling A21–A100 and networking A01–A60. Their intersection is A21–A60: 40 racks, or 8 MW at 200 kW per rack. Extending cooling to A01 yields 60 racks and 12 MW. This isolates shared coverage while assuming the remaining acceptance criteria are met. The repeated closing matching quiz is removed.
 
-- Apply E, P and C to the actual electrical plant: coordinated design, ordered package, foundations and placement.
-- Off-site assembly can cover an electrical skid or a broader data-hall service assembly. Both allow factory assembly and site construction to overlap; they leave different field connections.
-- Houdini: SemiAnalysis reports AWS factory-built data-hall skids and Cupertino Electric participation. The photograph is CEI’s Edgerton factory. It does not identify the pictured equipment as a Houdini unit.
-- Siemens–Compass: a jointly developed skid combines 8DJH 36 switchgear with a transformer. The photograph shows the switchgear portion. This case establishes what is assembled, not a universal schedule saving.
-- Design freezes, shipping plans and manufacturing dates remain in the reader. The presentation focuses on data-center interfaces and real prefabrication examples.
+## Connect the next phase beside live service — Chapter 13, slide 14
 
-## Open Compute Project — Chapter 13, slide 14
+Return to the earlier Polaris Forge 1 photographs and dates. Applied Digital reported 50 MW ready for service for CoreWeave on October 27, 2025, and a further 50 MW on November 24. Phased delivery means the next connection must preserve the infrastructure serving the first phase. The public milestones do not identify a particular shared topology or claim that a fault occurred.
 
-- OCP publishes shared hardware interface specifications. Open Rack v3 covers rack geometry and 48 V busbar geometry; Universal Quick Disconnect (UQD) specifies coolant-connector mating and performance.
-- Two suppliers’ compliant couplings of the same specified interface can mate. That alone does not prove adequate flow or pressure drop for the new rack.
-- Return to the 200 kW rack: 4.8 kg/s required versus the example’s existing 3.0 kg/s branch limit. Standardization helps interchangeability; the hydraulic operating point still has to work.
-- Sources: [ORv3 revision 1.0](https://www.opencompute.org/documents/open-rack-base-specification-version-3-pdf), mechanical and busbar sections; [UQD revision 1.0](https://www.opencompute.org/documents/ocp-universal-quick-disconnect-uqd-specification-rev-1-0-2-pdf), printed pages 4–10. These are the named reference revisions.
-
-## Commission the revised racks — Chapter 13, slides 15–17
-
-- Return explicitly to the same 20 MW rack-change case after the manufacturing examples.
-- Factory acceptance covers the tested assembly. Site wiring, piping and control mappings require installed checks before the integrated failure test.
-- The alarm identifies A21–A40. The authorized command must reach those same racks; then observe power, temperature and timing against agreed limits.
-- The power trace is qualitative. Normal duty, maintenance and recovery tests remain part of complete acceptance, with detail in the reader.
-
-
-## Which racks can operate now? — Chapter 13, slides 18 and 20
-
-Slide 18 assumes every other acceptance criterion has passed so the learner can isolate the intersection of electrical, cooling and network rack identities. At 200 kW per revised rack, A21–A60 is 40 racks and 8 MW. Extending the cooling coverage to A01 adds 20 eligible racks and gives 12 MW.
-
-The closing exercise changes the evidence: only A21–A40 has a measured failure response that meets the agreed limits and timing. A41–A60 has a command record but no confirmed response. Release the 20 racks in A21–A40, a 4 MW envelope under the stated remaining criteria.
-
-The handover names the released racks, tested topology and configuration revision, including protection settings and control/software versions. Procedures and operating limits must match that evidence. Assign maintenance and isolation responsibilities, and train the operating team. Record excluded racks and each open issue, its operating restriction, decision owner and required evidence or retest. Expanding service requires closing those records.
-
-Detailed derivations and the original separate 100 kW acceptance exercise remain in the [Chapter 13 reader](index.html#d13-commissioning-complete-paths).
+Sources: [first 50 MW](https://ir.applieddigital.com/news-events/press-releases/detail/133/applied-digital-achieves-ready-for-service-for-phase-1-at), [second 50 MW](https://ir.applieddigital.com/news-events/press-releases/detail/137/applied-digital-completes-phase-ii-ready-for-service-at).
 
 ## Diagnose Row B — Chapter 14, slides 1–3
 
-- Start with the local chip-temperature alarm and a normal upstream 30°C supply reading.
-- Compare complete, time-aligned measurements at the row: before, 100 kg/s and 30→35°C; afterward, 50 kg/s and 30→40°C. Both stabilized states carry 2.09 MW.
+- Start with the hottest measured chip at 85°C, above the scenario’s stipulated 80°C operating limit, despite a normal upstream 30°C supply reading.
+- Compare complete, time-aligned measurements at the row: before, 100 kg/s and 30→35°C water, with the hottest chip at 70°C; afterward, 50 kg/s and 30→40°C water, with the hottest chip at 85°C. Both stabilized states carry 2.09 MW. These chip readings and the 80°C limit are scenario inputs, not a named GPU’s rating or temperatures derived from the water balance.
 - 40°C is the **return**, not a replacement reading for the 30°C inlet. Nonzero flow also rules out a completely disconnected water branch.
-- Heat balance: 100 × 4.18 × 5 = 50 × 4.18 × 10 = 2,090 kW. During the intervening temperature rise, heat can accumulate; the displayed balances are stabilized points.
+- Heat balance: 100 × 4.18 × 5 = 50 × 4.18 × 10 = 2,090 kW. Immediately after flow falls, an unchanged 5°C water rise would remove only 50 × 4.18 × 5 = 1,045 kW. Heat initially accumulates; the later 10°C rise restores the full 2.09 MW balance.
+- The later balance removes all the heat at an unacceptable measured chip temperature. Halving flow alone would not establish failure; the 85°C chip reading against the 80°C limit does. Lower flow can increase cold-plate thermal resistance and coolant warming, requiring hotter chips to transfer the same heat. The water balance alone does not calculate chip temperature. See [CoolIT’s cold-plate thermal-resistance versus flow graph](https://www.coolitsystems.com/wp-content/uploads/2024/05/Split-Flow-Technology-CoolIT-Tech-Brief.pdf).
+- Slide 3 now shows the transition explicitly: heat removal briefly falls below generation, stored heat increases, and the chip warms until heat removal catches up. At the later balance the temperature stops rising; it has not returned to a safe value. The larger chip-to-coolant temperature difference drives the required heat through the less effective cooling path. The drawn time course is qualitative: no elapsed seconds or thermal mass is specified, and it does not calculate the 85°C endpoint.
+- The chip-to-coolant temperature difference is distinct from the water inlet-to-return rise. The 30°C inlet is maintained by upstream cooling; return water rises from 35°C to 40°C. At the later equilibrium, heat removal again matches generation per second. During the transition some energy remains stored in the warmer equipment; this is not the same energy removed over a longer time.
 - Lower flow is measured; its cause is not established. A normal plant temperature alone does not identify a valve, pump or local cooling fault.
 
-## Control layers and Google’s AI cooling — Chapter 14, slides 4–7
+## Google’s AI cooling and control layers — Chapter 14, slides 4–9
 
+- Show Google’s cooling context, control flow and performance on slides 4–6. Then use the three-control-layer image on slide 7 to organize the example then highlight plant controls on slide 8 before workload admission on slide 9.
 - Local controllers regulate pumps; plant controls stage equipment; the scheduler admits computing work.
 - Google’s **2016** AI advised operators. The **2018** system directly controlled cooling under operator supervision, with an override available.
-- The original Google diagram shows prediction and action selection followed by independent local checks. Five minutes is the supervisory cadence, not protective response time.
-- On slide 7, existing work produces 4 MW; a new job adds 2 MW. Cooling is 5 MW now and 7 MW after a three-minute startup. Point at the shaded 1 MW deficit if the job starts early, then compare delaying the job.
+- Slide 5 keeps all four original Google diagrams together: read sensors → predict outcomes → select an action within constraints → verify locally and act. Five minutes is the supervisory cadence, not protective response time.
+- Slide 6 preserves the supplied original performance GIF. Cooling energy per unit of cooling improved from about 12% to about 30% below the historical pre-AI baseline over nine months. The plot tracks trailing twelve-month performance and training examples; it does not claim a 30% reduction in total facility electricity.
+- On slide 9, existing work produces 4 MW; a new job adds 2 MW. Cooling is 5 MW now and 7 MW after a three-minute startup. Point at the shaded 1 MW deficit if the job starts early, then compare delaying the job.
 - The three-minute startup is illustrative. No thermal-buffer allowance is supplied; it does not establish a safe overrun period.
 
 Source: [Google DeepMind, August 2018](https://deepmind.google/blog/safety-first-ai-for-autonomous-data-centre-cooling-and-industrial-control/).
 
-## Demand response at The Dalles — Chapter 14, slides 8–10
+## Cooling reserve and staging — Chapter 14, slides 10–11
+
+- The preceding 1 MW spare capacity is an illustrative choice, not a universal margin. Capacity reserve (MW), redundancy after an equipment failure and thermal storage (energy, with a finite duration) answer different questions.
+- Johnson Controls’ Metasys sequence uses an 80% stage-up threshold for all-positive-displacement stages and 90% when constant-speed centrifugal chillers govern the stated condition. Variable-speed centrifugal thresholds vary with operating lift. Time, trend and failsafe conditions also apply; the graph shows thresholds, not an assured 10–20% reserve or a rule for every data center.
+- Intel’s historical case used two 24,000-US-gallon tanks at 42°F (5.6°C). The twelve-minute design interval comes from five minutes of full-load UPS runtime plus seven extra minutes of cooling. In the actual late-2006 event, lightly loaded servers ran over fifteen minutes and the tanks maintained cooling, then absorbed residual heat. Backed-up pumps and fans made the stored cooling usable.
+- Spare capacity after restart also permits removal of heat accumulated during an interruption. A site chooses its operating margin around credible load changes, starting time, equipment performance at the current weather, local delivery limits and required failure tolerance.
+
+Sources: [Johnson Controls staging threshold](https://docs.johnsoncontrols.com/bas/r/Metasys/en-US/Chilled-Water-Plant-for-Guideline-36-Application-Note/1.0/Chiller-sequence-of-operations/Chiller-and-waterside-economizer-staging-determination-5.20.1-15/Stage-Up-Part-Load-Ratio-SPLRUP), [stage-up conditions](https://docs.johnsoncontrols.com/bas/r/Metasys/en-US/Chilled-Water-Plant-for-Guideline-36-Application-Note/1.0/Chiller-sequence-of-operations/Chiller-and-waterside-economizer-staging-determination-5.20.1-15/Stage-up-efficiency-condition), [Intel IT thermal storage](https://www.intel.com/content/dam/doc/white-paper/intel-it-thermal-storage-system-provides-emergency-data-center-cooling-paper.pdf), [Schneider reserve-cooling guidance](https://blog.se.com/datacenter/2013/02/11/4-tips-for-keeping-your-it-equipment-cool-during-when-the-power-goes-out/).
+
+## Demand response at The Dalles — Chapter 14, slides 12–14
 
 - Establish the grid request first: a 2023 day-ahead pilot with Northern Wasco County PUD.
-- Background video processing and translation updates can wait; live user services still operate. These are the operator’s examples, not a claim about pausing arbitrary LLM inference.
-- Then use the separate numerical example: a checkpointable 4 MW job needs three running hours above a 20 MW base load. It pauses 14:00–16:00 and finishes at 18:00, ahead of a 20:00 deadline.
+- YouTube video processing and Google Translate updates can wait; Search, Maps and video playback still operate. These are the operator’s examples, not a claim about pausing arbitrary LLM inference.
+- Slide 13 restores the large “Keep serving” and “Defer eligible background work” panels. Slide 14 separately shows both scheduling graphs. Its 20 MW base load and checkpointable 4 MW job are explicitly illustrative, not Google measurements. The job needs three running hours; pausing 14:00–16:00 moves completion from 16:00 to 18:00, ahead of a 20:00 deadline.
 - Both job traces use 12 MWh. Demand during the grid event falls from 24 to 20 MW. The diagram assumes no restart penalty and enough later capacity.
 
 Source: [Google Cloud, October 2023](https://cloud.google.com/blog/products/infrastructure/using-demand-response-to-reduce-data-center-power-consumption).
 
-## Shared maintenance dependency — Chapter 14, slide 11
+## Cloudflare’s failure, correction and retest — Chapter 14, slides 15–17
 
-- Three 3 MW units serve a 5 MW duty; C is under maintenance. A and B can carry 6 MW.
-- Toggle the isolation boundary: removing a shared 24 V control supply also disables A and B. Their main electrical feeds need not have failed.
-- Keep this here: the commissioning chapter tests the built system; this example shows how maintenance changes the operating topology. More equipment does not eliminate a shared dependency.
-
-## Cloudflare’s failure, correction and retest — Chapter 14, slides 12–15
-
-- November 2023: Portland facility power loss. Dashboard, API and analytics failed; most distributed edge traffic continued.
+- Slide 15 combines the outage date and Core services card with the three-site dependency diagram, identifying the single point of failure.
+- November 2023: Portland facility power loss. Dashboard, API and analytics failed. Focus on the affected services.
 - High-availability services spanned sites but depended on Kafka/ClickHouse located only at PDX-04. Tests had removed its HA portion, not the entire facility.
 - Code Orange expanded capacity and changed failover. The February 2024 whole-facility test exposed another gap that the team subsequently fixed.
 - March 26: power lost at 14:58 UTC; APIs/dashboard normal by 15:05 automatically. Analytics recovered later. Seven minutes is this service endpoint, not cold-start time for the facility.
 
 Sources: [November 2023 report](https://blog.cloudflare.com/post-mortem-on-cloudflare-control-plane-and-analytics-outage/), [April 2024 follow-up](https://blog.cloudflare.com/major-data-center-power-failure-again-cloudflare-code-orange-tested/).
 
-## Gmail, London and Llama 3 — Chapter 14, slides 16–20
+## London and Llama 3 — Chapter 14, slides 18–22
 
-- **Gmail:** a storage-software bug affected multiple live copies. Offline tape retained an earlier valid state. The story does not involve fixing A and then being reinfected by B.
+- Slide 18 presents the author-supplied verbatim Root Cause quote from Google’s July 29, 2022 final report before the incident mechanism on slide 19.
 - **London:** extreme heat and simultaneous redundant-cooling failures forced shutdown of part of one zone. The first London slide establishes the physical event before the recovery timeline.
 - The final report gives cooling repair at July 19 14:13 PDT and initial service restoration at July 20 04:28: another 14 h 15 min. Restart sequencing and service-state reconciliation take time; residual issues lasted longer.
 - **Llama 3:** 466 interruptions in 54 days, including 47 planned and 419 unexpected. More than 90% effective training time measures useful training against elapsed time, not facility availability.
-- The next slide is Meta’s original fleet-maintenance diagram: the purple group leaves service for upgrades and then returns; the maintenance group rotates. It is not an exact layout of the Llama training run. Group size trades spare-capacity cost against interruption frequency.
+- The next slide pairs Meta’s original maintenance-train diagram with the supplied maintenance-cost graph. Smaller domains mean more training interruptions; larger domains take more compute capacity out of service. The U-shaped graph illustrates that trade-off without a numerical optimum.
 
-Sources: [Gmail incident](https://gmail.googleblog.com/2011/02/gmail-back-soon-for-everyone.html), [Google Cloud final report](https://status.cloud.google.com/incidents/fmEL9i2fArADKawkZAa2), [Llama 3 §3.3.4](https://arxiv.org/html/2407.21783v3#S3.SS3.SSS4), [Meta maintenance trains](https://engineering.fb.com/2024/06/12/production-engineering/maintaining-large-scale-ai-capacity-meta/).
+Sources: [Google Cloud final report](https://status.cloud.google.com/incidents/fmEL9i2fArADKawkZAa2), [Llama 3 §3.3.4](https://arxiv.org/html/2407.21783v3#S3.SS3.SSS4), [Meta maintenance trains](https://engineering.fb.com/2024/06/12/production-engineering/maintaining-large-scale-ai-capacity-meta/).
 
-## Knowledge check — Chapter 14, slide 21
+## Knowledge check — Chapter 14, slide 23
 
-- Return to Row B. All heat enters water: 2.09 MW now, plus a proposed 0.70 MW job. Current flow is 50 kg/s, inlet 30°C, return limit 40°C.
-- Ask for the total flow needed: 2,790 ÷ (4.18 × 10) = 66.746 kg/s, roughly 67 kg/s. Keep the temperature limit by establishing that flow, freeing 0.70 MW of existing duty, or deferring the new job.
-- At unchanged flow, the new duty would require a 43.35°C return. The calculation does not identify why the original flow fell; that diagnosis is still separate.
+- This is a new, healthy Row C, not the earlier faulty Row B. It transfers 2.09 MW into water at 100 kg/s, 30°C supply and 35°C return; chips are operating within their limits.
+- A new workload adds 2.50 MW to the same water branch. Electrical capacity and the cooling plant each have 3 MW spare. The decision concerns whether that spare capacity can serve this row at its current flow.
+- The row return limit is 40°C. Remaining water-side capacity is 100 × 4.18 × (40 − 35) ÷ 1,000 = 2.09 MW. **Not at the current row flow:** the proposed addition exceeds this local headroom even though the site has enough spare power and cooling.
+- Total heat would be 4.59 MW. At 30°C supply and a 40°C maximum return, the water-balance requirement is 4,590 ÷ (4.18 × 10) = 109.81 kg/s, rounded up to 110 kg/s. At the unchanged 100 kg/s the return would instead be 40.98°C.
+- The operating decision is to establish sufficient row flow or assign some workload elsewhere. The calculated flow is not proof that the installed pump, piping or cold plates support it; verify the operating range and chip temperatures during a staged load increase. All proposed load heat is assumed to enter this measured water branch.
 
-## Spare site power cannot finish an acceptance test — Chapter 15, slide 2
+## GPU cloud economics — Chapter 15
 
-“The site can receive 100 megawatts, but only 520 rack paths are accepted. At the stated rack duty, computing uses 52 megawatts. Shared network and storage add five. Facility overhead adds another 16.4, taking site input to 73.4 megawatts. The unused 26.6 megawatts cannot complete an acceptance test.”
+- **Opening meme:** The supplied hardware-price meme opens the chapter. It concerns component purchase prices, not GPU rental rates.
+- **Products and responsibilities:** Start the commercial explanation with CoreWeave's committed-revenue share. Separate the provider's capacity invoice from a lab's internal cost per token or training run. Bare metal describes dedicated physical hardware without a hypervisor. The customer or provider can operate software on that hardware: CoreWeave explicitly runs Kubernetes on bare metal. The removed internal-cost line meant a lab's own cost accounting, which can include its allocated GPU bill and other costs; it did not mean only salaries or only costs outside the cloud invoice.
+- **Rental terms and prices:** Define cloud Spot as spare capacity rented at the current price, subject to reclamation; AWS changes its prices gradually, not on every instantaneous market movement. Walk through one-, three- and five-year commitments. The H100 ranges retain their historical dates on the chart; use them to show renewal exposure.
+- **Billable occupancy:** Compare full-fleet commitment with the uncommitted rental pool. $2.50 / $4.00 = 62.5% rented hours gives equal revenue before costs. Rented hours and GPU compute utilization are different quantities.
+- **Financing:** Customer payments support the provider's debt service; lenders fund hardware. Delivery, credit and operating risks remain with the contract parties.
+- **NVIDIA backstops:** Three slides follow financing: CoreWeave’s September 2025 $6.3 billion initial agreement; the typical six-year support described in NVIDIA’s July 2026 filing; and the exposure from unused capacity. Keep CoreWeave’s specific agreement distinct from the later program structure. The $36 billion is a dated aggregate commitment, not a loss. The backing concerns contracted cloud capacity, not an unconditional guarantee of each operator’s debts. SemiAnalysis’s September article motivates the revenue-floor / shared-upside tradeoff; official filings confirm the purchase commitments and risks.
+- **Electricity:** Unrented GPUs can remain powered. Idle power depends on the hardware and operating policy; it is not universally zero or equal to busy power. In this example the average site allocation is 1 kW while rented and 0.2 kW while idle. Over 100 hours: 80 × 1 + 20 × 0.2 = 84 kWh. All 84 kWh must be covered by 80 rented hours, giving 1.05 kWh per billed hour. At $80/MWh this costs $0.084 per rented GPU-hour; at $160/MWh it costs $0.168. Rented does not mean continuously computing at maximum power. Under a fixed all-in fee the provider bears an unhedged energy-price change; reimbursement transfers the specified expense to the customer. Hardware, facilities and operations remain in the cost base. NVIDIA's [idle-system power model](https://docs.nvidia.com/datacenter/dps/versions/latest/guides/reference/apis/v1/devices.html) supports nonzero idle consumption; the course's assumed powers are not device specifications.
+- **Abilene:** Crusoe builds the facility, Oracle supplies cloud capacity, OpenAI runs workloads. Compare the original two-building energization target with the later report, then the expansion construction target with Oracle's delivered-capacity report. Different milestones do not establish an exact schedule slip; that distinction stays in the notes rather than a slide subtitle.
 
-The two five-megawatt terms belong in different places: shared network and storage are IT; fixed facility overhead is outside IT. The reader retains the full power formula and conversions. These are illustrative operating points, not measured demand or Abilene data.
+## Putting an AI Factory Together — Chapter 16
 
-## Removing one limit reveals the next — Chapter 15, slides 3–4
+1. **Abilene.** Return to the original Oracle/OpenAI campus. The aerial is dated July 2026. Follow one physical site through the decisions that shaped it; keep the neighboring Microsoft development separate.
+2. **The workload.** OpenAI’s early training and inference ran on Oracle infrastructure. Show how the actual cluster creates electrical, cooling and fabric requirements. The Oracle media-kit image documents the hall; equipment models are established by the separate deployment announcement, not read off the photograph.
+3. **Bridge power and backup.** Toggle the gas plant’s role. Earlier power can change the start of service; later the equipment can protect continuity. Fuel supply, controls, emissions equipment and maintenance remain part of that choice. The stated gas rating does not establish backup coverage for the full campus.
+4. **Heat and water.** Trace rack-side heat into the facility loop and out through air-cooled chillers. The refrigerant transports heat across the chiller; water and refrigerant do not mix. Condenser fans and the compressor need power. The public description does not establish which residual-air device appears in every hall.
+5. **A hot afternoon.** Both sides show the same installed racks and the same IT load. At a fixed cooling duty and coolant target, higher outdoor dry-bulb generally requires higher refrigerant condensing temperature and pressure, increasing compressor work. The bars show direction, not measured proportions. If the plant or electrical limit is reached, the sustainable IT load can fall while hardware inventory stays unchanged. We do not assign Abilene a made-up derating curve.
+6. **Parallel construction.** Manufacturing and site works converge at installation and testing. Equipment interfaces, delivery access and later replacement access still shape the project. Do not treat the sketch as an identified installed skid model or a measured schedule saving.
+7. **Capital.** Distinguish physical-facility funding from a GPU purchase and from the tenant’s cloud invoice. The venture announcement and initial long-term lease connect customer demand to construction finance. They do not disclose the campus’s revenue, profit or exact customer rates.
+8. **Live expansion.** Early workloads and further construction coexisted. Carry the operating phase’s power, cooling and network boundaries into a new connection. The graphic expresses the design problem, not a disclosed switching procedure or topology. The old rack-matching exercise is no longer presented.
+9. **From Watts to Tokens.** Trace each path on the same diagram. Electricity feeds the racks and cooling equipment. Information crosses the GPU fabric into training or inference. Heat leaves through the cooling plant, together with its electrical input. The campus’s MW rating alone cannot establish tokens per second; model, precision, batching and service targets still matter.
 
-“First finish more accepted paths. Cooling then limits us to 550 racks. Improve cooling and networking becomes the limit at 600. Improve networking and electrical capacity and cooling tie at 650. Improving only the electrical side of that tie leaves the same cooling limit.”
-
-Ask learners to predict the next limiting bar before each change. These populations are assumed to cover the same nested rack positions. If different systems serve different rack identities, use the intersection method from commissioning. Slide 5 then separates feasible racks from useful work: waiting for data can reduce progress without changing the powered-rack count.
-
-## Who pays for each part of the service? — Chapter 15, slides 6–7
-
-“This is a separate comparison of the same facilities service for three years. Owning it means paying up front, paying annual operating and energy costs, and recovering a residual value at the end. The contract bundles that service and energy into its annual fee. We exclude the identical compute hardware from both options.”
-
-The starting energy price is $80 per megawatt-hour: 50,000 megawatt-hours costs $4 million annually. Change the price and follow the ownership energy bill. The stipulated contract fee remains fixed with energy included. The selected price carries into the timeline and cost-per-result comparison; real pass-throughs and escalation would need their own terms.
-
-## Pay now, pay each year, recover value at the end — Chapter 15, slide 8
-
-Point to the payment dates before comparing totals. “The owner pays twenty million now, pays operations each year and recovers five million at the end. The contract has three annual payments. Discounting expresses later money at the same starting date; it does not change when the payment occurs.”
-
-The selected energy price and discount rate continue through the cost example. At the base $80/MWh and 8 percent, present costs are $34.07 million for ownership and $28.35 million for the contract. At zero discount they are $36 million and $33 million. These are base-case reference values, so do not read them aloud after changing the energy price. Keep the discount-factor derivation in the reader.
-
-## Less accepted output makes the same bill more expensive — Chapter 15, slide 9
-
-“Keep the facilities cost fixed and remove two of the ten blocks of accepted work. Each remaining result now carries a larger share of the bill. Twenty percent less output makes cost per result twenty-five percent higher.”
-
-The cost numerator uses the chosen energy price and discount rate. The denominator is accepted physical results over the same three years, with the same quality requirement for both alternatives. The physical results are not discounted. This comparison does not identify the cause of the lost work.
-
-## Which upgrade buys more extra results per dollar? — Chapter 15, slides 10–11
-
-“Both proposed upgrades have a supplied route to additional accepted work. The network improvement is smaller each hour, but arrives immediately. Cooling adds more each hour once it arrives. Which gives us more extra results per dollar within these three years?”
-
-Ask for a prediction before revealing the result. With cooling arriving after one year, network costs about $2.08 per extra result and cooling costs $2.50. Move cooling to immediate delivery, ask again, then reveal: cooling falls to about $1.67 and wins this screen. Changing the date requires a new prediction; the earlier answer does not carry forward. At half demand both unit costs double, while their ranking stays the same.
-
-This separate intervention brief compares initial capital with incremental accepted output. It excludes ongoing costs, residuals and discounting; do not mix it with the preceding ownership calculation. The [reader](index.html#d15-upgrade-and-evidence) retains the full arithmetic and the conditions for reconsidering the decision.
-
-## Keep Abilene’s dates and projects together — Chapter 15, slides 12–14
-
-“Oracle says seventy-five percent of total capacity was delivered as of September 2026. The photograph shows the physical campus, but it does not define that percentage or tell us the operating IT load. Crusoe’s earlier 1.2-gigawatt campus plan, its first-two-buildings energization report and its early-workloads report describe different states of the same development. We cannot add them together.”
-
-The aerial is captioned July 15, 2026. Crusoe’s June 9, 2026 account separately identifies a 900 MW Microsoft campus nearby. Its two-operational and six-under-construction counts refer to the original Oracle campus at that June date; they are not a current inventory. Oracle’s later percentage cannot be transferred to the Microsoft project.
-
-Sources checked September 16, 2026: [Oracle Abilene account and aerial](https://www.oracle.com/data-centers/), [Crusoe’s March 2025 campus plan](https://www.crusoe.ai/resources/newsroom/crusoe-expands-ai-data-center-campus-in-abilene-to-1-2-gigawatts), [September 2025 live-campus account](https://www.crusoe.ai/resources/newsroom/crusoe-announces-flagship-abilene-data-center-is-live), [June 2026 project distinction](https://www.crusoe.ai/resources/newsroom/crusoes-contracted-ai-infrastructure-capacity-approaches-5-gigawatts-across-data-centers-and-cloud).
-
-## Which facts belong, and what must be measured? — Chapter 15, slide 15
-
-First classify the supported claims: planned campus power, reported energized buildings, reported early workloads and a delivered-capacity percentage. Then ask what is missing for the forecast.
-
-“We need the delivery denominator and electrical boundary, the accepted service paths and configuration, measured IT demand and accepted workload results over the same period, and the corresponding costs and obligations. The sources leave those quantities unresolved. Our teaching prices and workload rates cannot fill Abilene’s missing cells.”
-
-## Racks can stay powered while cooling stops — Chapter 16, slides 2–4
-
-“The battery supports the IT supply, but the pump is on a separate utility-fed circuit. More stored energy extends the electrical duration without reconnecting that pump. Protecting the pump supply uses more battery power, so electrical duration becomes shorter. That change closes one dependency; the integrated outage test still has to show flow, acceptable temperatures and correct application operation.”
-
-The example has 600 kWh usable DC, 90% discharge efficiency, a 2.5 MW inverter and 2 MW IT. Its ideal electrical duration is 16.2 minutes. Adding 200 kWh gives 21.6 minutes; supplying 0.2 MW of cooling auxiliaries instead gives 14.73 minutes. Generator readiness at minute 10 precedes the two-minute restoration sequence. These energy calculations do not establish a permissible interruption of heat removal. The [outage reader](index.html#c01-coupled-outage) retains the energy ledger and test brief.
-
-## An upgrade only helps if it changes the limiting resource — Chapter 16, slides 5–7
-
-“During hot weather, cooling limits this site to 550 racks. Saving auxiliary electricity helps energy use but leaves that cooling limit unchanged. The supplied cooling upgrade raises the limit to 650 racks. Now accept only 600 complete rack paths: those paths become the limit. Finishing more paths makes cooling the limit again.”
-
-The cooling proposal explicitly keeps auxiliaries at 25 MW; this is an illustrative paired operating point. The accepted paths include all required services to the same racks. The workload remains 58 MW, so current site demand remains 58 + 25 = 83 MW when the capacity control changes. Capacity and demand should not be read as interchangeable totals. See the [weather capstone](index.html#c02-weather-capacity).
-
-## A rack can fit while maintenance cannot — Chapter 16, slides 8–10
-
-“Both options deliver 120 kilowatts to the load. Their conversion losses differ, but both remain within the room’s power and cooling limits. The sidecar’s proposed position creates the hold: the UPS module cannot leave through its removal route. Move the sidecar while preserving that route. The electrical losses stay the same.”
-
-A requires 125 kW AC; B requires approximately 126.24 kW. All equipment is inside the same room, so room heat includes every conversion loss. These supplied efficiencies do not establish which architecture is universally better. The [retrofit reader](index.html#c03-density-retrofit) retains the intermediate bus-current calculation and complete acceptance requirements.
-
-## A faster network phase improves only part of the job — Chapter 16, slides 11–13
-
-“The job spends sixty seconds computing, twenty transferring data, and ten on other work. Doubling the sender does nothing while the fabric still limits the path to forty gigabytes per second. Doubling that bottleneck halves the transfer phase. The whole cycle falls from ninety to eighty seconds: forty cycles per hour becomes forty-five.”
-
-The work per cycle stays fixed and phases do not overlap. These are achieved payload rates, not port labels. Check the complete measured cycle and correct output after the change. The old compute-time fraction is intentionally not presented as device utilization or measured useful output. See the [network capstone](index.html#c04-stalled-job).
-
-## A passing test releases the next group — Chapter 16, slides 14–16
-
-Use the Abilene photograph as a physical setting, then explicitly switch to the illustrative 300/250/250-rack register. The photo establishes neither these rack counts nor an acceptance status. Oracle captions it July 15, 2026; the source caption was rechecked during this revision.
-
-“Group A is ready today. Group B needs network work and testing. Group C needs cooling acceptance. A planned test date does not add operating racks. If C’s first test fails, correction and a successful retest move its earliest opening from day seven to day twelve.”
-
-Separate qualified teams and all other required resources are assumed available. Group A remains at 300 racks; after B passes on day six, 550 are accepted. The final 250 join only after C passes. Keep the accepted operating configuration and isolation of live groups intact while construction continues. Source: [Oracle media gallery](https://www.oracle.com/data-centers/); schedule: [phase capstone](index.html#c05-open-a-phase).
+Primary claims, dates and asset provenance: [Abilene evidence ledger](../research/abilene-finale-evidence-2026-09-18.md). The five original numerical exercises remain optional reading; their inputs are not Abilene measurements.

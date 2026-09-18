@@ -1,10 +1,53 @@
-# Feedback audit — 13 September 2026
+# Feedback audit — updated 18 September 2026
+
+**Latest author acceptance — 17 September 2026:** Kian stated, “I approve up to chapters 13 at this point.”
+Chapters 1–13 are accepted in the current numbering; Chapters 14–16 remain unaccepted.
+The [chapter review tracker](COURSE_REVIEW.md#chapter-review-tracker) records this decision.
+Earlier audit findings and separate research or enhancement follow-ups remain below.
 
 This audit checks the requests visible in this task against current source and
 Git history. Requests made on the other computer are checked against their
 repository records; those records do not substitute for the original message.
 The prior “everything addressed” claim was too strong. This page foregrounds
 exceptions; the coverage list below makes the rest inspectable.
+
+## Abilene course finale — 18 September 2026
+
+Kian approved replacing the five separate hypothetical cases with a connected
+final chapter and explicitly selected Abilene. **Putting an AI Factory Together**
+is a nine-slide synthesis of the customer, equipment, facility, delivery and
+commercial decisions. It is ready for author review, not author-accepted.
+
+The former hot-weather comparison could make installed GPUs appear to vanish
+when the supportable operating load fell; the standalone cooling-bottleneck
+exercise repeated earlier teaching. Those views and the final rack-selection
+and schedule-arithmetic quizzes are removed from the presentation. The five
+C01–C05 reader exercises and their numerical models remain optional practice.
+The stable deck route is unchanged, and retired slide fragments redirect into
+the new sequence. No extra review of unchanged Chapters 1–13 is required.
+
+
+## Current completion audit — 17 September 2026
+
+An unqualified “everything in the conversation is complete” is **not established**.
+This pass independently checked current Chapter 11–16 scene definitions and renderers
+against the visible review requests. Chapter 11–12 served files were also checked
+against source. Earlier chapter acceptance is preserved; it is not a new request-by-request
+audit of all earlier work.
+
+| Scope | Verified result | Remaining issue |
+|---|---|---|
+| Chapter 11 requested edits | Image placement, residual-air/RDHX path, immersion image, heat-flux/resistance definitions, ΔT, pump comparison, approach note, CDU labels, redundancy wording/default and merged failure response are implemented. | No missing explicit edit found. Latest follow-up restores the higher-resistance circuit curve alongside the fixed-speed pump and normal circuit: operating points are 2 L/s, 120 kPa and approximately 1.41 L/s, 140 kPa. More restriction reduces flow on the same pump; equations and explanation remain in the speaker notes. |
+| Chapter 12 requested edits | Opening and captions, wet/dry definition, physical circuit walkthroughs, temperature-limit clarification, economizer order, COP comparison, removals, water/heat-reuse changes, meme and latest reorder are implemented. | Audit found that the moved closed-loop slide still defaulted to air and silently introduced a chiller. **Corrected:** it now opens on the wet-tower path and uses the preceding exchanger-only example. |
+| Chapter 13 requested edits | EPC opening, contiguous rack-change case, supplied full-page prefab and Open Rack figures, three-row factory/site table, merged cooling test relocation, final quiz removal and reused CoreWeave photographs/milestones are implemented. | The retained rack-coverage intersection is still a possible editorial weak point; the specifically rejected closing quiz is removed. |
+| Chapters 14–15 requested changes | Chapter 14 now makes the Row B chip-temperature violation explicit, keeps all four Google control diagrams together, adds the original cooling-performance plot, merges demand-response workload names and scheduling graphs, and removes the duplicate shared-maintenance slide. Requested case context, control-layer image, Meta figure, rental terms, bare metal/managed distinction, energy reimbursement and Abilene plan/delivery comparison remain present. | Current audit is source-based; it does not establish a new author acceptance of these chapters or a completed browser/test pass for the latest changes. |
+| Whole-course removal of trivial exercises | Many explicitly rejected exercises are gone. The 18 September Chapter 16 revision removes `phase-choice` and `phase-schedule` from the presentation and replaces the five-case deck with one nine-slide Abilene synthesis. | Chapter 16 is rebuilt for author review; this closes those specific editorial gaps, not an unqualified whole-course completeness claim. |
+| Earlier commitments | Transformer range, manufacturer PSU/BBU photographs and rack load-drop example exist. | Persistent functional inventory/service-path companion remains unbuilt. Sparks current load and exact inference concurrency remain unresolved evidence items. |
+| Communication and status | This audit identifies actual content and distinguishes local preview from publication. | The adiabatic question was initially acted on without a clear answer; it has now been answered. Earlier audit rows contained stale completion states, corrected below. |
+
+The subagent-process concern was waived by Kian on 17 September; it is not an open
+content task. The current review runs on localhost 8877. No new public deployment
+is implied. The chapter acceptance record remains in [COURSE_REVIEW.md](COURSE_REVIEW.md#chapter-review-tracker).
 
 ## Chapter 6 overview sequence and image review — 15 September 2026
 
@@ -184,19 +227,19 @@ deck; the other Astra / Ultra assignment focuses on Chapters 7 and 8. Chapter 7 
 presentation. They are distinct sequences, not duplicated content; preserve both
 sets of slides and unify navigation rather than deleting or rewriting them.
 
-## Missing, partial or uncertain
+## Earlier commitments reconciled — 17 September 2026
 
 | Feedback | Current finding and next action |
 | --- | --- |
 | Evolving functional bill of materials and service-path companion | **Unbuilt.** The commitment existed only in COURSE_REVIEW.md prose. Build the persistent component inventory and connect it to the facility map and lesson changes; isolated diagrams do not fulfill this request. |
 | Teach **interactivity** as the central inference metric | **Missed in the previous release.** The fixed 4,000-token/s budget was arbitrary and slide 3 did not teach interactivity. Revised slide 3 defines tokens/s/user; the next slide reads NVIDIA’s actual GB300 throughput/interactivity curve. Exact supported-session selection remains **open** because this source has no concurrency table; a fixed total divided by user speed is not an adequate substitute. |
-| Active check-in in every domain | **Not complete in the teaching material.** Fifteen reader checks exist. Latest clarification: make an active check-in the default in each domain; use a strong example only if no worthwhile check can be made. Chapters 3, 5 and 6 now include service, replacement-plan and distribution-capacity checks; audit the remaining decks and record any specific exception. |
-| Teach D13 site-built versus prefab/modular; fixed 20 MW late rack change | **Reader complete; deck unbuilt.** The reader covers EPC duties, factory/site work, parallel schedules, design freezes, transport and interface owners; the exercise covers electrical, hydraulic, spatial and schedule holds and release evidence. Chapter 14 in the numbered course still needs its own teaching sequence. |
+| Active check-in in every domain | **Later explicit removals take precedence.** Do not restore the rejected Chapter 3, 12 or 13 checks to satisfy a quota. Record meaningful exercises or closing examples by chapter. Chapter 16 now closes with one Abilene synthesis rather than a pattern-matching quiz; the original exercises remain optional reader practice. |
+| Teach D13 site-built versus prefab/modular; fixed 20 MW late rack change | **Implemented in current Chapter 13.** The 14-scene EPC presentation includes the fixed-20-MW rack change, electrical/hydraulic/support consequences, supplied prefab figure, Houdini/Compass cases, OCP interfaces, factory/site testing and phased CoreWeave delivery. Rejected trivial schedule and release quizzes are removed. |
 | Teach Crusoe’s solar/battery case in context | **Integrated.** `continuity-format.html#sparks-storage` includes the site photograph, 12 MW solar / 63 MWh battery account and 5.25-hour conditional calculation; the nines scene retains the separate availability claim. |
-| Other requested cases in their relevant chapters | Google flexible scheduling is integrated in Chapter 11 at `google-demand-response` and `deadline-scheduling`. Abilene’s capacity ledger remains pending integration. Abilene cooling appears in the physical-site deck, but not yet in the cooling deck. These are separate from already integrated Colossus brownfield and Southaven procurement cases. |
+| Other requested cases in their relevant chapters | **Implemented at current destinations:** Google demand response and its deadline example in Chapter 14; Abilene plan versus reported delivery in Chapter 15; Abilene cooling in Chapter 12. These are separate from Colossus brownfield and Southaven procurement. The old “pending integration” statements were stale. |
 | Abilene as the recurring campus throughout | Policy and several cases are implemented. A whole-course consistency pass is still open; no complete as-built campus model is claimed. |
 | Approximately 20-minute primer | Slides exist; actual spoken runtime and beginner comprehension have not been established. No precise rehearsal cues are being restored. |
-| Remove repeated disclaimer/subtitle clutter everywhere | The latest sweep removed many visible footers. **Not certified exhaustive:** UPS still uses “Ideal DC-bus example”; other notes use similar boilerplate. Further cleanup must distinguish generic disclaimers from inputs, figure credits and named-project status. |
+| Remove repeated disclaimer/subtitle clutter everywhere | The latest sweep removed many visible footers. **Not certified exhaustive.** Further cleanup must distinguish generic disclaimers from useful example inputs, figure credits and named-project status. “Ideal example” was explicitly permitted by the author and is not itself a missed removal. |
 | Transformer input-range explanation | **Implemented.** Primer `transformer-operating-range` follows the tap mechanism with Schneider Phaseo ABL6TS25B: 250 VA controls transformer, 360–440 V on its 400 V connection, 47–63 Hz (P159). Published input limits remain distinct from compensation taps, output regulation and dielectric tests. |
 | Simplify access to available presentations | Directory and duplicate footer were consolidated. The two rack-power decks still had identical visible “Open slides” labels; corrected to their distinct titles. The old audit’s “Slides available filter” claim was stale: a later recorded request deliberately removed that filter. |
 | Requested Astro 6 Ultra agents and Chrome-for-Testing removal | Earlier audit records both as completed. Current code/Git alone cannot freshly establish the historical agent configuration or the notification state on the original Mac. Built-in-browser-only testing remains the rule; this audit is not a new malware scan of that other computer. |
@@ -500,8 +543,7 @@ The former slide 18 remains the closing slide, now numbered 17.
   retained closing slide. The wording “remove it, then keep it” was understood
   as “remove it rather than keep it,” consistent with the stated objection.
 - Chapter 8 already covers local capacitors/rack batteries, burst discharge and
-  recharge. A sudden downward-step/source-surplus example is still missing and
-  is recorded explicitly in COURSE_REVIEW.md's follow-up list.
+  recharge. The later `source-ramp-down` example now covers a sudden downward step and source surplus; its completion is recorded in COURSE_REVIEW.md.
 
 ## Chapter 11 opening review — 17 September 2026
 
@@ -544,19 +586,143 @@ The revised deck contains 20 slides. Commissioning and acceptance remain after t
 
 | Request | Implemented result |
 |---|---|
-| Keep the immediate case-study opening; remove repeated slide 2 | Opening retained. Local measurements now show actual new evidence: flow 100→50 kg/s and return 35→40°C, with inlet 30°C and heat 2.09 MW unchanged. |
+| Keep the immediate case-study opening; remove repeated slide 2 | Opening retained. Local measurements show flow 100→50 kg/s and return 35→40°C, with inlet 30°C and heat 2.09 MW unchanged. Latest follow-up also supplies the hottest chip at 70→85°C against a stipulated 80°C limit. |
 | Explain why old and fresh temperature were identical; clarify 40°C | Removed the standalone same-value timestamp exercise. Complete before/after sets identify inlet versus return and feed the following heat balance. |
-| Keep control layers | Retained, now slide 4. |
-| Google cooling needs context then flow | Two slides distinguish 2016 recommendations from 2018 autonomous control, then use Google's original local-verification diagram. Operator override is explicit. |
+| Keep control layers | Retained after the Google cooling case and before workload admission. The added performance plot makes this slide 7. |
+| Google cooling needs context then flow | Three slides now distinguish 2016 recommendations from 2018 autonomous control, show all four original control diagrams together, then present the supplied original cooling-performance GIF. Operator override is explicit. |
 | Remove generic command-is-not-proof slide | Removed; the necessary startup constraint is taught by simultaneous heat/cooling time traces. |
 | Make standby cooling admission intuitive | Compare immediate versus delayed job start, showing the three-minute 1 MW deficit visually. |
-| Google demand response needs context; old slide 10 is ugly | Two factual case slides explain The Dalles pilot and eligible background work, followed by two large power traces for the numerical job example. |
-| Keep shared isolation; consider chapter ownership | Kept as an operational maintenance case. Chapter 13 covers commissioning; here shared control power defeats equipment redundancy during maintenance. |
+| Google demand response needs context; old slide 10 is ugly | Two slides: The Dalles pilot, then concise workload names and both scheduling graphs together. The 20 MW base load and 4 MW job are labeled illustrative. The separate deadline slide is removed. |
+| Keep shared isolation; consider chapter ownership | Initially retained as operational maintenance; the latest request removes it because shared-control dependence duplicates the redundancy chapter. |
 | Remove generic wrong-command slide | Removed; prior EPC mapping coverage remains. |
 | Cloudflare needs a concise start-to-finish story | Four slides: outage and affected services, single-facility dependencies, corrective changes/full-facility test, repeat outage and defined recovery endpoint. |
 | Verify Gmail interpretation | Corrected: a software update affected multiple live copies; offline tape preserved recoverable mail. Not fixed copy A being reinfected by B. |
 | London needs context | Added physical event/affected-zone context before the dated cooling-versus-service restoration timeline. |
 | Keep Llama and add a real Meta figure | Existing recovery snapshot retained; a second slide uses Meta's original maintenance-train diagram with its separate fleet scope recorded. |
-| Knowledge check lacks numbers and has verbose reveal | Supplied power, added job, flow, inlet, return limit and heat capacity; reveal is the required-flow calculation and one operating alternative. |
+| Knowledge check lacks numbers and has verbose reveal | Supplied power, added job, flow, inlet, return limit and heat capacity. The 66.75 kg/s result is only the water-balance minimum; the existing 85°C chip-temperature violation must also be resolved before new work starts. |
 
-21 slides. All five D14 objectives remain represented. This revision records feedback implementation, not author acceptance.
+The initial revision had 21 slides. The latest follow-up below produces 20 slides. This record reflects feedback implementation, not author acceptance.
+
+## Cooling, supplied slides and GPU cloud economics — 17 September 2026
+
+| Request | Result |
+|---|---|
+| Replace three control layers and prefab figures | Supplied full-slide images installed in Chapters 14 and 13; duplicate headings hidden. |
+| Clarify Chapter 11 slides 3–5 | Latest placement: slide 3 combines the cold-plate photograph with its coolant-flow diagram; slide 4 (formerly 5) pairs the GB300 rear manifolds with the separately labeled RDHX mechanism. The standalone coolant-entry slide is removed. |
+| Correct the assumption that residual air always uses CRAHs | Generic comparison now offers CRAH or RDHX. Crusoe's supplied pages do not establish an Abilene-wide absence of CRAHs or the proposed exact residual-heat percentage. |
+| Simplify Chapter 11 slide 8 | Replaced several controls and dense copy with simultaneous 400 W / 35°C examples and one thermal-resistance equation. |
+| Explain Chapter 16 | Five original engineering scenarios: outage, hot weather, rack retrofit, network bottleneck and phased opening. They are not five documented company incidents. |
+| Remove Chapter 15's obvious or redundant capacity exercises | Rebuilt the chapter around what GPU clouds sell and who bears price, occupancy, delivery and operating risk. |
+| Teach spot, one-, three- and five-year GPU rentals | Distinguishes interruptible Spot from market terminology, shows contract timelines and dated SemiAnalysis H100 rental ranges. |
+| Teach bare metal versus managed services | Contrasts customer-operated and managed serving; bare metal can include Kubernetes and managed Slurm. |
+| Explain energy pass-through | Contrasts fixed all-in fees with contractual energy reimbursement; calculates electricity per rented GPU-hour. |
+| Replace cost-per-accepted-result provider framing | Uses committed versus rented GPU-hours and billable occupancy; internal cost per token/run remains a separate customer metric. |
+| Compare Abilene plans to progress | Original target and reported-delivery table; adjacent Microsoft project removed. Unlike milestones are identified without inventing a delay. |
+
+Chapter 15 now has 12 slides, including the hardware-price meme relocated from EPC. Implementation and technical checks do not establish author acceptance.
+
+## Chapters 11–13 local review — 17 September 2026
+
+| Request | Result |
+|---|---|
+| Chapter 11: clarify thermal path and relate it to heat flux | Retain the visual comparison; show chip-to-coolant temperature difference explicitly and keep concise definitions beside the heat-flux example. |
+| Explain the pump chart | Initial pump/system intersection explanation was superseded by the later request: one fixed-speed pump curve with two flow rates and no clean/restricted comparison. |
+| Remove approach, CDU and redundancy captions | Removed the specified supporting labels; cooling redundancy gets a literal title and both A/B paths are initially available. |
+| Account for rear-door heat capture in the retrofit | Residual 15 kW takes either a room-air path or an RDHX-to-liquid path; do not charge captured door heat against room cooling. |
+| Chapter 12: physically follow dry and wet cooling | Separate dry/wet slides walk through collection, transfer, outdoor rejection and return. |
+| Explain condenser heat and reorder economizer | 10 MW collected plus 2 MW compressor electricity becomes 12 MW outdoors; economizer immediately follows. |
+| Clarify adiabatic equipment and weather-dependent COP | Wet pads precool air before a sealed coil; compare COP 8 cool weather with COP 4 hot weather explicitly. |
+| Remove averages, water metrics and numerical final check | All three removed from the active presentation; detailed reading/model remains. |
+| Simplify closed-loop water and water accounting | Keep the toggled diagrams, remove the outdoor-arrangement heading, put tower water balance immediately after wet/dry equipment. |
+| Heat reuse and operating dependencies | Data center generates heat all day; a separate factory needs it for six hours. Dry rejection needs electricity; wet towers also need ongoing water. |
+| Chapter 13: explain 20 and 80 kPa | Both are pressure differences across the same connection at different flows, not pressures at the CDU versus rack. |
+| Remove trivial schedule pair and reuse EPC slide as opening | EPC responsibilities becomes slide 1; the separate schedule brief/comparison is removed. |
+| Make prefab image fill the slide and add Downloads rack figure | Full-page prefab image; original Open Rack figure follows the retained OCP coupling example, whose three upper category labels are removed. |
+| Simplify factory acceptance | Title plus a three-row, two-column factory/site table. |
+| Merge repeated control/test examples after cooling derating | One measured cooling-failure response now directly follows Chapter 11's reduction in rack heat. |
+| Clarify shared readiness and remove final matching quiz | Plain readiness title retained; final pattern-matching quiz removed. |
+| Reuse the earlier CoreWeave phase example | Original campus photographs and 27 October / 24 November 2025 delivery milestones return, motivating the next 50 MW connection beside the first live phase. |
+
+Revisions are available on the local server. Implementation and technical checks do not imply author acceptance.
+
+### Chapter 11/12 wording follow-up
+
+- Chapter 11 slide 7 defines heat flux and thermal resistance without changing its comparison; slide 8 uses ΔT explicitly for the chip-to-coolant difference.
+- Chapter 11 slide 10 now has one fixed-speed pump curve and two flow rates. The title describes available pump pressure, avoiding a general claim that faster flow always lowers pressure.
+- Chapter 11 approach slide includes the requested small note, “The lower the approach, the better.”
+- Chapter 12 wet-/dry-bulb definition subtitle now reads “Think of it like sweating!”
+- Outdoor path captions specify rack **coolant** supply and its 35°C maximum. The 35°C outdoor air plus two 5°C approach differences gives 45°C inlet coolant; 35°C is a stipulated inlet limit, not a chip-temperature limit.
+
+### Chapter 12 order and hot-weather image
+
+Moved `closed-loop-water` immediately after `approach-wet`, making it slide 9. The following chiller, economizer and COP material remains together. Restored the original hot-day data-centres cartoon as a small corner image on `hot-hour` (now slide 14), without obscuring its equation or electricity comparison. The adiabatic cooler explanation distinguishes evaporating pad water to precool air from exposing circulating tower water directly to air; the earlier question had been acted on but not clearly answered to the author.
+
+### Pump operating-point follow-up — 17 September 2026
+
+The author subsequently asked to restore how actual flow is determined, then explicitly requested the higher-resistance system curve. Chapter 11 slide 10 now has three curves: the fixed-speed pump Δp = 160 − 10q², the normal circuit Δp = 30q² and the higher-resistance circuit Δp = 70q², with q in L/s and Δp in kPa. The normal circuit meets the pump at 2 L/s and 120 kPa; the higher-resistance circuit meets it at √2 ≈ 1.41 L/s and 140 kPa. More restriction therefore reduces flow on the same pump. This supersedes the earlier pump-only and single-circuit versions. Visible text stays sparse, with the equations and fuller explanation in the speaker notes.
+
+### Live review follow-up — 17 September 2026
+
+- Chapter 13 final phase slide: exact requested title, “Connect the next 50 MW while keeping the first 50 MW online.” The official investor-presentation photographs now have equal photo-only viewports, side by side above the milestones, stacked evenly on mobile.
+- Chapter 14 slide 2: removed the bottom subtitle; preserved measurements. Slide 3 explanation and speaker notes distinguish equal heat removal from acceptable chip temperature. The later follow-up adds explicit 70→85°C chip measurements against an 80°C limit.
+- Chapter 14 control-layers image: moved after the Google cooling case and before workload admission. It was slide 6 at this review; the later performance-plot insertion makes it slide 7.
+- Chapter 12 adiabatic assist: selected the clearer of the two supplied Downloads images, retained the original bitmap, and replaced the diagram body. Placed immediately after the dry-cooler walkthrough: dry route → optional wetted-pad assist → wet tower → closed-loop comparison.
+
+### Hardware-price meme placement — 17 September 2026
+
+Moved the supplied meme out of EPC and into Chapter 15 immediately after GPU financing and before the GPU-hour cost breakdown (slide 9). This concerns component purchase prices, not rental rates. Chapter 13 now begins EPC → rack-change case without an interruption. The old EPC meme bookmark redirects to its new chapter.
+
+### Chapter 14 thermal diagnosis and Google figures follow-up — 17 September 2026
+
+| Request | Implemented result |
+|---|---|
+| Explain why the row is failing when both water balances remove 2.09 MW | Slides 1–3 now show hottest-chip measurements of 70→85°C against a stipulated 80°C operating limit. These are scenario inputs, not a GPU rating or values derived from the water balance. Immediately after flow falls from 100 to 50 kg/s, an unchanged 5°C water rise would remove only 1.045 MW, so heat accumulates. The later 10°C rise restores the full heat balance at a measured chip temperature above the limit. |
+| Put all original Google control diagrams together | `google-cooling-flow`, slide 5, shows all four original diagrams in order: sensor snapshot, prediction, action selection and independent local verification. |
+| Add the supplied original performance plot after the control flow | New `google-cooling-performance`, slide 6, uses the original GIF. The reported approximately 12%→30% reduction over nine months concerns cooling energy per unit of cooling against the historical baseline, not total facility electricity. |
+| Retain the control-layers image after the Google case | `control-layers` is slide 7; workload admission follows on slide 8. |
+| Merge the deadline graphs into the Google workload slide | `google-demand-response-workloads`, slide 10, combines concise Google workload names with both scheduling graphs. The 20 MW base load, 4 MW job and deadline are illustrative teaching assumptions, not disclosed Google measurements. The standalone deadline scene is removed. |
+| Remove the repeated shared-control maintenance example | `maintenance-scope` is removed from the active sequence because this dependency is already covered in the redundancy chapter. Cloudflare now follows demand response directly. |
+| Keep the closing calculation consistent with the chip alarm | Slide 19 identifies 66.75 kg/s as the water-balance minimum only. Admission also requires resolving the existing chip overtemperature and measuring chips below the stipulated limit. |
+
+The active source sequence contains 19 slides: Row B 1–3; Google cooling 4–6; control layers 7; workload admission 8; demand response 9–10; Cloudflare 11–14; London 15–16; Llama 3 and maintenance 17–18; knowledge check 19. Speaker notes follow this sequence. This entry records source changes; it does not claim completed browser checks, tests, publication or author acceptance.
+
+### Cloudflare and London review follow-up — 17 September 2026
+
+Cloudflare’s opening now shows only the disrupted dashboard, API and analytics. The next title explicitly identifies a single point of failure. The correction and successful retest slides are preserved. The Gmail backup case is removed from this presentation and remains in the storage reading. Google’s original London incident report was inspected and contains no incident photos or diagrams. Latest local test/browser validation is recorded in TESTING.md.
+
+### Meta figure and closing verdict — 17 September 2026
+
+Added the supplied maintenance-cost graph beside Meta’s train diagram on `llama-maintenance`, preserving the supplied image bytes and removing the purple/teal subtitle. The closing knowledge check now explicitly answers “No—the new job must wait,” shows the existing chip-temperature violation in its givens, and requires sufficient flow plus acceptable chip temperature before admission.
+
+### Heat accumulation and plant-controls focus — 17 September 2026
+
+Chapter 14 slide 3 replaces the disconnected endpoint calculations with aligned heat-rate and chip-temperature traces. Heat accumulates while removal falls short of generation; the later equality stops further warming at an already excessive temperature. The trace has no claimed settling duration. Arbitrary clock labels were removed from the opening measurements. A duplicate control-layer slide highlights only plant controls before the standby-start example; the original overview remains unchanged. Chapter 14 now has 20 slides.
+
+
+### Google and Cloudflare layout restoration — 17 September 2026
+
+The author rejected the compressed Google workload labels. Restored the original large Keep serving / Defer eligible background work panels, with the scheduling graphs returned to their own following slide. This supersedes the earlier request to merge them. Restored Cloudflare’s original Core services card, date and source; removed only the unaffected Global edge network card. The chapter now contains 21 scenes.
+
+
+### Rebuild the Chapter 14 closing exercise — 17 September 2026
+
+Replaced the already-overheating Row B exercise with a separate, healthy Row C. The site has 3 MW of spare electrical and central cooling capacity, but the row’s measured flow and return-temperature limit allow only 2.09 MW more heat. The proposed 2.50 MW workload therefore tests local versus site headroom, rather than asking the learner to reject a workload because an existing chip alarm gives away the answer. The reveal states the decision and calculates local headroom; speaker notes explain the approximately 110 kg/s total-flow requirement and operational verification.
+
+### Merge Cloudflare’s outage and dependency slides — 17 September 2026
+
+Merged former Chapter 14 slides 13 and 14 into `cloudflare-pdx`, retaining the outage date, Core services card for the disrupted dashboard, API and analytics, and the three-site dependency diagram. The title identifies the single point of failure. `hidden-dependency` now aliases this combined scene. The correction and retest remain separate slides; Chapter 14 now has 20 scenes, with Cloudflare on slides 13–15 and the closing exercise on slide 20. This records the merge without changing whole-chapter acceptance.
+
+
+### Cooling reserve and Google’s incident quotation — 18 September 2026
+
+Clarified that slide 9’s 1 MW headroom is a teaching assumption. Added manufacturer stage-up thresholds and an Intel IT thermal-storage case immediately after that example, distinguishing continuous capacity from stored thermal energy. The Intel figure is extracted directly from the primary paper. Added the author’s exact Google root-cause quotation in the established quotation format immediately before the London shutdown mechanism. Added explanatory notes distinguishing a hotter steady state from a longer heat-removal interval and identifying the unchanged inlet versus warmer return. Chapter 14 now has 23 slides; Chapter 14 acceptance remains pending.
+
+
+### Chapter 15 opening terminology and contract-chart search — 18 September 2026
+
+Removed the internal-cost sentence from slide 2. Slide 3 now defines bare metal and distinguishes hardware architecture from software-management responsibility, verified against CoreWeave’s own product pages. Slide 4 defines Spot in the title, keeps the three rental offers and removes the redundant market-price subtitle. Interpreted the request for “Chapter 12 slide 5” as Chapter 15’s contract-term comparison because its one-/three-/five-year context is unambiguous. Searched the public SemiAnalysis dashboard and published GPU rental-index launch article: they track the full term structure, but publish the H100 one-year index publicly and reserve full-term data for institutional subscribers. Retained the duration diagram rather than fabricate an unavailable same-GPU, same-date comparison. Mobile footer now flows after content instead of covering it.
+
+
+### Chapter 15 NVIDIA backstops and powered idle capacity — 18 September 2026
+
+Moved the supplied hardware-price meme to the opening. Removed “dated observations, not September quotes” from the market source caption and the construction-versus-delivery subtitle from the final Abilene slide; historical dates and milestone distinctions remain in the data and notes. Financing now leads into three NVIDIA backstop slides, sourced to SemiAnalysis and corroborated by CoreWeave/NVIDIA SEC disclosures. Chapter 15 now has 15 scenes. The electricity example explicitly includes both rented and unrented-but-powered hours: 80 kWh + 4 kWh divided by 80 rented hours. Rented hours are not assumed to mean 100% GPU compute utilization; example power is a whole-site allocation per GPU. Author review remains pending.

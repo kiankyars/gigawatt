@@ -321,5 +321,45 @@
     "retrieved_on": "2026-09-17",
     "sha256": "fcba5d5281c386cb19d15dd179792dd5445bb6ec140eca126c72e2373af58222",
     "note": "Supplied full-slide illustration preserved byte-for-byte. Replaces the Chapter 12 economizer scene, with no duplicate HTML heading. Functional heat path, not a hydraulic piping drawing; CDU loop separation remains explained in reading and notes."
+  },
+  {
+    "file": "three-control-layers-user.png",
+    "source_url": null,
+    "publisher": "User-supplied illustration",
+    "retrieved_on": "2026-09-17",
+    "sha256": "721a70285a343ccec1efdd7770a4956bf401d24fb41fe31e20a770dc8ca8d804",
+    "note": "Supplied full-slide PNG preserved byte-for-byte. Chapter14 control layers; embedded title replaces HTML heading. Illustrative control roles, not a mandatory series signal path."
+  },
+  {
+    "file": "prefab-factory-site-user.png",
+    "source_url": null,
+    "publisher": "User-supplied illustration",
+    "retrieved_on": "2026-09-17",
+    "sha256": "efec52e3ad015dbc615e38be2153e21f196e8a70018e65b2204e4e006f6e0efe",
+    "note": "User-supplied TIFF converted to PNG for browser support. Chapter13 factory-and-site scene; embedded title replaces HTML heading. Illustrative assembly, not an identified vendor product."
+  },
+  {
+    "file": "immersion-tank-user.png",
+    "source_url": null,
+    "publisher": "User-supplied photograph",
+    "retrieved_on": "2026-09-17",
+    "sha256": "60ce350c8d4c44b005ee0f5e3645756d7c277a07386f19311aeff77fbfa70a25",
+    "note": "Original PNG unchanged. Full photograph immediately follows the immersion explanation. Operator and coolant not established from the attachment."
+  },
+  {
+    "file": "ocp-rack-basics-user.png",
+    "publisher": "User-supplied Open Compute Project Basics figure; original publisher unverified",
+    "source_url": null,
+    "retrieved_on": "2026-09-17",
+    "sha256": "7a7e26441620762627a6c3b10477c8c2bf93e55da947a224d095b17acf2d3e44",
+    "note": "Copied unchanged from Downloads/The-open-Compute-Project-Basics_Figure-3.png. Compares conventional server-level PSUs with consolidated rack-level PSUs. Used as an Open Rack architecture example, not a GB300 specification."
+  },
+  {
+    "file": "adiabatic-wetted-pad-user.png",
+    "source_url": null,
+    "publisher": "User-supplied illustration",
+    "retrieved_on": "2026-09-17",
+    "sha256": "d3182deec911ddf52fac1623ba991f3ebfeaa93ffe2ad07865877770691a0bd2",
+    "note": "Original PNG copied byte-for-byte from Downloads/46dce400-a6be-4443-869f-976f5c8e9e63. Selected from two supplied images because it clearly separates wetted-pad evaporation, sealed coolant tubes and warming exhaust air without an unsupported fixed temperature reduction. Chapter 12 introduces this optional dry-cooler assist immediately after the dry-cooler walkthrough and before the wet tower."
   }
 ]

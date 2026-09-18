@@ -1,6 +1,6 @@
 # From Watts to Tokens — filled-in course review template
 
-Updated **2026-09-16**. **Start here for the course design.** This is the course's
+Updated **2026-09-18**. **Start here for the course design.** This is the course's
 instance of the [freeCodeCamp course review template](https://github.com/kiankyars/youtube/blob/main/freecodecamp/course-review-template.md),
 using its [evidence-based improvement system](https://github.com/kiankyars/youtube/blob/main/freecodecamp/improvement-system.md).
 The shared template remains in the YouTube repository; this filled-in copy owns
@@ -16,9 +16,10 @@ Use the domain map to look up the section being prepared; there is no need to
 read it end to end.
 
 **Current state:** All 16 numbered chapters now have complete authored teaching decks.
+**Chapters 1–13 are author-accepted as of 17 September 2026; Chapters 14–16 remain
+awaiting author acceptance.**
 The cooling material is split into Chapter 11 (chip and rack heat capture) and
-Chapter 12 (heat rejection, climate and water); Chapters 15–16 now provide capacity
-and cost decisions followed by five integrated cases. The former Compute and
+Chapter 12 (heat rejection, climate and water); Chapters 15–16 now cover GPU cloud economics followed by a single Abilene synthesis, **Putting an AI Factory Together**. The five original engineering exercises remain optional reader practice. The former Compute and
 Storage chapters remain as Further reading; their useful teaching cases were
 moved beside the concepts they illustrate. Every deck uses shared navigation.
 The table below distinguishes author acceptance from authored material awaiting
@@ -63,6 +64,11 @@ This is the single running review status. **Authored** means the material exists
 facts, not extra approval steps. On 15 September 2026, Kian confirmed the first eight chapters verified and chose to begin recording them in batches while later chapters are refined. Kian accepted Chapters 1–4 and 6 on 14 September after the requested revisions, then reconfirmed Chapter 6 and accepted Chapter 7 on 15 September following the final image and wording changes. Revisit only changed slides or a specific unresolved issue; a new
 release does not restart an unchanged chapter’s review.
 
+**Latest acceptance — 17 September 2026:** Kian stated, “I approve up to chapters 13 at this point.”
+Chapters 1–13 are accepted in the current numbering, including the latest reviewed
+revisions. Chapters 14–16 are not accepted. Earlier acceptance dates and separate
+research or enhancement follow-ups remain recorded below.
+
 The table uses current numbering. On 16 September, Chapter 8 was split into
 Chapters 8 and 9; later chapters moved up one. Dated notes below retain the
 numbers used during those reviews.
@@ -77,14 +83,14 @@ numbers used during those reviews.
 | 6. [Campus and building power distribution](prototypes/distribution-format.html?teach=1) | 29 slides; three-phase currents and line-to-line voltage follow the single-line diagram; beer analogy and PF quote retained | [Latest checks](TESTING.md#chapter-8-sequence-and-dc-architecture-review--2026-09-15) | **Accepted and verified — 15 September.** Final requested wording and image changes implemented. Existing scene hashes retained. |
 | 7. [Continuity, storage and protection](prototypes/continuity-format.html?teach=1) | 35 scenes; updated isolation image, contact/arc sequence, two-image redundancy transition, Microsoft quote and two closing checks | [Final review checks](TESTING.md#chapters-6-and-7-final-author-review--2026-09-15) | **Accepted and verified — 15 September.** Final requested image changes implemented. Sparks retains the dated reported 1 MW pilot; current nameplate remains unresolved. |
 | 8. [Rack power and buffering](prototypes/rack-energy-format.html?teach=1) | 17 slides; rack hardware, conversion near the chip, VRMs, one connected storage diagram, load swings, recharge and the grid-to-chip power-stack recap | [Split checks](TESTING.md#rack-power-and-dc-distribution-chapter-split--2026-09-16) | **Accepted and verified — 16 September 2026.** Kian approved Chapter 8 including the merged storage/support diagram, then requested the existing power-stack image as its final recap after recharge. Chapters 1–8 remain verified. |
-| 9. [800 V DC distribution](prototypes/dc-distribution-format.html?teach=1) | 14 slides; conductor comparison, conversion placement, 50 V/800 V rack-bus paths, transformer-first versus SST supply paths and Zurich-West; closes with DC protection, retrofit and the three-column architecture recap | [Split checks](TESTING.md#rack-power-and-dc-distribution-chapter-split--2026-09-16) | **Accepted after requested edit — 16 September 2026.** Kian approved Chapter 9 upon replacing slide 10 with the supplied transformer-first/SST image. The image is installed unchanged; the 50 V versus 800 V rack-bus distinction remains. The preferred three-column comparison is now the final recap, after protection and the retrofit example. The power-stack map has moved to the end of Chapter 8. |
-| 10. [Networking and interconnects](prototypes/networking-format.html?teach=1) | 21 slides; physical fabrics, optical reach, shared uplinks, incast, RoCE and software choices, optical circuits, campus fiber, distance, fault diagnosis and Meta storage tiers | [Latest checks](TESTING.md#chapter-10-scope-and-speaker-notes--2026-09-16) | **Feedback addressed; author review in progress.** Removed the message arithmetic, all-reduce and overlap detours, separate failure repeat and storage handoff. Simplified propagation and the five-choice physical-link quiz; added the Fairwater fiber quotation and linked speaker notes. Follow-up clarifies the receiver limit, moves the four fabric explanations to notes, replaces campus fiber with the edited supplied image, and orders all notes by chapter and slide. No whole-chapter acceptance inferred. |
-| 11. [Chip and rack heat capture](prototypes/cooling-format.html?teach=1) | 16 slides; stacked air/liquid comparison, GB300 rear coolant entry, retained rear-door mechanism, supplied immersion diagram and cold-plate photograph, followed by thermal/flow/CDU examples | [Opening revision checks](TESTING.md#chapter-11-opening-and-supplied-hardware--2026-09-17) | **Author review in progress.** September 17 feedback through the former slide 8 implemented. Whole-chapter acceptance remains pending. |
-| 12. [Heat rejection, climate and water](prototypes/heat-rejection-format.html?teach=1) | 18 slides; minimal opening, wet/dry equipment comparison, weather definitions, explicit temperature paths, chiller/COP, hot-hour budget and water accounting | [Opening review checks](TESTING.md#chapter-12-wetdry-definitions-and-opening--2026-09-17) | **Author review in progress.** September 17 feedback through the former slide 8 addressed. Chiller remains here because it follows the outdoor-temperature limit; CoolIT CDU is explicitly distinguished. Later slides await further review. |
-| 13. [EPC](prototypes/procurement-cases-format.html?teach=1) | 20 slides; title and meme, uninterrupted 20 MW rack-change case, separate delivery comparison, factory/site work, Houdini, Siemens–Compass, OCP connectors and commissioning | [Current checks](TESTING.md#chapter-13-epc-case-sequence--2026-09-17) | **Revised after author feedback through former slide 14; ready for review.** Generic release/shipping slides and toy scheduling exercises removed. Prefabrication remains a dedicated four-slide section. Whole-chapter acceptance remains pending. |
-| 14. [Controls, operations and reliability](prototypes/operations-format.html?teach=1) | 21 slides; coherent Row B measurements, two-slide Google cases, cooling startup traces, shared-control maintenance, four-slide Cloudflare story, Gmail, London and original Meta maintenance diagram | [Revision checks](TESTING.md#chapter-14-case-context-and-coherent-measurements--2026-09-17) | **Author feedback through former slide 18 addressed; ready for review.** Repeated location/time and generic command/mapping slides removed or folded in. Numerical closing question supplies its inputs. Whole-chapter acceptance remains pending. |
-| 15. [Capacity, cost and system decisions](prototypes/capacity-format.html?teach=1) | 15 slides; visual power budget, moving bottlenecks, shared cost assumptions, delivery predictions and preserved Abilene evidence | [Revision checks](TESTING.md#chapter-15-decision-and-intuition-revision--2026-09-17) | **Revised after author review; ready for walkthrough.** Four standalone slides merged; detailed calculations remain in the reader. |
-| 16. [Integrated cases](prototypes/integrated-cases-format.html?teach=1) | 17 slides; all five cases retained, simultaneous alternatives, two scenario selectors and one opening-decision reveal | [Revision checks](TESTING.md#chapter-16-simplification-and-removal-audit--2026-09-16) | **Revised; author review pending.** Five repeated views folded into their case explanations. Requested additions checked in the [removal audit](SLIDE_REMOVAL_AUDIT.md). |
+| 9. [800 V DC distribution](prototypes/dc-distribution-format.html?teach=1) | 14 slides; conductor comparison, conversion placement, 50 V/800 V rack-bus paths, transformer-first versus SST supply paths and Zurich-West; closes with DC protection, retrofit and the three-column architecture recap | [Split checks](TESTING.md#rack-power-and-dc-distribution-chapter-split--2026-09-16) | **Accepted after requested edit — 16 September 2026; reconfirmed 17 September.** Kian approved Chapter 9 upon replacing slide 10 with the supplied transformer-first/SST image. The image is installed unchanged; the 50 V versus 800 V rack-bus distinction remains. The preferred three-column comparison is now the final recap, after protection and the retrofit example. The power-stack map has moved to the end of Chapter 8. |
+| 10. [Networking and interconnects](prototypes/networking-format.html?teach=1) | 21 slides; physical fabrics, optical reach, shared uplinks, incast, RoCE and software choices, optical circuits, campus fiber, distance, fault diagnosis and Meta storage tiers | [Latest checks](TESTING.md#chapter-10-scope-and-speaker-notes--2026-09-16) | **Accepted — 17 September 2026.** Removed the message arithmetic, all-reduce and overlap detours, separate failure repeat and storage handoff. Simplified propagation and the five-choice physical-link quiz; added the Fairwater fiber quotation and linked speaker notes. Follow-up clarifies the receiver limit, moves the four fabric explanations to notes, replaces campus fiber with the edited supplied image, and orders all notes by chapter and slide. |
+| 11. [Chip and rack heat capture](prototypes/cooling-format.html?teach=1) | 17 slides; physical cold plates, rear manifolds/RDHX, immersion, heat flux and temperature, coolant flow, CDU and cooling-failure response | [Local review checks](TESTING.md#chapters-11-13-local-review--2026-09-17) | **Accepted — 17 September 2026.** Minimal definitions and temperature-difference notation; A/B starts with both paths available. Merged commissioning response follows cooling derating. CRAH/RDHX choice is generic, not an asserted Abilene floor plan. |
+| 12. [Heat rejection, climate and water](prototypes/heat-rejection-format.html?teach=1) | 16 slides; physical dry/wet flow walkthroughs, water balance beside tower introduction, chiller/economizer/COP, weather, closed loops and heat reuse | [Local review checks](TESTING.md#chapters-11-13-local-review--2026-09-17) | **Accepted — 17 September 2026.** Removed weather-average, water-metrics and final arithmetic-quiz slides; simplified operating dependencies and heat-customer context. |
+| 13. [EPC](prototypes/procurement-cases-format.html?teach=1) | 14 slides; EPC opening, rack-change case, full-page prefab figure, actual packages, OCP interface and rack image, factory/site test table, shared readiness and CoreWeave phased delivery | [Local review checks](TESTING.md#chapters-11-13-local-review--2026-09-17) | **Accepted — 17 September 2026.** Toy schedule and final rack-matching quiz removed. Merged cooling-response example now follows Chapter 11 derating. Earlier CoreWeave case reused to motivate connecting a later phase beside live service. |
+| 14. [Controls, operations and reliability](prototypes/operations-format.html?teach=1) | 23 slides; Row B heat-accumulation and temperature traces, plant controls and cooling reserve, four original DeepMind control panels and performance plot, Google demand response, three-slide Cloudflare story, London incident quotation and recovery, Meta maintenance | [Revision checks](TESTING.md#chapter-14-case-context-and-coherent-measurements--2026-09-17) | **Author feedback through former slide 18 addressed; ready for review.** Repeated location/time and generic command/mapping slides removed or folded in. Numerical closing question supplies its inputs. Whole-chapter acceptance remains pending. |
+| 15. [GPU cloud economics](prototypes/capacity-format.html?teach=1) | 15 slides: opening meme, capacity products, rental terms and prices, occupancy, financing, NVIDIA backstops, idle energy costs and Abilene plan versus delivery | [Current verification](TESTING.md) | **Rebuilt after September 17 feedback; author review pending.** Removed the accepted-results invoice and repeated capacity exercises. |
+| 16. [Putting an AI Factory Together](prototypes/integrated-cases-format.html?teach=1) | 9 slides; one Abilene case connects the customer, equipment, facility, delivery and commercial decisions | [Current verification](TESTING.md) | **Rebuilt for review — 18 September 2026; author acceptance pending.** Replaces the five separate hypothetical cases and their rack-matching/schedule quizzes. Original exercises remain optional reader practice. |
 
 **Compute migration — 15 September 2026.** The former Chapter 9 is retired.
 Rack/tray/superchip anatomy is consolidated into one Chapter 8 slide; operand reuse
@@ -300,16 +306,18 @@ The reading companion now includes fourteen domain check-ins with answer
 reveals and transitions. The case-study companion provides short authored teaching
 sequences; later domain slide adaptations should integrate those cases in context.
 
-Use the existing integrated capstones where several systems meet; longer exercises
-can be optional companion practice. The video needs no scoring, mandatory quiz
+Close the course with one Abilene synthesis showing why the complete facility
+takes the form it does. Do not restore five separate hypothetical cases to the
+final presentation; their useful engineering exercises remain optional companion
+practice. The video needs no scoring, mandatory quiz
 screen or separate examination after every chapter. Include a meaningful active check-in within each domain, using a closing example only if no worthwhile check can be made. This rhythm is the production
 approach. Every numbered chapter now has a deck; unreviewed chapters still need author review and dry runs.
 
 ### Next teaching step
 
-Storage and recovery is retired as a standalone teaching chapter. Meta’s storage tiers now sit beside the networking storage-traffic diagram; Llama recovery, Gmail recovery copies, and Google demand response with its deadline example sit in Operations. The detailed storage/checkpoint lessons remain in Further reading. The supplied hardware-price meme is preserved in Procurement. No former storage URL aliases are published.
+Storage and recovery is retired as a standalone teaching chapter. Meta’s storage tiers now sit beside the networking storage-traffic diagram; Llama recovery and Google demand response with its deadline example sit in Operations. Gmail recovery remains in Further reading. The detailed storage/checkpoint lessons remain in Further reading. The supplied hardware-price meme opens GPU cloud economics. No former storage URL aliases are published.
 
-No numbered chapter remains without slides. Review Chapters 11–16, starting with the two completed cooling chapters, and refine them before recording. Preserve the recorded acceptance of earlier chapters; publication and passing tests do not constitute author acceptance.
+No numbered chapter remains without slides. Chapters 1–13 are accepted; continue the author review of Chapters 14–16, including the new nine-slide Abilene finale. Preserve the recorded acceptance of unchanged chapters; publication and passing tests do not constitute author acceptance.
 
 #### Chapter 4 review — 13 September 2026
 
@@ -464,18 +472,13 @@ links when integration is complete.
 - [ ] **Inference capacity:** obtain a matching concurrency/interactivity dataset
   for exact supported-session selection; the GB300 source curve alone does not
   supply a concurrency table.
-- [ ] **Remaining copy cleanup:** remove generic teaching disclaimers still found
-  in other decks, including the UPS “Ideal DC-bus example” caption; preserve
-  calculation inputs and source-figure attribution.
-- [x] **Delivery exercise:** Chapter 13 now compares site-built and prefabricated
-  delivery, then changes 200 × 100 kW racks into 100 × 200 kW at fixed 20 MW.
-  Electrical, hydraulic, spatial and scheduling decisions require named owners
-  and release evidence. Factory testing leads into integrated acceptance and
-  phased handover; the chapter closes with a changed-design decision.
-- [ ] **Remaining case integration:** integrate the still-pending required cases
-  listed in the section handoff checklist, including Abilene cooling and its
-  capacity ledger. Standalone case slides and reader coverage do not complete
-  their destination chapters.
+- [ ] **Remaining copy cleanup:** complete the course-wide editorial pass for redundant captions; preserve calculation inputs and source-figure attribution. The author explicitly allowed “Ideal example,” so that label alone is not an outstanding removal.
+- [x] **Delivery exercise:** Chapter 13 follows a change from 200 × 100 kW racks
+  to 100 × 200 kW at fixed 20 MW through electrical, hydraulic and structural
+  consequences. Factory testing leads into site acceptance; the chapter closes
+  with CoreWeave’s phased delivery and connecting the next 50 MW beside live service.
+- [x] **Named case integration:** Abilene cooling is in Chapter 12; its plan-versus-delivery comparison is in Chapter 15; Google demand response is in Chapter 14. The earlier unchecked status was stale.
+- [x] **Chapter 16 editorial revision:** replace the five-case presentation with the author-requested nine-slide Abilene finale, **Putting an AI Factory Together**. The rack-group selection and schedule arithmetic are removed from the presentation; the original exercises remain optional reader practice. The revised chapter awaits author review.
 - [ ] **Recurring campus:** audit every lesson and presentation for consistent
   use of the original Crusoe-built Stargate campus in **Abilene, Texas**. Keep
   dated site facts, illustrative examples, the adjacent Microsoft project and

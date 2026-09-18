@@ -6,6 +6,10 @@ refer to the current course. Scene IDs remain the more stable references.
 This workspace snapshot includes the concurrent Chapter 12 and 13 revisions;
 those revisions are separate from the commit containing this report.
 
+**Latest update — 18 September 2026:** the Chapter 16 replacement below
+supersedes the September 16 five-case retention decision. Earlier numbered
+records remain historical.
+
 **Yes: some slides originally requested or supplied by Kian were later removed
 as standalone slides. The concrete cases below have later user instructions
 approving their replacement, merger or relocation. No contradictory removal
@@ -74,3 +78,38 @@ assistant descriptions of what the user wanted.
 ## Chapter 14 review — September 17, 2026
 
 The standalone same-temperature timestamp, command/acknowledgment and wrong-row mapping slides are removed. Their relevant concepts remain in complete row measurements, startup traces and the Chapter 13 commissioning example. Google cooling and demand response, Cloudflare, Gmail, London and Llama 3 remain; context expands the chapter to 21 slides. Meta's original maintenance diagram is added. Previous scene links redirect to the corresponding current topic.
+
+## Chapter 15 commercial-model rebuild — 17 September 2026
+
+Removed the repeated spare-power/accepted-path constraint exercises, ownership-versus-contract NPV toy model, cost-per-accepted-result invoice, artificial upgrade-delay comparison, adjacent Microsoft-campus detour and closing evidence quiz. Replaced them with GPU capacity versus API billing, bare metal and managed software, on-demand/interruptible/committed products, contract tenor, historical rental prices, billable occupancy, contract financing, energy-cost allocation and Abilene targets versus delivery. The D15 reader and domain objectives now match this scope. Earlier physical capacity constraints remain in their engineering chapters and the five integrated cases.
+
+## Chapter 16 Abilene finale — 18 September 2026
+
+Kian authorized the proposed replacement: one connected Abilene case instead
+of five independent hypothetical cases. **Putting an AI Factory Together** has
+nine slides connecting the course's engineering and commercial decisions.
+This is a new presentation awaiting author review; Chapters 1–13 remain accepted.
+
+| Retired presentation material | Disposition |
+| --- | --- |
+| Separate outage, weather, retrofit, network and phased-opening cases | Removed from the finale. The C01–C05 reader exercises and numerical models remain optional practice; relevant mechanisms are already taught in their engineering chapters. |
+| Hot-weather rack-count comparison | Removed. Its supported-load comparison could be mistaken for a change in installed GPU inventory. |
+| Auxiliary-power saving versus cooling-capacity exercise | Removed from the finale because it repeats the local-versus-site constraint reasoning in Chapter 14. |
+| `phase-choice` rack matching and `phase-schedule` arithmetic | Removed from the presentation rather than replacing them with another elementary selection task. |
+| Abilene photograph and useful system connections | Reused as appropriate in the connected Abilene case; actual site facts remain separate from explanatory engineering relationships. |
+
+The existing `integrated-cases` deck route is retained. Old fragments redirect
+into the new sequence. Keeping the original reader exercises does not mean
+they remain part of the final presentation.
+
+Chapter 11's device-temperature controls were replaced with both cases visible together. No physical mechanism was removed. Supplied control-layer and prefabrication images replace their respective diagrams without changing scene destinations.
+
+**Chapter 11 image placement follow-up:** merged the standalone coolant-entry mechanism into cold-plate hardware and moved the NVIDIA rear view beside the RDHX discussion. The photograph remains identified as coolant manifolds. The old entry hash resolves to cold plates. A subsequent supplied immersion photograph follows the immersion explanation, bringing the sequence to sixteen slides.
+
+## Chapters 11–13 local review — 17 September 2026
+
+- Chapter 12 removes `weather-bins`, `water-metrics`, and `heat-rejection-check` from the active deck. Corresponding reader/model detail remains. Their old fragments resolve to the current hot-weather, tower-water and operating-dependency scenes.
+- Chapter 13 removes the empty opening and the schedule brief/comparison. EPC responsibilities is the opening; the supplied prefab figure and both actual package cases remain.
+- Chapter 13 `controls-interface` and `integrated-tests` become one Chapter 11 `cooling-response` scene immediately after `cooling-derating`. Old links point to that new location. The destination is Chapter 11 because it contains the cooling-loss example the author named.
+- Chapter 13 removes the closing `release-decision` pattern-matching quiz. Shared rack readiness remains under a literal title. The phase-boundary scene reuses the earlier CoreWeave delivery case and photographs rather than adding another generic diagram.
+- The supplied OCP rack figure is added after the retained coupling example; no user-provided image or named prefab case is removed.
