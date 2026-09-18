@@ -120,4 +120,4 @@ A stale upstream temperature cannot establish current local flow or heat transfe
 
 **The next problem:** Measurements reveal the constraint. Which intervention changes usable service enough to justify its cost and delivery time?
 
-Continue in **Capacity, cost and system decisions**: Find the constraint after reconciling the boundaries.
+Continue in **GPU cloud economics**: What a GPU cloud actually sells.

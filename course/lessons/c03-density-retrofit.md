@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/capstones.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/capstones.json), lesson `c03-density-retrofit`, then run `uv run gigawatt-expand`.
 
-**16. Put the system together · Authored draft**
+**16. Putting an AI Factory Together · Authored draft**
 
 Compare two complete electrical ledgers, a cooling duty and a service-space requirement before choosing where conversion should happen.
 

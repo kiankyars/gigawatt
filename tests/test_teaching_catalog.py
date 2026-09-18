@@ -137,7 +137,7 @@ class TeachingCatalogTests(unittest.TestCase):
         self.assertEqual(route["path"], "deck.html")
         self.assertEqual(route["next"], {
             "number": 4,
-            "title": "Put the system together",
+            "title": "Putting an AI Factory Together",
             "href": "../index.html#exercise",
             "kind": "reading",
         })

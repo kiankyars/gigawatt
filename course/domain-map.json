@@ -938,16 +938,16 @@
     },
     {
       "id": "D15",
-      "title": "Capacity, cost and system decisions",
+      "title": "GPU cloud economics",
       "lane": "delivery",
-      "question": "Which constraint limits useful service, and which change is worth making?",
-      "purpose": "Combine engineering, delivery and workload models into a bounded decision with explicit uncertainty.",
+      "question": "What is sold, who carries the risk, and how is the cluster financed?",
+      "purpose": "Connect data-center infrastructure to GPU cloud products, contract terms and delivery economics.",
       "scope": [
-        "Capacity ledgers, bottlenecks, reserves and phased expansion",
-        "Capital and operating costs, ownership/lease boundaries and commercial commitments",
-        "Energy, hardware utilization, financing assumptions and time to service",
-        "Cost per useful workload outcome versus cost per MW or GPU-hour",
-        "Sensitivity, scenarios, uncertainty, retrofit and retirement"
+        "GPU capacity billing versus model API billing",
+        "Bare-metal access and managed software responsibilities",
+        "On-demand, interruptible Spot, one-, three- and five-year contracts",
+        "Billable occupancy, revenue, electricity cost and contract-backed financing",
+        "Abilene planned milestones versus reported customer delivery"
       ],
       "prerequisites": [
         "D02",
@@ -961,8 +961,8 @@
       "objectives": [
         {
           "id": "D15.1",
-          "capability": "Reconcile electrical, thermal, spatial, network and commissioned-service limits using the same boundaries.",
-          "assessment": "Calculate a synthetic capacity ceiling and identify tied constraints without treating it as measured operating demand.",
+          "capability": "Distinguish the product, billing unit and operating responsibility in a GPU cloud offer.",
+          "assessment": "Compare GPU capacity with a model API and explain managed software on bare metal.",
           "baseline_coverage": "partial",
           "baseline_lessons": [
             "capacity-bottleneck",
@@ -971,15 +971,15 @@
         },
         {
           "id": "D15.2",
-          "capability": "Build an auditable cost model that separates capital, energy, operations, ownership and financing assumptions.",
-          "assessment": "Compare two supplied ownership or service models over an explicit horizon with a consistent denominator and utilization scenario.",
+          "capability": "Explain how rental term and interruption rights allocate commercial risk.",
+          "assessment": "Compare a short-term pool with one-, three- and five-year commitments.",
           "baseline_coverage": "missing",
           "baseline_lessons": []
         },
         {
           "id": "D15.3",
-          "capability": "Explain why cost per MW, per installed accelerator and per useful result answer different questions.",
-          "assessment": "Recalculate a scenario after changing throughput or utilization while leaving installed capacity constant.",
+          "capability": "Calculate fleet revenue and energy cost using billable occupancy.",
+          "assessment": "Find the occupancy at which two supplied rental offers produce equal revenue.",
           "baseline_coverage": "partial",
           "baseline_lessons": [
             "useful-compute"
@@ -987,15 +987,15 @@
         },
         {
           "id": "D15.4",
-          "capability": "Evaluate an upgrade using sensitivity to delivery date, service output, efficiency and constraints.",
-          "assessment": "Choose a synthetic power, cooling or network investment and identify the assumptions that reverse its ranking.",
+          "capability": "Explain how contracted revenue supports hardware financing.",
+          "assessment": "Trace customer receipts, asset financing and the risks that remain after a contract is signed.",
           "baseline_coverage": "missing",
           "baseline_lessons": []
         },
         {
           "id": "D15.5",
-          "capability": "Audit a named project's public evidence without filling unknown capacity, topology or economics with generic assumptions.",
-          "assessment": "Produce a dated case ledger separating announced, designed, permitted, commissioned and observed facts; list unresolved questions.",
+          "capability": "Compare a named project’s planned and reported delivery milestones.",
+          "assessment": "Compare Abilene’s target and later reports without conflating construction, energization and customer delivery.",
           "baseline_coverage": "partial",
           "baseline_lessons": [
             "abilene-case"
@@ -1003,14 +1003,14 @@
         }
       ],
       "visual": {
-        "title": "Find the constraint, then change it",
-        "interaction": "Compare a base case and one intervention across capacity, time, cost and useful output; display assumptions beside the result.",
-        "prediction": "Does removing the current bottleneck necessarily increase delivered useful work or improve cost per result?",
-        "boundary": "A scenario is not a valuation, site estimate or throughput forecast. Do not add overlapping capacity stages or count shared loads twice."
+        "title": "GPU rental price versus paid hours",
+        "interaction": "Change the pool occupancy while keeping the committed alternative visible.",
+        "prediction": "Does a higher hourly rental rate guarantee higher fleet revenue?",
+        "boundary": "Original revenue example; public market observations are separately dated."
       },
-      "worked_example": "Extend the existing 100 MW teaching scenario with separate non-compute IT, commissioning, workload and delivery assumptions; compare two interventions.",
-      "tradeoff": "Lowest capital cost, earliest service, highest efficiency and best useful-output economics may select different designs.",
-      "failure": "A technically successful upgrade leaves a separate delivery, network or workload constraint binding."
+      "worked_example": "Compare 1,024 GPUs committed at $2.50/GPU-hour with a $4 rental pool, then vary billable occupancy.",
+      "tradeoff": "Revenue certainty and financing support versus repricing and customer flexibility.",
+      "failure": "A market quote is applied to every installed GPU-hour despite unsold capacity."
     }
   ],
   "paths": [

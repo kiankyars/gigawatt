@@ -61,7 +61,7 @@ Make the physical system deliverable, testable, maintainable and economically co
 - [Physical site, buildings and safety](#d12)
 - [EPC](#d13)
 - [Controls, operations and reliability](#d14)
-- [Capacity, cost and system decisions](#d15)
+- [GPU cloud economics](#d15)
 
 ## Proposed teaching sequence
 
@@ -99,7 +99,7 @@ Follow heat from local device limits to climate-dependent rejection and resource
 
 ### A06 — Deliver, operate and make decisions
 
-[EPC](#d13) → [Controls, operations and reliability](#d14) → [Capacity, cost and system decisions](#d15)
+[EPC](#d13) → [Controls, operations and reliability](#d14) → [GPU cloud economics](#d15)
 
 Test complete service paths, operate them, and defend a system decision with uncertainty.
 
@@ -1740,19 +1740,19 @@ Convert a failure or capacity incident into an evidence-based recovery and preve
 
 <a id="d15"></a>
 
-### Capacity, cost and system decisions
+### GPU cloud economics
 
-**Central question:** Which constraint limits useful service, and which change is worth making?
+**Central question:** What is sold, who carries the risk, and how is the cluster financed?
 
-Combine engineering, delivery and workload models into a bounded decision with explicit uncertainty.
+Connect data-center infrastructure to GPU cloud products, contract terms and delivery economics.
 
 **Included scope:**
 
-- Capacity ledgers, bottlenecks, reserves and phased expansion
-- Capital and operating costs, ownership/lease boundaries and commercial commitments
-- Energy, hardware utilization, financing assumptions and time to service
-- Cost per useful workload outcome versus cost per MW or GPU-hour
-- Sensitivity, scenarios, uncertainty, retrofit and retirement
+- GPU capacity billing versus model API billing
+- Bare-metal access and managed software responsibilities
+- On-demand, interruptible Spot, one-, three- and five-year contracts
+- Billable occupancy, revenue, electricity cost and contract-backed financing
+- Abilene planned milestones versus reported customer delivery
 
 **Prerequisites:** [Workloads and the infrastructure brief](#d02), [Campus and building power distribution](#d04), [Rack power and the 800 V DC transition](#d06), [Networking and interconnects](#d08), [Heat rejection, climate and water](#d11), [EPC](#d13), [Controls, operations and reliability](#d14)
 
@@ -1760,55 +1760,55 @@ Combine engineering, delivery and workload models into a bounded decision with e
 
 #### Learning objective 1
 
-Reconcile electrical, thermal, spatial, network and commissioned-service limits using the same boundaries.
+Distinguish the product, billing unit and operating responsibility in a GPU cloud offer.
 
-**Assessment:** Calculate a synthetic capacity ceiling and identify tied constraints without treating it as measured operating demand.
+**Assessment:** Compare GPU capacity with a model API and explain managed software on bare metal.
 
 **Historical introduction coverage:** partial. `capacity-bottleneck` — The smallest limit wins.; `facility-overhead` — Budget the whole facility.
 
 #### Learning objective 2
 
-Build an auditable cost model that separates capital, energy, operations, ownership and financing assumptions.
+Explain how rental term and interruption rights allocate commercial risk.
 
-**Assessment:** Compare two supplied ownership or service models over an explicit horizon with a consistent denominator and utilization scenario.
+**Assessment:** Compare a short-term pool with one-, three- and five-year commitments.
 
 **Historical introduction coverage:** missing. No existing lesson mapped.
 
 #### Learning objective 3
 
-Explain why cost per MW, per installed accelerator and per useful result answer different questions.
+Calculate fleet revenue and energy cost using billable occupancy.
 
-**Assessment:** Recalculate a scenario after changing throughput or utilization while leaving installed capacity constant.
+**Assessment:** Find the occupancy at which two supplied rental offers produce equal revenue.
 
 **Historical introduction coverage:** partial. `useful-compute` — Watts do not measure useful work.
 
 #### Learning objective 4
 
-Evaluate an upgrade using sensitivity to delivery date, service output, efficiency and constraints.
+Explain how contracted revenue supports hardware financing.
 
-**Assessment:** Choose a synthetic power, cooling or network investment and identify the assumptions that reverse its ranking.
+**Assessment:** Trace customer receipts, asset financing and the risks that remain after a contract is signed.
 
 **Historical introduction coverage:** missing. No existing lesson mapped.
 
 #### Learning objective 5
 
-Audit a named project's public evidence without filling unknown capacity, topology or economics with generic assumptions.
+Compare a named project’s planned and reported delivery milestones.
 
-**Assessment:** Produce a dated case ledger separating announced, designed, permitted, commissioned and observed facts; list unresolved questions.
+**Assessment:** Compare Abilene’s target and later reports without conflating construction, energization and customer delivery.
 
 **Historical introduction coverage:** partial. `abilene-case` — Read a real headline precisely.
 
-**Visual plan: Find the constraint, then change it**
+**Visual plan: GPU rental price versus paid hours**
 
-- Prediction: Does removing the current bottleneck necessarily increase delivered useful work or improve cost per result?
-- Interaction: Compare a base case and one intervention across capacity, time, cost and useful output; display assumptions beside the result.
-- Model boundary: A scenario is not a valuation, site estimate or throughput forecast. Do not add overlapping capacity stages or count shared loads twice.
+- Prediction: Does a higher hourly rental rate guarantee higher fleet revenue?
+- Interaction: Change the pool occupancy while keeping the committed alternative visible.
+- Model boundary: Original revenue example; public market observations are separately dated.
 
-**Worked example:** Extend the existing 100 MW teaching scenario with separate non-compute IT, commissioning, workload and delivery assumptions; compare two interventions.
+**Worked example:** Compare 1,024 GPUs committed at $2.50/GPU-hour with a $4 rental pool, then vary billable occupancy.
 
-**Design tradeoff:** Lowest capital cost, earliest service, highest efficiency and best useful-output economics may select different designs.
+**Design tradeoff:** Revenue certainty and financing support versus repricing and customer flexibility.
 
-**Failure or maintenance scenario:** A technically successful upgrade leaves a separate delivery, network or workload constraint binding.
+**Failure or maintenance scenario:** A market quote is applied to every installed GPU-hour despite unsold capacity.
 
 **Research connections:**
 
@@ -1867,6 +1867,12 @@ Audit a named project's public evidence without filling unknown capacity, topolo
 - [P120 — Microsoft — Fairwater Atlanta availability and power design](https://blogs.microsoft.com/blog/2025/11/12/infinite-scale-the-architecture-behind-the-azure-ai-superfactory/) · `page_reviewed` · [local note](../research/sources/P120.md)
 - [P211 — Crusoe — Expands AI data center campus in Abilene to 1.2 gigawatts](https://www.crusoe.ai/resources/newsroom/crusoe-expands-ai-data-center-campus-in-abilene-to-1-2-gigawatts) · `page_reviewed` · [local note](../research/sources/P211.md)
 - [P212 — Crusoe — Flagship Abilene data center is live](https://www.crusoe.ai/resources/newsroom/crusoe-announces-flagship-abilene-data-center-is-live) · `page_reviewed` · [local note](../research/sources/P212.md)
+- [P220 — CoreWeave 2025 annual report](https://www.sec.gov/Archives/edgar/data/1769628/000176962826000104/crwv-20251231.htm) · `public_excerpt_reviewed` · [local note](../research/sources/P220.md)
+- [P221 — CoreWeave bare metal](https://www.coreweave.com/products/bare-metal) · `public_excerpt_reviewed` · [local note](../research/sources/P221.md)
+- [P222 — CoreWeave inference service options](https://www.coreweave.com/products/dedicated-inference) · `public_excerpt_reviewed` · [local note](../research/sources/P222.md)
+- [P223 — Create a CoreWeave SUNK cluster](https://docs.coreweave.com/products/sunk/deploy_sunk/create-sunk-cluster) · `public_excerpt_reviewed` · [local note](../research/sources/P223.md)
+- [P224 — EC2 Spot Instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html) · `public_excerpt_reviewed` · [local note](../research/sources/P224.md)
+- [P225 — SemiAnalysis GPU rental pricing index](https://gpu-index.semianalysis.com/) · `public_excerpt_reviewed` · [local note](../research/sources/P225.md)
 
 ## Paths through the system
 
@@ -1884,13 +1890,13 @@ Thermal journey, including parallel air/liquid paths and auxiliary heat inputs.
 
 ### Workload → useful service
 
-[Workloads and the infrastructure brief](#d02) → [Compute and memory — further reading](#d07) → [Networking and interconnects](#d08) → [Storage and recovery](#d09) → [Controls, operations and reliability](#d14) → [Capacity, cost and system decisions](#d15)
+[Workloads and the infrastructure brief](#d02) → [Compute and memory — further reading](#d07) → [Networking and interconnects](#d08) → [Storage and recovery](#d09) → [Controls, operations and reliability](#d14) → [GPU cloud economics](#d15)
 
 Information and service dependencies, not a literal packet route.
 
 ### Site → service → upgrade
 
-[Workloads and the infrastructure brief](#d02) → [Siting, grid connection and supply](#d03) → [Physical site, buildings and safety](#d12) → [Campus and building power distribution](#d04) → [EPC](#d13) → [Controls, operations and reliability](#d14) → [Capacity, cost and system decisions](#d15)
+[Workloads and the infrastructure brief](#d02) → [Siting, grid connection and supply](#d03) → [Physical site, buildings and safety](#d12) → [Campus and building power distribution](#d04) → [EPC](#d13) → [Controls, operations and reliability](#d14) → [GPU cloud economics](#d15)
 
 A lifecycle view across domains. Design and procurement iterate; this is not a strict construction schedule.
 
@@ -1910,7 +1916,7 @@ Domains: [Campus and building power distribution](#d04), [Continuity, storage an
 
 Ambient conditions move across supplied cooling performance curves while the site electrical limit remains fixed.
 
-Domains: [System boundaries and quantities](#d01), [Chip and rack heat capture](#d10), [Heat rejection, climate and water](#d11), [Controls, operations and reliability](#d14), [Capacity, cost and system decisions](#d15)
+Domains: [System boundaries and quantities](#d01), [Chip and rack heat capture](#d10), [Heat rejection, climate and water](#d11), [Controls, operations and reliability](#d14), [GPU cloud economics](#d15)
 
 **Deliverable:** A before/after power and heat balance with binding constraints and a stated operating response.
 
@@ -1920,7 +1926,7 @@ Domains: [System boundaries and quantities](#d01), [Chip and rack heat capture](
 
 Compare a higher-density rack migration using the existing AC plant, a sidecar option and a separately specified broader DC alternative.
 
-Domains: [Campus and building power distribution](#d04), [Continuity, storage and protection](#d05), [Rack power and the 800 V DC transition](#d06), [Compute and memory — further reading](#d07), [Chip and rack heat capture](#d10), [Physical site, buildings and safety](#d12), [EPC](#d13), [Capacity, cost and system decisions](#d15)
+Domains: [Campus and building power distribution](#d04), [Continuity, storage and protection](#d05), [Rack power and the 800 V DC transition](#d06), [Compute and memory — further reading](#d07), [Chip and rack heat capture](#d10), [Physical site, buildings and safety](#d12), [EPC](#d13), [GPU cloud economics](#d15)
 
 **Deliverable:** Interface matrix, conversion diagrams, current and heat-flow calculations, floor/service-access review, migration sequence and scenario cost comparison.
 
@@ -1930,7 +1936,7 @@ Domains: [Campus and building power distribution](#d04), [Continuity, storage an
 
 The hardware has adequate power and cooling, but a synthetic workload suffers fabric congestion and checkpoint stalls.
 
-Domains: [Workloads and the infrastructure brief](#d02), [Compute and memory — further reading](#d07), [Networking and interconnects](#d08), [Storage and recovery](#d09), [Controls, operations and reliability](#d14), [Capacity, cost and system decisions](#d15)
+Domains: [Workloads and the infrastructure brief](#d02), [Compute and memory — further reading](#d07), [Networking and interconnects](#d08), [Storage and recovery](#d09), [Controls, operations and reliability](#d14), [GPU cloud economics](#d15)
 
 **Deliverable:** Work/wait/recovery timeline, a bounded bottleneck calculation, and an experiment that distinguishes competing causes.
 
@@ -1940,7 +1946,7 @@ Domains: [Workloads and the infrastructure brief](#d02), [Compute and memory —
 
 An illustrative project has utility service, some installed racks and uneven subsystem completion. A separate named-site exercise uses only dated public evidence.
 
-Domains: [Siting, grid connection and supply](#d03), [Campus and building power distribution](#d04), [Continuity, storage and protection](#d05), [Storage and recovery](#d09), [Heat rejection, climate and water](#d11), [Physical site, buildings and safety](#d12), [EPC](#d13), [Controls, operations and reliability](#d14), [Capacity, cost and system decisions](#d15)
+Domains: [Siting, grid connection and supply](#d03), [Campus and building power distribution](#d04), [Continuity, storage and protection](#d05), [Storage and recovery](#d09), [Heat rejection, climate and water](#d11), [Physical site, buildings and safety](#d12), [EPC](#d13), [Controls, operations and reliability](#d14), [GPU cloud economics](#d15)
 
 **Deliverable:** Capacity-state ledger, dependency schedule, integrated acceptance plan and unresolved-evidence list.
 

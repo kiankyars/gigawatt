@@ -15,8 +15,8 @@ export const presentationLabels = Object.freeze({
   "heat-rejection": "12. Heat rejection, climate and water",
   "procurement-cases": "13. EPC",
   "operations": "14. Controls, operations and reliability",
-  "capacity": "15. Capacity, cost and system decisions",
-  "integrated-cases": "16. Integrated cases"
+  "capacity": "15. GPU cloud economics",
+  "integrated-cases": "16. Putting an AI Factory Together"
 });
 export const presentationRoutes = Object.freeze([
   {
@@ -140,7 +140,7 @@ export const presentationRoutes = Object.freeze([
     "path": "operations-format.html",
     "next": {
       "number": 15,
-      "title": "Capacity, cost and system decisions",
+      "title": "GPU cloud economics",
       "href": "capacity-format.html?teach=1",
       "kind": "slides"
     }
@@ -149,7 +149,7 @@ export const presentationRoutes = Object.freeze([
     "path": "capacity-format.html",
     "next": {
       "number": 16,
-      "title": "Put the system together",
+      "title": "Putting an AI Factory Together",
       "href": "integrated-cases-format.html?teach=1",
       "kind": "slides"
     }

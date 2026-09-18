@@ -104,16 +104,16 @@ Each topic ends with a check-in: pause, make a prediction, compare the reasoning
 - [The scheduler cannot negotiate with physics after the fact](lessons/d14-coordinating-control-and-work.md) — How should a workload change relate to equipment control and facility operating sequences?
 - [Measure the service, investigate the incident](lessons/d14-maintenance-and-service-reliability.md) — Why do equipment uptime and a redundant topology fail to determine useful-service availability?
 
-### 15. Capacity, cost and system decisions
+### 15. GPU cloud economics
 
-- Slides: [Capacity, cost and system decisions](prototypes/capacity-format.html?teach=1)
-- [Find the constraint after reconciling the boundaries](lessons/d15-capacity-ledger.md) — How many rack equivalents can the specified system support, and what would an upgrade actually change?
-- [Compare the service you receive, not the invoice label](lessons/d15-cost-per-service.md) — How should ownership, energy, timing and useful output enter a defensible cost comparison?
-- [Choose the intervention, then audit the claim](lessons/d15-upgrade-and-evidence.md) — Which improvement delivers useful results within the horizon, and which public statements actually support the project model?
+- Slides: [GPU cloud economics](prototypes/capacity-format.html?teach=1)
+- [What a GPU cloud actually sells](lessons/d15-capacity-ledger.md) — What is the customer buying, and who operates it?
+- [GPU rental terms, occupancy and financing](lessons/d15-cost-per-service.md) — When is a long contract preferable to selling capacity at short-term prices?
+- [Abilene: commercial roles and delivery](lessons/d15-upgrade-and-evidence.md) — How did the public delivery reports compare with the announced plan?
 
-### 16. Put the system together
+### 16. Putting an AI Factory Together
 
-- Slides: [Integrated cases](prototypes/integrated-cases-format.html?teach=1)
+- Slides: [Putting an AI Factory Together](prototypes/integrated-cases-format.html?teach=1)
 - [The servers stay powered. The service does not.](lessons/c01-coupled-outage.md) — Can this facility sustain useful work through the specified utility interruption?
 - [A hot day changes two limits at once](lessons/c02-weather-capacity.md) — How many complete rack equivalents remain supportable when weather changes cooling capacity and auxiliary power?
 - [The rack upgrade that does not fit the building](lessons/c03-density-retrofit.md) — Does a lower-current rack-power architecture solve the actual retrofit constraint?
@@ -191,11 +191,11 @@ Every entry below is authored and has practice; this is not evidence of learner 
 | Evaluate maintainability using a procedure, surviving capacity and real isolation boundaries. | [Measure the service, investigate the incident](lessons/d14-maintenance-and-service-reliability.md) |
 | Distinguish component reliability, topology claims and measured service availability. | [Measure the service, investigate the incident](lessons/d14-maintenance-and-service-reliability.md) |
 | Convert a failure or capacity incident into an evidence-based recovery and prevention plan. | [Measure the service, investigate the incident](lessons/d14-maintenance-and-service-reliability.md), [The servers stay powered. The service does not.](lessons/c01-coupled-outage.md), [The powered cluster that keeps waiting](lessons/c04-stalled-job.md) |
-| Reconcile electrical, thermal, spatial, network and commissioned-service limits using the same boundaries. | [Find the constraint after reconciling the boundaries](lessons/d15-capacity-ledger.md), [A hot day changes two limits at once](lessons/c02-weather-capacity.md), [Open one phase, with evidence](lessons/c05-open-a-phase.md) |
-| Build an auditable cost model that separates capital, energy, operations, ownership and financing assumptions. | [Compare the service you receive, not the invoice label](lessons/d15-cost-per-service.md) |
-| Explain why cost per MW, per installed accelerator and per useful result answer different questions. | [Compare the service you receive, not the invoice label](lessons/d15-cost-per-service.md) |
-| Evaluate an upgrade using sensitivity to delivery date, service output, efficiency and constraints. | [Choose the intervention, then audit the claim](lessons/d15-upgrade-and-evidence.md), [A hot day changes two limits at once](lessons/c02-weather-capacity.md), [The rack upgrade that does not fit the building](lessons/c03-density-retrofit.md) |
-| Audit a named project's public evidence without filling unknown capacity, topology or economics with generic assumptions. | [Choose the intervention, then audit the claim](lessons/d15-upgrade-and-evidence.md), [Open one phase, with evidence](lessons/c05-open-a-phase.md) |
+| Distinguish the product, billing unit and operating responsibility in a GPU cloud offer. | [What a GPU cloud actually sells](lessons/d15-capacity-ledger.md), [A hot day changes two limits at once](lessons/c02-weather-capacity.md), [Open one phase, with evidence](lessons/c05-open-a-phase.md) |
+| Explain how rental term and interruption rights allocate commercial risk. | [What a GPU cloud actually sells](lessons/d15-capacity-ledger.md), [GPU rental terms, occupancy and financing](lessons/d15-cost-per-service.md) |
+| Calculate fleet revenue and energy cost using billable occupancy. | [GPU rental terms, occupancy and financing](lessons/d15-cost-per-service.md) |
+| Explain how contracted revenue supports hardware financing. | [GPU rental terms, occupancy and financing](lessons/d15-cost-per-service.md), [A hot day changes two limits at once](lessons/c02-weather-capacity.md), [The rack upgrade that does not fit the building](lessons/c03-density-retrofit.md) |
+| Compare a named project’s planned and reported delivery milestones. | [Abilene: commercial roles and delivery](lessons/d15-upgrade-and-evidence.md), [Open one phase, with evidence](lessons/c05-open-a-phase.md) |
 | Locate compute, memory and communication components within a server and rack and explain their roles. | [Inside a GB300 compute tray](lessons/d07-data-path.md), [A rack’s repair boundary changes its usable job capacity](lessons/d07-rack-as-system.md) |
 | Distinguish memory-capacity, memory-bandwidth, compute and communication limits. | [Inside a GB300 compute tray](lessons/d07-data-path.md), [Choose the upgrade that removes the active limit](lessons/d07-bottleneck-model.md) |
 | Explain why chip count, advertised FLOPS and installed MW cannot independently establish job throughput. | [The powered cluster that keeps waiting](lessons/c04-stalled-job.md), [Choose the upgrade that removes the active limit](lessons/d07-bottleneck-model.md), [A rack’s repair boundary changes its usable job capacity](lessons/d07-rack-as-system.md) |
@@ -4612,295 +4612,263 @@ A stale upstream temperature cannot establish current local flow or heat transfe
 
 **The next problem:** Measurements reveal the constraint. Which intervention changes usable service enough to justify its cost and delivery time?
 
-Continue in **Capacity, cost and system decisions**: Find the constraint after reconciling the boundaries.
+Continue in **GPU cloud economics**: What a GPU cloud actually sells.
 
-## Find the constraint after reconciling the boundaries
+## What a GPU cloud actually sells
 
-**15. Capacity, cost and system decisions · Authored draft**
+**15. GPU cloud economics · Authored draft**
 
-Reconcile facility overhead, non-compute IT, electrical and thermal limits, network scope and accepted service in one synthetic ledger.
+Separate capacity billing, hardware access and software responsibility.
 
-**Driving question:** How many rack equivalents can the specified system support, and what would an upgrade actually change?
+**Driving question:** What is the customer buying, and who operates it?
 
-## A megawatt must belong to a ledger
+## Capacity, not a successful training run
 
-A utility service limit, downstream electrical rating, cooling duty and installed rack count describe different boundaries. To compare them, define the population and the required state. Our exercise uses identical compute-rack equivalents at 100 kW each, plus a separate 5 MW of non-compute IT. That non-compute IT includes the synthetic shared network and storage electrical load. It belongs inside total IT power, even though it is not assigned to the compute-rack count.
+A neocloud supplies GPU computing capacity and associated services. Its customer may buy a dedicated cluster for a term or consume resources by the hour. The bill need not depend on a successful training run. CoreWeave’s 2025 annual report describes committed capacity access and usage-based access; over 98 percent of that year’s revenue came from committed contracts.
 
-The stipulated facility model is Psite = 1.2 PIT + 5 MW. The load-dependent overhead is 0.2 PIT, and the fixed 5 MW overhead is outside IT. These two different 5 MW terms must not be confused: one is non-compute IT inside PIT; the other is fixed facility overhead outside it. The formula is an invented operating model, not an annual PUE or an observed data-center efficiency. It is useful because each load has an explicit place.
+A model API is a different product layer. CoreWeave’s product comparison includes GPU-hour billing for dedicated inference and token billing for serverless inference. A lab can calculate its internal cost per token or training run even while paying its infrastructure supplier for GPU-hours. Keeping those perspectives separate avoids pretending every facility sells completed AI tasks.
 
-At a 100 MW site limit, total IT power cannot exceed (100 − 5)/1.2 = 79.17 MW. Removing the separate 5 MW non-compute IT leaves about 74.17 MW for compute racks, or 741 whole 100 kW equivalents after rounding down. Other constraints can be lower. A downstream 70 MW IT electrical limit allows only 65 MW for compute, while a stipulated 60 MW thermal limit on total IT heat allows 55 MW.
+## Bare metal does not settle software responsibility
 
-## Only compare like populations
+Bare metal describes hardware access without a virtualization hypervisor. It does not mean that the supplier simply hands over an SSH key and stops operating anything. A supplier still supports the contracted hardware, network and facility; software responsibility varies by service. CoreWeave describes Kubernetes on bare metal and a managed Slurm-on-Kubernetes product, SUNK.
 
-The synthetic network brief supports six hundred compute-rack equivalents for the specified workload topology. There are seven hundred fifty usable physical positions, and only five hundred twenty positions currently have accepted end-to-end service paths. We explicitly assume these populations are nested and refer to the same positions, with all required reserve and maintenance deductions already included in the stated limits. Without that assumption, the asset-level intersection from the commissioning lesson is necessary.
+For an inference customer, compare running a serving stack on CKS with Dedicated Inference: the latter moves routing, scaling and serving lifecycle work to the provider. Both can retain GPU-hour billing. Containers, Kubernetes and Slurm are not alternatives to bare metal: they can run on it. A purchase decision therefore needs both the hardware access model and the operating responsibility boundary.
 
-The reconciled ceilings are therefore 741 from site input, 650 from downstream electrical capacity, 550 from heat removal, 600 from networking, 750 from space and 520 from accepted service. Their minimum is 520. This is an operating envelope under supplied conditions. It is not a measured load, a customer reservation total or a model of useful application output. A workload can demand less power or make poor progress inside the envelope.
+## Three offers that must not be conflated
 
-Notice that the available electrical service is not the binding constraint. At 520 compute racks, compute power is 52 MW and total IT is 57 MW after adding non-compute IT. The site account is 52 MW compute + 5 MW shared network and storage + 11.4 MW load-dependent facility overhead + 5 MW fixed facility overhead = 73.4 MW. This is the same result as 1.2 × 57 + 5. The remaining 26.6 MW cannot complete an acceptance test or provide a missing cooling path. It is headroom at one boundary, while another required condition remains incomplete.
+On-demand means access without a multi-year capacity commitment, billed as specified by the provider. An explicitly interruptible Spot product can be reclaimed; AWS EC2 documents that behavior. A short-term bilateral market rental is not automatically interruptible merely because someone calls its price spot. A reservation adds a capacity and payment commitment defined in its contract.
 
-## Removing one bottleneck reveals the next
+Compare the same accelerator, memory, interconnect, region, start date and service scope before interpreting an hourly price difference. Storage, data transfer, support, prepayment and interruption terms can move the effective cost. An index combines market observations; it is not necessarily an offer a buyer can execute for the required cluster.
 
-Complete additional acceptance so that seven hundred positions are available, while leaving physical capacities unchanged. The new minimum is 550, imposed by the thermal boundary. Increase cooling capability from 60 to 70 MW of total IT heat and the thermal compute ceiling becomes 650. Networking now limits the population to 600. The cooling intervention therefore creates fifty additional equivalents after acceptance is expanded, not the full one hundred implied by its ten-megawatt thermal increase.
+## Worked example: Two GPU-hour offers with different operating scope
 
-If network capability later rises to eight hundred equivalents, downstream electrical capacity and cooling both bind at 650. Tied constraints matter: upgrading only one of them does not increase this ceiling while the other remains unchanged. A useful intervention plan records the sequence, prerequisites and cost of the next limiting condition, rather than celebrating every added megawatt as the same increment of service.
+- A customer needs dedicated GPUs for its own inference model.
+- Compare customer-operated serving on CKS and CoreWeave Dedicated Inference.
 
-Finally, keep capacity and useful output separate. A network upgrade can improve job progress without changing the count of powered racks, and a workload change can reduce required power for the same useful output. An efficiency improvement can also free site capacity that remains unusable because commissioning or another physical interface is limiting. The ledger explains feasibility. To decide whether a change is worthwhile, connect that feasibility to a measured workload and a dated cost model.
+1. Hardware — Dedicated GPU capacity — Both paths can use bare-metal servers.
+2. Operations — Customer-operated versus provider-operated serving — Routing, autoscaling and lifecycle responsibilities differ.
 
-## Worked example: One consistent 100 MW scenario
+**Result:** The hardware and billing unit can be similar while the operating burden differs.
 
-- Synthetic 100 MW site limit with Psite = 1.2 PIT + 5 MW.
-- Non-compute IT is a separate 5 MW within PIT; each compute equivalent is 0.1 MW.
-- Downstream electrical limit 70 MW IT; cooling limit 60 MW IT heat. Network 600, space 750 and accepted service 520 equivalents. Populations are nested and reserves are already deducted.
-
-1. Site compute ceiling — ((100 − 5)/1.2 − 5)/0.1 = 741.67 → 741 whole equivalents — Subtract fixed facility overhead before conversion, then remove non-compute IT.
-2. Downstream and thermal ceilings — (70 − 5)/0.1 = 650; (60 − 5)/0.1 = 550 — Both stated ratings cover total IT, so both include the non-compute IT load.
-3. Common feasible population — min(741, 650, 550, 600, 750, 520) = 520 — Every constraint now refers to the same rack-equivalent definition.
-
-**Result:** The current envelope is 520 equivalents. Completing acceptance alone raises it to 550; further gains depend on the next constraints.
-
-**Model boundary:** The overhead relation, thermal accounting and workload equivalence are hypothetical. This is not a site estimate or throughput forecast.
+**Model boundary:** Use the documented product scope; private support and commercial terms remain contract-specific.
 
 ## The tradeoff
 
-Choice: Prioritize an intervention that closes the currently binding service condition.
+Choice: Use provider-managed serving.
 
-Benefit: It can produce useful incremental capacity with less stranded upstream headroom.
+Benefit: Reduce the customer’s serving operations burden.
 
-Cost: The next bottleneck may appear quickly; delivery, workload demand and joint constraints determine how much of the intervention becomes useful.
+Cost: Accept the supported runtime and management interfaces.
 
 ## When the situation changes
 
-Trigger: A proposal counts all new cooling MW as additional compute MW.
+Trigger: A price comparison treats bare metal as synonymous with unmanaged software.
 
-Mechanism: It ignores non-compute IT, the network envelope or the remaining accepted-service boundary.
+Mechanism: The offers contain different services.
 
-Response: Reconcile the before-and-after ledger and identify every condition required for the claimed gain.
+Response: Compare the responsibility boundary and the invoice unit separately.
 
 ## Apply the idea
 
-After accepted service reaches 700, cooling reaches 70 MW IT and networking reaches 800 equivalents, what is the ceiling? Would raising only downstream electrical capacity above 70 MW help?
+A provider offers managed serving on bare-metal GPUs and bills GPU-hours. Is that contradictory?
 
 <details>
 <summary>Reveal the worked answer</summary>
 
-The ceiling is 650 equivalents, tied between downstream electrical capacity and cooling. Raising only the electrical limit does not change it.
+No. Hardware access, operating responsibility and billing unit are separate choices.
 
-Both boundaries allow 70 − 5 = 65 MW of compute, or 650 equivalents. The unchanged thermal limit remains binding after an electrical-only upgrade. The site, space, network and acceptance ceilings are higher under the stated assumptions, so they do not resolve that tie.
+The provider can operate software directly on dedicated hardware and bill the reserved or consumed capacity.
 
 </details>
 
-**The idea to keep:** A capacity minimum is meaningful only after every limit refers to the same population, operating condition and accounting boundary.
+**The idea to keep:** Separate capacity billing, hardware access and software responsibility.
 
 ## Sources and reading boundaries
 
-- [ASHRAE Handbook, Chapter 20: Data Centers and Telecommunication Facilities](https://handbook.ashrae.org/Handbooks/A23/SI/A23_Ch20/a23_ch20_si.aspx) — The PUE discussion distinguishes facility and IT energy boundaries and describes limitations of comparing operating ratios. Read 2026-09-06. Selected metric-boundary passages inspected. The affine power model and all capacity limits in this lesson are original synthetic inputs, not handbook ratings.
+- [CoreWeave 2025 annual report](https://www.sec.gov/Archives/edgar/data/1769628/000176962826000104/crwv-20251231.htm) — Capacity contracts, revenue mix and asset-level financing. Read 2026-09-17. Fiscal 2025 observations; these are not claims about every provider or every private contract.
+- [CoreWeave bare metal](https://www.coreweave.com/products/bare-metal) — Kubernetes runs directly on bare-metal servers. Read 2026-09-17. Product architecture, not a claim of customer ownership or a benchmark.
+- [CoreWeave inference service options](https://www.coreweave.com/products/dedicated-inference) — Customer-operated and managed serving differ; dedicated GPU-hour billing and serverless token billing coexist. Read 2026-09-17. Current product descriptions reviewed; actual contract inclusions govern.
+- [Create a CoreWeave SUNK cluster](https://docs.coreweave.com/products/sunk/deploy_sunk/create-sunk-cluster) — Managed Slurm on Kubernetes. Read 2026-09-17. Documentation describes this product, not all Slurm deployments.
+- [EC2 Spot Instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html) — Spot instances can be reclaimed, unlike an ordinary on-demand commitment. Read 2026-09-17. AWS interruption policy; not a definition of every market use of spot.
 
-## Compare the service you receive, not the invoice label
+## GPU rental terms, occupancy and financing
 
-**15. Capacity, cost and system decisions · Authored draft**
+**15. GPU cloud economics · Authored draft**
 
-Build a scoped three-year present-value comparison and show how a stable cost changes meaning when useful output falls.
+Compare revenue over the whole fleet, then account for costs and risk.
 
-**Driving question:** How should ownership, energy, timing and useful output enter a defensible cost comparison?
+**Driving question:** When is a long contract preferable to selling capacity at short-term prices?
 
-## Choose one decision boundary
+## One, three or five years
 
-A facility owner, tenant and cloud customer pay for different bundles. An electricity bill may be separate in one arrangement and embedded in another service fee. Hardware, staffing, replacement, financing and residual value may lie with different parties. Before comparing prices, define the service, horizon and costs included on both sides. Otherwise, an apparent saving may simply be an omitted obligation or a transfer of responsibility whose price appears elsewhere.
+SemiAnalysis tracks rental terms from on-demand through five years. The contract duration determines when a provider must sell the capacity again. A longer agreement can reduce exposure to weak future demand and declining rental prices; it can also lock the provider out of higher prices during a shortage. The customer accepts a payment commitment to secure capacity and negotiate terms. No universal rule forces every longer quote to be cheaper.
 
-Our synthetic comparison covers the same facilities service for three years and deliberately excludes identical customer compute hardware on both sides. In the base case, ownership requires $20 million initially, $3 million of annual non-energy operating cost and $4 million of annual energy cost. It has a stipulated $5 million residual value at the end of year three. A contracted alternative costs $11 million per year and includes that same facilities service and energy. These are invented amounts, not market benchmarks or costs assigned to the earlier 100 MW campus.
+The public H100 table illustrates why renewal is a risk rather than a guaranteed price decline. One-year rental ranges were $1.45–1.95 in October 2025, $1.50–2.05 in January 2026 and $2.10–2.70 per GPU-hour in April 2026. These are dated 25th–75th percentile observations, with typical 25 percent prepayment, not September spot quotes. Missing public three- and five-year numeric quotes are not filled with invented estimates.
 
-The base $4 million energy line can be checked separately: 50,000 MWh per year at an assumed $80/MWh equals $4 million. Raising the flat price to $120/MWh makes energy $6 million and annual ownership operations $9 million; at $160/MWh those amounts become $8 million and $11 million. The comparison stipulates a fixed $11 million service fee including energy, with no pass-through. Its cost remains unchanged when the owner’s energy price changes. Real tariffs, escalation and contractual pass-throughs can allocate that exposure differently.
+## The price applies only to the hours that pay
 
-Carry the selected energy price through the annual expense, cash-flow timeline, present-cost comparison and cost per result. Carry the selected discount rate through the present-cost and cost-per-result calculations too. Changing one control should not silently reset the other assumption. The worked example below explicitly returns to the base $80/MWh and 8 percent rate so its arithmetic can be checked independently.
+In the worked example, a full-fleet commitment receives $2.50 for every contracted GPU-hour. An uncommitted pool receives $4.00 only for rented hours. At half occupancy the pool’s revenue is only $2.00 per available GPU-hour. This is commercial occupancy: a renter may pay for a GPU that is temporarily idle, so rented hours are not the same as processor utilization.
 
-## Put cash flows on the same clock
+The break-even rented fraction is 2.50/4.00 = 62.5 percent before differences in cost. At 80 percent the pool earns more; at 50 percent it earns less. This does not forecast future occupancy. It identifies what must be believed about bookings before a high hourly price becomes a better revenue strategy.
 
-A payment today and a payment in three years have different present values under a chosen discounting convention. Use PV = future amount/(1 + r)^t. Here r is a stipulated 8 percent annual rate, with recurring payments at year end and no inflation or tax modeling. NIST Handbook 135 explains life-cycle costing, cash-flow timing and discounting. We use the method with original assumptions; the exercise rate is neither a federal requirement nor a recommendation for a real project.
+## Contracts and costs sit on both sides of the balance sheet
 
-At the base 8 percent rate, the sum of the three year-end discount factors is approximately 2.5771. With $80/MWh energy, ownership therefore costs 20 + 7 × 2.5771 − 5/(1.08³) = $34.07 million in present value. The contracted alternative costs 11 × 2.5771 = $28.35 million. The residual is subtracted because it is an assumed value recovered at the end, not another expenditure. Omitting it or treating it as cash available at time zero changes the comparison incorrectly.
+CoreWeave reports using asset-level debt supported by take-or-pay customer contracts. A committed receipt stream helps finance expensive hardware, but delivery, customer credit and operating costs still matter. A signed contract is not cash already collected. Payments to suppliers and lenders can fall due while a facility is being commissioned.
 
-For another selected flat price p in dollars per MWh, annual energy cost is 0.05p million dollars and annual ownership operating cost is 3 + 0.05p million. At annual discount rate r, let F = 1/(1+r) + 1/(1+r)² + 1/(1+r)³. Ownership present cost is 20 + (3 + 0.05p)F − 5/(1+r)³; contract present cost is 11F. Setting r to zero leaves the same cash flows on their actual dates but applies no discount: at the base energy price, ownership totals $36 million and the contract totals $33 million. The timeline shows when cash changes hands; discounting changes how those amounts are compared at the base date.
+A complete GPU-hour cost includes hardware and network investment, facilities, operations and electricity. Avoid counting both equipment purchases and depreciation as separate cash costs, or mixing loan repayments into an inconsistent operating-cost comparison. Financial statements, cash-flow analysis and a simple operating margin answer different questions.
 
-Financing must match the perspective. This example is an unlevered service-cost comparison with a stipulated discount rate; it does not also insert loan principal and interest payments. A separate financing analysis can model actual funding terms, but adding every financing cash flow to an already inconsistent ownership model can double count or mix perspectives. Likewise, nominal cash flows need a compatible nominal rate, while constant-dollar assumptions need a compatible real treatment. State the convention instead of hiding it in a spreadsheet default.
+For the energy example, allocate 1 kW of average whole-site demand to each installed GPU over all hours, including cooling and shared equipment. At $80/MWh and 80 percent billable occupancy, energy costs $0.10 per rented GPU-hour. Doubling the tariff makes that $0.20 at the same average load. Under an all-in fixed fee, an unhedged increase reduces provider margin; under an energy reimbursement clause, the specified increase reaches the customer. That is what energy pass-through means.
 
-## The denominator can reverse the story
+## Worked example: A higher rate with fewer rented hours
 
-Cost per installed megawatt describes a capital-intensity boundary. Cost per accelerator-hour describes an equipment-time boundary. Cost per useful result includes what the workload actually produces under a quality and service requirement. None can substitute for another without an explicit conversion model. A powered accelerator that waits for data still contributes to some time denominators while producing little additional useful work.
+- 1,024 GPUs over 8,760 hours. Same service scope; rates are original example inputs.
+- Committed: $2.50/GPU-hour for the full fleet. Pool: $4.00/rented GPU-hour at 50% occupancy.
 
-Suppose a fixed scoped cost buys a stipulated ten million acceptable results over the horizon. If useful output falls by twenty percent while cost remains unchanged, eight million results now share the same cost. Cost per result increases by twenty-five percent because 1/0.8 = 1.25. Use the present facilities cost at the selected energy price and discount rate, divided by undiscounted accepted results over the same three years. Both alternatives use the same output condition. This is a present-cost-per-physical-result ratio, not revenue NPV or a metric that discounts physical output. The equipment count and installed MW did not change. This calculation does not explain the lost output; memory, network, storage, recovery or demand conditions must be investigated through evidence.
+1. Available hours — 1,024 × 8,760 = 8,970,240 GPU-hours — Count the entire fleet over the same interval.
+2. Committed revenue — 8,970,240 × $2.50 = $22,425,600 — The commitment pays independently of actual use.
+3. Pool revenue — 8,970,240 × 0.50 × $4.00 = $17,940,480 — Unrented hours earn no rental revenue.
+4. Equal revenue — Occupancy = $2.50/$4.00 = 62.5% — Costs and risk can still change the preferred strategy.
 
-A decision should report the assumptions that could change its ranking. Ownership may become preferable with a longer service horizon, a different residual value, different energy exposure or a materially different risk allocation. A service contract may contain minimum commitments, escalation or exit conditions absent from this simple comparison. Those belong in a real evaluation. The lesson’s purpose is to make the arithmetic auditable and the missing terms visible, not to declare one commercial model universally superior.
+**Result:** The higher-priced pool earns less at 50% occupancy, and more at 80%.
 
-## Worked example: A three-year facilities-service comparison
-
-- All amounts synthetic, in millions of dollars; the same facilities scope and service requirement apply.
-- Ownership: 20 at time zero, 7 at each year end, residual receipt 5 at the end of year three.
-- Contract: 11 at each year end, energy included. Rate 8 percent; no taxes, inflation, financing cash flows or performance differences.
-
-1. Recurring present-value factor — 1/1.08 + 1/1.08² + 1/1.08³ = 2.5771 — Every recurring payment uses the same timing convention.
-2. Ownership present cost — 20 + 7 × 2.5771 − 5/1.08³ ≈ $34.07 million — Subtract the discounted residual at its actual end date.
-3. Contract present cost — 11 × 2.5771 ≈ $28.35 million — The included energy must not be added again.
-
-**Result:** The contracted alternative has about $5.72 million lower present cost for this invented three-year scope and service.
-
-**Model boundary:** This is an educational scenario, not a quote, valuation or investment recommendation. Real risk, terms and resource costs require project-specific evidence.
+**Model boundary:** Annual revenue before costs; delivery and collectability are assumed. These are not CoreWeave price quotes.
 
 ## The tradeoff
 
-Choice: Own an asset rather than purchase a defined service.
+Choice: Commit the fleet for a longer term.
 
-Benefit: Ownership can provide control over use, changes and residual value within the actual legal and operating arrangement.
+Benefit: More visible receipts and fewer renewal gaps.
 
-Cost: It carries capital, maintenance, obsolescence and utilization exposure that a comparison must allocate explicitly.
+Cost: Reduced repricing flexibility and continuing customer-credit and delivery exposure.
 
 ## When the situation changes
 
-Trigger: A comparison adds electricity to the contract fee even though it is already included, while omitting maintenance from ownership.
+Trigger: A model applies a high advertised price to every installed GPU-hour.
 
-Mechanism: Different cost boundaries manufacture a ranking that no consistent service comparison supports.
+Mechanism: It assumes every hour is sold.
 
-Response: Reconcile inclusions, timing and obligations before interpreting the numerical result.
+Response: Apply billable occupancy and distinguish revenue from profit.
 
 ## Apply the idea
 
-The contract’s total scoped cost remains fixed, but acceptable output falls from ten million results to eight million. By what percentage does cost per result rise?
+If a pool bills $4/GPU-hour but rents 50% of its hours, what full-fleet committed rate produces the same revenue?
 
 <details>
 <summary>Reveal the worked answer</summary>
 
-It rises by 25 percent: 10/8 − 1 = 0.25.
+$2 per GPU-hour, before cost differences.
 
-Each remaining result bears a larger share of the unchanged cost. A twenty-percent output reduction is not a twenty-percent unit-cost increase because the new denominator is smaller. Before comparing this ratio across workloads, confirm that a result meets the same quality, latency and scope requirement in both cases.
+Only half the available hours earn the $4 rate. The comparison needs the same fleet and time interval.
 
 </details>
 
-**The idea to keep:** Keep scope, cash-flow timing and the useful-service denominator consistent. Lower capital cost alone does not establish lower cost per result.
+**The idea to keep:** Compare revenue over the whole fleet, then account for costs and risk.
 
 ## Sources and reading boundaries
 
-- [NIST Handbook 135, 2025: Life Cycle Costing Manual](https://nvlpubs.nist.gov/nistpubs/hb/2025/NIST.HB.135e2025.pdf) — Chapters 2–4 distinguish study periods, cost categories, cash-flow timing and present-value methods; section 3.2 covers single and recurring payments. Read 2026-09-06. Selected scope, timing and discounting passages inspected. Prices, rate, residual and service assumptions are original; no federal compliance or current-market claim is made.
+- [SemiAnalysis GPU rental pricing index](https://gpu-index.semianalysis.com/) — One-, three- and five-year tenors and dated H100 one-year ranges. Read 2026-09-17. Only visible public observations used. October 2025, January and April 2026 ranges are historical, not September quotes; missing tenors left blank.
+- [CoreWeave 2025 annual report](https://www.sec.gov/Archives/edgar/data/1769628/000176962826000104/crwv-20251231.htm) — Capacity contracts, revenue mix and asset-level financing. Read 2026-09-17. Fiscal 2025 observations; these are not claims about every provider or every private contract.
 
-## Choose the intervention, then audit the claim
+## Abilene: commercial roles and delivery
 
-**15. Capacity, cost and system decisions · Authored draft**
+**15. GPU cloud economics · Authored draft**
 
-Compare original intervention scenarios with different delivery dates, then classify dated Abilene capacity claims and identify the measurements still needed for a service-cost forecast.
+Compare the original target with a dated report of the same milestone.
 
-**Driving question:** Which improvement delivers useful results within the horizon, and which public statements actually support the project model?
+**Driving question:** How did the public delivery reports compare with the announced plan?
 
-## An intervention needs a causal route to useful output
+## Separate the commercial layers
 
-An upgrade should name the limiting condition it changes and the service that benefits. A network intervention can reduce waiting without increasing available electrical MW. A cooling intervention can permit a higher physical load while leaving storage or commissioning as a separate constraint. Before assigning an economic benefit, confirm that the revised configuration, workload and accepted paths support the additional useful output. Removing a local bottleneck does not by itself establish the end-to-end gain.
+The original Abilene campus links Crusoe’s facility development, Oracle’s cloud infrastructure and OpenAI’s workloads. A megawatt of facility capacity and a GPU cluster available to a customer are different deliverables. The public first-phase report establishes operating OCI and early workloads; it does not disclose every private ownership, financing or service agreement.
 
-Our synthetic brief stipulates that two alternatives have already passed those feasibility checks for the same workload and output-quality requirement. The network option costs $4 million and immediately adds eighty acceptable results per operating hour. The cooling option costs $6 million, arrives one year later and then adds one hundred fifty results per operating hour. There are eight thousand usable hours per year and a three-year evaluation horizon. These are supplied scenario outcomes, not watts-to-tokens conversions.
+This case remains about the Oracle/OpenAI campus. The neighboring Microsoft project is not required to explain these milestones and is omitted from the presentation. The photograph supplies site context; it does not independently establish the status of every hall.
 
-The timing is consequential. The immediate network option produces 80 × 8,000 × 3 = 1.92 million additional results. The delayed cooling option produces 150 × 8,000 × 2 = 2.40 million. Dividing initial cost by these increments gives about $2.08 and $2.50 per additional result respectively. This is a narrow capital-per-increment screening ratio: energy, discounting, recurring cost, risk and residual value are excluded explicitly, so it is not a complete investment decision.
+## First phase: target and reported event
 
-## Sensitivity should find the assumption that reverses the answer
+On March 18, 2025, Crusoe targeted energization of the first two buildings for the first half of 2025. Its September 30 report says they were energized within a year of construction starting in June 2024, with the first NVIDIA GB200 racks arriving in June 2025. That report also describes early training and inference workloads. Its publication in September does not mean energization occurred in September.
 
-If the cooling option becomes available immediately, its increment rises to 3.60 million results and its screening ratio falls to about $1.67. The ranking reverses without changing its equipment performance or initial cost. Delivery time was the decisive assumption. The GAO schedule guide makes the broader connection between schedule and cost assessment; this original example also connects schedule with the time available to deliver useful service.
+The first-phase accounts are broadly consistent with the stated half-year energization target. They do not provide a detailed daily commissioning log or the exact start of every customer service obligation. Do not substitute the press-release date for the event date.
 
-Actual use is another condition. An added capacity envelope does not guarantee customers, jobs or data that can occupy it productively. If only half of the stipulated incremental results are demanded, dividing by the full capacity output understates realized unit cost. Similarly, an intervention that shifts quality or latency cannot be compared using an unchanged result label without checking the service contract. Scenario comparisons should change one assumption at a time before exploring combinations.
+## Expansion: construction and customer delivery
 
-Predict which option has the lower capital per additional result before calculating the ratios. Then change only the cooling delivery date and make a fresh prediction. Do not carry an earlier verdict into a changed brief. With all increments demanded, immediate cooling wins this screen; after a one- or two-year delay, the immediate network option wins. Halving demand halves each realized increment and doubles both ratios without changing that ranking.
+The March 2025 expansion announcement targeted completion of six additional buildings in mid-2026. Oracle’s September 2026 update says 75 percent of capacity had been delivered, with the remainder expected in following quarters. That provides a useful comparison with the original ambition, but it changes the milestone from construction completion to customer delivery.
 
-The decision record should state the current choice, supporting evidence and condition for reconsideration. Physical necessity may survive every scenario while the preferred delivery option changes with demand. Explain which uncertain inputs govern the decision rather than presenting a large spreadsheet without an argument.
+These reports do not support calculating a precise schedule slip. Nor does the percentage establish operating IT demand: its delivery denominator is not defined well enough to multiply it by the campus’s announced 1.2 GW. The relevant commercial question is which contracted capacity was available on which date. Answering it requires the agreed delivery milestone and the corresponding completion record.
 
-## Classify the dated Abilene claims before using a number
+## Worked example: Read the date of the event, not just the announcement
 
-Now leave the synthetic brief entirely. For the original Oracle / OpenAI Abilene campus, Crusoe’s March 18, 2025 announcement describes a planned eight-building campus with 1.2 GW of total power capacity. Its September 30, 2025 account says the first two buildings were energized within a year of the June 2024 construction start, the first phase was live on Oracle Cloud Infrastructure, and early training and inference workloads were running. Record planned capacity, energization and reported workload operation as distinct statements. They overlap; they are not separate capacity increments to add.
+- Crusoe plan published March 18, 2025; first two buildings targeted for energization in 1H 2025.
+- September 30, 2025 report states energization within one year of June 2024 and first racks in June 2025.
 
-Oracle’s Abilene page, checked September 16, 2026, reports 75 percent of total capacity delivered as of September 2026, with the remainder in subsequent quarters. The Abilene section’s September update is more specific than the page’s generic January footer. Oracle does not define a numeric delivery denominator that can be matched to the separately announced 1.2 GW plan. Multiplying those numbers would assume matching scope and electrical boundaries; it would not establish operating IT MW, completed buildings or metered demand.
+1. Match the milestone — Energization → energization — Compare the same first-phase event.
+2. Locate the event — By roughly June 2025, reported in September — Do not use publication date as the completion date.
+3. Separate the expansion — Mid-2026 construction target versus September customer-delivery share — The two descriptions require another record before calculating delay.
 
-The unchanged Oracle aerial identifies the Abilene data halls and is captioned July 15, 2026. A photograph supplies physical context, not an acceptance record. Keep its capture date distinct from the September delivery statement. A useful evidence ledger records entity, quantity, unit, status, boundary, source date and supported claim before a number enters the model. These are dated publisher accounts, not independent measurements of the full campus.
+**Result:** First-phase reporting is consistent with the half-year target; the expansion comparison is not a precise lateness calculation.
 
-## Keep the adjacent campus separate, then name the missing evidence
-
-Crusoe’s June 9, 2026 account distinguishes the original 1.2 GW Oracle campus from a separate 900 MW Microsoft campus nearby. At that date it reports two original-campus buildings operational and six under construction, while the Microsoft campus had recently broken ground. Those building counts are a June record, not a current inventory. Oracle’s later delivered-capacity percentage belongs to the original campus and cannot be applied to the adjacent Microsoft development.
-
-The broader Stargate program is another population again. OpenAI’s September 23, 2025 article, with a later October update, discusses nearly 7 GW of planned capacity across multiple projects and separately reports early Abilene workloads. An operational statement about one campus does not convert that program total into operating capacity. Several partners repeating one announcement also need not constitute independent confirmation.
-
-First classify what the sources support: a campus plan, reported energized buildings, reported early workloads, a delivered-capacity percentage and a distinct adjacent project. Then identify what a cost-per-result forecast still needs: a defined capacity denominator and electrical boundary, accepted service paths and operating configuration, time-aligned metered IT demand, measured accepted workload output under the required service, and dated costs and obligations over the same period. No full-campus accepted-service MW, useful-output rate or service economics follows from these claims alone. The earlier teaching rack powers, overhead, prices and output rates cannot fill the missing cells.
-
-## Worked example: Delivery timing changes the screening ranking
-
-- Entirely synthetic alternatives serving the same acceptable-result definition.
-- Network: $4m, available immediately, +80 results/hour. Cooling: $6m, available after one year, +150 results/hour.
-- Three-year horizon; 8,000 usable hours/year; every incremental result is demanded. This screening excludes recurring costs, discounting and residuals.
-
-1. Network increment — 80 × 8,000 × 3 = 1,920,000 results — Immediate delivery uses the full modeled horizon.
-2. Delayed cooling increment — 150 × 8,000 × 2 = 2,400,000 results — The first year contributes no incremental cooling-enabled output.
-3. Capital per incremental result — $4m/1.92m ≈ $2.08; $6m/2.40m = $2.50 — The ratio compares only the stated initial expenditure with the stated incremental output.
-4. Immediate cooling alternative — $6m/(150 × 8,000 × 3) ≈ $1.67/result — Changing delivery alone reverses this limited screening ranking.
-
-**Result:** The immediate network option wins the base screening ratio; immediate cooling would win the revised one. A full decision needs the excluded costs and risks.
-
-**Model boundary:** None of these prices or output rates describes Stargate or any named product. The document audit is separate from the numerical scenario.
+**Model boundary:** Only the original Oracle/OpenAI campus and named public records are included.
 
 ## The tradeoff
 
-Choice: Choose earlier service with a smaller steady output increment.
+Choice: Use phased customer delivery.
 
-Benefit: It may deliver more value within a short or time-sensitive opportunity than a later, larger technical improvement.
+Benefit: Completed portions can begin serving demand.
 
-Cost: Longer horizons, recurring costs, uncertainty or a changed service requirement can reverse the preference.
+Cost: Later phases retain construction, commissioning and contractual delivery exposure.
 
 ## When the situation changes
 
-Trigger: A planned program total is inserted as operating capacity in the upgrade model.
+Trigger: An analyst treats construction completion and delivered customer capacity as the same milestone.
 
-Mechanism: Different sites, dates and status categories are collapsed into a quantity the evidence does not establish.
+Mechanism: A supposed schedule variance compares different events.
 
-Response: Rebuild the ledger by entity and state; leave unverified commissioning, demand and throughput values blank rather than substituting generic assumptions.
+Response: Match scope and milestone before calculating a delay.
 
 ## Apply the idea
 
-Classify the original Abilene campus’s 1.2 GW plan, first-two-buildings energization report, early-workloads report and Oracle’s 75 percent delivered statement. Which additional evidence would support an operating IT MW or cost-per-result forecast?
+Does Oracle’s 75% capacity-delivery statement prove that 900 MW of IT demand was operating?
 
 <details>
 <summary>Reveal the worked answer</summary>
 
-The claims support planned campus power, reported energization, reported early workload operation and a reported delivery percentage. They establish neither a quantitative current operating IT MW total nor cost per accepted result.
+No. It does not define the matched power boundary or delivered-capacity denominator.
 
-Keep the original campus separate from the adjacent Microsoft project, and do not add overlapping status claims. Obtain the delivery denominator and electrical boundary, accepted service paths and configuration, time-aligned metered IT demand and accepted workload output, and scoped costs and obligations for the same period. Seventy-five percent of a separately reported campus plan assumes a match that the sources do not establish; borrowing the earlier teaching costs or output rates would invent the missing evidence.
+The 1.2 GW plan and a delivered share do not together supply a metered IT load.
 
 </details>
 
-**The idea to keep:** A decision connects constraints, useful output, time and evidence. Keep synthetic calculations separate from what a named source actually establishes.
+**The idea to keep:** Compare the original target with a dated report of the same milestone.
 
 ## Sources and reading boundaries
 
-- [GAO Schedule Assessment Guide](https://www.gao.gov/products/gao-16-89g) — The guide overview connects schedule credibility and slippage with program cost assessment. Read 2026-09-06. Overview reviewed. The intervention prices, rates, horizon and screening ratios are original and are not project forecasts.
-- [OpenAI: Five new Stargate sites](https://openai.com/index/five-new-stargate-sites/) — The article distinguishes a multi-site planned capacity total from its statement about early workloads at Abilene. Read 2026-09-06. Main article and visible October 22, 2025 update inspected on September 6, 2026. This lesson audits the dated statements; it does not establish current operating MW, complete topology or site economics.
-- [Crusoe — Expands AI data center campus in Abilene to 1.2 gigawatts](https://www.crusoe.ai/resources/newsroom/crusoe-expands-ai-data-center-campus-in-abilene-to-1-2-gigawatts) — March 18, 2025 planned original-campus total of eight buildings and 1.2 GW power capacity supports the planned-capacity row. Read 2026-09-16. Dated construction announcement. Expected completion and energization are prospective at publication; no operating IT MW, accepted throughput or per-building inventory is inferred.
-- [Crusoe — Flagship Abilene data center is live](https://www.crusoe.ai/resources/newsroom/crusoe-announces-flagship-abilene-data-center-is-live) — September 30, 2025 account reports the first two buildings energized, the first phase live on OCI and early training and inference workloads. Read 2026-09-16. Historical publisher account, not independent metering. It does not quantify full-campus accepted-service MW, current demand or accepted workload output. Its claims overlap the campus plan and later delivery percentage.
-- [Oracle Data Centers: Abilene, Texas](https://www.oracle.com/data-centers/) — Abilene section reports 75 percent of total capacity delivered as of September 2026 and provides a data-hall aerial captioned July 15, 2026. Read 2026-09-16. The section-specific September update was checked despite the generic January footer. The delivery denominator is not defined for conversion to operating IT MW or complete buildings. The photograph supplies no service-acceptance or measured-output evidence.
-- [Crusoe’s Contracted AI Infrastructure Capacity Approaches 5 Gigawatts Across Data Centers and Cloud](https://www.crusoe.ai/resources/newsroom/crusoes-contracted-ai-infrastructure-capacity-approaches-5-gigawatts-across-data-centers-and-cloud) — June 9, 2026 update distinguishes the original 1.2 GW Oracle campus from the separate 900 MW Microsoft development and reports their status at that date. Read 2026-09-16. Original-campus two-operational and six-under-construction building counts are historical June records. The newer Oracle percentage belongs only to the original campus. Project and contracted capacities are not measured operating demand.
+- [Crusoe — Expands AI data center campus in Abilene to 1.2 gigawatts](https://www.crusoe.ai/resources/newsroom/crusoe-expands-ai-data-center-campus-in-abilene-to-1-2-gigawatts) — March 2025 first-phase energization and six-building construction targets. Read 2026-09-17. Keep construction, energization and customer delivery distinct.
+- [Crusoe — Flagship Abilene data center is live](https://www.crusoe.ai/resources/newsroom/crusoe-announces-flagship-abilene-data-center-is-live) — September 2025 report of first-phase energization and OCI workloads. Read 2026-09-17. Publication date differs from the reported energization and first rack-delivery dates.
+- [Oracle Data Centers: Abilene, Texas](https://www.oracle.com/data-centers/) — September 2026 Abilene update reports 75 percent of capacity delivered. Read 2026-09-17. Delivery denominator and construction milestone are not matched; no inferred operating MW.
 
-## Check your understanding: Which upgrade changes the ceiling?
+## Check your understanding: A high rate or a full commitment?
 
 Pause and make a prediction, then compare your reasoning.
 
-For the same hypothetical rack population and operating condition, electrical capacity supports 12 racks, cooling 8, networking 10 and accepted service 9. Option A raises electrical capacity to 16; option B raises cooling capacity to 11. Assume the other limits stay fixed.
+The same 1,024 GPUs can be fully committed at $2.50 per GPU-hour or rented at $4.00 per booked hour. Expected billable occupancy of the pool is between 50% and 80%.
 
-**Pause and predict:** What ceiling follows from each option, and is that enough to choose an investment?
+**Pause and predict:** At what occupancy is annual revenue equal, and what does the comparison leave out?
 
 <details>
 <summary>Compare your reasoning</summary>
 
-Option A leaves the ceiling at 8 racks. Option B raises it to 9, where accepted service becomes the limit. This alone does not settle the investment decision.
+62.5% billable occupancy. Costs, delivery, customer credit and financing remain to be compared.
 
-Take the minimum across limits with matching boundaries: min(16, 8, 10, 9) = 8 and min(12, 11, 10, 9) = 9. Then compare delivery dates, costs and useful output from the added service. A capacity ceiling is neither measured demand nor a guaranteed business result.
+Equate $4 × occupancy to $2.50. The pool earns less at 50% and more at 80%. Billable occupancy means paid rental hours, not GPU compute utilization; a committed customer can pay while the GPU is idle.
 
 </details>
 
-**The next problem:** Take the whole chain into an integrated case: can you defend a decision while keeping its assumptions, evidence and unresolved constraints visible?
+**The next problem:** Bring the physical and commercial decisions together at Abilene; use the five reader exercises for optional practice.
 
 Continue in **the integrated cases**: The servers stay powered. The service does not..
 
 ## The servers stay powered. The service does not.
 
-**16. Put the system together · Authored draft**
+**16. Putting an AI Factory Together · Authored draft**
 
 Combine a power budget, an energy budget and a separately supplied cooling path. Identify exactly what the evidence can establish.
 
@@ -4971,7 +4939,7 @@ The energy margin shrinks because the battery now supports both loads. This can 
 
 ## A hot day changes two limits at once
 
-**16. Put the system together · Authored draft**
+**16. Putting an AI Factory Together · Authored draft**
 
 Reconcile the electrical and heat-removal constraints at two supplied operating points, then decide which proposed upgrade would actually help.
 
@@ -5042,7 +5010,7 @@ Installed cooling above 60 MW cannot create missing accepted paths. Actual draw 
 
 ## The rack upgrade that does not fit the building
 
-**16. Put the system together · Authored draft**
+**16. Putting an AI Factory Together · Authored draft**
 
 Compare two complete electrical ledgers, a cooling duty and a service-space requirement before choosing where conversion should happen.
 
@@ -5113,7 +5081,7 @@ Raising density moves the binding constraint to whole-room heat rejection. Annua
 
 ## The powered cluster that keeps waiting
 
-**16. Put the system together · Authored draft**
+**16. Putting an AI Factory Together · Authored draft**
 
 Trace a payload from sender through fabric to receiver, compare two upgrades, and test the predicted gain against end-to-end progress.
 
@@ -5184,7 +5152,7 @@ The bottleneck moves when one segment improves. The cycle-throughput gain is 90/
 
 ## Open one phase, with evidence
 
-**16. Put the system together · Authored draft**
+**16. Putting an AI Factory Together · Authored draft**
 
 Reconcile installation, energization, integrated testing and service acceptance. Build a dependency schedule without treating announcements as operational measurements.
 

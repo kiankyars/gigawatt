@@ -151,15 +151,15 @@
     },
     {
       "domain": "D15",
-      "title": "Which upgrade changes the ceiling?",
-      "scenario": "For the same hypothetical rack population and operating condition, electrical capacity supports 12 racks, cooling 8, networking 10 and accepted service 9. Option A raises electrical capacity to 16; option B raises cooling capacity to 11. Assume the other limits stay fixed.",
-      "prompt": "What ceiling follows from each option, and is that enough to choose an investment?",
-      "answer": "Option A leaves the ceiling at 8 racks. Option B raises it to 9, where accepted service becomes the limit. This alone does not settle the investment decision.",
+      "title": "A high rate or a full commitment?",
+      "scenario": "The same 1,024 GPUs can be fully committed at $2.50 per GPU-hour or rented at $4.00 per booked hour. Expected billable occupancy of the pool is between 50% and 80%.",
+      "prompt": "At what occupancy is annual revenue equal, and what does the comparison leave out?",
+      "answer": "62.5% billable occupancy. Costs, delivery, customer credit and financing remain to be compared.",
       "explanation": [
-        "Take the minimum across limits with matching boundaries: min(16, 8, 10, 9) = 8 and min(12, 11, 10, 9) = 9. Then compare delivery dates, costs and useful output from the added service. A capacity ceiling is neither measured demand nor a guaranteed business result."
+        "Equate $4 × occupancy to $2.50. The pool earns less at 50% and more at 80%. Billable occupancy means paid rental hours, not GPU compute utilization; a committed customer can pay while the GPU is idle."
       ],
       "next_domain": "capstone",
-      "bridge": "Take the whole chain into an integrated case: can you defend a decision while keeping its assumptions, evidence and unresolved constraints visible?"
+      "bridge": "Bring the physical and commercial decisions together at Abilene; use the five reader exercises for optional practice."
     }
   ]
 }

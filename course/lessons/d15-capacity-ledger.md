@@ -1,82 +1,78 @@
-# Find the constraint after reconciling the boundaries
+# What a GPU cloud actually sells
 
 Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/heat-delivery-operations.json), lesson `d15-capacity-ledger`, then run `uv run gigawatt-expand`.
 
-**15. Capacity, cost and system decisions · Authored draft**
+**15. GPU cloud economics · Authored draft**
 
-Reconcile facility overhead, non-compute IT, electrical and thermal limits, network scope and accepted service in one synthetic ledger.
+Separate capacity billing, hardware access and software responsibility.
 
-**Driving question:** How many rack equivalents can the specified system support, and what would an upgrade actually change?
+**Driving question:** What is the customer buying, and who operates it?
 
-## A megawatt must belong to a ledger
+## Capacity, not a successful training run
 
-A utility service limit, downstream electrical rating, cooling duty and installed rack count describe different boundaries. To compare them, define the population and the required state. Our exercise uses identical compute-rack equivalents at 100 kW each, plus a separate 5 MW of non-compute IT. That non-compute IT includes the synthetic shared network and storage electrical load. It belongs inside total IT power, even though it is not assigned to the compute-rack count.
+A neocloud supplies GPU computing capacity and associated services. Its customer may buy a dedicated cluster for a term or consume resources by the hour. The bill need not depend on a successful training run. CoreWeave’s 2025 annual report describes committed capacity access and usage-based access; over 98 percent of that year’s revenue came from committed contracts.
 
-The stipulated facility model is Psite = 1.2 PIT + 5 MW. The load-dependent overhead is 0.2 PIT, and the fixed 5 MW overhead is outside IT. These two different 5 MW terms must not be confused: one is non-compute IT inside PIT; the other is fixed facility overhead outside it. The formula is an invented operating model, not an annual PUE or an observed data-center efficiency. It is useful because each load has an explicit place.
+A model API is a different product layer. CoreWeave’s product comparison includes GPU-hour billing for dedicated inference and token billing for serverless inference. A lab can calculate its internal cost per token or training run even while paying its infrastructure supplier for GPU-hours. Keeping those perspectives separate avoids pretending every facility sells completed AI tasks.
 
-At a 100 MW site limit, total IT power cannot exceed (100 − 5)/1.2 = 79.17 MW. Removing the separate 5 MW non-compute IT leaves about 74.17 MW for compute racks, or 741 whole 100 kW equivalents after rounding down. Other constraints can be lower. A downstream 70 MW IT electrical limit allows only 65 MW for compute, while a stipulated 60 MW thermal limit on total IT heat allows 55 MW.
+## Bare metal does not settle software responsibility
 
-## Only compare like populations
+Bare metal describes hardware access without a virtualization hypervisor. It does not mean that the supplier simply hands over an SSH key and stops operating anything. A supplier still supports the contracted hardware, network and facility; software responsibility varies by service. CoreWeave describes Kubernetes on bare metal and a managed Slurm-on-Kubernetes product, SUNK.
 
-The synthetic network brief supports six hundred compute-rack equivalents for the specified workload topology. There are seven hundred fifty usable physical positions, and only five hundred twenty positions currently have accepted end-to-end service paths. We explicitly assume these populations are nested and refer to the same positions, with all required reserve and maintenance deductions already included in the stated limits. Without that assumption, the asset-level intersection from the commissioning lesson is necessary.
+For an inference customer, compare running a serving stack on CKS with Dedicated Inference: the latter moves routing, scaling and serving lifecycle work to the provider. Both can retain GPU-hour billing. Containers, Kubernetes and Slurm are not alternatives to bare metal: they can run on it. A purchase decision therefore needs both the hardware access model and the operating responsibility boundary.
 
-The reconciled ceilings are therefore 741 from site input, 650 from downstream electrical capacity, 550 from heat removal, 600 from networking, 750 from space and 520 from accepted service. Their minimum is 520. This is an operating envelope under supplied conditions. It is not a measured load, a customer reservation total or a model of useful application output. A workload can demand less power or make poor progress inside the envelope.
+## Three offers that must not be conflated
 
-Notice that the available electrical service is not the binding constraint. At 520 compute racks, compute power is 52 MW and total IT is 57 MW after adding non-compute IT. The site account is 52 MW compute + 5 MW shared network and storage + 11.4 MW load-dependent facility overhead + 5 MW fixed facility overhead = 73.4 MW. This is the same result as 1.2 × 57 + 5. The remaining 26.6 MW cannot complete an acceptance test or provide a missing cooling path. It is headroom at one boundary, while another required condition remains incomplete.
+On-demand means access without a multi-year capacity commitment, billed as specified by the provider. An explicitly interruptible Spot product can be reclaimed; AWS EC2 documents that behavior. A short-term bilateral market rental is not automatically interruptible merely because someone calls its price spot. A reservation adds a capacity and payment commitment defined in its contract.
 
-## Removing one bottleneck reveals the next
+Compare the same accelerator, memory, interconnect, region, start date and service scope before interpreting an hourly price difference. Storage, data transfer, support, prepayment and interruption terms can move the effective cost. An index combines market observations; it is not necessarily an offer a buyer can execute for the required cluster.
 
-Complete additional acceptance so that seven hundred positions are available, while leaving physical capacities unchanged. The new minimum is 550, imposed by the thermal boundary. Increase cooling capability from 60 to 70 MW of total IT heat and the thermal compute ceiling becomes 650. Networking now limits the population to 600. The cooling intervention therefore creates fifty additional equivalents after acceptance is expanded, not the full one hundred implied by its ten-megawatt thermal increase.
+## Worked example: Two GPU-hour offers with different operating scope
 
-If network capability later rises to eight hundred equivalents, downstream electrical capacity and cooling both bind at 650. Tied constraints matter: upgrading only one of them does not increase this ceiling while the other remains unchanged. A useful intervention plan records the sequence, prerequisites and cost of the next limiting condition, rather than celebrating every added megawatt as the same increment of service.
+- A customer needs dedicated GPUs for its own inference model.
+- Compare customer-operated serving on CKS and CoreWeave Dedicated Inference.
 
-Finally, keep capacity and useful output separate. A network upgrade can improve job progress without changing the count of powered racks, and a workload change can reduce required power for the same useful output. An efficiency improvement can also free site capacity that remains unusable because commissioning or another physical interface is limiting. The ledger explains feasibility. To decide whether a change is worthwhile, connect that feasibility to a measured workload and a dated cost model.
+1. Hardware — Dedicated GPU capacity — Both paths can use bare-metal servers.
+2. Operations — Customer-operated versus provider-operated serving — Routing, autoscaling and lifecycle responsibilities differ.
 
-## Worked example: One consistent 100 MW scenario
+**Result:** The hardware and billing unit can be similar while the operating burden differs.
 
-- Synthetic 100 MW site limit with Psite = 1.2 PIT + 5 MW.
-- Non-compute IT is a separate 5 MW within PIT; each compute equivalent is 0.1 MW.
-- Downstream electrical limit 70 MW IT; cooling limit 60 MW IT heat. Network 600, space 750 and accepted service 520 equivalents. Populations are nested and reserves are already deducted.
-
-1. Site compute ceiling — ((100 − 5)/1.2 − 5)/0.1 = 741.67 → 741 whole equivalents — Subtract fixed facility overhead before conversion, then remove non-compute IT.
-2. Downstream and thermal ceilings — (70 − 5)/0.1 = 650; (60 − 5)/0.1 = 550 — Both stated ratings cover total IT, so both include the non-compute IT load.
-3. Common feasible population — min(741, 650, 550, 600, 750, 520) = 520 — Every constraint now refers to the same rack-equivalent definition.
-
-**Result:** The current envelope is 520 equivalents. Completing acceptance alone raises it to 550; further gains depend on the next constraints.
-
-**Model boundary:** The overhead relation, thermal accounting and workload equivalence are hypothetical. This is not a site estimate or throughput forecast.
+**Model boundary:** Use the documented product scope; private support and commercial terms remain contract-specific.
 
 ## The tradeoff
 
-Choice: Prioritize an intervention that closes the currently binding service condition.
+Choice: Use provider-managed serving.
 
-Benefit: It can produce useful incremental capacity with less stranded upstream headroom.
+Benefit: Reduce the customer’s serving operations burden.
 
-Cost: The next bottleneck may appear quickly; delivery, workload demand and joint constraints determine how much of the intervention becomes useful.
+Cost: Accept the supported runtime and management interfaces.
 
 ## When the situation changes
 
-Trigger: A proposal counts all new cooling MW as additional compute MW.
+Trigger: A price comparison treats bare metal as synonymous with unmanaged software.
 
-Mechanism: It ignores non-compute IT, the network envelope or the remaining accepted-service boundary.
+Mechanism: The offers contain different services.
 
-Response: Reconcile the before-and-after ledger and identify every condition required for the claimed gain.
+Response: Compare the responsibility boundary and the invoice unit separately.
 
 ## Apply the idea
 
-After accepted service reaches 700, cooling reaches 70 MW IT and networking reaches 800 equivalents, what is the ceiling? Would raising only downstream electrical capacity above 70 MW help?
+A provider offers managed serving on bare-metal GPUs and bills GPU-hours. Is that contradictory?
 
 <details>
 <summary>Reveal the worked answer</summary>
 
-The ceiling is 650 equivalents, tied between downstream electrical capacity and cooling. Raising only the electrical limit does not change it.
+No. Hardware access, operating responsibility and billing unit are separate choices.
 
-Both boundaries allow 70 − 5 = 65 MW of compute, or 650 equivalents. The unchanged thermal limit remains binding after an electrical-only upgrade. The site, space, network and acceptance ceilings are higher under the stated assumptions, so they do not resolve that tie.
+The provider can operate software directly on dedicated hardware and bill the reserved or consumed capacity.
 
 </details>
 
-**The idea to keep:** A capacity minimum is meaningful only after every limit refers to the same population, operating condition and accounting boundary.
+**The idea to keep:** Separate capacity billing, hardware access and software responsibility.
 
 ## Sources and reading boundaries
 
-- [ASHRAE Handbook, Chapter 20: Data Centers and Telecommunication Facilities](https://handbook.ashrae.org/Handbooks/A23/SI/A23_Ch20/a23_ch20_si.aspx) — The PUE discussion distinguishes facility and IT energy boundaries and describes limitations of comparing operating ratios. Read 2026-09-06. Selected metric-boundary passages inspected. The affine power model and all capacity limits in this lesson are original synthetic inputs, not handbook ratings.
+- [CoreWeave 2025 annual report](https://www.sec.gov/Archives/edgar/data/1769628/000176962826000104/crwv-20251231.htm) — Capacity contracts, revenue mix and asset-level financing. Read 2026-09-17. Fiscal 2025 observations; these are not claims about every provider or every private contract.
+- [CoreWeave bare metal](https://www.coreweave.com/products/bare-metal) — Kubernetes runs directly on bare-metal servers. Read 2026-09-17. Product architecture, not a claim of customer ownership or a benchmark.
+- [CoreWeave inference service options](https://www.coreweave.com/products/dedicated-inference) — Customer-operated and managed serving differ; dedicated GPU-hour billing and serverless token billing coexist. Read 2026-09-17. Current product descriptions reviewed; actual contract inclusions govern.
+- [Create a CoreWeave SUNK cluster](https://docs.coreweave.com/products/sunk/deploy_sunk/create-sunk-cluster) — Managed Slurm on Kubernetes. Read 2026-09-17. Documentation describes this product, not all Slurm deployments.
+- [EC2 Spot Instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html) — Spot instances can be reclaimed, unlike an ordinary on-demand commitment. Read 2026-09-17. AWS interruption policy; not a definition of every market use of spot.

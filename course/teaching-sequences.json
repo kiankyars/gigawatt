@@ -157,7 +157,7 @@
     },
     {
       "id": "capacity",
-      "title": "Capacity, cost and system decisions",
+      "title": "GPU cloud economics",
       "chapters": [
         {
           "id": "D15",
@@ -168,7 +168,7 @@
     },
     {
       "id": "integrated-cases",
-      "title": "Integrated cases",
+      "title": "Putting an AI Factory Together",
       "chapters": [
         {
           "id": "capstone",

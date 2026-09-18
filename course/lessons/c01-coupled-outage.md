@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/capstones.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/capstones.json), lesson `c01-coupled-outage`, then run `uv run gigawatt-expand`.
 
-**16. Put the system together · Authored draft**
+**16. Putting an AI Factory Together · Authored draft**
 
 Combine a power budget, an energy budget and a separately supplied cooling path. Identify exactly what the evidence can establish.
 

@@ -254,7 +254,7 @@ def teaching_chapters(raw, domain_map, lessons, root=ROOT):
         "primer": "Primer",
         "D01": "Data center overview",
         "D02": "Workloads and requirements",
-        "capstone": "Put the system together",
+        "capstone": "Putting an AI Factory Together",
     }
     splits = raw.get("chapter_splits", {})
     if not isinstance(splits, dict) or set(splits) - set(sequence):

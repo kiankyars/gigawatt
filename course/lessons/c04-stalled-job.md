@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/capstones.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/capstones.json), lesson `c04-stalled-job`, then run `uv run gigawatt-expand`.
 
-**16. Put the system together · Authored draft**
+**16. Putting an AI Factory Together · Authored draft**
 
 Trace a payload from sender through fabric to receiver, compare two upgrades, and test the predicted gain against end-to-end progress.
 

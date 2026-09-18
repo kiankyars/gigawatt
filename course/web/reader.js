@@ -25,7 +25,7 @@ const chapterById = new Map(READING_GROUPS.map((chapter) => [chapter.id, chapter
 const chapterByLesson = new Map(READING_GROUPS.flatMap(chapter => chapter.lesson_ids.map(id => [id, chapter])));
 const chapterName = (chapter) => chapter.number ? `${chapter.number}. ${chapter.title}` : chapter.title;
 const topicTitle = (id) => chapterById.has(id)
-  ? chapterName(chapterById.get(id)) : "Integrated cases";
+  ? chapterName(chapterById.get(id)) : "Putting an AI Factory Together";
 const sourcesById = new Map(DATA.sources.map((s) => [s.id, s]));
 let current = 0,
   lookupMode = false;
