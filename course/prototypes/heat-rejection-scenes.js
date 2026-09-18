@@ -13,7 +13,7 @@ export const learningContract = Object.freeze({
   changed_variable: 'Outdoor humidity, weather, computing power, water availability or customer demand.',
   primary_payoff: 'Trace the surviving heat path and explain which resource limits computing.',
   misconception: 'A closed rack loop eliminates water use, or enough cooling capacity guarantees enough electrical capacity.',
-  closing_question: 'With no tower makeup water, which heat path survives and what must change?',
+  closing_question: 'Which cooling dependencies remain outside a building’s backup-power system?',
 });
 export const initialState = Object.freeze({
   humidity: 'dry', interfaceStep: 0, wetStep: 0, condition: 'cool', requestedITMW: 8,
@@ -70,4 +70,13 @@ export const scenes = Object.freeze([
     {controls: [c('receiverHours', 'Heat customer demand', [[6, 'Heat customer: 6 hours'], [0, 'Heat customer: no demand']])]}),
   s('water-restriction', 'Cooling resource dependencies', 'What does each cooling path depend on?', water, 'D11.5',
     'Compare ongoing operating dependencies, excluding initial fill. Dry, non-evaporative cooling needs electricity. A wet cooling tower needs electricity and an ongoing makeup-water supply to replace losses. Dry here excludes adiabatic assistance, which uses water. Fill and maintenance water are separate from this operating comparison. Losing makeup water prevents sustained wet-tower operation; a dry alternative still needs adequate temperatures, capacity and electricity.'),
+  s('toronto-lake-cooling', 'Toronto’s lake cooling', 'Toronto uses Lake Ontario to cool downtown buildings.', water, 'D11.5',
+    'Enwave draws cold water from deep in Lake Ontario. Toronto Water treats it for drinking use before it reaches heat exchangers at the John Street Pumping Station. There it absorbs heat from a separate recirculating district-water circuit, which serves downtown buildings including the carrier hotel at 151 Front Street West. Potable water continues into the city water supply; district water returns from buildings to be cooled again. The slide traces these separated paths, not a direct lake-water connection to server racks. The archival building photograph is credited to Allied REIT by Data Center Knowledge.',
+    {pedagogical_role: 'case-study', sources: ['https://www.enwave.com/case-studies/enwave-and-toronto-water-tap-into-innovative-energy-source', 'https://www.datacenterknowledge.com/outages/toronto-flooding-kos-data-center-cooling-systems'], reviewed_on: '2026-09-18'}),
+  s('toronto-cooling-outage', 'Power survived; cooling failed', 'The generators started, but cooling was disrupted.', water, 'D11.5',
+    'On July 8, 2013, severe rain flooded Hydro One transmission stations and caused widespread Toronto-area outages. Contemporary reporting quotes PEER 1: the 151 Front Street building transferred to generator power while the external chill-loop provider also had power problems, reducing cooling. This separates the surviving electrical supply from the impaired heat-removal path. The diagram does not assign an unverified individual substation or pump to the failure. Data Center Knowledge also reported an emergency chiller; the following firsthand tenant account describes the equipment and service response.',
+    {pedagogical_role: 'case-study', sources: ['https://www.newswire.ca/news-releases/hydro-one-power-outages-due-to-heavy-rains-512697891.html', 'https://www.datacenterknowledge.com/outages/toronto-flooding-kos-data-center-cooling-systems', 'https://seclists.org/nanog/2013/Jul/130'], reviewed_on: '2026-09-18'}),
+  s('toronto-operator-response', 'Move services; reduce heat', 'Operators shut down equipment and moved services.', water, 'D11.5',
+    'Uberflip CTO Erik Levinson reported that one suite at 151 Front Street recovered sooner than another. Some equipment in the hotter suite shut down automatically. Operators remotely stopped redundant and nonessential systems and transferred some services to the cooler suite, then restored equipment after temperatures normalized. He reported cold-side cabinet ambient above 43°C in the hotter suite, not a GPU or coolant temperature and not a building-wide measurement. His account spans approximately 18:45 to 01:15. The rack drawings represent the two suites conceptually; they are not an actual floor plan or equipment count. The case does not establish uninterrupted service for every tenant.',
+    {pedagogical_role: 'case-study', sources: ['https://seclists.org/nanog/2013/Jul/130'], reviewed_on: '2026-09-18'}),
 ]);
