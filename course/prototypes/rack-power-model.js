@@ -44,3 +44,14 @@ export function phaseWaveforms(phases = 4) {
   const sum = Array.from({ length: samples + 1 }, (_, i) => curves.reduce((a, curve) => a + curve[i], 0));
   return { curves, sum, totalAmps, peakToPeakAmps: Math.max(...sum) - Math.min(...sum) };
 }
+
+export function interleavedBuckSample(cycles) {
+  if (!Number.isFinite(cycles)) throw new RangeError('Switching time must be finite');
+  const duty = 0.25, inputVolts = 12, outputVolts = inputVolts * duty;
+  const phases = [0, 0.5].map(offset => {
+    const position = ((cycles - offset) % 1 + 1) % 1;
+    const currentAmps = position < duty ? 17 + 6 * position / duty : 23 - 6 * (position - duty) / (1 - duty);
+    return { switchVolts: position < duty ? inputVolts : 0, currentAmps };
+  });
+  return { phases, outputVolts, totalAmps: phases.reduce((sum, phase) => sum + phase.currentAmps, 0) };
+}

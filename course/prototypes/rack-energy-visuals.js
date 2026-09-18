@@ -1,3 +1,4 @@
+import { renderClementePower, renderVRMSwitching } from './rack-energy-vrm.js';
 import { renderDCArchitecturePreview } from './rack-dc-preview.js';
 import { renderRackBusChoices } from './dc-architecture-review.js';
 import { renderRackHardwareAnatomy } from './rack-hardware-anatomy.js';
@@ -21,6 +22,8 @@ export function rackVisual(scene,state,compact) {
 }
 
 export function supplementalVisual(scene,s,compact=false) {
+  if(scene.kind==='clemente-power')return renderClementePower();
+  if(scene.kind==='vrm-switching')return renderVRMSwitching();
   if(scene.kind==='dc-rack-buses')return renderRackBusChoices();
   if(scene.kind==='hardware-anatomy')return renderRackHardwareAnatomy();
   if(scene.kind==='dc-preview')return renderDCArchitecturePreview();

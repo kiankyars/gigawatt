@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import vm from 'node:vm';
+import { interleavedBuckSample } from '../course/prototypes/rack-power-model.js';
 import { rackLedger, dcPlanes, migrationDecision } from '../course/prototypes/rack-energy-model.js';
 import { scenes as rackScenes, dcScenes, allScenes as scenes, initialState, defaults, decks, resolveRackEnergyScene } from '../course/prototypes/rack-energy-scenes.js';
 import { acdcConductorModel, acdcWaveModel } from '../course/web/reader-models.js';
@@ -103,7 +104,7 @@ test('DC architecture motivates the supply equipment and preserves both rack-bus
 
 
 test('rack power and DC distribution separate rack behavior from DC distribution',()=>{
-  assert.equal(rackScenes.length,17);
+  assert.equal(rackScenes.length,19);
   assert.equal(dcScenes.length,14);
   assert.deepEqual(rackScenes.slice(-2).map(scene=>scene.id),['buffer-recharge','power-stack-overview']);
   assert.deepEqual(dcScenes.slice(0,2).map(scene=>scene.id),['one-load','conductor-copper']);
@@ -170,4 +171,40 @@ test('the VRM comparison shows both designs without a phase toggle',()=>{
     assert.match(one,/<h2>Four phases<\/h2>/);
     assert.equal((one.match(/Total into the rail \(A\)/g)||[]).length,2);
   }
+});
+
+
+test('Clemente adds a named intermediate-stage example before switching mechanics',()=>{
+  const ids=rackScenes.map(s=>s.id);
+  assert.equal(ids[ids.indexOf('board-rails')+1],'clemente-power-board');
+  assert.equal(ids[ids.indexOf('multiphase')+1],'vrm-switching');
+  assert.equal(ids[ids.indexOf('vrm-switching')+1],'vrm-phase-counts');
+  const scene=rackScenes.find(s=>s.id==='clemente-power-board');
+  const html=supplementalVisual(scene,initialState);
+  assert.match(html,/51 V → 12 V/);
+  assert.match(html,/NVIDIA design/);
+  assert.match(html,/Processor rails/);
+  assert.doesNotMatch(html,/>1 V</);
+  assert.match(scene.explanation.join(' '),/46–52 V/);
+});
+
+test('interleaved switching preserves rail current while reducing triangular ripple',()=>{
+  const samples=Array.from({length:400},(_,i)=>interleavedBuckSample(i/400));
+  const mean=values=>values.reduce((a,b)=>a+b,0)/values.length;
+  const ripple=values=>Math.max(...values)-Math.min(...values);
+  for(const phase of [0,1]){
+    close(mean(samples.map(s=>s.phases[phase].currentAmps)),20);
+    close(ripple(samples.map(s=>s.phases[phase].currentAmps)),6);
+    close(samples.filter(s=>s.phases[phase].switchVolts===12).length/samples.length,.25);
+    assert.ok(samples.every(s=>[0,12].includes(s.phases[phase].switchVolts)));
+  }
+  close(mean(samples.map(s=>s.totalAmps)),40);
+  close(ripple(samples.map(s=>s.totalAmps)),4);
+  assert.ok(samples.every(s=>s.outputVolts===3));
+  close(interleavedBuckSample(.5).phases[1].currentAmps,interleavedBuckSample(0).phases[0].currentAmps);
+  assert.throws(()=>interleavedBuckSample(NaN),RangeError);
+  const html=supplementalVisual(rackScenes.find(s=>s.id==='vrm-switching'),initialState);
+  assert.match(html,/Switch-node voltage \(V\)/);
+  assert.match(html,/Inductor current \(A\)/);
+  assert.match(html,/Output capacitor/);
 });
