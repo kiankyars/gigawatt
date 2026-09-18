@@ -9,7 +9,7 @@ $('fullscreen').hidden=!teaching;
 function focusAfter(selector){render();document.querySelector(selector)?.focus({preventScroll:true});}
 function render(){
  const scene=scenes[index];
- document.title=`${presentationLabels.capacity||'15. Capacity, cost and system decisions'} · ${scene.label}`;
+ document.title=`${presentationLabels.capacity||'15. GPU cloud economics'} · ${scene.label}`;
  $('scene').dataset.scene=scene.id;$('scene-title').textContent=scene.title;
  $('visual').innerHTML=capacityVisual(scene.id,state);
  $('lesson-reference').href=`../index.html#${scene.reference}`;
@@ -19,13 +19,10 @@ function render(){
  for(const group of scene.controls||[]){
   const fieldset=document.createElement('fieldset');fieldset.className='choices';
   const legend=document.createElement('legend');legend.textContent=group.label;fieldset.append(legend);
-  for(const [value,label]of group.options){const button=document.createElement('button');button.type='button';button.textContent=label;button.dataset.choice=group.key;button.dataset.value=String(value);button.setAttribute('aria-pressed',String(state[group.key]===value));button.onclick=()=>{if(state[group.key]!==value&&['coolingDelay','demand'].includes(group.key)){state.upgradeChoice='';state.showUpgrade=false;}state[group.key]=value;focusAfter(`[data-choice="${group.key}"][data-value="${value}"]`);};fieldset.append(button);}
+  for(const [value,label]of group.options){const button=document.createElement('button');button.type='button';button.textContent=label;button.dataset.choice=group.key;button.dataset.value=String(value);button.setAttribute('aria-pressed',String(state[group.key]===value));button.onclick=()=>{state[group.key]=value;focusAfter(`[data-choice="${group.key}"][data-value="${value}"]`);};fieldset.append(button);}
   $('actions').append(fieldset);
  }
- for(const [attribute,key,reveal]of [['upgrade-choice','upgradeChoice','showUpgrade'],['evidence-claim','evidenceClaim','showEvidence'],['evidence-need','evidenceNeed','showEvidence']]){
-  document.querySelectorAll(`button[data-${attribute}]`).forEach(button=>button.onclick=()=>{state[key]=button.getAttribute(`data-${attribute}`);state[reveal]=false;focusAfter(`button[data-${attribute}="${state[key]}"]`);});
- }
- for(const [id,key]of [['upgrade-reveal','showUpgrade'],['evidence-reveal','showEvidence']])$(id)?.addEventListener('click',()=>{state[key]=!state[key];focusAfter(`#${id}`);});
+
 }
 function go(i){index=Math.max(0,Math.min(scenes.length-1,i));history.replaceState(null,'',`#${scenes[index].id}`);render();window.scrollTo({top:0,left:0,behavior:'auto'});}
 function fromHash(){index=scenes.findIndex(scene=>scene.id===resolveSceneId(location.hash));render();window.scrollTo({top:0,left:0,behavior:'auto'});}

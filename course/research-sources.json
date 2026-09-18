@@ -5090,6 +5090,90 @@
       ],
       "use": "Explain planned maintenance groups using the original maintenance-train diagram, following the Llama 3 recovery example.",
       "caution": "Maintenance-train, gradual-rollout and maintenance-domain sections reviewed. The diagram is a fleet-level mechanism, not the exact allocation of the Llama 3 54-day training snapshot."
+    },
+    {
+      "id": "P220",
+      "title": "CoreWeave 2025 annual report",
+      "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000104/crwv-20251231.htm",
+      "publisher": "CoreWeave",
+      "kind": "primary_reference",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-17",
+      "domains": [
+        "D15"
+      ],
+      "use": "Capacity contracts, revenue mix and asset-level financing.",
+      "caution": "Fiscal 2025 observations; these are not claims about every provider or every private contract."
+    },
+    {
+      "id": "P221",
+      "title": "CoreWeave bare metal",
+      "url": "https://www.coreweave.com/products/bare-metal",
+      "publisher": "CoreWeave",
+      "kind": "primary_reference",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-17",
+      "domains": [
+        "D15"
+      ],
+      "use": "Kubernetes runs directly on bare-metal servers.",
+      "caution": "Product architecture, not a claim of customer ownership or a benchmark."
+    },
+    {
+      "id": "P222",
+      "title": "CoreWeave inference service options",
+      "url": "https://www.coreweave.com/products/dedicated-inference",
+      "publisher": "CoreWeave",
+      "kind": "primary_reference",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-17",
+      "domains": [
+        "D15"
+      ],
+      "use": "Customer-operated and managed serving differ; dedicated GPU-hour billing and serverless token billing coexist.",
+      "caution": "Current product descriptions reviewed; actual contract inclusions govern."
+    },
+    {
+      "id": "P223",
+      "title": "Create a CoreWeave SUNK cluster",
+      "url": "https://docs.coreweave.com/products/sunk/deploy_sunk/create-sunk-cluster",
+      "publisher": "CoreWeave",
+      "kind": "primary_reference",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-17",
+      "domains": [
+        "D15"
+      ],
+      "use": "Managed Slurm on Kubernetes.",
+      "caution": "Documentation describes this product, not all Slurm deployments."
+    },
+    {
+      "id": "P224",
+      "title": "EC2 Spot Instances",
+      "url": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html",
+      "publisher": "AWS",
+      "kind": "primary_reference",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-17",
+      "domains": [
+        "D15"
+      ],
+      "use": "AWS Spot instances can be reclaimed; ordinary On-Demand access has no equivalent spare-capacity reclamation clause.",
+      "caution": "AWS interruption policy; not a definition of every market use of spot."
+    },
+    {
+      "id": "P225",
+      "title": "SemiAnalysis GPU rental pricing index",
+      "url": "https://gpu-index.semianalysis.com/",
+      "publisher": "SemiAnalysis",
+      "kind": "primary_reference",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-17",
+      "domains": [
+        "D15"
+      ],
+      "use": "One-, three- and five-year tenors and dated H100 one-year ranges.",
+      "caution": "Only visible public observations used. October 2025, January and April 2026 ranges are historical, not September quotes; missing tenors left blank."
     }
   ],
   "local_attributions": [

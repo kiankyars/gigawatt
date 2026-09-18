@@ -266,6 +266,12 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P218 — OCP — Universal Quick Disconnect specification, revision 1.0](sources/P218.md) | Open Compute Project | D10, D13 | public_excerpt_reviewed |
 | [P219 — Meta — Maintaining large-scale AI capacity](sources/P219.md) | Engineering at Meta | D14 | public_excerpt_reviewed |
 | [P22 — Huber et al. — Comparative Evaluation of MVAC–LVDC SST and Hybrid Transformer Concepts for Future Datacenters (IPEC 2022)](sources/P22.md) | ETH Zurich, Delta Electronics and Paderborn University | D04, D06 | page_reviewed |
+| [P220 — CoreWeave 2025 annual report](sources/P220.md) | CoreWeave | D15 | public_excerpt_reviewed |
+| [P221 — CoreWeave bare metal](sources/P221.md) | CoreWeave | D15 | public_excerpt_reviewed |
+| [P222 — CoreWeave inference service options](sources/P222.md) | CoreWeave | D15 | public_excerpt_reviewed |
+| [P223 — Create a CoreWeave SUNK cluster](sources/P223.md) | CoreWeave | D15 | public_excerpt_reviewed |
+| [P224 — EC2 Spot Instances](sources/P224.md) | AWS | D15 | public_excerpt_reviewed |
+| [P225 — SemiAnalysis GPU rental pricing index](sources/P225.md) | SemiAnalysis | D15 | public_excerpt_reviewed |
 | [P23 — Wolfspeed — Introduction of a commercially available 10 kV SiC power MOSFET](sources/P23.md) | Wolfspeed | D04, D06 | page_reviewed |
 | [P24 — Schneider Electric — What is UPS efficiency and how is it calculated?](sources/P24.md) | Schneider Electric | D04, D05, D06 | page_reviewed |
 | [P25 — Texas Instruments — Power Loss in Switching Power Supplies](sources/P25.md) | Texas Instruments | D04, D05, D06 | page_reviewed |
