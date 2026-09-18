@@ -111,11 +111,11 @@ function comparisonCompact() {
   };
 }
 
-function rackEntryDesktop() {
+function coldPlateDesktop() {
   const svg = markers
     + `<rect x="8" y="30" width="787" height="459" rx="10" fill="white"/>
-       <image data-equipment-photo="gb300-rear" href="${REAR}" x="17" y="39" width="769" height="440" preserveAspectRatio="xMidYMid meet"/>`
-    + label(402, 526, "GB300 NVL72 · rear assembly", 24)
+       <image data-equipment-photo="cold-plate-assemblies" href="${COLD_PLATES}" x="17" y="39" width="769" height="440" preserveAspectRatio="xMidYMid meet"/>`
+    + label(402, 526, "Cold-plate assemblies", 24)
     + label(985, 31, "Facility water", 22, "facility")
     + rect(840, 60, 282, 151)
     + label(980, 91, "CDU", 28, "tech", "middle", 700)
@@ -147,11 +147,11 @@ function rackEntryDesktop() {
   return { viewBox: "0 0 1160 580", svg };
 }
 
-function rackEntryCompact() {
+function coldPlateCompact() {
   const svg = markers
-    + label(210, 24, "GB300 NVL72 · rear assembly", 21)
+    + label(210, 24, "Cold-plate assemblies", 23)
     + `<rect x="5" y="45" width="410" height="237" rx="9" fill="white"/>
-       <image data-equipment-photo="gb300-rear" href="${REAR}" x="10" y="49" width="400" height="228" preserveAspectRatio="xMidYMid meet"/>`
+       <image data-equipment-photo="cold-plate-assemblies" href="${COLD_PLATES}" x="10" y="49" width="400" height="228" preserveAspectRatio="xMidYMid meet"/>`
     + rect(142, 316, 203, 123)
     + label(245, 344, "CDU", 27, "tech", "middle", 700)
     + label(75, 326, "Facility", 19, "facility")
@@ -210,21 +210,58 @@ function immersion(compact) {
   };
 }
 
-function coldPlatePhoto(compact) {
-  const width = compact ? 420 : 1160, height = compact ? 275 : 690;
+// The manufacturer rear view shows manifolds, not a rear-door exchanger.
+// Pair the two mechanisms without identifying the photograph as the latter.
+function rearDoorCircuit() {
+  const x = 44, y = 132, w = 140, h = 214, doorX = 198;
+  return rack(x, y, w, h)
+    + rect(doorX, y, 38, h, "face", 5)
+    + Array.from({ length: 9 }, (_, i) =>
+      route(`M${doorX + 7} ${y + 17 + i * 22}h24`, "facility", false, false, 2.6)).join("")
+    + label(306, 147, "Warm", 21, "heat")
+    + label(306, 175, "rack air", 21, "heat")
+    + route("M156 202H205", "heat", true, false, 5)
+    + route("M240 241H354", "tech", true, false, 5)
+    + label(306, 276, "Cooled air", 21, "tech")
+    + route("M342 381H217V339", "facility", true)
+    + route("M217 139V67H342", "facility", true)
+    + label(291, 45, "Warm coolant", 20, "facility")
+    + label(306, 418, "Coolant supply", 20, "facility")
+    + label(217, 474, "Air → coil → coolant", 24);
+}
+
+function rearDoorComparison(compact) {
+  if (compact) {
+    return {
+      viewBox: "0 0 420 865",
+      svg: markers
+        + label(210, 28, "GB300 coolant manifolds", 25, "tech", "middle", 700)
+        + `<rect x="5" y="48" width="410" height="238" rx="10" fill="white"/>
+           <image data-equipment-photo="gb300-rear" href="${REAR}" x="10" y="53" width="400" height="228" preserveAspectRatio="xMidYMid meet"/>`
+        + route("M18 319H402", "muted", false, false, .7)
+        + label(210, 365, "Rear-door heat exchanger", 25, "facility", "middle", 700)
+        + `<g transform="translate(0 378)">${rearDoorCircuit()}</g>`,
+    };
+  }
   return {
-    viewBox: `0 0 ${width} ${height}`,
-    svg: `<rect x="0" y="0" width="${width}" height="${height}" rx="12" fill="white"/>
-      <image data-equipment-photo="cold-plate-assemblies" href="${COLD_PLATES}" x="8" y="8" width="${width - 16}" height="${height - 16}" preserveAspectRatio="xMidYMid meet"/>`,
+    viewBox: "0 0 1160 555",
+    svg: markers
+      + label(369, 31, "GB300 coolant manifolds", 27, "tech", "middle", 700)
+      + `<rect x="8" y="73" width="725" height="413" rx="10" fill="white"/>
+         <image data-equipment-photo="gb300-rear" href="${REAR}" x="15" y="80" width="711" height="399" preserveAspectRatio="xMidYMid meet"/>`
+      + route("M758 15V532", "muted", false, false, .7)
+      + label(957, 31, "Rear-door heat exchanger", 25, "facility", "middle", 700)
+      + `<g transform="translate(770 55)">${rearDoorCircuit()}</g>`,
   };
 }
 
 export function renderCoolingOpening(scene, compact = false) {
   switch (scene.kind) {
     case "capture-comparison": return compact ? comparisonCompact() : comparisonDesktop();
-    case "rack-entry": return compact ? rackEntryCompact() : rackEntryDesktop();
+    case "rear-door-comparison": return rearDoorComparison(compact);
     case "immersion-photo": return immersion(compact);
-    case "coldplate-photo": return coldPlatePhoto(compact);
+    case "immersion-hardware": return {viewBox:"0 0 1160 653",svg:'<image data-equipment-photo="immersion-tank" href="../assets/references/immersion-tank-user.png" x="0" y="0" width="1160" height="653" preserveAspectRatio="xMidYMid meet"/>'};
+    case "coldplate-photo": return compact ? coldPlateCompact() : coldPlateDesktop();
     default: return null;
   }
 }

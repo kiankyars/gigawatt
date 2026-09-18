@@ -158,11 +158,16 @@ async function checkDiagramGeometry(page, state) {
             setting ? states.length : 0,
             `${id}: only the intended action controls remain`,
           );
-          if (id === "independent-cooling-paths")
+          if (id === "independent-cooling-paths") {
             assert.equal(
               await page.locator("[data-cooling-fault]").getAttribute("data-cooling-fault"),
-              "shared-path",
+              "none",
             );
+            assert.equal(
+              await page.locator('#actions [data-setting="pathFault"][data-value="none"]').getAttribute("aria-pressed"),
+              "true",
+            );
+          }
           for (const selected of states) {
             if (setting) {
               const button = page.locator(

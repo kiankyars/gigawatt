@@ -29,9 +29,9 @@ function redundancyComparison(compact) {
   const moduleKw = base.moduleKw;
   const n = base.requiredModules;
   const cards = [
-    { id: "n", name: "N", count: n, title: "The CDUs needed for the load", result: "No spare CDU" },
-    { id: "n-plus-one", name: "N+1", count: n + 1, title: "One extra CDU", result: "Lose one CDU → two remain" },
-    { id: "two-n", name: "2N", count: n * 2, title: "Two complete cooling trains", result: "Either train can carry the load" },
+    { id: "n", name: "N", count: n },
+    { id: "n-plus-one", name: "N+1", count: n + 1 },
+    { id: "two-n", name: "2N", count: n * 2 },
   ];
   let out = label(compact ? 186 : 580, 25, `${fmt(base.fullLoadKw)} kW heat · ${moduleKw} kW per CDU`, "svg-small");
   cards.forEach((card, index) => {
@@ -45,7 +45,6 @@ function redundancyComparison(compact) {
     if (compact) {
       out += label(x + 20, y + 39, card.name, "svg-number", card.id, "start");
       if (index < 2) {
-        out += label(x + 128, y + 33, index ? "One extra CDU" : "Two CDUs needed", "svg-label", card.id, "start");
         const moduleW = 62, gap = 10;
         const rowX = cx - (card.count * moduleW + (card.count - 1) * gap) / 2;
         for (let i = 0; i < card.count; i++) {
@@ -54,21 +53,17 @@ function redundancyComparison(compact) {
           out += box(id, mx, y + 59, moduleW, 42);
           out += label(mx + moduleW / 2, y + 85, `${moduleKw}`, "svg-label", id);
         }
-        out += label(cx, y + 127, card.result, "svg-small", card.id);
         if (index === 1)
-          out += label(cx, y + 146, "Facility path is still shared", "svg-small", card.id);
+          out += label(cx, y + 127, "Shared facility path", "svg-small", card.id);
       } else {
-        out += label(x + 116, y + 33, "Two complete trains", "svg-label", card.id, "start");
         ["A", "B"].forEach((train, i) => {
           const id = `${card.id}-train${train}`, ty = y + 53 + i * 50;
           out += box(id, x + 15, ty, w - 30, 40);
           out += label(cx, ty + 25, `${train} · 2 CDUs + its own facility path`, "svg-small", id);
         });
-        out += label(cx, y + 170, card.result, "svg-small", card.id);
       }
     } else {
       out += label(cx, y + 48, card.name, "svg-number", card.id);
-      out += label(cx, y + 87, card.title, "svg-label", card.id);
       if (index < 2) {
         const moduleW = 76, gap = 14;
         const rowX = cx - (card.count * moduleW + (card.count - 1) * gap) / 2;
@@ -79,9 +74,8 @@ function redundancyComparison(compact) {
           out += label(mx + moduleW / 2, y + 159, "CDU", "svg-small", id);
           out += label(mx + moduleW / 2, y + 184, `${moduleKw} kW`, "svg-label", id);
         }
-        out += label(cx, y + 249, card.result, "svg-label", card.id);
         if (index === 1)
-          out += label(cx, y + 282, "Facility path is still shared", "svg-small", card.id);
+          out += label(cx, y + 249, "Shared facility path", "svg-small", card.id);
       } else {
         ["A", "B"].forEach((train, i) => {
           const id = `${card.id}-train${train}`, ty = y + 118 + i * 65;
@@ -89,7 +83,6 @@ function redundancyComparison(compact) {
           out += label(cx, ty + 23, `Train ${train} · 2 CDUs`, "svg-label", id);
           out += label(cx, ty + 43, "Own facility loop, plant, power + controls", "svg-small", id);
         });
-        out += label(cx, y + 282, card.result, "svg-small", card.id);
       }
     }
     out += "</g>";
@@ -226,7 +219,6 @@ function reducedPower(compact) {
     out += label(cx, y + (compact ? 188 : 236), excessKw ? `${fmt(excessKw)} kW excess heat` : `${fmt(m.marginKw)} kW cooling margin`, `svg-label ${excessKw ? "fault-text" : "facility-text"}`, id);
     out += "</g>";
   });
-  out += label(compact ? 186 : 580, compact ? 548 : 395, compact ? "An IT power cap reduces heat." : "A configured IT power cap lowers the heat entering the coolant.", "svg-small");
   return `<g data-continuity-diagram data-cooling-comparison="derating" data-full-load="${cases[0].loadKw}" data-reduced-load="${cases[1].loadKw}" data-remaining-cooling="${cases[0].availableKw}">${out}</g>`;
 }
 
@@ -235,7 +227,7 @@ export function renderContinuity(kind, compact, state = {}) {
   if (kind === "derating") return reducedPower(compact);
   const m = coolingContinuity({
     topology: "2n",
-    fault: state.pathFault || "shared-path",
+    fault: state.pathFault || "none",
     loadMode: "full",
   });
   return `<g data-continuity-diagram data-cooling-capacity="${m.availableKw}" data-cooling-load="${m.loadKw}" data-cooling-margin="${m.marginKw}" data-cooling-topology="${m.topology}" data-cooling-fault="${m.fault}" data-supported="${m.supportsLoad}">${independentPaths(compact, m)}</g>`;

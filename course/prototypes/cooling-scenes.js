@@ -18,17 +18,10 @@ const existing=[
     "reference": "d10-cdu-interfaces"
   },
   {
-    "id": "rack-coolant-entry", "label": "GB300 coolant connections",
-    "title": "How does the coolant enter the rack?",
-    "kind": "rack-entry",
-    "description": "NVIDIA's annotated DGX GB300 rear view identifies the cooling manifolds. In the separate functional diagram, the CDU supplies technology coolant to a supply manifold, tray quick disconnects and cold plates. A return manifold carries warmed coolant back to the CDU. Facility water remains on the other side of the CDU heat exchanger. This is a cold-plate manifold system, not a rear-door air-to-water heat exchanger.",
-    "reference": "d10-cdu-interfaces"
-  },
-  {
     "id": "capture-rear-door", "label": "Rear-door heat exchanger",
     "title": "A rear-door exchanger cools the exhaust air",
-    "kind": "capture-options", "capture": "rear-door",
-    "description": "Server fans move air through the rack and the rear-door water coil. Heat moves from chips to air, then into water at the door. The depicted arrangement uses compatible facility water; other installations place a CDU between the door and facility loop.",
+    "kind": "rear-door-comparison",
+    "description": "Left: NVIDIA’s DGX GB300 rear-assembly diagram identifies the coolant manifolds serving chip cold plates. Right: a separate rear-door exchanger schematic shows the residual air heat of a cold-plate-cooled rack crossing a water coil. The photographed GB300 manifolds are not a rear-door heat exchanger. Depending on the installation, the door receives compatible facility water or a separate coolant loop through a CDU.",
     "reference": "d10-cdu-interfaces"
   },
   {
@@ -39,11 +32,19 @@ const existing=[
     "reference": "d10-cdu-interfaces"
   },
   {
+    "id": "immersion-hardware",
+    "label": "Inside an immersion tank",
+    "title": "Inside an immersion tank",
+    "kind": "immersion-hardware",
+    "description": "The supplied photograph shows server assemblies immersed in liquid. Use it to connect the preceding fluid-loop diagram to physical equipment. The photograph's operator, coolant and operating conditions were not supplied.",
+    "reference": "d10-cdu-interfaces"
+  },
+  {
     "id": "cold-plate",
     "label": "Cold-plate hardware",
-    "title": "Cold-plate assemblies",
+    "title": "How does coolant reach the cold plates?",
     "kind": "coldplate-photo",
-    "description": "The supplied photograph shows copper cold-plate assemblies, connecting tubes, hoses and couplings. It replaces the invented internal-channel diagram. The user supplied this as GB300 cold-plate context; the exact manufacturer and model have not been independently established. No visible surface pattern is identified as an internal coolant channel.",
+    "description": "The supplied photograph shows copper cold-plate assemblies, tubes, hoses and couplings. Beside it, a functional circuit follows technology coolant from the CDU through a supply manifold and tray quick disconnects into cold plates, then back through the return manifold. Separate facility water removes heat across the CDU exchanger. The user supplied the photograph as GB300 context; its maker and exact model remain unverified. No visible surface pattern is identified as an internal coolant channel.",
     "reference": "d10-local-thermal-paths"
   },
   {
@@ -73,7 +74,7 @@ const existing=[
   {
     "id": "lost-flow",
     "label": "N, N+1 and 2N",
-    "title": "N is enough capacity; N+1 adds a spare; 2N duplicates the system",
+    "title": "Redundancy Applied to Coolant Distribution",
     "kind": "redundancy",
     "description": "For 1,000 kW of liquid heat with each CDU qualified for 600 kW at the operating conditions, N is two CDUs. N+1 installs three: one can fail while two still carry the load. 2N duplicates the complete required cooling train: two CDUs plus facility cooling, power and controls on each side. An extra CDU alone does not duplicate shared upstream dependencies.",
     "reference": "d10-cdu-interfaces"
@@ -96,6 +97,6 @@ const existing=[
   }
 ];
 const byId=new Map([...existing,...captureScenes].map(s=>[s.id,s]));
-export const scenes=["why-liquid","capture-options","cold-plate","rack-coolant-entry","capture-rear-door","capture-immersion","local-heat-flux","device-temperature","water-balance","pump-operating-point","approach","coolit-cdu","lost-flow","independent-cooling-paths","cooling-derating","cooling-retrofit"].map(id=>byId.get(id));
+export const scenes=["why-liquid","capture-options","cold-plate","capture-rear-door","capture-immersion","immersion-hardware","local-heat-flux","device-temperature","water-balance","pump-operating-point","approach","coolit-cdu","lost-flow","independent-cooling-paths","cooling-derating","cooling-response","cooling-retrofit"].map(id=>byId.get(id));
 // Preserve useful destinations for bookmarks to the removed standalone slides.
-export const sceneAliases={"heat-path":"capture-options","capture-coldplates":"capture-options","crah-cdu":"capture-options","branch-flow":"pump-operating-point","coolant-interfaces":"cooling-retrofit"};
+export const sceneAliases={"rack-coolant-entry":"cold-plate","heat-path":"capture-options","capture-coldplates":"capture-options","crah-cdu":"capture-options","branch-flow":"pump-operating-point","coolant-interfaces":"cooling-retrofit"};

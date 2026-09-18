@@ -14,17 +14,14 @@ export function renderCDU(compact, interior = false) {
     [
       "Heat exchanger",
       "2 MW thermal at 5°C approach",
-      "Moves heat into facility water",
     ],
     [
       "Pumps",
       "2,125 L/min at 35 psi",
-      "Circulate coolant against flow resistance",
     ],
     [
       "Controls and filtration",
       "Temperature · flow · pressure",
-      "Regulate supply; protect coolant passages",
     ],
   ];
   let out = photo;
@@ -36,12 +33,11 @@ export function renderCDU(compact, interior = false) {
       "svg-small",
       'text-anchor="middle"',
     );
-    rows.forEach(([name, spec, job], i) => {
+    rows.forEach(([name, spec], i) => {
       const y = 291 + i * 83;
       out +=
         text(22, y, name, "svg-small facility-text") +
-        text(22, y + 24, spec) +
-        text(22, y + 44, job, "svg-small");
+        text(22, y + 24, spec);
     });
   } else {
     out += text(
@@ -51,12 +47,11 @@ export function renderCDU(compact, interior = false) {
       "svg-small",
       'text-anchor="middle"',
     );
-    rows.forEach(([name, spec, job], i) => {
+    rows.forEach(([name, spec], i) => {
       const y = 44 + i * 113;
       out +=
         text(427, y, name, "svg-label facility-text") +
-        text(427, y + 39, spec, "svg-equation") +
-        text(427, y + 65, job, "svg-label");
+        text(427, y + 39, spec, "svg-equation");
     });
   }
   return out;
