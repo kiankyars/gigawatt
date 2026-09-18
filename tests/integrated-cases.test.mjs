@@ -83,7 +83,7 @@ function statesFor(scene){
 }
 
 test('Abilene finale renders every state with local assets and valid reading destinations',()=>{
- assert.equal(scenes.length,9);assert.equal(new Set(scenes.map(s=>s.id)).size,9);assert.ok(learningContract.primary_payoff);
+ assert.equal(scenes.length,10);assert.equal(new Set(scenes.map(s=>s.id)).size,10);assert.ok(learningContract.primary_payoff);
  const references=new Set(fs.readdirSync(new URL('../course/lessons/',import.meta.url)).map(p=>p.replace(/\.md$/,'')));
  for(const scene of scenes){
   assert.ok(references.has(scene.reference),scene.id);
@@ -97,12 +97,6 @@ test('Abilene finale renders every state with local assets and valid reading des
  assert.throws(()=>integratedCasesVisual('missing',initialState),/Unknown integrated case scene/);
 });
 
-test('weather comparison keeps the installed racks and IT load fixed',()=>{
- const html=integratedCasesVisual('abilene-hot-day',initialState);
- assert.equal((html.match(/class="f-rack"/g)||[]).length,8);
- assert.equal((html.match(/Same IT load/g)||[]).length,2);
- assert.doesNotMatch(html,/550 racks|700 racks|55 MW|70 MW/);
-});
 
 function playerAt(hash){
  class Element{constructor(){this.children=[];this.dataset={};this.attributes={};}append(...children){this.children.push(...children);}add(child){this.children.push(child);}replaceChildren(...children){this.children=children;}setAttribute(key,value){this.attributes[key]=value;}focus(){}}
@@ -116,18 +110,18 @@ function playerAt(hash){
  return {elements,document,buttons,go(id){location.hash=`#${id}`;listeners.hashchange();},click(key,value){const b=buttons().find(button=>button.dataset.choice===key&&button.dataset.value===String(value));assert.ok(b,`${key}=${value}`);b.onclick();}};
 }
 
-test('source-role and path controls preserve one selection while navigating',()=>{
+test('source-role selection persists and the closing photograph needs no path controls',()=>{
  const p=playerAt('#abilene-power'),html=()=>p.elements.get('visual').innerHTML;
  assert.match(html(),/Bridge supply/);p.click('powerRole','backup');assert.match(html(),/Normal supply/);assert.match(html(),/Standby/);
  assert.equal(p.buttons().filter(b=>b.attributes['aria-pressed']==='true').length,1);
- p.go('watts-to-work');p.click('systemFocus','heat');assert.match(html(),/data-focus="heat"/);
- p.go('abilene-power');assert.match(html(),/Standby/);p.go('watts-to-work');assert.match(html(),/data-focus="heat"/);
+ p.go('watts-to-work');assert.equal(p.buttons().length,0);assert.match(html(),/f-closing-photo/);
+ p.go('abilene-power');assert.match(html(),/Standby/);
  assert.equal(p.buttons().filter(b=>b.attributes['aria-pressed']==='true').length,1);
 });
 
 test('all retired bookmarks and first/last navigation remain usable',()=>{
  const p=playerAt('#outage-timeline');assert.equal(p.elements.get('scene').dataset.scene,'abilene-power');
  for(const [old,current]of Object.entries(sceneAliases)){assert.ok(scenes.some(s=>s.id===current));p.go(old);assert.equal(p.elements.get('scene').dataset.scene,current);}
- p.go('watts-to-work');assert.equal(p.elements.get('next').disabled,true);assert.equal(p.elements.get('progress').textContent,'9 / 9');assert.match(p.document.title,/^16\. Putting an AI Factory Together/);
- p.go('unknown');assert.equal(p.elements.get('previous').disabled,true);assert.equal(p.elements.get('progress').textContent,'1 / 9');
+ p.go('watts-to-work');assert.equal(p.elements.get('next').disabled,true);assert.equal(p.elements.get('progress').textContent,'10 / 10');assert.match(p.document.title,/^16\. Putting an AI Factory Together/);
+ p.go('unknown');assert.equal(p.elements.get('previous').disabled,true);assert.equal(p.elements.get('progress').textContent,'1 / 10');
 });

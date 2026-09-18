@@ -1,0 +1,41 @@
+{
+  "reviewed_on": "2026-09-18",
+  "rights": "Copyrighted publisher photographs used for teaching commentary with attribution. No open license asserted.",
+  "assets": [
+    {
+      "file": "finale-review-abilene-construction.jpg",
+      "publisher": "Oracle",
+      "page": "https://www.oracle.com/news/resources/abilene-campus/",
+      "image": "https://www.oracle.com/a/pr/img/abilene-still1.jpg",
+      "published": null,
+      "width": 2500,
+      "height": 1172,
+      "scope": "Original Oracle Abilene Campus media-kit aerial showing construction. Exact capture date not supplied. Not an assertion of present completion status.",
+      "sha256": "8092b222670e0aa9ebb80722bb1d589e1975bde3e44ff7f628c1bc028c0b7f77",
+      "transformation": "Original publisher-hosted image downloaded unchanged. No crop, generation, retouching, compositing, or added labels.",
+      "visual_review": "Viewed and inspected at original aspect ratio; equipment claims limited to publisher context."
+    },
+    {
+      "file": "finale-review-tulsa-assembly.webp",
+      "publisher": "Crusoe",
+      "page": "https://www.crusoe.ai/resources/newsroom/crusoe-opens-second-tulsa-factory-ai-infrastructure",
+      "image": "https://cdn.prod.website-files.com/6863cc86499b79ce3ab28f8b/6aa7773a38eaf00f0150b83b_image%20(1).webp",
+      "published": "2026-09-14",
+      "width": 1920,
+      "height": 1080,
+      "scope": "Assembly cells at Crusoe second Tulsa manufacturing facility. Individual photographed units not identified as delivered to Abilene. The article separately documents more than 2,500 switchboards supplied to Abilene from Tulsa operations.",
+      "sha256": "19021449546f4438c0892389c7df915e68e616d4ec59469c8d75d85a3e9d0d64",
+      "transformation": "Original publisher-hosted image downloaded unchanged. No crop, generation, retouching, compositing, or added labels.",
+      "visual_review": "Viewed and inspected at original aspect ratio; equipment claims limited to publisher context."
+    },
+    {
+      "file": "finale-gb200-racks.png",
+      "publisher": "NVIDIA",
+      "page": "https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-gb200/latest/dgx-superpod-components.html",
+      "image": "https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-gb200/latest/_images/image3.png",
+      "caption": "DGX GB200: four racks shown. Manufacturer reference, not a photograph of the Abilene installation.",
+      "transformation": "Original PNG unchanged; responsive CSS crops the display to the right-hand racks in the campus/hall/rack recap.",
+      "sha256": "6899d741fafaee462abccbad382440fa14734319ed1941c866112d1f9e3a3d64"
+    }
+  ]
+}
