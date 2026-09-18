@@ -129,15 +129,49 @@ Thermal resistance is the temperature difference required per watt along a speci
 
 Smaller area can make heat removal harder, but heat flux alone does not establish thermal resistance or chip temperature. The two resistance values are independent stipulated examples. Model: `deviceTemperature` in [cooling-capture-model.js](prototypes/cooling-capture-model.js).
 
-## Coolant flow and the pump curve — Chapter 11, slides 9–10
+## Coolant flow — Chapter 11, slide 9
 
 The steady-flow sensible heat balance relates carried heat to mass flow, heat capacity and supply-to-return temperature rise. Doubling flow halves that rise at fixed heat duty.
 
-The descending curve shows the pressure difference the pump can add at each flow, at fixed rotational speed. The two ascending curves show the pressure difference needed to circulate water through the normal circuit and through the same circuit with greater resistance. Actual steady flow is where the pump curve meets the applicable circuit curve: 2 L/s and 120 kPa for the normal circuit, or approximately 1.41 L/s and 140 kPa with higher resistance.
+## Coolant flow and the pump curve — Chapter 11, slide 10
 
-Below an intersection the pump has more pressure available than that circuit requires, so flow increases. Above it the circuit needs more pressure than the pump provides, so flow decreases. The curves are Δp_pump = 160 − 10q², Δp_normal = 30q² and Δp_higher-resistance = 70q², with q in L/s and Δp in kPa. Equating pump and circuit pressure differences gives q = 2 L/s for the normal circuit and q = √2 ≈ 1.41 L/s for the higher-resistance circuit. They illustrate a complete closed circulation path; they are not absolute pressure readings or a named CDU's rating.
+[Slide: pump operating point](prototypes/cooling-format.html?teach=1#pump-operating-point).
 
-More restriction reduces flow on the same fixed-speed pump: the operating point moves left and upward along its curve. At a given flow the higher-resistance circuit needs more pressure difference. More flow through either unchanged circuit also requires a larger pressure difference, even though the pump curve slopes downward. Keep the slide's visible labels sparse; use these notes for the equations and explanation. Chapter 13 illustrates the plumbing requirement with the approximate quadratic relation. Source: [KSB characteristic curves](https://www.ksb.com/en-global/centrifugal-pump-lexicon/article/characteristic-curve-1117926).
+### Point to the axes
+
+> “**A running pump does not guarantee a particular coolant flow.** The flow depends on both the pump and how difficult the cooling circuit is to push water through.
+>
+> “The horizontal axis is **flow—litres per second**. The vertical axis is **pressure difference—how much pressure the pump adds, or the circuit requires, at that flow.** This is not a graph of what happens over time.”
+
+### Point to the falling and rising curves
+
+> “The **falling curve describes the pump at a fixed speed**. It can provide a larger pressure difference at low flow, but less pressure difference at high flow.
+>
+> “The **rising curve describes the cooling circuit**. Pushing more water per second through its pipes, filters and cold plates requires more pressure to overcome the losses.”
+
+Source: [Grundfos — How does one read a pump curve?](https://www.grundfos.com/solutions/support/faq/how-does-one-read-a-pump-curve-of-a-heating-pump).
+
+### Point to their intersection
+
+> “**Where they cross is where the system actually operates:** the pressure the pump supplies exactly matches the pressure the circuit needs.
+>
+> “Think about why: if the pump supplied more pressure than the circuit needed at the current flow, the water would accelerate. If it supplied less, the flow would slow. The crossing is where those effects balance.”
+
+Source: [Hydraulic Institute — Combined pump and system curves](https://datatool.pumps.org/pump-fundamentals/combined.html).
+
+### Move from A to B
+
+> “In the clean circuit, that balance occurs at **2 litres per second**.
+>
+> “Now imagine a filter becomes clogged or a valve partly closes. **The circuit needs more pressure to achieve the same flow**, so its curve becomes steeper. We have not increased the pump speed, so the operating point moves left—to **1.41 litres per second** in this example. That is about **30% less coolant flow**, even though the pump is still running.”
+
+Source for the mechanism: [Hydraulic Institute — Combined pump and system curves](https://datatool.pumps.org/pump-fundamentals/combined.html). The numerical values follow from this slide's illustrative curves.
+
+### Emphasize the pressure difference
+
+> “**Pressure difference can increase while flow decreases.** This example moves from **120 kPa at 2 L/s** to **140 kPa at 1.41 L/s**. A higher differential-pressure reading does not necessarily mean better circulation.”
+
+Calculation for the presenter: Δp_pump = 160 − 10q², Δp_normal = 30q² and Δp_higher-resistance = 70q², with q in L/s and Δp in kPa. Equating pump and circuit pressure differences gives q = 2 L/s for the normal circuit and q = √2 ≈ 1.41 L/s for the higher-resistance circuit: a 29.3% flow reduction. The vertical axis measures pressure added or lost around the circulation path, not absolute pressure at one point. Chapter 13 applies the same approximate quadratic relationship to the plumbing requirement. [KSB characteristic curves](https://www.ksb.com/en-global/centrifugal-pump-lexicon/article/characteristic-curve-1117926).
 
 ## CDU approach compares two supply temperatures — Chapter 11, slide 11
 
