@@ -5,6 +5,9 @@ design and production status. This page only identifies editable inputs and
 build outputs. [TEACHING_STANDARD.md](TEACHING_STANDARD.md) defines the authoring
 contract; [PRESENTING.md](PRESENTING.md) explains the dry-run controls.
 
+[Review questions and answers](REVIEW_QUESTIONS.md) collects the conceptual
+clarifications from the September 17–18 walkthroughs in one searchable reference.
+
 [Open the course](index.html).
 The sidebar combines reading and teaching material under numbered descriptive
 chapters, beginning with **1. Primer**. All 16 numbered chapters have complete
