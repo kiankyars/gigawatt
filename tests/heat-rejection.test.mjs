@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import vm from 'node:vm';
-import {chillerBalance,operatingPoint,weatherDay,towerLedger,heatReuse,decisionFeedback} from '../course/prototypes/heat-rejection-model.js';
+import {chillerBalance,operatingPoint,weatherDay,towerLedger,heatReuse} from '../course/prototypes/heat-rejection-model.js';
 import {scenes,sceneAliases,initialState} from '../course/prototypes/heat-rejection-scenes.js';
 import {heatRejectionVisual} from '../course/prototypes/heat-rejection-visuals.js';
 const close=(a,b)=>assert.ok(Math.abs(a-b)<1e-9,`${a} != ${b}`);
@@ -31,17 +31,27 @@ test('heat reuse is limited by receiver power and hours',()=>{
  close(heatReuse({receiverMW:9,receiverHours:24}).acceptedMWh,96);assert.throws(()=>heatReuse({receiverHours:25}),RangeError);
 });
 test('chapter covers all D11 objectives and preserves original outdoor deep links',()=>{
- assert.equal(scenes.length,18);assert.equal(new Set(scenes.map(s=>s.id)).size,18);
+ assert.equal(scenes.length,16);assert.equal(new Set(scenes.map(s=>s.id)).size,16);
  for(const id of ['rejection','weather','approach-outdoors','plant-options'])assert.ok(scenes.some(s=>s.id===id));
  for(let i=1;i<=5;i++)assert.ok(scenes.some(s=>s.objective===`D11.${i}`));
- assert.equal(scenes.at(-1).pedagogical_role,'transfer');assert.ok(scenes.find(s=>s.id==='abilene-cooling').sources[0].includes('crusoe.ai'));
+ assert.equal(scenes.at(-1).id,'water-restriction');assert.ok(scenes.find(s=>s.id==='abilene-cooling').sources[0].includes('crusoe.ai'));
  assert.equal(scenes[1].id,'abilene-cooling');
- assert.deepEqual(sceneAliases,{'two-ceilings':'hot-hour','reuse-interface':'heat-reuse'});
+ for(const [oldId,currentId] of Object.entries(sceneAliases))assert.ok(scenes.some(s=>s.id===currentId),oldId);
+ const ids=scenes.map(s=>s.id);
+ assert.equal(ids[ids.indexOf('rejection')+1],'water-ledger');
+ assert.equal(ids[ids.indexOf('chiller-balance')+1],'plant-options');
+ assert.equal(ids[ids.indexOf('approach-wet')+1],'closed-loop-water');
+ assert.equal(initialState.closedSink,'tower');
+ const closed=heatRejectionVisual('closed-loop-water',initialState);
+ assert.match(closed,/Evaporatively cooled tower/);assert.match(closed,/separating exchanger/);assert.doesNotMatch(closed,/chiller|condenser/i);
+ const dry=heatRejectionVisual('closed-loop-water',{...initialState,closedSink:'air'});
+ assert.match(dry,/Dry cooler/);assert.doesNotMatch(dry,/chiller|condenser/i);
+ for(const id of ['weather-bins','water-metrics','heat-rejection-check'])assert.ok(!ids.includes(id));
 });
 test('every scene and documented control state produces finite desktop and phone content',()=>{
  for(const scene of scenes){const states=[{...initialState}];for(const c of scene.controls||[])for(const [value]of c.options)states.push({...initialState,[c.key]:value});
   if(scene.id==='hot-hour')for(const condition of ['cool','hot'])for(const requestedITMW of [4,7.68,8])states.push({...initialState,condition,requestedITMW});
-  if(scene.id==='approach-outdoors')for(const humidity of ['dry','humid'])for(const interfaceStep of [0,1,2,3])states.push({...initialState,humidity,interfaceStep});
+  if(['approach-outdoors','approach-wet'].includes(scene.id))for(const humidity of ['dry','humid'])for(const step of [0,1,2,3])states.push({...initialState,humidity,interfaceStep:step,wetStep:step});
   for(const state of states)for(const compact of [false,true]){const html=heatRejectionVisual(scene.id,state,compact);assert.ok(html.length>100);assert.doesNotMatch(html,/\b(?:undefined|NaN|Infinity)\b/);}
  }
 });
@@ -51,33 +61,38 @@ test('hot-hour visual follows the requested load and retains both adequacy scree
  assert.match(proposed,/10\.4\s*\/\s*10 MW/);assert.match(fitted,/10\s*\/\s*10 MW/);
  assert.match(fitted,/7\.68/);assert.match(fitted,/1\.92/);assert.doesNotMatch(fitted,/10\.4\s*\/\s*10 MW/);
 });
-test('temperature ladders reveal one interface at a time and humidity changes the final limit',()=>{
- for(const interfaceStep of [0,1,2,3]){
-  const html=heatRejectionVisual('approach-outdoors',{...initialState,interfaceStep});
-  const shown=[...html.matchAll(/data-approach-step="(\d+)"/g)].map(match=>Number(match[1]));
-  assert.equal(shown.length,Math.min(interfaceStep+1,3)+interfaceStep+1);
-  assert.ok(shown.every(step=>step<=interfaceStep));
-  assert.equal([...html.matchAll(/class="h-temperature-stage h-unrevealed" aria-hidden="true"/g)].length,7-shown.length);
+test('physical outdoor routes preserve separate circuits and the temperature screen',()=>{
+ for(const compact of [false,true])for(const humidity of ['dry','humid'])for(const step of [0,1,2,3]){
+  const state={...initialState,humidity,interfaceStep:step,wetStep:step};
+  for(const route of ['approach-outdoors','approach-wet']){
+   const html=heatRejectionVisual(route,state,compact);
+   assert.match(html,new RegExp(`data-water-phase="${step}"`));
+   const selected=[...html.matchAll(/data-water-step="(\d+)" aria-pressed="true"/g)];
+   assert.deepEqual(selected.map(match=>Number(match[1])),[step]);
+   assert.match(html,/Rack circuit/);assert.match(html,/Facility circuit/);
+   assert.match(html,/Separate channels/);assert.match(html,/h-water-arrow/);
+   assert.match(html,/h-water-motion/);assert.doesNotMatch(html,/h-temperature-stage/);
+  }
  }
- const dry=heatRejectionVisual('approach-outdoors',{...initialState,humidity:'dry',interfaceStep:3});
- const humid=heatRejectionVisual('approach-outdoors',{...initialState,humidity:'humid',interfaceStep:3});
- assert.match(dry,/data-approach-step="3">[\s\S]*?h-pass[^>]*><b>35°C/);
- assert.match(humid,/data-approach-step="3">[\s\S]*?h-fail[^>]*><b>41°C/);
+ const dry=heatRejectionVisual('approach-outdoors',{...initialState,interfaceStep:3});
+ assert.match(dry,/Sealed coil/);assert.match(dry,/Water inside · air outside/);
+ assert.doesNotMatch(dry,/Tower circuit|wet bulb|Makeup/);
+ for(const value of [35,40,45,50,55])assert.match(dry,new RegExp(`${value}°C`));
+ assert.match(dry,/Rack coolant supply 45°C · exceeds the 35°C coolant limit/);
+ const wet=heatRejectionVisual('approach-wet',{...initialState,wetStep:3});
+ for(const label of ['Tower circuit','Fill','Basin','Makeup','Heat exchanger','22°C wet bulb'])assert.ok(wet.includes(label),label);
+ for(const value of [25,30,35,40,45])assert.match(wet,new RegExp(`${value}°C`));
+ assert.match(wet,/Rack coolant supply 35°C · meets the 35°C coolant limit/);
+ const humid=heatRejectionVisual('approach-wet',{...initialState,humidity:'humid',wetStep:3});
+ assert.match(humid,/28°C wet bulb/);assert.match(humid,/Rack coolant supply 41°C · exceeds the 35°C coolant limit/);
+ for(const value of [31,36,41,46,51])assert.match(humid,new RegExp(`${value}°C`));
 });
-test('water accounting keeps missing return evidence unresolved',()=>{
- const unknown=heatRejectionVisual('water-metrics',{...initialState,returnKnown:false});
- const known=heatRejectionVisual('water-metrics',{...initialState,returnKnown:true});
- assert.match(unknown,/unresolved/i);assert.doesNotMatch(known,/unresolved/i);
+test('water ledger retains distinct evaporation, blowdown and refill states',()=>{
  for(const mineralStage of ['evaporate','purge','refill']){
   const visual=heatRejectionVisual('water-ledger',{...initialState,mineralStage});
   assert.doesNotMatch(visual,/C\s*=|B\s*=|C\s*[−-]\s*1|concentration ratio/i);
  }
  assert.notEqual(heatRejectionVisual('water-ledger',{...initialState,mineralStage:'evaporate'}),heatRejectionVisual('water-ledger',{...initialState,mineralStage:'purge'}));
-});
-test('closing decision feedback diagnoses both wrong paths and keeps the answer behind reveal',()=>{
- assert.equal(decisionFeedback('reduce').correct,true);assert.equal(decisionFeedback('full').correct,false);assert.equal(decisionFeedback('tower').correct,false);
- const hidden=heatRejectionVisual('heat-rejection-check',{...initialState,choice:'reduce'},false);assert.doesNotMatch(hidden,/Both limits pass|7\.68|1\.92/);assert.match(hidden,/data-plan="reduce" aria-pressed="true"/);
- const revealed=heatRejectionVisual('heat-rejection-check',{...initialState,choice:'reduce',revealed:true},false);assert.match(revealed,/Both limits pass/);assert.match(revealed,/1\.92/);assert.doesNotMatch(revealed,/data-plan=/);
 });
 test('chapter uses shared presenter chrome and the local attributed Abilene photo',()=>{
  const html=readFileSync(new URL('../course/prototypes/heat-rejection-format.html',import.meta.url),'utf8');assert.match(html,/src="slide-chrome.js"/);assert.match(html,/id="scenes"/);assert.match(html,/id="lesson-reference"/);
@@ -117,10 +132,16 @@ test('actual player connects weather and IT load controls and preserves them acr
  player.go('two-ceilings');assert.equal(player.elements.get('scene').dataset.scene,'hot-hour');
  player.go('reuse-interface');assert.equal(player.elements.get('scene').dataset.scene,'heat-reuse');
 });
-test('actual player advances and restarts the temperature reveal while retaining humidity',()=>{
+test('actual player steps independent dry and wet circuits and retains humidity',()=>{
  const player=playerAt('#approach-outdoors'),html=()=>player.elements.get('visual').innerHTML;
- assert.doesNotMatch(html(),/data-approach-step="[123]"/);
- for(const step of [1,2,3]){player.press('approach-next');assert.match(html(),new RegExp(`data-approach-step="${step}"`));}
- player.click('humidity','humid');assert.match(html(),/data-approach-step="3">[\s\S]*?h-fail[^>]*><b>41°C/);
- player.press('approach-next');assert.doesNotMatch(html(),/data-approach-step="[123]"/);assert.match(html(),/<b>28°C<\/b>/);
+ assert.match(html(),/data-water-phase="0"/);
+ for(const step of [1,2,3]){player.press('approach-next');assert.match(html(),new RegExp(`data-water-phase="${step}"`));}
+ assert.match(html(),/Rack coolant supply 45°C · exceeds/);
+ player.go('approach-wet');assert.match(html(),/data-water-phase="0"/);
+ for(const step of [1,2,3])player.press('approach-next');
+ assert.match(html(),/Rack coolant supply 35°C · meets/);
+ player.click('humidity','humid');assert.match(html(),/Rack coolant supply 41°C · exceeds/);
+ player.press('approach-next');assert.match(html(),/data-water-phase="0"/);assert.match(html(),/28°C wet bulb/);
+ player.go('approach-outdoors');assert.match(html(),/data-water-phase="3"/);
+ player.press('approach-next');assert.match(html(),/data-water-phase="0"/);
 });

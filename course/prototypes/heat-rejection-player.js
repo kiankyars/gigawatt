@@ -19,15 +19,18 @@ function render(){
  $('actions').replaceChildren();
  for(const group of scene.controls||[]){
   const fieldset=document.createElement('fieldset');fieldset.className='choices';
-  const legend=document.createElement('legend');legend.textContent=group.label;fieldset.append(legend);
+  const legend=document.createElement('legend');legend.textContent=group.label;if(group.hideLabel)legend.className='sr-only';fieldset.append(legend);
   for(const [value,label]of group.options){const button=document.createElement('button');button.type='button';button.textContent=label;button.dataset.choice=group.key;button.dataset.value=String(value);button.setAttribute('aria-pressed',String(state[group.key]===value));button.onclick=()=>{state[group.key]=value;focusAfter(`[data-choice="${group.key}"][data-value="${value}"]`);};fieldset.append(button);}
   $('actions').append(fieldset);
  }
- if(scene.id==='approach-outdoors'){
-  const next=document.createElement('button');next.id='approach-next';next.type='button';
-  next.textContent=state.interfaceStep<3?'Show the next interface':'Start again';
-  next.onclick=()=>{state.interfaceStep=(state.interfaceStep+1)%4;focusAfter('#approach-next');};
-  $('actions').append(next);
+ if(scene.id==='approach-outdoors'||scene.id==='approach-wet'){
+  const key=scene.id==='approach-wet'?'wetStep':'interfaceStep';
+  const waterPhase=(step,selector)=>{
+   state[key]=step;focusAfter(selector);
+   if(compact.matches)document.querySelector(`[data-water-focus="${['collect','transfer','release','collect'][step]}"]`)?.scrollIntoView({block:'center',behavior:'auto'});
+  };
+  document.querySelectorAll('[data-water-step]').forEach(button=>button.onclick=()=>waterPhase(Number(button.dataset.waterStep),`[data-water-step="${button.dataset.waterStep}"]`));
+  $('approach-next').onclick=()=>waterPhase((state[key]+1)%4,'#approach-next');
  }
  if(scene.id==='hot-hour'){
   const label=document.createElement('label');label.className='h-load-control';label.htmlFor='computing-power';label.textContent='Computing power';
@@ -39,8 +42,6 @@ function render(){
   fit.onclick=()=>{state.requestedITMW=Math.min(8,operatingPoint({condition:state.condition}).feasibleMW);focusAfter('#fit-load');};
   $('actions').append(fit);
  }
- document.querySelectorAll('[data-plan]').forEach(button=>button.onclick=()=>{state.choice=button.dataset.plan;state.revealed=false;focusAfter(`[data-plan="${state.choice}"]`);});
- $('decision-reveal')?.addEventListener('click',()=>{state.revealed=!state.revealed;focusAfter('#decision-reveal');});
 }
 function go(i){index=Math.max(0,Math.min(scenes.length-1,i));history.replaceState(null,'',`#${scenes[index].id}`);render();window.scrollTo({top:0,left:0,behavior:'auto'});}
 function fromHash(){let id;try{id=decodeURIComponent(location.hash.slice(1));}catch{id='';}id=sceneAliases[id]||id;const found=scenes.findIndex(scene=>scene.id===id);index=found<0?0:found;render();window.scrollTo({top:0,left:0,behavior:'auto'});}
