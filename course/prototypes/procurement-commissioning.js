@@ -1,4 +1,4 @@
-import {acceptedPaths, commissionedService} from './procurement-model.js';
+import {acceptedPaths} from './procurement-model.js';
 
 const arrow = '<span class="pc-arrow" aria-hidden="true">→</span>';
 const strip = text => `<div class="p-strip pc-strip">${text}</div>`;
@@ -43,18 +43,15 @@ function controls(state) {
 
 function factoryAcceptance() {
   const rows = [
-    ['Cable', 'Internal wiring → module terminals', 'Field cable → correct rack branch', 'Connections + protection settings'],
-    ['Pipe', 'Internal manifold → module flanges', 'Field pipe → correct rack branch', 'Fluid + leak integrity + measured flow'],
-    ['Controls', 'Controller → factory test setup', 'Actual sensor → correct rack group', 'Point mapping + observed action'],
+    ['Internal wiring and protection', 'Field cables and protection coordination'],
+    ['Internal piping and leak tests', 'Field joints and measured flow'],
+    ['Controller logic with simulated signals', 'Real sensors and equipment response'],
   ];
-  return `<div class="p-stack pc-stack">
-    <div class="pc-scope-table" role="table" aria-label="Factory scope and installed checks">
-      <div class="pc-scope-heading" role="row"><span role="columnheader">Connection</span><h2 role="columnheader">Factory test scope</h2><h2 role="columnheader">Installed checks at the site</h2></div>
-      ${rows.map(([label, factory, installed, check]) => `<div class="pc-scope-row" role="row"><b role="rowheader">${label}</b><div class="pc-factory-cell" role="cell"><span>${factory}</span></div><div role="cell"><strong>${installed}</strong><span>${check}</span></div></div>`).join('')}
+  return `<div class="pc-scope-table pc-factory-table" role="table" aria-label="Factory tests and remaining site tests">
+      <div class="pc-scope-heading" role="row"><h2 role="columnheader">Tested in the factory</h2><h2 role="columnheader">Checked at the site</h2></div>
+      ${rows.map(([factory, site]) => `<div class="pc-scope-row" role="row"><div class="pc-factory-cell" role="cell">${factory}</div><div role="cell">${site}</div></div>`).join('')}
     </div>
-    ${strip('Test the assembly. Check its field connections. Then test the joined service.')}
-    ${note('Record the tested revision, conditions and results. A shipment release covers its declared factory scope.')}
-  </div>`;
+  `;
 }
 
 function integratedTest(state) {
@@ -87,27 +84,16 @@ function accepted(state) {
 }
 
 function phaseBoundary() {
-  return `<div class="p-stack pc-stack">
-    <div class="p-shared-plant">Shared upstream plant + controls</div>
-    <div class="p-phase-links" aria-hidden="true"><span>↓</span><span>↓</span></div>
-    <div class="p-two pc-phase-pair"><section class="p-card positive"><h2>Phase A · operating</h2><p>Keep its tested service within the accepted limits.</p></section><section class="p-card warning"><h2>Phase B · construction</h2><p>Its connection changes the shared system.</p></section></div>
-    <div class="pc-phase-checks"><b>Before connecting B</b><span>Agree isolation ownership</span><span>Check shared capacity</span><span>Retest affected functions</span></div>
-    ${note('A previous acceptance record applies to the configuration that was tested.')}
-  </div>`;
-}
-
-function releaseDecision(state) {
-  const m = commissionedService();
-  const selected = ['all', 'proven', 'wait'].includes(state.diagnosis) ? state.diagnosis : '';
-  const reveal = Boolean(state.showDiagnosis && selected);
-  const responses = {
-    all: 'A41–A60 has a command record but no measured failure response. Forty complete paths do not yet establish forty racks eligible for service.',
-    proven: `Release A21–A40: ${m.count} racks × 200 kW = ${m.envelopeMW} MW. Those same racks have complete paths and a measured response that meets the agreed limits and timing.`,
-    wait: `A21–A40 already meets every stated criterion. Its ${m.count} racks can enter service within the tested configuration and limits.`,
-  };
-  return `<div class="pc-release">
-    <section class="pc-release-evidence"><div class="pc-release-context"><span>Same 100 revised racks · 200 kW each</span><h2>Now inspect the failure-response records</h2></div><div class="pc-evidence-row"><b>A21–A60 · 40 racks</b><span>All three service paths accepted</span></div><div class="pc-evidence-row pc-evidence-measured"><b>A21–A40 · 20 racks</b><span>Measured response meets agreed limits and timing</span></div><div class="pc-evidence-row pc-evidence-pending"><b>A41–A60 · 20 racks</b><span>Command sent; response unconfirmed</span></div><p>All other acceptance criteria are met.<br>Other racks lack a complete accepted path.</p></section>
-    <section class="pc-release-answer"><h2>Which racks can enter service?</h2><div class="p-answer-options pc-answer-options">${[['all', 'A21–A60 · all 40 with complete paths'], ['proven', 'A21–A40 · only the 20 with a passing response'], ['wait', 'None · wait for all 100 racks']].map(([value, label]) => `<button type="button" data-diagnosis="${value}" aria-pressed="${selected === value}">${label}</button>`).join('')}</div><button type="button" id="diagnosis-reveal" class="p-reveal" ${selected ? '' : 'disabled'} aria-expanded="${reveal}">${reveal ? 'Hide reasoning' : 'Check the decision'}</button><div class="pc-release-feedback ${reveal ? selected === 'proven' ? 'pc-correct' : 'pc-recheck' : ''}" role="status"${reveal ? ` data-release-eligible="${m.count}" data-release-mw="${m.envelopeMW}"` : ''}>${reveal ? `<p>${responses[selected]}</p><p class="pc-handover">Handover: name the released racks, tested configuration and operating limits. Record excluded racks and the evidence still required.</p>` : ''}</div></section>
+  // Two equal-aspect photographic viewports, wholly inside the source photos.
+  // The bundled source is a flattened investor slide; keep its text and borders out.
+  const image = '../assets/references/applied-digital-polaris-forge-1-building1-october-2025.jpg';
+  const crop = (viewBox, label) => `<svg viewBox="${viewBox}" role="img" aria-label="${label}" preserveAspectRatio="xMidYMid meet"><image href="${image}" x="0" y="0" width="1368" height="829" /></svg>`;
+  return `<div class="pc-polaris-phase">
+    <figure class="pc-polaris-photos"><div class="pc-polaris-gallery">${crop('225 175 770 275', 'Polaris Forge 1 Building 1 and surrounding infrastructure, from Applied Digital’s October 2025 presentation')}${crop('60 480 700 250', 'A second aerial view of Polaris Forge 1 Building 1 from the same October 2025 presentation')}</div><figcaption><a href="https://ir.applieddigital.com/sec-filings/all-sec-filings/content/0001144879-25-000076/apld_invxfinalpresentati.htm" target="_blank" rel="noreferrer">Applied Digital · October 2025 presentation, p. 22 · two views of Building 1</a></figcaption></figure>
+    <div class="pc-polaris-milestones"><div class="pc-polaris-location"><h2>Polaris Forge 1 · Ellendale</h2><p>Applied Digital · leased to CoreWeave</p></div>
+      <div class="p-phase-milestone"><time datetime="2025-10-27">27 Oct 2025</time><strong>50 MW</strong><span>Phase I ready for service</span></div>
+      <div class="p-phase-milestone"><time datetime="2025-11-24">24 Nov 2025</time><strong>+50 MW</strong><span>First 100 MW building complete</span></div>
+    </div>
   </div>`;
 }
 
@@ -118,7 +104,6 @@ export function procurementCommissioningVisual(id, state = {}) {
     case 'integrated-tests': return integratedTest(state);
     case 'accepted-paths': return accepted(state);
     case 'phase-boundary': return phaseBoundary();
-    case 'release-decision': return releaseDecision(state);
     default: return null;
   }
 }

@@ -23,11 +23,9 @@ function render(){
   $('actions').append(fieldset);
  }
  document.querySelectorAll('[data-evidence]').forEach(button=>button.onclick=()=>{const key=button.dataset.evidence;state[key]=!state[key];focusAfter(`[data-evidence="${key}"]`);});
- document.querySelectorAll('[data-diagnosis]').forEach(button=>button.onclick=()=>{state.diagnosis=button.dataset.diagnosis;state.showDiagnosis=false;focusAfter(`[data-diagnosis="${state.diagnosis}"]`);});
- $('diagnosis-reveal')?.addEventListener('click',()=>{state.showDiagnosis=!state.showDiagnosis;focusAfter('#diagnosis-reveal');});
 }
 function go(i){index=Math.max(0,Math.min(scenes.length-1,i));history.replaceState(null,'',`#${scenes[index].id}`);render();window.scrollTo({top:0,left:0,behavior:'auto'});}
-function fromHash(){index=resolveProcurementScene(location.hash.slice(1));if(location.hash&&location.hash.slice(1)!==scenes[index].id)history.replaceState(null,'',`#${scenes[index].id}`);render();window.scrollTo({top:0,left:0,behavior:'auto'});}
+function fromHash(){if(location.hash.slice(1)==='hardware-prices-meme'){location.replace('./capacity-format.html'+location.search+'#hardware-prices-meme');return;}if(['controls-interface','integrated-tests','service-requirements'].includes(location.hash.slice(1))){location.replace('./cooling-format.html'+location.search+'#cooling-response');return;}index=resolveProcurementScene(location.hash.slice(1));if(location.hash&&location.hash.slice(1)!==scenes[index].id)history.replaceState(null,'',`#${scenes[index].id}`);render();window.scrollTo({top:0,left:0,behavior:'auto'});}
 $('scenes').onchange=event=>go(scenes.findIndex(scene=>scene.id===event.target.value));$('previous').onclick=()=>go(index-1);$('next').onclick=()=>go(index+1);
 $('fullscreen').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await $('viewer').requestFullscreen();}catch{$('status').textContent='Full screen is unavailable in this browser view.';}};
 document.addEventListener('fullscreenchange',()=>{$('fullscreen').textContent=document.fullscreenElement?'Exit full screen':'Full screen';});

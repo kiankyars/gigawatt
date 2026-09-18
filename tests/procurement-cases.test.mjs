@@ -136,20 +136,18 @@ function statesFor(scene){
  let states=[{...initialState}];
  for(const group of scene.controls||[])states=states.flatMap(state=>group.options.map(([value])=>({...state,[group.key]:value})));
  if(scene.id==='release-holds')states=Array.from({length:64},(_,mask)=>({...initialState,...Object.fromEntries(evidenceKeys.map((key,index)=>[key,Boolean(mask&(1<<index))]))}));
- if(scene.id==='release-decision')states=[{...initialState},...['all','proven','wait'].flatMap(diagnosis=>[false,true].map(showDiagnosis=>({...initialState,diagnosis,showDiagnosis})))];
  return states;
 }
 
 test('every procurement scene and control state renders with existing photographs',()=>{
  assert.equal(new Set(scenes.map(scene=>scene.id)).size,scenes.length);
- assert.equal(scenes[1].id,'hardware-prices-meme','the meme precedes the continuing example');
- assert.deepEqual(scenes.slice(2,7).map(scene=>scene.id),['rack-case-brief','rack-change','electrical-interface','hydraulic-interface','spatial-interface'],'keep the rack-change case and its consequences together');
+ assert.equal(scenes[0].id,'epc-and-prefab','the EPC responsibilities open the chapter');
+ assert.deepEqual(scenes.slice(1,6).map(scene=>scene.id),['rack-case-brief','rack-change','electrical-interface','hydraulic-interface','spatial-interface'],'keep the rack-change case and its consequences together');
  assert.deepEqual([...new Set(scenes.map(scene=>scene.objective))].sort(),['D13.1','D13.2','D13.3','D13.4']);
  const assets=new Set();
  for(const scene of scenes)for(const state of statesFor(scene)){
   const html=procurementVisual(scene.id,state);
-  if(scene.id==='delivery-purpose')assert.equal(html,'','the opening contains only the chapter title');
-  else assert.ok(html.length>100,scene.id);
+  assert.ok(html.length>100,scene.id);
   assert.doesNotMatch(html,/NaN|undefined|Infinity/,scene.id);
   for(const [,src]of html.matchAll(/<img\b[^>]*\bsrc="([^"]+)"/g)){
    assert.ok(src.startsWith('../assets/'),`${scene.id}: photograph must be bundled`);
@@ -165,10 +163,11 @@ test('every procurement scene and control state renders with existing photograph
 test('procurement navigation resolves current scenes',()=>{
  assert.ok(!scenes.some(scene=>scene.id==='polaris-phases'));
  assert.equal(resolveProcurementScene('polaris-phases'),0);
- assert.equal(scenes[resolveProcurementScene('release-decision')].id,'release-decision');
+ assert.equal(scenes.at(-1).id,'phase-boundary');
+ for(const retired of['release-decision','controls-interface','integrated-tests'])assert.ok(!scenes.some(scene=>scene.id===retired),`${retired} is no longer an active procurement slide`);
  assert.equal(resolveProcurementScene('unknown'),0);
  for(const [oldId,currentId]of Object.entries(sceneAliases))assert.equal(scenes[resolveProcurementScene(oldId)].id,currentId);
- for(const id of['hardware-prices-meme','aws-houdini-prefab','compass-package'])assert.equal(scenes[resolveProcurementScene(id)].id,id);
+ for(const id of['aws-houdini-prefab','compass-package'])assert.equal(scenes[resolveProcurementScene(id)].id,id);
 });
 
 test('electrical and hydraulic comparisons keep both rack duties visible without a rack-duty toggle',()=>{
@@ -183,30 +182,9 @@ test('electrical and hydraulic comparisons keep both rack duties visible without
  }
 });
 
-test('failure-test visuals distinguish the physical fault, command and measured response',()=>{
- for(const testPhase of['fault','command','measured']){
-  const html=procurementVisual('integrated-tests',{...initialState,testPhase});
-  assert.match(html,new RegExp(`data-test-phase="${testPhase}"`));
-  if(testPhase==='measured')assert.match(html,/class="pc-trace-after"/);
-  else assert.doesNotMatch(html,/class="pc-trace-after"/,'an issued command cannot draw an observed response');
- }
- assert.doesNotMatch(procurementVisual('controls-interface',{...initialState,action:'unconfirmed'}),/class="pc-trace-after"/);
- assert.match(procurementVisual('controls-interface',{...initialState,action:'confirmed'}),/class="pc-trace-after"/);
-});
-
-test('accepted-path visuals use the revised rack duty and final evidence stays behind reveal',()=>{
+test('accepted-path visuals show the overlap for the revised rack duty',()=>{
  assert.match(procurementVisual('accepted-paths',{...initialState,coolingStart:21}),/40 racks · 8 MW/);
  assert.match(procurementVisual('accepted-paths',{...initialState,coolingStart:1}),/60 racks · 12 MW/);
- for(const diagnosis of['','all','proven','wait']){
-  const hidden=procurementVisual('release-decision',{...initialState,diagnosis,showDiagnosis:false});
-  assert.doesNotMatch(hidden,/data-release-eligible|data-release-mw|4 MW/);
-  if(diagnosis){
-   const revealed=procurementVisual('release-decision',{...initialState,diagnosis,showDiagnosis:true});
-   assert.match(revealed,/data-release-eligible="20" data-release-mw="4"/);
-   assert.equal(revealed.includes('pc-correct'),diagnosis==='proven');
-  }
- }
- assert.doesNotMatch(procurementVisual('release-decision',{...initialState,diagnosis:'',showDiagnosis:true}),/data-release-eligible|data-release-mw/,'a reveal flag without a selection does not show an answer');
 });
 
 function playerAt(hash){
@@ -221,27 +199,31 @@ function playerAt(hash){
  Object.defineProperty(elements.get('visual'),'innerHTML',{get(){return this.html;},set(html){this.html=html;inline=[];for(const [,attrs]of html.matchAll(/<button\b([^>]*)>/g)){const button=new Element();for(const [,key,value]of attrs.matchAll(/([\w-]+)="([^"]*)"/g))button.setAttribute(key,value);inline.push(button);}}});
  const descendants=element=>element.children.flatMap(child=>[child,...descendants(child)]);
  const buttons=()=>descendants(elements.get('actions')).filter(element=>element.type==='button');
- const listeners={},location={hash,search:'?teach=1'};
+ const listeners={},location={hash,search:'?teach=1',replace(url){this.redirect=url;}};
  const document={getElementById:id=>elements.get(id)||inline.find(button=>button.getAttribute('id')===id),createElement:()=>new Element(),querySelector:()=>null,querySelectorAll:selector=>{const attr=selector.slice(1,-1);return inline.filter(element=>element.getAttribute(attr)!==undefined);},addEventListener(){}};
  const window={addEventListener:(name,fn)=>{listeners[name]=fn;},scrollTo(){}};
  const source=fs.readFileSync(new URL('../course/prototypes/procurement-cases-player.js',import.meta.url),'utf8').replace(/^import .*;\n/gm,'');
  vm.runInNewContext(source,{document,window,location,history:{replaceState(_state,_title,hash){location.hash=hash;}},URLSearchParams,Option:class{constructor(label,value){this.label=label;this.value=value;}},scenes,initialState,resolveProcurementScene,procurementVisual,presentationLabels:{'procurement-cases':'13. EPC'}});
- return {elements,document,go(id){location.hash=`#${id}`;listeners.hashchange();},click(key,value){const button=buttons().find(button=>button.dataset.choice===key&&String(button.dataset.value)===String(value));assert.ok(button,`${key}=${value}`);button.onclick();},choose(value){const button=inline.find(button=>button.dataset.diagnosis===value);assert.ok(button,value);button.onclick();},press(id){const button=document.getElementById(id);assert.ok(button,id);(button.onclick||button.listeners.click)();}};
+ return {elements,document,location,go(id){location.hash=`#${id}`;listeners.hashchange();},click(key,value){const button=buttons().find(button=>button.dataset.choice===key&&String(button.dataset.value)===String(value));assert.ok(button,`${key}=${value}`);button.onclick();}};
 }
 
-test('actual player retains acceptance controls and hides final feedback when a new answer is selected',()=>{
- const player=playerAt('#integrated-tests'),html=()=>player.elements.get('visual').innerHTML;
- assert.match(html(),/data-test-phase="fault"/);
- player.click('testPhase','command');assert.match(html(),/data-test-phase="command"/);assert.doesNotMatch(html(),/class="pc-trace-after"/);
- player.click('testPhase','measured');assert.match(html(),/data-test-phase="measured"/);assert.match(html(),/class="pc-trace-after"/);
- player.go('accepted-paths');player.click('coolingStart',1);assert.match(html(),/60 racks · 12 MW/);
- player.go('integrated-tests');assert.match(html(),/data-test-phase="measured"/);
- player.go('controls-interface');player.click('action','confirmed');assert.match(html(),/data-action="confirmed"/);
- player.go('release-decision');player.choose('all');player.press('diagnosis-reveal');assert.match(html(),/pc-recheck/);
- player.choose('proven');assert.doesNotMatch(html(),/data-release-eligible/);
- player.press('diagnosis-reveal');assert.match(html(),/pc-correct/);assert.match(html(),/data-release-eligible="20" data-release-mw="4"/);
+test('actual player preserves the selected cooling extent across chapter navigation',()=>{
+ const player=playerAt('#accepted-paths'),html=()=>player.elements.get('visual').innerHTML;
+ assert.match(html(),/40 racks · 8 MW/);
+ player.click('coolingStart',1);assert.match(html(),/60 racks · 12 MW/);
+ player.go('phase-boundary');assert.equal(player.elements.get('scene').dataset.scene,'phase-boundary');
+ assert.equal(player.elements.get('next').disabled,true,'the phased-delivery case closes the chapter');
  player.go('accepted-paths');assert.match(html(),/60 racks · 12 MW/);
- player.go('release-decision');assert.match(html(),/pc-correct/);
+ player.click('coolingStart',21);assert.match(html(),/40 racks · 8 MW/);
  player.go('site-checks');assert.equal(player.elements.get('scene').dataset.scene,'factory-acceptance');
- player.go('handover-records');assert.equal(player.elements.get('scene').dataset.scene,'release-decision');
+ player.go('release-decision');assert.equal(player.elements.get('scene').dataset.scene,'phase-boundary');
+ player.go('handover-records');assert.equal(player.elements.get('scene').dataset.scene,'phase-boundary');
+});
+
+test('old cooling-failure bookmarks redirect to the combined cooling lesson',()=>{
+ for(const id of['controls-interface','integrated-tests','service-requirements']){
+  const player=playerAt(`#${id}`);
+  assert.equal(player.location.redirect,'./cooling-format.html?teach=1#cooling-response');
+  assert.equal(player.elements.get('visual').innerHTML,undefined,'the obsolete procurement scene is not drawn before redirecting');
+ }
 });

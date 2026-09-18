@@ -14,6 +14,10 @@
 @media(max-width:800px){.p-polaris-crops{gap:15px}.p-polaris-crops>svg{max-height:none}}
 
 .procurement-meme{margin:0;display:flex;align-items:center;justify-content:center;flex:1;min-height:0}.procurement-meme img{width:100%;height:100%;max-height:75svh;object-fit:contain}
+#scene[data-scene=factory-and-site]{padding:0;gap:0}
+#scene[data-scene=factory-and-site] #visual{height:100%}
+#scene[data-scene=factory-and-site] .procurement-meme{width:100%;height:100%}
+#scene[data-scene=factory-and-site] .procurement-meme img{max-height:100%;object-fit:contain}
 
 /* Before/after comparisons keep the engineering decision visible. */
 .p-compare>section{display:flex;flex-direction:column;gap:22px;min-width:0}
@@ -117,3 +121,5 @@
 .p-ocp-name{font-size:15px;text-align:center;color:var(--muted)}
 @media(min-width:801px) and (max-height:780px){.p-delivery-compare{gap:10px}.p-delivery-row{min-height:73px}.p-delivery-label h2{font-size:18px!important}.p-delivery-label p{font-size:13px}.p-delivery-track{height:73px}.p-readiness{top:calc(11px + var(--lane) * 23px)}.p-ocp{gap:25px}.p-epc-project{gap:24px}.p-epc-step p{font-size:21px}.p-factory-join{padding-top:20px;font-size:21px}.p-case-intro{gap:24px}}
 @media(max-width:800px){.p-case-intro{gap:26px;padding:15px 0}.p-case-intro>p{font-size:29px!important}.p-case-intro>p>br{display:none}.p-case-regimes{font-size:17px;display:grid;grid-template-columns:1fr 1fr;gap:18px}.p-delivery-legend{flex-wrap:wrap;justify-content:flex-start;gap:13px 18px;font-size:13px}.p-delivery-axis{grid-template-columns:1fr 54px;gap:12px}.p-delivery-axis>span:first-child{display:none}.p-delivery-row{grid-template-columns:1fr 54px;gap:13px 12px;border-top:1px solid var(--line);padding:20px 0 0}.p-delivery-label{grid-column:1/-1}.p-delivery-label h2{font-size:22px!important}.p-delivery-label p{font-size:16px}.p-delivery-track{grid-column:1;grid-row:2}.p-online{grid-column:2;grid-row:2;font-size:26px}.p-test-window{font-size:11px}.p-delivery-compare{gap:20px}.p-epc-step{gap:18px;align-items:flex-start}.p-epc-step>span{width:40px;font-size:46px;margin-top:10px}.p-epc-step>section{padding-left:18px}.p-epc-step p{font-size:20px}.p-concurrent{transform:rotate(90deg);text-align:center;font-size:42px}.p-factory-join{flex-direction:column;gap:18px;font-size:22px}.p-factory-join>.p-arrow{transform:rotate(90deg);font-size:27px}.p-ocp-specs{font-size:16px;gap:12px;text-align:center}.p-ocp-example{grid-template-columns:1fr;gap:30px}.p-coupling-pair{gap:10px;grid-template-columns:1fr .7fr 1fr}.p-coupling-pair h2{font-size:20px!important}.p-coupling-pair p{font-size:17px}.p-coupling-joint b{font-size:14px}.p-coupling-pair>section{gap:15px}.p-ocp-duty{border-left:0;border-top:1px solid var(--line);padding:25px 0 0;gap:20px}.p-ocp-name{text-align:left;line-height:1.4}.p-skid-assembly{font-size:20px}.p-case-equation{padding-top:8px;font-size:25px}.p-case-equation>span{font-size:16px}}
+
+.procurement-meme .full-size-figure{display:flex;width:100%;height:100%;align-items:center;justify-content:center;cursor:zoom-in}
