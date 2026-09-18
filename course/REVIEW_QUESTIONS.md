@@ -273,10 +273,10 @@ The discussed arrangements support revenue by committing to purchase specified c
 
 ### 52. Does hot weather mean the installed GPU inventory shrinks?
 
-No. It can reduce the IT load that the cooling and electrical systems can sustainably support, or increase cooling electricity at the same IT load. The hardware remains installed. The finale now explicitly shows identical racks and IT duty on both sides, with more cooling electricity in hotter conditions.
+No. It can reduce the IT load that the cooling and electrical systems can sustainably support, or increase cooling electricity at the same IT load. The hardware remains installed. The underlying distinction remains in Chapter 12. The finale’s separate hot-weather comparison was removed during the latest review because it repeated that lesson.
 
 ### 53. What is Chapter 16's purpose now? Which chapters are approved?
 
-The former finale contained five separate engineering exercises. We agreed those repeated earlier material without providing a satisfying conclusion. The replacement follows **one real AI factory—Abilene—to connect workload, power, cooling, construction, financing and expansion**. The useful earlier exercises remain optional reading. [Nine-slide finale](https://kiankyars.github.io/gigawatt/slides/integrated-cases.html?teach=1#abilene-factory)
+The former finale contained five separate engineering exercises. We agreed those repeated earlier material without providing a satisfying conclusion. The replacement follows **one real AI factory—Abilene—to connect workload, power, cooling, construction, financing and expansion**. The useful earlier exercises remain optional reading. [Abilene finale](https://kiankyars.github.io/gigawatt/slides/integrated-cases.html?teach=1#abilene-factory)
 
-Your approval covers Chapters **1–13**. Chapters **14–16** remain awaiting your acceptance. The persistent record is [COURSE_REVIEW.md](COURSE_REVIEW.md).
+Your approval covers the reviewed material in Chapters **1–13**. The newly authorized Clemente/VRM additions in Chapter 8 and Toronto additions in Chapter 12 await your review; unchanged material remains accepted. Chapters **14–16** remain awaiting your acceptance. The persistent record is [COURSE_REVIEW.md](COURSE_REVIEW.md).
