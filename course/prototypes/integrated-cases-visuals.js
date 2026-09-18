@@ -1,79 +1,44 @@
-import {coupledOutage,weatherCapacity,densityRetrofit,phaseAcceptance} from './integrated-cases-model.js';
-import {integratedComparison} from './integrated-comparisons.js';
-const n=(value,digits=1)=>Number(value.toFixed(digits)).toLocaleString('en-US');
-const metric=(value,label,tone='')=>`<div class="i-metric ${tone}"><strong>${value}</strong><span>${label}</span></div>`;
-const result=(html,tone='')=>`<div class="i-result ${tone}">${html}</div>`;
-const note=html=>`<p class="i-inputs">${html}</p>`;
-const svg=(label,body,view='0 0 1120 330')=>`<svg viewBox="${view}" role="img" aria-label="${label}" xmlns="http://www.w3.org/2000/svg"><defs><marker id="i-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="context-stroke"/></marker></defs>${body}</svg>`;
-const text=(x,y,label,cls='')=>`<text x="${x}" y="${y}" class="${cls}" text-anchor="middle">${label}</text>`;
-const line=(x1,y1,x2,y2,cls='power')=>`<path class="i-wire ${cls}" d="M${x1} ${y1}L${x2} ${y2}" marker-end="url(#i-arrow)"/>`;
-const box=(x,y,w,h,label,sub='',cls='')=>`<g class="i-machine ${cls}"><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="9"/>${text(x+w/2,y+h/2-(sub?6:-7),label)}${sub?text(x+w/2,y+h/2+25,sub,'small'):''}</g>`;
-const rack=(x,y)=>`<g class="i-rack"><rect x="${x}" y="${y}" width="104" height="138" rx="5"/>${[16,47,78,109].map(d=>`<rect x="${x+12}" y="${y+d}" width="80" height="17" rx="3"/>`).join('')}</g>`;
-const stack=(...items)=>`<div class="i-stack">${items.join('')}</div>`;
-const metrics=(...items)=>`<div class="i-metrics">${items.join('')}</div>`;
-const responsiveDiagram=(wide,narrow)=>`<div class="i-diagram"><div class="i-wide">${wide.replaceAll('i-arrow','i-arrow-wide')}</div><div class="i-narrow">${narrow.replaceAll('i-arrow','i-arrow-narrow')}</div></div>`;
-
-function wholeSystem(close=false){const wide=svg('Electrical energy reaches racks; information supports useful work; rack heat passes through cooling to the outdoors.',
- box(10,103,170,95,'Electricity','watts in')+line(183,150,367,150)+rack(405,80)+rack(526,80)+text(512,253,'Compute + network')+
- box(384,0,256,48,'Information')+line(512,49,512,77,'information')+
- line(632,150,795,150,'information')+box(805,101,300,95,close?'Useful work':'Accepted service',close?'completed, correct work':'under stated conditions')+
- `<path class="i-wire heat" d="M514 270L514 302L907 302" marker-end="url(#i-arrow)"/>`+text(702,284,'Heat → outdoors','heat-label')+
- text(272,118,close?'Available power':'Outage','small')+text(702,122,close?'Working paths':'Network delay','small')+text(250,308,close?'Defined boundary':'Weather · density · handover','small'));
- const narrow=svg('Electricity and data enter compute; useful work leaves on the information path and heat leaves through cooling.',box(84,5,232,70,'Electricity','watts in')+line(200,78,200,113)+rack(148,122)+text(200,291,'Compute + network')+box(5,143,113,83,'Data','inputs')+line(120,185,143,185,'information')+line(200,303,200,337,'information')+box(69,343,262,79,close?'Useful work':'Accepted service','completed, correct work')+`<path class="i-wire heat" d="M260 195H369V493H316" marker-end="url(#i-arrow)"/>`+box(85,455,229,78,'Heat outdoors')+text(200,573,close?'Every path must meet':'Five changes. One system.','small'),'0 0 400 600');
- return responsiveDiagram(wide,narrow);
-}
-
-function outagePath(protectedPump=false){const wide=svg('IT is supported by a battery. The facility-loop pump loses power unless its supply is moved to the battery. Heat must still reach outdoor rejection.',
- box(8,32,215,95,'Battery + inverter','2.5 MW')+line(225,80,395,80)+rack(424,15)+text(475,189,'2 MW IT')+
- box(8,220,215,90,protectedPump?'Protected bus':'Utility bus',protectedPump?'0.2 MW cooling':'Supply lost',protectedPump?'':'off')+
- (protectedPump?`<path class="i-wire power" d="M116 128V215" marker-end="url(#i-arrow)"/>`:'')+
- line(225,263,620,263,protectedPump?'power':'broken')+
- box(636,220,200,88,'Facility pump',protectedPump?'Supply survives':'Pump stopped',protectedPump?'':'off')+
- line(531,83,690,83,'heat')+box(702,36,150,94,'Heat loop')+line(858,83,918,83,'heat')+box(929,36,181,94,'Outdoors')+
- `<path class="i-wire heat ${protectedPump?'':'broken'}" d="M737 218V135" marker-end="url(#i-arrow)"/>`+text(948,265,'Flow + limits?','heat-label'));
- const narrow=svg('Battery supports IT. The separate pump bus is lost unless moved to the battery. Thermal support needs observed flow and temperatures.',box(10,15,190,86,'Battery','2.5 MW inverter')+line(203,58,259,58)+rack(271,8)+text(323,177,'2 MW IT')+box(10,222,184,85,protectedPump?'Protected bus':'Utility bus',protectedPump?'0.2 MW cooling':'Supply lost',protectedPump?'':'off')+(protectedPump?line(101,104,101,216):'')+line(196,265,224,265,protectedPump?'power':'broken')+box(229,222,164,85,'Pump',protectedPump?'Powered':'Stopped',protectedPump?'':'off')+`<path class="i-wire heat" d="M323 184V201H205V353" marker-end="url(#i-arrow)"/>`+box(105,360,200,82,'Heat loop','Flow + limits?')+line(205,448,205,489,'heat')+box(105,494,200,78,'Outdoors'),'0 0 400 590');
- return responsiveDiagram(wide,narrow);
-}
-
-function limits(m){return `<div class="i-limits">${[['Power for racks',m.electricalMW],['Cooling',m.coolingMW],['Tested rack paths',m.pathMW]].map(([name,value])=>`<div><span>${name}</span><div class="i-limit-track"><i style="width:${Math.min(100,value)}%" class="${value===m.capacityMW?'binding':''}"></i></div><b>${n(value)} MW</b></div>`).join('')}</div>`}
-function floorplan(architecture='b',route='blocked'){
- const blocked=architecture==='b'&&route==='blocked';
- const wide=svg('Room plan with a UPS module removal route. A sidecar in the service bay blocks the route; the revised position clears it.',
- `<rect class="i-room" x="35" y="15" width="1050" height="298" rx="8"/>`+
- box(65,44,190,115,'Existing UPS','module exits ↓')+
- `<path class="i-removal ${blocked?'blocked':''}" d="M160 162V265H1055" marker-end="url(#i-arrow)"/>`+
- rack(556,52)+rack(696,52)+text(675,218,'120 kW DC load')+
- (architecture==='b'?box(route==='blocked'?301:860,route==='blocked'?202:57,150,85,'Sidecar','AC → DC',blocked?'off':''):'')+
- text(600,294,blocked?'Removal route blocked':'UPS removal route clear',blocked?'heat-label':'')+
- text(1080,210,'Exit','small')+
- text(387,87,architecture==='a'?'A · conversion':'B · near-load', 'small')+text(387,114,architecture==='a'?'inside rack':'conversion','small'));
- const narrow=svg('Room plan: UPS removal follows the left aisle to the exit; a sidecar in that aisle blocks removal.',`<rect class="i-room" x="5" y="5" width="390" height="490" rx="8"/>`+box(25,30,171,88,'Existing UPS','module exits ↓')+`<path class="i-removal ${blocked?'blocked':''}" d="M107 128V446H357" marker-end="url(#i-arrow)"/>`+rack(248,33)+text(300,203,'120 kW DC')+(architecture==='b'?box(route==='blocked'?24:235,route==='blocked'?238:249,150,85,'Sidecar','AC → DC',blocked?'off':''):'')+text(209,392,blocked?'Removal route blocked':'Removal route clear',blocked?'heat-label':'')+text(357,482,'Exit','small'),'0 0 400 510');
- return responsiveDiagram(wide,narrow);
-}
-
-function cycle(seconds,label){const total=60+seconds+10;return `<div class="i-cycle"><div class="i-cycle-label"><b>${label}</b><strong>${total} s</strong></div><div class="i-cycle-track"><span class="compute" style="flex:60">Compute<br><b>60 s</b></span><span class="communicate" style="flex:${seconds}">Network<br><b>${seconds} s</b></span><span class="other" style="flex:10">Other<br><b>10 s</b></span>${total<90?'<span class="saved" style="flex:10">10 s<br>saved</span>':''}</div></div>`}
-function groups(m){return `<div class="i-groups">${m.groups.map(group=>`<section class="i-group ${group.accepted?'accepted':'held'}"><div class="i-group-roof"></div><div class="i-group-body"><b>${group.id}</b><div class="i-mini-racks" aria-hidden="true">${Array.from({length:4},()=>'<i></i>').join('')}</div><strong>${group.racks} racks</strong><span>${group.accepted?'Complete paths accepted':group.id==='B'?'Network tests still needed':'Cooling tests still needed'}</span></div></section>`).join('')}</div>`}
-
-function opening(state){
- return `<div class="i-stack i-opening">${note('Illustrative register: 800 installed racks, 100 MW supply, 100 kW per rack.')}${groups(phaseAcceptance())}<button id="opening-reveal" aria-expanded="${Boolean(state.openingReveal)}" aria-controls="opening-answer">${state.openingReveal?'Hide opening decision':'Show opening decision'}</button><div id="opening-answer" class="i-opening-answer" role="status">${state.openingReveal?'<strong>Open A: 300 racks, or 30 MW at this rack duty.</strong><p>B and C need completed tests before their racks can join.</p>':''}</div></div>`;
-}
-
-export function integratedCasesVisual(id,state={}){
- const comparison=integratedComparison(id,state);
- if(comparison!==null)return comparison;
- switch(id){
-  case 'five-decisions':return stack(wholeSystem(),result('Five cases connect the facility to the work it can deliver.'));
-  case 'outage-brief':return stack(outagePath(),metrics(metric('16.2 min','ideal electrical duration'),metric('12 min','planned restoration sequence'),metric('Unknown','time before temperatures exceed limits','warning')),note('2 MW IT; controls stay powered. Generator ready at minute 10, then 2 minutes to restore cooling.'));
-  case 'outage-evidence':return stack(`<div class="i-test-path"><section><div class="i-symbol">↯</div><h2>Pump supply</h2><p>The pump stays powered<br>and measured flow continues.</p></section><span>→</span><section><div class="i-symbol heat">≈</div><h2>Temperatures</h2><p>Coolant and chips stay<br>within the required limits.</p></section><span>→</span><section><div class="i-symbol">✓</div><h2>Completed work</h2><p>The application keeps<br>producing correct results.</p></section></div>`,result('Test through the outage and restoration, with defined stopping conditions.'));
-  case 'weather-brief':{const mild=weatherCapacity({weather:'mild'}),hot=weatherCapacity();return stack(`<div class="i-weather-pair"><section><h2>Mild weather</h2>${limits(mild)}${metric('700 racks','70 MW rack capacity')}</section><section><h2>Hot weather</h2>${limits(hot)}${metric('550 racks','55 MW rack capacity','warning')}</section></div>`,note('100 MW supply, 100 kW per rack. Auxiliary demand rises from 15 to 25 MW; rack inlet requirement stays fixed.'));}
-  case 'weather-paths':{const m=weatherCapacity({remedy:'cooling',acceptedRacks:state.acceptedRacks??600,demandMW:58});return stack(limits(m),metrics(metric(`${m.capacityMW} MW`,'rack capacity'),metric('58 MW','actual rack demand'),metric('83 MW','total site demand')),note('Demand stays at 58 MW + 25 MW auxiliaries. Accepted paths include power, cooling and network to the same racks.'));}
-  case 'density-brief':return stack(floorplan(),metrics(metric('120 kW','DC load in either option'),metric('160 kW','AC feeder limit'),metric('140 kW','room cooling limit')),result('A keeps conversion inside the rack. B adds the sidecar shown in the removal route.'));
-  case 'density-ledger':return stack(`<div class="i-density-pair"><section><h2>A · inside the rack</h2><div class="i-density-flow"><strong>125 kW AC</strong><span>96% conversion</span><strong>120 kW DC</strong></div>${metric('5 kW','conversion loss')}</section><section><h2>B · sidecar + near-load stage</h2><div class="i-density-flow"><strong>126.24 kW AC</strong><span>97% × 98% conversion</span><strong>120 kW DC</strong></div>${metric('6.24 kW','conversion loss','warning')}</section></div>`,result('Both fit the power and cooling limits. B still needs a clear maintenance route.'),note('All conversion equipment is inside the room: AC input also becomes room heat. Efficiencies are supplied for this example.'));
-  case 'density-route':{const m=densityRetrofit({architecture:'b',route:state.route??'blocked'});return stack(floorplan('b',state.route??'blocked'),metrics(metric('126.24 kW','power draw and room heat stay the same'),metric(m.accessPass?'Route clear':'Route blocked','UPS module removal',m.accessPass?'':'warning')),note('Clearing access resolves this layout issue. Equipment connections and the changeover still need acceptance.'));}
-  case 'job-brief':return stack(cycle(20,'One complete cycle'),metrics(metric('800 GB','data to transfer'),metric('40 GB/s','achieved transfer rate'),metric('20 seconds','800 ÷ 40')),note('Same work in each cycle. Compute, transfer and other work happen one after another.'));
-  case 'phase-brief':return `<div class="i-campus"><figure><img src="../assets/references/distribution-abilene-data-halls.jpg" alt="Aerial of data halls and outdoor equipment at the original Abilene campus"><figcaption><a href="https://www.oracle.com/data-centers/" target="_blank" rel="noopener noreferrer">Oracle · Abilene data halls · 15 July 2026</a></figcaption></figure><div><h2>Return to Abilene</h2><p>Which halls have the services and test results needed to open?</p><div class="i-case-boundary"><b>Next: an illustrative handover register</b><span>The rack counts and dates are teaching inputs, not Abilene operating data.</span></div></div></div>`;
-  case 'phase-choice':return opening(state);
-  case 'watts-to-work':return stack(wholeSystem(true),result('Capacity makes work possible. Measure the completed work itself.'));
-  default:throw new Error(`Unknown integrated case scene: ${id}`);
- }
-}
+import {finaleSources as S} from './integrated-cases-scenes.js';
+const credit=(url,label)=>`<a href="${url}" target="_blank" rel="noreferrer">${label}</a>`;
+const foot=(...links)=>`<p class="f-credit">${links.join(' · ')}</p>`;
+const img=(name,alt,cls='')=>`<img class="${cls}" src="../assets/references/${name}" alt="${alt}">`;
+const text=(x,y,value,cls='',anchor='middle')=>`<text x="${x}" y="${y}" text-anchor="${anchor}" class="${cls}">${value}</text>`;
+const wire=(d,kind='power',extra='')=>`<path d="${d}" class="f-wire ${kind} ${extra}" marker-end="url(#f-${kind})"/>`;
+const defs=`<defs>${['power','heat','information','cool'].map(k=>`<marker id="f-${k}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 1L9 5L0 9Z" class="f-arrow ${k}"/></marker>`).join('')}</defs>`;
+const svg=(body,label,view='0 0 1120 420')=>`<svg viewBox="${view}" role="img" aria-label="${label}">${defs}${body}</svg>`;
+const box=(x,y,w,h,label,sub='',cls='')=>`<g class="f-machine ${cls}"><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="8"/>${text(x+w/2,y+h/2+(sub?-5:8),label)}${sub?text(x+w/2,y+h/2+24,sub,'f-small'):''}</g>`;
+function rack(x,y,scale=1){return `<g transform="translate(${x} ${y}) scale(${scale})" class="f-rack"><rect width="64" height="132" rx="5"/>${[15,40,65,90].map(t=>`<rect x="9" y="${t}" width="46" height="16" rx="2"/><circle cx="47" cy="${t+8}" r="2"/>`).join('')}<path d="M10 118H54"/></g>`;}
+function fans(x,y){return `<g transform="translate(${x} ${y})" class="f-fans"><rect x="-67" y="-39" width="134" height="78" rx="7"/>${[-34,34].map(dx=>`<g transform="translate(${dx} 0)"><circle r="25"/><path d="M0-22Q20-18 7-2Q22 2 15 20Q-1 12-4 5Q-18 16-22-2Q-8-9-2-5Z"/></g>`).join('')}</g>`;}
+const wrap=(body,cls='')=>`<div class="f-stack ${cls}">${body}</div>`;
+function power(role){const backup=role==='backup';return wrap(`<div class="f-photo-split"><figure>${img('finale-abilene-turbine-2026.jpg','Oracle photograph of the Abilene gas-generation plant.')}<figcaption>Abilene · Oracle · July 2026</figcaption></figure><div class="f-role"><div class="f-large-number">350 <span>MW</span></div><p>On-site gas generation</p><div class="f-role-line ${backup?'standby':''}"><b>Gas plant</b><span>${backup?'Standby':'Bridge supply'}</span><i>↓</i></div><div class="f-role-load">Data halls + cooling</div><div class="f-role-grid ${backup?'active':''}"><i>↑</i><span>${backup?'Normal supply':'Capacity expanding'}</span><b>ERCOT grid</b></div></div></div>${foot(credit(S.impact,'Crusoe · 2025 Impact Report, pp. 16, 19'),credit(S.campus,'Oracle photograph'))}`);}
+function coolingDiagram(){return svg(
+ rack(34,99,1.2)+text(72,294,'IT heat')+
+ box(250,120,142,114,'Heat','exchange')+wire('M112 155H249','heat')+wire('M248 205H112','cool')+
+ fans(713,155)+box(622,223,180,73,'Compressor')+
+ wire('M393 155H543V155H644','heat')+wire('M644 197H563V205H393','cool')+
+ text(490,105,'Facility water','f-small')+text(490,275,'Recirculates','f-small')+
+ wire('M783 150H1018','heat')+text(962,108,'Heat to air')+text(959,199,'No evaporation','f-small')+
+ wire('M712 380V298','power')+text(712,405,'Electricity')+
+ text(712,76,'Air-cooled chiller'),
+ 'Rack heat crosses a heat exchanger into recirculating facility water. An air-cooled chiller transfers that heat, plus compressor electricity, to outdoor air. Water is not released to the atmosphere.');}
+function hotDay(){return wrap(`<div class="f-weather">${['Milder air','Hotter air'].map((label,i)=>`<section><h2>${label}</h2><div class="f-weather-racks">${svg([0,1,2,3].map(n=>rack(30+n*88,10)).join(''),'The same four rack symbols in both weather conditions.','0 0 400 160')}</div><p class="f-fixed">Same IT load</p><div class="f-power-bar"><span class="f-it">IT</span><span class="f-cooling ${i?'hot':''}">Cooling</span></div><p class="f-weather-end">${i?'More compressor work':'Less compressor work'}</p></section>`).join('')}</div><div class="f-cause"><span>Hotter outdoor air</span><b>→</b><span>Higher condensing temperature</span><b>→</b><span>More electrical demand</span></div>${foot(credit(S.chiller,'Trane · air-cooled chiller operating principle'))}`);}
+function prefab(){return wrap(`<div class="f-parallel"><section><div class="f-lane-title">Factory</div><div class="f-skid">${svg(box(24,35,148,180,'Switchgear')+box(195,90,170,125,'Controls')+'<path class="f-skid-base" d="M10 222H380M30 222V243M360 222V243"/>','Conceptual electrical package on a skid.','0 0 390 260')}</div><p>Switchgear + electrical skids</p></section><div class="f-parallel-mark">∥</div><section><div class="f-lane-title">Site</div><div class="f-site-construction">${svg('<path class="f-building" d="M25 220V60H345V220ZM25 60L80 20H360L345 60M95 60V220M195 60V220M275 60V220M25 140H345"/><path class="f-crane" d="M355 215V25H75M355 40H145M265 25V112M248 112H282"/>','Building shell and site services under construction.','0 0 390 260')}</div><p>Foundations + buildings + services</p></section></div><div class="f-converge"><span>Factory interfaces</span><b>↘</b><strong>Install and test together</strong><b>↙</b><span>Site connections</span></div>${foot(credit(S.impact,'Crusoe · Abilene electrical manufacturing and prefabrication, p. 16'))}`);}
+function finance(){return wrap(`<div class="f-capital"><div class="f-investors"><span class="f-date">May 2025 · announced venture</span><strong>$15 billion</strong><p>Crusoe · Blue Owl<br>Primary Digital Infrastructure</p></div><div class="f-capital-arrow"><span>Fund construction</span><b>→</b></div><div class="f-campus-icons">${svg('<path class="f-building" d="M12 180V60H178V180ZM210 180V60H376V180ZM12 60L38 35H202L178 60M210 60L237 35H397L376 60"/>'+[35,75,115,235,275,315].map(x=>`<path class="f-window" d="M${x} 90V150"/>`).join(''),'The venture funds the physical campus.','0 0 410 210')}<h2>Abilene campus</h2></div></div><div class="f-lease"><b>Long-term facility lease</b><span>Customer commitment supports the investment</span></div>${foot(credit(S.capital,'Crusoe · May 2025 venture'),credit(S.lease,'First-phase lease · October 2024'))}`);}
+function expansion(){return wrap(`<div class="f-expansion"><section class="f-operating"><span class="f-date">First phase · 2025</span><h2>OpenAI workloads running</h2><div class="f-hall">${svg([0,1,2,3].map(n=>rack(25+n*88,12)).join(''),'The operating data hall remains in service.','0 0 400 160')}</div><div class="f-service-lines"><span>Power</span><span>Cooling</span><span>Network</span></div></section><div class="f-phase-boundary"><span>Connect each interface</span><b>↔</b><span>Keep the live phase operating</span></div><section class="f-building-phase"><span class="f-date">Campus expansion</span><h2>Next halls being built</h2><div class="f-hall">${svg('<path class="f-building" d="M25 145V45H360V145ZM25 45L65 12H385L360 45M90 45V145M190 45V145M290 45V145"/>','The new hall is under construction, separate from live workloads.','0 0 400 160')}</div><div class="f-service-lines"><span>Power</span><span>Cooling</span><span>Network</span></div></section></div>${foot(credit(S.live,'Crusoe · first phase running, September 2025'),credit(S.workloads,'OpenAI · early workloads, July 2025'))}`);}
+function system(focus){const active=k=>focus==='all'||focus===k?'':' dim';return wrap(`<div class="f-system" data-focus="${focus}">${svg(
+ `<g class="f-layer${active('power')}">`+box(20,55,198,76,'ERCOT grid')+box(20,158,198,76,'Gas generation')+wire('M220 95H270V145H320')+wire('M220 197H270V145H320')+box(325,104,170,90,'Electrical','distribution')+wire('M497 147H556')+wire('M409 195V355H766V321')+'</g>'+
+ `<g class="f-layer${active('information')}">`+box(559,82,190,112,'GB200 cluster','Compute + fabric')+wire('M751 138H853','information')+box(864,95,226,87,'OpenAI workloads','Training + inference')+wire('M654 25V80','information')+text(654,17,'Data + model state','f-small')+'</g>'+
+ `<g class="f-layer${active('heat')}">`+wire('M657 196V277H701','heat')+fans(770,279)+wire('M840 279H967','heat')+text(988,272,'Outdoor')+text(988,302,'air')+text(657,239,'Heat','f-small')+text(773,405,'Closed water loop + air-cooled chillers','f-small')+'</g>',
+ 'Functional Abilene system: grid and gas generation feed distribution. Power branches to a GB200 cluster and the cooling plant. Data flows through compute and fabric to OpenAI workloads. Heat flows from racks through a closed water loop and air-cooled chillers to outdoors. Cooling equipment also needs electricity.')}</div><div class="f-system-mobile" data-focus="${focus}"><section class="${active('power')}"><b>Power</b><p>ERCOT + gas generation</p><i>↓</i><p>Electrical distribution</p><i>↓</i><p>IT + cooling equipment</p></section><section class="${active('information')}"><b>Information</b><p>Data + model state</p><i>↓</i><p>GB200 compute + fabric</p><i>↓</i><p>OpenAI workloads</p></section><section class="${active('heat')}"><b>Heat</b><p>Rack heat</p><i>↓</i><p>Closed loop + chillers</p><i>↓</i><p>Outdoor air</p></section></div><div class="f-closing-band"><span>Crusoe · physical campus</span><span>Oracle · cloud infrastructure</span><span>OpenAI · workloads</span></div>${foot(credit(S.design,'Crusoe · power and cooling design'),credit(S.live,'Crusoe / Oracle · campus and workloads'))}`);}
+export function integratedCasesVisual(id,state={}){switch(id){
+ case 'abilene-factory':return `<div class="f-hero"><figure>${img('distribution-abilene-data-halls.jpg','Oracle aerial of the original Abilene campus on July 15, 2026.')}<figcaption>Abilene, Texas</figcaption></figure>${foot(credit(S.campus,'Oracle · July 15, 2026'))}</div>`;
+ case 'abilene-workload':return wrap(`<div class="f-workload-photo">${img('finale-abilene-coolant-pipes.jpg','Inside the original Abilene data hall, from Oracle’s campus media kit.')}<div><span>OpenAI</span><strong>Training + inference</strong><span>Oracle · GB200 racks</span></div></div><div class="f-requirements"><section><b>Power</b><span>Rack distribution + backup</span></section><section><b>Heat</b><span>Liquid + residual air</span></section><section><b>Data</b><span>Connected GPU fabric</span></section></div>${foot(credit(S.workloads,'OpenAI · July 2025'),credit(S.live,'Crusoe · September 2025'),credit('https://www.oracle.com/news/resources/abilene-campus/','Oracle campus footage'))}`);
+ case 'abilene-power':return power(state.powerRole||'bridge');
+ case 'abilene-heat':return wrap(`<div class="f-heat-diagram">${coolingDiagram()}<div class="f-mobile-heat"><div>Rack coolant</div><b>↓ Heat exchange</b><div>Closed facility-water loop</div><b>↓</b><div>Air-cooled chiller<span>+ compressor electricity</span></div><b>↓</b><div>Heat to outdoor air</div></div></div><div class="f-tradeoff"><span>Water conserved</span><b>↔</b><span>Higher lifecycle + maintenance cost</span></div>${foot(credit(S.design,'Crusoe · published cooling design'))}`);
+ case 'abilene-hot-day':return hotDay();
+ case 'abilene-parallel-build':return prefab();
+ case 'abilene-capital':return finance();
+ case 'abilene-live-expansion':return expansion();
+ case 'watts-to-work':return system(state.systemFocus||'all');
+ default:throw new Error(`Unknown integrated case scene: ${id}`);
+}}

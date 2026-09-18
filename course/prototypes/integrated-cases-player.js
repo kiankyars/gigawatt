@@ -8,7 +8,7 @@ for(const [i,scene]of scenes.entries())$('scenes').add(new Option(`${i+1} · ${s
 $('fullscreen').hidden=!teaching;
 function render(){
  const scene=scenes[index];
- document.title=`${presentationLabels['integrated-cases']||'16. Integrated cases'} · ${scene.label}`;
+ document.title=`${presentationLabels['integrated-cases']||'16. Putting an AI Factory Together'} · ${scene.label}`;
  $('scene').dataset.scene=scene.id;$('scene-title').textContent=scene.title;
  $('visual').innerHTML=integratedCasesVisual(scene.id,state);
  $('lesson-reference').href=`../index.html#${scene.reference}`;
@@ -26,7 +26,6 @@ function render(){
   }
   $('actions').append(fieldset);
  }
- $('opening-reveal')?.addEventListener('click',()=>{state.openingReveal=!state.openingReveal;render();document.querySelector('#opening-reveal')?.focus({preventScroll:true});});
 }
 function go(i){index=Math.max(0,Math.min(scenes.length-1,i));history.replaceState(null,'',`#${scenes[index].id}`);render();window.scrollTo({top:0,left:0,behavior:'auto'});}
 function fromHash(){const found=scenes.findIndex(scene=>scene.id===(sceneAliases[location.hash.slice(1)]||location.hash.slice(1)));index=found<0?0:found;render();window.scrollTo({top:0,left:0,behavior:'auto'});}

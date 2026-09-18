@@ -1,0 +1,30 @@
+{
+  "reviewed_on": "2026-09-18",
+  "assets": [
+    {
+      "file": "finale-abilene-turbine-2026.jpg",
+      "publisher": "Oracle",
+      "page": "https://www.oracle.com/data-centers/",
+      "image": "https://www.oracle.com/cmsng/img/02aee384550de51f446469fe8e200aec.jpg",
+      "caption": "Turbine Plant - 7/15/26",
+      "transformation": "Original publisher JPEG downloaded unchanged.",
+      "review": "Visually inspected actual aerial showing Abilene turbine plant and data halls. Equipment count, generation capacity and loading are not inferred from the image.",
+      "width": 2500,
+      "height": 1873,
+      "sha256": "00030a4f36c8407950d167f7fa61c335dac43c839d43c949f2c76b6be6c0e19b"
+    },
+    {
+      "file": "finale-abilene-coolant-pipes.jpg",
+      "publisher": "Oracle",
+      "page": "https://www.oracle.com/news/resources/abilene-campus/",
+      "video": "https://www.oracle.com/webfolder/assets/newsroom/OracleMediaKit_ABI_DataHall1.mp4",
+      "caption": "Oracle Abilene Campus media kit, Data Hall 1",
+      "frame_time_seconds": 2,
+      "transformation": "Single full-resolution frame extracted from original 3840 x 2160 publisher video at 00:02 using ffmpeg -ss 2 -frames:v 1 -q:v 2. No cropping, labels, compositing, or content alterations.",
+      "review": "Visually inspected actual rack aisle with overhead liquid hoses and red/blue couplings. No coolant temperature, flow, exact rack model, loop separation, or facility-wide configuration inferred from the frame.",
+      "width": 3840,
+      "height": 2160,
+      "sha256": "77c22208fcb37072447670659cfb26840b40c298ffeb5e0dcdbe42ac33f2c3ba"
+    }
+  ]
+}

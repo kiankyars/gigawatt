@@ -79,61 +79,55 @@ test('models reject impossible efficiencies, invalid boundaries and unknown case
 function statesFor(scene){
  let states=[{...initialState}];
  for(const group of scene.controls||[])states=states.flatMap(state=>group.options.map(([value])=>({...state,[group.key]:value})));
- if(scene.id==='phase-choice')states=[false,true].map(openingReveal=>({...initialState,openingReveal}));
  return states;
 }
 
-test('all five cases keep their problem and decision with valid sources in every offered state',()=>{
- assert.equal(scenes.length,17);assert.equal(new Set(scenes.map(s=>s.id)).size,17);assert.ok(learningContract.primary_payoff);
- for(const id of ['C01','C02','C03','C04','C05']){const group=scenes.filter(s=>s.case_id===id);assert.equal(group.length,3,id);assert.equal(group[0].pedagogical_role,'problem');assert.ok(group.some(s=>s.pedagogical_role==='transfer'));}
- const assets=new Set(),references=new Set(JSON.parse(fs.readFileSync(new URL('../course/expansion/capstones.json',import.meta.url),'utf8')).map(item=>item.id));
+test('Abilene finale renders every state with local assets and valid reading destinations',()=>{
+ assert.equal(scenes.length,9);assert.equal(new Set(scenes.map(s=>s.id)).size,9);assert.ok(learningContract.primary_payoff);
+ const references=new Set(fs.readdirSync(new URL('../course/lessons/',import.meta.url)).map(p=>p.replace(/\.md$/,'')));
  for(const scene of scenes){
   assert.ok(references.has(scene.reference),scene.id);
   for(const group of scene.controls||[])assert.ok(group.options.some(([value])=>value===initialState[group.key]));
   for(const state of statesFor(scene)){
-   const html=integratedCasesVisual(scene.id,state);assert.ok(html.length>150,scene.id);assert.doesNotMatch(html,/NaN|undefined|Infinity/,scene.id);assert.doesNotMatch(html,/checkpoint/i,scene.id);
-   for(const [,src]of html.matchAll(/<img\b[^>]*\bsrc="([^"]+)"/g)){assert.ok(src.startsWith('../assets/'));assert.ok(fs.existsSync(new URL(src,new URL('../course/prototypes/',import.meta.url))));assets.add(src);}
-   for(const source of scene.sources||[])assert.ok(html.includes(source));
+   const html=integratedCasesVisual(scene.id,state);assert.ok(html.length>150,scene.id);assert.doesNotMatch(html,/NaN|undefined|Infinity/,scene.id);
+   for(const [,src]of html.matchAll(/<img\b[^>]*\bsrc="([^"]+)"/g))assert.ok(fs.existsSync(new URL(src,new URL('../course/prototypes/',import.meta.url))),src);
+   for(const source of scene.sources||[])assert.ok(html.includes(source),source);
   }
  }
- assert.deepEqual([...assets],['../assets/references/distribution-abilene-data-halls.jpg']);
  assert.throws(()=>integratedCasesVisual('missing',initialState),/Unknown integrated case scene/);
 });
 
-test('comparisons show alternatives together and retain the limits on their conclusions',()=>{
- assert.deepEqual(scenes.filter(s=>s.controls?.length).map(s=>s.id),['weather-paths','density-route']);
- for(const id of ['outage-choice','weather-choice','job-choice','job-consequence','phase-schedule'])assert.doesNotMatch(integratedCasesVisual(id,initialState),/<button/);
- const outage=integratedCasesVisual('outage-choice',initialState);for(const text of ['16.2','21.6','14.73','Powered','Lost','temperatures'])assert.ok(outage.includes(text),text);
- const weather=integratedCasesVisual('weather-choice',initialState);assert.equal((weather.match(/550 <span>racks/g)||[]).length,2);assert.match(weather,/650 <span>racks/);assert.match(weather,/auxiliary demand at 25 MW/);
- const job=integratedCasesVisual('job-consequence',initialState);for(const text of ['40 → 45','+12.5%','60 s','20 s','10 s','correctness'])assert.ok(job.includes(text),text);
- const schedule=integratedCasesVisual('phase-schedule',initialState);for(const text of ['test passes','test fails','Day 7','Day 12','passing test'])assert.ok(schedule.includes(text),text);
+test('weather comparison keeps the installed racks and IT load fixed',()=>{
+ const html=integratedCasesVisual('abilene-hot-day',initialState);
+ assert.equal((html.match(/class="f-rack"/g)||[]).length,8);
+ assert.equal((html.match(/Same IT load/g)||[]).length,2);
+ assert.doesNotMatch(html,/550 racks|700 racks|55 MW|70 MW/);
 });
 
 function playerAt(hash){
- class Element{constructor(){this.children=[];this.dataset={};this.attributes={};this.listeners={};}append(...children){this.children.push(...children);}add(child){this.children.push(child);}replaceChildren(...children){this.children=children;}setAttribute(key,value){this.attributes[key]=value;}addEventListener(type,fn){this.listeners[type]=fn;}focus(){}}
- const elements=new Map(['scenes','fullscreen','scene','scene-title','visual','lesson-reference','status','progress','previous','next','actions','viewer','opening-reveal'].map(id=>[id,new Element()]));
+ class Element{constructor(){this.children=[];this.dataset={};this.attributes={};}append(...children){this.children.push(...children);}add(child){this.children.push(child);}replaceChildren(...children){this.children=children;}setAttribute(key,value){this.attributes[key]=value;}focus(){}}
+ const elements=new Map(['scenes','fullscreen','scene','scene-title','visual','lesson-reference','status','progress','previous','next','actions','viewer'].map(id=>[id,new Element()]));
  const listeners={},location={hash,search:'?teach=1'};
  const buttons=()=>elements.get('actions').children.flatMap(group=>group.children).filter(element=>element.type==='button');
- const document={getElementById:id=>id==='opening-reveal'&&!elements.get('visual').innerHTML?.includes('id="opening-reveal"')?undefined:elements.get(id),createElement:()=>new Element(),querySelector:()=>null,addEventListener(){}};
+ const document={getElementById:id=>elements.get(id),createElement:()=>new Element(),querySelector:()=>null,addEventListener(){}};
  const window={addEventListener:(name,fn)=>{listeners[name]=fn;},scrollTo(){}};
  const source=fs.readFileSync(new URL('../course/prototypes/integrated-cases-player.js',import.meta.url),'utf8').replace(/^import .*;\n/gm,'');
- vm.runInNewContext(source,{document,window,location,history:{replaceState(_state,_title,hash){location.hash=hash;}},URLSearchParams,Option:class{constructor(label,value){this.label=label;this.value=value;}},scenes,initialState,sceneAliases,integratedCasesVisual,presentationLabels:{'integrated-cases':'16. Integrated cases'}});
- return {elements,document,go(id){location.hash=`#${id}`;listeners.hashchange();},click(key,value){const b=buttons().find(button=>button.dataset.choice===key&&button.dataset.value===String(value));assert.ok(b,`${key}=${value}`);b.onclick();},reveal(){elements.get('opening-reveal').listeners.click();}};
+ vm.runInNewContext(source,{document,window,location,history:{replaceState(_state,_title,hash){location.hash=hash;}},URLSearchParams,Option:class{constructor(label,value){this.label=label;this.value=value;}},scenes,initialState,sceneAliases,integratedCasesVisual,presentationLabels:{'integrated-cases':'16. Putting an AI Factory Together'}});
+ return {elements,document,buttons,go(id){location.hash=`#${id}`;listeners.hashchange();},click(key,value){const b=buttons().find(button=>button.dataset.choice===key&&button.dataset.value===String(value));assert.ok(b,`${key}=${value}`);b.onclick();}};
 }
 
-test('actual player changes acceptance and access without changing independent loads',()=>{
- const p=playerAt('#weather-paths'),html=()=>p.elements.get('visual').innerHTML;
- assert.match(html(),/60 MW/);assert.match(html(),/58 MW/);assert.match(html(),/83 MW/);
- p.click('acceptedRacks',900);assert.match(html(),/65 MW/);assert.match(html(),/58 MW/);assert.match(html(),/83 MW/);
- p.go('density-route');assert.match(html(),/Route blocked/);p.click('route','clear');assert.match(html(),/Route clear/);assert.match(html(),/126.24 kW/);
- p.go('weather-paths');assert.match(html(),/65 MW/);p.click('acceptedRacks',600);assert.match(html(),/60 MW/);
- p.go('density-route');assert.match(html(),/Route clear/);
- p.go('phase-choice');assert.doesNotMatch(html(),/Open A: 300 racks/);p.reveal();assert.match(html(),/Open A: 300 racks/);assert.match(html(),/aria-expanded="true"/);p.reveal();assert.doesNotMatch(html(),/Open A: 300 racks/);
+test('source-role and path controls preserve one selection while navigating',()=>{
+ const p=playerAt('#abilene-power'),html=()=>p.elements.get('visual').innerHTML;
+ assert.match(html(),/Bridge supply/);p.click('powerRole','backup');assert.match(html(),/Normal supply/);assert.match(html(),/Standby/);
+ assert.equal(p.buttons().filter(b=>b.attributes['aria-pressed']==='true').length,1);
+ p.go('watts-to-work');p.click('systemFocus','heat');assert.match(html(),/data-focus="heat"/);
+ p.go('abilene-power');assert.match(html(),/Standby/);p.go('watts-to-work');assert.match(html(),/data-focus="heat"/);
+ assert.equal(p.buttons().filter(b=>b.attributes['aria-pressed']==='true').length,1);
 });
 
-test('all retired bookmarks reach their retained explanation and navigation stays complete',()=>{
- const p=playerAt('#outage-timeline');assert.equal(p.elements.get('scene').dataset.scene,'outage-brief');
- for(const [old,current]of Object.entries(sceneAliases)){p.go(old);assert.equal(p.elements.get('scene').dataset.scene,current);}
- p.go('watts-to-work');assert.equal(p.elements.get('next').disabled,true);assert.equal(p.elements.get('progress').textContent,'17 / 17');assert.match(p.document.title,/^16\. Integrated cases/);
- p.go('unknown');assert.equal(p.elements.get('previous').disabled,true);assert.equal(p.elements.get('progress').textContent,'1 / 17');
+test('all retired bookmarks and first/last navigation remain usable',()=>{
+ const p=playerAt('#outage-timeline');assert.equal(p.elements.get('scene').dataset.scene,'abilene-power');
+ for(const [old,current]of Object.entries(sceneAliases)){assert.ok(scenes.some(s=>s.id===current));p.go(old);assert.equal(p.elements.get('scene').dataset.scene,current);}
+ p.go('watts-to-work');assert.equal(p.elements.get('next').disabled,true);assert.equal(p.elements.get('progress').textContent,'9 / 9');assert.match(p.document.title,/^16\. Putting an AI Factory Together/);
+ p.go('unknown');assert.equal(p.elements.get('previous').disabled,true);assert.equal(p.elements.get('progress').textContent,'1 / 9');
 });
