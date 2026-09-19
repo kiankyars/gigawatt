@@ -122,9 +122,9 @@ Sources: [NVIDIA CPO](https://developer.nvidia.com/blog/scaling-ai-factories-wit
 
 <!-- speaker: networking#shared-uplinks -->
 
-Four 400 Gb/s server ports can offer 1,600 Gb/s, but two 400 Gb/s uplinks carry only 800. That is 2:1 oversubscription across this boundary.
+This slide uses gigabytes throughout. A 400 Gb/s network port equals 50 GB/s. Four server ports can offer 200 GB/s, but two uplinks carry only 100 GB/s. That is 2:1 oversubscription across this boundary.
 
-Four uplinks match the server-port capacity. For 256 Gb of balanced one-way traffic, the minimum transfer time falls from 0.32 seconds to 0.16. Bandwidth is an upper limit on throughput; dividing the data size by that rate gives a lower limit on time. Overhead and congestion can make the transfer take longer. Traffic staying under the same leaf does not use these uplinks.
+Four uplinks match the server-port capacity. For 32 GB of balanced one-way traffic, the minimum transfer time falls from 0.32 seconds to 0.16. Bandwidth is an upper limit on throughput; dividing the data size by that rate gives a lower limit on time. Overhead and congestion can make the transfer take longer. Traffic staying under the same leaf does not use these uplinks.
 
 Sources: [`fabricBudget`](prototypes/networking-model.js).
 
