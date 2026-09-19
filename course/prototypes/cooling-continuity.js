@@ -197,7 +197,7 @@ function reducedPower(compact) {
   const cases = ["full", "reduced"].map((loadMode) => coolingContinuity({
     topology: "n+1", fault: "double-module", loadMode,
   }));
-  let out = label(compact ? 186 : 580, 25, "Two CDUs fail → 600 kW cooling remains", "svg-small");
+  let out = "";
   cases.forEach((m, index) => {
     const id = `power-${m.loadMode}`;
     const x = compact ? 18 : 30 + index * 570;

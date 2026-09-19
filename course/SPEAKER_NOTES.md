@@ -448,7 +448,7 @@ The design changes just before fabrication. Decide what can continue, what must 
 
 <!-- speaker: procurement-cases#rack-change -->
 
-Total demand stays at 20 MW, but each rack now concentrates twice the power. Keeping the total unchanged does not preserve the branch connections, coolant flow or floor loads.
+Each picture shows one 2 MW zone: twenty 100 kW racks become ten 200 kW racks. The data center has ten such zones, so total demand stays at 20 MW. Keeping the total unchanged does not preserve the branch connections, coolant flow or floor loads.
 
 <!-- speaker: procurement-cases#electrical-interface -->
 
