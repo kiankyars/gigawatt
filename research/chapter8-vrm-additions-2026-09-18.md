@@ -48,3 +48,7 @@ The worked ideal example has 12 V input, 3 V output, 25% duty cycle and two phas
 - Both new hashes resolve in the existing controller; no deleted scene or alias.
 - Playwright captures: 1440×900 and 390×844, light and dark. No page errors or horizontal overflow in 8 rendered states. Mobile diagrams stack with bottom padding for the fixed footer; vertical scrolling is expected.
 - New figures are HTML/SVG in `course/prototypes/rack-energy-vrm.js`, with no new bitmap asset or source-image claim.
+
+## Author-supplied Clemente figure — September 18 follow-up
+
+The author supplied a replacement illustration. The slide now displays only that image and the existing OCP specification citation. Its embedded title replaces the duplicate HTML heading. TIFF-to-PNG conversion preserves the content, and CSS contains the complete frame. The illustration shows the verified 51 V → 12 V functional path; its rendered hardware geometry is conceptual. Provenance and source/output hashes are in `clemente-gb300-user.provenance.json`.

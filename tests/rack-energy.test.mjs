@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import vm from 'node:vm';
 import { interleavedBuckSample } from '../course/prototypes/rack-power-model.js';
 import { rackLedger, dcPlanes, migrationDecision } from '../course/prototypes/rack-energy-model.js';
@@ -181,9 +181,12 @@ test('Clemente adds a named intermediate-stage example before switching mechanic
   assert.equal(ids[ids.indexOf('vrm-switching')+1],'vrm-phase-counts');
   const scene=rackScenes.find(s=>s.id==='clemente-power-board');
   const html=supplementalVisual(scene,initialState);
-  assert.match(html,/51 V → 12 V/);
-  assert.match(html,/NVIDIA design/);
-  assert.match(html,/Processor rails/);
+  assert.match(html,/clemente-gb300-user\.png/);
+  assert.equal(scene.imageTitle,true);
+  assert.ok(existsSync(new URL('../course/assets/references/clemente-gb300-user.png',import.meta.url)));
+  assert.doesNotMatch(html,/class="clemente-path"/);
+  assert.match(html,/clemente-compute-tray-ocp-specification-final-pdf/);
+  assert.match(html,/processor rails/);
   assert.doesNotMatch(html,/>1 V</);
   assert.match(scene.explanation.join(' '),/46–52 V/);
 });

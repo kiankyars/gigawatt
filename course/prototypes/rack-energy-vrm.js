@@ -1,7 +1,7 @@
 import { interleavedBuckSample } from './rack-power-model.js';
 
 export function renderClementePower() {
-  return `<div class="clemente-power"><div class="clemente-context"><span>Meta Clemente</span><span>GB300 compute tray</span></div><div class="clemente-path"><section class="clemente-input"><h2>Rack bus</h2><strong>51 V</strong></section><b class="clemente-arrow" aria-hidden="true">→</b><div class="clemente-tray"><span class="clemente-boundary">Inside the tray</span><section class="clemente-pdb"><h2>Power distribution board</h2><p>NVIDIA design</p><strong>51 V → 12 V</strong><span>DC–DC conversion</span></section><b class="clemente-arrow" aria-hidden="true">→</b><section class="clemente-compute"><h2>GB300 compute modules</h2><div class="clemente-local"><span>Local regulators</span><b aria-hidden="true">↓</b><strong>Processor rails</strong></div></section></div></div><a class="vrm-source" href="https://www.opencompute.org/documents/clemente-compute-tray-ocp-specification-final-pdf" target="_blank" rel="noopener">Meta / OCP · Clemente specification, §§7.2 and 8.1</a></div>`;
+  return `<div class="clemente-user-figure"><img src="../assets/references/clemente-gb300-user.png" alt="User-supplied illustration: inside Meta’s Clemente GB300 compute tray, the 51 V rack bus feeds the NVIDIA-designed power distribution board, which produces 12 V before local regulators supply processor rails."><a class="vrm-source" href="https://www.opencompute.org/documents/clemente-compute-tray-ocp-specification-final-pdf" target="_blank" rel="noopener">Meta / OCP · Clemente specification, §§7.2 and 8.1</a></div>`;
 }
 
 const colors = ['var(--teal)', 'var(--amber)'];

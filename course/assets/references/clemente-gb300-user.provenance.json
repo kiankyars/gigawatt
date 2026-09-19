@@ -1,0 +1,9 @@
+{
+  "file": "clemente-gb300-user.png",
+  "source_file": "file-eb83501665d00b879467c03299fd224d.tiff",
+  "source_sha256": "93efa66923d364aeb7c1f6b928ed5f22b0f5d79d497f1e18879a99ce1f1ba44d",
+  "sha256": "814842f02249fc0ac241fc5681381dd990886beb0cecde0ae95ccf72ffc7ff4a",
+  "scope": "User supplied conceptual Clemente power conversion illustration. OCP supports the 51 V to 12 V path, not the rendered board geometry.",
+  "transformation": "TIFF decoded to PNG with macOS sips. No cropping, labels, resizing or content edits. Displayed with object-fit:contain.",
+  "reviewed_on": "2026-09-18"
+}
