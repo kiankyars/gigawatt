@@ -41,7 +41,7 @@
       "original_sha256": "ca04aede15ac254b96ea9058568be009be34066940c4cfaadb765de633c2aa1d",
       "sha256": "ca04aede15ac254b96ea9058568be009be34066940c4cfaadb765de633c2aa1d",
       "reviewed_at": "2026-09-16",
-      "scope": "Supplied direct/intermediate conversion comparison. The empty green panel receives live SVG text; original PNG unchanged."
+      "scope": "Original supplied direct/intermediate conversion comparison, preserved unchanged. Superseded in the teaching deck on 2026-09-19 by the retitled derivative without the bottom caption panel."
     },
     {
       "asset": "vrm-phase-counts.png",
@@ -109,6 +109,19 @@
       "image_tool": "Built-in image_gen",
       "prompt": "Edit this existing infographic ONLY to improve text contrast. Preserve the exact composition, dimensions/aspect ratio, all wording, numbers, spelling, typography sizes, five trapezoidal panels, spacing, arrows, company labels, highlights, icons and source credit. No redesign, no additional words, no removed words. The nearly black colored secondary descriptions, non-highlighted company names, badge captions, header subtitle, endpoint label and footer legend are currently illegible against dark backgrounds: brighten all these secondary text elements to light silver-white (#D9E1EF or brighter) with excellent contrast. Keep the dark backgrounds, bright blue/green/orange/purple/red section accents and existing already-light titles. Ensure every original label remains exactly intact including 18.3–30 kW per PSU, 25–40% fewer losses vs. silicon, and source DATA GRAVITY / WING · MAY 2026. Do NOT reintroduce any Highest ASP/server label. Do not correct or reinterpret the content. This is a precise contrast-only restoration; preserve all other design choices and image quality.",
       "sha256": "817f5dafb156a1d393fd94a578dea48b6eba829e84088541e37c93fd5bf1ea64"
+    },
+    {
+      "asset": "rack-direct-intermediate-rome.png",
+      "origin": "Built-in image_gen edits of the user-supplied teaching image; original preserved separately.",
+      "original_asset": "rack-direct-intermediate-conversion.png",
+      "sha256": "2e55eb78e5e72c7cfe8c0f04de5c26707051f8aedf23cd97e7e7fb4f29005165",
+      "reviewed_at": "2026-09-19",
+      "scope": "Author-requested title All roads lead to Rome. Removed the green bottom caption panel and the website caption. Diagram labels, quantities and explanatory notes retained. Two sequential image edits, visually reviewed.",
+      "image_tool": "Built-in image_gen",
+      "prompts": [
+        "Edit this existing teaching slide image. Make exactly ONE change: replace the top heading 'Two ways to reach the same core voltage' with 'All roads lead to Rome.' in the same large dark navy serif style, centered horizontally in the existing heading area. Preserve everything below the heading exactly: all diagram components, labels, numbers, arrow positions and colors, panel backgrounds and borders, chip pictures, bullet points, blank green bottom box, whitespace, original 1672 by 941 aspect ratio and clean rendering. Do not redraw, redesign, simplify, or alter any other text or objects. The bottom green box must stay blank because its text is added separately by the website. No other changes.",
+        "Edit this teaching slide. Remove the entire pale-green rounded rectangular panel at the bottom, including its green border and tinted fill. That bottom caption panel must disappear completely; use clean white background there. Keep the title 'All roads lead to Rome.' and both existing Direct conversion / Intermediate rail panels intact. Preserve all diagram labels, numbers, arrows, chips, bullet points, typography and colors. Do not add any caption, subtitle, decoration, or replacement box at the bottom. Do not change any technical content. Keep original image size/aspect ratio. Only remove the green bottom panel."
+      ]
     }
   ]
 }

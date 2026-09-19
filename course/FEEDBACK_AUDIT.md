@@ -726,3 +726,8 @@ Removed the internal-cost sentence from slide 2. Slide 3 now defines bare metal 
 ### Chapter 15 NVIDIA backstops and powered idle capacity — 18 September 2026
 
 Moved the supplied hardware-price meme to the opening. Removed “dated observations, not September quotes” from the market source caption and the construction-versus-delivery subtitle from the final Abilene slide; historical dates and milestone distinctions remain in the data and notes. Financing now leads into three NVIDIA backstop slides, sourced to SemiAnalysis and corroborated by CoreWeave/NVIDIA SEC disclosures. Chapter 15 now has 15 scenes. The electricity example explicitly includes both rented and unrented-but-powered hours: 80 kWh + 4 kWh divided by 80 rented hours. Rented hours are not assumed to mean 100% GPU compute utilization; example power is a whole-site allocation per GPU. Author review remains pending.
+
+
+### Chapter 8 conversion comparison — 19 September 2026
+
+Renamed `board-rails` to the author’s requested “All roads lead to Rome.” in the scene metadata and teaching image. Removed the green bottom caption panel and its overlaid sentence after the author’s follow-up. The direct and intermediate conversion diagrams, speaker notes and existing bookmark remain intact. Original supplied image preserved; derivative and edit prompts recorded in the figure provenance.
