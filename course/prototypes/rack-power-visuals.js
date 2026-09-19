@@ -79,16 +79,17 @@ function boardRails(s,m) {
 }
 function localCurrent(s,m) {
  const a=localPower({loopMicroOhms:s.resistance});
+ const voltageBalance=`${format(a.regulatorVolts)} V − ${format(a.dropVolts)} V = 1 V at chip`;
  if(m){
-  return box(15,28,153,130,['50 V bus','20 A'],true)+arrow(177,94,211,94)+box(220,28,155,130,['1 V core','1,000 A'],true)
-   +t(195,203,'Same 1 kW',23)+t(195,251,`${s.resistance} µΩ core-path loop`,22,C.heat)
+  return box(15,28,153,130,['Regulator',`${format(a.regulatorVolts)} V`,'1,000 A'],true)+arrow(177,94,211,94)+box(220,28,155,130,['Chip','1 V','1,000 A'],true)
+   +t(195,203,voltageBalance,23)+t(195,251,`${s.resistance} µΩ core-path loop`,22,C.heat)
    +r(20,281,350,153,C.face)+t(43,318,'Voltage drop',22,C.ink,'start')+t(43,365,'ΔV = I × R',25,C.heat,'start')+t(346,410,`${format(a.dropVolts)} V`,35,C.heat,'end')
    +r(20,460,350,153,C.face)+t(43,497,'Heat in the path',22,C.ink,'start')+t(43,544,'P = I²R',25,C.heat,'start')+t(346,589,`${format(a.lossWatts)} W`,35,C.heat,'end');
  }
- return box(45,40,350,157,['50 V rack bus','20 A'],false)
-  +arrow(416,120,780,120)+t(600,87,'Same 1 kW',27)
-  +box(802,40,350,157,['1 V core rail','1,000 A'],false)
-  +t(600,257,`${s.resistance} µΩ in the core-power loop`,25,C.heat)
+ return box(45,40,350,157,['Regulator output',`${format(a.regulatorVolts)} V`,'1,000 A'],false)
+  +arrow(416,120,780,120)+t(600,87,`${s.resistance} µΩ loop`,25,C.heat)
+  +box(802,40,350,157,['Chip','1 V','1,000 A'],false)
+  +t(600,257,voltageBalance,29)
   +r(45,301,530,210,C.face)+t(82,346,'Voltage drop',26,C.ink,'start')
   +t(82,407,'ΔV = I × R',32,C.heat,'start')+t(536,476,`${format(a.dropVolts)} V`,58,C.heat,'end')
   +r(625,301,530,210,C.face)+t(662,346,'Heat in the path',26,C.ink,'start')
@@ -154,7 +155,7 @@ export function renderRackPower(id,state,compact=false){
   'rear-busbar':'NVIDIA DGX GB300 rear hardware illustration identifies the power busbar behind the trays. It carries nominal 50–51 V DC inside the rack.',
   'psu-input':'The source example uses a 480/277 V wye supply. Each selected single-phase PSU receives phase-to-neutral voltage around 277 V; shared outputs supply a 50 V rack bus. Neutral and protective earth are distinct.',
   'board-rails':'A 48 V bus feeds a 12 V intermediate converter, then a 1 V point-of-load regulator and compute die. The exact rails and branches vary by board.',
-  'local-current':`A 1 kW core receives 1000 A at 1 V. Voltage drop is ΔV = I × R. With ${state.resistance} microohms in the final loop, the drop is ${format(localPower({loopMicroOhms:state.resistance}).dropVolts)} V and resistive heat is ${format(localPower({loopMicroOhms:state.resistance}).lossWatts)} W.`,
+  'local-current':(()=>{const a=localPower({loopMicroOhms:state.resistance});return `The regulator supplies ${format(a.regulatorVolts)} V and 1,000 A so the chip receives 1 V and 1,000 A. With ${state.resistance} microohms in the final loop, ΔV = I × R gives a ${format(a.dropVolts)} V drop and I²R gives ${format(a.lossWatts)} W of heat. Regulator output is ${format(a.regulatorWatts)} W: 1,000 W at the chip plus ${format(a.lossWatts)} W of loop heat. This excludes losses inside the regulator.`;})(),
   multiphase:`${state.phases} interleaved converter phases supply a constant 1000 A average. The summed current has ${format(phaseWaveforms(state.phases).peakToPeakAmps)} A peak-to-peak normalized ripple.`,
   'source-handoff':`The load steps by 40 kW while source power ramps over ${state.response} seconds. The buffer's triangular power deficit requires ${supplyHandoff({responseSeconds:state.response}).energyKJ} kJ.`,
   'bbu-shelf':`${state.failed} BBU modules unavailable: ${bbuShelf({failedModules:state.failed}).availableKW} kW of module capacity remains for a 15 kW load. Runtime and transition conditions must also hold.`,

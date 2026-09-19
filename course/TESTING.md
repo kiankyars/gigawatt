@@ -2430,3 +2430,9 @@ All 17 cooling/capture tests pass. Course, expanded-reader and domain-map valida
 ## Power-stack text contrast — 2026-09-18
 
 One built-in image edit brightened the secondary text without changing the wording or composition. The original, earlier teaching image and exact edit prompt remain in asset provenance. Visually compared the result against the input and checked the image in Chapter 9 at 1440 × 900 and 390 × 844: image loaded, no page errors or horizontal overflow. All course/research checks, 80 Python tests and 303 JavaScript tests passed across the combined pending changes.
+
+## Regulator compensation follows loop resistance — 2026-09-18
+
+Chapter 8 slide 8 now shows the regulator-to-chip voltage path for both resistance options. At 100 µΩ the regulator supplies 1.1 V; at 10 µΩ it supplies 1.01 V. The chip receives 1 V at 1,000 A in both cases. Model checks verify voltage balance and regulator output power equals chip power plus loop loss. Speaker notes retain the ideal 50 V / 20 A comparison separately.
+
+All 80 Python tests, 303 JavaScript tests and course/research checks passed. Both resistance states passed desktop/mobile checks in the standalone and integrated decks: values and selected button update, no page errors or horizontal overflow. Visually reviewed the regulator path and heat/drop cards; no overlapping or clipped SVG labels. Chapter 8 slide 18 is unchanged, per the author's average-power interpretation.

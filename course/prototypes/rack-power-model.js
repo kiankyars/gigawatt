@@ -4,8 +4,10 @@ const positive = (value, label) => {
 
 export function localPower({ watts = 1000, rackVolts = 50, coreVolts = 1, loopMicroOhms = 100 } = {}) {
   for (const [label, value] of Object.entries({ watts, rackVolts, coreVolts, loopMicroOhms })) positive(value, label);
+  // rackAmps compares ideal delivered power across voltage planes; it excludes losses.
   const rackAmps = watts / rackVolts, coreAmps = watts / coreVolts, resistanceOhms = loopMicroOhms * 1e-6;
-  return { rackAmps, coreAmps, lossWatts: coreAmps ** 2 * resistanceOhms, dropVolts: coreAmps * resistanceOhms };
+  const lossWatts = coreAmps ** 2 * resistanceOhms, dropVolts = coreAmps * resistanceOhms;
+  return { rackAmps, coreAmps, lossWatts, dropVolts, regulatorVolts: coreVolts + dropVolts, regulatorWatts: watts + lossWatts };
 }
 
 export function supplyHandoff({ extraKW = 40, responseSeconds = 0.2 } = {}) {
