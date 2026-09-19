@@ -1,5 +1,5 @@
 import {backstopVisual} from './capacity-backstop.js';
-import {renderEnergyCost} from './capacity-energy.js';
+import {renderEnergyCost,renderEnergyPassThrough} from './capacity-energy.js';
 import {rentalRevenue,h100Ranges} from './capacity-model.js';
 import {sources} from './capacity-scenes.js';
 const credit=(url,label)=>`<p class="k-credit"><a href="${url}" target="_blank" rel="noreferrer">${label}</a></p>`;
@@ -24,6 +24,7 @@ export function capacityVisual(id,state){const backstop=backstopVisual(id);if(ba
  case 'hardware-prices-meme':return '<figure class="k-meme"><img src="../assets/references/storage-hardware-prices-meme.png" alt="Grim Reaper AI meme: RAM, GPU and SSD prices rise, with CPU prices next."></figure>';
  case 'nvidia-money-machine':return '<figure class="k-meme"><img src="../assets/references/nvidia-ai-money-machine-user.png" alt="How Nvidia and OpenAI Fuel the AI Money Machine: investment, hardware and services relationships between AI companies. Source: Bloomberg News reporting."></figure>';
  case 'gpu-hour-cost':return renderEnergyCost();
+ case 'electricity-pass-through':return renderEnergyPassThrough(sources.powerPassThrough);
  case 'abilene-roles':return wrap(`<figure class="k-campus-photo"><img src="../assets/references/distribution-abilene-data-halls.jpg" alt="Oracle aerial photograph of the Abilene data halls, July 15 2026."></figure><div class="k-chain"><section><h2>Crusoe</h2><p>Builds the facility</p></section><b>→</b><section><h2>Oracle</h2><p>Provides OCI capacity</p></section><b>→</b><section><h2>OpenAI</h2><p>Runs AI workloads</p></section></div>${credit(sources.live,'Abilene · first-phase announcement · photograph: Oracle, July 2026')}`);
  case 'datacenter-delay-quote':return `<figure class="k-quote k-quote-art"><blockquote>“Stop Saying Half of 2026 US Datacenter Capacity Is Canceled”</blockquote><a class="k-quote-artwork" href="../assets/references/semianalysis-datacenter-delays-user.png" target="_blank" rel="noreferrer" aria-label="Open SemiAnalysis article artwork at full size"><img src="../assets/references/semianalysis-datacenter-delays-user.png" alt="SemiAnalysis editorial illustration of a data center construction site with competing signs promising fast delivery and warning about delays."></a><figcaption class="k-credit"><a href="${sources.delays}" target="_blank" rel="noreferrer">SemiAnalysis · June 18, 2026</a></figcaption></figure>`;
  case 'abilene-ledger':return plan();

@@ -28,7 +28,7 @@ test('market series carries explicit historical observation periods and ranges',
  assert.match(capacityVisual('rental-market',initialState),/Apr 2026/);
 });
 test('new scenes have a coherent business scope and all source assets exist',()=>{
- assert.equal(new Set(scenes.map(s=>s.id)).size,scenes.length);assert.equal(scenes.length,18);
+ assert.equal(new Set(scenes.map(s=>s.id)).size,scenes.length);assert.equal(scenes.length,19);
  assert.deepEqual([...new Set(scenes.map(s=>s.objective))].sort(),['D15.1','D15.2','D15.3','D15.4','D15.5']);
  for(const scene of scenes)for(const occupancy of[.5,.625,.8]){
   const html=capacityVisual(scene.id,{occupancy});assert.doesNotMatch(html,/undefined|NaN|Infinity/);

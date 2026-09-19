@@ -20,3 +20,15 @@ export function renderEnergyCost(){
     </div>
   </div>`;
 }
+
+export function renderEnergyPassThrough(source){
+  const increase=(electricityPerBilledHour({tariffPerMWh:160})-electricityPerBilledHour()).toFixed(3);
+  return `<div class="ke-pass-through">
+    <p class="ke-context">From the previous example: electricity costs $${increase} more per billed GPU-hour</p>
+    <div class="ke-contracts">
+      <section><h2>Fixed all-in price</h2><p class="ke-risk-owner">Provider absorbs it</p><p class="ke-contract-impact">Margin −$${increase} / GPU-hour</p></section>
+      <section><h2>Electricity pass-through</h2><p class="ke-risk-owner">Customer reimburses it</p><p class="ke-contract-impact">Bill +$${increase} / GPU-hour</p></section>
+    </div>
+    <div class="ke-real-contract"><p><b>Core Scientific → CoreWeave</b><br>Power billed separately, without markup</p><p class="k-credit"><a href="${source}" target="_blank" rel="noreferrer">Core Scientific · Q2 2026 filing · Electricity Costs</a></p></div>
+  </div>`;
+}

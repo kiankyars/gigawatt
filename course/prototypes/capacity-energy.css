@@ -25,3 +25,13 @@
   .ke-payoff{border-left:0;border-top:1px solid var(--line);padding:28px 0 0;gap:25px}.ke-per-hour{gap:13px}.ke-per-hour strong{font-size:76px}.ke-per-hour span{font-size:23px}
   .ke-tariffs{gap:22px}.ke-tariffs span{font-size:19px}.ke-tariffs b{font-size:36px}#visual .ke-cost-unit{font-size:16px}
 }
+
+.ke-pass-through{display:flex;flex-direction:column;gap:44px}
+.ke-contracts{display:grid;grid-template-columns:1fr 1fr;gap:5vw}
+.ke-contracts section{display:flex;flex-direction:column;gap:22px;padding:10px 0}
+.ke-contracts section+section{border-left:1px solid var(--line);padding-left:5vw}
+#visual .ke-contracts h2{font-size:25px}
+#visual .ke-risk-owner{font-size:clamp(30px,3.3vw,47px);line-height:1.2;color:var(--teal);max-width:12em}
+#visual .ke-contract-impact{font-size:24px}
+.ke-real-contract{border-top:1px solid var(--line);padding-top:25px;display:flex;flex-direction:column;gap:14px;font-size:22px}
+@media(max-width:800px),(max-height:559px){.ke-pass-through{gap:28px}.ke-contracts{grid-template-columns:1fr;gap:24px}.ke-contracts section{gap:14px}.ke-contracts section+section{border-left:0;border-top:1px solid var(--line);padding:25px 0 0}#visual .ke-risk-owner{font-size:32px}#visual .ke-contract-impact{font-size:22px}.ke-real-contract{font-size:21px}}
