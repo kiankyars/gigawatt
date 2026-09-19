@@ -271,6 +271,8 @@ Step through collection, transfer, rejection and return on each physical diagram
 
 Wetted pads or spray cool incoming air by evaporation before it crosses a sealed process-fluid coil. That distinguishes the illustrated adiabatic cooler from an open tower, where tower water directly contacts air. The assist consumes water even though the process loop is closed.
 
+Use the nitrous-boost image as a memory aid: turn on water-assisted precooling when dry operation needs help. It can continue while water and suitable operating conditions are available; it is not inherently a short burst. The illustrated dry-cooler coil carries water/glycol, not refrigerant.
+
 ## Closed-loop water — Chapter 12, slide 10
 
 This continues the preceding wet-tower example, with that route initially selected. A separating exchanger keeps facility water closed while tower water contacts outdoor air and evaporates. Switch to the dry cooler to revisit the preceding sealed-coil route. Neither diagram here includes refrigeration; the next slide introduces the chiller. Direct open tower water can serve other qualified heat-exchanger arrangements; water quality and the actual equipment interfaces determine suitability.
@@ -278,6 +280,8 @@ This continues the preceding wet-tower example, with that route initially select
 ## Chiller, economizer and COP — Chapter 12, slides 11–13
 
 The compressor adds energy to the heat being moved. Ten megawatts collected plus two megawatts of compressor electricity becomes twelve megawatts outdoors. Pumps and fans are outside this particular compressor balance. It does not mean that direct outdoor cooling must remove less than 10 MW: when weather and equipment capacity permit, it can remove the entire load without a compressor.
+
+Here the compressor handles refrigerant vapor. In an air-cooled chiller, facility water gives heat to the sealed refrigerant circuit at the evaporator, and the outdoor condenser transfers it to air. With a CDU, that makes three separate circuits: IT coolant, facility water and refrigerant. A water-cooled condenser can instead transfer heat into a fourth water/glycol circuit serving a dry cooler. The fluids exchange heat without mixing. See [review question 26](REVIEW_QUESTIONS.md#26-can-a-closed-rack-loop-use-a-wet-tower-could-open-tower-water-go-all-the-way-to-the-cdu) for the three arrangements and sources.
 
 The supplied economizer image follows immediately. It summarizes a functional heat path; “from racks” and “back to racks” do not mean every water circuit is shared. The COP slide then relates heat moved to cooling electricity. Keep the equipment boundary consistent when comparing COP values.
 

@@ -745,3 +745,7 @@ Removed the unrelated seismic-bracing annotation from the rear-rack image used b
 ### Cooling-tower fill speaker note — 19 September 2026
 
 Added the requested definition to the Chapter 12 wet-tower speaker notes and scene explanation: fill spreads water into thin films or droplets to maximize the water surface exposed to air per unit volume. Linked the DOE cooling-tower component guide. The projected diagram is unchanged.
+
+### Adiabatic boost image and cooling circuits — 19 September 2026
+
+Added the supplied nitrous-boost image alongside the existing adiabatic-assist diagram. Recorded the analogy and the dry-cooler versus refrigerant distinction in speaker notes and review questions 24, 26 and 28, including the optional four-circuit arrangement and the 10 + 2 = 12 MW compressor balance. Checked the existing three-control-layer image for review question 37: it already identifies flow/pressure, bringing cooling units on and moving/delaying compute, so no duplicate captions were added.

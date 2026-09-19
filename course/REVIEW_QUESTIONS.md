@@ -171,6 +171,8 @@ Evaporation leaves minerals behind. **Blowdown** removes concentrated water. **M
 
 Both exploit evaporation, but in the illustrated adiabatic cooler, wetted pads cool the **incoming air before it reaches a sealed coolant coil**. The process coolant stays inside the coil. In the open tower, the circulating tower water itself contacts air. Adiabatic assistance can improve dry cooling without opening the process loop, but consumes water while active. [Manufacturer example](https://www.evapco.com/products/closed-circuit-coolers-air-cooled/eaw-da-double-stack-adiabatic-cooler?page=1)
 
+The nitrous-boost meme is an analogy for enabling extra cooling when needed. Here the boost comes from evaporating water, and can continue while water and suitable operating conditions are available.
+
 ### 25. Does “45°C exceeds the 35°C limit” mean the chips must be at 35°C?
 
 No. The example stipulates a maximum **rack-coolant inlet** of 35°C. The dry route gives 35°C outdoor air + 5°C cooler approach + 5°C CDU approach = 45°C coolant entering the rack. That misses the coolant requirement. Chip temperature is a separate, higher temperature. [Current dry-cooler slide](https://kiankyars.github.io/gigawatt/slides/heat-rejection.html?teach=1#approach-outdoors)
@@ -181,6 +183,16 @@ Yes, a closed rack loop can transfer heat through exchangers into a separate ope
 
 Direct tower-water service to a suitable CDU or exchanger is possible if its materials, filtration, treatment and water-quality requirements permit. It cannot be assumed interchangeable with a clean closed facility-water loop. A chiller's sealed refrigerant circuit is separate again. The course's direct dry/wet comparison does not contain refrigeration.
 
+**Could there be four circuits?** Yes, but the count depends on the equipment. Assuming a CDU separates IT coolant from facility water:
+
+| Arrangement | Separate circulating fluids |
+| --- | --- |
+| Direct dry cooler | IT coolant + facility water through the outdoor coil |
+| Air-cooled chiller | IT coolant + facility water + refrigerant; the outdoor condenser contains refrigerant |
+| Water-cooled chiller rejecting heat through a dry cooler | IT coolant + facility water + refrigerant + condenser water/glycol through the outdoor coil |
+
+The last arrangement has four circuits. The refrigerant transfers heat to the condenser-water loop through a heat exchanger; they do not mix. An air-cooled chiller works like an air conditioner that cools facility water at its evaporator. A plain dry cooler has no refrigerant compressor. [Trane chilled-water systems](https://www.trane.com/content/dam/Trane/Commercial/global/north-america/en/documents/TRG-TRC016-EN_01292021.pdf), [Daikin chiller for dry-cooler systems](https://www.daikinapplied.com/products/chiller-products/magnitude).
+
 ### 27. Which slide had the “continuity mistake”?
 
 It was the **closed-loop water slide**—formerly Chapter 12 slide 14, then slide 9, now slide 10. After being moved, it unexpectedly switched to an air-cooled arrangement and introduced a chiller, breaking the narrative from the preceding wet-tower diagram. It now starts with the wet-tower route and preserves that direct heat-exchanger arrangement. “Continuity” meant narrative consistency here. [Current slide](https://kiankyars.github.io/gigawatt/slides/heat-rejection.html?teach=1#closed-loop-water)
@@ -188,6 +200,8 @@ It was the **closed-loop water slide**—formerly Chapter 12 slide 14, then slid
 ### 28. How can the chiller release more heat than it collected?
 
 The compressor consumes electricity that also becomes heat. **10 MW collected from the load + 2 MW of compressor electricity = 12 MW rejected at the condenser.** Pumps and fans are outside that particular balance. No energy is being created.
+
+This is a **vapor-compression chiller**: the compressor compresses refrigerant vapor. The 10 MW enters the refrigerant from facility water at the evaporator; the condenser releases the resulting 12 MW to outdoor air or a separate water loop. [Trane refrigeration cycle](https://www.trane.com/content/dam/Trane/Commercial/global/north-america/en/documents/TRG-TRC016-EN_01292021.pdf).
 
 ### 29. Without a chiller, would we remove less than the 10 MW?
 
