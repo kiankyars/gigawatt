@@ -1,5 +1,7 @@
 # Course clarification questions and answers
 
+**Retired — 19 September 2026.** Kian reviewed the final three clarifications and approved retirement. This document is retained as a reference, not an active review queue.
+
 Compiled 18 September 2026 from the 17–18 September review conversations and the current course. The short catch-up below covers later answers; the original Chapters 11–16 reference follows. Links use slide names because slide numbers changed during editing. Formatting requests remain in [FEEDBACK_AUDIT.md](FEEDBACK_AUDIT.md).
 
 ## Quick catch-up: later answers without a visible acknowledgment
