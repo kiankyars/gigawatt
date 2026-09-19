@@ -765,3 +765,7 @@ Removed the occupancy slide’s entire annual-revenue/billable-occupancy subtitl
 ### Chapter 15 NVIDIA money-machine image — 19 September 2026
 
 Inserted the supplied image unchanged, without an added title, immediately before `nvidia-coreweave-backstop`. Preserved the embedded Bloomberg attribution and recorded asset provenance. Image-only scenes now share the same header handling. Existing bookmarks are unchanged.
+
+### Chapter 15 delay quotation and Abilene table — 19 September 2026
+
+Added an exact-title SemiAnalysis quotation slide immediately before `abilene-ledger`, with the June 18, 2026 article linked at the bottom. Removed the table’s smaller gray source/date labels and folded them into the three source links. March 2025 identifies the original plan; September 2025 identifies the first-phase report; September 2026 identifies Oracle’s delivery update. Preserved the table’s milestone comparison and all existing bookmarks. Chapter 15 now has 18 slides.
