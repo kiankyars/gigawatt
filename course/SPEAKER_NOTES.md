@@ -92,7 +92,7 @@ Microsoft described that ambition in November 2025, not a completed training run
 
 Sources: [Microsoft Fairwater feature](https://news.microsoft.com/source/features/ai/from-wisconsin-to-atlanta-microsoft-connects-datacenters-to-build-its-first-ai-superfactory/).
 
-## Copper for short links; optical fiber for longer runs — Chapter 10, slide 10
+## Copper for short links; optical fiber for longer runs — Chapter 10, slide 11
 
 <!-- speaker: networking#copper-and-light -->
 
@@ -102,7 +102,7 @@ These 400G examples reach 2 m over passive copper, 50 m over multimode fiber and
 
 Sources: [NVIDIA LinkX product overview](https://docs.nvidia.com/networking/display/400g100gpam4ovdev/linkx-100g-pam4-product-line-overview).
 
-## Co-packaged optics shortens the electrical path inside the switch — Chapter 10, slide 11
+## Co-packaged optics shortens the electrical path inside the switch — Chapter 10, slide 12
 
 <!-- speaker: networking#optical-packaging -->
 
