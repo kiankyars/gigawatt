@@ -10,7 +10,7 @@ function focusAfter(selector){render();document.querySelector(selector)?.focus({
 function render(){
  const scene=scenes[index];
  document.title=`${presentationLabels.capacity||'15. GPU cloud economics'} · ${scene.label}`;
- $('scene').dataset.scene=scene.id;$('scene-title').textContent=scene.title;
+ $('scene').dataset.scene=scene.id;$('scene').dataset.imageOnly=String(!!scene.imageOnly);$('scene-title').textContent=scene.title;
  $('visual').innerHTML=capacityVisual(scene.id,state);
  $('lesson-reference').href=`../index.html#${scene.reference}`;
  $('status').textContent=scene.title;$('scenes').value=scene.id;$('progress').textContent=`${index+1} / ${scenes.length}`;

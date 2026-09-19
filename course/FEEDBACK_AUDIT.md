@@ -761,3 +761,7 @@ Retitled slide 4 “There are two ways to skin the cat.” Replaced the responsi
 ### Chapter 15 occupancy and electricity simplification — 19 September 2026
 
 Removed the occupancy slide’s entire annual-revenue/billable-occupancy subtitle; its distinction stays in the speaker notes. Reworked `gpu-hour-cost` using the sparse two-column treatment from the Llama 3 slide: rented and powered-idle energy on the left, 1.05 kWh per billed GPU-hour and both electricity prices on the right. Preserved every calculation input and result.
+
+### Chapter 15 NVIDIA money-machine image — 19 September 2026
+
+Inserted the supplied image unchanged, without an added title, immediately before `nvidia-coreweave-backstop`. Preserved the embedded Bloomberg attribution and recorded asset provenance. Image-only scenes now share the same header handling. Existing bookmarks are unchanged.
