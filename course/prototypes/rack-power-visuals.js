@@ -1,4 +1,5 @@
 import { renderSpatial } from './orientation-spatial.js';
+import { renderPSUInput as psuInput } from './rack-psu-input.js';
 import { rackProducts, renderRackProduct } from './rack-power-products.js';
 import { localPower, supplyHandoff, bbuShelf, burstRecharge, phaseWaveforms } from './rack-power-model.js';
 const C = { ink:'var(--text)', muted:'var(--muted)', line:'var(--line)', panel:'var(--panel)', face:'var(--surface)', power:'var(--power)', heat:'var(--heat)', data:'var(--data)', paper:'var(--paper)' };
@@ -44,28 +45,6 @@ function rackPath(s,m) {
   o+=box(735,173,390,82,['Board conversion'],false)+arrow(930,258,930,288)+box(735,294,390,80,['Point-of-load VRM'],false)+arrow(930,377,930,404)+t(930,440,'Compute die',28,C.power);
  }
  o+=note('Rack voltage: NVIDIA DGX guide · board stages vary',m);
- return o;
-}
-function psuInput(s,m) {
- let o='';
- if(m){
-  o+=t(195,45,'480 V between live phases',23,C.power);
-  const xs=[55,155,255], colors=[C.power,C.data,C.heat];
-  xs.forEach((x,i)=>{o+=t(x,91,`L${i+1}`,19,colors[i])+l(x,107,x,178,colors[i])+box(x-30,184,76,87,['PSU','277 V'],true,colors[i]);});
-  o+=l(338,105,338,164,C.muted)+t(338,89,'N',19,C.muted)+l(78,164,338,164,C.muted);
-  xs.forEach(x=>{o+=l(x+23,164,x+23,181,C.muted)+l(x+8,276,x+8,329);});
-  o+=l(63,329,263,329)+arrow(163,329,163,382);
-  o+=box(25,387,340,94,['Shared rack bus','50 V DC'],true);
-  o+=t(195,538,'480 / √3 ≈ 277 V',29,C.power);
-  o+=t(195,577,'Phase to neutral at each PSU',18);
-  o+=note('Advanced Energy · ORv3 power supply',m);
- }else{
-  o+=box(30,145,257,160,['Three-phase shelf input','480 V line-to-line'],false);
-  o+=box(935,145,235,230,['Shared rack bus','50 V DC'],false);
-  const colors=[C.power,C.data,C.heat];
-  [0,1,2].forEach(i=>{const yy=75+i*138;o+=t(410,yy+51,`L${i+1}`,23,colors[i])+arrow(434,yy+44,514,yy+44,colors[i])+box(520,yy,275,92,['Single-phase PSU','277 V phase-to-neutral'],false,colors[i])+arrow(799,yy+46,931,yy+46);});
-  o+=t(290,471,'480 / √3 ≈ 277 V',30,C.power)+note('Advanced Energy ORv3 example · neutral and protective earth have different roles',m);
- }
  return o;
 }
 function boardRails(s,m) {
@@ -153,7 +132,7 @@ export function renderRackPower(id,state,compact=false){
  const descriptions={
   'rack-power-path':'PSUs in a rack power shelf convert AC into nominal 50–51 V DC. The vertical rack busbar carries power to trays; board conversion and point-of-load regulation then supply devices.',
   'rear-busbar':'NVIDIA DGX GB300 rear hardware illustration identifies the power busbar behind the trays. It carries nominal 50–51 V DC inside the rack.',
-  'psu-input':'The source example uses a 480/277 V wye supply. Each selected single-phase PSU receives phase-to-neutral voltage around 277 V; shared outputs supply a 50 V rack bus. Neutral and protective earth are distinct.',
+  'psu-input':'The primer’s three-phase waveform feeds three Advanced Energy PSU module photographs, one on each of L1, L2 and L3. Each receives 277 V AC from a 480/277 V supply. Their 50 V DC outputs join the rack bus, illustrated by NVIDIA’s rear cabinet image with the power busbar highlighted. The photographs illustrate the functions, not one matched equipment installation.',
   'board-rails':'A 48 V bus feeds a 12 V intermediate converter, then a 1 V point-of-load regulator and compute die. The exact rails and branches vary by board.',
   'local-current':(()=>{const a=localPower({loopMicroOhms:state.resistance});return `The regulator supplies ${format(a.regulatorVolts)} V and 1,000 A so the chip receives 1 V and 1,000 A. With ${state.resistance} microohms in the final loop, ΔV = I × R gives a ${format(a.dropVolts)} V drop and I²R gives ${format(a.lossWatts)} W of heat. Regulator output is ${format(a.regulatorWatts)} W: 1,000 W at the chip plus ${format(a.lossWatts)} W of loop heat. This excludes losses inside the regulator.`;})(),
   multiphase:`${state.phases} interleaved converter phases supply a constant 1000 A average. The summed current has ${format(phaseWaveforms(state.phases).peakToPeakAmps)} A peak-to-peak normalized ripple.`,

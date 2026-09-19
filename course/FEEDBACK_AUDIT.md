@@ -731,3 +731,8 @@ Moved the supplied hardware-price meme to the opening. Removed “dated observat
 ### Chapter 8 conversion comparison — 19 September 2026
 
 Renamed `board-rails` to the author’s requested “All roads lead to Rome.” in the scene metadata and teaching image. Removed the green bottom caption panel and its overlaid sentence after the author’s follow-up. The direct and intermediate conversion diagrams, speaker notes and existing bookmark remain intact. Original supplied image preserved; derivative and edit prompts recorded in the figure provenance.
+
+
+### Chapter 8 PSU input photographs — 19 September 2026
+
+Kept `psu-input` as its own slide. Replaced the left text box with the primer’s existing three-phase waveform, the three PSU rectangles with the existing Advanced Energy module photograph, and the DC-bus box with NVIDIA’s rear rack image. The busbar is highlighted at the manufacturer’s callout location. Removed the standalone sentence title, square-root calculation and phase-to-neutral footer; retained concise voltage labels and manufacturer credits. Speaker notes identify the images as examples of the functions rather than a matched installed equipment set. The slide order and existing bookmark remain unchanged.

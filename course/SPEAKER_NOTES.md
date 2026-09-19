@@ -22,13 +22,13 @@ Sources: [Schneider power triangle](https://www.electrical-installation.org/enwi
 
 **Presenter reminder: shout out my chips course while pointing to the Blackwell Ultra board.** “If you want to learn more about this chip, watch my chips course.”
 
-## A three-phase shelf can feed single-phase PSU modules — Chapter 8, slide 6
+## From three-phase AC to the rack busbar — Chapter 8, slide 6
 
 “The shelf receives three-phase power, but each PSU module can use a single phase. In this example, there are 480 volts between phases and about 277 volts from each phase to neutral. The shelf spreads those phase-to-neutral connections across its modules.
 
 “Each module converts its AC input to 50-volt DC, and their outputs share the rack bus. So the shelf uses all three phases even though each individual PSU uses only one. Balancing the modules across the phases spreads the input current and smooths their combined power demand. Neutral is separate from protective earth.”
 
-The diagram is the Advanced Energy ORv3 example; it does not establish the PSU wiring of every GB300 rack.
+Point to the three-phase waveform, then each PSU photograph, then the highlighted rear busbar. The three repeated Advanced Energy module photographs show one branch per phase, not the full shelf population. The NVIDIA rear view identifies the busbar; it does not establish that those exact PSU modules are installed in that rack.
 
 Source: [Advanced Energy ORv3 PSU](https://www.advancedenergy.com/en-us/products/ac-dc-power-supply-units/power-shelves/ocp-compliant/orv3-psu/).
 
