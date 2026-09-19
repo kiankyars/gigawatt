@@ -834,6 +834,7 @@ Explain how retrofit constraints can reverse a seemingly attractive greenfield a
 - [P170 — ABB — Protection Devices for Direct Current Applications, 2025 technical paper](https://library.e.abb.com/public/4b22f4bae7e5424d9bf87039c3c1d0ba/9AKK108470A2501_Technical%20Application%20Paper_Protection%20Devices%20for%20Direct%20Current%20Applications.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P170.md)
 - [P202 — Infineon — 200 W dual output 48V-to-PoL single step converter](https://www.infineon.com/assets/row/public/documents/24/42/infineon-dc-dc-converters-200w-dual-output-48v-pol-single-step-converter-xdpp1100-digital-controller-applicationnotes-en.pdf) · `page_reviewed` · [local note](../research/sources/P202.md)
 - [P203 — TI — Benefits of a multiphase buck converter](https://www.ti.com/lit/an/slyt449/slyt449.pdf) · `page_reviewed` · [local note](../research/sources/P203.md)
+- [P226 — Intel — Fully Integrated Voltage Regulator (FIVR)](https://edc.intel.com/content/www/us/en/design/ipla/software-development-platforms/servers/platforms/intel-pentium-silver-and-intel-celeron-processors-datasheet-volume-1-of-2/fully-integrated-voltage-regulator-fivr/) · `page_reviewed` · [local note](../research/sources/P226.md)
 
 <a id="d07"></a>
 

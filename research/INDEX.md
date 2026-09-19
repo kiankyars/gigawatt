@@ -272,6 +272,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P223 — Create a CoreWeave SUNK cluster](sources/P223.md) | CoreWeave | D15 | public_excerpt_reviewed |
 | [P224 — EC2 Spot Instances](sources/P224.md) | AWS | D15 | public_excerpt_reviewed |
 | [P225 — SemiAnalysis GPU rental pricing index](sources/P225.md) | SemiAnalysis | D15 | public_excerpt_reviewed |
+| [P226 — Intel — Fully Integrated Voltage Regulator (FIVR)](sources/P226.md) | Intel | D06 | page_reviewed |
 | [P23 — Wolfspeed — Introduction of a commercially available 10 kV SiC power MOSFET](sources/P23.md) | Wolfspeed | D04, D06 | page_reviewed |
 | [P24 — Schneider Electric — What is UPS efficiency and how is it calculated?](sources/P24.md) | Schneider Electric | D04, D05, D06 | page_reviewed |
 | [P25 — Texas Instruments — Power Loss in Switching Power Supplies](sources/P25.md) | Texas Instruments | D04, D05, D06 | page_reviewed |

@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-09-17",
+  "as_of": "2026-09-18",
   "inventory_status": "seed_not_exhaustive",
   "method": "A bounded curated discovery pass over 40 SemiAnalysis articles and 15 independent primary-source starting points. Sources are mapped many-to-many to domain IDs for curriculum research, not certified as complete coverage or sources of truth. The additional SA11–SA40 sample used 16 search queries and selected entries from the publisher's 2023–2026 annual sitemaps; research/discovery-searches.md records the method and limits. page_reviewed means the stated web page was inspected, with partial-reading and linked-document limits recorded in caution; public_excerpt_reviewed includes accessible previews, abstracts or selected public sections and never implies review of a complete paid work. candidate_not_reviewed means substantive content has not been reviewed. A domain mapping identifies intended research use, not verified support for every objective or claim. reviewed_on is the review date; published_on, where present, is the source's displayed publication date and is null when not established.",
   "sources": [
@@ -5174,6 +5174,20 @@
       ],
       "use": "One-, three- and five-year tenors and dated H100 one-year ranges.",
       "caution": "Only visible public observations used. October 2025, January and April 2026 ranges are historical, not September quotes; missing tenors left blank."
+    },
+    {
+      "id": "P226",
+      "title": "Intel — Fully Integrated Voltage Regulator (FIVR)",
+      "url": "https://edc.intel.com/content/www/us/en/design/ipla/software-development-platforms/servers/platforms/intel-pentium-silver-and-intel-celeron-processors-datasheet-volume-1-of-2/fully-integrated-voltage-regulator-fivr/",
+      "publisher": "Intel",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-18",
+      "domains": [
+        "D06"
+      ],
+      "use": "Compute-die final regulators derive processor rails from a platform VCCIN regulator; integrating final regulation retains upstream conversion.",
+      "caution": "Relevant FIVR section reviewed, not the complete datasheet. Intel example does not establish a GB300 implementation or integration of every processor rail."
     }
   ],
   "local_attributions": [

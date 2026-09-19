@@ -2436,3 +2436,7 @@ One built-in image edit brightened the secondary text without changing the wordi
 Chapter 8 slide 8 now shows the regulator-to-chip voltage path for both resistance options. At 100 µΩ the regulator supplies 1.1 V; at 10 µΩ it supplies 1.01 V. The chip receives 1 V at 1,000 A in both cases. Model checks verify voltage balance and regulator output power equals chip power plus loop loss. Speaker notes retain the ideal 50 V / 20 A comparison separately.
 
 All 80 Python tests, 303 JavaScript tests and course/research checks passed. Both resistance states passed desktop/mobile checks in the standalone and integrated decks: values and selected button update, no page errors or horizontal overflow. Visually reviewed the regulator path and heat/drop cards; no overlapping or clipped SVG labels. Chapter 8 slide 18 is unchanged, per the author's average-power interpretation.
+
+## IVR definition and conversion boundary — 2026-09-18
+
+Added IVR wording to the rack-conversion reading/glossary and Chapter 8/9 speaker notes. Registered Intel P226 and regenerated the reading, domain map and research index. Course, expanded-course, domain-map and research checks passed, as did all 26 rack-power/rack-energy tests and git diff --check. Staged site contains the definition in the reader data and both note sources. No diagram or scene-order changes.

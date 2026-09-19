@@ -5662,6 +5662,7 @@
           "heading": "Distinguish the converter from its output rail",
           "paragraphs": [
             "The PSU supplies the rack DC bus. A board voltage regulator module (VRM) creates and controls the low voltage required by the compute circuits. Vcore names the conductive core-supply rail between that regulator output and the CPU cores; it is not an additional conversion stage. Local capacitors connect to this rail, supplying or absorbing brief current differences while regulation responds. A GPU has the same functional distinction.",
+            "An integrated voltage regulator (IVR) can perform the final voltage regulation on the processor die or within its package, replacing a conventional board-mounted VRM for the rails it supplies. It typically still needs an upstream converter. The IVR replaces the final regulation stage, not the entire power-conversion chain.",
             "A direct converter can bring the rack voltage down to the core voltage near the processor. Alternatively, an intermediate bus converter first creates a lower distribution rail, such as 12 V, before a local VRM makes the core voltage. Both can keep the high-current 1 V path short. An intermediate stage can suit the selected downstream regulators and board arrangement; stage count alone does not determine the length of the final core-current path.",
             "TI’s TIDA-050095 is a contemporary 48-to-12 V, 2 kW reference design. Infineon documents both intermediate-bus and direct-to-point-of-load architectures. These examples establish available approaches, not their share of current GPU-rack shipments or the undisclosed layout of a particular GB300 board.",
             "Two conversion efficiencies multiply: 98% followed by 95% gives 93.1% overall. A direct converter may do better or worse at the relevant input voltage, output voltage and load. A fair comparison includes both converter losses and conductor losses, plus space, cooling and transient response. Neither equal total voltage reduction nor smaller individual voltage steps guarantees equal or better efficiency."
@@ -5745,6 +5746,10 @@
         {
           "term": "Voltage regulator module (VRM)",
           "definition": "The regulating circuitry and power stages that maintain a specified rail near a load, often using interleaved converter phases."
+        },
+        {
+          "term": "Integrated voltage regulator (IVR)",
+          "definition": "Final voltage-regulation circuitry integrated on a processor die or within its package; typically supplied by an upstream converter."
         }
       ],
       "visual": {
@@ -5794,7 +5799,8 @@
         "P89",
         "P90",
         "P202",
-        "P203"
+        "P203",
+        "P226"
       ],
       "source_notes": [
         {
@@ -5838,9 +5844,15 @@
           "claim": "Interleaved converter paths share output current and reduce combined ripple.",
           "reviewed_on": "2026-09-15",
           "limits": "The displayed 1,000 A current traces are illustrative, not a captured device waveform or a guarantee of fault tolerance."
+        },
+        {
+          "id": "P226",
+          "claim": "Compute-die FIVRs derive processor rails from an upstream platform VCCIN regulator. Integration relocates final regulation while retaining upstream conversion.",
+          "reviewed_on": "2026-09-18",
+          "limits": "Documented Intel implementation; not evidence that GB300 uses an IVR or that all processor rails are integrated."
         }
       ],
-      "word_count": 1740
+      "word_count": 1788
     },
     {
       "id": "d06-rack-migration",
@@ -14892,6 +14904,20 @@
       ],
       "use": "One-, three- and five-year tenors and dated H100 one-year ranges.",
       "caution": "Only visible public observations used. October 2025, January and April 2026 ranges are historical, not September quotes; missing tenors left blank."
+    },
+    {
+      "id": "P226",
+      "title": "Intel — Fully Integrated Voltage Regulator (FIVR)",
+      "url": "https://edc.intel.com/content/www/us/en/design/ipla/software-development-platforms/servers/platforms/intel-pentium-silver-and-intel-celeron-processors-datasheet-volume-1-of-2/fully-integrated-voltage-regulator-fivr/",
+      "publisher": "Intel",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-18",
+      "domains": [
+        "D06"
+      ],
+      "use": "Compute-die final regulators derive processor rails from a platform VCCIN regulator; integrating final regulation retains upstream conversion.",
+      "caution": "Relevant FIVR section reviewed, not the complete datasheet. Intel example does not establish a GB300 implementation or integration of every processor rail."
     }
   ],
   "glossary": [
@@ -15439,6 +15465,11 @@
       "term": "Integrated test",
       "definition": "A specified exercise of behavior spanning connected subsystems.",
       "lesson": "d13-commissioning-complete-paths"
+    },
+    {
+      "term": "Integrated voltage regulator (IVR)",
+      "definition": "Final voltage-regulation circuitry integrated on a processor die or within its package; typically supplied by an upstream converter.",
+      "lesson": "d06-conversion-ledger"
     },
     {
       "term": "Interactivity",
