@@ -193,9 +193,19 @@ Direct tower-water service to a suitable CDU or exchanger is possible if its mat
 
 The last arrangement has four circuits. The refrigerant transfers heat to the condenser-water loop through a heat exchanger; they do not mix. An air-cooled chiller works like an air conditioner that cools facility water at its evaporator. A plain dry cooler has no refrigerant compressor. [Trane chilled-water systems](https://www.trane.com/content/dam/Trane/Commercial/global/north-america/en/documents/TRG-TRC016-EN_01292021.pdf), [Daikin chiller for dry-cooler systems](https://www.daikinapplied.com/products/chiller-products/magnitude).
 
+**Is the fourth loop a second, optional cooling route?** No. In the water-cooled-chiller example, heat follows one chain:
+
+**IT coolant → facility water → refrigerant → condenser water/glycol → outdoor air.**
+
+The CDU, evaporator and condenser transfer heat between those separate fluids. Facility water meets the refrigerant at the **evaporator**, not the condenser. An air-cooled chiller instead sends heat directly from refrigerant to outdoor air, removing the condenser-water loop. That extra water circuit connects the chiller to separate heat-rejection equipment; it does not inherently create redundancy. [Trane system layouts](https://www.trane.com/content/dam/Trane/Commercial/global/north-america/en/documents/TRG-TRC016-EN_01292021.pdf).
+
+**Why add another route for cool weather?** A **waterside economizer** cools facility water through an outdoor coil or heat exchanger, bypassing some or all compressor work. This is an optional operating path, distinct from the fourth loop above. Fans and pumps still consume electricity. [Trane free-cooling methods](https://www.trane.com/commercial/north-america/us/en/about-us/newsroom/glossary/free-cooling.html).
+
+**Could refrigerant itself circulate with the compressor off?** Yes—purpose-built refrigerant economizers do this. Vertiv’s EconoPhase uses a refrigerant pump; other designs use gravity-driven refrigerant migration. They need a sufficiently cold outdoor sink and the appropriate piping, valves and controls. Turning off an ordinary compressor does not automatically provide that mode. [Vertiv EconoPhase](https://www.vertiv.com/en-us/products-catalog/thermal-management/room-cooling/econophase-pumped-refrigerant-economizer/), [Trane refrigerant-side free cooling](https://www.trane.com/commercial/north-america/us/en/about-us/newsroom/glossary/free-cooling.html).
+
 ### 27. Which slide had the “continuity mistake”?
 
-It was the **closed-loop water slide**—formerly Chapter 12 slide 14, then slide 9, now slide 10. After being moved, it unexpectedly switched to an air-cooled arrangement and introduced a chiller, breaking the narrative from the preceding wet-tower diagram. It now starts with the wet-tower route and preserves that direct heat-exchanger arrangement. “Continuity” meant narrative consistency here. [Current slide](https://kiankyars.github.io/gigawatt/slides/heat-rejection.html?teach=1#closed-loop-water)
+It was the **closed-loop water slide**—now Chapter 12 slide 11. After being moved, it unexpectedly switched to an air-cooled arrangement and introduced a chiller, breaking the narrative from the preceding wet-tower diagram. It now starts with the wet-tower route and preserves that direct heat-exchanger arrangement. “Continuity” meant narrative consistency here. [Current slide](https://kiankyars.github.io/gigawatt/slides/heat-rejection.html?teach=1#closed-loop-water)
 
 ### 28. How can the chiller release more heat than it collected?
 
@@ -249,7 +259,13 @@ The 2016 version advised operators. The 2018 system directly controlled cooling 
 
 ### 39. Is the 1 MW buffer real? How do operators choose cooling reserve?
 
-The slide's **1 MW headroom and three-minute startup are assumptions**. There is no universal 1 MW or fixed-percentage rule. Margin depends on credible load changes, equipment startup time, local coolant delivery, weather and required failure tolerance.
+The slide's **1 MW headroom and three-minute startup are assumptions**. There is no universal 1 MW or fixed-percentage rule. The inputs fall into three groups:
+
+- **Demand:** expected load and ramp.
+- **Usable capacity:** weather, local flow and the required failure case.
+- **Response time:** startup delay versus thermal-buffer duration.
+
+Spare MW is usable capacity minus demand; it is a result of those inputs, not an additional independent criterion.
 
 Three different protections matter: spare heat-removal capacity in MW, redundancy after a failure, and stored thermal energy that buys time. A manufacturer's staging sequence uses 80% or 90% loading thresholds for specified chiller configurations; these are control thresholds, not a universal data-center reserve. [Johnson Controls](https://docs.johnsoncontrols.com/bas/r/Metasys/en-US/Chilled-Water-Plant-for-Guideline-36-Application-Note/1.0/Chiller-sequence-of-operations/Chiller-and-waterside-economizer-staging-determination-5.20.1-15/Stage-Up-Part-Load-Ratio-SPLRUP)
 

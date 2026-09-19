@@ -261,39 +261,45 @@ These are two measurements of the same air. Dry bulb is the ordinary air tempera
 
 Humidity changes wet bulb even when dry bulb stays fixed. Equipment names and air measurements are separate: dry coolers follow dry bulb; evaporative towers can approach wet bulb.
 
-## Follow the outdoor coolant paths — Chapter 12, slides 7 and 9
+## Follow the outdoor coolant paths — Chapter 12, slides 7 and 10
 
 **Point to the wet tower’s fill:** “Fill is packing material that spreads water into thin films or small droplets, maximizing the surface area exposed to air per unit volume of water.” [DOE cooling-tower component guide](https://www.energy.gov/sites/default/files/2013/10/f3/waterfs_coolingtowers.pdf), page 2.
 
 Step through collection, transfer, rejection and return on each physical diagram. The separate CDU loops remain distinct. The dry coil transfers heat through its wall to outdoor air; the wet tower exposes tower water to moving air. Each heat-transfer interface needs a temperature difference. On the dry route, 35°C outdoor air plus a 5°C dry-cooler approach yields 40°C facility water; the 5°C CDU approach yields 45°C rack coolant. The example assumes a maximum rack-coolant inlet of 35°C, not a 35°C chip temperature. These values illustrate the interfaces rather than a particular site's performance.
 
-## Adiabatic assist — Chapter 12, slide 8
+## A cooling boost — Chapter 12, slide 8
+
+Pause on the nitrous-boost meme between the dry-cooler temperature limit and the technical diagram: “The dry path cannot reach the required coolant temperature here. Can we give it a boost?” Reveal evaporative air precooling on the next slide.
+
+## Adiabatic assist — Chapter 12, slide 9
 
 Wetted pads or spray cool incoming air by evaporation before it crosses a sealed process-fluid coil. That distinguishes the illustrated adiabatic cooler from an open tower, where tower water directly contacts air. The assist consumes water even though the process loop is closed.
 
-Use the nitrous-boost image as a memory aid: turn on water-assisted precooling when dry operation needs help. It can continue while water and suitable operating conditions are available; it is not inherently a short burst. The illustrated dry-cooler coil carries water/glycol, not refrigerant.
+Refer back to the nitrous-boost image: turn on water-assisted precooling when dry operation needs help. It can continue while water and suitable operating conditions are available; it is not inherently a short burst. The illustrated dry-cooler coil carries water/glycol, not refrigerant.
 
-## Closed-loop water — Chapter 12, slide 10
+## Closed-loop water — Chapter 12, slide 11
 
-This continues the preceding wet-tower example, with that route initially selected. A separating exchanger keeps facility water closed while tower water contacts outdoor air and evaporates. Switch to the dry cooler to revisit the preceding sealed-coil route. Neither diagram here includes refrigeration; the next slide introduces the chiller. Direct open tower water can serve other qualified heat-exchanger arrangements; water quality and the actual equipment interfaces determine suitability.
+This continues the preceding wet-tower example, with that route initially selected. A separating exchanger keeps facility water closed while tower water contacts outdoor air and evaporates. Switch to the dry cooler to revisit the preceding sealed-coil route. The water/glycol label identifies a possible mixture for freeze protection on this closed outdoor loop; it does not prescribe the fluid inside the rack. Neither diagram here includes refrigeration; the next slide introduces the chiller. Direct open tower water can serve other qualified heat-exchanger arrangements; water quality and the actual equipment interfaces determine suitability.
 
-## Chiller, economizer and COP — Chapter 12, slides 11–13
+## Chiller, economizer and COP — Chapter 12, slides 12–14
 
 The compressor adds energy to the heat being moved. Ten megawatts collected plus two megawatts of compressor electricity becomes twelve megawatts outdoors. Pumps and fans are outside this particular compressor balance. It does not mean that direct outdoor cooling must remove less than 10 MW: when weather and equipment capacity permit, it can remove the entire load without a compressor.
 
 Here the compressor handles refrigerant vapor. In an air-cooled chiller, facility water gives heat to the sealed refrigerant circuit at the evaporator, and the outdoor condenser transfers it to air. With a CDU, that makes three separate circuits: IT coolant, facility water and refrigerant. A water-cooled condenser can instead transfer heat into a fourth water/glycol circuit serving a dry cooler. The fluids exchange heat without mixing. See [review question 26](REVIEW_QUESTIONS.md#26-can-a-closed-rack-loop-use-a-wet-tower-could-open-tower-water-go-all-the-way-to-the-cdu) for the three arrangements and sources.
 
+The fourth condenser-water circuit is in the serial heat path, not automatically a second route from facility water. A waterside economizer adds a compressor-bypassing cooling path when weather permits. A different option, refrigerant-side free cooling, circulates refrigerant with a pump or gravity while the compressor is off; it requires a design that supports this mode. The number of loops and the choice of economizer are separate decisions. Sources: [Trane free cooling](https://www.trane.com/commercial/north-america/us/en/about-us/newsroom/glossary/free-cooling.html), [Vertiv EconoPhase](https://www.vertiv.com/en-us/products-catalog/thermal-management/room-cooling/econophase-pumped-refrigerant-economizer/).
+
 The supplied economizer image follows immediately. It summarizes a functional heat path; “from racks” and “back to racks” do not mean every water circuit is shared. The COP slide then relates heat moved to cooling electricity. Keep the equipment boundary consistent when comparing COP values.
 
-## Hot weather needs more cooling electricity — Chapter 12, slide 14
+## Hot weather needs more cooling electricity — Chapter 12, slide 15
 
 At 8 MW computing, the example's COP 8 in cool weather means 1 MW cooling electricity; COP 4 in hot weather means 2 MW. With 0.4 MW other demand, total draw rises from 9.4 to 10.4 MW against a 10 MW site limit. The controls illustrate that electricity constraint independently of heat-removal capacity. COP values are example operating points, not a universal cold/hot rule.
 
-## Heat reuse — Chapter 12, slide 15
+## Heat reuse — Chapter 12, slide 16
 
 The heat-reuse chart keeps the data center at 4 MW all day. A neighboring factory needs 2 MW for six hours or is closed that day. It is the heat customer's demand that changes, not the data center's operating hours. Remaining heat still needs another rejection path.
 
-## Toronto's deep lake cooling — Chapter 12, slides 16–18
+## Toronto's deep lake cooling — Chapter 12, slides 17–19
 
 1. **The architecture.** Cold Lake Ontario water enters Toronto's drinking-water system. At John Street, heat exchangers transfer heat from a separate, recirculating district loop into that potable flow. The district loop carries building heat; lake water does not circulate through server racks. The 151 Front Street photograph establishes the carrier hotel's physical setting. Enwave's current description explains the architecture, not the precise equipment inventory in July 2013.
 2. **The interruption.** On July 8, 2013, flooding disabled electrical infrastructure in Toronto. The contemporary PEER1 statement says the building's backup generators operated while its external cooling provider had power problems. Point at the two separate dependencies: electricity can reach the racks while their heat-removal path is unavailable. The source does not identify the exact failed pump or prove uninterrupted operation for every tenant.
@@ -301,7 +307,7 @@ The heat-reuse chart keeps the data center at 4 MW all day. A neighboring factor
 
 Sources: [Enwave / Toronto Water](https://www.enwave.com/case-studies/enwave-and-toronto-water-tap-into-innovative-energy-source), [Hydro One, July 8, 2013](https://www.newswire.ca/news-releases/hydro-one-power-outages-due-to-heavy-rains-512697891.html), [contemporary PEER1 account](https://www.datacenterknowledge.com/outages/toronto-flooding-kos-data-center-cooling-systems), [Uberflip CTO's July 9 report](https://seclists.org/nanog/2013/Jul/130).
 
-## Operating dependencies — Chapter 12, slide 19
+## Operating dependencies — Chapter 12, slide 20
 
 Dry, non-evaporative rejection needs electricity. A wet cooling tower needs electricity and ongoing water. Initial fill is outside this comparison.
 
@@ -367,7 +373,7 @@ Source: [Google DeepMind, August 2018](https://deepmind.google/blog/safety-first
 - The preceding 1 MW spare capacity is an illustrative choice, not a universal margin. Capacity reserve (MW), redundancy after an equipment failure and thermal storage (energy, with a finite duration) answer different questions.
 - Johnson Controls’ Metasys sequence uses an 80% stage-up threshold for all-positive-displacement stages and 90% when constant-speed centrifugal chillers govern the stated condition. Variable-speed centrifugal thresholds vary with operating lift. Time, trend and failsafe conditions also apply; the graph shows thresholds, not an assured 10–20% reserve or a rule for every data center.
 - Intel’s historical case used two 24,000-US-gallon tanks at 42°F (5.6°C). The twelve-minute design interval comes from five minutes of full-load UPS runtime plus seven extra minutes of cooling. In the actual late-2006 event, lightly loaded servers ran over fifteen minutes and the tanks maintained cooling, then absorbed residual heat. Backed-up pumps and fans made the stored cooling usable.
-- Spare capacity after restart also permits removal of heat accumulated during an interruption. A site chooses its operating margin around credible load changes, starting time, equipment performance at the current weather, local delivery limits and required failure tolerance.
+- Three inputs set the operating margin: demand (expected load and ramp), usable capacity (weather, local flow and the required failure case), and response time (startup delay versus thermal-buffer duration). Spare MW is usable capacity minus demand. Stored cooling buys time while additional equipment starts; spare capacity after restart can remove accumulated heat.
 
 Sources: [Johnson Controls staging threshold](https://docs.johnsoncontrols.com/bas/r/Metasys/en-US/Chilled-Water-Plant-for-Guideline-36-Application-Note/1.0/Chiller-sequence-of-operations/Chiller-and-waterside-economizer-staging-determination-5.20.1-15/Stage-Up-Part-Load-Ratio-SPLRUP), [stage-up conditions](https://docs.johnsoncontrols.com/bas/r/Metasys/en-US/Chilled-Water-Plant-for-Guideline-36-Application-Note/1.0/Chiller-sequence-of-operations/Chiller-and-waterside-economizer-staging-determination-5.20.1-15/Stage-up-efficiency-condition), [Intel IT thermal storage](https://www.intel.com/content/dam/doc/white-paper/intel-it-thermal-storage-system-provides-emergency-data-center-cooling-paper.pdf), [Schneider reserve-cooling guidance](https://blog.se.com/datacenter/2013/02/11/4-tips-for-keeping-your-it-equipment-cool-during-when-the-power-goes-out/).
 

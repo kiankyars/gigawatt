@@ -771,3 +771,7 @@ Inserted the supplied image unchanged, without an added title, immediately befor
 Added an exact-title SemiAnalysis quotation slide immediately before `abilene-ledger`, with the June 18, 2026 article linked at the bottom. Removed the table’s smaller gray source/date labels and folded them into the three source links. March 2025 identifies the original plan; September 2025 identifies the first-phase report; September 2026 identifies Oracle’s delivery update. Preserved the table’s milestone comparison and all existing bookmarks. Chapter 15 now has 18 slides.
 
 Independent source review also clarified that Oracle’s 75% delivery figure covers total campus capacity, not just the six-building expansion; the comparison now states that scope explicitly.
+
+### Cooling margin, adiabatic reveal and circuit clarification — 19 September 2026
+
+Condensed the operating-margin inputs on Chapter 14’s `chiller-staging` slide into three bullets: demand, usable capacity and response time. The explanation distinguishes spare MW from stored thermal energy and preserves the manufacturer’s 80%/90% efficiency-staging thresholds. Chapter 12 now separates the nitrous-boost image into a title-free transition between the dry-cooler temperature example and the adiabatic-assist diagram. Added a small water/glycol label to the non-numerical dry-cooler path. Updated review question 26 and speaker notes to distinguish a condenser-water loop from an optional waterside economizer, and to explain purpose-built compressor-off refrigerant circulation.
