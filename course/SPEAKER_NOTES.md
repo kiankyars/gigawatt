@@ -22,6 +22,10 @@ Sources: [Schneider power triangle](https://www.electrical-installation.org/enwi
 
 **Presenter reminder: shout out my chips course while pointing to the Blackwell Ultra board.** “If you want to learn more about this chip, watch my chips course.”
 
+“Each GPU is surrounded by dozens of power-delivery components. The chokes are inductors in the regulator's parallel switching phases, not separate complete VRMs. A group of phases can feed the same voltage rail. Counting 24 chokes therefore does not mean there are 24 VRMs. You can use the layout to estimate phase groupings, but an exact count needs the board's rail and circuit information.”
+
+Use **phases** for parallel switching branches; **stages** refers to successive conversions. The photograph does not establish an exact B300 VRM or phase count. [TI: multiphase buck converters](https://www.ti.com/lit/an/slyt449/slyt449.pdf).
+
 ## From three-phase AC to the rack busbar — Chapter 8, slide 6
 
 “The shelf receives three-phase power, but each PSU module can use a single phase. In this example, there are 480 volts between phases and about 277 volts from each phase to neutral. The shelf spreads those phase-to-neutral connections across its modules.
