@@ -753,3 +753,7 @@ Added the supplied nitrous-boost image alongside the existing adiabatic-assist d
 ### Llama 3 slide simplification — 19 September 2026
 
 Simplified Chapter 14 `llama-recovery` into two metric columns. Removed the generic Detect → Recover → Continue boxes and preserved all visible numbers: 54 days, 466 interruptions, 47 planned, 419 unexpected, more than 90% effective training time and three incidents requiring significant manual intervention. The existing hardware statistic remains in the speaker explanation. Verified desktop, mobile and light/dark layouts; navigation and slide order are unchanged.
+
+### Chapter 15 serving choices and customer examples — 19 September 2026
+
+Retitled slide 4 “There are two ways to skin the cat.” Replaced the responsibility matrix with two simple serving stacks and removed the bare-metal footer. Added slide 5, `service-examples`, with Anthropic–CoreWeave cloud capacity and Cursor–Fireworks managed Fast Apply inference, using company marks. The public Anthropic agreement does not disclose a bare-metal purchase or the detailed serving split; that limit and the distinction between a hypervisor and container orchestration are recorded in scene explanations, speaker notes and review question 46. All existing slide bookmarks remain. Desktop/mobile and light/dark layouts verified; Chapter 15 now has 16 slides.

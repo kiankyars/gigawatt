@@ -285,6 +285,8 @@ Yes: **the healthy Row C cannot take another 2.50 MW at its current flow**. It h
 
 No. Bare metal describes physical hardware access without a hypervisor layer. Managed describes who operates software. Kubernetes, Slurm or an inference service can be managed on bare-metal machines. CoreWeave explicitly runs Kubernetes directly on bare metal. [CoreWeave](https://www.coreweave.com/products/bare-metal)
 
+The revised slide compares **your team operating inference** with **CoreWeave operating inference**. Bare metal removes the VM/hypervisor layer; it does not remove container orchestration or require an unmanaged service. The following examples show Anthropic buying CoreWeave capacity and Cursor using Fireworks to serve its Fast Apply model. Anthropic’s announcement leaves the detailed serving split undisclosed. [CoreWeave serving choices](https://www.coreweave.com/products/dedicated-inference), [Anthropic agreement](https://www.coreweave.com/news/coreweave-announces-multi-year-agreement-with-anthropic), [Cursor case](https://fireworks.ai/blog/cursor).
+
 ### 47. What does Spot mean? Why offer one-, three- or five-year contracts?
 
 Spot refers to short-term capacity at the current price. Cloud Spot products such as AWS's also permit the provider to reclaim capacity; a short-term price quote alone does not establish that contractual right. AWS adjusts its Spot prices gradually, so “instantaneous price” is too strong. [AWS](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html)

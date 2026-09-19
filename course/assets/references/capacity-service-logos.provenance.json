@@ -1,0 +1,26 @@
+{
+  "retrieved_on": "2026-09-19",
+  "origin": "Company marks: official Fireworks and Cursor assets; Anthropic mark from the Simple Icons brand-icon collection (CC0).",
+  "usage": "Chapter 15 customer and inference provider examples",
+  "assets": [
+    {
+      "asset": "capacity-fireworks-logo.svg",
+      "source_url": "https://fireworks.ai/blog/cursor",
+      "asset_url": "https://cdn.sanity.io/images/pv37i0yn/production/46d329cfd46294a5986218e94752d5d283cbe16c-343x44.svg",
+      "sha256": "93e142bb8d0716f481749fe5d4641f9d09380d3bb32aaec682a5a68d6c5c8559"
+    },
+    {
+      "asset": "capacity-cursor-logo.svg",
+      "source_url": "https://cursor.com/brand",
+      "asset_url": "https://ptht05hbb1ssoooe.public.blob.vercel-storage.com/assets/brand/cursor-brand-assets.zip",
+      "archive_member": "General Logos/Lockup Horizontal/SVG/LOCKUP_HORIZONTAL_2D_LIGHT.svg",
+      "sha256": "f7a384d3d6e1875196aa770d2c8df58ceb79b1219e97b86e522dee83d3d9c6ac"
+    },
+    {
+      "asset": "capacity-anthropic-logo.svg",
+      "source_url": "https://github.com/simple-icons/simple-icons",
+      "asset_url": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/anthropic.svg",
+      "sha256": "1cc599f6ebce2016dc388cf84e54a52c6b13487655c7e243554d654c7bce1882"
+    }
+  ]
+}
