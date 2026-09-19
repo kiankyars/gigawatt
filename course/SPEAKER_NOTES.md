@@ -289,7 +289,7 @@ Refer back to the nitrous-boost image: turn on water-assisted precooling when dr
 
 This continues the preceding wet-tower example, with that route initially selected. A separating exchanger keeps facility water closed while tower water contacts outdoor air and evaporates. Switch to the dry cooler to revisit the preceding sealed-coil route. The water/glycol label identifies a possible mixture for freeze protection on this closed outdoor loop; it does not prescribe the fluid inside the rack. Neither diagram here includes refrigeration; the next slide introduces the chiller. Direct open tower water can serve other qualified heat-exchanger arrangements; water quality and the actual equipment interfaces determine suitability.
 
-## Chiller, economizer and COP — Chapter 12, slides 12–14
+## Chiller and economizer — Chapter 12, slides 12–13
 
 The compressor adds energy to the heat being moved. Ten megawatts collected plus two megawatts of compressor electricity becomes twelve megawatts outdoors. Pumps and fans are outside this particular compressor balance. It does not mean that direct outdoor cooling must remove less than 10 MW: when weather and equipment capacity permit, it can remove the entire load without a compressor.
 
@@ -297,17 +297,33 @@ Here the compressor handles refrigerant vapor. In an air-cooled chiller, facilit
 
 The fourth condenser-water circuit is in the serial heat path, not automatically a second route from facility water. A waterside economizer adds a compressor-bypassing cooling path when weather permits. A different option, refrigerant-side free cooling, circulates refrigerant with a pump or gravity while the compressor is off; it requires a design that supports this mode. The number of loops and the choice of economizer are separate decisions. Sources: [Trane free cooling](https://www.trane.com/commercial/north-america/us/en/about-us/newsroom/glossary/free-cooling.html), [Vertiv EconoPhase](https://www.vertiv.com/en-us/products-catalog/thermal-management/room-cooling/econophase-pumped-refrigerant-economizer/).
 
-The supplied economizer image follows immediately. It specifically illustrates water-side free cooling: its circulating fluid is water, not refrigerant. Compressor-off operation alone does not identify which type of economizer is used. It summarizes a functional heat path; “from racks” and “back to racks” do not mean every water circuit is shared. The COP slide then relates heat moved to cooling electricity. Keep the equipment boundary consistent when comparing COP values.
+The supplied economizer image follows immediately. It specifically illustrates water-side free cooling: its circulating fluid is water, not refrigerant. Compressor-off operation alone does not identify which type of economizer is used. It summarizes a functional heat path; “from racks” and “back to racks” do not mean every water circuit is shared.
 
-## Hot weather needs more cooling electricity — Chapter 12, slide 15
+## What connects after the facility loop? — Chapter 12, slide 14
+
+“Keep the rack side fixed: IT coolant transfers heat through the CDU into separate facility water. Now compare what happens after that. These arrows follow heat, not one fluid flowing through every box.”
+
+- **No chiller:** facility water sends heat to a dry cooler, or through a separating exchanger into a wet-tower circuit.
+- **Air-cooled chiller:** facility water heats the refrigerant at the evaporator; refrigerant rejects heat directly to outdoor air at the condenser.
+- **Water-cooled chiller:** refrigerant rejects heat into an additional condenser-water circuit, which serves a dry cooler or wet tower.
+
+The fourth circuit changes how the condenser rejects heat; it is not inherently redundant capacity. Economizing is a separate design feature: water-side free cooling bypasses refrigeration through a suitable outdoor heat-transfer path; refrigerant-side free cooling keeps refrigerant circulating without the compressor. Each needs compatible equipment and suitable temperatures. Adiabatic assist can precool air at a suitable dry coil, consuming water when active.
+
+Sources: [Trane chiller types](https://www.trane.com/commercial/north-america/us/en/about-us/newsroom/glossary/chillers.html), [Trane free cooling](https://www.trane.com/commercial/north-america/us/en/about-us/newsroom/glossary/free-cooling.html).
+
+## Cooling COP — Chapter 12, slide 15
+
+Relate heat moved to cooling electricity. Keep the equipment boundary consistent when comparing COP values.
+
+## Hot weather needs more cooling electricity — Chapter 12, slide 16
 
 At 8 MW computing, the example's COP 8 in cool weather means 1 MW cooling electricity; COP 4 in hot weather means 2 MW. With 0.4 MW other demand, total draw rises from 9.4 to 10.4 MW against a 10 MW site limit. The controls illustrate that electricity constraint independently of heat-removal capacity. COP values are example operating points, not a universal cold/hot rule.
 
-## Heat reuse — Chapter 12, slide 16
+## Heat reuse — Chapter 12, slide 17
 
 The heat-reuse chart keeps the data center at 4 MW all day. A neighboring factory needs 2 MW for six hours or is closed that day. It is the heat customer's demand that changes, not the data center's operating hours. Remaining heat still needs another rejection path.
 
-## Toronto's deep lake cooling — Chapter 12, slides 17–19
+## Toronto's deep lake cooling — Chapter 12, slides 18–20
 
 1. **The architecture.** Cold Lake Ontario water enters Toronto's drinking-water system. At John Street, heat exchangers transfer heat from a separate, recirculating district loop into that potable flow. The district loop carries building heat; lake water does not circulate through server racks. The 151 Front Street photograph establishes the carrier hotel's physical setting. Enwave's current description explains the architecture, not the precise equipment inventory in July 2013.
 2. **The interruption.** On July 8, 2013, flooding disabled electrical infrastructure in Toronto. The contemporary PEER1 statement says the building's backup generators operated while its external cooling provider had power problems. Point at the two separate dependencies: electricity can reach the racks while their heat-removal path is unavailable. The source does not identify the exact failed pump or prove uninterrupted operation for every tenant.
@@ -315,7 +331,7 @@ The heat-reuse chart keeps the data center at 4 MW all day. A neighboring factor
 
 Sources: [Enwave / Toronto Water](https://www.enwave.com/case-studies/enwave-and-toronto-water-tap-into-innovative-energy-source), [Hydro One, July 8, 2013](https://www.newswire.ca/news-releases/hydro-one-power-outages-due-to-heavy-rains-512697891.html), [contemporary PEER1 account](https://www.datacenterknowledge.com/outages/toronto-flooding-kos-data-center-cooling-systems), [Uberflip CTO's July 9 report](https://seclists.org/nanog/2013/Jul/130).
 
-## Operating dependencies — Chapter 12, slide 20
+## Operating dependencies — Chapter 12, slide 21
 
 Dry, non-evaporative rejection needs electricity. A wet cooling tower needs electricity and ongoing water. Initial fill is outside this comparison.
 
