@@ -793,3 +793,10 @@ Reduced `electricity-pass-through` to two choices under the existing question: f
 ### Compatible cooling layouts — 19 September 2026
 
 Added `cooling-layouts` immediately after the compressor-rest illustration, as Chapter 12 slide 14 of 21. One shared IT-coolant / CDU / facility-water heat path leads into three families: no chiller, air-cooled chiller and water-cooled chiller. Both dry-cooler and wet-tower routes are represented; the latter retains separation from the closed facility loop. The additional condenser-water circuit is distinct from an optional economizer bypass. A short line separates compressor-off operation from layout choice; equipment compatibility, refrigerant-side free cooling and the heat-versus-fluid distinction are explained in the notes. Trane and Vertiv provide the source evidence. Updated speaker-note numbering and checked 720p and mobile in light/dark themes. Existing slide bookmarks and the chapter's closing dependency slide remain intact.
+
+
+### B300 component explanation and thermal-resistance image — 19 September 2026
+
+Added the requested Chapter 8 B300 speaker note: visible chokes belong to parallel switching phases, and counting them does not establish the number of complete VRMs. Preserved the chips-course reminder and avoided an unsupported B300 phase count.
+
+Added the supplied thermal-resistance image unchanged as Chapter 11 slide 9, between heat flux and the existing chip-temperature comparison. The worked 100 W × 0.2°C/W = 20°C example gets a concise speaker note; subsequent Chapter 11 note numbers and the current chapter count are updated. Existing bookmarks remain. Verified the full image and navigation at 1280×720 and 390×844, including light/dark desktop layouts.

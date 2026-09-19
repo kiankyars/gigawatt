@@ -272,6 +272,7 @@ export function renderCoolingOpening(scene, compact = false) {
     case "capture-comparison": return compact ? comparisonCompact() : comparisonDesktop();
     case "rear-door-comparison": return rearDoorComparison(compact);
     case "immersion-photo": return immersion(compact);
+    case "thermal-resistance-photo": return {viewBox:"0 0 1448 1086",svg:'<image data-source-figure="thermal-resistance-user" href="../assets/references/thermal-resistance-user.png" x="0" y="0" width="1448" height="1086" preserveAspectRatio="xMidYMid meet"/>'};
     case "immersion-hardware": return {viewBox:"0 0 1160 653",svg:'<image data-equipment-photo="immersion-tank" href="../assets/references/immersion-tank-user.png" x="0" y="0" width="1160" height="653" preserveAspectRatio="xMidYMid meet"/>'};
     case "coldplate-photo": return compact ? coldPlateCompact() : coldPlateDesktop();
     case "abilene-photo": return abilenePhoto(compact);

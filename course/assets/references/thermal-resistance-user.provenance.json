@@ -1,0 +1,9 @@
+{
+  "asset": "thermal-resistance-user.png",
+  "origin": "User-supplied explanatory image, copied unchanged",
+  "source_file": "/var/folders/yz/12v1220n65l1n73qn10g98v00000gn/T/codex-clipboard-9740e5f1-f3f4-44aa-b39a-1f4c1a34c559.png",
+  "provided_on": "2026-09-19",
+  "usage": "Chapter 11 thermal-resistance example, immediately after heat flux",
+  "scope": "Illustrative steady 100 W chip-to-water heat path: 0.2 \u00b0C/W creates a 20 \u00b0C chip-to-water temperature difference. These values do not specify B300 hardware.",
+  "sha256": "b108160f740aea362bd65477ed93da4f0b2c50811b0cd33c7e441f3fec7530e8"
+}

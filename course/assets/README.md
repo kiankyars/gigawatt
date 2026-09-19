@@ -264,3 +264,12 @@ complete generation prompt.
 ## Supplied Open Rack example — 17 September 2026
 
 `references/ocp-rack-basics-user.png` preserves the image supplied through Downloads as `The-open-Compute-Project-Basics_Figure-3.png`. It follows the OCP coupling example in Chapter 13. The original publisher and rack generation have not been established; the slide does not identify it as a GB300 rack. Original bytes and SHA-256 are recorded in `references/provenance.json`.
+
+## Supplied thermal-resistance example — 19 September 2026
+
+`references/thermal-resistance-user.png` preserves the complete user-supplied PNG,
+including its formula and labels. Chapter 11 places it after heat flux and before
+the device-temperature comparison. The example links 100 W of heat flow through
+0.2°C/W to a 20°C chip-to-water temperature difference; it does not claim a
+specific GPU's operating values. Source attachment, scope and SHA-256 are recorded
+in `references/thermal-resistance-user.provenance.json`.

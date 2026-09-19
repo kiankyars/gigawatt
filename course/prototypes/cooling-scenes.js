@@ -58,6 +58,14 @@ const existing=[
     "pedagogical_role": "case-study"
   },
   {
+    "id": "thermal-resistance-example",
+    "label": "Thermal resistance",
+    "title": "Thermal resistance",
+    "kind": "thermal-resistance-photo",
+    "description": "The supplied illustration shows 100 W of heat flowing from a GPU at 50°C to water at 30°C across a thermal resistance of 0.2°C/W. The chip-to-water temperature difference is heat transfer rate multiplied by thermal resistance: 100 W × 0.2°C/W = 20°C. This compares chip and local water temperatures, not water inlet and outlet temperatures.",
+    "reference": "d10-local-thermal-paths"
+  },
+  {
     "id": "water-balance",
     "label": "Flow and temperature rise",
     "title": "More flow means less temperature rise",
@@ -107,6 +115,6 @@ const existing=[
   }
 ];
 const byId=new Map([...existing,...captureScenes].map(s=>[s.id,s]));
-export const scenes=["why-liquid","capture-options","cold-plate","abilene-coolant-distribution","capture-rear-door","capture-immersion","immersion-hardware","local-heat-flux","device-temperature","water-balance","pump-operating-point","approach","coolit-cdu","lost-flow","independent-cooling-paths","cooling-derating","cooling-response","cooling-retrofit"].map(id=>byId.get(id));
+export const scenes=["why-liquid","capture-options","cold-plate","abilene-coolant-distribution","capture-rear-door","capture-immersion","immersion-hardware","local-heat-flux","thermal-resistance-example","device-temperature","water-balance","pump-operating-point","approach","coolit-cdu","lost-flow","independent-cooling-paths","cooling-derating","cooling-response","cooling-retrofit"].map(id=>byId.get(id));
 // Preserve useful destinations for bookmarks to the removed standalone slides.
 export const sceneAliases={"rack-coolant-entry":"cold-plate","heat-path":"capture-options","capture-coldplates":"capture-options","crah-cdu":"capture-options","branch-flow":"pump-operating-point","coolant-interfaces":"cooling-retrofit"};

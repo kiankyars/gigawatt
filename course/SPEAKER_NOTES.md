@@ -181,19 +181,29 @@ A liquid-cooled rack can still put heat into its exhaust air. An RDHX captures t
 
 The supplied 2CRSi diagram is single-phase: the dielectric liquid stays liquid as it circulates through the exchanger. Two-phase immersion boils fluid at the hardware and condenses the vapor so liquid returns. The following supplied photograph shows actual immersion hardware; its operator and fluid were not supplied.
 
-## Heat flux and thermal resistance — Chapter 11, slides 8–9
+## Heat flux — Chapter 11, slide 8
 
 Heat flux is heat-transfer rate per unit area. Both devices generate 400 W; spread over 4 cm² that is 100 W/cm², while 1 cm² produces 400 W/cm². This compares the concentration of heat, not the total heat duty.
+
+## Thermal resistance — Chapter 11, slide 9
+
+[Slide: thermal-resistance example](prototypes/cooling-format.html?teach=1#thermal-resistance-example).
+
+“The GPU transfers 100 W to water at 30°C. With a chip-to-water thermal resistance of 0.2°C/W, it needs a 20°C temperature difference: 100 × 0.2 = 20. That puts the GPU at 50°C.”
+
+The 20°C is the temperature gap between chip and water, not the water's supply-to-return rise. The next slide uses a separate 400 W example to compare two thermal resistances.
+
+## Chip temperature — Chapter 11, slide 10
 
 Thermal resistance is the temperature difference required per watt along a specified heat-transfer path. Here it covers the chip-to-local-coolant path, in °C/W. The chip is warmer than the coolant: ΔT = T_chip − T_coolant = 400 W × thermal resistance. At 0.08°C/W the gap is 32°C and the chip reaches 67°C; at 0.12°C/W it is 48°C and the chip reaches 83°C. Both coolant temperatures are 35°C. This is a spatial temperature difference, not a time-dependent temperature decrease.
 
 Smaller area can make heat removal harder, but heat flux alone does not establish thermal resistance or chip temperature. The two resistance values are independent stipulated examples. Model: `deviceTemperature` in [cooling-capture-model.js](prototypes/cooling-capture-model.js).
 
-## Coolant flow — Chapter 11, slide 10
+## Coolant flow — Chapter 11, slide 11
 
 The steady-flow sensible heat balance relates carried heat to mass flow, heat capacity and supply-to-return temperature rise. Doubling flow halves that rise at fixed heat duty.
 
-## Coolant flow and the pump curve — Chapter 11, slide 11
+## Coolant flow and the pump curve — Chapter 11, slide 12
 
 [Slide: pump operating point](prototypes/cooling-format.html?teach=1#pump-operating-point).
 
@@ -233,7 +243,7 @@ Source for the mechanism: [Hydraulic Institute — Combined pump and system curv
 
 Calculation for the presenter: Δp_pump = 160 − 10q², Δp_normal = 30q² and Δp_higher-resistance = 70q², with q in L/s and Δp in kPa. Equating pump and circuit pressure differences gives q = 2 L/s for the normal circuit and q = √2 ≈ 1.41 L/s for the higher-resistance circuit: a 29.3% flow reduction. The vertical axis measures pressure added or lost around the circulation path, not absolute pressure at one point. Chapter 13 applies the same approximate quadratic relationship to the plumbing requirement. [KSB characteristic curves](https://www.ksb.com/en-global/centrifugal-pump-lexicon/article/characteristic-curve-1117926).
 
-## CDU approach compares two supply temperatures — Chapter 11, slide 12
+## CDU approach compares two supply temperatures — Chapter 11, slide 13
 
 At the same facility-water inlet temperature and heat duty, a lower approach gives more margin to the rack-coolant temperature limit. It is not an unconditional optimization rule: exchanger size, flow, pumping demand and cost also matter. [Vertiv CDU 121 application guide, thermal performance at 3°C, 5°C and 7°C approach](https://www.vertiv.com/490d59/globalassets/shared/vertiv-coolchip-cdu-121-application-and-planning-guide-sl-802762.pdf).
 
@@ -241,17 +251,17 @@ Facility water arrives at 30°C; separate coolant leaves for the chips at 35°C.
 
 A temperature difference of 5°C equals 5 K. Source: [NIST SI temperature units](https://www.nist.gov/pml/special-publication-330/sp-330-section-2).
 
-## CoolIT CHx2000 — Chapter 11, slide 13
+## CoolIT CHx2000 — Chapter 11, slide 14
 
 The manufacturer separately lists 2 MW at 5°C approach and 2,125 L/min at 35 psi. These are separately specified thermal and hydraulic points. The CHx2000 is a liquid-to-liquid CDU with pumps and a heat exchanger, not a refrigeration compressor. Source: [CoolIT CHx2000](https://www.coolitsystems.com/cdu-product/chx2000/).
 
-## Cooling redundancy and response — Chapter 11, slides 14–17
+## Cooling redundancy and response — Chapter 11, slides 15–18
 
 Distinguish spare CDU capacity from an independently supplied coolant path. The A/B example initially has both paths available. Losing a path reveals which racks retain cooling.
 
 The derating example starts with 1,000 kW entering coolant; two CDU failures leave 600 kW of cooling. Reducing the load to 500 kW leaves 100 kW margin. The following merged commissioning example tests that response: command the affected racks, then measure actual power, flow and temperature. Its trace is qualitative and does not establish a safe response time. Liquid heat is not automatically identical to the commanded electrical power cap.
 
-## Retrofit and residual air heat — Chapter 11, slide 18
+## Retrofit and residual air heat — Chapter 11, slide 19
 
 The cold plates collect 85 kW of a 100 kW rack's heat; 15 kW remains in air. That heat can use 15 kW of a 20 kW room-air allowance, or be captured by a suitable RDHX and sent into liquid. Only air heat escaping the rear door contributes to the room's remaining duty. The diagram assumes the door captures the illustrated 15 kW.
 
