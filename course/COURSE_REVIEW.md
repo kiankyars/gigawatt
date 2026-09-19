@@ -648,3 +648,11 @@ installed as a full-image slide. All received changes from this review are imple
 - [x] Approved three-slide Toronto case implemented at the end of Chapter 12.
 
 These additions are implemented and technically checked. Author acceptance remains separate from implementation; this record does not reopen unchanged accepted chapters.
+
+### Chapter 16 follow-up — 18 September 2026
+
+- [x] Slide 4: remove the Abilene selection and highlighted styling; preserve the choice reveal for slide 5.
+- [x] Slide 5: replace the repeated chiller plumbing diagram with Crusoe's concise water-management rationale. Attribute the cost claim without implying a disclosed financial comparison.
+- [x] Slide 7: replace the generic hyperscaler lease label with named Crusoe → Oracle → OpenAI roles and a separate campus-funding row.
+- [x] Explain water cost, electricity and maintenance tradeoffs in speaker notes and review answers.
+- Power triangle audit: present in Chapter 6 reading/notes, absent as a drawn slide. Recommended one concise slide after the beer analogy; not implemented without a decision to add it.

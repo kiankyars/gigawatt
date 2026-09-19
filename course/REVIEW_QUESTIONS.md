@@ -280,3 +280,17 @@ No. It can reduce the IT load that the cooling and electrical systems can sustai
 The former finale contained five separate engineering exercises. We agreed those repeated earlier material without providing a satisfying conclusion. The replacement follows **one real AI factory—Abilene—to connect workload, power, cooling, construction, financing and expansion**. The useful earlier exercises remain optional reading. [Abilene finale](https://kiankyars.github.io/gigawatt/slides/integrated-cases.html?teach=1#abilene-factory)
 
 Your approval covers the reviewed material in Chapters **1–13**. The newly authorized Clemente/VRM additions in Chapter 8 and Toronto additions in Chapter 12 await your review; unchanged material remains accepted. Chapters **14–16** remain awaiting your acceptance. The persistent record is [COURSE_REVIEW.md](COURSE_REVIEW.md).
+
+### 54. Have we taught the power triangle?
+
+Chapter 6's reading and notes contain it, but the active slides do not draw it. The beer analogy is followed by the real/apparent-power comparison and transformer-loading example. A concise triangle immediately after the beer image would add value: **900 kW real power**, **675 kvar reactive power**, **1,125 kVA apparent power**, and **PF = 0.8**. It corrects the impression that real and reactive power add arithmetically. This is a recommendation, not an added slide. The triangle assumes sinusoidal waveforms; harmonic distortion can also reduce true power factor. [Schneider explanation](https://www.electrical-installation.org/enwiki/Definition_of_reactive_power)
+
+### 55. Is the hyperscaler at Abilene Crusoe, Oracle or OpenAI?
+
+**Oracle.** Crusoe builds and operates the physical campus; Oracle supplies GPU cloud capacity; OpenAI runs training and inference on it. Campus financing involves Crusoe, Blue Owl and Primary Digital. The slide now names these roles instead of leaving “hyperscaler” unexplained. Crusoe explicitly calls Abilene purpose built for Oracle in its [June 2026 announcement](https://www.crusoe.ai/resources/newsroom/crusoes-contracted-ai-infrastructure-capacity-approaches-5-gigawatts-across-data-centers-and-cloud).
+
+### 56. Why accept higher cooling costs in water-constrained Texas?
+
+Crusoe says it chose the non-evaporative design to conserve water. Its discussion contrasts that choice with evaporative towers, but publishes no quantified comparison or water-price assumptions. We should not pretend to know its cost model. [Crusoe](https://www.crusoe.ai/resources/blog/an-inside-look-at-the-abilene-ai-data-center)
+
+A wet tower can reduce compressor electricity by enabling lower condensing temperatures, but needs makeup water, treatment and tower upkeep. Air-cooled chillers avoid that evaporative demand and tower maintenance, while often using more compressor electricity. Future water prices and supply restrictions could make the air-cooled choice more attractive financially; the published evidence does not establish the lifetime winner. **Air-cooled does not universally mean higher maintenance.** [Trane comparison](https://www.trane.com/commercial/north-america/canada/en/about-us/newsroom/blogs/air-vs-water-cooled-chillers.html)

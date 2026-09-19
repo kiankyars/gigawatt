@@ -32,3 +32,9 @@ The [2025 Impact Report](https://media.ffycdn.net/us/crusoe/PL5TuZz5apXB9pVsd3H1
 | `course/assets/references/finale-review-tulsa-assembly.webp` | Genuine Crusoe photograph of assembly cells at its second Tulsa manufacturing facility, published September 14, 2026 | Crusoe's Tulsa assembly floor · September 2026 |
 
 The assembly photo is a documented example of Crusoe's production process. The pictured individual enclosures are not specifically identified as the units shipped to Abilene, and the newly opened factory must not be presented as the factory that completed the first 2025 buildings. Pair its caption with the separately sourced cumulative Tulsa delivery figure. Both photographs are publisher originals downloaded unchanged; details and hashes are in `course/assets/references/finale-review-provenance.json`.
+
+## Follow-up review: named customer and limits of the cost comparison
+
+[Crusoe, June 9, 2026](https://www.crusoe.ai/resources/newsroom/crusoes-contracted-ai-infrastructure-capacity-approaches-5-gigawatts-across-data-centers-and-cloud) explicitly identifies the 1.2 GW Abilene campus as purpose built for Oracle among its projects contracted to hyperscale clients. This resolves the teaching identity: Oracle is the hyperscaler, Crusoe develops and operates the campus, and OpenAI uses Oracle compute. It does not disclose an exact legal lease entity or contract term.
+
+The cooling article's comparison with evaporative towers is contextual, not a published project cost model. It supplies no priced alternative, cost breakdown, water tariff or forecast. The slide therefore attributes Crusoe's water-management priority through a short quotation and removes the generic “higher overall cost” bar and repeated plumbing diagram. All three preceding cooling options remain unselected.
