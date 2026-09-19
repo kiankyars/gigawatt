@@ -69,7 +69,3 @@ footer{border-top:1px solid var(--line)}.sr-only{position:absolute;width:1px;hei
 #scene[data-scene=hot-hour] .h-hot-day-meme a{display:block;cursor:zoom-in}
 #scene[data-scene=hot-hour] .h-hot-day-meme img{display:block;width:100%;height:auto;border-radius:6px}
 @media(max-width:800px){#scene[data-scene=hot-hour] .h-hot-hour{grid-template-columns:minmax(0,1fr);gap:18px}#scene[data-scene=hot-hour] .h-hot-day-meme{width:120px;justify-self:end}}
-
-#scene[data-scene=adiabatic-assist] .h-adiabatic-boost{height:100%;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) clamp(220px,23vw,330px);gap:clamp(18px,2vw,30px);align-items:center}
-.h-adiabatic-boost .h-supplied-slide{min-width:0;min-height:0}.h-boost-meme{margin:0;min-width:0;align-self:end;padding-bottom:5%}.h-boost-meme a{display:block;cursor:zoom-in}.h-boost-meme img{display:block;width:100%;height:auto;border-radius:6px}
-@media(max-width:800px),(max-height:559px){#scene[data-scene=adiabatic-assist] .h-adiabatic-boost{height:auto;grid-template-columns:minmax(0,1fr);gap:22px}.h-boost-meme{width:min(75%,300px);justify-self:end;padding-bottom:0}}

@@ -31,7 +31,7 @@ test('heat reuse is limited by receiver power and hours',()=>{
  close(heatReuse({receiverMW:9,receiverHours:24}).acceptedMWh,96);assert.throws(()=>heatReuse({receiverHours:25}),RangeError);
 });
 test('chapter covers all D11 objectives and preserves original outdoor deep links',()=>{
- assert.equal(scenes.length,19);assert.equal(new Set(scenes.map(s=>s.id)).size,19);
+ assert.equal(scenes.length,20);assert.equal(new Set(scenes.map(s=>s.id)).size,20);
  for(const id of ['rejection','weather','approach-outdoors','plant-options'])assert.ok(scenes.some(s=>s.id===id));
  for(let i=1;i<=5;i++)assert.ok(scenes.some(s=>s.objective===`D11.${i}`));
  assert.equal(scenes.at(-1).id,'water-restriction');assert.ok(scenes.find(s=>s.id==='abilene-cooling').sources[0].includes('crusoe.ai'));
@@ -40,6 +40,8 @@ test('chapter covers all D11 objectives and preserves original outdoor deep link
  const ids=scenes.map(s=>s.id);
  assert.deepEqual(ids.slice(-4),['toronto-lake-cooling','toronto-cooling-outage','toronto-operator-response','water-restriction']);
  assert.equal(ids[ids.indexOf('rejection')+1],'water-ledger');
+ assert.deepEqual(ids.slice(ids.indexOf('approach-outdoors'),ids.indexOf('approach-outdoors')+3),['approach-outdoors','adiabatic-boost','adiabatic-assist']);
+ assert.equal(scenes.find(s=>s.id==='adiabatic-boost').imageOnly,true);
  assert.equal(ids[ids.indexOf('chiller-balance')+1],'plant-options');
  assert.equal(ids[ids.indexOf('approach-wet')+1],'closed-loop-water');
  assert.equal(initialState.closedSink,'tower');

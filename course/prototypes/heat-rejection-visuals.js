@@ -37,7 +37,8 @@ export function heatRejectionVisual(id, state, compact = false) {
   }
   if (id === 'cooling-cop') return stack(`${input('Whole cooling plant · pumps and fans included')}<div class="h-cop-picture"><div><div class="h-energy-blocks h-electricity"><i></i></div><p>1 unit of electricity</p></div>${arrow}<div><div class="h-energy-blocks">${'<i></i>'.repeat(4)}</div><p>4 units of heat moved</p></div></div><div class="h-cop-caption">Coefficient of performance: <b>COP 4</b></div>`);
   if (id === 'plant-options') return '<figure class="h-supplied-slide"><img src="../assets/references/economizer-mode-user.png" alt="Cool weather can let the compressor rest: warm water transfers heat to outdoor air and returns cool; economizer mode keeps fans and pumps on while the compressor is off."></figure>';
-  if (id === 'adiabatic-assist') return `<div class="h-adiabatic-boost"><figure class="h-supplied-slide"><img src="../assets/references/adiabatic-wetted-pad-user.png" alt="Adiabatic assist: makeup water wets a pad and evaporates, precooling incoming air. The cooler air passes over a dry coil and leaves warmer; coolant stays inside the tubes."></figure><figure class="h-boost-meme"><a href="../assets/references/adiabatic-nitrous-boost-user.png" target="_blank" rel="noopener" aria-label="Open the cooling-boost analogy full size"><img src="../assets/references/adiabatic-nitrous-boost-user.png" alt="A driver presses a nitrous-boost button in a racing game: an analogy for adding cooling assistance when needed."></a></figure></div>`;
+  if (id === 'adiabatic-boost') return `<figure class="h-supplied-slide"><img src="../assets/references/adiabatic-nitrous-boost-user.png" alt="A driver presses a nitrous-boost button in a racing game: an analogy for adding cooling assistance when needed."></figure>`;
+  if (id === 'adiabatic-assist') return `<figure class="h-supplied-slide"><img src="../assets/references/adiabatic-wetted-pad-user.png" alt="Adiabatic assist: makeup water wets a pad and evaporates, precooling incoming air. The cooler air passes over a dry coil and leaves warmer; coolant stays inside the tubes."></figure>`;
   if (id === 'hot-hour') {
     const p = operatingPoint({condition:state.condition, requestedITMW:state.requestedITMW});
     const weather = state.condition === 'cool' ? 'Cool' : 'Hot';
@@ -46,7 +47,7 @@ export function heatRejectionVisual(id, state, compact = false) {
   }
   if (id === 'closed-loop-water') {
     const tower = state.closedSink === 'tower';
-    return `<div class="h-flow">${node('Closed rack loop','Coolant recirculates','h-water')}${arrow}${node('Closed facility loop',tower ? 'Heat crosses a separating exchanger' : 'Water stays inside the outdoor coil','h-water')}${arrow}${node(tower ? 'Evaporatively cooled tower' : 'Dry cooler', tower ? 'Tower water contacts air and evaporates' : 'Outdoor air receives the heat','h-outdoors')}</div>`;
+    return `<div class="h-flow">${node('Closed rack loop','Coolant recirculates','h-water')}${arrow}${node('Closed facility loop',tower ? 'Heat crosses a separating exchanger' : 'Water / glycol stays in the coil','h-water')}${arrow}${node(tower ? 'Evaporatively cooled tower' : 'Dry cooler', tower ? 'Tower water contacts air and evaporates' : 'Outdoor air receives the heat','h-outdoors')}</div>`;
   }
   if (id === 'water-ledger') {
     const stage = state.mineralStage, refill = stage === 'refill', purge = stage === 'purge';
