@@ -2420,3 +2420,9 @@ All 17 cooling/capture tests pass. Course, expanded-reader and domain-map valida
 - Chapter 8 now has 18 slides and ends with battery recharge. Chapter 9 has 15 slides and ends with the power-stack map after the three-column architecture comparison.
 - The former Chapter 8 power-stack link redirects to Chapter 9 while retaining teaching mode. The final slide advances to Chapter 10 through shared navigation.
 - Validation: generated-course, expanded-course, domain-map and research checks passed; 80 Python tests and 297 JavaScript tests passed. Desktop (1440 × 900) and mobile (390 × 844) browser checks confirmed the edited image, slide counts, old-link redirect and next-chapter destination, with no page errors or horizontal overflow. Staged the local site and passed git diff --check.
+
+## Copper-comparison scope — 2026-09-18
+
+- Chapter 9 slide 2 explicitly limits the one-third copper reduction to the illustrated conductors; equal conductor geometry remains visible. Notes state the two-versus-three comparison and retain 480 V AC throughout the sequence.
+- Regenerated the sample teaching/reading/notes pages and Chapter 9 data from the authored presentation JSON.
+- All build/research checks, 80 Python tests and 297 JavaScript tests passed. Desktop (1440 × 900) and mobile (390 × 844) screenshots confirmed the title, equal geometry, 480 V/800 V labels and no horizontal overflow. Following current and loss slides also display 480 V AC and 800 V DC. No browser page errors.

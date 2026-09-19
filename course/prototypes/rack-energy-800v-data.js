@@ -147,20 +147,21 @@ export const samplePresentation = {
     },
     {
       "id": "conductor-copper",
-      "title": "Two DC conductors use one-third less copper than three equal AC conductors.",
+      "title": "One-third less copper in these conductors",
       "kind": "copper",
       "pedagogical_role": "comparison",
-      "headline": "Two DC conductors use one-third less copper than three equal AC conductors.",
+      "headline": "One-third less copper in these conductors",
       "duration_seconds": 45,
-      "cue": "Show three equal AC conductors beside two DC conductors, then continue to the non-obvious current comparison.",
+      "cue": "Compare the three 480 V AC conductors with the two 800 V DC conductors. Point to the equal-length and equal-cross-section condition before describing the one-third reduction.",
       "notes": [
         "Equal length, cross-section and copper material for every conductor.",
         "Copper mass ∝ conductor count × length × cross-section: two pieces versus three.",
-        "2/3 as much copper → 33.3% less; a material comparison.",
-        "Cable capacity unproven; equal effective resistance is a separate assumption."
+        "Two equal copper conductors instead of three: 2/3 as much copper, or one-third less in these conductors. This is not a claim about total facility copper.",
+        "Cable capacity unproven; equal effective resistance is a separate assumption.",
+        "Keep the AC baseline at 480 V line-to-line throughout this comparison and the following current and heat calculations; the DC baseline is 800 V."
       ],
       "explanation": [
-        "For equal conductor length L, cross-sectional area A and copper density, mass is proportional to count × L × A. Three AC conductors versus two DC conductors therefore gives a DC/AC copper ratio of 2/3: 33.3% less current-carrying conductor copper at the stated equal 100 kW load.",
+        "For equal conductor length L, cross-sectional area A and copper density, mass is proportional to count × L × A. Three 480 V AC phase conductors versus two 800 V DC conductors therefore gives a DC/AC copper ratio of 2/3: one-third less copper in the illustrated current-carrying conductors. Both paths deliver 100 kW; this does not describe all copper in the facility.",
         "This excludes protective earth, any neutral, insulation and terminations. It compares material quantity; it does not establish an ampacity-qualified installation. The later equal-effective-resistance heat calculation is a separate idealization.",
         "The ambition is more power with less material. This controlled comparison establishes the material arithmetic first; it does not yet establish safe additional power capacity."
       ]
