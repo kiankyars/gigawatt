@@ -45,4 +45,4 @@ The author’s requested title “A Hierarchy of Deals” names the facility, cl
 
 “A potential example of greenwashing?” is the author’s discussion title, not a substantiated finding of deception. Lack of a disclosed cost model prevents assessment of the claimed financial sacrifice. Gas generation is a separate emissions issue and does not negate a non-evaporative cooling design.
 
-The supplied conceptual finale illustration is installed after both existing photographic closing slides. Source TIFF and converted PNG hashes are in `finale-watts-to-tokens-user.provenance.json`.
+The supplied conceptual finale illustration follows the physical-scale recap. Following the author’s sequence review, the full-slide hall photograph has moved to Chapter 2, before the coolant-loop diagram. Source TIFF and converted PNG hashes are in `finale-watts-to-tokens-user.provenance.json`.

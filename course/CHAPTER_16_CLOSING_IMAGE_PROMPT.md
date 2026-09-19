@@ -1,6 +1,6 @@
 # Chapter 16 closing image
 
-Paste the following into ChatGPT image generation. This is a conceptual closing illustration; it is not intended to reproduce Abilene's actual layout. The user supplied the resulting illustration, now installed as the final slide. Both preceding photographic closing slides remain.
+Paste the following into ChatGPT image generation. This is a conceptual closing illustration; it is not intended to reproduce Abilene's actual layout. The user supplied the resulting illustration, now installed as the final slide. The physical-scale photographic recap precedes it. The full-slide data-hall photograph now introduces liquid cooling in Chapter 2.
 
 ## Prompt
 

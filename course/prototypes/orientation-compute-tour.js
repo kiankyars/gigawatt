@@ -369,12 +369,29 @@ function coolingPreview(compact) {
   return out;
 }
 
+function abileneDataHall(compact) {
+  const photo = compact
+    ? { x: 8, y: 12, w: 374, h: 238 }
+    : { x: 0, y: 0, w: 1160, h: 554 };
+  return `<image data-data-hall-image="abilene" href="../assets/references/finale-abilene-coolant-pipes.jpg"
+    x="${photo.x}" y="${photo.y}" width="${photo.w}" height="${photo.h}"
+    preserveAspectRatio="xMidYMid meet"/>
+    <a href="https://www.oracle.com/news/resources/abilene-campus/" target="_blank" rel="noopener">
+      ${text(compact ? 195 : 1150, compact ? 279 : 586, "Oracle · Abilene data hall", null, {
+        anchor: compact ? "middle" : "end",
+        size: compact ? 16 : 18,
+        color: "muted",
+      })}
+    </a>`;
+}
+
 export function renderComputeTour(id, state = {}, compact = false) {
   if (id === "network-preview" && state.networkView === "tpu")
     return `<g data-tour-scene="${id}" data-network-view="tpu">${renderTpuPreview(compact)}</g>`;
   const renderers = {
     "compute-scale": computeScale,
     "network-preview": networkPreview,
+    "abilene-data-hall": abileneDataHall,
     "cooling-preview": coolingPreview,
   };
   if (!renderers[id]) return "";

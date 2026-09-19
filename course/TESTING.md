@@ -2398,3 +2398,11 @@ The three cooling alternatives now have identical unselected styling. The next s
 ## Power-triangle sequence correction — 2026-09-18
 
 Moved the triangle to Chapter 6 slide25, immediately after the numerical power-factor comparison. The existing sequence test now verifies beer → comparison → triangle. Thirty scenes and all hashes remain; speaker notes and review answers use the new order. Scoped distribution tests pass. No visual rendering changed.
+
+
+## Finale speaking purpose and relocated hall photograph — 2026-09-18
+
+- Chapter 16 now has 10 scenes: physical-scale synthesis, then the final illustration. The retired `abilene-data-hall` hash resolves to the synthesis. All nine integrated-case tests pass, including the existing alias and first/last-navigation checks.
+- Chapter 2 now has 14 scenes. The uncropped Oracle Abilene hall photograph precedes the coolant-loop diagram. All nine orientation unit tests pass. Course, expanded-reader and domain-map checks pass.
+- Finale browser checks cover both remaining closing slides and the retired hash at 1280×720 and 390×844 in light/dark (12 states), with no runtime errors, horizontal overflow, broken images or desktop footer overlap. Visually reviewed the desktop recap and mobile final image.
+- The photo passes image, credit, geometry and navigation checks across desktop/mobile and light/dark. The broader orientation browser suite reports pre-existing geometry/legacy-alias failures, independently reproduced against the unchanged baseline; these are separate from the photo relocation.

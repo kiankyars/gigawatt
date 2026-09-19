@@ -302,3 +302,12 @@ Their involvement concerns the **physical data-center project**. Blue Owl-manage
 ### 58. Does the cooling claim establish greenwashing?
 
 The finale poses this as a discussion question. The design avoids evaporative water consumption, but Crusoe's article does not supply enough cost information to assess its claimed financial sacrifice. Water savings and commercial benefits can coexist. On-site gas creates a separate emissions question; it does not itself make the water-saving claim false. [Crusoe’s stated rationale](https://www.crusoe.ai/resources/blog/an-inside-look-at-the-abilene-ai-data-center)
+
+
+### 59. What should I say over the final slides, and where did the hall photograph go?
+
+Chapter 16 now ends with two slides. **Slide 9, “The data center is the machine,”** connects the three physical scales: GPU requirements determine rack interfaces, repeated racks require hall services, and those services require a campus and its investment. Point from the rack to the hall to the campus.
+
+**Slide 10, “From Watts to Tokens,”** is the final line: “We started with electricity at the site boundary. You can now follow it all the way to computation, and follow the heat back out. That is the physical system behind every token.” Pause on the image and finish.
+
+The full-slide Abilene photograph is now **Chapter 2, slide 10**, immediately before the coolant-loop diagram. Use it to show the physical pipes and hoses before tracing those systems schematically. The [speaker notes](SPEAKER_NOTES.md) include short scripts for all three views.

@@ -344,6 +344,12 @@
         #diagram {
           min-height: 510px;
         }
+        #viewer[data-hall-photo="true"] {
+          height: 100svh;
+        }
+        #viewer[data-hall-photo="true"] #diagram {
+          min-height: 0;
+        }
         footer {
           height: 62px;
         }
@@ -752,6 +758,17 @@
             "In the GB300 example, NVLink connects processors within the rack-scale system, while a cluster network connects systems. Storage and carrier connections serve other communication roles. Google TPU v4 provides a different concrete example: a pod has 64 blocks of 64 chips, totaling 4,096. Inter-chip interconnect (ICI) carries direct TPU-to-TPU communication. Optical circuit switches (OCSes) use MEMS mirrors to cross-connect optical ICI links between blocks, allowing the topology to be configured for a job and resources to be reallocated around failures. The simplified light path shows one link between two blocks; it omits most ports, mirrors, optics and the rest of the three-dimensional topology. Optical signals remain optical through the OCS; electrical conversion still occurs at the link endpoints. The photograph shows one eighth of the pod. This is the documented TPU v4 architecture, not a claim that all TPU generations use the same block or pod size. Multislice uses ICI within a slice and a separate data-center network (DCN) between slices. Google DeepMind’s Gemini 1.0 report provides an actual multi-data-center example: Gemini 1.0 Ultra, the largest model in Google’s original 2023 Gemini family, connects TPU v4 pods using intra- and inter-cluster networks, with model parallelism inside pods and data parallelism across them. This is a different network layer from the optical ICI links pictured here. These networks have different communication budgets, which the networking section examines.",
         },
         {
+          id: "abilene-data-hall",
+          label: "Inside a liquid-cooled hall",
+          title: "Inside a liquid-cooled data hall",
+          reference: "d10-cdu-interfaces",
+          visual: "compute-tour",
+          description:
+            "Oracle’s photograph inside Abilene shows rows of racks, overhead pipework and flexible hoses connected along the rows.",
+          explanation:
+            "Before simplifying cooling into a diagram, look at the physical distribution system inside Abilene. Large overhead pipes connect to flexible hoses, with repeated connections along each row. Liquid cooling means providing this infrastructure alongside the computers. The following diagram abstracts the rack loop, CDU and facility loop. The photograph does not identify each fluid boundary, a hidden CDU or a rear-door heat exchanger; do not assign those functions to individual photographed parts without further evidence.",
+        },
+        {
           id: "cooling-preview",
           label: "Heat to outdoors",
           title:
@@ -827,7 +844,9 @@
       function draw() {
         const s = scenes[index],
           compact = matchMedia("(max-width:600px)").matches;
-        const photoView = s.id === "white-grey" && state.spaceView === "photo";
+        const photoView = s.id === "abilene-data-hall" ||
+          (s.id === "white-grey" && state.spaceView === "photo");
+        $("viewer").dataset.hallPhoto = String(s.id === "abilene-data-hall");
         $("diagram").dataset.photoView = String(photoView);
         $("diagram").setAttribute(
           "viewBox",

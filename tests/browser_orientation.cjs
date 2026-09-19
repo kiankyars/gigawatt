@@ -16,6 +16,7 @@ const scenes = [
   { id: "rack-boundary", setting: "rackView", values: ["front", "rear"] },
   { id: "compute-scale", values: [null] },
   { id: "network-preview", setting: "networkView", values: ["campus", "tpu"] },
+  { id: "abilene-data-hall", values: [null] },
   { id: "cooling-preview", values: [null] },
   { id: "facility-meter", setting: "boundary", values: ["it", "facility"] },
   { id: "power-energy", setting: "schedule", values: ["stepped", "flat"] },
@@ -180,6 +181,17 @@ async function checkQuantities(page, id, value) {
       assert.match(content, /GRAY SPACE|GREY SPACE/);
       assert.equal(await page.locator("[data-data-hall-image]").count(), 0);
     }
+  }
+  if (id === "abilene-data-hall") {
+    assert.match(content, /Oracle · Abilene data hall/);
+    assert.equal(await page.locator("#diagram").getAttribute("data-photo-view"), "true");
+    const image = page.locator('[data-data-hall-image="abilene"]');
+    const source = await image.getAttribute("href");
+    assert.match(source, /finale-abilene-coolant-pipes\.jpg$/);
+    const response = await page.request.get(new URL(source, page.url()).href);
+    assert.equal(response.status(), 200, "The local Abilene photograph loads");
+    assert.equal(await page.locator('#diagram a').getAttribute('href'),
+      'https://www.oracle.com/news/resources/abilene-campus/');
   }
   if (id === "rack-boundary") {
     if (value === "front") {
