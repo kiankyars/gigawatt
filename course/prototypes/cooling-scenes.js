@@ -62,7 +62,7 @@ const existing=[
     "label": "Thermal resistance",
     "title": "Thermal resistance",
     "kind": "thermal-resistance-photo",
-    "description": "The supplied illustration shows 100 W of heat flowing from a GPU at 50°C to water at 30°C across a thermal resistance of 0.2°C/W. The chip-to-water temperature difference is heat transfer rate multiplied by thermal resistance: 100 W × 0.2°C/W = 20°C. This compares chip and local water temperatures, not water inlet and outlet temperatures.",
+    "description": "P denotes heat rate in watts; Rθ denotes thermal resistance in °C/W. The supplied illustration shows 100 W of heat flowing from a GPU at 50°C to water at 30°C across a thermal resistance of 0.2°C/W. The chip-to-water temperature difference is heat transfer rate multiplied by thermal resistance: 100 W × 0.2°C/W = 20°C. This compares chip and local water temperatures, not water inlet and outlet temperatures.",
     "reference": "d10-local-thermal-paths"
   },
   {

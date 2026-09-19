@@ -267,12 +267,25 @@ function abilenePhoto(compact) {
   };
 }
 
+function thermalResistance(compact) {
+  const width = compact ? 420 : 1448;
+  const height = compact ? 315 : 1086;
+  const x = compact ? 210 : 1500;
+  const anchor = compact ? "middle" : "start";
+  return {
+    viewBox: compact ? "0 0 420 405" : "0 0 2200 1086",
+    svg: `<image data-source-figure="thermal-resistance-user" href="../assets/references/thermal-resistance-user.png" x="0" y="0" width="${width}" height="${height}" preserveAspectRatio="xMidYMid meet"/>`
+      + label(x, compact ? 352 : 490, "P = heat rate (W)", compact ? 21 : 42, "ink", anchor, 400)
+      + label(x, compact ? 389 : 566, 'R<tspan baseline-shift="sub" font-size="65%">θ</tspan> = thermal resistance (°C/W)', compact ? 21 : 42, "ink", anchor, 400),
+  };
+}
+
 export function renderCoolingOpening(scene, compact = false) {
   switch (scene.kind) {
     case "capture-comparison": return compact ? comparisonCompact() : comparisonDesktop();
     case "rear-door-comparison": return rearDoorComparison(compact);
     case "immersion-photo": return immersion(compact);
-    case "thermal-resistance-photo": return {viewBox:"0 0 1448 1086",svg:'<image data-source-figure="thermal-resistance-user" href="../assets/references/thermal-resistance-user.png" x="0" y="0" width="1448" height="1086" preserveAspectRatio="xMidYMid meet"/>'};
+    case "thermal-resistance-photo": return thermalResistance(compact);
     case "immersion-hardware": return {viewBox:"0 0 1160 653",svg:'<image data-equipment-photo="immersion-tank" href="../assets/references/immersion-tank-user.png" x="0" y="0" width="1160" height="653" preserveAspectRatio="xMidYMid meet"/>'};
     case "coldplate-photo": return compact ? coldPlateCompact() : coldPlateDesktop();
     case "abilene-photo": return abilenePhoto(compact);
