@@ -279,11 +279,11 @@ No. It can reduce the IT load that the cooling and electrical systems can sustai
 
 The former finale contained five separate engineering exercises. We agreed those repeated earlier material without providing a satisfying conclusion. The replacement follows **one real AI factory—Abilene—to connect workload, power, cooling, construction, financing and expansion**. The useful earlier exercises remain optional reading. [Abilene finale](https://kiankyars.github.io/gigawatt/slides/integrated-cases.html?teach=1#abilene-factory)
 
-Your approval covers the reviewed material in Chapters **1–13**. The newly authorized Clemente/VRM additions in Chapter 8 and Toronto additions in Chapter 12 await your review; unchanged material remains accepted. Chapters **14–16** remain awaiting your acceptance. The persistent record is [COURSE_REVIEW.md](COURSE_REVIEW.md).
+Your approval covers the reviewed material in Chapters **1–13**. The subsequently authorized power triangle in Chapter 6, Clemente/VRM additions in Chapter 8 and Toronto additions in Chapter 12 await your review; unchanged material remains accepted. Chapters **14–16** remain awaiting your acceptance. The persistent record is [COURSE_REVIEW.md](COURSE_REVIEW.md).
 
 ### 54. Have we taught the power triangle?
 
-Chapter 6's reading and notes contain it, but the active slides do not draw it. The beer analogy is followed by the real/apparent-power comparison and transformer-loading example. A concise triangle immediately after the beer image would add value: **900 kW real power**, **675 kvar reactive power**, **1,125 kVA apparent power**, and **PF = 0.8**. It corrects the impression that real and reactive power add arithmetically. This is a recommendation, not an added slide. The triangle assumes sinusoidal waveforms; harmonic distortion can also reduce true power factor. [Schneider explanation](https://www.electrical-installation.org/enwiki/Definition_of_reactive_power)
+Yes. Following your authorization, **Chapter 6 slide 24** now draws the triangle immediately after the beer analogy: **900 kW real power**, **675 kvar reactive power**, **1,125 kVA apparent power**, and **PF = 0.8**. This corrects the impression that real and reactive power add arithmetically. The example assumes sinusoidal waveforms; harmonic distortion can also reduce true power factor. [Slide](https://kiankyars.github.io/gigawatt/slides/distribution.html?teach=1#power-triangle) · [Schneider explanation](https://www.electrical-installation.org/enwiki/Definition_of_reactive_power)
 
 ### 55. Is the hyperscaler at Abilene Crusoe, Oracle or OpenAI?
 
@@ -294,3 +294,11 @@ Chapter 6's reading and notes contain it, but the active slides do not draw it. 
 Crusoe says it chose the non-evaporative design to conserve water. Its discussion contrasts that choice with evaporative towers, but publishes no quantified comparison or water-price assumptions. We should not pretend to know its cost model. [Crusoe](https://www.crusoe.ai/resources/blog/an-inside-look-at-the-abilene-ai-data-center)
 
 A wet tower can reduce compressor electricity by enabling lower condensing temperatures, but needs makeup water, treatment and tower upkeep. Air-cooled chillers avoid that evaporative demand and tower maintenance, while often using more compressor electricity. Future water prices and supply restrictions could make the air-cooled choice more attractive financially; the published evidence does not establish the lifetime winner. **Air-cooled does not universally mean higher maintenance.** [Trane comparison](https://www.trane.com/commercial/north-america/canada/en/about-us/newsroom/blogs/air-vs-water-cooled-chillers.html)
+
+### 57. What do Blue Owl and Primary Digital get from Abilene?
+
+Their involvement concerns the **physical data-center project**. Blue Owl-managed funds supply institutional capital. Primary Digital helps sponsor and structure the deal; the first-phase legal announcement also identifies its facilitating/advisory role. The commercial attraction is a facility backed by a long-term tenant lease: rental cash flow and property value support investment returns. Crusoe contributes development and operating capability while recycling capital into further projects. The announcements do not disclose each party's ownership share, cash contribution, fees or target return. [Crusoe](https://www.crusoe.ai/resources/newsroom/crusoe-blue-owl-capital-primary-digital-joint-venture) · [Kirkland transaction account](https://www.kirkland.com/news/press-release/2025/01/kirkland-ellis-advises-bo-funds-on-jv-and-financing-for-development-of-adc)
+
+### 58. Does the cooling claim establish greenwashing?
+
+The finale poses this as a discussion question. The design avoids evaporative water consumption, but Crusoe's article does not supply enough cost information to assess its claimed financial sacrifice. Water savings and commercial benefits can coexist. On-site gas creates a separate emissions question; it does not itself make the water-saving claim false. [Crusoe’s stated rationale](https://www.crusoe.ai/resources/blog/an-inside-look-at-the-abilene-ai-data-center)

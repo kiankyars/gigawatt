@@ -2385,3 +2385,12 @@ The complete publication checks passed: 80 Python tests, 296 JavaScript tests, c
 ## Chapter 16 cooling reveal and named company roles — 2026-09-18
 
 The three cooling alternatives now have identical unselected styling. The next scene replaces the repeated chiller diagram with Crusoe's water-management rationale. The finance scene names Crusoe, Oracle and OpenAI and separates campus funding. Verified nine integrated-case tests, all existing hashes and the unchanged ten-scene count. Captured all three revised scenes at 1280×720 and 390×844 in light/dark modes (12 states): no JavaScript errors, unloaded images, horizontal overflow or desktop footer overlap. Visually reviewed the three desktop layouts and mobile company-role layout. Cost assumptions and source scope are recorded in speaker notes and the evidence ledger. The power-triangle audit is a recommendation only; Chapter 6 slides are unchanged.
+
+## Power triangle, supplied figures and closing order — 2026-09-18
+
+- Chapter 6: new slide 24/30, `power-triangle`, follows the beer analogy. Exact geometry and values: P=900 kW, Q=675 kvar, S=1,125 kVA. Desktop/mobile light/dark renders and adjacent navigation checked independently.
+- Chapter 12: Toronto occupies16–18; the resource-dependency comparison is19/19. Browser navigation verified through the last slide to Chapter 13. Existing hashes retained.
+- Chapter 8: supplied Clemente image displayed with only its original OCP citation; no duplicate HTML title. The full image remains uncropped.
+- Chapter 16: author-specified greenwashing question, “A Hierarchy of Deals,” concise investor-return line, and supplied conceptual final illustration. Both previous photographic closing slides remain; total11 slides.
+- **297 JavaScript tests passed.** Course, expanded reader, domain-map and research validation passed. Images/finale QA covered24 states at1280×720 and390×844 in light/dark without runtime errors, horizontal overflow, broken/zero-size images or desktop footer overlap. Independently checked the new triangle and Chapter 12 final handoff.
+- Speaker notes, question compilation and acceptance tracker updated; these changes do not imply new author approval of the complete chapters.
