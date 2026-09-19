@@ -38,7 +38,7 @@ This is the TPU v4 inter-chip network. Google’s Multislice documentation separ
 
 ## Diagnose a link that stays connected
 
-The closing slide changes the evidence: after a cable move, one worker arrives late, its port reports rising retries, and other uplinks retain spare capacity. Trace that worker’s adapter, cable, connectors and switch port before adding general fabric bandwidth. Correlate the link counters with rank timing, localize the affected segment and verify the collective after the repair. A connected link can deliver poor payload service, so link-up status alone does not resolve the diagnosis.
+For a physical-link diagnosis, consider this evidence: after a cable move, one worker arrives late, its port reports rising retries, and other uplinks retain spare capacity. Trace that worker’s adapter, cable, connectors and switch port before adding general fabric bandwidth. Correlate the link counters with rank timing, localize the affected segment and verify the collective after the repair. A connected link can deliver poor payload service, so link-up status alone does not resolve the diagnosis.
 
 ## Worked example: Four workers perform a ring all-reduce
 

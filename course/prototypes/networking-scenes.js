@@ -1,14 +1,14 @@
 export const learningContract = Object.freeze({
  driving_question: 'What lets several AI racks advance one model together?',
  fixed_boundary: 'GB300 rack scale-up is the starting point. The fabric calculations hold sixteen 400 Gb/s endpoint links fixed.',
- changed_variable: 'Uplink capacity, traffic placement, shared queues, fiber distance and the condition of a physical link.',
+ changed_variable: 'Uplink capacity, traffic placement, shared queues, fiber distance and transfer completion times.',
  primary_payoff: 'Trace a workload delay to the physical link or shared resource that constrains it.',
  misconception: 'A fast endpoint port or a healthy accelerator count establishes fast distributed training.',
- closing_question: 'Which measurement distinguishes a moved-link fault from shared-fabric congestion?',
+ closing_question: 'When can the next step begin if it needs all four transfers?',
 });
 const topology='d08-topology-budget',collective='d08-collective-progress',media='d08-copper-light-service';
 const c=(key,label,options)=>({key,label,options});
-export const initialState={uplinks:2,placement:'remote',ocsPairing:'straight',diagnosis:'',superfactoryView:'overview'};
+export const initialState={uplinks:2,placement:'remote',ocsPairing:'straight',superfactoryView:'overview'};
 export const scenes=[
  {id:'networking-purpose',label:'Networking and interconnects',title:'Networking and interconnects',reference:topology,pedagogical_role:'problem'},
  {id:'consumer-hardware-meme',label:'AI demand and consumer hardware',title:'AI demand and consumer hardware',reference:topology,pedagogical_role:'hook',imageOnly:true},
@@ -29,7 +29,7 @@ export const scenes=[
  {id:'optical-circuits',label:'Google TPU v4: optical routing',title:'An optical circuit switch changes which fiber endpoints connect.',reference:media,pedagogical_role:'mechanism',controls:[c('ocsPairing','Circuit configuration',[['straight','A ↔ C · B ↔ D'],['crossed','A ↔ D · B ↔ C']])]},
  {id:'campus-fiber',imageOnly:true,label:'From the cluster to a carrier',title:'The campus fiber handoff connects the cluster to an external service.',reference:topology,pedagogical_role:'architecture'},
  {id:'distance-latency',label:'Distance remains in the budget',title:'100 km of fiber adds a 1 ms round trip.',reference:topology,pedagogical_role:'balance'},
- {id:'network-diagnosis',label:'Find the delayed link',title:'One server is slow. Where would you check first?',reference:collective,pedagogical_role:'transfer'},
+ {id:'network-diagnosis',label:'The slowest server sets the pace',title:'The slowest server sets the pace',reference:collective,pedagogical_role:'transfer'},
  {id:'meta-rsc',label:'Meta Research SuperCluster',title:'Meta built storage in tiers to keep GPUs supplied',reference:'d09-storage-paths',pedagogical_role:'case'},
 ];
 export function resolveNetworkingScene(hash){

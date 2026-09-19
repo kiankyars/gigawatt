@@ -158,6 +158,12 @@ The facility needs space for this handoff and planned fiber entrances and ducts,
 
 Sources: [Equinix Cross Connect documentation](https://docs.equinix.com/cross-connect/).
 
+## The slowest server sets the pace — Chapter 10, slide 20
+
+<!-- speaker: networking#network-diagnosis -->
+
+These are transfer completion times from the same start, not ping latencies. The next step needs all four results, so the first three servers wait for server 4 to finish at 50 ms. Speeding up the first three alone will not shorten that wait. Unrelated work can still proceed.
+
 ## Meta built storage in tiers to keep GPUs supplied — Chapter 10, slide 21
 
 <!-- speaker: networking#meta-rsc -->

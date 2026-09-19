@@ -136,18 +136,22 @@
 
 .diagnosis-result{display:grid;grid-template-columns:180px 1fr;gap:24px;align-items:center;min-height:64px}.diagnosis-case .diagnosis-response{min-height:0;max-width:none;width:100%;text-align:left}.diagnosis-case .diagnosis-options h2{margin-bottom:12px!important}@media(max-height:740px) and (min-width:601px){.diagnosis-evidence h2{margin-bottom:10px!important}.diagnosis-arrival{margin-top:8px}.diagnosis-arrivals>p{padding-top:8px}.diagnosis-case .diagnosis-options button{padding:12px 15px}.diagnosis-result{gap:18px}}@media(max-width:600px){.diagnosis-result{grid-template-columns:1fr;gap:18px}.diagnosis-case .diagnosis-response:empty{display:none}}
 
-/* Each server link and the shared uplink expose their own measurements. */
-.diagnosis-simple{display:flex;flex-direction:column;gap:24px}
-.diagnosis-context{text-align:center;font-size:21px;color:var(--muted)}
-.diagnosis-map{display:grid;grid-template-columns:1.2fr .85fr 1fr;grid-template-rows:repeat(4,1fr);gap:16px 80px;align-items:center;padding:4px 0}
-.diagnosis-switch{grid-column:2;grid-row:1/5;align-self:stretch;display:flex;align-items:center;justify-content:center;border:2px solid var(--teal);border-radius:10px;font-size:26px;background:var(--surface-soft);text-align:center;padding:18px}
-.diagnosis-check{position:relative;display:flex;justify-content:center;align-items:center;gap:25px;padding:18px;font-size:23px;line-height:1.3;border:2px solid var(--teal);border-radius:10px}
-.diagnosis-check b{font-weight:500}.diagnosis-check span{font-size:26px}.diagnosis-server-choice{grid-column:1;justify-content:space-between}.diagnosis-uplink{grid-column:3;grid-row:1/5;min-height:78px}
-.diagnosis-server-choice::after{content:"";position:absolute;top:50%;left:100%;width:82px;height:3px;background:var(--teal)}.diagnosis-uplink::before{content:"";position:absolute;top:50%;right:100%;width:82px;height:3px;background:var(--teal)}
-.diagnosis-finding{min-height:65px;text-align:center;font-size:24px;display:flex;align-items:center;justify-content:center}
-@media(max-height:740px) and (min-width:601px){.diagnosis-simple{gap:15px}.diagnosis-map{gap:12px 65px}.diagnosis-check{padding:13px 18px;font-size:21px}.diagnosis-check span{font-size:24px}.diagnosis-server-choice::after,.diagnosis-uplink::before{width:67px}.diagnosis-finding{font-size:22px;min-height:64px}}
-@media(max-width:900px) and (min-width:601px){.diagnosis-map{gap:12px 35px}.diagnosis-check{gap:15px;padding:14px;font-size:20px}.diagnosis-check span{font-size:23px}.diagnosis-switch{font-size:23px}.diagnosis-server-choice::after,.diagnosis-uplink::before{width:37px}}
-@media(max-width:600px){.diagnosis-simple{gap:20px}.diagnosis-map{grid-template-columns:1.4fr 1fr;grid-template-rows:repeat(4,auto) auto;gap:16px 30px}.diagnosis-check{font-size:19px;gap:12px;padding:16px 12px}.diagnosis-check span{font-size:21px;white-space:nowrap}.diagnosis-switch{font-size:22px;padding:12px}.diagnosis-server-choice::after{width:32px}.diagnosis-uplink{grid-column:2;grid-row:5;margin-top:14px;min-height:80px}.diagnosis-uplink::before{right:auto;top:auto;bottom:100%;width:3px;height:32px}.diagnosis-finding{font-size:21px;text-align:left;min-height:122px}}
+/* A shared time scale makes the wait for the final transfer visible. */
+.straggler-example{display:flex;flex-direction:column;gap:30px}
+.straggler-context{text-align:center;font-size:24px;color:var(--muted)}
+.straggler-timeline{display:grid;gap:24px}
+.straggler-axis{display:flex;justify-content:space-between;margin-left:150px;font-size:20px;color:var(--muted)}
+.straggler-row{display:grid;grid-template-columns:125px minmax(0,1fr);gap:25px;align-items:center}
+.straggler-row>b{font-size:25px;font-weight:500}
+.straggler-track{display:flex;min-height:65px;border-right:3px solid var(--amber)}
+.straggler-transfer,.straggler-wait{display:flex;align-items:center;justify-content:center;font-size:26px;padding:12px}
+.straggler-transfer{background:var(--teal);color:var(--on-action);border-radius:7px 0 0 7px;flex:none}
+.straggler-slow{background:var(--amber)}
+.straggler-wait{flex:1;min-width:0;background:var(--surface-soft);color:var(--muted);border-block:1px dashed var(--line)}
+.straggler-result{text-align:right;font-size:30px}
+.straggler-result strong{font-size:44px;font-weight:500;color:var(--amber);margin-left:8px}
+@media(max-height:740px) and (min-width:601px){.straggler-example{gap:20px}.straggler-timeline{gap:18px}.straggler-track{min-height:56px}}
+@media(max-width:600px){.straggler-example{gap:25px}.straggler-context{font-size:21px}.straggler-timeline{gap:22px}.straggler-axis{margin-left:93px;font-size:17px}.straggler-row{grid-template-columns:80px minmax(0,1fr);gap:13px}.straggler-row>b{font-size:18px}.straggler-track{min-height:60px}.straggler-transfer,.straggler-wait{font-size:18px;padding:8px 4px}.straggler-result{font-size:22px}.straggler-result strong{font-size:34px}}
 
 /* Frame the edited image around its content, omitting the now-empty bottom margin. */
 .campus-fiber-image{flex:1;height:100%;min-height:0;margin:0;display:flex;align-items:center;justify-content:center}
