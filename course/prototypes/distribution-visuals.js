@@ -99,6 +99,24 @@ function coDesign(compact) {
  return svg(o,'Compass site requirements and Siemens equipment design meet in one factory-built skid. Switchgear switches and protects; the transformer changes voltage.',w,compact?485:380);
 }
 
+function powerTriangle(compact) {
+ const p=900,q=675,s=Math.hypot(p,q),pf=p/s;
+ const x=compact?40:75,y=compact?278:370,scale=compact?0.28:0.48;
+ const end=x+p*scale,top=y-q*scale;
+ const side=(path,color)=>`<path d="${path}" fill="none" stroke="${color}" stroke-width="${compact?5:6}" stroke-linecap="round"/>`;
+ let o=`<path d="M${x} ${y}H${end}V${top}Z" fill="var(--panel)"/>`;
+ o+=side(`M${x} ${y}H${end}`,power)+side(`M${end} ${y}V${top}`,heat)+side(`M${x} ${y}L${end} ${top}`,'var(--data)');
+ o+=`<path d="M${end-19} ${y}V${y-19}H${end}" fill="none" stroke="${muted}" stroke-width="2"/>`;
+ o+=text((x+end)/2,y+(compact?34:40),['Real power',`P = ${n(p,0)} kW`],compact?20:27,power);
+ const midX=(x+end)/2,midY=(y+top)/2;
+ o+=`<g transform="translate(${midX} ${midY}) rotate(-36.86989765)">${text(0,compact?-39:-48,['Apparent power',`S = ${n(s,0)} kVA`],compact?20:27,'var(--data)')}</g>`;
+ if(compact)o+=`<g transform="translate(${end+33} ${midY}) rotate(-90)">${text(0,0,['Reactive power',`Q = ${n(q,0)} kvar`],19,heat)}</g>`;
+ else o+=text(end+36,midY-7,['Reactive power',`Q = ${n(q,0)} kvar`],26,heat,'start');
+ o+=text(compact?195:875,compact?405:208,'S² = P² + Q²',compact?29:37);
+ o+=text(compact?195:875,compact?462:292,`PF = P / S = ${n(pf,2)}`,compact?25:31);
+ return `<figure class="power-triangle">${svg(o,'Power triangle for a sinusoidal AC load: real power P is the horizontal 900 kW leg, reactive power Q the vertical 675 kvar leg, and apparent power S the 1,125 kVA hypotenuse. S squared equals P squared plus Q squared. Power factor P divided by S is 0.80.',compact?390:1120,compact?490:465)}<figcaption><a href="https://www.electrical-installation.org/enwiki/Definition_of_reactive_power" target="_blank" rel="noopener">Schneider Electric · Power triangle</a></figcaption></figure>`;
+}
+
 export function renderDistribution(id,state={},compact=false){
  const m=compact,s=state;
  const art=(file,alt)=>`<figure class="teaching-art"><img src="../assets/generated/${file}.png" alt="${esc(alt)}"></figure>`;
@@ -124,6 +142,7 @@ export function renderDistribution(id,state={},compact=false){
  case 'fujitsu-busway':markup=`<div class="split">${photo('distribution-fujitsu-outlets.jpg','Overhead busway branch outlets in the Fujitsu case study.','Starline / Legrand · Fujitsu · 2018',fujitsuURL)}<div class="case-points"><strong>250 A Track Busway</strong><p>New branches near changing rack loads</p><p>Metering at each tap-off</p><p>Underfloor cooling path stays clear</p></div></div>`;break;
  case 'row-growth':markup=row(s,m);break;
  case 'apparent-power-beer':markup=`<figure class="pf-beer-image"><img src="../assets/references/distribution-apparent-power-beer.png" alt="How is apparent power like a pint of beer? The beer is labeled active power in kW, its foam reactive power in kvar, and a bracket around both apparent power in kVA."></figure>`;break;
+ case 'power-triangle':markup=powerTriangle(m);break;
  case 'power-factor-explained':markup=`<figure class="teaching-art"><img src="../assets/references/distribution-power-factor-comparison.png" alt="At 900 kW real power and 480 V balanced three-phase, PF 1 needs 900 kVA and 1,083 A, loading a 1,000 kVA transformer to 90 percent. PF 0.8 needs 1,125 kVA and 1,353 A, loading the same transformer to 112.5 percent."></figure>`;break;
  case 'power-factor-quote':markup=`<blockquote class="distribution-pf-quote"><p>In AC, some current can flow to <strong>temporarily store energy in magnetic or electric fields, then return it</strong>, rather than deliver net energy to the load.</p><p>That current still passes through—and heats—the conductors. So the transformer must handle more current than the real power alone would suggest.</p><p><strong>PF = 0.8 does not mean 20% of the energy is wasted.</strong> It means more current-carrying capacity is needed for the same real power; that additional current also increases resistive losses.</p></blockquote>`;break;
  case 'power-factor':{const pf=s.powerFactor??1,p=900,kva=p/pf,amps=kva*1000/(Math.sqrt(3)*480);markup=`<div class="pf-rating"><strong>1,000 kVA</strong><span>Transformer rating</span></div><div class="equation">S = P / PF</div>`+strip(fact('900 kW','Real input'),fact(`${n(kva,0)} kVA`,'Transformer loading',kva>1000?'warm':''),fact(`${n(amps,0)} A`,'Current at 480 V'))+`<div class="rating-track"><span style="width:${Math.min(kva/1200*100,100)}%"></span><i style="left:83.333%"></i></div>`;break;}
