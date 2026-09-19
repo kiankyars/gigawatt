@@ -1,6 +1,30 @@
 # Course clarification questions and answers
 
-Compiled 18 September 2026 from the 17–18 September review conversations and the current course. Repeated questions are combined. This covers conceptual questions from Chapters 11–16; requests to move pictures, remove captions or change formatting are tracked separately in [FEEDBACK_AUDIT.md](FEEDBACK_AUDIT.md). Links use slide names because slide numbers changed during editing.
+Compiled 18 September 2026 from the 17–18 September review conversations and the current course. The short catch-up below covers later answers; the original Chapters 11–16 reference follows. Links use slide names because slide numbers changed during editing. Formatting requests remain in [FEEDBACK_AUDIT.md](FEEDBACK_AUDIT.md).
+
+## Quick catch-up: later answers without a visible acknowledgment
+
+Selected from the conversation after the first compilation. This excludes quiz material and explanations you explicitly confirmed, restated or approved. A separate UI confirmation click may not appear in the conversation; this is not a claim about what you have read.
+
+1. **Does Chapter 16's hardware slide mean the GPUs determine the building?** Yes: their density and interfaces set requirements for power, cooling and networking, which scale into hall and campus infrastructure. “Remaining air heat” means heat outside the cold plates. An RDHX can capture it, but we have not established every Abilene hall's arrangement. [Full cooling answer](#13-did-we-establish-that-abilene-has-no-crahs)
+
+2. **Who is the hyperscaler, and what do the investors get?** Oracle is the hyperscaler; Crusoe develops and operates the physical campus; OpenAI uses the compute. Blue Owl-managed funds finance the facility, while Primary Digital helps structure/facilitate the transaction. The commercial attraction is long-term lease cash flow and property value; their individual stakes, fees and returns are undisclosed. We did not establish that Crusoe simply rents the buildings to eliminate liability. [Roles and source](#55-is-the-hyperscaler-at-abilene-crusoe-oracle-or-openai) · [Transaction account](https://www.kirkland.com/news/press-release/2025/01/kirkland-ellis-advises-bo-funds-on-jv-and-financing-for-development-of-adc)
+
+3. **What does “critical power” mean?** The equipment and systems that maintain reliable electricity for essential loads: UPSs, backup supplies, transfer equipment and protected distribution. It is an umbrella term, not another voltage-conversion stage. [Vertiv](https://www.vertiv.com/en-in/products/critical-power/power/)
+
+4. **What does “18.3–30 kW per PSU” mean?** Rated output capacity of one PSU, not constant consumption or total rack power. Delta discusses future HVDC PSUs approaching 30 kW each; the exact 18.3 kW endpoint remains unverified. The range is not established as a general industry standard. [Delta](https://brandnews.deltaww.com/Home/BrandCircleDetail/12718)
+
+5. **What are GaN FETs?** Gallium nitride field-effect transistors: controlled switches inside power converters. Their switching characteristics can reduce losses and allow smaller power supplies; the converter still needs control circuitry, magnetics and capacitors. [Texas Instruments](https://www.ti.com/technologies/gallium-nitride.html)
+
+6. **Does the picture mean “25–40% failure losses”?** It says **fewer losses**: less electricity wasted in conversion, principally as heat. If a comparison starts with 100 W of loss, 25–40% less means 60–75 W of loss. It does not mean fewer failures or 25–40% less electricity for the whole facility. The graphic's exact percentage still needs a defined device/converter comparison and operating conditions. [Loss mechanisms](https://www.ti.com/document-viewer/lit/html/SLUAAL9)
+
+7. **What is a PMIC?** A power-management integrated circuit. It can combine voltage regulation, startup sequencing, monitoring and protection—for example, creating several supply rails and turning them on in the required order. It is a category of chip, not necessarily another stage after a VRM. [Analog Devices](https://www.analog.com/en/resources/analog-dialogue/articles/soc-it-to-me-supercharge-with-pmic.html)
+
+8. **Does electricity pass through Layer 4 as a separate stage?** No. The power semiconductors shown there are components inside PSUs, VRMs and other converters. Read the image as a map of functions and suppliers, not five consecutive conversions. [Power-stack slide](https://kiankyars.github.io/gigawatt/slides/dc-distribution.html?teach=1#power-stack-overview)
+
+The IVR explanation is omitted here because you restated it and requested its inclusion. The ASP-label removal, slide relocation and cooling-cost uncertainty were also explicitly acknowledged. No quiz answers are repeated in this catch-up.
+
+---
 
 ## The 30°C coolant and overheating chip — Chapter 14
 
