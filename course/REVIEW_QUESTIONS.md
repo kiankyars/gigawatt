@@ -283,7 +283,7 @@ Your approval covers the reviewed material in Chapters **1–13**. The subsequen
 
 ### 54. Have we taught the power triangle?
 
-Yes. Following your authorization, **Chapter 6 slide 24** now draws the triangle immediately after the beer analogy: **900 kW real power**, **675 kvar reactive power**, **1,125 kVA apparent power**, and **PF = 0.8**. This corrects the impression that real and reactive power add arithmetically. The example assumes sinusoidal waveforms; harmonic distortion can also reduce true power factor. [Slide](https://kiankyars.github.io/gigawatt/slides/distribution.html?teach=1#power-triangle) · [Schneider explanation](https://www.electrical-installation.org/enwiki/Definition_of_reactive_power)
+Yes. Following your authorization, **Chapter 6 slide 25** draws the triangle immediately after the numerical power-factor comparison: **900 kW real power**, **675 kvar reactive power**, **1,125 kVA apparent power**, and **PF = 0.8**. This corrects the impression that real and reactive power add arithmetically. The example assumes sinusoidal waveforms; harmonic distortion can also reduce true power factor. [Slide](https://kiankyars.github.io/gigawatt/slides/distribution.html?teach=1#power-triangle) · [Schneider explanation](https://www.electrical-installation.org/enwiki/Definition_of_reactive_power)
 
 ### 55. Is the hyperscaler at Abilene Crusoe, Oracle or OpenAI?
 

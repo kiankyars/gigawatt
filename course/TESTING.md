@@ -2394,3 +2394,7 @@ The three cooling alternatives now have identical unselected styling. The next s
 - Chapter 16: author-specified greenwashing question, “A Hierarchy of Deals,” concise investor-return line, and supplied conceptual final illustration. Both previous photographic closing slides remain; total11 slides.
 - **297 JavaScript tests passed.** Course, expanded reader, domain-map and research validation passed. Images/finale QA covered24 states at1280×720 and390×844 in light/dark without runtime errors, horizontal overflow, broken/zero-size images or desktop footer overlap. Independently checked the new triangle and Chapter 12 final handoff.
 - Speaker notes, question compilation and acceptance tracker updated; these changes do not imply new author approval of the complete chapters.
+
+## Power-triangle sequence correction — 2026-09-18
+
+Moved the triangle to Chapter 6 slide25, immediately after the numerical power-factor comparison. The existing sequence test now verifies beer → comparison → triangle. Thirty scenes and all hashes remain; speaker notes and review answers use the new order. Scoped distribution tests pass. No visual rendering changed.

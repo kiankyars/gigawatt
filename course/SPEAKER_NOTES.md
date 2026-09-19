@@ -1,10 +1,10 @@
 # Selected speaker notes
 
-## The power triangle — Chapter 6, slide 24
+## The power triangle — Chapter 6, slide 25
 
 Real power is average energy transfer, including useful output and losses. Reactive power describes energy exchanged with electric or magnetic fields; 675 kvar is not 675 kW of waste heat. Apparent power determines the voltage-and-current burden on equipment. The real and reactive components are perpendicular: 900 kW and 675 kvar give 1,125 kVA, not their arithmetic sum. Power factor is 900 / 1,125 = 0.80.
 
-This triangle assumes sinusoidal voltage and current. Harmonic distortion can also lower true power factor; a measured PF of 0.80 does not alone establish 675 kvar. The next slide applies this same load to a 1,000 kVA transformer. The triangle follows the beer analogy so its geometry corrects the picture's suggestion of ordinary addition.
+This triangle assumes sinusoidal voltage and current. Harmonic distortion can also lower true power factor; a measured PF of 0.80 does not alone establish 675 kvar. The preceding comparison introduces the 900 kW load, PF 0.80 and 1,125 kVA against a 1,000 kVA transformer. The triangle follows those numbers and explains their relationship; its geometry also corrects the beer picture's suggestion of ordinary addition.
 
 Sources: [Schneider power triangle](https://www.electrical-installation.org/enwiki/Definition_of_reactive_power), [harmonic distortion and power factor](https://www.electrical-installation.org/enwiki/Harmonic_distortion_indicators_-_Power_factor).
 

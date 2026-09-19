@@ -7,7 +7,7 @@ test('all chapter mechanisms render in each layout and supported control state',
  assert.equal(new Set(scenes.map(s=>s.id)).size,scenes.length);
  assert.equal(scenes.findIndex(s=>s.id==='transformer-taps'),scenes.findIndex(s=>s.id==='local-stepdown')+1);
  assert.deepEqual(scenes.slice(scenes.findIndex(s=>s.id==='one-line'),scenes.findIndex(s=>s.id==='one-line')+3).map(s=>s.id),['one-line','three-phase','voltage-basis']);
- assert.deepEqual(scenes.slice(scenes.findIndex(s=>s.id==='apparent-power-beer'),scenes.findIndex(s=>s.id==='apparent-power-beer')+3).map(s=>s.id),['apparent-power-beer','power-triangle','power-factor-explained']);
+ assert.deepEqual(scenes.slice(scenes.findIndex(s=>s.id==='apparent-power-beer'),scenes.findIndex(s=>s.id==='apparent-power-beer')+3).map(s=>s.id),['apparent-power-beer','power-factor-explained','power-triangle']);
  for(const scene of scenes){
   const states=[{...initialState}];
   if(['three-phase','voltage-basis'].includes(scene.id))for(const cycleDegrees of [0,90,180,270,360])for(const voltageView of ['meter','pairs'])states.push({...initialState,cycleDegrees,voltageView});
