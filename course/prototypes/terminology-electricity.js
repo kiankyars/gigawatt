@@ -199,11 +199,12 @@ function voltageVariation(compact, state) {
   return `<g data-supply-factor="${factor}" data-dc-volts="${volts}" data-ac-peak-volts="${volts}">${out}</g>`;
 }
 
-function threePhase(compact) {
+function threePhase(compact, state = {}) {
   const x = compact ? 46 : 120, width = compact ? 300 : 930;
   let out = "";
   const amps = compact ? 32 : 90;
-  const phases = [0, -2*Math.PI/3, -4*Math.PI/3];
+  const origin = Number.isFinite(Number(state.phaseOriginDegrees)) ? Number(state.phaseOriginDegrees)*Math.PI/180 : 0;
+  const phases = [origin, origin-2*Math.PI/3, origin-4*Math.PI/3];
   if (compact) {
 
     ["A", "B", "C"].forEach((label, i) => {
@@ -344,7 +345,7 @@ export function renderElectricity(id, state = {}, compact = false) {
     "ac-dc": () => acdc(compact, state),
     "ac-shapes": () => acShapes(compact),
     "voltage-variation": () => voltageVariation(compact, state),
-    "three-phase": () => threePhase(compact),
+    "three-phase": () => threePhase(compact, state),
     "three-phase-power": () => threePhasePower(compact, state),
     "power-factor": () => powerFactor(compact),
     conversion: () => conversion(compact),

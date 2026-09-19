@@ -1,0 +1,12 @@
+{
+  "asset": "nvidia-dgx-gb300-rear-power-only.png",
+  "original_asset": "nvidia-dgx-gb300-rear.png",
+  "publisher": "NVIDIA",
+  "source_id": "P64",
+  "source_url": "https://docs.nvidia.com/dgx/dgxgb200-user-guide/_images/hardware-rack-rear-gb300.png",
+  "origin": "Built-in image_gen annotation edit of the original manufacturer illustration. Original retained unchanged.",
+  "reviewed_at": "2026-09-19",
+  "sha256": "c36589273635038829ade07ab5730476bb0bee7583da6b72f5057783c55f2820",
+  "scope": "Chapter 8 PSU-input slide. Removed the bottom-right seismic-bracing arrow and label; retained the power-busbar annotation. No intended hardware changes. Visually checked against the original.",
+  "prompt": "Make one precise localized annotation edit to this existing NVIDIA hardware illustration. Remove ONLY the bottom-right green two-armed callout arrow for 'Seismic bracing' and the words 'Seismic bracing'. This is the green V-shaped annotation beneath the rightmost rack cabinet, extending from about x1115,y679 through x1226,y708 to x1298,y630 in the original 1426-by-804 image. Replace those annotation pixels with the existing plain white background. DO NOT remove or change the separate diagonal green 'Power bus bar' arrow, its text, or where it points. Preserve all actual cabinet hardware including its feet/brackets and all internal components. Preserve every other annotation, text, green arrow, object position, crop, dimension, resolution, white background and pixel detail as closely as possible. Do not redraw or reinterpret the technical equipment. Output the full original image with just the seismic-bracing annotation removed."
+}

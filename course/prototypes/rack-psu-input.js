@@ -8,9 +8,25 @@ const text = (x, y, label, size = 26, color = 'text') =>
   `<text x="${x}" y="${y}" text-anchor="middle" font-size="${size}" fill="var(--${color})">${label}</text>`;
 const line = (d, color = 'power', arrow = false) =>
   `<path d="${d}" fill="none" stroke="var(--${color})" stroke-width="3" stroke-linejoin="round" ${arrow ? 'marker-end="url(#psu-input-arrow)"' : ''}/>`;
+const phaseOriginDegrees = 120;
 
 function waveform(x, y, width, height) {
-  return `<svg x="${x}" y="${y}" width="${width}" height="${height}" viewBox="95 165 990 225" preserveAspectRatio="none" overflow="hidden" aria-hidden="true" data-reused-figure="primer-three-phase">${renderElectricity('three-phase', {}, false)}</svg>`;
+  return `<svg x="${x}" y="${y}" width="${width}" height="${height}" viewBox="95 165 990 225" preserveAspectRatio="none" overflow="hidden" aria-hidden="true" data-reused-figure="primer-three-phase">${renderElectricity('three-phase', { phaseOriginDegrees }, false)}</svg>`;
+}
+
+function waveformEnd(x, y, width, height, phase) {
+  const angle = (phaseOriginDegrees - phase*120)*Math.PI/180;
+  return [x + (1050-95)*width/990, y + (279-90*Math.sin(angle)-165)*height/225];
+}
+
+function phaseMapping(start, targetY, endX, phase, compact) {
+  const [x, y] = start;
+  const bendX = compact ? 205 : 408;
+  const controlX = compact ? 188 : 374;
+  return `<g data-phase-mapping="L${phase + 1}"><title>Color mapping from phase L${phase + 1} to its PSU input; the connector is not part of the time waveform.</title>
+    ${line(`M${x} ${y}C${controlX} ${y} ${controlX} ${targetY} ${bendX} ${targetY}H${endX}`, phases[phase], true)}
+    <circle cx="${x}" cy="${y}" r="4" fill="var(--${phases[phase]})"/>
+  </g>`;
 }
 
 function modulePhoto(x, y, width, height, phase) {
@@ -25,7 +41,7 @@ function modulePhoto(x, y, width, height, phase) {
 function rackPhoto(x, y, width, height) {
   return `<rect x="${x}" y="${y}" width="${width}" height="${height}" rx="8" fill="white"/>
     <svg x="${x}" y="${y}" width="${width}" height="${height}" viewBox="998 112 318 558" overflow="hidden" data-rack-detail="rear">
-      <image href="../assets/references/nvidia-dgx-gb300-rear.png" width="1426" height="813"/>
+    <image href="../assets/references/nvidia-dgx-gb300-rear-power-only.png" width="1426" height="813"/>
       <circle cx="1080" cy="485" r="18" fill="none" stroke="var(--power)" stroke-width="5"/>
     </svg>`;
 }
@@ -34,15 +50,16 @@ export function renderPSUInput(state, compact) {
   let out = `<defs><marker id="psu-input-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="3.5" markerHeight="3.5" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="context-stroke" stroke-width="2"/></marker></defs>`;
   if (compact) {
     out += text(195, 28, 'Three-phase AC', 26);
-    out += waveform(35, 49, 320, 100);
-    out += text(195, 178, '480 V', 21, 'power');
+    out += waveform(15, 116, 160, 160);
+    out += text(93, 307, '480 V', 21, 'power');
     [0, 1, 2].forEach(i => {
-      const x = 17 + i * 128;
-      out += text(x + 50, 216, `L${i + 1}`, 20, phases[i]);
-      out += line(`M${x + 50} 225V243`, phases[i], true);
-      out += modulePhoto(x, 251, 100, 72, i);
-      out += line(`M${x + 50} 327V343H195`);
+      const y = 52 + i * 105;
+      out += text(213, y + 23, `L${i + 1}`, 20, phases[i]);
+      out += phaseMapping(waveformEnd(15, 116, 160, 160, i), y + 36, 233, i, true);
+      out += modulePhoto(241, y, 130, 72, i);
+      out += line(`M376 ${y + 36}H383`);
     });
+    out += line('M383 88V343H195');
     out += text(195, 370, 'PSUs · 277 V AC → 50 V DC', 19);
     out += line('M195 384V405', 'power', true);
     out += rackPhoto(210, 405, 138, 240);
@@ -61,7 +78,7 @@ export function renderPSUInput(state, compact) {
     [0, 1, 2].forEach(i => {
       const y = 103 + i * 139;
       out += text(424, y + 35, `L${i + 1}`, 23, phases[i]);
-      out += line(`M383 ${y + 58}H483`, phases[i], true);
+      out += phaseMapping(waveformEnd(25, 185, 332, 187, i), y + 58, 483, i, false);
       out += modulePhoto(491, y, 250, 116, i);
       out += line(`M746 ${y + 58}H817`);
     });
