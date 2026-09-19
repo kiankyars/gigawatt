@@ -23,9 +23,9 @@ test('the chapter retains facility mechanisms and removes repeated software expl
  assert.equal(scenes.length,21);
  for(const id of removed){assert.ok(!scenes.some(scene=>scene.id===id));assert.equal(resolveNetworkingScene(id),0);assert.throws(()=>networkingVisual(id,initialState),/No networking visual/);}
  assert.equal(scenes.at(-1).id,'meta-rsc');
- const incast=scenes.findIndex(scene=>scene.id==='incast');assert.equal(scenes[incast-1].id,'traffic-placement');assert.equal(scenes[incast+1].id,'ethernet-infiniband');
+ const incast=scenes.findIndex(scene=>scene.id==='incast');assert.equal(scenes[incast-1].id,'shared-uplinks');assert.equal(scenes[incast+1].id,'traffic-placement');assert.equal(scenes[incast].title,'Incast');
  const placement=scenes.find(scene=>scene.id==='traffic-placement');assert.deepEqual(placement.controls[0].options,[['remote','Across two leaves'],['local','Under one leaf']]);assert.notEqual(placement.controls[0].label,'Place the communicating servers');
- assert.match(networkingVisual('incast',initialState),/1,600 Gb\/s arriving/);assert.match(networkingVisual('incast',initialState),/400 Gb\/s →/);assert.match(networkingVisual('incast',initialState),/receiving link stays at 400 Gb\/s/);
+ const incastVisual=networkingVisual('incast',initialState);assert.match(incastVisual,/Multiple senders overwhelm one receiver/);assert.match(incastVisual,/Queue builds/);assert.doesNotMatch(incastVisual,/Gb\/s/);
 });
 test('the network choice explains the full system and the distance example isolates propagation',()=>{
  const fabrics=networkingVisual('ethernet-infiniband',initialState);

@@ -157,3 +157,11 @@
 .campus-fiber-image{flex:1;height:100%;min-height:0;margin:0;display:flex;align-items:center;justify-content:center}
 .campus-fiber-image svg{display:block;width:100%;height:100%;min-height:0;overflow:hidden}
 @media(max-width:600px){.campus-fiber-image{flex:none;height:auto}.campus-fiber-image svg{height:auto;aspect-ratio:1672/750}}
+
+.incast-simple .incast-senders span{font-size:32px;color:var(--teal)}
+.incast-simple .incast-receiver{flex-direction:row;gap:20px}
+.incast-simple .incast-output{font-size:48px}
+.incast-destination{display:flex;flex-direction:column;align-items:center;gap:22px}
+.incast-destination>b{font-size:24px;font-weight:500;white-space:nowrap}
+#scene[data-scene="incast"] .incast-payoff{font-size:clamp(22px,2.2vw,31px);color:var(--ink)}
+@media(max-width:600px){.incast-simple{gap:18px}.incast-simple .incast-senders{grid-template-columns:repeat(4,1fr);gap:8px}.incast-simple .incast-senders>div{padding:12px 5px;gap:6px}.incast-simple .incast-senders b{font-size:16px}.incast-simple .incast-senders span,.incast-simple .incast-output{font-size:28px;transform:rotate(90deg)}.incast-simple .incast-queue{padding:20px;gap:18px}.incast-simple .incast-packets i{height:44px}.incast-simple .incast-receiver{flex-direction:column;gap:10px}.incast-destination{gap:12px}.incast-destination .rack-icon{width:90px;min-height:0;padding:8px;gap:5px}.incast-destination>b{font-size:22px}}

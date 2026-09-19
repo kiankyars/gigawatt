@@ -128,13 +128,11 @@ Four uplinks match the server-port capacity. With balanced one-way traffic, 32 G
 
 Sources: [`fabricBudget`](prototypes/networking-model.js).
 
-## Four fast senders can overwhelm one receiver port — Chapter 10, slide 15
+## Incast — Chapter 10, slide 14
 
 <!-- speaker: networking#incast -->
 
-Packets queue because four senders can offer 1,600 Gb/s to a receiving link that drains only 400. More spine bandwidth does not enlarge that final link.
-
-Receiving faster requires compatible ports, optics or cable, and a receiver able to absorb the data. Alternatively, distribute traffic across more receiving links or servers. Pacing controls the queue without increasing link capacity.
+Incast is many senders converging on one receiver. When their combined traffic exceeds the receiving link’s capacity, packets queue at the switch output. This is the same capacity principle as the previous slide, applied to the receiver’s link.
 
 Sources: [NVIDIA ConnectX-7 specifications](https://networking-docs.nvidia.com/connectx7hw/specifications).
 
