@@ -48,6 +48,8 @@ Source: [Meta / OCP Clemente specification](https://www.opencompute.org/document
 
 “The switches make pulses of voltage. The inductors turn those pulses into currents that rise and fall. The second phase starts half a switching period later. Both currents join at the same rail, so one partly offsets the other's ripple. The capacitor handles the remaining shortfall and surplus while feedback regulates the rail voltage. These are phases inside one regulator, not the facility's AC phases.”
 
+“Ideally, a buck converter transfers the same power at a lower voltage and a correspondingly higher average current. In practice, some power is lost as heat, so the input power must be slightly higher than the power delivered to the GPU.”
+
 The worked example uses 12 V input, 3 V output and 25% duty cycle. Each phase carries 20 A on average with 6 A peak-to-peak ripple; the sum averages 40 A with 4 A ripple. Rectangular traces are **switch-node voltage**; triangular traces are **inductor current**. The sum is current entering the output node, not a claim that load current or output voltage is perfectly ripple-free. This corrects the supplied image's misleading “VRM Phase Voltages” label while retaining its teaching idea.
 
 Source: [Texas Instruments, Benefits of a multiphase buck converter](https://www.ti.com/lit/an/slyt449/slyt449.pdf), Figures 1, 2 and 4.
