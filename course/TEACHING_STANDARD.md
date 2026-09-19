@@ -309,11 +309,11 @@ Keep visible focus, text alternatives, sufficient contrast, paused/reduced-motio
 states and an understandable reading route when interaction is unavailable. Color
 alone cannot convey the answer. Browser checks do not establish comprehension.
 
-Extend the shared facility drawing, functional bill of materials and service-path
-model as each section develops: component, job, location, interfaces and relevant installed,
-operating and surviving capacity. State the configuration when it changes.
-A local material saving does not become a facility-wide saving by implication,
-and the educational inventory is not a procurement specification.
+Keep component functions, locations, interfaces and relevant installed, operating
+and surviving capacity clear in the existing diagrams. State the configuration
+when it changes. A local material saving does not become a facility-wide saving
+by implication. The separate interactive bill-of-materials companion was removed
+from scope by Kian on 19 September 2026.
 
 ### Chapter 6 follow-up — 2026-09-14
 

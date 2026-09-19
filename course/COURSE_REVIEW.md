@@ -256,13 +256,12 @@ interfaces consistent. Geometry is illustrative unless supported as an actual
 site model; electricity, heat transfer, coolant circulation, data, controls and
 commercial relationships require distinguishable conventions.
 
-Build one evolving **functional bill of materials and service-path map** through
-the course. It should show what each component does, where it sits, its quantity,
-interfaces and relevant installed, operating and surviving capacity. Changes in
-lessons update this artifact under stated assumptions. It is an educational
-inventory rather than a purchasing specification. A local copper reduction must
-not silently become a facility-wide material saving. The persistent interface
-remains to be built; the authoring fields belong in the teaching standard.
+The proposed evolving **functional bill of materials and service-path companion**
+was removed from scope by Kian on 19 September 2026. It would have tracked component
+functions, quantities, interfaces and capacity as lessons changed the configuration.
+Do not treat this separate interactive inventory as an outstanding deliverable.
+Existing diagrams still need clear equipment boundaries: a local copper reduction
+must not silently become a facility-wide material saving.
 
 Indexed lesson notes, a glossary/interface index, bounded calculators,
 prediction-and-transfer practice, source notes and integrated cases should link
@@ -292,8 +291,8 @@ followed by the existing **Data center overview**. Primer introduces names and
 basic relationships so a later explanation is not the learner's first encounter.
 It is a prelude to the main topics, with no new assessed objectives; it is separate from the historical 22-lesson introduction. The presenter decides how to introduce it; the slides contain no skip prompt.
 Fourteen teaching domains organize the main journey; compute depth remains an additional reference domain. Keep returning to
-one evolving facility drawing and bill of materials so each addition has a place
-and a purpose. The companion lets students revisit, explore and practise independently.
+the facility's physical paths so each addition has a place and a purpose.
+The existing reader and diagrams let students revisit the material independently.
 
 Within each section: **pose a problem → show the mechanism → work an example →
 change one condition → explain the result**. Ask brief prediction questions during
@@ -450,8 +449,8 @@ the case scenes to bring into each presentation; update it with the deck and sce
 links when integration is complete.
 
 - [ ] **Sparks current load:** obtain a current commissioned IT nameplate and total battery-fed load, plus battery discharge MW. The slide now uses the explicitly dated reported 1 MW pilot (2025); 63 MWh / 1 MW is a gross energy/load ratio, not verified current autonomy. Research: [case review](../research/continuity-case-review-notes.md).
-- [ ] **Companion inventory:** build the evolving functional bill of materials
-  and service-path interface promised above; it is not implemented yet.
+- [x] **Companion inventory — removed from scope, 19 September 2026:** Kian confirmed
+  the interactive bill of materials is unnecessary. No implementation is required.
 - [x] **Transformer operating range:** Primer follows conversion equipment with the Phaseo ABL6TS25B photograph and its published 360–440 V input limits on the nominal 400 V connection. Tap selection is in Chapter 6.
 - [x] **Rack product imagery:** [PSU and power shelf](prototypes/rack-power-format.html?teach=1#psu-hardware)
   and [BBU and battery shelf](prototypes/rack-power-format.html?teach=1#bbu-hardware)
