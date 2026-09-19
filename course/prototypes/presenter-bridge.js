@@ -33,7 +33,7 @@ export function installPresenter(doc = document, win = window) {
   if (!nav || nav.querySelector('.course-presenter-button')) return;
   const location = new URL(win.location.href);
   if (!['http:', 'https:'].includes(location.protocol)) return;
-  const presenterPage = new URL('./presenter.html?v=notes-20260919', import.meta.url);
+  const presenterPage = new URL('./presenter.html?v=notes-bottom-20260919', import.meta.url);
   let session;
   try { session = win.sessionStorage.getItem(SESSION_KEY); } catch { /* Storage can be disabled. */ }
   session ||= win.crypto.randomUUID();
