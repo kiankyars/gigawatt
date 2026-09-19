@@ -1,0 +1,27 @@
+.ke-energy{display:flex;flex-direction:column;gap:38px}
+.ke-context{font-size:20px;color:var(--muted)}
+.ke-columns{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6vw;align-items:center}
+.ke-calculation{display:flex;flex-direction:column;gap:32px;min-width:0}
+.ke-state{display:flex;flex-direction:column;gap:12px}
+#visual .ke-state h2{font-size:24px;font-weight:500}
+.ke-state p{font-size:clamp(21px,2.1vw,30px);font-variant-numeric:tabular-nums}
+.ke-state b,.ke-total b{font-weight:600}
+#visual .ke-total{border-top:1px solid var(--line);padding-top:25px;font-size:clamp(22px,2.1vw,30px)}
+.ke-payoff{border-left:1px solid var(--line);padding-left:6vw;display:flex;flex-direction:column;gap:30px;min-width:0}
+.ke-per-hour{display:flex;flex-direction:column;gap:17px}
+.ke-per-hour strong{font-size:clamp(75px,8vw,120px);font-weight:500;line-height:1;letter-spacing:-.04em;color:var(--teal)}
+.ke-per-hour span{font-size:clamp(23px,2vw,29px)}
+.ke-tariffs{display:grid;grid-template-columns:1fr 1fr;gap:25px}
+.ke-tariffs>div{display:flex;flex-direction:column;gap:10px}
+.ke-tariffs span{font-size:21px}
+.ke-tariffs b{font-size:clamp(32px,3.3vw,47px);line-height:1.15;font-weight:500;color:var(--teal)}
+#visual .ke-cost-unit{font-size:17px;margin-top:-12px}
+@media(min-width:801px) and (max-height:780px){
+  .ke-energy{gap:27px}.ke-calculation{gap:27px}.ke-payoff{gap:24px}.ke-per-hour strong{font-size:90px}
+}
+@media(max-width:800px),(max-height:559px){
+  .ke-energy{gap:28px}.ke-context{font-size:17px}.ke-columns{grid-template-columns:1fr;gap:30px}.ke-calculation{gap:24px}
+  .ke-state{gap:8px}#visual .ke-state h2{font-size:22px}.ke-state p{font-size:22px}#visual .ke-total{font-size:23px;padding-top:22px}
+  .ke-payoff{border-left:0;border-top:1px solid var(--line);padding:28px 0 0;gap:25px}.ke-per-hour{gap:13px}.ke-per-hour strong{font-size:76px}.ke-per-hour span{font-size:23px}
+  .ke-tariffs{gap:22px}.ke-tariffs span{font-size:19px}.ke-tariffs b{font-size:36px}#visual .ke-cost-unit{font-size:16px}
+}

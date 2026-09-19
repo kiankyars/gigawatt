@@ -757,3 +757,7 @@ Simplified Chapter 14 `llama-recovery` into two metric columns. Removed the gene
 ### Chapter 15 serving choices and customer examples — 19 September 2026
 
 Retitled slide 4 “There are two ways to skin the cat.” Replaced the responsibility matrix with two simple serving stacks and removed the bare-metal footer. Added slide 5, `service-examples`, with Anthropic–CoreWeave cloud capacity and Cursor–Fireworks managed Fast Apply inference, using company marks. The public Anthropic agreement does not disclose a bare-metal purchase or the detailed serving split; that limit and the distinction between a hypervisor and container orchestration are recorded in scene explanations, speaker notes and review question 46. All existing slide bookmarks remain. Desktop/mobile and light/dark layouts verified; Chapter 15 now has 16 slides.
+
+### Chapter 15 occupancy and electricity simplification — 19 September 2026
+
+Removed the occupancy slide’s entire annual-revenue/billable-occupancy subtitle; its distinction stays in the speaker notes. Reworked `gpu-hour-cost` using the sparse two-column treatment from the Llama 3 slide: rented and powered-idle energy on the left, 1.05 kWh per billed GPU-hour and both electricity prices on the right. Preserved every calculation input and result.
