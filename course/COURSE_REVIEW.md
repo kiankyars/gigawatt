@@ -1,6 +1,6 @@
 # From Watts to Tokens — filled-in course review template
 
-Updated **2026-09-18**. **Start here for the course design.** This is the course's
+Updated **2026-09-19**. **Start here for the course design.** This is the course's
 instance of the [freeCodeCamp course review template](https://github.com/kiankyars/youtube/blob/main/freecodecamp/course-review-template.md),
 using its [evidence-based improvement system](https://github.com/kiankyars/youtube/blob/main/freecodecamp/improvement-system.md).
 The shared template remains in the YouTube repository; this filled-in copy owns
@@ -24,6 +24,33 @@ Storage chapters remain as Further reading; their useful teaching cases were
 moved beside the concepts they illustrate. Every deck uses shared navigation.
 The table below distinguishes author acceptance from authored material awaiting
 review; [TESTING.md](TESTING.md) records technical verification.
+
+## Recording readiness — 19 September 2026
+
+**Ready to begin recording: no new blocking implementation issue identified.**
+This check reconciled the independent recording audit, feedback log and review
+tracker against current source; it did not repeat the full course audit or an
+oral rehearsal. Chapter 12's supplied cooling-layout image is installed in
+`ba720d6`, with its original bookmark and speaker-note explanations preserved.
+All 80 Python and 303 JavaScript tests pass. The replacement was checked at
+1280×720 and 390×844 in light/dark, including navigation and resource loading.
+
+- The CDU approach wording and Microsoft infographic detail views are fixed.
+- The review questions are retired; the interactive equipment inventory is out of scope.
+- Chapter 9's supplied power-stack figure retains its small text and insufficiently
+  scoped PSU/loss figures by the author's decision. The air-cooling title is also
+  deliberately retained. These are accepted choices, not outstanding edit requests.
+- Chapters 14–16 have the requested revisions implemented, but explicit final
+  whole-chapter acceptance is not yet recorded. This status does not require
+  another review of unchanged material.
+- Before a recording batch, make a short capture in the actual recording app to
+  check audio and readability, and note the Git revision used. Browser checks do
+  not establish audio quality or spoken delivery.
+
+Historical open checkboxes below are not a current recording punch list. Optional
+research into current Sparks commissioned capacity, exact GB300 concurrency and
+broader editorial consistency remains separate; the teaching slides avoid
+asserting the unavailable measurements.
 
 ## Current instruction audit — 13 September 2026
 
