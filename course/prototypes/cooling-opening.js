@@ -3,6 +3,7 @@
 const REAR = "../assets/references/nvidia-dgx-gb300-rear.png";
 const IMMERSION = "../assets/references/2crsi-single-phase-immersion-user.png";
 const COLD_PLATES = "../assets/references/cold-plate-assemblies-user.png";
+const ABILENE_HALL = "../assets/references/finale-abilene-coolant-pipes.jpg";
 
 const label = (x, y, value, size = 23, color = "ink", anchor = "middle", weight = 550) =>
   `<text x="${x}" y="${y}" font-size="${size}" text-anchor="${anchor}" font-weight="${weight}" style="fill:var(--${color})">${value}</text>`;
@@ -255,6 +256,17 @@ function rearDoorComparison(compact) {
   };
 }
 
+function abilenePhoto(compact) {
+  const width = compact ? 420 : 1160;
+  const photoHeight = width * 9 / 16;
+  const creditY = photoHeight + (compact ? 28 : 32);
+  return {
+    viewBox: `0 0 ${width} ${creditY + 12}`,
+    svg: `<image data-equipment-photo="abilene-coolant-distribution" href="${ABILENE_HALL}" x="0" y="0" width="${width}" height="${photoHeight}" preserveAspectRatio="xMidYMid meet"/>`
+      + `<a href="https://www.oracle.com/news/resources/abilene-campus/" target="_blank" rel="noopener noreferrer" aria-label="Photograph: Oracle Abilene campus media kit">${label(width / 2, creditY, "Photograph: Oracle · Abilene campus", compact ? 16 : 22, "ink", "middle", 400)}</a>`,
+  };
+}
+
 export function renderCoolingOpening(scene, compact = false) {
   switch (scene.kind) {
     case "capture-comparison": return compact ? comparisonCompact() : comparisonDesktop();
@@ -262,6 +274,7 @@ export function renderCoolingOpening(scene, compact = false) {
     case "immersion-photo": return immersion(compact);
     case "immersion-hardware": return {viewBox:"0 0 1160 653",svg:'<image data-equipment-photo="immersion-tank" href="../assets/references/immersion-tank-user.png" x="0" y="0" width="1160" height="653" preserveAspectRatio="xMidYMid meet"/>'};
     case "coldplate-photo": return compact ? coldPlateCompact() : coldPlateDesktop();
+    case "abilene-photo": return abilenePhoto(compact);
     default: return null;
   }
 }

@@ -2406,3 +2406,10 @@ Moved the triangle to Chapter 6 slide25, immediately after the numerical power-f
 - Chapter 2 now has 14 scenes. The uncropped Oracle Abilene hall photograph precedes the coolant-loop diagram. All nine orientation unit tests pass. Course, expanded-reader and domain-map checks pass.
 - Finale browser checks cover both remaining closing slides and the retired hash at 1280×720 and 390×844 in light/dark (12 states), with no runtime errors, horizontal overflow, broken images or desktop footer overlap. Visually reviewed the desktop recap and mobile final image.
 - The photo passes image, credit, geometry and navigation checks across desktop/mobile and light/dark. The broader orientation browser suite reports pre-existing geometry/legacy-alias failures, independently reproduced against the unchanged baseline; these are separate from the photo relocation.
+
+
+## Abilene photograph in the cooling chapter — 2026-09-18
+
+Chapter 11 adds `abilene-coolant-distribution` as slide 4, between cold-plate hardware and the rear-door heat-exchanger explanation. The existing Chapter 2 photograph remains. Chapter 11 has 18 scenes; all existing hashes remain and the selected speaker notes use the new numbering.
+
+All 17 cooling/capture tests pass. Course, expanded-reader and domain-map validation pass. Browser checks cover the new slide and adjacent navigation at 1280×720, 1440×900, 390×844 and 844×390 in light/dark (8 layouts). The full image and credit load, no unnecessary controls appear, and no runtime errors, HTTP failures, horizontal overflow or footer overlap were detected. Visually reviewed the desktop light and mobile dark layouts.

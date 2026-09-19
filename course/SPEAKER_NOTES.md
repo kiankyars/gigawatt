@@ -143,17 +143,29 @@ Liquid-to-air CDUs also exist: they reject rack-liquid heat into room air instea
 
 Sources: [DOE FEMP cooling systems](https://www.energy.gov/cmei/femp/cooling-water-efficiency-opportunities-federal-data-centers), [CoolIT CDU architectures](https://www.coolitsystems.com/products-services/data-center-products/cooling-distribution-units/), checked September 16, 2026.
 
-## Cold plates and rear-door heat capture — Chapter 11, slides 3–4
+## How does coolant reach the cold plates? — Chapter 11, slide 3
 
-Follow CDU → supply manifold → tray quick disconnects → cold plates → return manifold. This is technology coolant on the rack side of a liquid-to-liquid CDU. Facility water stays across the exchanger. Slide 3 combines the supplied cold-plate assemblies and coolant route. Slide 4 places the NVIDIA rear-manifold view beside the separate RDHX mechanism. The NVIDIA manifold is not itself a rear-door exhaust coil.
+Follow CDU → supply manifold → tray quick disconnects → cold plates → return manifold. This is technology coolant on the rack side of a liquid-to-liquid CDU. Facility water stays across the exchanger. The slide combines the supplied cold-plate assemblies and coolant route.
+
+## Liquid cooling inside Abilene — Chapter 11, slide 4
+
+“We have followed coolant through one cold plate. Here is the physical distribution across a row: overhead pipes, flexible hoses and connections at the racks. Next, we follow the heat that still leaves through the air.”
+
+Allow about 20 seconds. This returns to Chapter 2's photograph after teaching the individual components. The photo does not establish exact fluid boundaries or identify a hidden CDU or rear-door exchanger.
+
+Source: [Oracle Abilene media kit](https://www.oracle.com/news/resources/abilene-campus/).
+
+## Rear-door heat capture — Chapter 11, slide 5
+
+The NVIDIA rear-manifold view sits beside the separate RDHX mechanism. The NVIDIA manifold is not itself a rear-door exhaust coil.
 
 A liquid-cooled rack can still put heat into its exhaust air. An RDHX captures that residual air heat into liquid; room-air handlers are another arrangement. [Lenovo’s GB300 guide](https://lenovopress.lenovo.com/lp2357-lenovo-nvidia-gb300-nvl72-rack-scale-ai#cooling) specifies hybrid liquid/air heat capture. The supplied Abilene sources do not establish that every residual heat path at the campus uses the same equipment.
 
-## Immersion — Chapter 11, slides 5–6
+## Immersion — Chapter 11, slides 6–7
 
 The supplied 2CRSi diagram is single-phase: the dielectric liquid stays liquid as it circulates through the exchanger. Two-phase immersion boils fluid at the hardware and condenses the vapor so liquid returns. The following supplied photograph shows actual immersion hardware; its operator and fluid were not supplied.
 
-## Heat flux and thermal resistance — Chapter 11, slides 7–8
+## Heat flux and thermal resistance — Chapter 11, slides 8–9
 
 Heat flux is heat-transfer rate per unit area. Both devices generate 400 W; spread over 4 cm² that is 100 W/cm², while 1 cm² produces 400 W/cm². This compares the concentration of heat, not the total heat duty.
 
@@ -161,11 +173,11 @@ Thermal resistance is the temperature difference required per watt along a speci
 
 Smaller area can make heat removal harder, but heat flux alone does not establish thermal resistance or chip temperature. The two resistance values are independent stipulated examples. Model: `deviceTemperature` in [cooling-capture-model.js](prototypes/cooling-capture-model.js).
 
-## Coolant flow — Chapter 11, slide 9
+## Coolant flow — Chapter 11, slide 10
 
 The steady-flow sensible heat balance relates carried heat to mass flow, heat capacity and supply-to-return temperature rise. Doubling flow halves that rise at fixed heat duty.
 
-## Coolant flow and the pump curve — Chapter 11, slide 10
+## Coolant flow and the pump curve — Chapter 11, slide 11
 
 [Slide: pump operating point](prototypes/cooling-format.html?teach=1#pump-operating-point).
 
@@ -205,23 +217,23 @@ Source for the mechanism: [Hydraulic Institute — Combined pump and system curv
 
 Calculation for the presenter: Δp_pump = 160 − 10q², Δp_normal = 30q² and Δp_higher-resistance = 70q², with q in L/s and Δp in kPa. Equating pump and circuit pressure differences gives q = 2 L/s for the normal circuit and q = √2 ≈ 1.41 L/s for the higher-resistance circuit: a 29.3% flow reduction. The vertical axis measures pressure added or lost around the circulation path, not absolute pressure at one point. Chapter 13 applies the same approximate quadratic relationship to the plumbing requirement. [KSB characteristic curves](https://www.ksb.com/en-global/centrifugal-pump-lexicon/article/characteristic-curve-1117926).
 
-## CDU approach compares two supply temperatures — Chapter 11, slide 11
+## CDU approach compares two supply temperatures — Chapter 11, slide 12
 
 Facility water arrives at 30°C; separate coolant leaves for the chips at 35°C. Their difference is a 5°C approach. A smaller approach brings the technology coolant closer to the facility-water temperature. This differs from one fluid's supply-to-return rise. Achieving a smaller approach at a given heat duty depends on exchanger size, flow and operating conditions.
 
 A temperature difference of 5°C equals 5 K. Source: [NIST SI temperature units](https://www.nist.gov/pml/special-publication-330/sp-330-section-2).
 
-## CoolIT CHx2000 — Chapter 11, slide 12
+## CoolIT CHx2000 — Chapter 11, slide 13
 
 The manufacturer separately lists 2 MW at 5°C approach and 2,125 L/min at 35 psi. These are separately specified thermal and hydraulic points. The CHx2000 is a liquid-to-liquid CDU with pumps and a heat exchanger, not a refrigeration compressor. Source: [CoolIT CHx2000](https://www.coolitsystems.com/cdu-product/chx2000/).
 
-## Cooling redundancy and response — Chapter 11, slides 13–16
+## Cooling redundancy and response — Chapter 11, slides 14–17
 
 Distinguish spare CDU capacity from an independently supplied coolant path. The A/B example initially has both paths available. Losing a path reveals which racks retain cooling.
 
 The derating example starts with 1,000 kW entering coolant; two CDU failures leave 600 kW of cooling. Reducing the load to 500 kW leaves 100 kW margin. The following merged commissioning example tests that response: command the affected racks, then measure actual power, flow and temperature. Its trace is qualitative and does not establish a safe response time. Liquid heat is not automatically identical to the commanded electrical power cap.
 
-## Retrofit and residual air heat — Chapter 11, slide 17
+## Retrofit and residual air heat — Chapter 11, slide 18
 
 The cold plates collect 85 kW of a 100 kW rack's heat; 15 kW remains in air. That heat can use 15 kW of a 20 kW room-air allowance, or be captured by a suitable RDHX and sent into liquid. Only air heat escaping the rear door contributes to the room's remaining duty. The diagram assumes the door captures the illustrated 15 kW.
 

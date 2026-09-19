@@ -310,4 +310,4 @@ Chapter 16 now ends with two slides. **Slide 9, “The data center is the machin
 
 **Slide 10, “From Watts to Tokens,”** is the final line: “We started with electricity at the site boundary. You can now follow it all the way to computation, and follow the heat back out. That is the physical system behind every token.” Pause on the image and finish.
 
-The full-slide Abilene photograph is now **Chapter 2, slide 10**, immediately before the coolant-loop diagram. Use it to show the physical pipes and hoses before tracing those systems schematically. The [speaker notes](SPEAKER_NOTES.md) include short scripts for all three views.
+The full-slide Abilene photograph is now **Chapter 2, slide 10**, immediately before the coolant-loop diagram. Use it to show the physical pipes and hoses before tracing those systems schematically. The same photograph also appears in **Chapter 11, slide 4**, after the cold-plate hardware: now use it to scale from one component to a row of real coolant connections. The [speaker notes](SPEAKER_NOTES.md) include short scripts for each placement.

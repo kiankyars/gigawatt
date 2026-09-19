@@ -48,6 +48,16 @@ const existing=[
     "reference": "d10-local-thermal-paths"
   },
   {
+    "id": "abilene-coolant-distribution",
+    "label": "Liquid cooling at Abilene",
+    "title": "Liquid cooling inside Abilene",
+    "kind": "abilene-photo",
+    "description": "We have followed coolant through one cold plate. Here is the physical distribution across a row: overhead pipes, flexible hoses and connections at the racks. Next, we follow the heat that still leaves through the air. Oracle's Abilene campus photograph connects the component diagram to real equipment; it does not identify hidden loop boundaries or establish which visible equipment is a CDU or rear-door exchanger.",
+    "reference": "d10-cdu-interfaces",
+    "sources": ["https://www.oracle.com/news/resources/abilene-campus/"],
+    "pedagogical_role": "case-study"
+  },
+  {
     "id": "water-balance",
     "label": "Flow and temperature rise",
     "title": "More flow means less temperature rise",
@@ -97,6 +107,6 @@ const existing=[
   }
 ];
 const byId=new Map([...existing,...captureScenes].map(s=>[s.id,s]));
-export const scenes=["why-liquid","capture-options","cold-plate","capture-rear-door","capture-immersion","immersion-hardware","local-heat-flux","device-temperature","water-balance","pump-operating-point","approach","coolit-cdu","lost-flow","independent-cooling-paths","cooling-derating","cooling-response","cooling-retrofit"].map(id=>byId.get(id));
+export const scenes=["why-liquid","capture-options","cold-plate","abilene-coolant-distribution","capture-rear-door","capture-immersion","immersion-hardware","local-heat-flux","device-temperature","water-balance","pump-operating-point","approach","coolit-cdu","lost-flow","independent-cooling-paths","cooling-derating","cooling-response","cooling-retrofit"].map(id=>byId.get(id));
 // Preserve useful destinations for bookmarks to the removed standalone slides.
 export const sceneAliases={"rack-coolant-entry":"cold-plate","heat-path":"capture-options","capture-coldplates":"capture-options","crah-cdu":"capture-options","branch-flow":"pump-operating-point","coolant-interfaces":"cooling-retrofit"};
