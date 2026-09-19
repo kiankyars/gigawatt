@@ -289,7 +289,7 @@ Here the compressor handles refrigerant vapor. In an air-cooled chiller, facilit
 
 The fourth condenser-water circuit is in the serial heat path, not automatically a second route from facility water. A waterside economizer adds a compressor-bypassing cooling path when weather permits. A different option, refrigerant-side free cooling, circulates refrigerant with a pump or gravity while the compressor is off; it requires a design that supports this mode. The number of loops and the choice of economizer are separate decisions. Sources: [Trane free cooling](https://www.trane.com/commercial/north-america/us/en/about-us/newsroom/glossary/free-cooling.html), [Vertiv EconoPhase](https://www.vertiv.com/en-us/products-catalog/thermal-management/room-cooling/econophase-pumped-refrigerant-economizer/).
 
-The supplied economizer image follows immediately. It summarizes a functional heat path; “from racks” and “back to racks” do not mean every water circuit is shared. The COP slide then relates heat moved to cooling electricity. Keep the equipment boundary consistent when comparing COP values.
+The supplied economizer image follows immediately. It specifically illustrates water-side free cooling: its circulating fluid is water, not refrigerant. Compressor-off operation alone does not identify which type of economizer is used. It summarizes a functional heat path; “from racks” and “back to racks” do not mean every water circuit is shared. The COP slide then relates heat moved to cooling electricity. Keep the equipment boundary consistent when comparing COP values.
 
 ## Hot weather needs more cooling electricity — Chapter 12, slide 15
 
