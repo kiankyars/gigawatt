@@ -92,6 +92,14 @@ Microsoft described that ambition in November 2025, not a completed training run
 
 Sources: [Microsoft Fairwater feature](https://news.microsoft.com/source/features/ai/from-wisconsin-to-atlanta-microsoft-connects-datacenters-to-build-its-first-ai-superfactory/).
 
+## Leaf–spine is common, not universal — Chapter 10, slide 10
+
+<!-- speaker: networking#leaf-spine -->
+
+NVIDIA LinkX 400G cables connect switches, network adapters (NICs), and DPUs in AI data centers.
+
+Sources: [NVIDIA LinkX product overview](https://docs.nvidia.com/networking/display/400g100gpam4ovdev/LinkX-100G-PAM4-Product-Line-Overview).
+
 ## Copper for short links; optical fiber for longer runs — Chapter 10, slide 11
 
 <!-- speaker: networking#copper-and-light -->
