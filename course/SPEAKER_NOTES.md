@@ -225,6 +225,8 @@ Calculation for the presenter: Δp_pump = 160 − 10q², Δp_normal = 30q² and 
 
 ## CDU approach compares two supply temperatures — Chapter 11, slide 12
 
+At the same facility-water inlet temperature and heat duty, a lower approach gives more margin to the rack-coolant temperature limit. It is not an unconditional optimization rule: exchanger size, flow, pumping demand and cost also matter. [Vertiv CDU 121 application guide, thermal performance at 3°C, 5°C and 7°C approach](https://www.vertiv.com/490d59/globalassets/shared/vertiv-coolchip-cdu-121-application-and-planning-guide-sl-802762.pdf).
+
 Facility water arrives at 30°C; separate coolant leaves for the chips at 35°C. Their difference is a 5°C approach. A smaller approach brings the technology coolant closer to the facility-water temperature. This differs from one fluid's supply-to-return rise. Achieving a smaller approach at a given heat duty depends on exchanger size, flow and operating conditions.
 
 A temperature difference of 5°C equals 5 K. Source: [NIST SI temperature units](https://www.nist.gov/pml/special-publication-330/sp-330-section-2).

@@ -70,7 +70,7 @@ const existing=[
     "label": "CDU approach",
     "title": "CDU approach is the gap between the two supply temperatures",
     "kind": "approach",
-    "description": "Facility water enters the CDU at 30 degrees Celsius. The separate rack coolant leaves for the chips at 35 degrees Celsius. The supply-temperature difference is a 5 degree Celsius CDU approach. Heat crosses the exchanger from warmer rack coolant to cooler facility water without the fluids mixing. This is a temperature difference, not a chip temperature or a loop return-minus-supply rise. A difference of 5 degrees Celsius equals 5 kelvin.",
+    "description": "Facility water enters the CDU at 30 degrees Celsius. The separate rack coolant leaves for the chips at 35 degrees Celsius. The supply-temperature difference is a 5 degree Celsius CDU approach. Heat crosses the exchanger from warmer rack coolant to cooler facility water without the fluids mixing. This is a temperature difference, not a chip temperature or a loop return-minus-supply rise. A difference of 5 degrees Celsius equals 5 kelvin. At the same facility inlet temperature and heat duty, a lower approach gives more margin to the rack-coolant temperature limit. Achieving it depends on exchanger design and flow; added exchanger size, pumping demand and cost can offset the temperature benefit.",
     "reference": "d10-cdu-interfaces"
   },
   {

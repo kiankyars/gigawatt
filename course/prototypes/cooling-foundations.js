@@ -422,7 +422,8 @@ function approach(compact) {
       + text(253, 359, "From facility", "svg-small facility-text")
       + text(cx, 426, "35°C − 30°C = 5°C", "svg-equation", "", "middle")
       + text(cx, 460, "CDU approach", "svg-label", "", "middle")
-      + text(cx, 497, "The lower the approach, the better.", "svg-small", "", "middle");
+      + text(cx, 497, "A lower approach gives more", "svg-small", "", "middle")
+      + text(cx, 520, "coolant-temperature margin.", "svg-small", "", "middle");
   }
   return box("hx", 455, 65, 250, 225)
     + text(cx, 99, "CDU heat exchanger", "svg-label", "hx", "middle")
@@ -440,7 +441,7 @@ function approach(compact) {
     + text(248, 211, "35°C to chips", "svg-equation tech-text", "", "middle")
     + text(914, 211, "30°C from facility", "svg-equation facility-text", "", "middle")
     + text(cx, 340, "35°C − 30°C = 5°C approach", "svg-equation", "", "middle")
-    + text(cx, 377, "The lower the approach, the better.", "svg-small", "", "middle");
+    + text(cx, 377, "A lower approach gives more coolant-temperature margin.", "svg-small", "", "middle");
 }
 
 export function renderFoundation(kind, compact, state = {}) {
