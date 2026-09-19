@@ -1,8 +1,35 @@
-import { PRESENTER_PROTOCOL, isPresenterMessage, previewURL } from './presenter-model.js';
+import { PRESENTER_PROTOCOL, isPresenterMessage, previewURL } from './presenter-model.js?v=notes-20260919';
+import { SPEAKER_NOTES_URL, parseSpeakerNotes, speakerNoteKey, renderSpeakerNotes } from './presenter-notes.js';
 const $ = id => document.getElementById(id);
 const audience = window.opener, origin = location.origin, session = location.hash.slice(1);
 let current = null, lastSeen = 0, connected = false, previewKey = '', exited = false;
 const previewFrame = $('preview');
+let speakerNotes = new Map(), activeNote = '', renderedNote = '';
+function fitPreview() {
+  const style = previewFrame.style;
+  if ($('workspace').dataset.notes !== 'true') {
+    for (const key of ['width','height','left','top','transform']) style[key] = '';
+    return;
+  }
+  const shell = $('next-shell');
+  const scale = Math.min(shell.clientWidth / 1280, shell.clientHeight / 720);
+  Object.assign(style, {width:'1280px', height:'720px', left:`${(shell.clientWidth - 1280 * scale) / 2}px`, top:`${(shell.clientHeight - 720 * scale) / 2}px`, transform:`scale(${scale})`});
+}
+function updateNotes() {
+  const key = speakerNoteKey(current);
+  const html = renderSpeakerNotes(speakerNotes.get(key) || '');
+  const hasNotes = !!html;
+  $('workspace').dataset.notes = String(hasNotes);
+  $('speaker-notes').hidden = !hasNotes;
+  $('preview-label').textContent = hasNotes ? 'Current notes + next slide' : 'Up next';
+  if (activeNote !== key || renderedNote !== html) {
+    $('notes-content').innerHTML = html;
+    $('speaker-notes').scrollTop = 0;
+  }
+  activeNote = key; renderedNote = html;
+  fitPreview();
+}
+
 const post = data => {
   if (audience && !audience.closed) audience.postMessage({ protocol: PRESENTER_PROTOCOL, session, ...data }, origin);
 };
@@ -25,6 +52,7 @@ function forward() {
 function keydown(event) {
   if (!connected || !current || event.altKey || event.metaKey || event.ctrlKey
       || event.target.closest('button,select,input,textarea,a,[contenteditable]')) return;
+  if (event.target.closest('#speaker-notes') && [' ', 'PageDown', 'PageUp', 'Home', 'End'].includes(event.key)) return;
   const action = {
     ArrowRight: forward, PageDown: forward, ' ': forward,
     ArrowLeft: () => navigation(current.index - 1), PageUp: () => navigation(current.index - 1),
@@ -34,6 +62,7 @@ function keydown(event) {
 }
 function update(snapshot) {
   current = snapshot; lastSeen = Date.now();
+  updateNotes();
   document.title = `Up next · ${snapshot.title}`;
   $('chapter').textContent = snapshot.title.split(' · ')[0].trim();
   $('chapter').hidden = false;
@@ -83,3 +112,11 @@ const hello = () => {
   if (lastSeen && Date.now() - lastSeen > 3500) status('Waiting for the course window…');
 };
 hello(); const heartbeat = window.setInterval(hello, 1000);
+
+// Notes are fetched only by this window, never by the audience or preview frame.
+fetch(SPEAKER_NOTES_URL, {cache:'no-cache'})
+  .then(response => { if (!response.ok) throw new Error('Speaker notes unavailable'); return response.text(); })
+  .then(markdown => { if (exited) return; speakerNotes = parseSpeakerNotes(markdown); updateNotes(); })
+  .catch(() => { /* Navigation and the full-size preview still work offline. */ });
+if (window.ResizeObserver) new window.ResizeObserver(fitPreview).observe($('next-shell'));
+window.addEventListener('resize', fitPreview);

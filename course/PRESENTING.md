@@ -61,11 +61,12 @@ Open a chapter’s slides from the one chapter directory. The header provides
 Explanation/source dialogs and note-launch buttons are removed from slide views;
 the written lesson holds definitions, derivations and sources.
 
-**Presenter** opens a separate window showing only the upcoming slide, filling
-that window. Put it on your second monitor and record the original course
-window, which shows the current slide. There is no duplicate current slide,
-thumbnail overlay, timer or notes panel. The upcoming slide shows its starting
-state; interact with the current slide in the original window.
+**Presenter** opens a separate window for your second monitor. When the current
+slide has speaker notes, the left half shows its script and the right half shows
+the upcoming slide. Notes scroll independently. Slides without notes keep the
+full-window upcoming-slide preview. Record the original course window, which
+shows only the current slide. The upcoming slide shows its starting state;
+interact with the current slide in the original window.
 The original window's header and bottom slide navigation hide while the presenter
 is connected and return when it closes, without moving the slide content.
 The separate upcoming-slide window keeps its bottom navigation controls and a
@@ -117,3 +118,9 @@ feedback, and the [source index](README.md) identifies the editable inputs.
 [TESTING.md](TESTING.md) records which technical and browser checks actually ran.
 Passing them establishes behavior and legibility under those checks; rehearsal
 establishes whether the sequence teaches clearly.
+
+Speaker notes stay in `SPEAKER_NOTES.md`. A hidden `<!-- speaker: deck#scene-id -->`
+marker connects each script to its slide, so the connection survives reordering.
+Keep markers after the section heading. Multiple slide IDs can share a short
+script when it applies to each; use separate blocks for different explanations.
+Source paragraphs remain in the notes document and are omitted from the presenter.

@@ -1,4 +1,4 @@
-import { PRESENTER_PROTOCOL, isPresenterMessage, requestedPreview, slideSelection } from './presenter-model.js';
+import { PRESENTER_PROTOCOL, isPresenterMessage, requestedPreview, slideSelection, currentSceneId } from './presenter-model.js?v=notes-20260919';
 
 const SESSION_KEY = 'gigawatt-presenter-session';
 const AUDIENCE_TITLE = 'From Watts to Tokens';
@@ -33,7 +33,7 @@ export function installPresenter(doc = document, win = window) {
   if (!nav || nav.querySelector('.course-presenter-button')) return;
   const location = new URL(win.location.href);
   if (!['http:', 'https:'].includes(location.protocol)) return;
-  const presenterPage = new URL('./presenter.html', import.meta.url);
+  const presenterPage = new URL('./presenter.html?v=notes-20260919', import.meta.url);
   let session;
   try { session = win.sessionStorage.getItem(SESSION_KEY); } catch { /* Storage can be disabled. */ }
   session ||= win.crypto.randomUUID();
@@ -74,7 +74,7 @@ export function installPresenter(doc = document, win = window) {
     if (!selection) return;
     const chapterLink = doc.querySelector('.course-next-chapter:not([hidden])');
     syncTitle();
-    const data = { type: 'snapshot', ...selection, title: slideTitle, href: win.location.href,
+    const data = { type: 'snapshot', ...selection, sceneId: currentSceneId(doc, win.location.href), title: slideTitle, href: win.location.href,
       nextChapter: chapterLink ? chapterLink.textContent.trim() : null };
     const key = JSON.stringify(data);
     if (key === lastSnapshot) return;

@@ -29,3 +29,11 @@ export function requestedPreview(href, inFrame) {
   const value = new URL(href).searchParams.get(PREVIEW_PARAMETER);
   return value !== null && /^(0|[1-9]\d*)$/.test(value) && Number.isSafeInteger(Number(value)) ? Number(value) : null;
 }
+
+export function currentSceneId(doc, href) {
+  const select = doc.querySelector('footer.course-slide-navigation select');
+  const rendered = doc.querySelector('[data-scene]')?.dataset.scene;
+  const value = rendered || select?.options[select.selectedIndex]?.value;
+  if (/^[a-z][a-z0-9-]*$/.test(value || '')) return value;
+  try { return decodeURIComponent(new URL(href).hash.slice(1)); } catch { return ''; }
+}

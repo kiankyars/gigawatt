@@ -1,5 +1,13 @@
 # Course verification
 
+## Presenter notes beside the upcoming slide — 2026-09-19
+
+- Current-slide notes occupy the left half only when present; the next-slide preview occupies the right half. Unnoted slides retain the full preview. Stable scene IDs connect 121 scripts to slides, with notes fetched only in the presenter.
+- Trimmed repetition and editing history; preserved primary-source links in the Markdown and hid them from the reading pane. The preview keeps desktop proportions when reduced; notes scroll independently.
+- 310 JavaScript tests and 80 Python tests pass. Tests cover note mapping, safe rendering, late fetches, missing notes, final-slide behavior, scrolling and Exit. Generated course checks pass.
+- Headless Chromium exercised the real audience/popup pair, noted/unnoted transitions, reload/reconnect, chapter navigation and Exit. Visually inspected 1440×900 and 1280×720 captures plus dark mode. No browser exceptions or notes in audience/preview documents.
+- Repeat: serve the staged site and run `node tests/browser_presenter.cjs http://127.0.0.1:8878/_site/slides/` with Playwright available.
+
 ## Chapter 14 case context and coherent measurements — 2026-09-17
 
 - **21 slides**; all five D14 objectives represented. Time/location repetition and generic acknowledgment/mapping slides are folded into the actual row and startup cases. Old scene links redirect.

@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { PRESENTER_PROTOCOL, previewURL, requestedPreview, isPresenterMessage, slideSelection } from '../course/prototypes/presenter-model.js';
+import { PRESENTER_PROTOCOL, previewURL, requestedPreview, isPresenterMessage, slideSelection, currentSceneId } from '../course/prototypes/presenter-model.js';
+import { SPEAKER_NOTES_URL, parseSpeakerNotes, speakerNoteKey, renderSpeakerNotes } from '../course/prototypes/presenter-notes.js';
 import { installPresenter } from '../course/prototypes/presenter-bridge.js';
 import { readFileSync } from 'node:fs';
 import vm from 'node:vm';
@@ -102,7 +103,7 @@ test('audience bridge sends navigation metadata, forwards navigation and reconne
   installPresenter(fixture.doc, fixture.win);
   fixture.button.click(); fixture.send({ type: 'hello' });
   let snapshot = fixture.messages.at(-1);
-  assert.deepEqual(Object.keys(snapshot).sort(), ['protocol','session','type','index','slides','title','href','nextChapter'].sort());
+  assert.deepEqual(Object.keys(snapshot).sort(), ['protocol','session','type','index','slides','title','href','nextChapter','sceneId'].sort());
   assert.equal(snapshot.index, 0);
   let changes = 0;
   fixture.select.dispatchEvent = event => { if (event.type === 'change') changes++; };
@@ -200,8 +201,8 @@ test('preview initialization waits for module decks to populate the live selecto
 
 test('separate presenter displays the upcoming slide and its controls advance the audience', () => {
   const messages = [], handlers = new Map();
-  const elements = Object.fromEntries(['preview','connection','slides','previous','next','progress','end','exit-presenter','chapter'].map(id => [id, {
-    hidden: false, options: [], setAttribute(name, value) { this[name] = value; },
+  const elements = Object.fromEntries(['preview','connection','slides','previous','next','progress','end','exit-presenter','chapter','workspace','speaker-notes','notes-content','next-shell','preview-label'].map(id => [id, {
+    hidden: false, options: [], dataset: {}, style: {}, clientWidth:640, clientHeight:620, innerHTML:'', scrollTop:0, setAttribute(name, value) { this[name] = value; },
     replaceChildren(...options) { this.options = options; },
   }]));
   const audience = { closed: false, focus() {}, postMessage: data => messages.push(data) };
@@ -210,9 +211,9 @@ test('separate presenter displays the upcoming slide and its controls advance th
     window: { opener: audience, addEventListener: (type, handler) => handlers.set(type, handler), setInterval() {}, clearInterval() {}, close() {} },
     location: { origin: 'https://example.test', hash: '#test-session' },
     Option: function (text, value) { this.textContent = text; this.value = value; },
-    PRESENTER_PROTOCOL, isPresenterMessage, previewURL,
+    PRESENTER_PROTOCOL, isPresenterMessage, previewURL, SPEAKER_NOTES_URL, parseSpeakerNotes, speakerNoteKey, renderSpeakerNotes, fetch:()=>Promise.resolve({ok:true,text:()=>Promise.resolve('')}),
   };
-  const source = readFileSync(new URL('../course/prototypes/presenter-window.js', import.meta.url), 'utf8').replace(/^import .*;\n/, '');
+  const source = readFileSync(new URL('../course/prototypes/presenter-window.js', import.meta.url), 'utf8').replace(/^import .*;\n/gm, '');
   vm.runInNewContext(source, context);
   const receive = data => handlers.get('message')({ source: audience, origin: context.location.origin,
     data: { protocol: PRESENTER_PROTOCOL, session: 'test-session', ...data } });
@@ -244,8 +245,8 @@ test('Exit presenter restores audience chrome without changing slides or reconne
   const fixture = audienceFixture();
   const handlers = new Map(), intervals = new Map(), commands = [];
   let timer = 0, focusCalls = 0, closeCalls = 0;
-  const elements = Object.fromEntries(['preview','connection','slides','previous','next','progress','end','exit-presenter','chapter'].map(id => [id, {
-    hidden: false, options: [], setAttribute(name, value) { this[name] = value; },
+  const elements = Object.fromEntries(['preview','connection','slides','previous','next','progress','end','exit-presenter','chapter','workspace','speaker-notes','notes-content','next-shell','preview-label'].map(id => [id, {
+    hidden: false, options: [], dataset: {}, style: {}, clientWidth:640, clientHeight:620, innerHTML:'', scrollTop:0, setAttribute(name, value) { this[name] = value; },
     replaceChildren(...options) { this.options = options; },
   }]));
   fixture.win.focus = () => { focusCalls++; };
@@ -264,11 +265,11 @@ test('Exit presenter restores audience chrome without changing slides or reconne
     },
     location: { origin: fixture.win.location.origin, hash: '#test-session' },
     Option: function (text, value) { this.textContent = text; this.value = value; },
-    PRESENTER_PROTOCOL, isPresenterMessage, previewURL,
+    PRESENTER_PROTOCOL, isPresenterMessage, previewURL, SPEAKER_NOTES_URL, parseSpeakerNotes, speakerNoteKey, renderSpeakerNotes, fetch:()=>Promise.resolve({ok:true,text:()=>Promise.resolve('')}),
   };
   installPresenter(fixture.doc, fixture.win);
   fixture.button.click();
-  const source = readFileSync(new URL('../course/prototypes/presenter-window.js', import.meta.url), 'utf8').replace(/^import .*;\n/, '');
+  const source = readFileSync(new URL('../course/prototypes/presenter-window.js', import.meta.url), 'utf8').replace(/^import .*;\n/gm, '');
   vm.runInNewContext(source, context);
   assert.equal(fixture.doc.documentElement.dataset.presenterActive, '');
   assert.equal(elements.slides.disabled, false);
