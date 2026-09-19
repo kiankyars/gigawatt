@@ -749,3 +749,7 @@ Added the requested definition to the Chapter 12 wet-tower speaker notes and sce
 ### Adiabatic boost image and cooling circuits — 19 September 2026
 
 Added the supplied nitrous-boost image alongside the existing adiabatic-assist diagram. Recorded the analogy and the dry-cooler versus refrigerant distinction in speaker notes and review questions 24, 26 and 28, including the optional four-circuit arrangement and the 10 + 2 = 12 MW compressor balance. Checked the existing three-control-layer image for review question 37: it already identifies flow/pressure, bringing cooling units on and moving/delaying compute, so no duplicate captions were added.
+
+### Llama 3 slide simplification — 19 September 2026
+
+Simplified Chapter 14 `llama-recovery` into two metric columns. Removed the generic Detect → Recover → Continue boxes and preserved all visible numbers: 54 days, 466 interruptions, 47 planned, 419 unexpected, more than 90% effective training time and three incidents requiring significant manual intervention. The existing hardware statistic remains in the speaker explanation. Verified desktop, mobile and light/dark layouts; navigation and slide order are unchanged.

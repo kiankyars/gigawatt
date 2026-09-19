@@ -18,9 +18,9 @@ function admission(){
 
 
 function llama(){
-  return `<div class="o-stack"><p class="o-case-date">Meta · Llama 3 pre-training · 54-day snapshot</p><div class="o-two o-outcomes">${result('466','Job interruptions: 47 planned + 419 unexpected')}${result('&gt;90%','Effective training time')}</div>
-    <div class="o-status-chain">${card('Detect','Identify the interruption.')}${arrow}${card('Recover','Restart and restore progress.')}${arrow}${card('Continue','Resume productive training.','positive')}</div>
-    <p class="o-key">Only three incidents required significant manual intervention.</p>
+  return `<div class="o-llama"><p class="o-case-date">Meta · Llama 3 pre-training · 54 days</p>
+    <div class="o-llama-metrics"><section><strong class="o-llama-value">466</strong><h2>Training interruptions</h2><p class="o-llama-breakdown"><span><b>47</b> planned</span><span><b>419</b> unexpected</span></p></section>
+    <section><strong class="o-llama-value">&gt;90%</strong><h2>Effective training time</h2><p class="o-llama-manual"><b>3</b> incidents needed significant<br class="o-llama-linebreak"> manual intervention</p></section></div>
     ${credit('Meta · The Llama 3 Herd of Models · §3.3.4','https://arxiv.org/html/2407.21783v3#S3.SS3.SSS4')}</div>`;
 }
 
