@@ -62,6 +62,12 @@ Source: [Wolfspeed 10 kV SiC announcement](https://www.wolfspeed.com/company/new
 
 Source: [ABB DC protection paper](https://library.e.abb.com/public/5cd83dcb95a74dcdb571be5f256e1af8/9AKK108470A9606_en_B_Protection%20Devices%20for%20Direct%20Current%20Applications%20-%20Technical%20Application%20Paper.pdf).
 
+## Inside an AI Superfactory — Chapter 10, slide 4
+
+Start with **Overview** to place the campus connections and data hall in one picture. Use **Campus scale** for the backbone, power and GPU-density callouts, then **Inside the data hall** for cooling, cable length and network topology. These are enlarged regions of Microsoft's original infographic, so its labels remain readable in a 720p recording.
+
+Source: [Microsoft Fairwater feature](https://news.microsoft.com/source/features/ai/from-wisconsin-to-atlanta-microsoft-connects-datacenters-to-build-its-first-ai-superfactory/).
+
 ## Microsoft’s ambition for Fairwater — Chapter 10, slide 5
 
 “The distributed networking of Microsoft’s Fairwater sites is designed to enable them to support training models with hundreds of trillions of parameters.”

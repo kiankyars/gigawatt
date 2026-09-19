@@ -99,6 +99,10 @@
 .optical-packaging-image img{display:block;width:100%;height:100%;min-height:0;object-fit:contain}
 .network-reference-image{display:flex;align-items:center;justify-content:center;flex:1;height:100%;min-height:0;margin:0}
 .network-reference-image img{display:block;width:100%;height:100%;min-height:0;object-fit:contain}
+.superfactory-details{display:flex;flex-direction:column;justify-content:center;gap:16px;flex:1;width:100%;height:100%;min-height:0;margin:0}
+.superfactory-crops{display:flex;flex:1;min-height:0;align-items:center;justify-content:center}
+.superfactory-crops svg{display:block;width:100%;height:100%;min-height:0;overflow:hidden}
+@media(max-width:600px){.superfactory-details{height:auto;flex:none}.superfactory-crops{display:grid;grid-template-columns:minmax(0,1fr);gap:20px;flex:none}.superfactory-crops svg{height:auto}}
 @media(max-width:600px){.network-reference-image{height:auto;flex:none}.network-reference-image img{height:auto}}
 @media(max-width:600px){.optical-packaging-image{height:auto;flex:none}.optical-packaging-image img{height:auto}}
 

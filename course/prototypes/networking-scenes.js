@@ -8,12 +8,12 @@ export const learningContract = Object.freeze({
 });
 const topology='d08-topology-budget',collective='d08-collective-progress',media='d08-copper-light-service';
 const c=(key,label,options)=>({key,label,options});
-export const initialState={uplinks:2,placement:'remote',ocsPairing:'straight',diagnosis:''};
+export const initialState={uplinks:2,placement:'remote',ocsPairing:'straight',diagnosis:'',superfactoryView:'overview'};
 export const scenes=[
  {id:'networking-purpose',label:'Networking and interconnects',title:'Networking and interconnects',reference:topology,pedagogical_role:'problem'},
  {id:'consumer-hardware-meme',label:'AI demand and consumer hardware',title:'AI demand and consumer hardware',reference:topology,pedagogical_role:'hook',imageOnly:true},
  {id:'three-scales',label:'Three communication scales',title:'A distributed model uses different networks at different scales.',reference:topology,pedagogical_role:'architecture'},
- {id:'microsoft-ai-superfactory',label:'Inside an AI Superfactory',title:'Inside an AI Superfactory',reference:topology,pedagogical_role:'case',imageOnly:true},
+ {id:'microsoft-ai-superfactory',label:'Inside an AI Superfactory',title:'Inside an AI Superfactory',reference:topology,pedagogical_role:'case',imageOnly:true,controls:[c('superfactoryView','View',[['overview','Overview'],['campus','Campus scale'],['hall','Inside the data hall']])]},
  {id:'fairwater-model-scale',label:'Fairwater model scale',title:'Microsoft’s ambition for Fairwater',reference:topology,pedagogical_role:'case',imageOnly:true},
  {id:'packet-path',label:'Data hierarchy',title:'Data hierarchy for each networking paradigm',reference:topology,pedagogical_role:'mechanism'},
  {id:'shared-model',label:'A model across several GPUs',title:'Split a model across GPUs, and they must exchange results.',reference:collective,pedagogical_role:'mechanism'},
