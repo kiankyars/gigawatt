@@ -220,6 +220,8 @@ This photograph shows immersion hardware. Its operator and fluid were not suppli
 
 Both devices produce 400 W. Over 4 cm² that is 100 W/cm²; over 1 cm² it is 400 W/cm². The total heat is unchanged, but it must leave through a smaller area.
 
+ΔT is the chip-to-coolant temperature difference. Multiply thermal resistance in °C/W by heat rate in W to find that temperature gap.
+
 ## Thermal resistance — Chapter 11, slide 9
 
 <!-- speaker: cooling#thermal-resistance-example -->
