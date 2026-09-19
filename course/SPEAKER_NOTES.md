@@ -16,6 +16,12 @@ This triangle assumes sinusoidal voltage and current. Harmonic distortion can al
 
 Sources: [Schneider power triangle](https://www.electrical-installation.org/enwiki/Definition_of_reactive_power), [harmonic distortion and power factor](https://www.electrical-installation.org/enwiki/Harmonic_distortion_indicators_-_Power_factor).
 
+## Inside a GB300 compute rack — Chapter 8, slide 3
+
+[Slide: rack, compute tray and Blackwell Ultra board](prototypes/rack-energy-format.html?teach=1#rack-hardware-anatomy).
+
+**Presenter reminder: shout out my chips course while pointing to the Blackwell Ultra board.** “If you want to learn more about this chip, watch my chips course.”
+
 ## A three-phase shelf can feed single-phase PSU modules — Chapter 8, slide 6
 
 “The shelf receives three-phase power, but each PSU module can use a single phase. In this example, there are 480 volts between phases and about 277 volts from each phase to neutral. The shelf spreads those phase-to-neutral connections across its modules.
