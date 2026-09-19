@@ -22,3 +22,9 @@
 .k-quote blockquote{font:400 clamp(32px,4.3vw,64px)/1.25 Georgia,serif;letter-spacing:-.02em;margin:0;text-wrap:balance}
 .k-quote figcaption{margin-top:12px}
 @media(max-width:800px){.k-quote{padding:6vw 0;gap:32px}.k-quote blockquote{font-size:clamp(32px,7vw,48px)}}
+.k-quote-art{display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:16px;max-width:1420px;height:100%;min-height:0;padding:0;text-align:center}
+.k-quote-art blockquote{font-size:clamp(26px,2.4vw,38px);line-height:1.2}
+.k-quote-artwork{display:flex;align-items:center;justify-content:center;min-height:0;min-width:0}
+.k-quote-artwork img{display:block;width:100%;height:100%;min-height:0;object-fit:contain}
+.k-quote-art figcaption{margin:0}
+@media(max-width:800px),(max-height:559px){.k-quote-art{height:auto;grid-template-rows:auto auto auto;gap:24px}.k-quote-art blockquote{font-size:clamp(26px,6vw,36px)}.k-quote-artwork img{height:auto}}
