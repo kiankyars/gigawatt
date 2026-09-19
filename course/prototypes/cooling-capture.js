@@ -6,7 +6,7 @@ const path=(d,c='tech')=>`<path d="${d}" fill="none" stroke="var(--${c})" stroke
 const card=(x,y,w,title,big,detail='',color='tech')=>box(x,y,w,180)+text(x+w/2,y+38,title,26)+text(x+w/2,y+100,big,45,color)+(detail?text(x+w/2,y+149,detail,23):'');
 const control=(key,label,options)=>({key,label,options});
 export const captureScenes=[
-{id:'local-heat-flux',label:'Heat concentrated on the chip',title:'The same heat can be harder to remove',reference:'d10-local-thermal-paths',kind:'capture-detail',pedagogical_role:'comparison',description:'Two 400 W devices have heat-transfer areas of 4 and 1 square centimetres. Their average heat fluxes are 100 and 400 W per square centimetre. Heat flux is heat transfer rate per unit area, shown here in W/cm². The chip-to-coolant temperature difference is ΔT = thermal resistance × heat rate, with thermal resistance in °C/W and heat rate in W. Heat flux alone does not establish junction temperature or thermal resistance.'},
+{id:'local-heat-flux',label:'Heat concentrated on the chip',title:'The same heat can be harder to remove',reference:'d10-local-thermal-paths',kind:'capture-detail',pedagogical_role:'comparison',description:'Two 400 W devices have heat-transfer areas of 4 and 1 square centimetres. Their average heat fluxes are 100 and 400 W per square centimetre. Heat flux is heat transfer rate per unit area, shown here in W/cm². Heat flux alone does not establish chip temperature.'},
 {id:'device-temperature',label:'Coolant and chip temperature',title:'Why 35° coolant can cool two chips differently.',reference:'d10-local-thermal-paths',kind:'capture-detail',pedagogical_role:'comparison',description:'Follow the same 400 W of heat from each chip through its cold plate into 35°C local coolant. ΔT means chip temperature minus coolant temperature: ΔT = 400 W × thermal resistance. The lower-resistance path needs ΔT = 32°C, so its chip reaches 67°C; the higher-resistance path needs ΔT = 48°C, so its chip reaches 83°C and exceeds the example 80°C limit. Thermal resistance includes the complete chip-to-coolant path. Heat flux on the preceding slide describes how concentrated the heat is. Smaller area can make that path harder to cool, but area alone does not determine thermal resistance; the two resistance values here are independently specified examples.'},
 {id:'pump-operating-point',label:'Flow and pump pressure',title:'The pump and circuit determine the flow',reference:'d10-flow-and-pressure',kind:'capture-detail',pedagogical_role:'mechanism',description:'At fixed pump speed, the descending curve shows pressure available from the pump and the ascending curve shows pressure required by the complete coolant circuit. The example curves are Δp_pump = 160 − 10q² and Δp_circuit = 30q², with q in L/s and pressure in kPa. They meet at 2 L/s and 120 kPa, operating point A. A second circuit curve, Δp = 70q², represents higher resistance such as a partly closed valve. It meets the same pump curve at 1.41 L/s and 140 kPa, operating point B: more resistance reduces flow at unchanged pump speed. Below this flow the pump adds more pressure than the circuit requires; above it the circuit requires more than the pump provides. Pressure means the rise across the pump and the balancing loss around the closed circuit, not absolute coolant pressure. These curves illustrate the mechanism rather than a named CDU rating. See KSB’s Centrifugal Pump Lexicon, Characteristic curve and Operating point.'},
 {id:'branch-flow',label:'Total flow can hide a hot branch',title:'Two litres per second can still leave one branch short',reference:'d10-flow-and-pressure',kind:'capture-detail',pedagogical_role:'counterexample',description:'A controller maintains 2 L/s total water flow for two 42 kW branches. A restriction redistributes flow from 1 plus 1 to .5 plus 1.5 L/s. The mixed return remains 45 degrees, while the restricted branch reaches 55 degrees.',controls:[control('branch','Flow split',[['balanced','Balanced'],['restricted','Restricted branch']])]},
@@ -22,13 +22,9 @@ function flux(small){
   }
   if(small){
     return b+text(w/2,580,'Heat flux (W/cm²)',25)
-      +text(w/2,611,'Heat transfer rate per unit area',21)
-      +text(w/2,658,'ΔT = thermal resistance × heat rate',21)
-      +text(w/2,697,'ΔT: chip-to-coolant temperature difference',18);
+      +text(w/2,611,'Heat transfer rate per unit area',21);
   }
-  return b+text(w/2,419,'Heat flux = heat transfer rate ÷ area (W/cm²)',27)
-    +text(w/2,461,'ΔT = thermal resistance × heat rate',27)
-    +text(w/2,493,'ΔT: chip-to-coolant temperature difference',21);
+  return b+text(w/2,419,'Heat flux = heat transfer rate ÷ area (W/cm²)',27);
 }
 function temperature(_state,small){
   const w=small?420:1100,fluidC=35,watts=400,limitC=80;
