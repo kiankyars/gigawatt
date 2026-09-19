@@ -741,3 +741,7 @@ Kept `psu-input` as its own slide. Replaced the left text box with the primer’
 ### Chapter 8 phase connections and busbar annotation — 19 September 2026
 
 Removed the unrelated seismic-bracing annotation from the rear-rack image used by `psu-input`; the busbar arrow remains, and the original manufacturer image is preserved. Connected each colored AC waveform to its corresponding L1/L2/L3 PSU path. The waveform has the same 120-degree phase separation, with its displayed cycle starting at a different point so the connectors can reach their PSU rows without crossings. Mobile uses the same phase-to-module mapping.
+
+### Cooling-tower fill speaker note — 19 September 2026
+
+Added the requested definition to the Chapter 12 wet-tower speaker notes and scene explanation: fill spreads water into thin films or droplets to maximize the water surface exposed to air per unit volume. Linked the DOE cooling-tower component guide. The projected diagram is unchanged.

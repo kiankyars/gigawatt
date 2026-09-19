@@ -263,6 +263,8 @@ Humidity changes wet bulb even when dry bulb stays fixed. Equipment names and ai
 
 ## Follow the outdoor coolant paths — Chapter 12, slides 7 and 9
 
+**Point to the wet tower’s fill:** “Fill is packing material that spreads water into thin films or small droplets, maximizing the surface area exposed to air per unit volume of water.” [DOE cooling-tower component guide](https://www.energy.gov/sites/default/files/2013/10/f3/waterfs_coolingtowers.pdf), page 2.
+
 Step through collection, transfer, rejection and return on each physical diagram. The separate CDU loops remain distinct. The dry coil transfers heat through its wall to outdoor air; the wet tower exposes tower water to moving air. Each heat-transfer interface needs a temperature difference. On the dry route, 35°C outdoor air plus a 5°C dry-cooler approach yields 40°C facility water; the 5°C CDU approach yields 45°C rack coolant. The example assumes a maximum rack-coolant inlet of 35°C, not a 35°C chip temperature. These values illustrate the interfaces rather than a particular site's performance.
 
 ## Adiabatic assist — Chapter 12, slide 8
