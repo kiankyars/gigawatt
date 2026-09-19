@@ -273,3 +273,11 @@ the device-temperature comparison. The example links 100 W of heat flow through
 0.2°C/W to a 20°C chip-to-water temperature difference; it does not claim a
 specific GPU's operating values. Source attachment, scope and SHA-256 are recorded
 in `references/thermal-resistance-user.provenance.json`.
+
+## Supplied cooling-layout overview — 19 September 2026
+
+`references/cooling-layouts-user.png` replaces the code-drawn Chapter 12 overview
+with the complete user-supplied image, unchanged. The image carries its own title.
+Speaker notes retain the heat-versus-fluid distinction and the sources for the
+three example layouts. Attachment origin and SHA-256 are recorded in
+`references/cooling-layouts-user.provenance.json`.

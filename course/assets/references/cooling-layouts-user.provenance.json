@@ -1,0 +1,9 @@
+{
+  "asset": "cooling-layouts-user.png",
+  "origin": "User-supplied explanatory image, copied unchanged",
+  "source_file": "/var/folders/yz/12v1220n65l1n73qn10g98v00000gn/T/codex-clipboard-5628d5b4-30c4-49b8-b6c6-9e54b43a22fe.png",
+  "provided_on": "2026-09-19",
+  "usage": "Chapter 12 slide 14: cooling layouts after the facility-water loop",
+  "scope": "Three example heat-rejection layouts with a fixed IT coolant / liquid-to-liquid CDU / facility-water front end. Arrows follow heat transfer; the fluids remain separate.",
+  "sha256": "66554ed8d05c3745f8df8143a4d45dc0f19f079abd5a7dd9361e285f6217a6b2"
+}

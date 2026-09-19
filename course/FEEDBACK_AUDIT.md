@@ -800,3 +800,7 @@ Added `cooling-layouts` immediately after the compressor-rest illustration, as C
 Added the requested Chapter 8 B300 speaker note: visible chokes belong to parallel switching phases, and counting them does not establish the number of complete VRMs. Preserved the chips-course reminder and avoided an unsupported B300 phase count.
 
 Added the supplied thermal-resistance image unchanged as Chapter 11 slide 9, between heat flux and the existing chip-temperature comparison. The worked 100 W × 0.2°C/W = 20°C example gets a concise speaker note; subsequent Chapter 11 note numbers and the current chapter count are updated. Existing bookmarks remain. Verified the full image and navigation at 1280×720 and 390×844, including light/dark desktop layouts.
+
+### Supplied cooling-layout overview — 19 September 2026
+
+Replaced Chapter 12 slide 14, `cooling-layouts`, with the user's complete image. Preserved the existing position and bookmark; hid the duplicate projected title and removed the old diagram's unused styles. Source links and the distinction between heat flow and fluid flow remain in the scene explanation and speaker notes. No slide counts or numerical models changed. Verified the replacement at 1280×720 and 390×844 in light/dark, with no browser errors or horizontal overflow; previous/next navigation and title restoration passed. All 80 Python and 303 JavaScript tests passed.
