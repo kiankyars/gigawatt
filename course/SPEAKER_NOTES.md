@@ -246,13 +246,21 @@ The same heat can leave in more water with a smaller temperature rise. At fixed 
 
 <!-- speaker: cooling#pump-operating-point -->
 
-A running pump does not guarantee a particular flow. The horizontal axis is flow; the vertical axis is pressure difference.
+The previous slide showed why coolant flow matters. This graph shows what determines how much flow we actually get.
 
-At fixed speed, the pump supplies less pressure as flow rises. The circuit needs more pressure to push that greater flow through its resistance. Their intersection is the operating point.
+The horizontal axis is flow, in litres per second. The vertical axis is the pressure difference the pump adds to drive coolant around the loop. We’re keeping the pump speed fixed.
 
-A clogged filter or partly closed valve steepens the circuit curve. Here flow falls from 2 to 1.41 L/s, while pressure difference rises from 120 to 140 kPa. A higher pressure reading can accompany worse circulation.
+The downward-sloping line shows what the pump can provide. At this speed, it can produce a larger pressure difference at low flow, and a smaller one at high flow.
 
-The curves are Δp_pump = 160 − 10q², Δp_normal = 30q² and Δp_restricted = 70q². Equating pump and circuit gives q = 2 or √2 L/s: a 29.3% reduction. This is pressure added or lost around the path, not absolute pressure at one point.
+The upward-sloping line shows what the cooling circuit requires. Pushing more coolant through the pipes, valves and cold plates takes a larger pressure difference.
+
+Where those two lines meet is where the system settles. That’s the operating point. At point A, the pump provides the pressure the circuit needs to sustain two litres per second: 120 kilopascals.
+
+Now imagine a valve is partly closed, or a filter starts to clog. Getting the same flow through that restriction would require more pressure. That gives us the steeper, dashed line. The pump speed hasn’t changed, so the pump curve stays where it is.
+
+The new intersection is point B. Flow falls to about 1.4 litres per second, while the pressure difference rises to 140 kilopascals.
+
+The pump is still running, and it’s producing a larger pressure difference, but less coolant is circulating. That’s why we need to check flow as well as pressure: the equipment still needs enough coolant to carry its heat away.
 
 Sources: [Grundfos — How does one read a pump curve?](https://www.grundfos.com/solutions/support/faq/how-does-one-read-a-pump-curve-of-a-heating-pump), [Hydraulic Institute — Combined pump and system curves](https://datatool.pumps.org/pump-fundamentals/combined.html), [KSB characteristic curves](https://www.ksb.com/en-global/centrifugal-pump-lexicon/article/characteristic-curve-1117926).
 
