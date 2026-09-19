@@ -1,0 +1,11 @@
+{
+  "asset": "cooling-layouts-condenser-label.png",
+  "origin": "Built-in image_gen edit of the user-supplied cooling-layouts-user.png",
+  "source_asset": "cooling-layouts-user.png",
+  "generated_file": "/Users/kian/.codex/generated_images/01a06e72-2fe2-7283-aebf-a61af801747b/exec-be480610-61ce-468a-a6b6-41f1e58e65c5.png",
+  "edited_on": "2026-09-19",
+  "usage": "Chapter 12 slide 14 cooling layouts",
+  "change": "Bottom blue rectangle now names Water-cooled condenser, retaining Condenser-water loop as a smaller line. Original composition and other labels preserved.",
+  "prompt_file": "cooling-layouts-condenser-label.prompt.md",
+  "sha256": "3d329c88a759f0a6261f98941eecc99800fa0d4c5bfc31b094ec89c04eef71fe"
+}

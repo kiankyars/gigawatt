@@ -281,3 +281,8 @@ with the complete user-supplied image, unchanged. The image carries its own titl
 Speaker notes retain the heat-versus-fluid distinction and the sources for the
 three example layouts. Attachment origin and SHA-256 are recorded in
 `references/cooling-layouts-user.provenance.json`.
+
+The active slide uses `references/cooling-layouts-condenser-label.png`, a built-in
+image-generation edit naming the bottom blue box “Water-cooled condenser” while
+retaining “Condenser-water loop” underneath. The original remains unchanged;
+the edit prompt and provenance accompany the derivative asset.

@@ -319,7 +319,7 @@ The supplied economizer image follows immediately. It specifically illustrates w
 
 - **No chiller:** facility water sends heat to a dry cooler, or through a separating exchanger into a wet-tower circuit.
 - **Air-cooled chiller:** facility water heats the refrigerant at the evaporator; refrigerant rejects heat directly to outdoor air at the condenser.
-- **Water-cooled chiller:** refrigerant rejects heat into an additional condenser-water circuit, which serves a dry cooler or wet tower.
+- **Water-cooled chiller:** refrigerant condenses in the water-cooled condenser, a heat exchanger that transfers heat into the separate condenser-water circuit. That water carries the heat to a dry cooler or wet tower. The condenser is the interface, rather than another CDU.
 
 The fourth circuit changes how the condenser rejects heat; it is not inherently redundant capacity. Economizing is a separate design feature: water-side free cooling bypasses refrigeration through a suitable outdoor heat-transfer path; refrigerant-side free cooling keeps refrigerant circulating without the compressor. Each needs compatible equipment and suitable temperatures. Adiabatic assist can precool air at a suitable dry coil, consuming water when active.
 

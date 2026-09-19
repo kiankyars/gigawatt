@@ -804,3 +804,7 @@ Added the supplied thermal-resistance image unchanged as Chapter 11 slide 9, bet
 ### Supplied cooling-layout overview — 19 September 2026
 
 Replaced Chapter 12 slide 14, `cooling-layouts`, with the user's complete image. Preserved the existing position and bookmark; hid the duplicate projected title and removed the old diagram's unused styles. Source links and the distinction between heat flow and fluid flow remain in the scene explanation and speaker notes. No slide counts or numerical models changed. Verified the replacement at 1280×720 and 390×844 in light/dark, with no browser errors or horizontal overflow; previous/next navigation and title restoration passed. All 80 Python and 303 JavaScript tests passed.
+
+### Name the water-cooled condenser — 19 September 2026
+
+Clarified the bottom blue rectangle on Chapter 12 slide 14 using an image-generation edit: “Water-cooled condenser,” with “Condenser-water loop” underneath. Preserved the original supplied image separately and retained the slide layout and bookmark. The speaker note and scene explanation now explicitly name the refrigerant-to-water heat exchanger and distinguish it from a CDU.
