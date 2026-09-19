@@ -57,10 +57,10 @@ test('all scenes and selectable states produce renderable desktop and compact me
  assert.equal(new Set(scenes.map(s=>s.id)).size,scenes.length);
  for(const scene of scenes){let states=[initialState];for(const group of scene.controls||[])states=states.flatMap(state=>group.options.map(([value])=>({...state,[group.key]:value})));if(scene.id==='network-diagnosis')states=['','server-1','server-2','server-3','server-4','uplink'].map(diagnosis=>({...initialState,diagnosis}));for(const state of states)for(const compact of[false,true]){const html=networkingVisual(scene.id,state,compact);assert.ok(html.length>100,scene.id);assert.doesNotMatch(html,/NaN|undefined/,scene.id);}}
 });
-test('compute migration preserves both requested opening images and distinguishes local memory from networking',()=>{
+test('networking keeps its illustrated opening and price meme and distinguishes local memory from networking',()=>{
  assert.equal(scenes[0].id,'networking-purpose');assert.equal(scenes[1].id,'consumer-hardware-meme');assert.equal(scenes[1].imageOnly,true);
  assert.match(networkingVisual('networking-purpose',initialState),/compute-scales\.png/);
- assert.match(networkingVisual('consumer-hardware-meme',initialState),/compute-consumer-hardware-meme\.png/);
+ assert.match(networkingVisual('consumer-hardware-meme',initialState),/storage-hardware-prices-meme\.png/);
  const path=scenes.find(s=>s.id==='packet-path');assert.equal(path.controls,undefined);
  const html=networkingVisual('packet-path',initialState);
  assert.doesNotMatch(html,/muted-path|selected-path/);

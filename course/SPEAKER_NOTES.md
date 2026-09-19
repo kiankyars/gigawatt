@@ -618,7 +618,7 @@ Establish sufficient local flow or place some work elsewhere. The calculation as
 
 <!-- speaker: capacity#hardware-prices-meme -->
 
-This concerns hardware purchase prices, not GPU rental rates.
+This concerns consumer hardware prices and availability, not GPU rental rates.
 
 <!-- speaker: capacity#capacity-purpose -->
 

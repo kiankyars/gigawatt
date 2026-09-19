@@ -1,7 +1,7 @@
 [
   {
     "file": "compute-consumer-hardware-meme.png",
-    "scene_id": "consumer-hardware-meme",
+    "scene_id": "hardware-prices-meme",
     "provided_on": "2026-09-15",
     "original_input": "/Users/kian/Library/Application Support/com.raycast.macos/clipboard/file-c647650f3dcdc5d896c2a6f9b7c70b9f.tiff",
     "sha256": "980c4550ce036d74a7eae092faaf0884ebc6e31b367533eb72dd7d981061a300",
@@ -10,7 +10,7 @@
   },
   {
     "file": "storage-hardware-prices-meme.png",
-    "scene_id": "hardware-prices-meme",
+    "scene_id": "consumer-hardware-meme",
     "provided_on": "2026-09-15",
     "original_input": "/Users/kian/Library/Application Support/com.raycast.macos/clipboard/file-4c33a7f271630c7e5c94e674117bdb16.tiff",
     "sha256": "d45a789a5325588bbafc3f09e4d7cb000ed5c8ebbd10bffd777378b746d2609e",

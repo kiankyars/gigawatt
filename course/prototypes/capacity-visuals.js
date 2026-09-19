@@ -21,7 +21,7 @@ export function capacityVisual(id,state){const backstop=backstopVisual(id);if(ba
  case 'rental-market':return market();
  case 'billable-occupancy':return occupancy(state);
  case 'contract-financing':return wrap(`<div class="k-financing"><section><h2>Customer</h2><p>Capacity contract</p></section><div class="k-money-flow"><span>Payments</span><b>→</b></div><section class="k-finance-core"><h2>GPU cloud</h2><p>Buys hardware<br>Delivers service</p></section><div class="k-money-flow"><span>Hardware financing</span><b>←</b><span>Debt service</span><b>→</b></div><section><h2>Lender</h2><p>Provides capital</p></section></div>${credit(sources.filing,'CoreWeave · asset-level debt supported by customer contracts')}`);
- case 'hardware-prices-meme':return '<figure class="k-meme"><img src="../assets/references/storage-hardware-prices-meme.png" alt="Grim Reaper AI meme: RAM, GPU and SSD prices rise, with CPU prices next."></figure>';
+ case 'hardware-prices-meme':return '<figure class="k-meme"><img src="../assets/references/compute-consumer-hardware-meme.png" alt="Grim Reaper meme: AI Data Centers passes doors labeled Low MSRPs, Mid range Availability and Consumer VRAM, and knocks on PC Gaming as a Hobby."></figure>';
  case 'nvidia-money-machine':return '<figure class="k-meme"><img src="../assets/references/nvidia-ai-money-machine-user.png" alt="How Nvidia and OpenAI Fuel the AI Money Machine: investment, hardware and services relationships between AI companies. Source: Bloomberg News reporting."></figure>';
  case 'gpu-hour-cost':return renderEnergyCost();
  case 'electricity-pass-through':return renderEnergyPassThrough();

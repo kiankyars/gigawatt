@@ -10,7 +10,7 @@ const node=(name,detail='',kind='')=>`<div class="path-node ${kind}"><b>${name}<
 const stepArrow='<span class="path-arrow" aria-hidden="true">→</span>';
 const fact=(value,label)=>`<div class="network-fact"><strong>${value}</strong><span>${label}</span></div>`;
 const generated=()=>`<figure class="network-hero"><img src="../assets/generated/compute-scales.png" alt="An AI rack, an extracted compute tray and an accelerator package shown at three physical scales."><figcaption class="compute-scale-labels"><span>Rack</span><span>Compute tray</span><span>GPU + memory</span></figcaption></figure>`;
-const hardwareMeme=()=>`<figure class="network-meme"><img src="../assets/references/compute-consumer-hardware-meme.png" alt="Grim Reaper meme: AI Data Centers passes doors labeled Low MSRPs, Mid range Availability and Consumer VRAM, and knocks on PC Gaming as a Hobby."></figure>`;
+const hardwareMeme=()=>`<figure class="network-meme"><img src="../assets/references/storage-hardware-prices-meme.png" alt="Grim Reaper AI meme: RAM, GPU and SSD prices rise, with CPU prices next."></figure>`;
 function superfactory(state,compact){
  const asset='../assets/references/networking-microsoft-ai-superfactory.png';
  if(!state.superfactoryView||state.superfactoryView==='overview')return `<figure class="network-reference-image"><img src="${asset}" alt="Microsoft: Inside an AI Superfactory. Fairwater connects Wisconsin and Georgia through an AI WAN. The infographic shows its high-speed backbone, power infrastructure, GPU density, liquid cooling, short cables and network topology."></figure>`;
