@@ -98,6 +98,17 @@
       "scope": "Chapter 9 closing recap. Removed the Highest ASP/server label from Layer 5 at the author’s request. Other labels and original attribution retained. Source market figures are not independently validated course design inputs.",
       "image_tool": "Built-in image_gen",
       "prompt": "Use case: precise-object-edit. Edit target: supplied teaching infographic. Make exactly one localized edit: in Layer 5 (the red Point-of-Load & Chip-Level VRM panel near the bottom), remove ONLY the text ' · Highest ASP/server' at the end of the descriptive line. Restore the same flat dark-red panel background behind the removed words. The resulting descriptive line must end at 'Final-stage delivery to GPU die'. Keep every other pixel and all other lettering, company names, figures, lines, arrows, colors, source credit, title, framing, and dimensions unchanged. Do not redesign or rewrite anything else. Output the entire infographic with this single phrase removed."
+    },
+    {
+      "asset": "power-stack-teaching-contrast.png",
+      "origin": "Built-in image_gen contrast edit of the teaching derivative; original and prior derivative preserved separately.",
+      "original_asset": "power-stack-teaching.png",
+      "reviewed_at": "2026-09-18",
+      "visible_credit": "Data Gravity / Wing · May 2026",
+      "scope": "Author-approved contrast-only edit for Chapter 9 slide 15. Brightened secondary descriptions, company names and badge captions. Layout, wording, source attribution and removal of Highest ASP/server retained. One generation attempt, visually checked against the input. Market figures retain the limitations recorded with the original asset.",
+      "image_tool": "Built-in image_gen",
+      "prompt": "Edit this existing infographic ONLY to improve text contrast. Preserve the exact composition, dimensions/aspect ratio, all wording, numbers, spelling, typography sizes, five trapezoidal panels, spacing, arrows, company labels, highlights, icons and source credit. No redesign, no additional words, no removed words. The nearly black colored secondary descriptions, non-highlighted company names, badge captions, header subtitle, endpoint label and footer legend are currently illegible against dark backgrounds: brighten all these secondary text elements to light silver-white (#D9E1EF or brighter) with excellent contrast. Keep the dark backgrounds, bright blue/green/orange/purple/red section accents and existing already-light titles. Ensure every original label remains exactly intact including 18.3–30 kW per PSU, 25–40% fewer losses vs. silicon, and source DATA GRAVITY / WING · MAY 2026. Do NOT reintroduce any Highest ASP/server label. Do not correct or reinterpret the content. This is a precise contrast-only restoration; preserve all other design choices and image quality.",
+      "sha256": "817f5dafb156a1d393fd94a578dea48b6eba829e84088541e37c93fd5bf1ea64"
     }
   ]
 }
