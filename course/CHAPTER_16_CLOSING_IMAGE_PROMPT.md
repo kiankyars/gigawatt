@@ -1,6 +1,6 @@
 # Chapter 16 closing image
 
-Paste the following into ChatGPT image generation. This is a conceptual closing illustration; it is not intended to reproduce Abilene's actual layout. The current final slide uses a real Oracle Abilene photograph until a preferred illustration is chosen.
+Paste the following into ChatGPT image generation. This is a conceptual closing illustration; it is not intended to reproduce Abilene's actual layout. The user supplied the resulting illustration, now installed as the final slide. Both preceding photographic closing slides remain.
 
 ## Prompt
 
@@ -18,4 +18,4 @@ Leave the upper-left quarter calm and dark enough for the course title, which wi
 
 ## How the ending uses it
 
-The preceding slide, “The data center is the machine,” reconnects the real campus, data hall and rack with three source-backed images. The final slide holds this single image under the title “From Watts to Tokens.” The presenter closes verbally; no additional slide text is needed.
+“The data center is the machine” reconnects the real campus, data hall and rack with source-backed images. “Inside Abilene’s AI factory” then preserves the full-slide Oracle hall photograph. The final slide holds this single image under the title “From Watts to Tokens.” The presenter closes verbally; no additional slide text is needed.

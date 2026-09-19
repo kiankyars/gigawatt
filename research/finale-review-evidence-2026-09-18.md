@@ -38,3 +38,11 @@ The assembly photo is a documented example of Crusoe's production process. The p
 [Crusoe, June 9, 2026](https://www.crusoe.ai/resources/newsroom/crusoes-contracted-ai-infrastructure-capacity-approaches-5-gigawatts-across-data-centers-and-cloud) explicitly identifies the 1.2 GW Abilene campus as purpose built for Oracle among its projects contracted to hyperscale clients. This resolves the teaching identity: Oracle is the hyperscaler, Crusoe develops and operates the campus, and OpenAI uses Oracle compute. It does not disclose an exact legal lease entity or contract term.
 
 The cooling article's comparison with evaporative towers is contextual, not a published project cost model. It supplies no priced alternative, cost breakdown, water tariff or forecast. The slide therefore attributes Crusoe's water-management priority through a short quotation and removes the generic “higher overall cost” bar and repeated plumbing diagram. All three preceding cooling options remain unselected.
+
+## Investor economics and final author titles
+
+The author’s requested title “A Hierarchy of Deals” names the facility, cloud and AI layers. Blue Owl-managed funds supply institutional capital; Primary Digital is a co-sponsor/investment partner and first-phase transaction adviser. [Kirkland’s January 2025 transaction account](https://www.kirkland.com/news/press-release/2025/01/kirkland-ellis-advises-bo-funds-on-jv-and-financing-for-development-of-adc) establishes the latter role and construction financing. The generic investment mechanism is lease income and property value; partner ownership percentages, cash contributions, fees and expected returns are not disclosed.
+
+“A potential example of greenwashing?” is the author’s discussion title, not a substantiated finding of deception. Lack of a disclosed cost model prevents assessment of the claimed financial sacrifice. Gas generation is a separate emissions issue and does not negate a non-evaporative cooling design.
+
+The supplied conceptual finale illustration is installed after both existing photographic closing slides. Source TIFF and converted PNG hashes are in `finale-watts-to-tokens-user.provenance.json`.

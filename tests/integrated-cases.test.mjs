@@ -83,7 +83,7 @@ function statesFor(scene){
 }
 
 test('Abilene finale renders every state with local assets and valid reading destinations',()=>{
- assert.equal(scenes.length,10);assert.equal(new Set(scenes.map(s=>s.id)).size,10);assert.ok(learningContract.primary_payoff);
+ assert.equal(scenes.length,11);assert.equal(new Set(scenes.map(s=>s.id)).size,11);assert.ok(learningContract.primary_payoff);
  const references=new Set(fs.readdirSync(new URL('../course/lessons/',import.meta.url)).map(p=>p.replace(/\.md$/,'')));
  for(const scene of scenes){
   assert.ok(references.has(scene.reference),scene.id);
@@ -110,11 +110,11 @@ function playerAt(hash){
  return {elements,document,buttons,go(id){location.hash=`#${id}`;listeners.hashchange();},click(key,value){const b=buttons().find(button=>button.dataset.choice===key&&button.dataset.value===String(value));assert.ok(b,`${key}=${value}`);b.onclick();}};
 }
 
-test('source-role selection persists and the closing photograph needs no path controls',()=>{
+test('source-role selection persists and the closing illustration needs no path controls',()=>{
  const p=playerAt('#abilene-power'),html=()=>p.elements.get('visual').innerHTML;
  assert.match(html(),/Bridge supply/);p.click('powerRole','backup');assert.match(html(),/Normal supply/);assert.match(html(),/Standby/);
  assert.equal(p.buttons().filter(b=>b.attributes['aria-pressed']==='true').length,1);
- p.go('watts-to-work');assert.equal(p.buttons().length,0);assert.match(html(),/f-closing-photo/);
+ p.go('watts-to-work');assert.equal(p.buttons().length,0);assert.match(html(),/f-closing-art/);
  p.go('abilene-power');assert.match(html(),/Standby/);
  assert.equal(p.buttons().filter(b=>b.attributes['aria-pressed']==='true').length,1);
 });
@@ -122,6 +122,6 @@ test('source-role selection persists and the closing photograph needs no path co
 test('all retired bookmarks and first/last navigation remain usable',()=>{
  const p=playerAt('#outage-timeline');assert.equal(p.elements.get('scene').dataset.scene,'abilene-power');
  for(const [old,current]of Object.entries(sceneAliases)){assert.ok(scenes.some(s=>s.id===current));p.go(old);assert.equal(p.elements.get('scene').dataset.scene,current);}
- p.go('watts-to-work');assert.equal(p.elements.get('next').disabled,true);assert.equal(p.elements.get('progress').textContent,'10 / 10');assert.match(p.document.title,/^16\. Putting an AI Factory Together/);
- p.go('unknown');assert.equal(p.elements.get('previous').disabled,true);assert.equal(p.elements.get('progress').textContent,'1 / 10');
+ p.go('watts-to-work');assert.equal(p.elements.get('next').disabled,true);assert.equal(p.elements.get('progress').textContent,'11 / 11');assert.match(p.document.title,/^16\. Putting an AI Factory Together/);
+ p.go('unknown');assert.equal(p.elements.get('previous').disabled,true);assert.equal(p.elements.get('progress').textContent,'1 / 11');
 });
