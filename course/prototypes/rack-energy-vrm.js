@@ -17,7 +17,22 @@ function switchingWaveforms() {
   const left=60, width=480;
   const axis=(top,height,low,high)=>`<path d="M${left} ${top}V${top+height}H${left+width}" stroke="var(--line)" fill="none"/>${[low,high].map(value=>`<text x="${left-12}" y="${top+height*(high-value)/(high-low)+5}" text-anchor="end" class="vrm-tick">${value}</text>`).join('')}`;
   const curves=(key,top,height,low,high)=>[0,1].map((phase)=>`<path d="${path(samples.map(s=>s.phases[phase][key]),left,top,width,height,low,high)}" fill="none" stroke="${colors[phase]}" stroke-width="2.7"/>`).join('');
-  return `<svg class="vrm-waveforms" viewBox="0 0 565 480" role="img" aria-labelledby="switching-wave-title switching-wave-desc"><title id="switching-wave-title">Staggered switch pulses and inductor currents</title><desc id="switching-wave-desc">Switch A and B pulse from zero to 12 volts a half cycle apart. Each inductor current ranges from 17 to 23 amperes. The combined current ranges from 38 to 42 amperes: smaller peak-to-peak ripple even though it carries both phases’ current.</desc><text x="60" y="24" class="vrm-panel-title">Switch-node voltage (V)</text><text x="453" y="24" style="fill:var(--teal)" class="vrm-label">A</text><text x="510" y="24" style="fill:var(--amber)" class="vrm-label">B</text>${axis(48,77,0,12)}${curves('switchVolts',48,77,0,12)}<text x="60" y="181" class="vrm-panel-title">Inductor current (A)</text>${axis(205,77,17,23)}${curves('currentAmps',205,77,17,23)}<text x="60" y="340" class="vrm-panel-title">A + B into the rail (A)</text>${axis(364,77,37,43)}<path d="M60 402.5H540" stroke="var(--line)" stroke-dasharray="4 4"/><path d="${path(samples.map(s=>s.totalAmps),left,364,width,77,37,43)}" fill="none" stroke="var(--ink)" stroke-width="3"/><text x="540" y="472" text-anchor="end" class="vrm-label">Time →</text></svg>`;
+  const total=(key,stroke,dashed='')=>`<path d="${path(samples.map(s=>s[key]),left,355,width,110,32,48)}" fill="none" stroke="${stroke}" stroke-width="3" ${dashed}/>`;
+  return `<svg class="vrm-waveforms" viewBox="0 0 565 565" role="img" aria-labelledby="switching-wave-title switching-wave-desc">
+    <title id="switching-wave-title">Staggered switching and the reduction in combined current ripple</title>
+    <desc id="switching-wave-desc">The top two plots show staggered switch-node voltages and inductor currents for phases A and B. The bottom plot compares both phases switching simultaneously, from 34 to 46 amperes, with staggered switching, from 38 to 42 amperes. Both deliver 40 amperes on average on the same time and current axes. The recurring peak-to-peak swing falls from 12 to 4 amperes; it does not decay with time.</desc>
+    <text x="60" y="24" class="vrm-panel-title">Switch-node voltage (V)</text><text x="453" y="24" style="fill:var(--teal)" class="vrm-label">A</text><text x="510" y="24" style="fill:var(--amber)" class="vrm-label">B</text>
+    ${axis(48,65,0,12)}${curves('switchVolts',48,65,0,12)}
+    <text x="60" y="159" class="vrm-panel-title">Inductor current (A)</text>
+    ${axis(183,65,17,23)}${curves('currentAmps',183,65,17,23)}
+    <text x="60" y="300" class="vrm-panel-title">Combined current into the rail (A)</text>
+    <text x="60" y="331" class="vrm-tick">Same 40 A average</text>
+    ${axis(355,110,32,48)}<path d="M60 410H540" stroke="var(--line)" stroke-dasharray="4 4"/><text x="48" y="415" text-anchor="end" class="vrm-tick">40</text>
+    ${total('simultaneousAmps','var(--muted)','stroke-dasharray="8 5"')}${total('totalAmps','var(--ink)')}
+    <text x="540" y="491" text-anchor="end" class="vrm-label">Time →</text>
+    <path d="M60 522H94" stroke="var(--muted)" stroke-width="3" stroke-dasharray="8 5"/><text x="108" y="528" class="vrm-label">Simultaneous · 12 A swing</text>
+    <path d="M60 552H94" stroke="var(--ink)" stroke-width="3"/><text x="108" y="558" class="vrm-label">Staggered · 4 A swing</text>
+  </svg>`;
 }
 
 export function renderVRMSwitching() {

@@ -55,5 +55,5 @@ export function interleavedBuckSample(cycles) {
     const currentAmps = position < duty ? 17 + 6 * position / duty : 23 - 6 * (position - duty) / (1 - duty);
     return { switchVolts: position < duty ? inputVolts : 0, currentAmps };
   });
-  return { phases, outputVolts, totalAmps: phases.reduce((sum, phase) => sum + phase.currentAmps, 0) };
+  return { phases, outputVolts, totalAmps: phases.reduce((sum, phase) => sum + phase.currentAmps, 0), simultaneousAmps: 2 * phases[0].currentAmps };
 }

@@ -203,6 +203,9 @@ test('interleaved switching preserves rail current while reducing triangular rip
   }
   close(mean(samples.map(s=>s.totalAmps)),40);
   close(ripple(samples.map(s=>s.totalAmps)),4);
+  close(mean(samples.map(s=>s.simultaneousAmps)),40);
+  close(ripple(samples.map(s=>s.simultaneousAmps)),12);
+  assert.ok(samples.every(s=>s.simultaneousAmps===2*s.phases[0].currentAmps));
   assert.ok(samples.every(s=>s.outputVolts===3));
   close(interleavedBuckSample(.5).phases[1].currentAmps,interleavedBuckSample(0).phases[0].currentAmps);
   assert.throws(()=>interleavedBuckSample(NaN),RangeError);
@@ -210,4 +213,7 @@ test('interleaved switching preserves rail current while reducing triangular rip
   assert.match(html,/Switch-node voltage \(V\)/);
   assert.match(html,/Inductor current \(A\)/);
   assert.match(html,/Output capacitor/);
+  assert.match(html,/Simultaneous · 12 A swing/);
+  assert.match(html,/Staggered · 4 A swing/);
+  assert.match(html,/Same 40 A average/);
 });

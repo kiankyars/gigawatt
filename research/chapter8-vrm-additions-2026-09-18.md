@@ -35,7 +35,7 @@ Primary source: [Texas Instruments, Benefits of a multiphase buck converter](htt
 
 The user-supplied TIFF labels triangular traces “VRM Phase Voltages.” It is not embedded as-is. The replacement native SVG retains the intended lesson while distinguishing **rectangular switch-node voltages** from **triangular inductor currents**. A two-branch circuit shows a common rail, load and output capacitor. This is a fresh exact chart, not an AI edit or a claim about B300 hardware.
 
-The worked ideal example has 12 V input, 3 V output, 25% duty cycle and two phases offset by half a period. Each inductor carries 20 A average with 6 A peak-to-peak ripple; their sum has 40 A average and 4 A peak-to-peak ripple. The two current panels use the same vertical amperes-per-pixel scale. The load sees the output rail after capacitor filtering; the summed inductor current is not mislabeled load current or a perfectly ripple-free output.
+The worked ideal example has 12 V input, 3 V output, 25% duty cycle and two phases offset by half a period. Each inductor carries 20 A average with 6 A peak-to-peak ripple; their sum has 40 A average and 4 A peak-to-peak ripple. The initial version compared individual phase current with the sum on matching amperes-per-pixel scales. The September 19 revision instead overlays simultaneous and staggered sums on one 32–48 A axis: both average 40 A, with 12 A versus 4 A peak-to-peak ripple. Only relative switching timing changes. The load sees the output rail after capacitor filtering; the summed inductor current is not mislabeled load current or a perfectly ripple-free output.
 
 ### Suggested speaker notes
 
