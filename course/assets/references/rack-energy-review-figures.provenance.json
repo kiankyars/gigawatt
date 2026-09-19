@@ -87,6 +87,17 @@
       "sha256": "0bc55e6de9d4ceada2b0d31aa5205a7878c1330bf8b91e6682f240b30e29a94e",
       "reviewed_at": "2026-09-16",
       "scope": "Conceptual medium-voltage AC to 800 V DC supply paths: conventional transformer-first conversion and rectifier-first solid-state transformer conversion with high-frequency isolation. No market-share or deployment-timeline claim is made by the diagram."
+    },
+    {
+      "asset": "power-stack-teaching.png",
+      "origin": "Built-in image_gen edit of the user-supplied industry map; original preserved separately.",
+      "original_asset": "power-stack-overview.png",
+      "sha256": "4ccdf99bb798a8fc827bc7407b7611a6767ed049cbe654984f6189ed508a0961",
+      "reviewed_at": "2026-09-18",
+      "visible_credit": "Data Gravity / Wing · May 2026",
+      "scope": "Chapter 9 closing recap. Removed the Highest ASP/server label from Layer 5 at the author’s request. Other labels and original attribution retained. Source market figures are not independently validated course design inputs.",
+      "image_tool": "Built-in image_gen",
+      "prompt": "Use case: precise-object-edit. Edit target: supplied teaching infographic. Make exactly one localized edit: in Layer 5 (the red Point-of-Load & Chip-Level VRM panel near the bottom), remove ONLY the text ' · Highest ASP/server' at the end of the descriptive line. Restore the same flat dark-red panel background behind the removed words. The resulting descriptive line must end at 'Final-stage delivery to GPU die'. Keep every other pixel and all other lettering, company names, figures, lines, arrows, colors, source credit, title, framing, and dimensions unchanged. Do not redesign or rewrite anything else. Output the entire infographic with this single phrase removed."
     }
   ]
 }

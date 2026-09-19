@@ -2413,3 +2413,10 @@ Moved the triangle to Chapter 6 slide25, immediately after the numerical power-f
 Chapter 11 adds `abilene-coolant-distribution` as slide 4, between cold-plate hardware and the rear-door heat-exchanger explanation. The existing Chapter 2 photograph remains. Chapter 11 has 18 scenes; all existing hashes remain and the selected speaker notes use the new numbering.
 
 All 17 cooling/capture tests pass. Course, expanded-reader and domain-map validation pass. Browser checks cover the new slide and adjacent navigation at 1280×720, 1440×900, 390×844 and 844×390 in light/dark (8 layouts). The full image and credit load, no unnecessary controls appear, and no runtime errors, HTTP failures, horizontal overflow or footer overlap were detected. Visually reviewed the desktop light and mobile dark layouts.
+
+## Power-stack recap moved to Chapter 9 — 2026-09-18
+
+- Removed the Highest ASP/server claim from the teaching image with the built-in image editor; preserved the supplied original and recorded the derivative and prompt in the image provenance file.
+- Chapter 8 now has 18 slides and ends with battery recharge. Chapter 9 has 15 slides and ends with the power-stack map after the three-column architecture comparison.
+- The former Chapter 8 power-stack link redirects to Chapter 9 while retaining teaching mode. The final slide advances to Chapter 10 through shared navigation.
+- Validation: generated-course, expanded-course, domain-map and research checks passed; 80 Python tests and 297 JavaScript tests passed. Desktop (1440 × 900) and mobile (390 × 844) browser checks confirmed the edited image, slide counts, old-link redirect and next-chapter destination, with no page errors or horizontal overflow. Staged the local site and passed git diff --check.

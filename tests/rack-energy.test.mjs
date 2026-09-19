@@ -104,12 +104,12 @@ test('DC architecture motivates the supply equipment and preserves both rack-bus
 
 
 test('rack power and DC distribution separate rack behavior from DC distribution',()=>{
-  assert.equal(rackScenes.length,19);
-  assert.equal(dcScenes.length,14);
-  assert.deepEqual(rackScenes.slice(-2).map(scene=>scene.id),['buffer-recharge','power-stack-overview']);
+  assert.equal(rackScenes.length,18);
+  assert.equal(dcScenes.length,15);
+  assert.equal(rackScenes.at(-1).id,'buffer-recharge');
   assert.deepEqual(dcScenes.slice(0,2).map(scene=>scene.id),['one-load','conductor-copper']);
-  assert.deepEqual(dcScenes.slice(-3).map(scene=>scene.id),['dc-feeder-protection','retrofit-power','ocp-power-architectures']);
-  assert.ok(!dcScenes.some(scene=>scene.id==='power-stack-overview'));
+  assert.deepEqual(dcScenes.slice(-4).map(scene=>scene.id),['dc-feeder-protection','retrofit-power','ocp-power-architectures','power-stack-overview']);
+  assert.ok(!rackScenes.some(scene=>scene.id==='power-stack-overview'));
   assert.equal(scenes.length,new Set(scenes.map(scene=>scene.id)).size);
   assert.ok(rackScenes.some(scene=>scene.id==='energy-locality'));
   assert.ok(!rackScenes.some(scene=>scene.id==='rack-transfer'));

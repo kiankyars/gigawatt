@@ -82,7 +82,7 @@ test('networking advances directly to cooling after storage retirement', () => {
 
 test('rack power advances to DC distribution, then networking', () => {
   const module = 'http://localhost/course/prototypes/slide-navigation.js';
-  const link = nextChapterLink('http://localhost/course/prototypes/rack-energy-format.html?teach=1#power-stack-overview', presentationRoutes, module);
+  const link = nextChapterLink('http://localhost/course/prototypes/rack-energy-format.html?teach=1#buffer-recharge', presentationRoutes, module);
   assert.equal(link.number, 9);
   assert.equal(link.kind, 'slides');
   assert.equal(link.href, 'http://localhost/course/prototypes/dc-distribution-format.html?teach=1');

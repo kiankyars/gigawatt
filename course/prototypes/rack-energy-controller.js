@@ -82,6 +82,11 @@ function render(){
 }
 function go(i){index=Math.max(0,Math.min(scenes.length-1,i));history.replaceState(null,'',`#${current().id}`);render();window.scrollTo({top:0,left:0,behavior:'auto'});}
 function fromHash(){
+  if(deckId==='rack-energy'&&location.hash==='#power-stack-overview'){
+    const destination=new URL(decks['dc-distribution'].file,location.href);
+    destination.search=location.search;destination.hash=location.hash;
+    location.replace(destination.href);return;
+  }
   index=resolveRackEnergyScene(location.hash,deckId);
   render();window.scrollTo({top:0,left:0,behavior:'auto'});
 }
