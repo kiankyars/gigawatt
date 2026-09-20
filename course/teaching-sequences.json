@@ -176,6 +176,17 @@
           "coverage": "chapter"
         }
       ]
+    },
+    {
+      "id": "grid-queues",
+      "title": "ERCOT and PJM: the race to connect",
+      "chapters": [
+        {
+          "id": "grid-queues",
+          "href": "prototypes/grid-queues-format.html?teach=1",
+          "coverage": "chapter"
+        }
+      ]
     }
   ],
   "chapter_splits": {
@@ -196,5 +207,15 @@
         ]
       }
     ]
-  }
+  },
+  "additional_chapters": [
+    {
+      "id": "grid-queues",
+      "domain": "D03",
+      "title": "ERCOT and PJM: the race to connect",
+      "lesson_ids": [
+        "d03-interconnection-queues"
+      ]
+    }
+  ]
 }

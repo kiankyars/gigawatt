@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "publisher": "SemiAnalysis",
+  "reviewed_on": "2026-09-20",
+  "imported_on": "2026-09-20",
+  "origin": "Public article figures inspected in an unsigned-in browser before the visible paywall; exact original asset URLs extracted from the public article image links.",
+  "authorization": "User explicitly requested these article figures for incorporation into the Gigawatt course.",
+  "access_scope": "Public article figures only. No paywall bypass or subscriber-only model access.",
+  "assets": [
+    {
+      "asset": "grid-queues-sa-requests.png",
+      "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/db523510-c1bc-449f-8381-adadf178c1dc_2160x1184.png",
+      "article_url": "https://newsletter.semianalysis.com/p/stop-saying-half-of-2026-us-datacenter",
+      "article_title": "Stop Saying Half of 2026 US Datacenter Capacity Is Canceled",
+      "article_published_on": "2026-06-18",
+      "source_id": "SA33",
+      "credit": "SemiAnalysis Datacenter Industry Model; ERCOT Update to TX Senate Business & Commerce (April 1, 2026).",
+      "article_caption": null,
+      "data_date": "ERCOT queue: April 2026; source update: April 1, 2026",
+      "forecast_horizon": "SemiAnalysis tracked datacenter buildout through 2030 Q4",
+      "limitations": [
+        "Phantom or duplicative capacity is a SemiAnalysis model classification, not an ERCOT audit of cancellation or duplication.",
+        "Queue requests and modeled buildout represent different cohorts and time horizons. Untracked requests do not establish fraud, cancellation, or permanent noncompletion.",
+        "Preserve the source legend and credit. Display as a dated analyst comparison, not a current queue snapshot."
+      ],
+      "format": "PNG",
+      "dimensions": [
+        2160,
+        1184
+      ],
+      "mode": "RGBA",
+      "content_type": "image/png",
+      "final_url": "https://substack-post-media.s3.amazonaws.com/public/images/db523510-c1bc-449f-8381-adadf178c1dc_2160x1184.png",
+      "bytes": 167850,
+      "sha256": "31a7ecdbe1a350985db6619b7e03ed1cced58e159f71514eefe106b2f167cb7e",
+      "verification": "Pillow Image.verify() and complete pixel decode via Image.load() passed",
+      "imported_on": "2026-09-20",
+      "modifications": "None. Exact original URL response bytes saved unchanged.",
+      "visual_verification": "Viewed saved local PNG on 2026-09-20; graphic, labels, original credit and watermark match the publicly inspected figure."
+    },
+    {
+      "asset": "grid-queues-sa-forecast.png",
+      "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/1e31a199-bfe3-45c6-9d33-2a6a48cc4fcb_1800x961.png",
+      "article_url": "https://newsletter.semianalysis.com/p/are-ai-datacenters-increasing-electric",
+      "article_title": "Are AI Datacenters Increasing Electric Bills for American Households?",
+      "article_published_on": "2026-03-03",
+      "source_id": "SA32",
+      "credit": "ERCOT, reproduced in SemiAnalysis.",
+      "article_caption": "Source: ERCOT",
+      "data_date": "2025 ERCOT adjusted load forecast; article context describes May 2025 adjustments",
+      "forecast_horizon": "2025–2031",
+      "limitations": [
+        "Historical forecast vintage; its adjustment assumptions are not current application rules.",
+        "The submitted and adjusted series are whole-system forecasts, not datacenter-only queue totals or energized capacity.",
+        "Capacity-market prices, wholesale energy prices and household bills measure different quantities; this figure does not independently establish their causes."
+      ],
+      "format": "PNG",
+      "dimensions": [
+        1800,
+        961
+      ],
+      "mode": "RGB",
+      "content_type": "image/png",
+      "final_url": "https://substack-post-media.s3.amazonaws.com/public/images/1e31a199-bfe3-45c6-9d33-2a6a48cc4fcb_1800x961.png",
+      "bytes": 365105,
+      "sha256": "cb7eb22896d40ee3aef0c3424e58d3d72644ab876442377076299ddf7d21829c",
+      "verification": "Pillow Image.verify() and complete pixel decode via Image.load() passed",
+      "imported_on": "2026-09-20",
+      "modifications": "None. Exact original URL response bytes saved unchanged.",
+      "visual_verification": "Viewed saved local PNG on 2026-09-20; graphic, labels, original credit and watermark match the publicly inspected figure."
+    },
+    {
+      "asset": "grid-queues-sa-staged.png",
+      "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/d76bf559-ebdd-48b1-b5dd-65184fa793c2_1920x1080.png",
+      "article_url": "https://newsletter.semianalysis.com/p/us-grid-constraints-towards-40gw",
+      "article_title": "US Grid Constraints: Towards 40GW+ of Behind-The-Meter Datacenter by 2028?",
+      "article_published_on": "2026-06-25",
+      "source_id": "SA07",
+      "credit": "ERCOT Batch Study Workshop 8, May 4, 2026, slide 38; reproduced with SemiAnalysis watermark.",
+      "article_caption": "Source: ERCOT Batch Study Workshop 8 – May 4th, 2026",
+      "data_date": "2026-05-04 workshop; illustrative dates within diagram",
+      "forecast_horizon": null,
+      "limitations": [
+        "Illustrative staged-energization mechanism, not an approved project schedule or proof that workshop proposals were adopted unchanged.",
+        "The picture contains 1000 MW of load and up to 1100 MW of combined grid withdrawal plus generation; delivered service must also be capped at requested load and applicable stability or contingency limits.",
+        "Verify current ERCOT terminology and rules from primary documents before describing present procedures."
+      ],
+      "format": "PNG",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "mode": "RGB",
+      "content_type": "image/png",
+      "final_url": "https://substack-post-media.s3.amazonaws.com/public/images/d76bf559-ebdd-48b1-b5dd-65184fa793c2_1920x1080.png",
+      "bytes": 279840,
+      "sha256": "412f591cb17c1f82eb0916f9abb1a18c33b0b04b05e8d35eb5cdd7c9335a086a",
+      "verification": "Pillow Image.verify() and complete pixel decode via Image.load() passed",
+      "imported_on": "2026-09-20",
+      "modifications": "None. Exact original URL response bytes saved unchanged.",
+      "visual_verification": "Viewed saved local PNG on 2026-09-20; graphic, labels, original credit and watermark match the publicly inspected figure."
+    }
+  ]
+}

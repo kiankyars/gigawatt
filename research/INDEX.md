@@ -273,7 +273,18 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P224 — EC2 Spot Instances](sources/P224.md) | AWS | D15 | public_excerpt_reviewed |
 | [P225 — SemiAnalysis GPU rental pricing index](sources/P225.md) | SemiAnalysis | D15 | public_excerpt_reviewed |
 | [P226 — Intel — Fully Integrated Voltage Regulator (FIVR)](sources/P226.md) | Intel | D06 | page_reviewed |
+| [P227 — ERCOT — Senate Business and Commerce update, July 29, 2026](sources/P227.md) | ERCOT | D03 | page_reviewed |
+| [P228 — ERCOT — March 2026 Monthly Operational Overview](sources/P228.md) | ERCOT | D03 | page_reviewed |
+| [P229 — Texas Legislature — SB 6 enrolled text, 89th Legislature](sources/P229.md) | Texas Legislature | D03 | page_reviewed |
 | [P23 — Wolfspeed — Introduction of a commercially available 10 kV SiC power MOSFET](sources/P23.md) | Wolfspeed | D04, D06 | page_reviewed |
+| [P230 — PUCT — Order adopting 16 TAC 25.194, September 18, 2026](sources/P230.md) | Public Utility Commission of Texas | D03 | page_reviewed |
+| [P231 — ERCOT — House State Affairs data-center update, August 19, 2026](sources/P231.md) | ERCOT | D03 | page_reviewed |
+| [P232 — ERCOT — Batch Zero verification process notice, September 9, 2026](sources/P232.md) | ERCOT | D03 | page_reviewed |
+| [P233 — Dominion Energy — Data-center load-adjustment letter to PJM, January 6, 2026](sources/P233.md) | Dominion Energy | D03 | page_reviewed |
+| [P234 — PJM — Over 700 generation projects accepted into Cycle 1, August 3, 2026](sources/P234.md) | PJM | D03 | page_reviewed |
+| [P235 — FERC — PJM large-load show-cause order, June 18, 2026](sources/P235.md) | FERC | D03 | page_reviewed |
+| [P236 — PUCT — Texas Register acknowledgment for adopted 16 TAC 25.194](sources/P236.md) | Public Utility Commission of Texas | D03 | page_reviewed |
+| [P237 — ERCOT — Batch Study Workshop 8, May 4, 2026](sources/P237.md) | ERCOT | D03 | page_reviewed |
 | [P24 — Schneider Electric — What is UPS efficiency and how is it calculated?](sources/P24.md) | Schneider Electric | D04, D05, D06 | page_reviewed |
 | [P25 — Texas Instruments — Power Loss in Switching Power Supplies](sources/P25.md) | Texas Instruments | D04, D05, D06 | page_reviewed |
 | [P26 — Schneider Electric — Easy UPS 3-Phase Modular physical specifications](sources/P26.md) | Schneider Electric | D05 | page_reviewed |

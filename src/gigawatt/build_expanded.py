@@ -20,6 +20,7 @@ PARTS = (
     "racks-compute-heat.json",
     "heat-delivery-operations.json",
     "capstones.json",
+    "grid-queues.json",
 )
 IMAGES = (
     "campus-cutaway.png",
@@ -238,7 +239,7 @@ def teaching_chapters(raw, domain_map, lessons, root=ROOT):
     status. A chapter without a presentation still has its authored reading.
     """
     if (not isinstance(raw, dict) or not {"version", "presentations"} <= set(raw)
-            or set(raw) - {"version", "presentations", "chapter_splits"}):
+            or set(raw) - {"version", "presentations", "chapter_splits", "additional_chapters"}):
         raise ExpansionError("Teaching catalog: missing or unexpected fields")
     if raw["version"] != 1 or not isinstance(raw["presentations"], list):
         raise ExpansionError("Teaching catalog: expected version 1 and presentations")
@@ -259,10 +260,28 @@ def teaching_chapters(raw, domain_map, lessons, root=ROOT):
     splits = raw.get("chapter_splits", {})
     if not isinstance(splits, dict) or set(splits) - set(sequence):
         raise ExpansionError("Teaching chapter splits: expected domains from the curriculum")
+    additions = raw.get("additional_chapters", [])
+    if not isinstance(additions, list):
+        raise ExpansionError("Additional chapters: expected a list")
+    lesson_domains = {lesson["id"]: lesson["domain"] for lesson in lessons}
+    additional_lessons = set()
+    for part in additions:
+        if (not isinstance(part, dict)
+                or set(part) != {"id", "domain", "title", "lesson_ids"}
+                or part["domain"] not in sequence):
+            raise ExpansionError("Additional chapters: invalid fields or domain")
+        ids = part["lesson_ids"]
+        if (not isinstance(ids, list) or not ids
+                or any(not isinstance(lid, str) for lid in ids)
+                or len(ids) != len(set(ids))
+                or additional_lessons.intersection(ids)
+                or any(lesson_domains.get(lid) != part["domain"] for lid in ids)):
+            raise ExpansionError("Additional chapters: lessons must exist in their domain and occur once")
+        additional_lessons.update(ids)
     chapters = []
     chapter_ids = set()
     for did in ["primer", *sequence, "capstone"]:
-        lesson_ids = [l["id"] for l in lessons if l["domain"] == did]
+        lesson_ids = [l["id"] for l in lessons if l["domain"] == did and l["id"] not in additional_lessons]
         parts = splits.get(did, [{"id": did, "title": titles[did], "lesson_ids": lesson_ids}])
         if did in splits:
             if not isinstance(parts, list) or len(parts) < 2:
@@ -294,6 +313,14 @@ def teaching_chapters(raw, domain_map, lessons, root=ROOT):
                 "lesson_ids": part["lesson_ids"],
                 "presentations": [],
             })
+    for part in additions:
+        identifier = text(part["id"], "chapter.id")
+        if not re.fullmatch(r"[A-Za-z][A-Za-z0-9-]*", identifier):
+            raise ExpansionError(f"Unsafe chapter ID: {identifier}")
+        if identifier in chapter_ids or identifier in domains:
+            raise ExpansionError(f"Duplicate or conflicting chapter ID: {identifier}")
+        chapter_ids.add(identifier)
+        chapters.append({**part, "number": len(chapters) + 1, "presentations": [], "additional": True})
     by_id = {chapter["id"]: chapter for chapter in chapters}
     seen = set()
     for presentation in raw["presentations"]:
@@ -462,8 +489,10 @@ def load_course(root=ROOT):
     reading_ids.extend(l["id"] for l in lessons if l["domain"] in references)
     reading_order = {lid: i for i, lid in enumerate(reading_ids)}
     lessons.sort(key=lambda lesson: reading_order[lesson["id"]])
+    additional_ids = {lid for chapter in chapters if chapter.get("additional") for lid in chapter["lesson_ids"]}
     attach_domain_checkins(
-        read(root / "course/domain-checkins.json"), lessons, sequence
+        read(root / "course/domain-checkins.json"),
+        [lesson for lesson in lessons if lesson["id"] not in additional_ids], sequence
     )
     glossary, seen_terms = [], set()
     for l in lessons:

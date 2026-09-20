@@ -16,7 +16,8 @@ export const presentationLabels = Object.freeze({
   "procurement-cases": "13. EPC",
   "operations": "14. Controls, operations and reliability",
   "capacity": "15. GPU cloud economics",
-  "integrated-cases": "16. Putting an AI Factory Together"
+  "integrated-cases": "16. Putting an AI Factory Together",
+  "grid-queues": "17. ERCOT and PJM: the race to connect"
 });
 export const presentationRoutes = Object.freeze([
   {
@@ -156,6 +157,15 @@ export const presentationRoutes = Object.freeze([
   },
   {
     "path": "integrated-cases-format.html",
+    "next": {
+      "number": 17,
+      "title": "ERCOT and PJM: the race to connect",
+      "href": "grid-queues-format.html?teach=1",
+      "kind": "slides"
+    }
+  },
+  {
+    "path": "grid-queues-format.html",
     "next": null
   }
 ]);

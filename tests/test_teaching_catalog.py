@@ -53,6 +53,30 @@ class TeachingCatalogTests(unittest.TestCase):
             self.root,
         )
 
+    def test_additional_case_chapter_follows_capstone_without_renumbering_core(self):
+        before = self.resolve()
+        self.lessons.append({"id": "grid-case", "domain": "D01"})
+        self.catalog["additional_chapters"] = [{
+            "id": "grid-queues", "domain": "D01", "title": "Grid queues",
+            "lesson_ids": ["grid-case"],
+        }]
+        chapters = self.resolve()
+        self.assertEqual(chapters[:-1], before)
+        self.assertEqual(chapters[-1]["number"], 5)
+        self.assertEqual(chapters[-1]["lesson_ids"], ["grid-case"])
+        self.assertTrue(chapters[-1]["additional"])
+        assigned = [lid for chapter in chapters for lid in chapter["lesson_ids"]]
+        self.assertEqual(len(assigned), len(set(assigned)))
+
+    def test_additional_chapters_reject_unknown_duplicate_or_wrong_domain_lessons(self):
+        for ids in [["missing"], ["workload-brief"], ["boundaries", "boundaries"]]:
+            catalog = deepcopy(self.catalog)
+            catalog["additional_chapters"] = [{
+                "id": "grid-queues", "domain": "D01", "title": "Grid queues", "lesson_ids": ids,
+            }]
+            with self.subTest(ids=ids), self.assertRaisesRegex(b.ExpansionError, "Additional chapters"):
+                self.resolve(catalog=catalog)
+
     def test_numbers_follow_the_curriculum_instead_of_domain_ids(self):
         chapters = self.resolve()
         self.assertEqual(
@@ -195,12 +219,12 @@ class TeachingCatalogTests(unittest.TestCase):
     def test_real_catalog_has_one_complete_deck_for_every_chapter(self):
         course = b.load_course()
         chapters = {c["id"]: c for c in course["chapters"]}
-        self.assertEqual(len(chapters), 16)
+        self.assertEqual(len(chapters), 17)
         self.assertEqual(chapters["D12"]["number"], 5)
         self.assertEqual(chapters["D13"]["number"], 13)
         self.assertEqual(chapters["capstone"]["number"], 16)
         self.assertEqual(
-            len({p["id"] for c in chapters.values() for p in c["presentations"]}), 16
+            len({p["id"] for c in chapters.values() for p in c["presentations"]}), 17
         )
         for did in chapters:
             with self.subTest(chapter=did):
@@ -244,7 +268,7 @@ class TeachingCatalogTests(unittest.TestCase):
     def test_compute_and_storage_are_further_reading_and_chapter_numbers_remain_contiguous(self):
         course = b.load_course()
         chapters = course["chapters"]
-        self.assertEqual([c["number"] for c in chapters], list(range(1, 17)))
+        self.assertEqual([c["number"] for c in chapters], list(range(1, 18)))
         self.assertNotIn("D07", [c["id"] for c in chapters])
         reference = course["references"][0]
         self.assertEqual(reference["id"], "D07")

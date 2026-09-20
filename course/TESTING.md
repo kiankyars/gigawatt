@@ -2448,3 +2448,27 @@ All 80 Python tests, 303 JavaScript tests and course/research checks passed. Bot
 ## IVR definition and conversion boundary — 2026-09-18
 
 Added IVR wording to the rack-conversion reading/glossary and Chapter 8/9 speaker notes. Registered Intel P226 and regenerated the reading, domain map and research index. Course, expanded-course, domain-map and research checks passed, as did all 26 rack-power/rack-energy tests and git diff --check. Staged site contains the definition in the reader data and both note sources. No diagram or scene-order changes.
+
+## ERCOT and PJM case study — 2026-09-20
+
+Chapter 17 uses the shared course navigation and presenter. Model checks cover
+mutually exclusive site requests, per-MW security, Dominion contract totals and
+the staged connection’s fixed import limit and campus-demand ceiling. Catalog
+checks preserve Chapters 1–16 and place the new chapter before Further reading;
+additional reading does not move the existing D03 check-in. All 12 scenes have
+current speaker-note markers.
+
+The two reproduced article figures are original downloaded PNGs with source,
+date, dimensions and SHA-256 recorded in their provenance file. The dense ERCOT
+workshop figure remains intact in the reader; the slide is a native redraw.
+Technical source reviews distinguish operator measurements, analyst estimates,
+future-effective rules and illustrative arithmetic.
+
+All build/research freshness checks, 82 Python tests and 314 JavaScript tests
+passed. WebKit and Chromium passed all 12 scenes at 1280×720, 1440×900 and
+390×844, with loaded images, no horizontal overflow, and no desktop content
+overflow. Visually reviewed the source figures, diagrams, presenter and phone
+layouts. Site selection, current notes with next-slide preview, audience chrome
+hiding, Exit, Chapter 16→17 navigation and the final-slide state passed. The
+existing presenter regression also passed across earlier chapters, reload,
+chapter changes, notes/no-notes layouts and the new course ending.

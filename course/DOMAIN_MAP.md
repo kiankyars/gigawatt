@@ -455,6 +455,17 @@ Compare utility-only and behind-the-meter supply against energy, capacity, fuel 
 - [P199 — Pexapark — Podcast catalogue, Episode 19 with Forrest Carroll of Crusoe](https://pexapark.com/podcast/) · `page_reviewed` · [local note](../research/sources/P199.md)
 - [P200 — Meta’s Infrastructure Evolution and the Advent of AI](https://engineering.fb.com/2025/09/29/data-infrastructure/metas-infrastructure-evolution-and-the-advent-of-ai/) · `page_reviewed` · [local note](../research/sources/P200.md)
 - [P201 — Cupertino Electric — Modular data centers](https://www.cei.com/core-markets/modular) · `page_reviewed` · [local note](../research/sources/P201.md)
+- [P227 — ERCOT — Senate Business and Commerce update, July 29, 2026](https://www.ercot.com/files/docs/2026/07/29/ERCOT-Senate-July-29-Panel-1-Assessing-The-Grid.pdf) · `page_reviewed` · [local note](../research/sources/P227.md)
+- [P228 — ERCOT — March 2026 Monthly Operational Overview](https://www.ercot.com/files/docs/2026/04/16/ERCOT-Monthly-Operational-Overview-March-2026.pdf) · `page_reviewed` · [local note](../research/sources/P228.md)
+- [P229 — Texas Legislature — SB 6 enrolled text, 89th Legislature](https://capitol.texas.gov/tlodocs/89R/billtext/html/SB00006F.htm) · `page_reviewed` · [local note](../research/sources/P229.md)
+- [P230 — PUCT — Order adopting 16 TAC 25.194, September 18, 2026](https://interchange.puc.texas.gov/Documents/58481_218_1684656.PDF) · `page_reviewed` · [local note](../research/sources/P230.md)
+- [P231 — ERCOT — House State Affairs data-center update, August 19, 2026](https://www.ercot.com/files/docs/2026/08/19/ERCOTPanel1DataCenters.pdf) · `page_reviewed` · [local note](../research/sources/P231.md)
+- [P232 — ERCOT — Batch Zero verification process notice, September 9, 2026](https://www.ercot.com/services/comm/mkt_notices/M-A090926-01) · `page_reviewed` · [local note](../research/sources/P232.md)
+- [P233 — Dominion Energy — Data-center load-adjustment letter to PJM, January 6, 2026](https://www.pjm.com/-/media/DotCom/planning/res-adeq/load-forecast/dominion-documentation.pdf) · `page_reviewed` · [local note](../research/sources/P233.md)
+- [P234 — PJM — Over 700 generation projects accepted into Cycle 1, August 3, 2026](https://insidelines.pjm.com/over-700-new-generation-projects-accepted-into-first-cycle-of-reformed-interconnection-process/) · `page_reviewed` · [local note](../research/sources/P234.md)
+- [P235 — FERC — PJM large-load show-cause order, June 18, 2026](https://www.ferc.gov/sites/default/files/2026-06/EL26-67-000.pdf) · `page_reviewed` · [local note](../research/sources/P235.md)
+- [P236 — PUCT — Texas Register acknowledgment for adopted 16 TAC 25.194](https://interchange.puc.texas.gov/Documents/58481_219_1684678.PDF) · `page_reviewed` · [local note](../research/sources/P236.md)
+- [P237 — ERCOT — Batch Study Workshop 8, May 4, 2026](https://www.ercot.com/files/docs/2026/05/04/ERCOT_Batch_Study_Workshop_8_20260504.pptx) · `page_reviewed` · [local note](../research/sources/P237.md)
 
 <a id="d04"></a>
 

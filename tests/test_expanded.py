@@ -79,7 +79,9 @@ class ExpansionTests(unittest.TestCase):
             b.load_course()
 
     def test_domain_checkins_only_follow_each_domains_final_lesson(self):
-        lessons = self.course["lessons"]
+        additional_ids = {lid for chapter in self.course["chapters"] if chapter.get("additional") for lid in chapter["lesson_ids"]}
+        lessons = [lesson for lesson in self.course["lessons"] if lesson["id"] not in additional_ids]
+        self.assertTrue(all("domain_checkin" not in lesson for lesson in self.course["lessons"] if lesson["id"] in additional_ids))
         checkins = [l for l in lessons if "domain_checkin" in l]
         self.assertEqual(
             {l["domain"] for l in checkins},

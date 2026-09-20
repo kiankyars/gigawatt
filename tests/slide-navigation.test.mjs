@@ -68,7 +68,10 @@ test('delivery, operations, capacity and capstone remain a continuous slide sequ
   const last = nextChapterLink(next.href, presentationRoutes, module);
   assert.equal(last.number, 16);
   assert.equal(last.href, 'http://localhost/course/prototypes/integrated-cases-format.html?teach=1');
-  assert.equal(nextChapterLink(last.href, presentationRoutes, module), null);
+  const caseStudy = nextChapterLink(last.href, presentationRoutes, module);
+  assert.equal(caseStudy.number, 17);
+  assert.equal(caseStudy.href, 'http://localhost/course/prototypes/grid-queues-format.html?teach=1');
+  assert.equal(nextChapterLink(caseStudy.href, presentationRoutes, module), null);
 });
 
 test('networking advances directly to cooling after storage retirement', () => {

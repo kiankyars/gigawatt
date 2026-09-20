@@ -116,15 +116,16 @@
       "publisher": "SemiAnalysis",
       "kind": "analysis",
       "review_status": "public_excerpt_reviewed",
-      "reviewed_on": "2026-09-06",
+      "reviewed_on": "2026-09-20",
       "domains": [
         "D03",
         "D05",
         "D13",
         "D15"
       ],
-      "use": "Introduce interconnection constraints, equipment lead times and on-site generation as interacting limits on project delivery.",
-      "caution": "Public excerpts reviewed, not the complete paid report or underlying model. Capacity forecasts and regional queue assumptions need their own dates, definitions and independent evidence."
+      "use": "Introduce interconnection constraints, equipment lead times and on-site generation as interacting limits on project delivery. Public connection-queue figure reviewed for Chapter 17; preserve source date and distinction between requests, forecasts and operating demand.",
+      "caution": "Public excerpts reviewed, not the complete paid report or underlying model. Capacity forecasts and regional queue assumptions need their own dates, definitions and independent evidence.",
+      "published_on": "2026-06-25"
     },
     {
       "id": "SA08",
@@ -812,12 +813,12 @@
       "published_on": "2026-03-03",
       "kind": "analysis",
       "review_status": "public_excerpt_reviewed",
-      "reviewed_on": "2026-09-06",
+      "reviewed_on": "2026-09-20",
       "domains": [
         "D03",
         "D15"
       ],
-      "use": "Introduce the distinction between energy prices, capacity markets, utility rate design and regional system constraints.",
+      "use": "Introduce the distinction between energy prices, capacity markets, utility rate design and regional system constraints. Public connection-queue figure reviewed for Chapter 17; preserve source date and distinction between requests, forecasts and operating demand.",
       "caution": "Public heading and introduction or selected preview sections reviewed; complete paid article not reviewed. The article advances a causal policy argument. Compare it with grid-operator, market-monitor and utility filings; do not treat a regional narrative as a universal explanation of bills.",
       "discovered_via": "https://newsletter.semianalysis.com/sitemap/2026"
     },
@@ -829,14 +830,14 @@
       "published_on": "2026-06-18",
       "kind": "analysis",
       "review_status": "public_excerpt_reviewed",
-      "reviewed_on": "2026-09-06",
+      "reviewed_on": "2026-09-20",
       "domains": [
         "D01",
         "D03",
         "D13",
         "D15"
       ],
-      "use": "Build a case for distinguishing announced capacity, project phases, construction progress, delay and cancellation.",
+      "use": "Build a case for distinguishing announced capacity, project phases, construction progress, delay and cancellation. Public connection-queue figure reviewed for Chapter 17; preserve source date and distinction between requests, forecasts and operating demand.",
       "caution": "Public heading and introduction or selected preview sections reviewed; complete paid article not reviewed. The criticism of other forecasts and the publisher's own forecast stability both require underlying evidence. Use project-level primary filings to adjudicate examples.",
       "discovered_via": "https://newsletter.semianalysis.com/sitemap/2026"
     },
@@ -5188,6 +5189,181 @@
       ],
       "use": "Compute-die final regulators derive processor rails from a platform VCCIN regulator; integrating final regulation retains upstream conversion.",
       "caution": "Relevant FIVR section reviewed, not the complete datasheet. Intel example does not establish a GB300 implementation or integration of every processor rail."
+    },
+    {
+      "id": "P227",
+      "title": "ERCOT — Senate Business and Commerce update, July 29, 2026",
+      "url": "https://www.ercot.com/files/docs/2026/07/29/ERCOT-Senate-July-29-Panel-1-Assessing-The-Grid.pdf",
+      "publisher": "ERCOT",
+      "published_on": "2026-07-29",
+      "use": "Read the June 2026 cumulative large-load status snapshot through 2033, including 474.7 GW total, 284.3 GW with no studies submitted and 5.9 GW observed energized.",
+      "caution": "Slide 6 reviewed. Future-year columns are cumulative requested ramps; observed energized is non-simultaneous consumption. Rounded components do not sum exactly to the displayed total. These figures do not establish cancellation or duplicate rates.",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-20",
+      "domains": [
+        "D03"
+      ],
+      "discovered_via": "Chapter 17 ERCOT/PJM primary-source review, 2026-09-20."
+    },
+    {
+      "id": "P228",
+      "title": "ERCOT — March 2026 Monthly Operational Overview",
+      "url": "https://www.ercot.com/files/docs/2026/04/16/ERCOT-Monthly-Operational-Overview-March-2026.pdf",
+      "publisher": "ERCOT",
+      "published_on": "2026-04-16",
+      "use": "Define observed energized, approved to energize and no studies submitted in the large-load status reporting.",
+      "caution": "Large-load status definitions reviewed. Observed energized represents all-time non-simultaneous peak consumption, not current coincident system load. No studies submitted can include MW not approved following planning review.",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-20",
+      "domains": [
+        "D03"
+      ],
+      "discovered_via": "Chapter 17 ERCOT/PJM primary-source review, 2026-09-20."
+    },
+    {
+      "id": "P229",
+      "title": "Texas Legislature — SB 6 enrolled text, 89th Legislature",
+      "url": "https://capitol.texas.gov/tlodocs/89R/billtext/html/SB00006F.htm",
+      "publisher": "Texas Legislature",
+      "use": "PURA 37.0561 establishes overlapping-request disclosure, site-control evidence, an initial transmission-screening study fee of at least $100,000 and infrastructure commitments.",
+      "caution": "Relevant subsections (d) and (f)–(i) reviewed. The statutory screening fee is distinct from financial security, construction payments and electricity charges. Do not substitute unverified September 2026 implementation terms.",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-20",
+      "domains": [
+        "D03"
+      ],
+      "discovered_via": "Chapter 17 ERCOT/PJM primary-source review, 2026-09-20."
+    },
+    {
+      "id": "P230",
+      "title": "PUCT — Order adopting 16 TAC 25.194, September 18, 2026",
+      "url": "https://interchange.puc.texas.gov/Documents/58481_218_1684656.PDF",
+      "publisher": "Public Utility Commission of Texas",
+      "published_on": "2026-09-18",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-20",
+      "domains": [
+        "D03"
+      ],
+      "use": "Printed pages 234–235 establish the $100,000 study fee and $50,000/MW intermediate-agreement security; pages 251–252 establish later SLLIA security.",
+      "caution": "Relevant final-rule pages independently checked. Unused study fees return within 60 days; security is not a nonrefundable fee and later security may be higher. Adopted September 18, effective October 8 as separately established by item 219; not yet effective on review date.",
+      "discovered_via": "Chapter 17 ERCOT/PJM primary-source review, 2026-09-20."
+    },
+    {
+      "id": "P231",
+      "title": "ERCOT — House State Affairs data-center update, August 19, 2026",
+      "url": "https://www.ercot.com/files/docs/2026/08/19/ERCOTPanel1DataCenters.pdf",
+      "publisher": "ERCOT",
+      "published_on": "2026-08-19",
+      "use": "Slide 3 reports approximately 205 GW preliminary Batch Zero eligibility using the July 28 snapshot.",
+      "caution": "Preliminary study eligibility, not approved-to-energize capacity. Different date and universe from the June large-load pipeline; do not turn exclusions into cancellations or combine the two as a conserved funnel.",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-20",
+      "domains": [
+        "D03"
+      ],
+      "discovered_via": "Chapter 17 ERCOT/PJM primary-source review, 2026-09-20."
+    },
+    {
+      "id": "P232",
+      "title": "ERCOT — Batch Zero verification process notice, September 9, 2026",
+      "url": "https://www.ercot.com/services/comm/mkt_notices/M-A090926-01",
+      "publisher": "ERCOT",
+      "published_on": "2026-09-09",
+      "use": "Establish that requests for information and documentation verification were continuing through September for conditionally included loads.",
+      "caution": "Complete public notice reviewed. Passing verification is a condition of inclusion; the notice does not establish audit completion, energized capacity or a final cleaned queue.",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-20",
+      "domains": [
+        "D03"
+      ],
+      "discovered_via": "Chapter 17 ERCOT/PJM primary-source review, 2026-09-20."
+    },
+    {
+      "id": "P233",
+      "title": "Dominion Energy — Data-center load-adjustment letter to PJM, January 6, 2026",
+      "url": "https://www.pjm.com/-/media/DotCom/planning/res-adeq/load-forecast/dominion-documentation.pdf",
+      "publisher": "Dominion Energy",
+      "published_on": "2026-01-06",
+      "use": "Explain ELOA, CLOA and ESA commitments, the $250,000 engineering deposit and typical 9–12-month study, July 2025 contract mix and reported 2025 coincident peak.",
+      "caution": "Three-page utility letter reviewed. The 47 GW contract snapshot combines 30.1 GW ELOA, 7.1 GW CLOA and 9.8 GW ESA; 4 GW is coincident demand. Different measures, dates and commitment stages; not a cancellation funnel. Scope is Dominion Energy customers, not all PJM or the whole Dominion zone.",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-20",
+      "domains": [
+        "D03"
+      ],
+      "discovered_via": "Chapter 17 ERCOT/PJM primary-source review, 2026-09-20."
+    },
+    {
+      "id": "P234",
+      "title": "PJM — Over 700 generation projects accepted into Cycle 1, August 3, 2026",
+      "url": "https://insidelines.pjm.com/over-700-new-generation-projects-accepted-into-first-cycle-of-reformed-interconnection-process/",
+      "publisher": "PJM",
+      "published_on": "2026-08-03",
+      "use": "Distinguish 715 proposed generation projects and 201.5 GW nameplate qualified for study from large-load demand requests.",
+      "caution": "Complete public announcement reviewed. Qualified for study does not mean constructed or operating. Nameplate capacity is not dependable capacity or data-center load; the designed study duration does not establish a commissioning date.",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-20",
+      "domains": [
+        "D03"
+      ],
+      "discovered_via": "Chapter 17 ERCOT/PJM primary-source review, 2026-09-20."
+    },
+    {
+      "id": "P235",
+      "title": "FERC — PJM large-load show-cause order, June 18, 2026",
+      "url": "https://www.ferc.gov/sites/default/files/2026-06/EL26-67-000.pdf",
+      "publisher": "FERC",
+      "published_on": "2026-06-18",
+      "use": "Printed pages 19–21 describe new load designation and transmission service requests, including long-term firm transmission requests in PJM's New Services Queue.",
+      "caution": "Relevant existing-process section reviewed, not all 114 pages. This is a show-cause order; preliminary proposed study reforms are not operating entitlements. Do not claim that load-related transmission requests can never share PJM's New Services Queue.",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-20",
+      "domains": [
+        "D03"
+      ],
+      "discovered_via": "Chapter 17 ERCOT/PJM primary-source review, 2026-09-20."
+    },
+    {
+      "id": "P236",
+      "title": "PUCT — Texas Register acknowledgment for adopted 16 TAC 25.194",
+      "url": "https://interchange.puc.texas.gov/Documents/58481_219_1684678.PDF",
+      "publisher": "Public Utility Commission of Texas",
+      "published_on": "2026-09-18",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-20",
+      "domains": [
+        "D03"
+      ],
+      "use": "Page 3 establishes October 8, 2026 as the effective date of the adopted large-load interconnection rule.",
+      "caution": "Effective-date acknowledgment reviewed. Adoption and future effectiveness are different milestones; no claim that the rule was already effective September 20.",
+      "discovered_via": "Chapter 17 ERCOT/PJM primary-source review, 2026-09-20."
+    },
+    {
+      "id": "P237",
+      "title": "ERCOT — Batch Study Workshop 8, May 4, 2026",
+      "url": "https://www.ercot.com/files/docs/2026/05/04/ERCOT_Batch_Study_Workshop_8_20260504.pptx",
+      "publisher": "ERCOT",
+      "published_on": "2026-05-04",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-20",
+      "domains": [
+        "D03"
+      ],
+      "use": "Slide 38 illustrates staged load with a 1,000 MW request, 100 MW withdrawal limit and two 500 MW generators.",
+      "caution": "Slide 38 independently extracted and marked illustrative. This is not a project, permission or guaranteed ramp. Course calculation caps source availability at requested load and retains stability/contingency conditions.",
+      "discovered_via": "Chapter 17 ERCOT/PJM primary-source review, 2026-09-20."
     }
   ],
   "local_attributions": [

@@ -10,7 +10,7 @@ clarifications from the September 17–18 walkthroughs in one searchable referen
 
 [Open the course](index.html).
 The sidebar combines reading and teaching material under numbered descriptive
-chapters, beginning with **1. Primer**. All 16 numbered chapters have complete
+chapters, beginning with **1. Primer**. All 17 numbered chapters have complete
 authored slide decks; the review tracker records which the author has accepted.
 
 | Editable input                                                                                                   | Generated reading or teaching output                                                                  | Build command                                         |
@@ -144,3 +144,19 @@ and [800 V DC distribution](prototypes/dc-distribution-format.html?teach=1) deck
 without changing its objective IDs. Later chapter numbers follow automatically.
 Each chapter has its own slide selector and canonical URL. Retired URLs and
 slide aliases are not published.
+
+## ERCOT and PJM case-study chapter
+
+Chapter 17, **ERCOT and PJM: the race to connect**, follows the recorded core
+chapters and precedes Further reading. Its 12 slides distinguish requests,
+studies, financial commitments, forecasts and actual demand. Two public
+SemiAnalysis figures remain intact; the dense staged-energization figure is
+redrawn for the slides and preserved in the reader. Every slide has narration
+in `SPEAKER_NOTES.md`.
+
+Edit `prototypes/grid-queues-*`, `expansion/grid-queues.json` and the matching
+source records. The catalog’s `additional_chapters` assigns these D03 case-study
+lessons to Chapter 17 without changing Chapters 1–16 or their check-in bridges.
+The September 18 Texas rule is identified as adopted, effective October 8; the
+queue snapshots retain their own dates. Author review of the new chapter remains
+pending.

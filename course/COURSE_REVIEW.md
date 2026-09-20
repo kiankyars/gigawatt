@@ -1,6 +1,6 @@
 # From Watts to Tokens — filled-in course review template
 
-Updated **2026-09-19**. **Start here for the course design.** This is the course's
+Updated **2026-09-20**. **Start here for the course design.** This is the course's
 instance of the [freeCodeCamp course review template](https://github.com/kiankyars/youtube/blob/main/freecodecamp/course-review-template.md),
 using its [evidence-based improvement system](https://github.com/kiankyars/youtube/blob/main/freecodecamp/improvement-system.md).
 The shared template remains in the YouTube repository; this filled-in copy owns
@@ -15,9 +15,9 @@ Those documents implement this design rather than establishing separate course s
 Use the domain map to look up the section being prepared; there is no need to
 read it end to end.
 
-**Current state:** All 16 numbered chapters now have complete authored teaching decks.
-**Chapters 1–13 are author-accepted as of 17 September 2026; Chapters 14–16 remain
-awaiting author acceptance.**
+**Current state:** All 17 numbered chapters now have complete authored teaching decks.
+**Chapters 1–13 are author-accepted as of 17 September 2026; explicit acceptance
+for Chapters 14–16 remains unrecorded. Chapter 17 is authored and awaits review.**
 The cooling material is split into Chapter 11 (chip and rack heat capture) and
 Chapter 12 (heat rejection, climate and water); Chapters 15–16 now cover GPU cloud economics followed by a single Abilene synthesis, **Putting an AI Factory Together**. The five original engineering exercises remain optional reader practice. The former Compute and
 Storage chapters remain as Further reading; their useful teaching cases were
@@ -118,6 +118,7 @@ numbers used during those reviews.
 | 14. [Controls, operations and reliability](prototypes/operations-format.html?teach=1) | 23 slides; Row B heat-accumulation and temperature traces, plant controls and cooling reserve, four original DeepMind control panels and performance plot, Google demand response, three-slide Cloudflare story, London incident quotation and recovery, Meta maintenance | [Revision checks](TESTING.md#chapter-14-case-context-and-coherent-measurements--2026-09-17) | **Author feedback through former slide 18 addressed; ready for review.** Repeated location/time and generic command/mapping slides removed or folded in. Numerical closing question supplies its inputs. Whole-chapter acceptance remains pending. |
 | 15. [GPU cloud economics](prototypes/capacity-format.html?teach=1) | 19 slides: opening meme, capacity products and customer examples, rental terms and prices, occupancy, financing, NVIDIA backstops, idle electricity and pass-through, delay quotation and Abilene plan versus delivery | [Current verification](TESTING.md) | **Rebuilt after September 17 feedback; author review pending.** Removed the accepted-results invoice and repeated capacity exercises. |
 | 16. [Putting an AI Factory Together](prototypes/integrated-cases-format.html?teach=1) | 10 slides; Abilene connects hardware, cooling, manufacturing, investment and expansion; one physical-scale synthesis leads to the supplied conceptual closing illustration | [Current verification](TESTING.md) | **Revised after author review — 18 September 2026; acceptance pending.** Cooling alternatives added, hot-weather repetition removed, real construction/factory images installed, financing clarified, and closing rebuilt. Supplied ChatGPT illustration follows the physical-scale synthesis; the full-slide hall photo now introduces cooling in Chapter 2. Original exercises remain optional reader practice. |
+| 17. [ERCOT and PJM: the race to connect](prototypes/grid-queues-format.html?teach=1) | 12 slides: ERCOT requests and verification, alternative sites, fees versus security, Dominion agreements and demand, forecast adjustment and staged import | [Chapter 17 checks](TESTING.md#ercot-and-pjm-case-study--2026-09-20) | **Authored — 20 September 2026; author review pending.** New presented chapter requested after the author completed recording Chapters 1–16. Two original SemiAnalysis figures, one simplified workshop redraw, sourced reading and scripts for every slide. |
 
 **Compute migration — 15 September 2026.** The former Chapter 9 is retired.
 Rack/tray/superchip anatomy is consolidated into one Chapter 8 slide; operand reuse
@@ -705,3 +706,17 @@ These additions are implemented and technically checked. Author acceptance remai
 - [x] Keep the approved Chapter 2 photo placement.
 - [x] Add the same photograph to Chapter 11 as slide 4, immediately after the cold-plate hardware and before residual-air heat capture. Large uncropped image and Oracle credit; spoken context stays in the notes.
 - [x] Chapter 11 now has 18 slides. Existing hashes remain; speaker-note numbering updated. The new placement awaits author review; previously accepted content is unchanged.
+
+## Additional interconnection chapter — 20 September 2026
+
+The author reports that the existing course is recorded and is being edited.
+Chapter 17 is a new presented case study, placed after Chapter 16 and before the
+two Further reading sections. Recorded chapter order and content remain intact.
+Queue maturity and the developer’s choice between alternative sites extend the
+earlier connection lesson rather than repeat its equipment tour. The site-choice
+control is the active reasoning example; no trivial end quiz was added.
+
+Queue totals, modeled forecasts, contract capacity and coincident demand have
+different definitions and dates. Texas’s new rule is adopted September 18 and
+effective October 8, 2026; financial security is distinguished from a fee.
+Publication and automated checks do not establish author acceptance.

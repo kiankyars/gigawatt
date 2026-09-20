@@ -40,7 +40,7 @@ test('reading view retains emphasis, hides source clutter and never renders raw 
 test('every authored note targets a current slide',async()=>{
   const notes=parseSpeakerNotes(readFileSync(new URL('../course/SPEAKER_NOTES.md',import.meta.url),'utf8'));
   const decks=new Map();
-  for(const deck of ['distribution','rack-energy','networking','cooling','heat-rejection','procurement-cases','operations','capacity','integrated-cases']){
+  for(const deck of ['distribution','rack-energy','networking','cooling','heat-rejection','procurement-cases','operations','capacity','integrated-cases','grid-queues']){
     const mod=await import(`../course/prototypes/${deck}-scenes.js`);
     decks.set(deck,new Set(mod.scenes.map(s=>s.id)));
     if(deck==='rack-energy')decks.set('dc-distribution',new Set(mod.dcScenes.map(s=>s.id)));
