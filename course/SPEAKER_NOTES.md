@@ -56,7 +56,15 @@ These are two phases inside one regulator, not facility AC phases. This example 
 
 Sources: [Texas Instruments, Benefits of a multiphase buck converter](https://www.ti.com/lit/an/slyt449/slyt449.pdf).
 
-## Should we step down first or rectify first? — Chapter 9, slide 10
+## An 800 V DC battery rack beside the compute rack — Chapter 9, slide 9
+
+<!-- speaker: dc-distribution#dc-battery-rack -->
+
+Here, medium-voltage AC is converted to 800 V DC upstream of the racks. The adjacent battery rack routes that DC supply onward to the compute rack through its distribution shelves. Battery shelves shave demand peaks, while capacitor shelves buffer faster power swings. The 800 kW rating and Kyber–Rubin Ultra name belong to this proposal.
+
+Sources: [SemiAnalysis: Inside the 800VDC Revolution, Part 1](https://newsletter.semianalysis.com/p/inside-the-800vdc-revolution-part).
+
+## Should we step down first or rectify first? — Chapter 9, slide 11
 
 <!-- speaker: dc-distribution#ac-dc-ledger -->
 
@@ -64,7 +72,7 @@ Sources: [Texas Instruments, Benefits of a multiphase buck converter](https://ww
 
 Sources: [Wolfspeed 10 kV SiC announcement](https://www.wolfspeed.com/company/news-events/news/wolfspeed-introduces-industrys-first-commercially-available-10000v-silicon-carbide-power-mosfet/).
 
-## An 800 V DC feeder needs DC-rated protection — Chapter 9, slide 12
+## An 800 V DC feeder needs DC-rated protection — Chapter 9, slide 13
 
 <!-- speaker: dc-distribution#dc-feeder-protection -->
 

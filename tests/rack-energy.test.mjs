@@ -78,6 +78,7 @@ test('shared renderers cover all scenes and changed states without missing quant
 
 test('DC architecture motivates the supply equipment and preserves both rack-bus choices',()=>{
   const ids=dcScenes.map(scene=>scene.id);
+  assert.equal(ids[ids.indexOf('conversion-farther-upstream')+1],'dc-battery-rack');
   assert.ok(!ids.includes('dc-voltage-planes'));
   assert.ok(!ids.includes('ac-dc-converter-loss'));
   const supplyIndex=ids.indexOf('ac-dc-ledger');
@@ -105,7 +106,7 @@ test('DC architecture motivates the supply equipment and preserves both rack-bus
 
 test('rack power and DC distribution separate rack behavior from DC distribution',()=>{
   assert.equal(rackScenes.length,18);
-  assert.equal(dcScenes.length,15);
+  assert.equal(dcScenes.length,16);
   assert.equal(rackScenes.at(-1).id,'buffer-recharge');
   assert.deepEqual(dcScenes.slice(0,2).map(scene=>scene.id),['one-load','conductor-copper']);
   assert.deepEqual(dcScenes.slice(-4).map(scene=>scene.id),['dc-feeder-protection','retrofit-power','ocp-power-architectures','power-stack-overview']);
