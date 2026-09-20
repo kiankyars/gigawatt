@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#fafaf7">
+  <meta name="description" content="Explore an interactive 3D data center, then follow the course from electricity and cooling to useful AI computation.">
+  <title>From Watts to Tokens — Inside an AI data center</title>
+  <link rel="stylesheet" href="home/home.css">
+</head>
+<body>
+  <a class="skip-link" href="#chapters">Skip to course chapters</a>
+  <header class="site-header">
+    <a class="brand" href="homepage.html"><span aria-hidden="true">ϟ</span> From Watts to Tokens</a>
+    <nav aria-label="Main navigation"><a href="#chapters">Chapters</a><a href="index.html">Reading &amp; glossary <span aria-hidden="true">↗</span></a></nav>
+  </header>
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">A visual course on AI infrastructure</p>
+        <h1 id="hero-title">Inside an AI<br>data center.</h1>
+        <p class="intro">Explore the power, computing and cooling systems that make AI possible.</p>
+        <a class="start-link" href="prototypes/terminology-format.html?teach=1">Start with the primer <span aria-hidden="true">→</span></a>
+        <a class="browse-link" href="#chapters">Browse the course <span aria-hidden="true">↓</span></a>
+      </div>
+      <div class="campus-workspace">
+        <div class="campus-topline"><span><i class="live-dot" aria-hidden="true"></i> Explore the campus</span><span>Interactive 3D</span></div>
+        <div id="campus-mount" aria-label="Interactive conceptual data center" aria-describedby="campus-help">
+          <img class="campus-fallback" src="assets/campus-cutaway.png" alt="A cutaway data center with an electrical yard, server racks and cooling equipment.">
+          <p id="campus-loading" role="status">Loading the campus…</p>
+        </div>
+        <div class="campus-controls" hidden>
+          <div class="camera-controls" role="group" aria-label="Campus views">
+            <button type="button" data-view="campus" aria-pressed="true">Campus</button>
+            <button type="button" data-view="power" aria-pressed="false">Power</button>
+            <button type="button" data-view="compute" aria-pressed="false">Compute</button>
+            <button type="button" data-view="cooling" aria-pressed="false">Cooling</button>
+          </div>
+          <button type="button" id="reset-view" aria-label="Reset campus view" title="Reset view">↺</button>
+        </div>
+        <div class="campus-bottomline">
+          <p id="campus-help">Drag to rotate · scroll or pinch to zoom</p>
+          <span>Illustrative campus</span>
+        </div>
+      </div>
+    </section>
+    <section class="explore-strip" aria-label="Explore a campus system">
+      <div class="system-summary" aria-live="polite"><span class="eyebrow" id="system-label">The whole system</span><p id="system-description">Electricity reaches the racks. Cooling carries their heat back outside.</p></div>
+      <a id="system-link" href="prototypes/orientation-format.html?teach=1">Open the overview <span aria-hidden="true">↗</span></a>
+      <div class="flow-controls" role="group" aria-label="Animated campus paths" hidden>
+        <button type="button" data-flow="power" aria-pressed="true"><i class="power-key" aria-hidden="true"></i>Electricity</button>
+        <button type="button" data-flow="heat" aria-pressed="true"><i class="heat-key" aria-hidden="true"></i>Heat</button>
+        <button type="button" id="motion-toggle" aria-pressed="false">Pause motion</button>
+      </div>
+    </section>
+    <section id="chapters" class="chapters" aria-labelledby="chapters-title">
+      <div class="section-heading"><div><p class="eyebrow">From the grid to the GPU</p><h2 id="chapters-title">The course</h2></div><p id="chapter-count"></p></div>
+      <div id="chapter-list" class="chapter-list"><p><a href="index.html">Open the complete course directory →</a></p></div>
+    </section>
+  </main>
+  <footer class="site-footer"><span>From Watts to Tokens</span><a href="index.html">Readings, worked examples &amp; glossary <span aria-hidden="true">↗</span></a></footer>
+  <noscript><p class="no-script">Open the <a href="prototypes/terminology-format.html?teach=1">primer</a> or <a href="index.html">course reader</a>. Enable JavaScript to explore the 3D campus.</p></noscript>
+  <script type="module" src="home/home.js"></script>
+</body>
+</html>

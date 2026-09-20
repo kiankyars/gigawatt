@@ -2472,3 +2472,16 @@ layouts. Site selection, current notes with next-slide preview, audience chrome
 hiding, Exit, Chapter 16→17 navigation and the final-slide state passed. The
 existing presenter regression also passed across earlier chapters, reload,
 chapter changes, notes/no-notes layouts and the new course ending.
+
+## Interactive course homepage — 2026-09-20
+
+The published root now uses the recovered conceptual 3D campus from the earlier
+`diagram/mock_3d.html` prototype. It includes orbit and zoom controls, campus,
+power, compute and cooling camera views, animated electricity and heat paths,
+keyboard-accessible controls, reduced-motion handling, and an image fallback when
+WebGL is unavailable. The searchable reader moved to `read.html`; slide Reading
+links and course exits preserve their source and published destinations.
+
+The homepage browser check passed at 1440×1000, 1280×720 and 390×844. It checked
+all 17 chapter links, responsive fit, keyboard view changes, flow and motion
+controls, reader/glossary navigation, slide return links, and the WebGL fallback.

@@ -1,4 +1,4 @@
-"""Stage the current reader, presentations and assets for Pages."""
+"""Stage the homepage, reader, presentations and assets for Pages."""
 
 from __future__ import annotations
 
@@ -30,7 +30,7 @@ SHARED_PRESENTATION_MODULES = (
 )
 TEXT_SUFFIXES = {".html", ".js", ".css", ".json", ".md"}
 QUOTED_URL = re.compile(
-    r"([\"'`])((?:\.\.?/|course/|prototypes/|assets/|lessons/|research/|web/|"
+    r"([\"'`])((?:\.\.?/|course/|prototypes/|assets/|home/|lessons/|research/|web/|"
     r"[a-zA-Z0-9_-]+\.(?:html|js|css|json|md|png|webp|jpg|svg))[^\"'`\n<>]*?)\1"
 )
 MARKDOWN_URL = re.compile(r"(?<=\]\()([^\s)]+)(?=\))")
@@ -40,6 +40,10 @@ def public_path(source):
     """Map a repository source path to its stable location in the published site."""
     source = PurePosixPath(source)
     parts = source.parts
+    if source == PurePosixPath("course/homepage.html"):
+        return PurePosixPath("index.html")
+    if source == PurePosixPath("course/index.html"):
+        return PurePosixPath("read.html")
     if parts[:2] == ("course", "prototypes"):
         name = source.name
         if source.suffix == ".html":
@@ -62,7 +66,7 @@ def published_url(value, source):
         return value
     if route.scheme or route.netloc or route.path.startswith("/"):
         return value
-    if not (route.path.startswith(("./", "../", "course/", "prototypes/", "assets/", "lessons/", "research/", "web/"))
+    if not (route.path.startswith(("./", "../", "course/", "prototypes/", "assets/", "home/", "lessons/", "research/", "web/"))
             or re.fullmatch(r"[a-zA-Z0-9_-]+\.(?:html|js|css|json|md|png|webp|jpg|svg)", route.path)):
         return value
     source = PurePosixPath(source)
@@ -112,7 +116,7 @@ def stage(root=ROOT, destination=None):
     for directory in ("course", "research"):
         paths.update(p.relative_to(root) for p in (root / directory).glob("*.md"))
         paths.update(p.relative_to(root) for p in (root / directory).glob("*.json"))
-    paths.update(Path("course") / name for name in ("index.html", "domain-map.html", "sample-reading.html"))
+    paths.update(Path("course") / name for name in ("homepage.html", "index.html", "domain-map.html", "sample-reading.html"))
     paths.update(
         p.relative_to(root) for p in (root / "course/prototypes").glob("*")
         if p.is_file() and (p.suffix in {".js", ".css"} or p.relative_to(root) in presentation_html)
@@ -120,9 +124,8 @@ def stage(root=ROOT, destination=None):
     paths.update(Path("course/web") / name for name in SHARED_PRESENTATION_MODULES)
     for directory in ("course/lessons", "research/sources"):
         paths.update(p.relative_to(root) for p in (root / directory).glob("*") if p.is_file())
-    paths.update(
-        p.relative_to(root) for p in (root / "course/assets").rglob("*") if p.is_file()
-    )
+    for directory in ("course/assets", "course/home"):
+        paths.update(p.relative_to(root) for p in (root / directory).rglob("*") if p.is_file())
     for path in sorted(paths):
         if not (root / path).is_file():
             continue

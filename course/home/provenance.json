@@ -1,0 +1,41 @@
+{
+  "source_commit": "fdb3763eb99c7f1ddc5c42fdca1c5185a4ba580e",
+  "original_geometry_commit": "6aae1a5",
+  "source_file": "diagram/mock_3d.html",
+  "original_title": "GIGAWATT \u2014 3D mock v0 (style test)",
+  "restored_on": "2026-09-20",
+  "scope": "Conceptual campus illustration. Geometry is recovered from the original procedural model; it is not a site plan or construction sequence.",
+  "adaptations": [
+    "Restored full-campus procedural geometry in an ES module with local Three.js r170 dependencies.",
+    "Removed unsupported site-specific capacities, vendors and claims from labels.",
+    "Separated the on-site generation feeder from the high-voltage grid corridor.",
+    "Added camera presets, selectable systems, power and heat flow controls, reduced-motion behavior and lifecycle cleanup.",
+    "Made the roof translucent to expose the recovered electrical bay and rack rows."
+  ],
+  "dependencies": [
+    {
+      "file": "vendor/three.module.js",
+      "source_sha256": "ce1fa418de16a19495a9f72495580e3015d7745c296d3ce0485897f902ddedfb",
+      "sha256": "ce1fa418de16a19495a9f72495580e3015d7745c296d3ce0485897f902ddedfb",
+      "adaptation": "Unmodified"
+    },
+    {
+      "file": "vendor/OrbitControls.js",
+      "source_sha256": "80efaadea4f8a636a65fb0bd08bfef62f3d93a0bb94e2e7500f23176c5c07f4e",
+      "sha256": "6f3052dd8860a60fe6999260d50558ff54609523724c6e374326228e5590cf55",
+      "adaptation": "Relative module import"
+    },
+    {
+      "file": "vendor/CSS2DRenderer.js",
+      "source_sha256": "7de0bb70e3c1d6da58416353ed7140a7a7743ece99d73b56eb62bc2dd79bfed5",
+      "sha256": "cd9441c254bb853098b4b4370d80cf150f5f84368946d6aea4833f3f6f8d54a8",
+      "adaptation": "Relative module import"
+    },
+    {
+      "file": "vendor/LICENSE",
+      "source_sha256": "4c40a1ef62450b857c3b2aaf294936304cd552d965fbcd9d32d4c5bcf4ba4454",
+      "sha256": "4c40a1ef62450b857c3b2aaf294936304cd552d965fbcd9d32d4c5bcf4ba4454",
+      "adaptation": "Unmodified"
+    }
+  ]
+}

@@ -350,7 +350,10 @@ async function checkNavigation(page) {
   await reading.waitFor({ state: "visible" });
   assert.equal((await reading.textContent()).trim(), "Reading");
   const readingUrl = new URL(await reading.getAttribute("href"), page.url());
-  assert.equal(readingUrl.pathname, new URL("../index.html", base).pathname);
+  const published = new URL(base).pathname.includes("/slides/");
+  assert.equal(readingUrl.pathname, new URL(published ? "../read.html" : "../index.html", base).pathname);
+  assert.equal(new URL(await page.locator(".toolbar .brand").getAttribute("href"), page.url()).pathname,
+    new URL(published ? "../index.html" : "../homepage.html", base).pathname);
   assert.equal(readingUrl.hash, "#d01-power-over-time");
   assert.equal(await page.locator("#explain").count(), 0);
   assert.equal(await page.getByRole("button", { name: /Explanation|sources/i }).count(), 0);

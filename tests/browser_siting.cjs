@@ -239,7 +239,10 @@ async function checkNavigation(page, scenes, colorScheme) {
   assert.equal((await reading.textContent()).trim(), "Reading");
   let readingUrl = new URL(await reading.getAttribute("href"), page.url());
   assert.equal(readingUrl.hash, "#d03-service-and-siting");
-  assert.equal(readingUrl.pathname, new URL("../index.html", base).pathname);
+  const published = new URL(base).pathname.includes("/slides/");
+  assert.equal(readingUrl.pathname, new URL(published ? "../read.html" : "../index.html", base).pathname);
+  assert.equal(new URL(await page.locator(".toolbar .back-to-course").getAttribute("href"), page.url()).pathname,
+    new URL(published ? "../index.html" : "../homepage.html", base).pathname);
   assert.equal(await page.locator("#explain").count(), 0);
   assert.equal(await page.getByRole("button", { name: /Explanation|sources/i }).count(), 0);
   assert.equal(await page.locator("dialog:visible").count(), 0);

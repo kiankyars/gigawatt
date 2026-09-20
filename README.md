@@ -4,12 +4,15 @@
 
 [Open the course](https://kiankyars.github.io/gigawatt/)
 
-The sidebar is the course directory. Chapters use numbered descriptive names,
+The homepage introduces the course and its 17 chapters. The reader at
+[`read.html`](https://kiankyars.github.io/gigawatt/read.html) contains the searchable
+lessons, glossary and numerical models. Its sidebar is the course directory.
+Chapters use numbered descriptive names,
 starting with **1. Primer**, **2. Data center overview** and **3. Workloads and
 requirements**. Each chapter shows its reading and available slides; selected-topic
 sequences are labelled so they do not imply a complete chapter deck.
 
-The published course lives at the site root. Presentations have short addresses
+The homepage lives at the site root. Presentations have short addresses
 such as `/slides/primer.html`, `/slides/workloads.html` and `/slides/siting.html`.
 Use the course directory or current slide URLs; retired routes and slide aliases are not maintained.
 
@@ -44,7 +47,7 @@ evidence; they do not add curriculum requirements. Technical checks live in
 The course begins with the Primer: about 20 minutes of electricity, equipment,
 computing and cooling vocabulary, pending rehearsal. It adds no assessed objective.
 
-The expanded reader contains 50 authored lessons across 15 domains, including
+The expanded reader contains 51 authored lessons across 15 domains, including
 five optional integrated exercises, with teaching and practice mapped to all 65 objectives.
 The final presentation, **Putting an AI Factory Together**, instead follows
 one Abilene case across nine slides to connect the course's engineering and
@@ -75,9 +78,11 @@ uv run python -m gigawatt.stage_site
 uv run python -m http.server 8765 --directory _site
 ```
 
-Open [the local reader](http://localhost:8765/). Editable inputs remain grouped in
-`course/`; `src/gigawatt/stage_site.py` publishes the reader at the root and the
-presentation sources under `slides/`. This keeps source ownership separate from
+Open [the local homepage](http://localhost:8765/) or
+[the local reader](http://localhost:8765/read.html). Editable inputs remain grouped in
+`course/`; `src/gigawatt/stage_site.py` publishes `homepage.html` at the root,
+`index.html` at `read.html`, and presentation sources under `slides/`.
+This keeps source ownership separate from
 public URLs without maintaining duplicate editable decks. The [source index](course/README.md)
 lists each input and its generated outputs.
 
