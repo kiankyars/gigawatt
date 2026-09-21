@@ -116,15 +116,15 @@
       "publisher": "SemiAnalysis",
       "kind": "analysis",
       "review_status": "public_excerpt_reviewed",
-      "reviewed_on": "2026-09-20",
+      "reviewed_on": "2026-09-21",
       "domains": [
         "D03",
         "D05",
         "D13",
         "D15"
       ],
-      "use": "Introduce interconnection constraints, equipment lead times and on-site generation as interacting limits on project delivery. Public connection-queue figure reviewed for Chapter 17; preserve source date and distinction between requests, forecasts and operating demand.",
-      "caution": "Public excerpts reviewed, not the complete paid report or underlying model. Capacity forecasts and regional queue assumptions need their own dates, definitions and independent evidence.",
+      "use": "Introduce interconnection constraints, equipment lead times and on-site generation as interacting limits on project delivery. Public connection-queue figure reviewed for Chapter 17; preserve source date and distinction between requests, forecasts and operating demand. Chapter 17 also shows its first public figure, annual US data-center net additions by power source, as the closing slide.",
+      "caution": "Public excerpts reviewed, not the complete paid report or underlying model. Capacity forecasts and regional queue assumptions need their own dates, definitions and independent evidence. In the net-additions figure the behind-the-meter series is a modeled residual gap, not contracted onsite generation; values are annual additions in GW although the title says MW.",
       "published_on": "2026-06-25"
     },
     {
@@ -5364,6 +5364,70 @@
       "use": "Slide 38 illustrates staged load with a 1,000 MW request, 100 MW withdrawal limit and two 500 MW generators.",
       "caution": "Slide 38 independently extracted and marked illustrative. This is not a project, permission or guaranteed ramp. Course calculation caps source availability at requested load and retains stability/contingency conditions.",
       "discovered_via": "Chapter 17 ERCOT/PJM primary-source review, 2026-09-20."
+    },
+    {
+      "id": "P238",
+      "title": "BG2 podcast — Satya Nadella and Sam Altman with Brad Gerstner, October 31, 2025",
+      "url": "https://www.youtube.com/watch?v=Gnl833wXRz0&t=1109s",
+      "publisher": "BG2 Pod",
+      "published_on": "2025-10-31",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-21",
+      "domains": [
+        "D03"
+      ],
+      "use": "At about 18:29 Microsoft's chief executive says the constraint is power and powered buildings rather than chip supply, describing chips in inventory that cannot be plugged in. Opens Chapter 17: hardware does not run without a power connection.",
+      "caution": "Captions reviewed at the cited timestamp; the spoken sentence has a stumble, so quote only the short fragment used on the slide. One company's statement from October 2025, not a measurement of idle GPUs or today's state; his constraint includes data-center construction as well as utility connection.",
+      "discovered_via": "Chapter 17 slide revision, primary-source review, 2026-09-21."
+    },
+    {
+      "id": "P239",
+      "title": "Microsoft — FY26 Q1 earnings call, October 29, 2025",
+      "url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q1",
+      "publisher": "Microsoft",
+      "published_on": "2025-10-29",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-21",
+      "domains": [
+        "D03"
+      ],
+      "use": "Corroborates P238: the chief financial officer describes being short of space and power for GPUs and CPUs rather than short of the chips.",
+      "caution": "Transcript passage reviewed. A dated corporate statement about one operator's capacity; later 2026 calls report faster GPU dock-to-live times with constraints remaining.",
+      "discovered_via": "Chapter 17 slide revision, primary-source review, 2026-09-21."
+    },
+    {
+      "id": "P240",
+      "title": "PJM — Transmission Zones map, May 2023",
+      "url": "https://www.pjm.com/-/media/DotCom/about-pjm/pjm-zones.pdf",
+      "publisher": "PJM Interconnection",
+      "published_on": "2023-05-11",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-21",
+      "domains": [
+        "D03"
+      ],
+      "use": "Show that Dominion is one utility zone inside PJM, the regional grid operator, before reading Dominion's data-center contracts.",
+      "caution": "One-page map reviewed; still the file linked from PJM Library > Maps on the review date. A zone is not a company: the Dominion zone also contains NOVEC, ODEC members and Rappahannock Electric Cooperative. The course asset is cropped to the map, without the legend.",
+      "discovered_via": "Chapter 17 slide revision, primary-source review, 2026-09-21."
+    },
+    {
+      "id": "P241",
+      "title": "Dominion Energy — Q2 2026 earnings call slides, July 31, 2026",
+      "url": "https://s2.q4cdn.com/510812146/files/doc_financials/2026/q2/2026-07-31-DE-IR-2Q-2026-earnings-call-slides-vTCII.pdf",
+      "publisher": "Dominion Energy",
+      "published_on": "2026-07-31",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-21",
+      "domains": [
+        "D03"
+      ],
+      "use": "Slide 5 shows Dominion Energy Virginia data-center contracted capacity by stage with a definition of each stage: about 53.8 GW in July 2026 (32.4 GW SELOA, 9.4 GW CLOA, 12.0 GW ESA), up from about 16.5 GW in July 2023.",
+      "caution": "Slide 5 reviewed. Investor material showing contracted capacity only, not demand; the 2025 coincident peak of about 4 GW comes from P233. SELOA here is the stage P233 calls ELOA. Movement between stages is not a measured conversion or cancellation rate. Scope is Dominion Energy Virginia customers, not the Dominion zone or PJM.",
+      "discovered_via": "Chapter 17 slide revision, primary-source review, 2026-09-21."
     }
   ],
   "local_attributions": [

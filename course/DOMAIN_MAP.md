@@ -466,6 +466,10 @@ Compare utility-only and behind-the-meter supply against energy, capacity, fuel 
 - [P235 — FERC — PJM large-load show-cause order, June 18, 2026](https://www.ferc.gov/sites/default/files/2026-06/EL26-67-000.pdf) · `page_reviewed` · [local note](../research/sources/P235.md)
 - [P236 — PUCT — Texas Register acknowledgment for adopted 16 TAC 25.194](https://interchange.puc.texas.gov/Documents/58481_219_1684678.PDF) · `page_reviewed` · [local note](../research/sources/P236.md)
 - [P237 — ERCOT — Batch Study Workshop 8, May 4, 2026](https://www.ercot.com/files/docs/2026/05/04/ERCOT_Batch_Study_Workshop_8_20260504.pptx) · `page_reviewed` · [local note](../research/sources/P237.md)
+- [P238 — BG2 podcast — Satya Nadella and Sam Altman with Brad Gerstner, October 31, 2025](https://www.youtube.com/watch?v=Gnl833wXRz0&t=1109s) · `page_reviewed` · [local note](../research/sources/P238.md)
+- [P239 — Microsoft — FY26 Q1 earnings call, October 29, 2025](https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q1) · `page_reviewed` · [local note](../research/sources/P239.md)
+- [P240 — PJM — Transmission Zones map, May 2023](https://www.pjm.com/-/media/DotCom/about-pjm/pjm-zones.pdf) · `page_reviewed` · [local note](../research/sources/P240.md)
+- [P241 — Dominion Energy — Q2 2026 earnings call slides, July 31, 2026](https://s2.q4cdn.com/510812146/files/doc_financials/2026/q2/2026-07-31-DE-IR-2Q-2026-earnings-call-slides-vTCII.pdf) · `page_reviewed` · [local note](../research/sources/P241.md)
 
 <a id="d04"></a>
 

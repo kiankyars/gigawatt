@@ -285,7 +285,11 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P235 — FERC — PJM large-load show-cause order, June 18, 2026](sources/P235.md) | FERC | D03 | page_reviewed |
 | [P236 — PUCT — Texas Register acknowledgment for adopted 16 TAC 25.194](sources/P236.md) | Public Utility Commission of Texas | D03 | page_reviewed |
 | [P237 — ERCOT — Batch Study Workshop 8, May 4, 2026](sources/P237.md) | ERCOT | D03 | page_reviewed |
+| [P238 — BG2 podcast — Satya Nadella and Sam Altman with Brad Gerstner, October 31, 2025](sources/P238.md) | BG2 Pod | D03 | page_reviewed |
+| [P239 — Microsoft — FY26 Q1 earnings call, October 29, 2025](sources/P239.md) | Microsoft | D03 | page_reviewed |
 | [P24 — Schneider Electric — What is UPS efficiency and how is it calculated?](sources/P24.md) | Schneider Electric | D04, D05, D06 | page_reviewed |
+| [P240 — PJM — Transmission Zones map, May 2023](sources/P240.md) | PJM Interconnection | D03 | page_reviewed |
+| [P241 — Dominion Energy — Q2 2026 earnings call slides, July 31, 2026](sources/P241.md) | Dominion Energy | D03 | page_reviewed |
 | [P25 — Texas Instruments — Power Loss in Switching Power Supplies](sources/P25.md) | Texas Instruments | D04, D05, D06 | page_reviewed |
 | [P26 — Schneider Electric — Easy UPS 3-Phase Modular physical specifications](sources/P26.md) | Schneider Electric | D05 | page_reviewed |
 | [P27 — Schneider Electric — Easy UPS 3-Phase Modular hardware options](sources/P27.md) | Schneider Electric | D05 | page_reviewed |

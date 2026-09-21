@@ -780,31 +780,31 @@ Sources: [ChatGPT prompt](CHAPTER_16_CLOSING_IMAGE_PROMPT.md), [original Abilene
 
 <!-- speaker: grid-queues#queue-purpose -->
 
-A connection request starts with a place, an amount of power, and a desired date. It asks the utility and grid operator to work out what serving that load would require. The result may involve studies, new equipment, construction, and limits on how the site operates. ERCOT and PJM face the same basic question, but their processes differ. We will follow what each milestone actually establishes, from an early request to a computing campus that can use its power.
+A connection request starts with a place, an amount of power, and a desired date. It asks the utility and grid operator to work out what serving that load would require. The result may involve studies, new equipment, construction, and limits on how the site operates. ERCOT runs the grid for most of Texas. PJM runs it for thirteen eastern states and Washington, D.C. They face the same basic question, but their processes differ. We will follow what each milestone actually establishes, from an early request to a computing campus that can use its power.
 
-Source: P235 — [FERC, June 18, 2026, existing PJM processes, pp. 19–21](https://www.ferc.gov/sites/default/files/2026-06/EL26-67-000.pdf); E21653C0173 — [ERCOT Batch Zero announcement](https://www.ercot.com/news/release/06182026-puct-approves-ercots).
+Source: P235 — [FERC, June 18, 2026, existing PJM processes, pp. 19–21](https://www.ferc.gov/sites/default/files/2026-06/EL26-67-000.pdf); E21653C0173 — [ERCOT Batch Zero announcement](https://www.ercot.com/news/release/06182026-puct-approves-ercots). Logos: [asset provenance](assets/references/grid-queues-logos.provenance.json).
 
-## Two queues — Chapter 17, slide 2
+## Chips need power — Chapter 17, slide 2
 
-<!-- speaker: grid-queues#two-queues -->
+<!-- speaker: grid-queues#chips-need-power -->
 
-Start by checking which side of the network a request belongs to. A generator proposes to supply power. A data center asks to consume it. In August 2026, PJM reported 715 generation projects totaling 201.5 gigawatts of nameplate capacity qualified for study. That is a supply pipeline, not waiting data centers. Some load-related transmission requests can share PJM’s New Services Queue, so the label alone is not enough. We need the request type and the actual study status.
+Before we read any queue, fix one idea. Hardware cannot power itself. A company can buy GPUs, take delivery, even put up the building, and still have nothing running. Grid electricity arrives only through a connection that someone has to study, build, and approve. In October 2025, Microsoft’s chief executive said his problem was not the supply of chips. He described chips sitting in inventory that he could not plug in, because he lacked powered buildings to put them in. Power is the scarce input, so developers ask for grid connections early and often. ERCOT, the grid operator for most of Texas, was tracking about 474.7 gigawatts of large-load requests in June 2026. Let’s read that number carefully.
 
-Source: P234 — [PJM, August 3, 2026](https://insidelines.pjm.com/over-700-new-generation-projects-accepted-into-first-cycle-of-reformed-interconnection-process/); P235 — [FERC, pp. 19–21](https://www.ferc.gov/sites/default/files/2026-06/EL26-67-000.pdf).
+Source: P238 — [BG2 podcast, October 31, 2025, at 18:29](https://www.youtube.com/watch?v=Gnl833wXRz0&t=1109s); P239 — [Microsoft FY26 Q1 earnings call, October 29, 2025](https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q1). One company’s dated statement; his constraint includes building construction as well as the utility connection.
 
 ## ERCOT pipeline — Chapter 17, slide 3
 
 <!-- speaker: grid-queues#ercot-pipeline -->
 
-This is ERCOT’s June 2026 snapshot of large-load requests through 2033. The total reaches 474.7 gigawatts, but 284.3 gigawatts sits in the no-studies-submitted category. The observed energized segment is 5.9 gigawatts. Even that number needs its definition: it adds non-simultaneous peak consumption, rather than measuring everything at one instant. The chart compares stages of maturity. It does not show that the difference has been cancelled, and the future-year totals should not be added together.
+This bar is every large-load request ERCOT was tracking in June 2026, sorted by where each megawatt stands. It is not this year’s applications. Requests have been accumulating since 2022, and 474.7 gigawatts is the load they ask for by 2033. It is not ERCOT’s forecast. For 284 gigawatts, ERCOT has not received a study from the utility, or it reviewed the megawatts and did not approve them. Another 136 gigawatts has a study under ERCOT’s review. Only 55 gigawatts has cleared study approval, and 5.9 gigawatts is observed operating. Even that figure adds up each site’s own peak, rather than measuring load at one moment. None of these gaps is a cancellation rate.
 
-Source: P227 — [ERCOT July 29 presentation, slide 6](https://www.ercot.com/files/docs/2026/07/29/ERCOT-Senate-July-29-Panel-1-Assessing-The-Grid.pdf#page=6); P228 — [ERCOT status definitions](https://www.ercot.com/files/docs/2026/04/16/ERCOT-Monthly-Operational-Overview-March-2026.pdf).
+Source: P227 — [ERCOT July 29 presentation, slide 6](https://www.ercot.com/files/docs/2026/07/29/ERCOT-Senate-July-29-Panel-1-Assessing-The-Grid.pdf#page=6); P228 — [ERCOT status definitions](https://www.ercot.com/files/docs/2026/04/16/ERCOT-Monthly-Operational-Overview-March-2026.pdf). The third group adds ERCOT’s rows 9.9 + 36.0 + 3.2 + 5.9 GW. ERCOT’s monthly overviews for the same summer report slightly different totals; keep this deck’s date with its numbers.
 
 ## Site options — Chapter 17, slide 4
 
 <!-- speaker: grid-queues#site-options -->
 
-Imagine one business that wants to deploy a gigawatt of computing. It explores three possible sites and requests a gigawatt at each. There are now three gigawatts of requests, but the business intends to choose just one site. Early engineering can be inexpensive compared with a campus, which makes preserving options useful. The challenge is to identify when those options become separate, credible commitments. This is an illustrative example, not an estimate of ERCOT’s duplicate requests. Texas now requires disclosure of materially overlapping requests.
+Imagine one business that wants to deploy a gigawatt of computing. It explores three possible sites and requests a gigawatt at each. There are now three gigawatts of requests, but the business intends to choose just one site. When it chooses, two requests disappear and nothing was cancelled. Early engineering can be inexpensive compared with a campus, which makes preserving options useful. The challenge is to identify when those options become separate, credible commitments. This is an illustrative example, not an estimate of ERCOT’s duplicate requests. Texas now requires disclosure of materially overlapping requests.
 
 Source: P229 — [Texas SB 6, PURA 37.0561(d)](https://capitol.texas.gov/tlodocs/89R/billtext/html/SB00006F.htm). The one-business, three-site example is hypothetical.
 
@@ -820,35 +820,27 @@ Source: SA33 — [SemiAnalysis, June 18, 2026, public ERCOT comparison](https://
 
 <!-- speaker: grid-queues#commitment-costs -->
 
-Texas adopted these rules on September 18, with effect from October 8. The study fee is $100,000, and unused amounts return after the study. Intermediate-agreement security is a separate $50,000 per megawatt. For a gigawatt, that is a $50 million face amount of financial assurance, not necessarily $50 million spent in cash. The later standard agreement can require more security if allocated system upgrades cost more. These commitments make an application materially different from an early expression of interest. As of September 20, the newly adopted rule is not yet effective.
+This slide shows a change, not how Texas always worked. Before Senate Bill 6 in 2025, there was no ERCOT-wide study fee and no per-megawatt security. Each utility ran its own process, charged its own study costs, and set its own security. Earlier requests were not free; the terms simply varied. The new rule was adopted on September 18 and takes effect on October 8. A new request of 75 megawatts or more pays a $100,000 study fee and posts $50,000 per megawatt before ERCOT will study it. For a gigawatt, that is a $50 million face amount, which a guarantee or letter of credit can satisfy. ERCOT’s Batch Zero study already asked entering projects for the same $50,000 per megawatt in July.
 
-Source: P230 — [PUCT final rule, printed pp. 234–235 and 251–252](https://interchange.puc.texas.gov/Documents/58481_218_1684656.PDF#page=35); P236 — [effective-date acknowledgment, p. 3](https://interchange.puc.texas.gov/Documents/58481_219_1684678.PDF#page=3).
+Source: P230 — [PUCT final rule, printed pp. 234–235 and 251–252](https://interchange.puc.texas.gov/Documents/58481_218_1684656.PDF#page=35); P236 — [effective-date acknowledgment, p. 3](https://interchange.puc.texas.gov/Documents/58481_219_1684678.PDF#page=3); P229 — [Texas SB 6](https://capitol.texas.gov/tlodocs/89R/billtext/html/SB00006F.htm); [PGRR145](https://www.ercot.com/mktrules/issues/PGRR145). Utility practice before SB 6 is from utility comments summarized in the PUCT adoption order; no source lists the amounts each utility charged.
 
-## Batch Zero — Chapter 17, slide 7
+## Dominion in PJM — Chapter 17, slide 7
 
-<!-- speaker: grid-queues#batch-zero -->
+<!-- speaker: grid-queues#dominion-in-pjm -->
 
-Batch Zero is another filter. ERCOT reported about 205 gigawatts preliminarily eligible using its July 28 snapshot. Eligibility gets a project into a study process; it does not authorize that load to switch on. In September, ERCOT was still requesting documents to verify conditionally included projects. The July eligibility numbers also cover a different population from the June pipeline. We cannot subtract one from the other and call the remainder cancelled. Each figure answers a different question.
+Now the eastern case, and first a name. Dominion is not another name for PJM. PJM operates the grid and the wholesale power market across thirteen states and Washington, D.C., and it owns no power lines. Each label on its map names one of its twenty-one zones. Dominion Energy Virginia is the main utility in the large purple zone at the lower right, which holds Northern Virginia’s data centers. So a data center there signs with its utility, usually Dominion, and PJM sees that load through the utility’s forecast. Texas works the same way: ERCOT operates the grid, and a wires utility such as Oncor takes the request. One difference matters for us. As of mid-2026, PJM has no central large-load process like ERCOT’s, so we read one utility’s contracts.
 
-Source: P231 — [ERCOT August 19 presentation, slide 3](https://www.ercot.com/files/docs/2026/08/19/ERCOTPanel1DataCenters.pdf#page=3); P232 — [September 9 verification notice](https://www.ercot.com/services/comm/mkt_notices/M-A090926-01).
+Source: [PJM at a Glance](https://www.pjm.com/-/media/DotCom/about-pjm/newsroom/fact-sheets/pjm-at-a-glance.pdf): others own the lines; P240 — [PJM Transmission Zones map](https://www.pjm.com/-/media/DotCom/about-pjm/pjm-zones.pdf); P233 — [Dominion January 6, 2026 letter](https://www.pjm.com/-/media/DotCom/planning/res-adeq/load-forecast/dominion-documentation.pdf). [FERC, June 18, 2026, pp. 20–23](https://www.ferc.gov/sites/default/files/2026-06/EL26-67-000.pdf): load interconnection requests go to the transmission owners. Cooperatives in the zone, such as NOVEC, report their own data-center load to PJM.
 
 ## Dominion contracts — Chapter 17, slide 8
 
 <!-- speaker: grid-queues#dominion-contracts -->
 
-Dominion gives us a clear utility example inside PJM. An engineering authorization comes with a $250,000 deposit and a study typically lasting nine to twelve months. That study identifies infrastructure, estimated cost, and an estimated energization date. A construction authorization then reserves capacity and creates construction and cancellation obligations. The electric service agreement establishes the contracted service and its terms. These are progressively stronger commitments. They are Dominion’s process, not universal PJM rules, and an estimated energization date is still an estimate.
+This is Dominion’s own chart of data-center contracts, and it climbs in three stages. The blue stage is an engineering study. The customer pays for it, starting with a $250,000 deposit, and it typically takes nine to twelve months. The customer is not obliged to go further. The light green stage authorizes construction, and a customer who leaves must reimburse what was spent. The dark green stage is the electric service agreement, which the customer pays for whether or not it takes service. In July 2026 the three stages totaled 53.8 gigawatts, and 32 of those were still studies. Dominion’s data centers drew about four gigawatts at the 2025 peak. Contract capacity is the most those sites could draw, not what they will draw. The gap is not a measured cancellation rate.
 
-Source: P233 — [Dominion January 6, 2026 letter, p. 2](https://www.pjm.com/-/media/DotCom/planning/res-adeq/load-forecast/dominion-documentation.pdf#page=2).
+Source: P241 — [Dominion Energy Q2 2026 earnings slides, July 31, 2026, slide 5](https://s2.q4cdn.com/510812146/files/doc_financials/2026/q2/2026-07-31-DE-IR-2Q-2026-earnings-call-slides-vTCII.pdf#page=5); P233 — [Dominion January 6, 2026 letter, pp. 1–3](https://www.pjm.com/-/media/DotCom/planning/res-adeq/load-forecast/dominion-documentation.pdf): deposit, study duration, 2025 coincident peak, and the July 2025 snapshot of 47 GW used in the reading. The slide’s SELOA is the letter’s ELOA.
 
-## Dominion demand — Chapter 17, slide 9
-
-<!-- speaker: grid-queues#dominion-demand -->
-
-Now read Dominion’s headline carefully. Its July 2025 contract snapshot totaled 47 gigawatts: 30.1 in engineering authorizations, 7.1 in construction authorizations, and 9.8 in electric service agreements. The same letter reports a four-gigawatt coincident data-center peak in 2025. Contracted capacity and simultaneous demand are different measurements. Customers ramp their use, and the contracts represent different stages. These bars should make us more precise about the headline; they do not show that forty-three gigawatts was cancelled.
-
-Source: P233 — [Dominion January 6, 2026 letter, pp. 1–3](https://www.pjm.com/-/media/DotCom/planning/res-adeq/load-forecast/dominion-documentation.pdf).
-
-## Forecast filter — Chapter 17, slide 10
+## Forecast filter — Chapter 17, slide 9
 
 <!-- speaker: grid-queues#forecast-filter -->
 
@@ -856,7 +848,7 @@ A planner still has to decide what belongs in the demand forecast. This historic
 
 Source: SA32 — [SemiAnalysis, March 3, 2026, ERCOT-credited 2025 forecast figure](https://newsletter.semianalysis.com/p/are-ai-datacenters-increasing-electric).
 
-## Staged connection — Chapter 17, slide 11
+## Staged connection — Chapter 17, slide 10
 
 <!-- speaker: grid-queues#staged-connection -->
 
@@ -864,10 +856,10 @@ This ERCOT workshop illustration has a thousand-megawatt load, a hundred-megawat
 
 Source: P237 — [ERCOT May 4, 2026 workshop, slide 38](https://www.ercot.com/files/docs/2026/05/04/ERCOT_Batch_Study_Workshop_8_20260504.pptx); SA07 — [SemiAnalysis reproduction](https://newsletter.semianalysis.com/p/us-grid-constraints-towards-40gw).
 
-## Connection terms — Chapter 17, slide 12
+## Behind-the-meter gap — Chapter 17, slide 11
 
-<!-- speaker: grid-queues#connection-terms -->
+<!-- speaker: grid-queues#btm-gap -->
 
-The useful result of the connection process is a service arrangement we can build and operate around. It gives us a confirmed import limit, a supported ramp with dates, clear responsibility for construction, and operating conditions that describe what happens when supply is constrained. A gigawatt requested tells us the ambition. These terms tell us which phase can actually open. That is how we compare two sites or two connection offers: by the usable service they can deliver to the computing plan.
+That campus is not a special case in this forecast. Each bar is the data-center capacity SemiAnalysis expects the United States to add in that year, not the running total. Orange is spare capacity the grid already has, and it is gone after 2027. Green is new grid supply. Blue is what remains: demand the grid cannot serve in time, which the publisher expects campuses to meet with their own generation, behind the meter. By 2028 that is about 43 of 54 gigawatts. The chart’s title says megawatts, but the bars are in gigawatts. This is one analyst’s model, and the blue bars are a calculated gap, not power plants under contract. So what does a place in the queue buy? A study, and eventually an import limit with terms attached. It does not buy power on your schedule.
 
-Source: Synthesis from P229/P230 commitments, P233 utility service stages, and P237 operating example; [Dominion service definitions](https://www.pjm.com/-/media/DotCom/planning/res-adeq/load-forecast/dominion-documentation.pdf) and [ERCOT staged mechanism](https://www.ercot.com/files/docs/2026/05/04/ERCOT_Batch_Study_Workshop_8_20260504.pptx).
+Source: SA07 — [SemiAnalysis, June 25, 2026, public figure](https://newsletter.semianalysis.com/p/us-grid-constraints-towards-40gw). Annual net additions in GW; the figure’s title says MW.

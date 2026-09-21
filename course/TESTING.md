@@ -2485,3 +2485,21 @@ links and course exits preserve their source and published destinations.
 The homepage browser check passed at 1440×1000, 1280×720 and 390×844. It checked
 all 17 chapter links, responsive fit, keyboard view changes, flow and motion
 controls, reader/glossary navigation, slide return links, and the WebGL fallback.
+
+## Chapter 17 author revision — 2026-09-21
+
+The author's first review reduced the deck to 11 static slides: logo-only
+opening, chips without power, one ERCOT status bar, static site options, new
+Texas fees and security, PJM's zone map, Dominion's contract chart, the forecast
+figure, staged import and the supplied SemiAnalysis chart as the close. Batch
+Zero and the closing synthesis were removed; retired anchors resolve through
+`sceneAliases`. Answers and sources are in the
+[revision memo](../research/chapter-17-revision-evidence-2026-09-21.md).
+
+317 JavaScript and 83 Python tests, the build, expansion, map and research
+freshness checks and `git diff --check` passed. An earlier pass of
+`tests/browser_grid_queues.cjs` and `tests/browser_presenter.cjs` succeeded in
+WebKit and Chromium at 1280×720, 1440×900 and 390×844, with light, dark and
+phone captures inspected. The final layout changes to the ERCOT legend, the
+before/after columns, the map caption and the two-column Dominion slide were
+made afterwards and have not been re-rendered; author review should confirm them.

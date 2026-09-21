@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "retrieved_on": "2026-09-21",
+  "origin": "Publicly served PDF documents from PJM and Dominion Energy investor relations. No login, paywall or request form was bypassed.",
+  "authorization": "Author asked on 2026-09-21 for a graphic from SemiAnalysis or PJM for the Chapter 17 Dominion slide. No public SemiAnalysis figure shows Dominion's contract stages.",
+  "assets": [
+    {
+      "asset": "grid-queues-pjm-zones.png",
+      "source_id": "P240",
+      "publisher": "PJM Interconnection",
+      "title": "Transmission Zones map (PDF title 20230511_PJM Zone Map)",
+      "page_url": "https://www.pjm.com/library/maps",
+      "original_url": "https://www.pjm.com/-/media/DotCom/about-pjm/pjm-zones.pdf",
+      "source_pdf_sha256": "465880de2d75b1353e251672fce35f59173ec76df32b577ba3bdc95272d98549",
+      "published_on": "2023-05-11",
+      "format": "PNG",
+      "dimensions": [
+        2200,
+        1430
+      ],
+      "sha256": "976d11b5a502379ad78c3ec65e71e42ce873816f8484e82aabb0ed3a64875a59",
+      "modifications": "Vector PDF rendered at 400 dpi; cropped to the map above the legend box, removing the page margin, legend, PJM logo and date stamp; resampled to 2200 px wide. Zone colours, boundaries and labels unchanged.",
+      "limitations": [
+        "A zone is not a company: the Dominion zone also contains NOVEC, ODEC members and Rappahannock Electric Cooperative.",
+        "Dated May 2023; still PJM's posted zone map on the retrieval date. The crop removes the visible date, so the slide credit carries it."
+      ]
+    },
+    {
+      "asset": "grid-queues-dominion-contracts.png",
+      "source_id": "P241",
+      "publisher": "Dominion Energy, Inc.",
+      "title": "Q2 2026 earnings call slides, slide 5: Dominion Energy Virginia data center contracted capacity (updated)",
+      "page_url": "https://investors.dominionenergy.com/events-and-presentations/default.aspx",
+      "original_url": "https://s2.q4cdn.com/510812146/files/doc_financials/2026/q2/2026-07-31-DE-IR-2Q-2026-earnings-call-slides-vTCII.pdf",
+      "source_pdf_sha256": "aa24852711ce47b31e22850eb5e3293f8a1c1e74e92a7543ac7ac97f1e47ce1d",
+      "published_on": "2026-07-31",
+      "data_date": "July 2023, December 2025, March 2026 and July 2026 contract snapshots",
+      "format": "PNG",
+      "dimensions": [
+        2400,
+        1350
+      ],
+      "sha256": "f2f5a8d35c4f9caa9e7cf63c173ec108f311e4778a41716f907d999857cd2f2d",
+      "modifications": "Whole slide rendered from PDF page 5 at 300 dpi, uncropped, then resampled to 2400 px wide. Content unchanged.",
+      "limitations": [
+        "Contracted capacity only; it does not show demand. The 2025 coincident peak of about 4 GW is from Dominion's January 6, 2026 letter to PJM (P233).",
+        "SELOA on this slide is the stage the January 2026 letter calls ELOA.",
+        "Movement between stages across dates is not a measured conversion or cancellation rate.",
+        "Scope is Dominion Energy Virginia customers, not the whole Dominion zone or PJM. Copyrighted investor material; keep the credit and source link on the slide."
+      ],
+      "usage": "Link target for the full slide from the Chapter 17 Dominion slide."
+    },
+    {
+      "asset": "grid-queues-dominion-contracts-bars.png",
+      "source_id": "P241",
+      "publisher": "Dominion Energy, Inc.",
+      "title": "Q2 2026 earnings call slides, slide 5: Dominion Energy Virginia data center contracted capacity (updated)",
+      "page_url": "https://investors.dominionenergy.com/events-and-presentations/default.aspx",
+      "original_url": "https://s2.q4cdn.com/510812146/files/doc_financials/2026/q2/2026-07-31-DE-IR-2Q-2026-earnings-call-slides-vTCII.pdf",
+      "source_pdf_sha256": "aa24852711ce47b31e22850eb5e3293f8a1c1e74e92a7543ac7ac97f1e47ce1d",
+      "published_on": "2026-07-31",
+      "data_date": "July 2023, December 2025, March 2026 and July 2026 contract snapshots",
+      "format": "PNG",
+      "dimensions": [
+        1234,
+        1015
+      ],
+      "sha256": "0a3dacc7cb85f6efe6bd51452320a7945f9b0dc2e45275b99e0352070ee1079b",
+      "modifications": "Cropped from grid-queues-dominion-contracts.png (box 75,200 to 1309,1215) to the four stacked bars, their totals, dates and stage brackets. Removes the slide heading, the growth callout, the stage definitions, the Dominion logo and the page number. Pixels inside the crop unchanged.",
+      "limitations": [
+        "Contracted capacity only; it does not show demand. The 2025 coincident peak of about 4 GW is from Dominion's January 6, 2026 letter to PJM (P233).",
+        "SELOA on this slide is the stage the January 2026 letter calls ELOA.",
+        "Movement between stages across dates is not a measured conversion or cancellation rate.",
+        "Scope is Dominion Energy Virginia customers, not the whole Dominion zone or PJM. Copyrighted investor material; keep the credit and source link on the slide.",
+        "The stage definitions beside the crop are course paraphrases of the definitions on the full slide."
+      ],
+      "usage": "Shown on the Chapter 17 Dominion slide beside the stage meanings in course typography; links to the full slide."
+    }
+  ]
+}

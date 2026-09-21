@@ -148,9 +148,11 @@ slide aliases are not published.
 ## ERCOT and PJM case-study chapter
 
 Chapter 17, **ERCOT and PJM: the race to connect**, follows the recorded core
-chapters and precedes Further reading. Its 12 slides distinguish requests,
-studies, financial commitments, forecasts and actual demand. Two public
-SemiAnalysis figures remain intact; the dense staged-energization figure is
+chapters and precedes Further reading. Its 11 static slides distinguish
+requests, studies, financial commitments, forecasts and actual demand, and end
+on the gap that campuses fill with their own generation. Three public
+SemiAnalysis figures, PJM's zone map and Dominion's contract chart remain
+intact apart from recorded crops; the dense staged-energization figure is
 redrawn for the slides and preserved in the reader. Every slide has narration
 in `SPEAKER_NOTES.md`.
 
@@ -158,5 +160,5 @@ Edit `prototypes/grid-queues-*`, `expansion/grid-queues.json` and the matching
 source records. The catalog’s `additional_chapters` assigns these D03 case-study
 lessons to Chapter 17 without changing Chapters 1–16 or their check-in bridges.
 The September 18 Texas rule is identified as adopted, effective October 8; the
-queue snapshots retain their own dates. Author review of the new chapter remains
-pending.
+queue snapshots retain their own dates. The author's first review on
+September 21 is implemented; acceptance of the revised chapter remains pending.

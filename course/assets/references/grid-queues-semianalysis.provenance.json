@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "publisher": "SemiAnalysis",
-  "reviewed_on": "2026-09-20",
+  "reviewed_on": "2026-09-21",
   "imported_on": "2026-09-20",
   "origin": "Public article figures inspected in an unsigned-in browser before the visible paywall; exact original asset URLs extracted from the public article image links.",
   "authorization": "User explicitly requested these article figures for incorporation into the Gigawatt course.",
@@ -99,6 +99,51 @@
       "imported_on": "2026-09-20",
       "modifications": "None. Exact original URL response bytes saved unchanged.",
       "visual_verification": "Viewed saved local PNG on 2026-09-20; graphic, labels, original credit and watermark match the publicly inspected figure."
+    },
+    {
+      "asset": "grid-queues-sa-btm-gap.png",
+      "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/faf90a69-1cf3-448e-b719-8ebf7ea547ad_1920x1080.png",
+      "article_url": "https://newsletter.semianalysis.com/p/us-grid-constraints-towards-40gw",
+      "article_title": "US Grid Constraints: Towards 40GW+ of Behind-The-Meter Datacenter by 2028?",
+      "article_published_on": "2026-06-25",
+      "source_id": "SA07",
+      "credit": "SemiAnalysis Energy Model (in-image credit); article caption adds SemiAnalysis Datacenter Model.",
+      "article_caption": "Source: SemiAnalysis Energy Model, SemiAnalysis Datacenter Model",
+      "data_date": "Analyst model vintage as of article publication, 2026-06-25 (asset Last-Modified 2026-06-25 18:00:31 GMT); no separate data date stated",
+      "forecast_horizon": "2026–2030, annual net additions",
+      "limitations": [
+        "Analyst model forecast, not a measurement. All five bars, including 2026, are SemiAnalysis projections from proprietary models that are not public.",
+        "Annual net additions (GW added in each year), not cumulative installed capacity. Do not sum the bars on the slide or read 84 GW as the 2030 US datacenter fleet.",
+        "The blue series is a residual: modeled datacenter demand minus modeled grid headroom and new grid supply, i.e. the shortfall the article says must be filled behind the meter. It is not a count of announced, permitted or contracted onsite generation projects.",
+        "Title says 'Gross DC MW' but the axis and data labels are in GW. 'Gross' is facility-level datacenter power demand (article: 'Gross Power Demand'), not critical IT load; the public text does not define it further.",
+        "The chart subtitle says 'towards 50GW+ by 2028' while the article title says '40GW+ by 2028' and the 2028 blue value is 42.6 GW; blue first exceeds 50 GW in 2029 (52.4). Quote the bar values, not the subtitle.",
+        "The public text does not explain how 'New Grid Supply' (1.9, 9.5, 11.1, 13.6, 18.3 GW) is derived from the article's ~15 GW/yr net new ELCC capacity figure, nor how much is reserved for non-datacenter load. 2026 blue (~1.8 GW) and green (~1.9 GW) values are unlabeled and were read from pixel heights.",
+        "Preserve the source legend, in-image credit and watermark. Display as a dated analyst forecast."
+      ],
+      "format": "PNG",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "mode": "RGB",
+      "content_type": "image/png",
+      "final_url": "https://substack-post-media.s3.amazonaws.com/public/images/faf90a69-1cf3-448e-b719-8ebf7ea547ad_1920x1080.png",
+      "bytes": 91580,
+      "sha256": "3c3193faa51efd364610421ba1597eb0e311867ed134ff1a84e49949fd11d8d8",
+      "verification": "Pillow Image.verify() and complete pixel decode via Image.load() passed",
+      "imported_on": "2026-09-21",
+      "modifications": "None. Exact original URL response bytes saved unchanged.",
+      "visual_verification": "Viewed saved PNG on 2026-09-21; title, subtitle, legend, all bar labels (21/39/54/66/84; 16.9; 14.8, 14.6, 9.5; 42.6, 11.1; 52.4, 13.6; 65.7, 18.3), in-image credit and watermark match the user-supplied 1456x819 copy. Downscaled original vs supplied copy: mean absolute pixel difference about 1/255 per channel (resampling only).",
+      "user_supplied_copy": {
+        "provided_on": "2026-09-21",
+        "format": "TIFF",
+        "dimensions": [
+          1456,
+          819
+        ],
+        "sha256": "4b91f4f2ee6818dd3a3483c7d8de0c977a7959d496dfef1c1abad108f8a95fce",
+        "note": "The author supplied a 1456-pixel-wide clipboard rendition of this figure for Chapter 17. The course stores the 1920x1080 original from the same public article instead; the supplied copy is not kept in the repository."
+      }
     }
   ]
 }

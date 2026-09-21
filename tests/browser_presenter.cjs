@@ -40,7 +40,7 @@ const output=process.argv[3]||'/tmp/gigawatt-presenter-notes';
   await audience.goto(new URL('operations.html?teach=1',base).href);
   await presenter.locator('#chapter').getByText(/14\./).waitFor();
   assert.equal(await presenter.locator('#workspace').getAttribute('data-notes'),'true','notes resolve on a first slide with no URL hash');
-  await audience.goto(new URL('grid-queues.html?teach=1#connection-terms',base).href);
+  await audience.goto(new URL('grid-queues.html?teach=1#btm-gap',base).href);
   await presenter.locator('#chapter').getByText(/17\./).waitFor();
   await presenter.locator('#end').waitFor({state:'visible'});
   assert.equal(await presenter.locator('#workspace').getAttribute('data-notes'),'true');

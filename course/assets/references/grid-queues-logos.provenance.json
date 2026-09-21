@@ -1,0 +1,32 @@
+{
+  "retrieved_on": "2026-09-21",
+  "origin": "Official marks of the two grid operators, taken from publicly served files on ercot.com and pjm.com (site header/footer assets and one PJM fact-sheet PDF). No login, paywall or request form was bypassed.",
+  "usage": "Chapter 17 slide 1: identify ERCOT and PJM beneath the title. Shown on white plates so both marks stay legible in light and dark appearance.",
+  "trademark_note": "ERCOT and PJM logos are trademarks of Electric Reliability Council of Texas, Inc. and PJM Interconnection, L.L.C. Nominative use only, to identify the two grid operators the chapter compares; no endorsement implied. Both operators publish logo policies that ask users to request the logo from Corporate Communications (ERCOT: https://www.ercot.com/news/mediakit/logos, editorial use allowed, no advertising or sales use; PJM: https://www.pjm.com/about-pjm/newsroom/brand-guidelines.aspx).",
+  "assets": [
+    {
+      "asset": "grid-queues-ercot-logo.svg",
+      "source_url": "https://www.ercot.com/",
+      "asset_url": "https://www.ercot.com/files/assets/2023/07/14/ERCOT-logo-122x45.svg",
+      "locator": "site header, <a id=\"hlogo\"><img alt=\"Electric Reliability Council of Texas\">",
+      "server_last_modified": "2025-03-06",
+      "bytes": 3748,
+      "viewBox": "0 0 122 44.77",
+      "sha256": "642102943c2802c56cdb7c395549880725e9fac635b129a02351e9281f93a14c",
+      "modifications": "none (byte-identical)"
+    },
+    {
+      "asset": "grid-queues-pjm-logo.svg",
+      "source_url": "https://www.pjm.com/library/fact-sheets",
+      "asset_url": "https://www.pjm.com/-/media/DotCom/about-pjm/newsroom/fact-sheets/pjm-at-a-glance.pdf",
+      "locator": "PDF page 2, footer, bottom-left (vector artwork, Adobe InDesign, created 2025-04-08)",
+      "source_pdf_sha256": "f7b3931d8a10adfaf82d5f53af2815888d201324f14b1e3427114536b7de029d",
+      "source_pdf_bytes": 1298544,
+      "bytes": 8758,
+      "viewBox": "42.5195 736.4219 92.9609 32.9961",
+      "sha256": "fb4c4c348cc281d9a4b1d42a99782220eaa65cdd3d71f3d85c9576a7734cb152",
+      "modifications": "page 2 converted with pdftocairo -svg; the six logo paths kept, duplicates and bounding-box clip groups dropped, viewBox cropped to the logo, rgb() percentage fills rewritten as hex (#00557E, #B9BABC, #BBBAB4); path geometry unchanged"
+    }
+  ],
+  "authorization": "Author explicitly requested an ERCOT logo and a PJM logo for the Chapter 17 title slide on 2026-09-21."
+}

@@ -1,0 +1,48 @@
+# Chapter 17 slide revision: evidence checked 21 September 2026
+
+Supports the author-requested revision of the ERCOT/PJM deck from 12 to 11 slides. Each answer below was researched from primary sources and then re-checked by an independent fact-checker that opened the sources again. Earlier memos remain valid: [ERCOT](ercot-queue-evidence-2026-09-20.md), [PJM](pjm-queue-evidence-2026-09-20.md), [SemiAnalysis](semianalysis-queue-evidence-2026-09-20.md).
+
+## 1. Hardware does not power itself (new slide 2)
+
+[BG2 podcast, published 31 October 2025, about 18:28–18:52](https://www.youtube.com/watch?v=Gnl833wXRz0&t=1109s) (P238): asked about a compute glut, Microsoft's chief executive says the biggest issue is power and getting builds done fast enough near power. He describes "a bunch of chips sitting in inventory that I can't plug in" and attributes it to a lack of warm shells, not chip supply. Wording cross-checked against captions, a third-party transcript and [TechCrunch, 3 November 2025](https://techcrunch.com/2025/11/03/altman-and-nadella-need-more-power-for-ai-but-theyre-not-sure-how-much/). The spoken lead-in has a stumble ("you may actually have"), so quote only the fragment.
+
+[Microsoft FY26 Q1 call, 29 October 2025](https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q1) (P239): the CFO says Microsoft had been short of space or power rather than of GPUs and CPUs. This was said while explaining asset lifetimes, not as a report of idle chips. The cleanest 2026 line is the [FY26 Q2 call, 28 January 2026](https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q2): power, land and facilities must be available before GPUs and CPUs go in.
+
+Guardrails: one company's dated statement, not a count of idle GPUs. His constraint is powered buildings, which includes construction as well as the utility connection. The April and July 2026 calls report faster GPU dock-to-live times and remaining constraints but never name electricity as the constraint. The Bloomberg Santa Clara story (10 November 2025) describes an empty shell and empty data halls awaiting a municipal utility upgrade; it mentions no GPUs and sits outside ERCOT and PJM, so it stays off the slide. Do not say electricity arrives only through the grid (slide 10 shows onsite generation), and do not claim this is why the queue is long.
+
+## 2. ERCOT status categories (slide 3)
+
+Source remains [ERCOT Senate presentation, 29 July 2026, slide 6](https://www.ercot.com/files/docs/2026/07/29/ERCOT-Senate-July-29-Panel-1-Assessing-The-Grid.pdf#page=6) (P227), data as of June 2026.
+
+- **Observed energized is not a this-year cohort.** ERCOT's Large Load Q&A defines it as all large loads tracked since 2022 that received approval to energize and have been observed energized, represented by all-time non-simultaneous peak consumption. The row reads 2.6, 4.5, 5.0, 5.8 GW for 2022–2025, then 5.9 GW in every column from 2026 to 2033.
+- **No studies submitted** means ERCOT has not received the utility's study for those megawatts (a utility study may be underway), plus megawatts ERCOT reviewed and did not approve, held until a path is found or the customer cancels. "Does not have a study" is too strong.
+- The six rows partition megawatts, not projects, and sum to the total within rounding (474.8 against a displayed 474.7). The year axis is cumulative requested load; never add columns. It is not ERCOT's load forecast.
+- Slide grouping: 284.3 no study submitted to ERCOT; 135.5 study under ERCOT review; 55.0 study approved or further (9.9 + 36.0 + 3.2 + 5.9). Only 3.2 + 5.9 = 9.1 GW has approval to energize, so never label the third group "power approved".
+- ERCOT published other snapshots the same summer: the June monthly overview gives 465.5 GW and the July overview 467.4 GW with 90.4 GW approved or further. More than 80% without an ERCOT-approved study and about 1.2% observed operating holds in all three; the decimals do not. Keep the Senate deck's date beside its numbers and show GW rather than precise percentages.
+- The status ladder belongs to the legacy process that ended 10 July 2026; Batch Zero charts use different groups and must not be merged into one funnel.
+
+## 3. Were the $100,000 fee and $50,000/MW security always there? (slide 6)
+
+No. They are new, but earlier requests were not free.
+
+- **Before.** No ERCOT-wide study fee or per-MW security was in force. ERCOT's 25 March 2022 interim-process notice has no dollar amounts, and ERCOT's Large Load Q&A says each transmission utility has its own process and collects its own fee. In October 2025 comments summarized in the [PUCT adoption order, Project 58481 item 218](https://interchange.puc.texas.gov/search/documents/?controlNumber=58481&itemNumber=218), CenterPoint said it had no per-MW security and tied security to upgrade costs; Oncor put its initial studies at about $300,000 and said loads commonly secure system upgrades; AEP Texas charged full contribution in aid of construction plus security for long-lead items. The order says earlier agreements "lack uniformity". No source lists the amounts each utility charged, so the slide says "no ERCOT-wide amount", never "$0" or "free".
+- **SB 6** (signed 20 June 2025, P229) ordered a flat study fee of at least $100,000 and uniform financial commitments for loads of 75 MW or more in the ERCOT region. It named no per-MW figure.
+- **Interim steps.** 16 TAC 25.370 (effective 1 March 2026) accepted $100,000/MW as one of three ways to show commitment for forecast inclusion. PGRR145 (effective 11 July 2026) required a flat $50,000/MW by 24 July 2026 on the Batch Zero studied-and-allocated path; the base-load path used estimated upgrade cost, zero where no upgrades were needed, and $50,000/MW only as a fallback. The 20 September memo's PGRR145 sentence is correct as written.
+- **16 TAC 25.194** (P230, adopted 18 September, effective 8 October 2026, P236): before a new request of 75 MW or more enters an ERCOT study, the customer funds an intermediate agreement with a $100,000 flat study fee (unused amount returned within 60 days) and $50,000/MW security. At the later standard agreement, security is the greater of $50,000/MW or allocated upgrade costs. A customer allocated capacity that withdraws before that agreement forfeits 20% of the related security. Batch Zero loads follow their own subsection with credit for earlier postings.
+- The bigger change is uniform, megawatt-scaled security due before study, not the $100,000.
+
+## 4. Dominion and PJM (slides 7–8)
+
+Dominion is not another name for PJM. PJM is the regional transmission organization for all or parts of 13 states and Washington, D.C.; it [owns no power lines or generators](https://www.pjm.com/-/media/DotCom/about-pjm/newsroom/fact-sheets/pjm-at-a-glance.pdf). Dominion Energy Virginia is a utility and PJM member whose zone is one of 21 on [PJM's Transmission Zones map](https://www.pjm.com/-/media/DotCom/about-pjm/pjm-zones.pdf) (P240); the zone covers most of Virginia, not the south-west. [FERC's 18 June 2026 order, pp. 20–23](https://www.ferc.gov/sites/default/files/2026-06/EL26-67-000.pdf) (P235) says load interconnection requests go to the transmission owners and that PJM's tariff has no specific large-load study provisions; that proceeding is open, so date the statement. Cooperatives in the zone (NOVEC, ODEC, REC) report their own data-center load; do not add their forecast GW to Dominion's contract GW.
+
+The Texas parallel holds for operator versus wires utility. Differences: Dominion also owns generation and sells retail power, ERCOT has run a central large-load process since March 2022, and ERCOT is single-state under the PUCT while PJM is multi-state under FERC.
+
+Graphic: [Dominion Energy Q2 2026 earnings slides, 31 July 2026, slide 5](https://s2.q4cdn.com/510812146/files/doc_financials/2026/q2/2026-07-31-DE-IR-2Q-2026-earnings-call-slides-vTCII.pdf#page=5) (P241) shows contracted capacity by stage with stage definitions: about 53.8 GW in July 2026 (32.4 SELOA, 9.4 CLOA, 12.0 ESA), up from about 16.5 GW in July 2023. SELOA on investor slides and ELOA in the January 2026 letter (P233) are the same stage; it is a second label, not a rename. The letter supplies the $250,000 deposit, the 9–12 month study, the 2025 coincident data-center peak of 4 GW and its own conclusion that it forecasts 16.6 GW by 2046, not the contracted capacity. No public 2026 data-center peak was found, so the slide dates both numbers. No public SemiAnalysis figure shows Dominion's stages. The chart on p. 3 of the letter was rejected: its 30.1 GW block is not to scale and its demand line is billing demand.
+
+## 5. Behind-the-meter figure (new closing slide)
+
+The author-supplied chart is the first public figure in [SemiAnalysis, 25 June 2026](https://newsletter.semianalysis.com/p/us-grid-constraints-towards-40gw) (SA07). The course stores the 1920×1080 original from the public preview; see the [provenance record](../course/assets/references/grid-queues-semianalysis.provenance.json). Bars are annual net additions in GW (the title says MW), not the cumulative fleet. Orange is existing grid headroom, green is new grid supply, and blue is the residual the article says must be filled behind the meter: a modeled gap, not contracted onsite generation. The chart subtitle says 50 GW+ by 2028 while the 2028 blue value is 42.6 GW; quote bar values. National forecast, not specific to ERCOT or PJM.
+
+## Coverage note
+
+The revised deck no longer has slides for the generator-queue versus load-connection distinction, the PJM 201.5 GW generation figure or Batch Zero eligibility. The [reading](../course/lessons/d03-interconnection-queues.md) still covers them.

@@ -11257,15 +11257,15 @@
       "publisher": "SemiAnalysis",
       "kind": "analysis",
       "review_status": "public_excerpt_reviewed",
-      "reviewed_on": "2026-09-20",
+      "reviewed_on": "2026-09-21",
       "domains": [
         "D03",
         "D05",
         "D13",
         "D15"
       ],
-      "use": "Introduce interconnection constraints, equipment lead times and on-site generation as interacting limits on project delivery. Public connection-queue figure reviewed for Chapter 17; preserve source date and distinction between requests, forecasts and operating demand.",
-      "caution": "Public excerpts reviewed, not the complete paid report or underlying model. Capacity forecasts and regional queue assumptions need their own dates, definitions and independent evidence.",
+      "use": "Introduce interconnection constraints, equipment lead times and on-site generation as interacting limits on project delivery. Public connection-queue figure reviewed for Chapter 17; preserve source date and distinction between requests, forecasts and operating demand. Chapter 17 also shows its first public figure, annual US data-center net additions by power source, as the closing slide.",
+      "caution": "Public excerpts reviewed, not the complete paid report or underlying model. Capacity forecasts and regional queue assumptions need their own dates, definitions and independent evidence. In the net-additions figure the behind-the-meter series is a modeled residual gap, not contracted onsite generation; values are annual additions in GW although the title says MW.",
       "published_on": "2026-06-25"
     },
     {
