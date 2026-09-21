@@ -46,6 +46,17 @@
       ]
     },
     {
+      "id": "grid-queues",
+      "title": "Case study — ERCOT and PJM: the race to connect",
+      "chapters": [
+        {
+          "id": "grid-queues",
+          "href": "prototypes/grid-queues-format.html?teach=1",
+          "coverage": "chapter"
+        }
+      ]
+    },
+    {
       "id": "physical-site",
       "title": "Physical site, buildings and safety",
       "chapters": [
@@ -176,17 +187,6 @@
           "coverage": "chapter"
         }
       ]
-    },
-    {
-      "id": "grid-queues",
-      "title": "ERCOT and PJM: the race to connect",
-      "chapters": [
-        {
-          "id": "grid-queues",
-          "href": "prototypes/grid-queues-format.html?teach=1",
-          "coverage": "chapter"
-        }
-      ]
     }
   ],
   "chapter_splits": {
@@ -212,7 +212,7 @@
     {
       "id": "grid-queues",
       "domain": "D03",
-      "title": "ERCOT and PJM: the race to connect",
+      "title": "Case study — ERCOT and PJM: the race to connect",
       "lesson_ids": [
         "d03-interconnection-queues"
       ]

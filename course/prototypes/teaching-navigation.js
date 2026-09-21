@@ -5,6 +5,7 @@ export const presentationLabels = Object.freeze({
   "overview": "2. Data center overview",
   "workloads": "3. Workloads and requirements",
   "siting": "4. Siting, grid connection and supply",
+  "grid-queues": "Case study — ERCOT and PJM: the race to connect",
   "physical-site": "5. Physical site, buildings and safety",
   "distribution": "6. Campus and building power distribution",
   "continuity": "7. Continuity, storage and protection",
@@ -16,8 +17,7 @@ export const presentationLabels = Object.freeze({
   "procurement-cases": "13. EPC",
   "operations": "14. Controls, operations and reliability",
   "capacity": "15. GPU cloud economics",
-  "integrated-cases": "16. Putting an AI Factory Together",
-  "grid-queues": "17. ERCOT and PJM: the race to connect"
+  "integrated-cases": "16. Putting an AI Factory Together"
 });
 export const presentationRoutes = Object.freeze([
   {
@@ -49,6 +49,14 @@ export const presentationRoutes = Object.freeze([
   },
   {
     "path": "siting-format.html",
+    "next": {
+      "title": "Case study — ERCOT and PJM: the race to connect",
+      "href": "grid-queues-format.html?teach=1",
+      "kind": "slides"
+    }
+  },
+  {
+    "path": "grid-queues-format.html",
     "next": {
       "number": 5,
       "title": "Physical site, buildings and safety",
@@ -157,15 +165,6 @@ export const presentationRoutes = Object.freeze([
   },
   {
     "path": "integrated-cases-format.html",
-    "next": {
-      "number": 17,
-      "title": "ERCOT and PJM: the race to connect",
-      "href": "grid-queues-format.html?teach=1",
-      "kind": "slides"
-    }
-  },
-  {
-    "path": "grid-queues-format.html",
     "next": null
   }
 ]);

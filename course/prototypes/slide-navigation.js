@@ -76,7 +76,7 @@ export function installSlideNavigation(doc = document) {
     chapterLink.className = 'course-next-chapter';
     chapterLink.href = destination.href;
     chapterLink.textContent = 'Next chapter →';
-    const description = `${destination.number}. ${destination.title}${destination.kind === 'reading' ? ' (reading)' : ''}`;
+    const description = `${destination.number ? `${destination.number}. ` : ''}${destination.title}${destination.kind === 'reading' ? ' (reading)' : ''}`;
     chapterLink.title = description;
     chapterLink.setAttribute('aria-label', `Next chapter: ${description}`);
     chapterLink.hidden = true;

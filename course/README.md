@@ -147,8 +147,8 @@ slide aliases are not published.
 
 ## ERCOT and PJM case-study chapter
 
-Chapter 17, **ERCOT and PJM: the race to connect**, follows the recorded core
-chapters and precedes Further reading. Its 11 static slides distinguish
+The unnumbered **Case study — ERCOT and PJM: the race to connect** sits after
+Chapter 4 (siting) and before Chapter 5; recorded Chapters 1–16 keep their numbers. Its 11 static slides distinguish
 requests, studies, financial commitments, forecasts and actual demand, and end
 on the gap that campuses fill with their own generation. Three public
 SemiAnalysis figures, PJM's zone map and Dominion's contract chart remain

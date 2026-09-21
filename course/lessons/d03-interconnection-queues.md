@@ -2,7 +2,7 @@
 
 Generated reading view. Edit [`course/expansion/grid-queues.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/grid-queues.json), lesson `d03-interconnection-queues`, then run `uv run gigawatt-expand`.
 
-**17. ERCOT and PJM: the race to connect · Authored draft**
+**Case study — ERCOT and PJM: the race to connect · Authored draft**
 
 Read ERCOT and PJM connection evidence by its actual milestone: requested capacity, engineering progress, financial commitment, forecast demand and authorized operation.
 

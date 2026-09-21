@@ -35,8 +35,11 @@ test('the generated 800 V template retains the same shared navigation imports', 
 test('source decks advance in curriculum order while retaining teaching mode', () => {
   const module = 'http://localhost:8765/course/prototypes/slide-navigation.js';
   const link = nextChapterLink('http://localhost:8765/course/prototypes/siting-format.html?teach=1#last', presentationRoutes, module);
-  assert.equal(link.number, 5);
-  assert.equal(link.href, 'http://localhost:8765/course/prototypes/site-format.html?teach=1');
+  assert.equal(link.number, undefined, 'the case study after siting is unnumbered');
+  assert.equal(link.href, 'http://localhost:8765/course/prototypes/grid-queues-format.html?teach=1');
+  const site = nextChapterLink(link.href, presentationRoutes, module);
+  assert.equal(site.number, 5);
+  assert.equal(site.href, 'http://localhost:8765/course/prototypes/site-format.html?teach=1');
 });
 
 test('student exploration stays outside teaching mode and transient parameters do not leak', () => {
@@ -68,10 +71,7 @@ test('delivery, operations, capacity and capstone remain a continuous slide sequ
   const last = nextChapterLink(next.href, presentationRoutes, module);
   assert.equal(last.number, 16);
   assert.equal(last.href, 'http://localhost/course/prototypes/integrated-cases-format.html?teach=1');
-  const caseStudy = nextChapterLink(last.href, presentationRoutes, module);
-  assert.equal(caseStudy.number, 17);
-  assert.equal(caseStudy.href, 'http://localhost/course/prototypes/grid-queues-format.html?teach=1');
-  assert.equal(nextChapterLink(caseStudy.href, presentationRoutes, module), null);
+  assert.equal(nextChapterLink(last.href, presentationRoutes, module), null);
 });
 
 test('networking advances directly to cooling after storage retirement', () => {

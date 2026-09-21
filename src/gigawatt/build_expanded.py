@@ -320,7 +320,9 @@ def teaching_chapters(raw, domain_map, lessons, root=ROOT):
         if identifier in chapter_ids or identifier in domains:
             raise ExpansionError(f"Duplicate or conflicting chapter ID: {identifier}")
         chapter_ids.add(identifier)
-        chapters.append({**part, "number": len(chapters) + 1, "presentations": [], "additional": True})
+        # Case studies are unnumbered and follow their domain, so recorded chapter numbers never move.
+        after = max(i for i, chapter in enumerate(chapters) if chapter["domain"] == part["domain"])
+        chapters.insert(after + 1, {**part, "presentations": [], "additional": True})
     by_id = {chapter["id"]: chapter for chapter in chapters}
     seen = set()
     for presentation in raw["presentations"]:
@@ -392,7 +394,8 @@ def presentation_identities(chapters):
             item = presentations.setdefault(
                 presentation["id"], {"title": presentation["title"], "numbers": []}
             )
-            item["numbers"].append(chapter["number"])
+            if "number" in chapter:
+                item["numbers"].append(chapter["number"])
     labels = {}
     for pid, item in presentations.items():
         numbers = item["numbers"]
@@ -400,7 +403,7 @@ def presentation_identities(chapters):
             ordinal = f"{numbers[0]}–{numbers[-1]}"
         else:
             ordinal = ", ".join(str(number) for number in numbers)
-        labels[pid] = f"{ordinal}. {item['title']}"
+        labels[pid] = f"{ordinal}. {item['title']}" if numbers else item["title"]
     return (
         "// Generated from teaching-sequences.json and domain-map.json.\n"
         "// Run uv run gigawatt-expand; chapter numbering follows the curriculum order.\n"
@@ -438,7 +441,7 @@ def presentation_routes(chapters):
                     href += "#" + chapter["lesson_ids"][0]
                 kind = "reading"
             destination = {
-                "number": chapter["number"],
+                **({"number": chapter["number"]} if "number" in chapter else {}),
                 "title": chapter["title"],
                 "href": posixpath.relpath(href, "prototypes"),
                 "kind": kind,
@@ -536,7 +539,7 @@ def lesson_markdown(
     topic_title = topics.get(l["domain"], {}).get("title", "Integrated practice")
     chapter = next((c for c in chapters if l["id"] in c["lesson_ids"]), None)
     if chapter:
-        topic_title = f"{chapter['number']}. {chapter['title']}"
+        topic_title = f"{chapter['number']}. {chapter['title']}" if "number" in chapter else chapter["title"]
     lines = [
         f"# {l['title']}",
         "",

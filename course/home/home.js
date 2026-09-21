@@ -37,13 +37,13 @@ async function chapters(){
   }).filter(p=>p.label&&p.href!=='slides/undefined');
   const list=document.getElementById('chapter-list');list.replaceChildren();
   for(const {label,href} of entries){
-   const split=label.indexOf('. ');const link=document.createElement('a');link.className='chapter-link';link.href=new URL(href,root);
-   const number=document.createElement('span');number.className='chapter-number';number.textContent=label.slice(0,split).padStart(2,'0');
+   const numbered=/^\d/.test(label),split=numbered?label.indexOf('. '):-2;const link=document.createElement('a');link.className='chapter-link';link.href=new URL(href,root);
+   const number=document.createElement('span');number.className='chapter-number';number.textContent=numbered?label.slice(0,split).padStart(2,'0'):'◆';
    const title=document.createElement('span');title.className='chapter-title';title.textContent=label.slice(split+2);
    const arrow=document.createElement('span');arrow.className='chapter-arrow';arrow.textContent='↗';arrow.setAttribute('aria-hidden','true');
    link.append(number,title,arrow);list.append(link);
   }
-  document.getElementById('chapter-count').textContent=`${entries.length} chapters`;
+  document.getElementById('chapter-count').textContent=`${entries.filter(e=>/^\d/.test(e.label)).length} chapters`;
  }catch{document.getElementById('chapter-count').textContent='Course directory';}
 }
 chapters();

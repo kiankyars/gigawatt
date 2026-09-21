@@ -8,7 +8,7 @@ for(const [i,scene]of scenes.entries())$('scenes').add(new Option(`${i+1} · ${s
 $('fullscreen').hidden=!teaching;
 function render(){
  const scene=scenes[index];
- document.title=`${presentationLabels['grid-queues']||'17. ERCOT and PJM: the race to connect'} · ${scene.label}`;
+ document.title=`${presentationLabels['grid-queues']||'Case study — ERCOT and PJM: the race to connect'} · ${scene.label}`;
  $('scene').dataset.scene=scene.id;$('scene-title').textContent=scene.title;
  $('visual').innerHTML=gridQueuesVisual(scene.id);
  $('lesson-reference').href=`../index.html#${scene.reference}`;

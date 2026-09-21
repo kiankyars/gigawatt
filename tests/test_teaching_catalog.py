@@ -53,7 +53,7 @@ class TeachingCatalogTests(unittest.TestCase):
             self.root,
         )
 
-    def test_additional_case_chapter_follows_capstone_without_renumbering_core(self):
+    def test_additional_case_study_follows_its_domain_unnumbered_without_renumbering_core(self):
         before = self.resolve()
         self.lessons.append({"id": "grid-case", "domain": "D01"})
         self.catalog["additional_chapters"] = [{
@@ -61,10 +61,11 @@ class TeachingCatalogTests(unittest.TestCase):
             "lesson_ids": ["grid-case"],
         }]
         chapters = self.resolve()
-        self.assertEqual(chapters[:-1], before)
-        self.assertEqual(chapters[-1]["number"], 5)
-        self.assertEqual(chapters[-1]["lesson_ids"], ["grid-case"])
-        self.assertTrue(chapters[-1]["additional"])
+        case = next(c for c in chapters if c.get("additional"))
+        self.assertEqual([c for c in chapters if c is not case], before)
+        self.assertNotIn("number", case)
+        self.assertEqual(chapters[chapters.index(case) - 1]["domain"], "D01")
+        self.assertEqual(case["lesson_ids"], ["grid-case"])
         assigned = [lid for chapter in chapters for lid in chapter["lesson_ids"]]
         self.assertEqual(len(assigned), len(set(assigned)))
 
@@ -268,7 +269,8 @@ class TeachingCatalogTests(unittest.TestCase):
     def test_compute_and_storage_are_further_reading_and_chapter_numbers_remain_contiguous(self):
         course = b.load_course()
         chapters = course["chapters"]
-        self.assertEqual([c["number"] for c in chapters], list(range(1, 18)))
+        self.assertEqual([c["number"] for c in chapters if "number" in c], list(range(1, 17)))
+        self.assertEqual(chapters[4]["id"], "grid-queues")
         self.assertNotIn("D07", [c["id"] for c in chapters])
         reference = course["references"][0]
         self.assertEqual(reference["id"], "D07")

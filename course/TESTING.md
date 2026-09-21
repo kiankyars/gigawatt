@@ -2503,3 +2503,12 @@ WebKit and Chromium at 1280×720, 1440×900 and 390×844, with light, dark and
 phone captures inspected. The final layout changes to the ERCOT legend, the
 before/after columns, the map caption and the two-column Dominion slide were
 made afterwards and have not been re-rendered; author review should confirm them.
+
+## Case study placement and shared labels — 2026-09-21
+
+The ERCOT and PJM deck is now an unnumbered case study after Chapter 4 and
+before Chapter 5; Chapters 1–16 keep their numbers and Chapter 16 again ends the
+course. `additional_chapters` are generated unnumbered after their domain, and
+the shared next-chapter link, presenter title and homepage list accept
+unnumbered entries. Speaker notes were condensed to cue lines. 317 JavaScript
+and 83 Python tests and the freshness checks passed; browser checks not rerun.
