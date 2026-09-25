@@ -123,7 +123,7 @@
         "D13",
         "D15"
       ],
-      "use": "Introduce interconnection constraints, equipment lead times and on-site generation as interacting limits on project delivery. Public connection-queue figure reviewed for Chapter 17; preserve source date and distinction between requests, forecasts and operating demand. Chapter 17 also shows its first public figure, annual US data-center net additions by power source, as the closing slide.",
+      "use": "Introduce interconnection constraints, equipment lead times and on-site generation as interacting limits on project delivery. Public connection-queue figure reviewed for the ERCOT and PJM case study; preserve source date and distinction between requests, forecasts and operating demand. The ERCOT and PJM case study also shows its first public figure, annual US data-center net additions by power source, as the closing slide.",
       "caution": "Public excerpts reviewed, not the complete paid report or underlying model. Capacity forecasts and regional queue assumptions need their own dates, definitions and independent evidence. In the net-additions figure the behind-the-meter series is a modeled residual gap, not contracted onsite generation; values are annual additions in GW although the title says MW.",
       "published_on": "2026-06-25"
     },
@@ -818,7 +818,7 @@
         "D03",
         "D15"
       ],
-      "use": "Introduce the distinction between energy prices, capacity markets, utility rate design and regional system constraints. Public connection-queue figure reviewed for Chapter 17; preserve source date and distinction between requests, forecasts and operating demand.",
+      "use": "Introduce the distinction between energy prices, capacity markets, utility rate design and regional system constraints. Public connection-queue figure reviewed for the ERCOT and PJM case study; preserve source date and distinction between requests, forecasts and operating demand.",
       "caution": "Public heading and introduction or selected preview sections reviewed; complete paid article not reviewed. The article advances a causal policy argument. Compare it with grid-operator, market-monitor and utility filings; do not treat a regional narrative as a universal explanation of bills.",
       "discovered_via": "https://newsletter.semianalysis.com/sitemap/2026"
     },
@@ -837,7 +837,7 @@
         "D13",
         "D15"
       ],
-      "use": "Build a case for distinguishing announced capacity, project phases, construction progress, delay and cancellation. Public connection-queue figure reviewed for Chapter 17; preserve source date and distinction between requests, forecasts and operating demand.",
+      "use": "Build a case for distinguishing announced capacity, project phases, construction progress, delay and cancellation. Public connection-queue figure reviewed for the ERCOT and PJM case study; preserve source date and distinction between requests, forecasts and operating demand.",
       "caution": "Public heading and introduction or selected preview sections reviewed; complete paid article not reviewed. The criticism of other forecasts and the publisher's own forecast stability both require underlying evidence. Use project-level primary filings to adjudicate examples.",
       "discovered_via": "https://newsletter.semianalysis.com/sitemap/2026"
     },
@@ -5204,7 +5204,7 @@
       "domains": [
         "D03"
       ],
-      "discovered_via": "Chapter 17 ERCOT/PJM primary-source review, 2026-09-20."
+      "discovered_via": "ERCOT and PJM case study primary-source review, 2026-09-20."
     },
     {
       "id": "P228",
@@ -5220,7 +5220,7 @@
       "domains": [
         "D03"
       ],
-      "discovered_via": "Chapter 17 ERCOT/PJM primary-source review, 2026-09-20."
+      "discovered_via": "ERCOT and PJM case study primary-source review, 2026-09-20."
     },
     {
       "id": "P229",
@@ -5235,7 +5235,7 @@
       "domains": [
         "D03"
       ],
-      "discovered_via": "Chapter 17 ERCOT/PJM primary-source review, 2026-09-20."
+      "discovered_via": "ERCOT and PJM case study primary-source review, 2026-09-20."
     },
     {
       "id": "P230",
@@ -5251,7 +5251,7 @@
       ],
       "use": "Printed pages 234–235 establish the $100,000 study fee and $50,000/MW intermediate-agreement security; pages 251–252 establish later SLLIA security.",
       "caution": "Relevant final-rule pages independently checked. Unused study fees return within 60 days; security is not a nonrefundable fee and later security may be higher. Adopted September 18, effective October 8 as separately established by item 219; not yet effective on review date.",
-      "discovered_via": "Chapter 17 ERCOT/PJM primary-source review, 2026-09-20."
+      "discovered_via": "ERCOT and PJM case study primary-source review, 2026-09-20."
     },
     {
       "id": "P231",
@@ -5267,7 +5267,7 @@
       "domains": [
         "D03"
       ],
-      "discovered_via": "Chapter 17 ERCOT/PJM primary-source review, 2026-09-20."
+      "discovered_via": "ERCOT and PJM case study primary-source review, 2026-09-20."
     },
     {
       "id": "P232",
@@ -5283,7 +5283,7 @@
       "domains": [
         "D03"
       ],
-      "discovered_via": "Chapter 17 ERCOT/PJM primary-source review, 2026-09-20."
+      "discovered_via": "ERCOT and PJM case study primary-source review, 2026-09-20."
     },
     {
       "id": "P233",
@@ -5299,7 +5299,7 @@
       "domains": [
         "D03"
       ],
-      "discovered_via": "Chapter 17 ERCOT/PJM primary-source review, 2026-09-20."
+      "discovered_via": "ERCOT and PJM case study primary-source review, 2026-09-20."
     },
     {
       "id": "P234",
@@ -5315,7 +5315,7 @@
       "domains": [
         "D03"
       ],
-      "discovered_via": "Chapter 17 ERCOT/PJM primary-source review, 2026-09-20."
+      "discovered_via": "ERCOT and PJM case study primary-source review, 2026-09-20."
     },
     {
       "id": "P235",
@@ -5331,7 +5331,7 @@
       "domains": [
         "D03"
       ],
-      "discovered_via": "Chapter 17 ERCOT/PJM primary-source review, 2026-09-20."
+      "discovered_via": "ERCOT and PJM case study primary-source review, 2026-09-20."
     },
     {
       "id": "P236",
@@ -5347,7 +5347,7 @@
       ],
       "use": "Page 3 establishes October 8, 2026 as the effective date of the adopted large-load interconnection rule.",
       "caution": "Effective-date acknowledgment reviewed. Adoption and future effectiveness are different milestones; no claim that the rule was already effective September 20.",
-      "discovered_via": "Chapter 17 ERCOT/PJM primary-source review, 2026-09-20."
+      "discovered_via": "ERCOT and PJM case study primary-source review, 2026-09-20."
     },
     {
       "id": "P237",
@@ -5363,7 +5363,7 @@
       ],
       "use": "Slide 38 illustrates staged load with a 1,000 MW request, 100 MW withdrawal limit and two 500 MW generators.",
       "caution": "Slide 38 independently extracted and marked illustrative. This is not a project, permission or guaranteed ramp. Course calculation caps source availability at requested load and retains stability/contingency conditions.",
-      "discovered_via": "Chapter 17 ERCOT/PJM primary-source review, 2026-09-20."
+      "discovered_via": "ERCOT and PJM case study primary-source review, 2026-09-20."
     },
     {
       "id": "P238",
@@ -5377,9 +5377,9 @@
       "domains": [
         "D03"
       ],
-      "use": "At about 18:29 Microsoft's chief executive says the constraint is power and powered buildings rather than chip supply, describing chips in inventory that cannot be plugged in. Opens Chapter 17: hardware does not run without a power connection.",
+      "use": "At about 18:29 Microsoft's chief executive says the constraint is power and powered buildings rather than chip supply, describing chips in inventory that cannot be plugged in. Opens the ERCOT and PJM case study: hardware does not run without a power connection.",
       "caution": "Captions reviewed at the cited timestamp; the spoken sentence has a stumble, so quote only the short fragment used on the slide. One company's statement from October 2025, not a measurement of idle GPUs or today's state; his constraint includes data-center construction as well as utility connection.",
-      "discovered_via": "Chapter 17 slide revision, primary-source review, 2026-09-21."
+      "discovered_via": "ERCOT and PJM case study slide revision, primary-source review, 2026-09-21."
     },
     {
       "id": "P239",
@@ -5395,7 +5395,7 @@
       ],
       "use": "Corroborates P238: the chief financial officer describes being short of space and power for GPUs and CPUs rather than short of the chips.",
       "caution": "Transcript passage reviewed. A dated corporate statement about one operator's capacity; later 2026 calls report faster GPU dock-to-live times with constraints remaining.",
-      "discovered_via": "Chapter 17 slide revision, primary-source review, 2026-09-21."
+      "discovered_via": "ERCOT and PJM case study slide revision, primary-source review, 2026-09-21."
     },
     {
       "id": "P240",
@@ -5411,7 +5411,7 @@
       ],
       "use": "Show that Dominion is one utility zone inside PJM, the regional grid operator, before reading Dominion's data-center contracts.",
       "caution": "One-page map reviewed; still the file linked from PJM Library > Maps on the review date. A zone is not a company: the Dominion zone also contains NOVEC, ODEC members and Rappahannock Electric Cooperative. The course asset is cropped to the map, without the legend.",
-      "discovered_via": "Chapter 17 slide revision, primary-source review, 2026-09-21."
+      "discovered_via": "ERCOT and PJM case study slide revision, primary-source review, 2026-09-21."
     },
     {
       "id": "P241",
@@ -5427,7 +5427,7 @@
       ],
       "use": "Slide 5 shows Dominion Energy Virginia data-center contracted capacity by stage with a definition of each stage: about 53.8 GW in July 2026 (32.4 GW SELOA, 9.4 GW CLOA, 12.0 GW ESA), up from about 16.5 GW in July 2023.",
       "caution": "Slide 5 reviewed. Investor material showing contracted capacity only, not demand; the 2025 coincident peak of about 4 GW comes from P233. SELOA here is the stage P233 calls ELOA. Movement between stages is not a measured conversion or cancellation rate. Scope is Dominion Energy Virginia customers, not the Dominion zone or PJM.",
-      "discovered_via": "Chapter 17 slide revision, primary-source review, 2026-09-21."
+      "discovered_via": "ERCOT and PJM case study slide revision, primary-source review, 2026-09-21."
     }
   ],
   "local_attributions": [

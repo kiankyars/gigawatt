@@ -10,8 +10,8 @@ clarifications from the September 17–18 walkthroughs in one searchable referen
 
 [Open the course](index.html).
 The sidebar combines reading and teaching material under numbered descriptive
-chapters, beginning with **1. Primer**. All 17 numbered chapters have complete
-authored slide decks; the review tracker records which the author has accepted.
+chapters, beginning with **1. Primer**. All 16 numbered chapters and the unnumbered ERCOT and PJM case study have
+complete authored slide decks; the review tracker records which the author has accepted.
 
 | Editable input                                                                                                   | Generated reading or teaching output                                                                  | Build command                                         |
 | ---------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
@@ -158,7 +158,8 @@ in `SPEAKER_NOTES.md`.
 
 Edit `prototypes/grid-queues-*`, `expansion/grid-queues.json` and the matching
 source records. The catalog’s `additional_chapters` assigns these D03 case-study
-lessons to Chapter 17 without changing Chapters 1–16 or their check-in bridges.
+lessons to the unnumbered case study after Chapter 4 without changing Chapters 1–16
+or their check-in bridges.
 The September 18 Texas rule is identified as adopted, effective October 8; the
 queue snapshots retain their own dates. The author's first review on
 September 21 is implemented; acceptance of the revised chapter remains pending.

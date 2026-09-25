@@ -4,7 +4,7 @@
 
 [Open the course](https://kiankyars.github.io/gigawatt/)
 
-The homepage introduces the course and its 17 chapters. The reader at
+The homepage introduces the course's 16 chapters and its ERCOT and PJM case study. The reader at
 [`read.html`](https://kiankyars.github.io/gigawatt/read.html) contains the searchable
 lessons, glossary and numerical models. Its sidebar is the course directory.
 Chapters use numbered descriptive names,
