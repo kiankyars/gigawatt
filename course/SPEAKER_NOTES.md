@@ -796,7 +796,7 @@ Source: P238 — [BG2 podcast, October 31, 2025, at 18:29](https://www.youtube.c
 
 <!-- speaker: grid-queues#ercot-pipeline -->
 
-All requests since 2022, as of June 2026; load requested by 2033. 284 GW: no study at ERCOT. 136 GW: under review. 55 GW: study approved or further. 5.9 GW operating = each site’s peak, added up. Not a cancellation rate.
+ERCOT’s tracked large-load pipeline, as of June 2026; load requested by 2033. 284 GW: no study submitted to ERCOT, or reviewed and not approved. 136 GW: under review. 55 GW: study approved or further. 5.9 GW operating = each site’s peak, added up. Not a cancellation rate.
 
 Source: P227 — [ERCOT July 29 presentation, slide 6](https://www.ercot.com/files/docs/2026/07/29/ERCOT-Senate-July-29-Panel-1-Assessing-The-Grid.pdf#page=6); P228 — [ERCOT status definitions](https://www.ercot.com/files/docs/2026/04/16/ERCOT-Monthly-Operational-Overview-March-2026.pdf). The third group adds ERCOT’s rows 9.9 + 36.0 + 3.2 + 5.9 GW. ERCOT’s monthly overviews for the same summer report slightly different totals; keep this deck’s date with its numbers.
 
@@ -828,7 +828,7 @@ Source: P230 — [PUCT final rule, printed pp. 234–235 and 251–252](https://
 
 <!-- speaker: grid-queues#dominion-in-pjm -->
 
-Dominion is not PJM. PJM = grid operator, 13 states and D.C., owns no lines. Dominion = the main utility in one of PJM’s 21 zones; Northern Virginia’s data centers. Data centers sign with the utility. Texas parallel: ERCOT and Oncor. PJM has no central large-load queue, so we read Dominion’s contracts.
+Dominion is not PJM. PJM = grid operator, 13 states and D.C., owns no lines. Dominion = the main utility in one of PJM’s 21 zones; Northern Virginia’s data centers. Data centers sign with the utility. Texas parallel: ERCOT and Oncor. As of mid-2026, PJM has no central large-load queue, so we read Dominion’s contracts.
 
 Source: [PJM at a Glance](https://www.pjm.com/-/media/DotCom/about-pjm/newsroom/fact-sheets/pjm-at-a-glance.pdf): others own the lines; P240 — [PJM Transmission Zones map](https://www.pjm.com/-/media/DotCom/about-pjm/pjm-zones.pdf); P233 — [Dominion January 6, 2026 letter](https://www.pjm.com/-/media/DotCom/planning/res-adeq/load-forecast/dominion-documentation.pdf). [FERC, June 18, 2026, pp. 20–23](https://www.ferc.gov/sites/default/files/2026-06/EL26-67-000.pdf): load interconnection requests go to the transmission owners. Cooperatives in the zone, such as NOVEC, report their own data-center load to PJM.
 
