@@ -1986,7 +1986,9 @@ function renderContents() {
       .filter((lesson) => lesson && (chapterMatch || matches(JSON.stringify(lesson))));
     return { chapter, lessons, show: chapterMatch || lessons.length > 0 };
   }).filter((item) => item.show);
-  $("lesson-count").textContent = `${CHAPTERS.length} ${CHAPTERS.length === 1 ? "chapter" : "chapters"}`;
+  // Unnumbered case studies sit between chapters; count numbered chapters as the homepage does.
+  const chapterCount = CHAPTERS.filter((chapter) => chapter.number).length;
+  $("lesson-count").textContent = `${chapterCount} ${chapterCount === 1 ? "chapter" : "chapters"}`;
   $("search-status").textContent = q ? `${visible.length} matching ${visible.length === 1 ? "section" : "sections"}`
     : "Open a chapter for its reading and slides.";
   $("contents").innerHTML = visible.map(({ chapter, lessons }) => {
@@ -2155,11 +2157,15 @@ function renderLesson() {
   renderDomainCheckin(l.domain_checkin);
   $("position").textContent = `Reading ${lessonNumber} of ${chapter.lesson_ids.length}`;
   $("previous").disabled = current === 0;
+  const nextChapter = chapterByLesson.get(LESSONS[current + 1]?.id);
+  const crossesChapter = !!nextChapter && nextChapter.id !== chapter.id;
   $("next").textContent =
     current === LESSONS.length - 1
       ? "Back to start ↻"
-      : chapterByLesson.get(LESSONS[current + 1]?.id)?.id !== chapter.id && !chapterByLesson.get(LESSONS[current + 1]?.id)?.number
+      : crossesChapter && REFERENCE_GROUPS.includes(nextChapter)
         ? "Further reading →"
+      : crossesChapter && (nextChapter.additional || chapter.additional)
+        ? `Continue to ${chapterName(nextChapter)} →`
       : l.domain_checkin
         ? l.domain_checkin.next_domain === "capstone"
           ? "Continue to the cases →"

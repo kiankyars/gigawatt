@@ -19,6 +19,7 @@ test('chapter directory exposes existing destinations without draft-state classi
     CHAPTERS:[
       {id:'D01-part', number:1, title:'A chapter with slides', lesson_ids:['one'], presentations:[{id:'deck', title:'A topic', coverage:'selected', href:'prototypes/example.html'}]},
       {id:'D02', number:2, title:'A chapter with lessons', lesson_ids:['two'], presentations:[]},
+      {id:'case', title:'Case study — an unnumbered deck', additional:true, lesson_ids:[], presentations:[]},
     ],
     LESSONS:lessons, byLesson:new Map(lessons.map((lesson,index) => [lesson.id,index])),
     current:0, lookupMode:false, $:id => nodes[id],
@@ -41,5 +42,6 @@ test('chapter directory exposes existing destinations without draft-state classi
   assert.match(html, /data-lesson="reference"/);
   assert.match(html, /Compute and memory — further reading/);
   assert.doesNotMatch(html, /undefined|NaN/);
-  assert.equal(nodes['lesson-count'].textContent, '2 chapters');
+  assert.match(html, /Case study — an unnumbered deck/);
+  assert.equal(nodes['lesson-count'].textContent, '2 chapters', 'unnumbered case studies are not counted as chapters');
 });
