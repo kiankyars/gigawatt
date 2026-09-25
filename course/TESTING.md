@@ -2512,3 +2512,57 @@ course. `additional_chapters` are generated unnumbered after their domain, and
 the shared next-chapter link, presenter title and homepage list accept
 unnumbered entries. Speaker notes were condensed to cue lines. 317 JavaScript
 and 83 Python tests and the freshness checks passed; browser checks not rerun.
+
+## Case study browser check and placement cleanup — 2026-09-25
+
+Built-in browser on this Mac against the staged site at `http://127.0.0.1:8878/_site/`;
+no Playwright browser was launched, in keeping with the desktop browser preference above.
+
+- All 11 case-study slides checked at 1280×720, 1440×900 and 390×844 in the
+  light scheme, replicating `tests/browser_grid_queues.cjs`: no controls on any
+  slide, no page horizontal overflow, no `#visual` child below the visual box at
+  desktop widths, no broken images, empty visual and two logo plates on the
+  opening slide, no page errors.
+- The four layout changes left un-rendered on 21 September were inspected at
+  1280×720 in light and dark schemes and at 390×844: the ERCOT legend sits under
+  the status bar with the 5.9 GW row separate, the before/after fee columns
+  align, the PJM map caption fits under the map, and the two-column Dominion
+  slide keeps the chart beside the stage list. Numbers on those slides match the
+  21 September memo.
+- Presenter, emulated in-page because this browser opens popups in the same
+  tab: title reads “Case study — ERCOT and PJM: the race to connect”, the
+  Dominion notes (“Three stages…”) render without links, the preview shows the
+  next slide, audience toolbar and footer hide while active, and Exit restores
+  them. On the final slide the presenter shows “End of chapter” with
+  “Next chapter →” enabled, because the case study now hands off to Chapter 5.
+- Navigation: Chapter 4’s final slide links to the case study; the case study’s
+  final slide links to Chapter 5; Chapter 16 has no next-chapter link; the
+  retired `#connection-terms` anchor resolves to the closing slide; the homepage
+  lists 17 entries (16 numbered chapters plus the unnumbered case study) and
+  every entry resolves.
+- Two browser scripts still encoded the old Chapter 17 placement and were
+  corrected: `tests/browser_grid_queues.cjs` now starts the chapter handoff from
+  Chapter 4’s final slide instead of Chapter 16’s, and
+  `tests/browser_presenter.cjs` expects the presenter’s next button enabled with
+  the next-chapter label on the case study’s final slide.
+- “Chapter 17” wording removed from the two READMEs and from the research
+  catalog’s reader-visible `use` and `discovered_via` fields; the reader, research
+  notes and domain map were regenerated. Dated provenance records keep their
+  original wording. 317 JavaScript and 83 Python tests, the build, expansion, map
+  and research freshness checks and `git diff --check` passed.
+
+- Reader: the last Chapter 4 reading labelled its Next button “Further reading”
+  because the reader treated any unnumbered group as further reading. It now
+  says “Continue to Case study — ERCOT and PJM…”, the case study continues to
+  Chapter 5 by name, and the sidebar counts 16 chapters as the homepage does.
+  Every other chapter boundary keeps its previous label, checked in the browser.
+- An independent review of the two 21 September commits confirmed 17 of 30
+  findings after three-way adversarial checks; all 17 are resolved. Beyond the
+  items above, two presenter cues now follow the evidence memo: the 284 GW group
+  is “no study submitted to ERCOT, or reviewed and not approved”, and the PJM
+  statement is dated “as of mid-2026”. The ERCOT slide’s dateline reads “ERCOT’s
+  tracked large-load pipeline”, as the 20 September memo specifies. The
+  20 September course-review section and the dated Chapter 17 log heading keep
+  their original wording as history.
+
+These checks do not establish author acceptance of the revised slides.
