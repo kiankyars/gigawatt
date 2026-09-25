@@ -43,7 +43,7 @@ mkdirSync(out,{recursive:true});
   await presenter.getByRole('button',{name:'Exit presenter'}).click();
   await page.waitForFunction(()=>!('presenterActive' in document.documentElement.dataset));
   assert.equal(await page.locator('.toolbar').isVisible(),true);
-  await page.goto(new URL('integrated-cases.html?teach=1#watts-to-work',base).href);
+  await page.goto(new URL('siting.html?teach=1#supply-brief',base).href);
   await page.getByRole('link',{name:/Next chapter/}).click();
   await page.waitForURL(/grid-queues\.html/);
   await page.waitForFunction(()=>document.querySelector('#scenes')?.options.length===11);

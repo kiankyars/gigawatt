@@ -44,7 +44,8 @@ const output=process.argv[3]||'/tmp/gigawatt-presenter-notes';
   await presenter.locator('#chapter').getByText(/Case study/).waitFor();
   await presenter.locator('#end').waitFor({state:'visible'});
   assert.equal(await presenter.locator('#workspace').getAttribute('data-notes'),'true');
-  assert.equal(await presenter.locator('#next').isDisabled(),true);
+  assert.equal(await presenter.locator('#next').isDisabled(),false); // the case study hands off to Chapter 5
+  assert.equal(await presenter.locator('#next').innerText(),'Next chapter →');
   await presenter.screenshot({path:`${output}/final-slide.png`});
   await presenter.emulateMedia({colorScheme:'dark'});
   await presenter.screenshot({path:`${output}/dark-notes.png`});
