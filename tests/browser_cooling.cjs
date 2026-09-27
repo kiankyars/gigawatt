@@ -361,8 +361,8 @@ async function checkDiagramGeometry(page, state) {
                 ],
               );
               assert.match(content, /Shared facility path/);
-              assert.match(content, /A · 2 CDUs \+ its own facility path/);
-              assert.match(content, /B · 2 CDUs \+ its own facility path/);
+              assert.match(content, /Train A · 2 CDUs Own facility loop, plant, power \+ controls/);
+              assert.match(content, /Train B · 2 CDUs Own facility loop, plant, power \+ controls/);
             }
             if (id === "independent-cooling-paths") {
               const m = await page.locator("[data-cooling-capacity]").evaluate((el) => ({
