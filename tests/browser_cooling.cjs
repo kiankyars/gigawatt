@@ -282,7 +282,7 @@ async function checkDiagramGeometry(page, state) {
             }
             if (id === "approach") {
               assert.match(content, /35°C − 30°C = 5°C/);
-              assert.match(content, /CDU approach/);
+              assert.match(content, /CDU heat exchanger/);
             }
             if (photoScenes.has(id)) {
               const widths = await page

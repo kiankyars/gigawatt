@@ -58,7 +58,7 @@ async function checkQuantities(page, id, state) {
  }
  if (id === "kv-cache") assert.match(content, /327,680 bytes = 320 KiB \/ token/);
  if (id === "context-capacity") {
-  assert.match(content, /25 resident requests/); assert.match(content, /6 resident requests/);
+  assert.match(content, /25 requests/); assert.match(content, /6 requests/);
   assert.match(content, /2\.5 GiB \/ request/); assert.match(content, /10 GiB \/ request/);
  }
  if (id === "prefill-decode") {

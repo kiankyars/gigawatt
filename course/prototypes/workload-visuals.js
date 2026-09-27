@@ -95,10 +95,10 @@ function continuous(s,m){
   o+=t(x,y+(m?183:223),'Decode iterations',m?15:21,C.muted);
  });
  return result(o,'A bus accompanies the batching analogy. Two decode slots: A needs two steps, B five and queued C three. The fixed batch starts C only after B finishes. Continuous batching starts C in the released slot while B continues. The numbered columns show decode iterations.');}
-function energy(s,m){const a=sameWorkEnergy();let o='';const x=m?25:92,w=m?340:1016,col1=x+(m?177:556),col2=x+(m?267:826);
- o+=t(x,m?43:53,'Same completed tokens and quality',m?22:32)+t(col1,m?115:135,'Run A',m?22:29,C.compute,'middle')+t(col2,m?115:135,'Run B',m?22:29,C.communication,'middle');
- [['Mean power',`${a.runA.powerKW} kW`,`${a.runB.powerKW} kW`],['Time to finish',`${a.runA.minutes} min`,`${a.runB.minutes} min`],['Total energy',`${n(a.runA.energyKWh,1)} kWh`,`${a.runB.energyKWh} kWh`]].forEach(([name,av,bv],i)=>{const y=(m?181:211)+i*91;o+=line(x,y+30,x+w,y+30)+t(x,y,name,m?18:28)+t(col1,y,av,m?23:39,C.compute,'middle')+t(col2,y,bv,m?23:39,i===2?C.checkpoint:C.communication,'middle');});
- o+=t(m?195:600,m?523:504,'Five extra minutes → 20% more energy',m?21:31,C.checkpoint,'middle');
+function energy(s,m){const a=sameWorkEnergy();let o='';const x=m?25:92,w=m?340:1016,col1=x+(m?177:556),col2=x+(m?277:826);
+ o+=t(x,m?43:53,'Same completed tokens and quality',m?19:32)+t(col1,m?115:135,'Run A',m?22:29,C.compute,'middle')+t(col2,m?115:135,'Run B',m?22:29,C.communication,'middle');
+ [['Mean power',`${a.runA.powerKW} kW`,`${a.runB.powerKW} kW`],['Time to finish',`${a.runA.minutes} min`,`${a.runB.minutes} min`],['Total energy',`${n(a.runA.energyKWh,1)} kWh`,`${a.runB.energyKWh} kWh`]].forEach(([name,av,bv],i)=>{const y=(m?181:211)+i*91;o+=line(x,y+30,x+w,y+30)+t(x,y,name,m?18:28)+t(col1,y,av,m?20:39,C.compute,'middle')+t(col2,y,bv,m?20:39,i===2?C.checkpoint:C.communication,'middle');});
+ o+=t(m?195:600,m?523:504,'Five extra minutes → 20% more energy',m?18:31,C.checkpoint,'middle');
  return result(o,'Run A completes the token workload in ten minutes at a mean 100 kW, using 16.7 kWh. Run B completes the same work and quality in fifteen minutes at 80 kW, using 20 kWh. The extra five minutes outweigh the lower power: total energy rises 20 percent.');}
 function resource(s,m){let o=''; const x=m?77:240,w=m?280:870,top=m?113:120,row=m?107:96;
  ['GPU group A','GPU group B','GPU group C'].forEach((name,i)=>{const y=top+i*row;o+=t(m?24:66,y-18,name,m?17:25);o+=r(x,y,w*.48,42,C.compute,C.compute,0)+r(x+w*.48,y,w*.28,42,C.checkpoint,C.checkpoint,0)+r(x+w*.76,y,w*.24,42,C.communication,C.communication,0);});
