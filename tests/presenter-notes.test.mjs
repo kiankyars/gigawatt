@@ -16,7 +16,7 @@ test('notes markers survive reordered headings and isolate separate scripts with
   assert.equal(parseSpeakerNotes('<!-- speaker: cooling#empty -->\n\n').size,0);
 });
 test('notes follow the current stable scene on source and published routes',()=>{
-  for(const [source,published,deck] of [['orientation-format','overview','overview'],['rack-energy-format','rack-energy','rack-energy'],['site-format','site-design','site-design'],['dc-distribution-format','dc-distribution','dc-distribution']]){
+  for(const [source,published,deck] of [['terminology-format','primer','primer'],['orientation-format','overview','overview'],['rack-energy-format','rack-energy','rack-energy'],['site-format','site-design','site-design'],['dc-distribution-format','dc-distribution','dc-distribution']]){
     for(const path of [`/course/prototypes/${source}.html`,`/gigawatt/slides/${published}.html`]){
       assert.equal(speakerNoteKey({href:`https://example.test${path}?teach=1#old-alias`,sceneId:'current'}),`${deck}#current`);
       assert.equal(speakerNoteKey({href:`https://example.test${path}#current`}),`${deck}#current`);
@@ -40,8 +40,9 @@ test('reading view retains emphasis, hides source clutter and never renders raw 
 test('every authored note targets a current slide',async()=>{
   const notes=parseSpeakerNotes(readFileSync(new URL('../course/SPEAKER_NOTES.md',import.meta.url),'utf8'));
   const decks=new Map();
-  for(const deck of ['distribution','rack-energy','networking','cooling','heat-rejection','procurement-cases','operations','capacity','integrated-cases','grid-queues']){
-    const mod=await import(`../course/prototypes/${deck}-scenes.js`);
+  const moduleFile={primer:'terminology'};
+  for(const deck of ['primer','distribution','rack-energy','networking','cooling','heat-rejection','procurement-cases','operations','capacity','integrated-cases','grid-queues']){
+    const mod=await import(`../course/prototypes/${moduleFile[deck]||deck}-scenes.js`);
     decks.set(deck,new Set(mod.scenes.map(s=>s.id)));
     if(deck==='rack-energy')decks.set('dc-distribution',new Set(mod.dcScenes.map(s=>s.id)));
   }
@@ -49,6 +50,9 @@ test('every authored note targets a current slide',async()=>{
   decks.set('overview',new Set([...overview.matchAll(/id:\s*["']([a-z0-9-]+)["']/g)].map(m=>m[1])));
   assert.ok(notes.size>0);
   for(const [key,body] of notes){const [deck,id]=key.split('#');assert.ok(decks.get(deck)?.has(id),key);assert.ok(renderSpeakerNotes(body),key);}
+  const primer=[...decks.get('primer')];
+  assert.equal(primer.length,22);
+  for(const id of primer)assert.ok(notes.has(`primer#${id}`),`every Primer slide has a presenter note: ${id}`);
 });
 
 function presenterFixture(){
@@ -97,4 +101,14 @@ test('page keys can scroll focused notes without advancing the audience',async()
   const f=presenterFixture();f.send();f.resolveFetch();await f.settle();const count=f.messages.length;
   f.handlers.get('keydown')({key:'PageDown',target:{closest:s=>s==='#speaker-notes'},preventDefault(){assert.fail('notes scrolling should remain native');}});
   assert.equal(f.messages.length,count);
+});
+test('the Primer names its rendered slide, so slide 1 finds its note before the URL has a hash',()=>{
+  const html=readFileSync(new URL('../course/prototypes/terminology-format.html',import.meta.url),'utf8');
+  const render=html.match(/function render\(\)\{\n const s=scenes\[index\];\n([^\n]*)/);
+  assert.ok(render,'render() starts from the current scene');
+  assert.equal(render[1].trim(),"$('viewer').dataset.scene=s.id;");
+  assert.match(html,/<option value="\$\{i\}">/,'option values are indices, so the select alone cannot name the scene');
+  const doc={querySelector:s=>s==='[data-scene]'?{dataset:{scene:'circuit'}}:{options:[{value:'0'}],selectedIndex:0}};
+  assert.equal(currentSceneId(doc,'https://example.test/gigawatt/slides/primer.html?teach=1'),'circuit');
+  assert.equal(speakerNoteKey({href:'https://example.test/gigawatt/slides/primer.html?teach=1',sceneId:'circuit'}),'primer#circuit');
 });

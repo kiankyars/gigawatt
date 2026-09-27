@@ -1,5 +1,233 @@
 # Selected speaker notes
 
+## Source, circuit and load — Chapter 1, slide 1
+
+<!-- speaker: primer#circuit -->
+
+The source supplies electrical energy. The load receives it, for example to run electronics or produce heat. Current needs a complete path from the source through the load and back.
+
+Opening the switch breaks that path, but voltage still exists across the open switch. Charge circulates; the load does not use it up.
+
+Sources: evidence and teaching assumptions for every Primer slide are in [PRIMER_EVIDENCE.md](PRIMER_EVIDENCE.md). This is a simple steady circuit. The arrows show conventional current, not how fast electrons travel.
+
+## Volts and amperes — Chapter 1, slide 2
+
+<!-- speaker: primer#voltage-current -->
+
+Voltage is electric potential difference, energy per unit charge, in volts (V). Current is the rate of charge flow, in amperes (A), often called amps. The resistor has 12 V across it and 2 A through it.
+
+The outward and return wires each carry the same 2 A; adding them counts the loop current twice.
+
+Sources: [PRIMER_EVIDENCE.md](PRIMER_EVIDENCE.md). Voltage alone does not give the current; that also depends on the load.
+
+## Resistance and loss — Chapter 1, slide 3
+
+<!-- speaker: primer#resistance -->
+
+Resistance, in ohms (Ω), relates voltage and current in this resistor model: V = I × R. At a fixed 6 Ω, 12 V gives 2 A and 24 V gives 4 A.
+
+Resistive heating is I²R: doubling the current gives four times the heat, 24 W to 96 W.
+
+A regulated server is not a fixed resistor: its current can change to maintain the power it receives.
+
+Sources: [PRIMER_EVIDENCE.md](PRIMER_EVIDENCE.md). Wires also have resistance.
+
+## Watts — Chapter 1, slide 4
+
+<!-- speaker: primer#power -->
+
+A watt (W) is one joule of energy transferred per second: an amount per unit time, not the speed at which energy or a signal travels along a wire.
+
+For this steady direct-current (DC) load, P = V × I: 12 V × 2 A = 24 W, so the load receives 24 joules each second.
+
+Sources: [NIST guide to SI units, W = J/s](https://www.nist.gov/pml/special-publication-811/nist-guide-si-chapter-4-two-classes-si-units-and-si-prefixes). Voltage and current are both measured at the load: across it and through it.
+
+## Watt-hours and scale — Chapter 1, slide 5
+
+<!-- speaker: primer#energy -->
+
+Energy is power multiplied by time, using the average power over that time. A 1 kW load running for 2 hours uses 2 kWh. A kilowatt-hour is energy, not power per hour.
+
+k = thousand, M = million and G = billion, so 1 MW = 1,000 kW and 1 GW = 1,000 MW. A battery’s kWh rating is its stored energy; its kW limit is how fast it can deliver it.
+
+Sources: [PRIMER_EVIDENCE.md](PRIMER_EVIDENCE.md). The same decimal prefixes apply to watt-hours.
+
+## AC, DC and frequency — Chapter 1, slide 6
+
+<!-- speaker: primer#ac-dc -->
+
+Each trace is the voltage at the left terminal of the resistor below it, relative to the right. DC stays positive, so current flows left to right.
+
+Alternating current (AC) reverses polarity. At the positive peak, current flows left to right. At the negative peak the right terminal is higher, so current flows right to left. At the zero crossing this resistor carries no current.
+
+Frequency counts full AC cycles per second, in hertz (Hz).
+
+Sources: [PRIMER_EVIDENCE.md](PRIMER_EVIDENCE.md). The DC trace is kept flat so that the only new idea here is polarity; a DC level that changes comes later, with voltage variation. Current here means conventional current. The resistor is ideal; other loads can shift or reshape the current.
+
+## AC waveform shapes — Chapter 1, slide 7
+
+<!-- speaker: primer#ac-shapes -->
+
+AC voltage need not be a sine wave: the sine, square, triangle and sawtooth examples all reverse polarity. Utility voltage is normally close to sinusoidal. The other shapes are examples from signals and power electronics, not normal utility supply.
+
+Sources: [Tektronix, Oscilloscope Basics](https://www.tek.com/de/documents/primer/oscilloscope-basics).
+
+## Voltage variation — Chapter 1, slide 8
+
+<!-- speaker: primer#voltage-variation -->
+
+Nominal voltage is a named reference level. Actual voltage varies with the source, the load and the wiring. The buttons compare levels 10% below and above nominal.
+
+The DC level changes size and stays positive. The AC peak changes size while its polarity keeps alternating. These are teaching values, not safe operating ranges for equipment.
+
+Sources: [Rohde & Schwarz, Testing AC/DC Converters, pp. 26–30](https://scdn.rohde-schwarz.com/ur/pws/dl_downloads/dl_application/application_notes/1sl387/1SL387_2e_TestingACDC_Converters.pdf). These are two separate 12 V examples: a DC level and an AC peak. Mains AC is usually quoted as a root-mean-square (RMS) value instead of a peak. A DC voltage can also carry ripple: an AC component on top of its DC level.
+
+## Three-phase AC — Chapter 1, slide 9
+
+<!-- speaker: primer#three-phase -->
+
+Three-phase AC is the predominant form of AC power distribution in data centers, although individual loads can use single-phase AC or DC. The three phase voltages are staggered by 120 degrees, one-third of a cycle, so their peaks occur at different times.
+
+A rack spreads its single-phase power supply unit (PSU) loads across the phases. Each PSU uses two current-carrying conductors: phase and neutral, or two phases.
+
+Sources: [Eaton, Cabinet and floor-standing PDUs](https://www.eaton.com/us/en-us/products/backup-power-ups-surge-it-power-distribution/power-distribution-for-it-equipment/power-distribution-unit-faq/cabinet---floor-standing-pdu-solutions.html). In this balanced example the three phase voltages have equal amplitudes. Each PSU connects according to its input rating. A quoted AC voltage is usually its RMS value: the effective magnitude that gives the same average heating in a resistor as an equal DC voltage. These traces are measured to neutral; line-to-line voltage is measured between two phase conductors.
+
+## Three-phase power — Chapter 1, slide 10
+
+<!-- speaker: primer#three-phase-power -->
+
+The straight trace is total instantaneous power, not voltage. Each phase’s power is its voltage times its current: here 20 sin²(θ + phase offset) kW, from zero to 20 kW, averaging 10 kW.
+
+Add the three at the same instant: 0 + 15 + 15 at 0°, 5 + 20 + 5 at 30°, 15 + 15 + 0 at 60°. Each sum is 30 kW: the total of all three phases, not the largest trace.
+
+Sources: [Introduction to Electrical Power Engineering, Power and Energy](https://pb.ee.pw.edu.pl/pb/iepe/chapter/power-and-energy/). This balanced example uses three equal resistors, so each current is in phase with its voltage, and each supply voltage stays sinusoidal. Balanced sinusoidal loads also keep a constant total when every phase’s current lags its voltage by the same angle. Imbalance and waveform distortion can make the total ripple.
+
+## Power factor — Chapter 1, slide 11
+
+<!-- speaker: primer#power-factor -->
+
+Power at each instant is voltage times current. When current lags voltage, their signs differ for part of the cycle and energy flows back toward the supply.
+
+The voltage has not fallen, yet the same 8 kW takes 25% more current at power factor (PF) 0.8 than at PF 1. That current uses wiring and supply capacity and adds resistive loss.
+
+PF is real power in kW divided by apparent power in kVA, kilovolt-amperes: 8 kW ÷ 8 kVA = 1 and 8 kW ÷ 10 kVA = 0.8. The extra 2 kVA is not 2 kW of wasted heat.
+
+Sources: [Schneider Electric, Understanding True Power Factor](https://blog.se.com/energy-management-energy-efficiency/2020/02/20/distortion-displacement-and-the-truth-understanding-true-power-factor/). With the waves in step, energy flows in through both halves of the cycle. When current lags, the same RMS current transfers less net energy per cycle, so the same average power at the same supply voltage needs more RMS current. The voltage and current traces have separate scales, fixed between the two cases. For sinusoidal voltage and current, PF equals the cosine of the angle between them. Distorted current can also lower power factor: electronic power supplies can draw pulses instead of a smooth sine wave. Power factor applies to single-phase and three-phase systems and is separate from conversion efficiency.
+
+## Conversion equipment — Chapter 1, slide 12
+
+<!-- speaker: primer#conversion -->
+
+A transformer changes an AC voltage level through magnetic coupling. A rectifier converts AC to DC; an inverter converts DC to AC. A DC–DC converter changes a DC voltage level.
+
+A PSU prepares the electrical output that equipment needs and can contain several stages. A power shelf groups power supplies and distributes their output within a rack.
+
+Sources: [PRIMER_EVIDENCE.md](PRIMER_EVIDENCE.md). These names identify functions, not one required architecture. Real equipment has losses and operating limits.
+
+## Transformer input range — Chapter 1, slide 13
+
+<!-- speaker: primer#transformer-operating-range -->
+
+A real transformer’s rating specifies its input. Schneider Electric’s Phaseo ABL6TS25B is rated 250 volt-amperes (VA): 400 V AC nominal input, 24 V AC output rating. On the 400 V connection the manufacturer permits 360 to 440 V, 10% either side.
+
+The turns ratio is fixed, so the transformer does not regulate: the output moves with the input. 24 V is the rating, not a constant output.
+
+Sources: P159, [Schneider Electric Phaseo ABL6TS25B datasheet](https://iportal.se.com/Contents/docs/SQD-ABL6TS25B_DATASHEET.PDF), page 1: ratings, input limits and the photograph; [Schneider Electric, transformer taps and input voltage](https://www.se.com/us/en/faqs/FA120846/). The fixed turns ratio applies on a given connection. The 230 V connection has its own range, 207 to 253 V, and the supply frequency must be 47 to 63 Hz. A transformer works on AC, and each one’s permitted input depends on its rating and connection. This one is a small controls transformer, not one of the large transformers that supply a data hall.
+
+## UPS, battery and generator — Chapter 1, slide 14
+
+<!-- speaker: primer#backup -->
+
+A UPS, or uninterruptible power supply, keeps its protected load supplied when the normal source is interrupted. A battery stores energy; it is one possible part of that system.
+
+In this online UPS, the rectifier feeds a DC link and the inverter supplies the load. The battery supports the link during an upstream interruption; a generator can take over upstream after it starts and qualifies. Runtime is finite.
+
+Sources: [PRIMER_EVIDENCE.md](PRIMER_EVIDENCE.md). Related terms: switchgear switches and protects circuits, and a breaker can interrupt a circuit. A busbar is a conductor used for distribution, and a rack power distribution unit (PDU) distributes power to the equipment in a rack.
+
+## Offline and online UPS — Chapter 1, slide 15
+
+<!-- speaker: primer#ups-types -->
+
+An offline, or standby, UPS normally passes utility AC straight to the load. When the supply fails, it switches to a battery-powered inverter after a brief transfer.
+
+An online double-conversion UPS normally runs power through a rectifier, a DC link and an inverter. When the battery takes over the DC link, the inverter keeps feeding the load with no transfer break.
+
+Offline designs are common for home computers and desktop equipment; online systems are often chosen for critical data-center loads and sensitive medical systems.
+
+Sources: [Eaton, Types of UPS systems](https://www.eaton.com/us/en-us/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/types-of-ups-systems.html), [Eaton, Powering Healthcare Systems](https://www.eaton.com/us/en-us/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/Safeguarding-power-equipment-in-the-healthcare-industry.html). The application decides which design suits; medical equipment does not all need the same UPS. These are simplified normal and battery paths: charging, bypass operation and faults are left out, and stored runtime is finite.
+
+## Load, rating and redundancy — Chapter 1, slide 16
+
+<!-- speaker: primer#capacity -->
+
+Load is actual demand. A rating states a component’s capability under specified conditions. Here a 100 kW load needs two 50 kW modules, so N = 2. N+1 adds one spare module: if a module fails, two remain.
+
+Shared paths, controls and cooling can still stop the service. Redundancy is extra provision; availability describes service over a defined period.
+
+Sources: [PRIMER_EVIDENCE.md](PRIMER_EVIDENCE.md). Capacity also needs a boundary and operating conditions. The system is illustrative, and this is a simplified capacity check. N+1 alone does not establish availability or an Uptime Institute Tier classification.
+
+## Rack, server, CPU and GPU — Chapter 1, slide 17
+
+<!-- speaker: primer#hardware -->
+
+A rack is a frame for mounting equipment. In this compute server, the central processing unit (CPU) coordinates work, system random-access memory (RAM) holds active data, and the graphics processing unit (GPU) does the parallel numerical work used to run many AI models.
+
+The GPU has its own memory beside its cores. Our model’s saved data has to reach that memory before the GPU can run it.
+
+Sources: [PRIMER_EVIDENCE.md](PRIMER_EVIDENCE.md). A cluster is a coordinated collection of connected machines. This simplified server is an example, not a particular vendor’s configuration.
+
+## Memory and storage — Chapter 1, slide 18
+
+<!-- speaker: primer#memory-storage -->
+
+Storage keeps data when power is off; working memory holds data while the computer runs. Our saved model is on a storage server elsewhere in the data center.
+
+Follow the loading path: across the network into the compute server’s system RAM, then copied into GPU memory, where the GPU cores use it. Memory capacity, measured in GB, sets how much model data can fit.
+
+Sources: [NVIDIA, GPUDirect Storage Overview](https://docs.nvidia.com/gpudirect-storage/overview-guide/). Many accelerators use high-bandwidth memory (HBM). This example uses a buffered loading path; direct storage-to-GPU paths also exist. The boxes are separate memories, not one automatically shared pool.
+
+## Bandwidth and latency — Chapter 1, slide 19
+
+<!-- speaker: primer#network -->
+
+Bandwidth is how much data the path carries per second. Latency is how long a defined event takes: here the first bit arrives after 10 microseconds, or 0.01 ms, at either rate.
+
+The 8 MB chunk is 64 megabits, because one byte (B) is eight bits (b). At 10 Gb/s, sending takes 6.4 ms and the last bit arrives at 6.41 ms. At 100 Gb/s, sending takes 0.64 ms and the last bit arrives at 0.65 ms.
+
+More bandwidth shortens the transfer; the first-bit latency stays the same.
+
+Sources: [PRIMER_EVIDENCE.md](PRIMER_EVIDENCE.md). Both endpoints, a storage server and a compute server, are in the same data center. The chunk is part of the model, not the whole model; megabytes here are decimal and the rates are ideal payload rates. These are teaching assumptions, not measured performance or a product specification. The data is already in the sender’s buffer; storage reads, host-memory copies, queues, protocol overhead and retransmissions are outside this simplified account.
+
+## Heat and temperature — Chapter 1, slide 20
+
+<!-- speaker: primer#heat-temperature -->
+
+The running GPU turns the electrical energy it uses into heat that must leave the chip: 500 W in, 500 W out through the cold plate, or 500 joules each second.
+
+Temperature tells us how hot a place is: GPU 70 °C, cold plate 45 °C, coolant in at 30 °C and out at 35 °C. A temperature alone does not give the heat-transfer rate; that also depends on the thermal path.
+
+Sources: [PRIMER_EVIDENCE.md](PRIMER_EVIDENCE.md). This is a simplified steady state; other heat paths and changes in stored energy are negligible. The heat-transfer rate also depends on operating conditions. The values are illustrative, not GPU or cooling-product ratings.
+
+## Cold plate, coolant and CDU — Chapter 1, slide 21
+
+<!-- speaker: primer#cooling -->
+
+A cold plate is a heat exchanger attached to the chip. Coolant flows through it and carries the heat to a coolant distribution unit (CDU).
+
+The CDU transfers that heat into a separate facility loop without mixing the two fluids, and that loop carries it to the outdoor plant. Pumps circulate the coolant; pumps and fans need electricity too.
+
+Sources: [PRIMER_EVIDENCE.md](PRIMER_EVIDENCE.md). This is a liquid-to-liquid example; liquid-to-air CDUs also exist. Outdoor equipment rejects the heat: a chiller uses refrigeration to cool fluid, and a dry cooler transfers heat to outdoor air. The diagram follows the GPU’s liquid cooling path; other equipment may still need air cooling.
+
+## Facility energy and PUE — Chapter 1, slide 22
+
+<!-- speaker: primer#pue -->
+
+Now count the whole facility for one hour. Information technology (IT) equipment, all servers, networking and storage, uses 100 kWh. Cooling, power-system losses and other support add 20 kWh: 120 kWh in total.
+
+Power usage effectiveness (PUE) is total facility energy divided by IT energy: 120 ÷ 100 = 1.20. It describes facility overhead, not how much computation the IT equipment performed.
+
+Sources: [PRIMER_EVIDENCE.md](PRIMER_EVIDENCE.md). The GPU needs electricity to compute, and its cooling system needs electricity to move heat. The hour is illustrative. The numerator already includes IT, and both measurements cover the same interval. This is a new facility-wide example, not the consumption of our single 500 W GPU. One illustrative hour does not establish an annual PUE.
+
 ## Inside a liquid-cooled data hall — Chapter 2, slide 10
 
 <!-- speaker: overview#abilene-data-hall -->
@@ -68,7 +296,7 @@ Sources: [SemiAnalysis: Inside the 800VDC Revolution, Part 1](https://newsletter
 
 <!-- speaker: dc-distribution#ac-dc-ledger -->
 
-“New higher-voltage SiC devices could make SSTs simpler and more competitive. Their widespread adoption in data centers still has to be demonstrated.”
+“New higher-voltage silicon carbide (SiC) devices could make solid-state transformers (SSTs) simpler and more competitive. Their widespread adoption in data centers still has to be demonstrated.”
 
 Sources: [Wolfspeed 10 kV SiC announcement](https://www.wolfspeed.com/company/news-events/news/wolfspeed-introduces-industrys-first-commercially-available-10000v-silicon-carbide-power-mosfet/).
 
@@ -208,7 +436,7 @@ Sources: [Oracle Abilene media kit](https://www.oracle.com/news/resources/abilen
 
 <!-- speaker: cooling#capture-rear-door -->
 
-Cold plates can leave some heat in the rack’s exhaust air. An RDHX captures that heat into liquid; room-air handlers are another option. The NVIDIA coolant manifold pictured alongside is not itself a rear-door exhaust coil. The Abilene evidence does not establish one residual-air arrangement across every hall.
+Cold plates can leave some heat in the rack’s exhaust air. A rear-door heat exchanger (RDHX) captures that heat into liquid; room-air handlers are another option. The NVIDIA coolant manifold pictured alongside is not itself a rear-door exhaust coil. The Abilene evidence does not establish one residual-air arrangement across every hall.
 
 Sources: [Lenovo’s GB300 guide](https://lenovopress.lenovo.com/lp2357-lenovo-nvidia-gb300-nvl72-rack-scale-ai#cooling).
 
@@ -312,7 +540,7 @@ Test the response by commanding the affected racks and measuring actual power, f
 
 <!-- speaker: cooling#cooling-retrofit -->
 
-The cold plates collect 85 kW, leaving 15 kW in air. That uses 15 kW of the room’s 20 kW allowance, or a suitable rear-door exchanger can move it into liquid. The example assumes the door captures all of that remaining 15 kW.
+The cold plates collect 85 kW, leaving 15 kW in air. That uses 15 kW of the room’s 20 kW allowance, or a suitable rear-door heat exchanger (RDHX) can move it into liquid. The example assumes the door captures all of that remaining 15 kW.
 
 ## At Abilene, the heat goes to outdoor air — Chapter 12, slide 2
 
@@ -434,9 +662,9 @@ During the July 2013 flood, PEER1 said the building’s generators worked while 
 
 <!-- speaker: heat-rejection#toronto-operator-response -->
 
-Uberflip’s CTO reported cold-side cabinet air above 43°C, thermal shutdowns, deliberate shutdown of nonessential machines and service transfers. PEER1 reported partial relief from an emergency chiller. The lake still held cold water; the equipment needed to deliver that cooling was the dependency.
+Uberflip’s CTO reported cold-side cabinet air above 43°C, thermal shutdowns, deliberate shutdown of nonessential machines and service transfers. Data Center Knowledge reported that Enwave supplied an emergency chiller, which gave some relief until the system was restored. The lake still held cold water; the equipment needed to deliver that cooling was the dependency.
 
-Sources: [Enwave / Toronto Water](https://www.enwave.com/case-studies/enwave-and-toronto-water-tap-into-innovative-energy-source), [Hydro One, July 8, 2013](https://www.newswire.ca/news-releases/hydro-one-power-outages-due-to-heavy-rains-512697891.html), [contemporary PEER1 account](https://www.datacenterknowledge.com/outages/toronto-flooding-kos-data-center-cooling-systems), [Uberflip CTO's July 9 report](https://seclists.org/nanog/2013/Jul/130).
+Sources: P242 [Enwave / Toronto Water](https://www.enwave.com/case-studies/enwave-and-toronto-water-tap-into-innovative-energy-source), P243 [Hydro One, July 8, 2013](https://www.newswire.ca/news-releases/hydro-one-power-outages-due-to-heavy-rains-512697891.html), P244 [Data Center Knowledge, July 9, 2013: PEER1’s statement and the reporter’s emergency-chiller account](https://www.datacenterknowledge.com/outages/toronto-flooding-kos-data-center-cooling-systems), P245 [Uberflip CTO's July 9 report](https://seclists.org/nanog/2013/Jul/130).
 
 ## Operating dependencies — Chapter 12, slide 21
 
@@ -532,7 +760,7 @@ Immediately after flow falls, the old 5°C water rise carries only 1.045 MW. Hea
 
 The larger chip-to-water temperature gap drives heat through the less effective cooling path. This gap differs from the water’s inlet-to-return rise. The trace illustrates the transition; it does not calculate the 85°C endpoint or an elapsed time.
 
-Sources: [CoolIT’s cold-plate thermal-resistance versus flow graph](https://www.coolitsystems.com/wp-content/uploads/2024/05/Split-Flow-Technology-CoolIT-Tech-Brief.pdf).
+Sources: P255 [CoolIT Split-Flow tech brief, May 8, 2024, Figure 2: cold-plate thermal resistance versus flow, archived April 19, 2025](https://web.archive.org/web/20250419054125/https://www.coolitsystems.com/wp-content/uploads/2024/05/Split-Flow-Technology-CoolIT-Tech-Brief.pdf).
 
 ## Google’s AI cooling and control layers — Chapter 14, slides 4–9
 
@@ -580,7 +808,7 @@ Sources: [Johnson Controls staging threshold](https://docs.johnsoncontrols.com/b
 
 <!-- speaker: operations#google-demand-response -->
 
-In the 2023 Northern Wasco County PUD pilot, the utility requested a day-ahead reduction during busy grid hours.
+In the 2023 Northern Wasco County People’s Utility District (PUD) pilot, the utility requested a day-ahead reduction during busy grid hours.
 
 <!-- speaker: operations#google-demand-response-workloads -->
 
@@ -596,7 +824,7 @@ Sources: [Google Cloud, October 2023](https://cloud.google.com/blog/products/inf
 
 <!-- speaker: operations#cloudflare-pdx -->
 
-The November 2023 Portland power loss disrupted dashboard, API and analytics services. Multi-site services still depended on Kafka and ClickHouse at PDX-04. Earlier tests removed only its HA portion, not the whole facility.
+The November 2023 Portland power loss disrupted dashboard, API and analytics services. Multi-site services still depended on Kafka and ClickHouse at PDX-04. Earlier tests removed only its high-availability (HA) portion, not the whole facility.
 
 <!-- speaker: operations#cloudflare-facility-test -->
 
@@ -658,7 +886,7 @@ The provider’s capacity invoice differs from a lab’s internal cost per token
 
 <!-- speaker: capacity#service-boundary -->
 
-The choice is who operates inference. Your team can run the serving stack on CoreWeave infrastructure, or CoreWeave can run it through Dedicated Inference. You supply the model and application in both.
+The choice is who operates inference. Your team can run the serving stack itself on CoreWeave Kubernetes Service (CKS), an option CoreWeave calls Inference on CKS, or CoreWeave can run it through Dedicated Inference. You supply the model and application in both.
 
 <!-- speaker: capacity#service-examples -->
 
@@ -694,11 +922,11 @@ CoreWeave’s initial September 2025 agreement covered $6.3 billion of capacity.
 
 <!-- speaker: capacity#nvidia-backstop-financing -->
 
-NVIDIA’s July 2026 filing describes typically six-year support for cloud capacity, allowing providers to offer shorter customer rentals. It is not an unconditional guarantee of the provider’s debts.
+NVIDIA’s Form 10-Q for the quarter ended July 26, 2026 describes typically six-year support for cloud capacity, allowing providers to offer shorter customer rentals. It is not an unconditional guarantee of the provider’s debts.
 
 <!-- speaker: capacity#nvidia-backstop-risk -->
 
-The $36 billion figure is a dated aggregate commitment, not a realized loss. Buying unused capacity provides a revenue floor while leaving NVIDIA exposed if customers do not fill it.
+The $36 billion figure is NVIDIA’s aggregate commitment as of July 26, 2026, not a realized loss. Buying unused capacity provides a revenue floor while leaving NVIDIA exposed if customers do not fill it.
 
 <!-- speaker: capacity#gpu-hour-cost -->
 
@@ -712,7 +940,7 @@ The extra $0.084 per billed GPU-hour reduces provider margin under a fixed fee, 
 
 <!-- speaker: capacity#abilene-roles -->
 
-Crusoe builds the facility, Oracle supplies cloud capacity and OpenAI runs workloads. Their responsibilities sit at different points in the delivery chain.
+Crusoe builds the facility, Oracle supplies cloud capacity through Oracle Cloud Infrastructure (OCI) and OpenAI runs workloads. Their responsibilities sit at different points in the delivery chain.
 
 <!-- speaker: capacity#datacenter-delay-quote -->
 
@@ -724,7 +952,7 @@ The article challenges aggregate delay headlines, not the existence of individua
 
 Compare each target with the corresponding reported milestone. Energization, construction completion and delivered capacity are different events; mismatched milestones cannot establish an exact schedule slip.
 
-Sources: [Anthropic–CoreWeave agreement](https://www.coreweave.com/news/coreweave-announces-multi-year-agreement-with-anthropic), [Cursor–Fireworks case](https://fireworks.ai/blog/cursor), [idle-system power model](https://docs.nvidia.com/datacenter/dps/versions/latest/guides/reference/apis/v1/devices.html), [Core Scientific Q2 2026 filing, Electricity Costs](https://www.sec.gov/Archives/edgar/data/1839341/000183934126000014/core-20260630.htm), [SemiAnalysis’s June 18, 2026 article](https://newsletter.semianalysis.com/p/stop-saying-half-of-2026-us-datacenter).
+Sources: P222 [CoreWeave Dedicated Inference and Inference on CKS](https://www.coreweave.com/products/dedicated-inference), P253 [Anthropic–CoreWeave agreement](https://www.coreweave.com/news/coreweave-announces-multi-year-agreement-with-anthropic), P254 [Cursor–Fireworks case](https://fireworks.ai/blog/cursor), P250 [CoreWeave Form 8-K, September 15, 2025, the $6.3 billion NVIDIA order](https://www.sec.gov/Archives/edgar/data/1769628/000176962825000047/crwv-20250909.htm), P251 [NVIDIA Form 10-Q for the quarter ended July 26, 2026, commitments typically six years, $36 billion](https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm), SA35 [SemiAnalysis, July 6, 2026, GPU debt backstop](https://newsletter.semianalysis.com/p/nvidia-gpu-debt-backstop-unleashes), SA44 [SemiAnalysis, September 11, 2026, Nvidia’s Backstop Universe](https://newsletter.semianalysis.com/p/nvidias-backstop-universe-heads-i), [idle-system power model](https://docs.nvidia.com/datacenter/dps/versions/latest/guides/reference/apis/v1/devices.html), P252 [Core Scientific Q2 2026 filing, Electricity Costs](https://www.sec.gov/Archives/edgar/data/1839341/000183934126000014/core-20260630.htm), SA33 [SemiAnalysis’s June 18, 2026 article](https://newsletter.semianalysis.com/p/stop-saying-half-of-2026-us-datacenter).
 
 ## Putting an AI Factory Together — Chapter 16
 
@@ -774,13 +1002,15 @@ Early workloads ran while construction continued. The next power, cooling and ne
 
 “We started with electricity at the site boundary. You can now follow it all the way to computation, and follow the heat back out. That is the physical system behind every token.”
 
-Sources: [ChatGPT prompt](CHAPTER_16_CLOSING_IMAGE_PROMPT.md), [original Abilene evidence](../research/abilene-finale-evidence-2026-09-18.md), [revision evidence and photographs](../research/finale-review-evidence-2026-09-18.md), [Crusoe cooling design](https://www.crusoe.ai/resources/blog/an-inside-look-at-the-abilene-ai-data-center), [Trane maintenance comparison](https://www.trane.com/commercial/north-america/canada/en/about-us/newsroom/blogs/air-vs-water-cooled-chillers.html), [Crusoe’s initial venture](https://www.crusoe.ai/resources/newsroom/crusoe-blue-owl-capital-primary-digital-joint-venture), [Kirkland’s account of Blue Owl and Primary Digital’s roles](https://www.kirkland.com/news/press-release/2025/01/kirkland-ellis-advises-bo-funds-on-jv-and-financing-for-development-of-adc).
+Sources: [ChatGPT prompt](CHAPTER_16_CLOSING_IMAGE_PROMPT.md), [original Abilene evidence](../research/abilene-finale-evidence-2026-09-18.md), [revision evidence and photographs](../research/finale-review-evidence-2026-09-18.md), P74 [Crusoe cooling design](https://www.crusoe.ai/resources/blog/an-inside-look-at-the-abilene-ai-data-center), P49 [Trane maintenance comparison](https://www.trane.com/commercial/north-america/us/en/about-us/newsroom/blogs/air-vs-water-cooled-chillers.html), P267 [Crusoe’s initial venture](https://www.crusoe.ai/resources/newsroom/crusoe-blue-owl-capital-primary-digital-joint-venture), P268 [Crusoe’s May 21, 2025 second phase of the $15 billion venture](https://www.crusoe.ai/resources/newsroom/crusoe-blue-owl-capital-and-primary-digital-infrastructure-enter-joint-venture), P269 [Kirkland’s account of Blue Owl and Primary Digital’s roles](https://www.kirkland.com/news/press-release/2025/01/kirkland-ellis-advises-bo-funds-on-jv-and-financing-for-development-of-adc), P270 [Crusoe, September 14, 2026: second Tulsa facility and more than 2,500 switchboards for Abilene](https://www.crusoe.ai/resources/newsroom/crusoe-opens-second-tulsa-factory-ai-infrastructure).
 
 ## Queue purpose — ERCOT and PJM case study, slide 1
 
 <!-- speaker: grid-queues#queue-purpose -->
 
-Request = study with the utility and grid operator. ERCOT is the grid for most of Texas. PJM runs it for 13 eastern states and Washington, D.C.
+Chapter 4 ended ready to build the site. Before we do, a detour: how two real grids decide who connects.
+
+Request = study with the utility and grid operator. ERCOT, the Electric Reliability Council of Texas, is the grid for most of Texas. PJM Interconnection runs it for 13 eastern states and Washington, D.C.
 
 Source: P235 — [FERC, June 18, 2026, existing PJM processes, pp. 19–21](https://www.ferc.gov/sites/default/files/2026-06/EL26-67-000.pdf); E21653C0173 — [ERCOT Batch Zero announcement](https://www.ercot.com/news/release/06182026-puct-approves-ercots). Logos: [asset provenance](assets/references/grid-queues-logos.provenance.json).
 
@@ -788,7 +1018,7 @@ Source: P235 — [FERC, June 18, 2026, existing PJM processes, pp. 19–21](http
 
 <!-- speaker: grid-queues#chips-need-power -->
 
-Hardware cannot power itself. Nadella, BG2 podcast, October 2025: chips in inventory he can’t plug in. ERCOT: about 474 GW of large-load requests.
+Hardware cannot power itself. Nadella, BG2 podcast, October 2025: chips in inventory he can’t plug in.
 
 Source: P238 — [BG2 podcast, October 31, 2025, at 18:29](https://www.youtube.com/watch?v=Gnl833wXRz0&t=1109s); P239 — [Microsoft FY26 Q1 earnings call, October 29, 2025](https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q1). One company’s dated statement; his constraint includes building construction as well as the utility connection.
 
@@ -796,15 +1026,15 @@ Source: P238 — [BG2 podcast, October 31, 2025, at 18:29](https://www.youtube.c
 
 <!-- speaker: grid-queues#ercot-pipeline -->
 
-ERCOT’s tracked large-load pipeline, as of June 2026; load requested by 2033. 284 GW: no study submitted to ERCOT, or reviewed and not approved. 136 GW: under review. 55 GW: study approved or further. 5.9 GW operating = each site’s peak, added up. Not a cancellation rate.
+ERCOT: 474.7 GW of large-load requests. Its tracked pipeline, as of June 2026; load requested by 2033. 284 GW: no study submitted to ERCOT, or reviewed and not approved. 136 GW: under review. 55 GW: study approved or further. 5.9 GW operating = each site’s peak, added up. Not a cancellation rate. If asked: the groups add to 474.8, not 474.7, because ERCOT’s rows are rounded.
 
-Source: P227 — [ERCOT July 29 presentation, slide 6](https://www.ercot.com/files/docs/2026/07/29/ERCOT-Senate-July-29-Panel-1-Assessing-The-Grid.pdf#page=6); P228 — [ERCOT status definitions](https://www.ercot.com/files/docs/2026/04/16/ERCOT-Monthly-Operational-Overview-March-2026.pdf). The third group adds ERCOT’s rows 9.9 + 36.0 + 3.2 + 5.9 GW. ERCOT’s monthly overviews for the same summer report slightly different totals; keep this deck’s date with its numbers.
+Source: P227 — [ERCOT July 29 presentation, slide 6](https://www.ercot.com/files/docs/2026/07/29/ERCOT-Senate-July-29-Panel-1-Assessing-The-Grid.pdf#page=6); P228 — [ERCOT status definitions](https://www.ercot.com/files/docs/2026/04/16/ERCOT-Monthly-Operational-Overview-March-2026.pdf). The third group adds ERCOT’s rows 9.9 + 36.0 + 3.2 + 5.9 GW. The three groups sum to 474.8 GW (284.3 + 135.5 + 55.0) against the title’s 474.7 because ERCOT’s six rows are rounded. ERCOT’s monthly overviews for the same summer report slightly different totals; keep this deck’s date with its numbers.
 
 ## Site options — ERCOT and PJM case study, slide 4
 
 <!-- speaker: grid-queues#site-options -->
 
-One 1 GW project, three candidate sites = 3 GW of requests. Pick one; two requests vanish, nothing cancelled. Hypothetical. SB 6 requires disclosure of overlapping requests.
+One 1 GW project, three candidate sites = 3 GW of requests. Pick one; two requests vanish, nothing cancelled. Hypothetical. Texas Senate Bill 6 (SB 6, 2025) requires disclosure of overlapping requests.
 
 Source: P229 — [Texas SB 6, PURA 37.0561(d)](https://capitol.texas.gov/tlodocs/89R/billtext/html/SB00006F.htm). The one-business, three-site example is hypothetical.
 
@@ -820,7 +1050,7 @@ Source: SA33 — [SemiAnalysis, June 18, 2026, public ERCOT comparison](https://
 
 <!-- speaker: grid-queues#commitment-costs -->
 
-New, not always like this. Before SB 6 (2025): no ERCOT-wide amount; each utility set its own terms. From October 8, 2026, requests of 75 MW or more: $100,000 study fee plus $50,000 per MW security, before ERCOT studies it. 1 GW = $50 million face amount; guarantee or letter of credit counts.
+New, not always like this. Before Texas Senate Bill 6 (SB 6), signed June 2025: no ERCOT-wide amount; each utility set its own terms. The Public Utility Commission of Texas (PUCT) adopted the rule on September 18, 2026. From October 8, 2026, requests of 75 MW or more: $100,000 study fee plus $50,000 per MW security, before ERCOT studies it. 1 GW = $50 million face amount; guarantee or letter of credit counts.
 
 Source: P230 — [PUCT final rule, printed pp. 234–235 and 251–252](https://interchange.puc.texas.gov/Documents/58481_218_1684656.PDF#page=35); P236 — [effective-date acknowledgment, p. 3](https://interchange.puc.texas.gov/Documents/58481_219_1684678.PDF#page=3); P229 — [Texas SB 6](https://capitol.texas.gov/tlodocs/89R/billtext/html/SB00006F.htm); [PGRR145](https://www.ercot.com/mktrules/issues/PGRR145). Utility practice before SB 6 is from utility comments summarized in the PUCT adoption order; no source lists the amounts each utility charged.
 
@@ -838,7 +1068,7 @@ Source: [PJM at a Glance](https://www.pjm.com/-/media/DotCom/about-pjm/newsroom/
 
 Three stages. Engineering study: $250,000 deposit, 9–12 months, no obligation to build. Construction: customer repays spent costs if it leaves. Service agreement: pays whether or not it takes service. July 2026: 53.8 GW, of which 32.4 GW is studies. 2025 data-center peak: about 4 GW. Contracts are not demand.
 
-Source: P241 — [Dominion Energy Q2 2026 earnings slides, July 31, 2026, slide 5](https://s2.q4cdn.com/510812146/files/doc_financials/2026/q2/2026-07-31-DE-IR-2Q-2026-earnings-call-slides-vTCII.pdf#page=5); P233 — [Dominion January 6, 2026 letter, pp. 1–3](https://www.pjm.com/-/media/DotCom/planning/res-adeq/load-forecast/dominion-documentation.pdf): deposit, study duration, 2025 coincident peak, and the July 2025 snapshot of 47 GW used in the reading. The slide’s SELOA is the letter’s ELOA.
+Source: P241 — [Dominion Energy Q2 2026 earnings slides, July 31, 2026, slide 5](https://s2.q4cdn.com/510812146/files/doc_financials/2026/q2/2026-07-31-DE-IR-2Q-2026-earnings-call-slides-vTCII.pdf#page=5); P233 — [Dominion January 6, 2026 letter, pp. 1–3](https://www.pjm.com/-/media/DotCom/planning/res-adeq/load-forecast/dominion-documentation.pdf): deposit, study duration, 2025 coincident peak, and the July 2025 snapshot of 47 GW, which the reading keeps as the earlier point beside July 2026. The slide’s SELOA is the letter’s ELOA.
 
 ## Forecast filter — ERCOT and PJM case study, slide 9
 
@@ -861,5 +1091,7 @@ Source: P237 — [ERCOT May 4, 2026 workshop, slide 38](https://www.ercot.com/fi
 <!-- speaker: grid-queues#btm-gap -->
 
 SemiAnalysis forecast, capacity added per year, in GW. Orange: spare grid capacity, gone after 2027. Green: new grid supply. Blue: the gap, met behind the meter; about 43 of 54 GW in 2028. Modeled gap, not contracted plants. A queue place buys a study and an import limit, not power on your schedule.
+
+Back to our project. Chapter 5 takes the supply strategy to the parcel and turns it into a place we can build, operate and repair.
 
 Source: SA07 — [SemiAnalysis, June 25, 2026, public figure](https://newsletter.semianalysis.com/p/us-grid-constraints-towards-40gw). Annual net additions in GW; the figure’s title says MW.
