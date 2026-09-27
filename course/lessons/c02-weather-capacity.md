@@ -1,8 +1,6 @@
 # A hot day changes two limits at once
 
-Generated reading view. Edit [`course/expansion/capstones.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/capstones.json), lesson `c02-weather-capacity`, then run `uv run gigawatt-expand`.
-
-**16. Putting an AI Factory Together · Authored draft**
+**16. Putting an AI Factory Together · Optional practice**
 
 Reconcile the electrical and heat-removal constraints at two supplied operating points, then decide which proposed upgrade would actually help.
 
@@ -12,7 +10,7 @@ Reconcile the electrical and heat-removal constraints at two supplied operating 
 
 A hypothetical site has a 100 MW electrical service limit and an accepted distribution path for 900 identical 100 kW rack equivalents. A rack equivalent is an accounting unit in this exercise, not a promise about real hardware composition or workload throughput. At the mild-weather operating point, the supplied plant table gives 70 MW of heat-removal capacity at the IT boundary and 15 MW of site auxiliary electricity. At the hot-weather point it gives 55 MW of IT heat-removal capacity and 25 MW of auxiliary electricity. Both points use the same required IT inlet conditions.
 
-Do not infer the hot-weather point by applying an annual PUE. The exercise supplies separate instantaneous cooling performance and auxiliary demand because they answer different questions. A real plant's electrical input generally changes with load as well as weather. For this exercise, treat the tabulated auxiliary demands as fixed over the evaluated load range and state that approximation. A detailed operating model would need matched performance curves and control sequences rather than independent sliders.
+Do not infer the hot-weather point from an annual power usage effectiveness (PUE), the ratio of a year's total facility energy to its IT energy. The exercise supplies separate instantaneous cooling performance and auxiliary demand because they answer different questions. A real plant's electrical input generally changes with load as well as weather. For this exercise, treat the tabulated auxiliary demands as fixed over the evaluated load range and state that approximation. A detailed operating model would need matched performance curves and control sequences rather than independent sliders.
 
 ## Compare remedies against the constraint that matters
 
@@ -38,17 +36,17 @@ Now consider two proposals. One reduces hot-weather auxiliaries by 10 MW while l
 
 ## The tradeoff
 
-Choice: Prioritize the capacity-releasing cooling proposal.
+Choice: Fund the cooling upgrade or the auxiliary cut.
 
-Benefit: It can support more rack-equivalent demand within the provided service envelope.
+Benefit: The cooling upgrade adds 100 rack equivalents on a hot day, from 550 to 650; the auxiliary cut adds none.
 
-Cost: Capital, water, maintenance, efficiency and delivery consequences have not been supplied, so economic superiority is unestablished.
+Cost: The auxiliary cut saves 10 MWh of electricity in every hot-weather hour, which the cooling upgrade does not; choosing between them needs the value of added capacity and the price of energy.
 
 ## When the situation changes
 
 Trigger: A vendor presents reduced auxiliary power as proof of more usable compute capacity.
 
-Mechanism: The claimed gain acts on an electrical constraint that is not binding in the supplied hot case.
+Mechanism: In hot weather the cut raises the electrical budget from 75 to 85 MW, but cooling still binds at 55 MW, so the count stays at 550 rack equivalents.
 
 Response: Recalculate the complete constraint table and distinguish energy savings, capacity gains and actual workload output.
 
@@ -67,6 +65,6 @@ Installed cooling above 60 MW cannot create missing accepted paths. Actual draw 
 
 **The idea to keep:** Find the binding constraint at the new operating point before choosing an upgrade.
 
-## Sources and reading boundaries
+## Sources
 
-- [ASHRAE Handbook, Chapter 20: Data Centers and Telecommunication Facilities](https://handbook.ashrae.org/Handbooks/A23/SI/A23_Ch20/a23_ch20_si.aspx) — Provides the thermal operating-envelope context; all performance points and calculations in this exercise are original synthetic inputs. Read 2026-09-06. Selected cooling discussion. No handbook rating curve or equipment selection is reproduced.
+- [ASHRAE Handbook, Chapter 20: Data Centers and Telecommunication Facilities](https://handbook.ashrae.org/Handbooks/A23/SI/A23_Ch20/a23_ch20_si.aspx) — ASHRAE · Published 2023 · Reviewed 2026-09-11. ASHRAE Handbook chapter on data centers: thermal operating envelopes for IT equipment.

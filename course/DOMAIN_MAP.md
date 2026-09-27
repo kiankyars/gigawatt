@@ -45,7 +45,7 @@ Coordinate compute, memory, networks, storage and jobs.
 
 - [Compute and memory — further reading](#d07)
 - [Networking and interconnects](#d08)
-- [Storage and recovery](#d09)
+- [Storage and recovery — further reading](#d09)
 
 ### Return the heat
 
@@ -106,7 +106,7 @@ Test complete service paths, operate them, and defend a system decision with unc
 ### Further reading
 
 - [Compute and memory — further reading](#d07)
-- [Storage and recovery](#d09)
+- [Storage and recovery — further reading](#d09)
 
 ## Domain teaching plans
 
@@ -182,6 +182,7 @@ Separate physical principles, design specifications, observed deployments, annou
 - [P09 — The Datacenter as a Computer: designing warehouse-scale machines](https://research.google/pubs/the-datacenter-as-a-computer-designing-warehouse-scale-machines/) · `public_excerpt_reviewed` · [local note](../research/sources/P09.md)
 - [P10 — Incorporate Minimum Efficiency Requirements for Heating and Cooling Products into Federal Acquisition Documents](https://www.energy.gov/cmei/femp/incorporate-minimum-efficiency-requirements-heating-and-cooling-products-federal) · `page_reviewed` · [local note](../research/sources/P10.md)
 - [SA14 — AI Datacenter Energy Dilemma - Race for AI Datacenter Space](https://newsletter.semianalysis.com/p/ai-datacenter-energy-dilemma-race) · `public_excerpt_reviewed` · [local note](../research/sources/SA14.md)
+- [SA29 — The Wild Wild West Of LEGO Datacenters](https://newsletter.semianalysis.com/p/the-wild-wild-west-of-lego-datacenters) · `public_excerpt_reviewed` · [local note](../research/sources/SA29.md)
 - [SA31 — From Tokens to Burgers: A Water Footprint Face-Off](https://newsletter.semianalysis.com/p/from-tokens-to-burgers-a-water-footprint) · `public_excerpt_reviewed` · [local note](../research/sources/SA31.md)
 - [SA33 — Stop Saying Half of 2026 US Datacenter Capacity Is Canceled](https://newsletter.semianalysis.com/p/stop-saying-half-of-2026-us-datacenter) · `public_excerpt_reviewed` · [local note](../research/sources/SA33.md)
 - [SA37 — xAI's Colossus 2 - First Gigawatt Datacenter In The World, Unique RL Methodology, Capital Raise](https://newsletter.semianalysis.com/p/xais-colossus-2-first-gigawatt-datacenter) · `public_excerpt_reviewed` · [local note](../research/sources/SA37.md)
@@ -201,13 +202,23 @@ Separate physical principles, design specifications, observed deployments, annou
 - [P64 — NVIDIA DGX GB Rack Scale Systems — Hardware](https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html#power-shelves) · `page_reviewed` · [local note](../research/sources/P64.md)
 - [P65 — EIA — How electricity is generated](https://www.eia.gov/energyexplained/electricity/how-electricity-is-generated.php) · `public_excerpt_reviewed` · [local note](../research/sources/P65.md)
 - [P66 — EIA — Delivery of electricity to consumers](https://www.eia.gov/energyexplained/electricity/delivery-to-consumers.php) · `public_excerpt_reviewed` · [local note](../research/sources/P66.md)
-- [P67 — OpenStax · Resistance and simple circuits](https://openstax.org/books/college-physics-2e/pages/20-2-ohms-law-resistance-and-simple-circuits) · `page_reviewed` · [local note](../research/sources/P67.md)
 - [P91 — Google’s Cloud TPU v4 provides exaFLOPS-scale ML with industry-leading efficiency](https://cloud.google.com/blog/topics/systems/tpu-v4-enables-performance-energy-and-co2e-efficiency-gains) · `page_reviewed` · [local note](../research/sources/P91.md)
 - [P92 — Resiliency at Scale: Managing Google’s TPUv4 Machine Learning Supercomputer](https://www.usenix.org/system/files/nsdi24-zu.pdf) · `page_reviewed` · [local note](../research/sources/P92.md)
 - [P93 — Cloud TPU Multislice Overview](https://docs.cloud.google.com/tpu/docs/multislice-introduction) · `page_reviewed` · [local note](../research/sources/P93.md)
 - [P94 — CoolIT Systems Launches Three High-Density Coolant Distribution Units](https://www.coolitsystems.com/resources/news/coolit-systems-launches-three-high-density-coolant-distribution-units/) · `page_reviewed` · [local note](../research/sources/P94.md)
 - [P99 — Gemini: A Family of Highly Capable Multimodal Models](https://deepmind.google/gemini/gemini_1_report.pdf) · `page_reviewed` · [local note](../research/sources/P99.md)
-- [P192 — Introducing Gemini: our largest and most capable AI model](https://blog.google/innovation-and-ai/technology/ai/google-gemini-ai/) · `page_reviewed` · [local note](../research/sources/P192.md)
+- [P190 — Google Data Centers — Photo gallery](https://www.datacenters.google/discover-more/photo-gallery/) · `page_reviewed` · [local note](../research/sources/P190.md)
+- [P247 — The Green Grid — White Paper #35: Water Usage Effectiveness (WUE): A Green Grid Data Center Sustainability Metric](https://www.thegreengrid.org/system/files/store/WUE_v1.pdf) · `page_reviewed` · [local note](../research/sources/P247.md)
+- [P275 — NIST — Guide to the SI (SP 811), Chapter 4: The Two Classes of SI Units and the SI Prefixes](https://www.nist.gov/pml/special-publication-811/nist-guide-si-chapter-4-two-classes-si-units-and-si-prefixes) · `page_reviewed` · [local note](../research/sources/P275.md)
+- [P276 — Tektronix — Oscilloscope Basics](https://www.tek.com/de/documents/primer/oscilloscope-basics) · `page_reviewed` · [local note](../research/sources/P276.md)
+- [P277 — Eaton — Cabinet and floor-standing PDU solutions](https://www.eaton.com/us/en-us/products/backup-power-ups-surge-it-power-distribution/power-distribution-for-it-equipment/power-distribution-unit-faq/cabinet---floor-standing-pdu-solutions.html) · `public_excerpt_reviewed` · [local note](../research/sources/P277.md)
+- [P278 — Rohde & Schwarz — AC-DC Converter Testing Fundamentals, application note 1SL387, version 2e, March 2023](https://scdn.rohde-schwarz.com/ur/pws/dl_downloads/dl_application/application_notes/1sl387/1SL387_2e_TestingACDC_Converters.pdf) · `page_reviewed` · [local note](../research/sources/P278.md)
+- [P279 — Schneider Electric — What are voltage adjustment taps on transformers? (FAQ FA120846)](https://www.se.com/us/en/faqs/FA120846/) · `page_reviewed` · [local note](../research/sources/P279.md)
+- [P280 — Introduction to Electrical Power Engineering — Power and Energy](https://pb.ee.pw.edu.pl/pb/iepe/chapter/power-and-energy/) · `page_reviewed` · [local note](../research/sources/P280.md)
+- [P281 — Schneider Electric — Distortion, displacement and the truth! Understanding true power factor](https://blog.se.com/energy-management-energy-efficiency/2020/02/20/distortion-displacement-and-the-truth-understanding-true-power-factor/) · `page_reviewed` · [local note](../research/sources/P281.md)
+- [P282 — Eaton — Types of UPS systems](https://www.eaton.com/us/en-us/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/types-of-ups-systems.html) · `public_excerpt_reviewed` · [local note](../research/sources/P282.md)
+- [P283 — Eaton — Powering healthcare systems](https://www.eaton.com/us/en-us/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/Safeguarding-power-equipment-in-the-healthcare-industry.html) · `public_excerpt_reviewed` · [local note](../research/sources/P283.md)
+- [P284 — NVIDIA — GPUDirect Storage Overview Guide](https://docs.nvidia.com/gpudirect-storage/overview-guide/) · `page_reviewed` · [local note](../research/sources/P284.md)
 
 <a id="d02"></a>
 
@@ -313,6 +324,7 @@ State an infrastructure design envelope and identify which assumptions a benchma
 - [P132 — NVIDIA AIPerf — Metrics Reference](https://docs.nvidia.com/aiperf/reference/ai-perf-metrics-reference) · `page_reviewed` · [local note](../research/sources/P132.md)
 - [P133 — NVIDIA — Qwen3.8 throughput and interactivity on GB300 NVL72](https://developer.nvidia.com/blog/serve-qwen3-8-2-4t-a95b-a-2-4t-parameter-model-with-configurable-reasoning-on-nvidia-gb300-nvl72/) · `page_reviewed` · [local note](../research/sources/P133.md)
 - [P193 — DeepSeek-V4: Towards Highly Efficient Million-Token Context Intelligence](https://arxiv.org/html/2606.19348v1) · `page_reviewed` · [local note](../research/sources/P193.md)
+- [P257 — Groq — What is a Language Processing Unit?](https://groq.com/blog/the-groq-lpu-explained) · `page_reviewed` · [local note](../research/sources/P257.md)
 
 <a id="d03"></a>
 
@@ -418,7 +430,6 @@ Compare utility-only and behind-the-meter supply against energy, capacity, fuel 
 - [P75 — Crusoe and Redwood — Sparks microgrid update](https://www.crusoe.ai/resources/newsroom/crusoe-and-redwood-materials-expand-strategic-partnership-scaling-to-7x-the-original-ai-infrastructure-density) · `page_reviewed` · [local note](../research/sources/P75.md)
 - [P76 — Crusoe — 2025 impact report web summary](https://www.crusoe.ai/resources/blog/crusoes-2025-impact-report) · `page_reviewed` · [local note](../research/sources/P76.md)
 - [P77 — Google — Supporting power grids with demand response](https://cloud.google.com/blog/products/infrastructure/using-demand-response-to-reduce-data-center-power-consumption) · `page_reviewed` · [local note](../research/sources/P77.md)
-- [P78 — MLGW — xAI project quick facts](https://www.mlgw.com/images/content/files/pdf/2024xAI%20and%20MLGW%20Quick%20Facts%201.pdf) · `page_reviewed` · [local note](../research/sources/P78.md)
 - [SA42 — SpaceX 10GW in 2027 — construction pace and equipment procurement](https://newsletter.semianalysis.com/p/spacex-10gw-in-2027-why-its-real) · `public_excerpt_reviewed` · [local note](../research/sources/SA42.md)
 - [P82 — GE Vernova — How a combined-cycle plant produces electricity](https://www.gevernova.com/gas-power/resources/education/combined-cycle-power-plants) · `page_reviewed` · [local note](../research/sources/P82.md)
 - [P83 — EIA — Natural gas generation by technology and region](https://www.eia.gov/todayinenergy/detail.php?id=61444) · `page_reviewed` · [local note](../research/sources/P83.md)
@@ -470,6 +481,11 @@ Compare utility-only and behind-the-meter supply against energy, capacity, fuel 
 - [P239 — Microsoft — FY26 Q1 earnings call, October 29, 2025](https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q1) · `page_reviewed` · [local note](../research/sources/P239.md)
 - [P240 — PJM — Transmission Zones map, May 2023](https://www.pjm.com/-/media/DotCom/about-pjm/pjm-zones.pdf) · `page_reviewed` · [local note](../research/sources/P240.md)
 - [P241 — Dominion Energy — Q2 2026 earnings call slides, July 31, 2026](https://s2.q4cdn.com/510812146/files/doc_financials/2026/q2/2026-07-31-DE-IR-2Q-2026-earnings-call-slides-vTCII.pdf) · `page_reviewed` · [local note](../research/sources/P241.md)
+- [P258 — ERCOT — PGRR145, Batch Zero Process for Large Load Interconnections](https://www.ercot.com/mktrules/issues/PGRR145) · `page_reviewed` · [local note](../research/sources/P258.md)
+- [P259 — ERCOT — PGRR145 final PUCT report, June 18, 2026 decision](https://www.ercot.com/files/docs/2026/06/22/145PGRR-130-PUCT-Report-061826.docx) · `page_reviewed` · [local note](../research/sources/P259.md)
+- [P260 — Public Utility Commission of Texas — 16 TAC §25.370, ERCOT Large Load Forecasting Criteria](https://ftp.puc.texas.gov/public/puct-info/agency/rulesnlaws/subrules/electric/25.370/25.370.pdf) · `page_reviewed` · [local note](../research/sources/P260.md)
+- [P271 — PJM — PJM at a Glance fact sheet](https://www.pjm.com/-/media/DotCom/about-pjm/newsroom/fact-sheets/pjm-at-a-glance.pdf) · `page_reviewed` · [local note](../research/sources/P271.md)
+- [P273 — OpenStax — College Physics 2e, 20.3 Resistance and Resistivity](https://openstax.org/books/college-physics-2e/pages/20-3-resistance-and-resistivity) · `page_reviewed` · [local note](../research/sources/P273.md)
 
 <a id="d04"></a>
 
@@ -558,7 +574,7 @@ Reconcile IT and auxiliary loads with a downstream electrical capacity budget ac
 - [P22 — Huber et al. — Comparative Evaluation of MVAC–LVDC SST and Hybrid Transformer Concepts for Future Datacenters (IPEC 2022)](https://www.ams-publications.ee.ethz.ch/uploads/tx_ethpublications/1_IPEC_2022_Final_Huber.pdf) · `page_reviewed` · [local note](../research/sources/P22.md)
 - [P23 — Wolfspeed — Introduction of a commercially available 10 kV SiC power MOSFET](https://www.wolfspeed.com/company/news-events/news/wolfspeed-introduces-industrys-first-commercially-available-10000v-silicon-carbide-power-mosfet/) · `page_reviewed` · [local note](../research/sources/P23.md)
 - [P24 — Schneider Electric — What is UPS efficiency and how is it calculated?](https://www.se.com/us/en/faqs/FAQ000244215/) · `page_reviewed` · [local note](../research/sources/P24.md)
-- [P25 — Texas Instruments — Power Loss in Switching Power Supplies](https://www.ti.com/document-viewer/lit/html/SLUAAL9) · `page_reviewed` · [local note](../research/sources/P25.md)
+- [P25 — Texas Instruments — How GaN Enables More Efficient and Reduced Form Factor Power Supplies (application brief SLUAAL9)](https://www.ti.com/document-viewer/lit/html/SLUAAL9) · `page_reviewed` · [local note](../research/sources/P25.md)
 - [P29 — Eaton — Automatic transfer switch fundamentals](https://www.eaton.com/us/en-us/products/low-voltage-power-distribution-control-systems/automatic-transfer-switches/automatic-transfer-switch-fundamentals.html) · `page_reviewed` · [local note](../research/sources/P29.md)
 - [P30 — Schneider Electric — Presence of an Uninterruptible Power Supply (UPS)](https://www.electrical-installation.org/enwiki/Presence_of_an_Uninterruptible_Power_Supply_%28UPS%29) · `page_reviewed` · [local note](../research/sources/P30.md)
 - [P33 — Texas Instruments — Basic Calculation of a Buck Converter’s Power Stage](https://www.ti.com/lit/an/slva477b/slva477b.pdf) · `page_reviewed` · [local note](../research/sources/P33.md)
@@ -568,10 +584,7 @@ Reconcile IT and auxiliary loads with a downstream electrical capacity budget ac
 - [P45 — Eaton — Medium-voltage solid-state transformer](https://www.eaton.com/us/en-us/catalog/medium-voltage-power-distribution-control-systems/medium-voltage-solid-state-transformer.html) · `page_reviewed` · [local note](../research/sources/P45.md)
 - [P54 — OCP — Data Center Facility: Low Voltage Direct Current Power Distribution, v1.0](https://www.opencompute.org/documents/dcf-power-distribution-lvdc-white-paper-version-1-0-final-pdf-1) · `public_excerpt_reviewed` · [local note](../research/sources/P54.md)
 - [P66 — EIA — Delivery of electricity to consumers](https://www.eia.gov/energyexplained/electricity/delivery-to-consumers.php) · `public_excerpt_reviewed` · [local note](../research/sources/P66.md)
-- [P67 — OpenStax · Resistance and simple circuits](https://openstax.org/books/college-physics-2e/pages/20-2-ohms-law-resistance-and-simple-circuits) · `page_reviewed` · [local note](../research/sources/P67.md)
 - [P68 — Schneider · Definition of power factor](https://www.electrical-installation.org/enwiki/Definition_of_Power_Factor) · `page_reviewed` · [local note](../research/sources/P68.md)
-- [P69 — Eaton · UPS fundamentals handbook](https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-ups-fundamentals-handbook-anz.pdf) · `page_reviewed` · [local note](../research/sources/P69.md)
-- [P78 — MLGW — xAI project quick facts](https://www.mlgw.com/images/content/files/pdf/2024xAI%20and%20MLGW%20Quick%20Facts%201.pdf) · `page_reviewed` · [local note](../research/sources/P78.md)
 - [SA42 — SpaceX 10GW in 2027 — construction pace and equipment procurement](https://newsletter.semianalysis.com/p/spacex-10gw-in-2027-why-its-real) · `public_excerpt_reviewed` · [local note](../research/sources/SA42.md)
 - [P102 — Oracle Data Centers: Abilene, Texas](https://www.oracle.com/data-centers/) · `page_reviewed` · [local note](../research/sources/P102.md)
 - [P110 — Abilene Data Center Development](https://www.mortenson.com/projects/abilene-data-center-development) · `page_reviewed` · [local note](../research/sources/P110.md)
@@ -587,8 +600,8 @@ Reconcile IT and auxiliary loads with a downstream electrical capacity budget ac
 - [P160 — Schneider Electric — Elementary switching devices](https://www.electrical-installation.org/enwiki/Elementary_switching_devices) · `page_reviewed` · [local note](../research/sources/P160.md)
 - [P161 — Siemens — Vacuum Switching Technology and Components](https://support.industry.siemens.com/cs/attachments/109745538/HG11.01_EN_20190603.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P161.md)
 - [P162 — Siemens — SIPROTEC 7SD610 circuit breaker failure protection](https://support.industry.siemens.com/cs/attachments/109743409/7SD610_Manual_A8_V044100_en.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P162.md)
-- [P163 — Equinix — Customer Installation Guidelines, phase balancing](https://docs.equinix.com/assets/files/Customer-Installation-Guidelines-EN-5d94e7d67671467cab7d7c9877ef5229.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P163.md)
-- [P164 — Schneider Electric — Transformer secondary voltage notation](https://acespex.se.com/rpt/prodhelp.php?doc=pms_0044&grp=spex_pms&host=CTW&ndx=21283) · `page_reviewed` · [local note](../research/sources/P164.md)
+- [P163 — Equinix — Customer Installation Guidelines, phase balancing](https://web.archive.org/web/20250708155531/https://docs.equinix.com/assets/files/Customer-Installation-Guidelines-EN-5d94e7d67671467cab7d7c9877ef5229.pdf) · `page_reviewed` · [local note](../research/sources/P163.md)
+- [P164 — PDHonline — Standard AC System Voltages (600 V and Less), course E427](https://www.pdhonline.com/courses/e427/e427content.pdf) · `page_reviewed` · [local note](../research/sources/P164.md)
 - [P180 — Siemens — NXAirS medium-voltage switchgear HA 1702 sectional illustration](https://cache.industry.siemens.com/dl/files/485/109972485/att_1290488/v1/1702_NXAirS_12kV_Catalogue_EN_final.pdf) · `page_reviewed` · [local note](../research/sources/P180.md)
 - [P181 — Schneider Electric — Galaxy PDU 1000 kVA distribution voltages](https://blog.se.com/datacenter/2026/05/18/solving-densification-power-distribution-metering-high-performance-computing/) · `page_reviewed` · [local note](../research/sources/P181.md)
 - [P194 — Longhorn power plant review drawing — Lancium 34.5 kV feed](https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/37589-tc.pdf) · `page_reviewed` · [local note](../research/sources/P194.md)
@@ -691,7 +704,7 @@ Explain why fault clearing and grounding require topology-specific AC/DC protect
 - [E0410763323 — DOE — Solar Integration: Distributed Energy Resources and Microgrids Basics](https://www.energy.gov/cmei/systems/solar-integration-distributed-energy-resources-and-microgrids-basics) · `page_reviewed` · [local note](../research/sources/E0410763323.md)
 - [SA41 — What is So Hard About Behind-The-Meter Power For Datacenters? Part 1](https://newsletter.semianalysis.com/p/what-is-so-hard-about-behind-the) · `public_excerpt_reviewed` · [local note](../research/sources/SA41.md)
 - [P24 — Schneider Electric — What is UPS efficiency and how is it calculated?](https://www.se.com/us/en/faqs/FAQ000244215/) · `page_reviewed` · [local note](../research/sources/P24.md)
-- [P25 — Texas Instruments — Power Loss in Switching Power Supplies](https://www.ti.com/document-viewer/lit/html/SLUAAL9) · `page_reviewed` · [local note](../research/sources/P25.md)
+- [P25 — Texas Instruments — How GaN Enables More Efficient and Reduced Form Factor Power Supplies (application brief SLUAAL9)](https://www.ti.com/document-viewer/lit/html/SLUAAL9) · `page_reviewed` · [local note](../research/sources/P25.md)
 - [P26 — Schneider Electric — Easy UPS 3-Phase Modular physical specifications](https://productinfo.se.com/easyups3pmodular/990-91580-technical-specifications-easy-ups-3-phase-modular/English/990-91580%20Technical%20Specifications%20Easy%20UPS%203-Phase%20Modular50-250%20kW%20UPS_0001011916.xml/%24/PhysicalREF_0000019941) · `page_reviewed` · [local note](../research/sources/P26.md)
 - [P27 — Schneider Electric — Easy UPS 3-Phase Modular hardware options](https://productinfo.se.com/easyups3pmodular/990-91580-technical-specifications-easy-ups-3-phase-modular/English/990-91580%20Technical%20Specifications%20Easy%20UPS%203-Phase%20Modular50-250%20kW%20UPS_0001011916.xml/%24/GalaxyPX_HardwareOptions_0000862721) · `page_reviewed` · [local note](../research/sources/P27.md)
 - [P28 — OCP — Open Rack V3 48V BBU Module Specification revision 1.4](https://www.opencompute.org/documents/open-rack-v3-bbu-module-spec-1-4-pdf) · `page_reviewed` · [local note](../research/sources/P28.md)
@@ -701,7 +714,6 @@ Explain why fault clearing and grounding require topology-specific AC/DC protect
 - [P32 — Eaton — Choosing the optimal UPS topology](https://www.eaton.com/us/en-us/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/choosing-the-optimal-ups-topology-.html) · `page_reviewed` · [local note](../research/sources/P32.md)
 - [P33 — Texas Instruments — Basic Calculation of a Buck Converter’s Power Stage](https://www.ti.com/lit/an/slva477b/slva477b.pdf) · `page_reviewed` · [local note](../research/sources/P33.md)
 - [P41 — Texas Instruments — TIDA-00349 isolated DC/DC converter](https://www.ti.com/tool/TIDA-00349) · `page_reviewed` · [local note](../research/sources/P41.md)
-- [P69 — Eaton · UPS fundamentals handbook](https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-ups-fundamentals-handbook-anz.pdf) · `page_reviewed` · [local note](../research/sources/P69.md)
 - [P74 — Crusoe — Abilene cooling design](https://www.crusoe.ai/resources/blog/an-inside-look-at-the-abilene-ai-data-center) · `page_reviewed` · [local note](../research/sources/P74.md)
 - [P75 — Crusoe and Redwood — Sparks microgrid update](https://www.crusoe.ai/resources/newsroom/crusoe-and-redwood-materials-expand-strategic-partnership-scaling-to-7x-the-original-ai-infrastructure-density) · `page_reviewed` · [local note](../research/sources/P75.md)
 - [P76 — Crusoe — 2025 impact report web summary](https://www.crusoe.ai/resources/blog/crusoes-2025-impact-report) · `page_reviewed` · [local note](../research/sources/P76.md)
@@ -726,6 +738,8 @@ Explain why fault clearing and grounding require topology-specific AC/DC protect
 - [P171 — OpenStax — Energy Stored in Capacitors](https://openstax.org/books/college-physics-2e/pages/19-7-energy-stored-in-capacitors) · `page_reviewed` · [local note](../research/sources/P171.md)
 - [P198 — Luca Pedretti — From Electrons to Intelligence: How Crusoe Powers AI with Modular, 24/7 Energy](https://lucapedretti850786.substack.com/p/c0b) · `page_reviewed` · [local note](../research/sources/P198.md)
 - [P199 — Pexapark — Podcast catalogue, Episode 19 with Forrest Carroll of Crusoe](https://pexapark.com/podcast/) · `page_reviewed` · [local note](../research/sources/P199.md)
+- [P272 — ABB — Technical Application Papers No. 2: MV/LV transformer substations, theory and examples of short-circuit calculation (February 2008)](https://library.e.abb.com/public/2c522f583c884a4fbdf3968e1fdf1481/1SDC007101G0202.pdf) · `page_reviewed` · [local note](../research/sources/P272.md)
+- [P274 — Schneider Electric — Easy UPS 3-Phase Modular specifications](https://productinfo.se.com/easyups3pmodular/viewer?docidentity=REF_Specifications-B929255A&lang=en&extension=xml&manualidentity=TechnicalSpecificationsEasyUPS3-Pha-BC29F805) · `page_reviewed` · [local note](../research/sources/P274.md)
 
 <a id="d06"></a>
 
@@ -813,7 +827,7 @@ Explain how retrofit constraints can reverse a seemingly attractive greenfield a
 - [P16 — Why Scaling AI Compute Performance Requires a New Power Architecture](https://blogs.nvidia.com/blog/800-vdc-power-architecture-ai-factory/) · `page_reviewed` · [local note](../research/sources/P16.md)
 - [P17 — NVIDIA NVL72 AI Factory — System Hardware & Components](https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/components.html) · `page_reviewed` · [local note](../research/sources/P17.md)
 - [E1423005C7C — ABB — Protection Devices for Direct Current Applications](https://library.e.abb.com/public/5cd83dcb95a74dcdb571be5f256e1af8/9AKK108470A9606_en_B_Protection%20Devices%20for%20Direct%20Current%20Applications%20-%20Technical%20Application%20Paper.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/E1423005C7C.md)
-- [E960EB5ED2E — Eaton — Rack Basics: Selection, Installation and Cooling](https://tripplite.eaton.com/support/rack-cabinet-basics-selection-installation-cooling) · `public_excerpt_reviewed` · [local note](../research/sources/E960EB5ED2E.md)
+- [E960EB5ED2E — Eaton — Rack Basics: Selection, Installation and Cooling](https://web.archive.org/web/20260921080636/https://tripplite.eaton.com/support/rack-cabinet-basics-selection-installation-cooling) · `page_reviewed` · [local note](../research/sources/E960EB5ED2E.md)
 - [E8D4F19907B — Open Compute Project — Open Rack V3 Base Specification, revision 1.0](https://www.opencompute.org/documents/open-rack-base-specification-version-3-pdf) · `page_reviewed` · [local note](../research/sources/E8D4F19907B.md)
 - [EFB703CFC3D — Schneider Electric — PM2200 total power calculation for accuracy verification](https://productinfo.se.com/pm2200/5afc2b5546e0fb00011e5e9d/PM2200%20series%20User%20Manual/English/BM_PM2200seriesUserManual_0000074170.ditamap.xml/%24/C_VerifyingAccuracy_PowerTotCalcuation_0000034437) · `page_reviewed` · [local note](../research/sources/EFB703CFC3D.md)
 - [EA7B686AF9E — NVIDIA, Partners Drive Next-Gen Efficient Gigawatt AI Factories in Buildup for Vera Rubin](https://blogs.nvidia.com/blog/gigawatt-ai-factories-ocp-vera-rubin/) · `page_reviewed` · [local note](../research/sources/EA7B686AF9E.md)
@@ -826,7 +840,7 @@ Explain how retrofit constraints can reverse a seemingly attractive greenfield a
 - [P22 — Huber et al. — Comparative Evaluation of MVAC–LVDC SST and Hybrid Transformer Concepts for Future Datacenters (IPEC 2022)](https://www.ams-publications.ee.ethz.ch/uploads/tx_ethpublications/1_IPEC_2022_Final_Huber.pdf) · `page_reviewed` · [local note](../research/sources/P22.md)
 - [P23 — Wolfspeed — Introduction of a commercially available 10 kV SiC power MOSFET](https://www.wolfspeed.com/company/news-events/news/wolfspeed-introduces-industrys-first-commercially-available-10000v-silicon-carbide-power-mosfet/) · `page_reviewed` · [local note](../research/sources/P23.md)
 - [P24 — Schneider Electric — What is UPS efficiency and how is it calculated?](https://www.se.com/us/en/faqs/FAQ000244215/) · `page_reviewed` · [local note](../research/sources/P24.md)
-- [P25 — Texas Instruments — Power Loss in Switching Power Supplies](https://www.ti.com/document-viewer/lit/html/SLUAAL9) · `page_reviewed` · [local note](../research/sources/P25.md)
+- [P25 — Texas Instruments — How GaN Enables More Efficient and Reduced Form Factor Power Supplies (application brief SLUAAL9)](https://www.ti.com/document-viewer/lit/html/SLUAAL9) · `page_reviewed` · [local note](../research/sources/P25.md)
 - [P28 — OCP — Open Rack V3 48V BBU Module Specification revision 1.4](https://www.opencompute.org/documents/open-rack-v3-bbu-module-spec-1-4-pdf) · `page_reviewed` · [local note](../research/sources/P28.md)
 - [P31 — Eaton — DC-link capacitor modules](https://www.eaton.com/gb/en-gb/products/electronic-components/topics/dc-link-modules.html) · `page_reviewed` · [local note](../research/sources/P31.md)
 - [P33 — Texas Instruments — Basic Calculation of a Buck Converter’s Power Stage](https://www.ti.com/lit/an/slva477b/slva477b.pdf) · `page_reviewed` · [local note](../research/sources/P33.md)
@@ -835,8 +849,6 @@ Explain how retrofit constraints can reverse a seemingly attractive greenfield a
 - [P45 — Eaton — Medium-voltage solid-state transformer](https://www.eaton.com/us/en-us/catalog/medium-voltage-power-distribution-control-systems/medium-voltage-solid-state-transformer.html) · `page_reviewed` · [local note](../research/sources/P45.md)
 - [P54 — OCP — Data Center Facility: Low Voltage Direct Current Power Distribution, v1.0](https://www.opencompute.org/documents/dcf-power-distribution-lvdc-white-paper-version-1-0-final-pdf-1) · `public_excerpt_reviewed` · [local note](../research/sources/P54.md)
 - [P64 — NVIDIA DGX GB Rack Scale Systems — Hardware](https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html#power-shelves) · `page_reviewed` · [local note](../research/sources/P64.md)
-- [P67 — OpenStax · Resistance and simple circuits](https://openstax.org/books/college-physics-2e/pages/20-2-ohms-law-resistance-and-simple-circuits) · `page_reviewed` · [local note](../research/sources/P67.md)
-- [P69 — Eaton · UPS fundamentals handbook](https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-ups-fundamentals-handbook-anz.pdf) · `page_reviewed` · [local note](../research/sources/P69.md)
 - [P86 — Advanced Energy — ORv3 Power Supply Unit](https://www.advancedenergy.com/en-us/products/ac-dc-power-supply-units/power-shelves/ocp-compliant/orv3-psu/) · `page_reviewed` · [local note](../research/sources/P86.md)
 - [P88 — Analog Devices — Smart Battery Backup for Uninterrupted Energy, Part 4: BBU Shelf Operation](https://www.analog.com/en/resources/analog-dialogue/articles/smart-battery-backup-for-uninterrupted-energy-part4.html) · `page_reviewed` · [local note](../research/sources/P88.md)
 - [P89 — Texas Instruments — TIDA-050095 48V–12V 2kW four-phase bus converter](https://www.ti.com/tool/TIDA-050095) · `page_reviewed` · [local note](../research/sources/P89.md)
@@ -850,6 +862,7 @@ Explain how retrofit constraints can reverse a seemingly attractive greenfield a
 - [P202 — Infineon — 200 W dual output 48V-to-PoL single step converter](https://www.infineon.com/assets/row/public/documents/24/42/infineon-dc-dc-converters-200w-dual-output-48v-pol-single-step-converter-xdpp1100-digital-controller-applicationnotes-en.pdf) · `page_reviewed` · [local note](../research/sources/P202.md)
 - [P203 — TI — Benefits of a multiphase buck converter](https://www.ti.com/lit/an/slyt449/slyt449.pdf) · `page_reviewed` · [local note](../research/sources/P203.md)
 - [P226 — Intel — Fully Integrated Voltage Regulator (FIVR)](https://edc.intel.com/content/www/us/en/design/ipla/software-development-platforms/servers/platforms/intel-pentium-silver-and-intel-celeron-processors-datasheet-volume-1-of-2/fully-integrated-voltage-regulator-fivr/) · `page_reviewed` · [local note](../research/sources/P226.md)
+- [P261 — Meta / OCP — Clemente compute tray specification](https://www.opencompute.org/documents/clemente-compute-tray-ocp-specification-final-pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P261.md)
 
 <a id="d07"></a>
 
@@ -944,8 +957,6 @@ Connect server and rack organization to power, cooling, weight and maintenance i
 - [E134D3535CB — Matrix Multiplication Background User’s Guide](https://docs.nvidia.com/deeplearning/performance/dl-performance-matrix-multiplication/index.html) · `page_reviewed` · [local note](../research/sources/E134D3535CB.md)
 - [E4ABDC02D45 — NVIDIA DGX SuperPOD — Network Fabrics](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/network-fabrics.html) · `page_reviewed` · [local note](../research/sources/E4ABDC02D45.md)
 - [P64 — NVIDIA DGX GB Rack Scale Systems — Hardware](https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html#power-shelves) · `page_reviewed` · [local note](../research/sources/P64.md)
-- [P70 — Intel · CPU versus GPU](https://www.intel.com/content/www/us/en/products/docs/processors/cpu-vs-gpu.html) · `page_reviewed` · [local note](../research/sources/P70.md)
-- [P71 — Intel · Memory performance in a nutshell](https://www.intel.com/content/www/us/en/developer/articles/technical/memory-performance-in-a-nutshell.html) · `page_reviewed` · [local note](../research/sources/P71.md)
 - [P95 — Meta — Llama model SKU architecture definitions](https://github.com/meta-llama/llama-models/blob/main/models/sku_list.py) · `page_reviewed` · [local note](../research/sources/P95.md)
 - [P96 — vLLM — Inside vLLM: Anatomy of a High-Throughput LLM Inference System](https://vllm.ai/blog/2025-09-05-anatomy-of-vllm) · `page_reviewed` · [local note](../research/sources/P96.md)
 - [P98 — ZeRO: Memory Optimizations Toward Training Trillion Parameter Models](https://arxiv.org/html/1910.02054) · `page_reviewed` · [local note](../research/sources/P98.md)
@@ -1063,14 +1074,13 @@ Trace a network failure or degraded link into workload, cabling and operational 
 - [P62 — Corning — Meet-Me-Room to Outside Plant Data Center Solutions](https://www.corning.com/data-center/worldwide/en/home/applications/multi-tenant-data-center/meet-me-room.html) · `page_reviewed` · [local note](../research/sources/P62.md)
 - [EA3CEEB6630 — Equinix — Customer-Managed Pre-Cabling and Demarcations](https://docs.equinix.com/cross-connect/installation/xc-customer-managed-precabling/) · `page_reviewed` · [local note](../research/sources/EA3CEEB6630.md)
 - [E0F361052D1 — FCC 25-21 — Physical Diversity, paragraph 63](https://docs.fcc.gov/public/attachments/FCC-25-21A1.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/E0F361052D1.md)
-- [P71 — Intel · Memory performance in a nutshell](https://www.intel.com/content/www/us/en/developer/articles/technical/memory-performance-in-a-nutshell.html) · `page_reviewed` · [local note](../research/sources/P71.md)
 - [P91 — Google’s Cloud TPU v4 provides exaFLOPS-scale ML with industry-leading efficiency](https://cloud.google.com/blog/topics/systems/tpu-v4-enables-performance-energy-and-co2e-efficiency-gains) · `page_reviewed` · [local note](../research/sources/P91.md)
 - [P92 — Resiliency at Scale: Managing Google’s TPUv4 Machine Learning Supercomputer](https://www.usenix.org/system/files/nsdi24-zu.pdf) · `page_reviewed` · [local note](../research/sources/P92.md)
 - [P93 — Cloud TPU Multislice Overview](https://docs.cloud.google.com/tpu/docs/multislice-introduction) · `page_reviewed` · [local note](../research/sources/P93.md)
 - [P99 — Gemini: A Family of Highly Capable Multimodal Models](https://deepmind.google/gemini/gemini_1_report.pdf) · `page_reviewed` · [local note](../research/sources/P99.md)
 - [P96 — vLLM — Inside vLLM: Anatomy of a High-Throughput LLM Inference System](https://vllm.ai/blog/2025-09-05-anatomy-of-vllm) · `page_reviewed` · [local note](../research/sources/P96.md)
 - [P120 — Microsoft — Fairwater Atlanta availability and power design](https://blogs.microsoft.com/blog/2025/11/12/infinite-scale-the-architecture-behind-the-azure-ai-superfactory/) · `page_reviewed` · [local note](../research/sources/P120.md)
-- [P177 — QTS — Suwanee DC1 connectivity facility sheet](https://qtsdatacenters.com/wp-content/uploads/2024/11/QTS_Facility-Data-Sheet_SUW1DC1.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P177.md)
+- [P177 — QTS — Suwanee DC1 connectivity facility sheet](https://web.archive.org/web/20250118045838/https://qtsdatacenters.com/wp-content/uploads/2024/11/QTS_Facility-Data-Sheet_SUW1DC1.pdf) · `page_reviewed` · [local note](../research/sources/P177.md)
 - [P182 — NVIDIA ConnectX-7 adapter card specifications](https://networking-docs.nvidia.com/connectx7hw/specifications) · `page_reviewed` · [local note](../research/sources/P182.md)
 - [P183 — NVIDIA QM97xx hardware introduction](https://networking-docs.nvidia.com/qm97x0hw/introduction) · `page_reviewed` · [local note](../research/sources/P183.md)
 - [P184 — NVIDIA LinkX 100G-PAM4 product line overview](https://docs.nvidia.com/networking/display/400g100gpam4ovdev/LinkX-100G-PAM4-Product-Line-Overview) · `page_reviewed` · [local note](../research/sources/P184.md)
@@ -1084,7 +1094,7 @@ Trace a network failure or degraded link into workload, cabling and operational 
 
 <a id="d09"></a>
 
-### Storage and recovery
+### Storage and recovery — further reading
 
 **Central question:** Can data and jobs reach the hardware, and can useful progress survive failures?
 
@@ -1176,7 +1186,6 @@ Specify a service acceptance exercise that tests end-to-end data access, job lau
 - [EE0FC346C72 — Control Group in Slurm](https://slurm.schedmd.com/cgroups.html) · `page_reviewed` · [local note](../research/sources/EE0FC346C72.md)
 - [E0CDE775C43 — NVIDIA DGX SuperPOD — Software](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/dgx-software.html) · `page_reviewed` · [local note](../research/sources/E0CDE775C43.md)
 - [P63 — Google Cloud — Best practices for batch inference on GKE](https://docs.cloud.google.com/kubernetes-engine/docs/best-practices/machine-learning/inference/batch-inference) · `page_reviewed` · [local note](../research/sources/P63.md)
-- [P71 — Intel · Memory performance in a nutshell](https://www.intel.com/content/www/us/en/developer/articles/technical/memory-performance-in-a-nutshell.html) · `page_reviewed` · [local note](../research/sources/P71.md)
 - [P77 — Google — Supporting power grids with demand response](https://cloud.google.com/blog/products/infrastructure/using-demand-response-to-reduce-data-center-power-consumption) · `page_reviewed` · [local note](../research/sources/P77.md)
 - [P127 — QTS — Suwanee campus fiber diversity](https://q.com/resources/meeting-atlanta-data-demands-with-an-expansion-in-suwanee-georgia/) · `page_reviewed` · [local note](../research/sources/P127.md)
 - [P128 — Zayo Europe — Four diverse fiber routes for QTS Cambois](https://zayoeurope.com/newsroom/zayo-europe-to-provide-critical-connectivity-infrastructure-for-uks-largest-ai-cloud-data-centre/) · `page_reviewed` · [local note](../research/sources/P128.md)
@@ -1184,6 +1193,7 @@ Specify a service acceptance exercise that tests end-to-end data access, job lau
 - [P189 — The Llama 3 Herd of Models — infrastructure and operational reliability](https://arxiv.org/html/2407.21783v3) · `page_reviewed` · [local note](../research/sources/P189.md)
 - [P190 — Google Data Centers — Photo gallery](https://www.datacenters.google/discover-more/photo-gallery/) · `page_reviewed` · [local note](../research/sources/P190.md)
 - [P191 — Gmail back soon for everyone](https://gmail.googleblog.com/2011/02/gmail-back-soon-for-everyone.html) · `page_reviewed` · [local note](../research/sources/P191.md)
+- [P262 — Checkpointing à la Young/Daly: An Overview](https://icl.utk.edu/files/publications/2022/icl-utk-1569-2022.pdf) · `page_reviewed` · [local note](../research/sources/P262.md)
 
 <a id="d10"></a>
 
@@ -1282,7 +1292,6 @@ Compare air, cold-plate, rear-door and immersion approaches against a declared d
 - [P59 — Vertiv — How N+1 redundancy supports continuous data center cooling](https://www.vertiv.com/en-ca/about/news-and-events/articles/educational-articles/how-n1-redundancy-supports-continuous-data-center-cooling/) · `public_excerpt_reviewed` · [local note](../research/sources/P59.md)
 - [P60 — NVIDIA — DSX Facilities Infrastructure Reference Design Overview](https://docs.nvidia.com/dsx/facilities-infra/reference-design-overview) · `public_excerpt_reviewed` · [local note](../research/sources/P60.md)
 - [P64 — NVIDIA DGX GB Rack Scale Systems — Hardware](https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html#power-shelves) · `page_reviewed` · [local note](../research/sources/P64.md)
-- [P72 — OpenStax · Heat](https://openstax.org/books/college-physics-2e/pages/14-1-heat) · `page_reviewed` · [local note](../research/sources/P72.md)
 - [P74 — Crusoe — Abilene cooling design](https://www.crusoe.ai/resources/blog/an-inside-look-at-the-abilene-ai-data-center) · `page_reviewed` · [local note](../research/sources/P74.md)
 - [P94 — CoolIT Systems Launches Three High-Density Coolant Distribution Units](https://www.coolitsystems.com/resources/news/coolit-systems-launches-three-high-density-coolant-distribution-units/) · `page_reviewed` · [local note](../research/sources/P94.md)
 - [P111 — Lenovo NVIDIA GB300 NVL72 Rack Scale AI Product Guide](https://lenovopress.lenovo.com/lp2357-lenovo-nvidia-gb300-nvl72-rack-scale-ai) · `page_reviewed` · [local note](../research/sources/P111.md)
@@ -1291,6 +1300,10 @@ Compare air, cold-plate, rear-door and immersion approaches against a declared d
 - [P215 — 2CRSi — Two-phase immersion cooling](https://2crsi.com/two-phase-immersion-cooling) · `page_reviewed` · [local note](../research/sources/P215.md)
 - [P216 — Motivair — ChilledDoor rear-door heat exchanger](https://www.motivaircorp.com/products/chilleddoor/) · `page_reviewed` · [local note](../research/sources/P216.md)
 - [P218 — OCP — Universal Quick Disconnect specification, revision 1.0](https://www.opencompute.org/documents/ocp-universal-quick-disconnect-uqd-specification-rev-1-0-2-pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P218.md)
+- [P263 — U.S. DOE and Hydraulic Institute — Improving Pumping System Performance: A Sourcebook for Industry, 2nd ed., May 2006](https://www.energy.gov/sites/prod/files/2014/05/f16/pump.pdf) · `page_reviewed` · [local note](../research/sources/P263.md)
+- [P264 — Grundfos — How does one read a pump curve of a heating pump?](https://www.grundfos.com/solutions/support/faq/how-does-one-read-a-pump-curve-of-a-heating-pump) · `page_reviewed` · [local note](../research/sources/P264.md)
+- [P265 — Hydraulic Institute — Pump System Operating Point (combined pump and system curves)](https://datatool.pumps.org/pump-fundamentals/combined.html) · `page_reviewed` · [local note](../research/sources/P265.md)
+- [P266 — KSB — Characteristic curve (centrifugal pump lexicon)](https://www.ksb.com/en-global/centrifugal-pump-lexicon/article/characteristic-curve-1117926) · `page_reviewed` · [local note](../research/sources/P266.md)
 
 <a id="d11"></a>
 
@@ -1387,11 +1400,16 @@ Evaluate cooling architecture or heat reuse against climate, water, electrical c
 - [P58 — OCP — Modular Technology Cooling Systems, Revision 1](https://www.opencompute.org/documents/ocp-modular-tcs-rev-1-final-2025-pdf) · `page_reviewed` · [local note](../research/sources/P58.md)
 - [P59 — Vertiv — How N+1 redundancy supports continuous data center cooling](https://www.vertiv.com/en-ca/about/news-and-events/articles/educational-articles/how-n1-redundancy-supports-continuous-data-center-cooling/) · `public_excerpt_reviewed` · [local note](../research/sources/P59.md)
 - [P60 — NVIDIA — DSX Facilities Infrastructure Reference Design Overview](https://docs.nvidia.com/dsx/facilities-infra/reference-design-overview) · `public_excerpt_reviewed` · [local note](../research/sources/P60.md)
-- [P72 — OpenStax · Heat](https://openstax.org/books/college-physics-2e/pages/14-1-heat) · `page_reviewed` · [local note](../research/sources/P72.md)
 - [P74 — Crusoe — Abilene cooling design](https://www.crusoe.ai/resources/blog/an-inside-look-at-the-abilene-ai-data-center) · `page_reviewed` · [local note](../research/sources/P74.md)
 - [P125 — TDEC — Colossus water-reuse public hearing, SOP-24025](https://www.tn.gov/environment/calendar-of-events/2025/6/25/wr-public-hearing-sop-24025.html) · `page_reviewed` · [local note](../research/sources/P125.md)
 - [P126 — Federation of American Scientists — Tracking Hyperscale AI Data Center Growth with Satellite Imagery](https://fas.org/publication/tracking-hyperscale/) · `page_reviewed` · [local note](../research/sources/P126.md)
 - [P217 — DOE FEMP — Cooling Towers: Understanding Key Components](https://www.energy.gov/sites/default/files/2013/10/f3/waterfs_coolingtowers.pdf) · `page_reviewed` · [local note](../research/sources/P217.md)
+- [P242 — Enwave — Enwave and Toronto Water tap into innovative energy source](https://www.enwave.com/case-studies/enwave-and-toronto-water-tap-into-innovative-energy-source) · `page_reviewed` · [local note](../research/sources/P242.md)
+- [P243 — Hydro One — Power outages due to heavy rains, July 8, 2013](https://www.newswire.ca/news-releases/hydro-one-power-outages-due-to-heavy-rains-512697891.html) · `page_reviewed` · [local note](../research/sources/P243.md)
+- [P244 — Data Center Knowledge — Toronto Flooding KOs Data Center Cooling Systems, July 9, 2013](https://www.datacenterknowledge.com/outages/toronto-flooding-kos-data-center-cooling-systems) · `page_reviewed` · [local note](../research/sources/P244.md)
+- [P245 — Erik Levinson (Uberflip) — What to expect after a cooling failure, NANOG mailing list, July 9, 2013](https://seclists.org/nanog/2013/Jul/130) · `page_reviewed` · [local note](../research/sources/P245.md)
+- [P246 — NIST Chemistry WebBook — Saturation properties for water](https://webbook.nist.gov/cgi/fluid.cgi?Action=Load&ID=C7732185&Type=SatP&Digits=5&THigh=35&TLow=20&TInc=5&RefState=DEF&TUnit=C&PUnit=MPa&DUnit=kg%2Fm3&HUnit=kJ%2Fkg&WUnit=m%2Fs&VisUnit=uPa*s&STUnit=N%2Fm) · `page_reviewed` · [local note](../research/sources/P246.md)
+- [P247 — The Green Grid — White Paper #35: Water Usage Effectiveness (WUE): A Green Grid Data Center Sustainability Metric](https://www.thegreengrid.org/system/files/store/WUE_v1.pdf) · `page_reviewed` · [local note](../research/sources/P247.md)
 
 <a id="d12"></a>
 
@@ -1488,7 +1506,6 @@ Trace physical and control-system access boundaries and explain why availability
 - [P73 — Crusoe — Abilene campus development update](https://www.crusoe.ai/resources/newsroom/crusoe-announces-new-900-mw-ai-factory-campus-in-abilene-texas-to-support-microsoft-ai-infrastructure) · `page_reviewed` · [local note](../research/sources/P73.md)
 - [P74 — Crusoe — Abilene cooling design](https://www.crusoe.ai/resources/blog/an-inside-look-at-the-abilene-ai-data-center) · `page_reviewed` · [local note](../research/sources/P74.md)
 - [P76 — Crusoe — 2025 impact report web summary](https://www.crusoe.ai/resources/blog/crusoes-2025-impact-report) · `page_reviewed` · [local note](../research/sources/P76.md)
-- [P78 — MLGW — xAI project quick facts](https://www.mlgw.com/images/content/files/pdf/2024xAI%20and%20MLGW%20Quick%20Facts%201.pdf) · `page_reviewed` · [local note](../research/sources/P78.md)
 - [SA42 — SpaceX 10GW in 2027 — construction pace and equipment procurement](https://newsletter.semianalysis.com/p/spacex-10gw-in-2027-why-its-real) · `public_excerpt_reviewed` · [local note](../research/sources/SA42.md)
 - [P100 — Applied Digital Achieves Ready for Service for Phase 1 at Polaris Forge 1](https://ir.applieddigital.com/news-events/press-releases/detail/133/applied-digital-achieves-ready-for-service-for-phase-1-at) · `page_reviewed` · [local note](../research/sources/P100.md)
 - [P101 — Applied Digital Completes Phase II Ready for Service at Polaris Forge 1](https://ir.applieddigital.com/news-events/press-releases/detail/137/applied-digital-completes-phase-ii-ready-for-service-at) · `page_reviewed` · [local note](../research/sources/P101.md)
@@ -1515,7 +1532,7 @@ Trace physical and control-system access boundaries and explain why availability
 - [P165 — ADA Infrastructure — Docklands campus planning announcement](https://adainfrastructure.com/en-US/insights/news/ada-infrastructure-approved-to-develop-210-mw-data-center-campus-in-east-londons-royal-docks) · `page_reviewed` · [local note](../research/sources/P165.md)
 - [P166 — National Weather Service Houston/Galveston — Hurricane Harvey](https://www.weather.gov/hgx/hurricaneharvey) · `page_reviewed` · [local note](../research/sources/P166.md)
 - [P167 — OSHA — 29 CFR 1910.36(b), number and separation of exit routes](https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.36) · `public_excerpt_reviewed` · [local note](../research/sources/P167.md)
-- [P177 — QTS — Suwanee DC1 connectivity facility sheet](https://qtsdatacenters.com/wp-content/uploads/2024/11/QTS_Facility-Data-Sheet_SUW1DC1.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P177.md)
+- [P177 — QTS — Suwanee DC1 connectivity facility sheet](https://web.archive.org/web/20250118045838/https://qtsdatacenters.com/wp-content/uploads/2024/11/QTS_Facility-Data-Sheet_SUW1DC1.pdf) · `page_reviewed` · [local note](../research/sources/P177.md)
 - [P178 — US Census TIGERweb — Tennessee state boundary and Tulane Road geocode](https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/0) · `page_reviewed` · [local note](../research/sources/P178.md)
 - [P200 — Meta’s Infrastructure Evolution and the Advent of AI](https://engineering.fb.com/2025/09/29/data-infrastructure/metas-infrastructure-evolution-and-the-advent-of-ai/) · `page_reviewed` · [local note](../research/sources/P200.md)
 - [P201 — Cupertino Electric — Modular data centers](https://www.cei.com/core-markets/modular) · `page_reviewed` · [local note](../research/sources/P201.md)
@@ -1627,6 +1644,7 @@ Specify an integrated acceptance and handover plan for a phased deployment.
 - [P81 — Tier Certification for Modular and Phased Construction](https://journal.uptimeinstitute.com/modular-and-phased-construction/) · `public_excerpt_reviewed` · [local note](../research/sources/P81.md)
 - [P100 — Applied Digital Achieves Ready for Service for Phase 1 at Polaris Forge 1](https://ir.applieddigital.com/news-events/press-releases/detail/133/applied-digital-achieves-ready-for-service-for-phase-1-at) · `page_reviewed` · [local note](../research/sources/P100.md)
 - [P101 — Applied Digital Completes Phase II Ready for Service at Polaris Forge 1](https://ir.applieddigital.com/news-events/press-releases/detail/137/applied-digital-completes-phase-ii-ready-for-service-at) · `page_reviewed` · [local note](../research/sources/P101.md)
+- [P105 — Crusoe 2025 Impact Report](https://media.ffycdn.net/us/crusoe/PL5TuZz5apXB9pVsd3H1.pdf) · `page_reviewed` · [local note](../research/sources/P105.md)
 - [P113 — SpaceX — EU prospectus, compute services agreements with Anthropic](https://content.spacex.com/cms-assets/FINAL_Documents%20and%20Updates/SpaceX%20-%20EU%20Prospectus%20%28Approved%20by%20Bafin%29%20-%20June%205%2C%202026.pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P113.md)
 - [P114 — SpaceX — Google Cloud Service Agreement, free writing prospectus](https://www.sec.gov/Archives/edgar/data/1181412/000162828026041150/spacexagreementfwp.htm) · `page_reviewed` · [local note](../research/sources/P114.md)
 - [P115 — SpaceX — second-quarter 2026 Form 10-Q, AI segment results](https://www.sec.gov/Archives/edgar/data/1181412/000162828026052535/spcx-20260630.htm) · `public_excerpt_reviewed` · [local note](../research/sources/P115.md)
@@ -1636,6 +1654,7 @@ Specify an integrated acceptance and handover plan for a phased deployment.
 - [P200 — Meta’s Infrastructure Evolution and the Advent of AI](https://engineering.fb.com/2025/09/29/data-infrastructure/metas-infrastructure-evolution-and-the-advent-of-ai/) · `page_reviewed` · [local note](../research/sources/P200.md)
 - [P201 — Cupertino Electric — Modular data centers](https://www.cei.com/core-markets/modular) · `page_reviewed` · [local note](../research/sources/P201.md)
 - [P218 — OCP — Universal Quick Disconnect specification, revision 1.0](https://www.opencompute.org/documents/ocp-universal-quick-disconnect-uqd-specification-rev-1-0-2-pdf) · `public_excerpt_reviewed` · [local note](../research/sources/P218.md)
+- [P270 — Crusoe — Crusoe Opens Second Tulsa Manufacturing Facility](https://www.crusoe.ai/resources/newsroom/crusoe-opens-second-tulsa-factory-ai-infrastructure) · `page_reviewed` · [local note](../research/sources/P270.md)
 
 <a id="d14"></a>
 
@@ -1753,6 +1772,9 @@ Convert a failure or capacity incident into an evidence-based recovery and preve
 - [P206 — Cloudflare — Major data center power failure (again): Cloudflare Code Orange tested](https://blog.cloudflare.com/major-data-center-power-failure-again-cloudflare-code-orange-tested/) · `page_reviewed` · [local note](../research/sources/P206.md)
 - [P207 — Google Cloud — July 2022 europe-west2 cooling incident report](https://status.cloud.google.com/incidents/fmEL9i2fArADKawkZAa2) · `page_reviewed` · [local note](../research/sources/P207.md)
 - [P219 — Meta — Maintaining large-scale AI capacity](https://engineering.fb.com/2024/06/12/production-engineering/maintaining-large-scale-ai-capacity-meta/) · `public_excerpt_reviewed` · [local note](../research/sources/P219.md)
+- [P248 — Intel IT — Thermal storage system provides emergency data center cooling, September 2007](https://www.intel.com/content/dam/doc/white-paper/intel-it-thermal-storage-system-provides-emergency-data-center-cooling-paper.pdf) · `page_reviewed` · [local note](../research/sources/P248.md)
+- [P249 — Johnson Controls — Metasys Chilled-Water Plant for Guideline 36 Application Note: Stage-up part-load ratio (SPLRUP)](https://docs.johnsoncontrols.com/bas/r/Metasys/en-US/Chilled-Water-Plant-for-Guideline-36-Application-Note/1.0/Chiller-sequence-of-operations/Chiller-and-waterside-economizer-staging-determination-5.20.1-15/Stage-Up-Part-Load-Ratio-SPLRUP) · `page_reviewed` · [local note](../research/sources/P249.md)
+- [P255 — CoolIT Systems — Split-Flow Technology tech brief, revision R1](https://web.archive.org/web/20250419054125/https://www.coolitsystems.com/wp-content/uploads/2024/05/Split-Flow-Technology-CoolIT-Tech-Brief.pdf) · `page_reviewed` · [local note](../research/sources/P255.md)
 
 <a id="d15"></a>
 
@@ -1871,7 +1893,6 @@ Compare a named project’s planned and reported delivery milestones.
 - [SA40 — Google AI Infrastructure Supremacy: Systems Matter More Than Microarchitecture](https://newsletter.semianalysis.com/p/google-ai-infrastructure-supremacy) · `public_excerpt_reviewed` · [local note](../research/sources/SA40.md)
 - [P16 — Why Scaling AI Compute Performance Requires a New Power Architecture](https://blogs.nvidia.com/blog/800-vdc-power-architecture-ai-factory/) · `page_reviewed` · [local note](../research/sources/P16.md)
 - [E50E0F856B0 — GAO Schedule Assessment Guide](https://www.gao.gov/products/gao-16-89g) · `page_reviewed` · [local note](../research/sources/E50E0F856B0.md)
-- [EEFB073374C — NIST Handbook 135, 2025: Life Cycle Costing Manual](https://nvlpubs.nist.gov/nistpubs/hb/2025/NIST.HB.135e2025.pdf) · `page_reviewed` · [local note](../research/sources/EEFB073374C.md)
 - [E775A7D4E10 — OpenAI: Five new Stargate sites](https://openai.com/index/five-new-stargate-sites/) · `page_reviewed` · [local note](../research/sources/E775A7D4E10.md)
 - [SA41 — What is So Hard About Behind-The-Meter Power For Datacenters? Part 1](https://newsletter.semianalysis.com/p/what-is-so-hard-about-behind-the) · `public_excerpt_reviewed` · [local note](../research/sources/SA41.md)
 - [P61 — The Green Grid — PUE: A Comprehensive Examination of the Metric](https://datacenters.lbl.gov/sites/default/files/WP49-PUE%20A%20Comprehensive%20Examination%20of%20the%20Metric_v6.pdf) · `page_reviewed` · [local note](../research/sources/P61.md)
@@ -1889,6 +1910,16 @@ Compare a named project’s planned and reported delivery milestones.
 - [P223 — Create a CoreWeave SUNK cluster](https://docs.coreweave.com/products/sunk/deploy_sunk/create-sunk-cluster) · `public_excerpt_reviewed` · [local note](../research/sources/P223.md)
 - [P224 — EC2 Spot Instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html) · `public_excerpt_reviewed` · [local note](../research/sources/P224.md)
 - [P225 — SemiAnalysis GPU rental pricing index](https://gpu-index.semianalysis.com/) · `public_excerpt_reviewed` · [local note](../research/sources/P225.md)
+- [P250 — CoreWeave — Form 8-K, NVIDIA capacity order, September 2025](https://www.sec.gov/Archives/edgar/data/1769628/000176962825000047/crwv-20250909.htm) · `page_reviewed` · [local note](../research/sources/P250.md)
+- [P251 — NVIDIA — Form 10-Q for the quarter ended July 26, 2026](https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm) · `public_excerpt_reviewed` · [local note](../research/sources/P251.md)
+- [P252 — Core Scientific — Form 10-Q for the quarter ended June 30, 2026](https://www.sec.gov/Archives/edgar/data/1839341/000183934126000014/core-20260630.htm) · `public_excerpt_reviewed` · [local note](../research/sources/P252.md)
+- [P253 — CoreWeave — CoreWeave Announces Multi-Year Agreement With Anthropic, April 10, 2026](https://www.coreweave.com/news/coreweave-announces-multi-year-agreement-with-anthropic) · `page_reviewed` · [local note](../research/sources/P253.md)
+- [P254 — Fireworks AI — How Cursor built Fast Apply using the Speculative Decoding API](https://fireworks.ai/blog/cursor) · `page_reviewed` · [local note](../research/sources/P254.md)
+- [SA44 — Nvidia’s Backstop Universe – Heads I Win, Tails Who Loses?](https://newsletter.semianalysis.com/p/nvidias-backstop-universe-heads-i) · `public_excerpt_reviewed` · [local note](../research/sources/SA44.md)
+- [P256 — NVIDIA — NVIDIA Unlocks AI Compute at Scale, Inviting Partners to Power the AI Infrastructure Buildout](https://blogs.nvidia.com/blog/nvidia-unlocks-ai-compute-at-scale-capital-partners-to-power-ai-infrastructure-buildout/) · `page_reviewed` · [local note](../research/sources/P256.md)
+- [P267 — Crusoe — Crusoe, Blue Owl Capital and Primary Digital Infrastructure enter $3.4 billion joint venture](https://www.crusoe.ai/resources/newsroom/crusoe-blue-owl-capital-primary-digital-joint-venture) · `page_reviewed` · [local note](../research/sources/P267.md)
+- [P268 — Crusoe — Crusoe, Blue Owl Capital and Primary Digital Infrastructure enter second phase of $15 billion joint venture](https://www.crusoe.ai/resources/newsroom/crusoe-blue-owl-capital-and-primary-digital-infrastructure-enter-joint-venture) · `page_reviewed` · [local note](../research/sources/P268.md)
+- [P269 — Kirkland & Ellis — Kirkland advises Blue Owl funds on JV and financing for development of Abilene data center](https://www.kirkland.com/news/press-release/2025/01/kirkland-ellis-advises-bo-funds-on-jv-and-financing-for-development-of-adc) · `page_reviewed` · [local note](../research/sources/P269.md)
 
 ## Paths through the system
 
@@ -1906,7 +1937,7 @@ Thermal journey, including parallel air/liquid paths and auxiliary heat inputs.
 
 ### Workload → useful service
 
-[Workloads and the infrastructure brief](#d02) → [Compute and memory — further reading](#d07) → [Networking and interconnects](#d08) → [Storage and recovery](#d09) → [Controls, operations and reliability](#d14) → [GPU cloud economics](#d15)
+[Workloads and the infrastructure brief](#d02) → [Compute and memory — further reading](#d07) → [Networking and interconnects](#d08) → [Storage and recovery — further reading](#d09) → [Controls, operations and reliability](#d14) → [GPU cloud economics](#d15)
 
 Information and service dependencies, not a literal packet route.
 
@@ -1952,7 +1983,7 @@ Domains: [Campus and building power distribution](#d04), [Continuity, storage an
 
 The hardware has adequate power and cooling, but a synthetic workload suffers fabric congestion and checkpoint stalls.
 
-Domains: [Workloads and the infrastructure brief](#d02), [Compute and memory — further reading](#d07), [Networking and interconnects](#d08), [Storage and recovery](#d09), [Controls, operations and reliability](#d14), [GPU cloud economics](#d15)
+Domains: [Workloads and the infrastructure brief](#d02), [Compute and memory — further reading](#d07), [Networking and interconnects](#d08), [Storage and recovery — further reading](#d09), [Controls, operations and reliability](#d14), [GPU cloud economics](#d15)
 
 **Deliverable:** Work/wait/recovery timeline, a bounded bottleneck calculation, and an experiment that distinguishes competing causes.
 
@@ -1962,7 +1993,7 @@ Domains: [Workloads and the infrastructure brief](#d02), [Compute and memory —
 
 An illustrative project has utility service, some installed racks and uneven subsystem completion. A separate named-site exercise uses only dated public evidence.
 
-Domains: [Siting, grid connection and supply](#d03), [Campus and building power distribution](#d04), [Continuity, storage and protection](#d05), [Storage and recovery](#d09), [Heat rejection, climate and water](#d11), [Physical site, buildings and safety](#d12), [EPC](#d13), [Controls, operations and reliability](#d14), [GPU cloud economics](#d15)
+Domains: [Siting, grid connection and supply](#d03), [Campus and building power distribution](#d04), [Continuity, storage and protection](#d05), [Storage and recovery — further reading](#d09), [Heat rejection, climate and water](#d11), [Physical site, buildings and safety](#d12), [EPC](#d13), [Controls, operations and reliability](#d14), [GPU cloud economics](#d15)
 
 **Deliverable:** Capacity-state ledger, dependency schedule, integrated acceptance plan and unresolved-evidence list.
 

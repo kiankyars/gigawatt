@@ -1,8 +1,6 @@
 # The longest lead time is not the completion date
 
-Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/heat-delivery-operations.json), lesson `d13-delivery-dependencies`, then run `uv run gigawatt-expand`.
-
-**13. EPC · Authored draft**
+**13. EPC**
 
 Build a dependency graph, compare site-built and prefabricated delivery of the same 20 MW phase, and decide which work a late rack change actually delays.
 
@@ -14,7 +12,7 @@ A schedule needs a precise finish condition. Equipment delivered, building energ
 
 A dependency is a statement that one activity needs an output from another. Procurement may require approved interfaces, installation may require both a delivered assembly and an available room, and integrated testing may require controls, safe test conditions and completed subsystem checks. Some work runs in parallel. Adding every duration produces an unnecessarily late date; taking only the largest individual duration usually produces an implausibly early one.
 
-The GAO schedule guide explains why a reliable integrated schedule matters to cost and change assessment. Our exercise uses an original small dependency network to demonstrate the calculation. It excludes calendars, resource contention and probability distributions so that the dependency logic remains visible. Those exclusions matter later: a mathematically consistent plan with one specialist assigned to simultaneous tasks may still be impossible to execute.
+The schedule assessment guide from the US Government Accountability Office explains why a reliable integrated schedule matters to cost and change assessment. Our exercise uses an original small dependency network to demonstrate the calculation. It excludes calendars, resource contention and probability distributions so that the dependency logic remains visible. Those exclusions matter later: a mathematically consistent plan with one specialist assigned to simultaneous tasks may still be impossible to execute.
 
 ## Calculate forward, then find the constraint
 
@@ -28,23 +26,23 @@ The cooling path finishes seven weeks before it is needed by the final join. Adv
 
 An expedited electrical package that arrives four weeks earlier moves its installation finish to week nineteen and acceptance to week twenty-three. That four-week benefit assumes the installation team, room and test resources are also available earlier. If their calendars remain fixed, the purchased acceleration may become waiting time. A commercial promise to shorten one delivery therefore needs to be evaluated against the rest of the route to usable service.
 
-A change can also create a different critical path. If utility readiness slips to week thirty, even the original electrical installation at week twenty-three is no longer controlling the final join. Acceptance now ends at week thirty-four. Expediting the electrical package cannot recover those seven weeks of utility delay. The next useful action would address the actual predecessor or alter the scope of the accepted phase, with any changes reviewed explicitly.
+A change can also create a different critical path. If utility readiness slips to week thirty, even the original electrical installation at week twenty-three is no longer controlling the final join. The utility has slipped fourteen weeks, from week sixteen to week thirty. The first seven use up its float against the electrical finish at week twenty-three; the other seven move acceptance from week twenty-seven to week thirty-four. Expediting the electrical package recovers none of them. The next useful action would address the actual predecessor or alter the scope of the accepted phase, with any changes reviewed explicitly.
 
 Keep forecasts and evidence separate when updating the network. A reported shipment date is not installation complete; installation complete is not a passed test. Record the status date, remaining work and basis for durations. Compare the current forecast with the approved baseline to understand the change, while resisting the temptation to move dates merely to make a dashboard appear healthy. The purpose of scheduling is to expose consequences early enough to make a meaningful decision.
 
 ## Amazon’s Project Houdini moves assembly into factories
 
-SemiAnalysis’s July 29, 2026 report describes Project Houdini as AWS’s prefabricated data-hall skid program and identifies Cupertino Electric as a partner. This is a manufacturing strategy: assemble sections away from the site while site preparation proceeds. It is distinct from Meta’s use of weatherproof tents at Prometheus.
+SemiAnalysis’s July 29, 2026 report describes Project Houdini as the prefabricated data-hall skid program of Amazon Web Services and identifies Cupertino Electric as a partner. This is a manufacturing strategy: assemble sections away from the site while site preparation proceeds. It is distinct from Meta’s use of weatherproof tents at Prometheus.
 
-Cupertino Electric describes modular assembly and testing in its factory, followed by delivery, installation and field verification. Its photograph of the Edgerton, Wisconsin factory illustrates that production environment; it does not identify the photographed equipment as a Houdini unit. The scheduling benefit comes from overlapping factory work with site work, then joining the two at installation and integrated testing. Agreed interfaces make that overlap possible.
+Cupertino Electric describes modular assembly and testing in its Edgerton, Wisconsin factory, followed by delivery, installation and field verification. The scheduling benefit comes from overlapping factory work with site work, then joining the two at installation and integrated testing. Agreed interfaces make that overlap possible.
 
 The following 20 MW comparison uses original exercise durations to make those dependencies visible. Those durations are not reported Project Houdini delivery times.
 
-## EPC responsibility and manufacturing strategy answer different questions
+## Engineering, procurement and construction (EPC) and manufacturing strategy answer different questions
 
 Consider one illustrative 20 MW IT phase divided into ten 2 MW service zones. Initially each zone serves twenty 100 kW racks. Compare assembling its distribution and cooling services in the building with delivering factory-built service modules. Keep the IT duty, required operating conditions and acceptance endpoint fixed. This is an original comparison, not an Abilene construction account or a supplier delivery claim.
 
-EPC means engineering, procurement and construction: it describes the responsibilities assigned in a delivery scope. In this example, the owner contracts one EPC team to coordinate the design, purchase the packages, deliver the site works and integrate the completed systems against the owner’s requirements. Site-built versus prefabricated describes where and how assemblies are made. That same EPC scope can use either strategy or a mixture; a module vendor does not acquire responsibility for the whole facility merely by delivering a tested product. The actual contract must assign the boundaries and acceptance duties.
+EPC describes the responsibilities assigned in a delivery scope. In this example, the owner contracts one EPC team to coordinate the design, purchase the packages, deliver the site works and integrate the completed systems against the owner’s requirements. Site-built versus prefabricated describes where and how assemblies are made. That same EPC scope can use either strategy or a mixture; a module vendor does not acquire responsibility for the whole facility merely by delivering a tested product. The actual contract must assign the boundaries and acceptance duties.
 
 In the site-built route, factories still manufacture switchgear, cooling equipment and other components. Site trades install supports, assemble distribution and pipework, connect controls and integrate those products in the building. In our prefabricated route, the module factory fits a transportable service frame with electrical distribution, manifolds, internal wiring and controls, and checks the specified internal assemblies before shipment. Site teams still deliver access and foundations, utility and plant connections, unloading and placement, connections between modules and the building, IT rack installation and integrated acceptance. A factory test cannot demonstrate a site connection that did not exist during that test.
 
@@ -53,6 +51,8 @@ In the site-built route, factories still manufacture switchgear, cooling equipme
 Use a separate controlled schedule for these two routes. Week zero means approved interfaces and available components; upstream equipment lead times have already elapsed equally for both options. All durations are stipulated. Site enabling takes eight weeks. In the site-built route, service assembly then takes six weeks, followed by two weeks of integrated acceptance: 8 + 6 + 2 = week 16. This comparison does not replace the earlier week-27 procurement example.
 
 For the prefabricated route, factory assembly and its internal checks take six weeks while the eight-week site branch runs in parallel. Transport takes one week after the factory release. Setting and site connections take two weeks after both the module arrival and site readiness, then the same two-week integrated acceptance follows: max(6 + 1, 8) + 2 + 2 = week 12. The four-week advance comes from overlapping assembly with site work under these assumptions. It is not a universal percentage saving from modular construction.
+
+Abilene shows a factory branch at campus scale. Crusoe’s 2025 Impact Report describes building its own electrical equipment and switchgear and using factory-built electrical skids for the campus, and its September 14, 2026 release reports more than 2,500 switchboards supplied to Abilene from its Tulsa manufacturing operations. Building that equipment in a factory moves its assembly onto the factory branch, where it can run in parallel with site enabling.
 
 A manufacturing release freezes the dimensions, ratings, connection locations, control definitions and drawings that fabrication will consume. It does not freeze every future software or operating choice. Both routes need design control before irreversible work, but cutting a module frame or manufacturing a manifold can commit an interface while the site is still being prepared. An unresolved dimension can stop the factory branch long before it would have stopped site assembly. Release separate packages only where their approved boundaries establish that later decisions cannot invalidate them.
 
@@ -86,7 +86,7 @@ Choice: Freeze module interfaces early enough to assemble services in parallel w
 
 Benefit: In the stipulated comparison, overlap moves integrated acceptance from week 16 to week 12.
 
-Cost: The design commits before site assembly would begin; later rack changes can invalidate factory work, consume delivery float or lose a manufacturing slot. Transport and site integration remain necessary.
+Cost: The design commits before site assembly would begin. If the required approvals slip to week 3, the factory branch loses its one week of float and acceptance moves from week 12 to week 14; transport and site integration stay on the path.
 
 ## When the situation changes
 
@@ -111,9 +111,11 @@ Hold only the work whose inputs are unresolved, including any affected supports 
 
 **The idea to keep:** A delivery date belongs to a complete dependency path. Shortening an activity without changing that path may create no earlier service.
 
-## Sources and reading boundaries
+## Sources
 
-- [GAO Schedule Assessment Guide](https://www.gao.gov/products/gao-16-89g) — The guide overview supports integrated schedules, explicit dependencies and the connection between schedule slippage and cost. Read 2026-09-06. Overview and guide structure inspected. The network, durations, slack and interventions are original teaching scenarios, not GAO project examples. The site-built/prefabricated comparison and rack-change release dates are also synthetic; no modular supplier performance is attributed to this guide.
-- [WBDG: Commissioning Documents](https://legacy.wbdg.org/building-commissioning/commissioning-documents) — The existing OPR, basis-of-design and review discussion supports connecting project requirements to traceable design and acceptance records. Read 2026-09-06. Selected document-role and design-review passages inspected in the existing source review. The EPC allocation, module scope and release workflow are stipulated teaching choices, not a prescribed contract model or a quotation from WBDG.
-- [The Wild Wild West Of LEGO Datacenters](https://newsletter.semianalysis.com/p/the-wild-wild-west-of-lego-datacenters) — Selected accessible AWS section reports Project Houdini prefabricated data-hall skids and the Cupertino Electric partnership. Read 2026-09-15. Analyst reporting, not a primary AWS construction disclosure. Does not establish Amazon tents, the identity of equipment in the CEI photograph, or an overall schedule saving.
-- [Cupertino Electric — Modular data centers](https://www.cei.com/core-markets/modular) — Factory assembly and testing, delivery and installation followed by field verification; factory photograph identified as Edgerton, Wisconsin. Read 2026-09-15. The photographed equipment is not identified as AWS Houdini. The AWS partner attribution comes from SemiAnalysis; factory work does not replace site work or complete-system testing.
+- [GAO Schedule Assessment Guide](https://www.gao.gov/products/gao-16-89g) — www.gao.gov · Published 2015-12-22 · Reviewed 2026-09-16. The guide overview supports integrated schedules, explicit dependencies and the connection between schedule slippage and cost.
+- [WBDG: Commissioning Documents](https://legacy.wbdg.org/building-commissioning/commissioning-documents) — legacy.wbdg.org · Reviewed 2026-09-06. Owner’s project requirements (OPR) and basis-of-design documents connect project requirements to traceable design and acceptance records.
+- [The Wild Wild West Of LEGO Datacenters](https://newsletter.semianalysis.com/p/the-wild-wild-west-of-lego-datacenters) — SemiAnalysis · Published 2026-07-29 · Reviewed 2026-09-26. Reports Project Houdini, AWS’s prefabricated data-hall skid program, and its partnership with Cupertino Electric.
+- [Cupertino Electric — Modular data centers](https://www.cei.com/core-markets/modular) — Cupertino Electric · Reviewed 2026-09-17. Describes factory assembly and testing at its Edgerton, Wisconsin plant, followed by delivery, installation and field verification.
+- [Crusoe 2025 Impact Report](https://media.ffycdn.net/us/crusoe/PL5TuZz5apXB9pVsd3H1.pdf) — Crusoe · Published 2026-05-28 · Reviewed 2026-09-26. The Abilene page (printed page 16) lists in-house manufacturing of electrical equipment and switchgear, factory fabrication, and prefabricated construction with factory-built components such as electrical skids.
+- [Crusoe — Crusoe Opens Second Tulsa Manufacturing Facility](https://www.crusoe.ai/resources/newsroom/crusoe-opens-second-tulsa-factory-ai-infrastructure) — Crusoe · Published 2026-09-14 · Reviewed 2026-09-26. Crusoe’s Tulsa facilities make medium-voltage switchgear, low-voltage switchboards, enclosures, controls and copper busbar, and their work includes more than 2,500 switchboards supplied to the Abilene Stargate site.

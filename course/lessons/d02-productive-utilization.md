@@ -1,8 +1,6 @@
 # Measure complete useful work and diagnose exposed waits
 
-Generated reading view. Edit [`course/expansion/foundations-power.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/foundations-power.json), lesson `d02-productive-utilization`, then run `uv run gigawatt-expand`.
-
-**3. Workloads and requirements · Authored draft**
+**3. Workloads and requirements**
 
 Compare energy at fixed accepted output and align training dependencies with power rather than treating activity or mean kW as a service result.
 
@@ -12,7 +10,7 @@ Compare energy at fixed accepted output and align training dependencies with pow
 
 Compare two runs that produce the same accepted outputs at the same quality within a common system boundary. Run A averages 100 kW for 10 minutes: 100 × 10/60 = 16.7 kWh. Run B averages 80 kW for 15 minutes: 80 × 15/60 = 20 kWh. B draws less power but takes five minutes longer, so it consumes 20 percent more energy for the same work.
 
-Count waiting, supporting equipment and the complete run at the same meter. Compare these energy totals alongside accepted output and response time. A short GPU compute-phase power sample and rack AC energy over an entire job describe different boundaries.
+Count waiting, supporting equipment and the complete run at the same meter. Compare these energy totals alongside accepted output and response time. A short GPU compute-phase power sample and rack alternating-current (AC) energy over an entire job describe different boundaries.
 
 ## Locate the dependency that exposed the wait
 
@@ -22,7 +20,7 @@ Align collective timings, GPU activity and power, network counters and storage e
 
 ## Connect the diagnosis to the facility
 
-Synchronized dependency changes can align the power transitions of many workers. The production H100 example in the next lesson establishes that such variation is observed; the controlled traces explain how it adds at a shared meter. Removing a bottleneck may raise average useful compute and change power demand, so record token or training progress and the electrical trace together.
+Synchronized dependency changes can align the power transitions of many workers. The production H100 example in the next lesson shows that such variation is observed; the controlled traces explain how it adds at a shared meter. Removing a bottleneck may raise average useful compute and change power demand, so record token or training progress and the electrical trace together.
 
 An inference load balancer places eligible requests on serving replicas. It does not perform the same function as an electrical buffer, and it cannot arbitrarily shift one worker inside a coupled training collective. Software and power remedies must match the actual dependency.
 
@@ -70,8 +68,8 @@ Mean power alone lacks duration and output. Correlated traces locate an exposed 
 
 **The idea to keep:** Define utilization by the resource and denominator; measure useful output independently of power.
 
-## Sources and reading boundaries
+## Sources
 
-- [MLCommons — MLPerf Inference: Datacenter](https://mlcommons.org/benchmarks/inference-datacenter/) — The public MLPerf power description measures the system AC boundary during the performance measurement. Read 2026-09-06. Read the power-measurement description; this lesson uses its own synthetic traces and does not reproduce benchmark results.
-- [NVIDIA — DGX SuperPOD Key Components](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/dgx-superpod-components.html) — Compute, storage, and communication are distinct cooperating parts of a cluster. Read 2026-09-06. Read the public architecture component page; the lesson makes no claim about a measured H100 utilization profile.
-- [Microsoft, OpenAI and NVIDIA — Power Stabilization for AI Training Datacenters](https://arxiv.org/html/2508.14318v1) — Production training power variation motivates the connection from synchronized compute and communication to facility power delivery; compares software smoothing, GPU controls and rack storage. Read 2026-09-12. Read abstract and sections I–II plus IV mitigation descriptions, with figure captions 1 and 5–7. Figure 1 is production DGX-H100 telemetry; figure 5 is a GB200 microbenchmark; figures 6–7 are simulated smoothing/storage results. These are not interchangeable measured deployment claims. Staggered scheduling is a proposed direction rather than evidence that generic independent-job staggering is normal deployed practice. Storage has conversion losses and finite power/energy; do not reuse the paper’s unqualified no-wasted-energy wording.
+- [MLCommons — MLPerf Inference: Datacenter](https://mlcommons.org/benchmarks/inference-datacenter/) — mlcommons.org · Reviewed 2026-09-06. The public MLPerf power description measures the system AC boundary during the performance measurement.
+- [NVIDIA — DGX SuperPOD Key Components](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/dgx-superpod-components.html) — docs.nvidia.com · Reviewed 2026-09-16. Compute, storage, and communication are distinct cooperating parts of a cluster.
+- [Microsoft, OpenAI and NVIDIA — Power Stabilization for AI Training Datacenters](https://arxiv.org/html/2508.14318v1) — Microsoft, OpenAI and NVIDIA authors / arXiv · Published 2025-08-20 · Reviewed 2026-09-12. Reports production training power swings that follow synchronized compute and communication phases, and compares software smoothing, GPU power controls and rack-level energy storage.

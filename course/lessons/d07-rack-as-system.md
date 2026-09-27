@@ -1,8 +1,6 @@
 # A rack’s repair boundary changes its usable job capacity
 
-Generated reading view. Edit [`course/expansion/racks-compute-heat.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/racks-compute-heat.json), lesson `d07-rack-as-system`, then run `uv run gigawatt-expand`.
-
-**Compute and memory — further reading · Authored draft**
+**Compute and memory — further reading**
 
 Connect the GB300 physical interfaces to service work, then use a controlled failure-placement example to distinguish healthy devices from feasible jobs.
 
@@ -18,7 +16,7 @@ This distinction matters during service. Removing a tray removes its local compo
 
 Rack integration concentrates power, heat and service work. The electrical inlet must supply the intended load; coolant connections must serve the cold plates; airflow must still remove heat from air-cooled parts; and the network and management interfaces must be accessible. A power allocation alone establishes none of the hydraulic, spatial or software conditions. For the recurring Abilene campus, published capacity milestones do not establish a specific GB300 rack inventory or those as-built interfaces.
 
-Lenovo’s named compute tray weighs 29 kg and combines liquid-cooled high-power components with air-cooled supporting parts. Its removal procedure calls for tray power-off, disconnection and appropriate lifting and coolant-service equipment. The teaching consequence is a larger service operation than replacing a single hot-swappable PSU. Detailed clearances, floor loads and handling belong to the physical-site lesson; here the question is which job resources disappear during the repair.
+Lenovo’s named compute tray weighs 29 kg and combines liquid-cooled high-power components with air-cooled supporting parts. Its removal procedure calls for tray power-off, disconnection and appropriate lifting and coolant-service equipment. Removing a tray is therefore a larger service operation than replacing a single hot-swappable power supply unit (PSU). Detailed clearances, floor loads and handling belong to the physical-site lesson; here the question is which job resources disappear during the repair.
 
 ## Failure placement can matter more than the device total
 
@@ -82,10 +80,10 @@ Restoring one valid group recovers allocation feasibility. Compatible firmware, 
 
 **The idea to keep:** A capacity report needs the job’s placement requirements and recovery behavior, as well as a healthy-device count.
 
-## Sources and reading boundaries
+## Sources
 
-- [NVIDIA DGX GB Rack Scale Systems — Hardware](https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html#power-shelves) — DGX GB300 rack, compute-tray, rear-interface and switch-tray organization. Read 2026-09-14. Identified GB300 figures and hardware sections inspected. The shared guide also contains GB200-specific NIC and approximate power text; those quantities are not carried into this lesson.
-- [Lenovo NVIDIA GB300 NVL72 Rack Scale AI Product Guide](https://lenovopress.lenovo.com/lp2357-lenovo-nvidia-gb300-nvl72-rack-scale-ai) — Named rack and compute-tray components, hybrid cooling, 29 kg tray, service spares and CPU memory configuration. Read 2026-09-14. August 30, 2026 guide inspected. Lenovo lists 7.7 TB/s GPU memory bandwidth for its configuration, separate from NVIDIA’s up-to-8-TB/s platform figure. This lesson does not combine those into a measured hardware claim.
-- [Lenovo — Remove a GB300 compute tray from the rack](https://pubs.lenovo.com/gb300-nvl72/remove_compute_tray) — Compute-tray removal requires power-off and disconnection, with appropriate lifting and coolant-service provisions. Read 2026-09-14. Manufacturer removal procedure inspected. Used to explain the service boundary, not to assert that every tray fault shuts down the rack or to reproduce a maintenance procedure.
-- [NVIDIA DGX GB Rack Scale Systems — System Health Check](https://docs.nvidia.com/dgx/dgxgb200-user-guide/health-check.html) — NVSM checks component health and can stress the system under load. Read 2026-09-14. Public page reviewed. Application qualification after a repair is the course’s operational reasoning, not a complete vendor acceptance procedure.
-- [NVIDIA — Nonuniform Tensor Parallelism and training goodput](https://developer.nvidia.com/blog/enhancing-goodput-in-large-scale-llm-training-with-nonuniform-tensor-parallelism/) — A device interruption can affect a tightly coupled job; recovery depends on checkpointing, spare substitution or supported adaptation. Read 2026-09-14. July 6, 2026 authored article reviewed. Nonuniform Tensor Parallelism and associated power boosting are described as experimental. The four-group allocation exercise is original and is not NVL72 fault behavior.
+- [NVIDIA DGX GB Rack Scale Systems — Hardware](https://docs.nvidia.com/dgx/dgxgb200-user-guide/hardware.html#power-shelves) — NVIDIA · Reviewed 2026-09-17. DGX GB300 rack, compute-tray, rear-interface and switch-tray organization.
+- [Lenovo NVIDIA GB300 NVL72 Rack Scale AI Product Guide](https://lenovopress.lenovo.com/lp2357-lenovo-nvidia-gb300-nvl72-rack-scale-ai) — Lenovo Press · Published 2026-08-30 · Reviewed 2026-09-17. Named rack and compute-tray components, hybrid cooling, 29 kg tray, service spares and CPU memory configuration.
+- [Lenovo — Remove a GB300 compute tray from the rack](https://pubs.lenovo.com/gb300-nvl72/remove_compute_tray) — Lenovo · Reviewed 2026-09-14. Compute-tray removal requires power-off and disconnection, with appropriate lifting and coolant-service provisions.
+- [NVIDIA DGX GB Rack Scale Systems — System Health Check](https://docs.nvidia.com/dgx/dgxgb200-user-guide/health-check.html) — NVIDIA · Reviewed 2026-09-14. NVSM checks component health and can stress the system under load.
+- [NVIDIA — Nonuniform Tensor Parallelism and training goodput](https://developer.nvidia.com/blog/enhancing-goodput-in-large-scale-llm-training-with-nonuniform-tensor-parallelism/) — NVIDIA · Published 2026-07-06 · Reviewed 2026-09-14. A device interruption can affect a tightly coupled job; recovery depends on checkpointing, spare substitution or supported adaptation.

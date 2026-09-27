@@ -1,8 +1,6 @@
 # Count preserved progress, lost progress and recovery
 
-Generated reading view. Edit [`course/expansion/racks-compute-heat.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/racks-compute-heat.json), lesson `d09-checkpoint-timeline`, then run `uv run gigawatt-expand`.
-
-**Storage and recovery · Authored draft**
+**Storage and recovery — further reading**
 
 Compare explicit failure timelines and explain why asynchronous saving and replicated storage do not eliminate recovery design.
 
@@ -22,23 +20,25 @@ Redundant storage and backup solve overlapping but different problems. Replicati
 
 ## Asynchronous saving moves contention rather than abolishing it
 
-Asynchronous checkpointing can allow computation to continue while saved state is written. PyTorch’s documented approach includes staging state and managing outstanding saves; its tutorial highlights additional host-memory pressure. The central invariant is that the saved version must remain coherent while the live application changes. Overlap can shorten the visible pause, but memory copies, CPU work, network traffic and storage writes still consume resources. If these interfere with input preparation or communication, normal steps can become slower.
+Asynchronous checkpointing can allow computation to continue while saved state is written. PyTorch’s documented approach includes staging state and managing outstanding saves; its tutorial highlights additional host-memory pressure. The central invariant is that the saved version must remain coherent while the live application changes. Overlap can shorten the visible pause, but memory copies, central processing unit (CPU) work, network traffic and storage writes still consume resources. If these interfere with input preparation or communication, normal steps can become slower.
 
 Bound the number of outstanding saves. If a new checkpoint arrives faster than the backend can persist the previous one, queued state can accumulate and exhaust memory or storage. The newest attempted checkpoint is not necessarily the newest completed recovery point. Monitoring should expose both timestamps. Evaluate the whole job duration and recoverable progress under load, rather than quoting only the time until an asynchronous function returns. A fast return is an API behavior, not a durability measurement.
 
-The current PyTorch tutorial makes the two completion events concrete. Its asynchronous-staging example waits for the device-to-host copy before the optimizer modifies model parameters, and tracks upload completion separately. A host-memory snapshot can therefore free the training loop to proceed while remaining vulnerable to losing that host. The teaching comparison stops the application during staging, then overlaps a background write with later steps; it does not assume that an immediate function return makes the checkpoint recoverable.
+PyTorch’s asynchronous-saving tutorial makes the two completion events concrete. Its asynchronous-staging example waits for the device-to-host copy before the optimizer modifies model parameters, and tracks upload completion separately. A host-memory snapshot can therefore free the training loop to proceed while remaining vulnerable to losing that host. Model it in two phases: the application stops while state is staged, then a background write overlaps later steps. The checkpoint becomes recoverable only when that write completes, however quickly the save function returns.
 
 ## Choose a policy with a failure model and a service goal
 
 More frequent checkpoints generally reduce the maximum unsaved interval while increasing normal saving work. Their benefit depends on when failures occur, what scope is lost and how long restoration takes. A rare node fault that affects one small task differs from a shared storage outage that blocks an entire cluster. Use measured incidents where available and explicit scenarios where they are not. Compare policies across several failure positions and include a no-failure case so the cost of protection remains visible.
 
+The Young/Daly formula turns the balance between saving work and lost work into a starting interval. Saving every W minutes costs C/W of the time, where C is the checkpoint duration. A failure, arriving on average every μ minutes, wastes about half an interval of recomputation, W/(2μ) of the time. The total is smallest at W = √(2μC), the interval Young derived in 1974 and Daly refined in 2006; there the two wastes are equal. With this lesson’s 2-minute checkpoint, policy A’s 20-minute interval fits a mean time between failures of 20² ÷ (2 × 2) = 100 minutes, and policy B’s 40 minutes fits 400 minutes, about 6.7 hours. The formula assumes random, independent failures and an interval much longer than the checkpoint, so it gives a first estimate to test against measured incidents rather than a final policy.
+
 ## Case study: Llama 3 needed routine recovery
 
-The Llama 3 report describes 466 interruptions during a 54-day training snapshot: 47 planned and 419 unexpected. It reports more than 90% effective training time and only three incidents requiring significant manual intervention. Automated diagnosis, reduced startup time and shorter checkpoint operations helped preserve useful progress despite interruptions. Its flight recorder captures collective-operation information for diagnosing a stuck distributed job. These are measurements and operational observations from that run; neither interruption count nor effective training time is a hardware-availability guarantee. The detailed category table has inconsistent counts and percentages, so this lesson uses the internally consistent prose totals.
+The Llama 3 report describes 466 interruptions during a 54-day training snapshot: 47 planned and 419 unexpected. It reports more than 90% effective training time and only three incidents requiring significant manual intervention. Automated diagnosis, reduced startup time and shorter checkpoint operations helped preserve useful progress despite interruptions. Its flight recorder captures collective-operation information for diagnosing a stuck distributed job. These are measurements and operational observations from that run; neither interruption count nor effective training time is a hardware-availability guarantee.
 
 ## Account for the energy spent recovering
 
-The slides compare the energy spent repeating computation at 1 MW. This fuller reading example uses the failure-at-minute-35 timeline and assigns the job 1 MW during computation, 0.8 MW during checkpoint pauses and 0.4 MW during restoration. Power is held constant within each stage, so its energy is power multiplied by duration. The 20-minute policy spends 1 MWh on the final 60 useful minutes, 13/60 MWh on computation that the failure discards, 0.8 × 4/60 MWh on saving and 0.4 × 5/60 MWh on restoration: about 1.303 MWh in total. The 40-minute policy spends about 1.643 MWh, including 35 minutes of discarded computation and two minutes saving. This account covers the stated job power; it is not a facility PUE or campus demand measurement.
+Repeating lost computation also repeats its energy. Take the failure-at-minute-35 timeline and assign the job 1 MW during computation, 0.8 MW during checkpoint pauses and 0.4 MW during restoration. Power is held constant within each stage, so its energy is power multiplied by duration. The 20-minute policy spends 1 MWh on the final 60 useful minutes, 13/60 MWh on computation that the failure discards, 0.8 × 4/60 MWh on saving and 0.4 × 5/60 MWh on restoration: about 1.303 MWh in total. The 40-minute policy spends about 1.643 MWh, including 35 minutes of discarded computation and two minutes saving. This account covers the stated job power; it is not a facility power usage effectiveness (PUE) or campus demand measurement.
 
 ## Worked example: Two policies face one failure at minute 35
 
@@ -60,9 +60,9 @@ The slides compare the energy spent repeating computation at 1 MW. This fuller r
 
 Choice: Shorten the interval between checkpoints.
 
-Benefit: Reduce the amount of unsaved progress exposed to many failure timings.
+Benefit: Reduce the unsaved progress exposed to many failure timings: in the worked example, saving every 20 useful minutes instead of 40 finishes 20 minutes earlier after the failure at minute 35.
 
-Cost: Increase checkpoint traffic and pauses or asynchronous contention; more saved versions also consume retention capacity.
+Cost: Increase checkpoint traffic and pauses or asynchronous contention: without a failure, the 20-minute policy spends one extra 2-minute pause. More saved versions also consume retention capacity.
 
 ## When the situation changes
 
@@ -87,8 +87,9 @@ A loses 11 unsaved minutes while B loses 13, but A spent two additional minutes 
 
 **The idea to keep:** A checkpoint policy trades normal overhead against the amount of work that must be repeated after a specified failure.
 
-## Sources and reading boundaries
+## Sources
 
-- [Asynchronous Saving with Distributed Checkpoint](https://docs.pytorch.org/tutorials/recipes/distributed_async_checkpoint_recipe.html) — A coherent staging copy, background persistence and completion tracking are distinct; outstanding saves consume host memory. Read 2026-09-14. The current tutorial exposes separate staging and upload completion signals for asynchronous staging. API details depend on the framework version; teaching diagrams describe the state transitions, not a deployment recipe.
-- [PyTorch Distributed Checkpoint](https://docs.pytorch.org/docs/stable/distributed.checkpoint.html) — Distributed state saving and loading require coordinated state and backend-specific handling. Read 2026-09-06. Public indexed API excerpts reviewed; the directly opened stable URL returned a redirect shell. Pin and review the selected framework release and storage writer before implementation; no complete API audit is claimed.
-- [The Llama 3 Herd of Models — infrastructure and operational reliability](https://arxiv.org/html/2407.21783v3) — Dated 54-day interruption snapshot, effective training time, and automated diagnosis/recovery. Read 2026-09-14. Read sections 3.3.1 and 3.3.4; cross-checked PDF printed page 13. A 54-day snapshot, not a universal failure rate. Table 5 prints 148 faulty-GPU interruptions with 30.1%; rows total 441 although prose says 419 unexpected. Use coherent prose totals and do not recreate the category table.
+- [Asynchronous Saving with Distributed Checkpoint](https://docs.pytorch.org/tutorials/recipes/distributed_async_checkpoint_recipe.html) — docs.pytorch.org · Published 2024-07-22 · Reviewed 2026-09-14. A coherent staging copy, background persistence and completion tracking are distinct; outstanding saves consume host memory.
+- [PyTorch Distributed Checkpoint](https://docs.pytorch.org/docs/stable/distributed.checkpoint.html) — docs.pytorch.org · Reviewed 2026-09-06. Distributed state saving and loading require coordinated state and backend-specific handling.
+- [The Llama 3 Herd of Models — infrastructure and operational reliability](https://arxiv.org/html/2407.21783v3) — Llama Team, AI @ Meta · Published 2024-11-23 · Reviewed 2026-09-14. Dated 54-day interruption snapshot, effective training time, and automated diagnosis/recovery.
+- [Checkpointing à la Young/Daly: An Overview](https://icl.utk.edu/files/publications/2022/icl-utk-1569-2022.pdf) — Benoit, Du, Herault, Marchal, Pallez, Perotin, Robert, Sun and Vivien, IC3 2022 (ACM) · Published 2022-08-04 · Reviewed 2026-09-26. The Young/Daly period √(2μC), from Young (1974) and Daly (2006), approximates the checkpoint interval that minimizes expected overhead for a mean time between failures (MTBF) μ and a checkpoint cost C. At that period the time spent saving equals the time lost to re-execution.

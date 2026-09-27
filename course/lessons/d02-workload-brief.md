@@ -1,8 +1,6 @@
 # Interactivity and total throughput
 
-Generated reading view. Edit [`course/expansion/foundations-power.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/foundations-power.json), lesson `d02-workload-brief`, then run `uv run gigawatt-expand`.
-
-**3. Workloads and requirements · Authored draft**
+**3. Workloads and requirements**
 
 Use a GB300 NVL72 and Llama 3.1 70B to connect model state, context and service requirements to infrastructure demand.
 
@@ -10,11 +8,11 @@ Use a GB300 NVL72 and Llama 3.1 70B to connect model state, context and service 
 
 ## Interactivity is output tokens per second per user
 
-Interactivity is the output token rate experienced by one user after generation starts. At 40 tokens per second per user, the average gap between tokens is 25 milliseconds; at 80 it is 12.5 milliseconds. Time to first token measures the separate initial wait. A token may be a whole word or part of a word. Total throughput counts output tokens across the system, so it answers a different question from the rate of an individual answer.
+Interactivity is the output token rate experienced by one user after a large language model (LLM) starts generating. At 40 tokens per second per user, the average gap between tokens is 25 milliseconds; at 80 it is 12.5 milliseconds. Time to first token measures the separate initial wait. A token may be a whole word or part of a word. Total throughput counts output tokens across the system, so it answers a different question from the rate of an individual answer.
 
 Serving more requests together can increase aggregate throughput while reducing interactivity. Choose the minimum acceptable per-user output rate, then benchmark how much throughput the system delivers while meeting that requirement.
 
-NVIDIA’s August 2026 Qwen3.8-2.4T-A95B curve on GB300 NVL72 shows throughput per GPU against interactivity. The original image identifies 8k input / 1k output, TensorRT-LLM, FP8 and multi-token prediction. Select a minimum of 100, 200 or 300 tokens per second per user and inspect only the part of the curve to its right. Raising this threshold reduces available throughput on that curve. It is a separate benchmark case from the Llama 3.1 70B memory ledger.
+NVIDIA’s August 2026 Figure 2 plots throughput per graphics processing unit (GPU) against interactivity for Qwen3.8-2.4T-A95B on GB300 NVL72, with 8k input and 1k output tokens, TensorRT-LLM, 8-bit floating point (FP8) and multi-token prediction. Set a minimum of 100, 200 or 300 tokens per second per user, and only the part of the curve to its right qualifies. Raising this threshold reduces the throughput available on that curve. It is a separate benchmark case from the Llama 3.1 70B memory ledger.
 
 The plot does not tabulate concurrent users. Do not invent an exact session count or combine peak throughput with peak interactivity from different points. A supported-session answer requires the matching concurrency sweep, with its model, lengths, quality, precision and software fixed.
 
@@ -22,21 +20,25 @@ The plot does not tabulate concurrent users. Do not invent an exact session coun
 
 Training compute is counted in floating-point operations (FLOPs); FLOP/s expresses how fast those operations execute. These quantities describe the computational workload and its execution rate. Model quality still requires evaluation against the intended task. Inference throughput instead counts generated tokens across all users; first-token and inter-token latency describe the response experienced by each user.
 
-Using the rounded class size of 70 billion parameters, BF16 inference weights require approximately 70 billion × 2 bytes = 140 decimal GB. A classic mixed-precision Adam training ledger stores 2-byte weights, 2-byte gradients, 4-byte master weights and two 4-byte optimizer moments: 16 bytes per parameter, or approximately 1,120 GB of state. The comparison explains why serving a model and training its parameters can require different distributions of state.
+Using the rounded class size of 70 billion parameters, inference weights stored in BF16, a 16-bit floating-point format that takes 2 bytes per value, require approximately 70 billion × 2 bytes = 140 decimal gigabytes (GB). A classic mixed-precision Adam training ledger stores 2-byte weights, 2-byte gradients, 4-byte master weights and two 4-byte optimizer moments: 16 bytes per parameter, or approximately 1,120 GB of state. The comparison explains why serving a model and training its parameters can require different distributions of state.
 
-These are partial accounts. Inference also needs request KV cache and runtime workspace. Training adds activations, communication buffers and other workspace. Precision, optimizer, recomputation, offload and sharding alter the numbers. The older isolated 80 GB device example did not identify real hardware or establish this connection clearly; the presentation now compares named model uses directly rather than implying an H100 installation.
+These are partial accounts. Inference also needs each request's key-value (KV) cache, the attention keys and values stored for tokens already processed, and runtime workspace. Training adds activations, communication buffers and other workspace. Precision, optimizer, recomputation, offload and sharding alter the numbers.
 
 ## Derive how context changes resident concurrency
 
-Meta’s Llama 3.1 70B definition specifies 80 layers, hidden width 8,192, 64 query heads and eight KV heads. Head dimension is 8,192/64 = 128. With BF16 keys and values, each cached token occupies 2 × 80 × 8 × 128 × 2 = 327,680 bytes, or 320 KiB. This is model-specific full-context cache accounting; it excludes prefix sharing, block rounding, quantization and other implementation effects.
+Meta’s Llama 3.1 70B definition specifies 80 layers, hidden width 8,192, 64 query heads and eight KV heads. Head dimension is 8,192/64 = 128. With BF16 keys and values, each cached token occupies 2 × 80 × 8 × 128 × 2 = 327,680 bytes, or 320 kibibytes (KiB; 1 KiB is 1,024 bytes). This is model-specific full-context cache accounting; it excludes prefix sharing, block rounding, quantization and other implementation effects.
 
-Choose a 64 GiB allocation for KV cache, distinct from weights and workspace. At 8,192 cached tokens per request, each uses 2.5 GiB and the pool admits at most 25 requests. At 32,768 tokens, each uses 10 GiB and the pool admits six. The fourfold context increase changes resident concurrency on unchanged hardware. Maintaining 100 such sessions therefore needs at least four versus seventeen equivalent independent pools under this limited model. Those are not GPU counts: parallelism and replication determine which devices own each pool.
+Choose a 64 gibibyte (GiB) allocation for KV cache, distinct from weights and workspace. At 8,192 cached tokens per request, each uses 2.5 GiB and the pool admits at most 25 requests. At 32,768 tokens, each uses 10 GiB and the pool admits six. The fourfold context increase changes resident concurrency on unchanged hardware. Maintaining 100 such sessions therefore needs at least four versus seventeen equivalent independent pools under this limited model. Those are not GPU counts: parallelism and replication determine which devices own each pool.
 
 This is the facility connection: longer context can change replica requirements, memory traffic, communication and measured power for the same token service. Capacity alone does not predict token speed. A fitting allocation still needs an execution benchmark on the chosen hardware and software.
 
 Prefix caching reuses stored keys and values for initial tokens that requests have in common, such as a shared system prompt. It does not mean that unrelated contexts can share arbitrary KV state. The calculation above counts each request independently; sharing an identical prefix can reduce that allocation.
 
-The DeepSeek V4 technical-report chart on the slide shows another way to change the budget: compressed attention. It compares V4-Pro and V4-Flash with V3.2 as sequence length grows. Its architecture and KV storage formats differ from Llama 3.1 70B, so the preceding 320 KiB-per-token factor does not describe those curves.
+DeepSeek’s V4 technical report shows another way to change the budget: compressed attention. Its Figure 1, below, compares V4-Pro and V4-Flash with V3.2 as sequence length grows. At about one million tokens of context, accumulated KV cache is 9.5 times smaller for V4-Pro and 13.7 times smaller for V4-Flash than for V3.2. Its architecture and KV storage formats differ from Llama 3.1 70B, so the preceding 320 KiB-per-token factor does not describe those curves.
+
+![DeepSeek chart of accumulated KV cache in gigabytes against sequence length up to 1,024K tokens. The V3.2 line rises toward 50 GB; arrows mark V4-Pro as 9.5 times smaller and V4-Flash as 13.7 times smaller.](../assets/references/deepseek-kv-cache.png)
+
+DeepSeek V4 technical report, Figure 1, KV-cache panel. Compressed attention and mixed KV precision make these curves a different model from the Llama 3.1 70B calculation above. [DeepSeek V4 technical report, Figure 1](https://arxiv.org/html/2606.19348v1)
 
 ## Carry a workload brief into design
 
@@ -57,14 +59,6 @@ Record complete-run energy, peak demand, transition duration and recovery behavi
 **Result:** The same pool holds 25 or six complete contexts; this changes the service capacity problem.
 
 **Model boundary:** Memory capacity is not throughput. Pool count is not GPU count; actual runtime allocations need measurement.
-
-## The tradeoff
-
-Choice: Reserve capacity for a broader workload envelope.
-
-Benefit: Future inputs, concurrency, or implementations may fit without replacing the system.
-
-Cost: Additional capacity costs money and can remain unused; aggregate capacity still needs a workable partition.
 
 ## When the situation changes
 
@@ -89,14 +83,14 @@ The fixed pool admits fewer full contexts. Adding capacity or distributing the m
 
 **The idea to keep:** Start with accepted work and its constraints; hardware quantities follow from a measured workload model.
 
-## Sources and reading boundaries
+## Sources
 
-- [NVIDIA — DGX SuperPOD Key Components](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/dgx-superpod-components.html) — A documented AI cluster architecture includes compute, management, networking, and storage components. Read 2026-09-06. Read the public component and design-requirement page for the H100 reference architecture; no product count or performance is copied into the hypothetical brief.
-- [MLCommons — MLPerf Inference: Datacenter](https://mlcommons.org/benchmarks/inference-datacenter/) — Benchmark results depend on a declared workload scenario and measurement conditions. Read 2026-09-06. Read the public scenario and power-measurement descriptions; no named system performance is asserted.
-- [Meta — Llama model SKU architecture definitions](https://github.com/meta-llama/llama-models/blob/main/models/sku_list.py) — Named Llama 3.1 70B architecture for original parameter-storage and KV-cache calculations: hidden width 8,192, 80 layers, 64 query heads and 8 key/value heads. Read 2026-09-12. The llama3_1_base_models definition was inspected in the public GitHub source and its raw file. Head dimension 128 is derived from 8,192/64. The 70B parameter count is rounded model-class notation, not an exact counted checkpoint size. The gated Hugging Face config returned 401 and was not read. This source establishes architecture, not GB300 throughput or deployment performance.
-- [ZeRO: Memory Optimizations Toward Training Trillion Parameter Models](https://arxiv.org/html/1910.02054) — Derive a declared mixed-precision Adam example: two bytes each for weights and gradients, four for a master weight, eight for the two optimizer moments, giving 16 bytes per parameter before activations and buffers. Read 2026-09-12. Read sections 2.1, 3.1–3.2 and model-state partitioning formulas. This is a classic FP16/FP32 Adam accounting example, not a universal 2026 training-memory requirement. BF16 arrangements, gradient accumulation precision, optimizer choices, quantization, offload and sharding alter the budget. Using rounded 70 billion parameters gives about 1.12 TB across model states, not an asserted minimum GPU count or throughput.
-- [NVIDIA NVL72 AI Factory — System Hardware & Components](https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/components.html) — The GB300 NVL72 rack contains 72 Blackwell Ultra GPUs. Read 2026-09-12. Hardware identity and count only; actual inference throughput depends on the serving workload and configuration.
-- [NVIDIA AIPerf — Metrics Reference](https://docs.nvidia.com/aiperf/reference/ai-perf-metrics-reference) — Per-user generation throughput and the reciprocal inter-token interval; distinguish total throughput and TTFT. Read 2026-09-13. Reviewed output-token-throughput-per-user and streaming metric definitions. Does not establish a capacity for a named GPU.
-- [NVIDIA — Qwen3.8 throughput and interactivity on GB300 NVL72](https://developer.nvidia.com/blog/serve-qwen3-8-2-4t-a95b-a-2-4t-parameter-model-with-configurable-reasoning-on-nvidia-gb300-nvl72/) — Original Figure 2 shows the throughput/interactivity tradeoff with the hardware, model and workload conditions printed in the figure. Read 2026-09-13. Publisher benchmark curve, not our measurement. 8k/1k, TensorRT-LLM, FP8 and MTP read from the original figure. No tabulated concurrency or exact curve samples provided; do not infer supported sessions.
-- [DeepSeek-V4: Towards Highly Efficient Million-Token Context Intelligence](https://arxiv.org/html/2606.19348v1) — Figure 1 and section 2.3.4 compare accumulated KV-cache state for V3.2, V4-Pro and V4-Flash. Read 2026-09-14. User-provided KV-panel crop checked against the report. Compressed attention and mixed KV precision differ from the Llama example; these curves do not establish serving throughput.
-- [vLLM — Inside vLLM: Anatomy of a High-Throughput LLM Inference System](https://vllm.ai/blog/2025-09-05-anatomy-of-vllm) — KV blocks for identical token prefixes can be reused across requests. Read 2026-09-14. Prefix caching section; distinct from sharing arbitrary unrelated request state.
+- [NVIDIA — DGX SuperPOD Key Components](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/dgx-superpod-components.html) — docs.nvidia.com · Reviewed 2026-09-16. A documented AI cluster architecture includes compute, management, networking, and storage components.
+- [MLCommons — MLPerf Inference: Datacenter](https://mlcommons.org/benchmarks/inference-datacenter/) — mlcommons.org · Reviewed 2026-09-06. Benchmark results depend on a declared workload scenario and measurement conditions.
+- [Meta — Llama model SKU architecture definitions](https://github.com/meta-llama/llama-models/blob/main/models/sku_list.py) — Meta · Reviewed 2026-09-12. Llama 3.1 70B architecture: hidden width 8,192, 80 layers, 64 query heads and 8 key/value heads.
+- [ZeRO: Memory Optimizations Toward Training Trillion Parameter Models](https://arxiv.org/html/1910.02054) — Microsoft Research authors / arXiv · Published 2019-10-04 · Reviewed 2026-09-12. Mixed-precision Adam training keeps two bytes each for weights and gradients, four for a master copy of the weights and eight for the two optimizer moments: 16 bytes per parameter before activations and buffers.
+- [NVIDIA NVL72 AI Factory — System Hardware & Components](https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/components.html) — NVIDIA · Reviewed 2026-09-12. The GB300 NVL72 rack contains 72 Blackwell Ultra GPUs.
+- [NVIDIA AIPerf — Metrics Reference](https://docs.nvidia.com/aiperf/reference/ai-perf-metrics-reference) — NVIDIA · Reviewed 2026-09-13. Defines per-user output token throughput as the reciprocal of inter-token latency, separately from total throughput and time to first token (TTFT).
+- [NVIDIA — Qwen3.8 throughput and interactivity on GB300 NVL72](https://developer.nvidia.com/blog/serve-qwen3-8-2-4t-a95b-a-2-4t-parameter-model-with-configurable-reasoning-on-nvidia-gb300-nvl72/) — NVIDIA · Published 2026-08-12 · Reviewed 2026-09-13. Figure 2 plots throughput per GPU against per-user interactivity for Qwen3.8-2.4T-A95B on GB300 NVL72 at 8k input and 1k output tokens, with TensorRT-LLM, FP8 and multi-token prediction.
+- [DeepSeek-V4: Towards Highly Efficient Million-Token Context Intelligence](https://arxiv.org/html/2606.19348v1) — DeepSeek-AI · Published 2026-04-26 · Reviewed 2026-09-14. Figure 1 and section 2.3.4 compare accumulated KV-cache state for V3.2, V4-Pro and V4-Flash.
+- [vLLM — Inside vLLM: Anatomy of a High-Throughput LLM Inference System](https://vllm.ai/blog/2025-09-05-anatomy-of-vllm) — vLLM · Published 2025-09-05 · Reviewed 2026-09-14. KV blocks for identical token prefixes can be reused across requests.

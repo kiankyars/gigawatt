@@ -1,12 +1,10 @@
 # Choose where electricity becomes light
 
-Generated reading view. Edit [`course/expansion/racks-compute-heat.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/racks-compute-heat.json), lesson `d08-copper-light-service`, then run `uv run gigawatt-expand`.
-
-**10. Networking and interconnects · Authored draft**
+**10. Networking and interconnects**
 
 Compare media and optical packaging at the link level, then include their effects on switch cooling, cabling and repair.
 
-**Driving question:** How should reach, power and replacement boundaries shape the choice between copper, pluggable optics and CPO?
+**Driving question:** How should reach, power and replacement boundaries shape the choice between copper, pluggable optics and co-packaged optics (CPO)?
 
 ## Start with the required link, not the fashionable package
 
@@ -16,11 +14,15 @@ A pluggable optical transceiver places the electrical-to-optical boundary in a r
 
 ## Choose a qualified reach example
 
-The deck compares three supported reaches in NVIDIA’s 400G LinkX product family: a 2 m passive copper cable, 50 m multimode optics and 500 m single-mode DR4 optics. These illustrate how the physical route selects a compatible product. They are not universal limits of copper or optical fiber. At the transmitting end an optical module converts an electrical signal into light; at the receiving end another module converts the light back into an electrical signal. Bidirectional links perform both roles at each end. Copper attenuates and distorts high-frequency electrical signals as length increases. At a fixed high link rate, fiber’s lower loss makes longer runs practical; this is not a claim that a bit inherently travels faster through fiber.
+NVIDIA’s 400G LinkX product family illustrates three supported reaches: a 2 m passive copper cable, 50 m multimode optics and 500 m single-mode DR4 optics. These illustrate how the physical route selects a compatible product. They are not universal limits of copper or optical fiber. At the transmitting end an optical module converts an electrical signal into light; at the receiving end another module converts the light back into an electrical signal. Bidirectional links perform both roles at each end. Copper attenuates and distorts high-frequency electrical signals as length increases. At a fixed high link rate, fiber’s lower loss makes longer runs practical; this is not a claim that a bit inherently travels faster through fiber.
+
+## An optical circuit switch steers light between fibers
+
+Light can also be switched without converting it back to an electrical signal. An optical circuit switch sets up direct light paths between fiber endpoints. In Google’s TPU v4 system, arrays of movable micro-electro-mechanical system (MEMS) mirrors steer each beam. Resetting the mirrors changes which endpoints are joined: a switch that connects A to C and B to D can be reconfigured to connect A to D and B to C. Each connection holds until the next reconfiguration, and the switch never reads the packets, so it changes which blocks of a machine are wired together rather than routing individual messages.
 
 ## Compare complete and equal power boundaries
 
-NVIDIA’s August 2025 photonics description uses shorter electrical paths as a motivation for CPO and describes then-proposed switch platforms. That is a useful mechanism to study. Its advertised savings and reliability ratios are not adopted here as universal field measurements. A comparison must state the included elements: host electrical interfaces, retimers or signal processing where present, optical engines, lasers and any additional cooling. If one number includes both ends of a link and another includes only the switch end, the apparent saving is not meaningful.
+NVIDIA’s August 2025 photonics description uses shorter electrical paths as a motivation for CPO and describes then-proposed switch platforms. That is a useful mechanism to study. Treat its advertised savings and reliability ratios as vendor claims for those platforms, not field measurements. A comparison must state the included elements: host electrical interfaces, retimers or signal processing where present, optical engines, lasers and any additional cooling. If one number includes both ends of a link and another includes only the switch end, the apparent saving is not meaningful.
 
 Power is also not energy per completed job. A lower-power network that slows an important collective can keep the much larger compute system running longer. Conversely, a somewhat higher-power network can reduce total job energy if it improves accepted throughput enough. Hold the workload, topology, payload rate and availability condition constant when comparing link hardware. Then separately test the application effect. Keep a component power budget for thermal design and an end-to-end energy ledger for useful service.
 
@@ -32,7 +34,7 @@ Consider a single optical engine serving several logical links. Its failure may 
 
 ## Treat cabling and cooling as part of the network
 
-Fiber routes require handling, cleaning, bend control, labeling and accessible connection points according to the supplied hardware requirements. Copper routes impose their own bend, weight and reach constraints. Dense optical and switching equipment also dissipates heat at a specific location; a switch may have a liquid interface even when its neighboring networking equipment uses air. Moving optical conversion inward can change where heat must be captured. The installation review should therefore connect the logical network graph to cable routes, cooling interfaces and the actual replacement procedure.
+Fiber routes require handling, cleaning, bend control, labeling and accessible connection points according to the hardware vendor’s requirements. Copper routes impose their own bend, weight and reach constraints. Dense optical and switching equipment also dissipates heat at a specific location; a switch may have a liquid interface even when its neighboring networking equipment uses air. Moving optical conversion inward can change where heat must be captured. The installation review should therefore connect the logical network graph to cable routes, cooling interfaces and the actual replacement procedure.
 
 ## Worked example: A synthetic optical power comparison
 
@@ -80,13 +82,13 @@ The longer compute duration overwhelms the smaller network energy saving. The sc
 
 **The idea to keep:** Moving optical conversion changes the electrical path and service boundary; it does not remove the need for a complete link budget and operating plan.
 
-## Sources and reading boundaries
+## Sources
 
-- [Scaling AI Factories with Co-Packaged Optics for Better Power Efficiency](https://developer.nvidia.com/blog/scaling-ai-factories-with-co-packaged-optics-for-better-power-efficiency/) — Describes moving optical conversion nearer switch silicon and the associated electrical-path mechanism. Read 2026-09-06. August 18, 2025 vendor account; availability and benefit claims are dated proposals, not universal deployment evidence.
-- [NVIDIA Optical Transceivers and Cables](https://www.nvidia.com/en-us/networking/interconnect/) — Provides distinct interconnect product categories whose compatibility must be checked at the actual interface. Read 2026-09-06. Product catalog and marketing page; no power, reach or reliability rating is adopted without its specific datasheet.
-- [NVIDIA LinkX 100G-PAM4 product line overview](https://docs.nvidia.com/networking/display/400g100gpam4ovdev/LinkX-100G-PAM4-Product-Line-Overview) — Qualified 400G LinkX examples: 2 m passive copper, 50 m multimode optics and 500 m single-mode DR4 optics. Read 2026-09-14. 2m copper,30m MM and500m DR4 are supported product examples, not medium-wide maxima. Product protocol/interface compatibility still required.
-- [NVIDIA silicon photonics networking](https://www.nvidia.com/en-us/networking/products/silicon-photonics/) — Co-packaged optical engines shorten the electrical signal path between switch silicon and optical conversion. Read 2026-09-14. No vendor percent savings generalized. Service boundaries vary with product.
-- [Google’s Cloud TPU v4 provides exaFLOPS-scale ML with industry-leading efficiency](https://cloud.google.com/blog/topics/systems/tpu-v4-enables-performance-energy-and-co2e-efficiency-gains) — MEMS mirrors redirect optical signals between fiber endpoints; includes the original Google mechanism figure. Read 2026-09-14. Use authentic sourced diagram; monitor light not same as data wavelength.
+- [Scaling AI Factories with Co-Packaged Optics for Better Power Efficiency](https://developer.nvidia.com/blog/scaling-ai-factories-with-co-packaged-optics-for-better-power-efficiency/) — developer.nvidia.com · Published 2025-08-18 · Reviewed 2026-09-06. Describes moving optical conversion nearer switch silicon and the associated electrical-path mechanism.
+- [NVIDIA Optical Transceivers and Cables](https://www.nvidia.com/en-us/networking/interconnect/) — www.nvidia.com · Reviewed 2026-09-06. NVIDIA’s catalog of optical transceivers and cables for its networking platforms.
+- [NVIDIA LinkX 100G-PAM4 product line overview](https://docs.nvidia.com/networking/display/400g100gpam4ovdev/LinkX-100G-PAM4-Product-Line-Overview) — NVIDIA · Reviewed 2026-09-16. Qualified 400G LinkX examples: 2 m passive copper, 50 m multimode optics and 500 m single-mode DR4 optics.
+- [NVIDIA silicon photonics networking](https://www.nvidia.com/en-us/networking/products/silicon-photonics/) — NVIDIA · Reviewed 2026-09-14. Co-packaged optical engines shorten the electrical signal path between switch silicon and optical conversion.
+- [Google’s Cloud TPU v4 provides exaFLOPS-scale ML with industry-leading efficiency](https://cloud.google.com/blog/topics/systems/tpu-v4-enables-performance-energy-and-co2e-efficiency-gains) — Google Cloud · Published 2023-04-05 · Reviewed 2026-09-16. TPU v4 optical circuit switches use MEMS mirrors to redirect light between fiber endpoints.
 
 ## Check your understanding: Healthy devices, waiting job
 
@@ -105,6 +107,6 @@ Healthy endpoints do not establish a healthy end-to-end communication path. Foll
 
 </details>
 
-**The next problem:** Data reaches the devices and their progress can be saved. Where does the resulting heat go?
+**The next problem:** Data now moves between the devices. Where does the heat they produce go?
 
-Continue in **Chip and rack heat capture**: A cool room can contain an overheating chip.
+Continue in **11. Chip and rack heat capture**: A cool room can contain an overheating chip.

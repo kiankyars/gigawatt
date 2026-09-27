@@ -1,8 +1,6 @@
 # The workload has a rhythm
 
-Generated reading view. Edit [`course/expansion/foundations-power.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/foundations-power.json), lesson `d02-phases-and-envelopes`, then run `uv run gigawatt-expand`.
-
-**3. Workloads and requirements · Authored draft**
+**3. Workloads and requirements**
 
 Connect request queues and job phases to latency, aggregate power, and the limits of a benchmark-derived design envelope.
 
@@ -12,7 +10,9 @@ Connect request queues and job phases to latency, aggregate power, and the limit
 
 LLM prefill processes the prompt and creates the request’s initial KV cache. Many prompt tokens can be processed together, giving the GPU substantial parallel matrix work: prefill is usually compute-bound. Decode generates tokens successively. At low batch sizes, fetching model weights and cached context can take more time than the arithmetic itself: decode is often memory-bandwidth-bound. Larger batches, long contexts, model design and the hardware can change which resource limits performance. Time to first token includes queueing and prompt processing; time between output tokens concerns the stream after that.
 
-vLLM describes continuous scheduling of running and waiting requests. When one sequence finishes, the scheduler can admit new work while others continue. Our two-slot illustration has A needing two decode steps, B five, and C three. C is already queued. The fixed batch waits for B; the continuous case admits C after A finishes. The cells represent iterations, not equal wall-clock durations or a measured speedup. Real admission also depends on prefill work, token budgets and KV capacity.
+Weight reuse helps explain why prefill is usually compute-bound while low-batch decode is memory-bandwidth-bound. The model’s weights live in the GPU’s high-bandwidth memory (HBM). A matrix operation copies a small block of them, a tile, into much smaller on-chip memory, where one token vector or several can use it before it is replaced. With eight token vectors instead of one, the same tile read supports eight times the arithmetic. Prefill supplies many prompt tokens at once, and batching decode requests supplies several, so both reduce the weight bytes fetched per token. On-chip memory is far smaller than HBM, so this reuse happens one tile at a time rather than by keeping the whole model on the chip.
+
+vLLM describes continuous scheduling of running and waiting requests. When one sequence finishes, the scheduler can admit new work while others continue. Take two batch slots and three requests: A needs two decode steps, B five and C three, and C is already queued. The fixed batch waits for B; the continuous case admits C after A finishes. Each step is one iteration, not an equal wall-clock duration, and the comparison is not a measured speedup. Real admission also depends on prefill work, token budgets and KV capacity.
 
 This matters to facility reasoning because active request membership changes compute and memory demand. Continuous batching is a documented serving mechanism, not a guarantee that rack power stays constant.
 
@@ -20,19 +20,19 @@ These bottlenecks are tendencies. A short prompt may offer too little parallel m
 
 ## NVIDIA uses separate racks for prefill and decode
 
-NVIDIA Groq 3 LPX is a rack of 256 Groq LPU accelerators deployed alongside Vera Rubin NVL72 GPU racks. In NVIDIA’s standard prefill–decode configuration, Rubin processes the prompt and transfers its KV cache once per turn. Groq LPX then uses that cache and model weights held in SRAM to generate the response. The two phases can therefore use hardware suited to different demands, connected by a cache handoff.
+NVIDIA Groq 3 LPX is a rack of 256 Groq language processing unit (LPU) accelerators deployed alongside Vera Rubin NVL72 GPU racks. In NVIDIA’s standard prefill–decode configuration, Rubin processes the prompt and transfers its KV cache once per turn. Groq LPX then uses that cache and model weights held in on-chip static random-access memory (SRAM) to generate the response. Each LPU has 500 megabytes (MB) of SRAM with 150 terabytes per second (TB/s) of bandwidth, 128 GB across the rack, which suits decode's constant weight reads but gives each chip far less capacity than a GPU's HBM. The two phases can therefore use hardware suited to different demands, connected by a cache handoff.
 
-This example pairs Groq with Rubin GPUs. NVIDIA also describes an attention–FFN configuration that divides work within decode, plus speculative decoding with a separate draft model. The presentation uses the standard prefill–decode split to make the hardware division clear. The LPX picture is NVIDIA’s official product render.
+This example pairs Groq with Rubin GPUs. NVIDIA also describes an attention–feed-forward network (FFN) configuration that divides work within decode, plus speculative decoding with a separate draft model. The standard prefill–decode split shows the hardware division most clearly.
 
 ## Start with production evidence, then use a controlled trace
 
 Choukse and colleagues from Microsoft, OpenAI and NVIDIA publish production DGX-H100 training power telemetry in Figure 1 of their 2025 paper. They connect synchronized compute and communication phases to power variation visible at larger electrical boundaries. The source figure is normalized, not a GB300 kW rating. Their later storage figures are simulations and their GB200 power-smoothing figure is a microbenchmark; neither is relabeled as production storage evidence.
 
-The following 60-second teaching cycle is original and deliberately simplified: 30 seconds compute at 120 kW, 15 exchange at 40 kW and 15 save at 60 kW. Its energy is 5,100 kJ and mean power 85 kW. Four coincident copies give 480, 160 and 240 kW at the shared meter, with 340 kW mean. These values explain addition and timing, rather than claiming a particular training job has these phase lengths.
+Now take a simplified 60-second cycle: 30 seconds compute at 120 kW, 15 exchange at 40 kW and 15 save at 60 kW. Its energy is 5,100 kJ and mean power 85 kW. Four coincident copies give 480, 160 and 240 kW at the shared meter, with 340 kW mean. The values show how phases add at a shared meter; a real training job has its own phase lengths.
 
 ## Use staggering only when its dependency assumptions hold
 
-If four independent periodic jobs can shift by 0, 15, 30 and 45 seconds without extra waiting, contention or missed deadlines, two compute while one exchanges and one saves: 340 kW throughout the ideal cycle. Their energy remains 5.667 kWh. This is a conditional scheduling thought experiment, not an assertion that production AI clusters routinely use these offsets.
+If four independent periodic jobs can shift by 0, 15, 30 and 45 seconds without extra waiting, contention or missed deadlines, two compute while one exchanges and one saves: 340 kW throughout the ideal cycle. Their energy remains 5.667 kWh. This is a conditional scheduling thought experiment, not an assertion that production artificial intelligence (AI) clusters routinely use these offsets.
 
 Workers inside one synchronous job are a different case. Delaying a participant may force the others to wait at a collective, violating the unchanged-duration assumption. The lesson is to identify which scheduling freedom actually exists before proposing it as a power remedy.
 
@@ -44,7 +44,7 @@ Schedulers change eligible workload timing. Supported GPU power controls change 
 
 ## End with the engineering handoff
 
-The presentation ends with a workload brief rather than arithmetic threshold quizzes. Carry model and hardware identity, software/precision, prompt/output lengths, active sessions, token delivery, first-token targets and quality. Add a measured power trace, complete-run energy and recovery cases at a declared boundary. This supports the next siting/supply decision; unknown rack throughput and electrical behavior remain unknown.
+End with a workload brief. Carry model and hardware identity, software/precision, prompt/output lengths, active sessions, token delivery, first-token targets and quality. Add a measured power trace, complete-run energy and recovery cases at a declared boundary. This supports the next siting/supply decision; unknown rack throughput and electrical behavior remain unknown.
 
 ## Worked example: Synchronized versus staggered independent jobs
 
@@ -92,15 +92,16 @@ A flatter hypothetical sum does not prove jobs can be shifted. A mean does not r
 
 **The idea to keep:** The timing of work matters alongside its total amount; a mean load does not define a demand envelope.
 
-## Sources and reading boundaries
+## Sources
 
-- [NVIDIA Triton — Batchers](https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/user_guide/batcher.html) — Dynamic batching can combine requests and introduce a configurable waiting interval. Read 2026-09-06. Read the public dynamic-batcher and delayed-batching sections. All timings and throughput numbers in this lesson are hypothetical.
-- [Vertiv — BESS and UPS roles in large data center power architecture](https://www.vertiv.com/en-us/insights/articles/white-papers/bess-and-ups-roles-in-large-data-center-power-architecture/) — Synchronized AI load changes motivate coordination across power-system levels. Read 2026-09-06. Read the public white-paper landing page only, not the downloadable full white paper; no universal measured waveform is asserted.
-- [vLLM — Inside vLLM: Anatomy of a High-Throughput LLM Inference System](https://vllm.ai/blog/2025-09-05-anatomy-of-vllm) — Prefill and decode, key/value-cache allocation, continuous scheduling of new and running requests, serving load balancing, and latency/throughput measurement. Read 2026-09-12. Read the engine initialization, scheduler and forward-pass sections, disaggregated prefill/decode overview, serving/load-balancer description and metric definitions. The article describes V1 at commit 42172ad from August 2025; it is not a claim about every inference engine. Prefill often has high arithmetic intensity and decode often has a bandwidth constraint, with workload/batch/hardware-dependent exceptions. No published speedup is generalized to the course case.
-- [Microsoft, OpenAI and NVIDIA — Power Stabilization for AI Training Datacenters](https://arxiv.org/html/2508.14318v1) — Production training power variation motivates the connection from synchronized compute and communication to facility power delivery; compares software smoothing, GPU controls and rack storage. Read 2026-09-12. Read abstract and sections I–II plus IV mitigation descriptions, with figure captions 1 and 5–7. Figure 1 is production DGX-H100 telemetry; figure 5 is a GB200 microbenchmark; figures 6–7 are simulated smoothing/storage results. These are not interchangeable measured deployment claims. Staggered scheduling is a proposed direction rather than evidence that generic independent-job staggering is normal deployed practice. Storage has conversion losses and finite power/energy; do not reuse the paper’s unqualified no-wasted-energy wording.
-- [NVIDIA — Inside NVIDIA Groq 3 LPX](https://developer.nvidia.com/blog/inside-nvidia-groq-3-lpx-the-low-latency-inference-accelerator-for-the-nvidia-vera-rubin-platform/) — LPX is a separate rack-scale system with 256 Groq LPU accelerators, deployed alongside Vera Rubin NVL72. Provides the official rack product render. Read 2026-09-13. Reviewed the introduction and rack architecture. The March article emphasizes attention–FFN disaggregation; P130 documents the later standard prefill–decode configuration used in the course. No vendor performance multiplier is adopted.
-- [NVIDIA — How Groq 3 LPX Unlocks Ultrafast Interactivity at Long Context](https://developer.nvidia.com/blog/how-nvidia-groq-3-lpx-unlocks-ultrafast-interactivity-at-long-context-on-nvidia-vera-rubin/) — Standard prefill–decode disaggregation: Vera Rubin NVL72 runs prefill and hands off the KV cache once per turn; Groq 3 LPX runs the entire decode step using that cache and SRAM-resident weights. Read 2026-09-13. Reviewed the serving-configurations section. This is one supported split; the article also describes attention–FFN disaggregation and external-drafter speculative decoding. No benchmark token rates are transferred to the course’s GB300 example.
-- [NVIDIA — What Is Disaggregated Serving?](https://www.nvidia.com/en-gb/glossary/disaggregated-serving/) — Explains compute-heavy prompt processing and memory-bandwidth-heavy token generation, dedicated hardware for each phase, and the required KV-cache transfer. Read 2026-09-13. Reviewed phase characteristics and the aggregated/disaggregated comparison. The course says usually/often because batch size, context, model and hardware can change the bottleneck. Vendor ROI and performance multipliers are not used.
+- [NVIDIA Triton — Batchers](https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/user_guide/batcher.html) — docs.nvidia.com · Reviewed 2026-09-06. Dynamic batching can combine requests and introduce a configurable waiting interval.
+- [Vertiv — BESS and UPS roles in large data center power architecture](https://www.vertiv.com/en-us/insights/articles/white-papers/bess-and-ups-roles-in-large-data-center-power-architecture/) — www.vertiv.com · Reviewed 2026-09-06. Argues that synchronized AI load changes call for coordination across power-system levels.
+- [vLLM — Inside vLLM: Anatomy of a High-Throughput LLM Inference System](https://vllm.ai/blog/2025-09-05-anatomy-of-vllm) — vLLM · Published 2025-09-05 · Reviewed 2026-09-14. Describes prefill and decode, key/value-cache allocation, continuous scheduling of new and running requests, serving load balancing, and latency and throughput measurement.
+- [Microsoft, OpenAI and NVIDIA — Power Stabilization for AI Training Datacenters](https://arxiv.org/html/2508.14318v1) — Microsoft, OpenAI and NVIDIA authors / arXiv · Published 2025-08-20 · Reviewed 2026-09-12. Reports production training power swings that follow synchronized compute and communication phases, and compares software smoothing, GPU power controls and rack-level energy storage.
+- [NVIDIA — Inside NVIDIA Groq 3 LPX](https://developer.nvidia.com/blog/inside-nvidia-groq-3-lpx-the-low-latency-inference-accelerator-for-the-nvidia-vera-rubin-platform/) — NVIDIA · Published 2026-03-16 · Reviewed 2026-09-26. LPX is a separate rack-scale system with 256 Groq LPU accelerators, deployed alongside Vera Rubin NVL72; each LPU has 500 MB of on-chip SRAM as its primary working storage, with 150 TB/s of on-chip memory bandwidth.
+- [NVIDIA — How Groq 3 LPX Unlocks Ultrafast Interactivity at Long Context](https://developer.nvidia.com/blog/how-nvidia-groq-3-lpx-unlocks-ultrafast-interactivity-at-long-context-on-nvidia-vera-rubin/) — NVIDIA · Published 2026-08-24 · Reviewed 2026-09-26. Standard prefill–decode disaggregation: Vera Rubin NVL72 runs prefill and hands off the KV cache once per turn; Groq 3 LPX runs the entire decode step using that cache and SRAM-resident weights, with 128 GB of SRAM across its 256 LPUs.
+- [NVIDIA — What Is Disaggregated Serving?](https://www.nvidia.com/en-gb/glossary/disaggregated-serving/) — NVIDIA · Reviewed 2026-09-13. Explains compute-heavy prompt processing and memory-bandwidth-heavy token generation, dedicated hardware for each phase, and the required KV-cache transfer.
+- [Groq — What is a Language Processing Unit?](https://groq.com/blog/the-groq-lpu-explained) — Groq · Published 2025-03-07 · Reviewed 2026-09-26. Groq expands LPU as Language Processing Unit, its inference processor, built around deterministic execution and memory on the same chip as compute.
 
 ## Check your understanding: Same hardware, different service
 
@@ -121,4 +122,4 @@ Compare accepted responses under the same arrival pattern, quality requirement a
 
 **The next problem:** Once the workload has an explicit demand envelope, where can the required power actually be delivered?
 
-Continue in **Siting, grid connection and supply**: A contract is not a cable.
+Continue in **4. Siting, grid connection and supply**: Deliver the campus one usable phase at a time.

@@ -1,8 +1,6 @@
 # Open one phase, with evidence
 
-Generated reading view. Edit [`course/expansion/capstones.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/capstones.json), lesson `c05-open-a-phase`, then run `uv run gigawatt-expand`.
-
-**16. Putting an AI Factory Together · Authored draft**
+**16. Putting an AI Factory Together · Optional practice**
 
 Reconcile installation, energization, integrated testing and service acceptance. Build a dependency schedule without treating announcements as operational measurements.
 
@@ -10,39 +8,42 @@ Reconcile installation, energization, integrated testing and service acceptance.
 
 ## A campus total can hide incomplete paths
 
-A hypothetical campus has 1,000 rack locations, 800 installed racks and an energized 100 MW site service. None of those totals alone identifies an accepted service path. The supplied handover register splits the installed racks into three groups: A contains 300 racks whose complete electrical, cooling, network, controls and end-to-end service acceptance package has passed; B contains 250 racks with electrical and cooling tests complete but network interface work and end-to-end acceptance still open; C contains 250 racks whose integrated cooling test remains open. Every group uses a specified 100 kW rack-equivalent load for this exercise. All other required service paths and site-wide constraints are adequate for the calculated groups.
+A campus has 1,000 rack locations, 800 installed racks and an energized 100 MW site service. Each rack counts as a 100 kW rack equivalent, so the 800 installed racks come to 80 MW and leave 20 MW of the service for cooling and other auxiliaries, which this exercise assumes is enough. The 1,000 locations measure floor space: filled at 100 kW they would take the whole 100 MW and leave nothing for auxiliaries. On a day when auxiliaries need 25 MW, as in the hot-day case of the weather exercise, the same service carries 750 racks, so the site's power budget belongs in the ledger beside the test results.
 
-Create separate columns for installed equipment, energized paths, individual tests, integrated tests and service acceptance. Do not combine the highest count from each subsystem as if those counts referred to the same racks. Even equal totals can describe disjoint groups. Acceptance requires the intersection of compatible paths for the particular service. The hypothetical evidence explicitly establishes that intersection only for group A. The project can report its larger installed inventory, but it should not rename that inventory as accepted computing capacity.
+The handover register splits the installed racks into three groups. Group A's 300 racks have passed the complete electrical, cooling, network, controls and end-to-end service acceptance package. Group B's 250 racks have passed their electrical tests and the integrated cooling test, but their network interface work and end-to-end acceptance are still open. Group C's 250 racks have passed their electrical tests and completed their network interface work, but their integrated cooling test remains open.
+
+Create separate columns for installed equipment, energized paths, individual tests, integrated tests and service acceptance, then count the subsystem columns. Electrical tests have passed on all 800 racks, the integrated cooling test on 550 (groups A and B) and network interface work on 550 (groups A and C). Taking the smallest column gives 550, but the two 550-rack columns overlap only in group A, so just 300 racks appear in all three. Acceptance counts that intersection: the racks whose every path for the service has passed. The project can report 800 installed racks, and its accepted computing capacity is 300 racks, or 30 MW.
 
 ## Distinguish a schedule calculation from a public-site inference
 
 Group B’s remaining network interface work can begin immediately and takes four days. End-to-end acceptance testing then takes two days. Group C needs a replacement cooling component delivered in three days, one day of installation, and three days of integrated cooling testing, with each task depending on the preceding one. Assume the supplied durations hold, groups can proceed independently, and qualified teams and all other resources are available. These assumptions make a small dependency schedule calculable. Actual projects require resource, uncertainty and change-control analysis beyond this exercise.
 
-Return to the original Crusoe-built Abilene campus for the physical handover question, while keeping this original register separate from its public record. The slide sequence uses an Oracle data-hall aerial identified as Abilene and dated July 15, 2026. The photograph establishes context; it does not reveal which racks passed internal service acceptance. For a named campus, classify what its dated sources actually report. A building opening, utility agreement or equipment order is not the acceptance register used here. Leave unreported commissioning state, demand, topology and workload output unknown. The 300/250/250-rack groups and six/seven-day schedules in this exercise are supplied teaching inputs, not Abilene figures.
+Apply the same ledger to a named campus using only its dated public record. At Abilene, Crusoe reported the first two buildings energized within a year of the June 2024 construction start, and Oracle reported 75 percent of total capacity delivered as of September 2026. Each statement belongs in its own column: an energization report and a customer-delivery share are milestones, not entries in an acceptance register, and neither says which racks passed integrated testing. Leave Abilene's unreported commissioning state, demand and topology blank. The 300, 250 and 250-rack groups and the six- and seven-day schedules belong to this exercise alone.
 
 ## Worked example: Count the intersection and trace the dependencies
 
-- Synthetic groups A/B/C contain 300/250/250 installed racks, each represented by 100 kW.
-- Only A has passed the complete service acceptance package. All other site-wide constraints are adequate for the calculated groups.
+- Synthetic groups A/B/C contain 300/250/250 installed racks, each represented by 100 kW. The 100 MW service leaves 20 MW for auxiliaries at the 80 MW of installed racks, which is assumed enough.
+- Only A has passed the complete service acceptance package. B has passed electrical and integrated cooling tests; C has passed electrical tests and finished network interface work.
 - B: four days of network interface work then two days of end-to-end acceptance testing. C: three days delivery, one day installation, then three days integrated cooling testing.
 
-1. Accepted service today: 300 × 100 kW = 30 MW of rack-equivalent demand. Installed inventory is separately 800 racks or 80 MW at the stated load.
-2. B's acceptance path takes 4 + 2 = 6 days. On successful completion, accepted service becomes 550 racks or 55 MW.
-3. C's acceptance path takes 3 + 1 + 3 = 7 days. On successful completion, accepted service becomes 800 racks or 80 MW.
-4. The earliest all-group acceptance is day seven under the supplied independent-resource assumptions. The longest single activity is not the same as the longest dependency chain.
-5. Every projected increase remains conditional on test success and the stated supply/resource assumptions. A failed test changes the schedule rather than being averaged into an accepted count.
+1. Intersect the subsystem columns: electrical {A, B, C}, integrated cooling {A, B} and network {A, C} share only A. The smallest column holds 550 racks; the intersection holds 300.
+2. Accepted service today: 300 × 100 kW = 30 MW of rack-equivalent demand. Installed inventory is separately 800 racks or 80 MW at the stated load.
+3. B's acceptance path takes 4 + 2 = 6 days. On successful completion, accepted service becomes 550 racks or 55 MW.
+4. C's acceptance path takes 3 + 1 + 3 = 7 days. On successful completion, accepted service becomes 800 racks or 80 MW.
+5. The earliest all-group acceptance is day seven under the supplied independent-resource assumptions. The longest single activity is not the same as the longest dependency chain.
+6. Every projected increase remains conditional on test success and the stated supply/resource assumptions. A failed test changes the schedule rather than being averaged into an accepted count.
 
 **Result:** The evidence supports 300 accepted racks now, a conditional 550 by day six and a conditional 800 by day seven. Installed, energized and future figures remain separate.
 
-**Model boundary:** Synthetic schedule and acceptance register. No named project's operating state, redundancy certification, installed GPU count or measured demand is inferred.
+**Model boundary:** Synthetic schedule and acceptance register. No named project's operating state, redundancy certification, installed graphics processing unit (GPU) count or measured demand is inferred.
 
 ## The tradeoff
 
-Choice: Open accepted group A while completing the other phases.
+Choice: Open accepted group A while completing groups B and C.
 
-Benefit: Begin delivering a bounded service before the entire installed inventory is accepted.
+Benefit: 300 racks, 30 MW of rack-equivalent demand, serve from day 0 instead of waiting until day 7 for all 800.
 
-Cost: Shared-system work, isolation, access and change control must preserve the live group's accepted conditions.
+Cost: The network interface work on B and the cooling-component replacement on C happen beside a live group, so isolation, access and change control must keep group A within its accepted conditions.
 
 ## When the situation changes
 
@@ -67,7 +68,8 @@ Failed acceptance does not add usable service, although the hardware remains ins
 
 **The idea to keep:** Count complete accepted paths for a specified service; maintain a separate ledger for future capacity and unresolved public claims.
 
-## Sources and reading boundaries
+## Sources
 
-- [Commissioning & Performance Validation | AI Data Center Energy Performance Framework](https://www.ashrae.org/technical-resources/ai-data-center-framework/commissioning-performance-validation) — Commissioning context for distinguishing testing and handover from installation; the register and schedule are original teaching inputs. Read 2026-09-06. Public framework guidance. Referenced standards and project-specific acceptance procedures were not reviewed; no field procedure is prescribed.
-- [Oracle Data Centers: Abilene, Texas](https://www.oracle.com/data-centers/) — Identifies the reused Abilene data-hall aerial and its July 15, 2026 caption date. Read 2026-09-16. Visual campus context only. The original teaching acceptance register, rack counts, MW calculation and schedule are not reported operating figures for Abilene.
+- [Commissioning & Performance Validation | AI Data Center Energy Performance Framework](https://www.ashrae.org/technical-resources/ai-data-center-framework/commissioning-performance-validation) — ASHRAE · Reviewed 2026-09-06. ASHRAE's AI data-center framework guidance on commissioning: testing and handover as steps after installation.
+- [Oracle Data Centers: Abilene, Texas](https://www.oracle.com/data-centers/) — Oracle · Reviewed 2026-09-17. Oracle reports 75 percent of total Abilene capacity delivered as of September 2026, with the rest in later quarters.
+- [Crusoe — Flagship Abilene data center is live](https://www.crusoe.ai/resources/newsroom/crusoe-announces-flagship-abilene-data-center-is-live) — Crusoe · Published 2025-09-30 · Reviewed 2026-09-17. The first two Abilene buildings were energized within a year of the June 2024 construction start.

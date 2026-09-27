@@ -1,10 +1,8 @@
 # A collective makes waiting contagious
 
-Generated reading view. Edit [`course/expansion/racks-compute-heat.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/racks-compute-heat.json), lesson `d08-collective-progress`, then run `uv run gigawatt-expand`.
+**10. Networking and interconnects**
 
-**10. Networking and interconnects · Authored draft**
-
-Walk through a ring all-reduce, then connect synchronization, congestion and placement to the job timeline.
+See why the slowest transfer sets the pace, walk through a ring all-reduce, then connect synchronization, congestion and placement to the job timeline.
 
 **Driving question:** How can one constrained participant delay a job running on many healthy accelerators?
 
@@ -12,7 +10,13 @@ Walk through a ring all-reduce, then connect synchronization, congestion and pla
 
 An all-reduce combines corresponding values from participating workers and returns the combined result to each worker. For example, three workers holding 2, 5 and 7 can all receive 14 after a sum reduction. An all-gather instead distributes each worker’s distinct contribution to everyone; an all-to-all sends different pieces to different destinations. Their names identify data transformations, not one mandatory topology. A library can implement a transformation with different algorithms depending on message size, topology and available hardware.
 
-The workers must agree on the operation they are participating in. NCCL’s collective documentation requires compatible participation, counts and data types and warns that mismatches can hang, crash or corrupt execution. This is a software correctness condition distinct from link capacity. A job that stops during communication may have a missing or mismatched participant rather than a damaged cable. Diagnosis must examine both communication progress and the execution history that led each rank to that point.
+The workers must agree on the operation they are participating in. The documentation for NVIDIA’s Collective Communications Library (NCCL) requires compatible participation, counts and data types and warns that mismatches can hang, crash or corrupt execution. This is a software correctness condition distinct from link capacity. A job that stops during communication may have a missing or mismatched participant rather than a damaged cable. Diagnosis must examine both communication progress and the execution history that led each rank to that point.
+
+## The slowest server sets the pace
+
+Four servers start their transfers together, and the next step needs all four results. Servers 1, 2 and 3 finish at 20 ms; server 4 finishes at 50 ms. The step begins at 50 ms, the latest completion, so the first three servers each wait 30 ms. Making them faster changes nothing: if they finished at 10 ms, the step would still begin at 50 ms. Only server 4 matters here, and bringing it down to 20 ms would start the step 30 ms sooner.
+
+These are completion times measured from one common start, not ping latencies: they include the time to move each server’s data. Work that does not need the four results can still proceed while the servers wait. The rest of this lesson traces how collectives, congestion and placement create such a late participant.
 
 ## Derive one ring rather than memorizing a formula
 
@@ -28,7 +32,7 @@ Congestion makes available bandwidth time-dependent. Several flows can share an 
 
 ## Select a fabric as an operating system decision
 
-Ethernet and InfiniBand are families of technologies and implementations, not universal performance rankings. Meta’s March 2024 report describes separate large clusters using RoCE and InfiniBand and explains that routing, collective software and topology-aware scheduling required joint tuning. That case supports testing the full system. It does not prove equal performance for every workload or make operational expertise irrelevant. A useful comparison names the hardware, protocol configuration, topology, software version, message distribution and failure conditions being tested.
+Ethernet and InfiniBand are families of technologies and implementations, not universal performance rankings. Meta’s March 2024 report describes two clusters of 24,576 H100 GPUs each, one using RDMA over Converged Ethernet (RoCE) and one using InfiniBand. Remote direct memory access (RDMA) lets network adapters place data in permitted memory on another server without a processor-managed copy for each transfer. The report explains that routing, collective software and topology-aware scheduling required joint tuning. That case supports testing the full system. It does not prove equal performance for every workload or make operational expertise irrelevant. A useful comparison names the hardware, protocol configuration, topology, software version, message distribution and failure conditions being tested.
 
 ## Optical circuit switching in Google TPU v4
 
@@ -48,10 +52,11 @@ For a physical-link diagnosis, consider this evidence: after a cable move, one w
 
 1. Reduce then distribute — 3 reduce-scatter rounds + 3 all-gather rounds = 6 rounds — After reduction, each worker holds one complete chunk; distribution gives every worker all complete chunks.
 2. Count transmitted bytes — 6 × 0.25 GB = 1.5 GB per worker — Each ring edge carries one chunk per round.
-3. Find communication time — 1.5 GB ÷ 50 GB/s = 30 ms — All ring edges operate concurrently at the stipulated payload rate.
+3. Find communication time — 1.5 GB ÷ 50 GB/s = 30 ms — All ring edges operate concurrently at the given payload rate.
 4. Place it on the critical path — Without overlap: 200 + 30 = 230 ms; with overlap: 200 + (30 − 20) = 210 ms — Only the 10 ms remaining after the compute interval extends the overlapped step.
+5. Slow one edge — 1.5 GB ÷ 25 GB/s = 60 ms; with overlap: 200 + (60 − 20) = 240 ms — Each round waits for the slowest edge, so one edge at 25 GB/s paces every worker, the ring version of the late server.
 
-**Result:** At 25 GB/s, communication takes 60 ms. With the same 20 ms overlap, step time becomes 240 ms. Faster networking changes exposed communication, not the fixed 200 ms of compute.
+**Result:** Communication takes 30 ms and the overlapped step 210 ms. One edge at half speed doubles communication to 60 ms and stretches every worker’s step to 240 ms, while the 200 ms of compute is unchanged.
 
 **Model boundary:** The uniform ring is a teaching model; actual collective algorithms and achievable overlap depend on the workload and fabric.
 
@@ -86,8 +91,8 @@ The observed change is exposed communication. More GPU arithmetic throughput or 
 
 **The idea to keep:** Communication is part of the computation’s dependency graph, so local health does not establish global progress.
 
-## Sources and reading boundaries
+## Sources
 
-- [NCCL Collective Operations](https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/usage/collectives.html) — Defines collective transformations and participation requirements. Read 2026-09-14. Inspected NCCL 2.31.2 documentation; the ring timing model is original and is not asserted to be the library’s chosen implementation.
-- [Building Meta’s GenAI Infrastructure](https://engineering.fb.com/2024/03/12/data-center-engineering/building-metas-genai-infrastructure/) — First-party example of RoCE and InfiniBand clusters and joint network/software/placement tuning. Read 2026-09-14. March 2024 operator report; no reported benchmark ratio is generalized.
-- [TPU v4: An Optically Reconfigurable Supercomputer for Machine Learning](https://arxiv.org/abs/2304.01433) — TPU v4: 4,096 chips in 64 racks, 64 chips in each electrical 4 × 4 × 4 block, and 48 optical circuit switches connecting the blocks. Read 2026-09-14. TPUv4 architecture, not every TPU generation; ICI optical circuits are not automatically long-haul WAN.
+- [NCCL Collective Operations](https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/usage/collectives.html) — docs.nvidia.com · Reviewed 2026-09-14. Defines collective transformations and participation requirements.
+- [Building Meta’s GenAI Infrastructure](https://engineering.fb.com/2024/03/12/data-center-engineering/building-metas-genai-infrastructure/) — Meta Engineering · Published 2024-03-12 · Reviewed 2026-09-14. Two 24,576-GPU H100 clusters, one on RoCE and one on InfiniBand, and the joint network, software and placement tuning they required.
+- [TPU v4: An Optically Reconfigurable Supercomputer for Machine Learning](https://arxiv.org/abs/2304.01433) — Google Research · Published 2023-04-04 · Reviewed 2026-09-14. TPU v4: 4,096 chips in 64 racks, 64 chips in each electrical 4 × 4 × 4 block, and 48 optical circuit switches connecting the blocks.

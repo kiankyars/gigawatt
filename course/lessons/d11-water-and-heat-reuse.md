@@ -1,8 +1,6 @@
 # Count water at the boundary, then ask who can use the heat
 
-Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/heat-delivery-operations.json), lesson `d11-water-and-heat-reuse`, then run `uv run gigawatt-expand`.
-
-**12. Heat rejection, climate and water · Authored draft**
+**12. Heat rejection, climate and water**
 
 Reconcile tower makeup and blowdown, distinguish withdrawal from consumption, and evaluate heat reuse against an actual receiving load.
 
@@ -18,11 +16,13 @@ The distinction matters because a site can reduce blowdown while continuing to e
 
 ## Make the numerator say what it measures
 
-Withdrawal refers to water taken from a source; consumption concerns the portion not returned to the relevant water system in the accounting framework. Water delivered by a utility is also different from a facility directly withdrawing from a river or aquifer. USGS distinguishes withdrawal and consumptive-use data because they answer different questions. At a data center, a supply meter alone cannot establish every downstream return flow, basin impact or upstream electricity-related water use.
+Withdrawal refers to water taken from a source; consumption concerns the portion not returned to the relevant water system in the accounting framework. Water delivered by a utility is also different from a facility directly withdrawing from a river or aquifer. The US Geological Survey distinguishes withdrawal and consumptive-use data because they answer different questions. At a data center, a supply meter alone cannot establish every downstream return flow, basin impact or upstream electricity-related water use.
 
 In our synthetic day, evaporation is 100 cubic metres and cycles of concentration are five. With the simplified assumptions, blowdown is 25 cubic metres and makeup is 125. Suppose the 25 cubic metres are returned to the same accounting basin after suitable treatment, while evaporation is counted as consumption. The site then records 125 cubic metres of intake and 100 of consumption. If that return destination were unknown, the consumption conclusion would require qualification rather than an invented return credit.
 
-Normalize only after stating the time and energy boundary. If IT used 100 MWh that day, intake intensity is 1.25 litres per IT kWh, and consumption intensity is 1 litre per IT kWh. Explicitly label these ratios rather than casually assigning an unspecified WUE label. If facility energy is 120 MWh that day, its facility/IT energy ratio is 1.20. This one-day ratio is not an annual PUE report. None of these figures tells us useful training progress, watershed scarcity, water quality or the consequences of an outage in the makeup supply.
+Normalize only after stating the time and energy boundary. If IT used 100 MWh that day, intake intensity is 1.25 litres per IT kWh, and consumption intensity is 1 litre per IT kWh. Label each ratio by what it counts. The Green Grid’s water usage effectiveness (WUE), defined in 2011, divides a year of site water use in litres by IT equipment energy in kilowatt-hours. Its site water counts tower evaporation, blowdown and drift together, so it follows the intake side of this ledger. A one-day ratio is still a different quantity from a reported annual WUE. If facility energy is 120 MWh that day, its facility/IT energy ratio is 1.20. This one-day ratio is not an annual PUE report. None of these figures tells us useful training progress, watershed scarcity, water quality or the consequences of an outage in the makeup supply.
+
+Evaporation is also a heat ledger. Turning liquid water into vapor absorbs its latent heat, about 2,430 kJ per kilogram at 30°C in the water tables of the NIST Chemistry WebBook from the US National Institute of Standards and Technology, so evaporating about 1.5 litres carries away 1 kWh. If the tower rejected the day’s 100 MWh of IT heat, its 100 cubic metres of evaporation would account for about 67 MWh, two-thirds of it. The cooling-tower chapter of the handbook from ASHRAE, the American Society of Heating, Refrigerating and Air-Conditioning Engineers, explains where the rest goes. Air passing through a tower gains heat in a latent part, which evaporates water, and a sensible part, which only warms the air, and the sensible share grows as the entering air gets colder. Rejecting all 100 MWh by evaporation alone would take about 150 cubic metres, so the water a tower uses for the same heat changes with the weather.
 
 ## Heat reuse needs a customer, a temperature and a clock
 
@@ -39,6 +39,16 @@ Crusoe’s August 2025 Abilene description specifies closed-loop facility water 
 Follow the mechanism: fluid circulates inside the system, heat crosses the chiller interfaces, and outdoor air receives the rejected heat. Closed-loop describes the fluid path. Non-evaporative describes the rejection process. Neither term means zero compressor work, zero maintenance water or unlimited capacity on a hot day.
 
 Pause: would replacing the air-cooled rejection arrangement with an evaporative tower leave the water ledger unchanged merely because the equipment coolant loop stays closed? No. The equipment loop may still recirculate, while a separate tower circuit needs makeup water. Identify each circuit before applying a water-use claim to the whole campus.
+
+## Case study: a Toronto carrier hotel kept power but lost cooling
+
+Enwave’s district cooling system in downtown Toronto starts with cold water drawn from deep in Lake Ontario. Toronto Water treats that water for drinking. On its way into the city supply, it passes through heat exchangers at the John Street Pumping Station and absorbs heat from a separate district-cooling circuit. That circuit recirculates through downtown buildings, including the carrier hotel at 151 Front Street West, a building where many network operators interconnect, and returns to John Street to be cooled again. Lake water never reaches a server rack: the drinking-water flow and the district loop exchange heat without mixing.
+
+On July 8, 2013, heavy rain flooded Hydro One’s Richview and Manby transmission stations and caused widespread outages across the Toronto area. Data Center Knowledge quoted PEER 1 the next day: the 151 Front Street West building transferred to generator power, while its external chilled-water provider also had power problems, so cooling fell. The same report said Enwave supplied an emergency chiller, which gave some relief until the system was restored.
+
+Erik Levinson, chief technology officer of the tenant Uberflip, described the response on July 9 in a message to the North American Network Operators’ Group (NANOG) mailing list. One suite recovered sooner than another. In the hotter suite, cold-side cabinet air rose above 43°C and some equipment shut down automatically. Operators remotely stopped redundant and nonessential systems, moved some services to the cooler suite, and restored equipment once temperatures returned to normal. His account covers roughly 18:45 to 01:15.
+
+The lake still held cold water. The weak link was the equipment that delivered the cooling, and it depended on the provider’s power supply rather than on the building’s generators. Backup generation protects only the loads connected to it. For each heat-removal path, list the services it needs, such as water supply, pumps and controls, and the power source behind each one.
 
 ## Worked example: A synthetic tower water ledger
 
@@ -59,17 +69,15 @@ Pause: would replacing the air-cooled rejection arrangement with an evaporative 
 
 Choice: Select a dry-rejection alternative for a water-constrained brief.
 
-Benefit: It can reduce direct evaporative water demand at the site.
+Benefit: It removes evaporation from the site water ledger, which is 100 of the 125 m³ taken in each day in the worked example.
 
-Cost: The alternative still needs evidenced thermal capacity, fan/compressor electricity, footprint and high-ambient performance; indirect resource effects remain separate.
+Cost: Dry rejection is limited by the dry bulb. In the weather lesson’s 84 kW example, 35°C air gives 45°C technology supply through the dry cooler against 35°C through the tower route at 22°C wet bulb, so on that day the dry route needs a chiller, a warmer qualified inlet or a lower load.
 
 ## When the situation changes
 
 Trigger: A summer water restriction removes a tower mode assumed available in the design case.
 
 Mechanism: A resource constraint changes the feasible heat path even while the electrical service remains intact.
-
-Response: Evaluate the specified alternate rejection mode and permitted workload response; do not assume nameplate cooling survives the restriction.
 
 ## Apply the idea
 
@@ -86,11 +94,18 @@ Lower concentration requires more blowdown in this model. It increases intake by
 
 **The idea to keep:** Water, electricity and recovered heat have different boundaries and timing. Report them separately before deciding which architecture is preferable.
 
-## Sources and reading boundaries
+## Sources
 
-- [DOE FEMP: Cooling Tower Management](https://www.energy.gov/cmei/femp/best-management-practice-10-cooling-tower-management) — Evaporation, blowdown, makeup and concentration mechanisms support the simplified conservation example. Read 2026-09-06. Overview and water-balance discussion inspected; no chemical dosing, operating limit or treatment procedure is reproduced.
-- [USGS National Water Availability Assessment Data Companion](https://waterdata.usgs.gov/blog/nwdc-overview/) — The water-use discussion distinguishes withdrawals from consumptive use. Read 2026-09-06. Selected definitions inspected; the lesson’s hypothetical return-flow assumption is not an observation about a real basin.
-- [Crusoe — Abilene cooling design](https://www.crusoe.ai/resources/blog/an-inside-look-at-the-abilene-ai-data-center) — Abilene provides a recurring example of grid supply, backup and closed-loop cooling with air-cooled heat rejection. Read 2026-09-12. Energy and water sections reviewed. Historical company design description, not audited operating water use. Initial fill and maintenance remain separate from non-evaporative heat rejection.
+- [DOE FEMP: Cooling Tower Management](https://www.energy.gov/cmei/femp/best-management-practice-10-cooling-tower-management) — www.energy.gov · Reviewed 2026-09-06. Cooling towers lose water to evaporation and blowdown, makeup replaces it, and dissolved solids concentrate as water evaporates.
+- [USGS National Water Availability Assessment Data Companion](https://waterdata.usgs.gov/blog/nwdc-overview/) — waterdata.usgs.gov · Published 2026-03-11 · Reviewed 2026-09-06. The water-use discussion distinguishes withdrawals from consumptive use.
+- [Crusoe — Abilene cooling design](https://www.crusoe.ai/resources/blog/an-inside-look-at-the-abilene-ai-data-center) — Crusoe · Published 2025-08-05 · Reviewed 2026-09-12. Abilene provides a recurring example of grid supply, backup and closed-loop cooling with air-cooled heat rejection.
+- [ASHRAE Handbook 2024 — Cooling Towers](https://handbook.ashrae.org/Handbooks/S24/IP/s24_ch40/s24_ch40_ip.aspx) — ASHRAE · Published 2024 · Reviewed 2026-09-26. Air passing through a tower absorbs heat in a sensible part and a latent part. Only the latent part evaporates water, and the sensible part grows as the entering air gets colder, so the average evaporation over a season falls below the design rate.
+- [Enwave — Enwave and Toronto Water tap into innovative energy source](https://www.enwave.com/case-studies/enwave-and-toronto-water-tap-into-innovative-energy-source) — Enwave Energy Corporation · Reviewed 2026-09-26. Lake Ontario water treated for drinking passes heat exchangers at the John Street Pumping Station, which chill a separate district-cooling loop serving downtown Toronto buildings.
+- [Hydro One — Power outages due to heavy rains, July 8, 2013](https://www.newswire.ca/news-releases/hydro-one-power-outages-due-to-heavy-rains-512697891.html) — Hydro One Inc., via Cision Newswire · Published 2013-07-08 · Reviewed 2026-09-26. Heavy rain flooded the Richview and Manby transmission stations and caused widespread outages in Brampton, Toronto and Mississauga.
+- [Data Center Knowledge — Toronto Flooding KOs Data Center Cooling Systems, July 9, 2013](https://www.datacenterknowledge.com/outages/toronto-flooding-kos-data-center-cooling-systems) — Data Center Knowledge (Rich Miller) · Published 2013-07-09 · Reviewed 2026-09-26. PEER 1 said 151 Front Street moved to generator power while its chill-loop provider's power problems cut cooling; the article reports that Enwave supplied an emergency chiller for relief until the system was restored.
+- [Erik Levinson (Uberflip) — What to expect after a cooling failure, NANOG mailing list, July 9, 2013](https://seclists.org/nanog/2013/Jul/130) — NANOG mailing list archive (seclists.org) · Published 2013-07-09 · Reviewed 2026-09-26. A tenant's firsthand account of the hotter suite passing 43°C on the cold side, automatic shutdowns, remote load shedding and transfers, from about 18:45 to 01:15.
+- [NIST Chemistry WebBook — Saturation properties for water](https://webbook.nist.gov/cgi/fluid.cgi?Action=Load&ID=C7732185&Type=SatP&Digits=5&THigh=35&TLow=20&TInc=5&RefState=DEF&TUnit=C&PUnit=MPa&DUnit=kg%2Fm3&HUnit=kJ%2Fkg&WUnit=m%2Fs&VisUnit=uPa*s&STUnit=N%2Fm) — US National Institute of Standards and Technology (NIST Standard Reference Database 69) · Reviewed 2026-09-26. At 30°C the vapor and liquid enthalpies, 2,555.5 and 125.73 kJ/kg, give a latent heat of about 2,430 kJ/kg.
+- [The Green Grid — White Paper #35: Water Usage Effectiveness (WUE): A Green Grid Data Center Sustainability Metric](https://www.thegreengrid.org/system/files/store/WUE_v1.pdf) — The Green Grid (editor Michael Patterson, Intel) · Published 2011-03-01 · Reviewed 2026-09-26. Site WUE divides annual site water usage by IT equipment energy, in L/kWh; site water includes humidification and tower evaporation, blowdown and drift, while off-site water for energy production belongs to WUEsource.
 
 ## Check your understanding: What reaches the condenser?
 
@@ -111,4 +126,4 @@ The condenser receives the cooling duty plus compressor work: 1.0 + 0.2 MW. Cool
 
 **The next problem:** We have traced the power, work and heat paths. What evidence proves that the delivered equipment can operate as one complete service?
 
-Continue in **EPC**: The longest lead time is not the completion date.
+Continue in **13. EPC**: The longest lead time is not the completion date.

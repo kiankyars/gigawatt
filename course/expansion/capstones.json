@@ -1,5 +1,213 @@
 [
   {
+    "id": "c00-abilene-ai-factory",
+    "domain": "capstone",
+    "title": "Abilene: putting an AI factory together",
+    "question": "Why does the Abilene AI factory have this combination of infrastructure, financing and delivery choices?",
+    "summary": "Follow the original Crusoe-built campus for Oracle and OpenAI in Abilene, Texas, from its GB200 workload through gas generation, air-cooled heat rejection and parallel construction to the deals that fund it.",
+    "takeaway": "A hardware choice becomes a facility design. At Abilene the GB200 workload set the power, cooling and network requirements, and gas generation, air-cooled chillers, factory-built electrical equipment and a lease-backed investment answer them.",
+    "objectives": [
+      "D02.1",
+      "D03.4",
+      "D11.5",
+      "D13.1",
+      "D15.4",
+      "D15.5"
+    ],
+    "lab": "none",
+    "sections": [
+      {
+        "heading": "One campus, from workload to finance",
+        "paragraphs": [
+          "Abilene, Texas is this course's recurring real campus: the original campus that Crusoe built for Oracle, whose cloud runs OpenAI's training and inference. Construction began in June 2024, and Crusoe reports that the first two buildings were energized within a year. The plan grew to eight buildings and 1.2 GW. Crusoe has also broken ground on a second, 900 MW campus in Abilene for Microsoft; that is a separate project with its own figures. Each choice below answers a requirement set somewhere else in the system, which is why the campus reads best as one machine.",
+          "The workload comes first. Crusoe's September 2025 announcement says Oracle began delivering the first NVIDIA GB200 racks in June 2025 and that the first phase was running on Oracle Cloud Infrastructure (OCI); OpenAI reports that it had begun early training and inference there. Each rack sets three requirements for the building: electrical power, heat removal by cold plates plus air for the heat the cold plates miss, and a network fabric that ties the racks together. Working backward sizes the power. In the Chapter 8 rack-power ledger, 72 kW at the processor rails needs 90.26 kW on the rack's DC bus once regulator losses and 12 kW of other rack loads are added, and 93.05 kW at its AC inlet after the power shelf's conversion loss. Those are Chapter 8's example numbers, and the method carries over to Abilene: start from the chips, add each conversion loss and support load, and arrive at the facility's demand."
+        ]
+      },
+      {
+        "heading": "Gas generation: bridge first, backup later",
+        "paragraphs": [
+          "Abilene has 350 MW of on-site gas generation. Crusoe's 2025 Impact Report calls the turbines temporary bridge power and long-term backup, and says they replace diesel backup; selective catalytic reduction was added to cut their nitrogen oxide emissions. The same equipment therefore serves a delivery role first and a continuity role later. As bridge power it lets halls operate before the grid alone could supply them, at the cost of a fuel supply, emissions controls and a plant to run.",
+          "As backup, the plant's rating has to be compared with the load it would carry. 350 MW is about 29 percent of the 1.2 GW plan, so in a grid outage the plant could carry only part of a fully built campus, and the published sources do not say which loads it would keep running. The worked example compares the rating with the first phase, the full plan and Oracle's delivered share."
+        ],
+        "figures": [
+          {
+            "asset": "references/finale-abilene-turbine-2026.jpg",
+            "alt": "Aerial photograph of the Abilene gas-turbine plant: rows of turbine units with exhaust stacks in the foreground and data-hall buildings behind them on the left.",
+            "caption": "Abilene's gas-generation plant beside the data halls, in Oracle's aerial captioned July 15, 2026.",
+            "source_title": "Oracle Data Centers: Abilene, Texas",
+            "source_url": "https://www.oracle.com/data-centers/"
+          }
+        ]
+      },
+      {
+        "heading": "Cooling: rejecting heat without evaporating water",
+        "paragraphs": [
+          "The racks' heat must reach the outdoors, and a campus can choose among three routes. Direct dry cooling passes facility water through coils cooled by outdoor air, which works when the air is cool enough relative to the required water temperature. An air-cooled chiller uses refrigeration to make colder water and rejects its heat to outdoor air. A water-cooled chiller paired with a wet cooling tower rejects its heat through the tower, which evaporates water that has to be replaced. Here air-cooled describes the outdoor heat rejection; the GPUs themselves are still cooled by liquid through cold plates.",
+          "Crusoe chose air-cooled chillers on a closed loop of facility water, so heat rejection evaporates no water. It estimates about 50,000 gallons per building each year for maintenance and water quality, separate from the initial fill, and says it accepted higher lifecycle and maintenance costs “in the interest of responsible water management.” A wet tower lets a chiller condense at a lower temperature and so can use less compressor electricity, at the price of makeup water, water treatment and tower upkeep. Crusoe publishes no priced alternative or water-price assumptions, so the lifetime cost comparison stays open. Emissions from the on-site gas plant are a separate question from water use."
+        ]
+      },
+      {
+        "heading": "Delivery: build in parallel, grow around live work",
+        "paragraphs": [
+          "Crusoe built electrical equipment while the buildings went up. Its Impact Report describes in-house switchgear manufacture and prefabricated electrical skids for Abilene, and its September 14, 2026 release reports more than 2,500 switchboards supplied to Abilene from its Tulsa operations. Factory assembly and site construction proceed at the same time and meet at installation and testing. A factory-complete package still has to match its electrical interfaces and leave room for installation and maintenance before a hall can operate.",
+          "The campus also grew around live work. The first phase ran OpenAI workloads while construction continued toward eight buildings joined by an integrated network fabric. Each new phase has to connect its power, cooling and network to shared campus systems while the halls already in service keep running; the general engineering answer is to keep each new interface isolated until its phase is ready. Crusoe targeted the first two buildings for energization in the first half of 2025 and the six additional buildings for mid-2026. Oracle reported 75 percent of Abilene's total capacity delivered as of September 2026, with the rest expected in later quarters. Oracle leaves the basis of that percentage undefined, so converting it into megawatts requires an assumption about that basis."
+        ],
+        "figures": [
+          {
+            "asset": "references/distribution-abilene-data-halls.jpg",
+            "alt": "Oracle aerial of the Abilene campus: rows of data halls, steel framing still exposed in places, long lines of outdoor equipment beside them, and cleared ground on the right where construction continues.",
+            "caption": "Abilene data halls in Oracle's aerial captioned July 15, 2026.",
+            "source_title": "Oracle Data Centers: Abilene, Texas",
+            "source_url": "https://www.oracle.com/data-centers/"
+          }
+        ]
+      },
+      {
+        "heading": "Capital: a hierarchy of deals",
+        "paragraphs": [
+          "Three companies share the operating stack. Crusoe designs, builds and operates the physical campus. Oracle provides the GPU cloud infrastructure, and Crusoe's June 2026 announcement calls the 1.2 GW campus purpose built for Oracle. OpenAI runs training and inference on that infrastructure.",
+          "A joint venture sits at the base of the campus's capital stack. In October 2024 Crusoe, Blue Owl-managed funds and Primary Digital Infrastructure announced a $3.4 billion venture for the first phase: 206 MW in two buildings, fully leased long term to a hyperscale tenant the announcement did not name. In May 2025 the same partners announced the second phase, the six additional buildings, of a $15 billion joint venture to fund the 1.2 GW campus. The $15 billion is the venture's size; it is neither a GPU bill nor an amount to add to the earlier $3.4 billion. Blue Owl's funds supply institutional capital, the first phase also drew on construction financing, and Primary Digital co-sponsors the venture and advised on the first-phase transaction. The investors' return rests on the lease: long-term rent and the value of the property. Crusoe keeps the development and operating role, and Primary Digital describes its mission as buying stabilized assets so that developers can recycle capital into their next projects. Each partner's share, cash contribution, fees and target return remain private, so any estimate of a partner's return rests on assumptions.",
+          "Keep three budgets apart. The joint venture pays for the physical campus, Oracle pays for the GPU infrastructure it installs, and OpenAI pays Oracle for the compute it uses. Adding the venture's $15 billion to a GPU purchase or to OpenAI's cloud bill would count different layers of one system as a single sum."
+        ]
+      },
+      {
+        "heading": "The data center is the machine",
+        "paragraphs": [
+          "Read the campus outward from the rack. The GB200 workload sets requirements for power, cooling and fast connections. Across a hall, those become distribution and cooling systems serving rows of machines. Across the campus, they require substations, outdoor cooling, generation, land and financing. A hardware choice becomes a facility design. The course follows that design both ways: electricity from the site boundary to the chips, and heat from the chips back out."
+        ]
+      }
+    ],
+    "example": {
+      "title": "How far does 350 MW of gas generation reach?",
+      "assumptions": [
+        "On-site gas generation: 350 MW (Crusoe 2025 Impact Report).",
+        "First phase: two buildings and 206 MW (Crusoe, October 2024). Full plan: eight buildings and 1,200 MW (Crusoe, March 2025).",
+        "Oracle: 75 percent of total capacity delivered as of September 2026, on a basis it does not define."
+      ],
+      "steps": [
+        {
+          "label": "First phase",
+          "expression": "350 / 206 = 1.70",
+          "explanation": "On ratings alone, the plant is 1.7 times the first phase, so it could bridge that phase before the grid expansion."
+        },
+        {
+          "label": "Full plan",
+          "expression": "350 / 1,200 = 0.29",
+          "explanation": "The plant's rating is about 29% of the planned campus."
+        },
+        {
+          "label": "Delivered share",
+          "expression": "0.75 × 1,200 = 900 MW; 350 / 900 = 0.39",
+          "explanation": "This holds only if Oracle's percentage uses the same basis as the 1.2 GW plan, which Oracle does not say."
+        }
+      ],
+      "result": "The plant's rating can cover an early phase but is under a third of the full plan, so as backup it can carry only part of the planned campus unless load is reduced or other supply joins.",
+      "boundary": "Ratings only, compared on the bases the sources publish, which they leave undefined (IT or facility, nameplate or available). Generator availability, fuel supply, transfer equipment and the loads a backup must carry are not public, so no Abilene backup design follows from these ratios."
+    },
+    "tradeoff": {
+      "choice": "Reject heat with air-cooled chillers instead of wet cooling towers.",
+      "benefit": "Heat rejection evaporates no water; Crusoe estimates about 50,000 gallons per building each year for maintenance and water quality, plus the initial fill.",
+      "cost": "Crusoe reports higher lifecycle and maintenance costs, and an air-cooled chiller can need more compressor electricity than one rejecting heat through a wet tower."
+    },
+    "practice": {
+      "question": "A news summary says Blue Owl paid for Abilene's GPUs. Which layer does the Blue Owl and Primary Digital venture fund, who supplies the GPU infrastructure, and what would you need before calculating any partner's return?",
+      "answer": "The venture funds the physical campus that Crusoe builds and operates. Oracle supplies the GPU cloud infrastructure, and OpenAI pays for the compute it uses. A partner's return needs its ownership share, cash contribution, fees and the lease terms, which the announcements do not disclose.",
+      "reasoning": "Facility financing, GPU investment and cloud spending are separate layers of the same campus. The lease links the first two: rent from the tenant supports the facility investors' return, while the tenant's hardware and customer contracts sit above it."
+    },
+    "sources": [
+      {
+        "title": "Crusoe — Flagship Abilene data center is live",
+        "url": "https://www.crusoe.ai/resources/newsroom/crusoe-announces-flagship-abilene-data-center-is-live",
+        "claim": "Construction began in June 2024, the first two buildings were energized within a year, and Oracle began delivering the first GB200 racks in June 2025; the first phase runs on OCI with early training and inference, within a planned eight-building campus on one integrated network fabric.",
+        "reviewed_on": "2026-09-16",
+        "limits": "Publication date differs from the reported energization and rack-delivery dates."
+      },
+      {
+        "title": "OpenAI: Five new Stargate sites",
+        "url": "https://openai.com/index/five-new-stargate-sites/",
+        "claim": "OpenAI says the flagship Abilene campus is running on OCI, that Oracle began delivering the first GB200 racks in June 2025, and that OpenAI has started early training and inference workloads there.",
+        "reviewed_on": "2026-09-26",
+        "limits": "Read in the Internet Archive capture of September 18, 2026, because the live page refused automated access. Gives no operating MW, GPU count or utilization."
+      },
+      {
+        "title": "Crusoe — Expands AI data center campus in Abilene to 1.2 gigawatts",
+        "url": "https://www.crusoe.ai/resources/newsroom/crusoe-expands-ai-data-center-campus-in-abilene-to-1-2-gigawatts",
+        "claim": "Plans eight buildings and 1.2 GW, with the first two buildings and more than 200 MW targeted for energization in the first half of 2025 and six more buildings for mid-2026.",
+        "reviewed_on": "2026-09-16",
+        "limits": "The release's per-building GB200 wording confuses racks with GPUs and is not used quantitatively."
+      },
+      {
+        "title": "Crusoe 2025 Impact Report",
+        "url": "https://media.ffycdn.net/us/crusoe/PL5TuZz5apXB9pVsd3H1.pdf",
+        "claim": "Describes 350 MW of on-site gas generation at Abilene as temporary bridge power and long-term backup that replaces diesel backup, with selective catalytic reduction for nitrogen oxides (printed pp. 16, 19), and in-house switchgear and prefabricated electrical skids for the campus (p. 16).",
+        "reviewed_on": "2026-09-26",
+        "limits": "Does not establish backup coverage for the full 1.2 GW campus."
+      },
+      {
+        "title": "Crusoe — Crusoe Opens Second Tulsa Manufacturing Facility",
+        "url": "https://www.crusoe.ai/resources/newsroom/crusoe-opens-second-tulsa-factory-ai-infrastructure",
+        "claim": "On September 14, 2026, Crusoe reported that its Tulsa operations had supplied more than 2,500 switchboards to the flagship Abilene site, among electrical equipment that includes medium-voltage switchgear, enclosures, controls and copper busbar.",
+        "reviewed_on": "2026-09-26",
+        "limits": "Company release. The 2,500 figure counts switchboards only, and the newly opened second facility did not build the equipment for the first 2025 buildings."
+      },
+      {
+        "title": "Crusoe — Abilene cooling design",
+        "url": "https://www.crusoe.ai/resources/blog/an-inside-look-at-the-abilene-ai-data-center",
+        "claim": "Abilene uses closed-loop facility water and air-cooled chillers; Crusoe estimates about 50,000 gallons per building a year for maintenance and water quality and accepted higher lifecycle and maintenance costs to conserve water.",
+        "reviewed_on": "2026-09-26",
+        "limits": "No priced alternative, cost breakdown or water-price assumptions are published."
+      },
+      {
+        "title": "Trane — Air vs. Water Cooled Chillers",
+        "url": "https://www.trane.com/commercial/north-america/us/en/about-us/newsroom/blogs/air-vs-water-cooled-chillers.html",
+        "claim": "Air-cooled chillers avoid cooling-tower water treatment and tower maintenance; water-cooled systems can use less compressor energy.",
+        "reviewed_on": "2026-09-11",
+        "limits": "General manufacturer comparison; no Abilene equipment, power or cost data."
+      },
+      {
+        "title": "Crusoe’s Contracted AI Infrastructure Capacity Approaches 5 Gigawatts Across Data Centers and Cloud",
+        "url": "https://www.crusoe.ai/resources/newsroom/crusoes-contracted-ai-infrastructure-capacity-approaches-5-gigawatts-across-data-centers-and-cloud",
+        "claim": "Crusoe calls the 1.2 GW Abilene campus purpose built for Oracle, among its projects contracted to hyperscale clients, and reports breaking ground on a separate 900 MW Abilene campus for Microsoft.",
+        "reviewed_on": "2026-09-16",
+        "limits": "No legal lease entity or contract term is disclosed."
+      },
+      {
+        "title": "Crusoe — Crusoe, Blue Owl Capital and Primary Digital Infrastructure enter $3.4 billion joint venture",
+        "url": "https://www.crusoe.ai/resources/newsroom/crusoe-blue-owl-capital-primary-digital-joint-venture",
+        "claim": "On October 15, 2024, Crusoe, Blue Owl-managed funds and Primary Digital Infrastructure announced a $3.4 billion joint venture that jointly sponsors the first phase: a 206 MW, two-building data center that Crusoe designs, builds and operates, 100 percent leased long term to an unnamed Fortune 100 hyperscale tenant. Primary Digital describes its mission as buying stabilized assets from developers and operators so that they can recycle capital.",
+        "reviewed_on": "2026-09-26",
+        "limits": "Does not name the tenant or disclose each partner's share, cash contribution, fees or target return."
+      },
+      {
+        "title": "Crusoe — Crusoe, Blue Owl Capital and Primary Digital Infrastructure enter second phase of $15 billion joint venture",
+        "url": "https://www.crusoe.ai/resources/newsroom/crusoe-blue-owl-capital-and-primary-digital-infrastructure-enter-joint-venture",
+        "claim": "On May 21, 2025, Crusoe, Blue Owl-managed funds and Primary Digital Infrastructure announced the second phase, the six additional buildings, of a $15 billion joint venture to fund the 1.2 GW Abilene campus.",
+        "reviewed_on": "2026-09-26",
+        "limits": "The $15 billion is the venture's size for the whole campus, not a GPU bill or an amount to add to the first-phase $3.4 billion."
+      },
+      {
+        "title": "Kirkland & Ellis — Kirkland advises Blue Owl funds on JV and financing for development of Abilene data center",
+        "url": "https://www.kirkland.com/news/press-release/2025/01/kirkland-ellis-advises-bo-funds-on-jv-and-financing-for-development-of-adc",
+        "claim": "The $3.4 billion first-phase joint venture closed alongside a $2.3 billion construction loan arranged by JPMorgan Chase, and Primary Digital Infrastructure facilitated and advised on the transaction.",
+        "reviewed_on": "2026-09-26",
+        "limits": "A law firm's account of the first-phase transaction; it does not describe the second phase or any partner's return."
+      },
+      {
+        "title": "Oracle Data Centers: Abilene, Texas",
+        "url": "https://www.oracle.com/data-centers/",
+        "claim": "Oracle reports 75 percent of total Abilene capacity delivered as of September 2026, with the rest in later quarters, and publishes campus and turbine-plant aerials captioned July 15, 2026.",
+        "reviewed_on": "2026-09-16",
+        "limits": "The capacity basis is not defined; no operating MW is inferred."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Capital stack",
+        "definition": "The layers of funding behind a project, such as sponsors' equity and construction loans, each with its own claim on the project's cash flow and its own risk."
+      }
+    ]
+  },
+  {
     "id": "c01-coupled-outage",
     "domain": "capstone",
     "title": "The servers stay powered. The service does not.",
@@ -12,21 +220,29 @@
       "D05.3",
       "D14.5"
     ],
-    "lab": "continuity",
+    "optional": true,
+    "lab": "outage",
+    "lab_params": {
+      "plan": "existing",
+      "it": 2,
+      "energy": 600,
+      "inverter": 2.5,
+      "minutes": 12
+    },
     "image": "power",
     "sections": [
       {
         "heading": "Start with a dependency diagram, not a battery runtime",
         "paragraphs": [
-          "A hypothetical hall is delivering a steady 2 MW IT load when its utility supply is interrupted. The IT bus has a battery inverter, but the facility-loop pumps are on a different electrical bus. The diagram in the project pack says redundant power; it does not state which auxiliaries share that redundancy. Your first task is to turn that phrase into a list of actual supply paths. Draw the IT bus, its battery path, the rack cooling devices, the facility-loop pumps, the heat-rejection plant and the controllers that coordinate them. An untraced auxiliary is an unresolved dependency, not an assumed survivor.",
-          "The exercise provides a 2.5 MW inverter and 600 kWh of usable stored DC energy before conversion. The discharge path is 90% efficient at the stated operating point. The battery energy can therefore support the specified IT power for a bounded duration. Yet those two checks do not establish whether a thermal limit is reached first. The facility-loop pumps lose their supply immediately. Some components may retain electrical power and keep circulating a local loop while the downstream heat path has already stopped. Sustaining one loop is not equivalent to rejecting heat to the environment."
+          "A hall is delivering a steady 2 MW information technology (IT) load, the power drawn by its servers, storage and network equipment, when its utility supply is interrupted. The IT bus has a battery inverter, but the facility-loop pumps are on a different electrical bus. The diagram in the project pack says redundant power; it does not state which auxiliaries share that redundancy. Your first task is to turn that phrase into a list of actual supply paths. Draw the IT bus, its battery path, the rack cooling devices, the facility-loop pumps, the heat-rejection plant and the controllers that coordinate them. Treat an untraced auxiliary as an unresolved dependency until its supply is shown.",
+          "The exercise provides a 2.5 MW inverter and 600 kWh of usable stored direct-current (DC) energy. The inverter converts it to alternating current (AC) for the IT bus, and this discharge path is 90% efficient at the stated operating point. The battery energy can therefore support the specified IT power for a bounded duration. Yet those two checks do not establish whether a thermal limit is reached first. The facility-loop pumps lose their supply immediately. Some components may retain electrical power and keep circulating a local loop while the downstream heat path has already stopped. A circulating local loop keeps warming until the path to the outdoor plant runs again."
         ]
       },
       {
         "heading": "Write a timeline whose unknowns stay unknown",
         "paragraphs": [
           "At time zero the utility path is lost. Assume, for this exercise only, that the IT inverter transfers without exceeding the IT equipment's allowed interruption. A separately supplied controller remains available and records the pump supply loss. At ten minutes the generator path is available, but an additional two minutes is required by the supplied restoration sequence before the full cooling path can be established. These are synthetic scenario inputs, not recommended switching delays or equipment guarantees. Keep the sequence as evidence to evaluate, not instructions to perform.",
-          "You can compare the twelve-minute electrical support requirement with the available energy. You cannot calculate a safe twelve-minute thermal bridge without coolant inventory, operating temperatures, effective thermal capacities, flow after the disturbance, device limits and control behavior. The correct engineering answer can therefore contain both a numerical pass and an unresolved service conclusion. Specify the missing measurements and an acceptance test that would resolve them. A decision to reduce workload should follow the actual operating limits and an authorized control sequence; this course does not invent one from a battery calculation."
+          "You can compare the twelve-minute electrical support requirement with the available energy: the restoration needs 2,000 kW × 0.2 h = 400 kWh of the battery's 540 kWh of AC energy. The heat has a number too. Over the same twelve minutes the racks turn those 400 kWh into heat, and with the facility-loop pumps unpowered that heat accumulates in the hall's coolant and equipment. For scale, 400 kWh is 1,440 megajoules (MJ), enough to warm 10 m³ of water by about 34 K. Whether the hall can absorb it depends on coolant inventory, operating temperatures, effective thermal capacities, flow after the disturbance, device limits and control behavior, so a safe twelve-minute thermal bridge can be calculated only once those are known. The correct engineering answer can therefore contain both a numerical pass and an unresolved service conclusion. Specify the missing measurements and an acceptance test that would resolve them. A decision to reduce workload should follow the actual operating limits and an authorized control sequence, which a battery calculation cannot supply."
         ]
       }
     ],
@@ -67,15 +283,10 @@
       "result": "The IT electrical path has 16.2 ideal minutes, but the available data do not establish continued service for the twelve-minute restoration sequence.",
       "boundary": "No thermal transient, battery ageing, inverter overload curve, protective coordination or actual transfer performance is inferred."
     },
-    "tradeoff": {
-      "choice": "Add electrical support for the missing cooling auxiliaries.",
-      "benefit": "Remove one dependency that previously failed immediately.",
-      "cost": "The supported load and usable energy budget change, and all downstream heat-path and control dependencies still require testing."
-    },
     "failure": {
-      "trigger": "A project report substitutes calculated battery duration for service ride-through.",
-      "mechanism": "IT power remains available while an unprotected auxiliary breaks heat removal.",
-      "response": "Correct the report, identify sensor and supply boundaries, and require an integrated disturbance test with explicit acceptance limits."
+      "trigger": "A project report substitutes the 16.2-minute battery duration for twelve minutes of service ride-through.",
+      "mechanism": "The racks keep turning 2 MW into heat while the facility-loop pumps are unpowered: over the 12-minute restoration that is 2,000 kW × 0.2 h = 400 kWh of heat with no path to the outdoor plant.",
+      "response": "Correct the report and require an integrated disturbance test that tracks coolant and device temperatures against their limits through the full 12-minute sequence."
     },
     "practice": {
       "question": "A redesign places an additional 0.2 MW of required cooling auxiliaries on the same battery system. All energy and conversion assumptions remain fixed. What are the new power check and ideal duration? What conclusion still needs evidence?",
@@ -86,7 +297,7 @@
       {
         "title": "ASHRAE: Commissioning & Performance Validation",
         "url": "https://www.ashrae.org/technical-resources/ai-data-center-framework/commissioning-performance-validation",
-        "claim": "Commissioning provides the context for testing integrated facility behavior; the numerical case is original.",
+        "claim": "ASHRAE's AI data-center framework guidance on commissioning and validating integrated facility performance.",
         "reviewed_on": "2026-09-06",
         "limits": "Public framework guidance. Referenced standards and project-specific acceptance procedures were not reviewed; no field procedure is prescribed."
       }
@@ -94,7 +305,7 @@
     "terms": [
       {
         "term": "Dependency path",
-        "definition": "The connected equipment, supplies and controls required for a service to continue."
+        "definition": "The connected equipment, supplies and controls that a service needs to keep running. Tracing it shows whether auxiliaries such as cooling pumps share the IT load's backup power or lose supply when the utility fails."
       }
     ],
     "capstone_id": "C01"
@@ -112,14 +323,20 @@
       "D15.1",
       "D15.4"
     ],
-    "lab": "capacity",
+    "optional": true,
+    "lab": "weathercap",
+    "lab_params": {
+      "weather": "hot",
+      "remedy": "none",
+      "racks": 900
+    },
     "image": "cooling",
     "sections": [
       {
         "heading": "Use paired operating points",
         "paragraphs": [
           "A hypothetical site has a 100 MW electrical service limit and an accepted distribution path for 900 identical 100 kW rack equivalents. A rack equivalent is an accounting unit in this exercise, not a promise about real hardware composition or workload throughput. At the mild-weather operating point, the supplied plant table gives 70 MW of heat-removal capacity at the IT boundary and 15 MW of site auxiliary electricity. At the hot-weather point it gives 55 MW of IT heat-removal capacity and 25 MW of auxiliary electricity. Both points use the same required IT inlet conditions.",
-          "Do not infer the hot-weather point by applying an annual PUE. The exercise supplies separate instantaneous cooling performance and auxiliary demand because they answer different questions. A real plant's electrical input generally changes with load as well as weather. For this exercise, treat the tabulated auxiliary demands as fixed over the evaluated load range and state that approximation. A detailed operating model would need matched performance curves and control sequences rather than independent sliders."
+          "Do not infer the hot-weather point from an annual power usage effectiveness (PUE), the ratio of a year's total facility energy to its IT energy. The exercise supplies separate instantaneous cooling performance and auxiliary demand because they answer different questions. A real plant's electrical input generally changes with load as well as weather. For this exercise, treat the tabulated auxiliary demands as fixed over the evaluated load range and state that approximation. A detailed operating model would need matched performance curves and control sequences rather than independent sliders."
         ]
       },
       {
@@ -148,13 +365,13 @@
       "boundary": "This is a supplied operating-point comparison, not a chiller-selection model or a measured site forecast. Reserve margins and local constraints must be added before real capacity allocation."
     },
     "tradeoff": {
-      "choice": "Prioritize the capacity-releasing cooling proposal.",
-      "benefit": "It can support more rack-equivalent demand within the provided service envelope.",
-      "cost": "Capital, water, maintenance, efficiency and delivery consequences have not been supplied, so economic superiority is unestablished."
+      "choice": "Fund the cooling upgrade or the auxiliary cut.",
+      "benefit": "The cooling upgrade adds 100 rack equivalents on a hot day, from 550 to 650; the auxiliary cut adds none.",
+      "cost": "The auxiliary cut saves 10 MWh of electricity in every hot-weather hour, which the cooling upgrade does not; choosing between them needs the value of added capacity and the price of energy."
     },
     "failure": {
       "trigger": "A vendor presents reduced auxiliary power as proof of more usable compute capacity.",
-      "mechanism": "The claimed gain acts on an electrical constraint that is not binding in the supplied hot case.",
+      "mechanism": "In hot weather the cut raises the electrical budget from 75 to 85 MW, but cooling still binds at 55 MW, so the count stays at 550 rack equivalents.",
       "response": "Recalculate the complete constraint table and distinguish energy savings, capacity gains and actual workload output."
     },
     "practice": {
@@ -166,7 +383,7 @@
       {
         "title": "ASHRAE Handbook: Data Centers and Telecommunication Facilities",
         "url": "https://handbook.ashrae.org/Handbooks/A23/SI/A23_Ch20/a23_ch20_si.aspx",
-        "claim": "Provides the thermal operating-envelope context; all performance points and calculations in this exercise are original synthetic inputs.",
+        "claim": "ASHRAE Handbook chapter on data centers: thermal operating envelopes for IT equipment.",
         "reviewed_on": "2026-09-06",
         "limits": "Selected cooling discussion. No handbook rating curve or equipment selection is reproduced."
       }
@@ -174,7 +391,7 @@
     "terms": [
       {
         "term": "Binding constraint",
-        "definition": "The necessary limit that prevents further output or capacity growth at a specified operating point."
+        "definition": "The necessary limit that stops further output or capacity growth at a given operating point. Raising it adds capacity until another limit binds, while raising any other limit adds none."
       }
     ],
     "capstone_id": "C02"
@@ -196,26 +413,32 @@
       "D13.2",
       "D15.4"
     ],
-    "lab": "dc",
+    "optional": true,
+    "lab": "retrofit",
+    "lab_params": {
+      "load": 120,
+      "architecture": "b",
+      "route": "blocked"
+    },
     "image": "rack",
     "sections": [
       {
         "heading": "Agree on an equal-load comparison",
         "paragraphs": [
           "An existing room can supply 160 kW at the chosen AC feeder boundary and remove 140 kW of heat from the whole room at the stated ambient condition. A proposed rack needs 120 kW at its declared DC load boundary. Architecture A converts AC to that boundary at an assumed 96% efficiency inside the compute rack. Architecture B uses a sidecar conversion stage at an assumed 97%, followed by a near-load conversion stage at an assumed 98%. The sidecar occupies the last usable service bay. These assumptions describe a synthetic comparison; they are not efficiencies or dimensions of NVIDIA products.",
-          "Both architectures serve the same 120 kW DC load. Work backward through each conversion chain to establish the AC demand. For B, the intermediate 800 V segment carries the input to the near-load converter, so its power is greater than the final 120 kW load. This detail matters: drawing 120 kW beside every box would hide the loss of the downstream stage. The geometry illustration provides equipment context; the ledger supplies the quantitative boundaries."
+          "Both architectures serve the same 120 kW DC load. Work backward through each conversion chain to find the AC demand. For B, the intermediate 800 V segment carries the input to the near-load converter, so its power is greater than the final 120 kW load. This detail matters: drawing 120 kW beside every box would hide the loss of the downstream stage. At 800 V that 122.449 kW is about 153 A. The same power on a 50 V rack bus would need about 2,449 A, sixteen times as much, and lower current allows smaller conductors, which is the appeal of the higher voltage. The ledger then decides whether that gain outweighs the extra conversion stage."
         ]
       },
       {
         "heading": "Retained constraints can dominate a new interface",
         "paragraphs": [
           "A sidecar can move power conversion, heat and maintenance access out of the compute rack. It does not necessarily remove those requirements from the room. Our room-level cooling boundary includes both the rack and the sidecar, so its total heat duty follows the total electrical input at steady state. If the sidecar were outside that boundary, the accounting would need to move with it. The same principle applies to upstream AC equipment: retaining the feeder also retains its capacity limit and relevant protection interfaces.",
-          "Before selecting B, ask whether the last service bay is needed to remove an existing UPS module, handle a failed tray or maintain required access. A drawing that fits equipment rectangles inside the room can still fail the replacement route. Ask for connector definitions, polarity and grounding, fault-clearing behavior, cable/bus ratings, cooling connections, allowable load transients and the migration sequence. A vendor roadmap can motivate the comparison, but only an identified, compatible configuration can close these interfaces. Record missing answers rather than replacing them with an attractive generic rendering."
+          "Before selecting B, ask whether the last service bay is needed to remove an existing uninterruptible power supply (UPS) module, handle a failed tray or maintain required access. A drawing that fits equipment rectangles inside the room can still fail the replacement route. Ask for connector definitions, polarity and grounding, fault-clearing behavior, cable/bus ratings, cooling connections, allowable load transients and the migration sequence. A vendor roadmap can motivate the comparison, but only an identified, compatible configuration can close these interfaces. Record missing answers rather than replacing them with an attractive generic rendering."
         ]
       }
     ],
     "example": {
-      "title": "Close the ledger before celebrating the current ratio",
+      "title": "Close the ledger before celebrating the lower current",
       "assumptions": [
         "Synthetic 120 kW final DC load. A: 96% conversion. B: 97% first stage and 98% near-load stage.",
         "Existing AC feeder limit 160 kW. Whole-room cooling limit 140 kW; no other room load in this simplified comparison.",
@@ -233,8 +456,8 @@
     },
     "tradeoff": {
       "choice": "Move conversion to a sidecar while retaining upstream AC.",
-      "benefit": "Potentially free compute-rack space and reduce current in the specified high-voltage segment.",
-      "cost": "Add conversion, protection and maintenance interfaces; retained AC and room-level heat limits remain."
+      "benefit": "Conversion, its heat and its maintenance move out of the compute rack, and the 800 V segment carries about 153 A for the 120 kW load.",
+      "cost": "The two-stage chain draws 126.236 kW of AC against 125 kW for A, about 1.236 kW more, and the sidecar takes the last service bay; the retained AC feeder and room cooling limits still apply."
     },
     "failure": {
       "trigger": "The sidecar fits on a layout plan but blocks the required replacement route.",
@@ -250,17 +473,12 @@
       {
         "title": "NVIDIA: Why Scaling AI Compute Performance Requires a New Power Architecture",
         "url": "https://blogs.nvidia.com/blog/800-vdc-power-architecture-ai-factory/",
-        "claim": "The vendor distinguishes hybrid power-rack, row-level and broader facility-DC directions; this case supplies its own configurations and numbers.",
+        "claim": "NVIDIA describes hybrid power-rack, row-level and broader facility DC directions for 800 V power in AI factories.",
         "reviewed_on": "2026-09-06",
         "limits": "August 11, 2026 roadmap page. Availability expectations and proposals are not proof of a deployed site; linked specifications need separate review."
       }
     ],
-    "terms": [
-      {
-        "term": "Service envelope",
-        "definition": "The space and access required to inspect, maintain, remove and replace equipment, beyond its installed footprint."
-      }
-    ],
+    "terms": [],
     "capstone_id": "C03"
   },
   {
@@ -279,20 +497,28 @@
       "D09.2",
       "D14.5"
     ],
-    "lab": "network",
+    "optional": true,
+    "lab": "stalled",
+    "lab_params": {
+      "upgrade": "none",
+      "payload": 800,
+      "compute": 60,
+      "fabric": 40
+    },
     "image": "network",
     "sections": [
       {
         "heading": "Name what the job is waiting for",
         "paragraphs": [
           "A hypothetical distributed job repeats a serial cycle: 60 seconds of useful compute, a communication phase, and 10 seconds of other fixed work. The supplied application trace shows no overlap. The same work completes each cycle. Every device remains allocated throughout, including the waiting time; allocation therefore does not establish useful progress. Keep the compute duration and the other work fixed while testing the communication path.",
-          "The communication phase moves one supplied 800 GB payload through a sender, a fabric bottleneck and a receiver. Their achieved payload-rate limits are 80, 40 and 80 GB/s respectively. The path is limited to 40 GB/s, so the transfer takes 20 seconds. These decimal payload units and effective rate limits are original scenario inputs. They are not advertised port speeds or measurements of a named platform. A real collective may add rounds, shared traffic and synchronization; the single-payload model applies only to the declared transfer here."
+          "The communication phase moves one supplied 800-gigabyte (GB) payload through a sender, a fabric bottleneck and a receiver. Their achieved payload-rate limits are 80, 40 and 80 GB/s respectively. The path is limited to 40 GB/s, so the transfer takes 20 seconds. These decimal payload units and effective rate limits are original scenario inputs. They are not advertised port speeds or measurements of a named platform. A real collective may add rounds, shared traffic and synchronization; the single-payload model applies only to the declared transfer here."
         ]
       },
       {
         "heading": "Make a falsifiable improvement prediction",
         "paragraphs": [
           "Proposal E doubles the sender rate limit from 80 to 160 GB/s while the 40 GB/s fabric bottleneck and 80 GB/s receiver remain unchanged. Proposal F doubles the fabric bottleneck to 80 GB/s, keeping both endpoints unchanged. Predict the achieved path rate, the communication interval and the complete cycle for each proposal before inspecting the result. Improving the sender leaves a slower segment downstream; improving the fabric releases the binding constraint in this supplied path.",
+          "Amdahl's law gives the size of the gain. If a part of a serial task takes a fraction p of the time and becomes s times faster, the whole task speeds up by 1 / ((1 − p) + p/s). Communication takes 20 of the 90 seconds, so p = 2/9, and Proposal F doubles its rate: 1 / (7/9 + 1/9) = 9/8 = 1.125, the change from a 90-second to an 80-second cycle. Even infinitely fast communication would leave 70 seconds of compute and other work, which caps any fabric upgrade at 90/70, about 1.29 times the baseline cycle throughput.",
           "After the change, measure the same payload across the complete path and align that measurement with the application trace. An end-to-end rate of 40 GB/s still predicts a 20-second communication phase and a 90-second cycle. A rate of 80 GB/s predicts 10 seconds and an 80-second cycle. If those intervals do not match, investigate another bottleneck, changed synchronization, a different payload or a broken no-overlap assumption. Verify correct output as well as completion time. A link negotiating its new speed does not by itself establish the payload rate or useful job throughput."
         ]
       }
@@ -309,15 +535,15 @@
         "The complete baseline cycle is 60 + 20 + 10 = 90 s. Useful-compute share is 60/90 = 66.7%.",
         "E gives min(160, 40, 80) = 40 GB/s. Communication and the 90 s complete cycle are unchanged.",
         "F gives min(80, 80, 80) = 80 GB/s. Communication takes 10 s, and the complete cycle takes 80 s.",
-        "With fixed work per cycle, F produces 90/80 = 1.125 times baseline cycle throughput: a 12.5% gain. Doubling one phase rate does not double useful job throughput."
+        "With fixed work per cycle, F produces 90/80 = 1.125 times baseline cycle throughput: a 12.5% gain. Doubling one phase rate does not double useful job throughput: by Amdahl's law, the gain is limited by the 20 of 90 seconds that communication takes."
       ],
       "result": "The fabric intervention saves ten seconds per cycle; the sender intervention saves none on this path. Verify the changed end-to-end rate, phase time and correct output.",
-      "boundary": "All payloads, achieved rate limits and phase times are original teaching inputs. The model excludes overlap, collective algorithm details, startup and failure recovery. No rack-power rating, advertised FLOPS or generic utilization counter is converted into useful output."
+      "boundary": "All payloads, achieved rate limits and phase times are original teaching inputs. The model excludes overlap, collective algorithm details, startup and failure recovery. No rack-power rating, advertised floating-point operations per second (FLOPS) or generic utilization counter is converted into useful output."
     },
     "tradeoff": {
-      "choice": "Upgrade the fabric segment that limits the measured path.",
-      "benefit": "The predicted ten-second cycle reduction is tied to a specific physical bottleneck and an observable transfer.",
-      "cost": "Acquisition, installation disruption, topology changes and future sharing still affect value; the larger speed improvement is not automatically the better investment."
+      "choice": "Pay for fabric upgrade F rather than sender upgrade E.",
+      "benefit": "The cycle falls from 90 s to 80 s, so the job completes 12.5% more cycles in the same time; E saves nothing.",
+      "cost": "Doubling the fabric rate buys a 1.125-times cycle gain, and no fabric upgrade, however fast, can exceed 90/70, about 1.29 times, while the 60 s of compute and 10 s of other work stay fixed."
     },
     "failure": {
       "trigger": "The new link reports its higher speed, but the complete job cycle remains at 90 seconds.",
@@ -333,7 +559,7 @@
       {
         "title": "NVIDIA DGX SuperPOD H100 reference architecture: Network Fabrics",
         "url": "https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/network-fabrics.html",
-        "claim": "Physical compute-fabric context: endpoint connections, switches and inter-switch paths. All payloads, achieved rates, timings and interventions in the case are original teaching inputs.",
+        "claim": "NVIDIA's DGX SuperPOD H100 reference architecture describes compute-fabric endpoint connections, switches and inter-switch paths.",
         "reviewed_on": "2026-09-16",
         "limits": "The reference architecture motivates tracing a complete physical path. The case does not reproduce its topology, device ratings, measured performance or scheduling behavior."
       }
@@ -341,7 +567,11 @@
     "terms": [
       {
         "term": "Critical-path time",
-        "definition": "Time on the dependency chain that determines completion; speeding work outside that chain may not reduce total duration."
+        "definition": "Time spent on the chain of dependent steps that sets when the work finishes. An upgrade shortens the job only when it shortens a step on that chain."
+      },
+      {
+        "term": "Amdahl's law",
+        "definition": "The rule that speeding up one part of a task speeds up the whole only in proportion to that part's share of the time: overall speedup = 1 / ((1 − p) + p/s) for a part that takes a fraction p of the time and becomes s times faster. In a cluster, a faster network or chip shortens a job only by the time that component actually occupied, so the unchanged phases cap the gain."
       }
     ],
     "capstone_id": "C04"
@@ -362,32 +592,40 @@
       "D15.1",
       "D15.5"
     ],
-    "lab": "capacity",
+    "optional": true,
+    "lab": "phase",
+    "lab_params": {
+      "day": 0,
+      "ctest": "pass",
+      "open": "a"
+    },
     "image": "campus",
     "sections": [
       {
         "heading": "A campus total can hide incomplete paths",
         "paragraphs": [
-          "A hypothetical campus has 1,000 rack locations, 800 installed racks and an energized 100 MW site service. None of those totals alone identifies an accepted service path. The supplied handover register splits the installed racks into three groups: A contains 300 racks whose complete electrical, cooling, network, controls and end-to-end service acceptance package has passed; B contains 250 racks with electrical and cooling tests complete but network interface work and end-to-end acceptance still open; C contains 250 racks whose integrated cooling test remains open. Every group uses a specified 100 kW rack-equivalent load for this exercise. All other required service paths and site-wide constraints are adequate for the calculated groups.",
-          "Create separate columns for installed equipment, energized paths, individual tests, integrated tests and service acceptance. Do not combine the highest count from each subsystem as if those counts referred to the same racks. Even equal totals can describe disjoint groups. Acceptance requires the intersection of compatible paths for the particular service. The hypothetical evidence explicitly establishes that intersection only for group A. The project can report its larger installed inventory, but it should not rename that inventory as accepted computing capacity."
+          "A campus has 1,000 rack locations, 800 installed racks and an energized 100 MW site service. Each rack counts as a 100 kW rack equivalent, so the 800 installed racks come to 80 MW and leave 20 MW of the service for cooling and other auxiliaries, which this exercise assumes is enough. The 1,000 locations measure floor space: filled at 100 kW they would take the whole 100 MW and leave nothing for auxiliaries. On a day when auxiliaries need 25 MW, as in the hot-day case of the weather exercise, the same service carries 750 racks, so the site's power budget belongs in the ledger beside the test results.",
+          "The handover register splits the installed racks into three groups. Group A's 300 racks have passed the complete electrical, cooling, network, controls and end-to-end service acceptance package. Group B's 250 racks have passed their electrical tests and the integrated cooling test, but their network interface work and end-to-end acceptance are still open. Group C's 250 racks have passed their electrical tests and completed their network interface work, but their integrated cooling test remains open.",
+          "Create separate columns for installed equipment, energized paths, individual tests, integrated tests and service acceptance, then count the subsystem columns. Electrical tests have passed on all 800 racks, the integrated cooling test on 550 (groups A and B) and network interface work on 550 (groups A and C). Taking the smallest column gives 550, but the two 550-rack columns overlap only in group A, so just 300 racks appear in all three. Acceptance counts that intersection: the racks whose every path for the service has passed. The project can report 800 installed racks, and its accepted computing capacity is 300 racks, or 30 MW."
         ]
       },
       {
         "heading": "Distinguish a schedule calculation from a public-site inference",
         "paragraphs": [
           "Group B’s remaining network interface work can begin immediately and takes four days. End-to-end acceptance testing then takes two days. Group C needs a replacement cooling component delivered in three days, one day of installation, and three days of integrated cooling testing, with each task depending on the preceding one. Assume the supplied durations hold, groups can proceed independently, and qualified teams and all other resources are available. These assumptions make a small dependency schedule calculable. Actual projects require resource, uncertainty and change-control analysis beyond this exercise.",
-          "Return to the original Crusoe-built Abilene campus for the physical handover question, while keeping this original register separate from its public record. The slide sequence uses an Oracle data-hall aerial identified as Abilene and dated July 15, 2026. The photograph establishes context; it does not reveal which racks passed internal service acceptance. For a named campus, classify what its dated sources actually report. A building opening, utility agreement or equipment order is not the acceptance register used here. Leave unreported commissioning state, demand, topology and workload output unknown. The 300/250/250-rack groups and six/seven-day schedules in this exercise are supplied teaching inputs, not Abilene figures."
+          "Apply the same ledger to a named campus using only its dated public record. At Abilene, Crusoe reported the first two buildings energized within a year of the June 2024 construction start, and Oracle reported 75 percent of total capacity delivered as of September 2026. Each statement belongs in its own column: an energization report and a customer-delivery share are milestones, not entries in an acceptance register, and neither says which racks passed integrated testing. Leave Abilene's unreported commissioning state, demand and topology blank. The 300, 250 and 250-rack groups and the six- and seven-day schedules belong to this exercise alone."
         ]
       }
     ],
     "example": {
       "title": "Count the intersection and trace the dependencies",
       "assumptions": [
-        "Synthetic groups A/B/C contain 300/250/250 installed racks, each represented by 100 kW.",
-        "Only A has passed the complete service acceptance package. All other site-wide constraints are adequate for the calculated groups.",
+        "Synthetic groups A/B/C contain 300/250/250 installed racks, each represented by 100 kW. The 100 MW service leaves 20 MW for auxiliaries at the 80 MW of installed racks, which is assumed enough.",
+        "Only A has passed the complete service acceptance package. B has passed electrical and integrated cooling tests; C has passed electrical tests and finished network interface work.",
         "B: four days of network interface work then two days of end-to-end acceptance testing. C: three days delivery, one day installation, then three days integrated cooling testing."
       ],
       "steps": [
+        "Intersect the subsystem columns: electrical {A, B, C}, integrated cooling {A, B} and network {A, C} share only A. The smallest column holds 550 racks; the intersection holds 300.",
         "Accepted service today: 300 × 100 kW = 30 MW of rack-equivalent demand. Installed inventory is separately 800 racks or 80 MW at the stated load.",
         "B's acceptance path takes 4 + 2 = 6 days. On successful completion, accepted service becomes 550 racks or 55 MW.",
         "C's acceptance path takes 3 + 1 + 3 = 7 days. On successful completion, accepted service becomes 800 racks or 80 MW.",
@@ -395,12 +633,12 @@
         "Every projected increase remains conditional on test success and the stated supply/resource assumptions. A failed test changes the schedule rather than being averaged into an accepted count."
       ],
       "result": "The evidence supports 300 accepted racks now, a conditional 550 by day six and a conditional 800 by day seven. Installed, energized and future figures remain separate.",
-      "boundary": "Synthetic schedule and acceptance register. No named project's operating state, redundancy certification, installed GPU count or measured demand is inferred."
+      "boundary": "Synthetic schedule and acceptance register. No named project's operating state, redundancy certification, installed graphics processing unit (GPU) count or measured demand is inferred."
     },
     "tradeoff": {
-      "choice": "Open accepted group A while completing the other phases.",
-      "benefit": "Begin delivering a bounded service before the entire installed inventory is accepted.",
-      "cost": "Shared-system work, isolation, access and change control must preserve the live group's accepted conditions."
+      "choice": "Open accepted group A while completing groups B and C.",
+      "benefit": "300 racks, 30 MW of rack-equivalent demand, serve from day 0 instead of waiting until day 7 for all 800.",
+      "cost": "The network interface work on B and the cooling-component replacement on C happen beside a live group, so isolation, access and change control must keep group A within its accepted conditions."
     },
     "failure": {
       "trigger": "An executive summary reports 80 MW live because 800 racks are installed and the site service is energized.",
@@ -416,22 +654,29 @@
       {
         "title": "ASHRAE: Commissioning & Performance Validation",
         "url": "https://www.ashrae.org/technical-resources/ai-data-center-framework/commissioning-performance-validation",
-        "claim": "Commissioning context for distinguishing testing and handover from installation; the register and schedule are original teaching inputs.",
+        "claim": "ASHRAE's AI data-center framework guidance on commissioning: testing and handover as steps after installation.",
         "reviewed_on": "2026-09-06",
         "limits": "Public framework guidance. Referenced standards and project-specific acceptance procedures were not reviewed; no field procedure is prescribed."
       },
       {
         "title": "Oracle: Data Centers — Abilene media resources",
         "url": "https://www.oracle.com/data-centers/",
-        "claim": "Identifies the reused Abilene data-hall aerial and its July 15, 2026 caption date.",
+        "claim": "Oracle reports 75 percent of total Abilene capacity delivered as of September 2026, with the rest in later quarters.",
         "reviewed_on": "2026-09-16",
-        "limits": "Visual campus context only. The original teaching acceptance register, rack counts, MW calculation and schedule are not reported operating figures for Abilene."
+        "limits": "The capacity basis is not defined. The teaching acceptance register, rack counts, MW calculation and schedule are not reported operating figures for Abilene."
+      },
+      {
+        "title": "Crusoe — Flagship Abilene data center is live",
+        "url": "https://www.crusoe.ai/resources/newsroom/crusoe-announces-flagship-abilene-data-center-is-live",
+        "claim": "The first two Abilene buildings were energized within a year of the June 2024 construction start.",
+        "reviewed_on": "2026-09-16",
+        "limits": "An energization report, not a service-acceptance record."
       }
     ],
     "terms": [
       {
         "term": "Acceptance register",
-        "definition": "A record linking a specified service or equipment group to required tests, results, unresolved issues and authorized acceptance."
+        "definition": "A record that links each equipment or service group to its required tests, their results, open issues and the formal acceptance decision. It lets a project count only the racks whose complete service path has passed, separately from installed or energized equipment."
       }
     ],
     "capstone_id": "C05"

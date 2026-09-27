@@ -1,8 +1,6 @@
 # Turn installed hardware into an accepted service
 
-Generated reading view. Edit [`course/expansion/racks-compute-heat.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/racks-compute-heat.json), lesson `d09-service-acceptance`, then run `uv run gigawatt-expand`.
-
-**Storage and recovery · Authored draft**
+**Storage and recovery — further reading**
 
 Connect scheduling, provisioning, isolation and observability to a reproducible end-to-end acceptance exercise.
 
@@ -22,7 +20,7 @@ Isolation controls what an allocation may consume and access. Resource accountin
 
 ## A faster read can lose to a longer allocation wait
 
-In this reading comparison, both candidate placements can read the same committed 512 GB checkpoint and use the same validated software. A data-local allocation reads at 32 GB/s; an immediately available remote allocation reads at 8 GB/s. Each then has the same 12 seconds of setup in the modeled recovery path. The local read saves 48 seconds, but a 30-second allocation wait consumes some of that advantage: local readiness is 30 + 12 + 16 = 58 seconds, versus 12 + 64 = 76 seconds remotely. When the local allocation wait grows to 90 seconds, its total becomes 118 seconds, and remote recovery wins. Neither option is accepted until the restored job produces the required correct output.
+In this comparison, both candidate placements can read the same committed 512 GB checkpoint and use the same validated software. A data-local allocation reads at 32 GB/s; an immediately available remote allocation reads at 8 GB/s. Each then has the same 12 seconds of setup in the modeled recovery path. The local read saves 48 seconds, but a 30-second allocation wait consumes some of that advantage: local readiness is 30 + 12 + 16 = 58 seconds, versus 12 + 64 = 76 seconds remotely. When the local allocation wait grows to 90 seconds, its total becomes 118 seconds, and remote recovery wins. Neither option is accepted until the restored job produces the required correct output.
 
 ## Test a chain that ends in correct output
 
@@ -42,9 +40,9 @@ Google identifies Mike replacing a motherboard at its data center in The Dalles,
 
 ## Case study: Google shifts flexible work through time
 
-Google’s October 2023 account describes a grid partner notifying its planning system of a forecast demand-response event. The system produces hour-by-hour limits on eligible non-urgent work, runs deferred work later and can move work to another grid when feasible. Northern Wasco County PUD identifies a day-ahead pilot with Google’s facilities in The Dalles, Oregon. The article also describes evening demand reductions at European sites during winter 2022–23. Google does not provide a measured megawatt saving for the slide exercise.
+Google’s October 2023 account describes a grid partner notifying its planning system of a forecast demand-response event. The system produces hour-by-hour limits on eligible non-urgent work, runs deferred work later and can move work to another grid when feasible. Northern Wasco County People’s Utility District (PUD) identifies a day-ahead pilot with Google’s facilities in The Dalles, Oregon. The article also describes evening demand reductions at European sites during winter 2022–23.
 
-The teaching exercise gives an interruptible batch job three hours of work at 4 MW, starting at 13:00. Other load stays at 20 MW. The grid event runs from 14:00 to 16:00. Running straight through finishes at 16:00 and reaches 24 MW during the event. Preserving progress and pausing over the event leaves two hours to run from 16:00 to 18:00. That schedule holds event demand to 20 MW and meets a 20:00 deadline, but misses a 17:00 deadline. Its 12 MWh of job energy remains unchanged and the 24 MW demand returns after the event. The model fixes transition overhead at zero to isolate timing; an actual commitment must include checkpoint/restart overhead, later capacity and placement.
+Consider an interruptible batch job with three hours of work at 4 MW, starting at 13:00. Other load stays at 20 MW. The grid event runs from 14:00 to 16:00. Running straight through finishes at 16:00 and reaches 24 MW during the event. Preserving progress and pausing over the event leaves two hours to run from 16:00 to 18:00. That schedule holds event demand to 20 MW and meets a 20:00 deadline, but misses a 17:00 deadline. Its 12 MWh of job energy remains unchanged and the 24 MW demand returns after the event. The model fixes transition overhead at zero to isolate timing; an actual commitment must include checkpoint/restart overhead, later capacity and placement.
 
 An interactive request with a 200 ms response requirement cannot absorb that two-hour pause. A batch job can move only while meeting its own completion requirement, retaining the needed state and obtaining a feasible later allocation. The demand-response case therefore joins storage and orchestration: the schedule depends on both surviving progress and resources being available when promised.
 
@@ -93,10 +91,10 @@ Relaxing a constraint creates a new configuration. It may be worthwhile even wit
 
 **The idea to keep:** A usable cluster launches the right environment on the right topology, produces correct output and restores progress after an agreed fault.
 
-## Sources and reading boundaries
+## Sources
 
-- [Slurm Workload Manager — Topology Guide](https://slurm.schedmd.com/topology.html) — Topology-aware placement considers network groupings when selecting resources. Read 2026-09-06. Plugin, configuration and release determine behavior; synthetic allocation rules are explicit.
-- [Control Group in Slurm](https://slurm.schedmd.com/cgroups.html) — Process tracking, accounting and resource confinement have distinct roles. Read 2026-09-06. Current documentation includes version-specific behavior; no live configuration changes are prescribed.
-- [NVIDIA DGX SuperPOD — Software](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/dgx-software.html) — A reference cluster includes orchestration, system management, libraries and operating-system components. Read 2026-09-06. Vendor reference stack, updated November 19, 2025; it does not certify an arbitrary tenant environment.
-- [Google — Supporting power grids with demand response](https://cloud.google.com/blog/products/infrastructure/using-demand-response-to-reduce-data-center-power-consumption) — Historical grid notification and scheduling workflow; The Dalles day-ahead pilot. Read 2026-09-14. Full article reviewed. Historical 2022–23 pilots and operator-reported service protection. No MW reduction or total-energy saving quantified; does not establish that arbitrary synchronized training jobs can migrate.
-- [Google Data Centers — Photo gallery](https://www.datacenters.google/discover-more/photo-gallery/) — Google identifies a technician replacing a motherboard at The Dalles; hardware repair and application-state recovery are separate operations. Read 2026-09-14. Inspected full-size publisher originals and source captions. Photo capture dates unspecified; these photographs do not document a training recovery or the 2011 Gmail incident.
+- [Slurm Workload Manager — Topology Guide](https://slurm.schedmd.com/topology.html) — SchedMD · Reviewed 2026-09-06. Topology-aware placement considers network groupings when selecting resources.
+- [Control Group in Slurm](https://slurm.schedmd.com/cgroups.html) — slurm.schedmd.com · Reviewed 2026-09-06. Process tracking, accounting and resource confinement have distinct roles.
+- [NVIDIA DGX SuperPOD — Software](https://docs.nvidia.com/dgx-superpod/reference-architecture-scalable-infrastructure-h100/latest/dgx-software.html) — docs.nvidia.com · Reviewed 2026-09-06. A reference cluster includes orchestration, system management, libraries and operating-system components.
+- [Google — Supporting power grids with demand response](https://cloud.google.com/blog/products/infrastructure/using-demand-response-to-reduce-data-center-power-consumption) — Google · Published 2023-10-03 · Reviewed 2026-09-14. Historical grid notification and scheduling workflow; The Dalles day-ahead pilot.
+- [Google Data Centers — Photo gallery](https://www.datacenters.google/discover-more/photo-gallery/) — Google · Reviewed 2026-09-26. Google’s photo gallery shows a technician replacing a motherboard at its data center in The Dalles, Oregon.

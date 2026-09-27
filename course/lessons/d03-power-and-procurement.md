@@ -1,8 +1,6 @@
 # A contract is not a cable
 
-Generated reading view. Edit [`course/expansion/foundations-power.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/foundations-power.json), lesson `d03-power-and-procurement`, then run `uv run gigawatt-expand`.
-
-**4. Siting, grid connection and supply · Authored draft**
+**4. Siting, grid connection and supply**
 
 Separate the shared grid, commercial arrangements, and time-matched supply, then calculate the storage a matching claim leaves out.
 
@@ -12,27 +10,27 @@ Separate the shared grid, commercial arrangements, and time-matched supply, then
 
 A data center connects electrically through an arrangement of conductors, substations, switches, protection, and upstream grid infrastructure. Those connections determine possible physical power paths. A commercial agreement describes purchases, prices, delivery obligations, or environmental attributes. It may be associated with generation somewhere on that grid, but the agreement is not an extra feeder into the building. Draw it with a different line style so it cannot be mistaken for a redundant electrical route.
 
-EPA distinguishes a physical power purchase agreement, involving delivery or title to electricity under its arrangement, from a financial PPA that does not deliver electricity to the buyer. That distinction matters, but neither label alone establishes a dedicated generator-to-campus wire or uninterrupted supply. The actual location, contractual structure, utility arrangements, and physical connection still matter. This course uses the distinction to interpret claims, not to give procurement advice for a particular jurisdiction.
+The U.S. Environmental Protection Agency (EPA) distinguishes a physical power purchase agreement, involving delivery or title to electricity under its arrangement, from a financial PPA that does not deliver electricity to the buyer. That distinction matters, but neither label alone gives a dedicated generator-to-campus wire or uninterrupted supply. The actual location, contractual structure, utility arrangements, and physical connection still matter. Use the distinction to interpret claims; it is not procurement advice for a particular jurisdiction.
 
 Environmental attributes require their own account. An attribute associated with a quantity of generation addresses the characteristic being claimed for that generation. It does not increase a cable's current limit or make a generator produce during an interval when it is unavailable. Keep the physical service, commercial energy, and attribute ledgers connected by explicit references, while preserving the different questions each can answer. That is more informative than coloring one grid wire green.
 
-## Optional example: matching a solar profile across a day
+## Extension: matching a solar-shaped supply across a day
 
-This is a deliberately idealized solar-like supply profile, not Crusoe’s Abilene generation plan or a measured solar plant. A hypothetical facility draws 10 MW for 24 hours, requiring 240 MWh. Separately specified generation produces 20 MW for twelve hours and zero for twelve hours, also totaling 240 MWh. Equal daily totals leave a 10 MW surplus during production and a 10 MW deficit during the zero-production interval. The exercise asks what additional physical system would be needed to move that energy in time.
+The off-grid arrangement in “Deliver the campus one usable phase at a time” leaves its local resources open, and solar would need storage sized explicitly for the night. This extension adds an idealized solar-shaped supply, not Crusoe’s Abilene generation plan or a measured plant, to show what matching it hour by hour would take. A facility draws 10 MW for 24 hours, requiring 240 MWh. Separately specified generation produces 20 MW for twelve hours and zero for twelve hours, also totaling 240 MWh. In the lab below, 20 MW for 12 hours followed by 0 MW for 12 hours gives the same 240 MWh and 10 MW average as the constant load, at twice its peak. Equal daily totals leave a 10 MW surplus during production and a 10 MW deficit during the zero-production interval. The exercise asks what additional physical system would be needed to move that energy in time.
 
 The time-matching surplus and deficit are each 10 MW × 12 h = 120 MWh. These are differences between two stated profiles, not a claim about the site's metered import and export. If the generator is elsewhere under a PPA, the campus may still physically import from the shared grid throughout the day. A physical meter reading depends on the actual electrical arrangement, not simply on subtracting contractual generation from campus demand.
 
 Suppose we now construct a separate idealized system in which a battery can capture the entire surplus and later support the full 10 MW deficit. With perfect efficiency, it needs 120 MWh of usable output energy and at least 10 MW of output power. These are separate requirements. It also needs a compatible charge path, charge capability, controls, and an actual connection to the protected load. A 120 MWh store with a 2 MW output limit cannot supply the missing 10 MW service.
 
-Real losses change the matching arithmetic. Assume a hypothetical 90 percent round-trip efficiency: 120 MWh put into storage returns only 108 MWh. That leaves 12 MWh of the later demand uncovered. Supplying the full 120 MWh from this storage would require 120/0.90 = 133.3 MWh of charging energy, more than the original 120 MWh surplus. Equal production and demand totals therefore cannot close this particular time-shifting balance once losses are included.
+Real losses change the matching arithmetic. Assume a 90 percent round-trip efficiency: 120 MWh put into storage returns only 108 MWh. That leaves 12 MWh of the later demand uncovered. Supplying the full 120 MWh from this storage would require 120/0.90 = 133.3 MWh of charging energy, more than the original 120 MWh surplus. Equal production and demand totals therefore cannot close this particular time-shifting balance once losses are included.
 
 ## Choose which uncertainty you are solving
 
 A long-term energy agreement can address a commercial objective while leaving the site's connection schedule unresolved. Additional physical service can expand usable power while leaving energy cost or sourcing objectives unresolved. Storage can shift energy in time while leaving a protection or transfer problem unresolved. Each is valuable when matched to the requirement it can actually satisfy. The mistake is allowing one solution's label to stand in for the entire system.
 
-Consider an outage during the nonproducing interval. If the hypothetical storage is connected only through an unavailable common bus, its energy inventory does not create an alternative path to the racks. If it is designed to support the relevant loads, the available duration still depends on its state of charge and discharge conditions at that moment. A system that has already used its energy for another purpose may have less reserve for an outage. Reserve policy is therefore a real tradeoff, not a free capacity multiplier.
+Consider an outage during the nonproducing interval. If that storage is connected only through an unavailable common bus, its energy inventory does not create an alternative path to the racks. If it is designed to support the relevant loads, the available duration still depends on its state of charge and discharge conditions at that moment. A system that has already used its energy for another purpose may have less reserve for an outage. Reserve policy is therefore a real tradeoff, not a free capacity multiplier.
 
-For an on-site supply comparison, add fuel and operating constraints where relevant. A machine's output rating does not establish how long fuel can be supplied, whether it can operate independently of the grid, or what supporting equipment stays available. A photovoltaic installation is not automatically an island-capable microgrid simply because it sits on the same property. DOE's islanding description treats sources and loads as a coordinated system, with the required behavior at disconnection and reconnection.
+For an on-site supply comparison, add fuel and operating constraints where relevant. A machine's output rating does not tell you how long fuel can be delivered, whether it can operate independently of the grid, or what supporting equipment stays available. A photovoltaic installation is not automatically an island-capable microgrid simply because it sits on the same property. The U.S. Department of Energy (DOE) islanding description treats sources and loads as a coordinated system, with the required behavior at disconnection and reconnection.
 
 When evaluating a supply claim, produce three small drawings or ledgers: the physical path, the commercial/attribute relationships, and the time-resolved energy balance. Then name what each leaves unresolved. This makes the claim actionable. Instead of arguing vaguely about whether a campus has enough power, you can ask whether the missing piece is a connection, deliverable capacity, a particular interval's energy, or the controls and reserve required to survive a disruption.
 
@@ -82,7 +80,28 @@ Twelve MW exceeds the required 10 MW, but 80/10 = 8 hours. More inverter power d
 
 **The idea to keep:** Purchased energy and continuous physical service answer different questions; trace and quantify each separately.
 
-## Sources and reading boundaries
+## Sources
 
-- [US EPA — Physical PPA](https://www.epa.gov/green-power-markets/physical-ppa) — Physical and financial PPAs differ in whether electricity is physically delivered or title is conveyed under the arrangement. Read 2026-09-06. Read the public EPA distinctions; contractual eligibility and local legal requirements are outside this lesson.
-- [DOE — Islanding a Microgrid](https://www.energy.gov/cmei/femp/articles/islanding-microgrid) — Islanding requires coordinated operation of sources and loads within an electrical boundary. Read 2026-09-06. Read the public DOE explanation; no particular on-site plant or local interconnection permission is established.
+- [US EPA — Physical PPA](https://www.epa.gov/green-power-markets/physical-ppa) — www.epa.gov · Reviewed 2026-09-10. Physical and financial PPAs differ in whether electricity is physically delivered or title is conveyed under the arrangement.
+- [DOE — Islanding a Microgrid](https://www.energy.gov/cmei/femp/articles/islanding-microgrid) — www.energy.gov · Published 2021-10-15 · Reviewed 2026-09-10. Islanding requires coordinated operation of sources and loads within an electrical boundary.
+
+## Check your understanding: Can this phase open?
+
+Pause and make a prediction, then compare your reasoning.
+
+A hypothetical project has an energy contract covering its planned annual consumption. Its first phase needs 10 MW at the facility connection, but the available connection is limited to 8 MW. No local generation or storage is included.
+
+**Pause and predict:** Does the energy contract make the full first phase deliverable? Explain the constraint.
+
+<details>
+<summary>Compare your reasoning</summary>
+
+No. The stated connection leaves a 2 MW shortfall at the required boundary.
+
+Commercial energy coverage does not increase the physical connection limit. The project needs an evidenced route to more deliverable power or a smaller operating phase. Matching annual energy also says nothing by itself about supply during each operating hour.
+
+</details>
+
+**The next problem:** One connection limit decides whether this project's first phase can open. The Electric Reliability Council of Texas (ERCOT) alone reports hundreds of gigawatts of large-load requests. How much of the capacity requested in ERCOT and in the region run by PJM Interconnection will become usable power, and when?
+
+Continue in **Case study — ERCOT and PJM: the race to connect**.

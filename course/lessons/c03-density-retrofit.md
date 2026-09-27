@@ -1,8 +1,6 @@
 # The rack upgrade that does not fit the building
 
-Generated reading view. Edit [`course/expansion/capstones.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/capstones.json), lesson `c03-density-retrofit`, then run `uv run gigawatt-expand`.
-
-**16. Putting an AI Factory Together · Authored draft**
+**16. Putting an AI Factory Together · Optional practice**
 
 Compare two complete electrical ledgers, a cooling duty and a service-space requirement before choosing where conversion should happen.
 
@@ -12,15 +10,15 @@ Compare two complete electrical ledgers, a cooling duty and a service-space requ
 
 An existing room can supply 160 kW at the chosen AC feeder boundary and remove 140 kW of heat from the whole room at the stated ambient condition. A proposed rack needs 120 kW at its declared DC load boundary. Architecture A converts AC to that boundary at an assumed 96% efficiency inside the compute rack. Architecture B uses a sidecar conversion stage at an assumed 97%, followed by a near-load conversion stage at an assumed 98%. The sidecar occupies the last usable service bay. These assumptions describe a synthetic comparison; they are not efficiencies or dimensions of NVIDIA products.
 
-Both architectures serve the same 120 kW DC load. Work backward through each conversion chain to establish the AC demand. For B, the intermediate 800 V segment carries the input to the near-load converter, so its power is greater than the final 120 kW load. This detail matters: drawing 120 kW beside every box would hide the loss of the downstream stage. The geometry illustration provides equipment context; the ledger supplies the quantitative boundaries.
+Both architectures serve the same 120 kW DC load. Work backward through each conversion chain to find the AC demand. For B, the intermediate 800 V segment carries the input to the near-load converter, so its power is greater than the final 120 kW load. This detail matters: drawing 120 kW beside every box would hide the loss of the downstream stage. At 800 V that 122.449 kW is about 153 A. The same power on a 50 V rack bus would need about 2,449 A, sixteen times as much, and lower current allows smaller conductors, which is the appeal of the higher voltage. The ledger then decides whether that gain outweighs the extra conversion stage.
 
 ## Retained constraints can dominate a new interface
 
 A sidecar can move power conversion, heat and maintenance access out of the compute rack. It does not necessarily remove those requirements from the room. Our room-level cooling boundary includes both the rack and the sidecar, so its total heat duty follows the total electrical input at steady state. If the sidecar were outside that boundary, the accounting would need to move with it. The same principle applies to upstream AC equipment: retaining the feeder also retains its capacity limit and relevant protection interfaces.
 
-Before selecting B, ask whether the last service bay is needed to remove an existing UPS module, handle a failed tray or maintain required access. A drawing that fits equipment rectangles inside the room can still fail the replacement route. Ask for connector definitions, polarity and grounding, fault-clearing behavior, cable/bus ratings, cooling connections, allowable load transients and the migration sequence. A vendor roadmap can motivate the comparison, but only an identified, compatible configuration can close these interfaces. Record missing answers rather than replacing them with an attractive generic rendering.
+Before selecting B, ask whether the last service bay is needed to remove an existing uninterruptible power supply (UPS) module, handle a failed tray or maintain required access. A drawing that fits equipment rectangles inside the room can still fail the replacement route. Ask for connector definitions, polarity and grounding, fault-clearing behavior, cable/bus ratings, cooling connections, allowable load transients and the migration sequence. A vendor roadmap can motivate the comparison, but only an identified, compatible configuration can close these interfaces. Record missing answers rather than replacing them with an attractive generic rendering.
 
-## Worked example: Close the ledger before celebrating the current ratio
+## Worked example: Close the ledger before celebrating the lower current
 
 - Synthetic 120 kW final DC load. A: 96% conversion. B: 97% first stage and 98% near-load stage.
 - Existing AC feeder limit 160 kW. Whole-room cooling limit 140 kW; no other room load in this simplified comparison.
@@ -40,9 +38,9 @@ Before selecting B, ask whether the last service bay is needed to remove an exis
 
 Choice: Move conversion to a sidecar while retaining upstream AC.
 
-Benefit: Potentially free compute-rack space and reduce current in the specified high-voltage segment.
+Benefit: Conversion, its heat and its maintenance move out of the compute rack, and the 800 V segment carries about 153 A for the 120 kW load.
 
-Cost: Add conversion, protection and maintenance interfaces; retained AC and room-level heat limits remain.
+Cost: The two-stage chain draws 126.236 kW of AC against 125 kW for A, about 1.236 kW more, and the sidecar takes the last service bay; the retained AC feeder and room cooling limits still apply.
 
 ## When the situation changes
 
@@ -67,6 +65,6 @@ Raising density moves the binding constraint to whole-room heat rejection. Annua
 
 **The idea to keep:** An architecture improves a project only through the interfaces and constraints that matter to that project.
 
-## Sources and reading boundaries
+## Sources
 
-- [Why Scaling AI Compute Performance Requires a New Power Architecture](https://blogs.nvidia.com/blog/800-vdc-power-architecture-ai-factory/) — The vendor distinguishes hybrid power-rack, row-level and broader facility-DC directions; this case supplies its own configurations and numbers. Read 2026-09-06. August 11, 2026 roadmap page. Availability expectations and proposals are not proof of a deployed site; linked specifications need separate review.
+- [Why Scaling AI Compute Performance Requires a New Power Architecture](https://blogs.nvidia.com/blog/800-vdc-power-architecture-ai-factory/) — NVIDIA · Published 2026-08-11 · Reviewed 2026-09-06. NVIDIA describes hybrid power-rack, row-level and broader facility DC directions for 800 V power in AI factories.

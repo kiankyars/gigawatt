@@ -1,8 +1,6 @@
 # Abilene: commercial roles and delivery
 
-Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/heat-delivery-operations.json), lesson `d15-upgrade-and-evidence`, then run `uv run gigawatt-expand`.
-
-**15. GPU cloud economics · Authored draft**
+**15. GPU cloud economics**
 
 Compare the original target with a dated report of the same milestone.
 
@@ -10,13 +8,13 @@ Compare the original target with a dated report of the same milestone.
 
 ## Separate the commercial layers
 
-The original Abilene campus links Crusoe’s facility development, Oracle’s cloud infrastructure and OpenAI’s workloads. A megawatt of facility capacity and a GPU cluster available to a customer are different deliverables. The public first-phase report establishes operating OCI and early workloads; it does not disclose every private ownership, financing or service agreement.
+The original Abilene campus links Crusoe’s facility development, Oracle’s cloud infrastructure and OpenAI’s workloads. A megawatt of facility capacity and a GPU cluster available to a customer are different deliverables. The public first-phase report establishes operating Oracle Cloud Infrastructure (OCI) and early workloads; it does not disclose every private ownership, financing or service agreement.
 
-This case remains about the Oracle/OpenAI campus. The neighboring Microsoft project is not required to explain these milestones and is omitted from the presentation. The photograph supplies site context; it does not independently establish the status of every hall.
+This case follows the Oracle/OpenAI campus. The neighboring Microsoft development is a separate project.
 
 ## First phase: target and reported event
 
-On March 18, 2025, Crusoe targeted energization of the first two buildings for the first half of 2025. Its September 30 report says they were energized within a year of construction starting in June 2024, with the first NVIDIA GB200 racks arriving in June 2025. That report also describes early training and inference workloads. Its publication in September does not mean energization occurred in September.
+On March 18, 2025, Crusoe targeted energization of the first two buildings for the first half of 2025. Its September 30, 2025 report says they were energized within a year of construction starting in June 2024, with the first NVIDIA GB200 racks arriving in June 2025. That report also describes early training and inference workloads. Its publication in September does not mean energization occurred in September.
 
 The first-phase accounts are broadly consistent with the stated half-year energization target. They do not provide a detailed daily commissioning log or the exact start of every customer service obligation. Do not substitute the press-release date for the event date.
 
@@ -25,6 +23,8 @@ The first-phase accounts are broadly consistent with the stated half-year energi
 The March 2025 expansion announcement targeted completion of six additional buildings in mid-2026. Oracle’s September 2026 update says 75 percent of capacity had been delivered, with the remainder expected in following quarters. That provides a useful comparison with the original ambition, but it changes the milestone from construction completion to customer delivery.
 
 These reports do not support calculating a precise schedule slip. Nor does the percentage establish operating IT demand: its delivery denominator is not defined well enough to multiply it by the campus’s announced 1.2 GW. The relevant commercial question is which contracted capacity was available on which date. Answering it requires the agreed delivery milestone and the corresponding completion record.
+
+Aggregate headlines need the same care. SemiAnalysis’s June 18, 2026 article, “Stop Saying Half of 2026 US Datacenter Capacity Is Canceled,” disputes aggregate delay and cancellation totals, and individual projects can still slip within them. Each campus is judged against its own dated plan and delivery records, as above.
 
 ## Worked example: Read the date of the event, not just the announcement
 
@@ -39,19 +39,11 @@ These reports do not support calculating a precise schedule slip. Nor does the p
 
 **Model boundary:** Only the original Oracle/OpenAI campus and named public records are included.
 
-## The tradeoff
-
-Choice: Use phased customer delivery.
-
-Benefit: Completed portions can begin serving demand.
-
-Cost: Later phases retain construction, commissioning and contractual delivery exposure.
-
 ## When the situation changes
 
 Trigger: An analyst treats construction completion and delivered customer capacity as the same milestone.
 
-Mechanism: A supposed schedule variance compares different events.
+Mechanism: Comparing the mid-2026 target for six more buildings with Oracle’s September 2026 report of 75 percent delivered capacity measures two different events.
 
 Response: Match scope and milestone before calculating a delay.
 
@@ -70,11 +62,12 @@ The 1.2 GW plan and a delivered share do not together supply a metered IT load.
 
 **The idea to keep:** Compare the original target with a dated report of the same milestone.
 
-## Sources and reading boundaries
+## Sources
 
-- [Crusoe — Expands AI data center campus in Abilene to 1.2 gigawatts](https://www.crusoe.ai/resources/newsroom/crusoe-expands-ai-data-center-campus-in-abilene-to-1-2-gigawatts) — March 2025 first-phase energization and six-building construction targets. Read 2026-09-17. Keep construction, energization and customer delivery distinct.
-- [Crusoe — Flagship Abilene data center is live](https://www.crusoe.ai/resources/newsroom/crusoe-announces-flagship-abilene-data-center-is-live) — September 2025 report of first-phase energization and OCI workloads. Read 2026-09-17. Publication date differs from the reported energization and first rack-delivery dates.
-- [Oracle Data Centers: Abilene, Texas](https://www.oracle.com/data-centers/) — September 2026 Abilene update reports 75 percent of capacity delivered. Read 2026-09-17. Delivery denominator and construction milestone are not matched; no inferred operating MW.
+- [Crusoe — Expands AI data center campus in Abilene to 1.2 gigawatts](https://www.crusoe.ai/resources/newsroom/crusoe-expands-ai-data-center-campus-in-abilene-to-1-2-gigawatts) — Crusoe · Published 2025-03-18 · Reviewed 2026-09-17. March 2025 first-phase energization and six-building construction targets.
+- [Crusoe — Flagship Abilene data center is live](https://www.crusoe.ai/resources/newsroom/crusoe-announces-flagship-abilene-data-center-is-live) — Crusoe · Published 2025-09-30 · Reviewed 2026-09-17. September 2025 report of first-phase energization and OCI workloads.
+- [Oracle Data Centers: Abilene, Texas](https://www.oracle.com/data-centers/) — Oracle · Reviewed 2026-09-17. September 2026 Abilene update reports 75 percent of capacity delivered.
+- [Stop Saying Half of 2026 US Datacenter Capacity Is Canceled](https://newsletter.semianalysis.com/p/stop-saying-half-of-2026-us-datacenter) — SemiAnalysis · Published 2026-06-18 · Reviewed 2026-09-20. Challenges aggregate delay and cancellation claims about 2026 US data-center capacity.
 
 ## Check your understanding: A high rate or a full commitment?
 
@@ -93,6 +86,6 @@ Equate $4 × occupancy to $2.50. The pool earns less at 50% and more at 80%. Bil
 
 </details>
 
-**The next problem:** Bring the physical and commercial decisions together at Abilene; use the five reader exercises for optional practice.
+**The next problem:** Bring the physical and commercial decisions together at Abilene. The five exercises in Chapter 16 are optional practice.
 
-Continue in **the integrated cases**: The servers stay powered. The service does not..
+Continue in **16. Putting an AI Factory Together**: Abilene: putting an AI factory together.

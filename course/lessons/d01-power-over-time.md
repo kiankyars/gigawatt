@@ -1,8 +1,6 @@
 # A megawatt is not a megawatt-hour
 
-Generated reading view. Edit [`course/expansion/foundations-power.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/foundations-power.json), lesson `d01-power-over-time`, then run `uv run gigawatt-expand`.
-
-**2. Data center overview · Authored draft**
+**2. Data center overview**
 
 Integrate a stepped load profile, distinguish average and peak demand, and test what interval sampling hides.
 
@@ -18,13 +16,11 @@ A capacity rating is a limit or capability stated under conditions. A measured l
 
 ## Calculate a day, then change its shape
 
-Consider a synthetic 24-hour facility trace: 6 MW for eight hours, 10 MW for twelve hours, and 4 MW for four hours. The three energy blocks are 48, 120, and 16 MWh. Together they total 184 MWh. To find the average power, spread that energy evenly across the same 24 hours: 184 divided by 24 is about 7.67 MW. The maximum stated segment is still 10 MW. The average has not made a 7.67 MW connection sufficient for the original trace.
+Take a facility whose live inference plus fixed facility support draws a steady 4 MW. An offline evaluation queue, a fixed set of prompts to run against a model checkpoint, is ready at 00:00 and due at 24:00, and it needs 48 megawatt-hours (MWh) of added energy. Run all its batches together and the queue adds 4 MW for 12 hours: the facility draws 8 MW for those 12 hours and 4 MW for the other 12. The two energy blocks are 96 and 48 MWh, 144 MWh in all. Spread that energy evenly across the day and the average is 144 divided by 24, or 6 MW. The peak is still 8 MW, so a 6 MW connection could not carry this trace.
 
-Now imagine moving flexible work so the facility consumes exactly 7.67 MW all day. The total energy remains 184 MWh in this ideal thought experiment, while peak demand falls. That illustrates why scheduling can affect infrastructure capacity even when work and energy remain unchanged. A real rescheduling change might alter cooling efficiency, queue delay, job completion time, and total energy. We held those effects fixed to isolate the shape of demand; the calculation does not promise they are absent.
+Now stagger the batch starts and limit how many run at once, so the queue adds 2 MW for all 24 hours. The facility draws a flat 6 MW. Total energy is still 144 MWh and the queue still finishes by the deadline, but peak demand falls from 8 MW to 6 MW. Scheduling has changed the capacity the site needs while the work and its energy stay the same. Live inference keeps answering users as before; only the independent evaluation batches move. The comparison assumes spare compute is available all day and that the evaluations use the same energy and give the same results, whereas a real schedule change can alter GPU efficiency, idle power and cooling. In the lab below, 8 MW for 12 hours followed by 4 MW for 12 hours gives 144 MWh at a 6 MW average and an 8 MW peak; one 6 MW segment of 24 hours reproduces the staggered day.
 
-Look at the headroom under a 12 MW service rating. During the 10 MW segment, the arithmetic difference is 2 MW. During the 4 MW segment it is 8 MW. Neither number is a complete admission policy for a new workload. Other equipment, redundancy requirements, and fast excursions may bind first. An arithmetic margin at a meter is useful evidence, but it is not transferable capacity everywhere downstream of that meter.
-
-The revised opening gives this scheduling concept an LLM workload: evaluation batches are ready at 00:00 and due at 24:00. Live inference plus fixed facility support remains at 4 MW. Running the evaluations together adds 4 MW for 12 hours; staggering independent batch starts uses 2 MW for 24 hours. Both add 48 MWh to the base 96 MWh, so total energy remains 144 MWh while peak facility demand falls from 8 to 6 MW. The queue availability, spare compute, fixed support energy, equal evaluation energy and identical results are declared assumptions. This does not require postponing interactive responses or pausing a single tightly coupled training job.
+Look at the headroom under a 6.5 MW supply limit. Running together, the 8 MW hours exceed it by 1.5 MW. Staggered, every hour leaves 0.5 MW of arithmetic margin. Neither number is a complete admission policy for a new workload: other equipment, redundancy requirements and fast excursions may bind first. An arithmetic margin at a meter is useful evidence about that meter, and the equipment downstream of it needs its own check.
 
 ## Measurement resolution changes the question
 
@@ -36,27 +32,28 @@ There is also an operational tradeoff. Flattening a flexible training workload m
 
 When you read an energy bill, equipment rating, or monitoring graph, name four things before calculating: the electrical boundary, the units, the duration, and whether the value is a measurement or a rating. Those four labels determine which arithmetic is meaningful. They also prevent a monthly energy total from masquerading as a transient power model, or a large planned connection from masquerading as electricity already consumed.
 
-## Worked example: A three-level daily load
+## Worked example: Two schedules for one evaluation queue
 
-- The three constant segments cover a full day without overlap.
-- All loads are measured at the same facility input.
+- Live inference plus fixed support draws 4 MW all day.
+- The evaluation queue needs 48 MWh, is ready at 00:00 and is due at 24:00.
+- All loads are measured at the same facility input against a 6.5 MW supply limit.
 
-1. First segment — 6 MW × 8 h = 48 MWh — Area equals power multiplied by time.
-2. Second segment — 10 MW × 12 h = 120 MWh — A higher plateau contributes more energy per hour.
-3. Third segment — 4 MW × 4 h = 16 MWh — Add the last interval, not its power alone.
-4. Daily total and average — 48 + 120 + 16 = 184 MWh; 184 / 24 = 7.67 MW — Divide energy by the full duration to recover average power.
+1. Run together — 8 MW × 12 h + 4 MW × 12 h = 96 + 48 = 144 MWh — Area equals power multiplied by time; the queue adds 4 MW × 12 h = 48 MWh.
+2. Average and peak — 144 / 24 = 6 MW average; 8 MW peak — Divide energy by the full duration to recover average power; the peak is the tallest segment.
+3. Stagger — (4 + 2) MW × 24 h = 144 MWh — Spreading the same 48 MWh over 24 hours adds only 2 MW.
+4. Supply check — 8 − 6.5 = 1.5 MW over; 6.5 − 6 = 0.5 MW spare — Only the staggered schedule fits under the 6.5 MW limit.
 
-**Result:** Average demand is 7.67 MW, while the stated peak is 10 MW.
+**Result:** Both schedules use 144 MWh and finish the queue on time; staggering lowers the peak from 8 MW to 6 MW, below the 6.5 MW limit.
 
-**Model boundary:** These segment averages do not establish subinterval peaks or equipment transient response.
+**Model boundary:** Each segment is a constant average. The model shows neither subinterval peaks nor the changes in GPU efficiency, idle power or cooling that a real schedule change can cause.
 
 ## The tradeoff
 
-Choice: Shift flexible work from the 10 MW interval to quieter intervals.
+Choice: Stagger the evaluation batches across the day instead of running them together.
 
-Benefit: The peak may fall while the same daily energy and work are preserved in the simplified model.
+Benefit: Peak demand falls from 8 MW to 6 MW while the queue’s 48 MWh and its deadline stay the same in the model.
 
-Cost: Jobs may finish later, and actual energy efficiency can change with scheduling and weather.
+Cost: Spare compute must be available all day, individual batches finish later, and real GPU efficiency, idle power and cooling can change with the schedule.
 
 ## When the situation changes
 
@@ -81,8 +78,8 @@ Ninety seconds is 90/3,600 = 0.025 hours. Multiplying by 2 MW gives 0.05 MWh. En
 
 **The idea to keep:** Capacity constrains a rate; energy adds that rate across time.
 
-## Sources and reading boundaries
+## Sources
 
-- [EIA — Measuring electricity](https://www.eia.gov/energyexplained/electricity/measuring-electricity.php) — kW and MW measure power; kWh and MWh include elapsed time. Read 2026-09-06. Read the public unit definitions. All traces, durations, averages, and practice values are original.
-- [OpenStax — Electrical Energy and Power](https://openstax.org/books/university-physics-volume-2/pages/9-5-electrical-energy-and-power) — Electrical power is a rate of energy transfer. Read 2026-09-06. Read the power definition and equations; the source is not a data-center telemetry or transient specification.
-- [Google Cloud — Best practices for batch inference on GKE](https://docs.cloud.google.com/kubernetes-engine/docs/best-practices/machine-learning/inference/batch-inference) — Distinguish scheduled, latency-tolerant batch inference from real-time serving and request batching; motivate a queue of independent LLM evaluation batches. Read 2026-09-12. Reviewed the overview, architectural-pattern and batch-size sections. The 48 MWh evaluation queue, 4 MW base load, 24-hour deadline and preserved-energy assumption are original examples, not Google measurements or performance promises.
+- [EIA — Measuring electricity](https://www.eia.gov/energyexplained/electricity/measuring-electricity.php) — www.eia.gov · Reviewed 2026-09-06. kW and MW measure power; kWh and MWh include elapsed time.
+- [OpenStax — Electrical Energy and Power](https://openstax.org/books/university-physics-volume-2/pages/9-5-electrical-energy-and-power) — openstax.org · Published 2016-10-06 · Reviewed 2026-09-06. Electrical power is a rate of energy transfer.
+- [Google Cloud — Best practices for batch inference on GKE](https://docs.cloud.google.com/kubernetes-engine/docs/best-practices/machine-learning/inference/batch-inference) — Google Cloud · Reviewed 2026-09-12. Distinguishes scheduled, latency-tolerant batch inference from real-time serving and from request batching.

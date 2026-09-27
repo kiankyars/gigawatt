@@ -1,8 +1,6 @@
 # The servers stay powered. The service does not.
 
-Generated reading view. Edit [`course/expansion/capstones.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/capstones.json), lesson `c01-coupled-outage`, then run `uv run gigawatt-expand`.
-
-**16. Putting an AI Factory Together · Authored draft**
+**16. Putting an AI Factory Together · Optional practice**
 
 Combine a power budget, an energy budget and a separately supplied cooling path. Identify exactly what the evidence can establish.
 
@@ -10,15 +8,15 @@ Combine a power budget, an energy budget and a separately supplied cooling path.
 
 ## Start with a dependency diagram, not a battery runtime
 
-A hypothetical hall is delivering a steady 2 MW IT load when its utility supply is interrupted. The IT bus has a battery inverter, but the facility-loop pumps are on a different electrical bus. The diagram in the project pack says redundant power; it does not state which auxiliaries share that redundancy. Your first task is to turn that phrase into a list of actual supply paths. Draw the IT bus, its battery path, the rack cooling devices, the facility-loop pumps, the heat-rejection plant and the controllers that coordinate them. An untraced auxiliary is an unresolved dependency, not an assumed survivor.
+A hall is delivering a steady 2 MW information technology (IT) load, the power drawn by its servers, storage and network equipment, when its utility supply is interrupted. The IT bus has a battery inverter, but the facility-loop pumps are on a different electrical bus. The diagram in the project pack says redundant power; it does not state which auxiliaries share that redundancy. Your first task is to turn that phrase into a list of actual supply paths. Draw the IT bus, its battery path, the rack cooling devices, the facility-loop pumps, the heat-rejection plant and the controllers that coordinate them. Treat an untraced auxiliary as an unresolved dependency until its supply is shown.
 
-The exercise provides a 2.5 MW inverter and 600 kWh of usable stored DC energy before conversion. The discharge path is 90% efficient at the stated operating point. The battery energy can therefore support the specified IT power for a bounded duration. Yet those two checks do not establish whether a thermal limit is reached first. The facility-loop pumps lose their supply immediately. Some components may retain electrical power and keep circulating a local loop while the downstream heat path has already stopped. Sustaining one loop is not equivalent to rejecting heat to the environment.
+The exercise provides a 2.5 MW inverter and 600 kWh of usable stored direct-current (DC) energy. The inverter converts it to alternating current (AC) for the IT bus, and this discharge path is 90% efficient at the stated operating point. The battery energy can therefore support the specified IT power for a bounded duration. Yet those two checks do not establish whether a thermal limit is reached first. The facility-loop pumps lose their supply immediately. Some components may retain electrical power and keep circulating a local loop while the downstream heat path has already stopped. A circulating local loop keeps warming until the path to the outdoor plant runs again.
 
 ## Write a timeline whose unknowns stay unknown
 
 At time zero the utility path is lost. Assume, for this exercise only, that the IT inverter transfers without exceeding the IT equipment's allowed interruption. A separately supplied controller remains available and records the pump supply loss. At ten minutes the generator path is available, but an additional two minutes is required by the supplied restoration sequence before the full cooling path can be established. These are synthetic scenario inputs, not recommended switching delays or equipment guarantees. Keep the sequence as evidence to evaluate, not instructions to perform.
 
-You can compare the twelve-minute electrical support requirement with the available energy. You cannot calculate a safe twelve-minute thermal bridge without coolant inventory, operating temperatures, effective thermal capacities, flow after the disturbance, device limits and control behavior. The correct engineering answer can therefore contain both a numerical pass and an unresolved service conclusion. Specify the missing measurements and an acceptance test that would resolve them. A decision to reduce workload should follow the actual operating limits and an authorized control sequence; this course does not invent one from a battery calculation.
+You can compare the twelve-minute electrical support requirement with the available energy: the restoration needs 2,000 kW × 0.2 h = 400 kWh of the battery's 540 kWh of AC energy. The heat has a number too. Over the same twelve minutes the racks turn those 400 kWh into heat, and with the facility-loop pumps unpowered that heat accumulates in the hall's coolant and equipment. For scale, 400 kWh is 1,440 megajoules (MJ), enough to warm 10 m³ of water by about 34 K. Whether the hall can absorb it depends on coolant inventory, operating temperatures, effective thermal capacities, flow after the disturbance, device limits and control behavior, so a safe twelve-minute thermal bridge can be calculated only once those are known. The correct engineering answer can therefore contain both a numerical pass and an unresolved service conclusion. Specify the missing measurements and an acceptance test that would resolve them. A decision to reduce workload should follow the actual operating limits and an authorized control sequence, which a battery calculation cannot supply.
 
 ## Worked example: Two passes do not establish service continuity
 
@@ -36,21 +34,13 @@ You can compare the twelve-minute electrical support requirement with the availa
 
 **Model boundary:** No thermal transient, battery ageing, inverter overload curve, protective coordination or actual transfer performance is inferred.
 
-## The tradeoff
-
-Choice: Add electrical support for the missing cooling auxiliaries.
-
-Benefit: Remove one dependency that previously failed immediately.
-
-Cost: The supported load and usable energy budget change, and all downstream heat-path and control dependencies still require testing.
-
 ## When the situation changes
 
-Trigger: A project report substitutes calculated battery duration for service ride-through.
+Trigger: A project report substitutes the 16.2-minute battery duration for twelve minutes of service ride-through.
 
-Mechanism: IT power remains available while an unprotected auxiliary breaks heat removal.
+Mechanism: The racks keep turning 2 MW into heat while the facility-loop pumps are unpowered: over the 12-minute restoration that is 2,000 kW × 0.2 h = 400 kWh of heat with no path to the outdoor plant.
 
-Response: Correct the report, identify sensor and supply boundaries, and require an integrated disturbance test with explicit acceptance limits.
+Response: Correct the report and require an integrated disturbance test that tracks coolant and device temperatures against their limits through the full 12-minute sequence.
 
 ## Apply the idea
 
@@ -67,6 +57,6 @@ The energy margin shrinks because the battery now supports both loads. This can 
 
 **The idea to keep:** Electrical ride-through is one dependency of continued service. It is not a prediction of thermal ride-through.
 
-## Sources and reading boundaries
+## Sources
 
-- [Commissioning & Performance Validation | AI Data Center Energy Performance Framework](https://www.ashrae.org/technical-resources/ai-data-center-framework/commissioning-performance-validation) — Commissioning provides the context for testing integrated facility behavior; the numerical case is original. Read 2026-09-06. Public framework guidance. Referenced standards and project-specific acceptance procedures were not reviewed; no field procedure is prescribed.
+- [Commissioning & Performance Validation | AI Data Center Energy Performance Framework](https://www.ashrae.org/technical-resources/ai-data-center-framework/commissioning-performance-validation) — ASHRAE · Reviewed 2026-09-06. ASHRAE's AI data-center framework guidance on commissioning and validating integrated facility performance.

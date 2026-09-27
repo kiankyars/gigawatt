@@ -1,8 +1,6 @@
 # A shared boundary can defeat two independent systems
 
-Generated reading view. Edit [`course/expansion/heat-delivery-operations.json`](https://github.com/kiankyars/gigawatt/blob/main/course/expansion/heat-delivery-operations.json), lesson `d12-safety-and-control-boundaries`, then run `uv run gigawatt-expand`.
-
-**5. Physical site, buildings and safety · Authored draft**
+**5. Physical site, buildings and safety**
 
 Draw hazard and access boundaries around equipment and control systems, then trace an original shared-dependency scenario.
 
@@ -12,13 +10,13 @@ Draw hazard and access boundaries around equipment and control systems, then tra
 
 A battery, pressurized fluid circuit, rotating machine and electrical distribution assembly present different forms of stored or supplied energy. Removing one input does not by itself establish that every relevant energy source is absent. This observation changes the questions a layout must answer: where qualified personnel need access, which adjacent services remain live, how an event is detected, and which barriers or separations belong to the approved design.
 
-Fire, electrical and mechanical arrangements interact. A fluid route can cross electrical equipment; a battery installation can alter environmental and emergency-response requirements; a cabinet door can obstruct access that another component needs. The relevant requirements depend on the installation, equipment and jurisdiction. The purpose here is to identify the interface for specialist review, not to supply an abbreviated design code or an executable switching procedure.
+Fire, electrical and mechanical arrangements interact. A fluid route can cross electrical equipment; a battery installation can alter environmental and emergency-response requirements; a cabinet door can obstruct access that another component needs. The relevant requirements depend on the installation, equipment and jurisdiction. Identify each such interface for specialist review.
 
-OSHA’s public electrical work-practice material explicitly addresses stored energy and qualified work. That is evidence that equipment state cannot be reduced to a dashboard on/off label. We do not reproduce a field isolation sequence. Instead, an educational drawing should label which work boundary is assumed and which evidence would be required before a qualified team could accept it. A schematic that leaves this unspecified cannot prove maintainability.
+The electrical work-practice standard of the US Occupational Safety and Health Administration (OSHA) explicitly addresses stored energy and qualified work. That is evidence that equipment state cannot be reduced to a dashboard on/off label. A drawing should therefore label which work boundary is assumed and which evidence a qualified team would need before accepting it. A schematic that leaves this unspecified cannot prove maintainability.
 
 ## Control systems are part of the physical service
 
-A facility controller can change pumps, fans, valves or operating modes. Physical access systems can determine whether an authorized person reaches equipment. These systems therefore influence a physical process even if their visible interface resembles ordinary enterprise software. NIST SP 800-82 treats building automation and physical access as operational technology and emphasizes their performance, reliability and safety context. That classification explains why a generic office-network change can have unintended facilities consequences.
+A facility controller can change pumps, fans, valves or operating modes. Physical access systems can determine whether an authorized person reaches equipment. These systems therefore influence a physical process even if their visible interface resembles ordinary enterprise software. Special Publication 800-82 from the US National Institute of Standards and Technology treats building automation and physical access as operational technology and emphasizes their performance, reliability and safety context. That classification explains why a generic office-network change can have unintended facilities consequences.
 
 Draw authority as well as connectivity. Who can observe a value, alter a setpoint, change a sequence or install software? Which identity service, management switch, power supply and remote support arrangement do those actions depend on? A read-only monitoring failure differs from a control-command failure. A disconnected controller may continue its local operation, enter a predetermined mode, or become unable to satisfy the process; the actual specified behavior must be established.
 
@@ -30,16 +28,16 @@ Our synthetic facility has two cooling trains, each rated at 6 MW thermal duty u
 
 For the example, assume the local controllers remain within their established operating limits for loss of supervision, but coordinated load changes are no longer authorized. Cooling may continue at the current supported state, while the ability to increase load has changed. If instead an untested shared configuration command disabled both trains, the same topology could produce service loss. Equipment duplication does not settle either question; control behavior and change scope are essential evidence.
 
-Boundaries should be revisited after migration. A second network link may use the same upstream device; separate credentials may still allow one global write; physical access may require a shared system during an outage. The useful review asks what one action or failure can influence, which state follows, and how that state was verified. It avoids declaring independence merely because two labels or two icons appear on the drawing.
+Boundaries should be revisited after migration. A second network link may use the same upstream device; separate credentials may still allow one global write; physical access may require a shared system during an outage. A useful check asks what one action or failure can influence, which state follows, and what evidence shows that state. It avoids declaring independence merely because two labels or two icons appear on the drawing.
 
 ## Separate the routes, not only the exit doors
 
-OSHA 29 CFR 1910.36(b)(1) connects practical separation of exit routes to preserving an alternative when fire or smoke blocks one. Its adjacent paragraphs address workplaces needing more routes and circumstances allowing a single route. Here, the two exterior exits are held fixed while their approaches change. Declaring the west corridor unavailable disconnects both illustrated shared routes but leaves the separate east route connected. This is a test of the specified passages, not a fire simulation or an approved egress layout: actual route count, capacity, distances, separation and protective construction require review for the workplace.
+OSHA’s exit-route rule, 29 CFR 1910.36(b)(1) in the Code of Federal Regulations (CFR), connects practical separation of exit routes to preserving an alternative when fire or smoke blocks one. Its adjacent paragraphs address workplaces needing more routes and circumstances allowing a single route. Picture a hall with two exterior exits. If the approaches to both exits run through the same west corridor, smoke in that corridor cuts off both. If one approach runs through a separate east corridor instead, that route stays open. The exit doors are the same in both layouts; the routes leading to them decide whether an alternative survives. Actual route count, capacity, distances, separation and protective construction still need review for the workplace.
 
 ## Worked example: Count the control support load separately
 
 - Synthetic control-support load: one 300 W switch plus two 50 W controllers.
-- A stated usable DC energy store delivers 0.8 kWh to this load; conversion and reserve deductions are already included.
+- A stated usable direct-current (DC) energy store delivers 0.8 kWh to this load; conversion and reserve deductions are already included.
 - The example calculates energy duration only; it does not establish mechanical or thermal ride-through.
 
 1. Support power — 300 W + 2 × 50 W = 400 W = 0.4 kW — The shared switch dominates this small support budget.
@@ -54,17 +52,15 @@ OSHA 29 CFR 1910.36(b)(1) connects practical separation of exit routes to preser
 
 Choice: Centralize supervisory visibility and configuration.
 
-Benefit: It can simplify consistent observation and coordinated operation.
+Benefit: One supervisory view can coordinate load changes across both cooling trains.
 
-Cost: Shared authority and infrastructure can expand the scope of one failure or erroneous change unless boundaries and local behavior are designed deliberately.
+Cost: In the lesson’s facility, both 6 MW trains then depend on one 300 W management switch, so a single switch failure or configuration change reaches both.
 
 ## When the situation changes
 
 Trigger: A global configuration change reaches two supposedly independent control paths.
 
 Mechanism: Common command authority creates a correlated failure across duplicated equipment.
-
-Response: Use the approved incident and change-management process to establish the affected scope, preserve evidence and verify the reviewed recovery state; do not improvise field commands from this lesson.
 
 ## Apply the idea
 
@@ -79,13 +75,13 @@ Adding 100 W increases support demand by 25 percent, so the constant-energy dura
 
 </details>
 
-**The idea to keep:** Independent power equipment still needs independent and deliberate control, access and maintenance boundaries.
+**The idea to keep:** Two cooling trains are only as independent as their controls, access and maintenance. Trace every shared dependency, down to a single 300 W management switch.
 
-## Sources and reading boundaries
+## Sources
 
-- [NIST SP 800-82 Revision 3: OT Security](https://csrc.nist.gov/pubs/sp/800/82/r3/final) — The abstract includes building automation and physical access within OT and identifies reliability and safety requirements. Read 2026-09-06. Publication abstract and revision context inspected; this lesson does not claim full implementation review of the 2023 guide or any draft successor.
-- [OSHA 1910.333: Electrical work practices](https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.333) — Indexed regulatory excerpts address stored energy and qualified work. Read 2026-09-06. Relevant public indexed excerpts reviewed; no field procedure or jurisdiction-wide compliance claim is supplied.
-- [OSHA — 29 CFR 1910.36(b), number and separation of exit routes](https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.36) — Section 1910.36(b)(1) links practical separation of exit routes to maintaining an alternative when fire or smoke blocks one. Paragraphs (b)(2) and (b)(3) make required route count depend on workplace conditions. Read 2026-09-13. Official standard text and OSHA final-rule explanation reviewed through public indexed text; direct OSHA page and PDF retrieval returned 403. Supports the separation principle only. The original untimed connectivity model does not calculate fire or smoke spread, required dimensions, fire resistance, occupant capacity, evacuation time or regulatory compliance. Do not infer that exactly two exits always suffice or that a shared segment is categorically prohibited.
+- [NIST SP 800-82 Revision 3: OT Security](https://csrc.nist.gov/pubs/sp/800/82/r3/final) — csrc.nist.gov · Published 2023-09-28 · Reviewed 2026-09-06. The abstract includes building automation and physical access within OT and identifies reliability and safety requirements.
+- [OSHA 1910.333: Electrical work practices](https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.333) — www.osha.gov · Reviewed 2026-09-06. Indexed regulatory excerpts address stored energy and qualified work.
+- [OSHA — 29 CFR 1910.36(b), number and separation of exit routes](https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.36) — U.S. Occupational Safety and Health Administration · Reviewed 2026-09-13. Section 1910.36(b)(1) links practical separation of exit routes to maintaining an alternative when fire or smoke blocks one. Paragraphs (b)(2) and (b)(3) make required route count depend on workplace conditions.
 
 ## Check your understanding: It fits until replacement day
 
@@ -106,4 +102,4 @@ Installation, operation and replacement are different physical configurations. A
 
 **The next problem:** With the physical routes established, follow the electrical route: what must each device between the campus connection and the load do?
 
-Continue in **Campus and building power distribution**: Read a power train as a set of jobs.
+Continue in **6. Campus and building power distribution**: Read a power train as a set of jobs.
