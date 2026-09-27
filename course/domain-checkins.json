@@ -2,7 +2,7 @@
   "version": 1,
   "checkins": [
     {
-      "domain": "D01",
+      "chapter": "D01",
       "title": "What does the meter establish?",
       "scenario": "A hypothetical campus records 12 MWh at the facility meter and 10 MWh at its IT meters during the same hour. An analyst adds them and reports 22 MW of useful compute.",
       "prompt": "Correct the total and explain what these readings leave unknown.",
@@ -10,11 +10,11 @@
       "explanation": [
         "The IT boundary sits inside the facility boundary, so adding the two readings counts the IT energy twice. Over this hour, the facility used 2 MWh beyond the IT load and its energy ratio was 12 / 10 = 1.2. Neither that ratio nor the electrical demand tells us how much accepted work the campus completed."
       ],
-      "next_domain": "D02",
+      "next_chapter": "D02",
       "bridge": "We can now account for the watts. What job must those watts support, and what counts as a successful result?"
     },
     {
-      "domain": "D02",
+      "chapter": "D02",
       "title": "Same hardware, different service",
       "scenario": "Two hypothetical inference services have the same accelerator count and average IT demand. One meets its response-time target; the other builds a queue whenever requests arrive in bursts.",
       "prompt": "Would you give them the same usable-service rating? Name the missing evidence.",
@@ -22,11 +22,11 @@
       "explanation": [
         "Compare accepted responses under the same arrival pattern, quality requirement and latency target, including the slow end of the response-time distribution. Then measure the load phases and simultaneous peaks needed to deliver that service. A mean demand alone does not define its infrastructure envelope."
       ],
-      "next_domain": "D03",
+      "next_chapter": "D03",
       "bridge": "Once the workload has an explicit demand envelope, where can the required power actually be delivered?"
     },
     {
-      "domain": "D03",
+      "chapter": "D03",
       "title": "Can this phase open?",
       "scenario": "A hypothetical project has an energy contract covering its planned annual consumption. Its first phase needs 10 MW at the facility connection, but the available connection is limited to 8 MW. No local generation or storage is included.",
       "prompt": "Does the energy contract make the full first phase deliverable? Explain the constraint.",
@@ -34,11 +34,25 @@
       "explanation": [
         "Commercial energy coverage does not increase the physical connection limit. The project needs an evidenced route to more deliverable power or a smaller operating phase. Matching annual energy also says nothing by itself about supply during each operating hour."
       ],
-      "next_domain": "D12",
-      "bridge": "Power is one site condition. Can the parcel, building, access routes and other services support the same phase?"
+      "next_chapter": "grid-queues",
+      "bridge": "One connection limit decides whether this project's first phase can open. The Electric Reliability Council of Texas (ERCOT) alone reports hundreds of gigawatts of large-load requests. How much of the capacity requested in ERCOT and in the region run by PJM Interconnection will become usable power, and when?"
     },
     {
-      "domain": "D12",
+      "chapter": "grid-queues",
+      "title": "Requests, contracts or forecast?",
+      "scenario": "A briefing lists three figures from this case study under one heading, \"data-center demand\": ERCOT's June 2026 snapshot of 474.7 GW of large-load requests, Dominion Energy's July 2025 contract total of 47 GW, and ERCOT's 2025 whole-system forecast for 2030, which adjusted 208 GW submitted to 138 GW. The briefing adds the first two figures and reports 521.7 GW of demand on the way.",
+      "prompt": "What kind of number is each figure? How much of Dominion's 47 GW had reached an electric service agreement, and why can the 474.7 GW and 47 GW not be added?",
+      "answer": "ERCOT's 474.7 GW is requested capacity, Dominion's 47 GW is a contract snapshot and ERCOT's 138 GW is a system forecast. Only 9.8 GW of Dominion's 47 GW had reached an electric service agreement. The 521.7 GW total adds Texas requests to one PJM utility's contracts, so it is not a demand figure for either region.",
+      "explanation": [
+        "Requests record what developers have asked for. Of ERCOT's 474.7 GW, 284.3 GW had no study submitted and 5.9 GW had been observed energized. A developer that requests 1 GW at each of three alternative sites for one 1 GW plan adds 3 GW of requests, while at most one campus gets built.",
+        "Contracts record how far each customer has committed. Dominion's 47 GW splits into 30.1 GW under engineering letters of authorization (ELOAs), which a customer may decline after the study, 7.1 GW under construction letters of authorization (CLOAs), which reserve capacity, and 9.8 GW under electric service agreements (ESAs): 30.1 + 7.1 + 9.8 = 47.0 GW. Dominion's coincident data-center peak in 2025 was about 4 GW, a measurement of the demand its connected data centers drew at the same time.",
+        "Forecasts record a planner's judgment about which loads arrive and when. ERCOT's adjustment from 208 GW to 138 GW covers every load on its system, so it is broader than data centers. Each figure answers a different question, so read it with its region, date and status before comparing it with another."
+      ],
+      "next_chapter": "D12",
+      "bridge": "A power date is one condition for opening a phase. Can the parcel, building, access routes and other services support the same phase?"
+    },
+    {
+      "chapter": "D12",
       "title": "It fits until replacement day",
       "scenario": "A hypothetical equipment room has enough floor area and verified structural capacity. A required cabinet will enter before the final wall is built, but its assembled replacement cannot pass through the finished access route.",
       "prompt": "Is the layout ready to accept? Identify the missing condition.",
@@ -46,11 +60,11 @@
       "explanation": [
         "Installation, operation and replacement are different physical configurations. A cabinet footprint and acceptable floor loading do not establish how the equipment can later leave or return. The design needs a verified route or an agreed, feasible replacement method before the layout is accepted."
       ],
-      "next_domain": "D04",
+      "next_chapter": "D04",
       "bridge": "With the physical routes established, follow the electrical route: what must each device between the campus connection and the load do?"
     },
     {
-      "domain": "D04",
+      "chapter": "D04",
       "title": "Which rating stops the load?",
       "scenario": "At a hypothetical AC interface, a load needs 900 kW at power factor 0.9. The upstream transformer is rated 1,000 kVA, while a downstream device at the same voltage is limited to 950 kVA. Ignore losses and other constraints for this screen.",
       "prompt": "Does this path pass the stated capacity screen? Show the comparison.",
@@ -58,11 +72,11 @@
       "explanation": [
         "The transformer reaches its stated rating, but every element of the path must carry the load. Comparing 900 kW directly with a kVA rating would hide the constraint. Passing this arithmetic screen would still leave installation and operating conditions to verify."
       ],
-      "next_domain": "D05",
+      "next_chapter": "D05",
       "bridge": "A path that carries normal demand is only the start. What happens when supply is interrupted or equipment is unavailable?"
     },
     {
-      "domain": "D05",
+      "chapter": "D05",
       "title": "Maintenance, then another loss",
       "scenario": "Three hypothetical UPS modules can each deliver 1 MW to a common output serving 1.8 MW, including all protected auxiliaries. One module is isolated for maintenance; another then fails. Assume the surviving output path remains connected and has enough stored energy for the required bridge interval.",
       "prompt": "Can the full load remain supported? Explain which limit matters now.",
@@ -70,11 +84,24 @@
       "explanation": [
         "With one module unavailable, the two remaining modules supplied 2 MW. Losing another removes that margin and more. Enough stored energy cannot overcome an output-power limit; preserving a smaller service would require a pre-established way to reduce the supported load."
       ],
-      "next_domain": "D06",
-      "bridge": "Carry those power, energy and failure boundaries into the rack. Which conversions and interfaces remain when its inlet voltage changes?"
+      "next_chapter": "D06",
+      "bridge": "Carry those power, energy and failure boundaries into the rack. Where do its watts go between the inlet and the chips, and what covers a sudden step in its load?"
     },
     {
-      "domain": "D06",
+      "chapter": "D06",
+      "title": "Can a bigger battery keep up?",
+      "scenario": "A rack's direct current (DC) bus has a source limited to 200 kW. The rack normally draws 180 kW and bursts to 260 kW for 0.5 s. A battery backup unit (BBU) supplies the demand above 200 kW and recharges only from the source headroom between bursts. Ignore losses. A proposal doubles the BBU's usable energy so that a new burst can start 0.5 s after the previous one ends.",
+      "prompt": "Will the larger BBU sustain bursts separated by 0.5 s? Find the shortest gap between bursts that the 200 kW source can support.",
+      "answer": "No. Each burst takes 30 kJ from the BBU, and 20 kW of headroom needs 1.5 s to put it back. With 0.5 s gaps the rack averages 220 kW, more than the source can supply, so any BBU eventually runs empty.",
+      "explanation": [
+        "Each burst needs 260 − 200 = 60 kW from the BBU for 0.5 s: 60 × 0.5 = 30 kJ. Between bursts the rack uses 180 kW of the 200 kW source, leaving 20 kW to recharge, so refilling takes 30 / 20 = 1.5 s. With a 1.5 s gap the pattern averages (260 × 0.5 + 180 × 1.5) / 2.0 = 200 kW, exactly the source limit.",
+        "With a 0.5 s gap the source replaces only 20 × 0.5 = 10 kJ, so the BBU falls 20 kJ further behind on every cycle. Doubling its stored energy roughly doubles the number of bursts before it is empty; the 20 kJ lost per cycle stays the same. Lasting fixes act on average power: fewer or shorter bursts, longer gaps or a larger source. Energy spent on bursts is also energy the BBU cannot hold for an outage."
+      ],
+      "next_chapter": "D06-DC",
+      "bridge": "At a 50 V bus, a 100 kW rack draws 2,000 A. What changes, and what stays the same, when power reaches the rack at 800 V DC?"
+    },
+    {
+      "chapter": "D06-DC",
       "title": "Did moving the converter save energy?",
       "scenario": "A hypothetical redesign moves a converter from each rack to a nearby cabinet. Useful device output, converter efficiency, cable losses and auxiliary demand all remain unchanged.",
       "prompt": "Did the redesign reduce facility electricity use? Name something it did change.",
@@ -82,11 +109,11 @@
       "explanation": [
         "The same output still requires the same total input across the complete path. Conversion heat now occurs outside the rack, and rack space may be released. Shared failure exposure, protection, service access and expansion arrangements need checking at the new location."
       ],
-      "next_domain": "D08",
+      "next_chapter": "D08",
       "bridge": "Power now reaches the devices. How do those devices exchange data within a rack and across the cluster?"
     },
     {
-      "domain": "D08",
+      "chapter": "D08",
       "title": "Healthy devices, waiting job",
       "scenario": "A hypothetical synchronized training step cannot finish until every participant completes its required exchange. One shared fabric link becomes congested, although every accelerator remains healthy.",
       "prompt": "Can the job slow down without losing any accelerators? Trace the dependency.",
@@ -94,11 +121,11 @@
       "explanation": [
         "Healthy endpoints do not establish a healthy end-to-end communication path. Follow the affected traffic through shared links and the collective's dependencies. Placement or path changes might help, but only if they relieve the actual constrained route."
       ],
-      "next_domain": "D10",
-      "bridge": "Data reaches the devices and their progress can be saved. Where does the resulting heat go?"
+      "next_chapter": "D10",
+      "bridge": "Data now moves between the devices. Where does the heat they produce go?"
     },
     {
-      "domain": "D10",
+      "chapter": "D10",
       "title": "The liquid loop is not the whole rack",
       "scenario": "A hypothetical 100 kW rack transfers 80 kW into its liquid loop and 20 kW into room air. Its liquid loop remains available, but the room's air-cooling path becomes unavailable.",
       "prompt": "Can you claim the rack can keep running at 100 kW? Explain the remaining heat obligation.",
@@ -106,11 +133,11 @@
       "explanation": [
         "Adequate liquid capacity does not establish cooling for components whose heat enters the air. Without another demonstrated path, the supplied facts do not support continued full-load operation. Thermal limits and any allowable ride-through require additional evidence."
       ],
-      "next_domain": "D11",
+      "next_chapter": "D11",
       "bridge": "Heat captured from the rack has only started its journey. How does it finally reach the outdoor environment?"
     },
     {
-      "domain": "D11",
+      "chapter": "D11",
       "title": "What reaches the condenser?",
       "scenario": "A hypothetical chiller removes 1.0 MW from its evaporator loop while its compressor consumes 0.2 MW. Ignore other heat transfers and exclude pumps and fans from this stated balance.",
       "prompt": "How much heat must its condenser reject, and what is the cooling COP at this boundary?",
@@ -118,11 +145,11 @@
       "explanation": [
         "The condenser receives the cooling duty plus compressor work: 1.0 + 0.2 MW. Cooling COP uses the evaporator duty as its numerator. This balance does not establish outdoor equipment capacity under a given climate, or account for the excluded pumps and fans."
       ],
-      "next_domain": "D13",
+      "next_chapter": "D13",
       "bridge": "We have traced the power, work and heat paths. What evidence proves that the delivered equipment can operate as one complete service?"
     },
     {
-      "domain": "D13",
+      "chapter": "D13",
       "title": "20 MW stays; what can the factory release?",
       "scenario": "Just before fabrication, the illustrative phase changes from 200 × 100 kW to 100 × 200 kW racks. Each old rack branch permits 160 A and 3.0 kg/s. Use balanced 480 V AC at PF 1; assign all IT heat to water with cp = 4.18 kJ/(kg·K) and a maximum 10 K rise. The new vendor drawing also doubles rack mass on the same four feet. Independent site work remains approved.",
       "prompt": "What can proceed, what must be held, and what evidence releases each hold? Address electrical, hydraulic, spatial and scheduling constraints. Does a successful factory test establish site service acceptance?",
@@ -134,11 +161,11 @@
         "Scheduling: the EPC interface manager records each approved boundary and the scheduler confirms components, factory slot, transport, site and test resources. With all required approvals at week 3, factory work 6 weeks, transport 1, site ready in week 8, connections 2 and acceptance 2, the finish is max(3 + 6 + 1, 8) + 2 + 2 = week 14. Approval dates alone do not reserve those resources.",
         "Acceptance: controls owners must remap alarms and actions to the new racks, and the commissioning lead must revise the tests. Factory evidence covers its tested scope; completed site connections and integrated workload/failure/recovery evidence are still required. No service path has been demonstrated merely because a module can ship."
       ],
-      "next_domain": "D14",
+      "next_chapter": "D14",
       "bridge": "After those revised paths pass acceptance, which measurements, configuration records and maintenance responsibilities will keep their operating limits visible?"
     },
     {
-      "domain": "D14",
+      "chapter": "D14",
       "title": "One reassuring number",
       "scenario": "A hypothetical rack reports high device temperatures while the plant's displayed supply temperature looks normal. The plant reading is ten minutes old, and there is no current measurement of flow through the affected rack branch.",
       "prompt": "Does the normal plant reading establish that rack cooling is adequate? Identify the next evidence you need.",
@@ -146,11 +173,11 @@
       "explanation": [
         "A stale upstream temperature cannot establish current local flow or heat transfer. Current branch flow, supply and return temperatures, device temperatures and load history can help distinguish restricted flow, a changed load and faulty telemetry. The alarm alone does not select among them."
       ],
-      "next_domain": "D15",
+      "next_chapter": "D15",
       "bridge": "Measurements reveal the constraint. Which intervention changes usable service enough to justify its cost and delivery time?"
     },
     {
-      "domain": "D15",
+      "chapter": "D15",
       "title": "A high rate or a full commitment?",
       "scenario": "The same 1,024 GPUs can be fully committed at $2.50 per GPU-hour or rented at $4.00 per booked hour. Expected billable occupancy of the pool is between 50% and 80%.",
       "prompt": "At what occupancy is annual revenue equal, and what does the comparison leave out?",
@@ -158,8 +185,8 @@
       "explanation": [
         "Equate $4 × occupancy to $2.50. The pool earns less at 50% and more at 80%. Billable occupancy means paid rental hours, not GPU compute utilization; a committed customer can pay while the GPU is idle."
       ],
-      "next_domain": "capstone",
-      "bridge": "Bring the physical and commercial decisions together at Abilene; use the five reader exercises for optional practice."
+      "next_chapter": "capstone",
+      "bridge": "Bring the physical and commercial decisions together at Abilene. The five exercises in Chapter 16 are optional practice."
     }
   ]
 }

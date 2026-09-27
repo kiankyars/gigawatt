@@ -264,7 +264,8 @@ class TeachingCatalogTests(unittest.TestCase):
         markdown = b.lesson_markdown(
             lesson, {s["id"]: s for s in course["sources"]}, chapters=course["chapters"]
         )
-        self.assertIn("**3. Workloads and requirements · Authored draft**", markdown)
+        self.assertIn("**3. Workloads and requirements**", markdown)
+        self.assertNotIn("Authored draft", markdown)
 
     def test_compute_and_storage_are_further_reading_and_chapter_numbers_remain_contiguous(self):
         course = b.load_course()
@@ -282,6 +283,14 @@ class TeachingCatalogTests(unittest.TestCase):
         self.assertEqual([l["id"] for l in course["lessons"] if l["domain"] == "D07"], reference["lesson_ids"])
         storage = next(r for r in course["references"] if r["id"] == "D09")
         self.assertNotIn("number", storage)
+        self.assertEqual(reference["title"], "Compute and memory — further reading")
+        self.assertEqual(storage["title"], "Storage and recovery — further reading")
+        storage_lesson = next(l for l in course["lessons"] if l["id"] == storage["lesson_ids"][0])
+        self.assertIn(
+            "**Storage and recovery — further reading**",
+            b.lesson_markdown(storage_lesson, {s["id"]: s for s in course["sources"]},
+                              domains=course["domains"], chapters=course["chapters"]),
+        )
         self.assertEqual(len(storage["lesson_ids"]), 3)
         self.assertEqual(storage["presentations"], [])
         self.assertNotIn("D09", [c["id"] for c in chapters])
@@ -299,10 +308,14 @@ class TeachingCatalogTests(unittest.TestCase):
         self.assertEqual(chapters["D06-DC"]["lesson_ids"], ["d06-eight-hundred-volt-architectures"])
         lessons = [l for l in course["lessons"] if l["domain"] == "D06"]
         self.assertEqual([l["id"] for l in lessons], chapters["D06"]["lesson_ids"] + chapters["D06-DC"]["lesson_ids"])
-        self.assertFalse(any("domain_checkin" in l for l in lessons[:-1]))
-        self.assertIn("domain_checkin", lessons[-1])
+        self.assertEqual([("domain_checkin" in l) for l in lessons], [False, True, True])
+        rack_power, dc = lessons[1]["domain_checkin"], lessons[2]["domain_checkin"]
+        self.assertEqual((rack_power["chapter"], rack_power["next_chapter"]), ("D06", "D06-DC"))
+        self.assertEqual(rack_power["next_lesson"], "d06-eight-hundred-volt-architectures")
+        self.assertEqual(rack_power["next_label"], "9. 800 V DC distribution")
+        self.assertEqual((dc["chapter"], dc["next_chapter"]), ("D06-DC", "D08"))
         markdown = b.lesson_markdown(lessons[-1], {s["id"]: s for s in course["sources"]}, chapters=course["chapters"])
-        self.assertIn("**9. 800 V DC distribution · Authored draft**", markdown)
+        self.assertIn("**9. 800 V DC distribution**", markdown)
 
     def test_every_presentation_has_a_named_course_exit_in_its_header(self):
         class HeaderLinks(HTMLParser):

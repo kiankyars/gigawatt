@@ -5,8 +5,10 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 import posixpath
 import re
+import sys
 from copy import deepcopy
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -29,6 +31,9 @@ IMAGES = (
     "power-equipment.png",
     "network-equipment.png",
 )
+# While False, a repeated glossary term (case-insensitive) only prints a warning and
+# the first definition in reading order is kept. Set True once the duplicates are merged.
+FAIL_ON_DUPLICATE_TERMS = True
 
 
 class ExpansionError(ValueError):
@@ -60,7 +65,50 @@ def flatten(value):
     return ""
 
 
-def normalize(raw, catalog_by_url, known_objectives):
+def reader_lab_types(root=ROOT):
+    """The lab types course/web/reader.js renders, read from its `type === "..."` branches.
+
+    A lesson may name only these, or "none" to hide its lab, so it cannot ask for a lab
+    the reader would silently leave blank.
+    """
+    source = (root / "course/web/reader.js").read_text(encoding="utf-8")
+    types = frozenset(re.findall(r'\btype === "([a-z][a-z0-9-]*)"', source))
+    if not types:
+        raise ExpansionError("No lab types found in course/web/reader.js")
+    return types
+
+
+def validate_lab(lesson, lab_types):
+    """Check the optional lab and practice fields that pass through to the reader unchanged."""
+    lid = lesson["id"]
+    if "lab" in lesson:
+        lab = lesson["lab"]
+        if not isinstance(lab, str) or (lab != "none" and lab not in lab_types):
+            raise ExpansionError(
+                f"{lid}: lab must be one of {', '.join(sorted(lab_types))} or none"
+            )
+    if "lab_params" in lesson:
+        params = lesson["lab_params"]
+        if lesson.get("lab") in (None, "none"):
+            raise ExpansionError(f"{lid}: lab_params needs an explicit lab type")
+        if not isinstance(params, dict) or not params:
+            raise ExpansionError(f"{lid}: lab_params must be a nonempty object")
+        for key, value in params.items():
+            if not re.fullmatch(r"[a-z][a-z0-9-]*", key):
+                raise ExpansionError(f"{lid}: unsafe lab_params key: {key}")
+            number = isinstance(value, (int, float)) and not isinstance(value, bool)
+            if not (
+                (number and math.isfinite(value))
+                or (isinstance(value, str) and value.strip())
+            ):
+                raise ExpansionError(
+                    f"{lid}: lab_params.{key} must be a finite number or nonempty text"
+                )
+    if "optional" in lesson and not isinstance(lesson["optional"], bool):
+        raise ExpansionError(f"{lid}: optional must be true or false")
+
+
+def normalize(raw, catalog_by_url, known_objectives, lab_types=None):
     lesson = deepcopy(raw)
     for key in ("id", "domain", "title", "question", "summary", "takeaway"):
         text(lesson.get(key), f"lesson.{key}")
@@ -89,7 +137,7 @@ def normalize(raw, catalog_by_url, known_objectives):
         )
         for figure in section.get("figures", []):
             asset = text(figure.get("asset"), "figure.asset")
-            if not re.fullmatch(r"references/[a-z0-9-]+\.(?:png|jpeg|jpg|svg)", asset):
+            if not re.fullmatch(r"references/[a-z0-9-]+\.(?:png|jpeg|jpg|svg|webp)", asset):
                 raise ExpansionError(f"Unsafe reference figure path: {asset}")
             for field in ("alt", "caption", "source_title"):
                 text(figure.get(field), f"figure.{field}")
@@ -123,13 +171,21 @@ def normalize(raw, catalog_by_url, known_objectives):
         "boundary": text(example.get("boundary"), "example.boundary"),
     }
     for key in ("tradeoff", "failure"):
-        value = lesson.get(key)
+        # Optional slots: a lesson keeps them only where they carry teaching content.
+        if key not in lesson:
+            continue
+        value = lesson[key]
         if isinstance(value, dict):
+            if not value:
+                raise ExpansionError(f"{lesson['id']}: {key} needs content when present")
             value = [
                 f"{name.replace('_', ' ').capitalize()}: {text(v, key)}"
                 for name, v in value.items()
             ]
+        if isinstance(value, list) and not value:
+            raise ExpansionError(f"{lesson['id']}: {key} needs content when present")
         lesson[key] = paragraphs(value, key)
+    validate_lab(lesson, reader_lab_types() if lab_types is None else lab_types)
     p = lesson.get("practice")
     if not isinstance(p, dict):
         raise ExpansionError(f"{lesson['id']}: missing transfer practice")
@@ -151,18 +207,23 @@ def normalize(raw, catalog_by_url, known_objectives):
         identifier = catalog_by_url[url]["id"]
         if identifier not in lesson["source_ids"]:
             lesson["source_ids"].append(identifier)
+        reviewed_on = text(source.get("reviewed_on"), "source.reviewed_on")
+        if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", reviewed_on):
+            raise ExpansionError(
+                f"{lesson['id']}: source.reviewed_on must be a YYYY-MM-DD date"
+            )
         lesson["source_notes"].append(
             {
                 "id": identifier,
                 "claim": text(source.get("claim"), "source.claim"),
-                "reviewed_on": text(source.get("reviewed_on"), "source.reviewed_on"),
+                "reviewed_on": reviewed_on,
                 "limits": text(source.get("limits"), "source.limits"),
             }
         )
     lesson["word_count"] = len(
         flatten(
             {
-                k: lesson[k]
+                k: lesson.get(k)
                 for k in (
                     "title",
                     "summary",
@@ -181,55 +242,87 @@ def normalize(raw, catalog_by_url, known_objectives):
     return lesson
 
 
-def attach_domain_checkins(raw, lessons, sequence):
-    """Validate one optional boundary exercise per domain and resolve its links."""
+def chapter_label(chapter):
+    """The name learners see: "5. Physical site, buildings and safety" or a case study's title."""
+    return (
+        f"{chapter['number']}. {chapter['title']}"
+        if "number" in chapter
+        else chapter["title"]
+    )
+
+
+def attach_checkins(raw, lessons, chapters):
+    """Validate one check-in per chapter and point it at the next lesson in course order.
+
+    Every chapter with reading ends with a check-in, except the final optional exercises.
+    A check-in names the chapter it closes and the chapter that follows it; the builder
+    resolves the continue target from the chapter order, so split chapters and unnumbered
+    case studies are never skipped. The attached record carries ``chapter``, ``domain``,
+    ``next_chapter``, ``next_lesson``, ``next_title`` and ``next_label`` (the next
+    chapter's display name). ``next_domain`` repeats ``next_chapter``: the reader resolves
+    it as a chapter ID, which equals the domain ID except for split and case-study chapters.
+    """
     if not isinstance(raw, dict) or raw.get("version") != 1:
-        raise ExpansionError("Domain check-ins: expected version 1")
+        raise ExpansionError("Chapter check-ins: expected version 1")
     records = raw.get("checkins")
     if not isinstance(records, list):
-        raise ExpansionError("Domain check-ins: expected a list of checkins")
+        raise ExpansionError("Chapter check-ins: expected a list of checkins")
     fields = {
-        "domain",
+        "chapter",
         "title",
         "scenario",
         "prompt",
         "answer",
         "explanation",
-        "next_domain",
+        "next_chapter",
         "bridge",
     }
-    by_domain = {}
+    by_chapter = {}
     for record in records:
         if not isinstance(record, dict) or set(record) != fields:
-            raise ExpansionError("Domain check-in: missing or unexpected fields")
+            raise ExpansionError("Chapter check-in: missing or unexpected fields")
         checkin = deepcopy(record)
         for key in fields - {"explanation"}:
-            text(checkin[key], f"domain check-in.{key}")
+            text(checkin[key], f"chapter check-in.{key}")
         if not isinstance(checkin["explanation"], list) or not checkin["explanation"]:
-            raise ExpansionError("Domain check-in: expected explanatory paragraphs")
+            raise ExpansionError("Chapter check-in: expected explanatory paragraphs")
         checkin["explanation"] = paragraphs(
-            checkin["explanation"], "domain check-in.explanation"
+            checkin["explanation"], "chapter check-in.explanation"
         )
-        domain = checkin["domain"]
-        if domain in by_domain:
-            raise ExpansionError(f"Duplicate domain check-in: {domain}")
-        by_domain[domain] = checkin
-    if set(by_domain) != set(sequence):
-        raise ExpansionError("Domain check-ins must cover every domain exactly once")
-    first = {
-        domain: next(l for l in lessons if l["domain"] == domain)
-        for domain in sequence + ["capstone"]
-    }
-    last = {l["domain"]: l for l in lessons}
-    for domain, next_domain in zip(sequence, sequence[1:] + ["capstone"], strict=True):
-        checkin = by_domain[domain]
-        if checkin["next_domain"] != next_domain:
+        if checkin["chapter"] in by_chapter:
+            raise ExpansionError(f"Duplicate chapter check-in: {checkin['chapter']}")
+        by_chapter[checkin["chapter"]] = checkin
+    closing = [c for c in chapters if c["lesson_ids"] and c["domain"] != "capstone"]
+    if set(by_chapter) != {c["id"] for c in closing}:
+        raise ExpansionError(
+            "Chapter check-ins must cover every chapter with reading exactly once"
+        )
+    by_id = {l["id"]: l for l in lessons}
+    order = [lid for chapter in chapters for lid in chapter["lesson_ids"]]
+    chapter_of = {lid: chapter for chapter in chapters for lid in chapter["lesson_ids"]}
+    for chapter in closing:
+        checkin = by_chapter[chapter["id"]]
+        last = chapter["lesson_ids"][-1]
+        position = order.index(last)
+        if position + 1 >= len(order):
+            raise ExpansionError(f"{chapter['id']}: check-in has no following lesson")
+        following = by_id[order[position + 1]]
+        next_chapter = chapter_of[following["id"]]
+        if checkin["next_chapter"] != next_chapter["id"]:
             raise ExpansionError(
-                f"{domain}: check-in bridge must follow course sequence"
+                f"{chapter['id']}: check-in bridge must follow course sequence"
+                f" (expected {next_chapter['id']})"
             )
-        checkin["next_lesson"] = first[next_domain]["id"]
-        checkin["next_title"] = first[next_domain]["title"]
-        last[domain]["domain_checkin"] = checkin
+        checkin.update(
+            {
+                "domain": chapter["domain"],
+                "next_domain": next_chapter["id"],
+                "next_lesson": following["id"],
+                "next_title": following["title"],
+                "next_label": chapter_label(next_chapter),
+            }
+        )
+        by_id[last]["domain_checkin"] = checkin
 
 
 def teaching_chapters(raw, domain_map, lessons, root=ROOT):
@@ -463,7 +556,8 @@ def load_course(root=ROOT):
             {**lesson, "source_path": f"course/expansion/{name}"}
             for lesson in (part["lessons"] if isinstance(part, dict) else part)
         )
-    lessons = [normalize(l, by_url, known) for l in raw_lessons]
+    lab_types = reader_lab_types(root)
+    lessons = [normalize(l, by_url, known, lab_types) for l in raw_lessons]
     ids = [l["id"] for l in lessons]
     if len(ids) != len(set(ids)):
         raise ExpansionError("Duplicate authored lesson IDs")
@@ -477,13 +571,20 @@ def load_course(root=ROOT):
     if any(l["domain"] not in order for l in lessons):
         raise ExpansionError("Unknown lesson domain")
     lessons.sort(key=lambda l: order[l["domain"]])
+    # Chapter 16 may also hold companion reading, such as the Abilene case, that is not
+    # one of the domain map's capstone exercises; only lessons with a capstone_id count.
     expected_capstones = {c["id"] for c in domain_map["capstones"]}
     authored_capstones = [
-        l.get("capstone_id") for l in lessons if l["domain"] == "capstone"
+        l["capstone_id"]
+        for l in lessons
+        if l["domain"] == "capstone" and l.get("capstone_id") is not None
     ]
-    if set(authored_capstones) != expected_capstones:
+    if (
+        len(authored_capstones) != len(set(authored_capstones))
+        or set(authored_capstones) != expected_capstones
+    ):
         raise ExpansionError(
-            "Authored capstones must cover the domain map's capstone IDs"
+            "Authored capstones must cover the domain map's capstone IDs once each"
         )
     chapters = teaching_chapters(
         read(root / "course/teaching-sequences.json"), domain_map, lessons, root
@@ -492,29 +593,21 @@ def load_course(root=ROOT):
     reading_ids.extend(l["id"] for l in lessons if l["domain"] in references)
     reading_order = {lid: i for i, lid in enumerate(reading_ids)}
     lessons.sort(key=lambda lesson: reading_order[lesson["id"]])
-    additional_ids = {lid for chapter in chapters if chapter.get("additional") for lid in chapter["lesson_ids"]}
-    attach_domain_checkins(
-        read(root / "course/domain-checkins.json"),
-        [lesson for lesson in lessons if lesson["id"] not in additional_ids], sequence
-    )
-    glossary, seen_terms = [], set()
-    for l in lessons:
-        for term in l.get("terms", []):
-            if not isinstance(term, dict):
-                raise ExpansionError(f"{l['id']}: glossary terms must be records")
-            name = text(term.get("term"), "term")
-            definition = text(term.get("definition"), "definition")
-            if name.lower() not in seen_terms:
-                glossary.append(
-                    {"term": name, "definition": definition, "lesson": l["id"]}
-                )
-                seen_terms.add(name.lower())
-    glossary.sort(key=lambda g: g["term"].lower())
+    attach_checkins(read(root / "course/domain-checkins.json"), lessons, chapters)
+    glossary = glossary_entries(lessons)
     used = {s for l in lessons for s in l["source_ids"]}
+    sources = [s for s in catalog if s["id"] in used]
     return {
         "title": "From Watts to Tokens",
         "status": "Authored draft — external expert and learner reviews pending",
         "as_of": domain_map["as_of"],
+        # The newest reading of a cited source, in the catalog or in a lesson's own
+        # source notes, dates the reading content.
+        "updated_on": max(
+            [domain_map["as_of"]]
+            + [s["reviewed_on"] for s in sources if s.get("reviewed_on")]
+            + [n["reviewed_on"] for l in lessons for n in l["source_notes"]]
+        ),
         "domains": sorted(domain_map["domains"], key=lambda d: order[d["id"]]),
         "chapters": chapters,
         "references": [
@@ -527,35 +620,60 @@ def load_course(root=ROOT):
             for did in references
         ],
         "lessons": lessons,
-        "sources": [s for s in catalog if s["id"] in used],
+        "sources": sources,
         "glossary": glossary,
     }
 
 
-def lesson_markdown(
-    l, sources, *, include_source=True, asset_prefix="assets/", domains=(), chapters=()
-):
+def glossary_entries(lessons):
+    """Collect glossary terms in reading order and report terms defined more than once."""
+    glossary, first_use, duplicates = [], {}, {}
+    for l in lessons:
+        for term in l.get("terms", []):
+            if not isinstance(term, dict):
+                raise ExpansionError(f"{l['id']}: glossary terms must be records")
+            name = text(term.get("term"), "term")
+            definition = text(term.get("definition"), "definition")
+            key = " ".join(name.lower().split())
+            if key in first_use:
+                duplicates.setdefault(key, [first_use[key]]).append((name, l["id"]))
+                continue
+            first_use[key] = (name, l["id"])
+            glossary.append({"term": name, "definition": definition, "lesson": l["id"]})
+    if duplicates:
+        listing = "; ".join(
+            f"{uses[0][0]} ({', '.join(lesson for _, lesson in uses)})"
+            for uses in duplicates.values()
+        )
+        if FAIL_ON_DUPLICATE_TERMS:
+            raise ExpansionError(f"Duplicate glossary terms: {listing}")
+        print(
+            f"Warning: {len(duplicates)} glossary terms are defined more than once;"
+            f" the first definition is kept: {listing}",
+            file=sys.stderr,
+        )
+    glossary.sort(key=lambda g: g["term"].lower())
+    return glossary
+
+
+def lesson_markdown(l, sources, *, asset_prefix="assets/", domains=(), chapters=()):
     topics = {d["id"]: d for d in domains}
     topic_title = topics.get(l["domain"], {}).get("title", "Integrated practice")
     chapter = next((c for c in chapters if l["id"] in c["lesson_ids"]), None)
     if chapter:
-        topic_title = f"{chapter['number']}. {chapter['title']}" if "number" in chapter else chapter["title"]
+        topic_title = chapter_label(chapter)
+    if l.get("optional"):
+        topic_title += " · Optional practice"
     lines = [
         f"# {l['title']}",
         "",
-        f"**{topic_title} · Authored draft**",
+        f"**{topic_title}**",
         "",
         l["summary"],
         "",
         f"**Driving question:** {l['question']}",
         "",
     ]
-    if include_source:
-        path = l.get("source_path", "course/expansion/sample.json")
-        lines[2:2] = [
-            f"Generated reading view. Edit [`{path}`](https://github.com/kiankyars/gigawatt/blob/main/{path}), lesson `{l['id']}`, then run `uv run gigawatt-expand`.",
-            "",
-        ]
     for section in l["sections"]:
         lines.extend([f"## {section['heading']}", ""])
         for p in section["paragraphs"]:
@@ -582,16 +700,13 @@ def lesson_markdown(
             "",
             f"**Model boundary:** {w['boundary']}",
             "",
-            "## The tradeoff",
-            "",
         ]
     )
-    lines.extend([p + "\n" for p in l["tradeoff"]])
+    for key, heading in (("tradeoff", "The tradeoff"), ("failure", "When the situation changes")):
+        if l.get(key):
+            lines.extend([f"## {heading}", "", *[p + "\n" for p in l[key]]])
     lines.extend(
         [
-            "## When the situation changes",
-            "",
-            *[p + "\n" for p in l["failure"]],
             "## Apply the idea",
             "",
             l["practice"]["question"],
@@ -606,25 +721,16 @@ def lesson_markdown(
             "",
             f"**The idea to keep:** {l['takeaway']}",
             "",
-            "## Sources and reading boundaries",
+            "## Sources",
             "",
         ]
     )
-    for note in l["source_notes"]:
-        s = sources[note["id"]]
-        lines.extend(
-            [
-                f"- [{s['title']}]({s['url']}) — {note['claim']} Read {note['reviewed_on']}. {note['limits']}"
-            ]
-        )
+    lines.extend(bibliography_entry(sources[note["id"]], note) for note in l["source_notes"])
     if checkin := l.get("domain_checkin"):
-        next_domain = (
-            "the integrated cases"
-            if checkin["next_domain"] == "capstone"
-            else topics.get(checkin["next_domain"], {}).get(
-                "title", checkin["next_title"]
-            )
-        )
+        next_title = checkin["next_title"].rstrip().rstrip(".")
+        destination = f"**{checkin['next_label']}**"
+        if next_title not in checkin["next_label"]:
+            destination += f": {next_title}"
         lines.extend(
             [
                 "",
@@ -646,11 +752,69 @@ def lesson_markdown(
                 "",
                 f"**The next problem:** {checkin['bridge']}",
                 "",
-                f"Continue in **{next_domain}**: {checkin['next_title']}.",
+                f"Continue in {destination}.",
                 "",
             ]
         )
     return "\n".join(lines).rstrip() + "\n"
+
+
+def bibliography_entry(source, note):
+    """One bibliography line: title, publisher, dates from the catalog, and the lesson's claim."""
+    details = [source["publisher"]]
+    if source.get("published_on"):
+        details.append(f"Published {source['published_on']}")
+    if source.get("reviewed_on"):
+        details.append(f"Reviewed {source['reviewed_on']}")
+    claim = note["claim"].strip()
+    if claim[-1] not in ".?!":
+        claim += "."
+    return f"- [{source['title']}]({source['url']}) — {' · '.join(details)}. {claim}"
+
+
+def join_words(items):
+    """Join names as prose: "A", "A and B", "A, B and C"."""
+    return items[0] if len(items) == 1 else ", ".join(items[:-1]) + f" and {items[-1]}"
+
+
+def checkin_summary(chapters, lessons):
+    """Say which chapters end with a check-in, from the attached records.
+
+    Returns "" when no chapter has a check-in, so the manuscript says nothing about them.
+    """
+    by_id = {l["id"]: l for l in lessons}
+    numbers, cases, previous = [], [], None
+    for chapter in chapters:
+        ids = chapter["lesson_ids"]
+        closes = bool(ids) and "domain_checkin" in by_id[ids[-1]]
+        if "number" in chapter:
+            previous = chapter["number"]
+            if closes:
+                numbers.append(previous)
+        elif closes:
+            cases.append(
+                "the opening case study"
+                if previous is None
+                else f"the case study after Chapter {previous}"
+            )
+    count = len(numbers) + len(cases)
+    if not count:
+        return ""
+    parts = []
+    if len(numbers) == 1:
+        parts.append(f"Chapter {numbers[0]}")
+    elif len(numbers) > 2 and numbers == list(range(numbers[0], numbers[-1] + 1)):
+        parts.append(f"Chapters {numbers[0]} to {numbers[-1]}")
+    elif numbers:
+        parts.append("Chapters " + join_words([str(n) for n in numbers]))
+    subject = join_words(parts + cases)
+    one = count == 1
+    return (
+        f"{subject[0].upper()}{subject[1:]} {'ends' if one else 'each end'} with a check-in:"
+        " pause, make a prediction, compare your reasoning, then connect it to the next"
+        f" problem. {'This check-in carries' if one else 'These check-ins carry'} no score"
+        f" and {'does' if one else 'do'} not block progression."
+    )
 
 
 def build(root=ROOT, check=False):
@@ -708,6 +872,7 @@ def build(root=ROOT, check=False):
         read(root / "course/expansion/sample.json"),
         {canonical_url(s["url"]): s for s in catalog},
         {o["id"] for d in data["domains"] for o in d["objectives"]},
+        reader_lab_types(root),
     )
     sample_data = {
         **data,
@@ -736,21 +901,20 @@ def build(root=ROOT, check=False):
         sample,
         {s["id"]: s for s in sample_data["sources"]},
         domains=data["domains"],
-        chapters=data["chapters"],
+        chapters=sample_data["chapters"],
     )
     outputs.update(presentation_outputs(root, sample["id"]))
+    checkin_note = checkin_summary(data["chapters"], data["lessons"])
     index = [
         "# From Watts to Tokens — A visual course on AI data centers",
         "",
-        data["status"] + ". Updated " + data["as_of"] + ".",
+        # The review status stays in the data and the manifest; learners see only the date.
+        "Updated " + data["updated_on"] + ".",
         "",
-        "The course is organized around mechanisms, solved examples, tradeoffs and changed-scenario practice. Runtime follows teaching and rehearsal; no ten-hour duration is asserted.",
+        "Each lesson explains a mechanism, works a numerical example and ends with practice on a changed scenario.",
         "",
-        "Generated from the lesson records in `course/expansion/` and boundary exercises in `course/domain-checkins.json` with `uv run gigawatt-expand`. This is a reading view; the [filled-in course template](COURSE_REVIEW.md) owns course design and production decisions.",
-        "",
-        "Each topic ends with a check-in: pause, make a prediction, compare the reasoning, and connect it to the next problem. These check-ins carry no score and do not block progression.",
-        "",
-        "[Open the visual reader](index.html) · [Domain map](DOMAIN_MAP.md) · [Dry-run guide](PRESENTING.md)",
+        *([checkin_note, ""] if checkin_note else []),
+        "[Open the visual reader](index.html) · [Domain map](DOMAIN_MAP.md)",
         "",
         "## Learning path",
         "",
@@ -764,8 +928,7 @@ def build(root=ROOT, check=False):
             chapters=data["chapters"],
         )
     for chapter in [*data["chapters"], *data["references"]]:
-        label = f"{chapter['number']}. {chapter['title']}" if "number" in chapter else chapter["title"]
-        index.extend([f"### {label}", ""])
+        index.extend([f"### {chapter_label(chapter)}", ""])
         for presentation in chapter["presentations"]:
             scope = (
                 "Selected-topic slides"
@@ -776,7 +939,8 @@ def build(root=ROOT, check=False):
                 f"- {scope}: [{presentation['title']}]({presentation['href']})"
             )
         index.extend(
-            f"- [{l['title']}](lessons/{l['id']}.md) — {l['question']}"
+            f"- {'Optional practice: ' if l.get('optional') else ''}"
+            f"[{l['title']}](lessons/{l['id']}.md) — {l['question']}"
             for l in data["lessons"]
             if l["id"] in chapter["lesson_ids"]
         )
@@ -786,9 +950,9 @@ def build(root=ROOT, check=False):
             "",
             "## Objective-to-lesson coverage",
             "",
-            "Every entry below is authored and has practice; this is not evidence of learner mastery or external engineering review.",
+            "Each course objective links to the lessons that teach it. Every lesson ends with a practice question.",
             "",
-            "| Objective | Authored lessons |",
+            "| Objective | Lessons |",
             "| --- | --- |",
         ]
     )
@@ -806,13 +970,18 @@ def build(root=ROOT, check=False):
             "## Full course text",
             "",
             *[
-                lesson_markdown(
-                    l,
-                    sources,
-                    include_source=False,
-                    domains=data["domains"],
-                    chapters=data["chapters"],
-                ).replace("# ", "## ", 1)
+                # Nest each lesson under the manuscript: its title becomes a level-2
+                # heading and its sections level 3, so a lesson's start stays visible.
+                re.sub(
+                    r"(?m)^(#{1,5}) ",
+                    r"#\1 ",
+                    lesson_markdown(
+                        l,
+                        sources,
+                        domains=data["domains"],
+                        chapters=data["chapters"],
+                    ),
+                )
                 for l in data["lessons"]
             ],
         ]
@@ -820,10 +989,14 @@ def build(root=ROOT, check=False):
     outputs[Path("course/EXPANDED_COURSE.md")] = "\n".join(index)
     manifest = {
         "as_of": data["as_of"],
+        "updated_on": data["updated_on"],
         "lessons": len(data["lessons"]),
         "words": sum(l["word_count"] for l in data["lessons"]),
         "objectives": sum(len(d["objectives"]) for d in data["domains"]),
-        "capstones": sum(l["domain"] == "capstone" for l in data["lessons"]),
+        "capstones": sum(
+            l["domain"] == "capstone" and l.get("capstone_id") is not None
+            for l in data["lessons"]
+        ),
         "domain_checkins": sum("domain_checkin" in l for l in data["lessons"]),
         "glossary_terms": len(data["glossary"]),
         "source_records": len(data["sources"]),
