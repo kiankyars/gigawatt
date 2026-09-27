@@ -101,7 +101,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [E89E077D5C1 — DOE FEMP: Cooling Tower Management](sources/E89E077D5C1.md) | www.energy.gov | D11 | page_reviewed |
 | [E8D4F19907B — Open Compute Project — Open Rack V3 Base Specification, revision 1.0](sources/E8D4F19907B.md) | Open Compute Project | D06, D13 | page_reviewed |
 | [E95181BB427 — USGS: What is seismic hazard?](sources/E95181BB427.md) | www.usgs.gov | D12 | page_reviewed |
-| [E960EB5ED2E — Eaton — Rack Basics: Selection, Installation and Cooling](sources/E960EB5ED2E.md) | Eaton | D06 | public_excerpt_reviewed |
+| [E960EB5ED2E — Eaton — Rack Basics: Selection, Installation and Cooling](sources/E960EB5ED2E.md) | Eaton | D06 | page_reviewed |
 | [E9ACF1B58FE — NVIDIA Optical Transceivers and Cables](sources/E9ACF1B58FE.md) | www.nvidia.com | D08 | page_reviewed |
 | [E9FFEE6828F — Schneider Electric — Coordination between circuit-breakers](sources/E9FFEE6828F.md) | www.electrical-installation.org | D05 | page_reviewed |
 | [EA0B6C5ED33 — Schneider Electric — Comparing UPS System Design Configurations, White Paper 75 Revision 4](sources/EA0B6C5ED33.md) | Schneider Electric | D05, D06 | page_reviewed |
@@ -121,7 +121,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [EE0FC346C72 — Control Group in Slurm](sources/EE0FC346C72.md) | slurm.schedmd.com | D09 | page_reviewed |
 | [EE136EB8E02 — Open Compute Project — Cold Plate workstream](sources/EE136EB8E02.md) | www.opencompute.org | D10 | public_excerpt_reviewed |
 | [EE53DCAF5E1 — Uptime Institute — Myths and Misconceptions Regarding the Tier Certification System](sources/EE53DCAF5E1.md) | Uptime Institute | D05, D14 | public_excerpt_reviewed |
-| [EEFB073374C — NIST Handbook 135, 2025: Life Cycle Costing Manual](sources/EEFB073374C.md) | nvlpubs.nist.gov | D15 | page_reviewed |
+| [EEFB073374C — NIST Handbook 135, 2025: Life Cycle Costing Manual](sources/EEFB073374C.md) | nvlpubs.nist.gov |  | page_reviewed |
 | [EF3A791E451 — GE Vernova — 2025 Gas Power Catalog, plant configuration comparison](sources/EF3A791E451.md) | GE Vernova | D03 | page_reviewed |
 | [EFB703CFC3D — Schneider Electric — PM2200 total power calculation for accuracy verification](sources/EFB703CFC3D.md) | Schneider Electric | D01, D04, D06 | page_reviewed |
 | [EFE70308E0A — Vertiv — Deploying Liquid Cooling in the Data Center](sources/EFE70308E0A.md) | prod.vertiv.cn | D01, D10, D12 | public_excerpt_reviewed |
@@ -140,7 +140,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P102 — Oracle Data Centers: Abilene, Texas](sources/P102.md) | Oracle | D03, D12, D04, D15 | page_reviewed |
 | [P103 — Energy Transfer August 2026 Investor Presentation](sources/P103.md) | Energy Transfer | D03 | page_reviewed |
 | [P104 — Energy Transfer Reports Fourth Quarter 2025 Results](sources/P104.md) | Energy Transfer | D03 | page_reviewed |
-| [P105 — Crusoe 2025 Impact Report](sources/P105.md) | Crusoe | D03, D05 | page_reviewed |
+| [P105 — Crusoe 2025 Impact Report](sources/P105.md) | Crusoe | D03, D05, D13 | page_reviewed |
 | [P106 — Combined Cycle Power Plants](sources/P106.md) | Siemens Energy | D02, D03 | page_reviewed |
 | [P107 — Peaker Plants](sources/P107.md) | Siemens Energy | D02, D03 | page_reviewed |
 | [P108 — What Is a Gas Turbine?](sources/P108.md) | GE Vernova | D02, D03 | page_reviewed |
@@ -203,8 +203,8 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P160 — Schneider Electric — Elementary switching devices](sources/P160.md) | Schneider Electric | D04, D05 | page_reviewed |
 | [P161 — Siemens — Vacuum Switching Technology and Components](sources/P161.md) | Siemens | D04 | public_excerpt_reviewed |
 | [P162 — Siemens — SIPROTEC 7SD610 circuit breaker failure protection](sources/P162.md) | Siemens | D04 | public_excerpt_reviewed |
-| [P163 — Equinix — Customer Installation Guidelines, phase balancing](sources/P163.md) | Equinix | D04 | public_excerpt_reviewed |
-| [P164 — Schneider Electric — Transformer secondary voltage notation](sources/P164.md) | Schneider Electric | D04 | page_reviewed |
+| [P163 — Equinix — Customer Installation Guidelines, phase balancing](sources/P163.md) | Equinix | D04 | page_reviewed |
+| [P164 — PDHonline — Standard AC System Voltages (600 V and Less), course E427](sources/P164.md) | PDH Online (David A. Snyder, PE) | D04 | page_reviewed |
 | [P165 — ADA Infrastructure — Docklands campus planning announcement](sources/P165.md) | ADA Infrastructure | D12 | page_reviewed |
 | [P166 — National Weather Service Houston/Galveston — Hurricane Harvey](sources/P166.md) | National Weather Service / NOAA | D12 | page_reviewed |
 | [P167 — OSHA — 29 CFR 1910.36(b), number and separation of exit routes](sources/P167.md) | U.S. Occupational Safety and Health Administration | D12 | public_excerpt_reviewed |
@@ -218,7 +218,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P174 — NVIDIA — Memory management on hardware-coherent platforms](sources/P174.md) | NVIDIA | D07 | page_reviewed |
 | [P175 — NVIDIA DGX GB Rack Scale Systems — System Health Check](sources/P175.md) | NVIDIA | D07 | page_reviewed |
 | [P176 — NVIDIA — Nonuniform Tensor Parallelism and training goodput](sources/P176.md) | NVIDIA | D07 | page_reviewed |
-| [P177 — QTS — Suwanee DC1 connectivity facility sheet](sources/P177.md) | QTS | D12, D08 | public_excerpt_reviewed |
+| [P177 — QTS — Suwanee DC1 connectivity facility sheet](sources/P177.md) | QTS | D12, D08 | page_reviewed |
 | [P178 — US Census TIGERweb — Tennessee state boundary and Tulane Road geocode](sources/P178.md) | US Census Bureau | D03, D12 | page_reviewed |
 | [P179 — USGS National Map — Southaven geographic imagery](sources/P179.md) | US Geological Survey | D03 | page_reviewed |
 | [P18 — OpenStax — 20.5 Alternating Current versus Direct Current (College Physics 2e)](sources/P18.md) | OpenStax, Rice University | D01, D04, D06 | page_reviewed |
@@ -233,9 +233,9 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P188 — Introducing the AI Research SuperCluster — Meta’s cutting-edge AI supercomputer for AI research](sources/P188.md) | Meta AI | D09 | page_reviewed |
 | [P189 — The Llama 3 Herd of Models — infrastructure and operational reliability](sources/P189.md) | Llama Team, AI @ Meta | D09 | page_reviewed |
 | [P19 — Steven H. Low — Power System Analysis: Analytical tools and structural properties (April 7, 2025 draft)](sources/P19.md) | Steven H. Low, California Institute of Technology | D04, D06 | page_reviewed |
-| [P190 — Google Data Centers — Photo gallery](sources/P190.md) | Google | D09 | page_reviewed |
+| [P190 — Google Data Centers — Photo gallery](sources/P190.md) | Google | D01, D09 | page_reviewed |
 | [P191 — Gmail back soon for everyone](sources/P191.md) | Google Gmail Blog | D09 | page_reviewed |
-| [P192 — Introducing Gemini: our largest and most capable AI model](sources/P192.md) | Google | D01 | page_reviewed |
+| [P192 — Introducing Gemini: our largest and most capable AI model](sources/P192.md) | Google |  | page_reviewed |
 | [P193 — DeepSeek-V4: Towards Highly Efficient Million-Token Context Intelligence](sources/P193.md) | DeepSeek-AI | D02 | page_reviewed |
 | [P194 — Longhorn power plant review drawing — Lancium 34.5 kV feed](sources/P194.md) | Abilene DC 1 / Campos, filed with TCEQ | D04 | page_reviewed |
 | [P195 — Hitachi Energy — CPB capacitor voltage transformer, 72–800 kV](sources/P195.md) | Hitachi Energy | D04 | page_reviewed |
@@ -290,10 +290,53 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P24 — Schneider Electric — What is UPS efficiency and how is it calculated?](sources/P24.md) | Schneider Electric | D04, D05, D06 | page_reviewed |
 | [P240 — PJM — Transmission Zones map, May 2023](sources/P240.md) | PJM Interconnection | D03 | page_reviewed |
 | [P241 — Dominion Energy — Q2 2026 earnings call slides, July 31, 2026](sources/P241.md) | Dominion Energy | D03 | page_reviewed |
-| [P25 — Texas Instruments — Power Loss in Switching Power Supplies](sources/P25.md) | Texas Instruments | D04, D05, D06 | page_reviewed |
+| [P242 — Enwave — Enwave and Toronto Water tap into innovative energy source](sources/P242.md) | Enwave Energy Corporation | D11 | page_reviewed |
+| [P243 — Hydro One — Power outages due to heavy rains, July 8, 2013](sources/P243.md) | Hydro One Inc., via Cision Newswire | D11 | page_reviewed |
+| [P244 — Data Center Knowledge — Toronto Flooding KOs Data Center Cooling Systems, July 9, 2013](sources/P244.md) | Data Center Knowledge (Rich Miller) | D11 | page_reviewed |
+| [P245 — Erik Levinson (Uberflip) — What to expect after a cooling failure, NANOG mailing list, July 9, 2013](sources/P245.md) | NANOG mailing list archive (seclists.org) | D11 | page_reviewed |
+| [P246 — NIST Chemistry WebBook — Saturation properties for water](sources/P246.md) | US National Institute of Standards and Technology (NIST Standard Reference Database 69) | D11 | page_reviewed |
+| [P247 — The Green Grid — White Paper #35: Water Usage Effectiveness (WUE): A Green Grid Data Center Sustainability Metric](sources/P247.md) | The Green Grid (editor Michael Patterson, Intel) | D01, D11 | page_reviewed |
+| [P248 — Intel IT — Thermal storage system provides emergency data center cooling, September 2007](sources/P248.md) | Intel | D14 | page_reviewed |
+| [P249 — Johnson Controls — Metasys Chilled-Water Plant for Guideline 36 Application Note: Stage-up part-load ratio (SPLRUP)](sources/P249.md) | Johnson Controls | D14 | page_reviewed |
+| [P25 — Texas Instruments — How GaN Enables More Efficient and Reduced Form Factor Power Supplies (application brief SLUAAL9)](sources/P25.md) | Texas Instruments | D04, D05, D06 | page_reviewed |
+| [P250 — CoreWeave — Form 8-K, NVIDIA capacity order, September 2025](sources/P250.md) | CoreWeave | D15 | page_reviewed |
+| [P251 — NVIDIA — Form 10-Q for the quarter ended July 26, 2026](sources/P251.md) | NVIDIA | D15 | public_excerpt_reviewed |
+| [P252 — Core Scientific — Form 10-Q for the quarter ended June 30, 2026](sources/P252.md) | Core Scientific | D15 | public_excerpt_reviewed |
+| [P253 — CoreWeave — CoreWeave Announces Multi-Year Agreement With Anthropic, April 10, 2026](sources/P253.md) | CoreWeave | D15 | page_reviewed |
+| [P254 — Fireworks AI — How Cursor built Fast Apply using the Speculative Decoding API](sources/P254.md) | Fireworks AI | D15 | page_reviewed |
+| [P255 — CoolIT Systems — Split-Flow Technology tech brief, revision R1](sources/P255.md) | CoolIT Systems | D14 | page_reviewed |
+| [P256 — NVIDIA — NVIDIA Unlocks AI Compute at Scale, Inviting Partners to Power the AI Infrastructure Buildout](sources/P256.md) | NVIDIA (Colette Kress and Raj Mirpuri) | D15 | page_reviewed |
+| [P257 — Groq — What is a Language Processing Unit?](sources/P257.md) | Groq | D02 | page_reviewed |
+| [P258 — ERCOT — PGRR145, Batch Zero Process for Large Load Interconnections](sources/P258.md) | ERCOT | D03 | page_reviewed |
+| [P259 — ERCOT — PGRR145 final PUCT report, June 18, 2026 decision](sources/P259.md) | ERCOT | D03 | page_reviewed |
 | [P26 — Schneider Electric — Easy UPS 3-Phase Modular physical specifications](sources/P26.md) | Schneider Electric | D05 | page_reviewed |
+| [P260 — Public Utility Commission of Texas — 16 TAC §25.370, ERCOT Large Load Forecasting Criteria](sources/P260.md) | Public Utility Commission of Texas | D03 | page_reviewed |
+| [P261 — Meta / OCP — Clemente compute tray specification](sources/P261.md) | Meta / Open Compute Project | D06 | public_excerpt_reviewed |
+| [P262 — Checkpointing à la Young/Daly: An Overview](sources/P262.md) | Benoit, Du, Herault, Marchal, Pallez, Perotin, Robert, Sun and Vivien, IC3 2022 (ACM) | D09 | page_reviewed |
+| [P263 — U.S. DOE and Hydraulic Institute — Improving Pumping System Performance: A Sourcebook for Industry, 2nd ed., May 2006](sources/P263.md) | U.S. Department of Energy and Hydraulic Institute | D10 | page_reviewed |
+| [P264 — Grundfos — How does one read a pump curve of a heating pump?](sources/P264.md) | Grundfos | D10 | page_reviewed |
+| [P265 — Hydraulic Institute — Pump System Operating Point (combined pump and system curves)](sources/P265.md) | Hydraulic Institute | D10 | page_reviewed |
+| [P266 — KSB — Characteristic curve (centrifugal pump lexicon)](sources/P266.md) | KSB | D10 | page_reviewed |
+| [P267 — Crusoe — Crusoe, Blue Owl Capital and Primary Digital Infrastructure enter $3.4 billion joint venture](sources/P267.md) | Crusoe | D15 | page_reviewed |
+| [P268 — Crusoe — Crusoe, Blue Owl Capital and Primary Digital Infrastructure enter second phase of $15 billion joint venture](sources/P268.md) | Crusoe | D15 | page_reviewed |
+| [P269 — Kirkland & Ellis — Kirkland advises Blue Owl funds on JV and financing for development of Abilene data center](sources/P269.md) | Kirkland & Ellis | D15 | page_reviewed |
 | [P27 — Schneider Electric — Easy UPS 3-Phase Modular hardware options](sources/P27.md) | Schneider Electric | D05 | page_reviewed |
+| [P270 — Crusoe — Crusoe Opens Second Tulsa Manufacturing Facility](sources/P270.md) | Crusoe | D13 | page_reviewed |
+| [P271 — PJM — PJM at a Glance fact sheet](sources/P271.md) | PJM Interconnection | D03 | page_reviewed |
+| [P272 — ABB — Technical Application Papers No. 2: MV/LV transformer substations, theory and examples of short-circuit calculation (February 2008)](sources/P272.md) | ABB | D05 | page_reviewed |
+| [P273 — OpenStax — College Physics 2e, 20.3 Resistance and Resistivity](sources/P273.md) | OpenStax, Rice University | D03 | page_reviewed |
+| [P274 — Schneider Electric — Easy UPS 3-Phase Modular specifications](sources/P274.md) | Schneider Electric | D05 | page_reviewed |
+| [P275 — NIST — Guide to the SI (SP 811), Chapter 4: The Two Classes of SI Units and the SI Prefixes](sources/P275.md) | National Institute of Standards and Technology | D01 | page_reviewed |
+| [P276 — Tektronix — Oscilloscope Basics](sources/P276.md) | Tektronix | D01 | page_reviewed |
+| [P277 — Eaton — Cabinet and floor-standing PDU solutions](sources/P277.md) | Eaton | D01 | public_excerpt_reviewed |
+| [P278 — Rohde & Schwarz — AC-DC Converter Testing Fundamentals, application note 1SL387, version 2e, March 2023](sources/P278.md) | Rohde & Schwarz | D01 | page_reviewed |
+| [P279 — Schneider Electric — What are voltage adjustment taps on transformers? (FAQ FA120846)](sources/P279.md) | Schneider Electric | D01 | page_reviewed |
 | [P28 — OCP — Open Rack V3 48V BBU Module Specification revision 1.4](sources/P28.md) | Open Compute Project / Meta | D05, D06 | page_reviewed |
+| [P280 — Introduction to Electrical Power Engineering — Power and Energy](sources/P280.md) | Warsaw University of Technology (Baczyński, Robak, Połecki and Kosiński) | D01 | page_reviewed |
+| [P281 — Schneider Electric — Distortion, displacement and the truth! Understanding true power factor](sources/P281.md) | Schneider Electric | D01 | page_reviewed |
+| [P282 — Eaton — Types of UPS systems](sources/P282.md) | Eaton | D01 | public_excerpt_reviewed |
+| [P283 — Eaton — Powering healthcare systems](sources/P283.md) | Eaton | D01 | public_excerpt_reviewed |
+| [P284 — NVIDIA — GPUDirect Storage Overview Guide](sources/P284.md) | NVIDIA | D01 | page_reviewed |
 | [P29 — Eaton — Automatic transfer switch fundamentals](sources/P29.md) | Eaton | D04, D05 | page_reviewed |
 | [P30 — Schneider Electric — Presence of an Uninterruptible Power Supply (UPS)](sources/P30.md) | Schneider Electric | D04, D05 | page_reviewed |
 | [P31 — Eaton — DC-link capacitor modules](sources/P31.md) | Eaton | D05, D06 | page_reviewed |
@@ -332,18 +375,18 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [P64 — NVIDIA DGX GB Rack Scale Systems — Hardware](sources/P64.md) | NVIDIA | D01, D06, D07, D10 | page_reviewed |
 | [P65 — EIA — How electricity is generated](sources/P65.md) | U.S. Energy Information Administration | D01, D03 | public_excerpt_reviewed |
 | [P66 — EIA — Delivery of electricity to consumers](sources/P66.md) | U.S. Energy Information Administration | D01, D03, D04 | public_excerpt_reviewed |
-| [P67 — OpenStax · Resistance and simple circuits](sources/P67.md) | OpenStax, Rice University | D01, D04, D06 | page_reviewed |
+| [P67 — OpenStax · Resistance and simple circuits](sources/P67.md) | OpenStax, Rice University |  | page_reviewed |
 | [P68 — Schneider · Definition of power factor](sources/P68.md) | Schneider Electric | D04 | page_reviewed |
-| [P69 — Eaton · UPS fundamentals handbook](sources/P69.md) | Eaton | D04, D05, D06 | page_reviewed |
-| [P70 — Intel · CPU versus GPU](sources/P70.md) | Intel | D07 | page_reviewed |
-| [P71 — Intel · Memory performance in a nutshell](sources/P71.md) | Intel | D07, D08, D09 | page_reviewed |
-| [P72 — OpenStax · Heat](sources/P72.md) | OpenStax, Rice University | D10, D11 | page_reviewed |
+| [P69 — Eaton · UPS fundamentals handbook](sources/P69.md) | Eaton |  | page_reviewed |
+| [P70 — Intel · CPU versus GPU](sources/P70.md) | Intel |  | page_reviewed |
+| [P71 — Intel · Memory performance in a nutshell](sources/P71.md) | Intel |  | page_reviewed |
+| [P72 — OpenStax · Heat](sources/P72.md) | OpenStax, Rice University |  | page_reviewed |
 | [P73 — Crusoe — Abilene campus development update](sources/P73.md) | Crusoe | D03, D12, D15 | page_reviewed |
 | [P74 — Crusoe — Abilene cooling design](sources/P74.md) | Crusoe | D03, D05, D10, D11, D12 | page_reviewed |
 | [P75 — Crusoe and Redwood — Sparks microgrid update](sources/P75.md) | Crusoe | D03, D05, D14, D15 | page_reviewed |
 | [P76 — Crusoe — 2025 impact report web summary](sources/P76.md) | Crusoe | D03, D05, D12 | page_reviewed |
 | [P77 — Google — Supporting power grids with demand response](sources/P77.md) | Google | D02, D03, D09 | page_reviewed |
-| [P78 — MLGW — xAI project quick facts](sources/P78.md) | Memphis Light, Gas and Water | D03, D04, D12 | page_reviewed |
+| [P78 — MLGW — xAI project quick facts](sources/P78.md) | Memphis Light, Gas and Water |  | page_reviewed |
 | [P79 — Explaining the Uptime Institute’s Tier Classification System (April 2021 Update)](sources/P79.md) | Uptime Institute | D05, D14 | public_excerpt_reviewed |
 | [P80 — Tier Classification Myths and Misconceptions](sources/P80.md) | Uptime Institute | D05, D14 | public_excerpt_reviewed |
 | [P81 — Tier Certification for Modular and Phased Construction](sources/P81.md) | Uptime Institute | D05, D13, D14 | public_excerpt_reviewed |
@@ -392,7 +435,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [SA26 — AWS Trainium3 Deep Dive \| A Potential Challenger Approaching](sources/SA26.md) | SemiAnalysis | D02, D07, D08, D09, D15 | public_excerpt_reviewed |
 | [SA27 — RL Systems Mind the Gap: Matching Trainer and Generator Throughput](sources/SA27.md) | SemiAnalysis | D02, D07, D09, D14, D15 | public_excerpt_reviewed |
 | [SA28 — Most Neoclouds Suck At Security](sources/SA28.md) | SemiAnalysis | D09, D14 | public_excerpt_reviewed |
-| [SA29 — The Wild Wild West Of LEGO Datacenters](sources/SA29.md) | SemiAnalysis | D03, D04, D10, D12, D13, D15 | public_excerpt_reviewed |
+| [SA29 — The Wild Wild West Of LEGO Datacenters](sources/SA29.md) | SemiAnalysis | D01, D03, D04, D10, D12, D13, D15 | public_excerpt_reviewed |
 | [SA30 — Meta’s Infrastructure Team Needs A Culture Reset](sources/SA30.md) | SemiAnalysis | D02, D13, D14, D15 | public_excerpt_reviewed |
 | [SA31 — From Tokens to Burgers: A Water Footprint Face-Off](sources/SA31.md) | SemiAnalysis | D01, D03, D11, D15 | public_excerpt_reviewed |
 | [SA32 — Are AI Datacenters Increasing Electric Bills for American Households?](sources/SA32.md) | SemiAnalysis | D03, D15 | public_excerpt_reviewed |
@@ -407,6 +450,7 @@ Keyword domain suggestions are triage, not a completeness or authority claim.
 | [SA41 — What is So Hard About Behind-The-Meter Power For Datacenters? Part 1](sources/SA41.md) | SemiAnalysis | D03, D05, D12, D13, D15 | public_excerpt_reviewed |
 | [SA42 — SpaceX 10GW in 2027 — construction pace and equipment procurement](sources/SA42.md) | SemiAnalysis | D03, D04, D12, D13 | public_excerpt_reviewed |
 | [SA43 — SemiAnalysis — Meta Compute: Everyone Wants To Be A Neocloud](sources/SA43.md) | SemiAnalysis | D03, D13 | public_excerpt_reviewed |
+| [SA44 — Nvidia’s Backstop Universe – Heads I Win, Tails Who Loses?](sources/SA44.md) | SemiAnalysis | D15 | public_excerpt_reviewed |
 <!-- gigawatt-research:managed:end -->
 
 ## Research notes

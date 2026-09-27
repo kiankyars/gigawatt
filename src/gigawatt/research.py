@@ -284,7 +284,7 @@ def source_metadata(source: dict) -> str:
             if key == "domains":
                 value = ", ".join(
                     f"[{d}](../../course/DOMAIN_MAP.md#{d.lower()})" for d in value
-                )
+                ) or "none (retired)"
             elif key == "url":
                 value = f"[Original source]({value})"
             elif isinstance(value, list):

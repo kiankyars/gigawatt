@@ -1,7 +1,7 @@
 {
-  "as_of": "2026-09-18",
+  "as_of": "2026-09-26",
   "inventory_status": "seed_not_exhaustive",
-  "method": "A bounded curated discovery pass over 40 SemiAnalysis articles and 15 independent primary-source starting points. Sources are mapped many-to-many to domain IDs for curriculum research, not certified as complete coverage or sources of truth. The additional SA11–SA40 sample used 16 search queries and selected entries from the publisher's 2023–2026 annual sitemaps; research/discovery-searches.md records the method and limits. page_reviewed means the stated web page was inspected, with partial-reading and linked-document limits recorded in caution; public_excerpt_reviewed includes accessible previews, abstracts or selected public sections and never implies review of a complete paid work. candidate_not_reviewed means substantive content has not been reviewed. A domain mapping identifies intended research use, not verified support for every objective or claim. reviewed_on is the review date; published_on, where present, is the source's displayed publication date and is null when not established.",
+  "method": "Began as a bounded curated discovery pass over 40 SemiAnalysis articles and 15 independent primary-source starting points; records were then added as lessons, slides and speaker notes were written and checked. On 2026-09-26 the catalog holds 386 records: 44 SemiAnalysis articles and 342 primary references, manufacturer documents, standards, guidance and other analysis. Of these, 8 records that no course material cites keep their review history but carry no domain mapping, and their caution says they are retired. Sources are mapped many-to-many to domain IDs for curriculum research, not certified as complete coverage or sources of truth. The SA11–SA40 sample used 16 search queries and selected entries from the publisher's 2023–2026 annual sitemaps; research/discovery-searches.md records the method and limits. page_reviewed means the stated web page was inspected, with partial-reading and linked-document limits recorded in caution; public_excerpt_reviewed includes accessible previews, abstracts, indexed text or selected public sections and never implies review of a complete paid work. candidate_not_reviewed means substantive content has not been reviewed. A domain mapping identifies intended research use, not verified support for every objective or claim. reviewed_on is the review date. published_on, where present, is the publication date the source itself shows, on the page, in the document or in the publisher's article metadata: YYYY-MM-DD, or YYYY-MM or YYYY when the source shows only a month or a year (an issue month, an edition year or a copyright year). A page's last-updated date is not a publication date; updated_on records it where noted. published_on is null or omitted when no date is established.",
   "sources": [
     {
       "id": "SA01",
@@ -169,6 +169,7 @@
       "kind": "analysis",
       "review_status": "public_excerpt_reviewed",
       "reviewed_on": "2026-09-11",
+      "published_on": "2026-05-26",
       "domains": [
         "D04",
         "D05",
@@ -188,6 +189,7 @@
       "kind": "guidance",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-06",
+      "published_on": "2024-07-26",
       "domains": [
         "D01",
         "D04",
@@ -263,6 +265,7 @@
       "kind": "roadmap",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-06",
+      "published_on": "2025-05-20",
       "domains": [
         "D04",
         "D05",
@@ -298,7 +301,8 @@
       "publisher": "ASHRAE",
       "kind": "guidance",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-06",
+      "reviewed_on": "2026-09-11",
+      "published_on": "2023",
       "domains": [
         "D01",
         "D02",
@@ -754,8 +758,9 @@
       "published_on": "2026-07-29",
       "kind": "analysis",
       "review_status": "public_excerpt_reviewed",
-      "reviewed_on": "2026-09-15",
+      "reviewed_on": "2026-09-26",
       "domains": [
+        "D01",
         "D03",
         "D04",
         "D10",
@@ -763,8 +768,8 @@
         "D13",
         "D15"
       ],
-      "use": "Compare Meta’s rapid-deployment fabric enclosures with AWS Houdini factory-built data-hall skids and the reported Cupertino Electric partnership; distinguish enclosure work, equipment assembly and complete site delivery.",
-      "caution": "Selected accessible sections Purpose-Built Rapid-Deployment Shells and What Operators and Developers Are Modularizing Today / AWS reviewed; no claim of full paid-article review. AWS Houdini and partner attribution are analyst reporting, not a primary AWS construction disclosure. The case does not establish Amazon tents, an AWS identity for the CEI factory photograph, or an overall schedule saving.",
+      "use": "Compare Meta’s rapid-deployment fabric enclosures with AWS Houdini factory-built data-hall skids and the reported Cupertino Electric partnership; distinguish enclosure work, equipment assembly and complete site delivery. Its section 'The levels of commissioning' lists L1 factory witness test through L5 integrated systems testing and notes that some frameworks add a Level 0 design review.",
+      "caution": "Selected accessible sections Purpose-Built Rapid-Deployment Shells and What Operators and Developers Are Modularizing Today / AWS reviewed, and the section The levels of commissioning was read on 2026-09-26; no claim of full paid-article review. AWS Houdini and partner attribution are analyst reporting, not a primary AWS construction disclosure. The case does not establish Amazon tents, an AWS identity for the CEI factory photograph, or an overall schedule saving.",
       "discovered_via": "https://newsletter.semianalysis.com/sitemap/2026"
     },
     {
@@ -1098,6 +1103,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-06",
+      "published_on": "2024-07",
       "domains": [
         "D01",
         "D04"
@@ -1130,6 +1136,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-06",
+      "published_on": "2016-10-06",
       "domains": [
         "D01",
         "D03",
@@ -1225,6 +1232,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-10",
+      "published_on": "2021-10-15",
       "domains": [
         "D03"
       ],
@@ -1256,6 +1264,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-06",
+      "published_on": "2026-06-18",
       "domains": [
         "D03"
       ],
@@ -1347,6 +1356,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-06",
+      "published_on": "2026-03-11",
       "domains": [
         "D11"
       ],
@@ -1423,6 +1433,7 @@
       "kind": "primary_reference",
       "review_status": "public_excerpt_reviewed",
       "reviewed_on": "2026-09-06",
+      "published_on": "2023-09-28",
       "domains": [
         "D12",
         "D14"
@@ -1454,6 +1465,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-16",
+      "published_on": "2015-12-22",
       "domains": [
         "D13",
         "D15"
@@ -1530,11 +1542,9 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-16",
-      "domains": [
-        "D15"
-      ],
+      "domains": [],
       "use": "Chapters 2–4 distinguish study periods, cost categories, cash-flow timing and present-value methods; section 3.2 covers single and recurring payments. Chapter 15 visibly introduces the single-payment relation before the three-year facilities-service comparison.",
-      "caution": "Selected scope, timing and discounting passages inspected. Prices, rate, residual and service assumptions are original; no federal compliance or current-market claim is made. September 16 recheck inspected PDF page 52 and the study-period passages: identical scope and horizon, end-of-year discounting, and terminal residual timing. All numerical teaching inputs remain original.",
+      "caution": "Retired 2026-09-26: no lesson, slide or note cites this record, so it carries no domain mapping. Selected scope, timing and discounting passages inspected. Prices, rate, residual and service assumptions are original; no federal compliance or current-market claim is made. September 16 recheck inspected PDF page 52 and the study-period passages: identical scope and horizon, end-of-year discounting, and terminal residual timing. All numerical teaching inputs remain original.",
       "discovered_via": "Expanded lesson primary-source review, 2026-09-06."
     },
     {
@@ -1622,6 +1632,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-06",
+      "published_on": "2025-08-18",
       "domains": [
         "D08"
       ],
@@ -1682,6 +1693,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-14",
+      "published_on": "2024-07-22",
       "domains": [
         "D09"
       ],
@@ -1727,6 +1739,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-06",
+      "published_on": "2021",
       "domains": [
         "D10"
       ],
@@ -1752,16 +1765,16 @@
     {
       "id": "E960EB5ED2E",
       "title": "Eaton — Rack Basics: Selection, Installation and Cooling",
-      "url": "https://tripplite.eaton.com/support/rack-cabinet-basics-selection-installation-cooling",
+      "url": "https://web.archive.org/web/20260921080636/https://tripplite.eaton.com/support/rack-cabinet-basics-selection-installation-cooling",
       "publisher": "Eaton",
       "kind": "manufacturer_reference",
-      "review_status": "public_excerpt_reviewed",
-      "reviewed_on": "2026-09-08",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-26",
       "domains": [
         "D06"
       ],
       "use": "EIA 19-inch mounting terminology, 1.75-inch rack units, usable U height versus external cabinet height, and separate depth and load considerations.",
-      "caution": "Reviewed indexed public text under Rack Standards, Rack Units, Height, Width and Depth; direct page retrieval returned 403. Manufacturer explainer, not a review of the full EIA standard. Product-independent classroom allocation is original; no universal AI-rack compatibility or advertised cooling savings are adopted.",
+      "caution": "Internet Archive capture of September 21, 2026 read under Rack Standards, Rack Units, Height, Width and Depth; tripplite.eaton.com now redirects to an Eaton acquisition page. Manufacturer explainer, not a review of the full EIA standard. Product-independent classroom allocation is original; no universal AI-rack compatibility or advertised cooling savings are adopted.",
       "discovered_via": "Rack-format gap review, 2026-09-08."
     },
     {
@@ -1875,9 +1888,9 @@
         "D05"
       ],
       "use": "Named product example distinguishes requested bypass, forced bypass and internal/external maintenance-bypass modes, including differences in battery support and isolation.",
-      "caution": "Selected public mode descriptions in manual 990-6537E-001 reviewed; publication date unavailable. Mode behavior is product-specific. Actual transfer, overload, protection and load acceptance need the applicable equipment data.",
+      "caution": "Selected public mode descriptions in manual 990-6537E-001 reviewed; publication date unavailable. Mode behavior is product-specific. Actual transfer, overload, protection and load acceptance need the applicable equipment data. Rechecked on 2026-09-26, including the internal and external maintenance-bypass descriptions.",
       "id": "E37FE7B98A1",
-      "reviewed_on": "2026-09-08",
+      "reviewed_on": "2026-09-26",
       "discovered_via": "UPS redundancy coverage audit, 2026-09-08."
     },
     {
@@ -1888,6 +1901,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-10",
+      "published_on": "2025-10",
       "domains": [
         "D01",
         "D12"
@@ -1904,6 +1918,7 @@
       "kind": "primary_reference",
       "review_status": "public_excerpt_reviewed",
       "reviewed_on": "2026-09-10",
+      "published_on": "2023",
       "domains": [
         "D01",
         "D10",
@@ -1980,6 +1995,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-10",
+      "published_on": "2022-07-13",
       "domains": [
         "D01",
         "D04",
@@ -2011,11 +2027,12 @@
       "title": "Wolfspeed — Powering AI with reliable SiC-based solid-state transformers",
       "url": "https://assets.wolfspeed.com/uploads/2026/03/Wolfspeed_Powering_AI_with_reliable_SiC-based_solid-state_transformers_white_paper.pdf",
       "publisher": "Wolfspeed",
-      "use": "Identify the supplied NVIDIA AC-versus-800-V-DC architecture figure and distinguish a system block from its internal conversion functions.",
+      "use": "Identify the supplied NVIDIA AC-versus-800-V-DC architecture figure and distinguish a system block from its internal conversion functions. It also states that SST power stages typically switch above 10,000 Hz, which its 10 kV SiC MOSFETs can do, while conventional 6,500 V silicon IGBTs are generally limited to a few hundred hertz.",
       "caution": "Reviewed Figure 1 on PDF page 3 and surrounding architecture discussion. Vendor concept comparison, not an as-built site or universal migration plan. Numerical promotional claims are not adopted.",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-10",
+      "reviewed_on": "2026-09-26",
+      "published_on": "2026-03-06",
       "domains": [
         "D04",
         "D06"
@@ -2032,7 +2049,7 @@
       "published_on": "2026-06-04",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-10",
+      "reviewed_on": "2026-09-16",
       "domains": [
         "D04",
         "D06"
@@ -2049,6 +2066,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-10",
+      "published_on": "2022-05",
       "domains": [
         "D04",
         "D06"
@@ -2091,14 +2109,15 @@
     },
     {
       "id": "P25",
-      "title": "Texas Instruments — Power Loss in Switching Power Supplies",
+      "title": "Texas Instruments — How GaN Enables More Efficient and Reduced Form Factor Power Supplies (application brief SLUAAL9)",
       "url": "https://www.ti.com/document-viewer/lit/html/SLUAAL9",
       "publisher": "Texas Instruments",
       "use": "Explains transistor conduction and switching losses in switching power supplies.",
-      "caution": "August 2022 application brief. Mechanisms only, not an efficiency prediction for data-center converters.",
+      "caution": "August 2022 application brief; its first section, Power Loss in Switching Power Supplies, is the part used. Mechanisms only, not an efficiency prediction for data-center converters.",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-11",
+      "published_on": "2022-08",
       "domains": [
         "D04",
         "D05",
@@ -2113,11 +2132,11 @@
       "publisher": "Schneider Electric",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-11",
+      "reviewed_on": "2026-09-26",
       "domains": [
         "D05"
       ],
-      "use": "Cabinet dimensions and floor footprint for the product shown in the UPS teaching sequence.",
+      "use": "Cabinet dimensions and floor footprint for the product shown in the UPS teaching sequence. The same technical specifications list nominal output current and inverter output short-circuit current by model; the 50 kW and 100 kW entries were read on 2026-09-26, and P274 records the 50 kW values.",
       "caution": "Selected dimensions reviewed: 1,991 mm high, 600 mm wide and 850 mm deep. Does not identify the installed rating or internal arrangement of either cabinet in the product-family photo."
     },
     {
@@ -2216,13 +2235,14 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-11",
+      "published_on": "2011-12",
       "domains": [
         "D04",
         "D05",
         "D06"
       ],
       "use": "Figure 1 shows a buck converter made from switching, inductance and capacitance without a transformer.",
-      "caution": "Reviewed basic configuration and inductor-ripple discussion. The continuous-conduction calculation is not an 800 V converter or UPS design."
+      "caution": "Reviewed basic configuration and inductor-ripple discussion. The continuous-conduction calculation is not an 800 V converter or UPS design. On 2026-09-26 the slva477b URL served revision C, whose revision history lists only renumbered tables and figures, so Figure 1 is now Figure 1-1."
     },
     {
       "id": "P41",
@@ -2307,6 +2327,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-13",
+      "published_on": "2025",
       "domains": [
         "D03",
         "D12",
@@ -2339,6 +2360,7 @@
       "kind": "primary_reference",
       "review_status": "public_excerpt_reviewed",
       "reviewed_on": "2026-09-11",
+      "published_on": "2024-04",
       "domains": [
         "D03",
         "D12"
@@ -2397,13 +2419,13 @@
       "publisher": "Eaton",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-11",
+      "reviewed_on": "2026-09-16",
       "domains": [
         "D04",
         "D06"
       ],
       "use": "Eaton lists a 2 MW MVSST with 12.47 kV nominal input and 800 V DC output, demonstrating a direct-MV product offering.",
-      "caution": "Manufacturer product listing reviewed on 2026-09-11. Offered specifications do not establish installed capacity, deployment prevalence, lead time or a measured efficiency advantage."
+      "caution": "Manufacturer product listing reviewed on 2026-09-11 and rechecked on 2026-09-16. Offered specifications do not establish installed capacity, deployment prevalence, lead time or a measured efficiency advantage."
     },
     {
       "id": "P46",
@@ -2426,12 +2448,13 @@
       "publisher": "ASHRAE",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-11",
+      "reviewed_on": "2026-09-26",
+      "published_on": "2024",
       "domains": [
         "D10",
         "D11"
       ],
-      "use": "Tower range compares entering and leaving water; tower approach compares leaving water with entering-air wet bulb. Performance depends on the stated heat load, flow and air conditions; closed-circuit towers separate process liquid from spray water.",
+      "use": "Tower range compares entering and leaving water; tower approach compares leaving water with entering-air wet bulb. Performance depends on the stated heat load, flow and air conditions; closed-circuit towers separate process liquid from spray water. The cooling-tower theory section splits the heat the air absorbs into a sensible part and a latent part, and the split changes with entering dry-bulb temperature at the same wet bulb.",
       "caution": "Selected mechanism, terminology, closed-circuit and performance-curve sections reviewed. No handbook example approach, capacity or water-saving percentage is adopted as a universal design value."
     },
     {
@@ -2442,6 +2465,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-11",
+      "published_on": "2024-07",
       "domains": [
         "D11"
       ],
@@ -2456,6 +2480,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-11",
+      "published_on": "2019-10-31",
       "domains": [
         "D10",
         "D11"
@@ -2514,6 +2539,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-11",
+      "published_on": "2025-04-15",
       "domains": [
         "D10"
       ],
@@ -2625,6 +2651,7 @@
       "kind": "primary_reference",
       "review_status": "public_excerpt_reviewed",
       "reviewed_on": "2026-09-11",
+      "published_on": "2026-08-19",
       "domains": [
         "D10",
         "D11"
@@ -2765,13 +2792,9 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-12",
-      "domains": [
-        "D01",
-        "D04",
-        "D06"
-      ],
+      "domains": [],
       "use": "Define voltage, current, resistance and the complete circuit before their first system application.",
-      "caution": "Explanatory section through conservation of energy reviewed. Simple source, resistor and closed circuit only.",
+      "caution": "Retired 2026-09-26: no lesson, slide or note cites this record, so it carries no domain mapping. Explanatory section through conservation of energy reviewed. Simple source, resistor and closed circuit only.",
       "discovered_via": "Optional D00 electricity and recurring-terminology primer, 2026-09-12."
     },
     {
@@ -2797,13 +2820,9 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-12",
-      "domains": [
-        "D04",
-        "D05",
-        "D06"
-      ],
+      "domains": [],
       "use": "Introduce rectifier, inverter, UPS and battery functions in the optional D00 primer.",
-      "caution": "Introduction, topology material on printed page 28 and rectifier glossary on page 46 reviewed. General functions only, without sizing or product claims.",
+      "caution": "Retired 2026-09-26: no lesson, slide or note cites this record, so it carries no domain mapping. Introduction, topology material on printed page 28 and rectifier glossary on page 46 reviewed. General functions only, without sizing or product claims.",
       "discovered_via": "Optional D00 electricity and recurring-terminology primer, 2026-09-12."
     },
     {
@@ -2814,11 +2833,9 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-12",
-      "domains": [
-        "D07"
-      ],
+      "domains": [],
       "use": "Introduce CPU and GPU as processors with different workload strengths.",
-      "caution": "CPU/GPU definitions and comparison sections reviewed. No performance or superiority claim adopted.",
+      "caution": "Retired 2026-09-26: no lesson, slide or note cites this record, so it carries no domain mapping. CPU/GPU definitions and comparison sections reviewed. No performance or superiority claim adopted.",
       "discovered_via": "Optional D00 electricity and recurring-terminology primer, 2026-09-12."
     },
     {
@@ -2829,13 +2846,9 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-12",
-      "domains": [
-        "D07",
-        "D08",
-        "D09"
-      ],
+      "domains": [],
       "use": "Distinguish working memory, saved state, capacity, bandwidth and latency.",
-      "caution": "Persistence, latency and bandwidth explanations reviewed. Historical component numbers excluded.",
+      "caution": "Retired 2026-09-26: no lesson, slide or note cites this record, so it carries no domain mapping. Persistence, latency and bandwidth explanations reviewed. Historical component numbers excluded.",
       "discovered_via": "Optional D00 electricity and recurring-terminology primer, 2026-09-12."
     },
     {
@@ -2846,12 +2859,9 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-12",
-      "domains": [
-        "D10",
-        "D11"
-      ],
+      "domains": [],
       "use": "Distinguish temperature from heat and heat-transfer rate before the cooling sequence.",
-      "caution": "Introductory definition of heat as energy transfer due to a temperature difference reviewed.",
+      "caution": "Retired 2026-09-26: no lesson, slide or note cites this record, so it carries no domain mapping. Introductory definition of heat as energy transfer due to a temperature difference reviewed.",
       "discovered_via": "Optional D00 electricity and recurring-terminology primer, 2026-09-12."
     },
     {
@@ -2951,13 +2961,9 @@
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-12",
       "published_on": null,
-      "domains": [
-        "D03",
-        "D04",
-        "D12"
-      ],
+      "domains": [],
       "use": "Colossus 1 industrial reuse still required a new substation and 161 kV transmission-line work for expanded service.",
-      "caution": "Complete one-page PDF reviewed. Filename identifies 2024; no exact date printed. Historical service proposal, not current operating status or a complete site one-line diagram."
+      "caution": "Retired 2026-09-26: no lesson, slide or note cites this record, so it carries no domain mapping. Complete one-page PDF reviewed. Filename identifies 2024; no exact date printed. Historical service proposal, not current operating status or a complete site one-line diagram."
     },
     {
       "id": "SA42",
@@ -2999,6 +3005,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-12",
+      "published_on": "2024-02-22",
       "domains": [
         "D03"
       ],
@@ -3013,6 +3020,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-12",
+      "published_on": "2025-05",
       "domains": [
         "D03"
       ],
@@ -3027,6 +3035,7 @@
       "kind": "technical_article",
       "review_status": "public_excerpt_reviewed",
       "reviewed_on": "2026-09-12",
+      "published_on": "2014-09-30",
       "domains": [
         "D05",
         "D14"
@@ -3088,6 +3097,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-12",
+      "published_on": "2025",
       "domains": [
         "D03"
       ],
@@ -3116,6 +3126,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-12",
+      "published_on": "2024-04",
       "domains": [
         "D05",
         "D06"
@@ -3255,7 +3266,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "published_on": "2025-09-05",
-      "reviewed_on": "2026-09-12",
+      "reviewed_on": "2026-09-14",
       "domains": [
         "D02",
         "D07",
@@ -3290,6 +3301,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-12",
+      "published_on": "2019-10-04",
       "domains": [
         "D02",
         "D07"
@@ -3338,7 +3350,7 @@
       "publisher": "Oracle",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-16",
+      "reviewed_on": "2026-09-17",
       "domains": [
         "D03",
         "D12",
@@ -3356,6 +3368,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-12",
+      "published_on": "2026-08",
       "domains": [
         "D03"
       ],
@@ -3384,12 +3397,13 @@
       "publisher": "Crusoe",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-12",
+      "reviewed_on": "2026-09-26",
       "domains": [
         "D03",
-        "D05"
+        "D05",
+        "D13"
       ],
-      "use": "Pages 16 and 19 describe a 350 MW natural-gas plant and temporary bridge power with a long-term backup role at Abilene. Page 33 documents the Sparks solar-and-battery case.",
+      "use": "Pages 16 and 19 describe a 350 MW natural-gas plant and temporary bridge power with a long-term backup role at Abilene. Page 33 documents the Sparks solar-and-battery case. Printed page 16 (Abilene) also lists in-house manufacturing of electrical equipment and switchgear, factory fabrication, and prefabricated construction with factory-built components such as electrical skids.",
       "caution": "Report launched May 28, 2026 at https://www.crusoe.ai/resources/blog/crusoes-2025-impact-report . Operator-reported case, not independent commissioning evidence. Do not imply 350 MW backs up the full 1.2 GW campus. Repeated Sparks availability figures are not a newly measured September interval.",
       "published_on": "2026-05-28"
     },
@@ -3654,7 +3668,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-12",
-      "published_on": null,
+      "published_on": "2024",
       "domains": [
         "D05",
         "D14"
@@ -3730,6 +3744,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-12",
+      "published_on": "2026-05-12",
       "domains": [
         "D11",
         "D12"
@@ -3777,7 +3792,7 @@
       "kind": "manufacturer_documentation",
       "review_status": "page_reviewed",
       "published_on": "2026-03-16",
-      "reviewed_on": "2026-09-13",
+      "reviewed_on": "2026-09-26",
       "domains": [
         "D02",
         "D07"
@@ -3793,7 +3808,7 @@
       "kind": "manufacturer_documentation",
       "review_status": "page_reviewed",
       "published_on": "2026-08-24",
-      "reviewed_on": "2026-09-13",
+      "reviewed_on": "2026-09-26",
       "domains": [
         "D02",
         "D07"
@@ -3853,7 +3868,7 @@
       "publisher": "Hammond Power Solutions",
       "kind": "manufacturer_documentation",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-13",
+      "reviewed_on": "2026-09-14",
       "published_on": "2014-04-02",
       "domains": [
         "D04"
@@ -3869,6 +3884,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-13",
+      "published_on": "2025-10",
       "domains": [
         "D03"
       ],
@@ -3883,6 +3899,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-13",
+      "published_on": "2019-10-03",
       "domains": [
         "D03"
       ],
@@ -3897,6 +3914,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-13",
+      "published_on": "2021-03-15",
       "domains": [
         "D03"
       ],
@@ -3911,6 +3929,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-13",
+      "published_on": "2026-07-30",
       "domains": [
         "D03"
       ],
@@ -3925,6 +3944,7 @@
       "kind": "primary_reference",
       "review_status": "public_excerpt_reviewed",
       "reviewed_on": "2026-09-13",
+      "published_on": "2025-07-29",
       "domains": [
         "D03"
       ],
@@ -3954,6 +3974,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-13",
+      "published_on": "2026-08-14",
       "domains": [
         "D12"
       ],
@@ -3968,6 +3989,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-13",
+      "published_on": "1971-05-26",
       "domains": [
         "D12"
       ],
@@ -4024,6 +4046,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-13",
+      "published_on": "2017-08-28",
       "domains": [
         "D12"
       ],
@@ -4038,6 +4061,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-13",
+      "published_on": "2017-11-10",
       "domains": [
         "D12"
       ],
@@ -4126,6 +4150,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-13",
+      "published_on": "2018-12",
       "domains": [
         "D04"
       ],
@@ -4140,6 +4165,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-13",
+      "published_on": "2013",
       "domains": [
         "D04",
         "D06"
@@ -4185,6 +4211,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-13",
+      "published_on": "2026-03-24",
       "domains": [
         "D05"
       ],
@@ -4266,30 +4293,32 @@
     {
       "id": "P163",
       "title": "Equinix — Customer Installation Guidelines, phase balancing",
-      "url": "https://docs.equinix.com/assets/files/Customer-Installation-Guidelines-EN-5d94e7d67671467cab7d7c9877ef5229.pdf",
+      "url": "https://web.archive.org/web/20250708155531/https://docs.equinix.com/assets/files/Customer-Installation-Guidelines-EN-5d94e7d67671467cab7d7c9877ef5229.pdf",
       "publisher": "Equinix",
       "kind": "primary_reference",
-      "review_status": "public_excerpt_reviewed",
-      "reviewed_on": "2026-09-13",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-26",
+      "published_on": "2024",
       "domains": [
         "D04"
       ],
       "use": "Rack PDU load allocation should balance connections across all three phases; figure 14 compares balanced and unbalanced racks.",
-      "caution": "Public indexed page 19 and figure description reviewed. Six groups at 20 A and a 60 A limit are an original teaching example, not Equinix ratings."
+      "caution": "Internet Archive capture of July 8, 2025 read: PDF page 19 and Figure 14; the original docs.equinix.com file now returns 404. Six groups at 20 A and a 60 A limit are an original teaching example, not Equinix ratings."
     },
     {
       "id": "P164",
-      "title": "Schneider Electric — Transformer secondary voltage notation",
-      "url": "https://acespex.se.com/rpt/prodhelp.php?doc=pms_0044&grp=spex_pms&host=CTW&ndx=21283",
-      "publisher": "Schneider Electric",
-      "kind": "primary_reference",
+      "title": "PDHonline — Standard AC System Voltages (600 V and Less), course E427",
+      "url": "https://www.pdhonline.com/courses/e427/e427content.pdf",
+      "publisher": "PDH Online (David A. Snyder, PE)",
+      "kind": "guidance",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-13",
+      "reviewed_on": "2026-09-26",
       "domains": [
         "D04"
       ],
-      "use": "480Y/277 gives the wye phase-to-phase voltage followed by the phase-to-neutral voltage.",
-      "caution": "Published short technical entry reviewed. Conductor selection and grounding system are not prescribed."
+      "use": "480Y/277 gives the wye phase-to-phase voltage followed by the phase-to-neutral voltage: four-wire systems are designated by the phase-to-phase voltage, the letter Y, a slant line and the phase-to-neutral voltage (page 9), and a 480Y/277V system has 480 V line to line and 277 V line to neutral (page 5).",
+      "caution": "Continuing-education course, not the ANSI C84.1 standard. Replaces a Schneider Electric acespex.se.com help entry reviewed on 2026-09-13, whose host no longer resolves and has no archived copy. Conductor selection and grounding system are not prescribed.",
+      "discovered_via": "Dead-link replacement, 2026-09-26."
     },
     {
       "id": "P165",
@@ -4371,6 +4400,7 @@
       "kind": "primary_reference",
       "review_status": "public_excerpt_reviewed",
       "reviewed_on": "2026-09-13",
+      "published_on": "2025",
       "domains": [
         "D05",
         "D06"
@@ -4386,6 +4416,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-14",
+      "published_on": "2022-07-13",
       "domains": [
         "D05"
       ],
@@ -4414,6 +4445,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-14",
+      "published_on": "2025-08-22",
       "domains": [
         "D07"
       ],
@@ -4428,6 +4460,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-14",
+      "published_on": "2025-10-14",
       "domains": [
         "D07"
       ],
@@ -4456,6 +4489,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-14",
+      "published_on": "2026-07-06",
       "domains": [
         "D07"
       ],
@@ -4465,17 +4499,18 @@
     {
       "id": "P177",
       "title": "QTS — Suwanee DC1 connectivity facility sheet",
-      "url": "https://qtsdatacenters.com/wp-content/uploads/2024/11/QTS_Facility-Data-Sheet_SUW1DC1.pdf",
+      "url": "https://web.archive.org/web/20250118045838/https://qtsdatacenters.com/wp-content/uploads/2024/11/QTS_Facility-Data-Sheet_SUW1DC1.pdf",
       "publisher": "QTS",
       "kind": "primary_reference",
-      "review_status": "public_excerpt_reviewed",
-      "reviewed_on": "2026-09-14",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-26",
+      "published_on": "2024",
       "domains": [
         "D12",
         "D08"
       ],
       "use": "DC1 is documented with three diverse underground fiber entry laterals.",
-      "caution": "Official PDF indexed text reviewed; direct PDF retrieval returned 404. Search index retains the DC1 heading, 300 Satellite Boulevard address and three-lateral statement. The campus image does not disclose surveyed cable routes. DC2 has a separate January 2023 four-entrance proposal."
+      "caution": "Internet Archive capture of January 18, 2025 read (two-page sheet: DC1 heading, 300 Satellite Boulevard address and three-lateral statement); the original qtsdatacenters.com file now returns 404. The campus image does not disclose surveyed cable routes. DC2 has a separate January 2023 four-entrance proposal."
     },
     {
       "id": "P178",
@@ -4513,12 +4548,13 @@
       "publisher": "Siemens",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-14",
+      "reviewed_on": "2026-09-26",
+      "published_on": "2024",
       "domains": [
         "D04"
       ],
       "use": "Real panel compartments and original manufacturer sectional illustration.",
-      "caution": "2024 A catalog page 12 visually reviewed; original embedded images extracted with transparency. This up-to-12-kV product example is distinct from the 34.5-kV teaching circuit and Compass 8DJH 36 skid."
+      "caution": "2024 A catalog pages 12 and 13 read; the course figure is the unmodified raster from page 12, without its vector callout numbers. This up-to-12-kV product example is distinct from the 34.5 kV teaching circuit and the Compass 8DJH 36 skid."
     },
     {
       "id": "P181",
@@ -4528,6 +4564,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-14",
+      "published_on": "2026-05-18",
       "domains": [
         "D04"
       ],
@@ -4574,7 +4611,7 @@
         "D08"
       ],
       "use": "Qualified 400G LinkX examples: 2 m passive copper, 50 m multimode optics and 500 m single-mode DR4 optics.",
-      "caution": "2m copper,30m MM and500m DR4 are supported product examples, not medium-wide maxima. Product protocol/interface compatibility still required."
+      "caution": "2 m copper, 50 m multimode and 500 m DR4 are supported product examples, not medium-wide maxima. Product protocol/interface compatibility still required."
     },
     {
       "id": "P185",
@@ -4598,6 +4635,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-14",
+      "published_on": "2023-04-04",
       "domains": [
         "D08"
       ],
@@ -4655,12 +4693,13 @@
       "publisher": "Google",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-14",
+      "reviewed_on": "2026-09-26",
       "published_on": null,
       "domains": [
+        "D01",
         "D09"
       ],
-      "use": "Identify actual motherboard repair at The Dalles and destroyed failed drives at St. Ghislain.",
+      "use": "Identify actual motherboard repair at The Dalles and destroyed failed drives at St. Ghislain. The New Albany, Ohio server-aisle photograph (caption: server aisles that hold many racks and trays) shows a data hall's white space.",
       "caution": "Inspected full-size publisher originals and source captions. Photo capture dates unspecified; these photographs do not document a training recovery or the 2011 Gmail incident."
     },
     {
@@ -4687,11 +4726,9 @@
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-14",
       "published_on": "2023-12-06",
-      "domains": [
-        "D01"
-      ],
+      "domains": [],
       "use": "Identify Gemini 1.0 Ultra as the largest named model in the original Ultra/Pro/Nano family.",
-      "caution": "Historical model identity only. Ultra here does not mean a hardware type, a general model class, or a current subscription tier."
+      "caution": "Retired 2026-09-26: no lesson, slide or note cites this record, so it carries no domain mapping. Historical model identity only. Ultra here does not mean a hardware type, a general model class, or a current subscription tier."
     },
     {
       "id": "P193",
@@ -4701,6 +4738,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-14",
+      "published_on": "2026-04-26",
       "domains": [
         "D02"
       ],
@@ -4742,12 +4780,13 @@
       "publisher": "ABB",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-14",
+      "reviewed_on": "2026-09-26",
+      "published_on": "2017",
       "domains": [
         "D04"
       ],
-      "use": "CT/VT scaling and separation of measurement, relay decision and power-current interruption.",
-      "caution": "Chapter 4, printed pages 11–14: instrument transformers. Teaching diagram omits wiring, CT saturation, relay settings and detailed CVT transient behavior."
+      "use": "CT/VT scaling and separation of measurement, relay decision and power-current interruption. Chapter 5: the protection trip current must always be lower than the minimum short-circuit current at the point of connection.",
+      "caution": "Chapter 4, printed pages 11–14: instrument transformers. Chapter 5, printed pages 17–18, read on 2026-09-26 for the trip-current rule. Teaching diagram omits wiring, CT saturation, relay settings and detailed CVT transient behavior."
     },
     {
       "id": "P197",
@@ -4787,7 +4826,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-15",
-      "published_on": null,
+      "published_on": "2025-07-24",
       "domains": [
         "D03",
         "D05"
@@ -4837,7 +4876,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-15",
-      "published_on": null,
+      "published_on": "2020",
       "domains": [
         "D06"
       ],
@@ -4852,7 +4891,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-15",
-      "published_on": null,
+      "published_on": "2012",
       "domains": [
         "D06"
       ],
@@ -4941,6 +4980,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-16",
+      "published_on": "2024-10-15",
       "domains": [
         "D08"
       ],
@@ -4968,7 +5008,7 @@
       "publisher": "Crusoe",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-16",
+      "reviewed_on": "2026-09-17",
       "published_on": "2025-03-18",
       "domains": [
         "D15"
@@ -4983,7 +5023,7 @@
       "publisher": "Crusoe",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-16",
+      "reviewed_on": "2026-09-17",
       "published_on": "2025-09-30",
       "domains": [
         "D15"
@@ -5056,6 +5096,7 @@
       "kind": "primary_reference",
       "review_status": "page_reviewed",
       "reviewed_on": "2026-09-17",
+      "published_on": "2011-02",
       "domains": [
         "D11"
       ],
@@ -5196,11 +5237,11 @@
       "url": "https://www.ercot.com/files/docs/2026/07/29/ERCOT-Senate-July-29-Panel-1-Assessing-The-Grid.pdf",
       "publisher": "ERCOT",
       "published_on": "2026-07-29",
-      "use": "Read the June 2026 cumulative large-load status snapshot through 2033, including 474.7 GW total, 284.3 GW with no studies submitted and 5.9 GW observed energized.",
+      "use": "Read the June 2026 cumulative large-load status snapshot through 2033, including 474.7 GW total (about 90% of it data centers, per the slide's key takeaway), 284.3 GW with no studies submitted and 5.9 GW observed energized.",
       "caution": "Slide 6 reviewed. Future-year columns are cumulative requested ramps; observed energized is non-simultaneous consumption. Rounded components do not sum exactly to the displayed total. These figures do not establish cancellation or duplicate rates.",
       "kind": "primary_reference",
       "review_status": "page_reviewed",
-      "reviewed_on": "2026-09-20",
+      "reviewed_on": "2026-09-26",
       "domains": [
         "D03"
       ],
@@ -5428,6 +5469,692 @@
       "use": "Slide 5 shows Dominion Energy Virginia data-center contracted capacity by stage with a definition of each stage: about 53.8 GW in July 2026 (32.4 GW SELOA, 9.4 GW CLOA, 12.0 GW ESA), up from about 16.5 GW in July 2023.",
       "caution": "Slide 5 reviewed. Investor material showing contracted capacity only, not demand; the 2025 coincident peak of about 4 GW comes from P233. SELOA here is the stage P233 calls ELOA. Movement between stages is not a measured conversion or cancellation rate. Scope is Dominion Energy Virginia customers, not the Dominion zone or PJM.",
       "discovered_via": "ERCOT and PJM case study slide revision, primary-source review, 2026-09-21."
+    },
+    {
+      "id": "P242",
+      "title": "Enwave — Enwave and Toronto Water tap into innovative energy source",
+      "url": "https://www.enwave.com/case-studies/enwave-and-toronto-water-tap-into-innovative-energy-source",
+      "publisher": "Enwave Energy Corporation",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-26",
+      "domains": [
+        "D11"
+      ],
+      "use": "Deep Lake Ontario water is treated by Toronto Water for drinking and passes heat exchangers at the John Street Pumping Station, which chill a separate district-cooling loop serving downtown buildings.",
+      "caution": "Undated operator case study of the system design; it says nothing about the July 2013 outage.",
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P243",
+      "title": "Hydro One — Power outages due to heavy rains, July 8, 2013",
+      "url": "https://www.newswire.ca/news-releases/hydro-one-power-outages-due-to-heavy-rains-512697891.html",
+      "publisher": "Hydro One Inc., via Cision Newswire",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-26",
+      "published_on": "2013-07-08",
+      "domains": [
+        "D11"
+      ],
+      "use": "Heavy rain flooded Hydro One's Richview and Manby transmission stations in the western Greater Toronto Area and caused widespread outages in Brampton, Toronto and Mississauga.",
+      "caution": "Same-evening utility release; it names no customers and no district-cooling plant.",
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P244",
+      "title": "Data Center Knowledge — Toronto Flooding KOs Data Center Cooling Systems, July 9, 2013",
+      "url": "https://www.datacenterknowledge.com/outages/toronto-flooding-kos-data-center-cooling-systems",
+      "publisher": "Data Center Knowledge (Rich Miller)",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-26",
+      "published_on": "2013-07-09",
+      "domains": [
+        "D11"
+      ],
+      "use": "Quotes PEER 1: 151 Front Street transferred to generator power while its chill-loop provider had power issues that cut cooling capacity. The reporter adds that Enwave supplied an emergency chiller for relief until the system was restored.",
+      "caution": "The emergency chiller is the article's own reporting, not part of PEER 1's quoted statement. The archival building photograph is credited to Allied REIT.",
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P245",
+      "title": "Erik Levinson (Uberflip) — What to expect after a cooling failure, NANOG mailing list, July 9, 2013",
+      "url": "https://seclists.org/nanog/2013/Jul/130",
+      "publisher": "NANOG mailing list archive (seclists.org)",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-26",
+      "published_on": "2013-07-09",
+      "domains": [
+        "D11"
+      ],
+      "use": "Tenant CTO's firsthand account: one suite recovered sooner; in the hotter suite cold-side air apparently exceeded 43°C and some gear shut down automatically; staff remotely shut down redundant and non-essential systems, moved some to the cooler suite and restored service; roughly 18:45 to 01:15.",
+      "caution": "One tenant's mailing-list post; the temperature is reported secondhand ('apparently'), not logged data.",
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P246",
+      "title": "NIST Chemistry WebBook — Saturation properties for water",
+      "url": "https://webbook.nist.gov/cgi/fluid.cgi?Action=Load&ID=C7732185&Type=SatP&Digits=5&THigh=35&TLow=20&TInc=5&RefState=DEF&TUnit=C&PUnit=MPa&DUnit=kg%2Fm3&HUnit=kJ%2Fkg&WUnit=m%2Fs&VisUnit=uPa*s&STUnit=N%2Fm",
+      "publisher": "US National Institute of Standards and Technology (NIST Standard Reference Database 69)",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-26",
+      "domains": [
+        "D11"
+      ],
+      "use": "At 30°C, saturated liquid enthalpy is 125.73 kJ/kg and vapor enthalpy 2,555.5 kJ/kg, so the latent heat of vaporization is about 2,430 kJ/kg.",
+      "caution": "Pure-water saturation data; tower water with dissolved solids and other temperatures differ slightly.",
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P247",
+      "title": "The Green Grid — White Paper #35: Water Usage Effectiveness (WUE): A Green Grid Data Center Sustainability Metric",
+      "url": "https://www.thegreengrid.org/system/files/store/WUE_v1.pdf",
+      "publisher": "The Green Grid (editor Michael Patterson, Intel)",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-26",
+      "published_on": "2011-03-01",
+      "domains": [
+        "D01",
+        "D11"
+      ],
+      "use": "Defines site WUE as annual site water usage divided by IT equipment energy, in L/kWh. Site water includes humidification and cooling-tower evaporation, blowdown and drift; WUEsource adds water used off site to produce the energy.",
+      "caution": "2011 definition paper with no target values. Publication date from The Green Grid library listing; reported WUE figures depend on each operator's metering boundary.",
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P248",
+      "title": "Intel IT — Thermal storage system provides emergency data center cooling, September 2007",
+      "url": "https://www.intel.com/content/dam/doc/white-paper/intel-it-thermal-storage-system-provides-emergency-data-center-cooling-paper.pdf",
+      "publisher": "Intel",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-26",
+      "published_on": "2007-09",
+      "domains": [
+        "D14"
+      ],
+      "use": "Two 24,000-US-gallon tanks of 42°F water supplement a 55°F chilled-water supply and are sized to cool the data center for seven minutes beyond the five minutes of full-load UPS battery life. In a late-2006 outage lasting several hours, the stored water kept cooling while chilled-water pumps and air-handler fans ran on UPS and generator power.",
+      "caution": "Company white paper; it does not name the facility. Servers ran for more than 15 minutes in the outage because the load was light, so that duration is not the design figure. Read on 2026-09-26 from the PDF text.",
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P249",
+      "title": "Johnson Controls — Metasys Chilled-Water Plant for Guideline 36 Application Note: Stage-up part-load ratio (SPLRUP)",
+      "url": "https://docs.johnsoncontrols.com/bas/r/Metasys/en-US/Chilled-Water-Plant-for-Guideline-36-Application-Note/1.0/Chiller-sequence-of-operations/Chiller-and-waterside-economizer-staging-determination-5.20.1-15/Stage-Up-Part-Load-Ratio-SPLRUP",
+      "publisher": "Johnson Controls",
+      "kind": "manufacturer_documentation",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-26",
+      "domains": [
+        "D14"
+      ],
+      "use": "Stage-up thresholds: 80 percent part load for stages of positive-displacement chillers only, 90 percent when the current and next stages include constant-speed centrifugal chillers; variable-speed centrifugal thresholds vary with lift; time, trend and failsafe conditions also apply.",
+      "caution": "One vendor's Guideline 36 implementation of efficiency staging; the thresholds are not spare-capacity requirements.",
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P250",
+      "title": "CoreWeave — Form 8-K, NVIDIA capacity order, September 2025",
+      "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962825000047/crwv-20250909.htm",
+      "publisher": "CoreWeave",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-26",
+      "published_on": "2025-09-15",
+      "domains": [
+        "D15"
+      ],
+      "use": "September 9, 2025 order form with an initial value of $6.3 billion; NVIDIA must purchase residual unsold capacity through April 13, 2032, subject to termination and delivery and availability requirements.",
+      "caution": "A cloud-capacity purchase obligation, not a guarantee of CoreWeave's debt.",
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P251",
+      "title": "NVIDIA — Form 10-Q for the quarter ended July 26, 2026",
+      "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm",
+      "publisher": "NVIDIA",
+      "kind": "primary_reference",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-26",
+      "domains": [
+        "D15"
+      ],
+      "use": "AI-cloud capacity commitments, typically six years long, totaled $36 billion at July 26, 2026 and decrease as others use the capacity; NVIDIA may lack the demand or ability to use or resell all committed capacity.",
+      "caution": "Commitment and risk-factor sections only; the $36 billion is a commitment, not a loss or cash spent. The published date is the filing's signature date.",
+      "published_on": "2026-08-26",
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P252",
+      "title": "Core Scientific — Form 10-Q for the quarter ended June 30, 2026",
+      "url": "https://www.sec.gov/Archives/edgar/data/1839341/000183934126000014/core-20260630.htm",
+      "publisher": "Core Scientific",
+      "kind": "primary_reference",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-26",
+      "domains": [
+        "D15"
+      ],
+      "use": "In the colocation segment, power costs are passed through to the customer, CoreWeave, without markup and recognized gross, so power prices move colocation revenue and cost equally.",
+      "caution": "Describes Core Scientific's colocation contract, not how CoreWeave bills its own GPU-cloud customers. The published date is the EDGAR archive date of the filing; sec.gov refused direct scripted retrieval on 2026-09-26, so the pass-through passage was checked through an indexed excerpt.",
+      "published_on": "2026-07-28",
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P253",
+      "title": "CoreWeave — CoreWeave Announces Multi-Year Agreement With Anthropic, April 10, 2026",
+      "url": "https://www.coreweave.com/news/coreweave-announces-multi-year-agreement-with-anthropic",
+      "publisher": "CoreWeave",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-26",
+      "published_on": "2026-04-10",
+      "domains": [
+        "D15"
+      ],
+      "use": "Multi-year agreement to support development and deployment of Anthropic's Claude family of models; compute comes online starting later in 2026, in an initially phased infrastructure roll-out that may expand.",
+      "caution": "Does not disclose the hardware access model, contract value or who operates the serving stack.",
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P254",
+      "title": "Fireworks AI — How Cursor built Fast Apply using the Speculative Decoding API",
+      "url": "https://fireworks.ai/blog/cursor",
+      "publisher": "Fireworks AI",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-26",
+      "published_on": "2024-06-23",
+      "domains": [
+        "D15"
+      ],
+      "use": "Cursor trained a specialized Fast Apply model; Fireworks deployed it on its inference engine with speculative decoding and served it through its Completion API.",
+      "caution": "Covers the Fast Apply feature only, not every Cursor model.",
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "SA44",
+      "title": "Nvidia’s Backstop Universe – Heads I Win, Tails Who Loses?",
+      "url": "https://newsletter.semianalysis.com/p/nvidias-backstop-universe-heads-i",
+      "publisher": "SemiAnalysis",
+      "published_on": "2026-09-11",
+      "kind": "analysis",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-26",
+      "domains": [
+        "D15"
+      ],
+      "use": "Analyst account of NVIDIA's capacity backstops for AI clouds: NVIDIA rents residual capacity when tenant contracts end or fall through, and the article sizes the obligations of the first deals announced under the program.",
+      "caution": "Public opening sections reviewed; complete paid article not reviewed. Obligation totals are the publisher's model estimates, not filed amounts. Cite NVIDIA's and CoreWeave's filings (P251, P250) for contract terms.",
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P255",
+      "title": "CoolIT Systems — Split-Flow Technology tech brief, revision R1",
+      "url": "https://web.archive.org/web/20250419054125/https://www.coolitsystems.com/wp-content/uploads/2024/05/Split-Flow-Technology-CoolIT-Tech-Brief.pdf",
+      "publisher": "CoolIT Systems",
+      "published_on": "2024-05-08",
+      "kind": "manufacturer_documentation",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-26",
+      "domains": [
+        "D14"
+      ],
+      "use": "Figure 2 on page 2 plots cold-plate thermal resistance (°C/W) against coolant flow (LPM) for a reference cold plate and CoolIT's OMNI cold plate: thermal resistance falls as flow rises.",
+      "caution": "Vendor comparison chart, not a model of the Chapter 14 endpoint. The original coolitsystems.com URL returns 404, so the record points to the Internet Archive capture of April 19, 2025.",
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P256",
+      "title": "NVIDIA — NVIDIA Unlocks AI Compute at Scale, Inviting Partners to Power the AI Infrastructure Buildout",
+      "url": "https://blogs.nvidia.com/blog/nvidia-unlocks-ai-compute-at-scale-capital-partners-to-power-ai-infrastructure-buildout/",
+      "publisher": "NVIDIA (Colette Kress and Raj Mirpuri)",
+      "published_on": "2026-07-01",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-26",
+      "domains": [
+        "D15"
+      ],
+      "use": "NVIDIA's 2026 program with AI clouds: the clouds buy NVIDIA infrastructure and sell NVIDIA-powered cloud services under a revenue-sharing and credit-support model, with NVIDIA earning product revenue and a share of cloud revenue on the supported capacity. Sharon AI and Firmus are named as early partners.",
+      "caution": "Company announcement; it does not state commitment amounts or contract terms. NVIDIA's Form 10-Q (P251) gives the commitment total.",
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P257",
+      "title": "Groq — What is a Language Processing Unit?",
+      "url": "https://groq.com/blog/the-groq-lpu-explained",
+      "publisher": "Groq",
+      "published_on": "2025-03-07",
+      "kind": "manufacturer_documentation",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-26",
+      "domains": [
+        "D02"
+      ],
+      "use": "Expands LPU as Language Processing Unit (LPU), Groq's inference processor, and lists its design principles: software first, a programmable assembly-line architecture, deterministic compute and networking, and on-chip memory.",
+      "caution": "Vendor explainer with performance claims that are not adopted. NVIDIA's August 2026 LPX post (P130) instead writes '256 LP30 local processing units (LPUs)', so the expansion depends on the source.",
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P258",
+      "title": "ERCOT — PGRR145, Batch Zero Process for Large Load Interconnections",
+      "url": "https://www.ercot.com/mktrules/issues/PGRR145",
+      "publisher": "ERCOT",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-26",
+      "domains": [
+        "D03"
+      ],
+      "use": "Status page for Planning Guide Revision Request 145: approved by the PUCT on June 18, 2026 after the ERCOT board recommended it on June 2, and effective July 11, 2026 for all sections except 9.6.1(2) and 9.6.1(3).",
+      "caution": "Status and voting record only; the rule text and security amounts are in the final PUCT report (P259).",
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P259",
+      "title": "ERCOT — PGRR145 final PUCT report, June 18, 2026 decision",
+      "url": "https://www.ercot.com/files/docs/2026/06/22/145PGRR-130-PUCT-Report-061826.docx",
+      "publisher": "ERCOT",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-26",
+      "domains": [
+        "D03"
+      ],
+      "use": "Section 9.2.1.2(1)(c): a large load to be studied and allocated in Batch Zero must, by July 24, 2026, have posted financial security of $50,000 per MW of the peak demand in its most recent load commissioning plan. The base-load path in 9.2.1.1 ties security to the cost of necessary upgrades instead.",
+      "caution": "Redlined Planning Guide text; read with deletions removed. Word document; the decision date June 18, 2026 is on its cover table.",
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P260",
+      "title": "Public Utility Commission of Texas — 16 TAC §25.370, ERCOT Large Load Forecasting Criteria",
+      "url": "https://ftp.puc.texas.gov/public/puct-info/agency/rulesnlaws/subrules/electric/25.370/25.370.pdf",
+      "publisher": "Public Utility Commission of Texas",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-26",
+      "domains": [
+        "D03"
+      ],
+      "use": "Rule effective March 1, 2026 (Project 58480). Subsection (g)(4): for load data in ERCOT's 2026 Regional Transmission Plan compliance plan, due by April 1, 2026, a large-load customer could show financial commitment in one of three ways: security of $100,000 per MW of contracted peak demand, security equal to the utility's expected cost of equipment with a lead time of at least six months and services, or a contribution in aid of construction.",
+      "caution": "The three options belong to the 2026 Regional Transmission Plan compliance plan in subsection (g); subsection (c) otherwise ties forecast inclusion to an interconnection agreement under 16 TAC §25.194, which sets the interconnection study fee and security. Rule text as posted on the PUCT site on the review date.",
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P261",
+      "title": "Meta / OCP — Clemente compute tray specification",
+      "url": "https://www.opencompute.org/documents/clemente-compute-tray-ocp-specification-final-pdf",
+      "publisher": "Meta / Open Compute Project",
+      "kind": "specification",
+      "review_status": "public_excerpt_reviewed",
+      "reviewed_on": "2026-09-18",
+      "domains": [
+        "D06"
+      ],
+      "use": "Sections 7.2 and 8.1: a GB300 compute tray whose NVIDIA-designed power distribution board converts the nominal 51 V rack bus (46–52 V normal input range; also called the nominal 48 V ORv3 bus and labelled 50 V in the power diagram) to 12 V ahead of local processor regulators.",
+      "caution": "Official indexed text of pages 10, 12 and 22 reviewed on 2026-09-18 (research/chapter8-vrm-additions-2026-09-18.md); both PDF URLs returned HTTP 403 then and again on 2026-09-26. Final processor core voltages, regulator phase counts and the GB300 module's internal design are not specified. The course's Clemente board image is conceptual, not an OCP hardware photograph.",
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P262",
+      "title": "Checkpointing à la Young/Daly: An Overview",
+      "url": "https://icl.utk.edu/files/publications/2022/icl-utk-1569-2022.pdf",
+      "publisher": "Benoit, Du, Herault, Marchal, Pallez, Perotin, Robert, Sun and Vivien, IC3 2022 (ACM)",
+      "published_on": "2022-08-04",
+      "kind": "research_paper",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-26",
+      "domains": [
+        "D09"
+      ],
+      "use": "Section 2.2 derives the Young/Daly period W = √(2μC) for platform MTBF μ and checkpoint cost C, cites Young (CACM 17(9), 1974) and Daly (FGCS 22(3), 2006), and shows that failure-free and failure-induced waste are equal at that period.",
+      "caution": "First-order approximation. It assumes independent, exponentially distributed failures and a period much longer than checkpoint, downtime and recovery times; it is not a measured policy for AI training clusters. Author copy from the University of Tennessee ICL; the DOI printed in that copy (10.1145/3545008.3545049) resolves to a different paper, so cite 10.1145/3549206.3549328.",
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P263",
+      "title": "U.S. DOE and Hydraulic Institute — Improving Pumping System Performance: A Sourcebook for Industry, 2nd ed., May 2006",
+      "url": "https://www.energy.gov/sites/prod/files/2014/05/f16/pump.pdf",
+      "publisher": "U.S. Department of Energy and Hydraulic Institute",
+      "kind": "guidance",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-26",
+      "published_on": "2006-05",
+      "domains": [
+        "D10"
+      ],
+      "use": "The affinity laws tie pump pressure, flow and speed together; dynamic head losses are approximately proportional to flow squared, so doubling flow quadruples them; adjustable-speed drives suit systems dominated by friction head; trimming an impeller 2% cuts flow about 2% and head about 4%.",
+      "caution": "Industrial pumping guidance, not data-center coolant loops. The affinity relations are approximations for small changes; the impeller example holds pump speed constant. The source's 8% power figure for a 2% impeller trim does not follow from the cube law it states (1 − 0.98³ ≈ 6%); do not reuse it.",
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P264",
+      "title": "Grundfos — How does one read a pump curve of a heating pump?",
+      "url": "https://www.grundfos.com/solutions/support/faq/how-does-one-read-a-pump-curve-of-a-heating-pump",
+      "publisher": "Grundfos",
+      "kind": "manufacturer_documentation",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-26",
+      "domains": [
+        "D10"
+      ],
+      "use": "A pump curve plots delivery head against flow: higher flow means lower head. The duty point is where the system curve crosses the pump curve.",
+      "caution": "Short manufacturer FAQ for heating pumps; it does not discuss speed control or the affinity laws.",
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P265",
+      "title": "Hydraulic Institute — Pump System Operating Point (combined pump and system curves)",
+      "url": "https://datatool.pumps.org/pump-fundamentals/combined.html",
+      "publisher": "Hydraulic Institute",
+      "kind": "guidance",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-26",
+      "domains": [
+        "D10"
+      ],
+      "use": "The system curve combines static head with friction losses that rise with flow; the operating point is where it crosses the pump curve. Closing a valve steepens the system curve, and changing pump speed shifts the pump curve according to the affinity laws.",
+      "caution": "Generic pumping reference (ANSI/HI 14.3 context); no coolant-loop numbers.",
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P266",
+      "title": "KSB — Characteristic curve (centrifugal pump lexicon)",
+      "url": "https://www.ksb.com/en-global/centrifugal-pump-lexicon/article/characteristic-curve-1117926",
+      "publisher": "KSB",
+      "kind": "manufacturer_documentation",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-26",
+      "domains": [
+        "D10"
+      ],
+      "use": "A centrifugal pump's characteristic curves plot head, power input, efficiency and NPSH required against flow; their shape depends mainly on pump type and specific speed.",
+      "caution": "Encyclopedia entry; curve shapes are generic, not a specific product rating.",
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P267",
+      "title": "Crusoe — Crusoe, Blue Owl Capital and Primary Digital Infrastructure enter $3.4 billion joint venture",
+      "url": "https://www.crusoe.ai/resources/newsroom/crusoe-blue-owl-capital-primary-digital-joint-venture",
+      "publisher": "Crusoe",
+      "published_on": "2024-10-15",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-26",
+      "domains": [
+        "D15"
+      ],
+      "use": "First-phase $3.4 billion joint venture jointly sponsored by Blue Owl-managed funds and Primary Digital Infrastructure: a 206 MW, two-building Abilene data center designed, built and operated by Crusoe, 100 percent long-term leased to an unnamed Fortune 100 hyperscale tenant.",
+      "caution": "Tenant unnamed; partner shares, cash contributions, fees and returns not disclosed.",
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P268",
+      "title": "Crusoe — Crusoe, Blue Owl Capital and Primary Digital Infrastructure enter second phase of $15 billion joint venture",
+      "url": "https://www.crusoe.ai/resources/newsroom/crusoe-blue-owl-capital-and-primary-digital-infrastructure-enter-joint-venture",
+      "publisher": "Crusoe",
+      "published_on": "2025-05-21",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-26",
+      "domains": [
+        "D15"
+      ],
+      "use": "Second phase (six additional buildings) of a $15 billion joint venture funding the 1.2 GW Abilene campus.",
+      "caution": "The $15 billion is the venture's size for the whole campus, not a GPU bill or an amount to add to the first-phase $3.4 billion.",
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P269",
+      "title": "Kirkland & Ellis — Kirkland advises Blue Owl funds on JV and financing for development of Abilene data center",
+      "url": "https://www.kirkland.com/news/press-release/2025/01/kirkland-ellis-advises-bo-funds-on-jv-and-financing-for-development-of-adc",
+      "publisher": "Kirkland & Ellis",
+      "published_on": "2025-01-23",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-26",
+      "domains": [
+        "D15"
+      ],
+      "use": "Closing of the $3.4 billion first-phase joint venture and a $2.3 billion construction loan arranged by JPMorgan Chase; Primary Digital Infrastructure facilitated and advised on the transaction.",
+      "caution": "Law-firm account of the first phase only; no partner returns.",
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P270",
+      "title": "Crusoe — Crusoe Opens Second Tulsa Manufacturing Facility",
+      "url": "https://www.crusoe.ai/resources/newsroom/crusoe-opens-second-tulsa-factory-ai-infrastructure",
+      "publisher": "Crusoe",
+      "published_on": "2026-09-14",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-26",
+      "domains": [
+        "D13"
+      ],
+      "use": "Crusoe's two Tulsa facilities build electrical equipment including medium-voltage switchgear, low-voltage switchboards, enclosures, controls and copper busbar; their work includes more than 2,500 switchboards supplied to the Abilene Stargate site.",
+      "caution": "Company release. The 2,500 figure counts switchboards, not every product type or complete electrical rooms, and the new second facility did not build the equipment for the first 2025 buildings.",
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P271",
+      "title": "PJM — PJM at a Glance fact sheet",
+      "url": "https://www.pjm.com/-/media/DotCom/about-pjm/newsroom/fact-sheets/pjm-at-a-glance.pdf",
+      "publisher": "PJM Interconnection",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-26",
+      "domains": [
+        "D03"
+      ],
+      "use": "PJM coordinates generation and transmission for all or parts of 13 states and the District of Columbia and does not own the equipment it directs; others own the power lines and power plants.",
+      "caution": "Undated fact sheet (file code 20250408); its system statistics change and should be dated when quoted.",
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P272",
+      "title": "ABB — Technical Application Papers No. 2: MV/LV transformer substations, theory and examples of short-circuit calculation (February 2008)",
+      "url": "https://library.e.abb.com/public/2c522f583c884a4fbdf3968e1fdf1481/1SDC007101G0202.pdf",
+      "publisher": "ABB",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-26",
+      "published_on": "2008-02",
+      "domains": [
+        "D05"
+      ],
+      "use": "Typical transformer short-circuit voltages of 4–8% by rating (Table 2, IEC 60076-5); generator subtransient reactances of 10–20% (smooth rotor) and 15–30% (salient pole); an 800 kVA, vk 5% transformer at 400 V has about 1,155 A rated current and about 23 kA three-phase secondary fault current with an infinitely strong upstream network.",
+      "caution": "Document 1SDC007101G0202. Section 2.1 (printed pages 11–12) and the Chapter 3 800 kVA example (printed page 24) read. Approximations; no installation fault level. The same file is served through search.abb.com.",
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P273",
+      "title": "OpenStax — College Physics 2e, 20.3 Resistance and Resistivity",
+      "url": "https://openstax.org/books/college-physics-2e/pages/20-3-resistance-and-resistivity",
+      "publisher": "OpenStax, Rice University",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-26",
+      "domains": [
+        "D03"
+      ],
+      "use": "R = ρL/A: a conductor's resistance is directly proportional to its length and resistivity and inversely proportional to its cross-sectional area.",
+      "caution": "Introductory textbook section; uniform conductor at constant temperature.",
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P274",
+      "title": "Schneider Electric — Easy UPS 3-Phase Modular specifications",
+      "url": "https://productinfo.se.com/easyups3pmodular/viewer?docidentity=REF_Specifications-B929255A&lang=en&extension=xml&manualidentity=TechnicalSpecificationsEasyUPS3-Pha-BC29F805",
+      "publisher": "Schneider Electric",
+      "kind": "equipment_manual",
+      "review_status": "page_reviewed",
+      "reviewed_on": "2026-09-26",
+      "domains": [
+        "D05"
+      ],
+      "use": "50 kW configuration: nominal output current 76, 73 and 70 A at 380, 400 and 415 V, and inverter output short-circuit current 160 A for 220 ms.",
+      "caution": "One product's specification table; other ratings in the family have their own values. Inverter short-circuit current is not the upstream network's fault level.",
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P275",
+      "title": "NIST — Guide to the SI (SP 811), Chapter 4: The Two Classes of SI Units and the SI Prefixes",
+      "url": "https://www.nist.gov/pml/special-publication-811/nist-guide-si-chapter-4-two-classes-si-units-and-si-prefixes",
+      "publisher": "National Institute of Standards and Technology",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "use": "Cited in course/PRIMER_EVIDENCE.md for the Chapter 1 primer. The table of derived SI units gives the watt as W = J/s.",
+      "caution": "Unit definitions only.",
+      "reviewed_on": "2026-09-26",
+      "domains": [
+        "D01"
+      ],
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P276",
+      "title": "Tektronix — Oscilloscope Basics",
+      "url": "https://www.tek.com/de/documents/primer/oscilloscope-basics",
+      "publisher": "Tektronix",
+      "kind": "manufacturer_documentation",
+      "review_status": "page_reviewed",
+      "use": "Cited in course/PRIMER_EVIDENCE.md for the Chapter 1 primer. Classifies common waveforms as sine, square and rectangular, sawtooth and triangle, and step and pulse shapes.",
+      "caution": "Instrument primer; the primer's voltage traces are original drawings.",
+      "reviewed_on": "2026-09-26",
+      "domains": [
+        "D01"
+      ],
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P277",
+      "title": "Eaton — Cabinet and floor-standing PDU solutions",
+      "url": "https://www.eaton.com/us/en-us/products/backup-power-ups-surge-it-power-distribution/power-distribution-for-it-equipment/power-distribution-unit-faq/cabinet---floor-standing-pdu-solutions.html",
+      "publisher": "Eaton",
+      "kind": "manufacturer_documentation",
+      "review_status": "public_excerpt_reviewed",
+      "use": "Cited in course/PRIMER_EVIDENCE.md for the Chapter 1 primer. Describes cabinet PDUs as large three-phase units used in large data centers, and three-phase power as the most efficient way to deliver large volumes of electricity.",
+      "caution": "Indexed public text reviewed; direct retrieval from eaton.com failed on 2026-09-26. No measured market share is implied.",
+      "reviewed_on": "2026-09-26",
+      "domains": [
+        "D01"
+      ],
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P278",
+      "title": "Rohde & Schwarz — AC-DC Converter Testing Fundamentals, application note 1SL387, version 2e, March 2023",
+      "url": "https://scdn.rohde-schwarz.com/ur/pws/dl_downloads/dl_application/application_notes/1sl387/1SL387_2e_TestingACDC_Converters.pdf",
+      "publisher": "Rohde & Schwarz",
+      "kind": "manufacturer_documentation",
+      "review_status": "page_reviewed",
+      "use": "Cited in course/PRIMER_EVIDENCE.md for the Chapter 1 primer. Sections 3.2.1 and 3.2.2 (pages 26–30) show output ripple on a DC rail and the output excursion after a sudden load change.",
+      "caution": "Test-method note; the primer's 12 V diagrams and ±10% controls are original teaching levels, not operating tolerances.",
+      "reviewed_on": "2026-09-26",
+      "published_on": "2023-03",
+      "domains": [
+        "D01"
+      ],
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P279",
+      "title": "Schneider Electric — What are voltage adjustment taps on transformers? (FAQ FA120846)",
+      "url": "https://www.se.com/us/en/faqs/FA120846/",
+      "publisher": "Schneider Electric",
+      "published_on": "2010-05-20",
+      "updated_on": "2026-08-14",
+      "kind": "manufacturer_documentation",
+      "review_status": "page_reviewed",
+      "use": "Cited in course/PRIMER_EVIDENCE.md for the Chapter 1 primer. Without taps, higher or lower input voltage gives proportionally higher or lower output voltage; moving a tap restores rated output when the supply differs from the rated primary voltage, for example 432 V on a 480 V primary.",
+      "caution": "Short FAQ; no transformer rating or tolerance is adopted.",
+      "reviewed_on": "2026-09-26",
+      "domains": [
+        "D01"
+      ],
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P280",
+      "title": "Introduction to Electrical Power Engineering — Power and Energy",
+      "url": "https://pb.ee.pw.edu.pl/pb/iepe/chapter/power-and-energy/",
+      "publisher": "Warsaw University of Technology (Baczyński, Robak, Połecki and Kosiński)",
+      "kind": "primary_reference",
+      "review_status": "page_reviewed",
+      "use": "Cited in course/PRIMER_EVIDENCE.md for the Chapter 1 primer. Adding the instantaneous powers of the three phases of a balanced sinusoidal system gives a constant total equal to three times the real power of one phase; single-phase power pulsates at twice the supply frequency.",
+      "caution": "Balanced sinusoidal case only. The https address currently presents a certificate for ee.pw.edu.pl, so browsers may warn; the http address serves the same page.",
+      "reviewed_on": "2026-09-26",
+      "domains": [
+        "D01"
+      ],
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P281",
+      "title": "Schneider Electric — Distortion, displacement and the truth! Understanding true power factor",
+      "url": "https://blog.se.com/energy-management-energy-efficiency/2020/02/20/distortion-displacement-and-the-truth-understanding-true-power-factor/",
+      "publisher": "Schneider Electric",
+      "published_on": "2020-02-20",
+      "kind": "technical_article",
+      "review_status": "page_reviewed",
+      "use": "Cited in course/PRIMER_EVIDENCE.md for the Chapter 1 primer. True power factor combines a displacement component, from phase shift between voltage and current, and a distortion component, from harmonic currents drawn by nonlinear loads.",
+      "caution": "Vendor blog; the primer's PF 1 and PF 0.8 examples are original.",
+      "reviewed_on": "2026-09-26",
+      "domains": [
+        "D01"
+      ],
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P282",
+      "title": "Eaton — Types of UPS systems",
+      "url": "https://www.eaton.com/us/en-us/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/types-of-ups-systems.html",
+      "publisher": "Eaton",
+      "kind": "manufacturer_documentation",
+      "review_status": "public_excerpt_reviewed",
+      "use": "Cited in course/PRIMER_EVIDENCE.md for the Chapter 1 primer. Compares standby, line-interactive and online double-conversion UPS paths: the first two switch to battery after detecting a failure, while double conversion runs through a rectifier and inverter and has zero transfer time to battery.",
+      "caution": "Indexed public text reviewed; direct retrieval from eaton.com failed on 2026-09-26. The primer's two-path comparison is simplified and does not cover bypass.",
+      "reviewed_on": "2026-09-26",
+      "domains": [
+        "D01"
+      ],
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P283",
+      "title": "Eaton — Powering healthcare systems",
+      "url": "https://www.eaton.com/us/en-us/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/Safeguarding-power-equipment-in-the-healthcare-industry.html",
+      "publisher": "Eaton",
+      "kind": "manufacturer_documentation",
+      "review_status": "public_excerpt_reviewed",
+      "use": "Cited in course/PRIMER_EVIDENCE.md for the Chapter 1 primer. Describes online double-conversion UPS protection for healthcare equipment, which isolates loads from raw utility power and has zero transfer time to battery.",
+      "caution": "Indexed public text reviewed; direct retrieval from eaton.com failed on 2026-09-26. Supports an example of sensitive medical systems, not a claim that every medical device uses this topology.",
+      "reviewed_on": "2026-09-26",
+      "domains": [
+        "D01"
+      ],
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
+    },
+    {
+      "id": "P284",
+      "title": "NVIDIA — GPUDirect Storage Overview Guide",
+      "url": "https://docs.nvidia.com/gpudirect-storage/overview-guide/",
+      "publisher": "NVIDIA",
+      "kind": "manufacturer_documentation",
+      "review_status": "page_reviewed",
+      "use": "Cited in course/PRIMER_EVIDENCE.md for the Chapter 1 primer. Distinguishes the conventional path, which copies storage data through a bounce buffer in host memory, from GPUDirect Storage's direct path between storage and GPU memory.",
+      "caution": "Guide version 1.19.1 read. No transfer rate or hardware arrangement is adopted.",
+      "reviewed_on": "2026-09-26",
+      "domains": [
+        "D01"
+      ],
+      "discovered_via": "Reader bibliography catalog pass, 2026-09-26."
     }
   ],
   "local_attributions": [

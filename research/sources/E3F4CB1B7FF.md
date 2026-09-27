@@ -6,12 +6,13 @@
 - **Kind:** primary_reference
 - **Review status:** page_reviewed
 - **Reviewed on:** 2026-09-06
+- **Published on:** 2024-07
 - **Domains:** [D01](../../course/DOMAIN_MAP.md#d01), [D04](../../course/DOMAIN_MAP.md#d04)
 - **Use:** Data-center accounting separates IT, electrical, and cooling systems.
 - **Caution:** Read the guide overview and relevant system/metrics material; no named facility configuration or operating measurement is inferred.
 - **Discovered via:** Expanded lesson primary-source review, 2026-09-06.
 
-Catalog metadata fingerprint: 1a79300e2e15f5b85528eff5ab72c77d6be6c1c057d3e9bec185080ef7f7d393
+Catalog metadata fingerprint: 2553160dfd1768ae5fe5a5692e7e41b0d33ed6f3a4aaa1131c9d6b6ec4eb0e2d
 <!-- gigawatt-research:managed:end -->
 
 ## Claim-level notes
