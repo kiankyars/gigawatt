@@ -10,13 +10,19 @@ const m = await import(
 );
 const close = (a, b, t = 1e-9) =>
   assert.ok(Math.abs(a - b) < t, `${a} != ${b}`);
-test("DC comparison uses the stated output and equal-resistance boundary", () => {
-  const v48 = m.dcModel(100, 48),
+test("DC comparison uses a 50 V rack-bus reference at equal resistance", () => {
+  const v50 = m.dcModel(100, 50),
     v800 = m.dcModel(100, 800);
-  close(v48.amps, 2083.3333333333335);
+  // d06-conversion-ledger: 100 kW draws 2,000 A at 50 V and 125 A at 800 V.
+  close(v50.amps, 2000);
   close(v800.amps, 125);
-  close(v800.lossRatio, 0.0036);
-  close(v800.amps * 800, v48.amps * 48);
+  close(v800.referenceAmps, 2000);
+  assert.equal(v800.referenceVolts, 50);
+  // 4 kW against 15.6 W at a fixed 1 milliohm round trip: (50 / 800)^2.
+  close(v800.lossRatio, 0.00390625);
+  close((v800.amps ** 2 * 0.001) / (v800.referenceAmps ** 2 * 0.001), v800.lossRatio);
+  close(v50.lossRatio, 1);
+  close(m.dcModel(100, 800, 48).referenceAmps, 2083.3333333333335);
 });
 test("Water flow and rejected heat close independent energy balances", () => {
   const x = m.thermalModel(100, 10, 20);
@@ -30,12 +36,6 @@ test("Network transfer distinguishes bits from bytes and achieved from nominal r
   close(x.GBps, 40);
   close(x.seconds, 2.5);
   close(m.transferModel(100, 800, 0.8).seconds, 1.25);
-});
-test("Roofline changes binding ceiling at the independently solved crossover", () => {
-  assert.equal(m.rooflineModel(50, 2, 500).binding, "memory bandwidth");
-  close(m.rooflineModel(50, 2, 500).ceiling, 100);
-  assert.equal(m.rooflineModel(250, 2, 500).binding, "both ceilings");
-  assert.equal(m.rooflineModel(300, 2, 500).binding, "compute");
 });
 test("Electrical ride-through cannot substitute for auxiliary support", () => {
   const x = m.continuityModel(600, 0.9, 2000, 2500, false);
@@ -75,7 +75,7 @@ test("Invalid and nonfinite inputs fail instead of producing plausible outputs",
     () => m.dcModel(100, 0),
     () => m.thermalModel(100, 0, 0),
     () => m.transferModel(10, 400, 1.1),
-    () => m.rooflineModel(NaN, 2, 500),
+    () => m.dcModel(100, 800, 0),
     () => m.continuityModel(100, 0, 100, 100, true),
     () => m.checkpointModel(30, 0, 10),
     () => m.capacityModel(100, 110, 60, 100, 900),
@@ -196,4 +196,41 @@ test("Energy ledgers reject invalid resistance, time and loss budgets", () => {
     () => m.deliveryPathModel(100, 3, 0.1, 0),
   ])
     assert.throws(fn, RangeError);
+});
+
+test("Slider labels show as many decimals as the step", () => {
+  assert.equal(m.stepDecimals(0.01), 2);
+  assert.equal(m.stepDecimals(0.005), 3);
+  assert.equal(m.stepDecimals(0.5), 1);
+  assert.equal(m.stepDecimals(1), 0);
+  assert.equal(m.stepDecimals(25), 0);
+  assert.equal(m.stepDecimals(1e-7), 7);
+  for (const bad of [0, -1, NaN]) assert.throws(() => m.stepDecimals(bad), RangeError);
+});
+test("Lesson lab_params set defaults and keep worked examples reachable", () => {
+  const controls = [
+    { id: "bandwidth", kind: "range", min: 1, max: 5, step: 0.5, value: 2 },
+    { id: "intensity", kind: "range", min: 10, max: 400, step: 10, value: 50 },
+    { id: "energy", kind: "range", min: 50, max: 500, step: 25, value: 250 },
+    { id: "weather", kind: "choice", options: [["mild", "Mild"], ["hot", "Hot"]], value: "hot" },
+    { id: "generators", kind: "choice", options: [[0, "None"], [2, "Two"]], value: 2 },
+  ];
+  const [bandwidth, intensity, energy, weather, generators] = m.labSettings(controls, {
+    bandwidth: 8,
+    intensity: 12.5,
+    energy: 30,
+    weather: "mild",
+    generators: 0,
+  });
+  assert.deepEqual([bandwidth.value, bandwidth.min, bandwidth.max, bandwidth.step], [8, 1, 8, 0.5]);
+  // 12.5 is off the 10-step grid, so the step refines to 0.1.
+  assert.deepEqual([intensity.value, intensity.min, intensity.max, intensity.step], [12.5, 10, 400, 0.1]);
+  assert.deepEqual([energy.value, energy.min, energy.step], [30, 30, 25]);
+  assert.equal(weather.value, "mild");
+  assert.equal(generators.value, 0);
+  // Unknown or malformed values fall back to the lab's own defaults.
+  const fallback = m.labSettings(controls, { bandwidth: "fast", weather: "stormy", generators: "2", extra: 1 });
+  assert.deepEqual(fallback.map((c) => c.value), [2, 50, 250, "hot", 2]);
+  assert.deepEqual(m.labSettings(controls).map((c) => c.value), [2, 50, 250, "hot", 2]);
+  assert.deepEqual(m.labSettings(controls, null).map((c) => c.value), [2, 50, 250, "hot", 2]);
 });

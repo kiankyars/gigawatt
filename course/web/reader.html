@@ -66,14 +66,37 @@
           <div class="eyebrow">RETURN TO THE REASONING</div>
           <h1 id="lookup-title">Look it up.<br />See how it connects.</h1>
           <p class="lede">
-            Search the lesson text or open a concept below. Definitions lead
-            back to the explanation, example and evidence.
+            Filter the glossary or open a concept below. Each definition leads
+            back to the lesson that explains it.
           </p>
+          <label class="search-label" for="glossary-filter">Filter the glossary</label>
+          <input
+            id="glossary-filter"
+            class="glossary-filter"
+            type="search"
+            placeholder="Try kVA, CDU, bandwidth…"
+            autocomplete="off"
+          />
           <div id="glossary"></div>
+        </section>
+        <section id="primer" hidden aria-labelledby="primer-title">
+          <div class="eyebrow">1.1 · PRIMER</div>
+          <h1 id="primer-title">Primer vocabulary</h1>
+          <p class="lede">
+            These are the terms Chapter 1 introduces, in the order it uses them.
+            Each entry gives a short definition and a link to the glossary entry
+            or lesson that goes further.
+          </p>
+          <nav id="primer-slides" aria-label="Presentation for the Primer"></nav>
+          <div id="primer-list"></div>
+          <footer class="lesson-footer primer-footer">
+            <span></span><button id="primer-next">Continue →</button>
+          </footer>
         </section>
         <article id="lesson" tabindex="-1">
           <div class="lesson-heading">
             <div class="eyebrow" id="eyebrow"></div>
+            <p id="optional-label" class="optional-label" hidden>Optional practice</p>
             <h1 id="title"></h1>
             <p class="lede" id="summary"></p>
             <nav id="chapter-slides" aria-label="Presentation for this chapter" hidden></nav>
@@ -92,8 +115,7 @@
             <p id="question"></p>
           </section>
           <div class="reading-layout">
-            <div id="prose"></div>
-            <aside class="lesson-aside">
+            <aside class="lesson-aside" aria-label="Takeaway and objectives">
               <div class="sticky-note">
                 <span class="eyebrow">KEEP YOUR BEARINGS</span>
                 <div id="locator"></div>
@@ -101,6 +123,7 @@
                 <div id="objective-tags"></div>
               </div>
             </aside>
+            <div id="prose"></div>
           </div>
           <section
             id="concept"
@@ -146,7 +169,7 @@
     <script id="expanded-data" type="application/json">
       __EXPANDED_COURSE__
     </script>
-    <script>
+    <script type="module">
       __READER_SCRIPT__;
     </script>
   </body>

@@ -3,13 +3,17 @@ function positive(value, name) {
     throw new RangeError(`${name} must be positive and finite`);
   return value;
 }
-export function dcModel(kw, volts) {
+// Current at fixed DC power, compared with a 50 V rack-bus reference at equal
+// conductor resistance.
+export function dcModel(kw, volts, referenceVolts = 50) {
   positive(kw, "Power");
   positive(volts, "Voltage");
+  positive(referenceVolts, "Reference voltage");
   return {
     amps: (kw * 1000) / volts,
-    referenceAmps: (kw * 1000) / 48,
-    lossRatio: (48 / volts) ** 2,
+    referenceVolts,
+    referenceAmps: (kw * 1000) / referenceVolts,
+    lossRatio: (referenceVolts / volts) ** 2,
   };
 }
 
@@ -97,22 +101,6 @@ export function transferModel(gigabytes, gbps, efficiency) {
     throw new RangeError("Efficiency must lie in (0, 1]");
   const GBps = (gbps / 8) * efficiency;
   return { GBps, seconds: gigabytes / GBps };
-}
-export function rooflineModel(intensity, bandwidthTBps, peakTFLOPS) {
-  positive(intensity, "Arithmetic intensity");
-  positive(bandwidthTBps, "Bandwidth");
-  positive(peakTFLOPS, "Peak compute");
-  const memoryCeiling = intensity * bandwidthTBps;
-  return {
-    memoryCeiling,
-    ceiling: Math.min(memoryCeiling, peakTFLOPS),
-    binding:
-      memoryCeiling < peakTFLOPS
-        ? "memory bandwidth"
-        : memoryCeiling > peakTFLOPS
-          ? "compute"
-          : "both ceilings",
-  };
 }
 export function continuityModel(
   kwh,
@@ -310,4 +298,42 @@ export function acdcDeliveryModel(
     },
     dcDownstreamKW,
   };
+}
+
+// Decimal places a slider label needs so each step shows, e.g. 0.01 -> 2.
+export function stepDecimals(step) {
+  const value = Number(step);
+  if (!Number.isFinite(value) || value <= 0)
+    throw new RangeError("Step must be positive and finite");
+  if (Number.isInteger(value)) return 0;
+  const [, fraction = "", exponent] =
+    /^\d*\.?(\d*)(?:e-(\d+))?$/.exec(String(value)) || [];
+  return exponent ? Number(exponent) + fraction.length : fraction.length;
+}
+
+// Resolve a lab's controls from a lesson's lab_params. A number outside a
+// slider's range widens the range, and an off-step number refines the step, so
+// a lesson's worked example is always reachable. Unknown values fall back.
+export function labSettings(controls, params = {}) {
+  const given = params && typeof params === "object" ? params : {};
+  return controls.map((control) => {
+    const wanted = given[control.id];
+    if (control.kind === "choice") {
+      const known = control.options.some(([value]) => value === wanted);
+      return { ...control, value: known ? wanted : control.value };
+    }
+    const value = Number.isFinite(wanted) ? wanted : control.value;
+    const min = Math.min(control.min, value);
+    const steps = (value - min) / control.step;
+    const onGrid = Math.abs(steps - Math.round(steps)) < 1e-9;
+    return {
+      ...control,
+      value,
+      min,
+      max: Math.max(control.max, value),
+      step: onGrid
+        ? control.step
+        : Math.min(control.step, 10 ** -stepDecimals(value)),
+    };
+  });
 }

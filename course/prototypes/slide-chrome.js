@@ -13,15 +13,23 @@ function installSlideChrome() {
     || document.querySelector('dialog#reading a[href*="index.html#"], dialog#reading a[href*="read.html#"]')
     || document.querySelector('dialog#reading a[href*="sample-reading.html"]');
   let reading = nav?.querySelector('a.reading-link, a[data-course-reading], a[href*="sample-reading.html"], a[href*="index.html"], a[href*="read.html"]');
-  if (!reading && nav) {
+  // Decks without their own reading link name a reader target here. The Primer
+  // has no lessons, so its reading is the reader's Primer vocabulary view.
+  // Published decks drop "-format", so both names map to the same target.
+  const deck = location.pathname.split('/').pop().replace(/(?:-format)?\.html$/, '');
+  const references = {
+    'case-studies': 'd12-hazards-and-site-evidence',
+    terminology: 'primer-vocabulary',
+    primer: 'primer-vocabulary',
+  };
+  // Without a target, a bare reader link would open an unrelated first lesson.
+  if (!reading && nav && (sourceLink || references[deck])) {
     reading = document.createElement('a');
     reading.dataset.courseReading = '';
     reading.textContent = 'Reading';
-    const fallback = new URL('../index.html', import.meta.url);
-    const deck = location.pathname.split('/').pop().replace(/(?:-format)?\.html$/, '');
-    const references = {'case-studies': 'd12-hazards-and-site-evidence'};
-    if (references[deck]) fallback.hash = references[deck];
-    reading.href = sourceLink?.href || fallback.href;
+    const target = new URL('../index.html', import.meta.url);
+    target.hash = references[deck] || '';
+    reading.href = sourceLink?.href || target.href;
     nav.prepend(reading);
   }
   if (reading) {
