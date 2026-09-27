@@ -2624,6 +2624,8 @@ Built-in browser against the staged site: the reader's chapter handoffs, labs,
 bibliography, glossary filter and phone layout; the homepage at 390 px (Reading
 link, 17 chapter links, no fallback download when WebGL works); every scene of
 all 17 decks with no broken or third-party image. The Playwright scripts now run
-in `.github/workflows/browser-checks.yml` on GitHub, not on this Mac; their
-first results arrive with the push. These checks do not establish author
-acceptance.
+in `.github/workflows/browser-checks.yml` on GitHub, not on this Mac. All ten
+pass on commit 9bc098d, after the Chapter 3 same-work energy slide's 390 px
+layout was fitted (desktop layout unchanged) and three stale wording checks in
+the workload and cooling scripts were matched to the recorded slides. These
+checks do not establish author acceptance.
