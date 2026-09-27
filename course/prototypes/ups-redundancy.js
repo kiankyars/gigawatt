@@ -367,7 +367,7 @@ export function renderRedundancy(model, { compact = false } = {}) {
     : `${n(model.availableCapacityKW)} kW available · ${n(model.loadKW)} kW required`;
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="${titleId} ${descId}" class="ur-svg" data-architecture="${model.kind}" data-supported="${model.canSupportLoad}">
     <title id="${titleId}">${esc(model.label)} UPS capacity and power paths</title>
-    <desc id="${descId}">${esc(capacityDescription)} Module failures are assumed isolated. Each PSU group is rated to carry the full load. Aggregate capacity assumes the PSU groups can share demand within each path capacity; this does not simulate their load-sharing controls. A and B AC outputs stay separate.</desc>
+    <desc id="${descId}">${esc(capacityDescription)} Module failures are assumed isolated.${model.dual ? " Each PSU group is rated to carry the full load. Aggregate capacity assumes the PSU groups can share demand within each path capacity; this does not simulate their load-sharing controls. A and B AC outputs stay separate." : ""}</desc>
     <defs><marker id="${marker}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="${colors.available}" stroke-width="2"/></marker></defs>
     <style>
       .ur-svg{width:100%;height:100%;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink, #193139)}

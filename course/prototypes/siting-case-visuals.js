@@ -8,11 +8,11 @@ const result=(markup,description)=>({markup,description});
 export const sitingImages=Object.freeze({
  configurations:'../assets/generated/power-configurations.png',
  shared:'../assets/generated/shared-grid.png',
- aerial:'https://www.oracle.com/cmsng/img/0cb07dd3d128f06e666f776839f78314.jpg',
- gas:'https://www.oracle.com/cmsng/img/02aee384550de51f446469fe8e200aec.jpg',
- turbine:'https://thinglink-data-prod.s3.eu-west-1.amazonaws.com/scene/1814018245611487718/7e60a467e2481d4d92a28c9aeb08f043/image.jpg',
- combined:'https://assets.siemens-energy.com/dam/8ba91ba1-10b1-4e51-8254-b25b015e547f/CombinedCyclePrinciple__Complex-jpg_Original%20file.jpg',
- dispatch:'https://assets.siemens-energy.com/dam/fda3bd2f-e5ab-48e4-ad5b-b2c800bd8224/peaker-plant-load-diagram-3-png_Original%20file.png',
+ aerial:'../assets/references/distribution-abilene-data-halls.jpg',
+ gas:'../assets/references/finale-abilene-turbine-2026.jpg',
+ turbine:'../assets/references/siting-ge-vernova-gas-turbine-cutaway.jpg',
+ combined:'../assets/references/siting-siemens-energy-combined-cycle.jpg',
+ dispatch:'../assets/references/siting-siemens-energy-peaker-dispatch.png',
 });
 const oracle='https://www.oracle.com/data-centers/';
 const siemens='https://www.siemens-energy.com/global/en/home/products-services/product/combined-cycle-power-plants.html';

@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "asset": "course/assets/references/siting-ge-vernova-dania-beach.webp",
+  "publisher": "GE Vernova",
+  "source_id": "EA6791A38DA",
+  "page_url": "https://www.gevernova.com/gas-power/resources/case-studies/first-7ha-florida-power-light",
+  "original_url": "https://www.gevernova.com/content/dam/gepower-new/global/en_US/images/gas-new-site/resources/case-studies/first-7ha-florida-power-light/first-7ha-florida-power-light-hero.png",
+  "retrieved_on": "2026-09-26",
+  "credit": "GE Vernova · Dania Beach, Florida",
+  "used_by": [
+    "course/prototypes/siting-generation.js"
+  ],
+  "slide": "Chapter 4, Siting, grid connection and supply: Dania Beach combined-cycle slide",
+  "format": "WebP",
+  "dimensions": [
+    1920,
+    1080
+  ],
+  "content_type_served": "image/webp",
+  "server_last_modified": "Mon, 06 Oct 2025 15:10:22 GMT",
+  "bytes": 760424,
+  "sha256": "20969172e27863a5ae32b8407455af64dd9ec18338530a96418e1e01004f83f3",
+  "modifications": "None. Exact bytes returned by the original URL, saved unchanged. The slide previously loaded this URL directly; it now loads this local copy, so the displayed image is the same.",
+  "notes": [
+    "The URL ends in .png, but the server returns WebP bytes whether or not the request advertises WebP support. The local copy keeps those bytes and uses the .webp extension."
+  ],
+  "rights": "Copyrighted publisher image reused unchanged for attributed teaching commentary. No open license asserted; the course license does not extend to this file.",
+  "visual_verification": "Viewed on 2026-09-26: the Dania Beach plant under a cloudy sky, with stacks, transformers and a paved access road, matching the slide."
+}

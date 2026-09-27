@@ -37,14 +37,14 @@ const greenCase = {
   source_ids:['P153','P154']
 };
 const reviewFigures = [
-  {id:'rack-density-roadmap',label:'Rack power keeps rising',title:'Rack power keeps rising',reference:ledger,kind:'review-figure',pedagogical_role:'motivation',
+  {id:'rack-density-roadmap',label:'Rack power keeps rising',title:'Rack power keeps rising',reference:'d06-eight-hundred-volt-architectures',kind:'review-figure',pedagogical_role:'motivation',
     asset:'rack-density-roadmap.png',
     alt:'BofA Global Research forecast of rack power capacity, from a traditional 10–15 kW server rack toward more than 1.5 MW in the Feynman era. The supplied chart includes NVIDIA platform names, roadmap dates and an estimates attribution.',
     explanation:['This user-supplied BofA Global Research forecast motivates the physical power-delivery challenge before the chapter opens the rack. It forecasts rack capacity; it does not measure operating draw at Abilene. Keep the chart’s original estimate language and roadmap dates attached to the figure.','NVIDIA’s May 2025 technical article independently describes the transition from 54 V rack distribution toward 800 V DC for MW-scale racks. It supports the architectural motivation, not every product date or bar in this analyst chart.'],
     boundary:'Supplied BofA roadmap forecast; original report publication date not provided.',source_ids:['P05']},
   {id:'power-stack-overview',label:'The power stack, from grid to chip',title:'The power stack, from grid to chip',reference:ledger,kind:'review-figure',pedagogical_role:'recap',
     asset:'power-stack-teaching-contrast.png',
-    alt:'Data Gravity / Wing, May 2026 industry map: grid and substation infrastructure; data-center power distribution and UPS; rack-level power supplies; SiC and GaN power semiconductors; point-of-load and chip-level voltage regulation; ending at the NVIDIA GPU die.',
+    alt:'Data Gravity / Wing, May 2026 industry map: grid and substation infrastructure; data-center power distribution and UPS; rack-level power supplies; silicon carbide (SiC) and gallium nitride (GaN) power semiconductors; point-of-load and chip-level voltage regulation; ending at the NVIDIA GPU die.',
     explanation:['The industry map closes Chapter 9 by joining the grid, building, rack and chip perspectives after the 800 V distribution and conversion examples. Follow the functions from the top to the GPU die.','An integrated voltage regulator (IVR) can replace a conventional board-mounted VRM by performing final regulation on the processor die or within its package. It typically still needs an upstream converter: the IVR replaces the final regulation stage, not the entire power-conversion chain. Intel documents compute-die FIVRs supplied by a platform VCCIN regulator. This is an architecture option, not a claim that the pictured NVIDIA GPU uses an IVR.','Power semiconductors are technologies inside power converters, not necessarily a separate serial conversion stage. The chart’s companies, highlights and market metrics remain the source’s dated industry overview, not measured plant performance or a bill of materials for this course. The teaching image omits the unsupported highest-ASP-per-server claim.'],
     boundary:'User-supplied industry map, labeled Data Gravity / Wing · May 2026.',source_ids:['P226']}
 ];

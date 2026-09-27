@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "asset": "course/assets/references/workload-choukse-2025-fig1.svg",
+  "publisher": "arXiv (Choukse et al., Microsoft, OpenAI and NVIDIA)",
+  "source_id": "P97",
+  "page_url": "https://arxiv.org/html/2508.14318v1",
+  "original_url": "https://arxiv.org/html/2508.14318v1/Fig1.svg",
+  "retrieved_on": "2026-09-26",
+  "credit": "Choukse et al. (2025), Fig. 1 · Microsoft / OpenAI / NVIDIA",
+  "used_by": [
+    "course/prototypes/workload-visuals.js"
+  ],
+  "slide": "Chapter 3, Workloads and requirements: training-power evidence slide",
+  "format": "SVG",
+  "content_type_served": "image/svg+xml",
+  "server_last_modified": "Tue, 11 Aug 2026 20:45:23 GMT",
+  "bytes": 109608,
+  "sha256": "bbe0d69f731e850dbe5a7879d3e89f40a58464c5666d3482044b3e7cdfa8ce45",
+  "modifications": "None. Exact bytes returned by the original URL, saved unchanged. The slide previously loaded this URL directly; it now loads this local copy, so the displayed image is the same.",
+  "notes": [
+    "Self-contained vector SVG: glyphs are embedded as paths and the file has no scripts or external references."
+  ],
+  "rights": "arXiv lists the paper under CC BY-NC-SA 4.0 (https://creativecommons.org/licenses/by-nc-sa/4.0/), checked 2026-09-26 on https://arxiv.org/abs/2508.14318v1. The figure is reproduced unchanged with attribution.",
+  "visual_verification": "Checked on 2026-09-26: 1080 × 360 pt vector chart of normalized power over time, the paper’s Figure 1.",
+  "intrinsic_size": "1080pt × 360pt (viewBox 0 0 1080 360)"
+}

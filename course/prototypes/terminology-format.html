@@ -338,6 +338,7 @@ function draw(){
 }
 function render(){
  const s=scenes[index];
+ $('viewer').dataset.scene=s.id;
  $('title').textContent=s.title;document.title=`${presentationLabels.primer} · ${s.label} · From Watts to Tokens`;
  $('scenes').value=String(index);$('progress').textContent=`${index+1} / ${scenes.length}`;
  $('previous').disabled=index===0;$('next').disabled=index===scenes.length-1;

@@ -287,7 +287,7 @@ function floorPlan(state, compact, spaces) {
 
 function dataHallPhoto(compact) {
   const source =
-    "https://www.gstatic.com/marketing-cms/assets/images/19/43/b476c0984f2da3b2faa1a7f588ce/server-aisles-in-our-new-albany-data-center-building-in-central-ohio.jpg=n-w1086-h814-fcrop64=1,0000202fffffdfea-rw";
+    "../assets/references/overview-google-new-albany-aisles.webp";
   const photo = compact
     ? { x: 14, y: 15, w: 362, h: 204 }
     : { x: 20, y: 12, w: 1120, h: 530 };
@@ -323,7 +323,7 @@ function dataHallPhoto(compact) {
 function rackBoundary(state, compact) {
   if (state.rackView === "rear") return rackRear(compact);
   const source =
-    "https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/_images/nvl72-ai-factory-01.png";
+    "../assets/references/overview-nvidia-nvl72-rack-front.png";
   let out = defs();
   const photo = compact
     ? { x: 80, y: 12, w: 230, h: 292 }
@@ -400,7 +400,7 @@ function rackBoundary(state, compact) {
 
 function rackRear(compact) {
   const source =
-    "https://docs.nvidia.com/dgx/dgxgb200-user-guide/_images/hardware-rack-rear-gb300.png";
+    "../assets/references/nvidia-dgx-gb300-rear.png";
   let out = defs();
   if (compact) {
     // Enlarge the rear cabinet from NVIDIA's annotated exploded view. The

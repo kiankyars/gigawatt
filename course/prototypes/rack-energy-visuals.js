@@ -16,7 +16,7 @@ export function rackVisual(scene,state,compact) {
   const updated=buffer || ({'rack-power-path':()=>renderCorePath(),'board-rails':()=>renderConversionChoices(),multiphase:()=>renderVRMPhases(state,compact)}[scene.id]?.());
   if(updated)return {markup:updated,description:scene.explanation.join(' ')};
   const result=renderRackPower(scene.id,state,compact);
-  const rackMarkup=result.markup.replace('https://docs.nvidia.com/dgx/dgxgb200-user-guide/_images/hardware-rack-rear-gb300.png','../assets/references/nvidia-dgx-gb300-rear.png');
+  const rackMarkup=result.markup;
   const svg=`<svg class="rack-diagram" viewBox="${compact?'0 0 390 680':'0 0 1200 560'}" role="img" aria-labelledby="rack-title rack-description"><title id="rack-title">${escapeHTML(scene.title)}</title><desc id="rack-description">${escapeHTML(result.description)}</desc>${rackMarkup}</svg>`;
   return {markup:svg,description:result.description};
 }

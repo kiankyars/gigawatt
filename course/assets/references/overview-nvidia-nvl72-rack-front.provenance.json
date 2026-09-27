@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "asset": "course/assets/references/overview-nvidia-nvl72-rack-front.png",
+  "publisher": "NVIDIA",
+  "source_id": "P17",
+  "page_url": "https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/components.html",
+  "original_url": "https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/_images/nvl72-ai-factory-01.png",
+  "retrieved_on": "2026-09-26",
+  "credit": "GB300 NVL72 · Image: NVIDIA",
+  "used_by": [
+    "course/prototypes/orientation-spatial.js"
+  ],
+  "slide": "Chapter 2, Data center overview: rack boundary, front view (rackBoundary)",
+  "format": "PNG",
+  "dimensions": [
+    748,
+    949
+  ],
+  "content_type_served": "image/png",
+  "server_last_modified": "Tue, 15 Sep 2026 15:39:02 GMT",
+  "bytes": 288872,
+  "sha256": "71abfd1e7ac5acb61b7d36b87bffc6986591fdede9125fd7770f2e0edc30b0ee",
+  "modifications": "None. Exact bytes returned by the original URL, saved unchanged. The slide previously loaded this URL directly; it now loads this local copy, so the displayed image is the same.",
+  "notes": [
+    "The source page lives under a mutable /latest/ path; the server reported this file as last modified on the date below."
+  ],
+  "rights": "Copyrighted publisher image reused unchanged for attributed teaching commentary. No open license asserted; the course license does not extend to this file.",
+  "visual_verification": "Viewed on 2026-09-26: annotated rack front with boxes for two top-of-rack switches, 4 + 4 power shelves, 10 + 8 compute trays and 9 NVLink switch trays, matching the slide."
+}

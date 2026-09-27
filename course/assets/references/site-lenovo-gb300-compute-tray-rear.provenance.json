@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "asset": "course/assets/references/site-lenovo-gb300-compute-tray-rear.png",
+  "publisher": "Lenovo Press",
+  "source_id": "P111",
+  "page_url": "https://lenovopress.lenovo.com/lp2357-lenovo-nvidia-gb300-nvl72-rack-scale-ai",
+  "original_url": "https://lenovopress.lenovo.com/assets/images/LP2357/Lenovo%20NVIDIA%20GB300%20Compute%20rear%20view.png",
+  "retrieved_on": "2026-09-26",
+  "credit": "Lenovo",
+  "used_by": [
+    "course/prototypes/site-context-visuals.js",
+    "course/prototypes/site-format.html"
+  ],
+  "slide": "Chapter 5, Physical site, buildings and safety: GB300 rack and compute-tray product photographs",
+  "format": "PNG",
+  "dimensions": [
+    1273,
+    417
+  ],
+  "content_type_served": "image/png",
+  "server_last_modified": "Thu, 05 Mar 2026 21:35:16 GMT",
+  "bytes": 196426,
+  "sha256": "1ba5bbc145b96effce7dff99ad5abc2ddc0d82f7b20e1656d598159b9a517dfb",
+  "modifications": "None. Exact bytes returned by the original URL, saved unchanged. The slide previously loaded this URL directly; it now loads this local copy, so the displayed image is the same.",
+  "rights": "Copyrighted publisher image reused unchanged for attributed teaching commentary. No open license asserted; the course license does not extend to this file.",
+  "visual_verification": "Viewed on 2026-09-26: rear of a compute tray with the water outlet and inlet quick disconnects and the central busbar clip labelled, matching the slide."
+}

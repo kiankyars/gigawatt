@@ -26,7 +26,6 @@ export const sceneAliases=Object.freeze({
  'schedule-case-brief':'factory-and-site',
  'critical-path':'factory-and-site',
  'delivery-paths':'factory-and-site',
- 'service-requirements':'factory-acceptance',
  'parallel-schedules':'factory-and-site',
  'manufacturing-release':'interface-owner',
  'module-transport':'factory-and-site',
@@ -36,6 +35,18 @@ export const sceneAliases=Object.freeze({
  'handover-records':'phase-boundary',
  'release-decision':'phase-boundary',
 });
+// Retired bookmarks whose material now lives in another chapter's deck: [page, scene].
+// The player follows these before it consults sceneAliases.
+export const sceneRedirects=Object.freeze({
+ 'hardware-prices-meme':['capacity-format.html','hardware-prices-meme'],
+ 'controls-interface':['cooling-format.html','cooling-response'],
+ 'integrated-tests':['cooling-format.html','cooling-response'],
+ 'service-requirements':['cooling-format.html','cooling-response'],
+});
+export function procurementRedirect(hash,search=''){
+ const target=Object.hasOwn(sceneRedirects,hash)?sceneRedirects[hash]:null;
+ return target?`./${target[0]}${search}#${target[1]}`:null;
+}
 export function resolveProcurementScene(hash){
  const id=sceneAliases[hash]||hash;
  const index=scenes.findIndex(scene=>scene.id===id);

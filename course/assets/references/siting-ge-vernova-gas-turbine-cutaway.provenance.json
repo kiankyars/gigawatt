@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "asset": "course/assets/references/siting-ge-vernova-gas-turbine-cutaway.jpg",
+  "publisher": "GE Vernova",
+  "source_id": "P108",
+  "page_url": "https://www.gevernova.com/gas-power/resources/education/what-is-a-gas-turbine",
+  "original_url": "https://thinglink-data-prod.s3.eu-west-1.amazonaws.com/scene/1814018245611487718/7e60a467e2481d4d92a28c9aeb08f043/image.jpg",
+  "retrieved_on": "2026-09-26",
+  "credit": "GE Vernova · gas turbine and generator cutaway",
+  "used_by": [
+    "course/prototypes/siting-case-visuals.js"
+  ],
+  "slide": "Chapter 4, Siting, grid connection and supply: gas-turbine shaft and generation-options slides (sitingImages.turbine)",
+  "format": "JPEG",
+  "dimensions": [
+    1200,
+    532
+  ],
+  "content_type_served": "image/jpeg",
+  "server_last_modified": "Fri, 16 Feb 2024 12:56:27 GMT",
+  "bytes": 107017,
+  "sha256": "a13b5d513eedffd9ff629d544319f4e21045232102a916a9ee60ac0d7bbacc35",
+  "modifications": "None. Exact bytes returned by the original URL, saved unchanged. The slide previously loaded this URL directly; it now loads this local copy, so the displayed image is the same.",
+  "notes": [
+    "GE Vernova’s explainer page embeds this cutaway through a ThingLink scene; the original URL is that scene’s image file."
+  ],
+  "rights": "Copyrighted publisher image reused unchanged for attributed teaching commentary. No open license asserted; the course license does not extend to this file.",
+  "visual_verification": "Viewed on 2026-09-26: unlabelled cutaway of a gas turbine coupled to a generator on a dark grid background; the slide adds its own compressor, combustor, turbine and generator labels."
+}

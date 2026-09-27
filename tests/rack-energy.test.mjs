@@ -218,3 +218,21 @@ test('interleaved switching preserves rail current while reducing triangular rip
   assert.match(html,/Staggered · 4 A swing/);
   assert.match(html,/Same 40 A average/);
 });
+
+test('Reading links open the lesson that holds each review figure',()=>{
+  const lesson=id=>readFileSync(new URL(`../course/lessons/${id}.md`,import.meta.url),'utf8');
+  for(const scene of scenes)assert.ok(existsSync(new URL(`../course/lessons/${scene.reference}.md`,import.meta.url)),`${scene.id}: ${scene.reference}`);
+  const roadmap=rackScenes.find(scene=>scene.id==='rack-density-roadmap');
+  assert.match(lesson(roadmap.reference),/BofA Global Research/,'the rack-density forecast context');
+  const battery=dcScenes.find(scene=>scene.id==='dc-battery-rack');
+  assert.match(lesson(battery.reference),/semianalysis-800vdc-architecture\.jpeg/,'the SemiAnalysis battery-rack figure');
+});
+
+test('rack photographs load from local copies and the power-stack description expands its acronyms',()=>{
+  for(const scene of scenes.filter(scene=>scene.kind==='rack'))for(const compact of [false,true]){
+    const html=rackVisual(scene,initialState,compact).markup;
+    assert.doesNotMatch(html,/<(?:image|img)\b[^>]*\b(?:href|src)="https?:/,`${scene.id}: remote image`);
+  }
+  const stack=dcScenes.find(scene=>scene.id==='power-stack-overview');
+  assert.match(stack.alt,/silicon carbide \(SiC\) and gallium nitride \(GaN\) power semiconductors/);
+});

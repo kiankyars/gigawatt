@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,existsSync} from 'node:fs';
-import {scenes,sceneAliases} from '../course/prototypes/grid-queues-scenes.js';
+import {scenes,sceneAliases,learningContract} from '../course/prototypes/grid-queues-scenes.js';
 import {gridQueuesVisual} from '../course/prototypes/grid-queues-visuals.js';
 import {projectOptions,securityFaceAmount,stagedLoad,dominionSnapshot,ercotSnapshot,ercotGroups} from '../course/prototypes/grid-queues-model.js';
 import {parseSpeakerNotes} from '../course/prototypes/presenter-notes.js';
@@ -62,4 +62,9 @@ test('retired slide anchors resolve to current slides',()=>{
  for(const [old,current] of Object.entries(sceneAliases)){
   assert.ok(scenes.some(s=>s.id===current),current);assert.ok(!scenes.some(s=>s.id===old),old);
  }
+});
+test('the deck asks the same driving question as its lesson and title slide',()=>{
+ const lesson=JSON.parse(readFileSync(new URL('../course/expansion/grid-queues.json',import.meta.url),'utf8')).find(l=>l.id==='d03-interconnection-queues');
+ assert.equal(learningContract.driving_question,lesson.question);
+ assert.match(scenes[0].title,/actually buy\?$/);
 });

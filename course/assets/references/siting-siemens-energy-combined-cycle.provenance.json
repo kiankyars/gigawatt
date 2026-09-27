@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "asset": "course/assets/references/siting-siemens-energy-combined-cycle.jpg",
+  "publisher": "Siemens Energy",
+  "source_id": "P106",
+  "page_url": "https://www.siemens-energy.com/global/en/home/products-services/product/combined-cycle-power-plants.html",
+  "original_url": "https://assets.siemens-energy.com/dam/8ba91ba1-10b1-4e51-8254-b25b015e547f/CombinedCyclePrinciple__Complex-jpg_Original%20file.jpg",
+  "retrieved_on": "2026-09-26",
+  "credit": "Siemens Energy · combined-cycle principle",
+  "used_by": [
+    "course/prototypes/siting-case-visuals.js"
+  ],
+  "slide": "Chapter 4, Siting, grid connection and supply: combined-cycle and generation-options slides (sitingImages.combined)",
+  "format": "JPEG",
+  "dimensions": [
+    3000,
+    1688
+  ],
+  "content_type_served": "image/jpeg",
+  "bytes": 577975,
+  "sha256": "83bcd2ff0edb6b87ab8b051e2802c18cbd64a9e0a1a292eac4c5b9208596988b",
+  "modifications": "None. Exact bytes returned by the original URL, saved unchanged. The slide previously loaded this URL directly; it now loads this local copy, so the displayed image is the same.",
+  "notes": [
+    "The diagram’s “up to 64%” efficiency label is the manufacturer’s figure, not a universal plant efficiency (research source P106)."
+  ],
+  "rights": "Copyrighted publisher image reused unchanged for attributed teaching commentary. No open license asserted; the course license does not extend to this file.",
+  "visual_verification": "Viewed on 2026-09-26: gas turbine and steam turbine generators, heat recovery, condenser and grid connection, with the 64% label."
+}

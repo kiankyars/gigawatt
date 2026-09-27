@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "asset": "course/assets/references/overview-google-tpu-v4-racks.png",
+  "publisher": "Google Cloud",
+  "source_id": "P91",
+  "page_url": "https://cloud.google.com/blog/topics/systems/tpu-v4-enables-performance-energy-and-co2e-efficiency-gains",
+  "original_url": "https://storage.googleapis.com/gweb-cloudblog-publish/images/1_Cloud_TPU_v4.max-1100x1100.jpg",
+  "retrieved_on": "2026-09-26",
+  "credit": "Google · one eighth of a TPU v4 pod",
+  "used_by": [
+    "course/prototypes/orientation-tpu.js"
+  ],
+  "slide": "Chapter 2, Data center overview: TPU v4 preview (renderTpuPreview)",
+  "format": "PNG",
+  "dimensions": [
+    1100,
+    313
+  ],
+  "content_type_served": "image/jpeg",
+  "server_last_modified": "Tue, 04 Apr 2023 22:05:57 GMT",
+  "bytes": 764160,
+  "sha256": "66ddbf100a8167fc17679fbde5fb4f33f9a71086092d90d35776fc3aa422be02",
+  "modifications": "None. Exact bytes returned by the original URL, saved unchanged. The slide previously loaded this URL directly; it now loads this local copy, so the displayed image is the same.",
+  "notes": [
+    "The server labels the response image/jpeg, but the bytes are a PNG file. The local copy keeps the bytes unchanged and uses the .png extension that matches its actual format."
+  ],
+  "rights": "Copyrighted publisher image reused unchanged for attributed teaching commentary. No open license asserted; the course license does not extend to this file.",
+  "visual_verification": "Viewed on 2026-09-26: eight racks in a row with yellow cabling, the photograph the slide identifies as one eighth of a TPU v4 pod."
+}

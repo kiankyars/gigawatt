@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "asset": "course/assets/references/siting-siemens-energy-peaker-dispatch.png",
+  "publisher": "Siemens Energy",
+  "source_id": "P107",
+  "page_url": "https://www.siemens-energy.com/global/en/home/products-services/product/peaker-plants.html",
+  "original_url": "https://assets.siemens-energy.com/dam/fda3bd2f-e5ab-48e4-ad5b-b2c800bd8224/peaker-plant-load-diagram-3-png_Original%20file.png",
+  "retrieved_on": "2026-09-26",
+  "credit": "Siemens Energy · generation dispatch",
+  "used_by": [
+    "course/prototypes/siting-case-visuals.js"
+  ],
+  "slide": "Chapter 4, Siting, grid connection and supply: grid-dispatch slide (sitingImages.dispatch)",
+  "format": "PNG",
+  "dimensions": [
+    5000,
+    2813
+  ],
+  "content_type_served": "image/png",
+  "bytes": 274013,
+  "sha256": "92e1a21e173e6404ec30872e0d706bf4acf4f51ef347479210d676e1e29d7f0d",
+  "modifications": "None. Exact bytes returned by the original URL, saved unchanged. The slide previously loaded this URL directly; it now loads this local copy, so the displayed image is the same.",
+  "notes": [
+    "The renderer places this 5000 × 2813 file in a 2048 × 1152 coordinate box; both have the same aspect ratio, so the crops are unchanged.",
+    "The load profile is conceptual, not measured grid data (research source P107)."
+  ],
+  "rights": "Copyrighted publisher image reused unchanged for attributed teaching commentary. No open license asserted; the course license does not extend to this file.",
+  "visual_verification": "Viewed on 2026-09-26: two weekly capacity charts, a conventional fossil system and a system with high wind and solar penetration, matching the slide."
+}

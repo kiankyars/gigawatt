@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
 import {deliverySchedule,modularSchedule,rackInterfaces,releaseHolds,acceptedPaths,commissionedService} from '../course/prototypes/procurement-model.js';
-import {scenes,sceneAliases,initialState,resolveProcurementScene} from '../course/prototypes/procurement-cases-scenes.js';
+import {scenes,sceneAliases,sceneRedirects,initialState,resolveProcurementScene,procurementRedirect} from '../course/prototypes/procurement-cases-scenes.js';
 import {procurementVisual} from '../course/prototypes/procurement-visuals.js';
 
 const near=(actual,expected,message)=>assert.ok(Math.abs(actual-expected)<1e-9,message||`${actual} ≈ ${expected}`);
@@ -168,6 +168,12 @@ test('procurement navigation resolves current scenes',()=>{
  assert.equal(resolveProcurementScene('unknown'),0);
  for(const [oldId,currentId]of Object.entries(sceneAliases))assert.equal(scenes[resolveProcurementScene(oldId)].id,currentId);
  for(const id of['aws-houdini-prefab','compass-package'])assert.equal(scenes[resolveProcurementScene(id)].id,id);
+ for(const id of Object.keys(sceneRedirects)){
+  assert.ok(!Object.hasOwn(sceneAliases,id),`${id} leaves this chapter, so no local alias may claim it`);
+  assert.ok(!scenes.some(scene=>scene.id===id),`${id} is not an active procurement slide`);
+ }
+ assert.equal(procurementRedirect('factory-acceptance'),null);
+ assert.equal(procurementRedirect('constructor'),null);
 });
 
 test('electrical and hydraulic comparisons keep both rack duties visible without a rack-duty toggle',()=>{
@@ -203,7 +209,7 @@ function playerAt(hash){
  const document={getElementById:id=>elements.get(id)||inline.find(button=>button.getAttribute('id')===id),createElement:()=>new Element(),querySelector:()=>null,querySelectorAll:selector=>{const attr=selector.slice(1,-1);return inline.filter(element=>element.getAttribute(attr)!==undefined);},addEventListener(){}};
  const window={addEventListener:(name,fn)=>{listeners[name]=fn;},scrollTo(){}};
  const source=fs.readFileSync(new URL('../course/prototypes/procurement-cases-player.js',import.meta.url),'utf8').replace(/^import .*;\n/gm,'');
- vm.runInNewContext(source,{document,window,location,history:{replaceState(_state,_title,hash){location.hash=hash;}},URLSearchParams,Option:class{constructor(label,value){this.label=label;this.value=value;}},scenes,initialState,resolveProcurementScene,procurementVisual,presentationLabels:{'procurement-cases':'13. EPC'}});
+ vm.runInNewContext(source,{document,window,location,history:{replaceState(_state,_title,hash){location.hash=hash;}},URLSearchParams,Option:class{constructor(label,value){this.label=label;this.value=value;}},scenes,initialState,resolveProcurementScene,procurementRedirect,procurementVisual,presentationLabels:{'procurement-cases':'13. EPC'}});
  return {elements,document,location,go(id){location.hash=`#${id}`;listeners.hashchange();},click(key,value){const button=buttons().find(button=>button.dataset.choice===key&&String(button.dataset.value)===String(value));assert.ok(button,`${key}=${value}`);button.onclick();}};
 }
 
@@ -218,6 +224,12 @@ test('actual player preserves the selected cooling extent across chapter navigat
  player.go('site-checks');assert.equal(player.elements.get('scene').dataset.scene,'factory-acceptance');
  player.go('release-decision');assert.equal(player.elements.get('scene').dataset.scene,'phase-boundary');
  player.go('handover-records');assert.equal(player.elements.get('scene').dataset.scene,'phase-boundary');
+});
+
+test('the retired hardware-prices bookmark redirects to the capacity chapter',()=>{
+ const player=playerAt('#hardware-prices-meme');
+ assert.equal(player.location.redirect,'./capacity-format.html?teach=1#hardware-prices-meme');
+ assert.equal(player.elements.get('visual').innerHTML,undefined);
 });
 
 test('old cooling-failure bookmarks redirect to the combined cooling lesson',()=>{

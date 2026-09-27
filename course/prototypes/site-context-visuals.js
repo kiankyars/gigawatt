@@ -1,10 +1,10 @@
 const aerial = "../assets/references/colossus-1-aerial.jpg";
 const abilene =
-  "https://www.oracle.com/cmsng/img/0cb07dd3d128f06e666f776839f78314.jpg";
+  "../assets/references/distribution-abilene-data-halls.jpg";
 const rack =
-  "https://lenovopress.lenovo.com/assets/images/LP2357/Lenovo_GB300_NVL72_Rack_left_front_v3.jpg";
+  "../assets/references/lenovo-gb300-rack-front.jpg";
 const tray =
-  "https://lenovopress.lenovo.com/assets/images/LP2357/Lenovo%20NVIDIA%20GB300%20Compute%20rear%20view.png";
+  "../assets/references/site-lenovo-gb300-compute-tray-rear.png";
 const result = (markup, description) => ({
   markup,
   description,

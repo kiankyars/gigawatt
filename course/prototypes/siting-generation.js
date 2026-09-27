@@ -24,7 +24,7 @@ const t=(x,y,v,z=24,c=C.ink,a='start')=>`<text x="${x}" y="${y}" font-size="${z}
 const line=(x,y,xx,yy,c=C.line,w=2,dash='')=>`<path d="M${x} ${y}L${xx} ${yy}" fill="none" stroke="${c}" stroke-width="${w}" stroke-dasharray="${dash}"/>`;
 const img=(src,x,y,w,h)=>`<image href="${src}" x="${x}" y="${y}" width="${w}" height="${h}" preserveAspectRatio="xMidYMid meet"/>`;
 const result=(markup,description)=>({markup,description});
-const daniaPhoto='https://www.gevernova.com/content/dam/gepower-new/global/en_US/images/gas-new-site/resources/case-studies/first-7ha-florida-power-light/first-7ha-florida-power-light-hero.png';
+const daniaPhoto='../assets/references/siting-ge-vernova-dania-beach.webp';
 function dania(m){
  const x=m?24:754;
  let o=img(daniaPhoto,m?8:12,8,m?374:715,m?232:447)

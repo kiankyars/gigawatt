@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "asset": "course/assets/references/overview-google-new-albany-aisles.webp",
+  "publisher": "Google",
+  "page_url": "https://www.datacenters.google/discover-more/photo-gallery/",
+  "original_url": "https://www.gstatic.com/marketing-cms/assets/images/19/43/b476c0984f2da3b2faa1a7f588ce/server-aisles-in-our-new-albany-data-center-building-in-central-ohio.jpg=n-w1086-h814-fcrop64=1,0000202fffffdfea-rw",
+  "retrieved_on": "2026-09-26",
+  "credit": "Photograph: Google",
+  "used_by": [
+    "course/prototypes/orientation-spatial.js"
+  ],
+  "slide": "Chapter 2, Data center overview: white-space photograph (dataHallPhoto)",
+  "format": "WebP",
+  "dimensions": [
+    1086,
+    609
+  ],
+  "content_type_served": "image/webp",
+  "server_last_modified": "Tue, 01 Jul 2025 22:55:17 GMT",
+  "bytes": 209734,
+  "sha256": "e7b7a5568c49af1dd84426a4c6ff612c8ea2968db8614506c7d570879f68e70e",
+  "modifications": "None. Exact bytes returned by the original URL, saved unchanged. The slide previously loaded this URL directly; it now loads this local copy, so the displayed image is the same.",
+  "notes": [
+    "The URL carries Google image-service parameters (width 1086, height 814, fcrop64 crop, rw = WebP). The server returns the same WebP bytes whether or not the request advertises WebP support, so these are the bytes every browser received."
+  ],
+  "rights": "Copyrighted publisher image reused unchanged for attributed teaching commentary. No open license asserted; the course license does not extend to this file.",
+  "visual_verification": "Viewed on 2026-09-26: server racks on the left, overhead yellow-tagged piping and a long aisle with yellow bollards, matching the slide."
+}

@@ -1,7 +1,7 @@
 // TPU v4 is a concrete historical architecture, not a claim about every TPU generation.
 // Sources: Google Cloud (5 April 2023) and Zu et al., NSDI 2024, sections 1–2.
 const photo =
-  "https://storage.googleapis.com/gweb-cloudblog-publish/images/1_Cloud_TPU_v4.max-1100x1100.jpg";
+  "../assets/references/overview-google-tpu-v4-racks.png";
 const label = (x, y, value, size = 20, color = "text", weight = 500) =>
   `<text x="${x}" y="${y}" text-anchor="middle" fill="var(--${color})" font-size="${size}" font-weight="${weight}">${value}</text>`;
 const panel = (x, y, w, h, color = "line") =>

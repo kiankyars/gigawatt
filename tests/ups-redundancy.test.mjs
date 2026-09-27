@@ -144,3 +144,21 @@ test("both render geometries have accessible descriptions and retain separate PS
     assert.match(svg, /data-state="maintenance"/);
   }
 });
+
+test("single shared-bus descriptions do not mention A/B PSU groups or outputs", () => {
+  for (const kind of ["n", "n1", "n2"]) {
+    for (const compact of [false, true]) {
+      const svg = renderRedundancy(model({ kind }), { compact });
+      const desc = svg.match(/<desc[^>]*>([^<]*)<\/desc>/)[1];
+      assert.match(desc, /Module failures are assumed isolated\.$/);
+      assert.doesNotMatch(desc, /PSU group|A and B|AC outputs/);
+    }
+  }
+  for (const kind of ["two_n", "two_n1"]) {
+    const desc = renderRedundancy(model({ kind })).match(
+      /<desc[^>]*>([^<]*)<\/desc>/,
+    )[1];
+    assert.match(desc, /Each PSU group is rated to carry the full load\./);
+    assert.match(desc, /A and B AC outputs stay separate\.$/);
+  }
+});
