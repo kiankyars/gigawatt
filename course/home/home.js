@@ -1,6 +1,5 @@
 import {presentationLabels} from '../prototypes/teaching-navigation.js';
 
-const root=new URL('../',import.meta.url);
 const mount=document.getElementById('campus-mount');
 const views={
   campus:{label:'The whole system',text:'Electricity reaches the racks. Cooling carries their heat back outside.',link:'../prototypes/orientation-format.html?teach=1',cta:'Open the overview'},
@@ -17,27 +16,20 @@ function describeView(key){
 }
 async function chapters(){
  try{
-  const response=await fetch(new URL('../teaching-sequences.json',import.meta.url));
+  const catalog=new URL('../teaching-sequences.json',import.meta.url);
+  const response=await fetch(catalog);
   if(!response.ok)throw new Error('Course directory unavailable');
   const {presentations}=await response.json();
-  const slideNames={
-   'terminology-format.html':'primer.html','orientation-format.html':'overview.html',
-   'workload-format.html':'workloads.html','siting-format.html':'siting.html',
-   'site-format.html':'site-design.html','distribution-format.html':'distribution.html',
-   'continuity-format.html':'continuity.html','rack-energy-format.html':'rack-energy.html',
-   'dc-distribution-format.html':'dc-distribution.html','networking-format.html':'networking.html',
-   'cooling-format.html':'cooling.html','heat-rejection-format.html':'heat-rejection.html',
-   'procurement-cases-format.html':'procurement-cases.html','operations-format.html':'operations.html',
-   'capacity-format.html':'capacity.html','integrated-cases-format.html':'integrated-cases.html',
-   'grid-queues-format.html':'grid-queues.html'
-  };
+  // Catalog links are relative to the catalog, and staging rewrites them to the published slide paths.
   const entries=presentations.map(p=>{
-   const source=p.chapters[0]?.href?.split('?')[0].split('/').pop();
-   return {label:presentationLabels[p.id],href:`slides/${slideNames[source]||source}`};
-  }).filter(p=>p.label&&p.href!=='slides/undefined');
+   const href=p.chapters[0]?.href;
+   if(!href)return {};
+   const url=new URL(href,catalog);url.search='';url.hash='';
+   return {label:presentationLabels[p.id],href:url.href};
+  }).filter(p=>p.label&&p.href);
   const list=document.getElementById('chapter-list');list.replaceChildren();
   for(const {label,href} of entries){
-   const numbered=/^\d/.test(label),split=numbered?label.indexOf('. '):-2;const link=document.createElement('a');link.className='chapter-link';link.href=new URL(href,root);
+   const numbered=/^\d/.test(label),split=numbered?label.indexOf('. '):-2;const link=document.createElement('a');link.className='chapter-link';link.href=href;
    const number=document.createElement('span');number.className='chapter-number';number.textContent=numbered?label.slice(0,split).padStart(2,'0'):'◆';
    const title=document.createElement('span');title.className='chapter-title';title.textContent=label.slice(split+2);
    const arrow=document.createElement('span');arrow.className='chapter-arrow';arrow.textContent='↗';arrow.setAttribute('aria-hidden','true');
@@ -72,6 +64,12 @@ try{
  // A restored history entry needs a fresh renderer after pagehide disposed it.
  window.addEventListener('pageshow',event=>{if(event.persisted)location.reload();});
 }catch{
+ // The still image loads only when the 3D view cannot start.
+ const fallback=document.createElement('img');
+ fallback.className='campus-fallback';
+ fallback.alt='A cutaway data center with an electrical yard, server racks and cooling equipment.';
+ fallback.src=new URL('../assets/campus-cutaway.png',import.meta.url).href;
+ mount.prepend(fallback);
  mount.dataset.fallback='true';
  document.getElementById('campus-loading').textContent='The 3D view is unavailable here. The full course is ready below.';
  document.getElementById('campus-help').textContent='Campus overview';

@@ -1,18 +1,22 @@
 const { chromium } = require("playwright");
 const assert = require("node:assert/strict");
 const { mkdirSync } = require("node:fs");
+// The staged deck (slides/cooling.html) or the source (course/prototypes/cooling-format.html).
 const base =
   process.argv[2] ||
-  "http://127.0.0.1:8765/course/prototypes/cooling-format.html";
+  "http://127.0.0.1:8878/slides/cooling.html";
 const output = process.argv[3] || "/tmp/gigawatt-cooling-qa";
+// Chapter order of the 19 scenes, with the states each one is checked in.
 const variants = {
   "why-liquid": [null],
   "capture-options": [null],
-  "rack-coolant-entry": [null],
+  "cold-plate": [null],
+  "abilene-coolant-distribution": [null],
   "capture-rear-door": [null],
   "capture-immersion": [null],
-  "cold-plate": [null],
+  "immersion-hardware": [null],
   "local-heat-flux": [null],
+  "thermal-resistance-example": [null],
   "device-temperature": [null],
   "water-balance": ["2.5", "5"],
   "pump-operating-point": [null],
@@ -21,8 +25,16 @@ const variants = {
   "lost-flow": [null],
   "independent-cooling-paths": ["none", "shared-path"],
   "cooling-derating": [null],
+  "cooling-response": [null],
   "cooling-retrofit": [null],
 };
+// Scenes built around a photograph or a source figure.
+const photoScenes = new Set([
+  "cold-plate",
+  "abilene-coolant-distribution",
+  "immersion-hardware",
+  "thermal-resistance-example",
+]);
 const controlSettings = {
   "water-balance": "flow",
   "coolit-cdu": "interior",
@@ -141,7 +153,10 @@ async function checkDiagramGeometry(page, state) {
           await go(id);
           assert.equal(await page.locator("h1:visible").count(), 1);
           assert.equal(await page.locator("#fullscreen").isVisible(), false);
-          assert.equal(await page.locator("#scenes option").count(), 16);
+          assert.equal(
+            await page.locator("#scenes option").count(),
+            Object.keys(variants).length,
+          );
           assert.equal(
             await page.locator("#diagram").getAttribute("data-scene"),
             id,
@@ -267,7 +282,28 @@ async function checkDiagramGeometry(page, state) {
             }
             if (id === "approach") {
               assert.match(content, /35°C − 30°C = 5°C/);
-              assert.match(content, /fluids stay separate/);
+              assert.match(content, /CDU approach/);
+            }
+            if (photoScenes.has(id)) {
+              const widths = await page
+                .locator("#diagram image")
+                .evaluateAll((images) =>
+                  Promise.all(
+                    images.map(async (element) => {
+                      const img = new Image();
+                      img.src = element.getAttribute("href");
+                      await img.decode();
+                      return img.naturalWidth;
+                    }),
+                  ),
+                );
+              assert.ok(widths.length > 0, `${name}: missing photograph`);
+              for (const width of widths)
+                assert.ok(width > 100, `${name}: photograph did not load`);
+            }
+            if (id === "cooling-response") {
+              for (const phrase of ["600 kW remains", "Power reduction", "500 kW into coolant"])
+                assert.ok(content.includes(phrase), `${name}: missing ${phrase}`);
             }
             if (id === "capture-options") assert.match(content, /CRAH/);
             if (id === "capture-options") {
@@ -275,7 +311,7 @@ async function checkDiagramGeometry(page, state) {
                 assert.ok(content.includes(phrase), `${name}: missing ${phrase}`);
             }
             if (id === "device-temperature") {
-              for (const phrase of ["35°C + 32°C = 67°C", "35°C + 48°C = 83°C", "80°C limit"])
+              for (const phrase of ["0.08°C/W", "Chip · 67°C", "0.12°C/W", "Chip · 83°C", "Chip limit: 80°C"])
                 assert.ok(content.includes(phrase), `${name}: missing ${phrase}`);
             }
             if (id === "pump-operating-point") {
@@ -283,7 +319,7 @@ async function checkDiagramGeometry(page, state) {
                 await page.locator("#diagram [data-curve]").evaluateAll((curves) =>
                   curves.map((curve) => curve.dataset.curve),
                 ),
-                ["pump", "clean", "restricted"],
+                ["pump", "circuit", "restricted"],
                 "Both circuit curves remain visible with the common pump curve",
               );
               for (const flow of ["2 L/s", "1.41 L/s"])
@@ -294,7 +330,9 @@ async function checkDiagramGeometry(page, state) {
               assert.match(content, /2,125 L\/min/);
               assert.match(
                 await page.locator("[data-product-photo]").getAttribute("href"),
-                selected === "true" ? /cooling-chx2000-inside\.jpeg$/ : /cooling-chx2000-front\.png$/,
+                selected === "true"
+                  ? /cooling-chx2000-inside\.(?:jpeg|webp)$/
+                  : /cooling-chx2000-front\.(?:png|webp)$/,
                 "The photo follows the cabinet/interior selection",
               );
               const loaded = await page
@@ -322,8 +360,9 @@ async function checkDiagramGeometry(page, state) {
                   { name: "two-n", installed: 4, required: 2 },
                 ],
               );
-              assert.match(content, /Facility path is still shared/);
-              assert.match(content, /Either train can carry the load/);
+              assert.match(content, /Shared facility path/);
+              assert.match(content, /A · 2 CDUs \+ its own facility path/);
+              assert.match(content, /B · 2 CDUs \+ its own facility path/);
             }
             if (id === "independent-cooling-paths") {
               const m = await page.locator("[data-cooling-capacity]").evaluate((el) => ({
@@ -367,13 +406,14 @@ async function checkDiagramGeometry(page, state) {
               assert.match(content, /100 kW cooling margin/);
             }
             if (id === "cooling-retrofit") {
-              for (const phrase of ["100 kW", "85 kW", "15 kW", "20 kW capacity", "5 kW"])
+              for (const phrase of ["100 kW", "85 kW", "15 kW", "20 kW allowance", "5 kW spare"])
                 assert.ok(content.includes(phrase), `${name}: missing heat split or air allowance ${phrase}`);
             }
             layouts++;
           }
         }
         for (const [oldId, newId] of Object.entries({
+          "rack-coolant-entry": "cold-plate",
           "heat-path": "capture-options",
           "capture-coldplates": "capture-options",
           "crah-cdu": "capture-options",
@@ -389,7 +429,7 @@ async function checkDiagramGeometry(page, state) {
         await go("why-liquid");
         assert.match(
           await page.locator(".reading-link").getAttribute("href"),
-          /index\.html#d10-local-thermal-paths$/,
+          /(?:index|read)\.html#d10-local-thermal-paths$/,
         );
         await page.locator("body").click({ position: { x: 2, y: 100 } });
         await page.keyboard.press("ArrowRight");
@@ -400,7 +440,7 @@ async function checkDiagramGeometry(page, state) {
         assert.equal(await page.locator("#next").isDisabled(), true);
         assert.match(
           await page.locator(".reading-link").getAttribute("href"),
-          /index\.html#d10-cdu-interfaces$/,
+          /(?:index|read)\.html#d10-cdu-interfaces$/,
         );
         await page.goto(`${base}?teach=1#coolit-cdu`);
         assert.equal(await page.locator("#fullscreen").isVisible(), true);

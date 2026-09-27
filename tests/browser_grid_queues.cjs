@@ -1,11 +1,13 @@
-const {webkit,chromium}=require('playwright');
+const playwright=require('playwright');
 const assert=require('node:assert/strict');
 const {mkdirSync}=require('node:fs');
-const base=process.argv[2]||'http://127.0.0.1:8878/_site/slides/grid-queues.html?teach=1';
+const base=process.argv[2]||'http://127.0.0.1:8878/slides/grid-queues.html?teach=1';
+// BROWSERS=chromium runs one engine, for example where WebKit is not installed.
+const engines=(process.env.BROWSERS||'webkit,chromium').split(',').map(name=>name.trim()).filter(Boolean);
 const out=process.argv[3]||'/tmp/gigawatt-grid-queues-qa';
 mkdirSync(out,{recursive:true});
 (async()=>{
- for(const [name,engine] of [['webkit',webkit],['chromium',chromium]]){
+ for(const name of engines){const engine=playwright[name];
   const browser=await engine.launch();const page=await browser.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
   for(const viewport of [{width:1280,height:720},{width:1440,height:900},{width:390,height:844}]){
    await page.setViewportSize(viewport);await page.goto(base);

@@ -1,7 +1,8 @@
 const {chromium}=require('playwright');
 const assert=require('node:assert/strict');
 const {mkdirSync}=require('node:fs');
-const base=process.argv[2]||'http://127.0.0.1:8878/_site/';
+// The staged site root.
+const base=process.argv[2]||'http://127.0.0.1:8878/';
 const out=process.argv[3]||'/tmp/gigawatt-homepage-qa';
 mkdirSync(out,{recursive:true});
 (async()=>{
@@ -10,9 +11,12 @@ mkdirSync(out,{recursive:true});
  const page=await context.newPage(),errors=[];
  page.on('pageerror',e=>errors.push(e.message));
  page.on('response',r=>{if(r.status()>=400)errors.push(`${r.status()}: ${r.url()}`)});
+ const stills=[];page.on('request',r=>{if(/campus-cutaway/.test(r.url()))stills.push(r.url())});
  await page.goto(base);
  await page.waitForFunction(()=>document.querySelector('#campus-mount')?.dataset.ready==='true');
  await page.waitForFunction(()=>document.querySelectorAll('.chapter-link').length===17);
+ assert.deepEqual(stills,[],'The still campus image loads only when the 3D view cannot start');
+ assert.equal(await page.locator('.campus-fallback').count(),0);
  assert.equal(await page.locator('#campus-mount').getAttribute('data-motion'),'false');
  assert.equal(await page.getByRole('button',{name:'Play motion',exact:true}).isVisible(),true);
  const chapterLinks=await page.locator('.chapter-link').evaluateAll(nodes=>nodes.map(n=>n.href));
@@ -33,6 +37,12 @@ mkdirSync(out,{recursive:true});
    assert.ok(bounds.controlsBottom<=bounds.stripTop+1,`Controls overlap next section: ${JSON.stringify(bounds)}`);
    if(view==='campus'||size.width===1440)await page.screenshot({path:`${out}/${view}-${size.width}.png`,fullPage:size.width===390});
   }
+  // The header keeps a visible link to the reader at every width.
+  const read=page.locator('.site-header nav a[href$="read.html"]');
+  assert.equal(await read.isVisible(),true,`Reader link hidden at ${size.width}`);
+  assert.match((await read.innerText()).trim(),size.width<=760?/^Read\b/:/^Reading & glossary/);
+  const box=await read.boundingBox();
+  assert.ok(box.x+box.width<=size.width+1,`Reader link leaves the header at ${size.width}`);
  }
  await page.getByRole('button',{name:'Electricity',exact:true}).click();assert.equal(await page.locator('#campus-mount').getAttribute('data-flow'),'heat');
  await page.getByRole('button',{name:'Heat',exact:true}).click();assert.equal(await page.locator('#campus-mount').getAttribute('data-flow'),'none');
@@ -58,6 +68,9 @@ mkdirSync(out,{recursive:true});
  const fallback=await context.newPage();await fallback.addInitScript(()=>{const old=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(kind,...args){return /webgl/i.test(kind)?null:old.call(this,kind,...args);};});
  await fallback.goto(base);await fallback.waitForFunction(()=>document.querySelector('#campus-mount').dataset.fallback==='true');
  assert.equal(await fallback.locator('.campus-fallback').isVisible(),true);await fallback.waitForFunction(()=>document.querySelectorAll('.chapter-link').length===17);
+ // Staging publishes the still image as WebP.
+ assert.match(await fallback.locator('.campus-fallback').getAttribute('src'),/campus-cutaway\.(?:webp|png)$/);
+ assert.ok(await fallback.locator('.campus-fallback').evaluate(async img=>{await img.decode();return img.naturalWidth>0;}));
  await fallback.screenshot({path:`out/fallback.png`.replace('out/',out+'/')});
  assert.deepEqual(errors,[]);
  await browser.close();console.log('Homepage passed: 3D views, keyboard, flow/motion, responsive fit, all chapter/reader/home links, glossary and WebGL fallback.');

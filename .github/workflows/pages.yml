@@ -35,7 +35,15 @@ jobs:
         with:
           node-version: "22"
 
+      # Install before validation, so the WebP conversion tests run instead of skipping.
+      - name: Install the WebP encoder
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y webp
+
       - name: Validate course and generated page
+        env:
+          GIGAWATT_REQUIRE_WEBP: "1"
         run: |
           PYTHONPATH=src python -m gigawatt.build_course --check
           PYTHONPATH=src python -m gigawatt.build_expanded --check
@@ -43,6 +51,7 @@ jobs:
           PYTHONPATH=src python -m gigawatt.research check --include-candidates
           PYTHONPATH=src python -m unittest discover -s tests -p 'test_*.py' -v
           node --test tests/*.test.mjs
+          python qa/reader/prose_lint.py --gate slide_refs,residue
 
       - name: Stage the course site
         run: |

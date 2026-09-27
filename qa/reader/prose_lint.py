@@ -3,11 +3,14 @@
 
 Report mode (default) prints a per-lesson scorecard and never fails.
 `--check` exits 1 when a lesson exceeds the budgets below, so it can become a
-CI gate once the rewrite has brought the corpus under them.
+CI gate once the rewrite has brought the corpus under them. `--gate` enforces
+only the named budgets, so the zero-tolerance counts can gate CI while the
+voice ratios are still being brought down.
 
     python3 qa/reader/prose_lint.py                 # scorecard, worst first
     python3 qa/reader/prose_lint.py --list d03-service-and-siting
-    python3 qa/reader/prose_lint.py --check         # enforce budgets
+    python3 qa/reader/prose_lint.py --check         # enforce every budget
+    python3 qa/reader/prose_lint.py --gate slide_refs,residue   # enforce two
 
 Budgets come from a human baseline (eight Wikipedia engineering articles,
 43k words): 8% of sentences contain a negation, 9% of paragraphs end on one,
@@ -86,13 +89,45 @@ def measure(lesson: dict) -> dict:
     }
 
 
+def over_budget(row: dict) -> dict[str, bool]:
+    """Which budgets one lesson exceeds; list-valued measures are compared by count."""
+    return {
+        key: (len(row[key]) if isinstance(row[key], list) else row[key]) > limit
+        for key, limit in BUDGET.items()
+    }
+
+
+def gate_budgets(value: str) -> list[str]:
+    names = [name.strip() for name in value.split(",") if name.strip()]
+    unknown = [name for name in names if name not in BUDGET]
+    if unknown or not names:
+        raise argparse.ArgumentTypeError(f"choose from {', '.join(BUDGET)}; got {value!r}")
+    return names
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--check", action="store_true", help="exit 1 if any lesson exceeds a budget")
+    mode = ap.add_mutually_exclusive_group()
+    mode.add_argument("--check", action="store_true", help="exit 1 if any lesson exceeds a budget")
+    mode.add_argument(
+        "--gate", type=gate_budgets, metavar="BUDGET[,BUDGET]",
+        help="exit 1 only if a lesson exceeds one of these budgets, for example slide_refs,residue",
+    )
     ap.add_argument("--list", metavar="LESSON_ID", help="print every flagged sentence for one lesson")
     args = ap.parse_args()
 
     rows = sorted((measure(l) for l in lessons()), key=lambda r: -r["para_end_neg"])
+
+    if args.gate:
+        failing = [(r, [key for key in args.gate if over_budget(r)[key]]) for r in rows]
+        failing = [(r, keys) for r, keys in failing if keys]
+        for r, keys in failing:
+            print(f"{r['id']}: over the {', '.join(keys)} budget")
+            for key in keys:
+                for sentence in r[key] if isinstance(r[key], list) else []:
+                    print(f"  - {key}: {sentence}")
+        print(f"{len(failing)}/{len(rows)} lessons over the gated budgets ({', '.join(args.gate)}).")
+        return 1 if failing else 0
 
     if args.list:
         row = next((r for r in rows if r["id"] == args.list), None)
@@ -108,13 +143,7 @@ def main() -> int:
     print(f"{'lesson':42s}{'words':>6s}{'¶end-neg':>10s}{'neg-sent':>10s}{'estab/10k':>11s}{'slide':>7s}{'residue':>9s}")
     failures = 0
     for r in rows:
-        over = [
-            r["para_end_neg"] > BUDGET["para_end_neg"],
-            r["neg_sentences"] > BUDGET["neg_sentences"],
-            r["establish_10k"] > BUDGET["establish_10k"],
-            len(r["slide_refs"]) > BUDGET["slide_refs"],
-            len(r["residue"]) > BUDGET["residue"],
-        ]
+        over = over_budget(r).values()
         failures += any(over)
         flag = " *" if any(over) else ""
         print(

@@ -124,13 +124,13 @@
       "visually_reviewed_on": "2026-09-17",
       "modifications": "None; user-supplied original GIF copied byte-for-byte and verified against the primary publisher download by SHA256. All frames and animation timing retained.",
       "rights_basis": "Copyrighted publisher image reused for attributed teaching commentary. No independent open license asserted.",
-      "provided_file": "/Users/kian/Downloads/622690d2f1f3943175d607a4_DC206.gif",
+      "provided_file": "~/Downloads/622690d2f1f3943175d607a4_DC206.gif",
       "frames": 100,
       "animation_duration_ms": 4000
     },
     {
       "file": "operations-meta-maintenance-cost.webp",
-      "source_file": "/Users/kian/Downloads/Systems@scale_AI-Maintence_image-4.jpg.webp",
+      "source_file": "~/Downloads/Systems@scale_AI-Maintence_image-4.jpg.webp",
       "source_page": "https://engineering.fb.com/2024/06/12/production-engineering/maintaining-large-scale-ai-capacity-meta/",
       "publisher": "Engineering at Meta",
       "published_on": "2024-06-12",

@@ -1,7 +1,7 @@
 const {chromium}=require('playwright');
 const assert=require('node:assert/strict');
 const {mkdirSync}=require('node:fs');
-const base=process.argv[2]||'http://127.0.0.1:8878/_site/slides/';
+const base=process.argv[2]||'http://127.0.0.1:8878/slides/';
 const output=process.argv[3]||'/tmp/gigawatt-presenter-notes';
 (async()=>{
   mkdirSync(output,{recursive:true});

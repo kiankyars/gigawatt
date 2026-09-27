@@ -4,11 +4,11 @@ const { mkdirSync } = require("node:fs");
 const { pathToFileURL } = require("node:url");
 const { resolve } = require("node:path");
 
-const base = process.argv[2] || "http://127.0.0.1:8765/slides/workloads.html";
+const base = process.argv[2] || "http://127.0.0.1:8878/slides/workloads.html";
 const output = process.argv[3] || "/tmp/gigawatt-workload-qa";
 const expectedScenes = [
  "workload-purpose", "model-work", "interactivity", "serving-frontier", "memory-comparison", "kv-cache",
- "context-capacity", "prefill-decode", "disaggregated-serving", "continuous-batching", "energy-per-result",
+ "context-capacity", "prefill-decode", "operand-reuse", "disaggregated-serving", "continuous-batching", "energy-per-result",
  "resource-paths", "training-power-evidence", "job-phases", "synchronized-jobs",
  "staggering-jobs", "next-brief",
 ];
@@ -63,6 +63,11 @@ async function checkQuantities(page, id, state) {
  }
  if (id === "prefill-decode") {
   assert.match(content, /compute-bound/); assert.match(content, /memory-bandwidth-bound/);
+ }
+ if (id === "operand-reuse") {
+  await flag(page, "data-reuse-tokens", state.reuseTokens);
+  assert.match(content, /Load once/);
+  assert.match(content, String(state.reuseTokens) === "1" ? /One token vector/ : /Eight token vectors/);
  }
  if (id === "disaggregated-serving") {
   assert.match(content, /Vera Rubin NVL72/); assert.match(content, /Groq 3 LPX/);
@@ -124,8 +129,14 @@ async function checkGeometry(page, viewport) {
           failures.push(`Text outside its object: ${label.textContent}`);
       }
     }
+    // A text box includes the font's line spacing above and below the glyphs, so
+    // stacked labels share some box height without touching. Compare the middle 70%.
+    const ink = (text) => {
+      const box = text.getBoundingClientRect(), inset = box.height * 0.15;
+      return { x: box.x, y: box.y + inset, width: box.width, height: box.height - 2 * inset };
+    };
     for (let i = 0; i < texts.length; i++) for (let j = i + 1; j < texts.length; j++) {
-      const a = texts[i].getBoundingClientRect(), b = texts[j].getBoundingClientRect();
+      const a = ink(texts[i]), b = ink(texts[j]);
       if (Math.min(a.x + a.width, b.x + b.width) - Math.max(a.x, b.x) > 1
         && Math.min(a.y + a.height, b.y + b.height) - Math.max(a.y, b.y) > 1)
         failures.push(`Overlapping labels: ${texts[i].textContent} / ${texts[j].textContent}`);
@@ -136,7 +147,13 @@ async function checkGeometry(page, viewport) {
     const footer = document.querySelector("footer").getBoundingClientRect();
     if (header.bottom > rect.top + 1) failures.push("Heading overlaps diagram");
     if (actions.height && rect.bottom > actions.top + 1) failures.push("Diagram overlaps controls");
-    if (Math.max(rect.bottom, actions.bottom) > footer.top + 1) failures.push("Content overlaps footer");
+    // The navigation footer is sticky, so a phone page scrolls content beneath it.
+    // At the end of the page the footer sits below everything it follows.
+    scrollTo(0, document.documentElement.scrollHeight);
+    const end = [svg, document.querySelector("#actions")].map((element) => element.getBoundingClientRect().bottom);
+    if (Math.max(...end) > document.querySelector("footer").getBoundingClientRect().top + 1)
+      failures.push("Content overlaps footer");
+    scrollTo(0, 0);
     if ([...document.querySelectorAll("main .eyebrow, #boundary, main .subtitle")]
       .some((element) => element.getBoundingClientRect().height > 0))
       failures.push("A repeated subtitle or boundary layer is visible on the stage");
@@ -175,8 +192,9 @@ async function checkNavigation(page) {
  await page.locator("#scenes").selectOption("workload-purpose");
  await page.waitForFunction(()=>document.querySelector("[data-course-reading]").hash==="#d02-workload-brief");
  assert.equal(new URL(await reading.getAttribute("href"),page.url()).hash,"#d02-workload-brief","Reading follows the active scene");
- for(const [old,current] of Object.entries({"inference-memory":"memory-comparison","occupied-waiting":"resource-paths","acceptance-envelope":"next-brief","independence":"staggering-jobs","demand-transition":"job-phases","power-response":"next-brief"})){
-  await page.goto(url(old));await page.waitForSelector("#diagram text");assert.equal(await page.locator("#scenes").inputValue(),current);
+ // Anchors of retired scenes are not maintained; they open the chapter's first scene.
+ for(const old of ["inference-memory","occupied-waiting","acceptance-envelope","independence","demand-transition","power-response"]){
+  await page.goto(url(old));await page.waitForSelector("#diagram image");assert.equal(await page.locator("#scenes").inputValue(),"workload-purpose");
  }
  await page.goto(url("workload-purpose",true));await page.waitForSelector("#diagram image");
  assert.equal(await page.locator("#fullscreen").isVisible(),true);
@@ -205,7 +223,7 @@ async function checkNavigation(page) {
       const state = { ...initialState };
       await page.goto(url(scenes[0].id));
       await page.waitForSelector("#diagram text, #diagram image");
-      assert.equal(await page.locator("#scenes option").count(), 17);
+      assert.equal(await page.locator("#scenes option").count(), expectedScenes.length);
       for (const scene of scenes) {
         await page.locator("#scenes").selectOption(scene.id);
         const configurations = (scene.controls || []).flatMap((group) => group.options.map(([value]) => ({ key: group.key, value, when: group.when })));

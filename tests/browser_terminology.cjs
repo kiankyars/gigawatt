@@ -4,11 +4,13 @@ const { pathToFileURL } = require('node:url');
 const path = require('node:path');
 const staticOnly = process.argv.includes('--static');
 const args = process.argv.slice(2).filter(arg => arg !== '--static');
-const base = args[0] || 'http://127.0.0.1:8765/course/prototypes/terminology-format.html';
+// The staged Primer (slides/primer.html) or its source (course/prototypes/terminology-format.html).
+const base = args[0] || 'http://127.0.0.1:8878/slides/primer.html';
 const output = args[1] || '/tmp/gigawatt-terminology-qa';
 const url = (id, teach = true) => { const u = new URL(base); if (teach) u.searchParams.set('teach','1'); u.hash=id; return u.href; };
 async function geometry(page, size, context) {
   const result = await page.evaluate(() => {
+    scrollTo(0,0);
     const svg=document.querySelector('#diagram'),vb=svg.viewBox.baseVal;
     const text=[...svg.querySelectorAll('text')],failures=[];
     for(const t of text) { const b=t.getBBox(); if(b.x < -1 || b.y < -1 || b.x+b.width > vb.width+1 || b.y+b.height > vb.height+1) failures.push(`Outside SVG: ${t.textContent}`); }
@@ -17,7 +19,12 @@ async function geometry(page, size, context) {
     const diagram=visibleDiagram.getBoundingClientRect(),head=document.querySelector('main>header').getBoundingClientRect(),footer=document.querySelector('footer').getBoundingClientRect(),actions=document.querySelector('#actions').getBoundingClientRect();
     if(head.bottom>diagram.top+1)failures.push('Title overlaps diagram');
     if(actions.height && diagram.bottom>actions.top+1)failures.push('Diagram overlaps actions');
-    if(Math.max(diagram.bottom,actions.bottom)>footer.top+1)failures.push('Content overlaps footer');
+    // The navigation footer is sticky, so a phone page scrolls content beneath it.
+    // At the end of the page the footer sits below everything it follows.
+    scrollTo(0,document.documentElement.scrollHeight);
+    const end=[visibleDiagram,document.querySelector('#actions')].map(element=>element.getBoundingClientRect().bottom);
+    if(Math.max(...end)>document.querySelector('footer').getBoundingClientRect().top+1)failures.push('Content overlaps footer');
+    scrollTo(0,0);
     return {failures,width:document.documentElement.scrollWidth,height:document.documentElement.scrollHeight};
   });
   assert.deepEqual(result.failures,[],context);
@@ -25,7 +32,7 @@ async function geometry(page, size, context) {
   if(size.width>=1024)assert.ok(result.height<=size.height+1,`${context}: desktop overflow`);
 }
 (async()=>{
-  const {scenes,sceneAliases}=await import(pathToFileURL(path.resolve(__dirname,'../course/prototypes/terminology-scenes.js')));
+  const {scenes}=await import(pathToFileURL(path.resolve(__dirname,'../course/prototypes/terminology-scenes.js')));
   const {renderTerminology}=await import(pathToFileURL(path.resolve(__dirname,'../course/prototypes/terminology-visuals.js')));
   const html=readFileSync(path.resolve(__dirname,'../course/prototypes/terminology-format.html'),'utf8');
   const forwardPointer=/\bD\d{2}\b|later (?:lesson|section|chapter|sequence|comparison|calculation)|(?:next|other) (?:chapter|section)|(?:explain|introduce|meet|revisit).*again|returns in context|first exposure|optional primer|prelude|Skip to|Read the later|Continue to/i;
@@ -39,7 +46,6 @@ async function geometry(page, size, context) {
   assert.doesNotMatch(html,forwardPointer,'Presentation contains a course-forward pointer');
   assert.doesNotMatch(html,/source-list|lesson-reference|skip-primer|next-section/,'Primer has no chapter-forward or reference links');
   assert.match(html, /href="\.\.\/index\.html\?view=slides"[^>]*>[^<]*Back to course<\/a>/, 'Every scene has an exit to the course slide directory');
-  for(const id of Object.values(sceneAliases))assert.ok(scenes.some(scene=>scene.id===id),`Missing replacement scene: ${id}`);
   for(const scene of scenes){
     assert.equal('returns' in scene || 'reference' in scene || 'sources' in scene,false,`${scene.id}: reference metadata belongs outside the presentation`);
     assert.doesNotMatch(JSON.stringify(scene),forwardPointer,`${scene.id}: course-forward pointer`);
@@ -100,7 +106,7 @@ async function geometry(page, size, context) {
       }
     }
   }
-  console.log(`Passed Primer static checks: ${scenes.length} scenes, all diagram/control states, circuit arithmetic, UPS supply paths, follow-up sequence, legacy aliases, and zero course-forward or reference pointers.`);
+  console.log(`Passed Primer static checks: ${scenes.length} scenes, all diagram/control states, circuit arithmetic, UPS supply paths, follow-up sequence and zero course-forward or reference pointers.`);
   if(staticOnly)return;
   const { chromium } = require('playwright');
   mkdirSync(output,{recursive:true});
@@ -123,8 +129,8 @@ async function geometry(page, size, context) {
       }
     }
     await page.setViewportSize({width:1280,height:720});
-    await page.goto(url('welcome'));await page.waitForSelector('#diagram text');
-    await page.waitForURL(/#circuit$/);
+    await page.goto(url('circuit'));await page.waitForSelector('#diagram text');
+    assert.equal(await page.locator('#scenes').inputValue(),'0');
     await page.keyboard.press('ArrowRight');await page.waitForURL(/#voltage-current$/);
     await page.keyboard.press('ArrowLeft');await page.waitForURL(/#circuit$/);
     await page.locator('[data-value="open"]').click();
@@ -133,11 +139,11 @@ async function geometry(page, size, context) {
     await page.locator('#next').click();await page.locator('#previous').click();
     assert.equal(await page.locator('[data-value="open"]').getAttribute('aria-pressed'),'true');
 
-    await page.goto(url('ready'));await page.waitForURL(/#pue$/);
+    await page.goto(url('pue'));await page.waitForSelector('#diagram text');
     assert.equal(await page.locator('#scenes').inputValue(),String(scenes.length-1));
     assert.equal(await page.locator('#next').isDisabled(),true);
     assert.equal(await page.getByRole('link', {name: 'Back to course'}).count(),1);
-    await page.goto(url('welcome',false));assert.equal(await page.locator('#fullscreen').isVisible(),false);
+    await page.goto(url('circuit',false));assert.equal(await page.locator('#fullscreen').isVisible(),false);
 
     assert.equal(await page.getByRole('link', {name: 'Back to course'}).count(),1);
     assert.deepEqual(errors,[]);

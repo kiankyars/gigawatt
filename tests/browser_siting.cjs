@@ -3,7 +3,9 @@ const assert = require("node:assert/strict");
 const { mkdirSync } = require("node:fs");
 const base =
   process.argv[2] ||
-  "http://127.0.0.1:8765/slides/siting.html";
+  "http://127.0.0.1:8878/slides/siting.html";
+// Two scenes are a single generated figure, so wait for either text or an image.
+const drawn = "#diagram text, #diagram image";
 const output = process.argv[3] || "/tmp/gigawatt-siting-qa";
 const url = (id, teach = false) => {
   const u = new URL(base);
@@ -109,8 +111,10 @@ async function checkValues(page, scene, values, revealed) {
 }
 async function checkGeometry(page, viewport) {
   const result = await page.evaluate(() => {
+    scrollTo(0, 0);
     const svg = document.querySelector("#diagram");
-    const viewBox = svg.viewBox.baseVal;
+    // Page coordinates, because some figures nest an <svg> with its own viewBox.
+    const viewBox = svg.getBoundingClientRect();
     const failures = [];
     const fits = (a, b, margin = 0) =>
       a.x >= b.x + margin &&
@@ -119,7 +123,7 @@ async function checkGeometry(page, viewport) {
       a.y + a.height <= b.y + b.height - margin;
     const texts = [...svg.querySelectorAll("text")];
     for (const label of texts) {
-      if (!fits(label.getBBox(), viewBox, -1))
+      if (!fits(label.getBoundingClientRect(), viewBox, -1))
         failures.push(`Text outside SVG: ${label.textContent}`);
       if (label.dataset.labelFor) {
         const owner = svg.querySelector(
@@ -129,10 +133,17 @@ async function checkGeometry(page, viewport) {
           failures.push(`Text outside its object: ${label.textContent}`);
       }
     }
+    // A text box includes the font's line spacing above and below the glyphs, so
+    // stacked labels share some box height without touching. Compare the middle 70%.
+    const ink = (text) => {
+      const box = text.getBoundingClientRect(),
+        inset = box.height * 0.15;
+      return { x: box.x, y: box.y + inset, width: box.width, height: box.height - 2 * inset };
+    };
     for (let i = 0; i < texts.length; i++)
       for (let j = i + 1; j < texts.length; j++) {
-        const a = texts[i].getBBox(),
-          b = texts[j].getBBox();
+        const a = ink(texts[i]),
+          b = ink(texts[j]);
         if (
           Math.min(a.x + a.width, b.x + b.width) - Math.max(a.x, b.x) > 1 &&
           Math.min(a.y + a.height, b.y + b.height) - Math.max(a.y, b.y) > 1
@@ -150,8 +161,15 @@ async function checkGeometry(page, viewport) {
     if (header.bottom > rect.top + 1) failures.push("Heading overlaps diagram");
     if (actions.height && rect.bottom > actions.top + 1)
       failures.push("Diagram overlaps controls");
-    if (Math.max(rect.bottom, actions.bottom) > footer.top + 1)
+    // The navigation footer is sticky, so a phone page scrolls content beneath it.
+    // At the end of the page the footer sits below everything it follows.
+    scrollTo(0, document.documentElement.scrollHeight);
+    const end = [svg, document.querySelector("#actions")].map(
+      (element) => element.getBoundingClientRect().bottom,
+    );
+    if (Math.max(...end) > document.querySelector("footer").getBoundingClientRect().top + 1)
       failures.push("Content overlaps footer");
+    scrollTo(0, 0);
     if (
       [
         ...document.querySelectorAll(
@@ -188,7 +206,7 @@ async function checkNavigation(page, scenes, colorScheme) {
     last = scenes.at(-1);
   await page.goto(url(first.id));
   await page.reload();
-  await page.waitForSelector("#diagram text");
+  await page.waitForSelector(drawn);
   assert.equal(await page.locator("#actions [data-key]").count(), 0, "The chapter introduction needs no controls");
   assert.equal(await page.locator("#reveal").count(), 0);
   await page.locator("body").click({ position: { x: 2, y: 100 } });
@@ -198,30 +216,35 @@ async function checkNavigation(page, scenes, colorScheme) {
   assert.equal(new URL(page.url()).hash, `#${scenes[1].id}`);
   assert.equal(await page.locator("#actions [data-key]").count(), 0);
   assert.equal(await page.locator("#reveal").count(), 0);
+  // The chapter currently has no controls or reveals; check them if they return.
   const controlled = scenes.find((scene) => scene.controls?.length);
-  await page.locator("#scenes").selectOption(controlled.id);
-  const control = page.locator("[data-key]").first();
-  await control.focus();
-  await page.keyboard.press("ArrowRight");
-  assert.equal(
-    new URL(page.url()).hash,
-    `#${controlled.id}`,
-    "Focused controls retain arrow keys",
-  );
+  if (controlled) {
+    await page.locator("#scenes").selectOption(controlled.id);
+    const control = page.locator("[data-key]").first();
+    await control.focus();
+    await page.keyboard.press("ArrowRight");
+    assert.equal(
+      new URL(page.url()).hash,
+      `#${controlled.id}`,
+      "Focused controls retain arrow keys",
+    );
+  }
   const revealScene = scenes.find((scene) => scene.reveal);
-  await page.locator("#scenes").selectOption(revealScene.id);
-  const wasRevealed = await page.locator("#reveal").getAttribute("aria-expanded");
-  await page.locator("body").click({ position: { x: 2, y: 100 } });
-  await page.keyboard.press("r");
-  assert.equal(
-    await page.locator("#reveal").getAttribute("aria-expanded"),
-    String(wasRevealed !== "true"),
-  );
-  await page.keyboard.press("r");
-  assert.equal(
-    await page.locator("#reveal").getAttribute("aria-expanded"),
-    wasRevealed,
-  );
+  if (revealScene) {
+    await page.locator("#scenes").selectOption(revealScene.id);
+    const wasRevealed = await page.locator("#reveal").getAttribute("aria-expanded");
+    await page.locator("body").click({ position: { x: 2, y: 100 } });
+    await page.keyboard.press("r");
+    assert.equal(
+      await page.locator("#reveal").getAttribute("aria-expanded"),
+      String(wasRevealed !== "true"),
+    );
+    await page.keyboard.press("r");
+    assert.equal(
+      await page.locator("#reveal").getAttribute("aria-expanded"),
+      wasRevealed,
+    );
+  }
   await page.locator("#scenes").selectOption(first.id);
   const consumed = await page.locator("#scenes").evaluate((e) => {
     e.focus();
@@ -254,10 +277,11 @@ async function checkNavigation(page, scenes, colorScheme) {
   assert.equal(await page.locator("#next").isDisabled(), true);
   assert.equal(await page.locator("#reveal").count(), 0);
   const nextChapter = page.locator(".course-next-chapter");
-  assert.equal((await nextChapter.textContent()).trim(), "Next: physical site design →");
+  // Siting hands off to the ERCOT and PJM case study, keeping the current mode.
+  assert.equal((await nextChapter.textContent()).trim(), "Next chapter →");
   const href = new URL(await nextChapter.getAttribute("href"), page.url());
-  assert.match(href.pathname, /\/(?:site-format|site-design)\.html$/);
-  assert.equal(href.searchParams.get("teach"), "1");
+  assert.match(href.pathname, /\/(?:grid-queues-format|grid-queues)\.html$/);
+  assert.equal(href.searchParams.get("teach"), new URL(page.url()).searchParams.get("teach"));
   assert.equal(href.searchParams.has("checkin"), false);
   assert.equal((await page.request.get(href.href)).status(), 200);
   assert.equal(await page.locator("#fullscreen").isVisible(), false);
@@ -265,7 +289,7 @@ async function checkNavigation(page, scenes, colorScheme) {
   await page.keyboard.press("f");
   assert.equal(await page.evaluate(() => !!document.fullscreenElement), false);
   await page.goto(url(first.id, true));
-  await page.waitForSelector("#diagram text");
+  await page.waitForSelector(drawn);
   assert.equal(await page.locator("#fullscreen").isVisible(), true);
   const bg = await page
     .locator("#viewer")
@@ -295,30 +319,20 @@ async function checkNavigation(page, scenes, colorScheme) {
   await page.emulateMedia({ colorScheme });
   await page.locator("#fullscreen").click();
   await page.waitForFunction(() => !document.fullscreenElement);
-  await page.goto(url("unknown-scene"));
-  await page.waitForSelector("#diagram text");
-  assert.equal(await page.locator("#scenes").inputValue(), first.id);
-  for (const [retired, replacement] of Object.entries({
-    "purchased-energy": "config-grid-supplied",
-    "hourly-match": "config-off-grid",
-    "storage-match": "config-off-grid",
-    "btm-import": "config-grid-parallel",
-    "import-contingency": "config-grid-parallel",
-    "island-boundary": "config-off-grid",
-    "island-duration": "config-off-grid",
-    "fuel-delivery": "parcel-connections",
-    "generation-fuel": "combined-cycle",
-    "generation-choice": "generation-utilization",
-    "phase-check": "supply-brief",
-  })) {
+  // Unknown anchors, including those of retired scenes, open the first scene.
+  for (const retired of [
+    "unknown-scene", "purchased-energy", "hourly-match", "storage-match", "btm-import",
+    "import-contingency", "island-boundary", "island-duration", "fuel-delivery",
+    "generation-fuel", "generation-choice", "phase-check",
+  ]) {
     await page.goto(url(retired));
-    await page.waitForSelector("#diagram text");
-    assert.equal(await page.locator("#scenes").inputValue(), replacement, `${retired} opens its replacement`);
+    await page.waitForSelector(drawn);
+    assert.equal(await page.locator("#scenes").inputValue(), first.id, `${retired} opens the first scene`);
   }
-  await page.goto(url(last.id));
+  await page.goto(url(last.id, true));
   await page.locator(".course-next-chapter").click();
-  await page.waitForSelector("#diagram text");
-  assert.match(new URL(page.url()).pathname, /\/(?:site-format|site-design)\.html$/);
+  await page.waitForFunction(() => document.querySelector("#scenes")?.options.length > 0);
+  assert.match(new URL(page.url()).pathname, /\/(?:grid-queues-format|grid-queues)\.html$/);
   assert.equal(new URL(page.url()).searchParams.get("teach"), "1");
   assert.equal(await page.locator("#fullscreen").isVisible(), true);
 
@@ -357,12 +371,16 @@ async function checkNavigation(page, scenes, colorScheme) {
         });
         for (const scene of scenes) {
           await page.goto(url(scene.id));
-          await page.waitForSelector("#diagram text");
+          await page.waitForSelector(drawn);
           assert.equal(
             await page.locator("#scenes option").count(),
             scenes.length,
           );
-          assert.equal(await page.locator("h1:visible").count(), 1);
+          assert.equal(
+            await page.locator("h1:visible").count(),
+            scene.hideTitle ? 0 : 1,
+            `${scene.id}: heading shown unless the scene hides it`,
+          );
           let variants = [{ ...initialState }];
           for (const group of scene.controls || [])
             variants = variants.flatMap((v) =>

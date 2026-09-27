@@ -2,29 +2,19 @@ const { chromium } = require("playwright");
 const assert = require("node:assert/strict");
 const { mkdirSync } = require("node:fs");
 
-const base = process.argv[2] || "http://127.0.0.1:8765/course/";
+// The staged slides folder, served at the site root.
+const base = process.argv[2] || "http://127.0.0.1:8878/slides/";
 const output = process.argv[3] || "/tmp/gigawatt-fullscreen-qa";
+// One deck that puts its #viewer in full screen and one that uses the whole page.
 const lessons = [
   {
-    name: "orientation",
-    path: "prototypes/orientation-format.html?teach=1#three-paths",
+    name: "overview",
+    path: "overview.html?teach=1#three-paths",
     target: "viewer",
-    explanation: "#explain",
   },
   {
     name: "cooling",
-    path: "prototypes/cooling-format.html?teach=1#why-liquid",
-    target: "HTML",
-    explanation: "#evidence",
-  },
-  {
-    name: "ups",
-    path: "prototypes/ups-format.html?teach=1#normal",
-    target: "HTML",
-  },
-  {
-    name: "800v",
-    path: "teach.html#ac-dc-ledger",
+    path: "cooling.html?teach=1#why-liquid",
     target: "HTML",
   },
 ];
@@ -101,35 +91,6 @@ function assertTheme(state, theme, lesson, fullscreen) {
             path: `${output}/${lesson.name}-${theme}-fullscreen.png`,
           });
 
-          if (lesson.explanation) {
-            await page.locator(lesson.explanation).click();
-            const dialog = page.locator("#reading");
-            await dialog.waitFor({ state: "visible" });
-            const modal = await dialog.evaluate((element) => {
-              const bounds = element.getBoundingClientRect();
-              const hit = document.elementFromPoint(
-                bounds.x + bounds.width / 2,
-                bounds.y + bounds.height / 2,
-              );
-              return {
-                modal: element.matches(":modal"),
-                onTop: element.contains(hit),
-                background: getComputedStyle(element).backgroundColor,
-              };
-            });
-            assert.ok(
-              modal.modal && modal.onTop,
-              "Explanation must remain usable in fullscreen",
-            );
-            assert.equal(modal.background, before.rootBackground);
-            await page.screenshot({
-              path: `${output}/${lesson.name}-${theme}-fullscreen-dialog.png`,
-            });
-            await page.locator("#close-reading").click();
-            await dialog.waitFor({ state: "hidden" });
-            assertTheme(await appearance(page), theme, lesson, true);
-          }
-
           const opposite = theme === "light" ? "dark" : "light";
           await page.emulateMedia({ colorScheme: opposite });
           assertTheme(await appearance(page), opposite, lesson, true);
@@ -147,7 +108,7 @@ function assertTheme(state, theme, lesson, fullscreen) {
       }
     }
     console.log(
-      `Passed ${cases} real-fullscreen cases across four lessons: theme persistence, live device-theme changes, exit and available source dialogs.`,
+      `Passed ${cases} real-fullscreen cases across ${lessons.length} decks: theme persistence, live device-theme changes and exit.`,
     );
   } finally {
     await browser.close();

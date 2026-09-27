@@ -3,7 +3,8 @@ const { chromium } = require("playwright");
 const { readFileSync, mkdirSync, writeFileSync } = require("node:fs");
 const { resolve } = require("node:path");
 const assert = require("node:assert/strict");
-const base = process.argv[2] || "http://127.0.0.1:8765/course/";
+// The reader page: read.html in the staged site, or course/index.html in the repository.
+const reader = process.argv[2] || "http://127.0.0.1:8878/read.html";
 const output = resolve(process.argv[3] || "qa/expansion");
 const course = JSON.parse(readFileSync("course/expanded-course.json", "utf8"));
 (async () => {
@@ -24,7 +25,7 @@ const course = JSON.parse(readFileSync("course/expanded-course.json", "utf8"));
     if (r.status() >= 400) errors.push(`${r.status()} ${r.url()}`);
   });
   async function lesson(id) {
-    await page.goto(`${base}index.html#${id}`);
+    await page.goto(`${reader}#${id}`);
     await page.locator("#title").waitFor();
     await page.waitForFunction(
       () =>
@@ -140,13 +141,10 @@ const course = JSON.parse(readFileSync("course/expanded-course.json", "utf8"));
   await page
     .locator("#lab")
     .screenshot({ path: resolve(output, "architecture-lab.png") });
-  await page.goto(`${base}sample-reading.html`);
-  await page.waitForFunction(
-    () => document.querySelector("#teaching-image").complete,
-  );
-  assert.match(await page.title(), /800 V/);
+  // The phone layout, on the 800 V lesson that the retired sample page showed alone.
+  assert.match(await page.locator("#title").textContent(), /800 V/);
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.screenshot({ path: resolve(output, "mobile-sample.png") });
+  await page.screenshot({ path: resolve(output, "mobile-lesson.png") });
   await page
     .locator("#lab")
     .screenshot({ path: resolve(output, "mobile-lab.png") });
@@ -176,7 +174,8 @@ const course = JSON.parse(readFileSync("course/expanded-course.json", "utf8"));
     resolve(output, "browser-report.json"),
     JSON.stringify(
       {
-        checked_on: "2026-09-06",
+        checked_on: new Date().toISOString().slice(0, 10),
+        reader,
         browser: "Headless Chromium / Playwright",
         lesson_states: checks.length,
         checks,
@@ -187,9 +186,8 @@ const course = JSON.parse(readFileSync("course/expanded-course.json", "utf8"));
           "Eight model types at all slider endpoints",
           "AC/sidecar/facility selector",
           "Practice answer reveal in every lesson",
-          "Sample page",
           "Mobile contents and Escape",
-          "Tablet and short-landscape sample overflow",
+          "Tablet and short-landscape lesson overflow",
           "Reduced-motion context",
         ],
       },
@@ -199,7 +197,7 @@ const course = JSON.parse(readFileSync("course/expanded-course.json", "utf8"));
   );
   await browser.close();
   console.log(
-    `Passed ${checks.length} lesson viewport states, eight interactive model types, search/glossary/practice and sample checks.`,
+    `Passed ${checks.length} lesson viewport states, eight interactive model types, search/glossary/practice and phone lesson checks.`,
   );
 })().catch((e) => {
   console.error(e);

@@ -1,0 +1,105 @@
+name: Browser checks
+
+# Runs the Playwright scripts in tests/browser_*.cjs against the staged site.
+# This workflow is separate from the Pages deploy, so a failure here reports a
+# regression without blocking publication.
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: browser-checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      SITE: http://127.0.0.1:8878
+      QA: ${{ github.workspace }}/browser-qa
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install the WebP encoder
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y webp
+
+      - name: Stage the course site
+        run: |
+          PYTHONPATH=src python -m gigawatt.stage_site
+
+      - name: Serve the staged site
+        run: |
+          nohup python -m http.server 8878 --bind 127.0.0.1 --directory _site > "$RUNNER_TEMP/http.log" 2>&1 &
+          for attempt in $(seq 1 30); do
+            curl -sf "$SITE/index.html" > /dev/null && exit 0
+            sleep 1
+          done
+          echo "The staged site did not start."
+          cat "$RUNNER_TEMP/http.log"
+          exit 1
+
+      - name: Install Playwright with Chromium
+        run: |
+          npm i --no-save playwright
+          npx playwright install --with-deps chromium
+
+      - name: Run the browser scripts
+        env:
+          # WebKit is not installed; browser_grid_queues.cjs runs on Chromium only.
+          BROWSERS: chromium
+        run: |
+          failed=()
+          check() {
+            local script=$1; shift
+            echo "::group::$script"
+            if node "tests/$script" "$@"; then
+              echo "Passed: $script"
+            else
+              echo "::error title=$script::$script failed"
+              failed+=("$script")
+            fi
+            echo "::endgroup::"
+          }
+          check browser_homepage.cjs "$SITE/" "$QA/homepage"
+          check browser_reader.cjs "$SITE/read.html" "$QA/reader"
+          check browser_presenter.cjs "$SITE/slides/" "$QA/presenter"
+          check browser_terminology.cjs "$SITE/slides/primer.html" "$QA/primer"
+          check browser_orientation.cjs "$SITE/slides/overview.html" "$QA/overview"
+          check browser_workload.cjs "$SITE/slides/workloads.html" "$QA/workloads"
+          check browser_siting.cjs "$SITE/slides/siting.html" "$QA/siting"
+          check browser_grid_queues.cjs "$SITE/slides/grid-queues.html?teach=1" "$QA/grid-queues"
+          check browser_cooling.cjs "$SITE/slides/cooling.html" "$QA/cooling"
+          check browser_fullscreen.cjs "$SITE/slides/" "$QA/fullscreen"
+          if [ ${#failed[@]} -gt 0 ]; then
+            echo "Failed: ${failed[*]}"
+            exit 1
+          fi
+
+      - name: Keep screenshots and reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-qa
+          path: browser-qa
+          if-no-files-found: ignore
+          retention-days: 14

@@ -10,7 +10,7 @@
     },
     {
       "file": "distribution-power-factor-comparison.png",
-      "input": "/Users/kian/Downloads/6bf25e3d-e992-4ff9-b210-08a99001589d.png",
+      "input": "~/Downloads/6bf25e3d-e992-4ff9-b210-08a99001589d.png",
       "sha256": "d13c9cb454dc3be94f92a98f99f67a3e6e9d2efb2cea2985e6d2adbf79fa5803",
       "transformation": "None; byte-for-byte copy of user-supplied image.",
       "scope": "User describes image as ChatGPT-generated. Selected from four options for readability and correct 900 kW / 900 or 1125 kVA / 1083 or 1353 A / 90 or 112.5 percent comparison at 480 V line-to-line balanced three-phase. No product represented by the transformer icon."

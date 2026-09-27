@@ -4,7 +4,7 @@ const { mkdirSync } = require("node:fs");
 
 const base =
   process.argv[2] ||
-  "http://127.0.0.1:8765/slides/overview.html";
+  "http://127.0.0.1:8878/slides/overview.html";
 const output = process.argv[3] || "/tmp/gigawatt-orientation-qa";
 const scenes = [
   { id: "three-paths", setting: "path", values: ["power", "heat", "data"] },
@@ -70,6 +70,7 @@ async function checkSelection(page, scene, selected) {
 
 async function checkGeometry(page, viewport) {
   const result = await page.evaluate(() => {
+    scrollTo(0, 0);
     const svg = document.querySelector("#diagram");
     const svgRect = svg.getBoundingClientRect();
     const viewBox = svg.viewBox.baseVal;
@@ -99,10 +100,17 @@ async function checkGeometry(page, viewport) {
           failures.push(`Label outside its object: ${label.textContent}`);
       }
     }
+    // A text box includes the font's line spacing above and below the glyphs, so
+    // stacked labels share some box height without touching. Compare the middle 70%.
+    const ink = (text) => {
+      const box = text.getBoundingClientRect(),
+        inset = box.height * 0.15;
+      return { x: box.x, y: box.y + inset, width: box.width, height: box.height - 2 * inset };
+    };
     for (let i = 0; i < texts.length; i++)
       for (let j = i + 1; j < texts.length; j++) {
-        const a = texts[i].getBBox(),
-          b = texts[j].getBBox();
+        const a = ink(texts[i]),
+          b = ink(texts[j]);
         const overlapX =
           Math.min(a.x + a.width, b.x + b.width) - Math.max(a.x, b.x);
         const overlapY =
@@ -121,12 +129,21 @@ async function checkGeometry(page, viewport) {
       failures.push("Header overlaps diagram");
     if (actions.height > 0 && svgRect.bottom > actions.top + 1)
       failures.push("Diagram overlaps controls");
-    if (Math.max(svgRect.bottom, actions.bottom) > footer.top + 1)
+    // The navigation footer is sticky, so a phone page scrolls content beneath it.
+    // At the end of the page the footer sits below everything it follows.
+    scrollTo(0, document.documentElement.scrollHeight);
+    const end = [svg, document.querySelector("#actions")].map(
+      (element) => element.getBoundingClientRect().bottom,
+    );
+    if (Math.max(...end) > document.querySelector("footer").getBoundingClientRect().top + 1)
       failures.push("Content overlaps footer");
+    scrollTo(0, 0);
     for (const button of document.querySelectorAll(
       "#actions button, footer button, #scenes",
     )) {
       const r = button.getBoundingClientRect();
+      // The last scene hides its next button in favour of the next-chapter link.
+      if (!r.width && !r.height) continue;
       const parent = button.closest("footer") ? footer : actions;
       if (r.top < parent.top - 1 || r.bottom > parent.bottom + 1)
         failures.push(`Control escapes its bar: ${button.textContent}`);
@@ -187,7 +204,7 @@ async function checkQuantities(page, id, value) {
     assert.equal(await page.locator("#diagram").getAttribute("data-photo-view"), "true");
     const image = page.locator('[data-data-hall-image="abilene"]');
     const source = await image.getAttribute("href");
-    assert.match(source, /finale-abilene-coolant-pipes\.jpg$/);
+    assert.match(source, /finale-abilene-coolant-pipes\.(?:jpg|webp)$/);
     const response = await page.request.get(new URL(source, page.url()).href);
     assert.equal(response.status(), 200, "The local Abilene photograph loads");
     assert.equal(await page.locator('#diagram a').getAttribute('href'),
@@ -251,8 +268,11 @@ async function checkHallImage(page) {
     "The overview must display its real data-hall photograph",
   );
   const source = await image.getAttribute("href");
-  assert.equal(new URL(source).hostname, "www.gstatic.com");
-  assert.match(new URL(source).pathname, /server-aisles-in-our-new-albany/);
+  assert.equal(
+    source,
+    "../assets/references/overview-google-new-albany-aisles.webp",
+    "Google's New Albany photograph loads from its local copy",
+  );
   const size = await image.evaluate(async (element) => {
     const photo = new Image();
     photo.src = element.getAttribute("href");
@@ -273,8 +293,14 @@ async function checkProductImage(page, view) {
     "The product example must display its manufacturer image",
   );
   const source = await image.getAttribute("href");
-  assert.equal(new URL(source).hostname, "docs.nvidia.com");
-  assert.match(new URL(source).pathname, view === "rear" ? /hardware-rack-rear-gb300/ : /nvl72-ai-factory/);
+  // The staged site publishes rasters over 300 KB as WebP and renames references.
+  assert.match(
+    source,
+    view === "rear"
+      ? /^\.\.\/assets\/references\/nvidia-dgx-gb300-rear\.(?:png|webp)$/
+      : /^\.\.\/assets\/references\/overview-nvidia-nvl72-rack-front\.(?:png|webp)$/,
+    "The NVIDIA product image loads from its local copy",
+  );
   const size = await image.evaluate(async (element) => {
     const photo = new Image();
     photo.src = element.getAttribute("href");
@@ -288,21 +314,14 @@ async function checkProductImage(page, view) {
 }
 
 async function checkAliases(page) {
-  for (const [previous, replacement] of [
-    ["heat-account", "facility-meter"],
-    ["meter-average", "power-energy"],
-  ]) {
+  // Anchors of retired scenes are not maintained; they open the first scene.
+  for (const previous of ["heat-account", "meter-average"]) {
     await page.goto(url(previous));
     await page.waitForSelector("#diagram text");
     assert.equal(
       await page.locator("#scenes").inputValue(),
-      String(scenes.findIndex((s) => s.id === replacement)),
-      "Legacy scene links must display their replacement",
-    );
-    await checkQuantities(
-      page,
-      replacement,
-      replacement === "facility-meter" ? "it" : "stepped",
+      "0",
+      "A retired scene link opens the chapter's first scene",
     );
   }
 }
@@ -400,9 +419,12 @@ async function checkNavigation(page) {
           if (response.status() >= 400)
             errors.push(`${response.status()} ${response.url()}`);
         });
-        page.on("requestfailed", (request) =>
-          errors.push(`${request.failure()?.errorText} ${request.url()}`),
-        );
+        // A redraw can cancel an image that is still loading (net::ERR_ABORTED);
+        // missing files still fail through the response check above.
+        page.on("requestfailed", (request) => {
+          if (request.failure()?.errorText !== "net::ERR_ABORTED")
+            errors.push(`${request.failure()?.errorText} ${request.url()}`);
+        });
         for (const scene of scenes) {
           await page.goto(url(scene.id));
           await page.waitForSelector("#diagram text");
