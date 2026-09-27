@@ -6,10 +6,10 @@ Reviewed 19 September 2026: **153 slides across all nine chapters**, their activ
 
 | Priority | Exact location | Finding and smallest correction |
 | --- | --- | --- |
-| Evidence gap | **9 / 15 — The power stack**, `power-stack-overview`; [scene source](/Users/kian/Developer/gigawatt/course/prototypes/rack-energy-scenes.js:45) | The supplied image asserts **18.3–30 kW per PSU** and **25–40% fewer losses vs. silicon** without identifying products or comparison conditions. These are insufficiently scoped, not proven false. Remove those claims from the recap or attach specific product/comparison sources. Explain that SiC/GaN devices operate **inside converters**, rather than forming another mandatory serial conversion stage. The source caveat currently lives in notes, outside the recording view. |
-| Clarification | **15 / 15 — Abilene: plan versus delivery**, `abilene-ledger`; [rendering source](/Users/kian/Developer/gigawatt/course/prototypes/capacity-visuals.js:13) | **75% of capacity delivered** appears in the **Six more buildings** row. Oracle means **total campus capacity**. Change to **Whole campus: 75% of total capacity delivered** or give it a separate row. Continue distinguishing construction completion from customer delivery. [Oracle](https://www.oracle.com/data-centers/) |
-| Qualification | **11 / 1 — Why liquid**, `why-liquid`; [title source](/Users/kian/Developer/gigawatt/course/prototypes/cooling-scenes.js:7) | **Why Is Air Cooling Dead?** overstates the conclusion. Suggested title: **Why dense AI racks need liquid cooling**. Air still handles residual heat and other equipment; Lenovo’s GB300 example is approximately 90% liquid / 10% air. Later slides correctly preserve this distinction. [Lenovo](https://lenovopress.lenovo.com/lp2357-lenovo-nvidia-gb300-nvl72-rack-scale-ai#cooling) |
-| Qualification | **11 / 12 — CDU approach**, `approach`; [rendering source](/Users/kian/Developer/gigawatt/course/prototypes/cooling-foundations.js:443), also line 425 | Replace **The lower the approach, the better** with **A lower approach gives more coolant-temperature margin**. Achieving it depends on exchanger design and flow, with hydraulic and cost tradeoffs. [Vertiv application guide](https://www.vertiv.com/4945be/globalassets/shared/vertiv-coolchip-cdu-121-application-and-planning-guide-sl-802762.pdf) |
+| Evidence gap | **9 / 15 — The power stack**, `power-stack-overview`; [scene source](https://github.com/kiankyars/gigawatt/blob/81a700d76104f8399950d525a3357b07c97c3e82/course/prototypes/rack-energy-scenes.js#L45) | The supplied image asserts **18.3–30 kW per PSU** and **25–40% fewer losses vs. silicon** without identifying products or comparison conditions. These are insufficiently scoped, not proven false. Remove those claims from the recap or attach specific product/comparison sources. Explain that SiC/GaN devices operate **inside converters**, rather than forming another mandatory serial conversion stage. The source caveat currently lives in notes, outside the recording view. |
+| Clarification | **15 / 15 — Abilene: plan versus delivery**, `abilene-ledger`; [rendering source](https://github.com/kiankyars/gigawatt/blob/81a700d76104f8399950d525a3357b07c97c3e82/course/prototypes/capacity-visuals.js#L13) | **75% of capacity delivered** appears in the **Six more buildings** row. Oracle means **total campus capacity**. Change to **Whole campus: 75% of total capacity delivered** or give it a separate row. Continue distinguishing construction completion from customer delivery. [Oracle](https://www.oracle.com/data-centers/) |
+| Qualification | **11 / 1 — Why liquid**, `why-liquid`; [title source](https://github.com/kiankyars/gigawatt/blob/81a700d76104f8399950d525a3357b07c97c3e82/course/prototypes/cooling-scenes.js#L7) | **Why Is Air Cooling Dead?** overstates the conclusion. Suggested title: **Why dense AI racks need liquid cooling**. Air still handles residual heat and other equipment; Lenovo’s GB300 example is approximately 90% liquid / 10% air. Later slides correctly preserve this distinction. [Lenovo](https://lenovopress.lenovo.com/lp2357-lenovo-nvidia-gb300-nvl72-rack-scale-ai#cooling) |
+| Qualification | **11 / 12 — CDU approach**, `approach`; [rendering source](https://github.com/kiankyars/gigawatt/blob/81a700d76104f8399950d525a3357b07c97c3e82/course/prototypes/cooling-foundations.js#L443), also line 425 | Replace **The lower the approach, the better** with **A lower approach gives more coolant-temperature margin**. Achieving it depends on exchanger design and flow, with hydraulic and cost tradeoffs. [Vertiv application guide](https://www.vertiv.com/4945be/globalassets/shared/vertiv-coolchip-cdu-121-application-and-planning-guide-sl-802762.pdf) |
 
 **Recording readability:** the small labels in **9 / 15 (power-stack map)** and **10 / 4 (Microsoft AI Superfactory infographic)** are difficult to read at 1280×720. Enlarge selected regions or simplify the figures if viewers need to read their details. This is a readability issue, not missing content. Chapter 14 / 6’s original Google plot is animated and draws over a four-second loop; its initially empty axes are intentional.
 
@@ -28,3 +28,27 @@ Reviewed 19 September 2026: **153 slides across all nine chapters**, their activ
 **Validation:** all **80 Python and 303 JavaScript tests** passed, as did course, reader, domain-map and research freshness checks. Inspected every desktop slide; exercised **459 slide/layout combinations** (1280×720 light/dark, 390×844 light) and **59 button interactions**. No runtime errors, failed resources, horizontal page overflow or material visible clipping found. Geometry alerts were checked: intentional image crops and closed assumption panels were not defects. Expanded assumption panels and the Google animation were checked separately.
 
 **Limits:** browser QA used local Chromium, not the actual recording application. Important empirical claims were checked against primary sources where available; this does not independently certify vendor statements. Houdini remains explicitly SemiAnalysis-reported. Supplied analyst graphics retain the evidence limits noted above. No audio or spoken rehearsal was performed.
+
+## Slides added after this audit's baseline — noted 26 September 2026
+
+Source links above point to the baseline revision `81a700d`, and the chapter/slide
+numbers in this audit are that revision's. Eight slides were added to these
+chapters after the baseline, so this audit did not check them. The
+[chapter review tracker](COURSE_REVIEW.md#chapter-review-tracker) names each one in
+its chapter's row.
+
+| Chapter | Slide now | Scene | Added |
+| --- | ---: | --- | --- |
+| 9 — 800 V DC | 9 | `dc-battery-rack` | `2c14c5f`, 20 September |
+| 11 — Heat capture | 9 | `thermal-resistance-example` | `6796f1f`, 19 September |
+| 12 — Heat rejection | 8 | `adiabatic-boost` | `b505292`, 19 September |
+| 12 — Heat rejection | 14 | `cooling-layouts` | `b4ef6f3`, 19 September |
+| 15 — Economics | 5 | `service-examples` | `d2e6cb4`, 19 September |
+| 15 — Economics | 11 | `nvidia-money-machine` | `a530c44`, 19 September |
+| 15 — Economics | 16 | `electricity-pass-through` | `a35ecee`, 19 September |
+| 15 — Economics | 18 | `datacenter-delay-quote` | `002505a`, 19 September |
+
+Current decks therefore have 16 slides in Chapter 9, 19 in Chapter 11, 21 in
+Chapter 12 and 19 in Chapter 15. Findings above that moved: the power-stack map
+is now Chapter 9 slide 16, the CDU approach slide is Chapter 11 slide 13, and the
+Abilene plan-versus-delivery slide is Chapter 15 slide 19.

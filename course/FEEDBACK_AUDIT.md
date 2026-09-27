@@ -203,7 +203,8 @@ not unseen feedback from another task or computer.
 ## Fairwater slide and independent request check
 
 The requested **four-nines availability at three-nines cost** case already has
-its own [Fairwater Atlanta slide](prototypes/ups-format.html?teach=1#tier-investment).
+its own [Fairwater Atlanta slide](prototypes/continuity-format.html?teach=1#tier-investment),
+then in the UPS sequence and now Chapter 7 slide 32.
 It shows Microsoft's campus photograph, the availability/cost claim and the
 traditional GPU backup equipment Microsoft says it can omit. The slide was added
 in `79a5ec6`; it is not merely a source note. Microsoft's original

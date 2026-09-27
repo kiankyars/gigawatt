@@ -1,10 +1,11 @@
 # Lesson and visual authoring standard
 
-Updated **2026-09-12**. The [course template](COURSE_REVIEW.md) owns audience,
+Updated **2026-09-26**. The [course template](COURSE_REVIEW.md) owns audience,
 scope and production priorities. The [domain map](domain-map.json) owns objectives,
 prerequisites and sequence. This file owns teaching rules; [PRESENTING.md](PRESENTING.md)
 owns the rehearsal playbook and controls. Do not create another design brief for
-an individual lesson.
+an individual lesson. Reader prose follows the [reader style rules](#reader-style-rules)
+at the end of this file.
 
 ## Carry the reasoning across the course
 
@@ -22,9 +23,11 @@ reference is useful; narrating it does not produce a better lesson.
 
 The final chapter, **Putting an AI Factory Together**, follows one Abilene case
 across the engineering and commercial decisions already taught. Its purpose is
-to connect those decisions, not repeat five isolated constraint exercises. The
-original C01–C05 reader exercises remain optional practice; their preserved IDs
-do not require five cases in the presentation.
+to connect those decisions, not repeat five isolated constraint exercises. In the
+reader, the Abilene companion lesson (`c00-abilene-ai-factory`) opens the
+chapter and follows the same case. The original C01–C05 reader exercises remain
+optional practice after it; their preserved IDs do not require five cases in the
+presentation.
 
 The [Primer](prototypes/terminology-format.html) aims for about 20 minutes,
 subject to rehearsal. It gives a beginner enough vocabulary to follow part of an
@@ -37,17 +40,21 @@ in its author notes. Provide a visible Back to course exit throughout the deck.
 The primer adds no assessed objective;
 teach each concept in context when it becomes useful in the main course.
 Keep the N+1 definition and spare-module example; omit the sentence promising a
-later surviving-service test. Keep source discussion in the reader. Essential figure attribution may sit beside
+later surviving-service test. Keep source discussion in
+[PRIMER_EVIDENCE.md](PRIMER_EVIDENCE.md) and the Primer
+[speaker notes](SPEAKER_NOTES.md#source-circuit-and-load--chapter-1-slide-1). Essential figure attribution may sit beside
 a sourced image; it is not an explanation/source popup.
 
 Use numbered descriptive chapter names in the website and presentations, beginning
 with **1. Primer**. Stable internal IDs remain for source mapping and existing
 links, but are not audience-facing labels.
 
-The public title is **From Watts to Tokens**. The reader is at the site root and
-presentations use `/slides/…` addresses. Every slide header has **Back to course**
-and **Reading**; no explanation/source dialog or note launcher. Deeper text and
-source discussion belong in the reader. Chapter actions use the shared button
+The public title is **From Watts to Tokens**. The homepage is at the site root, the
+reader at `read.html`, and presentations use `/slides/…` addresses. Every slide header has **Back to course**
+and **Reading**; no explanation/source dialog or note launcher. Longer
+derivations and extra worked cases belong in the reader; each source gets a
+one-line claim in its bibliography, and source discussion stays in
+`research/sources/`. Chapter actions use the shared button
 style; the directory has no All chapters / Slides available filter.
 
 All decks use `prototypes/slide-navigation.js` through `slide-chrome.js`. Keep chapter behavior in its renderer; use the shared component for previous/next, selector, progress and responsive footer. Do not build another chapter-specific navigation bar. On the final slide, the shared footer derives **Next chapter →** from the teaching catalog; it preserves teaching mode and uses that chapter’s reading when its slides are not yet available.
@@ -76,15 +83,16 @@ Carry the same facility through these questions:
 | Domains | Return to the campus to ask |
 | --- | --- |
 | Data center overview through Workloads and requirements | Which boundary and useful service are we describing? Preserve the existing Data center overview slides. |
-| Siting, grid connection and supply through Rack power and the 800 V DC transition | Which supply is available, which equipment can be delivered, and where are storage and conversion? |
-| Networking and interconnects through Storage and recovery | What compute, memory, network and storage inputs would establish accepted work? |
+| Siting, grid connection and supply through 800 V DC distribution | Which supply is available, which equipment can be delivered, and where are storage and conversion? |
+| Networking and interconnects | What compute, memory, network and storage inputs would produce accepted work? |
 | Chip and rack heat capture through Heat rejection, climate and water | How is heat captured, moved and rejected; which water circuit is being counted? |
 | Physical site, buildings and safety through Controls, operations and reliability | What must be built, accepted, maintained and recovered for that service to run? |
-| GPU cloud economics (`d15`) | CoreWeave commercial model; Abilene original targets versus reported delivery | Source-backed provider examples and dated project reports | Integrated in [Chapter 15](prototypes/capacity-format.html?teach=1); customer billing, risk allocation and delivery milestones remain distinct. |
+| GPU cloud economics | What does the capacity sell, on what terms, and how does Abilene's reported delivery compare with its original targets? |
 
 Use published Abilene facts only where the source supports the exact building,
 date and condition. For an original teaching calculation, give its inputs and scope beside the
-mechanism; record its provenance in the reader. Retain stable names and interfaces,
+mechanism on the slide; in the reader, state them once, in the worked example's
+*Model boundary* line. Retain stable names and interfaces,
 and leave unknown as-built quantities unknown.
 A reference campus does not require inventing its full one-line or GPU inventory.
 
@@ -101,9 +109,10 @@ Plan one active check-in in every domain. Make it test the mechanism or a real
 engineering decision: predict a change, choose an operating point, diagnose a
 failure, or identify the evidence needed to proceed. A strong closing example is
 allowed only when no worthwhile active check-in can be made; record that specific
-reason in the course review. The reader's fifteen existing check-ins are starting
-points, not proof that each teaching deck already includes one. This is Kian's
-latest clarification on 13 September 2026.
+reason in the course review. The reader has 15 chapter check-ins, one closing each of
+Chapters 2 to 15 and one closing the ERCOT and PJM case study; the Primer and
+Chapter 16 have none. They are starting points, not proof that each teaching deck
+already includes one. This is Kian's latest clarification on 13 September 2026.
 
 ### Required section handoffs
 
@@ -123,22 +132,34 @@ The open production tasks remain in [the course review](COURSE_REVIEW.md#next-te
 | Physical site, buildings and safety (`d12`) | Greenfield versus brownfield, using Abilene and Colossus 1; factory reuse still required new power infrastructure | [Land comparison](prototypes/case-studies.html?teach=1#land), [Colossus 1](prototypes/case-studies.html?teach=1#colossus) | Integrated in Chapter 5: [greenfield/brownfield](prototypes/site-format.html?teach=1#greenfield-brownfield) and [Colossus](prototypes/site-format.html?teach=1#colossus-service); current checks recorded in [TESTING.md](TESTING.md) |
 | GPU cloud economics (`d15`) | CoreWeave commercial model; Abilene original targets versus reported delivery | Source-backed provider examples and dated project reports | Integrated in [Chapter 15](prototypes/capacity-format.html?teach=1); customer billing, risk allocation and delivery milestones remain distinct. |
 
-**EPC (`d13`)** now has a [full chapter deck](prototypes/procurement-cases-format.html?teach=1).
-`epc-and-prefab`, `factory-and-site`, `parallel-schedules`, `manufacturing-release`
-and `module-transport` distinguish responsibilities from manufacturing strategy.
-The Houdini factory case stays here; Meta’s tent enclosure remains in Chapter 5.
-`compass-package` and `interface-owner` revisit the package introduced in Chapter 6
-to assign the remaining factory/site joints. Chapter 6 continues to teach its
-two electrical functions.
+**EPC (`d13`)**, Chapter 13, has a [14-slide deck](prototypes/procurement-cases-format.html?teach=1)
+whose driving question is how a design becomes a tested, usable service.
+`epc-and-prefab` opens by separating the engineering, procurement and construction
+responsibilities from prefabrication, which is a construction strategy.
+`rack-case-brief` and `rack-change` then hold a 20 MW IT phase constant while
+200 × 100 kW racks become 100 × 200 kW during construction, ten per 2 MW zone.
+Three slides follow that change through its interfaces:
 
-`rack-change` holds 20 MW constant while 200 × 100 kW racks become 100 × 200 kW
-just before fabrication. The following electrical, hydraulic and spatial slides
-feed `release-holds` and `approval-delay`: what proceeds, what is held, and what
-evidence releases each hold. Factory, site and integrated tests lead into
-complete accepted paths and operator handover. The Polaris milestone recap was
-removed because Chapter 4 already teaches it. The
-closing `release-decision` tests whether approved electrical and cooling designs
-are enough when geometry, transport and the factory slot remain unresolved.
+- `electrical-interface`: at 480 V three-phase and PF 1, branch current rises
+  from 120.3 A to 240.6 A, above the old 160 A continuous rating.
+- `hydraulic-interface`: rack flow doubles from 2.39 to 4.78 kg/s at a 10 K rise,
+  so the branch pressure difference rises from 20 to 80 kPa against 60 kPa available.
+- `spatial-interface`: twice the rack mass sits on the same four feet.
+
+`factory-and-site` and `aws-houdini-prefab` show factory assembly overlapping site
+construction. The Houdini factory case stays here; Meta’s tent enclosure remains in
+Chapter 5. `compass-package`, `interface-owner` and `ocp-rack-example` revisit the
+Siemens and Compass skid introduced in Chapter 6 and the Open Compute Project
+interfaces between suppliers; Chapter 6 continues to teach the skid's two
+electrical functions. `factory-acceptance` introduces the factory acceptance test
+(FAT). `accepted-paths` counts racks with power, cooling and networking all
+accepted: 40 racks, or 8 MW, rising to 60 racks and 12 MW when cooling acceptance
+extends to A01. The deck closes on `phase-boundary`, which returns to Applied
+Digital's Polaris Forge 1 for CoreWeave: the next 50 MW connects while the first
+50 MW stays online. The retired scene IDs, including `parallel-schedules`,
+`release-holds`, `approval-delay` and `release-decision`, resolve to current
+slides through `sceneAliases`; do not rebuild them. The reader's Chapter 13
+check-in keeps the release-hold question.
 
 At every section handoff, verify the next chapter is reachable, check any Abilene
 claim against its dated source and update the chapter's
@@ -166,7 +187,9 @@ Use these rules when adapting each sequence:
 3. **Make the diagram teach.** Use a short explanatory headline when it adds meaning; a clear
    side-by-side comparison can stand without one. Use one dominant visual, and essential labels, quantities and assumptions beside
    their objects. Remove competing bottom summaries and repeated titles. Put
-   exceptions, source discussion and longer derivations in the reader. Do not
+   longer derivations, extra worked cases and sources in the reader. A caveat
+   moves to the reader only if it would change what the learner does there
+   (see the [reader style rules](#reader-style-rules)); otherwise cut it. Do not
    add generic disclaimers such as “illustrative,” “synthetic,” “not a benchmark,”
    “not real telemetry” or “no wall-clock claim” to teaching visuals. State the
    actual inputs and conditions that change the answer. Keep an essential figure
@@ -209,19 +232,23 @@ slides or call a whole domain finished because one sequence is implemented.
 
 ## Keep the physical model honest
 
-Record in the reader whether each number is a sourced specification, an operating
-measurement, a service requirement or a teaching assumption. On the slide, name
-the quantity and derive the result from visible inputs; generic disclaimer text
-is not a substitute for a clear account. A chosen token target is not a hardware benchmark;
-a useful conditional scheduling example is not evidence of routine deployment.
-Retain its dependency limitation beside it. When equipment must respond to a
-changing load, show power against time; the average cannot stand in for the peak
-or transition speed.
+Know whether each number is a sourced specification, an operating measurement, a
+service requirement or a teaching input. In the reader, the worked example's
+*Model boundary* line says this once for the example's inputs, and a dated fact
+carries its date and source; body paragraphs do not repeat the label. On the
+slide, name the quantity and derive the result from visible inputs; generic
+disclaimer text is not a substitute for a clear account. A chosen token target is
+not a hardware benchmark; a useful conditional scheduling example is not evidence
+of routine deployment. Retain its dependency limitation beside it. When equipment
+must respond to a changing load, show power against time; the average cannot
+stand in for the peak or transition speed.
 
-A correct equation can answer the wrong question. Current does not establish
-facility efficiency; energy capacity does not establish discharge power; total
-coolant flow does not establish adequate flow through every branch. Name the
-account being calculated and show assumptions at the result.
+A correct equation can answer the wrong question, so name the account being
+calculated and show its assumptions at the result. Current sets conductor size
+and resistive loss; facility efficiency needs the input and output energy of the
+whole path. Stored energy sets how long a source can carry a load; the converter's
+power rating sets how much load it can carry. Total coolant flow closes the
+plant's heat balance; each branch still needs its own share.
 
 - Separate physical flows from control and commercial relationships. Distinguish
   coolant circulation from heat crossing an exchanger. A shared diagram color
@@ -256,17 +283,24 @@ when paused.
 
 ## Author in the existing sources
 
-The four lesson inputs in `course/expansion/` are `foundations-power.json`,
-`racks-compute-heat.json`, `heat-delivery-operations.json` and `capstones.json`.
+The five lesson inputs in `course/expansion/` are `foundations-power.json`,
+`racks-compute-heat.json`, `heat-delivery-operations.json`, `capstones.json` and
+`grid-queues.json` (the case study’s lesson).
 Edit the relevant lesson there, preserving its stable ID and domain-map objective
-IDs. Each lesson records its question, explanation, worked example, tradeoff,
-limiting case, practice, terms where needed and authored visual. Capstones retain
-the map's `capstone_id`.
+IDs. Each lesson records its question, explanation, worked example, practice,
+terms where needed, authored visual and `lab` (a lab type, or `none` where no
+interactive model fits). The `tradeoff` and `failure` slots are optional: keep
+them only where they carry the lesson's own numbers or mechanism. Capstones
+retain the map's `capstone_id`.
 
-Add checked sources to `research-sources.json` and record the specific supported
-claim, `reviewed_on` date and reading limits in the lesson. Describe what was
-actually accessible and read; retain disagreements rather than hiding them in an
-average. Use original explanatory prose. Follow the [research workflow](../research/README.md).
+Add checked sources to `research-sources.json`. In the lesson, give each source a
+one-line `claim` stating what it supports, written as a fact, and its `reviewed_on`
+date. The reader's bibliography shows that claim beside the catalog's title,
+publisher and dates. Put reading limits, access
+notes and retrieval instructions in `limits`, which stays in the source record and
+`research/sources/` and is not shown to learners. Describe what was actually
+accessible and read; retain disagreements rather than hiding them in an average.
+Use original explanatory prose. Follow the [research workflow](../research/README.md).
 
 `uv run gigawatt-expand` generates the reader, Markdown lessons and manuscript.
 Do not edit those outputs. The builder establishes structural coverage, not
@@ -280,14 +314,22 @@ presentations, retain the six `learning_contract` fields: `driving_question`,
 `mechanism`, `architecture`, `balance`, `counterexample` or `transfer`. These fields
 make the reasoning inspectable; they do not require a scene for every role.
 
-The 800 V sample uses `sample.json` for the reading explanation and
-`sample-presentation.json` for scenes, with `course/web/presentation.*` and
-`electrical-visuals.js` rendering the visuals. `reader-models.js` holds shared
-calculations. The UPS prototype uses `course/prototypes/ups-format.html` and its
-separate mechanism modules. The cooling prototype uses
-`course/prototypes/cooling-format.html`, its mechanism modules and
-`cooling-model.js`. Preserve stable scene IDs and replacement aliases; keep
-student, teaching and reference calculations consistent.
+Chapter decks keep their scenes in `course/prototypes/*-scenes.js` beside their
+players, visuals and models; Chapter 2's scenes are embedded in
+`orientation-format.html`. For example, Chapter 7 uses `continuity-format.html`
+and its mechanism modules, which absorbed the retired UPS sequence, and Chapter 11
+uses `cooling-format.html`, its mechanism modules and `cooling-model.js`.
+`course/web/reader-models.js` holds calculations shared with the reader. The
+earlier 800 V sample's own files (`sample.json`, `course/web/presentation.js`,
+`course/web/presentation.html` and `course/web/electrical-visuals.js`) still build
+the sample pages locally, and those pages are not published. The other sample
+files feed recorded decks. `sample-presentation.json` generates
+`course/prototypes/rack-energy-800v-data.js`, which supplies Chapter 9's 800 V
+scenes. `course/web/presentation.css`, `presentation-renderers.js`,
+`electrical-renderer.js` and `reader-models.js` are shared by the published decks
+for Chapters 6, 8–10 and 12–16 and the ERCOT and PJM case study, so changes there
+alter recorded slides. Preserve stable scene IDs and replacement aliases;
+keep student, teaching and reference calculations consistent.
 
 ## Rehearse and check the section
 
@@ -327,17 +369,92 @@ closing breaker-failure example changes the outage boundary of two connected hal
 
 ## Controls, operations and reliability teaching sequence
 
-Chapter 14 starts with a hot row and a normal plant dashboard. Complete
-before/after measurement sets explain how reduced row flow raises return
-water temperature at fixed heat input. Google cooling and demand response
-have separate context and mechanism slides. The maintenance example changes
-a shared control-power boundary. Four Cloudflare slides connect an outage,
-hidden service dependencies, corrective testing and a successful repeat failover.
-Gmail, London and Meta distinguish replication, physical repair and productive
-recovery. The closing exercise gives every input needed to calculate the
-coolant flow required for an extra 0.70 MW job.
+Chapter 14 has 23 slides, driven by one question: the row is hot, so what
+should we measure, change and verify?
 
-All five D14 objectives are covered. Earlier electrical and thermal redundancy
-concepts are used to examine live configuration and service recovery, without
-repeating equipment definitions. Source limits and derivations remain in the
-reader and provenance records; the slides show the observations and decisions.
+- **Diagnosis (slides 1–3).** Row B's hottest chip reaches 85°C against an
+  80°C limit while the plant dashboard shows a normal 30°C supply. Two complete
+  before/after measurement sets at the same 2.09 MW explain it: row flow halves
+  from 100 to 50 kg/s, so the return rises from 35°C to 40°C and the hottest chip
+  from 70°C to 85°C.
+- **Controls (slides 4–11).** Three Google slides move from cooling advice to
+  autonomous control, show the five-minute control loop and read DeepMind's
+  original performance plot. `control-layers` separates pump controls, plant
+  controls and the workload scheduler. In `admit-work`, a 2 MW job waits for
+  standby cooling with a three-minute start; starting at once would accumulate
+  0.05 MWh of heat with no permitted thermal buffer. `chiller-staging` reads the
+  Johnson Controls Metasys stage-up thresholds, and `intel-cooling-reserve` shows
+  chilled-water tanks sized to outlast the server UPS.
+- **Flexible demand (slides 12–14).** Google's demand-response pilot at The Dalles,
+  then a flexible 4 MW job paused through a grid event and finished before its
+  deadline.
+- **Recovery (slides 15–22).** Three Cloudflare slides connect the November 2023
+  Portland outage and its hidden dependencies, the added failover capacity and
+  whole-site test, and the March 2024 repeat failure, after which APIs and
+  dashboards recovered in seven minutes. Three slides follow Google's July 2022
+  London cooling failure through server shutdown and a further fourteen hours of
+  service recovery. Two Meta slides show Llama 3 recovering from 466 interruptions
+  in 54 days and maintenance trains taking one group out at a time.
+- **Knowledge check (slide 23).** Can a healthy Row C take another 2.50 MW?
+  Electrical capacity and the cooling plant each have 3 MW spare, but the row's
+  water-side headroom at 100 kg/s and a 40°C return limit is 100 × 4.18 × 5 =
+  2,090 kW. The 4.59 MW total needs 109.81 kg/s, rounded up to 110 kg/s, or part
+  of the work goes to another row.
+
+The scenes carry objectives D14.1, D14.2, D14.4 and D14.5. D14.3, maintainability
+judged by procedure, surviving capacity and isolation boundaries, is taught in the
+reader lesson `d14-maintenance-and-service-reliability`. Earlier electrical and
+thermal redundancy concepts are used to examine live configuration and service
+recovery, without repeating equipment definitions. The three D14 reader lessons
+carry the derivations and case detail; source limits stay in the provenance
+records. The slides show the observations and decisions. Gmail's recovery case
+lives in the storage and recovery Further reading.
+
+## Reader style rules
+
+These rules govern the reader's prose: lessons, glossary entries, check-ins and
+captions. They come from the [reader audit](../qa/reader/READER_AUDIT_2026-09-21.md)
+of 21 September 2026 and are written the way the reader should sound.
+
+1. **Teach first.** Say what is true and how it works. Add a qualification only
+   when it would change what the learner does.
+2. **Every "not" must pass the misconception test.** Would a smart newcomer
+   really believe the thing being denied, and would believing it change a
+   decision? If yes, keep the sentence and make it the point of the paragraph.
+   If no, delete it. "PUE is not a measure of useful computation" passes. "The
+   name does not encode the turbine's megawatt output" fails.
+3. **One scope note per example.** The *Model boundary* line under each worked
+   example already says which numbers are invented. Body paragraphs never repeat
+   it, so "hypothetical", "illustrative", "supplied" and "original teaching
+   input" leave the prose.
+4. **Dated facts go in snapshot boxes:** claim, as-of date, source. The prose
+   around them stays evergreen, and the boxes can be refreshed without touching
+   the explanation.
+5. **The reader never mentions the slides, the deck, a review, or its own
+   production.** If an image matters, embed it with a caption through the
+   lesson's `figures`. If it does not, drop the reference.
+6. **Open with the situation the title promises.** The definition comes second,
+   attached to the object it describes.
+7. **End each paragraph on the consequence,** stated positively.
+8. **Plain verbs.** *Show, prove, tell, give, set* for "establish". *Given* for
+   "supplied", "stated" and "declared".
+9. **Sources are a bibliography:** author, title, date, one line on what the
+   source supports. Review notes stay in `research/`.
+10. **Vary the rhythm.** Let a long sentence carry a mechanism through its
+    steps, then land the point with a short one.
+
+Put back the signal the old voice removed. Expand each acronym at its first use
+in a chapter, name the standard term or rule (Amdahl's law, the Young/Daly
+interval, the pump affinity laws), state the rule of thumb and give the real
+number. Where a lesson is the Reading link for a recorded deck, its worked
+example follows the deck's running example and numbers. Keep a reader-only
+example only where it teaches something the deck does not, and introduce it as an
+extension of the video's case.
+
+Three lessons were re-voiced on 26 September 2026 as the pilot exemplars:
+`d10-flow-and-pressure` (a light edit), `d01-boundaries` (a heavy edit) and
+`d03-service-and-siting` (a restructure). They await the author's review before
+they are frozen. Read them before rewriting another lesson, and include them in
+any rewrite prompt. After editing, run
+`qa/reader/prose_lint.py`: slide references and review residue must stay at zero,
+and the other columns show how far a lesson sits from the voice budget.

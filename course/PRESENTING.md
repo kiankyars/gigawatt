@@ -34,11 +34,13 @@ example. The site’s **Glossary** button and search lead back to full explanati
 show one lookup instead of reading the glossary aloud.
 
 For each batch, record the Git revision and actual capture date in the recording
-notes. The first preparation baseline is `5d9553a`; this does not claim a recording
-has occurred. Preserve the batch’s slide version while later material changes.
+notes. The first preparation baseline is `5d9553a`. On 20 September 2026 the author
+reported Chapters 1–16 recorded; the revision for each batch was not noted, so the
+[recorded edition](COURSE_REVIEW.md#recorded-edition--reported-20-september-2026)
+still needs confirming. Preserve the batch’s slide version while later material changes.
 Use explicit dates when narrating project milestones and forecasts.
 
-The Chapter 8 buffering follow-up is complete: slide 14 shows a sudden GPU load
+The Chapter 8 buffering follow-up is complete: slide 16 shows a sudden GPU load
 drop and the bidirectional buffer absorbing excess source power during ramp-down.
 The rising and falling load examples now sit together before the battery hardware
 and recharge slides. The [production follow-up](COURSE_REVIEW.md#next-teaching-step)
@@ -49,13 +51,14 @@ is closed; this recording content gap is resolved.
 Prepare only the section being recorded. The template’s short checks are a
 spoken rehearsal, checked claims/examples/workflow, and a readable capture with
 clear audio. Complete later chapters, final timestamps and the recorded-edition
-publication at their own production stage. The full evolving equipment inventory
-is still a planned companion feature; introduce the existing reader, glossary,
+publication at their own production stage. The evolving equipment inventory was
+removed from scope on 19 September 2026; introduce the existing reader, glossary,
 slides and examples in the opening.
 
 ## Open and present
 
-The published reader is at the [site root](https://kiankyars.github.io/gigawatt/).
+The homepage is at the [site root](https://kiankyars.github.io/gigawatt/) and the
+reader at [`read.html`](https://kiankyars.github.io/gigawatt/read.html).
 Open a chapter’s slides from the one chapter directory. The header provides
 **Back to course**, **Reading** and, in teaching mode, **Full screen**.
 Explanation/source dialogs and note-launch buttons are removed from slide views;
@@ -91,8 +94,9 @@ so extra wrapping does not shrink the diagrams. Captions inside photographs or
 supplied figures retain their original proportions.
 
 Use **Next / →**, **Back / ←**, the short slide selector and diagram controls.
-Where a meaningful prediction has a reveal, use its button; the 800 V sequence
-also supports **R**. **F** enters fullscreen in decks that support it. A focused
+Where a meaningful prediction has a reveal, use its button; in Chapter 9,
+**R** also reveals the current and conductor-loss predictions (slides 3 and 4).
+**F** enters fullscreen in decks that support it. A focused
 slider uses arrow keys to change its value. The site follows the device’s light
 or dark appearance. Press Escape to leave fullscreen.
 

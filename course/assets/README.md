@@ -45,7 +45,7 @@ does not establish an OEM-independent BBU configuration or board regulator desig
 Section 4 embeds GE Vernova's photograph of **Dania Beach Clean Energy Center**,
 inspected 2026-09-12, from its
 [FPL case study](https://www.gevernova.com/gas-power/resources/case-studies/first-7ha-florida-power-light).
-The publisher-hosted image shows a real combined-cycle plant; the adjacent
+The image shows a real combined-cycle plant; the adjacent
 two-7HA.03 and up-to-1,260-MW labels are manufacturer-reported plant claims.
 No claim is made that the plant supplies the course's campus or operated at that
 output when photographed. The diagram and cost/fuel models remain separate
@@ -54,9 +54,9 @@ original teaching examples. Neither publisher image is AI-generated.
 The overview's second slide opens on Google's photograph of server aisles at
 its **New Albany, Ohio** campus, credited on the slide. Source:
 [Google Data Centers photo gallery — Central Ohio](https://www.datacenters.google/discover-more/photo-gallery/),
-inspected 2026-09-12. The image is embedded from the
-[publisher's image CDN](https://www.gstatic.com/marketing-cms/assets/images/19/43/b476c0984f2da3b2faa1a7f588ce/server-aisles-in-our-new-albany-data-center-building-in-central-ohio.jpg=n-w1086-h814-fcrop64=1,0000202fffffdfea-rw),
-not copied into this repository. Desktop presentation crops it to the available
+inspected 2026-09-12. The slide loads an unchanged local copy of the file on the
+[publisher's image CDN](https://www.gstatic.com/marketing-cms/assets/images/19/43/b476c0984f2da3b2faa1a7f588ce/server-aisles-in-our-new-albany-data-center-building-in-central-ohio.jpg=n-w1086-h814-fcrop64=1,0000202fffffdfea-rw)
+(see [local copies](#local-copies-of-publisher-images--26-september-2026)). Desktop presentation crops it to the available
 wide frame; phone presentation contains the full publisher-served image. It is
 a visual reference for equipment racks, aisles and overhead infrastructure—not
 a universal data-hall layout, a GB300 installation, or evidence of an identified
@@ -81,14 +81,15 @@ dates and do not specify complete protection or storage arrangements.
 
 The overview's TPU view embeds Google's photograph of **eight Cloud TPU v4
 racks**, one eighth of a 4,096-chip pod. Source: [Google Cloud — TPU v4](https://cloud.google.com/blog/topics/systems/tpu-v4-enables-performance-energy-and-co2e-efficiency-gains),
-reviewed 2026-09-12. The publisher-hosted photograph is unchanged. Its adjacent
+reviewed 2026-09-12. The photograph is unchanged and loads from a local copy. Its adjacent
 64 × 64-chip block diagram explains logical grouping and optical connections;
 it does not reproduce cable routing or imply that pod ICI is a wide-area fabric.
 
 The workload sequence embeds **Figure 1 from Choukse et al., Power Stabilization
 for AI Training Datacenters (2025)**, [paper and source figure](https://arxiv.org/html/2508.14318v1),
 reviewed 2026-09-12. This is normalized production DGX-H100 training telemetry,
-embedded unchanged from arXiv with authors and figure number on the slide. The
+embedded unchanged, from a local copy of the arXiv SVG, with authors and figure
+number on the slide. The
 article is licensed CC BY-NC-SA 4.0. Later traces are separate original teaching
 models; they are not reconstructed measurements or GB300 performance claims.
 
@@ -111,8 +112,9 @@ reference or embedded. The original figure uses the four conventional supply
 categories. Electrical explanations are cross-checked against the primary
 references in the research catalog.
 
-Chapter 4 uses publisher-hosted **GE Vernova gas-turbine/generator anatomy** and
-**Siemens Energy combined-cycle and dispatch diagrams**, inspected 2026-09-12:
+Chapter 4 uses **GE Vernova gas-turbine/generator anatomy** and **Siemens Energy
+combined-cycle and dispatch diagrams**, inspected 2026-09-12 and loaded from
+unchanged local copies:
 
 - [GE Vernova: What is a gas turbine?](https://www.gevernova.com/gas-power/resources/education/what-is-a-gas-turbine)
 - [Siemens Energy: Combined-cycle power plants](https://www.siemens-energy.com/global/en/home/products-services/product/combined-cycle-power-plants.html)
@@ -154,7 +156,8 @@ not an assertion that plant rooms require no partitions.
 
 The separate `references/colossus-1-aerial.jpg` is an actual SpaceXAI photograph
 of Colossus 1. Its original URL and hash are in `references/provenance.json`.
-Lenovo's actual rack and annotated rear-tray photographs remain publisher-hosted;
+Lenovo's actual rack and annotated rear-tray photographs load from local copies,
+`references/lenovo-gb300-rack-front.jpg` and `references/site-lenovo-gb300-compute-tray-rear.png`;
 P111 and P124 support the 29 kg tray and approximately 1,580 kg rack respectively.
 
 ## Chapter 9 compute and memory — 2026-09-14
@@ -286,3 +289,37 @@ The active slide uses `references/cooling-layouts-condenser-label.png`, a built-
 image-generation edit naming the bottom blue box “Water-cooled condenser” while
 retaining “Condenser-water loop” underneath. The original remains unchanged;
 the edit prompt and provenance accompany the derivative asset.
+
+## Local copies of publisher images — 26 September 2026
+
+Every published deck now loads its images from this folder. Nine publisher
+images that the slides previously loaded from the publisher's server were saved
+unchanged: the exact bytes the original URL returned, so the recorded slides look
+the same. Each has a `.provenance.json` beside it with the page and original
+URLs, retrieval date, dimensions, SHA-256 hash and a visual check.
+
+| Local copy in `references/` | Slide | Publisher |
+| --- | --- | --- |
+| `overview-google-new-albany-aisles.webp` | Chapter 2 white-space photograph | Google |
+| `overview-google-tpu-v4-racks.png` | Chapter 2 TPU v4 preview | Google Cloud |
+| `overview-nvidia-nvl72-rack-front.png` | Chapter 2 rack boundary | NVIDIA |
+| `workload-choukse-2025-fig1.svg` | Chapter 3 training-power evidence | Choukse et al. (2025), arXiv |
+| `siting-ge-vernova-dania-beach.webp` | Chapter 4 Dania Beach | GE Vernova |
+| `siting-ge-vernova-gas-turbine-cutaway.jpg` | Chapter 4 gas turbine and generation options | GE Vernova |
+| `siting-siemens-energy-combined-cycle.jpg` | Chapter 4 combined cycle and generation options | Siemens Energy |
+| `siting-siemens-energy-peaker-dispatch.png` | Chapter 4 grid dispatch | Siemens Energy |
+| `site-lenovo-gb300-compute-tray-rear.png` | Chapter 5 compute-tray rear view | Lenovo Press |
+
+Chapter 4's Abilene aerial and turbine-plant photographs, and Chapter 5's
+Abilene aerial, use the existing copies `distribution-abilene-data-halls.jpg` and
+`finale-abilene-turbine-2026.jpg`. These are Oracle's original 2,500 × 1,873
+JPEGs. Oracle's image server sends browsers that accept AVIF a re-encoded AVIF of
+the same size, so the recording showed that version; the two differ by 38.4 dB
+PSNR, which is not visible at slide size. Chapter 5's Lenovo rack front and
+Chapter 2's rack rear view use the existing `lenovo-gb300-rack-front.jpg` and
+`nvidia-dgx-gb300-rear.png`, which match the original URLs byte for byte. All
+four are recorded in `provenance.json` or `finale-abilene-provenance.json`. Where a server's file
+type differed from its URL's extension, the copy keeps the bytes and takes the
+extension of its real format. These are copyrighted publisher images reused with
+attribution; the course license does not extend to them. The Choukse figure is
+CC BY-NC-SA 4.0.

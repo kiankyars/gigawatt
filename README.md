@@ -6,11 +6,10 @@
 
 The homepage introduces the course's 16 chapters and its ERCOT and PJM case study. The reader at
 [`read.html`](https://kiankyars.github.io/gigawatt/read.html) contains the searchable
-lessons, glossary and numerical models. Its sidebar is the course directory.
+lessons, glossary and interactive labs. Its sidebar is the course directory.
 Chapters use numbered descriptive names,
 starting with **1. Primer**, **2. Data center overview** and **3. Workloads and
-requirements**. Each chapter shows its reading and available slides; selected-topic
-sequences are labelled so they do not imply a complete chapter deck.
+requirements**. Each chapter links its reading and its slide deck.
 
 The homepage lives at the site root. Presentations have short addresses
 such as `/slides/primer.html`, `/slides/workloads.html` and `/slides/siting.html`.
@@ -47,22 +46,31 @@ evidence; they do not add curriculum requirements. Technical checks live in
 The course begins with the Primer: about 20 minutes of electricity, equipment,
 computing and cooling vocabulary, pending rehearsal. It adds no assessed objective.
 
-The expanded reader contains 51 authored lessons across 15 domains, including
-five optional integrated exercises, with teaching and practice mapped to all 65 objectives.
-The final presentation, **Putting an AI Factory Together**, instead follows
-one Abilene case across nine slides to connect the course's engineering and
-commercial decisions.
-It includes searchable text, a glossary, eight numerical model types and five
-original GPT ImageGen equipment illustrations. Exact calculations use code;
-illustrative geometry does not establish equipment ratings.
+All 16 numbered chapters and the ERCOT and PJM case study after Chapter 4 have
+slide decks. On 20 September 2026 the author reported that Chapters 1–16 are
+recorded. The [chapter review tracker](course/COURSE_REVIEW.md#chapter-review-tracker)
+gives each deck's slide count and review status. The final chapter, **Putting an
+AI Factory Together**, follows one Abilene case across ten slides to connect the
+course's engineering and commercial decisions.
 
-The sidebar reports which chapters have slides and whether they cover the chapter
-or selected topics. [COURSE_REVIEW.md](course/COURSE_REVIEW.md#next-teaching-step)
-owns the remaining production work, including check-in connections, case and
-delivery slides, consistent use of Abilene, and teaching rehearsals.
+The reader has 52 lessons, with teaching and practice mapped to all 65 objectives.
+Forty belong to Chapters 2–15 and the case study, and six are further reading on
+compute and storage. Chapter 16 has the other six: the Abilene reading, which
+follows the chapter's case, and five optional integrated exercises.
+The reader also has search, a glossary of 282 terms, a Primer vocabulary page, 15
+check-ins (one closing each of Chapters 2–15 and the case study) and interactive
+labs of 41 types in 43 lessons. Nineteen lessons embed 40 sourced photographs and
+figures; one generated illustration, the campus cutaway, appears in two lessons. Exact
+calculations use code; illustrative geometry does not establish equipment ratings.
+
+[COURSE_REVIEW.md](course/COURSE_REVIEW.md#next-teaching-step) owns the remaining
+production work: author review of Chapters 14–16, the case study and the slides
+added after acceptance, a tagged recorded edition, and the Abilene consistency audit.
 [TEACHING_STANDARD.md](course/TEACHING_STANDARD.md#required-section-handoffs)
 records the cases and exercises each relevant chapter must carry into its teaching
-material. Authored coverage and passing builds do not establish comprehension or runtime.
+material, and its [reader style rules](course/TEACHING_STANDARD.md#reader-style-rules)
+set the voice of the reader. Authored coverage and passing builds do not establish
+comprehension or runtime.
 
 **The encyclopedic survey is an anti-pattern:** articles inform evidence and
 questions; they do not automatically earn chapters. The template states the
@@ -70,16 +78,20 @@ course's scope and the teaching standard defines the depth each lesson needs.
 
 ## Build and verify
 
+Staging publishes PNG and JPEG images over 300 KB as WebP, so it needs the cwebp
+encoder (`brew install webp`, or `sudo apt-get install webp`); Pillow with WebP
+support also works.
+
 ```sh
 uv run gigawatt-expand
 uv run gigawatt-research build --include-candidates
 uv run gigawatt-map
 uv run python -m gigawatt.stage_site
-uv run python -m http.server 8765 --directory _site
+uv run python -m http.server 8878 --directory _site
 ```
 
-Open [the local homepage](http://localhost:8765/) or
-[the local reader](http://localhost:8765/read.html). Editable inputs remain grouped in
+Open [the local homepage](http://localhost:8878/) or
+[the local reader](http://localhost:8878/read.html). Editable inputs remain grouped in
 `course/`; `src/gigawatt/stage_site.py` publishes `homepage.html` at the root,
 `index.html` at `read.html`, and presentation sources under `slides/`.
 This keeps source ownership separate from
@@ -93,8 +105,14 @@ uv run gigawatt-map --check
 uv run gigawatt-research check --include-candidates
 uv run python -m unittest discover -s tests -p 'test_*.py' -v
 node --test tests/*.test.mjs
+uv run python qa/reader/prose_lint.py --gate slide_refs,residue
 git diff --check
 ```
+
+The Playwright scripts in `tests/browser_*.cjs` default to the staged site on
+port 8878, so with the server above running they need no arguments. The
+separate Browser checks workflow runs them on each push to `main` without
+blocking publication.
 
 GitHub Pages validates and publishes changes to `main` at
 [From Watts to Tokens](https://kiankyars.github.io/gigawatt/).

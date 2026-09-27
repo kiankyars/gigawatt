@@ -791,3 +791,111 @@ Full metrics for any lesson: `python3 qa/reader/prose_lint.py`, and
 - *FERC — PJM large-load show-cause order, June 18, 2026* — “…r; preliminary proposed study reforms are not operating entitlements. Do not claim that load-related transmission requests can never share PJM's New Services Queue.…”
 
 
+
+## Status — 26 September 2026
+
+A second review pass on 26 September 2026 worked through this plan across the
+reader, the lesson sources, the builder and the author documents. Checked against
+a full rebuild of the working tree. Nothing a viewer sees on the recorded slides
+changed.
+
+### Completed
+
+**Phase 1, all six items.**
+
+1. Sources render as a bibliography: title, publisher, dates and the lesson's
+   one-line claim. `limits` stays in the source record and `research/sources/`,
+   and neither the reader nor the Markdown builder shows it. The Appendix C claims
+   are rewritten as facts; a scan finds no claim that opens with an instruction.
+2. `tradeoff` and `failure` are optional. Entries that only restated generic
+   caution are deleted, and the ones kept carry the lesson's own numbers.
+3. The "Generated reading view" banner and the "Authored draft" label are gone
+   from `lessons/*.md`.
+4. The fixed disclaimer captions under the mechanism cards and the source list
+   are gone from `reader.js`.
+5. `stage_site.py` publishes an explicit list of files. `FEEDBACK_AUDIT.md` and
+   `TESTING.md` are no longer served; `COURSE_REVIEW.md`, `SPEAKER_NOTES.md` and
+   `TEACHING_STANDARD.md` stay published as author resources.
+6. `TEACHING_STANDARD.md` carries the ten [reader style rules](../../course/TEACHING_STANDARD.md#reader-style-rules)
+   in place of its old reader paragraphs.
+
+**Phase 2.** `prose_lint.py` counts 0 slide references and 0 review-residue
+sentences in all 52 lessons, and `.github/workflows/pages.yml` now runs
+`python qa/reader/prose_lint.py --gate slide_refs,residue` before staging, so a
+new slide reference or residue sentence fails the deploy. Figures that matter
+are embedded through `figures`: 40 sourced photographs and figures in 19 lessons.
+
+**Phase 3, every chapter: the deck's numbers and cases are now in the
+lessons.** The deck numbers and cases that the table above found missing now
+appear in the lessons the Reading links open. In Chapters 2, 4, 5, 6, 8, 9, 13,
+14 and 15 the deck's running example is also the lesson's worked example; three
+lessons still work a different example (see Remaining). Chapters 3 and 12 were
+already aligned, and Chapter 12 gained its Toronto case:
+
+| Ch. | Now in the reader |
+|--:|---|
+| 2 | Ten 142 kW racks and 1,800 kW against the 2,000 kW nameplate, the 144 MWh day, and PUE 1.20 against 1.10 (`d01-*`). |
+| 4 | The 200 MW transport current: 3.35 kA at 34.5 kV against 717 A at 161 kV (`d03-voltage-and-distance`). |
+| 5 | Lenovo's 1,580 kg GB300 rack (`d12-room-and-replacement-route`) and Meta's Prometheus tents (`d12-hazards-and-site-evidence`). |
+| 6 | 900 kW at PF 0.8: 1,125 kVA and 1,353 A, with the beer-glass analogy (`d04-current-and-rating`). |
+| 7 | The 100 kW load on 50 kW modules, maintenance bypass, N+2 and 2(N+1) (`d05-paths-and-transitions`). |
+| 8 | `d06-conversion-ledger` now carries the 1 V loop (1,000 A through 100 microohms drops 0.1 V, so the regulator supplies 1.1 V; 100 W lost against 1,100 W delivered), the VRM ripple of 34–46 A against 38–42 A, a paragraph on 6, 12 and 18 converter paths, and Meta's Clemente board (51 V to 12 V). |
+| 9 | `d06-eight-hundred-volt-architectures` opens with the rack-density forecast and has a "Two conductors instead of three" section: one-third less copper, 120.3 A against 125 A, 434 W against 312.5 W, 28% less heat. The architectures carry the deck's names (in the rack, in a sidecar, farther upstream). |
+| 10 | The slowest-server case (20, 20, 20 and 50 ms) and Meta's two 24,576-GPU clusters (`d08-collective-progress`). |
+| 11 | Two 400 W devices at 100 and 400 W/cm², and the 100 kW loop at 2.5 and 5 kg/s (`d10-*`). |
+| 12 | The Toronto district-cooling case (`d11-water-and-heat-reuse`). |
+| 13 | 40 racks or 8 MW, then 60 racks and 12 MW, and the factory acceptance test (FAT) (`d13-commissioning-complete-paths`). |
+| 14 | The three-minute start and 0.05 MWh, Metasys staging, Intel's tanks and The Dalles (`d14-coordinating-control-and-work`); Row C and Llama 3 (`d14-maintenance-and-service-reliability`). |
+| 15 | $0.084 and $0.168 per GPU-hour, the NVIDIA backstops and Core Scientific (`d15-cost-per-service`); Anthropic and Cursor (`d15-capacity-ledger`). |
+| 16 | A new companion lesson, `c00-abilene-ai-factory`, opens the chapter's reading and follows the finale: the GB200 workload, gas generation as bridge and backup, air-cooled heat rejection, parallel construction and the Blue Owl and Primary Digital capital stack. All ten slides now open it, and C01–C05 follow it, labelled optional practice. |
+| Case study | Dominion's July 2026 contracts of 53.8 GW and the Nadella quotation (`d03-interconnection-queues`). |
+
+**Phase 3, terminology.** `d13-interface-contracts` now says "factory acceptance
+test (FAT)" in place of "vendor factory test", and `d12-room-and-replacement-route`
+says "gray space", as the decks do.
+
+**Phase 4, the three-lesson pilot.** `d10-flow-and-pressure` (light),
+`d01-boundaries` (heavy) and `d03-service-and-siting` (restructure) are
+re-voiced and sit under every `prose_lint.py` budget. `d03-service-and-siting`
+was restructured in place, as four ordered arcs with the island ride-through as
+its worked example, rather than split into four lessons.
+
+**Phase 6, in part.** The glossary grew from 229 to 282 terms and now defines
+the industry core that Phase 6 lists, from token, PDU and switchgear to COP, WUE,
+LLM and BMS; only ΔT is still missing. The six duplicates that this audit found
+now have one entry each, as does "Power supply unit (PSU)", which two lessons had
+defined; a duplicate glossary term now fails the build. "Approach temperature" is
+split into a CDU term and a cooling-tower term. A Primer vocabulary page is now
+the Primer's Reading target.
+
+Outside the plan, every lesson now names its lab (41 lab types in 43 lessons; 9
+lessons, including `c00-abilene-ai-factory`, have none), and Chapter 8 and the
+case study gained check-ins, for 15 in all.
+
+### Remaining
+
+- **Phase 3, worked examples.** Three Reading-link lessons still work a different
+  example from the deck's, and none introduces it as an extension of the video's
+  case. `d05-paths-and-transitions` (Chapter 7) works a 5.5 MW UPS bridge with
+  120 kWh, where the deck's case is a 100 kW load on 50 kW modules.
+  `d08-collective-progress` (Chapter 10) works a four-worker ring all-reduce, where
+  the deck's case is the 20, 20, 20 and 50 ms straggler; no reader lab computes
+  that max(). `d10-flow-and-pressure` (Chapter 11) follows the deck's pump points
+  A and B but keeps the 84 kW, cp 4.2 loop in place of the deck's 100 kW, cp 4.18
+  case, because the pump lab and the later d10 and d11 lessons use that loop. Each
+  should either follow the deck or introduce its example as an extension of the
+  video's case.
+- **Phase 4 beyond the pilot.** The pilot lessons await the author's review
+  before they are frozen as exemplars. No transcript exists yet. Apart from the
+  pilot and the new `c00-abilene-ai-factory`, the lessons keep the old voice, and
+  46 of 52 lessons are over at least one budget.
+  For that reason `pages.yml` gates only `slide_refs` and `residue`; the full
+  `prose_lint.py --check` stays off until the lessons meet the `para_end_neg`,
+  `neg_sentences` and `establish_10k` budgets.
+- **Phase 5.** `d12-hazards-and-site-evidence` is not split, and each chapter
+  check-in still follows the source list in the reader and the Markdown.
+- **Phase 6, the rest.** 199 of 282 entries are still one sentence. The course-coined process terms are
+  not demoted, and the glossary is not grouped by system.
+- **Phase 7,** when the video is published: "Watch" links with chapter
+  timestamps, the tagged recorded edition that `COURSE_REVIEW.md` plans, and a
+  refresh schedule for dated snapshot boxes.
