@@ -1,0 +1,1086 @@
+:root {
+  color-scheme: dark;
+  --ink: #ececec;
+  --muted: #a3a3a3;
+  --accent: #ebce42;
+  --page: #080808;
+  --mono: 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace;
+  --sans: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  --halo: 0 0 4px #080808, 0 0 10px #080808, 0 0 16px #080808;
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  background: var(--page);
+  scrollbar-width: thin;
+  scrollbar-color: #777 var(--page);
+  scroll-snap-type: y proximity;
+}
+html:has(dialog[open]) {
+  overflow: hidden;
+}
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font: 16px/1.6 var(--sans);
+}
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+button:hover,
+a:hover {
+  color: var(--accent);
+}
+[aria-disabled='true'] {
+  opacity: 0.25;
+  cursor: default;
+}
+[aria-disabled='true']:hover {
+  color: inherit;
+}
+a {
+  color: inherit;
+}
+[hidden] {
+  display: none !important;
+}
+/* A dark halo keeps the accent ring visible over any part of the scene. */
+:is(button, a, summary):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 7px var(--page);
+}
+[tabindex='-1']:focus {
+  outline: none;
+}
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ── World layers ─────────────────────────────────────────────────────────── */
+#world {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  touch-action: pan-y;
+}
+#world canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: pan-y;
+}
+#scroll-track {
+  position: relative;
+  height: 680vh;
+  height: 680svh;
+  pointer-events: none;
+}
+#scroll-track .snap {
+  position: absolute;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  scroll-snap-align: start;
+}
+.vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, #080808e6 0, #080808b3 14%, transparent 24%),
+    linear-gradient(270deg, #080808eb 0, #080808c7 27%, transparent 44%),
+    linear-gradient(0deg, #080808cc, transparent 28%);
+}
+.world-loading {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  margin: 0;
+  transform: translate(-50%, -50%);
+  font: 12px var(--mono);
+  letter-spacing: 0.08em;
+  color: #9a9a9a;
+}
+.world-fallback {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(400px, calc(100% - 32px));
+  padding: 25px;
+  background: #151515;
+  border: 1px solid #666;
+  font-size: 16px;
+  z-index: 3;
+}
+.hotspots {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+.hotspot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 3;
+  pointer-events: auto;
+  background: #101010;
+  border: 1px solid #aaa;
+  color: #fff;
+  font: 12px var(--mono);
+  padding: 7px 9px;
+  box-shadow: 3px 3px #0008;
+  white-space: nowrap;
+}
+.hotspot::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  height: 16px;
+  width: 1px;
+  background: #aaa;
+}
+.hotspot-item {
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  padding: 4px 6px;
+}
+.hotspot:hover,
+.hotspot.selected {
+  background: var(--node-color);
+  border-color: var(--node-color);
+  color: #050505;
+}
+.world-tooltip {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 12;
+  pointer-events: none;
+  background: #101010;
+  border: 1px solid #555;
+  color: #eee;
+  font: 12px var(--mono);
+  padding: 4px 8px;
+  white-space: nowrap;
+}
+
+/* ── Chrome around the world ──────────────────────────────────────────────── */
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 20px;
+  z-index: 30;
+  background: #ddd;
+  color: #111;
+  padding: 10px;
+}
+.skip-link:focus {
+  top: 15px;
+}
+.skip-link:focus-visible {
+  box-shadow: none;
+  outline-color: #111;
+  outline-offset: -5px;
+}
+.identity {
+  position: fixed;
+  top: 35px;
+  left: 36px;
+  z-index: 6;
+}
+.identity button {
+  text-align: left;
+  padding: 0;
+}
+.logo {
+  display: block;
+  width: 86px;
+  height: 53px;
+  border: 4px solid #949494;
+  color: #bbb;
+  font: 600 40px/0.92 var(--mono);
+  letter-spacing: -8px;
+  padding: 3px 9px;
+  position: relative;
+}
+.logo span {
+  color: #999;
+}
+.logo i {
+  position: absolute;
+  width: 6px;
+  height: 7px;
+  right: 17px;
+  bottom: 12px;
+  background: #e8352e;
+}
+.logo i:nth-of-type(2) {
+  left: 7px;
+  top: 14px;
+  background: #26a1d5;
+}
+.logo i:nth-of-type(3) {
+  left: 21px;
+  bottom: 2px;
+  background: #f3d335;
+}
+.identity-name {
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin-top: 13px;
+  text-shadow: var(--halo);
+}
+#chapter-nav {
+  position: fixed;
+  top: 50%;
+  left: 0;
+  transform: translateY(-38%);
+  z-index: 5;
+  display: grid;
+  gap: 10px;
+  padding: 14px 44px 14px 35px;
+  background: linear-gradient(90deg, #080808f5 78%, #08080000);
+}
+#chapter-nav button {
+  position: relative;
+  font-size: 14px;
+  text-align: left;
+  font-weight: 600;
+  padding: 3px 0;
+  color: #a3a3a3;
+  transition: color 0.3s;
+  text-shadow: var(--halo);
+}
+#chapter-nav button span {
+  display: inline-block;
+  font: 11px var(--mono);
+  width: 26px;
+  color: #8c8c8c;
+}
+#chapter-nav button[aria-current='step'],
+#chapter-nav button[aria-current='step'] span {
+  color: #eee;
+}
+#chapter-nav button[aria-current='step']::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  background: var(--accent);
+  position: absolute;
+  left: -13px;
+  top: 12px;
+}
+.utility {
+  position: fixed;
+  left: 35px;
+  bottom: 35px;
+  z-index: 5;
+  display: grid;
+  gap: 5px;
+}
+.utility button {
+  font-size: 12px;
+  text-align: left;
+  color: #a3a3a3;
+  padding: 2px 0;
+  min-height: 24px;
+  text-shadow: var(--halo);
+}
+.utility button:hover {
+  color: #fff;
+}
+.utility .rotate {
+  display: flex;
+  gap: 10px;
+}
+.utility .rotate button {
+  font-size: 17px;
+  line-height: 1;
+  min-width: 24px;
+}
+#menu-toggle {
+  display: none;
+  text-shadow: var(--halo);
+}
+.tour-controls {
+  position: fixed;
+  right: 35px;
+  top: 35px;
+  z-index: 6;
+  display: flex;
+  gap: 17px;
+  align-items: center;
+  background: #080808e6;
+  padding: 6px 10px;
+  margin: -6px -10px;
+}
+.tour-controls > span {
+  font: 12px var(--mono);
+  color: #b5b5b5;
+  margin-right: 12px;
+}
+.tour-controls button {
+  font-size: 24px;
+  line-height: 1;
+  padding: 4px;
+  min-width: 32px;
+}
+.world-note {
+  position: fixed;
+  right: 35px;
+  bottom: 24px;
+  font: 10px var(--mono);
+  letter-spacing: 0.08em;
+  color: #8f8f8f;
+  z-index: 3;
+  margin: 0;
+  text-shadow: var(--halo);
+}
+.progress-line {
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background: #282828;
+  z-index: 10;
+}
+.progress-line i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--accent);
+  transform-origin: top;
+  transform: scaleY(0);
+}
+
+/* ── Chapter copy ─────────────────────────────────────────────────────────── */
+#story {
+  position: fixed;
+  right: 5vw;
+  bottom: 70px;
+  width: min(380px, 31vw);
+  z-index: 4;
+  outline: none;
+  pointer-events: none;
+}
+/* A soft scrim keeps the copy readable over bright equipment. */
+#story::before {
+  content: '';
+  position: absolute;
+  inset: -80px -60px -50px -90px;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(closest-side, #080808eb 60%, #08080000);
+}
+#chapter-copy {
+  pointer-events: auto;
+}
+.eyebrow {
+  font: 12px var(--mono);
+  letter-spacing: 0.11em;
+  color: var(--accent);
+  margin: 0 0 17px;
+}
+#story .eyebrow,
+#story h1,
+#story p.lead {
+  text-shadow:
+    0 0 2px #080808,
+    0 0 8px #080808;
+}
+#story h1 {
+  font-size: clamp(30px, 3vw, 48px);
+  line-height: 1.05;
+  letter-spacing: -0.055em;
+  font-weight: 600;
+  margin: 0 0 20px;
+  text-wrap: balance;
+}
+#story p.lead {
+  font-size: 16px;
+  line-height: 1.65;
+  color: #c9c9c9;
+  margin: 0 0 22px;
+  max-width: 350px;
+}
+.enter-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 35px;
+  border-bottom: 1px solid #858585;
+  padding: 13px 0;
+  width: 100%;
+  font-size: 14px;
+}
+.enter-button span {
+  font-size: 22px;
+}
+.chapter-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 12px;
+}
+.chapter-actions :is(button, a) {
+  font-size: 13px;
+  border: 1px solid #777;
+  background: #090909cc;
+  padding: 9px 13px;
+  text-decoration: none;
+}
+.chapter-actions [aria-pressed='true'] {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.chapter-actions :is(button, a):hover {
+  border-color: #ddd;
+}
+.flow-caption {
+  pointer-events: auto;
+  font: 12px/1.65 var(--mono);
+  color: #b8b8b8;
+  margin: 14px 0 0;
+  max-width: 360px;
+  text-shadow:
+    0 0 2px #080808,
+    0 0 8px #080808;
+}
+.flow-caption:empty {
+  display: none;
+}
+.page-scroll-hint {
+  font: 12px var(--mono);
+  color: #a6a6a6;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 20px 0 0;
+}
+.page-scroll-hint::before {
+  content: '';
+  display: block;
+  width: 5px;
+  height: 5px;
+  background: var(--accent);
+}
+
+/* ── Drawers ──────────────────────────────────────────────────────────────── */
+/* The equipment drawer is non-modal, so it sits above the chrome explicitly. */
+dialog {
+  position: fixed;
+  inset: 0 0 0 auto;
+  z-index: 20;
+  margin: 0;
+  width: min(460px, 100%);
+  height: 100%;
+  max-height: 100%;
+  max-width: 100%;
+  border: 0;
+  border-left: 1px solid #454545;
+  background: #101010;
+  color: var(--ink);
+  padding: 70px 35px 45px;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+dialog::backdrop {
+  background: #0006;
+}
+body:has(#equipment-dialog[open]) :is(#story, #chapter-nav, #menu-toggle, .tour-controls, .world-note) {
+  visibility: hidden;
+}
+dialog .close-dialog {
+  position: absolute;
+  top: 21px;
+  right: 26px;
+  font-size: 30px;
+  line-height: 1;
+  min-width: 32px;
+  min-height: 32px;
+}
+dialog h2 {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  margin: 0 0 22px;
+}
+dialog p {
+  font-size: 16px;
+  color: #bdbdbd;
+}
+dialog .eyebrow {
+  font-size: 12px;
+  color: var(--accent);
+}
+dialog a {
+  color: #c3bc87;
+  text-underline-offset: 3px;
+}
+.equipment-list {
+  display: grid;
+  margin: 18px 0 25px;
+}
+.equipment-list button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+  padding: 15px 0;
+  border-bottom: 1px solid #353535;
+  font-size: 16px;
+}
+.equipment-list button span {
+  color: var(--accent);
+}
+.equipment-path {
+  font: 13px/1.8 var(--mono);
+  border-top: 1px solid #414141;
+  border-bottom: 1px solid #414141;
+  padding: 20px 0;
+  margin: 26px 0;
+}
+.back-equipment {
+  font: 12px var(--mono);
+  padding: 4px 0;
+  margin-bottom: 23px;
+  color: #a6a6a6;
+}
+.source-link {
+  font: 12px var(--mono);
+  display: inline-block;
+  margin-top: 24px;
+}
+.detail-insight {
+  font-size: 15px;
+  line-height: 1.8;
+}
+.no-script {
+  position: fixed;
+  left: 24px;
+  right: 24px;
+  bottom: 24px;
+  z-index: 8;
+  max-width: 520px;
+  margin: 0;
+  padding: 20px;
+  background: #151515;
+  border: 1px solid #666;
+}
+
+/* ── Wide screens ─────────────────────────────────────────────────────────── */
+@media (min-width: 1600px) {
+  #story {
+    right: 7vw;
+    bottom: 12vh;
+    width: 390px;
+  }
+  #story h1 {
+    font-size: 53px;
+  }
+  .identity {
+    left: 50px;
+    top: 50px;
+  }
+  .utility {
+    left: 50px;
+  }
+  #chapter-nav {
+    padding-left: 50px;
+  }
+}
+
+/* ── Small laptops ────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .identity {
+    top: 25px;
+    left: 24px;
+  }
+  .logo {
+    width: 70px;
+    height: 45px;
+    font-size: 33px;
+    padding: 3px 7px;
+  }
+  .identity-name {
+    font-size: 16px;
+  }
+  #chapter-nav {
+    padding-left: 25px;
+    gap: 9px;
+    top: 43%;
+  }
+  #chapter-nav button {
+    font-size: 12px;
+  }
+  #chapter-nav button span {
+    font-size: 10px;
+    width: 22px;
+  }
+  .utility {
+    left: 25px;
+    bottom: 27px;
+  }
+  .tour-controls {
+    top: 27px;
+    right: 25px;
+    gap: 14px;
+  }
+  .tour-controls > span {
+    margin-right: 0;
+  }
+  #story {
+    right: 30px;
+    bottom: 66px;
+    width: 300px;
+  }
+  #story h1 {
+    font-size: 36px;
+  }
+  #story p.lead {
+    font-size: 15px;
+    line-height: 1.55;
+  }
+  .world-note {
+    right: 26px;
+  }
+}
+
+/* ── Stacked layout: phones and portrait tablets ──────────────────────────── */
+@media (max-width: 700px), (orientation: portrait) and (max-width: 1100px) {
+  .vignette {
+    background:
+      linear-gradient(0deg, #080808 0, #080808e6 30%, transparent 50%),
+      linear-gradient(180deg, #080808b3 0, transparent 16%);
+  }
+  #story::before {
+    display: none;
+  }
+  .identity {
+    top: 21px;
+    left: 21px;
+  }
+  .identity-name {
+    font-size: 14px;
+  }
+  .tour-controls {
+    right: 22px;
+    top: 26px;
+    gap: 11px;
+  }
+  .tour-controls > span {
+    font-size: 11px;
+  }
+  #chapter-nav {
+    display: none;
+    top: 125px;
+    left: 20px;
+    right: 20px;
+    transform: none;
+    background: #0c0c0cf7;
+    padding: 22px;
+    border: 1px solid #555;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    z-index: 8;
+  }
+  #chapter-nav.open {
+    display: grid;
+  }
+  #chapter-nav button {
+    font-size: 14px;
+  }
+  #menu-toggle {
+    display: block;
+    position: fixed;
+    top: 87px;
+    right: 23px;
+    z-index: 7;
+    font: 12px var(--mono);
+    padding: 4px 0;
+    text-shadow: var(--halo);
+  }
+  #menu-toggle span {
+    margin-left: 8px;
+  }
+  #story {
+    left: 24px;
+    right: 24px;
+    bottom: 76px;
+    width: auto;
+    max-width: 440px;
+  }
+  #story h1 {
+    font-size: 34px;
+    margin-bottom: 13px;
+    max-width: 340px;
+  }
+  #story p.lead {
+    font-size: 14px;
+    line-height: 1.55;
+    margin-bottom: 13px;
+    max-width: 380px;
+  }
+  .eyebrow {
+    font-size: 11px;
+    margin-bottom: 12px;
+  }
+  .enter-button {
+    width: 270px;
+    max-width: 100%;
+    font-size: 13px;
+    padding: 8px 0;
+  }
+  .utility {
+    left: 23px;
+    right: 23px;
+    bottom: 22px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 16px;
+  }
+  .utility button {
+    font-size: 11px;
+  }
+  .world-note {
+    font-size: 10px;
+    right: 24px;
+    bottom: 50px;
+    left: 24px;
+  }
+  .hotspot {
+    font-size: 11px;
+    padding: 6px;
+  }
+  .hotspot-item {
+    font-size: 10px;
+    padding: 4px 5px;
+  }
+  .flow-caption {
+    font-size: 11px;
+    line-height: 1.45;
+    margin-top: 10px;
+  }
+  .chapter-actions button,
+  .chapter-actions a {
+    font-size: 12px;
+    padding: 7px 10px;
+  }
+  .page-scroll-hint {
+    display: none;
+  }
+  .chapter-actions {
+    margin-top: 7px;
+  }
+  .tour-controls button {
+    font-size: 22px;
+  }
+  /* The equipment drawer becomes a bottom sheet so the 3D view stays visible above it. */
+  #equipment-dialog {
+    inset: auto 0 0 0;
+    width: 100%;
+    height: auto;
+    max-height: 48svh;
+    border-left: 0;
+    border-top: 1px solid #454545;
+    padding: 48px 24px 28px;
+  }
+  #equipment-dialog h2 {
+    font-size: 28px;
+    margin-bottom: 12px;
+  }
+  #equipment-dialog .close-dialog {
+    top: 10px;
+    right: 16px;
+  }
+  #about-dialog {
+    padding: 70px 27px 35px;
+  }
+}
+
+/* ── Short windows: collapse the chapter list and let the copy scroll ─────── */
+@media (max-height: 560px) and (orientation: landscape) {
+  .world-note {
+    display: none;
+  }
+  .identity {
+    top: 14px;
+    left: 18px;
+  }
+  .logo {
+    width: 58px;
+    height: 37px;
+    font-size: 27px;
+    border-width: 3px;
+    padding: 2px 6px;
+    letter-spacing: -6px;
+  }
+  .identity-name {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+  #chapter-nav {
+    display: none;
+    position: fixed;
+    top: 60px;
+    left: 18px;
+    right: auto;
+    transform: none;
+    background: #0c0c0cf7;
+    padding: 16px;
+    border: 1px solid #555;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 18px;
+    z-index: 8;
+  }
+  #chapter-nav.open {
+    display: grid;
+  }
+  #menu-toggle {
+    display: block;
+    position: fixed;
+    top: 22px;
+    left: 92px;
+    right: auto;
+    z-index: 7;
+    font: 12px var(--mono);
+    padding: 4px 0;
+  }
+  #story {
+    top: 64px;
+    bottom: 44px;
+    overflow: auto;
+    overscroll-behavior: contain;
+    pointer-events: auto;
+  }
+  #story::before {
+    display: none;
+  }
+  #story h1 {
+    font-size: 26px;
+  }
+}
+/* Short stacked windows keep the copy at the bottom, scrolling if it would not fit. */
+@media (max-height: 560px) and (orientation: portrait),
+  (min-height: 501px) and (max-height: 560px) and (max-width: 700px) {
+  #story {
+    top: auto;
+    bottom: 76px;
+    max-height: calc(100% - 140px);
+    overflow: auto;
+    overscroll-behavior: contain;
+    pointer-events: auto;
+  }
+}
+@media (max-height: 500px) and (orientation: landscape) {
+  .tour-controls {
+    top: 14px;
+    right: 18px;
+  }
+  #story {
+    left: auto;
+    right: 18px;
+    top: 64px;
+    bottom: 44px;
+    width: min(360px, 46vw);
+    max-width: none;
+  }
+  #story h1 {
+    font-size: 24px;
+    margin-bottom: 8px;
+    max-width: none;
+  }
+  #story p.lead {
+    font-size: 13px;
+    line-height: 1.45;
+    margin-bottom: 8px;
+  }
+  .eyebrow {
+    font-size: 11px;
+    margin-bottom: 6px;
+  }
+  .enter-button {
+    padding: 6px 0;
+    font-size: 13px;
+    width: 100%;
+  }
+  .page-scroll-hint {
+    display: none;
+  }
+  .chapter-actions {
+    margin-top: 4px;
+  }
+  .chapter-actions button,
+  .chapter-actions a {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+  .flow-caption {
+    margin-top: 6px;
+    font-size: 11px;
+  }
+  .utility {
+    left: 18px;
+    right: auto;
+    bottom: 8px;
+    display: flex;
+    gap: 14px;
+  }
+  .utility button {
+    font-size: 11px;
+  }
+  .vignette {
+    background: linear-gradient(270deg, #080808f0 0, #080808c0 38%, transparent 58%);
+  }
+  /* Landscape phones keep a side drawer; a bottom sheet would leave no room above it. */
+  #equipment-dialog {
+    inset: 0 0 0 auto;
+    width: min(360px, 50vw);
+    height: 100%;
+    max-height: 100%;
+    border-top: 0;
+    border-left: 1px solid #454545;
+    padding: 48px 22px 24px;
+  }
+}
+@media (max-height: 300px) {
+  .identity,
+  .tour-controls > span {
+    display: none;
+  }
+  #story {
+    top: 48px;
+    bottom: 32px;
+  }
+}
+@media (max-width: 370px) {
+  #story h1 {
+    font-size: 29px;
+  }
+  #story p.lead {
+    font-size: 13px;
+  }
+  .identity-name {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+}
+@media (max-width: 370px) and (orientation: portrait) {
+  #menu-toggle {
+    top: 77px;
+  }
+}
+
+/* ── Past the journey (when the page continues after the track) ──────────── */
+html:has(body.past-journey) {
+  scroll-snap-type: none;
+}
+:is(
+  .identity,
+  #menu-toggle,
+  #chapter-nav,
+  .utility,
+  #story,
+  .tour-controls,
+  .world-note,
+  .progress-line,
+  .hotspots,
+  .vignette
+) {
+  transition:
+    opacity 0.25s,
+    visibility 0.25s;
+}
+body.past-journey
+  :is(.identity, #menu-toggle, #chapter-nav, .utility, #story, .tour-controls, .world-note, .progress-line, .hotspots) {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* ── User preferences ─────────────────────────────────────────────────────── */
+@media (prefers-contrast: more) {
+  :root {
+    --muted: #c8c8c8;
+  }
+  #chapter-nav button,
+  #chapter-nav button span,
+  .utility button,
+  .world-note,
+  #story p.lead {
+    color: #d8d8d8;
+  }
+}
+@media (forced-colors: active) {
+  #chapter-nav button[aria-current='step'] {
+    text-decoration: underline 2px;
+    text-underline-offset: 4px;
+  }
+  #chapter-nav button[aria-current='step']::before,
+  .progress-line i {
+    forced-color-adjust: none;
+    background: Highlight;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  * {
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
+}
+
+/* ── Links to further material (set per chapter in content.js) ───────────── */
+.chapter-links {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 16px;
+}
+.chapter-links .eyebrow {
+  flex-basis: 100%;
+  margin: 0 0 2px;
+  font-size: 11px;
+  color: #a6a6a6;
+}
+.chapter-links a {
+  font-size: 13px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: #777;
+  text-shadow:
+    0 0 2px #080808,
+    0 0 8px #080808;
+}

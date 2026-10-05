@@ -4,7 +4,7 @@
 
 [Open the course](https://kiankyars.github.io/gigawatt/)
 
-The homepage introduces the course's 16 chapters and its ERCOT and PJM case study. The reader at
+The homepage opens with a scroll-driven voxel tour of one data center (power, compute, cooling, network and operations, each linked to its course chapters; shared with [kiankyars/datacenter](https://github.com/kiankyars/datacenter), see [`course/home/provenance.json`](course/home/provenance.json)), then introduces the course's 16 chapters and its ERCOT and PJM case study. The reader at
 [`read.html`](https://kiankyars.github.io/gigawatt/read.html) contains the searchable
 lessons, glossary and interactive labs. Its sidebar is the course directory.
 Chapters use numbered descriptive names,

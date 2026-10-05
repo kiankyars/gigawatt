@@ -1,47 +1,64 @@
 {
-  "source_commit": "fdb3763eb99c7f1ddc5c42fdca1c5185a4ba580e",
-  "original_geometry_commit": "6aae1a5",
-  "source_file": "diagram/mock_3d.html",
-  "original_title": "GIGAWATT — 3D mock v0 (style test)",
-  "restored_on": "2026-09-20",
-  "scope": "Conceptual campus illustration. Geometry is recovered from the original procedural model; it is not a site plan or construction sequence.",
+  "source_repository": "https://github.com/kiankyars/datacenter",
+  "source_commit": "0c21b80c8d32a20fc69969c551bb8f58b8470e41",
+  "source_directory": "dist/",
+  "title": "Inside a Datacenter — scroll-driven voxel field guide",
+  "updated_on": "2026-10-05",
+  "scope": "Conceptual tour of one mixed air- and liquid-cooled facility. Geometry is simplified so every system fits in view; it is not a site plan.",
   "adaptations": [
-    "Restored full-campus procedural geometry in an ES module with local Three.js r170 dependencies.",
-    "Removed unsupported site-specific capacities, vendors and claims from labels.",
-    "Separated the on-site generation feeder from the high-voltage grid corridor.",
-    "Added camera presets, selectable systems, power and heat flow controls, reduced-motion behavior and lifecycle cleanup.",
-    "Made the roof translucent to expose the recovered electrical bay and rack rows."
+    "Copied dist/ unchanged into home/datacenter/ (index.html is replaced by course/homepage.html, which uses the same element ids).",
+    "home/course.js adapts the copy before the app renders: the course hero, links from each stop to its course decks, 'data center' spelling, a gigawatt-scale overview fact, and no generic live-data caveat.",
+    "home/home.js loads course.js and datacenter/app.js, builds the course directory from teaching-sequences.json, and shows assets/campus-cutaway.png when WebGL is unavailable.",
+    "home/home.css styles the course header over the tour and the light course directory that follows it."
   ],
   "dependencies": [
     {
-      "file": "vendor/three.module.js",
-      "source_sha256": "ce1fa418de16a19495a9f72495580e3015d7745c296d3ce0485897f902ddedfb",
-      "sha256": "4b3ce8e69e2d29b58fec4f3f1c1efc0fd6e46664ec8cd28ce485869251f7468e",
-      "adaptation": "Re-exports three.module.min.js so older imports share one module instance"
-    },
-    {
-      "file": "vendor/three.module.min.js",
-      "source_sha256": "08fd7545d13d2c7fb65ab691530a802dafefd638596501854f267d0fb13c39e7",
-      "sha256": "08fd7545d13d2c7fb65ab691530a802dafefd638596501854f267d0fb13c39e7",
-      "adaptation": "Unmodified (three@0.170.0 build/three.module.min.js)"
-    },
-    {
-      "file": "vendor/OrbitControls.js",
-      "source_sha256": "80efaadea4f8a636a65fb0bd08bfef62f3d93a0bb94e2e7500f23176c5c07f4e",
-      "sha256": "e9c4f26866d39a36c8c9e8215e7d2a90a8a0b50ea6d44a005906e3d1fc726b8f",
-      "adaptation": "Relative module import of three.module.min.js"
-    },
-    {
-      "file": "vendor/CSS2DRenderer.js",
-      "source_sha256": "7de0bb70e3c1d6da58416353ed7140a7a7743ece99d73b56eb62bc2dd79bfed5",
-      "sha256": "56657baddba4075609807e5d6a3e7cf042538699df089d4dc604fd29225d1836",
-      "adaptation": "Relative module import of three.module.min.js"
-    },
-    {
-      "file": "vendor/LICENSE",
-      "source_sha256": "4c40a1ef62450b857c3b2aaf294936304cd552d965fbcd9d32d4c5bcf4ba4454",
-      "sha256": "4c40a1ef62450b857c3b2aaf294936304cd552d965fbcd9d32d4c5bcf4ba4454",
+      "file": "datacenter/app.js",
+      "source_file": "dist/app.js",
+      "sha256": "04740b0f212bd0d752143540ef2e78827cc478645fa670de678af76e23d9bb7d",
       "adaptation": "Unmodified"
+    },
+    {
+      "file": "datacenter/content.js",
+      "source_file": "dist/content.js",
+      "sha256": "9c2fb3e16c2291560e9bce60fe6e2c700f3558915a3a99ca6ffb7bb97d1e894a",
+      "adaptation": "Unmodified"
+    },
+    {
+      "file": "datacenter/favicon.svg",
+      "source_file": "dist/favicon.svg",
+      "sha256": "ac689b9bf1315933342a340ca31649fa3c2a2f07223a8f3daadc14e4336a632f",
+      "adaptation": "Unmodified"
+    },
+    {
+      "file": "datacenter/style.css",
+      "source_file": "dist/style.css",
+      "sha256": "4b92b3014d9b1f7b8539df6993e4406a8e69611519cbd460a6c55aead84dd8d2",
+      "adaptation": "Unmodified"
+    },
+    {
+      "file": "datacenter/world.js",
+      "source_file": "dist/world.js",
+      "sha256": "94d67e5e95fd422ecefa90ec803baa1bd978b7729c4331a2e39dc000013f4d15",
+      "adaptation": "Unmodified"
+    },
+    {
+      "file": "datacenter/vendor/three-0.180.0/LICENSE.txt",
+      "source_file": "dist/vendor/three-0.180.0/LICENSE.txt",
+      "sha256": "bfe119ea4fd413f5f7ca3fcd63adb0c4a073ed39daa2fe7d3e6b769e21272601",
+      "adaptation": "Unmodified (three.js MIT license)"
+    },
+    {
+      "file": "datacenter/vendor/three-0.180.0/three.core.min.js",
+      "source_file": "dist/vendor/three-0.180.0/three.core.min.js",
+      "sha256": "61ba0df005b05991361d040d8ff670e1aadfd0ce7aeebd1fdb0725957a8957de",
+      "adaptation": "Unmodified (three@0.180.0 build)"
+    },
+    {
+      "file": "datacenter/vendor/three-0.180.0/three.module.min.js",
+      "source_file": "dist/vendor/three-0.180.0/three.module.min.js",
+      "sha256": "e2b5ee6bccd38fd6d8a2428546b83c5f2426d84b152ef82be8055556e3b40eb6",
+      "adaptation": "Unmodified (three@0.180.0 build)"
     }
   ]
 }
