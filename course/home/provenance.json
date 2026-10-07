@@ -1,13 +1,13 @@
 {
   "source_repository": "https://github.com/kiankyars/datacenter",
-  "source_commit": "0c21b80c8d32a20fc69969c551bb8f58b8470e41",
+  "source_commit": "75478c14c5bb707891c9b249fc0790e4b70882d6",
   "source_directory": "dist/",
   "title": "Inside a Datacenter — scroll-driven voxel field guide",
-  "updated_on": "2026-10-05",
+  "updated_on": "2026-10-07",
   "scope": "Conceptual tour of one mixed air- and liquid-cooled facility. Geometry is simplified so every system fits in view; it is not a site plan.",
   "adaptations": [
     "Copied dist/ unchanged into home/datacenter/ (index.html is replaced by course/homepage.html, which uses the same element ids).",
-    "home/course.js adapts the copy before the app renders: the course hero, links from each stop to its course decks, 'data center' spelling, a gigawatt-scale overview fact, and no generic live-data caveat.",
+    "home/course.js adapts the copy before the app renders: the course hero, links from each stop to its course decks, 'data center' spelling, and no generic live-data caveat.",
     "home/home.js loads course.js and datacenter/app.js, builds the course directory from teaching-sequences.json, and shows assets/campus-cutaway.png when WebGL is unavailable.",
     "home/home.css styles the course header over the tour and the light course directory that follows it."
   ],
@@ -15,13 +15,13 @@
     {
       "file": "datacenter/app.js",
       "source_file": "dist/app.js",
-      "sha256": "04740b0f212bd0d752143540ef2e78827cc478645fa670de678af76e23d9bb7d",
+      "sha256": "5d28db2c9b3549389ea68b90c076b3dc983c15ceae4cc378c9cf0252e27f8f61",
       "adaptation": "Unmodified"
     },
     {
       "file": "datacenter/content.js",
       "source_file": "dist/content.js",
-      "sha256": "9c2fb3e16c2291560e9bce60fe6e2c700f3558915a3a99ca6ffb7bb97d1e894a",
+      "sha256": "73ac5231843a20b63cceba671a5b69f6c05ddaec405a1333bc921029da5d0223",
       "adaptation": "Unmodified"
     },
     {
@@ -33,13 +33,13 @@
     {
       "file": "datacenter/style.css",
       "source_file": "dist/style.css",
-      "sha256": "4b92b3014d9b1f7b8539df6993e4406a8e69611519cbd460a6c55aead84dd8d2",
+      "sha256": "294b7219704020fa4f36f64dac54e026cd53e35f9d805e626a7d1453c00d3f29",
       "adaptation": "Unmodified"
     },
     {
       "file": "datacenter/world.js",
       "source_file": "dist/world.js",
-      "sha256": "94d67e5e95fd422ecefa90ec803baa1bd978b7729c4331a2e39dc000013f4d15",
+      "sha256": "864e37f0a01f6409cbf40e0f738e8647b394f1498180226a1c601b0c265ee480",
       "adaptation": "Unmodified"
     },
     {

@@ -154,7 +154,8 @@ addEventListener('resize', () => {
     lastSize = [innerWidth, innerHeight];
     if (!document.body.classList.contains('past-journey')) {
       const { top, max } = journeyRange();
-      if (max > 0) scrollTo({ top: top + (lastProgress / LAST) * max, behavior: 'instant' });
+      const keep = pending !== null ? pending : lastProgress; // a move under way keeps its destination
+      if (max > 0) scrollTo({ top: top + (keep / LAST) * max, behavior: 'instant' });
     }
   }
   layoutSnapPoints();
@@ -182,9 +183,11 @@ function copyFor(c, i) {
   const arrow = '<span aria-hidden="true">→</span>';
   const actions = [];
   if (c.id === 'compute') actions.push(`<button id="open-server" type="button">Open a server ${arrow}</button>`);
-  actions.push(
-    `<button id="open-guide" type="button">${i === 0 ? 'See the five systems' : c.id === 'compute' ? 'Equipment guide' : 'Explore the equipment'} ${arrow}</button>`,
-  );
+  if (c.items?.length) {
+    actions.push(
+      `<button id="open-guide" type="button">${c.id === 'compute' ? 'Equipment guide' : 'Explore the equipment'} ${arrow}</button>`,
+    );
+  }
   if (c.flow) {
     actions.push(
       `<button id="trace" type="button" aria-pressed="false" data-flow="${c.flow.id}">Follow the ${esc(c.flow.noun)}</button>`,
@@ -200,9 +203,8 @@ function copyFor(c, i) {
     <h1 id="chapter-title" tabindex="-1">${c.title.map(esc).join('<br>')}</h1>
     <p class="lead">${esc(c.lead)}</p>
     ${c.enter && i < LAST ? `<button class="enter-button" id="enter" type="button">${esc(c.enter)} <span aria-hidden="true">↓</span></button>` : ''}
-    <div class="chapter-actions">${actions.join('')}</div>
-    ${links}
-    ${i === 0 ? '<p class="page-scroll-hint">SCROLL TO TRAVEL THROUGH THE WORLD</p>' : ''}`;
+    ${actions.length ? `<div class="chapter-actions">${actions.join('')}</div>` : ''}
+    ${links}`;
 }
 
 function render() {
@@ -305,6 +307,7 @@ els.detail.addEventListener('close', () => {
 
 function openGuide(i = current) {
   const c = chapters[i];
+  if (!c.items?.length) return;
   const list = c.items
     .map((id) => {
       const label = equipment[id]?.name || chapters.find((ch) => ch.id === id)?.name;
@@ -642,9 +645,7 @@ function loadWorld() {
     hotspotLayer: els.hotspots,
     tooltip: els.tooltip,
     chapterIds: chapters.map((c) => c.id),
-    chapterLabels: Object.fromEntries(
-      chapters.slice(1).map((c, i) => [c.id, `${pad(i + 2)} / ${c.name.toUpperCase()}`]),
-    ),
+    labelsByChapter: Object.fromEntries(chapters.map((c) => [c.id, c.labels || c.items || []])),
     itemLabels: Object.fromEntries(Object.entries(equipment).map(([id, e]) => [id, e.label])),
     itemChapter: Object.fromEntries(Object.entries(equipment).map(([id, e]) => [id, e.chapter])),
     colors: Object.fromEntries(chapters.map((c) => [c.id, c.color])),

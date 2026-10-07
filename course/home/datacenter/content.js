@@ -10,9 +10,11 @@ const sprinklers = 'https://en.wikipedia.org/wiki/Fire_sprinkler_system';
 const cisco =
   'https://www.cisco.com/c/en/us/products/collateral/switches/nexus-9000-series-switches/white-paper-c11-743245.html';
 
-// `title` lines are joined with line breaks. `insight` is the heading shown above `fact`.
-// Optional: `eyebrow` replaces the numbered label, `enter` adds a button to the next chapter,
-// and `links` ([{ label, href }], headed by `linksTitle`) point to further material.
+// `title` lines are joined with line breaks. `items` are listed in the chapter's equipment
+// guide; `labels` are the equipment labelled in the 3D view at that stop. `insight` is the
+// heading shown above `fact`. Optional: `eyebrow` replaces the numbered label, `enter` adds a
+// button to the next chapter, and `links` ([{ label, href }], headed by `linksTitle`) point to
+// further material.
 export const chapters = [
   {
     id: 'overview',
@@ -21,12 +23,6 @@ export const chapters = [
     title: ['The cloud is a place.'],
     lead: 'A journey through the machines, energy, and people behind every click.',
     enter: 'Explore the datacenter',
-    guideTitle: 'Five systems, one building',
-    guideLead:
-      'A datacenter brings computers together and keeps them powered, cool, connected, and looked after. Each system has its own chapter.',
-    items: ['power', 'compute', 'cooling', 'network', 'operations'],
-    insight: 'Follow the connections',
-    fact: 'Electricity enters. Data moves. Heat leaves. The building works only when these systems work together, and a large facility can draw tens to hundreds of megawatts doing it.',
   },
   {
     id: 'power',
@@ -37,7 +33,8 @@ export const chapters = [
     guideTitle: 'Power equipment',
     guideLead:
       'Follow the chain from the utility feed to the server. Each stage changes, protects, or backs up the supply.',
-    items: ['transformer', 'switchgear', 'ups', 'generator', 'pdu', 'psu'],
+    items: ['utility', 'transformer', 'switchgear', 'ats', 'ups', 'generator', 'pdu', 'rack-pdu', 'psu'],
+    labels: ['transformer', 'switchgear', 'ups', 'generator', 'pdu', 'ats', 'utility'],
     insight: 'Two time scales',
     fact: 'A UPS can carry the load for seconds to minutes. A standby generator takes several seconds to start and pick up the load, then can run for hours on stored fuel.',
     flow: { id: 'power', noun: 'power' },
@@ -51,6 +48,7 @@ export const chapters = [
     guideTitle: 'Compute equipment',
     guideLead: 'Racks are the frames; servers do the work. Open one to see how its parts fit together.',
     items: ['rack', 'server', 'cpu', 'gpu', 'memory', 'storage'],
+    labels: ['rack', 'server', 'leaf', 'rack-pdu', 'cold-aisle', 'hot-aisle'],
     insight: 'Busy is efficient',
     fact: 'In enterprise settings, servers average only about 20–40% utilization. Running fewer, busier servers is one of the most effective ways to save energy (DOE, 2024).',
   },
@@ -63,7 +61,8 @@ export const chapters = [
     guideTitle: 'Cooling equipment',
     guideLead:
       'Almost all the electricity IT equipment uses ends up as heat. Room air and two separate liquid loops carry it outside.',
-    items: ['air-handler', 'fans', 'cold-plate', 'cdu', 'heat-rejection'],
+    items: ['cold-aisle', 'hot-aisle', 'air-handler', 'fans', 'cold-plate', 'cdu', 'facility-loop', 'heat-rejection'],
+    labels: ['air-handler', 'cdu', 'facility-loop', 'heat-rejection', 'hot-aisle', 'cold-aisle'],
     insight: 'Cooling has a cost',
     fact: 'ASHRAE recommends server inlet air of about 18–27 °C (64–81 °F). Cooling is also the largest overhead: PUE divides a facility’s total energy by the energy its IT equipment uses. A typical site scores about 1.6; the most efficient get below 1.1 (DOE, 2024).',
     flow: { id: 'cooling', noun: 'heat' },
@@ -77,7 +76,8 @@ export const chapters = [
     guideTitle: 'Network equipment',
     guideLead:
       'Data enters on fiber, crosses a fabric of switches, and reaches each server through its network interface.',
-    items: ['fiber', 'switch', 'leaf', 'nic'],
+    items: ['fiber', 'switch', 'cable-tray', 'leaf', 'nic'],
+    labels: ['fiber', 'switch', 'cable-tray', 'leaf'],
     insight: 'Two kinds of journeys',
     fact: 'North–south traffic travels between the facility and its users. East–west traffic stays inside, moving between servers and storage. Distance still matters: light in fiber covers about 200 km per millisecond, so a user 1,000 km away waits at least 10 ms for a round trip.',
     flow: { id: 'network', noun: 'data' },
@@ -91,7 +91,8 @@ export const chapters = [
     guideTitle: 'People and safeguards',
     guideLead:
       'Operators keep watch from a control room, staff the entrances, and plan maintenance so the facility never has to stop.',
-    items: ['monitoring', 'security', 'fire'],
+    items: ['monitoring', 'technician', 'security', 'fire'],
+    labels: ['monitoring', 'technician', 'security', 'fire'],
     insight: 'Resilience is a system',
     fact: 'N is what the load needs. N+1 adds one spare unit; 2N builds two complete, independent paths, often called A and B. Spares only help if no single failure, or planned maintenance, can take out both.',
   },
@@ -117,6 +118,14 @@ export const flowDescriptions = {
 
 // `label` is the short in-world label; `name` is the full title used in the drawer.
 export const equipment = {
+  utility: {
+    chapter: 'power',
+    name: 'Utility feed',
+    label: 'UTILITY FEED',
+    description: 'High-voltage transmission lines bring electricity from the grid to the site’s transformer yard.',
+    path: 'Power plants → grid → transmission line → transformer',
+    insight: 'Everything downstream depends on this connection, which is why the site also plans for it to fail.',
+  },
   transformer: {
     chapter: 'power',
     name: 'Transformer',
@@ -137,6 +146,15 @@ export const equipment = {
     insight:
       'Isolation lets a section be disconnected for a fault or planned work. Alternate routes must be designed to carry the remaining load.',
     source: doe,
+  },
+  ats: {
+    chapter: 'power',
+    name: 'Transfer switch',
+    label: 'TRANSFER SWITCH',
+    description:
+      'Moves the load from the utility supply to the standby generator when the utility fails, and back again when it returns.',
+    path: 'Utility or generator → transfer switch → UPS',
+    insight: 'The UPS carries the load through the seconds the generator needs to start and the switch needs to move.',
   },
   ups: {
     chapter: 'power',
@@ -171,6 +189,16 @@ export const equipment = {
       'This is the last hop before the server. Many servers have two power supplies, one on each of two separate paths, so either path can fail or be serviced without the server stopping.',
     source: ibm,
   },
+  'rack-pdu': {
+    chapter: 'power',
+    name: 'Rack power strip',
+    label: 'RACK PDU',
+    description:
+      'A vertical strip of outlets in the rack feeds each server’s power supplies. Racks often carry two strips, one for each power path.',
+    path: 'Busway → rack PDU → server power supplies',
+    insight: 'Many rack PDUs meter each outlet, so operators can see how much power every server draws.',
+    source: ibm,
+  },
   psu: {
     chapter: 'power',
     name: 'Server power supply',
@@ -185,7 +213,7 @@ export const equipment = {
   rack: {
     chapter: 'compute',
     name: 'Server rack',
-    label: 'RACKS',
+    label: 'RACK',
     description:
       'A standard frame whose rails hold equipment 19 inches (48 cm) wide. Servers, switches, and power strips stack in rack units (1U = 1.75 in); a common rack holds 42U.',
     path: 'Data hall → row → rack → server',
@@ -196,7 +224,7 @@ export const equipment = {
   server: {
     chapter: 'compute',
     name: 'Inside a server',
-    label: 'SERVER',
+    label: 'SERVERS',
     description:
       'A server is a computer built to provide a service. This open chassis shows processors, memory, storage, power supplies, fans, and network interfaces.',
     path: 'Request → network interface → processor ↔ memory / storage',
@@ -259,6 +287,28 @@ export const equipment = {
       'Rack fronts face each other across a cold aisle (blue) and exhaust into a shared hot aisle (orange), so cold supply and hot return don’t mix.',
     source: doe,
   },
+  'cold-aisle': {
+    chapter: 'cooling',
+    name: 'Cold aisle',
+    label: 'COLD AISLE',
+    description:
+      'Rack fronts face each other across the cold aisle, where cooled air arrives and the servers draw it in.',
+    path: 'Air handler → cold aisle → server intakes',
+    insight:
+      'Keeping cold supply and hot exhaust apart, sometimes with doors and roofs over an aisle, lets the cooling run warmer and use less energy.',
+    source: doe,
+  },
+  'hot-aisle': {
+    chapter: 'cooling',
+    name: 'Hot aisle',
+    label: 'HOT AISLE',
+    description:
+      'Rack backs share the hot aisle, which collects the servers’ warm exhaust and returns it to the air handler.',
+    path: 'Server exhausts → hot aisle → air handler',
+    insight:
+      'If hot exhaust leaks back into the cold aisle, servers breathe warmer air and the cooling has to work harder.',
+    source: doe,
+  },
   fans: {
     chapter: 'cooling',
     name: 'Server fans',
@@ -288,6 +338,16 @@ export const equipment = {
       'A CDU circulates and controls coolant for IT equipment. Its heat exchanger transfers heat between the IT loop and the facility loop.',
     path: 'IT coolant → heat exchanger → facility coolant',
     insight: 'The two fluids exchange heat without mixing. A CDU is an interface, not the final destination for heat.',
+    source: doe,
+  },
+  'facility-loop': {
+    chapter: 'cooling',
+    name: 'Facility water loop',
+    label: 'FACILITY WATER',
+    description:
+      'Pipes carry warm water from the CDUs out to the dry coolers and bring cooled water back. This loop never touches the IT coolant; the two exchange heat inside the CDU.',
+    path: 'CDU → warm water → dry coolers → cooled water → CDU',
+    insight: 'The warmer this water can run, the more of the year outdoor air alone can cool it, without chillers.',
     source: doe,
   },
   'heat-rejection': {
@@ -322,10 +382,20 @@ export const equipment = {
       'Links have finite capacity. Leaf-spine fabrics can be oversubscribed; topology alone does not guarantee unlimited bandwidth.',
     source: cisco,
   },
+  'cable-tray': {
+    chapter: 'network',
+    name: 'Cable trays',
+    label: 'CABLE TRAYS',
+    description:
+      'Overhead trays carry fiber and copper cables between the racks and out to the spine switches, kept apart from the power busways.',
+    path: 'Server → leaf switch → cable tray → spine',
+    insight: 'Tidy cabling keeps airflow clear and makes it possible to trace and replace a single link.',
+    source: doe,
+  },
   leaf: {
     chapter: 'network',
     name: 'Top-of-rack switch',
-    label: 'LEAF SWITCHES',
+    label: 'LEAF SWITCH',
     description:
       'The top unit of each rack is a leaf switch. Every server in the rack plugs into it, and it connects up to the spine.',
     path: 'Server → leaf (top of rack) → spine',
@@ -351,6 +421,16 @@ export const equipment = {
     insight:
       'Operators often spot trouble in the data before anything fails: a rising inlet temperature or a circuit near its limit. This world shows no live readings.',
     source: ibm,
+  },
+  technician: {
+    chapter: 'operations',
+    name: 'Technicians',
+    label: 'TECHNICIAN',
+    description:
+      'On-site staff replace failed parts, install new equipment, and carry out planned maintenance around the clock.',
+    path: 'Alert or work order → technician → repair → back in service',
+    insight:
+      'Much of the work is planned: parts are replaced on a schedule, and one path is taken offline while its twin carries the load.',
   },
   security: {
     chapter: 'operations',

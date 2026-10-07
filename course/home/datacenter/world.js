@@ -16,20 +16,27 @@ const STOPS = [
   { x: -5, z: 8, zoom: 2.7, angle: 0.34, elevation: 26 },
 ];
 
-// Chapter label anchors in the overview, and part anchors inside the open server.
-const CHAPTER_ANCHORS = {
-  power: [-10, 3.4, -3.8],
-  compute: [1, 4.7, 0],
-  cooling: [5.8, 3.5, -8.4],
-  network: [7.8, 3.2, 7.8],
-  operations: [-6.2, 3, 7.6],
-};
-// Equipment with separated parts gets an explicit label anchor on its main part.
+// Part label anchors inside the open server.
+// Label anchors for equipment whose parts are spread out, or that is labelled on one
+// example (one rack, one server, one aisle). Labels hang above their anchor.
 const ITEM_ANCHORS = {
-  fiber: [10.8, 1.6, 8.5],
+  utility: [-20, 0.9, -10],
   generator: [-10, 3.58, 3.6],
-  leaf: [4.4, 2.9, 4.4],
+  ats: [-8.1, 2.25, -1.8],
+  pdu: [-4, 4.05, -3.7],
+  rack: [-3.8, 3.45, 3.6],
+  server: [-1.75, 1.75, 4.45],
+  leaf: [4.4, 2.95, 4.45],
+  'rack-pdu': [0.82, 2.95, 4.4],
+  'cold-aisle': [-2.6, 0.75, 5.05],
+  'hot-aisle': [5.7, 0.75, 1.78],
+  'facility-loop': [6, 0.95, -7.05],
+  fiber: [10.8, 1.6, 8.5],
+  'cable-tray': [6.1, 4.35, 3.25],
+  technician: [-3.7, 2.1, 9],
 };
+// Meshes tagged with these ids select another item: a server in a rack opens the open server.
+const PICK_ALIASES = { 'rack-server': 'server' };
 const SERVER_ORIGIN = new THREE.Vector3(38, 0, -4);
 const PART_ANCHORS = {
   cpu: [-3.2, 2, -1.2],
@@ -205,7 +212,7 @@ export function createWorld(container, options = {}) {
     hotspotLayer = container,
     tooltip = null,
     chapterIds = [],
-    chapterLabels = {},
+    labelsByChapter = {},
     itemLabels = {},
     itemChapter = {},
     colors = {},
@@ -267,7 +274,7 @@ export function createWorld(container, options = {}) {
   const dummy = new THREE.Object3D();
 
   function addVoxel(group, mat, node, matrix) {
-    if (group !== root && group !== serverRoot) {
+    if (group !== root && group !== serverRoot && !group.userData.batch) {
       const mesh = new THREE.Mesh(UNIT, mat);
       matrix.decompose(mesh.position, mesh.quaternion, mesh.scale);
       group.add(mesh);
@@ -286,7 +293,7 @@ export function createWorld(container, options = {}) {
     addVoxel(group, material(color), node, dummy.matrix.clone());
   }
 
-  function line(points, color, width = 0.055, group = root) {
+  function line(points, color, width = 0.055, group = root, node = null) {
     for (let i = 1; i < points.length; i++) {
       const a = new THREE.Vector3(...points[i - 1]);
       const b = new THREE.Vector3(...points[i]);
@@ -295,7 +302,7 @@ export function createWorld(container, options = {}) {
       dummy.up.copy(UP);
       dummy.lookAt(b);
       dummy.updateMatrix();
-      addVoxel(group, material(color, true), null, dummy.matrix.clone());
+      addVoxel(group, material(color, true), node, dummy.matrix.clone());
     }
   }
 
@@ -340,27 +347,36 @@ export function createWorld(container, options = {}) {
       box(x, 0.35, z + f * 0.69, 1.14, 2.53, 0.06, '#080808', 'rack');
       box(x, 2.99, z, 1.29, 0.08, 1.4, '#525252', 'rack');
       for (let s = 0; s < 6; s++) {
-        box(x, 0.55 + s * 0.3, z + f * 0.738, 1.03, 0.19, 0.035, '#3c3c3c', 'rack');
-        box(x - 0.35, 0.6 + s * 0.3, z + f * 0.763, 0.065, 0.045, 0.025, s % 3 === 0 ? '#f7ce46' : '#32bb43', 'rack');
-        box(x + 0.2, 0.59 + s * 0.3, z + f * 0.762, 0.32, 0.02, 0.025, '#101710', 'rack');
+        box(x, 0.55 + s * 0.3, z + f * 0.738, 1.03, 0.19, 0.035, '#3c3c3c', 'rack-server');
+        box(
+          x - 0.35,
+          0.6 + s * 0.3,
+          z + f * 0.763,
+          0.065,
+          0.045,
+          0.025,
+          s % 3 === 0 ? '#f7ce46' : '#32bb43',
+          'rack-server',
+        );
+        box(x + 0.2, 0.59 + s * 0.3, z + f * 0.762, 0.32, 0.02, 0.025, '#101710', 'rack-server');
       }
       // The top unit is the rack's leaf switch.
       box(x, 0.55 + 6 * 0.3, z + f * 0.738, 1.03, 0.19, 0.035, '#64504c', 'leaf');
       for (let k = 0; k < 4; k++)
         box(x - 0.38 + k * 0.23, 0.62 + 6 * 0.3, z + f * 0.763, 0.08, 0.05, 0.02, '#f2693c', 'leaf');
-      box(x + 0.52, 0.45, z + f * 0.73, 0.055, 2.35, 0.045, '#777777', 'rack');
+      box(x + 0.52, 0.45, z + f * 0.73, 0.055, 2.35, 0.045, '#777777', 'rack-pdu');
       // Rear exhaust grille.
       for (let g = 0; g < 4; g++) box(x, 0.7 + g * 0.5, z - f * 0.69, 1, 0.08, 0.04, '#2e2e2e', 'rack');
     }
   }
-  box(1, 0.34, -1.88, 12, 0.018, 0.8, '#256e94'); // cold aisle
-  box(1, 0.34, 1.78, 12, 0.018, 0.8, '#8a4a1c'); // hot aisle
-  box(1, 0.34, 5.05, 12, 0.018, 0.8, '#256e94'); // cold aisle
+  box(1, 0.34, -1.88, 12, 0.018, 0.8, '#256e94', 'cold-aisle');
+  box(1, 0.34, 1.78, 12, 0.018, 0.8, '#8a4a1c', 'hot-aisle');
+  box(1, 0.34, 5.05, 12, 0.018, 0.8, '#256e94', 'cold-aisle');
 
   // Overhead power busways (yellow) and network trays (red).
   for (const z of [-3.7, -0.05, 3.6]) {
     box(0.3, 3.5, z, 12.5, 0.13, 0.22, '#eccc37', 'pdu');
-    box(0.3, 3.75, z - 0.35, 12.5, 0.14, 0.25, '#bb392b', 'network');
+    box(0.3, 3.75, z - 0.35, 12.5, 0.14, 0.25, '#bb392b', 'cable-tray');
   }
 
   // ── Power yard ──────────────────────────────────────────────────────────────
@@ -378,8 +394,8 @@ export function createWorld(container, options = {}) {
     box(x, 2.13, -1.115, 0.06, 0.06, 0.03, '#f7ce46', 'switchgear');
   }
   // The transfer switch lets the standby generator take over the load.
-  box(-8.1, 0.2, -1.8, 0.6, 1.6, 0.9, '#8d8d8d', 'generator');
-  box(-8.1, 1.15, -1.33, 0.3, 0.3, 0.03, '#1f1f1f', 'generator');
+  box(-8.1, 0.2, -1.8, 0.6, 1.6, 0.9, '#8d8d8d', 'ats');
+  box(-8.1, 1.15, -1.33, 0.3, 0.3, 0.03, '#1f1f1f', 'ats');
   box(-10, 0, 3.6, 4.8, 0.2, 4.6, '#555555', 'generator');
   box(-10, 0.2, 3.6, 3.7, 1.85, 2.5, '#dcbe37', 'generator');
   for (let i = 0; i < 7; i++) box(-10.9 + i * 0.28, 0.5, 4.87, 0.1, 1.22, 0.06, '#595137', 'generator');
@@ -415,6 +431,44 @@ export function createWorld(container, options = {}) {
   for (const x of [1, 5]) {
     box(x, 0.34, -5.3, 1.3, 1.75, 0.8, '#278aba', 'cdu');
     box(x, 1.4, -4.88, 0.62, 0.32, 0.03, '#163540', 'cdu');
+  }
+  // Facility water loop: warm return (orange) and cooled supply (blue) between the CDUs and the dry coolers.
+  for (const [dx, y, z, color] of [
+    [0.25, 0.55, -6.95, '#c9662f'],
+    [-0.25, 0.4, -7.2, '#2f86c9'],
+  ]) {
+    for (const x of [1, 5])
+      line(
+        [
+          [x + dx, y, -5.7],
+          [x + dx, y, z],
+        ],
+        color,
+        0.12,
+        root,
+        'facility-loop',
+      );
+    line(
+      [
+        [-0.2 + dx, y, z],
+        [7.8 + dx, y, z],
+      ],
+      color,
+      0.12,
+      root,
+      'facility-loop',
+    );
+    for (const x of [-0.2, 3.8, 7.8])
+      line(
+        [
+          [x + dx, y, z],
+          [x + dx, y, -7.42],
+        ],
+        color,
+        0.12,
+        root,
+        'facility-loop',
+      );
   }
   box(8.8, 0, -0.5, 1.25, 2.4, 4, '#aaaaaa', 'air-handler');
   for (let i = 0; i < 9; i++) box(8.8, 0.45 + i * 0.2, 1.52, 1.03, 0.07, 0.05, '#505050', 'air-handler');
@@ -466,10 +520,10 @@ export function createWorld(container, options = {}) {
   box(-6.1, 0.34, 5.1, 0.15, 1, 0.4, '#d85349', 'fire');
 
   function person(x, z, color) {
-    box(x, 0, z, 0.35, 0.55, 0.28, '#36483b');
-    box(x, 0.55, z, 0.55, 0.57, 0.3, color);
-    box(x, 1.12, z, 0.37, 0.37, 0.36, '#d9b791');
-    box(x, 1.45, z, 0.43, 0.12, 0.4, '#e5d36e');
+    box(x, 0, z, 0.35, 0.55, 0.28, '#36483b', 'technician');
+    box(x, 0.55, z, 0.55, 0.57, 0.3, color, 'technician');
+    box(x, 1.12, z, 0.37, 0.37, 0.36, '#d9b791', 'technician');
+    box(x, 1.45, z, 0.43, 0.12, 0.4, '#e5d36e', 'technician');
   }
   person(-3.7, 9, '#b5a1cb');
   person(5.7, 5.4, '#609abb');
@@ -531,7 +585,7 @@ export function createWorld(container, options = {}) {
   for (let i = 0; i < 3; i++) sb(5.4 + i * 0.5, 0.55, -4.59, 0.3, 0.25, 0.1, '#202d24', 'nic');
 
   // ── Lettering and landscape ─────────────────────────────────────────────────
-  function voxelText(text, x, z, scale = 0.5, color = '#727272', accent = false) {
+  function voxelText(text, x, z, scale = 0.5, color = '#727272', accent = false, group = root) {
     let cursor = x;
     for (const char of text) {
       const rows = GLYPHS[char];
@@ -541,22 +595,37 @@ export function createWorld(container, options = {}) {
             if (v !== '1') return;
             const signal = accent && (r * 17 + c * 3 + Math.round(cursor * 10)) % 31 === 0;
             const tint = signal ? ['#e83329', '#e0c82c', '#238cbf', '#228c39'][(c + r) % 4] : color;
-            box(cursor + c * scale, 0.04, z + r * scale, scale * 0.93, scale * 0.5, scale * 0.93, tint);
+            box(cursor + c * scale, 0.04, z + r * scale, scale * 0.93, scale * 0.5, scale * 0.93, tint, null, group);
           }),
         );
       }
       cursor += scale * 6;
     }
   }
-  voxelText('DATA', -17, 15, 1, '#888888', true);
-  voxelText('CENTER', -17, 24, 1, '#888888', true);
-  voxelText('POWER', -21, -13, 0.38, '#c2ac34');
-  voxelText('COMPUTE', -1.6, 12.3, 0.21, '#53a957');
-  voxelText('COOLING', -3, -16.6, 0.3, '#328abd');
-  voxelText('NETWORK', 8.4, 13, 0.29, '#ba4234');
-  voxelText('PEOPLE', -13, 12, 0.3, '#888888');
-  voxelText('INSIDE', 26, -16.8, 0.4, '#888888');
-  voxelText('A SERVER', 26.5, -13.6, 0.3, '#888888');
+  // The title belongs to the overview and each system's name to its own stop, so the
+  // overview stays uncluttered. 'server' lettering shows while the open server is in focus.
+  const words = {};
+  const wordGroup = (key) => {
+    if (!words[key]) {
+      const g = new THREE.Group();
+      g.userData.batch = true;
+      g.userData.target = 0;
+      g.scale.y = 0;
+      g.visible = false;
+      root.add(g);
+      words[key] = g;
+    }
+    return words[key];
+  };
+  voxelText('DATA', -17, 15, 1, '#888888', true, wordGroup('overview'));
+  voxelText('CENTER', -17, 24, 1, '#888888', true, wordGroup('overview'));
+  voxelText('POWER', -21, -13, 0.38, '#c2ac34', false, wordGroup('power'));
+  voxelText('COMPUTE', -1.6, 12.3, 0.21, '#53a957', false, wordGroup('compute'));
+  voxelText('COOLING', -3, -16.6, 0.3, '#328abd', false, wordGroup('cooling'));
+  voxelText('NETWORK', 8.4, 13, 0.29, '#ba4234', false, wordGroup('network'));
+  voxelText('PEOPLE', -13, 12, 0.3, '#888888', false, wordGroup('operations'));
+  voxelText('INSIDE', 26, -16.8, 0.4, '#888888', false, wordGroup('server'));
+  voxelText('A SERVER', 26.5, -13.6, 0.3, '#888888', false, wordGroup('server'));
 
   const ground = new THREE.Mesh(new THREE.PlaneGeometry(170, 140), new THREE.MeshLambertMaterial({ color: '#080808' }));
   ground.rotation.x = -Math.PI / 2;
@@ -615,6 +684,8 @@ export function createWorld(container, options = {}) {
       ],
       '#777777',
       0.13,
+      root,
+      'utility',
     );
     line(
       [
@@ -625,6 +696,8 @@ export function createWorld(container, options = {}) {
       ],
       '#777777',
       0.13,
+      root,
+      'utility',
     );
     for (let y = 0; y < 7; y += 1.4) {
       const w = 1.2 - y * 0.1;
@@ -635,6 +708,8 @@ export function createWorld(container, options = {}) {
         ],
         '#666666',
         0.08,
+        root,
+        'utility',
       );
       line(
         [
@@ -643,11 +718,13 @@ export function createWorld(container, options = {}) {
         ],
         '#666666',
         0.08,
+        root,
+        'utility',
       );
     }
-    box(x, 6.5, z, 5.4, 0.19, 0.25, '#888888');
-    box(x, 8, z, 3.5, 0.19, 0.25, '#999999');
-    for (const dx of [-2.4, 2.4]) box(x + dx, 6.1, z, 0.16, 0.4, 0.16, '#bfbfbf');
+    box(x, 6.5, z, 5.4, 0.19, 0.25, '#888888', 'utility');
+    box(x, 8, z, 3.5, 0.19, 0.25, '#999999', 'utility');
+    for (const dx of [-2.4, 2.4]) box(x + dx, 6.1, z, 0.16, 0.4, 0.16, '#bfbfbf', 'utility');
   }
   for (const x of [-22.4, -17.6])
     line(
@@ -660,6 +737,8 @@ export function createWorld(container, options = {}) {
       ],
       '#787878',
       0.035,
+      root,
+      'utility',
     );
   line(
     [
@@ -669,6 +748,8 @@ export function createWorld(container, options = {}) {
     ],
     '#d4b931',
     0.1,
+    root,
+    'utility',
   );
 
   // ── Animated pieces ─────────────────────────────────────────────────────────
@@ -776,7 +857,7 @@ export function createWorld(container, options = {}) {
   function addSpot(id, kind, position, text) {
     const el = document.createElement('button');
     el.type = 'button';
-    el.className = kind === 'chapter' ? 'hotspot' : 'hotspot hotspot-item';
+    el.className = 'hotspot hotspot-item';
     el.textContent = text;
     if (names[id] && names[id].toUpperCase() !== text) el.title = names[id];
     el.style.setProperty('--node-color', colors[itemChapter[id] || id] || '#f7ce46');
@@ -785,11 +866,9 @@ export function createWorld(container, options = {}) {
     hotspotLayer.append(el);
     spots.push({ id, kind, el, position, w: 0, h: 0, x: NaN, y: NaN, shown: false, sel: false });
   }
-  for (const [id, pos] of Object.entries(CHAPTER_ANCHORS))
-    if (chapterLabels[id]) addSpot(id, 'chapter', new THREE.Vector3(...pos), chapterLabels[id]);
   for (const [id, text] of Object.entries(itemLabels)) {
-    if (serverParts.includes(id)) {
-      if (PART_ANCHORS[id]) addSpot(id, 'part', new THREE.Vector3(...PART_ANCHORS[id]).add(SERVER_ORIGIN), text);
+    if (PART_ANCHORS[id]) {
+      addSpot(id, 'part', new THREE.Vector3(...PART_ANCHORS[id]).add(SERVER_ORIGIN), text);
       continue;
     }
     const bounds = boundsOf(id);
@@ -822,53 +901,74 @@ export function createWorld(container, options = {}) {
   document.fonts?.ready.then(measureSpots);
 
   const _v = new THREE.Vector3();
+  const spotById = new Map(spots.map((spot) => [spot.id, spot]));
+  const labelsOf = (chapter) => labelsByChapter[chapter] || [];
+  // The stop whose labels and lettering are shown: the scroll position's, or with
+  // equipment in focus, the stop that labels it (else its own chapter).
+  function contextChapter() {
+    const chapter = chapterIds[Math.round(progress)];
+    if (!focusId || serverParts.includes(focusId)) return chapter;
+    return labelsOf(chapter).includes(focusId) ? chapter : itemChapter[focusId];
+  }
   function updateHotspots() {
     const r = safe || { l: 0, r: width, t: 0, b: height };
-    const index = Math.round(progress);
-    const chapter = chapterIds[index];
-    const settled = Math.abs(progress - index) < 0.2;
+    const settled = Math.abs(progress - Math.round(progress)) < 0.2;
     const partFocus = serverParts.includes(focusId);
-    // With equipment in focus, labels follow its chapter rather than the scroll position.
-    const focusChapter = focusId && !partFocus ? itemChapter[focusId] : null;
-    const placed = [];
+    let wanted;
+    if (partFocus) wanted = serverParts.filter((id) => spotById.get(id)?.kind === 'part');
+    else if (flowId || (!focusId && !settled)) wanted = [];
+    else wanted = labelsOf(contextChapter()).filter((id) => spotById.get(id)?.kind === 'item');
     // The selected label is placed first, so other labels give way to it.
-    const ordered = selected
-      ? [...spots.filter((s) => s.id === selected), ...spots.filter((s) => s.id !== selected)]
-      : spots;
-    for (const s of ordered) {
-      let show;
-      if (s.kind === 'part') show = partFocus;
-      else if (partFocus || flowId) show = false;
-      else if (s.kind === 'chapter') show = !focusChapter && progress < 0.35;
-      else if (focusChapter) show = itemChapter[s.id] === focusChapter;
-      else show = settled && index > 0 && itemChapter[s.id] === chapter;
-      let x = 0;
-      let y = 0;
-      if (show) {
-        _v.copy(s.position).project(camera);
-        x = Math.round((_v.x * 0.5 + 0.5) * width);
-        y = Math.round((-_v.y * 0.5 + 0.5) * height);
-        const box = [x - s.w / 2 - 4, y - s.h, x + s.w / 2 + 4, y + 16]; // label above, 16 px leader below
-        show = _v.z > -1 && _v.z < 1 && box[0] >= r.l && box[2] <= r.r && box[1] >= r.t && box[3] <= r.b;
-        // Labels that would overlap one already placed are skipped.
-        if (show && placed.some((p) => box[0] < p[2] && box[2] > p[0] && box[1] < p[3] && box[3] > p[1])) show = false;
-        if (show) placed.push(box);
-      }
+    if (selected && wanted.includes(selected)) wanted = [selected, ...wanted.filter((id) => id !== selected)];
+    const shown = new Map();
+    const placed = [];
+    for (const id of wanted) {
+      const s = spotById.get(id);
+      _v.copy(s.position).project(camera);
+      const x = Math.round((_v.x * 0.5 + 0.5) * width);
+      const y = Math.round((-_v.y * 0.5 + 0.5) * height);
+      const box = [x - s.w / 2 - 4, y - s.h, x + s.w / 2 + 4, y + 16]; // label above, 16 px leader below
+      if (_v.z <= -1 || _v.z >= 1 || box[0] < r.l || box[2] > r.r || box[1] < r.t || box[3] > r.b) continue;
+      // Labels that would overlap one already placed are skipped.
+      if (placed.some((p) => box[0] < p[2] && box[2] > p[0] && box[1] < p[3] && box[3] > p[1])) continue;
+      placed.push(box);
+      shown.set(id, [x, y]);
+    }
+    for (const s of spots) {
+      const at = shown.get(s.id);
+      const show = !!at;
       if (show !== s.shown) {
         if (!show && s.el === document.activeElement) onHotspotHidden();
         s.shown = show;
         s.el.hidden = !show;
       }
-      if (show && (x !== s.x || y !== s.y)) {
-        s.x = x;
-        s.y = y;
-        s.el.style.transform = `translate(${x}px, ${y}px) translate(-50%, -100%)`;
+      if (show && (at[0] !== s.x || at[1] !== s.y)) {
+        [s.x, s.y] = at;
+        s.el.style.transform = `translate(${s.x}px, ${s.y}px) translate(-50%, -100%)`;
       }
       const sel = selected === s.id;
       if (sel !== s.sel) {
         s.sel = sel;
         s.el.classList.toggle('selected', sel);
       }
+    }
+  }
+
+  // Each stop's lettering rises out of the ground when the stop is shown.
+  function wordTargets() {
+    const key = serverParts.includes(focusId) ? 'server' : contextChapter();
+    for (const [id, group] of Object.entries(words)) group.userData.target = id === key ? 1 : 0;
+  }
+  function wordsMoving() {
+    wordTargets();
+    return Object.values(words).some((g) => Math.abs(g.userData.target - g.scale.y) > 0.005);
+  }
+  function updateWords(k) {
+    for (const g of Object.values(words)) {
+      g.scale.y += (g.userData.target - g.scale.y) * k;
+      if (Math.abs(g.userData.target - g.scale.y) <= 0.005) g.scale.y = g.userData.target;
+      g.visible = g.scale.y > 0.001;
+      g.updateMatrixWorld(true);
     }
   }
 
@@ -973,7 +1073,8 @@ export function createWorld(container, options = {}) {
       target.distanceToSquared(lookAt) > 1e-5 ||
       Math.abs(targetElevation - elevation) > 1e-4 ||
       Math.abs(targetOffX - offX) > 0.5 ||
-      Math.abs(targetOffY - offY) > 0.5
+      Math.abs(targetOffY - offY) > 0.5 ||
+      wordsMoving()
     );
   }
 
@@ -1013,7 +1114,8 @@ export function createWorld(container, options = {}) {
     const rect = container.getBoundingClientRect();
     pointer.set(((clientX - rect.left) / rect.width) * 2 - 1, (-(clientY - rect.top) / rect.height) * 2 + 1);
     raycaster.setFromCamera(pointer, camera);
-    return raycaster.intersectObjects(pickables, false)[0]?.object.userData.node || null;
+    const node = raycaster.intersectObjects(pickables, false)[0]?.object.userData.node || null;
+    return PICK_ALIASES[node] || node;
   }
   canvas.style.cursor = 'grab';
   canvas.addEventListener('pointerdown', (e) => {
@@ -1167,6 +1269,7 @@ export function createWorld(container, options = {}) {
     lookAt.lerp(target, k);
     offX += (targetOffX - offX) * k;
     offY += (targetOffY - offY) * k;
+    updateWords(reduced ? 1 : 1 - Math.pow(0.82, elapsed * 60));
     if (!isMoving()) {
       azimuth = targetAzimuth;
       zoom = targetZoom;

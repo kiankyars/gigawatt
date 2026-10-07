@@ -25,8 +25,6 @@ Object.assign(byId.overview, {
   title: ['Inside an AI', 'data center.'],
   lead: 'Explore the power, computing and cooling systems that make AI possible.',
   enter: 'Explore the data center',
-  // The course's recurring case is a gigawatt-scale campus, so the scale is stated with it.
-  fact: 'Electricity enters. Data moves. Heat leaves. The building works only when these systems work together. A large facility draws tens to hundreds of megawatts; the course’s Abilene campus is planned at 1.2 GW.',
   linksTitle: 'Start the course',
   links: [
     deck('primer', `Start with ${presentationLabels.primer}`),

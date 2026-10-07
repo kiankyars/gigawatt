@@ -349,17 +349,6 @@ a {
   padding: 4px;
   min-width: 32px;
 }
-.world-note {
-  position: fixed;
-  right: 35px;
-  bottom: 24px;
-  font: 10px var(--mono);
-  letter-spacing: 0.08em;
-  color: #8f8f8f;
-  z-index: 3;
-  margin: 0;
-  text-shadow: var(--halo);
-}
 .progress-line {
   position: fixed;
   right: 0;
@@ -474,21 +463,6 @@ a {
 .flow-caption:empty {
   display: none;
 }
-.page-scroll-hint {
-  font: 12px var(--mono);
-  color: #a6a6a6;
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  margin: 20px 0 0;
-}
-.page-scroll-hint::before {
-  content: '';
-  display: block;
-  width: 5px;
-  height: 5px;
-  background: var(--accent);
-}
 
 /* ── Drawers ──────────────────────────────────────────────────────────────── */
 /* The equipment drawer is non-modal, so it sits above the chrome explicitly. */
@@ -512,7 +486,7 @@ dialog {
 dialog::backdrop {
   background: #0006;
 }
-body:has(#equipment-dialog[open]) :is(#story, #chapter-nav, #menu-toggle, .tour-controls, .world-note) {
+body:has(#equipment-dialog[open]) :is(#story, #chapter-nav, #menu-toggle, .tour-controls) {
   visibility: hidden;
 }
 dialog .close-dialog {
@@ -667,9 +641,6 @@ dialog a {
     font-size: 15px;
     line-height: 1.55;
   }
-  .world-note {
-    right: 26px;
-  }
 }
 
 /* ── Stacked layout: phones and portrait tablets ──────────────────────────── */
@@ -769,12 +740,6 @@ dialog a {
   .utility button {
     font-size: 11px;
   }
-  .world-note {
-    font-size: 10px;
-    right: 24px;
-    bottom: 50px;
-    left: 24px;
-  }
   .hotspot {
     font-size: 11px;
     padding: 6px;
@@ -792,9 +757,6 @@ dialog a {
   .chapter-actions a {
     font-size: 12px;
     padding: 7px 10px;
-  }
-  .page-scroll-hint {
-    display: none;
   }
   .chapter-actions {
     margin-top: 7px;
@@ -827,9 +789,6 @@ dialog a {
 
 /* ── Short windows: collapse the chapter list and let the copy scroll ─────── */
 @media (max-height: 560px) and (orientation: landscape) {
-  .world-note {
-    display: none;
-  }
   .identity {
     top: 14px;
     left: 18px;
@@ -934,9 +893,6 @@ dialog a {
     font-size: 13px;
     width: 100%;
   }
-  .page-scroll-hint {
-    display: none;
-  }
   .chapter-actions {
     margin-top: 4px;
   }
@@ -1008,24 +964,13 @@ dialog a {
 html:has(body.past-journey) {
   scroll-snap-type: none;
 }
-:is(
-  .identity,
-  #menu-toggle,
-  #chapter-nav,
-  .utility,
-  #story,
-  .tour-controls,
-  .world-note,
-  .progress-line,
-  .hotspots,
-  .vignette
-) {
+:is(.identity, #menu-toggle, #chapter-nav, .utility, #story, .tour-controls, .progress-line, .hotspots, .vignette) {
   transition:
     opacity 0.25s,
     visibility 0.25s;
 }
 body.past-journey
-  :is(.identity, #menu-toggle, #chapter-nav, .utility, #story, .tour-controls, .world-note, .progress-line, .hotspots) {
+  :is(.identity, #menu-toggle, #chapter-nav, .utility, #story, .tour-controls, .progress-line, .hotspots) {
   opacity: 0;
   visibility: hidden;
 }
@@ -1038,7 +983,6 @@ body.past-journey
   #chapter-nav button,
   #chapter-nav button span,
   .utility button,
-  .world-note,
   #story p.lead {
     color: #d8d8d8;
   }
