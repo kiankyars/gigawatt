@@ -2629,3 +2629,27 @@ pass on commit 9bc098d, after the Chapter 3 same-work energy slide's 390 px
 layout was fitted (desktop layout unchanged) and three stale wording checks in
 the workload and cooling scripts were matched to the recorded slides. These
 checks do not establish author acceptance.
+
+## Voxel data center homepage — 2026-10-07
+
+The homepage's conceptual 3D campus is replaced by the scroll-driven voxel tour
+from [kiankyars/datacenter](https://github.com/kiankyars/datacenter), copied
+unchanged into `course/home/datacenter/` with sha256 hashes in
+`course/home/provenance.json`. Its six stops are overview, power, compute,
+cooling, network and operations. Each stop links to its course chapters: the
+primer and overview; distribution and continuity; workloads and rack power;
+cooling and heat rejection; networking; and operations. The 17-chapter
+directory follows the tour. `course/home/course.js` sets the course hero,
+"data center" spelling, the Abilene 1.2 GW scale and the deck links. Without
+WebGL, `assets/campus-cutaway.png` stands in for the 3D view. The old campus
+scene and its three.js r170 vendor files are removed.
+
+Checks: build, expansion, map and research freshness; 113 Python and 341
+JavaScript tests; `prose_lint.py --gate slide_refs,residue`; `git diff --check`;
+staging rewrites every tour link to a published `/slides/` page. Built-in
+browser against the staged site: course hero copy, 17 directory links and all
+tour deck links return 200, no console errors. The shared code's own CI ran 11
+Playwright smoke tests and reviewed screenshots at six viewport sizes.
+`tests/browser_homepage.cjs` now checks the tour stops and their deck links, a
+flow and an equipment detail, responsive fit, the directory, reader and home
+links, and the WebGL fallback; it runs in the Browser checks workflow.
